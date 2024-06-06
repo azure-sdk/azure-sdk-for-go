@@ -37,6 +37,12 @@ type AdministratorConfiguration struct {
 	SSHPublicKeys []*SSHPublicKey
 }
 
+// AdministratorConfigurationPatch represents the patching capabilities for the administrator configuration.
+type AdministratorConfigurationPatch struct {
+	// SshPublicKey represents the public key used to authenticate with a resource through SSH.
+	SSHPublicKeys []*SSHPublicKey
+}
+
 // AgentOptions are configurations that will be applied to each agent in an agent pool.
 type AgentOptions struct {
 	// REQUIRED; The number of hugepages to allocate.
@@ -93,6 +99,9 @@ type AgentPoolPatchParameters struct {
 
 // AgentPoolPatchProperties represents the properties of an agent pool that can be modified.
 type AgentPoolPatchProperties struct {
+	// The configuration of administrator credentials for the control plane nodes.
+	AdministratorConfiguration *NodePoolAdministratorConfigurationPatch
+
 	// The number of virtual machines that use this configuration.
 	Count *int64
 
@@ -150,11 +159,23 @@ type AgentPoolProperties struct {
 
 // AgentPoolUpgradeSettings specifies the upgrade settings for an agent pool.
 type AgentPoolUpgradeSettings struct {
+	// The maximum time in seconds that is allowed for a node drain to complete before proceeding with the upgrade of the agent
+	// pool. If not specified during creation, a value of 1800 seconds is used.
+	DrainTimeout *int64
+
 	// The maximum number or percentage of nodes that are surged during upgrade. This can either be set to an integer (e.g. '5')
 	// or a percentage (e.g. '50%'). If a percentage is specified, it is the
 	// percentage of the total agent pool size at the time of the upgrade. For percentages, fractional nodes are rounded up. If
-	// not specified, the default is 1.
+	// not specified during creation, a value of 1 is used. One of MaxSurge and
+	// MaxUnavailable must be greater than 0.
 	MaxSurge *string
+
+	// The maximum number or percentage of nodes that can be unavailable during upgrade. This can either be set to an integer
+	// (e.g. '5') or a percentage (e.g. '50%'). If a percentage is specified, it is the
+	// percentage of the total agent pool size at the time of the upgrade. For percentages, fractional nodes are rounded up. If
+	// not specified during creation, a value of 0 is used. One of MaxSurge and
+	// MaxUnavailable must be greater than 0.
+	MaxUnavailable *string
 }
 
 // AttachedNetworkConfiguration represents the set of workload networks to attach to a resource.
@@ -407,6 +428,9 @@ type BareMetalMachineProperties struct {
 	// REQUIRED; The serial number of the bare metal machine.
 	SerialNumber *string
 
+	// The cluster version that has been applied to this machine during deployment or a version update.
+	MachineClusterVersion *string
+
 	// READ-ONLY; The list of resource IDs for the other Microsoft.NetworkCloud resources that have attached this network.
 	AssociatedResourceIDs []*string
 
@@ -438,6 +462,9 @@ type BareMetalMachineProperties struct {
 	// READ-ONLY; The version of Kubernetes running on this machine.
 	KubernetesVersion *string
 
+	// READ-ONLY; The list of roles that are assigned to the cluster node running on this machine.
+	MachineRoles []*string
+
 	// READ-ONLY; The image that is currently provisioned to the OS disk.
 	OSImage *string
 
@@ -455,6 +482,12 @@ type BareMetalMachineProperties struct {
 
 	// READ-ONLY; The indicator of whether the bare metal machine is ready to receive workloads.
 	ReadyState *BareMetalMachineReadyState
+
+	// READ-ONLY; The runtime protection status of the bare metal machine.
+	RuntimeProtectionStatus *RuntimeProtectionStatus
+
+	// READ-ONLY; The list of statuses that represent secret rotation activity.
+	SecretRotationStatus []*SecretRotationStatus
 
 	// READ-ONLY; The discovered value of the machine's service tag.
 	ServiceTag *string
@@ -549,7 +582,7 @@ type BgpServiceLoadBalancerConfiguration struct {
 	// The indicator to specify if the load balancer peers with the network fabric.
 	FabricPeeringEnabled *FabricPeeringEnabled
 
-	// The list of pools of IP addresses that can be allocated to Load Balancer services.
+	// The list of pools of IP addresses that can be allocated to load balancer services.
 	IPAddressPools []*IPAddressPool
 }
 
@@ -745,6 +778,9 @@ type Cluster struct {
 	// REQUIRED; The list of the resource properties.
 	Properties *ClusterProperties
 
+	// The identity for the resource.
+	Identity *ManagedServiceIdentity
+
 	// Resource tags.
 	Tags map[string]*string
 
@@ -793,29 +829,35 @@ type ClusterAvailableVersion struct {
 
 // ClusterCapacity represents various details regarding compute capacity.
 type ClusterCapacity struct {
-	// The remaining appliance-based storage in GB available for workload use.
+	// The remaining appliance-based storage in GB available for workload use. Measured in gibibytes.
 	AvailableApplianceStorageGB *int64
 
 	// The remaining number of cores that are available in this cluster for workload use.
 	AvailableCoreCount *int64
 
-	// The remaining machine or host-based storage in GB available for workload use.
+	// The remaining machine or host-based storage in GB available for workload use. Measured in gibibytes.
 	AvailableHostStorageGB *int64
 
-	// The remaining memory in GB that are available in this cluster for workload use.
+	// The remaining memory in GB that are available in this cluster for workload use. Measured in gibibytes.
 	AvailableMemoryGB *int64
 
-	// The total appliance-based storage in GB supported by this cluster for workload use.
+	// The total appliance-based storage in GB supported by this cluster for workload use. Measured in gibibytes.
 	TotalApplianceStorageGB *int64
 
 	// The total number of cores that are supported by this cluster for workload use.
 	TotalCoreCount *int64
 
-	// The total machine or host-based storage in GB supported by this cluster for workload use.
+	// The total machine or host-based storage in GB supported by this cluster for workload use. Measured in gibibytes.
 	TotalHostStorageGB *int64
 
-	// The total memory supported by this cluster for workload use.
+	// The total memory supported by this cluster for workload use. Measured in gibibytes.
 	TotalMemoryGB *int64
+}
+
+// ClusterContinueUpdateVersionParameters represents the body of the request to continue the update of a cluster version.
+type ClusterContinueUpdateVersionParameters struct {
+	// The mode by which the cluster will target the next grouping of servers to continue the update.
+	MachineGroupTargetingMode *ClusterContinueUpdateVersionMachineGroupTargetingMode
 }
 
 // ClusterDeployParameters represents the body of the request to deploy cluster.
@@ -840,6 +882,9 @@ type ClusterManager struct {
 
 	// REQUIRED; The list of the resource properties.
 	Properties *ClusterManagerProperties
+
+	// The identity of the cluster manager.
+	Identity *ManagedServiceIdentity
 
 	// Resource tags.
 	Tags map[string]*string
@@ -868,6 +913,9 @@ type ClusterManagerList struct {
 
 // ClusterManagerPatchParameters represents the body of the request to patch the cluster properties.
 type ClusterManagerPatchParameters struct {
+	// The identity for the resource.
+	Identity *ManagedServiceIdentity
+
 	// The Azure resource tags that will replace the existing ones.
 	Tags map[string]*string
 }
@@ -988,6 +1036,9 @@ type ClusterMetricsConfigurationProperties struct {
 
 // ClusterPatchParameters represents the body of the request to patch the cluster properties.
 type ClusterPatchParameters struct {
+	// The identity for the resource.
+	Identity *ManagedServiceIdentity
+
 	// The list of the resource properties.
 	Properties *ClusterPatchProperties
 
@@ -1007,11 +1058,23 @@ type ClusterPatchProperties struct {
 	// The service principal to be used by the cluster during Arc Appliance installation.
 	ClusterServicePrincipal *ServicePrincipalInformation
 
+	// The settings for commands run in this cluster, such as bare metal machine run read only commands and data extracts.
+	CommandOutputSettings *CommandOutputSettings
+
 	// The validation threshold indicating the allowable failures of compute machines during environment validation and deployment.
 	ComputeDeploymentThreshold *ValidationThreshold
 
 	// The list of rack definitions for the compute racks in a multi-rack cluster, or an empty list in a single-rack cluster.
 	ComputeRackDefinitions []*RackDefinition
+
+	// The settings for cluster runtime protection.
+	RuntimeProtectionConfiguration *RuntimeProtectionConfiguration
+
+	// The configuration for use of a key vault to store secrets for later retrieval by the operator.
+	SecretArchive *ClusterSecretArchive
+
+	// The strategy for updating the cluster.
+	UpdateStrategy *ClusterUpdateStrategy
 }
 
 // ClusterProperties represents the properties of a cluster.
@@ -1038,6 +1101,9 @@ type ClusterProperties struct {
 	// The service principal to be used by the cluster during Arc Appliance installation.
 	ClusterServicePrincipal *ServicePrincipalInformation
 
+	// The settings for commands run in this cluster, such as bare metal machine run read only commands and data extracts.
+	CommandOutputSettings *CommandOutputSettings
+
 	// The validation threshold indicating the allowable failures of compute machines during environment validation and deployment.
 	ComputeDeploymentThreshold *ValidationThreshold
 
@@ -1046,6 +1112,15 @@ type ClusterProperties struct {
 
 	// The configuration of the managed resource group associated with the resource.
 	ManagedResourceGroupConfiguration *ManagedResourceGroupConfiguration
+
+	// The settings for cluster runtime protection.
+	RuntimeProtectionConfiguration *RuntimeProtectionConfiguration
+
+	// The configuration for use of a key vault to store secrets for later retrieval by the operator.
+	SecretArchive *ClusterSecretArchive
+
+	// The strategy for updating the cluster.
+	UpdateStrategy *ClusterUpdateStrategy
 
 	// READ-ONLY; The list of cluster runtime version upgrades available for this cluster.
 	AvailableUpgradeVersions []*ClusterAvailableUpgradeVersion
@@ -1092,10 +1167,56 @@ type ClusterProperties struct {
 	WorkloadResourceIDs []*string
 }
 
+// ClusterScanRuntimeParameters defines the parameters for the cluster scan runtime operation.
+type ClusterScanRuntimeParameters struct {
+	// The choice of if the scan operation should run the scan.
+	ScanActivity *ClusterScanRuntimeParametersScanActivity
+}
+
+// ClusterSecretArchive configures the key vault to archive the secrets of the cluster for later retrieval.
+type ClusterSecretArchive struct {
+	// REQUIRED; The resource ID of the key vault to archive the secrets of the cluster.
+	KeyVaultID *string
+
+	// The indicator if the specified key vault should be used to archive the secrets of the cluster.
+	UseKeyVault *ClusterSecretArchiveEnabled
+}
+
+// ClusterUpdateStrategy represents the strategy for updating the cluster.
+type ClusterUpdateStrategy struct {
+	// REQUIRED; The mode of operation for runtime protection.
+	StrategyType *ClusterUpdateStrategyType
+
+	// REQUIRED; Selection of how the threshold should be evaluated.
+	ThresholdType *ValidationThresholdType
+
+	// REQUIRED; The numeric threshold value.
+	ThresholdValue *int64
+
+	// The maximum number of worker nodes that can be offline within the increment of update, e.g., rack-by-rack. Limited by the
+	// maximum number of machines in the increment. Defaults to the whole increment
+	// size.
+	MaxUnavailable *int64
+
+	// The time to wait between the increments of update defined by the strategy.
+	WaitTimeMinutes *int64
+}
+
 // ClusterUpdateVersionParameters represents the body of the request to update cluster version.
 type ClusterUpdateVersionParameters struct {
 	// REQUIRED; The version to be applied to the cluster during update.
 	TargetClusterVersion *string
+}
+
+// CommandOutputSettings represents the settings for commands run within the cluster such as bare metal machine run read-only
+// commands.
+type CommandOutputSettings struct {
+	// The selection of the managed identity to use with this storage account container. The identity type must be either system
+	// assigned or user assigned.
+	AssociatedIdentity *IdentitySelector
+
+	// The URL of the storage account container that is to be used by the specified identities.
+	ContainerURL *string
 }
 
 // Console represents the console of an on-premises Network Cloud virtual machine.
@@ -1145,7 +1266,7 @@ type ConsolePatchParameters struct {
 
 // ConsolePatchProperties represents the properties of the virtual machine console that can be patched.
 type ConsolePatchProperties struct {
-	// The credentials used to login to the image repository that has access to the specified image.
+	// The indicator of whether the console access is enabled.
 	Enabled *ConsoleEnabled
 
 	// The date and time after which the key will be disallowed access.
@@ -1204,8 +1325,527 @@ type ControlPlaneNodeConfiguration struct {
 // ControlPlaneNodePatchConfiguration represents the properties of the control plane that can be patched for this Kubernetes
 // cluster.
 type ControlPlaneNodePatchConfiguration struct {
+	// The configuration of administrator credentials for the control plane nodes.
+	AdministratorConfiguration *AdministratorConfigurationPatch
+
 	// The number of virtual machines that use this configuration.
 	Count *int64
+}
+
+// CredentialResult represents the result of the cluster user credential request.
+type CredentialResult struct {
+	// READ-ONLY; The name of the credential.
+	Name *string
+
+	// READ-ONLY; The Base64-encoded Kubernetes configuration file.
+	Value *string
+}
+
+// CredentialResults represents the results of the cluster user credential request.
+type CredentialResults struct {
+	// Contains the REP (rendezvous endpoint) and “Sender” access token.
+	HybridConnectionConfig *HybridConnectionConfig
+
+	// READ-ONLY; List of base64-encoded Kubernetes configuration files.
+	Kubeconfigs []*CredentialResult
+}
+
+// EdgeCluster represents a cluster that encompasses one or more nodes used to host network functions.
+type EdgeCluster struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// REQUIRED; The list of the resource properties.
+	Properties *EdgeClusterProperties
+
+	// The identity of the edge cluster.
+	Identity *ManagedServiceIdentity
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// EdgeClusterAvailableUpgradeRuntimeVersion represents the available edge cluster upgrades.
+type EdgeClusterAvailableUpgradeRuntimeVersion struct {
+	// READ-ONLY; The indicator if the upgrade runtime version is generally available or in a different lifecycle phase.
+	AvailabilityLifecycle *AvailabilityLifecycle
+
+	// READ-ONLY; The description of the upgrade.
+	Description *string
+
+	// READ-ONLY; The last date the version of the platform is supported.
+	SupportExpiryDate *string
+
+	// READ-ONLY; The resource ID of the runtime version.
+	TargetRuntimeVersionID *string
+}
+
+// EdgeClusterEntraConfiguration represents the Entra (Azure Active Directory) integration properties.
+type EdgeClusterEntraConfiguration struct {
+	// REQUIRED; The list of Entra (Azure Active Directory) group object IDs that will have an administrative role on the edge
+	// cluster.
+	AdminGroupObjectIDs []*string
+}
+
+// EdgeClusterList represents a list of edge cluster objects.
+type EdgeClusterList struct {
+	// The link used to get the next page of operations.
+	NextLink *string
+
+	// The list of edge clusters.
+	Value []*EdgeCluster
+}
+
+// EdgeClusterMachineSKU - EdgeClusterMachineSku represents a machine or server configuration that is supported by one or
+// more edge cluster SKUs.
+type EdgeClusterMachineSKU struct {
+	// REQUIRED; The list of the resource properties.
+	Properties *EdgeClusterMachineSKUProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// EdgeClusterMachineSKUCPU - EdgeClusterMachineSkuCpu represents the CPU configuration of an edge cluster machine.
+type EdgeClusterMachineSKUCPU struct {
+	// READ-ONLY; The vendor supplied model name of the CPU reported by processor inspection.
+	ModelName *string
+}
+
+// EdgeClusterMachineSKUDevice - EdgeClusterMachineSkuDevice represents a device of an edge cluster machine.
+type EdgeClusterMachineSKUDevice struct {
+	// READ-ONLY; The PCI or bus address of the device. If there are multiple addresses this value will be omitted.
+	Address *string
+
+	// READ-ONLY; The list of PCI or bus addresses associated with the device. When there is only one value, the first value will
+	// match the address field value.
+	Addresses []*string
+
+	// READ-ONLY; The bus that connects this device.
+	Bus *string
+
+	// READ-ONLY; The class of the device.
+	Class *string
+
+	// READ-ONLY; The information about a device that does not have a defined field. The information in this field is subject
+	// to move to a more appropriate field in future versions.
+	Extra *string
+
+	// READ-ONLY; The amount of memory for a device measured in gibibytes. This value is specified for devices such as GPUs.
+	Memory *int64
+
+	// READ-ONLY; The model of the device.
+	Model *string
+
+	// READ-ONLY; The number of ports on the device. This value is only specified for devices with ports.
+	PortCount *int64
+
+	// READ-ONLY; The advertised size of a storage device in gibibytes.
+	SizeGB *int64
+
+	// READ-ONLY; The vendor for the device.
+	Vendor *string
+}
+
+// EdgeClusterMachineSKUList - EdgeClusterMachineSkuList represents a list of edge cluster machine SKUs.
+type EdgeClusterMachineSKUList struct {
+	// The link used to get the next page of operations.
+	NextLink *string
+
+	// The list of edge cluster machine SKUs.
+	Value []*EdgeClusterMachineSKU
+}
+
+// EdgeClusterMachineSKUMemory - EdgeClusterMachineSkuMemory represents the memory configuration of an edge cluster machine.
+type EdgeClusterMachineSKUMemory struct {
+	// READ-ONLY; The size of the memory in gibibytes.
+	SizeGB *int64
+}
+
+// EdgeClusterMachineSKUProperties - EdgeClusterMachineSkuProperties represents the defining characteristics of an edge cluster
+// machine.
+type EdgeClusterMachineSKUProperties struct {
+	// The memory configuration for the machine.
+	Memory *EdgeClusterMachineSKUMemory
+
+	// The bios and top-level system related information.
+	System *EdgeClusterMachineSKUSystem
+
+	// READ-ONLY; The list of cpus for the machine.
+	Cpus []*EdgeClusterMachineSKUCPU
+
+	// READ-ONLY; The list of devices for the machine.
+	Devices []*EdgeClusterMachineSKUDevice
+}
+
+// EdgeClusterMachineSKUSystem - EdgeClusterMachineSkuSystem represents the BIOS and top-level system related information
+// of an edge cluster machine.
+type EdgeClusterMachineSKUSystem struct {
+	// READ-ONLY; The system product name.
+	ProductName *string
+
+	// READ-ONLY; The system vendor.
+	Vendor *string
+}
+
+// EdgeClusterNode represents the node of an edge cluster.
+type EdgeClusterNode struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// REQUIRED; The list of the resource properties.
+	Properties *EdgeClusterNodeProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// EdgeClusterNodeList represents the list of edge cluster node objects.
+type EdgeClusterNodeList struct {
+	// The link used to get the next page of operations.
+	NextLink *string
+
+	// The list of edge cluster nodes.
+	Value []*EdgeClusterNode
+}
+
+// EdgeClusterNodeMatchingIdentifier represents a field to match against a machine in the registration hub during association
+// with an edge cluster node.
+type EdgeClusterNodeMatchingIdentifier struct {
+	// REQUIRED; Name is the name of the identifier.
+	Name *EdgeClusterNodeMatchingIdentifierName
+
+	// REQUIRED; Value is the value of the identifier.
+	Value *string
+}
+
+// EdgeClusterNodeNetworkInterface represents the properties of the network interface of an edge cluster node.
+type EdgeClusterNodeNetworkInterface struct {
+	// READ-ONLY; The IPv4 address of the network interface.
+	IPv4Address *string
+
+	// READ-ONLY; The IPv6 address of the network interface.
+	IPv6Address *string
+
+	// READ-ONLY; The MAC address of the network interface.
+	MacAddress *string
+
+	// READ-ONLY; The name of the network interface as represented on the host.
+	Name *string
+}
+
+// EdgeClusterNodePatchParameters represents the body of the request to patch the edge cluster node.
+type EdgeClusterNodePatchParameters struct {
+	// The list of the resource properties.
+	Properties *EdgeClusterNodePatchProperties
+
+	// The Azure resource tags that will replace the existing ones.
+	Tags map[string]*string
+}
+
+// EdgeClusterNodePatchProperties represents the edge cluster node properties for patching.
+type EdgeClusterNodePatchProperties struct {
+	// The resource ID of the SKU of the edge cluster node.
+	MachineSKUID *string
+
+	// The identifiers used to match the node to a machine in the registration hub.
+	NodeMatchingIdentifiers []*EdgeClusterNodeMatchingIdentifier
+
+	// The resource ID of the machine in the registration hub that the node is registered against.
+	RegistrationHubMachineID *string
+
+	// The labels used to schedule resources on this node.
+	SchedulingLabels []*KubernetesLabel
+}
+
+// EdgeClusterNodeProperties represents the properties of an edge cluster node.
+type EdgeClusterNodeProperties struct {
+	// REQUIRED; The resource ID of the SKU of the edge cluster node.
+	MachineSKUID *string
+
+	// The identifiers used to match the node to a machine in the registration hub.
+	NodeMatchingIdentifiers []*EdgeClusterNodeMatchingIdentifier
+
+	// The resource ID of the machine in the registration hub that the node is registered against.
+	RegistrationHubMachineID *string
+
+	// The labels used to schedule resources on this node.
+	SchedulingLabels []*KubernetesLabel
+
+	// READ-ONLY; The resource IDs of the resources that depend on the Edge Cluster. This includes both infrastructure resources
+	// added automatically and workload resources that are added through orchestration.
+	InfrastructureResourceIDs []*string
+
+	// READ-ONLY; The version of Kubernetes running on the node. This will typically match the Edge Cluster’s Kubernetes version,
+	// but may differ during upgrade activities.
+	KubernetesVersion *string
+
+	// READ-ONLY; The lifecycle status of the edge cluster node resource.
+	LifecycleStatus *EdgeClusterNodeLifecycleStatus
+
+	// READ-ONLY; The network interfaces of the node.
+	NetworkInterfaces []*EdgeClusterNodeNetworkInterface
+
+	// READ-ONLY; The provisioning state of the edge cluster node.
+	ProvisioningState *EdgeClusterNodeProvisioningState
+
+	// READ-ONLY; The resource ID of the runtime version of the Nexus software running on the machine of the node. This will typically
+	// match the Edge Cluster’s runtime, but may differ during upgrade activities.
+	RuntimeVersionID *string
+
+	// READ-ONLY; The resource ID of the runtime version of the Nexus software that has been pre-staged to the machine, pending
+	// a cluster runtime update. If no runtime has been staged, this field will be omitted.
+	// During the process of staging a runtime, this field will be empty. It will only be populated when the staging has completed.
+	StagedRuntimeVersionID *string
+}
+
+// EdgeClusterPatchParameters represents the body of the request to patch the edge cluster properties.
+type EdgeClusterPatchParameters struct {
+	// The identity for the resource.
+	Identity *ManagedServiceIdentity
+
+	// Edge cluster properties for patching.
+	Properties *EdgeClusterPatchProperties
+
+	// The Azure resource tags that will replace the existing ones.
+	Tags map[string]*string
+}
+
+// EdgeClusterPatchProperties - Edge cluster properties for patching.
+type EdgeClusterPatchProperties struct {
+	// User provided description information about the edge cluster.
+	Description *string
+
+	// The attributes used for Entra (Azure Active Directory) integration.
+	EntraConfiguration *EdgeClusterEntraConfiguration
+
+	// The resource ID of the registration hub that the edge cluster will use to register machines for edge cluster nodes.
+	RegistrationHubID *string
+
+	// The resource ID of the edge cluster runtime version for the edge cluster.
+	RuntimeVersionID *string
+
+	// The list of user-managed workload resource IDs that are dependent upon the edge cluster. The presence of workload resource
+	// IDs inform lifecycle events for the edge cluster.
+	WorkloadResourceIDs []*string
+}
+
+// EdgeClusterProperties represents the properties of an edge cluster.
+type EdgeClusterProperties struct {
+	// REQUIRED; The resource ID of the SKU of the edge cluster.
+	EdgeClusterSKUID *string
+
+	// REQUIRED; The resource ID of the network fabric that defines the network configuration for the edge cluster.
+	NetworkFabricID *string
+
+	// REQUIRED; The resource ID of the edge cluster runtime version for the edge cluster.
+	RuntimeVersionID *string
+
+	// User provided description information about the edge cluster.
+	Description *string
+
+	// The attributes used for Entra (Azure Active Directory) integration.
+	EntraConfiguration *EdgeClusterEntraConfiguration
+
+	// The configuration of the managed resource group associated with the resource.
+	ManagedResourceGroupConfiguration *ManagedResourceGroupConfiguration
+
+	// The resource ID of the registration hub that the edge cluster will use to register machines for edge cluster nodes.
+	RegistrationHubID *string
+
+	// The list of user-managed workload resource IDs that are dependent upon the edge cluster. The presence of workload resource
+	// IDs inform lifecycle events for the edge cluster.
+	WorkloadResourceIDs []*string
+
+	// READ-ONLY; The list of runtimes upgrades that are available for the Edge Cluster.
+	AvailableUpgradeRuntimeVersions []*EdgeClusterAvailableUpgradeRuntimeVersion
+
+	// READ-ONLY; The extended location that represents the edge cluster's control plane location and is used to route the requests
+	// for workload infrastructure resources.
+	ClusterExtendedLocation *ExtendedLocation
+
+	// READ-ONLY; The resource ID of the connected cluster set up when this edge cluster is created.
+	ConnectedClusterID *string
+
+	// READ-ONLY; The list of system-controlled workload resource IDs that are dependent upon the edge cluster. The presence of
+	// resource IDs inform lifecycle events for the edge cluster.
+	InfrastructureResourceIDs []*string
+
+	// READ-ONLY; The Kubernetes version that is currently running on the edge cluster.
+	KubernetesVersion *string
+
+	// READ-ONLY; The status representing the lifecycle stage of the edge cluster.
+	LifecycleStatus *EdgeClusterLifecycleStatus
+
+	// READ-ONLY; The version of the running management services.
+	ManagementServicesVersion *string
+
+	// READ-ONLY; The provisioning state of the edge cluster.
+	ProvisioningState *EdgeClusterProvisioningState
+
+	// READ-ONLY; The PTP clock information for the edge cluster, if applicable.
+	PtpConfiguration *EdgeClusterPtpConfiguration
+
+	// READ-ONLY; The list of endpoints that must be accessible to the edge cluster.
+	RequiredEndpointAllowList []*EndpointDependency
+
+	// READ-ONLY; The date after which the Edge Cluster is no longer supported using the currently configured runtime version.
+	SupportExpiryDate *string
+}
+
+// EdgeClusterPtpConfiguration represents the PTP clock configuration for the edge cluster, if applicable.
+type EdgeClusterPtpConfiguration struct {
+	// REQUIRED; The IEEE 1588-2008 domain number.
+	DomainNumber *int64
+
+	// REQUIRED; The network transport type for PTP.
+	NetworkTransportType *EdgeClusterPtpConfigurationNetworkTransportType
+
+	// The L2 VLAN number.
+	L2VlanNumber *int64
+
+	// The IPv4 or IPv6 address if the networkTransportType is set to UDPv4 or UDPv6 respectively.
+	UDPAddress *string
+}
+
+// EdgeClusterRuntimeVersion represents a version of the use case specific software that runs an Edge Cluster.
+type EdgeClusterRuntimeVersion struct {
+	// REQUIRED; The list of the resource properties.
+	Properties *EdgeClusterRuntimeVersionProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// EdgeClusterRuntimeVersionList represents a list of edge cluster runtime versions.
+type EdgeClusterRuntimeVersionList struct {
+	// The link used to get the next page of operations.
+	NextLink *string
+
+	// The list of edge cluster runtime versions.
+	Value []*EdgeClusterRuntimeVersion
+}
+
+// EdgeClusterRuntimeVersionProperties represents the defining characteristics of an edge cluster configuration.
+type EdgeClusterRuntimeVersionProperties struct {
+	// The range of versions that can be upgraded to from this edge cluster runtime version.
+	UpgradableFromVersion *VersionRange
+
+	// The domain of use of the edge cluster runtime version.
+	UsageDomain *UsageDomain
+
+	// READ-ONLY; The key to value mapping of other descriptive information that is not represented in another field of this runtime
+	// version.
+	Attributes []*StringKeyValuePair
+
+	// READ-ONLY; The description of the edge cluster runtime version.
+	Description *string
+
+	// READ-ONLY; The name of the host image that is used for this edge cluster runtime version.
+	HostImageName *string
+
+	// READ-ONLY; The Kubernetes version associated with this edge cluster runtime version.
+	KubernetesVersion *string
+
+	// READ-ONLY; The version number for this runtime version.
+	Version *string
+}
+
+// EdgeClusterSKU - EdgeClusterSku represents the use case and overall configuration parameters of an edge cluster.
+type EdgeClusterSKU struct {
+	// REQUIRED; The list of the resource properties.
+	Properties *EdgeClusterSKUProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// EdgeClusterSKUList - EdgeClusterSkuList represents a list of edge cluster SKUs.
+type EdgeClusterSKUList struct {
+	// The link used to get the next page of operations.
+	NextLink *string
+
+	// The list of edge cluster SKUs.
+	Value []*EdgeClusterSKU
+}
+
+// EdgeClusterSKUProperties - EdgeClusterSkuProperties represents the defining characteristics of an edge cluster configuration.
+type EdgeClusterSKUProperties struct {
+	// The use case of the edge cluster.
+	UsageDomain *UsageDomain
+
+	// READ-ONLY; Indicates if the network fabric is managed by the user or by the system.
+	FabricManagedBy *EdgeClusterSKUFabricManagedBy
+
+	// READ-ONLY; The list of supported edge cluster machine SKUs that can be used for this edge cluster.
+	MachineSKUSupport []*MachineSKUSupportRange
+
+	// READ-ONLY; The largest number of nodes that can be created in this edge cluster.
+	MaximumNodeQuantity *int64
+
+	// READ-ONLY; The smallest number of nodes that can be created for this edge cluster.
+	MinimumNodeQuantity *int64
+
+	// READ-ONLY; Indicates if the edge cluster uses the Precision Time Protocol (PTP) for time synchronization.
+	PtpRequired *EdgeClusterSKUPtpRequired
+}
+
+// EdgeClusterStageRuntimeParameters represents the body of the request to stage a runtime version for an edge cluster.
+type EdgeClusterStageRuntimeParameters struct {
+	// REQUIRED; TargetRuntimeVersionId represents the resource ID of the runtime to stage. This runtime must be a valid upgrade
+	// for the Edge Cluster.
+	TargetRuntimeVersionID *string
 }
 
 // EgressEndpoint represents the connection from a cloud services network to the specified endpoint for a common purpose.
@@ -1319,10 +1959,26 @@ type HardwareValidationStatus struct {
 	Result *BareMetalMachineHardwareValidationResult
 }
 
+// HybridConnectionConfig represents the rendezvous endpoint and sender access token.
+type HybridConnectionConfig struct {
+	// READ-ONLY; ExpirationTime the the timestamp when the token will be expired.
+	ExpirationTime *int64
+
+	// READ-ONLY; HybridConnectionName is the name of the hybrid connection.
+	HybridConnectionName *string
+
+	// READ-ONLY; Relay is the name of the relay.
+	Relay *string
+
+	// READ-ONLY; Token is the sender access token.
+	Token *string
+}
+
 // IPAddressPool - IpAddressPool represents a pool of IP addresses that can be allocated to a service.
 type IPAddressPool struct {
 	// REQUIRED; The list of IP address ranges. Each range can be a either a subnet in CIDR format or an explicit start-end range
-	// of IP addresses.
+	// of IP addresses. For a BGP service load balancer configuration, only CIDR format is
+	// supported and excludes /32 (IPv4) and /128 (IPv6) prefixes.
 	Addresses []*string
 
 	// REQUIRED; The name used to identify this IP address pool for association with a BGP advertisement.
@@ -1334,6 +1990,15 @@ type IPAddressPool struct {
 	// The indicator to prevent the use of IP addresses ending with .0 and .255 for this pool. Enabling this option will only
 	// use IP addresses between .1 and .254 inclusive.
 	OnlyUseHostIPs *BfdEnabled
+}
+
+// IdentitySelector represents the selection of a managed identity for use.
+type IdentitySelector struct {
+	// The type of managed identity that is being selected.
+	IdentityType *ManagedServiceIdentitySelectorType
+
+	// The user assigned managed identity resource ID to use. Mutually exclusive with a system assigned identity type.
+	UserAssignedIdentityResourceID *string
 }
 
 // ImageRepositoryCredentials represents the credentials used to login to the image repository.
@@ -1399,6 +2064,9 @@ type KeySetUser struct {
 
 	// The free-form description for this user.
 	Description *string
+
+	// The user principal name (email format) used to validate this user's group membership.
+	UserPrincipalName *string
 }
 
 // KeySetUserStatus represents the status of the key set user.
@@ -1440,6 +2108,79 @@ type KubernetesCluster struct {
 	Type *string
 }
 
+// KubernetesClusterFeature represents the feature of a Kubernetes cluster.
+type KubernetesClusterFeature struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// REQUIRED; The list of the resource properties.
+	Properties *KubernetesClusterFeatureProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// KubernetesClusterFeatureList represents the list of Kubernetes cluster feature resources.
+type KubernetesClusterFeatureList struct {
+	// The link used to get the next page of operations.
+	NextLink *string
+
+	// The list of Kubernetes cluster features.
+	Value []*KubernetesClusterFeature
+}
+
+// KubernetesClusterFeaturePatchParameters represents the body of the request to patch the Kubernetes cluster feature.
+type KubernetesClusterFeaturePatchParameters struct {
+	// The list of the resource properties.
+	Properties *KubernetesClusterFeaturePatchProperties
+
+	// The Azure resource tags that will replace the existing ones.
+	Tags map[string]*string
+}
+
+// KubernetesClusterFeaturePatchProperties represents the Kubernetes cluster feature properties for patching.
+type KubernetesClusterFeaturePatchProperties struct {
+	// The configured options for the feature.
+	Options []*StringKeyValuePair
+}
+
+// KubernetesClusterFeatureProperties represents the properties of a Kubernetes cluster feature.
+type KubernetesClusterFeatureProperties struct {
+	// The configured options for the feature.
+	Options []*StringKeyValuePair
+
+	// READ-ONLY; The lifecycle indicator of the feature.
+	AvailabilityLifecycle *KubernetesClusterFeatureAvailabilityLifecycle
+
+	// READ-ONLY; The detailed status of the feature.
+	DetailedStatus *KubernetesClusterFeatureDetailedStatus
+
+	// READ-ONLY; The descriptive message for the detailed status of the feature.
+	DetailedStatusMessage *string
+
+	// READ-ONLY; The provisioning state of the Kubernetes cluster feature.
+	ProvisioningState *KubernetesClusterFeatureProvisioningState
+
+	// READ-ONLY; The indicator of if the feature is required or optional. Optional features may be deleted by the user, while
+	// required features are managed with the kubernetes cluster lifecycle.
+	Required *KubernetesClusterFeatureRequired
+
+	// READ-ONLY; The version of the feature.
+	Version *string
+}
+
 // KubernetesClusterList represents a list of Kubernetes clusters.
 type KubernetesClusterList struct {
 	// The link used to get the next page of operations.
@@ -1458,7 +2199,7 @@ type KubernetesClusterNode struct {
 	// READ-ONLY; The availability zone this node is running within.
 	AvailabilityZone *string
 
-	// READ-ONLY; The resource ID of the bare metal machine that hosts this node.
+	// READ-ONLY; The resource ID of the bare metal machine or edge cluster node that hosts this node.
 	BareMetalMachineID *string
 
 	// READ-ONLY; The number of CPU cores configured for this node, derived from the VM SKU specified.
@@ -1470,7 +2211,7 @@ type KubernetesClusterNode struct {
 	// READ-ONLY; The descriptive message about the current detailed status.
 	DetailedStatusMessage *string
 
-	// READ-ONLY; The size of the disk configured for this node.
+	// READ-ONLY; The size of the disk configured for this node. Allocations are measured in gibibytes.
 	DiskSizeGB *int64
 
 	// READ-ONLY; The machine image used to deploy this node.
@@ -1482,7 +2223,8 @@ type KubernetesClusterNode struct {
 	// READ-ONLY; The list of labels on this node that have been assigned to the agent pool containing this node.
 	Labels []*KubernetesLabel
 
-	// READ-ONLY; The amount of memory configured for this node, derived from the vm SKU specified.
+	// READ-ONLY; The amount of memory configured for this node, derived from the vm SKU specified. Allocations are measured in
+	// gibibytes.
 	MemorySizeGB *int64
 
 	// READ-ONLY; The mode of the agent pool containing this node. Not applicable for control plane nodes.
@@ -1518,11 +2260,13 @@ type KubernetesClusterPatchParameters struct {
 
 // KubernetesClusterPatchProperties represents the properties of the Kubernetes cluster that can be patched.
 type KubernetesClusterPatchProperties struct {
+	// The configuration of the default administrator credentials.
+	AdministratorConfiguration *AdministratorConfigurationPatch
+
 	// The defining characteristics of the control plane that can be patched for this Kubernetes cluster.
 	ControlPlaneNodeConfiguration *ControlPlaneNodePatchConfiguration
 
-	// The Kubernetes version for this cluster. Accepts n.n, n.n.n, and n.n.n-n format. The interpreted version used will be resolved
-	// into this field after creation or update.
+	// The Kubernetes version for this cluster.
 	KubernetesVersion *string
 }
 
@@ -1537,8 +2281,7 @@ type KubernetesClusterProperties struct {
 	// sub-resource.
 	InitialAgentPoolConfigurations []*InitialAgentPoolConfiguration
 
-	// REQUIRED; The Kubernetes version for this cluster. Accepts n.n, n.n.n, and n.n.n-n format. The interpreted version used
-	// will be resolved into this field after creation or update.
+	// REQUIRED; The Kubernetes version for this cluster.
 	KubernetesVersion *string
 
 	// REQUIRED; The configuration of the Kubernetes cluster networking, including the attachment of networks that span the cluster.
@@ -1689,6 +2432,12 @@ type L2NetworkProperties struct {
 	VirtualMachinesAssociatedIDs []*string
 }
 
+// L2ServiceLoadBalancerConfiguration represents the configuration of a layer 2 service load balancer.
+type L2ServiceLoadBalancerConfiguration struct {
+	// The list of pools of IP addresses that can be allocated to load balancer services.
+	IPAddressPools []*IPAddressPool
+}
+
 // L3Network represents a network that utilizes a single isolation domain set up for layer-3 resources.
 type L3Network struct {
 	// REQUIRED; The extended location of the cluster associated with the resource.
@@ -1797,6 +2546,19 @@ type L3NetworkProperties struct {
 	VirtualMachinesAssociatedIDs []*string
 }
 
+// ListUserCredentialParameters represents the options for listing the cluster user credentials.
+type ListUserCredentialParameters struct {
+	// REQUIRED; The mode of client authentication.
+	AuthenticationMethod *UserCredentialAuthenticationMethod
+
+	// REQUIRED; Client proxy indicates if the returned credentials are for the client-side proxy.
+	ClientProxy *ListEdgeClusterUserCredentialClientProxy
+
+	// The indicator of which credential to return based on the access mechanism specified. Utilize Local for access from the
+	// same subnet as the edge cluster, and Relay for remote access across a relay.
+	AccessMechanism *ListEdgeClusterUserCredentialAccessMechanism
+}
+
 // LldpNeighbor - Type Deprecated. Will be removed in an upcoming version. LldpNeighbor represents the details about the device
 // connected to the NIC.
 type LldpNeighbor struct {
@@ -1815,7 +2577,7 @@ type LldpNeighbor struct {
 
 // MachineDisk - Disk represents the properties of the disk.
 type MachineDisk struct {
-	// READ-ONLY; The maximum amount of storage in GB.
+	// READ-ONLY; The maximum amount of storage. Measured in gibibytes.
 	CapacityGB *int64
 
 	// READ-ONLY; The connection type of the rack SKU resource.
@@ -1845,7 +2607,7 @@ type MachineSKUProperties struct {
 	// READ-ONLY; The hardware version of the machine.
 	HardwareVersion *string
 
-	// READ-ONLY; The maximum amount of memory in GB.
+	// READ-ONLY; The maximum amount of memory. Measured in gibibytes.
 	MemoryCapacityGB *int64
 
 	// READ-ONLY; The model of the machine.
@@ -1870,6 +2632,15 @@ type MachineSKUSlot struct {
 	RackSlot *int64
 }
 
+// MachineSKUSupportRange - MachineSkuSupportRange represents a range of supported machine SKUs for an edge cluster.
+type MachineSKUSupportRange struct {
+	// The range of versions supported for the edge cluster machine SKU.
+	VersionRange *VersionRange
+
+	// READ-ONLY; The resource ID of the edge cluster machine SKU supported.
+	MachineSKUID *string
+}
+
 // ManagedResourceGroupConfiguration represents the configuration of the resource group managed by Azure.
 type ManagedResourceGroupConfiguration struct {
 	// The location of the managed resource group. If not specified, the location of the parent resource is chosen.
@@ -1877,6 +2648,26 @@ type ManagedResourceGroupConfiguration struct {
 
 	// The name for the managed resource group. If not specified, the unique name is automatically generated.
 	Name *string
+}
+
+// ManagedServiceIdentity - Managed service identity (system assigned and/or user assigned identities)
+type ManagedServiceIdentity struct {
+	// REQUIRED; Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
+	Type *ManagedServiceIdentityType
+
+	// The set of user assigned identities associated with the resource. The userAssignedIdentities dictionary keys will be ARM
+	// resource ids in the form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}.
+	// The dictionary values can be empty objects ({}) in
+	// requests.
+	UserAssignedIdentities map[string]*UserAssignedIdentity
+
+	// READ-ONLY; The service principal ID of the system assigned identity. This property will only be provided for a system assigned
+	// identity.
+	PrincipalID *string
+
+	// READ-ONLY; The tenant ID of the system assigned identity. This property will only be provided for a system assigned identity.
+	TenantID *string
 }
 
 // NetworkAttachment represents the single network attachment.
@@ -1928,12 +2719,17 @@ type NetworkConfiguration struct {
 	// The configuration of networks being attached to the cluster for use by the workloads that run on this Kubernetes cluster.
 	AttachedNetworkConfiguration *AttachedNetworkConfiguration
 
-	// The configuration of the BGP service load balancer for this Kubernetes cluster.
+	// The configuration of the BGP service load balancer for this Kubernetes cluster. A maximum of one service load balancer
+	// may be specified, either Layer 2 or BGP.
 	BgpServiceLoadBalancerConfiguration *BgpServiceLoadBalancerConfiguration
 
 	// The IP address assigned to the Kubernetes DNS service. It must be within the Kubernetes service address range specified
 	// in service CIDR.
 	DNSServiceIP *string
+
+	// The configuration of the Layer 2 service load balancer for this Kubernetes cluster. A maximum of one service load balancer
+	// may be specified, either Layer 2 or BGP.
+	L2ServiceLoadBalancerConfiguration *L2ServiceLoadBalancerConfiguration
 
 	// The CIDR notation IP ranges from which to assign pod IPs. One IPv4 CIDR is expected for single-stack networking. Two CIDRs,
 	// one for each IP family (IPv4/IPv6), is expected for dual-stack networking.
@@ -1962,7 +2758,7 @@ type NetworkInterface struct {
 	// READ-ONLY; The number of ports on the device.
 	PortCount *int64
 
-	// READ-ONLY; The maximum amount of data in GB that the line card transmits through a port at any given second.
+	// READ-ONLY; The maximum amount of data in gigabits that the line card transmits through a port at any given second.
 	PortSpeed *int64
 
 	// READ-ONLY; The vendor name of the device.
@@ -1979,6 +2775,12 @@ type Nic struct {
 
 	// READ-ONLY; The name of the NIC/interface.
 	Name *string
+}
+
+// NodePoolAdministratorConfigurationPatch represents the patching capabilities for the administrator configuration.
+type NodePoolAdministratorConfigurationPatch struct {
+	// SshPublicKey represents the public key used to authenticate with a resource through SSH.
+	SSHPublicKeys []*SSHPublicKey
 }
 
 // Operation - Details of a REST API operation, returned from the Resource Provider Operations API
@@ -2062,7 +2864,7 @@ type OperationStatusResult struct {
 
 // OsDisk represents configuration of the boot disk.
 type OsDisk struct {
-	// REQUIRED; The size of the disk in gigabytes. Required if the createOption is Ephemeral.
+	// REQUIRED; The size of the disk. Required if the createOption is Ephemeral. Allocations are measured in gibibytes.
 	DiskSizeGB *int64
 
 	// The strategy for creating the OS disk.
@@ -2236,10 +3038,375 @@ type RacksPatchProperties struct {
 	RackSerialNumber *string
 }
 
+// RegistrationHub represents the resource responsible for onboarding and bootstrapping of machines that are used in Edge
+// Clusters.
+type RegistrationHub struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// REQUIRED; The list of the resource properties.
+	Properties *RegistrationHubProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// RegistrationHubImage represents the image used to bootstrap a machine in Edge Cluster.
+type RegistrationHubImage struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// REQUIRED; The list of the resource properties.
+	Properties *RegistrationHubImageProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// RegistrationHubImageList represents a list of registration hub images.
+type RegistrationHubImageList struct {
+	// The link used to get the next page of operations.
+	NextLink *string
+
+	// The list of registration hub images.
+	Value []*RegistrationHubImage
+}
+
+// RegistrationHubImagePatchParameters represents the body of the request to patch the registration hub image properties.
+type RegistrationHubImagePatchParameters struct {
+	// The list of the resource properties.
+	Properties *RegistrationHubImagePatchProperties
+
+	// The Azure resource tags that will replace the existing ones.
+	Tags map[string]*string
+}
+
+// RegistrationHubImagePatchProperties represents the properties of the registration hub image during patching.
+type RegistrationHubImagePatchProperties struct {
+	// The indicator of whether the image can be used to register machines.
+	AllowRegistration *AllowRegistration
+
+	// User provided information about the registration hub image.
+	Description *string
+}
+
+// RegistrationHubImageProperties represents the properties of a registration hub image.
+type RegistrationHubImageProperties struct {
+	// The indicator of whether the image can be used to register machines.
+	AllowRegistration *AllowRegistration
+
+	// The user provided information about the registration hub image.
+	Description *string
+
+	// The unique identifier that represents this image.
+	ImageUniqueID *string
+
+	// READ-ONLY; The base64 encoded client configuration that contains the system provided information for the bootstrap process.
+	ClientConfiguration *string
+
+	// READ-ONLY; The base64 encoded configuration that can be modified with custom settings for the bootstrap process.
+	CustomConfiguration *string
+
+	// READ-ONLY; The URI where the bootstrap image can be downloaded from.
+	ImageDownloadURI *string
+
+	// READ-ONLY; The provisioning state of the registration hub image resource.
+	ProvisioningState *RegistrationHubImageProvisioningState
+}
+
+// RegistrationHubList represents a list of registration hubs.
+type RegistrationHubList struct {
+	// The link used to get the next page of operations.
+	NextLink *string
+
+	// The list of registration hubs.
+	Value []*RegistrationHub
+}
+
+// RegistrationHubMachine represents the registration of a machine to a registration hub.
+type RegistrationHubMachine struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// REQUIRED; The list of the resource properties.
+	Properties *RegistrationHubMachineProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// RegistrationHubMachineCPU - RegistrationHubMachineCpu represents CPU properties of a registration hub machine.
+type RegistrationHubMachineCPU struct {
+	// REQUIRED; The architecture of the CPU.
+	Architecture *string
+
+	// REQUIRED; The CPU family.
+	Family *string
+
+	// REQUIRED; The model of the CPU.
+	Model *string
+
+	// REQUIRED; The model name of the CPU.
+	ModelName *string
+
+	// REQUIRED; The number of physical CPU cores per socket.
+	PhysicalCoresPerSocket *int64
+
+	// REQUIRED; The vendor of the CPU.
+	Vendor *string
+}
+
+// RegistrationHubMachineConfiguration represents details of the hardware configuration of the machine supplied during the
+// registration process.
+type RegistrationHubMachineConfiguration struct {
+	// REQUIRED; The CPU information.
+	Cpus []*RegistrationHubMachineCPU
+
+	// REQUIRED; The inventory of devices detected on the machine’s buses.
+	Devices []*RegistrationHubMachineDevice
+
+	// REQUIRED; System memory information.
+	Memory *RegistrationHubMachineMemory
+
+	// REQUIRED; The bios and system board related information.
+	System *RegistrationHubMachineSystem
+}
+
+// RegistrationHubMachineDevice represents the inventory of devices detected on the machine’s buses.
+type RegistrationHubMachineDevice struct {
+	// REQUIRED; The PCI/bus address of the device.
+	Address *string
+
+	// REQUIRED; The bus that connects this device.
+	Bus *string
+
+	// REQUIRED; The device class.
+	Class *string
+
+	// REQUIRED; The MAC address of a network device.
+	MacAddress *string
+
+	// REQUIRED; The model of the device.
+	Model *string
+
+	// REQUIRED; The serial number of the device.
+	SerialNumber *string
+
+	// REQUIRED; The reported capacity of a storage device. Measured in gibibytes.
+	SizeGB *int64
+
+	// REQUIRED; The vendor for the device.
+	Vendor *string
+}
+
+// RegistrationHubMachineList represents a list of registration hub machines.
+type RegistrationHubMachineList struct {
+	// The link used to get the next page of operations.
+	NextLink *string
+
+	// The list of registration hub machines.
+	Value []*RegistrationHubMachine
+}
+
+// RegistrationHubMachineMemory represents the system memory information of a registration hub machine.
+type RegistrationHubMachineMemory struct {
+	// REQUIRED; The size of the memory. Measured in gibibytes.
+	SizeGB *int64
+}
+
+// RegistrationHubMachinePatchParameters represents the body of the request to patch the registration hub machine properties.
+type RegistrationHubMachinePatchParameters struct {
+	// The list of the resource properties.
+	Properties *RegistrationHubMachinePatchProperties
+
+	// The Azure resource tags that will replace the existing ones.
+	Tags map[string]*string
+}
+
+// RegistrationHubMachinePatchProperties represents the properties of the registration hub machine during patching.
+type RegistrationHubMachinePatchProperties struct {
+	// The user-provided freeform description for the machine.
+	Description *string
+}
+
+// RegistrationHubMachineProperties represents the properties of a registration hub machine.
+type RegistrationHubMachineProperties struct {
+	// REQUIRED; The hardware configuration of the machine supplied during the registration process.
+	MachineConfiguration *RegistrationHubMachineConfiguration
+
+	// The user-provided freeform description for the machine.
+	Description *string
+
+	// READ-ONLY; The resource ID of the edge cluster node that has been associated with this machine.
+	AssociatedResourceID *string
+
+	// READ-ONLY; The timestamp of the last polling request from a machine that is undergoing registration.
+	LastRegistrationPollTime *time.Time
+
+	// READ-ONLY; The resource ID of the machine SKU that is identified by the hardware information provided for the machine.
+	MachineSKUID *string
+
+	// READ-ONLY; The provisioning state of the registration hub machine resource.
+	ProvisioningState *RegistrationHubMachineProvisioningState
+
+	// READ-ONLY; The resource ID of the registration hub image that was used to bootstrap the machine.
+	RegistrationHubImageID *string
+
+	// READ-ONLY; The stage and disposition of the registration for the machine.
+	RegistrationState *RegistrationHubMachineRegistrationState
+}
+
+// RegistrationHubMachineSystem represents the bios and system board related information.
+type RegistrationHubMachineSystem struct {
+	// REQUIRED; The vendor for the BIOS.
+	BiosVendor *string
+
+	// REQUIRED; The version of the BIOS.
+	BiosVersion *string
+
+	// REQUIRED; The serial number of the main board.
+	BoardSerialNumber *string
+
+	// REQUIRED; The serial number of the chassis.
+	ChassisSerialNumber *string
+
+	// REQUIRED; The product name.
+	ProductName *string
+
+	// REQUIRED; The product serial number.
+	ProductSerialNumber *string
+
+	// REQUIRED; The tpm endorsement key.
+	TpmEndorsementKey *string
+
+	// REQUIRED; The system vendor.
+	Vendor *string
+}
+
+// RegistrationHubPatchParameters represents the body of the request to patch the registration hub properties.
+type RegistrationHubPatchParameters struct {
+	// The list of the resource properties.
+	Properties *RegistrationHubPatchProperties
+
+	// The Azure resource tags that will replace the existing ones.
+	Tags map[string]*string
+}
+
+// RegistrationHubPatchProperties represents the properties of the registration hub during patching.
+type RegistrationHubPatchProperties struct {
+	// The user-provided information about the registration hub.
+	Description *string
+}
+
+// RegistrationHubProperties represents the user-provided information about the registration hub.
+type RegistrationHubProperties struct {
+	// The user-provided information about the registration hub.
+	Description *string
+
+	// READ-ONLY; The URL to access the azure relay for the registration hub.
+	AzureRelayEndpoint *string
+
+	// READ-ONLY; The resource ID of the relay that has been set up to serve the registration hub.
+	AzureRelayID *string
+
+	// READ-ONLY; The provisioning state of the registration hub resource.
+	ProvisioningState *RegistrationHubProvisioningState
+}
+
+// RuntimeProtectionConfiguration represents the runtime protection configuration for the cluster.
+type RuntimeProtectionConfiguration struct {
+	// The mode of operation for runtime protection.
+	EnforcementLevel *RuntimeProtectionEnforcementLevel
+}
+
+// RuntimeProtectionStatus represents the runtime protection status of the bare metal machine.
+type RuntimeProtectionStatus struct {
+	// READ-ONLY; The timestamp when the malware definitions were last updated.
+	DefinitionsLastUpdated *time.Time
+
+	// READ-ONLY; The version of the malware definitions.
+	DefinitionsVersion *string
+
+	// READ-ONLY; The timestamp of the most recently completed scan, or empty if there has never been a scan.
+	ScanCompletedTime *time.Time
+
+	// READ-ONLY; The timestamp of the most recently scheduled scan, or empty if no scan has been scheduled.
+	ScanScheduledTime *time.Time
+
+	// READ-ONLY; The timestamp of the most recently started scan, or empty if there has never been a scan.
+	ScanStartedTime *time.Time
+}
+
 // SSHPublicKey - SshPublicKey represents the public key used to authenticate with a resource through SSH.
 type SSHPublicKey struct {
 	// REQUIRED; The SSH public key data.
 	KeyData *string
+}
+
+// SecretArchiveReference represents the reference to a secret in a key vault.
+type SecretArchiveReference struct {
+	// READ-ONLY; The resource ID of the key vault containing the secret.
+	KeyVaultID *string
+
+	// READ-ONLY; The name of the secret in the key vault.
+	SecretName *string
+
+	// READ-ONLY; The version of the secret in the key vault.
+	SecretVersion *string
+}
+
+// SecretRotationStatus represents the status of a secret rotation.
+type SecretRotationStatus struct {
+	// READ-ONLY; The maximum number of days the secret may be used before it must be changed.
+	ExpirePeriodDays *int64
+
+	// READ-ONLY; The date and time when the secret was last changed.
+	LastRotationTime *time.Time
+
+	// READ-ONLY; The number of days a secret exists before rotations will be attempted.
+	RotationPeriodDays *int64
+
+	// READ-ONLY; The reference to the secret in a key vault.
+	SecretArchiveReference *SecretArchiveReference
+
+	// READ-ONLY; The type name used to identify the purpose of the secret.
+	SecretType *string
 }
 
 // ServiceLoadBalancerBgpPeer represents the configuration of the BGP service load balancer for the Kubernetes cluster.
@@ -2259,10 +3426,14 @@ type ServiceLoadBalancerBgpPeer struct {
 	// The indicator to enable multi-hop peering support.
 	BgpMultiHop *BgpMultiHop
 
-	// The requested BGP hold time value. This field uses ISO 8601 duration format, for example P1H.
+	// Field Deprecated. The field was previously optional, now it will have no defined behavior and will be ignored. The requested
+	// BGP hold time value. This field uses ISO 8601 duration format, for example
+	// P1H.
 	HoldTime *string
 
-	// The requested BGP keepalive time value. This field uses ISO 8601 duration format, for example P1H.
+	// Field Deprecated. The field was previously optional, now it will have no defined behavior and will be ignored. The requested
+	// BGP keepalive time value. This field uses ISO 8601 duration format, for
+	// example P1H.
 	KeepAliveTime *string
 
 	// The autonomous system number used for the local end of the BGP session.
@@ -2401,6 +3572,12 @@ type StorageApplianceProperties struct {
 	// READ-ONLY; The endpoint for the management interface of the storage appliance.
 	ManagementIPv4Address *string
 
+	// READ-ONLY; The manufacturer of the storage appliance.
+	Manufacturer *string
+
+	// READ-ONLY; The model of the storage appliance.
+	Model *string
+
 	// READ-ONLY; The provisioning state of the storage appliance.
 	ProvisioningState *StorageApplianceProvisioningState
 
@@ -2410,11 +3587,17 @@ type StorageApplianceProperties struct {
 	// READ-ONLY; The indicator of whether the remote vendor management feature is enabled or disabled, or unsupported if it is
 	// an unsupported feature.
 	RemoteVendorManagementStatus *RemoteVendorManagementStatus
+
+	// READ-ONLY; The list of statuses that represent secret rotation activity.
+	SecretRotationStatus []*SecretRotationStatus
+
+	// READ-ONLY; The version of the storage appliance.
+	Version *string
 }
 
 // StorageApplianceSKUProperties - StorageApplianceSkuProperties represents the properties of the storage appliance SKU.
 type StorageApplianceSKUProperties struct {
-	// READ-ONLY; The maximum capacity of the storage appliance.
+	// READ-ONLY; The maximum capacity of the storage appliance. Measured in gibibytes.
 	CapacityGB *int64
 
 	// READ-ONLY; The model of the storage appliance.
@@ -2437,6 +3620,15 @@ type StorageProfile struct {
 
 	// The resource IDs of volumes that are requested to be attached to the virtual machine.
 	VolumeAttachments []*string
+}
+
+// StringKeyValuePair represents a single entry in a mapping of keys to values.
+type StringKeyValuePair struct {
+	// REQUIRED; The key to the mapped value.
+	Key *string
+
+	// REQUIRED; The value of the mapping key.
+	Value *string
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
@@ -2552,6 +3744,27 @@ type TrunkedNetworkProperties struct {
 	VirtualMachinesAssociatedIDs []*string
 }
 
+// UsageDomain represents the usage domain that is associated with a solution.
+type UsageDomain struct {
+	// READ-ONLY; The infrastructure category for the domain.
+	Platform *UsageDomainPlatform
+
+	// READ-ONLY; The more specific use case for the domain.
+	Purpose *string
+
+	// READ-ONLY; Variant is a qualifying term that differentiates between similar use cases.
+	Variant *string
+}
+
+// UserAssignedIdentity - User assigned identity properties
+type UserAssignedIdentity struct {
+	// READ-ONLY; The client ID of the assigned identity.
+	ClientID *string
+
+	// READ-ONLY; The principal ID of the assigned identity.
+	PrincipalID *string
+}
+
 // ValidationThreshold indicates allowed machine and node hardware and deployment failures.
 type ValidationThreshold struct {
 	// REQUIRED; Selection of how the type evaluation is applied to the cluster calculation.
@@ -2562,6 +3775,18 @@ type ValidationThreshold struct {
 
 	// REQUIRED; The numeric threshold value.
 	Value *int64
+}
+
+// VersionRange represents a range of versions.
+type VersionRange struct {
+	// READ-ONLY; The versions that are not included in the range.
+	Excluded []*string
+
+	// READ-ONLY; The first version that is included in the range.
+	SupportedBegin *string
+
+	// READ-ONLY; The first version that is no longer included in the range.
+	UnsupportedBegin *string
 }
 
 // VirtualMachine represents the on-premises Network Cloud virtual machine.
@@ -2649,7 +3874,7 @@ type VirtualMachineProperties struct {
 	// REQUIRED; The cloud service network that provides platform-level services for the virtual machine.
 	CloudServicesNetworkAttachment *NetworkAttachment
 
-	// REQUIRED; The memory size of the virtual machine in GB.
+	// REQUIRED; The memory size of the virtual machine. Allocations are measured in gibibytes.
 	MemorySizeGB *int64
 
 	// REQUIRED; The storage profile that specifies size and other parameters about the disks related to the virtual machine.
@@ -2694,7 +3919,7 @@ type VirtualMachineProperties struct {
 	// READ-ONLY; The cluster availability zone containing this virtual machine.
 	AvailabilityZone *string
 
-	// READ-ONLY; The resource ID of the bare metal machine the virtual machine has landed to.
+	// READ-ONLY; The resource ID of the bare metal machine or edge cluster node that hosts the virtual machine.
 	BareMetalMachineID *string
 
 	// READ-ONLY; The resource ID of the cluster the virtual machine is created for.

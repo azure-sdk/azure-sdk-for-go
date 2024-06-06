@@ -16,7 +16,8 @@ type AgentPoolsClientCreateOrUpdateResponse struct {
 
 // AgentPoolsClientDeleteResponse contains the response from method AgentPoolsClient.BeginDelete.
 type AgentPoolsClientDeleteResponse struct {
-	// placeholder for future response values
+	// The current status of an async operation.
+	OperationStatusResult
 }
 
 // AgentPoolsClientGetResponse contains the response from method AgentPoolsClient.Get.
@@ -45,7 +46,8 @@ type BareMetalMachineKeySetsClientCreateOrUpdateResponse struct {
 
 // BareMetalMachineKeySetsClientDeleteResponse contains the response from method BareMetalMachineKeySetsClient.BeginDelete.
 type BareMetalMachineKeySetsClientDeleteResponse struct {
-	// placeholder for future response values
+	// The current status of an async operation.
+	OperationStatusResult
 }
 
 // BareMetalMachineKeySetsClientGetResponse contains the response from method BareMetalMachineKeySetsClient.Get.
@@ -80,7 +82,8 @@ type BareMetalMachinesClientCreateOrUpdateResponse struct {
 
 // BareMetalMachinesClientDeleteResponse contains the response from method BareMetalMachinesClient.BeginDelete.
 type BareMetalMachinesClientDeleteResponse struct {
-	// placeholder for future response values
+	// The current status of an async operation.
+	OperationStatusResult
 }
 
 // BareMetalMachinesClientGetResponse contains the response from method BareMetalMachinesClient.Get.
@@ -169,7 +172,8 @@ type BmcKeySetsClientCreateOrUpdateResponse struct {
 
 // BmcKeySetsClientDeleteResponse contains the response from method BmcKeySetsClient.BeginDelete.
 type BmcKeySetsClientDeleteResponse struct {
-	// placeholder for future response values
+	// The current status of an async operation.
+	OperationStatusResult
 }
 
 // BmcKeySetsClientGetResponse contains the response from method BmcKeySetsClient.Get.
@@ -201,7 +205,8 @@ type CloudServicesNetworksClientCreateOrUpdateResponse struct {
 
 // CloudServicesNetworksClientDeleteResponse contains the response from method CloudServicesNetworksClient.BeginDelete.
 type CloudServicesNetworksClientDeleteResponse struct {
-	// placeholder for future response values
+	// The current status of an async operation.
+	OperationStatusResult
 }
 
 // CloudServicesNetworksClientGetResponse contains the response from method CloudServicesNetworksClient.Get.
@@ -242,7 +247,8 @@ type ClusterManagersClientCreateOrUpdateResponse struct {
 
 // ClusterManagersClientDeleteResponse contains the response from method ClusterManagersClient.BeginDelete.
 type ClusterManagersClientDeleteResponse struct {
-	// placeholder for future response values
+	// The current status of an async operation.
+	OperationStatusResult
 }
 
 // ClusterManagersClientGetResponse contains the response from method ClusterManagersClient.Get.
@@ -269,6 +275,12 @@ type ClusterManagersClientUpdateResponse struct {
 	ClusterManager
 }
 
+// ClustersClientContinueUpdateVersionResponse contains the response from method ClustersClient.BeginContinueUpdateVersion.
+type ClustersClientContinueUpdateVersionResponse struct {
+	// The current status of an async operation.
+	OperationStatusResult
+}
+
 // ClustersClientCreateOrUpdateResponse contains the response from method ClustersClient.BeginCreateOrUpdate.
 type ClustersClientCreateOrUpdateResponse struct {
 	// Cluster represents the on-premises Network Cloud cluster.
@@ -277,7 +289,8 @@ type ClustersClientCreateOrUpdateResponse struct {
 
 // ClustersClientDeleteResponse contains the response from method ClustersClient.BeginDelete.
 type ClustersClientDeleteResponse struct {
-	// placeholder for future response values
+	// The current status of an async operation.
+	OperationStatusResult
 }
 
 // ClustersClientDeployResponse contains the response from method ClustersClient.BeginDeploy.
@@ -304,6 +317,12 @@ type ClustersClientListBySubscriptionResponse struct {
 	ClusterList
 }
 
+// ClustersClientScanRuntimeResponse contains the response from method ClustersClient.BeginScanRuntime.
+type ClustersClientScanRuntimeResponse struct {
+	// The current status of an async operation.
+	OperationStatusResult
+}
+
 // ClustersClientUpdateResponse contains the response from method ClustersClient.BeginUpdate.
 type ClustersClientUpdateResponse struct {
 	// Cluster represents the on-premises Network Cloud cluster.
@@ -324,7 +343,8 @@ type ConsolesClientCreateOrUpdateResponse struct {
 
 // ConsolesClientDeleteResponse contains the response from method ConsolesClient.BeginDelete.
 type ConsolesClientDeleteResponse struct {
-	// placeholder for future response values
+	// The current status of an async operation.
+	OperationStatusResult
 }
 
 // ConsolesClientGetResponse contains the response from method ConsolesClient.Get.
@@ -345,6 +365,168 @@ type ConsolesClientUpdateResponse struct {
 	Console
 }
 
+// EdgeClusterMachineSKUsClientGetResponse contains the response from method EdgeClusterMachineSKUsClient.Get.
+type EdgeClusterMachineSKUsClientGetResponse struct {
+	// EdgeClusterMachineSku represents a machine or server configuration that is supported by one or more edge cluster SKUs.
+	EdgeClusterMachineSKU
+}
+
+// EdgeClusterMachineSKUsClientListBySubscriptionResponse contains the response from method EdgeClusterMachineSKUsClient.NewListBySubscriptionPager.
+type EdgeClusterMachineSKUsClientListBySubscriptionResponse struct {
+	// EdgeClusterMachineSkuList represents a list of edge cluster machine SKUs.
+	EdgeClusterMachineSKUList
+}
+
+// EdgeClusterNodesClientCreateOrUpdateResponse contains the response from method EdgeClusterNodesClient.BeginCreateOrUpdate.
+type EdgeClusterNodesClientCreateOrUpdateResponse struct {
+	// EdgeClusterNode represents the node of an edge cluster.
+	EdgeClusterNode
+}
+
+// EdgeClusterNodesClientDeleteResponse contains the response from method EdgeClusterNodesClient.BeginDelete.
+type EdgeClusterNodesClientDeleteResponse struct {
+	// The current status of an async operation.
+	OperationStatusResult
+}
+
+// EdgeClusterNodesClientGetResponse contains the response from method EdgeClusterNodesClient.Get.
+type EdgeClusterNodesClientGetResponse struct {
+	// EdgeClusterNode represents the node of an edge cluster.
+	EdgeClusterNode
+}
+
+// EdgeClusterNodesClientListByEdgeClusterResponse contains the response from method EdgeClusterNodesClient.NewListByEdgeClusterPager.
+type EdgeClusterNodesClientListByEdgeClusterResponse struct {
+	// EdgeClusterNodeList represents the list of edge cluster node objects.
+	EdgeClusterNodeList
+}
+
+// EdgeClusterNodesClientReimageResponse contains the response from method EdgeClusterNodesClient.BeginReimage.
+type EdgeClusterNodesClientReimageResponse struct {
+	// The current status of an async operation.
+	OperationStatusResult
+}
+
+// EdgeClusterNodesClientRestartResponse contains the response from method EdgeClusterNodesClient.BeginRestart.
+type EdgeClusterNodesClientRestartResponse struct {
+	// The current status of an async operation.
+	OperationStatusResult
+}
+
+// EdgeClusterNodesClientSynchronizeTimeResponse contains the response from method EdgeClusterNodesClient.BeginSynchronizeTime.
+type EdgeClusterNodesClientSynchronizeTimeResponse struct {
+	// The current status of an async operation.
+	OperationStatusResult
+}
+
+// EdgeClusterNodesClientUpdateResponse contains the response from method EdgeClusterNodesClient.BeginUpdate.
+type EdgeClusterNodesClientUpdateResponse struct {
+	// EdgeClusterNode represents the node of an edge cluster.
+	EdgeClusterNode
+}
+
+// EdgeClusterRuntimeVersionsClientGetResponse contains the response from method EdgeClusterRuntimeVersionsClient.Get.
+type EdgeClusterRuntimeVersionsClientGetResponse struct {
+	// EdgeClusterRuntimeVersion represents a version of the use case specific software that runs an Edge Cluster.
+	EdgeClusterRuntimeVersion
+}
+
+// EdgeClusterRuntimeVersionsClientListBySubscriptionResponse contains the response from method EdgeClusterRuntimeVersionsClient.NewListBySubscriptionPager.
+type EdgeClusterRuntimeVersionsClientListBySubscriptionResponse struct {
+	// EdgeClusterRuntimeVersionList represents a list of edge cluster runtime versions.
+	EdgeClusterRuntimeVersionList
+}
+
+// EdgeClusterSKUsClientGetResponse contains the response from method EdgeClusterSKUsClient.Get.
+type EdgeClusterSKUsClientGetResponse struct {
+	// EdgeClusterSku represents the use case and overall configuration parameters of an edge cluster.
+	EdgeClusterSKU
+}
+
+// EdgeClusterSKUsClientListBySubscriptionResponse contains the response from method EdgeClusterSKUsClient.NewListBySubscriptionPager.
+type EdgeClusterSKUsClientListBySubscriptionResponse struct {
+	// EdgeClusterSkuList represents a list of edge cluster SKUs.
+	EdgeClusterSKUList
+}
+
+// EdgeClustersClientCreateOrUpdateResponse contains the response from method EdgeClustersClient.BeginCreateOrUpdate.
+type EdgeClustersClientCreateOrUpdateResponse struct {
+	// EdgeCluster represents a cluster that encompasses one or more nodes used to host network functions.
+	EdgeCluster
+}
+
+// EdgeClustersClientDeleteResponse contains the response from method EdgeClustersClient.BeginDelete.
+type EdgeClustersClientDeleteResponse struct {
+	// The current status of an async operation.
+	OperationStatusResult
+}
+
+// EdgeClustersClientGetResponse contains the response from method EdgeClustersClient.Get.
+type EdgeClustersClientGetResponse struct {
+	// EdgeCluster represents a cluster that encompasses one or more nodes used to host network functions.
+	EdgeCluster
+}
+
+// EdgeClustersClientListByResourceGroupResponse contains the response from method EdgeClustersClient.NewListByResourceGroupPager.
+type EdgeClustersClientListByResourceGroupResponse struct {
+	// EdgeClusterList represents a list of edge cluster objects.
+	EdgeClusterList
+}
+
+// EdgeClustersClientListBySubscriptionResponse contains the response from method EdgeClustersClient.NewListBySubscriptionPager.
+type EdgeClustersClientListBySubscriptionResponse struct {
+	// EdgeClusterList represents a list of edge cluster objects.
+	EdgeClusterList
+}
+
+// EdgeClustersClientListClusterUserCredentialResponse contains the response from method EdgeClustersClient.ListClusterUserCredential.
+type EdgeClustersClientListClusterUserCredentialResponse struct {
+	// CredentialResults represents the results of the cluster user credential request.
+	CredentialResults
+}
+
+// EdgeClustersClientStageRuntimeResponse contains the response from method EdgeClustersClient.BeginStageRuntime.
+type EdgeClustersClientStageRuntimeResponse struct {
+	// The current status of an async operation.
+	OperationStatusResult
+}
+
+// EdgeClustersClientUpdateResponse contains the response from method EdgeClustersClient.BeginUpdate.
+type EdgeClustersClientUpdateResponse struct {
+	// EdgeCluster represents a cluster that encompasses one or more nodes used to host network functions.
+	EdgeCluster
+}
+
+// KubernetesClusterFeaturesClientCreateOrUpdateResponse contains the response from method KubernetesClusterFeaturesClient.BeginCreateOrUpdate.
+type KubernetesClusterFeaturesClientCreateOrUpdateResponse struct {
+	// KubernetesClusterFeature represents the feature of a Kubernetes cluster.
+	KubernetesClusterFeature
+}
+
+// KubernetesClusterFeaturesClientDeleteResponse contains the response from method KubernetesClusterFeaturesClient.BeginDelete.
+type KubernetesClusterFeaturesClientDeleteResponse struct {
+	// The current status of an async operation.
+	OperationStatusResult
+}
+
+// KubernetesClusterFeaturesClientGetResponse contains the response from method KubernetesClusterFeaturesClient.Get.
+type KubernetesClusterFeaturesClientGetResponse struct {
+	// KubernetesClusterFeature represents the feature of a Kubernetes cluster.
+	KubernetesClusterFeature
+}
+
+// KubernetesClusterFeaturesClientListByKubernetesClusterResponse contains the response from method KubernetesClusterFeaturesClient.NewListByKubernetesClusterPager.
+type KubernetesClusterFeaturesClientListByKubernetesClusterResponse struct {
+	// KubernetesClusterFeatureList represents the list of Kubernetes cluster feature resources.
+	KubernetesClusterFeatureList
+}
+
+// KubernetesClusterFeaturesClientUpdateResponse contains the response from method KubernetesClusterFeaturesClient.BeginUpdate.
+type KubernetesClusterFeaturesClientUpdateResponse struct {
+	// KubernetesClusterFeature represents the feature of a Kubernetes cluster.
+	KubernetesClusterFeature
+}
+
 // KubernetesClustersClientCreateOrUpdateResponse contains the response from method KubernetesClustersClient.BeginCreateOrUpdate.
 type KubernetesClustersClientCreateOrUpdateResponse struct {
 	// KubernetesCluster represents the Kubernetes cluster hosted on Network Cloud.
@@ -353,7 +535,8 @@ type KubernetesClustersClientCreateOrUpdateResponse struct {
 
 // KubernetesClustersClientDeleteResponse contains the response from method KubernetesClustersClient.BeginDelete.
 type KubernetesClustersClientDeleteResponse struct {
-	// placeholder for future response values
+	// The current status of an async operation.
+	OperationStatusResult
 }
 
 // KubernetesClustersClientGetResponse contains the response from method KubernetesClustersClient.Get.
@@ -394,7 +577,8 @@ type L2NetworksClientCreateOrUpdateResponse struct {
 
 // L2NetworksClientDeleteResponse contains the response from method L2NetworksClient.BeginDelete.
 type L2NetworksClientDeleteResponse struct {
-	// placeholder for future response values
+	// The current status of an async operation.
+	OperationStatusResult
 }
 
 // L2NetworksClientGetResponse contains the response from method L2NetworksClient.Get.
@@ -429,7 +613,8 @@ type L3NetworksClientCreateOrUpdateResponse struct {
 
 // L3NetworksClientDeleteResponse contains the response from method L3NetworksClient.BeginDelete.
 type L3NetworksClientDeleteResponse struct {
-	// placeholder for future response values
+	// The current status of an async operation.
+	OperationStatusResult
 }
 
 // L3NetworksClientGetResponse contains the response from method L3NetworksClient.Get.
@@ -464,7 +649,8 @@ type MetricsConfigurationsClientCreateOrUpdateResponse struct {
 
 // MetricsConfigurationsClientDeleteResponse contains the response from method MetricsConfigurationsClient.BeginDelete.
 type MetricsConfigurationsClientDeleteResponse struct {
-	// placeholder for future response values
+	// The current status of an async operation.
+	OperationStatusResult
 }
 
 // MetricsConfigurationsClientGetResponse contains the response from method MetricsConfigurationsClient.Get.
@@ -511,7 +697,8 @@ type RacksClientCreateOrUpdateResponse struct {
 
 // RacksClientDeleteResponse contains the response from method RacksClient.BeginDelete.
 type RacksClientDeleteResponse struct {
-	// placeholder for future response values
+	// The current status of an async operation.
+	OperationStatusResult
 }
 
 // RacksClientGetResponse contains the response from method RacksClient.Get.
@@ -538,6 +725,111 @@ type RacksClientUpdateResponse struct {
 	Rack
 }
 
+// RegistrationHubImagesClientCreateOrUpdateResponse contains the response from method RegistrationHubImagesClient.BeginCreateOrUpdate.
+type RegistrationHubImagesClientCreateOrUpdateResponse struct {
+	// RegistrationHubImage represents the image used to bootstrap a machine in Edge Cluster.
+	RegistrationHubImage
+}
+
+// RegistrationHubImagesClientDeleteResponse contains the response from method RegistrationHubImagesClient.BeginDelete.
+type RegistrationHubImagesClientDeleteResponse struct {
+	// The current status of an async operation.
+	OperationStatusResult
+}
+
+// RegistrationHubImagesClientGetResponse contains the response from method RegistrationHubImagesClient.Get.
+type RegistrationHubImagesClientGetResponse struct {
+	// RegistrationHubImage represents the image used to bootstrap a machine in Edge Cluster.
+	RegistrationHubImage
+}
+
+// RegistrationHubImagesClientListByRegistrationHubResponse contains the response from method RegistrationHubImagesClient.NewListByRegistrationHubPager.
+type RegistrationHubImagesClientListByRegistrationHubResponse struct {
+	// RegistrationHubImageList represents a list of registration hub images.
+	RegistrationHubImageList
+}
+
+// RegistrationHubImagesClientUpdateResponse contains the response from method RegistrationHubImagesClient.BeginUpdate.
+type RegistrationHubImagesClientUpdateResponse struct {
+	// RegistrationHubImage represents the image used to bootstrap a machine in Edge Cluster.
+	RegistrationHubImage
+}
+
+// RegistrationHubMachinesClientCreateOrUpdateResponse contains the response from method RegistrationHubMachinesClient.BeginCreateOrUpdate.
+type RegistrationHubMachinesClientCreateOrUpdateResponse struct {
+	// RegistrationHubMachine represents the registration of a machine to a registration hub.
+	RegistrationHubMachine
+}
+
+// RegistrationHubMachinesClientDeclineResponse contains the response from method RegistrationHubMachinesClient.BeginDecline.
+type RegistrationHubMachinesClientDeclineResponse struct {
+	// The current status of an async operation.
+	OperationStatusResult
+}
+
+// RegistrationHubMachinesClientDeleteResponse contains the response from method RegistrationHubMachinesClient.BeginDelete.
+type RegistrationHubMachinesClientDeleteResponse struct {
+	// The current status of an async operation.
+	OperationStatusResult
+}
+
+// RegistrationHubMachinesClientGetResponse contains the response from method RegistrationHubMachinesClient.Get.
+type RegistrationHubMachinesClientGetResponse struct {
+	// RegistrationHubMachine represents the registration of a machine to a registration hub.
+	RegistrationHubMachine
+}
+
+// RegistrationHubMachinesClientListByRegistrationHubResponse contains the response from method RegistrationHubMachinesClient.NewListByRegistrationHubPager.
+type RegistrationHubMachinesClientListByRegistrationHubResponse struct {
+	// RegistrationHubMachineList represents a list of registration hub machines.
+	RegistrationHubMachineList
+}
+
+// RegistrationHubMachinesClientUpdateResponse contains the response from method RegistrationHubMachinesClient.BeginUpdate.
+type RegistrationHubMachinesClientUpdateResponse struct {
+	// RegistrationHubMachine represents the registration of a machine to a registration hub.
+	RegistrationHubMachine
+}
+
+// RegistrationHubsClientCreateOrUpdateResponse contains the response from method RegistrationHubsClient.BeginCreateOrUpdate.
+type RegistrationHubsClientCreateOrUpdateResponse struct {
+	// RegistrationHub represents the resource responsible for onboarding and bootstrapping of machines that are used in Edge
+	// Clusters.
+	RegistrationHub
+}
+
+// RegistrationHubsClientDeleteResponse contains the response from method RegistrationHubsClient.BeginDelete.
+type RegistrationHubsClientDeleteResponse struct {
+	// The current status of an async operation.
+	OperationStatusResult
+}
+
+// RegistrationHubsClientGetResponse contains the response from method RegistrationHubsClient.Get.
+type RegistrationHubsClientGetResponse struct {
+	// RegistrationHub represents the resource responsible for onboarding and bootstrapping of machines that are used in Edge
+	// Clusters.
+	RegistrationHub
+}
+
+// RegistrationHubsClientListByResourceGroupResponse contains the response from method RegistrationHubsClient.NewListByResourceGroupPager.
+type RegistrationHubsClientListByResourceGroupResponse struct {
+	// RegistrationHubList represents a list of registration hubs.
+	RegistrationHubList
+}
+
+// RegistrationHubsClientListBySubscriptionResponse contains the response from method RegistrationHubsClient.NewListBySubscriptionPager.
+type RegistrationHubsClientListBySubscriptionResponse struct {
+	// RegistrationHubList represents a list of registration hubs.
+	RegistrationHubList
+}
+
+// RegistrationHubsClientUpdateResponse contains the response from method RegistrationHubsClient.BeginUpdate.
+type RegistrationHubsClientUpdateResponse struct {
+	// RegistrationHub represents the resource responsible for onboarding and bootstrapping of machines that are used in Edge
+	// Clusters.
+	RegistrationHub
+}
+
 // StorageAppliancesClientCreateOrUpdateResponse contains the response from method StorageAppliancesClient.BeginCreateOrUpdate.
 type StorageAppliancesClientCreateOrUpdateResponse struct {
 	// StorageAppliance represents on-premises Network Cloud storage appliance.
@@ -546,7 +838,8 @@ type StorageAppliancesClientCreateOrUpdateResponse struct {
 
 // StorageAppliancesClientDeleteResponse contains the response from method StorageAppliancesClient.BeginDelete.
 type StorageAppliancesClientDeleteResponse struct {
-	// placeholder for future response values
+	// The current status of an async operation.
+	OperationStatusResult
 }
 
 // StorageAppliancesClientDisableRemoteVendorManagementResponse contains the response from method StorageAppliancesClient.BeginDisableRemoteVendorManagement.
@@ -593,7 +886,8 @@ type TrunkedNetworksClientCreateOrUpdateResponse struct {
 
 // TrunkedNetworksClientDeleteResponse contains the response from method TrunkedNetworksClient.BeginDelete.
 type TrunkedNetworksClientDeleteResponse struct {
-	// placeholder for future response values
+	// The current status of an async operation.
+	OperationStatusResult
 }
 
 // TrunkedNetworksClientGetResponse contains the response from method TrunkedNetworksClient.Get.
@@ -628,7 +922,8 @@ type VirtualMachinesClientCreateOrUpdateResponse struct {
 
 // VirtualMachinesClientDeleteResponse contains the response from method VirtualMachinesClient.BeginDelete.
 type VirtualMachinesClientDeleteResponse struct {
-	// placeholder for future response values
+	// The current status of an async operation.
+	OperationStatusResult
 }
 
 // VirtualMachinesClientGetResponse contains the response from method VirtualMachinesClient.Get.
@@ -687,7 +982,8 @@ type VolumesClientCreateOrUpdateResponse struct {
 
 // VolumesClientDeleteResponse contains the response from method VolumesClient.BeginDelete.
 type VolumesClientDeleteResponse struct {
-	// placeholder for future response values
+	// The current status of an async operation.
+	OperationStatusResult
 }
 
 // VolumesClientGetResponse contains the response from method VolumesClient.Get.

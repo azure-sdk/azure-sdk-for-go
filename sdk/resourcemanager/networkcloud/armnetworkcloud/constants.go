@@ -10,7 +10,7 @@ package armnetworkcloud
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/networkcloud/armnetworkcloud"
-	moduleVersion = "v1.1.0"
+	moduleVersion = "v1.2.0-beta.1"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -105,6 +105,22 @@ func PossibleAgentPoolProvisioningStateValues() []AgentPoolProvisioningState {
 		AgentPoolProvisioningStateInProgress,
 		AgentPoolProvisioningStateSucceeded,
 		AgentPoolProvisioningStateUpdating,
+	}
+}
+
+// AllowRegistration - The indicator of whether the image can be used to register machines.
+type AllowRegistration string
+
+const (
+	AllowRegistrationFalse AllowRegistration = "False"
+	AllowRegistrationTrue  AllowRegistration = "True"
+)
+
+// PossibleAllowRegistrationValues returns the possible values for the AllowRegistration const type.
+func PossibleAllowRegistrationValues() []AllowRegistration {
+	return []AllowRegistration{
+		AllowRegistrationFalse,
+		AllowRegistrationTrue,
 	}
 }
 
@@ -506,17 +522,34 @@ func PossibleCloudServicesNetworkProvisioningStateValues() []CloudServicesNetwor
 type ClusterConnectionStatus string
 
 const (
-	ClusterConnectionStatusConnected ClusterConnectionStatus = "Connected"
-	ClusterConnectionStatusTimeout   ClusterConnectionStatus = "Timeout"
-	ClusterConnectionStatusUndefined ClusterConnectionStatus = "Undefined"
+	ClusterConnectionStatusConnected    ClusterConnectionStatus = "Connected"
+	ClusterConnectionStatusDisconnected ClusterConnectionStatus = "Disconnected"
+	ClusterConnectionStatusTimeout      ClusterConnectionStatus = "Timeout"
+	ClusterConnectionStatusUndefined    ClusterConnectionStatus = "Undefined"
 )
 
 // PossibleClusterConnectionStatusValues returns the possible values for the ClusterConnectionStatus const type.
 func PossibleClusterConnectionStatusValues() []ClusterConnectionStatus {
 	return []ClusterConnectionStatus{
 		ClusterConnectionStatusConnected,
+		ClusterConnectionStatusDisconnected,
 		ClusterConnectionStatusTimeout,
 		ClusterConnectionStatusUndefined,
+	}
+}
+
+// ClusterContinueUpdateVersionMachineGroupTargetingMode - The mode by which the cluster will target the next grouping of
+// servers to continue the update.
+type ClusterContinueUpdateVersionMachineGroupTargetingMode string
+
+const (
+	ClusterContinueUpdateVersionMachineGroupTargetingModeAlphaByRack ClusterContinueUpdateVersionMachineGroupTargetingMode = "AlphaByRack"
+)
+
+// PossibleClusterContinueUpdateVersionMachineGroupTargetingModeValues returns the possible values for the ClusterContinueUpdateVersionMachineGroupTargetingMode const type.
+func PossibleClusterContinueUpdateVersionMachineGroupTargetingModeValues() []ClusterContinueUpdateVersionMachineGroupTargetingMode {
+	return []ClusterContinueUpdateVersionMachineGroupTargetingMode{
+		ClusterContinueUpdateVersionMachineGroupTargetingModeAlphaByRack,
 	}
 }
 
@@ -531,6 +564,7 @@ const (
 	ClusterDetailedStatusFailed            ClusterDetailedStatus = "Failed"
 	ClusterDetailedStatusPendingDeployment ClusterDetailedStatus = "PendingDeployment"
 	ClusterDetailedStatusRunning           ClusterDetailedStatus = "Running"
+	ClusterDetailedStatusUpdatePaused      ClusterDetailedStatus = "UpdatePaused"
 	ClusterDetailedStatusUpdating          ClusterDetailedStatus = "Updating"
 )
 
@@ -544,6 +578,7 @@ func PossibleClusterDetailedStatusValues() []ClusterDetailedStatus {
 		ClusterDetailedStatusFailed,
 		ClusterDetailedStatusPendingDeployment,
 		ClusterDetailedStatusRunning,
+		ClusterDetailedStatusUpdatePaused,
 		ClusterDetailedStatusUpdating,
 	}
 }
@@ -676,6 +711,38 @@ func PossibleClusterProvisioningStateValues() []ClusterProvisioningState {
 	}
 }
 
+// ClusterScanRuntimeParametersScanActivity - The choice of if the scan operation should run the scan.
+type ClusterScanRuntimeParametersScanActivity string
+
+const (
+	ClusterScanRuntimeParametersScanActivityScan ClusterScanRuntimeParametersScanActivity = "Scan"
+	ClusterScanRuntimeParametersScanActivitySkip ClusterScanRuntimeParametersScanActivity = "Skip"
+)
+
+// PossibleClusterScanRuntimeParametersScanActivityValues returns the possible values for the ClusterScanRuntimeParametersScanActivity const type.
+func PossibleClusterScanRuntimeParametersScanActivityValues() []ClusterScanRuntimeParametersScanActivity {
+	return []ClusterScanRuntimeParametersScanActivity{
+		ClusterScanRuntimeParametersScanActivityScan,
+		ClusterScanRuntimeParametersScanActivitySkip,
+	}
+}
+
+// ClusterSecretArchiveEnabled - The indicator if the specified key vault should be used to archive the secrets of the cluster.
+type ClusterSecretArchiveEnabled string
+
+const (
+	ClusterSecretArchiveEnabledFalse ClusterSecretArchiveEnabled = "False"
+	ClusterSecretArchiveEnabledTrue  ClusterSecretArchiveEnabled = "True"
+)
+
+// PossibleClusterSecretArchiveEnabledValues returns the possible values for the ClusterSecretArchiveEnabled const type.
+func PossibleClusterSecretArchiveEnabledValues() []ClusterSecretArchiveEnabled {
+	return []ClusterSecretArchiveEnabled{
+		ClusterSecretArchiveEnabledFalse,
+		ClusterSecretArchiveEnabledTrue,
+	}
+}
+
 // ClusterType - The type of rack configuration for the cluster.
 type ClusterType string
 
@@ -689,6 +756,22 @@ func PossibleClusterTypeValues() []ClusterType {
 	return []ClusterType{
 		ClusterTypeMultiRack,
 		ClusterTypeSingleRack,
+	}
+}
+
+// ClusterUpdateStrategyType - The mode of operation for runtime protection.
+type ClusterUpdateStrategyType string
+
+const (
+	ClusterUpdateStrategyTypePauseAfterRack ClusterUpdateStrategyType = "PauseAfterRack"
+	ClusterUpdateStrategyTypeRack           ClusterUpdateStrategyType = "Rack"
+)
+
+// PossibleClusterUpdateStrategyTypeValues returns the possible values for the ClusterUpdateStrategyType const type.
+func PossibleClusterUpdateStrategyTypeValues() []ClusterUpdateStrategyType {
+	return []ClusterUpdateStrategyType{
+		ClusterUpdateStrategyTypePauseAfterRack,
+		ClusterUpdateStrategyTypeRack,
 	}
 }
 
@@ -708,7 +791,7 @@ func PossibleConsoleDetailedStatusValues() []ConsoleDetailedStatus {
 	}
 }
 
-// ConsoleEnabled - The credentials used to login to the image repository that has access to the specified image.
+// ConsoleEnabled - The indicator of whether the console access is enabled.
 type ConsoleEnabled string
 
 const (
@@ -826,6 +909,158 @@ func PossibleDiskTypeValues() []DiskType {
 	return []DiskType{
 		DiskTypeHDD,
 		DiskTypeSSD,
+	}
+}
+
+// EdgeClusterLifecycleStatus - The status representing the lifecycle stage of the edge cluster.
+type EdgeClusterLifecycleStatus string
+
+const (
+	EdgeClusterLifecycleStatusControlPlaneOnly EdgeClusterLifecycleStatus = "ControlPlaneOnly"
+	EdgeClusterLifecycleStatusDefined          EdgeClusterLifecycleStatus = "Defined"
+	EdgeClusterLifecycleStatusDeleting         EdgeClusterLifecycleStatus = "Deleting"
+	EdgeClusterLifecycleStatusReady            EdgeClusterLifecycleStatus = "Ready"
+	EdgeClusterLifecycleStatusUpgrading        EdgeClusterLifecycleStatus = "Upgrading"
+)
+
+// PossibleEdgeClusterLifecycleStatusValues returns the possible values for the EdgeClusterLifecycleStatus const type.
+func PossibleEdgeClusterLifecycleStatusValues() []EdgeClusterLifecycleStatus {
+	return []EdgeClusterLifecycleStatus{
+		EdgeClusterLifecycleStatusControlPlaneOnly,
+		EdgeClusterLifecycleStatusDefined,
+		EdgeClusterLifecycleStatusDeleting,
+		EdgeClusterLifecycleStatusReady,
+		EdgeClusterLifecycleStatusUpgrading,
+	}
+}
+
+// EdgeClusterNodeLifecycleStatus - The lifecycle status of the edge cluster node resource.
+type EdgeClusterNodeLifecycleStatus string
+
+const (
+	EdgeClusterNodeLifecycleStatusFailed          EdgeClusterNodeLifecycleStatus = "Failed"
+	EdgeClusterNodeLifecycleStatusJoined          EdgeClusterNodeLifecycleStatus = "Joined"
+	EdgeClusterNodeLifecycleStatusPlatformReady   EdgeClusterNodeLifecycleStatus = "PlatformReady"
+	EdgeClusterNodeLifecycleStatusRegistering     EdgeClusterNodeLifecycleStatus = "Registering"
+	EdgeClusterNodeLifecycleStatusUnassociated    EdgeClusterNodeLifecycleStatus = "Unassociated"
+	EdgeClusterNodeLifecycleStatusUpdatingRuntime EdgeClusterNodeLifecycleStatus = "UpdatingRuntime"
+)
+
+// PossibleEdgeClusterNodeLifecycleStatusValues returns the possible values for the EdgeClusterNodeLifecycleStatus const type.
+func PossibleEdgeClusterNodeLifecycleStatusValues() []EdgeClusterNodeLifecycleStatus {
+	return []EdgeClusterNodeLifecycleStatus{
+		EdgeClusterNodeLifecycleStatusFailed,
+		EdgeClusterNodeLifecycleStatusJoined,
+		EdgeClusterNodeLifecycleStatusPlatformReady,
+		EdgeClusterNodeLifecycleStatusRegistering,
+		EdgeClusterNodeLifecycleStatusUnassociated,
+		EdgeClusterNodeLifecycleStatusUpdatingRuntime,
+	}
+}
+
+// EdgeClusterNodeMatchingIdentifierName - Name is the name of the identifier.
+type EdgeClusterNodeMatchingIdentifierName string
+
+const (
+	EdgeClusterNodeMatchingIdentifierNameAnyMacAddress       EdgeClusterNodeMatchingIdentifierName = "AnyMacAddress"
+	EdgeClusterNodeMatchingIdentifierNameProductSerialNumber EdgeClusterNodeMatchingIdentifierName = "ProductSerialNumber"
+)
+
+// PossibleEdgeClusterNodeMatchingIdentifierNameValues returns the possible values for the EdgeClusterNodeMatchingIdentifierName const type.
+func PossibleEdgeClusterNodeMatchingIdentifierNameValues() []EdgeClusterNodeMatchingIdentifierName {
+	return []EdgeClusterNodeMatchingIdentifierName{
+		EdgeClusterNodeMatchingIdentifierNameAnyMacAddress,
+		EdgeClusterNodeMatchingIdentifierNameProductSerialNumber,
+	}
+}
+
+// EdgeClusterNodeProvisioningState - The provisioning state of the edge cluster node.
+type EdgeClusterNodeProvisioningState string
+
+const (
+	EdgeClusterNodeProvisioningStateAccepted  EdgeClusterNodeProvisioningState = "Accepted"
+	EdgeClusterNodeProvisioningStateCanceled  EdgeClusterNodeProvisioningState = "Canceled"
+	EdgeClusterNodeProvisioningStateFailed    EdgeClusterNodeProvisioningState = "Failed"
+	EdgeClusterNodeProvisioningStateSucceeded EdgeClusterNodeProvisioningState = "Succeeded"
+)
+
+// PossibleEdgeClusterNodeProvisioningStateValues returns the possible values for the EdgeClusterNodeProvisioningState const type.
+func PossibleEdgeClusterNodeProvisioningStateValues() []EdgeClusterNodeProvisioningState {
+	return []EdgeClusterNodeProvisioningState{
+		EdgeClusterNodeProvisioningStateAccepted,
+		EdgeClusterNodeProvisioningStateCanceled,
+		EdgeClusterNodeProvisioningStateFailed,
+		EdgeClusterNodeProvisioningStateSucceeded,
+	}
+}
+
+// EdgeClusterProvisioningState - The provisioning state of the edge cluster.
+type EdgeClusterProvisioningState string
+
+const (
+	EdgeClusterProvisioningStateAccepted  EdgeClusterProvisioningState = "Accepted"
+	EdgeClusterProvisioningStateCanceled  EdgeClusterProvisioningState = "Canceled"
+	EdgeClusterProvisioningStateFailed    EdgeClusterProvisioningState = "Failed"
+	EdgeClusterProvisioningStateSucceeded EdgeClusterProvisioningState = "Succeeded"
+)
+
+// PossibleEdgeClusterProvisioningStateValues returns the possible values for the EdgeClusterProvisioningState const type.
+func PossibleEdgeClusterProvisioningStateValues() []EdgeClusterProvisioningState {
+	return []EdgeClusterProvisioningState{
+		EdgeClusterProvisioningStateAccepted,
+		EdgeClusterProvisioningStateCanceled,
+		EdgeClusterProvisioningStateFailed,
+		EdgeClusterProvisioningStateSucceeded,
+	}
+}
+
+// EdgeClusterPtpConfigurationNetworkTransportType - The network transport type for PTP.
+type EdgeClusterPtpConfigurationNetworkTransportType string
+
+const (
+	EdgeClusterPtpConfigurationNetworkTransportTypeL2    EdgeClusterPtpConfigurationNetworkTransportType = "L2"
+	EdgeClusterPtpConfigurationNetworkTransportTypeUDPv4 EdgeClusterPtpConfigurationNetworkTransportType = "UDPv4"
+	EdgeClusterPtpConfigurationNetworkTransportTypeUDPv6 EdgeClusterPtpConfigurationNetworkTransportType = "UDPv6"
+)
+
+// PossibleEdgeClusterPtpConfigurationNetworkTransportTypeValues returns the possible values for the EdgeClusterPtpConfigurationNetworkTransportType const type.
+func PossibleEdgeClusterPtpConfigurationNetworkTransportTypeValues() []EdgeClusterPtpConfigurationNetworkTransportType {
+	return []EdgeClusterPtpConfigurationNetworkTransportType{
+		EdgeClusterPtpConfigurationNetworkTransportTypeL2,
+		EdgeClusterPtpConfigurationNetworkTransportTypeUDPv4,
+		EdgeClusterPtpConfigurationNetworkTransportTypeUDPv6,
+	}
+}
+
+// EdgeClusterSKUFabricManagedBy - Indicates if the network fabric is managed by the user or by the system.
+type EdgeClusterSKUFabricManagedBy string
+
+const (
+	EdgeClusterSKUFabricManagedBySystem EdgeClusterSKUFabricManagedBy = "System"
+	EdgeClusterSKUFabricManagedByUser   EdgeClusterSKUFabricManagedBy = "User"
+)
+
+// PossibleEdgeClusterSKUFabricManagedByValues returns the possible values for the EdgeClusterSKUFabricManagedBy const type.
+func PossibleEdgeClusterSKUFabricManagedByValues() []EdgeClusterSKUFabricManagedBy {
+	return []EdgeClusterSKUFabricManagedBy{
+		EdgeClusterSKUFabricManagedBySystem,
+		EdgeClusterSKUFabricManagedByUser,
+	}
+}
+
+// EdgeClusterSKUPtpRequired - Indicates if the edge cluster uses the Precision Time Protocol (PTP) for time synchronization.
+type EdgeClusterSKUPtpRequired string
+
+const (
+	EdgeClusterSKUPtpRequiredFalse EdgeClusterSKUPtpRequired = "False"
+	EdgeClusterSKUPtpRequiredTrue  EdgeClusterSKUPtpRequired = "True"
+)
+
+// PossibleEdgeClusterSKUPtpRequiredValues returns the possible values for the EdgeClusterSKUPtpRequired const type.
+func PossibleEdgeClusterSKUPtpRequiredValues() []EdgeClusterSKUPtpRequired {
+	return []EdgeClusterSKUPtpRequired{
+		EdgeClusterSKUPtpRequiredFalse,
+		EdgeClusterSKUPtpRequiredTrue,
 	}
 }
 
@@ -949,6 +1184,81 @@ func PossibleKubernetesClusterDetailedStatusValues() []KubernetesClusterDetailed
 		KubernetesClusterDetailedStatusAvailable,
 		KubernetesClusterDetailedStatusError,
 		KubernetesClusterDetailedStatusProvisioning,
+	}
+}
+
+// KubernetesClusterFeatureAvailabilityLifecycle - The lifecycle indicator of the feature.
+type KubernetesClusterFeatureAvailabilityLifecycle string
+
+const (
+	KubernetesClusterFeatureAvailabilityLifecycleGenerallyAvailable KubernetesClusterFeatureAvailabilityLifecycle = "GenerallyAvailable"
+	KubernetesClusterFeatureAvailabilityLifecyclePreview            KubernetesClusterFeatureAvailabilityLifecycle = "Preview"
+)
+
+// PossibleKubernetesClusterFeatureAvailabilityLifecycleValues returns the possible values for the KubernetesClusterFeatureAvailabilityLifecycle const type.
+func PossibleKubernetesClusterFeatureAvailabilityLifecycleValues() []KubernetesClusterFeatureAvailabilityLifecycle {
+	return []KubernetesClusterFeatureAvailabilityLifecycle{
+		KubernetesClusterFeatureAvailabilityLifecycleGenerallyAvailable,
+		KubernetesClusterFeatureAvailabilityLifecyclePreview,
+	}
+}
+
+// KubernetesClusterFeatureDetailedStatus - The detailed status of the feature.
+type KubernetesClusterFeatureDetailedStatus string
+
+const (
+	KubernetesClusterFeatureDetailedStatusError        KubernetesClusterFeatureDetailedStatus = "Error"
+	KubernetesClusterFeatureDetailedStatusInstalled    KubernetesClusterFeatureDetailedStatus = "Installed"
+	KubernetesClusterFeatureDetailedStatusProvisioning KubernetesClusterFeatureDetailedStatus = "Provisioning"
+)
+
+// PossibleKubernetesClusterFeatureDetailedStatusValues returns the possible values for the KubernetesClusterFeatureDetailedStatus const type.
+func PossibleKubernetesClusterFeatureDetailedStatusValues() []KubernetesClusterFeatureDetailedStatus {
+	return []KubernetesClusterFeatureDetailedStatus{
+		KubernetesClusterFeatureDetailedStatusError,
+		KubernetesClusterFeatureDetailedStatusInstalled,
+		KubernetesClusterFeatureDetailedStatusProvisioning,
+	}
+}
+
+// KubernetesClusterFeatureProvisioningState - The provisioning state of the Kubernetes cluster feature.
+type KubernetesClusterFeatureProvisioningState string
+
+const (
+	KubernetesClusterFeatureProvisioningStateAccepted  KubernetesClusterFeatureProvisioningState = "Accepted"
+	KubernetesClusterFeatureProvisioningStateCanceled  KubernetesClusterFeatureProvisioningState = "Canceled"
+	KubernetesClusterFeatureProvisioningStateDeleting  KubernetesClusterFeatureProvisioningState = "Deleting"
+	KubernetesClusterFeatureProvisioningStateFailed    KubernetesClusterFeatureProvisioningState = "Failed"
+	KubernetesClusterFeatureProvisioningStateSucceeded KubernetesClusterFeatureProvisioningState = "Succeeded"
+	KubernetesClusterFeatureProvisioningStateUpdating  KubernetesClusterFeatureProvisioningState = "Updating"
+)
+
+// PossibleKubernetesClusterFeatureProvisioningStateValues returns the possible values for the KubernetesClusterFeatureProvisioningState const type.
+func PossibleKubernetesClusterFeatureProvisioningStateValues() []KubernetesClusterFeatureProvisioningState {
+	return []KubernetesClusterFeatureProvisioningState{
+		KubernetesClusterFeatureProvisioningStateAccepted,
+		KubernetesClusterFeatureProvisioningStateCanceled,
+		KubernetesClusterFeatureProvisioningStateDeleting,
+		KubernetesClusterFeatureProvisioningStateFailed,
+		KubernetesClusterFeatureProvisioningStateSucceeded,
+		KubernetesClusterFeatureProvisioningStateUpdating,
+	}
+}
+
+// KubernetesClusterFeatureRequired - The indicator of if the feature is required or optional. Optional features may be deleted
+// by the user, while required features are managed with the kubernetes cluster lifecycle.
+type KubernetesClusterFeatureRequired string
+
+const (
+	KubernetesClusterFeatureRequiredFalse KubernetesClusterFeatureRequired = "False"
+	KubernetesClusterFeatureRequiredTrue  KubernetesClusterFeatureRequired = "True"
+)
+
+// PossibleKubernetesClusterFeatureRequiredValues returns the possible values for the KubernetesClusterFeatureRequired const type.
+func PossibleKubernetesClusterFeatureRequiredValues() []KubernetesClusterFeatureRequired {
+	return []KubernetesClusterFeatureRequired{
+		KubernetesClusterFeatureRequiredFalse,
+		KubernetesClusterFeatureRequiredTrue,
 	}
 }
 
@@ -1161,6 +1471,39 @@ func PossibleL3NetworkProvisioningStateValues() []L3NetworkProvisioningState {
 	}
 }
 
+// ListEdgeClusterUserCredentialAccessMechanism - The indicator of which credential to return based on the access mechanism
+// specified. Utilize Local for access from the same subnet as the edge cluster, and Relay for remote access across a relay.
+type ListEdgeClusterUserCredentialAccessMechanism string
+
+const (
+	ListEdgeClusterUserCredentialAccessMechanismLocal ListEdgeClusterUserCredentialAccessMechanism = "Local"
+	ListEdgeClusterUserCredentialAccessMechanismRelay ListEdgeClusterUserCredentialAccessMechanism = "Relay"
+)
+
+// PossibleListEdgeClusterUserCredentialAccessMechanismValues returns the possible values for the ListEdgeClusterUserCredentialAccessMechanism const type.
+func PossibleListEdgeClusterUserCredentialAccessMechanismValues() []ListEdgeClusterUserCredentialAccessMechanism {
+	return []ListEdgeClusterUserCredentialAccessMechanism{
+		ListEdgeClusterUserCredentialAccessMechanismLocal,
+		ListEdgeClusterUserCredentialAccessMechanismRelay,
+	}
+}
+
+// ListEdgeClusterUserCredentialClientProxy - Client proxy indicates if the returned credentials are for the client-side proxy.
+type ListEdgeClusterUserCredentialClientProxy string
+
+const (
+	ListEdgeClusterUserCredentialClientProxyFalse ListEdgeClusterUserCredentialClientProxy = "False"
+	ListEdgeClusterUserCredentialClientProxyTrue  ListEdgeClusterUserCredentialClientProxy = "True"
+)
+
+// PossibleListEdgeClusterUserCredentialClientProxyValues returns the possible values for the ListEdgeClusterUserCredentialClientProxy const type.
+func PossibleListEdgeClusterUserCredentialClientProxyValues() []ListEdgeClusterUserCredentialClientProxy {
+	return []ListEdgeClusterUserCredentialClientProxy{
+		ListEdgeClusterUserCredentialClientProxyFalse,
+		ListEdgeClusterUserCredentialClientProxyTrue,
+	}
+}
+
 // MachineSKUDiskConnectionType - The connection type of the rack SKU resource.
 type MachineSKUDiskConnectionType string
 
@@ -1178,6 +1521,42 @@ func PossibleMachineSKUDiskConnectionTypeValues() []MachineSKUDiskConnectionType
 		MachineSKUDiskConnectionTypeRAID,
 		MachineSKUDiskConnectionTypeSAS,
 		MachineSKUDiskConnectionTypeSATA,
+	}
+}
+
+// ManagedServiceIdentitySelectorType - The type of managed identity that is being selected.
+type ManagedServiceIdentitySelectorType string
+
+const (
+	ManagedServiceIdentitySelectorTypeSystemAssignedIdentity ManagedServiceIdentitySelectorType = "SystemAssignedIdentity"
+	ManagedServiceIdentitySelectorTypeUserAssignedIdentity   ManagedServiceIdentitySelectorType = "UserAssignedIdentity"
+)
+
+// PossibleManagedServiceIdentitySelectorTypeValues returns the possible values for the ManagedServiceIdentitySelectorType const type.
+func PossibleManagedServiceIdentitySelectorTypeValues() []ManagedServiceIdentitySelectorType {
+	return []ManagedServiceIdentitySelectorType{
+		ManagedServiceIdentitySelectorTypeSystemAssignedIdentity,
+		ManagedServiceIdentitySelectorTypeUserAssignedIdentity,
+	}
+}
+
+// ManagedServiceIdentityType - Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
+type ManagedServiceIdentityType string
+
+const (
+	ManagedServiceIdentityTypeNone                       ManagedServiceIdentityType = "None"
+	ManagedServiceIdentityTypeSystemAssigned             ManagedServiceIdentityType = "SystemAssigned"
+	ManagedServiceIdentityTypeSystemAssignedUserAssigned ManagedServiceIdentityType = "SystemAssigned,UserAssigned"
+	ManagedServiceIdentityTypeUserAssigned               ManagedServiceIdentityType = "UserAssigned"
+)
+
+// PossibleManagedServiceIdentityTypeValues returns the possible values for the ManagedServiceIdentityType const type.
+func PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType {
+	return []ManagedServiceIdentityType{
+		ManagedServiceIdentityTypeNone,
+		ManagedServiceIdentityTypeSystemAssigned,
+		ManagedServiceIdentityTypeSystemAssignedUserAssigned,
+		ManagedServiceIdentityTypeUserAssigned,
 	}
 }
 
@@ -1300,6 +1679,86 @@ func PossibleRackSKUTypeValues() []RackSKUType {
 	}
 }
 
+// RegistrationHubImageProvisioningState - The provisioning state of the registration hub image resource.
+type RegistrationHubImageProvisioningState string
+
+const (
+	RegistrationHubImageProvisioningStateAccepted  RegistrationHubImageProvisioningState = "Accepted"
+	RegistrationHubImageProvisioningStateCanceled  RegistrationHubImageProvisioningState = "Canceled"
+	RegistrationHubImageProvisioningStateFailed    RegistrationHubImageProvisioningState = "Failed"
+	RegistrationHubImageProvisioningStateSucceeded RegistrationHubImageProvisioningState = "Succeeded"
+)
+
+// PossibleRegistrationHubImageProvisioningStateValues returns the possible values for the RegistrationHubImageProvisioningState const type.
+func PossibleRegistrationHubImageProvisioningStateValues() []RegistrationHubImageProvisioningState {
+	return []RegistrationHubImageProvisioningState{
+		RegistrationHubImageProvisioningStateAccepted,
+		RegistrationHubImageProvisioningStateCanceled,
+		RegistrationHubImageProvisioningStateFailed,
+		RegistrationHubImageProvisioningStateSucceeded,
+	}
+}
+
+// RegistrationHubMachineProvisioningState - The provisioning state of the registration hub machine resource.
+type RegistrationHubMachineProvisioningState string
+
+const (
+	RegistrationHubMachineProvisioningStateAccepted  RegistrationHubMachineProvisioningState = "Accepted"
+	RegistrationHubMachineProvisioningStateCanceled  RegistrationHubMachineProvisioningState = "Canceled"
+	RegistrationHubMachineProvisioningStateFailed    RegistrationHubMachineProvisioningState = "Failed"
+	RegistrationHubMachineProvisioningStateSucceeded RegistrationHubMachineProvisioningState = "Succeeded"
+)
+
+// PossibleRegistrationHubMachineProvisioningStateValues returns the possible values for the RegistrationHubMachineProvisioningState const type.
+func PossibleRegistrationHubMachineProvisioningStateValues() []RegistrationHubMachineProvisioningState {
+	return []RegistrationHubMachineProvisioningState{
+		RegistrationHubMachineProvisioningStateAccepted,
+		RegistrationHubMachineProvisioningStateCanceled,
+		RegistrationHubMachineProvisioningStateFailed,
+		RegistrationHubMachineProvisioningStateSucceeded,
+	}
+}
+
+// RegistrationHubMachineRegistrationState - The stage and disposition of the registration for the machine.
+type RegistrationHubMachineRegistrationState string
+
+const (
+	RegistrationHubMachineRegistrationStateApproved   RegistrationHubMachineRegistrationState = "Approved"
+	RegistrationHubMachineRegistrationStateComplete   RegistrationHubMachineRegistrationState = "Complete"
+	RegistrationHubMachineRegistrationStateDeclined   RegistrationHubMachineRegistrationState = "Declined"
+	RegistrationHubMachineRegistrationStateUnapproved RegistrationHubMachineRegistrationState = "Unapproved"
+)
+
+// PossibleRegistrationHubMachineRegistrationStateValues returns the possible values for the RegistrationHubMachineRegistrationState const type.
+func PossibleRegistrationHubMachineRegistrationStateValues() []RegistrationHubMachineRegistrationState {
+	return []RegistrationHubMachineRegistrationState{
+		RegistrationHubMachineRegistrationStateApproved,
+		RegistrationHubMachineRegistrationStateComplete,
+		RegistrationHubMachineRegistrationStateDeclined,
+		RegistrationHubMachineRegistrationStateUnapproved,
+	}
+}
+
+// RegistrationHubProvisioningState - The provisioning state of the registration hub resource.
+type RegistrationHubProvisioningState string
+
+const (
+	RegistrationHubProvisioningStateAccepted  RegistrationHubProvisioningState = "Accepted"
+	RegistrationHubProvisioningStateCanceled  RegistrationHubProvisioningState = "Canceled"
+	RegistrationHubProvisioningStateFailed    RegistrationHubProvisioningState = "Failed"
+	RegistrationHubProvisioningStateSucceeded RegistrationHubProvisioningState = "Succeeded"
+)
+
+// PossibleRegistrationHubProvisioningStateValues returns the possible values for the RegistrationHubProvisioningState const type.
+func PossibleRegistrationHubProvisioningStateValues() []RegistrationHubProvisioningState {
+	return []RegistrationHubProvisioningState{
+		RegistrationHubProvisioningStateAccepted,
+		RegistrationHubProvisioningStateCanceled,
+		RegistrationHubProvisioningStateFailed,
+		RegistrationHubProvisioningStateSucceeded,
+	}
+}
+
 // RemoteVendorManagementFeature - The indicator of whether the storage appliance supports remote vendor management.
 type RemoteVendorManagementFeature string
 
@@ -1332,6 +1791,28 @@ func PossibleRemoteVendorManagementStatusValues() []RemoteVendorManagementStatus
 		RemoteVendorManagementStatusDisabled,
 		RemoteVendorManagementStatusEnabled,
 		RemoteVendorManagementStatusUnsupported,
+	}
+}
+
+// RuntimeProtectionEnforcementLevel - The mode of operation for runtime protection.
+type RuntimeProtectionEnforcementLevel string
+
+const (
+	RuntimeProtectionEnforcementLevelAudit    RuntimeProtectionEnforcementLevel = "Audit"
+	RuntimeProtectionEnforcementLevelDisabled RuntimeProtectionEnforcementLevel = "Disabled"
+	RuntimeProtectionEnforcementLevelOnDemand RuntimeProtectionEnforcementLevel = "OnDemand"
+	RuntimeProtectionEnforcementLevelPassive  RuntimeProtectionEnforcementLevel = "Passive"
+	RuntimeProtectionEnforcementLevelRealTime RuntimeProtectionEnforcementLevel = "RealTime"
+)
+
+// PossibleRuntimeProtectionEnforcementLevelValues returns the possible values for the RuntimeProtectionEnforcementLevel const type.
+func PossibleRuntimeProtectionEnforcementLevelValues() []RuntimeProtectionEnforcementLevel {
+	return []RuntimeProtectionEnforcementLevel{
+		RuntimeProtectionEnforcementLevelAudit,
+		RuntimeProtectionEnforcementLevelDisabled,
+		RuntimeProtectionEnforcementLevelOnDemand,
+		RuntimeProtectionEnforcementLevelPassive,
+		RuntimeProtectionEnforcementLevelRealTime,
 	}
 }
 
@@ -1428,6 +1909,38 @@ func PossibleTrunkedNetworkProvisioningStateValues() []TrunkedNetworkProvisionin
 		TrunkedNetworkProvisioningStateFailed,
 		TrunkedNetworkProvisioningStateProvisioning,
 		TrunkedNetworkProvisioningStateSucceeded,
+	}
+}
+
+// UsageDomainPlatform - The infrastructure category for the domain.
+type UsageDomainPlatform string
+
+const (
+	UsageDomainPlatformEdge    UsageDomainPlatform = "Edge"
+	UsageDomainPlatformFarEdge UsageDomainPlatform = "FarEdge"
+)
+
+// PossibleUsageDomainPlatformValues returns the possible values for the UsageDomainPlatform const type.
+func PossibleUsageDomainPlatformValues() []UsageDomainPlatform {
+	return []UsageDomainPlatform{
+		UsageDomainPlatformEdge,
+		UsageDomainPlatformFarEdge,
+	}
+}
+
+// UserCredentialAuthenticationMethod - The mode of client authentication.
+type UserCredentialAuthenticationMethod string
+
+const (
+	UserCredentialAuthenticationMethodAAD   UserCredentialAuthenticationMethod = "AAD"
+	UserCredentialAuthenticationMethodToken UserCredentialAuthenticationMethod = "Token"
+)
+
+// PossibleUserCredentialAuthenticationMethodValues returns the possible values for the UserCredentialAuthenticationMethod const type.
+func PossibleUserCredentialAuthenticationMethodValues() []UserCredentialAuthenticationMethod {
+	return []UserCredentialAuthenticationMethod{
+		UserCredentialAuthenticationMethodAAD,
+		UserCredentialAuthenticationMethodToken,
 	}
 }
 

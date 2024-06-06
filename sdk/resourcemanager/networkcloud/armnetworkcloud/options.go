@@ -288,6 +288,13 @@ type ClusterManagersClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ClustersClientBeginContinueUpdateVersionOptions contains the optional parameters for the ClustersClient.BeginContinueUpdateVersion
+// method.
+type ClustersClientBeginContinueUpdateVersionOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // ClustersClientBeginCreateOrUpdateOptions contains the optional parameters for the ClustersClient.BeginCreateOrUpdate method.
 type ClustersClientBeginCreateOrUpdateOptions struct {
 	// Resumes the LRO from the provided token.
@@ -304,6 +311,15 @@ type ClustersClientBeginDeleteOptions struct {
 type ClustersClientBeginDeployOptions struct {
 	// The request body.
 	ClusterDeployParameters *ClusterDeployParameters
+
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ClustersClientBeginScanRuntimeOptions contains the optional parameters for the ClustersClient.BeginScanRuntime method.
+type ClustersClientBeginScanRuntimeOptions struct {
+	// The request body.
+	ClusterScanRuntimeParameters *ClusterScanRuntimeParameters
 
 	// Resumes the LRO from the provided token.
 	ResumeToken string
@@ -364,6 +380,174 @@ type ConsolesClientGetOptions struct {
 // ConsolesClientListByVirtualMachineOptions contains the optional parameters for the ConsolesClient.NewListByVirtualMachinePager
 // method.
 type ConsolesClientListByVirtualMachineOptions struct {
+	// placeholder for future optional parameters
+}
+
+// EdgeClusterMachineSKUsClientGetOptions contains the optional parameters for the EdgeClusterMachineSKUsClient.Get method.
+type EdgeClusterMachineSKUsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// EdgeClusterMachineSKUsClientListBySubscriptionOptions contains the optional parameters for the EdgeClusterMachineSKUsClient.NewListBySubscriptionPager
+// method.
+type EdgeClusterMachineSKUsClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// EdgeClusterNodesClientBeginCreateOrUpdateOptions contains the optional parameters for the EdgeClusterNodesClient.BeginCreateOrUpdate
+// method.
+type EdgeClusterNodesClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// EdgeClusterNodesClientBeginDeleteOptions contains the optional parameters for the EdgeClusterNodesClient.BeginDelete method.
+type EdgeClusterNodesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// EdgeClusterNodesClientBeginReimageOptions contains the optional parameters for the EdgeClusterNodesClient.BeginReimage
+// method.
+type EdgeClusterNodesClientBeginReimageOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// EdgeClusterNodesClientBeginRestartOptions contains the optional parameters for the EdgeClusterNodesClient.BeginRestart
+// method.
+type EdgeClusterNodesClientBeginRestartOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// EdgeClusterNodesClientBeginSynchronizeTimeOptions contains the optional parameters for the EdgeClusterNodesClient.BeginSynchronizeTime
+// method.
+type EdgeClusterNodesClientBeginSynchronizeTimeOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// EdgeClusterNodesClientBeginUpdateOptions contains the optional parameters for the EdgeClusterNodesClient.BeginUpdate method.
+type EdgeClusterNodesClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// EdgeClusterNodesClientGetOptions contains the optional parameters for the EdgeClusterNodesClient.Get method.
+type EdgeClusterNodesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// EdgeClusterNodesClientListByEdgeClusterOptions contains the optional parameters for the EdgeClusterNodesClient.NewListByEdgeClusterPager
+// method.
+type EdgeClusterNodesClientListByEdgeClusterOptions struct {
+	// placeholder for future optional parameters
+}
+
+// EdgeClusterRuntimeVersionsClientGetOptions contains the optional parameters for the EdgeClusterRuntimeVersionsClient.Get
+// method.
+type EdgeClusterRuntimeVersionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// EdgeClusterRuntimeVersionsClientListBySubscriptionOptions contains the optional parameters for the EdgeClusterRuntimeVersionsClient.NewListBySubscriptionPager
+// method.
+type EdgeClusterRuntimeVersionsClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// EdgeClusterSKUsClientGetOptions contains the optional parameters for the EdgeClusterSKUsClient.Get method.
+type EdgeClusterSKUsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// EdgeClusterSKUsClientListBySubscriptionOptions contains the optional parameters for the EdgeClusterSKUsClient.NewListBySubscriptionPager
+// method.
+type EdgeClusterSKUsClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// EdgeClustersClientBeginCreateOrUpdateOptions contains the optional parameters for the EdgeClustersClient.BeginCreateOrUpdate
+// method.
+type EdgeClustersClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// EdgeClustersClientBeginDeleteOptions contains the optional parameters for the EdgeClustersClient.BeginDelete method.
+type EdgeClustersClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// EdgeClustersClientBeginStageRuntimeOptions contains the optional parameters for the EdgeClustersClient.BeginStageRuntime
+// method.
+type EdgeClustersClientBeginStageRuntimeOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// EdgeClustersClientBeginUpdateOptions contains the optional parameters for the EdgeClustersClient.BeginUpdate method.
+type EdgeClustersClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// EdgeClustersClientGetOptions contains the optional parameters for the EdgeClustersClient.Get method.
+type EdgeClustersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// EdgeClustersClientListByResourceGroupOptions contains the optional parameters for the EdgeClustersClient.NewListByResourceGroupPager
+// method.
+type EdgeClustersClientListByResourceGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// EdgeClustersClientListBySubscriptionOptions contains the optional parameters for the EdgeClustersClient.NewListBySubscriptionPager
+// method.
+type EdgeClustersClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// EdgeClustersClientListClusterUserCredentialOptions contains the optional parameters for the EdgeClustersClient.ListClusterUserCredential
+// method.
+type EdgeClustersClientListClusterUserCredentialOptions struct {
+	// The request body.
+	ListUserCredentialParameters *ListUserCredentialParameters
+}
+
+// KubernetesClusterFeaturesClientBeginCreateOrUpdateOptions contains the optional parameters for the KubernetesClusterFeaturesClient.BeginCreateOrUpdate
+// method.
+type KubernetesClusterFeaturesClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// KubernetesClusterFeaturesClientBeginDeleteOptions contains the optional parameters for the KubernetesClusterFeaturesClient.BeginDelete
+// method.
+type KubernetesClusterFeaturesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// KubernetesClusterFeaturesClientBeginUpdateOptions contains the optional parameters for the KubernetesClusterFeaturesClient.BeginUpdate
+// method.
+type KubernetesClusterFeaturesClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// KubernetesClusterFeaturesClientGetOptions contains the optional parameters for the KubernetesClusterFeaturesClient.Get
+// method.
+type KubernetesClusterFeaturesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// KubernetesClusterFeaturesClientListByKubernetesClusterOptions contains the optional parameters for the KubernetesClusterFeaturesClient.NewListByKubernetesClusterPager
+// method.
+type KubernetesClusterFeaturesClientListByKubernetesClusterOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -561,6 +745,113 @@ type RacksClientListByResourceGroupOptions struct {
 
 // RacksClientListBySubscriptionOptions contains the optional parameters for the RacksClient.NewListBySubscriptionPager method.
 type RacksClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistrationHubImagesClientBeginCreateOrUpdateOptions contains the optional parameters for the RegistrationHubImagesClient.BeginCreateOrUpdate
+// method.
+type RegistrationHubImagesClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistrationHubImagesClientBeginDeleteOptions contains the optional parameters for the RegistrationHubImagesClient.BeginDelete
+// method.
+type RegistrationHubImagesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistrationHubImagesClientBeginUpdateOptions contains the optional parameters for the RegistrationHubImagesClient.BeginUpdate
+// method.
+type RegistrationHubImagesClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistrationHubImagesClientGetOptions contains the optional parameters for the RegistrationHubImagesClient.Get method.
+type RegistrationHubImagesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistrationHubImagesClientListByRegistrationHubOptions contains the optional parameters for the RegistrationHubImagesClient.NewListByRegistrationHubPager
+// method.
+type RegistrationHubImagesClientListByRegistrationHubOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistrationHubMachinesClientBeginCreateOrUpdateOptions contains the optional parameters for the RegistrationHubMachinesClient.BeginCreateOrUpdate
+// method.
+type RegistrationHubMachinesClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistrationHubMachinesClientBeginDeclineOptions contains the optional parameters for the RegistrationHubMachinesClient.BeginDecline
+// method.
+type RegistrationHubMachinesClientBeginDeclineOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistrationHubMachinesClientBeginDeleteOptions contains the optional parameters for the RegistrationHubMachinesClient.BeginDelete
+// method.
+type RegistrationHubMachinesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistrationHubMachinesClientBeginUpdateOptions contains the optional parameters for the RegistrationHubMachinesClient.BeginUpdate
+// method.
+type RegistrationHubMachinesClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistrationHubMachinesClientGetOptions contains the optional parameters for the RegistrationHubMachinesClient.Get method.
+type RegistrationHubMachinesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistrationHubMachinesClientListByRegistrationHubOptions contains the optional parameters for the RegistrationHubMachinesClient.NewListByRegistrationHubPager
+// method.
+type RegistrationHubMachinesClientListByRegistrationHubOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistrationHubsClientBeginCreateOrUpdateOptions contains the optional parameters for the RegistrationHubsClient.BeginCreateOrUpdate
+// method.
+type RegistrationHubsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistrationHubsClientBeginDeleteOptions contains the optional parameters for the RegistrationHubsClient.BeginDelete method.
+type RegistrationHubsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistrationHubsClientBeginUpdateOptions contains the optional parameters for the RegistrationHubsClient.BeginUpdate method.
+type RegistrationHubsClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistrationHubsClientGetOptions contains the optional parameters for the RegistrationHubsClient.Get method.
+type RegistrationHubsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistrationHubsClientListByResourceGroupOptions contains the optional parameters for the RegistrationHubsClient.NewListByResourceGroupPager
+// method.
+type RegistrationHubsClientListByResourceGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistrationHubsClientListBySubscriptionOptions contains the optional parameters for the RegistrationHubsClient.NewListBySubscriptionPager
+// method.
+type RegistrationHubsClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
 }
 

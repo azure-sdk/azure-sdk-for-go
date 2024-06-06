@@ -20,68 +20,68 @@ import (
 	"strings"
 )
 
-// RackSKUsClient contains the methods for the RackSKUs group.
-// Don't use this type directly, use NewRackSKUsClient() instead.
-type RackSKUsClient struct {
+// EdgeClusterSKUsClient contains the methods for the EdgeClusterSKUs group.
+// Don't use this type directly, use NewEdgeClusterSKUsClient() instead.
+type EdgeClusterSKUsClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewRackSKUsClient creates a new instance of RackSKUsClient with the specified values.
+// NewEdgeClusterSKUsClient creates a new instance of EdgeClusterSKUsClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewRackSKUsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*RackSKUsClient, error) {
+func NewEdgeClusterSKUsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*EdgeClusterSKUsClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &RackSKUsClient{
+	client := &EdgeClusterSKUsClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// Get - Get the properties of the provided rack SKU.
+// Get - Get the properties of the specified edge cluster SKU.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-05-01-preview
-//   - rackSKUName - The name of the rack SKU.
-//   - options - RackSKUsClientGetOptions contains the optional parameters for the RackSKUsClient.Get method.
-func (client *RackSKUsClient) Get(ctx context.Context, rackSKUName string, options *RackSKUsClientGetOptions) (RackSKUsClientGetResponse, error) {
+//   - edgeClusterSKUName - The name of the edge cluster SKU.
+//   - options - EdgeClusterSKUsClientGetOptions contains the optional parameters for the EdgeClusterSKUsClient.Get method.
+func (client *EdgeClusterSKUsClient) Get(ctx context.Context, edgeClusterSKUName string, options *EdgeClusterSKUsClientGetOptions) (EdgeClusterSKUsClientGetResponse, error) {
 	var err error
-	const operationName = "RackSKUsClient.Get"
+	const operationName = "EdgeClusterSKUsClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, rackSKUName, options)
+	req, err := client.getCreateRequest(ctx, edgeClusterSKUName, options)
 	if err != nil {
-		return RackSKUsClientGetResponse{}, err
+		return EdgeClusterSKUsClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return RackSKUsClientGetResponse{}, err
+		return EdgeClusterSKUsClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return RackSKUsClientGetResponse{}, err
+		return EdgeClusterSKUsClientGetResponse{}, err
 	}
 	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
 // getCreateRequest creates the Get request.
-func (client *RackSKUsClient) getCreateRequest(ctx context.Context, rackSKUName string, options *RackSKUsClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.NetworkCloud/rackSkus/{rackSkuName}"
+func (client *EdgeClusterSKUsClient) getCreateRequest(ctx context.Context, edgeClusterSKUName string, options *EdgeClusterSKUsClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.NetworkCloud/edgeClusterSkus/{edgeClusterSkuName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	if rackSKUName == "" {
-		return nil, errors.New("parameter rackSKUName cannot be empty")
+	if edgeClusterSKUName == "" {
+		return nil, errors.New("parameter edgeClusterSKUName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{rackSkuName}", url.PathEscape(rackSKUName))
+	urlPath = strings.ReplaceAll(urlPath, "{edgeClusterSkuName}", url.PathEscape(edgeClusterSKUName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -94,26 +94,26 @@ func (client *RackSKUsClient) getCreateRequest(ctx context.Context, rackSKUName 
 }
 
 // getHandleResponse handles the Get response.
-func (client *RackSKUsClient) getHandleResponse(resp *http.Response) (RackSKUsClientGetResponse, error) {
-	result := RackSKUsClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.RackSKU); err != nil {
-		return RackSKUsClientGetResponse{}, err
+func (client *EdgeClusterSKUsClient) getHandleResponse(resp *http.Response) (EdgeClusterSKUsClientGetResponse, error) {
+	result := EdgeClusterSKUsClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.EdgeClusterSKU); err != nil {
+		return EdgeClusterSKUsClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListBySubscriptionPager - Get a list of rack SKUs in the provided subscription.
+// NewListBySubscriptionPager - Get a list of edge cluster SKUs in the provided subscription.
 //
 // Generated from API version 2024-05-01-preview
-//   - options - RackSKUsClientListBySubscriptionOptions contains the optional parameters for the RackSKUsClient.NewListBySubscriptionPager
+//   - options - EdgeClusterSKUsClientListBySubscriptionOptions contains the optional parameters for the EdgeClusterSKUsClient.NewListBySubscriptionPager
 //     method.
-func (client *RackSKUsClient) NewListBySubscriptionPager(options *RackSKUsClientListBySubscriptionOptions) *runtime.Pager[RackSKUsClientListBySubscriptionResponse] {
-	return runtime.NewPager(runtime.PagingHandler[RackSKUsClientListBySubscriptionResponse]{
-		More: func(page RackSKUsClientListBySubscriptionResponse) bool {
+func (client *EdgeClusterSKUsClient) NewListBySubscriptionPager(options *EdgeClusterSKUsClientListBySubscriptionOptions) *runtime.Pager[EdgeClusterSKUsClientListBySubscriptionResponse] {
+	return runtime.NewPager(runtime.PagingHandler[EdgeClusterSKUsClientListBySubscriptionResponse]{
+		More: func(page EdgeClusterSKUsClientListBySubscriptionResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *RackSKUsClientListBySubscriptionResponse) (RackSKUsClientListBySubscriptionResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "RackSKUsClient.NewListBySubscriptionPager")
+		Fetcher: func(ctx context.Context, page *EdgeClusterSKUsClientListBySubscriptionResponse) (EdgeClusterSKUsClientListBySubscriptionResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "EdgeClusterSKUsClient.NewListBySubscriptionPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
@@ -122,7 +122,7 @@ func (client *RackSKUsClient) NewListBySubscriptionPager(options *RackSKUsClient
 				return client.listBySubscriptionCreateRequest(ctx, options)
 			}, nil)
 			if err != nil {
-				return RackSKUsClientListBySubscriptionResponse{}, err
+				return EdgeClusterSKUsClientListBySubscriptionResponse{}, err
 			}
 			return client.listBySubscriptionHandleResponse(resp)
 		},
@@ -131,8 +131,8 @@ func (client *RackSKUsClient) NewListBySubscriptionPager(options *RackSKUsClient
 }
 
 // listBySubscriptionCreateRequest creates the ListBySubscription request.
-func (client *RackSKUsClient) listBySubscriptionCreateRequest(ctx context.Context, options *RackSKUsClientListBySubscriptionOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.NetworkCloud/rackSkus"
+func (client *EdgeClusterSKUsClient) listBySubscriptionCreateRequest(ctx context.Context, options *EdgeClusterSKUsClientListBySubscriptionOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.NetworkCloud/edgeClusterSkus"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -149,10 +149,10 @@ func (client *RackSKUsClient) listBySubscriptionCreateRequest(ctx context.Contex
 }
 
 // listBySubscriptionHandleResponse handles the ListBySubscription response.
-func (client *RackSKUsClient) listBySubscriptionHandleResponse(resp *http.Response) (RackSKUsClientListBySubscriptionResponse, error) {
-	result := RackSKUsClientListBySubscriptionResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.RackSKUList); err != nil {
-		return RackSKUsClientListBySubscriptionResponse{}, err
+func (client *EdgeClusterSKUsClient) listBySubscriptionHandleResponse(resp *http.Response) (EdgeClusterSKUsClientListBySubscriptionResponse, error) {
+	result := EdgeClusterSKUsClientListBySubscriptionResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.EdgeClusterSKUList); err != nil {
+		return EdgeClusterSKUsClientListBySubscriptionResponse{}, err
 	}
 	return result, nil
 }

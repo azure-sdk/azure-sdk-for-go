@@ -1,5 +1,212 @@
 # Release History
 
+## 1.2.0-beta.1 (2024-06-06)
+### Features Added
+
+- New value `ClusterConnectionStatusDisconnected` added to enum type `ClusterConnectionStatus`
+- New value `ClusterDetailedStatusUpdatePaused` added to enum type `ClusterDetailedStatus`
+- New enum type `AllowRegistration` with values `AllowRegistrationFalse`, `AllowRegistrationTrue`
+- New enum type `ClusterContinueUpdateVersionMachineGroupTargetingMode` with values `ClusterContinueUpdateVersionMachineGroupTargetingModeAlphaByRack`
+- New enum type `ClusterScanRuntimeParametersScanActivity` with values `ClusterScanRuntimeParametersScanActivityScan`, `ClusterScanRuntimeParametersScanActivitySkip`
+- New enum type `ClusterSecretArchiveEnabled` with values `ClusterSecretArchiveEnabledFalse`, `ClusterSecretArchiveEnabledTrue`
+- New enum type `ClusterUpdateStrategyType` with values `ClusterUpdateStrategyTypePauseAfterRack`, `ClusterUpdateStrategyTypeRack`
+- New enum type `EdgeClusterLifecycleStatus` with values `EdgeClusterLifecycleStatusControlPlaneOnly`, `EdgeClusterLifecycleStatusDefined`, `EdgeClusterLifecycleStatusDeleting`, `EdgeClusterLifecycleStatusReady`, `EdgeClusterLifecycleStatusUpgrading`
+- New enum type `EdgeClusterNodeLifecycleStatus` with values `EdgeClusterNodeLifecycleStatusFailed`, `EdgeClusterNodeLifecycleStatusJoined`, `EdgeClusterNodeLifecycleStatusPlatformReady`, `EdgeClusterNodeLifecycleStatusRegistering`, `EdgeClusterNodeLifecycleStatusUnassociated`, `EdgeClusterNodeLifecycleStatusUpdatingRuntime`
+- New enum type `EdgeClusterNodeMatchingIdentifierName` with values `EdgeClusterNodeMatchingIdentifierNameAnyMacAddress`, `EdgeClusterNodeMatchingIdentifierNameProductSerialNumber`
+- New enum type `EdgeClusterNodeProvisioningState` with values `EdgeClusterNodeProvisioningStateAccepted`, `EdgeClusterNodeProvisioningStateCanceled`, `EdgeClusterNodeProvisioningStateFailed`, `EdgeClusterNodeProvisioningStateSucceeded`
+- New enum type `EdgeClusterProvisioningState` with values `EdgeClusterProvisioningStateAccepted`, `EdgeClusterProvisioningStateCanceled`, `EdgeClusterProvisioningStateFailed`, `EdgeClusterProvisioningStateSucceeded`
+- New enum type `EdgeClusterPtpConfigurationNetworkTransportType` with values `EdgeClusterPtpConfigurationNetworkTransportTypeL2`, `EdgeClusterPtpConfigurationNetworkTransportTypeUDPv4`, `EdgeClusterPtpConfigurationNetworkTransportTypeUDPv6`
+- New enum type `EdgeClusterSKUFabricManagedBy` with values `EdgeClusterSKUFabricManagedBySystem`, `EdgeClusterSKUFabricManagedByUser`
+- New enum type `EdgeClusterSKUPtpRequired` with values `EdgeClusterSKUPtpRequiredFalse`, `EdgeClusterSKUPtpRequiredTrue`
+- New enum type `KubernetesClusterFeatureAvailabilityLifecycle` with values `KubernetesClusterFeatureAvailabilityLifecycleGenerallyAvailable`, `KubernetesClusterFeatureAvailabilityLifecyclePreview`
+- New enum type `KubernetesClusterFeatureDetailedStatus` with values `KubernetesClusterFeatureDetailedStatusError`, `KubernetesClusterFeatureDetailedStatusInstalled`, `KubernetesClusterFeatureDetailedStatusProvisioning`
+- New enum type `KubernetesClusterFeatureProvisioningState` with values `KubernetesClusterFeatureProvisioningStateAccepted`, `KubernetesClusterFeatureProvisioningStateCanceled`, `KubernetesClusterFeatureProvisioningStateDeleting`, `KubernetesClusterFeatureProvisioningStateFailed`, `KubernetesClusterFeatureProvisioningStateSucceeded`, `KubernetesClusterFeatureProvisioningStateUpdating`
+- New enum type `KubernetesClusterFeatureRequired` with values `KubernetesClusterFeatureRequiredFalse`, `KubernetesClusterFeatureRequiredTrue`
+- New enum type `ListEdgeClusterUserCredentialAccessMechanism` with values `ListEdgeClusterUserCredentialAccessMechanismLocal`, `ListEdgeClusterUserCredentialAccessMechanismRelay`
+- New enum type `ListEdgeClusterUserCredentialClientProxy` with values `ListEdgeClusterUserCredentialClientProxyFalse`, `ListEdgeClusterUserCredentialClientProxyTrue`
+- New enum type `ManagedServiceIdentitySelectorType` with values `ManagedServiceIdentitySelectorTypeSystemAssignedIdentity`, `ManagedServiceIdentitySelectorTypeUserAssignedIdentity`
+- New enum type `ManagedServiceIdentityType` with values `ManagedServiceIdentityTypeNone`, `ManagedServiceIdentityTypeSystemAssigned`, `ManagedServiceIdentityTypeSystemAssignedUserAssigned`, `ManagedServiceIdentityTypeUserAssigned`
+- New enum type `RegistrationHubImageProvisioningState` with values `RegistrationHubImageProvisioningStateAccepted`, `RegistrationHubImageProvisioningStateCanceled`, `RegistrationHubImageProvisioningStateFailed`, `RegistrationHubImageProvisioningStateSucceeded`
+- New enum type `RegistrationHubMachineProvisioningState` with values `RegistrationHubMachineProvisioningStateAccepted`, `RegistrationHubMachineProvisioningStateCanceled`, `RegistrationHubMachineProvisioningStateFailed`, `RegistrationHubMachineProvisioningStateSucceeded`
+- New enum type `RegistrationHubMachineRegistrationState` with values `RegistrationHubMachineRegistrationStateApproved`, `RegistrationHubMachineRegistrationStateComplete`, `RegistrationHubMachineRegistrationStateDeclined`, `RegistrationHubMachineRegistrationStateUnapproved`
+- New enum type `RegistrationHubProvisioningState` with values `RegistrationHubProvisioningStateAccepted`, `RegistrationHubProvisioningStateCanceled`, `RegistrationHubProvisioningStateFailed`, `RegistrationHubProvisioningStateSucceeded`
+- New enum type `RuntimeProtectionEnforcementLevel` with values `RuntimeProtectionEnforcementLevelAudit`, `RuntimeProtectionEnforcementLevelDisabled`, `RuntimeProtectionEnforcementLevelOnDemand`, `RuntimeProtectionEnforcementLevelPassive`, `RuntimeProtectionEnforcementLevelRealTime`
+- New enum type `UsageDomainPlatform` with values `UsageDomainPlatformEdge`, `UsageDomainPlatformFarEdge`
+- New enum type `UserCredentialAuthenticationMethod` with values `UserCredentialAuthenticationMethodAAD`, `UserCredentialAuthenticationMethodToken`
+- New function `*ClientFactory.NewEdgeClusterMachineSKUsClient() *EdgeClusterMachineSKUsClient`
+- New function `*ClientFactory.NewEdgeClusterNodesClient() *EdgeClusterNodesClient`
+- New function `*ClientFactory.NewEdgeClusterRuntimeVersionsClient() *EdgeClusterRuntimeVersionsClient`
+- New function `*ClientFactory.NewEdgeClusterSKUsClient() *EdgeClusterSKUsClient`
+- New function `*ClientFactory.NewEdgeClustersClient() *EdgeClustersClient`
+- New function `*ClientFactory.NewKubernetesClusterFeaturesClient() *KubernetesClusterFeaturesClient`
+- New function `*ClientFactory.NewRegistrationHubImagesClient() *RegistrationHubImagesClient`
+- New function `*ClientFactory.NewRegistrationHubMachinesClient() *RegistrationHubMachinesClient`
+- New function `*ClientFactory.NewRegistrationHubsClient() *RegistrationHubsClient`
+- New function `*ClustersClient.BeginContinueUpdateVersion(context.Context, string, string, ClusterContinueUpdateVersionParameters, *ClustersClientBeginContinueUpdateVersionOptions) (*runtime.Poller[ClustersClientContinueUpdateVersionResponse], error)`
+- New function `*ClustersClient.BeginScanRuntime(context.Context, string, string, *ClustersClientBeginScanRuntimeOptions) (*runtime.Poller[ClustersClientScanRuntimeResponse], error)`
+- New function `NewEdgeClusterMachineSKUsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*EdgeClusterMachineSKUsClient, error)`
+- New function `*EdgeClusterMachineSKUsClient.Get(context.Context, string, *EdgeClusterMachineSKUsClientGetOptions) (EdgeClusterMachineSKUsClientGetResponse, error)`
+- New function `*EdgeClusterMachineSKUsClient.NewListBySubscriptionPager(*EdgeClusterMachineSKUsClientListBySubscriptionOptions) *runtime.Pager[EdgeClusterMachineSKUsClientListBySubscriptionResponse]`
+- New function `NewEdgeClusterNodesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*EdgeClusterNodesClient, error)`
+- New function `*EdgeClusterNodesClient.BeginCreateOrUpdate(context.Context, string, string, string, EdgeClusterNode, *EdgeClusterNodesClientBeginCreateOrUpdateOptions) (*runtime.Poller[EdgeClusterNodesClientCreateOrUpdateResponse], error)`
+- New function `*EdgeClusterNodesClient.BeginDelete(context.Context, string, string, string, *EdgeClusterNodesClientBeginDeleteOptions) (*runtime.Poller[EdgeClusterNodesClientDeleteResponse], error)`
+- New function `*EdgeClusterNodesClient.Get(context.Context, string, string, string, *EdgeClusterNodesClientGetOptions) (EdgeClusterNodesClientGetResponse, error)`
+- New function `*EdgeClusterNodesClient.NewListByEdgeClusterPager(string, string, *EdgeClusterNodesClientListByEdgeClusterOptions) *runtime.Pager[EdgeClusterNodesClientListByEdgeClusterResponse]`
+- New function `*EdgeClusterNodesClient.BeginReimage(context.Context, string, string, string, *EdgeClusterNodesClientBeginReimageOptions) (*runtime.Poller[EdgeClusterNodesClientReimageResponse], error)`
+- New function `*EdgeClusterNodesClient.BeginRestart(context.Context, string, string, string, *EdgeClusterNodesClientBeginRestartOptions) (*runtime.Poller[EdgeClusterNodesClientRestartResponse], error)`
+- New function `*EdgeClusterNodesClient.BeginSynchronizeTime(context.Context, string, string, string, *EdgeClusterNodesClientBeginSynchronizeTimeOptions) (*runtime.Poller[EdgeClusterNodesClientSynchronizeTimeResponse], error)`
+- New function `*EdgeClusterNodesClient.BeginUpdate(context.Context, string, string, string, EdgeClusterNodePatchParameters, *EdgeClusterNodesClientBeginUpdateOptions) (*runtime.Poller[EdgeClusterNodesClientUpdateResponse], error)`
+- New function `NewEdgeClusterRuntimeVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*EdgeClusterRuntimeVersionsClient, error)`
+- New function `*EdgeClusterRuntimeVersionsClient.Get(context.Context, string, *EdgeClusterRuntimeVersionsClientGetOptions) (EdgeClusterRuntimeVersionsClientGetResponse, error)`
+- New function `*EdgeClusterRuntimeVersionsClient.NewListBySubscriptionPager(*EdgeClusterRuntimeVersionsClientListBySubscriptionOptions) *runtime.Pager[EdgeClusterRuntimeVersionsClientListBySubscriptionResponse]`
+- New function `NewEdgeClusterSKUsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*EdgeClusterSKUsClient, error)`
+- New function `*EdgeClusterSKUsClient.Get(context.Context, string, *EdgeClusterSKUsClientGetOptions) (EdgeClusterSKUsClientGetResponse, error)`
+- New function `*EdgeClusterSKUsClient.NewListBySubscriptionPager(*EdgeClusterSKUsClientListBySubscriptionOptions) *runtime.Pager[EdgeClusterSKUsClientListBySubscriptionResponse]`
+- New function `NewEdgeClustersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*EdgeClustersClient, error)`
+- New function `*EdgeClustersClient.BeginCreateOrUpdate(context.Context, string, string, EdgeCluster, *EdgeClustersClientBeginCreateOrUpdateOptions) (*runtime.Poller[EdgeClustersClientCreateOrUpdateResponse], error)`
+- New function `*EdgeClustersClient.BeginDelete(context.Context, string, string, *EdgeClustersClientBeginDeleteOptions) (*runtime.Poller[EdgeClustersClientDeleteResponse], error)`
+- New function `*EdgeClustersClient.Get(context.Context, string, string, *EdgeClustersClientGetOptions) (EdgeClustersClientGetResponse, error)`
+- New function `*EdgeClustersClient.NewListByResourceGroupPager(string, *EdgeClustersClientListByResourceGroupOptions) *runtime.Pager[EdgeClustersClientListByResourceGroupResponse]`
+- New function `*EdgeClustersClient.NewListBySubscriptionPager(*EdgeClustersClientListBySubscriptionOptions) *runtime.Pager[EdgeClustersClientListBySubscriptionResponse]`
+- New function `*EdgeClustersClient.ListClusterUserCredential(context.Context, string, string, *EdgeClustersClientListClusterUserCredentialOptions) (EdgeClustersClientListClusterUserCredentialResponse, error)`
+- New function `*EdgeClustersClient.BeginStageRuntime(context.Context, string, string, EdgeClusterStageRuntimeParameters, *EdgeClustersClientBeginStageRuntimeOptions) (*runtime.Poller[EdgeClustersClientStageRuntimeResponse], error)`
+- New function `*EdgeClustersClient.BeginUpdate(context.Context, string, string, EdgeClusterPatchParameters, *EdgeClustersClientBeginUpdateOptions) (*runtime.Poller[EdgeClustersClientUpdateResponse], error)`
+- New function `NewKubernetesClusterFeaturesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*KubernetesClusterFeaturesClient, error)`
+- New function `*KubernetesClusterFeaturesClient.BeginCreateOrUpdate(context.Context, string, string, string, KubernetesClusterFeature, *KubernetesClusterFeaturesClientBeginCreateOrUpdateOptions) (*runtime.Poller[KubernetesClusterFeaturesClientCreateOrUpdateResponse], error)`
+- New function `*KubernetesClusterFeaturesClient.BeginDelete(context.Context, string, string, string, *KubernetesClusterFeaturesClientBeginDeleteOptions) (*runtime.Poller[KubernetesClusterFeaturesClientDeleteResponse], error)`
+- New function `*KubernetesClusterFeaturesClient.Get(context.Context, string, string, string, *KubernetesClusterFeaturesClientGetOptions) (KubernetesClusterFeaturesClientGetResponse, error)`
+- New function `*KubernetesClusterFeaturesClient.NewListByKubernetesClusterPager(string, string, *KubernetesClusterFeaturesClientListByKubernetesClusterOptions) *runtime.Pager[KubernetesClusterFeaturesClientListByKubernetesClusterResponse]`
+- New function `*KubernetesClusterFeaturesClient.BeginUpdate(context.Context, string, string, string, KubernetesClusterFeaturePatchParameters, *KubernetesClusterFeaturesClientBeginUpdateOptions) (*runtime.Poller[KubernetesClusterFeaturesClientUpdateResponse], error)`
+- New function `NewRegistrationHubImagesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistrationHubImagesClient, error)`
+- New function `*RegistrationHubImagesClient.BeginCreateOrUpdate(context.Context, string, string, string, RegistrationHubImage, *RegistrationHubImagesClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistrationHubImagesClientCreateOrUpdateResponse], error)`
+- New function `*RegistrationHubImagesClient.BeginDelete(context.Context, string, string, string, *RegistrationHubImagesClientBeginDeleteOptions) (*runtime.Poller[RegistrationHubImagesClientDeleteResponse], error)`
+- New function `*RegistrationHubImagesClient.Get(context.Context, string, string, string, *RegistrationHubImagesClientGetOptions) (RegistrationHubImagesClientGetResponse, error)`
+- New function `*RegistrationHubImagesClient.NewListByRegistrationHubPager(string, string, *RegistrationHubImagesClientListByRegistrationHubOptions) *runtime.Pager[RegistrationHubImagesClientListByRegistrationHubResponse]`
+- New function `*RegistrationHubImagesClient.BeginUpdate(context.Context, string, string, string, RegistrationHubImagePatchParameters, *RegistrationHubImagesClientBeginUpdateOptions) (*runtime.Poller[RegistrationHubImagesClientUpdateResponse], error)`
+- New function `NewRegistrationHubMachinesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistrationHubMachinesClient, error)`
+- New function `*RegistrationHubMachinesClient.BeginCreateOrUpdate(context.Context, string, string, string, RegistrationHubMachine, *RegistrationHubMachinesClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistrationHubMachinesClientCreateOrUpdateResponse], error)`
+- New function `*RegistrationHubMachinesClient.BeginDecline(context.Context, string, string, string, *RegistrationHubMachinesClientBeginDeclineOptions) (*runtime.Poller[RegistrationHubMachinesClientDeclineResponse], error)`
+- New function `*RegistrationHubMachinesClient.BeginDelete(context.Context, string, string, string, *RegistrationHubMachinesClientBeginDeleteOptions) (*runtime.Poller[RegistrationHubMachinesClientDeleteResponse], error)`
+- New function `*RegistrationHubMachinesClient.Get(context.Context, string, string, string, *RegistrationHubMachinesClientGetOptions) (RegistrationHubMachinesClientGetResponse, error)`
+- New function `*RegistrationHubMachinesClient.NewListByRegistrationHubPager(string, string, *RegistrationHubMachinesClientListByRegistrationHubOptions) *runtime.Pager[RegistrationHubMachinesClientListByRegistrationHubResponse]`
+- New function `*RegistrationHubMachinesClient.BeginUpdate(context.Context, string, string, string, RegistrationHubMachinePatchParameters, *RegistrationHubMachinesClientBeginUpdateOptions) (*runtime.Poller[RegistrationHubMachinesClientUpdateResponse], error)`
+- New function `NewRegistrationHubsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistrationHubsClient, error)`
+- New function `*RegistrationHubsClient.BeginCreateOrUpdate(context.Context, string, string, RegistrationHub, *RegistrationHubsClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistrationHubsClientCreateOrUpdateResponse], error)`
+- New function `*RegistrationHubsClient.BeginDelete(context.Context, string, string, *RegistrationHubsClientBeginDeleteOptions) (*runtime.Poller[RegistrationHubsClientDeleteResponse], error)`
+- New function `*RegistrationHubsClient.Get(context.Context, string, string, *RegistrationHubsClientGetOptions) (RegistrationHubsClientGetResponse, error)`
+- New function `*RegistrationHubsClient.NewListByResourceGroupPager(string, *RegistrationHubsClientListByResourceGroupOptions) *runtime.Pager[RegistrationHubsClientListByResourceGroupResponse]`
+- New function `*RegistrationHubsClient.NewListBySubscriptionPager(*RegistrationHubsClientListBySubscriptionOptions) *runtime.Pager[RegistrationHubsClientListBySubscriptionResponse]`
+- New function `*RegistrationHubsClient.BeginUpdate(context.Context, string, string, RegistrationHubPatchParameters, *RegistrationHubsClientBeginUpdateOptions) (*runtime.Poller[RegistrationHubsClientUpdateResponse], error)`
+- New struct `AdministratorConfigurationPatch`
+- New struct `ClusterContinueUpdateVersionParameters`
+- New struct `ClusterScanRuntimeParameters`
+- New struct `ClusterSecretArchive`
+- New struct `ClusterUpdateStrategy`
+- New struct `CommandOutputSettings`
+- New struct `CredentialResult`
+- New struct `CredentialResults`
+- New struct `EdgeCluster`
+- New struct `EdgeClusterAvailableUpgradeRuntimeVersion`
+- New struct `EdgeClusterEntraConfiguration`
+- New struct `EdgeClusterList`
+- New struct `EdgeClusterMachineSKU`
+- New struct `EdgeClusterMachineSKUCPU`
+- New struct `EdgeClusterMachineSKUDevice`
+- New struct `EdgeClusterMachineSKUList`
+- New struct `EdgeClusterMachineSKUMemory`
+- New struct `EdgeClusterMachineSKUProperties`
+- New struct `EdgeClusterMachineSKUSystem`
+- New struct `EdgeClusterNode`
+- New struct `EdgeClusterNodeList`
+- New struct `EdgeClusterNodeMatchingIdentifier`
+- New struct `EdgeClusterNodeNetworkInterface`
+- New struct `EdgeClusterNodePatchParameters`
+- New struct `EdgeClusterNodePatchProperties`
+- New struct `EdgeClusterNodeProperties`
+- New struct `EdgeClusterPatchParameters`
+- New struct `EdgeClusterPatchProperties`
+- New struct `EdgeClusterProperties`
+- New struct `EdgeClusterPtpConfiguration`
+- New struct `EdgeClusterRuntimeVersion`
+- New struct `EdgeClusterRuntimeVersionList`
+- New struct `EdgeClusterRuntimeVersionProperties`
+- New struct `EdgeClusterSKU`
+- New struct `EdgeClusterSKUList`
+- New struct `EdgeClusterSKUProperties`
+- New struct `EdgeClusterStageRuntimeParameters`
+- New struct `HybridConnectionConfig`
+- New struct `IdentitySelector`
+- New struct `KubernetesClusterFeature`
+- New struct `KubernetesClusterFeatureList`
+- New struct `KubernetesClusterFeaturePatchParameters`
+- New struct `KubernetesClusterFeaturePatchProperties`
+- New struct `KubernetesClusterFeatureProperties`
+- New struct `L2ServiceLoadBalancerConfiguration`
+- New struct `ListUserCredentialParameters`
+- New struct `MachineSKUSupportRange`
+- New struct `ManagedServiceIdentity`
+- New struct `NodePoolAdministratorConfigurationPatch`
+- New struct `RegistrationHub`
+- New struct `RegistrationHubImage`
+- New struct `RegistrationHubImageList`
+- New struct `RegistrationHubImagePatchParameters`
+- New struct `RegistrationHubImagePatchProperties`
+- New struct `RegistrationHubImageProperties`
+- New struct `RegistrationHubList`
+- New struct `RegistrationHubMachine`
+- New struct `RegistrationHubMachineCPU`
+- New struct `RegistrationHubMachineConfiguration`
+- New struct `RegistrationHubMachineDevice`
+- New struct `RegistrationHubMachineList`
+- New struct `RegistrationHubMachineMemory`
+- New struct `RegistrationHubMachinePatchParameters`
+- New struct `RegistrationHubMachinePatchProperties`
+- New struct `RegistrationHubMachineProperties`
+- New struct `RegistrationHubMachineSystem`
+- New struct `RegistrationHubPatchParameters`
+- New struct `RegistrationHubPatchProperties`
+- New struct `RegistrationHubProperties`
+- New struct `RuntimeProtectionConfiguration`
+- New struct `RuntimeProtectionStatus`
+- New struct `SecretArchiveReference`
+- New struct `SecretRotationStatus`
+- New struct `StringKeyValuePair`
+- New struct `UsageDomain`
+- New struct `UserAssignedIdentity`
+- New struct `VersionRange`
+- New field `AdministratorConfiguration` in struct `AgentPoolPatchProperties`
+- New field `DrainTimeout`, `MaxUnavailable` in struct `AgentPoolUpgradeSettings`
+- New anonymous field `OperationStatusResult` in struct `AgentPoolsClientDeleteResponse`
+- New anonymous field `OperationStatusResult` in struct `BareMetalMachineKeySetsClientDeleteResponse`
+- New field `MachineClusterVersion`, `MachineRoles`, `RuntimeProtectionStatus`, `SecretRotationStatus` in struct `BareMetalMachineProperties`
+- New anonymous field `OperationStatusResult` in struct `BareMetalMachinesClientDeleteResponse`
+- New anonymous field `OperationStatusResult` in struct `BmcKeySetsClientDeleteResponse`
+- New anonymous field `OperationStatusResult` in struct `CloudServicesNetworksClientDeleteResponse`
+- New field `Identity` in struct `Cluster`
+- New field `Identity` in struct `ClusterManager`
+- New field `Identity` in struct `ClusterManagerPatchParameters`
+- New anonymous field `OperationStatusResult` in struct `ClusterManagersClientDeleteResponse`
+- New field `Identity` in struct `ClusterPatchParameters`
+- New field `CommandOutputSettings`, `RuntimeProtectionConfiguration`, `SecretArchive`, `UpdateStrategy` in struct `ClusterPatchProperties`
+- New field `CommandOutputSettings`, `RuntimeProtectionConfiguration`, `SecretArchive`, `UpdateStrategy` in struct `ClusterProperties`
+- New anonymous field `OperationStatusResult` in struct `ClustersClientDeleteResponse`
+- New anonymous field `OperationStatusResult` in struct `ConsolesClientDeleteResponse`
+- New field `AdministratorConfiguration` in struct `ControlPlaneNodePatchConfiguration`
+- New field `UserPrincipalName` in struct `KeySetUser`
+- New field `AdministratorConfiguration` in struct `KubernetesClusterPatchProperties`
+- New anonymous field `OperationStatusResult` in struct `KubernetesClustersClientDeleteResponse`
+- New anonymous field `OperationStatusResult` in struct `L2NetworksClientDeleteResponse`
+- New anonymous field `OperationStatusResult` in struct `L3NetworksClientDeleteResponse`
+- New anonymous field `OperationStatusResult` in struct `MetricsConfigurationsClientDeleteResponse`
+- New field `L2ServiceLoadBalancerConfiguration` in struct `NetworkConfiguration`
+- New anonymous field `OperationStatusResult` in struct `RacksClientDeleteResponse`
+- New field `Manufacturer`, `Model`, `SecretRotationStatus`, `Version` in struct `StorageApplianceProperties`
+- New anonymous field `OperationStatusResult` in struct `StorageAppliancesClientDeleteResponse`
+- New anonymous field `OperationStatusResult` in struct `TrunkedNetworksClientDeleteResponse`
+- New anonymous field `OperationStatusResult` in struct `VirtualMachinesClientDeleteResponse`
+- New anonymous field `OperationStatusResult` in struct `VolumesClientDeleteResponse`
+
+
 ## 1.1.0 (2023-11-24)
 ### Features Added
 
