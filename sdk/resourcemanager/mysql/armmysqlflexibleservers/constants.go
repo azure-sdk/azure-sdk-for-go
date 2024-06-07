@@ -10,7 +10,7 @@ package armmysqlflexibleservers
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mysql/armmysqlflexibleservers"
-	moduleVersion = "v2.0.0-beta.3"
+	moduleVersion = "v2.0.0-beta.4"
 )
 
 type AdministratorName string
@@ -584,5 +584,21 @@ func PossibleServerVersionValues() []ServerVersion {
 	return []ServerVersion{
 		ServerVersionEight021,
 		ServerVersionFive7,
+	}
+}
+
+// StorageRedundancyEnum - Enum to indicate whether storage sku value is 'ZoneRedundancy' or 'LocalRedundancy'
+type StorageRedundancyEnum string
+
+const (
+	StorageRedundancyEnumLocalRedundancy StorageRedundancyEnum = "LocalRedundancy"
+	StorageRedundancyEnumZoneRedundancy  StorageRedundancyEnum = "ZoneRedundancy"
+)
+
+// PossibleStorageRedundancyEnumValues returns the possible values for the StorageRedundancyEnum const type.
+func PossibleStorageRedundancyEnumValues() []StorageRedundancyEnum {
+	return []StorageRedundancyEnum{
+		StorageRedundancyEnumLocalRedundancy,
+		StorageRedundancyEnumZoneRedundancy,
 	}
 }
