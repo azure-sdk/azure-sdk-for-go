@@ -10,7 +10,7 @@ package armapimanagement
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/apimanagement/armapimanagement"
-	moduleVersion = "v2.1.0"
+	moduleVersion = "v3.0.0-beta.1"
 )
 
 // APIManagementSKUCapacityScaleType - The scale type applicable to the sku.
@@ -68,7 +68,9 @@ type APIType string
 
 const (
 	APITypeGraphql   APIType = "graphql"
+	APITypeGrpc      APIType = "grpc"
 	APITypeHTTP      APIType = "http"
+	APITypeOData     APIType = "odata"
 	APITypeSoap      APIType = "soap"
 	APITypeWebsocket APIType = "websocket"
 )
@@ -77,7 +79,9 @@ const (
 func PossibleAPITypeValues() []APIType {
 	return []APIType{
 		APITypeGraphql,
+		APITypeGrpc,
 		APITypeHTTP,
+		APITypeOData,
 		APITypeSoap,
 		APITypeWebsocket,
 	}
@@ -295,6 +299,24 @@ func PossibleBackendProtocolValues() []BackendProtocol {
 	}
 }
 
+// BackendType - Type of the backend. A backend can be either Single or Pool.
+type BackendType string
+
+const (
+	// BackendTypePool - supports pool backend
+	BackendTypePool BackendType = "Pool"
+	// BackendTypeSingle - supports single backend
+	BackendTypeSingle BackendType = "Single"
+)
+
+// PossibleBackendTypeValues returns the possible values for the BackendType const type.
+func PossibleBackendTypeValues() []BackendType {
+	return []BackendType{
+		BackendTypePool,
+		BackendTypeSingle,
+	}
+}
+
 type BearerTokenSendingMethod string
 
 const (
@@ -489,12 +511,20 @@ func PossibleConnectivityStatusTypeValues() []ConnectivityStatusType {
 	}
 }
 
-// ContentFormat - Format of the Content in which the API is getting imported.
+// ContentFormat - Format of the Content in which the API is getting imported. New formats can be added in the future
 type ContentFormat string
 
 const (
 	// ContentFormatGraphqlLink - The GraphQL API endpoint hosted on a publicly accessible internet address.
 	ContentFormatGraphqlLink ContentFormat = "graphql-link"
+	// ContentFormatGrpc - The contents are inline and Content Type is a gRPC protobuf file.
+	ContentFormatGrpc ContentFormat = "grpc"
+	// ContentFormatGrpcLink - The gRPC protobuf file is hosted on a publicly accessible internet address.
+	ContentFormatGrpcLink ContentFormat = "grpc-link"
+	// ContentFormatOData - The contents are inline and Content Type is a OData XML Document.
+	ContentFormatOData ContentFormat = "odata"
+	// ContentFormatODataLink - The OData metadata document hosted on a publicly accessible internet address.
+	ContentFormatODataLink ContentFormat = "odata-link"
 	// ContentFormatOpenapi - The contents are inline and Content Type is a OpenAPI 3.0 YAML Document.
 	ContentFormatOpenapi ContentFormat = "openapi"
 	// ContentFormatOpenapiJSON - The contents are inline and Content Type is a OpenAPI 3.0 JSON Document.
@@ -521,6 +551,10 @@ const (
 func PossibleContentFormatValues() []ContentFormat {
 	return []ContentFormat{
 		ContentFormatGraphqlLink,
+		ContentFormatGrpc,
+		ContentFormatGrpcLink,
+		ContentFormatOData,
+		ContentFormatODataLink,
 		ContentFormatOpenapi,
 		ContentFormatOpenapiJSON,
 		ContentFormatOpenapiJSONLink,
@@ -569,6 +603,24 @@ func PossibleDataMaskingModeValues() []DataMaskingMode {
 	return []DataMaskingMode{
 		DataMaskingModeHide,
 		DataMaskingModeMask,
+	}
+}
+
+// DeveloperPortalStatus - Status of developer portal in this API Management service.
+type DeveloperPortalStatus string
+
+const (
+	// DeveloperPortalStatusDisabled - Developer Portal is disabled for the service.
+	DeveloperPortalStatusDisabled DeveloperPortalStatus = "Disabled"
+	// DeveloperPortalStatusEnabled - Developer Portal is enabled for the service.
+	DeveloperPortalStatusEnabled DeveloperPortalStatus = "Enabled"
+)
+
+// PossibleDeveloperPortalStatusValues returns the possible values for the DeveloperPortalStatus const type.
+func PossibleDeveloperPortalStatusValues() []DeveloperPortalStatus {
+	return []DeveloperPortalStatus{
+		DeveloperPortalStatusDisabled,
+		DeveloperPortalStatusEnabled,
 	}
 }
 
@@ -633,6 +685,42 @@ func PossibleExportResultFormatValues() []ExportResultFormat {
 		ExportResultFormatSwagger,
 		ExportResultFormatWadl,
 		ExportResultFormatWsdl,
+	}
+}
+
+// GatewayListDebugCredentialsContractPurpose - Purpose of debug credential.
+type GatewayListDebugCredentialsContractPurpose string
+
+const (
+	// GatewayListDebugCredentialsContractPurposeTracing - The tracing purpose.
+	GatewayListDebugCredentialsContractPurposeTracing GatewayListDebugCredentialsContractPurpose = "tracing"
+)
+
+// PossibleGatewayListDebugCredentialsContractPurposeValues returns the possible values for the GatewayListDebugCredentialsContractPurpose const type.
+func PossibleGatewayListDebugCredentialsContractPurposeValues() []GatewayListDebugCredentialsContractPurpose {
+	return []GatewayListDebugCredentialsContractPurpose{
+		GatewayListDebugCredentialsContractPurposeTracing,
+	}
+}
+
+// GatewaySKUCapacityScaleType - The scale type applicable to the sku.
+type GatewaySKUCapacityScaleType string
+
+const (
+	// GatewaySKUCapacityScaleTypeAutomatic - Supported scale type automatic.
+	GatewaySKUCapacityScaleTypeAutomatic GatewaySKUCapacityScaleType = "Automatic"
+	// GatewaySKUCapacityScaleTypeManual - Supported scale type manual.
+	GatewaySKUCapacityScaleTypeManual GatewaySKUCapacityScaleType = "Manual"
+	// GatewaySKUCapacityScaleTypeNone - Scaling not supported.
+	GatewaySKUCapacityScaleTypeNone GatewaySKUCapacityScaleType = "None"
+)
+
+// PossibleGatewaySKUCapacityScaleTypeValues returns the possible values for the GatewaySKUCapacityScaleType const type.
+func PossibleGatewaySKUCapacityScaleTypeValues() []GatewaySKUCapacityScaleType {
+	return []GatewaySKUCapacityScaleType{
+		GatewaySKUCapacityScaleTypeAutomatic,
+		GatewaySKUCapacityScaleTypeManual,
+		GatewaySKUCapacityScaleTypeNone,
 	}
 }
 
@@ -702,16 +790,18 @@ func PossibleHTTPCorrelationProtocolValues() []HTTPCorrelationProtocol {
 type HostnameType string
 
 const (
-	HostnameTypeDeveloperPortal HostnameType = "DeveloperPortal"
-	HostnameTypeManagement      HostnameType = "Management"
-	HostnameTypePortal          HostnameType = "Portal"
-	HostnameTypeProxy           HostnameType = "Proxy"
-	HostnameTypeScm             HostnameType = "Scm"
+	HostnameTypeConfigurationAPI HostnameType = "ConfigurationApi"
+	HostnameTypeDeveloperPortal  HostnameType = "DeveloperPortal"
+	HostnameTypeManagement       HostnameType = "Management"
+	HostnameTypePortal           HostnameType = "Portal"
+	HostnameTypeProxy            HostnameType = "Proxy"
+	HostnameTypeScm              HostnameType = "Scm"
 )
 
 // PossibleHostnameTypeValues returns the possible values for the HostnameType const type.
 func PossibleHostnameTypeValues() []HostnameType {
 	return []HostnameType{
+		HostnameTypeConfigurationAPI,
 		HostnameTypeDeveloperPortal,
 		HostnameTypeManagement,
 		HostnameTypePortal,
@@ -795,6 +885,63 @@ func PossibleKeyTypeValues() []KeyType {
 	}
 }
 
+type KeyVaultRefreshState string
+
+const (
+	// KeyVaultRefreshStateFalse - Entities for which KeyVault refresh succeeded
+	KeyVaultRefreshStateFalse KeyVaultRefreshState = "false"
+	// KeyVaultRefreshStateTrue - Entities for which KeyVault refresh failed.
+	KeyVaultRefreshStateTrue KeyVaultRefreshState = "true"
+)
+
+// PossibleKeyVaultRefreshStateValues returns the possible values for the KeyVaultRefreshState const type.
+func PossibleKeyVaultRefreshStateValues() []KeyVaultRefreshState {
+	return []KeyVaultRefreshState{
+		KeyVaultRefreshStateFalse,
+		KeyVaultRefreshStateTrue,
+	}
+}
+
+// LegacyAPIState - Indication whether or not the legacy Configuration API (v1) should be exposed on the API Management service.
+// Value is optional but must be 'Enabled' or 'Disabled'. If 'Disabled', legacy Configuration
+// API (v1) will not be available for self-hosted gateways. Default value is 'Enabled'
+type LegacyAPIState string
+
+const (
+	// LegacyAPIStateDisabled - Legacy Configuration API (v1) is disabled for the service and self-hosted gateways can not connect
+	// to it.
+	LegacyAPIStateDisabled LegacyAPIState = "Disabled"
+	// LegacyAPIStateEnabled - Legacy Configuration API (v1) is enabled for the service and self-hosted gateways can connect to
+	// it.
+	LegacyAPIStateEnabled LegacyAPIState = "Enabled"
+)
+
+// PossibleLegacyAPIStateValues returns the possible values for the LegacyAPIState const type.
+func PossibleLegacyAPIStateValues() []LegacyAPIState {
+	return []LegacyAPIState{
+		LegacyAPIStateDisabled,
+		LegacyAPIStateEnabled,
+	}
+}
+
+// LegacyPortalStatus - Status of legacy portal in the API Management service.
+type LegacyPortalStatus string
+
+const (
+	// LegacyPortalStatusDisabled - Legacy Portal is disabled for the service.
+	LegacyPortalStatusDisabled LegacyPortalStatus = "Disabled"
+	// LegacyPortalStatusEnabled - Legacy Portal is enabled for the service.
+	LegacyPortalStatusEnabled LegacyPortalStatus = "Enabled"
+)
+
+// PossibleLegacyPortalStatusValues returns the possible values for the LegacyPortalStatus const type.
+func PossibleLegacyPortalStatusValues() []LegacyPortalStatus {
+	return []LegacyPortalStatus{
+		LegacyPortalStatusDisabled,
+		LegacyPortalStatusEnabled,
+	}
+}
+
 // LoggerType - Logger type.
 type LoggerType string
 
@@ -829,6 +976,26 @@ func PossibleMethodValues() []Method {
 	return []Method{
 		MethodGET,
 		MethodPOST,
+	}
+}
+
+// MigrateToStv2Mode - Mode of Migration to stv2. Default is PreserveIp.
+type MigrateToStv2Mode string
+
+const (
+	// MigrateToStv2ModeNewIP - Migrate API Management service to stv2 from stv1. This will have no downtime as the service configuration
+	// will be migrated to new infrastructure, but the IP address will changed.
+	MigrateToStv2ModeNewIP MigrateToStv2Mode = "NewIP"
+	// MigrateToStv2ModePreserveIP - Migrate API Management service to stv2 from stv1, by reserving the IP Address of the service.
+	// This will have a downtime of upto 15 minutes, while the IP address is getting migrate to new infrastructure.
+	MigrateToStv2ModePreserveIP MigrateToStv2Mode = "PreserveIp"
+)
+
+// PossibleMigrateToStv2ModeValues returns the possible values for the MigrateToStv2Mode const type.
+func PossibleMigrateToStv2ModeValues() []MigrateToStv2Mode {
+	return []MigrateToStv2Mode{
+		MigrateToStv2ModeNewIP,
+		MigrateToStv2ModePreserveIP,
 	}
 }
 
@@ -972,6 +1139,8 @@ const (
 	PlatformVersionStv1 PlatformVersion = "stv1"
 	// PlatformVersionStv2 - Platform running the service on Single Tenant V2 platform.
 	PlatformVersionStv2 PlatformVersion = "stv2"
+	// PlatformVersionStv21 - Platform running the service on Single Tenant V2 platform on newer Hardware.
+	PlatformVersionStv21 PlatformVersion = "stv2.1"
 	// PlatformVersionUndetermined - Platform version cannot be determined, as compute platform is not deployed.
 	PlatformVersionUndetermined PlatformVersion = "undetermined"
 )
@@ -982,7 +1151,29 @@ func PossiblePlatformVersionValues() []PlatformVersion {
 		PlatformVersionMtv1,
 		PlatformVersionStv1,
 		PlatformVersionStv2,
+		PlatformVersionStv21,
 		PlatformVersionUndetermined,
+	}
+}
+
+// PolicyComplianceState - Policy Restriction Compliance State
+type PolicyComplianceState string
+
+const (
+	// PolicyComplianceStateCompliant - The scope in restriction is in compliance.
+	PolicyComplianceStateCompliant PolicyComplianceState = "Compliant"
+	// PolicyComplianceStateNonCompliant - The scope in restriction is out of compliance.
+	PolicyComplianceStateNonCompliant PolicyComplianceState = "NonCompliant"
+	// PolicyComplianceStatePending - The policy restriction compliance state has not yet been determined.
+	PolicyComplianceStatePending PolicyComplianceState = "Pending"
+)
+
+// PossiblePolicyComplianceStateValues returns the possible values for the PolicyComplianceState const type.
+func PossiblePolicyComplianceStateValues() []PolicyComplianceState {
+	return []PolicyComplianceState{
+		PolicyComplianceStateCompliant,
+		PolicyComplianceStateNonCompliant,
+		PolicyComplianceStatePending,
 	}
 }
 
@@ -1055,6 +1246,24 @@ const (
 func PossiblePolicyIDNameValues() []PolicyIDName {
 	return []PolicyIDName{
 		PolicyIDNamePolicy,
+	}
+}
+
+// PolicyRestrictionRequireBase - Indicates if base policy should be enforced for the policy document.
+type PolicyRestrictionRequireBase string
+
+const (
+	// PolicyRestrictionRequireBaseFalse - The policy does not require to have base policy
+	PolicyRestrictionRequireBaseFalse PolicyRestrictionRequireBase = "false"
+	// PolicyRestrictionRequireBaseTrue - The policy is required to have base policy
+	PolicyRestrictionRequireBaseTrue PolicyRestrictionRequireBase = "true"
+)
+
+// PossiblePolicyRestrictionRequireBaseValues returns the possible values for the PolicyRestrictionRequireBase const type.
+func PossiblePolicyRestrictionRequireBaseValues() []PolicyRestrictionRequireBase {
+	return []PolicyRestrictionRequireBase{
+		PolicyRestrictionRequireBaseFalse,
+		PolicyRestrictionRequireBaseTrue,
 	}
 }
 
@@ -1213,6 +1422,34 @@ func PossibleProtocolValues() []Protocol {
 	}
 }
 
+// ProvisioningState - The current provisioning state of the API Management gateway config connection
+type ProvisioningState string
+
+const (
+	ProvisioningStateActivating  ProvisioningState = "Activating"
+	ProvisioningStateCanceled    ProvisioningState = "Canceled"
+	ProvisioningStateCreated     ProvisioningState = "created"
+	ProvisioningStateFailed      ProvisioningState = "Failed"
+	ProvisioningStateSucceeded   ProvisioningState = "Succeeded"
+	ProvisioningStateTerminating ProvisioningState = "Terminating"
+	ProvisioningStateUpdating    ProvisioningState = "Updating"
+	ProvisioningStateUpgrading   ProvisioningState = "Upgrading"
+)
+
+// PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
+func PossibleProvisioningStateValues() []ProvisioningState {
+	return []ProvisioningState{
+		ProvisioningStateActivating,
+		ProvisioningStateCanceled,
+		ProvisioningStateCreated,
+		ProvisioningStateFailed,
+		ProvisioningStateSucceeded,
+		ProvisioningStateTerminating,
+		ProvisioningStateUpdating,
+		ProvisioningStateUpgrading,
+	}
+}
+
 // PublicNetworkAccess - Whether or not public endpoint access is allowed for this API Management service. Value is optional
 // but if passed in, must be 'Enabled' or 'Disabled'. If 'Disabled', private endpoints are the
 // exclusive access method. Default value is 'Enabled'
@@ -1256,29 +1493,20 @@ func PossibleResourceSKUCapacityScaleTypeValues() []ResourceSKUCapacityScaleType
 type SKUType string
 
 const (
-	// SKUTypeBasic - Basic SKU of Api Management.
-	SKUTypeBasic SKUType = "Basic"
-	// SKUTypeConsumption - Consumption SKU of Api Management.
-	SKUTypeConsumption SKUType = "Consumption"
-	// SKUTypeDeveloper - Developer SKU of Api Management.
-	SKUTypeDeveloper SKUType = "Developer"
-	// SKUTypeIsolated - Isolated SKU of Api Management.
-	SKUTypeIsolated SKUType = "Isolated"
-	// SKUTypePremium - Premium SKU of Api Management.
-	SKUTypePremium SKUType = "Premium"
-	// SKUTypeStandard - Standard SKU of Api Management.
+	// SKUTypeStandard - Standard SKU of the API gateway.
 	SKUTypeStandard SKUType = "Standard"
+	// SKUTypeWorkspaceGatewayPremium - Premium SKU of the API gateway to be used in Workspaces.
+	SKUTypeWorkspaceGatewayPremium SKUType = "WorkspaceGatewayPremium"
+	// SKUTypeWorkspaceGatewayStandard - Standard SKU of the API gateway to be used in Workspaces.
+	SKUTypeWorkspaceGatewayStandard SKUType = "WorkspaceGatewayStandard"
 )
 
 // PossibleSKUTypeValues returns the possible values for the SKUType const type.
 func PossibleSKUTypeValues() []SKUType {
 	return []SKUType{
-		SKUTypeBasic,
-		SKUTypeConsumption,
-		SKUTypeDeveloper,
-		SKUTypeIsolated,
-		SKUTypePremium,
 		SKUTypeStandard,
+		SKUTypeWorkspaceGatewayPremium,
+		SKUTypeWorkspaceGatewayStandard,
 	}
 }
 
@@ -1348,12 +1576,16 @@ func PossibleSeverityValues() []Severity {
 // * http creates a REST API
 // * soap creates a SOAP pass-through API
 // * websocket creates websocket API
-// * graphql creates GraphQL API.
+// * graphql creates GraphQL API. New types can be added in the future.
 type SoapAPIType string
 
 const (
+	// SoapAPITypeGRPC - Imports the API having a gRPC front end.
+	SoapAPITypeGRPC SoapAPIType = "grpc"
 	// SoapAPITypeGraphQL - Imports the API having a GraphQL front end.
 	SoapAPITypeGraphQL SoapAPIType = "graphql"
+	// SoapAPITypeOData - Imports the API having a OData front end.
+	SoapAPITypeOData SoapAPIType = "odata"
 	// SoapAPITypeSoapPassThrough - Imports the SOAP API having a SOAP front end.
 	SoapAPITypeSoapPassThrough SoapAPIType = "soap"
 	// SoapAPITypeSoapToRest - Imports a SOAP API having a RESTful front end.
@@ -1365,7 +1597,9 @@ const (
 // PossibleSoapAPITypeValues returns the possible values for the SoapAPIType const type.
 func PossibleSoapAPITypeValues() []SoapAPIType {
 	return []SoapAPIType{
+		SoapAPITypeGRPC,
 		SoapAPITypeGraphQL,
+		SoapAPITypeOData,
 		SoapAPITypeSoapPassThrough,
 		SoapAPITypeSoapToRest,
 		SoapAPITypeWebSocket,
@@ -1554,19 +1788,16 @@ func PossibleVersioningSchemeValues() []VersioningScheme {
 	}
 }
 
-// VirtualNetworkType - The type of VPN in which API Management service needs to be configured in. None (Default Value) means
-// the API Management service is not part of any Virtual Network, External means the API Management
-// deployment is set up inside a Virtual Network having an Internet Facing Endpoint, and Internal means that API Management
-// deployment is setup inside a Virtual Network having an Intranet Facing Endpoint
-// only.
+// VirtualNetworkType - The type of VPN in which API Management gateway needs to be configured in.
 type VirtualNetworkType string
 
 const (
-	// VirtualNetworkTypeExternal - The service is part of Virtual Network and it is accessible from Internet.
+	// VirtualNetworkTypeExternal - The API Management gateway is part of Virtual Network and it is accessible from Internet.
 	VirtualNetworkTypeExternal VirtualNetworkType = "External"
-	// VirtualNetworkTypeInternal - The service is part of Virtual Network and it is only accessible from within the virtual network.
+	// VirtualNetworkTypeInternal - The API Management gateway is part of Virtual Network and it is only accessible from within
+	// the virtual network.
 	VirtualNetworkTypeInternal VirtualNetworkType = "Internal"
-	// VirtualNetworkTypeNone - The service is not part of any Virtual Network.
+	// VirtualNetworkTypeNone - The API Management gateway is not part of any Virtual Network.
 	VirtualNetworkTypeNone VirtualNetworkType = "None"
 )
 
