@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/apimanagement/armapimanagement/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/apimanagement/armapimanagement/v3"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -556,6 +556,10 @@ func (s *ServiceServerTransport) dispatchBeginMigrateToStv2(req *http.Request) (
 		if matches == nil || len(matches) < 3 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
+		body, err := server.UnmarshalRequestAsJSON[armapimanagement.MigrateToStv2Contract](req)
+		if err != nil {
+			return nil, err
+		}
 		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
@@ -564,7 +568,13 @@ func (s *ServiceServerTransport) dispatchBeginMigrateToStv2(req *http.Request) (
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := s.srv.BeginMigrateToStv2(req.Context(), resourceGroupNameParam, serviceNameParam, nil)
+		var options *armapimanagement.ServiceClientBeginMigrateToStv2Options
+		if !reflect.ValueOf(body).IsZero() {
+			options = &armapimanagement.ServiceClientBeginMigrateToStv2Options{
+				Parameters: &body,
+			}
+		}
+		respr, errRespr := s.srv.BeginMigrateToStv2(req.Context(), resourceGroupNameParam, serviceNameParam, options)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
