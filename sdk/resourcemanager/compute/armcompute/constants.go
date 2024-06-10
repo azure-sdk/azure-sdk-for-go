@@ -10,7 +10,7 @@ package armcompute
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute"
-	moduleVersion = "v5.7.0"
+	moduleVersion = "v5.8.0"
 )
 
 type AccessLevel string
@@ -2826,5 +2826,22 @@ func PossibleWindowsVMGuestPatchModeValues() []WindowsVMGuestPatchMode {
 		WindowsVMGuestPatchModeAutomaticByOS,
 		WindowsVMGuestPatchModeAutomaticByPlatform,
 		WindowsVMGuestPatchModeManual,
+	}
+}
+
+// ZonalPlatformFaultDomainAlignMode - Specifies the align mode between Virtual Machine Scale Set compute and storage Fault
+// Domain count.
+type ZonalPlatformFaultDomainAlignMode string
+
+const (
+	ZonalPlatformFaultDomainAlignModeAligned   ZonalPlatformFaultDomainAlignMode = "Aligned"
+	ZonalPlatformFaultDomainAlignModeUnaligned ZonalPlatformFaultDomainAlignMode = "Unaligned"
+)
+
+// PossibleZonalPlatformFaultDomainAlignModeValues returns the possible values for the ZonalPlatformFaultDomainAlignMode const type.
+func PossibleZonalPlatformFaultDomainAlignModeValues() []ZonalPlatformFaultDomainAlignMode {
+	return []ZonalPlatformFaultDomainAlignMode{
+		ZonalPlatformFaultDomainAlignModeAligned,
+		ZonalPlatformFaultDomainAlignModeUnaligned,
 	}
 }

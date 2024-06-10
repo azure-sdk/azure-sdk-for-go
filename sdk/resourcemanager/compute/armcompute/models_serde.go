@@ -17911,6 +17911,7 @@ func (v VirtualMachineScaleSetProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "uniqueId", v.UniqueID)
 	populate(objectMap, "upgradePolicy", v.UpgradePolicy)
 	populate(objectMap, "virtualMachineProfile", v.VirtualMachineProfile)
+	populate(objectMap, "zonalPlatformFaultDomainAlignMode", v.ZonalPlatformFaultDomainAlignMode)
 	populate(objectMap, "zoneBalance", v.ZoneBalance)
 	return json.Marshal(objectMap)
 }
@@ -17983,6 +17984,9 @@ func (v *VirtualMachineScaleSetProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "virtualMachineProfile":
 			err = unpopulate(val, "VirtualMachineProfile", &v.VirtualMachineProfile)
+			delete(rawMsg, key)
+		case "zonalPlatformFaultDomainAlignMode":
+			err = unpopulate(val, "ZonalPlatformFaultDomainAlignMode", &v.ZonalPlatformFaultDomainAlignMode)
 			delete(rawMsg, key)
 		case "zoneBalance":
 			err = unpopulate(val, "ZoneBalance", &v.ZoneBalance)

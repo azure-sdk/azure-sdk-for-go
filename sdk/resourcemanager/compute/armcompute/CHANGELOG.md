@@ -1,5 +1,12 @@
 # Release History
 
+## 5.8.0 (2024-06-10)
+### Features Added
+
+- New enum type `ZonalPlatformFaultDomainAlignMode` with values `ZonalPlatformFaultDomainAlignModeAligned`, `ZonalPlatformFaultDomainAlignModeUnaligned`
+- New field `ZonalPlatformFaultDomainAlignMode` in struct `VirtualMachineScaleSetProperties`
+
+
 ## 5.7.0 (2024-04-26)
 ### Features Added
 
