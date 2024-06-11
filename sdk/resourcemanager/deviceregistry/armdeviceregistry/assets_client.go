@@ -387,7 +387,7 @@ func (client *AssetsClient) listBySubscriptionHandleResponse(resp *http.Response
 //   - assetName - Asset name parameter.
 //   - properties - The resource properties to be updated.
 //   - options - AssetsClientBeginUpdateOptions contains the optional parameters for the AssetsClient.BeginUpdate method.
-func (client *AssetsClient) BeginUpdate(ctx context.Context, resourceGroupName string, assetName string, properties AssetUpdate, options *AssetsClientBeginUpdateOptions) (*runtime.Poller[AssetsClientUpdateResponse], error) {
+func (client *AssetsClient) BeginUpdate(ctx context.Context, resourceGroupName string, assetName string, properties Asset, options *AssetsClientBeginUpdateOptions) (*runtime.Poller[AssetsClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.update(ctx, resourceGroupName, assetName, properties, options)
 		if err != nil {
@@ -409,7 +409,7 @@ func (client *AssetsClient) BeginUpdate(ctx context.Context, resourceGroupName s
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-11-01-preview
-func (client *AssetsClient) update(ctx context.Context, resourceGroupName string, assetName string, properties AssetUpdate, options *AssetsClientBeginUpdateOptions) (*http.Response, error) {
+func (client *AssetsClient) update(ctx context.Context, resourceGroupName string, assetName string, properties Asset, options *AssetsClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "AssetsClient.BeginUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
@@ -431,7 +431,7 @@ func (client *AssetsClient) update(ctx context.Context, resourceGroupName string
 }
 
 // updateCreateRequest creates the Update request.
-func (client *AssetsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, assetName string, properties AssetUpdate, options *AssetsClientBeginUpdateOptions) (*policy.Request, error) {
+func (client *AssetsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, assetName string, properties Asset, options *AssetsClientBeginUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DeviceRegistry/assets/{assetName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
