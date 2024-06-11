@@ -16,246 +16,406 @@ import (
 // ClientFactory is a client factory used to create any client in this module.
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
-	subscriptionID string
-	internal       *arm.Client
+	resourceName                     string
+	subscriptionID                   string
+	fabricName                       string
+	protectionContainerName          string
+	replicationProtectionClusterName string
+	internal                         *arm.Client
 }
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
+//   - resourceName - The name of the recovery services vault.
 //   - subscriptionID - The subscription Id.
+//   - fabricName - Fabric name.
+//   - protectionContainerName - Protection container name.
+//   - replicationProtectionClusterName - Replication protection cluster name.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
+func NewClientFactory(resourceName string, subscriptionID string, fabricName string, protectionContainerName string, replicationProtectionClusterName string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
 	internal, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		subscriptionID: subscriptionID,
-		internal:       internal,
+		resourceName:                     resourceName,
+		subscriptionID:                   subscriptionID,
+		fabricName:                       fabricName,
+		protectionContainerName:          protectionContainerName,
+		replicationProtectionClusterName: replicationProtectionClusterName,
+		internal:                         internal,
 	}, nil
+}
+
+// NewClusterRecoveryPointClient creates a new instance of ClusterRecoveryPointClient.
+func (c *ClientFactory) NewClusterRecoveryPointClient() *ClusterRecoveryPointClient {
+	return &ClusterRecoveryPointClient{
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
+	}
+}
+
+// NewClusterRecoveryPointsClient creates a new instance of ClusterRecoveryPointsClient.
+func (c *ClientFactory) NewClusterRecoveryPointsClient() *ClusterRecoveryPointsClient {
+	return &ClusterRecoveryPointsClient{
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
+	}
 }
 
 // NewMigrationRecoveryPointsClient creates a new instance of MigrationRecoveryPointsClient.
 func (c *ClientFactory) NewMigrationRecoveryPointsClient() *MigrationRecoveryPointsClient {
 	return &MigrationRecoveryPointsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
 	}
 }
 
 // NewOperationsClient creates a new instance of OperationsClient.
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	return &OperationsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
 	}
 }
 
 // NewRecoveryPointsClient creates a new instance of RecoveryPointsClient.
 func (c *ClientFactory) NewRecoveryPointsClient() *RecoveryPointsClient {
 	return &RecoveryPointsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
 	}
 }
 
 // NewReplicationAlertSettingsClient creates a new instance of ReplicationAlertSettingsClient.
 func (c *ClientFactory) NewReplicationAlertSettingsClient() *ReplicationAlertSettingsClient {
 	return &ReplicationAlertSettingsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
 	}
 }
 
 // NewReplicationAppliancesClient creates a new instance of ReplicationAppliancesClient.
 func (c *ClientFactory) NewReplicationAppliancesClient() *ReplicationAppliancesClient {
 	return &ReplicationAppliancesClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
 	}
 }
 
 // NewReplicationEligibilityResultsClient creates a new instance of ReplicationEligibilityResultsClient.
 func (c *ClientFactory) NewReplicationEligibilityResultsClient() *ReplicationEligibilityResultsClient {
 	return &ReplicationEligibilityResultsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
 	}
 }
 
 // NewReplicationEventsClient creates a new instance of ReplicationEventsClient.
 func (c *ClientFactory) NewReplicationEventsClient() *ReplicationEventsClient {
 	return &ReplicationEventsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
 	}
 }
 
 // NewReplicationFabricsClient creates a new instance of ReplicationFabricsClient.
 func (c *ClientFactory) NewReplicationFabricsClient() *ReplicationFabricsClient {
 	return &ReplicationFabricsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
 	}
 }
 
 // NewReplicationJobsClient creates a new instance of ReplicationJobsClient.
 func (c *ClientFactory) NewReplicationJobsClient() *ReplicationJobsClient {
 	return &ReplicationJobsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
 	}
 }
 
 // NewReplicationLogicalNetworksClient creates a new instance of ReplicationLogicalNetworksClient.
 func (c *ClientFactory) NewReplicationLogicalNetworksClient() *ReplicationLogicalNetworksClient {
 	return &ReplicationLogicalNetworksClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
 	}
 }
 
 // NewReplicationMigrationItemsClient creates a new instance of ReplicationMigrationItemsClient.
 func (c *ClientFactory) NewReplicationMigrationItemsClient() *ReplicationMigrationItemsClient {
 	return &ReplicationMigrationItemsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
 	}
 }
 
 // NewReplicationNetworkMappingsClient creates a new instance of ReplicationNetworkMappingsClient.
 func (c *ClientFactory) NewReplicationNetworkMappingsClient() *ReplicationNetworkMappingsClient {
 	return &ReplicationNetworkMappingsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
 	}
 }
 
 // NewReplicationNetworksClient creates a new instance of ReplicationNetworksClient.
 func (c *ClientFactory) NewReplicationNetworksClient() *ReplicationNetworksClient {
 	return &ReplicationNetworksClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
 	}
 }
 
 // NewReplicationPoliciesClient creates a new instance of ReplicationPoliciesClient.
 func (c *ClientFactory) NewReplicationPoliciesClient() *ReplicationPoliciesClient {
 	return &ReplicationPoliciesClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
 	}
 }
 
 // NewReplicationProtectableItemsClient creates a new instance of ReplicationProtectableItemsClient.
 func (c *ClientFactory) NewReplicationProtectableItemsClient() *ReplicationProtectableItemsClient {
 	return &ReplicationProtectableItemsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
 	}
 }
 
 // NewReplicationProtectedItemsClient creates a new instance of ReplicationProtectedItemsClient.
 func (c *ClientFactory) NewReplicationProtectedItemsClient() *ReplicationProtectedItemsClient {
 	return &ReplicationProtectedItemsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
+	}
+}
+
+// NewReplicationProtectionClustersClient creates a new instance of ReplicationProtectionClustersClient.
+func (c *ClientFactory) NewReplicationProtectionClustersClient() *ReplicationProtectionClustersClient {
+	return &ReplicationProtectionClustersClient{
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
 	}
 }
 
 // NewReplicationProtectionContainerMappingsClient creates a new instance of ReplicationProtectionContainerMappingsClient.
 func (c *ClientFactory) NewReplicationProtectionContainerMappingsClient() *ReplicationProtectionContainerMappingsClient {
 	return &ReplicationProtectionContainerMappingsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
 	}
 }
 
 // NewReplicationProtectionContainersClient creates a new instance of ReplicationProtectionContainersClient.
 func (c *ClientFactory) NewReplicationProtectionContainersClient() *ReplicationProtectionContainersClient {
 	return &ReplicationProtectionContainersClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
 	}
 }
 
 // NewReplicationProtectionIntentsClient creates a new instance of ReplicationProtectionIntentsClient.
 func (c *ClientFactory) NewReplicationProtectionIntentsClient() *ReplicationProtectionIntentsClient {
 	return &ReplicationProtectionIntentsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
 	}
 }
 
 // NewReplicationRecoveryPlansClient creates a new instance of ReplicationRecoveryPlansClient.
 func (c *ClientFactory) NewReplicationRecoveryPlansClient() *ReplicationRecoveryPlansClient {
 	return &ReplicationRecoveryPlansClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
 	}
 }
 
 // NewReplicationRecoveryServicesProvidersClient creates a new instance of ReplicationRecoveryServicesProvidersClient.
 func (c *ClientFactory) NewReplicationRecoveryServicesProvidersClient() *ReplicationRecoveryServicesProvidersClient {
 	return &ReplicationRecoveryServicesProvidersClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
 	}
 }
 
 // NewReplicationStorageClassificationMappingsClient creates a new instance of ReplicationStorageClassificationMappingsClient.
 func (c *ClientFactory) NewReplicationStorageClassificationMappingsClient() *ReplicationStorageClassificationMappingsClient {
 	return &ReplicationStorageClassificationMappingsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
 	}
 }
 
 // NewReplicationStorageClassificationsClient creates a new instance of ReplicationStorageClassificationsClient.
 func (c *ClientFactory) NewReplicationStorageClassificationsClient() *ReplicationStorageClassificationsClient {
 	return &ReplicationStorageClassificationsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
 	}
 }
 
 // NewReplicationVaultHealthClient creates a new instance of ReplicationVaultHealthClient.
 func (c *ClientFactory) NewReplicationVaultHealthClient() *ReplicationVaultHealthClient {
 	return &ReplicationVaultHealthClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
 	}
 }
 
 // NewReplicationVaultSettingClient creates a new instance of ReplicationVaultSettingClient.
 func (c *ClientFactory) NewReplicationVaultSettingClient() *ReplicationVaultSettingClient {
 	return &ReplicationVaultSettingClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
 	}
 }
 
 // NewReplicationvCentersClient creates a new instance of ReplicationvCentersClient.
 func (c *ClientFactory) NewReplicationvCentersClient() *ReplicationvCentersClient {
 	return &ReplicationvCentersClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
 	}
 }
 
 // NewSupportedOperatingSystemsClient creates a new instance of SupportedOperatingSystemsClient.
 func (c *ClientFactory) NewSupportedOperatingSystemsClient() *SupportedOperatingSystemsClient {
 	return &SupportedOperatingSystemsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
 	}
 }
 
 // NewTargetComputeSizesClient creates a new instance of TargetComputeSizesClient.
 func (c *ClientFactory) NewTargetComputeSizesClient() *TargetComputeSizesClient {
 	return &TargetComputeSizesClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		resourceName:                     c.resourceName,
+		subscriptionID:                   c.subscriptionID,
+		fabricName:                       c.fabricName,
+		protectionContainerName:          c.protectionContainerName,
+		replicationProtectionClusterName: c.replicationProtectionClusterName,
+		internal:                         c.internal,
 	}
 }
