@@ -8,6 +8,11 @@
 
 package armnetapp
 
+// AccountsClientChangeKeyVaultResponse contains the response from method AccountsClient.BeginChangeKeyVault.
+type AccountsClientChangeKeyVaultResponse struct {
+	// placeholder for future response values
+}
+
 // AccountsClientCreateOrUpdateResponse contains the response from method AccountsClient.BeginCreateOrUpdate.
 type AccountsClientCreateOrUpdateResponse struct {
 	// NetApp account resource
@@ -16,6 +21,11 @@ type AccountsClientCreateOrUpdateResponse struct {
 
 // AccountsClientDeleteResponse contains the response from method AccountsClient.BeginDelete.
 type AccountsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// AccountsClientGetChangeKeyVaultInformationResponse contains the response from method AccountsClient.BeginGetChangeKeyVaultInformation.
+type AccountsClientGetChangeKeyVaultInformationResponse struct {
 	// placeholder for future response values
 }
 
@@ -35,6 +45,11 @@ type AccountsClientListBySubscriptionResponse struct {
 type AccountsClientListResponse struct {
 	// List of NetApp account resources
 	AccountList
+}
+
+// AccountsClientMigrateEncryptionKeyResponse contains the response from method AccountsClient.BeginMigrateEncryptionKey.
+type AccountsClientMigrateEncryptionKeyResponse struct {
+	// placeholder for future response values
 }
 
 // AccountsClientRenewCredentialsResponse contains the response from method AccountsClient.BeginRenewCredentials.
@@ -429,6 +444,12 @@ type VolumesClientBreakReplicationResponse struct {
 	// placeholder for future response values
 }
 
+// VolumesClientCreateOnPremMigrationReplicationResponse contains the response from method VolumesClient.BeginCreateOnPremMigrationReplication.
+type VolumesClientCreateOnPremMigrationReplicationResponse struct {
+	// Information about SVM peering process
+	SvmPeerCommandResponse
+}
+
 // VolumesClientCreateOrUpdateResponse contains the response from method VolumesClient.BeginCreateOrUpdate.
 type VolumesClientCreateOrUpdateResponse struct {
 	// Volume resource
@@ -442,6 +463,11 @@ type VolumesClientDeleteReplicationResponse struct {
 
 // VolumesClientDeleteResponse contains the response from method VolumesClient.BeginDelete.
 type VolumesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// VolumesClientFinalizeOnPremMigrationResponse contains the response from method VolumesClient.BeginFinalizeOnPremMigration.
+type VolumesClientFinalizeOnPremMigrationResponse struct {
 	// placeholder for future response values
 }
 
@@ -472,6 +498,17 @@ type VolumesClientListReplicationsResponse struct {
 type VolumesClientListResponse struct {
 	// List of volume resources
 	VolumeList
+}
+
+// VolumesClientPeerClusterForOnPremMigrationResponse contains the response from method VolumesClient.BeginPeerClusterForOnPremMigration.
+type VolumesClientPeerClusterForOnPremMigrationResponse struct {
+	// Information about cluster peering process
+	ClusterPeerCommandResponse
+}
+
+// VolumesClientPerformReplicationTransferResponse contains the response from method VolumesClient.BeginPerformReplicationTransfer.
+type VolumesClientPerformReplicationTransferResponse struct {
+	// placeholder for future response values
 }
 
 // VolumesClientPoolChangeResponse contains the response from method VolumesClient.BeginPoolChange.
@@ -523,6 +560,11 @@ type VolumesClientRevertRelocationResponse struct {
 
 // VolumesClientRevertResponse contains the response from method VolumesClient.BeginRevert.
 type VolumesClientRevertResponse struct {
+	// placeholder for future response values
+}
+
+// VolumesClientSplitCloneFromParentResponse contains the response from method VolumesClient.BeginSplitCloneFromParent.
+type VolumesClientSplitCloneFromParentResponse struct {
 	// placeholder for future response values
 }
 

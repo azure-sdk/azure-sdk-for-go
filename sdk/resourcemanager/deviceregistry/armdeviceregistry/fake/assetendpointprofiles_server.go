@@ -46,7 +46,7 @@ type AssetEndpointProfilesServer struct {
 
 	// BeginUpdate is the fake for method AssetEndpointProfilesClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginUpdate func(ctx context.Context, resourceGroupName string, assetEndpointProfileName string, properties armdeviceregistry.AssetEndpointProfileUpdate, options *armdeviceregistry.AssetEndpointProfilesClientBeginUpdateOptions) (resp azfake.PollerResponder[armdeviceregistry.AssetEndpointProfilesClientUpdateResponse], errResp azfake.ErrorResponder)
+	BeginUpdate func(ctx context.Context, resourceGroupName string, assetEndpointProfileName string, properties armdeviceregistry.AssetEndpointProfile, options *armdeviceregistry.AssetEndpointProfilesClientBeginUpdateOptions) (resp azfake.PollerResponder[armdeviceregistry.AssetEndpointProfilesClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewAssetEndpointProfilesServerTransport creates a new instance of AssetEndpointProfilesServerTransport with the provided implementation.
@@ -316,7 +316,7 @@ func (a *AssetEndpointProfilesServerTransport) dispatchBeginUpdate(req *http.Req
 		if matches == nil || len(matches) < 3 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		body, err := server.UnmarshalRequestAsJSON[armdeviceregistry.AssetEndpointProfileUpdate](req)
+		body, err := server.UnmarshalRequestAsJSON[armdeviceregistry.AssetEndpointProfile](req)
 		if err != nil {
 			return nil, err
 		}
