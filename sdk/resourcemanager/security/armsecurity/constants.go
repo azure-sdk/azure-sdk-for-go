@@ -10,7 +10,7 @@ package armsecurity
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/security/armsecurity"
-	moduleVersion = "v0.14.0"
+	moduleVersion = "v0.15.0"
 )
 
 // AADConnectivityState - The connectivity state of the external AAD solution
@@ -558,6 +558,24 @@ func PossibleDataSourceValues() []DataSource {
 	}
 }
 
+// DescendantBehavior - The behavior of a policy on descendant resources.
+type DescendantBehavior string
+
+const (
+	DescendantBehaviorFallBack DescendantBehavior = "FallBack"
+	DescendantBehaviorOverride DescendantBehavior = "Override"
+	DescendantBehaviorUnknown  DescendantBehavior = "Unknown"
+)
+
+// PossibleDescendantBehaviorValues returns the possible values for the DescendantBehavior const type.
+func PossibleDescendantBehaviorValues() []DescendantBehavior {
+	return []DescendantBehavior{
+		DescendantBehaviorFallBack,
+		DescendantBehaviorOverride,
+		DescendantBehaviorUnknown,
+	}
+}
+
 // DesiredOnboardingState - Onboarding states.
 type DesiredOnboardingState string
 
@@ -571,6 +589,40 @@ func PossibleDesiredOnboardingStateValues() []DesiredOnboardingState {
 	return []DesiredOnboardingState{
 		DesiredOnboardingStateDisabled,
 		DesiredOnboardingStateEnabled,
+	}
+}
+
+// DevOpsPolicySource - DevOps Policy creation sources.
+type DevOpsPolicySource string
+
+const (
+	DevOpsPolicySourceBuiltIn     DevOpsPolicySource = "BuiltIn"
+	DevOpsPolicySourceUnknown     DevOpsPolicySource = "Unknown"
+	DevOpsPolicySourceUserDefined DevOpsPolicySource = "UserDefined"
+)
+
+// PossibleDevOpsPolicySourceValues returns the possible values for the DevOpsPolicySource const type.
+func PossibleDevOpsPolicySourceValues() []DevOpsPolicySource {
+	return []DevOpsPolicySource{
+		DevOpsPolicySourceBuiltIn,
+		DevOpsPolicySourceUnknown,
+		DevOpsPolicySourceUserDefined,
+	}
+}
+
+// DevOpsPolicyType - DevOps Policy resource types.
+type DevOpsPolicyType string
+
+const (
+	DevOpsPolicyTypePipeline DevOpsPolicyType = "Pipeline"
+	DevOpsPolicyTypeUnknown  DevOpsPolicyType = "Unknown"
+)
+
+// PossibleDevOpsPolicyTypeValues returns the possible values for the DevOpsPolicyType const type.
+func PossibleDevOpsPolicyTypeValues() []DevOpsPolicyType {
+	return []DevOpsPolicyType{
+		DevOpsPolicyTypePipeline,
+		DevOpsPolicyTypeUnknown,
 	}
 }
 

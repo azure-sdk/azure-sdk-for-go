@@ -666,6 +666,47 @@ type DevOpsOperationResultsClientGetResponse struct {
 	OperationStatusResult
 }
 
+// DevOpsPoliciesClientGetResponse contains the response from method DevOpsPoliciesClient.Get.
+type DevOpsPoliciesClientGetResponse struct {
+	// DevOps Policy Resource.
+	DevOpsPolicy
+}
+
+// DevOpsPoliciesClientListResponse contains the response from method DevOpsPoliciesClient.NewListPager.
+type DevOpsPoliciesClientListResponse struct {
+	// List of RP resources which supports pagination.
+	DevOpsPolicyListResponse
+}
+
+// DevOpsPolicyAssignmentsClientCreateOrUpdateResponse contains the response from method DevOpsPolicyAssignmentsClient.BeginCreateOrUpdate.
+type DevOpsPolicyAssignmentsClientCreateOrUpdateResponse struct {
+	// DevOps Policy assignment resource.
+	DevOpsPolicyAssignment
+}
+
+// DevOpsPolicyAssignmentsClientDeleteResponse contains the response from method DevOpsPolicyAssignmentsClient.BeginDelete.
+type DevOpsPolicyAssignmentsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// DevOpsPolicyAssignmentsClientGetResponse contains the response from method DevOpsPolicyAssignmentsClient.Get.
+type DevOpsPolicyAssignmentsClientGetResponse struct {
+	// DevOps Policy assignment resource.
+	DevOpsPolicyAssignment
+}
+
+// DevOpsPolicyAssignmentsClientListResponse contains the response from method DevOpsPolicyAssignmentsClient.NewListPager.
+type DevOpsPolicyAssignmentsClientListResponse struct {
+	// List of RP resources which supports pagination.
+	DevOpsPolicyAssignmentListResponse
+}
+
+// DevOpsPolicyAssignmentsClientUpdateResponse contains the response from method DevOpsPolicyAssignmentsClient.BeginUpdate.
+type DevOpsPolicyAssignmentsClientUpdateResponse struct {
+	// DevOps Policy assignment resource.
+	DevOpsPolicyAssignment
+}
+
 // DeviceSecurityGroupsClientCreateOrUpdateResponse contains the response from method DeviceSecurityGroupsClient.CreateOrUpdate.
 type DeviceSecurityGroupsClientCreateOrUpdateResponse struct {
 	// The device security group resource
