@@ -20,63 +20,62 @@ import (
 	"strings"
 )
 
-// GitLabProjectsClient contains the methods for the GitLabProjects group.
-// Don't use this type directly, use NewGitLabProjectsClient() instead.
-type GitLabProjectsClient struct {
+// DevOpsPoliciesClient contains the methods for the DevOpsPolicies group.
+// Don't use this type directly, use NewDevOpsPoliciesClient() instead.
+type DevOpsPoliciesClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewGitLabProjectsClient creates a new instance of GitLabProjectsClient with the specified values.
+// NewDevOpsPoliciesClient creates a new instance of DevOpsPoliciesClient with the specified values.
 //   - subscriptionID - Azure subscription ID
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewGitLabProjectsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*GitLabProjectsClient, error) {
+func NewDevOpsPoliciesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DevOpsPoliciesClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &GitLabProjectsClient{
+	client := &DevOpsPoliciesClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// Get - Returns a monitored GitLab Project resource for a given fully-qualified group name and project name.
+// Get - Returns a DevOps Policy.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-05-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - securityConnectorName - The security connector name.
-//   - groupFQName - The GitLab group fully-qualified name.
-//   - projectName - The project name.
-//   - options - GitLabProjectsClientGetOptions contains the optional parameters for the GitLabProjectsClient.Get method.
-func (client *GitLabProjectsClient) Get(ctx context.Context, resourceGroupName string, securityConnectorName string, groupFQName string, projectName string, options *GitLabProjectsClientGetOptions) (GitLabProjectsClientGetResponse, error) {
+//   - policyName - The policy name.
+//   - options - DevOpsPoliciesClientGetOptions contains the optional parameters for the DevOpsPoliciesClient.Get method.
+func (client *DevOpsPoliciesClient) Get(ctx context.Context, resourceGroupName string, securityConnectorName string, policyName string, options *DevOpsPoliciesClientGetOptions) (DevOpsPoliciesClientGetResponse, error) {
 	var err error
-	const operationName = "GitLabProjectsClient.Get"
+	const operationName = "DevOpsPoliciesClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, resourceGroupName, securityConnectorName, groupFQName, projectName, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, securityConnectorName, policyName, options)
 	if err != nil {
-		return GitLabProjectsClientGetResponse{}, err
+		return DevOpsPoliciesClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return GitLabProjectsClientGetResponse{}, err
+		return DevOpsPoliciesClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return GitLabProjectsClientGetResponse{}, err
+		return DevOpsPoliciesClientGetResponse{}, err
 	}
 	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
 // getCreateRequest creates the Get request.
-func (client *GitLabProjectsClient) getCreateRequest(ctx context.Context, resourceGroupName string, securityConnectorName string, groupFQName string, projectName string, options *GitLabProjectsClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Security/securityConnectors/{securityConnectorName}/devops/default/gitLabGroups/{groupFQName}/projects/{projectName}"
+func (client *DevOpsPoliciesClient) getCreateRequest(ctx context.Context, resourceGroupName string, securityConnectorName string, policyName string, options *DevOpsPoliciesClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Security/securityConnectors/{securityConnectorName}/devops/default/policies/{policyName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -89,14 +88,10 @@ func (client *GitLabProjectsClient) getCreateRequest(ctx context.Context, resour
 		return nil, errors.New("parameter securityConnectorName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{securityConnectorName}", url.PathEscape(securityConnectorName))
-	if groupFQName == "" {
-		return nil, errors.New("parameter groupFQName cannot be empty")
+	if policyName == "" {
+		return nil, errors.New("parameter policyName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{groupFQName}", url.PathEscape(groupFQName))
-	if projectName == "" {
-		return nil, errors.New("parameter projectName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{projectName}", url.PathEscape(projectName))
+	urlPath = strings.ReplaceAll(urlPath, "{policyName}", url.PathEscape(policyName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -109,37 +104,36 @@ func (client *GitLabProjectsClient) getCreateRequest(ctx context.Context, resour
 }
 
 // getHandleResponse handles the Get response.
-func (client *GitLabProjectsClient) getHandleResponse(resp *http.Response) (GitLabProjectsClientGetResponse, error) {
-	result := GitLabProjectsClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.GitLabProject); err != nil {
-		return GitLabProjectsClientGetResponse{}, err
+func (client *DevOpsPoliciesClient) getHandleResponse(resp *http.Response) (DevOpsPoliciesClientGetResponse, error) {
+	result := DevOpsPoliciesClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.DevOpsPolicy); err != nil {
+		return DevOpsPoliciesClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListPager - Gets a list of GitLab projects that are directly owned by given group and onboarded to the connector.
+// NewListPager - Returns a list of DevOps Policies.
 //
 // Generated from API version 2024-05-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - securityConnectorName - The security connector name.
-//   - groupFQName - The GitLab group fully-qualified name.
-//   - options - GitLabProjectsClientListOptions contains the optional parameters for the GitLabProjectsClient.NewListPager method.
-func (client *GitLabProjectsClient) NewListPager(resourceGroupName string, securityConnectorName string, groupFQName string, options *GitLabProjectsClientListOptions) *runtime.Pager[GitLabProjectsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[GitLabProjectsClientListResponse]{
-		More: func(page GitLabProjectsClientListResponse) bool {
+//   - options - DevOpsPoliciesClientListOptions contains the optional parameters for the DevOpsPoliciesClient.NewListPager method.
+func (client *DevOpsPoliciesClient) NewListPager(resourceGroupName string, securityConnectorName string, options *DevOpsPoliciesClientListOptions) *runtime.Pager[DevOpsPoliciesClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[DevOpsPoliciesClientListResponse]{
+		More: func(page DevOpsPoliciesClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *GitLabProjectsClientListResponse) (GitLabProjectsClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "GitLabProjectsClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *DevOpsPoliciesClientListResponse) (DevOpsPoliciesClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "DevOpsPoliciesClient.NewListPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, resourceGroupName, securityConnectorName, groupFQName, options)
+				return client.listCreateRequest(ctx, resourceGroupName, securityConnectorName, options)
 			}, nil)
 			if err != nil {
-				return GitLabProjectsClientListResponse{}, err
+				return DevOpsPoliciesClientListResponse{}, err
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -148,8 +142,8 @@ func (client *GitLabProjectsClient) NewListPager(resourceGroupName string, secur
 }
 
 // listCreateRequest creates the List request.
-func (client *GitLabProjectsClient) listCreateRequest(ctx context.Context, resourceGroupName string, securityConnectorName string, groupFQName string, options *GitLabProjectsClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Security/securityConnectors/{securityConnectorName}/devops/default/gitLabGroups/{groupFQName}/projects"
+func (client *DevOpsPoliciesClient) listCreateRequest(ctx context.Context, resourceGroupName string, securityConnectorName string, options *DevOpsPoliciesClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Security/securityConnectors/{securityConnectorName}/devops/default/policies"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -162,26 +156,25 @@ func (client *GitLabProjectsClient) listCreateRequest(ctx context.Context, resou
 		return nil, errors.New("parameter securityConnectorName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{securityConnectorName}", url.PathEscape(securityConnectorName))
-	if groupFQName == "" {
-		return nil, errors.New("parameter groupFQName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{groupFQName}", url.PathEscape(groupFQName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2024-05-15-preview")
+	if options != nil && options.DevOpsPolicyType != nil {
+		reqQP.Set("devOpsPolicyType", *options.DevOpsPolicyType)
+	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
 // listHandleResponse handles the List response.
-func (client *GitLabProjectsClient) listHandleResponse(resp *http.Response) (GitLabProjectsClientListResponse, error) {
-	result := GitLabProjectsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.GitLabProjectListResponse); err != nil {
-		return GitLabProjectsClientListResponse{}, err
+func (client *DevOpsPoliciesClient) listHandleResponse(resp *http.Response) (DevOpsPoliciesClientListResponse, error) {
+	result := DevOpsPoliciesClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.DevOpsPolicyListResponse); err != nil {
+		return DevOpsPoliciesClientListResponse{}, err
 	}
 	return result, nil
 }
