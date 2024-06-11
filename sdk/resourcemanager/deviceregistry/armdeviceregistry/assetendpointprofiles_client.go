@@ -390,7 +390,7 @@ func (client *AssetEndpointProfilesClient) listBySubscriptionHandleResponse(resp
 //   - properties - The resource properties to be updated.
 //   - options - AssetEndpointProfilesClientBeginUpdateOptions contains the optional parameters for the AssetEndpointProfilesClient.BeginUpdate
 //     method.
-func (client *AssetEndpointProfilesClient) BeginUpdate(ctx context.Context, resourceGroupName string, assetEndpointProfileName string, properties AssetEndpointProfileUpdate, options *AssetEndpointProfilesClientBeginUpdateOptions) (*runtime.Poller[AssetEndpointProfilesClientUpdateResponse], error) {
+func (client *AssetEndpointProfilesClient) BeginUpdate(ctx context.Context, resourceGroupName string, assetEndpointProfileName string, properties AssetEndpointProfile, options *AssetEndpointProfilesClientBeginUpdateOptions) (*runtime.Poller[AssetEndpointProfilesClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.update(ctx, resourceGroupName, assetEndpointProfileName, properties, options)
 		if err != nil {
@@ -412,7 +412,7 @@ func (client *AssetEndpointProfilesClient) BeginUpdate(ctx context.Context, reso
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-11-01-preview
-func (client *AssetEndpointProfilesClient) update(ctx context.Context, resourceGroupName string, assetEndpointProfileName string, properties AssetEndpointProfileUpdate, options *AssetEndpointProfilesClientBeginUpdateOptions) (*http.Response, error) {
+func (client *AssetEndpointProfilesClient) update(ctx context.Context, resourceGroupName string, assetEndpointProfileName string, properties AssetEndpointProfile, options *AssetEndpointProfilesClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "AssetEndpointProfilesClient.BeginUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
@@ -434,7 +434,7 @@ func (client *AssetEndpointProfilesClient) update(ctx context.Context, resourceG
 }
 
 // updateCreateRequest creates the Update request.
-func (client *AssetEndpointProfilesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, assetEndpointProfileName string, properties AssetEndpointProfileUpdate, options *AssetEndpointProfilesClientBeginUpdateOptions) (*policy.Request, error) {
+func (client *AssetEndpointProfilesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, assetEndpointProfileName string, properties AssetEndpointProfile, options *AssetEndpointProfilesClientBeginUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DeviceRegistry/assetEndpointProfiles/{assetEndpointProfileName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
