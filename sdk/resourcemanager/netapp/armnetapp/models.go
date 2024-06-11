@@ -93,8 +93,15 @@ type AccountProperties struct {
 	// Encryption settings
 	Encryption *AccountEncryption
 
+	// Domain for NFSv4 user ID mapping. This property will be set for all NetApp accounts in the subscription and region and
+	// only affect non ldap NFSv4 volumes.
+	NfsV4IDDomain *string
+
 	// READ-ONLY; Shows the status of disableShowmount for all volumes under the subscription, null equals false
 	DisableShowmount *bool
+
+	// READ-ONLY; This will have true value only if account is Multiple AD enabled.
+	IsMultiAdEnabled *bool
 
 	// READ-ONLY; Azure lifecycle management
 	ProvisioningState *string
@@ -507,6 +514,22 @@ type CapacityPoolPatch struct {
 	Type *string
 }
 
+// ChangeKeyVault - Change key vault request
+type ChangeKeyVault struct {
+	// REQUIRED; The name of the key that should be used for encryption.
+	KeyName *string
+
+	// REQUIRED; Pairs of virtual network ID and private endpoint ID. Every virtual network that has volumes encrypted with customer-managed
+	// keys needs its own key vault private endpoint.
+	KeyVaultPrivateEndpoints []*KeyVaultPrivateEndpoint
+
+	// REQUIRED; Azure resource ID of the key vault/managed HSM that should be used for encryption.
+	KeyVaultResourceID *string
+
+	// REQUIRED; The URI of the key vault/managed HSM that should be used for encryption.
+	KeyVaultURI *string
+}
+
 // CheckAvailabilityResponse - Information regarding availability of a resource.
 type CheckAvailabilityResponse struct {
 	// true indicates name is valid and available. false indicates the name is invalid, unavailable, or both.
@@ -520,6 +543,13 @@ type CheckAvailabilityResponse struct {
 	// Invalid indicates the name provided does not match Azure App Service naming requirements. AlreadyExists indicates that
 	// the name is already in use and is therefore unavailable.
 	Reason *InAvailabilityReasonType
+}
+
+// ClusterPeerCommandResponse - Information about cluster peering process
+type ClusterPeerCommandResponse struct {
+	// A command that needs to be run on the external ONTAP to accept cluster peering. Will only be present if clusterPeeringStatus
+	// is pending
+	PeerAcceptCommand *string
 }
 
 // DailySchedule - Daily Schedule properties
@@ -554,6 +584,15 @@ type EncryptionIdentity struct {
 
 	// READ-ONLY; The principal ID (object ID) of the identity used to authenticate with key vault. Read-only.
 	PrincipalID *string
+}
+
+// EncryptionMigrationRequest - Encryption migration request
+type EncryptionMigrationRequest struct {
+	// REQUIRED; Identifier of the private endpoint to reach the Azure Key Vault
+	PrivateEndpointID *string
+
+	// REQUIRED; Identifier for the virtual network
+	VirtualNetworkID *string
 }
 
 // ExportPolicyRule - Volume Export Policy Rule
@@ -613,6 +652,10 @@ type FilePathAvailabilityRequest struct {
 
 	// REQUIRED; The Azure Resource URI for a delegated subnet. Must have the delegation Microsoft.NetApp/volumes
 	SubnetID *string
+
+	// The Azure Resource logical availability zone which is used within zone mapping lookup for the subscription and region.
+	// The lookup will retrieve the physical zone where volume is placed.
+	AvailabilityZone *string
 }
 
 // GetGroupIDListForLDAPUserRequest - Get group Id list for LDAP User request
@@ -637,6 +680,16 @@ type HourlySchedule struct {
 
 	// Resource size in bytes, current storage usage for the volume in bytes
 	UsedBytes *int64
+}
+
+// KeyVaultPrivateEndpoint - Pairs of virtual network ID and private endpoint ID. Every virtual network that has volumes encrypted
+// with customer-managed keys needs its own key vault private endpoint.
+type KeyVaultPrivateEndpoint struct {
+	// Identifier of the private endpoint to reach the Azure Key Vault
+	PrivateEndpointID *string
+
+	// Identifier for the virtual network id
+	VirtualNetworkID *string
 }
 
 // KeyVaultProperties - Properties of key vault.
@@ -862,6 +915,15 @@ type OperationProperties struct {
 	ServiceSpecification *ServiceSpecification
 }
 
+// PeerClusterForVolumeMigrationRequest - Source cluster properties for a cluster peer request
+type PeerClusterForVolumeMigrationRequest struct {
+	// REQUIRED; A list of IC-LIF IPs that can be used to connect to the on-prem cluster
+	PeerAddresses []*string
+
+	// The full path to a volume that is to be migrated into ANF. Required for Migration volumes
+	RemotePath *RemotePath
+}
+
 // PlacementKeyValuePairs - Application specific parameters for the placement of volumes in the volume group
 type PlacementKeyValuePairs struct {
 	// REQUIRED; Key for an application specific parameter for the placement of volumes in the volume group
@@ -885,7 +947,7 @@ type PoolPatchProperties struct {
 	// The qos type of the pool
 	QosType *QosType
 
-	// Provisioned size of the pool (in bytes). Allowed values are in 1TiB chunks (value must be multiply of 1099511627776).
+	// Provisioned size of the pool (in bytes). Allowed values are in 1TiB chunks (value must be multiply of 4398046511104).
 	Size *int64
 }
 
@@ -998,6 +1060,18 @@ type RelocateVolumeRequest struct {
 	CreationToken *string
 }
 
+// RemotePath - The full path to a volume that is to be migrated into ANF. Required for Migration volumes
+type RemotePath struct {
+	// REQUIRED; The Path to a ONTAP Host
+	ExternalHostName *string
+
+	// REQUIRED; The name of a server on the ONTAP Host
+	ServerName *string
+
+	// REQUIRED; The name of a volume on the server
+	VolumeName *string
+}
+
 // Replication properties
 type Replication struct {
 	// REQUIRED; The resource ID of the remote volume.
@@ -1011,15 +1085,21 @@ type Replication struct {
 
 	// Schedule
 	ReplicationSchedule *ReplicationSchedule
+
+	// READ-ONLY; UUID v4 used to identify the replication.
+	ReplicationID *string
 }
 
 // ReplicationObject - Replication properties
 type ReplicationObject struct {
-	// REQUIRED; The resource ID of the remote volume.
+	// REQUIRED; The resource ID of the remote volume. Required for cross region and cross zone replication
 	RemoteVolumeResourceID *string
 
 	// Indicates whether the local volume is the source or destination for the Volume Replication
 	EndpointType *EndpointType
+
+	// The full path to a volume that is to be migrated into ANF. Required for Migration volumes
+	RemotePath *RemotePath
 
 	// The remote region for the other end of the Volume Replication.
 	RemoteVolumeRegion *string
@@ -1358,6 +1438,13 @@ type SubvolumesList struct {
 	Value []*SubvolumeInfo
 }
 
+// SvmPeerCommandResponse - Information about SVM peering process
+type SvmPeerCommandResponse struct {
+	// A command that needs to be run on the external ONTAP to accept SVM peering. Will only be present if svmPeeringStatus is
+	// pending
+	SvmPeeringCommand *string
+}
+
 // SystemData - Metadata pertaining to creation and last modification of the resource.
 type SystemData struct {
 	// The timestamp of resource creation (UTC).
@@ -1623,6 +1710,9 @@ type VolumePatchProperties struct {
 	// Specifies if default quota is enabled for the volume.
 	IsDefaultQuotaEnabled *bool
 
+	// Set of protocol types, default NFSv3, CIFS for SMB protocol
+	ProtocolTypes []*string
+
 	// The service level of the file system
 	ServiceLevel *ServiceLevel
 
@@ -1680,6 +1770,11 @@ type VolumeProperties struct {
 	// size is 100 GiB. Upper limit is 100TiB, 500Tib for LargeVolume or 2400Tib for LargeVolume
 	// on exceptional basis. Specified in bytes.
 	UsageThreshold *int64
+
+	// While auto splitting the short term clone volume, if the parent pool does not have enough space to accommodate the volume
+	// after split, it will be automatically resized, which will lead to increased
+	// billing. To accept capacity pool size auto grow and create a short term clone volume, set the property as accepted.
+	AcceptGrowCapacityPoolForShortTermCloneSplit *AcceptGrowCapacityPoolForShortTermCloneSplit
 
 	// Specifies whether the volume is enabled for Azure VMware Solution (AVS) datastore purpose
 	AvsDataStore *AvsDataStore
@@ -1743,6 +1838,9 @@ type VolumeProperties struct {
 	// = 'Microsoft.KeyVault'.
 	KeyVaultPrivateEndpointResourceID *string
 
+	// Language supported for volume.
+	Language *VolumeLanguage
+
 	// Specifies whether LDAP is enabled or not for a given NFS volume.
 	LdapEnabled *bool
 
@@ -1799,7 +1897,8 @@ type VolumeProperties struct {
 	// e.g. data, log
 	VolumeSpecName *string
 
-	// What type of volume is this. For destination volumes in Cross Region Replication, set type to DataProtection
+	// What type of volume is this. For destination volumes in Cross Region Replication, set type to DataProtection. For creating
+	// clone volume, set type to ShortTermClone
 	VolumeType *string
 
 	// READ-ONLY; Actual throughput in MiB/s for auto qosType volumes calculated based on size and serviceLevel
@@ -1825,6 +1924,9 @@ type VolumeProperties struct {
 
 	// READ-ONLY; Unique FileSystem Identifier.
 	FileSystemID *string
+
+	// READ-ONLY; Space shared by short term clone volume with parent volume in bytes.
+	InheritedSizeInBytes *int64
 
 	// READ-ONLY; Maximum number of files allowed. Needs a service request in order to be changed. Only allowed to be changed
 	// if volume quota is more than 4TiB.

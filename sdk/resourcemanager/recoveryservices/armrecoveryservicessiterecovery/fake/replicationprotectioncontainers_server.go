@@ -48,6 +48,10 @@ type ReplicationProtectionContainersServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListByReplicationFabricsPager func(resourceName string, resourceGroupName string, fabricName string, options *armrecoveryservicessiterecovery.ReplicationProtectionContainersClientListByReplicationFabricsOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationProtectionContainersClientListByReplicationFabricsResponse])
 
+	// BeginSwitchClusterProtection is the fake for method ReplicationProtectionContainersClient.BeginSwitchClusterProtection
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginSwitchClusterProtection func(ctx context.Context, resourceGroupName string, switchInput armrecoveryservicessiterecovery.SwitchClusterProtectionInput, options *armrecoveryservicessiterecovery.ReplicationProtectionContainersClientBeginSwitchClusterProtectionOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectionContainersClientSwitchClusterProtectionResponse], errResp azfake.ErrorResponder)
+
 	// BeginSwitchProtection is the fake for method ReplicationProtectionContainersClient.BeginSwitchProtection
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginSwitchProtection func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, switchInput armrecoveryservicessiterecovery.SwitchProtectionInput, options *armrecoveryservicessiterecovery.ReplicationProtectionContainersClientBeginSwitchProtectionOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectionContainersClientSwitchProtectionResponse], errResp azfake.ErrorResponder)
@@ -64,6 +68,7 @@ func NewReplicationProtectionContainersServerTransport(srv *ReplicationProtectio
 		beginDiscoverProtectableItem:     newTracker[azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectionContainersClientDiscoverProtectableItemResponse]](),
 		newListPager:                     newTracker[azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationProtectionContainersClientListResponse]](),
 		newListByReplicationFabricsPager: newTracker[azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationProtectionContainersClientListByReplicationFabricsResponse]](),
+		beginSwitchClusterProtection:     newTracker[azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectionContainersClientSwitchClusterProtectionResponse]](),
 		beginSwitchProtection:            newTracker[azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectionContainersClientSwitchProtectionResponse]](),
 	}
 }
@@ -77,6 +82,7 @@ type ReplicationProtectionContainersServerTransport struct {
 	beginDiscoverProtectableItem     *tracker[azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectionContainersClientDiscoverProtectableItemResponse]]
 	newListPager                     *tracker[azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationProtectionContainersClientListResponse]]
 	newListByReplicationFabricsPager *tracker[azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationProtectionContainersClientListByReplicationFabricsResponse]]
+	beginSwitchClusterProtection     *tracker[azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectionContainersClientSwitchClusterProtectionResponse]]
 	beginSwitchProtection            *tracker[azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectionContainersClientSwitchProtectionResponse]]
 }
 
@@ -104,6 +110,8 @@ func (r *ReplicationProtectionContainersServerTransport) Do(req *http.Request) (
 		resp, err = r.dispatchNewListPager(req)
 	case "ReplicationProtectionContainersClient.NewListByReplicationFabricsPager":
 		resp, err = r.dispatchNewListByReplicationFabricsPager(req)
+	case "ReplicationProtectionContainersClient.BeginSwitchClusterProtection":
+		resp, err = r.dispatchBeginSwitchClusterProtection(req)
 	case "ReplicationProtectionContainersClient.BeginSwitchProtection":
 		resp, err = r.dispatchBeginSwitchProtection(req)
 	default:
@@ -405,6 +413,50 @@ func (r *ReplicationProtectionContainersServerTransport) dispatchNewListByReplic
 	if !server.PagerResponderMore(newListByReplicationFabricsPager) {
 		r.newListByReplicationFabricsPager.remove(req)
 	}
+	return resp, nil
+}
+
+func (r *ReplicationProtectionContainersServerTransport) dispatchBeginSwitchClusterProtection(req *http.Request) (*http.Response, error) {
+	if r.srv.BeginSwitchClusterProtection == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginSwitchClusterProtection not implemented")}
+	}
+	beginSwitchClusterProtection := r.beginSwitchClusterProtection.get(req)
+	if beginSwitchClusterProtection == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.RecoveryServices/vaults/(?P<resourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/replicationFabrics/(?P<fabricName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/replicationProtectionContainers/(?P<protectionContainerName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/switchClusterProtection`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 5 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armrecoveryservicessiterecovery.SwitchClusterProtectionInput](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := r.srv.BeginSwitchClusterProtection(req.Context(), resourceGroupNameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginSwitchClusterProtection = &respr
+		r.beginSwitchClusterProtection.add(req, beginSwitchClusterProtection)
+	}
+
+	resp, err := server.PollerResponderNext(beginSwitchClusterProtection, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		r.beginSwitchClusterProtection.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginSwitchClusterProtection) {
+		r.beginSwitchClusterProtection.remove(req)
+	}
+
 	return resp, nil
 }
 
