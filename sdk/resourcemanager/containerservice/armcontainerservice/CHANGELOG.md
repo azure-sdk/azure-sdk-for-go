@@ -1,5 +1,14 @@
 # Release History
 
+## 6.0.0 (2024-06-12)
+### Breaking Changes
+
+- Function `*ManagedClustersClient.GetOSOptions` has been removed
+- Struct `OSOptionProfile` has been removed
+- Struct `OSOptionProperty` has been removed
+- Struct `OSOptionPropertyList` has been removed
+
+
 ## 5.1.0-beta.1 (2024-04-26)
 ### Features Added
 
