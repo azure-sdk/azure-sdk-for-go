@@ -306,6 +306,12 @@ type DefinitionProperties struct {
 
 	// The type of policy definition. Possible values are NotSpecified, BuiltIn, Custom, and Static.
 	PolicyType *PolicyType
+
+	// The policy definition version in #.#.# format.
+	Version *string
+
+	// A list of available versions for this policy definition.
+	Versions []*string
 }
 
 // DefinitionReference - The policy definition reference.
@@ -321,6 +327,60 @@ type DefinitionReference struct {
 
 	// A unique id (within the policy set definition) for this policy definition reference.
 	PolicyDefinitionReferenceID *string
+}
+
+// DefinitionVersion - The ID of the policy definition version.
+type DefinitionVersion struct {
+	// The policy definition version properties.
+	Properties *DefinitionVersionProperties
+
+	// READ-ONLY; The ID of the policy definition version.
+	ID *string
+
+	// READ-ONLY; The name of the policy definition version.
+	Name *string
+
+	// READ-ONLY; The system metadata relating to this resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource (Microsoft.Authorization/policyDefinitions/versions).
+	Type *string
+}
+
+// DefinitionVersionListResult - List of policy definition versions.
+type DefinitionVersionListResult struct {
+	// The URL to use for getting the next set of results.
+	NextLink *string
+
+	// An array of policy definitions versions.
+	Value []*DefinitionVersion
+}
+
+// DefinitionVersionProperties - The policy definition properties.
+type DefinitionVersionProperties struct {
+	// The policy definition description.
+	Description *string
+
+	// The display name of the policy definition.
+	DisplayName *string
+
+	// The policy definition metadata. Metadata is an open ended object and is typically a collection of key value pairs.
+	Metadata any
+
+	// The policy definition mode. Some examples are All, Indexed, Microsoft.KeyVault.Data.
+	Mode *string
+
+	// The parameter definitions for parameters used in the policy rule. The keys are the parameter names.
+	Parameters map[string]*ParameterDefinitionsValue
+
+	// The policy rule.
+	PolicyRule any
+
+	// The type of policy definition. Possible values are NotSpecified, BuiltIn, Custom, and Static.
+	PolicyType *PolicyType
+
+	// The policy definition version in #.#.# format.
+	Version *string
 }
 
 // Exemption - The policy exemption.
@@ -449,6 +509,11 @@ type ParameterDefinitionsValue struct {
 	// General metadata for the parameter.
 	Metadata *ParameterDefinitionsValueMetadata
 
+	// Provides validation of parameter inputs during assignment using a self-defined JSON schema. This property is only supported
+	// for object-type parameters and follows the Json.NET Schema 2019-09
+	// implementation. You can learn more about using schemas at https://json-schema.org/ and test draft schemas at https://www.jsonschemavalidator.net/.
+	Schema any
+
 	// The data type of the parameter.
 	Type *ParameterType
 }
@@ -512,7 +577,7 @@ type Selector struct {
 
 // SetDefinition - The policy set definition.
 type SetDefinition struct {
-	// The policy definition properties.
+	// The policy set definition properties.
 	Properties *SetDefinitionProperties
 
 	// READ-ONLY; The ID of the policy set definition.
@@ -557,8 +622,68 @@ type SetDefinitionProperties struct {
 	// The metadata describing groups of policy definition references within the policy set definition.
 	PolicyDefinitionGroups []*DefinitionGroup
 
+	// The type of policy set definition. Possible values are NotSpecified, BuiltIn, Custom, and Static.
+	PolicyType *PolicyType
+
+	// The policy set definition version in #.#.# format.
+	Version *string
+
+	// A list of available versions for this policy set definition.
+	Versions []*string
+}
+
+// SetDefinitionVersion - The policy set definition version.
+type SetDefinitionVersion struct {
+	// The policy set definition version properties.
+	Properties *SetDefinitionVersionProperties
+
+	// READ-ONLY; The ID of the policy set definition version.
+	ID *string
+
+	// READ-ONLY; The name of the policy set definition version.
+	Name *string
+
+	// READ-ONLY; The system metadata relating to this resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource (Microsoft.Authorization/policySetDefinitions/versions).
+	Type *string
+}
+
+// SetDefinitionVersionListResult - List of policy set definition versions.
+type SetDefinitionVersionListResult struct {
+	// The URL to use for getting the next set of results.
+	NextLink *string
+
+	// An array of policy set definition versions.
+	Value []*SetDefinitionVersion
+}
+
+// SetDefinitionVersionProperties - The policy set definition properties.
+type SetDefinitionVersionProperties struct {
+	// REQUIRED; An array of policy definition references.
+	PolicyDefinitions []*DefinitionReference
+
+	// The policy set definition description.
+	Description *string
+
+	// The display name of the policy set definition.
+	DisplayName *string
+
+	// The policy set definition metadata. Metadata is an open ended object and is typically a collection of key value pairs.
+	Metadata any
+
+	// The policy set definition parameters that can be used in policy definition references.
+	Parameters map[string]*ParameterDefinitionsValue
+
+	// The metadata describing groups of policy definition references within the policy set definition.
+	PolicyDefinitionGroups []*DefinitionGroup
+
 	// The type of policy definition. Possible values are NotSpecified, BuiltIn, Custom, and Static.
 	PolicyType *PolicyType
+
+	// The policy set definition version in #.#.# format.
+	Version *string
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
