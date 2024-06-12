@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/frontdoor/armfrontdoor"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/frontdoor/armfrontdoor/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -36,10 +36,6 @@ type PoliciesServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, policyName string, options *armfrontdoor.PoliciesClientGetOptions) (resp azfake.Responder[armfrontdoor.PoliciesClientGetResponse], errResp azfake.ErrorResponder)
 
-	// NewListPager is the fake for method PoliciesClient.NewListPager
-	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceGroupName string, options *armfrontdoor.PoliciesClientListOptions) (resp azfake.PagerResponder[armfrontdoor.PoliciesClientListResponse])
-
 	// NewListBySubscriptionPager is the fake for method PoliciesClient.NewListBySubscriptionPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListBySubscriptionPager func(options *armfrontdoor.PoliciesClientListBySubscriptionOptions) (resp azfake.PagerResponder[armfrontdoor.PoliciesClientListBySubscriptionResponse])
@@ -57,7 +53,6 @@ func NewPoliciesServerTransport(srv *PoliciesServer) *PoliciesServerTransport {
 		srv:                        srv,
 		beginCreateOrUpdate:        newTracker[azfake.PollerResponder[armfrontdoor.PoliciesClientCreateOrUpdateResponse]](),
 		beginDelete:                newTracker[azfake.PollerResponder[armfrontdoor.PoliciesClientDeleteResponse]](),
-		newListPager:               newTracker[azfake.PagerResponder[armfrontdoor.PoliciesClientListResponse]](),
 		newListBySubscriptionPager: newTracker[azfake.PagerResponder[armfrontdoor.PoliciesClientListBySubscriptionResponse]](),
 		beginUpdate:                newTracker[azfake.PollerResponder[armfrontdoor.PoliciesClientUpdateResponse]](),
 	}
@@ -69,7 +64,6 @@ type PoliciesServerTransport struct {
 	srv                        *PoliciesServer
 	beginCreateOrUpdate        *tracker[azfake.PollerResponder[armfrontdoor.PoliciesClientCreateOrUpdateResponse]]
 	beginDelete                *tracker[azfake.PollerResponder[armfrontdoor.PoliciesClientDeleteResponse]]
-	newListPager               *tracker[azfake.PagerResponder[armfrontdoor.PoliciesClientListResponse]]
 	newListBySubscriptionPager *tracker[azfake.PagerResponder[armfrontdoor.PoliciesClientListBySubscriptionResponse]]
 	beginUpdate                *tracker[azfake.PollerResponder[armfrontdoor.PoliciesClientUpdateResponse]]
 }
@@ -92,8 +86,6 @@ func (p *PoliciesServerTransport) Do(req *http.Request) (*http.Response, error) 
 		resp, err = p.dispatchBeginDelete(req)
 	case "PoliciesClient.Get":
 		resp, err = p.dispatchGet(req)
-	case "PoliciesClient.NewListPager":
-		resp, err = p.dispatchNewListPager(req)
 	case "PoliciesClient.NewListBySubscriptionPager":
 		resp, err = p.dispatchNewListBySubscriptionPager(req)
 	case "PoliciesClient.BeginUpdate":
@@ -230,43 +222,6 @@ func (p *PoliciesServerTransport) dispatchGet(req *http.Request) (*http.Response
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).WebApplicationFirewallPolicy, req)
 	if err != nil {
 		return nil, err
-	}
-	return resp, nil
-}
-
-func (p *PoliciesServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if p.srv.NewListPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
-	}
-	newListPager := p.newListPager.get(req)
-	if newListPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Network/frontDoorWebApplicationFirewallPolicies`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 2 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		resp := p.srv.NewListPager(resourceGroupNameParam, nil)
-		newListPager = &resp
-		p.newListPager.add(req, newListPager)
-		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armfrontdoor.PoliciesClientListResponse, createLink func() string) {
-			page.NextLink = to.Ptr(createLink())
-		})
-	}
-	resp, err := server.PagerResponderNext(newListPager, req)
-	if err != nil {
-		return nil, err
-	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		p.newListPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
-	}
-	if !server.PagerResponderMore(newListPager) {
-		p.newListPager.remove(req)
 	}
 	return resp, nil
 }

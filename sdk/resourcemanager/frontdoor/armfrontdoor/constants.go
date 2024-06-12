@@ -10,7 +10,7 @@ package armfrontdoor
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/frontdoor/armfrontdoor"
-	moduleVersion = "v1.4.0"
+	moduleVersion = "v2.0.0"
 )
 
 // ActionType - Defines the action to take on rule match.

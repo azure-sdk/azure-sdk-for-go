@@ -188,11 +188,6 @@ type PoliciesClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PoliciesClientListOptions contains the optional parameters for the PoliciesClient.NewListPager method.
-type PoliciesClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
 // PreconfiguredEndpointsClientListOptions contains the optional parameters for the PreconfiguredEndpointsClient.NewListPager
 // method.
 type PreconfiguredEndpointsClientListOptions struct {

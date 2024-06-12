@@ -181,13 +181,6 @@ type PoliciesClientListBySubscriptionResponse struct {
 	WebApplicationFirewallPolicyList
 }
 
-// PoliciesClientListResponse contains the response from method PoliciesClient.NewListPager.
-type PoliciesClientListResponse struct {
-	// Defines a list of WebApplicationFirewallPolicies. It contains a list of WebApplicationFirewallPolicy objects and a URL
-	// link to get the next set of results.
-	WebApplicationFirewallPolicyList
-}
-
 // PoliciesClientUpdateResponse contains the response from method PoliciesClient.BeginUpdate.
 type PoliciesClientUpdateResponse struct {
 	// Defines web application firewall policy.

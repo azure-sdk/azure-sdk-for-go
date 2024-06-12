@@ -1,5 +1,11 @@
 # Release History
 
+## 2.0.0 (2024-06-12)
+### Breaking Changes
+
+- Function `*PoliciesClient.NewListPager` has been removed
+
+
 ## 1.4.0 (2024-04-26)
 ### Features Added
 

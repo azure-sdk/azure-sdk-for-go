@@ -262,65 +262,6 @@ func (client *PoliciesClient) getHandleResponse(resp *http.Response) (PoliciesCl
 	return result, nil
 }
 
-// NewListPager - Lists all of the protection policies within a resource group.
-//
-// Generated from API version 2024-02-01
-//   - resourceGroupName - Name of the Resource group within the Azure subscription.
-//   - options - PoliciesClientListOptions contains the optional parameters for the PoliciesClient.NewListPager method.
-func (client *PoliciesClient) NewListPager(resourceGroupName string, options *PoliciesClientListOptions) *runtime.Pager[PoliciesClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[PoliciesClientListResponse]{
-		More: func(page PoliciesClientListResponse) bool {
-			return page.NextLink != nil && len(*page.NextLink) > 0
-		},
-		Fetcher: func(ctx context.Context, page *PoliciesClientListResponse) (PoliciesClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "PoliciesClient.NewListPager")
-			nextLink := ""
-			if page != nil {
-				nextLink = *page.NextLink
-			}
-			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, resourceGroupName, options)
-			}, nil)
-			if err != nil {
-				return PoliciesClientListResponse{}, err
-			}
-			return client.listHandleResponse(resp)
-		},
-		Tracer: client.internal.Tracer(),
-	})
-}
-
-// listCreateRequest creates the List request.
-func (client *PoliciesClient) listCreateRequest(ctx context.Context, resourceGroupName string, options *PoliciesClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/frontDoorWebApplicationFirewallPolicies"
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, nil
-}
-
-// listHandleResponse handles the List response.
-func (client *PoliciesClient) listHandleResponse(resp *http.Response) (PoliciesClientListResponse, error) {
-	result := PoliciesClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.WebApplicationFirewallPolicyList); err != nil {
-		return PoliciesClientListResponse{}, err
-	}
-	return result, nil
-}
-
 // NewListBySubscriptionPager - Lists all of the protection policies within a subscription.
 //
 // Generated from API version 2024-02-01
