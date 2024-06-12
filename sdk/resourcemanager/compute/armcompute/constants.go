@@ -10,7 +10,7 @@ package armcompute
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute"
-	moduleVersion = "v5.7.0"
+	moduleVersion = "v6.0.0"
 )
 
 type AccessLevel string
@@ -47,6 +47,22 @@ func PossibleAggregatedReplicationStateValues() []AggregatedReplicationState {
 		AggregatedReplicationStateFailed,
 		AggregatedReplicationStateInProgress,
 		AggregatedReplicationStateUnknown,
+	}
+}
+
+// AllocationStrategy - Species the allocation strategy for the virtual machine scale set based on which the VMs will be allocated.
+type AllocationStrategy string
+
+const (
+	AllocationStrategyCapacityOptimized AllocationStrategy = "CapacityOptimized"
+	AllocationStrategyLowestPrice       AllocationStrategy = "LowestPrice"
+)
+
+// PossibleAllocationStrategyValues returns the possible values for the AllocationStrategy const type.
+func PossibleAllocationStrategyValues() []AllocationStrategy {
+	return []AllocationStrategy{
+		AllocationStrategyCapacityOptimized,
+		AllocationStrategyLowestPrice,
 	}
 }
 
