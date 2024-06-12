@@ -1,5 +1,22 @@
 # Release History
 
+## 6.0.0 (2024-06-12)
+### Breaking Changes
+
+- Type of `SecurityPostureReference.ExcludeExtensions` has been changed from `[]*VirtualMachineExtension` to `[]*string`
+
+### Features Added
+
+- New enum type `AllocationStrategy` with values `AllocationStrategyCapacityOptimized`, `AllocationStrategyLowestPrice`
+- New struct `SKUProfile`
+- New struct `SKUProfileVMSize`
+- New struct `SecurityPostureReferenceUpdate`
+- New field `IsOverridable` in struct `SecurityPostureReference`
+- New field `SKUProfile` in struct `VirtualMachineScaleSetProperties`
+- New field `SKUProfile` in struct `VirtualMachineScaleSetUpdateProperties`
+- New field `SecurityPostureReference` in struct `VirtualMachineScaleSetUpdateVMProfile`
+
+
 ## 5.7.0 (2024-04-26)
 ### Features Added
 
