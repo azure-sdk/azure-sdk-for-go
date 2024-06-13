@@ -92,11 +92,6 @@ type ManagedPrivateEndpointsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
-type OperationsClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
 // PrivateEndpointConnectionsClientBeginApproveOptions contains the optional parameters for the PrivateEndpointConnectionsClient.BeginApprove
 // method.
 type PrivateEndpointConnectionsClientBeginApproveOptions struct {
