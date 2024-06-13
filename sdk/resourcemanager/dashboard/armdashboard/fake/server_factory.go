@@ -21,7 +21,6 @@ import (
 type ServerFactory struct {
 	GrafanaServer                    GrafanaServer
 	ManagedPrivateEndpointsServer    ManagedPrivateEndpointsServer
-	OperationsServer                 OperationsServer
 	PrivateEndpointConnectionsServer PrivateEndpointConnectionsServer
 	PrivateLinkResourcesServer       PrivateLinkResourcesServer
 }
@@ -42,7 +41,6 @@ type ServerFactoryTransport struct {
 	trMu                               sync.Mutex
 	trGrafanaServer                    *GrafanaServerTransport
 	trManagedPrivateEndpointsServer    *ManagedPrivateEndpointsServerTransport
-	trOperationsServer                 *OperationsServerTransport
 	trPrivateEndpointConnectionsServer *PrivateEndpointConnectionsServerTransport
 	trPrivateLinkResourcesServer       *PrivateLinkResourcesServerTransport
 }
@@ -68,9 +66,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewManagedPrivateEndpointsServerTransport(&s.srv.ManagedPrivateEndpointsServer)
 		})
 		resp, err = s.trManagedPrivateEndpointsServer.Do(req)
-	case "OperationsClient":
-		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
-		resp, err = s.trOperationsServer.Do(req)
 	case "PrivateEndpointConnectionsClient":
 		initServer(s, &s.trPrivateEndpointConnectionsServer, func() *PrivateEndpointConnectionsServerTransport {
 			return NewPrivateEndpointConnectionsServerTransport(&s.srv.PrivateEndpointConnectionsServer)
