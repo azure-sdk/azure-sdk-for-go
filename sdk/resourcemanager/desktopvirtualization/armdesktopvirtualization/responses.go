@@ -8,6 +8,60 @@
 
 package armdesktopvirtualization
 
+// ActiveSessionHostConfigurationsClientGetResponse contains the response from method ActiveSessionHostConfigurationsClient.Get.
+type ActiveSessionHostConfigurationsClientGetResponse struct {
+	// Represents a ActiveSessionHostConfiguration definition. This has all of the sessionHostConfiguration properties except
+	// provisioningState
+	ActiveSessionHostConfiguration
+}
+
+// ActiveSessionHostConfigurationsClientListByHostPoolResponse contains the response from method ActiveSessionHostConfigurationsClient.NewListByHostPoolPager.
+type ActiveSessionHostConfigurationsClientListByHostPoolResponse struct {
+	// List of ActiveSessionHostConfiguration definitions.
+	ActiveSessionHostConfigurationList
+}
+
+// AppAttachPackageClientCreateOrUpdateResponse contains the response from method AppAttachPackageClient.CreateOrUpdate.
+type AppAttachPackageClientCreateOrUpdateResponse struct {
+	// Schema for App Attach Package properties.
+	AppAttachPackage
+}
+
+// AppAttachPackageClientDeleteResponse contains the response from method AppAttachPackageClient.Delete.
+type AppAttachPackageClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// AppAttachPackageClientGetResponse contains the response from method AppAttachPackageClient.Get.
+type AppAttachPackageClientGetResponse struct {
+	// Schema for App Attach Package properties.
+	AppAttachPackage
+}
+
+// AppAttachPackageClientListByResourceGroupResponse contains the response from method AppAttachPackageClient.NewListByResourceGroupPager.
+type AppAttachPackageClientListByResourceGroupResponse struct {
+	// List of App Attach Package definitions.
+	AppAttachPackageList
+}
+
+// AppAttachPackageClientListBySubscriptionResponse contains the response from method AppAttachPackageClient.NewListBySubscriptionPager.
+type AppAttachPackageClientListBySubscriptionResponse struct {
+	// List of App Attach Package definitions.
+	AppAttachPackageList
+}
+
+// AppAttachPackageClientUpdateResponse contains the response from method AppAttachPackageClient.Update.
+type AppAttachPackageClientUpdateResponse struct {
+	// Schema for App Attach Package properties.
+	AppAttachPackage
+}
+
+// AppAttachPackageInfoClientImportResponse contains the response from method AppAttachPackageInfoClient.NewImportPager.
+type AppAttachPackageInfoClientImportResponse struct {
+	// List of App Attach Package definitions.
+	AppAttachPackageList
+}
+
 // ApplicationGroupsClientCreateOrUpdateResponse contains the response from method ApplicationGroupsClient.CreateOrUpdate.
 type ApplicationGroupsClientCreateOrUpdateResponse struct {
 	// Represents a ApplicationGroup definition.
@@ -72,6 +126,11 @@ type ApplicationsClientUpdateResponse struct {
 	Application
 }
 
+// ControlSessionHostUpdateClientPostResponse contains the response from method ControlSessionHostUpdateClient.BeginPost.
+type ControlSessionHostUpdateClientPostResponse struct {
+	// placeholder for future response values
+}
+
 // DesktopsClientGetResponse contains the response from method DesktopsClient.Get.
 type DesktopsClientGetResponse struct {
 	// Schema for Desktop properties.
@@ -129,6 +188,11 @@ type HostPoolsClientRetrieveRegistrationTokenResponse struct {
 type HostPoolsClientUpdateResponse struct {
 	// Represents a HostPool definition.
 	HostPool
+}
+
+// InitiateSessionHostUpdateClientPostResponse contains the response from method InitiateSessionHostUpdateClient.Post.
+type InitiateSessionHostUpdateClientPostResponse struct {
+	// placeholder for future response values
 }
 
 // MSIXPackagesClientCreateOrUpdateResponse contains the response from method MSIXPackagesClient.CreateOrUpdate.
@@ -327,6 +391,65 @@ type ScalingPlansClientListBySubscriptionResponse struct {
 type ScalingPlansClientUpdateResponse struct {
 	// Represents a scaling plan definition.
 	ScalingPlan
+}
+
+// SessionHostClientRetryProvisioningResponse contains the response from method SessionHostClient.RetryProvisioning.
+type SessionHostClientRetryProvisioningResponse struct {
+	// placeholder for future response values
+}
+
+// SessionHostConfigurationsClientCreateOrUpdateResponse contains the response from method SessionHostConfigurationsClient.BeginCreateOrUpdate.
+type SessionHostConfigurationsClientCreateOrUpdateResponse struct {
+	// Represents a SessionHostConfiguration definition.
+	SessionHostConfiguration
+}
+
+// SessionHostConfigurationsClientGetResponse contains the response from method SessionHostConfigurationsClient.Get.
+type SessionHostConfigurationsClientGetResponse struct {
+	// Represents a SessionHostConfiguration definition.
+	SessionHostConfiguration
+}
+
+// SessionHostConfigurationsClientListByHostPoolResponse contains the response from method SessionHostConfigurationsClient.NewListByHostPoolPager.
+type SessionHostConfigurationsClientListByHostPoolResponse struct {
+	// List of SessionHostConfiguration definitions.
+	SessionHostConfigurationList
+}
+
+// SessionHostConfigurationsClientUpdateResponse contains the response from method SessionHostConfigurationsClient.BeginUpdate.
+type SessionHostConfigurationsClientUpdateResponse struct {
+	// Represents a SessionHostConfiguration definition.
+	SessionHostConfiguration
+}
+
+// SessionHostManagementsClientCreateOrUpdateResponse contains the response from method SessionHostManagementsClient.CreateOrUpdate.
+type SessionHostManagementsClientCreateOrUpdateResponse struct {
+	// Represents a SessionHostManagement definition.
+	SessionHostManagement
+}
+
+// SessionHostManagementsClientGetResponse contains the response from method SessionHostManagementsClient.Get.
+type SessionHostManagementsClientGetResponse struct {
+	// Represents a SessionHostManagement definition.
+	SessionHostManagement
+}
+
+// SessionHostManagementsClientListByHostPoolResponse contains the response from method SessionHostManagementsClient.NewListByHostPoolPager.
+type SessionHostManagementsClientListByHostPoolResponse struct {
+	// List of SessionHostManagement definitions.
+	SessionHostManagementList
+}
+
+// SessionHostManagementsClientUpdateResponse contains the response from method SessionHostManagementsClient.Update.
+type SessionHostManagementsClientUpdateResponse struct {
+	// Represents a SessionHostManagement definition.
+	SessionHostManagement
+}
+
+// SessionHostManagementsUpdateStatusClientGetResponse contains the response from method SessionHostManagementsUpdateStatusClient.Get.
+type SessionHostManagementsUpdateStatusClientGetResponse struct {
+	// The current status of the session host update async operation.
+	SessionHostManagementUpdateStatus
 }
 
 // SessionHostsClientDeleteResponse contains the response from method SessionHostsClient.Delete.
