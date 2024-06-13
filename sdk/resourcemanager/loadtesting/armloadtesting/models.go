@@ -10,6 +10,16 @@ package armloadtesting
 
 import "time"
 
+// AzureResourceManagerCommonTypesManagedServiceIdentity - Managed service identity (system assigned and/or user assigned
+// identities)
+type AzureResourceManagerCommonTypesManagedServiceIdentity struct {
+	// The type of managed identity assigned to this resource.
+	Type *ManagedServiceIdentityType
+
+	// The identities assigned to this resource by the user.
+	UserAssignedIdentities map[string]*UserAssignedIdentity
+}
+
 // CheckQuotaAvailabilityResponse - Check quota availability response object.
 type CheckQuotaAvailabilityResponse struct {
 	// Check quota availability response properties.
@@ -18,14 +28,14 @@ type CheckQuotaAvailabilityResponse struct {
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; The name of the resource
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+
+	// READ-ONLY; The name of the resource.
 	Name *string
 
 	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
 }
 
 // CheckQuotaAvailabilityResponseProperties - Check quota availability response properties.
@@ -37,7 +47,7 @@ type CheckQuotaAvailabilityResponseProperties struct {
 	IsAvailable *bool
 }
 
-// EncryptionProperties - Key and identity details for Customer Managed Key encryption of load test resource
+// EncryptionProperties - Key and identity details for Customer Managed Key encryption of load test resource.
 type EncryptionProperties struct {
 	// All identity configuration for Customer-managed key settings defining which identity should be used to auth to Key Vault.
 	Identity *EncryptionPropertiesIdentity
@@ -50,21 +60,21 @@ type EncryptionProperties struct {
 // EncryptionPropertiesIdentity - All identity configuration for Customer-managed key settings defining which identity should
 // be used to auth to Key Vault.
 type EncryptionPropertiesIdentity struct {
-	// user assigned identity to use for accessing key encryption key Url. Ex: /subscriptions/fa5fc227-a624-475e-b696-cdd604c735bc/resourceGroups/
-	// /providers/Microsoft.ManagedIdentity/userAssignedIdentities/myId
+	// User assigned identity to use for accessing key encryption key Url. Ex: /subscriptions/fa5fc227-a624-475e-b696-cdd604c735bc/resourceGroups/
+	// /providers/Microsoft.ManagedIdentity/userAssignedIdentities/myId.
 	ResourceID *string
 
-	// Managed identity type to use for accessing encryption key Url
+	// Managed identity type to use for accessing encryption key Url.
 	Type *Type
 }
 
 // EndpointDependency - A domain name and connection details used to access a dependency.
 type EndpointDependency struct {
-	// READ-ONLY; Human-readable supplemental information about the dependency and when it is applicable.
-	Description *string
-
 	// READ-ONLY; The domain name of the dependency. Domain names may be fully qualified or may contain a * wildcard.
 	DomainName *string
+
+	// READ-ONLY; Human-readable supplemental information about the dependency and when it is applicable.
+	Description *string
 
 	// READ-ONLY; The list of connection details for this endpoint.
 	EndpointDetails []*EndpointDetail
@@ -91,21 +101,21 @@ type LoadTestProperties struct {
 	ProvisioningState *ResourceState
 }
 
-// LoadTestResource - LoadTest details
+// LoadTestResource - LoadTest details.
 type LoadTestResource struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
-	// The type of identity used for the resource.
+	// The managed service identities assigned to this resource.
 	Identity *ManagedServiceIdentity
 
-	// Load Test resource properties
+	// The resource-specific properties for this resource.
 	Properties *LoadTestProperties
 
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -118,29 +128,29 @@ type LoadTestResource struct {
 	Type *string
 }
 
-// LoadTestResourcePageList - List of resources page result.
-type LoadTestResourcePageList struct {
-	// Link to next page of resources.
-	NextLink *string
-
-	// List of resources in current page.
+// LoadTestResourceListResult - The response of a LoadTestResource list operation.
+type LoadTestResourceListResult struct {
+	// REQUIRED; The LoadTestResource items on this page
 	Value []*LoadTestResource
+
+	// The link to the next page of items
+	NextLink *string
 }
 
-// LoadTestResourcePatchRequestBody - LoadTest resource patch request body.
-type LoadTestResourcePatchRequestBody struct {
-	// The type of identity used for the resource.
-	Identity *ManagedServiceIdentity
+// LoadTestResourceUpdate - The type used for update operations of the LoadTestResource.
+type LoadTestResourceUpdate struct {
+	// The managed service identities assigned to this resource.
+	Identity *AzureResourceManagerCommonTypesManagedServiceIdentity
 
-	// Load Test resource properties
-	Properties *LoadTestResourcePatchRequestBodyProperties
+	// The updatable properties of the LoadTestResource.
+	Properties *LoadTestResourceUpdateProperties
 
 	// Resource tags.
 	Tags map[string]*string
 }
 
-// LoadTestResourcePatchRequestBodyProperties - Load Test resource properties
-type LoadTestResourcePatchRequestBodyProperties struct {
+// LoadTestResourceUpdateProperties - The updatable properties of the LoadTestResource.
+type LoadTestResourceUpdateProperties struct {
 	// Description of the resource.
 	Description *string
 
@@ -227,31 +237,19 @@ type OutboundEnvironmentEndpoint struct {
 	Endpoints []*EndpointDependency
 }
 
-// OutboundEnvironmentEndpointCollection - Values returned by the List operation.
-type OutboundEnvironmentEndpointCollection struct {
-	// The continuation token.
-	NextLink *string
-
-	// READ-ONLY; The collection of outbound network dependency endpoints returned by the listing operation.
+// PagedOutboundEnvironmentEndpoint - Values returned by the List operation.
+type PagedOutboundEnvironmentEndpoint struct {
+	// REQUIRED; The OutboundEnvironmentEndpoint items on this page
 	Value []*OutboundEnvironmentEndpoint
+
+	// The link to the next page of items
+	NextLink *string
 }
 
 // QuotaBucketRequest - Request object of new quota for a quota bucket.
 type QuotaBucketRequest struct {
-	// New quota request request properties.
+	// Request object of new quota for a quota bucket.
 	Properties *QuotaBucketRequestProperties
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
 }
 
 // QuotaBucketRequestProperties - New quota request request properties.
@@ -280,10 +278,10 @@ type QuotaBucketRequestPropertiesDimensions struct {
 
 // QuotaResource - Quota bucket details object.
 type QuotaResource struct {
-	// Quota bucket resource properties.
+	// The resource-specific properties for this resource.
 	Properties *QuotaResourceProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -296,13 +294,13 @@ type QuotaResource struct {
 	Type *string
 }
 
-// QuotaResourceList - List of quota bucket objects. It contains a URL link to get the next set of results.
-type QuotaResourceList struct {
-	// READ-ONLY; URL to get the next set of quota bucket objects results (if there are any).
-	NextLink *string
-
-	// READ-ONLY; List of quota bucket objects provided by the loadtestservice.
+// QuotaResourceListResult - The response of a QuotaResource list operation.
+type QuotaResourceListResult struct {
+	// REQUIRED; The QuotaResource items on this page
 	Value []*QuotaResource
+
+	// The link to the next page of items
+	NextLink *string
 }
 
 // QuotaResourceProperties - Quota bucket resource properties.
