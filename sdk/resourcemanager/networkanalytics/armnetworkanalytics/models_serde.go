@@ -77,6 +77,37 @@ func (a *AccountSasToken) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type AzureResourceManagerLegacyManagedServiceIdentityV4.
+func (a AzureResourceManagerLegacyManagedServiceIdentityV4) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "type", a.Type)
+	populate(objectMap, "userAssignedIdentities", a.UserAssignedIdentities)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureResourceManagerLegacyManagedServiceIdentityV4.
+func (a *AzureResourceManagerLegacyManagedServiceIdentityV4) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "type":
+			err = unpopulate(val, "Type", &a.Type)
+			delete(rawMsg, key)
+		case "userAssignedIdentities":
+			err = unpopulate(val, "UserAssignedIdentities", &a.UserAssignedIdentities)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type ConsumptionEndpointsProperties.
 func (c ConsumptionEndpointsProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -1410,7 +1441,7 @@ func populate(m map[string]any, k string, v any) {
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {
