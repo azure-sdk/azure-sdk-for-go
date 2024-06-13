@@ -46,7 +46,7 @@ func NewAppResiliencyClient(subscriptionID string, credential azcore.TokenCreden
 // CreateOrUpdate - Create or update container app resiliency policy.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-02-preview
+// Generated from API version 2024-02-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - appName - Name of the Container App.
 //   - name - Name of the resiliency policy.
@@ -99,7 +99,7 @@ func (client *AppResiliencyClient) createOrUpdateCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-02-preview")
+	reqQP.Set("api-version", "2024-02-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, resiliencyEnvelope); err != nil {
@@ -120,7 +120,7 @@ func (client *AppResiliencyClient) createOrUpdateHandleResponse(resp *http.Respo
 // Delete - Delete container app resiliency policy.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-02-preview
+// Generated from API version 2024-02-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - appName - Name of the Container App.
 //   - name - Name of the resiliency policy.
@@ -170,7 +170,7 @@ func (client *AppResiliencyClient) deleteCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-02-preview")
+	reqQP.Set("api-version", "2024-02-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -179,7 +179,7 @@ func (client *AppResiliencyClient) deleteCreateRequest(ctx context.Context, reso
 // Get - Get container app resiliency policy.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-02-preview
+// Generated from API version 2024-02-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - appName - Name of the Container App.
 //   - name - Name of the resiliency policy.
@@ -230,7 +230,7 @@ func (client *AppResiliencyClient) getCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-02-preview")
+	reqQP.Set("api-version", "2024-02-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -247,7 +247,7 @@ func (client *AppResiliencyClient) getHandleResponse(resp *http.Response) (AppRe
 
 // NewListPager - List container app resiliency policies.
 //
-// Generated from API version 2023-11-02-preview
+// Generated from API version 2024-02-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - appName - Name of the Container App.
 //   - options - AppResiliencyClientListOptions contains the optional parameters for the AppResiliencyClient.NewListPager method.
@@ -294,7 +294,7 @@ func (client *AppResiliencyClient) listCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-02-preview")
+	reqQP.Set("api-version", "2024-02-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -312,7 +312,7 @@ func (client *AppResiliencyClient) listHandleResponse(resp *http.Response) (AppR
 // Update - Update container app resiliency policy.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-02-preview
+// Generated from API version 2024-02-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - appName - Name of the Container App.
 //   - name - Name of the resiliency policy.
@@ -364,7 +364,7 @@ func (client *AppResiliencyClient) updateCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-02-preview")
+	reqQP.Set("api-version", "2024-02-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, resiliencyEnvelope); err != nil {
