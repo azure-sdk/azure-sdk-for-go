@@ -15,7 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storagesync/armstoragesync"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storagesync/armstoragesync/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -23,6 +23,10 @@ import (
 
 // CloudEndpointsServer is a fake server for instances of the armstoragesync.CloudEndpointsClient type.
 type CloudEndpointsServer struct {
+	// AfsShareMetadataCertificatePublicKeys is the fake for method CloudEndpointsClient.AfsShareMetadataCertificatePublicKeys
+	// HTTP status codes to indicate success: http.StatusOK
+	AfsShareMetadataCertificatePublicKeys func(ctx context.Context, resourceGroupName string, storageSyncServiceName string, syncGroupName string, cloudEndpointName string, options *armstoragesync.CloudEndpointsClientAfsShareMetadataCertificatePublicKeysOptions) (resp azfake.Responder[armstoragesync.CloudEndpointsClientAfsShareMetadataCertificatePublicKeysResponse], errResp azfake.ErrorResponder)
+
 	// BeginCreate is the fake for method CloudEndpointsClient.BeginCreate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginCreate func(ctx context.Context, resourceGroupName string, storageSyncServiceName string, syncGroupName string, cloudEndpointName string, parameters armstoragesync.CloudEndpointCreateParameters, options *armstoragesync.CloudEndpointsClientBeginCreateOptions) (resp azfake.PollerResponder[armstoragesync.CloudEndpointsClientCreateResponse], errResp azfake.ErrorResponder)
@@ -107,6 +111,8 @@ func (c *CloudEndpointsServerTransport) Do(req *http.Request) (*http.Response, e
 	var err error
 
 	switch method {
+	case "CloudEndpointsClient.AfsShareMetadataCertificatePublicKeys":
+		resp, err = c.dispatchAfsShareMetadataCertificatePublicKeys(req)
 	case "CloudEndpointsClient.BeginCreate":
 		resp, err = c.dispatchBeginCreate(req)
 	case "CloudEndpointsClient.BeginDelete":
@@ -135,6 +141,53 @@ func (c *CloudEndpointsServerTransport) Do(req *http.Request) (*http.Response, e
 		return nil, err
 	}
 
+	return resp, nil
+}
+
+func (c *CloudEndpointsServerTransport) dispatchAfsShareMetadataCertificatePublicKeys(req *http.Request) (*http.Response, error) {
+	if c.srv.AfsShareMetadataCertificatePublicKeys == nil {
+		return nil, &nonRetriableError{errors.New("fake for method AfsShareMetadataCertificatePublicKeys not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.StorageSync/storageSyncServices/(?P<storageSyncServiceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/syncGroups/(?P<syncGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/cloudEndpoints/(?P<cloudEndpointName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/afsShareMetadataCertificatePublicKeys`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 5 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	storageSyncServiceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("storageSyncServiceName")])
+	if err != nil {
+		return nil, err
+	}
+	syncGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("syncGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	cloudEndpointNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("cloudEndpointName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := c.srv.AfsShareMetadataCertificatePublicKeys(req.Context(), resourceGroupNameParam, storageSyncServiceNameParam, syncGroupNameParam, cloudEndpointNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).CloudEndpointAfsShareMetadataCertificatePublicKeys, req)
+	if err != nil {
+		return nil, err
+	}
+	if val := server.GetResponse(respr).XMSCorrelationRequestID; val != nil {
+		resp.Header.Set("x-ms-correlation-request-id", *val)
+	}
+	if val := server.GetResponse(respr).XMSRequestID; val != nil {
+		resp.Header.Set("x-ms-request-id", *val)
+	}
 	return resp, nil
 }
 

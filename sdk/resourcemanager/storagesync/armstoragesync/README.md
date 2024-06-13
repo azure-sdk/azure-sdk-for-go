@@ -1,6 +1,6 @@
 # Azure Storage Sync Module for Go
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storagesync/armstoragesync)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storagesync/armstoragesync)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storagesync/armstoragesync/v2)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storagesync/armstoragesync/v2)
 
 The `armstoragesync` module provides operations for working with Azure Storage Sync.
 
@@ -20,7 +20,7 @@ This project uses [Go modules](https://github.com/golang/go/wiki/Modules) for ve
 Install the Azure Storage Sync module:
 
 ```sh
-go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storagesync/armstoragesync
+go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storagesync/armstoragesync/v2
 ```
 
 ## Authorization
@@ -57,7 +57,7 @@ clientFactory, err := armstoragesync.NewClientFactory(<subscription ID>, cred, &
 A client groups a set of related APIs, providing access to its functionality.  Create one or more clients to access the APIs you require using client factory.
 
 ```go
-client := clientFactory.NewServicesClient()
+client := clientFactory.NewCloudEndpointsClient()
 ```
 
 ## Fakes

@@ -15,7 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storagesync/armstoragesync"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storagesync/armstoragesync/v2"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -24,10 +24,6 @@ import (
 
 // ServicesServer is a fake server for instances of the armstoragesync.ServicesClient type.
 type ServicesServer struct {
-	// CheckNameAvailability is the fake for method ServicesClient.CheckNameAvailability
-	// HTTP status codes to indicate success: http.StatusOK
-	CheckNameAvailability func(ctx context.Context, locationName string, parameters armstoragesync.CheckNameAvailabilityParameters, options *armstoragesync.ServicesClientCheckNameAvailabilityOptions) (resp azfake.Responder[armstoragesync.ServicesClientCheckNameAvailabilityResponse], errResp azfake.ErrorResponder)
-
 	// BeginCreate is the fake for method ServicesClient.BeginCreate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginCreate func(ctx context.Context, resourceGroupName string, storageSyncServiceName string, parameters armstoragesync.ServiceCreateParameters, options *armstoragesync.ServicesClientBeginCreateOptions) (resp azfake.PollerResponder[armstoragesync.ServicesClientCreateResponse], errResp azfake.ErrorResponder)
@@ -90,8 +86,6 @@ func (s *ServicesServerTransport) Do(req *http.Request) (*http.Response, error) 
 	var err error
 
 	switch method {
-	case "ServicesClient.CheckNameAvailability":
-		resp, err = s.dispatchCheckNameAvailability(req)
 	case "ServicesClient.BeginCreate":
 		resp, err = s.dispatchBeginCreate(req)
 	case "ServicesClient.BeginDelete":
@@ -112,39 +106,6 @@ func (s *ServicesServerTransport) Do(req *http.Request) (*http.Response, error) 
 		return nil, err
 	}
 
-	return resp, nil
-}
-
-func (s *ServicesServerTransport) dispatchCheckNameAvailability(req *http.Request) (*http.Response, error) {
-	if s.srv.CheckNameAvailability == nil {
-		return nil, &nonRetriableError{errors.New("fake for method CheckNameAvailability not implemented")}
-	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.StorageSync/locations/(?P<locationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/checkNameAvailability`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 2 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	body, err := server.UnmarshalRequestAsJSON[armstoragesync.CheckNameAvailabilityParameters](req)
-	if err != nil {
-		return nil, err
-	}
-	locationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("locationName")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := s.srv.CheckNameAvailability(req.Context(), locationNameParam, body, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).CheckNameAvailabilityResult, req)
-	if err != nil {
-		return nil, err
-	}
 	return resp, nil
 }
 

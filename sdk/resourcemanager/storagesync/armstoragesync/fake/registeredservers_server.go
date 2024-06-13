@@ -15,7 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storagesync/armstoragesync"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storagesync/armstoragesync/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -42,6 +42,10 @@ type RegisteredServersServer struct {
 	// BeginTriggerRollover is the fake for method RegisteredServersClient.BeginTriggerRollover
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginTriggerRollover func(ctx context.Context, resourceGroupName string, storageSyncServiceName string, serverID string, parameters armstoragesync.TriggerRolloverRequest, options *armstoragesync.RegisteredServersClientBeginTriggerRolloverOptions) (resp azfake.PollerResponder[armstoragesync.RegisteredServersClientTriggerRolloverResponse], errResp azfake.ErrorResponder)
+
+	// BeginUpdate is the fake for method RegisteredServersClient.BeginUpdate
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginUpdate func(ctx context.Context, resourceGroupName string, storageSyncServiceName string, serverID string, parameters armstoragesync.RegisteredServerUpdateParameters, options *armstoragesync.RegisteredServersClientBeginUpdateOptions) (resp azfake.PollerResponder[armstoragesync.RegisteredServersClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewRegisteredServersServerTransport creates a new instance of RegisteredServersServerTransport with the provided implementation.
@@ -54,6 +58,7 @@ func NewRegisteredServersServerTransport(srv *RegisteredServersServer) *Register
 		beginDelete:                      newTracker[azfake.PollerResponder[armstoragesync.RegisteredServersClientDeleteResponse]](),
 		newListByStorageSyncServicePager: newTracker[azfake.PagerResponder[armstoragesync.RegisteredServersClientListByStorageSyncServiceResponse]](),
 		beginTriggerRollover:             newTracker[azfake.PollerResponder[armstoragesync.RegisteredServersClientTriggerRolloverResponse]](),
+		beginUpdate:                      newTracker[azfake.PollerResponder[armstoragesync.RegisteredServersClientUpdateResponse]](),
 	}
 }
 
@@ -65,6 +70,7 @@ type RegisteredServersServerTransport struct {
 	beginDelete                      *tracker[azfake.PollerResponder[armstoragesync.RegisteredServersClientDeleteResponse]]
 	newListByStorageSyncServicePager *tracker[azfake.PagerResponder[armstoragesync.RegisteredServersClientListByStorageSyncServiceResponse]]
 	beginTriggerRollover             *tracker[azfake.PollerResponder[armstoragesync.RegisteredServersClientTriggerRolloverResponse]]
+	beginUpdate                      *tracker[azfake.PollerResponder[armstoragesync.RegisteredServersClientUpdateResponse]]
 }
 
 // Do implements the policy.Transporter interface for RegisteredServersServerTransport.
@@ -89,6 +95,8 @@ func (r *RegisteredServersServerTransport) Do(req *http.Request) (*http.Response
 		resp, err = r.dispatchNewListByStorageSyncServicePager(req)
 	case "RegisteredServersClient.BeginTriggerRollover":
 		resp, err = r.dispatchBeginTriggerRollover(req)
+	case "RegisteredServersClient.BeginUpdate":
+		resp, err = r.dispatchBeginUpdate(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -328,6 +336,58 @@ func (r *RegisteredServersServerTransport) dispatchBeginTriggerRollover(req *htt
 	}
 	if !server.PollerResponderMore(beginTriggerRollover) {
 		r.beginTriggerRollover.remove(req)
+	}
+
+	return resp, nil
+}
+
+func (r *RegisteredServersServerTransport) dispatchBeginUpdate(req *http.Request) (*http.Response, error) {
+	if r.srv.BeginUpdate == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginUpdate not implemented")}
+	}
+	beginUpdate := r.beginUpdate.get(req)
+	if beginUpdate == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.StorageSync/storageSyncServices/(?P<storageSyncServiceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/registeredServers/(?P<serverId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 4 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armstoragesync.RegisteredServerUpdateParameters](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		storageSyncServiceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("storageSyncServiceName")])
+		if err != nil {
+			return nil, err
+		}
+		serverIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("serverId")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := r.srv.BeginUpdate(req.Context(), resourceGroupNameParam, storageSyncServiceNameParam, serverIDParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginUpdate = &respr
+		r.beginUpdate.add(req, beginUpdate)
+	}
+
+	resp, err := server.PollerResponderNext(beginUpdate, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		r.beginUpdate.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginUpdate) {
+		r.beginUpdate.remove(req)
 	}
 
 	return resp, nil
