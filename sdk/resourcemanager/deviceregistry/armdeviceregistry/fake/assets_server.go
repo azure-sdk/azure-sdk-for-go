@@ -46,7 +46,7 @@ type AssetsServer struct {
 
 	// BeginUpdate is the fake for method AssetsClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginUpdate func(ctx context.Context, resourceGroupName string, assetName string, properties armdeviceregistry.AssetUpdate, options *armdeviceregistry.AssetsClientBeginUpdateOptions) (resp azfake.PollerResponder[armdeviceregistry.AssetsClientUpdateResponse], errResp azfake.ErrorResponder)
+	BeginUpdate func(ctx context.Context, resourceGroupName string, assetName string, properties armdeviceregistry.Asset, options *armdeviceregistry.AssetsClientBeginUpdateOptions) (resp azfake.PollerResponder[armdeviceregistry.AssetsClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewAssetsServerTransport creates a new instance of AssetsServerTransport with the provided implementation.
@@ -316,7 +316,7 @@ func (a *AssetsServerTransport) dispatchBeginUpdate(req *http.Request) (*http.Re
 		if matches == nil || len(matches) < 3 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		body, err := server.UnmarshalRequestAsJSON[armdeviceregistry.AssetUpdate](req)
+		body, err := server.UnmarshalRequestAsJSON[armdeviceregistry.Asset](req)
 		if err != nil {
 			return nil, err
 		}

@@ -96,32 +96,6 @@ type AssetEndpointProfileProperties struct {
 	UUID *string
 }
 
-// AssetEndpointProfileUpdate - The type used for update operations of the AssetEndpointProfile.
-type AssetEndpointProfileUpdate struct {
-	// The updatable properties of the AssetEndpointProfile.
-	Properties *AssetEndpointProfileUpdateProperties
-
-	// Resource tags.
-	Tags map[string]*string
-}
-
-// AssetEndpointProfileUpdateProperties - The updatable properties of the AssetEndpointProfile.
-type AssetEndpointProfileUpdateProperties struct {
-	// Contains connectivity type specific further configuration (e.g. OPC UA, Modbus, ONVIF).
-	AdditionalConfiguration *string
-
-	// The local valid URI specifying the network address/DNS name of a southbound device. The scheme part of the targetAddress
-	// URI specifies the type of the device. The additionalConfiguration field holds
-	// further connector type specific configuration.
-	TargetAddress *string
-
-	// Defines the authentication mechanism for the southbound connector connecting to the shop floor/OT device.
-	TransportAuthentication *TransportAuthenticationUpdate
-
-	// Defines the client authentication mechanism to the server.
-	UserAuthentication *UserAuthenticationUpdate
-}
-
 // AssetListResult - The response of a Asset list operation.
 type AssetListResult struct {
 	// REQUIRED; The Asset items on this page
@@ -229,75 +203,6 @@ type AssetStatusError struct {
 
 	// Human readable helpful error message to provide additional context for error (ex: “capability Id 'foo' does not exist”).
 	Message *string
-}
-
-// AssetUpdate - The type used for update operations of the Asset.
-type AssetUpdate struct {
-	// The updatable properties of the Asset.
-	Properties *AssetUpdateProperties
-
-	// Resource tags.
-	Tags map[string]*string
-}
-
-// AssetUpdateProperties - The updatable properties of the Asset.
-type AssetUpdateProperties struct {
-	// Resource path to asset type (model) definition.
-	AssetType *string
-
-	// A set of key-value pairs that contain custom attributes set by the customer.
-	Attributes map[string]any
-
-	// Array of data points that are part of the asset. Each data point can reference an asset type capability and have per-data
-	// point configuration. See below for more details for the definition of the
-	// dataPoints element.
-	DataPoints []*DataPoint
-
-	// Protocol-specific default configuration for all data points. Each data point can have its own configuration that overrides
-	// the default settings here. This assumes that each asset instance has one
-	// protocol.
-	DefaultDataPointsConfiguration *string
-
-	// Protocol-specific default configuration for all events. Each event can have its own configuration that overrides the default
-	// settings here. This assumes that each asset instance has one protocol.
-	DefaultEventsConfiguration *string
-
-	// Human-readable description of the asset.
-	Description *string
-
-	// Human-readable display name.
-	DisplayName *string
-
-	// Reference to the documentation.
-	DocumentationURI *string
-
-	// Enabled/Disabled status of the asset.
-	Enabled *bool
-
-	// Array of events that are part of the asset. Each event can reference an asset type capability and have per-event configuration.
-	// See below for more details about the definition of the events element.
-	Events []*Event
-
-	// Revision number of the hardware.
-	HardwareRevision *string
-
-	// Asset manufacturer name.
-	Manufacturer *string
-
-	// Asset manufacturer URI.
-	ManufacturerURI *string
-
-	// Asset model name.
-	Model *string
-
-	// Asset product code.
-	ProductCode *string
-
-	// Asset serial number.
-	SerialNumber *string
-
-	// Revision number of the software.
-	SoftwareRevision *string
 }
 
 // DataPoint - Defines the data point properties.
@@ -494,14 +399,6 @@ type TransportAuthentication struct {
 	OwnCertificates []*OwnCertificate
 }
 
-// TransportAuthenticationUpdate - Definition of the authentication mechanism for the southbound connector.
-type TransportAuthenticationUpdate struct {
-	// Defines a reference to a secret which contains all certificates and private keys that can be used by the southbound connector
-	// connecting to the shop floor/OT device. The accepted extensions are .der
-	// for certificates and .pfx/.pem for private keys.
-	OwnCertificates []*OwnCertificate
-}
-
 // UserAuthentication - Definition of the client authentication mechanism to the server.
 type UserAuthentication struct {
 	// REQUIRED; Defines the mode to authenticate the user of the client at the server.
@@ -514,18 +411,6 @@ type UserAuthentication struct {
 	X509Credentials *X509Credentials
 }
 
-// UserAuthenticationUpdate - Definition of the client authentication mechanism to the server.
-type UserAuthenticationUpdate struct {
-	// Defines the mode to authenticate the user of the client at the server.
-	Mode *UserAuthenticationMode
-
-	// Defines the username and password references when UsernamePassword user authentication mode is selected.
-	UsernamePasswordCredentials *UsernamePasswordCredentialsUpdate
-
-	// Defines the certificate reference when Certificate user authentication mode is selected.
-	X509Credentials *X509CredentialsUpdate
-}
-
 // UsernamePasswordCredentials - The credentials for authentication mode UsernamePassword.
 type UsernamePasswordCredentials struct {
 	// REQUIRED; A reference to secret containing the password.
@@ -535,23 +420,8 @@ type UsernamePasswordCredentials struct {
 	UsernameReference *string
 }
 
-// UsernamePasswordCredentialsUpdate - The credentials for authentication mode UsernamePassword.
-type UsernamePasswordCredentialsUpdate struct {
-	// A reference to secret containing the password.
-	PasswordReference *string
-
-	// A reference to secret containing the username.
-	UsernameReference *string
-}
-
 // X509Credentials - The x509 certificate for authentication mode Certificate.
 type X509Credentials struct {
 	// REQUIRED; A reference to secret containing the certificate and private key (e.g. stored as .der/.pem or .der/.pfx).
-	CertificateReference *string
-}
-
-// X509CredentialsUpdate - The x509 certificate for authentication mode Certificate.
-type X509CredentialsUpdate struct {
-	// A reference to secret containing the certificate and private key (e.g. stored as .der/.pem or .der/.pfx).
 	CertificateReference *string
 }
