@@ -10,7 +10,7 @@ package armresources
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v2.0.0"
 )
 
 // AliasPathAttributes - The attributes of the token that the alias path is referring to.
@@ -162,6 +162,22 @@ func PossibleDeploymentModeValues() []DeploymentMode {
 	return []DeploymentMode{
 		DeploymentModeComplete,
 		DeploymentModeIncremental,
+	}
+}
+
+// ExportTemplateOutputFormat - The output format for the exported resources.
+type ExportTemplateOutputFormat string
+
+const (
+	ExportTemplateOutputFormatBicep ExportTemplateOutputFormat = "Bicep"
+	ExportTemplateOutputFormatJSON  ExportTemplateOutputFormat = "Json"
+)
+
+// PossibleExportTemplateOutputFormatValues returns the possible values for the ExportTemplateOutputFormat const type.
+func PossibleExportTemplateOutputFormatValues() []ExportTemplateOutputFormat {
+	return []ExportTemplateOutputFormat{
+		ExportTemplateOutputFormatBicep,
+		ExportTemplateOutputFormatJSON,
 	}
 }
 
