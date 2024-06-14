@@ -20,10 +20,10 @@ func unmarshalAdditionalDataClassification(rawMsg json.RawMessage) (AdditionalDa
 	}
 	var b AdditionalDataClassification
 	switch m["assessedResourceType"] {
-	case "ServerVulnerabilityAssessment":
-		b = &ServerVulnerabilityProperties{}
 	case string(AssessedResourceTypeContainerRegistryVulnerability):
 		b = &ContainerRegistryVulnerabilityProperties{}
+	case string(AssessedResourceTypeServerVulnerability):
+		b = &ServerVulnerabilityProperties{}
 	case string(AssessedResourceTypeSQLServerVulnerability):
 		b = &SQLServerVulnerabilityProperties{}
 	default:

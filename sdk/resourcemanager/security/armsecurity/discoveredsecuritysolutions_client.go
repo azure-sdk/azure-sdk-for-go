@@ -46,7 +46,7 @@ func NewDiscoveredSecuritySolutionsClient(subscriptionID string, credential azco
 // Get - Gets a specific discovered Security Solution.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - discoveredSecuritySolutionName - Name of a discovered security solution.
@@ -98,7 +98,7 @@ func (client *DiscoveredSecuritySolutionsClient) getCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -115,7 +115,7 @@ func (client *DiscoveredSecuritySolutionsClient) getHandleResponse(resp *http.Re
 
 // NewListPager - Gets a list of discovered Security Solutions for the subscription.
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2024-05-01-preview
 //   - options - DiscoveredSecuritySolutionsClientListOptions contains the optional parameters for the DiscoveredSecuritySolutionsClient.NewListPager
 //     method.
 func (client *DiscoveredSecuritySolutionsClient) NewListPager(options *DiscoveredSecuritySolutionsClientListOptions) *runtime.Pager[DiscoveredSecuritySolutionsClientListResponse] {
@@ -153,7 +153,7 @@ func (client *DiscoveredSecuritySolutionsClient) listCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -170,7 +170,7 @@ func (client *DiscoveredSecuritySolutionsClient) listHandleResponse(resp *http.R
 
 // NewListByHomeRegionPager - Gets a list of discovered Security Solutions for the subscription and location.
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2024-05-01-preview
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - options - DiscoveredSecuritySolutionsClientListByHomeRegionOptions contains the optional parameters for the DiscoveredSecuritySolutionsClient.NewListByHomeRegionPager
 //     method.
@@ -213,7 +213,7 @@ func (client *DiscoveredSecuritySolutionsClient) listByHomeRegionCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

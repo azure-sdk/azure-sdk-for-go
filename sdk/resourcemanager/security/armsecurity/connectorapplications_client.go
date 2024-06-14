@@ -45,7 +45,7 @@ func NewConnectorApplicationsClient(subscriptionID string, credential azcore.Tok
 
 // NewListPager - Get a list of all relevant applications over a security connector level scope
 //
-// Generated from API version 2022-07-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - securityConnectorName - The security connector name.
 //   - options - ConnectorApplicationsClientListOptions contains the optional parameters for the ConnectorApplicationsClient.NewListPager
@@ -93,7 +93,7 @@ func (client *ConnectorApplicationsClient) listCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

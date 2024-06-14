@@ -152,7 +152,7 @@ type AlertsClientListSubscriptionLevelByRegionResponse struct {
 	AlertList
 }
 
-// AlertsClientSimulateResponse contains the response from method AlertsClient.BeginSimulate.
+// AlertsClientSimulateResponse contains the response from method AlertsClient.Simulate.
 type AlertsClientSimulateResponse struct {
 	// placeholder for future response values
 }

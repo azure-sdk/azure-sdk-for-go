@@ -46,7 +46,7 @@ func NewConnectorApplicationClient(subscriptionID string, credential azcore.Toke
 // CreateOrUpdate - Creates or update a security Application on the given security connector.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-07-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - securityConnectorName - The security connector name.
 //   - applicationID - The security Application key - unique key for the standard application
@@ -99,7 +99,7 @@ func (client *ConnectorApplicationClient) createOrUpdateCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, application); err != nil {
@@ -120,7 +120,7 @@ func (client *ConnectorApplicationClient) createOrUpdateHandleResponse(resp *htt
 // Delete - Delete an Application over a given scope
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-07-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - securityConnectorName - The security connector name.
 //   - applicationID - The security Application key - unique key for the standard application
@@ -171,7 +171,7 @@ func (client *ConnectorApplicationClient) deleteCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -179,7 +179,7 @@ func (client *ConnectorApplicationClient) deleteCreateRequest(ctx context.Contex
 // Get - Get a specific application for the requested scope by applicationId
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-07-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - securityConnectorName - The security connector name.
 //   - applicationID - The security Application key - unique key for the standard application
@@ -231,7 +231,7 @@ func (client *ConnectorApplicationClient) getCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

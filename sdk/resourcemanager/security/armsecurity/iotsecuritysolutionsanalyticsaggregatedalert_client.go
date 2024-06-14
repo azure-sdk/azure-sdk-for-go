@@ -47,7 +47,7 @@ func NewIotSecuritySolutionsAnalyticsAggregatedAlertClient(subscriptionID string
 // Dismiss - Use this method to dismiss an aggregated IoT Security Solution Alert.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2019-08-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - solutionName - The name of the IoT Security solution.
 //   - aggregatedAlertName - Identifier of the aggregated alert.
@@ -98,7 +98,7 @@ func (client *IotSecuritySolutionsAnalyticsAggregatedAlertClient) dismissCreateR
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-08-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -108,7 +108,7 @@ func (client *IotSecuritySolutionsAnalyticsAggregatedAlertClient) dismissCreateR
 // by alert name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2019-08-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - solutionName - The name of the IoT Security solution.
 //   - aggregatedAlertName - Identifier of the aggregated alert.
@@ -160,7 +160,7 @@ func (client *IotSecuritySolutionsAnalyticsAggregatedAlertClient) getCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-08-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -177,7 +177,7 @@ func (client *IotSecuritySolutionsAnalyticsAggregatedAlertClient) getHandleRespo
 
 // NewListPager - Use this method to get the aggregated alert list of yours IoT Security solution.
 //
-// Generated from API version 2019-08-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - solutionName - The name of the IoT Security solution.
 //   - options - IotSecuritySolutionsAnalyticsAggregatedAlertClientListOptions contains the optional parameters for the IotSecuritySolutionsAnalyticsAggregatedAlertClient.NewListPager
@@ -228,7 +228,7 @@ func (client *IotSecuritySolutionsAnalyticsAggregatedAlertClient) listCreateRequ
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	reqQP.Set("api-version", "2019-08-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

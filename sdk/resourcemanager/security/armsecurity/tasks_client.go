@@ -46,7 +46,7 @@ func NewTasksClient(subscriptionID string, credential azcore.TokenCredential, op
 // GetResourceGroupLevelTask - Recommended tasks that will help improve the security of the subscription proactively
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2015-06-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - taskName - Name of the task object, will be a GUID
@@ -98,7 +98,7 @@ func (client *TasksClient) getResourceGroupLevelTaskCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2015-06-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -116,7 +116,7 @@ func (client *TasksClient) getResourceGroupLevelTaskHandleResponse(resp *http.Re
 // GetSubscriptionLevelTask - Recommended tasks that will help improve the security of the subscription proactively
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2015-06-01-preview
+// Generated from API version 2024-05-01-preview
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - taskName - Name of the task object, will be a GUID
 //   - options - TasksClientGetSubscriptionLevelTaskOptions contains the optional parameters for the TasksClient.GetSubscriptionLevelTask
@@ -163,7 +163,7 @@ func (client *TasksClient) getSubscriptionLevelTaskCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2015-06-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -180,7 +180,7 @@ func (client *TasksClient) getSubscriptionLevelTaskHandleResponse(resp *http.Res
 
 // NewListPager - Recommended tasks that will help improve the security of the subscription proactively
 //
-// Generated from API version 2015-06-01-preview
+// Generated from API version 2024-05-01-preview
 //   - options - TasksClientListOptions contains the optional parameters for the TasksClient.NewListPager method.
 func (client *TasksClient) NewListPager(options *TasksClientListOptions) *runtime.Pager[TasksClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[TasksClientListResponse]{
@@ -220,7 +220,7 @@ func (client *TasksClient) listCreateRequest(ctx context.Context, options *Tasks
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2015-06-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -237,7 +237,7 @@ func (client *TasksClient) listHandleResponse(resp *http.Response) (TasksClientL
 
 // NewListByHomeRegionPager - Recommended tasks that will help improve the security of the subscription proactively
 //
-// Generated from API version 2015-06-01-preview
+// Generated from API version 2024-05-01-preview
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - options - TasksClientListByHomeRegionOptions contains the optional parameters for the TasksClient.NewListByHomeRegionPager
 //     method.
@@ -283,7 +283,7 @@ func (client *TasksClient) listByHomeRegionCreateRequest(ctx context.Context, as
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2015-06-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -300,7 +300,7 @@ func (client *TasksClient) listByHomeRegionHandleResponse(resp *http.Response) (
 
 // NewListByResourceGroupPager - Recommended tasks that will help improve the security of the subscription proactively
 //
-// Generated from API version 2015-06-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - options - TasksClientListByResourceGroupOptions contains the optional parameters for the TasksClient.NewListByResourceGroupPager
@@ -351,7 +351,7 @@ func (client *TasksClient) listByResourceGroupCreateRequest(ctx context.Context,
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2015-06-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -369,7 +369,7 @@ func (client *TasksClient) listByResourceGroupHandleResponse(resp *http.Response
 // UpdateResourceGroupLevelTaskState - Recommended tasks that will help improve the security of the subscription proactively
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2015-06-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - taskName - Name of the task object, will be a GUID
@@ -425,7 +425,7 @@ func (client *TasksClient) updateResourceGroupLevelTaskStateCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2015-06-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -434,7 +434,7 @@ func (client *TasksClient) updateResourceGroupLevelTaskStateCreateRequest(ctx co
 // UpdateSubscriptionLevelTaskState - Recommended tasks that will help improve the security of the subscription proactively
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2015-06-01-preview
+// Generated from API version 2024-05-01-preview
 //   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 //   - taskName - Name of the task object, will be a GUID
 //   - taskUpdateActionType - Type of the action to do on the task
@@ -485,7 +485,7 @@ func (client *TasksClient) updateSubscriptionLevelTaskStateCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2015-06-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

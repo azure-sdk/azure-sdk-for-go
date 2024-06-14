@@ -45,7 +45,7 @@ func NewApplicationsClient(subscriptionID string, credential azcore.TokenCredent
 
 // NewListPager - Get a list of all relevant applications over a subscription level scope
 //
-// Generated from API version 2022-07-01-preview
+// Generated from API version 2024-05-01-preview
 //   - options - ApplicationsClientListOptions contains the optional parameters for the ApplicationsClient.NewListPager method.
 func (client *ApplicationsClient) NewListPager(options *ApplicationsClientListOptions) *runtime.Pager[ApplicationsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ApplicationsClientListResponse]{
@@ -82,7 +82,7 @@ func (client *ApplicationsClient) listCreateRequest(ctx context.Context, options
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

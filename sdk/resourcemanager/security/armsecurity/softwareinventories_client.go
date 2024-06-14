@@ -46,7 +46,7 @@ func NewSoftwareInventoriesClient(subscriptionID string, credential azcore.Token
 // Get - Gets a single software data of the virtual machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - resourceNamespace - The namespace of the resource.
 //   - resourceType - The type of the resource.
@@ -107,7 +107,7 @@ func (client *SoftwareInventoriesClient) getCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -124,7 +124,7 @@ func (client *SoftwareInventoriesClient) getHandleResponse(resp *http.Response) 
 
 // NewListByExtendedResourcePager - Gets the software inventory of the virtual machine.
 //
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - resourceNamespace - The namespace of the resource.
 //   - resourceType - The type of the resource.
@@ -182,7 +182,7 @@ func (client *SoftwareInventoriesClient) listByExtendedResourceCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -199,7 +199,7 @@ func (client *SoftwareInventoriesClient) listByExtendedResourceHandleResponse(re
 
 // NewListBySubscriptionPager - Gets the software inventory of all virtual machines in the subscriptions.
 //
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2024-05-01-preview
 //   - options - SoftwareInventoriesClientListBySubscriptionOptions contains the optional parameters for the SoftwareInventoriesClient.NewListBySubscriptionPager
 //     method.
 func (client *SoftwareInventoriesClient) NewListBySubscriptionPager(options *SoftwareInventoriesClientListBySubscriptionOptions) *runtime.Pager[SoftwareInventoriesClientListBySubscriptionResponse] {
@@ -237,7 +237,7 @@ func (client *SoftwareInventoriesClient) listBySubscriptionCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -48,7 +48,7 @@ func NewIotSecuritySolutionsAnalyticsRecommendationClient(subscriptionID string,
 // is performed by recommendation name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2019-08-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - solutionName - The name of the IoT Security solution.
 //   - aggregatedRecommendationName - Name of the recommendation aggregated for this query.
@@ -100,7 +100,7 @@ func (client *IotSecuritySolutionsAnalyticsRecommendationClient) getCreateReques
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-08-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -117,7 +117,7 @@ func (client *IotSecuritySolutionsAnalyticsRecommendationClient) getHandleRespon
 
 // NewListPager - Use this method to get the list of aggregated security analytics recommendations of yours IoT Security solution.
 //
-// Generated from API version 2019-08-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - solutionName - The name of the IoT Security solution.
 //   - options - IotSecuritySolutionsAnalyticsRecommendationClientListOptions contains the optional parameters for the IotSecuritySolutionsAnalyticsRecommendationClient.NewListPager
@@ -168,7 +168,7 @@ func (client *IotSecuritySolutionsAnalyticsRecommendationClient) listCreateReque
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	reqQP.Set("api-version", "2019-08-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

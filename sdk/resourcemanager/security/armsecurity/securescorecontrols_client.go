@@ -45,7 +45,7 @@ func NewSecureScoreControlsClient(subscriptionID string, credential azcore.Token
 
 // NewListPager - Get all security controls within a scope
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2024-05-01-preview
 //   - options - SecureScoreControlsClientListOptions contains the optional parameters for the SecureScoreControlsClient.NewListPager
 //     method.
 func (client *SecureScoreControlsClient) NewListPager(options *SecureScoreControlsClientListOptions) *runtime.Pager[SecureScoreControlsClientListResponse] {
@@ -86,7 +86,7 @@ func (client *SecureScoreControlsClient) listCreateRequest(ctx context.Context, 
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", string(*options.Expand))
 	}
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -103,7 +103,7 @@ func (client *SecureScoreControlsClient) listHandleResponse(resp *http.Response)
 
 // NewListBySecureScorePager - Get all security controls for a specific initiative within a scope
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2024-05-01-preview
 //   - secureScoreName - The initiative name. For the ASC Default initiative, use 'ascScore' as in the sample request below.
 //   - options - SecureScoreControlsClientListBySecureScoreOptions contains the optional parameters for the SecureScoreControlsClient.NewListBySecureScorePager
 //     method.
@@ -149,7 +149,7 @@ func (client *SecureScoreControlsClient) listBySecureScoreCreateRequest(ctx cont
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", string(*options.Expand))
 	}
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

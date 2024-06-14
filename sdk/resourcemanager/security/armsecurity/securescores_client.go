@@ -47,7 +47,7 @@ func NewSecureScoresClient(subscriptionID string, credential azcore.TokenCredent
 // initiative, use 'ascScore'.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2024-05-01-preview
 //   - secureScoreName - The initiative name. For the ASC Default initiative, use 'ascScore' as in the sample request below.
 //   - options - SecureScoresClientGetOptions contains the optional parameters for the SecureScoresClient.Get method.
 func (client *SecureScoresClient) Get(ctx context.Context, secureScoreName string, options *SecureScoresClientGetOptions) (SecureScoresClientGetResponse, error) {
@@ -88,7 +88,7 @@ func (client *SecureScoresClient) getCreateRequest(ctx context.Context, secureSc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -105,7 +105,7 @@ func (client *SecureScoresClient) getHandleResponse(resp *http.Response) (Secure
 
 // NewListPager - List secure scores for all your Microsoft Defender for Cloud initiatives within your current scope.
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2024-05-01-preview
 //   - options - SecureScoresClientListOptions contains the optional parameters for the SecureScoresClient.NewListPager method.
 func (client *SecureScoresClient) NewListPager(options *SecureScoresClientListOptions) *runtime.Pager[SecureScoresClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SecureScoresClientListResponse]{
@@ -142,7 +142,7 @@ func (client *SecureScoresClient) listCreateRequest(ctx context.Context, options
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

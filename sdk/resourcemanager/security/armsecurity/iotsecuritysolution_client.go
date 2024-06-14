@@ -46,7 +46,7 @@ func NewIotSecuritySolutionClient(subscriptionID string, credential azcore.Token
 // CreateOrUpdate - Use this method to create or update yours IoT Security solution
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2019-08-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - solutionName - The name of the IoT Security solution.
 //   - iotSecuritySolutionData - The security solution data
@@ -94,7 +94,7 @@ func (client *IotSecuritySolutionClient) createOrUpdateCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-08-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, iotSecuritySolutionData); err != nil {
@@ -115,7 +115,7 @@ func (client *IotSecuritySolutionClient) createOrUpdateHandleResponse(resp *http
 // Delete - Use this method to delete yours IoT Security solution
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2019-08-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - solutionName - The name of the IoT Security solution.
 //   - options - IotSecuritySolutionClientDeleteOptions contains the optional parameters for the IotSecuritySolutionClient.Delete
@@ -161,7 +161,7 @@ func (client *IotSecuritySolutionClient) deleteCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-08-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -170,7 +170,7 @@ func (client *IotSecuritySolutionClient) deleteCreateRequest(ctx context.Context
 // Get - User this method to get details of a specific IoT Security solution based on solution name
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2019-08-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - solutionName - The name of the IoT Security solution.
 //   - options - IotSecuritySolutionClientGetOptions contains the optional parameters for the IotSecuritySolutionClient.Get method.
@@ -216,7 +216,7 @@ func (client *IotSecuritySolutionClient) getCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-08-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -233,7 +233,7 @@ func (client *IotSecuritySolutionClient) getHandleResponse(resp *http.Response) 
 
 // NewListByResourceGroupPager - Use this method to get the list IoT Security solutions organized by resource group.
 //
-// Generated from API version 2019-08-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - options - IotSecuritySolutionClientListByResourceGroupOptions contains the optional parameters for the IotSecuritySolutionClient.NewListByResourceGroupPager
 //     method.
@@ -279,7 +279,7 @@ func (client *IotSecuritySolutionClient) listByResourceGroupCreateRequest(ctx co
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2019-08-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -296,7 +296,7 @@ func (client *IotSecuritySolutionClient) listByResourceGroupHandleResponse(resp 
 
 // NewListBySubscriptionPager - Use this method to get the list of IoT Security solutions by subscription.
 //
-// Generated from API version 2019-08-01
+// Generated from API version 2024-05-01-preview
 //   - options - IotSecuritySolutionClientListBySubscriptionOptions contains the optional parameters for the IotSecuritySolutionClient.NewListBySubscriptionPager
 //     method.
 func (client *IotSecuritySolutionClient) NewListBySubscriptionPager(options *IotSecuritySolutionClientListBySubscriptionOptions) *runtime.Pager[IotSecuritySolutionClientListBySubscriptionResponse] {
@@ -337,7 +337,7 @@ func (client *IotSecuritySolutionClient) listBySubscriptionCreateRequest(ctx con
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2019-08-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -356,7 +356,7 @@ func (client *IotSecuritySolutionClient) listBySubscriptionHandleResponse(resp *
 // use the CreateOrUpdate method.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2019-08-01
+// Generated from API version 2024-05-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 //   - solutionName - The name of the IoT Security solution.
 //   - updateIotSecuritySolutionData - The security solution data
@@ -404,7 +404,7 @@ func (client *IotSecuritySolutionClient) updateCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-08-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, updateIotSecuritySolutionData); err != nil {

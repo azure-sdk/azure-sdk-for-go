@@ -46,7 +46,7 @@ func NewOperatorsClient(subscriptionID string, credential azcore.TokenCredential
 // CreateOrUpdate - Creates Microsoft Defender for Cloud security operator on the given scope.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2024-05-01-preview
 //   - pricingName - name of the pricing configuration
 //   - securityOperatorName - name of the securityOperator
 //   - options - OperatorsClientCreateOrUpdateOptions contains the optional parameters for the OperatorsClient.CreateOrUpdate
@@ -93,7 +93,7 @@ func (client *OperatorsClient) createOrUpdateCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -111,7 +111,7 @@ func (client *OperatorsClient) createOrUpdateHandleResponse(resp *http.Response)
 // Delete - Delete Microsoft Defender for Cloud securityOperator in the subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2024-05-01-preview
 //   - pricingName - name of the pricing configuration
 //   - securityOperatorName - name of the securityOperator
 //   - options - OperatorsClientDeleteOptions contains the optional parameters for the OperatorsClient.Delete method.
@@ -156,7 +156,7 @@ func (client *OperatorsClient) deleteCreateRequest(ctx context.Context, pricingN
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -165,7 +165,7 @@ func (client *OperatorsClient) deleteCreateRequest(ctx context.Context, pricingN
 // Get - Get a specific security operator for the requested scope.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2024-05-01-preview
 //   - pricingName - name of the pricing configuration
 //   - securityOperatorName - name of the securityOperator
 //   - options - OperatorsClientGetOptions contains the optional parameters for the OperatorsClient.Get method.
@@ -211,7 +211,7 @@ func (client *OperatorsClient) getCreateRequest(ctx context.Context, pricingName
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -229,7 +229,7 @@ func (client *OperatorsClient) getHandleResponse(resp *http.Response) (Operators
 // List - Lists Microsoft Defender for Cloud securityOperators in the subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2024-05-01-preview
 //   - pricingName - name of the pricing configuration
 //   - options - OperatorsClientListOptions contains the optional parameters for the OperatorsClient.List method.
 func (client *OperatorsClient) List(ctx context.Context, pricingName string, options *OperatorsClientListOptions) (OperatorsClientListResponse, error) {
@@ -270,7 +270,7 @@ func (client *OperatorsClient) listCreateRequest(ctx context.Context, pricingNam
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

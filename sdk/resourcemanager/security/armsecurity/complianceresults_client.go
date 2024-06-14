@@ -43,7 +43,7 @@ func NewComplianceResultsClient(credential azcore.TokenCredential, options *arm.
 // Get - Security Compliance Result
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2017-08-01
+// Generated from API version 2024-05-01-preview
 //   - resourceID - The identifier of the resource.
 //   - complianceResultName - name of the desired assessment compliance result
 //   - options - ComplianceResultsClientGetOptions contains the optional parameters for the ComplianceResultsClient.Get method.
@@ -82,7 +82,7 @@ func (client *ComplianceResultsClient) getCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2017-08-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -99,7 +99,7 @@ func (client *ComplianceResultsClient) getHandleResponse(resp *http.Response) (C
 
 // NewListPager - Security compliance results in the subscription
 //
-// Generated from API version 2017-08-01
+// Generated from API version 2024-05-01-preview
 //   - scope - Scope of the query, can be subscription (/subscriptions/0b06d9ea-afe6-4779-bd59-30e5c2d9d13f) or management group
 //     (/providers/Microsoft.Management/managementGroups/mgName).
 //   - options - ComplianceResultsClientListOptions contains the optional parameters for the ComplianceResultsClient.NewListPager
@@ -136,7 +136,7 @@ func (client *ComplianceResultsClient) listCreateRequest(ctx context.Context, sc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2017-08-01")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -43,7 +43,7 @@ func NewGovernanceRulesClient(credential azcore.TokenCredential, options *arm.Cl
 // CreateOrUpdate - Creates or updates a governance rule over a given scope
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01-preview
+// Generated from API version 2024-05-01-preview
 //   - scope - The scope of the Governance rules. Valid scopes are: management group (format: 'providers/Microsoft.Management/managementGroups/{managementGroup}'),
 //     subscription (format:
 //     'subscriptions/{subscriptionId}'), or security connector (format:
@@ -90,7 +90,7 @@ func (client *GovernanceRulesClient) createOrUpdateCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, governanceRule); err != nil {
@@ -111,7 +111,7 @@ func (client *GovernanceRulesClient) createOrUpdateHandleResponse(resp *http.Res
 // BeginDelete - Delete a Governance rule over a given scope
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01-preview
+// Generated from API version 2024-05-01-preview
 //   - scope - The scope of the Governance rules. Valid scopes are: management group (format: 'providers/Microsoft.Management/managementGroups/{managementGroup}'),
 //     subscription (format:
 //     'subscriptions/{subscriptionId}'), or security connector (format:
@@ -140,7 +140,7 @@ func (client *GovernanceRulesClient) BeginDelete(ctx context.Context, scope stri
 // Delete - Delete a Governance rule over a given scope
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01-preview
+// Generated from API version 2024-05-01-preview
 func (client *GovernanceRulesClient) deleteOperation(ctx context.Context, scope string, ruleID string, options *GovernanceRulesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "GovernanceRulesClient.BeginDelete"
@@ -178,7 +178,7 @@ func (client *GovernanceRulesClient) deleteCreateRequest(ctx context.Context, sc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -186,7 +186,7 @@ func (client *GovernanceRulesClient) deleteCreateRequest(ctx context.Context, sc
 // BeginExecute - Execute a governance rule
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01-preview
+// Generated from API version 2024-05-01-preview
 //   - scope - The scope of the Governance rules. Valid scopes are: management group (format: 'providers/Microsoft.Management/managementGroups/{managementGroup}'),
 //     subscription (format:
 //     'subscriptions/{subscriptionId}'), or security connector (format:
@@ -215,7 +215,7 @@ func (client *GovernanceRulesClient) BeginExecute(ctx context.Context, scope str
 // Execute - Execute a governance rule
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01-preview
+// Generated from API version 2024-05-01-preview
 func (client *GovernanceRulesClient) execute(ctx context.Context, scope string, ruleID string, options *GovernanceRulesClientBeginExecuteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "GovernanceRulesClient.BeginExecute"
@@ -253,7 +253,7 @@ func (client *GovernanceRulesClient) executeCreateRequest(ctx context.Context, s
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.ExecuteGovernanceRuleParams != nil {
@@ -268,7 +268,7 @@ func (client *GovernanceRulesClient) executeCreateRequest(ctx context.Context, s
 // Get - Get a specific governance rule for the requested scope by ruleId
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01-preview
+// Generated from API version 2024-05-01-preview
 //   - scope - The scope of the Governance rules. Valid scopes are: management group (format: 'providers/Microsoft.Management/managementGroups/{managementGroup}'),
 //     subscription (format:
 //     'subscriptions/{subscriptionId}'), or security connector (format:
@@ -313,7 +313,7 @@ func (client *GovernanceRulesClient) getCreateRequest(ctx context.Context, scope
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -330,7 +330,7 @@ func (client *GovernanceRulesClient) getHandleResponse(resp *http.Response) (Gov
 
 // NewListPager - Get a list of all relevant governance rules over a scope
 //
-// Generated from API version 2022-01-01-preview
+// Generated from API version 2024-05-01-preview
 //   - scope - The scope of the Governance rules. Valid scopes are: management group (format: 'providers/Microsoft.Management/managementGroups/{managementGroup}'),
 //     subscription (format:
 //     'subscriptions/{subscriptionId}'), or security connector (format:
@@ -372,7 +372,7 @@ func (client *GovernanceRulesClient) listCreateRequest(ctx context.Context, scop
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -390,7 +390,7 @@ func (client *GovernanceRulesClient) listHandleResponse(resp *http.Response) (Go
 // OperationResults - Get governance rules long run operation result for the requested scope by ruleId and operationId
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01-preview
+// Generated from API version 2024-05-01-preview
 //   - scope - The scope of the Governance rules. Valid scopes are: management group (format: 'providers/Microsoft.Management/managementGroups/{managementGroup}'),
 //     subscription (format:
 //     'subscriptions/{subscriptionId}'), or security connector (format:
@@ -441,7 +441,7 @@ func (client *GovernanceRulesClient) operationResultsCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

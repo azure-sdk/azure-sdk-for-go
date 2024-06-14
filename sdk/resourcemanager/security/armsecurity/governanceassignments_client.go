@@ -43,7 +43,7 @@ func NewGovernanceAssignmentsClient(credential azcore.TokenCredential, options *
 // CreateOrUpdate - Creates or updates a governance assignment on the given subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01-preview
+// Generated from API version 2024-05-01-preview
 //   - scope - The scope of the Governance assignments. Valid scopes are: subscription (format: 'subscriptions/{subscriptionId}'),
 //     or security connector (format:
 //     'subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Security/securityConnectors/{securityConnectorName})'
@@ -94,7 +94,7 @@ func (client *GovernanceAssignmentsClient) createOrUpdateCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, governanceAssignment); err != nil {
@@ -115,7 +115,7 @@ func (client *GovernanceAssignmentsClient) createOrUpdateHandleResponse(resp *ht
 // Delete - Delete a GovernanceAssignment over a given scope
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01-preview
+// Generated from API version 2024-05-01-preview
 //   - scope - The scope of the Governance assignments. Valid scopes are: subscription (format: 'subscriptions/{subscriptionId}'),
 //     or security connector (format:
 //     'subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Security/securityConnectors/{securityConnectorName})'
@@ -164,7 +164,7 @@ func (client *GovernanceAssignmentsClient) deleteCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -172,7 +172,7 @@ func (client *GovernanceAssignmentsClient) deleteCreateRequest(ctx context.Conte
 // Get - Get a specific governanceAssignment for the requested scope by AssignmentKey
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01-preview
+// Generated from API version 2024-05-01-preview
 //   - scope - The scope of the Governance assignments. Valid scopes are: subscription (format: 'subscriptions/{subscriptionId}'),
 //     or security connector (format:
 //     'subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Security/securityConnectors/{securityConnectorName})'
@@ -222,7 +222,7 @@ func (client *GovernanceAssignmentsClient) getCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -239,7 +239,7 @@ func (client *GovernanceAssignmentsClient) getHandleResponse(resp *http.Response
 
 // NewListPager - Get governance assignments on all of your resources inside a scope
 //
-// Generated from API version 2022-01-01-preview
+// Generated from API version 2024-05-01-preview
 //   - scope - The scope of the Governance assignments. Valid scopes are: subscription (format: 'subscriptions/{subscriptionId}'),
 //     or security connector (format:
 //     'subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Security/securityConnectors/{securityConnectorName})'
@@ -285,7 +285,7 @@ func (client *GovernanceAssignmentsClient) listCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01-preview")
+	reqQP.Set("api-version", "2024-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
