@@ -142,7 +142,7 @@ type StandbyContainerGroupPoolResourceListResult struct {
 	// REQUIRED; The StandbyContainerGroupPoolResource items on this page
 	Value []*StandbyContainerGroupPoolResource
 
-	// READ-ONLY; The link to the next page of items
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -217,7 +217,7 @@ type StandbyVirtualMachinePoolResourceListResult struct {
 	// REQUIRED; The StandbyVirtualMachinePoolResource items on this page
 	Value []*StandbyVirtualMachinePoolResource
 
-	// READ-ONLY; The link to the next page of items
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -281,7 +281,7 @@ type StandbyVirtualMachineResourceListResult struct {
 	// REQUIRED; The StandbyVirtualMachineResource items on this page
 	Value []*StandbyVirtualMachineResource
 
-	// READ-ONLY; The link to the next page of items
+	// The link to the next page of items
 	NextLink *string
 }
 
