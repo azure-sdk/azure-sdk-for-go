@@ -22,6 +22,7 @@ type ServerFactory struct {
 	APIDefinitionsServer  APIDefinitionsServer
 	APIVersionsServer     APIVersionsServer
 	ApisServer            ApisServer
+	DeletedServicesServer DeletedServicesServer
 	DeploymentsServer     DeploymentsServer
 	EnvironmentsServer    EnvironmentsServer
 	MetadataSchemasServer MetadataSchemasServer
@@ -47,6 +48,7 @@ type ServerFactoryTransport struct {
 	trAPIDefinitionsServer  *APIDefinitionsServerTransport
 	trAPIVersionsServer     *APIVersionsServerTransport
 	trApisServer            *ApisServerTransport
+	trDeletedServicesServer *DeletedServicesServerTransport
 	trDeploymentsServer     *DeploymentsServerTransport
 	trEnvironmentsServer    *EnvironmentsServerTransport
 	trMetadataSchemasServer *MetadataSchemasServerTransport
@@ -79,6 +81,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "ApisClient":
 		initServer(s, &s.trApisServer, func() *ApisServerTransport { return NewApisServerTransport(&s.srv.ApisServer) })
 		resp, err = s.trApisServer.Do(req)
+	case "DeletedServicesClient":
+		initServer(s, &s.trDeletedServicesServer, func() *DeletedServicesServerTransport {
+			return NewDeletedServicesServerTransport(&s.srv.DeletedServicesServer)
+		})
+		resp, err = s.trDeletedServicesServer.Do(req)
 	case "DeploymentsClient":
 		initServer(s, &s.trDeploymentsServer, func() *DeploymentsServerTransport { return NewDeploymentsServerTransport(&s.srv.DeploymentsServer) })
 		resp, err = s.trDeploymentsServer.Do(req)
