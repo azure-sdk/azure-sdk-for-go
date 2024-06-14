@@ -27,6 +27,7 @@ type ServerFactory struct {
 	AutoscaleSettingsServer               AutoscaleSettingsServer
 	AzureMonitorWorkspacesServer          AzureMonitorWorkspacesServer
 	BaselinesServer                       BaselinesServer
+	Server                                Server
 	DataCollectionEndpointsServer         DataCollectionEndpointsServer
 	DataCollectionRuleAssociationsServer  DataCollectionRuleAssociationsServer
 	DataCollectionRulesServer             DataCollectionRulesServer
@@ -47,6 +48,7 @@ type ServerFactory struct {
 	PrivateLinkScopeOperationStatusServer PrivateLinkScopeOperationStatusServer
 	PrivateLinkScopedResourcesServer      PrivateLinkScopedResourcesServer
 	PrivateLinkScopesServer               PrivateLinkScopesServer
+	ScheduledQueryRuleServer              ScheduledQueryRuleServer
 	ScheduledQueryRulesServer             ScheduledQueryRulesServer
 	TenantActionGroupsServer              TenantActionGroupsServer
 	TenantActivityLogsServer              TenantActivityLogsServer
@@ -75,6 +77,7 @@ type ServerFactoryTransport struct {
 	trAutoscaleSettingsServer               *AutoscaleSettingsServerTransport
 	trAzureMonitorWorkspacesServer          *AzureMonitorWorkspacesServerTransport
 	trBaselinesServer                       *BaselinesServerTransport
+	trServer                                *ServerTransport
 	trDataCollectionEndpointsServer         *DataCollectionEndpointsServerTransport
 	trDataCollectionRuleAssociationsServer  *DataCollectionRuleAssociationsServerTransport
 	trDataCollectionRulesServer             *DataCollectionRulesServerTransport
@@ -95,6 +98,7 @@ type ServerFactoryTransport struct {
 	trPrivateLinkScopeOperationStatusServer *PrivateLinkScopeOperationStatusServerTransport
 	trPrivateLinkScopedResourcesServer      *PrivateLinkScopedResourcesServerTransport
 	trPrivateLinkScopesServer               *PrivateLinkScopesServerTransport
+	trScheduledQueryRuleServer              *ScheduledQueryRuleServerTransport
 	trScheduledQueryRulesServer             *ScheduledQueryRulesServerTransport
 	trTenantActionGroupsServer              *TenantActionGroupsServerTransport
 	trTenantActivityLogsServer              *TenantActivityLogsServerTransport
@@ -146,6 +150,9 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "BaselinesClient":
 		initServer(s, &s.trBaselinesServer, func() *BaselinesServerTransport { return NewBaselinesServerTransport(&s.srv.BaselinesServer) })
 		resp, err = s.trBaselinesServer.Do(req)
+	case "Client":
+		initServer(s, &s.trServer, func() *ServerTransport { return NewServerTransport(&s.srv.Server) })
+		resp, err = s.trServer.Do(req)
 	case "DataCollectionEndpointsClient":
 		initServer(s, &s.trDataCollectionEndpointsServer, func() *DataCollectionEndpointsServerTransport {
 			return NewDataCollectionEndpointsServerTransport(&s.srv.DataCollectionEndpointsServer)
@@ -238,6 +245,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewPrivateLinkScopesServerTransport(&s.srv.PrivateLinkScopesServer)
 		})
 		resp, err = s.trPrivateLinkScopesServer.Do(req)
+	case "ScheduledQueryRuleClient":
+		initServer(s, &s.trScheduledQueryRuleServer, func() *ScheduledQueryRuleServerTransport {
+			return NewScheduledQueryRuleServerTransport(&s.srv.ScheduledQueryRuleServer)
+		})
+		resp, err = s.trScheduledQueryRuleServer.Do(req)
 	case "ScheduledQueryRulesClient":
 		initServer(s, &s.trScheduledQueryRulesServer, func() *ScheduledQueryRulesServerTransport {
 			return NewScheduledQueryRulesServerTransport(&s.srv.ScheduledQueryRulesServer)
