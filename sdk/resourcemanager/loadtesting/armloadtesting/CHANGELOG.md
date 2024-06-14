@@ -1,5 +1,33 @@
 # Release History
 
+## 2.0.0 (2024-06-14)
+### Breaking Changes
+
+- Function `*LoadTestsClient.BeginUpdate` parameter(s) have been changed from `(context.Context, string, string, LoadTestResourcePatchRequestBody, *LoadTestsClientBeginUpdateOptions)` to `(context.Context, string, string, LoadTestResourceUpdate, *LoadTestsClientBeginUpdateOptions)`
+- Struct `LoadTestResourcePageList` has been removed
+- Struct `LoadTestResourcePatchRequestBody` has been removed
+- Struct `LoadTestResourcePatchRequestBodyProperties` has been removed
+- Struct `OutboundEnvironmentEndpointCollection` has been removed
+- Struct `QuotaResourceList` has been removed
+- Field `LoadTestResourcePageList` of struct `LoadTestsClientListByResourceGroupResponse` has been removed
+- Field `LoadTestResourcePageList` of struct `LoadTestsClientListBySubscriptionResponse` has been removed
+- Field `OutboundEnvironmentEndpointCollection` of struct `LoadTestsClientListOutboundNetworkDependenciesEndpointsResponse` has been removed
+- Field `ID`, `Name`, `SystemData`, `Type` of struct `QuotaBucketRequest` has been removed
+- Field `QuotaResourceList` of struct `QuotasClientListResponse` has been removed
+
+### Features Added
+
+- New struct `LoadTestResourceListResult`
+- New struct `LoadTestResourceUpdate`
+- New struct `LoadTestResourceUpdateProperties`
+- New struct `PagedOutboundEnvironmentEndpoint`
+- New struct `QuotaResourceListResult`
+- New anonymous field `LoadTestResourceListResult` in struct `LoadTestsClientListByResourceGroupResponse`
+- New anonymous field `LoadTestResourceListResult` in struct `LoadTestsClientListBySubscriptionResponse`
+- New anonymous field `PagedOutboundEnvironmentEndpoint` in struct `LoadTestsClientListOutboundNetworkDependenciesEndpointsResponse`
+- New anonymous field `QuotaResourceListResult` in struct `QuotasClientListResponse`
+
+
 ## 1.2.0 (2023-11-24)
 ### Features Added
 
