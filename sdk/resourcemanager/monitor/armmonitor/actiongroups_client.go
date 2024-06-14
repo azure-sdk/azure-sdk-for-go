@@ -28,7 +28,7 @@ type ActionGroupsClient struct {
 }
 
 // NewActionGroupsClient creates a new instance of ActionGroupsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewActionGroupsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ActionGroupsClient, error) {
@@ -46,7 +46,7 @@ func NewActionGroupsClient(subscriptionID string, credential azcore.TokenCredent
 // BeginCreateNotificationsAtActionGroupResourceLevel - Send test notifications to a set of provided receivers
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01
+// Generated from API version 2023-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - actionGroupName - The name of the action group.
 //   - notificationRequest - The notification request body which includes the contact details
@@ -73,7 +73,7 @@ func (client *ActionGroupsClient) BeginCreateNotificationsAtActionGroupResourceL
 // CreateNotificationsAtActionGroupResourceLevel - Send test notifications to a set of provided receivers
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01
+// Generated from API version 2023-09-01-preview
 func (client *ActionGroupsClient) createNotificationsAtActionGroupResourceLevel(ctx context.Context, resourceGroupName string, actionGroupName string, notificationRequest NotificationRequestBody, options *ActionGroupsClientBeginCreateNotificationsAtActionGroupResourceLevelOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ActionGroupsClient.BeginCreateNotificationsAtActionGroupResourceLevel"
@@ -115,7 +115,7 @@ func (client *ActionGroupsClient) createNotificationsAtActionGroupResourceLevelC
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01")
+	reqQP.Set("api-version", "2023-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, notificationRequest); err != nil {
@@ -127,7 +127,7 @@ func (client *ActionGroupsClient) createNotificationsAtActionGroupResourceLevelC
 // CreateOrUpdate - Create a new action group or update an existing one.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01
+// Generated from API version 2023-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - actionGroupName - The name of the action group.
 //   - actionGroup - The action group to create or use for the update.
@@ -175,7 +175,7 @@ func (client *ActionGroupsClient) createOrUpdateCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01")
+	reqQP.Set("api-version", "2023-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, actionGroup); err != nil {
@@ -196,7 +196,7 @@ func (client *ActionGroupsClient) createOrUpdateHandleResponse(resp *http.Respon
 // Delete - Delete an action group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01
+// Generated from API version 2023-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - actionGroupName - The name of the action group.
 //   - options - ActionGroupsClientDeleteOptions contains the optional parameters for the ActionGroupsClient.Delete method.
@@ -241,7 +241,7 @@ func (client *ActionGroupsClient) deleteCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01")
+	reqQP.Set("api-version", "2023-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -251,7 +251,7 @@ func (client *ActionGroupsClient) deleteCreateRequest(ctx context.Context, resou
 // operation is only supported for Email or SMS receivers.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01
+// Generated from API version 2023-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - actionGroupName - The name of the action group.
 //   - enableRequest - The receiver to re-enable.
@@ -298,7 +298,7 @@ func (client *ActionGroupsClient) enableReceiverCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01")
+	reqQP.Set("api-version", "2023-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, enableRequest); err != nil {
@@ -310,7 +310,7 @@ func (client *ActionGroupsClient) enableReceiverCreateRequest(ctx context.Contex
 // Get - Get an action group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01
+// Generated from API version 2023-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - actionGroupName - The name of the action group.
 //   - options - ActionGroupsClientGetOptions contains the optional parameters for the ActionGroupsClient.Get method.
@@ -356,7 +356,7 @@ func (client *ActionGroupsClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01")
+	reqQP.Set("api-version", "2023-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -371,10 +371,79 @@ func (client *ActionGroupsClient) getHandleResponse(resp *http.Response) (Action
 	return result, nil
 }
 
+// GetNSP - Gets a specified NSP configuration for specified action group.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2021-10-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - actionGroupName - The name of the action group.
+//   - networkSecurityPerimeterConfigurationName - The name for a network security perimeter configuration
+//   - options - ActionGroupsClientGetNSPOptions contains the optional parameters for the ActionGroupsClient.GetNSP method.
+func (client *ActionGroupsClient) GetNSP(ctx context.Context, resourceGroupName string, actionGroupName string, networkSecurityPerimeterConfigurationName string, options *ActionGroupsClientGetNSPOptions) (ActionGroupsClientGetNSPResponse, error) {
+	var err error
+	const operationName = "ActionGroupsClient.GetNSP"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.getNSPCreateRequest(ctx, resourceGroupName, actionGroupName, networkSecurityPerimeterConfigurationName, options)
+	if err != nil {
+		return ActionGroupsClientGetNSPResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return ActionGroupsClientGetNSPResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return ActionGroupsClientGetNSPResponse{}, err
+	}
+	resp, err := client.getNSPHandleResponse(httpResp)
+	return resp, err
+}
+
+// getNSPCreateRequest creates the GetNSP request.
+func (client *ActionGroupsClient) getNSPCreateRequest(ctx context.Context, resourceGroupName string, actionGroupName string, networkSecurityPerimeterConfigurationName string, options *ActionGroupsClientGetNSPOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Insights/actionGroups/{actionGroupName}/networkSecurityPerimeterConfigurations/{networkSecurityPerimeterConfigurationName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if actionGroupName == "" {
+		return nil, errors.New("parameter actionGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{actionGroupName}", url.PathEscape(actionGroupName))
+	if networkSecurityPerimeterConfigurationName == "" {
+		return nil, errors.New("parameter networkSecurityPerimeterConfigurationName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{networkSecurityPerimeterConfigurationName}", url.PathEscape(networkSecurityPerimeterConfigurationName))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2021-10-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// getNSPHandleResponse handles the GetNSP response.
+func (client *ActionGroupsClient) getNSPHandleResponse(resp *http.Response) (ActionGroupsClientGetNSPResponse, error) {
+	result := ActionGroupsClientGetNSPResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.NetworkSecurityPerimeterConfiguration); err != nil {
+		return ActionGroupsClientGetNSPResponse{}, err
+	}
+	return result, nil
+}
+
 // GetTestNotificationsAtActionGroupResourceLevel - Get the test notifications by the notification id
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01
+// Generated from API version 2023-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - actionGroupName - The name of the action group.
 //   - notificationID - The notification id
@@ -426,7 +495,7 @@ func (client *ActionGroupsClient) getTestNotificationsAtActionGroupResourceLevel
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01")
+	reqQP.Set("api-version", "2023-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -443,7 +512,7 @@ func (client *ActionGroupsClient) getTestNotificationsAtActionGroupResourceLevel
 
 // NewListByResourceGroupPager - Get a list of all action groups in a resource group.
 //
-// Generated from API version 2023-01-01
+// Generated from API version 2023-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - ActionGroupsClientListByResourceGroupOptions contains the optional parameters for the ActionGroupsClient.NewListByResourceGroupPager
 //     method.
@@ -487,7 +556,7 @@ func (client *ActionGroupsClient) listByResourceGroupCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01")
+	reqQP.Set("api-version", "2023-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -504,7 +573,7 @@ func (client *ActionGroupsClient) listByResourceGroupHandleResponse(resp *http.R
 
 // NewListBySubscriptionIDPager - Get a list of all action groups in a subscription.
 //
-// Generated from API version 2023-01-01
+// Generated from API version 2023-09-01-preview
 //   - options - ActionGroupsClientListBySubscriptionIDOptions contains the optional parameters for the ActionGroupsClient.NewListBySubscriptionIDPager
 //     method.
 func (client *ActionGroupsClient) NewListBySubscriptionIDPager(options *ActionGroupsClientListBySubscriptionIDOptions) *runtime.Pager[ActionGroupsClientListBySubscriptionIDResponse] {
@@ -543,7 +612,7 @@ func (client *ActionGroupsClient) listBySubscriptionIDCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01")
+	reqQP.Set("api-version", "2023-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -558,10 +627,157 @@ func (client *ActionGroupsClient) listBySubscriptionIDHandleResponse(resp *http.
 	return result, nil
 }
 
+// NewListNSPPager - Gets a list of NSP configurations for specified action group.
+//
+// Generated from API version 2021-10-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - actionGroupName - The name of the action group.
+//   - options - ActionGroupsClientListNSPOptions contains the optional parameters for the ActionGroupsClient.NewListNSPPager
+//     method.
+func (client *ActionGroupsClient) NewListNSPPager(resourceGroupName string, actionGroupName string, options *ActionGroupsClientListNSPOptions) *runtime.Pager[ActionGroupsClientListNSPResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ActionGroupsClientListNSPResponse]{
+		More: func(page ActionGroupsClientListNSPResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *ActionGroupsClientListNSPResponse) (ActionGroupsClientListNSPResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ActionGroupsClient.NewListNSPPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
+			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listNSPCreateRequest(ctx, resourceGroupName, actionGroupName, options)
+			}, nil)
+			if err != nil {
+				return ActionGroupsClientListNSPResponse{}, err
+			}
+			return client.listNSPHandleResponse(resp)
+		},
+		Tracer: client.internal.Tracer(),
+	})
+}
+
+// listNSPCreateRequest creates the ListNSP request.
+func (client *ActionGroupsClient) listNSPCreateRequest(ctx context.Context, resourceGroupName string, actionGroupName string, options *ActionGroupsClientListNSPOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Insights/actionGroups/{actionGroupName}/networkSecurityPerimeterConfigurations"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if actionGroupName == "" {
+		return nil, errors.New("parameter actionGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{actionGroupName}", url.PathEscape(actionGroupName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2021-10-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// listNSPHandleResponse handles the ListNSP response.
+func (client *ActionGroupsClient) listNSPHandleResponse(resp *http.Response) (ActionGroupsClientListNSPResponse, error) {
+	result := ActionGroupsClientListNSPResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.NetworkSecurityPerimeterConfigurationListResult); err != nil {
+		return ActionGroupsClientListNSPResponse{}, err
+	}
+	return result, nil
+}
+
+// BeginReconcileNSP - Reconciles a specified NSP configuration for specified action group.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2021-10-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - actionGroupName - The name of the action group.
+//   - networkSecurityPerimeterConfigurationName - The name for a network security perimeter configuration
+//   - options - ActionGroupsClientBeginReconcileNSPOptions contains the optional parameters for the ActionGroupsClient.BeginReconcileNSP
+//     method.
+func (client *ActionGroupsClient) BeginReconcileNSP(ctx context.Context, resourceGroupName string, actionGroupName string, networkSecurityPerimeterConfigurationName string, options *ActionGroupsClientBeginReconcileNSPOptions) (*runtime.Poller[ActionGroupsClientReconcileNSPResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.reconcileNSP(ctx, resourceGroupName, actionGroupName, networkSecurityPerimeterConfigurationName, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ActionGroupsClientReconcileNSPResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ActionGroupsClientReconcileNSPResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// ReconcileNSP - Reconciles a specified NSP configuration for specified action group.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2021-10-01
+func (client *ActionGroupsClient) reconcileNSP(ctx context.Context, resourceGroupName string, actionGroupName string, networkSecurityPerimeterConfigurationName string, options *ActionGroupsClientBeginReconcileNSPOptions) (*http.Response, error) {
+	var err error
+	const operationName = "ActionGroupsClient.BeginReconcileNSP"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.reconcileNSPCreateRequest(ctx, resourceGroupName, actionGroupName, networkSecurityPerimeterConfigurationName, options)
+	if err != nil {
+		return nil, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusAccepted) {
+		err = runtime.NewResponseError(httpResp)
+		return nil, err
+	}
+	return httpResp, nil
+}
+
+// reconcileNSPCreateRequest creates the ReconcileNSP request.
+func (client *ActionGroupsClient) reconcileNSPCreateRequest(ctx context.Context, resourceGroupName string, actionGroupName string, networkSecurityPerimeterConfigurationName string, options *ActionGroupsClientBeginReconcileNSPOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Insights/actionGroups/{actionGroupName}/networkSecurityPerimeterConfigurations/{networkSecurityPerimeterConfigurationName}/reconcile"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if actionGroupName == "" {
+		return nil, errors.New("parameter actionGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{actionGroupName}", url.PathEscape(actionGroupName))
+	if networkSecurityPerimeterConfigurationName == "" {
+		return nil, errors.New("parameter networkSecurityPerimeterConfigurationName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{networkSecurityPerimeterConfigurationName}", url.PathEscape(networkSecurityPerimeterConfigurationName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2021-10-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
 // Update - Updates an existing action group's tags. To update other fields use the CreateOrUpdate method.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01
+// Generated from API version 2023-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - actionGroupName - The name of the action group.
 //   - actionGroupPatch - Parameters supplied to the operation.
@@ -608,7 +824,7 @@ func (client *ActionGroupsClient) updateCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01")
+	reqQP.Set("api-version", "2023-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, actionGroupPatch); err != nil {

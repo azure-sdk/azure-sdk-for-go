@@ -37,6 +37,10 @@ type DataCollectionEndpointsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, dataCollectionEndpointName string, options *armmonitor.DataCollectionEndpointsClientGetOptions) (resp azfake.Responder[armmonitor.DataCollectionEndpointsClientGetResponse], errResp azfake.ErrorResponder)
 
+	// GetNSP is the fake for method DataCollectionEndpointsClient.GetNSP
+	// HTTP status codes to indicate success: http.StatusOK
+	GetNSP func(ctx context.Context, resourceGroupName string, dataCollectionEndpointName string, networkSecurityPerimeterConfigurationName string, options *armmonitor.DataCollectionEndpointsClientGetNSPOptions) (resp azfake.Responder[armmonitor.DataCollectionEndpointsClientGetNSPResponse], errResp azfake.ErrorResponder)
+
 	// NewListByResourceGroupPager is the fake for method DataCollectionEndpointsClient.NewListByResourceGroupPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListByResourceGroupPager func(resourceGroupName string, options *armmonitor.DataCollectionEndpointsClientListByResourceGroupOptions) (resp azfake.PagerResponder[armmonitor.DataCollectionEndpointsClientListByResourceGroupResponse])
@@ -44,6 +48,14 @@ type DataCollectionEndpointsServer struct {
 	// NewListBySubscriptionPager is the fake for method DataCollectionEndpointsClient.NewListBySubscriptionPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListBySubscriptionPager func(options *armmonitor.DataCollectionEndpointsClientListBySubscriptionOptions) (resp azfake.PagerResponder[armmonitor.DataCollectionEndpointsClientListBySubscriptionResponse])
+
+	// NewListNSPPager is the fake for method DataCollectionEndpointsClient.NewListNSPPager
+	// HTTP status codes to indicate success: http.StatusOK
+	NewListNSPPager func(resourceGroupName string, dataCollectionEndpointName string, options *armmonitor.DataCollectionEndpointsClientListNSPOptions) (resp azfake.PagerResponder[armmonitor.DataCollectionEndpointsClientListNSPResponse])
+
+	// BeginReconcileNSP is the fake for method DataCollectionEndpointsClient.BeginReconcileNSP
+	// HTTP status codes to indicate success: http.StatusAccepted
+	BeginReconcileNSP func(ctx context.Context, resourceGroupName string, dataCollectionEndpointName string, networkSecurityPerimeterConfigurationName string, options *armmonitor.DataCollectionEndpointsClientBeginReconcileNSPOptions) (resp azfake.PollerResponder[armmonitor.DataCollectionEndpointsClientReconcileNSPResponse], errResp azfake.ErrorResponder)
 
 	// Update is the fake for method DataCollectionEndpointsClient.Update
 	// HTTP status codes to indicate success: http.StatusOK
@@ -58,6 +70,8 @@ func NewDataCollectionEndpointsServerTransport(srv *DataCollectionEndpointsServe
 		srv:                         srv,
 		newListByResourceGroupPager: newTracker[azfake.PagerResponder[armmonitor.DataCollectionEndpointsClientListByResourceGroupResponse]](),
 		newListBySubscriptionPager:  newTracker[azfake.PagerResponder[armmonitor.DataCollectionEndpointsClientListBySubscriptionResponse]](),
+		newListNSPPager:             newTracker[azfake.PagerResponder[armmonitor.DataCollectionEndpointsClientListNSPResponse]](),
+		beginReconcileNSP:           newTracker[azfake.PollerResponder[armmonitor.DataCollectionEndpointsClientReconcileNSPResponse]](),
 	}
 }
 
@@ -67,6 +81,8 @@ type DataCollectionEndpointsServerTransport struct {
 	srv                         *DataCollectionEndpointsServer
 	newListByResourceGroupPager *tracker[azfake.PagerResponder[armmonitor.DataCollectionEndpointsClientListByResourceGroupResponse]]
 	newListBySubscriptionPager  *tracker[azfake.PagerResponder[armmonitor.DataCollectionEndpointsClientListBySubscriptionResponse]]
+	newListNSPPager             *tracker[azfake.PagerResponder[armmonitor.DataCollectionEndpointsClientListNSPResponse]]
+	beginReconcileNSP           *tracker[azfake.PollerResponder[armmonitor.DataCollectionEndpointsClientReconcileNSPResponse]]
 }
 
 // Do implements the policy.Transporter interface for DataCollectionEndpointsServerTransport.
@@ -87,10 +103,16 @@ func (d *DataCollectionEndpointsServerTransport) Do(req *http.Request) (*http.Re
 		resp, err = d.dispatchDelete(req)
 	case "DataCollectionEndpointsClient.Get":
 		resp, err = d.dispatchGet(req)
+	case "DataCollectionEndpointsClient.GetNSP":
+		resp, err = d.dispatchGetNSP(req)
 	case "DataCollectionEndpointsClient.NewListByResourceGroupPager":
 		resp, err = d.dispatchNewListByResourceGroupPager(req)
 	case "DataCollectionEndpointsClient.NewListBySubscriptionPager":
 		resp, err = d.dispatchNewListBySubscriptionPager(req)
+	case "DataCollectionEndpointsClient.NewListNSPPager":
+		resp, err = d.dispatchNewListNSPPager(req)
+	case "DataCollectionEndpointsClient.BeginReconcileNSP":
+		resp, err = d.dispatchBeginReconcileNSP(req)
 	case "DataCollectionEndpointsClient.Update":
 		resp, err = d.dispatchUpdate(req)
 	default:
@@ -213,6 +235,43 @@ func (d *DataCollectionEndpointsServerTransport) dispatchGet(req *http.Request) 
 	return resp, nil
 }
 
+func (d *DataCollectionEndpointsServerTransport) dispatchGetNSP(req *http.Request) (*http.Response, error) {
+	if d.srv.GetNSP == nil {
+		return nil, &nonRetriableError{errors.New("fake for method GetNSP not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Insights/dataCollectionEndpoints/(?P<dataCollectionEndpointName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/networkSecurityPerimeterConfigurations/(?P<networkSecurityPerimeterConfigurationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 4 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	dataCollectionEndpointNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("dataCollectionEndpointName")])
+	if err != nil {
+		return nil, err
+	}
+	networkSecurityPerimeterConfigurationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("networkSecurityPerimeterConfigurationName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := d.srv.GetNSP(req.Context(), resourceGroupNameParam, dataCollectionEndpointNameParam, networkSecurityPerimeterConfigurationNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).NetworkSecurityPerimeterConfiguration, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
 func (d *DataCollectionEndpointsServerTransport) dispatchNewListByResourceGroupPager(req *http.Request) (*http.Response, error) {
 	if d.srv.NewListByResourceGroupPager == nil {
 		return nil, &nonRetriableError{errors.New("fake for method NewListByResourceGroupPager not implemented")}
@@ -280,6 +339,95 @@ func (d *DataCollectionEndpointsServerTransport) dispatchNewListBySubscriptionPa
 	if !server.PagerResponderMore(newListBySubscriptionPager) {
 		d.newListBySubscriptionPager.remove(req)
 	}
+	return resp, nil
+}
+
+func (d *DataCollectionEndpointsServerTransport) dispatchNewListNSPPager(req *http.Request) (*http.Response, error) {
+	if d.srv.NewListNSPPager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListNSPPager not implemented")}
+	}
+	newListNSPPager := d.newListNSPPager.get(req)
+	if newListNSPPager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Insights/dataCollectionEndpoints/(?P<dataCollectionEndpointName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/networkSecurityPerimeterConfigurations`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		dataCollectionEndpointNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("dataCollectionEndpointName")])
+		if err != nil {
+			return nil, err
+		}
+		resp := d.srv.NewListNSPPager(resourceGroupNameParam, dataCollectionEndpointNameParam, nil)
+		newListNSPPager = &resp
+		d.newListNSPPager.add(req, newListNSPPager)
+		server.PagerResponderInjectNextLinks(newListNSPPager, req, func(page *armmonitor.DataCollectionEndpointsClientListNSPResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
+	}
+	resp, err := server.PagerResponderNext(newListNSPPager, req)
+	if err != nil {
+		return nil, err
+	}
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+		d.newListNSPPager.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+	}
+	if !server.PagerResponderMore(newListNSPPager) {
+		d.newListNSPPager.remove(req)
+	}
+	return resp, nil
+}
+
+func (d *DataCollectionEndpointsServerTransport) dispatchBeginReconcileNSP(req *http.Request) (*http.Response, error) {
+	if d.srv.BeginReconcileNSP == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginReconcileNSP not implemented")}
+	}
+	beginReconcileNSP := d.beginReconcileNSP.get(req)
+	if beginReconcileNSP == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Insights/dataCollectionEndpoints/(?P<dataCollectionEndpointName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/networkSecurityPerimeterConfigurations/(?P<networkSecurityPerimeterConfigurationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/reconcile`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 4 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		dataCollectionEndpointNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("dataCollectionEndpointName")])
+		if err != nil {
+			return nil, err
+		}
+		networkSecurityPerimeterConfigurationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("networkSecurityPerimeterConfigurationName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := d.srv.BeginReconcileNSP(req.Context(), resourceGroupNameParam, dataCollectionEndpointNameParam, networkSecurityPerimeterConfigurationNameParam, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginReconcileNSP = &respr
+		d.beginReconcileNSP.add(req, beginReconcileNSP)
+	}
+
+	resp, err := server.PollerResponderNext(beginReconcileNSP, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusAccepted}, resp.StatusCode) {
+		d.beginReconcileNSP.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginReconcileNSP) {
+		d.beginReconcileNSP.remove(req)
+	}
+
 	return resp, nil
 }
 
