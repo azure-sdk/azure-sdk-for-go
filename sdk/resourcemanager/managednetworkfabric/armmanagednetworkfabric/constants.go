@@ -10,7 +10,7 @@ package armmanagednetworkfabric
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/managednetworkfabric/armmanagednetworkfabric"
-	moduleVersion = "v1.1.0"
+	moduleVersion = "v2.0.0"
 )
 
 // ACLActionType - Type of actions that can be performed.
@@ -196,7 +196,9 @@ const (
 	ConfigurationStateErrorDeprovisioning ConfigurationState = "ErrorDeprovisioning"
 	ConfigurationStateErrorProvisioning   ConfigurationState = "ErrorProvisioning"
 	ConfigurationStateFailed              ConfigurationState = "Failed"
+	ConfigurationStatePendingCommit       ConfigurationState = "PendingCommit"
 	ConfigurationStateProvisioned         ConfigurationState = "Provisioned"
+	ConfigurationStateProvisioning        ConfigurationState = "Provisioning"
 	ConfigurationStateRejected            ConfigurationState = "Rejected"
 	ConfigurationStateSucceeded           ConfigurationState = "Succeeded"
 )
@@ -211,7 +213,9 @@ func PossibleConfigurationStateValues() []ConfigurationState {
 		ConfigurationStateErrorDeprovisioning,
 		ConfigurationStateErrorProvisioning,
 		ConfigurationStateFailed,
+		ConfigurationStatePendingCommit,
 		ConfigurationStateProvisioned,
+		ConfigurationStateProvisioning,
 		ConfigurationStateRejected,
 		ConfigurationStateSucceeded,
 	}
@@ -321,7 +325,7 @@ func PossibleEncapsulationValues() []Encapsulation {
 	}
 }
 
-// EncapsulationType - Encapsulation Type.
+// EncapsulationType - Encapsulation Type that needs to be matched.
 type EncapsulationType string
 
 const (
@@ -527,6 +531,22 @@ func PossibleNetworkDeviceRoleNameValues() []NetworkDeviceRoleName {
 	}
 }
 
+// NetworkFabricUpgradeAction - Action to be performed while upgrading the fabric.
+type NetworkFabricUpgradeAction string
+
+const (
+	NetworkFabricUpgradeActionComplete NetworkFabricUpgradeAction = "Complete"
+	NetworkFabricUpgradeActionStart    NetworkFabricUpgradeAction = "Start"
+)
+
+// PossibleNetworkFabricUpgradeActionValues returns the possible values for the NetworkFabricUpgradeAction const type.
+func PossibleNetworkFabricUpgradeActionValues() []NetworkFabricUpgradeAction {
+	return []NetworkFabricUpgradeAction{
+		NetworkFabricUpgradeActionComplete,
+		NetworkFabricUpgradeActionStart,
+	}
+}
+
 // NetworkRackType - Network Rack SKU name.
 type NetworkRackType string
 
@@ -666,7 +686,7 @@ func PossiblePortTypeValues() []PortType {
 	}
 }
 
-// PrefixType - IP Prefix Type.
+// PrefixType - IP Prefix Type that needs to be matched.
 type PrefixType string
 
 const (
@@ -792,7 +812,7 @@ func PossibleRoutePolicyConditionTypeValues() []RoutePolicyConditionType {
 	}
 }
 
-// SourceDestinationType - IP Address type.
+// SourceDestinationType - IP Address type that needs to be matched.
 type SourceDestinationType string
 
 const (

@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/managednetworkfabric/armmanagednetworkfabric"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/managednetworkfabric/armmanagednetworkfabric/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -78,7 +78,7 @@ type NetworkFabricsServer struct {
 
 	// BeginUpgrade is the fake for method NetworkFabricsClient.BeginUpgrade
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginUpgrade func(ctx context.Context, resourceGroupName string, networkFabricName string, body armmanagednetworkfabric.UpdateVersion, options *armmanagednetworkfabric.NetworkFabricsClientBeginUpgradeOptions) (resp azfake.PollerResponder[armmanagednetworkfabric.NetworkFabricsClientUpgradeResponse], errResp azfake.ErrorResponder)
+	BeginUpgrade func(ctx context.Context, resourceGroupName string, networkFabricName string, body armmanagednetworkfabric.UpgradeNetworkFabricProperties, options *armmanagednetworkfabric.NetworkFabricsClientBeginUpgradeOptions) (resp azfake.PollerResponder[armmanagednetworkfabric.NetworkFabricsClientUpgradeResponse], errResp azfake.ErrorResponder)
 
 	// BeginValidateConfiguration is the fake for method NetworkFabricsClient.BeginValidateConfiguration
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
@@ -752,7 +752,7 @@ func (n *NetworkFabricsServerTransport) dispatchBeginUpgrade(req *http.Request) 
 		if matches == nil || len(matches) < 3 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		body, err := server.UnmarshalRequestAsJSON[armmanagednetworkfabric.UpdateVersion](req)
+		body, err := server.UnmarshalRequestAsJSON[armmanagednetworkfabric.UpgradeNetworkFabricProperties](req)
 		if err != nil {
 			return nil, err
 		}
