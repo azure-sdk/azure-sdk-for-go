@@ -43,7 +43,7 @@ func NewTenantActionGroupsClient(credential azcore.TokenCredential, options *arm
 // CreateOrUpdate - Create a new tenant action group or update an existing one.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01-preview
+// Generated from API version 2023-05-01-preview
 //   - managementGroupID - The management group id.
 //   - tenantActionGroupName - The name of the action group.
 //   - xmsClientTenantID - The tenant ID of the client making the request.
@@ -88,10 +88,10 @@ func (client *TenantActionGroupsClient) createOrUpdateCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01-preview")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["x-ms-client-tenant-id"] = []string{xmsClientTenantID}
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	req.Raw().Header["x-ms-client-tenant-id"] = []string{xmsClientTenantID}
 	if err := runtime.MarshalAsJSON(req, actionGroup); err != nil {
 		return nil, err
 	}
@@ -110,7 +110,7 @@ func (client *TenantActionGroupsClient) createOrUpdateHandleResponse(resp *http.
 // Delete - Delete a tenant action group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01-preview
+// Generated from API version 2023-05-01-preview
 //   - managementGroupID - The management group id.
 //   - tenantActionGroupName - The name of the action group.
 //   - xmsClientTenantID - The tenant ID of the client making the request.
@@ -153,17 +153,17 @@ func (client *TenantActionGroupsClient) deleteCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01-preview")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["x-ms-client-tenant-id"] = []string{xmsClientTenantID}
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	req.Raw().Header["x-ms-client-tenant-id"] = []string{xmsClientTenantID}
 	return req, nil
 }
 
 // Get - Get a tenant action group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01-preview
+// Generated from API version 2023-05-01-preview
 //   - managementGroupID - The management group id.
 //   - tenantActionGroupName - The name of the action group.
 //   - xmsClientTenantID - The tenant ID of the client making the request.
@@ -206,10 +206,10 @@ func (client *TenantActionGroupsClient) getCreateRequest(ctx context.Context, ma
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01-preview")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["x-ms-client-tenant-id"] = []string{xmsClientTenantID}
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	req.Raw().Header["x-ms-client-tenant-id"] = []string{xmsClientTenantID}
 	return req, nil
 }
 
@@ -224,7 +224,7 @@ func (client *TenantActionGroupsClient) getHandleResponse(resp *http.Response) (
 
 // NewListByManagementGroupIDPager - Get a list of all tenant action groups in a management group.
 //
-// Generated from API version 2023-03-01-preview
+// Generated from API version 2023-05-01-preview
 //   - managementGroupID - The management group id.
 //   - xmsClientTenantID - The tenant ID of the client making the request.
 //   - options - TenantActionGroupsClientListByManagementGroupIDOptions contains the optional parameters for the TenantActionGroupsClient.NewListByManagementGroupIDPager
@@ -265,10 +265,10 @@ func (client *TenantActionGroupsClient) listByManagementGroupIDCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01-preview")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["x-ms-client-tenant-id"] = []string{xmsClientTenantID}
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	req.Raw().Header["x-ms-client-tenant-id"] = []string{xmsClientTenantID}
 	return req, nil
 }
 
@@ -284,7 +284,7 @@ func (client *TenantActionGroupsClient) listByManagementGroupIDHandleResponse(re
 // Update - Updates an existing tenant action group's tags. To update other fields use the CreateOrUpdate method.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01-preview
+// Generated from API version 2023-05-01-preview
 //   - managementGroupID - The management group id.
 //   - tenantActionGroupName - The name of the action group.
 //   - xmsClientTenantID - The tenant ID of the client making the request.
@@ -329,10 +329,10 @@ func (client *TenantActionGroupsClient) updateCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01-preview")
+	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["x-ms-client-tenant-id"] = []string{xmsClientTenantID}
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	req.Raw().Header["x-ms-client-tenant-id"] = []string{xmsClientTenantID}
 	if err := runtime.MarshalAsJSON(req, tenantActionGroupPatch); err != nil {
 		return nil, err
 	}
