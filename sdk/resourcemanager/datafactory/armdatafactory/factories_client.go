@@ -43,7 +43,7 @@ func NewFactoriesClient(subscriptionID string, credential azcore.TokenCredential
 	return client, nil
 }
 
-// ConfigureFactoryRepo - Updates a factory's repo information.
+// ConfigureFactoryRepo - Updates a factory's repo information. testtest
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2018-06-01
