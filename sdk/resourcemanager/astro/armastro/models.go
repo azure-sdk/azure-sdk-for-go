@@ -66,7 +66,7 @@ type LiftrBaseMarketplaceDetails struct {
 	// REQUIRED; Offer details for the marketplace that is selected by the user
 	OfferDetails *LiftrBaseOfferDetails
 
-	// REQUIRED; Azure subscription id for the the marketplace offer is purchased from
+	// Azure subscription id for the the marketplace offer is purchased from
 	SubscriptionID *string
 
 	// Marketplace subscription status
