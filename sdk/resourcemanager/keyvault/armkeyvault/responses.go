@@ -26,12 +26,6 @@ type KeysClientGetVersionResponse struct {
 	Key
 }
 
-// KeysClientListResponse contains the response from method KeysClient.NewListPager.
-type KeysClientListResponse struct {
-	// The page of keys.
-	KeyListResult
-}
-
 // KeysClientListVersionsResponse contains the response from method KeysClient.NewListVersionsPager.
 type KeysClientListVersionsResponse struct {
 	// The page of keys.

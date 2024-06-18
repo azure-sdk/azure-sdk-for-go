@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/keyvault/armkeyvault"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/keyvault/armkeyvault/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -36,10 +36,6 @@ type KeysServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	GetVersion func(ctx context.Context, resourceGroupName string, vaultName string, keyName string, keyVersion string, options *armkeyvault.KeysClientGetVersionOptions) (resp azfake.Responder[armkeyvault.KeysClientGetVersionResponse], errResp azfake.ErrorResponder)
 
-	// NewListPager is the fake for method KeysClient.NewListPager
-	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceGroupName string, vaultName string, options *armkeyvault.KeysClientListOptions) (resp azfake.PagerResponder[armkeyvault.KeysClientListResponse])
-
 	// NewListVersionsPager is the fake for method KeysClient.NewListVersionsPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListVersionsPager func(resourceGroupName string, vaultName string, keyName string, options *armkeyvault.KeysClientListVersionsOptions) (resp azfake.PagerResponder[armkeyvault.KeysClientListVersionsResponse])
@@ -51,7 +47,6 @@ type KeysServer struct {
 func NewKeysServerTransport(srv *KeysServer) *KeysServerTransport {
 	return &KeysServerTransport{
 		srv:                  srv,
-		newListPager:         newTracker[azfake.PagerResponder[armkeyvault.KeysClientListResponse]](),
 		newListVersionsPager: newTracker[azfake.PagerResponder[armkeyvault.KeysClientListVersionsResponse]](),
 	}
 }
@@ -60,7 +55,6 @@ func NewKeysServerTransport(srv *KeysServer) *KeysServerTransport {
 // Don't use this type directly, use NewKeysServerTransport instead.
 type KeysServerTransport struct {
 	srv                  *KeysServer
-	newListPager         *tracker[azfake.PagerResponder[armkeyvault.KeysClientListResponse]]
 	newListVersionsPager *tracker[azfake.PagerResponder[armkeyvault.KeysClientListVersionsResponse]]
 }
 
@@ -82,8 +76,6 @@ func (k *KeysServerTransport) Do(req *http.Request) (*http.Response, error) {
 		resp, err = k.dispatchGet(req)
 	case "KeysClient.GetVersion":
 		resp, err = k.dispatchGetVersion(req)
-	case "KeysClient.NewListPager":
-		resp, err = k.dispatchNewListPager(req)
 	case "KeysClient.NewListVersionsPager":
 		resp, err = k.dispatchNewListVersionsPager(req)
 	default:
@@ -212,47 +204,6 @@ func (k *KeysServerTransport) dispatchGetVersion(req *http.Request) (*http.Respo
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Key, req)
 	if err != nil {
 		return nil, err
-	}
-	return resp, nil
-}
-
-func (k *KeysServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if k.srv.NewListPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
-	}
-	newListPager := k.newListPager.get(req)
-	if newListPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.KeyVault/vaults/(?P<vaultName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/keys`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		vaultNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("vaultName")])
-		if err != nil {
-			return nil, err
-		}
-		resp := k.srv.NewListPager(resourceGroupNameParam, vaultNameParam, nil)
-		newListPager = &resp
-		k.newListPager.add(req, newListPager)
-		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armkeyvault.KeysClientListResponse, createLink func() string) {
-			page.NextLink = to.Ptr(createLink())
-		})
-	}
-	resp, err := server.PagerResponderNext(newListPager, req)
-	if err != nil {
-		return nil, err
-	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		k.newListPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
-	}
-	if !server.PagerResponderMore(newListPager) {
-		k.newListPager.remove(req)
 	}
 	return resp, nil
 }

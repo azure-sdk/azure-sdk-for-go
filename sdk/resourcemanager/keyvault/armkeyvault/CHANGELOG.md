@@ -1,5 +1,11 @@
 # Release History
 
+## 2.0.0 (2024-06-18)
+### Breaking Changes
+
+- Function `*KeysClient.NewListPager` has been removed
+
+
 ## 1.4.0 (2023-11-24)
 ### Features Added
 
