@@ -47,6 +47,8 @@ type ServerFactory struct {
 	DefenderForStorageServer                           DefenderForStorageServer
 	DevOpsConfigurationsServer                         DevOpsConfigurationsServer
 	DevOpsOperationResultsServer                       DevOpsOperationResultsServer
+	DevOpsPoliciesServer                               DevOpsPoliciesServer
+	DevOpsPolicyAssignmentsServer                      DevOpsPolicyAssignmentsServer
 	DeviceSecurityGroupsServer                         DeviceSecurityGroupsServer
 	DiscoveredSecuritySolutionsServer                  DiscoveredSecuritySolutionsServer
 	ExternalSecuritySolutionsServer                    ExternalSecuritySolutionsServer
@@ -133,6 +135,8 @@ type ServerFactoryTransport struct {
 	trDefenderForStorageServer                           *DefenderForStorageServerTransport
 	trDevOpsConfigurationsServer                         *DevOpsConfigurationsServerTransport
 	trDevOpsOperationResultsServer                       *DevOpsOperationResultsServerTransport
+	trDevOpsPoliciesServer                               *DevOpsPoliciesServerTransport
+	trDevOpsPolicyAssignmentsServer                      *DevOpsPolicyAssignmentsServerTransport
 	trDeviceSecurityGroupsServer                         *DeviceSecurityGroupsServerTransport
 	trDiscoveredSecuritySolutionsServer                  *DiscoveredSecuritySolutionsServerTransport
 	trExternalSecuritySolutionsServer                    *ExternalSecuritySolutionsServerTransport
@@ -314,6 +318,16 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewDevOpsOperationResultsServerTransport(&s.srv.DevOpsOperationResultsServer)
 		})
 		resp, err = s.trDevOpsOperationResultsServer.Do(req)
+	case "DevOpsPoliciesClient":
+		initServer(s, &s.trDevOpsPoliciesServer, func() *DevOpsPoliciesServerTransport {
+			return NewDevOpsPoliciesServerTransport(&s.srv.DevOpsPoliciesServer)
+		})
+		resp, err = s.trDevOpsPoliciesServer.Do(req)
+	case "DevOpsPolicyAssignmentsClient":
+		initServer(s, &s.trDevOpsPolicyAssignmentsServer, func() *DevOpsPolicyAssignmentsServerTransport {
+			return NewDevOpsPolicyAssignmentsServerTransport(&s.srv.DevOpsPolicyAssignmentsServer)
+		})
+		resp, err = s.trDevOpsPolicyAssignmentsServer.Do(req)
 	case "DeviceSecurityGroupsClient":
 		initServer(s, &s.trDeviceSecurityGroupsServer, func() *DeviceSecurityGroupsServerTransport {
 			return NewDeviceSecurityGroupsServerTransport(&s.srv.DeviceSecurityGroupsServer)
