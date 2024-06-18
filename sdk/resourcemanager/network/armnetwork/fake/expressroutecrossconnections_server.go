@@ -216,7 +216,19 @@ func (e *ExpressRouteCrossConnectionsServerTransport) dispatchNewListPager(req *
 		if matches == nil || len(matches) < 1 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resp := e.srv.NewListPager(nil)
+		qp := req.URL.Query()
+		filterUnescaped, err := url.QueryUnescape(qp.Get("$filter"))
+		if err != nil {
+			return nil, err
+		}
+		filterParam := getOptional(filterUnescaped)
+		var options *armnetwork.ExpressRouteCrossConnectionsClientListOptions
+		if filterParam != nil {
+			options = &armnetwork.ExpressRouteCrossConnectionsClientListOptions{
+				Filter: filterParam,
+			}
+		}
+		resp := e.srv.NewListPager(options)
 		newListPager = &resp
 		e.newListPager.add(req, newListPager)
 		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armnetwork.ExpressRouteCrossConnectionsClientListResponse, createLink func() string) {
