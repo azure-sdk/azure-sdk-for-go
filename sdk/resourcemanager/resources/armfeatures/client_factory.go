@@ -17,8 +17,7 @@ import (
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
 	subscriptionID string
-	credential     azcore.TokenCredential
-	options        *arm.ClientOptions
+	internal       *arm.Client
 }
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
@@ -27,30 +26,35 @@ type ClientFactory struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
-	_, err := arm.NewClient(moduleName, moduleVersion, credential, options)
+	internal, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		subscriptionID: subscriptionID, credential: credential,
-		options: options.Clone(),
+		subscriptionID: subscriptionID,
+		internal:       internal,
 	}, nil
 }
 
 // NewClient creates a new instance of Client.
 func (c *ClientFactory) NewClient() *Client {
-	subClient, _ := NewClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &Client{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewFeatureClient creates a new instance of FeatureClient.
 func (c *ClientFactory) NewFeatureClient() *FeatureClient {
-	subClient, _ := NewFeatureClient(c.credential, c.options)
-	return subClient
+	return &FeatureClient{
+		internal: c.internal,
+	}
 }
 
 // NewSubscriptionFeatureRegistrationsClient creates a new instance of SubscriptionFeatureRegistrationsClient.
 func (c *ClientFactory) NewSubscriptionFeatureRegistrationsClient() *SubscriptionFeatureRegistrationsClient {
-	subClient, _ := NewSubscriptionFeatureRegistrationsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SubscriptionFeatureRegistrationsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
