@@ -46,7 +46,7 @@ func NewProjectCatalogEnvironmentDefinitionsClient(subscriptionID string, creden
 // GetErrorDetails - Gets Environment Definition error details
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - projectName - The name of the project.
 //   - catalogName - The name of the Catalog.
@@ -103,7 +103,7 @@ func (client *ProjectCatalogEnvironmentDefinitionsClient) getErrorDetailsCreateR
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

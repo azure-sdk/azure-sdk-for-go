@@ -47,7 +47,7 @@ func NewProjectCatalogsClient(subscriptionID string, credential azcore.TokenCred
 // BeginConnect - Connects a project catalog to enable syncing.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - projectName - The name of the project.
 //   - catalogName - The name of the Catalog.
@@ -74,7 +74,7 @@ func (client *ProjectCatalogsClient) BeginConnect(ctx context.Context, resourceG
 // Connect - Connects a project catalog to enable syncing.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01-preview
 func (client *ProjectCatalogsClient) connect(ctx context.Context, resourceGroupName string, projectName string, catalogName string, options *ProjectCatalogsClientBeginConnectOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ProjectCatalogsClient.BeginConnect"
@@ -120,7 +120,7 @@ func (client *ProjectCatalogsClient) connectCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -129,7 +129,7 @@ func (client *ProjectCatalogsClient) connectCreateRequest(ctx context.Context, r
 // BeginCreateOrUpdate - Creates or updates a project catalog.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - projectName - The name of the project.
 //   - catalogName - The name of the Catalog.
@@ -157,7 +157,7 @@ func (client *ProjectCatalogsClient) BeginCreateOrUpdate(ctx context.Context, re
 // CreateOrUpdate - Creates or updates a project catalog.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01-preview
 func (client *ProjectCatalogsClient) createOrUpdate(ctx context.Context, resourceGroupName string, projectName string, catalogName string, body Catalog, options *ProjectCatalogsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ProjectCatalogsClient.BeginCreateOrUpdate"
@@ -203,7 +203,7 @@ func (client *ProjectCatalogsClient) createOrUpdateCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -215,7 +215,7 @@ func (client *ProjectCatalogsClient) createOrUpdateCreateRequest(ctx context.Con
 // BeginDelete - Deletes a project catalog resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - projectName - The name of the project.
 //   - catalogName - The name of the Catalog.
@@ -242,7 +242,7 @@ func (client *ProjectCatalogsClient) BeginDelete(ctx context.Context, resourceGr
 // Delete - Deletes a project catalog resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01-preview
 func (client *ProjectCatalogsClient) deleteOperation(ctx context.Context, resourceGroupName string, projectName string, catalogName string, options *ProjectCatalogsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ProjectCatalogsClient.BeginDelete"
@@ -288,7 +288,7 @@ func (client *ProjectCatalogsClient) deleteCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -297,7 +297,7 @@ func (client *ProjectCatalogsClient) deleteCreateRequest(ctx context.Context, re
 // Get - Gets an associated project catalog.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - projectName - The name of the project.
 //   - catalogName - The name of the Catalog.
@@ -348,7 +348,7 @@ func (client *ProjectCatalogsClient) getCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -366,7 +366,7 @@ func (client *ProjectCatalogsClient) getHandleResponse(resp *http.Response) (Pro
 // GetSyncErrorDetails - Gets project catalog synchronization error details
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - projectName - The name of the project.
 //   - catalogName - The name of the Catalog.
@@ -418,7 +418,7 @@ func (client *ProjectCatalogsClient) getSyncErrorDetailsCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -435,7 +435,7 @@ func (client *ProjectCatalogsClient) getSyncErrorDetailsHandleResponse(resp *htt
 
 // NewListPager - Lists the catalogs associated with a project.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - projectName - The name of the project.
 //   - options - ProjectCatalogsClientListOptions contains the optional parameters for the ProjectCatalogsClient.NewListPager
@@ -486,7 +486,7 @@ func (client *ProjectCatalogsClient) listCreateRequest(ctx context.Context, reso
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -504,7 +504,7 @@ func (client *ProjectCatalogsClient) listHandleResponse(resp *http.Response) (Pr
 // BeginPatch - Partially updates a project catalog.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - projectName - The name of the project.
 //   - catalogName - The name of the Catalog.
@@ -532,7 +532,7 @@ func (client *ProjectCatalogsClient) BeginPatch(ctx context.Context, resourceGro
 // Patch - Partially updates a project catalog.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01-preview
 func (client *ProjectCatalogsClient) patch(ctx context.Context, resourceGroupName string, projectName string, catalogName string, body CatalogUpdate, options *ProjectCatalogsClientBeginPatchOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ProjectCatalogsClient.BeginPatch"
@@ -578,7 +578,7 @@ func (client *ProjectCatalogsClient) patchCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -590,7 +590,7 @@ func (client *ProjectCatalogsClient) patchCreateRequest(ctx context.Context, res
 // BeginSync - Syncs templates for a template source.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - projectName - The name of the project.
 //   - catalogName - The name of the Catalog.
@@ -617,7 +617,7 @@ func (client *ProjectCatalogsClient) BeginSync(ctx context.Context, resourceGrou
 // Sync - Syncs templates for a template source.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-06-01-preview
 func (client *ProjectCatalogsClient) syncOperation(ctx context.Context, resourceGroupName string, projectName string, catalogName string, options *ProjectCatalogsClientBeginSyncOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ProjectCatalogsClient.BeginSync"
@@ -663,7 +663,7 @@ func (client *ProjectCatalogsClient) syncCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
