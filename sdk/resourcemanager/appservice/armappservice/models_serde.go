@@ -19755,6 +19755,7 @@ func (s SiteProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "hostNamesDisabled", s.HostNamesDisabled)
 	populate(objectMap, "hostingEnvironmentProfile", s.HostingEnvironmentProfile)
 	populate(objectMap, "hyperV", s.HyperV)
+	populate(objectMap, "ipMode", s.IPMode)
 	populate(objectMap, "inProgressOperationId", s.InProgressOperationID)
 	populate(objectMap, "isDefaultContainer", s.IsDefaultContainer)
 	populate(objectMap, "isXenon", s.IsXenon)
@@ -19770,6 +19771,7 @@ func (s SiteProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "reserved", s.Reserved)
 	populate(objectMap, "resourceConfig", s.ResourceConfig)
 	populate(objectMap, "resourceGroup", s.ResourceGroup)
+	populate(objectMap, "sku", s.SKU)
 	populate(objectMap, "scmSiteAlsoStopped", s.ScmSiteAlsoStopped)
 	populate(objectMap, "serverFarmId", s.ServerFarmID)
 	populate(objectMap, "siteConfig", s.SiteConfig)
@@ -19861,6 +19863,9 @@ func (s *SiteProperties) UnmarshalJSON(data []byte) error {
 		case "hyperV":
 			err = unpopulate(val, "HyperV", &s.HyperV)
 			delete(rawMsg, key)
+		case "ipMode":
+			err = unpopulate(val, "IPMode", &s.IPMode)
+			delete(rawMsg, key)
 		case "inProgressOperationId":
 			err = unpopulate(val, "InProgressOperationID", &s.InProgressOperationID)
 			delete(rawMsg, key)
@@ -19905,6 +19910,9 @@ func (s *SiteProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "resourceGroup":
 			err = unpopulate(val, "ResourceGroup", &s.ResourceGroup)
+			delete(rawMsg, key)
+		case "sku":
+			err = unpopulate(val, "SKU", &s.SKU)
 			delete(rawMsg, key)
 		case "scmSiteAlsoStopped":
 			err = unpopulate(val, "ScmSiteAlsoStopped", &s.ScmSiteAlsoStopped)
@@ -25612,6 +25620,7 @@ func (w WebSiteInstanceStatusProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "containers", w.Containers)
 	populate(objectMap, "detectorUrl", w.DetectorURL)
 	populate(objectMap, "healthCheckUrl", w.HealthCheckURL)
+	populate(objectMap, "physicalZone", w.PhysicalZone)
 	populate(objectMap, "state", w.State)
 	populate(objectMap, "statusUrl", w.StatusURL)
 	return json.Marshal(objectMap)
@@ -25637,6 +25646,9 @@ func (w *WebSiteInstanceStatusProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "healthCheckUrl":
 			err = unpopulate(val, "HealthCheckURL", &w.HealthCheckURL)
+			delete(rawMsg, key)
+		case "physicalZone":
+			err = unpopulate(val, "PhysicalZone", &w.PhysicalZone)
 			delete(rawMsg, key)
 		case "state":
 			err = unpopulate(val, "State", &w.State)
