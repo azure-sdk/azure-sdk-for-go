@@ -15,8 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/confluent/armconfluent"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/confluent/armconfluent/v2"
 	"net/http"
 	"reflect"
 	"regexp"
@@ -27,27 +26,19 @@ type MarketplaceAgreementsServer struct {
 	// Create is the fake for method MarketplaceAgreementsClient.Create
 	// HTTP status codes to indicate success: http.StatusOK
 	Create func(ctx context.Context, options *armconfluent.MarketplaceAgreementsClientCreateOptions) (resp azfake.Responder[armconfluent.MarketplaceAgreementsClientCreateResponse], errResp azfake.ErrorResponder)
-
-	// NewListPager is the fake for method MarketplaceAgreementsClient.NewListPager
-	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(options *armconfluent.MarketplaceAgreementsClientListOptions) (resp azfake.PagerResponder[armconfluent.MarketplaceAgreementsClientListResponse])
 }
 
 // NewMarketplaceAgreementsServerTransport creates a new instance of MarketplaceAgreementsServerTransport with the provided implementation.
 // The returned MarketplaceAgreementsServerTransport instance is connected to an instance of armconfluent.MarketplaceAgreementsClient via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewMarketplaceAgreementsServerTransport(srv *MarketplaceAgreementsServer) *MarketplaceAgreementsServerTransport {
-	return &MarketplaceAgreementsServerTransport{
-		srv:          srv,
-		newListPager: newTracker[azfake.PagerResponder[armconfluent.MarketplaceAgreementsClientListResponse]](),
-	}
+	return &MarketplaceAgreementsServerTransport{srv: srv}
 }
 
 // MarketplaceAgreementsServerTransport connects instances of armconfluent.MarketplaceAgreementsClient to instances of MarketplaceAgreementsServer.
 // Don't use this type directly, use NewMarketplaceAgreementsServerTransport instead.
 type MarketplaceAgreementsServerTransport struct {
-	srv          *MarketplaceAgreementsServer
-	newListPager *tracker[azfake.PagerResponder[armconfluent.MarketplaceAgreementsClientListResponse]]
+	srv *MarketplaceAgreementsServer
 }
 
 // Do implements the policy.Transporter interface for MarketplaceAgreementsServerTransport.
@@ -64,8 +55,6 @@ func (m *MarketplaceAgreementsServerTransport) Do(req *http.Request) (*http.Resp
 	switch method {
 	case "MarketplaceAgreementsClient.Create":
 		resp, err = m.dispatchCreate(req)
-	case "MarketplaceAgreementsClient.NewListPager":
-		resp, err = m.dispatchNewListPager(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -108,39 +97,6 @@ func (m *MarketplaceAgreementsServerTransport) dispatchCreate(req *http.Request)
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).AgreementResource, req)
 	if err != nil {
 		return nil, err
-	}
-	return resp, nil
-}
-
-func (m *MarketplaceAgreementsServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if m.srv.NewListPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
-	}
-	newListPager := m.newListPager.get(req)
-	if newListPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Confluent/agreements`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 1 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resp := m.srv.NewListPager(nil)
-		newListPager = &resp
-		m.newListPager.add(req, newListPager)
-		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armconfluent.MarketplaceAgreementsClientListResponse, createLink func() string) {
-			page.NextLink = to.Ptr(createLink())
-		})
-	}
-	resp, err := server.PagerResponderNext(newListPager, req)
-	if err != nil {
-		return nil, err
-	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		m.newListPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
-	}
-	if !server.PagerResponderMore(newListPager) {
-		m.newListPager.remove(req)
 	}
 	return resp, nil
 }

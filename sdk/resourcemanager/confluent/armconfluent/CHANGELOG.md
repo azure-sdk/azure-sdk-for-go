@@ -1,5 +1,11 @@
 # Release History
 
+## 2.0.0 (2024-06-21)
+### Breaking Changes
+
+- Function `*MarketplaceAgreementsClient.NewListPager` has been removed
+
+
 ## 1.3.0 (2024-03-22)
 ### Features Added
 

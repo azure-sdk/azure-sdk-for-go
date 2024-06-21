@@ -65,12 +65,6 @@ type MarketplaceAgreementsClientCreateOptions struct {
 	Body *AgreementResource
 }
 
-// MarketplaceAgreementsClientListOptions contains the optional parameters for the MarketplaceAgreementsClient.NewListPager
-// method.
-type MarketplaceAgreementsClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
 // OrganizationClientBeginCreateOptions contains the optional parameters for the OrganizationClient.BeginCreate method.
 type OrganizationClientBeginCreateOptions struct {
 	// Organization resource model
