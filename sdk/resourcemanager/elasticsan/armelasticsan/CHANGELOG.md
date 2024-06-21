@@ -1,5 +1,23 @@
 # Release History
 
+## 2.0.0 (2024-06-21)
+### Breaking Changes
+
+- Enum `ActionType` has been removed
+- Enum `Origin` has been removed
+- Function `*ClientFactory.NewOperationsClient` has been removed
+- Function `NewOperationsClient` has been removed
+- Function `*OperationsClient.NewListPager` has been removed
+- Struct `Operation` has been removed
+- Struct `OperationDisplay` has been removed
+- Struct `OperationListResult` has been removed
+
+### Features Added
+
+- New field `EnforceDataIntegrityCheckForIscsi` in struct `VolumeGroupProperties`
+- New field `EnforceDataIntegrityCheckForIscsi` in struct `VolumeGroupUpdateProperties`
+
+
 ## 1.0.0 (2024-01-26)
 ### Other Changes
 

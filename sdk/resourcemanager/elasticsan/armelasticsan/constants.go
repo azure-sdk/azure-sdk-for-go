@@ -10,7 +10,7 @@ package armelasticsan
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/elasticsan/armelasticsan"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v2.0.0"
 )
 
 // Action - The action of virtual network rule.
@@ -24,20 +24,6 @@ const (
 func PossibleActionValues() []Action {
 	return []Action{
 		ActionAllow,
-	}
-}
-
-// ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
-type ActionType string
-
-const (
-	ActionTypeInternal ActionType = "Internal"
-)
-
-// PossibleActionTypeValues returns the possible values for the ActionType const type.
-func PossibleActionTypeValues() []ActionType {
-	return []ActionType{
-		ActionTypeInternal,
 	}
 }
 
@@ -124,25 +110,6 @@ func PossibleOperationalStatusValues() []OperationalStatus {
 		OperationalStatusUnhealthy,
 		OperationalStatusUnknown,
 		OperationalStatusUpdating,
-	}
-}
-
-// Origin - The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
-// value is "user,system"
-type Origin string
-
-const (
-	OriginSystem     Origin = "system"
-	OriginUser       Origin = "user"
-	OriginUserSystem Origin = "user,system"
-)
-
-// PossibleOriginValues returns the possible values for the Origin const type.
-func PossibleOriginValues() []Origin {
-	return []Origin{
-		OriginSystem,
-		OriginUser,
-		OriginUserSystem,
 	}
 }
 

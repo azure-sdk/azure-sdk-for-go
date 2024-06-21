@@ -1,6 +1,6 @@
 # Azure Elasticsan Module for Go
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/elasticsan/armelasticsan)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/elasticsan/armelasticsan)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/elasticsan/armelasticsan/v2)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/elasticsan/armelasticsan/v2)
 
 The `armelasticsan` module provides operations for working with Azure Elasticsan.
 
@@ -20,7 +20,7 @@ This project uses [Go modules](https://github.com/golang/go/wiki/Modules) for ve
 Install the Azure Elasticsan module:
 
 ```sh
-go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/elasticsan/armelasticsan
+go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/elasticsan/armelasticsan/v2
 ```
 
 ## Authorization
