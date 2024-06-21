@@ -73,12 +73,6 @@ type MarketplaceAgreementsClientCreateResponse struct {
 	AgreementResource
 }
 
-// MarketplaceAgreementsClientListResponse contains the response from method MarketplaceAgreementsClient.NewListPager.
-type MarketplaceAgreementsClientListResponse struct {
-	// Response of a list operation.
-	AgreementResourceListResponse
-}
-
 // OrganizationClientCreateAPIKeyResponse contains the response from method OrganizationClient.CreateAPIKey.
 type OrganizationClientCreateAPIKeyResponse struct {
 	// Details API key
