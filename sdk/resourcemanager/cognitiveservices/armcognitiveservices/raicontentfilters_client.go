@@ -20,41 +20,42 @@ import (
 	"strings"
 )
 
-// ModelsClient contains the methods for the Models group.
-// Don't use this type directly, use NewModelsClient() instead.
-type ModelsClient struct {
+// RaiContentFiltersClient contains the methods for the RaiContentFilters group.
+// Don't use this type directly, use NewRaiContentFiltersClient() instead.
+type RaiContentFiltersClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewModelsClient creates a new instance of ModelsClient with the specified values.
+// NewRaiContentFiltersClient creates a new instance of RaiContentFiltersClient with the specified values.
 //   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewModelsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ModelsClient, error) {
+func NewRaiContentFiltersClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*RaiContentFiltersClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &ModelsClient{
+	client := &RaiContentFiltersClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// NewListPager - List Models.
+// NewListPager - List Content Filters types.
 //
 // Generated from API version 2024-06-01-preview
 //   - location - Resource location.
-//   - options - ModelsClientListOptions contains the optional parameters for the ModelsClient.NewListPager method.
-func (client *ModelsClient) NewListPager(location string, options *ModelsClientListOptions) *runtime.Pager[ModelsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[ModelsClientListResponse]{
-		More: func(page ModelsClientListResponse) bool {
+//   - options - RaiContentFiltersClientListOptions contains the optional parameters for the RaiContentFiltersClient.NewListPager
+//     method.
+func (client *RaiContentFiltersClient) NewListPager(location string, options *RaiContentFiltersClientListOptions) *runtime.Pager[RaiContentFiltersClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[RaiContentFiltersClientListResponse]{
+		More: func(page RaiContentFiltersClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *ModelsClientListResponse) (ModelsClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ModelsClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *RaiContentFiltersClientListResponse) (RaiContentFiltersClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "RaiContentFiltersClient.NewListPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
@@ -63,7 +64,7 @@ func (client *ModelsClient) NewListPager(location string, options *ModelsClientL
 				return client.listCreateRequest(ctx, location, options)
 			}, nil)
 			if err != nil {
-				return ModelsClientListResponse{}, err
+				return RaiContentFiltersClientListResponse{}, err
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -72,8 +73,8 @@ func (client *ModelsClient) NewListPager(location string, options *ModelsClientL
 }
 
 // listCreateRequest creates the List request.
-func (client *ModelsClient) listCreateRequest(ctx context.Context, location string, options *ModelsClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.CognitiveServices/locations/{location}/models"
+func (client *RaiContentFiltersClient) listCreateRequest(ctx context.Context, location string, options *RaiContentFiltersClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.CognitiveServices/locations/{location}/raiContentFilters"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -94,10 +95,10 @@ func (client *ModelsClient) listCreateRequest(ctx context.Context, location stri
 }
 
 // listHandleResponse handles the List response.
-func (client *ModelsClient) listHandleResponse(resp *http.Response) (ModelsClientListResponse, error) {
-	result := ModelsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ModelListResult); err != nil {
-		return ModelsClientListResponse{}, err
+func (client *RaiContentFiltersClient) listHandleResponse(resp *http.Response) (RaiContentFiltersClientListResponse, error) {
+	result := RaiContentFiltersClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.RaiContentFilterListResult); err != nil {
+		return RaiContentFiltersClientListResponse{}, err
 	}
 	return result, nil
 }
