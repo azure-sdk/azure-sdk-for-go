@@ -1,5 +1,14 @@
 # Release History
 
+## 3.1.0 (2024-06-21)
+### Features Added
+
+- New value `SiteLoadBalancingLeastRequestsWithTieBreaker` added to enum type `SiteLoadBalancing`
+- New enum type `IPMode` with values `IPModeIPv4`, `IPModeIPv4AndIPv6`, `IPModeIPv6`
+- New field `IPMode`, `SKU` in struct `SiteProperties`
+- New field `PhysicalZone` in struct `WebSiteInstanceStatusProperties`
+
+
 ## 3.0.0 (2024-06-21)
 ### Breaking Changes
 
