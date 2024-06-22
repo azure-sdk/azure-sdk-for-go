@@ -40,10 +40,9 @@ func NewQueryClient(credential azcore.TokenCredential, options *arm.ClientOption
 	return client, nil
 }
 
-// Usage - Query the usage data for scope defined.
-// If the operation fails it returns an *azcore.ResponseError type.
+// NewUsagePager - Query the usage data for scope defined.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-11-01
 //   - scope - The scope associated with query and export operations. This includes '/subscriptions/{subscriptionId}/' for subscription
 //     scope, '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}' for
 //     resourceGroup scope, '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}' for Billing Account scope and
@@ -55,27 +54,28 @@ func NewQueryClient(credential azcore.TokenCredential, options *arm.ClientOption
 //     for invoiceSection scope, and
 //     '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/customers/{customerId}' specific for partners.
 //   - parameters - Parameters supplied to the CreateOrUpdate Query Config operation.
-//   - options - QueryClientUsageOptions contains the optional parameters for the QueryClient.Usage method.
-func (client *QueryClient) Usage(ctx context.Context, scope string, parameters QueryDefinition, options *QueryClientUsageOptions) (QueryClientUsageResponse, error) {
-	var err error
-	const operationName = "QueryClient.Usage"
-	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
-	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
-	defer func() { endSpan(err) }()
-	req, err := client.usageCreateRequest(ctx, scope, parameters, options)
-	if err != nil {
-		return QueryClientUsageResponse{}, err
-	}
-	httpResp, err := client.internal.Pipeline().Do(req)
-	if err != nil {
-		return QueryClientUsageResponse{}, err
-	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusNoContent) {
-		err = runtime.NewResponseError(httpResp)
-		return QueryClientUsageResponse{}, err
-	}
-	resp, err := client.usageHandleResponse(httpResp)
-	return resp, err
+//   - options - QueryClientUsageOptions contains the optional parameters for the QueryClient.NewUsagePager method.
+func (client *QueryClient) NewUsagePager(scope string, parameters QueryDefinition, options *QueryClientUsageOptions) *runtime.Pager[QueryClientUsageResponse] {
+	return runtime.NewPager(runtime.PagingHandler[QueryClientUsageResponse]{
+		More: func(page QueryClientUsageResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *QueryClientUsageResponse) (QueryClientUsageResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "QueryClient.NewUsagePager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
+			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.usageCreateRequest(ctx, scope, parameters, options)
+			}, nil)
+			if err != nil {
+				return QueryClientUsageResponse{}, err
+			}
+			return client.usageHandleResponse(resp)
+		},
+		Tracer: client.internal.Tracer(),
+	})
 }
 
 // usageCreateRequest creates the Usage request.
@@ -87,7 +87,10 @@ func (client *QueryClient) usageCreateRequest(ctx context.Context, scope string,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	if options != nil && options.Skiptoken != nil {
+		reqQP.Set("$skiptoken", *options.Skiptoken)
+	}
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -108,7 +111,7 @@ func (client *QueryClient) usageHandleResponse(resp *http.Response) (QueryClient
 // UsageByExternalCloudProviderType - Query the usage data for external cloud provider type defined.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-11-01
 //   - externalCloudProviderType - The external cloud provider type associated with dimension/query operations. This includes
 //     'externalSubscriptions' for linked account and 'externalBillingAccounts' for consolidated account.
 //   - externalCloudProviderID - This can be '{externalSubscriptionId}' for linked account or '{externalBillingAccountId}' for
@@ -154,7 +157,7 @@ func (client *QueryClient) usageByExternalCloudProviderTypeCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {

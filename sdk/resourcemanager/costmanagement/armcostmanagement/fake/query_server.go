@@ -15,7 +15,8 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/costmanagement/armcostmanagement/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/costmanagement/armcostmanagement/v3"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -23,9 +24,9 @@ import (
 
 // QueryServer is a fake server for instances of the armcostmanagement.QueryClient type.
 type QueryServer struct {
-	// Usage is the fake for method QueryClient.Usage
+	// NewUsagePager is the fake for method QueryClient.NewUsagePager
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
-	Usage func(ctx context.Context, scope string, parameters armcostmanagement.QueryDefinition, options *armcostmanagement.QueryClientUsageOptions) (resp azfake.Responder[armcostmanagement.QueryClientUsageResponse], errResp azfake.ErrorResponder)
+	NewUsagePager func(scope string, parameters armcostmanagement.QueryDefinition, options *armcostmanagement.QueryClientUsageOptions) (resp azfake.PagerResponder[armcostmanagement.QueryClientUsageResponse])
 
 	// UsageByExternalCloudProviderType is the fake for method QueryClient.UsageByExternalCloudProviderType
 	// HTTP status codes to indicate success: http.StatusOK
@@ -36,13 +37,17 @@ type QueryServer struct {
 // The returned QueryServerTransport instance is connected to an instance of armcostmanagement.QueryClient via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewQueryServerTransport(srv *QueryServer) *QueryServerTransport {
-	return &QueryServerTransport{srv: srv}
+	return &QueryServerTransport{
+		srv:           srv,
+		newUsagePager: newTracker[azfake.PagerResponder[armcostmanagement.QueryClientUsageResponse]](),
+	}
 }
 
 // QueryServerTransport connects instances of armcostmanagement.QueryClient to instances of QueryServer.
 // Don't use this type directly, use NewQueryServerTransport instead.
 type QueryServerTransport struct {
-	srv *QueryServer
+	srv           *QueryServer
+	newUsagePager *tracker[azfake.PagerResponder[armcostmanagement.QueryClientUsageResponse]]
 }
 
 // Do implements the policy.Transporter interface for QueryServerTransport.
@@ -57,8 +62,8 @@ func (q *QueryServerTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch method {
-	case "QueryClient.Usage":
-		resp, err = q.dispatchUsage(req)
+	case "QueryClient.NewUsagePager":
+		resp, err = q.dispatchNewUsagePager(req)
 	case "QueryClient.UsageByExternalCloudProviderType":
 		resp, err = q.dispatchUsageByExternalCloudProviderType(req)
 	default:
@@ -72,35 +77,55 @@ func (q *QueryServerTransport) Do(req *http.Request) (*http.Response, error) {
 	return resp, nil
 }
 
-func (q *QueryServerTransport) dispatchUsage(req *http.Request) (*http.Response, error) {
-	if q.srv.Usage == nil {
-		return nil, &nonRetriableError{errors.New("fake for method Usage not implemented")}
+func (q *QueryServerTransport) dispatchNewUsagePager(req *http.Request) (*http.Response, error) {
+	if q.srv.NewUsagePager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewUsagePager not implemented")}
 	}
-	const regexStr = `/(?P<scope>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.CostManagement/query`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 1 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	newUsagePager := q.newUsagePager.get(req)
+	if newUsagePager == nil {
+		const regexStr = `/(?P<scope>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.CostManagement/query`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 1 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		qp := req.URL.Query()
+		body, err := server.UnmarshalRequestAsJSON[armcostmanagement.QueryDefinition](req)
+		if err != nil {
+			return nil, err
+		}
+		scopeParam, err := url.PathUnescape(matches[regex.SubexpIndex("scope")])
+		if err != nil {
+			return nil, err
+		}
+		skiptokenUnescaped, err := url.QueryUnescape(qp.Get("$skiptoken"))
+		if err != nil {
+			return nil, err
+		}
+		skiptokenParam := getOptional(skiptokenUnescaped)
+		var options *armcostmanagement.QueryClientUsageOptions
+		if skiptokenParam != nil {
+			options = &armcostmanagement.QueryClientUsageOptions{
+				Skiptoken: skiptokenParam,
+			}
+		}
+		resp := q.srv.NewUsagePager(scopeParam, body, options)
+		newUsagePager = &resp
+		q.newUsagePager.add(req, newUsagePager)
+		server.PagerResponderInjectNextLinks(newUsagePager, req, func(page *armcostmanagement.QueryClientUsageResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
 	}
-	body, err := server.UnmarshalRequestAsJSON[armcostmanagement.QueryDefinition](req)
+	resp, err := server.PagerResponderNext(newUsagePager, req)
 	if err != nil {
 		return nil, err
 	}
-	scopeParam, err := url.PathUnescape(matches[regex.SubexpIndex("scope")])
-	if err != nil {
-		return nil, err
+	if !contains([]int{http.StatusOK, http.StatusNoContent}, resp.StatusCode) {
+		q.newUsagePager.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusNoContent", resp.StatusCode)}
 	}
-	respr, errRespr := q.srv.Usage(req.Context(), scopeParam, body, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK, http.StatusNoContent}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusNoContent", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).QueryResult, req)
-	if err != nil {
-		return nil, err
+	if !server.PagerResponderMore(newUsagePager) {
+		q.newUsagePager.remove(req)
 	}
 	return resp, nil
 }

@@ -62,6 +62,59 @@ type BenefitUtilizationSummariesClientListBySavingsPlanOrderResponse struct {
 	BenefitUtilizationSummariesListResult
 }
 
+// BudgetsClientCreateOrUpdateResponse contains the response from method BudgetsClient.CreateOrUpdate.
+type BudgetsClientCreateOrUpdateResponse struct {
+	// A budget resource.
+	Budget
+}
+
+// BudgetsClientDeleteResponse contains the response from method BudgetsClient.Delete.
+type BudgetsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// BudgetsClientGetResponse contains the response from method BudgetsClient.Get.
+type BudgetsClientGetResponse struct {
+	// A budget resource.
+	Budget
+}
+
+// BudgetsClientListResponse contains the response from method BudgetsClient.NewListPager.
+type BudgetsClientListResponse struct {
+	// Result of listing budgets. It contains a list of available budgets in the scope provided.
+	BudgetsListResult
+}
+
+// CostAllocationRulesClientCheckNameAvailabilityResponse contains the response from method CostAllocationRulesClient.CheckNameAvailability.
+type CostAllocationRulesClientCheckNameAvailabilityResponse struct {
+	// The cost allocation rule check name availability response
+	CostAllocationRuleCheckNameAvailabilityResponse
+}
+
+// CostAllocationRulesClientCreateOrUpdateResponse contains the response from method CostAllocationRulesClient.CreateOrUpdate.
+type CostAllocationRulesClientCreateOrUpdateResponse struct {
+	// The cost allocation rule model definition
+	CostAllocationRuleDefinition
+}
+
+// CostAllocationRulesClientDeleteResponse contains the response from method CostAllocationRulesClient.Delete.
+type CostAllocationRulesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// CostAllocationRulesClientGetResponse contains the response from method CostAllocationRulesClient.Get.
+type CostAllocationRulesClientGetResponse struct {
+	// The cost allocation rule model definition
+	CostAllocationRuleDefinition
+}
+
+// CostAllocationRulesClientListResponse contains the response from method CostAllocationRulesClient.NewListPager.
+type CostAllocationRulesClientListResponse struct {
+	// Result of listing cost allocation rules. It contains a list of available rules in the billing account or enterprise enrollment
+	// provided.
+	CostAllocationRuleList
+}
+
 // DimensionsClientByExternalCloudProviderTypeResponse contains the response from method DimensionsClient.NewByExternalCloudProviderTypePager.
 type DimensionsClientByExternalCloudProviderTypeResponse struct {
 	// Result of listing dimensions. It contains a list of available dimensions.
@@ -120,6 +173,48 @@ type ForecastClientUsageResponse struct {
 	ForecastResult
 }
 
+// GenerateBenefitUtilizationSummariesReportClientGenerateByBillingAccountResponse contains the response from method GenerateBenefitUtilizationSummariesReportClient.BeginGenerateByBillingAccount.
+type GenerateBenefitUtilizationSummariesReportClientGenerateByBillingAccountResponse struct {
+	// Status of a benefit utilization summaries report. Provides Async Benefit Utilization Summaries Request input, status, and
+	// report sas url.
+	BenefitUtilizationSummariesOperationStatus
+}
+
+// GenerateBenefitUtilizationSummariesReportClientGenerateByBillingProfileResponse contains the response from method GenerateBenefitUtilizationSummariesReportClient.BeginGenerateByBillingProfile.
+type GenerateBenefitUtilizationSummariesReportClientGenerateByBillingProfileResponse struct {
+	// Status of a benefit utilization summaries report. Provides Async Benefit Utilization Summaries Request input, status, and
+	// report sas url.
+	BenefitUtilizationSummariesOperationStatus
+}
+
+// GenerateBenefitUtilizationSummariesReportClientGenerateByReservationIDResponse contains the response from method GenerateBenefitUtilizationSummariesReportClient.BeginGenerateByReservationID.
+type GenerateBenefitUtilizationSummariesReportClientGenerateByReservationIDResponse struct {
+	// Status of a benefit utilization summaries report. Provides Async Benefit Utilization Summaries Request input, status, and
+	// report sas url.
+	BenefitUtilizationSummariesOperationStatus
+}
+
+// GenerateBenefitUtilizationSummariesReportClientGenerateByReservationOrderIDResponse contains the response from method GenerateBenefitUtilizationSummariesReportClient.BeginGenerateByReservationOrderID.
+type GenerateBenefitUtilizationSummariesReportClientGenerateByReservationOrderIDResponse struct {
+	// Status of a benefit utilization summaries report. Provides Async Benefit Utilization Summaries Request input, status, and
+	// report sas url.
+	BenefitUtilizationSummariesOperationStatus
+}
+
+// GenerateBenefitUtilizationSummariesReportClientGenerateBySavingsPlanIDResponse contains the response from method GenerateBenefitUtilizationSummariesReportClient.BeginGenerateBySavingsPlanID.
+type GenerateBenefitUtilizationSummariesReportClientGenerateBySavingsPlanIDResponse struct {
+	// Status of a benefit utilization summaries report. Provides Async Benefit Utilization Summaries Request input, status, and
+	// report sas url.
+	BenefitUtilizationSummariesOperationStatus
+}
+
+// GenerateBenefitUtilizationSummariesReportClientGenerateBySavingsPlanOrderIDResponse contains the response from method GenerateBenefitUtilizationSummariesReportClient.BeginGenerateBySavingsPlanOrderID.
+type GenerateBenefitUtilizationSummariesReportClientGenerateBySavingsPlanOrderIDResponse struct {
+	// Status of a benefit utilization summaries report. Provides Async Benefit Utilization Summaries Request input, status, and
+	// report sas url.
+	BenefitUtilizationSummariesOperationStatus
+}
+
 // GenerateCostDetailsReportClientCreateOperationResponse contains the response from method GenerateCostDetailsReportClient.BeginCreateOperation.
 type GenerateCostDetailsReportClientCreateOperationResponse struct {
 	// The result of the long running operation for cost details Api.
@@ -168,14 +263,20 @@ type OperationsClientListResponse struct {
 	OperationListResult
 }
 
+// PriceSheetClientDownloadByBillingAccountResponse contains the response from method PriceSheetClient.BeginDownloadByBillingAccount.
+type PriceSheetClientDownloadByBillingAccountResponse struct {
+	// The status of the long running operation.
+	OperationStatusAutoGenerated
+}
+
 // PriceSheetClientDownloadByBillingProfileResponse contains the response from method PriceSheetClient.BeginDownloadByBillingProfile.
 type PriceSheetClientDownloadByBillingProfileResponse struct {
 	// The URL to download the generated report.
-	DownloadURL
+	PricesheetDownloadProperties
 }
 
-// PriceSheetClientDownloadResponse contains the response from method PriceSheetClient.BeginDownload.
-type PriceSheetClientDownloadResponse struct {
+// PriceSheetClientDownloadByInvoiceResponse contains the response from method PriceSheetClient.BeginDownloadByInvoice.
+type PriceSheetClientDownloadByInvoiceResponse struct {
 	// The URL to download the generated report.
 	DownloadURL
 }
@@ -186,7 +287,7 @@ type QueryClientUsageByExternalCloudProviderTypeResponse struct {
 	QueryResult
 }
 
-// QueryClientUsageResponse contains the response from method QueryClient.Usage.
+// QueryClientUsageResponse contains the response from method QueryClient.NewUsagePager.
 type QueryClientUsageResponse struct {
 	// Result of query. It contains all columns listed under groupings and aggregation.
 	QueryResult
@@ -258,6 +359,49 @@ type ScheduledActionsClientRunByScopeResponse struct {
 // ScheduledActionsClientRunResponse contains the response from method ScheduledActionsClient.Run.
 type ScheduledActionsClientRunResponse struct {
 	// placeholder for future response values
+}
+
+// SettingsClientCreateOrUpdateByScopeResponse contains the response from method SettingsClient.CreateOrUpdateByScope.
+type SettingsClientCreateOrUpdateByScopeResponse struct {
+	// Setting definition.
+	SettingClassification
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type SettingsClientCreateOrUpdateByScopeResponse.
+func (s *SettingsClientCreateOrUpdateByScopeResponse) UnmarshalJSON(data []byte) error {
+	res, err := unmarshalSettingClassification(data)
+	if err != nil {
+		return err
+	}
+	s.SettingClassification = res
+	return nil
+}
+
+// SettingsClientDeleteByScopeResponse contains the response from method SettingsClient.DeleteByScope.
+type SettingsClientDeleteByScopeResponse struct {
+	// placeholder for future response values
+}
+
+// SettingsClientGetByScopeResponse contains the response from method SettingsClient.GetByScope.
+type SettingsClientGetByScopeResponse struct {
+	// Setting definition.
+	SettingClassification
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type SettingsClientGetByScopeResponse.
+func (s *SettingsClientGetByScopeResponse) UnmarshalJSON(data []byte) error {
+	res, err := unmarshalSettingClassification(data)
+	if err != nil {
+		return err
+	}
+	s.SettingClassification = res
+	return nil
+}
+
+// SettingsClientListResponse contains the response from method SettingsClient.List.
+type SettingsClientListResponse struct {
+	// Setting list result. It contains a list of settings.
+	SettingsListResult
 }
 
 // ViewsClientCreateOrUpdateByScopeResponse contains the response from method ViewsClient.CreateOrUpdateByScope.
