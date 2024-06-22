@@ -184,6 +184,16 @@ type APIVersionProperties struct {
 	Title *string
 }
 
+// AzureResourceManagerCommonTypesManagedServiceIdentityUpdate - Managed service identity (system assigned and/or user assigned
+// identities)
+type AzureResourceManagerCommonTypesManagedServiceIdentityUpdate struct {
+	// The type of managed identity assigned to this resource.
+	Type *ManagedServiceIdentityType
+
+	// The identities assigned to this resource by the user.
+	UserAssignedIdentities map[string]*UserAssignedIdentity
+}
+
 // Contact information
 type Contact struct {
 	// Email address of the contact.
@@ -194,6 +204,44 @@ type Contact struct {
 
 	// URL for the contact.
 	URL *string
+}
+
+// DeletedService - Soft-deleted service entity.
+type DeletedService struct {
+	// The resource-specific properties for this resource.
+	Properties *DeletedServiceProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// DeletedServiceListResult - The response of a DeletedService list operation.
+type DeletedServiceListResult struct {
+	// READ-ONLY; The DeletedService items on this page
+	Value []*DeletedService
+
+	// READ-ONLY; The link to the next page of items
+	NextLink *string
+}
+
+// DeletedServiceProperties - Deleted service properties.
+type DeletedServiceProperties struct {
+	// UTC date and time when the service will be automatically purged. The date conforms to the following format: yyyy-MM-ddTHH:mm:ssZ
+	// as specified by the ISO 8601 standard.
+	ScheduledPurgeDate *time.Time
+
+	// UTC date and time when the service was soft-deleted. The date conforms to the following format: yyyy-MM-ddTHH:mm:ssZ as
+	// specified by the ISO 8601 standard.
+	SoftDeletionDate *time.Time
 }
 
 // Deployment - API deployment entity.
@@ -513,6 +561,9 @@ type ServiceListResult struct {
 
 // ServiceProperties - The properties of the service.
 type ServiceProperties struct {
+	// Flag used to restore soft-deleted API Center service. If specified and set to 'true' all other properties will be ignored.
+	Restore *bool
+
 	// READ-ONLY; Provisioning state of the service.
 	ProvisioningState *ProvisioningState
 }
@@ -520,10 +571,19 @@ type ServiceProperties struct {
 // ServiceUpdate - The type used for update operations of the Service.
 type ServiceUpdate struct {
 	// The managed service identities assigned to this resource.
-	Identity *ManagedServiceIdentity
+	Identity *AzureResourceManagerCommonTypesManagedServiceIdentityUpdate
+
+	// The updatable properties of the Service.
+	Properties *ServiceUpdateProperties
 
 	// Resource tags.
 	Tags map[string]*string
+}
+
+// ServiceUpdateProperties - The updatable properties of the Service.
+type ServiceUpdateProperties struct {
+	// Flag used to restore soft-deleted API Center service. If specified and set to 'true' all other properties will be ignored.
+	Restore *bool
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
