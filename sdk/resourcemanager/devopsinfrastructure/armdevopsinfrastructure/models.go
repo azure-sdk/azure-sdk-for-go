@@ -103,6 +103,16 @@ type AzureDevOpsPermissionProfile struct {
 	Users []*string
 }
 
+// AzureResourceManagerCommonTypesManagedServiceIdentityUpdate - Managed service identity (system assigned and/or user assigned
+// identities)
+type AzureResourceManagerCommonTypesManagedServiceIdentityUpdate struct {
+	// The type of managed identity assigned to this resource.
+	Type *ManagedServiceIdentityType
+
+	// The identities assigned to this resource by the user.
+	UserAssignedIdentities map[string]*UserAssignedIdentity
+}
+
 // DataDisk - The data disk of the VMSS.
 type DataDisk struct {
 	// The type of caching to be enabled for the data disks. The default value for caching is readwrite. For information about
@@ -399,7 +409,7 @@ type PoolProperties struct {
 // PoolUpdate - The type used for update operations of the Pool.
 type PoolUpdate struct {
 	// The managed service identities assigned to this resource.
-	Identity *ManagedServiceIdentity
+	Identity *AzureResourceManagerCommonTypesManagedServiceIdentityUpdate
 
 	// The updatable properties of the Pool.
 	Properties *PoolUpdateProperties
