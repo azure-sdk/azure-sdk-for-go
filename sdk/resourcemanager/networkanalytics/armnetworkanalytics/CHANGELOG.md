@@ -1,5 +1,15 @@
 # Release History
 
+## 2.0.0 (2024-06-22)
+### Breaking Changes
+
+- Type of `DataProductUpdate.Identity` has been changed from `*ManagedServiceIdentity` to `*AzureResourceManagerLegacyManagedServiceIdentityV4Update`
+
+### Features Added
+
+- New struct `AzureResourceManagerLegacyManagedServiceIdentityV4Update`
+
+
 ## 1.0.0 (2024-01-26)
 ### Other Changes
 
