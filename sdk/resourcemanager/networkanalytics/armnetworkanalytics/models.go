@@ -28,6 +28,16 @@ type AccountSasToken struct {
 	StorageAccountSasToken *string
 }
 
+// AzureResourceManagerLegacyManagedServiceIdentityV4Update - Managed service identity (system assigned and/or user assigned
+// identities)
+type AzureResourceManagerLegacyManagedServiceIdentityV4Update struct {
+	// The type of managed identity assigned to this resource.
+	Type *ManagedServiceIdentityType
+
+	// The identities assigned to this resource by the user.
+	UserAssignedIdentities map[string]*UserAssignedIdentity
+}
+
 // ConsumptionEndpointsProperties - Details of Consumption Properties
 type ConsumptionEndpointsProperties struct {
 	// READ-ONLY; Resource Id of file access endpoint.
@@ -196,7 +206,7 @@ type DataProductProperties struct {
 // DataProductUpdate - The type used for update operations of the DataProduct.
 type DataProductUpdate struct {
 	// The managed service identities assigned to this resource.
-	Identity *ManagedServiceIdentity
+	Identity *AzureResourceManagerLegacyManagedServiceIdentityV4Update
 
 	// The updatable properties of the DataProduct.
 	Properties *DataProductUpdateProperties
