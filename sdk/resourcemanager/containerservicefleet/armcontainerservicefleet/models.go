@@ -26,6 +26,16 @@ type AgentProfile struct {
 	VMSize *string
 }
 
+// AzureResourceManagerLegacyManagedServiceIdentityV4Update - Managed service identity (system assigned and/or user assigned
+// identities)
+type AzureResourceManagerLegacyManagedServiceIdentityV4Update struct {
+	// The type of managed identity assigned to this resource.
+	Type *ManagedServiceIdentityType
+
+	// The identities assigned to this resource by the user.
+	UserAssignedIdentities map[string]*UserAssignedIdentity
+}
+
 // ErrorAdditionalInfo - The resource management error additional info.
 type ErrorAdditionalInfo struct {
 	// READ-ONLY; The additional info.
@@ -192,7 +202,7 @@ type FleetMemberUpdateProperties struct {
 // FleetPatch - Properties of a Fleet that can be patched.
 type FleetPatch struct {
 	// Managed identity.
-	Identity *ManagedServiceIdentity
+	Identity *AzureResourceManagerLegacyManagedServiceIdentityV4Update
 
 	// Resource tags.
 	Tags map[string]*string
