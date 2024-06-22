@@ -10,6 +10,16 @@ package armastro
 
 import "time"
 
+// AzureResourceManagerLegacyManagedServiceIdentityV4Update - Managed service identity (system assigned and/or user assigned
+// identities)
+type AzureResourceManagerLegacyManagedServiceIdentityV4Update struct {
+	// The type of managed identity assigned to this resource.
+	Type *ManagedServiceIdentityType
+
+	// The identities assigned to this resource by the user.
+	UserAssignedIdentities map[string]*UserAssignedIdentity
+}
+
 // LiftrBaseDataOrganizationProperties - Properties specific to Data Organization resource
 type LiftrBaseDataOrganizationProperties struct {
 	// REQUIRED; Marketplace details of the resource.
@@ -66,7 +76,7 @@ type LiftrBaseMarketplaceDetails struct {
 	// REQUIRED; Offer details for the marketplace that is selected by the user
 	OfferDetails *LiftrBaseOfferDetails
 
-	// REQUIRED; Azure subscription id for the the marketplace offer is purchased from
+	// Azure subscription id for the the marketplace offer is purchased from
 	SubscriptionID *string
 
 	// Marketplace subscription status
@@ -256,7 +266,7 @@ type OrganizationResourceListResult struct {
 // OrganizationResourceUpdate - The type used for update operations of the OrganizationResource.
 type OrganizationResourceUpdate struct {
 	// The managed service identities assigned to this resource.
-	Identity *ManagedServiceIdentity
+	Identity *AzureResourceManagerLegacyManagedServiceIdentityV4Update
 
 	// The updatable properties of the OrganizationResource.
 	Properties *OrganizationResourceUpdateProperties
