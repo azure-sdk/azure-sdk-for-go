@@ -27,10 +27,25 @@ type CloudHsmClusterPrivateEndpointConnectionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CloudHsmClusterPrivateLinkResourcesClientListByCloudHsmClusterOptions contains the optional parameters for the CloudHsmClusterPrivateLinkResourcesClient.ListByCloudHsmCluster
+// CloudHsmClusterPrivateLinkResourcesClientListByCloudHsmClusterOptions contains the optional parameters for the CloudHsmClusterPrivateLinkResourcesClient.NewListByCloudHsmClusterPager
 // method.
 type CloudHsmClusterPrivateLinkResourcesClientListByCloudHsmClusterOptions struct {
 	// placeholder for future optional parameters
+}
+
+// CloudHsmClustersBackupStatusClientGetOptions contains the optional parameters for the CloudHsmClustersBackupStatusClient.Get
+// method.
+type CloudHsmClustersBackupStatusClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// CloudHsmClustersClientBeginBackupOptions contains the optional parameters for the CloudHsmClustersClient.BeginBackup method.
+type CloudHsmClustersClientBeginBackupOptions struct {
+	// Azure storage Resource Uri
+	BackupRequestProperties *BackupRequestProperties
+
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // CloudHsmClustersClientBeginCreateOrUpdateOptions contains the optional parameters for the CloudHsmClustersClient.BeginCreateOrUpdate
@@ -42,6 +57,33 @@ type CloudHsmClustersClientBeginCreateOrUpdateOptions struct {
 
 // CloudHsmClustersClientBeginDeleteOptions contains the optional parameters for the CloudHsmClustersClient.BeginDelete method.
 type CloudHsmClustersClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// CloudHsmClustersClientBeginPreBackupOptions contains the optional parameters for the CloudHsmClustersClient.BeginPreBackup
+// method.
+type CloudHsmClustersClientBeginPreBackupOptions struct {
+	// Azure Storage blob container URI
+	BackupRequestProperties *BackupRequestProperties
+
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// CloudHsmClustersClientBeginPreRestoreOptions contains the optional parameters for the CloudHsmClustersClient.BeginPreRestore
+// method.
+type CloudHsmClustersClientBeginPreRestoreOptions struct {
+	// Optional Parameters to validate prior performing a restore operation.
+	RestoreRequestProperties *RestoreRequestProperties
+
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// CloudHsmClustersClientBeginRestoreOptions contains the optional parameters for the CloudHsmClustersClient.BeginRestore
+// method.
+type CloudHsmClustersClientBeginRestoreOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -69,6 +111,12 @@ type CloudHsmClustersClientListByResourceGroupOptions struct {
 type CloudHsmClustersClientListBySubscriptionOptions struct {
 	// The page-continuation token to use with a paged version of this API
 	Skiptoken *string
+}
+
+// CloudHsmClustersRestoreStatusClientGetOptions contains the optional parameters for the CloudHsmClustersRestoreStatusClient.Get
+// method.
+type CloudHsmClustersRestoreStatusClientGetOptions struct {
+	// placeholder for future optional parameters
 }
 
 // DedicatedHsmClientBeginCreateOrUpdateOptions contains the optional parameters for the DedicatedHsmClient.BeginCreateOrUpdate
