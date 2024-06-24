@@ -19,17 +19,22 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hardwaresecuritymodules/armhardwaresecuritymodules/v2"
 	"net/http"
 	"net/url"
+	"reflect"
 	"regexp"
 )
 
 // CloudHsmClustersServer is a fake server for instances of the armhardwaresecuritymodules.CloudHsmClustersClient type.
 type CloudHsmClustersServer struct {
+	// BeginBackup is the fake for method CloudHsmClustersClient.BeginBackup
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginBackup func(ctx context.Context, resourceGroupName string, cloudHsmClusterName string, options *armhardwaresecuritymodules.CloudHsmClustersClientBeginBackupOptions) (resp azfake.PollerResponder[armhardwaresecuritymodules.CloudHsmClustersClientBackupResponse], errResp azfake.ErrorResponder)
+
 	// BeginCreateOrUpdate is the fake for method CloudHsmClustersClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
 	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, cloudHsmClusterName string, body armhardwaresecuritymodules.CloudHsmCluster, options *armhardwaresecuritymodules.CloudHsmClustersClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armhardwaresecuritymodules.CloudHsmClustersClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method CloudHsmClustersClient.BeginDelete
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
+	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
 	BeginDelete func(ctx context.Context, resourceGroupName string, cloudHsmClusterName string, options *armhardwaresecuritymodules.CloudHsmClustersClientBeginDeleteOptions) (resp azfake.PollerResponder[armhardwaresecuritymodules.CloudHsmClustersClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method CloudHsmClustersClient.Get
@@ -44,6 +49,18 @@ type CloudHsmClustersServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListBySubscriptionPager func(options *armhardwaresecuritymodules.CloudHsmClustersClientListBySubscriptionOptions) (resp azfake.PagerResponder[armhardwaresecuritymodules.CloudHsmClustersClientListBySubscriptionResponse])
 
+	// BeginPreBackup is the fake for method CloudHsmClustersClient.BeginPreBackup
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginPreBackup func(ctx context.Context, resourceGroupName string, cloudHsmClusterName string, options *armhardwaresecuritymodules.CloudHsmClustersClientBeginPreBackupOptions) (resp azfake.PollerResponder[armhardwaresecuritymodules.CloudHsmClustersClientPreBackupResponse], errResp azfake.ErrorResponder)
+
+	// BeginPreRestore is the fake for method CloudHsmClustersClient.BeginPreRestore
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginPreRestore func(ctx context.Context, resourceGroupName string, cloudHsmClusterName string, options *armhardwaresecuritymodules.CloudHsmClustersClientBeginPreRestoreOptions) (resp azfake.PollerResponder[armhardwaresecuritymodules.CloudHsmClustersClientPreRestoreResponse], errResp azfake.ErrorResponder)
+
+	// BeginRestore is the fake for method CloudHsmClustersClient.BeginRestore
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginRestore func(ctx context.Context, resourceGroupName string, cloudHsmClusterName string, restoreRequestProperties armhardwaresecuritymodules.RestoreRequestProperties, options *armhardwaresecuritymodules.CloudHsmClustersClientBeginRestoreOptions) (resp azfake.PollerResponder[armhardwaresecuritymodules.CloudHsmClustersClientRestoreResponse], errResp azfake.ErrorResponder)
+
 	// BeginUpdate is the fake for method CloudHsmClustersClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginUpdate func(ctx context.Context, resourceGroupName string, cloudHsmClusterName string, body armhardwaresecuritymodules.CloudHsmClusterPatchParameters, options *armhardwaresecuritymodules.CloudHsmClustersClientBeginUpdateOptions) (resp azfake.PollerResponder[armhardwaresecuritymodules.CloudHsmClustersClientUpdateResponse], errResp azfake.ErrorResponder)
@@ -55,10 +72,14 @@ type CloudHsmClustersServer struct {
 func NewCloudHsmClustersServerTransport(srv *CloudHsmClustersServer) *CloudHsmClustersServerTransport {
 	return &CloudHsmClustersServerTransport{
 		srv:                         srv,
+		beginBackup:                 newTracker[azfake.PollerResponder[armhardwaresecuritymodules.CloudHsmClustersClientBackupResponse]](),
 		beginCreateOrUpdate:         newTracker[azfake.PollerResponder[armhardwaresecuritymodules.CloudHsmClustersClientCreateOrUpdateResponse]](),
 		beginDelete:                 newTracker[azfake.PollerResponder[armhardwaresecuritymodules.CloudHsmClustersClientDeleteResponse]](),
 		newListByResourceGroupPager: newTracker[azfake.PagerResponder[armhardwaresecuritymodules.CloudHsmClustersClientListByResourceGroupResponse]](),
 		newListBySubscriptionPager:  newTracker[azfake.PagerResponder[armhardwaresecuritymodules.CloudHsmClustersClientListBySubscriptionResponse]](),
+		beginPreBackup:              newTracker[azfake.PollerResponder[armhardwaresecuritymodules.CloudHsmClustersClientPreBackupResponse]](),
+		beginPreRestore:             newTracker[azfake.PollerResponder[armhardwaresecuritymodules.CloudHsmClustersClientPreRestoreResponse]](),
+		beginRestore:                newTracker[azfake.PollerResponder[armhardwaresecuritymodules.CloudHsmClustersClientRestoreResponse]](),
 		beginUpdate:                 newTracker[azfake.PollerResponder[armhardwaresecuritymodules.CloudHsmClustersClientUpdateResponse]](),
 	}
 }
@@ -67,10 +88,14 @@ func NewCloudHsmClustersServerTransport(srv *CloudHsmClustersServer) *CloudHsmCl
 // Don't use this type directly, use NewCloudHsmClustersServerTransport instead.
 type CloudHsmClustersServerTransport struct {
 	srv                         *CloudHsmClustersServer
+	beginBackup                 *tracker[azfake.PollerResponder[armhardwaresecuritymodules.CloudHsmClustersClientBackupResponse]]
 	beginCreateOrUpdate         *tracker[azfake.PollerResponder[armhardwaresecuritymodules.CloudHsmClustersClientCreateOrUpdateResponse]]
 	beginDelete                 *tracker[azfake.PollerResponder[armhardwaresecuritymodules.CloudHsmClustersClientDeleteResponse]]
 	newListByResourceGroupPager *tracker[azfake.PagerResponder[armhardwaresecuritymodules.CloudHsmClustersClientListByResourceGroupResponse]]
 	newListBySubscriptionPager  *tracker[azfake.PagerResponder[armhardwaresecuritymodules.CloudHsmClustersClientListBySubscriptionResponse]]
+	beginPreBackup              *tracker[azfake.PollerResponder[armhardwaresecuritymodules.CloudHsmClustersClientPreBackupResponse]]
+	beginPreRestore             *tracker[azfake.PollerResponder[armhardwaresecuritymodules.CloudHsmClustersClientPreRestoreResponse]]
+	beginRestore                *tracker[azfake.PollerResponder[armhardwaresecuritymodules.CloudHsmClustersClientRestoreResponse]]
 	beginUpdate                 *tracker[azfake.PollerResponder[armhardwaresecuritymodules.CloudHsmClustersClientUpdateResponse]]
 }
 
@@ -86,6 +111,8 @@ func (c *CloudHsmClustersServerTransport) Do(req *http.Request) (*http.Response,
 	var err error
 
 	switch method {
+	case "CloudHsmClustersClient.BeginBackup":
+		resp, err = c.dispatchBeginBackup(req)
 	case "CloudHsmClustersClient.BeginCreateOrUpdate":
 		resp, err = c.dispatchBeginCreateOrUpdate(req)
 	case "CloudHsmClustersClient.BeginDelete":
@@ -96,6 +123,12 @@ func (c *CloudHsmClustersServerTransport) Do(req *http.Request) (*http.Response,
 		resp, err = c.dispatchNewListByResourceGroupPager(req)
 	case "CloudHsmClustersClient.NewListBySubscriptionPager":
 		resp, err = c.dispatchNewListBySubscriptionPager(req)
+	case "CloudHsmClustersClient.BeginPreBackup":
+		resp, err = c.dispatchBeginPreBackup(req)
+	case "CloudHsmClustersClient.BeginPreRestore":
+		resp, err = c.dispatchBeginPreRestore(req)
+	case "CloudHsmClustersClient.BeginRestore":
+		resp, err = c.dispatchBeginRestore(req)
 	case "CloudHsmClustersClient.BeginUpdate":
 		resp, err = c.dispatchBeginUpdate(req)
 	default:
@@ -104,6 +137,60 @@ func (c *CloudHsmClustersServerTransport) Do(req *http.Request) (*http.Response,
 
 	if err != nil {
 		return nil, err
+	}
+
+	return resp, nil
+}
+
+func (c *CloudHsmClustersServerTransport) dispatchBeginBackup(req *http.Request) (*http.Response, error) {
+	if c.srv.BeginBackup == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginBackup not implemented")}
+	}
+	beginBackup := c.beginBackup.get(req)
+	if beginBackup == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.HardwareSecurityModules/cloudHsmClusters/(?P<cloudHsmClusterName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/backup`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armhardwaresecuritymodules.BackupRequestProperties](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		cloudHsmClusterNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("cloudHsmClusterName")])
+		if err != nil {
+			return nil, err
+		}
+		var options *armhardwaresecuritymodules.CloudHsmClustersClientBeginBackupOptions
+		if !reflect.ValueOf(body).IsZero() {
+			options = &armhardwaresecuritymodules.CloudHsmClustersClientBeginBackupOptions{
+				BackupRequestProperties: &body,
+			}
+		}
+		respr, errRespr := c.srv.BeginBackup(req.Context(), resourceGroupNameParam, cloudHsmClusterNameParam, options)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginBackup = &respr
+		c.beginBackup.add(req, beginBackup)
+	}
+
+	resp, err := server.PollerResponderNext(beginBackup, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		c.beginBackup.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginBackup) {
+		c.beginBackup.remove(req)
 	}
 
 	return resp, nil
@@ -190,9 +277,9 @@ func (c *CloudHsmClustersServerTransport) dispatchBeginDelete(req *http.Request)
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
+	if !contains([]int{http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
 		c.beginDelete.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginDelete) {
 		c.beginDelete.remove(req)
@@ -325,6 +412,162 @@ func (c *CloudHsmClustersServerTransport) dispatchNewListBySubscriptionPager(req
 	if !server.PagerResponderMore(newListBySubscriptionPager) {
 		c.newListBySubscriptionPager.remove(req)
 	}
+	return resp, nil
+}
+
+func (c *CloudHsmClustersServerTransport) dispatchBeginPreBackup(req *http.Request) (*http.Response, error) {
+	if c.srv.BeginPreBackup == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginPreBackup not implemented")}
+	}
+	beginPreBackup := c.beginPreBackup.get(req)
+	if beginPreBackup == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.HardwareSecurityModules/cloudHsmClusters/(?P<cloudHsmClusterName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/prebackup`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armhardwaresecuritymodules.BackupRequestProperties](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		cloudHsmClusterNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("cloudHsmClusterName")])
+		if err != nil {
+			return nil, err
+		}
+		var options *armhardwaresecuritymodules.CloudHsmClustersClientBeginPreBackupOptions
+		if !reflect.ValueOf(body).IsZero() {
+			options = &armhardwaresecuritymodules.CloudHsmClustersClientBeginPreBackupOptions{
+				BackupRequestProperties: &body,
+			}
+		}
+		respr, errRespr := c.srv.BeginPreBackup(req.Context(), resourceGroupNameParam, cloudHsmClusterNameParam, options)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginPreBackup = &respr
+		c.beginPreBackup.add(req, beginPreBackup)
+	}
+
+	resp, err := server.PollerResponderNext(beginPreBackup, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		c.beginPreBackup.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginPreBackup) {
+		c.beginPreBackup.remove(req)
+	}
+
+	return resp, nil
+}
+
+func (c *CloudHsmClustersServerTransport) dispatchBeginPreRestore(req *http.Request) (*http.Response, error) {
+	if c.srv.BeginPreRestore == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginPreRestore not implemented")}
+	}
+	beginPreRestore := c.beginPreRestore.get(req)
+	if beginPreRestore == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.HardwareSecurityModules/cloudHsmClusters/(?P<cloudHsmClusterName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/prerestore`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armhardwaresecuritymodules.RestoreRequestProperties](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		cloudHsmClusterNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("cloudHsmClusterName")])
+		if err != nil {
+			return nil, err
+		}
+		var options *armhardwaresecuritymodules.CloudHsmClustersClientBeginPreRestoreOptions
+		if !reflect.ValueOf(body).IsZero() {
+			options = &armhardwaresecuritymodules.CloudHsmClustersClientBeginPreRestoreOptions{
+				RestoreRequestProperties: &body,
+			}
+		}
+		respr, errRespr := c.srv.BeginPreRestore(req.Context(), resourceGroupNameParam, cloudHsmClusterNameParam, options)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginPreRestore = &respr
+		c.beginPreRestore.add(req, beginPreRestore)
+	}
+
+	resp, err := server.PollerResponderNext(beginPreRestore, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		c.beginPreRestore.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginPreRestore) {
+		c.beginPreRestore.remove(req)
+	}
+
+	return resp, nil
+}
+
+func (c *CloudHsmClustersServerTransport) dispatchBeginRestore(req *http.Request) (*http.Response, error) {
+	if c.srv.BeginRestore == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginRestore not implemented")}
+	}
+	beginRestore := c.beginRestore.get(req)
+	if beginRestore == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.HardwareSecurityModules/cloudHsmClusters/(?P<cloudHsmClusterName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/restore`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armhardwaresecuritymodules.RestoreRequestProperties](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		cloudHsmClusterNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("cloudHsmClusterName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := c.srv.BeginRestore(req.Context(), resourceGroupNameParam, cloudHsmClusterNameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginRestore = &respr
+		c.beginRestore.add(req, beginRestore)
+	}
+
+	resp, err := server.PollerResponderNext(beginRestore, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		c.beginRestore.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginRestore) {
+		c.beginRestore.remove(req)
+	}
+
 	return resp, nil
 }
 

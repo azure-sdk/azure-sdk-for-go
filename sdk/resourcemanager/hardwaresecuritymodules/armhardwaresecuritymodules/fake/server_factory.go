@@ -21,7 +21,9 @@ import (
 type ServerFactory struct {
 	CloudHsmClusterPrivateEndpointConnectionsServer CloudHsmClusterPrivateEndpointConnectionsServer
 	CloudHsmClusterPrivateLinkResourcesServer       CloudHsmClusterPrivateLinkResourcesServer
+	CloudHsmClustersBackupStatusServer              CloudHsmClustersBackupStatusServer
 	CloudHsmClustersServer                          CloudHsmClustersServer
+	CloudHsmClustersRestoreStatusServer             CloudHsmClustersRestoreStatusServer
 	DedicatedHsmServer                              DedicatedHsmServer
 	OperationsServer                                OperationsServer
 	PrivateEndpointConnectionsServer                PrivateEndpointConnectionsServer
@@ -43,7 +45,9 @@ type ServerFactoryTransport struct {
 	trMu                                              sync.Mutex
 	trCloudHsmClusterPrivateEndpointConnectionsServer *CloudHsmClusterPrivateEndpointConnectionsServerTransport
 	trCloudHsmClusterPrivateLinkResourcesServer       *CloudHsmClusterPrivateLinkResourcesServerTransport
+	trCloudHsmClustersBackupStatusServer              *CloudHsmClustersBackupStatusServerTransport
 	trCloudHsmClustersServer                          *CloudHsmClustersServerTransport
+	trCloudHsmClustersRestoreStatusServer             *CloudHsmClustersRestoreStatusServerTransport
 	trDedicatedHsmServer                              *DedicatedHsmServerTransport
 	trOperationsServer                                *OperationsServerTransport
 	trPrivateEndpointConnectionsServer                *PrivateEndpointConnectionsServerTransport
@@ -72,11 +76,21 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewCloudHsmClusterPrivateLinkResourcesServerTransport(&s.srv.CloudHsmClusterPrivateLinkResourcesServer)
 		})
 		resp, err = s.trCloudHsmClusterPrivateLinkResourcesServer.Do(req)
+	case "CloudHsmClustersBackupStatusClient":
+		initServer(s, &s.trCloudHsmClustersBackupStatusServer, func() *CloudHsmClustersBackupStatusServerTransport {
+			return NewCloudHsmClustersBackupStatusServerTransport(&s.srv.CloudHsmClustersBackupStatusServer)
+		})
+		resp, err = s.trCloudHsmClustersBackupStatusServer.Do(req)
 	case "CloudHsmClustersClient":
 		initServer(s, &s.trCloudHsmClustersServer, func() *CloudHsmClustersServerTransport {
 			return NewCloudHsmClustersServerTransport(&s.srv.CloudHsmClustersServer)
 		})
 		resp, err = s.trCloudHsmClustersServer.Do(req)
+	case "CloudHsmClustersRestoreStatusClient":
+		initServer(s, &s.trCloudHsmClustersRestoreStatusServer, func() *CloudHsmClustersRestoreStatusServerTransport {
+			return NewCloudHsmClustersRestoreStatusServerTransport(&s.srv.CloudHsmClustersRestoreStatusServer)
+		})
+		resp, err = s.trCloudHsmClustersRestoreStatusServer.Do(req)
 	case "DedicatedHsmClient":
 		initServer(s, &s.trDedicatedHsmServer, func() *DedicatedHsmServerTransport { return NewDedicatedHsmServerTransport(&s.srv.DedicatedHsmServer) })
 		resp, err = s.trDedicatedHsmServer.Do(req)
