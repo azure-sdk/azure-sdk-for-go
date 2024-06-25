@@ -3245,9 +3245,6 @@ type LinuxConfiguration struct {
 	// Specifies whether password authentication should be disabled.
 	DisablePasswordAuthentication *bool
 
-	// Indicates whether VMAgent Platform Updates is enabled for the Linux virtual machine. Default value is false.
-	EnableVMAgentPlatformUpdates *bool
-
 	// [Preview Feature] Specifies settings related to VM Guest Patching on Linux.
 	PatchSettings *LinuxPatchSettings
 
@@ -3258,6 +3255,9 @@ type LinuxConfiguration struct {
 
 	// Specifies the ssh key configuration for a Linux OS.
 	SSH *SSHConfiguration
+
+	// READ-ONLY; Indicates whether VMAgent Platform Updates are enabled for the Linux Virtual Machine.
+	EnableVMAgentPlatformUpdates *bool
 }
 
 // LinuxParameters - Input for InstallPatches on a Linux VM, as directly received by the API
@@ -5174,14 +5174,28 @@ type ScheduledEventsProfile struct {
 	TerminateNotificationProfile *TerminateNotificationProfile
 }
 
-// SecurityPostureReference - Specifies the security posture to be used for all virtual machines in the scale set. Minimum
-// api-version: 2023-03-01
+// SecurityPostureReference - Specifies the security posture to be used in the scale set. Minimum api-version: 2023-03-01
 type SecurityPostureReference struct {
-	// List of virtual machine extensions to exclude when applying the Security Posture.
-	ExcludeExtensions []*VirtualMachineExtension
-
-	// The security posture reference id in the form of /CommunityGalleries/{communityGalleryName}/securityPostures/{securityPostureName}/versions/{major.minor.patch}|{major.*}|latest
+	// REQUIRED; The security posture reference id in the form of /CommunityGalleries/{communityGalleryName}/securityPostures/{securityPostureName}/versions/{major.minor.patch}|latest
 	ID *string
+
+	// The list of virtual machine extension names to exclude when applying the security posture.
+	ExcludeExtensions []*string
+
+	// Whether the security posture can be overridden by the user.
+	IsOverridable *bool
+}
+
+// SecurityPostureReferenceUpdate - Specifies the security posture to be used in the scale set. Minimum api-version: 2023-03-01
+type SecurityPostureReferenceUpdate struct {
+	// The list of virtual machine extension names to exclude when applying the security posture.
+	ExcludeExtensions []*string
+
+	// The security posture reference id in the form of /CommunityGalleries/{communityGalleryName}/securityPostures/{securityPostureName}/versions/{major.minor.patch}|latest
+	ID *string
+
+	// Whether the security posture can be overridden by the user.
+	IsOverridable *bool
 }
 
 // SecurityProfile - Specifies the Security profile settings for the virtual machine or virtual machine scale set.
@@ -8089,6 +8103,9 @@ type VirtualMachineScaleSetUpdateVMProfile struct {
 	// Specifies Scheduled Event related configurations.
 	ScheduledEventsProfile *ScheduledEventsProfile
 
+	// The virtual machine scale set security posture reference.
+	SecurityPostureReference *SecurityPostureReferenceUpdate
+
 	// The virtual machine scale set Security profile
 	SecurityProfile *SecurityProfile
 
@@ -8333,7 +8350,7 @@ type VirtualMachineScaleSetVMProfile struct {
 	// Specifies Scheduled Event related configurations.
 	ScheduledEventsProfile *ScheduledEventsProfile
 
-	// Specifies the security posture to be used for all virtual machines in the scale set. Minimum api-version: 2023-03-01
+	// Specifies the security posture to be used in the scale set. Minimum api-version: 2023-03-01
 	SecurityPostureReference *SecurityPostureReference
 
 	// Specifies the Security related profile settings for the virtual machines in the scale set.
@@ -8593,9 +8610,6 @@ type WindowsConfiguration struct {
 	// reprovisioning.
 	EnableAutomaticUpdates *bool
 
-	// Indicates whether VMAgent Platform Updates is enabled for the Windows virtual machine. Default value is false.
-	EnableVMAgentPlatformUpdates *bool
-
 	// [Preview Feature] Specifies settings related to VM Guest Patching on Windows.
 	PatchSettings *PatchSettings
 
@@ -8612,6 +8626,9 @@ type WindowsConfiguration struct {
 
 	// Specifies the Windows Remote Management listeners. This enables remote Windows PowerShell.
 	WinRM *WinRMConfiguration
+
+	// READ-ONLY; Indicates whether VMAgent Platform Updates are enabled for the Windows Virtual Machine.
+	EnableVMAgentPlatformUpdates *bool
 }
 
 // WindowsParameters - Input for InstallPatches on a Windows VM, as directly received by the API
