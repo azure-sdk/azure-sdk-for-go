@@ -78,7 +78,6 @@ func (c *ClientFactory) NewSKUClient() *SKUClient {
 // NewSubscriptionUsagesClient creates a new instance of SubscriptionUsagesClient.
 func (c *ClientFactory) NewSubscriptionUsagesClient() *SubscriptionUsagesClient {
 	return &SubscriptionUsagesClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		internal: c.internal,
 	}
 }
