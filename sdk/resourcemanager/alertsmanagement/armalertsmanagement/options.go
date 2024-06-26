@@ -124,6 +124,11 @@ type AlertsClientGetByIDOptions struct {
 	// placeholder for future optional parameters
 }
 
+// AlertsClientGetEnrichmentsOptions contains the optional parameters for the AlertsClient.GetEnrichments method.
+type AlertsClientGetEnrichmentsOptions struct {
+	// placeholder for future optional parameters
+}
+
 // AlertsClientGetHistoryOptions contains the optional parameters for the AlertsClient.GetHistory method.
 type AlertsClientGetHistoryOptions struct {
 	// placeholder for future optional parameters
@@ -167,13 +172,18 @@ type AlertsClientGetSummaryOptions struct {
 	TimeRange *TimeRange
 }
 
+// AlertsClientListEnrichmentsOptions contains the optional parameters for the AlertsClient.NewListEnrichmentsPager method.
+type AlertsClientListEnrichmentsOptions struct {
+	// placeholder for future optional parameters
+}
+
 // AlertsClientMetaDataOptions contains the optional parameters for the AlertsClient.MetaData method.
 type AlertsClientMetaDataOptions struct {
 	// placeholder for future optional parameters
 }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
-type OperationsClientListOptions struct {
+// OperationsClientList2Options contains the optional parameters for the OperationsClient.NewList2Pager method.
+type OperationsClientList2Options struct {
 	// placeholder for future optional parameters
 }
 
@@ -259,40 +269,5 @@ type SmartGroupsClientGetByIDOptions struct {
 
 // SmartGroupsClientGetHistoryOptions contains the optional parameters for the SmartGroupsClient.GetHistory method.
 type SmartGroupsClientGetHistoryOptions struct {
-	// placeholder for future optional parameters
-}
-
-// TenantActivityLogAlertsClientCreateOrUpdateOptions contains the optional parameters for the TenantActivityLogAlertsClient.CreateOrUpdate
-// method.
-type TenantActivityLogAlertsClientCreateOrUpdateOptions struct {
-	// placeholder for future optional parameters
-}
-
-// TenantActivityLogAlertsClientDeleteOptions contains the optional parameters for the TenantActivityLogAlertsClient.Delete
-// method.
-type TenantActivityLogAlertsClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
-// TenantActivityLogAlertsClientGetOptions contains the optional parameters for the TenantActivityLogAlertsClient.Get method.
-type TenantActivityLogAlertsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// TenantActivityLogAlertsClientListByManagementGroupOptions contains the optional parameters for the TenantActivityLogAlertsClient.NewListByManagementGroupPager
-// method.
-type TenantActivityLogAlertsClientListByManagementGroupOptions struct {
-	// placeholder for future optional parameters
-}
-
-// TenantActivityLogAlertsClientListByTenantOptions contains the optional parameters for the TenantActivityLogAlertsClient.NewListByTenantPager
-// method.
-type TenantActivityLogAlertsClientListByTenantOptions struct {
-	// placeholder for future optional parameters
-}
-
-// TenantActivityLogAlertsClientUpdateOptions contains the optional parameters for the TenantActivityLogAlertsClient.Update
-// method.
-type TenantActivityLogAlertsClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }

@@ -21,9 +21,9 @@ import (
 
 // OperationsServer is a fake server for instances of the armalertsmanagement.OperationsClient type.
 type OperationsServer struct {
-	// NewListPager is the fake for method OperationsClient.NewListPager
+	// NewList2Pager is the fake for method OperationsClient.NewList2Pager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(options *armalertsmanagement.OperationsClientListOptions) (resp azfake.PagerResponder[armalertsmanagement.OperationsClientListResponse])
+	NewList2Pager func(options *armalertsmanagement.OperationsClientList2Options) (resp azfake.PagerResponder[armalertsmanagement.OperationsClientList2Response])
 }
 
 // NewOperationsServerTransport creates a new instance of OperationsServerTransport with the provided implementation.
@@ -31,16 +31,16 @@ type OperationsServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewOperationsServerTransport(srv *OperationsServer) *OperationsServerTransport {
 	return &OperationsServerTransport{
-		srv:          srv,
-		newListPager: newTracker[azfake.PagerResponder[armalertsmanagement.OperationsClientListResponse]](),
+		srv:           srv,
+		newList2Pager: newTracker[azfake.PagerResponder[armalertsmanagement.OperationsClientList2Response]](),
 	}
 }
 
 // OperationsServerTransport connects instances of armalertsmanagement.OperationsClient to instances of OperationsServer.
 // Don't use this type directly, use NewOperationsServerTransport instead.
 type OperationsServerTransport struct {
-	srv          *OperationsServer
-	newListPager *tracker[azfake.PagerResponder[armalertsmanagement.OperationsClientListResponse]]
+	srv           *OperationsServer
+	newList2Pager *tracker[azfake.PagerResponder[armalertsmanagement.OperationsClientList2Response]]
 }
 
 // Do implements the policy.Transporter interface for OperationsServerTransport.
@@ -55,8 +55,8 @@ func (o *OperationsServerTransport) Do(req *http.Request) (*http.Response, error
 	var err error
 
 	switch method {
-	case "OperationsClient.NewListPager":
-		resp, err = o.dispatchNewListPager(req)
+	case "OperationsClient.NewList2Pager":
+		resp, err = o.dispatchNewList2Pager(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -68,29 +68,29 @@ func (o *OperationsServerTransport) Do(req *http.Request) (*http.Response, error
 	return resp, nil
 }
 
-func (o *OperationsServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if o.srv.NewListPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
+func (o *OperationsServerTransport) dispatchNewList2Pager(req *http.Request) (*http.Response, error) {
+	if o.srv.NewList2Pager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewList2Pager not implemented")}
 	}
-	newListPager := o.newListPager.get(req)
-	if newListPager == nil {
-		resp := o.srv.NewListPager(nil)
-		newListPager = &resp
-		o.newListPager.add(req, newListPager)
-		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armalertsmanagement.OperationsClientListResponse, createLink func() string) {
+	newList2Pager := o.newList2Pager.get(req)
+	if newList2Pager == nil {
+		resp := o.srv.NewList2Pager(nil)
+		newList2Pager = &resp
+		o.newList2Pager.add(req, newList2Pager)
+		server.PagerResponderInjectNextLinks(newList2Pager, req, func(page *armalertsmanagement.OperationsClientList2Response, createLink func() string) {
 			page.NextLink = to.Ptr(createLink())
 		})
 	}
-	resp, err := server.PagerResponderNext(newListPager, req)
+	resp, err := server.PagerResponderNext(newList2Pager, req)
 	if err != nil {
 		return nil, err
 	}
 	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		o.newListPager.remove(req)
+		o.newList2Pager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
-	if !server.PagerResponderMore(newListPager) {
-		o.newListPager.remove(req)
+	if !server.PagerResponderMore(newList2Pager) {
+		o.newList2Pager.remove(req)
 	}
 	return resp, nil
 }

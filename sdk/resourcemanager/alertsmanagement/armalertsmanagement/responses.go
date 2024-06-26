@@ -89,6 +89,12 @@ type AlertsClientGetByIDResponse struct {
 	Alert
 }
 
+// AlertsClientGetEnrichmentsResponse contains the response from method AlertsClient.GetEnrichments.
+type AlertsClientGetEnrichmentsResponse struct {
+	// The alert's enrichments.
+	AlertEnrichmentResponse
+}
+
 // AlertsClientGetHistoryResponse contains the response from method AlertsClient.GetHistory.
 type AlertsClientGetHistoryResponse struct {
 	// Alert Modification details
@@ -101,14 +107,20 @@ type AlertsClientGetSummaryResponse struct {
 	AlertsSummary
 }
 
+// AlertsClientListEnrichmentsResponse contains the response from method AlertsClient.NewListEnrichmentsPager.
+type AlertsClientListEnrichmentsResponse struct {
+	// List the alert's enrichments.
+	AlertEnrichmentsList
+}
+
 // AlertsClientMetaDataResponse contains the response from method AlertsClient.MetaData.
 type AlertsClientMetaDataResponse struct {
 	// alert meta data information.
 	AlertsMetaData
 }
 
-// OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
-type OperationsClientListResponse struct {
+// OperationsClientList2Response contains the response from method OperationsClient.NewList2Pager.
+type OperationsClientList2Response struct {
 	// Lists the operations available in the AlertsManagement RP.
 	OperationsList
 }
@@ -176,39 +188,4 @@ type SmartGroupsClientGetByIDResponse struct {
 type SmartGroupsClientGetHistoryResponse struct {
 	// Alert Modification details
 	SmartGroupModification
-}
-
-// TenantActivityLogAlertsClientCreateOrUpdateResponse contains the response from method TenantActivityLogAlertsClient.CreateOrUpdate.
-type TenantActivityLogAlertsClientCreateOrUpdateResponse struct {
-	// A Tenant Activity Log Alert rule resource.
-	TenantActivityLogAlertResource
-}
-
-// TenantActivityLogAlertsClientDeleteResponse contains the response from method TenantActivityLogAlertsClient.Delete.
-type TenantActivityLogAlertsClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// TenantActivityLogAlertsClientGetResponse contains the response from method TenantActivityLogAlertsClient.Get.
-type TenantActivityLogAlertsClientGetResponse struct {
-	// A Tenant Activity Log Alert rule resource.
-	TenantActivityLogAlertResource
-}
-
-// TenantActivityLogAlertsClientListByManagementGroupResponse contains the response from method TenantActivityLogAlertsClient.NewListByManagementGroupPager.
-type TenantActivityLogAlertsClientListByManagementGroupResponse struct {
-	// A list of Tenant Activity Log Alert rules.
-	TenantAlertRuleList
-}
-
-// TenantActivityLogAlertsClientListByTenantResponse contains the response from method TenantActivityLogAlertsClient.NewListByTenantPager.
-type TenantActivityLogAlertsClientListByTenantResponse struct {
-	// A list of Tenant Activity Log Alert rules.
-	TenantAlertRuleList
-}
-
-// TenantActivityLogAlertsClientUpdateResponse contains the response from method TenantActivityLogAlertsClient.Update.
-type TenantActivityLogAlertsClientUpdateResponse struct {
-	// A Tenant Activity Log Alert rule resource.
-	TenantActivityLogAlertResource
 }
