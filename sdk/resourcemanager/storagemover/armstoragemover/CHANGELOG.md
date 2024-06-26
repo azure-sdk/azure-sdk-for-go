@@ -1,5 +1,9 @@
 # Release History
 
+## 2.2.1 (2024-06-26)
+### Other Changes
+
+
 ## 2.2.0 (2024-06-21)
 ### Features Added
 
