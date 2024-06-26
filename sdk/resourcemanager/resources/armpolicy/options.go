@@ -125,6 +125,83 @@ type DataPolicyManifestsClientListOptions struct {
 	Filter *string
 }
 
+// DefinitionVersionsClientCreateOrUpdateAtManagementGroupOptions contains the optional parameters for the DefinitionVersionsClient.CreateOrUpdateAtManagementGroup
+// method.
+type DefinitionVersionsClientCreateOrUpdateAtManagementGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DefinitionVersionsClientCreateOrUpdateOptions contains the optional parameters for the DefinitionVersionsClient.CreateOrUpdate
+// method.
+type DefinitionVersionsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DefinitionVersionsClientDeleteAtManagementGroupOptions contains the optional parameters for the DefinitionVersionsClient.DeleteAtManagementGroup
+// method.
+type DefinitionVersionsClientDeleteAtManagementGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DefinitionVersionsClientDeleteOptions contains the optional parameters for the DefinitionVersionsClient.Delete method.
+type DefinitionVersionsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DefinitionVersionsClientGetAtManagementGroupOptions contains the optional parameters for the DefinitionVersionsClient.GetAtManagementGroup
+// method.
+type DefinitionVersionsClientGetAtManagementGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DefinitionVersionsClientGetBuiltInOptions contains the optional parameters for the DefinitionVersionsClient.GetBuiltIn
+// method.
+type DefinitionVersionsClientGetBuiltInOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DefinitionVersionsClientGetOptions contains the optional parameters for the DefinitionVersionsClient.Get method.
+type DefinitionVersionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DefinitionVersionsClientListAllAtManagementGroupOptions contains the optional parameters for the DefinitionVersionsClient.ListAllAtManagementGroup
+// method.
+type DefinitionVersionsClientListAllAtManagementGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DefinitionVersionsClientListAllBuiltinsOptions contains the optional parameters for the DefinitionVersionsClient.ListAllBuiltins
+// method.
+type DefinitionVersionsClientListAllBuiltinsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DefinitionVersionsClientListAllOptions contains the optional parameters for the DefinitionVersionsClient.ListAll method.
+type DefinitionVersionsClientListAllOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DefinitionVersionsClientListBuiltInOptions contains the optional parameters for the DefinitionVersionsClient.NewListBuiltInPager
+// method.
+type DefinitionVersionsClientListBuiltInOptions struct {
+	// Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
+	Top *int32
+}
+
+// DefinitionVersionsClientListByManagementGroupOptions contains the optional parameters for the DefinitionVersionsClient.NewListByManagementGroupPager
+// method.
+type DefinitionVersionsClientListByManagementGroupOptions struct {
+	// Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
+	Top *int32
+}
+
+// DefinitionVersionsClientListOptions contains the optional parameters for the DefinitionVersionsClient.NewListPager method.
+type DefinitionVersionsClientListOptions struct {
+	// Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
+	Top *int32
+}
+
 // DefinitionsClientCreateOrUpdateAtManagementGroupOptions contains the optional parameters for the DefinitionsClient.CreateOrUpdateAtManagementGroup
 // method.
 type DefinitionsClientCreateOrUpdateAtManagementGroupOptions struct {
@@ -294,6 +371,85 @@ type ExemptionsClientListOptions struct {
 // ExemptionsClientUpdateOptions contains the optional parameters for the ExemptionsClient.Update method.
 type ExemptionsClientUpdateOptions struct {
 	// placeholder for future optional parameters
+}
+
+// SetDefinitionVersionsClientCreateOrUpdateAtManagementGroupOptions contains the optional parameters for the SetDefinitionVersionsClient.CreateOrUpdateAtManagementGroup
+// method.
+type SetDefinitionVersionsClientCreateOrUpdateAtManagementGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SetDefinitionVersionsClientCreateOrUpdateOptions contains the optional parameters for the SetDefinitionVersionsClient.CreateOrUpdate
+// method.
+type SetDefinitionVersionsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SetDefinitionVersionsClientDeleteAtManagementGroupOptions contains the optional parameters for the SetDefinitionVersionsClient.DeleteAtManagementGroup
+// method.
+type SetDefinitionVersionsClientDeleteAtManagementGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SetDefinitionVersionsClientDeleteOptions contains the optional parameters for the SetDefinitionVersionsClient.Delete method.
+type SetDefinitionVersionsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SetDefinitionVersionsClientGetAtManagementGroupOptions contains the optional parameters for the SetDefinitionVersionsClient.GetAtManagementGroup
+// method.
+type SetDefinitionVersionsClientGetAtManagementGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SetDefinitionVersionsClientGetBuiltInOptions contains the optional parameters for the SetDefinitionVersionsClient.GetBuiltIn
+// method.
+type SetDefinitionVersionsClientGetBuiltInOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SetDefinitionVersionsClientGetOptions contains the optional parameters for the SetDefinitionVersionsClient.Get method.
+type SetDefinitionVersionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SetDefinitionVersionsClientListAllAtManagementGroupOptions contains the optional parameters for the SetDefinitionVersionsClient.ListAllAtManagementGroup
+// method.
+type SetDefinitionVersionsClientListAllAtManagementGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SetDefinitionVersionsClientListAllBuiltinsOptions contains the optional parameters for the SetDefinitionVersionsClient.ListAllBuiltins
+// method.
+type SetDefinitionVersionsClientListAllBuiltinsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SetDefinitionVersionsClientListAllOptions contains the optional parameters for the SetDefinitionVersionsClient.ListAll
+// method.
+type SetDefinitionVersionsClientListAllOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SetDefinitionVersionsClientListBuiltInOptions contains the optional parameters for the SetDefinitionVersionsClient.NewListBuiltInPager
+// method.
+type SetDefinitionVersionsClientListBuiltInOptions struct {
+	// Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
+	Top *int32
+}
+
+// SetDefinitionVersionsClientListByManagementGroupOptions contains the optional parameters for the SetDefinitionVersionsClient.NewListByManagementGroupPager
+// method.
+type SetDefinitionVersionsClientListByManagementGroupOptions struct {
+	// Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
+	Top *int32
+}
+
+// SetDefinitionVersionsClientListOptions contains the optional parameters for the SetDefinitionVersionsClient.NewListPager
+// method.
+type SetDefinitionVersionsClientListOptions struct {
+	// Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
+	Top *int32
 }
 
 // SetDefinitionsClientCreateOrUpdateAtManagementGroupOptions contains the optional parameters for the SetDefinitionsClient.CreateOrUpdateAtManagementGroup
