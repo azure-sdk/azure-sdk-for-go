@@ -29,9 +29,9 @@ type AzureMonitorWorkspacesServer struct {
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
 	Create func(ctx context.Context, resourceGroupName string, azureMonitorWorkspaceName string, azureMonitorWorkspaceProperties armmonitor.AzureMonitorWorkspaceResource, options *armmonitor.AzureMonitorWorkspacesClientCreateOptions) (resp azfake.Responder[armmonitor.AzureMonitorWorkspacesClientCreateResponse], errResp azfake.ErrorResponder)
 
-	// Delete is the fake for method AzureMonitorWorkspacesClient.Delete
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
-	Delete func(ctx context.Context, resourceGroupName string, azureMonitorWorkspaceName string, options *armmonitor.AzureMonitorWorkspacesClientDeleteOptions) (resp azfake.Responder[armmonitor.AzureMonitorWorkspacesClientDeleteResponse], errResp azfake.ErrorResponder)
+	// BeginDelete is the fake for method AzureMonitorWorkspacesClient.BeginDelete
+	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
+	BeginDelete func(ctx context.Context, resourceGroupName string, azureMonitorWorkspaceName string, options *armmonitor.AzureMonitorWorkspacesClientBeginDeleteOptions) (resp azfake.PollerResponder[armmonitor.AzureMonitorWorkspacesClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method AzureMonitorWorkspacesClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
@@ -56,6 +56,7 @@ type AzureMonitorWorkspacesServer struct {
 func NewAzureMonitorWorkspacesServerTransport(srv *AzureMonitorWorkspacesServer) *AzureMonitorWorkspacesServerTransport {
 	return &AzureMonitorWorkspacesServerTransport{
 		srv:                         srv,
+		beginDelete:                 newTracker[azfake.PollerResponder[armmonitor.AzureMonitorWorkspacesClientDeleteResponse]](),
 		newListByResourceGroupPager: newTracker[azfake.PagerResponder[armmonitor.AzureMonitorWorkspacesClientListByResourceGroupResponse]](),
 		newListBySubscriptionPager:  newTracker[azfake.PagerResponder[armmonitor.AzureMonitorWorkspacesClientListBySubscriptionResponse]](),
 	}
@@ -65,6 +66,7 @@ func NewAzureMonitorWorkspacesServerTransport(srv *AzureMonitorWorkspacesServer)
 // Don't use this type directly, use NewAzureMonitorWorkspacesServerTransport instead.
 type AzureMonitorWorkspacesServerTransport struct {
 	srv                         *AzureMonitorWorkspacesServer
+	beginDelete                 *tracker[azfake.PollerResponder[armmonitor.AzureMonitorWorkspacesClientDeleteResponse]]
 	newListByResourceGroupPager *tracker[azfake.PagerResponder[armmonitor.AzureMonitorWorkspacesClientListByResourceGroupResponse]]
 	newListBySubscriptionPager  *tracker[azfake.PagerResponder[armmonitor.AzureMonitorWorkspacesClientListBySubscriptionResponse]]
 }
@@ -83,8 +85,8 @@ func (a *AzureMonitorWorkspacesServerTransport) Do(req *http.Request) (*http.Res
 	switch method {
 	case "AzureMonitorWorkspacesClient.Create":
 		resp, err = a.dispatchCreate(req)
-	case "AzureMonitorWorkspacesClient.Delete":
-		resp, err = a.dispatchDelete(req)
+	case "AzureMonitorWorkspacesClient.BeginDelete":
+		resp, err = a.dispatchBeginDelete(req)
 	case "AzureMonitorWorkspacesClient.Get":
 		resp, err = a.dispatchGet(req)
 	case "AzureMonitorWorkspacesClient.NewListByResourceGroupPager":
@@ -141,36 +143,47 @@ func (a *AzureMonitorWorkspacesServerTransport) dispatchCreate(req *http.Request
 	return resp, nil
 }
 
-func (a *AzureMonitorWorkspacesServerTransport) dispatchDelete(req *http.Request) (*http.Response, error) {
-	if a.srv.Delete == nil {
-		return nil, &nonRetriableError{errors.New("fake for method Delete not implemented")}
+func (a *AzureMonitorWorkspacesServerTransport) dispatchBeginDelete(req *http.Request) (*http.Response, error) {
+	if a.srv.BeginDelete == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginDelete not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Monitor/accounts/(?P<azureMonitorWorkspaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 3 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	beginDelete := a.beginDelete.get(req)
+	if beginDelete == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Monitor/accounts/(?P<azureMonitorWorkspaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		azureMonitorWorkspaceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("azureMonitorWorkspaceName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := a.srv.BeginDelete(req.Context(), resourceGroupNameParam, azureMonitorWorkspaceNameParam, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginDelete = &respr
+		a.beginDelete.add(req, beginDelete)
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+
+	resp, err := server.PollerResponderNext(beginDelete, req)
 	if err != nil {
 		return nil, err
 	}
-	azureMonitorWorkspaceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("azureMonitorWorkspaceName")])
-	if err != nil {
-		return nil, err
+
+	if !contains([]int{http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
+		a.beginDelete.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
 	}
-	respr, errRespr := a.srv.Delete(req.Context(), resourceGroupNameParam, azureMonitorWorkspaceNameParam, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
+	if !server.PollerResponderMore(beginDelete) {
+		a.beginDelete.remove(req)
 	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK, http.StatusNoContent}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusNoContent", respContent.HTTPStatus)}
-	}
-	resp, err := server.NewResponse(respContent, req, nil)
-	if err != nil {
-		return nil, err
-	}
+
 	return resp, nil
 }
 
