@@ -10,6 +10,23 @@ package armsignalr
 
 import "time"
 
+// ApplicationFirewallSettings - Application firewall settings for the resource
+type ApplicationFirewallSettings struct {
+	// Rules to control the client connection count
+	ClientConnectionCountRules []ClientConnectionCountRuleClassification
+}
+
+// ClientConnectionCountRule - A base class for client connection count rules
+type ClientConnectionCountRule struct {
+	// REQUIRED
+	Type *ClientConnectionCountRuleDiscriminator
+}
+
+// GetClientConnectionCountRule implements the ClientConnectionCountRuleClassification interface for type ClientConnectionCountRule.
+func (c *ClientConnectionCountRule) GetClientConnectionCountRule() *ClientConnectionCountRule {
+	return c
+}
+
 // CorsSettings - Cross-Origin Resource Sharing (CORS) settings.
 type CorsSettings struct {
 	// Gets or sets the list of origins that should be allowed to make cross-origin calls (for example: http://example.com:12345).
@@ -453,6 +470,9 @@ type PrivateLinkServiceConnectionState struct {
 
 // Properties - A class that describes the properties of the resource
 type Properties struct {
+	// Application firewall settings for the resource
+	ApplicationFirewall *ApplicationFirewallSettings
+
 	// Cross-Origin Resource Sharing (CORS) settings.
 	Cors *CorsSettings
 
@@ -647,12 +667,13 @@ type ResourceReference struct {
 // ResourceSKU - The billing information of the resource.
 type ResourceSKU struct {
 	// REQUIRED; The name of the SKU. Required.
-	// Allowed values: StandardS1, FreeF1, Premium_P1
+	// Allowed values: StandardS1, FreeF1, PremiumP1, PremiumP2
 	Name *string
 
-	// Optional, integer. The unit count of the resource. 1 by default.
-	// If present, following values are allowed: Free: 1; Standard: 1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100; Premium:
-	// 1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100;
+	// Optional, integer. The unit count of the resource. 1 for FreeF1/StandardS1/PremiumP1, 100 for PremiumP2 by default.
+	// If present, following values are allowed: FreeF1: 1; StandardS1: 1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100; PremiumP1:
+	// 1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100; PremiumP2:
+	// 100,200,300,400,500,600,700,800,900,1000;
 	Capacity *int32
 
 	// Optional tier of this particular SKU. 'Standard' or 'Free'.
@@ -826,6 +847,61 @@ type TLSSettings struct {
 	// Request client certificate during TLS handshake if enabled. Not supported for free tier. Any input will be ignored for
 	// free tier.
 	ClientCertEnabled *bool
+}
+
+// ThrottleByJwtCustomClaimRule - Throttle the client connection by a custom JWT claim
+type ThrottleByJwtCustomClaimRule struct {
+	// REQUIRED; The name of the claim in the JWT token. The client connection with the same claim value will be aggregated. If
+	// the claim is not found in the token, the connection will be allowed.
+	ClaimName *string
+
+	// REQUIRED
+	Type *ClientConnectionCountRuleDiscriminator
+
+	// Maximum connection count allowed for the same Jwt claim value. Clients with the same Jwt claim will get rejected if the
+	// connection count exceeds this value. Default value is 20.
+	MaxCount *int32
+}
+
+// GetClientConnectionCountRule implements the ClientConnectionCountRuleClassification interface for type ThrottleByJwtCustomClaimRule.
+func (t *ThrottleByJwtCustomClaimRule) GetClientConnectionCountRule() *ClientConnectionCountRule {
+	return &ClientConnectionCountRule{
+		Type: t.Type,
+	}
+}
+
+// ThrottleByJwtSignatureRule - Throttle the client connection by the JWT signature
+type ThrottleByJwtSignatureRule struct {
+	// REQUIRED
+	Type *ClientConnectionCountRuleDiscriminator
+
+	// Maximum connection count allowed for the same JWT signature. Clients with the same JWT signature will get rejected if the
+	// connection count exceeds this value. Default value is 20.
+	MaxCount *int32
+}
+
+// GetClientConnectionCountRule implements the ClientConnectionCountRuleClassification interface for type ThrottleByJwtSignatureRule.
+func (t *ThrottleByJwtSignatureRule) GetClientConnectionCountRule() *ClientConnectionCountRule {
+	return &ClientConnectionCountRule{
+		Type: t.Type,
+	}
+}
+
+// ThrottleByUserIDRule - Throttle the client connection by the user ID
+type ThrottleByUserIDRule struct {
+	// REQUIRED
+	Type *ClientConnectionCountRuleDiscriminator
+
+	// Maximum connection count allowed for the same user ID. Clients with the same user ID will get rejected if the connection
+	// count exceeds this value. Default value is 20.
+	MaxCount *int32
+}
+
+// GetClientConnectionCountRule implements the ClientConnectionCountRuleClassification interface for type ThrottleByUserIDRule.
+func (t *ThrottleByUserIDRule) GetClientConnectionCountRule() *ClientConnectionCountRule {
+	return &ClientConnectionCountRule{
+		Type: t.Type,
+	}
 }
 
 // UpstreamAuthSettings - Upstream auth settings. If not set, no auth is used for upstream messages.
