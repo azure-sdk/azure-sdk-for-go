@@ -10,7 +10,7 @@ package armcdn
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/cdn/armcdn"
-	moduleVersion = "v2.2.0"
+	moduleVersion = "v2.2.1"
 )
 
 // AFDEndpointProtocols - Supported protocols for the customer's endpoint.
