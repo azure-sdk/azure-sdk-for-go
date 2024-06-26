@@ -143,6 +143,30 @@ type ConnectionDetail struct {
 	PrivateIPAddress *string
 }
 
+// Disk - Describes a disk on the machine
+type Disk struct {
+	// The generated ID of the disk.
+	GeneratedID *string
+
+	// The ID of the disk.
+	ID *string
+
+	// The size of the disk, in bytes
+	MaxSizeInBytes *int64
+
+	// The name of the disk.
+	Name *string
+
+	// The path of the disk.
+	Path *string
+
+	// The type of the disk.
+	Type *string
+
+	// The amount of space used on the disk, in bytes
+	UsedSpaceInBytes *int64
+}
+
 // ErrorAdditionalInfo - The resource management error additional info.
 type ErrorAdditionalInfo struct {
 	// READ-ONLY; The additional info.
@@ -240,6 +264,15 @@ type ExtensionsResourceStatus struct {
 	Time *time.Time
 }
 
+// FirmwareProfile - Describes the firmware of the machine
+type FirmwareProfile struct {
+	// The serial number of the firmware
+	SerialNumber *string
+
+	// The type of the firmware
+	Type *string
+}
+
 // Gateway - Describes an Arc Gateway.
 type Gateway struct {
 	// REQUIRED; The geo-location where the resource lives
@@ -304,6 +337,18 @@ type GatewaysListResult struct {
 
 	// The URI to fetch the next page of Gateways. Call ListNext() with this URI to fetch the next page of Gateways.
 	NextLink *string
+}
+
+// HardwareProfile - Describes the hardware of the machine
+type HardwareProfile struct {
+	// The total number of CPU sockets available on the machine
+	NumberOfCPUSockets *int32
+
+	// The physical processors of the machine.
+	Processors []*Processor
+
+	// The total physical memory on the machine
+	TotalPhysicalMemoryInBytes *int64
 }
 
 // IPAddress - Describes properties of the IP address.
@@ -392,6 +437,9 @@ type LicenseProfileArmProductProfileProperties struct {
 	// Indicates the subscription status of the product.
 	SubscriptionStatus *LicenseProfileSubscriptionStatus
 
+	// READ-ONLY; The timestamp in UTC when the billing ends.
+	BillingEndDate *time.Time
+
 	// READ-ONLY; The timestamp in UTC when the billing starts.
 	BillingStartDate *time.Time
 
@@ -400,6 +448,9 @@ type LicenseProfileArmProductProfileProperties struct {
 
 	// READ-ONLY; The timestamp in UTC when the user enrolls the feature.
 	EnrollmentDate *time.Time
+
+	// READ-ONLY; The errors that were encountered during the feature enrollment or disenrollment.
+	Error *ErrorDetail
 }
 
 // LicenseProfileMachineInstanceView - License Profile Instance View in Machine Properties.
@@ -837,6 +888,12 @@ type MachineProperties struct {
 	// Machine Extensions information (deprecated field)
 	Extensions []*MachineExtensionInstanceView
 
+	// Information about the machine's firmware
+	FirmwareProfile *FirmwareProfile
+
+	// Information about the machine's hardware
+	HardwareProfile *HardwareProfile
+
 	// Specifies the License related properties for a machine.
 	LicenseProfile *LicenseProfileMachineInstanceView
 
@@ -860,6 +917,9 @@ type MachineProperties struct {
 
 	// Statuses of dependent services that are reported back to ARM.
 	ServiceStatuses *ServiceStatuses
+
+	// Information about the machine's storage
+	StorageProfile *StorageProfile
 
 	// Specifies the hybrid machine unique ID.
 	VMID *string
@@ -1096,8 +1156,17 @@ type MachineUpdateProperties struct {
 
 // NetworkInterface - Describes a network interface.
 type NetworkInterface struct {
+	// Represents the ID of the network interface.
+	ID *string
+
 	// The list of IP addresses in this interface.
 	IPAddresses []*IPAddress
+
+	// Represents MAC address of the network interface.
+	MacAddress *string
+
+	// Represents the name of the network interface.
+	Name *string
 }
 
 // NetworkProfile - Describes the network information on this machine.
@@ -1245,8 +1314,24 @@ type PatchSettings struct {
 	// Specifies the assessment mode.
 	AssessmentMode *AssessmentModeTypes
 
+	// Captures the hotpatch capability enrollment intent of the customers, which enables customers to patch their Windows machines
+	// without requiring a reboot.
+	EnableHotpatching *bool
+
 	// Specifies the patch mode.
 	PatchMode *PatchModeTypes
+
+	// READ-ONLY; Status of the hotpatch capability enrollment or disenrollment.
+	Status *PatchSettingsStatus
+}
+
+// PatchSettingsStatus - Status of the hotpatch capability enrollment or disenrollment.
+type PatchSettingsStatus struct {
+	// Indicates the current status of the hotpatch being enabled or disabled.
+	HotpatchEnablementStatus *HotpatchEnablementStatus
+
+	// READ-ONLY; The errors that were encountered during the hotpatch capability enrollment or disenrollment.
+	Error *ErrorDetail
 }
 
 // PrivateEndpointConnection - A private endpoint connection
@@ -1425,6 +1510,15 @@ type PrivateLinkServiceConnectionStateProperty struct {
 	ActionsRequired *string
 }
 
+// Processor - Describes the firmware of the machine
+type Processor struct {
+	// The name of the processor.
+	Name *string
+
+	// The total number of physical cores on the processor.
+	NumberOfCores *int32
+}
+
 // ProductFeature - Product Feature
 type ProductFeature struct {
 	// Product feature name.
@@ -1432,6 +1526,9 @@ type ProductFeature struct {
 
 	// Indicates the current status of the product features.
 	SubscriptionStatus *LicenseProfileSubscriptionStatus
+
+	// READ-ONLY; The timestamp in UTC when the billing ends.
+	BillingEndDate *time.Time
 
 	// READ-ONLY; The timestamp in UTC when the billing starts.
 	BillingStartDate *time.Time
@@ -1441,6 +1538,9 @@ type ProductFeature struct {
 
 	// READ-ONLY; The timestamp in UTC when the user enrolls the feature.
 	EnrollmentDate *time.Time
+
+	// READ-ONLY; The errors that were encountered during the feature enrollment or disenrollment.
+	Error *ErrorDetail
 }
 
 // ProvisioningIssue - Details on issues that occurred during provisioning.
@@ -1551,6 +1651,12 @@ type SettingsProperties struct {
 
 	// READ-ONLY; Azure resource tenant Id
 	TenantID *string
+}
+
+// StorageProfile - Describes the storage configuration of the machine
+type StorageProfile struct {
+	// The disks on the machine.
+	Disks []*Disk
 }
 
 // Subnet - Describes the subnet.

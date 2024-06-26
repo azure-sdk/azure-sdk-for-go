@@ -1,5 +1,23 @@
 # Release History
 
+## 2.0.0-beta.4 (2024-06-26)
+### Features Added
+
+- New value `LicenseProfileSubscriptionStatusDisabling`, `LicenseProfileSubscriptionStatusFailed` added to enum type `LicenseProfileSubscriptionStatus`
+- New enum type `HotpatchEnablementStatus` with values `HotpatchEnablementStatusActionRequired`, `HotpatchEnablementStatusDisabled`, `HotpatchEnablementStatusEnabled`, `HotpatchEnablementStatusPendingEvaluation`, `HotpatchEnablementStatusUnknown`
+- New struct `Disk`
+- New struct `FirmwareProfile`
+- New struct `HardwareProfile`
+- New struct `PatchSettingsStatus`
+- New struct `Processor`
+- New struct `StorageProfile`
+- New field `BillingEndDate`, `Error` in struct `LicenseProfileArmProductProfileProperties`
+- New field `FirmwareProfile`, `HardwareProfile`, `StorageProfile` in struct `MachineProperties`
+- New field `ID`, `MacAddress`, `Name` in struct `NetworkInterface`
+- New field `EnableHotpatching`, `Status` in struct `PatchSettings`
+- New field `BillingEndDate`, `Error` in struct `ProductFeature`
+
+
 ## 2.0.0-beta.3 (2024-06-21)
 ### Breaking Changes
 
