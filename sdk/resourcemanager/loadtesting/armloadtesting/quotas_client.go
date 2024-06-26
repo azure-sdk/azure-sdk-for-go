@@ -28,7 +28,7 @@ type QuotasClient struct {
 }
 
 // NewQuotasClient creates a new instance of QuotasClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewQuotasClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*QuotasClient, error) {
@@ -47,18 +47,18 @@ func NewQuotasClient(subscriptionID string, credential azcore.TokenCredential, o
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2022-12-01
-//   - location - The name of Azure region.
-//   - quotaBucketName - Quota Bucket name.
-//   - quotaBucketRequest - Quota Bucket Request data
+//   - location - The name of the Azure region.
+//   - quotaBucketName - The quota name.
+//   - body - The content of the action request
 //   - options - QuotasClientCheckAvailabilityOptions contains the optional parameters for the QuotasClient.CheckAvailability
 //     method.
-func (client *QuotasClient) CheckAvailability(ctx context.Context, location string, quotaBucketName string, quotaBucketRequest QuotaBucketRequest, options *QuotasClientCheckAvailabilityOptions) (QuotasClientCheckAvailabilityResponse, error) {
+func (client *QuotasClient) CheckAvailability(ctx context.Context, location string, quotaBucketName string, body QuotaBucketRequest, options *QuotasClientCheckAvailabilityOptions) (QuotasClientCheckAvailabilityResponse, error) {
 	var err error
 	const operationName = "QuotasClient.CheckAvailability"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.checkAvailabilityCreateRequest(ctx, location, quotaBucketName, quotaBucketRequest, options)
+	req, err := client.checkAvailabilityCreateRequest(ctx, location, quotaBucketName, body, options)
 	if err != nil {
 		return QuotasClientCheckAvailabilityResponse{}, err
 	}
@@ -75,7 +75,7 @@ func (client *QuotasClient) CheckAvailability(ctx context.Context, location stri
 }
 
 // checkAvailabilityCreateRequest creates the CheckAvailability request.
-func (client *QuotasClient) checkAvailabilityCreateRequest(ctx context.Context, location string, quotaBucketName string, quotaBucketRequest QuotaBucketRequest, options *QuotasClientCheckAvailabilityOptions) (*policy.Request, error) {
+func (client *QuotasClient) checkAvailabilityCreateRequest(ctx context.Context, location string, quotaBucketName string, body QuotaBucketRequest, options *QuotasClientCheckAvailabilityOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.LoadTestService/locations/{location}/quotas/{quotaBucketName}/checkAvailability"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -97,7 +97,7 @@ func (client *QuotasClient) checkAvailabilityCreateRequest(ctx context.Context, 
 	reqQP.Set("api-version", "2022-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, quotaBucketRequest); err != nil {
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -116,8 +116,8 @@ func (client *QuotasClient) checkAvailabilityHandleResponse(resp *http.Response)
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2022-12-01
-//   - location - The name of Azure region.
-//   - quotaBucketName - Quota Bucket name.
+//   - location - The name of the Azure region.
+//   - quotaBucketName - The quota name.
 //   - options - QuotasClientGetOptions contains the optional parameters for the QuotasClient.Get method.
 func (client *QuotasClient) Get(ctx context.Context, location string, quotaBucketName string, options *QuotasClientGetOptions) (QuotasClientGetResponse, error) {
 	var err error
@@ -176,10 +176,10 @@ func (client *QuotasClient) getHandleResponse(resp *http.Response) (QuotasClient
 	return result, nil
 }
 
-// NewListPager - Lists all the available quota per region per subscription.
+// NewListPager - List quotas for a given subscription Id.
 //
 // Generated from API version 2022-12-01
-//   - location - The name of Azure region.
+//   - location - The name of the Azure region.
 //   - options - QuotasClientListOptions contains the optional parameters for the QuotasClient.NewListPager method.
 func (client *QuotasClient) NewListPager(location string, options *QuotasClientListOptions) *runtime.Pager[QuotasClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[QuotasClientListResponse]{
@@ -229,7 +229,7 @@ func (client *QuotasClient) listCreateRequest(ctx context.Context, location stri
 // listHandleResponse handles the List response.
 func (client *QuotasClient) listHandleResponse(resp *http.Response) (QuotasClientListResponse, error) {
 	result := QuotasClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.QuotaResourceList); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.QuotaResourceListResult); err != nil {
 		return QuotasClientListResponse{}, err
 	}
 	return result, nil
