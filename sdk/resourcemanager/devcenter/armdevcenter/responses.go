@@ -100,6 +100,25 @@ type CheckScopedNameAvailabilityClientExecuteResponse struct {
 	CheckNameAvailabilityResponse
 }
 
+// CustomizationTasksClientGetErrorDetailsResponse contains the response from method CustomizationTasksClient.GetErrorDetails.
+type CustomizationTasksClientGetErrorDetailsResponse struct {
+	// List of validator error details. Populated when changes are made to the resource or its dependent resources that impact
+	// the validity of the Catalog resource.
+	CatalogResourceValidationErrorDetails
+}
+
+// CustomizationTasksClientGetResponse contains the response from method CustomizationTasksClient.Get.
+type CustomizationTasksClientGetResponse struct {
+	// Represents a Task to be used in customizing a Dev Box.
+	CustomizationTask
+}
+
+// CustomizationTasksClientListByCatalogResponse contains the response from method CustomizationTasksClient.NewListByCatalogPager.
+type CustomizationTasksClientListByCatalogResponse struct {
+	// Results of the Task list operation.
+	CustomizationTaskListResult
+}
+
 // DevBoxDefinitionsClientCreateOrUpdateResponse contains the response from method DevBoxDefinitionsClient.BeginCreateOrUpdate.
 type DevBoxDefinitionsClientCreateOrUpdateResponse struct {
 	// Represents a definition for a Developer Machine.
@@ -174,6 +193,35 @@ type DevCentersClientListBySubscriptionResponse struct {
 type DevCentersClientUpdateResponse struct {
 	// Represents a devcenter resource.
 	DevCenter
+}
+
+// EncryptionSetsClientCreateOrUpdateResponse contains the response from method EncryptionSetsClient.BeginCreateOrUpdate.
+type EncryptionSetsClientCreateOrUpdateResponse struct {
+	// Represents a devcenter encryption set resource.
+	EncryptionSet
+}
+
+// EncryptionSetsClientDeleteResponse contains the response from method EncryptionSetsClient.BeginDelete.
+type EncryptionSetsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// EncryptionSetsClientGetResponse contains the response from method EncryptionSetsClient.Get.
+type EncryptionSetsClientGetResponse struct {
+	// Represents a devcenter encryption set resource.
+	EncryptionSet
+}
+
+// EncryptionSetsClientListResponse contains the response from method EncryptionSetsClient.NewListPager.
+type EncryptionSetsClientListResponse struct {
+	// Result of the list devcenter encryption set operation
+	EncryptionSetListResult
+}
+
+// EncryptionSetsClientUpdateResponse contains the response from method EncryptionSetsClient.BeginUpdate.
+type EncryptionSetsClientUpdateResponse struct {
+	// Represents a devcenter encryption set resource.
+	EncryptionSet
 }
 
 // EnvironmentDefinitionsClientGetByProjectCatalogResponse contains the response from method EnvironmentDefinitionsClient.GetByProjectCatalog.
@@ -259,6 +307,12 @@ type GalleriesClientListByDevCenterResponse struct {
 	GalleryListResult
 }
 
+// ImageVersionsClientGetByProjectResponse contains the response from method ImageVersionsClient.GetByProject.
+type ImageVersionsClientGetByProjectResponse struct {
+	// Represents an image version.
+	ImageVersion
+}
+
 // ImageVersionsClientGetResponse contains the response from method ImageVersionsClient.Get.
 type ImageVersionsClientGetResponse struct {
 	// Represents an image version.
@@ -269,6 +323,18 @@ type ImageVersionsClientGetResponse struct {
 type ImageVersionsClientListByImageResponse struct {
 	// Results of the image version list operation.
 	ImageVersionListResult
+}
+
+// ImageVersionsClientListByProjectResponse contains the response from method ImageVersionsClient.NewListByProjectPager.
+type ImageVersionsClientListByProjectResponse struct {
+	// Results of the image version list operation.
+	ImageVersionListResult
+}
+
+// ImagesClientGetByProjectResponse contains the response from method ImagesClient.GetByProject.
+type ImagesClientGetByProjectResponse struct {
+	// Represents an image.
+	Image
 }
 
 // ImagesClientGetResponse contains the response from method ImagesClient.Get.
@@ -285,6 +351,12 @@ type ImagesClientListByDevCenterResponse struct {
 
 // ImagesClientListByGalleryResponse contains the response from method ImagesClient.NewListByGalleryPager.
 type ImagesClientListByGalleryResponse struct {
+	// Results of the image list operation.
+	ImageListResult
+}
+
+// ImagesClientListByProjectResponse contains the response from method ImagesClient.NewListByProjectPager.
+type ImagesClientListByProjectResponse struct {
 	// Results of the image list operation.
 	ImageListResult
 }
@@ -362,6 +434,70 @@ type OperationsClientListResponse struct {
 	OperationListResult
 }
 
+// PlanMembersClientCreateOrUpdateResponse contains the response from method PlanMembersClient.BeginCreateOrUpdate.
+type PlanMembersClientCreateOrUpdateResponse struct {
+	// Represents a devcenter plan member resource.
+	PlanMember
+}
+
+// PlanMembersClientDeleteResponse contains the response from method PlanMembersClient.BeginDelete.
+type PlanMembersClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// PlanMembersClientGetResponse contains the response from method PlanMembersClient.Get.
+type PlanMembersClientGetResponse struct {
+	// Represents a devcenter plan member resource.
+	PlanMember
+}
+
+// PlanMembersClientListResponse contains the response from method PlanMembersClient.NewListPager.
+type PlanMembersClientListResponse struct {
+	// Result of the list devcenter plan members operation
+	PlanMembersListResult
+}
+
+// PlanMembersClientUpdateResponse contains the response from method PlanMembersClient.BeginUpdate.
+type PlanMembersClientUpdateResponse struct {
+	// Represents a devcenter plan member resource.
+	PlanMember
+}
+
+// PlansClientCreateOrUpdateResponse contains the response from method PlansClient.BeginCreateOrUpdate.
+type PlansClientCreateOrUpdateResponse struct {
+	// Represents a devcenter plan resource.
+	Plan
+}
+
+// PlansClientDeleteResponse contains the response from method PlansClient.BeginDelete.
+type PlansClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// PlansClientGetResponse contains the response from method PlansClient.Get.
+type PlansClientGetResponse struct {
+	// Represents a devcenter plan resource.
+	Plan
+}
+
+// PlansClientListByResourceGroupResponse contains the response from method PlansClient.NewListByResourceGroupPager.
+type PlansClientListByResourceGroupResponse struct {
+	// Result of the list devcenter plans operation
+	PlanListResult
+}
+
+// PlansClientListBySubscriptionResponse contains the response from method PlansClient.NewListBySubscriptionPager.
+type PlansClientListBySubscriptionResponse struct {
+	// Result of the list devcenter plans operation
+	PlanListResult
+}
+
+// PlansClientUpdateResponse contains the response from method PlansClient.BeginUpdate.
+type PlansClientUpdateResponse struct {
+	// Represents a devcenter plan resource.
+	Plan
+}
+
 // PoolsClientCreateOrUpdateResponse contains the response from method PoolsClient.BeginCreateOrUpdate.
 type PoolsClientCreateOrUpdateResponse struct {
 	// A pool of Virtual Machines.
@@ -413,6 +549,46 @@ type ProjectCatalogEnvironmentDefinitionsClientGetErrorDetailsResponse struct {
 	// List of validator error details. Populated when changes are made to the resource or its dependent resources that impact
 	// the validity of the Catalog resource.
 	CatalogResourceValidationErrorDetails
+}
+
+// ProjectCatalogImageDefinitionBuildClientCancelResponse contains the response from method ProjectCatalogImageDefinitionBuildClient.BeginCancel.
+type ProjectCatalogImageDefinitionBuildClientCancelResponse struct {
+	// placeholder for future response values
+}
+
+// ProjectCatalogImageDefinitionBuildClientGetBuildDetailsResponse contains the response from method ProjectCatalogImageDefinitionBuildClient.GetBuildDetails.
+type ProjectCatalogImageDefinitionBuildClientGetBuildDetailsResponse struct {
+	// Represents a specific build of an Image Definition.
+	ImageDefinitionBuildDetails
+}
+
+// ProjectCatalogImageDefinitionBuildClientGetResponse contains the response from method ProjectCatalogImageDefinitionBuildClient.Get.
+type ProjectCatalogImageDefinitionBuildClientGetResponse struct {
+	// Represents a specific build of an Image Definition.
+	ImageDefinitionBuild
+}
+
+// ProjectCatalogImageDefinitionBuildsClientListByImageDefinitionResponse contains the response from method ProjectCatalogImageDefinitionBuildsClient.NewListByImageDefinitionPager.
+type ProjectCatalogImageDefinitionBuildsClientListByImageDefinitionResponse struct {
+	// Results of the Image Definition Build list operation.
+	ImageDefinitionBuildListResult
+}
+
+// ProjectCatalogImageDefinitionsClientBuildImageResponse contains the response from method ProjectCatalogImageDefinitionsClient.BeginBuildImage.
+type ProjectCatalogImageDefinitionsClientBuildImageResponse struct {
+	// placeholder for future response values
+}
+
+// ProjectCatalogImageDefinitionsClientGetByProjectCatalogResponse contains the response from method ProjectCatalogImageDefinitionsClient.GetByProjectCatalog.
+type ProjectCatalogImageDefinitionsClientGetByProjectCatalogResponse struct {
+	// Represents a definition for an Image.
+	ImageDefinition
+}
+
+// ProjectCatalogImageDefinitionsClientListByProjectCatalogResponse contains the response from method ProjectCatalogImageDefinitionsClient.NewListByProjectCatalogPager.
+type ProjectCatalogImageDefinitionsClientListByProjectCatalogResponse struct {
+	// Results of the Image Definition list operation.
+	ImageDefinitionListResult
 }
 
 // ProjectCatalogsClientConnectResponse contains the response from method ProjectCatalogsClient.BeginConnect.
@@ -500,6 +676,12 @@ type ProjectsClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
+// ProjectsClientGetInheritedSettingsResponse contains the response from method ProjectsClient.GetInheritedSettings.
+type ProjectsClientGetInheritedSettingsResponse struct {
+	// Applicable inherited settings for a project.
+	InheritedSettingsForProject
+}
+
 // ProjectsClientGetResponse contains the response from method ProjectsClient.Get.
 type ProjectsClientGetResponse struct {
 	// Represents a project resource.
@@ -522,6 +704,12 @@ type ProjectsClientListBySubscriptionResponse struct {
 type ProjectsClientUpdateResponse struct {
 	// Represents a project resource.
 	Project
+}
+
+// SKUsClientListByProjectResponse contains the response from method SKUsClient.NewListByProjectPager.
+type SKUsClientListByProjectResponse struct {
+	// Results of the Microsoft.DevCenter SKU list operation.
+	SKUListResult
 }
 
 // SKUsClientListBySubscriptionResponse contains the response from method SKUsClient.NewListBySubscriptionPager.
