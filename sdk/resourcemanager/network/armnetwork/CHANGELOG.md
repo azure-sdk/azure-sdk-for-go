@@ -1,5 +1,23 @@
 # Release History
 
+## 5.3.0 (2024-06-26)
+### Features Added
+
+- New value `BastionHostSKUNamePremium` added to enum type `BastionHostSKUName`
+- New enum type `ProbeNoHealthyBackendsBehavior` with values `ProbeNoHealthyBackendsBehaviorAllProbedDown`, `ProbeNoHealthyBackendsBehaviorAllProbedUp`
+- New function `*InboundSecurityRuleClient.Get(context.Context, string, string, string, *InboundSecurityRuleClientGetOptions) (InboundSecurityRuleClientGetResponse, error)`
+- New field `ConnectionResourceURI` in struct `AuthorizationPropertiesFormat`
+- New field `EnableSessionRecording` in struct `BastionHostPropertiesFormat`
+- New field `Filter` in struct `ExpressRouteCrossConnectionsClientListOptions`
+- New field `Identity` in struct `FlowLog`
+- New field `Identity` in struct `FlowLogInformation`
+- New field `EnabledFilteringCriteria` in struct `FlowLogProperties`
+- New field `EnabledFilteringCriteria` in struct `FlowLogPropertiesFormat`
+- New field `NoHealthyBackendsBehavior` in struct `ProbePropertiesFormat`
+- New field `NetworkIdentifier` in struct `ServiceEndpointPropertiesFormat`
+- New field `Identity` in struct `VirtualNetworkGateway`
+
+
 ## 5.2.0 (2024-06-21)
 ### Features Added
 
