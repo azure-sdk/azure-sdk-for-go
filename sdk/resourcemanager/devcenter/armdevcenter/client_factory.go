@@ -68,6 +68,14 @@ func (c *ClientFactory) NewCheckScopedNameAvailabilityClient() *CheckScopedNameA
 	}
 }
 
+// NewCustomizationTasksClient creates a new instance of CustomizationTasksClient.
+func (c *ClientFactory) NewCustomizationTasksClient() *CustomizationTasksClient {
+	return &CustomizationTasksClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewDevBoxDefinitionsClient creates a new instance of DevBoxDefinitionsClient.
 func (c *ClientFactory) NewDevBoxDefinitionsClient() *DevBoxDefinitionsClient {
 	return &DevBoxDefinitionsClient{
@@ -79,6 +87,14 @@ func (c *ClientFactory) NewDevBoxDefinitionsClient() *DevBoxDefinitionsClient {
 // NewDevCentersClient creates a new instance of DevCentersClient.
 func (c *ClientFactory) NewDevCentersClient() *DevCentersClient {
 	return &DevCentersClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewEncryptionSetsClient creates a new instance of EncryptionSetsClient.
+func (c *ClientFactory) NewEncryptionSetsClient() *EncryptionSetsClient {
+	return &EncryptionSetsClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
@@ -147,6 +163,22 @@ func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	}
 }
 
+// NewPlanMembersClient creates a new instance of PlanMembersClient.
+func (c *ClientFactory) NewPlanMembersClient() *PlanMembersClient {
+	return &PlanMembersClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewPlansClient creates a new instance of PlansClient.
+func (c *ClientFactory) NewPlansClient() *PlansClient {
+	return &PlansClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewPoolsClient creates a new instance of PoolsClient.
 func (c *ClientFactory) NewPoolsClient() *PoolsClient {
 	return &PoolsClient{
@@ -166,6 +198,30 @@ func (c *ClientFactory) NewProjectAllowedEnvironmentTypesClient() *ProjectAllowe
 // NewProjectCatalogEnvironmentDefinitionsClient creates a new instance of ProjectCatalogEnvironmentDefinitionsClient.
 func (c *ClientFactory) NewProjectCatalogEnvironmentDefinitionsClient() *ProjectCatalogEnvironmentDefinitionsClient {
 	return &ProjectCatalogEnvironmentDefinitionsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewProjectCatalogImageDefinitionBuildClient creates a new instance of ProjectCatalogImageDefinitionBuildClient.
+func (c *ClientFactory) NewProjectCatalogImageDefinitionBuildClient() *ProjectCatalogImageDefinitionBuildClient {
+	return &ProjectCatalogImageDefinitionBuildClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewProjectCatalogImageDefinitionBuildsClient creates a new instance of ProjectCatalogImageDefinitionBuildsClient.
+func (c *ClientFactory) NewProjectCatalogImageDefinitionBuildsClient() *ProjectCatalogImageDefinitionBuildsClient {
+	return &ProjectCatalogImageDefinitionBuildsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewProjectCatalogImageDefinitionsClient creates a new instance of ProjectCatalogImageDefinitionsClient.
+func (c *ClientFactory) NewProjectCatalogImageDefinitionsClient() *ProjectCatalogImageDefinitionsClient {
+	return &ProjectCatalogImageDefinitionsClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
