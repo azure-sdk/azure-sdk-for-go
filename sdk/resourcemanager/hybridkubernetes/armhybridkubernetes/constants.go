@@ -10,7 +10,7 @@ package armhybridkubernetes
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hybridkubernetes/armhybridkubernetes"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v2.0.0-beta.1"
 )
 
 // AuthenticationMethod - The mode of client authentication.
@@ -26,6 +26,55 @@ func PossibleAuthenticationMethodValues() []AuthenticationMethod {
 	return []AuthenticationMethod{
 		AuthenticationMethodAAD,
 		AuthenticationMethodToken,
+	}
+}
+
+// AutoUpgradeOptions - Indicates whether the Arc agents on the be upgraded automatically to the latest version. Defaults
+// to Enabled.
+type AutoUpgradeOptions string
+
+const (
+	AutoUpgradeOptionsDisabled AutoUpgradeOptions = "Disabled"
+	AutoUpgradeOptionsEnabled  AutoUpgradeOptions = "Enabled"
+)
+
+// PossibleAutoUpgradeOptionsValues returns the possible values for the AutoUpgradeOptions const type.
+func PossibleAutoUpgradeOptionsValues() []AutoUpgradeOptions {
+	return []AutoUpgradeOptions{
+		AutoUpgradeOptionsDisabled,
+		AutoUpgradeOptionsEnabled,
+	}
+}
+
+// AzureHybridBenefit - Indicates whether Azure Hybrid Benefit is opted in
+type AzureHybridBenefit string
+
+const (
+	AzureHybridBenefitFalse         AzureHybridBenefit = "False"
+	AzureHybridBenefitNotApplicable AzureHybridBenefit = "NotApplicable"
+	AzureHybridBenefitTrue          AzureHybridBenefit = "True"
+)
+
+// PossibleAzureHybridBenefitValues returns the possible values for the AzureHybridBenefit const type.
+func PossibleAzureHybridBenefitValues() []AzureHybridBenefit {
+	return []AzureHybridBenefit{
+		AzureHybridBenefitFalse,
+		AzureHybridBenefitNotApplicable,
+		AzureHybridBenefitTrue,
+	}
+}
+
+// ConnectedClusterKind - Indicates the kind of Arc connected cluster based on host infrastructure.
+type ConnectedClusterKind string
+
+const (
+	ConnectedClusterKindProvisionedCluster ConnectedClusterKind = "ProvisionedCluster"
+)
+
+// PossibleConnectedClusterKindValues returns the possible values for the ConnectedClusterKind const type.
+func PossibleConnectedClusterKindValues() []ConnectedClusterKind {
+	return []ConnectedClusterKind{
+		ConnectedClusterKindProvisionedCluster,
 	}
 }
 
@@ -86,6 +135,22 @@ func PossibleLastModifiedByTypeValues() []LastModifiedByType {
 		LastModifiedByTypeKey,
 		LastModifiedByTypeManagedIdentity,
 		LastModifiedByTypeUser,
+	}
+}
+
+// PrivateLinkState - Property which describes the state of private link on a connected cluster resource.
+type PrivateLinkState string
+
+const (
+	PrivateLinkStateDisabled PrivateLinkState = "Disabled"
+	PrivateLinkStateEnabled  PrivateLinkState = "Enabled"
+)
+
+// PossiblePrivateLinkStateValues returns the possible values for the PrivateLinkState const type.
+func PossiblePrivateLinkStateValues() []PrivateLinkState {
+	return []PrivateLinkState{
+		PrivateLinkStateDisabled,
+		PrivateLinkStateEnabled,
 	}
 }
 
