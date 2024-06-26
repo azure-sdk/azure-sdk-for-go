@@ -1,5 +1,15 @@
 # Release History
 
+## 2.5.0-beta.1 (2024-06-26)
+### Features Added
+
+- New struct `ConfigMap`
+- New struct `ContainerGroupProfileReferenceDefinition`
+- New struct `StandbyPoolProfileDefinition`
+- New field `ContainerGroupProfile`, `IsCreatedFromStandbyPool`, `StandbyPoolProfile` in struct `ContainerGroupPropertiesProperties`
+- New field `ConfigMap` in struct `ContainerProperties`
+
+
 ## 2.4.0 (2023-11-24)
 ### Features Added
 

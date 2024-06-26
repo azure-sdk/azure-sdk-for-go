@@ -91,6 +91,12 @@ type ConfidentialComputeProperties struct {
 	CcePolicy *string
 }
 
+// ConfigMap - The container config map.
+type ConfigMap struct {
+	// The key value pairs dictionary in the config map.
+	KeyValuePairs map[string]*string
+}
+
 // Container - A container instance.
 type Container struct {
 	// REQUIRED; The user-provided name of the container instance.
@@ -203,6 +209,16 @@ type ContainerGroupListResult struct {
 	Value []*ContainerGroup
 }
 
+// ContainerGroupProfileReferenceDefinition - The container group profile reference.
+type ContainerGroupProfileReferenceDefinition struct {
+	// The container group profile reference id.This will be an ARM resource id in the form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerInstance/containerGroupProfiles/{containerGroupProfileName}'.
+	ID *string
+
+	// The container group profile reference revision.
+	Revision *int32
+}
+
 // ContainerGroupProperties - The container group properties
 type ContainerGroupProperties struct {
 	// REQUIRED; The container group properties
@@ -226,11 +242,11 @@ type ContainerGroupPropertiesProperties struct {
 	// REQUIRED; The containers within the container group.
 	Containers []*Container
 
-	// REQUIRED; The operating system type required by the containers in the container group.
-	OSType *OperatingSystemTypes
-
 	// The properties for confidential container group
 	ConfidentialComputeProperties *ConfidentialComputeProperties
+
+	// The reference container group profile properties.
+	ContainerGroupProfile *ContainerGroupProfileReferenceDefinition
 
 	// The DNS config information for a container group.
 	DNSConfig *DNSConfiguration
@@ -253,6 +269,9 @@ type ContainerGroupPropertiesProperties struct {
 	// The init containers for a container group.
 	InitContainers []*InitContainerDefinition
 
+	// The operating system type required by the containers in the container group.
+	OSType *OperatingSystemTypes
+
 	// The priority of the container group.
 	Priority *ContainerGroupPriority
 
@@ -265,6 +284,9 @@ type ContainerGroupPropertiesProperties struct {
 	// The SKU for a container group.
 	SKU *ContainerGroupSKU
 
+	// The reference standby pool profile properties.
+	StandbyPoolProfile *StandbyPoolProfileDefinition
+
 	// The subnet resource IDs for a container group.
 	SubnetIDs []*ContainerGroupSubnetID
 
@@ -273,6 +295,9 @@ type ContainerGroupPropertiesProperties struct {
 
 	// READ-ONLY; The instance view of the container group. Only valid in response.
 	InstanceView *ContainerGroupPropertiesInstanceView
+
+	// READ-ONLY; The flag indicating whether the container group is created by standby pool.
+	IsCreatedFromStandbyPool *bool
 
 	// READ-ONLY; The provisioning state of the container group. This only appears in the response.
 	ProvisioningState *string
@@ -337,17 +362,17 @@ type ContainerProbe struct {
 
 // ContainerProperties - The container instance properties.
 type ContainerProperties struct {
-	// REQUIRED; The name of the image used to create the container instance.
-	Image *string
-
-	// REQUIRED; The resource requirements of the container instance.
-	Resources *ResourceRequirements
-
 	// The commands to execute within the container instance in exec form.
 	Command []*string
 
+	// The config map.
+	ConfigMap *ConfigMap
+
 	// The environment variables to set in the container instance.
 	EnvironmentVariables []*EnvironmentVariable
+
+	// The name of the image used to create the container instance.
+	Image *string
 
 	// The liveness probe.
 	LivenessProbe *ContainerProbe
@@ -357,6 +382,9 @@ type ContainerProperties struct {
 
 	// The readiness probe.
 	ReadinessProbe *ContainerProbe
+
+	// The resource requirements of the container instance.
+	Resources *ResourceRequirements
 
 	// The container security properties.
 	SecurityContext *SecurityContextDefinition
@@ -761,6 +789,17 @@ type SecurityContextDefinition struct {
 
 	// a base64 encoded string containing the contents of the JSON in the seccomp profile
 	SeccompProfile *string
+}
+
+// StandbyPoolProfileDefinition - The standby pool profile reference.
+type StandbyPoolProfileDefinition struct {
+	// The flag to determine whether ACI should fail the create request if the container group can not be obtained from standby
+	// pool.
+	FailContainerGroupCreateOnReuseFailure *bool
+
+	// The standby pool profile reference id.This will be an ARM resource id in the form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StandbyPool/standbyContainerGroupPools/{standbyPoolName}'.
+	ID *string
 }
 
 // Usage - A single usage result
