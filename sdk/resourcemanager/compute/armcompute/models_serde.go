@@ -499,6 +499,7 @@ func (a AvailabilitySetProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "platformFaultDomainCount", a.PlatformFaultDomainCount)
 	populate(objectMap, "platformUpdateDomainCount", a.PlatformUpdateDomainCount)
 	populate(objectMap, "proximityPlacementGroup", a.ProximityPlacementGroup)
+	populate(objectMap, "scheduledEventsPolicy", a.ScheduledEventsPolicy)
 	populate(objectMap, "statuses", a.Statuses)
 	populate(objectMap, "virtualMachines", a.VirtualMachines)
 	return json.Marshal(objectMap)
@@ -521,6 +522,9 @@ func (a *AvailabilitySetProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "proximityPlacementGroup":
 			err = unpopulate(val, "ProximityPlacementGroup", &a.ProximityPlacementGroup)
+			delete(rawMsg, key)
+		case "scheduledEventsPolicy":
+			err = unpopulate(val, "ScheduledEventsPolicy", &a.ScheduledEventsPolicy)
 			delete(rawMsg, key)
 		case "statuses":
 			err = unpopulate(val, "Statuses", &a.Statuses)
@@ -12456,6 +12460,7 @@ func (s SecurityPostureReference) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "excludeExtensions", s.ExcludeExtensions)
 	populate(objectMap, "id", s.ID)
+	populate(objectMap, "isOverridable", s.IsOverridable)
 	return json.Marshal(objectMap)
 }
 
@@ -12473,6 +12478,44 @@ func (s *SecurityPostureReference) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "id":
 			err = unpopulate(val, "ID", &s.ID)
+			delete(rawMsg, key)
+		case "isOverridable":
+			err = unpopulate(val, "IsOverridable", &s.IsOverridable)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", s, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type SecurityPostureReferenceUpdate.
+func (s SecurityPostureReferenceUpdate) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "excludeExtensions", s.ExcludeExtensions)
+	populate(objectMap, "id", s.ID)
+	populate(objectMap, "isOverridable", s.IsOverridable)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type SecurityPostureReferenceUpdate.
+func (s *SecurityPostureReferenceUpdate) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", s, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "excludeExtensions":
+			err = unpopulate(val, "ExcludeExtensions", &s.ExcludeExtensions)
+			delete(rawMsg, key)
+		case "id":
+			err = unpopulate(val, "ID", &s.ID)
+			delete(rawMsg, key)
+		case "isOverridable":
+			err = unpopulate(val, "IsOverridable", &s.IsOverridable)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -18811,6 +18854,7 @@ func (v VirtualMachineScaleSetUpdateVMProfile) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "networkProfile", v.NetworkProfile)
 	populate(objectMap, "osProfile", v.OSProfile)
 	populate(objectMap, "scheduledEventsProfile", v.ScheduledEventsProfile)
+	populate(objectMap, "securityPostureReference", v.SecurityPostureReference)
 	populate(objectMap, "securityProfile", v.SecurityProfile)
 	populate(objectMap, "storageProfile", v.StorageProfile)
 	populate(objectMap, "userData", v.UserData)
@@ -18849,6 +18893,9 @@ func (v *VirtualMachineScaleSetUpdateVMProfile) UnmarshalJSON(data []byte) error
 			delete(rawMsg, key)
 		case "scheduledEventsProfile":
 			err = unpopulate(val, "ScheduledEventsProfile", &v.ScheduledEventsProfile)
+			delete(rawMsg, key)
+		case "securityPostureReference":
+			err = unpopulate(val, "SecurityPostureReference", &v.SecurityPostureReference)
 			delete(rawMsg, key)
 		case "securityProfile":
 			err = unpopulate(val, "SecurityProfile", &v.SecurityProfile)
