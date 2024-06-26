@@ -132,6 +132,11 @@ type NamespacesClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
+// NamespacesClientFailoverResponse contains the response from method NamespacesClient.BeginFailover.
+type NamespacesClientFailoverResponse struct {
+	// placeholder for future response values
+}
+
 // NamespacesClientGetAuthorizationRuleResponse contains the response from method NamespacesClient.GetAuthorizationRule.
 type NamespacesClientGetAuthorizationRuleResponse struct {
 	// Description of a namespace authorization rule.
