@@ -10,7 +10,7 @@ package armsignalr
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/signalr/armsignalr"
-	moduleVersion = "v1.3.0-beta.1"
+	moduleVersion = "v1.3.0-beta.2"
 )
 
 // ACLAction - Azure Networking ACL Action.
@@ -26,6 +26,23 @@ func PossibleACLActionValues() []ACLAction {
 	return []ACLAction{
 		ACLActionAllow,
 		ACLActionDeny,
+	}
+}
+
+type ClientConnectionCountRuleDiscriminator string
+
+const (
+	ClientConnectionCountRuleDiscriminatorThrottleByJwtCustomClaimRule ClientConnectionCountRuleDiscriminator = "ThrottleByJwtCustomClaimRule"
+	ClientConnectionCountRuleDiscriminatorThrottleByJwtSignatureRule   ClientConnectionCountRuleDiscriminator = "ThrottleByJwtSignatureRule"
+	ClientConnectionCountRuleDiscriminatorThrottleByUserIDRule         ClientConnectionCountRuleDiscriminator = "ThrottleByUserIdRule"
+)
+
+// PossibleClientConnectionCountRuleDiscriminatorValues returns the possible values for the ClientConnectionCountRuleDiscriminator const type.
+func PossibleClientConnectionCountRuleDiscriminatorValues() []ClientConnectionCountRuleDiscriminator {
+	return []ClientConnectionCountRuleDiscriminator{
+		ClientConnectionCountRuleDiscriminatorThrottleByJwtCustomClaimRule,
+		ClientConnectionCountRuleDiscriminatorThrottleByJwtSignatureRule,
+		ClientConnectionCountRuleDiscriminatorThrottleByUserIDRule,
 	}
 }
 

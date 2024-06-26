@@ -10,7 +10,7 @@ package armloadtesting
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/loadtesting/armloadtesting"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v2.0.0"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -90,9 +90,13 @@ func PossibleOriginValues() []Origin {
 type ResourceState string
 
 const (
-	ResourceStateCanceled  ResourceState = "Canceled"
-	ResourceStateDeleted   ResourceState = "Deleted"
-	ResourceStateFailed    ResourceState = "Failed"
+	// ResourceStateCanceled - Resource creation was canceled.
+	ResourceStateCanceled ResourceState = "Canceled"
+	// ResourceStateDeleted - Deleted state.
+	ResourceStateDeleted ResourceState = "Deleted"
+	// ResourceStateFailed - Resource creation failed.
+	ResourceStateFailed ResourceState = "Failed"
+	// ResourceStateSucceeded - Resource has been created.
 	ResourceStateSucceeded ResourceState = "Succeeded"
 )
 
@@ -106,12 +110,14 @@ func PossibleResourceStateValues() []ResourceState {
 	}
 }
 
-// Type - Managed identity type to use for accessing encryption key Url
+// Type - Managed identity type to use for accessing encryption key Url.
 type Type string
 
 const (
+	// TypeSystemAssigned - System assigned identity.
 	TypeSystemAssigned Type = "SystemAssigned"
-	TypeUserAssigned   Type = "UserAssigned"
+	// TypeUserAssigned - User assigned identity.
+	TypeUserAssigned Type = "UserAssigned"
 )
 
 // PossibleTypeValues returns the possible values for the Type const type.
