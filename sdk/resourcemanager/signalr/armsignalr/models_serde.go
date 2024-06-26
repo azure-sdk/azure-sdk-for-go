@@ -15,6 +15,60 @@ import (
 	"reflect"
 )
 
+// MarshalJSON implements the json.Marshaller interface for type ApplicationFirewallSettings.
+func (a ApplicationFirewallSettings) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "clientConnectionCountRules", a.ClientConnectionCountRules)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ApplicationFirewallSettings.
+func (a *ApplicationFirewallSettings) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "clientConnectionCountRules":
+			a.ClientConnectionCountRules, err = unmarshalClientConnectionCountRuleClassificationArray(val)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ClientConnectionCountRule.
+func (c ClientConnectionCountRule) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	objectMap["type"] = c.Type
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ClientConnectionCountRule.
+func (c *ClientConnectionCountRule) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "type":
+			err = unpopulate(val, "Type", &c.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type CorsSettings.
 func (c CorsSettings) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -1224,6 +1278,7 @@ func (p *PrivateLinkServiceConnectionState) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type Properties.
 func (p Properties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "applicationFirewall", p.ApplicationFirewall)
 	populate(objectMap, "cors", p.Cors)
 	populate(objectMap, "disableAadAuth", p.DisableAADAuth)
 	populate(objectMap, "disableLocalAuth", p.DisableLocalAuth)
@@ -1258,6 +1313,9 @@ func (p *Properties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "applicationFirewall":
+			err = unpopulate(val, "ApplicationFirewall", &p.ApplicationFirewall)
+			delete(rawMsg, key)
 		case "cors":
 			err = unpopulate(val, "Cors", &p.Cors)
 			delete(rawMsg, key)
@@ -2153,6 +2211,103 @@ func (t *TLSSettings) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type ThrottleByJwtCustomClaimRule.
+func (t ThrottleByJwtCustomClaimRule) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "claimName", t.ClaimName)
+	populate(objectMap, "maxCount", t.MaxCount)
+	objectMap["type"] = ClientConnectionCountRuleDiscriminatorThrottleByJwtCustomClaimRule
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ThrottleByJwtCustomClaimRule.
+func (t *ThrottleByJwtCustomClaimRule) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", t, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "claimName":
+			err = unpopulate(val, "ClaimName", &t.ClaimName)
+			delete(rawMsg, key)
+		case "maxCount":
+			err = unpopulate(val, "MaxCount", &t.MaxCount)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &t.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", t, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ThrottleByJwtSignatureRule.
+func (t ThrottleByJwtSignatureRule) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "maxCount", t.MaxCount)
+	objectMap["type"] = ClientConnectionCountRuleDiscriminatorThrottleByJwtSignatureRule
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ThrottleByJwtSignatureRule.
+func (t *ThrottleByJwtSignatureRule) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", t, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "maxCount":
+			err = unpopulate(val, "MaxCount", &t.MaxCount)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &t.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", t, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ThrottleByUserIDRule.
+func (t ThrottleByUserIDRule) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "maxCount", t.MaxCount)
+	objectMap["type"] = ClientConnectionCountRuleDiscriminatorThrottleByUserIDRule
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ThrottleByUserIDRule.
+func (t *ThrottleByUserIDRule) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", t, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "maxCount":
+			err = unpopulate(val, "MaxCount", &t.MaxCount)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &t.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", t, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type UpstreamAuthSettings.
 func (u UpstreamAuthSettings) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -2374,7 +2529,7 @@ func populate(m map[string]any, k string, v any) {
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {
