@@ -19,18 +19,60 @@ import (
 
 // ServerFactory is a fake server for instances of the armmigrate.ClientFactory type.
 type ServerFactory struct {
-	AssessedMachinesServer          AssessedMachinesServer
-	AssessmentsServer               AssessmentsServer
-	GroupsServer                    GroupsServer
-	HyperVCollectorsServer          HyperVCollectorsServer
-	ImportCollectorsServer          ImportCollectorsServer
-	MachinesServer                  MachinesServer
-	OperationsServer                OperationsServer
-	PrivateEndpointConnectionServer PrivateEndpointConnectionServer
-	PrivateLinkResourceServer       PrivateLinkResourceServer
-	ProjectsServer                  ProjectsServer
-	ServerCollectorsServer          ServerCollectorsServer
-	VMwareCollectorsServer          VMwareCollectorsServer
+	DependencyMapControllerServer                  DependencyMapControllerServer
+	HypervClusterControllerServer                  HypervClusterControllerServer
+	HypervDependencyMapControllerServer            HypervDependencyMapControllerServer
+	HypervHostControllerServer                     HypervHostControllerServer
+	HypervJobsServer                               HypervJobsServer
+	HypervJobsControllerServer                     HypervJobsControllerServer
+	HypervMachinesControllerServer                 HypervMachinesControllerServer
+	HypervOperationsStatusControllerServer         HypervOperationsStatusControllerServer
+	HypervRunAsAccountsControllerServer            HypervRunAsAccountsControllerServer
+	HypervSitesServer                              HypervSitesServer
+	HypervSitesControllerServer                    HypervSitesControllerServer
+	HypervSoftwareInventoriesControllerServer      HypervSoftwareInventoriesControllerServer
+	IisWebApplicationsControllerServer             IisWebApplicationsControllerServer
+	IisWebServersControllerServer                  IisWebServersControllerServer
+	ImportJobsControllerServer                     ImportJobsControllerServer
+	ImportMachinesControllerServer                 ImportMachinesControllerServer
+	ImportSitesControllerServer                    ImportSitesControllerServer
+	MachinesControllerServer                       MachinesControllerServer
+	MasterSitesControllerServer                    MasterSitesControllerServer
+	MasterSitesOperationsStatusControllerServer    MasterSitesOperationsStatusControllerServer
+	OperationsServer                               OperationsServer
+	PrivateEndpointConnectionControllerServer      PrivateEndpointConnectionControllerServer
+	PrivateLinkResourcesControllerServer           PrivateLinkResourcesControllerServer
+	RunAsAccountsControllerServer                  RunAsAccountsControllerServer
+	SQLAvailabilityGroupsControllerServer          SQLAvailabilityGroupsControllerServer
+	SQLDatabasesControllerServer                   SQLDatabasesControllerServer
+	SQLDiscoverySiteDataSourceControllerServer     SQLDiscoverySiteDataSourceControllerServer
+	SQLJobsControllerServer                        SQLJobsControllerServer
+	SQLOperationsStatusControllerServer            SQLOperationsStatusControllerServer
+	SQLRunAsAccountsControllerServer               SQLRunAsAccountsControllerServer
+	SQLServersControllerServer                     SQLServersControllerServer
+	SQLSitesControllerServer                       SQLSitesControllerServer
+	ServerDependencyMapControllerServer            ServerDependencyMapControllerServer
+	ServerJobsControllerServer                     ServerJobsControllerServer
+	ServerOperationsStatusControllerServer         ServerOperationsStatusControllerServer
+	ServerRunAsAccountsControllerServer            ServerRunAsAccountsControllerServer
+	ServerSitesControllerServer                    ServerSitesControllerServer
+	ServerSoftwareInventoriesControllerServer      ServerSoftwareInventoriesControllerServer
+	ServersControllerServer                        ServersControllerServer
+	SitesControllerServer                          SitesControllerServer
+	TomcatWebApplicationsControllerServer          TomcatWebApplicationsControllerServer
+	TomcatWebServersControllerServer               TomcatWebServersControllerServer
+	VcenterControllerServer                        VcenterControllerServer
+	VmwareHostControllerServer                     VmwareHostControllerServer
+	VmwareOperationsStatusServer                   VmwareOperationsStatusServer
+	VmwarePropertiesControllerServer               VmwarePropertiesControllerServer
+	VmwareSoftwareInventoriesControllerServer      VmwareSoftwareInventoriesControllerServer
+	WebAppDiscoverySiteDataSourcesControllerServer WebAppDiscoverySiteDataSourcesControllerServer
+	WebAppExtendedMachinesControllerServer         WebAppExtendedMachinesControllerServer
+	WebAppPropertiesControllerServer               WebAppPropertiesControllerServer
+	WebAppRunAsAccountsControllerServer            WebAppRunAsAccountsControllerServer
+	WebAppSitesControllerServer                    WebAppSitesControllerServer
+	WebApplicationsControllerServer                WebApplicationsControllerServer
+	WebServersControllerServer                     WebServersControllerServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -45,20 +87,62 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armmigrate.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                               *ServerFactory
-	trMu                              sync.Mutex
-	trAssessedMachinesServer          *AssessedMachinesServerTransport
-	trAssessmentsServer               *AssessmentsServerTransport
-	trGroupsServer                    *GroupsServerTransport
-	trHyperVCollectorsServer          *HyperVCollectorsServerTransport
-	trImportCollectorsServer          *ImportCollectorsServerTransport
-	trMachinesServer                  *MachinesServerTransport
-	trOperationsServer                *OperationsServerTransport
-	trPrivateEndpointConnectionServer *PrivateEndpointConnectionServerTransport
-	trPrivateLinkResourceServer       *PrivateLinkResourceServerTransport
-	trProjectsServer                  *ProjectsServerTransport
-	trServerCollectorsServer          *ServerCollectorsServerTransport
-	trVMwareCollectorsServer          *VMwareCollectorsServerTransport
+	srv                                              *ServerFactory
+	trMu                                             sync.Mutex
+	trDependencyMapControllerServer                  *DependencyMapControllerServerTransport
+	trHypervClusterControllerServer                  *HypervClusterControllerServerTransport
+	trHypervDependencyMapControllerServer            *HypervDependencyMapControllerServerTransport
+	trHypervHostControllerServer                     *HypervHostControllerServerTransport
+	trHypervJobsServer                               *HypervJobsServerTransport
+	trHypervJobsControllerServer                     *HypervJobsControllerServerTransport
+	trHypervMachinesControllerServer                 *HypervMachinesControllerServerTransport
+	trHypervOperationsStatusControllerServer         *HypervOperationsStatusControllerServerTransport
+	trHypervRunAsAccountsControllerServer            *HypervRunAsAccountsControllerServerTransport
+	trHypervSitesServer                              *HypervSitesServerTransport
+	trHypervSitesControllerServer                    *HypervSitesControllerServerTransport
+	trHypervSoftwareInventoriesControllerServer      *HypervSoftwareInventoriesControllerServerTransport
+	trIisWebApplicationsControllerServer             *IisWebApplicationsControllerServerTransport
+	trIisWebServersControllerServer                  *IisWebServersControllerServerTransport
+	trImportJobsControllerServer                     *ImportJobsControllerServerTransport
+	trImportMachinesControllerServer                 *ImportMachinesControllerServerTransport
+	trImportSitesControllerServer                    *ImportSitesControllerServerTransport
+	trMachinesControllerServer                       *MachinesControllerServerTransport
+	trMasterSitesControllerServer                    *MasterSitesControllerServerTransport
+	trMasterSitesOperationsStatusControllerServer    *MasterSitesOperationsStatusControllerServerTransport
+	trOperationsServer                               *OperationsServerTransport
+	trPrivateEndpointConnectionControllerServer      *PrivateEndpointConnectionControllerServerTransport
+	trPrivateLinkResourcesControllerServer           *PrivateLinkResourcesControllerServerTransport
+	trRunAsAccountsControllerServer                  *RunAsAccountsControllerServerTransport
+	trSQLAvailabilityGroupsControllerServer          *SQLAvailabilityGroupsControllerServerTransport
+	trSQLDatabasesControllerServer                   *SQLDatabasesControllerServerTransport
+	trSQLDiscoverySiteDataSourceControllerServer     *SQLDiscoverySiteDataSourceControllerServerTransport
+	trSQLJobsControllerServer                        *SQLJobsControllerServerTransport
+	trSQLOperationsStatusControllerServer            *SQLOperationsStatusControllerServerTransport
+	trSQLRunAsAccountsControllerServer               *SQLRunAsAccountsControllerServerTransport
+	trSQLServersControllerServer                     *SQLServersControllerServerTransport
+	trSQLSitesControllerServer                       *SQLSitesControllerServerTransport
+	trServerDependencyMapControllerServer            *ServerDependencyMapControllerServerTransport
+	trServerJobsControllerServer                     *ServerJobsControllerServerTransport
+	trServerOperationsStatusControllerServer         *ServerOperationsStatusControllerServerTransport
+	trServerRunAsAccountsControllerServer            *ServerRunAsAccountsControllerServerTransport
+	trServerSitesControllerServer                    *ServerSitesControllerServerTransport
+	trServerSoftwareInventoriesControllerServer      *ServerSoftwareInventoriesControllerServerTransport
+	trServersControllerServer                        *ServersControllerServerTransport
+	trSitesControllerServer                          *SitesControllerServerTransport
+	trTomcatWebApplicationsControllerServer          *TomcatWebApplicationsControllerServerTransport
+	trTomcatWebServersControllerServer               *TomcatWebServersControllerServerTransport
+	trVcenterControllerServer                        *VcenterControllerServerTransport
+	trVmwareHostControllerServer                     *VmwareHostControllerServerTransport
+	trVmwareOperationsStatusServer                   *VmwareOperationsStatusServerTransport
+	trVmwarePropertiesControllerServer               *VmwarePropertiesControllerServerTransport
+	trVmwareSoftwareInventoriesControllerServer      *VmwareSoftwareInventoriesControllerServerTransport
+	trWebAppDiscoverySiteDataSourcesControllerServer *WebAppDiscoverySiteDataSourcesControllerServerTransport
+	trWebAppExtendedMachinesControllerServer         *WebAppExtendedMachinesControllerServerTransport
+	trWebAppPropertiesControllerServer               *WebAppPropertiesControllerServerTransport
+	trWebAppRunAsAccountsControllerServer            *WebAppRunAsAccountsControllerServerTransport
+	trWebAppSitesControllerServer                    *WebAppSitesControllerServerTransport
+	trWebApplicationsControllerServer                *WebApplicationsControllerServerTransport
+	trWebServersControllerServer                     *WebServersControllerServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -74,56 +158,270 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch client {
-	case "AssessedMachinesClient":
-		initServer(s, &s.trAssessedMachinesServer, func() *AssessedMachinesServerTransport {
-			return NewAssessedMachinesServerTransport(&s.srv.AssessedMachinesServer)
+	case "DependencyMapControllerClient":
+		initServer(s, &s.trDependencyMapControllerServer, func() *DependencyMapControllerServerTransport {
+			return NewDependencyMapControllerServerTransport(&s.srv.DependencyMapControllerServer)
 		})
-		resp, err = s.trAssessedMachinesServer.Do(req)
-	case "AssessmentsClient":
-		initServer(s, &s.trAssessmentsServer, func() *AssessmentsServerTransport { return NewAssessmentsServerTransport(&s.srv.AssessmentsServer) })
-		resp, err = s.trAssessmentsServer.Do(req)
-	case "GroupsClient":
-		initServer(s, &s.trGroupsServer, func() *GroupsServerTransport { return NewGroupsServerTransport(&s.srv.GroupsServer) })
-		resp, err = s.trGroupsServer.Do(req)
-	case "HyperVCollectorsClient":
-		initServer(s, &s.trHyperVCollectorsServer, func() *HyperVCollectorsServerTransport {
-			return NewHyperVCollectorsServerTransport(&s.srv.HyperVCollectorsServer)
+		resp, err = s.trDependencyMapControllerServer.Do(req)
+	case "HypervClusterControllerClient":
+		initServer(s, &s.trHypervClusterControllerServer, func() *HypervClusterControllerServerTransport {
+			return NewHypervClusterControllerServerTransport(&s.srv.HypervClusterControllerServer)
 		})
-		resp, err = s.trHyperVCollectorsServer.Do(req)
-	case "ImportCollectorsClient":
-		initServer(s, &s.trImportCollectorsServer, func() *ImportCollectorsServerTransport {
-			return NewImportCollectorsServerTransport(&s.srv.ImportCollectorsServer)
+		resp, err = s.trHypervClusterControllerServer.Do(req)
+	case "HypervDependencyMapControllerClient":
+		initServer(s, &s.trHypervDependencyMapControllerServer, func() *HypervDependencyMapControllerServerTransport {
+			return NewHypervDependencyMapControllerServerTransport(&s.srv.HypervDependencyMapControllerServer)
 		})
-		resp, err = s.trImportCollectorsServer.Do(req)
-	case "MachinesClient":
-		initServer(s, &s.trMachinesServer, func() *MachinesServerTransport { return NewMachinesServerTransport(&s.srv.MachinesServer) })
-		resp, err = s.trMachinesServer.Do(req)
+		resp, err = s.trHypervDependencyMapControllerServer.Do(req)
+	case "HypervHostControllerClient":
+		initServer(s, &s.trHypervHostControllerServer, func() *HypervHostControllerServerTransport {
+			return NewHypervHostControllerServerTransport(&s.srv.HypervHostControllerServer)
+		})
+		resp, err = s.trHypervHostControllerServer.Do(req)
+	case "HypervJobsClient":
+		initServer(s, &s.trHypervJobsServer, func() *HypervJobsServerTransport { return NewHypervJobsServerTransport(&s.srv.HypervJobsServer) })
+		resp, err = s.trHypervJobsServer.Do(req)
+	case "HypervJobsControllerClient":
+		initServer(s, &s.trHypervJobsControllerServer, func() *HypervJobsControllerServerTransport {
+			return NewHypervJobsControllerServerTransport(&s.srv.HypervJobsControllerServer)
+		})
+		resp, err = s.trHypervJobsControllerServer.Do(req)
+	case "HypervMachinesControllerClient":
+		initServer(s, &s.trHypervMachinesControllerServer, func() *HypervMachinesControllerServerTransport {
+			return NewHypervMachinesControllerServerTransport(&s.srv.HypervMachinesControllerServer)
+		})
+		resp, err = s.trHypervMachinesControllerServer.Do(req)
+	case "HypervOperationsStatusControllerClient":
+		initServer(s, &s.trHypervOperationsStatusControllerServer, func() *HypervOperationsStatusControllerServerTransport {
+			return NewHypervOperationsStatusControllerServerTransport(&s.srv.HypervOperationsStatusControllerServer)
+		})
+		resp, err = s.trHypervOperationsStatusControllerServer.Do(req)
+	case "HypervRunAsAccountsControllerClient":
+		initServer(s, &s.trHypervRunAsAccountsControllerServer, func() *HypervRunAsAccountsControllerServerTransport {
+			return NewHypervRunAsAccountsControllerServerTransport(&s.srv.HypervRunAsAccountsControllerServer)
+		})
+		resp, err = s.trHypervRunAsAccountsControllerServer.Do(req)
+	case "HypervSitesClient":
+		initServer(s, &s.trHypervSitesServer, func() *HypervSitesServerTransport { return NewHypervSitesServerTransport(&s.srv.HypervSitesServer) })
+		resp, err = s.trHypervSitesServer.Do(req)
+	case "HypervSitesControllerClient":
+		initServer(s, &s.trHypervSitesControllerServer, func() *HypervSitesControllerServerTransport {
+			return NewHypervSitesControllerServerTransport(&s.srv.HypervSitesControllerServer)
+		})
+		resp, err = s.trHypervSitesControllerServer.Do(req)
+	case "HypervSoftwareInventoriesControllerClient":
+		initServer(s, &s.trHypervSoftwareInventoriesControllerServer, func() *HypervSoftwareInventoriesControllerServerTransport {
+			return NewHypervSoftwareInventoriesControllerServerTransport(&s.srv.HypervSoftwareInventoriesControllerServer)
+		})
+		resp, err = s.trHypervSoftwareInventoriesControllerServer.Do(req)
+	case "IisWebApplicationsControllerClient":
+		initServer(s, &s.trIisWebApplicationsControllerServer, func() *IisWebApplicationsControllerServerTransport {
+			return NewIisWebApplicationsControllerServerTransport(&s.srv.IisWebApplicationsControllerServer)
+		})
+		resp, err = s.trIisWebApplicationsControllerServer.Do(req)
+	case "IisWebServersControllerClient":
+		initServer(s, &s.trIisWebServersControllerServer, func() *IisWebServersControllerServerTransport {
+			return NewIisWebServersControllerServerTransport(&s.srv.IisWebServersControllerServer)
+		})
+		resp, err = s.trIisWebServersControllerServer.Do(req)
+	case "ImportJobsControllerClient":
+		initServer(s, &s.trImportJobsControllerServer, func() *ImportJobsControllerServerTransport {
+			return NewImportJobsControllerServerTransport(&s.srv.ImportJobsControllerServer)
+		})
+		resp, err = s.trImportJobsControllerServer.Do(req)
+	case "ImportMachinesControllerClient":
+		initServer(s, &s.trImportMachinesControllerServer, func() *ImportMachinesControllerServerTransport {
+			return NewImportMachinesControllerServerTransport(&s.srv.ImportMachinesControllerServer)
+		})
+		resp, err = s.trImportMachinesControllerServer.Do(req)
+	case "ImportSitesControllerClient":
+		initServer(s, &s.trImportSitesControllerServer, func() *ImportSitesControllerServerTransport {
+			return NewImportSitesControllerServerTransport(&s.srv.ImportSitesControllerServer)
+		})
+		resp, err = s.trImportSitesControllerServer.Do(req)
+	case "MachinesControllerClient":
+		initServer(s, &s.trMachinesControllerServer, func() *MachinesControllerServerTransport {
+			return NewMachinesControllerServerTransport(&s.srv.MachinesControllerServer)
+		})
+		resp, err = s.trMachinesControllerServer.Do(req)
+	case "MasterSitesControllerClient":
+		initServer(s, &s.trMasterSitesControllerServer, func() *MasterSitesControllerServerTransport {
+			return NewMasterSitesControllerServerTransport(&s.srv.MasterSitesControllerServer)
+		})
+		resp, err = s.trMasterSitesControllerServer.Do(req)
+	case "MasterSitesOperationsStatusControllerClient":
+		initServer(s, &s.trMasterSitesOperationsStatusControllerServer, func() *MasterSitesOperationsStatusControllerServerTransport {
+			return NewMasterSitesOperationsStatusControllerServerTransport(&s.srv.MasterSitesOperationsStatusControllerServer)
+		})
+		resp, err = s.trMasterSitesOperationsStatusControllerServer.Do(req)
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
-	case "PrivateEndpointConnectionClient":
-		initServer(s, &s.trPrivateEndpointConnectionServer, func() *PrivateEndpointConnectionServerTransport {
-			return NewPrivateEndpointConnectionServerTransport(&s.srv.PrivateEndpointConnectionServer)
+	case "PrivateEndpointConnectionControllerClient":
+		initServer(s, &s.trPrivateEndpointConnectionControllerServer, func() *PrivateEndpointConnectionControllerServerTransport {
+			return NewPrivateEndpointConnectionControllerServerTransport(&s.srv.PrivateEndpointConnectionControllerServer)
 		})
-		resp, err = s.trPrivateEndpointConnectionServer.Do(req)
-	case "PrivateLinkResourceClient":
-		initServer(s, &s.trPrivateLinkResourceServer, func() *PrivateLinkResourceServerTransport {
-			return NewPrivateLinkResourceServerTransport(&s.srv.PrivateLinkResourceServer)
+		resp, err = s.trPrivateEndpointConnectionControllerServer.Do(req)
+	case "PrivateLinkResourcesControllerClient":
+		initServer(s, &s.trPrivateLinkResourcesControllerServer, func() *PrivateLinkResourcesControllerServerTransport {
+			return NewPrivateLinkResourcesControllerServerTransport(&s.srv.PrivateLinkResourcesControllerServer)
 		})
-		resp, err = s.trPrivateLinkResourceServer.Do(req)
-	case "ProjectsClient":
-		initServer(s, &s.trProjectsServer, func() *ProjectsServerTransport { return NewProjectsServerTransport(&s.srv.ProjectsServer) })
-		resp, err = s.trProjectsServer.Do(req)
-	case "ServerCollectorsClient":
-		initServer(s, &s.trServerCollectorsServer, func() *ServerCollectorsServerTransport {
-			return NewServerCollectorsServerTransport(&s.srv.ServerCollectorsServer)
+		resp, err = s.trPrivateLinkResourcesControllerServer.Do(req)
+	case "RunAsAccountsControllerClient":
+		initServer(s, &s.trRunAsAccountsControllerServer, func() *RunAsAccountsControllerServerTransport {
+			return NewRunAsAccountsControllerServerTransport(&s.srv.RunAsAccountsControllerServer)
 		})
-		resp, err = s.trServerCollectorsServer.Do(req)
-	case "VMwareCollectorsClient":
-		initServer(s, &s.trVMwareCollectorsServer, func() *VMwareCollectorsServerTransport {
-			return NewVMwareCollectorsServerTransport(&s.srv.VMwareCollectorsServer)
+		resp, err = s.trRunAsAccountsControllerServer.Do(req)
+	case "SQLAvailabilityGroupsControllerClient":
+		initServer(s, &s.trSQLAvailabilityGroupsControllerServer, func() *SQLAvailabilityGroupsControllerServerTransport {
+			return NewSQLAvailabilityGroupsControllerServerTransport(&s.srv.SQLAvailabilityGroupsControllerServer)
 		})
-		resp, err = s.trVMwareCollectorsServer.Do(req)
+		resp, err = s.trSQLAvailabilityGroupsControllerServer.Do(req)
+	case "SQLDatabasesControllerClient":
+		initServer(s, &s.trSQLDatabasesControllerServer, func() *SQLDatabasesControllerServerTransport {
+			return NewSQLDatabasesControllerServerTransport(&s.srv.SQLDatabasesControllerServer)
+		})
+		resp, err = s.trSQLDatabasesControllerServer.Do(req)
+	case "SQLDiscoverySiteDataSourceControllerClient":
+		initServer(s, &s.trSQLDiscoverySiteDataSourceControllerServer, func() *SQLDiscoverySiteDataSourceControllerServerTransport {
+			return NewSQLDiscoverySiteDataSourceControllerServerTransport(&s.srv.SQLDiscoverySiteDataSourceControllerServer)
+		})
+		resp, err = s.trSQLDiscoverySiteDataSourceControllerServer.Do(req)
+	case "SQLJobsControllerClient":
+		initServer(s, &s.trSQLJobsControllerServer, func() *SQLJobsControllerServerTransport {
+			return NewSQLJobsControllerServerTransport(&s.srv.SQLJobsControllerServer)
+		})
+		resp, err = s.trSQLJobsControllerServer.Do(req)
+	case "SQLOperationsStatusControllerClient":
+		initServer(s, &s.trSQLOperationsStatusControllerServer, func() *SQLOperationsStatusControllerServerTransport {
+			return NewSQLOperationsStatusControllerServerTransport(&s.srv.SQLOperationsStatusControllerServer)
+		})
+		resp, err = s.trSQLOperationsStatusControllerServer.Do(req)
+	case "SQLRunAsAccountsControllerClient":
+		initServer(s, &s.trSQLRunAsAccountsControllerServer, func() *SQLRunAsAccountsControllerServerTransport {
+			return NewSQLRunAsAccountsControllerServerTransport(&s.srv.SQLRunAsAccountsControllerServer)
+		})
+		resp, err = s.trSQLRunAsAccountsControllerServer.Do(req)
+	case "SQLServersControllerClient":
+		initServer(s, &s.trSQLServersControllerServer, func() *SQLServersControllerServerTransport {
+			return NewSQLServersControllerServerTransport(&s.srv.SQLServersControllerServer)
+		})
+		resp, err = s.trSQLServersControllerServer.Do(req)
+	case "SQLSitesControllerClient":
+		initServer(s, &s.trSQLSitesControllerServer, func() *SQLSitesControllerServerTransport {
+			return NewSQLSitesControllerServerTransport(&s.srv.SQLSitesControllerServer)
+		})
+		resp, err = s.trSQLSitesControllerServer.Do(req)
+	case "ServerDependencyMapControllerClient":
+		initServer(s, &s.trServerDependencyMapControllerServer, func() *ServerDependencyMapControllerServerTransport {
+			return NewServerDependencyMapControllerServerTransport(&s.srv.ServerDependencyMapControllerServer)
+		})
+		resp, err = s.trServerDependencyMapControllerServer.Do(req)
+	case "ServerJobsControllerClient":
+		initServer(s, &s.trServerJobsControllerServer, func() *ServerJobsControllerServerTransport {
+			return NewServerJobsControllerServerTransport(&s.srv.ServerJobsControllerServer)
+		})
+		resp, err = s.trServerJobsControllerServer.Do(req)
+	case "ServerOperationsStatusControllerClient":
+		initServer(s, &s.trServerOperationsStatusControllerServer, func() *ServerOperationsStatusControllerServerTransport {
+			return NewServerOperationsStatusControllerServerTransport(&s.srv.ServerOperationsStatusControllerServer)
+		})
+		resp, err = s.trServerOperationsStatusControllerServer.Do(req)
+	case "ServerRunAsAccountsControllerClient":
+		initServer(s, &s.trServerRunAsAccountsControllerServer, func() *ServerRunAsAccountsControllerServerTransport {
+			return NewServerRunAsAccountsControllerServerTransport(&s.srv.ServerRunAsAccountsControllerServer)
+		})
+		resp, err = s.trServerRunAsAccountsControllerServer.Do(req)
+	case "ServerSitesControllerClient":
+		initServer(s, &s.trServerSitesControllerServer, func() *ServerSitesControllerServerTransport {
+			return NewServerSitesControllerServerTransport(&s.srv.ServerSitesControllerServer)
+		})
+		resp, err = s.trServerSitesControllerServer.Do(req)
+	case "ServerSoftwareInventoriesControllerClient":
+		initServer(s, &s.trServerSoftwareInventoriesControllerServer, func() *ServerSoftwareInventoriesControllerServerTransport {
+			return NewServerSoftwareInventoriesControllerServerTransport(&s.srv.ServerSoftwareInventoriesControllerServer)
+		})
+		resp, err = s.trServerSoftwareInventoriesControllerServer.Do(req)
+	case "ServersControllerClient":
+		initServer(s, &s.trServersControllerServer, func() *ServersControllerServerTransport {
+			return NewServersControllerServerTransport(&s.srv.ServersControllerServer)
+		})
+		resp, err = s.trServersControllerServer.Do(req)
+	case "SitesControllerClient":
+		initServer(s, &s.trSitesControllerServer, func() *SitesControllerServerTransport {
+			return NewSitesControllerServerTransport(&s.srv.SitesControllerServer)
+		})
+		resp, err = s.trSitesControllerServer.Do(req)
+	case "TomcatWebApplicationsControllerClient":
+		initServer(s, &s.trTomcatWebApplicationsControllerServer, func() *TomcatWebApplicationsControllerServerTransport {
+			return NewTomcatWebApplicationsControllerServerTransport(&s.srv.TomcatWebApplicationsControllerServer)
+		})
+		resp, err = s.trTomcatWebApplicationsControllerServer.Do(req)
+	case "TomcatWebServersControllerClient":
+		initServer(s, &s.trTomcatWebServersControllerServer, func() *TomcatWebServersControllerServerTransport {
+			return NewTomcatWebServersControllerServerTransport(&s.srv.TomcatWebServersControllerServer)
+		})
+		resp, err = s.trTomcatWebServersControllerServer.Do(req)
+	case "VcenterControllerClient":
+		initServer(s, &s.trVcenterControllerServer, func() *VcenterControllerServerTransport {
+			return NewVcenterControllerServerTransport(&s.srv.VcenterControllerServer)
+		})
+		resp, err = s.trVcenterControllerServer.Do(req)
+	case "VmwareHostControllerClient":
+		initServer(s, &s.trVmwareHostControllerServer, func() *VmwareHostControllerServerTransport {
+			return NewVmwareHostControllerServerTransport(&s.srv.VmwareHostControllerServer)
+		})
+		resp, err = s.trVmwareHostControllerServer.Do(req)
+	case "VmwareOperationsStatusClient":
+		initServer(s, &s.trVmwareOperationsStatusServer, func() *VmwareOperationsStatusServerTransport {
+			return NewVmwareOperationsStatusServerTransport(&s.srv.VmwareOperationsStatusServer)
+		})
+		resp, err = s.trVmwareOperationsStatusServer.Do(req)
+	case "VmwarePropertiesControllerClient":
+		initServer(s, &s.trVmwarePropertiesControllerServer, func() *VmwarePropertiesControllerServerTransport {
+			return NewVmwarePropertiesControllerServerTransport(&s.srv.VmwarePropertiesControllerServer)
+		})
+		resp, err = s.trVmwarePropertiesControllerServer.Do(req)
+	case "VmwareSoftwareInventoriesControllerClient":
+		initServer(s, &s.trVmwareSoftwareInventoriesControllerServer, func() *VmwareSoftwareInventoriesControllerServerTransport {
+			return NewVmwareSoftwareInventoriesControllerServerTransport(&s.srv.VmwareSoftwareInventoriesControllerServer)
+		})
+		resp, err = s.trVmwareSoftwareInventoriesControllerServer.Do(req)
+	case "WebAppDiscoverySiteDataSourcesControllerClient":
+		initServer(s, &s.trWebAppDiscoverySiteDataSourcesControllerServer, func() *WebAppDiscoverySiteDataSourcesControllerServerTransport {
+			return NewWebAppDiscoverySiteDataSourcesControllerServerTransport(&s.srv.WebAppDiscoverySiteDataSourcesControllerServer)
+		})
+		resp, err = s.trWebAppDiscoverySiteDataSourcesControllerServer.Do(req)
+	case "WebAppExtendedMachinesControllerClient":
+		initServer(s, &s.trWebAppExtendedMachinesControllerServer, func() *WebAppExtendedMachinesControllerServerTransport {
+			return NewWebAppExtendedMachinesControllerServerTransport(&s.srv.WebAppExtendedMachinesControllerServer)
+		})
+		resp, err = s.trWebAppExtendedMachinesControllerServer.Do(req)
+	case "WebAppPropertiesControllerClient":
+		initServer(s, &s.trWebAppPropertiesControllerServer, func() *WebAppPropertiesControllerServerTransport {
+			return NewWebAppPropertiesControllerServerTransport(&s.srv.WebAppPropertiesControllerServer)
+		})
+		resp, err = s.trWebAppPropertiesControllerServer.Do(req)
+	case "WebAppRunAsAccountsControllerClient":
+		initServer(s, &s.trWebAppRunAsAccountsControllerServer, func() *WebAppRunAsAccountsControllerServerTransport {
+			return NewWebAppRunAsAccountsControllerServerTransport(&s.srv.WebAppRunAsAccountsControllerServer)
+		})
+		resp, err = s.trWebAppRunAsAccountsControllerServer.Do(req)
+	case "WebAppSitesControllerClient":
+		initServer(s, &s.trWebAppSitesControllerServer, func() *WebAppSitesControllerServerTransport {
+			return NewWebAppSitesControllerServerTransport(&s.srv.WebAppSitesControllerServer)
+		})
+		resp, err = s.trWebAppSitesControllerServer.Do(req)
+	case "WebApplicationsControllerClient":
+		initServer(s, &s.trWebApplicationsControllerServer, func() *WebApplicationsControllerServerTransport {
+			return NewWebApplicationsControllerServerTransport(&s.srv.WebApplicationsControllerServer)
+		})
+		resp, err = s.trWebApplicationsControllerServer.Do(req)
+	case "WebServersControllerClient":
+		initServer(s, &s.trWebServersControllerServer, func() *WebServersControllerServerTransport {
+			return NewWebServersControllerServerTransport(&s.srv.WebServersControllerServer)
+		})
+		resp, err = s.trWebServersControllerServer.Do(req)
 	default:
 		err = fmt.Errorf("unhandled client %s", client)
 	}
