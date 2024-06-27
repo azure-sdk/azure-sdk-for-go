@@ -1289,9 +1289,6 @@ type AutonomousDbVersionListResult struct {
 
 // AutonomousDbVersionProperties - AutonomousDbVersion resource model
 type AutonomousDbVersionProperties struct {
-	// READ-ONLY; Supported Autonomous Db versions.
-	Version *string
-
 	// READ-ONLY; The Autonomous Database workload type
 	DbWorkload *WorkloadType
 
@@ -1306,6 +1303,9 @@ type AutonomousDbVersionProperties struct {
 
 	// READ-ONLY; True if this version of the Oracle Database software has payments enabled.
 	IsPaidEnabled *bool
+
+	// READ-ONLY; Supported Autonomous Db versions.
+	Version *string
 }
 
 // CloudAccountDetails - Cloud Account Details model
@@ -1812,11 +1812,20 @@ type DNSPrivateViewListResult struct {
 
 // DNSPrivateViewProperties - Views resource model
 type DNSPrivateViewProperties struct {
+	// READ-ONLY; The display name of the view resource
+	DisplayName *string
+
 	// READ-ONLY; A Boolean flag indicating whether or not parts of the resource are unable to be explicitly managed.
 	IsProtected *bool
 
+	// READ-ONLY; Views lifecycleState
+	LifecycleState *DNSPrivateViewsLifecycleState
+
 	// READ-ONLY; The OCID of the view
 	Ocid *string
+
+	// READ-ONLY; Azure resource provisioning state.
+	ProvisioningState *ResourceProvisioningState
 
 	// READ-ONLY; The canonical absolute URL of the resource.
 	Self *string
@@ -1826,15 +1835,6 @@ type DNSPrivateViewProperties struct {
 
 	// READ-ONLY; views timeCreated
 	TimeUpdated *time.Time
-
-	// READ-ONLY; The display name of the view resource
-	DisplayName *string
-
-	// READ-ONLY; Views lifecycleState
-	LifecycleState *DNSPrivateViewsLifecycleState
-
-	// READ-ONLY; Azure resource provisioning state.
-	ProvisioningState *ResourceProvisioningState
 }
 
 // DNSPrivateZone - DnsPrivateZone resource definition
@@ -1869,8 +1869,14 @@ type DNSPrivateZoneProperties struct {
 	// READ-ONLY; A Boolean flag indicating whether or not parts of the resource are unable to be explicitly managed.
 	IsProtected *bool
 
+	// READ-ONLY; Zones lifecycleState
+	LifecycleState *DNSPrivateZonesLifecycleState
+
 	// READ-ONLY; The OCID of the Zone
 	Ocid *string
+
+	// READ-ONLY; Azure resource provisioning state.
+	ProvisioningState *ResourceProvisioningState
 
 	// READ-ONLY; The canonical absolute URL of the resource.
 	Self *string
@@ -1885,18 +1891,12 @@ type DNSPrivateZoneProperties struct {
 	// SOA record is derived.
 	Version *string
 
-	// READ-ONLY; The type of the zone. Must be either PRIMARY or SECONDARY. SECONDARY is only supported for GLOBAL zones.
-	ZoneType *ZoneType
-
-	// READ-ONLY; Zones lifecycleState
-	LifecycleState *DNSPrivateZonesLifecycleState
-
-	// READ-ONLY; Azure resource provisioning state.
-	ProvisioningState *ResourceProvisioningState
-
 	// READ-ONLY; The OCID of the private view containing the zone. This value will be null for zones in the global DNS, which
 	// are publicly resolvable and not part of a private view.
 	ViewID *string
+
+	// READ-ONLY; The type of the zone. Must be either PRIMARY or SECONDARY. SECONDARY is only supported for GLOBAL zones.
+	ZoneType *ZoneType
 }
 
 // DataCollectionOptions resource properties
@@ -1970,12 +1970,6 @@ type DbNodeListResult struct {
 
 // DbNodeProperties - The properties of DbNodeResource
 type DbNodeProperties struct {
-	// READ-ONLY; The OCID of the DB system.
-	DbSystemID *string
-
-	// READ-ONLY; DbNode OCID
-	Ocid *string
-
 	// READ-ONLY; Additional information about the planned maintenance.
 	AdditionalDetails *string
 
@@ -1997,6 +1991,9 @@ type DbNodeProperties struct {
 	// READ-ONLY; The OCID of the Exacc Db server associated with the database node.
 	DbServerID *string
 
+	// READ-ONLY; The OCID of the DB system.
+	DbSystemID *string
+
 	// READ-ONLY; The name of the Fault Domain the instance is contained in.
 	FaultDomain *string
 
@@ -2017,6 +2014,9 @@ type DbNodeProperties struct {
 
 	// READ-ONLY; The allocated memory in GBs on the Db node.
 	MemorySizeInGbs *int32
+
+	// READ-ONLY; DbNode OCID
+	Ocid *string
 
 	// READ-ONLY; Azure resource provisioning state.
 	ProvisioningState *ResourceProvisioningState
