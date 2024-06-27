@@ -2436,6 +2436,7 @@ func (n *NameAvailabilityCheckResult) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type NetworkProperties.
 func (n NetworkProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "outboundDependenciesManagedType", n.OutboundDependenciesManagedType)
 	populate(objectMap, "privateLink", n.PrivateLink)
 	populate(objectMap, "resourceProviderConnection", n.ResourceProviderConnection)
 	return json.Marshal(objectMap)
@@ -2450,6 +2451,9 @@ func (n *NetworkProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "outboundDependenciesManagedType":
+			err = unpopulate(val, "OutboundDependenciesManagedType", &n.OutboundDependenciesManagedType)
+			delete(rawMsg, key)
 		case "privateLink":
 			err = unpopulate(val, "PrivateLink", &n.PrivateLink)
 			delete(rawMsg, key)
@@ -4320,7 +4324,7 @@ func populateAny(m map[string]any, k string, v any) {
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {
