@@ -10,7 +10,7 @@ package armportal
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/portal/armportal"
-	moduleVersion = "v0.7.0"
+	moduleVersion = "v0.7.1"
 )
 
 type ConfigurationName string

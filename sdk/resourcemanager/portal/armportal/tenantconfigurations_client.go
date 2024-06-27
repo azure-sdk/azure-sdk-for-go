@@ -44,7 +44,7 @@ func NewTenantConfigurationsClient(credential azcore.TokenCredential, options *a
 // this operation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-09-01-preview
+// Generated from API version 2022-12-01-preview
 //   - configurationName - The configuration name. Value must be 'default'
 //   - tenantConfiguration - The parameters required to create or update tenant configuration.
 //   - options - TenantConfigurationsClientCreateOptions contains the optional parameters for the TenantConfigurationsClient.Create
@@ -83,7 +83,7 @@ func (client *TenantConfigurationsClient) createCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-09-01-preview")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, tenantConfiguration); err != nil {
@@ -104,7 +104,7 @@ func (client *TenantConfigurationsClient) createHandleResponse(resp *http.Respon
 // Delete - Delete the tenant configuration. User has to be a Tenant Admin for this operation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-09-01-preview
+// Generated from API version 2022-12-01-preview
 //   - configurationName - The configuration name. Value must be 'default'
 //   - options - TenantConfigurationsClientDeleteOptions contains the optional parameters for the TenantConfigurationsClient.Delete
 //     method.
@@ -141,7 +141,7 @@ func (client *TenantConfigurationsClient) deleteCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-09-01-preview")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -150,7 +150,7 @@ func (client *TenantConfigurationsClient) deleteCreateRequest(ctx context.Contex
 // Get - Gets the tenant configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-09-01-preview
+// Generated from API version 2022-12-01-preview
 //   - configurationName - The configuration name. Value must be 'default'
 //   - options - TenantConfigurationsClientGetOptions contains the optional parameters for the TenantConfigurationsClient.Get
 //     method.
@@ -188,7 +188,7 @@ func (client *TenantConfigurationsClient) getCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-09-01-preview")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -205,7 +205,7 @@ func (client *TenantConfigurationsClient) getHandleResponse(resp *http.Response)
 
 // NewListPager - Gets list of the tenant configurations.
 //
-// Generated from API version 2020-09-01-preview
+// Generated from API version 2022-12-01-preview
 //   - options - TenantConfigurationsClientListOptions contains the optional parameters for the TenantConfigurationsClient.NewListPager
 //     method.
 func (client *TenantConfigurationsClient) NewListPager(options *TenantConfigurationsClientListOptions) *runtime.Pager[TenantConfigurationsClientListResponse] {
@@ -239,7 +239,7 @@ func (client *TenantConfigurationsClient) listCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-09-01-preview")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

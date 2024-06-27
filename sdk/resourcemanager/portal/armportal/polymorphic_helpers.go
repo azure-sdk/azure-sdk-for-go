@@ -11,7 +11,7 @@ package armportal
 import "encoding/json"
 
 func unmarshalDashboardPartMetadataClassification(rawMsg json.RawMessage) (DashboardPartMetadataClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
