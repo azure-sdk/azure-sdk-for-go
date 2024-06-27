@@ -947,6 +947,11 @@ type NameAvailabilityCheckResult struct {
 
 // NetworkProperties - The network properties.
 type NetworkProperties struct {
+	// A value to describe how the outbound dependencies of a HDInsight cluster are managed. 'Managed' means that the outbound
+	// dependencies are managed by the HDInsight service. 'External' means that the
+	// outbound dependencies are managed by a customer specific solution.
+	OutboundDependenciesManagedType *OutboundDependenciesManagedType
+
 	// Indicates whether or not private link is enabled.
 	PrivateLink *PrivateLink
 
