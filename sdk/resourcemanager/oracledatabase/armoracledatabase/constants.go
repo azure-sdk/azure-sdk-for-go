@@ -27,6 +27,27 @@ func PossibleActionTypeValues() []ActionType {
 	}
 }
 
+// AddSubscriptionOperationState - Add Subscription Operation state enum
+type AddSubscriptionOperationState string
+
+const (
+	// AddSubscriptionOperationStateFailed - Failed - State when Add Subscription operation failed
+	AddSubscriptionOperationStateFailed AddSubscriptionOperationState = "Failed"
+	// AddSubscriptionOperationStateSucceeded - Succeeded - State when Add Subscription operation succeeded
+	AddSubscriptionOperationStateSucceeded AddSubscriptionOperationState = "Succeeded"
+	// AddSubscriptionOperationStateUpdating - Updating - State when Add Subscription operation is being Updated
+	AddSubscriptionOperationStateUpdating AddSubscriptionOperationState = "Updating"
+)
+
+// PossibleAddSubscriptionOperationStateValues returns the possible values for the AddSubscriptionOperationState const type.
+func PossibleAddSubscriptionOperationStateValues() []AddSubscriptionOperationState {
+	return []AddSubscriptionOperationState{
+		AddSubscriptionOperationStateFailed,
+		AddSubscriptionOperationStateSucceeded,
+		AddSubscriptionOperationStateUpdating,
+	}
+}
+
 // AutonomousDatabaseBackupLifecycleState - Autonomous database backup lifecycle state enum
 type AutonomousDatabaseBackupLifecycleState string
 
