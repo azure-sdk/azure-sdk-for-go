@@ -46,7 +46,7 @@ func NewJavaComponentsClient(subscriptionID string, credential azcore.TokenCrede
 // BeginCreateOrUpdate - Creates or updates a Java Component in a Managed Environment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-02-preview
+// Generated from API version 2024-02-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - name - Name of the Java Component.
@@ -74,7 +74,7 @@ func (client *JavaComponentsClient) BeginCreateOrUpdate(ctx context.Context, res
 // CreateOrUpdate - Creates or updates a Java Component in a Managed Environment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-02-preview
+// Generated from API version 2024-02-02-preview
 func (client *JavaComponentsClient) createOrUpdate(ctx context.Context, resourceGroupName string, environmentName string, name string, javaComponentEnvelope JavaComponent, options *JavaComponentsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "JavaComponentsClient.BeginCreateOrUpdate"
@@ -120,7 +120,7 @@ func (client *JavaComponentsClient) createOrUpdateCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-02-preview")
+	reqQP.Set("api-version", "2024-02-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, javaComponentEnvelope); err != nil {
@@ -132,7 +132,7 @@ func (client *JavaComponentsClient) createOrUpdateCreateRequest(ctx context.Cont
 // BeginDelete - Delete a Java Component.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-02-preview
+// Generated from API version 2024-02-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - name - Name of the Java Component.
@@ -159,7 +159,7 @@ func (client *JavaComponentsClient) BeginDelete(ctx context.Context, resourceGro
 // Delete - Delete a Java Component.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-02-preview
+// Generated from API version 2024-02-02-preview
 func (client *JavaComponentsClient) deleteOperation(ctx context.Context, resourceGroupName string, environmentName string, name string, options *JavaComponentsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "JavaComponentsClient.BeginDelete"
@@ -205,7 +205,7 @@ func (client *JavaComponentsClient) deleteCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-02-preview")
+	reqQP.Set("api-version", "2024-02-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -214,7 +214,7 @@ func (client *JavaComponentsClient) deleteCreateRequest(ctx context.Context, res
 // Get - Get a Java Component.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-02-preview
+// Generated from API version 2024-02-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - name - Name of the Java Component.
@@ -265,7 +265,7 @@ func (client *JavaComponentsClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-02-preview")
+	reqQP.Set("api-version", "2024-02-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -282,7 +282,7 @@ func (client *JavaComponentsClient) getHandleResponse(resp *http.Response) (Java
 
 // NewListPager - Get the Java Components for a managed environment.
 //
-// Generated from API version 2023-11-02-preview
+// Generated from API version 2024-02-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - options - JavaComponentsClientListOptions contains the optional parameters for the JavaComponentsClient.NewListPager method.
@@ -329,7 +329,7 @@ func (client *JavaComponentsClient) listCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-02-preview")
+	reqQP.Set("api-version", "2024-02-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -347,7 +347,7 @@ func (client *JavaComponentsClient) listHandleResponse(resp *http.Response) (Jav
 // BeginUpdate - Patches a Java Component using JSON Merge Patch
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-02-preview
+// Generated from API version 2024-02-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - name - Name of the Java Component.
@@ -374,7 +374,7 @@ func (client *JavaComponentsClient) BeginUpdate(ctx context.Context, resourceGro
 // Update - Patches a Java Component using JSON Merge Patch
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-02-preview
+// Generated from API version 2024-02-02-preview
 func (client *JavaComponentsClient) update(ctx context.Context, resourceGroupName string, environmentName string, name string, javaComponentEnvelope JavaComponent, options *JavaComponentsClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "JavaComponentsClient.BeginUpdate"
@@ -420,7 +420,7 @@ func (client *JavaComponentsClient) updateCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-02-preview")
+	reqQP.Set("api-version", "2024-02-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, javaComponentEnvelope); err != nil {
