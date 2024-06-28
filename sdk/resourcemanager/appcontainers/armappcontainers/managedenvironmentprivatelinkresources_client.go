@@ -20,43 +20,43 @@ import (
 	"strings"
 )
 
-// ManagedEnvironmentUsagesClient contains the methods for the ManagedEnvironmentUsages group.
-// Don't use this type directly, use NewManagedEnvironmentUsagesClient() instead.
-type ManagedEnvironmentUsagesClient struct {
+// ManagedEnvironmentPrivateLinkResourcesClient contains the methods for the ManagedEnvironmentPrivateLinkResources group.
+// Don't use this type directly, use NewManagedEnvironmentPrivateLinkResourcesClient() instead.
+type ManagedEnvironmentPrivateLinkResourcesClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewManagedEnvironmentUsagesClient creates a new instance of ManagedEnvironmentUsagesClient with the specified values.
+// NewManagedEnvironmentPrivateLinkResourcesClient creates a new instance of ManagedEnvironmentPrivateLinkResourcesClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewManagedEnvironmentUsagesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ManagedEnvironmentUsagesClient, error) {
+func NewManagedEnvironmentPrivateLinkResourcesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ManagedEnvironmentPrivateLinkResourcesClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &ManagedEnvironmentUsagesClient{
+	client := &ManagedEnvironmentPrivateLinkResourcesClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// NewListPager - Gets the current usage information as well as the limits for environment.
+// NewListPager - List private link resources for a given managed environment.
 //
 // Generated from API version 2024-08-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - environmentName - Name of the Environment.
-//   - options - ManagedEnvironmentUsagesClientListOptions contains the optional parameters for the ManagedEnvironmentUsagesClient.NewListPager
+//   - environmentName - Name of the Managed Environment.
+//   - options - ManagedEnvironmentPrivateLinkResourcesClientListOptions contains the optional parameters for the ManagedEnvironmentPrivateLinkResourcesClient.NewListPager
 //     method.
-func (client *ManagedEnvironmentUsagesClient) NewListPager(resourceGroupName string, environmentName string, options *ManagedEnvironmentUsagesClientListOptions) *runtime.Pager[ManagedEnvironmentUsagesClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[ManagedEnvironmentUsagesClientListResponse]{
-		More: func(page ManagedEnvironmentUsagesClientListResponse) bool {
+func (client *ManagedEnvironmentPrivateLinkResourcesClient) NewListPager(resourceGroupName string, environmentName string, options *ManagedEnvironmentPrivateLinkResourcesClientListOptions) *runtime.Pager[ManagedEnvironmentPrivateLinkResourcesClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ManagedEnvironmentPrivateLinkResourcesClientListResponse]{
+		More: func(page ManagedEnvironmentPrivateLinkResourcesClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *ManagedEnvironmentUsagesClientListResponse) (ManagedEnvironmentUsagesClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ManagedEnvironmentUsagesClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *ManagedEnvironmentPrivateLinkResourcesClientListResponse) (ManagedEnvironmentPrivateLinkResourcesClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ManagedEnvironmentPrivateLinkResourcesClient.NewListPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
@@ -65,7 +65,7 @@ func (client *ManagedEnvironmentUsagesClient) NewListPager(resourceGroupName str
 				return client.listCreateRequest(ctx, resourceGroupName, environmentName, options)
 			}, nil)
 			if err != nil {
-				return ManagedEnvironmentUsagesClientListResponse{}, err
+				return ManagedEnvironmentPrivateLinkResourcesClientListResponse{}, err
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -74,8 +74,8 @@ func (client *ManagedEnvironmentUsagesClient) NewListPager(resourceGroupName str
 }
 
 // listCreateRequest creates the List request.
-func (client *ManagedEnvironmentUsagesClient) listCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, options *ManagedEnvironmentUsagesClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}/usages"
+func (client *ManagedEnvironmentPrivateLinkResourcesClient) listCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, options *ManagedEnvironmentPrivateLinkResourcesClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}/privateLinkResources"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -100,10 +100,10 @@ func (client *ManagedEnvironmentUsagesClient) listCreateRequest(ctx context.Cont
 }
 
 // listHandleResponse handles the List response.
-func (client *ManagedEnvironmentUsagesClient) listHandleResponse(resp *http.Response) (ManagedEnvironmentUsagesClientListResponse, error) {
-	result := ManagedEnvironmentUsagesClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ListUsagesResult); err != nil {
-		return ManagedEnvironmentUsagesClientListResponse{}, err
+func (client *ManagedEnvironmentPrivateLinkResourcesClient) listHandleResponse(resp *http.Response) (ManagedEnvironmentPrivateLinkResourcesClientListResponse, error) {
+	result := ManagedEnvironmentPrivateLinkResourcesClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.PrivateLinkResourceListResult); err != nil {
+		return ManagedEnvironmentPrivateLinkResourcesClientListResponse{}, err
 	}
 	return result, nil
 }
