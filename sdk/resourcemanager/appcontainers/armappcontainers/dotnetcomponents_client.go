@@ -46,7 +46,7 @@ func NewDotNetComponentsClient(subscriptionID string, credential azcore.TokenCre
 // BeginCreateOrUpdate - Creates or updates a .NET Component in a Managed Environment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-02-preview
+// Generated from API version 2024-02-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - name - Name of the .NET Component.
@@ -74,7 +74,7 @@ func (client *DotNetComponentsClient) BeginCreateOrUpdate(ctx context.Context, r
 // CreateOrUpdate - Creates or updates a .NET Component in a Managed Environment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-02-preview
+// Generated from API version 2024-02-02-preview
 func (client *DotNetComponentsClient) createOrUpdate(ctx context.Context, resourceGroupName string, environmentName string, name string, dotNetComponentEnvelope DotNetComponent, options *DotNetComponentsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DotNetComponentsClient.BeginCreateOrUpdate"
@@ -120,7 +120,7 @@ func (client *DotNetComponentsClient) createOrUpdateCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-02-preview")
+	reqQP.Set("api-version", "2024-02-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, dotNetComponentEnvelope); err != nil {
@@ -132,7 +132,7 @@ func (client *DotNetComponentsClient) createOrUpdateCreateRequest(ctx context.Co
 // BeginDelete - Delete a .NET Component.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-02-preview
+// Generated from API version 2024-02-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - name - Name of the .NET Component.
@@ -159,7 +159,7 @@ func (client *DotNetComponentsClient) BeginDelete(ctx context.Context, resourceG
 // Delete - Delete a .NET Component.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-02-preview
+// Generated from API version 2024-02-02-preview
 func (client *DotNetComponentsClient) deleteOperation(ctx context.Context, resourceGroupName string, environmentName string, name string, options *DotNetComponentsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DotNetComponentsClient.BeginDelete"
@@ -205,7 +205,7 @@ func (client *DotNetComponentsClient) deleteCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-02-preview")
+	reqQP.Set("api-version", "2024-02-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -214,7 +214,7 @@ func (client *DotNetComponentsClient) deleteCreateRequest(ctx context.Context, r
 // Get - Get a .NET Component.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-02-preview
+// Generated from API version 2024-02-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - name - Name of the .NET Component.
@@ -265,7 +265,7 @@ func (client *DotNetComponentsClient) getCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-02-preview")
+	reqQP.Set("api-version", "2024-02-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -282,7 +282,7 @@ func (client *DotNetComponentsClient) getHandleResponse(resp *http.Response) (Do
 
 // NewListPager - Get the .NET Components for a managed environment.
 //
-// Generated from API version 2023-11-02-preview
+// Generated from API version 2024-02-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - options - DotNetComponentsClientListOptions contains the optional parameters for the DotNetComponentsClient.NewListPager
@@ -330,7 +330,7 @@ func (client *DotNetComponentsClient) listCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-02-preview")
+	reqQP.Set("api-version", "2024-02-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -348,7 +348,7 @@ func (client *DotNetComponentsClient) listHandleResponse(resp *http.Response) (D
 // BeginUpdate - Patches a .NET Component using JSON Merge Patch
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-02-preview
+// Generated from API version 2024-02-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - name - Name of the .NET Component.
@@ -375,7 +375,7 @@ func (client *DotNetComponentsClient) BeginUpdate(ctx context.Context, resourceG
 // Update - Patches a .NET Component using JSON Merge Patch
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-02-preview
+// Generated from API version 2024-02-02-preview
 func (client *DotNetComponentsClient) update(ctx context.Context, resourceGroupName string, environmentName string, name string, dotNetComponentEnvelope DotNetComponent, options *DotNetComponentsClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DotNetComponentsClient.BeginUpdate"
@@ -421,7 +421,7 @@ func (client *DotNetComponentsClient) updateCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-02-preview")
+	reqQP.Set("api-version", "2024-02-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, dotNetComponentEnvelope); err != nil {
