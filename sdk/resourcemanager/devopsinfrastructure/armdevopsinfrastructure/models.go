@@ -431,29 +431,17 @@ type PoolUpdateProperties struct {
 
 // Quota - Describes Resource Quota
 type Quota struct {
-	// The resource-specific properties for this resource.
-	Properties *QuotaProperties
+	// REQUIRED; The current usage of the resource.
+	CurrentValue *int64
 
-	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
-	ID *string
+	// REQUIRED; The maximum permitted usage of the resource.
+	Limit *int64
 
-	// READ-ONLY; The name of the resource
-	Name *string
+	// REQUIRED; The unit of usage measurement.
+	Unit *string
 
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// QuotaListResult - The response of a Quota list operation.
-type QuotaListResult struct {
-	// REQUIRED; The Quota items on this page
-	Value []*Quota
-
-	// The link to the next page of items
-	NextLink *string
+	// READ-ONLY; The name of the quota.
+	Name *QuotaName
 }
 
 // QuotaName - The Quota Names
@@ -463,21 +451,6 @@ type QuotaName struct {
 
 	// The name of the resource.
 	Value *string
-}
-
-// QuotaProperties - Describes Resource Quota properties
-type QuotaProperties struct {
-	// REQUIRED; The current usage of the resource.
-	CurrentValue *int64
-
-	// REQUIRED; The maximum permitted usage of the resource.
-	Limit *int64
-
-	// REQUIRED; The details of the quota.
-	Name *QuotaName
-
-	// REQUIRED; The unit of usage measurement.
-	Unit *string
 }
 
 // ResourceDetailsObject - A ResourceDetailsObject
@@ -517,6 +490,15 @@ type ResourceDetailsObjectProperties struct {
 
 	// REQUIRED; The status of the resource.
 	Status *ResourceStatus
+}
+
+// ResourceListResult - The response of a Quota list operation.
+type ResourceListResult struct {
+	// REQUIRED; The Quota items on this page
+	Value []*Quota
+
+	// The link to the next page of items
+	NextLink *string
 }
 
 // ResourcePredictionsProfile - Determines how the stand-by scheme should be provided.

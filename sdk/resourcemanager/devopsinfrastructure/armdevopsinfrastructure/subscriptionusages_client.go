@@ -10,46 +10,39 @@ package armdevopsinfrastructure
 
 import (
 	"context"
-	"errors"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
-	"net/url"
-	"strings"
 )
 
 // SubscriptionUsagesClient contains the methods for the SubscriptionUsages group.
 // Don't use this type directly, use NewSubscriptionUsagesClient() instead.
 type SubscriptionUsagesClient struct {
-	internal       *arm.Client
-	subscriptionID string
+	internal *arm.Client
 }
 
 // NewSubscriptionUsagesClient creates a new instance of SubscriptionUsagesClient with the specified values.
-//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewSubscriptionUsagesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SubscriptionUsagesClient, error) {
+func NewSubscriptionUsagesClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*SubscriptionUsagesClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	client := &SubscriptionUsagesClient{
-		subscriptionID: subscriptionID,
-		internal:       cl,
+		internal: cl,
 	}
 	return client, nil
 }
 
-// NewListByLocationPager - List Quota resources by subscription ID
+// NewListByLocationPager - Returns quotas by location
 //
 // Generated from API version 2024-04-04-preview
-//   - locationName - Name of the location.
 //   - options - SubscriptionUsagesClientListByLocationOptions contains the optional parameters for the SubscriptionUsagesClient.NewListByLocationPager
 //     method.
-func (client *SubscriptionUsagesClient) NewListByLocationPager(locationName string, options *SubscriptionUsagesClientListByLocationOptions) *runtime.Pager[SubscriptionUsagesClientListByLocationResponse] {
+func (client *SubscriptionUsagesClient) NewListByLocationPager(options *SubscriptionUsagesClientListByLocationOptions) *runtime.Pager[SubscriptionUsagesClientListByLocationResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SubscriptionUsagesClientListByLocationResponse]{
 		More: func(page SubscriptionUsagesClientListByLocationResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
@@ -61,7 +54,7 @@ func (client *SubscriptionUsagesClient) NewListByLocationPager(locationName stri
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listByLocationCreateRequest(ctx, locationName, options)
+				return client.listByLocationCreateRequest(ctx, options)
 			}, nil)
 			if err != nil {
 				return SubscriptionUsagesClientListByLocationResponse{}, err
@@ -73,17 +66,9 @@ func (client *SubscriptionUsagesClient) NewListByLocationPager(locationName stri
 }
 
 // listByLocationCreateRequest creates the ListByLocation request.
-func (client *SubscriptionUsagesClient) listByLocationCreateRequest(ctx context.Context, locationName string, options *SubscriptionUsagesClientListByLocationOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.DevOpsInfrastructure/locations/{locationName}/usages"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	if locationName == "" {
-		return nil, errors.New("parameter locationName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{locationName}", url.PathEscape(locationName))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+func (client *SubscriptionUsagesClient) listByLocationCreateRequest(ctx context.Context, options *SubscriptionUsagesClientListByLocationOptions) (*policy.Request, error) {
+	urlPath := "/listByLocation"
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
@@ -97,7 +82,7 @@ func (client *SubscriptionUsagesClient) listByLocationCreateRequest(ctx context.
 // listByLocationHandleResponse handles the ListByLocation response.
 func (client *SubscriptionUsagesClient) listByLocationHandleResponse(resp *http.Response) (SubscriptionUsagesClientListByLocationResponse, error) {
 	result := SubscriptionUsagesClientListByLocationResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.QuotaListResult); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.ResourceListResult); err != nil {
 		return SubscriptionUsagesClientListByLocationResponse{}, err
 	}
 	return result, nil

@@ -17,15 +17,13 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/devopsinfrastructure/armdevopsinfrastructure"
 	"net/http"
-	"net/url"
-	"regexp"
 )
 
 // SubscriptionUsagesServer is a fake server for instances of the armdevopsinfrastructure.SubscriptionUsagesClient type.
 type SubscriptionUsagesServer struct {
 	// NewListByLocationPager is the fake for method SubscriptionUsagesClient.NewListByLocationPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListByLocationPager func(locationName string, options *armdevopsinfrastructure.SubscriptionUsagesClientListByLocationOptions) (resp azfake.PagerResponder[armdevopsinfrastructure.SubscriptionUsagesClientListByLocationResponse])
+	NewListByLocationPager func(options *armdevopsinfrastructure.SubscriptionUsagesClientListByLocationOptions) (resp azfake.PagerResponder[armdevopsinfrastructure.SubscriptionUsagesClientListByLocationResponse])
 }
 
 // NewSubscriptionUsagesServerTransport creates a new instance of SubscriptionUsagesServerTransport with the provided implementation.
@@ -76,17 +74,7 @@ func (s *SubscriptionUsagesServerTransport) dispatchNewListByLocationPager(req *
 	}
 	newListByLocationPager := s.newListByLocationPager.get(req)
 	if newListByLocationPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DevOpsInfrastructure/locations/(?P<locationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/usages`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 2 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		locationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("locationName")])
-		if err != nil {
-			return nil, err
-		}
-		resp := s.srv.NewListByLocationPager(locationNameParam, nil)
+		resp := s.srv.NewListByLocationPager(nil)
 		newListByLocationPager = &resp
 		s.newListByLocationPager.add(req, newListByLocationPager)
 		server.PagerResponderInjectNextLinks(newListByLocationPager, req, func(page *armdevopsinfrastructure.SubscriptionUsagesClientListByLocationResponse, createLink func() string) {
