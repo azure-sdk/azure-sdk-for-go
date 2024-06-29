@@ -8,9 +8,113 @@
 
 package armagrifood
 
-// ExtensionsClientCreateOptions contains the optional parameters for the ExtensionsClient.Create method.
-type ExtensionsClientCreateOptions struct {
+import "time"
+
+// CheckNameAvailabilityClientCheckNameAvailabilityOptions contains the optional parameters for the CheckNameAvailabilityClient.CheckNameAvailability
+// method.
+type CheckNameAvailabilityClientCheckNameAvailabilityOptions struct {
 	// placeholder for future optional parameters
+}
+
+// DataConnectorsClientCreateOrUpdateOptions contains the optional parameters for the DataConnectorsClient.CreateOrUpdate
+// method.
+type DataConnectorsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DataConnectorsClientDeleteOptions contains the optional parameters for the DataConnectorsClient.Delete method.
+type DataConnectorsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DataConnectorsClientGetOptions contains the optional parameters for the DataConnectorsClient.Get method.
+type DataConnectorsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DataConnectorsClientListOptions contains the optional parameters for the DataConnectorsClient.NewListPager method.
+type DataConnectorsClientListOptions struct {
+	// Maximum number of items needed (inclusive). Minimum = 10, Maximum = 1000, Default value = 50.
+	MaxPageSize *int32
+
+	// Continuation token for getting next set of results.
+	SkipToken *string
+}
+
+// DataManagerForAgricultureExtensionsClientGetOptions contains the optional parameters for the DataManagerForAgricultureExtensionsClient.Get
+// method.
+type DataManagerForAgricultureExtensionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DataManagerForAgricultureExtensionsClientListOptions contains the optional parameters for the DataManagerForAgricultureExtensionsClient.NewListPager
+// method.
+type DataManagerForAgricultureExtensionsClientListOptions struct {
+	// Extension categories.
+	ExtensionCategories []string
+
+	// DataManagerForAgricultureExtension ids.
+	FarmBeatsExtensionIDs []string
+
+	// DataManagerForAgriculture extension names.
+	FarmBeatsExtensionNames []string
+
+	// Maximum number of items needed (inclusive). Minimum = 10, Maximum = 1000, Default value = 50.
+	MaxPageSize *int32
+
+	// Publisher ids.
+	PublisherIDs []string
+}
+
+// DataManagerForAgricultureResourcesClientBeginUpdateOptions contains the optional parameters for the DataManagerForAgricultureResourcesClient.BeginUpdate
+// method.
+type DataManagerForAgricultureResourcesClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// DataManagerForAgricultureResourcesClientCreateOrUpdateOptions contains the optional parameters for the DataManagerForAgricultureResourcesClient.CreateOrUpdate
+// method.
+type DataManagerForAgricultureResourcesClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DataManagerForAgricultureResourcesClientDeleteOptions contains the optional parameters for the DataManagerForAgricultureResourcesClient.Delete
+// method.
+type DataManagerForAgricultureResourcesClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DataManagerForAgricultureResourcesClientGetOptions contains the optional parameters for the DataManagerForAgricultureResourcesClient.Get
+// method.
+type DataManagerForAgricultureResourcesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DataManagerForAgricultureResourcesClientListByResourceGroupOptions contains the optional parameters for the DataManagerForAgricultureResourcesClient.NewListByResourceGroupPager
+// method.
+type DataManagerForAgricultureResourcesClientListByResourceGroupOptions struct {
+	// Maximum number of items needed (inclusive). Minimum = 10, Maximum = 1000, Default value = 50.
+	MaxPageSize *int32
+
+	// Continuation token for getting next set of results.
+	SkipToken *string
+}
+
+// DataManagerForAgricultureResourcesClientListBySubscriptionOptions contains the optional parameters for the DataManagerForAgricultureResourcesClient.NewListBySubscriptionPager
+// method.
+type DataManagerForAgricultureResourcesClientListBySubscriptionOptions struct {
+	// Maximum number of items needed (inclusive). Minimum = 10, Maximum = 1000, Default value = 50.
+	MaxPageSize *int32
+
+	// Skip token for getting next set of results.
+	SkipToken *string
+}
+
+// ExtensionsClientCreateOrUpdateOptions contains the optional parameters for the ExtensionsClient.CreateOrUpdate method.
+type ExtensionsClientCreateOrUpdateOptions struct {
+	// Extension resource request body.
+	RequestBody *ExtensionInstallationRequest
 }
 
 // ExtensionsClientDeleteOptions contains the optional parameters for the ExtensionsClient.Delete method.
@@ -23,9 +127,9 @@ type ExtensionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ExtensionsClientListByFarmBeatsOptions contains the optional parameters for the ExtensionsClient.NewListByFarmBeatsPager
+// ExtensionsClientListByDataManagerForAgricultureOptions contains the optional parameters for the ExtensionsClient.NewListByDataManagerForAgriculturePager
 // method.
-type ExtensionsClientListByFarmBeatsOptions struct {
+type ExtensionsClientListByDataManagerForAgricultureOptions struct {
 	// Installed extension categories.
 	ExtensionCategories []string
 
@@ -39,85 +143,8 @@ type ExtensionsClientListByFarmBeatsOptions struct {
 	SkipToken *string
 }
 
-// ExtensionsClientUpdateOptions contains the optional parameters for the ExtensionsClient.Update method.
-type ExtensionsClientUpdateOptions struct {
-	// placeholder for future optional parameters
-}
-
-// FarmBeatsExtensionsClientGetOptions contains the optional parameters for the FarmBeatsExtensionsClient.Get method.
-type FarmBeatsExtensionsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// FarmBeatsExtensionsClientListOptions contains the optional parameters for the FarmBeatsExtensionsClient.NewListPager method.
-type FarmBeatsExtensionsClientListOptions struct {
-	// Extension categories.
-	ExtensionCategories []string
-
-	// FarmBeatsExtension ids.
-	FarmBeatsExtensionIDs []string
-
-	// FarmBeats extension names.
-	FarmBeatsExtensionNames []string
-
-	// Maximum number of items needed (inclusive). Minimum = 10, Maximum = 1000, Default value = 50.
-	MaxPageSize *int32
-
-	// Publisher ids.
-	PublisherIDs []string
-}
-
-// FarmBeatsModelsClientBeginUpdateOptions contains the optional parameters for the FarmBeatsModelsClient.BeginUpdate method.
-type FarmBeatsModelsClientBeginUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// FarmBeatsModelsClientCreateOrUpdateOptions contains the optional parameters for the FarmBeatsModelsClient.CreateOrUpdate
-// method.
-type FarmBeatsModelsClientCreateOrUpdateOptions struct {
-	// placeholder for future optional parameters
-}
-
-// FarmBeatsModelsClientDeleteOptions contains the optional parameters for the FarmBeatsModelsClient.Delete method.
-type FarmBeatsModelsClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
-// FarmBeatsModelsClientGetOperationResultOptions contains the optional parameters for the FarmBeatsModelsClient.GetOperationResult
-// method.
-type FarmBeatsModelsClientGetOperationResultOptions struct {
-	// placeholder for future optional parameters
-}
-
-// FarmBeatsModelsClientGetOptions contains the optional parameters for the FarmBeatsModelsClient.Get method.
-type FarmBeatsModelsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// FarmBeatsModelsClientListByResourceGroupOptions contains the optional parameters for the FarmBeatsModelsClient.NewListByResourceGroupPager
-// method.
-type FarmBeatsModelsClientListByResourceGroupOptions struct {
-	// Maximum number of items needed (inclusive). Minimum = 10, Maximum = 1000, Default value = 50.
-	MaxPageSize *int32
-
-	// Continuation token for getting next set of results.
-	SkipToken *string
-}
-
-// FarmBeatsModelsClientListBySubscriptionOptions contains the optional parameters for the FarmBeatsModelsClient.NewListBySubscriptionPager
-// method.
-type FarmBeatsModelsClientListBySubscriptionOptions struct {
-	// Maximum number of items needed (inclusive). Minimum = 10, Maximum = 1000, Default value = 50.
-	MaxPageSize *int32
-
-	// Skip token for getting next set of results.
-	SkipToken *string
-}
-
-// LocationsClientCheckNameAvailabilityOptions contains the optional parameters for the LocationsClient.CheckNameAvailability
-// method.
-type LocationsClientCheckNameAvailabilityOptions struct {
+// OperationResultsClientGetOptions contains the optional parameters for the OperationResultsClient.Get method.
+type OperationResultsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -145,7 +172,7 @@ type PrivateEndpointConnectionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateEndpointConnectionsClientListByResourceOptions contains the optional parameters for the PrivateEndpointConnectionsClient.NewListByResourcePager
+// PrivateEndpointConnectionsClientListByResourceOptions contains the optional parameters for the PrivateEndpointConnectionsClient.ListByResource
 // method.
 type PrivateEndpointConnectionsClientListByResourceOptions struct {
 	// placeholder for future optional parameters
@@ -156,8 +183,78 @@ type PrivateLinkResourcesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateLinkResourcesClientListByResourceOptions contains the optional parameters for the PrivateLinkResourcesClient.NewListByResourcePager
+// PrivateLinkResourcesClientListByResourceOptions contains the optional parameters for the PrivateLinkResourcesClient.ListByResource
 // method.
 type PrivateLinkResourcesClientListByResourceOptions struct {
 	// placeholder for future optional parameters
+}
+
+// SolutionsClientCreateOrUpdateOptions contains the optional parameters for the SolutionsClient.CreateOrUpdate method.
+type SolutionsClientCreateOrUpdateOptions struct {
+	// Solution resource request body.
+	RequestBody *Solution
+}
+
+// SolutionsClientDeleteOptions contains the optional parameters for the SolutionsClient.Delete method.
+type SolutionsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SolutionsClientGetOptions contains the optional parameters for the SolutionsClient.Get method.
+type SolutionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SolutionsClientListOptions contains the optional parameters for the SolutionsClient.NewListPager method.
+type SolutionsClientListOptions struct {
+	// Ids of the resource.
+	IDs []string
+
+	// Maximum creation date of resource (inclusive).
+	MaxCreatedDateTime *time.Time
+
+	// Maximum last modified date of resource (inclusive).
+	MaxLastModifiedDateTime *time.Time
+
+	// Maximum number of items needed (inclusive). Minimum = 10, Maximum = 1000, Default value = 50.
+	MaxPageSize *int32
+
+	// Minimum creation date of resource (inclusive).
+	MinCreatedDateTime *time.Time
+
+	// Minimum last modified date of resource (inclusive).
+	MinLastModifiedDateTime *time.Time
+
+	// Names of the resource.
+	Names []string
+
+	// Filters on key-value pairs within the Properties object. eg. "{testKey} eq {testValue}".
+	PropertyFilters []string
+
+	// Skip token for getting next set of results.
+	SkipToken *string
+
+	// Installed Solution ids.
+	SolutionIDs []string
+
+	// Statuses of the resource.
+	Statuses []string
+}
+
+// SolutionsDiscoverabilityClientGetOptions contains the optional parameters for the SolutionsDiscoverabilityClient.Get method.
+type SolutionsDiscoverabilityClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SolutionsDiscoverabilityClientListOptions contains the optional parameters for the SolutionsDiscoverabilityClient.NewListPager
+// method.
+type SolutionsDiscoverabilityClientListOptions struct {
+	// Ids of Data Manager For Agriculture Solutions which the customer requests to fetch.
+	FarmBeatsSolutionIDs []string
+
+	// Names of Data Manager For Agriculture Solutions which the customer requests to fetch.
+	FarmBeatsSolutionNames []string
+
+	// Maximum number of items needed (inclusive). Minimum = 10, Maximum = 1000, Default value = 50.
+	MaxPageSize *int32
 }
