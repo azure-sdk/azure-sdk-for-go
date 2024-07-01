@@ -7406,6 +7406,18 @@ type ConnectionStateProperties struct {
 	Status *string
 }
 
+// ContinuationSettingsReference - Continuation settings for execute data flow activity.
+type ContinuationSettingsReference struct {
+	// Continuation TTL in minutes.
+	ContinuationTTLInMinutes any
+
+	// Customized checkpoint key.
+	CustomizedCheckpointKey any
+
+	// Idle condition.
+	IdleCondition any
+}
+
 // ControlActivity - Base class for all control activities like IfCondition, ForEach , Until.
 type ControlActivity struct {
 	// REQUIRED; Activity name.
@@ -11342,6 +11354,9 @@ type ExecuteDataFlowActivityTypeProperties struct {
 	// Compute properties for data flow activity.
 	Compute *ExecuteDataFlowActivityTypePropertiesCompute
 
+	// Continuation settings for execute data flow activity.
+	ContinuationSettings *ContinuationSettingsReference
+
 	// Continue on error setting used for data flow execution. Enables processing to continue if a sink fails. Type: boolean (or
 	// Expression with resultType boolean)
 	ContinueOnError any
@@ -11465,6 +11480,9 @@ type ExecutePowerQueryActivityTypeProperties struct {
 
 	// Compute properties for data flow activity.
 	Compute *ExecuteDataFlowActivityTypePropertiesCompute
+
+	// Continuation settings for execute data flow activity.
+	ContinuationSettings *ContinuationSettingsReference
 
 	// Continue on error setting used for data flow execution. Enables processing to continue if a sink fails. Type: boolean (or
 	// Expression with resultType boolean)
@@ -23984,6 +24002,9 @@ type SQLServerLinkedServiceTypeProperties struct {
 	// The connection string. Type: string, SecureString or AzureKeyVaultSecretReference.
 	ConnectionString any
 
+	// The credential reference containing authentication information.
+	Credential *CredentialReference
+
 	// The name of the database, used by recommended version. Type: string (or Expression with resultType string).
 	Database any
 
@@ -28708,6 +28729,10 @@ type SnowflakeExportCopyCommand struct {
 
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
 	AdditionalProperties map[string]any
+
+	// The name of the snowflake storage integration to use for the copy operation. Type: string (or Expression with resultType
+	// string).
+	StorageIntegration any
 }
 
 // GetExportSettings implements the ExportSettingsClassification interface for type SnowflakeExportCopyCommand.
@@ -28735,6 +28760,10 @@ type SnowflakeImportCopyCommand struct {
 
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
 	AdditionalProperties map[string]any
+
+	// The name of the snowflake storage integration to use for the copy operation. Type: string (or Expression with resultType
+	// string).
+	StorageIntegration any
 }
 
 // GetImportSettings implements the ImportSettingsClassification interface for type SnowflakeImportCopyCommand.
@@ -31278,12 +31307,27 @@ type VerticaLinkedServiceTypeProperties struct {
 	// An ODBC connection string. Type: string, SecureString or AzureKeyVaultSecretReference.
 	ConnectionString any
 
+	// Database name for connection. Type: string.
+	Database any
+
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string.
-	EncryptedCredential *string
+	// Type: string (or Expression with resultType string).
+	EncryptedCredential any
 
 	// The Azure key vault secret reference of password in connection string.
-	Pwd *AzureKeyVaultSecretReference
+	Password *AzureKeyVaultSecretReference
+
+	// The port for the connection. Type: integer.
+	Port any
+
+	// Server name for connection. Type: string.
+	Server any
+
+	// Username for authentication. Type: string.
+	Username any
+
+	// The version of the Vertica driver. Type: string.
+	Version any
 }
 
 // VerticaSource - A copy activity Vertica source.

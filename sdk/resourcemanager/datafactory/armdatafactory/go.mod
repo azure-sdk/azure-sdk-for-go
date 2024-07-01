@@ -1,10 +1,9 @@
-module github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datafactory/armdatafactory/v8
+module github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datafactory/armdatafactory/v9
 
 go 1.18
 
 require (
 	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.12.0
-	github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.6.0
 	github.com/Azure/azure-sdk-for-go/sdk/internal v1.9.0
 	github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/internal/v3 v3.0.0
 	github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources v1.2.0
@@ -12,6 +11,7 @@ require (
 )
 
 require (
+	github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.6.0 // indirect
 	github.com/AzureAD/microsoft-authentication-library-for-go v1.2.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/golang-jwt/jwt/v5 v5.2.1 // indirect

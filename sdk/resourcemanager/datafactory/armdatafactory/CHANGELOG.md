@@ -1,5 +1,23 @@
 # Release History
 
+## 9.0.0 (2024-07-01)
+### Breaking Changes
+
+- Field `Pwd` of struct `VerticaLinkedServiceTypeProperties` has been removed
+
+### Features Added
+
+- Type of `VerticaLinkedServiceTypeProperties.EncryptedCredential` has been changed from `*string` to `any`
+- New value `SQLServerAuthenticationTypeUserAssignedManagedIdentity` added to enum type `SQLServerAuthenticationType`
+- New struct `ContinuationSettingsReference`
+- New field `ContinuationSettings` in struct `ExecuteDataFlowActivityTypeProperties`
+- New field `ContinuationSettings` in struct `ExecutePowerQueryActivityTypeProperties`
+- New field `Credential` in struct `SQLServerLinkedServiceTypeProperties`
+- New field `StorageIntegration` in struct `SnowflakeExportCopyCommand`
+- New field `StorageIntegration` in struct `SnowflakeImportCopyCommand`
+- New field `Database`, `Password`, `Port`, `Server`, `Username`, `Version` in struct `VerticaLinkedServiceTypeProperties`
+
+
 ## 8.0.0 (2024-06-05)
 ### Breaking Changes
 
