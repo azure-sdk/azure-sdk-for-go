@@ -467,11 +467,6 @@ type ManagedVirtualNetworksClientListByFactoryOptions struct {
 	// placeholder for future optional parameters
 }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
-type OperationsClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
 // PipelineRunsClientCancelOptions contains the optional parameters for the PipelineRunsClient.Cancel method.
 type PipelineRunsClientCancelOptions struct {
 	// If true, cancel all the Child pipelines that are triggered by the current pipeline.
