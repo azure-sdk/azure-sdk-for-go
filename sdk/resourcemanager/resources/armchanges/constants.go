@@ -10,7 +10,7 @@ package armchanges
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armchanges"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v1.2.1"
 )
 
 // ChangeCategory - The entity that made the change
