@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/reservations/armreservations/v3"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/reservations/armreservations/v4"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -28,10 +28,6 @@ type ReservationServer struct {
 	// Archive is the fake for method ReservationClient.Archive
 	// HTTP status codes to indicate success: http.StatusOK
 	Archive func(ctx context.Context, reservationOrderID string, reservationID string, options *armreservations.ReservationClientArchiveOptions) (resp azfake.Responder[armreservations.ReservationClientArchiveResponse], errResp azfake.ErrorResponder)
-
-	// BeginAvailableScopes is the fake for method ReservationClient.BeginAvailableScopes
-	// HTTP status codes to indicate success: http.StatusOK
-	BeginAvailableScopes func(ctx context.Context, reservationOrderID string, reservationID string, body armreservations.AvailableScopeRequest, options *armreservations.ReservationClientBeginAvailableScopesOptions) (resp azfake.PollerResponder[armreservations.ReservationClientAvailableScopesResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method ReservationClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
@@ -72,7 +68,6 @@ type ReservationServer struct {
 func NewReservationServerTransport(srv *ReservationServer) *ReservationServerTransport {
 	return &ReservationServerTransport{
 		srv:                   srv,
-		beginAvailableScopes:  newTracker[azfake.PollerResponder[armreservations.ReservationClientAvailableScopesResponse]](),
 		newListPager:          newTracker[azfake.PagerResponder[armreservations.ReservationClientListResponse]](),
 		newListAllPager:       newTracker[azfake.PagerResponder[armreservations.ReservationClientListAllResponse]](),
 		newListRevisionsPager: newTracker[azfake.PagerResponder[armreservations.ReservationClientListRevisionsResponse]](),
@@ -86,7 +81,6 @@ func NewReservationServerTransport(srv *ReservationServer) *ReservationServerTra
 // Don't use this type directly, use NewReservationServerTransport instead.
 type ReservationServerTransport struct {
 	srv                   *ReservationServer
-	beginAvailableScopes  *tracker[azfake.PollerResponder[armreservations.ReservationClientAvailableScopesResponse]]
 	newListPager          *tracker[azfake.PagerResponder[armreservations.ReservationClientListResponse]]
 	newListAllPager       *tracker[azfake.PagerResponder[armreservations.ReservationClientListAllResponse]]
 	newListRevisionsPager *tracker[azfake.PagerResponder[armreservations.ReservationClientListRevisionsResponse]]
@@ -109,8 +103,6 @@ func (r *ReservationServerTransport) Do(req *http.Request) (*http.Response, erro
 	switch method {
 	case "ReservationClient.Archive":
 		resp, err = r.dispatchArchive(req)
-	case "ReservationClient.BeginAvailableScopes":
-		resp, err = r.dispatchBeginAvailableScopes(req)
 	case "ReservationClient.Get":
 		resp, err = r.dispatchGet(req)
 	case "ReservationClient.NewListPager":
@@ -168,54 +160,6 @@ func (r *ReservationServerTransport) dispatchArchive(req *http.Request) (*http.R
 	if err != nil {
 		return nil, err
 	}
-	return resp, nil
-}
-
-func (r *ReservationServerTransport) dispatchBeginAvailableScopes(req *http.Request) (*http.Response, error) {
-	if r.srv.BeginAvailableScopes == nil {
-		return nil, &nonRetriableError{errors.New("fake for method BeginAvailableScopes not implemented")}
-	}
-	beginAvailableScopes := r.beginAvailableScopes.get(req)
-	if beginAvailableScopes == nil {
-		const regexStr = `/providers/Microsoft\.Capacity/reservationOrders/(?P<reservationOrderId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/reservations/(?P<reservationId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/availableScopes`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 2 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		body, err := server.UnmarshalRequestAsJSON[armreservations.AvailableScopeRequest](req)
-		if err != nil {
-			return nil, err
-		}
-		reservationOrderIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("reservationOrderId")])
-		if err != nil {
-			return nil, err
-		}
-		reservationIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("reservationId")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := r.srv.BeginAvailableScopes(req.Context(), reservationOrderIDParam, reservationIDParam, body, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
-		beginAvailableScopes = &respr
-		r.beginAvailableScopes.add(req, beginAvailableScopes)
-	}
-
-	resp, err := server.PollerResponderNext(beginAvailableScopes, req)
-	if err != nil {
-		return nil, err
-	}
-
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		r.beginAvailableScopes.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
-	}
-	if !server.PollerResponderMore(beginAvailableScopes) {
-		r.beginAvailableScopes.remove(req)
-	}
-
 	return resp, nil
 }
 
