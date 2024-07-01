@@ -91,82 +91,6 @@ func (client *ReservationClient) archiveCreateRequest(ctx context.Context, reser
 	return req, nil
 }
 
-// BeginAvailableScopes - Check whether the scopes from request is valid for Reservation.
-// If the operation fails it returns an *azcore.ResponseError type.
-//
-// Generated from API version 2022-11-01
-//   - reservationOrderID - Order Id of the reservation
-//   - reservationID - Id of the reservation item
-//   - body - Scopes to be checked for eligibility.
-//   - options - ReservationClientBeginAvailableScopesOptions contains the optional parameters for the ReservationClient.BeginAvailableScopes
-//     method.
-func (client *ReservationClient) BeginAvailableScopes(ctx context.Context, reservationOrderID string, reservationID string, body AvailableScopeRequest, options *ReservationClientBeginAvailableScopesOptions) (*runtime.Poller[ReservationClientAvailableScopesResponse], error) {
-	if options == nil || options.ResumeToken == "" {
-		resp, err := client.availableScopes(ctx, reservationOrderID, reservationID, body, options)
-		if err != nil {
-			return nil, err
-		}
-		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ReservationClientAvailableScopesResponse]{
-			Tracer: client.internal.Tracer(),
-		})
-		return poller, err
-	} else {
-		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ReservationClientAvailableScopesResponse]{
-			Tracer: client.internal.Tracer(),
-		})
-	}
-}
-
-// AvailableScopes - Check whether the scopes from request is valid for Reservation.
-// If the operation fails it returns an *azcore.ResponseError type.
-//
-// Generated from API version 2022-11-01
-func (client *ReservationClient) availableScopes(ctx context.Context, reservationOrderID string, reservationID string, body AvailableScopeRequest, options *ReservationClientBeginAvailableScopesOptions) (*http.Response, error) {
-	var err error
-	const operationName = "ReservationClient.BeginAvailableScopes"
-	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
-	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
-	defer func() { endSpan(err) }()
-	req, err := client.availableScopesCreateRequest(ctx, reservationOrderID, reservationID, body, options)
-	if err != nil {
-		return nil, err
-	}
-	httpResp, err := client.internal.Pipeline().Do(req)
-	if err != nil {
-		return nil, err
-	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
-		err = runtime.NewResponseError(httpResp)
-		return nil, err
-	}
-	return httpResp, nil
-}
-
-// availableScopesCreateRequest creates the AvailableScopes request.
-func (client *ReservationClient) availableScopesCreateRequest(ctx context.Context, reservationOrderID string, reservationID string, body AvailableScopeRequest, options *ReservationClientBeginAvailableScopesOptions) (*policy.Request, error) {
-	urlPath := "/providers/Microsoft.Capacity/reservationOrders/{reservationOrderId}/reservations/{reservationId}/availableScopes"
-	if reservationOrderID == "" {
-		return nil, errors.New("parameter reservationOrderID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{reservationOrderId}", url.PathEscape(reservationOrderID))
-	if reservationID == "" {
-		return nil, errors.New("parameter reservationID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{reservationId}", url.PathEscape(reservationID))
-	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, body); err != nil {
-		return nil, err
-	}
-	return req, nil
-}
-
 // Get - Get specific Reservation details.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
@@ -212,10 +136,10 @@ func (client *ReservationClient) getCreateRequest(ctx context.Context, reservati
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01")
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -321,18 +245,18 @@ func (client *ReservationClient) listAllCreateRequest(ctx context.Context, optio
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
 	if options != nil && options.Orderby != nil {
 		reqQP.Set("$orderby", *options.Orderby)
 	}
-	if options != nil && options.RefreshSummary != nil {
-		reqQP.Set("refreshSummary", *options.RefreshSummary)
-	}
 	if options != nil && options.Skiptoken != nil {
 		reqQP.Set("$skiptoken", strconv.FormatFloat(float64(*options.Skiptoken), 'f', -1, 32))
+	}
+	reqQP.Set("api-version", "2022-11-01")
+	if options != nil && options.RefreshSummary != nil {
+		reqQP.Set("refreshSummary", *options.RefreshSummary)
 	}
 	if options != nil && options.SelectedState != nil {
 		reqQP.Set("selectedState", *options.SelectedState)

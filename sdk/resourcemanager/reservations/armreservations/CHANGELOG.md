@@ -1,5 +1,11 @@
 # Release History
 
+## 4.0.0 (2024-07-01)
+### Breaking Changes
+
+- Function `*ReservationClient.BeginAvailableScopes` has been removed
+
+
 ## 3.1.0 (2023-11-24)
 ### Features Added
 

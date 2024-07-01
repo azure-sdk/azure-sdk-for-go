@@ -111,13 +111,6 @@ type ReservationClientArchiveOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ReservationClientBeginAvailableScopesOptions contains the optional parameters for the ReservationClient.BeginAvailableScopes
-// method.
-type ReservationClientBeginAvailableScopesOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
 // ReservationClientBeginMergeOptions contains the optional parameters for the ReservationClient.BeginMerge method.
 type ReservationClientBeginMergeOptions struct {
 	// Resumes the LRO from the provided token.

@@ -10,7 +10,7 @@ package armreservations
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/reservations/armreservations"
-	moduleVersion = "v3.1.0"
+	moduleVersion = "v4.0.0"
 )
 
 // AppliedScopeType - Type of the Applied Scope.

@@ -93,12 +93,6 @@ type ReservationClientArchiveResponse struct {
 	// placeholder for future response values
 }
 
-// ReservationClientAvailableScopesResponse contains the response from method ReservationClient.BeginAvailableScopes.
-type ReservationClientAvailableScopesResponse struct {
-	// The response of available scope api containing scopes and their eligibilities.
-	AvailableScopeProperties
-}
-
 // ReservationClientGetResponse contains the response from method ReservationClient.Get.
 type ReservationClientGetResponse struct {
 	// The definition of the reservation.
