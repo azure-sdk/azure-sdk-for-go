@@ -7406,6 +7406,18 @@ type ConnectionStateProperties struct {
 	Status *string
 }
 
+// ContinuationSettingsReference - Continuation settings for execute data flow activity.
+type ContinuationSettingsReference struct {
+	// Continuation TTL in minutes.
+	ContinuationTTLInMinutes any
+
+	// Customized checkpoint key.
+	CustomizedCheckpointKey any
+
+	// Idle condition.
+	IdleCondition any
+}
+
 // ControlActivity - Base class for all control activities like IfCondition, ForEach , Until.
 type ControlActivity struct {
 	// REQUIRED; Activity name.
@@ -11342,6 +11354,9 @@ type ExecuteDataFlowActivityTypeProperties struct {
 	// Compute properties for data flow activity.
 	Compute *ExecuteDataFlowActivityTypePropertiesCompute
 
+	// Continuation settings for execute data flow activity.
+	ContinuationSettings *ContinuationSettingsReference
+
 	// Continue on error setting used for data flow execution. Enables processing to continue if a sink fails. Type: boolean (or
 	// Expression with resultType boolean)
 	ContinueOnError any
@@ -11465,6 +11480,9 @@ type ExecutePowerQueryActivityTypeProperties struct {
 
 	// Compute properties for data flow activity.
 	Compute *ExecuteDataFlowActivityTypePropertiesCompute
+
+	// Continuation settings for execute data flow activity.
+	ContinuationSettings *ContinuationSettingsReference
 
 	// Continue on error setting used for data flow execution. Enables processing to continue if a sink fails. Type: boolean (or
 	// Expression with resultType boolean)
@@ -20195,126 +20213,6 @@ func (o *Office365Source) GetCopySource() *CopySource {
 	}
 }
 
-// Operation - Azure Data Factory API operation definition.
-type Operation struct {
-	// Metadata associated with the operation.
-	Display *OperationDisplay
-
-	// Operation name: {provider}/{resource}/{operation}
-	Name *string
-
-	// The intended executor of the operation.
-	Origin *string
-
-	// Additional details about the operation.
-	Properties *OperationProperties
-}
-
-// OperationDisplay - Metadata associated with the operation.
-type OperationDisplay struct {
-	// The description of the operation.
-	Description *string
-
-	// The type of operation: get, read, delete, etc.
-	Operation *string
-
-	// The name of the provider.
-	Provider *string
-
-	// The name of the resource type on which the operation is performed.
-	Resource *string
-}
-
-// OperationListResponse - A list of operations that can be performed by the Data Factory service.
-type OperationListResponse struct {
-	// The link to the next page of results, if any remaining results exist.
-	NextLink *string
-
-	// List of Data Factory operations supported by the Data Factory resource provider.
-	Value []*Operation
-}
-
-// OperationLogSpecification - Details about an operation related to logs.
-type OperationLogSpecification struct {
-	// Blobs created in the customer storage account, per hour.
-	BlobDuration *string
-
-	// Localized display name.
-	DisplayName *string
-
-	// The name of the log category.
-	Name *string
-}
-
-// OperationMetricAvailability - Defines how often data for a metric becomes available.
-type OperationMetricAvailability struct {
-	// Blob created in the customer storage account, per hour.
-	BlobDuration *string
-
-	// The granularity for the metric.
-	TimeGrain *string
-}
-
-// OperationMetricDimension - Defines the metric dimension.
-type OperationMetricDimension struct {
-	// The display name of the metric dimension.
-	DisplayName *string
-
-	// The name of the dimension for the metric.
-	Name *string
-
-	// Whether the dimension should be exported to Azure Monitor.
-	ToBeExportedForShoebox *bool
-}
-
-// OperationMetricSpecification - Details about an operation related to metrics.
-type OperationMetricSpecification struct {
-	// The type of metric aggregation.
-	AggregationType *string
-
-	// Defines how often data for metrics becomes available.
-	Availabilities []*OperationMetricAvailability
-
-	// Defines the metric dimension.
-	Dimensions []*OperationMetricDimension
-
-	// The description of the metric.
-	DisplayDescription *string
-
-	// Localized display name of the metric.
-	DisplayName *string
-
-	// Whether or not the service is using regional MDM accounts.
-	EnableRegionalMdmAccount *string
-
-	// The name of the metric.
-	Name *string
-
-	// The name of the MDM account.
-	SourceMdmAccount *string
-
-	// The name of the MDM namespace.
-	SourceMdmNamespace *string
-
-	// The unit that the metric is measured in.
-	Unit *string
-}
-
-// OperationProperties - Additional details about an operation.
-type OperationProperties struct {
-	// Details about a service operation.
-	ServiceSpecification *OperationServiceSpecification
-}
-
-// OperationServiceSpecification - Details about a service operation.
-type OperationServiceSpecification struct {
-	// Details about operations related to logs.
-	LogSpecifications []*OperationLogSpecification
-
-	// Details about operations related to metrics.
-	MetricSpecifications []*OperationMetricSpecification
-}
-
 // OracleCloudStorageLinkedService - Linked service for Oracle Cloud Storage.
 type OracleCloudStorageLinkedService struct {
 	// REQUIRED; Type of linked service.
@@ -23983,6 +23881,9 @@ type SQLServerLinkedServiceTypeProperties struct {
 
 	// The connection string. Type: string, SecureString or AzureKeyVaultSecretReference.
 	ConnectionString any
+
+	// The credential reference containing authentication information.
+	Credential *CredentialReference
 
 	// The name of the database, used by recommended version. Type: string (or Expression with resultType string).
 	Database any
@@ -28708,6 +28609,10 @@ type SnowflakeExportCopyCommand struct {
 
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
 	AdditionalProperties map[string]any
+
+	// The name of the snowflake storage integration to use for the copy operation. Type: string (or Expression with resultType
+	// string).
+	StorageIntegration any
 }
 
 // GetExportSettings implements the ExportSettingsClassification interface for type SnowflakeExportCopyCommand.
@@ -28735,6 +28640,10 @@ type SnowflakeImportCopyCommand struct {
 
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
 	AdditionalProperties map[string]any
+
+	// The name of the snowflake storage integration to use for the copy operation. Type: string (or Expression with resultType
+	// string).
+	StorageIntegration any
 }
 
 // GetImportSettings implements the ImportSettingsClassification interface for type SnowflakeImportCopyCommand.
