@@ -10,907 +10,4978 @@ package armmigrate
 
 import "time"
 
-// AssessedDisk - A disk assessed for an assessment.
-type AssessedDisk struct {
-	// READ-ONLY; User friendly name of the assessed disk.
-	DisplayName *string
-
-	// READ-ONLY; Gigabytes of storage provided by the recommended Azure disk size.
-	GigabytesForRecommendedDiskSize *int32
-
-	// READ-ONLY; Gigabytes of storage provisioned for this disk.
-	GigabytesProvisioned *float64
-
-	// READ-ONLY; Disk throughput in MegaBytes per second.
-	MegabytesPerSecondOfRead *float64
-
-	// READ-ONLY; Disk throughput in MegaBytes per second.
-	MegabytesPerSecondOfWrite *float64
-
-	// READ-ONLY; Estimated aggregate storage cost for a 31-day month for this disk.
-	MonthlyStorageCost *float64
-
-	// READ-ONLY; Name of the assessed disk.
+// Application in the guest virtual machine.
+type Application struct {
+	// READ-ONLY; Gets or sets Name of the Application.
 	Name *string
 
-	// READ-ONLY; Number of read operations per second for the disk.
-	NumberOfReadOperationsPerSecond *float64
+	// READ-ONLY; Gets or sets Provider of the Application.
+	Provider *string
 
-	// READ-ONLY; Number of read and write operations per second for the disk.
-	NumberOfWriteOperationsPerSecond *float64
-
-	// READ-ONLY; Recommended Azure size for the disk, given utilization data and preferences set on Assessment.
-	RecommendedDiskSize *AzureDiskSize
-
-	// READ-ONLY; Storage type selected for this disk.
-	RecommendedDiskType *AzureDiskType
-
-	// READ-ONLY; Whether this disk is suitable for Azure.
-	Suitability *CloudSuitability
-
-	// READ-ONLY; If disk is suitable to be migrate but some conditions/checks were not considered while calculating suitability,
-	// this explains the details.
-	SuitabilityDetail *AzureDiskSuitabilityDetail
-
-	// READ-ONLY; If disk is not suitable to be migrated, this explains the reasons and mitigation steps.
-	SuitabilityExplanation *AzureDiskSuitabilityExplanation
-}
-
-// AssessedMachine - A machine evaluated as part of an assessment.
-type AssessedMachine struct {
-	// For optimistic concurrency control.
-	ETag *string
-
-	// Properties of an assessed machine.
-	Properties *AssessedMachineProperties
-
-	// READ-ONLY; Path reference to this assessed machine.
-	// /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/assessmentProjects/{projectName}/groups/{groupName}/assessments/{assessmentName}/assessedMachines/{assessedMachineName}
-	ID *string
-
-	// READ-ONLY; Name of the machine.
-	Name *string
-
-	// READ-ONLY; Type of the object = [Microsoft.Migrate/assessmentProjects/groups/assessments/assessedMachines].
-	Type *string
-}
-
-// AssessedMachineProperties - Properties of an assessed machine.
-type AssessedMachineProperties struct {
-	// READ-ONLY; Boot type of the machine.
-	BootType *MachineBootType
-
-	// READ-ONLY; Confidence rating of assessed machine.
-	ConfidenceRatingInPercentage *float64
-
-	// READ-ONLY; Time when this machine was created. Date-Time represented in ISO-8601 format.
-	CreatedTimestamp *time.Time
-
-	// READ-ONLY; ARM ID of the discovered machine.
-	DatacenterMachineArmID *string
-
-	// READ-ONLY; ARM ID of the discovered datacenter.
-	DatacenterManagementServerArmID *string
-
-	// READ-ONLY; Name of the server hosting the datacenter management solution.
-	DatacenterManagementServerName *string
-
-	// READ-ONLY; Description of the machine
-	Description *string
-
-	// READ-ONLY; Dictionary of disks attached to the machine. Key is ID of disk. Value is a disk object.
-	Disks map[string]*AssessedDisk
-
-	// READ-ONLY; User readable name of the machine as defined by the user in their private datacenter.
-	DisplayName *string
-
-	// READ-ONLY; Memory in Megabytes.
-	MegabytesOfMemory *float64
-
-	// READ-ONLY; Megabytes of memory in the Recommended Azure VM Size.
-	MegabytesOfMemoryForRecommendedSize *float64
-
-	// READ-ONLY; Monthly network cost estimate for the network adapters that are attached to this machine as a group, for a 31-day
-	// month.
-	MonthlyBandwidthCost *float64
-
-	// READ-ONLY; Compute Cost for a 31-day month, if the machine is migrated to Azure with the Recommended Size.
-	MonthlyComputeCostForRecommendedSize *float64
-
-	// READ-ONLY; Monthly premium storage cost estimate for the disks that are attached to this machine as a group, for a 31-day
-	// month.
-	MonthlyPremiumStorageCost *float64
-
-	// READ-ONLY; Monthly standard SSD storage cost estimate for the disks that are attached to this machine as a group, for a
-	// 31-day month.
-	MonthlyStandardSSDStorageCost *float64
-
-	// READ-ONLY; Monthly storage cost estimate for the disks that are attached to this machine as a group, for a 31-day month.
-	MonthlyStorageCost *float64
-
-	// READ-ONLY; Dictionary of network adapters attached to the machine. Key is name of the adapter. Value is a network adapter
-	// object.
-	NetworkAdapters map[string]*AssessedNetworkAdapter
-
-	// READ-ONLY; Processor count.
-	NumberOfCores *int32
-
-	// READ-ONLY; Number of CPU cores in the Recommended Azure VM Size.
-	NumberOfCoresForRecommendedSize *int32
-
-	// READ-ONLY; Operating System name of the machine.
-	OperatingSystemName *string
-
-	// READ-ONLY; Operating System type of the machine.
-	OperatingSystemType *string
-
-	// READ-ONLY; Operating System version of the machine.
-	OperatingSystemVersion *string
-
-	// READ-ONLY; Utilization percentage of the processor core as observed in the private data center, in the Time Range selected
-	// on Assessment, reported as the Percentile value based on the percentile number selected
-	// in assessment.
-	PercentageCoresUtilization *float64
-
-	// READ-ONLY; Utilization percentage of the memory as observed in the private data center, in the Time Range selected on Assessment,
-	// reported as the Percentile value based on the percentile number selected in
-	// assessment.
-	PercentageMemoryUtilization *float64
-
-	// READ-ONLY; Recommended Azure size for this machine.
-	RecommendedSize *AzureVMSize
-
-	// READ-ONLY; Whether machine is suitable for migration to Azure.
-	Suitability *CloudSuitability
-
-	// READ-ONLY; If machine is not suitable for cloud, this explains the reasons.
-	SuitabilityDetail *AzureVMSuitabilityDetail
-
-	// READ-ONLY; If machine is not ready to be migrated, this explains the reasons and mitigation steps.
-	SuitabilityExplanation *AzureVMSuitabilityExplanation
-
-	// READ-ONLY; Time when this machine was last updated. Date-Time represented in ISO-8601 format.
-	UpdatedTimestamp *time.Time
-}
-
-// AssessedMachineResultList - List of assessed machines.
-type AssessedMachineResultList struct {
-	NextLink *string
-
-	// List of assessed machines.
-	Value []*AssessedMachine
-}
-
-// AssessedNetworkAdapter - A network adapter assessed for an assessment.
-type AssessedNetworkAdapter struct {
-	// Gigabytes transmitted through this adapter each month.
-	NetGigabytesTransmittedPerMonth *float64
-
-	// READ-ONLY; User friendly name of the assessed network adapter.
-	DisplayName *string
-
-	// READ-ONLY; List of IP Addresses on the network adapter.
-	IPAddresses []*string
-
-	// READ-ONLY; MAC Address of the network adapter.
-	MacAddress *string
-
-	// READ-ONLY; Adapter throughput for incoming traffic in MegaBytes per second.
-	MegabytesPerSecondReceived *float64
-
-	// READ-ONLY; Adapter throughput for outgoing traffic in MegaBytes per second.
-	MegabytesPerSecondTransmitted *float64
-
-	// READ-ONLY; Monthly cost estimate for network bandwidth used by this network adapter.
-	MonthlyBandwidthCosts *float64
-
-	// READ-ONLY; Whether this adapter is suitable for Azure.
-	Suitability *CloudSuitability
-
-	// READ-ONLY; If network adapter is not suitable for cloud, this explains the reasons.
-	SuitabilityDetail *AzureNetworkAdapterSuitabilityDetail
-
-	// READ-ONLY; If network adapter is suitable, this explains the reasons and mitigation steps.
-	SuitabilityExplanation *AzureNetworkAdapterSuitabilityExplanation
-}
-
-// Assessment - An assessment created for a group in the Migration project.
-type Assessment struct {
-	// REQUIRED; Properties of the assessment.
-	Properties *AssessmentProperties
-
-	// For optimistic concurrency control.
-	ETag *string
-
-	// READ-ONLY; Path reference to this assessment.
-	// /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/assessmentProjects/{projectName}/groups/{groupName}/assessment/{assessmentName}
-	ID *string
-
-	// READ-ONLY; Unique name of an assessment.
-	Name *string
-
-	// READ-ONLY; Type of the object = [Microsoft.Migrate/assessmentProjects/groups/assessments].
-	Type *string
-}
-
-// AssessmentOptions - Assessment options.
-type AssessmentOptions struct {
-	// REQUIRED; Properties of the assessment options.
-	Properties *AssessmentOptionsProperties
-
-	// READ-ONLY; Unique identifier of an assessment options.
-	ID *string
-
-	// READ-ONLY; Unique name of an assessment options.
-	Name *string
-}
-
-// AssessmentOptionsProperties - Assessment options properties.
-type AssessmentOptionsProperties struct {
-	// READ-ONLY; List of supported currencies for reserved instances.
-	ReservedInstanceSupportedCurrencies []*string
-
-	// READ-ONLY; List of supported Azure regions for reserved instances.
-	ReservedInstanceSupportedLocations []*string
-
-	// READ-ONLY; List of supported Azure offer codes for reserved instances.
-	ReservedInstanceSupportedOffers []*string
-
-	// READ-ONLY; List of supported VM Families.
-	ReservedInstanceVMFamilies []*string
-
-	// READ-ONLY; Dictionary of VM families grouped by vm family name describing the targeted azure locations of VM family and
-	// the category of the family.
-	VMFamilies []*VMFamily
-}
-
-// AssessmentOptionsResultList - List of API operations.
-type AssessmentOptionsResultList struct {
-	// List of operations.
-	Value []*AssessmentOptions
-}
-
-// AssessmentProperties - Properties of an assessment.
-type AssessmentProperties struct {
-	// REQUIRED; Storage type selected for this disk.
-	AzureDiskType *AzureDiskType
-
-	// REQUIRED; AHUB discount on windows virtual machines.
-	AzureHybridUseBenefit *AzureHybridUseBenefit
-
-	// REQUIRED; Target Azure location for which the machines should be assessed. These enums are the same as used by Compute
-	// API.
-	AzureLocation *AzureLocation
-
-	// REQUIRED; Offer code according to which cost estimation is done.
-	AzureOfferCode *AzureOfferCode
-
-	// REQUIRED; Pricing tier for Size evaluation.
-	AzurePricingTier *AzurePricingTier
-
-	// REQUIRED; Storage Redundancy type offered by Azure.
-	AzureStorageRedundancy *AzureStorageRedundancy
-
-	// REQUIRED; List of azure VM families.
-	AzureVMFamilies []*AzureVMFamily
-
-	// REQUIRED; Currency to report prices in.
-	Currency *Currency
-
-	// REQUIRED; Custom discount percentage to be applied on final costs. Can be in the range [0, 100].
-	DiscountPercentage *float64
-
-	// REQUIRED; Percentile of performance data used to recommend Azure size.
-	Percentile *Percentile
-
-	// REQUIRED; Azure reserved instance.
-	ReservedInstance *ReservedInstance
-
-	// REQUIRED; Scaling factor used over utilization data to add a performance buffer for new machines to be created in Azure.
-	// Min Value = 1.0, Max value = 1.9, Default = 1.3.
-	ScalingFactor *float64
-
-	// REQUIRED; Assessment sizing criterion.
-	SizingCriterion *AssessmentSizingCriterion
-
-	// REQUIRED; User configurable setting that describes the status of the assessment.
-	Stage *AssessmentStage
-
-	// REQUIRED; Time range of performance data used to recommend a size.
-	TimeRange *TimeRange
-
-	// REQUIRED; Specify the duration for which the VMs are up in the on-premises environment.
-	VMUptime *VMUptime
-
-	// READ-ONLY; Confidence rating percentage for assessment. Can be in the range [0, 100].
-	ConfidenceRatingInPercentage *float64
-
-	// READ-ONLY; Time when this project was created. Date-Time represented in ISO-8601 format.
-	CreatedTimestamp *time.Time
-
-	// READ-ONLY; Enterprise agreement subscription arm id.
-	EaSubscriptionID *string
-
-	// READ-ONLY; Monthly network cost estimate for the machines that are part of this assessment as a group, for a 31-day month.
-	MonthlyBandwidthCost *float64
-
-	// READ-ONLY; Monthly compute cost estimate for the machines that are part of this assessment as a group, for a 31-day month.
-	MonthlyComputeCost *float64
-
-	// READ-ONLY; Monthly premium storage cost estimate for the machines that are part of this assessment as a group, for a 31-day
-	// month.
-	MonthlyPremiumStorageCost *float64
-
-	// READ-ONLY; Monthly standard SSD storage cost estimate for the machines that are part of this assessment as a group, for
-	// a 31-day month.
-	MonthlyStandardSSDStorageCost *float64
-
-	// READ-ONLY; Monthly storage cost estimate for the machines that are part of this assessment as a group, for a 31-day month.
-	MonthlyStorageCost *float64
-
-	// READ-ONLY; Number of assessed machines part of this assessment.
-	NumberOfMachines *int32
-
-	// READ-ONLY; End time to consider performance data for assessment
-	PerfDataEndTime *time.Time
-
-	// READ-ONLY; Start time to consider performance data for assessment
-	PerfDataStartTime *time.Time
-
-	// READ-ONLY; Time when the Azure Prices were queried. Date-Time represented in ISO-8601 format.
-	PricesTimestamp *time.Time
-
-	// READ-ONLY; Whether the assessment has been created and is valid.
-	Status *AssessmentStatus
-
-	// READ-ONLY; Time when this project was last updated. Date-Time represented in ISO-8601 format.
-	UpdatedTimestamp *time.Time
-}
-
-// AssessmentResultList - List of assessments.
-type AssessmentResultList struct {
-	// List of assessments.
-	Value []*Assessment
-}
-
-type CollectorAgentProperties struct {
-	SpnDetails *CollectorBodyAgentSpnProperties
-
-	// READ-ONLY
-	ID *string
-
-	// READ-ONLY
-	LastHeartbeatUTC *time.Time
-
-	// READ-ONLY
+	// READ-ONLY; Gets or sets Version of the Application.
 	Version *string
 }
 
-type CollectorBodyAgentSpnProperties struct {
-	// Application/client Id for the service principal with which the on-premise management/data plane components would communicate
-	// with our Azure services.
-	ApplicationID *string
+// ApplicationDiscovery - Contains data related application and roles discovery scope.
+type ApplicationDiscovery struct {
+	// READ-ONLY; Gets discovery scope status.
+	DiscoveryScopeStatus *ApplicationDiscoveryScopeStatus
 
-	// Intended audience for the service principal.
-	Audience *string
+	// READ-ONLY; Gets errors for discovery scope.
+	Errors []*HealthErrorDetails
 
-	// AAD Authority URL which was used to request the token for the service principal.
-	Authority *string
-
-	// Object Id of the service principal with which the on-premise management/data plane components would communicate with our
-	// Azure services.
-	ObjectID *string
-
-	// Tenant Id for the service principal with which the on-premise management/data plane components would communicate with our
-	// Azure services.
-	TenantID *string
+	// READ-ONLY; Gets the run as account ID with which feature worked successfully.
+	// It is discovered by the agent from the list of credentials.
+	HydratedRunAsAccountID *string
 }
 
-type CollectorProperties struct {
-	AgentProperties *CollectorAgentProperties
+// AppsAndRoles in the guest virtual machine.
+type AppsAndRoles struct {
+	// READ-ONLY; Gets or sets Applications of the AppsAndRoles.
+	Applications []*Application
 
-	// The ARM id of the discovery service site.
-	DiscoverySiteID *string
+	// READ-ONLY; Gets or sets BizTalkServers of the AppsAndRoles.
+	BizTalkServers []*BizTalkServer
 
-	// READ-ONLY; Time when this collector was created. Date-Time represented in ISO-8601 format.
-	CreatedTimestamp *string
+	// READ-ONLY; Gets or sets ExchangeServers of the AppsAndRoles.
+	ExchangeServers []*ExchangeServer
 
-	// READ-ONLY; Time when this collector was updated. Date-Time represented in ISO-8601 format.
-	UpdatedTimestamp *string
+	// READ-ONLY; Gets or sets Features of the AppsAndRoles.
+	Features []*Feature
+
+	// READ-ONLY; Gets or sets OtherDatabaseServers of the AppsAndRoles.
+	OtherDatabases []*OtherDatabase
+
+	// READ-ONLY; Gets or sets SQLServers of the AppsAndRoles.
+	SQLServers []*SQLServerApplication
+
+	// READ-ONLY; Gets or sets SharePointServers of the AppsAndRoles.
+	SharePointServers []*SharePointServer
+
+	// READ-ONLY; Gets or sets SystemCenters of the AppsAndRoles.
+	SystemCenters []*SystemCenter
+
+	// READ-ONLY; Gets or sets WebApplications of the AppsAndRoles.
+	WebApplications []*WebApplicationAppsAndRolesModel
 }
 
-// Disk - A disk discovered on a machine.
-type Disk struct {
-	// READ-ONLY; User friendly name of the disk.
-	DisplayName *string
+// ArcDiscovery - Contains data related to Azure arc discovery.
+type ArcDiscovery struct {
+	// READ-ONLY; Machine Resource Id.
+	MachineResourceID *string
 
-	// READ-ONLY; Gigabytes of storage provisioned for this disk.
-	GigabytesAllocated *float64
+	// READ-ONLY; AzureArc status indicates whether arc discovery has successfully completed or not.
+	Status *AzureArcStatus
 }
 
-// DownloadURL - Download URL for assessment report.
-type DownloadURL struct {
-	// READ-ONLY; Hyperlink to download report.
-	AssessmentReportURL *string
+// BizTalkServer in the guest virtual machine.
+type BizTalkServer struct {
+	// READ-ONLY; Gets or sets ProductName of the BizTalkServer.
+	ProductName *string
 
-	// READ-ONLY; Expiry date of download url.
-	ExpirationTime *time.Time
+	// READ-ONLY; Gets or sets Status of the BizTalkServer.
+	Status *string
 }
 
-// Group - A group created in a Migration project.
-type Group struct {
-	// REQUIRED; Properties of the group.
-	Properties *GroupProperties
+// ConnectorUnit - The connectors of the web server.
+type ConnectorUnit struct {
+	// Gets or sets the bindings for the connector.
+	Bindings []*FrontEndBinding
+}
 
-	// For optimistic concurrency control.
-	ETag *string
+// DeleteImportMachinesJob - A host resource belonging to a site resource.
+type DeleteImportMachinesJob struct {
+	// The resource-specific properties for this resource.
+	Properties *DeleteImportedMachinesJobProperties
 
-	// READ-ONLY; Path reference to this group. /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/assessmentProjects/{projectName}/groups/{groupName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
-	// READ-ONLY; Name of the group.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; Type of the object = [Microsoft.Migrate/assessmentProjects/groups].
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// GroupBodyProperties - Body properties of group update.
-type GroupBodyProperties struct {
-	// List of machine names that are part of this group.
-	Machines []*string
+// DeleteImportMachinesJobCollection - Delete import machines job collection.
+type DeleteImportMachinesJobCollection struct {
+	// REQUIRED; Gets the list of jobs.
+	Value []*DeleteImportMachinesJob
 
-	// Whether to add or remove the machines.
-	OperationType *GroupUpdateOperation
+	// READ-ONLY; Gets the value of next link.
+	NextLink *string
 }
 
-// GroupProperties - Properties of group resource.
-type GroupProperties struct {
-	// The type of group.
-	GroupType *string
+// DeleteImportedMachinesJobProperties - Delete Imported Machines Job Properties
+type DeleteImportedMachinesJobProperties struct {
+	// blob name
+	BlobName *string
 
-	// READ-ONLY; If the assessments are in running state.
-	AreAssessmentsRunning *bool
+	// deletion Confirmation
+	DeletionConfirmation *bool
 
-	// READ-ONLY; List of References to Assessments created on this group.
-	Assessments []*string
+	// Gets or sets the Display name.
+	DisplayName *string
 
-	// READ-ONLY; Time when this group was created. Date-Time represented in ISO-8601 format.
-	CreatedTimestamp *time.Time
+	// Gets or sets the Job end time.
+	EndTime *string
 
-	// READ-ONLY; Whether the group has been created and is valid.
-	GroupStatus *GroupStatus
+	// error Sas Uri
+	ErrorSasURI *string
 
-	// READ-ONLY; Number of machines part of this group.
+	// job State
+	JobState *DeleteImportedMachinesJobPropertiesJobState
+
+	// number Of Machines Deleted
+	NumberOfMachinesDeleted *int32
+
+	// Gets or sets the Job start time.
+	StartTime *string
+
+	// Gets or sets the Job status.
+	Status *string
+
+	// READ-ONLY; errors list
+	Errors []*string
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+}
+
+// DependencyMapDiscovery - Contains data related dependency map discovery scope.
+type DependencyMapDiscovery struct {
+	// READ-ONLY; Gets discovery scope status.
+	DiscoveryScopeStatus *DependencyMapDiscoveryScopeStatus
+
+	// READ-ONLY; Gets errors for discovery scope.
+	Errors []*HealthErrorDetails
+
+	// READ-ONLY; Gets the run as account ID with which feature worked successfully.
+	// It is discovered by the agent from the list of credentials.
+	HydratedRunAsAccountID *string
+}
+
+// DependencyMapMachineInput - Machine class.
+type DependencyMapMachineInput struct {
+	// Gets or sets a value indicating whether dependency mapping is to be enabled or not.
+	IsDependencyMapToBeEnabled *bool
+
+	// Gets or sets the ARM id of the machine.
+	MachineID *string
+}
+
+// DependencyMapServiceMapextensionsClientGroupMembersRequest - DependencyMap ServiceMap extensions Client GroupMembers Request
+type DependencyMapServiceMapextensionsClientGroupMembersRequest struct {
+	// end time
+	EndTime *time.Time
+
+	// optional filters
+	Filters *DependencyMapServiceMapextensionsDependencyMapRequestFilters
+
+	// id of machine
+	MachineID *string
+
+	// process group name
+	ProcessGroupName *string
+
+	// name of process
+	ProcessName *string
+
+	// start time
+	StartTime *time.Time
+}
+
+// DependencyMapServiceMapextensionsDependencyMapRequestFilters - DependencyMap Service Map extensions Dependency Map Request
+// Filters
+type DependencyMapServiceMapextensionsDependencyMapRequestFilters struct {
+	// array of machine ids
+	MachineIDs []*string
+
+	// array of process Ids
+	ProcessIDs []*string
+}
+
+// DependencyMapServiceMapextensionsExportDependenciesRequest - DependencyMap ServiceMap extensions ExportDependencies Request
+type DependencyMapServiceMapextensionsExportDependenciesRequest struct {
+	// end time
+	EndTime *time.Time
+
+	// start time
+	StartTime *time.Time
+}
+
+// DependencyMapServiceMapextensionsScopeMapRequest - DependencyMap ServiceMapextensions Scope MapRequest
+type DependencyMapServiceMapextensionsScopeMapRequest struct {
+	// end time
+	EndTime *time.Time
+
+	// optional filters
+	Filters *DependencyMapServiceMapextensionsDependencyMapRequestFilters
+
+	// start time
+	StartTime *time.Time
+}
+
+// DependencyMapServiceMapextensionsServerGroupMembersRequest - DependencyMap ServiceMap extensions ServerGroup Members Request
+type DependencyMapServiceMapextensionsServerGroupMembersRequest struct {
+	// end time
+	EndTime *time.Time
+
+	// optional filters
+	Filters *DependencyMapServiceMapextensionsDependencyMapRequestFilters
+
+	// port of server
+	ServerPort *int32
+
+	// start time
+	StartTime *time.Time
+}
+
+// DependencyMapServiceMapextensionsSingleMachineDetailedMapRequest - DependencyMap ServiceMap extensions SingleMachine DetailedMap
+// Request
+type DependencyMapServiceMapextensionsSingleMachineDetailedMapRequest struct {
+	// end time
+	EndTime *time.Time
+
+	// optional filters
+	Filters *DependencyMapServiceMapextensionsDependencyMapRequestFilters
+
+	// id of machine
+	MachineID *string
+
+	// start time
+	StartTime *time.Time
+}
+
+// DirectoryPath - Second level entity for virtual directories.
+type DirectoryPath struct {
+	// Gets or sets the physical path of the directory on the web server.
+	Physical *string
+
+	// Gets or sets the virtual path for the directory.
+	Virtual *string
+}
+
+// DiscoveryScopeErrorSummary - The site error summary model.
+type DiscoveryScopeErrorSummary struct {
+	// REQUIRED; Count of affected objects.
+	AffectedObjectsCount *int64
+
+	// REQUIRED; Gets or sets the affected resource type.
+	AffectedResourceType *string
+
+	// REQUIRED; Gets or sets the count of affected objects.
+	DiscoveryScope *DiscoveryScopes
+}
+
+// DiscoverySiteDataSource - Web app data source web model.
+type DiscoverySiteDataSource struct {
+	// The resource-specific properties for this resource.
+	Properties *DiscoverySiteDataSourceProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// DiscoverySiteDataSourceListResult - The response of a DiscoverySiteDataSource list operation.
+type DiscoverySiteDataSourceListResult struct {
+	// REQUIRED; The DiscoverySiteDataSource items on this page
+	Value []*DiscoverySiteDataSource
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// DiscoverySiteDataSourceProperties - Discovery site data source properties class.
+type DiscoverySiteDataSourceProperties struct {
+	// Gets or sets the discovery site Id.
+	DiscoverySiteID *string
+
+	// READ-ONLY; provisioning state enum
+	ProvisioningState *ProvisioningState
+}
+
+// ErrorAdditionalInfo - The resource management error additional info.
+type ErrorAdditionalInfo struct {
+	// READ-ONLY; The additional info.
+	Info any
+
+	// READ-ONLY; The additional info type.
+	Type *string
+}
+
+// ErrorDetail - The error detail.
+type ErrorDetail struct {
+	// READ-ONLY; The error additional info.
+	AdditionalInfo []*ErrorAdditionalInfo
+
+	// READ-ONLY; The error code.
+	Code *string
+
+	// READ-ONLY; The error details.
+	Details []*ErrorDetail
+
+	// READ-ONLY; The error message.
+	Message *string
+
+	// READ-ONLY; The error target.
+	Target *string
+}
+
+// ErrorDetailedSummary - The site detailed error summary model.
+type ErrorDetailedSummary struct {
+	// REQUIRED; Count of servers affected by the error.
+	CountOfServersAffected *int64
+
+	// READ-ONLY; Gets the appliance name.
+	ApplianceName *string
+
+	// READ-ONLY; Gets the error name.
+	Code *string
+
+	// READ-ONLY; Gets discovery scope for which error is encountered.
+	DiscoveryScope *HealthErrorDetailsDiscoveryScope
+
+	// READ-ONLY; Gets the error ID.
+	ID *int32
+
+	// READ-ONLY; Gets the error message.
+	Message *string
+
+	// READ-ONLY; Gets the message parameters.
+	MessageParameters map[string]*string
+
+	// READ-ONLY; Gets the possible causes of error.
+	PossibleCauses *string
+
+	// READ-ONLY; Gets the recommended action to resolve error.
+	RecommendedAction *string
+
+	// READ-ONLY; Gets run as account id used while performing discovery of entity.
+	RunAsAccountID *string
+
+	// READ-ONLY; Gets the error severity.
+	Severity *string
+
+	// READ-ONLY; Gets the error source.
+	Source *MicrosoftAzureFDSWebRoleHealthErrorDetailsSource
+
+	// READ-ONLY; Gets the error summary message.
+	SummaryMessage *string
+
+	// READ-ONLY; Gets the time stamp when the error was updated.
+	UpdatedTimeStamp *time.Time
+}
+
+// ErrorDetails - Error contract returned when some exception occurs in Rest API.
+type ErrorDetails struct {
+	// READ-ONLY; Gets the agent error code.
+	AgentErrorCode *string
+
+	// READ-ONLY; Gets the error message from the agent.
+	AgentErrorMessage *string
+
+	// READ-ONLY; Gets possible causes for the agent error.
+	AgentErrorPossibleCauses *string
+
+	// READ-ONLY; Gets the recommended action for the agent error.
+	AgentErrorRecommendedAction *string
+
+	// READ-ONLY; Gets the error code.
+	Code *string
+
+	// READ-ONLY; Gets a value indicating whether the error originated from a agent or not.
+	IsAgentReportedError *bool
+
+	// READ-ONLY; Gets the error message.
+	Message *string
+
+	// READ-ONLY; Gets the possible causes of error.
+	PossibleCauses *string
+
+	// READ-ONLY; Gets the recommended action to resolve error.
+	RecommendedAction *string
+
+	// READ-ONLY; Gets the error severity.
+	Severity *string
+}
+
+// ErrorResponse - Common error response for all Azure Resource Manager APIs to return error details for failed operations.
+// (This also follows the OData error response format.).
+type ErrorResponse struct {
+	// The error object.
+	Error *ErrorDetail
+}
+
+// ErrorSummaryRequest body
+type ErrorSummaryRequest struct {
+	// Gets or sets the Appliance Name.
+	ApplianceName *string
+}
+
+// Errors - The properties of a server machine tracked resource
+type Errors struct {
+	// READ-ONLY; Gets the appliance name.
+	ApplianceName *string
+
+	// READ-ONLY; Gets the error name.
+	Code *string
+
+	// READ-ONLY; Gets discovery scope for which error is encountered.
+	DiscoveryScope *HealthErrorDetailsDiscoveryScope
+
+	// READ-ONLY; Gets the error ID.
+	ID *int32
+
+	// READ-ONLY; Gets the error message.
+	Message *string
+
+	// READ-ONLY; Gets the message parameters.
+	MessageParameters map[string]*string
+
+	// READ-ONLY; Gets the possible causes of error.
+	PossibleCauses *string
+
+	// READ-ONLY; Gets the recommended action to resolve error.
+	RecommendedAction *string
+
+	// READ-ONLY; Gets run as account id used while performing discovery of entity.
+	RunAsAccountID *string
+
+	// READ-ONLY; Gets the error severity.
+	Severity *string
+
+	// READ-ONLY; Gets the error source.
+	Source *MicrosoftAzureFDSWebRoleHealthErrorDetailsSource
+
+	// READ-ONLY; Gets the error summary message.
+	SummaryMessage *string
+
+	// READ-ONLY; Gets the time stamp when the error was updated.
+	UpdatedTimeStamp *time.Time
+}
+
+// ExchangeServer in the guest virtual machine.
+type ExchangeServer struct {
+	// READ-ONLY; Gets or sets Edition of the ExchangeServer.
+	Edition *string
+
+	// READ-ONLY; Gets or sets ProductName of the ExchangeServer.
+	ProductName *string
+
+	// READ-ONLY; Gets or sets Roles of the ExchangeServer.
+	Roles *string
+
+	// READ-ONLY; Gets or sets ServicePack of the ExchangeServer.
+	ServicePack *string
+
+	// READ-ONLY; Gets or sets Version of the ExchangeServer.
+	Version *string
+}
+
+// ExportImportedMachinesJob - Export machines job REST resource.
+type ExportImportedMachinesJob struct {
+	// Gets or sets the Display name.
+	DisplayName *string
+
+	// Gets or sets the Job end time.
+	EndTime *string
+
+	// Gets or sets the relative ARM name to get job.
+	ID *string
+
+	// Gets or sets the Job ID.
+	Name *string
+
+	// Gets or sets the export machines job properties.
+	Properties *ExportImportedMachinesJobEntityProperties
+
+	// Gets or sets the Job start time.
+	StartTime *string
+
+	// Gets or sets the Job status.
+	Status *string
+
+	// READ-ONLY; Type name for export job.
+	Type *string
+}
+
+// ExportImportedMachinesJobCollection - Export imported machines job collection.
+type ExportImportedMachinesJobCollection struct {
+	// REQUIRED; Gets the list of jobs.
+	Value []*ExportImportedMachinesJob
+
+	// READ-ONLY; Gets the value of next link.
+	NextLink *string
+}
+
+// ExportImportedMachinesJobEntityProperties - Export Imported Machines JobEntity Properties
+type ExportImportedMachinesJobEntityProperties struct {
+	// blob name
+	BlobName *string
+
+	// sas uri
+	SasURI *string
+}
+
+// ExportMachineErrorsRequest - The body of export machine errors request.
+type ExportMachineErrorsRequest struct {
+	// Gets or sets the properties.
+	Properties *RequestExportMachineErrorsProperties
+}
+
+// ExportMachinesRequest body
+type ExportMachinesRequest struct {
+	// filter options.
+	Filter *string
+}
+
+// ExportSQLServersRequest - ExportSqlServerRequest body
+type ExportSQLServersRequest struct {
+	// Gets or sets the Appliance Name.
+	ApplianceName *string
+
+	// filter options.
+	Filter *string
+}
+
+// ExportWebAppsRequest body
+type ExportWebAppsRequest struct {
+	// filter options.
+	Filter *string
+}
+
+// Feature in the guest virtual machine.
+type Feature struct {
+	// READ-ONLY; Gets or sets FeatureType of the Feature.
+	FeatureType *string
+
+	// READ-ONLY; Gets or sets Name of the Feature.
+	Name *string
+
+	// READ-ONLY; Gets or sets Parent of the Feature.
+	Parent *string
+
+	// READ-ONLY; Gets or sets Status of the Feature.
+	Status *string
+}
+
+// FileMetaData - File Metadata web model.
+type FileMetaData struct {
+	// Gets or sets the database file type.
+	FileType *FileType
+
+	// Gets or sets a value indicating whether memory optimized data option is enabled.
+	IsMemoryOptimizedDataOptionEnabled *bool
+
+	// Gets or sets the logical name of the file.
+	LogicalName *string
+
+	// Gets or sets the operating-system full path of the file.
+	PhysicalFullName *string
+
+	// Gets or sets the size of the file in MB.
+	SizeInMb *float32
+}
+
+// FrontEndBinding - Frontend bindings for a web application.
+type FrontEndBinding struct {
+	// Gets or sets the Host name.
+	HostName *string
+
+	// Gets or sets the IP Address.
+	IPAddress *string
+
+	// Gets or sets the Port number.
+	Port *string
+
+	// Gets or sets the Binding protocol.
+	Protocol *string
+}
+
+// GuestOsDetails - Second level object. Data related to a machine's operating system. Serialized and stored as part of Machine
+// Rest object.
+type GuestOsDetails struct {
+	// Gets or sets the Architecture of the operating system.
+	OSArchitecture *string
+
+	// Gets or sets the Name of the operating system.
+	OSName *string
+
+	// Gets or sets the type of the operating system.
+	OSType *string
+
+	// Gets or sets the Version of the operating system.
+	OSVersion *string
+}
+
+// HealthErrorDetails - Error contract returned when some exception occurs in Rest API.
+type HealthErrorDetails struct {
+	// READ-ONLY; Gets the appliance name.
+	ApplianceName *string
+
+	// READ-ONLY; Gets the error name.
+	Code *string
+
+	// READ-ONLY; Gets discovery scope for which error is encountered.
+	DiscoveryScope *HealthErrorDetailsDiscoveryScope
+
+	// READ-ONLY; Gets the error ID.
+	ID *int64
+
+	// READ-ONLY; Gets the error message.
+	Message *string
+
+	// READ-ONLY; Gets the message parameters.
+	MessageParameters map[string]*string
+
+	// READ-ONLY; Gets the possible causes of error.
+	PossibleCauses *string
+
+	// READ-ONLY; Gets the recommended action to resolve error.
+	RecommendedAction *string
+
+	// READ-ONLY; Gets run as account id used while performing discovery of entity.
+	RunAsAccountID *string
+
+	// READ-ONLY; Gets the error severity.
+	Severity *string
+
+	// READ-ONLY; Gets the error source.
+	Source *HealthErrorDetailsSource
+
+	// READ-ONLY; Gets the error summary message.
+	SummaryMessage *string
+
+	// READ-ONLY; Gets the time stamp when the error was updated.
+	UpdatedTimeStamp *time.Time
+}
+
+// HypervCluster - A cluster resource belonging to a site resource.
+type HypervCluster struct {
+	// The resource-specific properties for this resource.
+	Properties *HypervClusterProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// HypervClusterListResult - The response of a HypervCluster list operation.
+type HypervClusterListResult struct {
+	// REQUIRED; The HypervCluster items on this page
+	Value []*HypervCluster
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// HypervClusterProperties - The properties of Hyperv Cluster
+type HypervClusterProperties struct {
+	// Gets or sets the FQDN/IPAddress of the Hyper-V cluster.
+	Fqdn *string
+
+	// Gets or sets list of hosts (FQDN) currently being tracked by the cluster.
+	HostFqdnList []*string
+
+	// Gets or sets Run as account ID of the Hyper-V cluster.
+	RunAsAccountID *string
+
+	// READ-ONLY; Gets the timestamp marking Hyper-V cluster creation.
+	CreatedTimestamp *string
+
+	// READ-ONLY; Gets the errors.
+	Errors []*HealthErrorDetails
+
+	// READ-ONLY; Gets the functional level of the Hyper-V cluster.
+	FunctionalLevel *int32
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Gets the status of the Hyper-V cluster.
+	Status *string
+
+	// READ-ONLY; Gets the timestamp marking last updated on the Hyper-V cluster.
+	UpdatedTimestamp *string
+}
+
+// HypervDisk - Second level object returned as part of Machine REST resource.
+type HypervDisk struct {
+	// Gets or sets Type of the disk.
+	DiskType *string
+
+	// Gets or sets LUN of the disk.
+	Lun *int32
+
+	// Gets or sets Bytes allocated for the disk.
+	MaxSizeInBytes *int64
+
+	// Gets or sets Name of the disk.
+	Name *string
+
+	// Gets or sets Path of the disk.
+	Path *string
+
+	// READ-ONLY; Id of the disk.
+	InstanceID *string
+
+	// READ-ONLY; VHD Id of the disk.
+	VhdID *string
+}
+
+// HypervHost - A host resource belonging to a site resource.
+type HypervHost struct {
+	// The resource-specific properties for this resource.
+	Properties *HypervHostProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// HypervHostListResult - The response of a HypervHost list operation.
+type HypervHostListResult struct {
+	// REQUIRED; The HypervHost items on this page
+	Value []*HypervHost
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// HypervHostProperties - The properties of Hyperv Host
+type HypervHostProperties struct {
+	// Gets or sets the FQDN/IPAddress of the Hyper-V host.
+	Fqdn *string
+
+	// Gets or sets the run as account ID of the Hyper-V host.
+	RunAsAccountID *string
+
+	// READ-ONLY; Gets the timestamp marking Hyper-V host creation.
+	CreatedTimestamp *string
+
+	// READ-ONLY; Gets the errors.
+	Errors []*HealthErrorDetails
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Gets the timestamp marking last updated on the Hyper-V host.
+	UpdatedTimestamp *string
+
+	// READ-ONLY; Gets the version of the Hyper-V host.
+	Version *string
+}
+
+// HypervJob - A job resource belonging to a site resource.
+type HypervJob struct {
+	// The resource-specific properties for this resource.
+	Properties *JobProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// HypervJobListResult - The response of a HypervJob list operation.
+type HypervJobListResult struct {
+	// REQUIRED; The HypervJob items on this page
+	Value []*HypervJob
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// HypervMachine - A machine resource belonging to a site resource.
+type HypervMachine struct {
+	// The resource-specific properties for this resource.
+	Properties *HypervMachineProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// HypervMachineListResult - The response of a HypervMachine list operation.
+type HypervMachineListResult struct {
+	// REQUIRED; The HypervMachine items on this page
+	Value []*HypervMachine
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// HypervMachineProperties - The properties of AddressResource
+type HypervMachineProperties struct {
+	// Gets or sets the allocated Memory in MB.
+	AllocatedMemoryInMb *float64
+
+	// Gets or sets the BIOS GUID.
+	BiosGUID *string
+
+	// Gets or sets the Machine BIOS serial number.
+	BiosSerialNumber *string
+
+	// Gets or sets the firmware.
+	Firmware *string
+
+	// Gets or sets the Number of Processor Cores allocated for the machine.
+	NumberOfProcessorCore *int32
+
+	// Gets or sets the Operating System Details installed on the machine.
+	OperatingSystemDetails *OperatingSystem
+
+	// product support status.
+	ProductSupportStatus *ProductSupportStatus
+
+	// Gets or sets the run as account ID of the machine.
+	RunAsAccountID *string
+
+	// Gets or sets tags on the resource.
+	Tags map[string]*string
+
+	// READ-ONLY; Gets the appliance names.
+	ApplianceNames []*string
+
+	// READ-ONLY; Gets the data related to application discovery.
+	ApplicationDiscovery *ApplicationDiscovery
+
+	// READ-ONLY; Apps And Roles of the Server.
+	AppsAndRoles *AppsAndRoles
+
+	// READ-ONLY; Cluster FQDN/IPAddress.
+	ClusterFqdn *string
+
+	// READ-ONLY; Cluster ARM ID.
+	ClusterID *string
+
+	// READ-ONLY; Gets the marking machine creation.
+	CreatedTimestamp *string
+
+	// READ-ONLY; Gets or sets a value indicating whether data protection is requested for a VM.
+	DataProtectionRequested *bool
+
+	// READ-ONLY; Gets the data related to dependency map discovery.
+	DependencyMapDiscovery *DependencyMapDiscovery
+
+	// READ-ONLY; Gets or sets if dependency mapping feature is enabled or not for the VM.
+	DependencyMapping *string
+
+	// READ-ONLY; Gets or sets when dependency mapping collection was last disabled.
+	DependencyMappingEndTime *string
+
+	// READ-ONLY; Gets or sets when dependency mapping collection is last started.
+	DependencyMappingStartTime *time.Time
+
+	// READ-ONLY; Disks attached to the machine.
+	Disks []*HypervDisk
+
+	// READ-ONLY; Gets the Display name of the machine.
+	DisplayName *string
+
+	// READ-ONLY; Gets or sets a value indicating whether encryption of state and migration traffic is enabled for the VM.
+	EncryptStateAndVMMigrationTraffic *bool
+
+	// READ-ONLY; Errors for machine.
+	Errors []*HealthErrorDetails
+
+	// READ-ONLY; Generation of the virtual machine.
+	Generation *int32
+
+	// READ-ONLY; The last time at which the Guest Details was discovered or the error while discovering guest details based discovery
+	// of the machine.
+	GuestDetailsDiscoveryTimestamp *time.Time
+
+	// READ-ONLY; Operating System Details extracted from the guest bu executing script inside the guest VM.
+	GuestOsDetails *GuestOsDetails
+
+	// READ-ONLY; Value indicating whether the VM is highly available.
+	HighAvailability *HighAvailability
+
+	// READ-ONLY; Host FQDN/IPAddress.
+	HostFqdn *string
+
+	// READ-ONLY; Host ARM ID.
+	HostID *string
+
+	// READ-ONLY; Gets the data related to iis discovery.
+	IisDiscovery *WebAppDiscovery
+
+	// READ-ONLY; On-premise Instance UUID of the machine.
+	InstanceUUID *string
+
+	// READ-ONLY; Value indicating whether VM is deleted.
+	IsDeleted *bool
+
+	// READ-ONLY; Value indicating whether dynamic memory is enabled for the VM.
+	IsDynamicMemoryEnabled *bool
+
+	// READ-ONLY; Whether Refresh Fabric Layout Guest Details has been completed once.
+	// Portal will show discovery in progress, if this value is true.
+	IsGuestDetailsDiscoveryInProgress *bool
+
+	// READ-ONLY; Gets or sets a value indicating whether key storage device is enabled on the VM.
+	KsdEnabled *bool
+
+	// READ-ONLY; Management server type captured as a string representation of the
+	// {Microsoft.Azure.FDS.WebRole.HyperVMachineBase.HyperVMachineBaseProperties.ManagementServerType} enumeration.
+	ManagementServerType *string
+
+	// READ-ONLY; Max memory of the virtual machine in MB.
+	MaxMemoryMb *int32
+
+	// READ-ONLY; Network adapters attached to the machine.
+	NetworkAdapters []*HypervNetworkAdapter
+
+	// READ-ONLY; Number of applications installed in the guest VM.
+	NumberOfApplications *int32
+
+	// READ-ONLY; Gets the data related to Oracle discovery.
+	OracleDiscovery *OracleDiscovery
+
+	// READ-ONLY; Gets the Machine power status.
+	PowerStatus *string
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Gets the data related to SQL discovery.
+	SQLDiscovery *SQLDiscovery
+
+	// READ-ONLY; Gets or sets a value indicating whether Secure boot is enabled for the VM.
+	SecureBootEnabled *bool
+
+	// READ-ONLY; Gets or sets the SecureBootTemplateId setting of the VM.
+	SecureBootTemplate *string
+
+	// READ-ONLY; Gets or sets the SecureBootTemplateId setting of the VM.
+	SecureBootTemplateID *string
+
+	// READ-ONLY; Gets or sets a value indicating whether shielding is enabled for the VM.
+	ShieldingRequested *bool
+
+	// READ-ONLY; Gets the data related to SpringBoot discovery.
+	SpringBootDiscovery *SpringBootDiscovery
+
+	// READ-ONLY; Gets the data related to static discovery.
+	StaticDiscovery *StaticDiscovery
+
+	// READ-ONLY; Gets the data related to tomcat discovery.
+	TomcatDiscovery *WebAppDiscovery
+
+	// READ-ONLY; Gets or sets a value indicating whether trusted platform module is enabled on the VM.
+	TpmEnabled *bool
+
+	// READ-ONLY; Gets the timestamp marking last updated on the machine.
+	UpdatedTimestamp *string
+
+	// READ-ONLY; Gets the Root location of the VM configuration file.
+	VMConfigurationFileLocation *string
+
+	// READ-ONLY; Gets the VM FQDN.
+	VMFqdn *string
+
+	// READ-ONLY; VM version.
+	Version *string
+
+	// READ-ONLY; Gets or sets a value indicating whether VM virtualization based security is enabled for the VM.
+	VirtualizationBasedSecurityOptOut *bool
+
+	// READ-ONLY; Gets the data related to Web application discovery.
+	WebAppDiscovery *WebAppDiscovery
+}
+
+// HypervMachineUpdate - The type used for update operations of the HypervMachine.
+type HypervMachineUpdate struct {
+	// The updatable properties of the HypervMachine.
+	Properties *HypervMachineUpdateProperties
+}
+
+// HypervMachineUpdateProperties - The updatable properties of the HypervMachine.
+type HypervMachineUpdateProperties struct {
+	// Gets or sets the allocated Memory in MB.
+	AllocatedMemoryInMb *float64
+
+	// Gets or sets the BIOS GUID.
+	BiosGUID *string
+
+	// Gets or sets the Machine BIOS serial number.
+	BiosSerialNumber *string
+
+	// Gets or sets the firmware.
+	Firmware *string
+
+	// Gets or sets the Number of Processor Cores allocated for the machine.
+	NumberOfProcessorCore *int32
+
+	// Gets or sets the Operating System Details installed on the machine.
+	OperatingSystemDetails *OperatingSystem
+
+	// product support status.
+	ProductSupportStatus *ProductSupportStatus
+
+	// Gets or sets the run as account ID of the machine.
+	RunAsAccountID *string
+
+	// Gets or sets tags on the resource.
+	Tags map[string]*string
+}
+
+// HypervNetworkAdapter - Second level object represented in responses as part of Machine REST resource.
+type HypervNetworkAdapter struct {
+	// Gets or sets Type of the IP address.
+	IPAddressType *string
+
+	// Gets or sets Mac address of the NIC.
+	MacAddress *string
+
+	// Gets or sets Network Name.
+	NetworkName *string
+
+	// Gets or sets the NIC Id.
+	NicID *string
+
+	// READ-ONLY; Gets IP addresses for the machine.
+	IPAddressList []*string
+
+	// READ-ONLY; Network Id.
+	NetworkID *string
+
+	// READ-ONLY; Mac address of the NIC.
+	NicType *string
+
+	// READ-ONLY; Static IP address.
+	StaticIPAddress *string
+
+	// READ-ONLY; Name of the VM subnet within the virtual network the NIC is attached to.
+	SubnetName *string
+}
+
+// HypervOperationsStatusResource - A cluster resource belonging to a site resource.
+type HypervOperationsStatusResource struct {
+	// The resource-specific properties for this resource.
+	Properties *HypervClusterProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// HypervRunAsAccountResource - A machine resource belonging to a site resource.
+type HypervRunAsAccountResource struct {
+	// The resource-specific properties for this resource.
+	Properties *RunAsAccountProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// HypervRunAsAccountResourceListResult - The response of a HypervRunAsAccountResource list operation.
+type HypervRunAsAccountResourceListResult struct {
+	// REQUIRED; The HypervRunAsAccountResource items on this page
+	Value []*HypervRunAsAccountResource
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// HypervSite - A HyperV SiteResource
+type HypervSite struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// The resource-specific properties for this resource.
+	Properties *SiteProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// HypervSiteListResult - The response of a HypervSite list operation.
+type HypervSiteListResult struct {
+	// REQUIRED; The HypervSite items on this page
+	Value []*HypervSite
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// HypervSiteUpdate - The type used for update operations of the HypervSite.
+type HypervSiteUpdate struct {
+	// The updatable properties of the HypervSite.
+	Properties *HypervSiteUpdateProperties
+
+	// Resource tags.
+	Tags map[string]*string
+}
+
+// HypervSiteUpdateProperties - The updatable properties of the HypervSite.
+type HypervSiteUpdateProperties struct {
+	// Gets or sets the on-premises agent details.
+	AgentDetails *SiteAgentProperties
+
+	// Gets or sets the Appliance Name.
+	ApplianceName *string
+
+	// Gets or sets the ARM ID of migration hub solution for SDS.
+	DiscoverySolutionID *string
+
+	// Gets or sets the service principal identity details used by agent for communication to the service.
+	ServicePrincipalIdentityDetails *SiteSpnProperties
+}
+
+// HypervSiteUsage - Hyper-V site usage.
+type HypervSiteUsage struct {
+	// Gets or sets the number of clusters part of the site.
+	ClusterCount *int32
+
+	// Gets or sets the number of hosts part of the site.
+	HostCount *int32
+
+	// Gets or sets the number of machines discovered in the site.
 	MachineCount *int32
 
-	// READ-ONLY; Time when this group was last updated. Date-Time represented in ISO-8601 format.
-	UpdatedTimestamp *time.Time
+	// Gets or sets the number of run as accounts in the site.
+	RunAsAccountCount *int32
 }
 
-// GroupResultList - List of groups.
-type GroupResultList struct {
-	// List of groups.
-	Value []*Group
-}
+// HypervVMSoftwareInventory - HyperV VM software inventory REST resource.
+type HypervVMSoftwareInventory struct {
+	// The resource-specific properties for this resource.
+	Properties *MachineSoftwareInventoryProperties
 
-type HyperVCollector struct {
-	ETag       *string
-	Properties *CollectorProperties
-
-	// READ-ONLY
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
-	// READ-ONLY
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// HyperVCollectorList - List of Hyper-V collectors.
-type HyperVCollectorList struct {
-	// List of Hyper-V collectors.
-	Value []*HyperVCollector
+// HypervVMSoftwareInventoryListResult - The response of a HypervVmSoftwareInventory list operation.
+type HypervVMSoftwareInventoryListResult struct {
+	// REQUIRED; The HypervVmSoftwareInventory items on this page
+	Value []*HypervVMSoftwareInventory
+
+	// The link to the next page of items
+	NextLink *string
 }
 
-type ImportCollector struct {
-	ETag       *string
-	Properties *ImportCollectorProperties
+// IisApplicationUnit - Second-level object for identification of application units in a web site hosted on IIS.
+type IisApplicationUnit struct {
+	// Gets or sets the path of the directory.
+	ApplicationPoolName *string
 
-	// READ-ONLY
-	ID *string
+	// Gets or sets the list of directories.
+	Directories []*DirectoryPath
 
-	// READ-ONLY
-	Name *string
+	// Gets or sets a value indicating whether 32 bit applications are allowed to run on 64 bit.
+	Enable32BitAPIOnWin64 *bool
 
-	// READ-ONLY
-	Type *string
+	// Gets or sets the managed pipeline mode.
+	ManagedPipelineMode *string
+
+	// Gets or sets the path of the directory.
+	Path *DirectoryPath
+
+	// Gets or sets the runtime version.
+	RuntimeVersion *string
 }
 
-// ImportCollectorList - List of Import collectors.
-type ImportCollectorList struct {
-	// List of Import collectors.
-	Value []*ImportCollector
+// IisVirtualApplicationUnit - Second-level object for identification of virtual applications in a web site hosted on IIS.
+type IisVirtualApplicationUnit struct {
+	// Gets or sets the list of directories.
+	Directories []*DirectoryPath
+
+	// Gets or sets the path of the directory.
+	Path *DirectoryPath
+
+	// READ-ONLY; Gets a value indicating whether the application corresponds to a directory.
+	IsVirtualDirectory *bool
 }
 
-type ImportCollectorProperties struct {
-	DiscoverySiteID *string
+// IisWebApplicationProperties - Class for web application properties.
+type IisWebApplicationProperties struct {
+	// Gets or sets tags on the resource.
+	Tags map[string]*string
 
-	// READ-ONLY
+	// READ-ONLY; Gets the appliance names.
+	ApplianceNames []*string
+
+	// READ-ONLY; Gets the list of application units for the web site.
+	Applications []*IisApplicationUnit
+
+	// READ-ONLY; Gets the front end bindings for the application.
+	Bindings []*FrontEndBinding
+
+	// READ-ONLY; Gets the configuration.
+	Configurations []*WebApplicationConfigurationUnit
+
+	// READ-ONLY; Gets the timestamp marking creation of the entity.
 	CreatedTimestamp *string
 
-	// READ-ONLY
+	// READ-ONLY; Gets the directories.
+	Directories []*WebApplicationDirectoryUnit
+
+	// READ-ONLY; Gets the display name.
+	DisplayName *string
+
+	// READ-ONLY; Gets the Error details.
+	Errors []*HealthErrorDetails
+
+	// READ-ONLY; Gets the Error details.
+	Frameworks []*WebApplicationFramework
+
+	// READ-ONLY; Gets a value indicating whether the WebApp has errors or not.
+	HasErrors *bool
+
+	// READ-ONLY; Gets a value indicating whether application is deleted.
+	IsDeleted *bool
+
+	// READ-ONLY; Gets the list of machine ARM Ids on which the web application is deployed.
+	MachineArmIDs []*string
+
+	// READ-ONLY; Machine display name
+	MachineDisplayName *string
+
+	// READ-ONLY; Gets the physical path of the application.
+	PhysicalPath *string
+
+	// READ-ONLY; provisioning state enum
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Gets the server type.
+	ServerType *string
+
+	// READ-ONLY; Static folders.
+	StaticFolders []*string
+
+	// READ-ONLY; Gets the timestamp marking last update operation.
 	UpdatedTimestamp *string
+
+	// READ-ONLY; Gets the list of application units for the web site.
+	VirtualApplications []*IisVirtualApplicationUnit
+
+	// READ-ONLY; Gets the virtual path of the application.
+	VirtualPath *string
+
+	// READ-ONLY; Gets the web server id.
+	WebServerID *string
+
+	// READ-ONLY; Gets the web server name.
+	WebServerName *string
 }
 
-// Machine - A machine in a migration project.
-type Machine struct {
-	// For optimistic concurrency control.
-	ETag *string
+// IisWebApplications - Web application REST Resource.
+type IisWebApplications struct {
+	// The resource-specific properties for this resource.
+	Properties *IisWebApplicationProperties
 
-	// Properties of the machine.
-	Properties *MachineProperties
-
-	// READ-ONLY; Path reference to this machine. /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/assessmentProjects/{projectName}/machines/{machineName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
-	// READ-ONLY; Name of the machine. It is a GUID which is unique identifier of machine in private data center. For user-readable
-	// name, we have a displayName property on this machine.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; Type of the object = [Microsoft.Migrate/assessmentProjects/machines].
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// MachineProperties - Properties of a machine.
-type MachineProperties struct {
-	// READ-ONLY; Boot type of the machine.
-	BootType *MachineBootType
+// IisWebApplicationsListResult - The response of a IisWebApplications list operation.
+type IisWebApplicationsListResult struct {
+	// REQUIRED; The IisWebApplications items on this page
+	Value []*IisWebApplications
 
-	// READ-ONLY; Time when this machine was created. Date-Time represented in ISO-8601 format.
-	CreatedTimestamp *time.Time
-
-	// READ-ONLY; ARM ID of the data center as tracked by the Microsoft.OffAzure.
-	DatacenterManagementServerArmID *string
-
-	// READ-ONLY; Name of the server hosting the datacenter management solution.
-	DatacenterManagementServerName *string
-
-	// READ-ONLY; Description of the machine
-	Description *string
-
-	// READ-ONLY; ARM ID of the machine as tracked by the Microsoft.OffAzure.
-	DiscoveryMachineArmID *string
-
-	// READ-ONLY; Dictionary of disks attached to the machine. Key is ID of disk. Value is a disk object
-	Disks map[string]*Disk
-
-	// READ-ONLY; User readable name of the machine as defined by the user in their private datacenter.
-	DisplayName *string
-
-	// READ-ONLY; List of references to the groups that the machine is member of.
-	Groups []*string
-
-	// READ-ONLY; Memory in Megabytes.
-	MegabytesOfMemory *float32
-
-	// READ-ONLY; Dictionary of network adapters attached to the machine. Key is ID of network adapter. Value is a network adapter
-	// object
-	NetworkAdapters map[string]*NetworkAdapter
-
-	// READ-ONLY; Processor count.
-	NumberOfCores *int32
-
-	// READ-ONLY; Operating System name of the machine.
-	OperatingSystemName *string
-
-	// READ-ONLY; Operating System type of the machine.
-	OperatingSystemType *string
-
-	// READ-ONLY; Operating System version of the machine.
-	OperatingSystemVersion *string
-
-	// READ-ONLY; Time when this machine was last updated. Date-Time represented in ISO-8601 format.
-	UpdatedTimestamp *time.Time
-}
-
-// MachineResultList - List of machines.
-type MachineResultList struct {
+	// The link to the next page of items
 	NextLink *string
-
-	// List of machines.
-	Value []*Machine
 }
 
-// NetworkAdapter - A network adapter discovered on a machine.
-type NetworkAdapter struct {
-	// READ-ONLY; User friendly name of the network adapter.
+// IisWebApplicationsUpdate - The type used for update operations of the IisWebApplications.
+type IisWebApplicationsUpdate struct {
+	// The updatable properties of the IisWebApplications.
+	Properties *IisWebApplicationsUpdateProperties
+}
+
+// IisWebApplicationsUpdateProperties - The updatable properties of the IisWebApplications.
+type IisWebApplicationsUpdateProperties struct {
+	// Gets or sets tags on the resource.
+	Tags map[string]*string
+}
+
+// IisWebServerProperties - Class for web server properties.
+type IisWebServerProperties struct {
+	// READ-ONLY; Gets the appliance names.
+	ApplianceNames []*string
+
+	// READ-ONLY; Gets the configuration location.
+	ConfigurationLocation *string
+
+	// READ-ONLY; Gets the timestamp marking creation of the entity.
+	CreatedTimestamp *string
+
+	// READ-ONLY; Gets the display name.
 	DisplayName *string
 
-	// READ-ONLY; List of IP Addresses on the network adapter.
-	IPAddresses []*string
+	// READ-ONLY; Gets the Error details.
+	Errors []*HealthErrorDetails
 
-	// READ-ONLY; MAC Address of the network adapter.
-	MacAddress *string
+	// READ-ONLY; Gets a value indicating whether the WebApp has errors or not.
+	HasErrors *bool
+
+	// READ-ONLY; Gets a value indicating whether application is deleted.
+	IsDeleted *bool
+
+	// READ-ONLY; Gets the list of machines.
+	MachineIDs []*string
+
+	// READ-ONLY; provisioning state enum
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Gets the run as account id.
+	RunAsAccountID *string
+
+	// READ-ONLY; Gets the server FQDN.
+	ServerFqdn *string
+
+	// READ-ONLY; Gets the server type.
+	ServerType *string
+
+	// READ-ONLY; Gets the timestamp marking last update operation.
+	UpdatedTimestamp *string
+
+	// READ-ONLY; Gets the configuration location.
+	Version *string
+
+	// READ-ONLY; Gets the list of web applications.
+	WebApplications []*string
 }
 
-// Operation - A REST API operation supported by the provider.
-type Operation struct {
-	// READ-ONLY; Displayable properties of the operation.
-	Display *OperationDisplay
+// IisWebServers - Web server REST Resource.
+type IisWebServers struct {
+	// The resource-specific properties for this resource.
+	Properties *IisWebServerProperties
 
-	// READ-ONLY; Name of the operation.
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; Origin of the operation.
-	Origin *string
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
 }
 
-// OperationDisplay - Displayable properties of the operation.
+// IisWebServersListResult - The response of a IisWebServers list operation.
+type IisWebServersListResult struct {
+	// REQUIRED; The IisWebServers items on this page
+	Value []*IisWebServers
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// ImportJob - A host resource belonging to a site resource.
+type ImportJob struct {
+	// The resource-specific properties for this resource.
+	Properties *JobProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ImportJobListResult - The response of a ImportJob list operation.
+type ImportJobListResult struct {
+	// REQUIRED; The ImportJob items on this page
+	Value []*ImportJob
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// ImportMachine - An machine resource belonging to a site resource.
+type ImportMachine struct {
+	// The resource-specific properties for this resource.
+	Properties *ImportMachineProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ImportMachineListResult - The response of a ImportMachine list operation.
+type ImportMachineListResult struct {
+	// REQUIRED; The ImportMachine items on this page
+	Value []*ImportMachine
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// ImportMachineProperties - Class for machine properties.
+type ImportMachineProperties struct {
+	// REQUIRED; machine tags
+	Tags map[string]*string
+
+	// Gets or sets the allocated Memory in MB.
+	AllocatedMemoryInMb *float64
+
+	// Gets or sets the BIOS GUID.
+	BiosGUID *string
+
+	// Gets or sets the Machine BIOS serial number.
+	BiosSerialNumber *string
+
+	// Gets or sets the Number of Processor Cores allocated for the machine.
+	NumberOfProcessorCore *int32
+
+	// Gets or sets the Operating System Details installed on the machine.
+	OperatingSystemDetails *WebRoleOperatingSystem
+
+	// READ-ONLY; Gets the marking machine creation.
+	CreatedTimestamp *string
+
+	// READ-ONLY; Disks attached to the machine.
+	Disks []*WebRoleImportDisk
+
+	// READ-ONLY; Gets the Display name of the machine.
+	DisplayName *string
+
+	// READ-ONLY; Firmware of the machine.
+	Firmware *string
+
+	// READ-ONLY; Fabric type.
+	Hypervisor *string
+
+	// READ-ONLY; Hypervisor version number.
+	HypervisorVersionNumber *string
+
+	// READ-ONLY; IP Addresses.
+	IPAddresses []*string
+
+	// READ-ONLY; Value indicating whether VM is deleted.
+	IsDeleted *bool
+
+	// READ-ONLY; MAC Address.
+	MacAddress *string
+
+	// READ-ONLY; Machine ID.
+	MachineID *string
+
+	// READ-ONLY; Machine manager ID.
+	MachineManagerID *string
+
+	// READ-ONLY; Network in throughput.
+	NetworkInThroughput *float32
+
+	// READ-ONLY; Network out throughput.
+	NetworkOutThroughput *float32
+
+	// READ-ONLY; Number of disks.
+	NumberOfDisks *int32
+
+	// READ-ONLY; Number of network adapters.
+	NumberOfNetworkAdapters *int32
+
+	// READ-ONLY; CPU utilization.
+	PercentageCPUUtilization *float32
+
+	// READ-ONLY; Memory utilization.
+	PercentageMemoryUtilization *float32
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Server type.
+	ServerType *string
+
+	// READ-ONLY; Total storage in use.
+	StorageInUseGb *float32
+
+	// READ-ONLY; Total disk read operations per second.
+	TotalDiskReadOperationsPerSecond *float32
+
+	// READ-ONLY; Total disk read throughput.
+	TotalDiskReadThroughput *float32
+
+	// READ-ONLY; Total disk write operations per second.
+	TotalDiskWriteOperationsPerSecond *float32
+
+	// READ-ONLY; Total disk write throughput.
+	TotalDiskWriteThroughput *float32
+
+	// READ-ONLY; Gets the timestamp marking last updated on the machine.
+	UpdatedTimestamp *string
+
+	// READ-ONLY; Server FQDN.
+	VMFqdn *string
+}
+
+// ImportMachinesJob - Import machines Job REST Resource.
+type ImportMachinesJob struct {
+	// Gets or sets the Display name.
+	DisplayName *string
+
+	// Gets or sets the Job end time.
+	EndTime *string
+
+	// Gets or sets the relative ARM name to get job.
+	ID *string
+
+	// Gets or sets the Job ID.
+	Name *string
+
+	// Gets or sets the import job properties.
+	Properties *ImportMachinesJobProperties
+
+	// Gets or sets the Job start time.
+	StartTime *string
+
+	// Gets or sets the Job status.
+	Status *string
+
+	// READ-ONLY; Handled by resource provider. Type = Microsoft.OffAzure/ImportSites/jobs/importJobs.
+	Type *string
+}
+
+// ImportMachinesJobImportMachinesJobCollection - Collection of VMware jobs.
+type ImportMachinesJobImportMachinesJobCollection struct {
+	// REQUIRED; Gets the list of jobs.
+	Value []*ImportMachinesJob
+
+	// READ-ONLY; Gets the value of next link.
+	NextLink *string
+}
+
+// ImportMachinesJobProperties - ImportMachines JobProperties
+type ImportMachinesJobProperties struct {
+	// blob Creation TimeStamp
+	BlobCreationTimeStamp *time.Time
+
+	// blob name
+	BlobName *string
+
+	// blob sasUri
+	BlobSasURI *string
+
+	// error summary
+	ErrorSummary *JobErrorSummary
+
+	// job Result
+	JobResult *JobResult
+
+	// number Of Machines Imported
+	NumberOfMachinesImported *int32
+}
+
+// ImportSite - A ImportSite
+type ImportSite struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// The resource-specific properties for this resource.
+	Properties *ImportSiteProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ImportSiteListResult - The response of a ImportSite list operation.
+type ImportSiteListResult struct {
+	// REQUIRED; The ImportSite items on this page
+	Value []*ImportSite
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// ImportSiteProperties - The properties of ImportSiteResource
+type ImportSiteProperties struct {
+	// Gets or sets the ARM ID of migration hub solution for SDS.
+	DiscoverySolutionID *string
+
+	// READ-ONLY; Gets the Master Site this site is linked to.
+	MasterSiteID *string
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Gets the service endpoint.
+	ServiceEndpoint *string
+}
+
+// ImportSiteUpdate - The type used for update operations of the ImportSite.
+type ImportSiteUpdate struct {
+	// The updatable properties of the ImportSite.
+	Properties *ImportSiteUpdateProperties
+
+	// Resource tags.
+	Tags map[string]*string
+}
+
+// ImportSiteUpdateProperties - The updatable properties of the ImportSite.
+type ImportSiteUpdateProperties struct {
+	// Gets or sets the ARM ID of migration hub solution for SDS.
+	DiscoverySolutionID *string
+}
+
+// JobErrorSummary - Job Error Summary
+type JobErrorSummary struct {
+	// error count
+	ErrorCount *int32
+
+	// errors list
+	Errors []*string
+
+	// warning Count
+	WarningCount *int32
+}
+
+// JobProperties - Job REST Resource.
+type JobProperties struct {
+	// READ-ONLY; Gets the activity Id used in the operation execution context.
+	ActivityID *string
+
+	// READ-ONLY; Gets the client request Id used in the operation execution context.
+	ClientRequestID *string
+
+	// READ-ONLY; Gets or sets the display name of the Job.
+	DisplayName *string
+
+	// READ-ONLY; Gets operation end time.
+	EndTime *string
+
+	// READ-ONLY; Gets the errors.
+	Errors []*ErrorDetails
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Gets operation start time.
+	StartTime *string
+
+	// READ-ONLY; Gets operation status.
+	Status *string
+}
+
+// MachineMetadata - The properties of Machine MetaData
+type MachineMetadata struct {
+	// REQUIRED; value representing state of dependency mapping (enabled/disabled).
+	DependencyMapping *string
+
+	// REQUIRED; arm id of the machine.
+	MachineArmID *string
+
+	// REQUIRED; machine tags
+	Tags map[string]*string
+}
+
+// MachineMetadataCollection - The list of Machine MetaData.
+type MachineMetadataCollection struct {
+	// REQUIRED; The list of Machine MetaData.
+	Value []*MachineMetadata
+}
+
+// MachineResource - An machine resource belonging to a site resource.
+type MachineResource struct {
+	// The resource-specific properties for this resource.
+	Properties *VmwareMachineProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// MachineResourceListResult - The response of a MachineResource list operation.
+type MachineResourceListResult struct {
+	// REQUIRED; The MachineResource items on this page
+	Value []*MachineResource
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// MachineResourceUpdate - The type used for update operations of the MachineResource.
+type MachineResourceUpdate struct {
+	// The updatable properties of the MachineResource.
+	Properties *MachineResourceUpdateProperties
+}
+
+// MachineResourceUpdateProperties - The updatable properties of the MachineResource.
+type MachineResourceUpdateProperties struct {
+	// Gets or sets the allocated Memory in MB.
+	AllocatedMemoryInMb *float64
+
+	// Gets or sets the BIOS GUID.
+	BiosGUID *string
+
+	// Gets or sets the Machine BIOS serial number.
+	BiosSerialNumber *string
+
+	// Gets or sets the firmware.
+	Firmware *string
+
+	// Gets or sets the Number of Processor Cores allocated for the machine.
+	NumberOfProcessorCore *int32
+
+	// Gets or sets the Operating System Details installed on the machine.
+	OperatingSystemDetails *OperatingSystem
+
+	// product support status.
+	ProductSupportStatus *ProductSupportStatus
+
+	// Gets or sets the run as account ID of the machine.
+	RunAsAccountID *string
+
+	// Gets or sets tags on the VMware machine.
+	Tags map[string]*string
+}
+
+// MachineSoftwareInventoryProperties - Class for machine software inventory properties.
+type MachineSoftwareInventoryProperties struct {
+	// READ-ONLY; Apps And Roles of the machine entity.
+	AppsAndRoles *AppsAndRoles
+
+	// READ-ONLY; provisioning state enum
+	ProvisioningState *ProvisioningState
+}
+
+// MasterSite - A MasterSite
+type MasterSite struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// The resource-specific properties for this resource.
+	Properties *MasterSiteProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// MasterSiteListResult - The response of a MasterSite list operation.
+type MasterSiteListResult struct {
+	// REQUIRED; The MasterSite items on this page
+	Value []*MasterSite
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// MasterSiteProperties - Class for site properties.
+type MasterSiteProperties struct {
+	// Gets or sets a value indicating whether multiple sites per site type are allowed.
+	AllowMultipleSites *bool
+
+	// Gets or sets a value for customer storage account ARM id.
+	CustomerStorageAccountArmID *string
+
+	// Gets or sets the state of public network access.
+	PublicNetworkAccess *MasterSitePropertiesPublicNetworkAccess
+
+	// Gets or sets the sites that are a part of Master Site. The key should contain the Site ARM name.
+	Sites []*string
+
+	// READ-ONLY; Gets the nested sites under Master Site.
+	NestedSites []*string
+
+	// READ-ONLY; Gets the private endpoint connections.
+	PrivateEndpointConnections []*PrivateEndpointConnection
+
+	// READ-ONLY; provisioning state enum
+	ProvisioningState *ProvisioningState
+}
+
+// MasterSiteUpdate - The type used for update operations of the MasterSite.
+type MasterSiteUpdate struct {
+	// The updatable properties of the MasterSite.
+	Properties *MasterSiteUpdateProperties
+
+	// Resource tags.
+	Tags map[string]*string
+}
+
+// MasterSiteUpdateProperties - The updatable properties of the MasterSite.
+type MasterSiteUpdateProperties struct {
+	// Gets or sets a value indicating whether multiple sites per site type are allowed.
+	AllowMultipleSites *bool
+
+	// Gets or sets a value for customer storage account ARM id.
+	CustomerStorageAccountArmID *string
+
+	// Gets or sets the state of public network access.
+	PublicNetworkAccess *MasterSitePropertiesPublicNetworkAccess
+
+	// Gets or sets the sites that are a part of Master Site. The key should contain the Site ARM name.
+	Sites []*string
+}
+
+// OperatingSystem - Second level object returned as part of Machine REST resource.
+type OperatingSystem struct {
+	// Gets or sets the Architecture of the operating system.
+	OSArchitecture *string
+
+	// Gets or sets the Name of the operating system.
+	OSName *string
+
+	// Gets or sets the type of the operating system.
+	OSType *string
+
+	// Gets or sets the Version of the operating system.
+	OSVersion *string
+}
+
+// Operation - Details of a REST API operation, returned from the Resource Provider Operations API
+type Operation struct {
+	// Localized display information for this particular operation.
+	Display *OperationDisplay
+
+	// READ-ONLY; Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+	ActionType *ActionType
+
+	// READ-ONLY; Whether the operation applies to data-plane. This is "true" for data-plane operations and "false" for ARM/control-plane
+	// operations.
+	IsDataAction *bool
+
+	// READ-ONLY; The name of the operation, as per Resource-Based Access Control (RBAC). Examples: "Microsoft.Compute/virtualMachines/write",
+	// "Microsoft.Compute/virtualMachines/capture/action"
+	Name *string
+
+	// READ-ONLY; The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
+	// value is "user,system"
+	Origin *Origin
+}
+
+// OperationDisplay - Localized display information for this particular operation.
 type OperationDisplay struct {
-	// READ-ONLY; Description of the operation.
+	// READ-ONLY; The short, localized friendly description of the operation; suitable for tool tips and detailed views.
 	Description *string
 
-	// READ-ONLY; Operation Type.
+	// READ-ONLY; The concise, localized friendly name for the operation; suitable for dropdowns. E.g. "Create or Update Virtual
+	// Machine", "Restart Virtual Machine".
 	Operation *string
 
-	// READ-ONLY; Provider of the operation.
+	// READ-ONLY; The localized friendly form of the resource provider name, e.g. "Microsoft Monitoring Insights" or "Microsoft
+	// Compute".
 	Provider *string
 
-	// READ-ONLY; Resource operated on by the operation.
+	// READ-ONLY; The localized friendly name of the resource type related to this operation. E.g. "Virtual Machines" or "Job
+	// Schedule Collections".
 	Resource *string
 }
 
-// OperationResultList - List of API operations.
-type OperationResultList struct {
-	// List of operations.
+// OperationListResult - A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to
+// get the next set of results.
+type OperationListResult struct {
+	// READ-ONLY; URL to get the next set of operation list results (if there are any).
+	NextLink *string
+
+	// READ-ONLY; List of operations supported by the resource provider
 	Value []*Operation
 }
 
-// PrivateEndpointConnection - A private endpoint connection for a project.
-type PrivateEndpointConnection struct {
-	// REQUIRED; Properties of the private endpoint endpoint connection.
-	Properties *PrivateEndpointConnectionProperties
+// OperationStatus - Operation status REST resource.
+type OperationStatus struct {
+	// READ-ONLY; Gets the start time.
+	EndTime *string
 
-	// For optimistic concurrency control.
-	ETag *string
+	// READ-ONLY; Gets the error.
+	Error *OperationStatusError
 
-	// READ-ONLY; Path reference to this private endpoint endpoint connection.
-	// /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/assessmentProjects/{projectName}/privateEndpointConnections/{privateEndpointConnectionName}
+	// READ-ONLY; Gets the Id.
 	ID *string
 
-	// READ-ONLY; Name of the private endpoint endpoint connection.
+	// READ-ONLY; Gets the operation name.
 	Name *string
 
-	// READ-ONLY; Type of the object = [Microsoft.Migrate/assessmentProjects/privateEndpointConnections].
+	// READ-ONLY; Operation status properties
+	Properties *OperationStatusProperties
+
+	// READ-ONLY; Gets the start time.
+	StartTime *string
+
+	// READ-ONLY; Gets the status of the operation. ARM expects the terminal status to be one of Succeeded/ Failed/ Canceled.
+	// All other values imply that the operation is still running.
+	Status *string
+}
+
+// OperationStatusError - Class for operation status errors.
+type OperationStatusError struct {
+	// READ-ONLY; Gets the error code.
+	Code *string
+
+	// READ-ONLY; Gets the error message.
+	Message *string
+}
+
+// OperationStatusProperties - Class for operation result properties.
+type OperationStatusProperties struct {
+	// Gets or sets the result or output of the workflow.
+	Result *string
+}
+
+// OracleDiscovery - Data related to a machine's Oracle discovery.
+type OracleDiscovery struct {
+	// Gets or sets status of partner discovery.
+	DiscoveryScopeStatus *DiscoveryScopeStatus
+
+	// Gets or sets status of partner shallow discovery.
+	ShallowDiscoveryStatus *ShallowDiscoveryStatus
+
+	// Gets or sets number of successfully discovered databases.
+	TotalDatabaseCount *int64
+
+	// Gets or sets number of successfully discovered instances.
+	TotalInstanceCount *int64
+}
+
+// OtherDatabase in the guest virtual machine.
+type OtherDatabase struct {
+	// READ-ONLY; Gets or sets DatabaseType of the OtherDatabase.
+	DatabaseType *string
+
+	// READ-ONLY; Gets or sets Instance of the OtherDatabase.
+	Instance *string
+
+	// READ-ONLY; Gets or sets Version of the OtherDatabase.
+	Version *string
+}
+
+// PagedDeleteImportMachinesJob - Paged collection of DeleteImportMachinesJob items
+type PagedDeleteImportMachinesJob struct {
+	// READ-ONLY; The link to the next page of items
+	NextLink *string
+
+	// READ-ONLY; The DeleteImportMachinesJob items on this page
+	Value []*DeleteImportMachinesJob
+}
+
+// PagedExportImportedMachinesJob - Paged collection of ExportImportedMachinesJob items
+type PagedExportImportedMachinesJob struct {
+	// READ-ONLY; The link to the next page of items
+	NextLink *string
+
+	// READ-ONLY; The ExportImportedMachinesJob items on this page
+	Value []*ExportImportedMachinesJob
+}
+
+// PagedImportMachinesJob - Paged collection of ImportMachinesJob items
+type PagedImportMachinesJob struct {
+	// READ-ONLY; The link to the next page of items
+	NextLink *string
+
+	// READ-ONLY; The ImportMachinesJob items on this page
+	Value []*ImportMachinesJob
+}
+
+// PrivateEndpointConnection - REST model used to encapsulate Private Link properties for tracked resources.
+type PrivateEndpointConnection struct {
+	// The resource-specific properties for this resource.
+	Properties *PrivateEndpointConnectionPropertiesV2
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// PrivateEndpointConnectionCollection - A collection of private endpoint connections for a project.
-type PrivateEndpointConnectionCollection struct {
-	// READ-ONLY
-	NextLink *string
-
-	// READ-ONLY; A list of private endpoint connections for a project.
+// PrivateEndpointConnectionListResult - The response of a PrivateEndpointConnection list operation.
+type PrivateEndpointConnectionListResult struct {
+	// REQUIRED; The PrivateEndpointConnection items on this page
 	Value []*PrivateEndpointConnection
+
+	// The link to the next page of items
+	NextLink *string
 }
 
-// PrivateEndpointConnectionProperties - Private endpoint connection properties.
-type PrivateEndpointConnectionProperties struct {
-	// State of the private endpoint connection.
+// PrivateEndpointConnectionPropertiesV2 - PrivateEndpointConnectionProperties V2
+type PrivateEndpointConnectionPropertiesV2 struct {
+	// private endpoints connection state
 	PrivateLinkServiceConnectionState *PrivateLinkServiceConnectionState
 
-	// READ-ONLY; ARM id for the private endpoint resource corresponding to the connection.
+	// READ-ONLY; array of group ids
+	GroupIDs []*string
+
+	// READ-ONLY; private endpoints
 	PrivateEndpoint *ResourceID
 
-	// READ-ONLY; Indicates whether there is an ongoing operation on the private endpoint.
-	ProvisioningState *PrivateEndpointConnectionPropertiesProvisioningState
+	// READ-ONLY; provisioning state enum
+	ProvisioningState *ProvisioningState
 }
 
-// PrivateLinkResource - A private link resource for a project for which a private endpoint can be created.
+// PrivateLinkResource - REST model used to encapsulate Private Link properties for tracked resources.
 type PrivateLinkResource struct {
-	// READ-ONLY; Path reference to this private link resource.
-	// /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/assessmentProjects/{projectName}/privateLinkResources/{privateLinkResourceName}
-	ID *string
-
-	// READ-ONLY; Name of the private link resource.
-	Name *string
-
-	// READ-ONLY; Properties of the private link resource.
+	// The resource-specific properties for this resource.
 	Properties *PrivateLinkResourceProperties
 
-	// READ-ONLY; Type of the object = [Microsoft.Migrate/assessmentProjects/privateLinkResources].
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// PrivateLinkResourceCollection - A list of private link resources
-type PrivateLinkResourceCollection struct {
-	// READ-ONLY; Link to retrieve next page of results.
-	NextLink *string
-
-	// READ-ONLY; Array of results.
+// PrivateLinkResourceListResult - The response of a PrivateLinkResource list operation.
+type PrivateLinkResourceListResult struct {
+	// REQUIRED; The PrivateLinkResource items on this page
 	Value []*PrivateLinkResource
+
+	// The link to the next page of items
+	NextLink *string
 }
 
-// PrivateLinkResourceProperties - Properties of a private link resource.
+// PrivateLinkResourceProperties - private link resource properties model
 type PrivateLinkResourceProperties struct {
-	// READ-ONLY; The private link resource group id.
+	// group id
 	GroupID *string
 
-	// READ-ONLY; The private link resource required member names.
+	// required members
 	RequiredMembers []*string
 
-	// READ-ONLY; Required DNS zone names of the the private link resource.
+	// required zone names
 	RequiredZoneNames []*string
+
+	// READ-ONLY; provisioning state enum
+	ProvisioningState *ProvisioningState
 }
 
-// PrivateLinkServiceConnectionState - State of a private endpoint connection.
+// PrivateLinkServiceConnectionState - Service Connection State
 type PrivateLinkServiceConnectionState struct {
-	// Actions required on the private endpoint connection.
+	// actions required
 	ActionsRequired *string
 
-	// Description of the private endpoint connection.
+	// description string
 	Description *string
 
-	// Connection status of the private endpoint connection.
+	// state status
 	Status *PrivateLinkServiceConnectionStateStatus
 }
 
-// Project - Azure Migrate Project.
-type Project struct {
-	// For optimistic concurrency control.
-	ETag *string
-
-	// Azure location in which project is created.
-	Location *string
-
-	// Properties of the project.
-	Properties *ProjectProperties
-
-	// Tags provided by Azure Tagging service.
-	Tags any
-
-	// READ-ONLY; Path reference to this project /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Migrate/assessmentProjects/{projectName}
-	ID *string
-
-	// READ-ONLY; Name of the project.
+// ProcessorInfo - Processor Information.
+type ProcessorInfo struct {
+	// Gets or sets the name\model of a processor.
 	Name *string
 
-	// READ-ONLY; Type of the object = [Microsoft.Migrate/assessmentProjects].
+	// Gets or sets the total number of cores in a socket.
+	NumberOfCoresPerSocket *int32
+
+	// Gets or sets the number of sockets.
+	NumberOfSockets *int32
+}
+
+// ProductSupportStatus - product support status.
+type ProductSupportStatus struct {
+	// current version.
+	CurrentVersion *string
+
+	// esu status.
+	EsuStatus *EsuStatus
+
+	// esu year.
+	EsuYear *EsuYear
+
+	// support end date.
+	SupportEndDate *time.Time
+
+	// support status.
+	SupportStatus *SupportStatus
+}
+
+// ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
+// location
+type ProxyResource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// ProjectProperties - Properties of a project.
-type ProjectProperties struct {
-	// Assessment solution ARM id tracked by Microsoft.Migrate/migrateProjects.
-	AssessmentSolutionID *string
+// ProxySiteRefreshBody - Request body for Proxy site refresh action.
+type ProxySiteRefreshBody struct {
+	// Gets or sets the appliance name of the agent in the site.
+	ApplianceName *string
+}
 
-	// The ARM id of the storage account used for interactions when public access is disabled.
-	CustomerStorageAccountArmID *string
+// RequestExportMachineErrorsProperties - The Properties class for export machine errors request body.
+type RequestExportMachineErrorsProperties struct {
+	// Gets or sets the discovery scope.
+	DiscoveryScope *ExportMachineErrorsProperties
+}
 
-	// The ARM id of service map workspace created by customer.
-	CustomerWorkspaceID *string
+// Resource - Common fields that are returned in the response for all Azure Resource Manager resources
+type Resource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
 
-	// Location of service map workspace created by customer.
-	CustomerWorkspaceLocation *string
+	// READ-ONLY; The name of the resource
+	Name *string
 
-	// Assessment project status.
-	ProjectStatus *ProjectStatus
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
-	// This value can be set to 'enabled' to avoid breaking changes on existing customer resources and templates. If set to 'disabled',
-	// traffic over public interface is not allowed, and private endpoint
-	// connections would be the exclusive access method.
-	PublicNetworkAccess *string
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
 
-	// READ-ONLY; Time when this project was created. Date-Time represented in ISO-8601 format.
-	CreatedTimestamp *time.Time
+// ResourceID - PrivateEndpointModelsResourceId
+type ResourceID struct {
+	// READ-ONLY; id name
+	ID *string
+}
 
-	// READ-ONLY; Time when last assessment was created. Date-Time represented in ISO-8601 format. This value will be null until
-	// assessment is created.
-	LastAssessmentTimestamp *time.Time
+// RunAsAccountMachineInput - Machine class.
+type RunAsAccountMachineInput struct {
+	// Gets or sets the ARM id of the machine.
+	MachineID *string
 
-	// READ-ONLY; Number of assessments created in the project.
-	NumberOfAssessments *int32
+	// run as AccountId
+	RunAsAccountID *string
+}
 
-	// READ-ONLY; Number of groups created in the project.
-	NumberOfGroups *int32
+// RunAsAccountProperties - Class for run as account properties.
+type RunAsAccountProperties struct {
+	// READ-ONLY; Gets the appliance name of the run as account.
+	ApplianceName *string
 
-	// READ-ONLY; Number of machines in the project.
-	NumberOfMachines *int32
+	// READ-ONLY; Timestamp marking run as account creation.
+	CreatedTimestamp *string
 
-	// READ-ONLY; The list of private endpoint connections to the project.
-	PrivateEndpointConnections []*PrivateEndpointConnection
+	// READ-ONLY; Gets the credential type of the run as account.
+	CredentialType *string
 
-	// READ-ONLY; Provisioning state of the project.
+	// READ-ONLY; Display name of the run as account.
+	DisplayName *string
+
+	// READ-ONLY; provisioning state enum
 	ProvisioningState *ProvisioningState
 
-	// READ-ONLY; Endpoint at which the collector agent can call agent REST API.
-	ServiceEndpoint *string
-
-	// READ-ONLY; Time when this project was last updated. Date-Time represented in ISO-8601 format.
-	UpdatedTimestamp *time.Time
+	// READ-ONLY; Timestamp marking last updated on the run as account.
+	UpdatedTimestamp *string
 }
 
-// ProjectResultList - List of projects.
-type ProjectResultList struct {
-	NextLink *string
+// SQLAvailabilityGroup - Class representing the web model of SQL Availability Group.
+type SQLAvailabilityGroup struct {
+	// The resource-specific properties for this resource.
+	Properties *SQLAvailabilityGroupProperties
 
-	// List of projects.
-	Value []*Project
-}
-
-// ResourceID - ARM id for a resource.
-type ResourceID struct {
-	// READ-ONLY
-	ID *string
-}
-
-type ServerCollector struct {
-	ETag       *string
-	Properties *CollectorProperties
-
-	// READ-ONLY
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
-	// READ-ONLY
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// ServerCollectorList - List of Server collectors.
-type ServerCollectorList struct {
-	// List of Server collectors.
-	Value []*ServerCollector
+// SQLAvailabilityGroupListResult - The response of a SqlAvailabilityGroup list operation.
+type SQLAvailabilityGroupListResult struct {
+	// REQUIRED; The SqlAvailabilityGroup items on this page
+	Value []*SQLAvailabilityGroup
+
+	// The link to the next page of items
+	NextLink *string
 }
 
-// UpdateGroupBody - Properties of group update.
-type UpdateGroupBody struct {
-	// For optimistic concurrency control.
+// SQLAvailabilityGroupProperties - Class for SQL Server availability group properties.
+type SQLAvailabilityGroupProperties struct {
+	// Gets or sets the SQL Availability Group Name.
+	AvailabilityGroupName *string
+
+	// Gets or sets the type of availability group. Currently there are two types of AGs Traditional and Distributed.
+	AvailabilityGroupType *SQLAvailabilityGroupPropertiesAvailabilityGroupType
+
+	// Gets or sets the Cluster name where AG is hosted.
+	ClusterName *string
+
+	// Gets or sets the marking machine creation.
+	CreatedTimestamp *string
+
+	// Gets or sets a value indicating whether the entity is deleted.
+	IsDeleted *bool
+
+	// Gets or sets a value indicating whether AG is multi subnet or not.
+	IsMultiSubNet *bool
+
+	// Gets or sets a value indicating whether this Availability group is part of a distributed AG.
+	IsPartOfDistributedAvailabilityGroup *bool
+
+	// Gets or sets the timestamp marking last updated on the machine.
+	UpdatedTimestamp *string
+
+	// READ-ONLY; Gets the list of availability replica properties which together forms this availability group.
+	AvailabilityReplicas []*SQLAvailabilityReplicaProperties
+
+	// READ-ONLY; Gets the parent availability replica overview if any. This would be set with details of parent AG and AR for
+	// cases where this availability group is a part of a distributed AG. Currently, we do not
+	// populate this since discovery and linking of DAG(Distributed Availability Group) is not implemented.
+	ParentReplicaOverviewList []*SQLAvailabilityReplicaOverview
+
+	// READ-ONLY; provisioning state enum
+	ProvisioningState *ProvisioningState
+}
+
+// SQLAvailabilityGroupReplicaInfo - Class which represents the SQL availability replica properties of type AG.
+type SQLAvailabilityGroupReplicaInfo struct {
+	// Gets or sets the AG ARM ID which are part of this Replica.
+	AvailabilityGroupArmID *string
+
+	// Gets or sets the name of the availability replica.
+	AvailabilityGroupName *string
+
+	// Gets or sets the name of the cluster on which this replica is hosted.
+	ClusterName *string
+}
+
+// SQLAvailabilityReplicaOverview - Web model for SQL replica overview.
+type SQLAvailabilityReplicaOverview struct {
+	// Gets or sets the Availability Group Id in which this database participates if any. It would be set if the database has
+	// {Microsoft.Azure.FDS.CosmosDB.SqlDatabaseEntity.IsDatabaseHighlyAvailable} has a
+	// value "true".
+	AvailabilityGroupArmID *string
+
+	// Gets or sets the SQL Availability group name.
+	AvailabilityGroupName *string
+
+	// Gets or sets the SQL Availability Replica Id within the Availability Group this database is a part of.
+	AvailabilityReplicaID *string
+
+	// Gets or sets the state of the availability replica.
+	ReplicaState *SQLAvailabilityReplicaOverviewReplicaState
+}
+
+// SQLAvailabilityReplicaProperties - Class for SQL Server availability replica properties.
+type SQLAvailabilityReplicaProperties struct {
+	// Gets or sets the SQL Availability Replica Id.
+	AvailabilityReplicaID *string
+
+	// Gets or sets the SQL Availability Replica Name.
+	AvailabilityReplicaName *string
+
+	// Gets or sets the commit mode of the replica.
+	ReplicaCommitMode *SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaCommitMode
+
+	// Gets or sets the read mode of the replica.
+	ReplicaReadMode *SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaReadMode
+
+	// Gets or sets the seed mode of the replica.
+	ReplicaSeedMode *SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSeedMode
+
+	// Gets or sets the state of the availability replica.
+	ReplicaState *SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaState
+
+	// Gets or sets the synchronization status of the replica.
+	ReplicaSyncStatus *SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSyncStatus
+
+	// Gets or sets the replica type of the availability group.
+	ReplicaType *SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaType
+
+	// Gets or sets the Availability Replica object if Replica is of type AG. This is null in case Replica is of type database.
+	// This is to be populated in case AG is of type DAG.
+	SQLAvailabilityGroupReplicaInfo *SQLAvailabilityGroupReplicaInfo
+
+	// Gets or sets the Availability Replica object if Replica is of type database. This is null in case Replica is of type AG.
+	// This is to be populated in case of normal AG.
+	SQLDatabaseReplicaInfo *SQLDatabaseReplicaInfo
+}
+
+// SQLDatabasePropertiesV2 - Class for SQL Server database properties.
+type SQLDatabasePropertiesV2 struct {
+	// Gets or sets the database compatibility level.
+	CompatibilityLevel *string
+
+	// Gets or sets the marking machine creation.
+	CreatedTimestamp *string
+
+	// Gets or sets the SQL database name.
+	DatabaseName *string
+
+	// Gets or sets the hostname.
+	Hostname *string
+
+	// Gets or sets a value indicating whether this database is a part of an HA setup.
+	IsDatabaseHighlyAvailable *bool
+
+	// Gets or sets a value indicating whether the entity is deleted.
+	IsDeleted *bool
+
+	// Gets or sets the Replica overview.
+	ParentReplicaOverview *SQLAvailabilityReplicaOverview
+
+	// The status of the last operation.
+	ProvisioningState *ProvisioningState
+
+	// Gets or sets the SQL Server ARM Id in which the database resides.
+	SQLServerArmID *string
+
+	// Gets or sets the SQL Server Id in which the database resides.
+	SQLServerName *string
+
+	// Gets or sets the size in Mb.
+	SizeMb *float32
+
+	// Gets or sets the status.
+	Status *string
+
+	// Gets or sets the timestamp marking last updated on the machine.
+	UpdatedTimestamp *string
+
+	// READ-ONLY; Gets the errors.
+	Errors []*Errors
+
+	// READ-ONLY; Gets the file metadata list.
+	FileMetadataList []*FileMetaData
+}
+
+// SQLDatabaseReplicaInfo - Class which represents the SQL availability replica properties of type databases.
+type SQLDatabaseReplicaInfo struct {
+	// Gets or sets the host name of the availability replica.
+	HostName *string
+
+	// Gets or sets the SQL Server name of the availability replica.
+	SQLServerArmID *string
+
+	// Gets or sets the SQL Server name of the availability replica.
+	SQLServerName *string
+}
+
+// SQLDatabaseV2 - Class representing the web model of SQL Database.
+type SQLDatabaseV2 struct {
+	// The resource-specific properties for this resource.
+	Properties *SQLDatabasePropertiesV2
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SQLDatabaseV2ListResult - The response of a SqlDatabaseV2 list operation.
+type SQLDatabaseV2ListResult struct {
+	// REQUIRED; The SqlDatabaseV2 items on this page
+	Value []*SQLDatabaseV2
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// SQLDiscovery - Contains data related SQL discovery.
+type SQLDiscovery struct {
+	// discovery Scope Status
+	DiscoveryScopeStatus *SQLDiscoveryScopeStatus
+
+	// sql Metadata DiscoveryPipe
+	SQLMetadataDiscoveryPipe *SQLMetadataDiscoveryPipe
+
+	// sql Metadata Hydrated RunAsAccountId
+	SQLMetadataHydratedRunAsAccountID *string
+
+	// successfully Discovered ServerCount
+	SuccessfullyDiscoveredServerCount *int32
+
+	// total Server Count
+	TotalServerCount *int32
+}
+
+// SQLDiscoverySiteDataSource - A SQL discovery site data source resource.
+type SQLDiscoverySiteDataSource struct {
+	// The resource-specific properties for this resource.
+	Properties *SQLDiscoverySiteDataSourceProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SQLDiscoverySiteDataSourceListResult - The response of a SqlDiscoverySiteDataSource list operation.
+type SQLDiscoverySiteDataSourceListResult struct {
+	// REQUIRED; The SqlDiscoverySiteDataSource items on this page
+	Value []*SQLDiscoverySiteDataSource
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// SQLDiscoverySiteDataSourceProperties - Discovery site data source properties class.
+type SQLDiscoverySiteDataSourceProperties struct {
+	// Gets or sets the discovery site Id.
+	DiscoverySiteID *string
+
+	// READ-ONLY; provisioning state enum
+	ProvisioningState *ProvisioningState
+}
+
+// SQLFciProperties - The class representing the properties for an FCI instance.
+type SQLFciProperties struct {
+	// Gets or sets a value indicating whether the FCI is hosted on possible owners which are in multiple subnets.
+	IsMultiSubnet *bool
+
+	// Gets or sets the FCI Network Name used to connect to this FCI instance.
+	NetworkName *string
+
+	// Gets or sets the count of Shared Disks for SQL FCI.
+	SharedDiskCount *int32
+
+	// Gets or sets the state of the FCI instance.
+	State *FCIInstanceState
+}
+
+// SQLJob - Class representing the web model of SQL Database.
+type SQLJob struct {
+	// The resource-specific properties for this resource.
+	Properties *JobProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SQLJobListResult - The response of a SqlJob list operation.
+type SQLJobListResult struct {
+	// REQUIRED; The SqlJob items on this page
+	Value []*SQLJob
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// SQLMachineOverview - Gets or sets SQL machine overview data.
+type SQLMachineOverview struct {
+	// Gets or sets SQL machine display name.
+	DisplayName *string
+
+	// Gets or sets SQL machine FCI role.
+	FciRole *SQLMachineOverviewFciRole
+
+	// Gets or sets SQL machine ARM ID.
+	MachineArmID *string
+}
+
+// SQLRunAsAccount - A runasaccount resource belonging to a site resource.
+type SQLRunAsAccount struct {
+	// The resource-specific properties for this resource.
+	Properties *RunAsAccountProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SQLRunAsAccountListResult - The response of a SqlRunAsAccount list operation.
+type SQLRunAsAccountListResult struct {
+	// REQUIRED; The SqlRunAsAccount items on this page
+	Value []*SQLRunAsAccount
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// SQLServerApplication - SQLServer in the guest virtual machine.
+type SQLServerApplication struct {
+	// READ-ONLY; Gets or sets ClusterName of the SQLServer.
+	ClusterName *string
+
+	// READ-ONLY; Gets or sets Clustered of the SQLServer.
+	Clustered *string
+
+	// READ-ONLY; Gets or sets the comma separated IPs of the SQLServer.
+	CommaSeparatedIPs *string
+
+	// READ-ONLY; Gets or sets the DNS host name of SQLServer.
+	DNSHostName *string
+
+	// READ-ONLY; Gets or sets Edition of the SQLServer.
+	Edition *string
+
+	// READ-ONLY; Gets or sets the value which reflects if Named Pipe is enabled or not.
+	IsNamedPipeEnabled *bool
+
+	// READ-ONLY; Gets or sets the value which reflects if Named Pipe is enabled or not.
+	IsTCPIPEnabled *bool
+
+	// READ-ONLY; Gets or sets Name of the SQLServer.
+	Name *string
+
+	// READ-ONLY; Gets the status.
+	NamedPipeName *string
+
+	// READ-ONLY; Gets or sets the port of the SQLServer.
+	Port *string
+
+	// READ-ONLY; Gets or sets ServicePack of the SQLServer.
+	ServicePack *string
+
+	// READ-ONLY; Gets the status.
+	Status *string
+
+	// READ-ONLY; Gets or sets Version of the SQLServer.
+	Version *string
+}
+
+// SQLServerProperties - Class for SQL Server properties.
+type SQLServerProperties struct {
+	// Gets or sets the marking machine creation.
+	CreatedTimestamp *string
+
+	// Gets or sets the SQL server edition.
+	Edition *string
+
+	// Gets or sets the SQL server engine edition.
+	EngineEdition *string
+
+	// Gets or sets hostname.
+	HostName *string
+
+	// Gets or sets the hydrated run as account ID of the SQL server.
+	HydratedRunAsAccountID *string
+
+	// Gets or sets the Hyper thread ratio.
+	HyperthreadRatio *int32
+
+	// Gets or sets a value indicating whether failover cluster is configured or not.
+	IsClustered *bool
+
+	// Gets or sets a value indicating whether the entity is deleted.
+	IsDeleted *bool
+
+	// Gets or sets a value indicating whether High Availability is enabled or not.
+	IsHighAvailabilityEnabled *bool
+
+	// Gets or sets logical CPU count.
+	LogicalCPUCount *int32
+
+	// Gets or sets maximum server memory in use.
+	MaxServerMemoryInUseInMb *float32
+
+	// Gets or sets number of logins.
+	NumOfLogins *int32
+
+	// Gets or sets the number of databases part of availability group on this SQL instance.
+	NumberOfAgDatabases *int32
+
+	// Gets or sets total number of users databases.
+	NumberOfUserDatabases *int32
+
+	// Gets or sets physical CPU count.
+	PhysicalCPUCount *float32
+
+	// Gets or sets the Preferred Port Number.
+	PortNumber *int32
+
+	// product support status.
+	ProductSupportStatus *ProductSupportStatus
+
+	// The status of the last operation.
+	ProvisioningState *ProvisioningState
+
+	// Gets or sets the run as account ID of the SQL server.
+	RunAsAccountID *string
+
+	// Gets or sets the FCI properties if the instance is an FCI instance. This would be populated if IsClustered is true.
+	SQLFciProperties *SQLFciProperties
+
+	// Gets or sets the SQL server instance name.
+	SQLServerName *string
+
+	// Gets or sets the SQL start time.
+	SQLStartTime *time.Time
+
+	// Gets or sets the powered on status.
+	Status *SQLServerStatus
+
+	// Gets or sets total size of all user databases.
+	SumOfUserDatabasesSizeInMb *float32
+
+	// Gets or sets tags on the resource.
+	Tags map[string]any
+
+	// Gets or sets size of temp database.
+	TempDbSizeInMb *float32
+
+	// Gets or sets the timestamp marking last updated on the machine.
+	UpdatedTimestamp *string
+
+	// Gets or sets the SQL server version.
+	Version *string
+
+	// Gets or sets the SQL server number of cores that have visible online status.
+	VisibleOnlineCoreCount *int32
+
+	// READ-ONLY; Gets the errors.
+	Errors []*Errors
+
+	// READ-ONLY; Gets the list of machine ARM Ids on which the SQL server is deployed.
+	MachineArmIDs []*string
+
+	// READ-ONLY; Gets the Machine Overview properties of all machines on which the SQL server is deployed.
+	MachineOverviewList []*SQLMachineOverview
+}
+
+// SQLServerV2 - Class representing the web model of SQL Server.
+type SQLServerV2 struct {
+	// The resource-specific properties for this resource.
+	Properties *SQLServerProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SQLServerV2ListResult - The response of a SqlServerV2 list operation.
+type SQLServerV2ListResult struct {
+	// REQUIRED; The SqlServerV2 items on this page
+	Value []*SQLServerV2
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// SQLServerV2Update - The type used for update operations of the SqlServerV2.
+type SQLServerV2Update struct {
+	// The updatable properties of the SqlServerV2.
+	Properties *SQLServerV2UpdateProperties
+}
+
+// SQLServerV2UpdateProperties - The updatable properties of the SqlServerV2.
+type SQLServerV2UpdateProperties struct {
+	// Gets or sets the marking machine creation.
+	CreatedTimestamp *string
+
+	// Gets or sets the SQL server edition.
+	Edition *string
+
+	// Gets or sets the SQL server engine edition.
+	EngineEdition *string
+
+	// Gets or sets hostname.
+	HostName *string
+
+	// Gets or sets the hydrated run as account ID of the SQL server.
+	HydratedRunAsAccountID *string
+
+	// Gets or sets the Hyper thread ratio.
+	HyperthreadRatio *int32
+
+	// Gets or sets a value indicating whether failover cluster is configured or not.
+	IsClustered *bool
+
+	// Gets or sets a value indicating whether the entity is deleted.
+	IsDeleted *bool
+
+	// Gets or sets a value indicating whether High Availability is enabled or not.
+	IsHighAvailabilityEnabled *bool
+
+	// Gets or sets logical CPU count.
+	LogicalCPUCount *int32
+
+	// Gets or sets maximum server memory in use.
+	MaxServerMemoryInUseInMb *float32
+
+	// Gets or sets number of logins.
+	NumOfLogins *int32
+
+	// Gets or sets the number of databases part of availability group on this SQL instance.
+	NumberOfAgDatabases *int32
+
+	// Gets or sets total number of users databases.
+	NumberOfUserDatabases *int32
+
+	// Gets or sets physical CPU count.
+	PhysicalCPUCount *float32
+
+	// Gets or sets the Preferred Port Number.
+	PortNumber *int32
+
+	// product support status.
+	ProductSupportStatus *ProductSupportStatus
+
+	// The status of the last operation.
+	ProvisioningState *ProvisioningState
+
+	// Gets or sets the run as account ID of the SQL server.
+	RunAsAccountID *string
+
+	// Gets or sets the FCI properties if the instance is an FCI instance. This would be populated if IsClustered is true.
+	SQLFciProperties *SQLFciProperties
+
+	// Gets or sets the SQL server instance name.
+	SQLServerName *string
+
+	// Gets or sets the SQL start time.
+	SQLStartTime *time.Time
+
+	// Gets or sets the powered on status.
+	Status *SQLServerStatus
+
+	// Gets or sets total size of all user databases.
+	SumOfUserDatabasesSizeInMb *float32
+
+	// Gets or sets tags on the resource.
+	Tags map[string]any
+
+	// Gets or sets size of temp database.
+	TempDbSizeInMb *float32
+
+	// Gets or sets the timestamp marking last updated on the machine.
+	UpdatedTimestamp *string
+
+	// Gets or sets the SQL server version.
+	Version *string
+
+	// Gets or sets the SQL server number of cores that have visible online status.
+	VisibleOnlineCoreCount *int32
+}
+
+// SQLSite - SQL site web model.
+type SQLSite struct {
+	// The resource-specific properties for this resource.
+	Properties *SQLSiteProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SQLSiteErrorDetails - Sql site error detailed summary.
+type SQLSiteErrorDetails struct {
+	// REQUIRED; Appliance Name.
+	ApplianceName *string
+
+	// REQUIRED; Gets the error detailed summary.
+	SiteErrorDetails *ErrorDetailedSummary
+
+	// The link to fetch more models.
+	NextLink *string
+}
+
+// SQLSiteListResult - The response of a SqlSite list operation.
+type SQLSiteListResult struct {
+	// REQUIRED; The SqlSite items on this page
+	Value []*SQLSite
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// SQLSiteProperties - Class for SQL site properties.
+type SQLSiteProperties struct {
+	// Gets or sets the discovery scenario.
+	DiscoveryScenario *SQLSitePropertiesDiscoveryScenario
+
+	// Gets or sets the appliance details used by service to communicate
+	// to the appliance.
+	SiteAppliancePropertiesCollection []*SiteApplianceProperties
+
+	// READ-ONLY; provisioning state enum
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Gets the service endpoint.
+	ServiceEndpoint *string
+}
+
+// SQLSiteRefreshBody - SQL site refresh.
+type SQLSiteRefreshBody struct {
+	// Gets or sets the appliance name of the agent in the site.
+	ApplianceName *string
+}
+
+// SQLSiteUpdate - The type used for update operations of the SqlSite.
+type SQLSiteUpdate struct {
+	// The updatable properties of the SqlSite.
+	Properties *SQLSiteUpdateProperties
+}
+
+// SQLSiteUpdateProperties - The updatable properties of the SqlSite.
+type SQLSiteUpdateProperties struct {
+	// Gets or sets the discovery scenario.
+	DiscoveryScenario *SQLSitePropertiesDiscoveryScenario
+
+	// Gets or sets the appliance details used by service to communicate
+	// to the appliance.
+	SiteAppliancePropertiesCollection []*SiteApplianceProperties
+}
+
+// SQLSiteUsage - SQL site usage.
+type SQLSiteUsage struct {
+	// Gets or sets the number of databases discovered in the site.
+	DatabaseCount *int32
+
+	// Gets or sets the number of run as accounts in the site.
+	RunAsAccountCount *int32
+
+	// Gets or sets the number of servers discovered in the site.
+	ServerCount *int32
+}
+
+// SasURIResponse - Import URI response class.
+type SasURIResponse struct {
+	// Gets or sets the import type.
+	ImportType *ImportTypeValues
+
+	// Gets or sets the job ARM ID.
+	JobArmID *string
+
+	// Gets or sets the SAS URI.
+	URI *string
+}
+
+// Server - A machine resource belonging to a site resource.
+type Server struct {
+	// The resource-specific properties for this resource.
+	Properties *ServerProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ServerDisk - Server disk details.
+type ServerDisk struct {
+	// Gets or sets Type of the disk.
+	DiskType *string
+
+	// Gets or sets generated Id of the disk.
+	GeneratedID *string
+
+	// Gets or sets Id of the disk.
+	ID *string
+
+	// Gets or sets LUN of the disk.
+	Lun *int32
+
+	// Gets or sets Bytes allocated for the disk.
+	MaxSizeInBytes *int32
+
+	// Gets or sets Name of the disk.
+	Name *string
+
+	// Gets or sets Path of the disk.
+	Path *string
+}
+
+// ServerJob - A host resource belonging to a site resource.
+type ServerJob struct {
+	// The resource-specific properties for this resource.
+	Properties *JobProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ServerJobListResult - The response of a ServerJob list operation.
+type ServerJobListResult struct {
+	// REQUIRED; The ServerJob items on this page
+	Value []*ServerJob
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// ServerListResult - The response of a Server list operation.
+type ServerListResult struct {
+	// REQUIRED; The Server items on this page
+	Value []*Server
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// ServerNetworkAdapter - Second level object represented in responses as part of Machine REST resource.
+type ServerNetworkAdapter struct {
+	// Gets or sets Type of the IP address.
+	IPAddressType *string
+
+	// Gets or sets Mac address of the NIC.
+	MacAddress *string
+
+	// Gets or sets Network Name.
+	NetworkName *string
+
+	// Gets or sets the NIC Id.
+	NicID *string
+
+	// READ-ONLY; Gets IP addresses for the machine.
+	IPAddressList []*string
+}
+
+// ServerProperties - Server REST resource.
+type ServerProperties struct {
+	// Gets or sets the allocated Memory in MB.
+	AllocatedMemoryInMb *float32
+
+	// Gets or sets the BIOS GUID.
+	BiosGUID *string
+
+	// Gets or sets the Machine BIOS serial number.
+	BiosSerialNumber *string
+
+	// Gets or sets the disk details of server.
+	Disks []*ServerDisk
+
+	// Gets or sets the firmware.
+	Firmware *string
+
+	// Gets or sets the FQDN/IPAddress of the server.
+	Fqdn *string
+
+	// Gets or sets the FQDN of machine which can be changed.
+	HydratedFqdn *string
+
+	// Gets or sets the network adapters of the server.
+	NetworkAdapters []*ServerNetworkAdapter
+
+	// Gets or sets the Number of Processor Cores allocated for the machine.
+	NumberOfProcessorCore *int32
+
+	// Gets or sets the Operating System Details installed on the machine.
+	OperatingSystemDetails *OperatingSystem
+
+	// product support status.
+	ProductSupportStatus *ProductSupportStatus
+
+	// Gets or sets the run as account ID of the machine.
+	RunAsAccountID *string
+
+	// Gets or sets tags on the Server machine.
+	Tags map[string]any
+
+	// Gets or sets the validation required for the machine.
+	ValidationRequired *string
+
+	// READ-ONLY; Gets the appliance names.
+	ApplianceNames []*string
+
+	// READ-ONLY; Gets the data related to application discovery.
+	ApplicationDiscovery *ApplicationDiscovery
+
+	// READ-ONLY; Apps And Roles of the Server.
+	AppsAndRoles *AppsAndRoles
+
+	// READ-ONLY; Gets the marking machine creation.
+	CreatedTimestamp *string
+
+	// READ-ONLY; Gets the data related to dependency map discovery.
+	DependencyMapDiscovery *DependencyMapDiscovery
+
+	// READ-ONLY; Gets or sets if dependency mapping feature is enabled or not for the VM.
+	DependencyMapping *string
+
+	// READ-ONLY; Gets or sets when dependency mapping collection was last disabled.
+	DependencyMappingEndTime *string
+
+	// READ-ONLY; Gets or sets when dependency mapping collection is last started.
+	DependencyMappingStartTime *time.Time
+
+	// READ-ONLY; Gets the Display name of the machine. For server entity hydrated FQDN is set as display name as the server id
+	// and server name are same.
+	DisplayName *string
+
+	// READ-ONLY; Errors for machine.
+	Errors []*HealthErrorDetails
+
+	// READ-ONLY; The last time at which the Guest Details was discovered or the error while discovering guest details based discovery
+	// of the machine.
+	GuestDetailsDiscoveryTimestamp *time.Time
+
+	// READ-ONLY; Operating System Details extracted from the guest bu executing script inside the guest VM.
+	GuestOsDetails *GuestOsDetails
+
+	// READ-ONLY; Gets the data related to iis discovery.
+	IisDiscovery *WebAppDiscovery
+
+	// READ-ONLY; Value indicating whether VM is deleted.
+	IsDeleted *bool
+
+	// READ-ONLY; Whether Refresh Fabric Layout Guest Details has been completed once.
+	// Portal will show discovery in progress, if this value is true.
+	IsGuestDetailsDiscoveryInProgress *bool
+
+	// READ-ONLY; Number of applications installed in the guest VM.
+	NumberOfApplications *int32
+
+	// READ-ONLY; Gets the data related to Oracle discovery.
+	OracleDiscovery *OracleDiscovery
+
+	// READ-ONLY; Processor Info of the Server machine.
+	ProcessorInfo *ProcessorInfo
+
+	// READ-ONLY; Provisioning state of the server resource.
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Gets the data related to SQL discovery.
+	SQLDiscovery *SQLDiscovery
+
+	// READ-ONLY; Gets the data related to SpringBoot discovery.
+	SpringBootDiscovery *SpringBootDiscovery
+
+	// READ-ONLY; Gets the data related to static discovery.
+	StaticDiscovery *StaticDiscovery
+
+	// READ-ONLY; Gets the data related to tomcat discovery.
+	TomcatDiscovery *WebAppDiscovery
+
+	// READ-ONLY; Gets the timestamp marking last updated on the machine.
+	UpdatedTimestamp *string
+
+	// READ-ONLY; Gets the data related to Web application discovery.
+	WebAppDiscovery *WebAppDiscovery
+}
+
+// ServerRunAsAccount - A run as account resource belonging to a site resource.
+type ServerRunAsAccount struct {
+	// The resource-specific properties for this resource.
+	Properties *RunAsAccountProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ServerRunAsAccountListResult - The response of a ServerRunAsAccount list operation.
+type ServerRunAsAccountListResult struct {
+	// REQUIRED; The ServerRunAsAccount items on this page
+	Value []*ServerRunAsAccount
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// ServerSiteResource - A ServerSiteResource
+type ServerSiteResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// The resource-specific properties for this resource.
+	Properties *SitesProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ServerSiteResourceListResult - The response of a ServerSiteResource list operation.
+type ServerSiteResourceListResult struct {
+	// REQUIRED; The ServerSiteResource items on this page
+	Value []*ServerSiteResource
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// ServerSiteResourceUpdate - The type used for update operations of the ServerSiteResource.
+type ServerSiteResourceUpdate struct {
+	// The updatable properties of the ServerSiteResource.
+	Properties *ServerSiteResourceUpdateProperties
+
+	// Resource tags.
+	Tags map[string]*string
+}
+
+// ServerSiteResourceUpdateProperties - The updatable properties of the ServerSiteResource.
+type ServerSiteResourceUpdateProperties struct {
+	// Gets or sets the on-premises agent details.
+	AgentDetails *SiteAgentProperties
+
+	// Gets or sets the Appliance Name.
+	ApplianceName *string
+
+	// Gets or sets the ARM ID of migration hub solution for SDS.
+	DiscoverySolutionID *string
+
+	// Gets or sets the service principal identity details used by agent for communication to the service.
+	ServicePrincipalIdentityDetails *SiteSpnProperties
+}
+
+// ServerSiteUsage - Server site usage.
+type ServerSiteUsage struct {
+	// Gets or sets the number of run as accounts in the site.
+	RunAsAccountCount *int32
+
+	// Gets or sets the number of servers part of the site.
+	ServerCount *int32
+}
+
+// ServerSiteUsageResponse - The properties of ServerSiteUsageResponse.
+type ServerSiteUsageResponse struct {
+	// REQUIRED; Gets or sets the number of run as accounts in the site.
+	RunAsAccounts *int32
+
+	// REQUIRED; Gets or sets the number of servers part of the site.
+	ServerCount *int32
+}
+
+// ServerSoftwareInventory - An software inventory resource belonging to a server resource.
+type ServerSoftwareInventory struct {
+	// The resource-specific properties for this resource.
+	Properties *MachineSoftwareInventoryProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ServerSoftwareInventoryListResult - The response of a ServerSoftwareInventory list operation.
+type ServerSoftwareInventoryListResult struct {
+	// REQUIRED; The ServerSoftwareInventory items on this page
+	Value []*ServerSoftwareInventory
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// ServerUpdate - The type used for update operations of the Server.
+type ServerUpdate struct {
+	// The updatable properties of the Server.
+	Properties *ServerUpdateProperties
+}
+
+// ServerUpdateProperties - The updatable properties of the Server.
+type ServerUpdateProperties struct {
+	// Gets or sets the allocated Memory in MB.
+	AllocatedMemoryInMb *float32
+
+	// Gets or sets the BIOS GUID.
+	BiosGUID *string
+
+	// Gets or sets the Machine BIOS serial number.
+	BiosSerialNumber *string
+
+	// Gets or sets the disk details of server.
+	Disks []*ServerDisk
+
+	// Gets or sets the firmware.
+	Firmware *string
+
+	// Gets or sets the FQDN/IPAddress of the server.
+	Fqdn *string
+
+	// Gets or sets the FQDN of machine which can be changed.
+	HydratedFqdn *string
+
+	// Gets or sets the network adapters of the server.
+	NetworkAdapters []*ServerNetworkAdapter
+
+	// Gets or sets the Number of Processor Cores allocated for the machine.
+	NumberOfProcessorCore *int32
+
+	// Gets or sets the Operating System Details installed on the machine.
+	OperatingSystemDetails *OperatingSystem
+
+	// product support status.
+	ProductSupportStatus *ProductSupportStatus
+
+	// Gets or sets the run as account ID of the machine.
+	RunAsAccountID *string
+
+	// Gets or sets tags on the Server machine.
+	Tags map[string]any
+
+	// Gets or sets the validation required for the machine.
+	ValidationRequired *string
+}
+
+// SharePointServer in the guest virtual machine.
+type SharePointServer struct {
+	// READ-ONLY; Gets or sets a value indicating whether the SharePointServer is Enterprise.
+	IsEnterprise *bool
+
+	// READ-ONLY; Gets or sets ProductName of the SharePointServer.
+	ProductName *string
+
+	// READ-ONLY; Gets or sets Status of the SharePointServer.
+	Status *string
+
+	// READ-ONLY; Gets or sets Version of the SharePointServer.
+	Version *string
+}
+
+// SiteAgentProperties - Class for site agent properties.
+type SiteAgentProperties struct {
+	// Gets or sets the key vault ARM Id.
+	KeyVaultID *string
+
+	// Gets or sets the key vault URI.
+	KeyVaultURI *string
+
+	// READ-ONLY; Gets the ID of the agent.
+	ID *string
+
+	// READ-ONLY; Gets the last heartbeat time of the agent in UTC.
+	LastHeartBeatUTC *time.Time
+
+	// READ-ONLY; Gets the version of the agent.
+	Version *string
+}
+
+// SiteApplianceProperties - Class for site appliance properties.
+type SiteApplianceProperties struct {
+	// Gets or sets the on-premises agent details.
+	AgentDetails *SiteAgentProperties
+
+	// Gets or sets the Appliance Name.
+	ApplianceName *string
+
+	// Gets or sets the service principal identity details used by agent for communication to the service.
+	ServicePrincipalIdentityDetails *SiteSpnProperties
+}
+
+// SiteErrorSummary - Site error summary.
+type SiteErrorSummary struct {
+	// REQUIRED; Appliance Name.
+	ApplianceName *string
+
+	// REQUIRED; Gets the error message.
+	DiscoveryScopeErrorSummaries *DiscoveryScopeErrorSummary
+
+	// The link to fetch more models.
+	NextLink *string
+}
+
+// SiteHealthSummary - The properties of ServerSiteResource.
+type SiteHealthSummary struct {
+	// Gets or sets the count of affected objects.
+	AffectedObjectsCount *int64
+
+	// Gets or sets the affected resources.
+	AffectedResources []*string
+
+	// Gets or sets sources of the exception.
+	FabricLayoutUpdateSources []*SiteHealthSummaryFabricLayoutUpdateSourcesItem
+
+	// Gets or sets the hit count of the error.
+	HitCount *int64
+
+	// READ-ONLY; Gets the affected resource type.
+	AffectedResourceType *string
+
+	// READ-ONLY; Gets the appliance name.
+	ApplianceName *string
+
+	// READ-ONLY; Gets the error code.
+	ErrorCode *string
+
+	// READ-ONLY; Gets the error Id.
+	ErrorID *int64
+
+	// READ-ONLY; Gets the error message.
+	ErrorMessage *string
+
+	// READ-ONLY; Gets the remediation guidance.
+	RemediationGuidance *string
+
+	// READ-ONLY; Gets the severity of error.
+	Severity *string
+
+	// READ-ONLY; Gets the summary message.
+	SummaryMessage *string
+}
+
+// SiteHealthSummaryCollection - Collection of SiteHealthSummary.
+type SiteHealthSummaryCollection struct {
+	// REQUIRED; Gets the list of SiteHealthSummary.
+	Value []*SiteHealthSummary
+
+	// READ-ONLY; Gets the value of next link.
+	NextLink *string
+}
+
+// SiteProperties - The properties of VMwareSiteResource
+type SiteProperties struct {
+	// Gets or sets the on-premises agent details.
+	AgentDetails *SiteAgentProperties
+
+	// Gets or sets the Appliance Name.
+	ApplianceName *string
+
+	// Gets or sets the ARM ID of migration hub solution for SDS.
+	DiscoverySolutionID *string
+
+	// Gets or sets the service principal identity details used by agent for communication to the service.
+	ServicePrincipalIdentityDetails *SiteSpnProperties
+
+	// READ-ONLY; Gets the Master Site this site is linked to.
+	MasterSiteID *string
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Gets the service endpoint.
+	ServiceEndpoint *string
+}
+
+// SiteSpnProperties - Class for site properties.
+type SiteSpnProperties struct {
+	// Gets or sets the AAD Authority URL which was used to request the token for the service principal.
+	AADAuthority *string
+
+	// Gets or sets the application/client Id for the service principal with which the on-premise management/data plane components
+	// would communicate with our Azure services.
+	ApplicationID *string
+
+	// Gets or sets the intended audience for the service principal.
+	Audience *string
+
+	// Gets or sets the object Id of the service principal with which the on-premise
+	// management/data plane components would communicate with our Azure
+	// services.
+	ObjectID *string
+
+	// Gets or sets the raw certificate data for building certificate expiry flows.
+	RawCertData *string
+
+	// Gets or sets the tenant Id for the service principal with which the on-premise management/data plane components would communicate
+	// with our Azure services.
+	TenantID *string
+}
+
+// SitesProperties - The properties of SiteResource
+type SitesProperties struct {
+	// Gets or sets the on-premises agent details.
+	AgentDetails *SiteAgentProperties
+
+	// Gets or sets the Appliance Name.
+	ApplianceName *string
+
+	// Gets or sets the ARM ID of migration hub solution for SDS.
+	DiscoverySolutionID *string
+
+	// Gets or sets the service principal identity details used by agent for communication to the service.
+	ServicePrincipalIdentityDetails *SiteSpnProperties
+
+	// READ-ONLY; Gets the Master Site this site is linked to.
+	MasterSiteID *string
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Gets the service endpoint.
+	ServiceEndpoint *string
+}
+
+// SpringBootDiscovery - Data related to a machine's spring boot discovery.
+type SpringBootDiscovery struct {
+	// Gets or sets status of partner discovery.
+	DiscoveryScopeStatus *DiscoveryScopeStatus
+
+	// Gets or sets status of partner shallow discovery.
+	ShallowDiscoveryStatus *ShallowDiscoveryStatus
+
+	// Gets or sets number of successfully discovered applications.
+	TotalApplicationCount *int64
+
+	// Gets or sets number of successfully discovered instances.
+	TotalInstanceCount *int64
+}
+
+// StaticDiscovery - Contains data related static data discovery scope.
+type StaticDiscovery struct {
+	// READ-ONLY; Gets discovery scope status.
+	DiscoveryScopeStatus *StaticDiscoveryScopeStatus
+
+	// READ-ONLY; Gets errors for discovery scope.
+	Errors []*HealthErrorDetails
+
+	// READ-ONLY; Gets the run as account ID with which feature worked successfully.
+	// It is discovered by the agent from the list of credentials.
+	HydratedRunAsAccountID *string
+}
+
+// SystemCenter in the guest virtual machine.
+type SystemCenter struct {
+	// READ-ONLY; Gets or sets ProductName of the SystemCenter.
+	ProductName *string
+
+	// READ-ONLY; Gets or sets Status of the SystemCenter.
+	Status *string
+
+	// READ-ONLY; Gets or sets Version of the SystemCenter.
+	Version *string
+}
+
+// SystemData - Metadata pertaining to creation and last modification of the resource.
+type SystemData struct {
+	// The timestamp of resource creation (UTC).
+	CreatedAt *time.Time
+
+	// The identity that created the resource.
+	CreatedBy *string
+
+	// The type of identity that created the resource.
+	CreatedByType *CreatedByType
+
+	// The timestamp of resource last modification (UTC)
+	LastModifiedAt *time.Time
+
+	// The identity that last modified the resource.
+	LastModifiedBy *string
+
+	// The type of identity that last modified the resource.
+	LastModifiedByType *CreatedByType
+}
+
+// TagsMachineInput - Machine class.
+type TagsMachineInput struct {
+	// Gets or sets the ARM id of the machine.
+	MachineID *string
+
+	// run as AccountId
+	Tags map[string]*string
+}
+
+// TomcatEngineUnit - Tomcat engine data.
+type TomcatEngineUnit struct {
+	// Gets or sets the hosts defined for the engine.
+	Hosts []*TomcatHostUnit
+
+	// Gets or sets the name of the engine.
+	Name *string
+}
+
+// TomcatHostUnit - Tomcat host data.
+type TomcatHostUnit struct {
+	// Gets or sets the app base value configured for the host.
+	AppBase *string
+
+	// Gets or sets the app base path for the host.
+	AppBasePath *string
+
+	// Gets or sets the name of the host.
+	Name *string
+}
+
+// TomcatServiceUnit - Tomcat service data.
+type TomcatServiceUnit struct {
+	// Gets or sets the connectors defined for the service component.
+	Connectors []*ConnectorUnit
+
+	// Gets or sets the engine defined for the service component.
+	Engine *TomcatEngineUnit
+
+	// Gets or sets the name of the service.
+	Name *string
+}
+
+// TomcatWebApplicationProperties - Class for web application properties.
+type TomcatWebApplicationProperties struct {
+	// READ-ONLY; Gets the appliance names.
+	ApplianceNames []*string
+
+	// READ-ONLY; Gets the front end bindings for the application.
+	Bindings []*FrontEndBinding
+
+	// READ-ONLY; Gets the configuration.
+	Configurations []*WebApplicationConfigurationUnit
+
+	// READ-ONLY; Gets the timestamp marking creation of the entity.
+	CreatedTimestamp *string
+
+	// READ-ONLY; Gets the directories.
+	Directories []*WebApplicationDirectoryUnit
+
+	// READ-ONLY; Gets the display name.
+	DisplayName *string
+
+	// READ-ONLY; Gets the Error details.
+	Errors []*HealthErrorDetails
+
+	// READ-ONLY; Gets the Error details.
+	Frameworks []*WebApplicationFramework
+
+	// READ-ONLY; Boolean value having true if the application has database dependency.
+	HasDatabaseDependency *bool
+
+	// READ-ONLY; Gets a value indicating whether the WebApp has errors or not.
+	HasErrors *bool
+
+	// READ-ONLY; Gets a value indicating whether application is deleted.
+	IsDeleted *bool
+
+	// READ-ONLY; Boolean value having true if the application has file dependency.
+	IsExternalLoggingConfigured *bool
+
+	// READ-ONLY; Gets the list of machine ARM Ids on which the web application is deployed.
+	MachineArmIDs []*string
+
+	// READ-ONLY; Machine display name
+	MachineDisplayName *string
+
+	// READ-ONLY; Gets the physical path of the application.
+	PhysicalPath *string
+
+	// READ-ONLY; provisioning state enum
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Gets the server type.
+	ServerType *string
+
+	// READ-ONLY; Static folders.
+	StaticFolders []*string
+
+	// READ-ONLY; Gets tags that can be used with ODATA.
+	Tags map[string]*string
+
+	// READ-ONLY; Gets the timestamp marking last update operation.
+	UpdatedTimestamp *string
+
+	// READ-ONLY; Gets the virtual path of the application.
+	VirtualPath *string
+
+	// READ-ONLY; Gets the web server id.
+	WebServerID *string
+
+	// READ-ONLY; Gets the web server name.
+	WebServerName *string
+}
+
+// TomcatWebApplications - Web application REST Resource.
+type TomcatWebApplications struct {
+	// The resource-specific properties for this resource.
+	Properties *TomcatWebApplicationProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// TomcatWebApplicationsListResult - The response of a TomcatWebApplications list operation.
+type TomcatWebApplicationsListResult struct {
+	// REQUIRED; The TomcatWebApplications items on this page
+	Value []*TomcatWebApplications
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// TomcatWebServerProperties - Class for web server properties.
+type TomcatWebServerProperties struct {
+	// Gets a value indicating whether application is deleted.
+	IsClusteringPresent *bool
+
+	// Gets or sets the Operating System Details installed on the machine.
+	OperatingSystemDetails *OperatingSystem
+
+	// Gets or sets the services defined in the server.
+	Services []*TomcatServiceUnit
+
+	// READ-ONLY; Gets the appliance names.
+	ApplianceNames []*string
+
+	// READ-ONLY; Catalina Home
+	CatalinaHome *string
+
+	// READ-ONLY; Gets the configuration location.
+	ConfigurationLocation *string
+
+	// READ-ONLY; Gets the timestamp marking creation of the entity.
+	CreatedTimestamp *string
+
+	// READ-ONLY; Gets the display name.
+	DisplayName *string
+
+	// READ-ONLY; Gets the Error details.
+	Errors []*HealthErrorDetails
+
+	// READ-ONLY; Gets a value indicating whether the WebApp has errors or not.
+	HasErrors *bool
+
+	// READ-ONLY; is access log valve present
+	IsAccessLogValvePresent *bool
+
+	// READ-ONLY; Gets a value indicating whether application is deleted.
+	IsDeleted *bool
+
+	// READ-ONLY; Gets a value indicating whether application is deleted.
+	IsMemoryRealmPresent *bool
+
+	// READ-ONLY; is session tracking present
+	IsSessionTrackingPresent *bool
+
+	// READ-ONLY; Version of the JVM
+	JvmVersion *string
+
+	// READ-ONLY; Gets the list of machines.
+	MachineIDs []*string
+
+	// READ-ONLY; max memory usage in mb
+	MaxMemoryUsageInMb *string
+
+	// READ-ONLY; provisioning state enum
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Gets the run as account id.
+	RunAsAccountID *string
+
+	// READ-ONLY; Gets the server FQDN.
+	ServerFqdn *string
+
+	// READ-ONLY; Gets the server type.
+	ServerType *string
+
+	// READ-ONLY; session persistence mechanism
+	SessionPersistenceMechanism *string
+
+	// READ-ONLY; Gets the timestamp marking last update operation.
+	UpdatedTimestamp *string
+
+	// READ-ONLY; Gets the configuration location.
+	Version *string
+
+	// READ-ONLY; Gets the list of web applications.
+	WebApplications []*string
+}
+
+// TomcatWebServers - Web server REST Resource.
+type TomcatWebServers struct {
+	// The resource-specific properties for this resource.
+	Properties *TomcatWebServerProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// TomcatWebServersListResult - The response of a TomcatWebServers list operation.
+type TomcatWebServersListResult struct {
+	// REQUIRED; The TomcatWebServers items on this page
+	Value []*TomcatWebServers
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// TrackedResource - The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags'
+// and a 'location'
+type TrackedResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// UpdateMachineDepMapStatus - Defines class that represents input to enable or disable DMP on machine
+// for cosmos entity operation.
+type UpdateMachineDepMapStatus struct {
+	// Gets or sets the machine collection.
+	Machines []*DependencyMapMachineInput
+}
+
+// UpdateMachineRunAsAccount - Defines class that represents input to update RunAsAccount on machine
+// for cosmos entity operation.
+type UpdateMachineRunAsAccount struct {
+	// Gets or sets the machine collection.
+	Machines []*RunAsAccountMachineInput
+}
+
+// UpdateMachineTags - Defines class that represents input to update Tags on machine
+// for cosmos entity operation.
+type UpdateMachineTags struct {
+	// Gets or sets the machine collection.
+	Machines []*TagsMachineInput
+}
+
+// V20180501PreviewVmwareRunAsAccount - Run as account REST Resource.
+type V20180501PreviewVmwareRunAsAccount struct {
+	// READ-ONLY; Relative URL to get this run as account.
+	ID *string
+
+	// READ-ONLY; Gets the Name of the Run as account.
+	Name *string
+
+	// READ-ONLY; Gets nested properties.
+	Properties *RunAsAccountProperties
+
+	// READ-ONLY; Handled by resource provider. Type = Microsoft.OffAzure/VMWareSites/RunAsAccounts.
+	Type *string
+}
+
+// V20180501PreviewVmwareRunAsAccountVmwareRunAsAccountCollection - Collection of VMware run as accounts.
+type V20180501PreviewVmwareRunAsAccountVmwareRunAsAccountCollection struct {
+	// Gets the list of run as accounts.
+	Value []*V20180501PreviewVmwareRunAsAccount
+
+	// READ-ONLY; Gets the value of next link.
+	NextLink *string
+}
+
+// V20190501PreviewSasURIResponse - Import URI response class.
+type V20190501PreviewSasURIResponse struct {
+	// Gets or sets the job ARM ID.
+	JobArmID *string
+
+	// Gets or sets the SAS URI.
+	URI *string
+}
+
+// Vcenter - A vcenter resource belonging to a site resource.
+type Vcenter struct {
+	// The resource-specific properties for this resource.
+	Properties *VcenterProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// VcenterListResult - The response of a Vcenter list operation.
+type VcenterListResult struct {
+	// REQUIRED; The Vcenter items on this page
+	Value []*Vcenter
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// VcenterProperties - The properties of VMwareSiteResource
+type VcenterProperties struct {
+	// Gets or sets the FQDN/IPAddress of the vCenter.
+	Fqdn *string
+
+	// Gets or sets the friendly name of the vCenter.
+	FriendlyName *string
+
+	// Gets or sets the port of the vCenter.
+	Port *string
+
+	// The status of the last operation.
+	ProvisioningState *ProvisioningState
+
+	// Gets or sets the run as account ID of the vCenter.
+	RunAsAccountID *string
+
+	// READ-ONLY; Gets the timestamp marking vCenter creation.
+	CreatedTimestamp *string
+
+	// READ-ONLY; Gets the errors.
+	Errors []*HealthErrorDetails
+
+	// READ-ONLY; Gets the instance UUID of the vCenter.
+	InstanceUUID *string
+
+	// READ-ONLY; Gets the performance statistics enabled on the vCenter.
+	PerfStatisticsLevel *string
+
+	// READ-ONLY; Gets the timestamp marking last updated on the vCenter.
+	UpdatedTimestamp *string
+
+	// READ-ONLY; Gets the version of the vCenter.
+	Version *string
+}
+
+// VmwareDatastore - Second level object returned as part of VMware host REST resource.
+type VmwareDatastore struct {
+	// READ-ONLY; Capacity of the data store.
+	CapacityInGb *float32
+
+	// READ-ONLY; Free space of the data store.
+	FreeSpaceInGb *float32
+
+	// READ-ONLY; Symbolic name of the data store.
+	SymbolicName *string
+
+	// READ-ONLY; Type of the data store.
+	Type *VMwareDatastoreType
+
+	// READ-ONLY; Data store UUID.
+	UUID *string
+}
+
+// VmwareDisk - Second level object returned as part of Machine REST resource.
+type VmwareDisk struct {
+	// Gets or sets Type of the disk.
+	DiskType *string
+
+	// Gets or sets LUN of the disk.
+	Lun *int32
+
+	// Gets or sets Bytes allocated for the disk.
+	MaxSizeInBytes *int64
+
+	// Gets or sets Name of the disk.
+	Name *string
+
+	// Gets or sets Path of the disk.
+	Path *string
+
+	// READ-ONLY; Gets or sets a value indicating the type of the disk controller type.
+	ControllerType *string
+
+	// READ-ONLY; Disk mode property used for identifying independent disks.
+	DiskMode *string
+
+	// READ-ONLY; The provisioning policy of the disk. It is Thin or Thick or Unknown for the VMWare VMDK.
+	DiskProvisioningPolicy *string
+
+	// READ-ONLY; The scrubbing policy of disks which can be eagerly zeroed or lazily zeroed.
+	DiskScrubbingPolicy *string
+
+	// READ-ONLY; Label of the disk.
+	Label *string
+
+	// READ-ONLY; Disk UUID.
+	UUID *string
+}
+
+// VmwareHost - A host resource belonging to a site resource.
+type VmwareHost struct {
+	// The resource-specific properties for this resource.
+	Properties *VmwareHostProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// VmwareHostListResult - The response of a VmwareHost list operation.
+type VmwareHostListResult struct {
+	// REQUIRED; The VmwareHost items on this page
+	Value []*VmwareHost
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// VmwareHostProperties - Class for host properties.
+type VmwareHostProperties struct {
+	// READ-ONLY; Gets the appliance names.
+	ApplianceNames []*string
+
+	// READ-ONLY; Gets the timestamp marking VMware host creation.
+	CreatedTimestamp *string
+
+	// READ-ONLY; Gets the data stores.
+	Datastores []*VmwareDatastore
+
+	// READ-ONLY; provisioning state enum
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Gets the instance UUID of the vmware host.
+	UUID *string
+
+	// READ-ONLY; Gets the timestamp marking last updated on the VMware host.
+	UpdatedTimestamp *string
+
+	// READ-ONLY; Gets the V-center ID.
+	VcenterID *string
+}
+
+// VmwareJob - A host resource belonging to a site resource.
+type VmwareJob struct {
+	// The resource-specific properties for this resource.
+	Properties *JobProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// VmwareJobListResult - The response of a VmwareJob list operation.
+type VmwareJobListResult struct {
+	// REQUIRED; The VmwareJob items on this page
+	Value []*VmwareJob
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// VmwareMachineProperties - Class for machine properties.
+type VmwareMachineProperties struct {
+	// Gets or sets the allocated Memory in MB.
+	AllocatedMemoryInMb *float64
+
+	// Gets or sets the BIOS GUID.
+	BiosGUID *string
+
+	// Gets or sets the Machine BIOS serial number.
+	BiosSerialNumber *string
+
+	// Gets or sets the firmware.
+	Firmware *string
+
+	// Gets or sets the Number of Processor Cores allocated for the machine.
+	NumberOfProcessorCore *int32
+
+	// Gets or sets the Operating System Details installed on the machine.
+	OperatingSystemDetails *OperatingSystem
+
+	// product support status.
+	ProductSupportStatus *ProductSupportStatus
+
+	// Gets or sets the run as account ID of the machine.
+	RunAsAccountID *string
+
+	// Gets or sets tags on the VMware machine.
+	Tags map[string]*string
+
+	// READ-ONLY; Gets or sets the machine alt guest name.
+	AltGuestName *string
+
+	// READ-ONLY; Gets the appliance names.
+	ApplianceNames []*string
+
+	// READ-ONLY; Gets the data related to application discovery.
+	ApplicationDiscovery *ApplicationDiscovery
+
+	// READ-ONLY; Apps And Roles of the Server.
+	AppsAndRoles *AppsAndRoles
+
+	// READ-ONLY; Gets the data related to Azure arc discovery.
+	ArcDiscovery *ArcDiscovery
+
+	// READ-ONLY; Value indicating whether change tracking is enabled.
+	ChangeTrackingEnabled *bool
+
+	// READ-ONLY; Value indicating whether change tracking is supported.
+	ChangeTrackingSupported *bool
+
+	// READ-ONLY; Gets the marking machine creation.
+	CreatedTimestamp *string
+
+	// READ-ONLY; Scope of the data center.
+	DataCenterScope *string
+
+	// READ-ONLY; Gets the data related to dependency map discovery.
+	DependencyMapDiscovery *DependencyMapDiscovery
+
+	// READ-ONLY; Gets or sets if dependency mapping feature is enabled or not for the VM.
+	DependencyMapping *string
+
+	// READ-ONLY; Gets or sets when dependency mapping collection was last disabled.
+	DependencyMappingEndTime *string
+
+	// READ-ONLY; Gets or sets when dependency mapping collection is last started.
+	DependencyMappingStartTime *time.Time
+
+	// READ-ONLY; User description of the machine.
+	Description *string
+
+	// READ-ONLY; Gets or sets whether Disk Enabled UUID is set or not.
+	DiskEnabledUUID *string
+
+	// READ-ONLY; Disks attached to the machine.
+	Disks []*VmwareDisk
+
+	// READ-ONLY; Gets the Display name of the machine.
+	DisplayName *string
+
+	// READ-ONLY; Errors for machine.
+	Errors []*HealthErrorDetails
+
+	// READ-ONLY; The last time at which the Guest Details was discovered or the error while discovering guest details based discovery
+	// of the machine.
+	GuestDetailsDiscoveryTimestamp *time.Time
+
+	// READ-ONLY; Operating System Details extracted from the guest bu executing script inside the guest VM.
+	GuestOsDetails *GuestOsDetails
+
+	// READ-ONLY; Indicates whether the host is in maintenance mode.
+	HostInMaintenanceMode *bool
+
+	// READ-ONLY; The host name.
+	HostName *string
+
+	// READ-ONLY; The host power state.
+	HostPowerState *string
+
+	// READ-ONLY; The host version.
+	HostVersion *string
+
+	// READ-ONLY; Gets the data related to iis discovery.
+	IisDiscovery *WebAppDiscovery
+
+	// READ-ONLY; On-premise Instance UUID of the machine.
+	InstanceUUID *string
+
+	// READ-ONLY; Value indicating whether VM is deleted.
+	IsDeleted *bool
+
+	// READ-ONLY; Whether Refresh Fabric Layout Guest Details has been completed once.
+	// Portal will show discovery in progress, if this value is true.
+	IsGuestDetailsDiscoveryInProgress *bool
+
+	// READ-ONLY; Maximum number of snapshots for the VM. Default value is -1.
+	MaxSnapshots *int32
+
+	// READ-ONLY; Network adapters attached to the machine.
+	NetworkAdapters []*VmwareNetworkAdapter
+
+	// READ-ONLY; Number of applications installed in the guest VM.
+	NumberOfApplications *int32
+
+	// READ-ONLY; Number of snapshots for the VM. Default value is -1.
+	NumberOfSnapshots *int32
+
+	// READ-ONLY; Gets the data related to Oracle discovery.
+	OracleDiscovery *OracleDiscovery
+
+	// READ-ONLY; Gets the Machine power status.
+	PowerStatus *string
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Gets the data related to SQL discovery.
+	SQLDiscovery *SQLDiscovery
+
+	// READ-ONLY; Gets the data related to SpringBoot discovery.
+	SpringBootDiscovery *SpringBootDiscovery
+
+	// READ-ONLY; Gets the data related to static discovery.
+	StaticDiscovery *StaticDiscovery
+
+	// READ-ONLY; Gets the data related to tomcat discovery.
+	TomcatDiscovery *WebAppDiscovery
+
+	// READ-ONLY; Gets the timestamp marking last updated on the machine.
+	UpdatedTimestamp *string
+
+	// READ-ONLY; VCenter FQDN/IPAddress.
+	VCenterFqdn *string
+
+	// READ-ONLY; VCenter ARM ID.
+	VCenterID *string
+
+	// READ-ONLY; Gets the Root location of the VM configuration file.
+	VMConfigurationFileLocation *string
+
+	// READ-ONLY; Gets the VM FQDN.
+	VMFqdn *string
+
+	// READ-ONLY; VMware tools status.
+	VMwareToolsStatus *string
+
+	// READ-ONLY; VMware tools version.
+	VMwareToolsVersion *string
+
+	// READ-ONLY; Gets the data related to Web application discovery.
+	WebAppDiscovery *WebAppDiscovery
+}
+
+// VmwareMachineSoftwareInventory - An software inventory resource belonging to a machine resource.
+type VmwareMachineSoftwareInventory struct {
+	// The resource-specific properties for this resource.
+	Properties *MachineSoftwareInventoryProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// VmwareMachineSoftwareInventoryListResult - The response of a VmwareMachineSoftwareInventory list operation.
+type VmwareMachineSoftwareInventoryListResult struct {
+	// REQUIRED; The VmwareMachineSoftwareInventory items on this page
+	Value []*VmwareMachineSoftwareInventory
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// VmwareNetworkAdapter - Second level object represented in responses as part of Machine REST resource.
+type VmwareNetworkAdapter struct {
+	// Gets or sets Type of the IP address.
+	IPAddressType *string
+
+	// Gets or sets Mac address of the NIC.
+	MacAddress *string
+
+	// Gets or sets Network Name.
+	NetworkName *string
+
+	// Gets or sets the NIC Id.
+	NicID *string
+
+	// READ-ONLY; Gets or sets the adapter type.
+	AdapterType *string
+
+	// READ-ONLY; Gets IP addresses for the machine.
+	IPAddressList []*string
+
+	// READ-ONLY; Label of the NIC.
+	Label *string
+}
+
+// VmwareRunAsAccountResource - A runasaccount resource belonging to a site resource.
+type VmwareRunAsAccountResource struct {
+	// The resource-specific properties for this resource.
+	Properties *RunAsAccountProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// VmwareRunAsAccountResourceListResult - The response of a VmwareRunAsAccountResource list operation.
+type VmwareRunAsAccountResourceListResult struct {
+	// REQUIRED; The VmwareRunAsAccountResource items on this page
+	Value []*VmwareRunAsAccountResource
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// VmwareSite - A VmwareSite
+type VmwareSite struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// The resource-specific properties for this resource.
+	Properties *SitesProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; If eTag is provided in the response body, it may also be provided as a header per the normal etag convention.
+	// Entity tags are used for comparing two or more entities from the same requested resource.
+	// HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range
+	// (section 14.27) header fields.
 	ETag *string
 
-	// Properties of the group.
-	Properties *GroupBodyProperties
-}
-
-// VMFamily - VM family name, the list of targeted azure locations and the category of the family.
-type VMFamily struct {
-	// READ-ONLY; Category of the VM family.
-	Category []*string
-
-	// READ-ONLY; Name of the VM family.
-	FamilyName *string
-
-	// READ-ONLY; List of Azure regions.
-	TargetLocations []*string
-}
-
-type VMUptime struct {
-	// Number of days in a month for VM uptime.
-	DaysPerMonth *int32
-
-	// Number of hours per day for VM uptime.
-	HoursPerDay *int32
-}
-
-type VMwareCollector struct {
-	ETag       *string
-	Properties *CollectorProperties
-
-	// READ-ONLY
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
-	// READ-ONLY
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// VMwareCollectorList - List of VMware collectors.
-type VMwareCollectorList struct {
-	// List of VMware collectors.
-	Value []*VMwareCollector
+// VmwareSiteListResult - The response of a VmwareSite list operation.
+type VmwareSiteListResult struct {
+	// REQUIRED; The VmwareSite items on this page
+	Value []*VmwareSite
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// VmwareSiteUpdate - The type used for update operations of the VmwareSite.
+type VmwareSiteUpdate struct {
+	// The updatable properties of the VmwareSite.
+	Properties *VmwareSiteUpdateProperties
+
+	// Resource tags.
+	Tags map[string]*string
+}
+
+// VmwareSiteUpdateProperties - The updatable properties of the VmwareSite.
+type VmwareSiteUpdateProperties struct {
+	// Gets or sets the on-premises agent details.
+	AgentDetails *SiteAgentProperties
+
+	// Gets or sets the Appliance Name.
+	ApplianceName *string
+
+	// Gets or sets the ARM ID of migration hub solution for SDS.
+	DiscoverySolutionID *string
+
+	// Gets or sets the service principal identity details used by agent for communication to the service.
+	ServicePrincipalIdentityDetails *SiteSpnProperties
+}
+
+// VmwareSiteUsage - VMware site usage.
+type VmwareSiteUsage struct {
+	// Gets or sets the number of machines discovered in the site.
+	MachineCount *int32
+
+	// Gets or sets the number of run as accounts in the site.
+	RunAsAccountCount *int32
+
+	// Gets or sets the number of vCenters part of the site.
+	VCenterCount *int32
+}
+
+// WebAppDiscovery - Data related to a machine's WebApps discovery.
+type WebAppDiscovery struct {
+	// Gets or sets status of partner discovery.
+	DiscoveryScopeStatus *DiscoveryScopeStatus
+
+	// Gets or sets number of successfully discovered web applications.
+	TotalWebApplicationCount *int64
+
+	// Gets or sets number of successfully discovered web servers..
+	TotalWebServerCount *int64
+}
+
+// WebAppExtendedMachine - Web app extended machine REST Resource.
+type WebAppExtendedMachine struct {
+	// The resource-specific properties for this resource.
+	Properties *WebAppExtendedMachineProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// WebAppExtendedMachineListResult - The response of a WebAppExtendedMachine list operation.
+type WebAppExtendedMachineListResult struct {
+	// REQUIRED; The WebAppExtendedMachine items on this page
+	Value []*WebAppExtendedMachine
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// WebAppExtendedMachineProperties - Class for web extended machine properties.
+type WebAppExtendedMachineProperties struct {
+	// READ-ONLY; Gets the timestamp marking creation of the entity.
+	CreatedTimestamp *string
+
+	// READ-ONLY; Gets the Error details.
+	Errors []*HealthErrorDetails
+
+	// READ-ONLY; Gets the hydrated host name.
+	HostName *string
+
+	// READ-ONLY; Gets the agent hydrated run as account.
+	HydratedRunAsAccountID *string
+
+	// READ-ONLY; Gets a value indicating whether application is deleted.
+	IsDeleted *bool
+
+	// READ-ONLY; Gets the Name of the extended machine.
+	MachineDisplayName *string
+
+	// READ-ONLY; Gets the machine ARM id.
+	MachineID *string
+
+	// READ-ONLY; provisioning state enum
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Gets the run as account ID of the machine used for web app discovery.
+	RunAsAccountID *string
+
+	// READ-ONLY; Gets the timestamp marking last update operation.
+	UpdatedTimestamp *string
+}
+
+// WebAppProperties - Class representing web app properties web model.
+type WebAppProperties struct {
+	// Gets or sets Tags.
+	Tags map[string]*string
+
+	// Gets or sets the arm id of the web app.
+	WebAppArmID *string
+}
+
+// WebAppPropertiesCollection - Collection of web app properties.
+type WebAppPropertiesCollection struct {
+	// Gets or sets the list of web app properties.
+	WebApps []*WebAppProperties
+}
+
+// WebAppRunAsAccount - Run as account REST Resource.
+type WebAppRunAsAccount struct {
+	// The resource-specific properties for this resource.
+	Properties *RunAsAccountProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// WebAppRunAsAccountListResult - The response of a WebAppRunAsAccount list operation.
+type WebAppRunAsAccountListResult struct {
+	// REQUIRED; The WebAppRunAsAccount items on this page
+	Value []*WebAppRunAsAccount
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// WebAppSite - WebApp site web model.
+type WebAppSite struct {
+	// The resource-specific properties for this resource.
+	Properties *WebAppSiteProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// WebAppSiteListResult - The response of a WebAppSite list operation.
+type WebAppSiteListResult struct {
+	// REQUIRED; The WebAppSite items on this page
+	Value []*WebAppSite
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// WebAppSiteProperties - Class for Web app site properties.
+type WebAppSiteProperties struct {
+	// Gets or sets the discovery scenario.
+	DiscoveryScenario *WebAppSitePropertiesDiscoveryScenario
+
+	// Gets or sets the appliance details used by service to communicate
+	// to the appliance.
+	SiteAppliancePropertiesCollection []*SiteApplianceProperties
+
+	// READ-ONLY; provisioning state enum
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Gets the service endpoint.
+	ServiceEndpoint *string
+}
+
+// WebAppSiteUpdate - The type used for update operations of the WebAppSite.
+type WebAppSiteUpdate struct {
+	// The updatable properties of the WebAppSite.
+	Properties *WebAppSiteUpdateProperties
+}
+
+// WebAppSiteUpdateProperties - The updatable properties of the WebAppSite.
+type WebAppSiteUpdateProperties struct {
+	// Gets or sets the discovery scenario.
+	DiscoveryScenario *WebAppSitePropertiesDiscoveryScenario
+
+	// Gets or sets the appliance details used by service to communicate
+	// to the appliance.
+	SiteAppliancePropertiesCollection []*SiteApplianceProperties
+}
+
+// WebAppSiteUsage - Web app site usage.
+type WebAppSiteUsage struct {
+	// Gets or sets the number of run as accounts in the site.
+	RunAsAccountCount *int32
+
+	// Gets or sets the number of web applications discovered in the site.
+	WebApplicationCount *int32
+
+	// Gets or sets the number of web servers discovered in the site.
+	WebServerCount *int32
+}
+
+// WebApplication - Web application REST Resource.
+type WebApplication struct {
+	// The resource-specific properties for this resource.
+	Properties *WebApplicationProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// WebApplicationAppsAndRolesModel - WebApplication in the guest virtual machine.
+type WebApplicationAppsAndRolesModel struct {
+	// READ-ONLY; Gets or sets ApplicationPool of the WebApplication.
+	ApplicationPool *string
+
+	// READ-ONLY; Gets or sets GroupName of the WebApplication.
+	GroupName *string
+
+	// READ-ONLY; Gets or sets Name of the WebApplication.
+	Name *string
+
+	// READ-ONLY; Gets or sets Platform of the WebApplication.
+	Platform *string
+
+	// READ-ONLY; Gets or sets Status of the WebApplication.
+	Status *string
+
+	// READ-ONLY; Gets or sets WebServer of the WebApplication.
+	WebServer *string
+}
+
+// WebApplicationConfigurationUnit - Web Application configuration unit.
+type WebApplicationConfigurationUnit struct {
+	// Gets or sets the configuration file path.
+	FilePath *string
+
+	// Gets or sets the identifier for the configuration.
+	Identifier *string
+
+	// Gets or sets a value indicating whether the configuration is edited or not by the user.
+	IsDeploymentTimeEditable *bool
+
+	// Gets or sets the configuration local file path.
+	LocalFilePath *string
+
+	// Gets or sets the configuration name.
+	Name *string
+
+	// Gets or sets the configuration section in the file.
+	Section *string
+
+	// Gets or sets the configuration target file path.
+	TargetFilePath *string
+
+	// Gets or sets the configuration type.
+	Type *string
+}
+
+// WebApplicationDirectoryUnit - Web Application directory unit.
+type WebApplicationDirectoryUnit struct {
+	// Gets or sets the unique id corresponding to the application directory.
+	ID *string
+
+	// Gets or sets a value indicating whether the directory object is editable.
+	// True when the directory is added as an optional directory, false when
+	// discovery is done manually.
+	IsEditable *bool
+
+	// Gets or sets the local scratch path at which the directories has been copied.
+	LocalScratchPath *string
+
+	// Gets or sets the mount path of the application directory.
+	MountPath *string
+
+	// Gets or sets the paths of the directory on the source machine.
+	SourcePaths []*string
+
+	// Gets or sets the size of the directory on the source machine.
+	SourceSize *string
+}
+
+// WebApplicationFramework - Framework specific data for a web application.
+type WebApplicationFramework struct {
+	// Gets or sets Name of the framework.
+	Name *string
+
+	// Gets or sets Version of the framework.
+	Version *string
+}
+
+// WebApplicationListResult - The response of a WebApplication list operation.
+type WebApplicationListResult struct {
+	// REQUIRED; The WebApplication items on this page
+	Value []*WebApplication
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// WebApplicationProperties - Class for web application properties.
+type WebApplicationProperties struct {
+	// READ-ONLY; Gets the appliance names.
+	ApplianceNames []*string
+
+	// READ-ONLY; Gets the front end bindings for the application.
+	Bindings []*FrontEndBinding
+
+	// READ-ONLY; Gets the configuration.
+	Configurations []*WebApplicationConfigurationUnit
+
+	// READ-ONLY; Gets the timestamp marking creation of the entity.
+	CreatedTimestamp *string
+
+	// READ-ONLY; Gets the directories.
+	Directories []*WebApplicationDirectoryUnit
+
+	// READ-ONLY; Gets the display name.
+	DisplayName *string
+
+	// READ-ONLY; Gets the Error details.
+	Errors []*HealthErrorDetails
+
+	// READ-ONLY; Gets the Error details.
+	Frameworks []*WebApplicationFramework
+
+	// READ-ONLY; Gets a value indicating whether the WebApp has errors or not.
+	HasErrors *bool
+
+	// READ-ONLY; Gets a value indicating whether application is deleted.
+	IsDeleted *bool
+
+	// READ-ONLY; Gets the list of machine ARM Ids on which the web application is deployed.
+	MachineArmIDs []*string
+
+	// READ-ONLY; Machine display name
+	MachineDisplayName *string
+
+	// READ-ONLY; Gets the physical path of the application.
+	PhysicalPath *string
+
+	// READ-ONLY; provisioning state enum
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Gets the server type.
+	ServerType *string
+
+	// READ-ONLY; Static folders.
+	StaticFolders []*string
+
+	// READ-ONLY; Gets tags that can be used with ODATA.
+	Tags map[string]*string
+
+	// READ-ONLY; Gets the timestamp marking last update operation.
+	UpdatedTimestamp *string
+
+	// READ-ONLY; Gets the virtual path of the application.
+	VirtualPath *string
+
+	// READ-ONLY; Gets the web server id.
+	WebServerID *string
+
+	// READ-ONLY; Gets the web server name.
+	WebServerName *string
+}
+
+// WebRoleImportDisk - Class representing the imported machine web model.
+type WebRoleImportDisk struct {
+	// Gets or sets Type of the disk.
+	DiskType *string
+
+	// Gets or sets LUN of the disk.
+	Lun *int32
+
+	// Gets or sets Bytes allocated for the disk.
+	MaxSizeInBytes *int64
+
+	// Gets or sets Name of the disk.
+	Name *string
+
+	// Gets or sets Path of the disk.
+	Path *string
+
+	// READ-ONLY; Disk read throughput.
+	MegabytesPerSecondOfRead *float32
+
+	// READ-ONLY; Disk write throughput.
+	MegabytesPerSecondOfWrite *float32
+
+	// READ-ONLY; Disk read IOPS.
+	NumberOfReadOperationsPerSecond *float32
+
+	// READ-ONLY; Disk write IOPS.
+	NumberOfWriteOperationsPerSecond *float32
+}
+
+// WebRoleOperatingSystem - Second level object returned as part of Machine REST resource.
+type WebRoleOperatingSystem struct {
+	// Gets or sets the Architecture of the operating system.
+	OSArchitecture *string
+
+	// Gets or sets the Name of the operating system.
+	OSName *string
+
+	// Gets or sets the type of the operating system.
+	OSType *string
+
+	// Gets or sets the Version of the operating system.
+	OSVersion *string
+}
+
+// WebServer - Web application REST Resource.
+type WebServer struct {
+	// The resource-specific properties for this resource.
+	Properties *WebServerProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// WebServerListResult - The response of a WebServer list operation.
+type WebServerListResult struct {
+	// REQUIRED; The WebServer items on this page
+	Value []*WebServer
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// WebServerProperties - Class for web server properties.
+type WebServerProperties struct {
+	// READ-ONLY; Gets the appliance names.
+	ApplianceNames []*string
+
+	// READ-ONLY; Gets the configuration location.
+	ConfigurationLocation *string
+
+	// READ-ONLY; Gets the timestamp marking creation of the entity.
+	CreatedTimestamp *string
+
+	// READ-ONLY; Gets the display name.
+	DisplayName *string
+
+	// READ-ONLY; Gets the Error details.
+	Errors []*HealthErrorDetails
+
+	// READ-ONLY; Gets a value indicating whether the WebApp has errors or not.
+	HasErrors *bool
+
+	// READ-ONLY; Gets a value indicating whether application is deleted.
+	IsDeleted *bool
+
+	// READ-ONLY; Gets the list of machines.
+	MachineIDs []*string
+
+	// READ-ONLY; provisioning state enum
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Gets the run as account id.
+	RunAsAccountID *string
+
+	// READ-ONLY; Gets the server FQDN.
+	ServerFqdn *string
+
+	// READ-ONLY; Gets the server type.
+	ServerType *string
+
+	// READ-ONLY; Gets the timestamp marking last update operation.
+	UpdatedTimestamp *string
+
+	// READ-ONLY; Gets the configuration location.
+	Version *string
+
+	// READ-ONLY; Gets the list of web applications.
+	WebApplications []*string
 }
