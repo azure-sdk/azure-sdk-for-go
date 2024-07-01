@@ -19,10 +19,10 @@ import (
 
 // ServerFactory is a fake server for instances of the armportal.ClientFactory type.
 type ServerFactory struct {
-	DashboardsServer                        DashboardsServer
-	ListTenantConfigurationViolationsServer ListTenantConfigurationViolationsServer
-	OperationsServer                        OperationsServer
-	TenantConfigurationsServer              TenantConfigurationsServer
+	DashboardsServer                                  DashboardsServer
+	ListTenantConfigurationViolationsOperationsServer ListTenantConfigurationViolationsOperationsServer
+	OperationsServer                                  OperationsServer
+	TenantConfigurationsServer                        TenantConfigurationsServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -37,12 +37,12 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armportal.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                                       *ServerFactory
-	trMu                                      sync.Mutex
-	trDashboardsServer                        *DashboardsServerTransport
-	trListTenantConfigurationViolationsServer *ListTenantConfigurationViolationsServerTransport
-	trOperationsServer                        *OperationsServerTransport
-	trTenantConfigurationsServer              *TenantConfigurationsServerTransport
+	srv                                                 *ServerFactory
+	trMu                                                sync.Mutex
+	trDashboardsServer                                  *DashboardsServerTransport
+	trListTenantConfigurationViolationsOperationsServer *ListTenantConfigurationViolationsOperationsServerTransport
+	trOperationsServer                                  *OperationsServerTransport
+	trTenantConfigurationsServer                        *TenantConfigurationsServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -61,11 +61,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "DashboardsClient":
 		initServer(s, &s.trDashboardsServer, func() *DashboardsServerTransport { return NewDashboardsServerTransport(&s.srv.DashboardsServer) })
 		resp, err = s.trDashboardsServer.Do(req)
-	case "ListTenantConfigurationViolationsClient":
-		initServer(s, &s.trListTenantConfigurationViolationsServer, func() *ListTenantConfigurationViolationsServerTransport {
-			return NewListTenantConfigurationViolationsServerTransport(&s.srv.ListTenantConfigurationViolationsServer)
+	case "ListTenantConfigurationViolationsOperationsClient":
+		initServer(s, &s.trListTenantConfigurationViolationsOperationsServer, func() *ListTenantConfigurationViolationsOperationsServerTransport {
+			return NewListTenantConfigurationViolationsOperationsServerTransport(&s.srv.ListTenantConfigurationViolationsOperationsServer)
 		})
-		resp, err = s.trListTenantConfigurationViolationsServer.Do(req)
+		resp, err = s.trListTenantConfigurationViolationsOperationsServer.Do(req)
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
