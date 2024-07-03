@@ -15,6 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/monitor/armmonitor"
 	"net/http"
 	"net/url"
@@ -43,6 +44,10 @@ type ActionGroupsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, actionGroupName string, options *armmonitor.ActionGroupsClientGetOptions) (resp azfake.Responder[armmonitor.ActionGroupsClientGetResponse], errResp azfake.ErrorResponder)
 
+	// GetNSP is the fake for method ActionGroupsClient.GetNSP
+	// HTTP status codes to indicate success: http.StatusOK
+	GetNSP func(ctx context.Context, resourceGroupName string, actionGroupName string, networkSecurityPerimeterConfigurationName string, options *armmonitor.ActionGroupsClientGetNSPOptions) (resp azfake.Responder[armmonitor.ActionGroupsClientGetNSPResponse], errResp azfake.ErrorResponder)
+
 	// GetTestNotificationsAtActionGroupResourceLevel is the fake for method ActionGroupsClient.GetTestNotificationsAtActionGroupResourceLevel
 	// HTTP status codes to indicate success: http.StatusOK
 	GetTestNotificationsAtActionGroupResourceLevel func(ctx context.Context, resourceGroupName string, actionGroupName string, notificationID string, options *armmonitor.ActionGroupsClientGetTestNotificationsAtActionGroupResourceLevelOptions) (resp azfake.Responder[armmonitor.ActionGroupsClientGetTestNotificationsAtActionGroupResourceLevelResponse], errResp azfake.ErrorResponder)
@@ -54,6 +59,14 @@ type ActionGroupsServer struct {
 	// NewListBySubscriptionIDPager is the fake for method ActionGroupsClient.NewListBySubscriptionIDPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListBySubscriptionIDPager func(options *armmonitor.ActionGroupsClientListBySubscriptionIDOptions) (resp azfake.PagerResponder[armmonitor.ActionGroupsClientListBySubscriptionIDResponse])
+
+	// NewListNSPPager is the fake for method ActionGroupsClient.NewListNSPPager
+	// HTTP status codes to indicate success: http.StatusOK
+	NewListNSPPager func(resourceGroupName string, actionGroupName string, options *armmonitor.ActionGroupsClientListNSPOptions) (resp azfake.PagerResponder[armmonitor.ActionGroupsClientListNSPResponse])
+
+	// BeginReconcileNSP is the fake for method ActionGroupsClient.BeginReconcileNSP
+	// HTTP status codes to indicate success: http.StatusAccepted
+	BeginReconcileNSP func(ctx context.Context, resourceGroupName string, actionGroupName string, networkSecurityPerimeterConfigurationName string, options *armmonitor.ActionGroupsClientBeginReconcileNSPOptions) (resp azfake.PollerResponder[armmonitor.ActionGroupsClientReconcileNSPResponse], errResp azfake.ErrorResponder)
 
 	// Update is the fake for method ActionGroupsClient.Update
 	// HTTP status codes to indicate success: http.StatusOK
@@ -69,6 +82,8 @@ func NewActionGroupsServerTransport(srv *ActionGroupsServer) *ActionGroupsServer
 		beginCreateNotificationsAtActionGroupResourceLevel: newTracker[azfake.PollerResponder[armmonitor.ActionGroupsClientCreateNotificationsAtActionGroupResourceLevelResponse]](),
 		newListByResourceGroupPager:                        newTracker[azfake.PagerResponder[armmonitor.ActionGroupsClientListByResourceGroupResponse]](),
 		newListBySubscriptionIDPager:                       newTracker[azfake.PagerResponder[armmonitor.ActionGroupsClientListBySubscriptionIDResponse]](),
+		newListNSPPager:                                    newTracker[azfake.PagerResponder[armmonitor.ActionGroupsClientListNSPResponse]](),
+		beginReconcileNSP:                                  newTracker[azfake.PollerResponder[armmonitor.ActionGroupsClientReconcileNSPResponse]](),
 	}
 }
 
@@ -79,6 +94,8 @@ type ActionGroupsServerTransport struct {
 	beginCreateNotificationsAtActionGroupResourceLevel *tracker[azfake.PollerResponder[armmonitor.ActionGroupsClientCreateNotificationsAtActionGroupResourceLevelResponse]]
 	newListByResourceGroupPager                        *tracker[azfake.PagerResponder[armmonitor.ActionGroupsClientListByResourceGroupResponse]]
 	newListBySubscriptionIDPager                       *tracker[azfake.PagerResponder[armmonitor.ActionGroupsClientListBySubscriptionIDResponse]]
+	newListNSPPager                                    *tracker[azfake.PagerResponder[armmonitor.ActionGroupsClientListNSPResponse]]
+	beginReconcileNSP                                  *tracker[azfake.PollerResponder[armmonitor.ActionGroupsClientReconcileNSPResponse]]
 }
 
 // Do implements the policy.Transporter interface for ActionGroupsServerTransport.
@@ -103,12 +120,18 @@ func (a *ActionGroupsServerTransport) Do(req *http.Request) (*http.Response, err
 		resp, err = a.dispatchEnableReceiver(req)
 	case "ActionGroupsClient.Get":
 		resp, err = a.dispatchGet(req)
+	case "ActionGroupsClient.GetNSP":
+		resp, err = a.dispatchGetNSP(req)
 	case "ActionGroupsClient.GetTestNotificationsAtActionGroupResourceLevel":
 		resp, err = a.dispatchGetTestNotificationsAtActionGroupResourceLevel(req)
 	case "ActionGroupsClient.NewListByResourceGroupPager":
 		resp, err = a.dispatchNewListByResourceGroupPager(req)
 	case "ActionGroupsClient.NewListBySubscriptionIDPager":
 		resp, err = a.dispatchNewListBySubscriptionIDPager(req)
+	case "ActionGroupsClient.NewListNSPPager":
+		resp, err = a.dispatchNewListNSPPager(req)
+	case "ActionGroupsClient.BeginReconcileNSP":
+		resp, err = a.dispatchBeginReconcileNSP(req)
 	case "ActionGroupsClient.Update":
 		resp, err = a.dispatchUpdate(req)
 	default:
@@ -310,6 +333,43 @@ func (a *ActionGroupsServerTransport) dispatchGet(req *http.Request) (*http.Resp
 	return resp, nil
 }
 
+func (a *ActionGroupsServerTransport) dispatchGetNSP(req *http.Request) (*http.Response, error) {
+	if a.srv.GetNSP == nil {
+		return nil, &nonRetriableError{errors.New("fake for method GetNSP not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Insights/actionGroups/(?P<actionGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/networkSecurityPerimeterConfigurations/(?P<networkSecurityPerimeterConfigurationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 4 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	actionGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("actionGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	networkSecurityPerimeterConfigurationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("networkSecurityPerimeterConfigurationName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := a.srv.GetNSP(req.Context(), resourceGroupNameParam, actionGroupNameParam, networkSecurityPerimeterConfigurationNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).NetworkSecurityPerimeterConfiguration, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
 func (a *ActionGroupsServerTransport) dispatchGetTestNotificationsAtActionGroupResourceLevel(req *http.Request) (*http.Response, error) {
 	if a.srv.GetTestNotificationsAtActionGroupResourceLevel == nil {
 		return nil, &nonRetriableError{errors.New("fake for method GetTestNotificationsAtActionGroupResourceLevel not implemented")}
@@ -408,6 +468,95 @@ func (a *ActionGroupsServerTransport) dispatchNewListBySubscriptionIDPager(req *
 	if !server.PagerResponderMore(newListBySubscriptionIDPager) {
 		a.newListBySubscriptionIDPager.remove(req)
 	}
+	return resp, nil
+}
+
+func (a *ActionGroupsServerTransport) dispatchNewListNSPPager(req *http.Request) (*http.Response, error) {
+	if a.srv.NewListNSPPager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListNSPPager not implemented")}
+	}
+	newListNSPPager := a.newListNSPPager.get(req)
+	if newListNSPPager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Insights/actionGroups/(?P<actionGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/networkSecurityPerimeterConfigurations`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		actionGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("actionGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		resp := a.srv.NewListNSPPager(resourceGroupNameParam, actionGroupNameParam, nil)
+		newListNSPPager = &resp
+		a.newListNSPPager.add(req, newListNSPPager)
+		server.PagerResponderInjectNextLinks(newListNSPPager, req, func(page *armmonitor.ActionGroupsClientListNSPResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
+	}
+	resp, err := server.PagerResponderNext(newListNSPPager, req)
+	if err != nil {
+		return nil, err
+	}
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+		a.newListNSPPager.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+	}
+	if !server.PagerResponderMore(newListNSPPager) {
+		a.newListNSPPager.remove(req)
+	}
+	return resp, nil
+}
+
+func (a *ActionGroupsServerTransport) dispatchBeginReconcileNSP(req *http.Request) (*http.Response, error) {
+	if a.srv.BeginReconcileNSP == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginReconcileNSP not implemented")}
+	}
+	beginReconcileNSP := a.beginReconcileNSP.get(req)
+	if beginReconcileNSP == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Insights/actionGroups/(?P<actionGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/networkSecurityPerimeterConfigurations/(?P<networkSecurityPerimeterConfigurationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/reconcile`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 4 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		actionGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("actionGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		networkSecurityPerimeterConfigurationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("networkSecurityPerimeterConfigurationName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := a.srv.BeginReconcileNSP(req.Context(), resourceGroupNameParam, actionGroupNameParam, networkSecurityPerimeterConfigurationNameParam, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginReconcileNSP = &respr
+		a.beginReconcileNSP.add(req, beginReconcileNSP)
+	}
+
+	resp, err := server.PollerResponderNext(beginReconcileNSP, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusAccepted}, resp.StatusCode) {
+		a.beginReconcileNSP.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginReconcileNSP) {
+		a.beginReconcileNSP.remove(req)
+	}
+
 	return resp, nil
 }
 
