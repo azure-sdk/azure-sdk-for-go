@@ -1,5 +1,32 @@
 # Release History
 
+## 9.0.0 (2024-07-03)
+### Breaking Changes
+
+- Function `*ClientFactory.NewOperationsClient` has been removed
+- Function `NewOperationsClient` has been removed
+- Function `*OperationsClient.NewListPager` has been removed
+- Struct `Operation` has been removed
+- Struct `OperationDisplay` has been removed
+- Struct `OperationListResponse` has been removed
+- Struct `OperationLogSpecification` has been removed
+- Struct `OperationMetricAvailability` has been removed
+- Struct `OperationMetricDimension` has been removed
+- Struct `OperationMetricSpecification` has been removed
+- Struct `OperationProperties` has been removed
+- Struct `OperationServiceSpecification` has been removed
+
+### Features Added
+
+- New value `SQLServerAuthenticationTypeUserAssignedManagedIdentity` added to enum type `SQLServerAuthenticationType`
+- New struct `ContinuationSettingsReference`
+- New field `ContinuationSettings` in struct `ExecuteDataFlowActivityTypeProperties`
+- New field `ContinuationSettings` in struct `ExecutePowerQueryActivityTypeProperties`
+- New field `Credential` in struct `SQLServerLinkedServiceTypeProperties`
+- New field `StorageIntegration` in struct `SnowflakeExportCopyCommand`
+- New field `StorageIntegration` in struct `SnowflakeImportCopyCommand`
+
+
 ## 8.0.0 (2024-06-05)
 ### Breaking Changes
 
