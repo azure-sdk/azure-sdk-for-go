@@ -1,5 +1,764 @@
 # Release History
 
+## 2.0.0-beta.1 (2024-07-03)
+### Breaking Changes
+
+- Type of `Operation.Origin` has been changed from `*string` to `*Origin`
+- Type of `PrivateEndpointConnection.Properties` has been changed from `*PrivateEndpointConnectionProperties` to `*PrivateEndpointConnectionPropertiesV2`
+- `ProvisioningStateAccepted`, `ProvisioningStateCreating`, `ProvisioningStateDeleting`, `ProvisioningStateMoving` from enum `ProvisioningState` has been removed
+- Enum `AssessmentSizingCriterion` has been removed
+- Enum `AssessmentStage` has been removed
+- Enum `AssessmentStatus` has been removed
+- Enum `AzureDiskSize` has been removed
+- Enum `AzureDiskSuitabilityDetail` has been removed
+- Enum `AzureDiskSuitabilityExplanation` has been removed
+- Enum `AzureDiskType` has been removed
+- Enum `AzureHybridUseBenefit` has been removed
+- Enum `AzureLocation` has been removed
+- Enum `AzureNetworkAdapterSuitabilityDetail` has been removed
+- Enum `AzureNetworkAdapterSuitabilityExplanation` has been removed
+- Enum `AzureOfferCode` has been removed
+- Enum `AzurePricingTier` has been removed
+- Enum `AzureStorageRedundancy` has been removed
+- Enum `AzureVMFamily` has been removed
+- Enum `AzureVMSize` has been removed
+- Enum `AzureVMSuitabilityDetail` has been removed
+- Enum `AzureVMSuitabilityExplanation` has been removed
+- Enum `CloudSuitability` has been removed
+- Enum `Currency` has been removed
+- Enum `GroupStatus` has been removed
+- Enum `GroupUpdateOperation` has been removed
+- Enum `MachineBootType` has been removed
+- Enum `Percentile` has been removed
+- Enum `PrivateEndpointConnectionPropertiesProvisioningState` has been removed
+- Enum `ProjectStatus` has been removed
+- Enum `ReservedInstance` has been removed
+- Enum `TimeRange` has been removed
+- Function `NewAssessedMachinesClient` has been removed
+- Function `*AssessedMachinesClient.Get` has been removed
+- Function `*AssessedMachinesClient.NewListByAssessmentPager` has been removed
+- Function `NewAssessmentsClient` has been removed
+- Function `*AssessmentsClient.Create` has been removed
+- Function `*AssessmentsClient.Delete` has been removed
+- Function `*AssessmentsClient.Get` has been removed
+- Function `*AssessmentsClient.GetReportDownloadURL` has been removed
+- Function `*AssessmentsClient.NewListByGroupPager` has been removed
+- Function `*AssessmentsClient.NewListByProjectPager` has been removed
+- Function `*ClientFactory.NewAssessedMachinesClient` has been removed
+- Function `*ClientFactory.NewAssessmentsClient` has been removed
+- Function `*ClientFactory.NewGroupsClient` has been removed
+- Function `*ClientFactory.NewHyperVCollectorsClient` has been removed
+- Function `*ClientFactory.NewImportCollectorsClient` has been removed
+- Function `*ClientFactory.NewMachinesClient` has been removed
+- Function `*ClientFactory.NewPrivateEndpointConnectionClient` has been removed
+- Function `*ClientFactory.NewPrivateLinkResourceClient` has been removed
+- Function `*ClientFactory.NewProjectsClient` has been removed
+- Function `*ClientFactory.NewServerCollectorsClient` has been removed
+- Function `*ClientFactory.NewVMwareCollectorsClient` has been removed
+- Function `NewGroupsClient` has been removed
+- Function `*GroupsClient.Create` has been removed
+- Function `*GroupsClient.Delete` has been removed
+- Function `*GroupsClient.Get` has been removed
+- Function `*GroupsClient.NewListByProjectPager` has been removed
+- Function `*GroupsClient.UpdateMachines` has been removed
+- Function `NewHyperVCollectorsClient` has been removed
+- Function `*HyperVCollectorsClient.Create` has been removed
+- Function `*HyperVCollectorsClient.Delete` has been removed
+- Function `*HyperVCollectorsClient.Get` has been removed
+- Function `*HyperVCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewImportCollectorsClient` has been removed
+- Function `*ImportCollectorsClient.Create` has been removed
+- Function `*ImportCollectorsClient.Delete` has been removed
+- Function `*ImportCollectorsClient.Get` has been removed
+- Function `*ImportCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewMachinesClient` has been removed
+- Function `*MachinesClient.Get` has been removed
+- Function `*MachinesClient.NewListByProjectPager` has been removed
+- Function `NewPrivateEndpointConnectionClient` has been removed
+- Function `*PrivateEndpointConnectionClient.Delete` has been removed
+- Function `*PrivateEndpointConnectionClient.Get` has been removed
+- Function `*PrivateEndpointConnectionClient.ListByProject` has been removed
+- Function `*PrivateEndpointConnectionClient.Update` has been removed
+- Function `NewPrivateLinkResourceClient` has been removed
+- Function `*PrivateLinkResourceClient.Get` has been removed
+- Function `*PrivateLinkResourceClient.ListByProject` has been removed
+- Function `NewProjectsClient` has been removed
+- Function `*ProjectsClient.AssessmentOptions` has been removed
+- Function `*ProjectsClient.NewAssessmentOptionsListPager` has been removed
+- Function `*ProjectsClient.Create` has been removed
+- Function `*ProjectsClient.Delete` has been removed
+- Function `*ProjectsClient.Get` has been removed
+- Function `*ProjectsClient.NewListBySubscriptionPager` has been removed
+- Function `*ProjectsClient.NewListPager` has been removed
+- Function `*ProjectsClient.Update` has been removed
+- Function `NewServerCollectorsClient` has been removed
+- Function `*ServerCollectorsClient.Create` has been removed
+- Function `*ServerCollectorsClient.Delete` has been removed
+- Function `*ServerCollectorsClient.Get` has been removed
+- Function `*ServerCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewVMwareCollectorsClient` has been removed
+- Function `*VMwareCollectorsClient.Create` has been removed
+- Function `*VMwareCollectorsClient.Delete` has been removed
+- Function `*VMwareCollectorsClient.Get` has been removed
+- Function `*VMwareCollectorsClient.NewListByProjectPager` has been removed
+- Struct `AssessedDisk` has been removed
+- Struct `AssessedMachine` has been removed
+- Struct `AssessedMachineProperties` has been removed
+- Struct `AssessedMachineResultList` has been removed
+- Struct `AssessedNetworkAdapter` has been removed
+- Struct `Assessment` has been removed
+- Struct `AssessmentOptions` has been removed
+- Struct `AssessmentOptionsProperties` has been removed
+- Struct `AssessmentOptionsResultList` has been removed
+- Struct `AssessmentProperties` has been removed
+- Struct `AssessmentResultList` has been removed
+- Struct `CollectorAgentProperties` has been removed
+- Struct `CollectorBodyAgentSpnProperties` has been removed
+- Struct `CollectorProperties` has been removed
+- Struct `Disk` has been removed
+- Struct `DownloadURL` has been removed
+- Struct `Group` has been removed
+- Struct `GroupBodyProperties` has been removed
+- Struct `GroupProperties` has been removed
+- Struct `GroupResultList` has been removed
+- Struct `HyperVCollector` has been removed
+- Struct `HyperVCollectorList` has been removed
+- Struct `ImportCollector` has been removed
+- Struct `ImportCollectorList` has been removed
+- Struct `ImportCollectorProperties` has been removed
+- Struct `Machine` has been removed
+- Struct `MachineProperties` has been removed
+- Struct `MachineResultList` has been removed
+- Struct `NetworkAdapter` has been removed
+- Struct `OperationResultList` has been removed
+- Struct `PrivateEndpointConnectionCollection` has been removed
+- Struct `PrivateEndpointConnectionProperties` has been removed
+- Struct `PrivateLinkResourceCollection` has been removed
+- Struct `Project` has been removed
+- Struct `ProjectProperties` has been removed
+- Struct `ProjectResultList` has been removed
+- Struct `ServerCollector` has been removed
+- Struct `ServerCollectorList` has been removed
+- Struct `UpdateGroupBody` has been removed
+- Struct `VMFamily` has been removed
+- Struct `VMUptime` has been removed
+- Struct `VMwareCollector` has been removed
+- Struct `VMwareCollectorList` has been removed
+- Field `OperationResultList` of struct `OperationsClientListResponse` has been removed
+- Field `ETag` of struct `PrivateEndpointConnection` has been removed
+
+### Features Added
+
+- New value `ProvisioningStateCanceled`, `ProvisioningStateCompleted`, `ProvisioningStateCreated`, `ProvisioningStateRunning`, `ProvisioningStateUpdated` added to enum type `ProvisioningState`
+- New enum type `ActionType` with values `ActionTypeInternal`
+- New enum type `ApplicationDiscoveryScopeStatus` with values `ApplicationDiscoveryScopeStatusDisabled`, `ApplicationDiscoveryScopeStatusDiscoveryFailed`, `ApplicationDiscoveryScopeStatusDiscoveryInProgress`, `ApplicationDiscoveryScopeStatusDiscoveryNotStarted`, `ApplicationDiscoveryScopeStatusDiscoveryPartiallySucceded`, `ApplicationDiscoveryScopeStatusDiscoverySucceeded`, `ApplicationDiscoveryScopeStatusDiscoverySucceededAtleastOnce`, `ApplicationDiscoveryScopeStatusRunAsAccountNotAssociated`
+- New enum type `CreatedByType` with values `CreatedByTypeApplication`, `CreatedByTypeKey`, `CreatedByTypeManagedIdentity`, `CreatedByTypeUser`
+- New enum type `Default` with values `DefaultDefault`
+- New enum type `DefaultAutoGenerated` with values `DefaultAutoGeneratedDefault`
+- New enum type `DefaultValues` with values `DefaultValuesDefault`
+- New enum type `DeleteImportedMachinesJobPropertiesJobState` with values `DeleteImportedMachinesJobPropertiesJobStateCompleted`, `DeleteImportedMachinesJobPropertiesJobStateFailed`, `DeleteImportedMachinesJobPropertiesJobStateUnknown`, `DeleteImportedMachinesJobPropertiesJobStateVerified`, `DeleteImportedMachinesJobPropertiesJobStateVerifiedWithErrors`
+- New enum type `DependencyMapDiscoveryScopeStatus` with values `DependencyMapDiscoveryScopeStatusDisabled`, `DependencyMapDiscoveryScopeStatusDiscoveryFailed`, `DependencyMapDiscoveryScopeStatusDiscoveryInProgress`, `DependencyMapDiscoveryScopeStatusDiscoveryNotStarted`, `DependencyMapDiscoveryScopeStatusDiscoveryPartiallySucceded`, `DependencyMapDiscoveryScopeStatusDiscoverySucceeded`, `DependencyMapDiscoveryScopeStatusDiscoverySucceededAtleastOnce`, `DependencyMapDiscoveryScopeStatusRunAsAccountNotAssociated`
+- New enum type `DiscoveryScopeStatus` with values `DiscoveryScopeStatusDisabled`, `DiscoveryScopeStatusDiscoveryFailed`, `DiscoveryScopeStatusDiscoveryInProgress`, `DiscoveryScopeStatusDiscoveryNotStarted`, `DiscoveryScopeStatusDiscoveryPartiallySucceded`, `DiscoveryScopeStatusDiscoverySucceeded`, `DiscoveryScopeStatusDiscoverySucceededAtleastOnce`, `DiscoveryScopeStatusRunAsAccountNotAssociated`
+- New enum type `DiscoveryScopes` with values `DiscoveryScopesAppsAndRoles`, `DiscoveryScopesDependencyMap`, `DiscoveryScopesSQLServerConnectionInfo`, `DiscoveryScopesStaticData`
+- New enum type `EsuStatus` with values `EsuStatusActive`, `EsuStatusInActive`, `EsuStatusUnknown`
+- New enum type `EsuYear` with values `EsuYearFirstYear`, `EsuYearSecondYear`, `EsuYearThirdYear`, `EsuYearUnknown`, `EsuYearUpgradeYear`
+- New enum type `ExportMachineErrorsProperties` with values `ExportMachineErrorsPropertiesAppsAndRoles`, `ExportMachineErrorsPropertiesDependencyMap`, `ExportMachineErrorsPropertiesSQLServerConnectionInfo`, `ExportMachineErrorsPropertiesStaticData`
+- New enum type `FCIInstanceState` with values `FCIInstanceStateFailed`, `FCIInstanceStateInherited`, `FCIInstanceStateInitializing`, `FCIInstanceStateOffline`, `FCIInstanceStateOfflinePending`, `FCIInstanceStateOnline`, `FCIInstanceStateOnlinePending`, `FCIInstanceStatePending`, `FCIInstanceStateUnknown`
+- New enum type `FileType` with values `FileTypeFilestream`, `FileTypeFulltext`, `FileTypeLog`, `FileTypeNotSupported`, `FileTypeRows`
+- New enum type `HealthErrorDetailsDiscoveryScope` with values `HealthErrorDetailsDiscoveryScopeAppsAndRoles`, `HealthErrorDetailsDiscoveryScopeDependencyMap`, `HealthErrorDetailsDiscoveryScopeDiscoveryTargets`, `HealthErrorDetailsDiscoveryScopeSQLServerConnectionInfo`, `HealthErrorDetailsDiscoveryScopeStaticData`
+- New enum type `HealthErrorDetailsSource` with values `HealthErrorDetailsSourceRefreshFabricLayout`, `HealthErrorDetailsSourceRefreshFabricLayoutDependencyMap`, `HealthErrorDetailsSourceRefreshFabricLayoutGuest`
+- New enum type `HighAvailability` with values `HighAvailabilityNo`, `HighAvailabilityUnknown`, `HighAvailabilityYes`
+- New enum type `HighAvailabilityValues` with values `HighAvailabilityValuesNo`, `HighAvailabilityValuesUnknown`, `HighAvailabilityValuesYes`
+- New enum type `ImportTypeValues` with values `ImportTypeValuesAzureMigrateCSV`, `ImportTypeValuesRVToolsXlsx`
+- New enum type `JobResult` with values `JobResultCompleted`, `JobResultCompletedWithErrors`, `JobResultCompletedWithWarnings`, `JobResultFailed`, `JobResultInProgress`, `JobResultUnknown`, `JobResultWaitingForBlobUpload`
+- New enum type `MasterSitePropertiesPublicNetworkAccess` with values `MasterSitePropertiesPublicNetworkAccessDisabled`, `MasterSitePropertiesPublicNetworkAccessEnabled`, `MasterSitePropertiesPublicNetworkAccessNotSpecified`
+- New enum type `MicrosoftAzureFDSWebRoleHealthErrorDetailsSource` with values `MicrosoftAzureFDSWebRoleHealthErrorDetailsSourceRefreshFabricLayout`, `MicrosoftAzureFDSWebRoleHealthErrorDetailsSourceRefreshFabricLayoutDependencyMap`, `MicrosoftAzureFDSWebRoleHealthErrorDetailsSourceRefreshFabricLayoutGuest`
+- New enum type `Origin` with values `OriginSystem`, `OriginUser`, `OriginUserSystem`
+- New enum type `SQLAvailabilityGroupPropertiesAvailabilityGroupType` with values `SQLAvailabilityGroupPropertiesAvailabilityGroupTypeDistributed`, `SQLAvailabilityGroupPropertiesAvailabilityGroupTypeTraditional`, `SQLAvailabilityGroupPropertiesAvailabilityGroupTypeUnknown`
+- New enum type `SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaCommitMode` with values `SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaCommitModeAsynchronous`, `SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaCommitModeSynchronous`, `SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaCommitModeUnknown`
+- New enum type `SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaReadMode` with values `SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaReadModeNone`, `SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaReadModeReadOnly`, `SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaReadModeReadWrite`, `SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaReadModeUnknown`
+- New enum type `SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSeedMode` with values `SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSeedModeAutomatic`, `SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSeedModeManual`, `SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSeedModeUnknown`
+- New enum type `SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaState` with values `SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaStatePrimary`, `SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaStateSecondary`, `SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaStateUnknown`
+- New enum type `SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSyncStatus` with values `SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSyncStatusSynchronized`, `SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSyncStatusUnknown`, `SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSyncStatusUnsynchronized`
+- New enum type `SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaType` with values `SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaTypeAvailabilityGroupReplica`, `SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaTypeDatabaseReplica`, `SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaTypeUnknown`
+- New enum type `SQLAvailabilityReplicaOverviewReplicaState` with values `SQLAvailabilityReplicaOverviewReplicaStatePrimary`, `SQLAvailabilityReplicaOverviewReplicaStateSecondary`, `SQLAvailabilityReplicaOverviewReplicaStateUnknown`
+- New enum type `SQLDiscoveryScopeStatus` with values `SQLDiscoveryScopeStatusDisabled`, `SQLDiscoveryScopeStatusDiscoveryFailed`, `SQLDiscoveryScopeStatusDiscoveryInProgress`, `SQLDiscoveryScopeStatusDiscoveryNotStarted`, `SQLDiscoveryScopeStatusDiscoveryPartiallySucceded`, `SQLDiscoveryScopeStatusDiscoverySucceeded`, `SQLDiscoveryScopeStatusDiscoverySucceededAtleastOnce`, `SQLDiscoveryScopeStatusRunAsAccountNotAssociated`
+- New enum type `SQLMachineOverviewFciRole` with values `SQLMachineOverviewFciRoleActiveNode`, `SQLMachineOverviewFciRoleNotApplicable`, `SQLMachineOverviewFciRolePossibleOwnerNode`, `SQLMachineOverviewFciRoleUnknown`
+- New enum type `SQLMetadataDiscoveryPipe` with values `SQLMetadataDiscoveryPipeCIM`, `SQLMetadataDiscoveryPipeOther`, `SQLMetadataDiscoveryPipePowerShell`, `SQLMetadataDiscoveryPipeSSH`, `SQLMetadataDiscoveryPipeUnknown`, `SQLMetadataDiscoveryPipeVMware`
+- New enum type `SQLServerStatus` with values `SQLServerStatusContinuePending`, `SQLServerStatusPausePending`, `SQLServerStatusPaused`, `SQLServerStatusRunning`, `SQLServerStatusStartPending`, `SQLServerStatusStopPending`, `SQLServerStatusStopped`, `SQLServerStatusUnknown`
+- New enum type `SQLSitePropertiesDiscoveryScenario` with values `SQLSitePropertiesDiscoveryScenarioDR`, `SQLSitePropertiesDiscoveryScenarioMigrate`
+- New enum type `ShallowDiscoveryStatus` with values `ShallowDiscoveryStatusDisabled`, `ShallowDiscoveryStatusDiscoveryFailed`, `ShallowDiscoveryStatusDiscoveryInProgress`, `ShallowDiscoveryStatusDiscoveryNotStarted`, `ShallowDiscoveryStatusDiscoveryPartiallySucceded`, `ShallowDiscoveryStatusDiscoverySucceeded`, `ShallowDiscoveryStatusDiscoverySucceededAtleastOnce`, `ShallowDiscoveryStatusRunAsAccountNotAssociated`
+- New enum type `SiteHealthSummaryFabricLayoutUpdateSourcesItem` with values `SiteHealthSummaryFabricLayoutUpdateSourcesItemRefreshFabricLayout`, `SiteHealthSummaryFabricLayoutUpdateSourcesItemRefreshFabricLayoutDependencyMap`, `SiteHealthSummaryFabricLayoutUpdateSourcesItemRefreshFabricLayoutGuest`
+- New enum type `StaticDiscoveryScopeStatus` with values `StaticDiscoveryScopeStatusDisabled`, `StaticDiscoveryScopeStatusDiscoveryFailed`, `StaticDiscoveryScopeStatusDiscoveryInProgress`, `StaticDiscoveryScopeStatusDiscoveryNotStarted`, `StaticDiscoveryScopeStatusDiscoveryPartiallySucceded`, `StaticDiscoveryScopeStatusDiscoverySucceeded`, `StaticDiscoveryScopeStatusDiscoverySucceededAtleastOnce`, `StaticDiscoveryScopeStatusRunAsAccountNotAssociated`
+- New enum type `SupportStatus` with values `SupportStatusExtended`, `SupportStatusMainstream`, `SupportStatusUnknown`
+- New enum type `VMwareDatastoreType` with values `VMwareDatastoreTypeCifs`, `VMwareDatastoreTypeNFS`, `VMwareDatastoreTypeNFS41`, `VMwareDatastoreTypePmem`, `VMwareDatastoreTypeUnknown`, `VMwareDatastoreTypeVffs`, `VMwareDatastoreTypeVmfs`, `VMwareDatastoreTypeVsan`, `VMwareDatastoreTypeVvol`
+- New enum type `Versions` with values `VersionsV20180501Preview`, `VersionsV20190501Preview`, `VersionsV20200101`, `VersionsV20200101Preview`, `VersionsV20200201`, `VersionsV20200707`, `VersionsV20200710`, `VersionsV20200801Preview`, `VersionsV20201111Preview`, `VersionsV20221027`, `VersionsV20230606`, `VersionsV20231001Preview`
+- New enum type `WebAppSitePropertiesDiscoveryScenario` with values `WebAppSitePropertiesDiscoveryScenarioDR`, `WebAppSitePropertiesDiscoveryScenarioMigrate`
+- New function `*ClientFactory.NewDependencyMapControllerClient() *DependencyMapControllerClient`
+- New function `*ClientFactory.NewHypervClusterControllerClient() *HypervClusterControllerClient`
+- New function `*ClientFactory.NewHypervDependencyMapControllerClient() *HypervDependencyMapControllerClient`
+- New function `*ClientFactory.NewHypervHostControllerClient() *HypervHostControllerClient`
+- New function `*ClientFactory.NewHypervJobsClient() *HypervJobsClient`
+- New function `*ClientFactory.NewHypervJobsControllerClient() *HypervJobsControllerClient`
+- New function `*ClientFactory.NewHypervMachinesControllerClient() *HypervMachinesControllerClient`
+- New function `*ClientFactory.NewHypervOperationsStatusControllerClient() *HypervOperationsStatusControllerClient`
+- New function `*ClientFactory.NewHypervRunAsAccountsControllerClient() *HypervRunAsAccountsControllerClient`
+- New function `*ClientFactory.NewHypervSitesClient() *HypervSitesClient`
+- New function `*ClientFactory.NewHypervSitesControllerClient() *HypervSitesControllerClient`
+- New function `*ClientFactory.NewHypervSoftwareInventoriesControllerClient() *HypervSoftwareInventoriesControllerClient`
+- New function `*ClientFactory.NewIisWebApplicationsControllerClient() *IisWebApplicationsControllerClient`
+- New function `*ClientFactory.NewIisWebServersControllerClient() *IisWebServersControllerClient`
+- New function `*ClientFactory.NewImportJobsControllerClient() *ImportJobsControllerClient`
+- New function `*ClientFactory.NewImportMachinesControllerClient() *ImportMachinesControllerClient`
+- New function `*ClientFactory.NewImportSitesControllerClient() *ImportSitesControllerClient`
+- New function `*ClientFactory.NewMachinesControllerClient() *MachinesControllerClient`
+- New function `*ClientFactory.NewMasterSitesControllerClient() *MasterSitesControllerClient`
+- New function `*ClientFactory.NewMasterSitesOperationsStatusControllerClient() *MasterSitesOperationsStatusControllerClient`
+- New function `*ClientFactory.NewPrivateEndpointConnectionControllerClient() *PrivateEndpointConnectionControllerClient`
+- New function `*ClientFactory.NewPrivateLinkResourcesControllerClient() *PrivateLinkResourcesControllerClient`
+- New function `*ClientFactory.NewRunAsAccountsControllerClient() *RunAsAccountsControllerClient`
+- New function `*ClientFactory.NewSQLAvailabilityGroupsControllerClient() *SQLAvailabilityGroupsControllerClient`
+- New function `*ClientFactory.NewSQLDatabasesControllerClient() *SQLDatabasesControllerClient`
+- New function `*ClientFactory.NewSQLDiscoverySiteDataSourceControllerClient() *SQLDiscoverySiteDataSourceControllerClient`
+- New function `*ClientFactory.NewSQLJobsControllerClient() *SQLJobsControllerClient`
+- New function `*ClientFactory.NewSQLOperationsStatusControllerClient() *SQLOperationsStatusControllerClient`
+- New function `*ClientFactory.NewSQLRunAsAccountsControllerClient() *SQLRunAsAccountsControllerClient`
+- New function `*ClientFactory.NewSQLServersControllerClient() *SQLServersControllerClient`
+- New function `*ClientFactory.NewSQLSitesControllerClient() *SQLSitesControllerClient`
+- New function `*ClientFactory.NewServerDependencyMapControllerClient() *ServerDependencyMapControllerClient`
+- New function `*ClientFactory.NewServerJobsControllerClient() *ServerJobsControllerClient`
+- New function `*ClientFactory.NewServerOperationsStatusControllerClient() *ServerOperationsStatusControllerClient`
+- New function `*ClientFactory.NewServerRunAsAccountsControllerClient() *ServerRunAsAccountsControllerClient`
+- New function `*ClientFactory.NewServerSitesControllerClient() *ServerSitesControllerClient`
+- New function `*ClientFactory.NewServerSoftwareInventoriesControllerClient() *ServerSoftwareInventoriesControllerClient`
+- New function `*ClientFactory.NewServersControllerClient() *ServersControllerClient`
+- New function `*ClientFactory.NewSitesControllerClient() *SitesControllerClient`
+- New function `*ClientFactory.NewTomcatWebApplicationsControllerClient() *TomcatWebApplicationsControllerClient`
+- New function `*ClientFactory.NewTomcatWebServersControllerClient() *TomcatWebServersControllerClient`
+- New function `*ClientFactory.NewVcenterControllerClient() *VcenterControllerClient`
+- New function `*ClientFactory.NewVmwareHostControllerClient() *VmwareHostControllerClient`
+- New function `*ClientFactory.NewVmwareOperationsStatusClient() *VmwareOperationsStatusClient`
+- New function `*ClientFactory.NewVmwarePropertiesControllerClient() *VmwarePropertiesControllerClient`
+- New function `*ClientFactory.NewVmwareSoftwareInventoriesControllerClient() *VmwareSoftwareInventoriesControllerClient`
+- New function `*ClientFactory.NewWebAppDiscoverySiteDataSourcesControllerClient() *WebAppDiscoverySiteDataSourcesControllerClient`
+- New function `*ClientFactory.NewWebAppExtendedMachinesControllerClient() *WebAppExtendedMachinesControllerClient`
+- New function `*ClientFactory.NewWebAppPropertiesControllerClient() *WebAppPropertiesControllerClient`
+- New function `*ClientFactory.NewWebAppRunAsAccountsControllerClient() *WebAppRunAsAccountsControllerClient`
+- New function `*ClientFactory.NewWebAppSitesControllerClient() *WebAppSitesControllerClient`
+- New function `*ClientFactory.NewWebApplicationsControllerClient() *WebApplicationsControllerClient`
+- New function `*ClientFactory.NewWebServersControllerClient() *WebServersControllerClient`
+- New function `NewDependencyMapControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DependencyMapControllerClient, error)`
+- New function `*DependencyMapControllerClient.BeginClientGroupMembers(context.Context, string, string, DependencyMapServiceMapextensionsClientGroupMembersRequest, *DependencyMapControllerClientBeginClientGroupMembersOptions) (*runtime.Poller[DependencyMapControllerClientClientGroupMembersResponse], error)`
+- New function `*DependencyMapControllerClient.BeginExportDependencies(context.Context, string, string, DependencyMapServiceMapextensionsExportDependenciesRequest, *DependencyMapControllerClientBeginExportDependenciesOptions) (*runtime.Poller[DependencyMapControllerClientExportDependenciesResponse], error)`
+- New function `*DependencyMapControllerClient.BeginGenerateCoarseMap(context.Context, string, string, DependencyMapServiceMapextensionsScopeMapRequest, *DependencyMapControllerClientBeginGenerateCoarseMapOptions) (*runtime.Poller[DependencyMapControllerClientGenerateCoarseMapResponse], error)`
+- New function `*DependencyMapControllerClient.BeginGenerateDetailedMap(context.Context, string, string, DependencyMapServiceMapextensionsSingleMachineDetailedMapRequest, *DependencyMapControllerClientBeginGenerateDetailedMapOptions) (*runtime.Poller[DependencyMapControllerClientGenerateDetailedMapResponse], error)`
+- New function `*DependencyMapControllerClient.BeginServerGroupMembers(context.Context, string, string, DependencyMapServiceMapextensionsServerGroupMembersRequest, *DependencyMapControllerClientBeginServerGroupMembersOptions) (*runtime.Poller[DependencyMapControllerClientServerGroupMembersResponse], error)`
+- New function `NewHypervClusterControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*HypervClusterControllerClient, error)`
+- New function `*HypervClusterControllerClient.BeginCreateCluster(context.Context, string, string, string, HypervCluster, *HypervClusterControllerClientBeginCreateClusterOptions) (*runtime.Poller[HypervClusterControllerClientCreateClusterResponse], error)`
+- New function `*HypervClusterControllerClient.Delete(context.Context, string, string, string, *HypervClusterControllerClientDeleteOptions) (HypervClusterControllerClientDeleteResponse, error)`
+- New function `*HypervClusterControllerClient.GetCluster(context.Context, string, string, string, *HypervClusterControllerClientGetClusterOptions) (HypervClusterControllerClientGetClusterResponse, error)`
+- New function `*HypervClusterControllerClient.NewListByHypervSitePager(string, string, *HypervClusterControllerClientListByHypervSiteOptions) *runtime.Pager[HypervClusterControllerClientListByHypervSiteResponse]`
+- New function `NewHypervDependencyMapControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*HypervDependencyMapControllerClient, error)`
+- New function `*HypervDependencyMapControllerClient.BeginClientGroupMembers(context.Context, string, string, DependencyMapServiceMapextensionsClientGroupMembersRequest, *HypervDependencyMapControllerClientBeginClientGroupMembersOptions) (*runtime.Poller[HypervDependencyMapControllerClientClientGroupMembersResponse], error)`
+- New function `*HypervDependencyMapControllerClient.BeginExportDependencies(context.Context, string, string, DependencyMapServiceMapextensionsExportDependenciesRequest, *HypervDependencyMapControllerClientBeginExportDependenciesOptions) (*runtime.Poller[HypervDependencyMapControllerClientExportDependenciesResponse], error)`
+- New function `*HypervDependencyMapControllerClient.BeginGenerateCoarseMap(context.Context, string, string, DependencyMapServiceMapextensionsScopeMapRequest, *HypervDependencyMapControllerClientBeginGenerateCoarseMapOptions) (*runtime.Poller[HypervDependencyMapControllerClientGenerateCoarseMapResponse], error)`
+- New function `*HypervDependencyMapControllerClient.BeginGenerateDetailedMap(context.Context, string, string, DependencyMapServiceMapextensionsSingleMachineDetailedMapRequest, *HypervDependencyMapControllerClientBeginGenerateDetailedMapOptions) (*runtime.Poller[HypervDependencyMapControllerClientGenerateDetailedMapResponse], error)`
+- New function `*HypervDependencyMapControllerClient.BeginServerGroupMembers(context.Context, string, string, DependencyMapServiceMapextensionsServerGroupMembersRequest, *HypervDependencyMapControllerClientBeginServerGroupMembersOptions) (*runtime.Poller[HypervDependencyMapControllerClientServerGroupMembersResponse], error)`
+- New function `*HypervDependencyMapControllerClient.BeginUpdateDependencyMapStatus(context.Context, string, string, UpdateMachineDepMapStatus, *HypervDependencyMapControllerClientBeginUpdateDependencyMapStatusOptions) (*runtime.Poller[HypervDependencyMapControllerClientUpdateDependencyMapStatusResponse], error)`
+- New function `NewHypervHostControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*HypervHostControllerClient, error)`
+- New function `*HypervHostControllerClient.BeginCreate(context.Context, string, string, string, HypervHost, *HypervHostControllerClientBeginCreateOptions) (*runtime.Poller[HypervHostControllerClientCreateResponse], error)`
+- New function `*HypervHostControllerClient.BeginDelete(context.Context, string, string, string, *HypervHostControllerClientBeginDeleteOptions) (*runtime.Poller[HypervHostControllerClientDeleteResponse], error)`
+- New function `*HypervHostControllerClient.Get(context.Context, string, string, string, *HypervHostControllerClientGetOptions) (HypervHostControllerClientGetResponse, error)`
+- New function `*HypervHostControllerClient.NewListByHypervSitePager(string, string, *HypervHostControllerClientListByHypervSiteOptions) *runtime.Pager[HypervHostControllerClientListByHypervSiteResponse]`
+- New function `NewHypervJobsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*HypervJobsClient, error)`
+- New function `*HypervJobsClient.Get(context.Context, string, string, string, *HypervJobsClientGetOptions) (HypervJobsClientGetResponse, error)`
+- New function `*HypervJobsClient.NewListByHypervSitePager(string, string, *HypervJobsClientListByHypervSiteOptions) *runtime.Pager[HypervJobsClientListByHypervSiteResponse]`
+- New function `NewHypervJobsControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*HypervJobsControllerClient, error)`
+- New function `*HypervJobsControllerClient.Get(context.Context, string, string, string, *HypervJobsControllerClientGetOptions) (HypervJobsControllerClientGetResponse, error)`
+- New function `*HypervJobsControllerClient.NewListByVmwareSitePager(string, string, *HypervJobsControllerClientListByVmwareSiteOptions) *runtime.Pager[HypervJobsControllerClientListByVmwareSiteResponse]`
+- New function `NewHypervMachinesControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*HypervMachinesControllerClient, error)`
+- New function `*HypervMachinesControllerClient.Get(context.Context, string, string, string, *HypervMachinesControllerClientGetOptions) (HypervMachinesControllerClientGetResponse, error)`
+- New function `*HypervMachinesControllerClient.NewListByHypervSitePager(string, string, *HypervMachinesControllerClientListByHypervSiteOptions) *runtime.Pager[HypervMachinesControllerClientListByHypervSiteResponse]`
+- New function `*HypervMachinesControllerClient.Update(context.Context, string, string, string, HypervMachineUpdate, *HypervMachinesControllerClientUpdateOptions) (HypervMachinesControllerClientUpdateResponse, error)`
+- New function `*HypervMachinesControllerClient.BeginUpdateProperties(context.Context, string, string, MachineMetadataCollection, *HypervMachinesControllerClientBeginUpdatePropertiesOptions) (*runtime.Poller[HypervMachinesControllerClientUpdatePropertiesResponse], error)`
+- New function `NewHypervOperationsStatusControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*HypervOperationsStatusControllerClient, error)`
+- New function `*HypervOperationsStatusControllerClient.GetHypervOperationsStatus(context.Context, string, string, string, *HypervOperationsStatusControllerClientGetHypervOperationsStatusOptions) (HypervOperationsStatusControllerClientGetHypervOperationsStatusResponse, error)`
+- New function `NewHypervRunAsAccountsControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*HypervRunAsAccountsControllerClient, error)`
+- New function `*HypervRunAsAccountsControllerClient.Get(context.Context, string, string, string, *HypervRunAsAccountsControllerClientGetOptions) (HypervRunAsAccountsControllerClientGetResponse, error)`
+- New function `*HypervRunAsAccountsControllerClient.NewListByHypervSitePager(string, string, *HypervRunAsAccountsControllerClientListByHypervSiteOptions) *runtime.Pager[HypervRunAsAccountsControllerClientListByHypervSiteResponse]`
+- New function `NewHypervSitesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*HypervSitesClient, error)`
+- New function `*HypervSitesClient.NewListByResourceGroupPager(string, *HypervSitesClientListByResourceGroupOptions) *runtime.Pager[HypervSitesClientListByResourceGroupResponse]`
+- New function `*HypervSitesClient.NewListBySubscriptionPager(*HypervSitesClientListBySubscriptionOptions) *runtime.Pager[HypervSitesClientListBySubscriptionResponse]`
+- New function `NewHypervSitesControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*HypervSitesControllerClient, error)`
+- New function `*HypervSitesControllerClient.ComputeErrorSummary(context.Context, string, string, any, *HypervSitesControllerClientComputeErrorSummaryOptions) (HypervSitesControllerClientComputeErrorSummaryResponse, error)`
+- New function `*HypervSitesControllerClient.Computeusage(context.Context, string, string, any, *HypervSitesControllerClientComputeusageOptions) (HypervSitesControllerClientComputeusageResponse, error)`
+- New function `*HypervSitesControllerClient.Create(context.Context, string, string, HypervSite, *HypervSitesControllerClientCreateOptions) (HypervSitesControllerClientCreateResponse, error)`
+- New function `*HypervSitesControllerClient.Delete(context.Context, string, string, *HypervSitesControllerClientDeleteOptions) (HypervSitesControllerClientDeleteResponse, error)`
+- New function `*HypervSitesControllerClient.BeginExportApplications(context.Context, string, string, any, *HypervSitesControllerClientBeginExportApplicationsOptions) (*runtime.Poller[HypervSitesControllerClientExportApplicationsResponse], error)`
+- New function `*HypervSitesControllerClient.BeginExportMachineErrors(context.Context, string, string, ExportMachineErrorsRequest, *HypervSitesControllerClientBeginExportMachineErrorsOptions) (*runtime.Poller[HypervSitesControllerClientExportMachineErrorsResponse], error)`
+- New function `*HypervSitesControllerClient.Get(context.Context, string, string, *HypervSitesControllerClientGetOptions) (HypervSitesControllerClientGetResponse, error)`
+- New function `*HypervSitesControllerClient.ListHealthSummary(context.Context, string, string, *HypervSitesControllerClientListHealthSummaryOptions) (HypervSitesControllerClientListHealthSummaryResponse, error)`
+- New function `*HypervSitesControllerClient.Summary(context.Context, string, string, *HypervSitesControllerClientSummaryOptions) (HypervSitesControllerClientSummaryResponse, error)`
+- New function `*HypervSitesControllerClient.Update(context.Context, string, string, HypervSiteUpdate, *HypervSitesControllerClientUpdateOptions) (HypervSitesControllerClientUpdateResponse, error)`
+- New function `NewHypervSoftwareInventoriesControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*HypervSoftwareInventoriesControllerClient, error)`
+- New function `*HypervSoftwareInventoriesControllerClient.GetMachineSoftwareInventory(context.Context, string, string, string, Default, *HypervSoftwareInventoriesControllerClientGetMachineSoftwareInventoryOptions) (HypervSoftwareInventoriesControllerClientGetMachineSoftwareInventoryResponse, error)`
+- New function `*HypervSoftwareInventoriesControllerClient.NewListByHypervMachinePager(string, string, string, *HypervSoftwareInventoriesControllerClientListByHypervMachineOptions) *runtime.Pager[HypervSoftwareInventoriesControllerClientListByHypervMachineResponse]`
+- New function `NewIisWebApplicationsControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*IisWebApplicationsControllerClient, error)`
+- New function `*IisWebApplicationsControllerClient.Get(context.Context, string, string, string, string, *IisWebApplicationsControllerClientGetOptions) (IisWebApplicationsControllerClientGetResponse, error)`
+- New function `*IisWebApplicationsControllerClient.NewListByWebAppSitePager(string, string, string, *IisWebApplicationsControllerClientListByWebAppSiteOptions) *runtime.Pager[IisWebApplicationsControllerClientListByWebAppSiteResponse]`
+- New function `*IisWebApplicationsControllerClient.Update(context.Context, string, string, string, string, IisWebApplicationsUpdate, *IisWebApplicationsControllerClientUpdateOptions) (IisWebApplicationsControllerClientUpdateResponse, error)`
+- New function `NewIisWebServersControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*IisWebServersControllerClient, error)`
+- New function `*IisWebServersControllerClient.Get(context.Context, string, string, string, string, *IisWebServersControllerClientGetOptions) (IisWebServersControllerClientGetResponse, error)`
+- New function `*IisWebServersControllerClient.NewListByWebAppSitePager(string, string, string, *IisWebServersControllerClientListByWebAppSiteOptions) *runtime.Pager[IisWebServersControllerClientListByWebAppSiteResponse]`
+- New function `NewImportJobsControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ImportJobsControllerClient, error)`
+- New function `*ImportJobsControllerClient.Get(context.Context, string, string, string, *ImportJobsControllerClientGetOptions) (ImportJobsControllerClientGetResponse, error)`
+- New function `*ImportJobsControllerClient.GetDeletejob(context.Context, string, string, string, *ImportJobsControllerClientGetDeletejobOptions) (ImportJobsControllerClientGetDeletejobResponse, error)`
+- New function `*ImportJobsControllerClient.GetExportjob(context.Context, string, string, string, *ImportJobsControllerClientGetExportjobOptions) (ImportJobsControllerClientGetExportjobResponse, error)`
+- New function `*ImportJobsControllerClient.GetImportjob(context.Context, string, string, string, *ImportJobsControllerClientGetImportjobOptions) (ImportJobsControllerClientGetImportjobResponse, error)`
+- New function `*ImportJobsControllerClient.NewListByImportSitePager(string, string, *ImportJobsControllerClientListByImportSiteOptions) *runtime.Pager[ImportJobsControllerClientListByImportSiteResponse]`
+- New function `*ImportJobsControllerClient.NewListDeletejobsPager(string, string, *ImportJobsControllerClientListDeletejobsOptions) *runtime.Pager[ImportJobsControllerClientListDeletejobsResponse]`
+- New function `*ImportJobsControllerClient.NewListExportjobsPager(string, string, *ImportJobsControllerClientListExportjobsOptions) *runtime.Pager[ImportJobsControllerClientListExportjobsResponse]`
+- New function `*ImportJobsControllerClient.NewListImportjobsPager(string, string, *ImportJobsControllerClientListImportjobsOptions) *runtime.Pager[ImportJobsControllerClientListImportjobsResponse]`
+- New function `NewImportMachinesControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ImportMachinesControllerClient, error)`
+- New function `*ImportMachinesControllerClient.Delete(context.Context, string, string, string, *ImportMachinesControllerClientDeleteOptions) (ImportMachinesControllerClientDeleteResponse, error)`
+- New function `*ImportMachinesControllerClient.Get(context.Context, string, string, string, *ImportMachinesControllerClientGetOptions) (ImportMachinesControllerClientGetResponse, error)`
+- New function `*ImportMachinesControllerClient.NewListByImportSitePager(string, string, *ImportMachinesControllerClientListByImportSiteOptions) *runtime.Pager[ImportMachinesControllerClientListByImportSiteResponse]`
+- New function `NewImportSitesControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ImportSitesControllerClient, error)`
+- New function `*ImportSitesControllerClient.Create(context.Context, string, string, ImportSite, *ImportSitesControllerClientCreateOptions) (ImportSitesControllerClientCreateResponse, error)`
+- New function `*ImportSitesControllerClient.Delete(context.Context, string, string, *ImportSitesControllerClientDeleteOptions) (ImportSitesControllerClientDeleteResponse, error)`
+- New function `*ImportSitesControllerClient.DeleteImportedMachines(context.Context, string, string, any, *ImportSitesControllerClientDeleteImportedMachinesOptions) (ImportSitesControllerClientDeleteImportedMachinesResponse, error)`
+- New function `*ImportSitesControllerClient.ExportURI(context.Context, string, string, SasURIResponse, *ImportSitesControllerClientExportURIOptions) (ImportSitesControllerClientExportURIResponse, error)`
+- New function `*ImportSitesControllerClient.Get(context.Context, string, string, *ImportSitesControllerClientGetOptions) (ImportSitesControllerClientGetResponse, error)`
+- New function `*ImportSitesControllerClient.ImportURI(context.Context, string, string, SasURIResponse, *ImportSitesControllerClientImportURIOptions) (ImportSitesControllerClientImportURIResponse, error)`
+- New function `*ImportSitesControllerClient.NewListByResourceGroupPager(string, *ImportSitesControllerClientListByResourceGroupOptions) *runtime.Pager[ImportSitesControllerClientListByResourceGroupResponse]`
+- New function `*ImportSitesControllerClient.NewListBySubscriptionPager(*ImportSitesControllerClientListBySubscriptionOptions) *runtime.Pager[ImportSitesControllerClientListBySubscriptionResponse]`
+- New function `*ImportSitesControllerClient.Update(context.Context, string, string, ImportSiteUpdate, *ImportSitesControllerClientUpdateOptions) (ImportSitesControllerClientUpdateResponse, error)`
+- New function `NewMachinesControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*MachinesControllerClient, error)`
+- New function `*MachinesControllerClient.Get(context.Context, string, string, string, *MachinesControllerClientGetOptions) (MachinesControllerClientGetResponse, error)`
+- New function `*MachinesControllerClient.NewListByVmwareSitePager(string, string, *MachinesControllerClientListByVmwareSiteOptions) *runtime.Pager[MachinesControllerClientListByVmwareSiteResponse]`
+- New function `*MachinesControllerClient.BeginStart(context.Context, string, string, string, *MachinesControllerClientBeginStartOptions) (*runtime.Poller[MachinesControllerClientStartResponse], error)`
+- New function `*MachinesControllerClient.BeginStop(context.Context, string, string, string, *MachinesControllerClientBeginStopOptions) (*runtime.Poller[MachinesControllerClientStopResponse], error)`
+- New function `*MachinesControllerClient.Update(context.Context, string, string, string, MachineResourceUpdate, *MachinesControllerClientUpdateOptions) (MachinesControllerClientUpdateResponse, error)`
+- New function `NewMasterSitesControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*MasterSitesControllerClient, error)`
+- New function `*MasterSitesControllerClient.BeginCreate(context.Context, string, string, MasterSite, *MasterSitesControllerClientBeginCreateOptions) (*runtime.Poller[MasterSitesControllerClientCreateResponse], error)`
+- New function `*MasterSitesControllerClient.Delete(context.Context, string, string, *MasterSitesControllerClientDeleteOptions) (MasterSitesControllerClientDeleteResponse, error)`
+- New function `*MasterSitesControllerClient.ErrorSummary(context.Context, string, string, ErrorSummaryRequest, *MasterSitesControllerClientErrorSummaryOptions) (MasterSitesControllerClientErrorSummaryResponse, error)`
+- New function `*MasterSitesControllerClient.Get(context.Context, string, string, *MasterSitesControllerClientGetOptions) (MasterSitesControllerClientGetResponse, error)`
+- New function `*MasterSitesControllerClient.NewListByResourceGroupPager(string, *MasterSitesControllerClientListByResourceGroupOptions) *runtime.Pager[MasterSitesControllerClientListByResourceGroupResponse]`
+- New function `*MasterSitesControllerClient.NewListBySubscriptionPager(*MasterSitesControllerClientListBySubscriptionOptions) *runtime.Pager[MasterSitesControllerClientListBySubscriptionResponse]`
+- New function `*MasterSitesControllerClient.BeginUpdate(context.Context, string, string, MasterSiteUpdate, *MasterSitesControllerClientBeginUpdateOptions) (*runtime.Poller[MasterSitesControllerClientUpdateResponse], error)`
+- New function `NewMasterSitesOperationsStatusControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*MasterSitesOperationsStatusControllerClient, error)`
+- New function `*MasterSitesOperationsStatusControllerClient.GetVmwareOperationStatus(context.Context, string, string, string, *MasterSitesOperationsStatusControllerClientGetVmwareOperationStatusOptions) (MasterSitesOperationsStatusControllerClientGetVmwareOperationStatusResponse, error)`
+- New function `PossibleDefaultValues() []Default`
+- New function `PossibleDefaultValuesValues() []DefaultValues`
+- New function `PossibleHighAvailabilityValues() []HighAvailability`
+- New function `PossibleHighAvailabilityValuesValues() []HighAvailabilityValues`
+- New function `NewPrivateEndpointConnectionControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PrivateEndpointConnectionControllerClient, error)`
+- New function `*PrivateEndpointConnectionControllerClient.Create(context.Context, string, string, string, PrivateEndpointConnection, *PrivateEndpointConnectionControllerClientCreateOptions) (PrivateEndpointConnectionControllerClientCreateResponse, error)`
+- New function `*PrivateEndpointConnectionControllerClient.Delete(context.Context, string, string, string, *PrivateEndpointConnectionControllerClientDeleteOptions) (PrivateEndpointConnectionControllerClientDeleteResponse, error)`
+- New function `*PrivateEndpointConnectionControllerClient.Get(context.Context, string, string, string, *PrivateEndpointConnectionControllerClientGetOptions) (PrivateEndpointConnectionControllerClientGetResponse, error)`
+- New function `*PrivateEndpointConnectionControllerClient.NewListByMasterSitePager(string, string, *PrivateEndpointConnectionControllerClientListByMasterSiteOptions) *runtime.Pager[PrivateEndpointConnectionControllerClientListByMasterSiteResponse]`
+- New function `NewPrivateLinkResourcesControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PrivateLinkResourcesControllerClient, error)`
+- New function `*PrivateLinkResourcesControllerClient.Get(context.Context, string, string, string, *PrivateLinkResourcesControllerClientGetOptions) (PrivateLinkResourcesControllerClientGetResponse, error)`
+- New function `*PrivateLinkResourcesControllerClient.NewListByMasterSitePager(string, string, *PrivateLinkResourcesControllerClientListByMasterSiteOptions) *runtime.Pager[PrivateLinkResourcesControllerClientListByMasterSiteResponse]`
+- New function `NewRunAsAccountsControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RunAsAccountsControllerClient, error)`
+- New function `*RunAsAccountsControllerClient.Get(context.Context, string, string, string, *RunAsAccountsControllerClientGetOptions) (RunAsAccountsControllerClientGetResponse, error)`
+- New function `*RunAsAccountsControllerClient.NewListByVmwareSitePager(string, string, *RunAsAccountsControllerClientListByVmwareSiteOptions) *runtime.Pager[RunAsAccountsControllerClientListByVmwareSiteResponse]`
+- New function `NewSQLAvailabilityGroupsControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SQLAvailabilityGroupsControllerClient, error)`
+- New function `*SQLAvailabilityGroupsControllerClient.Get(context.Context, string, string, string, string, *SQLAvailabilityGroupsControllerClientGetOptions) (SQLAvailabilityGroupsControllerClientGetResponse, error)`
+- New function `*SQLAvailabilityGroupsControllerClient.NewListBySQLSitePager(string, string, string, *SQLAvailabilityGroupsControllerClientListBySQLSiteOptions) *runtime.Pager[SQLAvailabilityGroupsControllerClientListBySQLSiteResponse]`
+- New function `NewSQLDatabasesControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SQLDatabasesControllerClient, error)`
+- New function `*SQLDatabasesControllerClient.Get(context.Context, string, string, string, string, *SQLDatabasesControllerClientGetOptions) (SQLDatabasesControllerClientGetResponse, error)`
+- New function `*SQLDatabasesControllerClient.NewListBySQLSitePager(string, string, string, *SQLDatabasesControllerClientListBySQLSiteOptions) *runtime.Pager[SQLDatabasesControllerClientListBySQLSiteResponse]`
+- New function `NewSQLDiscoverySiteDataSourceControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SQLDiscoverySiteDataSourceControllerClient, error)`
+- New function `*SQLDiscoverySiteDataSourceControllerClient.BeginCreate(context.Context, string, string, string, string, SQLDiscoverySiteDataSource, *SQLDiscoverySiteDataSourceControllerClientBeginCreateOptions) (*runtime.Poller[SQLDiscoverySiteDataSourceControllerClientCreateResponse], error)`
+- New function `*SQLDiscoverySiteDataSourceControllerClient.Delete(context.Context, string, string, string, string, *SQLDiscoverySiteDataSourceControllerClientDeleteOptions) (SQLDiscoverySiteDataSourceControllerClientDeleteResponse, error)`
+- New function `*SQLDiscoverySiteDataSourceControllerClient.Get(context.Context, string, string, string, string, *SQLDiscoverySiteDataSourceControllerClientGetOptions) (SQLDiscoverySiteDataSourceControllerClientGetResponse, error)`
+- New function `*SQLDiscoverySiteDataSourceControllerClient.NewListBySQLSitePager(string, string, string, *SQLDiscoverySiteDataSourceControllerClientListBySQLSiteOptions) *runtime.Pager[SQLDiscoverySiteDataSourceControllerClientListBySQLSiteResponse]`
+- New function `NewSQLJobsControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SQLJobsControllerClient, error)`
+- New function `*SQLJobsControllerClient.Get(context.Context, string, string, string, string, *SQLJobsControllerClientGetOptions) (SQLJobsControllerClientGetResponse, error)`
+- New function `*SQLJobsControllerClient.NewListBySQLSitePager(string, string, string, *SQLJobsControllerClientListBySQLSiteOptions) *runtime.Pager[SQLJobsControllerClientListBySQLSiteResponse]`
+- New function `NewSQLOperationsStatusControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SQLOperationsStatusControllerClient, error)`
+- New function `*SQLOperationsStatusControllerClient.GetSQLOperationStatus(context.Context, string, string, string, string, *SQLOperationsStatusControllerClientGetSQLOperationStatusOptions) (SQLOperationsStatusControllerClientGetSQLOperationStatusResponse, error)`
+- New function `NewSQLRunAsAccountsControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SQLRunAsAccountsControllerClient, error)`
+- New function `*SQLRunAsAccountsControllerClient.Get(context.Context, string, string, string, string, *SQLRunAsAccountsControllerClientGetOptions) (SQLRunAsAccountsControllerClientGetResponse, error)`
+- New function `*SQLRunAsAccountsControllerClient.NewListBySQLSitePager(string, string, string, *SQLRunAsAccountsControllerClientListBySQLSiteOptions) *runtime.Pager[SQLRunAsAccountsControllerClientListBySQLSiteResponse]`
+- New function `NewSQLServersControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SQLServersControllerClient, error)`
+- New function `*SQLServersControllerClient.Get(context.Context, string, string, string, string, *SQLServersControllerClientGetOptions) (SQLServersControllerClientGetResponse, error)`
+- New function `*SQLServersControllerClient.NewListBySQLSitePager(string, string, string, *SQLServersControllerClientListBySQLSiteOptions) *runtime.Pager[SQLServersControllerClientListBySQLSiteResponse]`
+- New function `*SQLServersControllerClient.Update(context.Context, string, string, string, string, SQLServerV2Update, *SQLServersControllerClientUpdateOptions) (SQLServersControllerClientUpdateResponse, error)`
+- New function `NewSQLSitesControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SQLSitesControllerClient, error)`
+- New function `*SQLSitesControllerClient.Create(context.Context, string, string, string, SQLSite, *SQLSitesControllerClientCreateOptions) (SQLSitesControllerClientCreateResponse, error)`
+- New function `*SQLSitesControllerClient.Delete(context.Context, string, string, string, *SQLSitesControllerClientDeleteOptions) (SQLSitesControllerClientDeleteResponse, error)`
+- New function `*SQLSitesControllerClient.ErrorSummary(context.Context, string, string, string, ErrorSummaryRequest, *SQLSitesControllerClientErrorSummaryOptions) (SQLSitesControllerClientErrorSummaryResponse, error)`
+- New function `*SQLSitesControllerClient.BeginExportSQLServerErrors(context.Context, string, string, string, any, *SQLSitesControllerClientBeginExportSQLServerErrorsOptions) (*runtime.Poller[SQLSitesControllerClientExportSQLServerErrorsResponse], error)`
+- New function `*SQLSitesControllerClient.BeginExportSQLServers(context.Context, string, string, string, ExportSQLServersRequest, *SQLSitesControllerClientBeginExportSQLServersOptions) (*runtime.Poller[SQLSitesControllerClientExportSQLServersResponse], error)`
+- New function `*SQLSitesControllerClient.Get(context.Context, string, string, string, *SQLSitesControllerClientGetOptions) (SQLSitesControllerClientGetResponse, error)`
+- New function `*SQLSitesControllerClient.NewListByMasterSitePager(string, string, *SQLSitesControllerClientListByMasterSiteOptions) *runtime.Pager[SQLSitesControllerClientListByMasterSiteResponse]`
+- New function `*SQLSitesControllerClient.BeginRefresh(context.Context, string, string, string, SQLSiteRefreshBody, *SQLSitesControllerClientBeginRefreshOptions) (*runtime.Poller[SQLSitesControllerClientRefreshResponse], error)`
+- New function `*SQLSitesControllerClient.Summary(context.Context, string, string, string, *SQLSitesControllerClientSummaryOptions) (SQLSitesControllerClientSummaryResponse, error)`
+- New function `*SQLSitesControllerClient.BeginUpdate(context.Context, string, string, string, SQLSiteUpdate, *SQLSitesControllerClientBeginUpdateOptions) (*runtime.Poller[SQLSitesControllerClientUpdateResponse], error)`
+- New function `NewServerDependencyMapControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ServerDependencyMapControllerClient, error)`
+- New function `*ServerDependencyMapControllerClient.BeginClientGroupMembers(context.Context, string, string, DependencyMapServiceMapextensionsClientGroupMembersRequest, *ServerDependencyMapControllerClientBeginClientGroupMembersOptions) (*runtime.Poller[ServerDependencyMapControllerClientClientGroupMembersResponse], error)`
+- New function `*ServerDependencyMapControllerClient.BeginExportDependencies(context.Context, string, string, DependencyMapServiceMapextensionsExportDependenciesRequest, *ServerDependencyMapControllerClientBeginExportDependenciesOptions) (*runtime.Poller[ServerDependencyMapControllerClientExportDependenciesResponse], error)`
+- New function `*ServerDependencyMapControllerClient.BeginGenerateCoarseMap(context.Context, string, string, DependencyMapServiceMapextensionsScopeMapRequest, *ServerDependencyMapControllerClientBeginGenerateCoarseMapOptions) (*runtime.Poller[ServerDependencyMapControllerClientGenerateCoarseMapResponse], error)`
+- New function `*ServerDependencyMapControllerClient.BeginGenerateDetailedMap(context.Context, string, string, DependencyMapServiceMapextensionsSingleMachineDetailedMapRequest, *ServerDependencyMapControllerClientBeginGenerateDetailedMapOptions) (*runtime.Poller[ServerDependencyMapControllerClientGenerateDetailedMapResponse], error)`
+- New function `*ServerDependencyMapControllerClient.BeginServerGroupMembers(context.Context, string, string, DependencyMapServiceMapextensionsServerGroupMembersRequest, *ServerDependencyMapControllerClientBeginServerGroupMembersOptions) (*runtime.Poller[ServerDependencyMapControllerClientServerGroupMembersResponse], error)`
+- New function `NewServerJobsControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ServerJobsControllerClient, error)`
+- New function `*ServerJobsControllerClient.Get(context.Context, string, string, string, *ServerJobsControllerClientGetOptions) (ServerJobsControllerClientGetResponse, error)`
+- New function `*ServerJobsControllerClient.NewListByServerSiteResourcePager(string, string, *ServerJobsControllerClientListByServerSiteResourceOptions) *runtime.Pager[ServerJobsControllerClientListByServerSiteResourceResponse]`
+- New function `NewServerOperationsStatusControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ServerOperationsStatusControllerClient, error)`
+- New function `*ServerOperationsStatusControllerClient.GetServerSiteOperationsStatus(context.Context, string, string, string, *ServerOperationsStatusControllerClientGetServerSiteOperationsStatusOptions) (ServerOperationsStatusControllerClientGetServerSiteOperationsStatusResponse, error)`
+- New function `NewServerRunAsAccountsControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ServerRunAsAccountsControllerClient, error)`
+- New function `*ServerRunAsAccountsControllerClient.Get(context.Context, string, string, string, *ServerRunAsAccountsControllerClientGetOptions) (ServerRunAsAccountsControllerClientGetResponse, error)`
+- New function `*ServerRunAsAccountsControllerClient.NewListByServerSiteResourcePager(string, string, *ServerRunAsAccountsControllerClientListByServerSiteResourceOptions) *runtime.Pager[ServerRunAsAccountsControllerClientListByServerSiteResourceResponse]`
+- New function `NewServerSitesControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ServerSitesControllerClient, error)`
+- New function `*ServerSitesControllerClient.ComputeErrorSummary(context.Context, string, string, any, *ServerSitesControllerClientComputeErrorSummaryOptions) (ServerSitesControllerClientComputeErrorSummaryResponse, error)`
+- New function `*ServerSitesControllerClient.Computeusage(context.Context, string, string, any, *ServerSitesControllerClientComputeusageOptions) (ServerSitesControllerClientComputeusageResponse, error)`
+- New function `*ServerSitesControllerClient.BeginCreate(context.Context, string, string, ServerSiteResource, *ServerSitesControllerClientBeginCreateOptions) (*runtime.Poller[ServerSitesControllerClientCreateResponse], error)`
+- New function `*ServerSitesControllerClient.Delete(context.Context, string, string, *ServerSitesControllerClientDeleteOptions) (ServerSitesControllerClientDeleteResponse, error)`
+- New function `*ServerSitesControllerClient.BeginExportApplications(context.Context, string, string, any, *ServerSitesControllerClientBeginExportApplicationsOptions) (*runtime.Poller[ServerSitesControllerClientExportApplicationsResponse], error)`
+- New function `*ServerSitesControllerClient.BeginExportMachineErrors(context.Context, string, string, ExportMachineErrorsRequest, *ServerSitesControllerClientBeginExportMachineErrorsOptions) (*runtime.Poller[ServerSitesControllerClientExportMachineErrorsResponse], error)`
+- New function `*ServerSitesControllerClient.Get(context.Context, string, string, *ServerSitesControllerClientGetOptions) (ServerSitesControllerClientGetResponse, error)`
+- New function `*ServerSitesControllerClient.NewListByResourceGroupPager(string, *ServerSitesControllerClientListByResourceGroupOptions) *runtime.Pager[ServerSitesControllerClientListByResourceGroupResponse]`
+- New function `*ServerSitesControllerClient.NewListBySubscriptionPager(*ServerSitesControllerClientListBySubscriptionOptions) *runtime.Pager[ServerSitesControllerClientListBySubscriptionResponse]`
+- New function `*ServerSitesControllerClient.ListHealthSummary(context.Context, string, string, *ServerSitesControllerClientListHealthSummaryOptions) (ServerSitesControllerClientListHealthSummaryResponse, error)`
+- New function `*ServerSitesControllerClient.BeginRefreshSite(context.Context, string, string, *ServerSitesControllerClientBeginRefreshSiteOptions) (*runtime.Poller[ServerSitesControllerClientRefreshSiteResponse], error)`
+- New function `*ServerSitesControllerClient.Summary(context.Context, string, string, *ServerSitesControllerClientSummaryOptions) (ServerSitesControllerClientSummaryResponse, error)`
+- New function `*ServerSitesControllerClient.Update(context.Context, string, string, ServerSiteResourceUpdate, *ServerSitesControllerClientUpdateOptions) (ServerSitesControllerClientUpdateResponse, error)`
+- New function `*ServerSitesControllerClient.BeginUpdateDependencyMapStatus(context.Context, string, string, UpdateMachineDepMapStatus, *ServerSitesControllerClientBeginUpdateDependencyMapStatusOptions) (*runtime.Poller[ServerSitesControllerClientUpdateDependencyMapStatusResponse], error)`
+- New function `*ServerSitesControllerClient.BeginUpdateProperties(context.Context, string, string, MachineMetadataCollection, *ServerSitesControllerClientBeginUpdatePropertiesOptions) (*runtime.Poller[ServerSitesControllerClientUpdatePropertiesResponse], error)`
+- New function `NewServerSoftwareInventoriesControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ServerSoftwareInventoriesControllerClient, error)`
+- New function `*ServerSoftwareInventoriesControllerClient.GetMachineSoftwareInventory(context.Context, string, string, string, Default, *ServerSoftwareInventoriesControllerClientGetMachineSoftwareInventoryOptions) (ServerSoftwareInventoriesControllerClientGetMachineSoftwareInventoryResponse, error)`
+- New function `*ServerSoftwareInventoriesControllerClient.NewListByServerPager(string, string, string, *ServerSoftwareInventoriesControllerClientListByServerOptions) *runtime.Pager[ServerSoftwareInventoriesControllerClientListByServerResponse]`
+- New function `NewServersControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ServersControllerClient, error)`
+- New function `*ServersControllerClient.DeleteMachine(context.Context, string, string, string, *ServersControllerClientDeleteMachineOptions) (ServersControllerClientDeleteMachineResponse, error)`
+- New function `*ServersControllerClient.GetMachine(context.Context, string, string, string, *ServersControllerClientGetMachineOptions) (ServersControllerClientGetMachineResponse, error)`
+- New function `*ServersControllerClient.NewListByServerSiteResourcePager(string, string, *ServersControllerClientListByServerSiteResourceOptions) *runtime.Pager[ServersControllerClientListByServerSiteResourceResponse]`
+- New function `*ServersControllerClient.UpdateMachine(context.Context, string, string, string, ServerUpdate, *ServersControllerClientUpdateMachineOptions) (ServersControllerClientUpdateMachineResponse, error)`
+- New function `NewSitesControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SitesControllerClient, error)`
+- New function `*SitesControllerClient.ComputeErrorSummary(context.Context, string, string, any, *SitesControllerClientComputeErrorSummaryOptions) (SitesControllerClientComputeErrorSummaryResponse, error)`
+- New function `*SitesControllerClient.Computeusage(context.Context, string, string, any, *SitesControllerClientComputeusageOptions) (SitesControllerClientComputeusageResponse, error)`
+- New function `*SitesControllerClient.Create(context.Context, string, string, VmwareSite, *SitesControllerClientCreateOptions) (SitesControllerClientCreateResponse, error)`
+- New function `*SitesControllerClient.Delete(context.Context, string, string, *SitesControllerClientDeleteOptions) (SitesControllerClientDeleteResponse, error)`
+- New function `*SitesControllerClient.BeginExportApplications(context.Context, string, string, any, *SitesControllerClientBeginExportApplicationsOptions) (*runtime.Poller[SitesControllerClientExportApplicationsResponse], error)`
+- New function `*SitesControllerClient.BeginExportMachineErrors(context.Context, string, string, ExportMachineErrorsRequest, *SitesControllerClientBeginExportMachineErrorsOptions) (*runtime.Poller[SitesControllerClientExportMachineErrorsResponse], error)`
+- New function `*SitesControllerClient.BeginExportMachines(context.Context, string, string, ExportMachinesRequest, *SitesControllerClientBeginExportMachinesOptions) (*runtime.Poller[SitesControllerClientExportMachinesResponse], error)`
+- New function `*SitesControllerClient.Get(context.Context, string, string, *SitesControllerClientGetOptions) (SitesControllerClientGetResponse, error)`
+- New function `*SitesControllerClient.NewListByResourceGroupPager(string, *SitesControllerClientListByResourceGroupOptions) *runtime.Pager[SitesControllerClientListByResourceGroupResponse]`
+- New function `*SitesControllerClient.NewListBySubscriptionPager(*SitesControllerClientListBySubscriptionOptions) *runtime.Pager[SitesControllerClientListBySubscriptionResponse]`
+- New function `*SitesControllerClient.ListHealthSummary(context.Context, string, string, *SitesControllerClientListHealthSummaryOptions) (SitesControllerClientListHealthSummaryResponse, error)`
+- New function `*SitesControllerClient.Summary(context.Context, string, string, *SitesControllerClientSummaryOptions) (SitesControllerClientSummaryResponse, error)`
+- New function `*SitesControllerClient.Update(context.Context, string, string, VmwareSiteUpdate, *SitesControllerClientUpdateOptions) (SitesControllerClientUpdateResponse, error)`
+- New function `NewTomcatWebApplicationsControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*TomcatWebApplicationsControllerClient, error)`
+- New function `*TomcatWebApplicationsControllerClient.Get(context.Context, string, string, string, string, *TomcatWebApplicationsControllerClientGetOptions) (TomcatWebApplicationsControllerClientGetResponse, error)`
+- New function `*TomcatWebApplicationsControllerClient.NewListByWebAppSitePager(string, string, string, *TomcatWebApplicationsControllerClientListByWebAppSiteOptions) *runtime.Pager[TomcatWebApplicationsControllerClientListByWebAppSiteResponse]`
+- New function `*TomcatWebApplicationsControllerClient.Update(context.Context, string, string, string, string, any, *TomcatWebApplicationsControllerClientUpdateOptions) (TomcatWebApplicationsControllerClientUpdateResponse, error)`
+- New function `NewTomcatWebServersControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*TomcatWebServersControllerClient, error)`
+- New function `*TomcatWebServersControllerClient.Get(context.Context, string, string, string, string, *TomcatWebServersControllerClientGetOptions) (TomcatWebServersControllerClientGetResponse, error)`
+- New function `*TomcatWebServersControllerClient.NewListByWebAppSitePager(string, string, string, *TomcatWebServersControllerClientListByWebAppSiteOptions) *runtime.Pager[TomcatWebServersControllerClientListByWebAppSiteResponse]`
+- New function `NewVcenterControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VcenterControllerClient, error)`
+- New function `*VcenterControllerClient.BeginCreate(context.Context, string, string, string, Vcenter, *VcenterControllerClientBeginCreateOptions) (*runtime.Poller[VcenterControllerClientCreateResponse], error)`
+- New function `*VcenterControllerClient.Delete(context.Context, string, string, string, *VcenterControllerClientDeleteOptions) (VcenterControllerClientDeleteResponse, error)`
+- New function `*VcenterControllerClient.Get(context.Context, string, string, string, *VcenterControllerClientGetOptions) (VcenterControllerClientGetResponse, error)`
+- New function `*VcenterControllerClient.NewListByVmwareSitePager(string, string, *VcenterControllerClientListByVmwareSiteOptions) *runtime.Pager[VcenterControllerClientListByVmwareSiteResponse]`
+- New function `NewVmwareHostControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VmwareHostControllerClient, error)`
+- New function `*VmwareHostControllerClient.Get(context.Context, string, string, string, *VmwareHostControllerClientGetOptions) (VmwareHostControllerClientGetResponse, error)`
+- New function `*VmwareHostControllerClient.NewListByVmwareSitePager(string, string, *VmwareHostControllerClientListByVmwareSiteOptions) *runtime.Pager[VmwareHostControllerClientListByVmwareSiteResponse]`
+- New function `NewVmwareOperationsStatusClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VmwareOperationsStatusClient, error)`
+- New function `*VmwareOperationsStatusClient.GetVmwareOperationStatus(context.Context, string, string, string, *VmwareOperationsStatusClientGetVmwareOperationStatusOptions) (VmwareOperationsStatusClientGetVmwareOperationStatusResponse, error)`
+- New function `NewVmwarePropertiesControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VmwarePropertiesControllerClient, error)`
+- New function `*VmwarePropertiesControllerClient.BeginUpdateDependencyMapStatus(context.Context, string, string, UpdateMachineDepMapStatus, *VmwarePropertiesControllerClientBeginUpdateDependencyMapStatusOptions) (*runtime.Poller[VmwarePropertiesControllerClientUpdateDependencyMapStatusResponse], error)`
+- New function `*VmwarePropertiesControllerClient.BeginUpdateProperties(context.Context, string, string, MachineMetadataCollection, *VmwarePropertiesControllerClientBeginUpdatePropertiesOptions) (*runtime.Poller[VmwarePropertiesControllerClientUpdatePropertiesResponse], error)`
+- New function `*VmwarePropertiesControllerClient.BeginUpdateRunAsAccount(context.Context, string, string, UpdateMachineRunAsAccount, *VmwarePropertiesControllerClientBeginUpdateRunAsAccountOptions) (*runtime.Poller[VmwarePropertiesControllerClientUpdateRunAsAccountResponse], error)`
+- New function `*VmwarePropertiesControllerClient.BeginUpdateTags(context.Context, string, string, UpdateMachineTags, *VmwarePropertiesControllerClientBeginUpdateTagsOptions) (*runtime.Poller[VmwarePropertiesControllerClientUpdateTagsResponse], error)`
+- New function `NewVmwareSoftwareInventoriesControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VmwareSoftwareInventoriesControllerClient, error)`
+- New function `*VmwareSoftwareInventoriesControllerClient.GetMachineSoftwareInventory(context.Context, string, string, string, Default, *VmwareSoftwareInventoriesControllerClientGetMachineSoftwareInventoryOptions) (VmwareSoftwareInventoriesControllerClientGetMachineSoftwareInventoryResponse, error)`
+- New function `*VmwareSoftwareInventoriesControllerClient.NewListByMachineResourcePager(string, string, string, *VmwareSoftwareInventoriesControllerClientListByMachineResourceOptions) *runtime.Pager[VmwareSoftwareInventoriesControllerClientListByMachineResourceResponse]`
+- New function `NewWebAppDiscoverySiteDataSourcesControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WebAppDiscoverySiteDataSourcesControllerClient, error)`
+- New function `*WebAppDiscoverySiteDataSourcesControllerClient.BeginCreate(context.Context, string, string, string, string, DiscoverySiteDataSource, *WebAppDiscoverySiteDataSourcesControllerClientBeginCreateOptions) (*runtime.Poller[WebAppDiscoverySiteDataSourcesControllerClientCreateResponse], error)`
+- New function `*WebAppDiscoverySiteDataSourcesControllerClient.BeginDelete(context.Context, string, string, string, string, *WebAppDiscoverySiteDataSourcesControllerClientBeginDeleteOptions) (*runtime.Poller[WebAppDiscoverySiteDataSourcesControllerClientDeleteResponse], error)`
+- New function `*WebAppDiscoverySiteDataSourcesControllerClient.Get(context.Context, string, string, string, string, *WebAppDiscoverySiteDataSourcesControllerClientGetOptions) (WebAppDiscoverySiteDataSourcesControllerClientGetResponse, error)`
+- New function `*WebAppDiscoverySiteDataSourcesControllerClient.NewListByWebAppSitePager(string, string, string, *WebAppDiscoverySiteDataSourcesControllerClientListByWebAppSiteOptions) *runtime.Pager[WebAppDiscoverySiteDataSourcesControllerClientListByWebAppSiteResponse]`
+- New function `NewWebAppExtendedMachinesControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WebAppExtendedMachinesControllerClient, error)`
+- New function `*WebAppExtendedMachinesControllerClient.Get(context.Context, string, string, string, string, *WebAppExtendedMachinesControllerClientGetOptions) (WebAppExtendedMachinesControllerClientGetResponse, error)`
+- New function `*WebAppExtendedMachinesControllerClient.NewListByWebAppSitePager(string, string, string, *WebAppExtendedMachinesControllerClientListByWebAppSiteOptions) *runtime.Pager[WebAppExtendedMachinesControllerClientListByWebAppSiteResponse]`
+- New function `NewWebAppPropertiesControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WebAppPropertiesControllerClient, error)`
+- New function `*WebAppPropertiesControllerClient.BeginUpdateProperties(context.Context, string, string, string, WebAppPropertiesCollection, *WebAppPropertiesControllerClientBeginUpdatePropertiesOptions) (*runtime.Poller[WebAppPropertiesControllerClientUpdatePropertiesResponse], error)`
+- New function `NewWebAppRunAsAccountsControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WebAppRunAsAccountsControllerClient, error)`
+- New function `*WebAppRunAsAccountsControllerClient.Get(context.Context, string, string, string, string, *WebAppRunAsAccountsControllerClientGetOptions) (WebAppRunAsAccountsControllerClientGetResponse, error)`
+- New function `*WebAppRunAsAccountsControllerClient.NewListByWebAppSitePager(string, string, string, *WebAppRunAsAccountsControllerClientListByWebAppSiteOptions) *runtime.Pager[WebAppRunAsAccountsControllerClientListByWebAppSiteResponse]`
+- New function `NewWebAppSitesControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WebAppSitesControllerClient, error)`
+- New function `*WebAppSitesControllerClient.Create(context.Context, string, string, string, WebAppSite, *WebAppSitesControllerClientCreateOptions) (WebAppSitesControllerClientCreateResponse, error)`
+- New function `*WebAppSitesControllerClient.BeginDelete(context.Context, string, string, string, *WebAppSitesControllerClientBeginDeleteOptions) (*runtime.Poller[WebAppSitesControllerClientDeleteResponse], error)`
+- New function `*WebAppSitesControllerClient.ErrorSummary(context.Context, string, string, string, ErrorSummaryRequest, *WebAppSitesControllerClientErrorSummaryOptions) (WebAppSitesControllerClientErrorSummaryResponse, error)`
+- New function `*WebAppSitesControllerClient.BeginExportInventory(context.Context, string, string, string, ExportWebAppsRequest, *WebAppSitesControllerClientBeginExportInventoryOptions) (*runtime.Poller[WebAppSitesControllerClientExportInventoryResponse], error)`
+- New function `*WebAppSitesControllerClient.Get(context.Context, string, string, string, *WebAppSitesControllerClientGetOptions) (WebAppSitesControllerClientGetResponse, error)`
+- New function `*WebAppSitesControllerClient.NewListByMasterSitePager(string, string, *WebAppSitesControllerClientListByMasterSiteOptions) *runtime.Pager[WebAppSitesControllerClientListByMasterSiteResponse]`
+- New function `*WebAppSitesControllerClient.BeginRefresh(context.Context, string, string, string, ProxySiteRefreshBody, *WebAppSitesControllerClientBeginRefreshOptions) (*runtime.Poller[WebAppSitesControllerClientRefreshResponse], error)`
+- New function `*WebAppSitesControllerClient.Summary(context.Context, string, string, string, *WebAppSitesControllerClientSummaryOptions) (WebAppSitesControllerClientSummaryResponse, error)`
+- New function `*WebAppSitesControllerClient.BeginUpdate(context.Context, string, string, string, WebAppSiteUpdate, *WebAppSitesControllerClientBeginUpdateOptions) (*runtime.Poller[WebAppSitesControllerClientUpdateResponse], error)`
+- New function `NewWebApplicationsControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WebApplicationsControllerClient, error)`
+- New function `*WebApplicationsControllerClient.NewListByWebAppSitePager(string, string, string, *WebApplicationsControllerClientListByWebAppSiteOptions) *runtime.Pager[WebApplicationsControllerClientListByWebAppSiteResponse]`
+- New function `NewWebServersControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WebServersControllerClient, error)`
+- New function `*WebServersControllerClient.NewListByWebAppSitePager(string, string, string, *WebServersControllerClientListByWebAppSiteOptions) *runtime.Pager[WebServersControllerClientListByWebAppSiteResponse]`
+- New struct `Application`
+- New struct `ApplicationDiscovery`
+- New struct `AppsAndRoles`
+- New struct `BizTalkServer`
+- New struct `ConnectorUnit`
+- New struct `DeleteImportMachinesJob`
+- New struct `DeleteImportMachinesJobCollection`
+- New struct `DeleteImportedMachinesJobProperties`
+- New struct `DependencyMapDiscovery`
+- New struct `DependencyMapMachineInput`
+- New struct `DependencyMapServiceMapextensionsClientGroupMembersRequest`
+- New struct `DependencyMapServiceMapextensionsDependencyMapRequestFilters`
+- New struct `DependencyMapServiceMapextensionsExportDependenciesRequest`
+- New struct `DependencyMapServiceMapextensionsScopeMapRequest`
+- New struct `DependencyMapServiceMapextensionsServerGroupMembersRequest`
+- New struct `DependencyMapServiceMapextensionsSingleMachineDetailedMapRequest`
+- New struct `DirectoryPath`
+- New struct `DiscoveryScopeErrorSummary`
+- New struct `DiscoverySiteDataSource`
+- New struct `DiscoverySiteDataSourceListResult`
+- New struct `DiscoverySiteDataSourceProperties`
+- New struct `ErrorAdditionalInfo`
+- New struct `ErrorDetail`
+- New struct `ErrorDetails`
+- New struct `ErrorResponse`
+- New struct `ErrorSummaryRequest`
+- New struct `Errors`
+- New struct `ExchangeServer`
+- New struct `ExportImportedMachinesJob`
+- New struct `ExportImportedMachinesJobEntityProperties`
+- New struct `ExportMachineErrorsRequest`
+- New struct `ExportMachinesRequest`
+- New struct `ExportSQLServersRequest`
+- New struct `ExportWebAppsRequest`
+- New struct `Feature`
+- New struct `FileMetaData`
+- New struct `FrontEndBinding`
+- New struct `GuestOsDetails`
+- New struct `HealthErrorDetails`
+- New struct `HypervCluster`
+- New struct `HypervClusterListResult`
+- New struct `HypervClusterProperties`
+- New struct `HypervDisk`
+- New struct `HypervHost`
+- New struct `HypervHostListResult`
+- New struct `HypervHostProperties`
+- New struct `HypervJob`
+- New struct `HypervJobListResult`
+- New struct `HypervMachine`
+- New struct `HypervMachineListResult`
+- New struct `HypervMachineProperties`
+- New struct `HypervMachineUpdate`
+- New struct `HypervMachineUpdateProperties`
+- New struct `HypervNetworkAdapter`
+- New struct `HypervOperationsStatusResource`
+- New struct `HypervRunAsAccountResource`
+- New struct `HypervRunAsAccountResourceListResult`
+- New struct `HypervSite`
+- New struct `HypervSiteListResult`
+- New struct `HypervSiteUpdate`
+- New struct `HypervSiteUpdateProperties`
+- New struct `HypervSiteUsage`
+- New struct `HypervVMSoftwareInventory`
+- New struct `HypervVMSoftwareInventoryListResult`
+- New struct `IisApplicationUnit`
+- New struct `IisVirtualApplicationUnit`
+- New struct `IisWebApplicationProperties`
+- New struct `IisWebApplications`
+- New struct `IisWebApplicationsListResult`
+- New struct `IisWebApplicationsUpdate`
+- New struct `IisWebApplicationsUpdateProperties`
+- New struct `IisWebServerProperties`
+- New struct `IisWebServers`
+- New struct `IisWebServersListResult`
+- New struct `ImportJob`
+- New struct `ImportJobListResult`
+- New struct `ImportMachine`
+- New struct `ImportMachineListResult`
+- New struct `ImportMachineProperties`
+- New struct `ImportMachinesJob`
+- New struct `ImportMachinesJobProperties`
+- New struct `ImportSite`
+- New struct `ImportSiteListResult`
+- New struct `ImportSiteProperties`
+- New struct `ImportSiteUpdate`
+- New struct `ImportSiteUpdateProperties`
+- New struct `JobErrorSummary`
+- New struct `JobProperties`
+- New struct `MachineMetadata`
+- New struct `MachineMetadataCollection`
+- New struct `MachineResource`
+- New struct `MachineResourceListResult`
+- New struct `MachineResourceUpdate`
+- New struct `MachineResourceUpdateProperties`
+- New struct `MachineSoftwareInventoryProperties`
+- New struct `MasterSite`
+- New struct `MasterSiteListResult`
+- New struct `MasterSiteProperties`
+- New struct `MasterSiteUpdate`
+- New struct `MasterSiteUpdateProperties`
+- New struct `OperatingSystem`
+- New struct `OperationListResult`
+- New struct `OperationStatus`
+- New struct `OperationStatusError`
+- New struct `OperationStatusProperties`
+- New struct `OracleDiscovery`
+- New struct `OtherDatabase`
+- New struct `PagedDeleteImportMachinesJob`
+- New struct `PagedExportImportedMachinesJob`
+- New struct `PagedImportMachinesJob`
+- New struct `PrivateEndpointConnectionListResult`
+- New struct `PrivateEndpointConnectionPropertiesV2`
+- New struct `PrivateLinkResourceListResult`
+- New struct `ProcessorInfo`
+- New struct `ProductSupportStatus`
+- New struct `ProxyResource`
+- New struct `ProxySiteRefreshBody`
+- New struct `RequestExportMachineErrorsProperties`
+- New struct `Resource`
+- New struct `RunAsAccountMachineInput`
+- New struct `RunAsAccountProperties`
+- New struct `SQLAvailabilityGroup`
+- New struct `SQLAvailabilityGroupListResult`
+- New struct `SQLAvailabilityGroupProperties`
+- New struct `SQLAvailabilityGroupReplicaInfo`
+- New struct `SQLAvailabilityReplicaOverview`
+- New struct `SQLAvailabilityReplicaProperties`
+- New struct `SQLDatabasePropertiesV2`
+- New struct `SQLDatabaseReplicaInfo`
+- New struct `SQLDatabaseV2`
+- New struct `SQLDatabaseV2ListResult`
+- New struct `SQLDiscovery`
+- New struct `SQLDiscoverySiteDataSource`
+- New struct `SQLDiscoverySiteDataSourceListResult`
+- New struct `SQLDiscoverySiteDataSourceProperties`
+- New struct `SQLFciProperties`
+- New struct `SQLJob`
+- New struct `SQLJobListResult`
+- New struct `SQLMachineOverview`
+- New struct `SQLRunAsAccount`
+- New struct `SQLRunAsAccountListResult`
+- New struct `SQLServerApplication`
+- New struct `SQLServerProperties`
+- New struct `SQLServerV2`
+- New struct `SQLServerV2ListResult`
+- New struct `SQLServerV2Update`
+- New struct `SQLServerV2UpdateProperties`
+- New struct `SQLSite`
+- New struct `SQLSiteListResult`
+- New struct `SQLSiteProperties`
+- New struct `SQLSiteRefreshBody`
+- New struct `SQLSiteUpdate`
+- New struct `SQLSiteUpdateProperties`
+- New struct `SQLSiteUsage`
+- New struct `SasURIResponse`
+- New struct `Server`
+- New struct `ServerDisk`
+- New struct `ServerJob`
+- New struct `ServerJobListResult`
+- New struct `ServerListResult`
+- New struct `ServerNetworkAdapter`
+- New struct `ServerProperties`
+- New struct `ServerRunAsAccount`
+- New struct `ServerRunAsAccountListResult`
+- New struct `ServerSiteResource`
+- New struct `ServerSiteResourceListResult`
+- New struct `ServerSiteResourceUpdate`
+- New struct `ServerSiteResourceUpdateProperties`
+- New struct `ServerSiteUsage`
+- New struct `ServerSiteUsageResponse`
+- New struct `ServerSoftwareInventory`
+- New struct `ServerSoftwareInventoryListResult`
+- New struct `ServerUpdate`
+- New struct `ServerUpdateProperties`
+- New struct `SharePointServer`
+- New struct `SiteAgentProperties`
+- New struct `SiteApplianceProperties`
+- New struct `SiteErrorSummary`
+- New struct `SiteHealthSummary`
+- New struct `SiteHealthSummaryCollection`
+- New struct `SiteProperties`
+- New struct `SiteSpnProperties`
+- New struct `SitesProperties`
+- New struct `SpringBootDiscovery`
+- New struct `StaticDiscovery`
+- New struct `SystemCenter`
+- New struct `SystemData`
+- New struct `TagsMachineInput`
+- New struct `TomcatEngineUnit`
+- New struct `TomcatHostUnit`
+- New struct `TomcatServiceUnit`
+- New struct `TomcatWebApplicationProperties`
+- New struct `TomcatWebApplications`
+- New struct `TomcatWebApplicationsListResult`
+- New struct `TomcatWebServerProperties`
+- New struct `TomcatWebServers`
+- New struct `TomcatWebServersListResult`
+- New struct `TrackedResource`
+- New struct `UpdateMachineDepMapStatus`
+- New struct `UpdateMachineRunAsAccount`
+- New struct `UpdateMachineTags`
+- New struct `V20180501PreviewVmwareRunAsAccount`
+- New struct `V20180501PreviewVmwareRunAsAccountVmwareRunAsAccountCollection`
+- New struct `Vcenter`
+- New struct `VcenterListResult`
+- New struct `VcenterProperties`
+- New struct `VmwareDatastore`
+- New struct `VmwareDisk`
+- New struct `VmwareHost`
+- New struct `VmwareHostListResult`
+- New struct `VmwareHostProperties`
+- New struct `VmwareJob`
+- New struct `VmwareJobListResult`
+- New struct `VmwareMachineProperties`
+- New struct `VmwareMachineSoftwareInventory`
+- New struct `VmwareMachineSoftwareInventoryListResult`
+- New struct `VmwareNetworkAdapter`
+- New struct `VmwareRunAsAccountResource`
+- New struct `VmwareRunAsAccountResourceListResult`
+- New struct `VmwareSite`
+- New struct `VmwareSiteListResult`
+- New struct `VmwareSiteUpdate`
+- New struct `VmwareSiteUpdateProperties`
+- New struct `VmwareSiteUsage`
+- New struct `WebAppDiscovery`
+- New struct `WebAppExtendedMachine`
+- New struct `WebAppExtendedMachineListResult`
+- New struct `WebAppExtendedMachineProperties`
+- New struct `WebAppProperties`
+- New struct `WebAppPropertiesCollection`
+- New struct `WebAppRunAsAccount`
+- New struct `WebAppRunAsAccountListResult`
+- New struct `WebAppSite`
+- New struct `WebAppSiteListResult`
+- New struct `WebAppSiteProperties`
+- New struct `WebAppSiteUpdate`
+- New struct `WebAppSiteUpdateProperties`
+- New struct `WebAppSiteUsage`
+- New struct `WebApplication`
+- New struct `WebApplicationAppsAndRolesModel`
+- New struct `WebApplicationConfigurationUnit`
+- New struct `WebApplicationDirectoryUnit`
+- New struct `WebApplicationFramework`
+- New struct `WebApplicationListResult`
+- New struct `WebApplicationProperties`
+- New struct `WebRoleImportDisk`
+- New struct `WebRoleOperatingSystem`
+- New struct `WebServer`
+- New struct `WebServerListResult`
+- New struct `WebServerProperties`
+- New field `ActionType`, `IsDataAction` in struct `Operation`
+- New anonymous field `OperationListResult` in struct `OperationsClientListResponse`
+- New field `SystemData` in struct `PrivateEndpointConnection`
+- New field `SystemData` in struct `PrivateLinkResource`
+- New field `ProvisioningState` in struct `PrivateLinkResourceProperties`
+
+
 ## 1.2.0 (2023-11-24)
 ### Features Added
 
