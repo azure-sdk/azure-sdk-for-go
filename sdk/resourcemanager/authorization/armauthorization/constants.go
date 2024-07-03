@@ -10,7 +10,7 @@ package armauthorization
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/authorization/armauthorization"
-	moduleVersion = "v3.0.0-beta.2"
+	moduleVersion = "v3.0.0-beta.3"
 )
 
 // AccessRecommendationType - The feature- generated recommendation shown to the reviewer.
