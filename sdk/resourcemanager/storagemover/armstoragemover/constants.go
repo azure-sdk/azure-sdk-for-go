@@ -10,7 +10,7 @@ package armstoragemover
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storagemover/armstoragemover"
-	moduleVersion = "v2.2.0"
+	moduleVersion = "v2.2.1"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -165,7 +165,7 @@ func PossibleJobRunScanStatusValues() []JobRunScanStatus {
 	}
 }
 
-// JobRunStatus - The current status of the Job Run in a non-terminal state, if exists.
+// JobRunStatus - The state of the Job Run execution.
 type JobRunStatus string
 
 const (
