@@ -63,6 +63,14 @@ type RoleAssignmentsServer struct {
 	// NewListForSubscriptionPager is the fake for method RoleAssignmentsClient.NewListForSubscriptionPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListForSubscriptionPager func(options *armauthorization.RoleAssignmentsClientListForSubscriptionOptions) (resp azfake.PagerResponder[armauthorization.RoleAssignmentsClientListForSubscriptionResponse])
+
+	// Validate is the fake for method RoleAssignmentsClient.Validate
+	// HTTP status codes to indicate success: http.StatusOK
+	Validate func(ctx context.Context, scope string, roleAssignmentName string, parameters armauthorization.RoleAssignmentCreateParameters, options *armauthorization.RoleAssignmentsClientValidateOptions) (resp azfake.Responder[armauthorization.RoleAssignmentsClientValidateResponse], errResp azfake.ErrorResponder)
+
+	// ValidateByID is the fake for method RoleAssignmentsClient.ValidateByID
+	// HTTP status codes to indicate success: http.StatusOK
+	ValidateByID func(ctx context.Context, roleAssignmentID string, parameters armauthorization.RoleAssignmentCreateParameters, options *armauthorization.RoleAssignmentsClientValidateByIDOptions) (resp azfake.Responder[armauthorization.RoleAssignmentsClientValidateByIDResponse], errResp azfake.ErrorResponder)
 }
 
 // NewRoleAssignmentsServerTransport creates a new instance of RoleAssignmentsServerTransport with the provided implementation.
@@ -120,6 +128,10 @@ func (r *RoleAssignmentsServerTransport) Do(req *http.Request) (*http.Response, 
 		resp, err = r.dispatchNewListForScopePager(req)
 	case "RoleAssignmentsClient.NewListForSubscriptionPager":
 		resp, err = r.dispatchNewListForSubscriptionPager(req)
+	case "RoleAssignmentsClient.Validate":
+		resp, err = r.dispatchValidate(req)
+	case "RoleAssignmentsClient.ValidateByID":
+		resp, err = r.dispatchValidateByID(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -522,17 +534,11 @@ func (r *RoleAssignmentsServerTransport) dispatchNewListForScopePager(req *http.
 			return nil, err
 		}
 		tenantIDParam := getOptional(tenantIDUnescaped)
-		skipTokenUnescaped, err := url.QueryUnescape(qp.Get("$skipToken"))
-		if err != nil {
-			return nil, err
-		}
-		skipTokenParam := getOptional(skipTokenUnescaped)
 		var options *armauthorization.RoleAssignmentsClientListForScopeOptions
-		if filterParam != nil || tenantIDParam != nil || skipTokenParam != nil {
+		if filterParam != nil || tenantIDParam != nil {
 			options = &armauthorization.RoleAssignmentsClientListForScopeOptions{
-				Filter:    filterParam,
-				TenantID:  tenantIDParam,
-				SkipToken: skipTokenParam,
+				Filter:   filterParam,
+				TenantID: tenantIDParam,
 			}
 		}
 		resp := r.srv.NewListForScopePager(scopeParam, options)
@@ -603,6 +609,76 @@ func (r *RoleAssignmentsServerTransport) dispatchNewListForSubscriptionPager(req
 	}
 	if !server.PagerResponderMore(newListForSubscriptionPager) {
 		r.newListForSubscriptionPager.remove(req)
+	}
+	return resp, nil
+}
+
+func (r *RoleAssignmentsServerTransport) dispatchValidate(req *http.Request) (*http.Response, error) {
+	if r.srv.Validate == nil {
+		return nil, &nonRetriableError{errors.New("fake for method Validate not implemented")}
+	}
+	const regexStr = `/(?P<scope>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Authorization/roleAssignments/(?P<roleAssignmentName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/validate`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 2 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armauthorization.RoleAssignmentCreateParameters](req)
+	if err != nil {
+		return nil, err
+	}
+	scopeParam, err := url.PathUnescape(matches[regex.SubexpIndex("scope")])
+	if err != nil {
+		return nil, err
+	}
+	roleAssignmentNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("roleAssignmentName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := r.srv.Validate(req.Context(), scopeParam, roleAssignmentNameParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ValidationResponse, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (r *RoleAssignmentsServerTransport) dispatchValidateByID(req *http.Request) (*http.Response, error) {
+	if r.srv.ValidateByID == nil {
+		return nil, &nonRetriableError{errors.New("fake for method ValidateByID not implemented")}
+	}
+	const regexStr = `/(?P<roleAssignmentId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/validate`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 1 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armauthorization.RoleAssignmentCreateParameters](req)
+	if err != nil {
+		return nil, err
+	}
+	roleAssignmentIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("roleAssignmentId")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := r.srv.ValidateByID(req.Context(), roleAssignmentIDParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ValidationResponse, req)
+	if err != nil {
+		return nil, err
 	}
 	return resp, nil
 }

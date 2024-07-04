@@ -28,7 +28,7 @@ type RoleAssignmentsClient struct {
 }
 
 // NewRoleAssignmentsClient creates a new instance of RoleAssignmentsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewRoleAssignmentsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*RoleAssignmentsClient, error) {
@@ -46,7 +46,7 @@ func NewRoleAssignmentsClient(subscriptionID string, credential azcore.TokenCred
 // Create - Create or update a role assignment by scope and name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-04-01
+// Generated from API version 2024-02-01-preview
 //   - scope - The scope of the operation or resource. Valid scopes are: subscription (format: '/subscriptions/{subscriptionId}'),
 //     resource group (format:
 //     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
@@ -86,7 +86,7 @@ func (client *RoleAssignmentsClient) createCreateRequest(ctx context.Context, sc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-04-01")
+	reqQP.Set("api-version", "2024-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -107,7 +107,7 @@ func (client *RoleAssignmentsClient) createHandleResponse(resp *http.Response) (
 // CreateByID - Create or update a role assignment by ID.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-04-01
+// Generated from API version 2024-02-01-preview
 //   - roleAssignmentID - The fully qualified ID of the role assignment including scope, resource name, and resource type. Format:
 //     /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}. Example:
 //     /subscriptions//resourcegroups//providers/Microsoft.Authorization/roleAssignments/
@@ -145,7 +145,7 @@ func (client *RoleAssignmentsClient) createByIDCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-04-01")
+	reqQP.Set("api-version", "2024-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -166,7 +166,7 @@ func (client *RoleAssignmentsClient) createByIDHandleResponse(resp *http.Respons
 // Delete - Delete a role assignment by scope and name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-04-01
+// Generated from API version 2024-02-01-preview
 //   - scope - The scope of the operation or resource. Valid scopes are: subscription (format: '/subscriptions/{subscriptionId}'),
 //     resource group (format:
 //     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
@@ -205,7 +205,7 @@ func (client *RoleAssignmentsClient) deleteCreateRequest(ctx context.Context, sc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-04-01")
+	reqQP.Set("api-version", "2024-02-01-preview")
 	if options != nil && options.TenantID != nil {
 		reqQP.Set("tenantId", *options.TenantID)
 	}
@@ -226,7 +226,7 @@ func (client *RoleAssignmentsClient) deleteHandleResponse(resp *http.Response) (
 // DeleteByID - Delete a role assignment by ID.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-04-01
+// Generated from API version 2024-02-01-preview
 //   - roleAssignmentID - The fully qualified ID of the role assignment including scope, resource name, and resource type. Format:
 //     /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}. Example:
 //     /subscriptions//resourcegroups//providers/Microsoft.Authorization/roleAssignments/
@@ -263,7 +263,7 @@ func (client *RoleAssignmentsClient) deleteByIDCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-04-01")
+	reqQP.Set("api-version", "2024-02-01-preview")
 	if options != nil && options.TenantID != nil {
 		reqQP.Set("tenantId", *options.TenantID)
 	}
@@ -284,7 +284,7 @@ func (client *RoleAssignmentsClient) deleteByIDHandleResponse(resp *http.Respons
 // Get - Get a role assignment by scope and name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-04-01
+// Generated from API version 2024-02-01-preview
 //   - scope - The scope of the operation or resource. Valid scopes are: subscription (format: '/subscriptions/{subscriptionId}'),
 //     resource group (format:
 //     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
@@ -323,7 +323,7 @@ func (client *RoleAssignmentsClient) getCreateRequest(ctx context.Context, scope
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-04-01")
+	reqQP.Set("api-version", "2024-02-01-preview")
 	if options != nil && options.TenantID != nil {
 		reqQP.Set("tenantId", *options.TenantID)
 	}
@@ -344,7 +344,7 @@ func (client *RoleAssignmentsClient) getHandleResponse(resp *http.Response) (Rol
 // GetByID - Get a role assignment by ID.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-04-01
+// Generated from API version 2024-02-01-preview
 //   - roleAssignmentID - The fully qualified ID of the role assignment including scope, resource name, and resource type. Format:
 //     /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}. Example:
 //     /subscriptions//resourcegroups//providers/Microsoft.Authorization/roleAssignments/
@@ -380,7 +380,7 @@ func (client *RoleAssignmentsClient) getByIDCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-04-01")
+	reqQP.Set("api-version", "2024-02-01-preview")
 	if options != nil && options.TenantID != nil {
 		reqQP.Set("tenantId", *options.TenantID)
 	}
@@ -400,7 +400,7 @@ func (client *RoleAssignmentsClient) getByIDHandleResponse(resp *http.Response) 
 
 // NewListForResourcePager - List all role assignments that apply to a resource.
 //
-// Generated from API version 2022-04-01
+// Generated from API version 2024-02-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceProviderNamespace - The namespace of the resource provider.
 //   - resourceType - The resource type name. For example the type name of a web app is 'sites' (from Microsoft.Web/sites).
@@ -449,7 +449,7 @@ func (client *RoleAssignmentsClient) listForResourceCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-04-01")
+	reqQP.Set("api-version", "2024-02-01-preview")
 	if options != nil && options.TenantID != nil {
 		reqQP.Set("tenantId", *options.TenantID)
 	}
@@ -474,7 +474,7 @@ func (client *RoleAssignmentsClient) listForResourceHandleResponse(resp *http.Re
 
 // NewListForResourceGroupPager - List all role assignments that apply to a resource group.
 //
-// Generated from API version 2022-04-01
+// Generated from API version 2024-02-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - RoleAssignmentsClientListForResourceGroupOptions contains the optional parameters for the RoleAssignmentsClient.NewListForResourceGroupPager
 //     method.
@@ -517,7 +517,7 @@ func (client *RoleAssignmentsClient) listForResourceGroupCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-04-01")
+	reqQP.Set("api-version", "2024-02-01-preview")
 	if options != nil && options.TenantID != nil {
 		reqQP.Set("tenantId", *options.TenantID)
 	}
@@ -542,7 +542,7 @@ func (client *RoleAssignmentsClient) listForResourceGroupHandleResponse(resp *ht
 
 // NewListForScopePager - List all role assignments that apply to a scope.
 //
-// Generated from API version 2022-04-01
+// Generated from API version 2024-02-01-preview
 //   - scope - The scope of the operation or resource. Valid scopes are: subscription (format: '/subscriptions/{subscriptionId}'),
 //     resource group (format:
 //     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
@@ -581,7 +581,7 @@ func (client *RoleAssignmentsClient) listForScopeCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-04-01")
+	reqQP.Set("api-version", "2024-02-01-preview")
 	if options != nil && options.TenantID != nil {
 		reqQP.Set("tenantId", *options.TenantID)
 	}
@@ -589,9 +589,6 @@ func (client *RoleAssignmentsClient) listForScopeCreateRequest(ctx context.Conte
 	unencodedParams := []string{req.Raw().URL.RawQuery}
 	if options != nil && options.Filter != nil {
 		unencodedParams = append(unencodedParams, "$filter="+*options.Filter)
-	}
-	if options != nil && options.SkipToken != nil {
-		unencodedParams = append(unencodedParams, "$skipToken="+*options.SkipToken)
 	}
 	req.Raw().URL.RawQuery = strings.Join(unencodedParams, "&")
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -609,7 +606,7 @@ func (client *RoleAssignmentsClient) listForScopeHandleResponse(resp *http.Respo
 
 // NewListForSubscriptionPager - List all role assignments that apply to a subscription.
 //
-// Generated from API version 2022-04-01
+// Generated from API version 2024-02-01-preview
 //   - options - RoleAssignmentsClientListForSubscriptionOptions contains the optional parameters for the RoleAssignmentsClient.NewListForSubscriptionPager
 //     method.
 func (client *RoleAssignmentsClient) NewListForSubscriptionPager(options *RoleAssignmentsClientListForSubscriptionOptions) *runtime.Pager[RoleAssignmentsClientListForSubscriptionResponse] {
@@ -647,7 +644,7 @@ func (client *RoleAssignmentsClient) listForSubscriptionCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-04-01")
+	reqQP.Set("api-version", "2024-02-01-preview")
 	if options != nil && options.TenantID != nil {
 		reqQP.Set("tenantId", *options.TenantID)
 	}
@@ -666,6 +663,127 @@ func (client *RoleAssignmentsClient) listForSubscriptionHandleResponse(resp *htt
 	result := RoleAssignmentsClientListForSubscriptionResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.RoleAssignmentListResult); err != nil {
 		return RoleAssignmentsClientListForSubscriptionResponse{}, err
+	}
+	return result, nil
+}
+
+// Validate - Validate a role assignment create or update operation by scope and name.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-02-01-preview
+//   - scope - The scope of the operation or resource. Valid scopes are: subscription (format: '/subscriptions/{subscriptionId}'),
+//     resource group (format:
+//     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}', or resource (format:
+//     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/[{parentResourcePath}/]{resourceType}/{resourceName}'
+//   - roleAssignmentName - The name of the role assignment. It can be any valid GUID.
+//   - parameters - Parameters for the role assignment.
+//   - options - RoleAssignmentsClientValidateOptions contains the optional parameters for the RoleAssignmentsClient.Validate
+//     method.
+func (client *RoleAssignmentsClient) Validate(ctx context.Context, scope string, roleAssignmentName string, parameters RoleAssignmentCreateParameters, options *RoleAssignmentsClientValidateOptions) (RoleAssignmentsClientValidateResponse, error) {
+	var err error
+	const operationName = "RoleAssignmentsClient.Validate"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.validateCreateRequest(ctx, scope, roleAssignmentName, parameters, options)
+	if err != nil {
+		return RoleAssignmentsClientValidateResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return RoleAssignmentsClientValidateResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return RoleAssignmentsClientValidateResponse{}, err
+	}
+	resp, err := client.validateHandleResponse(httpResp)
+	return resp, err
+}
+
+// validateCreateRequest creates the Validate request.
+func (client *RoleAssignmentsClient) validateCreateRequest(ctx context.Context, scope string, roleAssignmentName string, parameters RoleAssignmentCreateParameters, options *RoleAssignmentsClientValidateOptions) (*policy.Request, error) {
+	urlPath := "/{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}/validate"
+	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
+	urlPath = strings.ReplaceAll(urlPath, "{roleAssignmentName}", roleAssignmentName)
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-02-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+// validateHandleResponse handles the Validate response.
+func (client *RoleAssignmentsClient) validateHandleResponse(resp *http.Response) (RoleAssignmentsClientValidateResponse, error) {
+	result := RoleAssignmentsClientValidateResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ValidationResponse); err != nil {
+		return RoleAssignmentsClientValidateResponse{}, err
+	}
+	return result, nil
+}
+
+// ValidateByID - Validate a role assignment create or update operation by ID.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-02-01-preview
+//   - roleAssignmentID - The fully qualified ID of the role assignment including scope, resource name, and resource type. Format:
+//     /{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}. Example:
+//     /subscriptions//resourcegroups//providers/Microsoft.Authorization/roleAssignments/
+//   - parameters - Parameters for the role assignment.
+//   - options - RoleAssignmentsClientValidateByIDOptions contains the optional parameters for the RoleAssignmentsClient.ValidateByID
+//     method.
+func (client *RoleAssignmentsClient) ValidateByID(ctx context.Context, roleAssignmentID string, parameters RoleAssignmentCreateParameters, options *RoleAssignmentsClientValidateByIDOptions) (RoleAssignmentsClientValidateByIDResponse, error) {
+	var err error
+	const operationName = "RoleAssignmentsClient.ValidateByID"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.validateByIDCreateRequest(ctx, roleAssignmentID, parameters, options)
+	if err != nil {
+		return RoleAssignmentsClientValidateByIDResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return RoleAssignmentsClientValidateByIDResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return RoleAssignmentsClientValidateByIDResponse{}, err
+	}
+	resp, err := client.validateByIDHandleResponse(httpResp)
+	return resp, err
+}
+
+// validateByIDCreateRequest creates the ValidateByID request.
+func (client *RoleAssignmentsClient) validateByIDCreateRequest(ctx context.Context, roleAssignmentID string, parameters RoleAssignmentCreateParameters, options *RoleAssignmentsClientValidateByIDOptions) (*policy.Request, error) {
+	urlPath := "/{roleAssignmentId}/validate"
+	urlPath = strings.ReplaceAll(urlPath, "{roleAssignmentId}", roleAssignmentID)
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-02-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+// validateByIDHandleResponse handles the ValidateByID response.
+func (client *RoleAssignmentsClient) validateByIDHandleResponse(resp *http.Response) (RoleAssignmentsClientValidateByIDResponse, error) {
+	result := RoleAssignmentsClientValidateByIDResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ValidationResponse); err != nil {
+		return RoleAssignmentsClientValidateByIDResponse{}, err
 	}
 	return result, nil
 }

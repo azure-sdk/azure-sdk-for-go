@@ -76,7 +76,7 @@ clientFactory, err := armX.NewClientFactory(<subscription ID>, cred, &options)
 A client groups a set of related APIs, providing access to its functionality.  Create one or more clients to access the APIs you require using client factory.
 
 ```go
-client := clientFactory.NewXClient()
+client := clientFactory.NewRoleAssignmentsClient()
 
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/authorization/armauthorization/v3)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/authorization/armauthorization/v3)
 
