@@ -39,10 +39,6 @@ type RoleEligibilityScheduleRequestsServer struct {
 	// NewListForScopePager is the fake for method RoleEligibilityScheduleRequestsClient.NewListForScopePager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListForScopePager func(scope string, options *armauthorization.RoleEligibilityScheduleRequestsClientListForScopeOptions) (resp azfake.PagerResponder[armauthorization.RoleEligibilityScheduleRequestsClientListForScopeResponse])
-
-	// Validate is the fake for method RoleEligibilityScheduleRequestsClient.Validate
-	// HTTP status codes to indicate success: http.StatusOK
-	Validate func(ctx context.Context, scope string, roleEligibilityScheduleRequestName string, parameters armauthorization.RoleEligibilityScheduleRequest, options *armauthorization.RoleEligibilityScheduleRequestsClientValidateOptions) (resp azfake.Responder[armauthorization.RoleEligibilityScheduleRequestsClientValidateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewRoleEligibilityScheduleRequestsServerTransport creates a new instance of RoleEligibilityScheduleRequestsServerTransport with the provided implementation.
@@ -82,8 +78,6 @@ func (r *RoleEligibilityScheduleRequestsServerTransport) Do(req *http.Request) (
 		resp, err = r.dispatchGet(req)
 	case "RoleEligibilityScheduleRequestsClient.NewListForScopePager":
 		resp, err = r.dispatchNewListForScopePager(req)
-	case "RoleEligibilityScheduleRequestsClient.Validate":
-		resp, err = r.dispatchValidate(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -243,43 +237,6 @@ func (r *RoleEligibilityScheduleRequestsServerTransport) dispatchNewListForScope
 	}
 	if !server.PagerResponderMore(newListForScopePager) {
 		r.newListForScopePager.remove(req)
-	}
-	return resp, nil
-}
-
-func (r *RoleEligibilityScheduleRequestsServerTransport) dispatchValidate(req *http.Request) (*http.Response, error) {
-	if r.srv.Validate == nil {
-		return nil, &nonRetriableError{errors.New("fake for method Validate not implemented")}
-	}
-	const regexStr = `/(?P<scope>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Authorization/roleEligibilityScheduleRequests/(?P<roleEligibilityScheduleRequestName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/validate`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 2 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	body, err := server.UnmarshalRequestAsJSON[armauthorization.RoleEligibilityScheduleRequest](req)
-	if err != nil {
-		return nil, err
-	}
-	scopeParam, err := url.PathUnescape(matches[regex.SubexpIndex("scope")])
-	if err != nil {
-		return nil, err
-	}
-	roleEligibilityScheduleRequestNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("roleEligibilityScheduleRequestName")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := r.srv.Validate(req.Context(), scopeParam, roleEligibilityScheduleRequestNameParam, body, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).RoleEligibilityScheduleRequest, req)
-	if err != nil {
-		return nil, err
 	}
 	return resp, nil
 }
