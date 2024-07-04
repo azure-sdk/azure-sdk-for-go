@@ -1047,33 +1047,10 @@ type VirtualMachineExtensionImagesClientListVersionsResponse struct {
 	VirtualMachineExtensionImageArray []*VirtualMachineExtensionImage
 }
 
-// VirtualMachineExtensionsClientCreateOrUpdateResponse contains the response from method VirtualMachineExtensionsClient.BeginCreateOrUpdate.
-type VirtualMachineExtensionsClientCreateOrUpdateResponse struct {
-	// Describes a Virtual Machine Extension.
-	VirtualMachineExtension
-}
-
-// VirtualMachineExtensionsClientDeleteResponse contains the response from method VirtualMachineExtensionsClient.BeginDelete.
-type VirtualMachineExtensionsClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// VirtualMachineExtensionsClientGetResponse contains the response from method VirtualMachineExtensionsClient.Get.
-type VirtualMachineExtensionsClientGetResponse struct {
-	// Describes a Virtual Machine Extension.
-	VirtualMachineExtension
-}
-
 // VirtualMachineExtensionsClientListResponse contains the response from method VirtualMachineExtensionsClient.List.
 type VirtualMachineExtensionsClientListResponse struct {
 	// The List Extension operation response
 	VirtualMachineExtensionsListResult
-}
-
-// VirtualMachineExtensionsClientUpdateResponse contains the response from method VirtualMachineExtensionsClient.BeginUpdate.
-type VirtualMachineExtensionsClientUpdateResponse struct {
-	// Describes a Virtual Machine Extension.
-	VirtualMachineExtension
 }
 
 // VirtualMachineImagesClientGetResponse contains the response from method VirtualMachineImagesClient.Get.

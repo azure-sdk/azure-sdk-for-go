@@ -1103,33 +1103,6 @@ type VirtualMachineExtensionImagesClientListVersionsOptions struct {
 	Top     *int32
 }
 
-// VirtualMachineExtensionsClientBeginCreateOrUpdateOptions contains the optional parameters for the VirtualMachineExtensionsClient.BeginCreateOrUpdate
-// method.
-type VirtualMachineExtensionsClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// VirtualMachineExtensionsClientBeginDeleteOptions contains the optional parameters for the VirtualMachineExtensionsClient.BeginDelete
-// method.
-type VirtualMachineExtensionsClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// VirtualMachineExtensionsClientBeginUpdateOptions contains the optional parameters for the VirtualMachineExtensionsClient.BeginUpdate
-// method.
-type VirtualMachineExtensionsClientBeginUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// VirtualMachineExtensionsClientGetOptions contains the optional parameters for the VirtualMachineExtensionsClient.Get method.
-type VirtualMachineExtensionsClientGetOptions struct {
-	// The expand expression to apply on the operation.
-	Expand *string
-}
-
 // VirtualMachineExtensionsClientListOptions contains the optional parameters for the VirtualMachineExtensionsClient.List
 // method.
 type VirtualMachineExtensionsClientListOptions struct {
@@ -1819,7 +1792,7 @@ type VirtualMachinesClientBeginCreateOrUpdateOptions struct {
 // VirtualMachinesClientBeginDeallocateOptions contains the optional parameters for the VirtualMachinesClient.BeginDeallocate
 // method.
 type VirtualMachinesClientBeginDeallocateOptions struct {
-	// Optional parameter to hibernate a virtual machine. (Feature in Preview)
+	// Optional parameter to hibernate a virtual machine.
 	Hibernate *bool
 
 	// Resumes the LRO from the provided token.
