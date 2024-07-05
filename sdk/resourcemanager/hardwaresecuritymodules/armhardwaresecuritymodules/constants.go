@@ -10,8 +10,64 @@ package armhardwaresecuritymodules
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hardwaresecuritymodules/armhardwaresecuritymodules"
-	moduleVersion = "v2.0.0-beta.1"
+	moduleVersion = "v2.0.0"
 )
+
+// ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+type ActionType string
+
+const (
+	ActionTypeInternal ActionType = "Internal"
+)
+
+// PossibleActionTypeValues returns the possible values for the ActionType const type.
+func PossibleActionTypeValues() []ActionType {
+	return []ActionType{
+		ActionTypeInternal,
+	}
+}
+
+// ActivationState - State of security domain activation
+type ActivationState string
+
+const (
+	ActivationStateActive       ActivationState = "Active"
+	ActivationStateFailed       ActivationState = "Failed"
+	ActivationStateNotActivated ActivationState = "NotActivated"
+	ActivationStateNotDefined   ActivationState = "NotDefined"
+	ActivationStateUnknown      ActivationState = "Unknown"
+)
+
+// PossibleActivationStateValues returns the possible values for the ActivationState const type.
+func PossibleActivationStateValues() []ActivationState {
+	return []ActivationState{
+		ActivationStateActive,
+		ActivationStateFailed,
+		ActivationStateNotActivated,
+		ActivationStateNotDefined,
+		ActivationStateUnknown,
+	}
+}
+
+// BackupRestoreOperationStatus - Status of the backup/restore operation
+type BackupRestoreOperationStatus string
+
+const (
+	BackupRestoreOperationStatusCancelled  BackupRestoreOperationStatus = "Cancelled"
+	BackupRestoreOperationStatusFailed     BackupRestoreOperationStatus = "Failed"
+	BackupRestoreOperationStatusInProgress BackupRestoreOperationStatus = "InProgress"
+	BackupRestoreOperationStatusSucceeded  BackupRestoreOperationStatus = "Succeeded"
+)
+
+// PossibleBackupRestoreOperationStatusValues returns the possible values for the BackupRestoreOperationStatus const type.
+func PossibleBackupRestoreOperationStatusValues() []BackupRestoreOperationStatus {
+	return []BackupRestoreOperationStatus{
+		BackupRestoreOperationStatusCancelled,
+		BackupRestoreOperationStatusFailed,
+		BackupRestoreOperationStatusInProgress,
+		BackupRestoreOperationStatusSucceeded,
+	}
+}
 
 // CloudHsmClusterSKUFamily - Sku family of the Cloud HSM Cluster
 type CloudHsmClusterSKUFamily string
@@ -99,7 +155,7 @@ const (
 	JSONWebKeyTypeFailed JSONWebKeyType = "Failed"
 	// JSONWebKeyTypeProvisioning - The dedicated HSM is currently being provisioned.
 	JSONWebKeyTypeProvisioning JSONWebKeyType = "Provisioning"
-	// JSONWebKeyTypeSucceeded - The dedicated HSM has been full provisioned.
+	// JSONWebKeyTypeSucceeded - The dedicated HSM has been fully provisioned.
 	JSONWebKeyTypeSucceeded JSONWebKeyType = "Succeeded"
 )
 
@@ -133,6 +189,25 @@ func PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType {
 		ManagedServiceIdentityTypeSystemAssigned,
 		ManagedServiceIdentityTypeSystemAssignedUserAssigned,
 		ManagedServiceIdentityTypeUserAssigned,
+	}
+}
+
+// Origin - The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
+// value is "user,system"
+type Origin string
+
+const (
+	OriginSystem     Origin = "system"
+	OriginUser       Origin = "user"
+	OriginUserSystem Origin = "user,system"
+)
+
+// PossibleOriginValues returns the possible values for the Origin const type.
+func PossibleOriginValues() []Origin {
+	return []Origin{
+		OriginSystem,
+		OriginUser,
+		OriginUserSystem,
 	}
 }
 
