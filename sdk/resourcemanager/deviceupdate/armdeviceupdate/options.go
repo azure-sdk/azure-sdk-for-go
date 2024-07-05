@@ -48,11 +48,6 @@ type AccountsClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ClientCheckNameAvailabilityOptions contains the optional parameters for the Client.CheckNameAvailability method.
-type ClientCheckNameAvailabilityOptions struct {
-	// placeholder for future optional parameters
-}
-
 // InstancesClientBeginCreateOptions contains the optional parameters for the InstancesClient.BeginCreate method.
 type InstancesClientBeginCreateOptions struct {
 	// Resumes the LRO from the provided token.

@@ -20,7 +20,6 @@ import (
 // ServerFactory is a fake server for instances of the armdeviceupdate.ClientFactory type.
 type ServerFactory struct {
 	AccountsServer                         AccountsServer
-	Server                                 Server
 	InstancesServer                        InstancesServer
 	OperationsServer                       OperationsServer
 	PrivateEndpointConnectionProxiesServer PrivateEndpointConnectionProxiesServer
@@ -43,7 +42,6 @@ type ServerFactoryTransport struct {
 	srv                                      *ServerFactory
 	trMu                                     sync.Mutex
 	trAccountsServer                         *AccountsServerTransport
-	trServer                                 *ServerTransport
 	trInstancesServer                        *InstancesServerTransport
 	trOperationsServer                       *OperationsServerTransport
 	trPrivateEndpointConnectionProxiesServer *PrivateEndpointConnectionProxiesServerTransport
@@ -67,9 +65,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "AccountsClient":
 		initServer(s, &s.trAccountsServer, func() *AccountsServerTransport { return NewAccountsServerTransport(&s.srv.AccountsServer) })
 		resp, err = s.trAccountsServer.Do(req)
-	case "Client":
-		initServer(s, &s.trServer, func() *ServerTransport { return NewServerTransport(&s.srv.Server) })
-		resp, err = s.trServer.Do(req)
 	case "InstancesClient":
 		initServer(s, &s.trInstancesServer, func() *InstancesServerTransport { return NewInstancesServerTransport(&s.srv.InstancesServer) })
 		resp, err = s.trInstancesServer.Do(req)

@@ -10,7 +10,7 @@ package armdeviceupdate
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/deviceupdate/armdeviceupdate"
-	moduleVersion = "v1.3.0"
+	moduleVersion = "v2.0.0"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -38,22 +38,6 @@ const (
 func PossibleAuthenticationTypeValues() []AuthenticationType {
 	return []AuthenticationType{
 		AuthenticationTypeKeyBased,
-	}
-}
-
-// CheckNameAvailabilityReason - The reason why the given name is not available.
-type CheckNameAvailabilityReason string
-
-const (
-	CheckNameAvailabilityReasonAlreadyExists CheckNameAvailabilityReason = "AlreadyExists"
-	CheckNameAvailabilityReasonInvalid       CheckNameAvailabilityReason = "Invalid"
-)
-
-// PossibleCheckNameAvailabilityReasonValues returns the possible values for the CheckNameAvailabilityReason const type.
-func PossibleCheckNameAvailabilityReasonValues() []CheckNameAvailabilityReason {
-	return []CheckNameAvailabilityReason{
-		CheckNameAvailabilityReasonAlreadyExists,
-		CheckNameAvailabilityReasonInvalid,
 	}
 }
 

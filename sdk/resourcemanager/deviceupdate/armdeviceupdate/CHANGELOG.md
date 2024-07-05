@@ -1,5 +1,16 @@
 # Release History
 
+## 2.0.0 (2024-07-05)
+### Breaking Changes
+
+- Enum `CheckNameAvailabilityReason` has been removed
+- Function `NewClient` has been removed
+- Function `*Client.CheckNameAvailability` has been removed
+- Function `*ClientFactory.NewClient` has been removed
+- Struct `CheckNameAvailabilityRequest` has been removed
+- Struct `CheckNameAvailabilityResponse` has been removed
+
+
 ## 1.3.0 (2023-12-22)
 ### Features Added
 

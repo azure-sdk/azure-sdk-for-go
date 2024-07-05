@@ -82,27 +82,6 @@ type AccountUpdate struct {
 	Tags map[string]*string
 }
 
-// CheckNameAvailabilityRequest - The check availability request body.
-type CheckNameAvailabilityRequest struct {
-	// The name of the resource for which availability needs to be checked.
-	Name *string
-
-	// The resource type.
-	Type *string
-}
-
-// CheckNameAvailabilityResponse - The check availability result.
-type CheckNameAvailabilityResponse struct {
-	// Detailed reason why the given name is available.
-	Message *string
-
-	// Indicates if the resource name is available.
-	NameAvailable *bool
-
-	// The reason why the given name is not available.
-	Reason *CheckNameAvailabilityReason
-}
-
 // ConnectionDetails - Private endpoint connection proxy object properties.
 type ConnectionDetails struct {
 	// READ-ONLY; Group ID.

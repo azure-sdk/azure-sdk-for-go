@@ -49,12 +49,6 @@ type AccountsClientUpdateResponse struct {
 	Account
 }
 
-// ClientCheckNameAvailabilityResponse contains the response from method Client.CheckNameAvailability.
-type ClientCheckNameAvailabilityResponse struct {
-	// The check availability result.
-	CheckNameAvailabilityResponse
-}
-
 // InstancesClientCreateResponse contains the response from method InstancesClient.BeginCreate.
 type InstancesClientCreateResponse struct {
 	// Device Update instance details.
