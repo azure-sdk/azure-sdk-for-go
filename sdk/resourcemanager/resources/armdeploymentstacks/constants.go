@@ -10,7 +10,7 @@ package armdeploymentstacks
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armdeploymentstacks"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.0.1"
 )
 
 // CreatedByType - The type of identity that created the resource.
