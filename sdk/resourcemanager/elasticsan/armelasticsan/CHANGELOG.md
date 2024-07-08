@@ -1,5 +1,17 @@
 # Release History
 
+## 1.1.0 (2024-07-08)
+### Features Added
+
+- New enum type `AutoScalePolicyEnforcement` with values `AutoScalePolicyEnforcementDisabled`, `AutoScalePolicyEnforcementEnabled`, `AutoScalePolicyEnforcementNone`
+- New struct `AutoScaleProperties`
+- New struct `ScaleUpProperties`
+- New field `AutoScaleProperties` in struct `Properties`
+- New field `AutoScaleProperties` in struct `UpdateProperties`
+- New field `EnforceDataIntegrityCheckForIscsi` in struct `VolumeGroupProperties`
+- New field `EnforceDataIntegrityCheckForIscsi` in struct `VolumeGroupUpdateProperties`
+
+
 ## 1.0.0 (2024-01-26)
 ### Other Changes
 
