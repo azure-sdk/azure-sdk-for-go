@@ -16,7 +16,7 @@ import (
 	"strings"
 )
 
-// MongoClustersClient contains the methods for the MongoClusters group.
+// MongoClustersClient contains the methods for the Microsoft.DocumentDB namespace.
 // Don't use this type directly, use NewMongoClustersClient() instead.
 type MongoClustersClient struct {
 	internal       *arm.Client

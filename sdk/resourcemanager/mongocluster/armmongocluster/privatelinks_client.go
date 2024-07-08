@@ -16,7 +16,7 @@ import (
 	"strings"
 )
 
-// PrivateLinksClient contains the methods for the PrivateLinks group.
+// PrivateLinksClient contains the methods for the Microsoft.DocumentDB namespace.
 // Don't use this type directly, use NewPrivateLinksClient() instead.
 type PrivateLinksClient struct {
 	internal       *arm.Client
