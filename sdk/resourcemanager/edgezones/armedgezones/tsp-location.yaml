@@ -1,4 +1,4 @@
-directory: specification/mongocluster/DocumentDB.MongoCluster.Management
+directory: specification/edgezones/EdgeZones.Management
 commit: 069c4ebc4a886eec3b0fbee0f9181bf58d1c9baa
 repo: https://github.com/test-repo-billy/azure-rest-api-specs
 additionalDirectories:

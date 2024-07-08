@@ -6,8 +6,7 @@ package armmongocluster
 
 // FirewallRulesClientCreateOrUpdateResponse contains the response from method FirewallRulesClient.BeginCreateOrUpdate.
 type FirewallRulesClientCreateOrUpdateResponse struct {
-	// Represents a mongo cluster firewall rule.
-	FirewallRule
+	// placeholder for future response values
 }
 
 // FirewallRulesClientDeleteResponse contains the response from method FirewallRulesClient.BeginDelete.
@@ -82,8 +81,7 @@ type OperationsClientListResponse struct {
 
 // PrivateEndpointConnectionsClientCreateResponse contains the response from method PrivateEndpointConnectionsClient.BeginCreate.
 type PrivateEndpointConnectionsClientCreateResponse struct {
-	// Concrete proxy resource types can be created by aliasing this type using a specific property type.
-	PrivateEndpointConnectionResource
+	// placeholder for future response values
 }
 
 // PrivateEndpointConnectionsClientDeleteResponse contains the response from method PrivateEndpointConnectionsClient.BeginDelete.
