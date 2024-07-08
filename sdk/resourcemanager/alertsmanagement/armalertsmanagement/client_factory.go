@@ -55,6 +55,13 @@ func (c *ClientFactory) NewAlertRuleRecommendationsClient() *AlertRuleRecommenda
 // NewAlertsClient creates a new instance of AlertsClient.
 func (c *ClientFactory) NewAlertsClient() *AlertsClient {
 	return &AlertsClient{
+		internal: c.internal,
+	}
+}
+
+// NewCROSSClient creates a new instance of CROSSClient.
+func (c *ClientFactory) NewCROSSClient() *CROSSClient {
+	return &CROSSClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
@@ -80,12 +87,5 @@ func (c *ClientFactory) NewSmartGroupsClient() *SmartGroupsClient {
 	return &SmartGroupsClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
-	}
-}
-
-// NewTenantActivityLogAlertsClient creates a new instance of TenantActivityLogAlertsClient.
-func (c *ClientFactory) NewTenantActivityLogAlertsClient() *TenantActivityLogAlertsClient {
-	return &TenantActivityLogAlertsClient{
-		internal: c.internal,
 	}
 }
