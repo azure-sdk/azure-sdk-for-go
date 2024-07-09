@@ -484,9 +484,10 @@ type LinkedWorkspaceClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ModuleClientCreateOrUpdateOptions contains the optional parameters for the ModuleClient.CreateOrUpdate method.
-type ModuleClientCreateOrUpdateOptions struct {
-	// placeholder for future optional parameters
+// ModuleClientBeginCreateOrUpdateOptions contains the optional parameters for the ModuleClient.BeginCreateOrUpdate method.
+type ModuleClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // ModuleClientDeleteOptions contains the optional parameters for the ModuleClient.Delete method.
@@ -548,6 +549,34 @@ type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// PowerShell72ModuleClientBeginCreateOrUpdateOptions contains the optional parameters for the PowerShell72ModuleClient.BeginCreateOrUpdate
+// method.
+type PowerShell72ModuleClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// PowerShell72ModuleClientDeleteOptions contains the optional parameters for the PowerShell72ModuleClient.Delete method.
+type PowerShell72ModuleClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PowerShell72ModuleClientGetOptions contains the optional parameters for the PowerShell72ModuleClient.Get method.
+type PowerShell72ModuleClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PowerShell72ModuleClientListByAutomationAccountOptions contains the optional parameters for the PowerShell72ModuleClient.NewListByAutomationAccountPager
+// method.
+type PowerShell72ModuleClientListByAutomationAccountOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PowerShell72ModuleClientUpdateOptions contains the optional parameters for the PowerShell72ModuleClient.Update method.
+type PowerShell72ModuleClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
 // PrivateEndpointConnectionsClientBeginCreateOrUpdateOptions contains the optional parameters for the PrivateEndpointConnectionsClient.BeginCreateOrUpdate
 // method.
 type PrivateEndpointConnectionsClientBeginCreateOrUpdateOptions struct {
@@ -604,6 +633,34 @@ type Python2PackageClientListByAutomationAccountOptions struct {
 
 // Python2PackageClientUpdateOptions contains the optional parameters for the Python2PackageClient.Update method.
 type Python2PackageClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// Python3PackageClientBeginCreateOrUpdateOptions contains the optional parameters for the Python3PackageClient.BeginCreateOrUpdate
+// method.
+type Python3PackageClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// Python3PackageClientDeleteOptions contains the optional parameters for the Python3PackageClient.Delete method.
+type Python3PackageClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// Python3PackageClientGetOptions contains the optional parameters for the Python3PackageClient.Get method.
+type Python3PackageClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// Python3PackageClientListByAutomationAccountOptions contains the optional parameters for the Python3PackageClient.NewListByAutomationAccountPager
+// method.
+type Python3PackageClientListByAutomationAccountOptions struct {
+	// placeholder for future optional parameters
+}
+
+// Python3PackageClientUpdateOptions contains the optional parameters for the Python3PackageClient.Update method.
+type Python3PackageClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 

@@ -47,7 +47,7 @@ func NewClient(subscriptionID string, credential azcore.TokenCredential, options
 // ConvertGraphRunbookContent - Post operation to serialize or deserialize GraphRunbookContent
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-22
+// Generated from API version 2023-11-01
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - parameters - Input data describing the graphical runbook.
@@ -95,7 +95,7 @@ func (client *Client) convertGraphRunbookContentCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-22")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {

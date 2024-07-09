@@ -24,9 +24,9 @@ import (
 
 // ModuleServer is a fake server for instances of the armautomation.ModuleClient type.
 type ModuleServer struct {
-	// CreateOrUpdate is the fake for method ModuleClient.CreateOrUpdate
+	// BeginCreateOrUpdate is the fake for method ModuleClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	CreateOrUpdate func(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, parameters armautomation.ModuleCreateOrUpdateParameters, options *armautomation.ModuleClientCreateOrUpdateOptions) (resp azfake.Responder[armautomation.ModuleClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, parameters armautomation.ModuleCreateOrUpdateParameters, options *armautomation.ModuleClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armautomation.ModuleClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// Delete is the fake for method ModuleClient.Delete
 	// HTTP status codes to indicate success: http.StatusOK
@@ -51,6 +51,7 @@ type ModuleServer struct {
 func NewModuleServerTransport(srv *ModuleServer) *ModuleServerTransport {
 	return &ModuleServerTransport{
 		srv:                             srv,
+		beginCreateOrUpdate:             newTracker[azfake.PollerResponder[armautomation.ModuleClientCreateOrUpdateResponse]](),
 		newListByAutomationAccountPager: newTracker[azfake.PagerResponder[armautomation.ModuleClientListByAutomationAccountResponse]](),
 	}
 }
@@ -59,6 +60,7 @@ func NewModuleServerTransport(srv *ModuleServer) *ModuleServerTransport {
 // Don't use this type directly, use NewModuleServerTransport instead.
 type ModuleServerTransport struct {
 	srv                             *ModuleServer
+	beginCreateOrUpdate             *tracker[azfake.PollerResponder[armautomation.ModuleClientCreateOrUpdateResponse]]
 	newListByAutomationAccountPager *tracker[azfake.PagerResponder[armautomation.ModuleClientListByAutomationAccountResponse]]
 }
 
@@ -74,8 +76,8 @@ func (m *ModuleServerTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch method {
-	case "ModuleClient.CreateOrUpdate":
-		resp, err = m.dispatchCreateOrUpdate(req)
+	case "ModuleClient.BeginCreateOrUpdate":
+		resp, err = m.dispatchBeginCreateOrUpdate(req)
 	case "ModuleClient.Delete":
 		resp, err = m.dispatchDelete(req)
 	case "ModuleClient.Get":
@@ -95,44 +97,55 @@ func (m *ModuleServerTransport) Do(req *http.Request) (*http.Response, error) {
 	return resp, nil
 }
 
-func (m *ModuleServerTransport) dispatchCreateOrUpdate(req *http.Request) (*http.Response, error) {
-	if m.srv.CreateOrUpdate == nil {
-		return nil, &nonRetriableError{errors.New("fake for method CreateOrUpdate not implemented")}
+func (m *ModuleServerTransport) dispatchBeginCreateOrUpdate(req *http.Request) (*http.Response, error) {
+	if m.srv.BeginCreateOrUpdate == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginCreateOrUpdate not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Automation/automationAccounts/(?P<automationAccountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/modules/(?P<moduleName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 4 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	beginCreateOrUpdate := m.beginCreateOrUpdate.get(req)
+	if beginCreateOrUpdate == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Automation/automationAccounts/(?P<automationAccountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/modules/(?P<moduleName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 4 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armautomation.ModuleCreateOrUpdateParameters](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		automationAccountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("automationAccountName")])
+		if err != nil {
+			return nil, err
+		}
+		moduleNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("moduleName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := m.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, automationAccountNameParam, moduleNameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginCreateOrUpdate = &respr
+		m.beginCreateOrUpdate.add(req, beginCreateOrUpdate)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armautomation.ModuleCreateOrUpdateParameters](req)
+
+	resp, err := server.PollerResponderNext(beginCreateOrUpdate, req)
 	if err != nil {
 		return nil, err
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-	if err != nil {
-		return nil, err
+
+	if !contains([]int{http.StatusOK, http.StatusCreated}, resp.StatusCode) {
+		m.beginCreateOrUpdate.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", resp.StatusCode)}
 	}
-	automationAccountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("automationAccountName")])
-	if err != nil {
-		return nil, err
+	if !server.PollerResponderMore(beginCreateOrUpdate) {
+		m.beginCreateOrUpdate.remove(req)
 	}
-	moduleNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("moduleName")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := m.srv.CreateOrUpdate(req.Context(), resourceGroupNameParam, automationAccountNameParam, moduleNameParam, body, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK, http.StatusCreated}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Module, req)
-	if err != nil {
-		return nil, err
-	}
+
 	return resp, nil
 }
 

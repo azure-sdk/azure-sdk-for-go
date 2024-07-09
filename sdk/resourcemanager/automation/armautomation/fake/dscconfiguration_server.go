@@ -43,7 +43,7 @@ type DscConfigurationServer struct {
 	Get func(ctx context.Context, resourceGroupName string, automationAccountName string, configurationName string, options *armautomation.DscConfigurationClientGetOptions) (resp azfake.Responder[armautomation.DscConfigurationClientGetResponse], errResp azfake.ErrorResponder)
 
 	// GetContent is the fake for method DscConfigurationClient.GetContent
-	// HTTP status codes to indicate success: http.StatusOK
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated, http.StatusAccepted, http.StatusNoContent
 	GetContent func(ctx context.Context, resourceGroupName string, automationAccountName string, configurationName string, options *armautomation.DscConfigurationClientGetContentOptions) (resp azfake.Responder[armautomation.DscConfigurationClientGetContentResponse], errResp azfake.ErrorResponder)
 
 	// NewListByAutomationAccountPager is the fake for method DscConfigurationClient.NewListByAutomationAccountPager
@@ -298,10 +298,10 @@ func (d *DscConfigurationServerTransport) dispatchGetContent(req *http.Request) 
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	if !contains([]int{http.StatusOK, http.StatusCreated, http.StatusAccepted, http.StatusNoContent}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated, http.StatusAccepted, http.StatusNoContent", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsText(respContent, server.GetResponse(respr).Value, req)
+	resp, err := server.NewResponse(respContent, req, nil)
 	if err != nil {
 		return nil, err
 	}
