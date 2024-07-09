@@ -67,6 +67,29 @@ type AccessClientListUsersResponse struct {
 	AccessListUsersSuccessResponse
 }
 
+// ConnectorClientCreateOrUpdateResponse contains the response from method ConnectorClient.CreateOrUpdate.
+type ConnectorClientCreateOrUpdateResponse struct {
+	// Details of connector record
+	ConnectorResource
+}
+
+// ConnectorClientDeleteResponse contains the response from method ConnectorClient.BeginDelete.
+type ConnectorClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ConnectorClientGetResponse contains the response from method ConnectorClient.Get.
+type ConnectorClientGetResponse struct {
+	// Details of connector record
+	ConnectorResource
+}
+
+// ConnectorClientListResponse contains the response from method ConnectorClient.NewListPager.
+type ConnectorClientListResponse struct {
+	// Result of GET request to list connectors in the cluster of a confluent organization
+	ListConnectorsSuccessResponse
+}
+
 // MarketplaceAgreementsClientCreateResponse contains the response from method MarketplaceAgreementsClient.Create.
 type MarketplaceAgreementsClientCreateResponse struct {
 	// Agreement Terms definition
@@ -177,6 +200,12 @@ type OrganizationClientUpdateResponse struct {
 type OrganizationOperationsClientListResponse struct {
 	// Result of GET request to list Confluent operations.
 	OperationListResult
+}
+
+// TopicsClientListResponse contains the response from method TopicsClient.NewListPager.
+type TopicsClientListResponse struct {
+	// Result of GET request to list topics in the cluster of a confluent organization
+	ListTopicsSuccessResponse
 }
 
 // ValidationsClientValidateOrganizationResponse contains the response from method ValidationsClient.ValidateOrganization.

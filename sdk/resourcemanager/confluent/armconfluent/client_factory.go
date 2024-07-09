@@ -44,6 +44,14 @@ func (c *ClientFactory) NewAccessClient() *AccessClient {
 	}
 }
 
+// NewConnectorClient creates a new instance of ConnectorClient.
+func (c *ClientFactory) NewConnectorClient() *ConnectorClient {
+	return &ConnectorClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewMarketplaceAgreementsClient creates a new instance of MarketplaceAgreementsClient.
 func (c *ClientFactory) NewMarketplaceAgreementsClient() *MarketplaceAgreementsClient {
 	return &MarketplaceAgreementsClient{
@@ -64,6 +72,14 @@ func (c *ClientFactory) NewOrganizationClient() *OrganizationClient {
 func (c *ClientFactory) NewOrganizationOperationsClient() *OrganizationOperationsClient {
 	return &OrganizationOperationsClient{
 		internal: c.internal,
+	}
+}
+
+// NewTopicsClient creates a new instance of TopicsClient.
+func (c *ClientFactory) NewTopicsClient() *TopicsClient {
+	return &TopicsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
 	}
 }
 

@@ -1,5 +1,50 @@
 # Release History
 
+## 1.4.0 (2024-07-09)
+### Features Added
+
+- New enum type `AuthType` with values `AuthTypeKAFKAAPIKEY`, `AuthTypeSERVICEACCOUNT`
+- New enum type `ConnectorClass` with values `ConnectorClassAZUREBLOBSINK`, `ConnectorClassAZUREBLOBSOURCE`
+- New enum type `ConnectorServiceType` with values `ConnectorServiceTypeAzureBlobStorageSinkConnector`, `ConnectorServiceTypeAzureBlobStorageSourceConnector`
+- New enum type `ConnectorStatus` with values `ConnectorStatusFAILED`, `ConnectorStatusPAUSED`, `ConnectorStatusPROVISIONING`, `ConnectorStatusRUNNING`
+- New enum type `ConnectorType` with values `ConnectorTypeSINK`, `ConnectorTypeSOURCE`
+- New enum type `DataFormatType` with values `DataFormatTypeAVRO`, `DataFormatTypeBYTES`, `DataFormatTypeJSON`, `DataFormatTypePROTOBUF`, `DataFormatTypeSTRING`
+- New enum type `PartnerConnectorType` with values `PartnerConnectorTypeKafkaAzureBlobStorageSink`, `PartnerConnectorTypeKafkaAzureBlobStorageSource`
+- New function `*AzureBlobStorageSinkConnectorServiceInfo.GetConnectorServiceTypeInfoBase() *ConnectorServiceTypeInfoBase`
+- New function `*AzureBlobStorageSourceConnectorServiceInfo.GetConnectorServiceTypeInfoBase() *ConnectorServiceTypeInfoBase`
+- New function `*ClientFactory.NewConnectorClient() *ConnectorClient`
+- New function `*ClientFactory.NewTopicsClient() *TopicsClient`
+- New function `NewConnectorClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectorClient, error)`
+- New function `*ConnectorClient.CreateOrUpdate(context.Context, string, string, string, string, string, *ConnectorClientCreateOrUpdateOptions) (ConnectorClientCreateOrUpdateResponse, error)`
+- New function `*ConnectorClient.BeginDelete(context.Context, string, string, string, string, string, *ConnectorClientBeginDeleteOptions) (*runtime.Poller[ConnectorClientDeleteResponse], error)`
+- New function `*ConnectorClient.Get(context.Context, string, string, string, string, string, *ConnectorClientGetOptions) (ConnectorClientGetResponse, error)`
+- New function `*ConnectorClient.NewListPager(string, string, string, string, *ConnectorClientListOptions) *runtime.Pager[ConnectorClientListResponse]`
+- New function `*ConnectorServiceTypeInfoBase.GetConnectorServiceTypeInfoBase() *ConnectorServiceTypeInfoBase`
+- New function `*KafkaAzureBlobStorageSinkConnectorInfo.GetPartnerInfoBase() *PartnerInfoBase`
+- New function `*KafkaAzureBlobStorageSourceConnectorInfo.GetPartnerInfoBase() *PartnerInfoBase`
+- New function `*PartnerInfoBase.GetPartnerInfoBase() *PartnerInfoBase`
+- New function `NewTopicsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*TopicsClient, error)`
+- New function `*TopicsClient.NewListPager(string, string, string, string, *TopicsClientListOptions) *runtime.Pager[TopicsClientListResponse]`
+- New struct `AzureBlobStorageSinkConnectorServiceInfo`
+- New struct `AzureBlobStorageSourceConnectorServiceInfo`
+- New struct `ConnectorInfoBase`
+- New struct `ConnectorResource`
+- New struct `ConnectorResourceProperties`
+- New struct `ErrorAdditionalInfo`
+- New struct `ErrorDetail`
+- New struct `ErrorResponse`
+- New struct `KafkaAzureBlobStorageSinkConnectorInfo`
+- New struct `KafkaAzureBlobStorageSourceConnectorInfo`
+- New struct `ListConnectorsSuccessResponse`
+- New struct `ListTopicsSuccessResponse`
+- New struct `ProxyResource`
+- New struct `Resource`
+- New struct `TopicMetadataEntity`
+- New struct `TopicProperties`
+- New struct `TopicRecord`
+- New struct `TopicsRelatedLink`
+
+
 ## 1.3.0 (2024-03-22)
 ### Features Added
 

@@ -10,8 +10,92 @@ package armconfluent
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/confluent/armconfluent"
-	moduleVersion = "v1.3.0"
+	moduleVersion = "v1.4.0"
 )
+
+// AuthType - Kafka Connector Auth Type
+type AuthType string
+
+const (
+	AuthTypeKAFKAAPIKEY    AuthType = "KAFKA_API_KEY"
+	AuthTypeSERVICEACCOUNT AuthType = "SERVICE_ACCOUNT"
+)
+
+// PossibleAuthTypeValues returns the possible values for the AuthType const type.
+func PossibleAuthTypeValues() []AuthType {
+	return []AuthType{
+		AuthTypeKAFKAAPIKEY,
+		AuthTypeSERVICEACCOUNT,
+	}
+}
+
+// ConnectorClass - Connector Class
+type ConnectorClass string
+
+const (
+	ConnectorClassAZUREBLOBSINK   ConnectorClass = "AZUREBLOBSINK"
+	ConnectorClassAZUREBLOBSOURCE ConnectorClass = "AZUREBLOBSOURCE"
+)
+
+// PossibleConnectorClassValues returns the possible values for the ConnectorClass const type.
+func PossibleConnectorClassValues() []ConnectorClass {
+	return []ConnectorClass{
+		ConnectorClassAZUREBLOBSINK,
+		ConnectorClassAZUREBLOBSOURCE,
+	}
+}
+
+// ConnectorServiceType - The connector service type.
+type ConnectorServiceType string
+
+const (
+	ConnectorServiceTypeAzureBlobStorageSinkConnector   ConnectorServiceType = "AzureBlobStorageSinkConnector"
+	ConnectorServiceTypeAzureBlobStorageSourceConnector ConnectorServiceType = "AzureBlobStorageSourceConnector"
+)
+
+// PossibleConnectorServiceTypeValues returns the possible values for the ConnectorServiceType const type.
+func PossibleConnectorServiceTypeValues() []ConnectorServiceType {
+	return []ConnectorServiceType{
+		ConnectorServiceTypeAzureBlobStorageSinkConnector,
+		ConnectorServiceTypeAzureBlobStorageSourceConnector,
+	}
+}
+
+// ConnectorStatus - Connector Status
+type ConnectorStatus string
+
+const (
+	ConnectorStatusFAILED       ConnectorStatus = "FAILED"
+	ConnectorStatusPAUSED       ConnectorStatus = "PAUSED"
+	ConnectorStatusPROVISIONING ConnectorStatus = "PROVISIONING"
+	ConnectorStatusRUNNING      ConnectorStatus = "RUNNING"
+)
+
+// PossibleConnectorStatusValues returns the possible values for the ConnectorStatus const type.
+func PossibleConnectorStatusValues() []ConnectorStatus {
+	return []ConnectorStatus{
+		ConnectorStatusFAILED,
+		ConnectorStatusPAUSED,
+		ConnectorStatusPROVISIONING,
+		ConnectorStatusRUNNING,
+	}
+}
+
+// ConnectorType - Connector Type
+type ConnectorType string
+
+const (
+	ConnectorTypeSINK   ConnectorType = "SINK"
+	ConnectorTypeSOURCE ConnectorType = "SOURCE"
+)
+
+// PossibleConnectorTypeValues returns the possible values for the ConnectorType const type.
+func PossibleConnectorTypeValues() []ConnectorType {
+	return []ConnectorType{
+		ConnectorTypeSINK,
+		ConnectorTypeSOURCE,
+	}
+}
 
 // CreatedByType - The type of identity that created the resource.
 type CreatedByType string
@@ -30,6 +114,44 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 		CreatedByTypeKey,
 		CreatedByTypeManagedIdentity,
 		CreatedByTypeUser,
+	}
+}
+
+// DataFormatType - Data Format Type
+type DataFormatType string
+
+const (
+	DataFormatTypeAVRO     DataFormatType = "AVRO"
+	DataFormatTypeBYTES    DataFormatType = "BYTES"
+	DataFormatTypeJSON     DataFormatType = "JSON"
+	DataFormatTypePROTOBUF DataFormatType = "PROTOBUF"
+	DataFormatTypeSTRING   DataFormatType = "STRING"
+)
+
+// PossibleDataFormatTypeValues returns the possible values for the DataFormatType const type.
+func PossibleDataFormatTypeValues() []DataFormatType {
+	return []DataFormatType{
+		DataFormatTypeAVRO,
+		DataFormatTypeBYTES,
+		DataFormatTypeJSON,
+		DataFormatTypePROTOBUF,
+		DataFormatTypeSTRING,
+	}
+}
+
+// PartnerConnectorType - Partner Connector type.
+type PartnerConnectorType string
+
+const (
+	PartnerConnectorTypeKafkaAzureBlobStorageSink   PartnerConnectorType = "KafkaAzureBlobStorageSink"
+	PartnerConnectorTypeKafkaAzureBlobStorageSource PartnerConnectorType = "KafkaAzureBlobStorageSource"
+)
+
+// PossiblePartnerConnectorTypeValues returns the possible values for the PartnerConnectorType const type.
+func PossiblePartnerConnectorTypeValues() []PartnerConnectorType {
+	return []PartnerConnectorType{
+		PartnerConnectorTypeKafkaAzureBlobStorageSink,
+		PartnerConnectorTypeKafkaAzureBlobStorageSource,
 	}
 }
 

@@ -59,6 +59,32 @@ type AccessClientListUsersOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ConnectorClientBeginDeleteOptions contains the optional parameters for the ConnectorClient.BeginDelete method.
+type ConnectorClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ConnectorClientCreateOrUpdateOptions contains the optional parameters for the ConnectorClient.CreateOrUpdate method.
+type ConnectorClientCreateOrUpdateOptions struct {
+	// Confluent Connector resource model
+	Body *ConnectorResource
+}
+
+// ConnectorClientGetOptions contains the optional parameters for the ConnectorClient.Get method.
+type ConnectorClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ConnectorClientListOptions contains the optional parameters for the ConnectorClient.NewListPager method.
+type ConnectorClientListOptions struct {
+	// Pagination size
+	PageSize *int32
+
+	// An opaque pagination token to fetch the next set of records
+	PageToken *string
+}
+
 // MarketplaceAgreementsClientCreateOptions contains the optional parameters for the MarketplaceAgreementsClient.Create method.
 type MarketplaceAgreementsClientCreateOptions struct {
 	// Confluent Marketplace Agreement resource
@@ -182,6 +208,15 @@ type OrganizationClientUpdateOptions struct {
 // method.
 type OrganizationOperationsClientListOptions struct {
 	// placeholder for future optional parameters
+}
+
+// TopicsClientListOptions contains the optional parameters for the TopicsClient.NewListPager method.
+type TopicsClientListOptions struct {
+	// Pagination size
+	PageSize *int32
+
+	// An opaque pagination token to fetch the next set of records
+	PageToken *string
 }
 
 // ValidationsClientValidateOrganizationOptions contains the optional parameters for the ValidationsClient.ValidateOrganization

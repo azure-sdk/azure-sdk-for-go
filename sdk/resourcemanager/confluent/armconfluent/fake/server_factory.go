@@ -20,9 +20,11 @@ import (
 // ServerFactory is a fake server for instances of the armconfluent.ClientFactory type.
 type ServerFactory struct {
 	AccessServer                 AccessServer
+	ConnectorServer              ConnectorServer
 	MarketplaceAgreementsServer  MarketplaceAgreementsServer
 	OrganizationServer           OrganizationServer
 	OrganizationOperationsServer OrganizationOperationsServer
+	TopicsServer                 TopicsServer
 	ValidationsServer            ValidationsServer
 }
 
@@ -41,9 +43,11 @@ type ServerFactoryTransport struct {
 	srv                            *ServerFactory
 	trMu                           sync.Mutex
 	trAccessServer                 *AccessServerTransport
+	trConnectorServer              *ConnectorServerTransport
 	trMarketplaceAgreementsServer  *MarketplaceAgreementsServerTransport
 	trOrganizationServer           *OrganizationServerTransport
 	trOrganizationOperationsServer *OrganizationOperationsServerTransport
+	trTopicsServer                 *TopicsServerTransport
 	trValidationsServer            *ValidationsServerTransport
 }
 
@@ -63,6 +67,9 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "AccessClient":
 		initServer(s, &s.trAccessServer, func() *AccessServerTransport { return NewAccessServerTransport(&s.srv.AccessServer) })
 		resp, err = s.trAccessServer.Do(req)
+	case "ConnectorClient":
+		initServer(s, &s.trConnectorServer, func() *ConnectorServerTransport { return NewConnectorServerTransport(&s.srv.ConnectorServer) })
+		resp, err = s.trConnectorServer.Do(req)
 	case "MarketplaceAgreementsClient":
 		initServer(s, &s.trMarketplaceAgreementsServer, func() *MarketplaceAgreementsServerTransport {
 			return NewMarketplaceAgreementsServerTransport(&s.srv.MarketplaceAgreementsServer)
@@ -76,6 +83,9 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewOrganizationOperationsServerTransport(&s.srv.OrganizationOperationsServer)
 		})
 		resp, err = s.trOrganizationOperationsServer.Do(req)
+	case "TopicsClient":
+		initServer(s, &s.trTopicsServer, func() *TopicsServerTransport { return NewTopicsServerTransport(&s.srv.TopicsServer) })
+		resp, err = s.trTopicsServer.Do(req)
 	case "ValidationsClient":
 		initServer(s, &s.trValidationsServer, func() *ValidationsServerTransport { return NewValidationsServerTransport(&s.srv.ValidationsServer) })
 		resp, err = s.trValidationsServer.Do(req)
