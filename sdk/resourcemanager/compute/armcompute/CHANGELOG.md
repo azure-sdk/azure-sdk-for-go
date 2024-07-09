@@ -1,5 +1,21 @@
 # Release History
 
+## 6.0.0 (2024-07-09)
+### Breaking Changes
+
+- Type of `SecurityPostureReference.ExcludeExtensions` has been changed from `[]*VirtualMachineExtension` to `[]*string`
+- Field `Mode` of struct `ProxyAgentSettings` has been removed
+
+### Features Added
+
+- New value `ModeDisabled` added to enum type `Mode`
+- New struct `HostEndpointSettings`
+- New struct `SecurityPostureReferenceUpdate`
+- New field `Imds`, `WireServer` in struct `ProxyAgentSettings`
+- New field `IsOverridable` in struct `SecurityPostureReference`
+- New field `SecurityPostureReference` in struct `VirtualMachineScaleSetUpdateVMProfile`
+
+
 ## 5.7.0 (2024-04-26)
 ### Features Added
 

@@ -368,7 +368,7 @@ type CapacityReservationGroupInstanceView struct {
 	// READ-ONLY; List of instance view of the capacity reservations under the capacity reservation group.
 	CapacityReservations []*CapacityReservationInstanceViewWithName
 
-	// READ-ONLY; List of the subscriptions that the capacity reservation group is shared with. Note: Minimum api-version: 2024-03-01.
+	// READ-ONLY; List of the subscriptions that the capacity reservation group is shared with. Note: Minimum api-version: 2023-09-01.
 	// Please refer to https://aka.ms/computereservationsharing for more details.
 	SharedSubscriptionIDs []*SubResourceReadOnly
 }
@@ -388,7 +388,7 @@ type CapacityReservationGroupProperties struct {
 	// Specifies the settings to enable sharing across subscriptions for the capacity reservation group resource. Pls. keep in
 	// mind the capacity reservation group resource generally can be shared across
 	// subscriptions belonging to a single azure AAD tenant or cross AAD tenant if there is a trust relationship established between
-	// the AAD tenants. Note: Minimum api-version: 2024-03-01. Please refer to
+	// the AAD tenants. Note: Minimum api-version: 2023-09-01. Please refer to
 	// https://aka.ms/computereservationsharing for more details.
 	SharingProfile *ResourceSharingProfile
 
@@ -2844,6 +2844,18 @@ type HardwareProfile struct {
 	VMSizeProperties *VMSizeProperties
 }
 
+// HostEndpointSettings - Specifies particular host endpoint settings.
+type HostEndpointSettings struct {
+	// Specifies the InVMAccessControlProfileVersion resource id on the form of
+	// /subscriptions/{SubscriptionId}/resourceGroups/{ResourceGroupName}/providers/Microsoft.Compute/galleries/{galleryName}/inVMAccessControlProfiles/{profile}/versions/{version}
+	InVMAccessControlProfileReferenceID *string
+
+	// Specifies the execution mode. In Audit mode, the system acts as if it is enforcing the access control policy, including
+	// emitting access denial entries in the logs but it does not actually deny any
+	// requests to host endpoints. Enforce mode is the recommended mode of operation and system will enforce the access control.
+	Mode *Mode
+}
+
 // Image - The source user image virtual hard disk. The virtual hard disk will be copied before being attached to the virtual
 // machine. If SourceImage is provided, the destination virtual hard drive must not
 // exist.
@@ -4101,19 +4113,23 @@ type ProximityPlacementGroupUpdate struct {
 	Tags map[string]*string
 }
 
-// ProxyAgentSettings - Specifies ProxyAgent settings while creating the virtual machine. Minimum api-version: 2024-03-01.
+// ProxyAgentSettings - Specifies ProxyAgent settings for the virtual machine or virtual machine scale set. Minimum api-version:
+// 2023-09-01.
 type ProxyAgentSettings struct {
 	// Specifies whether ProxyAgent feature should be enabled on the virtual machine or virtual machine scale set.
 	Enabled *bool
+
+	// Specifies the IMDS endpoint settings while creating the virtual machine or virtual machine scale set. Minimum api-version:
+	// 2024-03-01.
+	Imds *HostEndpointSettings
 
 	// Increase the value of this property allows user to reset the key used for securing communication channel between guest
 	// and host.
 	KeyIncarnationID *int32
 
-	// Specifies the mode that ProxyAgent will execute on if the feature is enabled. ProxyAgent will start to audit or monitor
-	// but not enforce access control over requests to host endpoints in Audit mode,
-	// while in Enforce mode it will enforce access control. The default value is Enforce mode.
-	Mode *Mode
+	// Specifies the WireServer endpoint settings while creating the virtual machine or virtual machine scale set. Minimum api-version:
+	// 2024-03-01.
+	WireServer *HostEndpointSettings
 }
 
 // ProxyOnlyResource - The ProxyOnly Resource model definition.
@@ -4458,7 +4474,7 @@ type ResourceSKUsResult struct {
 
 type ResourceSharingProfile struct {
 	// Specifies an array of subscription resource IDs that capacity reservation group is shared with. Note: Minimum api-version:
-	// 2024-03-01. Please refer to https://aka.ms/computereservationsharing for more
+	// 2023-09-01. Please refer to https://aka.ms/computereservationsharing for more
 	// details.
 	SubscriptionIDs []*SubResource
 }
@@ -5174,14 +5190,28 @@ type ScheduledEventsProfile struct {
 	TerminateNotificationProfile *TerminateNotificationProfile
 }
 
-// SecurityPostureReference - Specifies the security posture to be used for all virtual machines in the scale set. Minimum
-// api-version: 2023-03-01
+// SecurityPostureReference - Specifies the security posture to be used in the scale set. Minimum api-version: 2023-03-01
 type SecurityPostureReference struct {
-	// List of virtual machine extensions to exclude when applying the Security Posture.
-	ExcludeExtensions []*VirtualMachineExtension
-
-	// The security posture reference id in the form of /CommunityGalleries/{communityGalleryName}/securityPostures/{securityPostureName}/versions/{major.minor.patch}|{major.*}|latest
+	// REQUIRED; The security posture reference id in the form of /CommunityGalleries/{communityGalleryName}/securityPostures/{securityPostureName}/versions/{major.minor.patch}|latest
 	ID *string
+
+	// The list of virtual machine extension names to exclude when applying the security posture.
+	ExcludeExtensions []*string
+
+	// Whether the security posture can be overridden by the user.
+	IsOverridable *bool
+}
+
+// SecurityPostureReferenceUpdate - Specifies the security posture to be used in the scale set. Minimum api-version: 2023-03-01
+type SecurityPostureReferenceUpdate struct {
+	// The list of virtual machine extension names to exclude when applying the security posture.
+	ExcludeExtensions []*string
+
+	// The security posture reference id in the form of /CommunityGalleries/{communityGalleryName}/securityPostures/{securityPostureName}/versions/{major.minor.patch}|latest
+	ID *string
+
+	// Whether the security posture can be overridden by the user.
+	IsOverridable *bool
 }
 
 // SecurityProfile - Specifies the Security profile settings for the virtual machine or virtual machine scale set.
@@ -5195,7 +5225,7 @@ type SecurityProfile struct {
 	// Specifies the Managed Identity used by ADE to get access token for keyvault operations.
 	EncryptionIdentity *EncryptionIdentity
 
-	// Specifies ProxyAgent settings while creating the virtual machine. Minimum api-version: 2024-03-01.
+	// Specifies ProxyAgent settings for the virtual machine or virtual machine scale set. Minimum api-version: 2023-09-01.
 	ProxyAgentSettings *ProxyAgentSettings
 
 	// Specifies the SecurityType of the virtual machine. It has to be set to any specified value to enable UefiSettings. The
@@ -8089,6 +8119,9 @@ type VirtualMachineScaleSetUpdateVMProfile struct {
 	// Specifies Scheduled Event related configurations.
 	ScheduledEventsProfile *ScheduledEventsProfile
 
+	// The virtual machine scale set security posture reference.
+	SecurityPostureReference *SecurityPostureReferenceUpdate
+
 	// The virtual machine scale set Security profile
 	SecurityProfile *SecurityProfile
 
@@ -8333,7 +8366,7 @@ type VirtualMachineScaleSetVMProfile struct {
 	// Specifies Scheduled Event related configurations.
 	ScheduledEventsProfile *ScheduledEventsProfile
 
-	// Specifies the security posture to be used for all virtual machines in the scale set. Minimum api-version: 2023-03-01
+	// Specifies the security posture to be used in the scale set. Minimum api-version: 2023-03-01
 	SecurityPostureReference *SecurityPostureReference
 
 	// Specifies the Security related profile settings for the virtual machines in the scale set.
@@ -8350,9 +8383,9 @@ type VirtualMachineScaleSetVMProfile struct {
 	// in here. Minimum api-version: 2021-03-01.
 	UserData *string
 
-	// READ-ONLY; Specifies the time in which this VM profile for the Virtual Machine Scale Set was created. Minimum API version
-	// for this property is 2024-03-01. This value will be added to VMSS Flex VM tags when
-	// creating/updating the VMSS VM Profile with minimum api-version 2024-03-01.
+	// READ-ONLY; Specifies the time in which this VM profile for the Virtual Machine Scale Set was created. This value will be
+	// added to VMSS Flex VM tags when creating/updating the VMSS VM Profile. Minimum API version
+	// for this property is 2023-09-01.
 	TimeCreated *time.Time
 }
 
@@ -8408,8 +8441,8 @@ type VirtualMachineScaleSetVMProperties struct {
 	// Specifies the storage settings for the virtual machine disks.
 	StorageProfile *StorageProfile
 
-	// UserData for the VM, which must be base-64 encoded. Customer should not pass any secrets in here.
-	// Minimum api-version: 2021-03-01
+	// UserData for the VM, which must be base-64 encoded. Customer should not pass any secrets in here. Minimum api-version:
+	// 2021-03-01
 	UserData *string
 
 	// READ-ONLY; The virtual machine instance view.
@@ -8425,8 +8458,7 @@ type VirtualMachineScaleSetVMProperties struct {
 	// READ-ONLY; The provisioning state, which only appears in the response.
 	ProvisioningState *string
 
-	// READ-ONLY; Specifies the time at which the Virtual Machine resource was created.
-	// Minimum api-version: 2021-11-01.
+	// READ-ONLY; Specifies the time at which the Virtual Machine resource was created. Minimum api-version: 2021-11-01.
 	TimeCreated *time.Time
 
 	// READ-ONLY; Azure VM unique ID.
