@@ -1,5 +1,18 @@
 # Release History
 
+## 8.1.0 (2024-07-09)
+### Features Added
+
+- New value `SQLServerAuthenticationTypeUserAssignedManagedIdentity` added to enum type `SQLServerAuthenticationType`
+- New struct `ContinuationSettingsReference`
+- New field `ContinuationSettings` in struct `ExecuteDataFlowActivityTypeProperties`
+- New field `ContinuationSettings` in struct `ExecutePowerQueryActivityTypeProperties`
+- New field `Credential` in struct `SQLServerLinkedServiceTypeProperties`
+- New field `ServicePrincipalCredential`, `ServicePrincipalCredentialType` in struct `SharePointOnlineListLinkedServiceTypeProperties`
+- New field `StorageIntegration` in struct `SnowflakeExportCopyCommand`
+- New field `StorageIntegration` in struct `SnowflakeImportCopyCommand`
+
+
 ## 8.0.0 (2024-06-05)
 ### Breaking Changes
 

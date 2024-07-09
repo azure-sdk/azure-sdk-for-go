@@ -7406,6 +7406,18 @@ type ConnectionStateProperties struct {
 	Status *string
 }
 
+// ContinuationSettingsReference - Continuation settings for execute data flow activity.
+type ContinuationSettingsReference struct {
+	// Continuation TTL in minutes.
+	ContinuationTTLInMinutes any
+
+	// Customized checkpoint key.
+	CustomizedCheckpointKey any
+
+	// Idle condition.
+	IdleCondition any
+}
+
 // ControlActivity - Base class for all control activities like IfCondition, ForEach , Until.
 type ControlActivity struct {
 	// REQUIRED; Activity name.
@@ -11342,6 +11354,9 @@ type ExecuteDataFlowActivityTypeProperties struct {
 	// Compute properties for data flow activity.
 	Compute *ExecuteDataFlowActivityTypePropertiesCompute
 
+	// Continuation settings for execute data flow activity.
+	ContinuationSettings *ContinuationSettingsReference
+
 	// Continue on error setting used for data flow execution. Enables processing to continue if a sink fails. Type: boolean (or
 	// Expression with resultType boolean)
 	ContinueOnError any
@@ -11465,6 +11480,9 @@ type ExecutePowerQueryActivityTypeProperties struct {
 
 	// Compute properties for data flow activity.
 	Compute *ExecuteDataFlowActivityTypePropertiesCompute
+
+	// Continuation settings for execute data flow activity.
+	ContinuationSettings *ContinuationSettingsReference
 
 	// Continue on error setting used for data flow execution. Enables processing to continue if a sink fails. Type: boolean (or
 	// Expression with resultType boolean)
@@ -23984,6 +24002,9 @@ type SQLServerLinkedServiceTypeProperties struct {
 	// The connection string. Type: string, SecureString or AzureKeyVaultSecretReference.
 	ConnectionString any
 
+	// The credential reference containing authentication information.
+	Credential *CredentialReference
+
 	// The name of the database, used by recommended version. Type: string (or Expression with resultType string).
 	Database any
 
@@ -28304,10 +28325,6 @@ type SharePointOnlineListLinkedServiceTypeProperties struct {
 	// string).
 	ServicePrincipalID any
 
-	// REQUIRED; The client secret of your application registered in Azure Active Directory. Type: string (or Expression with
-	// resultType string).
-	ServicePrincipalKey SecretBaseClassification
-
 	// REQUIRED; The URL of the SharePoint Online site. For example, https://contoso.sharepoint.com/sites/siteName. Type: string
 	// (or Expression with resultType string).
 	SiteURL any
@@ -28319,6 +28336,21 @@ type SharePointOnlineListLinkedServiceTypeProperties struct {
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
 	// Type: string.
 	EncryptedCredential *string
+
+	// The credential of the service principal object in Azure Active Directory. If servicePrincipalCredentialType is 'ServicePrincipalKey',
+	// servicePrincipalCredential can be SecureString or
+	// AzureKeyVaultSecretReference. If servicePrincipalCredentialType is 'ServicePrincipalCert', servicePrincipalCredential can
+	// only be AzureKeyVaultSecretReference.
+	ServicePrincipalCredential SecretBaseClassification
+
+	// The service principal credential type to use in Server-To-Server authentication. 'ServicePrincipalKey' for key/secret,
+	// 'ServicePrincipalCert' for certificate. Type: string (or Expression with
+	// resultType string).
+	ServicePrincipalCredentialType any
+
+	// The client secret of your application registered in Azure Active Directory. Type: string (or Expression with resultType
+	// string).
+	ServicePrincipalKey SecretBaseClassification
 }
 
 // SharePointOnlineListResourceDataset - The sharepoint online list resource dataset.
@@ -28708,6 +28740,10 @@ type SnowflakeExportCopyCommand struct {
 
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
 	AdditionalProperties map[string]any
+
+	// The name of the snowflake storage integration to use for the copy operation. Type: string (or Expression with resultType
+	// string).
+	StorageIntegration any
 }
 
 // GetExportSettings implements the ExportSettingsClassification interface for type SnowflakeExportCopyCommand.
@@ -28735,6 +28771,10 @@ type SnowflakeImportCopyCommand struct {
 
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
 	AdditionalProperties map[string]any
+
+	// The name of the snowflake storage integration to use for the copy operation. Type: string (or Expression with resultType
+	// string).
+	StorageIntegration any
 }
 
 // GetImportSettings implements the ImportSettingsClassification interface for type SnowflakeImportCopyCommand.
