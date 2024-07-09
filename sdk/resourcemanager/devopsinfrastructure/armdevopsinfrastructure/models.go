@@ -324,6 +324,15 @@ type OsProfile struct {
 	SecretsManagementSettings *SecretsManagementSettings
 }
 
+// PagedQuota - Paged collection of Quota items
+type PagedQuota struct {
+	// REQUIRED; The Quota items on this page
+	Value []*Quota
+
+	// The link to the next page of items
+	NextLink *string
+}
+
 // Pool - Concrete tracked resource types can be created by aliasing this type using a specific property type.
 type Pool struct {
 	// REQUIRED; The geo-location where the resource lives
@@ -431,29 +440,20 @@ type PoolUpdateProperties struct {
 
 // Quota - Describes Resource Quota
 type Quota struct {
-	// The resource-specific properties for this resource.
-	Properties *QuotaProperties
+	// REQUIRED; The current usage of the resource.
+	CurrentValue *int64
 
-	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	// REQUIRED; Fully qualified ARM resource id
 	ID *string
 
-	// READ-ONLY; The name of the resource
-	Name *string
+	// REQUIRED; The maximum permitted usage of the resource.
+	Limit *int64
 
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
+	// REQUIRED; The unit of usage measurement.
+	Unit *string
 
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// QuotaListResult - The response of a Quota list operation.
-type QuotaListResult struct {
-	// REQUIRED; The Quota items on this page
-	Value []*Quota
-
-	// The link to the next page of items
-	NextLink *string
+	// READ-ONLY; The name of the quota.
+	Name *QuotaName
 }
 
 // QuotaName - The Quota Names
@@ -463,21 +463,6 @@ type QuotaName struct {
 
 	// The name of the resource.
 	Value *string
-}
-
-// QuotaProperties - Describes Resource Quota properties
-type QuotaProperties struct {
-	// REQUIRED; The current usage of the resource.
-	CurrentValue *int64
-
-	// REQUIRED; The maximum permitted usage of the resource.
-	Limit *int64
-
-	// REQUIRED; The details of the quota.
-	Name *QuotaName
-
-	// REQUIRED; The unit of usage measurement.
-	Unit *string
 }
 
 // ResourceDetailsObject - A ResourceDetailsObject
