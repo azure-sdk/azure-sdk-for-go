@@ -26,19 +26,19 @@ import (
 type TenantConfigurationsServer struct {
 	// Create is the fake for method TenantConfigurationsClient.Create
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	Create func(ctx context.Context, configurationName armportal.ConfigurationName, tenantConfiguration armportal.Configuration, options *armportal.TenantConfigurationsClientCreateOptions) (resp azfake.Responder[armportal.TenantConfigurationsClientCreateResponse], errResp azfake.ErrorResponder)
+	Create func(ctx context.Context, configurationName string, resource armportal.TenantConfiguration, options *armportal.TenantConfigurationsClientCreateOptions) (resp azfake.Responder[armportal.TenantConfigurationsClientCreateResponse], errResp azfake.ErrorResponder)
 
 	// Delete is the fake for method TenantConfigurationsClient.Delete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
-	Delete func(ctx context.Context, configurationName armportal.ConfigurationName, options *armportal.TenantConfigurationsClientDeleteOptions) (resp azfake.Responder[armportal.TenantConfigurationsClientDeleteResponse], errResp azfake.ErrorResponder)
+	Delete func(ctx context.Context, configurationName string, options *armportal.TenantConfigurationsClientDeleteOptions) (resp azfake.Responder[armportal.TenantConfigurationsClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method TenantConfigurationsClient.Get
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusNotFound
-	Get func(ctx context.Context, configurationName armportal.ConfigurationName, options *armportal.TenantConfigurationsClientGetOptions) (resp azfake.Responder[armportal.TenantConfigurationsClientGetResponse], errResp azfake.ErrorResponder)
-
-	// NewListPager is the fake for method TenantConfigurationsClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(options *armportal.TenantConfigurationsClientListOptions) (resp azfake.PagerResponder[armportal.TenantConfigurationsClientListResponse])
+	Get func(ctx context.Context, configurationName string, options *armportal.TenantConfigurationsClientGetOptions) (resp azfake.Responder[armportal.TenantConfigurationsClientGetResponse], errResp azfake.ErrorResponder)
+
+	// NewListByTenantPager is the fake for method TenantConfigurationsClient.NewListByTenantPager
+	// HTTP status codes to indicate success: http.StatusOK
+	NewListByTenantPager func(options *armportal.TenantConfigurationsClientListByTenantOptions) (resp azfake.PagerResponder[armportal.TenantConfigurationsClientListByTenantResponse])
 }
 
 // NewTenantConfigurationsServerTransport creates a new instance of TenantConfigurationsServerTransport with the provided implementation.
@@ -46,16 +46,16 @@ type TenantConfigurationsServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewTenantConfigurationsServerTransport(srv *TenantConfigurationsServer) *TenantConfigurationsServerTransport {
 	return &TenantConfigurationsServerTransport{
-		srv:          srv,
-		newListPager: newTracker[azfake.PagerResponder[armportal.TenantConfigurationsClientListResponse]](),
+		srv:                  srv,
+		newListByTenantPager: newTracker[azfake.PagerResponder[armportal.TenantConfigurationsClientListByTenantResponse]](),
 	}
 }
 
 // TenantConfigurationsServerTransport connects instances of armportal.TenantConfigurationsClient to instances of TenantConfigurationsServer.
 // Don't use this type directly, use NewTenantConfigurationsServerTransport instead.
 type TenantConfigurationsServerTransport struct {
-	srv          *TenantConfigurationsServer
-	newListPager *tracker[azfake.PagerResponder[armportal.TenantConfigurationsClientListResponse]]
+	srv                  *TenantConfigurationsServer
+	newListByTenantPager *tracker[azfake.PagerResponder[armportal.TenantConfigurationsClientListByTenantResponse]]
 }
 
 // Do implements the policy.Transporter interface for TenantConfigurationsServerTransport.
@@ -76,8 +76,8 @@ func (t *TenantConfigurationsServerTransport) Do(req *http.Request) (*http.Respo
 		resp, err = t.dispatchDelete(req)
 	case "TenantConfigurationsClient.Get":
 		resp, err = t.dispatchGet(req)
-	case "TenantConfigurationsClient.NewListPager":
-		resp, err = t.dispatchNewListPager(req)
+	case "TenantConfigurationsClient.NewListByTenantPager":
+		resp, err = t.dispatchNewListByTenantPager(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -99,17 +99,11 @@ func (t *TenantConfigurationsServerTransport) dispatchCreate(req *http.Request) 
 	if matches == nil || len(matches) < 1 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armportal.Configuration](req)
+	body, err := server.UnmarshalRequestAsJSON[armportal.TenantConfiguration](req)
 	if err != nil {
 		return nil, err
 	}
-	configurationNameParam, err := parseWithCast(matches[regex.SubexpIndex("configurationName")], func(v string) (armportal.ConfigurationName, error) {
-		p, unescapeErr := url.PathUnescape(v)
-		if unescapeErr != nil {
-			return "", unescapeErr
-		}
-		return armportal.ConfigurationName(p), nil
-	})
+	configurationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("configurationName")])
 	if err != nil {
 		return nil, err
 	}
@@ -121,7 +115,7 @@ func (t *TenantConfigurationsServerTransport) dispatchCreate(req *http.Request) 
 	if !contains([]int{http.StatusOK, http.StatusCreated}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Configuration, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).TenantConfiguration, req)
 	if err != nil {
 		return nil, err
 	}
@@ -138,13 +132,7 @@ func (t *TenantConfigurationsServerTransport) dispatchDelete(req *http.Request) 
 	if matches == nil || len(matches) < 1 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	configurationNameParam, err := parseWithCast(matches[regex.SubexpIndex("configurationName")], func(v string) (armportal.ConfigurationName, error) {
-		p, unescapeErr := url.PathUnescape(v)
-		if unescapeErr != nil {
-			return "", unescapeErr
-		}
-		return armportal.ConfigurationName(p), nil
-	})
+	configurationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("configurationName")])
 	if err != nil {
 		return nil, err
 	}
@@ -173,13 +161,7 @@ func (t *TenantConfigurationsServerTransport) dispatchGet(req *http.Request) (*h
 	if matches == nil || len(matches) < 1 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	configurationNameParam, err := parseWithCast(matches[regex.SubexpIndex("configurationName")], func(v string) (armportal.ConfigurationName, error) {
-		p, unescapeErr := url.PathUnescape(v)
-		if unescapeErr != nil {
-			return "", unescapeErr
-		}
-		return armportal.ConfigurationName(p), nil
-	})
+	configurationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("configurationName")])
 	if err != nil {
 		return nil, err
 	}
@@ -188,39 +170,39 @@ func (t *TenantConfigurationsServerTransport) dispatchGet(req *http.Request) (*h
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK, http.StatusNotFound}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusNotFound", respContent.HTTPStatus)}
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Configuration, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).TenantConfiguration, req)
 	if err != nil {
 		return nil, err
 	}
 	return resp, nil
 }
 
-func (t *TenantConfigurationsServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if t.srv.NewListPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
+func (t *TenantConfigurationsServerTransport) dispatchNewListByTenantPager(req *http.Request) (*http.Response, error) {
+	if t.srv.NewListByTenantPager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListByTenantPager not implemented")}
 	}
-	newListPager := t.newListPager.get(req)
-	if newListPager == nil {
-		resp := t.srv.NewListPager(nil)
-		newListPager = &resp
-		t.newListPager.add(req, newListPager)
-		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armportal.TenantConfigurationsClientListResponse, createLink func() string) {
+	newListByTenantPager := t.newListByTenantPager.get(req)
+	if newListByTenantPager == nil {
+		resp := t.srv.NewListByTenantPager(nil)
+		newListByTenantPager = &resp
+		t.newListByTenantPager.add(req, newListByTenantPager)
+		server.PagerResponderInjectNextLinks(newListByTenantPager, req, func(page *armportal.TenantConfigurationsClientListByTenantResponse, createLink func() string) {
 			page.NextLink = to.Ptr(createLink())
 		})
 	}
-	resp, err := server.PagerResponderNext(newListPager, req)
+	resp, err := server.PagerResponderNext(newListByTenantPager, req)
 	if err != nil {
 		return nil, err
 	}
 	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		t.newListPager.remove(req)
+		t.newListByTenantPager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
-	if !server.PagerResponderMore(newListPager) {
-		t.newListPager.remove(req)
+	if !server.PagerResponderMore(newListByTenantPager) {
+		t.newListByTenantPager.remove(req)
 	}
 	return resp, nil
 }

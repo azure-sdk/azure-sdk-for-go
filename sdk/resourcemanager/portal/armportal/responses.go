@@ -27,13 +27,13 @@ type DashboardsClientGetResponse struct {
 
 // DashboardsClientListByResourceGroupResponse contains the response from method DashboardsClient.NewListByResourceGroupPager.
 type DashboardsClientListByResourceGroupResponse struct {
-	// List of dashboards.
+	// The response of a Dashboard list operation.
 	DashboardListResult
 }
 
 // DashboardsClientListBySubscriptionResponse contains the response from method DashboardsClient.NewListBySubscriptionPager.
 type DashboardsClientListBySubscriptionResponse struct {
-	// List of dashboards.
+	// The response of a Dashboard list operation.
 	DashboardListResult
 }
 
@@ -43,22 +43,22 @@ type DashboardsClientUpdateResponse struct {
 	Dashboard
 }
 
-// ListTenantConfigurationViolationsClientListResponse contains the response from method ListTenantConfigurationViolationsClient.NewListPager.
-type ListTenantConfigurationViolationsClientListResponse struct {
+// ListTenantConfigurationViolationsOperationsClientListResponse contains the response from method ListTenantConfigurationViolationsOperationsClient.NewListPager.
+type ListTenantConfigurationViolationsOperationsClientListResponse struct {
 	// List of list of items that violate tenant's configuration.
-	ViolationsList
+	PagedViolation
 }
 
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
-	// Results of the request to list operations.
-	ResourceProviderOperationList
+	// A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to get the next set of results.
+	OperationListResult
 }
 
 // TenantConfigurationsClientCreateResponse contains the response from method TenantConfigurationsClient.Create.
 type TenantConfigurationsClientCreateResponse struct {
-	// Tenant configuration.
-	Configuration
+	// The tenant configuration resource definition.
+	TenantConfiguration
 }
 
 // TenantConfigurationsClientDeleteResponse contains the response from method TenantConfigurationsClient.Delete.
@@ -68,12 +68,12 @@ type TenantConfigurationsClientDeleteResponse struct {
 
 // TenantConfigurationsClientGetResponse contains the response from method TenantConfigurationsClient.Get.
 type TenantConfigurationsClientGetResponse struct {
-	// Tenant configuration.
-	Configuration
+	// The tenant configuration resource definition.
+	TenantConfiguration
 }
 
-// TenantConfigurationsClientListResponse contains the response from method TenantConfigurationsClient.NewListPager.
-type TenantConfigurationsClientListResponse struct {
-	// List of tenant configurations.
-	ConfigurationList
+// TenantConfigurationsClientListByTenantResponse contains the response from method TenantConfigurationsClient.NewListByTenantPager.
+type TenantConfigurationsClientListByTenantResponse struct {
+	// The response of a TenantConfiguration list operation.
+	TenantConfigurationListResult
 }
