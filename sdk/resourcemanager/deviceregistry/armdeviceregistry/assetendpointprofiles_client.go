@@ -387,7 +387,7 @@ func (client *AssetEndpointProfilesClient) listBySubscriptionHandleResponse(resp
 // Generated from API version 2023-11-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - assetEndpointProfileName - Asset Endpoint Profile name parameter.
-//   - properties - The resource properties to be updated.
+//   - properties - The resource properties to be updated. test
 //   - options - AssetEndpointProfilesClientBeginUpdateOptions contains the optional parameters for the AssetEndpointProfilesClient.BeginUpdate
 //     method.
 func (client *AssetEndpointProfilesClient) BeginUpdate(ctx context.Context, resourceGroupName string, assetEndpointProfileName string, properties AssetEndpointProfileUpdate, options *AssetEndpointProfilesClientBeginUpdateOptions) (*runtime.Poller[AssetEndpointProfilesClientUpdateResponse], error) {
