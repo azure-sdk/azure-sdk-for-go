@@ -44,18 +44,18 @@ func NewTenantConfigurationsClient(credential azcore.TokenCredential, options *a
 // this operation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-09-01-preview
-//   - configurationName - The configuration name. Value must be 'default'
-//   - tenantConfiguration - The parameters required to create or update tenant configuration.
+// Generated from API version 2022-12-01-preview
+//   - configurationName - The name of the TenantConfiguration
+//   - resource - The parameters required to create or update tenant configuration.
 //   - options - TenantConfigurationsClientCreateOptions contains the optional parameters for the TenantConfigurationsClient.Create
 //     method.
-func (client *TenantConfigurationsClient) Create(ctx context.Context, configurationName ConfigurationName, tenantConfiguration Configuration, options *TenantConfigurationsClientCreateOptions) (TenantConfigurationsClientCreateResponse, error) {
+func (client *TenantConfigurationsClient) Create(ctx context.Context, configurationName string, resource TenantConfiguration, options *TenantConfigurationsClientCreateOptions) (TenantConfigurationsClientCreateResponse, error) {
 	var err error
 	const operationName = "TenantConfigurationsClient.Create"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createCreateRequest(ctx, configurationName, tenantConfiguration, options)
+	req, err := client.createCreateRequest(ctx, configurationName, resource, options)
 	if err != nil {
 		return TenantConfigurationsClientCreateResponse{}, err
 	}
@@ -72,21 +72,21 @@ func (client *TenantConfigurationsClient) Create(ctx context.Context, configurat
 }
 
 // createCreateRequest creates the Create request.
-func (client *TenantConfigurationsClient) createCreateRequest(ctx context.Context, configurationName ConfigurationName, tenantConfiguration Configuration, options *TenantConfigurationsClientCreateOptions) (*policy.Request, error) {
+func (client *TenantConfigurationsClient) createCreateRequest(ctx context.Context, configurationName string, resource TenantConfiguration, options *TenantConfigurationsClientCreateOptions) (*policy.Request, error) {
 	urlPath := "/providers/Microsoft.Portal/tenantConfigurations/{configurationName}"
 	if configurationName == "" {
 		return nil, errors.New("parameter configurationName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{configurationName}", url.PathEscape(string(configurationName)))
+	urlPath = strings.ReplaceAll(urlPath, "{configurationName}", url.PathEscape(configurationName))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-09-01-preview")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, tenantConfiguration); err != nil {
+	if err := runtime.MarshalAsJSON(req, resource); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -95,7 +95,7 @@ func (client *TenantConfigurationsClient) createCreateRequest(ctx context.Contex
 // createHandleResponse handles the Create response.
 func (client *TenantConfigurationsClient) createHandleResponse(resp *http.Response) (TenantConfigurationsClientCreateResponse, error) {
 	result := TenantConfigurationsClientCreateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.Configuration); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.TenantConfiguration); err != nil {
 		return TenantConfigurationsClientCreateResponse{}, err
 	}
 	return result, nil
@@ -104,11 +104,11 @@ func (client *TenantConfigurationsClient) createHandleResponse(resp *http.Respon
 // Delete - Delete the tenant configuration. User has to be a Tenant Admin for this operation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-09-01-preview
-//   - configurationName - The configuration name. Value must be 'default'
+// Generated from API version 2022-12-01-preview
+//   - configurationName - The name of the TenantConfiguration
 //   - options - TenantConfigurationsClientDeleteOptions contains the optional parameters for the TenantConfigurationsClient.Delete
 //     method.
-func (client *TenantConfigurationsClient) Delete(ctx context.Context, configurationName ConfigurationName, options *TenantConfigurationsClientDeleteOptions) (TenantConfigurationsClientDeleteResponse, error) {
+func (client *TenantConfigurationsClient) Delete(ctx context.Context, configurationName string, options *TenantConfigurationsClientDeleteOptions) (TenantConfigurationsClientDeleteResponse, error) {
 	var err error
 	const operationName = "TenantConfigurationsClient.Delete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
@@ -130,18 +130,18 @@ func (client *TenantConfigurationsClient) Delete(ctx context.Context, configurat
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *TenantConfigurationsClient) deleteCreateRequest(ctx context.Context, configurationName ConfigurationName, options *TenantConfigurationsClientDeleteOptions) (*policy.Request, error) {
+func (client *TenantConfigurationsClient) deleteCreateRequest(ctx context.Context, configurationName string, options *TenantConfigurationsClientDeleteOptions) (*policy.Request, error) {
 	urlPath := "/providers/Microsoft.Portal/tenantConfigurations/{configurationName}"
 	if configurationName == "" {
 		return nil, errors.New("parameter configurationName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{configurationName}", url.PathEscape(string(configurationName)))
+	urlPath = strings.ReplaceAll(urlPath, "{configurationName}", url.PathEscape(configurationName))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-09-01-preview")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -150,11 +150,11 @@ func (client *TenantConfigurationsClient) deleteCreateRequest(ctx context.Contex
 // Get - Gets the tenant configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-09-01-preview
-//   - configurationName - The configuration name. Value must be 'default'
+// Generated from API version 2022-12-01-preview
+//   - configurationName - The name of the TenantConfiguration
 //   - options - TenantConfigurationsClientGetOptions contains the optional parameters for the TenantConfigurationsClient.Get
 //     method.
-func (client *TenantConfigurationsClient) Get(ctx context.Context, configurationName ConfigurationName, options *TenantConfigurationsClientGetOptions) (TenantConfigurationsClientGetResponse, error) {
+func (client *TenantConfigurationsClient) Get(ctx context.Context, configurationName string, options *TenantConfigurationsClientGetOptions) (TenantConfigurationsClientGetResponse, error) {
 	var err error
 	const operationName = "TenantConfigurationsClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
@@ -168,7 +168,7 @@ func (client *TenantConfigurationsClient) Get(ctx context.Context, configuration
 	if err != nil {
 		return TenantConfigurationsClientGetResponse{}, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusNotFound) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
 		return TenantConfigurationsClientGetResponse{}, err
 	}
@@ -177,18 +177,18 @@ func (client *TenantConfigurationsClient) Get(ctx context.Context, configuration
 }
 
 // getCreateRequest creates the Get request.
-func (client *TenantConfigurationsClient) getCreateRequest(ctx context.Context, configurationName ConfigurationName, options *TenantConfigurationsClientGetOptions) (*policy.Request, error) {
+func (client *TenantConfigurationsClient) getCreateRequest(ctx context.Context, configurationName string, options *TenantConfigurationsClientGetOptions) (*policy.Request, error) {
 	urlPath := "/providers/Microsoft.Portal/tenantConfigurations/{configurationName}"
 	if configurationName == "" {
 		return nil, errors.New("parameter configurationName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{configurationName}", url.PathEscape(string(configurationName)))
+	urlPath = strings.ReplaceAll(urlPath, "{configurationName}", url.PathEscape(configurationName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-09-01-preview")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -197,59 +197,59 @@ func (client *TenantConfigurationsClient) getCreateRequest(ctx context.Context, 
 // getHandleResponse handles the Get response.
 func (client *TenantConfigurationsClient) getHandleResponse(resp *http.Response) (TenantConfigurationsClientGetResponse, error) {
 	result := TenantConfigurationsClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.Configuration); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.TenantConfiguration); err != nil {
 		return TenantConfigurationsClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListPager - Gets list of the tenant configurations.
+// NewListByTenantPager - Gets list of the tenant configurations.
 //
-// Generated from API version 2020-09-01-preview
-//   - options - TenantConfigurationsClientListOptions contains the optional parameters for the TenantConfigurationsClient.NewListPager
+// Generated from API version 2022-12-01-preview
+//   - options - TenantConfigurationsClientListByTenantOptions contains the optional parameters for the TenantConfigurationsClient.NewListByTenantPager
 //     method.
-func (client *TenantConfigurationsClient) NewListPager(options *TenantConfigurationsClientListOptions) *runtime.Pager[TenantConfigurationsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[TenantConfigurationsClientListResponse]{
-		More: func(page TenantConfigurationsClientListResponse) bool {
+func (client *TenantConfigurationsClient) NewListByTenantPager(options *TenantConfigurationsClientListByTenantOptions) *runtime.Pager[TenantConfigurationsClientListByTenantResponse] {
+	return runtime.NewPager(runtime.PagingHandler[TenantConfigurationsClientListByTenantResponse]{
+		More: func(page TenantConfigurationsClientListByTenantResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *TenantConfigurationsClientListResponse) (TenantConfigurationsClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "TenantConfigurationsClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *TenantConfigurationsClientListByTenantResponse) (TenantConfigurationsClientListByTenantResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "TenantConfigurationsClient.NewListByTenantPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, options)
+				return client.listByTenantCreateRequest(ctx, options)
 			}, nil)
 			if err != nil {
-				return TenantConfigurationsClientListResponse{}, err
+				return TenantConfigurationsClientListByTenantResponse{}, err
 			}
-			return client.listHandleResponse(resp)
+			return client.listByTenantHandleResponse(resp)
 		},
 		Tracer: client.internal.Tracer(),
 	})
 }
 
-// listCreateRequest creates the List request.
-func (client *TenantConfigurationsClient) listCreateRequest(ctx context.Context, options *TenantConfigurationsClientListOptions) (*policy.Request, error) {
+// listByTenantCreateRequest creates the ListByTenant request.
+func (client *TenantConfigurationsClient) listByTenantCreateRequest(ctx context.Context, options *TenantConfigurationsClientListByTenantOptions) (*policy.Request, error) {
 	urlPath := "/providers/Microsoft.Portal/tenantConfigurations"
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-09-01-preview")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
-// listHandleResponse handles the List response.
-func (client *TenantConfigurationsClient) listHandleResponse(resp *http.Response) (TenantConfigurationsClientListResponse, error) {
-	result := TenantConfigurationsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ConfigurationList); err != nil {
-		return TenantConfigurationsClientListResponse{}, err
+// listByTenantHandleResponse handles the ListByTenant response.
+func (client *TenantConfigurationsClient) listByTenantHandleResponse(resp *http.Response) (TenantConfigurationsClientListByTenantResponse, error) {
+	result := TenantConfigurationsClientListByTenantResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.TenantConfigurationListResult); err != nil {
+		return TenantConfigurationsClientListByTenantResponse{}, err
 	}
 	return result, nil
 }

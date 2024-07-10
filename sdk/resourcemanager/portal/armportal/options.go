@@ -40,9 +40,9 @@ type DashboardsClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ListTenantConfigurationViolationsClientListOptions contains the optional parameters for the ListTenantConfigurationViolationsClient.NewListPager
+// ListTenantConfigurationViolationsOperationsClientListOptions contains the optional parameters for the ListTenantConfigurationViolationsOperationsClient.NewListPager
 // method.
-type ListTenantConfigurationViolationsClientListOptions struct {
+type ListTenantConfigurationViolationsOperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -66,8 +66,8 @@ type TenantConfigurationsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// TenantConfigurationsClientListOptions contains the optional parameters for the TenantConfigurationsClient.NewListPager
+// TenantConfigurationsClientListByTenantOptions contains the optional parameters for the TenantConfigurationsClient.NewListByTenantPager
 // method.
-type TenantConfigurationsClientListOptions struct {
+type TenantConfigurationsClientListByTenantOptions struct {
 	// placeholder for future optional parameters
 }
