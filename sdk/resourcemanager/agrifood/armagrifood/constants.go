@@ -10,7 +10,7 @@ package armagrifood
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/agrifood/armagrifood"
-	moduleVersion = "v0.9.0"
+	moduleVersion = "v0.10.0"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -24,6 +24,22 @@ const (
 func PossibleActionTypeValues() []ActionType {
 	return []ActionType{
 		ActionTypeInternal,
+	}
+}
+
+// AuthCredentialsKind - Enum for different types of AuthCredentials supported.
+type AuthCredentialsKind string
+
+const (
+	AuthCredentialsKindAPIKeyAuthCredentials  AuthCredentialsKind = "ApiKeyAuthCredentials"
+	AuthCredentialsKindOAuthClientCredentials AuthCredentialsKind = "OAuthClientCredentials"
+)
+
+// PossibleAuthCredentialsKindValues returns the possible values for the AuthCredentialsKind const type.
+func PossibleAuthCredentialsKindValues() []AuthCredentialsKind {
+	return []AuthCredentialsKind{
+		AuthCredentialsKindAPIKeyAuthCredentials,
+		AuthCredentialsKindOAuthClientCredentials,
 	}
 }
 
@@ -120,13 +136,14 @@ func PossiblePrivateEndpointServiceConnectionStatusValues() []PrivateEndpointSer
 	}
 }
 
-// ProvisioningState - Sensor integration instance provisioning state.
+// ProvisioningState - Data Manager For Agriculture instance provisioning state.
 type ProvisioningState string
 
 const (
 	ProvisioningStateCreating  ProvisioningState = "Creating"
 	ProvisioningStateDeleting  ProvisioningState = "Deleting"
 	ProvisioningStateFailed    ProvisioningState = "Failed"
+	ProvisioningStateRunning   ProvisioningState = "Running"
 	ProvisioningStateSucceeded ProvisioningState = "Succeeded"
 	ProvisioningStateUpdating  ProvisioningState = "Updating"
 )
@@ -137,23 +154,24 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 		ProvisioningStateCreating,
 		ProvisioningStateDeleting,
 		ProvisioningStateFailed,
+		ProvisioningStateRunning,
 		ProvisioningStateSucceeded,
 		ProvisioningStateUpdating,
 	}
 }
 
-// PublicNetworkAccess - Property to allow or block public traffic for an Azure FarmBeats resource.
+// PublicNetworkAccess - Property to allow or block public traffic for an Azure Data Manager For Agriculture resource.
 type PublicNetworkAccess string
 
 const (
-	PublicNetworkAccessEnabled PublicNetworkAccess = "Enabled"
-	PublicNetworkAccessHybrid  PublicNetworkAccess = "Hybrid"
+	PublicNetworkAccessDisabled PublicNetworkAccess = "Disabled"
+	PublicNetworkAccessEnabled  PublicNetworkAccess = "Enabled"
 )
 
 // PossiblePublicNetworkAccessValues returns the possible values for the PublicNetworkAccess const type.
 func PossiblePublicNetworkAccessValues() []PublicNetworkAccess {
 	return []PublicNetworkAccess{
+		PublicNetworkAccessDisabled,
 		PublicNetworkAccessEnabled,
-		PublicNetworkAccessHybrid,
 	}
 }
