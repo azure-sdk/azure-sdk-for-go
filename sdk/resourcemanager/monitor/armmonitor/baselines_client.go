@@ -76,31 +76,31 @@ func (client *BaselinesClient) listCreateRequest(ctx context.Context, resourceUR
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
+	if options != nil && options.Filter != nil {
+		reqQP.Set("$filter", *options.Filter)
+	}
+	if options != nil && options.Aggregation != nil {
+		reqQP.Set("aggregation", *options.Aggregation)
+	}
+	reqQP.Set("api-version", "2019-03-01")
+	if options != nil && options.Interval != nil {
+		reqQP.Set("interval", *options.Interval)
+	}
 	if options != nil && options.Metricnames != nil {
 		reqQP.Set("metricnames", *options.Metricnames)
 	}
 	if options != nil && options.Metricnamespace != nil {
 		reqQP.Set("metricnamespace", *options.Metricnamespace)
 	}
-	if options != nil && options.Timespan != nil {
-		reqQP.Set("timespan", *options.Timespan)
-	}
-	if options != nil && options.Interval != nil {
-		reqQP.Set("interval", *options.Interval)
-	}
-	if options != nil && options.Aggregation != nil {
-		reqQP.Set("aggregation", *options.Aggregation)
+	if options != nil && options.ResultType != nil {
+		reqQP.Set("resultType", string(*options.ResultType))
 	}
 	if options != nil && options.Sensitivities != nil {
 		reqQP.Set("sensitivities", *options.Sensitivities)
 	}
-	if options != nil && options.Filter != nil {
-		reqQP.Set("$filter", *options.Filter)
+	if options != nil && options.Timespan != nil {
+		reqQP.Set("timespan", *options.Timespan)
 	}
-	if options != nil && options.ResultType != nil {
-		reqQP.Set("resultType", string(*options.ResultType))
-	}
-	reqQP.Set("api-version", "2019-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
