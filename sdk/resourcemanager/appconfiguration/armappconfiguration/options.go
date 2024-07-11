@@ -36,6 +36,12 @@ type ConfigurationStoresClientBeginUpdateOptions struct {
 	ResumeToken string
 }
 
+// ConfigurationStoresClientGenerateSasTokenOptions contains the optional parameters for the ConfigurationStoresClient.GenerateSasToken
+// method.
+type ConfigurationStoresClientGenerateSasTokenOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ConfigurationStoresClientGetDeletedOptions contains the optional parameters for the ConfigurationStoresClient.GetDeleted
 // method.
 type ConfigurationStoresClientGetDeletedOptions struct {
@@ -82,6 +88,12 @@ type ConfigurationStoresClientListOptions struct {
 // ConfigurationStoresClientRegenerateKeyOptions contains the optional parameters for the ConfigurationStoresClient.RegenerateKey
 // method.
 type ConfigurationStoresClientRegenerateKeyOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ConfigurationStoresClientResetSasTokensOptions contains the optional parameters for the ConfigurationStoresClient.ResetSasTokens
+// method.
+type ConfigurationStoresClientResetSasTokensOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -183,4 +195,15 @@ type ReplicasClientListByConfigurationStoreOptions struct {
 	// a nextLink element, the value of the nextLink element will include a
 	// skipToken parameter that specifies a starting point to use for subsequent calls.
 	SkipToken *string
+}
+
+// SnapshotsClientBeginCreateOptions contains the optional parameters for the SnapshotsClient.BeginCreate method.
+type SnapshotsClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SnapshotsClientGetOptions contains the optional parameters for the SnapshotsClient.Get method.
+type SnapshotsClientGetOptions struct {
+	// placeholder for future optional parameters
 }
