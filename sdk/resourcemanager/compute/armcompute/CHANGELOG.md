@@ -1,5 +1,20 @@
 # Release History
 
+## 6.0.0 (2024-07-11)
+### Breaking Changes
+
+- Type of `SecurityPostureReference.ExcludeExtensions` has been changed from `[]*VirtualMachineExtension` to `[]*string`
+
+### Features Added
+
+- New enum type `ZonalPlatformFaultDomainAlignMode` with values `ZonalPlatformFaultDomainAlignModeAligned`, `ZonalPlatformFaultDomainAlignModeUnaligned`
+- New struct `SecurityPostureReferenceUpdate`
+- New field `IsOverridable` in struct `SecurityPostureReference`
+- New field `ZonalPlatformFaultDomainAlignMode` in struct `VirtualMachineScaleSetProperties`
+- New field `ZonalPlatformFaultDomainAlignMode` in struct `VirtualMachineScaleSetUpdateProperties`
+- New field `SecurityPostureReference` in struct `VirtualMachineScaleSetUpdateVMProfile`
+
+
 ## 5.7.0 (2024-04-26)
 ### Features Added
 
