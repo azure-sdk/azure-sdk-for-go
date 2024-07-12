@@ -46,7 +46,7 @@ func NewQnAMakerEndpointKeysClient(subscriptionID string, credential azcore.Toke
 // Get - Lists the QnA Maker endpoint keys
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-15
+// Generated from API version 2023-09-15-preview
 //   - parameters - The request body parameters to provide for the check name availability request
 //   - options - QnAMakerEndpointKeysClientGetOptions contains the optional parameters for the QnAMakerEndpointKeysClient.Get
 //     method.
@@ -84,7 +84,7 @@ func (client *QnAMakerEndpointKeysClient) getCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-15")
+	reqQP.Set("api-version", "2023-09-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
