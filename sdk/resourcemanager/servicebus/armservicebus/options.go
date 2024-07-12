@@ -114,6 +114,12 @@ type NamespacesClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
+// NamespacesClientBeginFailoverOptions contains the optional parameters for the NamespacesClient.BeginFailover method.
+type NamespacesClientBeginFailoverOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // NamespacesClientCheckNameAvailabilityOptions contains the optional parameters for the NamespacesClient.CheckNameAvailability
 // method.
 type NamespacesClientCheckNameAvailabilityOptions struct {
