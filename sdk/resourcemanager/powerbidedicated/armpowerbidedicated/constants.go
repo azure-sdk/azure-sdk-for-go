@@ -10,7 +10,7 @@ package armpowerbidedicated
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/powerbidedicated/armpowerbidedicated"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v1.2.1"
 )
 
 // CapacityProvisioningState - The current deployment state of PowerBI Dedicated resource. The provisioningState is to indicate
