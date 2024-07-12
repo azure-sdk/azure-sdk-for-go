@@ -23,6 +23,10 @@ import (
 
 // AssignmentsVMSSServer is a fake server for instances of the armguestconfiguration.AssignmentsVMSSClient type.
 type AssignmentsVMSSServer struct {
+	// CreateOrUpdate is the fake for method AssignmentsVMSSClient.CreateOrUpdate
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
+	CreateOrUpdate func(ctx context.Context, resourceGroupName string, vmssName string, name string, parameters armguestconfiguration.Assignment, options *armguestconfiguration.AssignmentsVMSSClientCreateOrUpdateOptions) (resp azfake.Responder[armguestconfiguration.AssignmentsVMSSClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+
 	// Delete is the fake for method AssignmentsVMSSClient.Delete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
 	Delete func(ctx context.Context, resourceGroupName string, vmssName string, name string, options *armguestconfiguration.AssignmentsVMSSClientDeleteOptions) (resp azfake.Responder[armguestconfiguration.AssignmentsVMSSClientDeleteResponse], errResp azfake.ErrorResponder)
@@ -65,6 +69,8 @@ func (a *AssignmentsVMSSServerTransport) Do(req *http.Request) (*http.Response, 
 	var err error
 
 	switch method {
+	case "AssignmentsVMSSClient.CreateOrUpdate":
+		resp, err = a.dispatchCreateOrUpdate(req)
 	case "AssignmentsVMSSClient.Delete":
 		resp, err = a.dispatchDelete(req)
 	case "AssignmentsVMSSClient.Get":
@@ -79,6 +85,47 @@ func (a *AssignmentsVMSSServerTransport) Do(req *http.Request) (*http.Response, 
 		return nil, err
 	}
 
+	return resp, nil
+}
+
+func (a *AssignmentsVMSSServerTransport) dispatchCreateOrUpdate(req *http.Request) (*http.Response, error) {
+	if a.srv.CreateOrUpdate == nil {
+		return nil, &nonRetriableError{errors.New("fake for method CreateOrUpdate not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Compute/virtualMachineScaleSets/(?P<vmssName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.GuestConfiguration/guestConfigurationAssignments/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 4 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armguestconfiguration.Assignment](req)
+	if err != nil {
+		return nil, err
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	vmssNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("vmssName")])
+	if err != nil {
+		return nil, err
+	}
+	nameParam, err := url.PathUnescape(matches[regex.SubexpIndex("name")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := a.srv.CreateOrUpdate(req.Context(), resourceGroupNameParam, vmssNameParam, nameParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK, http.StatusCreated}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Assignment, req)
+	if err != nil {
+		return nil, err
+	}
 	return resp, nil
 }
 
