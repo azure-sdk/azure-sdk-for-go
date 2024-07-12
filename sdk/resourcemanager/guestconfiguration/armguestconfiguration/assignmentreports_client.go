@@ -47,7 +47,7 @@ func NewAssignmentReportsClient(subscriptionID string, credential azcore.TokenCr
 // Get - Get a report for the guest configuration assignment, by reportId.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-25
+// Generated from API version 2024-04-05
 //   - resourceGroupName - The resource group name.
 //   - guestConfigurationAssignmentName - The guest configuration assignment name.
 //   - reportID - The GUID for the guest configuration assignment report.
@@ -103,7 +103,7 @@ func (client *AssignmentReportsClient) getCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-25")
+	reqQP.Set("api-version", "2024-04-05")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -121,7 +121,7 @@ func (client *AssignmentReportsClient) getHandleResponse(resp *http.Response) (A
 // List - List all reports for the guest configuration assignment, latest report first.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-25
+// Generated from API version 2024-04-05
 //   - resourceGroupName - The resource group name.
 //   - guestConfigurationAssignmentName - The guest configuration assignment name.
 //   - vmName - The name of the virtual machine.
@@ -172,7 +172,7 @@ func (client *AssignmentReportsClient) listCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-25")
+	reqQP.Set("api-version", "2024-04-05")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
