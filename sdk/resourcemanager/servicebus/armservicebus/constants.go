@@ -10,7 +10,7 @@ package armservicebus
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/servicebus/armservicebus"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v2.0.0-beta.4"
 )
 
 type AccessRights string
@@ -136,6 +136,22 @@ func PossibleFilterTypeValues() []FilterType {
 	}
 }
 
+// GeoDRRoleType - GeoDR Role Types
+type GeoDRRoleType string
+
+const (
+	GeoDRRoleTypePrimary   GeoDRRoleType = "Primary"
+	GeoDRRoleTypeSecondary GeoDRRoleType = "Secondary"
+)
+
+// PossibleGeoDRRoleTypeValues returns the possible values for the GeoDRRoleType const type.
+func PossibleGeoDRRoleTypeValues() []GeoDRRoleType {
+	return []GeoDRRoleType{
+		GeoDRRoleTypePrimary,
+		GeoDRRoleTypeSecondary,
+	}
+}
+
 // KeyType - The access key to regenerate.
 type KeyType string
 
@@ -238,6 +254,24 @@ func PossibleProvisioningStateDRValues() []ProvisioningStateDR {
 	}
 }
 
+// PublicNetworkAccess - This determines if traffic is allowed over public network. By default it is enabled.
+type PublicNetworkAccess string
+
+const (
+	PublicNetworkAccessDisabled           PublicNetworkAccess = "Disabled"
+	PublicNetworkAccessEnabled            PublicNetworkAccess = "Enabled"
+	PublicNetworkAccessSecuredByPerimeter PublicNetworkAccess = "SecuredByPerimeter"
+)
+
+// PossiblePublicNetworkAccessValues returns the possible values for the PublicNetworkAccess const type.
+func PossiblePublicNetworkAccessValues() []PublicNetworkAccess {
+	return []PublicNetworkAccess{
+		PublicNetworkAccessDisabled,
+		PublicNetworkAccessEnabled,
+		PublicNetworkAccessSecuredByPerimeter,
+	}
+}
+
 // PublicNetworkAccessFlag - This determines if traffic is allowed over public network. By default it is enabled.
 type PublicNetworkAccessFlag string
 
@@ -305,6 +339,24 @@ func PossibleSKUTierValues() []SKUTier {
 		SKUTierBasic,
 		SKUTierPremium,
 		SKUTierStandard,
+	}
+}
+
+// TLSVersion - The minimum TLS version for the cluster to support, e.g. '1.2'
+type TLSVersion string
+
+const (
+	TLSVersionOne0 TLSVersion = "1.0"
+	TLSVersionOne1 TLSVersion = "1.1"
+	TLSVersionOne2 TLSVersion = "1.2"
+)
+
+// PossibleTLSVersionValues returns the possible values for the TLSVersion const type.
+func PossibleTLSVersionValues() []TLSVersion {
+	return []TLSVersion{
+		TLSVersionOne0,
+		TLSVersionOne1,
+		TLSVersionOne2,
 	}
 }
 

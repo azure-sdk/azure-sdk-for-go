@@ -47,7 +47,7 @@ func NewHCRPAssignmentsClient(subscriptionID string, credential azcore.TokenCred
 // CreateOrUpdate - Creates an association between a ARC machine and guest configuration
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-25
+// Generated from API version 2024-04-05
 //   - guestConfigurationAssignmentName - Name of the guest configuration assignment.
 //   - resourceGroupName - The resource group name.
 //   - machineName - The name of the ARC machine.
@@ -100,7 +100,7 @@ func (client *HCRPAssignmentsClient) createOrUpdateCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-25")
+	reqQP.Set("api-version", "2024-04-05")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -121,7 +121,7 @@ func (client *HCRPAssignmentsClient) createOrUpdateHandleResponse(resp *http.Res
 // Delete - Delete a guest configuration assignment
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-25
+// Generated from API version 2024-04-05
 //   - resourceGroupName - The resource group name.
 //   - guestConfigurationAssignmentName - Name of the guest configuration assignment
 //   - machineName - The name of the ARC machine.
@@ -171,7 +171,7 @@ func (client *HCRPAssignmentsClient) deleteCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-25")
+	reqQP.Set("api-version", "2024-04-05")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -180,7 +180,7 @@ func (client *HCRPAssignmentsClient) deleteCreateRequest(ctx context.Context, re
 // Get - Get information about a guest configuration assignment
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-25
+// Generated from API version 2024-04-05
 //   - resourceGroupName - The resource group name.
 //   - guestConfigurationAssignmentName - The guest configuration assignment name.
 //   - machineName - The name of the ARC machine.
@@ -231,7 +231,7 @@ func (client *HCRPAssignmentsClient) getCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-25")
+	reqQP.Set("api-version", "2024-04-05")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -248,7 +248,7 @@ func (client *HCRPAssignmentsClient) getHandleResponse(resp *http.Response) (HCR
 
 // NewListPager - List all guest configuration assignments for an ARC machine.
 //
-// Generated from API version 2022-01-25
+// Generated from API version 2024-04-05
 //   - resourceGroupName - The resource group name.
 //   - machineName - The name of the ARC machine.
 //   - options - HCRPAssignmentsClientListOptions contains the optional parameters for the HCRPAssignmentsClient.NewListPager
@@ -297,7 +297,7 @@ func (client *HCRPAssignmentsClient) listCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-25")
+	reqQP.Set("api-version", "2024-04-05")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
