@@ -19,13 +19,17 @@ import (
 
 // ServerFactory is a fake server for instances of the armagrifood.ClientFactory type.
 type ServerFactory struct {
-	ExtensionsServer                 ExtensionsServer
-	FarmBeatsExtensionsServer        FarmBeatsExtensionsServer
-	FarmBeatsModelsServer            FarmBeatsModelsServer
-	LocationsServer                  LocationsServer
-	OperationsServer                 OperationsServer
-	PrivateEndpointConnectionsServer PrivateEndpointConnectionsServer
-	PrivateLinkResourcesServer       PrivateLinkResourcesServer
+	CheckNameAvailabilityServer               CheckNameAvailabilityServer
+	DataConnectorsServer                      DataConnectorsServer
+	DataManagerForAgricultureExtensionsServer DataManagerForAgricultureExtensionsServer
+	DataManagerForAgricultureResourcesServer  DataManagerForAgricultureResourcesServer
+	ExtensionsServer                          ExtensionsServer
+	OperationResultsServer                    OperationResultsServer
+	OperationsServer                          OperationsServer
+	PrivateEndpointConnectionsServer          PrivateEndpointConnectionsServer
+	PrivateLinkResourcesServer                PrivateLinkResourcesServer
+	SolutionsServer                           SolutionsServer
+	SolutionsDiscoverabilityServer            SolutionsDiscoverabilityServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -40,15 +44,19 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armagrifood.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                                *ServerFactory
-	trMu                               sync.Mutex
-	trExtensionsServer                 *ExtensionsServerTransport
-	trFarmBeatsExtensionsServer        *FarmBeatsExtensionsServerTransport
-	trFarmBeatsModelsServer            *FarmBeatsModelsServerTransport
-	trLocationsServer                  *LocationsServerTransport
-	trOperationsServer                 *OperationsServerTransport
-	trPrivateEndpointConnectionsServer *PrivateEndpointConnectionsServerTransport
-	trPrivateLinkResourcesServer       *PrivateLinkResourcesServerTransport
+	srv                                         *ServerFactory
+	trMu                                        sync.Mutex
+	trCheckNameAvailabilityServer               *CheckNameAvailabilityServerTransport
+	trDataConnectorsServer                      *DataConnectorsServerTransport
+	trDataManagerForAgricultureExtensionsServer *DataManagerForAgricultureExtensionsServerTransport
+	trDataManagerForAgricultureResourcesServer  *DataManagerForAgricultureResourcesServerTransport
+	trExtensionsServer                          *ExtensionsServerTransport
+	trOperationResultsServer                    *OperationResultsServerTransport
+	trOperationsServer                          *OperationsServerTransport
+	trPrivateEndpointConnectionsServer          *PrivateEndpointConnectionsServerTransport
+	trPrivateLinkResourcesServer                *PrivateLinkResourcesServerTransport
+	trSolutionsServer                           *SolutionsServerTransport
+	trSolutionsDiscoverabilityServer            *SolutionsDiscoverabilityServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -64,22 +72,34 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch client {
+	case "CheckNameAvailabilityClient":
+		initServer(s, &s.trCheckNameAvailabilityServer, func() *CheckNameAvailabilityServerTransport {
+			return NewCheckNameAvailabilityServerTransport(&s.srv.CheckNameAvailabilityServer)
+		})
+		resp, err = s.trCheckNameAvailabilityServer.Do(req)
+	case "DataConnectorsClient":
+		initServer(s, &s.trDataConnectorsServer, func() *DataConnectorsServerTransport {
+			return NewDataConnectorsServerTransport(&s.srv.DataConnectorsServer)
+		})
+		resp, err = s.trDataConnectorsServer.Do(req)
+	case "DataManagerForAgricultureExtensionsClient":
+		initServer(s, &s.trDataManagerForAgricultureExtensionsServer, func() *DataManagerForAgricultureExtensionsServerTransport {
+			return NewDataManagerForAgricultureExtensionsServerTransport(&s.srv.DataManagerForAgricultureExtensionsServer)
+		})
+		resp, err = s.trDataManagerForAgricultureExtensionsServer.Do(req)
+	case "DataManagerForAgricultureResourcesClient":
+		initServer(s, &s.trDataManagerForAgricultureResourcesServer, func() *DataManagerForAgricultureResourcesServerTransport {
+			return NewDataManagerForAgricultureResourcesServerTransport(&s.srv.DataManagerForAgricultureResourcesServer)
+		})
+		resp, err = s.trDataManagerForAgricultureResourcesServer.Do(req)
 	case "ExtensionsClient":
 		initServer(s, &s.trExtensionsServer, func() *ExtensionsServerTransport { return NewExtensionsServerTransport(&s.srv.ExtensionsServer) })
 		resp, err = s.trExtensionsServer.Do(req)
-	case "FarmBeatsExtensionsClient":
-		initServer(s, &s.trFarmBeatsExtensionsServer, func() *FarmBeatsExtensionsServerTransport {
-			return NewFarmBeatsExtensionsServerTransport(&s.srv.FarmBeatsExtensionsServer)
+	case "OperationResultsClient":
+		initServer(s, &s.trOperationResultsServer, func() *OperationResultsServerTransport {
+			return NewOperationResultsServerTransport(&s.srv.OperationResultsServer)
 		})
-		resp, err = s.trFarmBeatsExtensionsServer.Do(req)
-	case "FarmBeatsModelsClient":
-		initServer(s, &s.trFarmBeatsModelsServer, func() *FarmBeatsModelsServerTransport {
-			return NewFarmBeatsModelsServerTransport(&s.srv.FarmBeatsModelsServer)
-		})
-		resp, err = s.trFarmBeatsModelsServer.Do(req)
-	case "LocationsClient":
-		initServer(s, &s.trLocationsServer, func() *LocationsServerTransport { return NewLocationsServerTransport(&s.srv.LocationsServer) })
-		resp, err = s.trLocationsServer.Do(req)
+		resp, err = s.trOperationResultsServer.Do(req)
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
@@ -93,6 +113,14 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewPrivateLinkResourcesServerTransport(&s.srv.PrivateLinkResourcesServer)
 		})
 		resp, err = s.trPrivateLinkResourcesServer.Do(req)
+	case "SolutionsClient":
+		initServer(s, &s.trSolutionsServer, func() *SolutionsServerTransport { return NewSolutionsServerTransport(&s.srv.SolutionsServer) })
+		resp, err = s.trSolutionsServer.Do(req)
+	case "SolutionsDiscoverabilityClient":
+		initServer(s, &s.trSolutionsDiscoverabilityServer, func() *SolutionsDiscoverabilityServerTransport {
+			return NewSolutionsDiscoverabilityServerTransport(&s.srv.SolutionsDiscoverabilityServer)
+		})
+		resp, err = s.trSolutionsDiscoverabilityServer.Do(req)
 	default:
 		err = fmt.Errorf("unhandled client %s", client)
 	}

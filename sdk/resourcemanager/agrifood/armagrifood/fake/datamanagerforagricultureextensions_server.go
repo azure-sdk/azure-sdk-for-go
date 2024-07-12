@@ -23,36 +23,36 @@ import (
 	"strconv"
 )
 
-// FarmBeatsExtensionsServer is a fake server for instances of the armagrifood.FarmBeatsExtensionsClient type.
-type FarmBeatsExtensionsServer struct {
-	// Get is the fake for method FarmBeatsExtensionsClient.Get
+// DataManagerForAgricultureExtensionsServer is a fake server for instances of the armagrifood.DataManagerForAgricultureExtensionsClient type.
+type DataManagerForAgricultureExtensionsServer struct {
+	// Get is the fake for method DataManagerForAgricultureExtensionsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, farmBeatsExtensionID string, options *armagrifood.FarmBeatsExtensionsClientGetOptions) (resp azfake.Responder[armagrifood.FarmBeatsExtensionsClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, dataManagerForAgricultureExtensionID string, options *armagrifood.DataManagerForAgricultureExtensionsClientGetOptions) (resp azfake.Responder[armagrifood.DataManagerForAgricultureExtensionsClientGetResponse], errResp azfake.ErrorResponder)
 
-	// NewListPager is the fake for method FarmBeatsExtensionsClient.NewListPager
+	// NewListPager is the fake for method DataManagerForAgricultureExtensionsClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(options *armagrifood.FarmBeatsExtensionsClientListOptions) (resp azfake.PagerResponder[armagrifood.FarmBeatsExtensionsClientListResponse])
+	NewListPager func(options *armagrifood.DataManagerForAgricultureExtensionsClientListOptions) (resp azfake.PagerResponder[armagrifood.DataManagerForAgricultureExtensionsClientListResponse])
 }
 
-// NewFarmBeatsExtensionsServerTransport creates a new instance of FarmBeatsExtensionsServerTransport with the provided implementation.
-// The returned FarmBeatsExtensionsServerTransport instance is connected to an instance of armagrifood.FarmBeatsExtensionsClient via the
+// NewDataManagerForAgricultureExtensionsServerTransport creates a new instance of DataManagerForAgricultureExtensionsServerTransport with the provided implementation.
+// The returned DataManagerForAgricultureExtensionsServerTransport instance is connected to an instance of armagrifood.DataManagerForAgricultureExtensionsClient via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
-func NewFarmBeatsExtensionsServerTransport(srv *FarmBeatsExtensionsServer) *FarmBeatsExtensionsServerTransport {
-	return &FarmBeatsExtensionsServerTransport{
+func NewDataManagerForAgricultureExtensionsServerTransport(srv *DataManagerForAgricultureExtensionsServer) *DataManagerForAgricultureExtensionsServerTransport {
+	return &DataManagerForAgricultureExtensionsServerTransport{
 		srv:          srv,
-		newListPager: newTracker[azfake.PagerResponder[armagrifood.FarmBeatsExtensionsClientListResponse]](),
+		newListPager: newTracker[azfake.PagerResponder[armagrifood.DataManagerForAgricultureExtensionsClientListResponse]](),
 	}
 }
 
-// FarmBeatsExtensionsServerTransport connects instances of armagrifood.FarmBeatsExtensionsClient to instances of FarmBeatsExtensionsServer.
-// Don't use this type directly, use NewFarmBeatsExtensionsServerTransport instead.
-type FarmBeatsExtensionsServerTransport struct {
-	srv          *FarmBeatsExtensionsServer
-	newListPager *tracker[azfake.PagerResponder[armagrifood.FarmBeatsExtensionsClientListResponse]]
+// DataManagerForAgricultureExtensionsServerTransport connects instances of armagrifood.DataManagerForAgricultureExtensionsClient to instances of DataManagerForAgricultureExtensionsServer.
+// Don't use this type directly, use NewDataManagerForAgricultureExtensionsServerTransport instead.
+type DataManagerForAgricultureExtensionsServerTransport struct {
+	srv          *DataManagerForAgricultureExtensionsServer
+	newListPager *tracker[azfake.PagerResponder[armagrifood.DataManagerForAgricultureExtensionsClientListResponse]]
 }
 
-// Do implements the policy.Transporter interface for FarmBeatsExtensionsServerTransport.
-func (f *FarmBeatsExtensionsServerTransport) Do(req *http.Request) (*http.Response, error) {
+// Do implements the policy.Transporter interface for DataManagerForAgricultureExtensionsServerTransport.
+func (d *DataManagerForAgricultureExtensionsServerTransport) Do(req *http.Request) (*http.Response, error) {
 	rawMethod := req.Context().Value(runtime.CtxAPINameKey{})
 	method, ok := rawMethod.(string)
 	if !ok {
@@ -63,10 +63,10 @@ func (f *FarmBeatsExtensionsServerTransport) Do(req *http.Request) (*http.Respon
 	var err error
 
 	switch method {
-	case "FarmBeatsExtensionsClient.Get":
-		resp, err = f.dispatchGet(req)
-	case "FarmBeatsExtensionsClient.NewListPager":
-		resp, err = f.dispatchNewListPager(req)
+	case "DataManagerForAgricultureExtensionsClient.Get":
+		resp, err = d.dispatchGet(req)
+	case "DataManagerForAgricultureExtensionsClient.NewListPager":
+		resp, err = d.dispatchNewListPager(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -78,21 +78,21 @@ func (f *FarmBeatsExtensionsServerTransport) Do(req *http.Request) (*http.Respon
 	return resp, nil
 }
 
-func (f *FarmBeatsExtensionsServerTransport) dispatchGet(req *http.Request) (*http.Response, error) {
-	if f.srv.Get == nil {
+func (d *DataManagerForAgricultureExtensionsServerTransport) dispatchGet(req *http.Request) (*http.Response, error) {
+	if d.srv.Get == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
 	}
-	const regexStr = `/providers/Microsoft\.AgFoodPlatform/farmBeatsExtensionDefinitions/(?P<farmBeatsExtensionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/providers/Microsoft\.AgFoodPlatform/farmBeatsExtensionDefinitions/(?P<dataManagerForAgricultureExtensionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 1 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	farmBeatsExtensionIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("farmBeatsExtensionId")])
+	dataManagerForAgricultureExtensionIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("dataManagerForAgricultureExtensionId")])
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := f.srv.Get(req.Context(), farmBeatsExtensionIDParam, nil)
+	respr, errRespr := d.srv.Get(req.Context(), dataManagerForAgricultureExtensionIDParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -100,18 +100,18 @@ func (f *FarmBeatsExtensionsServerTransport) dispatchGet(req *http.Request) (*ht
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).FarmBeatsExtension, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).DataManagerForAgricultureExtension, req)
 	if err != nil {
 		return nil, err
 	}
 	return resp, nil
 }
 
-func (f *FarmBeatsExtensionsServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if f.srv.NewListPager == nil {
+func (d *DataManagerForAgricultureExtensionsServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
+	if d.srv.NewListPager == nil {
 		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
 	}
-	newListPager := f.newListPager.get(req)
+	newListPager := d.newListPager.get(req)
 	if newListPager == nil {
 		qp := req.URL.Query()
 		farmBeatsExtensionIDsEscaped := qp["farmBeatsExtensionIds"]
@@ -164,9 +164,9 @@ func (f *FarmBeatsExtensionsServerTransport) dispatchNewListPager(req *http.Requ
 		if err != nil {
 			return nil, err
 		}
-		var options *armagrifood.FarmBeatsExtensionsClientListOptions
+		var options *armagrifood.DataManagerForAgricultureExtensionsClientListOptions
 		if len(farmBeatsExtensionIDsParam) > 0 || len(farmBeatsExtensionNamesParam) > 0 || len(extensionCategoriesParam) > 0 || len(publisherIDsParam) > 0 || maxPageSizeParam != nil {
-			options = &armagrifood.FarmBeatsExtensionsClientListOptions{
+			options = &armagrifood.DataManagerForAgricultureExtensionsClientListOptions{
 				FarmBeatsExtensionIDs:   farmBeatsExtensionIDsParam,
 				FarmBeatsExtensionNames: farmBeatsExtensionNamesParam,
 				ExtensionCategories:     extensionCategoriesParam,
@@ -174,10 +174,10 @@ func (f *FarmBeatsExtensionsServerTransport) dispatchNewListPager(req *http.Requ
 				MaxPageSize:             maxPageSizeParam,
 			}
 		}
-		resp := f.srv.NewListPager(options)
+		resp := d.srv.NewListPager(options)
 		newListPager = &resp
-		f.newListPager.add(req, newListPager)
-		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armagrifood.FarmBeatsExtensionsClientListResponse, createLink func() string) {
+		d.newListPager.add(req, newListPager)
+		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armagrifood.DataManagerForAgricultureExtensionsClientListResponse, createLink func() string) {
 			page.NextLink = to.Ptr(createLink())
 		})
 	}
@@ -186,11 +186,11 @@ func (f *FarmBeatsExtensionsServerTransport) dispatchNewListPager(req *http.Requ
 		return nil, err
 	}
 	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		f.newListPager.remove(req)
+		d.newListPager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
 	if !server.PagerResponderMore(newListPager) {
-		f.newListPager.remove(req)
+		d.newListPager.remove(req)
 	}
 	return resp, nil
 }

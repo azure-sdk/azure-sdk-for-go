@@ -20,23 +20,23 @@ import (
 	"strings"
 )
 
-// LocationsClient contains the methods for the Locations group.
-// Don't use this type directly, use NewLocationsClient() instead.
-type LocationsClient struct {
+// CheckNameAvailabilityClient contains the methods for the CheckNameAvailability group.
+// Don't use this type directly, use NewCheckNameAvailabilityClient() instead.
+type CheckNameAvailabilityClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewLocationsClient creates a new instance of LocationsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+// NewCheckNameAvailabilityClient creates a new instance of CheckNameAvailabilityClient with the specified values.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewLocationsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*LocationsClient, error) {
+func NewCheckNameAvailabilityClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*CheckNameAvailabilityClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &LocationsClient{
+	client := &CheckNameAvailabilityClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
@@ -46,34 +46,34 @@ func NewLocationsClient(subscriptionID string, credential azcore.TokenCredential
 // CheckNameAvailability - Checks the name availability of the resource with requested resource name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-09-01-preview
-//   - body - NameAvailabilityRequest object.
-//   - options - LocationsClientCheckNameAvailabilityOptions contains the optional parameters for the LocationsClient.CheckNameAvailability
+// Generated from API version 2023-06-01-preview
+//   - nameAvailabilityRequest - NameAvailabilityRequest object.
+//   - options - CheckNameAvailabilityClientCheckNameAvailabilityOptions contains the optional parameters for the CheckNameAvailabilityClient.CheckNameAvailability
 //     method.
-func (client *LocationsClient) CheckNameAvailability(ctx context.Context, body CheckNameAvailabilityRequest, options *LocationsClientCheckNameAvailabilityOptions) (LocationsClientCheckNameAvailabilityResponse, error) {
+func (client *CheckNameAvailabilityClient) CheckNameAvailability(ctx context.Context, nameAvailabilityRequest CheckNameAvailabilityRequest, options *CheckNameAvailabilityClientCheckNameAvailabilityOptions) (CheckNameAvailabilityClientCheckNameAvailabilityResponse, error) {
 	var err error
-	const operationName = "LocationsClient.CheckNameAvailability"
+	const operationName = "CheckNameAvailabilityClient.CheckNameAvailability"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.checkNameAvailabilityCreateRequest(ctx, body, options)
+	req, err := client.checkNameAvailabilityCreateRequest(ctx, nameAvailabilityRequest, options)
 	if err != nil {
-		return LocationsClientCheckNameAvailabilityResponse{}, err
+		return CheckNameAvailabilityClientCheckNameAvailabilityResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return LocationsClientCheckNameAvailabilityResponse{}, err
+		return CheckNameAvailabilityClientCheckNameAvailabilityResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return LocationsClientCheckNameAvailabilityResponse{}, err
+		return CheckNameAvailabilityClientCheckNameAvailabilityResponse{}, err
 	}
 	resp, err := client.checkNameAvailabilityHandleResponse(httpResp)
 	return resp, err
 }
 
 // checkNameAvailabilityCreateRequest creates the CheckNameAvailability request.
-func (client *LocationsClient) checkNameAvailabilityCreateRequest(ctx context.Context, body CheckNameAvailabilityRequest, options *LocationsClientCheckNameAvailabilityOptions) (*policy.Request, error) {
+func (client *CheckNameAvailabilityClient) checkNameAvailabilityCreateRequest(ctx context.Context, nameAvailabilityRequest CheckNameAvailabilityRequest, options *CheckNameAvailabilityClientCheckNameAvailabilityOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.AgFoodPlatform/checkNameAvailability"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -84,20 +84,20 @@ func (client *LocationsClient) checkNameAvailabilityCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-09-01-preview")
+	reqQP.Set("api-version", "2023-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, body); err != nil {
+	if err := runtime.MarshalAsJSON(req, nameAvailabilityRequest); err != nil {
 		return nil, err
 	}
 	return req, nil
 }
 
 // checkNameAvailabilityHandleResponse handles the CheckNameAvailability response.
-func (client *LocationsClient) checkNameAvailabilityHandleResponse(resp *http.Response) (LocationsClientCheckNameAvailabilityResponse, error) {
-	result := LocationsClientCheckNameAvailabilityResponse{}
+func (client *CheckNameAvailabilityClient) checkNameAvailabilityHandleResponse(resp *http.Response) (CheckNameAvailabilityClientCheckNameAvailabilityResponse, error) {
+	result := CheckNameAvailabilityClientCheckNameAvailabilityResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.CheckNameAvailabilityResponse); err != nil {
-		return LocationsClientCheckNameAvailabilityResponse{}, err
+		return CheckNameAvailabilityClientCheckNameAvailabilityResponse{}, err
 	}
 	return result, nil
 }
