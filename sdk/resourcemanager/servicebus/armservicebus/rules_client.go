@@ -48,7 +48,7 @@ func NewRulesClient(subscriptionID string, credential azcore.TokenCredential, op
 // CreateOrUpdate - Creates a new rule and updates an existing rule
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01
+// Generated from API version 2023-01-01-preview
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - namespaceName - The namespace name
 //   - topicName - The topic name.
@@ -110,7 +110,7 @@ func (client *RulesClient) createOrUpdateCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01")
+	reqQP.Set("api-version", "2023-01-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -131,7 +131,7 @@ func (client *RulesClient) createOrUpdateHandleResponse(resp *http.Response) (Ru
 // Delete - Deletes an existing rule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01
+// Generated from API version 2023-01-01-preview
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - namespaceName - The namespace name
 //   - topicName - The topic name.
@@ -191,7 +191,7 @@ func (client *RulesClient) deleteCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01")
+	reqQP.Set("api-version", "2023-01-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -200,7 +200,7 @@ func (client *RulesClient) deleteCreateRequest(ctx context.Context, resourceGrou
 // Get - Retrieves the description for the specified rule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01
+// Generated from API version 2023-01-01-preview
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - namespaceName - The namespace name
 //   - topicName - The topic name.
@@ -261,7 +261,7 @@ func (client *RulesClient) getCreateRequest(ctx context.Context, resourceGroupNa
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01")
+	reqQP.Set("api-version", "2023-01-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -278,7 +278,7 @@ func (client *RulesClient) getHandleResponse(resp *http.Response) (RulesClientGe
 
 // NewListBySubscriptionsPager - List all the rules within given topic-subscription
 //
-// Generated from API version 2021-11-01
+// Generated from API version 2023-01-01-preview
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - namespaceName - The namespace name
 //   - topicName - The topic name.
@@ -336,13 +336,13 @@ func (client *RulesClient) listBySubscriptionsCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01")
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
+	reqQP.Set("api-version", "2023-01-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
