@@ -18,12 +18,6 @@ type CreationSupportedClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// MarketplaceAgreementsClientCreateOrUpdateOptions contains the optional parameters for the MarketplaceAgreementsClient.CreateOrUpdate
-// method.
-type MarketplaceAgreementsClientCreateOrUpdateOptions struct {
-	Body *AgreementResource
-}
-
 // MarketplaceAgreementsClientListOptions contains the optional parameters for the MarketplaceAgreementsClient.NewListPager
 // method.
 type MarketplaceAgreementsClientListOptions struct {
