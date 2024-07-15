@@ -18,40 +18,6 @@ type ExtensionMetadataClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// GatewaysClientBeginCreateOrUpdateOptions contains the optional parameters for the GatewaysClient.BeginCreateOrUpdate method.
-type GatewaysClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// GatewaysClientBeginDeleteOptions contains the optional parameters for the GatewaysClient.BeginDelete method.
-type GatewaysClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// GatewaysClientGetOptions contains the optional parameters for the GatewaysClient.Get method.
-type GatewaysClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// GatewaysClientListByResourceGroupOptions contains the optional parameters for the GatewaysClient.NewListByResourceGroupPager
-// method.
-type GatewaysClientListByResourceGroupOptions struct {
-	// placeholder for future optional parameters
-}
-
-// GatewaysClientListBySubscriptionOptions contains the optional parameters for the GatewaysClient.NewListBySubscriptionPager
-// method.
-type GatewaysClientListBySubscriptionOptions struct {
-	// placeholder for future optional parameters
-}
-
-// GatewaysClientUpdateOptions contains the optional parameters for the GatewaysClient.Update method.
-type GatewaysClientUpdateOptions struct {
-	// placeholder for future optional parameters
-}
-
 // LicensesClientBeginCreateOrUpdateOptions contains the optional parameters for the LicensesClient.BeginCreateOrUpdate method.
 type LicensesClientBeginCreateOrUpdateOptions struct {
 	// Resumes the LRO from the provided token.
@@ -119,38 +85,6 @@ type MachineExtensionsClientListOptions struct {
 	Expand *string
 }
 
-// MachineRunCommandsClientBeginCreateOrUpdateOptions contains the optional parameters for the MachineRunCommandsClient.BeginCreateOrUpdate
-// method.
-type MachineRunCommandsClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// MachineRunCommandsClientBeginDeleteOptions contains the optional parameters for the MachineRunCommandsClient.BeginDelete
-// method.
-type MachineRunCommandsClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// MachineRunCommandsClientBeginUpdateOptions contains the optional parameters for the MachineRunCommandsClient.BeginUpdate
-// method.
-type MachineRunCommandsClientBeginUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// MachineRunCommandsClientGetOptions contains the optional parameters for the MachineRunCommandsClient.Get method.
-type MachineRunCommandsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// MachineRunCommandsClientListOptions contains the optional parameters for the MachineRunCommandsClient.NewListPager method.
-type MachineRunCommandsClientListOptions struct {
-	// The expand expression to apply on the operation.
-	Expand *string
-}
-
 // MachinesClientBeginAssessPatchesOptions contains the optional parameters for the MachinesClient.BeginAssessPatches method.
 type MachinesClientBeginAssessPatchesOptions struct {
 	// Resumes the LRO from the provided token.
@@ -163,6 +97,12 @@ type MachinesClientBeginInstallPatchesOptions struct {
 	ResumeToken string
 }
 
+// MachinesClientCreateOrUpdateOptions contains the optional parameters for the MachinesClient.CreateOrUpdate method.
+type MachinesClientCreateOrUpdateOptions struct {
+	// Expands referenced resources.
+	Expand *string
+}
+
 // MachinesClientDeleteOptions contains the optional parameters for the MachinesClient.Delete method.
 type MachinesClientDeleteOptions struct {
 	// placeholder for future optional parameters
@@ -171,7 +111,7 @@ type MachinesClientDeleteOptions struct {
 // MachinesClientGetOptions contains the optional parameters for the MachinesClient.Get method.
 type MachinesClientGetOptions struct {
 	// The expand expression to apply on the operation.
-	Expand *string
+	Expand *InstanceViewTypes
 }
 
 // MachinesClientListByResourceGroupOptions contains the optional parameters for the MachinesClient.NewListByResourceGroupPager
@@ -202,6 +142,13 @@ type ManagementClientBeginUpgradeExtensionsOptions struct {
 // NetworkProfileClientGetOptions contains the optional parameters for the NetworkProfileClient.Get method.
 type NetworkProfileClientGetOptions struct {
 	// placeholder for future optional parameters
+}
+
+// NetworkSecurityPerimeterConfigurationsClientBeginReconcileForPrivateLinkScopeOptions contains the optional parameters for
+// the NetworkSecurityPerimeterConfigurationsClient.BeginReconcileForPrivateLinkScope method.
+type NetworkSecurityPerimeterConfigurationsClientBeginReconcileForPrivateLinkScopeOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // NetworkSecurityPerimeterConfigurationsClientGetByPrivateLinkScopeOptions contains the optional parameters for the NetworkSecurityPerimeterConfigurationsClient.GetByPrivateLinkScope
@@ -301,20 +248,5 @@ type PrivateLinkScopesClientListOptions struct {
 
 // PrivateLinkScopesClientUpdateTagsOptions contains the optional parameters for the PrivateLinkScopesClient.UpdateTags method.
 type PrivateLinkScopesClientUpdateTagsOptions struct {
-	// placeholder for future optional parameters
-}
-
-// SettingsClientGetOptions contains the optional parameters for the SettingsClient.Get method.
-type SettingsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// SettingsClientPatchOptions contains the optional parameters for the SettingsClient.Patch method.
-type SettingsClientPatchOptions struct {
-	// placeholder for future optional parameters
-}
-
-// SettingsClientUpdateOptions contains the optional parameters for the SettingsClient.Update method.
-type SettingsClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
