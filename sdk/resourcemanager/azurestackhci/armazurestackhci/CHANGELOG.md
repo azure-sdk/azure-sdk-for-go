@@ -1,5 +1,362 @@
 # Release History
 
+## 2.0.0 (2024-07-15)
+### Breaking Changes
+
+- Function `*ExtensionsClient.BeginUpdate` parameter(s) have been changed from `(context.Context, string, string, string, string, Extension, *ExtensionsClientBeginUpdateOptions)` to `(context.Context, string, string, string, string, ExtensionPatch, *ExtensionsClientBeginUpdateOptions)`
+
+### Features Added
+
+- New value `ArcSettingAggregateStateAccepted`, `ArcSettingAggregateStateDisableInProgress`, `ArcSettingAggregateStateProvisioning` added to enum type `ArcSettingAggregateState`
+- New value `ExtensionAggregateStateAccepted`, `ExtensionAggregateStateProvisioning`, `ExtensionAggregateStateUpgradeFailedRollbackSucceeded` added to enum type `ExtensionAggregateState`
+- New value `NodeArcStateAccepted`, `NodeArcStateDisableInProgress`, `NodeArcStateInProgress`, `NodeArcStatePartiallyConnected`, `NodeArcStatePartiallySucceeded`, `NodeArcStateProvisioning` added to enum type `NodeArcState`
+- New value `NodeExtensionStateAccepted`, `NodeExtensionStateInProgress`, `NodeExtensionStatePartiallyConnected`, `NodeExtensionStatePartiallySucceeded`, `NodeExtensionStateProvisioning` added to enum type `NodeExtensionState`
+- New value `ProvisioningStateConnected`, `ProvisioningStateCreating`, `ProvisioningStateDeleted`, `ProvisioningStateDeleting`, `ProvisioningStateDisableInProgress`, `ProvisioningStateDisconnected`, `ProvisioningStateError`, `ProvisioningStateInProgress`, `ProvisioningStateMoving`, `ProvisioningStateNotSpecified`, `ProvisioningStatePartiallyConnected`, `ProvisioningStatePartiallySucceeded`, `ProvisioningStateUpdating` added to enum type `ProvisioningState`
+- New value `StatusDeploymentFailed`, `StatusDeploymentInProgress`, `StatusDeploymentSuccess`, `StatusFailed`, `StatusInProgress`, `StatusNotSpecified`, `StatusSucceeded`, `StatusValidationFailed`, `StatusValidationInProgress`, `StatusValidationSuccess` added to enum type `Status`
+- New enum type `AvailabilityType` with values `AvailabilityTypeLocal`, `AvailabilityTypeNotify`, `AvailabilityTypeOnline`
+- New enum type `CloudInitDataSource` with values `CloudInitDataSourceAzure`, `CloudInitDataSourceNoCloud`
+- New enum type `ClusterNodeType` with values `ClusterNodeTypeFirstParty`, `ClusterNodeTypeThirdParty`
+- New enum type `ComplianceAssignmentType` with values `ComplianceAssignmentTypeApplyAndAutoCorrect`, `ComplianceAssignmentTypeAudit`
+- New enum type `ComplianceStatus` with values `ComplianceStatusCompliant`, `ComplianceStatusNonCompliant`, `ComplianceStatusPending`
+- New enum type `ConnectivityStatus` with values `ConnectivityStatusConnected`, `ConnectivityStatusDisconnected`, `ConnectivityStatusNotConnectedRecently`, `ConnectivityStatusNotSpecified`, `ConnectivityStatusNotYetRegistered`, `ConnectivityStatusPartiallyConnected`
+- New enum type `DeploymentMode` with values `DeploymentModeDeploy`, `DeploymentModeValidate`
+- New enum type `DiskFileFormat` with values `DiskFileFormatVhd`, `DiskFileFormatVhdx`
+- New enum type `ExtendedLocationTypes` with values `ExtendedLocationTypesCustomLocation`
+- New enum type `ExtensionManagedBy` with values `ExtensionManagedByAzure`, `ExtensionManagedByUser`
+- New enum type `HealthState` with values `HealthStateError`, `HealthStateFailure`, `HealthStateInProgress`, `HealthStateSuccess`, `HealthStateUnknown`, `HealthStateWarning`
+- New enum type `HyperVGeneration` with values `HyperVGenerationV1`, `HyperVGenerationV2`
+- New enum type `IPAllocationMethodEnum` with values `IPAllocationMethodEnumDynamic`, `IPAllocationMethodEnumStatic`
+- New enum type `IPPoolTypeEnum` with values `IPPoolTypeEnumVM`, `IPPoolTypeEnumVippool`
+- New enum type `ManagedServiceIdentityType` with values `ManagedServiceIdentityTypeNone`, `ManagedServiceIdentityTypeSystemAssigned`, `ManagedServiceIdentityTypeSystemAssignedUserAssigned`, `ManagedServiceIdentityTypeUserAssigned`
+- New enum type `OemActivation` with values `OemActivationDisabled`, `OemActivationEnabled`
+- New enum type `OperatingSystemTypes` with values `OperatingSystemTypesLinux`, `OperatingSystemTypesWindows`
+- New enum type `PowerStateEnum` with values `PowerStateEnumDeallocated`, `PowerStateEnumDeallocating`, `PowerStateEnumRunning`, `PowerStateEnumStarting`, `PowerStateEnumStopped`, `PowerStateEnumStopping`, `PowerStateEnumUnknown`
+- New enum type `ProvisioningAction` with values `ProvisioningActionInstall`, `ProvisioningActionRepair`, `ProvisioningActionUninstall`
+- New enum type `ProvisioningStateEnum` with values `ProvisioningStateEnumAccepted`, `ProvisioningStateEnumCanceled`, `ProvisioningStateEnumDeleting`, `ProvisioningStateEnumFailed`, `ProvisioningStateEnumInProgress`, `ProvisioningStateEnumSucceeded`
+- New enum type `RebootRequirement` with values `RebootRequirementFalse`, `RebootRequirementTrue`, `RebootRequirementUnknown`
+- New enum type `SecurityTypes` with values `SecurityTypesConfidentialVM`, `SecurityTypesTrustedLaunch`
+- New enum type `Severity` with values `SeverityCritical`, `SeverityHidden`, `SeverityInformational`, `SeverityWarning`
+- New enum type `SoftwareAssuranceIntent` with values `SoftwareAssuranceIntentDisable`, `SoftwareAssuranceIntentEnable`
+- New enum type `SoftwareAssuranceStatus` with values `SoftwareAssuranceStatusDisabled`, `SoftwareAssuranceStatusEnabled`
+- New enum type `State` with values `StateAdditionalContentRequired`, `StateDownloadFailed`, `StateDownloading`, `StateHasPrerequisite`, `StateHealthCheckFailed`, `StateHealthChecking`, `StateInstallationFailed`, `StateInstalled`, `StateInstalling`, `StateInvalid`, `StateNotApplicableBecauseAnotherUpdateIsInProgress`, `StateObsolete`, `StatePreparationFailed`, `StatePreparing`, `StateReady`, `StateReadyToInstall`, `StateRecalled`, `StateScanFailed`, `StateScanInProgress`
+- New enum type `StatusLevelTypes` with values `StatusLevelTypesError`, `StatusLevelTypesInfo`, `StatusLevelTypesWarning`
+- New enum type `StatusTypes` with values `StatusTypesFailed`, `StatusTypesInProgress`, `StatusTypesSucceeded`
+- New enum type `UpdateRunPropertiesState` with values `UpdateRunPropertiesStateFailed`, `UpdateRunPropertiesStateInProgress`, `UpdateRunPropertiesStateSucceeded`, `UpdateRunPropertiesStateUnknown`
+- New enum type `UpdateSummariesPropertiesState` with values `UpdateSummariesPropertiesStateAppliedSuccessfully`, `UpdateSummariesPropertiesStateNeedsAttention`, `UpdateSummariesPropertiesStatePreparationFailed`, `UpdateSummariesPropertiesStatePreparationInProgress`, `UpdateSummariesPropertiesStateUnknown`, `UpdateSummariesPropertiesStateUpdateAvailable`, `UpdateSummariesPropertiesStateUpdateFailed`, `UpdateSummariesPropertiesStateUpdateInProgress`
+- New enum type `VMSizeEnum` with values `VMSizeEnumCustom`, `VMSizeEnumDefault`, `VMSizeEnumStandardA2V2`, `VMSizeEnumStandardA4V2`, `VMSizeEnumStandardD16SV3`, `VMSizeEnumStandardD2SV3`, `VMSizeEnumStandardD32SV3`, `VMSizeEnumStandardD4SV3`, `VMSizeEnumStandardD8SV3`, `VMSizeEnumStandardDS13V2`, `VMSizeEnumStandardDS2V2`, `VMSizeEnumStandardDS3V2`, `VMSizeEnumStandardDS4V2`, `VMSizeEnumStandardDS5V2`, `VMSizeEnumStandardK8S2V1`, `VMSizeEnumStandardK8S3V1`, `VMSizeEnumStandardK8S4V1`, `VMSizeEnumStandardK8S5V1`, `VMSizeEnumStandardK8SV1`, `VMSizeEnumStandardNK12`, `VMSizeEnumStandardNK6`, `VMSizeEnumStandardNV12`, `VMSizeEnumStandardNV6`
+- New function `*ArcSettingsClient.ConsentAndInstallDefaultExtensions(context.Context, string, string, string, *ArcSettingsClientConsentAndInstallDefaultExtensionsOptions) (ArcSettingsClientConsentAndInstallDefaultExtensionsResponse, error)`
+- New function `*ArcSettingsClient.BeginInitializeDisableProcess(context.Context, string, string, string, *ArcSettingsClientBeginInitializeDisableProcessOptions) (*runtime.Poller[ArcSettingsClientInitializeDisableProcessResponse], error)`
+- New function `*ClientFactory.NewDeploymentSettingsClient() *DeploymentSettingsClient`
+- New function `*ClientFactory.NewEdgeDevicesClient() *EdgeDevicesClient`
+- New function `*ClientFactory.NewGalleryImagesClient() *GalleryImagesClient`
+- New function `*ClientFactory.NewGuestAgentClient() *GuestAgentClient`
+- New function `*ClientFactory.NewGuestAgentsClient() *GuestAgentsClient`
+- New function `*ClientFactory.NewHybridIdentityMetadataClient() *HybridIdentityMetadataClient`
+- New function `*ClientFactory.NewLogicalNetworksClient() *LogicalNetworksClient`
+- New function `*ClientFactory.NewMarketplaceGalleryImagesClient() *MarketplaceGalleryImagesClient`
+- New function `*ClientFactory.NewNetworkInterfacesClient() *NetworkInterfacesClient`
+- New function `*ClientFactory.NewOffersClient() *OffersClient`
+- New function `*ClientFactory.NewPublishersClient() *PublishersClient`
+- New function `*ClientFactory.NewSKUsClient() *SKUsClient`
+- New function `*ClientFactory.NewSecuritySettingsClient() *SecuritySettingsClient`
+- New function `*ClientFactory.NewStorageContainersClient() *StorageContainersClient`
+- New function `*ClientFactory.NewUpdateRunsClient() *UpdateRunsClient`
+- New function `*ClientFactory.NewUpdateSummariesClient() *UpdateSummariesClient`
+- New function `*ClientFactory.NewUpdatesClient() *UpdatesClient`
+- New function `*ClientFactory.NewVirtualHardDisksClient() *VirtualHardDisksClient`
+- New function `*ClientFactory.NewVirtualMachineInstancesClient() *VirtualMachineInstancesClient`
+- New function `*ClustersClient.BeginExtendSoftwareAssuranceBenefit(context.Context, string, string, SoftwareAssuranceChangeRequest, *ClustersClientBeginExtendSoftwareAssuranceBenefitOptions) (*runtime.Poller[ClustersClientExtendSoftwareAssuranceBenefitResponse], error)`
+- New function `NewDeploymentSettingsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DeploymentSettingsClient, error)`
+- New function `*DeploymentSettingsClient.BeginCreateOrUpdate(context.Context, string, string, string, DeploymentSetting, *DeploymentSettingsClientBeginCreateOrUpdateOptions) (*runtime.Poller[DeploymentSettingsClientCreateOrUpdateResponse], error)`
+- New function `*DeploymentSettingsClient.BeginDelete(context.Context, string, string, string, *DeploymentSettingsClientBeginDeleteOptions) (*runtime.Poller[DeploymentSettingsClientDeleteResponse], error)`
+- New function `*DeploymentSettingsClient.Get(context.Context, string, string, string, *DeploymentSettingsClientGetOptions) (DeploymentSettingsClientGetResponse, error)`
+- New function `*DeploymentSettingsClient.NewListByClustersPager(string, string, *DeploymentSettingsClientListByClustersOptions) *runtime.Pager[DeploymentSettingsClientListByClustersResponse]`
+- New function `NewEdgeDevicesClient(azcore.TokenCredential, *arm.ClientOptions) (*EdgeDevicesClient, error)`
+- New function `*EdgeDevicesClient.BeginCreateOrUpdate(context.Context, string, string, EdgeDevice, *EdgeDevicesClientBeginCreateOrUpdateOptions) (*runtime.Poller[EdgeDevicesClientCreateOrUpdateResponse], error)`
+- New function `*EdgeDevicesClient.BeginDelete(context.Context, string, string, *EdgeDevicesClientBeginDeleteOptions) (*runtime.Poller[EdgeDevicesClientDeleteResponse], error)`
+- New function `*EdgeDevicesClient.Get(context.Context, string, string, *EdgeDevicesClientGetOptions) (EdgeDevicesClientGetResponse, error)`
+- New function `*EdgeDevicesClient.NewListPager(string, *EdgeDevicesClientListOptions) *runtime.Pager[EdgeDevicesClientListResponse]`
+- New function `*EdgeDevicesClient.BeginValidate(context.Context, string, string, ValidateRequest, *EdgeDevicesClientBeginValidateOptions) (*runtime.Poller[EdgeDevicesClientValidateResponse], error)`
+- New function `*ExtensionsClient.BeginUpgrade(context.Context, string, string, string, string, ExtensionUpgradeParameters, *ExtensionsClientBeginUpgradeOptions) (*runtime.Poller[ExtensionsClientUpgradeResponse], error)`
+- New function `NewGalleryImagesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*GalleryImagesClient, error)`
+- New function `*GalleryImagesClient.BeginCreateOrUpdate(context.Context, string, string, GalleryImages, *GalleryImagesClientBeginCreateOrUpdateOptions) (*runtime.Poller[GalleryImagesClientCreateOrUpdateResponse], error)`
+- New function `*GalleryImagesClient.BeginDelete(context.Context, string, string, *GalleryImagesClientBeginDeleteOptions) (*runtime.Poller[GalleryImagesClientDeleteResponse], error)`
+- New function `*GalleryImagesClient.Get(context.Context, string, string, *GalleryImagesClientGetOptions) (GalleryImagesClientGetResponse, error)`
+- New function `*GalleryImagesClient.NewListAllPager(*GalleryImagesClientListAllOptions) *runtime.Pager[GalleryImagesClientListAllResponse]`
+- New function `*GalleryImagesClient.NewListPager(string, *GalleryImagesClientListOptions) *runtime.Pager[GalleryImagesClientListResponse]`
+- New function `*GalleryImagesClient.BeginUpdate(context.Context, string, string, GalleryImagesUpdateRequest, *GalleryImagesClientBeginUpdateOptions) (*runtime.Poller[GalleryImagesClientUpdateResponse], error)`
+- New function `NewGuestAgentClient(azcore.TokenCredential, *arm.ClientOptions) (*GuestAgentClient, error)`
+- New function `*GuestAgentClient.BeginCreate(context.Context, string, *GuestAgentClientBeginCreateOptions) (*runtime.Poller[GuestAgentClientCreateResponse], error)`
+- New function `*GuestAgentClient.BeginDelete(context.Context, string, *GuestAgentClientBeginDeleteOptions) (*runtime.Poller[GuestAgentClientDeleteResponse], error)`
+- New function `*GuestAgentClient.Get(context.Context, string, *GuestAgentClientGetOptions) (GuestAgentClientGetResponse, error)`
+- New function `NewGuestAgentsClient(azcore.TokenCredential, *arm.ClientOptions) (*GuestAgentsClient, error)`
+- New function `*GuestAgentsClient.NewListPager(string, *GuestAgentsClientListOptions) *runtime.Pager[GuestAgentsClientListResponse]`
+- New function `NewHybridIdentityMetadataClient(azcore.TokenCredential, *arm.ClientOptions) (*HybridIdentityMetadataClient, error)`
+- New function `*HybridIdentityMetadataClient.Get(context.Context, string, *HybridIdentityMetadataClientGetOptions) (HybridIdentityMetadataClientGetResponse, error)`
+- New function `*HybridIdentityMetadataClient.NewListPager(string, *HybridIdentityMetadataClientListOptions) *runtime.Pager[HybridIdentityMetadataClientListResponse]`
+- New function `NewLogicalNetworksClient(string, azcore.TokenCredential, *arm.ClientOptions) (*LogicalNetworksClient, error)`
+- New function `*LogicalNetworksClient.BeginCreateOrUpdate(context.Context, string, string, LogicalNetworks, *LogicalNetworksClientBeginCreateOrUpdateOptions) (*runtime.Poller[LogicalNetworksClientCreateOrUpdateResponse], error)`
+- New function `*LogicalNetworksClient.BeginDelete(context.Context, string, string, *LogicalNetworksClientBeginDeleteOptions) (*runtime.Poller[LogicalNetworksClientDeleteResponse], error)`
+- New function `*LogicalNetworksClient.Get(context.Context, string, string, *LogicalNetworksClientGetOptions) (LogicalNetworksClientGetResponse, error)`
+- New function `*LogicalNetworksClient.NewListAllPager(*LogicalNetworksClientListAllOptions) *runtime.Pager[LogicalNetworksClientListAllResponse]`
+- New function `*LogicalNetworksClient.NewListPager(string, *LogicalNetworksClientListOptions) *runtime.Pager[LogicalNetworksClientListResponse]`
+- New function `*LogicalNetworksClient.BeginUpdate(context.Context, string, string, LogicalNetworksUpdateRequest, *LogicalNetworksClientBeginUpdateOptions) (*runtime.Poller[LogicalNetworksClientUpdateResponse], error)`
+- New function `NewMarketplaceGalleryImagesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*MarketplaceGalleryImagesClient, error)`
+- New function `*MarketplaceGalleryImagesClient.BeginCreateOrUpdate(context.Context, string, string, MarketplaceGalleryImages, *MarketplaceGalleryImagesClientBeginCreateOrUpdateOptions) (*runtime.Poller[MarketplaceGalleryImagesClientCreateOrUpdateResponse], error)`
+- New function `*MarketplaceGalleryImagesClient.BeginDelete(context.Context, string, string, *MarketplaceGalleryImagesClientBeginDeleteOptions) (*runtime.Poller[MarketplaceGalleryImagesClientDeleteResponse], error)`
+- New function `*MarketplaceGalleryImagesClient.Get(context.Context, string, string, *MarketplaceGalleryImagesClientGetOptions) (MarketplaceGalleryImagesClientGetResponse, error)`
+- New function `*MarketplaceGalleryImagesClient.NewListAllPager(*MarketplaceGalleryImagesClientListAllOptions) *runtime.Pager[MarketplaceGalleryImagesClientListAllResponse]`
+- New function `*MarketplaceGalleryImagesClient.NewListPager(string, *MarketplaceGalleryImagesClientListOptions) *runtime.Pager[MarketplaceGalleryImagesClientListResponse]`
+- New function `*MarketplaceGalleryImagesClient.BeginUpdate(context.Context, string, string, MarketplaceGalleryImagesUpdateRequest, *MarketplaceGalleryImagesClientBeginUpdateOptions) (*runtime.Poller[MarketplaceGalleryImagesClientUpdateResponse], error)`
+- New function `NewOffersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*OffersClient, error)`
+- New function `*OffersClient.Get(context.Context, string, string, string, string, *OffersClientGetOptions) (OffersClientGetResponse, error)`
+- New function `*OffersClient.NewListByClusterPager(string, string, *OffersClientListByClusterOptions) *runtime.Pager[OffersClientListByClusterResponse]`
+- New function `*OffersClient.NewListByPublisherPager(string, string, string, *OffersClientListByPublisherOptions) *runtime.Pager[OffersClientListByPublisherResponse]`
+- New function `NewPublishersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PublishersClient, error)`
+- New function `*PublishersClient.Get(context.Context, string, string, string, *PublishersClientGetOptions) (PublishersClientGetResponse, error)`
+- New function `*PublishersClient.NewListByClusterPager(string, string, *PublishersClientListByClusterOptions) *runtime.Pager[PublishersClientListByClusterResponse]`
+- New function `NewSKUsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SKUsClient, error)`
+- New function `*SKUsClient.Get(context.Context, string, string, string, string, string, *SKUsClientGetOptions) (SKUsClientGetResponse, error)`
+- New function `*SKUsClient.NewListByOfferPager(string, string, string, string, *SKUsClientListByOfferOptions) *runtime.Pager[SKUsClientListByOfferResponse]`
+- New function `NewSecuritySettingsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SecuritySettingsClient, error)`
+- New function `*SecuritySettingsClient.BeginCreateOrUpdate(context.Context, string, string, string, SecuritySetting, *SecuritySettingsClientBeginCreateOrUpdateOptions) (*runtime.Poller[SecuritySettingsClientCreateOrUpdateResponse], error)`
+- New function `*SecuritySettingsClient.BeginDelete(context.Context, string, string, string, *SecuritySettingsClientBeginDeleteOptions) (*runtime.Poller[SecuritySettingsClientDeleteResponse], error)`
+- New function `*SecuritySettingsClient.Get(context.Context, string, string, string, *SecuritySettingsClientGetOptions) (SecuritySettingsClientGetResponse, error)`
+- New function `*SecuritySettingsClient.NewListByClustersPager(string, string, *SecuritySettingsClientListByClustersOptions) *runtime.Pager[SecuritySettingsClientListByClustersResponse]`
+- New function `NewStorageContainersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*StorageContainersClient, error)`
+- New function `*StorageContainersClient.BeginCreateOrUpdate(context.Context, string, string, StorageContainers, *StorageContainersClientBeginCreateOrUpdateOptions) (*runtime.Poller[StorageContainersClientCreateOrUpdateResponse], error)`
+- New function `*StorageContainersClient.BeginDelete(context.Context, string, string, *StorageContainersClientBeginDeleteOptions) (*runtime.Poller[StorageContainersClientDeleteResponse], error)`
+- New function `*StorageContainersClient.Get(context.Context, string, string, *StorageContainersClientGetOptions) (StorageContainersClientGetResponse, error)`
+- New function `*StorageContainersClient.NewListAllPager(*StorageContainersClientListAllOptions) *runtime.Pager[StorageContainersClientListAllResponse]`
+- New function `*StorageContainersClient.NewListPager(string, *StorageContainersClientListOptions) *runtime.Pager[StorageContainersClientListResponse]`
+- New function `*StorageContainersClient.BeginUpdate(context.Context, string, string, StorageContainersUpdateRequest, *StorageContainersClientBeginUpdateOptions) (*runtime.Poller[StorageContainersClientUpdateResponse], error)`
+- New function `NewUpdateRunsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*UpdateRunsClient, error)`
+- New function `*UpdateRunsClient.BeginDelete(context.Context, string, string, string, string, *UpdateRunsClientBeginDeleteOptions) (*runtime.Poller[UpdateRunsClientDeleteResponse], error)`
+- New function `*UpdateRunsClient.Get(context.Context, string, string, string, string, *UpdateRunsClientGetOptions) (UpdateRunsClientGetResponse, error)`
+- New function `*UpdateRunsClient.NewListPager(string, string, string, *UpdateRunsClientListOptions) *runtime.Pager[UpdateRunsClientListResponse]`
+- New function `*UpdateRunsClient.Put(context.Context, string, string, string, string, UpdateRun, *UpdateRunsClientPutOptions) (UpdateRunsClientPutResponse, error)`
+- New function `NewUpdateSummariesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*UpdateSummariesClient, error)`
+- New function `*UpdateSummariesClient.BeginDelete(context.Context, string, string, *UpdateSummariesClientBeginDeleteOptions) (*runtime.Poller[UpdateSummariesClientDeleteResponse], error)`
+- New function `*UpdateSummariesClient.Get(context.Context, string, string, *UpdateSummariesClientGetOptions) (UpdateSummariesClientGetResponse, error)`
+- New function `*UpdateSummariesClient.NewListPager(string, string, *UpdateSummariesClientListOptions) *runtime.Pager[UpdateSummariesClientListResponse]`
+- New function `*UpdateSummariesClient.Put(context.Context, string, string, UpdateSummaries, *UpdateSummariesClientPutOptions) (UpdateSummariesClientPutResponse, error)`
+- New function `NewUpdatesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*UpdatesClient, error)`
+- New function `*UpdatesClient.BeginDelete(context.Context, string, string, string, *UpdatesClientBeginDeleteOptions) (*runtime.Poller[UpdatesClientDeleteResponse], error)`
+- New function `*UpdatesClient.Get(context.Context, string, string, string, *UpdatesClientGetOptions) (UpdatesClientGetResponse, error)`
+- New function `*UpdatesClient.NewListPager(string, string, *UpdatesClientListOptions) *runtime.Pager[UpdatesClientListResponse]`
+- New function `*UpdatesClient.BeginPost(context.Context, string, string, string, *UpdatesClientBeginPostOptions) (*runtime.Poller[UpdatesClientPostResponse], error)`
+- New function `*UpdatesClient.Put(context.Context, string, string, string, Update, *UpdatesClientPutOptions) (UpdatesClientPutResponse, error)`
+- New function `NewVirtualHardDisksClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VirtualHardDisksClient, error)`
+- New function `*VirtualHardDisksClient.BeginCreateOrUpdate(context.Context, string, string, VirtualHardDisks, *VirtualHardDisksClientBeginCreateOrUpdateOptions) (*runtime.Poller[VirtualHardDisksClientCreateOrUpdateResponse], error)`
+- New function `*VirtualHardDisksClient.BeginDelete(context.Context, string, string, *VirtualHardDisksClientBeginDeleteOptions) (*runtime.Poller[VirtualHardDisksClientDeleteResponse], error)`
+- New function `*VirtualHardDisksClient.Get(context.Context, string, string, *VirtualHardDisksClientGetOptions) (VirtualHardDisksClientGetResponse, error)`
+- New function `*VirtualHardDisksClient.NewListAllPager(*VirtualHardDisksClientListAllOptions) *runtime.Pager[VirtualHardDisksClientListAllResponse]`
+- New function `*VirtualHardDisksClient.NewListPager(string, *VirtualHardDisksClientListOptions) *runtime.Pager[VirtualHardDisksClientListResponse]`
+- New function `*VirtualHardDisksClient.BeginUpdate(context.Context, string, string, VirtualHardDisksUpdateRequest, *VirtualHardDisksClientBeginUpdateOptions) (*runtime.Poller[VirtualHardDisksClientUpdateResponse], error)`
+- New function `NewVirtualMachineInstancesClient(azcore.TokenCredential, *arm.ClientOptions) (*VirtualMachineInstancesClient, error)`
+- New function `*VirtualMachineInstancesClient.BeginCreateOrUpdate(context.Context, string, VirtualMachineInstance, *VirtualMachineInstancesClientBeginCreateOrUpdateOptions) (*runtime.Poller[VirtualMachineInstancesClientCreateOrUpdateResponse], error)`
+- New function `*VirtualMachineInstancesClient.BeginDelete(context.Context, string, *VirtualMachineInstancesClientBeginDeleteOptions) (*runtime.Poller[VirtualMachineInstancesClientDeleteResponse], error)`
+- New function `*VirtualMachineInstancesClient.Get(context.Context, string, *VirtualMachineInstancesClientGetOptions) (VirtualMachineInstancesClientGetResponse, error)`
+- New function `*VirtualMachineInstancesClient.NewListPager(string, *VirtualMachineInstancesClientListOptions) *runtime.Pager[VirtualMachineInstancesClientListResponse]`
+- New function `*VirtualMachineInstancesClient.BeginRestart(context.Context, string, *VirtualMachineInstancesClientBeginRestartOptions) (*runtime.Poller[VirtualMachineInstancesClientRestartResponse], error)`
+- New function `*VirtualMachineInstancesClient.BeginStart(context.Context, string, *VirtualMachineInstancesClientBeginStartOptions) (*runtime.Poller[VirtualMachineInstancesClientStartResponse], error)`
+- New function `*VirtualMachineInstancesClient.BeginStop(context.Context, string, *VirtualMachineInstancesClientBeginStopOptions) (*runtime.Poller[VirtualMachineInstancesClientStopResponse], error)`
+- New function `*VirtualMachineInstancesClient.BeginUpdate(context.Context, string, VirtualMachineInstanceUpdateRequest, *VirtualMachineInstancesClientBeginUpdateOptions) (*runtime.Poller[VirtualMachineInstancesClientUpdateResponse], error)`
+- New function `NewNetworkInterfacesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*NetworkInterfacesClient, error)`
+- New function `*NetworkInterfacesClient.BeginCreateOrUpdate(context.Context, string, string, NetworkInterfaces, *NetworkInterfacesClientBeginCreateOrUpdateOptions) (*runtime.Poller[NetworkInterfacesClientCreateOrUpdateResponse], error)`
+- New function `*NetworkInterfacesClient.BeginDelete(context.Context, string, string, *NetworkInterfacesClientBeginDeleteOptions) (*runtime.Poller[NetworkInterfacesClientDeleteResponse], error)`
+- New function `*NetworkInterfacesClient.Get(context.Context, string, string, *NetworkInterfacesClientGetOptions) (NetworkInterfacesClientGetResponse, error)`
+- New function `*NetworkInterfacesClient.NewListAllPager(*NetworkInterfacesClientListAllOptions) *runtime.Pager[NetworkInterfacesClientListAllResponse]`
+- New function `*NetworkInterfacesClient.NewListPager(string, *NetworkInterfacesClientListOptions) *runtime.Pager[NetworkInterfacesClientListResponse]`
+- New function `*NetworkInterfacesClient.BeginUpdate(context.Context, string, string, NetworkInterfacesUpdateRequest, *NetworkInterfacesClientBeginUpdateOptions) (*runtime.Poller[NetworkInterfacesClientUpdateResponse], error)`
+- New struct `AdapterPropertyOverrides`
+- New struct `DefaultExtensionDetails`
+- New struct `DeploymentCluster`
+- New struct `DeploymentConfiguration`
+- New struct `DeploymentData`
+- New struct `DeploymentSecuritySettings`
+- New struct `DeploymentSetting`
+- New struct `DeploymentSettingListResult`
+- New struct `DeploymentSettingsProperties`
+- New struct `DeploymentStatus`
+- New struct `DeploymentStep`
+- New struct `DeviceConfiguration`
+- New struct `EdgeDevice`
+- New struct `EdgeDeviceListResult`
+- New struct `EdgeDeviceProperties`
+- New struct `ErrorAdditionalInfo`
+- New struct `ErrorDetail`
+- New struct `ExtendedLocation`
+- New struct `ExtensionInstanceView`
+- New struct `ExtensionInstanceViewStatus`
+- New struct `ExtensionPatch`
+- New struct `ExtensionPatchParameters`
+- New struct `ExtensionPatchProperties`
+- New struct `ExtensionUpgradeParameters`
+- New struct `GalleryImageIdentifier`
+- New struct `GalleryImageProperties`
+- New struct `GalleryImageStatus`
+- New struct `GalleryImageStatusDownloadStatus`
+- New struct `GalleryImageStatusProvisioningStatus`
+- New struct `GalleryImageVersion`
+- New struct `GalleryImageVersionProperties`
+- New struct `GalleryImageVersionStorageProfile`
+- New struct `GalleryImages`
+- New struct `GalleryImagesListResult`
+- New struct `GalleryImagesUpdateRequest`
+- New struct `GalleryOSDiskImage`
+- New struct `GuestAgent`
+- New struct `GuestAgentInstallStatus`
+- New struct `GuestAgentList`
+- New struct `GuestAgentProperties`
+- New struct `GuestCredential`
+- New struct `HTTPProxyConfiguration`
+- New struct `HardwareProfileUpdate`
+- New struct `HostNetwork`
+- New struct `HybridIdentityMetadata`
+- New struct `HybridIdentityMetadataList`
+- New struct `HybridIdentityMetadataProperties`
+- New struct `IPConfiguration`
+- New struct `IPConfigurationProperties`
+- New struct `IPConfigurationPropertiesSubnet`
+- New struct `IPPool`
+- New struct `IPPoolInfo`
+- New struct `IPPools`
+- New struct `Identity`
+- New struct `InfrastructureNetwork`
+- New struct `InstanceViewStatus`
+- New struct `Intents`
+- New struct `InterfaceDNSSettings`
+- New struct `IsolatedVMAttestationConfiguration`
+- New struct `LogicalNetworkProperties`
+- New struct `LogicalNetworkPropertiesDhcpOptions`
+- New struct `LogicalNetworkStatus`
+- New struct `LogicalNetworkStatusProvisioningStatus`
+- New struct `LogicalNetworks`
+- New struct `LogicalNetworksListResult`
+- New struct `LogicalNetworksUpdateRequest`
+- New struct `ManagedServiceIdentity`
+- New struct `MarketplaceGalleryImageProperties`
+- New struct `MarketplaceGalleryImageStatus`
+- New struct `MarketplaceGalleryImageStatusDownloadStatus`
+- New struct `MarketplaceGalleryImageStatusProvisioningStatus`
+- New struct `MarketplaceGalleryImages`
+- New struct `MarketplaceGalleryImagesListResult`
+- New struct `MarketplaceGalleryImagesUpdateRequest`
+- New struct `NetworkInterfaceProperties`
+- New struct `NetworkInterfaceStatus`
+- New struct `NetworkInterfaceStatusProvisioningStatus`
+- New struct `NetworkInterfaces`
+- New struct `NetworkInterfacesListResult`
+- New struct `NetworkInterfacesUpdateRequest`
+- New struct `NetworkProfileUpdate`
+- New struct `NetworkProfileUpdateNetworkInterfacesItem`
+- New struct `NicDetail`
+- New struct `Observability`
+- New struct `Offer`
+- New struct `OfferList`
+- New struct `OfferProperties`
+- New struct `OptionalServices`
+- New struct `OsProfileUpdate`
+- New struct `OsProfileUpdateLinuxConfiguration`
+- New struct `OsProfileUpdateWindowsConfiguration`
+- New struct `PackageVersionInfo`
+- New struct `PhysicalNodes`
+- New struct `PrecheckResult`
+- New struct `PrecheckResultTags`
+- New struct `Publisher`
+- New struct `PublisherList`
+- New struct `PublisherProperties`
+- New struct `QosPolicyOverrides`
+- New struct `ReportedProperties`
+- New struct `Route`
+- New struct `RoutePropertiesFormat`
+- New struct `RouteTable`
+- New struct `RouteTablePropertiesFormat`
+- New struct `SKU`
+- New struct `SKUList`
+- New struct `SKUMappings`
+- New struct `SKUProperties`
+- New struct `SSHConfiguration`
+- New struct `SSHPublicKey`
+- New struct `ScaleUnits`
+- New struct `SecurityComplianceStatus`
+- New struct `SecurityProperties`
+- New struct `SecuritySetting`
+- New struct `SecuritySettingListResult`
+- New struct `SoftwareAssuranceChangeRequest`
+- New struct `SoftwareAssuranceChangeRequestProperties`
+- New struct `SoftwareAssuranceProperties`
+- New struct `Step`
+- New struct `Storage`
+- New struct `StorageContainerProperties`
+- New struct `StorageContainerStatus`
+- New struct `StorageContainerStatusProvisioningStatus`
+- New struct `StorageContainers`
+- New struct `StorageContainersListResult`
+- New struct `StorageContainersUpdateRequest`
+- New struct `StorageNetworks`
+- New struct `StorageProfileUpdate`
+- New struct `StorageProfileUpdateDataDisksItem`
+- New struct `Subnet`
+- New struct `SubnetPropertiesFormat`
+- New struct `SubnetPropertiesFormatIPConfigurationReferencesItem`
+- New struct `Update`
+- New struct `UpdateList`
+- New struct `UpdatePrerequisite`
+- New struct `UpdateProperties`
+- New struct `UpdateRun`
+- New struct `UpdateRunList`
+- New struct `UpdateRunProperties`
+- New struct `UpdateStateProperties`
+- New struct `UpdateSummaries`
+- New struct `UpdateSummariesList`
+- New struct `UpdateSummariesProperties`
+- New struct `UserAssignedIdentity`
+- New struct `ValidateRequest`
+- New struct `ValidateResponse`
+- New struct `ValidationStatus`
+- New struct `VirtualHardDiskProperties`
+- New struct `VirtualHardDiskStatus`
+- New struct `VirtualHardDiskStatusProvisioningStatus`
+- New struct `VirtualHardDisks`
+- New struct `VirtualHardDisksListResult`
+- New struct `VirtualHardDisksUpdateRequest`
+- New struct `VirtualMachineConfigAgentInstanceView`
+- New struct `VirtualMachineInstance`
+- New struct `VirtualMachineInstanceListResult`
+- New struct `VirtualMachineInstanceProperties`
+- New struct `VirtualMachineInstancePropertiesHardwareProfile`
+- New struct `VirtualMachineInstancePropertiesHardwareProfileDynamicMemoryConfig`
+- New struct `VirtualMachineInstancePropertiesNetworkProfile`
+- New struct `VirtualMachineInstancePropertiesNetworkProfileNetworkInterfacesItem`
+- New struct `VirtualMachineInstancePropertiesOsProfile`
+- New struct `VirtualMachineInstancePropertiesOsProfileLinuxConfiguration`
+- New struct `VirtualMachineInstancePropertiesOsProfileWindowsConfiguration`
+- New struct `VirtualMachineInstancePropertiesSecurityProfile`
+- New struct `VirtualMachineInstancePropertiesSecurityProfileUefiSettings`
+- New struct `VirtualMachineInstancePropertiesStorageProfile`
+- New struct `VirtualMachineInstancePropertiesStorageProfileDataDisksItem`
+- New struct `VirtualMachineInstancePropertiesStorageProfileImageReference`
+- New struct `VirtualMachineInstancePropertiesStorageProfileOsDisk`
+- New struct `VirtualMachineInstanceStatus`
+- New struct `VirtualMachineInstanceStatusProvisioningStatus`
+- New struct `VirtualMachineInstanceUpdateProperties`
+- New struct `VirtualMachineInstanceUpdateRequest`
+- New struct `VirtualMachineInstanceView`
+- New struct `VirtualSwitchConfigurationOverrides`
+- New field `DefaultExtensions` in struct `ArcSettingProperties`
+- New field `Identity` in struct `Cluster`
+- New field `EhcResourceID`, `LastLicensingTimestamp`, `NodeType`, `OSDisplayVersion`, `OemActivation` in struct `ClusterNode`
+- New field `Identity` in struct `ClusterPatch`
+- New field `ConnectivityStatus`, `IsolatedVMAttestationConfiguration`, `ResourceProviderObjectID`, `SoftwareAssuranceProperties` in struct `ClusterProperties`
+- New field `ClusterType`, `Manufacturer`, `OemActivation`, `SupportedCapabilities` in struct `ClusterReportedProperties`
+- New field `EnableAutomaticUpgrade` in struct `ExtensionParameters`
+- New field `ManagedBy` in struct `ExtensionProperties`
+- New field `InstanceView`, `TypeHandlerVersion` in struct `PerNodeExtensionState`
+- New field `ArcNodeServicePrincipalObjectID` in struct `PerNodeState`
+
+
 ## 2.0.0-beta.2 (2023-11-30)
 ### Features Added
 
