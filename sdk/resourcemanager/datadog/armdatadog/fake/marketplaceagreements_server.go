@@ -9,25 +9,19 @@
 package fake
 
 import (
-	"context"
 	"errors"
 	"fmt"
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datadog/armdatadog"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datadog/armdatadog/v2"
 	"net/http"
-	"reflect"
 	"regexp"
 )
 
 // MarketplaceAgreementsServer is a fake server for instances of the armdatadog.MarketplaceAgreementsClient type.
 type MarketplaceAgreementsServer struct {
-	// CreateOrUpdate is the fake for method MarketplaceAgreementsClient.CreateOrUpdate
-	// HTTP status codes to indicate success: http.StatusOK
-	CreateOrUpdate func(ctx context.Context, options *armdatadog.MarketplaceAgreementsClientCreateOrUpdateOptions) (resp azfake.Responder[armdatadog.MarketplaceAgreementsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
-
 	// NewListPager is the fake for method MarketplaceAgreementsClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListPager func(options *armdatadog.MarketplaceAgreementsClientListOptions) (resp azfake.PagerResponder[armdatadog.MarketplaceAgreementsClientListResponse])
@@ -62,8 +56,6 @@ func (m *MarketplaceAgreementsServerTransport) Do(req *http.Request) (*http.Resp
 	var err error
 
 	switch method {
-	case "MarketplaceAgreementsClient.CreateOrUpdate":
-		resp, err = m.dispatchCreateOrUpdate(req)
 	case "MarketplaceAgreementsClient.NewListPager":
 		resp, err = m.dispatchNewListPager(req)
 	default:
@@ -74,41 +66,6 @@ func (m *MarketplaceAgreementsServerTransport) Do(req *http.Request) (*http.Resp
 		return nil, err
 	}
 
-	return resp, nil
-}
-
-func (m *MarketplaceAgreementsServerTransport) dispatchCreateOrUpdate(req *http.Request) (*http.Response, error) {
-	if m.srv.CreateOrUpdate == nil {
-		return nil, &nonRetriableError{errors.New("fake for method CreateOrUpdate not implemented")}
-	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Datadog/agreements/default`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 1 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	body, err := server.UnmarshalRequestAsJSON[armdatadog.AgreementResource](req)
-	if err != nil {
-		return nil, err
-	}
-	var options *armdatadog.MarketplaceAgreementsClientCreateOrUpdateOptions
-	if !reflect.ValueOf(body).IsZero() {
-		options = &armdatadog.MarketplaceAgreementsClientCreateOrUpdateOptions{
-			Body: &body,
-		}
-	}
-	respr, errRespr := m.srv.CreateOrUpdate(req.Context(), options)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).AgreementResource, req)
-	if err != nil {
-		return nil, err
-	}
 	return resp, nil
 }
 

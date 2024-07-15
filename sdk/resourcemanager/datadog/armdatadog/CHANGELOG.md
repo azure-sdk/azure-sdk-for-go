@@ -1,5 +1,11 @@
 # Release History
 
+## 2.0.0 (2024-07-15)
+### Breaking Changes
+
+- Function `*MarketplaceAgreementsClient.CreateOrUpdate` has been removed
+
+
 ## 1.3.0 (2023-11-24)
 ### Features Added
 
