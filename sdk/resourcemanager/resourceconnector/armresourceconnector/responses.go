@@ -43,12 +43,6 @@ type AppliancesClientListByResourceGroupResponse struct {
 	ApplianceListResult
 }
 
-// AppliancesClientListBySubscriptionResponse contains the response from method AppliancesClient.NewListBySubscriptionPager.
-type AppliancesClientListBySubscriptionResponse struct {
-	// The List Appliances operation response.
-	ApplianceListResult
-}
-
 // AppliancesClientListClusterUserCredentialResponse contains the response from method AppliancesClient.ListClusterUserCredential.
 type AppliancesClientListClusterUserCredentialResponse struct {
 	// The List Cluster User Credential appliance.

@@ -43,12 +43,6 @@ type AppliancesClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AppliancesClientListBySubscriptionOptions contains the optional parameters for the AppliancesClient.NewListBySubscriptionPager
-// method.
-type AppliancesClientListBySubscriptionOptions struct {
-	// placeholder for future optional parameters
-}
-
 // AppliancesClientListClusterUserCredentialOptions contains the optional parameters for the AppliancesClient.ListClusterUserCredential
 // method.
 type AppliancesClientListClusterUserCredentialOptions struct {

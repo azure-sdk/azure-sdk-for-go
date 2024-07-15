@@ -1,6 +1,6 @@
 # Azure Resource Connector Module for Go
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resourceconnector/armresourceconnector)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resourceconnector/armresourceconnector)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resourceconnector/armresourceconnector/v2)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resourceconnector/armresourceconnector/v2)
 
 The `armresourceconnector` module provides operations for working with Azure Resource Connector.
 
@@ -20,7 +20,7 @@ This project uses [Go modules](https://github.com/golang/go/wiki/Modules) for ve
 Install the Azure Resource Connector module:
 
 ```sh
-go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resourceconnector/armresourceconnector
+go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resourceconnector/armresourceconnector/v2
 ```
 
 ## Authorization

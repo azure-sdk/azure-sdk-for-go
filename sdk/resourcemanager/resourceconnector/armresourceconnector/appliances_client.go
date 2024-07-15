@@ -451,62 +451,6 @@ func (client *AppliancesClient) listByResourceGroupHandleResponse(resp *http.Res
 	return result, nil
 }
 
-// NewListBySubscriptionPager - Gets a list of Appliances in the specified subscription. The operation returns properties
-// of each Appliance
-//
-// Generated from API version 2022-10-27
-//   - options - AppliancesClientListBySubscriptionOptions contains the optional parameters for the AppliancesClient.NewListBySubscriptionPager
-//     method.
-func (client *AppliancesClient) NewListBySubscriptionPager(options *AppliancesClientListBySubscriptionOptions) *runtime.Pager[AppliancesClientListBySubscriptionResponse] {
-	return runtime.NewPager(runtime.PagingHandler[AppliancesClientListBySubscriptionResponse]{
-		More: func(page AppliancesClientListBySubscriptionResponse) bool {
-			return page.NextLink != nil && len(*page.NextLink) > 0
-		},
-		Fetcher: func(ctx context.Context, page *AppliancesClientListBySubscriptionResponse) (AppliancesClientListBySubscriptionResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "AppliancesClient.NewListBySubscriptionPager")
-			nextLink := ""
-			if page != nil {
-				nextLink = *page.NextLink
-			}
-			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listBySubscriptionCreateRequest(ctx, options)
-			}, nil)
-			if err != nil {
-				return AppliancesClientListBySubscriptionResponse{}, err
-			}
-			return client.listBySubscriptionHandleResponse(resp)
-		},
-		Tracer: client.internal.Tracer(),
-	})
-}
-
-// listBySubscriptionCreateRequest creates the ListBySubscription request.
-func (client *AppliancesClient) listBySubscriptionCreateRequest(ctx context.Context, options *AppliancesClientListBySubscriptionOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.ResourceConnector/appliances"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-27")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, nil
-}
-
-// listBySubscriptionHandleResponse handles the ListBySubscription response.
-func (client *AppliancesClient) listBySubscriptionHandleResponse(resp *http.Response) (AppliancesClientListBySubscriptionResponse, error) {
-	result := AppliancesClientListBySubscriptionResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ApplianceListResult); err != nil {
-		return AppliancesClientListBySubscriptionResponse{}, err
-	}
-	return result, nil
-}
-
 // ListClusterUserCredential - Returns the cluster user credentials for the dedicated appliance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //

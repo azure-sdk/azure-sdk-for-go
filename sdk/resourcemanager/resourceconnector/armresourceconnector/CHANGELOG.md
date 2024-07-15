@@ -1,5 +1,11 @@
 # Release History
 
+## 2.0.0 (2024-07-15)
+### Breaking Changes
+
+- Function `*AppliancesClient.NewListBySubscriptionPager` has been removed
+
+
 ## 1.1.0 (2023-11-24)
 ### Features Added
 
