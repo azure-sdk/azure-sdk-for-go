@@ -10,7 +10,7 @@ package armnetwork
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork"
-	moduleVersion = "v5.2.0"
+	moduleVersion = "v6.0.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -830,12 +830,13 @@ func PossibleBastionConnectProtocolValues() []BastionConnectProtocol {
 	}
 }
 
-// BastionHostSKUName - The name of this Bastion Host.
+// BastionHostSKUName - The name of the sku of this Bastion Host.
 type BastionHostSKUName string
 
 const (
 	BastionHostSKUNameBasic     BastionHostSKUName = "Basic"
 	BastionHostSKUNameDeveloper BastionHostSKUName = "Developer"
+	BastionHostSKUNamePremium   BastionHostSKUName = "Premium"
 	BastionHostSKUNameStandard  BastionHostSKUName = "Standard"
 )
 
@@ -844,6 +845,7 @@ func PossibleBastionHostSKUNameValues() []BastionHostSKUName {
 	return []BastionHostSKUName{
 		BastionHostSKUNameBasic,
 		BastionHostSKUNameDeveloper,
+		BastionHostSKUNamePremium,
 		BastionHostSKUNameStandard,
 	}
 }
@@ -2869,6 +2871,42 @@ func PossiblePreferredRoutingGatewayValues() []PreferredRoutingGateway {
 	}
 }
 
+// PrivateEndpointVNetPolicies - Private Endpoint VNet Policies.
+type PrivateEndpointVNetPolicies string
+
+const (
+	PrivateEndpointVNetPoliciesBasic    PrivateEndpointVNetPolicies = "Basic"
+	PrivateEndpointVNetPoliciesDisabled PrivateEndpointVNetPolicies = "Disabled"
+)
+
+// PossiblePrivateEndpointVNetPoliciesValues returns the possible values for the PrivateEndpointVNetPolicies const type.
+func PossiblePrivateEndpointVNetPoliciesValues() []PrivateEndpointVNetPolicies {
+	return []PrivateEndpointVNetPolicies{
+		PrivateEndpointVNetPoliciesBasic,
+		PrivateEndpointVNetPoliciesDisabled,
+	}
+}
+
+// ProbeNoHealthyBackendsBehavior - Determines how new connections are handled by the load balancer when all backend instances
+// are probed down.
+type ProbeNoHealthyBackendsBehavior string
+
+const (
+	// ProbeNoHealthyBackendsBehaviorAllProbedDown - No new flows will be sent to the backend pool.
+	ProbeNoHealthyBackendsBehaviorAllProbedDown ProbeNoHealthyBackendsBehavior = "AllProbedDown"
+	// ProbeNoHealthyBackendsBehaviorAllProbedUp - When all backend instances are probed down, incoming packets will be sent to
+	// all instances.
+	ProbeNoHealthyBackendsBehaviorAllProbedUp ProbeNoHealthyBackendsBehavior = "AllProbedUp"
+)
+
+// PossibleProbeNoHealthyBackendsBehaviorValues returns the possible values for the ProbeNoHealthyBackendsBehavior const type.
+func PossibleProbeNoHealthyBackendsBehaviorValues() []ProbeNoHealthyBackendsBehavior {
+	return []ProbeNoHealthyBackendsBehavior{
+		ProbeNoHealthyBackendsBehaviorAllProbedDown,
+		ProbeNoHealthyBackendsBehaviorAllProbedUp,
+	}
+}
+
 // ProbeProtocol - The protocol of the end point. If 'Tcp' is specified, a received ACK is required for the probe to be successful.
 // If 'Http' or 'Https' is specified, a 200 OK response from the specifies URI is required
 // for the probe to be successful.
@@ -3079,6 +3117,22 @@ func PossiblePublicIPPrefixSKUTierValues() []PublicIPPrefixSKUTier {
 	return []PublicIPPrefixSKUTier{
 		PublicIPPrefixSKUTierGlobal,
 		PublicIPPrefixSKUTierRegional,
+	}
+}
+
+// ResiliencyModel - Property to indicate if the Express Route Gateway has resiliency model of MultiHomed or SingleHomed
+type ResiliencyModel string
+
+const (
+	ResiliencyModelMultiHomed  ResiliencyModel = "MultiHomed"
+	ResiliencyModelSingleHomed ResiliencyModel = "SingleHomed"
+)
+
+// PossibleResiliencyModelValues returns the possible values for the ResiliencyModel const type.
+func PossibleResiliencyModelValues() []ResiliencyModel {
+	return []ResiliencyModel{
+		ResiliencyModelMultiHomed,
+		ResiliencyModelSingleHomed,
 	}
 }
 
