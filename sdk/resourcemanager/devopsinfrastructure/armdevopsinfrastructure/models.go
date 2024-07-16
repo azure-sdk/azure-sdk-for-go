@@ -25,21 +25,6 @@ type AgentProfile struct {
 // GetAgentProfile implements the AgentProfileClassification interface for type AgentProfile.
 func (a *AgentProfile) GetAgentProfile() *AgentProfile { return a }
 
-// AgentProfileUpdate - The agent profile of the machines in the pool.
-type AgentProfileUpdate struct {
-	// REQUIRED; Discriminator property for AgentProfile.
-	Kind *string
-
-	// Defines pool buffer/stand-by agents.
-	ResourcePredictions any
-
-	// Defines how the pool buffer/stand-by agents is provided.
-	ResourcePredictionsProfile ResourcePredictionsProfileUpdateClassification
-}
-
-// GetAgentProfileUpdate implements the AgentProfileUpdateClassification interface for type AgentProfileUpdate.
-func (a *AgentProfileUpdate) GetAgentProfileUpdate() *AgentProfileUpdate { return a }
-
 // AutomaticResourcePredictionsProfile - The stand-by agent scheme is determined based on historical demand.
 type AutomaticResourcePredictionsProfile struct {
 	// REQUIRED; Determines how the stand-by scheme should be provided.
@@ -52,22 +37,6 @@ type AutomaticResourcePredictionsProfile struct {
 // GetResourcePredictionsProfile implements the ResourcePredictionsProfileClassification interface for type AutomaticResourcePredictionsProfile.
 func (a *AutomaticResourcePredictionsProfile) GetResourcePredictionsProfile() *ResourcePredictionsProfile {
 	return &ResourcePredictionsProfile{
-		Kind: a.Kind,
-	}
-}
-
-// AutomaticResourcePredictionsProfileUpdate - The stand-by agent scheme is determined based on historical demand.
-type AutomaticResourcePredictionsProfileUpdate struct {
-	// REQUIRED; Determines how the stand-by scheme should be provided.
-	Kind *ResourcePredictionsProfileType
-
-	// Determines the balance between cost and performance.
-	PredictionPreference *PredictionPreference
-}
-
-// GetResourcePredictionsProfileUpdate implements the ResourcePredictionsProfileUpdateClassification interface for type AutomaticResourcePredictionsProfileUpdate.
-func (a *AutomaticResourcePredictionsProfileUpdate) GetResourcePredictionsProfileUpdate() *ResourcePredictionsProfileUpdate {
-	return &ResourcePredictionsProfileUpdate{
 		Kind: a.Kind,
 	}
 }
@@ -163,7 +132,7 @@ func (g *GitHubOrganizationProfile) GetOrganizationProfile() *OrganizationProfil
 // ImageVersion - An image version object
 type ImageVersion struct {
 	// The resource-specific properties for this resource.
-	Properties *ImageVersionProperties
+	Properties *VersionProperties
 
 	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
@@ -185,12 +154,6 @@ type ImageVersionListResult struct {
 
 	// The link to the next page of items
 	NextLink *string
-}
-
-// ImageVersionProperties - Details of the ImageVersionProperties.
-type ImageVersionProperties struct {
-	// REQUIRED; Version of the image.
-	Version *string
 }
 
 // ManagedServiceIdentity - Managed service identity (system assigned and/or user assigned identities)
@@ -222,19 +185,6 @@ type ManualResourcePredictionsProfile struct {
 // GetResourcePredictionsProfile implements the ResourcePredictionsProfileClassification interface for type ManualResourcePredictionsProfile.
 func (m *ManualResourcePredictionsProfile) GetResourcePredictionsProfile() *ResourcePredictionsProfile {
 	return &ResourcePredictionsProfile{
-		Kind: m.Kind,
-	}
-}
-
-// ManualResourcePredictionsProfileUpdate - Customer provides the stand-by agent scheme.
-type ManualResourcePredictionsProfileUpdate struct {
-	// REQUIRED; Determines how the stand-by scheme should be provided.
-	Kind *ResourcePredictionsProfileType
-}
-
-// GetResourcePredictionsProfileUpdate implements the ResourcePredictionsProfileUpdateClassification interface for type ManualResourcePredictionsProfileUpdate.
-func (m *ManualResourcePredictionsProfileUpdate) GetResourcePredictionsProfileUpdate() *ResourcePredictionsProfileUpdate {
-	return &ResourcePredictionsProfileUpdate{
 		Kind: m.Kind,
 	}
 }
@@ -324,6 +274,15 @@ type OsProfile struct {
 	SecretsManagementSettings *SecretsManagementSettings
 }
 
+// PagedQuota - Paged collection of Quota items
+type PagedQuota struct {
+	// REQUIRED; The Quota items on this page
+	Value []*Quota
+
+	// The link to the next page of items
+	NextLink *string
+}
+
 // Pool - Concrete tracked resource types can be created by aliasing this type using a specific property type.
 type Pool struct {
 	// REQUIRED; The geo-location where the resource lives
@@ -396,64 +355,22 @@ type PoolProperties struct {
 	ProvisioningState *ProvisioningState
 }
 
-// PoolUpdate - The type used for update operations of the Pool.
-type PoolUpdate struct {
-	// The managed service identities assigned to this resource.
-	Identity *ManagedServiceIdentity
-
-	// The updatable properties of the Pool.
-	Properties *PoolUpdateProperties
-
-	// Resource tags.
-	Tags map[string]*string
-}
-
-// PoolUpdateProperties - The updatable properties of the Pool.
-type PoolUpdateProperties struct {
-	// Defines how the machine will be handled once it executed a job.
-	AgentProfile AgentProfileUpdateClassification
-
-	// The resource id of the DevCenter Project the pool belongs to.
-	DevCenterProjectResourceID *string
-
-	// Defines the type of fabric the agent will run on.
-	FabricProfile FabricProfileClassification
-
-	// Defines how many resources can there be created at any given time.
-	MaximumConcurrency *int32
-
-	// Defines the organization in which the pool will be used.
-	OrganizationProfile OrganizationProfileClassification
-
-	// The status of the current operation.
-	ProvisioningState *ProvisioningState
-}
-
 // Quota - Describes Resource Quota
 type Quota struct {
-	// The resource-specific properties for this resource.
-	Properties *QuotaProperties
+	// REQUIRED; The current usage of the resource.
+	CurrentValue *int64
 
-	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	// REQUIRED; Fully qualified ARM resource id
 	ID *string
 
-	// READ-ONLY; The name of the resource
-	Name *string
+	// REQUIRED; The maximum permitted usage of the resource.
+	Limit *int64
 
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
+	// REQUIRED; The unit of usage measurement.
+	Unit *string
 
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// QuotaListResult - The response of a Quota list operation.
-type QuotaListResult struct {
-	// REQUIRED; The Quota items on this page
-	Value []*Quota
-
-	// The link to the next page of items
-	NextLink *string
+	// READ-ONLY; The name of the quota.
+	Name *QuotaName
 }
 
 // QuotaName - The Quota Names
@@ -463,21 +380,6 @@ type QuotaName struct {
 
 	// The name of the resource.
 	Value *string
-}
-
-// QuotaProperties - Describes Resource Quota properties
-type QuotaProperties struct {
-	// REQUIRED; The current usage of the resource.
-	CurrentValue *int64
-
-	// REQUIRED; The maximum permitted usage of the resource.
-	Limit *int64
-
-	// REQUIRED; The details of the quota.
-	Name *QuotaName
-
-	// REQUIRED; The unit of usage measurement.
-	Unit *string
 }
 
 // ResourceDetailsObject - A ResourceDetailsObject
@@ -527,17 +429,6 @@ type ResourcePredictionsProfile struct {
 
 // GetResourcePredictionsProfile implements the ResourcePredictionsProfileClassification interface for type ResourcePredictionsProfile.
 func (r *ResourcePredictionsProfile) GetResourcePredictionsProfile() *ResourcePredictionsProfile {
-	return r
-}
-
-// ResourcePredictionsProfileUpdate - Determines how the stand-by scheme should be provided.
-type ResourcePredictionsProfileUpdate struct {
-	// REQUIRED; Determines how the stand-by scheme should be provided.
-	Kind *ResourcePredictionsProfileType
-}
-
-// GetResourcePredictionsProfileUpdate implements the ResourcePredictionsProfileUpdateClassification interface for type ResourcePredictionsProfileUpdate.
-func (r *ResourcePredictionsProfileUpdate) GetResourcePredictionsProfileUpdate() *ResourcePredictionsProfileUpdate {
 	return r
 }
 
@@ -690,34 +581,6 @@ func (s *Stateful) GetAgentProfile() *AgentProfile {
 	}
 }
 
-// StatefulUpdate - Stateful profile meaning that the machines will be returned to the pool after running a job.
-type StatefulUpdate struct {
-	// REQUIRED; Discriminator property for AgentProfile.
-	Kind *string
-
-	// How long should the machine be kept around after it ran a workload when there are no stand-by agents. The maximum is one
-	// week.
-	GracePeriodTimeSpan *string
-
-	// How long should stateful machines be kept around. The maximum is one week.
-	MaxAgentLifetime *string
-
-	// Defines pool buffer/stand-by agents.
-	ResourcePredictions any
-
-	// Defines how the pool buffer/stand-by agents is provided.
-	ResourcePredictionsProfile ResourcePredictionsProfileUpdateClassification
-}
-
-// GetAgentProfileUpdate implements the AgentProfileUpdateClassification interface for type StatefulUpdate.
-func (s *StatefulUpdate) GetAgentProfileUpdate() *AgentProfileUpdate {
-	return &AgentProfileUpdate{
-		Kind:                       s.Kind,
-		ResourcePredictions:        s.ResourcePredictions,
-		ResourcePredictionsProfile: s.ResourcePredictionsProfile,
-	}
-}
-
 // StatelessAgentProfile - Stateless profile meaning that the machines will be cleaned up after running a job.
 type StatelessAgentProfile struct {
 	// REQUIRED; Discriminator property for AgentProfile.
@@ -733,27 +596,6 @@ type StatelessAgentProfile struct {
 // GetAgentProfile implements the AgentProfileClassification interface for type StatelessAgentProfile.
 func (s *StatelessAgentProfile) GetAgentProfile() *AgentProfile {
 	return &AgentProfile{
-		Kind:                       s.Kind,
-		ResourcePredictions:        s.ResourcePredictions,
-		ResourcePredictionsProfile: s.ResourcePredictionsProfile,
-	}
-}
-
-// StatelessAgentProfileUpdate - Stateless profile meaning that the machines will be cleaned up after running a job.
-type StatelessAgentProfileUpdate struct {
-	// REQUIRED; Discriminator property for AgentProfile.
-	Kind *string
-
-	// Defines pool buffer/stand-by agents.
-	ResourcePredictions any
-
-	// Defines how the pool buffer/stand-by agents is provided.
-	ResourcePredictionsProfile ResourcePredictionsProfileUpdateClassification
-}
-
-// GetAgentProfileUpdate implements the AgentProfileUpdateClassification interface for type StatelessAgentProfileUpdate.
-func (s *StatelessAgentProfileUpdate) GetAgentProfileUpdate() *AgentProfileUpdate {
-	return &AgentProfileUpdate{
 		Kind:                       s.Kind,
 		ResourcePredictions:        s.ResourcePredictions,
 		ResourcePredictionsProfile: s.ResourcePredictionsProfile,
@@ -797,6 +639,12 @@ type UserAssignedIdentity struct {
 
 	// READ-ONLY; The principal ID of the assigned identity.
 	PrincipalID *string
+}
+
+// VersionProperties - Details of the ImageVersionProperties.
+type VersionProperties struct {
+	// REQUIRED; Version of the image.
+	Version *string
 }
 
 // VmssFabricProfile - The agents will run on Virtual Machine Scale Sets.
