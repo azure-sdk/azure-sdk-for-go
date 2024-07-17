@@ -142,7 +142,7 @@ type StandbyContainerGroupPoolResourceListResult struct {
 	// REQUIRED; The StandbyContainerGroupPoolResource items on this page
 	Value []*StandbyContainerGroupPoolResource
 
-	// READ-ONLY; The link to the next page of items
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -160,7 +160,7 @@ type StandbyContainerGroupPoolResourceProperties struct {
 
 // StandbyContainerGroupPoolResourceUpdate - The type used for update operations of the StandbyContainerGroupPoolResource.
 type StandbyContainerGroupPoolResourceUpdate struct {
-	// The updatable properties of the StandbyContainerGroupPoolResource.
+	// The resource-specific properties for this resource.
 	Properties *StandbyContainerGroupPoolResourceUpdateProperties
 
 	// Resource tags.
@@ -217,7 +217,7 @@ type StandbyVirtualMachinePoolResourceListResult struct {
 	// REQUIRED; The StandbyVirtualMachinePoolResource items on this page
 	Value []*StandbyVirtualMachinePoolResource
 
-	// READ-ONLY; The link to the next page of items
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -238,7 +238,7 @@ type StandbyVirtualMachinePoolResourceProperties struct {
 
 // StandbyVirtualMachinePoolResourceUpdate - The type used for update operations of the StandbyVirtualMachinePoolResource.
 type StandbyVirtualMachinePoolResourceUpdate struct {
-	// The updatable properties of the StandbyVirtualMachinePoolResource.
+	// The resource-specific properties for this resource.
 	Properties *StandbyVirtualMachinePoolResourceUpdateProperties
 
 	// Resource tags.
@@ -281,7 +281,7 @@ type StandbyVirtualMachineResourceListResult struct {
 	// REQUIRED; The StandbyVirtualMachineResource items on this page
 	Value []*StandbyVirtualMachineResource
 
-	// READ-ONLY; The link to the next page of items
+	// The link to the next page of items
 	NextLink *string
 }
 
