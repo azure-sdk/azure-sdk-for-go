@@ -11,7 +11,6 @@ package armserialconsole
 import (
 	"context"
 	"errors"
-	"fmt"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
@@ -48,7 +47,7 @@ func NewMicrosoftSerialConsoleClient(subscriptionID string, credential azcore.To
 // DisableConsole - Disables the Serial Console service for all VMs and VM scale sets in the provided subscription
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-05-01
+// Generated from API version 2024-07-01
 //   - defaultParam - Default parameter. Leave the value as "default".
 //   - options - MicrosoftSerialConsoleClientDisableConsoleOptions contains the optional parameters for the MicrosoftSerialConsoleClient.DisableConsole
 //     method.
@@ -66,7 +65,7 @@ func (client *MicrosoftSerialConsoleClient) DisableConsole(ctx context.Context, 
 	if err != nil {
 		return MicrosoftSerialConsoleClientDisableConsoleResponse{}, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusNotFound) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
 		return MicrosoftSerialConsoleClientDisableConsoleResponse{}, err
 	}
@@ -90,7 +89,7 @@ func (client *MicrosoftSerialConsoleClient) disableConsoleCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-05-01")
+	reqQP.Set("api-version", "2024-07-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -99,21 +98,8 @@ func (client *MicrosoftSerialConsoleClient) disableConsoleCreateRequest(ctx cont
 // disableConsoleHandleResponse handles the DisableConsole response.
 func (client *MicrosoftSerialConsoleClient) disableConsoleHandleResponse(resp *http.Response) (MicrosoftSerialConsoleClientDisableConsoleResponse, error) {
 	result := MicrosoftSerialConsoleClientDisableConsoleResponse{}
-	switch resp.StatusCode {
-	case http.StatusOK:
-		var val DisableSerialConsoleResult
-		if err := runtime.UnmarshalAsJSON(resp, &val); err != nil {
-			return MicrosoftSerialConsoleClientDisableConsoleResponse{}, err
-		}
-		result.Value = val
-	case http.StatusNotFound:
-		var val GetSerialConsoleSubscriptionNotFound
-		if err := runtime.UnmarshalAsJSON(resp, &val); err != nil {
-			return MicrosoftSerialConsoleClientDisableConsoleResponse{}, err
-		}
-		result.Value = val
-	default:
-		return MicrosoftSerialConsoleClientDisableConsoleResponse{}, fmt.Errorf("unhandled HTTP status code %d", resp.StatusCode)
+	if err := runtime.UnmarshalAsJSON(resp, &result.DisableSerialConsoleResult); err != nil {
+		return MicrosoftSerialConsoleClientDisableConsoleResponse{}, err
 	}
 	return result, nil
 }
@@ -121,7 +107,7 @@ func (client *MicrosoftSerialConsoleClient) disableConsoleHandleResponse(resp *h
 // EnableConsole - Enables the Serial Console service for all VMs and VM scale sets in the provided subscription
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-05-01
+// Generated from API version 2024-07-01
 //   - defaultParam - Default parameter. Leave the value as "default".
 //   - options - MicrosoftSerialConsoleClientEnableConsoleOptions contains the optional parameters for the MicrosoftSerialConsoleClient.EnableConsole
 //     method.
@@ -139,7 +125,7 @@ func (client *MicrosoftSerialConsoleClient) EnableConsole(ctx context.Context, d
 	if err != nil {
 		return MicrosoftSerialConsoleClientEnableConsoleResponse{}, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusNotFound) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
 		return MicrosoftSerialConsoleClientEnableConsoleResponse{}, err
 	}
@@ -163,7 +149,7 @@ func (client *MicrosoftSerialConsoleClient) enableConsoleCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-05-01")
+	reqQP.Set("api-version", "2024-07-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -172,21 +158,8 @@ func (client *MicrosoftSerialConsoleClient) enableConsoleCreateRequest(ctx conte
 // enableConsoleHandleResponse handles the EnableConsole response.
 func (client *MicrosoftSerialConsoleClient) enableConsoleHandleResponse(resp *http.Response) (MicrosoftSerialConsoleClientEnableConsoleResponse, error) {
 	result := MicrosoftSerialConsoleClientEnableConsoleResponse{}
-	switch resp.StatusCode {
-	case http.StatusOK:
-		var val EnableSerialConsoleResult
-		if err := runtime.UnmarshalAsJSON(resp, &val); err != nil {
-			return MicrosoftSerialConsoleClientEnableConsoleResponse{}, err
-		}
-		result.Value = val
-	case http.StatusNotFound:
-		var val GetSerialConsoleSubscriptionNotFound
-		if err := runtime.UnmarshalAsJSON(resp, &val); err != nil {
-			return MicrosoftSerialConsoleClientEnableConsoleResponse{}, err
-		}
-		result.Value = val
-	default:
-		return MicrosoftSerialConsoleClientEnableConsoleResponse{}, fmt.Errorf("unhandled HTTP status code %d", resp.StatusCode)
+	if err := runtime.UnmarshalAsJSON(resp, &result.EnableSerialConsoleResult); err != nil {
+		return MicrosoftSerialConsoleClientEnableConsoleResponse{}, err
 	}
 	return result, nil
 }
@@ -194,7 +167,7 @@ func (client *MicrosoftSerialConsoleClient) enableConsoleHandleResponse(resp *ht
 // GetConsoleStatus - Gets whether or not Serial Console is disabled for a given subscription
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-05-01
+// Generated from API version 2024-07-01
 //   - defaultParam - Default parameter. Leave the value as "default".
 //   - options - MicrosoftSerialConsoleClientGetConsoleStatusOptions contains the optional parameters for the MicrosoftSerialConsoleClient.GetConsoleStatus
 //     method.
@@ -212,7 +185,7 @@ func (client *MicrosoftSerialConsoleClient) GetConsoleStatus(ctx context.Context
 	if err != nil {
 		return MicrosoftSerialConsoleClientGetConsoleStatusResponse{}, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusNotFound) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
 		return MicrosoftSerialConsoleClientGetConsoleStatusResponse{}, err
 	}
@@ -236,7 +209,7 @@ func (client *MicrosoftSerialConsoleClient) getConsoleStatusCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-05-01")
+	reqQP.Set("api-version", "2024-07-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -245,21 +218,8 @@ func (client *MicrosoftSerialConsoleClient) getConsoleStatusCreateRequest(ctx co
 // getConsoleStatusHandleResponse handles the GetConsoleStatus response.
 func (client *MicrosoftSerialConsoleClient) getConsoleStatusHandleResponse(resp *http.Response) (MicrosoftSerialConsoleClientGetConsoleStatusResponse, error) {
 	result := MicrosoftSerialConsoleClientGetConsoleStatusResponse{}
-	switch resp.StatusCode {
-	case http.StatusOK:
-		var val Status
-		if err := runtime.UnmarshalAsJSON(resp, &val); err != nil {
-			return MicrosoftSerialConsoleClientGetConsoleStatusResponse{}, err
-		}
-		result.Value = val
-	case http.StatusNotFound:
-		var val GetSerialConsoleSubscriptionNotFound
-		if err := runtime.UnmarshalAsJSON(resp, &val); err != nil {
-			return MicrosoftSerialConsoleClientGetConsoleStatusResponse{}, err
-		}
-		result.Value = val
-	default:
-		return MicrosoftSerialConsoleClientGetConsoleStatusResponse{}, fmt.Errorf("unhandled HTTP status code %d", resp.StatusCode)
+	if err := runtime.UnmarshalAsJSON(resp, &result.Status); err != nil {
+		return MicrosoftSerialConsoleClientGetConsoleStatusResponse{}, err
 	}
 	return result, nil
 }
@@ -267,7 +227,7 @@ func (client *MicrosoftSerialConsoleClient) getConsoleStatusHandleResponse(resp 
 // ListOperations - Gets a list of Serial Console API operations.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-05-01
+// Generated from API version 2024-07-01
 //   - options - MicrosoftSerialConsoleClientListOperationsOptions contains the optional parameters for the MicrosoftSerialConsoleClient.ListOperations
 //     method.
 func (client *MicrosoftSerialConsoleClient) ListOperations(ctx context.Context, options *MicrosoftSerialConsoleClientListOperationsOptions) (MicrosoftSerialConsoleClientListOperationsResponse, error) {
@@ -300,7 +260,7 @@ func (client *MicrosoftSerialConsoleClient) listOperationsCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-05-01")
+	reqQP.Set("api-version", "2024-07-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
