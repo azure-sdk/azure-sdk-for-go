@@ -10,7 +10,7 @@ package armmysqlflexibleservers
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mysql/armmysqlflexibleservers"
-	moduleVersion = "v2.0.0-beta.3"
+	moduleVersion = "v2.0.0"
 )
 
 type AdministratorName string

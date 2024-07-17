@@ -19,11 +19,16 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/netapp/armnetapp/v7"
 	"net/http"
 	"net/url"
+	"reflect"
 	"regexp"
 )
 
 // AccountsServer is a fake server for instances of the armnetapp.AccountsClient type.
 type AccountsServer struct {
+	// BeginChangeKeyVault is the fake for method AccountsClient.BeginChangeKeyVault
+	// HTTP status codes to indicate success: http.StatusAccepted
+	BeginChangeKeyVault func(ctx context.Context, resourceGroupName string, accountName string, options *armnetapp.AccountsClientBeginChangeKeyVaultOptions) (resp azfake.PollerResponder[armnetapp.AccountsClientChangeKeyVaultResponse], errResp azfake.ErrorResponder)
+
 	// BeginCreateOrUpdate is the fake for method AccountsClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
 	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, accountName string, body armnetapp.Account, options *armnetapp.AccountsClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armnetapp.AccountsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
@@ -36,6 +41,10 @@ type AccountsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, accountName string, options *armnetapp.AccountsClientGetOptions) (resp azfake.Responder[armnetapp.AccountsClientGetResponse], errResp azfake.ErrorResponder)
 
+	// BeginGetChangeKeyVaultInformation is the fake for method AccountsClient.BeginGetChangeKeyVaultInformation
+	// HTTP status codes to indicate success: http.StatusAccepted
+	BeginGetChangeKeyVaultInformation func(ctx context.Context, resourceGroupName string, accountName string, options *armnetapp.AccountsClientBeginGetChangeKeyVaultInformationOptions) (resp azfake.PollerResponder[armnetapp.AccountsClientGetChangeKeyVaultInformationResponse], errResp azfake.ErrorResponder)
+
 	// NewListPager is the fake for method AccountsClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListPager func(resourceGroupName string, options *armnetapp.AccountsClientListOptions) (resp azfake.PagerResponder[armnetapp.AccountsClientListResponse])
@@ -43,6 +52,10 @@ type AccountsServer struct {
 	// NewListBySubscriptionPager is the fake for method AccountsClient.NewListBySubscriptionPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListBySubscriptionPager func(options *armnetapp.AccountsClientListBySubscriptionOptions) (resp azfake.PagerResponder[armnetapp.AccountsClientListBySubscriptionResponse])
+
+	// BeginMigrateEncryptionKey is the fake for method AccountsClient.BeginMigrateEncryptionKey
+	// HTTP status codes to indicate success: http.StatusAccepted
+	BeginMigrateEncryptionKey func(ctx context.Context, resourceGroupName string, accountName string, options *armnetapp.AccountsClientBeginMigrateEncryptionKeyOptions) (resp azfake.PollerResponder[armnetapp.AccountsClientMigrateEncryptionKeyResponse], errResp azfake.ErrorResponder)
 
 	// BeginRenewCredentials is the fake for method AccountsClient.BeginRenewCredentials
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
@@ -58,26 +71,32 @@ type AccountsServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewAccountsServerTransport(srv *AccountsServer) *AccountsServerTransport {
 	return &AccountsServerTransport{
-		srv:                        srv,
-		beginCreateOrUpdate:        newTracker[azfake.PollerResponder[armnetapp.AccountsClientCreateOrUpdateResponse]](),
-		beginDelete:                newTracker[azfake.PollerResponder[armnetapp.AccountsClientDeleteResponse]](),
-		newListPager:               newTracker[azfake.PagerResponder[armnetapp.AccountsClientListResponse]](),
-		newListBySubscriptionPager: newTracker[azfake.PagerResponder[armnetapp.AccountsClientListBySubscriptionResponse]](),
-		beginRenewCredentials:      newTracker[azfake.PollerResponder[armnetapp.AccountsClientRenewCredentialsResponse]](),
-		beginUpdate:                newTracker[azfake.PollerResponder[armnetapp.AccountsClientUpdateResponse]](),
+		srv:                               srv,
+		beginChangeKeyVault:               newTracker[azfake.PollerResponder[armnetapp.AccountsClientChangeKeyVaultResponse]](),
+		beginCreateOrUpdate:               newTracker[azfake.PollerResponder[armnetapp.AccountsClientCreateOrUpdateResponse]](),
+		beginDelete:                       newTracker[azfake.PollerResponder[armnetapp.AccountsClientDeleteResponse]](),
+		beginGetChangeKeyVaultInformation: newTracker[azfake.PollerResponder[armnetapp.AccountsClientGetChangeKeyVaultInformationResponse]](),
+		newListPager:                      newTracker[azfake.PagerResponder[armnetapp.AccountsClientListResponse]](),
+		newListBySubscriptionPager:        newTracker[azfake.PagerResponder[armnetapp.AccountsClientListBySubscriptionResponse]](),
+		beginMigrateEncryptionKey:         newTracker[azfake.PollerResponder[armnetapp.AccountsClientMigrateEncryptionKeyResponse]](),
+		beginRenewCredentials:             newTracker[azfake.PollerResponder[armnetapp.AccountsClientRenewCredentialsResponse]](),
+		beginUpdate:                       newTracker[azfake.PollerResponder[armnetapp.AccountsClientUpdateResponse]](),
 	}
 }
 
 // AccountsServerTransport connects instances of armnetapp.AccountsClient to instances of AccountsServer.
 // Don't use this type directly, use NewAccountsServerTransport instead.
 type AccountsServerTransport struct {
-	srv                        *AccountsServer
-	beginCreateOrUpdate        *tracker[azfake.PollerResponder[armnetapp.AccountsClientCreateOrUpdateResponse]]
-	beginDelete                *tracker[azfake.PollerResponder[armnetapp.AccountsClientDeleteResponse]]
-	newListPager               *tracker[azfake.PagerResponder[armnetapp.AccountsClientListResponse]]
-	newListBySubscriptionPager *tracker[azfake.PagerResponder[armnetapp.AccountsClientListBySubscriptionResponse]]
-	beginRenewCredentials      *tracker[azfake.PollerResponder[armnetapp.AccountsClientRenewCredentialsResponse]]
-	beginUpdate                *tracker[azfake.PollerResponder[armnetapp.AccountsClientUpdateResponse]]
+	srv                               *AccountsServer
+	beginChangeKeyVault               *tracker[azfake.PollerResponder[armnetapp.AccountsClientChangeKeyVaultResponse]]
+	beginCreateOrUpdate               *tracker[azfake.PollerResponder[armnetapp.AccountsClientCreateOrUpdateResponse]]
+	beginDelete                       *tracker[azfake.PollerResponder[armnetapp.AccountsClientDeleteResponse]]
+	beginGetChangeKeyVaultInformation *tracker[azfake.PollerResponder[armnetapp.AccountsClientGetChangeKeyVaultInformationResponse]]
+	newListPager                      *tracker[azfake.PagerResponder[armnetapp.AccountsClientListResponse]]
+	newListBySubscriptionPager        *tracker[azfake.PagerResponder[armnetapp.AccountsClientListBySubscriptionResponse]]
+	beginMigrateEncryptionKey         *tracker[azfake.PollerResponder[armnetapp.AccountsClientMigrateEncryptionKeyResponse]]
+	beginRenewCredentials             *tracker[azfake.PollerResponder[armnetapp.AccountsClientRenewCredentialsResponse]]
+	beginUpdate                       *tracker[azfake.PollerResponder[armnetapp.AccountsClientUpdateResponse]]
 }
 
 // Do implements the policy.Transporter interface for AccountsServerTransport.
@@ -92,16 +111,22 @@ func (a *AccountsServerTransport) Do(req *http.Request) (*http.Response, error) 
 	var err error
 
 	switch method {
+	case "AccountsClient.BeginChangeKeyVault":
+		resp, err = a.dispatchBeginChangeKeyVault(req)
 	case "AccountsClient.BeginCreateOrUpdate":
 		resp, err = a.dispatchBeginCreateOrUpdate(req)
 	case "AccountsClient.BeginDelete":
 		resp, err = a.dispatchBeginDelete(req)
 	case "AccountsClient.Get":
 		resp, err = a.dispatchGet(req)
+	case "AccountsClient.BeginGetChangeKeyVaultInformation":
+		resp, err = a.dispatchBeginGetChangeKeyVaultInformation(req)
 	case "AccountsClient.NewListPager":
 		resp, err = a.dispatchNewListPager(req)
 	case "AccountsClient.NewListBySubscriptionPager":
 		resp, err = a.dispatchNewListBySubscriptionPager(req)
+	case "AccountsClient.BeginMigrateEncryptionKey":
+		resp, err = a.dispatchBeginMigrateEncryptionKey(req)
 	case "AccountsClient.BeginRenewCredentials":
 		resp, err = a.dispatchBeginRenewCredentials(req)
 	case "AccountsClient.BeginUpdate":
@@ -112,6 +137,60 @@ func (a *AccountsServerTransport) Do(req *http.Request) (*http.Response, error) 
 
 	if err != nil {
 		return nil, err
+	}
+
+	return resp, nil
+}
+
+func (a *AccountsServerTransport) dispatchBeginChangeKeyVault(req *http.Request) (*http.Response, error) {
+	if a.srv.BeginChangeKeyVault == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginChangeKeyVault not implemented")}
+	}
+	beginChangeKeyVault := a.beginChangeKeyVault.get(req)
+	if beginChangeKeyVault == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.NetApp/netAppAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/changeKeyVault`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armnetapp.ChangeKeyVault](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		accountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("accountName")])
+		if err != nil {
+			return nil, err
+		}
+		var options *armnetapp.AccountsClientBeginChangeKeyVaultOptions
+		if !reflect.ValueOf(body).IsZero() {
+			options = &armnetapp.AccountsClientBeginChangeKeyVaultOptions{
+				Body: &body,
+			}
+		}
+		respr, errRespr := a.srv.BeginChangeKeyVault(req.Context(), resourceGroupNameParam, accountNameParam, options)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginChangeKeyVault = &respr
+		a.beginChangeKeyVault.add(req, beginChangeKeyVault)
+	}
+
+	resp, err := server.PollerResponderNext(beginChangeKeyVault, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusAccepted}, resp.StatusCode) {
+		a.beginChangeKeyVault.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginChangeKeyVault) {
+		a.beginChangeKeyVault.remove(req)
 	}
 
 	return resp, nil
@@ -242,6 +321,50 @@ func (a *AccountsServerTransport) dispatchGet(req *http.Request) (*http.Response
 	return resp, nil
 }
 
+func (a *AccountsServerTransport) dispatchBeginGetChangeKeyVaultInformation(req *http.Request) (*http.Response, error) {
+	if a.srv.BeginGetChangeKeyVaultInformation == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginGetChangeKeyVaultInformation not implemented")}
+	}
+	beginGetChangeKeyVaultInformation := a.beginGetChangeKeyVaultInformation.get(req)
+	if beginGetChangeKeyVaultInformation == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.NetApp/netAppAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/getKeyVaultStatus`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		accountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("accountName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := a.srv.BeginGetChangeKeyVaultInformation(req.Context(), resourceGroupNameParam, accountNameParam, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginGetChangeKeyVaultInformation = &respr
+		a.beginGetChangeKeyVaultInformation.add(req, beginGetChangeKeyVaultInformation)
+	}
+
+	resp, err := server.PollerResponderNext(beginGetChangeKeyVaultInformation, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusAccepted}, resp.StatusCode) {
+		a.beginGetChangeKeyVaultInformation.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginGetChangeKeyVaultInformation) {
+		a.beginGetChangeKeyVaultInformation.remove(req)
+	}
+
+	return resp, nil
+}
+
 func (a *AccountsServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
 	if a.srv.NewListPager == nil {
 		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
@@ -309,6 +432,60 @@ func (a *AccountsServerTransport) dispatchNewListBySubscriptionPager(req *http.R
 	if !server.PagerResponderMore(newListBySubscriptionPager) {
 		a.newListBySubscriptionPager.remove(req)
 	}
+	return resp, nil
+}
+
+func (a *AccountsServerTransport) dispatchBeginMigrateEncryptionKey(req *http.Request) (*http.Response, error) {
+	if a.srv.BeginMigrateEncryptionKey == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginMigrateEncryptionKey not implemented")}
+	}
+	beginMigrateEncryptionKey := a.beginMigrateEncryptionKey.get(req)
+	if beginMigrateEncryptionKey == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.NetApp/netAppAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/migrateEncryption`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armnetapp.EncryptionMigrationRequest](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		accountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("accountName")])
+		if err != nil {
+			return nil, err
+		}
+		var options *armnetapp.AccountsClientBeginMigrateEncryptionKeyOptions
+		if !reflect.ValueOf(body).IsZero() {
+			options = &armnetapp.AccountsClientBeginMigrateEncryptionKeyOptions{
+				Body: &body,
+			}
+		}
+		respr, errRespr := a.srv.BeginMigrateEncryptionKey(req.Context(), resourceGroupNameParam, accountNameParam, options)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginMigrateEncryptionKey = &respr
+		a.beginMigrateEncryptionKey.add(req, beginMigrateEncryptionKey)
+	}
+
+	resp, err := server.PollerResponderNext(beginMigrateEncryptionKey, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusAccepted}, resp.StatusCode) {
+		a.beginMigrateEncryptionKey.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginMigrateEncryptionKey) {
+		a.beginMigrateEncryptionKey.remove(req)
+	}
+
 	return resp, nil
 }
 
