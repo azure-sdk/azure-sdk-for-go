@@ -23,6 +23,10 @@ import (
 
 // OracleSubscriptionsServer is a fake server for instances of the armoracledatabase.OracleSubscriptionsClient type.
 type OracleSubscriptionsServer struct {
+	// BeginAddAzureSubscriptions is the fake for method OracleSubscriptionsClient.BeginAddAzureSubscriptions
+	// HTTP status codes to indicate success: http.StatusAccepted
+	BeginAddAzureSubscriptions func(ctx context.Context, body armoracledatabase.AzureSubscriptions, options *armoracledatabase.OracleSubscriptionsClientBeginAddAzureSubscriptionsOptions) (resp azfake.PollerResponder[armoracledatabase.OracleSubscriptionsClientAddAzureSubscriptionsResponse], errResp azfake.ErrorResponder)
+
 	// BeginCreateOrUpdate is the fake for method OracleSubscriptionsClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
 	BeginCreateOrUpdate func(ctx context.Context, resource armoracledatabase.OracleSubscription, options *armoracledatabase.OracleSubscriptionsClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armoracledatabase.OracleSubscriptionsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
@@ -62,6 +66,7 @@ type OracleSubscriptionsServer struct {
 func NewOracleSubscriptionsServerTransport(srv *OracleSubscriptionsServer) *OracleSubscriptionsServerTransport {
 	return &OracleSubscriptionsServerTransport{
 		srv:                              srv,
+		beginAddAzureSubscriptions:       newTracker[azfake.PollerResponder[armoracledatabase.OracleSubscriptionsClientAddAzureSubscriptionsResponse]](),
 		beginCreateOrUpdate:              newTracker[azfake.PollerResponder[armoracledatabase.OracleSubscriptionsClientCreateOrUpdateResponse]](),
 		beginDelete:                      newTracker[azfake.PollerResponder[armoracledatabase.OracleSubscriptionsClientDeleteResponse]](),
 		beginListActivationLinks:         newTracker[azfake.PollerResponder[armoracledatabase.OracleSubscriptionsClientListActivationLinksResponse]](),
@@ -76,6 +81,7 @@ func NewOracleSubscriptionsServerTransport(srv *OracleSubscriptionsServer) *Orac
 // Don't use this type directly, use NewOracleSubscriptionsServerTransport instead.
 type OracleSubscriptionsServerTransport struct {
 	srv                              *OracleSubscriptionsServer
+	beginAddAzureSubscriptions       *tracker[azfake.PollerResponder[armoracledatabase.OracleSubscriptionsClientAddAzureSubscriptionsResponse]]
 	beginCreateOrUpdate              *tracker[azfake.PollerResponder[armoracledatabase.OracleSubscriptionsClientCreateOrUpdateResponse]]
 	beginDelete                      *tracker[azfake.PollerResponder[armoracledatabase.OracleSubscriptionsClientDeleteResponse]]
 	beginListActivationLinks         *tracker[azfake.PollerResponder[armoracledatabase.OracleSubscriptionsClientListActivationLinksResponse]]
@@ -97,6 +103,8 @@ func (o *OracleSubscriptionsServerTransport) Do(req *http.Request) (*http.Respon
 	var err error
 
 	switch method {
+	case "OracleSubscriptionsClient.BeginAddAzureSubscriptions":
+		resp, err = o.dispatchBeginAddAzureSubscriptions(req)
 	case "OracleSubscriptionsClient.BeginCreateOrUpdate":
 		resp, err = o.dispatchBeginCreateOrUpdate(req)
 	case "OracleSubscriptionsClient.BeginDelete":
@@ -119,6 +127,46 @@ func (o *OracleSubscriptionsServerTransport) Do(req *http.Request) (*http.Respon
 
 	if err != nil {
 		return nil, err
+	}
+
+	return resp, nil
+}
+
+func (o *OracleSubscriptionsServerTransport) dispatchBeginAddAzureSubscriptions(req *http.Request) (*http.Response, error) {
+	if o.srv.BeginAddAzureSubscriptions == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginAddAzureSubscriptions not implemented")}
+	}
+	beginAddAzureSubscriptions := o.beginAddAzureSubscriptions.get(req)
+	if beginAddAzureSubscriptions == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Oracle\.Database/oracleSubscriptions/default/addAzureSubscriptions`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 1 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armoracledatabase.AzureSubscriptions](req)
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := o.srv.BeginAddAzureSubscriptions(req.Context(), body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginAddAzureSubscriptions = &respr
+		o.beginAddAzureSubscriptions.add(req, beginAddAzureSubscriptions)
+	}
+
+	resp, err := server.PollerResponderNext(beginAddAzureSubscriptions, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusAccepted}, resp.StatusCode) {
+		o.beginAddAzureSubscriptions.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginAddAzureSubscriptions) {
+		o.beginAddAzureSubscriptions.remove(req)
 	}
 
 	return resp, nil
