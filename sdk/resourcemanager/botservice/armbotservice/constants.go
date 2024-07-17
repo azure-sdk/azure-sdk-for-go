@@ -10,8 +10,26 @@ package armbotservice
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/botservice/armbotservice"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v1.3.0-beta.1"
 )
+
+// AccessMode - Access Mode of the resource association
+type AccessMode string
+
+const (
+	AccessModeAudit    AccessMode = "Audit"
+	AccessModeEnforced AccessMode = "Enforced"
+	AccessModeLearning AccessMode = "Learning"
+)
+
+// PossibleAccessModeValues returns the possible values for the AccessMode const type.
+func PossibleAccessModeValues() []AccessMode {
+	return []AccessMode{
+		AccessModeAudit,
+		AccessModeEnforced,
+		AccessModeLearning,
+	}
+}
 
 type ChannelName string
 
@@ -136,6 +154,22 @@ func PossibleMsaAppTypeValues() []MsaAppType {
 	}
 }
 
+// NspAccessRuleDirection - Direction of Access Rule
+type NspAccessRuleDirection string
+
+const (
+	NspAccessRuleDirectionInbound  NspAccessRuleDirection = "Inbound"
+	NspAccessRuleDirectionOutbound NspAccessRuleDirection = "Outbound"
+)
+
+// PossibleNspAccessRuleDirectionValues returns the possible values for the NspAccessRuleDirection const type.
+func PossibleNspAccessRuleDirectionValues() []NspAccessRuleDirection {
+	return []NspAccessRuleDirection{
+		NspAccessRuleDirectionInbound,
+		NspAccessRuleDirectionOutbound,
+	}
+}
+
 // OperationResultStatus - The status of the operation being performed.
 type OperationResultStatus string
 
@@ -196,12 +230,36 @@ func PossiblePrivateEndpointServiceConnectionStatusValues() []PrivateEndpointSer
 	}
 }
 
+type ProvisioningState string
+
+const (
+	ProvisioningStateAccepted  ProvisioningState = "Accepted"
+	ProvisioningStateCreating  ProvisioningState = "Creating"
+	ProvisioningStateDeleting  ProvisioningState = "Deleting"
+	ProvisioningStateFailed    ProvisioningState = "Failed"
+	ProvisioningStateSucceeded ProvisioningState = "Succeeded"
+	ProvisioningStateUpdating  ProvisioningState = "Updating"
+)
+
+// PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
+func PossibleProvisioningStateValues() []ProvisioningState {
+	return []ProvisioningState{
+		ProvisioningStateAccepted,
+		ProvisioningStateCreating,
+		ProvisioningStateDeleting,
+		ProvisioningStateFailed,
+		ProvisioningStateSucceeded,
+		ProvisioningStateUpdating,
+	}
+}
+
 // PublicNetworkAccess - Whether the bot is in an isolated network
 type PublicNetworkAccess string
 
 const (
-	PublicNetworkAccessDisabled PublicNetworkAccess = "Disabled"
-	PublicNetworkAccessEnabled  PublicNetworkAccess = "Enabled"
+	PublicNetworkAccessDisabled           PublicNetworkAccess = "Disabled"
+	PublicNetworkAccessEnabled            PublicNetworkAccess = "Enabled"
+	PublicNetworkAccessSecuredByPerimeter PublicNetworkAccess = "SecuredByPerimeter"
 )
 
 // PossiblePublicNetworkAccessValues returns the possible values for the PublicNetworkAccess const type.
@@ -209,6 +267,7 @@ func PossiblePublicNetworkAccessValues() []PublicNetworkAccess {
 	return []PublicNetworkAccess{
 		PublicNetworkAccessDisabled,
 		PublicNetworkAccessEnabled,
+		PublicNetworkAccessSecuredByPerimeter,
 	}
 }
 
@@ -256,5 +315,21 @@ func PossibleSKUTierValues() []SKUTier {
 	return []SKUTier{
 		SKUTierFree,
 		SKUTierStandard,
+	}
+}
+
+// Severity - Provisioning state of Network Security Perimeter configuration propagation
+type Severity string
+
+const (
+	SeverityError   Severity = "Error"
+	SeverityWarning Severity = "Warning"
+)
+
+// PossibleSeverityValues returns the possible values for the Severity const type.
+func PossibleSeverityValues() []Severity {
+	return []Severity{
+		SeverityError,
+		SeverityWarning,
 	}
 }

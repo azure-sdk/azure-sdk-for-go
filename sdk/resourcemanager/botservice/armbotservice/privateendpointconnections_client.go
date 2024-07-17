@@ -46,7 +46,7 @@ func NewPrivateEndpointConnectionsClient(subscriptionID string, credential azcor
 // Create - Update the state of specified private endpoint connection associated with the Bot.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-15
+// Generated from API version 2023-09-15-preview
 //   - resourceGroupName - The name of the Bot resource group in the user subscription.
 //   - resourceName - The name of the Bot resource.
 //   - privateEndpointConnectionName - The name of the private endpoint connection associated with the Azure resource
@@ -99,7 +99,7 @@ func (client *PrivateEndpointConnectionsClient) createCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-15")
+	reqQP.Set("api-version", "2023-09-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, properties); err != nil {
@@ -120,7 +120,7 @@ func (client *PrivateEndpointConnectionsClient) createHandleResponse(resp *http.
 // Delete - Deletes the specified private endpoint connection associated with the Bot.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-15
+// Generated from API version 2023-09-15-preview
 //   - resourceGroupName - The name of the Bot resource group in the user subscription.
 //   - resourceName - The name of the Bot resource.
 //   - privateEndpointConnectionName - The name of the private endpoint connection associated with the Azure resource
@@ -171,7 +171,7 @@ func (client *PrivateEndpointConnectionsClient) deleteCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-15")
+	reqQP.Set("api-version", "2023-09-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -180,7 +180,7 @@ func (client *PrivateEndpointConnectionsClient) deleteCreateRequest(ctx context.
 // Get - Gets the specified private endpoint connection associated with the Bot.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-15
+// Generated from API version 2023-09-15-preview
 //   - resourceGroupName - The name of the Bot resource group in the user subscription.
 //   - resourceName - The name of the Bot resource.
 //   - privateEndpointConnectionName - The name of the private endpoint connection associated with the Azure resource
@@ -232,7 +232,7 @@ func (client *PrivateEndpointConnectionsClient) getCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-15")
+	reqQP.Set("api-version", "2023-09-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -249,7 +249,7 @@ func (client *PrivateEndpointConnectionsClient) getHandleResponse(resp *http.Res
 
 // NewListPager - List all the private endpoint connections associated with the Bot.
 //
-// Generated from API version 2022-09-15
+// Generated from API version 2023-09-15-preview
 //   - resourceGroupName - The name of the Bot resource group in the user subscription.
 //   - resourceName - The name of the Bot resource.
 //   - options - PrivateEndpointConnectionsClientListOptions contains the optional parameters for the PrivateEndpointConnectionsClient.NewListPager
@@ -298,7 +298,7 @@ func (client *PrivateEndpointConnectionsClient) listCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-15")
+	reqQP.Set("api-version", "2023-09-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
