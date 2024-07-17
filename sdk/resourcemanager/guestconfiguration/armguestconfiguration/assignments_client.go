@@ -47,7 +47,7 @@ func NewAssignmentsClient(subscriptionID string, credential azcore.TokenCredenti
 // CreateOrUpdate - Creates an association between a VM and guest configuration
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-25
+// Generated from API version 2024-04-05
 //   - guestConfigurationAssignmentName - Name of the guest configuration assignment.
 //   - resourceGroupName - The resource group name.
 //   - vmName - The name of the virtual machine.
@@ -100,7 +100,7 @@ func (client *AssignmentsClient) createOrUpdateCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-25")
+	reqQP.Set("api-version", "2024-04-05")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -121,7 +121,7 @@ func (client *AssignmentsClient) createOrUpdateHandleResponse(resp *http.Respons
 // Delete - Delete a guest configuration assignment
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-25
+// Generated from API version 2024-04-05
 //   - resourceGroupName - The resource group name.
 //   - guestConfigurationAssignmentName - Name of the guest configuration assignment
 //   - vmName - The name of the virtual machine.
@@ -171,7 +171,7 @@ func (client *AssignmentsClient) deleteCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-25")
+	reqQP.Set("api-version", "2024-04-05")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -180,7 +180,7 @@ func (client *AssignmentsClient) deleteCreateRequest(ctx context.Context, resour
 // Get - Get information about a guest configuration assignment
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-25
+// Generated from API version 2024-04-05
 //   - resourceGroupName - The resource group name.
 //   - guestConfigurationAssignmentName - The guest configuration assignment name.
 //   - vmName - The name of the virtual machine.
@@ -231,7 +231,7 @@ func (client *AssignmentsClient) getCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-25")
+	reqQP.Set("api-version", "2024-04-05")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -248,7 +248,7 @@ func (client *AssignmentsClient) getHandleResponse(resp *http.Response) (Assignm
 
 // NewListPager - List all guest configuration assignments for a virtual machine.
 //
-// Generated from API version 2022-01-25
+// Generated from API version 2024-04-05
 //   - resourceGroupName - The resource group name.
 //   - vmName - The name of the virtual machine.
 //   - options - AssignmentsClientListOptions contains the optional parameters for the AssignmentsClient.NewListPager method.
@@ -296,7 +296,7 @@ func (client *AssignmentsClient) listCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-25")
+	reqQP.Set("api-version", "2024-04-05")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -313,7 +313,7 @@ func (client *AssignmentsClient) listHandleResponse(resp *http.Response) (Assign
 
 // NewRGListPager - List all guest configuration assignments for a resource group.
 //
-// Generated from API version 2022-01-25
+// Generated from API version 2024-04-05
 //   - resourceGroupName - The resource group name.
 //   - options - AssignmentsClientRGListOptions contains the optional parameters for the AssignmentsClient.NewRGListPager method.
 func (client *AssignmentsClient) NewRGListPager(resourceGroupName string, options *AssignmentsClientRGListOptions) *runtime.Pager[AssignmentsClientRGListResponse] {
@@ -356,7 +356,7 @@ func (client *AssignmentsClient) rgListCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-25")
+	reqQP.Set("api-version", "2024-04-05")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -373,7 +373,7 @@ func (client *AssignmentsClient) rgListHandleResponse(resp *http.Response) (Assi
 
 // NewSubscriptionListPager - List all guest configuration assignments for a subscription.
 //
-// Generated from API version 2022-01-25
+// Generated from API version 2024-04-05
 //   - options - AssignmentsClientSubscriptionListOptions contains the optional parameters for the AssignmentsClient.NewSubscriptionListPager
 //     method.
 func (client *AssignmentsClient) NewSubscriptionListPager(options *AssignmentsClientSubscriptionListOptions) *runtime.Pager[AssignmentsClientSubscriptionListResponse] {
@@ -412,7 +412,7 @@ func (client *AssignmentsClient) subscriptionListCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-25")
+	reqQP.Set("api-version", "2024-04-05")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
