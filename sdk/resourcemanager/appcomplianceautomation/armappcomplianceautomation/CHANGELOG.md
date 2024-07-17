@@ -1,5 +1,31 @@
 # Release History
 
+## 2.0.0 (2024-07-17)
+### Breaking Changes
+
+- Function `*EvidenceClient.NewListByReportPager` has been removed
+- Function `*ReportClient.NewListPager` has been removed
+- Function `*ReportClient.NestedResourceCheckNameAvailability` has been removed
+- Function `*ScopingConfigurationClient.NewListPager` has been removed
+- Function `*SnapshotClient.NewListPager` has been removed
+- Function `*WebhookClient.NewListPager` has been removed
+- Struct `OnboardResponse` has been removed
+- Struct `QuickAssessment` has been removed
+- Struct `TriggerEvaluationProperty` has been removed
+- Struct `TriggerEvaluationResponse` has been removed
+- Field `OnboardResponse` of struct `ProviderActionsClientOnboardResponse` has been removed
+- Field `TriggerEvaluationResponse` of struct `ProviderActionsClientTriggerEvaluationResponse` has been removed
+
+### Features Added
+
+- New function `*EvidenceClient.NewListByReportResourcePager(string, *EvidenceClientListByReportResourceOptions) *runtime.Pager[EvidenceClientListByReportResourceResponse]`
+- New function `*ReportClient.CheckNameAvailability(context.Context, string, CheckNameAvailabilityRequest, *ReportClientCheckNameAvailabilityOptions) (ReportClientCheckNameAvailabilityResponse, error)`
+- New function `*ReportClient.NewListByTenantPager(*ReportClientListByTenantOptions) *runtime.Pager[ReportClientListByTenantResponse]`
+- New function `*ScopingConfigurationClient.NewListByReportResourcePager(string, *ScopingConfigurationClientListByReportResourceOptions) *runtime.Pager[ScopingConfigurationClientListByReportResourceResponse]`
+- New function `*SnapshotClient.NewListByReportResourcePager(string, *SnapshotClientListByReportResourceOptions) *runtime.Pager[SnapshotClientListByReportResourceResponse]`
+- New function `*WebhookClient.NewListByReportResourcePager(string, *WebhookClientListByReportResourceOptions) *runtime.Pager[WebhookClientListByReportResourceResponse]`
+
+
 ## 1.0.0 (2024-06-21)
 ### Breaking Changes
 

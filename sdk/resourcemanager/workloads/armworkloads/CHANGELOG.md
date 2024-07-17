@@ -1,5 +1,253 @@
 # Release History
 
+## 2.0.0-beta.1 (2024-07-17)
+### Breaking Changes
+
+- Function `*SapLandscapeMonitorClient.Create` parameter(s) have been changed from `(context.Context, string, string, SapLandscapeMonitor, *SapLandscapeMonitorClientCreateOptions)` to `(context.Context, string, string, SapLandscapeMonitorResource, *SapLandscapeMonitorClientCreateOptions)`
+- Function `*SapLandscapeMonitorClient.Update` parameter(s) have been changed from `(context.Context, string, string, SapLandscapeMonitor, *SapLandscapeMonitorClientUpdateOptions)` to `(context.Context, string, string, SapLandscapeMonitorResource, *SapLandscapeMonitorClientUpdateOptions)`
+- Type of `ErrorAdditionalInfo.Info` has been changed from `any` to `*ErrorAdditionalInfoInfo`
+- Type of `Monitor.Identity` has been changed from `*UserAssignedServiceIdentity` to `*ManagedServiceIdentity`
+- Type of `MonitorProperties.Errors` has been changed from `*MonitorPropertiesErrors` to `*ErrorDetail`
+- Type of `MonitorProperties.ManagedResourceGroupConfiguration` has been changed from `*ManagedRGConfiguration` to `*ManagedResourceGroupConfiguration`
+- Type of `ProviderInstanceProperties.Errors` has been changed from `*ProviderInstancePropertiesErrors` to `*ErrorDetail`
+- Type of `UpdateMonitorRequest.Identity` has been changed from `*UserAssignedServiceIdentity` to `*ManagedServiceIdentity`
+- Enum `ActionType` has been removed
+- Enum `ApplicationServerVirtualMachineType` has been removed
+- Enum `CentralServerVirtualMachineType` has been removed
+- Enum `ConfigurationType` has been removed
+- Enum `DiskSKUName` has been removed
+- Enum `EnqueueReplicationServerType` has been removed
+- Enum `NamingPatternType` has been removed
+- Enum `OSType` has been removed
+- Enum `OperationProperties` has been removed
+- Enum `Origin` has been removed
+- Enum `SAPConfigurationType` has been removed
+- Enum `SAPDatabaseScaleMethod` has been removed
+- Enum `SAPDatabaseType` has been removed
+- Enum `SAPDeploymentType` has been removed
+- Enum `SAPEnvironmentType` has been removed
+- Enum `SAPHealthState` has been removed
+- Enum `SAPHighAvailabilityType` has been removed
+- Enum `SAPProductType` has been removed
+- Enum `SAPSoftwareInstallationType` has been removed
+- Enum `SAPVirtualInstanceState` has been removed
+- Enum `SAPVirtualInstanceStatus` has been removed
+- Enum `SapVirtualInstanceProvisioningState` has been removed
+- Enum `WorkloadMonitorActionType` has been removed
+- Function `NewClient` has been removed
+- Function `*Client.SAPAvailabilityZoneDetails` has been removed
+- Function `*Client.SAPDiskConfigurations` has been removed
+- Function `*Client.SAPSizingRecommendations` has been removed
+- Function `*Client.SAPSupportedSKU` has been removed
+- Function `*ClientFactory.NewClient` has been removed
+- Function `*ClientFactory.NewOperationsClient` has been removed
+- Function `*ClientFactory.NewSAPApplicationServerInstancesClient` has been removed
+- Function `*ClientFactory.NewSAPCentralInstancesClient` has been removed
+- Function `*ClientFactory.NewSAPDatabaseInstancesClient` has been removed
+- Function `*ClientFactory.NewSAPVirtualInstancesClient` has been removed
+- Function `*CreateAndMountFileShareConfiguration.GetFileShareConfiguration` has been removed
+- Function `*DB2ProviderInstanceProperties.GetProviderSpecificProperties` has been removed
+- Function `*DeploymentConfiguration.GetSAPConfiguration` has been removed
+- Function `*DeploymentWithOSConfiguration.GetSAPConfiguration` has been removed
+- Function `*DiscoveryConfiguration.GetSAPConfiguration` has been removed
+- Function `*ExternalInstallationSoftwareConfiguration.GetSoftwareConfiguration` has been removed
+- Function `*FileShareConfiguration.GetFileShareConfiguration` has been removed
+- Function `*InfrastructureConfiguration.GetInfrastructureConfiguration` has been removed
+- Function `*LinuxConfiguration.GetOSConfiguration` has been removed
+- Function `*MountFileShareConfiguration.GetFileShareConfiguration` has been removed
+- Function `*OSConfiguration.GetOSConfiguration` has been removed
+- Function `NewOperationsClient` has been removed
+- Function `*OperationsClient.NewListPager` has been removed
+- Function `*PrometheusOSProviderInstanceProperties.GetProviderSpecificProperties` has been removed
+- Function `*ProviderInstancesClient.NewListPager` has been removed
+- Function `NewSAPApplicationServerInstancesClient` has been removed
+- Function `*SAPApplicationServerInstancesClient.BeginCreate` has been removed
+- Function `*SAPApplicationServerInstancesClient.BeginDelete` has been removed
+- Function `*SAPApplicationServerInstancesClient.Get` has been removed
+- Function `*SAPApplicationServerInstancesClient.NewListPager` has been removed
+- Function `*SAPApplicationServerInstancesClient.BeginStartInstance` has been removed
+- Function `*SAPApplicationServerInstancesClient.BeginStopInstance` has been removed
+- Function `*SAPApplicationServerInstancesClient.BeginUpdate` has been removed
+- Function `NewSAPCentralInstancesClient` has been removed
+- Function `*SAPCentralInstancesClient.BeginCreate` has been removed
+- Function `*SAPCentralInstancesClient.BeginDelete` has been removed
+- Function `*SAPCentralInstancesClient.Get` has been removed
+- Function `*SAPCentralInstancesClient.NewListPager` has been removed
+- Function `*SAPCentralInstancesClient.BeginStartInstance` has been removed
+- Function `*SAPCentralInstancesClient.BeginStopInstance` has been removed
+- Function `*SAPCentralInstancesClient.BeginUpdate` has been removed
+- Function `*SAPConfiguration.GetSAPConfiguration` has been removed
+- Function `NewSAPDatabaseInstancesClient` has been removed
+- Function `*SAPDatabaseInstancesClient.BeginCreate` has been removed
+- Function `*SAPDatabaseInstancesClient.BeginDelete` has been removed
+- Function `*SAPDatabaseInstancesClient.Get` has been removed
+- Function `*SAPDatabaseInstancesClient.NewListPager` has been removed
+- Function `*SAPDatabaseInstancesClient.BeginStartInstance` has been removed
+- Function `*SAPDatabaseInstancesClient.BeginStopInstance` has been removed
+- Function `*SAPDatabaseInstancesClient.BeginUpdate` has been removed
+- Function `*SAPInstallWithoutOSConfigSoftwareConfiguration.GetSoftwareConfiguration` has been removed
+- Function `*SAPSizingRecommendationResult.GetSAPSizingRecommendationResult` has been removed
+- Function `NewSAPVirtualInstancesClient` has been removed
+- Function `*SAPVirtualInstancesClient.BeginCreate` has been removed
+- Function `*SAPVirtualInstancesClient.BeginDelete` has been removed
+- Function `*SAPVirtualInstancesClient.Get` has been removed
+- Function `*SAPVirtualInstancesClient.NewListByResourceGroupPager` has been removed
+- Function `*SAPVirtualInstancesClient.NewListBySubscriptionPager` has been removed
+- Function `*SAPVirtualInstancesClient.BeginStart` has been removed
+- Function `*SAPVirtualInstancesClient.BeginStop` has been removed
+- Function `*SAPVirtualInstancesClient.Update` has been removed
+- Function `*SapLandscapeMonitorClient.List` has been removed
+- Function `*ServiceInitiatedSoftwareConfiguration.GetSoftwareConfiguration` has been removed
+- Function `*SingleServerConfiguration.GetInfrastructureConfiguration` has been removed
+- Function `*SingleServerCustomResourceNames.GetSingleServerCustomResourceNames` has been removed
+- Function `*SingleServerFullResourceNames.GetSingleServerCustomResourceNames` has been removed
+- Function `*SingleServerRecommendationResult.GetSAPSizingRecommendationResult` has been removed
+- Function `*SkipFileShareConfiguration.GetFileShareConfiguration` has been removed
+- Function `*SoftwareConfiguration.GetSoftwareConfiguration` has been removed
+- Function `*ThreeTierConfiguration.GetInfrastructureConfiguration` has been removed
+- Function `*ThreeTierCustomResourceNames.GetThreeTierCustomResourceNames` has been removed
+- Function `*ThreeTierFullResourceNames.GetThreeTierCustomResourceNames` has been removed
+- Function `*ThreeTierRecommendationResult.GetSAPSizingRecommendationResult` has been removed
+- Function `*WindowsConfiguration.GetOSConfiguration` has been removed
+- Operation `*MonitorsClient.Update` has been changed to LRO, use `*MonitorsClient.BeginUpdate` instead.
+- Struct `ApplicationServerConfiguration` has been removed
+- Struct `ApplicationServerFullResourceNames` has been removed
+- Struct `ApplicationServerVMDetails` has been removed
+- Struct `CentralServerConfiguration` has been removed
+- Struct `CentralServerFullResourceNames` has been removed
+- Struct `CentralServerVMDetails` has been removed
+- Struct `CreateAndMountFileShareConfiguration` has been removed
+- Struct `DB2ProviderInstanceProperties` has been removed
+- Struct `DatabaseConfiguration` has been removed
+- Struct `DatabaseServerFullResourceNames` has been removed
+- Struct `DatabaseVMDetails` has been removed
+- Struct `DeployerVMPackages` has been removed
+- Struct `DeploymentConfiguration` has been removed
+- Struct `DeploymentWithOSConfiguration` has been removed
+- Struct `DiscoveryConfiguration` has been removed
+- Struct `DiskConfiguration` has been removed
+- Struct `DiskDetails` has been removed
+- Struct `DiskSKU` has been removed
+- Struct `DiskVolumeConfiguration` has been removed
+- Struct `EnqueueReplicationServerProperties` has been removed
+- Struct `EnqueueServerProperties` has been removed
+- Struct `Error` has been removed
+- Struct `ErrorDefinition` has been removed
+- Struct `ErrorInnerError` has been removed
+- Struct `ErrorResponse` has been removed
+- Struct `ExternalInstallationSoftwareConfiguration` has been removed
+- Struct `GatewayServerProperties` has been removed
+- Struct `HighAvailabilityConfiguration` has been removed
+- Struct `HighAvailabilitySoftwareConfiguration` has been removed
+- Struct `ImageReference` has been removed
+- Struct `LinuxConfiguration` has been removed
+- Struct `LoadBalancerDetails` has been removed
+- Struct `LoadBalancerResourceNames` has been removed
+- Struct `ManagedRGConfiguration` has been removed
+- Struct `MessageServerProperties` has been removed
+- Struct `MonitorPropertiesErrors` has been removed
+- Struct `MountFileShareConfiguration` has been removed
+- Struct `NetworkConfiguration` has been removed
+- Struct `NetworkInterfaceResourceNames` has been removed
+- Struct `OSProfile` has been removed
+- Struct `Operation` has been removed
+- Struct `OperationDisplay` has been removed
+- Struct `OperationListResult` has been removed
+- Struct `OperationStatusResult` has been removed
+- Struct `OperationsContent` has been removed
+- Struct `OperationsDefinition` has been removed
+- Struct `OperationsDefinitionArrayResponseWithContinuation` has been removed
+- Struct `OperationsDefinitionDisplay` has been removed
+- Struct `OperationsDisplayDefinition` has been removed
+- Struct `OsSapConfiguration` has been removed
+- Struct `PrometheusOSProviderInstanceProperties` has been removed
+- Struct `ProviderInstancePropertiesErrors` has been removed
+- Struct `ProxyResource` has been removed
+- Struct `Resource` has been removed
+- Struct `SAPApplicationServerInstance` has been removed
+- Struct `SAPApplicationServerInstanceList` has been removed
+- Struct `SAPApplicationServerProperties` has been removed
+- Struct `SAPAvailabilityZoneDetailsRequest` has been removed
+- Struct `SAPAvailabilityZoneDetailsResult` has been removed
+- Struct `SAPAvailabilityZonePair` has been removed
+- Struct `SAPCentralInstanceList` has been removed
+- Struct `SAPCentralServerInstance` has been removed
+- Struct `SAPCentralServerProperties` has been removed
+- Struct `SAPDatabaseInstance` has been removed
+- Struct `SAPDatabaseInstanceList` has been removed
+- Struct `SAPDatabaseProperties` has been removed
+- Struct `SAPDiskConfiguration` has been removed
+- Struct `SAPDiskConfigurationsRequest` has been removed
+- Struct `SAPDiskConfigurationsResult` has been removed
+- Struct `SAPInstallWithoutOSConfigSoftwareConfiguration` has been removed
+- Struct `SAPSizingRecommendationRequest` has been removed
+- Struct `SAPSupportedResourceSKUsResult` has been removed
+- Struct `SAPSupportedSKU` has been removed
+- Struct `SAPSupportedSKUsRequest` has been removed
+- Struct `SAPVirtualInstance` has been removed
+- Struct `SAPVirtualInstanceError` has been removed
+- Struct `SAPVirtualInstanceList` has been removed
+- Struct `SAPVirtualInstanceProperties` has been removed
+- Struct `SSHConfiguration` has been removed
+- Struct `SSHKeyPair` has been removed
+- Struct `SSHPublicKey` has been removed
+- Struct `SapLandscapeMonitor` has been removed
+- Struct `SapLandscapeMonitorListResult` has been removed
+- Struct `ServiceInitiatedSoftwareConfiguration` has been removed
+- Struct `SharedStorageResourceNames` has been removed
+- Struct `SingleServerConfiguration` has been removed
+- Struct `SingleServerFullResourceNames` has been removed
+- Struct `SingleServerRecommendationResult` has been removed
+- Struct `SkipFileShareConfiguration` has been removed
+- Struct `StopRequest` has been removed
+- Struct `StorageConfiguration` has been removed
+- Struct `StorageInformation` has been removed
+- Struct `Tags` has been removed
+- Struct `ThreeTierConfiguration` has been removed
+- Struct `ThreeTierFullResourceNames` has been removed
+- Struct `ThreeTierRecommendationResult` has been removed
+- Struct `TrackedResource` has been removed
+- Struct `UpdateSAPApplicationInstanceRequest` has been removed
+- Struct `UpdateSAPCentralInstanceRequest` has been removed
+- Struct `UpdateSAPDatabaseInstanceRequest` has been removed
+- Struct `UpdateSAPVirtualInstanceRequest` has been removed
+- Struct `UserAssignedServiceIdentity` has been removed
+- Struct `VirtualMachineConfiguration` has been removed
+- Struct `VirtualMachineResourceNames` has been removed
+- Struct `WindowsConfiguration` has been removed
+- Field `OperationStatusResult` of struct `MonitorsClientDeleteResponse` has been removed
+- Field `Identity` of struct `ProviderInstance` has been removed
+- Field `OperationStatusResult` of struct `ProviderInstancesClientDeleteResponse` has been removed
+- Field `SapLandscapeMonitor` of struct `SapLandscapeMonitorClientCreateResponse` has been removed
+- Field `SapLandscapeMonitor` of struct `SapLandscapeMonitorClientGetResponse` has been removed
+- Field `SapLandscapeMonitor` of struct `SapLandscapeMonitorClientUpdateResponse` has been removed
+
+### Features Added
+
+- New value `ManagedServiceIdentityTypeSystemAndUserAssigned`, `ManagedServiceIdentityTypeSystemAssigned` added to enum type `ManagedServiceIdentityType`
+- New value `WorkloadMonitorProvisioningStateCanceled` added to enum type `WorkloadMonitorProvisioningState`
+- New enum type `AppServicePlanTier` with values `AppServicePlanTierElasticPremium`, `AppServicePlanTierPremiumV3`
+- New enum type `WorkloadProviderInstanceHealthState` with values `WorkloadProviderInstanceHealthStateDegraded`, `WorkloadProviderInstanceHealthStateHealthy`, `WorkloadProviderInstanceHealthStateUnavailable`, `WorkloadProviderInstanceHealthStateUnknown`
+- New function `*Db2ProviderInstanceProperties.GetProviderSpecificProperties() *ProviderSpecificProperties`
+- New function `*PrometheusOsProviderInstanceProperties.GetProviderSpecificProperties() *ProviderSpecificProperties`
+- New function `*ProviderInstancesClient.NewListByMonitorPager(string, string, *ProviderInstancesClientListByMonitorOptions) *runtime.Pager[ProviderInstancesClientListByMonitorResponse]`
+- New function `*SapLandscapeMonitorClient.NewListByMonitorPager(string, string, *SapLandscapeMonitorClientListByMonitorOptions) *runtime.Pager[SapLandscapeMonitorClientListByMonitorResponse]`
+- New struct `AppServicePlanConfiguration`
+- New struct `Db2ProviderInstanceProperties`
+- New struct `ErrorAdditionalInfoInfo`
+- New struct `Health`
+- New struct `ManagedResourceGroupConfiguration`
+- New struct `ManagedServiceIdentity`
+- New struct `PrometheusOsProviderInstanceProperties`
+- New struct `SapLandscapeMonitorResource`
+- New struct `SapLandscapeMonitorResourceListResult`
+- New field `AppServicePlanConfiguration` in struct `MonitorProperties`
+- New field `Health` in struct `ProviderInstanceProperties`
+- New anonymous field `SapLandscapeMonitorResource` in struct `SapLandscapeMonitorClientCreateResponse`
+- New anonymous field `SapLandscapeMonitorResource` in struct `SapLandscapeMonitorClientGetResponse`
+- New anonymous field `SapLandscapeMonitorResource` in struct `SapLandscapeMonitorClientUpdateResponse`
+
+
 ## 1.1.0 (2023-11-30)
 ### Features Added
 

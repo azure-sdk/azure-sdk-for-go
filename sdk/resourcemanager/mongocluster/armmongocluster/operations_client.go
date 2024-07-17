@@ -13,7 +13,7 @@ import (
 	"net/http"
 )
 
-// OperationsClient contains the methods for the Operations group.
+// OperationsClient contains the methods for the Microsoft.DocumentDB namespace.
 // Don't use this type directly, use NewOperationsClient() instead.
 type OperationsClient struct {
 	internal *arm.Client

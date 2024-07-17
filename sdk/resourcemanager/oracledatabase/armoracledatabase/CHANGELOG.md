@@ -1,5 +1,24 @@
 # Release History
 
+## 2.0.0 (2024-07-17)
+### Breaking Changes
+
+- Type of `AutonomousDatabaseUpdateProperties.ScheduledOperations` has been changed from `*ScheduledOperationsTypeUpdate` to `*ScheduledOperationsType`
+- Struct `ActivationLinks` has been removed
+- Struct `CloudAccountDetails` has been removed
+- Struct `DayOfWeekUpdate` has been removed
+- Struct `SaasSubscriptionDetails` has been removed
+- Struct `ScheduledOperationsTypeUpdate` has been removed
+- Field `PrivateIPAddressPropertiesArray` of struct `CloudVMClustersClientListPrivateIPAddressesResponse` has been removed
+- Field `ActivationLinks` of struct `OracleSubscriptionsClientListActivationLinksResponse` has been removed
+- Field `CloudAccountDetails` of struct `OracleSubscriptionsClientListCloudAccountDetailsResponse` has been removed
+- Field `SaasSubscriptionDetails` of struct `OracleSubscriptionsClientListSaasSubscriptionDetailsResponse` has been removed
+
+### Features Added
+
+- New field `Value` in struct `CloudVMClustersClientListPrivateIPAddressesResponse`
+
+
 ## 1.0.0 (2024-06-28)
 ### Other Changes
 

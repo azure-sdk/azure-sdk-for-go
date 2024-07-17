@@ -1,6 +1,6 @@
 # Azure Oracle Database Module for Go
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/oracledatabase/armoracledatabase)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/oracledatabase/armoracledatabase)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/oracledatabase/armoracledatabase/v2)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/oracledatabase/armoracledatabase/v2)
 
 The `armoracledatabase` module provides operations for working with Azure Oracle Database.
 
@@ -20,7 +20,7 @@ This project uses [Go modules](https://github.com/golang/go/wiki/Modules) for ve
 Install the Azure Oracle Database module:
 
 ```sh
-go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/oracledatabase/armoracledatabase
+go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/oracledatabase/armoracledatabase/v2
 ```
 
 ## Authorization

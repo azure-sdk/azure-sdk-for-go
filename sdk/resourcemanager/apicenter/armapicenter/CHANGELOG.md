@@ -1,5 +1,33 @@
 # Release History
 
+## 2.0.0-beta.1 (2024-07-17)
+### Breaking Changes
+
+- Type of `APIProperties.CustomProperties` has been changed from `any` to `*CustomProperties`
+- Type of `DeploymentProperties.CustomProperties` has been changed from `any` to `*CustomProperties`
+- Type of `EnvironmentProperties.CustomProperties` has been changed from `any` to `*CustomProperties`
+- `ManagedServiceIdentityTypeSystemAssignedUserAssigned` from enum `ManagedServiceIdentityType` has been removed
+
+### Features Added
+
+- New value `ManagedServiceIdentityTypeSystemAndUserAssigned` added to enum type `ManagedServiceIdentityType`
+- New function `*ClientFactory.NewDeletedServicesClient() *DeletedServicesClient`
+- New function `NewDeletedServicesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DeletedServicesClient, error)`
+- New function `*DeletedServicesClient.Delete(context.Context, string, string, *DeletedServicesClientDeleteOptions) (DeletedServicesClientDeleteResponse, error)`
+- New function `*DeletedServicesClient.Get(context.Context, string, string, *DeletedServicesClientGetOptions) (DeletedServicesClientGetResponse, error)`
+- New function `*DeletedServicesClient.NewListBySubscriptionPager(*DeletedServicesClientListBySubscriptionOptions) *runtime.Pager[DeletedServicesClientListBySubscriptionResponse]`
+- New function `*DeletedServicesClient.NewListPager(string, *DeletedServicesClientListOptions) *runtime.Pager[DeletedServicesClientListResponse]`
+- New struct `APIImportSuccess`
+- New struct `CustomProperties`
+- New struct `DeletedService`
+- New struct `DeletedServiceListResult`
+- New struct `DeletedServiceProperties`
+- New struct `ServiceUpdateProperties`
+- New anonymous field `APIImportSuccess` in struct `APIDefinitionsClientImportSpecificationResponse`
+- New field `Restore` in struct `ServiceProperties`
+- New field `Properties` in struct `ServiceUpdate`
+
+
 ## 1.0.0 (2024-02-23)
 ### Breaking Changes
 
