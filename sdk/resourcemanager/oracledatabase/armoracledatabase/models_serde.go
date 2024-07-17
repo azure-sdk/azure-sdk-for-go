@@ -1976,6 +1976,33 @@ func (a *AutonomousDbVersionProperties) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type AzureSubscriptions.
+func (a AzureSubscriptions) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "azureSubscriptionIds", a.AzureSubscriptionIDs)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureSubscriptions.
+func (a *AzureSubscriptions) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "azureSubscriptionIds":
+			err = unpopulate(val, "AzureSubscriptionIDs", &a.AzureSubscriptionIDs)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type CloudAccountDetails.
 func (c CloudAccountDetails) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -4405,9 +4432,12 @@ func (o *OracleSubscriptionListResult) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type OracleSubscriptionProperties.
 func (o OracleSubscriptionProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "addSubscriptionOperationState", o.AddSubscriptionOperationState)
+	populate(objectMap, "azureSubscriptionIds", o.AzureSubscriptionIDs)
 	populate(objectMap, "cloudAccountId", o.CloudAccountID)
 	populate(objectMap, "cloudAccountState", o.CloudAccountState)
 	populate(objectMap, "intent", o.Intent)
+	populate(objectMap, "lastOperationStatusDetail", o.LastOperationStatusDetail)
 	populate(objectMap, "productCode", o.ProductCode)
 	populate(objectMap, "provisioningState", o.ProvisioningState)
 	populate(objectMap, "saasSubscriptionId", o.SaasSubscriptionID)
@@ -4424,6 +4454,12 @@ func (o *OracleSubscriptionProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "addSubscriptionOperationState":
+			err = unpopulate(val, "AddSubscriptionOperationState", &o.AddSubscriptionOperationState)
+			delete(rawMsg, key)
+		case "azureSubscriptionIds":
+			err = unpopulate(val, "AzureSubscriptionIDs", &o.AzureSubscriptionIDs)
+			delete(rawMsg, key)
 		case "cloudAccountId":
 			err = unpopulate(val, "CloudAccountID", &o.CloudAccountID)
 			delete(rawMsg, key)
@@ -4432,6 +4468,9 @@ func (o *OracleSubscriptionProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "intent":
 			err = unpopulate(val, "Intent", &o.Intent)
+			delete(rawMsg, key)
+		case "lastOperationStatusDetail":
+			err = unpopulate(val, "LastOperationStatusDetail", &o.LastOperationStatusDetail)
 			delete(rawMsg, key)
 		case "productCode":
 			err = unpopulate(val, "ProductCode", &o.ProductCode)
