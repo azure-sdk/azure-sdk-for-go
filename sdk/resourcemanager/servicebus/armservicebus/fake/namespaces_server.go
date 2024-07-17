@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/servicebus/armservicebus"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/servicebus/armservicebus/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -47,6 +47,10 @@ type NamespacesServer struct {
 	// DeleteAuthorizationRule is the fake for method NamespacesClient.DeleteAuthorizationRule
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
 	DeleteAuthorizationRule func(ctx context.Context, resourceGroupName string, namespaceName string, authorizationRuleName string, options *armservicebus.NamespacesClientDeleteAuthorizationRuleOptions) (resp azfake.Responder[armservicebus.NamespacesClientDeleteAuthorizationRuleResponse], errResp azfake.ErrorResponder)
+
+	// BeginFailover is the fake for method NamespacesClient.BeginFailover
+	// HTTP status codes to indicate success: http.StatusAccepted
+	BeginFailover func(ctx context.Context, resourceGroupName string, namespaceName string, parameters armservicebus.FailOver, options *armservicebus.NamespacesClientBeginFailoverOptions) (resp azfake.PollerResponder[armservicebus.NamespacesClientFailoverResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method NamespacesClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
@@ -97,6 +101,7 @@ func NewNamespacesServerTransport(srv *NamespacesServer) *NamespacesServerTransp
 		srv:                            srv,
 		beginCreateOrUpdate:            newTracker[azfake.PollerResponder[armservicebus.NamespacesClientCreateOrUpdateResponse]](),
 		beginDelete:                    newTracker[azfake.PollerResponder[armservicebus.NamespacesClientDeleteResponse]](),
+		beginFailover:                  newTracker[azfake.PollerResponder[armservicebus.NamespacesClientFailoverResponse]](),
 		newListPager:                   newTracker[azfake.PagerResponder[armservicebus.NamespacesClientListResponse]](),
 		newListAuthorizationRulesPager: newTracker[azfake.PagerResponder[armservicebus.NamespacesClientListAuthorizationRulesResponse]](),
 		newListByResourceGroupPager:    newTracker[azfake.PagerResponder[armservicebus.NamespacesClientListByResourceGroupResponse]](),
@@ -110,6 +115,7 @@ type NamespacesServerTransport struct {
 	srv                            *NamespacesServer
 	beginCreateOrUpdate            *tracker[azfake.PollerResponder[armservicebus.NamespacesClientCreateOrUpdateResponse]]
 	beginDelete                    *tracker[azfake.PollerResponder[armservicebus.NamespacesClientDeleteResponse]]
+	beginFailover                  *tracker[azfake.PollerResponder[armservicebus.NamespacesClientFailoverResponse]]
 	newListPager                   *tracker[azfake.PagerResponder[armservicebus.NamespacesClientListResponse]]
 	newListAuthorizationRulesPager *tracker[azfake.PagerResponder[armservicebus.NamespacesClientListAuthorizationRulesResponse]]
 	newListByResourceGroupPager    *tracker[azfake.PagerResponder[armservicebus.NamespacesClientListByResourceGroupResponse]]
@@ -140,6 +146,8 @@ func (n *NamespacesServerTransport) Do(req *http.Request) (*http.Response, error
 		resp, err = n.dispatchBeginDelete(req)
 	case "NamespacesClient.DeleteAuthorizationRule":
 		resp, err = n.dispatchDeleteAuthorizationRule(req)
+	case "NamespacesClient.BeginFailover":
+		resp, err = n.dispatchBeginFailover(req)
 	case "NamespacesClient.Get":
 		resp, err = n.dispatchGet(req)
 	case "NamespacesClient.GetAuthorizationRule":
@@ -404,6 +412,54 @@ func (n *NamespacesServerTransport) dispatchDeleteAuthorizationRule(req *http.Re
 	if err != nil {
 		return nil, err
 	}
+	return resp, nil
+}
+
+func (n *NamespacesServerTransport) dispatchBeginFailover(req *http.Request) (*http.Response, error) {
+	if n.srv.BeginFailover == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginFailover not implemented")}
+	}
+	beginFailover := n.beginFailover.get(req)
+	if beginFailover == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ServiceBus/namespaces/(?P<namespaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/failover`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armservicebus.FailOver](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		namespaceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("namespaceName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := n.srv.BeginFailover(req.Context(), resourceGroupNameParam, namespaceNameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginFailover = &respr
+		n.beginFailover.add(req, beginFailover)
+	}
+
+	resp, err := server.PollerResponderNext(beginFailover, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusAccepted}, resp.StatusCode) {
+		n.beginFailover.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginFailover) {
+		n.beginFailover.remove(req)
+	}
+
 	return resp, nil
 }
 
