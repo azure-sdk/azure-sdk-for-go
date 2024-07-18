@@ -1,5 +1,40 @@
 # Release History
 
+## 2.0.0-beta.1 (2024-07-18)
+### Breaking Changes
+
+- Function `*AssociationsInterfaceClient.Update` parameter(s) have been changed from `(context.Context, string, string, string, AssociationUpdate, *AssociationsInterfaceClientUpdateOptions)` to `(context.Context, string, string, string, Association, *AssociationsInterfaceClientUpdateOptions)`
+- Function `*FrontendsInterfaceClient.Update` parameter(s) have been changed from `(context.Context, string, string, string, FrontendUpdate, *FrontendsInterfaceClientUpdateOptions)` to `(context.Context, string, string, string, Frontend, *FrontendsInterfaceClientUpdateOptions)`
+- Function `*TrafficControllerInterfaceClient.Update` parameter(s) have been changed from `(context.Context, string, string, TrafficControllerUpdate, *TrafficControllerInterfaceClientUpdateOptions)` to `(context.Context, string, string, TrafficController, *TrafficControllerInterfaceClientUpdateOptions)`
+- Function `*AssociationsInterfaceClient.NewListByTrafficControllerPager` has been removed
+- Function `*FrontendsInterfaceClient.NewListByTrafficControllerPager` has been removed
+- Struct `AssociationSubnetUpdate` has been removed
+- Struct `AssociationUpdate` has been removed
+- Struct `AssociationUpdateProperties` has been removed
+- Struct `FrontendUpdate` has been removed
+- Struct `TrafficControllerUpdate` has been removed
+
+### Features Added
+
+- New enum type `PolicyType` with values `PolicyTypeWAF`
+- New function `*AssociationsInterfaceClient.NewListByResourceGroupPager(string, string, *AssociationsInterfaceClientListByResourceGroupOptions) *runtime.Pager[AssociationsInterfaceClientListByResourceGroupResponse]`
+- New function `*ClientFactory.NewSecurityPoliciesInterfaceClient() *SecurityPoliciesInterfaceClient`
+- New function `*FrontendsInterfaceClient.NewListByResourceGroupPager(string, string, *FrontendsInterfaceClientListByResourceGroupOptions) *runtime.Pager[FrontendsInterfaceClientListByResourceGroupResponse]`
+- New function `NewSecurityPoliciesInterfaceClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SecurityPoliciesInterfaceClient, error)`
+- New function `*SecurityPoliciesInterfaceClient.BeginCreateOrUpdate(context.Context, string, string, string, SecurityPolicy, *SecurityPoliciesInterfaceClientBeginCreateOrUpdateOptions) (*runtime.Poller[SecurityPoliciesInterfaceClientCreateOrUpdateResponse], error)`
+- New function `*SecurityPoliciesInterfaceClient.BeginDelete(context.Context, string, string, string, *SecurityPoliciesInterfaceClientBeginDeleteOptions) (*runtime.Poller[SecurityPoliciesInterfaceClientDeleteResponse], error)`
+- New function `*SecurityPoliciesInterfaceClient.Get(context.Context, string, string, string, *SecurityPoliciesInterfaceClientGetOptions) (SecurityPoliciesInterfaceClientGetResponse, error)`
+- New function `*SecurityPoliciesInterfaceClient.NewListByResourceGroupPager(string, string, *SecurityPoliciesInterfaceClientListByResourceGroupOptions) *runtime.Pager[SecurityPoliciesInterfaceClientListByResourceGroupResponse]`
+- New function `*SecurityPoliciesInterfaceClient.Update(context.Context, string, string, string, SecurityPolicy, *SecurityPoliciesInterfaceClientUpdateOptions) (SecurityPoliciesInterfaceClientUpdateResponse, error)`
+- New struct `SecurityPolicy`
+- New struct `SecurityPolicyConfigurations`
+- New struct `SecurityPolicyListResult`
+- New struct `SecurityPolicyProperties`
+- New struct `WafPolicy`
+- New struct `WafSecurityPolicy`
+- New field `SecurityPolicies`, `SecurityPolicyConfigurations` in struct `TrafficControllerProperties`
+
+
 ## 1.0.0 (2023-11-24)
 ### Features Added
 
