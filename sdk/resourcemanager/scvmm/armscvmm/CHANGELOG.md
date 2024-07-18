@@ -1,5 +1,15 @@
 # Release History
 
+## 2.0.0 (2024-07-18)
+### Breaking Changes
+
+- Function `*VirtualMachineInstancesClient.NewListPager` has been removed
+
+### Features Added
+
+- New function `*VirtualMachineInstancesClient.NewListByArmPager(string, *VirtualMachineInstancesClientListByArmOptions) *runtime.Pager[VirtualMachineInstancesClientListByArmResponse]`
+
+
 ## 1.0.0 (2024-06-28)
 ### Breaking Changes
 
