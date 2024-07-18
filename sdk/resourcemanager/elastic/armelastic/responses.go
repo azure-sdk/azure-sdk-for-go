@@ -28,6 +28,18 @@ type AssociateTrafficFilterClientAssociateResponse struct {
 	// placeholder for future response values
 }
 
+// BillingInfoClientGetResponse contains the response from method BillingInfoClient.Get.
+type BillingInfoClientGetResponse struct {
+	// Marketplace Subscription and Organization details to which resource gets billed into.
+	BillingInfoResponse
+}
+
+// ConnectedPartnerResourcesClientListResponse contains the response from method ConnectedPartnerResourcesClient.NewListPager.
+type ConnectedPartnerResourcesClientListResponse struct {
+	// List of all active elastic deployments.
+	ConnectedPartnerResourcesListResponse
+}
+
 // CreateAndAssociateIPFilterClientCreateResponse contains the response from method CreateAndAssociateIPFilterClient.BeginCreate.
 type CreateAndAssociateIPFilterClientCreateResponse struct {
 	// placeholder for future response values
@@ -77,6 +89,34 @@ type MonitoredResourcesClientListResponse struct {
 	MonitoredResourceListResponse
 }
 
+// MonitoredSubscriptionsClientCreateorUpdateResponse contains the response from method MonitoredSubscriptionsClient.BeginCreateorUpdate.
+type MonitoredSubscriptionsClientCreateorUpdateResponse struct {
+	// The request to update subscriptions needed to be monitored by the Elastic monitor resource.
+	MonitoredSubscriptionProperties
+}
+
+// MonitoredSubscriptionsClientDeleteResponse contains the response from method MonitoredSubscriptionsClient.BeginDelete.
+type MonitoredSubscriptionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// MonitoredSubscriptionsClientGetResponse contains the response from method MonitoredSubscriptionsClient.Get.
+type MonitoredSubscriptionsClientGetResponse struct {
+	// The request to update subscriptions needed to be monitored by the Elastic monitor resource.
+	MonitoredSubscriptionProperties
+}
+
+// MonitoredSubscriptionsClientListResponse contains the response from method MonitoredSubscriptionsClient.NewListPager.
+type MonitoredSubscriptionsClientListResponse struct {
+	MonitoredSubscriptionPropertiesList
+}
+
+// MonitoredSubscriptionsClientUpdateResponse contains the response from method MonitoredSubscriptionsClient.BeginUpdate.
+type MonitoredSubscriptionsClientUpdateResponse struct {
+	// The request to update subscriptions needed to be monitored by the Elastic monitor resource.
+	MonitoredSubscriptionProperties
+}
+
 // MonitorsClientCreateResponse contains the response from method MonitorsClient.BeginCreate.
 type MonitorsClientCreateResponse struct {
 	// Monitor resource.
@@ -106,10 +146,39 @@ type MonitorsClientListResponse struct {
 	MonitorResourceListResponse
 }
 
-// MonitorsClientUpdateResponse contains the response from method MonitorsClient.Update.
+// MonitorsClientUpdateResponse contains the response from method MonitorsClient.BeginUpdate.
 type MonitorsClientUpdateResponse struct {
 	// Monitor resource.
 	MonitorResource
+}
+
+// OpenAIClientCreateOrUpdateResponse contains the response from method OpenAIClient.CreateOrUpdate.
+type OpenAIClientCreateOrUpdateResponse struct {
+	// Capture properties of Open AI resource Integration.
+	OpenAIIntegrationRPModel
+}
+
+// OpenAIClientDeleteResponse contains the response from method OpenAIClient.Delete.
+type OpenAIClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// OpenAIClientGetResponse contains the response from method OpenAIClient.Get.
+type OpenAIClientGetResponse struct {
+	// Capture properties of Open AI resource Integration.
+	OpenAIIntegrationRPModel
+}
+
+// OpenAIClientGetStatusResponse contains the response from method OpenAIClient.GetStatus.
+type OpenAIClientGetStatusResponse struct {
+	// Status of the OpenAI Integration
+	OpenAIIntegrationStatusResponse
+}
+
+// OpenAIClientListResponse contains the response from method OpenAIClient.NewListPager.
+type OpenAIClientListResponse struct {
+	// Response of a list operation.
+	OpenAIIntegrationRPModelListResponse
 }
 
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
@@ -122,6 +191,18 @@ type OperationsClientListResponse struct {
 type OrganizationsClientGetAPIKeyResponse struct {
 	// The User Api Key created for the Organization associated with the User Email Id that was passed in the request
 	UserAPIKeyResponse
+}
+
+// OrganizationsClientGetElasticToAzureSubscriptionMappingResponse contains the response from method OrganizationsClient.GetElasticToAzureSubscriptionMapping.
+type OrganizationsClientGetElasticToAzureSubscriptionMappingResponse struct {
+	// The Azure Subscription ID to which the Organization of the logged in user belongs and gets billed into.
+	OrganizationToAzureSubscriptionMappingResponse
+}
+
+// OrganizationsClientResubscribeResponse contains the response from method OrganizationsClient.BeginResubscribe.
+type OrganizationsClientResubscribeResponse struct {
+	// The properties of Resubscribe response object.
+	ResubscribeResponse
 }
 
 // TagRulesClientCreateOrUpdateResponse contains the response from method TagRulesClient.CreateOrUpdate.

@@ -29,62 +29,61 @@ import (
 	"strings"
 )
 
-// ListAssociatedTrafficFiltersClient contains the methods for the ListAssociatedTrafficFilters group.
-// Don't use this type directly, use NewListAssociatedTrafficFiltersClient() instead.
-type ListAssociatedTrafficFiltersClient struct {
+// BillingInfoClient contains the methods for the BillingInfo group.
+// Don't use this type directly, use NewBillingInfoClient() instead.
+type BillingInfoClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewListAssociatedTrafficFiltersClient creates a new instance of ListAssociatedTrafficFiltersClient with the specified values.
+// NewBillingInfoClient creates a new instance of BillingInfoClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewListAssociatedTrafficFiltersClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ListAssociatedTrafficFiltersClient, error) {
+func NewBillingInfoClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*BillingInfoClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &ListAssociatedTrafficFiltersClient{
+	client := &BillingInfoClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// List - Get the list of all associated traffic filters for the given deployment.
+// Get - Get marketplace and organization info mapped to the given monitor.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-06-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - monitorName - Monitor resource name
-//   - options - ListAssociatedTrafficFiltersClientListOptions contains the optional parameters for the ListAssociatedTrafficFiltersClient.List
-//     method.
-func (client *ListAssociatedTrafficFiltersClient) List(ctx context.Context, resourceGroupName string, monitorName string, options *ListAssociatedTrafficFiltersClientListOptions) (ListAssociatedTrafficFiltersClientListResponse, error) {
+//   - options - BillingInfoClientGetOptions contains the optional parameters for the BillingInfoClient.Get method.
+func (client *BillingInfoClient) Get(ctx context.Context, resourceGroupName string, monitorName string, options *BillingInfoClientGetOptions) (BillingInfoClientGetResponse, error) {
 	var err error
-	const operationName = "ListAssociatedTrafficFiltersClient.List"
+	const operationName = "BillingInfoClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.listCreateRequest(ctx, resourceGroupName, monitorName, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, monitorName, options)
 	if err != nil {
-		return ListAssociatedTrafficFiltersClientListResponse{}, err
+		return BillingInfoClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ListAssociatedTrafficFiltersClientListResponse{}, err
+		return BillingInfoClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return ListAssociatedTrafficFiltersClientListResponse{}, err
+		return BillingInfoClientGetResponse{}, err
 	}
-	resp, err := client.listHandleResponse(httpResp)
+	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
-// listCreateRequest creates the List request.
-func (client *ListAssociatedTrafficFiltersClient) listCreateRequest(ctx context.Context, resourceGroupName string, monitorName string, options *ListAssociatedTrafficFiltersClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Elastic/monitors/{monitorName}/listAssociatedTrafficFilters"
+// getCreateRequest creates the Get request.
+func (client *BillingInfoClient) getCreateRequest(ctx context.Context, resourceGroupName string, monitorName string, options *BillingInfoClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Elastic/monitors/{monitorName}/getBillingInfo"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -108,11 +107,11 @@ func (client *ListAssociatedTrafficFiltersClient) listCreateRequest(ctx context.
 	return req, nil
 }
 
-// listHandleResponse handles the List response.
-func (client *ListAssociatedTrafficFiltersClient) listHandleResponse(resp *http.Response) (ListAssociatedTrafficFiltersClientListResponse, error) {
-	result := ListAssociatedTrafficFiltersClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.TrafficFilterResponse); err != nil {
-		return ListAssociatedTrafficFiltersClientListResponse{}, err
+// getHandleResponse handles the Get response.
+func (client *BillingInfoClient) getHandleResponse(resp *http.Response) (BillingInfoClientGetResponse, error) {
+	result := BillingInfoClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.BillingInfoResponse); err != nil {
+		return BillingInfoClientGetResponse{}, err
 	}
 	return result, nil
 }
