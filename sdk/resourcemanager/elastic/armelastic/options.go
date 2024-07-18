@@ -32,6 +32,17 @@ type AssociateTrafficFilterClientBeginAssociateOptions struct {
 	RulesetID *string
 }
 
+// BillingInfoClientGetOptions contains the optional parameters for the BillingInfoClient.Get method.
+type BillingInfoClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ConnectedPartnerResourcesClientListOptions contains the optional parameters for the ConnectedPartnerResourcesClient.NewListPager
+// method.
+type ConnectedPartnerResourcesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
 // CreateAndAssociateIPFilterClientBeginCreateOptions contains the optional parameters for the CreateAndAssociateIPFilterClient.BeginCreate
 // method.
 type CreateAndAssociateIPFilterClientBeginCreateOptions struct {
@@ -109,6 +120,42 @@ type MonitoredResourcesClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// MonitoredSubscriptionsClientBeginCreateorUpdateOptions contains the optional parameters for the MonitoredSubscriptionsClient.BeginCreateorUpdate
+// method.
+type MonitoredSubscriptionsClientBeginCreateorUpdateOptions struct {
+	Body *MonitoredSubscriptionProperties
+
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// MonitoredSubscriptionsClientBeginDeleteOptions contains the optional parameters for the MonitoredSubscriptionsClient.BeginDelete
+// method.
+type MonitoredSubscriptionsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// MonitoredSubscriptionsClientBeginUpdateOptions contains the optional parameters for the MonitoredSubscriptionsClient.BeginUpdate
+// method.
+type MonitoredSubscriptionsClientBeginUpdateOptions struct {
+	Body *MonitoredSubscriptionProperties
+
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// MonitoredSubscriptionsClientGetOptions contains the optional parameters for the MonitoredSubscriptionsClient.Get method.
+type MonitoredSubscriptionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// MonitoredSubscriptionsClientListOptions contains the optional parameters for the MonitoredSubscriptionsClient.NewListPager
+// method.
+type MonitoredSubscriptionsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
 // MonitorsClientBeginCreateOptions contains the optional parameters for the MonitorsClient.BeginCreate method.
 type MonitorsClientBeginCreateOptions struct {
 	// Elastic monitor resource model
@@ -120,6 +167,15 @@ type MonitorsClientBeginCreateOptions struct {
 
 // MonitorsClientBeginDeleteOptions contains the optional parameters for the MonitorsClient.BeginDelete method.
 type MonitorsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// MonitorsClientBeginUpdateOptions contains the optional parameters for the MonitorsClient.BeginUpdate method.
+type MonitorsClientBeginUpdateOptions struct {
+	// Elastic resource model update parameters.
+	Body *MonitorResourceUpdateParameters
+
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -140,10 +196,29 @@ type MonitorsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// MonitorsClientUpdateOptions contains the optional parameters for the MonitorsClient.Update method.
-type MonitorsClientUpdateOptions struct {
-	// Elastic resource model update parameters.
-	Body *MonitorResourceUpdateParameters
+// OpenAIClientCreateOrUpdateOptions contains the optional parameters for the OpenAIClient.CreateOrUpdate method.
+type OpenAIClientCreateOrUpdateOptions struct {
+	Body *OpenAIIntegrationRPModel
+}
+
+// OpenAIClientDeleteOptions contains the optional parameters for the OpenAIClient.Delete method.
+type OpenAIClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// OpenAIClientGetOptions contains the optional parameters for the OpenAIClient.Get method.
+type OpenAIClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// OpenAIClientGetStatusOptions contains the optional parameters for the OpenAIClient.GetStatus method.
+type OpenAIClientGetStatusOptions struct {
+	// placeholder for future optional parameters
+}
+
+// OpenAIClientListOptions contains the optional parameters for the OpenAIClient.NewListPager method.
+type OpenAIClientListOptions struct {
+	// placeholder for future optional parameters
 }
 
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
@@ -155,6 +230,12 @@ type OperationsClientListOptions struct {
 type OrganizationsClientGetAPIKeyOptions struct {
 	// Email Id parameter of the User Organization, of which the API Key must be returned
 	Body *UserEmailID
+}
+
+// OrganizationsClientGetElasticToAzureSubscriptionMappingOptions contains the optional parameters for the OrganizationsClient.GetElasticToAzureSubscriptionMapping
+// method.
+type OrganizationsClientGetElasticToAzureSubscriptionMappingOptions struct {
+	// placeholder for future optional parameters
 }
 
 // TagRulesClientBeginDeleteOptions contains the optional parameters for the TagRulesClient.BeginDelete method.

@@ -19,7 +19,7 @@ package armelastic
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/elastic/armelastic"
-	moduleVersion = "v0.10.0"
+	moduleVersion = "v0.11.0"
 )
 
 // CreatedByType - The type of identity that created the resource.
@@ -103,6 +103,28 @@ func PossibleMonitoringStatusValues() []MonitoringStatus {
 	}
 }
 
+// Operation - The operation for the patch on the resource.
+type Operation string
+
+const (
+	OperationActive         Operation = "Active"
+	OperationAddBegin       Operation = "AddBegin"
+	OperationAddComplete    Operation = "AddComplete"
+	OperationDeleteBegin    Operation = "DeleteBegin"
+	OperationDeleteComplete Operation = "DeleteComplete"
+)
+
+// PossibleOperationValues returns the possible values for the Operation const type.
+func PossibleOperationValues() []Operation {
+	return []Operation{
+		OperationActive,
+		OperationAddBegin,
+		OperationAddComplete,
+		OperationDeleteBegin,
+		OperationDeleteComplete,
+	}
+}
+
 // OperationName - Operation to be performed on the given vm resource id.
 type OperationName string
 
@@ -162,6 +184,26 @@ func PossibleSendingLogsValues() []SendingLogs {
 	return []SendingLogs{
 		SendingLogsFalse,
 		SendingLogsTrue,
+	}
+}
+
+// Status - The state of monitoring.
+type Status string
+
+const (
+	StatusActive     Status = "Active"
+	StatusDeleting   Status = "Deleting"
+	StatusFailed     Status = "Failed"
+	StatusInProgress Status = "InProgress"
+)
+
+// PossibleStatusValues returns the possible values for the Status const type.
+func PossibleStatusValues() []Status {
+	return []Status{
+		StatusActive,
+		StatusDeleting,
+		StatusFailed,
+		StatusInProgress,
 	}
 }
 
