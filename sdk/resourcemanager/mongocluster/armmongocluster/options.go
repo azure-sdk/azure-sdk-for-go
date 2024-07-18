@@ -22,9 +22,9 @@ type FirewallRulesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// FirewallRulesClientListByMongoClusterOptions contains the optional parameters for the FirewallRulesClient.NewListByMongoClusterPager
+// FirewallRulesClientListByParentOptions contains the optional parameters for the FirewallRulesClient.NewListByParentPager
 // method.
-type FirewallRulesClientListByMongoClusterOptions struct {
+type FirewallRulesClientListByParentOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -100,14 +100,13 @@ type PrivateEndpointConnectionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateEndpointConnectionsClientListByMongoClusterOptions contains the optional parameters for the PrivateEndpointConnectionsClient.NewListByMongoClusterPager
+// PrivateEndpointConnectionsClientListConnectionsOptions contains the optional parameters for the PrivateEndpointConnectionsClient.NewListConnectionsPager
 // method.
-type PrivateEndpointConnectionsClientListByMongoClusterOptions struct {
+type PrivateEndpointConnectionsClientListConnectionsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateLinksClientListByMongoClusterOptions contains the optional parameters for the PrivateLinksClient.NewListByMongoClusterPager
-// method.
-type PrivateLinksClientListByMongoClusterOptions struct {
+// PrivateLinksClientListOptions contains the optional parameters for the PrivateLinksClient.NewListPager method.
+type PrivateLinksClientListOptions struct {
 	// placeholder for future optional parameters
 }
