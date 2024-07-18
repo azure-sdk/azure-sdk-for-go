@@ -20,50 +20,53 @@ import (
 	"strings"
 )
 
-// ModelsClient contains the methods for the Models group.
-// Don't use this type directly, use NewModelsClient() instead.
-type ModelsClient struct {
+// ModelCapacitiesClient contains the methods for the ModelCapacities group.
+// Don't use this type directly, use NewModelCapacitiesClient() instead.
+type ModelCapacitiesClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewModelsClient creates a new instance of ModelsClient with the specified values.
+// NewModelCapacitiesClient creates a new instance of ModelCapacitiesClient with the specified values.
 //   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewModelsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ModelsClient, error) {
+func NewModelCapacitiesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ModelCapacitiesClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &ModelsClient{
+	client := &ModelCapacitiesClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// NewListPager - List Models.
+// NewListPager - List ModelCapacities.
 //
 // Generated from API version 2024-06-01-preview
-//   - location - Resource location.
-//   - options - ModelsClientListOptions contains the optional parameters for the ModelsClient.NewListPager method.
-func (client *ModelsClient) NewListPager(location string, options *ModelsClientListOptions) *runtime.Pager[ModelsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[ModelsClientListResponse]{
-		More: func(page ModelsClientListResponse) bool {
+//   - modelFormat - The format of the Model
+//   - modelName - The name of the Model
+//   - modelVersion - The version of the Model
+//   - options - ModelCapacitiesClientListOptions contains the optional parameters for the ModelCapacitiesClient.NewListPager
+//     method.
+func (client *ModelCapacitiesClient) NewListPager(modelFormat string, modelName string, modelVersion string, options *ModelCapacitiesClientListOptions) *runtime.Pager[ModelCapacitiesClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ModelCapacitiesClientListResponse]{
+		More: func(page ModelCapacitiesClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *ModelsClientListResponse) (ModelsClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ModelsClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *ModelCapacitiesClientListResponse) (ModelCapacitiesClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ModelCapacitiesClient.NewListPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, location, options)
+				return client.listCreateRequest(ctx, modelFormat, modelName, modelVersion, options)
 			}, nil)
 			if err != nil {
-				return ModelsClientListResponse{}, err
+				return ModelCapacitiesClientListResponse{}, err
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -72,32 +75,31 @@ func (client *ModelsClient) NewListPager(location string, options *ModelsClientL
 }
 
 // listCreateRequest creates the List request.
-func (client *ModelsClient) listCreateRequest(ctx context.Context, location string, options *ModelsClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.CognitiveServices/locations/{location}/models"
+func (client *ModelCapacitiesClient) listCreateRequest(ctx context.Context, modelFormat string, modelName string, modelVersion string, options *ModelCapacitiesClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.CognitiveServices/modelCapacities"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	if location == "" {
-		return nil, errors.New("parameter location cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2024-06-01-preview")
+	reqQP.Set("modelFormat", modelFormat)
+	reqQP.Set("modelName", modelName)
+	reqQP.Set("modelVersion", modelVersion)
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
 // listHandleResponse handles the List response.
-func (client *ModelsClient) listHandleResponse(resp *http.Response) (ModelsClientListResponse, error) {
-	result := ModelsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ModelListResult); err != nil {
-		return ModelsClientListResponse{}, err
+func (client *ModelCapacitiesClient) listHandleResponse(resp *http.Response) (ModelCapacitiesClientListResponse, error) {
+	result := ModelCapacitiesClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ModelCapacityListResult); err != nil {
+		return ModelCapacitiesClientListResponse{}, err
 	}
 	return result, nil
 }
