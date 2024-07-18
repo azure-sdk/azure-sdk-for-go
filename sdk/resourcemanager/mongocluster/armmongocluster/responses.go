@@ -21,8 +21,8 @@ type FirewallRulesClientGetResponse struct {
 	FirewallRule
 }
 
-// FirewallRulesClientListByMongoClusterResponse contains the response from method FirewallRulesClient.NewListByMongoClusterPager.
-type FirewallRulesClientListByMongoClusterResponse struct {
+// FirewallRulesClientListByParentResponse contains the response from method FirewallRulesClient.NewListByParentPager.
+type FirewallRulesClientListByParentResponse struct {
 	// The response of a FirewallRule list operation.
 	FirewallRuleListResult
 }
@@ -97,14 +97,14 @@ type PrivateEndpointConnectionsClientGetResponse struct {
 	PrivateEndpointConnectionResource
 }
 
-// PrivateEndpointConnectionsClientListByMongoClusterResponse contains the response from method PrivateEndpointConnectionsClient.NewListByMongoClusterPager.
-type PrivateEndpointConnectionsClientListByMongoClusterResponse struct {
+// PrivateEndpointConnectionsClientListConnectionsResponse contains the response from method PrivateEndpointConnectionsClient.NewListConnectionsPager.
+type PrivateEndpointConnectionsClientListConnectionsResponse struct {
 	// The response of a PrivateEndpointConnectionResource list operation.
 	PrivateEndpointConnectionResourceListResult
 }
 
-// PrivateLinksClientListByMongoClusterResponse contains the response from method PrivateLinksClient.NewListByMongoClusterPager.
-type PrivateLinksClientListByMongoClusterResponse struct {
+// PrivateLinksClientListResponse contains the response from method PrivateLinksClient.NewListPager.
+type PrivateLinksClientListResponse struct {
 	// The response of a PrivateLinkResource list operation.
 	PrivateLinkResourceListResult
 }
