@@ -214,12 +214,6 @@ type FactoriesClientGetOptions struct {
 	IfNoneMatch *string
 }
 
-// FactoriesClientListByResourceGroupOptions contains the optional parameters for the FactoriesClient.NewListByResourceGroupPager
-// method.
-type FactoriesClientListByResourceGroupOptions struct {
-	// placeholder for future optional parameters
-}
-
 // FactoriesClientListOptions contains the optional parameters for the FactoriesClient.NewListPager method.
 type FactoriesClientListOptions struct {
 	// placeholder for future optional parameters

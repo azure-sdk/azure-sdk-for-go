@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datafactory/armdatafactory/v8"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datafactory/armdatafactory/v9"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -52,10 +52,6 @@ type FactoriesServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListPager func(options *armdatafactory.FactoriesClientListOptions) (resp azfake.PagerResponder[armdatafactory.FactoriesClientListResponse])
 
-	// NewListByResourceGroupPager is the fake for method FactoriesClient.NewListByResourceGroupPager
-	// HTTP status codes to indicate success: http.StatusOK
-	NewListByResourceGroupPager func(resourceGroupName string, options *armdatafactory.FactoriesClientListByResourceGroupOptions) (resp azfake.PagerResponder[armdatafactory.FactoriesClientListByResourceGroupResponse])
-
 	// Update is the fake for method FactoriesClient.Update
 	// HTTP status codes to indicate success: http.StatusOK
 	Update func(ctx context.Context, resourceGroupName string, factoryName string, factoryUpdateParameters armdatafactory.FactoryUpdateParameters, options *armdatafactory.FactoriesClientUpdateOptions) (resp azfake.Responder[armdatafactory.FactoriesClientUpdateResponse], errResp azfake.ErrorResponder)
@@ -66,18 +62,16 @@ type FactoriesServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewFactoriesServerTransport(srv *FactoriesServer) *FactoriesServerTransport {
 	return &FactoriesServerTransport{
-		srv:                         srv,
-		newListPager:                newTracker[azfake.PagerResponder[armdatafactory.FactoriesClientListResponse]](),
-		newListByResourceGroupPager: newTracker[azfake.PagerResponder[armdatafactory.FactoriesClientListByResourceGroupResponse]](),
+		srv:          srv,
+		newListPager: newTracker[azfake.PagerResponder[armdatafactory.FactoriesClientListResponse]](),
 	}
 }
 
 // FactoriesServerTransport connects instances of armdatafactory.FactoriesClient to instances of FactoriesServer.
 // Don't use this type directly, use NewFactoriesServerTransport instead.
 type FactoriesServerTransport struct {
-	srv                         *FactoriesServer
-	newListPager                *tracker[azfake.PagerResponder[armdatafactory.FactoriesClientListResponse]]
-	newListByResourceGroupPager *tracker[azfake.PagerResponder[armdatafactory.FactoriesClientListByResourceGroupResponse]]
+	srv          *FactoriesServer
+	newListPager *tracker[azfake.PagerResponder[armdatafactory.FactoriesClientListResponse]]
 }
 
 // Do implements the policy.Transporter interface for FactoriesServerTransport.
@@ -106,8 +100,6 @@ func (f *FactoriesServerTransport) Do(req *http.Request) (*http.Response, error)
 		resp, err = f.dispatchGetGitHubAccessToken(req)
 	case "FactoriesClient.NewListPager":
 		resp, err = f.dispatchNewListPager(req)
-	case "FactoriesClient.NewListByResourceGroupPager":
-		resp, err = f.dispatchNewListByResourceGroupPager(req)
 	case "FactoriesClient.Update":
 		resp, err = f.dispatchUpdate(req)
 	default:
@@ -374,43 +366,6 @@ func (f *FactoriesServerTransport) dispatchNewListPager(req *http.Request) (*htt
 	}
 	if !server.PagerResponderMore(newListPager) {
 		f.newListPager.remove(req)
-	}
-	return resp, nil
-}
-
-func (f *FactoriesServerTransport) dispatchNewListByResourceGroupPager(req *http.Request) (*http.Response, error) {
-	if f.srv.NewListByResourceGroupPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListByResourceGroupPager not implemented")}
-	}
-	newListByResourceGroupPager := f.newListByResourceGroupPager.get(req)
-	if newListByResourceGroupPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DataFactory/factories`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 2 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		resp := f.srv.NewListByResourceGroupPager(resourceGroupNameParam, nil)
-		newListByResourceGroupPager = &resp
-		f.newListByResourceGroupPager.add(req, newListByResourceGroupPager)
-		server.PagerResponderInjectNextLinks(newListByResourceGroupPager, req, func(page *armdatafactory.FactoriesClientListByResourceGroupResponse, createLink func() string) {
-			page.NextLink = to.Ptr(createLink())
-		})
-	}
-	resp, err := server.PagerResponderNext(newListByResourceGroupPager, req)
-	if err != nil {
-		return nil, err
-	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		f.newListByResourceGroupPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
-	}
-	if !server.PagerResponderMore(newListByResourceGroupPager) {
-		f.newListByResourceGroupPager.remove(req)
 	}
 	return resp, nil
 }
