@@ -1,5 +1,29 @@
 # Release History
 
+## 2.0.0 (2024-07-18)
+### Breaking Changes
+
+- Function `*ReportClient.NestedResourceCheckNameAvailability` has been removed
+- Struct `OnboardResponse` has been removed
+- Struct `QuickAssessment` has been removed
+- Struct `TriggerEvaluationProperty` has been removed
+- Struct `TriggerEvaluationResponse` has been removed
+- Field `Select` of struct `EvidenceClientListByReportOptions` has been removed
+- Field `OnboardResponse` of struct `ProviderActionsClientOnboardResponse` has been removed
+- Field `TriggerEvaluationResponse` of struct `ProviderActionsClientTriggerEvaluationResponse` has been removed
+- Field `Select` of struct `ReportClientListOptions` has been removed
+- Field `Select` of struct `SnapshotClientListOptions` has been removed
+- Field `Select` of struct `WebhookClientListOptions` has been removed
+
+### Features Added
+
+- New function `*ReportClient.CheckNameAvailability(context.Context, string, CheckNameAvailabilityRequest, *ReportClientCheckNameAvailabilityOptions) (ReportClientCheckNameAvailabilityResponse, error)`
+- New field `SelectParam` in struct `EvidenceClientListByReportOptions`
+- New field `SelectParam` in struct `ReportClientListOptions`
+- New field `SelectParam` in struct `SnapshotClientListOptions`
+- New field `SelectParam` in struct `WebhookClientListOptions`
+
+
 ## 1.0.0 (2024-06-21)
 ### Breaking Changes
 

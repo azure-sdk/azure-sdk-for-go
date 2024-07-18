@@ -32,9 +32,9 @@ type PrivateEndpointConnectionsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, mongoClusterName string, privateEndpointConnectionName string, options *armmongocluster.PrivateEndpointConnectionsClientGetOptions) (resp azfake.Responder[armmongocluster.PrivateEndpointConnectionsClientGetResponse], errResp azfake.ErrorResponder)
 
-	// NewListByMongoClusterPager is the fake for method PrivateEndpointConnectionsClient.NewListByMongoClusterPager
+	// NewListConnectionsPager is the fake for method PrivateEndpointConnectionsClient.NewListConnectionsPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListByMongoClusterPager func(resourceGroupName string, mongoClusterName string, options *armmongocluster.PrivateEndpointConnectionsClientListByMongoClusterOptions) (resp azfake.PagerResponder[armmongocluster.PrivateEndpointConnectionsClientListByMongoClusterResponse])
+	NewListConnectionsPager func(resourceGroupName string, mongoClusterName string, options *armmongocluster.PrivateEndpointConnectionsClientListConnectionsOptions) (resp azfake.PagerResponder[armmongocluster.PrivateEndpointConnectionsClientListConnectionsResponse])
 }
 
 // NewPrivateEndpointConnectionsServerTransport creates a new instance of PrivateEndpointConnectionsServerTransport with the provided implementation.
@@ -42,20 +42,20 @@ type PrivateEndpointConnectionsServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewPrivateEndpointConnectionsServerTransport(srv *PrivateEndpointConnectionsServer) *PrivateEndpointConnectionsServerTransport {
 	return &PrivateEndpointConnectionsServerTransport{
-		srv:                        srv,
-		beginCreate:                newTracker[azfake.PollerResponder[armmongocluster.PrivateEndpointConnectionsClientCreateResponse]](),
-		beginDelete:                newTracker[azfake.PollerResponder[armmongocluster.PrivateEndpointConnectionsClientDeleteResponse]](),
-		newListByMongoClusterPager: newTracker[azfake.PagerResponder[armmongocluster.PrivateEndpointConnectionsClientListByMongoClusterResponse]](),
+		srv:                     srv,
+		beginCreate:             newTracker[azfake.PollerResponder[armmongocluster.PrivateEndpointConnectionsClientCreateResponse]](),
+		beginDelete:             newTracker[azfake.PollerResponder[armmongocluster.PrivateEndpointConnectionsClientDeleteResponse]](),
+		newListConnectionsPager: newTracker[azfake.PagerResponder[armmongocluster.PrivateEndpointConnectionsClientListConnectionsResponse]](),
 	}
 }
 
 // PrivateEndpointConnectionsServerTransport connects instances of armmongocluster.PrivateEndpointConnectionsClient to instances of PrivateEndpointConnectionsServer.
 // Don't use this type directly, use NewPrivateEndpointConnectionsServerTransport instead.
 type PrivateEndpointConnectionsServerTransport struct {
-	srv                        *PrivateEndpointConnectionsServer
-	beginCreate                *tracker[azfake.PollerResponder[armmongocluster.PrivateEndpointConnectionsClientCreateResponse]]
-	beginDelete                *tracker[azfake.PollerResponder[armmongocluster.PrivateEndpointConnectionsClientDeleteResponse]]
-	newListByMongoClusterPager *tracker[azfake.PagerResponder[armmongocluster.PrivateEndpointConnectionsClientListByMongoClusterResponse]]
+	srv                     *PrivateEndpointConnectionsServer
+	beginCreate             *tracker[azfake.PollerResponder[armmongocluster.PrivateEndpointConnectionsClientCreateResponse]]
+	beginDelete             *tracker[azfake.PollerResponder[armmongocluster.PrivateEndpointConnectionsClientDeleteResponse]]
+	newListConnectionsPager *tracker[azfake.PagerResponder[armmongocluster.PrivateEndpointConnectionsClientListConnectionsResponse]]
 }
 
 // Do implements the policy.Transporter interface for PrivateEndpointConnectionsServerTransport.
@@ -80,8 +80,8 @@ func (p *PrivateEndpointConnectionsServerTransport) dispatchToMethodFake(req *ht
 		resp, err = p.dispatchBeginDelete(req)
 	case "PrivateEndpointConnectionsClient.Get":
 		resp, err = p.dispatchGet(req)
-	case "PrivateEndpointConnectionsClient.NewListByMongoClusterPager":
-		resp, err = p.dispatchNewListByMongoClusterPager(req)
+	case "PrivateEndpointConnectionsClient.NewListConnectionsPager":
+		resp, err = p.dispatchNewListConnectionsPager(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -226,12 +226,12 @@ func (p *PrivateEndpointConnectionsServerTransport) dispatchGet(req *http.Reques
 	return resp, nil
 }
 
-func (p *PrivateEndpointConnectionsServerTransport) dispatchNewListByMongoClusterPager(req *http.Request) (*http.Response, error) {
-	if p.srv.NewListByMongoClusterPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListByMongoClusterPager not implemented")}
+func (p *PrivateEndpointConnectionsServerTransport) dispatchNewListConnectionsPager(req *http.Request) (*http.Response, error) {
+	if p.srv.NewListConnectionsPager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListConnectionsPager not implemented")}
 	}
-	newListByMongoClusterPager := p.newListByMongoClusterPager.get(req)
-	if newListByMongoClusterPager == nil {
+	newListConnectionsPager := p.newListConnectionsPager.get(req)
+	if newListConnectionsPager == nil {
 		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DocumentDB/mongoClusters/(?P<mongoClusterName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/privateEndpointConnections`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
@@ -246,23 +246,23 @@ func (p *PrivateEndpointConnectionsServerTransport) dispatchNewListByMongoCluste
 		if err != nil {
 			return nil, err
 		}
-		resp := p.srv.NewListByMongoClusterPager(resourceGroupNameParam, mongoClusterNameParam, nil)
-		newListByMongoClusterPager = &resp
-		p.newListByMongoClusterPager.add(req, newListByMongoClusterPager)
-		server.PagerResponderInjectNextLinks(newListByMongoClusterPager, req, func(page *armmongocluster.PrivateEndpointConnectionsClientListByMongoClusterResponse, createLink func() string) {
+		resp := p.srv.NewListConnectionsPager(resourceGroupNameParam, mongoClusterNameParam, nil)
+		newListConnectionsPager = &resp
+		p.newListConnectionsPager.add(req, newListConnectionsPager)
+		server.PagerResponderInjectNextLinks(newListConnectionsPager, req, func(page *armmongocluster.PrivateEndpointConnectionsClientListConnectionsResponse, createLink func() string) {
 			page.NextLink = to.Ptr(createLink())
 		})
 	}
-	resp, err := server.PagerResponderNext(newListByMongoClusterPager, req)
+	resp, err := server.PagerResponderNext(newListConnectionsPager, req)
 	if err != nil {
 		return nil, err
 	}
 	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		p.newListByMongoClusterPager.remove(req)
+		p.newListConnectionsPager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
-	if !server.PagerResponderMore(newListByMongoClusterPager) {
-		p.newListByMongoClusterPager.remove(req)
+	if !server.PagerResponderMore(newListConnectionsPager) {
+		p.newListConnectionsPager.remove(req)
 	}
 	return resp, nil
 }
