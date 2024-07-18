@@ -10,7 +10,7 @@ package armeventhub
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/eventhub/armeventhub"
-	moduleVersion = "v1.3.0-beta.1"
+	moduleVersion = "v1.3.0-beta.2"
 )
 
 type AccessRights string
@@ -44,19 +44,37 @@ func PossibleApplicationGroupPolicyTypeValues() []ApplicationGroupPolicyType {
 	}
 }
 
+// CaptureIdentityType - Type of Azure Active Directory Managed Identity.
+type CaptureIdentityType string
+
+const (
+	CaptureIdentityTypeSystemAssigned CaptureIdentityType = "SystemAssigned"
+	CaptureIdentityTypeUserAssigned   CaptureIdentityType = "UserAssigned"
+)
+
+// PossibleCaptureIdentityTypeValues returns the possible values for the CaptureIdentityType const type.
+func PossibleCaptureIdentityTypeValues() []CaptureIdentityType {
+	return []CaptureIdentityType{
+		CaptureIdentityTypeSystemAssigned,
+		CaptureIdentityTypeUserAssigned,
+	}
+}
+
 // CleanupPolicyRetentionDescription - Enumerates the possible values for cleanup policy
 type CleanupPolicyRetentionDescription string
 
 const (
-	CleanupPolicyRetentionDescriptionCompaction CleanupPolicyRetentionDescription = "Compaction"
-	CleanupPolicyRetentionDescriptionDelete     CleanupPolicyRetentionDescription = "Delete"
+	CleanupPolicyRetentionDescriptionCompact         CleanupPolicyRetentionDescription = "Compact"
+	CleanupPolicyRetentionDescriptionDelete          CleanupPolicyRetentionDescription = "Delete"
+	CleanupPolicyRetentionDescriptionDeleteOrCompact CleanupPolicyRetentionDescription = "DeleteOrCompact"
 )
 
 // PossibleCleanupPolicyRetentionDescriptionValues returns the possible values for the CleanupPolicyRetentionDescription const type.
 func PossibleCleanupPolicyRetentionDescriptionValues() []CleanupPolicyRetentionDescription {
 	return []CleanupPolicyRetentionDescription{
-		CleanupPolicyRetentionDescriptionCompaction,
+		CleanupPolicyRetentionDescriptionCompact,
 		CleanupPolicyRetentionDescriptionDelete,
+		CleanupPolicyRetentionDescriptionDeleteOrCompact,
 	}
 }
 
@@ -178,6 +196,22 @@ func PossibleEntityStatusValues() []EntityStatus {
 		EntityStatusRestoring,
 		EntityStatusSendDisabled,
 		EntityStatusUnknown,
+	}
+}
+
+// GeoDRRoleType - GeoDR Role Types
+type GeoDRRoleType string
+
+const (
+	GeoDRRoleTypePrimary   GeoDRRoleType = "Primary"
+	GeoDRRoleTypeSecondary GeoDRRoleType = "Secondary"
+)
+
+// PossibleGeoDRRoleTypeValues returns the possible values for the GeoDRRoleType const type.
+func PossibleGeoDRRoleTypeValues() []GeoDRRoleType {
+	return []GeoDRRoleType{
+		GeoDRRoleTypePrimary,
+		GeoDRRoleTypeSecondary,
 	}
 }
 
@@ -319,6 +353,34 @@ func PossiblePrivateLinkConnectionStatusValues() []PrivateLinkConnectionStatus {
 		PrivateLinkConnectionStatusDisconnected,
 		PrivateLinkConnectionStatusPending,
 		PrivateLinkConnectionStatusRejected,
+	}
+}
+
+// ProvisioningState - Provisioning state of the Cluster.
+type ProvisioningState string
+
+const (
+	ProvisioningStateActive    ProvisioningState = "Active"
+	ProvisioningStateCanceled  ProvisioningState = "Canceled"
+	ProvisioningStateCreating  ProvisioningState = "Creating"
+	ProvisioningStateDeleting  ProvisioningState = "Deleting"
+	ProvisioningStateFailed    ProvisioningState = "Failed"
+	ProvisioningStateScaling   ProvisioningState = "Scaling"
+	ProvisioningStateSucceeded ProvisioningState = "Succeeded"
+	ProvisioningStateUnknown   ProvisioningState = "Unknown"
+)
+
+// PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
+func PossibleProvisioningStateValues() []ProvisioningState {
+	return []ProvisioningState{
+		ProvisioningStateActive,
+		ProvisioningStateCanceled,
+		ProvisioningStateCreating,
+		ProvisioningStateDeleting,
+		ProvisioningStateFailed,
+		ProvisioningStateScaling,
+		ProvisioningStateSucceeded,
+		ProvisioningStateUnknown,
 	}
 }
 
@@ -475,14 +537,18 @@ func PossibleSchemaCompatibilityValues() []SchemaCompatibility {
 type SchemaType string
 
 const (
-	SchemaTypeAvro    SchemaType = "Avro"
-	SchemaTypeUnknown SchemaType = "Unknown"
+	SchemaTypeAvro     SchemaType = "Avro"
+	SchemaTypeJSON     SchemaType = "Json"
+	SchemaTypeProtoBuf SchemaType = "ProtoBuf"
+	SchemaTypeUnknown  SchemaType = "Unknown"
 )
 
 // PossibleSchemaTypeValues returns the possible values for the SchemaType const type.
 func PossibleSchemaTypeValues() []SchemaType {
 	return []SchemaType{
 		SchemaTypeAvro,
+		SchemaTypeJSON,
+		SchemaTypeProtoBuf,
 		SchemaTypeUnknown,
 	}
 }
@@ -502,6 +568,26 @@ func PossibleTLSVersionValues() []TLSVersion {
 		TLSVersionOne0,
 		TLSVersionOne1,
 		TLSVersionOne2,
+	}
+}
+
+// TimestampType - Denotes the type of timestamp the message will hold.Two types of timestamp types - "AppendTime" and "CreateTime".
+// AppendTime refers the time in which message got appended inside broker log. CreateTime
+// refers to the time in which the message was generated on source side and producers can set this timestamp while sending
+// the message. Default value is AppendTime. If you are using AMQP protocol,
+// CreateTime equals AppendTime and its behavior remains the same.
+type TimestampType string
+
+const (
+	TimestampTypeCreate    TimestampType = "Create"
+	TimestampTypeLogAppend TimestampType = "LogAppend"
+)
+
+// PossibleTimestampTypeValues returns the possible values for the TimestampType const type.
+func PossibleTimestampTypeValues() []TimestampType {
+	return []TimestampType{
+		TimestampTypeCreate,
+		TimestampTypeLogAppend,
 	}
 }
 
