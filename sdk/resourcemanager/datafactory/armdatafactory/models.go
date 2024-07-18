@@ -6206,7 +6206,7 @@ type AzureTableStorageLinkedService struct {
 	Type *string
 
 	// REQUIRED; Azure Table Storage linked service properties.
-	TypeProperties *AzureStorageLinkedServiceTypeProperties
+	TypeProperties *AzureTableStorageLinkedServiceTypeProperties
 
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
 	AdditionalProperties map[string]any
@@ -6234,6 +6234,32 @@ func (a *AzureTableStorageLinkedService) GetLinkedService() *LinkedService {
 		Parameters:           a.Parameters,
 		Type:                 a.Type,
 	}
+}
+
+// AzureTableStorageLinkedServiceTypeProperties - Azure Table Storage linked service properties.
+type AzureTableStorageLinkedServiceTypeProperties struct {
+	// The Azure key vault secret reference of accountKey in connection string.
+	AccountKey *AzureKeyVaultSecretReference
+
+	// The connection string. It is mutually exclusive with sasUri property. Type: string, SecureString or AzureKeyVaultSecretReference.
+	ConnectionString any
+
+	// The credential reference containing authentication information.
+	Credential *CredentialReference
+
+	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
+	// Type: string.
+	EncryptedCredential *string
+
+	// The Azure key vault secret reference of sasToken in sas uri.
+	SasToken *AzureKeyVaultSecretReference
+
+	// SAS URI of the Azure Storage resource. It is mutually exclusive with connectionString property. Type: string, SecureString
+	// or AzureKeyVaultSecretReference.
+	SasURI any
+
+	// Table service endpoint of the Azure Table Storage resource. It is mutually exclusive with connectionString, sasUri property.
+	ServiceEndpoint any
 }
 
 // BigDataPoolParametrizationReference - Big data pool reference type.
@@ -7404,6 +7430,18 @@ type ConnectionStateProperties struct {
 
 	// READ-ONLY; The approval status
 	Status *string
+}
+
+// ContinuationSettingsReference - Continuation settings for execute data flow activity.
+type ContinuationSettingsReference struct {
+	// Continuation TTL in minutes.
+	ContinuationTTLInMinutes any
+
+	// Customized checkpoint key.
+	CustomizedCheckpointKey any
+
+	// Idle condition.
+	IdleCondition any
 }
 
 // ControlActivity - Base class for all control activities like IfCondition, ForEach , Until.
@@ -11342,6 +11380,9 @@ type ExecuteDataFlowActivityTypeProperties struct {
 	// Compute properties for data flow activity.
 	Compute *ExecuteDataFlowActivityTypePropertiesCompute
 
+	// Continuation settings for execute data flow activity.
+	ContinuationSettings *ContinuationSettingsReference
+
 	// Continue on error setting used for data flow execution. Enables processing to continue if a sink fails. Type: boolean (or
 	// Expression with resultType boolean)
 	ContinueOnError any
@@ -11465,6 +11506,9 @@ type ExecutePowerQueryActivityTypeProperties struct {
 
 	// Compute properties for data flow activity.
 	Compute *ExecuteDataFlowActivityTypePropertiesCompute
+
+	// Continuation settings for execute data flow activity.
+	ContinuationSettings *ContinuationSettingsReference
 
 	// Continue on error setting used for data flow execution. Enables processing to continue if a sink fails. Type: boolean (or
 	// Expression with resultType boolean)
@@ -23984,6 +24028,9 @@ type SQLServerLinkedServiceTypeProperties struct {
 	// The connection string. Type: string, SecureString or AzureKeyVaultSecretReference.
 	ConnectionString any
 
+	// The credential reference containing authentication information.
+	Credential *CredentialReference
+
 	// The name of the database, used by recommended version. Type: string (or Expression with resultType string).
 	Database any
 
@@ -28708,6 +28755,10 @@ type SnowflakeExportCopyCommand struct {
 
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
 	AdditionalProperties map[string]any
+
+	// The name of the snowflake storage integration to use for the copy operation. Type: string (or Expression with resultType
+	// string).
+	StorageIntegration any
 }
 
 // GetExportSettings implements the ExportSettingsClassification interface for type SnowflakeExportCopyCommand.
@@ -28735,6 +28786,10 @@ type SnowflakeImportCopyCommand struct {
 
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
 	AdditionalProperties map[string]any
+
+	// The name of the snowflake storage integration to use for the copy operation. Type: string (or Expression with resultType
+	// string).
+	StorageIntegration any
 }
 
 // GetImportSettings implements the ImportSettingsClassification interface for type SnowflakeImportCopyCommand.
