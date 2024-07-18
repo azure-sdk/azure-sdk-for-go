@@ -204,12 +204,6 @@ type FactoriesClientGetResponse struct {
 	Factory
 }
 
-// FactoriesClientListByResourceGroupResponse contains the response from method FactoriesClient.NewListByResourceGroupPager.
-type FactoriesClientListByResourceGroupResponse struct {
-	// A list of factory resources.
-	FactoryListResponse
-}
-
 // FactoriesClientListResponse contains the response from method FactoriesClient.NewListPager.
 type FactoriesClientListResponse struct {
 	// A list of factory resources.

@@ -492,66 +492,6 @@ func (client *FactoriesClient) listHandleResponse(resp *http.Response) (Factorie
 	return result, nil
 }
 
-// NewListByResourceGroupPager - Lists factories.
-//
-// Generated from API version 2018-06-01
-//   - resourceGroupName - The resource group name.
-//   - options - FactoriesClientListByResourceGroupOptions contains the optional parameters for the FactoriesClient.NewListByResourceGroupPager
-//     method.
-func (client *FactoriesClient) NewListByResourceGroupPager(resourceGroupName string, options *FactoriesClientListByResourceGroupOptions) *runtime.Pager[FactoriesClientListByResourceGroupResponse] {
-	return runtime.NewPager(runtime.PagingHandler[FactoriesClientListByResourceGroupResponse]{
-		More: func(page FactoriesClientListByResourceGroupResponse) bool {
-			return page.NextLink != nil && len(*page.NextLink) > 0
-		},
-		Fetcher: func(ctx context.Context, page *FactoriesClientListByResourceGroupResponse) (FactoriesClientListByResourceGroupResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "FactoriesClient.NewListByResourceGroupPager")
-			nextLink := ""
-			if page != nil {
-				nextLink = *page.NextLink
-			}
-			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listByResourceGroupCreateRequest(ctx, resourceGroupName, options)
-			}, nil)
-			if err != nil {
-				return FactoriesClientListByResourceGroupResponse{}, err
-			}
-			return client.listByResourceGroupHandleResponse(resp)
-		},
-		Tracer: client.internal.Tracer(),
-	})
-}
-
-// listByResourceGroupCreateRequest creates the ListByResourceGroup request.
-func (client *FactoriesClient) listByResourceGroupCreateRequest(ctx context.Context, resourceGroupName string, options *FactoriesClientListByResourceGroupOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataFactory/factories"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-01")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, nil
-}
-
-// listByResourceGroupHandleResponse handles the ListByResourceGroup response.
-func (client *FactoriesClient) listByResourceGroupHandleResponse(resp *http.Response) (FactoriesClientListByResourceGroupResponse, error) {
-	result := FactoriesClientListByResourceGroupResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.FactoryListResponse); err != nil {
-		return FactoriesClientListByResourceGroupResponse{}, err
-	}
-	return result, nil
-}
-
 // Update - Updates a factory.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
