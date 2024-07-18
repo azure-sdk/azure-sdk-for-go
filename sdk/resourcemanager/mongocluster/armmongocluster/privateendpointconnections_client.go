@@ -277,38 +277,38 @@ func (client *PrivateEndpointConnectionsClient) getHandleResponse(resp *http.Res
 	return result, nil
 }
 
-// NewListByMongoClusterPager - List existing private connections
+// NewListConnectionsPager - List existing private connections
 //
 // Generated from API version 2024-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - mongoClusterName - The name of the mongo cluster.
-//   - options - PrivateEndpointConnectionsClientListByMongoClusterOptions contains the optional parameters for the PrivateEndpointConnectionsClient.NewListByMongoClusterPager
+//   - options - PrivateEndpointConnectionsClientListConnectionsOptions contains the optional parameters for the PrivateEndpointConnectionsClient.NewListConnectionsPager
 //     method.
-func (client *PrivateEndpointConnectionsClient) NewListByMongoClusterPager(resourceGroupName string, mongoClusterName string, options *PrivateEndpointConnectionsClientListByMongoClusterOptions) *runtime.Pager[PrivateEndpointConnectionsClientListByMongoClusterResponse] {
-	return runtime.NewPager(runtime.PagingHandler[PrivateEndpointConnectionsClientListByMongoClusterResponse]{
-		More: func(page PrivateEndpointConnectionsClientListByMongoClusterResponse) bool {
+func (client *PrivateEndpointConnectionsClient) NewListConnectionsPager(resourceGroupName string, mongoClusterName string, options *PrivateEndpointConnectionsClientListConnectionsOptions) *runtime.Pager[PrivateEndpointConnectionsClientListConnectionsResponse] {
+	return runtime.NewPager(runtime.PagingHandler[PrivateEndpointConnectionsClientListConnectionsResponse]{
+		More: func(page PrivateEndpointConnectionsClientListConnectionsResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *PrivateEndpointConnectionsClientListByMongoClusterResponse) (PrivateEndpointConnectionsClientListByMongoClusterResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "PrivateEndpointConnectionsClient.NewListByMongoClusterPager")
+		Fetcher: func(ctx context.Context, page *PrivateEndpointConnectionsClientListConnectionsResponse) (PrivateEndpointConnectionsClientListConnectionsResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "PrivateEndpointConnectionsClient.NewListConnectionsPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listByMongoClusterCreateRequest(ctx, resourceGroupName, mongoClusterName, options)
+				return client.listConnectionsCreateRequest(ctx, resourceGroupName, mongoClusterName, options)
 			}, nil)
 			if err != nil {
-				return PrivateEndpointConnectionsClientListByMongoClusterResponse{}, err
+				return PrivateEndpointConnectionsClientListConnectionsResponse{}, err
 			}
-			return client.listByMongoClusterHandleResponse(resp)
+			return client.listConnectionsHandleResponse(resp)
 		},
 		Tracer: client.internal.Tracer(),
 	})
 }
 
-// listByMongoClusterCreateRequest creates the ListByMongoCluster request.
-func (client *PrivateEndpointConnectionsClient) listByMongoClusterCreateRequest(ctx context.Context, resourceGroupName string, mongoClusterName string, _ *PrivateEndpointConnectionsClientListByMongoClusterOptions) (*policy.Request, error) {
+// listConnectionsCreateRequest creates the ListConnections request.
+func (client *PrivateEndpointConnectionsClient) listConnectionsCreateRequest(ctx context.Context, resourceGroupName string, mongoClusterName string, _ *PrivateEndpointConnectionsClientListConnectionsOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DocumentDB/mongoClusters/{mongoClusterName}/privateEndpointConnections"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -333,11 +333,11 @@ func (client *PrivateEndpointConnectionsClient) listByMongoClusterCreateRequest(
 	return req, nil
 }
 
-// listByMongoClusterHandleResponse handles the ListByMongoCluster response.
-func (client *PrivateEndpointConnectionsClient) listByMongoClusterHandleResponse(resp *http.Response) (PrivateEndpointConnectionsClientListByMongoClusterResponse, error) {
-	result := PrivateEndpointConnectionsClientListByMongoClusterResponse{}
+// listConnectionsHandleResponse handles the ListConnections response.
+func (client *PrivateEndpointConnectionsClient) listConnectionsHandleResponse(resp *http.Response) (PrivateEndpointConnectionsClientListConnectionsResponse, error) {
+	result := PrivateEndpointConnectionsClientListConnectionsResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.PrivateEndpointConnectionResourceListResult); err != nil {
-		return PrivateEndpointConnectionsClientListByMongoClusterResponse{}, err
+		return PrivateEndpointConnectionsClientListConnectionsResponse{}, err
 	}
 	return result, nil
 }

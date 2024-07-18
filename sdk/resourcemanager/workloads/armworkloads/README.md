@@ -1,6 +1,6 @@
 # Azure Workloads Module for Go
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/workloads/armworkloads)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/workloads/armworkloads)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/workloads/armworkloads/v2)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/workloads/armworkloads/v2)
 
 The `armworkloads` module provides operations for working with Azure Workloads.
 
@@ -20,7 +20,7 @@ This project uses [Go modules](https://github.com/golang/go/wiki/Modules) for ve
 Install the Azure Workloads module:
 
 ```sh
-go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/workloads/armworkloads
+go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/workloads/armworkloads/v2
 ```
 
 ## Authorization
@@ -57,7 +57,7 @@ clientFactory, err := armworkloads.NewClientFactory(<subscription ID>, cred, &op
 A client groups a set of related APIs, providing access to its functionality.  Create one or more clients to access the APIs you require using client factory.
 
 ```go
-client := clientFactory.NewProviderInstancesClient()
+client := clientFactory.NewMonitorsClient()
 ```
 
 ## Fakes
