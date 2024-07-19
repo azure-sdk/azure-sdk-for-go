@@ -1,5 +1,12 @@
 # Release History
 
+## 7.1.0 (2024-07-19)
+### Features Added
+
+- New field `ReplicationID` in struct `Replication`
+- New field `ProtocolTypes` in struct `VolumePatchProperties`
+
+
 ## 7.0.0 (2024-05-24)
 ### Breaking Changes
 
