@@ -1,5 +1,12 @@
 # Release History
 
+## 2.0.0 (2024-07-19)
+### Breaking Changes
+
+- Function `*CreationSupportedClient.NewListPager` has been removed
+- Struct `CreateResourceSupportedResponseList` has been removed
+
+
 ## 1.3.0 (2023-11-24)
 ### Features Added
 
