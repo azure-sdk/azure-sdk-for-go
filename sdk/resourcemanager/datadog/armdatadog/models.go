@@ -102,10 +102,6 @@ type CreateResourceSupportedResponse struct {
 	Properties *CreateResourceSupportedProperties
 }
 
-type CreateResourceSupportedResponseList struct {
-	Value []*CreateResourceSupportedResponse
-}
-
 // FilteringTag - The definition of a filtering tag. Filtering tags are used for capturing resources and include/exclude them
 // from being monitored.
 type FilteringTag struct {

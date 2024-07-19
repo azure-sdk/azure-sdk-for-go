@@ -14,11 +14,6 @@ type CreationSupportedClientGetResponse struct {
 	CreateResourceSupportedResponse
 }
 
-// CreationSupportedClientListResponse contains the response from method CreationSupportedClient.NewListPager.
-type CreationSupportedClientListResponse struct {
-	CreateResourceSupportedResponseList
-}
-
 // MarketplaceAgreementsClientCreateOrUpdateResponse contains the response from method MarketplaceAgreementsClient.CreateOrUpdate.
 type MarketplaceAgreementsClientCreateOrUpdateResponse struct {
 	AgreementResource

@@ -13,11 +13,6 @@ type CreationSupportedClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CreationSupportedClientListOptions contains the optional parameters for the CreationSupportedClient.NewListPager method.
-type CreationSupportedClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
 // MarketplaceAgreementsClientCreateOrUpdateOptions contains the optional parameters for the MarketplaceAgreementsClient.CreateOrUpdate
 // method.
 type MarketplaceAgreementsClientCreateOrUpdateOptions struct {
