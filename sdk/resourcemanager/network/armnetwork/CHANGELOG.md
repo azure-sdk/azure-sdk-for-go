@@ -1,5 +1,9 @@
 # Release History
 
+## 5.2.1 (2024-07-19)
+### Other Changes
+
+
 ## 5.2.0 (2024-06-21)
 ### Features Added
 
