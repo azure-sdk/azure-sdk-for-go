@@ -195,12 +195,6 @@ type LocationClientGetQuotasResponse struct {
 	LocationQuota
 }
 
-// LocationClientListSupportedCloudServiceSKUsResponse contains the response from method LocationClient.NewListSupportedCloudServiceSKUsPager.
-type LocationClientListSupportedCloudServiceSKUsResponse struct {
-	// The Batch List supported SKUs operation response.
-	SupportedSKUsResult
-}
-
 // LocationClientListSupportedVirtualMachineSKUsResponse contains the response from method LocationClient.NewListSupportedVirtualMachineSKUsPager.
 type LocationClientListSupportedVirtualMachineSKUsResponse struct {
 	// The Batch List supported SKUs operation response.

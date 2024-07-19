@@ -1,5 +1,38 @@
 # Release History
 
+## 3.0.0 (2024-07-19)
+### Breaking Changes
+
+- Type of `SecurityProfile.SecurityType` has been changed from `*string` to `*SecurityTypes`
+- Function `*LocationClient.NewListSupportedCloudServiceSKUsPager` has been removed
+- Struct `CloudServiceConfiguration` has been removed
+- Struct `ProxyResource` has been removed
+- Struct `Resource` has been removed
+- Field `CloudServiceConfiguration` of struct `DeploymentConfiguration` has been removed
+
+### Features Added
+
+- New value `PublicNetworkAccessTypeSecuredByPerimeter` added to enum type `PublicNetworkAccessType`
+- New enum type `ContainerHostDataPath` with values `ContainerHostDataPathApplications`, `ContainerHostDataPathJobPrep`, `ContainerHostDataPathShared`, `ContainerHostDataPathStartup`, `ContainerHostDataPathTask`, `ContainerHostDataPathVfsMounts`
+- New enum type `SecurityEncryptionTypes` with values `SecurityEncryptionTypesNonPersistedTPM`, `SecurityEncryptionTypesVMGuestStateOnly`
+- New enum type `SecurityTypes` with values `SecurityTypesConfidentialVM`, `SecurityTypesTrustedLaunch`
+- New struct `AzureProxyResource`
+- New struct `AzureResource`
+- New struct `ContainerHostBatchBindMountEntry`
+- New struct `VMDiskSecurityProfile`
+- New field `Tags` in struct `Application`
+- New field `Tags` in struct `ApplicationPackage`
+- New field `Tags` in struct `Certificate`
+- New field `Tags` in struct `CertificateCreateOrUpdateParameters`
+- New field `Tags` in struct `DetectorResponse`
+- New field `CommunityGalleryImageID`, `SharedGalleryImageID` in struct `ImageReference`
+- New field `SecurityProfile` in struct `ManagedDisk`
+- New field `Tags` in struct `Pool`
+- New field `Tags` in struct `PrivateEndpointConnection`
+- New field `Tags` in struct `PrivateLinkResource`
+- New field `ContainerHostBatchBindMounts` in struct `TaskContainerSettings`
+
+
 ## 2.3.0 (2024-03-22)
 ### Features Added
 

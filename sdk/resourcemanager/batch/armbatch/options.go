@@ -188,16 +188,6 @@ type LocationClientGetQuotasOptions struct {
 	// placeholder for future optional parameters
 }
 
-// LocationClientListSupportedCloudServiceSKUsOptions contains the optional parameters for the LocationClient.NewListSupportedCloudServiceSKUsPager
-// method.
-type LocationClientListSupportedCloudServiceSKUsOptions struct {
-	// OData filter expression. Valid properties for filtering are "familyName".
-	Filter *string
-
-	// The maximum number of items to return in the response.
-	Maxresults *int32
-}
-
 // LocationClientListSupportedVirtualMachineSKUsOptions contains the optional parameters for the LocationClient.NewListSupportedVirtualMachineSKUsPager
 // method.
 type LocationClientListSupportedVirtualMachineSKUsOptions struct {

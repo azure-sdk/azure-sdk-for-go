@@ -229,6 +229,9 @@ type Application struct {
 	// The properties associated with the Application.
 	Properties *ApplicationProperties
 
+	// The tags of the resource.
+	Tags map[string]*string
+
 	// READ-ONLY; The ETag of the resource, used for concurrency statements.
 	Etag *string
 
@@ -246,6 +249,9 @@ type Application struct {
 type ApplicationPackage struct {
 	// The properties associated with the Application Package.
 	Properties *ApplicationPackageProperties
+
+	// The tags of the resource.
+	Tags map[string]*string
 
 	// READ-ONLY; The ETag of the resource, used for concurrency statements.
 	Etag *string
@@ -438,6 +444,42 @@ type AzureFileShareConfiguration struct {
 	MountOptions *string
 }
 
+// AzureProxyResource - A definition of an Azure resource.
+type AzureProxyResource struct {
+	// The tags of the resource.
+	Tags map[string]*string
+
+	// READ-ONLY; The ETag of the resource, used for concurrency statements.
+	Etag *string
+
+	// READ-ONLY; The ID of the resource.
+	ID *string
+
+	// READ-ONLY; The name of the resource.
+	Name *string
+
+	// READ-ONLY; The type of the resource.
+	Type *string
+}
+
+// AzureResource - A definition of an Azure resource.
+type AzureResource struct {
+	// READ-ONLY; The ID of the resource.
+	ID *string
+
+	// READ-ONLY; The location of the resource.
+	Location *string
+
+	// READ-ONLY; The name of the resource.
+	Name *string
+
+	// READ-ONLY; The tags of the resource.
+	Tags map[string]*string
+
+	// READ-ONLY; The type of the resource.
+	Type *string
+}
+
 // CIFSMountConfiguration - Information used to connect to a CIFS file system.
 type CIFSMountConfiguration struct {
 	// REQUIRED; The password to use for authentication against the CIFS file system.
@@ -461,6 +503,9 @@ type CIFSMountConfiguration struct {
 type Certificate struct {
 	// The properties associated with the certificate.
 	Properties *CertificateProperties
+
+	// The tags of the resource.
+	Tags map[string]*string
 
 	// READ-ONLY; The ETag of the resource, used for concurrency statements.
 	Etag *string
@@ -491,6 +536,9 @@ type CertificateBaseProperties struct {
 type CertificateCreateOrUpdateParameters struct {
 	// The properties associated with the certificate.
 	Properties *CertificateCreateOrUpdateProperties
+
+	// The tags of the resource.
+	Tags map[string]*string
 
 	// READ-ONLY; The ETag of the resource, used for concurrency statements.
 	Etag *string
@@ -561,19 +609,16 @@ type CertificateReference struct {
 	// as the pool.
 	ID *string
 
-	// The default value is currentUser. This property is applicable only for pools configured with Windows nodes (that is, created
-	// with cloudServiceConfiguration, or with virtualMachineConfiguration using a
-	// Windows image reference). For Linux compute nodes, the certificates are stored in a directory inside the task working directory
-	// and an environment variable AZBATCHCERTIFICATES_DIR is supplied to the
-	// task to query for this location. For certificates with visibility of 'remoteUser', a 'certs' directory is created in the
-	// user's home directory (e.g., /home/{user-name}/certs) and certificates are
-	// placed in that directory.
+	// The default value is currentUser. This property is applicable only for pools configured with Windows compute nodes. For
+	// Linux compute nodes, the certificates are stored in a directory inside the task
+	// working directory and an environment variable AZBATCHCERTIFICATES_DIR is supplied to the task to query for this location.
+	// For certificates with visibility of 'remoteUser', a 'certs' directory is
+	// created in the user's home directory (e.g., /home/{user-name}/certs) and certificates are placed in that directory.
 	StoreLocation *CertificateStoreLocation
 
-	// This property is applicable only for pools configured with Windows nodes (that is, created with cloudServiceConfiguration,
-	// or with virtualMachineConfiguration using a Windows image reference). Common
-	// store names include: My, Root, CA, Trust, Disallowed, TrustedPeople, TrustedPublisher, AuthRoot, AddressBook, but any custom
-	// store name can also be used. The default value is My.
+	// This property is applicable only for pools configured with Windows compute nodes. Common store names include: My, Root,
+	// CA, Trust, Disallowed, TrustedPeople, TrustedPublisher, AuthRoot, AddressBook,
+	// but any custom store name can also be used. The default value is My.
 	StoreName *string
 
 	// Which user accounts on the compute node should have access to the private data of the certificate.
@@ -604,19 +649,6 @@ type CheckNameAvailabilityResult struct {
 	Reason *NameAvailabilityReason
 }
 
-// CloudServiceConfiguration - The configuration for nodes in a pool based on the Azure Cloud Services platform.
-type CloudServiceConfiguration struct {
-	// REQUIRED; Possible values are: 2 - OS Family 2, equivalent to Windows Server 2008 R2 SP1. 3 - OS Family 3, equivalent to
-	// Windows Server 2012. 4 - OS Family 4, equivalent to Windows Server 2012 R2. 5 - OS Family
-	// 5, equivalent to Windows Server 2016. 6 - OS Family 6, equivalent to Windows Server 2019. For more information, see Azure
-	// Guest OS Releases
-	// (https://azure.microsoft.com/documentation/articles/cloud-services-guestos-update-matrix/#releases).
-	OSFamily *string
-
-	// The default value is * which specifies the latest operating system version for the specified OS family.
-	OSVersion *string
-}
-
 // ComputeNodeIdentityReference - The reference to a user assigned identity associated with the Batch pool which a compute
 // node will use.
 type ComputeNodeIdentityReference struct {
@@ -636,6 +668,17 @@ type ContainerConfiguration struct {
 	// If any images must be downloaded from a private registry which requires credentials, then those credentials must be provided
 	// here.
 	ContainerRegistries []*ContainerRegistry
+}
+
+// ContainerHostBatchBindMountEntry - The entry of path and mount mode you want to mount into task container.
+type ContainerHostBatchBindMountEntry struct {
+	// For Linux, if you mount this path as a read/write mode, this does not mean that all users in container have the read/write
+	// access for the path, it depends on the access in host VM. If this path is
+	// mounted read-only, all users within the container will not be able to modify the path.
+	IsReadOnly *bool
+
+	// The paths which will be mounted to container task's container.
+	Source *ContainerHostDataPath
 }
 
 // ContainerRegistry - A private container registry.
@@ -692,12 +735,7 @@ type DeleteCertificateError struct {
 
 // DeploymentConfiguration - Deployment configuration properties.
 type DeploymentConfiguration struct {
-	// This property and virtualMachineConfiguration are mutually exclusive and one of the properties must be specified. This
-	// property cannot be specified if the Batch account was created with its
-	// poolAllocationMode property set to 'UserSubscription'.
-	CloudServiceConfiguration *CloudServiceConfiguration
-
-	// This property and cloudServiceConfiguration are mutually exclusive and one of the properties must be specified.
+	// The configuration for compute nodes in a pool based on the Azure Virtual Machines infrastructure.
 	VirtualMachineConfiguration *VirtualMachineConfiguration
 }
 
@@ -714,6 +752,9 @@ type DetectorListResult struct {
 type DetectorResponse struct {
 	// The properties associated with the detector.
 	Properties *DetectorResponseProperties
+
+	// The tags of the resource.
+	Tags map[string]*string
 
 	// READ-ONLY; The ETag of the resource, used for concurrency statements.
 	Etag *string
@@ -829,6 +870,9 @@ type IPRule struct {
 // Machine. To get the list of all imageReferences verified by Azure Batch, see the 'List
 // supported node agent SKUs' operation.
 type ImageReference struct {
+	// This property is mutually exclusive with other properties and can be fetched from community gallery image GET call.
+	CommunityGalleryImageID *string
+
 	// This property is mutually exclusive with other properties. The Azure Compute Gallery Image must have replicas in the same
 	// region as the Azure Batch account. For information about the firewall settings
 	// for the Batch node agent to communicate with the Batch service see https://docs.microsoft.com/en-us/azure/batch/batch-api-basics#virtual-network-vnet-and-firewall-configuration.
@@ -842,6 +886,9 @@ type ImageReference struct {
 
 	// For example, 18.04-LTS or 2022-datacenter.
 	SKU *string
+
+	// This property is mutually exclusive with other properties and can be fetched from shared gallery image GET call.
+	SharedGalleryImageID *string
 
 	// A value of 'latest' can be specified to select the latest version of an image. If omitted, the default is 'latest'.
 	Version *string
@@ -977,6 +1024,10 @@ type LocationQuota struct {
 }
 
 type ManagedDisk struct {
+	// Specifies the security profile settings for the managed disk. Note: It can only be set for Confidential VMs and is required
+	// when using Confidential VMs.
+	SecurityProfile *VMDiskSecurityProfile
+
 	// The storage account type for use in creating data disks or OS disk.
 	StorageAccountType *StorageAccountType
 }
@@ -1028,10 +1079,10 @@ type NetworkConfiguration struct {
 	// https://learn.microsoft.com/azure/virtual-network/accelerated-networking-overview.
 	EnableAcceleratedNetworking *bool
 
-	// Pool endpoint configuration is only supported on pools with the virtualMachineConfiguration property.
+	// The endpoint configuration for a pool.
 	EndpointConfiguration *PoolEndpointConfiguration
 
-	// This property is only supported on Pools with the virtualMachineConfiguration property.
+	// The public IP Address configuration of the networking configuration of a Pool.
 	PublicIPAddressConfiguration *PublicIPAddressConfiguration
 
 	// The virtual network must be in the same region and subscription as the Azure Batch account. The specified subnet should
@@ -1044,11 +1095,9 @@ type NetworkConfiguration struct {
 	// If communication to the compute nodes in the specified subnet is denied by
 	// an NSG, then the Batch service will set the state of the compute nodes to unusable. If the specified VNet has any associated
 	// Network Security Groups (NSG), then a few reserved system ports must be
-	// enabled for inbound communication. For pools created with a virtual machine configuration, enable ports 29876 and 29877,
-	// as well as port 22 for Linux and port 3389 for Windows. For pools created with
-	// a cloud service configuration, enable ports 10100, 20100, and 30100. Also enable outbound connections to Azure Storage
-	// on port 443. For cloudServiceConfiguration pools, only 'classic' VNETs are
-	// supported. For more details see: https://docs.microsoft.com/en-us/azure/batch/batch-api-basics#virtual-network-vnet-and-firewall-configuration
+	// enabled for inbound communication. Enable ports 29876 and 29877, as well as port 22 for Linux and port 3389 for Windows.
+	// Also enable outbound connections to Azure Storage on port 443. For more details
+	// see: https://docs.microsoft.com/en-us/azure/batch/batch-api-basics#virtual-network-vnet-and-firewall-configuration
 	SubnetID *string
 }
 
@@ -1176,6 +1225,9 @@ type Pool struct {
 	// The properties associated with the pool.
 	Properties *PoolProperties
 
+	// The tags of the resource.
+	Tags map[string]*string
+
 	// READ-ONLY; The ETag of the resource, used for concurrency statements.
 	Etag *string
 
@@ -1229,8 +1281,7 @@ type PoolProperties struct {
 	// instead.
 	Certificates []*CertificateReference
 
-	// Using CloudServiceConfiguration specifies that the nodes should be creating using Azure Cloud Services (PaaS), while VirtualMachineConfiguration
-	// uses Azure Virtual Machines (IaaS).
+	// Deployment configuration properties.
 	DeploymentConfiguration *DeploymentConfiguration
 
 	// The display name need not be unique and can contain any Unicode characters up to a maximum length of 1024.
@@ -1278,16 +1329,11 @@ type PoolProperties struct {
 	// The list of user accounts to be created on each node in the pool.
 	UserAccounts []*UserAccount
 
-	// For information about available sizes of virtual machines for Cloud Services pools (pools created with cloudServiceConfiguration),
-	// see Sizes for Cloud Services
-	// (https://azure.microsoft.com/documentation/articles/cloud-services-sizes-specs/). Batch supports all Cloud Services VM
-	// sizes except ExtraSmall. For information about available VM sizes for pools using
-	// images from the Virtual Machines Marketplace (pools created with virtualMachineConfiguration) see Sizes for Virtual Machines
-	// (Linux)
-	// (https://azure.microsoft.com/documentation/articles/virtual-machines-linux-sizes/) or Sizes for Virtual Machines (Windows)
-	// (https://azure.microsoft.com/documentation/articles/virtual-machines-windows-sizes/). Batch supports all Azure VM sizes
-	// except STANDARDA0 and those with premium storage (STANDARDGS, STANDARDDS, and
-	// STANDARDDSV2 series).
+	// For information about available VM sizes, see Sizes for Virtual Machines (Linux) (https://azure.microsoft.com/documentation/articles/virtual-machines-linux-sizes/)
+	// or Sizes for Virtual Machines
+	// (Windows) (https://azure.microsoft.com/documentation/articles/virtual-machines-windows-sizes/). Batch supports all Azure
+	// VM sizes except STANDARDA0 and those with premium storage (STANDARDGS, STANDARD
+	// DS, and STANDARDDSV2 series).
 	VMSize *string
 
 	// READ-ONLY; Whether the pool is resizing.
@@ -1337,6 +1383,9 @@ type PrivateEndpointConnection struct {
 	// The properties associated with the private endpoint connection.
 	Properties *PrivateEndpointConnectionProperties
 
+	// The tags of the resource.
+	Tags map[string]*string
+
 	// READ-ONLY; The ETag of the resource, used for concurrency statements.
 	Etag *string
 
@@ -1369,6 +1418,9 @@ type PrivateEndpointConnectionProperties struct {
 type PrivateLinkResource struct {
 	// The properties associated with the private link resource.
 	Properties *PrivateLinkResourceProperties
+
+	// The tags of the resource.
+	Tags map[string]*string
 
 	// READ-ONLY; The ETag of the resource, used for concurrency statements.
 	Etag *string
@@ -1405,21 +1457,6 @@ type PrivateLinkServiceConnectionState struct {
 
 	// READ-ONLY; Action required on the private connection state
 	ActionRequired *string
-}
-
-// ProxyResource - A definition of an Azure resource.
-type ProxyResource struct {
-	// READ-ONLY; The ETag of the resource, used for concurrency statements.
-	Etag *string
-
-	// READ-ONLY; The ID of the resource.
-	ID *string
-
-	// READ-ONLY; The name of the resource.
-	Name *string
-
-	// READ-ONLY; The type of the resource.
-	Type *string
 }
 
 // PublicIPAddressConfiguration - The public IP Address configuration of the networking configuration of a Pool.
@@ -1467,24 +1504,6 @@ type ResizeOperationStatus struct {
 
 	// The desired number of Spot/low-priority compute nodes in the pool.
 	TargetLowPriorityNodes *int32
-}
-
-// Resource - A definition of an Azure resource.
-type Resource struct {
-	// READ-ONLY; The ID of the resource.
-	ID *string
-
-	// READ-ONLY; The location of the resource.
-	Location *string
-
-	// READ-ONLY; The name of the resource.
-	Name *string
-
-	// READ-ONLY; The tags of the resource.
-	Tags map[string]*string
-
-	// READ-ONLY; The type of the resource.
-	Type *string
 }
 
 // ResourceFile - A single file or multiple files to be downloaded to a compute node.
@@ -1598,7 +1617,7 @@ type SecurityProfile struct {
 	EncryptionAtHost *bool
 
 	// Specifies the SecurityType of the virtual machine. It has to be set to any specified value to enable UefiSettings.
-	SecurityType *string
+	SecurityType *SecurityTypes
 
 	// Specifies the security settings like secure boot and vTPM used while creating the virtual machine.
 	UefiSettings *UefiSettings
@@ -1685,6 +1704,11 @@ type TaskContainerSettings struct {
 	// image name, the tag ":latest" is used as a default.
 	ImageName *string
 
+	// If this array is null or be not present, container task will mount entire temporary disk drive in windows (or AZBATCHNODEROOTDIR
+	// in Linux). It won't' mount any data paths into container if this array
+	// is set as empty.
+	ContainerHostBatchBindMounts []*ContainerHostBatchBindMountEntry
+
 	// These additional options are supplied as arguments to the "docker create" command, in addition to those controlled by the
 	// Batch Service.
 	ContainerRunOptions *string
@@ -1724,7 +1748,7 @@ type UpgradePolicy struct {
 	// The configuration parameters used for performing automatic OS upgrade.
 	AutomaticOSUpgradePolicy *AutomaticOSUpgradePolicy
 
-	// This property is only supported on Pools with the virtualMachineConfiguration property.
+	// The configuration parameters used while performing a rolling upgrade.
 	RollingUpgradePolicy *RollingUpgradePolicy
 }
 
@@ -1765,6 +1789,15 @@ type UserIdentity struct {
 
 	// The userName and autoUser properties are mutually exclusive; you must specify one but not both.
 	UserName *string
+}
+
+// VMDiskSecurityProfile - Specifies the security profile settings for the managed disk. Note: It can only be set for Confidential
+// VMs and is required when using Confidential VMs.
+type VMDiskSecurityProfile struct {
+	// Specifies the EncryptionType of the managed disk. It is set to VMGuestStateOnly for encryption of just the VMGuestState
+	// blob, and NonPersistedTPM for not persisting firmware state in the VMGuestState
+	// blob. Note: It can be set for only Confidential VMs and required when using Confidential VMs.
+	SecurityEncryptionType *SecurityEncryptionTypes
 }
 
 // VMExtension - The configuration for virtual machine extensions.
@@ -1868,7 +1901,6 @@ type WindowsConfiguration struct {
 
 // WindowsUserConfiguration - Properties used to create a user account on a Windows node.
 type WindowsUserConfiguration struct {
-	// Specifies login mode for the user. The default value for VirtualMachineConfiguration pools is interactive mode and for
-	// CloudServiceConfiguration pools is batch mode.
+	// Specifies login mode for the user. The default value is Interactive.
 	LoginMode *LoginMode
 }

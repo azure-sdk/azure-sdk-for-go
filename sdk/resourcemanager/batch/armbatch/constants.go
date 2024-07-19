@@ -10,7 +10,7 @@ package armbatch
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/batch/armbatch"
-	moduleVersion = "v2.3.0"
+	moduleVersion = "v3.0.0"
 )
 
 // AccountKeyType - The type of account key to regenerate.
@@ -182,12 +182,10 @@ func PossibleCertificateProvisioningStateValues() []CertificateProvisioningState
 }
 
 // CertificateStoreLocation - The default value is currentUser. This property is applicable only for pools configured with
-// Windows nodes (that is, created with cloudServiceConfiguration, or with virtualMachineConfiguration using a
-// Windows image reference). For Linux compute nodes, the certificates are stored in a directory inside the task working directory
-// and an environment variable AZBATCHCERTIFICATES_DIR is supplied to the
-// task to query for this location. For certificates with visibility of 'remoteUser', a 'certs' directory is created in the
-// user's home directory (e.g., /home/{user-name}/certs) and certificates are
-// placed in that directory.
+// Windows compute nodes. For Linux compute nodes, the certificates are stored in a directory inside the task
+// working directory and an environment variable AZBATCHCERTIFICATES_DIR is supplied to the task to query for this location.
+// For certificates with visibility of 'remoteUser', a 'certs' directory is
+// created in the user's home directory (e.g., /home/{user-name}/certs) and certificates are placed in that directory.
 type CertificateStoreLocation string
 
 const (
@@ -273,6 +271,36 @@ func PossibleComputeNodeFillTypeValues() []ComputeNodeFillType {
 	return []ComputeNodeFillType{
 		ComputeNodeFillTypePack,
 		ComputeNodeFillTypeSpread,
+	}
+}
+
+// ContainerHostDataPath - The paths which will be mounted to container task's container.
+type ContainerHostDataPath string
+
+const (
+	// ContainerHostDataPathApplications - The applications path.
+	ContainerHostDataPathApplications ContainerHostDataPath = "Applications"
+	// ContainerHostDataPathJobPrep - The job-prep task path.
+	ContainerHostDataPathJobPrep ContainerHostDataPath = "JobPrep"
+	// ContainerHostDataPathShared - The path for multi-instances task to shared their files.
+	ContainerHostDataPathShared ContainerHostDataPath = "Shared"
+	// ContainerHostDataPathStartup - The path for start task.
+	ContainerHostDataPathStartup ContainerHostDataPath = "Startup"
+	// ContainerHostDataPathTask - The task path.
+	ContainerHostDataPathTask ContainerHostDataPath = "Task"
+	// ContainerHostDataPathVfsMounts - The path contains all virtual file systems are mounted on this node.
+	ContainerHostDataPathVfsMounts ContainerHostDataPath = "VfsMounts"
+)
+
+// PossibleContainerHostDataPathValues returns the possible values for the ContainerHostDataPath const type.
+func PossibleContainerHostDataPathValues() []ContainerHostDataPath {
+	return []ContainerHostDataPath{
+		ContainerHostDataPathApplications,
+		ContainerHostDataPathJobPrep,
+		ContainerHostDataPathShared,
+		ContainerHostDataPathStartup,
+		ContainerHostDataPathTask,
+		ContainerHostDataPathVfsMounts,
 	}
 }
 
@@ -468,8 +496,7 @@ func PossibleKeySourceValues() []KeySource {
 	}
 }
 
-// LoginMode - Specifies login mode for the user. The default value for VirtualMachineConfiguration pools is interactive mode
-// and for CloudServiceConfiguration pools is batch mode.
+// LoginMode - Specifies login mode for the user. The default value is Interactive.
 type LoginMode string
 
 const (
@@ -741,6 +768,8 @@ const (
 	PublicNetworkAccessTypeDisabled PublicNetworkAccessType = "Disabled"
 	// PublicNetworkAccessTypeEnabled - Enables connectivity to Azure Batch through public DNS.
 	PublicNetworkAccessTypeEnabled PublicNetworkAccessType = "Enabled"
+	// PublicNetworkAccessTypeSecuredByPerimeter - Secures connectivity to Azure Batch through NSP configuration.
+	PublicNetworkAccessTypeSecuredByPerimeter PublicNetworkAccessType = "SecuredByPerimeter"
 )
 
 // PossiblePublicNetworkAccessTypeValues returns the possible values for the PublicNetworkAccessType const type.
@@ -748,6 +777,7 @@ func PossiblePublicNetworkAccessTypeValues() []PublicNetworkAccessType {
 	return []PublicNetworkAccessType{
 		PublicNetworkAccessTypeDisabled,
 		PublicNetworkAccessTypeEnabled,
+		PublicNetworkAccessTypeSecuredByPerimeter,
 	}
 }
 
@@ -770,6 +800,45 @@ func PossibleResourceIdentityTypeValues() []ResourceIdentityType {
 		ResourceIdentityTypeNone,
 		ResourceIdentityTypeSystemAssigned,
 		ResourceIdentityTypeUserAssigned,
+	}
+}
+
+// SecurityEncryptionTypes - Specifies the EncryptionType of the managed disk. It is set to VMGuestStateOnly for encryption
+// of just the VMGuestState blob, and NonPersistedTPM for not persisting firmware state in the VMGuestState
+// blob. Note: It can be set for only Confidential VMs and required when using Confidential VMs.
+type SecurityEncryptionTypes string
+
+const (
+	SecurityEncryptionTypesNonPersistedTPM  SecurityEncryptionTypes = "NonPersistedTPM"
+	SecurityEncryptionTypesVMGuestStateOnly SecurityEncryptionTypes = "VMGuestStateOnly"
+)
+
+// PossibleSecurityEncryptionTypesValues returns the possible values for the SecurityEncryptionTypes const type.
+func PossibleSecurityEncryptionTypesValues() []SecurityEncryptionTypes {
+	return []SecurityEncryptionTypes{
+		SecurityEncryptionTypesNonPersistedTPM,
+		SecurityEncryptionTypesVMGuestStateOnly,
+	}
+}
+
+// SecurityTypes - Specifies the SecurityType of the virtual machine. It has to be set to any specified value to enable UefiSettings.
+type SecurityTypes string
+
+const (
+	// SecurityTypesConfidentialVM - Azure confidential computing offers confidential VMs are for tenants with high security and
+	// confidentiality requirements. These VMs provide a strong, hardware-enforced boundary to help meet your security needs.
+	// You can use confidential VMs for migrations without making changes to your code, with the platform protecting your VM's
+	// state from being read or modified.
+	SecurityTypesConfidentialVM SecurityTypes = "confidentialVM"
+	// SecurityTypesTrustedLaunch - Trusted launch protects against advanced and persistent attack techniques.
+	SecurityTypesTrustedLaunch SecurityTypes = "trustedLaunch"
+)
+
+// PossibleSecurityTypesValues returns the possible values for the SecurityTypes const type.
+func PossibleSecurityTypesValues() []SecurityTypes {
+	return []SecurityTypes{
+		SecurityTypesConfidentialVM,
+		SecurityTypesTrustedLaunch,
 	}
 }
 
