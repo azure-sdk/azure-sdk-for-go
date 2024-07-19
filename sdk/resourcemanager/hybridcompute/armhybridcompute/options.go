@@ -52,6 +52,35 @@ type GatewaysClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
+// LicenseProfilesClientBeginCreateOrUpdateOptions contains the optional parameters for the LicenseProfilesClient.BeginCreateOrUpdate
+// method.
+type LicenseProfilesClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// LicenseProfilesClientBeginDeleteOptions contains the optional parameters for the LicenseProfilesClient.BeginDelete method.
+type LicenseProfilesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// LicenseProfilesClientBeginUpdateOptions contains the optional parameters for the LicenseProfilesClient.BeginUpdate method.
+type LicenseProfilesClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// LicenseProfilesClientGetOptions contains the optional parameters for the LicenseProfilesClient.Get method.
+type LicenseProfilesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// LicenseProfilesClientListOptions contains the optional parameters for the LicenseProfilesClient.NewListPager method.
+type LicenseProfilesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
 // LicensesClientBeginCreateOrUpdateOptions contains the optional parameters for the LicensesClient.BeginCreateOrUpdate method.
 type LicensesClientBeginCreateOrUpdateOptions struct {
 	// Resumes the LRO from the provided token.
@@ -66,6 +95,13 @@ type LicensesClientBeginDeleteOptions struct {
 
 // LicensesClientBeginUpdateOptions contains the optional parameters for the LicensesClient.BeginUpdate method.
 type LicensesClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// LicensesClientBeginValidateLicenseOptions contains the optional parameters for the LicensesClient.BeginValidateLicense
+// method.
+type LicensesClientBeginValidateLicenseOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -133,13 +169,6 @@ type MachineRunCommandsClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
-// MachineRunCommandsClientBeginUpdateOptions contains the optional parameters for the MachineRunCommandsClient.BeginUpdate
-// method.
-type MachineRunCommandsClientBeginUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
 // MachineRunCommandsClientGetOptions contains the optional parameters for the MachineRunCommandsClient.Get method.
 type MachineRunCommandsClientGetOptions struct {
 	// placeholder for future optional parameters
@@ -161,6 +190,12 @@ type MachinesClientBeginAssessPatchesOptions struct {
 type MachinesClientBeginInstallPatchesOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
+}
+
+// MachinesClientCreateOrUpdateOptions contains the optional parameters for the MachinesClient.CreateOrUpdate method.
+type MachinesClientCreateOrUpdateOptions struct {
+	// Expands referenced resources.
+	Expand *string
 }
 
 // MachinesClientDeleteOptions contains the optional parameters for the MachinesClient.Delete method.
@@ -202,6 +237,13 @@ type ManagementClientBeginUpgradeExtensionsOptions struct {
 // NetworkProfileClientGetOptions contains the optional parameters for the NetworkProfileClient.Get method.
 type NetworkProfileClientGetOptions struct {
 	// placeholder for future optional parameters
+}
+
+// NetworkSecurityPerimeterConfigurationsClientBeginReconcileForPrivateLinkScopeOptions contains the optional parameters for
+// the NetworkSecurityPerimeterConfigurationsClient.BeginReconcileForPrivateLinkScope method.
+type NetworkSecurityPerimeterConfigurationsClientBeginReconcileForPrivateLinkScopeOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // NetworkSecurityPerimeterConfigurationsClientGetByPrivateLinkScopeOptions contains the optional parameters for the NetworkSecurityPerimeterConfigurationsClient.GetByPrivateLinkScope

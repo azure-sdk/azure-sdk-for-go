@@ -1,5 +1,43 @@
 # Release History
 
+## 2.0.0-beta.4 (2024-07-19)
+### Breaking Changes
+
+- Function `*MachineRunCommandsClient.BeginUpdate` has been removed
+- Struct `MachineRunCommandUpdate` has been removed
+
+### Features Added
+
+- New value `LicenseProfileSubscriptionStatusDisabling`, `LicenseProfileSubscriptionStatusFailed` added to enum type `LicenseProfileSubscriptionStatus`
+- New enum type `HotpatchEnablementStatus` with values `HotpatchEnablementStatusActionRequired`, `HotpatchEnablementStatusDisabled`, `HotpatchEnablementStatusEnabled`, `HotpatchEnablementStatusPendingEvaluation`, `HotpatchEnablementStatusUnknown`
+- New enum type `LicenseProfileSubscriptionStatusUpdate` with values `LicenseProfileSubscriptionStatusUpdateDisable`, `LicenseProfileSubscriptionStatusUpdateEnable`
+- New function `*ClientFactory.NewLicenseProfilesClient() *LicenseProfilesClient`
+- New function `NewLicenseProfilesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*LicenseProfilesClient, error)`
+- New function `*LicenseProfilesClient.BeginCreateOrUpdate(context.Context, string, string, LicenseProfile, *LicenseProfilesClientBeginCreateOrUpdateOptions) (*runtime.Poller[LicenseProfilesClientCreateOrUpdateResponse], error)`
+- New function `*LicenseProfilesClient.BeginDelete(context.Context, string, string, *LicenseProfilesClientBeginDeleteOptions) (*runtime.Poller[LicenseProfilesClientDeleteResponse], error)`
+- New function `*LicenseProfilesClient.Get(context.Context, string, string, *LicenseProfilesClientGetOptions) (LicenseProfilesClientGetResponse, error)`
+- New function `*LicenseProfilesClient.NewListPager(string, string, *LicenseProfilesClientListOptions) *runtime.Pager[LicenseProfilesClientListResponse]`
+- New function `*LicenseProfilesClient.BeginUpdate(context.Context, string, string, LicenseProfileUpdate, *LicenseProfilesClientBeginUpdateOptions) (*runtime.Poller[LicenseProfilesClientUpdateResponse], error)`
+- New function `*LicensesClient.BeginValidateLicense(context.Context, License, *LicensesClientBeginValidateLicenseOptions) (*runtime.Poller[LicensesClientValidateLicenseResponse], error)`
+- New function `*MachinesClient.CreateOrUpdate(context.Context, string, string, Machine, *MachinesClientCreateOrUpdateOptions) (MachinesClientCreateOrUpdateResponse, error)`
+- New function `*NetworkSecurityPerimeterConfigurationsClient.BeginReconcileForPrivateLinkScope(context.Context, string, string, string, *NetworkSecurityPerimeterConfigurationsClientBeginReconcileForPrivateLinkScopeOptions) (*runtime.Poller[NetworkSecurityPerimeterConfigurationsClientReconcileForPrivateLinkScopeResponse], error)`
+- New struct `EsuProfileUpdateProperties`
+- New struct `LicenseProfile`
+- New struct `LicenseProfileArmEsuProperties`
+- New struct `LicenseProfileProperties`
+- New struct `LicenseProfilePropertiesSoftwareAssurance`
+- New struct `LicenseProfileUpdate`
+- New struct `LicenseProfileUpdateProperties`
+- New struct `LicenseProfileUpdatePropertiesSoftwareAssurance`
+- New struct `LicenseProfilesListResult`
+- New struct `PatchSettingsStatus`
+- New struct `ProductFeatureUpdate`
+- New struct `ProductProfileUpdateProperties`
+- New field `BillingEndDate`, `Error` in struct `LicenseProfileArmProductProfileProperties`
+- New field `EnableHotpatching`, `Status` in struct `PatchSettings`
+- New field `BillingEndDate`, `Error` in struct `ProductFeature`
+
+
 ## 2.0.0-beta.3 (2024-06-21)
 ### Breaking Changes
 

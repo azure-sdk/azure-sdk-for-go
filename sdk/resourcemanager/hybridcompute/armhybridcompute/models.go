@@ -180,6 +180,12 @@ type EsuKey struct {
 	SKU *string
 }
 
+// EsuProfileUpdateProperties - Describes the Update properties of a ESU License Profile.
+type EsuProfileUpdateProperties struct {
+	// The resource id of the license.
+	AssignedLicense *string
+}
+
 // ExtensionTargetProperties - Describes the Machine Extension Target Version Properties
 type ExtensionTargetProperties struct {
 	// Properties for the specified Extension to Upgrade.
@@ -381,6 +387,51 @@ type LicenseDetails struct {
 	ImmutableID *string
 }
 
+// LicenseProfile - Describes a license profile in a hybrid machine.
+type LicenseProfile struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// Describe the properties of a license profile.
+	Properties *LicenseProfileProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// LicenseProfileArmEsuProperties - Describes the properties of a License Profile ARM model.
+type LicenseProfileArmEsuProperties struct {
+	// The resource id of the license.
+	AssignedLicense *string
+
+	// READ-ONLY; The guid id of the license.
+	AssignedLicenseImmutableID *string
+
+	// READ-ONLY; Indicates the eligibility state of Esu.
+	EsuEligibility *EsuEligibility
+
+	// READ-ONLY; Indicates whether there is an ESU Key currently active for the machine.
+	EsuKeyState *EsuKeyState
+
+	// READ-ONLY; The list of ESU keys.
+	EsuKeys []*EsuKey
+
+	// READ-ONLY; The type of the Esu servers.
+	ServerType *EsuServerType
+}
+
 // LicenseProfileArmProductProfileProperties - Describes the properties of a Product License Profile ARM model.
 type LicenseProfileArmProductProfileProperties struct {
 	// The list of product features.
@@ -392,6 +443,9 @@ type LicenseProfileArmProductProfileProperties struct {
 	// Indicates the subscription status of the product.
 	SubscriptionStatus *LicenseProfileSubscriptionStatus
 
+	// READ-ONLY; The timestamp in UTC when the billing ends.
+	BillingEndDate *time.Time
+
 	// READ-ONLY; The timestamp in UTC when the billing starts.
 	BillingStartDate *time.Time
 
@@ -400,6 +454,9 @@ type LicenseProfileArmProductProfileProperties struct {
 
 	// READ-ONLY; The timestamp in UTC when the user enrolls the feature.
 	EnrollmentDate *time.Time
+
+	// READ-ONLY; The errors that were encountered during the feature enrollment or disenrollment.
+	Error *ErrorDetail
 }
 
 // LicenseProfileMachineInstanceView - License Profile Instance View in Machine Properties.
@@ -447,6 +504,57 @@ type LicenseProfileMachineInstanceViewEsuProperties struct {
 type LicenseProfileMachineInstanceViewSoftwareAssurance struct {
 	// Specifies if this machine is licensed as part of a Software Assurance agreement.
 	SoftwareAssuranceCustomer *bool
+}
+
+// LicenseProfileProperties - Describe the properties of a license profile.
+type LicenseProfileProperties struct {
+	// Hybrid Compute ESU Profile properties
+	EsuProfile *LicenseProfileArmEsuProperties
+
+	// Hybrid Compute Product Profile properties
+	ProductProfile    *LicenseProfileArmProductProfileProperties
+	SoftwareAssurance *LicenseProfilePropertiesSoftwareAssurance
+
+	// READ-ONLY; The provisioning state, which only appears in the response.
+	ProvisioningState *ProvisioningState
+}
+
+type LicenseProfilePropertiesSoftwareAssurance struct {
+	// Specifies if this machine is licensed as part of a Software Assurance agreement.
+	SoftwareAssuranceCustomer *bool
+}
+
+// LicenseProfileUpdate - Describes a License Profile Update.
+type LicenseProfileUpdate struct {
+	// Describe the Update properties of a license profile.
+	Properties *LicenseProfileUpdateProperties
+
+	// Resource tags
+	Tags map[string]*string
+}
+
+// LicenseProfileUpdateProperties - Describe the Update properties of a license profile.
+type LicenseProfileUpdateProperties struct {
+	// Hybrid Compute ESU Profile Update properties
+	EsuProfile *EsuProfileUpdateProperties
+
+	// Hybrid Compute Product Profile Update properties
+	ProductProfile    *ProductProfileUpdateProperties
+	SoftwareAssurance *LicenseProfileUpdatePropertiesSoftwareAssurance
+}
+
+type LicenseProfileUpdatePropertiesSoftwareAssurance struct {
+	// Specifies if this machine is licensed as part of a Software Assurance agreement.
+	SoftwareAssuranceCustomer *bool
+}
+
+// LicenseProfilesListResult - The List hybrid machine license profile operation response.
+type LicenseProfilesListResult struct {
+	// REQUIRED; The list of license profiles.
+	Value []*LicenseProfile
+
+	// The URI to fetch the next page of Machines. Call ListNext() with this URI to fetch the next page of license profile.
+	NextLink *string
 }
 
 // LicenseProperties - Describes the properties of a License Profile.
@@ -1043,12 +1151,6 @@ type MachineRunCommandScriptSource struct {
 	ScriptURIManagedIdentity *RunCommandManagedIdentity
 }
 
-// MachineRunCommandUpdate - Describes a Machine Extension Update.
-type MachineRunCommandUpdate struct {
-	// Resource tags
-	Tags map[string]*string
-}
-
 // MachineRunCommandsListResult - Describes the Run Commands List Result.
 type MachineRunCommandsListResult struct {
 	// The uri to fetch the next page of run commands. Call ListNext() with this to fetch the next page of run commands.
@@ -1245,8 +1347,24 @@ type PatchSettings struct {
 	// Specifies the assessment mode.
 	AssessmentMode *AssessmentModeTypes
 
+	// Captures the hotpatch capability enrollment intent of the customers, which enables customers to patch their Windows machines
+	// without requiring a reboot.
+	EnableHotpatching *bool
+
 	// Specifies the patch mode.
 	PatchMode *PatchModeTypes
+
+	// READ-ONLY; Status of the hotpatch capability enrollment or disenrollment.
+	Status *PatchSettingsStatus
+}
+
+// PatchSettingsStatus - Status of the hotpatch capability enrollment or disenrollment.
+type PatchSettingsStatus struct {
+	// Indicates the current status of the hotpatch being enabled or disabled.
+	HotpatchEnablementStatus *HotpatchEnablementStatus
+
+	// READ-ONLY; The errors that were encountered during the hotpatch capability enrollment or disenrollment.
+	Error *ErrorDetail
 }
 
 // PrivateEndpointConnection - A private endpoint connection
@@ -1433,6 +1551,9 @@ type ProductFeature struct {
 	// Indicates the current status of the product features.
 	SubscriptionStatus *LicenseProfileSubscriptionStatus
 
+	// READ-ONLY; The timestamp in UTC when the billing ends.
+	BillingEndDate *time.Time
+
 	// READ-ONLY; The timestamp in UTC when the billing starts.
 	BillingStartDate *time.Time
 
@@ -1441,6 +1562,30 @@ type ProductFeature struct {
 
 	// READ-ONLY; The timestamp in UTC when the user enrolls the feature.
 	EnrollmentDate *time.Time
+
+	// READ-ONLY; The errors that were encountered during the feature enrollment or disenrollment.
+	Error *ErrorDetail
+}
+
+// ProductFeatureUpdate - Product Feature
+type ProductFeatureUpdate struct {
+	// Product feature name.
+	Name *string
+
+	// Indicates the new status of the product feature.
+	SubscriptionStatus *LicenseProfileSubscriptionStatusUpdate
+}
+
+// ProductProfileUpdateProperties - Describes the Update properties of a Product Profile.
+type ProductProfileUpdateProperties struct {
+	// The list of product feature updates.
+	ProductFeatures []*ProductFeatureUpdate
+
+	// Indicates the product type of the license.
+	ProductType *LicenseProfileProductType
+
+	// Indicates the subscription status of the product.
+	SubscriptionStatus *LicenseProfileSubscriptionStatusUpdate
 }
 
 // ProvisioningIssue - Details on issues that occurred during provisioning.
