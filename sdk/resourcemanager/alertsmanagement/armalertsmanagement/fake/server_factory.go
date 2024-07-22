@@ -22,10 +22,10 @@ type ServerFactory struct {
 	AlertProcessingRulesServer     AlertProcessingRulesServer
 	AlertRuleRecommendationsServer AlertRuleRecommendationsServer
 	AlertsServer                   AlertsServer
+	CROSSServer                    CROSSServer
 	OperationsServer               OperationsServer
 	PrometheusRuleGroupsServer     PrometheusRuleGroupsServer
 	SmartGroupsServer              SmartGroupsServer
-	TenantActivityLogAlertsServer  TenantActivityLogAlertsServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -45,10 +45,10 @@ type ServerFactoryTransport struct {
 	trAlertProcessingRulesServer     *AlertProcessingRulesServerTransport
 	trAlertRuleRecommendationsServer *AlertRuleRecommendationsServerTransport
 	trAlertsServer                   *AlertsServerTransport
+	trCROSSServer                    *CROSSServerTransport
 	trOperationsServer               *OperationsServerTransport
 	trPrometheusRuleGroupsServer     *PrometheusRuleGroupsServerTransport
 	trSmartGroupsServer              *SmartGroupsServerTransport
-	trTenantActivityLogAlertsServer  *TenantActivityLogAlertsServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -77,6 +77,9 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "AlertsClient":
 		initServer(s, &s.trAlertsServer, func() *AlertsServerTransport { return NewAlertsServerTransport(&s.srv.AlertsServer) })
 		resp, err = s.trAlertsServer.Do(req)
+	case "CROSSClient":
+		initServer(s, &s.trCROSSServer, func() *CROSSServerTransport { return NewCROSSServerTransport(&s.srv.CROSSServer) })
+		resp, err = s.trCROSSServer.Do(req)
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
@@ -88,11 +91,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "SmartGroupsClient":
 		initServer(s, &s.trSmartGroupsServer, func() *SmartGroupsServerTransport { return NewSmartGroupsServerTransport(&s.srv.SmartGroupsServer) })
 		resp, err = s.trSmartGroupsServer.Do(req)
-	case "TenantActivityLogAlertsClient":
-		initServer(s, &s.trTenantActivityLogAlertsServer, func() *TenantActivityLogAlertsServerTransport {
-			return NewTenantActivityLogAlertsServerTransport(&s.srv.TenantActivityLogAlertsServer)
-		})
-		resp, err = s.trTenantActivityLogAlertsServer.Do(req)
 	default:
 		err = fmt.Errorf("unhandled client %s", client)
 	}
