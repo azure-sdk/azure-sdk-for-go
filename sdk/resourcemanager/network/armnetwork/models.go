@@ -742,6 +742,9 @@ type ApplicationGatewayFirewallRule struct {
 	// The string representation of the web application firewall rule identifier.
 	RuleIDString *string
 
+	// The string representation of the web application firewall rule sensitivity.
+	Sensitivity *ApplicationGatewayWafRuleSensitivityTypes
+
 	// The string representation of the web application firewall rule state.
 	State *ApplicationGatewayWafRuleStateTypes
 }
@@ -795,6 +798,12 @@ type ApplicationGatewayFirewallRuleSetPropertiesFormat struct {
 
 	// READ-ONLY; The provisioning state of the web application firewall rule set.
 	ProvisioningState *ProvisioningState
+}
+
+// ApplicationGatewayForContainersReferenceDefinition - Defines an application gateway for containers reference.
+type ApplicationGatewayForContainersReferenceDefinition struct {
+	// REQUIRED; Resource Id of the application gateway for containers.
+	ID *string
 }
 
 // ApplicationGatewayFrontendIPConfiguration - Frontend IP configuration of an application gateway.
@@ -2106,6 +2115,9 @@ type AuthorizationPropertiesFormat struct {
 	// The authorization use status.
 	AuthorizationUseStatus *AuthorizationUseStatus
 
+	// READ-ONLY; The reference to the ExpressRoute connection resource using the authorization.
+	ConnectionResourceURI *string
+
 	// READ-ONLY; The provisioning state of the authorization resource.
 	ProvisioningState *ProvisioningState
 }
@@ -3015,6 +3027,9 @@ type BastionHostPropertiesFormat struct {
 
 	// Enable/Disable Kerberos feature of the Bastion Host resource.
 	EnableKerberos *bool
+
+	// Enable/Disable Session Recording feature of the Bastion Host resource.
+	EnableSessionRecording *bool
 
 	// Enable/Disable Shareable Link of the Bastion Host resource.
 	EnableShareableLink *bool
@@ -4739,6 +4754,27 @@ type EvaluatedNetworkSecurityGroup struct {
 	RulesEvaluationResult []*SecurityRulesEvaluationResult
 }
 
+// ExceptionEntry - Adds exception to allow a request when the condition is satisfied.
+type ExceptionEntry struct {
+	// REQUIRED; The variable on which we evaluate the exception condition
+	MatchVariable *ExceptionEntryMatchVariable
+
+	// REQUIRED; Operates on the allowed values for the matchVariable
+	ValueMatchOperator *ExceptionEntryValueMatchOperator
+
+	// The managed rule sets that are associated with the exception.
+	ExceptionManagedRuleSets []*ExclusionManagedRuleSet
+
+	// When the matchVariable points to a key-value pair (e.g, RequestHeader), this identifies the key.
+	Selector *string
+
+	// When the matchVariable points to a key-value pair (e.g, RequestHeader), this operates on the selector
+	SelectorMatchOperator *ExceptionEntrySelectorMatchOperator
+
+	// Allowed values for the matchVariable
+	Values []*string
+}
+
 // ExclusionManagedRule - Defines a managed rule to use for exclusion.
 type ExclusionManagedRule struct {
 	// REQUIRED; Identifier for the managed rule.
@@ -5839,17 +5875,8 @@ type FilterItems struct {
 	Values []*string
 }
 
-// FirewallPacketCaptureParameters - Azure Firewall Packet Capture Parameters resource.
+// FirewallPacketCaptureParameters - Azure Firewall Packet Capture Parameters.
 type FirewallPacketCaptureParameters struct {
-	// Resource ID.
-	ID *string
-
-	// Properties of the azure firewall.
-	Properties *FirewallPacketCaptureParametersFormat
-}
-
-// FirewallPacketCaptureParametersFormat - Packet capture parameters on azure firewall.
-type FirewallPacketCaptureParametersFormat struct {
 	// Duration of packet capture in seconds.
 	DurationInSeconds *int32
 
@@ -6338,6 +6365,9 @@ type FlowLog struct {
 	// Resource ID.
 	ID *string
 
+	// FlowLog resource Managed Identity
+	Identity *ManagedServiceIdentity
+
 	// Resource location.
 	Location *string
 
@@ -6376,6 +6406,9 @@ type FlowLogInformation struct {
 
 	// Parameters that define the configuration of traffic analytics.
 	FlowAnalyticsConfiguration *TrafficAnalyticsProperties
+
+	// FlowLog resource Managed Identity
+	Identity *ManagedServiceIdentity
 }
 
 // FlowLogListResult - List of flow logs.
@@ -6395,6 +6428,10 @@ type FlowLogProperties struct {
 	// REQUIRED; ID of the storage account which is used to store the flow log.
 	StorageID *string
 
+	// Optional field to filter network traffic logs based on SrcIP, SrcPort, DstIP, DstPort, Protocol, Encryption, Direction
+	// and Action. If not specified, all network traffic will be logged.
+	EnabledFilteringCriteria *string
+
 	// Parameters that define the flow log format.
 	Format *FlowLogFormatParameters
 
@@ -6412,6 +6449,10 @@ type FlowLogPropertiesFormat struct {
 
 	// Flag to enable/disable flow logging.
 	Enabled *bool
+
+	// Optional field to filter network traffic logs based on SrcIP, SrcPort, DstIP, DstPort, Protocol, Encryption, Direction
+	// and Action. If not specified, all network traffic will be logged.
+	EnabledFilteringCriteria *string
 
 	// Parameters that define the configuration of traffic analytics.
 	FlowAnalyticsConfiguration *TrafficAnalyticsProperties
@@ -8185,6 +8226,9 @@ type ManagedRuleOverride struct {
 	// Describes the override action to be applied when rule matches.
 	Action *ActionType
 
+	// Describes the override sensitivity to be applied when rule matches.
+	Sensitivity *SensitivityType
+
 	// The state of the managed rule. Defaults to Disabled if not specified.
 	State *ManagedRuleEnabledState
 }
@@ -8205,6 +8249,9 @@ type ManagedRuleSet struct {
 type ManagedRulesDefinition struct {
 	// REQUIRED; The managed rule sets that are associated with the policy.
 	ManagedRuleSets []*ManagedRuleSet
+
+	// The exceptions that are applied on the policy.
+	Exceptions []*ExceptionEntry
 
 	// The Exclusions that are applied on the policy.
 	Exclusions []*OwaspCrsExclusionEntry
@@ -9641,6 +9688,9 @@ type PrivateLinkServiceProperties struct {
 	// The auto-approval list of the private link service.
 	AutoApproval *PrivateLinkServicePropertiesAutoApproval
 
+	// The destination IP address of the private link service.
+	DestinationIPAddress *string
+
 	// Whether the private link service is enabled for proxy protocol or not.
 	EnableProxyProtocol *bool
 
@@ -9720,6 +9770,9 @@ type ProbePropertiesFormat struct {
 	// less than half the allocated timeout period (in seconds) which allows two full
 	// probes before taking the instance out of rotation. The default value is 15, the minimum value is 5.
 	IntervalInSeconds *int32
+
+	// Determines how new connections are handled by the load balancer when all backend instances are probed down.
+	NoHealthyBackendsBehavior *ProbeNoHealthyBackendsBehavior
 
 	// The number of probes where if no response, will result in stopping further traffic from being delivered to the endpoint.
 	// This values allows endpoints to be taken out of rotation faster or slower than
@@ -10546,7 +10599,7 @@ func (r *Rule) GetFirewallPolicyRule() *FirewallPolicyRule {
 
 // SKU - The sku of this Bastion Host.
 type SKU struct {
-	// The name of this Bastion Host.
+	// The name of the sku of this Bastion Host.
 	Name *BastionHostSKUName
 }
 
@@ -11060,6 +11113,9 @@ type ServiceEndpointPolicyPropertiesFormat struct {
 type ServiceEndpointPropertiesFormat struct {
 	// A list of locations.
 	Locations []*string
+
+	// SubResource as network identifier.
+	NetworkIdentifier *SubResource
 
 	// The type of the endpoint service.
 	Service *string
@@ -13101,6 +13157,9 @@ type VirtualNetworkGateway struct {
 	// Resource ID.
 	ID *string
 
+	// The identity of the virtual network gateway, if configured.
+	Identity *ManagedServiceIdentity
+
 	// Resource location.
 	Location *string
 
@@ -13535,6 +13594,9 @@ type VirtualNetworkGatewayPropertiesFormat struct {
 	// NatRules for virtual network gateway.
 	NatRules []*VirtualNetworkGatewayNatRule
 
+	// Property to indicate if the Express Route Gateway has resiliency model of MultiHomed or SingleHomed
+	ResiliencyModel *ResiliencyModel
+
 	// The reference to the VirtualNetworkGatewaySku resource which represents the SKU selected for Virtual network gateway.
 	SKU *VirtualNetworkGatewaySKU
 
@@ -13719,6 +13781,9 @@ type VirtualNetworkPropertiesFormat struct {
 
 	// Array of IpAllocation which reference this VNET.
 	IPAllocations []*SubResource
+
+	// Private Endpoint VNet Policies.
+	PrivateEndpointVNetPolicies *PrivateEndpointVNetPolicies
 
 	// A list of subnets in a Virtual Network.
 	Subnets []*Subnet
@@ -14146,6 +14211,9 @@ type WebApplicationFirewallPolicyPropertiesFormat struct {
 
 	// The PolicySettings for policy.
 	PolicySettings *PolicySettings
+
+	// READ-ONLY; A collection of references to application gateway for containers.
+	ApplicationGatewayForContainers []*ApplicationGatewayForContainersReferenceDefinition
 
 	// READ-ONLY; A collection of references to application gateways.
 	ApplicationGateways []*ApplicationGateway
