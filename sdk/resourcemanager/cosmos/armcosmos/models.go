@@ -3109,6 +3109,9 @@ type ResourceRestoreParameters struct {
 
 	// Time to which the account has to be restored (ISO-8601 format).
 	RestoreTimestampInUTC *time.Time
+
+	// Specifies whether the restored account will have Time-To-Live disabled upon the successful restore.
+	RestoreWithTTLDisabled *bool
 }
 
 // RestorableDatabaseAccountGetResult - A Azure Cosmos DB restorable database account.
@@ -3725,6 +3728,9 @@ type RestoreParameters struct {
 	// Time to which the account has to be restored (ISO-8601 format).
 	RestoreTimestampInUTC *time.Time
 
+	// Specifies whether the restored account will have Time-To-Live disabled upon the successful restore.
+	RestoreWithTTLDisabled *bool
+
 	// List of specific tables available for restore.
 	TablesToRestore []*string
 }
@@ -3737,6 +3743,9 @@ type RestoreParametersBase struct {
 
 	// Time to which the account has to be restored (ISO-8601 format).
 	RestoreTimestampInUTC *time.Time
+
+	// Specifies whether the restored account will have Time-To-Live disabled upon the successful restore.
+	RestoreWithTTLDisabled *bool
 }
 
 // Role - The set of roles permitted through this Role Definition.

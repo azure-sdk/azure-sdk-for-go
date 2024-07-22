@@ -7657,6 +7657,7 @@ func (r ResourceRestoreParameters) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "restoreSource", r.RestoreSource)
 	populateDateTimeRFC3339(objectMap, "restoreTimestampInUtc", r.RestoreTimestampInUTC)
+	populate(objectMap, "restoreWithTtlDisabled", r.RestoreWithTTLDisabled)
 	return json.Marshal(objectMap)
 }
 
@@ -7674,6 +7675,9 @@ func (r *ResourceRestoreParameters) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "restoreTimestampInUtc":
 			err = unpopulateDateTimeRFC3339(val, "RestoreTimestampInUTC", &r.RestoreTimestampInUTC)
+			delete(rawMsg, key)
+		case "restoreWithTtlDisabled":
+			err = unpopulate(val, "RestoreWithTTLDisabled", &r.RestoreWithTTLDisabled)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -9277,6 +9281,7 @@ func (r RestoreParameters) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "restoreMode", r.RestoreMode)
 	populate(objectMap, "restoreSource", r.RestoreSource)
 	populateDateTimeRFC3339(objectMap, "restoreTimestampInUtc", r.RestoreTimestampInUTC)
+	populate(objectMap, "restoreWithTtlDisabled", r.RestoreWithTTLDisabled)
 	populate(objectMap, "tablesToRestore", r.TablesToRestore)
 	return json.Marshal(objectMap)
 }
@@ -9305,6 +9310,9 @@ func (r *RestoreParameters) UnmarshalJSON(data []byte) error {
 		case "restoreTimestampInUtc":
 			err = unpopulateDateTimeRFC3339(val, "RestoreTimestampInUTC", &r.RestoreTimestampInUTC)
 			delete(rawMsg, key)
+		case "restoreWithTtlDisabled":
+			err = unpopulate(val, "RestoreWithTTLDisabled", &r.RestoreWithTTLDisabled)
+			delete(rawMsg, key)
 		case "tablesToRestore":
 			err = unpopulate(val, "TablesToRestore", &r.TablesToRestore)
 			delete(rawMsg, key)
@@ -9321,6 +9329,7 @@ func (r RestoreParametersBase) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "restoreSource", r.RestoreSource)
 	populateDateTimeRFC3339(objectMap, "restoreTimestampInUtc", r.RestoreTimestampInUTC)
+	populate(objectMap, "restoreWithTtlDisabled", r.RestoreWithTTLDisabled)
 	return json.Marshal(objectMap)
 }
 
@@ -9338,6 +9347,9 @@ func (r *RestoreParametersBase) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "restoreTimestampInUtc":
 			err = unpopulateDateTimeRFC3339(val, "RestoreTimestampInUTC", &r.RestoreTimestampInUTC)
+			delete(rawMsg, key)
+		case "restoreWithTtlDisabled":
+			err = unpopulate(val, "RestoreWithTTLDisabled", &r.RestoreWithTTLDisabled)
 			delete(rawMsg, key)
 		}
 		if err != nil {

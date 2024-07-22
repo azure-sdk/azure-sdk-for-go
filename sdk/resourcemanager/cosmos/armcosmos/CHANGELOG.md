@@ -1,5 +1,13 @@
 # Release History
 
+## 3.1.0 (2024-07-22)
+### Features Added
+
+- New field `RestoreWithTTLDisabled` in struct `ResourceRestoreParameters`
+- New field `RestoreWithTTLDisabled` in struct `RestoreParameters`
+- New field `RestoreWithTTLDisabled` in struct `RestoreParametersBase`
+
+
 ## 3.0.0 (2024-06-21)
 ### Breaking Changes
 
