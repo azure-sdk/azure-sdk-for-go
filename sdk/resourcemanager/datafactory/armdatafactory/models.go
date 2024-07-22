@@ -3548,6 +3548,9 @@ type AzureFileStorageLinkedServiceTypeProperties struct {
 	// The connection string. It is mutually exclusive with sasUri property. Type: string, SecureString or AzureKeyVaultSecretReference.
 	ConnectionString any
 
+	// The credential reference containing authentication information.
+	Credential *CredentialReference
+
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
 	// Type: string.
 	EncryptedCredential *string
@@ -3568,6 +3571,9 @@ type AzureFileStorageLinkedServiceTypeProperties struct {
 	// SAS URI of the Azure File resource. It is mutually exclusive with connectionString property. Type: string, SecureString
 	// or AzureKeyVaultSecretReference.
 	SasURI any
+
+	// File service endpoint of the Azure File Storage resource. It is mutually exclusive with connectionString, sasUri property.
+	ServiceEndpoint any
 
 	// The azure file share snapshot version. Type: string (or Expression with resultType string).
 	Snapshot any
@@ -6206,7 +6212,7 @@ type AzureTableStorageLinkedService struct {
 	Type *string
 
 	// REQUIRED; Azure Table Storage linked service properties.
-	TypeProperties *AzureStorageLinkedServiceTypeProperties
+	TypeProperties *AzureTableStorageLinkedServiceTypeProperties
 
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
 	AdditionalProperties map[string]any
@@ -6234,6 +6240,32 @@ func (a *AzureTableStorageLinkedService) GetLinkedService() *LinkedService {
 		Parameters:           a.Parameters,
 		Type:                 a.Type,
 	}
+}
+
+// AzureTableStorageLinkedServiceTypeProperties - Azure Table Storage linked service properties.
+type AzureTableStorageLinkedServiceTypeProperties struct {
+	// The Azure key vault secret reference of accountKey in connection string.
+	AccountKey *AzureKeyVaultSecretReference
+
+	// The connection string. It is mutually exclusive with sasUri property. Type: string, SecureString or AzureKeyVaultSecretReference.
+	ConnectionString any
+
+	// The credential reference containing authentication information.
+	Credential *CredentialReference
+
+	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
+	// Type: string.
+	EncryptedCredential *string
+
+	// The Azure key vault secret reference of sasToken in sas uri.
+	SasToken *AzureKeyVaultSecretReference
+
+	// SAS URI of the Azure Storage resource. It is mutually exclusive with connectionString property. Type: string, SecureString
+	// or AzureKeyVaultSecretReference.
+	SasURI any
+
+	// Table service endpoint of the Azure Table Storage resource. It is mutually exclusive with connectionString, sasUri property.
+	ServiceEndpoint any
 }
 
 // BigDataPoolParametrizationReference - Big data pool reference type.
@@ -7050,13 +7082,17 @@ func (c *CommonDataServiceForAppsLinkedService) GetLinkedService() *LinkedServic
 type CommonDataServiceForAppsLinkedServiceTypeProperties struct {
 	// REQUIRED; The authentication type to connect to Common Data Service for Apps server. 'Office365' for online scenario, 'Ifd'
 	// for on-premises with Ifd scenario. 'AADServicePrincipal' for Server-To-Server
-	// authentication in online scenario. Type: string (or Expression with resultType string).
+	// authentication in online scenario, 'Active Directory' for Dynamics on-premises with IFD. Type: string (or Expression with
+	// resultType string).
 	AuthenticationType any
 
 	// REQUIRED; The deployment type of the Common Data Service for Apps instance. 'Online' for Common Data Service for Apps Online
 	// and 'OnPremisesWithIfd' for Common Data Service for Apps on-premises with Ifd. Type:
 	// string (or Expression with resultType string).
 	DeploymentType any
+
+	// The Active Directory domain that will verify user credentials. Type: string (or Expression with resultType string).
+	Domain any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
 	// Type: string.
@@ -7404,6 +7440,18 @@ type ConnectionStateProperties struct {
 
 	// READ-ONLY; The approval status
 	Status *string
+}
+
+// ContinuationSettingsReference - Continuation settings for execute data flow activity.
+type ContinuationSettingsReference struct {
+	// Continuation TTL in minutes.
+	ContinuationTTLInMinutes any
+
+	// Customized checkpoint key.
+	CustomizedCheckpointKey any
+
+	// Idle condition.
+	IdleCondition any
 }
 
 // ControlActivity - Base class for all control activities like IfCondition, ForEach , Until.
@@ -10547,7 +10595,7 @@ func (d *DynamicsCrmLinkedService) GetLinkedService() *LinkedService {
 type DynamicsCrmLinkedServiceTypeProperties struct {
 	// REQUIRED; The authentication type to connect to Dynamics CRM server. 'Office365' for online scenario, 'Ifd' for on-premises
 	// with Ifd scenario, 'AADServicePrincipal' for Server-To-Server authentication in online
-	// scenario. Type: string (or Expression with resultType string).
+	// scenario, 'Active Directory' for Dynamics on-premises with IFD. Type: string (or Expression with resultType string).
 	AuthenticationType any
 
 	// REQUIRED; The deployment type of the Dynamics CRM instance. 'Online' for Dynamics CRM Online and 'OnPremisesWithIfd' for
@@ -10556,6 +10604,9 @@ type DynamicsCrmLinkedServiceTypeProperties struct {
 
 	// The credential reference containing authentication information.
 	Credential *CredentialReference
+
+	// The Active Directory domain that will verify user credentials. Type: string (or Expression with resultType string).
+	Domain any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
 	// Type: string.
@@ -10788,7 +10839,7 @@ func (d *DynamicsLinkedService) GetLinkedService() *LinkedService {
 type DynamicsLinkedServiceTypeProperties struct {
 	// REQUIRED; The authentication type to connect to Dynamics server. 'Office365' for online scenario, 'Ifd' for on-premises
 	// with Ifd scenario, 'AADServicePrincipal' for Server-To-Server authentication in online
-	// scenario. Type: string (or Expression with resultType string).
+	// scenario, 'Active Directory' for Dynamics on-premises with IFD. Type: string (or Expression with resultType string).
 	AuthenticationType any
 
 	// REQUIRED; The deployment type of the Dynamics instance. 'Online' for Dynamics Online and 'OnPremisesWithIfd' for Dynamics
@@ -10797,6 +10848,9 @@ type DynamicsLinkedServiceTypeProperties struct {
 
 	// The credential reference containing authentication information.
 	Credential *CredentialReference
+
+	// The Active Directory domain that will verify user credentials. Type: string (or Expression with resultType string).
+	Domain any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
 	// Type: string.
@@ -11342,6 +11396,9 @@ type ExecuteDataFlowActivityTypeProperties struct {
 	// Compute properties for data flow activity.
 	Compute *ExecuteDataFlowActivityTypePropertiesCompute
 
+	// Continuation settings for execute data flow activity.
+	ContinuationSettings *ContinuationSettingsReference
+
 	// Continue on error setting used for data flow execution. Enables processing to continue if a sink fails. Type: boolean (or
 	// Expression with resultType boolean)
 	ContinueOnError any
@@ -11465,6 +11522,9 @@ type ExecutePowerQueryActivityTypeProperties struct {
 
 	// Compute properties for data flow activity.
 	Compute *ExecuteDataFlowActivityTypePropertiesCompute
+
+	// Continuation settings for execute data flow activity.
+	ContinuationSettings *ContinuationSettingsReference
 
 	// Continue on error setting used for data flow execution. Enables processing to continue if a sink fails. Type: boolean (or
 	// Expression with resultType boolean)
@@ -23984,6 +24044,9 @@ type SQLServerLinkedServiceTypeProperties struct {
 	// The connection string. Type: string, SecureString or AzureKeyVaultSecretReference.
 	ConnectionString any
 
+	// The credential reference containing authentication information.
+	Credential *CredentialReference
+
 	// The name of the database, used by recommended version. Type: string (or Expression with resultType string).
 	Database any
 
@@ -28708,6 +28771,10 @@ type SnowflakeExportCopyCommand struct {
 
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
 	AdditionalProperties map[string]any
+
+	// The name of the snowflake storage integration to use for the copy operation. Type: string (or Expression with resultType
+	// string).
+	StorageIntegration any
 }
 
 // GetExportSettings implements the ExportSettingsClassification interface for type SnowflakeExportCopyCommand.
@@ -28735,6 +28802,10 @@ type SnowflakeImportCopyCommand struct {
 
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
 	AdditionalProperties map[string]any
+
+	// The name of the snowflake storage integration to use for the copy operation. Type: string (or Expression with resultType
+	// string).
+	StorageIntegration any
 }
 
 // GetImportSettings implements the ImportSettingsClassification interface for type SnowflakeImportCopyCommand.
