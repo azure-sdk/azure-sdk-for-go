@@ -14,7 +14,7 @@ import (
 )
 
 func unmarshalFunctionRetrieveDefaultDefinitionParametersClassification(rawMsg json.RawMessage) (armstreamanalytics.FunctionRetrieveDefaultDefinitionParametersClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -24,11 +24,7 @@ func unmarshalFunctionRetrieveDefaultDefinitionParametersClassification(rawMsg j
 	var b armstreamanalytics.FunctionRetrieveDefaultDefinitionParametersClassification
 	switch m["bindingType"] {
 	case "Microsoft.MachineLearning/WebService":
-		b = &armstreamanalytics.AzureMachineLearningStudioFunctionRetrieveDefaultDefinitionParameters{}
-	case "Microsoft.MachineLearningServices":
-		b = &armstreamanalytics.AzureMachineLearningServiceFunctionRetrieveDefaultDefinitionParameters{}
-	case "Microsoft.StreamAnalytics/CLRUdf":
-		b = &armstreamanalytics.CSharpFunctionRetrieveDefaultDefinitionParameters{}
+		b = &armstreamanalytics.AzureMachineLearningWebServiceFunctionRetrieveDefaultDefinitionParameters{}
 	case "Microsoft.StreamAnalytics/JavascriptUdf":
 		b = &armstreamanalytics.JavaScriptFunctionRetrieveDefaultDefinitionParameters{}
 	default:
