@@ -1150,7 +1150,7 @@ type DatabaseAccountCreateUpdateProperties struct {
 	// based on the failover priorities configured for the account.
 	EnableAutomaticFailover *bool
 
-	// Flag to indicate enabling/disabling of Burst Capacity Preview feature on the account
+	// Flag to indicate enabling/disabling of Burst Capacity feature on the account
 	EnableBurstCapacity *bool
 
 	// Enables the cassandra connector on the Cosmos DB C* account
@@ -1249,7 +1249,7 @@ type DatabaseAccountGetProperties struct {
 	// based on the failover priorities configured for the account.
 	EnableAutomaticFailover *bool
 
-	// Flag to indicate enabling/disabling of Burst Capacity Preview feature on the account
+	// Flag to indicate enabling/disabling of Burst Capacity feature on the account
 	EnableBurstCapacity *bool
 
 	// Enables the cassandra connector on the Cosmos DB C* account
@@ -1480,7 +1480,7 @@ type DatabaseAccountUpdateProperties struct {
 	// based on the failover priorities configured for the account.
 	EnableAutomaticFailover *bool
 
-	// Flag to indicate enabling/disabling of Burst Capacity Preview feature on the account
+	// Flag to indicate enabling/disabling of Burst Capacity feature on the account
 	EnableBurstCapacity *bool
 
 	// Enables the cassandra connector on the Cosmos DB C* account
