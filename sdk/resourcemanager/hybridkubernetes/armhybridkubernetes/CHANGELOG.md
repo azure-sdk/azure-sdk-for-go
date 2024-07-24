@@ -1,5 +1,31 @@
 # Release History
 
+## 2.0.0-beta.1 (2024-07-24)
+### Breaking Changes
+
+- Type of `ConnectedClusterPatch.Properties` has been changed from `any` to `*ConnectedClusterPatchProperties`
+
+### Features Added
+
+- New enum type `AutoUpgradeOptions` with values `AutoUpgradeOptionsDisabled`, `AutoUpgradeOptionsEnabled`
+- New enum type `AzureHybridBenefit` with values `AzureHybridBenefitFalse`, `AzureHybridBenefitNotApplicable`, `AzureHybridBenefitTrue`
+- New enum type `ConnectedClusterKind` with values `ConnectedClusterKindProvisionedCluster`
+- New enum type `PrivateLinkState` with values `PrivateLinkStateDisabled`, `PrivateLinkStateEnabled`
+- New struct `AADProfile`
+- New struct `AgentError`
+- New struct `ArcAgentProfile`
+- New struct `ArcAgentryConfigurations`
+- New struct `ConnectedClusterPatchProperties`
+- New struct `Gateway`
+- New struct `OidcIssuerProfile`
+- New struct `SecurityProfile`
+- New struct `SecurityProfileWorkloadIdentity`
+- New struct `SystemComponent`
+- New field `Kind` in struct `ConnectedCluster`
+- New field `AADProfile`, `ArcAgentProfile`, `ArcAgentryConfigurations`, `AzureHybridBenefit`, `DistributionVersion`, `Gateway`, `MiscellaneousProperties`, `OidcIssuerProfile`, `PrivateLinkScopeResourceID`, `PrivateLinkState`, `SecurityProfile` in struct `ConnectedClusterProperties`
+- New field `RelayTid`, `RelayType` in struct `HybridConnectionConfig`
+
+
 ## 1.2.0 (2023-11-24)
 ### Features Added
 
