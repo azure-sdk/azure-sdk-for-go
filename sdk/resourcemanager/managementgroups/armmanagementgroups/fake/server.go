@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/managementgroups/armmanagementgroups"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/managementgroups/armmanagementgroups/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -26,8 +26,8 @@ import (
 // Server is a fake server for instances of the armmanagementgroups.Client type.
 type Server struct {
 	// BeginCreateOrUpdate is the fake for method Client.BeginCreateOrUpdate
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginCreateOrUpdate func(ctx context.Context, groupID string, createManagementGroupRequest armmanagementgroups.CreateManagementGroupRequest, options *armmanagementgroups.ClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armmanagementgroups.ClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated, http.StatusAccepted
+	BeginCreateOrUpdate func(ctx context.Context, groupID string, resource armmanagementgroups.ManagementGroup, options *armmanagementgroups.ClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armmanagementgroups.ClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method Client.BeginDelete
 	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
@@ -41,13 +41,13 @@ type Server struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	NewGetDescendantsPager func(groupID string, options *armmanagementgroups.ClientGetDescendantsOptions) (resp azfake.PagerResponder[armmanagementgroups.ClientGetDescendantsResponse])
 
-	// NewListPager is the fake for method Client.NewListPager
+	// NewListSettingsPager is the fake for method Client.NewListSettingsPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(options *armmanagementgroups.ClientListOptions) (resp azfake.PagerResponder[armmanagementgroups.ClientListResponse])
+	NewListSettingsPager func(groupID string, options *armmanagementgroups.ClientListSettingsOptions) (resp azfake.PagerResponder[armmanagementgroups.ClientListSettingsResponse])
 
 	// Update is the fake for method Client.Update
 	// HTTP status codes to indicate success: http.StatusOK
-	Update func(ctx context.Context, groupID string, patchGroupRequest armmanagementgroups.PatchManagementGroupRequest, options *armmanagementgroups.ClientUpdateOptions) (resp azfake.Responder[armmanagementgroups.ClientUpdateResponse], errResp azfake.ErrorResponder)
+	Update func(ctx context.Context, groupID string, properties armmanagementgroups.PatchManagementGroupRequest, options *armmanagementgroups.ClientUpdateOptions) (resp azfake.Responder[armmanagementgroups.ClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewServerTransport creates a new instance of ServerTransport with the provided implementation.
@@ -59,7 +59,7 @@ func NewServerTransport(srv *Server) *ServerTransport {
 		beginCreateOrUpdate:    newTracker[azfake.PollerResponder[armmanagementgroups.ClientCreateOrUpdateResponse]](),
 		beginDelete:            newTracker[azfake.PollerResponder[armmanagementgroups.ClientDeleteResponse]](),
 		newGetDescendantsPager: newTracker[azfake.PagerResponder[armmanagementgroups.ClientGetDescendantsResponse]](),
-		newListPager:           newTracker[azfake.PagerResponder[armmanagementgroups.ClientListResponse]](),
+		newListSettingsPager:   newTracker[azfake.PagerResponder[armmanagementgroups.ClientListSettingsResponse]](),
 	}
 }
 
@@ -70,7 +70,7 @@ type ServerTransport struct {
 	beginCreateOrUpdate    *tracker[azfake.PollerResponder[armmanagementgroups.ClientCreateOrUpdateResponse]]
 	beginDelete            *tracker[azfake.PollerResponder[armmanagementgroups.ClientDeleteResponse]]
 	newGetDescendantsPager *tracker[azfake.PagerResponder[armmanagementgroups.ClientGetDescendantsResponse]]
-	newListPager           *tracker[azfake.PagerResponder[armmanagementgroups.ClientListResponse]]
+	newListSettingsPager   *tracker[azfake.PagerResponder[armmanagementgroups.ClientListSettingsResponse]]
 }
 
 // Do implements the policy.Transporter interface for ServerTransport.
@@ -93,8 +93,8 @@ func (s *ServerTransport) Do(req *http.Request) (*http.Response, error) {
 		resp, err = s.dispatchGet(req)
 	case "Client.NewGetDescendantsPager":
 		resp, err = s.dispatchNewGetDescendantsPager(req)
-	case "Client.NewListPager":
-		resp, err = s.dispatchNewListPager(req)
+	case "Client.NewListSettingsPager":
+		resp, err = s.dispatchNewListSettingsPager(req)
 	case "Client.Update":
 		resp, err = s.dispatchUpdate(req)
 	default:
@@ -120,15 +120,15 @@ func (s *ServerTransport) dispatchBeginCreateOrUpdate(req *http.Request) (*http.
 		if matches == nil || len(matches) < 1 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		body, err := server.UnmarshalRequestAsJSON[armmanagementgroups.CreateManagementGroupRequest](req)
+		body, err := server.UnmarshalRequestAsJSON[armmanagementgroups.ManagementGroup](req)
 		if err != nil {
 			return nil, err
 		}
+		cacheControlParam := getOptional(getHeaderValue(req.Header, "cache-control"))
 		groupIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("groupId")])
 		if err != nil {
 			return nil, err
 		}
-		cacheControlParam := getOptional(getHeaderValue(req.Header, "Cache-Control"))
 		var options *armmanagementgroups.ClientBeginCreateOrUpdateOptions
 		if cacheControlParam != nil {
 			options = &armmanagementgroups.ClientBeginCreateOrUpdateOptions{
@@ -148,9 +148,9 @@ func (s *ServerTransport) dispatchBeginCreateOrUpdate(req *http.Request) (*http.
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK, http.StatusCreated, http.StatusAccepted}, resp.StatusCode) {
 		s.beginCreateOrUpdate.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated, http.StatusAccepted", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginCreateOrUpdate) {
 		s.beginCreateOrUpdate.remove(req)
@@ -171,11 +171,11 @@ func (s *ServerTransport) dispatchBeginDelete(req *http.Request) (*http.Response
 		if matches == nil || len(matches) < 1 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
+		cacheControlParam := getOptional(getHeaderValue(req.Header, "cache-control"))
 		groupIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("groupId")])
 		if err != nil {
 			return nil, err
 		}
-		cacheControlParam := getOptional(getHeaderValue(req.Header, "Cache-Control"))
 		var options *armmanagementgroups.ClientBeginDeleteOptions
 		if cacheControlParam != nil {
 			options = &armmanagementgroups.ClientBeginDeleteOptions{
@@ -217,10 +217,6 @@ func (s *ServerTransport) dispatchGet(req *http.Request) (*http.Response, error)
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
 	qp := req.URL.Query()
-	groupIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("groupId")])
-	if err != nil {
-		return nil, err
-	}
 	expandUnescaped, err := url.QueryUnescape(qp.Get("$expand"))
 	if err != nil {
 		return nil, err
@@ -239,7 +235,11 @@ func (s *ServerTransport) dispatchGet(req *http.Request) (*http.Response, error)
 		return nil, err
 	}
 	filterParam := getOptional(filterUnescaped)
-	cacheControlParam := getOptional(getHeaderValue(req.Header, "Cache-Control"))
+	cacheControlParam := getOptional(getHeaderValue(req.Header, "cache-control"))
+	groupIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("groupId")])
+	if err != nil {
+		return nil, err
+	}
 	var options *armmanagementgroups.ClientGetOptions
 	if expandParam != nil || recurseParam != nil || filterParam != nil || cacheControlParam != nil {
 		options = &armmanagementgroups.ClientGetOptions{
@@ -270,7 +270,7 @@ func (s *ServerTransport) dispatchNewGetDescendantsPager(req *http.Request) (*ht
 	}
 	newGetDescendantsPager := s.newGetDescendantsPager.get(req)
 	if newGetDescendantsPager == nil {
-		const regexStr = `/providers/Microsoft\.Management/managementGroups/(?P<groupId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/descendants`
+		const regexStr = `/providers/Microsoft\.Management/managementGroups/(?P<groupId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/descendants/{groupId}`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 		if matches == nil || len(matches) < 1 {
@@ -328,43 +328,39 @@ func (s *ServerTransport) dispatchNewGetDescendantsPager(req *http.Request) (*ht
 	return resp, nil
 }
 
-func (s *ServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if s.srv.NewListPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
+func (s *ServerTransport) dispatchNewListSettingsPager(req *http.Request) (*http.Response, error) {
+	if s.srv.NewListSettingsPager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListSettingsPager not implemented")}
 	}
-	newListPager := s.newListPager.get(req)
-	if newListPager == nil {
-		qp := req.URL.Query()
-		cacheControlParam := getOptional(getHeaderValue(req.Header, "Cache-Control"))
-		skiptokenUnescaped, err := url.QueryUnescape(qp.Get("$skiptoken"))
+	newListSettingsPager := s.newListSettingsPager.get(req)
+	if newListSettingsPager == nil {
+		const regexStr = `/providers/Microsoft\.Management/managementGroups/(?P<groupId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/settings/{groupId}`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 1 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		groupIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("groupId")])
 		if err != nil {
 			return nil, err
 		}
-		skiptokenParam := getOptional(skiptokenUnescaped)
-		var options *armmanagementgroups.ClientListOptions
-		if cacheControlParam != nil || skiptokenParam != nil {
-			options = &armmanagementgroups.ClientListOptions{
-				CacheControl: cacheControlParam,
-				Skiptoken:    skiptokenParam,
-			}
-		}
-		resp := s.srv.NewListPager(options)
-		newListPager = &resp
-		s.newListPager.add(req, newListPager)
-		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armmanagementgroups.ClientListResponse, createLink func() string) {
+		resp := s.srv.NewListSettingsPager(groupIDParam, nil)
+		newListSettingsPager = &resp
+		s.newListSettingsPager.add(req, newListSettingsPager)
+		server.PagerResponderInjectNextLinks(newListSettingsPager, req, func(page *armmanagementgroups.ClientListSettingsResponse, createLink func() string) {
 			page.NextLink = to.Ptr(createLink())
 		})
 	}
-	resp, err := server.PagerResponderNext(newListPager, req)
+	resp, err := server.PagerResponderNext(newListSettingsPager, req)
 	if err != nil {
 		return nil, err
 	}
 	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		s.newListPager.remove(req)
+		s.newListSettingsPager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
-	if !server.PagerResponderMore(newListPager) {
-		s.newListPager.remove(req)
+	if !server.PagerResponderMore(newListSettingsPager) {
+		s.newListSettingsPager.remove(req)
 	}
 	return resp, nil
 }
@@ -383,11 +379,11 @@ func (s *ServerTransport) dispatchUpdate(req *http.Request) (*http.Response, err
 	if err != nil {
 		return nil, err
 	}
+	cacheControlParam := getOptional(getHeaderValue(req.Header, "cache-control"))
 	groupIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("groupId")])
 	if err != nil {
 		return nil, err
 	}
-	cacheControlParam := getOptional(getHeaderValue(req.Header, "Cache-Control"))
 	var options *armmanagementgroups.ClientUpdateOptions
 	if cacheControlParam != nil {
 		options = &armmanagementgroups.ClientUpdateOptions{

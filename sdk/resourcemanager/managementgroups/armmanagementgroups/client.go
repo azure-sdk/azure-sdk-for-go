@@ -45,13 +45,13 @@ func NewClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*
 // request is issued with different properties, the management group properties will be updated.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2023-04-01
 //   - groupID - Management Group ID.
-//   - createManagementGroupRequest - Management group creation parameters.
+//   - resource - Management group creation parameters.
 //   - options - ClientBeginCreateOrUpdateOptions contains the optional parameters for the Client.BeginCreateOrUpdate method.
-func (client *Client) BeginCreateOrUpdate(ctx context.Context, groupID string, createManagementGroupRequest CreateManagementGroupRequest, options *ClientBeginCreateOrUpdateOptions) (*runtime.Poller[ClientCreateOrUpdateResponse], error) {
+func (client *Client) BeginCreateOrUpdate(ctx context.Context, groupID string, resource ManagementGroup, options *ClientBeginCreateOrUpdateOptions) (*runtime.Poller[ClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, groupID, createManagementGroupRequest, options)
+		resp, err := client.createOrUpdate(ctx, groupID, resource, options)
 		if err != nil {
 			return nil, err
 		}
@@ -71,14 +71,14 @@ func (client *Client) BeginCreateOrUpdate(ctx context.Context, groupID string, c
 // request is issued with different properties, the management group properties will be updated.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
-func (client *Client) createOrUpdate(ctx context.Context, groupID string, createManagementGroupRequest CreateManagementGroupRequest, options *ClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+// Generated from API version 2023-04-01
+func (client *Client) createOrUpdate(ctx context.Context, groupID string, resource ManagementGroup, options *ClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "Client.BeginCreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, groupID, createManagementGroupRequest, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, groupID, resource, options)
 	if err != nil {
 		return nil, err
 	}
@@ -86,7 +86,7 @@ func (client *Client) createOrUpdate(ctx context.Context, groupID string, create
 	if err != nil {
 		return nil, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated, http.StatusAccepted) {
 		err = runtime.NewResponseError(httpResp)
 		return nil, err
 	}
@@ -94,7 +94,7 @@ func (client *Client) createOrUpdate(ctx context.Context, groupID string, create
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *Client) createOrUpdateCreateRequest(ctx context.Context, groupID string, createManagementGroupRequest CreateManagementGroupRequest, options *ClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *Client) createOrUpdateCreateRequest(ctx context.Context, groupID string, resource ManagementGroup, options *ClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/providers/Microsoft.Management/managementGroups/{groupId}"
 	if groupID == "" {
 		return nil, errors.New("parameter groupID cannot be empty")
@@ -105,13 +105,13 @@ func (client *Client) createOrUpdateCreateRequest(ctx context.Context, groupID s
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
-	if options != nil && options.CacheControl != nil {
-		req.Raw().Header["Cache-Control"] = []string{*options.CacheControl}
-	}
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, createManagementGroupRequest); err != nil {
+	if options != nil && options.CacheControl != nil {
+		req.Raw().Header["cache-control"] = []string{*options.CacheControl}
+	}
+	if err := runtime.MarshalAsJSON(req, resource); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -120,7 +120,7 @@ func (client *Client) createOrUpdateCreateRequest(ctx context.Context, groupID s
 // BeginDelete - Delete management group. If a management group contains child resources, the request will fail.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2023-04-01
 //   - groupID - Management Group ID.
 //   - options - ClientBeginDeleteOptions contains the optional parameters for the Client.BeginDelete method.
 func (client *Client) BeginDelete(ctx context.Context, groupID string, options *ClientBeginDeleteOptions) (*runtime.Poller[ClientDeleteResponse], error) {
@@ -130,7 +130,7 @@ func (client *Client) BeginDelete(ctx context.Context, groupID string, options *
 			return nil, err
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ClientDeleteResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+			FinalStateVia: runtime.FinalStateViaLocation,
 			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
@@ -144,7 +144,7 @@ func (client *Client) BeginDelete(ctx context.Context, groupID string, options *
 // Delete - Delete management group. If a management group contains child resources, the request will fail.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2023-04-01
 func (client *Client) deleteOperation(ctx context.Context, groupID string, options *ClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "Client.BeginDelete"
@@ -178,19 +178,19 @@ func (client *Client) deleteCreateRequest(ctx context.Context, groupID string, o
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
-	if options != nil && options.CacheControl != nil {
-		req.Raw().Header["Cache-Control"] = []string{*options.CacheControl}
-	}
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	if options != nil && options.CacheControl != nil {
+		req.Raw().Header["cache-control"] = []string{*options.CacheControl}
+	}
 	return req, nil
 }
 
 // Get - Get the details of the management group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2023-04-01
 //   - groupID - Management Group ID.
 //   - options - ClientGetOptions contains the optional parameters for the Client.Get method.
 func (client *Client) Get(ctx context.Context, groupID string, options *ClientGetOptions) (ClientGetResponse, error) {
@@ -227,21 +227,21 @@ func (client *Client) getCreateRequest(ctx context.Context, groupID string, opti
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", string(*options.Expand))
-	}
-	if options != nil && options.Recurse != nil {
-		reqQP.Set("$recurse", strconv.FormatBool(*options.Recurse))
 	}
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	if options != nil && options.CacheControl != nil {
-		req.Raw().Header["Cache-Control"] = []string{*options.CacheControl}
+	if options != nil && options.Recurse != nil {
+		reqQP.Set("$recurse", strconv.FormatBool(*options.Recurse))
 	}
+	reqQP.Set("api-version", "2023-04-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	if options != nil && options.CacheControl != nil {
+		req.Raw().Header["cache-control"] = []string{*options.CacheControl}
+	}
 	return req, nil
 }
 
@@ -256,7 +256,7 @@ func (client *Client) getHandleResponse(resp *http.Response) (ClientGetResponse,
 
 // NewGetDescendantsPager - List all entities that descend from a management group.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2023-04-01
 //   - groupID - Management Group ID.
 //   - options - ClientGetDescendantsOptions contains the optional parameters for the Client.NewGetDescendantsPager method.
 func (client *Client) NewGetDescendantsPager(groupID string, options *ClientGetDescendantsOptions) *runtime.Pager[ClientGetDescendantsResponse] {
@@ -284,7 +284,7 @@ func (client *Client) NewGetDescendantsPager(groupID string, options *ClientGetD
 
 // getDescendantsCreateRequest creates the GetDescendants request.
 func (client *Client) getDescendantsCreateRequest(ctx context.Context, groupID string, options *ClientGetDescendantsOptions) (*policy.Request, error) {
-	urlPath := "/providers/Microsoft.Management/managementGroups/{groupId}/descendants"
+	urlPath := "/providers/Microsoft.Management/managementGroups/{groupId}/descendants/{groupId}"
 	if groupID == "" {
 		return nil, errors.New("parameter groupID cannot be empty")
 	}
@@ -294,13 +294,13 @@ func (client *Client) getDescendantsCreateRequest(ctx context.Context, groupID s
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
 	if options != nil && options.Skiptoken != nil {
 		reqQP.Set("$skiptoken", *options.Skiptoken)
 	}
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -315,58 +315,58 @@ func (client *Client) getDescendantsHandleResponse(resp *http.Response) (ClientG
 	return result, nil
 }
 
-// NewListPager - List management groups for the authenticated user.
+// NewListSettingsPager - Gets all the hierarchy settings defined at the Management Group level. Settings can only be set
+// on the root Management Group of the hierarchy.
 //
-// Generated from API version 2021-04-01
-//   - options - ClientListOptions contains the optional parameters for the Client.NewListPager method.
-func (client *Client) NewListPager(options *ClientListOptions) *runtime.Pager[ClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[ClientListResponse]{
-		More: func(page ClientListResponse) bool {
+// Generated from API version 2023-04-01
+//   - groupID - Management Group ID.
+//   - options - ClientListSettingsOptions contains the optional parameters for the Client.NewListSettingsPager method.
+func (client *Client) NewListSettingsPager(groupID string, options *ClientListSettingsOptions) *runtime.Pager[ClientListSettingsResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ClientListSettingsResponse]{
+		More: func(page ClientListSettingsResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *ClientListResponse) (ClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "Client.NewListPager")
+		Fetcher: func(ctx context.Context, page *ClientListSettingsResponse) (ClientListSettingsResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "Client.NewListSettingsPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, options)
+				return client.listSettingsCreateRequest(ctx, groupID, options)
 			}, nil)
 			if err != nil {
-				return ClientListResponse{}, err
+				return ClientListSettingsResponse{}, err
 			}
-			return client.listHandleResponse(resp)
+			return client.listSettingsHandleResponse(resp)
 		},
 		Tracer: client.internal.Tracer(),
 	})
 }
 
-// listCreateRequest creates the List request.
-func (client *Client) listCreateRequest(ctx context.Context, options *ClientListOptions) (*policy.Request, error) {
-	urlPath := "/providers/Microsoft.Management/managementGroups"
+// listSettingsCreateRequest creates the ListSettings request.
+func (client *Client) listSettingsCreateRequest(ctx context.Context, groupID string, options *ClientListSettingsOptions) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.Management/managementGroups/{groupId}/settings/{groupId}"
+	if groupID == "" {
+		return nil, errors.New("parameter groupID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{groupId}", url.PathEscape(groupID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
-	if options != nil && options.Skiptoken != nil {
-		reqQP.Set("$skiptoken", *options.Skiptoken)
-	}
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
-	if options != nil && options.CacheControl != nil {
-		req.Raw().Header["Cache-Control"] = []string{*options.CacheControl}
-	}
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
-// listHandleResponse handles the List response.
-func (client *Client) listHandleResponse(resp *http.Response) (ClientListResponse, error) {
-	result := ClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ManagementGroupListResult); err != nil {
-		return ClientListResponse{}, err
+// listSettingsHandleResponse handles the ListSettings response.
+func (client *Client) listSettingsHandleResponse(resp *http.Response) (ClientListSettingsResponse, error) {
+	result := ClientListSettingsResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.HierarchySettingsListResult); err != nil {
+		return ClientListSettingsResponse{}, err
 	}
 	return result, nil
 }
@@ -374,17 +374,17 @@ func (client *Client) listHandleResponse(resp *http.Response) (ClientListRespons
 // Update - Update a management group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2023-04-01
 //   - groupID - Management Group ID.
-//   - patchGroupRequest - Management group patch parameters.
+//   - properties - Management group patch parameters.
 //   - options - ClientUpdateOptions contains the optional parameters for the Client.Update method.
-func (client *Client) Update(ctx context.Context, groupID string, patchGroupRequest PatchManagementGroupRequest, options *ClientUpdateOptions) (ClientUpdateResponse, error) {
+func (client *Client) Update(ctx context.Context, groupID string, properties PatchManagementGroupRequest, options *ClientUpdateOptions) (ClientUpdateResponse, error) {
 	var err error
 	const operationName = "Client.Update"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateCreateRequest(ctx, groupID, patchGroupRequest, options)
+	req, err := client.updateCreateRequest(ctx, groupID, properties, options)
 	if err != nil {
 		return ClientUpdateResponse{}, err
 	}
@@ -401,7 +401,7 @@ func (client *Client) Update(ctx context.Context, groupID string, patchGroupRequ
 }
 
 // updateCreateRequest creates the Update request.
-func (client *Client) updateCreateRequest(ctx context.Context, groupID string, patchGroupRequest PatchManagementGroupRequest, options *ClientUpdateOptions) (*policy.Request, error) {
+func (client *Client) updateCreateRequest(ctx context.Context, groupID string, properties PatchManagementGroupRequest, options *ClientUpdateOptions) (*policy.Request, error) {
 	urlPath := "/providers/Microsoft.Management/managementGroups/{groupId}"
 	if groupID == "" {
 		return nil, errors.New("parameter groupID cannot be empty")
@@ -412,13 +412,13 @@ func (client *Client) updateCreateRequest(ctx context.Context, groupID string, p
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
-	if options != nil && options.CacheControl != nil {
-		req.Raw().Header["Cache-Control"] = []string{*options.CacheControl}
-	}
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, patchGroupRequest); err != nil {
+	if options != nil && options.CacheControl != nil {
+		req.Raw().Header["cache-control"] = []string{*options.CacheControl}
+	}
+	if err := runtime.MarshalAsJSON(req, properties); err != nil {
 		return nil, err
 	}
 	return req, nil

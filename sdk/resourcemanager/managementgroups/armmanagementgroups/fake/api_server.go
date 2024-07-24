@@ -15,7 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/managementgroups/armmanagementgroups"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/managementgroups/armmanagementgroups/v2"
 	"net/http"
 )
 
@@ -23,7 +23,7 @@ import (
 type APIServer struct {
 	// CheckNameAvailability is the fake for method APIClient.CheckNameAvailability
 	// HTTP status codes to indicate success: http.StatusOK
-	CheckNameAvailability func(ctx context.Context, checkNameAvailabilityRequest armmanagementgroups.CheckNameAvailabilityRequest, options *armmanagementgroups.APIClientCheckNameAvailabilityOptions) (resp azfake.Responder[armmanagementgroups.APIClientCheckNameAvailabilityResponse], errResp azfake.ErrorResponder)
+	CheckNameAvailability func(ctx context.Context, body armmanagementgroups.PathsItdwrvProvidersMicrosoftManagementChecknameavailabilityPostRequestbodyContentApplicationJSONSchema, options *armmanagementgroups.APIClientCheckNameAvailabilityOptions) (resp azfake.Responder[armmanagementgroups.APIClientCheckNameAvailabilityResponse], errResp azfake.ErrorResponder)
 
 	// StartTenantBackfill is the fake for method APIClient.StartTenantBackfill
 	// HTTP status codes to indicate success: http.StatusOK
@@ -80,7 +80,7 @@ func (a *APIServerTransport) dispatchCheckNameAvailability(req *http.Request) (*
 	if a.srv.CheckNameAvailability == nil {
 		return nil, &nonRetriableError{errors.New("fake for method CheckNameAvailability not implemented")}
 	}
-	body, err := server.UnmarshalRequestAsJSON[armmanagementgroups.CheckNameAvailabilityRequest](req)
+	body, err := server.UnmarshalRequestAsJSON[armmanagementgroups.PathsItdwrvProvidersMicrosoftManagementChecknameavailabilityPostRequestbodyContentApplicationJSONSchema](req)
 	if err != nil {
 		return nil, err
 	}

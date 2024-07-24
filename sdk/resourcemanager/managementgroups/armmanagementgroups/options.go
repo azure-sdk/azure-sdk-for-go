@@ -70,15 +70,9 @@ type ClientGetOptions struct {
 	Recurse *bool
 }
 
-// ClientListOptions contains the optional parameters for the Client.NewListPager method.
-type ClientListOptions struct {
-	// Indicates whether the request should utilize any caches. Populate the header with 'no-cache' value to bypass existing caches.
-	CacheControl *string
-
-	// Page continuation token is only used if a previous operation returned a partial result. If a previous response contains
-	// a nextLink element, the value of the nextLink element will include a token
-	// parameter that specifies a starting point to use for subsequent calls.
-	Skiptoken *string
+// ClientListSettingsOptions contains the optional parameters for the Client.NewListSettingsPager method.
+type ClientListSettingsOptions struct {
+	// placeholder for future optional parameters
 }
 
 // ClientUpdateOptions contains the optional parameters for the Client.Update method.
@@ -87,8 +81,8 @@ type ClientUpdateOptions struct {
 	CacheControl *string
 }
 
-// EntitiesClientListOptions contains the optional parameters for the EntitiesClient.NewListPager method.
-type EntitiesClientListOptions struct {
+// EntitiesOperationsClientListOptions contains the optional parameters for the EntitiesOperationsClient.NewListPager method.
+type EntitiesOperationsClientListOptions struct {
 	// Indicates whether the request should utilize any caches. Populate the header with 'no-cache' value to bypass existing caches.
 	CacheControl *string
 
@@ -136,63 +130,70 @@ type EntitiesClientListOptions struct {
 	View *EntityViewParameterType
 }
 
-// HierarchySettingsClientCreateOrUpdateOptions contains the optional parameters for the HierarchySettingsClient.CreateOrUpdate
+// HierarchySettingsOperationGroupClientCreateOrUpdateOptions contains the optional parameters for the HierarchySettingsOperationGroupClient.CreateOrUpdate
 // method.
-type HierarchySettingsClientCreateOrUpdateOptions struct {
+type HierarchySettingsOperationGroupClientCreateOrUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
-// HierarchySettingsClientDeleteOptions contains the optional parameters for the HierarchySettingsClient.Delete method.
-type HierarchySettingsClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
-// HierarchySettingsClientGetOptions contains the optional parameters for the HierarchySettingsClient.Get method.
-type HierarchySettingsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// HierarchySettingsClientListOptions contains the optional parameters for the HierarchySettingsClient.List method.
-type HierarchySettingsClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// HierarchySettingsClientUpdateOptions contains the optional parameters for the HierarchySettingsClient.Update method.
-type HierarchySettingsClientUpdateOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ManagementGroupSubscriptionsClientCreateOptions contains the optional parameters for the ManagementGroupSubscriptionsClient.Create
+// HierarchySettingsOperationGroupClientDeleteOptions contains the optional parameters for the HierarchySettingsOperationGroupClient.Delete
 // method.
-type ManagementGroupSubscriptionsClientCreateOptions struct {
-	// Indicates whether the request should utilize any caches. Populate the header with 'no-cache' value to bypass existing caches.
-	CacheControl *string
+type HierarchySettingsOperationGroupClientDeleteOptions struct {
+	// placeholder for future optional parameters
 }
 
-// ManagementGroupSubscriptionsClientDeleteOptions contains the optional parameters for the ManagementGroupSubscriptionsClient.Delete
+// HierarchySettingsOperationGroupClientGetOptions contains the optional parameters for the HierarchySettingsOperationGroupClient.Get
 // method.
-type ManagementGroupSubscriptionsClientDeleteOptions struct {
-	// Indicates whether the request should utilize any caches. Populate the header with 'no-cache' value to bypass existing caches.
-	CacheControl *string
+type HierarchySettingsOperationGroupClientGetOptions struct {
+	// placeholder for future optional parameters
 }
 
-// ManagementGroupSubscriptionsClientGetSubscriptionOptions contains the optional parameters for the ManagementGroupSubscriptionsClient.GetSubscription
+// HierarchySettingsOperationGroupClientListOptions contains the optional parameters for the HierarchySettingsOperationGroupClient.NewListPager
 // method.
-type ManagementGroupSubscriptionsClientGetSubscriptionOptions struct {
-	// Indicates whether the request should utilize any caches. Populate the header with 'no-cache' value to bypass existing caches.
-	CacheControl *string
+type HierarchySettingsOperationGroupClientListOptions struct {
+	// placeholder for future optional parameters
 }
 
-// ManagementGroupSubscriptionsClientGetSubscriptionsUnderManagementGroupOptions contains the optional parameters for the
-// ManagementGroupSubscriptionsClient.NewGetSubscriptionsUnderManagementGroupPager method.
-type ManagementGroupSubscriptionsClientGetSubscriptionsUnderManagementGroupOptions struct {
-	// Page continuation token is only used if a previous operation returned a partial result. If a previous response contains
-	// a nextLink element, the value of the nextLink element will include a token
-	// parameter that specifies a starting point to use for subsequent calls.
-	Skiptoken *string
+// HierarchySettingsOperationGroupClientUpdateOptions contains the optional parameters for the HierarchySettingsOperationGroupClient.Update
+// method.
+type HierarchySettingsOperationGroupClientUpdateOptions struct {
+	// placeholder for future optional parameters
 }
 
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
+}
+
+// SubscriptionUnderManagementGroupsClientCreateOptions contains the optional parameters for the SubscriptionUnderManagementGroupsClient.Create
+// method.
+type SubscriptionUnderManagementGroupsClientCreateOptions struct {
+	// Indicates whether the request should utilize any caches. Populate the header with 'no-cache' value to bypass existing caches.
+	CacheControl *string
+
+	// Resource create parameters.
+	Resource *SubscriptionUnderManagementGroup
+}
+
+// SubscriptionUnderManagementGroupsClientDeleteOptions contains the optional parameters for the SubscriptionUnderManagementGroupsClient.Delete
+// method.
+type SubscriptionUnderManagementGroupsClientDeleteOptions struct {
+	// Indicates whether the request should utilize any caches. Populate the header with 'no-cache' value to bypass existing caches.
+	CacheControl *string
+}
+
+// SubscriptionUnderManagementGroupsClientGetSubscriptionOptions contains the optional parameters for the SubscriptionUnderManagementGroupsClient.GetSubscription
+// method.
+type SubscriptionUnderManagementGroupsClientGetSubscriptionOptions struct {
+	// Indicates whether the request should utilize any caches. Populate the header with 'no-cache' value to bypass existing caches.
+	CacheControl *string
+}
+
+// SubscriptionUnderManagementGroupsClientGetSubscriptionsUnderManagementGroupOptions contains the optional parameters for
+// the SubscriptionUnderManagementGroupsClient.NewGetSubscriptionsUnderManagementGroupPager method.
+type SubscriptionUnderManagementGroupsClientGetSubscriptionsUnderManagementGroupOptions struct {
+	// Page continuation token is only used if a previous operation returned a partial result. If a previous response contains
+	// a nextLink element, the value of the nextLink element will include a token
+	// parameter that specifies a starting point to use for subsequent calls.
+	Skiptoken *string
 }
