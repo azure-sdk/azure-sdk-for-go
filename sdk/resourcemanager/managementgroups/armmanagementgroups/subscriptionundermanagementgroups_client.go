@@ -20,21 +20,21 @@ import (
 	"strings"
 )
 
-// ManagementGroupSubscriptionsClient contains the methods for the ManagementGroupSubscriptions group.
-// Don't use this type directly, use NewManagementGroupSubscriptionsClient() instead.
-type ManagementGroupSubscriptionsClient struct {
+// SubscriptionUnderManagementGroupsClient contains the methods for the SubscriptionUnderManagementGroups group.
+// Don't use this type directly, use NewSubscriptionUnderManagementGroupsClient() instead.
+type SubscriptionUnderManagementGroupsClient struct {
 	internal *arm.Client
 }
 
-// NewManagementGroupSubscriptionsClient creates a new instance of ManagementGroupSubscriptionsClient with the specified values.
+// NewSubscriptionUnderManagementGroupsClient creates a new instance of SubscriptionUnderManagementGroupsClient with the specified values.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewManagementGroupSubscriptionsClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*ManagementGroupSubscriptionsClient, error) {
+func NewSubscriptionUnderManagementGroupsClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*SubscriptionUnderManagementGroupsClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &ManagementGroupSubscriptionsClient{
+	client := &SubscriptionUnderManagementGroupsClient{
 		internal: cl,
 	}
 	return client, nil
@@ -43,35 +43,35 @@ func NewManagementGroupSubscriptionsClient(credential azcore.TokenCredential, op
 // Create - Associates existing subscription with the management group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2023-04-01
 //   - groupID - Management Group ID.
 //   - subscriptionID - Subscription ID.
-//   - options - ManagementGroupSubscriptionsClientCreateOptions contains the optional parameters for the ManagementGroupSubscriptionsClient.Create
+//   - options - SubscriptionUnderManagementGroupsClientCreateOptions contains the optional parameters for the SubscriptionUnderManagementGroupsClient.Create
 //     method.
-func (client *ManagementGroupSubscriptionsClient) Create(ctx context.Context, groupID string, subscriptionID string, options *ManagementGroupSubscriptionsClientCreateOptions) (ManagementGroupSubscriptionsClientCreateResponse, error) {
+func (client *SubscriptionUnderManagementGroupsClient) Create(ctx context.Context, groupID string, subscriptionID string, options *SubscriptionUnderManagementGroupsClientCreateOptions) (SubscriptionUnderManagementGroupsClientCreateResponse, error) {
 	var err error
-	const operationName = "ManagementGroupSubscriptionsClient.Create"
+	const operationName = "SubscriptionUnderManagementGroupsClient.Create"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.createCreateRequest(ctx, groupID, subscriptionID, options)
 	if err != nil {
-		return ManagementGroupSubscriptionsClientCreateResponse{}, err
+		return SubscriptionUnderManagementGroupsClientCreateResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ManagementGroupSubscriptionsClientCreateResponse{}, err
+		return SubscriptionUnderManagementGroupsClientCreateResponse{}, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated) {
 		err = runtime.NewResponseError(httpResp)
-		return ManagementGroupSubscriptionsClientCreateResponse{}, err
+		return SubscriptionUnderManagementGroupsClientCreateResponse{}, err
 	}
 	resp, err := client.createHandleResponse(httpResp)
 	return resp, err
 }
 
 // createCreateRequest creates the Create request.
-func (client *ManagementGroupSubscriptionsClient) createCreateRequest(ctx context.Context, groupID string, subscriptionID string, options *ManagementGroupSubscriptionsClientCreateOptions) (*policy.Request, error) {
+func (client *SubscriptionUnderManagementGroupsClient) createCreateRequest(ctx context.Context, groupID string, subscriptionID string, options *SubscriptionUnderManagementGroupsClientCreateOptions) (*policy.Request, error) {
 	urlPath := "/providers/Microsoft.Management/managementGroups/{groupId}/subscriptions/{subscriptionId}"
 	if groupID == "" {
 		return nil, errors.New("parameter groupID cannot be empty")
@@ -86,20 +86,26 @@ func (client *ManagementGroupSubscriptionsClient) createCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
-	if options != nil && options.CacheControl != nil {
-		req.Raw().Header["Cache-Control"] = []string{*options.CacheControl}
-	}
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	if options != nil && options.CacheControl != nil {
+		req.Raw().Header["cache-control"] = []string{*options.CacheControl}
+	}
+	if options != nil && options.Resource != nil {
+		if err := runtime.MarshalAsJSON(req, *options.Resource); err != nil {
+			return nil, err
+		}
+		return req, nil
+	}
 	return req, nil
 }
 
 // createHandleResponse handles the Create response.
-func (client *ManagementGroupSubscriptionsClient) createHandleResponse(resp *http.Response) (ManagementGroupSubscriptionsClientCreateResponse, error) {
-	result := ManagementGroupSubscriptionsClientCreateResponse{}
+func (client *SubscriptionUnderManagementGroupsClient) createHandleResponse(resp *http.Response) (SubscriptionUnderManagementGroupsClientCreateResponse, error) {
+	result := SubscriptionUnderManagementGroupsClientCreateResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.SubscriptionUnderManagementGroup); err != nil {
-		return ManagementGroupSubscriptionsClientCreateResponse{}, err
+		return SubscriptionUnderManagementGroupsClientCreateResponse{}, err
 	}
 	return result, nil
 }
@@ -107,34 +113,34 @@ func (client *ManagementGroupSubscriptionsClient) createHandleResponse(resp *htt
 // Delete - De-associates subscription from the management group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2023-04-01
 //   - groupID - Management Group ID.
 //   - subscriptionID - Subscription ID.
-//   - options - ManagementGroupSubscriptionsClientDeleteOptions contains the optional parameters for the ManagementGroupSubscriptionsClient.Delete
+//   - options - SubscriptionUnderManagementGroupsClientDeleteOptions contains the optional parameters for the SubscriptionUnderManagementGroupsClient.Delete
 //     method.
-func (client *ManagementGroupSubscriptionsClient) Delete(ctx context.Context, groupID string, subscriptionID string, options *ManagementGroupSubscriptionsClientDeleteOptions) (ManagementGroupSubscriptionsClientDeleteResponse, error) {
+func (client *SubscriptionUnderManagementGroupsClient) Delete(ctx context.Context, groupID string, subscriptionID string, options *SubscriptionUnderManagementGroupsClientDeleteOptions) (SubscriptionUnderManagementGroupsClientDeleteResponse, error) {
 	var err error
-	const operationName = "ManagementGroupSubscriptionsClient.Delete"
+	const operationName = "SubscriptionUnderManagementGroupsClient.Delete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.deleteCreateRequest(ctx, groupID, subscriptionID, options)
 	if err != nil {
-		return ManagementGroupSubscriptionsClientDeleteResponse{}, err
+		return SubscriptionUnderManagementGroupsClientDeleteResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ManagementGroupSubscriptionsClientDeleteResponse{}, err
+		return SubscriptionUnderManagementGroupsClientDeleteResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
-		return ManagementGroupSubscriptionsClientDeleteResponse{}, err
+		return SubscriptionUnderManagementGroupsClientDeleteResponse{}, err
 	}
-	return ManagementGroupSubscriptionsClientDeleteResponse{}, nil
+	return SubscriptionUnderManagementGroupsClientDeleteResponse{}, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *ManagementGroupSubscriptionsClient) deleteCreateRequest(ctx context.Context, groupID string, subscriptionID string, options *ManagementGroupSubscriptionsClientDeleteOptions) (*policy.Request, error) {
+func (client *SubscriptionUnderManagementGroupsClient) deleteCreateRequest(ctx context.Context, groupID string, subscriptionID string, options *SubscriptionUnderManagementGroupsClientDeleteOptions) (*policy.Request, error) {
 	urlPath := "/providers/Microsoft.Management/managementGroups/{groupId}/subscriptions/{subscriptionId}"
 	if groupID == "" {
 		return nil, errors.New("parameter groupID cannot be empty")
@@ -149,47 +155,47 @@ func (client *ManagementGroupSubscriptionsClient) deleteCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
-	if options != nil && options.CacheControl != nil {
-		req.Raw().Header["Cache-Control"] = []string{*options.CacheControl}
-	}
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	if options != nil && options.CacheControl != nil {
+		req.Raw().Header["cache-control"] = []string{*options.CacheControl}
+	}
 	return req, nil
 }
 
 // GetSubscription - Retrieves details about given subscription which is associated with the management group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2023-04-01
 //   - groupID - Management Group ID.
 //   - subscriptionID - Subscription ID.
-//   - options - ManagementGroupSubscriptionsClientGetSubscriptionOptions contains the optional parameters for the ManagementGroupSubscriptionsClient.GetSubscription
+//   - options - SubscriptionUnderManagementGroupsClientGetSubscriptionOptions contains the optional parameters for the SubscriptionUnderManagementGroupsClient.GetSubscription
 //     method.
-func (client *ManagementGroupSubscriptionsClient) GetSubscription(ctx context.Context, groupID string, subscriptionID string, options *ManagementGroupSubscriptionsClientGetSubscriptionOptions) (ManagementGroupSubscriptionsClientGetSubscriptionResponse, error) {
+func (client *SubscriptionUnderManagementGroupsClient) GetSubscription(ctx context.Context, groupID string, subscriptionID string, options *SubscriptionUnderManagementGroupsClientGetSubscriptionOptions) (SubscriptionUnderManagementGroupsClientGetSubscriptionResponse, error) {
 	var err error
-	const operationName = "ManagementGroupSubscriptionsClient.GetSubscription"
+	const operationName = "SubscriptionUnderManagementGroupsClient.GetSubscription"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.getSubscriptionCreateRequest(ctx, groupID, subscriptionID, options)
 	if err != nil {
-		return ManagementGroupSubscriptionsClientGetSubscriptionResponse{}, err
+		return SubscriptionUnderManagementGroupsClientGetSubscriptionResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ManagementGroupSubscriptionsClientGetSubscriptionResponse{}, err
+		return SubscriptionUnderManagementGroupsClientGetSubscriptionResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return ManagementGroupSubscriptionsClientGetSubscriptionResponse{}, err
+		return SubscriptionUnderManagementGroupsClientGetSubscriptionResponse{}, err
 	}
 	resp, err := client.getSubscriptionHandleResponse(httpResp)
 	return resp, err
 }
 
 // getSubscriptionCreateRequest creates the GetSubscription request.
-func (client *ManagementGroupSubscriptionsClient) getSubscriptionCreateRequest(ctx context.Context, groupID string, subscriptionID string, options *ManagementGroupSubscriptionsClientGetSubscriptionOptions) (*policy.Request, error) {
+func (client *SubscriptionUnderManagementGroupsClient) getSubscriptionCreateRequest(ctx context.Context, groupID string, subscriptionID string, options *SubscriptionUnderManagementGroupsClientGetSubscriptionOptions) (*policy.Request, error) {
 	urlPath := "/providers/Microsoft.Management/managementGroups/{groupId}/subscriptions/{subscriptionId}"
 	if groupID == "" {
 		return nil, errors.New("parameter groupID cannot be empty")
@@ -204,20 +210,20 @@ func (client *ManagementGroupSubscriptionsClient) getSubscriptionCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
-	if options != nil && options.CacheControl != nil {
-		req.Raw().Header["Cache-Control"] = []string{*options.CacheControl}
-	}
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	if options != nil && options.CacheControl != nil {
+		req.Raw().Header["cache-control"] = []string{*options.CacheControl}
+	}
 	return req, nil
 }
 
 // getSubscriptionHandleResponse handles the GetSubscription response.
-func (client *ManagementGroupSubscriptionsClient) getSubscriptionHandleResponse(resp *http.Response) (ManagementGroupSubscriptionsClientGetSubscriptionResponse, error) {
-	result := ManagementGroupSubscriptionsClientGetSubscriptionResponse{}
+func (client *SubscriptionUnderManagementGroupsClient) getSubscriptionHandleResponse(resp *http.Response) (SubscriptionUnderManagementGroupsClientGetSubscriptionResponse, error) {
+	result := SubscriptionUnderManagementGroupsClientGetSubscriptionResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.SubscriptionUnderManagementGroup); err != nil {
-		return ManagementGroupSubscriptionsClientGetSubscriptionResponse{}, err
+		return SubscriptionUnderManagementGroupsClientGetSubscriptionResponse{}, err
 	}
 	return result, nil
 }
@@ -225,17 +231,17 @@ func (client *ManagementGroupSubscriptionsClient) getSubscriptionHandleResponse(
 // NewGetSubscriptionsUnderManagementGroupPager - Retrieves details about all subscriptions which are associated with the
 // management group.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2023-04-01
 //   - groupID - Management Group ID.
-//   - options - ManagementGroupSubscriptionsClientGetSubscriptionsUnderManagementGroupOptions contains the optional parameters
-//     for the ManagementGroupSubscriptionsClient.NewGetSubscriptionsUnderManagementGroupPager method.
-func (client *ManagementGroupSubscriptionsClient) NewGetSubscriptionsUnderManagementGroupPager(groupID string, options *ManagementGroupSubscriptionsClientGetSubscriptionsUnderManagementGroupOptions) *runtime.Pager[ManagementGroupSubscriptionsClientGetSubscriptionsUnderManagementGroupResponse] {
-	return runtime.NewPager(runtime.PagingHandler[ManagementGroupSubscriptionsClientGetSubscriptionsUnderManagementGroupResponse]{
-		More: func(page ManagementGroupSubscriptionsClientGetSubscriptionsUnderManagementGroupResponse) bool {
+//   - options - SubscriptionUnderManagementGroupsClientGetSubscriptionsUnderManagementGroupOptions contains the optional parameters
+//     for the SubscriptionUnderManagementGroupsClient.NewGetSubscriptionsUnderManagementGroupPager method.
+func (client *SubscriptionUnderManagementGroupsClient) NewGetSubscriptionsUnderManagementGroupPager(groupID string, options *SubscriptionUnderManagementGroupsClientGetSubscriptionsUnderManagementGroupOptions) *runtime.Pager[SubscriptionUnderManagementGroupsClientGetSubscriptionsUnderManagementGroupResponse] {
+	return runtime.NewPager(runtime.PagingHandler[SubscriptionUnderManagementGroupsClientGetSubscriptionsUnderManagementGroupResponse]{
+		More: func(page SubscriptionUnderManagementGroupsClientGetSubscriptionsUnderManagementGroupResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *ManagementGroupSubscriptionsClientGetSubscriptionsUnderManagementGroupResponse) (ManagementGroupSubscriptionsClientGetSubscriptionsUnderManagementGroupResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ManagementGroupSubscriptionsClient.NewGetSubscriptionsUnderManagementGroupPager")
+		Fetcher: func(ctx context.Context, page *SubscriptionUnderManagementGroupsClientGetSubscriptionsUnderManagementGroupResponse) (SubscriptionUnderManagementGroupsClientGetSubscriptionsUnderManagementGroupResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "SubscriptionUnderManagementGroupsClient.NewGetSubscriptionsUnderManagementGroupPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
@@ -244,7 +250,7 @@ func (client *ManagementGroupSubscriptionsClient) NewGetSubscriptionsUnderManage
 				return client.getSubscriptionsUnderManagementGroupCreateRequest(ctx, groupID, options)
 			}, nil)
 			if err != nil {
-				return ManagementGroupSubscriptionsClientGetSubscriptionsUnderManagementGroupResponse{}, err
+				return SubscriptionUnderManagementGroupsClientGetSubscriptionsUnderManagementGroupResponse{}, err
 			}
 			return client.getSubscriptionsUnderManagementGroupHandleResponse(resp)
 		},
@@ -253,7 +259,7 @@ func (client *ManagementGroupSubscriptionsClient) NewGetSubscriptionsUnderManage
 }
 
 // getSubscriptionsUnderManagementGroupCreateRequest creates the GetSubscriptionsUnderManagementGroup request.
-func (client *ManagementGroupSubscriptionsClient) getSubscriptionsUnderManagementGroupCreateRequest(ctx context.Context, groupID string, options *ManagementGroupSubscriptionsClientGetSubscriptionsUnderManagementGroupOptions) (*policy.Request, error) {
+func (client *SubscriptionUnderManagementGroupsClient) getSubscriptionsUnderManagementGroupCreateRequest(ctx context.Context, groupID string, options *SubscriptionUnderManagementGroupsClientGetSubscriptionsUnderManagementGroupOptions) (*policy.Request, error) {
 	urlPath := "/providers/Microsoft.Management/managementGroups/{groupId}/subscriptions"
 	if groupID == "" {
 		return nil, errors.New("parameter groupID cannot be empty")
@@ -264,20 +270,20 @@ func (client *ManagementGroupSubscriptionsClient) getSubscriptionsUnderManagemen
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
 	if options != nil && options.Skiptoken != nil {
 		reqQP.Set("$skiptoken", *options.Skiptoken)
 	}
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
 // getSubscriptionsUnderManagementGroupHandleResponse handles the GetSubscriptionsUnderManagementGroup response.
-func (client *ManagementGroupSubscriptionsClient) getSubscriptionsUnderManagementGroupHandleResponse(resp *http.Response) (ManagementGroupSubscriptionsClientGetSubscriptionsUnderManagementGroupResponse, error) {
-	result := ManagementGroupSubscriptionsClientGetSubscriptionsUnderManagementGroupResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ListSubscriptionUnderManagementGroup); err != nil {
-		return ManagementGroupSubscriptionsClientGetSubscriptionsUnderManagementGroupResponse{}, err
+func (client *SubscriptionUnderManagementGroupsClient) getSubscriptionsUnderManagementGroupHandleResponse(resp *http.Response) (SubscriptionUnderManagementGroupsClientGetSubscriptionsUnderManagementGroupResponse, error) {
+	result := SubscriptionUnderManagementGroupsClientGetSubscriptionsUnderManagementGroupResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.SubscriptionUnderManagementGroupListResult); err != nil {
+		return SubscriptionUnderManagementGroupsClientGetSubscriptionsUnderManagementGroupResponse{}, err
 	}
 	return result, nil
 }

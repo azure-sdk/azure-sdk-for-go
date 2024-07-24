@@ -16,8 +16,7 @@ import (
 // ClientFactory is a client factory used to create any client in this module.
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
-	credential azcore.TokenCredential
-	options    *arm.ClientOptions
+	internal *arm.Client
 }
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
@@ -25,48 +24,53 @@ type ClientFactory struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
-	_, err := arm.NewClient(moduleName, moduleVersion, credential, options)
+	internal, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		credential: credential,
-		options:    options.Clone(),
+		internal: internal,
 	}, nil
 }
 
 // NewAPIClient creates a new instance of APIClient.
 func (c *ClientFactory) NewAPIClient() *APIClient {
-	subClient, _ := NewAPIClient(c.credential, c.options)
-	return subClient
+	return &APIClient{
+		internal: c.internal,
+	}
 }
 
 // NewClient creates a new instance of Client.
 func (c *ClientFactory) NewClient() *Client {
-	subClient, _ := NewClient(c.credential, c.options)
-	return subClient
+	return &Client{
+		internal: c.internal,
+	}
 }
 
-// NewEntitiesClient creates a new instance of EntitiesClient.
-func (c *ClientFactory) NewEntitiesClient() *EntitiesClient {
-	subClient, _ := NewEntitiesClient(c.credential, c.options)
-	return subClient
+// NewEntitiesOperationsClient creates a new instance of EntitiesOperationsClient.
+func (c *ClientFactory) NewEntitiesOperationsClient() *EntitiesOperationsClient {
+	return &EntitiesOperationsClient{
+		internal: c.internal,
+	}
 }
 
-// NewHierarchySettingsClient creates a new instance of HierarchySettingsClient.
-func (c *ClientFactory) NewHierarchySettingsClient() *HierarchySettingsClient {
-	subClient, _ := NewHierarchySettingsClient(c.credential, c.options)
-	return subClient
-}
-
-// NewManagementGroupSubscriptionsClient creates a new instance of ManagementGroupSubscriptionsClient.
-func (c *ClientFactory) NewManagementGroupSubscriptionsClient() *ManagementGroupSubscriptionsClient {
-	subClient, _ := NewManagementGroupSubscriptionsClient(c.credential, c.options)
-	return subClient
+// NewHierarchySettingsOperationGroupClient creates a new instance of HierarchySettingsOperationGroupClient.
+func (c *ClientFactory) NewHierarchySettingsOperationGroupClient() *HierarchySettingsOperationGroupClient {
+	return &HierarchySettingsOperationGroupClient{
+		internal: c.internal,
+	}
 }
 
 // NewOperationsClient creates a new instance of OperationsClient.
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
-	subClient, _ := NewOperationsClient(c.credential, c.options)
-	return subClient
+	return &OperationsClient{
+		internal: c.internal,
+	}
+}
+
+// NewSubscriptionUnderManagementGroupsClient creates a new instance of SubscriptionUnderManagementGroupsClient.
+func (c *ClientFactory) NewSubscriptionUnderManagementGroupsClient() *SubscriptionUnderManagementGroupsClient {
+	return &SubscriptionUnderManagementGroupsClient{
+		internal: c.internal,
+	}
 }

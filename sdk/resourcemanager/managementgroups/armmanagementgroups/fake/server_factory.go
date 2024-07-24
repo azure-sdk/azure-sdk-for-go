@@ -19,12 +19,12 @@ import (
 
 // ServerFactory is a fake server for instances of the armmanagementgroups.ClientFactory type.
 type ServerFactory struct {
-	APIServer                          APIServer
-	Server                             Server
-	EntitiesServer                     EntitiesServer
-	HierarchySettingsServer            HierarchySettingsServer
-	ManagementGroupSubscriptionsServer ManagementGroupSubscriptionsServer
-	OperationsServer                   OperationsServer
+	APIServer                               APIServer
+	Server                                  Server
+	EntitiesOperationsServer                EntitiesOperationsServer
+	HierarchySettingsOperationGroupServer   HierarchySettingsOperationGroupServer
+	OperationsServer                        OperationsServer
+	SubscriptionUnderManagementGroupsServer SubscriptionUnderManagementGroupsServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -39,14 +39,14 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armmanagementgroups.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                                  *ServerFactory
-	trMu                                 sync.Mutex
-	trAPIServer                          *APIServerTransport
-	trServer                             *ServerTransport
-	trEntitiesServer                     *EntitiesServerTransport
-	trHierarchySettingsServer            *HierarchySettingsServerTransport
-	trManagementGroupSubscriptionsServer *ManagementGroupSubscriptionsServerTransport
-	trOperationsServer                   *OperationsServerTransport
+	srv                                       *ServerFactory
+	trMu                                      sync.Mutex
+	trAPIServer                               *APIServerTransport
+	trServer                                  *ServerTransport
+	trEntitiesOperationsServer                *EntitiesOperationsServerTransport
+	trHierarchySettingsOperationGroupServer   *HierarchySettingsOperationGroupServerTransport
+	trOperationsServer                        *OperationsServerTransport
+	trSubscriptionUnderManagementGroupsServer *SubscriptionUnderManagementGroupsServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -68,22 +68,24 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "Client":
 		initServer(s, &s.trServer, func() *ServerTransport { return NewServerTransport(&s.srv.Server) })
 		resp, err = s.trServer.Do(req)
-	case "EntitiesClient":
-		initServer(s, &s.trEntitiesServer, func() *EntitiesServerTransport { return NewEntitiesServerTransport(&s.srv.EntitiesServer) })
-		resp, err = s.trEntitiesServer.Do(req)
-	case "HierarchySettingsClient":
-		initServer(s, &s.trHierarchySettingsServer, func() *HierarchySettingsServerTransport {
-			return NewHierarchySettingsServerTransport(&s.srv.HierarchySettingsServer)
+	case "EntitiesOperationsClient":
+		initServer(s, &s.trEntitiesOperationsServer, func() *EntitiesOperationsServerTransport {
+			return NewEntitiesOperationsServerTransport(&s.srv.EntitiesOperationsServer)
 		})
-		resp, err = s.trHierarchySettingsServer.Do(req)
-	case "ManagementGroupSubscriptionsClient":
-		initServer(s, &s.trManagementGroupSubscriptionsServer, func() *ManagementGroupSubscriptionsServerTransport {
-			return NewManagementGroupSubscriptionsServerTransport(&s.srv.ManagementGroupSubscriptionsServer)
+		resp, err = s.trEntitiesOperationsServer.Do(req)
+	case "HierarchySettingsOperationGroupClient":
+		initServer(s, &s.trHierarchySettingsOperationGroupServer, func() *HierarchySettingsOperationGroupServerTransport {
+			return NewHierarchySettingsOperationGroupServerTransport(&s.srv.HierarchySettingsOperationGroupServer)
 		})
-		resp, err = s.trManagementGroupSubscriptionsServer.Do(req)
+		resp, err = s.trHierarchySettingsOperationGroupServer.Do(req)
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
+	case "SubscriptionUnderManagementGroupsClient":
+		initServer(s, &s.trSubscriptionUnderManagementGroupsServer, func() *SubscriptionUnderManagementGroupsServerTransport {
+			return NewSubscriptionUnderManagementGroupsServerTransport(&s.srv.SubscriptionUnderManagementGroupsServer)
+		})
+		resp, err = s.trSubscriptionUnderManagementGroupsServer.Do(req)
 	default:
 		err = fmt.Errorf("unhandled client %s", client)
 	}

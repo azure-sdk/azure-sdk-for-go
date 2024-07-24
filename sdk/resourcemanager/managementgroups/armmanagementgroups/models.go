@@ -10,24 +10,6 @@ package armmanagementgroups
 
 import "time"
 
-// AzureAsyncOperationResults - The results of Azure-AsyncOperation.
-type AzureAsyncOperationResults struct {
-	// The generic properties of a management group.
-	Properties *ManagementGroupInfoProperties
-
-	// READ-ONLY; The fully qualified ID for the management group. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000
-	ID *string
-
-	// READ-ONLY; The name of the management group. For example, 00000000-0000-0000-0000-000000000000
-	Name *string
-
-	// READ-ONLY; The current status of the asynchronous operation performed . For example, Running, Succeeded, Failed
-	Status *string
-
-	// READ-ONLY; The type of the resource. For example, Microsoft.Management/managementGroups
-	Type *string
-}
-
 // CheckNameAvailabilityRequest - Management group name availability check parameters.
 type CheckNameAvailabilityRequest struct {
 	// the name to check for availability
@@ -54,69 +36,6 @@ type CheckNameAvailabilityResult struct {
 	Reason *Reason
 }
 
-// CreateManagementGroupChildInfo - The child information of a management group used during creation.
-type CreateManagementGroupChildInfo struct {
-	// READ-ONLY; The list of children.
-	Children []*CreateManagementGroupChildInfo
-
-	// READ-ONLY; The friendly name of the child resource.
-	DisplayName *string
-
-	// READ-ONLY; The fully qualified ID for the child resource (management group or subscription). For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000
-	ID *string
-
-	// READ-ONLY; The name of the child entity.
-	Name *string
-
-	// READ-ONLY; The fully qualified resource type which includes provider namespace (e.g. Microsoft.Management/managementGroups)
-	Type *ManagementGroupChildType
-}
-
-// CreateManagementGroupDetails - The details of a management group used during creation.
-type CreateManagementGroupDetails struct {
-	// (Optional) The ID of the parent management group used during creation.
-	Parent *CreateParentGroupInfo
-
-	// READ-ONLY; The identity of the principal or process that updated the object.
-	UpdatedBy *string
-
-	// READ-ONLY; The date and time when this object was last updated.
-	UpdatedTime *time.Time
-
-	// READ-ONLY; The version number of the object.
-	Version *int32
-}
-
-// CreateManagementGroupProperties - The generic properties of a management group used during creation.
-type CreateManagementGroupProperties struct {
-	// The details of a management group used during creation.
-	Details *CreateManagementGroupDetails
-
-	// The friendly name of the management group. If no value is passed then this field will be set to the groupId.
-	DisplayName *string
-
-	// READ-ONLY; The list of children.
-	Children []*CreateManagementGroupChildInfo
-
-	// READ-ONLY; The AAD Tenant ID associated with the management group. For example, 00000000-0000-0000-0000-000000000000
-	TenantID *string
-}
-
-// CreateManagementGroupRequest - Management group creation parameters.
-type CreateManagementGroupRequest struct {
-	// The name of the management group. For example, 00000000-0000-0000-0000-000000000000
-	Name *string
-
-	// The generic properties of a management group used during creation.
-	Properties *CreateManagementGroupProperties
-
-	// READ-ONLY; The fully qualified ID for the management group. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000
-	ID *string
-
-	// READ-ONLY; The type of the resource. For example, Microsoft.Management/managementGroups
-	Type *string
-}
-
 // CreateOrUpdateSettingsProperties - The properties of the request to create or update Management Group settings
 type CreateOrUpdateSettingsProperties struct {
 	// Settings that sets the default Management Group under which new subscriptions get added in this tenant. For example, /providers/Microsoft.Management/managementGroups/defaultGroup
@@ -133,18 +52,6 @@ type CreateOrUpdateSettingsProperties struct {
 type CreateOrUpdateSettingsRequest struct {
 	// The properties of the request to create or update Management Group settings
 	Properties *CreateOrUpdateSettingsProperties
-}
-
-// CreateParentGroupInfo - (Optional) The ID of the parent management group used during creation.
-type CreateParentGroupInfo struct {
-	// The fully qualified ID for the parent management group. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000
-	ID *string
-
-	// READ-ONLY; The friendly name of the parent management group.
-	DisplayName *string
-
-	// READ-ONLY; The name of the parent management group
-	Name *string
 }
 
 // DescendantInfo - The descendant.
@@ -174,10 +81,10 @@ type DescendantInfoProperties struct {
 
 // DescendantListResult - Describes the result of the request to view descendants.
 type DescendantListResult struct {
-	// The list of descendants.
+	// REQUIRED; The DescendantInfo items on this page
 	Value []*DescendantInfo
 
-	// READ-ONLY; The URL to use for getting the next set of results.
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -185,33 +92,6 @@ type DescendantListResult struct {
 type DescendantParentGroupInfo struct {
 	// The fully qualified ID for the parent management group. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000
 	ID *string
-}
-
-// EntityHierarchyItem - The management group details for the hierarchy view.
-type EntityHierarchyItem struct {
-	// The generic properties of a management group.
-	Properties *EntityHierarchyItemProperties
-
-	// READ-ONLY; The fully qualified ID for the management group. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000
-	ID *string
-
-	// READ-ONLY; The name of the management group. For example, 00000000-0000-0000-0000-000000000000
-	Name *string
-
-	// READ-ONLY; The type of the resource. For example, Microsoft.Management/managementGroups
-	Type *string
-}
-
-// EntityHierarchyItemProperties - The generic properties of a management group.
-type EntityHierarchyItemProperties struct {
-	// The list of children.
-	Children []*EntityHierarchyItem
-
-	// The friendly name of the management group.
-	DisplayName *string
-
-	// The users specific permissions to this item.
-	Permissions *Permissions
 }
 
 // EntityInfo - The entity.
@@ -264,14 +144,14 @@ type EntityInfoProperties struct {
 
 // EntityListResult - Describes the result of the request to view entities.
 type EntityListResult struct {
-	// The list of entities.
+	// REQUIRED; The EntityInfo items on this page
 	Value []*EntityInfo
+
+	// The link to the next page of items
+	NextLink *string
 
 	// READ-ONLY; Total count of records that match the filter
 	Count *int32
-
-	// READ-ONLY; The URL to use for getting the next set of results.
-	NextLink *string
 }
 
 // EntityParentGroupInfo - (Optional) The ID of the parent management group.
@@ -280,60 +160,64 @@ type EntityParentGroupInfo struct {
 	ID *string
 }
 
-// ErrorDetails - The details of the error.
-type ErrorDetails struct {
-	// One of a server-defined set of error codes.
-	Code *string
+// ErrorAdditionalInfo - The resource management error additional info.
+type ErrorAdditionalInfo struct {
+	// READ-ONLY; The additional info.
+	Info any
 
-	// A human-readable representation of the error's details.
-	Details *string
-
-	// A human-readable representation of the error.
-	Message *string
+	// READ-ONLY; The additional info type.
+	Type *string
 }
 
-// ErrorResponse - The error object.
+// ErrorDetail - The error detail.
+type ErrorDetail struct {
+	// READ-ONLY; The error additional info.
+	AdditionalInfo []*ErrorAdditionalInfo
+
+	// READ-ONLY; The error code.
+	Code *string
+
+	// READ-ONLY; The error details.
+	Details []*ErrorDetail
+
+	// READ-ONLY; The error message.
+	Message *string
+
+	// READ-ONLY; The error target.
+	Target *string
+}
+
+// ErrorResponse - Common error response for all Azure Resource Manager APIs to return error details for failed operations.
+// (This also follows the OData error response format.).
 type ErrorResponse struct {
-	// The details of the error.
-	Error *ErrorDetails
+	// The error object.
+	Error *ErrorDetail
 }
 
 // HierarchySettings - Settings defined at the Management Group scope.
 type HierarchySettings struct {
-	// The generic properties of hierarchy settings.
+	// The resource-specific properties for this resource.
 	Properties *HierarchySettingsProperties
 
-	// READ-ONLY; The fully qualified ID for the settings object. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000/settings/default.
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; The name of the object. In this case, default.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The type of the resource. For example, Microsoft.Management/managementGroups/settings.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// HierarchySettingsInfo - The hierarchy settings resource.
-type HierarchySettingsInfo struct {
-	// The generic properties of hierarchy settings.
-	Properties *HierarchySettingsProperties
+// HierarchySettingsListResult - The response of a HierarchySettings list operation.
+type HierarchySettingsListResult struct {
+	// REQUIRED; The HierarchySettings items on this page
+	Value []*HierarchySettings
 
-	// READ-ONLY; The fully qualified ID for the settings object. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000/settings/default.
-	ID *string
-
-	// READ-ONLY; The name of the object. In this case, default.
-	Name *string
-
-	// READ-ONLY; The type of the resource. For example, Microsoft.Management/managementGroups/settings.
-	Type *string
-}
-
-// HierarchySettingsList - Lists all hierarchy settings.
-type HierarchySettingsList struct {
-	// The list of hierarchy settings.
-	Value []*HierarchySettingsInfo
-
-	// READ-ONLY; The URL to use for getting the next set of results.
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -352,27 +236,21 @@ type HierarchySettingsProperties struct {
 	TenantID *string
 }
 
-// ListSubscriptionUnderManagementGroup - The details of all subscriptions under management group.
-type ListSubscriptionUnderManagementGroup struct {
-	// The list of subscriptions.
-	Value []*SubscriptionUnderManagementGroup
-
-	// READ-ONLY; The URL to use for getting the next set of results.
-	NextLink *string
-}
-
 // ManagementGroup - The management group details.
 type ManagementGroup struct {
-	// The generic properties of a management group.
+	// The resource-specific properties for this resource.
 	Properties *ManagementGroupProperties
 
-	// READ-ONLY; The fully qualified ID for the management group. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; The name of the management group. For example, 00000000-0000-0000-0000-000000000000
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The type of the resource. For example, Microsoft.Management/managementGroups
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -418,37 +296,28 @@ type ManagementGroupDetails struct {
 	Version *int32
 }
 
-// ManagementGroupInfo - The management group resource.
-type ManagementGroupInfo struct {
-	// The generic properties of a management group.
-	Properties *ManagementGroupInfoProperties
+// ManagementGroupListResult - The response of a ManagementGroup list operation.
+type ManagementGroupListResult struct {
+	// REQUIRED; The ManagementGroup items on this page
+	Value []*ManagementGroup
 
-	// READ-ONLY; The fully qualified ID for the management group. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000
+	// The link to the next page of items
+	NextLink *string
+}
+
+// ManagementGroupOperationAcceptance - The management group operation acceptance details.
+type ManagementGroupOperationAcceptance struct {
+	// READ-ONLY; The id of the resource. For example, /providers/Microsoft.Management/managementGroups/Group1
 	ID *string
 
-	// READ-ONLY; The name of the management group. For example, 00000000-0000-0000-0000-000000000000
+	// READ-ONLY; The name of the resource. For example, Group1
 	Name *string
+
+	// READ-ONLY; The operation status. For example, NotStarted
+	Status *string
 
 	// READ-ONLY; The type of the resource. For example, Microsoft.Management/managementGroups
 	Type *string
-}
-
-// ManagementGroupInfoProperties - The generic properties of a management group.
-type ManagementGroupInfoProperties struct {
-	// The friendly name of the management group.
-	DisplayName *string
-
-	// The AAD Tenant ID associated with the management group. For example, 00000000-0000-0000-0000-000000000000
-	TenantID *string
-}
-
-// ManagementGroupListResult - Describes the result of the request to list management groups.
-type ManagementGroupListResult struct {
-	// The list of management groups.
-	Value []*ManagementGroupInfo
-
-	// READ-ONLY; The URL to use for getting the next set of results.
-	NextLink *string
 }
 
 // ManagementGroupPathElement - A path element of a management group ancestors.
@@ -475,52 +344,53 @@ type ManagementGroupProperties struct {
 	TenantID *string
 }
 
-// Operation supported by the Microsoft.Management resource provider.
+// Operation - Details of a REST API operation, returned from the Resource Provider Operations API
 type Operation struct {
-	// The object that represents the operation.
-	Display *OperationDisplayProperties
+	// Localized display information for this particular operation.
+	Display *OperationDisplay
 
-	// READ-ONLY; Operation name: {provider}/{resource}/{operation}.
+	// READ-ONLY; Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+	ActionType *ActionType
+
+	// READ-ONLY; Whether the operation applies to data-plane. This is "true" for data-plane operations and "false" for ARM/control-plane
+	// operations.
+	IsDataAction *bool
+
+	// READ-ONLY; The name of the operation, as per Resource-Based Access Control (RBAC). Examples: "Microsoft.Compute/virtualMachines/write",
+	// "Microsoft.Compute/virtualMachines/capture/action"
 	Name *string
+
+	// READ-ONLY; The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
+	// value is "user,system"
+	Origin *Origin
 }
 
-// OperationDisplayProperties - The object that represents the operation.
-type OperationDisplayProperties struct {
-	// READ-ONLY; Operation description.
+// OperationDisplay - Localized display information for this particular operation.
+type OperationDisplay struct {
+	// READ-ONLY; The short, localized friendly description of the operation; suitable for tool tips and detailed views.
 	Description *string
 
-	// READ-ONLY; The operation that can be performed.
+	// READ-ONLY; The concise, localized friendly name for the operation; suitable for dropdowns. E.g. "Create or Update Virtual
+	// Machine", "Restart Virtual Machine".
 	Operation *string
 
-	// READ-ONLY; The name of the provider.
+	// READ-ONLY; The localized friendly form of the resource provider name, e.g. "Microsoft Monitoring Insights" or "Microsoft
+	// Compute".
 	Provider *string
 
-	// READ-ONLY; The resource on which the operation is performed.
+	// READ-ONLY; The localized friendly name of the resource type related to this operation. E.g. "Virtual Machines" or "Job
+	// Schedule Collections".
 	Resource *string
 }
 
-// OperationListResult - Describes the result of the request to list Microsoft.Management operations.
+// OperationListResult - A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to
+// get the next set of results.
 type OperationListResult struct {
-	// READ-ONLY; URL to get the next set of operation list results if there are any.
+	// READ-ONLY; URL to get the next set of operation list results (if there are any).
 	NextLink *string
 
-	// READ-ONLY; List of operations supported by the Microsoft.Management resource provider.
+	// READ-ONLY; List of operations supported by the resource provider
 	Value []*Operation
-}
-
-// OperationResults - The results of an asynchronous operation.
-type OperationResults struct {
-	// The generic properties of a management group.
-	Properties *ManagementGroupInfoProperties
-
-	// READ-ONLY; The fully qualified ID for the management group. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000
-	ID *string
-
-	// READ-ONLY; The name of the management group. For example, 00000000-0000-0000-0000-000000000000
-	Name *string
-
-	// READ-ONLY; The type of the resource. For example, Microsoft.Management/managementGroups
-	Type *string
 }
 
 // ParentGroupInfo - (Optional) The ID of the parent management group.
@@ -544,19 +414,67 @@ type PatchManagementGroupRequest struct {
 	ParentGroupID *string
 }
 
-// SubscriptionUnderManagementGroup - The details of subscription under management group.
-type SubscriptionUnderManagementGroup struct {
-	// The generic properties of subscription under a management group.
-	Properties *SubscriptionUnderManagementGroupProperties
+type PathsItdwrvProvidersMicrosoftManagementChecknameavailabilityPostRequestbodyContentApplicationJSONSchema struct {
+	// REQUIRED; Management group name availability check parameters.
+	CheckNameAvailabilityRequest *CheckNameAvailabilityRequest
+}
 
-	// READ-ONLY; The fully qualified ID for the subscription. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000/subscriptions/0000000-0000-0000-0000-000000000001
+// ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
+// location
+type ProxyResource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
-	// READ-ONLY; The stringified id of the subscription. For example, 00000000-0000-0000-0000-000000000000
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The type of the resource. For example, Microsoft.Management/managementGroups/subscriptions
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
+}
+
+// Resource - Common fields that are returned in the response for all Azure Resource Manager resources
+type Resource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SubscriptionUnderManagementGroup - The details of subscription under management group.
+type SubscriptionUnderManagementGroup struct {
+	// The resource-specific properties for this resource.
+	Properties *SubscriptionUnderManagementGroupProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SubscriptionUnderManagementGroupListResult - The response of a SubscriptionUnderManagementGroup list operation.
+type SubscriptionUnderManagementGroupListResult struct {
+	// REQUIRED; The SubscriptionUnderManagementGroup items on this page
+	Value []*SubscriptionUnderManagementGroup
+
+	// The link to the next page of items
+	NextLink *string
 }
 
 // SubscriptionUnderManagementGroupProperties - The generic properties of subscription under a management group.
@@ -572,6 +490,27 @@ type SubscriptionUnderManagementGroupProperties struct {
 
 	// The AAD Tenant ID associated with the subscription. For example, 00000000-0000-0000-0000-000000000000
 	Tenant *string
+}
+
+// SystemData - Metadata pertaining to creation and last modification of the resource.
+type SystemData struct {
+	// The timestamp of resource creation (UTC).
+	CreatedAt *time.Time
+
+	// The identity that created the resource.
+	CreatedBy *string
+
+	// The type of identity that created the resource.
+	CreatedByType *CreatedByType
+
+	// The timestamp of resource last modification (UTC)
+	LastModifiedAt *time.Time
+
+	// The identity that last modified the resource.
+	LastModifiedBy *string
+
+	// The type of identity that last modified the resource.
+	LastModifiedByType *CreatedByType
 }
 
 // TenantBackfillStatusResult - The tenant backfill status

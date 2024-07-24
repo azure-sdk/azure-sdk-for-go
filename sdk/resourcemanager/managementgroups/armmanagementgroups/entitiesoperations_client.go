@@ -18,21 +18,21 @@ import (
 	"strconv"
 )
 
-// EntitiesClient contains the methods for the Entities group.
-// Don't use this type directly, use NewEntitiesClient() instead.
-type EntitiesClient struct {
+// EntitiesOperationsClient contains the methods for the EntitiesOperations group.
+// Don't use this type directly, use NewEntitiesOperationsClient() instead.
+type EntitiesOperationsClient struct {
 	internal *arm.Client
 }
 
-// NewEntitiesClient creates a new instance of EntitiesClient with the specified values.
+// NewEntitiesOperationsClient creates a new instance of EntitiesOperationsClient with the specified values.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewEntitiesClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*EntitiesClient, error) {
+func NewEntitiesOperationsClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*EntitiesOperationsClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &EntitiesClient{
+	client := &EntitiesOperationsClient{
 		internal: cl,
 	}
 	return client, nil
@@ -40,15 +40,16 @@ func NewEntitiesClient(credential azcore.TokenCredential, options *arm.ClientOpt
 
 // NewListPager - List all entities (Management Groups, Subscriptions, etc.) for the authenticated user.
 //
-// Generated from API version 2021-04-01
-//   - options - EntitiesClientListOptions contains the optional parameters for the EntitiesClient.NewListPager method.
-func (client *EntitiesClient) NewListPager(options *EntitiesClientListOptions) *runtime.Pager[EntitiesClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[EntitiesClientListResponse]{
-		More: func(page EntitiesClientListResponse) bool {
+// Generated from API version 2023-04-01
+//   - options - EntitiesOperationsClientListOptions contains the optional parameters for the EntitiesOperationsClient.NewListPager
+//     method.
+func (client *EntitiesOperationsClient) NewListPager(options *EntitiesOperationsClientListOptions) *runtime.Pager[EntitiesOperationsClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[EntitiesOperationsClientListResponse]{
+		More: func(page EntitiesOperationsClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *EntitiesClientListResponse) (EntitiesClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "EntitiesClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *EntitiesOperationsClientListResponse) (EntitiesOperationsClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "EntitiesOperationsClient.NewListPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
@@ -57,7 +58,7 @@ func (client *EntitiesClient) NewListPager(options *EntitiesClientListOptions) *
 				return client.listCreateRequest(ctx, options)
 			}, nil)
 			if err != nil {
-				return EntitiesClientListResponse{}, err
+				return EntitiesOperationsClientListResponse{}, err
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -66,51 +67,51 @@ func (client *EntitiesClient) NewListPager(options *EntitiesClientListOptions) *
 }
 
 // listCreateRequest creates the List request.
-func (client *EntitiesClient) listCreateRequest(ctx context.Context, options *EntitiesClientListOptions) (*policy.Request, error) {
+func (client *EntitiesOperationsClient) listCreateRequest(ctx context.Context, options *EntitiesOperationsClientListOptions) (*policy.Request, error) {
 	urlPath := "/providers/Microsoft.Management/getEntities"
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
-	if options != nil && options.Skiptoken != nil {
-		reqQP.Set("$skiptoken", *options.Skiptoken)
-	}
-	if options != nil && options.Skip != nil {
-		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
-	}
-	if options != nil && options.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
-	}
-	if options != nil && options.Select != nil {
-		reqQP.Set("$select", *options.Select)
+	if options != nil && options.Filter != nil {
+		reqQP.Set("$filter", *options.Filter)
 	}
 	if options != nil && options.Search != nil {
 		reqQP.Set("$search", string(*options.Search))
 	}
-	if options != nil && options.Filter != nil {
-		reqQP.Set("$filter", *options.Filter)
+	if options != nil && options.Select != nil {
+		reqQP.Set("$select", *options.Select)
+	}
+	if options != nil && options.Skip != nil {
+		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
+	}
+	if options != nil && options.Skiptoken != nil {
+		reqQP.Set("$skiptoken", *options.Skiptoken)
+	}
+	if options != nil && options.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
 	if options != nil && options.View != nil {
 		reqQP.Set("$view", string(*options.View))
 	}
+	reqQP.Set("api-version", "2023-04-01")
 	if options != nil && options.GroupName != nil {
 		reqQP.Set("groupName", *options.GroupName)
 	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
-	if options != nil && options.CacheControl != nil {
-		req.Raw().Header["Cache-Control"] = []string{*options.CacheControl}
-	}
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	if options != nil && options.CacheControl != nil {
+		req.Raw().Header["cache-control"] = []string{*options.CacheControl}
+	}
 	return req, nil
 }
 
 // listHandleResponse handles the List response.
-func (client *EntitiesClient) listHandleResponse(resp *http.Response) (EntitiesClientListResponse, error) {
-	result := EntitiesClientListResponse{}
+func (client *EntitiesOperationsClient) listHandleResponse(resp *http.Response) (EntitiesOperationsClientListResponse, error) {
+	result := EntitiesOperationsClientListResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.EntityListResult); err != nil {
-		return EntitiesClientListResponse{}, err
+		return EntitiesOperationsClientListResponse{}, err
 	}
 	return result, nil
 }

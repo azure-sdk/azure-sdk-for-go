@@ -15,38 +15,38 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/managementgroups/armmanagementgroups"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/managementgroups/armmanagementgroups/v2"
 	"net/http"
 	"net/url"
 	"strconv"
 )
 
-// EntitiesServer is a fake server for instances of the armmanagementgroups.EntitiesClient type.
-type EntitiesServer struct {
-	// NewListPager is the fake for method EntitiesClient.NewListPager
+// EntitiesOperationsServer is a fake server for instances of the armmanagementgroups.EntitiesOperationsClient type.
+type EntitiesOperationsServer struct {
+	// NewListPager is the fake for method EntitiesOperationsClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(options *armmanagementgroups.EntitiesClientListOptions) (resp azfake.PagerResponder[armmanagementgroups.EntitiesClientListResponse])
+	NewListPager func(options *armmanagementgroups.EntitiesOperationsClientListOptions) (resp azfake.PagerResponder[armmanagementgroups.EntitiesOperationsClientListResponse])
 }
 
-// NewEntitiesServerTransport creates a new instance of EntitiesServerTransport with the provided implementation.
-// The returned EntitiesServerTransport instance is connected to an instance of armmanagementgroups.EntitiesClient via the
+// NewEntitiesOperationsServerTransport creates a new instance of EntitiesOperationsServerTransport with the provided implementation.
+// The returned EntitiesOperationsServerTransport instance is connected to an instance of armmanagementgroups.EntitiesOperationsClient via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
-func NewEntitiesServerTransport(srv *EntitiesServer) *EntitiesServerTransport {
-	return &EntitiesServerTransport{
+func NewEntitiesOperationsServerTransport(srv *EntitiesOperationsServer) *EntitiesOperationsServerTransport {
+	return &EntitiesOperationsServerTransport{
 		srv:          srv,
-		newListPager: newTracker[azfake.PagerResponder[armmanagementgroups.EntitiesClientListResponse]](),
+		newListPager: newTracker[azfake.PagerResponder[armmanagementgroups.EntitiesOperationsClientListResponse]](),
 	}
 }
 
-// EntitiesServerTransport connects instances of armmanagementgroups.EntitiesClient to instances of EntitiesServer.
-// Don't use this type directly, use NewEntitiesServerTransport instead.
-type EntitiesServerTransport struct {
-	srv          *EntitiesServer
-	newListPager *tracker[azfake.PagerResponder[armmanagementgroups.EntitiesClientListResponse]]
+// EntitiesOperationsServerTransport connects instances of armmanagementgroups.EntitiesOperationsClient to instances of EntitiesOperationsServer.
+// Don't use this type directly, use NewEntitiesOperationsServerTransport instead.
+type EntitiesOperationsServerTransport struct {
+	srv          *EntitiesOperationsServer
+	newListPager *tracker[azfake.PagerResponder[armmanagementgroups.EntitiesOperationsClientListResponse]]
 }
 
-// Do implements the policy.Transporter interface for EntitiesServerTransport.
-func (e *EntitiesServerTransport) Do(req *http.Request) (*http.Response, error) {
+// Do implements the policy.Transporter interface for EntitiesOperationsServerTransport.
+func (e *EntitiesOperationsServerTransport) Do(req *http.Request) (*http.Response, error) {
 	rawMethod := req.Context().Value(runtime.CtxAPINameKey{})
 	method, ok := rawMethod.(string)
 	if !ok {
@@ -57,7 +57,7 @@ func (e *EntitiesServerTransport) Do(req *http.Request) (*http.Response, error) 
 	var err error
 
 	switch method {
-	case "EntitiesClient.NewListPager":
+	case "EntitiesOperationsClient.NewListPager":
 		resp, err = e.dispatchNewListPager(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
@@ -70,7 +70,7 @@ func (e *EntitiesServerTransport) Do(req *http.Request) (*http.Response, error) 
 	return resp, nil
 }
 
-func (e *EntitiesServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
+func (e *EntitiesOperationsServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
 	if e.srv.NewListPager == nil {
 		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
 	}
@@ -135,10 +135,10 @@ func (e *EntitiesServerTransport) dispatchNewListPager(req *http.Request) (*http
 			return nil, err
 		}
 		groupNameParam := getOptional(groupNameUnescaped)
-		cacheControlParam := getOptional(getHeaderValue(req.Header, "Cache-Control"))
-		var options *armmanagementgroups.EntitiesClientListOptions
+		cacheControlParam := getOptional(getHeaderValue(req.Header, "cache-control"))
+		var options *armmanagementgroups.EntitiesOperationsClientListOptions
 		if skiptokenParam != nil || skipParam != nil || topParam != nil || selectParam != nil || searchParam != nil || filterParam != nil || viewParam != nil || groupNameParam != nil || cacheControlParam != nil {
-			options = &armmanagementgroups.EntitiesClientListOptions{
+			options = &armmanagementgroups.EntitiesOperationsClientListOptions{
 				Skiptoken:    skiptokenParam,
 				Skip:         skipParam,
 				Top:          topParam,
@@ -153,7 +153,7 @@ func (e *EntitiesServerTransport) dispatchNewListPager(req *http.Request) (*http
 		resp := e.srv.NewListPager(options)
 		newListPager = &resp
 		e.newListPager.add(req, newListPager)
-		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armmanagementgroups.EntitiesClientListResponse, createLink func() string) {
+		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armmanagementgroups.EntitiesOperationsClientListResponse, createLink func() string) {
 			page.NextLink = to.Ptr(createLink())
 		})
 	}
