@@ -655,6 +655,53 @@ type DevOpsOperationResultsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
+// DevOpsPoliciesClientGetOptions contains the optional parameters for the DevOpsPoliciesClient.Get method.
+type DevOpsPoliciesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DevOpsPoliciesClientListOptions contains the optional parameters for the DevOpsPoliciesClient.NewListPager method.
+type DevOpsPoliciesClientListOptions struct {
+	// Optional filter for listing the policies.
+	DevOpsPolicyType *string
+}
+
+// DevOpsPolicyAssignmentsClientBeginCreateOrUpdateOptions contains the optional parameters for the DevOpsPolicyAssignmentsClient.BeginCreateOrUpdate
+// method.
+type DevOpsPolicyAssignmentsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// DevOpsPolicyAssignmentsClientBeginDeleteOptions contains the optional parameters for the DevOpsPolicyAssignmentsClient.BeginDelete
+// method.
+type DevOpsPolicyAssignmentsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// DevOpsPolicyAssignmentsClientBeginUpdateOptions contains the optional parameters for the DevOpsPolicyAssignmentsClient.BeginUpdate
+// method.
+type DevOpsPolicyAssignmentsClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// DevOpsPolicyAssignmentsClientGetOptions contains the optional parameters for the DevOpsPolicyAssignmentsClient.Get method.
+type DevOpsPolicyAssignmentsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DevOpsPolicyAssignmentsClientListOptions contains the optional parameters for the DevOpsPolicyAssignmentsClient.NewListPager
+// method.
+type DevOpsPolicyAssignmentsClientListOptions struct {
+	// Optional filter for listing the policies.
+	DevOpsPolicyType *string
+
+	// Optional filter for listing the assignments of a specific resource.
+	ResourceID *string
+}
+
 // DeviceSecurityGroupsClientCreateOrUpdateOptions contains the optional parameters for the DeviceSecurityGroupsClient.CreateOrUpdate
 // method.
 type DeviceSecurityGroupsClientCreateOrUpdateOptions struct {
