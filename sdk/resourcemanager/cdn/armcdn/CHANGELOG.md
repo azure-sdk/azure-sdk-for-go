@@ -1,5 +1,11 @@
 # Release History
 
+## 3.0.0 (2024-07-24)
+### Breaking Changes
+
+- Function `*ProfilesClient.NewListPager` has been removed
+
+
 ## 2.2.0 (2024-04-26)
 ### Features Added
 
