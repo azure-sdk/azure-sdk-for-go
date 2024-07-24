@@ -1,5 +1,28 @@
 # Release History
 
+## 9.0.0 (2024-07-24)
+### Breaking Changes
+
+- Type of `AzureTableStorageLinkedService.TypeProperties` has been changed from `*AzureStorageLinkedServiceTypeProperties` to `*AzureTableStorageLinkedServiceTypeProperties`
+
+### Features Added
+
+- New value `SQLServerAuthenticationTypeUserAssignedManagedIdentity` added to enum type `SQLServerAuthenticationType`
+- New struct `AzureTableStorageLinkedServiceTypeProperties`
+- New struct `ContinuationSettingsReference`
+- New field `Credential`, `ServiceEndpoint` in struct `AzureFileStorageLinkedServiceTypeProperties`
+- New field `Domain` in struct `CommonDataServiceForAppsLinkedServiceTypeProperties`
+- New field `Domain` in struct `DynamicsCrmLinkedServiceTypeProperties`
+- New field `Domain` in struct `DynamicsLinkedServiceTypeProperties`
+- New field `ContinuationSettings` in struct `ExecuteDataFlowActivityTypeProperties`
+- New field `ContinuationSettings` in struct `ExecutePowerQueryActivityTypeProperties`
+- New field `Credential` in struct `SQLServerLinkedServiceTypeProperties`
+- New field `StorageIntegration` in struct `SnowflakeExportCopyCommand`
+- New field `StorageIntegration` in struct `SnowflakeImportCopyCommand`
+- New field `Role` in struct `SnowflakeLinkedV2ServiceTypeProperties`
+- New field `Database`, `Port`, `Server`, `UID` in struct `VerticaLinkedServiceTypeProperties`
+
+
 ## 8.0.0 (2024-06-05)
 ### Breaking Changes
 
