@@ -10,7 +10,7 @@ package armnetwork
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork"
-	moduleVersion = "v6.0.0"
+	moduleVersion = "v7.0.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -2818,7 +2818,6 @@ const (
 	PfsGroupPFS2    PfsGroup = "PFS2"
 	PfsGroupPFS2048 PfsGroup = "PFS2048"
 	PfsGroupPFS24   PfsGroup = "PFS24"
-	PfsGroupPFSMM   PfsGroup = "PFSMM"
 )
 
 // PossiblePfsGroupValues returns the possible values for the PfsGroup const type.
@@ -2832,7 +2831,6 @@ func PossiblePfsGroupValues() []PfsGroup {
 		PfsGroupPFS2,
 		PfsGroupPFS2048,
 		PfsGroupPFS24,
-		PfsGroupPFSMM,
 	}
 }
 
