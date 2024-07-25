@@ -404,14 +404,6 @@ type CertificateUpdateProperties struct {
 	Description *string
 }
 
-type ComponentsSgqdofSchemasIdentityPropertiesUserassignedidentitiesAdditionalproperties struct {
-	// READ-ONLY; The client id of user assigned identity.
-	ClientID *string
-
-	// READ-ONLY; The principal id of user assigned identity.
-	PrincipalID *string
-}
-
 // Connection - Definition of the connection.
 type Connection struct {
 	// Gets or sets the properties of the connection.
@@ -570,13 +562,13 @@ type ContentHash struct {
 
 // ContentLink - Definition of the content link.
 type ContentLink struct {
-	// Gets or sets the hash.
+	// Sets the hash.
 	ContentHash *ContentHash
 
-	// Gets or sets the uri of the runbook content.
+	// Sets the uri of the content.
 	URI *string
 
-	// Gets or sets the version of the content.
+	// Sets the version of the content.
 	Version *string
 }
 
@@ -713,6 +705,15 @@ type DeletedAutomationAccountProperties struct {
 
 	// READ-ONLY; Gets the deletion time.
 	DeletionTime *time.Time
+}
+
+// Dimension of the metric.
+type Dimension struct {
+	// The display name of the dimension.
+	DisplayName *string
+
+	// The name of the dimension.
+	Name *string
 }
 
 // DscCompilationJob - Definition of the Dsc Compilation job.
@@ -1436,7 +1437,7 @@ type Identity struct {
 	// The list of user identities associated with the resource. The user identity dictionary key references will be ARM resource
 	// ids in the form:
 	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.
-	UserAssignedIdentities map[string]*ComponentsSgqdofSchemasIdentityPropertiesUserassignedidentitiesAdditionalproperties
+	UserAssignedIdentities map[string]*UserAssignedIdentitiesProperties
 
 	// READ-ONLY; The principal ID of resource identity.
 	PrincipalID *string
@@ -1734,15 +1735,48 @@ type LinuxProperties struct {
 	RebootSetting *string
 }
 
+// LogSpecification - Description of logging specification.
+type LogSpecification struct {
+	// Duration of the blob.
+	BlobDuration *string
+
+	// The display name of the specification.
+	DisplayName *string
+
+	// The name of the specification.
+	Name *string
+}
+
+// MetricSpecification - Description of metrics specification.
+type MetricSpecification struct {
+	// The aggregation type.
+	AggregationType *string
+
+	// List of dimensions.
+	Dimensions []*Dimension
+
+	// The description of the metric.
+	DisplayDescription *string
+
+	// The display name of the metric.
+	DisplayName *string
+
+	// The name of the metric.
+	Name *string
+
+	// Units the metric to be displayed in.
+	Unit *string
+}
+
 // Module - Definition of the module type.
 type Module struct {
-	// Gets or sets the etag of the resource.
+	// Gets the etag of the resource.
 	Etag *string
 
 	// The Azure Region where the resource lives
 	Location *string
 
-	// Gets or sets the module properties.
+	// Gets the module properties.
 	Properties *ModuleProperties
 
 	// Resource tags.
@@ -1760,97 +1794,97 @@ type Module struct {
 
 // ModuleCreateOrUpdateParameters - The parameters supplied to the create or update module operation.
 type ModuleCreateOrUpdateParameters struct {
-	// REQUIRED; Gets or sets the module create properties.
+	// REQUIRED; Sets the module create properties.
 	Properties *ModuleCreateOrUpdateProperties
 
-	// Gets or sets the location of the resource.
+	// Sets the location of the resource.
 	Location *string
 
-	// Gets or sets name of the resource.
+	// Sets name of the resource.
 	Name *string
 
-	// Gets or sets the tags attached to the resource.
+	// Sets the tags attached to the resource.
 	Tags map[string]*string
 }
 
 // ModuleCreateOrUpdateProperties - The parameters supplied to the create or update module properties.
 type ModuleCreateOrUpdateProperties struct {
-	// REQUIRED; Gets or sets the module content link.
+	// REQUIRED; Sets the hash.
 	ContentLink *ContentLink
 }
 
 // ModuleErrorInfo - Definition of the module error info type.
 type ModuleErrorInfo struct {
-	// Gets or sets the error code.
+	// Gets the error code.
 	Code *string
 
-	// Gets or sets the error message.
+	// Gets the error message.
 	Message *string
 }
 
 // ModuleListResult - The response model for the list module operation.
 type ModuleListResult struct {
-	// Gets or sets the next link.
+	// Gets the next link.
 	NextLink *string
 
-	// Gets or sets a list of modules.
+	// Gets a list of modules.
 	Value []*Module
 }
 
 // ModuleProperties - Definition of the module property type.
 type ModuleProperties struct {
-	// Gets or sets the activity count of the module.
+	// Gets the activity count of the module.
 	ActivityCount *int32
 
 	// Gets or sets the contentLink of the module.
 	ContentLink *ContentLink
 
-	// Gets or sets the creation time.
+	// Gets the creation time.
 	CreationTime *time.Time
 
 	// Gets or sets the description.
 	Description *string
 
-	// Gets or sets the error info of the module.
+	// Gets the error info of the module.
 	Error *ModuleErrorInfo
 
-	// Gets or sets type of module, if its composite or not.
+	// Gets type of module, if its composite or not.
 	IsComposite *bool
 
-	// Gets or sets the isGlobal flag of the module.
+	// Gets the isGlobal flag of the module.
 	IsGlobal *bool
 
-	// Gets or sets the last modified time.
+	// Gets the last modified time.
 	LastModifiedTime *time.Time
 
-	// Gets or sets the provisioning state of the module.
+	// Gets the provisioning state of the module.
 	ProvisioningState *ModuleProvisioningState
 
-	// Gets or sets the size in bytes of the module.
+	// Gets the size in bytes of the module.
 	SizeInBytes *int64
 
-	// Gets or sets the version of the module.
+	// Gets the version of the module.
 	Version *string
 }
 
 // ModuleUpdateParameters - The parameters supplied to the update module operation.
 type ModuleUpdateParameters struct {
-	// Gets or sets the location of the resource.
-	Location *string
-
-	// Gets or sets name of the resource.
-	Name *string
-
-	// Gets or sets the module update properties.
+	// Sets the module update properties.
 	Properties *ModuleUpdateProperties
 
-	// Gets or sets the tags attached to the resource.
+	// Sets the tags attached to the resource.
 	Tags map[string]*string
+
+	// READ-ONLY; Sets the location of the resource.
+	Location *string
+
+	// READ-ONLY; Sets name of the resource.
+	Name *string
 }
 
 // ModuleUpdateProperties - The parameters supplied to the update properties.
 type ModuleUpdateProperties struct {
-	// Gets or sets the module content link.
+	// Sets the module content link.
 	ContentLink *ContentLink
 }
 
@@ -1891,10 +1925,19 @@ type Operation struct {
 
 	// Operation name: {provider}/{resource}/{operation}
 	Name *string
+
+	// Origin of the operation.
+	Origin *string
+
+	// Operation properties format.
+	Properties *OperationPropertiesFormat
 }
 
 // OperationDisplay - Provider, Resource and Operation values
 type OperationDisplay struct {
+	// Description of the operation.
+	Description *string
+
 	// Operation type: Read, write, delete, etc.
 	Operation *string
 
@@ -1909,6 +1952,21 @@ type OperationDisplay struct {
 type OperationListResult struct {
 	// List of Automation operations supported by the Automation resource provider.
 	Value []*Operation
+}
+
+// OperationPropertiesFormat - Description of operation properties format.
+type OperationPropertiesFormat struct {
+	// Specification of the service.
+	ServiceSpecification *OperationPropertiesFormatServiceSpecification
+}
+
+// OperationPropertiesFormatServiceSpecification - Specification of the service.
+type OperationPropertiesFormatServiceSpecification struct {
+	// Operation log specification.
+	LogSpecifications []*LogSpecification
+
+	// Operation service specification.
+	MetricSpecifications []*MetricSpecification
 }
 
 // PrivateEndpointConnection - A private endpoint connection
@@ -3210,6 +3268,14 @@ type UsageCounterName struct {
 type UsageListResult struct {
 	// Gets or sets usage.
 	Value []*Usage
+}
+
+type UserAssignedIdentitiesProperties struct {
+	// READ-ONLY; The client id of user assigned identity.
+	ClientID *string
+
+	// READ-ONLY; The principal id of user assigned identity.
+	PrincipalID *string
 }
 
 // Variable - Definition of the variable.
