@@ -757,8 +757,8 @@ type MigrationResourceProperties struct {
 	// Indicates whether to setup LogicalReplicationOnSourceDb, if needed
 	SetupLogicalReplicationOnSourceDbIfNeeded *LogicalReplicationOnSourceDbEnum
 
-	// Source server fully qualified domain name or ip. It is a optional value, if customer provide it, dms will always use it
-	// for connection
+	// Source server fully qualified domain name (FQDN) or IP address. It is a optional value, if customer provide it, migration
+	// service will always use it for connection
 	SourceDbServerFullyQualifiedDomainName *string
 
 	// ResourceId of the source database server in case the sourceType is PostgreSQLSingleServer. For other source types this
@@ -772,8 +772,8 @@ type MigrationResourceProperties struct {
 	// Indicates whether the data migration should start right away
 	StartDataMigration *StartDataMigrationEnum
 
-	// Target server fully qualified domain name or ip. It is a optional value, if customer provide it, dms will always use it
-	// for connection
+	// Target server fully qualified domain name (FQDN) or IP address. It is a optional value, if customer provide it, migration
+	// service will always use it for connection
 	TargetDbServerFullyQualifiedDomainName *string
 
 	// To trigger cutover for entire migration we need to send this flag as True
@@ -829,8 +829,8 @@ type MigrationResourcePropertiesForPatch struct {
 	// Indicates whether to setup LogicalReplicationOnSourceDb, if needed
 	SetupLogicalReplicationOnSourceDbIfNeeded *LogicalReplicationOnSourceDbEnum
 
-	// Source server fully qualified domain name or ip. It is a optional value, if customer provide it, dms will always use it
-	// for connection
+	// Source server fully qualified domain name (FQDN) or IP address. It is a optional value, if customer provide it, migration
+	// service will always use it for connection
 	SourceDbServerFullyQualifiedDomainName *string
 
 	// ResourceId of the source database server
@@ -839,8 +839,8 @@ type MigrationResourcePropertiesForPatch struct {
 	// Indicates whether the data migration should start right away
 	StartDataMigration *StartDataMigrationEnum
 
-	// Target server fully qualified domain name or ip. It is a optional value, if customer provide it, dms will always use it
-	// for connection
+	// Target server fully qualified domain name (FQDN) or IP address. It is a optional value, if customer provide it, migration
+	// service will always use it for connection
 	TargetDbServerFullyQualifiedDomainName *string
 
 	// To trigger cutover for entire migration we need to send this flag as True
@@ -1297,6 +1297,10 @@ type ServerProperties struct {
 }
 
 type ServerPropertiesForUpdate struct {
+	// The administrator's login name of a server. Can only be specified when the server is trying to switch to password authentication
+	// and does not have default administrator login.
+	AdministratorLogin *string
+
 	// The password of the administrator login.
 	AdministratorLoginPassword *string
 
