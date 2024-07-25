@@ -1,5 +1,11 @@
 # Release History
 
+## 7.0.0 (2024-07-25)
+### Breaking Changes
+
+- `PfsGroupPFSMM` from enum `PfsGroup` has been removed
+
+
 ## 6.0.0 (2024-07-25)
 ### Breaking Changes
 
