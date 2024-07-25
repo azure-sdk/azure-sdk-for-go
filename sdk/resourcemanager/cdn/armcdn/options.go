@@ -507,11 +507,6 @@ type ProfilesClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ProfilesClientListOptions contains the optional parameters for the ProfilesClient.NewListPager method.
-type ProfilesClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
 // ProfilesClientListResourceUsageOptions contains the optional parameters for the ProfilesClient.NewListResourceUsagePager
 // method.
 type ProfilesClientListResourceUsageOptions struct {

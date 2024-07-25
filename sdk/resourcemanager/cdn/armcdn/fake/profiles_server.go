@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/cdn/armcdn/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/cdn/armcdn/v3"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -43,10 +43,6 @@ type ProfilesServer struct {
 	// Get is the fake for method ProfilesClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, profileName string, options *armcdn.ProfilesClientGetOptions) (resp azfake.Responder[armcdn.ProfilesClientGetResponse], errResp azfake.ErrorResponder)
-
-	// NewListPager is the fake for method ProfilesClient.NewListPager
-	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(options *armcdn.ProfilesClientListOptions) (resp azfake.PagerResponder[armcdn.ProfilesClientListResponse])
 
 	// NewListByResourceGroupPager is the fake for method ProfilesClient.NewListByResourceGroupPager
 	// HTTP status codes to indicate success: http.StatusOK
@@ -82,7 +78,6 @@ func NewProfilesServerTransport(srv *ProfilesServer) *ProfilesServerTransport {
 		beginCanMigrate:             newTracker[azfake.PollerResponder[armcdn.ProfilesClientCanMigrateResponse]](),
 		beginCreate:                 newTracker[azfake.PollerResponder[armcdn.ProfilesClientCreateResponse]](),
 		beginDelete:                 newTracker[azfake.PollerResponder[armcdn.ProfilesClientDeleteResponse]](),
-		newListPager:                newTracker[azfake.PagerResponder[armcdn.ProfilesClientListResponse]](),
 		newListByResourceGroupPager: newTracker[azfake.PagerResponder[armcdn.ProfilesClientListByResourceGroupResponse]](),
 		newListResourceUsagePager:   newTracker[azfake.PagerResponder[armcdn.ProfilesClientListResourceUsageResponse]](),
 		beginMigrate:                newTracker[azfake.PollerResponder[armcdn.ProfilesClientMigrateResponse]](),
@@ -98,7 +93,6 @@ type ProfilesServerTransport struct {
 	beginCanMigrate             *tracker[azfake.PollerResponder[armcdn.ProfilesClientCanMigrateResponse]]
 	beginCreate                 *tracker[azfake.PollerResponder[armcdn.ProfilesClientCreateResponse]]
 	beginDelete                 *tracker[azfake.PollerResponder[armcdn.ProfilesClientDeleteResponse]]
-	newListPager                *tracker[azfake.PagerResponder[armcdn.ProfilesClientListResponse]]
 	newListByResourceGroupPager *tracker[azfake.PagerResponder[armcdn.ProfilesClientListByResourceGroupResponse]]
 	newListResourceUsagePager   *tracker[azfake.PagerResponder[armcdn.ProfilesClientListResourceUsageResponse]]
 	beginMigrate                *tracker[azfake.PollerResponder[armcdn.ProfilesClientMigrateResponse]]
@@ -128,8 +122,6 @@ func (p *ProfilesServerTransport) Do(req *http.Request) (*http.Response, error) 
 		resp, err = p.dispatchGenerateSsoURI(req)
 	case "ProfilesClient.Get":
 		resp, err = p.dispatchGet(req)
-	case "ProfilesClient.NewListPager":
-		resp, err = p.dispatchNewListPager(req)
 	case "ProfilesClient.NewListByResourceGroupPager":
 		resp, err = p.dispatchNewListByResourceGroupPager(req)
 	case "ProfilesClient.NewListResourceUsagePager":
@@ -351,39 +343,6 @@ func (p *ProfilesServerTransport) dispatchGet(req *http.Request) (*http.Response
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Profile, req)
 	if err != nil {
 		return nil, err
-	}
-	return resp, nil
-}
-
-func (p *ProfilesServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if p.srv.NewListPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
-	}
-	newListPager := p.newListPager.get(req)
-	if newListPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Cdn/profiles`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 1 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resp := p.srv.NewListPager(nil)
-		newListPager = &resp
-		p.newListPager.add(req, newListPager)
-		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armcdn.ProfilesClientListResponse, createLink func() string) {
-			page.NextLink = to.Ptr(createLink())
-		})
-	}
-	resp, err := server.PagerResponderNext(newListPager, req)
-	if err != nil {
-		return nil, err
-	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		p.newListPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
-	}
-	if !server.PagerResponderMore(newListPager) {
-		p.newListPager.remove(req)
 	}
 	return resp, nil
 }
