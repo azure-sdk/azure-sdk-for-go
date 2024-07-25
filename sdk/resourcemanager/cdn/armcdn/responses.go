@@ -509,12 +509,6 @@ type ProfilesClientListResourceUsageResponse struct {
 	ResourceUsageListResult
 }
 
-// ProfilesClientListResponse contains the response from method ProfilesClient.NewListPager.
-type ProfilesClientListResponse struct {
-	// Result of the request to list profiles. It contains a list of profile objects and a URL link to get the next set of results.
-	ProfileListResult
-}
-
 // ProfilesClientListSupportedOptimizationTypesResponse contains the response from method ProfilesClient.ListSupportedOptimizationTypes.
 type ProfilesClientListSupportedOptimizationTypesResponse struct {
 	// The result of the GetSupportedOptimizationTypes API
