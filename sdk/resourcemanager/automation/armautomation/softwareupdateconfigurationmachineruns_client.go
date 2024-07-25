@@ -47,7 +47,7 @@ func NewSoftwareUpdateConfigurationMachineRunsClient(subscriptionID string, cred
 // GetByID - Get a single software update configuration machine run by Id.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2019-06-01
+// Generated from API version 2023-11-01
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - softwareUpdateConfigurationMachineRunID - The Id of the software update configuration machine run.
@@ -99,12 +99,12 @@ func (client *SoftwareUpdateConfigurationMachineRunsClient) getByIDCreateRequest
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["clientRequestId"] = []string{*options.ClientRequestID}
 	}
-	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
@@ -120,7 +120,7 @@ func (client *SoftwareUpdateConfigurationMachineRunsClient) getByIDHandleRespons
 // List - Return list of software update configuration machine runs
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2019-06-01
+// Generated from API version 2023-11-01
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - options - SoftwareUpdateConfigurationMachineRunsClientListOptions contains the optional parameters for the SoftwareUpdateConfigurationMachineRunsClient.List
@@ -167,7 +167,6 @@ func (client *SoftwareUpdateConfigurationMachineRunsClient) listCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
@@ -177,11 +176,12 @@ func (client *SoftwareUpdateConfigurationMachineRunsClient) listCreateRequest(ct
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", *options.Top)
 	}
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["clientRequestId"] = []string{*options.ClientRequestID}
 	}
-	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
