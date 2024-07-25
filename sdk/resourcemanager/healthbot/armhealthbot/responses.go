@@ -37,7 +37,19 @@ type BotsClientListResponse struct {
 	BotResponseList
 }
 
-// BotsClientUpdateResponse contains the response from method BotsClient.Update.
+// BotsClientListSecretsResponse contains the response from method BotsClient.ListSecrets.
+type BotsClientListSecretsResponse struct {
+	// Health Bot Keys Response.
+	KeysResponse
+}
+
+// BotsClientRegenerateAPIJwtSecretResponse contains the response from method BotsClient.RegenerateAPIJwtSecret.
+type BotsClientRegenerateAPIJwtSecretResponse struct {
+	// An entry of HealthBotKeysResponse
+	Key
+}
+
+// BotsClientUpdateResponse contains the response from method BotsClient.BeginUpdate.
 type BotsClientUpdateResponse struct {
 	// Azure Health Bot resource definition
 	HealthBot

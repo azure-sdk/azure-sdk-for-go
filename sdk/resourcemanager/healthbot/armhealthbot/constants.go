@@ -10,7 +10,7 @@ package armhealthbot
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/healthbot/armhealthbot"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v2.0.0"
 )
 
 // IdentityType - The type of identity that creates/modifies resources
@@ -59,16 +59,20 @@ func PossibleResourceIdentityTypeValues() []ResourceIdentityType {
 type SKUName string
 
 const (
-	SKUNameC0 SKUName = "C0"
-	SKUNameF0 SKUName = "F0"
-	SKUNameS1 SKUName = "S1"
+	SKUNameC0  SKUName = "C0"
+	SKUNameC1  SKUName = "C1"
+	SKUNameF0  SKUName = "F0"
+	SKUNamePES SKUName = "PES"
+	SKUNameS1  SKUName = "S1"
 )
 
 // PossibleSKUNameValues returns the possible values for the SKUName const type.
 func PossibleSKUNameValues() []SKUName {
 	return []SKUName{
 		SKUNameC0,
+		SKUNameC1,
 		SKUNameF0,
+		SKUNamePES,
 		SKUNameS1,
 	}
 }
