@@ -414,60 +414,6 @@ func (client *ProfilesClient) getHandleResponse(resp *http.Response) (ProfilesCl
 	return result, nil
 }
 
-// NewListPager - Lists all of the Azure Front Door Standard, Azure Front Door Premium, and CDN profiles within an Azure subscription.
-//
-// Generated from API version 2024-02-01
-//   - options - ProfilesClientListOptions contains the optional parameters for the ProfilesClient.NewListPager method.
-func (client *ProfilesClient) NewListPager(options *ProfilesClientListOptions) *runtime.Pager[ProfilesClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[ProfilesClientListResponse]{
-		More: func(page ProfilesClientListResponse) bool {
-			return page.NextLink != nil && len(*page.NextLink) > 0
-		},
-		Fetcher: func(ctx context.Context, page *ProfilesClientListResponse) (ProfilesClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ProfilesClient.NewListPager")
-			nextLink := ""
-			if page != nil {
-				nextLink = *page.NextLink
-			}
-			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, options)
-			}, nil)
-			if err != nil {
-				return ProfilesClientListResponse{}, err
-			}
-			return client.listHandleResponse(resp)
-		},
-		Tracer: client.internal.Tracer(),
-	})
-}
-
-// listCreateRequest creates the List request.
-func (client *ProfilesClient) listCreateRequest(ctx context.Context, options *ProfilesClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Cdn/profiles"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, nil
-}
-
-// listHandleResponse handles the List response.
-func (client *ProfilesClient) listHandleResponse(resp *http.Response) (ProfilesClientListResponse, error) {
-	result := ProfilesClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ProfileListResult); err != nil {
-		return ProfilesClientListResponse{}, err
-	}
-	return result, nil
-}
-
 // NewListByResourceGroupPager - Lists all of the Azure Front Door Standard, Azure Front Door Premium, and CDN profiles within
 // a resource group.
 //
