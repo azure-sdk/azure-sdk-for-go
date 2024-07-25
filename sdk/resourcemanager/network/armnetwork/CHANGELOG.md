@@ -1,5 +1,50 @@
 # Release History
 
+## 6.0.0 (2024-07-25)
+### Breaking Changes
+
+- Type of `BastionActiveSession.StartTime` has been changed from `any` to `*string`
+- Function `*ManagementClient.NewDisconnectActiveSessionsPager` has been removed
+- Struct `FirewallPacketCaptureParametersFormat` has been removed
+- Field `ID`, `Properties` of struct `FirewallPacketCaptureParameters` has been removed
+
+### Features Added
+
+- New value `BastionHostSKUNamePremium` added to enum type `BastionHostSKUName`
+- New enum type `ApplicationGatewayWafRuleSensitivityTypes` with values `ApplicationGatewayWafRuleSensitivityTypesHigh`, `ApplicationGatewayWafRuleSensitivityTypesLow`, `ApplicationGatewayWafRuleSensitivityTypesMedium`, `ApplicationGatewayWafRuleSensitivityTypesNone`
+- New enum type `ExceptionEntryMatchVariable` with values `ExceptionEntryMatchVariableRemoteAddr`, `ExceptionEntryMatchVariableRequestHeader`, `ExceptionEntryMatchVariableRequestURI`
+- New enum type `ExceptionEntrySelectorMatchOperator` with values `ExceptionEntrySelectorMatchOperatorContains`, `ExceptionEntrySelectorMatchOperatorEndsWith`, `ExceptionEntrySelectorMatchOperatorEquals`, `ExceptionEntrySelectorMatchOperatorStartsWith`
+- New enum type `ExceptionEntryValueMatchOperator` with values `ExceptionEntryValueMatchOperatorContains`, `ExceptionEntryValueMatchOperatorEndsWith`, `ExceptionEntryValueMatchOperatorEquals`, `ExceptionEntryValueMatchOperatorIPMatch`, `ExceptionEntryValueMatchOperatorStartsWith`
+- New enum type `PrivateEndpointVNetPolicies` with values `PrivateEndpointVNetPoliciesBasic`, `PrivateEndpointVNetPoliciesDisabled`
+- New enum type `ProbeNoHealthyBackendsBehavior` with values `ProbeNoHealthyBackendsBehaviorAllProbedDown`, `ProbeNoHealthyBackendsBehaviorAllProbedUp`
+- New enum type `ResiliencyModel` with values `ResiliencyModelMultiHomed`, `ResiliencyModelSingleHomed`
+- New enum type `SensitivityType` with values `SensitivityTypeHigh`, `SensitivityTypeLow`, `SensitivityTypeMedium`, `SensitivityTypeNone`
+- New function `*InboundSecurityRuleClient.Get(context.Context, string, string, string, *InboundSecurityRuleClientGetOptions) (InboundSecurityRuleClientGetResponse, error)`
+- New function `*ManagementClient.BeginDisconnectActiveSessions(context.Context, string, string, SessionIDs, *ManagementClientBeginDisconnectActiveSessionsOptions) (*runtime.Poller[*runtime.Pager[ManagementClientDisconnectActiveSessionsResponse]], error)`
+- New struct `ApplicationGatewayForContainersReferenceDefinition`
+- New struct `AzureFirewallAutoscaleConfiguration`
+- New struct `ExceptionEntry`
+- New field `Sensitivity` in struct `ApplicationGatewayFirewallRule`
+- New field `ConnectionResourceURI` in struct `AuthorizationPropertiesFormat`
+- New field `AutoscaleConfiguration` in struct `AzureFirewallPropertiesFormat`
+- New field `EnableSessionRecording` in struct `BastionHostPropertiesFormat`
+- New field `Filter` in struct `ExpressRouteCrossConnectionsClientListOptions`
+- New field `DurationInSeconds`, `FileName`, `Filters`, `Flags`, `NumberOfPacketsToCapture`, `Protocol`, `SasURL` in struct `FirewallPacketCaptureParameters`
+- New field `Identity` in struct `FlowLog`
+- New field `Identity` in struct `FlowLogInformation`
+- New field `EnabledFilteringCriteria` in struct `FlowLogProperties`
+- New field `EnabledFilteringCriteria` in struct `FlowLogPropertiesFormat`
+- New field `Sensitivity` in struct `ManagedRuleOverride`
+- New field `Exceptions` in struct `ManagedRulesDefinition`
+- New field `DestinationIPAddress` in struct `PrivateLinkServiceProperties`
+- New field `NoHealthyBackendsBehavior` in struct `ProbePropertiesFormat`
+- New field `NetworkIdentifier` in struct `ServiceEndpointPropertiesFormat`
+- New field `Identity` in struct `VirtualNetworkGateway`
+- New field `ResiliencyModel` in struct `VirtualNetworkGatewayPropertiesFormat`
+- New field `PrivateEndpointVNetPolicies` in struct `VirtualNetworkPropertiesFormat`
+- New field `ApplicationGatewayForContainers` in struct `WebApplicationFirewallPolicyPropertiesFormat`
+
+
 ## 5.2.0 (2024-06-21)
 ### Features Added
 
