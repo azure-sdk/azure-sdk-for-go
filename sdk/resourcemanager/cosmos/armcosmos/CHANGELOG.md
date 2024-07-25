@@ -1,5 +1,11 @@
 # Release History
 
+## 3.1.0 (2024-07-25)
+### Features Added
+
+- New value `ServerVersionSeven0` added to enum type `ServerVersion`
+
+
 ## 3.0.0 (2024-06-21)
 ### Breaking Changes
 
