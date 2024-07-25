@@ -896,7 +896,8 @@ type ExpressRouteCrossConnectionsClientListByResourceGroupOptions struct {
 // ExpressRouteCrossConnectionsClientListOptions contains the optional parameters for the ExpressRouteCrossConnectionsClient.NewListPager
 // method.
 type ExpressRouteCrossConnectionsClientListOptions struct {
-	// placeholder for future optional parameters
+	// The filter to apply on the operation. For example, you can use $filter=name eq '{circuitServiceKey}'.
+	Filter *string
 }
 
 // ExpressRouteCrossConnectionsClientUpdateTagsOptions contains the optional parameters for the ExpressRouteCrossConnectionsClient.UpdateTags
@@ -1391,6 +1392,11 @@ type InboundSecurityRuleClientBeginCreateOrUpdateOptions struct {
 	ResumeToken string
 }
 
+// InboundSecurityRuleClientGetOptions contains the optional parameters for the InboundSecurityRuleClient.Get method.
+type InboundSecurityRuleClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
 // InterfaceIPConfigurationsClientGetOptions contains the optional parameters for the InterfaceIPConfigurationsClient.Get
 // method.
 type InterfaceIPConfigurationsClientGetOptions struct {
@@ -1713,6 +1719,13 @@ type ManagementClientBeginDeleteBastionShareableLinkOptions struct {
 	ResumeToken string
 }
 
+// ManagementClientBeginDisconnectActiveSessionsOptions contains the optional parameters for the ManagementClient.BeginDisconnectActiveSessions
+// method.
+type ManagementClientBeginDisconnectActiveSessionsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // ManagementClientBeginGeneratevirtualwanvpnserverconfigurationvpnprofileOptions contains the optional parameters for the
 // ManagementClient.BeginGeneratevirtualwanvpnserverconfigurationvpnprofile method.
 type ManagementClientBeginGeneratevirtualwanvpnserverconfigurationvpnprofileOptions struct {
@@ -1737,12 +1750,6 @@ type ManagementClientBeginPutBastionShareableLinkOptions struct {
 // ManagementClientCheckDNSNameAvailabilityOptions contains the optional parameters for the ManagementClient.CheckDNSNameAvailability
 // method.
 type ManagementClientCheckDNSNameAvailabilityOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ManagementClientDisconnectActiveSessionsOptions contains the optional parameters for the ManagementClient.NewDisconnectActiveSessionsPager
-// method.
-type ManagementClientDisconnectActiveSessionsOptions struct {
 	// placeholder for future optional parameters
 }
 

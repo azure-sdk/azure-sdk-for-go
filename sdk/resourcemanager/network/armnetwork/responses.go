@@ -1312,6 +1312,12 @@ type InboundSecurityRuleClientCreateOrUpdateResponse struct {
 	InboundSecurityRule
 }
 
+// InboundSecurityRuleClientGetResponse contains the response from method InboundSecurityRuleClient.Get.
+type InboundSecurityRuleClientGetResponse struct {
+	// NVA Inbound Security Rule resource.
+	InboundSecurityRule
+}
+
 // InterfaceIPConfigurationsClientGetResponse contains the response from method InterfaceIPConfigurationsClient.Get.
 type InterfaceIPConfigurationsClientGetResponse struct {
 	// IPConfiguration in a network interface.
@@ -1622,7 +1628,7 @@ type ManagementClientDeleteBastionShareableLinkResponse struct {
 	// placeholder for future response values
 }
 
-// ManagementClientDisconnectActiveSessionsResponse contains the response from method ManagementClient.NewDisconnectActiveSessionsPager.
+// ManagementClientDisconnectActiveSessionsResponse contains the response from method ManagementClient.BeginDisconnectActiveSessions.
 type ManagementClientDisconnectActiveSessionsResponse struct {
 	// Response for DisconnectActiveSessions.
 	BastionSessionDeleteResult

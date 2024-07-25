@@ -10,7 +10,7 @@ package armnetwork
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork"
-	moduleVersion = "v5.2.0"
+	moduleVersion = "v6.0.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -588,6 +588,26 @@ func PossibleApplicationGatewayWafRuleActionTypesValues() []ApplicationGatewayWa
 	}
 }
 
+// ApplicationGatewayWafRuleSensitivityTypes - The string representation of the web application firewall rule sensitivity.
+type ApplicationGatewayWafRuleSensitivityTypes string
+
+const (
+	ApplicationGatewayWafRuleSensitivityTypesHigh   ApplicationGatewayWafRuleSensitivityTypes = "High"
+	ApplicationGatewayWafRuleSensitivityTypesLow    ApplicationGatewayWafRuleSensitivityTypes = "Low"
+	ApplicationGatewayWafRuleSensitivityTypesMedium ApplicationGatewayWafRuleSensitivityTypes = "Medium"
+	ApplicationGatewayWafRuleSensitivityTypesNone   ApplicationGatewayWafRuleSensitivityTypes = "None"
+)
+
+// PossibleApplicationGatewayWafRuleSensitivityTypesValues returns the possible values for the ApplicationGatewayWafRuleSensitivityTypes const type.
+func PossibleApplicationGatewayWafRuleSensitivityTypesValues() []ApplicationGatewayWafRuleSensitivityTypes {
+	return []ApplicationGatewayWafRuleSensitivityTypes{
+		ApplicationGatewayWafRuleSensitivityTypesHigh,
+		ApplicationGatewayWafRuleSensitivityTypesLow,
+		ApplicationGatewayWafRuleSensitivityTypesMedium,
+		ApplicationGatewayWafRuleSensitivityTypesNone,
+	}
+}
+
 // ApplicationGatewayWafRuleStateTypes - The string representation of the web application firewall rule state.
 type ApplicationGatewayWafRuleStateTypes string
 
@@ -830,12 +850,13 @@ func PossibleBastionConnectProtocolValues() []BastionConnectProtocol {
 	}
 }
 
-// BastionHostSKUName - The name of this Bastion Host.
+// BastionHostSKUName - The name of the sku of this Bastion Host.
 type BastionHostSKUName string
 
 const (
 	BastionHostSKUNameBasic     BastionHostSKUName = "Basic"
 	BastionHostSKUNameDeveloper BastionHostSKUName = "Developer"
+	BastionHostSKUNamePremium   BastionHostSKUName = "Premium"
 	BastionHostSKUNameStandard  BastionHostSKUName = "Standard"
 )
 
@@ -844,6 +865,7 @@ func PossibleBastionHostSKUNameValues() []BastionHostSKUName {
 	return []BastionHostSKUName{
 		BastionHostSKUNameBasic,
 		BastionHostSKUNameDeveloper,
+		BastionHostSKUNamePremium,
 		BastionHostSKUNameStandard,
 	}
 }
@@ -1373,6 +1395,67 @@ func PossibleEvaluationStateValues() []EvaluationState {
 		EvaluationStateCompleted,
 		EvaluationStateInProgress,
 		EvaluationStateNotStarted,
+	}
+}
+
+// ExceptionEntryMatchVariable - The variable on which we evaluate the exception condition
+type ExceptionEntryMatchVariable string
+
+const (
+	ExceptionEntryMatchVariableRemoteAddr    ExceptionEntryMatchVariable = "RemoteAddr"
+	ExceptionEntryMatchVariableRequestHeader ExceptionEntryMatchVariable = "RequestHeader"
+	ExceptionEntryMatchVariableRequestURI    ExceptionEntryMatchVariable = "RequestURI"
+)
+
+// PossibleExceptionEntryMatchVariableValues returns the possible values for the ExceptionEntryMatchVariable const type.
+func PossibleExceptionEntryMatchVariableValues() []ExceptionEntryMatchVariable {
+	return []ExceptionEntryMatchVariable{
+		ExceptionEntryMatchVariableRemoteAddr,
+		ExceptionEntryMatchVariableRequestHeader,
+		ExceptionEntryMatchVariableRequestURI,
+	}
+}
+
+// ExceptionEntrySelectorMatchOperator - When the matchVariable points to a key-value pair (e.g, RequestHeader), this operates
+// on the selector
+type ExceptionEntrySelectorMatchOperator string
+
+const (
+	ExceptionEntrySelectorMatchOperatorContains   ExceptionEntrySelectorMatchOperator = "Contains"
+	ExceptionEntrySelectorMatchOperatorEndsWith   ExceptionEntrySelectorMatchOperator = "EndsWith"
+	ExceptionEntrySelectorMatchOperatorEquals     ExceptionEntrySelectorMatchOperator = "Equals"
+	ExceptionEntrySelectorMatchOperatorStartsWith ExceptionEntrySelectorMatchOperator = "StartsWith"
+)
+
+// PossibleExceptionEntrySelectorMatchOperatorValues returns the possible values for the ExceptionEntrySelectorMatchOperator const type.
+func PossibleExceptionEntrySelectorMatchOperatorValues() []ExceptionEntrySelectorMatchOperator {
+	return []ExceptionEntrySelectorMatchOperator{
+		ExceptionEntrySelectorMatchOperatorContains,
+		ExceptionEntrySelectorMatchOperatorEndsWith,
+		ExceptionEntrySelectorMatchOperatorEquals,
+		ExceptionEntrySelectorMatchOperatorStartsWith,
+	}
+}
+
+// ExceptionEntryValueMatchOperator - Operates on the allowed values for the matchVariable
+type ExceptionEntryValueMatchOperator string
+
+const (
+	ExceptionEntryValueMatchOperatorContains   ExceptionEntryValueMatchOperator = "Contains"
+	ExceptionEntryValueMatchOperatorEndsWith   ExceptionEntryValueMatchOperator = "EndsWith"
+	ExceptionEntryValueMatchOperatorEquals     ExceptionEntryValueMatchOperator = "Equals"
+	ExceptionEntryValueMatchOperatorIPMatch    ExceptionEntryValueMatchOperator = "IPMatch"
+	ExceptionEntryValueMatchOperatorStartsWith ExceptionEntryValueMatchOperator = "StartsWith"
+)
+
+// PossibleExceptionEntryValueMatchOperatorValues returns the possible values for the ExceptionEntryValueMatchOperator const type.
+func PossibleExceptionEntryValueMatchOperatorValues() []ExceptionEntryValueMatchOperator {
+	return []ExceptionEntryValueMatchOperator{
+		ExceptionEntryValueMatchOperatorContains,
+		ExceptionEntryValueMatchOperatorEndsWith,
+		ExceptionEntryValueMatchOperatorEquals,
+		ExceptionEntryValueMatchOperatorIPMatch,
+		ExceptionEntryValueMatchOperatorStartsWith,
 	}
 }
 
@@ -2869,6 +2952,42 @@ func PossiblePreferredRoutingGatewayValues() []PreferredRoutingGateway {
 	}
 }
 
+// PrivateEndpointVNetPolicies - Private Endpoint VNet Policies.
+type PrivateEndpointVNetPolicies string
+
+const (
+	PrivateEndpointVNetPoliciesBasic    PrivateEndpointVNetPolicies = "Basic"
+	PrivateEndpointVNetPoliciesDisabled PrivateEndpointVNetPolicies = "Disabled"
+)
+
+// PossiblePrivateEndpointVNetPoliciesValues returns the possible values for the PrivateEndpointVNetPolicies const type.
+func PossiblePrivateEndpointVNetPoliciesValues() []PrivateEndpointVNetPolicies {
+	return []PrivateEndpointVNetPolicies{
+		PrivateEndpointVNetPoliciesBasic,
+		PrivateEndpointVNetPoliciesDisabled,
+	}
+}
+
+// ProbeNoHealthyBackendsBehavior - Determines how new connections are handled by the load balancer when all backend instances
+// are probed down.
+type ProbeNoHealthyBackendsBehavior string
+
+const (
+	// ProbeNoHealthyBackendsBehaviorAllProbedDown - No new flows will be sent to the backend pool.
+	ProbeNoHealthyBackendsBehaviorAllProbedDown ProbeNoHealthyBackendsBehavior = "AllProbedDown"
+	// ProbeNoHealthyBackendsBehaviorAllProbedUp - When all backend instances are probed down, incoming packets will be sent to
+	// all instances.
+	ProbeNoHealthyBackendsBehaviorAllProbedUp ProbeNoHealthyBackendsBehavior = "AllProbedUp"
+)
+
+// PossibleProbeNoHealthyBackendsBehaviorValues returns the possible values for the ProbeNoHealthyBackendsBehavior const type.
+func PossibleProbeNoHealthyBackendsBehaviorValues() []ProbeNoHealthyBackendsBehavior {
+	return []ProbeNoHealthyBackendsBehavior{
+		ProbeNoHealthyBackendsBehaviorAllProbedDown,
+		ProbeNoHealthyBackendsBehaviorAllProbedUp,
+	}
+}
+
 // ProbeProtocol - The protocol of the end point. If 'Tcp' is specified, a received ACK is required for the probe to be successful.
 // If 'Http' or 'Https' is specified, a 200 OK response from the specifies URI is required
 // for the probe to be successful.
@@ -3079,6 +3198,22 @@ func PossiblePublicIPPrefixSKUTierValues() []PublicIPPrefixSKUTier {
 	return []PublicIPPrefixSKUTier{
 		PublicIPPrefixSKUTierGlobal,
 		PublicIPPrefixSKUTierRegional,
+	}
+}
+
+// ResiliencyModel - Property to indicate if the Express Route Gateway has resiliency model of MultiHomed or SingleHomed
+type ResiliencyModel string
+
+const (
+	ResiliencyModelMultiHomed  ResiliencyModel = "MultiHomed"
+	ResiliencyModelSingleHomed ResiliencyModel = "SingleHomed"
+)
+
+// PossibleResiliencyModelValues returns the possible values for the ResiliencyModel const type.
+func PossibleResiliencyModelValues() []ResiliencyModel {
+	return []ResiliencyModel{
+		ResiliencyModelMultiHomed,
+		ResiliencyModelSingleHomed,
 	}
 }
 
@@ -3435,6 +3570,26 @@ func PossibleSecurityRuleProtocolValues() []SecurityRuleProtocol {
 		SecurityRuleProtocolIcmp,
 		SecurityRuleProtocolTCP,
 		SecurityRuleProtocolUDP,
+	}
+}
+
+// SensitivityType - Defines the sensitivity for the rule.
+type SensitivityType string
+
+const (
+	SensitivityTypeHigh   SensitivityType = "High"
+	SensitivityTypeLow    SensitivityType = "Low"
+	SensitivityTypeMedium SensitivityType = "Medium"
+	SensitivityTypeNone   SensitivityType = "None"
+)
+
+// PossibleSensitivityTypeValues returns the possible values for the SensitivityType const type.
+func PossibleSensitivityTypeValues() []SensitivityType {
+	return []SensitivityType{
+		SensitivityTypeHigh,
+		SensitivityTypeLow,
+		SensitivityTypeMedium,
+		SensitivityTypeNone,
 	}
 }
 

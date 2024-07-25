@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork/v5"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork/v6"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -37,9 +37,9 @@ type ManagementServer struct {
 	// HTTP status codes to indicate success: http.StatusAccepted
 	BeginDeleteBastionShareableLinkByToken func(ctx context.Context, resourceGroupName string, bastionHostName string, bslTokenRequest armnetwork.BastionShareableLinkTokenListRequest, options *armnetwork.ManagementClientBeginDeleteBastionShareableLinkByTokenOptions) (resp azfake.PollerResponder[armnetwork.ManagementClientDeleteBastionShareableLinkByTokenResponse], errResp azfake.ErrorResponder)
 
-	// NewDisconnectActiveSessionsPager is the fake for method ManagementClient.NewDisconnectActiveSessionsPager
-	// HTTP status codes to indicate success: http.StatusOK
-	NewDisconnectActiveSessionsPager func(resourceGroupName string, bastionHostName string, sessionIDs armnetwork.SessionIDs, options *armnetwork.ManagementClientDisconnectActiveSessionsOptions) (resp azfake.PagerResponder[armnetwork.ManagementClientDisconnectActiveSessionsResponse])
+	// BeginDisconnectActiveSessions is the fake for method ManagementClient.BeginDisconnectActiveSessions
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginDisconnectActiveSessions func(ctx context.Context, resourceGroupName string, bastionHostName string, sessionIDs armnetwork.SessionIDs, options *armnetwork.ManagementClientBeginDisconnectActiveSessionsOptions) (resp azfake.PollerResponder[azfake.PagerResponder[armnetwork.ManagementClientDisconnectActiveSessionsResponse]], errResp azfake.ErrorResponder)
 
 	// ExpressRouteProviderPort is the fake for method ManagementClient.ExpressRouteProviderPort
 	// HTTP status codes to indicate success: http.StatusOK
@@ -90,7 +90,7 @@ func NewManagementServerTransport(srv *ManagementServer) *ManagementServerTransp
 		srv:                                    srv,
 		beginDeleteBastionShareableLink:        newTracker[azfake.PollerResponder[armnetwork.ManagementClientDeleteBastionShareableLinkResponse]](),
 		beginDeleteBastionShareableLinkByToken: newTracker[azfake.PollerResponder[armnetwork.ManagementClientDeleteBastionShareableLinkByTokenResponse]](),
-		newDisconnectActiveSessionsPager:       newTracker[azfake.PagerResponder[armnetwork.ManagementClientDisconnectActiveSessionsResponse]](),
+		beginDisconnectActiveSessions:          newTracker[azfake.PollerResponder[azfake.PagerResponder[armnetwork.ManagementClientDisconnectActiveSessionsResponse]]](),
 		beginGeneratevirtualwanvpnserverconfigurationvpnprofile: newTracker[azfake.PollerResponder[armnetwork.ManagementClientGeneratevirtualwanvpnserverconfigurationvpnprofileResponse]](),
 		beginGetActiveSessions:          newTracker[azfake.PollerResponder[azfake.PagerResponder[armnetwork.ManagementClientGetActiveSessionsResponse]]](),
 		newGetBastionShareableLinkPager: newTracker[azfake.PagerResponder[armnetwork.ManagementClientGetBastionShareableLinkResponse]](),
@@ -104,7 +104,7 @@ type ManagementServerTransport struct {
 	srv                                                     *ManagementServer
 	beginDeleteBastionShareableLink                         *tracker[azfake.PollerResponder[armnetwork.ManagementClientDeleteBastionShareableLinkResponse]]
 	beginDeleteBastionShareableLinkByToken                  *tracker[azfake.PollerResponder[armnetwork.ManagementClientDeleteBastionShareableLinkByTokenResponse]]
-	newDisconnectActiveSessionsPager                        *tracker[azfake.PagerResponder[armnetwork.ManagementClientDisconnectActiveSessionsResponse]]
+	beginDisconnectActiveSessions                           *tracker[azfake.PollerResponder[azfake.PagerResponder[armnetwork.ManagementClientDisconnectActiveSessionsResponse]]]
 	beginGeneratevirtualwanvpnserverconfigurationvpnprofile *tracker[azfake.PollerResponder[armnetwork.ManagementClientGeneratevirtualwanvpnserverconfigurationvpnprofileResponse]]
 	beginGetActiveSessions                                  *tracker[azfake.PollerResponder[azfake.PagerResponder[armnetwork.ManagementClientGetActiveSessionsResponse]]]
 	newGetBastionShareableLinkPager                         *tracker[azfake.PagerResponder[armnetwork.ManagementClientGetBastionShareableLinkResponse]]
@@ -129,8 +129,8 @@ func (m *ManagementServerTransport) Do(req *http.Request) (*http.Response, error
 		resp, err = m.dispatchBeginDeleteBastionShareableLink(req)
 	case "ManagementClient.BeginDeleteBastionShareableLinkByToken":
 		resp, err = m.dispatchBeginDeleteBastionShareableLinkByToken(req)
-	case "ManagementClient.NewDisconnectActiveSessionsPager":
-		resp, err = m.dispatchNewDisconnectActiveSessionsPager(req)
+	case "ManagementClient.BeginDisconnectActiveSessions":
+		resp, err = m.dispatchBeginDisconnectActiveSessions(req)
 	case "ManagementClient.ExpressRouteProviderPort":
 		resp, err = m.dispatchExpressRouteProviderPort(req)
 	case "ManagementClient.BeginGeneratevirtualwanvpnserverconfigurationvpnprofile":
@@ -292,12 +292,12 @@ func (m *ManagementServerTransport) dispatchBeginDeleteBastionShareableLinkByTok
 	return resp, nil
 }
 
-func (m *ManagementServerTransport) dispatchNewDisconnectActiveSessionsPager(req *http.Request) (*http.Response, error) {
-	if m.srv.NewDisconnectActiveSessionsPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewDisconnectActiveSessionsPager not implemented")}
+func (m *ManagementServerTransport) dispatchBeginDisconnectActiveSessions(req *http.Request) (*http.Response, error) {
+	if m.srv.BeginDisconnectActiveSessions == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginDisconnectActiveSessions not implemented")}
 	}
-	newDisconnectActiveSessionsPager := m.newDisconnectActiveSessionsPager.get(req)
-	if newDisconnectActiveSessionsPager == nil {
+	beginDisconnectActiveSessions := m.beginDisconnectActiveSessions.get(req)
+	if beginDisconnectActiveSessions == nil {
 		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Network/bastionHosts/(?P<bastionHostName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/disconnectActiveSessions`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
@@ -316,24 +316,27 @@ func (m *ManagementServerTransport) dispatchNewDisconnectActiveSessionsPager(req
 		if err != nil {
 			return nil, err
 		}
-		resp := m.srv.NewDisconnectActiveSessionsPager(resourceGroupNameParam, bastionHostNameParam, body, nil)
-		newDisconnectActiveSessionsPager = &resp
-		m.newDisconnectActiveSessionsPager.add(req, newDisconnectActiveSessionsPager)
-		server.PagerResponderInjectNextLinks(newDisconnectActiveSessionsPager, req, func(page *armnetwork.ManagementClientDisconnectActiveSessionsResponse, createLink func() string) {
-			page.NextLink = to.Ptr(createLink())
-		})
+		respr, errRespr := m.srv.BeginDisconnectActiveSessions(req.Context(), resourceGroupNameParam, bastionHostNameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginDisconnectActiveSessions = &respr
+		m.beginDisconnectActiveSessions.add(req, beginDisconnectActiveSessions)
 	}
-	resp, err := server.PagerResponderNext(newDisconnectActiveSessionsPager, req)
+
+	resp, err := server.PollerResponderNext(beginDisconnectActiveSessions, req)
 	if err != nil {
 		return nil, err
 	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		m.newDisconnectActiveSessionsPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		m.beginDisconnectActiveSessions.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
 	}
-	if !server.PagerResponderMore(newDisconnectActiveSessionsPager) {
-		m.newDisconnectActiveSessionsPager.remove(req)
+	if !server.PollerResponderMore(beginDisconnectActiveSessions) {
+		m.beginDisconnectActiveSessions.remove(req)
 	}
+
 	return resp, nil
 }
 
