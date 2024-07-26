@@ -896,8 +896,7 @@ type ExpressRouteCrossConnectionsClientListByResourceGroupOptions struct {
 // ExpressRouteCrossConnectionsClientListOptions contains the optional parameters for the ExpressRouteCrossConnectionsClient.NewListPager
 // method.
 type ExpressRouteCrossConnectionsClientListOptions struct {
-	// The filter to apply on the operation. For example, you can use $filter=name eq '{circuitServiceKey}'.
-	Filter *string
+	// placeholder for future optional parameters
 }
 
 // ExpressRouteCrossConnectionsClientUpdateTagsOptions contains the optional parameters for the ExpressRouteCrossConnectionsClient.UpdateTags
@@ -1390,11 +1389,6 @@ type InboundNatRulesClientListOptions struct {
 type InboundSecurityRuleClientBeginCreateOrUpdateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
-}
-
-// InboundSecurityRuleClientGetOptions contains the optional parameters for the InboundSecurityRuleClient.Get method.
-type InboundSecurityRuleClientGetOptions struct {
-	// placeholder for future optional parameters
 }
 
 // InterfaceIPConfigurationsClientGetOptions contains the optional parameters for the InterfaceIPConfigurationsClient.Get
