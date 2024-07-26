@@ -1,5 +1,27 @@
 # Release History
 
+## 7.0.0 (2024-07-26)
+### Breaking Changes
+
+- `BastionHostSKUNamePremium` from enum `BastionHostSKUName` has been removed
+- Enum `ProbeNoHealthyBackendsBehavior` has been removed
+- Function `*InboundSecurityRuleClient.Get` has been removed
+- Field `ConnectionResourceURI` of struct `AuthorizationPropertiesFormat` has been removed
+- Field `EnableSessionRecording` of struct `BastionHostPropertiesFormat` has been removed
+- Field `Filter` of struct `ExpressRouteCrossConnectionsClientListOptions` has been removed
+- Field `DurationInSeconds`, `FileName`, `Filters`, `Flags`, `NumberOfPacketsToCapture`, `Protocol`, `SasURL` of struct `FirewallPacketCaptureParameters` has been removed
+- Field `Identity` of struct `FlowLog` has been removed
+- Field `Identity` of struct `FlowLogInformation` has been removed
+- Field `NoHealthyBackendsBehavior` of struct `ProbePropertiesFormat` has been removed
+- Field `NetworkIdentifier` of struct `ServiceEndpointPropertiesFormat` has been removed
+- Field `Identity` of struct `VirtualNetworkGateway` has been removed
+
+### Features Added
+
+- New struct `FirewallPacketCaptureParametersFormat`
+- New field `ID`, `Properties` in struct `FirewallPacketCaptureParameters`
+
+
 ## 6.0.0 (2024-07-25)
 ### Breaking Changes
 
