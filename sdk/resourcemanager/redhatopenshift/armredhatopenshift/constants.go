@@ -10,7 +10,7 @@ package armredhatopenshift
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/redhatopenshift/armredhatopenshift"
-	moduleVersion = "v1.6.0"
+	moduleVersion = "v1.7.0-beta.1"
 )
 
 // CreatedByType - The type of identity that created the resource.
@@ -120,6 +120,22 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 		ProvisioningStateFailed,
 		ProvisioningStateSucceeded,
 		ProvisioningStateUpdating,
+	}
+}
+
+// ResourceIdentityType - The identity type.
+type ResourceIdentityType string
+
+const (
+	ResourceIdentityTypeSystemAssigned ResourceIdentityType = "SystemAssigned"
+	ResourceIdentityTypeUserAssigned   ResourceIdentityType = "UserAssigned"
+)
+
+// PossibleResourceIdentityTypeValues returns the possible values for the ResourceIdentityType const type.
+func PossibleResourceIdentityTypeValues() []ResourceIdentityType {
+	return []ResourceIdentityType{
+		ResourceIdentityTypeSystemAssigned,
+		ResourceIdentityTypeUserAssigned,
 	}
 }
 

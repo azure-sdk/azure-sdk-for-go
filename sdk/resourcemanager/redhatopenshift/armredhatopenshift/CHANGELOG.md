@@ -1,5 +1,19 @@
 # Release History
 
+## 1.7.0-beta.1 (2024-07-26)
+### Features Added
+
+- New enum type `ResourceIdentityType` with values `ResourceIdentityTypeSystemAssigned`, `ResourceIdentityTypeUserAssigned`
+- New struct `ClusterUserAssignedIdentity`
+- New struct `Identity`
+- New struct `PlatformWorkloadIdentity`
+- New struct `PlatformWorkloadIdentityProfile`
+- New field `OidcIssuer` in struct `ClusterProfile`
+- New field `Identity` in struct `OpenShiftCluster`
+- New field `PlatformWorkloadIdentityProfile` in struct `OpenShiftClusterProperties`
+- New field `Identity` in struct `OpenShiftClusterUpdate`
+
+
 ## 1.6.0 (2024-07-26)
 ### Features Added
 

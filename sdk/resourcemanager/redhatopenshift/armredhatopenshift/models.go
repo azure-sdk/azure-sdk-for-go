@@ -30,6 +30,9 @@ type ClusterProfile struct {
 	// If FIPS validated crypto modules are used
 	FipsValidatedModules *FipsValidatedModules
 
+	// The URL of the managed OIDC issuer in a workload identity cluster.
+	OidcIssuer *string
+
 	// The pull secret for the cluster.
 	PullSecret *string
 
@@ -38,6 +41,13 @@ type ClusterProfile struct {
 
 	// The version of the cluster.
 	Version *string
+}
+
+// ClusterUserAssignedIdentity stores information about a user-assigned managed identity in a predefined format required by
+// Microsoft's Managed Identity team.
+type ClusterUserAssignedIdentity struct {
+	ClientID    *string
+	PrincipalID *string
 }
 
 // ConsoleProfile represents a console profile.
@@ -65,6 +75,21 @@ type Display struct {
 type EffectiveOutboundIP struct {
 	// The fully qualified Azure resource id of an IP address resource.
 	ID *string
+}
+
+// Identity stores information about the cluster MSI(s) in a workload identity cluster.
+type Identity struct {
+	// The identity type.
+	Type *ResourceIdentityType
+
+	// Dictionary of
+	UserAssignedIdentities map[string]*ClusterUserAssignedIdentity
+
+	// READ-ONLY
+	PrincipalID *string
+
+	// READ-ONLY
+	TenantID *string
 }
 
 // IngressProfile represents an ingress profile.
@@ -174,6 +199,9 @@ type OpenShiftCluster struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
+	// Identity stores information about the cluster MSI(s) in a workload identity cluster.
+	Identity *Identity
+
 	// The cluster properties.
 	Properties *OpenShiftClusterProperties
 
@@ -237,6 +265,9 @@ type OpenShiftClusterProperties struct {
 	// The cluster network profile.
 	NetworkProfile *NetworkProfile
 
+	// The workload identity profile.
+	PlatformWorkloadIdentityProfile *PlatformWorkloadIdentityProfile
+
 	// The cluster provisioning state.
 	ProvisioningState *ProvisioningState
 
@@ -252,6 +283,9 @@ type OpenShiftClusterProperties struct {
 
 // OpenShiftClusterUpdate - OpenShiftCluster represents an Azure Red Hat OpenShift cluster.
 type OpenShiftClusterUpdate struct {
+	// Identity stores information about the cluster MSI(s) in a workload identity cluster.
+	Identity *Identity
+
 	// The cluster properties.
 	Properties *OpenShiftClusterProperties
 
@@ -314,6 +348,26 @@ type OperationList struct {
 
 	// List of operations supported by the resource provider.
 	Value []*Operation
+}
+
+// PlatformWorkloadIdentity stores information representing a single workload identity.
+type PlatformWorkloadIdentity struct {
+	OperatorName *string
+	ResourceID   *string
+
+	// READ-ONLY
+	ClientID *string
+
+	// READ-ONLY
+	ObjectID *string
+}
+
+// PlatformWorkloadIdentityProfile encapsulates all information that is specific to workload identity clusters.
+type PlatformWorkloadIdentityProfile struct {
+	PlatformWorkloadIdentities []*PlatformWorkloadIdentity
+
+	// UpgradeableTo stores a single OpenShift version a workload identity cluster can be upgraded to
+	UpgradeableTo *string
 }
 
 // Secret represents a secret.
