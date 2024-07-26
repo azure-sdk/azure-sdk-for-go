@@ -1,5 +1,30 @@
 # Release History
 
+## 6.1.0 (2024-07-26)
+### Features Added
+
+- New enum type `ApplicationGatewayWafRuleSensitivityTypes` with values `ApplicationGatewayWafRuleSensitivityTypesHigh`, `ApplicationGatewayWafRuleSensitivityTypesLow`, `ApplicationGatewayWafRuleSensitivityTypesMedium`, `ApplicationGatewayWafRuleSensitivityTypesNone`
+- New enum type `ExceptionEntryMatchVariable` with values `ExceptionEntryMatchVariableRemoteAddr`, `ExceptionEntryMatchVariableRequestHeader`, `ExceptionEntryMatchVariableRequestURI`
+- New enum type `ExceptionEntrySelectorMatchOperator` with values `ExceptionEntrySelectorMatchOperatorContains`, `ExceptionEntrySelectorMatchOperatorEndsWith`, `ExceptionEntrySelectorMatchOperatorEquals`, `ExceptionEntrySelectorMatchOperatorStartsWith`
+- New enum type `ExceptionEntryValueMatchOperator` with values `ExceptionEntryValueMatchOperatorContains`, `ExceptionEntryValueMatchOperatorEndsWith`, `ExceptionEntryValueMatchOperatorEquals`, `ExceptionEntryValueMatchOperatorIPMatch`, `ExceptionEntryValueMatchOperatorStartsWith`
+- New enum type `PrivateEndpointVNetPolicies` with values `PrivateEndpointVNetPoliciesBasic`, `PrivateEndpointVNetPoliciesDisabled`
+- New enum type `ResiliencyModel` with values `ResiliencyModelMultiHomed`, `ResiliencyModelSingleHomed`
+- New enum type `SensitivityType` with values `SensitivityTypeHigh`, `SensitivityTypeLow`, `SensitivityTypeMedium`, `SensitivityTypeNone`
+- New struct `ApplicationGatewayForContainersReferenceDefinition`
+- New struct `AzureFirewallAutoscaleConfiguration`
+- New struct `ExceptionEntry`
+- New field `Sensitivity` in struct `ApplicationGatewayFirewallRule`
+- New field `AutoscaleConfiguration` in struct `AzureFirewallPropertiesFormat`
+- New field `EnabledFilteringCriteria` in struct `FlowLogProperties`
+- New field `EnabledFilteringCriteria` in struct `FlowLogPropertiesFormat`
+- New field `Sensitivity` in struct `ManagedRuleOverride`
+- New field `Exceptions` in struct `ManagedRulesDefinition`
+- New field `DestinationIPAddress` in struct `PrivateLinkServiceProperties`
+- New field `ResiliencyModel` in struct `VirtualNetworkGatewayPropertiesFormat`
+- New field `PrivateEndpointVNetPolicies` in struct `VirtualNetworkPropertiesFormat`
+- New field `ApplicationGatewayForContainers` in struct `WebApplicationFirewallPolicyPropertiesFormat`
+
+
 ## 6.0.0 (2024-07-25)
 ### Breaking Changes
 
