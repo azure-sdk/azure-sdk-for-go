@@ -4002,6 +4002,85 @@ func (a *AzureVMWorkloadSAPHanaHSRProtectableItem) UnmarshalJSON(data []byte) er
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type AzureVMWorkloadSAPHanaScaleoutProtectableItem.
+func (a AzureVMWorkloadSAPHanaScaleoutProtectableItem) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "backupManagementType", a.BackupManagementType)
+	populate(objectMap, "friendlyName", a.FriendlyName)
+	populate(objectMap, "isAutoProtectable", a.IsAutoProtectable)
+	populate(objectMap, "isAutoProtected", a.IsAutoProtected)
+	populate(objectMap, "isProtectable", a.IsProtectable)
+	populate(objectMap, "parentName", a.ParentName)
+	populate(objectMap, "parentUniqueName", a.ParentUniqueName)
+	populate(objectMap, "prebackupvalidation", a.Prebackupvalidation)
+	objectMap["protectableItemType"] = "HanaScaleoutContainer"
+	populate(objectMap, "protectionState", a.ProtectionState)
+	populate(objectMap, "serverName", a.ServerName)
+	populate(objectMap, "subinquireditemcount", a.Subinquireditemcount)
+	populate(objectMap, "subprotectableitemcount", a.Subprotectableitemcount)
+	populate(objectMap, "workloadType", a.WorkloadType)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureVMWorkloadSAPHanaScaleoutProtectableItem.
+func (a *AzureVMWorkloadSAPHanaScaleoutProtectableItem) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "backupManagementType":
+			err = unpopulate(val, "BackupManagementType", &a.BackupManagementType)
+			delete(rawMsg, key)
+		case "friendlyName":
+			err = unpopulate(val, "FriendlyName", &a.FriendlyName)
+			delete(rawMsg, key)
+		case "isAutoProtectable":
+			err = unpopulate(val, "IsAutoProtectable", &a.IsAutoProtectable)
+			delete(rawMsg, key)
+		case "isAutoProtected":
+			err = unpopulate(val, "IsAutoProtected", &a.IsAutoProtected)
+			delete(rawMsg, key)
+		case "isProtectable":
+			err = unpopulate(val, "IsProtectable", &a.IsProtectable)
+			delete(rawMsg, key)
+		case "parentName":
+			err = unpopulate(val, "ParentName", &a.ParentName)
+			delete(rawMsg, key)
+		case "parentUniqueName":
+			err = unpopulate(val, "ParentUniqueName", &a.ParentUniqueName)
+			delete(rawMsg, key)
+		case "prebackupvalidation":
+			err = unpopulate(val, "Prebackupvalidation", &a.Prebackupvalidation)
+			delete(rawMsg, key)
+		case "protectableItemType":
+			err = unpopulate(val, "ProtectableItemType", &a.ProtectableItemType)
+			delete(rawMsg, key)
+		case "protectionState":
+			err = unpopulate(val, "ProtectionState", &a.ProtectionState)
+			delete(rawMsg, key)
+		case "serverName":
+			err = unpopulate(val, "ServerName", &a.ServerName)
+			delete(rawMsg, key)
+		case "subinquireditemcount":
+			err = unpopulate(val, "Subinquireditemcount", &a.Subinquireditemcount)
+			delete(rawMsg, key)
+		case "subprotectableitemcount":
+			err = unpopulate(val, "Subprotectableitemcount", &a.Subprotectableitemcount)
+			delete(rawMsg, key)
+		case "workloadType":
+			err = unpopulate(val, "WorkloadType", &a.WorkloadType)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type AzureVMWorkloadSAPHanaSystemProtectableItem.
 func (a AzureVMWorkloadSAPHanaSystemProtectableItem) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -11680,6 +11759,60 @@ func (o *OperationWorkerResponse) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type PatchRecoveryPointInput.
+func (p PatchRecoveryPointInput) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "recoveryPointProperties", p.RecoveryPointProperties)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type PatchRecoveryPointInput.
+func (p *PatchRecoveryPointInput) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", p, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "recoveryPointProperties":
+			err = unpopulate(val, "RecoveryPointProperties", &p.RecoveryPointProperties)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", p, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type PatchRecoveryPointPropertiesInput.
+func (p PatchRecoveryPointPropertiesInput) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populateDateTimeRFC3339(objectMap, "expiryTime", p.ExpiryTime)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type PatchRecoveryPointPropertiesInput.
+func (p *PatchRecoveryPointPropertiesInput) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", p, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "expiryTime":
+			err = unpopulateDateTimeRFC3339(val, "ExpiryTime", &p.ExpiryTime)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", p, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type PointInTimeRange.
 func (p PointInTimeRange) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -14431,6 +14564,33 @@ func (u *UnlockDeleteResponse) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "unlockDeleteExpiryTime":
 			err = unpopulate(val, "UnlockDeleteExpiryTime", &u.UnlockDeleteExpiryTime)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", u, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type UpdateRecoveryPointRequest.
+func (u UpdateRecoveryPointRequest) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "properties", u.Properties)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type UpdateRecoveryPointRequest.
+func (u *UpdateRecoveryPointRequest) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", u, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "properties":
+			err = unpopulate(val, "Properties", &u.Properties)
 			delete(rawMsg, key)
 		}
 		if err != nil {

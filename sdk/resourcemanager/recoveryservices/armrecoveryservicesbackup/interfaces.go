@@ -43,8 +43,8 @@ type AzureVMWorkloadItemClassification interface {
 // Call the interface's GetAzureVMWorkloadProtectableItem() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
 // - *AzureVMWorkloadProtectableItem, *AzureVMWorkloadSAPAseSystemProtectableItem, *AzureVMWorkloadSAPHanaDBInstance, *AzureVMWorkloadSAPHanaDatabaseProtectableItem,
-// - *AzureVMWorkloadSAPHanaHSRProtectableItem, *AzureVMWorkloadSAPHanaSystemProtectableItem, *AzureVMWorkloadSQLAvailabilityGroupProtectableItem,
-// - *AzureVMWorkloadSQLDatabaseProtectableItem, *AzureVMWorkloadSQLInstanceProtectableItem
+// - *AzureVMWorkloadSAPHanaHSRProtectableItem, *AzureVMWorkloadSAPHanaScaleoutProtectableItem, *AzureVMWorkloadSAPHanaSystemProtectableItem,
+// - *AzureVMWorkloadSQLAvailabilityGroupProtectableItem, *AzureVMWorkloadSQLDatabaseProtectableItem, *AzureVMWorkloadSQLInstanceProtectableItem
 type AzureVMWorkloadProtectableItemClassification interface {
 	WorkloadProtectableItemClassification
 	// GetAzureVMWorkloadProtectableItem returns the AzureVMWorkloadProtectableItem content of the underlying type.
@@ -428,8 +428,9 @@ type WorkloadItemClassification interface {
 // Use a type switch to determine the concrete type.  The possible types are:
 // - *AzureFileShareProtectableItem, *AzureIaaSClassicComputeVMProtectableItem, *AzureIaaSComputeVMProtectableItem, *AzureVMWorkloadProtectableItem,
 // - *AzureVMWorkloadSAPAseSystemProtectableItem, *AzureVMWorkloadSAPHanaDBInstance, *AzureVMWorkloadSAPHanaDatabaseProtectableItem,
-// - *AzureVMWorkloadSAPHanaHSRProtectableItem, *AzureVMWorkloadSAPHanaSystemProtectableItem, *AzureVMWorkloadSQLAvailabilityGroupProtectableItem,
-// - *AzureVMWorkloadSQLDatabaseProtectableItem, *AzureVMWorkloadSQLInstanceProtectableItem, *IaaSVMProtectableItem, *WorkloadProtectableItem
+// - *AzureVMWorkloadSAPHanaHSRProtectableItem, *AzureVMWorkloadSAPHanaScaleoutProtectableItem, *AzureVMWorkloadSAPHanaSystemProtectableItem,
+// - *AzureVMWorkloadSQLAvailabilityGroupProtectableItem, *AzureVMWorkloadSQLDatabaseProtectableItem, *AzureVMWorkloadSQLInstanceProtectableItem,
+// - *IaaSVMProtectableItem, *WorkloadProtectableItem
 type WorkloadProtectableItemClassification interface {
 	// GetWorkloadProtectableItem returns the WorkloadProtectableItem content of the underlying type.
 	GetWorkloadProtectableItem() *WorkloadProtectableItem

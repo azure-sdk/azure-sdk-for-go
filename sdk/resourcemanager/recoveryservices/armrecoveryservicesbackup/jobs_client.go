@@ -46,7 +46,7 @@ func NewJobsClient(subscriptionID string, credential azcore.TokenCredential, opt
 // Export - Triggers export of jobs specified by filters and returns an OperationID to track.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-07-30-preview
 //   - vaultName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - options - JobsClientExportOptions contains the optional parameters for the JobsClient.Export method.
@@ -94,7 +94,7 @@ func (client *JobsClient) exportCreateRequest(ctx context.Context, vaultName str
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-07-30-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

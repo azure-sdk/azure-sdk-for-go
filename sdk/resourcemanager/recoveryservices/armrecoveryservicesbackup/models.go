@@ -3279,6 +3279,83 @@ func (a *AzureVMWorkloadSAPHanaHSRProtectableItem) GetWorkloadProtectableItem() 
 	}
 }
 
+// AzureVMWorkloadSAPHanaScaleoutProtectableItem - Azure VM workload-specific protectable item representing HANA scale out.
+type AzureVMWorkloadSAPHanaScaleoutProtectableItem struct {
+	// REQUIRED; Type of the backup item.
+	ProtectableItemType *string
+
+	// Type of backup management to backup an item.
+	BackupManagementType *string
+
+	// Friendly name of the backup item.
+	FriendlyName *string
+
+	// Indicates if protectable item is auto-protectable
+	IsAutoProtectable *bool
+
+	// Indicates if protectable item is auto-protected
+	IsAutoProtected *bool
+
+	// Indicates if item is protectable
+	IsProtectable *bool
+
+	// Name for instance or AG
+	ParentName *string
+
+	// Parent Unique Name is added to provide the service formatted URI Name of the Parent Only Applicable for data bases where
+	// the parent would be either Instance or a SQL AG.
+	ParentUniqueName *string
+
+	// Pre-backup validation for protectable objects
+	Prebackupvalidation *PreBackupValidation
+
+	// State of the back up item.
+	ProtectionState *ProtectionStatus
+
+	// Host/Cluster Name for instance or AG
+	ServerName *string
+
+	// For instance or AG, indicates number of DB's present
+	Subinquireditemcount *int32
+
+	// For instance or AG, indicates number of DB's to be protected
+	Subprotectableitemcount *int32
+
+	// Type of workload for the backup management
+	WorkloadType *string
+}
+
+// GetAzureVMWorkloadProtectableItem implements the AzureVMWorkloadProtectableItemClassification interface for type AzureVMWorkloadSAPHanaScaleoutProtectableItem.
+func (a *AzureVMWorkloadSAPHanaScaleoutProtectableItem) GetAzureVMWorkloadProtectableItem() *AzureVMWorkloadProtectableItem {
+	return &AzureVMWorkloadProtectableItem{
+		BackupManagementType:    a.BackupManagementType,
+		FriendlyName:            a.FriendlyName,
+		IsAutoProtectable:       a.IsAutoProtectable,
+		IsAutoProtected:         a.IsAutoProtected,
+		IsProtectable:           a.IsProtectable,
+		ParentName:              a.ParentName,
+		ParentUniqueName:        a.ParentUniqueName,
+		Prebackupvalidation:     a.Prebackupvalidation,
+		ProtectableItemType:     a.ProtectableItemType,
+		ProtectionState:         a.ProtectionState,
+		ServerName:              a.ServerName,
+		Subinquireditemcount:    a.Subinquireditemcount,
+		Subprotectableitemcount: a.Subprotectableitemcount,
+		WorkloadType:            a.WorkloadType,
+	}
+}
+
+// GetWorkloadProtectableItem implements the WorkloadProtectableItemClassification interface for type AzureVMWorkloadSAPHanaScaleoutProtectableItem.
+func (a *AzureVMWorkloadSAPHanaScaleoutProtectableItem) GetWorkloadProtectableItem() *WorkloadProtectableItem {
+	return &WorkloadProtectableItem{
+		BackupManagementType: a.BackupManagementType,
+		FriendlyName:         a.FriendlyName,
+		ProtectableItemType:  a.ProtectableItemType,
+		ProtectionState:      a.ProtectionState,
+		WorkloadType:         a.WorkloadType,
+	}
+}
+
 // AzureVMWorkloadSAPHanaSystemProtectableItem - Azure VM workload-specific protectable item representing SAP HANA System.
 type AzureVMWorkloadSAPHanaSystemProtectableItem struct {
 	// REQUIRED; Type of the backup item.
@@ -8152,6 +8229,18 @@ type OperationWorkerResponse struct {
 	StatusCode *HTTPStatusCode
 }
 
+// PatchRecoveryPointInput - Recovery Point Contract for Update Recovery Point API.
+type PatchRecoveryPointInput struct {
+	// Properties of Recovery Point
+	RecoveryPointProperties *PatchRecoveryPointPropertiesInput
+}
+
+// PatchRecoveryPointPropertiesInput - Recovery Point Properties Contract for Update Recovery Point API.
+type PatchRecoveryPointPropertiesInput struct {
+	// Expiry time of Recovery Point in UTC.
+	ExpiryTime *time.Time
+}
+
 // PointInTimeRange - Provides details for log ranges
 type PointInTimeRange struct {
 	// End time of the time range for log recovery.
@@ -9256,6 +9345,12 @@ type UnlockDeleteRequest struct {
 type UnlockDeleteResponse struct {
 	// This is the time when unlock delete privileges will get expired.
 	UnlockDeleteExpiryTime *string
+}
+
+// UpdateRecoveryPointRequest - Patch Request content to update recovery point for given RecoveryPointId
+type UpdateRecoveryPointRequest struct {
+	// Resource properties.
+	Properties *PatchRecoveryPointInput
 }
 
 // UserAssignedIdentityProperties - User assigned managed identity properties

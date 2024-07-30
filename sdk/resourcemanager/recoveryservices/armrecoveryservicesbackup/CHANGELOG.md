@@ -1,5 +1,18 @@
 # Release History
 
+## 4.2.0-beta.1 (2024-07-30)
+### Features Added
+
+- New value `ContainerTypeHanaScaleoutContainer` added to enum type `ContainerType`
+- New function `*AzureVMWorkloadSAPHanaScaleoutProtectableItem.GetAzureVMWorkloadProtectableItem() *AzureVMWorkloadProtectableItem`
+- New function `*AzureVMWorkloadSAPHanaScaleoutProtectableItem.GetWorkloadProtectableItem() *WorkloadProtectableItem`
+- New function `*RecoveryPointsClient.Update(context.Context, string, string, string, string, string, string, UpdateRecoveryPointRequest, *RecoveryPointsClientUpdateOptions) (RecoveryPointsClientUpdateResponse, error)`
+- New struct `AzureVMWorkloadSAPHanaScaleoutProtectableItem`
+- New struct `PatchRecoveryPointInput`
+- New struct `PatchRecoveryPointPropertiesInput`
+- New struct `UpdateRecoveryPointRequest`
+
+
 ## 4.1.0 (2024-05-24)
 ### Features Added
 

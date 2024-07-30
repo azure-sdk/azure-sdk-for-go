@@ -10,7 +10,7 @@ package armrecoveryservicesbackup
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup"
-	moduleVersion = "v4.1.0"
+	moduleVersion = "v4.2.0-beta.1"
 )
 
 // AcquireStorageAccountLock - Whether storage account lock is to be acquired for this container or not.
@@ -177,6 +177,7 @@ const (
 	ContainerTypeDPMContainer               ContainerType = "DPMContainer"
 	ContainerTypeGenericContainer           ContainerType = "GenericContainer"
 	ContainerTypeHanaHSRContainer           ContainerType = "HanaHSRContainer"
+	ContainerTypeHanaScaleoutContainer      ContainerType = "HanaScaleoutContainer"
 	ContainerTypeIaasVMContainer            ContainerType = "IaasVMContainer"
 	ContainerTypeIaasVMServiceContainer     ContainerType = "IaasVMServiceContainer"
 	ContainerTypeInvalid                    ContainerType = "Invalid"
@@ -198,6 +199,7 @@ func PossibleContainerTypeValues() []ContainerType {
 		ContainerTypeDPMContainer,
 		ContainerTypeGenericContainer,
 		ContainerTypeHanaHSRContainer,
+		ContainerTypeHanaScaleoutContainer,
 		ContainerTypeIaasVMContainer,
 		ContainerTypeIaasVMServiceContainer,
 		ContainerTypeInvalid,
