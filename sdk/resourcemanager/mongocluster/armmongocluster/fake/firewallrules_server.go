@@ -32,9 +32,9 @@ type FirewallRulesServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, mongoClusterName string, firewallRuleName string, options *armmongocluster.FirewallRulesClientGetOptions) (resp azfake.Responder[armmongocluster.FirewallRulesClientGetResponse], errResp azfake.ErrorResponder)
 
-	// NewListByMongoClusterPager is the fake for method FirewallRulesClient.NewListByMongoClusterPager
+	// NewListByMongoClusterTestPager is the fake for method FirewallRulesClient.NewListByMongoClusterTestPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListByMongoClusterPager func(resourceGroupName string, mongoClusterName string, options *armmongocluster.FirewallRulesClientListByMongoClusterOptions) (resp azfake.PagerResponder[armmongocluster.FirewallRulesClientListByMongoClusterResponse])
+	NewListByMongoClusterTestPager func(resourceGroupName string, mongoClusterName string, options *armmongocluster.FirewallRulesClientListByMongoClusterTestOptions) (resp azfake.PagerResponder[armmongocluster.FirewallRulesClientListByMongoClusterTestResponse])
 }
 
 // NewFirewallRulesServerTransport creates a new instance of FirewallRulesServerTransport with the provided implementation.
@@ -42,20 +42,20 @@ type FirewallRulesServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewFirewallRulesServerTransport(srv *FirewallRulesServer) *FirewallRulesServerTransport {
 	return &FirewallRulesServerTransport{
-		srv:                        srv,
-		beginCreateOrUpdate:        newTracker[azfake.PollerResponder[armmongocluster.FirewallRulesClientCreateOrUpdateResponse]](),
-		beginDelete:                newTracker[azfake.PollerResponder[armmongocluster.FirewallRulesClientDeleteResponse]](),
-		newListByMongoClusterPager: newTracker[azfake.PagerResponder[armmongocluster.FirewallRulesClientListByMongoClusterResponse]](),
+		srv:                            srv,
+		beginCreateOrUpdate:            newTracker[azfake.PollerResponder[armmongocluster.FirewallRulesClientCreateOrUpdateResponse]](),
+		beginDelete:                    newTracker[azfake.PollerResponder[armmongocluster.FirewallRulesClientDeleteResponse]](),
+		newListByMongoClusterTestPager: newTracker[azfake.PagerResponder[armmongocluster.FirewallRulesClientListByMongoClusterTestResponse]](),
 	}
 }
 
 // FirewallRulesServerTransport connects instances of armmongocluster.FirewallRulesClient to instances of FirewallRulesServer.
 // Don't use this type directly, use NewFirewallRulesServerTransport instead.
 type FirewallRulesServerTransport struct {
-	srv                        *FirewallRulesServer
-	beginCreateOrUpdate        *tracker[azfake.PollerResponder[armmongocluster.FirewallRulesClientCreateOrUpdateResponse]]
-	beginDelete                *tracker[azfake.PollerResponder[armmongocluster.FirewallRulesClientDeleteResponse]]
-	newListByMongoClusterPager *tracker[azfake.PagerResponder[armmongocluster.FirewallRulesClientListByMongoClusterResponse]]
+	srv                            *FirewallRulesServer
+	beginCreateOrUpdate            *tracker[azfake.PollerResponder[armmongocluster.FirewallRulesClientCreateOrUpdateResponse]]
+	beginDelete                    *tracker[azfake.PollerResponder[armmongocluster.FirewallRulesClientDeleteResponse]]
+	newListByMongoClusterTestPager *tracker[azfake.PagerResponder[armmongocluster.FirewallRulesClientListByMongoClusterTestResponse]]
 }
 
 // Do implements the policy.Transporter interface for FirewallRulesServerTransport.
@@ -80,8 +80,8 @@ func (f *FirewallRulesServerTransport) dispatchToMethodFake(req *http.Request, m
 		resp, err = f.dispatchBeginDelete(req)
 	case "FirewallRulesClient.Get":
 		resp, err = f.dispatchGet(req)
-	case "FirewallRulesClient.NewListByMongoClusterPager":
-		resp, err = f.dispatchNewListByMongoClusterPager(req)
+	case "FirewallRulesClient.NewListByMongoClusterTestPager":
+		resp, err = f.dispatchNewListByMongoClusterTestPager(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -226,12 +226,12 @@ func (f *FirewallRulesServerTransport) dispatchGet(req *http.Request) (*http.Res
 	return resp, nil
 }
 
-func (f *FirewallRulesServerTransport) dispatchNewListByMongoClusterPager(req *http.Request) (*http.Response, error) {
-	if f.srv.NewListByMongoClusterPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListByMongoClusterPager not implemented")}
+func (f *FirewallRulesServerTransport) dispatchNewListByMongoClusterTestPager(req *http.Request) (*http.Response, error) {
+	if f.srv.NewListByMongoClusterTestPager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListByMongoClusterTestPager not implemented")}
 	}
-	newListByMongoClusterPager := f.newListByMongoClusterPager.get(req)
-	if newListByMongoClusterPager == nil {
+	newListByMongoClusterTestPager := f.newListByMongoClusterTestPager.get(req)
+	if newListByMongoClusterTestPager == nil {
 		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DocumentDB/mongoClusters/(?P<mongoClusterName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/firewallRules`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
@@ -246,23 +246,23 @@ func (f *FirewallRulesServerTransport) dispatchNewListByMongoClusterPager(req *h
 		if err != nil {
 			return nil, err
 		}
-		resp := f.srv.NewListByMongoClusterPager(resourceGroupNameParam, mongoClusterNameParam, nil)
-		newListByMongoClusterPager = &resp
-		f.newListByMongoClusterPager.add(req, newListByMongoClusterPager)
-		server.PagerResponderInjectNextLinks(newListByMongoClusterPager, req, func(page *armmongocluster.FirewallRulesClientListByMongoClusterResponse, createLink func() string) {
+		resp := f.srv.NewListByMongoClusterTestPager(resourceGroupNameParam, mongoClusterNameParam, nil)
+		newListByMongoClusterTestPager = &resp
+		f.newListByMongoClusterTestPager.add(req, newListByMongoClusterTestPager)
+		server.PagerResponderInjectNextLinks(newListByMongoClusterTestPager, req, func(page *armmongocluster.FirewallRulesClientListByMongoClusterTestResponse, createLink func() string) {
 			page.NextLink = to.Ptr(createLink())
 		})
 	}
-	resp, err := server.PagerResponderNext(newListByMongoClusterPager, req)
+	resp, err := server.PagerResponderNext(newListByMongoClusterTestPager, req)
 	if err != nil {
 		return nil, err
 	}
 	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		f.newListByMongoClusterPager.remove(req)
+		f.newListByMongoClusterTestPager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
-	if !server.PagerResponderMore(newListByMongoClusterPager) {
-		f.newListByMongoClusterPager.remove(req)
+	if !server.PagerResponderMore(newListByMongoClusterTestPager) {
+		f.newListByMongoClusterTestPager.remove(req)
 	}
 	return resp, nil
 }

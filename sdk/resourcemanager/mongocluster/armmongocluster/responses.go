@@ -21,8 +21,8 @@ type FirewallRulesClientGetResponse struct {
 	FirewallRule
 }
 
-// FirewallRulesClientListByMongoClusterResponse contains the response from method FirewallRulesClient.NewListByMongoClusterPager.
-type FirewallRulesClientListByMongoClusterResponse struct {
+// FirewallRulesClientListByMongoClusterTestResponse contains the response from method FirewallRulesClient.NewListByMongoClusterTestPager.
+type FirewallRulesClientListByMongoClusterTestResponse struct {
 	// The response of a FirewallRule list operation.
 	FirewallRuleListResult
 }

@@ -1,5 +1,18 @@
 # Release History
 
+## 0.2.0 (2024-07-31)
+### Breaking Changes
+
+- Type of `Properties.ClusterStatus` has been changed from `*MongoClusterStatus` to `*Status`
+- Enum `MongoClusterStatus` has been removed
+- Function `*FirewallRulesClient.NewListByMongoClusterPager` has been removed
+
+### Features Added
+
+- New enum type `Status` with values `StatusDropping`, `StatusProvisioning`, `StatusReady`, `StatusStarting`, `StatusStopped`, `StatusStopping`, `StatusUpdating`
+- New function `*FirewallRulesClient.NewListByMongoClusterTestPager(string, string, *FirewallRulesClientListByMongoClusterTestOptions) *runtime.Pager[FirewallRulesClientListByMongoClusterTestResponse]`
+
+
 ## 0.1.0 (2024-07-05)
 ### Other Changes
 
