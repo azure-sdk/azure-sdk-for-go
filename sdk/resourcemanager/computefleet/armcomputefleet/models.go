@@ -275,7 +275,7 @@ type FleetProperties struct {
 	ComputeProfile *ComputeProfile
 
 	// REQUIRED; List of VM sizes supported for Compute Fleet
-	VMSizesProfile []*VMSizeProfile
+	VMSizesProfile *VMSizeProfile
 
 	// Configuration Options for Regular instances in Compute Fleet.
 	RegularPriorityProfile *RegularPriorityProfile
@@ -283,11 +283,11 @@ type FleetProperties struct {
 	// Configuration Options for Spot instances in Compute Fleet.
 	SpotPriorityProfile *SpotPriorityProfile
 
+	// Specifies the time at which the Compute Fleet is created.
+	TimeCreated *time.Time
+
 	// READ-ONLY; The status of the last operation.
 	ProvisioningState *ProvisioningState
-
-	// READ-ONLY; Specifies the time at which the Compute Fleet is created.
-	TimeCreated *time.Time
 
 	// READ-ONLY; Specifies the ID which uniquely identifies a Compute Fleet.
 	UniqueID *string
