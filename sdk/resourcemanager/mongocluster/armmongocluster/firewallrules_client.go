@@ -276,38 +276,38 @@ func (client *FirewallRulesClient) getHandleResponse(resp *http.Response) (Firew
 	return result, nil
 }
 
-// NewListByMongoClusterPager - List all the firewall rules in a given mongo cluster.
+// NewListByMongoClusterTestPager - List all the firewall rules in a given mongo cluster.
 //
 // Generated from API version 2024-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - mongoClusterName - The name of the mongo cluster.
-//   - options - FirewallRulesClientListByMongoClusterOptions contains the optional parameters for the FirewallRulesClient.NewListByMongoClusterPager
+//   - options - FirewallRulesClientListByMongoClusterTestOptions contains the optional parameters for the FirewallRulesClient.NewListByMongoClusterTestPager
 //     method.
-func (client *FirewallRulesClient) NewListByMongoClusterPager(resourceGroupName string, mongoClusterName string, options *FirewallRulesClientListByMongoClusterOptions) *runtime.Pager[FirewallRulesClientListByMongoClusterResponse] {
-	return runtime.NewPager(runtime.PagingHandler[FirewallRulesClientListByMongoClusterResponse]{
-		More: func(page FirewallRulesClientListByMongoClusterResponse) bool {
+func (client *FirewallRulesClient) NewListByMongoClusterTestPager(resourceGroupName string, mongoClusterName string, options *FirewallRulesClientListByMongoClusterTestOptions) *runtime.Pager[FirewallRulesClientListByMongoClusterTestResponse] {
+	return runtime.NewPager(runtime.PagingHandler[FirewallRulesClientListByMongoClusterTestResponse]{
+		More: func(page FirewallRulesClientListByMongoClusterTestResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *FirewallRulesClientListByMongoClusterResponse) (FirewallRulesClientListByMongoClusterResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "FirewallRulesClient.NewListByMongoClusterPager")
+		Fetcher: func(ctx context.Context, page *FirewallRulesClientListByMongoClusterTestResponse) (FirewallRulesClientListByMongoClusterTestResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "FirewallRulesClient.NewListByMongoClusterTestPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listByMongoClusterCreateRequest(ctx, resourceGroupName, mongoClusterName, options)
+				return client.listByMongoClusterTestCreateRequest(ctx, resourceGroupName, mongoClusterName, options)
 			}, nil)
 			if err != nil {
-				return FirewallRulesClientListByMongoClusterResponse{}, err
+				return FirewallRulesClientListByMongoClusterTestResponse{}, err
 			}
-			return client.listByMongoClusterHandleResponse(resp)
+			return client.listByMongoClusterTestHandleResponse(resp)
 		},
 		Tracer: client.internal.Tracer(),
 	})
 }
 
-// listByMongoClusterCreateRequest creates the ListByMongoCluster request.
-func (client *FirewallRulesClient) listByMongoClusterCreateRequest(ctx context.Context, resourceGroupName string, mongoClusterName string, _ *FirewallRulesClientListByMongoClusterOptions) (*policy.Request, error) {
+// listByMongoClusterTestCreateRequest creates the ListByMongoClusterTest request.
+func (client *FirewallRulesClient) listByMongoClusterTestCreateRequest(ctx context.Context, resourceGroupName string, mongoClusterName string, _ *FirewallRulesClientListByMongoClusterTestOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DocumentDB/mongoClusters/{mongoClusterName}/firewallRules"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -332,11 +332,11 @@ func (client *FirewallRulesClient) listByMongoClusterCreateRequest(ctx context.C
 	return req, nil
 }
 
-// listByMongoClusterHandleResponse handles the ListByMongoCluster response.
-func (client *FirewallRulesClient) listByMongoClusterHandleResponse(resp *http.Response) (FirewallRulesClientListByMongoClusterResponse, error) {
-	result := FirewallRulesClientListByMongoClusterResponse{}
+// listByMongoClusterTestHandleResponse handles the ListByMongoClusterTest response.
+func (client *FirewallRulesClient) listByMongoClusterTestHandleResponse(resp *http.Response) (FirewallRulesClientListByMongoClusterTestResponse, error) {
+	result := FirewallRulesClientListByMongoClusterTestResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.FirewallRuleListResult); err != nil {
-		return FirewallRulesClientListByMongoClusterResponse{}, err
+		return FirewallRulesClientListByMongoClusterTestResponse{}, err
 	}
 	return result, nil
 }

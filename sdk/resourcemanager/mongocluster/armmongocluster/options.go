@@ -22,9 +22,9 @@ type FirewallRulesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// FirewallRulesClientListByMongoClusterOptions contains the optional parameters for the FirewallRulesClient.NewListByMongoClusterPager
+// FirewallRulesClientListByMongoClusterTestOptions contains the optional parameters for the FirewallRulesClient.NewListByMongoClusterTestPager
 // method.
-type FirewallRulesClientListByMongoClusterOptions struct {
+type FirewallRulesClientListByMongoClusterTestOptions struct {
 	// placeholder for future optional parameters
 }
 
