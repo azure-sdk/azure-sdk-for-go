@@ -6,7 +6,7 @@ package armmongocluster
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mongocluster/armmongocluster"
-	moduleVersion = "v0.1.0"
+	moduleVersion = "v0.2.0"
 )
 
 // ActionType - Extensible enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -81,39 +81,6 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 		CreatedByTypeKey,
 		CreatedByTypeManagedIdentity,
 		CreatedByTypeUser,
-	}
-}
-
-// MongoClusterStatus - The status of the Mongo cluster resource.
-type MongoClusterStatus string
-
-const (
-	// MongoClusterStatusDropping - The mongo cluster resource is being dropped.
-	MongoClusterStatusDropping MongoClusterStatus = "Dropping"
-	// MongoClusterStatusProvisioning - The mongo cluster resource is being provisioned.
-	MongoClusterStatusProvisioning MongoClusterStatus = "Provisioning"
-	// MongoClusterStatusReady - The mongo cluster resource is ready for use.
-	MongoClusterStatusReady MongoClusterStatus = "Ready"
-	// MongoClusterStatusStarting - The mongo cluster resource is being started.
-	MongoClusterStatusStarting MongoClusterStatus = "Starting"
-	// MongoClusterStatusStopped - The mongo cluster resource is stopped.
-	MongoClusterStatusStopped MongoClusterStatus = "Stopped"
-	// MongoClusterStatusStopping - The mongo cluster resource is being stopped.
-	MongoClusterStatusStopping MongoClusterStatus = "Stopping"
-	// MongoClusterStatusUpdating - The mongo cluster resource is being updated.
-	MongoClusterStatusUpdating MongoClusterStatus = "Updating"
-)
-
-// PossibleMongoClusterStatusValues returns the possible values for the MongoClusterStatus const type.
-func PossibleMongoClusterStatusValues() []MongoClusterStatus {
-	return []MongoClusterStatus{
-		MongoClusterStatusDropping,
-		MongoClusterStatusProvisioning,
-		MongoClusterStatusReady,
-		MongoClusterStatusStarting,
-		MongoClusterStatusStopped,
-		MongoClusterStatusStopping,
-		MongoClusterStatusUpdating,
 	}
 }
 
@@ -245,5 +212,38 @@ func PossiblePublicNetworkAccessValues() []PublicNetworkAccess {
 	return []PublicNetworkAccess{
 		PublicNetworkAccessDisabled,
 		PublicNetworkAccessEnabled,
+	}
+}
+
+// Status - The status of the Mongo cluster resource.
+type Status string
+
+const (
+	// StatusDropping - The mongo cluster resource is being dropped.
+	StatusDropping Status = "Dropping"
+	// StatusProvisioning - The mongo cluster resource is being provisioned.
+	StatusProvisioning Status = "Provisioning"
+	// StatusReady - The mongo cluster resource is ready for use.
+	StatusReady Status = "Ready"
+	// StatusStarting - The mongo cluster resource is being started.
+	StatusStarting Status = "Starting"
+	// StatusStopped - The mongo cluster resource is stopped.
+	StatusStopped Status = "Stopped"
+	// StatusStopping - The mongo cluster resource is being stopped.
+	StatusStopping Status = "Stopping"
+	// StatusUpdating - The mongo cluster resource is being updated.
+	StatusUpdating Status = "Updating"
+)
+
+// PossibleStatusValues returns the possible values for the Status const type.
+func PossibleStatusValues() []Status {
+	return []Status{
+		StatusDropping,
+		StatusProvisioning,
+		StatusReady,
+		StatusStarting,
+		StatusStopped,
+		StatusStopping,
+		StatusUpdating,
 	}
 }
