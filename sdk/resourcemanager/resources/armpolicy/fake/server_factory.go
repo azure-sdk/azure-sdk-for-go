@@ -19,13 +19,11 @@ import (
 
 // ServerFactory is a fake server for instances of the armpolicy.ClientFactory type.
 type ServerFactory struct {
-	AssignmentsServer         AssignmentsServer
-	DataPolicyManifestsServer DataPolicyManifestsServer
-	DefinitionsServer         DefinitionsServer
-	ExemptionsServer          ExemptionsServer
-	SetDefinitionsServer      SetDefinitionsServer
-	VariableValuesServer      VariableValuesServer
-	VariablesServer           VariablesServer
+	AssignmentsServer           AssignmentsServer
+	DefinitionVersionsServer    DefinitionVersionsServer
+	DefinitionsServer           DefinitionsServer
+	SetDefinitionVersionsServer SetDefinitionVersionsServer
+	SetDefinitionsServer        SetDefinitionsServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -40,15 +38,13 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armpolicy.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                         *ServerFactory
-	trMu                        sync.Mutex
-	trAssignmentsServer         *AssignmentsServerTransport
-	trDataPolicyManifestsServer *DataPolicyManifestsServerTransport
-	trDefinitionsServer         *DefinitionsServerTransport
-	trExemptionsServer          *ExemptionsServerTransport
-	trSetDefinitionsServer      *SetDefinitionsServerTransport
-	trVariableValuesServer      *VariableValuesServerTransport
-	trVariablesServer           *VariablesServerTransport
+	srv                           *ServerFactory
+	trMu                          sync.Mutex
+	trAssignmentsServer           *AssignmentsServerTransport
+	trDefinitionVersionsServer    *DefinitionVersionsServerTransport
+	trDefinitionsServer           *DefinitionsServerTransport
+	trSetDefinitionVersionsServer *SetDefinitionVersionsServerTransport
+	trSetDefinitionsServer        *SetDefinitionsServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -67,30 +63,24 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "AssignmentsClient":
 		initServer(s, &s.trAssignmentsServer, func() *AssignmentsServerTransport { return NewAssignmentsServerTransport(&s.srv.AssignmentsServer) })
 		resp, err = s.trAssignmentsServer.Do(req)
-	case "DataPolicyManifestsClient":
-		initServer(s, &s.trDataPolicyManifestsServer, func() *DataPolicyManifestsServerTransport {
-			return NewDataPolicyManifestsServerTransport(&s.srv.DataPolicyManifestsServer)
+	case "DefinitionVersionsClient":
+		initServer(s, &s.trDefinitionVersionsServer, func() *DefinitionVersionsServerTransport {
+			return NewDefinitionVersionsServerTransport(&s.srv.DefinitionVersionsServer)
 		})
-		resp, err = s.trDataPolicyManifestsServer.Do(req)
+		resp, err = s.trDefinitionVersionsServer.Do(req)
 	case "DefinitionsClient":
 		initServer(s, &s.trDefinitionsServer, func() *DefinitionsServerTransport { return NewDefinitionsServerTransport(&s.srv.DefinitionsServer) })
 		resp, err = s.trDefinitionsServer.Do(req)
-	case "ExemptionsClient":
-		initServer(s, &s.trExemptionsServer, func() *ExemptionsServerTransport { return NewExemptionsServerTransport(&s.srv.ExemptionsServer) })
-		resp, err = s.trExemptionsServer.Do(req)
+	case "SetDefinitionVersionsClient":
+		initServer(s, &s.trSetDefinitionVersionsServer, func() *SetDefinitionVersionsServerTransport {
+			return NewSetDefinitionVersionsServerTransport(&s.srv.SetDefinitionVersionsServer)
+		})
+		resp, err = s.trSetDefinitionVersionsServer.Do(req)
 	case "SetDefinitionsClient":
 		initServer(s, &s.trSetDefinitionsServer, func() *SetDefinitionsServerTransport {
 			return NewSetDefinitionsServerTransport(&s.srv.SetDefinitionsServer)
 		})
 		resp, err = s.trSetDefinitionsServer.Do(req)
-	case "VariableValuesClient":
-		initServer(s, &s.trVariableValuesServer, func() *VariableValuesServerTransport {
-			return NewVariableValuesServerTransport(&s.srv.VariableValuesServer)
-		})
-		resp, err = s.trVariableValuesServer.Do(req)
-	case "VariablesClient":
-		initServer(s, &s.trVariablesServer, func() *VariablesServerTransport { return NewVariablesServerTransport(&s.srv.VariablesServer) })
-		resp, err = s.trVariablesServer.Do(req)
 	default:
 		err = fmt.Errorf("unhandled client %s", client)
 	}
