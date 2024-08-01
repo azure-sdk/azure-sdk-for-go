@@ -10,1135 +10,619 @@ package armmigrate
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/migrate/armmigrate"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v2.0.0-beta.1"
 )
 
-// AssessmentSizingCriterion - Assessment sizing criterion.
-type AssessmentSizingCriterion string
+// ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+type ActionType string
 
 const (
-	AssessmentSizingCriterionAsOnPremises     AssessmentSizingCriterion = "AsOnPremises"
-	AssessmentSizingCriterionPerformanceBased AssessmentSizingCriterion = "PerformanceBased"
+	ActionTypeInternal ActionType = "Internal"
 )
 
-// PossibleAssessmentSizingCriterionValues returns the possible values for the AssessmentSizingCriterion const type.
-func PossibleAssessmentSizingCriterionValues() []AssessmentSizingCriterion {
-	return []AssessmentSizingCriterion{
-		AssessmentSizingCriterionAsOnPremises,
-		AssessmentSizingCriterionPerformanceBased,
+// PossibleActionTypeValues returns the possible values for the ActionType const type.
+func PossibleActionTypeValues() []ActionType {
+	return []ActionType{
+		ActionTypeInternal,
 	}
 }
 
-// AssessmentStage - User configurable setting that describes the status of the assessment.
-type AssessmentStage string
+// ApplicationDiscoveryScopeStatus - Application Discovery Scope Status
+type ApplicationDiscoveryScopeStatus string
 
 const (
-	AssessmentStageApproved    AssessmentStage = "Approved"
-	AssessmentStageInProgress  AssessmentStage = "InProgress"
-	AssessmentStageUnderReview AssessmentStage = "UnderReview"
+	// ApplicationDiscoveryScopeStatusDisabled - Disabled value.
+	ApplicationDiscoveryScopeStatusDisabled ApplicationDiscoveryScopeStatus = "Disabled"
+	// ApplicationDiscoveryScopeStatusDiscoveryFailed - DiscoveryFailed value.
+	ApplicationDiscoveryScopeStatusDiscoveryFailed ApplicationDiscoveryScopeStatus = "DiscoveryFailed"
+	// ApplicationDiscoveryScopeStatusDiscoveryInProgress - DiscoveryInProgress value.
+	ApplicationDiscoveryScopeStatusDiscoveryInProgress ApplicationDiscoveryScopeStatus = "DiscoveryInProgress"
+	// ApplicationDiscoveryScopeStatusDiscoveryNotStarted - DiscoveryNotStarted value.
+	ApplicationDiscoveryScopeStatusDiscoveryNotStarted ApplicationDiscoveryScopeStatus = "DiscoveryNotStarted"
+	// ApplicationDiscoveryScopeStatusDiscoveryPartiallySucceded - DiscoveryPartiallySucceded value.
+	ApplicationDiscoveryScopeStatusDiscoveryPartiallySucceded ApplicationDiscoveryScopeStatus = "DiscoveryPartiallySucceded"
+	// ApplicationDiscoveryScopeStatusDiscoverySucceeded - DiscoverySucceeded value.
+	ApplicationDiscoveryScopeStatusDiscoverySucceeded ApplicationDiscoveryScopeStatus = "DiscoverySucceeded"
+	// ApplicationDiscoveryScopeStatusDiscoverySucceededAtleastOnce - DiscoverySucceededAtleastOnce value.
+	ApplicationDiscoveryScopeStatusDiscoverySucceededAtleastOnce ApplicationDiscoveryScopeStatus = "DiscoverySucceededAtleastOnce"
+	// ApplicationDiscoveryScopeStatusRunAsAccountNotAssociated - RunAsAccountNotAssociated value.
+	ApplicationDiscoveryScopeStatusRunAsAccountNotAssociated ApplicationDiscoveryScopeStatus = "RunAsAccountNotAssociated"
 )
 
-// PossibleAssessmentStageValues returns the possible values for the AssessmentStage const type.
-func PossibleAssessmentStageValues() []AssessmentStage {
-	return []AssessmentStage{
-		AssessmentStageApproved,
-		AssessmentStageInProgress,
-		AssessmentStageUnderReview,
+// PossibleApplicationDiscoveryScopeStatusValues returns the possible values for the ApplicationDiscoveryScopeStatus const type.
+func PossibleApplicationDiscoveryScopeStatusValues() []ApplicationDiscoveryScopeStatus {
+	return []ApplicationDiscoveryScopeStatus{
+		ApplicationDiscoveryScopeStatusDisabled,
+		ApplicationDiscoveryScopeStatusDiscoveryFailed,
+		ApplicationDiscoveryScopeStatusDiscoveryInProgress,
+		ApplicationDiscoveryScopeStatusDiscoveryNotStarted,
+		ApplicationDiscoveryScopeStatusDiscoveryPartiallySucceded,
+		ApplicationDiscoveryScopeStatusDiscoverySucceeded,
+		ApplicationDiscoveryScopeStatusDiscoverySucceededAtleastOnce,
+		ApplicationDiscoveryScopeStatusRunAsAccountNotAssociated,
 	}
 }
 
-// AssessmentStatus - Whether the assessment has been created and is valid.
-type AssessmentStatus string
+// AzureArcStatus - azure arc discovery status
+type AzureArcStatus string
 
 const (
-	AssessmentStatusCompleted AssessmentStatus = "Completed"
-	AssessmentStatusCreated   AssessmentStatus = "Created"
-	AssessmentStatusInvalid   AssessmentStatus = "Invalid"
-	AssessmentStatusOutDated  AssessmentStatus = "OutDated"
-	AssessmentStatusOutOfSync AssessmentStatus = "OutOfSync"
-	AssessmentStatusRunning   AssessmentStatus = "Running"
-	AssessmentStatusUpdated   AssessmentStatus = "Updated"
+	// AzureArcStatusEnabled - Enabled value.
+	AzureArcStatusEnabled AzureArcStatus = "Enabled"
+	// AzureArcStatusNotEnabled - Not enabled value.
+	AzureArcStatusNotEnabled AzureArcStatus = "NotEnabled"
+	// AzureArcStatusUnknown - Unknown value.
+	AzureArcStatusUnknown AzureArcStatus = "Unknown"
 )
 
-// PossibleAssessmentStatusValues returns the possible values for the AssessmentStatus const type.
-func PossibleAssessmentStatusValues() []AssessmentStatus {
-	return []AssessmentStatus{
-		AssessmentStatusCompleted,
-		AssessmentStatusCreated,
-		AssessmentStatusInvalid,
-		AssessmentStatusOutDated,
-		AssessmentStatusOutOfSync,
-		AssessmentStatusRunning,
-		AssessmentStatusUpdated,
+// PossibleAzureArcStatusValues returns the possible values for the AzureArcStatus const type.
+func PossibleAzureArcStatusValues() []AzureArcStatus {
+	return []AzureArcStatus{
+		AzureArcStatusEnabled,
+		AzureArcStatusNotEnabled,
+		AzureArcStatusUnknown,
 	}
 }
 
-// AzureDiskSize - Recommended Azure size for the disk, given utilization data and preferences set on Assessment.
-type AzureDiskSize string
+// CreatedByType - The type of identity that created the resource.
+type CreatedByType string
 
 const (
-	AzureDiskSizePremiumP10     AzureDiskSize = "Premium_P10"
-	AzureDiskSizePremiumP15     AzureDiskSize = "Premium_P15"
-	AzureDiskSizePremiumP20     AzureDiskSize = "Premium_P20"
-	AzureDiskSizePremiumP30     AzureDiskSize = "Premium_P30"
-	AzureDiskSizePremiumP4      AzureDiskSize = "Premium_P4"
-	AzureDiskSizePremiumP40     AzureDiskSize = "Premium_P40"
-	AzureDiskSizePremiumP50     AzureDiskSize = "Premium_P50"
-	AzureDiskSizePremiumP6      AzureDiskSize = "Premium_P6"
-	AzureDiskSizePremiumP60     AzureDiskSize = "Premium_P60"
-	AzureDiskSizePremiumP70     AzureDiskSize = "Premium_P70"
-	AzureDiskSizePremiumP80     AzureDiskSize = "Premium_P80"
-	AzureDiskSizeStandardS10    AzureDiskSize = "Standard_S10"
-	AzureDiskSizeStandardS15    AzureDiskSize = "Standard_S15"
-	AzureDiskSizeStandardS20    AzureDiskSize = "Standard_S20"
-	AzureDiskSizeStandardS30    AzureDiskSize = "Standard_S30"
-	AzureDiskSizeStandardS4     AzureDiskSize = "Standard_S4"
-	AzureDiskSizeStandardS40    AzureDiskSize = "Standard_S40"
-	AzureDiskSizeStandardS50    AzureDiskSize = "Standard_S50"
-	AzureDiskSizeStandardS6     AzureDiskSize = "Standard_S6"
-	AzureDiskSizeStandardS60    AzureDiskSize = "Standard_S60"
-	AzureDiskSizeStandardS70    AzureDiskSize = "Standard_S70"
-	AzureDiskSizeStandardS80    AzureDiskSize = "Standard_S80"
-	AzureDiskSizeStandardSSDE10 AzureDiskSize = "StandardSSD_E10"
-	AzureDiskSizeStandardSSDE15 AzureDiskSize = "StandardSSD_E15"
-	AzureDiskSizeStandardSSDE20 AzureDiskSize = "StandardSSD_E20"
-	AzureDiskSizeStandardSSDE30 AzureDiskSize = "StandardSSD_E30"
-	AzureDiskSizeStandardSSDE4  AzureDiskSize = "StandardSSD_E4"
-	AzureDiskSizeStandardSSDE40 AzureDiskSize = "StandardSSD_E40"
-	AzureDiskSizeStandardSSDE50 AzureDiskSize = "StandardSSD_E50"
-	AzureDiskSizeStandardSSDE6  AzureDiskSize = "StandardSSD_E6"
-	AzureDiskSizeStandardSSDE60 AzureDiskSize = "StandardSSD_E60"
-	AzureDiskSizeStandardSSDE70 AzureDiskSize = "StandardSSD_E70"
-	AzureDiskSizeStandardSSDE80 AzureDiskSize = "StandardSSD_E80"
-	AzureDiskSizeUnknown        AzureDiskSize = "Unknown"
+	CreatedByTypeApplication     CreatedByType = "Application"
+	CreatedByTypeKey             CreatedByType = "Key"
+	CreatedByTypeManagedIdentity CreatedByType = "ManagedIdentity"
+	CreatedByTypeUser            CreatedByType = "User"
 )
 
-// PossibleAzureDiskSizeValues returns the possible values for the AzureDiskSize const type.
-func PossibleAzureDiskSizeValues() []AzureDiskSize {
-	return []AzureDiskSize{
-		AzureDiskSizePremiumP10,
-		AzureDiskSizePremiumP15,
-		AzureDiskSizePremiumP20,
-		AzureDiskSizePremiumP30,
-		AzureDiskSizePremiumP4,
-		AzureDiskSizePremiumP40,
-		AzureDiskSizePremiumP50,
-		AzureDiskSizePremiumP6,
-		AzureDiskSizePremiumP60,
-		AzureDiskSizePremiumP70,
-		AzureDiskSizePremiumP80,
-		AzureDiskSizeStandardS10,
-		AzureDiskSizeStandardS15,
-		AzureDiskSizeStandardS20,
-		AzureDiskSizeStandardS30,
-		AzureDiskSizeStandardS4,
-		AzureDiskSizeStandardS40,
-		AzureDiskSizeStandardS50,
-		AzureDiskSizeStandardS6,
-		AzureDiskSizeStandardS60,
-		AzureDiskSizeStandardS70,
-		AzureDiskSizeStandardS80,
-		AzureDiskSizeStandardSSDE10,
-		AzureDiskSizeStandardSSDE15,
-		AzureDiskSizeStandardSSDE20,
-		AzureDiskSizeStandardSSDE30,
-		AzureDiskSizeStandardSSDE4,
-		AzureDiskSizeStandardSSDE40,
-		AzureDiskSizeStandardSSDE50,
-		AzureDiskSizeStandardSSDE6,
-		AzureDiskSizeStandardSSDE60,
-		AzureDiskSizeStandardSSDE70,
-		AzureDiskSizeStandardSSDE80,
-		AzureDiskSizeUnknown,
+// PossibleCreatedByTypeValues returns the possible values for the CreatedByType const type.
+func PossibleCreatedByTypeValues() []CreatedByType {
+	return []CreatedByType{
+		CreatedByTypeApplication,
+		CreatedByTypeKey,
+		CreatedByTypeManagedIdentity,
+		CreatedByTypeUser,
 	}
 }
 
-// AzureDiskSuitabilityDetail - If disk is suitable to be migrate but some conditions/checks were not considered while calculating
-// suitability, this explains the details.
-type AzureDiskSuitabilityDetail string
+type Default string
 
 const (
-	AzureDiskSuitabilityDetailDiskGigabytesConsumedMissing               AzureDiskSuitabilityDetail = "DiskGigabytesConsumedMissing"
-	AzureDiskSuitabilityDetailDiskGigabytesConsumedOutOfRange            AzureDiskSuitabilityDetail = "DiskGigabytesConsumedOutOfRange"
-	AzureDiskSuitabilityDetailDiskGigabytesProvisionedMissing            AzureDiskSuitabilityDetail = "DiskGigabytesProvisionedMissing"
-	AzureDiskSuitabilityDetailDiskGigabytesProvisionedOutOfRange         AzureDiskSuitabilityDetail = "DiskGigabytesProvisionedOutOfRange"
-	AzureDiskSuitabilityDetailMegabytesPerSecondOfReadMissing            AzureDiskSuitabilityDetail = "MegabytesPerSecondOfReadMissing"
-	AzureDiskSuitabilityDetailMegabytesPerSecondOfReadOutOfRange         AzureDiskSuitabilityDetail = "MegabytesPerSecondOfReadOutOfRange"
-	AzureDiskSuitabilityDetailMegabytesPerSecondOfWriteMissing           AzureDiskSuitabilityDetail = "MegabytesPerSecondOfWriteMissing"
-	AzureDiskSuitabilityDetailMegabytesPerSecondOfWriteOutOfRange        AzureDiskSuitabilityDetail = "MegabytesPerSecondOfWriteOutOfRange"
-	AzureDiskSuitabilityDetailNone                                       AzureDiskSuitabilityDetail = "None"
-	AzureDiskSuitabilityDetailNumberOfReadOperationsPerSecondMissing     AzureDiskSuitabilityDetail = "NumberOfReadOperationsPerSecondMissing"
-	AzureDiskSuitabilityDetailNumberOfReadOperationsPerSecondOutOfRange  AzureDiskSuitabilityDetail = "NumberOfReadOperationsPerSecondOutOfRange"
-	AzureDiskSuitabilityDetailNumberOfWriteOperationsPerSecondMissing    AzureDiskSuitabilityDetail = "NumberOfWriteOperationsPerSecondMissing"
-	AzureDiskSuitabilityDetailNumberOfWriteOperationsPerSecondOutOfRange AzureDiskSuitabilityDetail = "NumberOfWriteOperationsPerSecondOutOfRange"
+	// DefaultDefault - default value.
+	DefaultDefault Default = "default"
 )
 
-// PossibleAzureDiskSuitabilityDetailValues returns the possible values for the AzureDiskSuitabilityDetail const type.
-func PossibleAzureDiskSuitabilityDetailValues() []AzureDiskSuitabilityDetail {
-	return []AzureDiskSuitabilityDetail{
-		AzureDiskSuitabilityDetailDiskGigabytesConsumedMissing,
-		AzureDiskSuitabilityDetailDiskGigabytesConsumedOutOfRange,
-		AzureDiskSuitabilityDetailDiskGigabytesProvisionedMissing,
-		AzureDiskSuitabilityDetailDiskGigabytesProvisionedOutOfRange,
-		AzureDiskSuitabilityDetailMegabytesPerSecondOfReadMissing,
-		AzureDiskSuitabilityDetailMegabytesPerSecondOfReadOutOfRange,
-		AzureDiskSuitabilityDetailMegabytesPerSecondOfWriteMissing,
-		AzureDiskSuitabilityDetailMegabytesPerSecondOfWriteOutOfRange,
-		AzureDiskSuitabilityDetailNone,
-		AzureDiskSuitabilityDetailNumberOfReadOperationsPerSecondMissing,
-		AzureDiskSuitabilityDetailNumberOfReadOperationsPerSecondOutOfRange,
-		AzureDiskSuitabilityDetailNumberOfWriteOperationsPerSecondMissing,
-		AzureDiskSuitabilityDetailNumberOfWriteOperationsPerSecondOutOfRange,
+// PossibleDefaultValues returns the possible values for the Default const type.
+func PossibleDefaultValues() []Default {
+	return []Default{
+		DefaultDefault,
 	}
 }
 
-// AzureDiskSuitabilityExplanation - If disk is not suitable to be migrated, this explains the reasons and mitigation steps.
-type AzureDiskSuitabilityExplanation string
+// DefaultAutoGenerated - HealthError Details Source
+type DefaultAutoGenerated string
 
 const (
-	AzureDiskSuitabilityExplanationDiskSizeGreaterThanSupported           AzureDiskSuitabilityExplanation = "DiskSizeGreaterThanSupported"
-	AzureDiskSuitabilityExplanationInternalErrorOccurredForDiskEvaluation AzureDiskSuitabilityExplanation = "InternalErrorOccurredForDiskEvaluation"
-	AzureDiskSuitabilityExplanationNoDiskSizeFoundForSelectedRedundancy   AzureDiskSuitabilityExplanation = "NoDiskSizeFoundForSelectedRedundancy"
-	AzureDiskSuitabilityExplanationNoDiskSizeFoundInSelectedLocation      AzureDiskSuitabilityExplanation = "NoDiskSizeFoundInSelectedLocation"
-	AzureDiskSuitabilityExplanationNoEaPriceFoundForDiskSize              AzureDiskSuitabilityExplanation = "NoEaPriceFoundForDiskSize"
-	AzureDiskSuitabilityExplanationNoSuitableDiskSizeForIops              AzureDiskSuitabilityExplanation = "NoSuitableDiskSizeForIops"
-	AzureDiskSuitabilityExplanationNoSuitableDiskSizeForThroughput        AzureDiskSuitabilityExplanation = "NoSuitableDiskSizeForThroughput"
-	AzureDiskSuitabilityExplanationNotApplicable                          AzureDiskSuitabilityExplanation = "NotApplicable"
-	AzureDiskSuitabilityExplanationUnknown                                AzureDiskSuitabilityExplanation = "Unknown"
+	// DefaultAutoGeneratedDefault - default value.
+	DefaultAutoGeneratedDefault DefaultAutoGenerated = "default"
 )
 
-// PossibleAzureDiskSuitabilityExplanationValues returns the possible values for the AzureDiskSuitabilityExplanation const type.
-func PossibleAzureDiskSuitabilityExplanationValues() []AzureDiskSuitabilityExplanation {
-	return []AzureDiskSuitabilityExplanation{
-		AzureDiskSuitabilityExplanationDiskSizeGreaterThanSupported,
-		AzureDiskSuitabilityExplanationInternalErrorOccurredForDiskEvaluation,
-		AzureDiskSuitabilityExplanationNoDiskSizeFoundForSelectedRedundancy,
-		AzureDiskSuitabilityExplanationNoDiskSizeFoundInSelectedLocation,
-		AzureDiskSuitabilityExplanationNoEaPriceFoundForDiskSize,
-		AzureDiskSuitabilityExplanationNoSuitableDiskSizeForIops,
-		AzureDiskSuitabilityExplanationNoSuitableDiskSizeForThroughput,
-		AzureDiskSuitabilityExplanationNotApplicable,
-		AzureDiskSuitabilityExplanationUnknown,
+// PossibleDefaultAutoGeneratedValues returns the possible values for the DefaultAutoGenerated const type.
+func PossibleDefaultAutoGeneratedValues() []DefaultAutoGenerated {
+	return []DefaultAutoGenerated{
+		DefaultAutoGeneratedDefault,
 	}
 }
 
-// AzureDiskType - Storage type selected for this disk.
-type AzureDiskType string
+// DefaultValues - HealthError Details Source
+type DefaultValues string
 
 const (
-	AzureDiskTypePremium           AzureDiskType = "Premium"
-	AzureDiskTypeStandard          AzureDiskType = "Standard"
-	AzureDiskTypeStandardOrPremium AzureDiskType = "StandardOrPremium"
-	AzureDiskTypeStandardSSD       AzureDiskType = "StandardSSD"
-	AzureDiskTypeUnknown           AzureDiskType = "Unknown"
+	// DefaultValuesDefault - default value.
+	DefaultValuesDefault DefaultValues = "default"
 )
 
-// PossibleAzureDiskTypeValues returns the possible values for the AzureDiskType const type.
-func PossibleAzureDiskTypeValues() []AzureDiskType {
-	return []AzureDiskType{
-		AzureDiskTypePremium,
-		AzureDiskTypeStandard,
-		AzureDiskTypeStandardOrPremium,
-		AzureDiskTypeStandardSSD,
-		AzureDiskTypeUnknown,
+// PossibleDefaultValuesValues returns the possible values for the DefaultValues const type.
+func PossibleDefaultValuesValues() []DefaultValues {
+	return []DefaultValues{
+		DefaultValuesDefault,
 	}
 }
 
-// AzureHybridUseBenefit - AHUB discount on windows virtual machines.
-type AzureHybridUseBenefit string
+// DeleteImportedMachinesJobPropertiesJobState - Cosmos db Imported Machines JobEntity
+type DeleteImportedMachinesJobPropertiesJobState string
 
 const (
-	AzureHybridUseBenefitNo      AzureHybridUseBenefit = "No"
-	AzureHybridUseBenefitUnknown AzureHybridUseBenefit = "Unknown"
-	AzureHybridUseBenefitYes     AzureHybridUseBenefit = "Yes"
+	// DeleteImportedMachinesJobPropertiesJobStateCompleted - Completed value.
+	DeleteImportedMachinesJobPropertiesJobStateCompleted DeleteImportedMachinesJobPropertiesJobState = "Completed"
+	// DeleteImportedMachinesJobPropertiesJobStateFailed - Failed value.
+	DeleteImportedMachinesJobPropertiesJobStateFailed DeleteImportedMachinesJobPropertiesJobState = "Failed"
+	// DeleteImportedMachinesJobPropertiesJobStateUnknown - Unknown value.
+	DeleteImportedMachinesJobPropertiesJobStateUnknown DeleteImportedMachinesJobPropertiesJobState = "Unknown"
+	// DeleteImportedMachinesJobPropertiesJobStateVerified - Verified value.
+	DeleteImportedMachinesJobPropertiesJobStateVerified DeleteImportedMachinesJobPropertiesJobState = "Verified"
+	// DeleteImportedMachinesJobPropertiesJobStateVerifiedWithErrors - VerifiedWithErrors value.
+	DeleteImportedMachinesJobPropertiesJobStateVerifiedWithErrors DeleteImportedMachinesJobPropertiesJobState = "VerifiedWithErrors"
 )
 
-// PossibleAzureHybridUseBenefitValues returns the possible values for the AzureHybridUseBenefit const type.
-func PossibleAzureHybridUseBenefitValues() []AzureHybridUseBenefit {
-	return []AzureHybridUseBenefit{
-		AzureHybridUseBenefitNo,
-		AzureHybridUseBenefitUnknown,
-		AzureHybridUseBenefitYes,
+// PossibleDeleteImportedMachinesJobPropertiesJobStateValues returns the possible values for the DeleteImportedMachinesJobPropertiesJobState const type.
+func PossibleDeleteImportedMachinesJobPropertiesJobStateValues() []DeleteImportedMachinesJobPropertiesJobState {
+	return []DeleteImportedMachinesJobPropertiesJobState{
+		DeleteImportedMachinesJobPropertiesJobStateCompleted,
+		DeleteImportedMachinesJobPropertiesJobStateFailed,
+		DeleteImportedMachinesJobPropertiesJobStateUnknown,
+		DeleteImportedMachinesJobPropertiesJobStateVerified,
+		DeleteImportedMachinesJobPropertiesJobStateVerifiedWithErrors,
 	}
 }
 
-// AzureLocation - Target Azure location for which the machines should be assessed. These enums are the same as used by Compute
-// API.
-type AzureLocation string
+// DependencyMapDiscoveryScopeStatus - DependencyMap DiscoveryScope Status
+type DependencyMapDiscoveryScopeStatus string
 
 const (
-	AzureLocationAustraliaEast      AzureLocation = "AustraliaEast"
-	AzureLocationAustraliaSoutheast AzureLocation = "AustraliaSoutheast"
-	AzureLocationBrazilSouth        AzureLocation = "BrazilSouth"
-	AzureLocationCanadaCentral      AzureLocation = "CanadaCentral"
-	AzureLocationCanadaEast         AzureLocation = "CanadaEast"
-	AzureLocationCentralIndia       AzureLocation = "CentralIndia"
-	AzureLocationCentralUs          AzureLocation = "CentralUs"
-	AzureLocationChinaEast          AzureLocation = "ChinaEast"
-	AzureLocationChinaNorth         AzureLocation = "ChinaNorth"
-	AzureLocationEastAsia           AzureLocation = "EastAsia"
-	AzureLocationEastUs             AzureLocation = "EastUs"
-	AzureLocationEastUs2            AzureLocation = "EastUs2"
-	AzureLocationGermanyCentral     AzureLocation = "GermanyCentral"
-	AzureLocationGermanyNortheast   AzureLocation = "GermanyNortheast"
-	AzureLocationJapanEast          AzureLocation = "JapanEast"
-	AzureLocationJapanWest          AzureLocation = "JapanWest"
-	AzureLocationKoreaCentral       AzureLocation = "KoreaCentral"
-	AzureLocationKoreaSouth         AzureLocation = "KoreaSouth"
-	AzureLocationNorthCentralUs     AzureLocation = "NorthCentralUs"
-	AzureLocationNorthEurope        AzureLocation = "NorthEurope"
-	AzureLocationSouthCentralUs     AzureLocation = "SouthCentralUs"
-	AzureLocationSouthIndia         AzureLocation = "SouthIndia"
-	AzureLocationSoutheastAsia      AzureLocation = "SoutheastAsia"
-	AzureLocationUSDoDCentral       AzureLocation = "USDoDCentral"
-	AzureLocationUSDoDEast          AzureLocation = "USDoDEast"
-	AzureLocationUSGovArizona       AzureLocation = "USGovArizona"
-	AzureLocationUSGovIowa          AzureLocation = "USGovIowa"
-	AzureLocationUSGovTexas         AzureLocation = "USGovTexas"
-	AzureLocationUSGovVirginia      AzureLocation = "USGovVirginia"
-	AzureLocationUkSouth            AzureLocation = "UkSouth"
-	AzureLocationUkWest             AzureLocation = "UkWest"
-	AzureLocationUnknown            AzureLocation = "Unknown"
-	AzureLocationWestCentralUs      AzureLocation = "WestCentralUs"
-	AzureLocationWestEurope         AzureLocation = "WestEurope"
-	AzureLocationWestIndia          AzureLocation = "WestIndia"
-	AzureLocationWestUs             AzureLocation = "WestUs"
-	AzureLocationWestUs2            AzureLocation = "WestUs2"
+	// DependencyMapDiscoveryScopeStatusDisabled - Disabled value.
+	DependencyMapDiscoveryScopeStatusDisabled DependencyMapDiscoveryScopeStatus = "Disabled"
+	// DependencyMapDiscoveryScopeStatusDiscoveryFailed - DiscoveryFailed value.
+	DependencyMapDiscoveryScopeStatusDiscoveryFailed DependencyMapDiscoveryScopeStatus = "DiscoveryFailed"
+	// DependencyMapDiscoveryScopeStatusDiscoveryInProgress - DiscoveryInProgress value.
+	DependencyMapDiscoveryScopeStatusDiscoveryInProgress DependencyMapDiscoveryScopeStatus = "DiscoveryInProgress"
+	// DependencyMapDiscoveryScopeStatusDiscoveryNotStarted - DiscoveryNotStarted value.
+	DependencyMapDiscoveryScopeStatusDiscoveryNotStarted DependencyMapDiscoveryScopeStatus = "DiscoveryNotStarted"
+	// DependencyMapDiscoveryScopeStatusDiscoveryPartiallySucceded - DiscoveryPartiallySucceded value.
+	DependencyMapDiscoveryScopeStatusDiscoveryPartiallySucceded DependencyMapDiscoveryScopeStatus = "DiscoveryPartiallySucceded"
+	// DependencyMapDiscoveryScopeStatusDiscoverySucceeded - DiscoverySucceeded value.
+	DependencyMapDiscoveryScopeStatusDiscoverySucceeded DependencyMapDiscoveryScopeStatus = "DiscoverySucceeded"
+	// DependencyMapDiscoveryScopeStatusDiscoverySucceededAtleastOnce - DiscoverySucceededAtleastOnce value.
+	DependencyMapDiscoveryScopeStatusDiscoverySucceededAtleastOnce DependencyMapDiscoveryScopeStatus = "DiscoverySucceededAtleastOnce"
+	// DependencyMapDiscoveryScopeStatusRunAsAccountNotAssociated - RunAsAccountNotAssociated value.
+	DependencyMapDiscoveryScopeStatusRunAsAccountNotAssociated DependencyMapDiscoveryScopeStatus = "RunAsAccountNotAssociated"
 )
 
-// PossibleAzureLocationValues returns the possible values for the AzureLocation const type.
-func PossibleAzureLocationValues() []AzureLocation {
-	return []AzureLocation{
-		AzureLocationAustraliaEast,
-		AzureLocationAustraliaSoutheast,
-		AzureLocationBrazilSouth,
-		AzureLocationCanadaCentral,
-		AzureLocationCanadaEast,
-		AzureLocationCentralIndia,
-		AzureLocationCentralUs,
-		AzureLocationChinaEast,
-		AzureLocationChinaNorth,
-		AzureLocationEastAsia,
-		AzureLocationEastUs,
-		AzureLocationEastUs2,
-		AzureLocationGermanyCentral,
-		AzureLocationGermanyNortheast,
-		AzureLocationJapanEast,
-		AzureLocationJapanWest,
-		AzureLocationKoreaCentral,
-		AzureLocationKoreaSouth,
-		AzureLocationNorthCentralUs,
-		AzureLocationNorthEurope,
-		AzureLocationSouthCentralUs,
-		AzureLocationSouthIndia,
-		AzureLocationSoutheastAsia,
-		AzureLocationUSDoDCentral,
-		AzureLocationUSDoDEast,
-		AzureLocationUSGovArizona,
-		AzureLocationUSGovIowa,
-		AzureLocationUSGovTexas,
-		AzureLocationUSGovVirginia,
-		AzureLocationUkSouth,
-		AzureLocationUkWest,
-		AzureLocationUnknown,
-		AzureLocationWestCentralUs,
-		AzureLocationWestEurope,
-		AzureLocationWestIndia,
-		AzureLocationWestUs,
-		AzureLocationWestUs2,
+// PossibleDependencyMapDiscoveryScopeStatusValues returns the possible values for the DependencyMapDiscoveryScopeStatus const type.
+func PossibleDependencyMapDiscoveryScopeStatusValues() []DependencyMapDiscoveryScopeStatus {
+	return []DependencyMapDiscoveryScopeStatus{
+		DependencyMapDiscoveryScopeStatusDisabled,
+		DependencyMapDiscoveryScopeStatusDiscoveryFailed,
+		DependencyMapDiscoveryScopeStatusDiscoveryInProgress,
+		DependencyMapDiscoveryScopeStatusDiscoveryNotStarted,
+		DependencyMapDiscoveryScopeStatusDiscoveryPartiallySucceded,
+		DependencyMapDiscoveryScopeStatusDiscoverySucceeded,
+		DependencyMapDiscoveryScopeStatusDiscoverySucceededAtleastOnce,
+		DependencyMapDiscoveryScopeStatusRunAsAccountNotAssociated,
 	}
 }
 
-// AzureNetworkAdapterSuitabilityDetail - If network adapter is not suitable for cloud, this explains the reasons.
-type AzureNetworkAdapterSuitabilityDetail string
+// DiscoveryScopeStatus - Discovery Scope.
+type DiscoveryScopeStatus string
 
 const (
-	AzureNetworkAdapterSuitabilityDetailMegabytesOfDataTransmittedMissing    AzureNetworkAdapterSuitabilityDetail = "MegabytesOfDataTransmittedMissing"
-	AzureNetworkAdapterSuitabilityDetailMegabytesOfDataTransmittedOutOfRange AzureNetworkAdapterSuitabilityDetail = "MegabytesOfDataTransmittedOutOfRange"
-	AzureNetworkAdapterSuitabilityDetailNone                                 AzureNetworkAdapterSuitabilityDetail = "None"
+	// DiscoveryScopeStatusDisabled - Disabled value.
+	DiscoveryScopeStatusDisabled DiscoveryScopeStatus = "Disabled"
+	// DiscoveryScopeStatusDiscoveryFailed - DiscoveryFailed value.
+	DiscoveryScopeStatusDiscoveryFailed DiscoveryScopeStatus = "DiscoveryFailed"
+	// DiscoveryScopeStatusDiscoveryInProgress - DiscoveryInProgress value.
+	DiscoveryScopeStatusDiscoveryInProgress DiscoveryScopeStatus = "DiscoveryInProgress"
+	// DiscoveryScopeStatusDiscoveryNotStarted - DiscoveryNotStarted value.
+	DiscoveryScopeStatusDiscoveryNotStarted DiscoveryScopeStatus = "DiscoveryNotStarted"
+	// DiscoveryScopeStatusDiscoveryPartiallySucceded - DiscoveryPartiallySucceded value.
+	DiscoveryScopeStatusDiscoveryPartiallySucceded DiscoveryScopeStatus = "DiscoveryPartiallySucceded"
+	// DiscoveryScopeStatusDiscoverySucceeded - DiscoverySucceeded value.
+	DiscoveryScopeStatusDiscoverySucceeded DiscoveryScopeStatus = "DiscoverySucceeded"
+	// DiscoveryScopeStatusDiscoverySucceededAtleastOnce - DiscoverySucceededAtleastOnce value.
+	DiscoveryScopeStatusDiscoverySucceededAtleastOnce DiscoveryScopeStatus = "DiscoverySucceededAtleastOnce"
+	// DiscoveryScopeStatusRunAsAccountNotAssociated - RunAsAccountNotAssociated value.
+	DiscoveryScopeStatusRunAsAccountNotAssociated DiscoveryScopeStatus = "RunAsAccountNotAssociated"
 )
 
-// PossibleAzureNetworkAdapterSuitabilityDetailValues returns the possible values for the AzureNetworkAdapterSuitabilityDetail const type.
-func PossibleAzureNetworkAdapterSuitabilityDetailValues() []AzureNetworkAdapterSuitabilityDetail {
-	return []AzureNetworkAdapterSuitabilityDetail{
-		AzureNetworkAdapterSuitabilityDetailMegabytesOfDataTransmittedMissing,
-		AzureNetworkAdapterSuitabilityDetailMegabytesOfDataTransmittedOutOfRange,
-		AzureNetworkAdapterSuitabilityDetailNone,
+// PossibleDiscoveryScopeStatusValues returns the possible values for the DiscoveryScopeStatus const type.
+func PossibleDiscoveryScopeStatusValues() []DiscoveryScopeStatus {
+	return []DiscoveryScopeStatus{
+		DiscoveryScopeStatusDisabled,
+		DiscoveryScopeStatusDiscoveryFailed,
+		DiscoveryScopeStatusDiscoveryInProgress,
+		DiscoveryScopeStatusDiscoveryNotStarted,
+		DiscoveryScopeStatusDiscoveryPartiallySucceded,
+		DiscoveryScopeStatusDiscoverySucceeded,
+		DiscoveryScopeStatusDiscoverySucceededAtleastOnce,
+		DiscoveryScopeStatusRunAsAccountNotAssociated,
 	}
 }
 
-// AzureNetworkAdapterSuitabilityExplanation - If network adapter is suitable, this explains the reasons and mitigation steps.
-type AzureNetworkAdapterSuitabilityExplanation string
+// DiscoveryScopes - Discovery scopes
+type DiscoveryScopes string
 
 const (
-	AzureNetworkAdapterSuitabilityExplanationInternalErrorOccurred AzureNetworkAdapterSuitabilityExplanation = "InternalErrorOccurred"
-	AzureNetworkAdapterSuitabilityExplanationNotApplicable         AzureNetworkAdapterSuitabilityExplanation = "NotApplicable"
-	AzureNetworkAdapterSuitabilityExplanationUnknown               AzureNetworkAdapterSuitabilityExplanation = "Unknown"
+	// DiscoveryScopesAppsAndRoles - AppsAndRoles value.
+	DiscoveryScopesAppsAndRoles DiscoveryScopes = "AppsAndRoles"
+	// DiscoveryScopesDependencyMap - DependencyMap value.
+	DiscoveryScopesDependencyMap DiscoveryScopes = "DependencyMap"
+	// DiscoveryScopesSQLServerConnectionInfo - SQLServerConnectionInfo value.
+	DiscoveryScopesSQLServerConnectionInfo DiscoveryScopes = "SQLServerConnectionInfo"
+	// DiscoveryScopesStaticData - StaticData value.
+	DiscoveryScopesStaticData DiscoveryScopes = "StaticData"
 )
 
-// PossibleAzureNetworkAdapterSuitabilityExplanationValues returns the possible values for the AzureNetworkAdapterSuitabilityExplanation const type.
-func PossibleAzureNetworkAdapterSuitabilityExplanationValues() []AzureNetworkAdapterSuitabilityExplanation {
-	return []AzureNetworkAdapterSuitabilityExplanation{
-		AzureNetworkAdapterSuitabilityExplanationInternalErrorOccurred,
-		AzureNetworkAdapterSuitabilityExplanationNotApplicable,
-		AzureNetworkAdapterSuitabilityExplanationUnknown,
+// PossibleDiscoveryScopesValues returns the possible values for the DiscoveryScopes const type.
+func PossibleDiscoveryScopesValues() []DiscoveryScopes {
+	return []DiscoveryScopes{
+		DiscoveryScopesAppsAndRoles,
+		DiscoveryScopesDependencyMap,
+		DiscoveryScopesSQLServerConnectionInfo,
+		DiscoveryScopesStaticData,
 	}
 }
 
-// AzureOfferCode - Offer code according to which cost estimation is done.
-type AzureOfferCode string
+// EsuStatus - esu Status
+type EsuStatus string
 
 const (
-	AzureOfferCodeEA              AzureOfferCode = "EA"
-	AzureOfferCodeMSAZR0003P      AzureOfferCode = "MSAZR0003P"
-	AzureOfferCodeMSAZR0022P      AzureOfferCode = "MSAZR0022P"
-	AzureOfferCodeMSAZR0023P      AzureOfferCode = "MSAZR0023P"
-	AzureOfferCodeMSAZR0025P      AzureOfferCode = "MSAZR0025P"
-	AzureOfferCodeMSAZR0029P      AzureOfferCode = "MSAZR0029P"
-	AzureOfferCodeMSAZR0036P      AzureOfferCode = "MSAZR0036P"
-	AzureOfferCodeMSAZR0044P      AzureOfferCode = "MSAZR0044P"
-	AzureOfferCodeMSAZR0059P      AzureOfferCode = "MSAZR0059P"
-	AzureOfferCodeMSAZR0060P      AzureOfferCode = "MSAZR0060P"
-	AzureOfferCodeMSAZR0062P      AzureOfferCode = "MSAZR0062P"
-	AzureOfferCodeMSAZR0063P      AzureOfferCode = "MSAZR0063P"
-	AzureOfferCodeMSAZR0064P      AzureOfferCode = "MSAZR0064P"
-	AzureOfferCodeMSAZR0111P      AzureOfferCode = "MSAZR0111P"
-	AzureOfferCodeMSAZR0120P      AzureOfferCode = "MSAZR0120P"
-	AzureOfferCodeMSAZR0121P      AzureOfferCode = "MSAZR0121P"
-	AzureOfferCodeMSAZR0122P      AzureOfferCode = "MSAZR0122P"
-	AzureOfferCodeMSAZR0123P      AzureOfferCode = "MSAZR0123P"
-	AzureOfferCodeMSAZR0124P      AzureOfferCode = "MSAZR0124P"
-	AzureOfferCodeMSAZR0125P      AzureOfferCode = "MSAZR0125P"
-	AzureOfferCodeMSAZR0126P      AzureOfferCode = "MSAZR0126P"
-	AzureOfferCodeMSAZR0127P      AzureOfferCode = "MSAZR0127P"
-	AzureOfferCodeMSAZR0128P      AzureOfferCode = "MSAZR0128P"
-	AzureOfferCodeMSAZR0129P      AzureOfferCode = "MSAZR0129P"
-	AzureOfferCodeMSAZR0130P      AzureOfferCode = "MSAZR0130P"
-	AzureOfferCodeMSAZR0144P      AzureOfferCode = "MSAZR0144P"
-	AzureOfferCodeMSAZR0148P      AzureOfferCode = "MSAZR0148P"
-	AzureOfferCodeMSAZR0149P      AzureOfferCode = "MSAZR0149P"
-	AzureOfferCodeMSAZRDE0003P    AzureOfferCode = "MSAZRDE0003P"
-	AzureOfferCodeMSAZRDE0044P    AzureOfferCode = "MSAZRDE0044P"
-	AzureOfferCodeMSAZRUSGOV0003P AzureOfferCode = "MSAZRUSGOV0003P"
-	AzureOfferCodeMSMCAZR0044P    AzureOfferCode = "MSMCAZR0044P"
-	AzureOfferCodeMSMCAZR0059P    AzureOfferCode = "MSMCAZR0059P"
-	AzureOfferCodeMSMCAZR0060P    AzureOfferCode = "MSMCAZR0060P"
-	AzureOfferCodeMSMCAZR0063P    AzureOfferCode = "MSMCAZR0063P"
-	AzureOfferCodeMSMCAZR0120P    AzureOfferCode = "MSMCAZR0120P"
-	AzureOfferCodeMSMCAZR0121P    AzureOfferCode = "MSMCAZR0121P"
-	AzureOfferCodeMSMCAZR0125P    AzureOfferCode = "MSMCAZR0125P"
-	AzureOfferCodeMSMCAZR0128P    AzureOfferCode = "MSMCAZR0128P"
-	AzureOfferCodeUnknown         AzureOfferCode = "Unknown"
+	// EsuStatusActive - Active value.
+	EsuStatusActive EsuStatus = "Active"
+	// EsuStatusInActive - InActive value.
+	EsuStatusInActive EsuStatus = "InActive"
+	// EsuStatusUnknown - Unknown value.
+	EsuStatusUnknown EsuStatus = "Unknown"
 )
 
-// PossibleAzureOfferCodeValues returns the possible values for the AzureOfferCode const type.
-func PossibleAzureOfferCodeValues() []AzureOfferCode {
-	return []AzureOfferCode{
-		AzureOfferCodeEA,
-		AzureOfferCodeMSAZR0003P,
-		AzureOfferCodeMSAZR0022P,
-		AzureOfferCodeMSAZR0023P,
-		AzureOfferCodeMSAZR0025P,
-		AzureOfferCodeMSAZR0029P,
-		AzureOfferCodeMSAZR0036P,
-		AzureOfferCodeMSAZR0044P,
-		AzureOfferCodeMSAZR0059P,
-		AzureOfferCodeMSAZR0060P,
-		AzureOfferCodeMSAZR0062P,
-		AzureOfferCodeMSAZR0063P,
-		AzureOfferCodeMSAZR0064P,
-		AzureOfferCodeMSAZR0111P,
-		AzureOfferCodeMSAZR0120P,
-		AzureOfferCodeMSAZR0121P,
-		AzureOfferCodeMSAZR0122P,
-		AzureOfferCodeMSAZR0123P,
-		AzureOfferCodeMSAZR0124P,
-		AzureOfferCodeMSAZR0125P,
-		AzureOfferCodeMSAZR0126P,
-		AzureOfferCodeMSAZR0127P,
-		AzureOfferCodeMSAZR0128P,
-		AzureOfferCodeMSAZR0129P,
-		AzureOfferCodeMSAZR0130P,
-		AzureOfferCodeMSAZR0144P,
-		AzureOfferCodeMSAZR0148P,
-		AzureOfferCodeMSAZR0149P,
-		AzureOfferCodeMSAZRDE0003P,
-		AzureOfferCodeMSAZRDE0044P,
-		AzureOfferCodeMSAZRUSGOV0003P,
-		AzureOfferCodeMSMCAZR0044P,
-		AzureOfferCodeMSMCAZR0059P,
-		AzureOfferCodeMSMCAZR0060P,
-		AzureOfferCodeMSMCAZR0063P,
-		AzureOfferCodeMSMCAZR0120P,
-		AzureOfferCodeMSMCAZR0121P,
-		AzureOfferCodeMSMCAZR0125P,
-		AzureOfferCodeMSMCAZR0128P,
-		AzureOfferCodeUnknown,
+// PossibleEsuStatusValues returns the possible values for the EsuStatus const type.
+func PossibleEsuStatusValues() []EsuStatus {
+	return []EsuStatus{
+		EsuStatusActive,
+		EsuStatusInActive,
+		EsuStatusUnknown,
 	}
 }
 
-// AzurePricingTier - Pricing tier for Size evaluation.
-type AzurePricingTier string
+// EsuYear - esu year
+type EsuYear string
 
 const (
-	AzurePricingTierBasic    AzurePricingTier = "Basic"
-	AzurePricingTierStandard AzurePricingTier = "Standard"
+	// EsuYearFirstYear - FirstYear value.
+	EsuYearFirstYear EsuYear = "FirstYear"
+	// EsuYearSecondYear - SecondYear value.
+	EsuYearSecondYear EsuYear = "SecondYear"
+	// EsuYearThirdYear - ThirdYear value.
+	EsuYearThirdYear EsuYear = "ThirdYear"
+	// EsuYearUnknown - Unknown value.
+	EsuYearUnknown EsuYear = "Unknown"
+	// EsuYearUpgradeYear - UpgradeYear value.
+	EsuYearUpgradeYear EsuYear = "UpgradeYear"
 )
 
-// PossibleAzurePricingTierValues returns the possible values for the AzurePricingTier const type.
-func PossibleAzurePricingTierValues() []AzurePricingTier {
-	return []AzurePricingTier{
-		AzurePricingTierBasic,
-		AzurePricingTierStandard,
+// PossibleEsuYearValues returns the possible values for the EsuYear const type.
+func PossibleEsuYearValues() []EsuYear {
+	return []EsuYear{
+		EsuYearFirstYear,
+		EsuYearSecondYear,
+		EsuYearThirdYear,
+		EsuYearUnknown,
+		EsuYearUpgradeYear,
 	}
 }
 
-// AzureStorageRedundancy - Storage Redundancy type offered by Azure.
-type AzureStorageRedundancy string
+// ExportMachineErrorsProperties - Export Machine Errors Properties
+type ExportMachineErrorsProperties string
 
 const (
-	AzureStorageRedundancyGeoRedundant           AzureStorageRedundancy = "GeoRedundant"
-	AzureStorageRedundancyLocallyRedundant       AzureStorageRedundancy = "LocallyRedundant"
-	AzureStorageRedundancyReadAccessGeoRedundant AzureStorageRedundancy = "ReadAccessGeoRedundant"
-	AzureStorageRedundancyUnknown                AzureStorageRedundancy = "Unknown"
-	AzureStorageRedundancyZoneRedundant          AzureStorageRedundancy = "ZoneRedundant"
+	// ExportMachineErrorsPropertiesAppsAndRoles - AppsAndRoles value.
+	ExportMachineErrorsPropertiesAppsAndRoles ExportMachineErrorsProperties = "AppsAndRoles"
+	// ExportMachineErrorsPropertiesDependencyMap - DependencyMap value.
+	ExportMachineErrorsPropertiesDependencyMap ExportMachineErrorsProperties = "DependencyMap"
+	// ExportMachineErrorsPropertiesSQLServerConnectionInfo - SQLServerConnectionInfo value.
+	ExportMachineErrorsPropertiesSQLServerConnectionInfo ExportMachineErrorsProperties = "SQLServerConnectionInfo"
+	// ExportMachineErrorsPropertiesStaticData - StaticData value.
+	ExportMachineErrorsPropertiesStaticData ExportMachineErrorsProperties = "StaticData"
 )
 
-// PossibleAzureStorageRedundancyValues returns the possible values for the AzureStorageRedundancy const type.
-func PossibleAzureStorageRedundancyValues() []AzureStorageRedundancy {
-	return []AzureStorageRedundancy{
-		AzureStorageRedundancyGeoRedundant,
-		AzureStorageRedundancyLocallyRedundant,
-		AzureStorageRedundancyReadAccessGeoRedundant,
-		AzureStorageRedundancyUnknown,
-		AzureStorageRedundancyZoneRedundant,
+// PossibleExportMachineErrorsPropertiesValues returns the possible values for the ExportMachineErrorsProperties const type.
+func PossibleExportMachineErrorsPropertiesValues() []ExportMachineErrorsProperties {
+	return []ExportMachineErrorsProperties{
+		ExportMachineErrorsPropertiesAppsAndRoles,
+		ExportMachineErrorsPropertiesDependencyMap,
+		ExportMachineErrorsPropertiesSQLServerConnectionInfo,
+		ExportMachineErrorsPropertiesStaticData,
 	}
 }
 
-// AzureVMFamily - Azure VM family.
-type AzureVMFamily string
+// FCIInstanceState - fci instance state
+type FCIInstanceState string
 
 const (
-	AzureVMFamilyAv2Series     AzureVMFamily = "Av2_series"
-	AzureVMFamilyBasicA0A4     AzureVMFamily = "Basic_A0_A4"
-	AzureVMFamilyDCSeries      AzureVMFamily = "DC_Series"
-	AzureVMFamilyDSSeries      AzureVMFamily = "DS_series"
-	AzureVMFamilyDSeries       AzureVMFamily = "D_series"
-	AzureVMFamilyDSv2Series    AzureVMFamily = "DSv2_series"
-	AzureVMFamilyDsv3Series    AzureVMFamily = "Dsv3_series"
-	AzureVMFamilyDv2Series     AzureVMFamily = "Dv2_series"
-	AzureVMFamilyDv3Series     AzureVMFamily = "Dv3_series"
-	AzureVMFamilyEsv3Series    AzureVMFamily = "Esv3_series"
-	AzureVMFamilyEv3Series     AzureVMFamily = "Ev3_series"
-	AzureVMFamilyFSeries       AzureVMFamily = "F_series"
-	AzureVMFamilyFsSeries      AzureVMFamily = "Fs_series"
-	AzureVMFamilyFsv2Series    AzureVMFamily = "Fsv2_series"
-	AzureVMFamilyGSSeries      AzureVMFamily = "GS_series"
-	AzureVMFamilyGSeries       AzureVMFamily = "G_series"
-	AzureVMFamilyHSeries       AzureVMFamily = "H_series"
-	AzureVMFamilyLsSeries      AzureVMFamily = "Ls_series"
-	AzureVMFamilyMSeries       AzureVMFamily = "M_series"
-	AzureVMFamilyStandardA0A7  AzureVMFamily = "Standard_A0_A7"
-	AzureVMFamilyStandardA8A11 AzureVMFamily = "Standard_A8_A11"
-	AzureVMFamilyUnknown       AzureVMFamily = "Unknown"
+	// FCIInstanceStateFailed - Failed value.
+	FCIInstanceStateFailed FCIInstanceState = "Failed"
+	// FCIInstanceStateInherited - Inherited value.
+	FCIInstanceStateInherited FCIInstanceState = "Inherited"
+	// FCIInstanceStateInitializing - Initializing value.
+	FCIInstanceStateInitializing FCIInstanceState = "Initializing"
+	// FCIInstanceStateOffline - Offline value.
+	FCIInstanceStateOffline FCIInstanceState = "Offline"
+	// FCIInstanceStateOfflinePending - OfflinePending value.
+	FCIInstanceStateOfflinePending FCIInstanceState = "OfflinePending"
+	// FCIInstanceStateOnline - Online value.
+	FCIInstanceStateOnline FCIInstanceState = "Online"
+	// FCIInstanceStateOnlinePending - OnlinePending value.
+	FCIInstanceStateOnlinePending FCIInstanceState = "OnlinePending"
+	// FCIInstanceStatePending - Pending value.
+	FCIInstanceStatePending FCIInstanceState = "Pending"
+	// FCIInstanceStateUnknown - Unknown value.
+	FCIInstanceStateUnknown FCIInstanceState = "Unknown"
 )
 
-// PossibleAzureVMFamilyValues returns the possible values for the AzureVMFamily const type.
-func PossibleAzureVMFamilyValues() []AzureVMFamily {
-	return []AzureVMFamily{
-		AzureVMFamilyAv2Series,
-		AzureVMFamilyBasicA0A4,
-		AzureVMFamilyDCSeries,
-		AzureVMFamilyDSSeries,
-		AzureVMFamilyDSeries,
-		AzureVMFamilyDSv2Series,
-		AzureVMFamilyDsv3Series,
-		AzureVMFamilyDv2Series,
-		AzureVMFamilyDv3Series,
-		AzureVMFamilyEsv3Series,
-		AzureVMFamilyEv3Series,
-		AzureVMFamilyFSeries,
-		AzureVMFamilyFsSeries,
-		AzureVMFamilyFsv2Series,
-		AzureVMFamilyGSSeries,
-		AzureVMFamilyGSeries,
-		AzureVMFamilyHSeries,
-		AzureVMFamilyLsSeries,
-		AzureVMFamilyMSeries,
-		AzureVMFamilyStandardA0A7,
-		AzureVMFamilyStandardA8A11,
-		AzureVMFamilyUnknown,
+// PossibleFCIInstanceStateValues returns the possible values for the FCIInstanceState const type.
+func PossibleFCIInstanceStateValues() []FCIInstanceState {
+	return []FCIInstanceState{
+		FCIInstanceStateFailed,
+		FCIInstanceStateInherited,
+		FCIInstanceStateInitializing,
+		FCIInstanceStateOffline,
+		FCIInstanceStateOfflinePending,
+		FCIInstanceStateOnline,
+		FCIInstanceStateOnlinePending,
+		FCIInstanceStatePending,
+		FCIInstanceStateUnknown,
 	}
 }
 
-// AzureVMSize - Recommended Azure size for this machine.
-type AzureVMSize string
+// FileType - file type
+type FileType string
 
 const (
-	AzureVMSizeBasicA0        AzureVMSize = "Basic_A0"
-	AzureVMSizeBasicA1        AzureVMSize = "Basic_A1"
-	AzureVMSizeBasicA2        AzureVMSize = "Basic_A2"
-	AzureVMSizeBasicA3        AzureVMSize = "Basic_A3"
-	AzureVMSizeBasicA4        AzureVMSize = "Basic_A4"
-	AzureVMSizeStandardA0     AzureVMSize = "Standard_A0"
-	AzureVMSizeStandardA1     AzureVMSize = "Standard_A1"
-	AzureVMSizeStandardA10    AzureVMSize = "Standard_A10"
-	AzureVMSizeStandardA11    AzureVMSize = "Standard_A11"
-	AzureVMSizeStandardA1V2   AzureVMSize = "Standard_A1_v2"
-	AzureVMSizeStandardA2     AzureVMSize = "Standard_A2"
-	AzureVMSizeStandardA2MV2  AzureVMSize = "Standard_A2m_v2"
-	AzureVMSizeStandardA2V2   AzureVMSize = "Standard_A2_v2"
-	AzureVMSizeStandardA3     AzureVMSize = "Standard_A3"
-	AzureVMSizeStandardA4     AzureVMSize = "Standard_A4"
-	AzureVMSizeStandardA4MV2  AzureVMSize = "Standard_A4m_v2"
-	AzureVMSizeStandardA4V2   AzureVMSize = "Standard_A4_v2"
-	AzureVMSizeStandardA5     AzureVMSize = "Standard_A5"
-	AzureVMSizeStandardA6     AzureVMSize = "Standard_A6"
-	AzureVMSizeStandardA7     AzureVMSize = "Standard_A7"
-	AzureVMSizeStandardA8     AzureVMSize = "Standard_A8"
-	AzureVMSizeStandardA8MV2  AzureVMSize = "Standard_A8m_v2"
-	AzureVMSizeStandardA8V2   AzureVMSize = "Standard_A8_v2"
-	AzureVMSizeStandardA9     AzureVMSize = "Standard_A9"
-	AzureVMSizeStandardD1     AzureVMSize = "Standard_D1"
-	AzureVMSizeStandardD11    AzureVMSize = "Standard_D11"
-	AzureVMSizeStandardD11V2  AzureVMSize = "Standard_D11_v2"
-	AzureVMSizeStandardD12    AzureVMSize = "Standard_D12"
-	AzureVMSizeStandardD12V2  AzureVMSize = "Standard_D12_v2"
-	AzureVMSizeStandardD13    AzureVMSize = "Standard_D13"
-	AzureVMSizeStandardD13V2  AzureVMSize = "Standard_D13_v2"
-	AzureVMSizeStandardD14    AzureVMSize = "Standard_D14"
-	AzureVMSizeStandardD14V2  AzureVMSize = "Standard_D14_v2"
-	AzureVMSizeStandardD15V2  AzureVMSize = "Standard_D15_v2"
-	AzureVMSizeStandardD16SV3 AzureVMSize = "Standard_D16s_v3"
-	AzureVMSizeStandardD16V3  AzureVMSize = "Standard_D16_v3"
-	AzureVMSizeStandardD1V2   AzureVMSize = "Standard_D1_v2"
-	AzureVMSizeStandardD2     AzureVMSize = "Standard_D2"
-	AzureVMSizeStandardD2SV3  AzureVMSize = "Standard_D2s_v3"
-	AzureVMSizeStandardD2V2   AzureVMSize = "Standard_D2_v2"
-	AzureVMSizeStandardD2V3   AzureVMSize = "Standard_D2_v3"
-	AzureVMSizeStandardD3     AzureVMSize = "Standard_D3"
-	AzureVMSizeStandardD32SV3 AzureVMSize = "Standard_D32s_v3"
-	AzureVMSizeStandardD32V3  AzureVMSize = "Standard_D32_v3"
-	AzureVMSizeStandardD3V2   AzureVMSize = "Standard_D3_v2"
-	AzureVMSizeStandardD4     AzureVMSize = "Standard_D4"
-	AzureVMSizeStandardD4SV3  AzureVMSize = "Standard_D4s_v3"
-	AzureVMSizeStandardD4V2   AzureVMSize = "Standard_D4_v2"
-	AzureVMSizeStandardD4V3   AzureVMSize = "Standard_D4_v3"
-	AzureVMSizeStandardD5V2   AzureVMSize = "Standard_D5_v2"
-	AzureVMSizeStandardD64SV3 AzureVMSize = "Standard_D64s_v3"
-	AzureVMSizeStandardD64V3  AzureVMSize = "Standard_D64_v3"
-	AzureVMSizeStandardD8SV3  AzureVMSize = "Standard_D8s_v3"
-	AzureVMSizeStandardD8V3   AzureVMSize = "Standard_D8_v3"
-	AzureVMSizeStandardDS1    AzureVMSize = "Standard_DS1"
-	AzureVMSizeStandardDS11   AzureVMSize = "Standard_DS11"
-	AzureVMSizeStandardDS11V2 AzureVMSize = "Standard_DS11_v2"
-	AzureVMSizeStandardDS12   AzureVMSize = "Standard_DS12"
-	AzureVMSizeStandardDS12V2 AzureVMSize = "Standard_DS12_v2"
-	AzureVMSizeStandardDS13   AzureVMSize = "Standard_DS13"
-	AzureVMSizeStandardDS13V2 AzureVMSize = "Standard_DS13_v2"
-	AzureVMSizeStandardDS14   AzureVMSize = "Standard_DS14"
-	AzureVMSizeStandardDS14V2 AzureVMSize = "Standard_DS14_v2"
-	AzureVMSizeStandardDS15V2 AzureVMSize = "Standard_DS15_v2"
-	AzureVMSizeStandardDS1V2  AzureVMSize = "Standard_DS1_v2"
-	AzureVMSizeStandardDS2    AzureVMSize = "Standard_DS2"
-	AzureVMSizeStandardDS2V2  AzureVMSize = "Standard_DS2_v2"
-	AzureVMSizeStandardDS3    AzureVMSize = "Standard_DS3"
-	AzureVMSizeStandardDS3V2  AzureVMSize = "Standard_DS3_v2"
-	AzureVMSizeStandardDS4    AzureVMSize = "Standard_DS4"
-	AzureVMSizeStandardDS4V2  AzureVMSize = "Standard_DS4_v2"
-	AzureVMSizeStandardDS5V2  AzureVMSize = "Standard_DS5_v2"
-	AzureVMSizeStandardE16SV3 AzureVMSize = "Standard_E16s_v3"
-	AzureVMSizeStandardE16V3  AzureVMSize = "Standard_E16_v3"
-	AzureVMSizeStandardE2SV3  AzureVMSize = "Standard_E2s_v3"
-	AzureVMSizeStandardE2V3   AzureVMSize = "Standard_E2_v3"
-	AzureVMSizeStandardE32SV3 AzureVMSize = "Standard_E32s_v3"
-	AzureVMSizeStandardE32V3  AzureVMSize = "Standard_E32_v3"
-	AzureVMSizeStandardE4SV3  AzureVMSize = "Standard_E4s_v3"
-	AzureVMSizeStandardE4V3   AzureVMSize = "Standard_E4_v3"
-	AzureVMSizeStandardE64SV3 AzureVMSize = "Standard_E64s_v3"
-	AzureVMSizeStandardE64V3  AzureVMSize = "Standard_E64_v3"
-	AzureVMSizeStandardE8SV3  AzureVMSize = "Standard_E8s_v3"
-	AzureVMSizeStandardE8V3   AzureVMSize = "Standard_E8_v3"
-	AzureVMSizeStandardF1     AzureVMSize = "Standard_F1"
-	AzureVMSizeStandardF16    AzureVMSize = "Standard_F16"
-	AzureVMSizeStandardF16S   AzureVMSize = "Standard_F16s"
-	AzureVMSizeStandardF16SV2 AzureVMSize = "Standard_F16s_v2"
-	AzureVMSizeStandardF1S    AzureVMSize = "Standard_F1s"
-	AzureVMSizeStandardF2     AzureVMSize = "Standard_F2"
-	AzureVMSizeStandardF2S    AzureVMSize = "Standard_F2s"
-	AzureVMSizeStandardF2SV2  AzureVMSize = "Standard_F2s_v2"
-	AzureVMSizeStandardF32SV2 AzureVMSize = "Standard_F32s_v2"
-	AzureVMSizeStandardF4     AzureVMSize = "Standard_F4"
-	AzureVMSizeStandardF4S    AzureVMSize = "Standard_F4s"
-	AzureVMSizeStandardF4SV2  AzureVMSize = "Standard_F4s_v2"
-	AzureVMSizeStandardF64SV2 AzureVMSize = "Standard_F64s_v2"
-	AzureVMSizeStandardF72SV2 AzureVMSize = "Standard_F72s_v2"
-	AzureVMSizeStandardF8     AzureVMSize = "Standard_F8"
-	AzureVMSizeStandardF8S    AzureVMSize = "Standard_F8s"
-	AzureVMSizeStandardF8SV2  AzureVMSize = "Standard_F8s_v2"
-	AzureVMSizeStandardG1     AzureVMSize = "Standard_G1"
-	AzureVMSizeStandardG2     AzureVMSize = "Standard_G2"
-	AzureVMSizeStandardG3     AzureVMSize = "Standard_G3"
-	AzureVMSizeStandardG4     AzureVMSize = "Standard_G4"
-	AzureVMSizeStandardG5     AzureVMSize = "Standard_G5"
-	AzureVMSizeStandardGS1    AzureVMSize = "Standard_GS1"
-	AzureVMSizeStandardGS2    AzureVMSize = "Standard_GS2"
-	AzureVMSizeStandardGS3    AzureVMSize = "Standard_GS3"
-	AzureVMSizeStandardGS4    AzureVMSize = "Standard_GS4"
-	AzureVMSizeStandardGS5    AzureVMSize = "Standard_GS5"
-	AzureVMSizeStandardH16    AzureVMSize = "Standard_H16"
-	AzureVMSizeStandardH16M   AzureVMSize = "Standard_H16m"
-	AzureVMSizeStandardH16Mr  AzureVMSize = "Standard_H16mr"
-	AzureVMSizeStandardH16R   AzureVMSize = "Standard_H16r"
-	AzureVMSizeStandardH8     AzureVMSize = "Standard_H8"
-	AzureVMSizeStandardH8M    AzureVMSize = "Standard_H8m"
-	AzureVMSizeStandardL16S   AzureVMSize = "Standard_L16s"
-	AzureVMSizeStandardL32S   AzureVMSize = "Standard_L32s"
-	AzureVMSizeStandardL4S    AzureVMSize = "Standard_L4s"
-	AzureVMSizeStandardL8S    AzureVMSize = "Standard_L8s"
-	AzureVMSizeStandardM128Ms AzureVMSize = "Standard_M128ms"
-	AzureVMSizeStandardM128S  AzureVMSize = "Standard_M128s"
-	AzureVMSizeStandardM64Ms  AzureVMSize = "Standard_M64ms"
-	AzureVMSizeStandardM64S   AzureVMSize = "Standard_M64s"
-	AzureVMSizeUnknown        AzureVMSize = "Unknown"
+	// FileTypeFilestream - Filestream value.
+	FileTypeFilestream FileType = "Filestream"
+	// FileTypeFulltext - Fulltext value.
+	FileTypeFulltext FileType = "Fulltext"
+	// FileTypeLog - Log value.
+	FileTypeLog FileType = "Log"
+	// FileTypeNotSupported - NotSpecified value.
+	FileTypeNotSupported FileType = "NotSupported"
+	// FileTypeRows - Rows value.
+	FileTypeRows FileType = "Rows"
 )
 
-// PossibleAzureVMSizeValues returns the possible values for the AzureVMSize const type.
-func PossibleAzureVMSizeValues() []AzureVMSize {
-	return []AzureVMSize{
-		AzureVMSizeBasicA0,
-		AzureVMSizeBasicA1,
-		AzureVMSizeBasicA2,
-		AzureVMSizeBasicA3,
-		AzureVMSizeBasicA4,
-		AzureVMSizeStandardA0,
-		AzureVMSizeStandardA1,
-		AzureVMSizeStandardA10,
-		AzureVMSizeStandardA11,
-		AzureVMSizeStandardA1V2,
-		AzureVMSizeStandardA2,
-		AzureVMSizeStandardA2MV2,
-		AzureVMSizeStandardA2V2,
-		AzureVMSizeStandardA3,
-		AzureVMSizeStandardA4,
-		AzureVMSizeStandardA4MV2,
-		AzureVMSizeStandardA4V2,
-		AzureVMSizeStandardA5,
-		AzureVMSizeStandardA6,
-		AzureVMSizeStandardA7,
-		AzureVMSizeStandardA8,
-		AzureVMSizeStandardA8MV2,
-		AzureVMSizeStandardA8V2,
-		AzureVMSizeStandardA9,
-		AzureVMSizeStandardD1,
-		AzureVMSizeStandardD11,
-		AzureVMSizeStandardD11V2,
-		AzureVMSizeStandardD12,
-		AzureVMSizeStandardD12V2,
-		AzureVMSizeStandardD13,
-		AzureVMSizeStandardD13V2,
-		AzureVMSizeStandardD14,
-		AzureVMSizeStandardD14V2,
-		AzureVMSizeStandardD15V2,
-		AzureVMSizeStandardD16SV3,
-		AzureVMSizeStandardD16V3,
-		AzureVMSizeStandardD1V2,
-		AzureVMSizeStandardD2,
-		AzureVMSizeStandardD2SV3,
-		AzureVMSizeStandardD2V2,
-		AzureVMSizeStandardD2V3,
-		AzureVMSizeStandardD3,
-		AzureVMSizeStandardD32SV3,
-		AzureVMSizeStandardD32V3,
-		AzureVMSizeStandardD3V2,
-		AzureVMSizeStandardD4,
-		AzureVMSizeStandardD4SV3,
-		AzureVMSizeStandardD4V2,
-		AzureVMSizeStandardD4V3,
-		AzureVMSizeStandardD5V2,
-		AzureVMSizeStandardD64SV3,
-		AzureVMSizeStandardD64V3,
-		AzureVMSizeStandardD8SV3,
-		AzureVMSizeStandardD8V3,
-		AzureVMSizeStandardDS1,
-		AzureVMSizeStandardDS11,
-		AzureVMSizeStandardDS11V2,
-		AzureVMSizeStandardDS12,
-		AzureVMSizeStandardDS12V2,
-		AzureVMSizeStandardDS13,
-		AzureVMSizeStandardDS13V2,
-		AzureVMSizeStandardDS14,
-		AzureVMSizeStandardDS14V2,
-		AzureVMSizeStandardDS15V2,
-		AzureVMSizeStandardDS1V2,
-		AzureVMSizeStandardDS2,
-		AzureVMSizeStandardDS2V2,
-		AzureVMSizeStandardDS3,
-		AzureVMSizeStandardDS3V2,
-		AzureVMSizeStandardDS4,
-		AzureVMSizeStandardDS4V2,
-		AzureVMSizeStandardDS5V2,
-		AzureVMSizeStandardE16SV3,
-		AzureVMSizeStandardE16V3,
-		AzureVMSizeStandardE2SV3,
-		AzureVMSizeStandardE2V3,
-		AzureVMSizeStandardE32SV3,
-		AzureVMSizeStandardE32V3,
-		AzureVMSizeStandardE4SV3,
-		AzureVMSizeStandardE4V3,
-		AzureVMSizeStandardE64SV3,
-		AzureVMSizeStandardE64V3,
-		AzureVMSizeStandardE8SV3,
-		AzureVMSizeStandardE8V3,
-		AzureVMSizeStandardF1,
-		AzureVMSizeStandardF16,
-		AzureVMSizeStandardF16S,
-		AzureVMSizeStandardF16SV2,
-		AzureVMSizeStandardF1S,
-		AzureVMSizeStandardF2,
-		AzureVMSizeStandardF2S,
-		AzureVMSizeStandardF2SV2,
-		AzureVMSizeStandardF32SV2,
-		AzureVMSizeStandardF4,
-		AzureVMSizeStandardF4S,
-		AzureVMSizeStandardF4SV2,
-		AzureVMSizeStandardF64SV2,
-		AzureVMSizeStandardF72SV2,
-		AzureVMSizeStandardF8,
-		AzureVMSizeStandardF8S,
-		AzureVMSizeStandardF8SV2,
-		AzureVMSizeStandardG1,
-		AzureVMSizeStandardG2,
-		AzureVMSizeStandardG3,
-		AzureVMSizeStandardG4,
-		AzureVMSizeStandardG5,
-		AzureVMSizeStandardGS1,
-		AzureVMSizeStandardGS2,
-		AzureVMSizeStandardGS3,
-		AzureVMSizeStandardGS4,
-		AzureVMSizeStandardGS5,
-		AzureVMSizeStandardH16,
-		AzureVMSizeStandardH16M,
-		AzureVMSizeStandardH16Mr,
-		AzureVMSizeStandardH16R,
-		AzureVMSizeStandardH8,
-		AzureVMSizeStandardH8M,
-		AzureVMSizeStandardL16S,
-		AzureVMSizeStandardL32S,
-		AzureVMSizeStandardL4S,
-		AzureVMSizeStandardL8S,
-		AzureVMSizeStandardM128Ms,
-		AzureVMSizeStandardM128S,
-		AzureVMSizeStandardM64Ms,
-		AzureVMSizeStandardM64S,
-		AzureVMSizeUnknown,
+// PossibleFileTypeValues returns the possible values for the FileType const type.
+func PossibleFileTypeValues() []FileType {
+	return []FileType{
+		FileTypeFilestream,
+		FileTypeFulltext,
+		FileTypeLog,
+		FileTypeNotSupported,
+		FileTypeRows,
 	}
 }
 
-// AzureVMSuitabilityDetail - If machine is not suitable for cloud, this explains the reasons.
-type AzureVMSuitabilityDetail string
+// HealthErrorDetailsDiscoveryScope - Gets discovery scope for which error is encountered.
+type HealthErrorDetailsDiscoveryScope string
 
 const (
-	AzureVMSuitabilityDetailCannotReportBandwidthCosts            AzureVMSuitabilityDetail = "CannotReportBandwidthCosts"
-	AzureVMSuitabilityDetailCannotReportComputeCost               AzureVMSuitabilityDetail = "CannotReportComputeCost"
-	AzureVMSuitabilityDetailCannotReportStorageCost               AzureVMSuitabilityDetail = "CannotReportStorageCost"
-	AzureVMSuitabilityDetailNone                                  AzureVMSuitabilityDetail = "None"
-	AzureVMSuitabilityDetailPercentageOfCoresUtilizedMissing      AzureVMSuitabilityDetail = "PercentageOfCoresUtilizedMissing"
-	AzureVMSuitabilityDetailPercentageOfCoresUtilizedOutOfRange   AzureVMSuitabilityDetail = "PercentageOfCoresUtilizedOutOfRange"
-	AzureVMSuitabilityDetailPercentageOfMemoryUtilizedMissing     AzureVMSuitabilityDetail = "PercentageOfMemoryUtilizedMissing"
-	AzureVMSuitabilityDetailPercentageOfMemoryUtilizedOutOfRange  AzureVMSuitabilityDetail = "PercentageOfMemoryUtilizedOutOfRange"
-	AzureVMSuitabilityDetailRecommendedSizeHasLessNetworkAdapters AzureVMSuitabilityDetail = "RecommendedSizeHasLessNetworkAdapters"
+	// HealthErrorDetailsDiscoveryScopeAppsAndRoles - AppsAndRoles value.
+	HealthErrorDetailsDiscoveryScopeAppsAndRoles HealthErrorDetailsDiscoveryScope = "AppsAndRoles"
+	// HealthErrorDetailsDiscoveryScopeDependencyMap - DependencyMap value.
+	HealthErrorDetailsDiscoveryScopeDependencyMap HealthErrorDetailsDiscoveryScope = "DependencyMap"
+	// HealthErrorDetailsDiscoveryScopeDiscoveryTargets - DiscoveryTargets value.
+	HealthErrorDetailsDiscoveryScopeDiscoveryTargets HealthErrorDetailsDiscoveryScope = "DiscoveryTargets"
+	// HealthErrorDetailsDiscoveryScopeSQLServerConnectionInfo - SQLServerConnectionInfo value.
+	HealthErrorDetailsDiscoveryScopeSQLServerConnectionInfo HealthErrorDetailsDiscoveryScope = "SQLServerConnectionInfo"
+	// HealthErrorDetailsDiscoveryScopeStaticData - StaticData value.
+	HealthErrorDetailsDiscoveryScopeStaticData HealthErrorDetailsDiscoveryScope = "StaticData"
 )
 
-// PossibleAzureVMSuitabilityDetailValues returns the possible values for the AzureVMSuitabilityDetail const type.
-func PossibleAzureVMSuitabilityDetailValues() []AzureVMSuitabilityDetail {
-	return []AzureVMSuitabilityDetail{
-		AzureVMSuitabilityDetailCannotReportBandwidthCosts,
-		AzureVMSuitabilityDetailCannotReportComputeCost,
-		AzureVMSuitabilityDetailCannotReportStorageCost,
-		AzureVMSuitabilityDetailNone,
-		AzureVMSuitabilityDetailPercentageOfCoresUtilizedMissing,
-		AzureVMSuitabilityDetailPercentageOfCoresUtilizedOutOfRange,
-		AzureVMSuitabilityDetailPercentageOfMemoryUtilizedMissing,
-		AzureVMSuitabilityDetailPercentageOfMemoryUtilizedOutOfRange,
-		AzureVMSuitabilityDetailRecommendedSizeHasLessNetworkAdapters,
+// PossibleHealthErrorDetailsDiscoveryScopeValues returns the possible values for the HealthErrorDetailsDiscoveryScope const type.
+func PossibleHealthErrorDetailsDiscoveryScopeValues() []HealthErrorDetailsDiscoveryScope {
+	return []HealthErrorDetailsDiscoveryScope{
+		HealthErrorDetailsDiscoveryScopeAppsAndRoles,
+		HealthErrorDetailsDiscoveryScopeDependencyMap,
+		HealthErrorDetailsDiscoveryScopeDiscoveryTargets,
+		HealthErrorDetailsDiscoveryScopeSQLServerConnectionInfo,
+		HealthErrorDetailsDiscoveryScopeStaticData,
 	}
 }
 
-// AzureVMSuitabilityExplanation - If machine is not ready to be migrated, this explains the reasons and mitigation steps.
-type AzureVMSuitabilityExplanation string
+// HealthErrorDetailsSource - HealthError Details Source
+type HealthErrorDetailsSource string
 
 const (
-	AzureVMSuitabilityExplanationBootTypeNotSupported                         AzureVMSuitabilityExplanation = "BootTypeNotSupported"
-	AzureVMSuitabilityExplanationBootTypeUnknown                              AzureVMSuitabilityExplanation = "BootTypeUnknown"
-	AzureVMSuitabilityExplanationCheckCentOsVersion                           AzureVMSuitabilityExplanation = "CheckCentOsVersion"
-	AzureVMSuitabilityExplanationCheckCoreOsLinuxVersion                      AzureVMSuitabilityExplanation = "CheckCoreOsLinuxVersion"
-	AzureVMSuitabilityExplanationCheckDebianLinuxVersion                      AzureVMSuitabilityExplanation = "CheckDebianLinuxVersion"
-	AzureVMSuitabilityExplanationCheckOpenSuseLinuxVersion                    AzureVMSuitabilityExplanation = "CheckOpenSuseLinuxVersion"
-	AzureVMSuitabilityExplanationCheckOracleLinuxVersion                      AzureVMSuitabilityExplanation = "CheckOracleLinuxVersion"
-	AzureVMSuitabilityExplanationCheckRedHatLinuxVersion                      AzureVMSuitabilityExplanation = "CheckRedHatLinuxVersion"
-	AzureVMSuitabilityExplanationCheckSuseLinuxVersion                        AzureVMSuitabilityExplanation = "CheckSuseLinuxVersion"
-	AzureVMSuitabilityExplanationCheckUbuntuLinuxVersion                      AzureVMSuitabilityExplanation = "CheckUbuntuLinuxVersion"
-	AzureVMSuitabilityExplanationCheckWindowsServer2008R2Version              AzureVMSuitabilityExplanation = "CheckWindowsServer2008R2Version"
-	AzureVMSuitabilityExplanationEndorsedWithConditionsLinuxDistributions     AzureVMSuitabilityExplanation = "EndorsedWithConditionsLinuxDistributions"
-	AzureVMSuitabilityExplanationGuestOperatingSystemArchitectureNotSupported AzureVMSuitabilityExplanation = "GuestOperatingSystemArchitectureNotSupported"
-	AzureVMSuitabilityExplanationGuestOperatingSystemNotSupported             AzureVMSuitabilityExplanation = "GuestOperatingSystemNotSupported"
-	AzureVMSuitabilityExplanationGuestOperatingSystemUnknown                  AzureVMSuitabilityExplanation = "GuestOperatingSystemUnknown"
-	AzureVMSuitabilityExplanationInternalErrorOccurredDuringComputeEvaluation AzureVMSuitabilityExplanation = "InternalErrorOccurredDuringComputeEvaluation"
-	AzureVMSuitabilityExplanationInternalErrorOccurredDuringNetworkEvaluation AzureVMSuitabilityExplanation = "InternalErrorOccurredDuringNetworkEvaluation"
-	AzureVMSuitabilityExplanationInternalErrorOccurredDuringStorageEvaluation AzureVMSuitabilityExplanation = "InternalErrorOccurredDuringStorageEvaluation"
-	AzureVMSuitabilityExplanationMoreDisksThanSupported                       AzureVMSuitabilityExplanation = "MoreDisksThanSupported"
-	AzureVMSuitabilityExplanationNoGuestOperatingSystemConditionallySupported AzureVMSuitabilityExplanation = "NoGuestOperatingSystemConditionallySupported"
-	AzureVMSuitabilityExplanationNoSuitableVMSizeFound                        AzureVMSuitabilityExplanation = "NoSuitableVmSizeFound"
-	AzureVMSuitabilityExplanationNoVMSizeForBasicPricingTier                  AzureVMSuitabilityExplanation = "NoVmSizeForBasicPricingTier"
-	AzureVMSuitabilityExplanationNoVMSizeForSelectedAzureLocation             AzureVMSuitabilityExplanation = "NoVmSizeForSelectedAzureLocation"
-	AzureVMSuitabilityExplanationNoVMSizeForSelectedPricingTier               AzureVMSuitabilityExplanation = "NoVmSizeForSelectedPricingTier"
-	AzureVMSuitabilityExplanationNoVMSizeForStandardPricingTier               AzureVMSuitabilityExplanation = "NoVmSizeForStandardPricingTier"
-	AzureVMSuitabilityExplanationNoVMSizeSupportsNetworkPerformance           AzureVMSuitabilityExplanation = "NoVmSizeSupportsNetworkPerformance"
-	AzureVMSuitabilityExplanationNoVMSizeSupportsStoragePerformance           AzureVMSuitabilityExplanation = "NoVmSizeSupportsStoragePerformance"
-	AzureVMSuitabilityExplanationNotApplicable                                AzureVMSuitabilityExplanation = "NotApplicable"
-	AzureVMSuitabilityExplanationOneOrMoreAdaptersNotSuitable                 AzureVMSuitabilityExplanation = "OneOrMoreAdaptersNotSuitable"
-	AzureVMSuitabilityExplanationOneOrMoreDisksNotSuitable                    AzureVMSuitabilityExplanation = "OneOrMoreDisksNotSuitable"
-	AzureVMSuitabilityExplanationUnendorsedLinuxDistributions                 AzureVMSuitabilityExplanation = "UnendorsedLinuxDistributions"
-	AzureVMSuitabilityExplanationUnknown                                      AzureVMSuitabilityExplanation = "Unknown"
-	AzureVMSuitabilityExplanationWindowsClientVersionsConditionallySupported  AzureVMSuitabilityExplanation = "WindowsClientVersionsConditionallySupported"
-	AzureVMSuitabilityExplanationWindowsOSNoLongerUnderMSSupport              AzureVMSuitabilityExplanation = "WindowsOSNoLongerUnderMSSupport"
-	AzureVMSuitabilityExplanationWindowsServerVersionConditionallySupported   AzureVMSuitabilityExplanation = "WindowsServerVersionConditionallySupported"
-	AzureVMSuitabilityExplanationWindowsServerVersionsSupportedWithCaveat     AzureVMSuitabilityExplanation = "WindowsServerVersionsSupportedWithCaveat"
+	// HealthErrorDetailsSourceRefreshFabricLayout - RefreshFabricLayout value.
+	HealthErrorDetailsSourceRefreshFabricLayout HealthErrorDetailsSource = "RefreshFabricLayout"
+	// HealthErrorDetailsSourceRefreshFabricLayoutDependencyMap - RefreshFabricLayoutDependencyMap value.
+	HealthErrorDetailsSourceRefreshFabricLayoutDependencyMap HealthErrorDetailsSource = "RefreshFabricLayoutDependencyMap"
+	// HealthErrorDetailsSourceRefreshFabricLayoutGuest - RefreshFabricLayoutGuest value.
+	HealthErrorDetailsSourceRefreshFabricLayoutGuest HealthErrorDetailsSource = "RefreshFabricLayoutGuest"
 )
 
-// PossibleAzureVMSuitabilityExplanationValues returns the possible values for the AzureVMSuitabilityExplanation const type.
-func PossibleAzureVMSuitabilityExplanationValues() []AzureVMSuitabilityExplanation {
-	return []AzureVMSuitabilityExplanation{
-		AzureVMSuitabilityExplanationBootTypeNotSupported,
-		AzureVMSuitabilityExplanationBootTypeUnknown,
-		AzureVMSuitabilityExplanationCheckCentOsVersion,
-		AzureVMSuitabilityExplanationCheckCoreOsLinuxVersion,
-		AzureVMSuitabilityExplanationCheckDebianLinuxVersion,
-		AzureVMSuitabilityExplanationCheckOpenSuseLinuxVersion,
-		AzureVMSuitabilityExplanationCheckOracleLinuxVersion,
-		AzureVMSuitabilityExplanationCheckRedHatLinuxVersion,
-		AzureVMSuitabilityExplanationCheckSuseLinuxVersion,
-		AzureVMSuitabilityExplanationCheckUbuntuLinuxVersion,
-		AzureVMSuitabilityExplanationCheckWindowsServer2008R2Version,
-		AzureVMSuitabilityExplanationEndorsedWithConditionsLinuxDistributions,
-		AzureVMSuitabilityExplanationGuestOperatingSystemArchitectureNotSupported,
-		AzureVMSuitabilityExplanationGuestOperatingSystemNotSupported,
-		AzureVMSuitabilityExplanationGuestOperatingSystemUnknown,
-		AzureVMSuitabilityExplanationInternalErrorOccurredDuringComputeEvaluation,
-		AzureVMSuitabilityExplanationInternalErrorOccurredDuringNetworkEvaluation,
-		AzureVMSuitabilityExplanationInternalErrorOccurredDuringStorageEvaluation,
-		AzureVMSuitabilityExplanationMoreDisksThanSupported,
-		AzureVMSuitabilityExplanationNoGuestOperatingSystemConditionallySupported,
-		AzureVMSuitabilityExplanationNoSuitableVMSizeFound,
-		AzureVMSuitabilityExplanationNoVMSizeForBasicPricingTier,
-		AzureVMSuitabilityExplanationNoVMSizeForSelectedAzureLocation,
-		AzureVMSuitabilityExplanationNoVMSizeForSelectedPricingTier,
-		AzureVMSuitabilityExplanationNoVMSizeForStandardPricingTier,
-		AzureVMSuitabilityExplanationNoVMSizeSupportsNetworkPerformance,
-		AzureVMSuitabilityExplanationNoVMSizeSupportsStoragePerformance,
-		AzureVMSuitabilityExplanationNotApplicable,
-		AzureVMSuitabilityExplanationOneOrMoreAdaptersNotSuitable,
-		AzureVMSuitabilityExplanationOneOrMoreDisksNotSuitable,
-		AzureVMSuitabilityExplanationUnendorsedLinuxDistributions,
-		AzureVMSuitabilityExplanationUnknown,
-		AzureVMSuitabilityExplanationWindowsClientVersionsConditionallySupported,
-		AzureVMSuitabilityExplanationWindowsOSNoLongerUnderMSSupport,
-		AzureVMSuitabilityExplanationWindowsServerVersionConditionallySupported,
-		AzureVMSuitabilityExplanationWindowsServerVersionsSupportedWithCaveat,
+// PossibleHealthErrorDetailsSourceValues returns the possible values for the HealthErrorDetailsSource const type.
+func PossibleHealthErrorDetailsSourceValues() []HealthErrorDetailsSource {
+	return []HealthErrorDetailsSource{
+		HealthErrorDetailsSourceRefreshFabricLayout,
+		HealthErrorDetailsSourceRefreshFabricLayoutDependencyMap,
+		HealthErrorDetailsSourceRefreshFabricLayoutGuest,
 	}
 }
 
-// CloudSuitability - Whether this disk is suitable for Azure.
-type CloudSuitability string
+// HighAvailability - Value indicating whether the VM is highly available
+type HighAvailability string
 
 const (
-	CloudSuitabilityConditionallySuitable CloudSuitability = "ConditionallySuitable"
-	CloudSuitabilityNotSuitable           CloudSuitability = "NotSuitable"
-	CloudSuitabilityReadinessUnknown      CloudSuitability = "ReadinessUnknown"
-	CloudSuitabilitySuitable              CloudSuitability = "Suitable"
-	CloudSuitabilityUnknown               CloudSuitability = "Unknown"
+	// HighAvailabilityNo - No value.
+	HighAvailabilityNo HighAvailability = "No"
+	// HighAvailabilityUnknown - Unknown value.
+	HighAvailabilityUnknown HighAvailability = "Unknown"
+	// HighAvailabilityYes - Yes value.
+	HighAvailabilityYes HighAvailability = "Yes"
 )
 
-// PossibleCloudSuitabilityValues returns the possible values for the CloudSuitability const type.
-func PossibleCloudSuitabilityValues() []CloudSuitability {
-	return []CloudSuitability{
-		CloudSuitabilityConditionallySuitable,
-		CloudSuitabilityNotSuitable,
-		CloudSuitabilityReadinessUnknown,
-		CloudSuitabilitySuitable,
-		CloudSuitabilityUnknown,
+// PossibleHighAvailabilityValues returns the possible values for the HighAvailability const type.
+func PossibleHighAvailabilityValues() []HighAvailability {
+	return []HighAvailability{
+		HighAvailabilityNo,
+		HighAvailabilityUnknown,
+		HighAvailabilityYes,
 	}
 }
 
-// Currency - Currency to report prices in.
-type Currency string
+// HighAvailabilityValues - Value indicating whether the VM is highly available
+type HighAvailabilityValues string
 
 const (
-	CurrencyARS     Currency = "ARS"
-	CurrencyAUD     Currency = "AUD"
-	CurrencyBRL     Currency = "BRL"
-	CurrencyCAD     Currency = "CAD"
-	CurrencyCHF     Currency = "CHF"
-	CurrencyCNY     Currency = "CNY"
-	CurrencyDKK     Currency = "DKK"
-	CurrencyEUR     Currency = "EUR"
-	CurrencyGBP     Currency = "GBP"
-	CurrencyHKD     Currency = "HKD"
-	CurrencyIDR     Currency = "IDR"
-	CurrencyINR     Currency = "INR"
-	CurrencyJPY     Currency = "JPY"
-	CurrencyKRW     Currency = "KRW"
-	CurrencyMXN     Currency = "MXN"
-	CurrencyMYR     Currency = "MYR"
-	CurrencyNOK     Currency = "NOK"
-	CurrencyNZD     Currency = "NZD"
-	CurrencyRUB     Currency = "RUB"
-	CurrencySAR     Currency = "SAR"
-	CurrencySEK     Currency = "SEK"
-	CurrencyTRY     Currency = "TRY"
-	CurrencyTWD     Currency = "TWD"
-	CurrencyUSD     Currency = "USD"
-	CurrencyUnknown Currency = "Unknown"
-	CurrencyZAR     Currency = "ZAR"
+	// HighAvailabilityValuesNo - No value.
+	HighAvailabilityValuesNo HighAvailabilityValues = "No"
+	// HighAvailabilityValuesUnknown - Unknown value.
+	HighAvailabilityValuesUnknown HighAvailabilityValues = "Unknown"
+	// HighAvailabilityValuesYes - Yes value.
+	HighAvailabilityValuesYes HighAvailabilityValues = "Yes"
 )
 
-// PossibleCurrencyValues returns the possible values for the Currency const type.
-func PossibleCurrencyValues() []Currency {
-	return []Currency{
-		CurrencyARS,
-		CurrencyAUD,
-		CurrencyBRL,
-		CurrencyCAD,
-		CurrencyCHF,
-		CurrencyCNY,
-		CurrencyDKK,
-		CurrencyEUR,
-		CurrencyGBP,
-		CurrencyHKD,
-		CurrencyIDR,
-		CurrencyINR,
-		CurrencyJPY,
-		CurrencyKRW,
-		CurrencyMXN,
-		CurrencyMYR,
-		CurrencyNOK,
-		CurrencyNZD,
-		CurrencyRUB,
-		CurrencySAR,
-		CurrencySEK,
-		CurrencyTRY,
-		CurrencyTWD,
-		CurrencyUSD,
-		CurrencyUnknown,
-		CurrencyZAR,
+// PossibleHighAvailabilityValuesValues returns the possible values for the HighAvailabilityValues const type.
+func PossibleHighAvailabilityValuesValues() []HighAvailabilityValues {
+	return []HighAvailabilityValues{
+		HighAvailabilityValuesNo,
+		HighAvailabilityValuesUnknown,
+		HighAvailabilityValuesYes,
 	}
 }
 
-// GroupStatus - Whether the group has been created and is valid.
-type GroupStatus string
+// ImportTypeValues - ImportTypeValues enum.
+type ImportTypeValues string
 
 const (
-	GroupStatusCompleted GroupStatus = "Completed"
-	GroupStatusCreated   GroupStatus = "Created"
-	GroupStatusInvalid   GroupStatus = "Invalid"
-	GroupStatusRunning   GroupStatus = "Running"
-	GroupStatusUpdated   GroupStatus = "Updated"
+	// ImportTypeValuesAzureMigrateCSV - AzureMigrateCSV value.
+	ImportTypeValuesAzureMigrateCSV ImportTypeValues = "AzureMigrateCSV"
+	// ImportTypeValuesRVToolsXlsx - RVToolsXlsx value.
+	ImportTypeValuesRVToolsXlsx ImportTypeValues = "RVToolsXlsx"
 )
 
-// PossibleGroupStatusValues returns the possible values for the GroupStatus const type.
-func PossibleGroupStatusValues() []GroupStatus {
-	return []GroupStatus{
-		GroupStatusCompleted,
-		GroupStatusCreated,
-		GroupStatusInvalid,
-		GroupStatusRunning,
-		GroupStatusUpdated,
+// PossibleImportTypeValuesValues returns the possible values for the ImportTypeValues const type.
+func PossibleImportTypeValuesValues() []ImportTypeValues {
+	return []ImportTypeValues{
+		ImportTypeValuesAzureMigrateCSV,
+		ImportTypeValuesRVToolsXlsx,
 	}
 }
 
-// GroupUpdateOperation - Whether to add or remove the machines.
-type GroupUpdateOperation string
+// JobResult - JobResultValues
+type JobResult string
 
 const (
-	GroupUpdateOperationAdd    GroupUpdateOperation = "Add"
-	GroupUpdateOperationRemove GroupUpdateOperation = "Remove"
+	// JobResultCompleted - Completed value.
+	JobResultCompleted JobResult = "Completed"
+	// JobResultCompletedWithErrors - CompletedWithErrors value.
+	JobResultCompletedWithErrors JobResult = "CompletedWithErrors"
+	// JobResultCompletedWithWarnings - CompletedWithWarnings value.
+	JobResultCompletedWithWarnings JobResult = "CompletedWithWarnings"
+	// JobResultFailed - Failed value.
+	JobResultFailed JobResult = "Failed"
+	// JobResultInProgress - InProgress value.
+	JobResultInProgress JobResult = "InProgress"
+	// JobResultUnknown - Unknown value.
+	JobResultUnknown JobResult = "Unknown"
+	// JobResultWaitingForBlobUpload - WaitingForBlobUpload value.
+	JobResultWaitingForBlobUpload JobResult = "WaitingForBlobUpload"
 )
 
-// PossibleGroupUpdateOperationValues returns the possible values for the GroupUpdateOperation const type.
-func PossibleGroupUpdateOperationValues() []GroupUpdateOperation {
-	return []GroupUpdateOperation{
-		GroupUpdateOperationAdd,
-		GroupUpdateOperationRemove,
+// PossibleJobResultValues returns the possible values for the JobResult const type.
+func PossibleJobResultValues() []JobResult {
+	return []JobResult{
+		JobResultCompleted,
+		JobResultCompletedWithErrors,
+		JobResultCompletedWithWarnings,
+		JobResultFailed,
+		JobResultInProgress,
+		JobResultUnknown,
+		JobResultWaitingForBlobUpload,
 	}
 }
 
-// MachineBootType - Boot type of the machine.
-type MachineBootType string
+// MasterSitePropertiesPublicNetworkAccess - PublicNetworkAccess
+type MasterSitePropertiesPublicNetworkAccess string
 
 const (
-	MachineBootTypeBIOS    MachineBootType = "BIOS"
-	MachineBootTypeEFI     MachineBootType = "EFI"
-	MachineBootTypeUnknown MachineBootType = "Unknown"
+	// MasterSitePropertiesPublicNetworkAccessDisabled - Disabled value.
+	MasterSitePropertiesPublicNetworkAccessDisabled MasterSitePropertiesPublicNetworkAccess = "Disabled"
+	// MasterSitePropertiesPublicNetworkAccessEnabled - Enabled value.
+	MasterSitePropertiesPublicNetworkAccessEnabled MasterSitePropertiesPublicNetworkAccess = "Enabled"
+	// MasterSitePropertiesPublicNetworkAccessNotSpecified - NotSpecified value.
+	MasterSitePropertiesPublicNetworkAccessNotSpecified MasterSitePropertiesPublicNetworkAccess = "NotSpecified"
 )
 
-// PossibleMachineBootTypeValues returns the possible values for the MachineBootType const type.
-func PossibleMachineBootTypeValues() []MachineBootType {
-	return []MachineBootType{
-		MachineBootTypeBIOS,
-		MachineBootTypeEFI,
-		MachineBootTypeUnknown,
+// PossibleMasterSitePropertiesPublicNetworkAccessValues returns the possible values for the MasterSitePropertiesPublicNetworkAccess const type.
+func PossibleMasterSitePropertiesPublicNetworkAccessValues() []MasterSitePropertiesPublicNetworkAccess {
+	return []MasterSitePropertiesPublicNetworkAccess{
+		MasterSitePropertiesPublicNetworkAccessDisabled,
+		MasterSitePropertiesPublicNetworkAccessEnabled,
+		MasterSitePropertiesPublicNetworkAccessNotSpecified,
 	}
 }
 
-// Percentile - Percentile of performance data used to recommend Azure size.
-type Percentile string
+// MicrosoftAzureFDSWebRoleHealthErrorDetailsSource - HealthError Details Source
+type MicrosoftAzureFDSWebRoleHealthErrorDetailsSource string
 
 const (
-	PercentilePercentile50 Percentile = "Percentile50"
-	PercentilePercentile90 Percentile = "Percentile90"
-	PercentilePercentile95 Percentile = "Percentile95"
-	PercentilePercentile99 Percentile = "Percentile99"
+	// MicrosoftAzureFDSWebRoleHealthErrorDetailsSourceRefreshFabricLayout - RefreshFabricLayout value.
+	MicrosoftAzureFDSWebRoleHealthErrorDetailsSourceRefreshFabricLayout MicrosoftAzureFDSWebRoleHealthErrorDetailsSource = "RefreshFabricLayout"
+	// MicrosoftAzureFDSWebRoleHealthErrorDetailsSourceRefreshFabricLayoutDependencyMap - RefreshFabricLayoutDependencyMap value.
+	MicrosoftAzureFDSWebRoleHealthErrorDetailsSourceRefreshFabricLayoutDependencyMap MicrosoftAzureFDSWebRoleHealthErrorDetailsSource = "RefreshFabricLayoutDependencyMap"
+	// MicrosoftAzureFDSWebRoleHealthErrorDetailsSourceRefreshFabricLayoutGuest - RefreshFabricLayoutGuest value.
+	MicrosoftAzureFDSWebRoleHealthErrorDetailsSourceRefreshFabricLayoutGuest MicrosoftAzureFDSWebRoleHealthErrorDetailsSource = "RefreshFabricLayoutGuest"
 )
 
-// PossiblePercentileValues returns the possible values for the Percentile const type.
-func PossiblePercentileValues() []Percentile {
-	return []Percentile{
-		PercentilePercentile50,
-		PercentilePercentile90,
-		PercentilePercentile95,
-		PercentilePercentile99,
+// PossibleMicrosoftAzureFDSWebRoleHealthErrorDetailsSourceValues returns the possible values for the MicrosoftAzureFDSWebRoleHealthErrorDetailsSource const type.
+func PossibleMicrosoftAzureFDSWebRoleHealthErrorDetailsSourceValues() []MicrosoftAzureFDSWebRoleHealthErrorDetailsSource {
+	return []MicrosoftAzureFDSWebRoleHealthErrorDetailsSource{
+		MicrosoftAzureFDSWebRoleHealthErrorDetailsSourceRefreshFabricLayout,
+		MicrosoftAzureFDSWebRoleHealthErrorDetailsSourceRefreshFabricLayoutDependencyMap,
+		MicrosoftAzureFDSWebRoleHealthErrorDetailsSourceRefreshFabricLayoutGuest,
 	}
 }
 
-// PrivateEndpointConnectionPropertiesProvisioningState - Indicates whether there is an ongoing operation on the private endpoint.
-type PrivateEndpointConnectionPropertiesProvisioningState string
+// Origin - The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
+// value is "user,system"
+type Origin string
 
 const (
-	PrivateEndpointConnectionPropertiesProvisioningStateAccepted   PrivateEndpointConnectionPropertiesProvisioningState = "Accepted"
-	PrivateEndpointConnectionPropertiesProvisioningStateFailed     PrivateEndpointConnectionPropertiesProvisioningState = "Failed"
-	PrivateEndpointConnectionPropertiesProvisioningStateInProgress PrivateEndpointConnectionPropertiesProvisioningState = "InProgress"
-	PrivateEndpointConnectionPropertiesProvisioningStateSucceeded  PrivateEndpointConnectionPropertiesProvisioningState = "Succeeded"
+	OriginSystem     Origin = "system"
+	OriginUser       Origin = "user"
+	OriginUserSystem Origin = "user,system"
 )
 
-// PossiblePrivateEndpointConnectionPropertiesProvisioningStateValues returns the possible values for the PrivateEndpointConnectionPropertiesProvisioningState const type.
-func PossiblePrivateEndpointConnectionPropertiesProvisioningStateValues() []PrivateEndpointConnectionPropertiesProvisioningState {
-	return []PrivateEndpointConnectionPropertiesProvisioningState{
-		PrivateEndpointConnectionPropertiesProvisioningStateAccepted,
-		PrivateEndpointConnectionPropertiesProvisioningStateFailed,
-		PrivateEndpointConnectionPropertiesProvisioningStateInProgress,
-		PrivateEndpointConnectionPropertiesProvisioningStateSucceeded,
+// PossibleOriginValues returns the possible values for the Origin const type.
+func PossibleOriginValues() []Origin {
+	return []Origin{
+		OriginSystem,
+		OriginUser,
+		OriginUserSystem,
 	}
 }
 
-// PrivateLinkServiceConnectionStateStatus - Connection status of the private endpoint connection.
+// PrivateLinkServiceConnectionStateStatus - PrivateLinkServiceConnectionState
 type PrivateLinkServiceConnectionStateStatus string
 
 const (
-	PrivateLinkServiceConnectionStateStatusApproved     PrivateLinkServiceConnectionStateStatus = "Approved"
+	// PrivateLinkServiceConnectionStateStatusApproved - Approved value.
+	PrivateLinkServiceConnectionStateStatusApproved PrivateLinkServiceConnectionStateStatus = "Approved"
+	// PrivateLinkServiceConnectionStateStatusDisconnected - Disconnected value.
 	PrivateLinkServiceConnectionStateStatusDisconnected PrivateLinkServiceConnectionStateStatus = "Disconnected"
-	PrivateLinkServiceConnectionStateStatusPending      PrivateLinkServiceConnectionStateStatus = "Pending"
-	PrivateLinkServiceConnectionStateStatusRejected     PrivateLinkServiceConnectionStateStatus = "Rejected"
+	// PrivateLinkServiceConnectionStateStatusPending - Pending value.
+	PrivateLinkServiceConnectionStateStatusPending PrivateLinkServiceConnectionStateStatus = "Pending"
+	// PrivateLinkServiceConnectionStateStatusRejected - Rejected value.
+	PrivateLinkServiceConnectionStateStatusRejected PrivateLinkServiceConnectionStateStatus = "Rejected"
 )
 
 // PossiblePrivateLinkServiceConnectionStateStatusValues returns the possible values for the PrivateLinkServiceConnectionStateStatus const type.
@@ -1151,80 +635,572 @@ func PossiblePrivateLinkServiceConnectionStateStatusValues() []PrivateLinkServic
 	}
 }
 
-// ProjectStatus - Assessment project status.
-type ProjectStatus string
-
-const (
-	ProjectStatusActive   ProjectStatus = "Active"
-	ProjectStatusInactive ProjectStatus = "Inactive"
-)
-
-// PossibleProjectStatusValues returns the possible values for the ProjectStatus const type.
-func PossibleProjectStatusValues() []ProjectStatus {
-	return []ProjectStatus{
-		ProjectStatusActive,
-		ProjectStatusInactive,
-	}
-}
-
-// ProvisioningState - Provisioning state of the project.
+// ProvisioningState - The status of the current operation.
 type ProvisioningState string
 
 const (
-	ProvisioningStateAccepted  ProvisioningState = "Accepted"
-	ProvisioningStateCreating  ProvisioningState = "Creating"
-	ProvisioningStateDeleting  ProvisioningState = "Deleting"
-	ProvisioningStateFailed    ProvisioningState = "Failed"
-	ProvisioningStateMoving    ProvisioningState = "Moving"
+	// ProvisioningStateCanceled - Canceled value.
+	ProvisioningStateCanceled ProvisioningState = "Canceled"
+	// ProvisioningStateCompleted - Completed value.
+	ProvisioningStateCompleted ProvisioningState = "Completed"
+	// ProvisioningStateCreated - Created value.
+	ProvisioningStateCreated ProvisioningState = "Created"
+	// ProvisioningStateFailed - Failed value.
+	ProvisioningStateFailed ProvisioningState = "Failed"
+	// ProvisioningStateRunning - Running value.
+	ProvisioningStateRunning ProvisioningState = "Running"
+	// ProvisioningStateSucceeded - Succeeded value.
 	ProvisioningStateSucceeded ProvisioningState = "Succeeded"
+	// ProvisioningStateUpdated - Updated value.
+	ProvisioningStateUpdated ProvisioningState = "Updated"
 )
 
 // PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
 func PossibleProvisioningStateValues() []ProvisioningState {
 	return []ProvisioningState{
-		ProvisioningStateAccepted,
-		ProvisioningStateCreating,
-		ProvisioningStateDeleting,
+		ProvisioningStateCanceled,
+		ProvisioningStateCompleted,
+		ProvisioningStateCreated,
 		ProvisioningStateFailed,
-		ProvisioningStateMoving,
+		ProvisioningStateRunning,
 		ProvisioningStateSucceeded,
+		ProvisioningStateUpdated,
 	}
 }
 
-// ReservedInstance - Azure reserved instance.
-type ReservedInstance string
+// SQLAvailabilityGroupPropertiesAvailabilityGroupType - AvailabilityGroupType
+type SQLAvailabilityGroupPropertiesAvailabilityGroupType string
 
 const (
-	ReservedInstanceNone    ReservedInstance = "None"
-	ReservedInstanceRI1Year ReservedInstance = "RI1Year"
-	ReservedInstanceRI3Year ReservedInstance = "RI3Year"
+	// SQLAvailabilityGroupPropertiesAvailabilityGroupTypeDistributed - Distributed value.
+	SQLAvailabilityGroupPropertiesAvailabilityGroupTypeDistributed SQLAvailabilityGroupPropertiesAvailabilityGroupType = "Distributed"
+	// SQLAvailabilityGroupPropertiesAvailabilityGroupTypeTraditional - Traditional value.
+	SQLAvailabilityGroupPropertiesAvailabilityGroupTypeTraditional SQLAvailabilityGroupPropertiesAvailabilityGroupType = "Traditional"
+	// SQLAvailabilityGroupPropertiesAvailabilityGroupTypeUnknown - Unknown value.
+	SQLAvailabilityGroupPropertiesAvailabilityGroupTypeUnknown SQLAvailabilityGroupPropertiesAvailabilityGroupType = "Unknown"
 )
 
-// PossibleReservedInstanceValues returns the possible values for the ReservedInstance const type.
-func PossibleReservedInstanceValues() []ReservedInstance {
-	return []ReservedInstance{
-		ReservedInstanceNone,
-		ReservedInstanceRI1Year,
-		ReservedInstanceRI3Year,
+// PossibleSQLAvailabilityGroupPropertiesAvailabilityGroupTypeValues returns the possible values for the SQLAvailabilityGroupPropertiesAvailabilityGroupType const type.
+func PossibleSQLAvailabilityGroupPropertiesAvailabilityGroupTypeValues() []SQLAvailabilityGroupPropertiesAvailabilityGroupType {
+	return []SQLAvailabilityGroupPropertiesAvailabilityGroupType{
+		SQLAvailabilityGroupPropertiesAvailabilityGroupTypeDistributed,
+		SQLAvailabilityGroupPropertiesAvailabilityGroupTypeTraditional,
+		SQLAvailabilityGroupPropertiesAvailabilityGroupTypeUnknown,
 	}
 }
 
-// TimeRange - Time range of performance data used to recommend a size.
-type TimeRange string
+// SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaCommitMode - ReplicaCommitMode
+type SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaCommitMode string
 
 const (
-	TimeRangeCustom TimeRange = "Custom"
-	TimeRangeDay    TimeRange = "Day"
-	TimeRangeMonth  TimeRange = "Month"
-	TimeRangeWeek   TimeRange = "Week"
+	// SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaCommitModeAsynchronous - Asynchronous value.
+	SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaCommitModeAsynchronous SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaCommitMode = "Asynchronous"
+	// SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaCommitModeSynchronous - Synchronous value.
+	SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaCommitModeSynchronous SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaCommitMode = "Synchronous"
+	// SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaCommitModeUnknown - Unknown value.
+	SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaCommitModeUnknown SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaCommitMode = "Unknown"
 )
 
-// PossibleTimeRangeValues returns the possible values for the TimeRange const type.
-func PossibleTimeRangeValues() []TimeRange {
-	return []TimeRange{
-		TimeRangeCustom,
-		TimeRangeDay,
-		TimeRangeMonth,
-		TimeRangeWeek,
+// PossibleSQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaCommitModeValues returns the possible values for the SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaCommitMode const type.
+func PossibleSQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaCommitModeValues() []SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaCommitMode {
+	return []SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaCommitMode{
+		SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaCommitModeAsynchronous,
+		SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaCommitModeSynchronous,
+		SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaCommitModeUnknown,
+	}
+}
+
+// SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaReadMode - ReplicaReadMode
+type SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaReadMode string
+
+const (
+	// SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaReadModeNone - None value.
+	SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaReadModeNone SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaReadMode = "None"
+	// SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaReadModeReadOnly - ReadOnly value.
+	SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaReadModeReadOnly SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaReadMode = "ReadOnly"
+	// SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaReadModeReadWrite - ReadWrite value.
+	SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaReadModeReadWrite SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaReadMode = "ReadWrite"
+	// SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaReadModeUnknown - Unknown value.
+	SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaReadModeUnknown SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaReadMode = "Unknown"
+)
+
+// PossibleSQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaReadModeValues returns the possible values for the SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaReadMode const type.
+func PossibleSQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaReadModeValues() []SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaReadMode {
+	return []SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaReadMode{
+		SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaReadModeNone,
+		SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaReadModeReadOnly,
+		SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaReadModeReadWrite,
+		SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaReadModeUnknown,
+	}
+}
+
+// SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSeedMode - ReplicaSeedMode
+type SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSeedMode string
+
+const (
+	// SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSeedModeAutomatic - Automatic value.
+	SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSeedModeAutomatic SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSeedMode = "Automatic"
+	// SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSeedModeManual - Manual value.
+	SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSeedModeManual SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSeedMode = "Manual"
+	// SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSeedModeUnknown - Unknown value.
+	SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSeedModeUnknown SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSeedMode = "Unknown"
+)
+
+// PossibleSQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSeedModeValues returns the possible values for the SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSeedMode const type.
+func PossibleSQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSeedModeValues() []SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSeedMode {
+	return []SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSeedMode{
+		SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSeedModeAutomatic,
+		SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSeedModeManual,
+		SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSeedModeUnknown,
+	}
+}
+
+// SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaState - ReplicaState
+type SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaState string
+
+const (
+	// SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaStatePrimary - Primary value.
+	SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaStatePrimary SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaState = "Primary"
+	// SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaStateSecondary - Secondary value.
+	SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaStateSecondary SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaState = "Secondary"
+	// SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaStateUnknown - Unknown value.
+	SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaStateUnknown SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaState = "Unknown"
+)
+
+// PossibleSQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaStateValues returns the possible values for the SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaState const type.
+func PossibleSQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaStateValues() []SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaState {
+	return []SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaState{
+		SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaStatePrimary,
+		SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaStateSecondary,
+		SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaStateUnknown,
+	}
+}
+
+// SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSyncStatus - ReplicaSyncStatus
+type SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSyncStatus string
+
+const (
+	// SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSyncStatusSynchronized - Synchronized value.
+	SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSyncStatusSynchronized SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSyncStatus = "Synchronized"
+	// SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSyncStatusUnknown - Unknown value.
+	SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSyncStatusUnknown SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSyncStatus = "Unknown"
+	// SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSyncStatusUnsynchronized - Unsynchronized value.
+	SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSyncStatusUnsynchronized SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSyncStatus = "Unsynchronized"
+)
+
+// PossibleSQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSyncStatusValues returns the possible values for the SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSyncStatus const type.
+func PossibleSQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSyncStatusValues() []SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSyncStatus {
+	return []SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSyncStatus{
+		SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSyncStatusSynchronized,
+		SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSyncStatusUnknown,
+		SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaSyncStatusUnsynchronized,
+	}
+}
+
+// SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaType - ReplicaType
+type SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaType string
+
+const (
+	// SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaTypeAvailabilityGroupReplica - AvailabilityGroupReplica value.
+	SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaTypeAvailabilityGroupReplica SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaType = "AvailabilityGroupReplica"
+	// SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaTypeDatabaseReplica - DatabaseReplica value.
+	SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaTypeDatabaseReplica SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaType = "DatabaseReplica"
+	// SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaTypeUnknown - Unknown value.
+	SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaTypeUnknown SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaType = "Unknown"
+)
+
+// PossibleSQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaTypeValues returns the possible values for the SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaType const type.
+func PossibleSQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaTypeValues() []SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaType {
+	return []SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaType{
+		SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaTypeAvailabilityGroupReplica,
+		SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaTypeDatabaseReplica,
+		SQLAvailabilityGroupSQLAvailabilityReplicaPropertiesReplicaTypeUnknown,
+	}
+}
+
+// SQLAvailabilityReplicaOverviewReplicaState - Overview Replica State
+type SQLAvailabilityReplicaOverviewReplicaState string
+
+const (
+	// SQLAvailabilityReplicaOverviewReplicaStatePrimary - Primary value.
+	SQLAvailabilityReplicaOverviewReplicaStatePrimary SQLAvailabilityReplicaOverviewReplicaState = "Primary"
+	// SQLAvailabilityReplicaOverviewReplicaStateSecondary - Secondary value.
+	SQLAvailabilityReplicaOverviewReplicaStateSecondary SQLAvailabilityReplicaOverviewReplicaState = "Secondary"
+	// SQLAvailabilityReplicaOverviewReplicaStateUnknown - Unknown value.
+	SQLAvailabilityReplicaOverviewReplicaStateUnknown SQLAvailabilityReplicaOverviewReplicaState = "Unknown"
+)
+
+// PossibleSQLAvailabilityReplicaOverviewReplicaStateValues returns the possible values for the SQLAvailabilityReplicaOverviewReplicaState const type.
+func PossibleSQLAvailabilityReplicaOverviewReplicaStateValues() []SQLAvailabilityReplicaOverviewReplicaState {
+	return []SQLAvailabilityReplicaOverviewReplicaState{
+		SQLAvailabilityReplicaOverviewReplicaStatePrimary,
+		SQLAvailabilityReplicaOverviewReplicaStateSecondary,
+		SQLAvailabilityReplicaOverviewReplicaStateUnknown,
+	}
+}
+
+// SQLDiscoveryScopeStatus - SQLDiscoveryScope Status
+type SQLDiscoveryScopeStatus string
+
+const (
+	// SQLDiscoveryScopeStatusDisabled - Disabled value.
+	SQLDiscoveryScopeStatusDisabled SQLDiscoveryScopeStatus = "Disabled"
+	// SQLDiscoveryScopeStatusDiscoveryFailed - DiscoveryFailed value.
+	SQLDiscoveryScopeStatusDiscoveryFailed SQLDiscoveryScopeStatus = "DiscoveryFailed"
+	// SQLDiscoveryScopeStatusDiscoveryInProgress - DiscoveryInProgress value.
+	SQLDiscoveryScopeStatusDiscoveryInProgress SQLDiscoveryScopeStatus = "DiscoveryInProgress"
+	// SQLDiscoveryScopeStatusDiscoveryNotStarted - DiscoveryNotStarted value.
+	SQLDiscoveryScopeStatusDiscoveryNotStarted SQLDiscoveryScopeStatus = "DiscoveryNotStarted"
+	// SQLDiscoveryScopeStatusDiscoveryPartiallySucceded - DiscoveryPartiallySucceded value.
+	SQLDiscoveryScopeStatusDiscoveryPartiallySucceded SQLDiscoveryScopeStatus = "DiscoveryPartiallySucceded"
+	// SQLDiscoveryScopeStatusDiscoverySucceeded - DiscoverySucceeded value.
+	SQLDiscoveryScopeStatusDiscoverySucceeded SQLDiscoveryScopeStatus = "DiscoverySucceeded"
+	// SQLDiscoveryScopeStatusDiscoverySucceededAtleastOnce - DiscoverySucceededAtleastOnce value.
+	SQLDiscoveryScopeStatusDiscoverySucceededAtleastOnce SQLDiscoveryScopeStatus = "DiscoverySucceededAtleastOnce"
+	// SQLDiscoveryScopeStatusRunAsAccountNotAssociated - RunAsAccountNotAssociated value.
+	SQLDiscoveryScopeStatusRunAsAccountNotAssociated SQLDiscoveryScopeStatus = "RunAsAccountNotAssociated"
+)
+
+// PossibleSQLDiscoveryScopeStatusValues returns the possible values for the SQLDiscoveryScopeStatus const type.
+func PossibleSQLDiscoveryScopeStatusValues() []SQLDiscoveryScopeStatus {
+	return []SQLDiscoveryScopeStatus{
+		SQLDiscoveryScopeStatusDisabled,
+		SQLDiscoveryScopeStatusDiscoveryFailed,
+		SQLDiscoveryScopeStatusDiscoveryInProgress,
+		SQLDiscoveryScopeStatusDiscoveryNotStarted,
+		SQLDiscoveryScopeStatusDiscoveryPartiallySucceded,
+		SQLDiscoveryScopeStatusDiscoverySucceeded,
+		SQLDiscoveryScopeStatusDiscoverySucceededAtleastOnce,
+		SQLDiscoveryScopeStatusRunAsAccountNotAssociated,
+	}
+}
+
+// SQLMachineOverviewFciRole - sql fci role
+type SQLMachineOverviewFciRole string
+
+const (
+	// SQLMachineOverviewFciRoleActiveNode - ActiveNode value.
+	SQLMachineOverviewFciRoleActiveNode SQLMachineOverviewFciRole = "ActiveNode"
+	// SQLMachineOverviewFciRoleNotApplicable - NotApplicable value.
+	SQLMachineOverviewFciRoleNotApplicable SQLMachineOverviewFciRole = "NotApplicable"
+	// SQLMachineOverviewFciRolePossibleOwnerNode - PossibleOwnerNode value.
+	SQLMachineOverviewFciRolePossibleOwnerNode SQLMachineOverviewFciRole = "PossibleOwnerNode"
+	// SQLMachineOverviewFciRoleUnknown - Unknown value.
+	SQLMachineOverviewFciRoleUnknown SQLMachineOverviewFciRole = "Unknown"
+)
+
+// PossibleSQLMachineOverviewFciRoleValues returns the possible values for the SQLMachineOverviewFciRole const type.
+func PossibleSQLMachineOverviewFciRoleValues() []SQLMachineOverviewFciRole {
+	return []SQLMachineOverviewFciRole{
+		SQLMachineOverviewFciRoleActiveNode,
+		SQLMachineOverviewFciRoleNotApplicable,
+		SQLMachineOverviewFciRolePossibleOwnerNode,
+		SQLMachineOverviewFciRoleUnknown,
+	}
+}
+
+// SQLMetadataDiscoveryPipe - SQL metadata discovery pipe
+type SQLMetadataDiscoveryPipe string
+
+const (
+	// SQLMetadataDiscoveryPipeCIM - CIM value.
+	SQLMetadataDiscoveryPipeCIM SQLMetadataDiscoveryPipe = "CIM"
+	// SQLMetadataDiscoveryPipeOther - Other value.
+	SQLMetadataDiscoveryPipeOther SQLMetadataDiscoveryPipe = "Other"
+	// SQLMetadataDiscoveryPipePowerShell - PowerShell value.
+	SQLMetadataDiscoveryPipePowerShell SQLMetadataDiscoveryPipe = "PowerShell"
+	// SQLMetadataDiscoveryPipeSSH - SSH value.
+	SQLMetadataDiscoveryPipeSSH SQLMetadataDiscoveryPipe = "SSH"
+	// SQLMetadataDiscoveryPipeUnknown - Unknown value.
+	SQLMetadataDiscoveryPipeUnknown SQLMetadataDiscoveryPipe = "Unknown"
+	// SQLMetadataDiscoveryPipeVMware - VMware value.
+	SQLMetadataDiscoveryPipeVMware SQLMetadataDiscoveryPipe = "VMware"
+)
+
+// PossibleSQLMetadataDiscoveryPipeValues returns the possible values for the SQLMetadataDiscoveryPipe const type.
+func PossibleSQLMetadataDiscoveryPipeValues() []SQLMetadataDiscoveryPipe {
+	return []SQLMetadataDiscoveryPipe{
+		SQLMetadataDiscoveryPipeCIM,
+		SQLMetadataDiscoveryPipeOther,
+		SQLMetadataDiscoveryPipePowerShell,
+		SQLMetadataDiscoveryPipeSSH,
+		SQLMetadataDiscoveryPipeUnknown,
+		SQLMetadataDiscoveryPipeVMware,
+	}
+}
+
+// SQLServerStatus - sql server status
+type SQLServerStatus string
+
+const (
+	// SQLServerStatusContinuePending - ContinuePending value.
+	SQLServerStatusContinuePending SQLServerStatus = "ContinuePending"
+	// SQLServerStatusPausePending - PausePending value.
+	SQLServerStatusPausePending SQLServerStatus = "PausePending"
+	// SQLServerStatusPaused - Paused value.
+	SQLServerStatusPaused SQLServerStatus = "Paused"
+	// SQLServerStatusRunning - Running value.
+	SQLServerStatusRunning SQLServerStatus = "Running"
+	// SQLServerStatusStartPending - StartPending value.
+	SQLServerStatusStartPending SQLServerStatus = "StartPending"
+	// SQLServerStatusStopPending - StopPending value.
+	SQLServerStatusStopPending SQLServerStatus = "StopPending"
+	// SQLServerStatusStopped - Stopped value.
+	SQLServerStatusStopped SQLServerStatus = "Stopped"
+	// SQLServerStatusUnknown - Unknown value.
+	SQLServerStatusUnknown SQLServerStatus = "Unknown"
+)
+
+// PossibleSQLServerStatusValues returns the possible values for the SQLServerStatus const type.
+func PossibleSQLServerStatusValues() []SQLServerStatus {
+	return []SQLServerStatus{
+		SQLServerStatusContinuePending,
+		SQLServerStatusPausePending,
+		SQLServerStatusPaused,
+		SQLServerStatusRunning,
+		SQLServerStatusStartPending,
+		SQLServerStatusStopPending,
+		SQLServerStatusStopped,
+		SQLServerStatusUnknown,
+	}
+}
+
+// SQLSitePropertiesDiscoveryScenario - SqlSiteProperties DiscoveryScenario
+type SQLSitePropertiesDiscoveryScenario string
+
+const (
+	// SQLSitePropertiesDiscoveryScenarioDR - DR value.
+	SQLSitePropertiesDiscoveryScenarioDR SQLSitePropertiesDiscoveryScenario = "DR"
+	// SQLSitePropertiesDiscoveryScenarioMigrate - Migrate value.
+	SQLSitePropertiesDiscoveryScenarioMigrate SQLSitePropertiesDiscoveryScenario = "Migrate"
+)
+
+// PossibleSQLSitePropertiesDiscoveryScenarioValues returns the possible values for the SQLSitePropertiesDiscoveryScenario const type.
+func PossibleSQLSitePropertiesDiscoveryScenarioValues() []SQLSitePropertiesDiscoveryScenario {
+	return []SQLSitePropertiesDiscoveryScenario{
+		SQLSitePropertiesDiscoveryScenarioDR,
+		SQLSitePropertiesDiscoveryScenarioMigrate,
+	}
+}
+
+// ShallowDiscoveryStatus - Shallow Discovery Status.
+type ShallowDiscoveryStatus string
+
+const (
+	// ShallowDiscoveryStatusDisabled - Disabled value.
+	ShallowDiscoveryStatusDisabled ShallowDiscoveryStatus = "Disabled"
+	// ShallowDiscoveryStatusDiscoveryFailed - DiscoveryFailed value.
+	ShallowDiscoveryStatusDiscoveryFailed ShallowDiscoveryStatus = "DiscoveryFailed"
+	// ShallowDiscoveryStatusDiscoveryInProgress - DiscoveryInProgress value.
+	ShallowDiscoveryStatusDiscoveryInProgress ShallowDiscoveryStatus = "DiscoveryInProgress"
+	// ShallowDiscoveryStatusDiscoveryNotStarted - DiscoveryNotStarted value.
+	ShallowDiscoveryStatusDiscoveryNotStarted ShallowDiscoveryStatus = "DiscoveryNotStarted"
+	// ShallowDiscoveryStatusDiscoveryPartiallySucceded - DiscoveryPartiallySucceded value.
+	ShallowDiscoveryStatusDiscoveryPartiallySucceded ShallowDiscoveryStatus = "DiscoveryPartiallySucceded"
+	// ShallowDiscoveryStatusDiscoverySucceeded - DiscoverySucceeded value.
+	ShallowDiscoveryStatusDiscoverySucceeded ShallowDiscoveryStatus = "DiscoverySucceeded"
+	// ShallowDiscoveryStatusDiscoverySucceededAtleastOnce - DiscoverySucceededAtleastOnce value.
+	ShallowDiscoveryStatusDiscoverySucceededAtleastOnce ShallowDiscoveryStatus = "DiscoverySucceededAtleastOnce"
+	// ShallowDiscoveryStatusRunAsAccountNotAssociated - RunAsAccountNotAssociated value.
+	ShallowDiscoveryStatusRunAsAccountNotAssociated ShallowDiscoveryStatus = "RunAsAccountNotAssociated"
+)
+
+// PossibleShallowDiscoveryStatusValues returns the possible values for the ShallowDiscoveryStatus const type.
+func PossibleShallowDiscoveryStatusValues() []ShallowDiscoveryStatus {
+	return []ShallowDiscoveryStatus{
+		ShallowDiscoveryStatusDisabled,
+		ShallowDiscoveryStatusDiscoveryFailed,
+		ShallowDiscoveryStatusDiscoveryInProgress,
+		ShallowDiscoveryStatusDiscoveryNotStarted,
+		ShallowDiscoveryStatusDiscoveryPartiallySucceded,
+		ShallowDiscoveryStatusDiscoverySucceeded,
+		ShallowDiscoveryStatusDiscoverySucceededAtleastOnce,
+		ShallowDiscoveryStatusRunAsAccountNotAssociated,
+	}
+}
+
+// SiteHealthSummaryFabricLayoutUpdateSourcesItem - SiteHealthSummary FabricLayout UpdateSources
+type SiteHealthSummaryFabricLayoutUpdateSourcesItem string
+
+const (
+	// SiteHealthSummaryFabricLayoutUpdateSourcesItemRefreshFabricLayout - RefreshFabricLayout value.
+	SiteHealthSummaryFabricLayoutUpdateSourcesItemRefreshFabricLayout SiteHealthSummaryFabricLayoutUpdateSourcesItem = "RefreshFabricLayout"
+	// SiteHealthSummaryFabricLayoutUpdateSourcesItemRefreshFabricLayoutDependencyMap - RefreshFabricLayoutDependencyMap value.
+	SiteHealthSummaryFabricLayoutUpdateSourcesItemRefreshFabricLayoutDependencyMap SiteHealthSummaryFabricLayoutUpdateSourcesItem = "RefreshFabricLayoutDependencyMap"
+	// SiteHealthSummaryFabricLayoutUpdateSourcesItemRefreshFabricLayoutGuest - RefreshFabricLayoutGuest value.
+	SiteHealthSummaryFabricLayoutUpdateSourcesItemRefreshFabricLayoutGuest SiteHealthSummaryFabricLayoutUpdateSourcesItem = "RefreshFabricLayoutGuest"
+)
+
+// PossibleSiteHealthSummaryFabricLayoutUpdateSourcesItemValues returns the possible values for the SiteHealthSummaryFabricLayoutUpdateSourcesItem const type.
+func PossibleSiteHealthSummaryFabricLayoutUpdateSourcesItemValues() []SiteHealthSummaryFabricLayoutUpdateSourcesItem {
+	return []SiteHealthSummaryFabricLayoutUpdateSourcesItem{
+		SiteHealthSummaryFabricLayoutUpdateSourcesItemRefreshFabricLayout,
+		SiteHealthSummaryFabricLayoutUpdateSourcesItemRefreshFabricLayoutDependencyMap,
+		SiteHealthSummaryFabricLayoutUpdateSourcesItemRefreshFabricLayoutGuest,
+	}
+}
+
+// StaticDiscoveryScopeStatus - Static DiscoveryScopeStatus
+type StaticDiscoveryScopeStatus string
+
+const (
+	// StaticDiscoveryScopeStatusDisabled - Disabled value.
+	StaticDiscoveryScopeStatusDisabled StaticDiscoveryScopeStatus = "Disabled"
+	// StaticDiscoveryScopeStatusDiscoveryFailed - DiscoveryFailed value.
+	StaticDiscoveryScopeStatusDiscoveryFailed StaticDiscoveryScopeStatus = "DiscoveryFailed"
+	// StaticDiscoveryScopeStatusDiscoveryInProgress - DiscoveryInProgress value.
+	StaticDiscoveryScopeStatusDiscoveryInProgress StaticDiscoveryScopeStatus = "DiscoveryInProgress"
+	// StaticDiscoveryScopeStatusDiscoveryNotStarted - DiscoveryNotStarted value.
+	StaticDiscoveryScopeStatusDiscoveryNotStarted StaticDiscoveryScopeStatus = "DiscoveryNotStarted"
+	// StaticDiscoveryScopeStatusDiscoveryPartiallySucceded - DiscoveryPartiallySucceded value.
+	StaticDiscoveryScopeStatusDiscoveryPartiallySucceded StaticDiscoveryScopeStatus = "DiscoveryPartiallySucceded"
+	// StaticDiscoveryScopeStatusDiscoverySucceeded - DiscoverySucceeded value.
+	StaticDiscoveryScopeStatusDiscoverySucceeded StaticDiscoveryScopeStatus = "DiscoverySucceeded"
+	// StaticDiscoveryScopeStatusDiscoverySucceededAtleastOnce - DiscoverySucceededAtleastOnce value.
+	StaticDiscoveryScopeStatusDiscoverySucceededAtleastOnce StaticDiscoveryScopeStatus = "DiscoverySucceededAtleastOnce"
+	// StaticDiscoveryScopeStatusRunAsAccountNotAssociated - RunAsAccountNotAssociated value.
+	StaticDiscoveryScopeStatusRunAsAccountNotAssociated StaticDiscoveryScopeStatus = "RunAsAccountNotAssociated"
+)
+
+// PossibleStaticDiscoveryScopeStatusValues returns the possible values for the StaticDiscoveryScopeStatus const type.
+func PossibleStaticDiscoveryScopeStatusValues() []StaticDiscoveryScopeStatus {
+	return []StaticDiscoveryScopeStatus{
+		StaticDiscoveryScopeStatusDisabled,
+		StaticDiscoveryScopeStatusDiscoveryFailed,
+		StaticDiscoveryScopeStatusDiscoveryInProgress,
+		StaticDiscoveryScopeStatusDiscoveryNotStarted,
+		StaticDiscoveryScopeStatusDiscoveryPartiallySucceded,
+		StaticDiscoveryScopeStatusDiscoverySucceeded,
+		StaticDiscoveryScopeStatusDiscoverySucceededAtleastOnce,
+		StaticDiscoveryScopeStatusRunAsAccountNotAssociated,
+	}
+}
+
+// SupportStatus - support status
+type SupportStatus string
+
+const (
+	// SupportStatusExtended - Extended value.
+	SupportStatusExtended SupportStatus = "Extended"
+	// SupportStatusMainstream - Mainstream value.
+	SupportStatusMainstream SupportStatus = "Mainstream"
+	// SupportStatusUnknown - Unknown value.
+	SupportStatusUnknown SupportStatus = "Unknown"
+)
+
+// PossibleSupportStatusValues returns the possible values for the SupportStatus const type.
+func PossibleSupportStatusValues() []SupportStatus {
+	return []SupportStatus{
+		SupportStatusExtended,
+		SupportStatusMainstream,
+		SupportStatusUnknown,
+	}
+}
+
+// VMwareDatastoreType - vmware datastore type
+type VMwareDatastoreType string
+
+const (
+	// VMwareDatastoreTypeCifs - CIFS value.
+	VMwareDatastoreTypeCifs VMwareDatastoreType = "CIFS"
+	// VMwareDatastoreTypeNFS - NFS value.
+	VMwareDatastoreTypeNFS VMwareDatastoreType = "NFS"
+	// VMwareDatastoreTypeNFS41 - NFS41 value.
+	VMwareDatastoreTypeNFS41 VMwareDatastoreType = "NFS41"
+	// VMwareDatastoreTypePmem - PMEM value.
+	VMwareDatastoreTypePmem VMwareDatastoreType = "PMEM"
+	// VMwareDatastoreTypeUnknown - Unknown value.
+	VMwareDatastoreTypeUnknown VMwareDatastoreType = "Unknown"
+	// VMwareDatastoreTypeVffs - VFFS value.
+	VMwareDatastoreTypeVffs VMwareDatastoreType = "VFFS"
+	// VMwareDatastoreTypeVmfs - VMFS value.
+	VMwareDatastoreTypeVmfs VMwareDatastoreType = "VMFS"
+	// VMwareDatastoreTypeVsan - VSAN value.
+	VMwareDatastoreTypeVsan VMwareDatastoreType = "VSAN"
+	// VMwareDatastoreTypeVvol - VVOL value.
+	VMwareDatastoreTypeVvol VMwareDatastoreType = "VVOL"
+)
+
+// PossibleVMwareDatastoreTypeValues returns the possible values for the VMwareDatastoreType const type.
+func PossibleVMwareDatastoreTypeValues() []VMwareDatastoreType {
+	return []VMwareDatastoreType{
+		VMwareDatastoreTypeCifs,
+		VMwareDatastoreTypeNFS,
+		VMwareDatastoreTypeNFS41,
+		VMwareDatastoreTypePmem,
+		VMwareDatastoreTypeUnknown,
+		VMwareDatastoreTypeVffs,
+		VMwareDatastoreTypeVmfs,
+		VMwareDatastoreTypeVsan,
+		VMwareDatastoreTypeVvol,
+	}
+}
+
+// Versions - service api versions
+type Versions string
+
+const (
+	// VersionsV20180501Preview - Api version 2018-05-01-preview.
+	VersionsV20180501Preview Versions = "2018-05-01-preview"
+	// VersionsV20190501Preview - Api version 2019-05-01-preview.
+	VersionsV20190501Preview Versions = "2019-05-01-preview"
+	// VersionsV20200101 - Api version 2020-01-01.
+	VersionsV20200101 Versions = "2020-01-01"
+	// VersionsV20200101Preview - Api version 2020-01-01-preview.
+	VersionsV20200101Preview Versions = "2020-01-01-preview"
+	// VersionsV20200201 - Api version 2020-02-01.
+	VersionsV20200201 Versions = "2020-02-01"
+	// VersionsV20200707 - Api version 2020-07-07.
+	VersionsV20200707 Versions = "2020-07-07"
+	// VersionsV20200710 - Api version 2020-07-10.
+	VersionsV20200710 Versions = "2020-07-10"
+	// VersionsV20200801Preview - Api version 2020-08-01-preview.
+	VersionsV20200801Preview Versions = "2020-08-01-preview"
+	// VersionsV20201111Preview - Api version 2020-11-11-preview.
+	VersionsV20201111Preview Versions = "2020-11-11-preview"
+	// VersionsV20221027 - Api version 2022-10-27.
+	VersionsV20221027 Versions = "2022-10-27"
+	// VersionsV20230606 - Api version 2023-06-06.
+	VersionsV20230606 Versions = "2023-06-06"
+	// VersionsV20231001Preview - Api version 2023-10-01-preview.
+	VersionsV20231001Preview Versions = "2023-10-01-preview"
+	// VersionsV20240501Preview - Api version 2024-05-01-preview.
+	VersionsV20240501Preview Versions = "2024-05-01-preview"
+)
+
+// PossibleVersionsValues returns the possible values for the Versions const type.
+func PossibleVersionsValues() []Versions {
+	return []Versions{
+		VersionsV20180501Preview,
+		VersionsV20190501Preview,
+		VersionsV20200101,
+		VersionsV20200101Preview,
+		VersionsV20200201,
+		VersionsV20200707,
+		VersionsV20200710,
+		VersionsV20200801Preview,
+		VersionsV20201111Preview,
+		VersionsV20221027,
+		VersionsV20230606,
+		VersionsV20231001Preview,
+		VersionsV20240501Preview,
+	}
+}
+
+// WebAppSitePropertiesDiscoveryScenario - Discovery Scenario
+type WebAppSitePropertiesDiscoveryScenario string
+
+const (
+	// WebAppSitePropertiesDiscoveryScenarioDR - DR value.
+	WebAppSitePropertiesDiscoveryScenarioDR WebAppSitePropertiesDiscoveryScenario = "DR"
+	// WebAppSitePropertiesDiscoveryScenarioMigrate - Migrate value.
+	WebAppSitePropertiesDiscoveryScenarioMigrate WebAppSitePropertiesDiscoveryScenario = "Migrate"
+)
+
+// PossibleWebAppSitePropertiesDiscoveryScenarioValues returns the possible values for the WebAppSitePropertiesDiscoveryScenario const type.
+func PossibleWebAppSitePropertiesDiscoveryScenarioValues() []WebAppSitePropertiesDiscoveryScenario {
+	return []WebAppSitePropertiesDiscoveryScenario{
+		WebAppSitePropertiesDiscoveryScenarioDR,
+		WebAppSitePropertiesDiscoveryScenarioMigrate,
 	}
 }
