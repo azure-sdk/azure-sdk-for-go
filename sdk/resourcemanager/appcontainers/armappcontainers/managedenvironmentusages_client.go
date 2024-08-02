@@ -45,7 +45,7 @@ func NewManagedEnvironmentUsagesClient(subscriptionID string, credential azcore.
 
 // NewListPager - Gets the current usage information as well as the limits for environment.
 //
-// Generated from API version 2023-11-02-preview
+// Generated from API version 2024-02-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Environment.
 //   - options - ManagedEnvironmentUsagesClientListOptions contains the optional parameters for the ManagedEnvironmentUsagesClient.NewListPager
@@ -93,7 +93,7 @@ func (client *ManagedEnvironmentUsagesClient) listCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-02-preview")
+	reqQP.Set("api-version", "2024-02-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
