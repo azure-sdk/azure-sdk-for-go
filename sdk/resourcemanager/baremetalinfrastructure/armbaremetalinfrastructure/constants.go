@@ -10,7 +10,7 @@ package armbaremetalinfrastructure
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/baremetalinfrastructure/armbaremetalinfrastructure"
-	moduleVersion = "v2.0.0-beta.1"
+	moduleVersion = "v2.0.0-beta.2"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -295,5 +295,23 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 		ProvisioningStateMigrating,
 		ProvisioningStateSucceeded,
 		ProvisioningStateUpdating,
+	}
+}
+
+// ResourceIdentityType - The type of identity used for the Azure Bare Metal Storage Instance. The type 'SystemAssigned' refers
+// to an implicitly created identity. The type 'None' will remove any identities from the Azure Bare
+// Metal Storage Instance.
+type ResourceIdentityType string
+
+const (
+	ResourceIdentityTypeNone           ResourceIdentityType = "None"
+	ResourceIdentityTypeSystemAssigned ResourceIdentityType = "SystemAssigned"
+)
+
+// PossibleResourceIdentityTypeValues returns the possible values for the ResourceIdentityType const type.
+func PossibleResourceIdentityTypeValues() []ResourceIdentityType {
+	return []ResourceIdentityType{
+		ResourceIdentityTypeNone,
+		ResourceIdentityTypeSystemAssigned,
 	}
 }

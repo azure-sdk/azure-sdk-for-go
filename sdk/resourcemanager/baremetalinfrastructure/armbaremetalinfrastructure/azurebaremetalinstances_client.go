@@ -46,7 +46,7 @@ func NewAzureBareMetalInstancesClient(subscriptionID string, credential azcore.T
 // Get - Gets an Azure Bare Metal Instance for the specified subscription, resource group, and instance name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-04-preview
+// Generated from API version 2023-11-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - azureBareMetalInstanceName - Name of the Azure Bare Metal Instance, also known as the ResourceName.
 //   - options - AzureBareMetalInstancesClientGetOptions contains the optional parameters for the AzureBareMetalInstancesClient.Get
@@ -93,7 +93,7 @@ func (client *AzureBareMetalInstancesClient) getCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-04-preview")
+	reqQP.Set("api-version", "2023-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -111,7 +111,7 @@ func (client *AzureBareMetalInstancesClient) getHandleResponse(resp *http.Respon
 // NewListByResourceGroupPager - Gets a list of Azure Bare Metal Instances in the specified subscription and resource group.
 // The operations returns various properties of each Azure Bare Metal Instance.
 //
-// Generated from API version 2023-08-04-preview
+// Generated from API version 2023-11-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - AzureBareMetalInstancesClientListByResourceGroupOptions contains the optional parameters for the AzureBareMetalInstancesClient.NewListByResourceGroupPager
 //     method.
@@ -154,7 +154,7 @@ func (client *AzureBareMetalInstancesClient) listByResourceGroupCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-04-preview")
+	reqQP.Set("api-version", "2023-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -172,7 +172,7 @@ func (client *AzureBareMetalInstancesClient) listByResourceGroupHandleResponse(r
 // NewListBySubscriptionPager - Returns a list of Azure Bare Metal Instances in the specified subscription. The operations
 // returns various properties of each Azure Bare Metal Instance.
 //
-// Generated from API version 2023-08-04-preview
+// Generated from API version 2023-11-01-preview
 //   - options - AzureBareMetalInstancesClientListBySubscriptionOptions contains the optional parameters for the AzureBareMetalInstancesClient.NewListBySubscriptionPager
 //     method.
 func (client *AzureBareMetalInstancesClient) NewListBySubscriptionPager(options *AzureBareMetalInstancesClientListBySubscriptionOptions) *runtime.Pager[AzureBareMetalInstancesClientListBySubscriptionResponse] {
@@ -210,7 +210,7 @@ func (client *AzureBareMetalInstancesClient) listBySubscriptionCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-04-preview")
+	reqQP.Set("api-version", "2023-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -228,7 +228,7 @@ func (client *AzureBareMetalInstancesClient) listBySubscriptionHandleResponse(re
 // BeginRestart - The operation to restart an Azure Bare Metal Instance
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-04-preview
+// Generated from API version 2023-11-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - azureBareMetalInstanceName - Name of the Azure Bare Metal Instance, also known as the ResourceName.
 //   - options - AzureBareMetalInstancesClientBeginRestartOptions contains the optional parameters for the AzureBareMetalInstancesClient.BeginRestart
@@ -254,7 +254,7 @@ func (client *AzureBareMetalInstancesClient) BeginRestart(ctx context.Context, r
 // Restart - The operation to restart an Azure Bare Metal Instance
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-04-preview
+// Generated from API version 2023-11-01-preview
 func (client *AzureBareMetalInstancesClient) restart(ctx context.Context, resourceGroupName string, azureBareMetalInstanceName string, options *AzureBareMetalInstancesClientBeginRestartOptions) (*http.Response, error) {
 	var err error
 	const operationName = "AzureBareMetalInstancesClient.BeginRestart"
@@ -296,7 +296,7 @@ func (client *AzureBareMetalInstancesClient) restartCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-04-preview")
+	reqQP.Set("api-version", "2023-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.ForceParameter != nil {
@@ -311,7 +311,7 @@ func (client *AzureBareMetalInstancesClient) restartCreateRequest(ctx context.Co
 // BeginShutdown - The operation to shutdown an Azure Bare Metal Instance
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-04-preview
+// Generated from API version 2023-11-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - azureBareMetalInstanceName - Name of the Azure Bare Metal Instance, also known as the ResourceName.
 //   - options - AzureBareMetalInstancesClientBeginShutdownOptions contains the optional parameters for the AzureBareMetalInstancesClient.BeginShutdown
@@ -337,7 +337,7 @@ func (client *AzureBareMetalInstancesClient) BeginShutdown(ctx context.Context, 
 // Shutdown - The operation to shutdown an Azure Bare Metal Instance
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-04-preview
+// Generated from API version 2023-11-01-preview
 func (client *AzureBareMetalInstancesClient) shutdown(ctx context.Context, resourceGroupName string, azureBareMetalInstanceName string, options *AzureBareMetalInstancesClientBeginShutdownOptions) (*http.Response, error) {
 	var err error
 	const operationName = "AzureBareMetalInstancesClient.BeginShutdown"
@@ -379,7 +379,7 @@ func (client *AzureBareMetalInstancesClient) shutdownCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-04-preview")
+	reqQP.Set("api-version", "2023-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -388,7 +388,7 @@ func (client *AzureBareMetalInstancesClient) shutdownCreateRequest(ctx context.C
 // BeginStart - The operation to start an Azure Bare Metal instance
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-04-preview
+// Generated from API version 2023-11-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - azureBareMetalInstanceName - Name of the Azure Bare Metal Instance, also known as the ResourceName.
 //   - options - AzureBareMetalInstancesClientBeginStartOptions contains the optional parameters for the AzureBareMetalInstancesClient.BeginStart
@@ -414,7 +414,7 @@ func (client *AzureBareMetalInstancesClient) BeginStart(ctx context.Context, res
 // Start - The operation to start an Azure Bare Metal instance
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-04-preview
+// Generated from API version 2023-11-01-preview
 func (client *AzureBareMetalInstancesClient) start(ctx context.Context, resourceGroupName string, azureBareMetalInstanceName string, options *AzureBareMetalInstancesClientBeginStartOptions) (*http.Response, error) {
 	var err error
 	const operationName = "AzureBareMetalInstancesClient.BeginStart"
@@ -456,7 +456,7 @@ func (client *AzureBareMetalInstancesClient) startCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-04-preview")
+	reqQP.Set("api-version", "2023-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -466,7 +466,7 @@ func (client *AzureBareMetalInstancesClient) startCreateRequest(ctx context.Cont
 // name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-04-preview
+// Generated from API version 2023-11-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - azureBareMetalInstanceName - Name of the Azure Bare Metal Instance, also known as the ResourceName.
 //   - tagsParameter - Request body that only contains the new Tags field
@@ -514,7 +514,7 @@ func (client *AzureBareMetalInstancesClient) updateCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-04-preview")
+	reqQP.Set("api-version", "2023-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, tagsParameter); err != nil {

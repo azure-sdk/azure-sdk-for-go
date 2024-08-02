@@ -1,5 +1,18 @@
 # Release History
 
+## 2.0.0-beta.2 (2024-08-02)
+### Breaking Changes
+
+- Function `*AzureBareMetalStorageInstancesClient.Update` parameter(s) have been changed from `(context.Context, string, string, Tags, *AzureBareMetalStorageInstancesClientUpdateOptions)` to `(context.Context, string, string, AzureBareMetalStorageInstanceBody, *AzureBareMetalStorageInstancesClientUpdateOptions)`
+
+### Features Added
+
+- New enum type `ResourceIdentityType` with values `ResourceIdentityTypeNone`, `ResourceIdentityTypeSystemAssigned`
+- New struct `AzureBareMetalStorageInstanceBody`
+- New struct `AzureBareMetalStorageInstanceIdentity`
+- New field `Identity` in struct `AzureBareMetalStorageInstance`
+
+
 ## 2.0.0-beta.1 (2023-12-08)
 ### Breaking Changes
 
