@@ -16,287 +16,395 @@ import (
 // ClientFactory is a client factory used to create any client in this module.
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
-	subscriptionID string
-	internal       *arm.Client
+	subscriptionID  string
+	sessionPoolName string
+	internal        *arm.Client
 }
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
+//   - sessionPoolName - Name of the session pool.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
+func NewClientFactory(subscriptionID string, sessionPoolName string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
 	internal, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		subscriptionID: subscriptionID,
-		internal:       internal,
+		subscriptionID:  subscriptionID,
+		sessionPoolName: sessionPoolName,
+		internal:        internal,
 	}, nil
 }
 
 // NewAppResiliencyClient creates a new instance of AppResiliencyClient.
 func (c *ClientFactory) NewAppResiliencyClient() *AppResiliencyClient {
 	return &AppResiliencyClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewAvailableWorkloadProfilesClient creates a new instance of AvailableWorkloadProfilesClient.
 func (c *ClientFactory) NewAvailableWorkloadProfilesClient() *AvailableWorkloadProfilesClient {
 	return &AvailableWorkloadProfilesClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewBillingMetersClient creates a new instance of BillingMetersClient.
 func (c *ClientFactory) NewBillingMetersClient() *BillingMetersClient {
 	return &BillingMetersClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewBuildAuthTokenClient creates a new instance of BuildAuthTokenClient.
 func (c *ClientFactory) NewBuildAuthTokenClient() *BuildAuthTokenClient {
 	return &BuildAuthTokenClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewBuildersClient creates a new instance of BuildersClient.
 func (c *ClientFactory) NewBuildersClient() *BuildersClient {
 	return &BuildersClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewBuildsByBuilderResourceClient creates a new instance of BuildsByBuilderResourceClient.
 func (c *ClientFactory) NewBuildsByBuilderResourceClient() *BuildsByBuilderResourceClient {
 	return &BuildsByBuilderResourceClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewBuildsClient creates a new instance of BuildsClient.
 func (c *ClientFactory) NewBuildsClient() *BuildsClient {
 	return &BuildsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewCertificatesClient creates a new instance of CertificatesClient.
 func (c *ClientFactory) NewCertificatesClient() *CertificatesClient {
 	return &CertificatesClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewConnectedEnvironmentsCertificatesClient creates a new instance of ConnectedEnvironmentsCertificatesClient.
 func (c *ClientFactory) NewConnectedEnvironmentsCertificatesClient() *ConnectedEnvironmentsCertificatesClient {
 	return &ConnectedEnvironmentsCertificatesClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewConnectedEnvironmentsClient creates a new instance of ConnectedEnvironmentsClient.
 func (c *ClientFactory) NewConnectedEnvironmentsClient() *ConnectedEnvironmentsClient {
 	return &ConnectedEnvironmentsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewConnectedEnvironmentsDaprComponentsClient creates a new instance of ConnectedEnvironmentsDaprComponentsClient.
 func (c *ClientFactory) NewConnectedEnvironmentsDaprComponentsClient() *ConnectedEnvironmentsDaprComponentsClient {
 	return &ConnectedEnvironmentsDaprComponentsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewConnectedEnvironmentsStoragesClient creates a new instance of ConnectedEnvironmentsStoragesClient.
 func (c *ClientFactory) NewConnectedEnvironmentsStoragesClient() *ConnectedEnvironmentsStoragesClient {
 	return &ConnectedEnvironmentsStoragesClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewContainerAppsAPIClient creates a new instance of ContainerAppsAPIClient.
 func (c *ClientFactory) NewContainerAppsAPIClient() *ContainerAppsAPIClient {
 	return &ContainerAppsAPIClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewContainerAppsAuthConfigsClient creates a new instance of ContainerAppsAuthConfigsClient.
 func (c *ClientFactory) NewContainerAppsAuthConfigsClient() *ContainerAppsAuthConfigsClient {
 	return &ContainerAppsAuthConfigsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
+	}
+}
+
+// NewContainerAppsBuildsByContainerAppClient creates a new instance of ContainerAppsBuildsByContainerAppClient.
+func (c *ClientFactory) NewContainerAppsBuildsByContainerAppClient() *ContainerAppsBuildsByContainerAppClient {
+	return &ContainerAppsBuildsByContainerAppClient{
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
+	}
+}
+
+// NewContainerAppsBuildsClient creates a new instance of ContainerAppsBuildsClient.
+func (c *ClientFactory) NewContainerAppsBuildsClient() *ContainerAppsBuildsClient {
+	return &ContainerAppsBuildsClient{
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewContainerAppsClient creates a new instance of ContainerAppsClient.
 func (c *ClientFactory) NewContainerAppsClient() *ContainerAppsClient {
 	return &ContainerAppsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewContainerAppsDiagnosticsClient creates a new instance of ContainerAppsDiagnosticsClient.
 func (c *ClientFactory) NewContainerAppsDiagnosticsClient() *ContainerAppsDiagnosticsClient {
 	return &ContainerAppsDiagnosticsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
+	}
+}
+
+// NewContainerAppsPatchesClient creates a new instance of ContainerAppsPatchesClient.
+func (c *ClientFactory) NewContainerAppsPatchesClient() *ContainerAppsPatchesClient {
+	return &ContainerAppsPatchesClient{
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewContainerAppsRevisionReplicasClient creates a new instance of ContainerAppsRevisionReplicasClient.
 func (c *ClientFactory) NewContainerAppsRevisionReplicasClient() *ContainerAppsRevisionReplicasClient {
 	return &ContainerAppsRevisionReplicasClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewContainerAppsRevisionsClient creates a new instance of ContainerAppsRevisionsClient.
 func (c *ClientFactory) NewContainerAppsRevisionsClient() *ContainerAppsRevisionsClient {
 	return &ContainerAppsRevisionsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
+	}
+}
+
+// NewContainerAppsSessionPoolsClient creates a new instance of ContainerAppsSessionPoolsClient.
+func (c *ClientFactory) NewContainerAppsSessionPoolsClient() *ContainerAppsSessionPoolsClient {
+	return &ContainerAppsSessionPoolsClient{
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewContainerAppsSourceControlsClient creates a new instance of ContainerAppsSourceControlsClient.
 func (c *ClientFactory) NewContainerAppsSourceControlsClient() *ContainerAppsSourceControlsClient {
 	return &ContainerAppsSourceControlsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewDaprComponentResiliencyPoliciesClient creates a new instance of DaprComponentResiliencyPoliciesClient.
 func (c *ClientFactory) NewDaprComponentResiliencyPoliciesClient() *DaprComponentResiliencyPoliciesClient {
 	return &DaprComponentResiliencyPoliciesClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewDaprComponentsClient creates a new instance of DaprComponentsClient.
 func (c *ClientFactory) NewDaprComponentsClient() *DaprComponentsClient {
 	return &DaprComponentsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewDaprSubscriptionsClient creates a new instance of DaprSubscriptionsClient.
 func (c *ClientFactory) NewDaprSubscriptionsClient() *DaprSubscriptionsClient {
 	return &DaprSubscriptionsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewDotNetComponentsClient creates a new instance of DotNetComponentsClient.
 func (c *ClientFactory) NewDotNetComponentsClient() *DotNetComponentsClient {
 	return &DotNetComponentsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
+	}
+}
+
+// NewFunctionsExtensionClient creates a new instance of FunctionsExtensionClient.
+func (c *ClientFactory) NewFunctionsExtensionClient() *FunctionsExtensionClient {
+	return &FunctionsExtensionClient{
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewJavaComponentsClient creates a new instance of JavaComponentsClient.
 func (c *ClientFactory) NewJavaComponentsClient() *JavaComponentsClient {
 	return &JavaComponentsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewJobsClient creates a new instance of JobsClient.
 func (c *ClientFactory) NewJobsClient() *JobsClient {
 	return &JobsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewJobsExecutionsClient creates a new instance of JobsExecutionsClient.
 func (c *ClientFactory) NewJobsExecutionsClient() *JobsExecutionsClient {
 	return &JobsExecutionsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
+	}
+}
+
+// NewLogicAppsClient creates a new instance of LogicAppsClient.
+func (c *ClientFactory) NewLogicAppsClient() *LogicAppsClient {
+	return &LogicAppsClient{
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewManagedCertificatesClient creates a new instance of ManagedCertificatesClient.
 func (c *ClientFactory) NewManagedCertificatesClient() *ManagedCertificatesClient {
 	return &ManagedCertificatesClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewManagedEnvironmentDiagnosticsClient creates a new instance of ManagedEnvironmentDiagnosticsClient.
 func (c *ClientFactory) NewManagedEnvironmentDiagnosticsClient() *ManagedEnvironmentDiagnosticsClient {
 	return &ManagedEnvironmentDiagnosticsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
+	}
+}
+
+// NewManagedEnvironmentPrivateEndpointConnectionsClient creates a new instance of ManagedEnvironmentPrivateEndpointConnectionsClient.
+func (c *ClientFactory) NewManagedEnvironmentPrivateEndpointConnectionsClient() *ManagedEnvironmentPrivateEndpointConnectionsClient {
+	return &ManagedEnvironmentPrivateEndpointConnectionsClient{
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
+	}
+}
+
+// NewManagedEnvironmentPrivateLinkResourcesClient creates a new instance of ManagedEnvironmentPrivateLinkResourcesClient.
+func (c *ClientFactory) NewManagedEnvironmentPrivateLinkResourcesClient() *ManagedEnvironmentPrivateLinkResourcesClient {
+	return &ManagedEnvironmentPrivateLinkResourcesClient{
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewManagedEnvironmentUsagesClient creates a new instance of ManagedEnvironmentUsagesClient.
 func (c *ClientFactory) NewManagedEnvironmentUsagesClient() *ManagedEnvironmentUsagesClient {
 	return &ManagedEnvironmentUsagesClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewManagedEnvironmentsClient creates a new instance of ManagedEnvironmentsClient.
 func (c *ClientFactory) NewManagedEnvironmentsClient() *ManagedEnvironmentsClient {
 	return &ManagedEnvironmentsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewManagedEnvironmentsDiagnosticsClient creates a new instance of ManagedEnvironmentsDiagnosticsClient.
 func (c *ClientFactory) NewManagedEnvironmentsDiagnosticsClient() *ManagedEnvironmentsDiagnosticsClient {
 	return &ManagedEnvironmentsDiagnosticsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewManagedEnvironmentsStoragesClient creates a new instance of ManagedEnvironmentsStoragesClient.
 func (c *ClientFactory) NewManagedEnvironmentsStoragesClient() *ManagedEnvironmentsStoragesClient {
 	return &ManagedEnvironmentsStoragesClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
 // NewNamespacesClient creates a new instance of NamespacesClient.
 func (c *ClientFactory) NewNamespacesClient() *NamespacesClient {
 	return &NamespacesClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
 
@@ -310,7 +418,8 @@ func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 // NewUsagesClient creates a new instance of UsagesClient.
 func (c *ClientFactory) NewUsagesClient() *UsagesClient {
 	return &UsagesClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		subscriptionID:  c.subscriptionID,
+		sessionPoolName: c.sessionPoolName,
+		internal:        c.internal,
 	}
 }
