@@ -81,6 +81,9 @@ type AzureBareMetalStorageInstance struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
+	// The identity of Azure Bare Metal Storage Instance, if configured.
+	Identity *AzureBareMetalStorageInstanceIdentity
+
 	// AzureBareMetalStorageInstance properties
 	Properties *AzureBareMetalStorageInstanceProperties
 
@@ -98,6 +101,31 @@ type AzureBareMetalStorageInstance struct {
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
+}
+
+// AzureBareMetalStorageInstanceBody - properties of body during PUT/PATCH for an AzureBareMetalStorageInstance.
+type AzureBareMetalStorageInstanceBody struct {
+	// The identity of Azure Bare Metal Storage Instance, if configured.
+	Identity *AzureBareMetalStorageInstanceIdentity
+
+	// Tags field of the AzureBareMetal/AzureBareMetaStorage instance.
+	Tags map[string]*string
+}
+
+// AzureBareMetalStorageInstanceIdentity - Identity for Azure Bare Metal Storage Instance.
+type AzureBareMetalStorageInstanceIdentity struct {
+	// The type of identity used for the Azure Bare Metal Storage Instance. The type 'SystemAssigned' refers to an implicitly
+	// created identity. The type 'None' will remove any identities from the Azure Bare
+	// Metal Storage Instance.
+	Type *ResourceIdentityType
+
+	// READ-ONLY; The principal ID of Azure Bare Metal Storage Instance identity. This property will only be provided for a system
+	// assigned identity.
+	PrincipalID *string
+
+	// READ-ONLY; The tenant ID associated with the Azure Bare Metal Storage Instance. This property will only be provided for
+	// a system assigned identity.
+	TenantID *string
 }
 
 // AzureBareMetalStorageInstanceProperties - Describes the properties of an AzureBareMetalStorageInstance.
