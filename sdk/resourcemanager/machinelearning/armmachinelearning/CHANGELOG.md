@@ -1,5 +1,659 @@
 # Release History
 
+## 4.0.0-beta.1 (2024-08-02)
+### Breaking Changes
+
+- Function `*WorkspaceConnectionsClient.Create` parameter(s) have been changed from `(context.Context, string, string, string, WorkspaceConnectionPropertiesV2BasicResource, *WorkspaceConnectionsClientCreateOptions)` to `(context.Context, string, string, string, *WorkspaceConnectionsClientCreateOptions)`
+- Type of `ComputeStartStopSchedule.Cron` has been changed from `*CronTrigger` to `*Cron`
+- Type of `ComputeStartStopSchedule.Recurrence` has been changed from `*RecurrenceTrigger` to `*Recurrence`
+- Type of `ComputeStartStopSchedule.TriggerType` has been changed from `*TriggerType` to `*ComputeTriggerType`
+- Type of `EncryptionProperty.KeyVaultProperties` has been changed from `*EncryptionKeyVaultProperties` to `*KeyVaultProperties`
+- Type of `ExternalFQDNResponse.Value` has been changed from `[]*FQDNEndpoints` to `[]*FQDNEndpointsPropertyBag`
+- Type of `PrivateEndpointConnectionProperties.PrivateEndpoint` has been changed from `*PrivateEndpoint` to `*WorkspacePrivateEndpointResource`
+- Type of `PrivateLinkServiceConnectionState.Status` has been changed from `*PrivateEndpointServiceConnectionStatus` to `*EndpointServiceConnectionStatus`
+- Type of `SharedPrivateLinkResourceProperty.Status` has been changed from `*PrivateEndpointServiceConnectionStatus` to `*EndpointServiceConnectionStatus`
+- Type of `WorkspaceProperties.PublicNetworkAccess` has been changed from `*PublicNetworkAccess` to `*PublicNetworkAccessType`
+- Type of `WorkspacePropertiesUpdateParameters.PublicNetworkAccess` has been changed from `*PublicNetworkAccess` to `*PublicNetworkAccessType`
+- Enum `PrivateEndpointServiceConnectionStatus` has been removed
+- Enum `PublicNetworkAccess` has been removed
+- Enum `ValueFormat` has been removed
+- Operation `*PrivateLinkResourcesClient.List` has supported pagination, use `*PrivateLinkResourcesClient.NewListPager` instead.
+- Struct `AmlOperation` has been removed
+- Struct `AmlOperationDisplay` has been removed
+- Struct `AmlOperationListResult` has been removed
+- Struct `EncryptionKeyVaultProperties` has been removed
+- Struct `FQDNEndpointsProperties` has been removed
+- Field `Properties` of struct `FQDNEndpoints` has been removed
+- Field `UserStorageResourceID` of struct `ListWorkspaceKeysResult` has been removed
+- Field `Value`, `ValueFormat` of struct `ManagedIdentityAuthTypeWorkspaceConnectionProperties` has been removed
+- Field `Value`, `ValueFormat` of struct `NoneAuthTypeWorkspaceConnectionProperties` has been removed
+- Field `AmlOperationListResult` of struct `OperationsClientListResponse` has been removed
+- Field `Value`, `ValueFormat` of struct `PATAuthTypeWorkspaceConnectionProperties` has been removed
+- Field `SubnetArmID` of struct `PrivateEndpoint` has been removed
+- Field `Value`, `ValueFormat` of struct `SASAuthTypeWorkspaceConnectionProperties` has been removed
+- Field `Value`, `ValueFormat` of struct `UsernamePasswordAuthTypeWorkspaceConnectionProperties` has been removed
+- Field `Value`, `ValueFormat` of struct `WorkspaceConnectionPropertiesV2` has been removed
+- Field `Parameters` of struct `WorkspacesClientBeginDiagnoseOptions` has been removed
+
+### Features Added
+
+- New value `ComputeInstanceStateResizing` added to enum type `ComputeInstanceState`
+- New value `ConnectionAuthTypeAAD`, `ConnectionAuthTypeAPIKey`, `ConnectionAuthTypeAccessKey`, `ConnectionAuthTypeAccountKey`, `ConnectionAuthTypeCustomKeys`, `ConnectionAuthTypeOAuth2`, `ConnectionAuthTypeServicePrincipal` added to enum type `ConnectionAuthType`
+- New value `ConnectionCategoryADLSGen2`, `ConnectionCategoryAIServices`, `ConnectionCategoryAPIKey`, `ConnectionCategoryAmazonMws`, `ConnectionCategoryAmazonRdsForOracle`, `ConnectionCategoryAmazonRdsForSQLServer`, `ConnectionCategoryAmazonRedshift`, `ConnectionCategoryAmazonS3Compatible`, `ConnectionCategoryAzureBlob`, `ConnectionCategoryAzureDataExplorer`, `ConnectionCategoryAzureDatabricksDeltaLake`, `ConnectionCategoryAzureMariaDb`, `ConnectionCategoryAzureMySQLDb`, `ConnectionCategoryAzureOneLake`, `ConnectionCategoryAzureOpenAI`, `ConnectionCategoryAzurePostgresDb`, `ConnectionCategoryAzureSQLDb`, `ConnectionCategoryAzureSQLMi`, `ConnectionCategoryAzureSynapseAnalytics`, `ConnectionCategoryAzureTableStorage`, `ConnectionCategoryBingLLMSearch`, `ConnectionCategoryCassandra`, `ConnectionCategoryCognitiveSearch`, `ConnectionCategoryCognitiveService`, `ConnectionCategoryConcur`, `ConnectionCategoryCosmosDb`, `ConnectionCategoryCosmosDbMongoDbAPI`, `ConnectionCategoryCouchbase`, `ConnectionCategoryCustomKeys`, `ConnectionCategoryDb2`, `ConnectionCategoryDrill`, `ConnectionCategoryDynamics`, `ConnectionCategoryDynamicsAx`, `ConnectionCategoryDynamicsCrm`, `ConnectionCategoryEloqua`, `ConnectionCategoryFileServer`, `ConnectionCategoryFtpServer`, `ConnectionCategoryGenericContainerRegistry`, `ConnectionCategoryGenericHTTP`, `ConnectionCategoryGenericRest`, `ConnectionCategoryGoogleAdWords`, `ConnectionCategoryGoogleBigQuery`, `ConnectionCategoryGoogleCloudStorage`, `ConnectionCategoryGreenplum`, `ConnectionCategoryHbase`, `ConnectionCategoryHdfs`, `ConnectionCategoryHive`, `ConnectionCategoryHubspot`, `ConnectionCategoryImpala`, `ConnectionCategoryInformix`, `ConnectionCategoryJira`, `ConnectionCategoryMagento`, `ConnectionCategoryMariaDb`, `ConnectionCategoryMarketo`, `ConnectionCategoryMicrosoftAccess`, `ConnectionCategoryMongoDbAtlas`, `ConnectionCategoryMongoDbV2`, `ConnectionCategoryMySQL`, `ConnectionCategoryNetezza`, `ConnectionCategoryODataRest`, `ConnectionCategoryOdbc`, `ConnectionCategoryOffice365`, `ConnectionCategoryOpenAI`, `ConnectionCategoryOracle`, `ConnectionCategoryOracleCloudStorage`, `ConnectionCategoryOracleServiceCloud`, `ConnectionCategoryPayPal`, `ConnectionCategoryPhoenix`, `ConnectionCategoryPostgreSQL`, `ConnectionCategoryPresto`, `ConnectionCategoryQuickBooks`, `ConnectionCategoryRedis`, `ConnectionCategoryResponsys`, `ConnectionCategoryS3`, `ConnectionCategorySQLServer`, `ConnectionCategorySalesforce`, `ConnectionCategorySalesforceMarketingCloud`, `ConnectionCategorySalesforceServiceCloud`, `ConnectionCategorySapBw`, `ConnectionCategorySapCloudForCustomer`, `ConnectionCategorySapEcc`, `ConnectionCategorySapHana`, `ConnectionCategorySapOpenHub`, `ConnectionCategorySapTable`, `ConnectionCategorySerp`, `ConnectionCategoryServerless`, `ConnectionCategoryServiceNow`, `ConnectionCategorySftp`, `ConnectionCategorySharePointOnlineList`, `ConnectionCategoryShopify`, `ConnectionCategorySnowflake`, `ConnectionCategorySpark`, `ConnectionCategorySquare`, `ConnectionCategorySybase`, `ConnectionCategoryTeradata`, `ConnectionCategoryVertica`, `ConnectionCategoryWebTable`, `ConnectionCategoryXero`, `ConnectionCategoryZoho` added to enum type `ConnectionCategory`
+- New value `DatastoreTypeOneLake` added to enum type `DatastoreType`
+- New value `JobTypeFineTuning`, `JobTypeSpark` added to enum type `JobType`
+- New value `OperationNameResize` added to enum type `OperationName`
+- New value `OperationStatusResizeFailed` added to enum type `OperationStatus`
+- New value `OutputDeliveryModeDirect` added to enum type `OutputDeliveryMode`
+- New value `ScheduleActionTypeCreateMonitor` added to enum type `ScheduleActionType`
+- New enum type `ActionType` with values `ActionTypeInternal`
+- New enum type `AllowedContentLevel` with values `AllowedContentLevelHigh`, `AllowedContentLevelLow`, `AllowedContentLevelMedium`
+- New enum type `AssetProvisioningState` with values `AssetProvisioningStateCanceled`, `AssetProvisioningStateCreating`, `AssetProvisioningStateDeleting`, `AssetProvisioningStateFailed`, `AssetProvisioningStateSucceeded`, `AssetProvisioningStateUpdating`
+- New enum type `BatchDeploymentConfigurationType` with values `BatchDeploymentConfigurationTypeModel`, `BatchDeploymentConfigurationTypePipelineComponent`
+- New enum type `CategoricalDataDriftMetric` with values `CategoricalDataDriftMetricJensenShannonDistance`, `CategoricalDataDriftMetricPearsonsChiSquaredTest`, `CategoricalDataDriftMetricPopulationStabilityIndex`
+- New enum type `CategoricalDataQualityMetric` with values `CategoricalDataQualityMetricDataTypeErrorRate`, `CategoricalDataQualityMetricNullValueRate`, `CategoricalDataQualityMetricOutOfBoundsRate`
+- New enum type `CategoricalPredictionDriftMetric` with values `CategoricalPredictionDriftMetricJensenShannonDistance`, `CategoricalPredictionDriftMetricPearsonsChiSquaredTest`, `CategoricalPredictionDriftMetricPopulationStabilityIndex`
+- New enum type `ComputeRecurrenceFrequency` with values `ComputeRecurrenceFrequencyDay`, `ComputeRecurrenceFrequencyHour`, `ComputeRecurrenceFrequencyMinute`, `ComputeRecurrenceFrequencyMonth`, `ComputeRecurrenceFrequencyWeek`
+- New enum type `ComputeTriggerType` with values `ComputeTriggerTypeCron`, `ComputeTriggerTypeRecurrence`
+- New enum type `ComputeWeekDay` with values `ComputeWeekDayFriday`, `ComputeWeekDayMonday`, `ComputeWeekDaySaturday`, `ComputeWeekDaySunday`, `ComputeWeekDayThursday`, `ComputeWeekDayTuesday`, `ComputeWeekDayWednesday`
+- New enum type `ConnectionGroup` with values `ConnectionGroupAzure`, `ConnectionGroupAzureAI`, `ConnectionGroupDatabase`, `ConnectionGroupFile`, `ConnectionGroupGenericProtocol`, `ConnectionGroupNoSQL`, `ConnectionGroupServicesAndApps`
+- New enum type `ContentSafetyStatus` with values `ContentSafetyStatusDisabled`, `ContentSafetyStatusEnabled`
+- New enum type `DataAvailabilityStatus` with values `DataAvailabilityStatusComplete`, `DataAvailabilityStatusIncomplete`, `DataAvailabilityStatusNone`, `DataAvailabilityStatusPending`
+- New enum type `DataCollectionMode` with values `DataCollectionModeDisabled`, `DataCollectionModeEnabled`
+- New enum type `DataReferenceCredentialType` with values `DataReferenceCredentialTypeDockerCredentials`, `DataReferenceCredentialTypeManagedIdentity`, `DataReferenceCredentialTypeNoCredentials`, `DataReferenceCredentialTypeSAS`
+- New enum type `DefaultResourceProvisioningState` with values `DefaultResourceProvisioningStateAccepted`, `DefaultResourceProvisioningStateCanceled`, `DefaultResourceProvisioningStateCreating`, `DefaultResourceProvisioningStateDeleting`, `DefaultResourceProvisioningStateDisabled`, `DefaultResourceProvisioningStateFailed`, `DefaultResourceProvisioningStateNotStarted`, `DefaultResourceProvisioningStateScaling`, `DefaultResourceProvisioningStateSucceeded`, `DefaultResourceProvisioningStateUpdating`
+- New enum type `DeploymentModelVersionUpgradeOption` with values `DeploymentModelVersionUpgradeOptionNoAutoUpgrade`, `DeploymentModelVersionUpgradeOptionOnceCurrentVersionExpired`, `DeploymentModelVersionUpgradeOptionOnceNewDefaultVersionAvailable`
+- New enum type `EmailNotificationEnableType` with values `EmailNotificationEnableTypeJobCancelled`, `EmailNotificationEnableTypeJobCompleted`, `EmailNotificationEnableTypeJobFailed`
+- New enum type `EndpointServiceConnectionStatus` with values `EndpointServiceConnectionStatusApproved`, `EndpointServiceConnectionStatusDisconnected`, `EndpointServiceConnectionStatusPending`, `EndpointServiceConnectionStatusRejected`, `EndpointServiceConnectionStatusTimeout`
+- New enum type `EndpointType` with values `EndpointTypeAzureContentSafety`, `EndpointTypeAzureLlama`, `EndpointTypeAzureOpenAI`, `EndpointTypeAzureSpeech`, `EndpointTypeManagedOnlineEndpoint`, `EndpointTypeServerlessEndpoint`
+- New enum type `EnvironmentVariableType` with values `EnvironmentVariableTypeLocal`
+- New enum type `FeatureAttributionMetric` with values `FeatureAttributionMetricNormalizedDiscountedCumulativeGain`
+- New enum type `FeatureDataType` with values `FeatureDataTypeBinary`, `FeatureDataTypeBoolean`, `FeatureDataTypeDatetime`, `FeatureDataTypeDouble`, `FeatureDataTypeFloat`, `FeatureDataTypeInteger`, `FeatureDataTypeLong`, `FeatureDataTypeString`
+- New enum type `FeatureImportanceMode` with values `FeatureImportanceModeDisabled`, `FeatureImportanceModeEnabled`
+- New enum type `FineTuningTaskType` with values `FineTuningTaskTypeChatCompletion`, `FineTuningTaskTypeImageClassification`, `FineTuningTaskTypeImageInstanceSegmentation`, `FineTuningTaskTypeImageObjectDetection`, `FineTuningTaskTypeQuestionAnswering`, `FineTuningTaskTypeTextClassification`, `FineTuningTaskTypeTextCompletion`, `FineTuningTaskTypeTextSummarization`, `FineTuningTaskTypeTextTranslation`, `FineTuningTaskTypeTokenClassification`, `FineTuningTaskTypeVideoMultiObjectTracking`
+- New enum type `ImageType` with values `ImageTypeAzureml`, `ImageTypeDocker`
+- New enum type `IsolationMode` with values `IsolationModeAllowInternetOutbound`, `IsolationModeAllowOnlyApprovedOutbound`, `IsolationModeDisabled`
+- New enum type `JobTier` with values `JobTierBasic`, `JobTierNull`, `JobTierPremium`, `JobTierSpot`, `JobTierStandard`
+- New enum type `ManagedNetworkStatus` with values `ManagedNetworkStatusActive`, `ManagedNetworkStatusInactive`
+- New enum type `ManagedPERequirement` with values `ManagedPERequirementNotApplicable`, `ManagedPERequirementNotRequired`, `ManagedPERequirementRequired`
+- New enum type `ManagedPEStatus` with values `ManagedPEStatusActive`, `ManagedPEStatusInactive`, `ManagedPEStatusNotApplicable`
+- New enum type `MarketplaceSubscriptionProvisioningState` with values `MarketplaceSubscriptionProvisioningStateCanceled`, `MarketplaceSubscriptionProvisioningStateCreating`, `MarketplaceSubscriptionProvisioningStateDeleting`, `MarketplaceSubscriptionProvisioningStateFailed`, `MarketplaceSubscriptionProvisioningStateSucceeded`, `MarketplaceSubscriptionProvisioningStateUpdating`
+- New enum type `MarketplaceSubscriptionStatus` with values `MarketplaceSubscriptionStatusSubscribed`, `MarketplaceSubscriptionStatusSuspended`, `MarketplaceSubscriptionStatusUnsubscribed`
+- New enum type `MaterializationStoreType` with values `MaterializationStoreTypeNone`, `MaterializationStoreTypeOffline`, `MaterializationStoreTypeOnline`, `MaterializationStoreTypeOnlineAndOffline`
+- New enum type `MlflowAutologger` with values `MlflowAutologgerDisabled`, `MlflowAutologgerEnabled`
+- New enum type `ModelLifecycleStatus` with values `ModelLifecycleStatusGenerallyAvailable`, `ModelLifecycleStatusPreview`
+- New enum type `ModelProvider` with values `ModelProviderAzureOpenAI`, `ModelProviderCustom`
+- New enum type `ModelTaskType` with values `ModelTaskTypeClassification`, `ModelTaskTypeRegression`
+- New enum type `MonitorComputeIdentityType` with values `MonitorComputeIdentityTypeAmlToken`, `MonitorComputeIdentityTypeManagedIdentity`
+- New enum type `MonitorComputeType` with values `MonitorComputeTypeServerlessSpark`
+- New enum type `MonitoringFeatureDataType` with values `MonitoringFeatureDataTypeCategorical`, `MonitoringFeatureDataTypeNumerical`
+- New enum type `MonitoringFeatureFilterType` with values `MonitoringFeatureFilterTypeAllFeatures`, `MonitoringFeatureFilterTypeFeatureSubset`, `MonitoringFeatureFilterTypeTopNByAttribution`
+- New enum type `MonitoringInputDataType` with values `MonitoringInputDataTypeFixed`, `MonitoringInputDataTypeRolling`, `MonitoringInputDataTypeStatic`
+- New enum type `MonitoringNotificationType` with values `MonitoringNotificationTypeAmlNotification`
+- New enum type `MonitoringSignalType` with values `MonitoringSignalTypeCustom`, `MonitoringSignalTypeDataDrift`, `MonitoringSignalTypeDataQuality`, `MonitoringSignalTypeFeatureAttributionDrift`, `MonitoringSignalTypePredictionDrift`
+- New enum type `MountMode` with values `MountModeReadOnly`, `MountModeReadWrite`
+- New enum type `NodesValueType` with values `NodesValueTypeAll`
+- New enum type `NumericalDataDriftMetric` with values `NumericalDataDriftMetricJensenShannonDistance`, `NumericalDataDriftMetricNormalizedWassersteinDistance`, `NumericalDataDriftMetricPopulationStabilityIndex`, `NumericalDataDriftMetricTwoSampleKolmogorovSmirnovTest`
+- New enum type `NumericalDataQualityMetric` with values `NumericalDataQualityMetricDataTypeErrorRate`, `NumericalDataQualityMetricNullValueRate`, `NumericalDataQualityMetricOutOfBoundsRate`
+- New enum type `NumericalPredictionDriftMetric` with values `NumericalPredictionDriftMetricJensenShannonDistance`, `NumericalPredictionDriftMetricNormalizedWassersteinDistance`, `NumericalPredictionDriftMetricPopulationStabilityIndex`, `NumericalPredictionDriftMetricTwoSampleKolmogorovSmirnovTest`
+- New enum type `OneLakeArtifactType` with values `OneLakeArtifactTypeLakeHouse`
+- New enum type `Origin` with values `OriginSystem`, `OriginUser`, `OriginUserSystem`
+- New enum type `PatchStatus` with values `PatchStatusCompletedWithWarnings`, `PatchStatusFailed`, `PatchStatusInProgress`, `PatchStatusSucceeded`, `PatchStatusUnknown`
+- New enum type `PendingUploadCredentialType` with values `PendingUploadCredentialTypeSAS`
+- New enum type `PendingUploadType` with values `PendingUploadTypeNone`, `PendingUploadTypeTemporaryBlobReference`
+- New enum type `Protocol` with values `ProtocolHTTP`, `ProtocolTCP`, `ProtocolUDP`
+- New enum type `RaiPolicyContentSource` with values `RaiPolicyContentSourceCompletion`, `RaiPolicyContentSourcePrompt`
+- New enum type `RaiPolicyMode` with values `RaiPolicyModeBlocking`, `RaiPolicyModeDefault`, `RaiPolicyModeDeferred`
+- New enum type `RaiPolicyType` with values `RaiPolicyTypeSystemManaged`, `RaiPolicyTypeUserManaged`
+- New enum type `RollingRateType` with values `RollingRateTypeDay`, `RollingRateTypeHour`, `RollingRateTypeMinute`, `RollingRateTypeMonth`, `RollingRateTypeYear`
+- New enum type `RuleAction` with values `RuleActionAllow`, `RuleActionDeny`
+- New enum type `RuleCategory` with values `RuleCategoryDependency`, `RuleCategoryRecommended`, `RuleCategoryRequired`, `RuleCategoryUserDefined`
+- New enum type `RuleStatus` with values `RuleStatusActive`, `RuleStatusInactive`
+- New enum type `RuleType` with values `RuleTypeFQDN`, `RuleTypePrivateEndpoint`, `RuleTypeServiceTag`
+- New enum type `ServerlessEndpointState` with values `ServerlessEndpointStateCreating`, `ServerlessEndpointStateCreationFailed`, `ServerlessEndpointStateDeleting`, `ServerlessEndpointStateDeletionFailed`, `ServerlessEndpointStateOnline`, `ServerlessEndpointStateReinstating`, `ServerlessEndpointStateSuspended`, `ServerlessEndpointStateSuspending`, `ServerlessEndpointStateUnknown`
+- New enum type `ServerlessInferenceEndpointAuthMode` with values `ServerlessInferenceEndpointAuthModeKey`
+- New enum type `ServiceAccountKeyName` with values `ServiceAccountKeyNameKey1`, `ServiceAccountKeyNameKey2`
+- New enum type `SparkJobEntryType` with values `SparkJobEntryTypeSparkJobPythonEntry`, `SparkJobEntryTypeSparkJobScalaEntry`
+- New enum type `VolumeDefinitionType` with values `VolumeDefinitionTypeBind`, `VolumeDefinitionTypeNpipe`, `VolumeDefinitionTypeTmpfs`, `VolumeDefinitionTypeVolume`
+- New enum type `WebhookType` with values `WebhookTypeAzureDevOps`
+- New function `*AADAuthTypeWorkspaceConnectionProperties.GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2`
+- New function `*APIKeyAuthWorkspaceConnectionProperties.GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2`
+- New function `*AccessKeyAuthTypeWorkspaceConnectionProperties.GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2`
+- New function `*AccountKeyAuthTypeWorkspaceConnectionProperties.GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2`
+- New function `*AllFeatures.GetMonitoringFeatureFilterBase() *MonitoringFeatureFilterBase`
+- New function `*AllNodes.GetNodes() *Nodes`
+- New function `*AmlTokenComputeIdentity.GetMonitorComputeIdentityBase() *MonitorComputeIdentityBase`
+- New function `*AnonymousAccessCredential.GetDataReferenceCredential() *DataReferenceCredential`
+- New function `*AzureDevOpsWebhook.GetWebhook() *Webhook`
+- New function `*AzureOpenAiFineTuning.GetFineTuningVertical() *FineTuningVertical`
+- New function `*BatchDeploymentConfiguration.GetBatchDeploymentConfiguration() *BatchDeploymentConfiguration`
+- New function `*BatchPipelineComponentDeploymentConfiguration.GetBatchDeploymentConfiguration() *BatchDeploymentConfiguration`
+- New function `*CategoricalDataDriftMetricThreshold.GetDataDriftMetricThresholdBase() *DataDriftMetricThresholdBase`
+- New function `*CategoricalDataQualityMetricThreshold.GetDataQualityMetricThresholdBase() *DataQualityMetricThresholdBase`
+- New function `*CategoricalPredictionDriftMetricThreshold.GetPredictionDriftMetricThresholdBase() *PredictionDriftMetricThresholdBase`
+- New function `*ClientFactory.NewConnectionClient() *ConnectionClient`
+- New function `*ClientFactory.NewConnectionRaiBlocklistClient() *ConnectionRaiBlocklistClient`
+- New function `*ClientFactory.NewConnectionRaiBlocklistItemClient() *ConnectionRaiBlocklistItemClient`
+- New function `*ClientFactory.NewConnectionRaiBlocklistItemsClient() *ConnectionRaiBlocklistItemsClient`
+- New function `*ClientFactory.NewConnectionRaiBlocklistsClient() *ConnectionRaiBlocklistsClient`
+- New function `*ClientFactory.NewConnectionRaiPoliciesClient() *ConnectionRaiPoliciesClient`
+- New function `*ClientFactory.NewConnectionRaiPolicyClient() *ConnectionRaiPolicyClient`
+- New function `*ClientFactory.NewEndpointClient() *EndpointClient`
+- New function `*ClientFactory.NewEndpointDeploymentClient() *EndpointDeploymentClient`
+- New function `*ClientFactory.NewFeaturesClient() *FeaturesClient`
+- New function `*ClientFactory.NewFeaturesetContainersClient() *FeaturesetContainersClient`
+- New function `*ClientFactory.NewFeaturesetVersionsClient() *FeaturesetVersionsClient`
+- New function `*ClientFactory.NewFeaturestoreEntityContainersClient() *FeaturestoreEntityContainersClient`
+- New function `*ClientFactory.NewFeaturestoreEntityVersionsClient() *FeaturestoreEntityVersionsClient`
+- New function `*ClientFactory.NewManagedNetworkProvisionsClient() *ManagedNetworkProvisionsClient`
+- New function `*ClientFactory.NewManagedNetworkSettingsRuleClient() *ManagedNetworkSettingsRuleClient`
+- New function `*ClientFactory.NewMarketplaceSubscriptionsClient() *MarketplaceSubscriptionsClient`
+- New function `*ClientFactory.NewRaiPoliciesClient() *RaiPoliciesClient`
+- New function `*ClientFactory.NewRaiPolicyClient() *RaiPolicyClient`
+- New function `*ClientFactory.NewRegistriesClient() *RegistriesClient`
+- New function `*ClientFactory.NewRegistryCodeContainersClient() *RegistryCodeContainersClient`
+- New function `*ClientFactory.NewRegistryCodeVersionsClient() *RegistryCodeVersionsClient`
+- New function `*ClientFactory.NewRegistryComponentContainersClient() *RegistryComponentContainersClient`
+- New function `*ClientFactory.NewRegistryComponentVersionsClient() *RegistryComponentVersionsClient`
+- New function `*ClientFactory.NewRegistryDataContainersClient() *RegistryDataContainersClient`
+- New function `*ClientFactory.NewRegistryDataReferencesClient() *RegistryDataReferencesClient`
+- New function `*ClientFactory.NewRegistryDataVersionsClient() *RegistryDataVersionsClient`
+- New function `*ClientFactory.NewRegistryEnvironmentContainersClient() *RegistryEnvironmentContainersClient`
+- New function `*ClientFactory.NewRegistryEnvironmentVersionsClient() *RegistryEnvironmentVersionsClient`
+- New function `*ClientFactory.NewRegistryModelContainersClient() *RegistryModelContainersClient`
+- New function `*ClientFactory.NewRegistryModelVersionsClient() *RegistryModelVersionsClient`
+- New function `*ClientFactory.NewServerlessEndpointsClient() *ServerlessEndpointsClient`
+- New function `*CodeVersionsClient.CreateOrGetStartPendingUpload(context.Context, string, string, string, string, PendingUploadRequestDto, *CodeVersionsClientCreateOrGetStartPendingUploadOptions) (CodeVersionsClientCreateOrGetStartPendingUploadResponse, error)`
+- New function `*CodeVersionsClient.BeginPublish(context.Context, string, string, string, string, DestinationAsset, *CodeVersionsClientBeginPublishOptions) (*runtime.Poller[CodeVersionsClientPublishResponse], error)`
+- New function `*ComponentVersionsClient.BeginPublish(context.Context, string, string, string, string, DestinationAsset, *ComponentVersionsClientBeginPublishOptions) (*runtime.Poller[ComponentVersionsClientPublishResponse], error)`
+- New function `*ComputeClient.GetAllowedResizeSizes(context.Context, string, string, string, *ComputeClientGetAllowedResizeSizesOptions) (ComputeClientGetAllowedResizeSizesResponse, error)`
+- New function `*ComputeClient.BeginResize(context.Context, string, string, string, ResizeSchema, *ComputeClientBeginResizeOptions) (*runtime.Poller[ComputeClientResizeResponse], error)`
+- New function `*ComputeClient.UpdateCustomServices(context.Context, string, string, string, []*CustomService, *ComputeClientUpdateCustomServicesOptions) (ComputeClientUpdateCustomServicesResponse, error)`
+- New function `*ComputeClient.UpdateDataMounts(context.Context, string, string, string, []*ComputeInstanceDataMount, *ComputeClientUpdateDataMountsOptions) (ComputeClientUpdateDataMountsResponse, error)`
+- New function `*ComputeClient.UpdateIdleShutdownSetting(context.Context, string, string, string, IdleShutdownSetting, *ComputeClientUpdateIdleShutdownSettingOptions) (ComputeClientUpdateIdleShutdownSettingResponse, error)`
+- New function `NewConnectionClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectionClient, error)`
+- New function `*ConnectionClient.BeginCreateOrUpdateDeployment(context.Context, string, string, string, string, EndpointDeploymentResourcePropertiesBasicResource, *ConnectionClientBeginCreateOrUpdateDeploymentOptions) (*runtime.Poller[ConnectionClientCreateOrUpdateDeploymentResponse], error)`
+- New function `*ConnectionClient.BeginDeleteDeployment(context.Context, string, string, string, string, *ConnectionClientBeginDeleteDeploymentOptions) (*runtime.Poller[ConnectionClientDeleteDeploymentResponse], error)`
+- New function `*ConnectionClient.GetDeployment(context.Context, string, string, string, string, *ConnectionClientGetDeploymentOptions) (ConnectionClientGetDeploymentResponse, error)`
+- New function `*ConnectionClient.NewGetModelsPager(string, string, string, *ConnectionClientGetModelsOptions) *runtime.Pager[ConnectionClientGetModelsResponse]`
+- New function `*ConnectionClient.NewListDeploymentsPager(string, string, string, *ConnectionClientListDeploymentsOptions) *runtime.Pager[ConnectionClientListDeploymentsResponse]`
+- New function `*ConnectionClient.ListModels(context.Context, string, string, *ConnectionClientListModelsOptions) (ConnectionClientListModelsResponse, error)`
+- New function `NewConnectionRaiBlocklistClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectionRaiBlocklistClient, error)`
+- New function `*ConnectionRaiBlocklistClient.BeginCreate(context.Context, string, string, string, string, RaiBlocklistPropertiesBasicResource, *ConnectionRaiBlocklistClientBeginCreateOptions) (*runtime.Poller[ConnectionRaiBlocklistClientCreateResponse], error)`
+- New function `*ConnectionRaiBlocklistClient.BeginDelete(context.Context, string, string, string, string, *ConnectionRaiBlocklistClientBeginDeleteOptions) (*runtime.Poller[ConnectionRaiBlocklistClientDeleteResponse], error)`
+- New function `*ConnectionRaiBlocklistClient.Get(context.Context, string, string, string, string, *ConnectionRaiBlocklistClientGetOptions) (ConnectionRaiBlocklistClientGetResponse, error)`
+- New function `NewConnectionRaiBlocklistItemClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectionRaiBlocklistItemClient, error)`
+- New function `*ConnectionRaiBlocklistItemClient.BeginAddBulk(context.Context, string, string, string, string, []*RaiBlocklistItemBulkRequest, *ConnectionRaiBlocklistItemClientBeginAddBulkOptions) (*runtime.Poller[ConnectionRaiBlocklistItemClientAddBulkResponse], error)`
+- New function `*ConnectionRaiBlocklistItemClient.BeginCreate(context.Context, string, string, string, string, string, RaiBlocklistItemPropertiesBasicResource, *ConnectionRaiBlocklistItemClientBeginCreateOptions) (*runtime.Poller[ConnectionRaiBlocklistItemClientCreateResponse], error)`
+- New function `*ConnectionRaiBlocklistItemClient.BeginDelete(context.Context, string, string, string, string, string, *ConnectionRaiBlocklistItemClientBeginDeleteOptions) (*runtime.Poller[ConnectionRaiBlocklistItemClientDeleteResponse], error)`
+- New function `*ConnectionRaiBlocklistItemClient.BeginDeleteBulk(context.Context, string, string, string, string, any, *ConnectionRaiBlocklistItemClientBeginDeleteBulkOptions) (*runtime.Poller[ConnectionRaiBlocklistItemClientDeleteBulkResponse], error)`
+- New function `*ConnectionRaiBlocklistItemClient.Get(context.Context, string, string, string, string, string, *ConnectionRaiBlocklistItemClientGetOptions) (ConnectionRaiBlocklistItemClientGetResponse, error)`
+- New function `NewConnectionRaiBlocklistItemsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectionRaiBlocklistItemsClient, error)`
+- New function `*ConnectionRaiBlocklistItemsClient.NewListPager(string, string, string, string, *ConnectionRaiBlocklistItemsClientListOptions) *runtime.Pager[ConnectionRaiBlocklistItemsClientListResponse]`
+- New function `NewConnectionRaiBlocklistsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectionRaiBlocklistsClient, error)`
+- New function `*ConnectionRaiBlocklistsClient.NewListPager(string, string, string, *ConnectionRaiBlocklistsClientListOptions) *runtime.Pager[ConnectionRaiBlocklistsClientListResponse]`
+- New function `NewConnectionRaiPoliciesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectionRaiPoliciesClient, error)`
+- New function `*ConnectionRaiPoliciesClient.NewListPager(string, string, string, *ConnectionRaiPoliciesClientListOptions) *runtime.Pager[ConnectionRaiPoliciesClientListResponse]`
+- New function `NewConnectionRaiPolicyClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectionRaiPolicyClient, error)`
+- New function `*ConnectionRaiPolicyClient.BeginCreate(context.Context, string, string, string, string, RaiPolicyPropertiesBasicResource, *ConnectionRaiPolicyClientBeginCreateOptions) (*runtime.Poller[ConnectionRaiPolicyClientCreateResponse], error)`
+- New function `*ConnectionRaiPolicyClient.BeginDelete(context.Context, string, string, string, string, *ConnectionRaiPolicyClientBeginDeleteOptions) (*runtime.Poller[ConnectionRaiPolicyClientDeleteResponse], error)`
+- New function `*ConnectionRaiPolicyClient.Get(context.Context, string, string, string, string, *ConnectionRaiPolicyClientGetOptions) (ConnectionRaiPolicyClientGetResponse, error)`
+- New function `*ContentSafetyEndpointDeploymentResourceProperties.GetEndpointDeploymentResourceProperties() *EndpointDeploymentResourceProperties`
+- New function `*ContentSafetyEndpointResourceProperties.GetEndpointResourceProperties() *EndpointResourceProperties`
+- New function `*CreateMonitorAction.GetScheduleActionBase() *ScheduleActionBase`
+- New function `*CustomKeysWorkspaceConnectionProperties.GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2`
+- New function `*CustomModelFineTuning.GetFineTuningVertical() *FineTuningVertical`
+- New function `*CustomMonitoringSignal.GetMonitoringSignalBase() *MonitoringSignalBase`
+- New function `*DataDriftMetricThresholdBase.GetDataDriftMetricThresholdBase() *DataDriftMetricThresholdBase`
+- New function `*DataDriftMonitoringSignal.GetMonitoringSignalBase() *MonitoringSignalBase`
+- New function `*DataQualityMetricThresholdBase.GetDataQualityMetricThresholdBase() *DataQualityMetricThresholdBase`
+- New function `*DataQualityMonitoringSignal.GetMonitoringSignalBase() *MonitoringSignalBase`
+- New function `*DataReferenceCredential.GetDataReferenceCredential() *DataReferenceCredential`
+- New function `*DataVersionsClient.BeginPublish(context.Context, string, string, string, string, DestinationAsset, *DataVersionsClientBeginPublishOptions) (*runtime.Poller[DataVersionsClientPublishResponse], error)`
+- New function `*DockerCredential.GetDataReferenceCredential() *DataReferenceCredential`
+- New function `NewEndpointClient(string, azcore.TokenCredential, *arm.ClientOptions) (*EndpointClient, error)`
+- New function `*EndpointClient.BeginCreateOrUpdate(context.Context, string, string, string, EndpointResourcePropertiesBasicResource, *EndpointClientBeginCreateOrUpdateOptions) (*runtime.Poller[EndpointClientCreateOrUpdateResponse], error)`
+- New function `*EndpointClient.Get(context.Context, string, string, string, *EndpointClientGetOptions) (EndpointClientGetResponse, error)`
+- New function `*EndpointClient.NewGetModelsPager(string, string, string, *EndpointClientGetModelsOptions) *runtime.Pager[EndpointClientGetModelsResponse]`
+- New function `*EndpointClient.ListKeys(context.Context, string, string, string, *EndpointClientListKeysOptions) (EndpointClientListKeysResponse, error)`
+- New function `*EndpointClient.NewListPager(string, string, *EndpointClientListOptions) *runtime.Pager[EndpointClientListResponse]`
+- New function `*EndpointClient.RegenerateKeys(context.Context, string, string, string, RegenerateServiceAccountKeyContent, *EndpointClientRegenerateKeysOptions) (EndpointClientRegenerateKeysResponse, error)`
+- New function `NewEndpointDeploymentClient(string, azcore.TokenCredential, *arm.ClientOptions) (*EndpointDeploymentClient, error)`
+- New function `*EndpointDeploymentClient.BeginCreateOrUpdate(context.Context, string, string, string, string, EndpointDeploymentResourcePropertiesBasicResource, *EndpointDeploymentClientBeginCreateOrUpdateOptions) (*runtime.Poller[EndpointDeploymentClientCreateOrUpdateResponse], error)`
+- New function `*EndpointDeploymentClient.BeginDelete(context.Context, string, string, string, string, *EndpointDeploymentClientBeginDeleteOptions) (*runtime.Poller[EndpointDeploymentClientDeleteResponse], error)`
+- New function `*EndpointDeploymentClient.Get(context.Context, string, string, string, string, *EndpointDeploymentClientGetOptions) (EndpointDeploymentClientGetResponse, error)`
+- New function `*EndpointDeploymentClient.NewGetInWorkspacePager(string, string, *EndpointDeploymentClientGetInWorkspaceOptions) *runtime.Pager[EndpointDeploymentClientGetInWorkspaceResponse]`
+- New function `*EndpointDeploymentClient.NewListPager(string, string, string, *EndpointDeploymentClientListOptions) *runtime.Pager[EndpointDeploymentClientListResponse]`
+- New function `*EndpointDeploymentResourceProperties.GetEndpointDeploymentResourceProperties() *EndpointDeploymentResourceProperties`
+- New function `*EndpointResourceProperties.GetEndpointResourceProperties() *EndpointResourceProperties`
+- New function `*EnvironmentVersionsClient.BeginPublish(context.Context, string, string, string, string, DestinationAsset, *EnvironmentVersionsClientBeginPublishOptions) (*runtime.Poller[EnvironmentVersionsClientPublishResponse], error)`
+- New function `*FeatureAttributionDriftMonitoringSignal.GetMonitoringSignalBase() *MonitoringSignalBase`
+- New function `*FeatureSubset.GetMonitoringFeatureFilterBase() *MonitoringFeatureFilterBase`
+- New function `NewFeaturesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*FeaturesClient, error)`
+- New function `*FeaturesClient.Get(context.Context, string, string, string, string, string, *FeaturesClientGetOptions) (FeaturesClientGetResponse, error)`
+- New function `*FeaturesClient.NewListPager(string, string, string, string, *FeaturesClientListOptions) *runtime.Pager[FeaturesClientListResponse]`
+- New function `NewFeaturesetContainersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*FeaturesetContainersClient, error)`
+- New function `*FeaturesetContainersClient.BeginCreateOrUpdate(context.Context, string, string, string, FeaturesetContainer, *FeaturesetContainersClientBeginCreateOrUpdateOptions) (*runtime.Poller[FeaturesetContainersClientCreateOrUpdateResponse], error)`
+- New function `*FeaturesetContainersClient.BeginDelete(context.Context, string, string, string, *FeaturesetContainersClientBeginDeleteOptions) (*runtime.Poller[FeaturesetContainersClientDeleteResponse], error)`
+- New function `*FeaturesetContainersClient.GetEntity(context.Context, string, string, string, *FeaturesetContainersClientGetEntityOptions) (FeaturesetContainersClientGetEntityResponse, error)`
+- New function `*FeaturesetContainersClient.NewListPager(string, string, *FeaturesetContainersClientListOptions) *runtime.Pager[FeaturesetContainersClientListResponse]`
+- New function `NewFeaturesetVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*FeaturesetVersionsClient, error)`
+- New function `*FeaturesetVersionsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, FeaturesetVersion, *FeaturesetVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[FeaturesetVersionsClientCreateOrUpdateResponse], error)`
+- New function `*FeaturesetVersionsClient.BeginDelete(context.Context, string, string, string, string, *FeaturesetVersionsClientBeginDeleteOptions) (*runtime.Poller[FeaturesetVersionsClientDeleteResponse], error)`
+- New function `*FeaturesetVersionsClient.Get(context.Context, string, string, string, string, *FeaturesetVersionsClientGetOptions) (FeaturesetVersionsClientGetResponse, error)`
+- New function `*FeaturesetVersionsClient.NewListPager(string, string, string, *FeaturesetVersionsClientListOptions) *runtime.Pager[FeaturesetVersionsClientListResponse]`
+- New function `*FeaturesetVersionsClient.BeginBackfill(context.Context, string, string, string, string, FeaturesetVersionBackfillRequest, *FeaturesetVersionsClientBeginBackfillOptions) (*runtime.Poller[FeaturesetVersionsClientBackfillResponse], error)`
+- New function `NewFeaturestoreEntityContainersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*FeaturestoreEntityContainersClient, error)`
+- New function `*FeaturestoreEntityContainersClient.BeginCreateOrUpdate(context.Context, string, string, string, FeaturestoreEntityContainer, *FeaturestoreEntityContainersClientBeginCreateOrUpdateOptions) (*runtime.Poller[FeaturestoreEntityContainersClientCreateOrUpdateResponse], error)`
+- New function `*FeaturestoreEntityContainersClient.BeginDelete(context.Context, string, string, string, *FeaturestoreEntityContainersClientBeginDeleteOptions) (*runtime.Poller[FeaturestoreEntityContainersClientDeleteResponse], error)`
+- New function `*FeaturestoreEntityContainersClient.GetEntity(context.Context, string, string, string, *FeaturestoreEntityContainersClientGetEntityOptions) (FeaturestoreEntityContainersClientGetEntityResponse, error)`
+- New function `*FeaturestoreEntityContainersClient.NewListPager(string, string, *FeaturestoreEntityContainersClientListOptions) *runtime.Pager[FeaturestoreEntityContainersClientListResponse]`
+- New function `NewFeaturestoreEntityVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*FeaturestoreEntityVersionsClient, error)`
+- New function `*FeaturestoreEntityVersionsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, FeaturestoreEntityVersion, *FeaturestoreEntityVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[FeaturestoreEntityVersionsClientCreateOrUpdateResponse], error)`
+- New function `*FeaturestoreEntityVersionsClient.BeginDelete(context.Context, string, string, string, string, *FeaturestoreEntityVersionsClientBeginDeleteOptions) (*runtime.Poller[FeaturestoreEntityVersionsClientDeleteResponse], error)`
+- New function `*FeaturestoreEntityVersionsClient.Get(context.Context, string, string, string, string, *FeaturestoreEntityVersionsClientGetOptions) (FeaturestoreEntityVersionsClientGetResponse, error)`
+- New function `*FeaturestoreEntityVersionsClient.NewListPager(string, string, string, *FeaturestoreEntityVersionsClientListOptions) *runtime.Pager[FeaturestoreEntityVersionsClientListResponse]`
+- New function `*FineTuningJob.GetJobBaseProperties() *JobBaseProperties`
+- New function `*FineTuningVertical.GetFineTuningVertical() *FineTuningVertical`
+- New function `*FixedInputData.GetMonitoringInputDataBase() *MonitoringInputDataBase`
+- New function `*FqdnOutboundRule.GetOutboundRule() *OutboundRule`
+- New function `*LakeHouseArtifact.GetOneLakeArtifact() *OneLakeArtifact`
+- New function `*ManagedComputeIdentity.GetMonitorComputeIdentityBase() *MonitorComputeIdentityBase`
+- New function `*ManagedIdentityCredential.GetDataReferenceCredential() *DataReferenceCredential`
+- New function `NewManagedNetworkProvisionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ManagedNetworkProvisionsClient, error)`
+- New function `*ManagedNetworkProvisionsClient.BeginProvisionManagedNetwork(context.Context, string, string, *ManagedNetworkProvisionsClientBeginProvisionManagedNetworkOptions) (*runtime.Poller[ManagedNetworkProvisionsClientProvisionManagedNetworkResponse], error)`
+- New function `NewManagedNetworkSettingsRuleClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ManagedNetworkSettingsRuleClient, error)`
+- New function `*ManagedNetworkSettingsRuleClient.BeginCreateOrUpdate(context.Context, string, string, string, OutboundRuleBasicResource, *ManagedNetworkSettingsRuleClientBeginCreateOrUpdateOptions) (*runtime.Poller[ManagedNetworkSettingsRuleClientCreateOrUpdateResponse], error)`
+- New function `*ManagedNetworkSettingsRuleClient.BeginDelete(context.Context, string, string, string, *ManagedNetworkSettingsRuleClientBeginDeleteOptions) (*runtime.Poller[ManagedNetworkSettingsRuleClientDeleteResponse], error)`
+- New function `*ManagedNetworkSettingsRuleClient.Get(context.Context, string, string, string, *ManagedNetworkSettingsRuleClientGetOptions) (ManagedNetworkSettingsRuleClientGetResponse, error)`
+- New function `*ManagedNetworkSettingsRuleClient.NewListPager(string, string, *ManagedNetworkSettingsRuleClientListOptions) *runtime.Pager[ManagedNetworkSettingsRuleClientListResponse]`
+- New function `*ManagedOnlineEndpointDeploymentResourceProperties.GetEndpointDeploymentResourceProperties() *EndpointDeploymentResourceProperties`
+- New function `*ManagedOnlineEndpointResourceProperties.GetEndpointResourceProperties() *EndpointResourceProperties`
+- New function `NewMarketplaceSubscriptionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*MarketplaceSubscriptionsClient, error)`
+- New function `*MarketplaceSubscriptionsClient.BeginCreateOrUpdate(context.Context, string, string, string, MarketplaceSubscription, *MarketplaceSubscriptionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[MarketplaceSubscriptionsClientCreateOrUpdateResponse], error)`
+- New function `*MarketplaceSubscriptionsClient.BeginDelete(context.Context, string, string, string, *MarketplaceSubscriptionsClientBeginDeleteOptions) (*runtime.Poller[MarketplaceSubscriptionsClientDeleteResponse], error)`
+- New function `*MarketplaceSubscriptionsClient.Get(context.Context, string, string, string, *MarketplaceSubscriptionsClientGetOptions) (MarketplaceSubscriptionsClientGetResponse, error)`
+- New function `*MarketplaceSubscriptionsClient.NewListPager(string, string, *MarketplaceSubscriptionsClientListOptions) *runtime.Pager[MarketplaceSubscriptionsClientListResponse]`
+- New function `*ModelVersionsClient.BeginPublish(context.Context, string, string, string, string, DestinationAsset, *ModelVersionsClientBeginPublishOptions) (*runtime.Poller[ModelVersionsClientPublishResponse], error)`
+- New function `*MonitorComputeConfigurationBase.GetMonitorComputeConfigurationBase() *MonitorComputeConfigurationBase`
+- New function `*MonitorComputeIdentityBase.GetMonitorComputeIdentityBase() *MonitorComputeIdentityBase`
+- New function `*MonitorServerlessSparkCompute.GetMonitorComputeConfigurationBase() *MonitorComputeConfigurationBase`
+- New function `*MonitoringFeatureFilterBase.GetMonitoringFeatureFilterBase() *MonitoringFeatureFilterBase`
+- New function `*MonitoringInputDataBase.GetMonitoringInputDataBase() *MonitoringInputDataBase`
+- New function `*MonitoringSignalBase.GetMonitoringSignalBase() *MonitoringSignalBase`
+- New function `*OAuth2AuthTypeWorkspaceConnectionProperties.GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2`
+- New function `*OneLakeArtifact.GetOneLakeArtifact() *OneLakeArtifact`
+- New function `*OneLakeDatastore.GetDatastoreProperties() *DatastoreProperties`
+- New function `*OpenAIEndpointDeploymentResourceProperties.GetEndpointDeploymentResourceProperties() *EndpointDeploymentResourceProperties`
+- New function `*OpenAIEndpointResourceProperties.GetEndpointResourceProperties() *EndpointResourceProperties`
+- New function `*OutboundRule.GetOutboundRule() *OutboundRule`
+- New function `*PendingUploadCredentialDto.GetPendingUploadCredentialDto() *PendingUploadCredentialDto`
+- New function `*PredictionDriftMetricThresholdBase.GetPredictionDriftMetricThresholdBase() *PredictionDriftMetricThresholdBase`
+- New function `*PredictionDriftMonitoringSignal.GetMonitoringSignalBase() *MonitoringSignalBase`
+- New function `*PrivateEndpointOutboundRule.GetOutboundRule() *OutboundRule`
+- New function `NewRaiPoliciesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RaiPoliciesClient, error)`
+- New function `*RaiPoliciesClient.NewListPager(string, string, string, *RaiPoliciesClientListOptions) *runtime.Pager[RaiPoliciesClientListResponse]`
+- New function `NewRaiPolicyClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RaiPolicyClient, error)`
+- New function `*RaiPolicyClient.BeginCreate(context.Context, string, string, string, string, RaiPolicyPropertiesBasicResource, *RaiPolicyClientBeginCreateOptions) (*runtime.Poller[RaiPolicyClientCreateResponse], error)`
+- New function `*RaiPolicyClient.BeginDelete(context.Context, string, string, string, string, *RaiPolicyClientBeginDeleteOptions) (*runtime.Poller[RaiPolicyClientDeleteResponse], error)`
+- New function `*RaiPolicyClient.Get(context.Context, string, string, string, string, *RaiPolicyClientGetOptions) (RaiPolicyClientGetResponse, error)`
+- New function `NewRegistriesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistriesClient, error)`
+- New function `*RegistriesClient.BeginCreateOrUpdate(context.Context, string, string, Registry, *RegistriesClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistriesClientCreateOrUpdateResponse], error)`
+- New function `*RegistriesClient.BeginDelete(context.Context, string, string, *RegistriesClientBeginDeleteOptions) (*runtime.Poller[RegistriesClientDeleteResponse], error)`
+- New function `*RegistriesClient.Get(context.Context, string, string, *RegistriesClientGetOptions) (RegistriesClientGetResponse, error)`
+- New function `*RegistriesClient.NewListBySubscriptionPager(*RegistriesClientListBySubscriptionOptions) *runtime.Pager[RegistriesClientListBySubscriptionResponse]`
+- New function `*RegistriesClient.NewListPager(string, *RegistriesClientListOptions) *runtime.Pager[RegistriesClientListResponse]`
+- New function `*RegistriesClient.BeginRemoveRegions(context.Context, string, string, Registry, *RegistriesClientBeginRemoveRegionsOptions) (*runtime.Poller[RegistriesClientRemoveRegionsResponse], error)`
+- New function `*RegistriesClient.Update(context.Context, string, string, PartialRegistryPartialTrackedResource, *RegistriesClientUpdateOptions) (RegistriesClientUpdateResponse, error)`
+- New function `NewRegistryCodeContainersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryCodeContainersClient, error)`
+- New function `*RegistryCodeContainersClient.BeginCreateOrUpdate(context.Context, string, string, string, CodeContainer, *RegistryCodeContainersClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryCodeContainersClientCreateOrUpdateResponse], error)`
+- New function `*RegistryCodeContainersClient.BeginDelete(context.Context, string, string, string, *RegistryCodeContainersClientBeginDeleteOptions) (*runtime.Poller[RegistryCodeContainersClientDeleteResponse], error)`
+- New function `*RegistryCodeContainersClient.Get(context.Context, string, string, string, *RegistryCodeContainersClientGetOptions) (RegistryCodeContainersClientGetResponse, error)`
+- New function `*RegistryCodeContainersClient.NewListPager(string, string, *RegistryCodeContainersClientListOptions) *runtime.Pager[RegistryCodeContainersClientListResponse]`
+- New function `NewRegistryCodeVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryCodeVersionsClient, error)`
+- New function `*RegistryCodeVersionsClient.CreateOrGetStartPendingUpload(context.Context, string, string, string, string, PendingUploadRequestDto, *RegistryCodeVersionsClientCreateOrGetStartPendingUploadOptions) (RegistryCodeVersionsClientCreateOrGetStartPendingUploadResponse, error)`
+- New function `*RegistryCodeVersionsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, CodeVersion, *RegistryCodeVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryCodeVersionsClientCreateOrUpdateResponse], error)`
+- New function `*RegistryCodeVersionsClient.BeginDelete(context.Context, string, string, string, string, *RegistryCodeVersionsClientBeginDeleteOptions) (*runtime.Poller[RegistryCodeVersionsClientDeleteResponse], error)`
+- New function `*RegistryCodeVersionsClient.Get(context.Context, string, string, string, string, *RegistryCodeVersionsClientGetOptions) (RegistryCodeVersionsClientGetResponse, error)`
+- New function `*RegistryCodeVersionsClient.NewListPager(string, string, string, *RegistryCodeVersionsClientListOptions) *runtime.Pager[RegistryCodeVersionsClientListResponse]`
+- New function `NewRegistryComponentContainersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryComponentContainersClient, error)`
+- New function `*RegistryComponentContainersClient.BeginCreateOrUpdate(context.Context, string, string, string, ComponentContainer, *RegistryComponentContainersClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryComponentContainersClientCreateOrUpdateResponse], error)`
+- New function `*RegistryComponentContainersClient.BeginDelete(context.Context, string, string, string, *RegistryComponentContainersClientBeginDeleteOptions) (*runtime.Poller[RegistryComponentContainersClientDeleteResponse], error)`
+- New function `*RegistryComponentContainersClient.Get(context.Context, string, string, string, *RegistryComponentContainersClientGetOptions) (RegistryComponentContainersClientGetResponse, error)`
+- New function `*RegistryComponentContainersClient.NewListPager(string, string, *RegistryComponentContainersClientListOptions) *runtime.Pager[RegistryComponentContainersClientListResponse]`
+- New function `NewRegistryComponentVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryComponentVersionsClient, error)`
+- New function `*RegistryComponentVersionsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, ComponentVersion, *RegistryComponentVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryComponentVersionsClientCreateOrUpdateResponse], error)`
+- New function `*RegistryComponentVersionsClient.BeginDelete(context.Context, string, string, string, string, *RegistryComponentVersionsClientBeginDeleteOptions) (*runtime.Poller[RegistryComponentVersionsClientDeleteResponse], error)`
+- New function `*RegistryComponentVersionsClient.Get(context.Context, string, string, string, string, *RegistryComponentVersionsClientGetOptions) (RegistryComponentVersionsClientGetResponse, error)`
+- New function `*RegistryComponentVersionsClient.NewListPager(string, string, string, *RegistryComponentVersionsClientListOptions) *runtime.Pager[RegistryComponentVersionsClientListResponse]`
+- New function `NewRegistryDataContainersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryDataContainersClient, error)`
+- New function `*RegistryDataContainersClient.BeginCreateOrUpdate(context.Context, string, string, string, DataContainer, *RegistryDataContainersClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryDataContainersClientCreateOrUpdateResponse], error)`
+- New function `*RegistryDataContainersClient.BeginDelete(context.Context, string, string, string, *RegistryDataContainersClientBeginDeleteOptions) (*runtime.Poller[RegistryDataContainersClientDeleteResponse], error)`
+- New function `*RegistryDataContainersClient.Get(context.Context, string, string, string, *RegistryDataContainersClientGetOptions) (RegistryDataContainersClientGetResponse, error)`
+- New function `*RegistryDataContainersClient.NewListPager(string, string, *RegistryDataContainersClientListOptions) *runtime.Pager[RegistryDataContainersClientListResponse]`
+- New function `NewRegistryDataReferencesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryDataReferencesClient, error)`
+- New function `*RegistryDataReferencesClient.GetBlobReferenceSAS(context.Context, string, string, string, string, GetBlobReferenceSASRequestDto, *RegistryDataReferencesClientGetBlobReferenceSASOptions) (RegistryDataReferencesClientGetBlobReferenceSASResponse, error)`
+- New function `NewRegistryDataVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryDataVersionsClient, error)`
+- New function `*RegistryDataVersionsClient.CreateOrGetStartPendingUpload(context.Context, string, string, string, string, PendingUploadRequestDto, *RegistryDataVersionsClientCreateOrGetStartPendingUploadOptions) (RegistryDataVersionsClientCreateOrGetStartPendingUploadResponse, error)`
+- New function `*RegistryDataVersionsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, DataVersionBase, *RegistryDataVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryDataVersionsClientCreateOrUpdateResponse], error)`
+- New function `*RegistryDataVersionsClient.BeginDelete(context.Context, string, string, string, string, *RegistryDataVersionsClientBeginDeleteOptions) (*runtime.Poller[RegistryDataVersionsClientDeleteResponse], error)`
+- New function `*RegistryDataVersionsClient.Get(context.Context, string, string, string, string, *RegistryDataVersionsClientGetOptions) (RegistryDataVersionsClientGetResponse, error)`
+- New function `*RegistryDataVersionsClient.NewListPager(string, string, string, *RegistryDataVersionsClientListOptions) *runtime.Pager[RegistryDataVersionsClientListResponse]`
+- New function `NewRegistryEnvironmentContainersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryEnvironmentContainersClient, error)`
+- New function `*RegistryEnvironmentContainersClient.BeginCreateOrUpdate(context.Context, string, string, string, EnvironmentContainer, *RegistryEnvironmentContainersClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryEnvironmentContainersClientCreateOrUpdateResponse], error)`
+- New function `*RegistryEnvironmentContainersClient.BeginDelete(context.Context, string, string, string, *RegistryEnvironmentContainersClientBeginDeleteOptions) (*runtime.Poller[RegistryEnvironmentContainersClientDeleteResponse], error)`
+- New function `*RegistryEnvironmentContainersClient.Get(context.Context, string, string, string, *RegistryEnvironmentContainersClientGetOptions) (RegistryEnvironmentContainersClientGetResponse, error)`
+- New function `*RegistryEnvironmentContainersClient.NewListPager(string, string, *RegistryEnvironmentContainersClientListOptions) *runtime.Pager[RegistryEnvironmentContainersClientListResponse]`
+- New function `NewRegistryEnvironmentVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryEnvironmentVersionsClient, error)`
+- New function `*RegistryEnvironmentVersionsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, EnvironmentVersion, *RegistryEnvironmentVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryEnvironmentVersionsClientCreateOrUpdateResponse], error)`
+- New function `*RegistryEnvironmentVersionsClient.BeginDelete(context.Context, string, string, string, string, *RegistryEnvironmentVersionsClientBeginDeleteOptions) (*runtime.Poller[RegistryEnvironmentVersionsClientDeleteResponse], error)`
+- New function `*RegistryEnvironmentVersionsClient.Get(context.Context, string, string, string, string, *RegistryEnvironmentVersionsClientGetOptions) (RegistryEnvironmentVersionsClientGetResponse, error)`
+- New function `*RegistryEnvironmentVersionsClient.NewListPager(string, string, string, *RegistryEnvironmentVersionsClientListOptions) *runtime.Pager[RegistryEnvironmentVersionsClientListResponse]`
+- New function `NewRegistryModelContainersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryModelContainersClient, error)`
+- New function `*RegistryModelContainersClient.BeginCreateOrUpdate(context.Context, string, string, string, ModelContainer, *RegistryModelContainersClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryModelContainersClientCreateOrUpdateResponse], error)`
+- New function `*RegistryModelContainersClient.BeginDelete(context.Context, string, string, string, *RegistryModelContainersClientBeginDeleteOptions) (*runtime.Poller[RegistryModelContainersClientDeleteResponse], error)`
+- New function `*RegistryModelContainersClient.Get(context.Context, string, string, string, *RegistryModelContainersClientGetOptions) (RegistryModelContainersClientGetResponse, error)`
+- New function `*RegistryModelContainersClient.NewListPager(string, string, *RegistryModelContainersClientListOptions) *runtime.Pager[RegistryModelContainersClientListResponse]`
+- New function `NewRegistryModelVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryModelVersionsClient, error)`
+- New function `*RegistryModelVersionsClient.CreateOrGetStartPendingUpload(context.Context, string, string, string, string, PendingUploadRequestDto, *RegistryModelVersionsClientCreateOrGetStartPendingUploadOptions) (RegistryModelVersionsClientCreateOrGetStartPendingUploadResponse, error)`
+- New function `*RegistryModelVersionsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, ModelVersion, *RegistryModelVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryModelVersionsClientCreateOrUpdateResponse], error)`
+- New function `*RegistryModelVersionsClient.BeginDelete(context.Context, string, string, string, string, *RegistryModelVersionsClientBeginDeleteOptions) (*runtime.Poller[RegistryModelVersionsClientDeleteResponse], error)`
+- New function `*RegistryModelVersionsClient.Get(context.Context, string, string, string, string, *RegistryModelVersionsClientGetOptions) (RegistryModelVersionsClientGetResponse, error)`
+- New function `*RegistryModelVersionsClient.NewListPager(string, string, string, *RegistryModelVersionsClientListOptions) *runtime.Pager[RegistryModelVersionsClientListResponse]`
+- New function `*RollingInputData.GetMonitoringInputDataBase() *MonitoringInputDataBase`
+- New function `*SASCredential.GetDataReferenceCredential() *DataReferenceCredential`
+- New function `*SASCredentialDto.GetPendingUploadCredentialDto() *PendingUploadCredentialDto`
+- New function `*ServerlessEndpointResourceProperties.GetEndpointResourceProperties() *EndpointResourceProperties`
+- New function `NewServerlessEndpointsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ServerlessEndpointsClient, error)`
+- New function `*ServerlessEndpointsClient.BeginCreateOrUpdate(context.Context, string, string, string, ServerlessEndpoint, *ServerlessEndpointsClientBeginCreateOrUpdateOptions) (*runtime.Poller[ServerlessEndpointsClientCreateOrUpdateResponse], error)`
+- New function `*ServerlessEndpointsClient.BeginDelete(context.Context, string, string, string, *ServerlessEndpointsClientBeginDeleteOptions) (*runtime.Poller[ServerlessEndpointsClientDeleteResponse], error)`
+- New function `*ServerlessEndpointsClient.Get(context.Context, string, string, string, *ServerlessEndpointsClientGetOptions) (ServerlessEndpointsClientGetResponse, error)`
+- New function `*ServerlessEndpointsClient.ListKeys(context.Context, string, string, string, *ServerlessEndpointsClientListKeysOptions) (ServerlessEndpointsClientListKeysResponse, error)`
+- New function `*ServerlessEndpointsClient.NewListPager(string, string, *ServerlessEndpointsClientListOptions) *runtime.Pager[ServerlessEndpointsClientListResponse]`
+- New function `*ServerlessEndpointsClient.BeginRegenerateKeys(context.Context, string, string, string, RegenerateEndpointKeysRequest, *ServerlessEndpointsClientBeginRegenerateKeysOptions) (*runtime.Poller[ServerlessEndpointsClientRegenerateKeysResponse], error)`
+- New function `*ServerlessEndpointsClient.BeginUpdate(context.Context, string, string, string, PartialMinimalTrackedResourceWithSKUAndIdentity, *ServerlessEndpointsClientBeginUpdateOptions) (*runtime.Poller[ServerlessEndpointsClientUpdateResponse], error)`
+- New function `*ServicePrincipalAuthTypeWorkspaceConnectionProperties.GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2`
+- New function `*ServiceTagOutboundRule.GetOutboundRule() *OutboundRule`
+- New function `*SparkJob.GetJobBaseProperties() *JobBaseProperties`
+- New function `*SparkJobEntry.GetSparkJobEntry() *SparkJobEntry`
+- New function `*SparkJobPythonEntry.GetSparkJobEntry() *SparkJobEntry`
+- New function `*SparkJobScalaEntry.GetSparkJobEntry() *SparkJobEntry`
+- New function `*SpeechEndpointDeploymentResourceProperties.GetEndpointDeploymentResourceProperties() *EndpointDeploymentResourceProperties`
+- New function `*SpeechEndpointResourceProperties.GetEndpointResourceProperties() *EndpointResourceProperties`
+- New function `*StaticInputData.GetMonitoringInputDataBase() *MonitoringInputDataBase`
+- New function `*TopNFeaturesByAttribution.GetMonitoringFeatureFilterBase() *MonitoringFeatureFilterBase`
+- New function `*Webhook.GetWebhook() *Webhook`
+- New function `*WorkspaceConnectionsClient.ListSecrets(context.Context, string, string, string, *WorkspaceConnectionsClientListSecretsOptions) (WorkspaceConnectionsClientListSecretsResponse, error)`
+- New function `*WorkspaceConnectionsClient.BeginTestConnection(context.Context, string, string, string, *WorkspaceConnectionsClientBeginTestConnectionOptions) (*runtime.Poller[WorkspaceConnectionsClientTestConnectionResponse], error)`
+- New function `*WorkspaceConnectionsClient.Update(context.Context, string, string, string, *WorkspaceConnectionsClientUpdateOptions) (WorkspaceConnectionsClientUpdateResponse, error)`
+- New function `*Nodes.GetNodes() *Nodes`
+- New function `*NumericalDataDriftMetricThreshold.GetDataDriftMetricThresholdBase() *DataDriftMetricThresholdBase`
+- New function `*NumericalDataQualityMetricThreshold.GetDataQualityMetricThresholdBase() *DataQualityMetricThresholdBase`
+- New function `*NumericalPredictionDriftMetricThreshold.GetPredictionDriftMetricThresholdBase() *PredictionDriftMetricThresholdBase`
+- New struct `AADAuthTypeWorkspaceConnectionProperties`
+- New struct `APIKeyAuthWorkspaceConnectionProperties`
+- New struct `AccessKeyAuthTypeWorkspaceConnectionProperties`
+- New struct `AccountAPIKeys`
+- New struct `AccountKeyAuthTypeWorkspaceConnectionProperties`
+- New struct `AcrDetails`
+- New struct `AllFeatures`
+- New struct `AllNodes`
+- New struct `AmlTokenComputeIdentity`
+- New struct `AnonymousAccessCredential`
+- New struct `ArmResourceID`
+- New struct `AzureDatastore`
+- New struct `AzureDevOpsWebhook`
+- New struct `AzureOpenAiFineTuning`
+- New struct `AzureOpenAiHyperParameters`
+- New struct `BatchPipelineComponentDeploymentConfiguration`
+- New struct `BindOptions`
+- New struct `BlobReferenceForConsumptionDto`
+- New struct `CapacityConfig`
+- New struct `CategoricalDataDriftMetricThreshold`
+- New struct `CategoricalDataQualityMetricThreshold`
+- New struct `CategoricalPredictionDriftMetricThreshold`
+- New struct `CognitiveServiceEndpointDeploymentResourceProperties`
+- New struct `CognitiveServicesSKU`
+- New struct `Collection`
+- New struct `ComputeInstanceAutologgerSettings`
+- New struct `ComputeRecurrenceSchedule`
+- New struct `ComputeRuntimeDto`
+- New struct `ContentSafety`
+- New struct `ContentSafetyEndpointDeploymentResourceProperties`
+- New struct `ContentSafetyEndpointResourceProperties`
+- New struct `CreateMonitorAction`
+- New struct `Cron`
+- New struct `CustomKeys`
+- New struct `CustomKeysWorkspaceConnectionProperties`
+- New struct `CustomMetricThreshold`
+- New struct `CustomModelFineTuning`
+- New struct `CustomMonitoringSignal`
+- New struct `CustomService`
+- New struct `DataCollector`
+- New struct `DataDriftMonitoringSignal`
+- New struct `DataQualityMonitoringSignal`
+- New struct `DestinationAsset`
+- New struct `Docker`
+- New struct `DockerCredential`
+- New struct `EncryptionKeyVaultUpdateProperties`
+- New struct `EncryptionUpdateProperties`
+- New struct `Endpoint`
+- New struct `EndpointDeploymentModel`
+- New struct `EndpointDeploymentResourcePropertiesBasicResource`
+- New struct `EndpointDeploymentResourcePropertiesBasicResourceArmPaginatedResult`
+- New struct `EndpointKeys`
+- New struct `EndpointModelDeprecationProperties`
+- New struct `EndpointModelProperties`
+- New struct `EndpointModelSKUCapacityProperties`
+- New struct `EndpointModelSKUProperties`
+- New struct `EndpointModelSKURateLimitProperties`
+- New struct `EndpointModelSKURateLimitRulePatternProperties`
+- New struct `EndpointModelSKURateLimitRuleProperties`
+- New struct `EndpointModels`
+- New struct `EndpointResourcePropertiesBasicResource`
+- New struct `EndpointResourcePropertiesBasicResourceArmPaginatedResult`
+- New struct `EnvironmentVariable`
+- New struct `FQDNEndpointsPropertyBag`
+- New struct `Feature`
+- New struct `FeatureAttributionDriftMonitoringSignal`
+- New struct `FeatureAttributionMetricThreshold`
+- New struct `FeatureImportanceSettings`
+- New struct `FeatureProperties`
+- New struct `FeatureResourceArmPaginatedResult`
+- New struct `FeatureStoreSettings`
+- New struct `FeatureSubset`
+- New struct `FeatureWindow`
+- New struct `FeaturesetContainer`
+- New struct `FeaturesetContainerProperties`
+- New struct `FeaturesetContainerResourceArmPaginatedResult`
+- New struct `FeaturesetSpecification`
+- New struct `FeaturesetVersion`
+- New struct `FeaturesetVersionBackfillRequest`
+- New struct `FeaturesetVersionBackfillResponse`
+- New struct `FeaturesetVersionProperties`
+- New struct `FeaturesetVersionResourceArmPaginatedResult`
+- New struct `FeaturestoreEntityContainer`
+- New struct `FeaturestoreEntityContainerProperties`
+- New struct `FeaturestoreEntityContainerResourceArmPaginatedResult`
+- New struct `FeaturestoreEntityVersion`
+- New struct `FeaturestoreEntityVersionProperties`
+- New struct `FeaturestoreEntityVersionResourceArmPaginatedResult`
+- New struct `FineTuningJob`
+- New struct `FixedInputData`
+- New struct `FqdnOutboundRule`
+- New struct `GetBlobReferenceForConsumptionDto`
+- New struct `GetBlobReferenceSASRequestDto`
+- New struct `GetBlobReferenceSASResponseDto`
+- New struct `IdleShutdownSetting`
+- New struct `Image`
+- New struct `ImageMetadata`
+- New struct `IndexColumn`
+- New struct `JobResources`
+- New struct `JupyterKernelConfig`
+- New struct `KeyVaultProperties`
+- New struct `LakeHouseArtifact`
+- New struct `ManagedComputeIdentity`
+- New struct `ManagedIdentityCredential`
+- New struct `ManagedNetworkProvisionOptions`
+- New struct `ManagedNetworkProvisionStatus`
+- New struct `ManagedNetworkSettings`
+- New struct `ManagedOnlineEndpointDeploymentResourceProperties`
+- New struct `ManagedOnlineEndpointResourceProperties`
+- New struct `ManagedResourceGroupAssignedIdentities`
+- New struct `ManagedResourceGroupSettings`
+- New struct `MarketplacePlan`
+- New struct `MarketplaceSubscription`
+- New struct `MarketplaceSubscriptionProperties`
+- New struct `MarketplaceSubscriptionResourceArmPaginatedResult`
+- New struct `MaterializationComputeResource`
+- New struct `MaterializationSettings`
+- New struct `ModelSettings`
+- New struct `MonitorDefinition`
+- New struct `MonitorEmailNotificationSettings`
+- New struct `MonitorNotificationSettings`
+- New struct `MonitorServerlessSparkCompute`
+- New struct `MonitoringTarget`
+- New struct `MonitoringThreshold`
+- New struct `NotificationSetting`
+- New struct `NumericalDataDriftMetricThreshold`
+- New struct `NumericalDataQualityMetricThreshold`
+- New struct `NumericalPredictionDriftMetricThreshold`
+- New struct `OAuth2AuthTypeWorkspaceConnectionProperties`
+- New struct `OneLakeDatastore`
+- New struct `OpenAIEndpointDeploymentResourceProperties`
+- New struct `OpenAIEndpointResourceProperties`
+- New struct `Operation`
+- New struct `OperationDisplay`
+- New struct `OperationListResult`
+- New struct `OsPatchingStatus`
+- New struct `OutboundRuleBasicResource`
+- New struct `OutboundRuleListResult`
+- New struct `PartialMinimalTrackedResourceWithSKUAndIdentity`
+- New struct `PartialRegistryPartialTrackedResource`
+- New struct `PendingUploadRequestDto`
+- New struct `PendingUploadResponseDto`
+- New struct `PredictionDriftMonitoringSignal`
+- New struct `PrivateEndpointDestination`
+- New struct `PrivateEndpointOutboundRule`
+- New struct `PrivateEndpointResource`
+- New struct `ProxyResource`
+- New struct `QueueSettings`
+- New struct `RaiBlocklistConfig`
+- New struct `RaiBlocklistItemBulkRequest`
+- New struct `RaiBlocklistItemProperties`
+- New struct `RaiBlocklistItemPropertiesBasicResource`
+- New struct `RaiBlocklistItemPropertiesBasicResourceArmPaginatedResult`
+- New struct `RaiBlocklistProperties`
+- New struct `RaiBlocklistPropertiesBasicResource`
+- New struct `RaiBlocklistPropertiesBasicResourceArmPaginatedResult`
+- New struct `RaiPolicyContentFilter`
+- New struct `RaiPolicyProperties`
+- New struct `RaiPolicyPropertiesBasicResource`
+- New struct `RaiPolicyPropertiesBasicResourceArmPaginatedResult`
+- New struct `Recurrence`
+- New struct `RegenerateServiceAccountKeyContent`
+- New struct `Registry`
+- New struct `RegistryPartialManagedServiceIdentity`
+- New struct `RegistryPrivateEndpointConnection`
+- New struct `RegistryPrivateEndpointConnectionProperties`
+- New struct `RegistryPrivateLinkServiceConnectionState`
+- New struct `RegistryProperties`
+- New struct `RegistryRegionArmDetails`
+- New struct `RegistryTrackedResourceArmPaginatedResult`
+- New struct `RequestLogging`
+- New struct `ResizeSchema`
+- New struct `RollingInputData`
+- New struct `SASCredential`
+- New struct `SASCredentialDto`
+- New struct `SecretExpiry`
+- New struct `ServerlessComputeSettings`
+- New struct `ServerlessEndpoint`
+- New struct `ServerlessEndpointCapacityReservation`
+- New struct `ServerlessEndpointContentSafety`
+- New struct `ServerlessEndpointInferenceEndpoint`
+- New struct `ServerlessEndpointModelSettings`
+- New struct `ServerlessEndpointProperties`
+- New struct `ServerlessEndpointResourceProperties`
+- New struct `ServerlessEndpointTrackedResourceArmPaginatedResult`
+- New struct `ServerlessInferenceEndpoint`
+- New struct `ServerlessOffer`
+- New struct `ServicePrincipalAuthTypeWorkspaceConnectionProperties`
+- New struct `ServiceTagDestination`
+- New struct `ServiceTagOutboundRule`
+- New struct `SparkJob`
+- New struct `SparkJobPythonEntry`
+- New struct `SparkJobScalaEntry`
+- New struct `SparkResourceConfiguration`
+- New struct `SpeechEndpointDeploymentResourceProperties`
+- New struct `SpeechEndpointResourceProperties`
+- New struct `StaticInputData`
+- New struct `StorageAccountDetails`
+- New struct `SystemCreatedAcrAccount`
+- New struct `SystemCreatedStorageAccount`
+- New struct `TmpfsOptions`
+- New struct `TopNFeaturesByAttribution`
+- New struct `UserCreatedAcrAccount`
+- New struct `UserCreatedStorageAccount`
+- New struct `VolumeDefinition`
+- New struct `VolumeOptions`
+- New struct `WorkspaceConnectionAPIKey`
+- New struct `WorkspaceConnectionAccessKey`
+- New struct `WorkspaceConnectionAccountKey`
+- New struct `WorkspaceConnectionOAuth2`
+- New struct `WorkspaceConnectionServicePrincipal`
+- New struct `WorkspaceConnectionUpdateParameter`
+- New struct `WorkspaceHubConfig`
+- New struct `WorkspacePrivateEndpointResource`
+- New field `NotificationSetting`, `QueueSettings` in struct `AutoMLJob`
+- New field `ResourceGroup`, `SubscriptionID` in struct `AzureBlobDatastore`
+- New field `ResourceGroup`, `SubscriptionID` in struct `AzureDataLakeGen1Datastore`
+- New field `ResourceGroup`, `SubscriptionID` in struct `AzureDataLakeGen2Datastore`
+- New field `ResourceGroup`, `SubscriptionID` in struct `AzureFileDatastore`
+- New field `DeploymentConfiguration` in struct `BatchDeploymentProperties`
+- New field `ProvisioningState` in struct `CodeContainerProperties`
+- New field `ProvisioningState` in struct `CodeVersionProperties`
+- New field `Hash`, `HashVersion` in struct `CodeVersionsClientListOptions`
+- New field `NotificationSetting`, `QueueSettings` in struct `CommandJob`
+- New field `ProvisioningState` in struct `ComponentContainerProperties`
+- New field `ProvisioningState` in struct `ComponentVersionProperties`
+- New field `MountMode` in struct `ComputeInstanceDataMount`
+- New field `AutologgerSettings`, `CustomServices`, `EnableOSPatching`, `EnableRootAccess`, `EnableSSO`, `IdleTimeBeforeShutdown`, `OSImageMetadata`, `ReleaseQuotaOnStop` in struct `ComputeInstanceProperties`
+- New field `Body` in struct `DatastoresClientListSecretsOptions`
+- New field `RequiredResourceProviders` in struct `DiagnoseRequestProperties`
+- New field `CosmosDbResourceID`, `SearchAccountResourceID`, `StorageAccountResourceID` in struct `EncryptionProperty`
+- New field `ProvisioningState` in struct `EnvironmentContainerProperties`
+- New field `ProvisioningState`, `Stage` in struct `EnvironmentVersionProperties`
+- New field `Category`, `Endpoints` in struct `FQDNEndpoints`
+- New field `Nodes` in struct `JobService`
+- New field `Properties` in struct `JobsClientListOptions`
+- New field `DataCollector` in struct `KubernetesOnlineDeployment`
+- New field `UserStorageArmID` in struct `ListWorkspaceKeysResult`
+- New field `CreatedByWorkspaceArmID`, `Error`, `ExpiryTime`, `Group`, `IsSharedToAll`, `Metadata`, `PeRequirement`, `PeStatus`, `SharedUserList`, `UseWorkspaceManagedIdentity` in struct `ManagedIdentityAuthTypeWorkspaceConnectionProperties`
+- New field `DataCollector` in struct `ManagedOnlineDeployment`
+- New field `ProvisioningState` in struct `ModelContainerProperties`
+- New field `ProvisioningState`, `Stage` in struct `ModelVersionProperties`
+- New field `CreatedByWorkspaceArmID`, `Error`, `ExpiryTime`, `Group`, `IsSharedToAll`, `Metadata`, `PeRequirement`, `PeStatus`, `SharedUserList`, `UseWorkspaceManagedIdentity` in struct `NoneAuthTypeWorkspaceConnectionProperties`
+- New field `IsPrivateLinkEnabled` in struct `NotebookResourceInfo`
+- New field `DataCollector` in struct `OnlineDeploymentProperties`
+- New field `MirrorTraffic` in struct `OnlineEndpointProperties`
+- New anonymous field `OperationListResult` in struct `OperationsClientListResponse`
+- New field `CreatedByWorkspaceArmID`, `Error`, `ExpiryTime`, `Group`, `IsSharedToAll`, `Metadata`, `PeRequirement`, `PeStatus`, `SharedUserList`, `UseWorkspaceManagedIdentity` in struct `PATAuthTypeWorkspaceConnectionProperties`
+- New field `NotificationSetting` in struct `PipelineJob`
+- New field `CreatedByWorkspaceArmID`, `Error`, `ExpiryTime`, `Group`, `IsSharedToAll`, `Metadata`, `PeRequirement`, `PeStatus`, `SharedUserList`, `UseWorkspaceManagedIdentity` in struct `SASAuthTypeWorkspaceConnectionProperties`
+- New field `NotificationSetting`, `QueueSettings` in struct `SweepJob`
+- New field `CreatedByWorkspaceArmID`, `Error`, `ExpiryTime`, `Group`, `IsSharedToAll`, `Metadata`, `PeRequirement`, `PeStatus`, `SharedUserList`, `UseWorkspaceManagedIdentity` in struct `UsernamePasswordAuthTypeWorkspaceConnectionProperties`
+- New field `Kind` in struct `Workspace`
+- New field `SecurityToken` in struct `WorkspaceConnectionUsernamePassword`
+- New field `Body` in struct `WorkspaceConnectionsClientCreateOptions`
+- New field `IncludeAll` in struct `WorkspaceConnectionsClientListOptions`
+- New field `AllowRoleAssignmentOnRG`, `AssociatedWorkspaces`, `ContainerRegistries`, `EnableDataIsolation`, `EnableServiceSideCMKEncryption`, `EnableSimplifiedCmk`, `EnableSoftwareBillOfMaterials`, `ExistingWorkspaces`, `FeatureStoreSettings`, `HubResourceID`, `IPAllowlist`, `KeyVaults`, `ManagedNetwork`, `ServerlessComputeSettings`, `SoftDeleteRetentionInDays`, `StorageAccounts`, `SystemDatastoresAuthMode`, `WorkspaceHubConfig` in struct `WorkspaceProperties`
+- New field `AllowRoleAssignmentOnRG`, `EnableDataIsolation`, `EnableSoftwareBillOfMaterials`, `Encryption`, `FeatureStoreSettings`, `IPAllowlist`, `ManagedNetwork`, `ServerlessComputeSettings`, `SoftDeleteRetentionInDays`, `V1LegacyMode` in struct `WorkspacePropertiesUpdateParameters`
+- New field `ForceToPurge` in struct `WorkspacesClientBeginDeleteOptions`
+- New field `Body` in struct `WorkspacesClientBeginDiagnoseOptions`
+- New field `AiCapabilities`, `Kind` in struct `WorkspacesClientListByResourceGroupOptions`
+- New field `AiCapabilities`, `Kind` in struct `WorkspacesClientListBySubscriptionOptions`
+
+
 ## 3.2.0 (2023-11-24)
 ### Features Added
 
