@@ -45,7 +45,7 @@ func NewOpenShiftVersionsClient(subscriptionID string, credential azcore.TokenCr
 
 // NewListPager - The operation returns the installable OpenShift versions as strings.
 //
-// Generated from API version 2023-11-22
+// Generated from API version 2024-08-12-preview
 //   - location - The name of Azure region.
 //   - options - OpenShiftVersionsClientListOptions contains the optional parameters for the OpenShiftVersionsClient.NewListPager
 //     method.
@@ -88,7 +88,7 @@ func (client *OpenShiftVersionsClient) listCreateRequest(ctx context.Context, lo
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-22")
+	reqQP.Set("api-version", "2024-08-12-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
