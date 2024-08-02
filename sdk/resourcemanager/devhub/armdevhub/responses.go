@@ -8,10 +8,28 @@
 
 package armdevhub
 
+// ADOOAuthClientGetResponse contains the response from method ADOOAuthClient.Get.
+type ADOOAuthClientGetResponse struct {
+	// Singleton response of ADO OAuth.
+	ADOOAuthResponse
+}
+
+// ADOOAuthClientListResponse contains the response from method ADOOAuthClient.NewListPager.
+type ADOOAuthClientListResponse struct {
+	// The response from List ADOOAuth operation.
+	ADOOAuthListResponse
+}
+
 // DeveloperHubServiceClientGeneratePreviewArtifactsResponse contains the response from method DeveloperHubServiceClient.GeneratePreviewArtifacts.
 type DeveloperHubServiceClientGeneratePreviewArtifactsResponse struct {
 	// Dockerfile and manifest artifacts generated as a preview are returned as a map<path string,content string>
 	Value map[string]*string
+}
+
+// DeveloperHubServiceClientGetADOOAuthInfoResponse contains the response from method DeveloperHubServiceClient.GetADOOAuthInfo.
+type DeveloperHubServiceClientGetADOOAuthInfoResponse struct {
+	// Response containing ADO OAuth information
+	ADOOAuthInfoResponse
 }
 
 // DeveloperHubServiceClientGitHubOAuthCallbackResponse contains the response from method DeveloperHubServiceClient.GitHubOAuthCallback.
@@ -30,6 +48,54 @@ type DeveloperHubServiceClientGitHubOAuthResponse struct {
 type DeveloperHubServiceClientListGitHubOAuthResponse struct {
 	// The response from List GitHubOAuth operation.
 	GitHubOAuthListResponse
+}
+
+// IacProfilesClientCreateOrUpdateResponse contains the response from method IacProfilesClient.CreateOrUpdate.
+type IacProfilesClientCreateOrUpdateResponse struct {
+	// Resource representation of a IacProfile.
+	IacProfile
+}
+
+// IacProfilesClientDeleteResponse contains the response from method IacProfilesClient.Delete.
+type IacProfilesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// IacProfilesClientExportResponse contains the response from method IacProfilesClient.Export.
+type IacProfilesClientExportResponse struct {
+	PrLinkResponse
+}
+
+// IacProfilesClientGetResponse contains the response from method IacProfilesClient.Get.
+type IacProfilesClientGetResponse struct {
+	// Resource representation of a IacProfile.
+	IacProfile
+}
+
+// IacProfilesClientListByResourceGroupResponse contains the response from method IacProfilesClient.NewListByResourceGroupPager.
+type IacProfilesClientListByResourceGroupResponse struct {
+	IacProfileListResult
+}
+
+// IacProfilesClientListResponse contains the response from method IacProfilesClient.NewListPager.
+type IacProfilesClientListResponse struct {
+	IacProfileListResult
+}
+
+// IacProfilesClientScaleResponse contains the response from method IacProfilesClient.Scale.
+type IacProfilesClientScaleResponse struct {
+	PrLinkResponse
+}
+
+// IacProfilesClientSyncResponse contains the response from method IacProfilesClient.Sync.
+type IacProfilesClientSyncResponse struct {
+	// placeholder for future response values
+}
+
+// IacProfilesClientUpdateTagsResponse contains the response from method IacProfilesClient.UpdateTags.
+type IacProfilesClientUpdateTagsResponse struct {
+	// Resource representation of a IacProfile.
+	IacProfile
 }
 
 // OperationsClientListResponse contains the response from method OperationsClient.List.
