@@ -47,7 +47,7 @@ func NewProjectsClient(subscriptionID string, credential azcore.TokenCredential,
 // BeginCreateOrUpdate - Creates or updates a project.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - projectName - The name of the project.
 //   - body - Represents a project.
@@ -74,7 +74,7 @@ func (client *ProjectsClient) BeginCreateOrUpdate(ctx context.Context, resourceG
 // CreateOrUpdate - Creates or updates a project.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-08-01-preview
 func (client *ProjectsClient) createOrUpdate(ctx context.Context, resourceGroupName string, projectName string, body Project, options *ProjectsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ProjectsClient.BeginCreateOrUpdate"
@@ -116,7 +116,7 @@ func (client *ProjectsClient) createOrUpdateCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -128,7 +128,7 @@ func (client *ProjectsClient) createOrUpdateCreateRequest(ctx context.Context, r
 // BeginDelete - Deletes a project resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - projectName - The name of the project.
 //   - options - ProjectsClientBeginDeleteOptions contains the optional parameters for the ProjectsClient.BeginDelete method.
@@ -153,7 +153,7 @@ func (client *ProjectsClient) BeginDelete(ctx context.Context, resourceGroupName
 // Delete - Deletes a project resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-08-01-preview
 func (client *ProjectsClient) deleteOperation(ctx context.Context, resourceGroupName string, projectName string, options *ProjectsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ProjectsClient.BeginDelete"
@@ -195,7 +195,7 @@ func (client *ProjectsClient) deleteCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -204,7 +204,7 @@ func (client *ProjectsClient) deleteCreateRequest(ctx context.Context, resourceG
 // Get - Gets a specific project.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - projectName - The name of the project.
 //   - options - ProjectsClientGetOptions contains the optional parameters for the ProjectsClient.Get method.
@@ -250,7 +250,7 @@ func (client *ProjectsClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -265,9 +265,74 @@ func (client *ProjectsClient) getHandleResponse(resp *http.Response) (ProjectsCl
 	return result, nil
 }
 
+// GetInheritedSettings - Gets applicable inherited settings for this project.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-08-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - projectName - The name of the project.
+//   - options - ProjectsClientGetInheritedSettingsOptions contains the optional parameters for the ProjectsClient.GetInheritedSettings
+//     method.
+func (client *ProjectsClient) GetInheritedSettings(ctx context.Context, resourceGroupName string, projectName string, options *ProjectsClientGetInheritedSettingsOptions) (ProjectsClientGetInheritedSettingsResponse, error) {
+	var err error
+	const operationName = "ProjectsClient.GetInheritedSettings"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.getInheritedSettingsCreateRequest(ctx, resourceGroupName, projectName, options)
+	if err != nil {
+		return ProjectsClientGetInheritedSettingsResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return ProjectsClientGetInheritedSettingsResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return ProjectsClientGetInheritedSettingsResponse{}, err
+	}
+	resp, err := client.getInheritedSettingsHandleResponse(httpResp)
+	return resp, err
+}
+
+// getInheritedSettingsCreateRequest creates the GetInheritedSettings request.
+func (client *ProjectsClient) getInheritedSettingsCreateRequest(ctx context.Context, resourceGroupName string, projectName string, options *ProjectsClientGetInheritedSettingsOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevCenter/projects/{projectName}/getInheritedSettings"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if projectName == "" {
+		return nil, errors.New("parameter projectName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{projectName}", url.PathEscape(projectName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-08-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// getInheritedSettingsHandleResponse handles the GetInheritedSettings response.
+func (client *ProjectsClient) getInheritedSettingsHandleResponse(resp *http.Response) (ProjectsClientGetInheritedSettingsResponse, error) {
+	result := ProjectsClientGetInheritedSettingsResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.InheritedSettingsForProject); err != nil {
+		return ProjectsClientGetInheritedSettingsResponse{}, err
+	}
+	return result, nil
+}
+
 // NewListByResourceGroupPager - Lists all projects in the resource group.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - ProjectsClientListByResourceGroupOptions contains the optional parameters for the ProjectsClient.NewListByResourceGroupPager
 //     method.
@@ -313,7 +378,7 @@ func (client *ProjectsClient) listByResourceGroupCreateRequest(ctx context.Conte
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -330,7 +395,7 @@ func (client *ProjectsClient) listByResourceGroupHandleResponse(resp *http.Respo
 
 // NewListBySubscriptionPager - Lists all projects in the subscription.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-08-01-preview
 //   - options - ProjectsClientListBySubscriptionOptions contains the optional parameters for the ProjectsClient.NewListBySubscriptionPager
 //     method.
 func (client *ProjectsClient) NewListBySubscriptionPager(options *ProjectsClientListBySubscriptionOptions) *runtime.Pager[ProjectsClientListBySubscriptionResponse] {
@@ -371,7 +436,7 @@ func (client *ProjectsClient) listBySubscriptionCreateRequest(ctx context.Contex
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -389,7 +454,7 @@ func (client *ProjectsClient) listBySubscriptionHandleResponse(resp *http.Respon
 // BeginUpdate - Partially updates a project.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - projectName - The name of the project.
 //   - body - Updatable project properties.
@@ -415,7 +480,7 @@ func (client *ProjectsClient) BeginUpdate(ctx context.Context, resourceGroupName
 // Update - Partially updates a project.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-08-01-preview
 func (client *ProjectsClient) update(ctx context.Context, resourceGroupName string, projectName string, body ProjectUpdate, options *ProjectsClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ProjectsClient.BeginUpdate"
@@ -457,7 +522,7 @@ func (client *ProjectsClient) updateCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {

@@ -23,8 +23,11 @@ type ServerFactory struct {
 	CatalogsServer                             CatalogsServer
 	CheckNameAvailabilityServer                CheckNameAvailabilityServer
 	CheckScopedNameAvailabilityServer          CheckScopedNameAvailabilityServer
+	CurationProfilesServer                     CurationProfilesServer
+	CustomizationTasksServer                   CustomizationTasksServer
 	DevBoxDefinitionsServer                    DevBoxDefinitionsServer
 	DevCentersServer                           DevCentersServer
+	EncryptionSetsServer                       EncryptionSetsServer
 	EnvironmentDefinitionsServer               EnvironmentDefinitionsServer
 	EnvironmentTypesServer                     EnvironmentTypesServer
 	GalleriesServer                            GalleriesServer
@@ -33,9 +36,14 @@ type ServerFactory struct {
 	NetworkConnectionsServer                   NetworkConnectionsServer
 	OperationStatusesServer                    OperationStatusesServer
 	OperationsServer                           OperationsServer
+	PlanMembersServer                          PlanMembersServer
+	PlansServer                                PlansServer
 	PoolsServer                                PoolsServer
 	ProjectAllowedEnvironmentTypesServer       ProjectAllowedEnvironmentTypesServer
 	ProjectCatalogEnvironmentDefinitionsServer ProjectCatalogEnvironmentDefinitionsServer
+	ProjectCatalogImageDefinitionBuildServer   ProjectCatalogImageDefinitionBuildServer
+	ProjectCatalogImageDefinitionBuildsServer  ProjectCatalogImageDefinitionBuildsServer
+	ProjectCatalogImageDefinitionsServer       ProjectCatalogImageDefinitionsServer
 	ProjectCatalogsServer                      ProjectCatalogsServer
 	ProjectEnvironmentTypesServer              ProjectEnvironmentTypesServer
 	ProjectsServer                             ProjectsServer
@@ -62,8 +70,11 @@ type ServerFactoryTransport struct {
 	trCatalogsServer                             *CatalogsServerTransport
 	trCheckNameAvailabilityServer                *CheckNameAvailabilityServerTransport
 	trCheckScopedNameAvailabilityServer          *CheckScopedNameAvailabilityServerTransport
+	trCurationProfilesServer                     *CurationProfilesServerTransport
+	trCustomizationTasksServer                   *CustomizationTasksServerTransport
 	trDevBoxDefinitionsServer                    *DevBoxDefinitionsServerTransport
 	trDevCentersServer                           *DevCentersServerTransport
+	trEncryptionSetsServer                       *EncryptionSetsServerTransport
 	trEnvironmentDefinitionsServer               *EnvironmentDefinitionsServerTransport
 	trEnvironmentTypesServer                     *EnvironmentTypesServerTransport
 	trGalleriesServer                            *GalleriesServerTransport
@@ -72,9 +83,14 @@ type ServerFactoryTransport struct {
 	trNetworkConnectionsServer                   *NetworkConnectionsServerTransport
 	trOperationStatusesServer                    *OperationStatusesServerTransport
 	trOperationsServer                           *OperationsServerTransport
+	trPlanMembersServer                          *PlanMembersServerTransport
+	trPlansServer                                *PlansServerTransport
 	trPoolsServer                                *PoolsServerTransport
 	trProjectAllowedEnvironmentTypesServer       *ProjectAllowedEnvironmentTypesServerTransport
 	trProjectCatalogEnvironmentDefinitionsServer *ProjectCatalogEnvironmentDefinitionsServerTransport
+	trProjectCatalogImageDefinitionBuildServer   *ProjectCatalogImageDefinitionBuildServerTransport
+	trProjectCatalogImageDefinitionBuildsServer  *ProjectCatalogImageDefinitionBuildsServerTransport
+	trProjectCatalogImageDefinitionsServer       *ProjectCatalogImageDefinitionsServerTransport
 	trProjectCatalogsServer                      *ProjectCatalogsServerTransport
 	trProjectEnvironmentTypesServer              *ProjectEnvironmentTypesServerTransport
 	trProjectsServer                             *ProjectsServerTransport
@@ -114,6 +130,16 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewCheckScopedNameAvailabilityServerTransport(&s.srv.CheckScopedNameAvailabilityServer)
 		})
 		resp, err = s.trCheckScopedNameAvailabilityServer.Do(req)
+	case "CurationProfilesClient":
+		initServer(s, &s.trCurationProfilesServer, func() *CurationProfilesServerTransport {
+			return NewCurationProfilesServerTransport(&s.srv.CurationProfilesServer)
+		})
+		resp, err = s.trCurationProfilesServer.Do(req)
+	case "CustomizationTasksClient":
+		initServer(s, &s.trCustomizationTasksServer, func() *CustomizationTasksServerTransport {
+			return NewCustomizationTasksServerTransport(&s.srv.CustomizationTasksServer)
+		})
+		resp, err = s.trCustomizationTasksServer.Do(req)
 	case "DevBoxDefinitionsClient":
 		initServer(s, &s.trDevBoxDefinitionsServer, func() *DevBoxDefinitionsServerTransport {
 			return NewDevBoxDefinitionsServerTransport(&s.srv.DevBoxDefinitionsServer)
@@ -122,6 +148,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "DevCentersClient":
 		initServer(s, &s.trDevCentersServer, func() *DevCentersServerTransport { return NewDevCentersServerTransport(&s.srv.DevCentersServer) })
 		resp, err = s.trDevCentersServer.Do(req)
+	case "EncryptionSetsClient":
+		initServer(s, &s.trEncryptionSetsServer, func() *EncryptionSetsServerTransport {
+			return NewEncryptionSetsServerTransport(&s.srv.EncryptionSetsServer)
+		})
+		resp, err = s.trEncryptionSetsServer.Do(req)
 	case "EnvironmentDefinitionsClient":
 		initServer(s, &s.trEnvironmentDefinitionsServer, func() *EnvironmentDefinitionsServerTransport {
 			return NewEnvironmentDefinitionsServerTransport(&s.srv.EnvironmentDefinitionsServer)
@@ -156,6 +187,12 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
+	case "PlanMembersClient":
+		initServer(s, &s.trPlanMembersServer, func() *PlanMembersServerTransport { return NewPlanMembersServerTransport(&s.srv.PlanMembersServer) })
+		resp, err = s.trPlanMembersServer.Do(req)
+	case "PlansClient":
+		initServer(s, &s.trPlansServer, func() *PlansServerTransport { return NewPlansServerTransport(&s.srv.PlansServer) })
+		resp, err = s.trPlansServer.Do(req)
 	case "PoolsClient":
 		initServer(s, &s.trPoolsServer, func() *PoolsServerTransport { return NewPoolsServerTransport(&s.srv.PoolsServer) })
 		resp, err = s.trPoolsServer.Do(req)
@@ -169,6 +206,21 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewProjectCatalogEnvironmentDefinitionsServerTransport(&s.srv.ProjectCatalogEnvironmentDefinitionsServer)
 		})
 		resp, err = s.trProjectCatalogEnvironmentDefinitionsServer.Do(req)
+	case "ProjectCatalogImageDefinitionBuildClient":
+		initServer(s, &s.trProjectCatalogImageDefinitionBuildServer, func() *ProjectCatalogImageDefinitionBuildServerTransport {
+			return NewProjectCatalogImageDefinitionBuildServerTransport(&s.srv.ProjectCatalogImageDefinitionBuildServer)
+		})
+		resp, err = s.trProjectCatalogImageDefinitionBuildServer.Do(req)
+	case "ProjectCatalogImageDefinitionBuildsClient":
+		initServer(s, &s.trProjectCatalogImageDefinitionBuildsServer, func() *ProjectCatalogImageDefinitionBuildsServerTransport {
+			return NewProjectCatalogImageDefinitionBuildsServerTransport(&s.srv.ProjectCatalogImageDefinitionBuildsServer)
+		})
+		resp, err = s.trProjectCatalogImageDefinitionBuildsServer.Do(req)
+	case "ProjectCatalogImageDefinitionsClient":
+		initServer(s, &s.trProjectCatalogImageDefinitionsServer, func() *ProjectCatalogImageDefinitionsServerTransport {
+			return NewProjectCatalogImageDefinitionsServerTransport(&s.srv.ProjectCatalogImageDefinitionsServer)
+		})
+		resp, err = s.trProjectCatalogImageDefinitionsServer.Do(req)
 	case "ProjectCatalogsClient":
 		initServer(s, &s.trProjectCatalogsServer, func() *ProjectCatalogsServerTransport {
 			return NewProjectCatalogsServerTransport(&s.srv.ProjectCatalogsServer)
