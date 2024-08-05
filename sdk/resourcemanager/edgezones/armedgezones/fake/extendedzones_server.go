@@ -19,7 +19,7 @@ import (
 )
 
 // ExtendedZonesServer is a fake server for instances of the armedgezones.ExtendedZonesClient type.
-type ExtendedZonesServer struct {
+type ExtendedZonesServer struct{
 	// Get is the fake for method ExtendedZonesClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, extendedZoneName string, options *armedgezones.ExtendedZonesClientGetOptions) (resp azfake.Responder[armedgezones.ExtendedZonesClientGetResponse], errResp azfake.ErrorResponder)
@@ -35,6 +35,7 @@ type ExtendedZonesServer struct {
 	// Unregister is the fake for method ExtendedZonesClient.Unregister
 	// HTTP status codes to indicate success: http.StatusOK
 	Unregister func(ctx context.Context, extendedZoneName string, options *armedgezones.ExtendedZonesClientUnregisterOptions) (resp azfake.Responder[armedgezones.ExtendedZonesClientUnregisterResponse], errResp azfake.ErrorResponder)
+
 }
 
 // NewExtendedZonesServerTransport creates a new instance of ExtendedZonesServerTransport with the provided implementation.
@@ -42,7 +43,7 @@ type ExtendedZonesServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewExtendedZonesServerTransport(srv *ExtendedZonesServer) *ExtendedZonesServerTransport {
 	return &ExtendedZonesServerTransport{
-		srv:                        srv,
+		srv: srv,
 		newListBySubscriptionPager: newTracker[azfake.PagerResponder[armedgezones.ExtendedZonesClientListBySubscriptionResponse]](),
 	}
 }
@@ -50,7 +51,7 @@ func NewExtendedZonesServerTransport(srv *ExtendedZonesServer) *ExtendedZonesSer
 // ExtendedZonesServerTransport connects instances of armedgezones.ExtendedZonesClient to instances of ExtendedZonesServer.
 // Don't use this type directly, use NewExtendedZonesServerTransport instead.
 type ExtendedZonesServerTransport struct {
-	srv                        *ExtendedZonesServer
+	srv *ExtendedZonesServer
 	newListBySubscriptionPager *tracker[azfake.PagerResponder[armedgezones.ExtendedZonesClientListBySubscriptionResponse]]
 }
 
@@ -120,13 +121,13 @@ func (e *ExtendedZonesServerTransport) dispatchNewListBySubscriptionPager(req *h
 	}
 	newListBySubscriptionPager := e.newListBySubscriptionPager.get(req)
 	if newListBySubscriptionPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.EdgeZones/extendedZones`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 1 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resp := e.srv.NewListBySubscriptionPager(nil)
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.EdgeZones/extendedZones`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 1 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+resp := e.srv.NewListBySubscriptionPager(nil)
 		newListBySubscriptionPager = &resp
 		e.newListBySubscriptionPager.add(req, newListBySubscriptionPager)
 		server.PagerResponderInjectNextLinks(newListBySubscriptionPager, req, func(page *armedgezones.ExtendedZonesClientListBySubscriptionResponse, createLink func() string) {
@@ -204,3 +205,4 @@ func (e *ExtendedZonesServerTransport) dispatchUnregister(req *http.Request) (*h
 	}
 	return resp, nil
 }
+

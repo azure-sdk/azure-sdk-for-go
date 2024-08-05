@@ -5,7 +5,7 @@
 package armedgezones
 
 const (
-	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/edgezones/armedgezones"
+	moduleName = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/edgezones/armedgezones"
 	moduleVersion = "v0.1.0"
 )
 
@@ -19,7 +19,7 @@ const (
 
 // PossibleActionTypeValues returns the possible values for the ActionType const type.
 func PossibleActionTypeValues() []ActionType {
-	return []ActionType{
+	return []ActionType{	
 		ActionTypeInternal,
 	}
 }
@@ -40,7 +40,7 @@ const (
 
 // PossibleCreatedByTypeValues returns the possible values for the CreatedByType const type.
 func PossibleCreatedByTypeValues() []CreatedByType {
-	return []CreatedByType{
+	return []CreatedByType{	
 		CreatedByTypeApplication,
 		CreatedByTypeKey,
 		CreatedByTypeManagedIdentity,
@@ -63,7 +63,7 @@ const (
 
 // PossibleOriginValues returns the possible values for the Origin const type.
 func PossibleOriginValues() []Origin {
-	return []Origin{
+	return []Origin{	
 		OriginSystem,
 		OriginUser,
 		OriginUserSystem,
@@ -92,7 +92,7 @@ const (
 
 // PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
 func PossibleProvisioningStateValues() []ProvisioningState {
-	return []ProvisioningState{
+	return []ProvisioningState{	
 		ProvisioningStateAccepted,
 		ProvisioningStateCanceled,
 		ProvisioningStateDeleting,
@@ -119,10 +119,11 @@ const (
 
 // PossibleRegistrationStateValues returns the possible values for the RegistrationState const type.
 func PossibleRegistrationStateValues() []RegistrationState {
-	return []RegistrationState{
+	return []RegistrationState{	
 		RegistrationStateNotRegistered,
 		RegistrationStatePendingRegister,
 		RegistrationStatePendingUnregister,
 		RegistrationStateRegistered,
 	}
 }
+

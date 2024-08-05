@@ -20,6 +20,7 @@ type ServerFactory struct {
 
 	// OperationsServer contains the fakes for client OperationsClient
 	OperationsServer OperationsServer
+
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -34,10 +35,10 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armedgezones.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                   *ServerFactory
-	trMu                  sync.Mutex
+	srv *ServerFactory
+	trMu sync.Mutex
 	trExtendedZonesServer *ExtendedZonesServerTransport
-	trOperationsServer    *OperationsServerTransport
+	trOperationsServer *OperationsServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -54,9 +55,7 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 
 	switch client {
 	case "ExtendedZonesClient":
-		initServer(s, &s.trExtendedZonesServer, func() *ExtendedZonesServerTransport {
-			return NewExtendedZonesServerTransport(&s.srv.ExtendedZonesServer)
-		})
+		initServer(s, &s.trExtendedZonesServer, func() *ExtendedZonesServerTransport { return NewExtendedZonesServerTransport(&s.srv.ExtendedZonesServer) })
 		resp, err = s.trExtendedZonesServer.Do(req)
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
