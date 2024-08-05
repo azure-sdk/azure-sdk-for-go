@@ -10,7 +10,7 @@ package armsql
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/sql/armsql"
-	moduleVersion = "v2.0.0-beta.5"
+	moduleVersion = "v2.0.0-beta.6"
 )
 
 type AdministratorName string
@@ -127,24 +127,6 @@ func PossibleAlwaysEncryptedEnclaveTypeValues() []AlwaysEncryptedEnclaveType {
 	return []AlwaysEncryptedEnclaveType{
 		AlwaysEncryptedEnclaveTypeDefault,
 		AlwaysEncryptedEnclaveTypeVBS,
-	}
-}
-
-// AuthMetadataLookupModes - The managed instance's authentication metadata lookup mode.
-type AuthMetadataLookupModes string
-
-const (
-	AuthMetadataLookupModesAzureAD AuthMetadataLookupModes = "AzureAD"
-	AuthMetadataLookupModesPaired  AuthMetadataLookupModes = "Paired"
-	AuthMetadataLookupModesWindows AuthMetadataLookupModes = "Windows"
-)
-
-// PossibleAuthMetadataLookupModesValues returns the possible values for the AuthMetadataLookupModes const type.
-func PossibleAuthMetadataLookupModesValues() []AuthMetadataLookupModes {
-	return []AuthMetadataLookupModes{
-		AuthMetadataLookupModesAzureAD,
-		AuthMetadataLookupModesPaired,
-		AuthMetadataLookupModesWindows,
 	}
 }
 
@@ -1006,6 +988,22 @@ func PossibleExternalGovernanceStatusValues() []ExternalGovernanceStatus {
 	}
 }
 
+// FailoverGroupDatabasesSecondaryType - Databases secondary type on partner server.
+type FailoverGroupDatabasesSecondaryType string
+
+const (
+	FailoverGroupDatabasesSecondaryTypeGeo     FailoverGroupDatabasesSecondaryType = "Geo"
+	FailoverGroupDatabasesSecondaryTypeStandby FailoverGroupDatabasesSecondaryType = "Standby"
+)
+
+// PossibleFailoverGroupDatabasesSecondaryTypeValues returns the possible values for the FailoverGroupDatabasesSecondaryType const type.
+func PossibleFailoverGroupDatabasesSecondaryTypeValues() []FailoverGroupDatabasesSecondaryType {
+	return []FailoverGroupDatabasesSecondaryType{
+		FailoverGroupDatabasesSecondaryTypeGeo,
+		FailoverGroupDatabasesSecondaryTypeStandby,
+	}
+}
+
 // FailoverGroupReplicationRole - Local replication role of the failover group instance.
 type FailoverGroupReplicationRole string
 
@@ -1073,22 +1071,6 @@ func PossibleFreeLimitExhaustionBehaviorValues() []FreeLimitExhaustionBehavior {
 	}
 }
 
-// FreemiumType - Weather or not Managed Instance is freemium.
-type FreemiumType string
-
-const (
-	FreemiumTypeFreemium FreemiumType = "Freemium"
-	FreemiumTypeRegular  FreemiumType = "Regular"
-)
-
-// PossibleFreemiumTypeValues returns the possible values for the FreemiumType const type.
-func PossibleFreemiumTypeValues() []FreemiumType {
-	return []FreemiumType{
-		FreemiumTypeFreemium,
-		FreemiumTypeRegular,
-	}
-}
-
 type GeoBackupPolicyName string
 
 const (
@@ -1115,41 +1097,6 @@ func PossibleGeoBackupPolicyStateValues() []GeoBackupPolicyState {
 	return []GeoBackupPolicyState{
 		GeoBackupPolicyStateDisabled,
 		GeoBackupPolicyStateEnabled,
-	}
-}
-
-// HybridSecondaryUsage - Hybrid secondary usage. Possible values are 'Active' (default value) and 'Passive' (customer uses
-// the secondary as Passive DR).
-type HybridSecondaryUsage string
-
-const (
-	HybridSecondaryUsageActive  HybridSecondaryUsage = "Active"
-	HybridSecondaryUsagePassive HybridSecondaryUsage = "Passive"
-)
-
-// PossibleHybridSecondaryUsageValues returns the possible values for the HybridSecondaryUsage const type.
-func PossibleHybridSecondaryUsageValues() []HybridSecondaryUsage {
-	return []HybridSecondaryUsage{
-		HybridSecondaryUsageActive,
-		HybridSecondaryUsagePassive,
-	}
-}
-
-// HybridSecondaryUsageDetected - Hybrid secondary usage detected. Possible values are 'Active' (customer does not meet the
-// requirements to use the secondary as Passive DR) and 'Passive' (customer meets the requirements to use the
-// secondary as Passive DR).
-type HybridSecondaryUsageDetected string
-
-const (
-	HybridSecondaryUsageDetectedActive  HybridSecondaryUsageDetected = "Active"
-	HybridSecondaryUsageDetectedPassive HybridSecondaryUsageDetected = "Passive"
-)
-
-// PossibleHybridSecondaryUsageDetectedValues returns the possible values for the HybridSecondaryUsageDetected const type.
-func PossibleHybridSecondaryUsageDetectedValues() []HybridSecondaryUsageDetected {
-	return []HybridSecondaryUsageDetected{
-		HybridSecondaryUsageDetectedActive,
-		HybridSecondaryUsageDetectedPassive,
 	}
 }
 
@@ -1563,22 +1510,6 @@ func PossibleManagedInstanceAdministratorTypeValues() []ManagedInstanceAdministr
 	}
 }
 
-// ManagedInstanceDatabaseFormat - Specifies the internal format of instance databases specific to the SQL engine version.
-type ManagedInstanceDatabaseFormat string
-
-const (
-	ManagedInstanceDatabaseFormatAlwaysUpToDate ManagedInstanceDatabaseFormat = "AlwaysUpToDate"
-	ManagedInstanceDatabaseFormatSQLServer2022  ManagedInstanceDatabaseFormat = "SQLServer2022"
-)
-
-// PossibleManagedInstanceDatabaseFormatValues returns the possible values for the ManagedInstanceDatabaseFormat const type.
-func PossibleManagedInstanceDatabaseFormatValues() []ManagedInstanceDatabaseFormat {
-	return []ManagedInstanceDatabaseFormat{
-		ManagedInstanceDatabaseFormatAlwaysUpToDate,
-		ManagedInstanceDatabaseFormatSQLServer2022,
-	}
-}
-
 // ManagedInstanceLicenseType - The license type. Possible values are 'LicenseIncluded' (regular price inclusive of a new
 // SQL license) and 'BasePrice' (discounted AHB price for bringing your own SQL licenses).
 type ManagedInstanceLicenseType string
@@ -1606,6 +1537,47 @@ const (
 func PossibleManagedInstanceLongTermRetentionPolicyNameValues() []ManagedInstanceLongTermRetentionPolicyName {
 	return []ManagedInstanceLongTermRetentionPolicyName{
 		ManagedInstanceLongTermRetentionPolicyNameDefault,
+	}
+}
+
+type ManagedInstancePropertiesProvisioningState string
+
+const (
+	ManagedInstancePropertiesProvisioningStateAccepted     ManagedInstancePropertiesProvisioningState = "Accepted"
+	ManagedInstancePropertiesProvisioningStateCanceled     ManagedInstancePropertiesProvisioningState = "Canceled"
+	ManagedInstancePropertiesProvisioningStateCreated      ManagedInstancePropertiesProvisioningState = "Created"
+	ManagedInstancePropertiesProvisioningStateCreating     ManagedInstancePropertiesProvisioningState = "Creating"
+	ManagedInstancePropertiesProvisioningStateDeleted      ManagedInstancePropertiesProvisioningState = "Deleted"
+	ManagedInstancePropertiesProvisioningStateDeleting     ManagedInstancePropertiesProvisioningState = "Deleting"
+	ManagedInstancePropertiesProvisioningStateFailed       ManagedInstancePropertiesProvisioningState = "Failed"
+	ManagedInstancePropertiesProvisioningStateNotSpecified ManagedInstancePropertiesProvisioningState = "NotSpecified"
+	ManagedInstancePropertiesProvisioningStateRegistering  ManagedInstancePropertiesProvisioningState = "Registering"
+	ManagedInstancePropertiesProvisioningStateRunning      ManagedInstancePropertiesProvisioningState = "Running"
+	ManagedInstancePropertiesProvisioningStateSucceeded    ManagedInstancePropertiesProvisioningState = "Succeeded"
+	ManagedInstancePropertiesProvisioningStateTimedOut     ManagedInstancePropertiesProvisioningState = "TimedOut"
+	ManagedInstancePropertiesProvisioningStateUnknown      ManagedInstancePropertiesProvisioningState = "Unknown"
+	ManagedInstancePropertiesProvisioningStateUnrecognized ManagedInstancePropertiesProvisioningState = "Unrecognized"
+	ManagedInstancePropertiesProvisioningStateUpdating     ManagedInstancePropertiesProvisioningState = "Updating"
+)
+
+// PossibleManagedInstancePropertiesProvisioningStateValues returns the possible values for the ManagedInstancePropertiesProvisioningState const type.
+func PossibleManagedInstancePropertiesProvisioningStateValues() []ManagedInstancePropertiesProvisioningState {
+	return []ManagedInstancePropertiesProvisioningState{
+		ManagedInstancePropertiesProvisioningStateAccepted,
+		ManagedInstancePropertiesProvisioningStateCanceled,
+		ManagedInstancePropertiesProvisioningStateCreated,
+		ManagedInstancePropertiesProvisioningStateCreating,
+		ManagedInstancePropertiesProvisioningStateDeleted,
+		ManagedInstancePropertiesProvisioningStateDeleting,
+		ManagedInstancePropertiesProvisioningStateFailed,
+		ManagedInstancePropertiesProvisioningStateNotSpecified,
+		ManagedInstancePropertiesProvisioningStateRegistering,
+		ManagedInstancePropertiesProvisioningStateRunning,
+		ManagedInstancePropertiesProvisioningStateSucceeded,
+		ManagedInstancePropertiesProvisioningStateTimedOut,
+		ManagedInstancePropertiesProvisioningStateUnknown,
+		ManagedInstancePropertiesProvisioningStateUnrecognized,
+		ManagedInstancePropertiesProvisioningStateUpdating,
 	}
 }
 
@@ -2188,7 +2160,7 @@ func PossibleReplicaTypeValues() []ReplicaType {
 	}
 }
 
-// ReplicationLinkType - Link type (GEO, NAMED, STANDBY).
+// ReplicationLinkType - Link type (GEO, NAMED, STANDBY). Update operation does not support NAMED.
 type ReplicationLinkType string
 
 const (
