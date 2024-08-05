@@ -19,7 +19,7 @@ import (
 // ExtendedZonesClient - ExtendedZone operations
 // Don't use this type directly, use NewExtendedZonesClient() instead.
 type ExtendedZonesClient struct {
-	internal       *arm.Client
+	internal *arm.Client
 	subscriptionID string
 }
 
@@ -34,7 +34,7 @@ func NewExtendedZonesClient(subscriptionID string, credential azcore.TokenCreden
 	}
 	client := &ExtendedZonesClient{
 		subscriptionID: subscriptionID,
-		internal:       cl,
+	internal: cl,
 	}
 	return client, nil
 }
@@ -103,13 +103,13 @@ func (client *ExtendedZonesClient) getHandleResponse(resp *http.Response) (Exten
 // Generated from API version 2024-04-01-preview
 //   - options - ExtendedZonesClientListBySubscriptionOptions contains the optional parameters for the ExtendedZonesClient.NewListBySubscriptionPager
 //     method.
-func (client *ExtendedZonesClient) NewListBySubscriptionPager(options *ExtendedZonesClientListBySubscriptionOptions) *runtime.Pager[ExtendedZonesClientListBySubscriptionResponse] {
+func (client *ExtendedZonesClient) NewListBySubscriptionPager(options *ExtendedZonesClientListBySubscriptionOptions) (*runtime.Pager[ExtendedZonesClientListBySubscriptionResponse]) {
 	return runtime.NewPager(runtime.PagingHandler[ExtendedZonesClientListBySubscriptionResponse]{
 		More: func(page ExtendedZonesClientListBySubscriptionResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *ExtendedZonesClientListBySubscriptionResponse) (ExtendedZonesClientListBySubscriptionResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ExtendedZonesClient.NewListBySubscriptionPager")
+		ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ExtendedZonesClient.NewListBySubscriptionPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
@@ -121,7 +121,7 @@ func (client *ExtendedZonesClient) NewListBySubscriptionPager(options *ExtendedZ
 				return ExtendedZonesClientListBySubscriptionResponse{}, err
 			}
 			return client.listBySubscriptionHandleResponse(resp)
-		},
+			},
 		Tracer: client.internal.Tracer(),
 	})
 }
@@ -271,3 +271,4 @@ func (client *ExtendedZonesClient) unregisterHandleResponse(resp *http.Response)
 	}
 	return result, nil
 }
+
