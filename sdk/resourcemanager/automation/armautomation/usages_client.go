@@ -46,7 +46,7 @@ func NewUsagesClient(subscriptionID string, credential azcore.TokenCredential, o
 
 // NewListByAutomationAccountPager - Retrieve the usage for the account id.
 //
-// Generated from API version 2021-06-22
+// Generated from API version 2023-11-01
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - options - UsagesClientListByAutomationAccountOptions contains the optional parameters for the UsagesClient.NewListByAutomationAccountPager
@@ -95,7 +95,7 @@ func (client *UsagesClient) listByAutomationAccountCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-22")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -106,6 +106,67 @@ func (client *UsagesClient) listByAutomationAccountHandleResponse(resp *http.Res
 	result := UsagesClientListByAutomationAccountResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.UsageListResult); err != nil {
 		return UsagesClientListByAutomationAccountResponse{}, err
+	}
+	return result, nil
+}
+
+// NewListByLocationPager - Retrieve the usage for the location.
+//
+// Generated from API version 2023-11-01
+//   - location - The name of the Azure region.
+//   - options - UsagesClientListByLocationOptions contains the optional parameters for the UsagesClient.NewListByLocationPager
+//     method.
+func (client *UsagesClient) NewListByLocationPager(location string, options *UsagesClientListByLocationOptions) *runtime.Pager[UsagesClientListByLocationResponse] {
+	return runtime.NewPager(runtime.PagingHandler[UsagesClientListByLocationResponse]{
+		More: func(page UsagesClientListByLocationResponse) bool {
+			return false
+		},
+		Fetcher: func(ctx context.Context, page *UsagesClientListByLocationResponse) (UsagesClientListByLocationResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "UsagesClient.NewListByLocationPager")
+			req, err := client.listByLocationCreateRequest(ctx, location, options)
+			if err != nil {
+				return UsagesClientListByLocationResponse{}, err
+			}
+			resp, err := client.internal.Pipeline().Do(req)
+			if err != nil {
+				return UsagesClientListByLocationResponse{}, err
+			}
+			if !runtime.HasStatusCode(resp, http.StatusOK) {
+				return UsagesClientListByLocationResponse{}, runtime.NewResponseError(resp)
+			}
+			return client.listByLocationHandleResponse(resp)
+		},
+		Tracer: client.internal.Tracer(),
+	})
+}
+
+// listByLocationCreateRequest creates the ListByLocation request.
+func (client *UsagesClient) listByLocationCreateRequest(ctx context.Context, location string, options *UsagesClientListByLocationOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Automation/locations/{location}/usages"
+	if location == "" {
+		return nil, errors.New("parameter location cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-11-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// listByLocationHandleResponse handles the ListByLocation response.
+func (client *UsagesClient) listByLocationHandleResponse(resp *http.Response) (UsagesClientListByLocationResponse, error) {
+	result := UsagesClientListByLocationResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.UsageList); err != nil {
+		return UsagesClientListByLocationResponse{}, err
 	}
 	return result, nil
 }
