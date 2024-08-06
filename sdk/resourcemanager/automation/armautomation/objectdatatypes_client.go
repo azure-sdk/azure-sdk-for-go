@@ -46,7 +46,7 @@ func NewObjectDataTypesClient(subscriptionID string, credential azcore.TokenCred
 
 // NewListFieldsByModuleAndTypePager - Retrieve a list of fields of a given type identified by module name.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2023-11-01
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - moduleName - The name of module.
@@ -105,7 +105,7 @@ func (client *ObjectDataTypesClient) listFieldsByModuleAndTypeCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -122,7 +122,7 @@ func (client *ObjectDataTypesClient) listFieldsByModuleAndTypeHandleResponse(res
 
 // NewListFieldsByTypePager - Retrieve a list of fields of a given type across all accessible modules.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2023-11-01
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - typeName - The name of type.
@@ -176,7 +176,7 @@ func (client *ObjectDataTypesClient) listFieldsByTypeCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

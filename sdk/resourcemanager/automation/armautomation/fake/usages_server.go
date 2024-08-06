@@ -25,6 +25,10 @@ type UsagesServer struct {
 	// NewListByAutomationAccountPager is the fake for method UsagesClient.NewListByAutomationAccountPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListByAutomationAccountPager func(resourceGroupName string, automationAccountName string, options *armautomation.UsagesClientListByAutomationAccountOptions) (resp azfake.PagerResponder[armautomation.UsagesClientListByAutomationAccountResponse])
+
+	// NewListByLocationPager is the fake for method UsagesClient.NewListByLocationPager
+	// HTTP status codes to indicate success: http.StatusOK
+	NewListByLocationPager func(location string, options *armautomation.UsagesClientListByLocationOptions) (resp azfake.PagerResponder[armautomation.UsagesClientListByLocationResponse])
 }
 
 // NewUsagesServerTransport creates a new instance of UsagesServerTransport with the provided implementation.
@@ -34,6 +38,7 @@ func NewUsagesServerTransport(srv *UsagesServer) *UsagesServerTransport {
 	return &UsagesServerTransport{
 		srv:                             srv,
 		newListByAutomationAccountPager: newTracker[azfake.PagerResponder[armautomation.UsagesClientListByAutomationAccountResponse]](),
+		newListByLocationPager:          newTracker[azfake.PagerResponder[armautomation.UsagesClientListByLocationResponse]](),
 	}
 }
 
@@ -42,6 +47,7 @@ func NewUsagesServerTransport(srv *UsagesServer) *UsagesServerTransport {
 type UsagesServerTransport struct {
 	srv                             *UsagesServer
 	newListByAutomationAccountPager *tracker[azfake.PagerResponder[armautomation.UsagesClientListByAutomationAccountResponse]]
+	newListByLocationPager          *tracker[azfake.PagerResponder[armautomation.UsagesClientListByLocationResponse]]
 }
 
 // Do implements the policy.Transporter interface for UsagesServerTransport.
@@ -58,6 +64,8 @@ func (u *UsagesServerTransport) Do(req *http.Request) (*http.Response, error) {
 	switch method {
 	case "UsagesClient.NewListByAutomationAccountPager":
 		resp, err = u.dispatchNewListByAutomationAccountPager(req)
+	case "UsagesClient.NewListByLocationPager":
+		resp, err = u.dispatchNewListByLocationPager(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -103,6 +111,40 @@ func (u *UsagesServerTransport) dispatchNewListByAutomationAccountPager(req *htt
 	}
 	if !server.PagerResponderMore(newListByAutomationAccountPager) {
 		u.newListByAutomationAccountPager.remove(req)
+	}
+	return resp, nil
+}
+
+func (u *UsagesServerTransport) dispatchNewListByLocationPager(req *http.Request) (*http.Response, error) {
+	if u.srv.NewListByLocationPager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListByLocationPager not implemented")}
+	}
+	newListByLocationPager := u.newListByLocationPager.get(req)
+	if newListByLocationPager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Automation/locations/(?P<location>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/usages`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 2 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		locationParam, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
+		if err != nil {
+			return nil, err
+		}
+		resp := u.srv.NewListByLocationPager(locationParam, nil)
+		newListByLocationPager = &resp
+		u.newListByLocationPager.add(req, newListByLocationPager)
+	}
+	resp, err := server.PagerResponderNext(newListByLocationPager, req)
+	if err != nil {
+		return nil, err
+	}
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+		u.newListByLocationPager.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+	}
+	if !server.PagerResponderMore(newListByLocationPager) {
+		u.newListByLocationPager.remove(req)
 	}
 	return resp, nil
 }
