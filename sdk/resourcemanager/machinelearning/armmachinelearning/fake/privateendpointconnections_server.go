@@ -15,7 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/machinelearning/armmachinelearning/v3"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/machinelearning/armmachinelearning/v4"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -25,7 +25,7 @@ import (
 type PrivateEndpointConnectionsServer struct {
 	// CreateOrUpdate is the fake for method PrivateEndpointConnectionsClient.CreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK
-	CreateOrUpdate func(ctx context.Context, resourceGroupName string, workspaceName string, privateEndpointConnectionName string, properties armmachinelearning.PrivateEndpointConnection, options *armmachinelearning.PrivateEndpointConnectionsClientCreateOrUpdateOptions) (resp azfake.Responder[armmachinelearning.PrivateEndpointConnectionsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	CreateOrUpdate func(ctx context.Context, resourceGroupName string, workspaceName string, privateEndpointConnectionName string, body armmachinelearning.PrivateEndpointConnection, options *armmachinelearning.PrivateEndpointConnectionsClientCreateOrUpdateOptions) (resp azfake.Responder[armmachinelearning.PrivateEndpointConnectionsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// Delete is the fake for method PrivateEndpointConnectionsClient.Delete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
