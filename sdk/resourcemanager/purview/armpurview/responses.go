@@ -38,32 +38,20 @@ type AccountsClientGetResponse struct {
 
 // AccountsClientListByResourceGroupResponse contains the response from method AccountsClient.NewListByResourceGroupPager.
 type AccountsClientListByResourceGroupResponse struct {
-	// Paged list of account resources
+	// Paged list of Account resources
 	AccountList
 }
 
 // AccountsClientListBySubscriptionResponse contains the response from method AccountsClient.NewListBySubscriptionPager.
 type AccountsClientListBySubscriptionResponse struct {
-	// Paged list of account resources
+	// Paged list of Account resources
 	AccountList
-}
-
-// AccountsClientListKeysResponse contains the response from method AccountsClient.ListKeys.
-type AccountsClientListKeysResponse struct {
-	// The Account access keys.
-	AccessKeys
 }
 
 // AccountsClientUpdateResponse contains the response from method AccountsClient.BeginUpdate.
 type AccountsClientUpdateResponse struct {
 	// Account resource
 	Account
-}
-
-// DefaultAccountsClientGetResponse contains the response from method DefaultAccountsClient.Get.
-type DefaultAccountsClientGetResponse struct {
-	// Payload to get and set the default account in the given scope
-	DefaultAccountPayload
 }
 
 // DefaultAccountsClientRemoveResponse contains the response from method DefaultAccountsClient.Remove.
@@ -75,6 +63,41 @@ type DefaultAccountsClientRemoveResponse struct {
 type DefaultAccountsClientSetResponse struct {
 	// Payload to get and set the default account in the given scope
 	DefaultAccountPayload
+}
+
+// FeaturesClientAccountGetResponse contains the response from method FeaturesClient.AccountGet.
+type FeaturesClientAccountGetResponse struct {
+	// List of features with enabled status
+	BatchFeatureStatus
+}
+
+// FeaturesClientSubscriptionGetResponse contains the response from method FeaturesClient.SubscriptionGet.
+type FeaturesClientSubscriptionGetResponse struct {
+	// List of features with enabled status
+	BatchFeatureStatus
+}
+
+// KafkaConfigurationsClientCreateOrUpdateResponse contains the response from method KafkaConfigurationsClient.CreateOrUpdate.
+type KafkaConfigurationsClientCreateOrUpdateResponse struct {
+	// The configuration of the event streaming service resource attached to the Purview account for kafka notifications.
+	KafkaConfiguration
+}
+
+// KafkaConfigurationsClientDeleteResponse contains the response from method KafkaConfigurationsClient.Delete.
+type KafkaConfigurationsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// KafkaConfigurationsClientGetResponse contains the response from method KafkaConfigurationsClient.Get.
+type KafkaConfigurationsClientGetResponse struct {
+	// The configuration of the event streaming service resource attached to the Purview account for kafka notifications.
+	KafkaConfiguration
+}
+
+// KafkaConfigurationsClientListByAccountResponse contains the response from method KafkaConfigurationsClient.NewListByAccountPager.
+type KafkaConfigurationsClientListByAccountResponse struct {
+	// Paged list of kafka configuration resources
+	KafkaConfigurationList
 }
 
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
@@ -116,4 +139,10 @@ type PrivateLinkResourcesClientGetByGroupIDResponse struct {
 type PrivateLinkResourcesClientListByAccountResponse struct {
 	// Paged list of private link resources
 	PrivateLinkResourceList
+}
+
+// UsagesClientGetResponse contains the response from method UsagesClient.Get.
+type UsagesClientGetResponse struct {
+	// Response for usage get request
+	UsageList
 }
