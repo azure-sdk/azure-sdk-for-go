@@ -165,8 +165,13 @@ func (m *MetricsServerTransport) dispatchList(req *http.Request) (*http.Response
 	if err != nil {
 		return nil, err
 	}
+	rollupbyUnescaped, err := url.QueryUnescape(qp.Get("rollupby"))
+	if err != nil {
+		return nil, err
+	}
+	rollupbyParam := getOptional(rollupbyUnescaped)
 	var options *armmonitor.MetricsClientListOptions
-	if timespanParam != nil || intervalParam != nil || metricnamesParam != nil || aggregationParam != nil || topParam != nil || orderbyParam != nil || filterParam != nil || resultTypeParam != nil || metricnamespaceParam != nil || autoAdjustTimegrainParam != nil || validateDimensionsParam != nil {
+	if timespanParam != nil || intervalParam != nil || metricnamesParam != nil || aggregationParam != nil || topParam != nil || orderbyParam != nil || filterParam != nil || resultTypeParam != nil || metricnamespaceParam != nil || autoAdjustTimegrainParam != nil || validateDimensionsParam != nil || rollupbyParam != nil {
 		options = &armmonitor.MetricsClientListOptions{
 			Timespan:            timespanParam,
 			Interval:            intervalParam,
@@ -179,6 +184,7 @@ func (m *MetricsServerTransport) dispatchList(req *http.Request) (*http.Response
 			Metricnamespace:     metricnamespaceParam,
 			AutoAdjustTimegrain: autoAdjustTimegrainParam,
 			ValidateDimensions:  validateDimensionsParam,
+			Rollupby:            rollupbyParam,
 		}
 	}
 	respr, errRespr := m.srv.List(req.Context(), resourceURIParam, options)
@@ -281,8 +287,13 @@ func (m *MetricsServerTransport) dispatchListAtSubscriptionScope(req *http.Reque
 	if err != nil {
 		return nil, err
 	}
+	rollupbyUnescaped, err := url.QueryUnescape(qp.Get("rollupby"))
+	if err != nil {
+		return nil, err
+	}
+	rollupbyParam := getOptional(rollupbyUnescaped)
 	var options *armmonitor.MetricsClientListAtSubscriptionScopeOptions
-	if timespanParam != nil || intervalParam != nil || metricnamesParam != nil || aggregationParam != nil || topParam != nil || orderbyParam != nil || filterParam != nil || resultTypeParam != nil || metricnamespaceParam != nil || autoAdjustTimegrainParam != nil || validateDimensionsParam != nil {
+	if timespanParam != nil || intervalParam != nil || metricnamesParam != nil || aggregationParam != nil || topParam != nil || orderbyParam != nil || filterParam != nil || resultTypeParam != nil || metricnamespaceParam != nil || autoAdjustTimegrainParam != nil || validateDimensionsParam != nil || rollupbyParam != nil {
 		options = &armmonitor.MetricsClientListAtSubscriptionScopeOptions{
 			Timespan:            timespanParam,
 			Interval:            intervalParam,
@@ -295,6 +306,7 @@ func (m *MetricsServerTransport) dispatchListAtSubscriptionScope(req *http.Reque
 			Metricnamespace:     metricnamespaceParam,
 			AutoAdjustTimegrain: autoAdjustTimegrainParam,
 			ValidateDimensions:  validateDimensionsParam,
+			Rollupby:            rollupbyParam,
 		}
 	}
 	respr, errRespr := m.srv.ListAtSubscriptionScope(req.Context(), regionParam, options)
@@ -305,7 +317,7 @@ func (m *MetricsServerTransport) dispatchListAtSubscriptionScope(req *http.Reque
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SubscriptionScopeMetricResponse, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Response, req)
 	if err != nil {
 		return nil, err
 	}
@@ -401,8 +413,13 @@ func (m *MetricsServerTransport) dispatchListAtSubscriptionScopePost(req *http.R
 	if err != nil {
 		return nil, err
 	}
+	rollupbyUnescaped, err := url.QueryUnescape(qp.Get("rollupby"))
+	if err != nil {
+		return nil, err
+	}
+	rollupbyParam := getOptional(rollupbyUnescaped)
 	var options *armmonitor.MetricsClientListAtSubscriptionScopePostOptions
-	if timespanParam != nil || intervalParam != nil || metricnamesParam != nil || aggregationParam != nil || topParam != nil || orderbyParam != nil || filterParam != nil || resultTypeParam != nil || metricnamespaceParam != nil || autoAdjustTimegrainParam != nil || validateDimensionsParam != nil || !reflect.ValueOf(body).IsZero() {
+	if timespanParam != nil || intervalParam != nil || metricnamesParam != nil || aggregationParam != nil || topParam != nil || orderbyParam != nil || filterParam != nil || resultTypeParam != nil || metricnamespaceParam != nil || autoAdjustTimegrainParam != nil || validateDimensionsParam != nil || rollupbyParam != nil || !reflect.ValueOf(body).IsZero() {
 		options = &armmonitor.MetricsClientListAtSubscriptionScopePostOptions{
 			Timespan:            timespanParam,
 			Interval:            intervalParam,
@@ -415,6 +432,7 @@ func (m *MetricsServerTransport) dispatchListAtSubscriptionScopePost(req *http.R
 			Metricnamespace:     metricnamespaceParam,
 			AutoAdjustTimegrain: autoAdjustTimegrainParam,
 			ValidateDimensions:  validateDimensionsParam,
+			Rollupby:            rollupbyParam,
 			Body:                &body,
 		}
 	}
@@ -426,7 +444,7 @@ func (m *MetricsServerTransport) dispatchListAtSubscriptionScopePost(req *http.R
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SubscriptionScopeMetricResponse, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Response, req)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,13 @@ type ActionGroupsClientBeginCreateNotificationsAtActionGroupResourceLevelOptions
 	ResumeToken string
 }
 
+// ActionGroupsClientBeginReconcileNSPOptions contains the optional parameters for the ActionGroupsClient.BeginReconcileNSP
+// method.
+type ActionGroupsClientBeginReconcileNSPOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // ActionGroupsClientCreateOrUpdateOptions contains the optional parameters for the ActionGroupsClient.CreateOrUpdate method.
 type ActionGroupsClientCreateOrUpdateOptions struct {
 	// placeholder for future optional parameters
@@ -27,6 +34,11 @@ type ActionGroupsClientDeleteOptions struct {
 
 // ActionGroupsClientEnableReceiverOptions contains the optional parameters for the ActionGroupsClient.EnableReceiver method.
 type ActionGroupsClientEnableReceiverOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ActionGroupsClientGetNSPOptions contains the optional parameters for the ActionGroupsClient.GetNSP method.
+type ActionGroupsClientGetNSPOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -50,6 +62,11 @@ type ActionGroupsClientListByResourceGroupOptions struct {
 // ActionGroupsClientListBySubscriptionIDOptions contains the optional parameters for the ActionGroupsClient.NewListBySubscriptionIDPager
 // method.
 type ActionGroupsClientListBySubscriptionIDOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ActionGroupsClientListNSPOptions contains the optional parameters for the ActionGroupsClient.NewListNSPPager method.
+type ActionGroupsClientListNSPOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -177,15 +194,16 @@ type AutoscaleSettingsClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
+// AzureMonitorWorkspacesClientBeginDeleteOptions contains the optional parameters for the AzureMonitorWorkspacesClient.BeginDelete
+// method.
+type AzureMonitorWorkspacesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // AzureMonitorWorkspacesClientCreateOptions contains the optional parameters for the AzureMonitorWorkspacesClient.Create
 // method.
 type AzureMonitorWorkspacesClientCreateOptions struct {
-	// placeholder for future optional parameters
-}
-
-// AzureMonitorWorkspacesClientDeleteOptions contains the optional parameters for the AzureMonitorWorkspacesClient.Delete
-// method.
-type AzureMonitorWorkspacesClientDeleteOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -250,6 +268,26 @@ type BaselinesClientListOptions struct {
 	Timespan *string
 }
 
+// ClientBeginCreateNotificationsAtTenantActionGroupResourceLevelOptions contains the optional parameters for the Client.BeginCreateNotificationsAtTenantActionGroupResourceLevel
+// method.
+type ClientBeginCreateNotificationsAtTenantActionGroupResourceLevelOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ClientGetTestNotificationsAtTenantActionGroupResourceLevelOptions contains the optional parameters for the Client.GetTestNotificationsAtTenantActionGroupResourceLevel
+// method.
+type ClientGetTestNotificationsAtTenantActionGroupResourceLevelOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DataCollectionEndpointsClientBeginReconcileNSPOptions contains the optional parameters for the DataCollectionEndpointsClient.BeginReconcileNSP
+// method.
+type DataCollectionEndpointsClientBeginReconcileNSPOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // DataCollectionEndpointsClientCreateOptions contains the optional parameters for the DataCollectionEndpointsClient.Create
 // method.
 type DataCollectionEndpointsClientCreateOptions struct {
@@ -260,6 +298,12 @@ type DataCollectionEndpointsClientCreateOptions struct {
 // DataCollectionEndpointsClientDeleteOptions contains the optional parameters for the DataCollectionEndpointsClient.Delete
 // method.
 type DataCollectionEndpointsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DataCollectionEndpointsClientGetNSPOptions contains the optional parameters for the DataCollectionEndpointsClient.GetNSP
+// method.
+type DataCollectionEndpointsClientGetNSPOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -277,6 +321,12 @@ type DataCollectionEndpointsClientListByResourceGroupOptions struct {
 // DataCollectionEndpointsClientListBySubscriptionOptions contains the optional parameters for the DataCollectionEndpointsClient.NewListBySubscriptionPager
 // method.
 type DataCollectionEndpointsClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DataCollectionEndpointsClientListNSPOptions contains the optional parameters for the DataCollectionEndpointsClient.NewListNSPPager
+// method.
+type DataCollectionEndpointsClientListNSPOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -332,7 +382,8 @@ type DataCollectionRulesClientCreateOptions struct {
 
 // DataCollectionRulesClientDeleteOptions contains the optional parameters for the DataCollectionRulesClient.Delete method.
 type DataCollectionRulesClientDeleteOptions struct {
-	// placeholder for future optional parameters
+	// If set to 'true' then all associations of this data collection rule will also be deleted
+	DeleteAssociations *bool
 }
 
 // DataCollectionRulesClientGetOptions contains the optional parameters for the DataCollectionRulesClient.Get method.
@@ -486,7 +537,7 @@ type MetricNamespacesClientListOptions struct {
 // MetricsClientListAtSubscriptionScopeOptions contains the optional parameters for the MetricsClient.ListAtSubscriptionScope
 // method.
 type MetricsClientListAtSubscriptionScopeOptions struct {
-	// The list of aggregation types (comma separated) to retrieve.
+	// The list of aggregation types (comma separated) to retrieve.Examples: average, minimum, maximum
 	Aggregation *string
 
 	// When set to true, if the timespan passed in is not supported by this metric, the API will return the result using the closest
@@ -508,7 +559,9 @@ type MetricsClientListAtSubscriptionScopeOptions struct {
 	// $filter=A eq ‘a1’ and B eq ‘’ and C eq ‘’.
 	Filter *string
 
-	// The interval (i.e. timegrain) of the query.
+	// The interval (i.e. timegrain) of the query in ISO 8601 duration format. Defaults to PT1M. Special case for 'FULL' value
+	// that returns single datapoint for entire time span requested.Examples: PT15M,
+	// PT1H, P1D, FULL
 	Interval *string
 
 	// The names of the metrics (comma separated) to retrieve.
@@ -517,17 +570,23 @@ type MetricsClientListAtSubscriptionScopeOptions struct {
 	// Metric namespace where the metrics you want reside.
 	Metricnamespace *string
 
-	// The aggregation to use for sorting results and the direction of the sort. Only one order can be specified. Examples: sum
-	// asc.
+	// The aggregation to use for sorting results and the direction of the sort. Only one order can be specified.Examples: sum
+	// asc
 	Orderby *string
 
 	// Reduces the set of data collected. The syntax allowed depends on the operation. See the operation's description for details.
 	ResultType *MetricResultType
 
+	// Dimension name(s) to rollup results by. For example if you only want to see metric values with a filter like 'City eq Seattle
+	// or City eq Tacoma' but don't want to see separate values for each city,
+	// you can specify 'RollUpBy=City' to see the results for Seattle and Tacoma rolled up into one timeseries.
+	Rollupby *string
+
 	// The timespan of the query. It is a string with the following format 'startDateTimeISO/endDateTimeISO'.
 	Timespan *string
 
-	// The maximum number of records to retrieve. Valid only if $filter is specified. Defaults to 10.
+	// The maximum number of records to retrieve per resource ID in the request. Valid only if filter is specified. Defaults to
+	// 10.
 	Top *int32
 
 	// When set to false, invalid filter parameter values will be ignored. When set to true, an error is returned for invalid
@@ -538,7 +597,7 @@ type MetricsClientListAtSubscriptionScopeOptions struct {
 // MetricsClientListAtSubscriptionScopePostOptions contains the optional parameters for the MetricsClient.ListAtSubscriptionScopePost
 // method.
 type MetricsClientListAtSubscriptionScopePostOptions struct {
-	// The list of aggregation types (comma separated) to retrieve.
+	// The list of aggregation types (comma separated) to retrieve.Examples: average, minimum, maximum
 	Aggregation *string
 
 	// When set to true, if the timespan passed in is not supported by this metric, the API will return the result using the closest
@@ -563,7 +622,9 @@ type MetricsClientListAtSubscriptionScopePostOptions struct {
 	// $filter=A eq ‘a1’ and B eq ‘’ and C eq ‘’.
 	Filter *string
 
-	// The interval (i.e. timegrain) of the query.
+	// The interval (i.e. timegrain) of the query in ISO 8601 duration format. Defaults to PT1M. Special case for 'FULL' value
+	// that returns single datapoint for entire time span requested.Examples: PT15M,
+	// PT1H, P1D, FULL
 	Interval *string
 
 	// The names of the metrics (comma separated) to retrieve.
@@ -572,17 +633,23 @@ type MetricsClientListAtSubscriptionScopePostOptions struct {
 	// Metric namespace where the metrics you want reside.
 	Metricnamespace *string
 
-	// The aggregation to use for sorting results and the direction of the sort. Only one order can be specified. Examples: sum
-	// asc.
+	// The aggregation to use for sorting results and the direction of the sort. Only one order can be specified.Examples: sum
+	// asc
 	Orderby *string
 
 	// Reduces the set of data collected. The syntax allowed depends on the operation. See the operation's description for details.
 	ResultType *MetricResultType
 
+	// Dimension name(s) to rollup results by. For example if you only want to see metric values with a filter like 'City eq Seattle
+	// or City eq Tacoma' but don't want to see separate values for each city,
+	// you can specify 'RollUpBy=City' to see the results for Seattle and Tacoma rolled up into one timeseries.
+	Rollupby *string
+
 	// The timespan of the query. It is a string with the following format 'startDateTimeISO/endDateTimeISO'.
 	Timespan *string
 
-	// The maximum number of records to retrieve. Valid only if $filter is specified. Defaults to 10.
+	// The maximum number of records to retrieve per resource ID in the request. Valid only if filter is specified. Defaults to
+	// 10.
 	Top *int32
 
 	// When set to false, invalid filter parameter values will be ignored. When set to true, an error is returned for invalid
@@ -592,7 +659,7 @@ type MetricsClientListAtSubscriptionScopePostOptions struct {
 
 // MetricsClientListOptions contains the optional parameters for the MetricsClient.List method.
 type MetricsClientListOptions struct {
-	// The list of aggregation types (comma separated) to retrieve.
+	// The list of aggregation types (comma separated) to retrieve.Examples: average, minimum, maximum
 	Aggregation *string
 
 	// When set to true, if the timespan passed in is not supported by this metric, the API will return the result using the closest
@@ -614,7 +681,9 @@ type MetricsClientListOptions struct {
 	// $filter=A eq ‘a1’ and B eq ‘’ and C eq ‘’.
 	Filter *string
 
-	// The interval (i.e. timegrain) of the query.
+	// The interval (i.e. timegrain) of the query in ISO 8601 duration format. Defaults to PT1M. Special case for 'FULL' value
+	// that returns single datapoint for entire time span requested.Examples: PT15M,
+	// PT1H, P1D, FULL
 	Interval *string
 
 	// The names of the metrics (comma separated) to retrieve.
@@ -623,17 +692,23 @@ type MetricsClientListOptions struct {
 	// Metric namespace where the metrics you want reside.
 	Metricnamespace *string
 
-	// The aggregation to use for sorting results and the direction of the sort. Only one order can be specified. Examples: sum
-	// asc.
+	// The aggregation to use for sorting results and the direction of the sort. Only one order can be specified.Examples: sum
+	// asc
 	Orderby *string
 
 	// Reduces the set of data collected. The syntax allowed depends on the operation. See the operation's description for details.
 	ResultType *ResultType
 
+	// Dimension name(s) to rollup results by. For example if you only want to see metric values with a filter like 'City eq Seattle
+	// or City eq Tacoma' but don't want to see separate values for each city,
+	// you can specify 'RollUpBy=City' to see the results for Seattle and Tacoma rolled up into one timeseries.
+	Rollupby *string
+
 	// The timespan of the query. It is a string with the following format 'startDateTimeISO/endDateTimeISO'.
 	Timespan *string
 
-	// The maximum number of records to retrieve. Valid only if $filter is specified. Defaults to 10.
+	// The maximum number of records to retrieve per resource ID in the request. Valid only if filter is specified. Defaults to
+	// 10.
 	Top *int32
 
 	// When set to false, invalid filter parameter values will be ignored. When set to true, an error is returned for invalid
@@ -757,6 +832,24 @@ type PrivateLinkScopesClientListOptions struct {
 
 // PrivateLinkScopesClientUpdateTagsOptions contains the optional parameters for the PrivateLinkScopesClient.UpdateTags method.
 type PrivateLinkScopesClientUpdateTagsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ScheduledQueryRuleClientBeginReconcileNSPOptions contains the optional parameters for the ScheduledQueryRuleClient.BeginReconcileNSP
+// method.
+type ScheduledQueryRuleClientBeginReconcileNSPOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ScheduledQueryRuleClientGetNSPOptions contains the optional parameters for the ScheduledQueryRuleClient.GetNSP method.
+type ScheduledQueryRuleClientGetNSPOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ScheduledQueryRuleClientListNSPOptions contains the optional parameters for the ScheduledQueryRuleClient.NewListNSPPager
+// method.
+type ScheduledQueryRuleClientListNSPOptions struct {
 	// placeholder for future optional parameters
 }
 

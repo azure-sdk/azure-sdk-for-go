@@ -11,7 +11,7 @@ package armmonitor
 import "encoding/json"
 
 func unmarshalMetricAlertCriteriaClassification(rawMsg json.RawMessage) (MetricAlertCriteriaClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -36,7 +36,7 @@ func unmarshalMetricAlertCriteriaClassification(rawMsg json.RawMessage) (MetricA
 }
 
 func unmarshalMultiMetricCriteriaClassification(rawMsg json.RawMessage) (MultiMetricCriteriaClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -59,7 +59,7 @@ func unmarshalMultiMetricCriteriaClassification(rawMsg json.RawMessage) (MultiMe
 }
 
 func unmarshalMultiMetricCriteriaClassificationArray(rawMsg json.RawMessage) ([]MultiMetricCriteriaClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -78,7 +78,7 @@ func unmarshalMultiMetricCriteriaClassificationArray(rawMsg json.RawMessage) ([]
 }
 
 func unmarshalRuleActionClassification(rawMsg json.RawMessage) (RuleActionClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -101,7 +101,7 @@ func unmarshalRuleActionClassification(rawMsg json.RawMessage) (RuleActionClassi
 }
 
 func unmarshalRuleActionClassificationArray(rawMsg json.RawMessage) ([]RuleActionClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -120,7 +120,7 @@ func unmarshalRuleActionClassificationArray(rawMsg json.RawMessage) ([]RuleActio
 }
 
 func unmarshalRuleConditionClassification(rawMsg json.RawMessage) (RuleConditionClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -145,7 +145,7 @@ func unmarshalRuleConditionClassification(rawMsg json.RawMessage) (RuleCondition
 }
 
 func unmarshalRuleDataSourceClassification(rawMsg json.RawMessage) (RuleDataSourceClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
