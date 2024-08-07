@@ -190,6 +190,9 @@ type InfaServerlessFetchConfigProperties struct {
 	// Serverless Arm Resource ID
 	ServerlessArmResourceID *string
 
+	// Serverless runtime data disks
+	ServerlessRuntimeDataDisks []*ServerlessRuntimeDataDisk
+
 	// subnet name
 	Subnet *string
 
@@ -291,6 +294,9 @@ type InformaticaServerlessRuntimeProperties struct {
 
 	// Serverless config properties
 	ServerlessRuntimeConfig *ServerlessRuntimeConfigProperties
+
+	// Serverless runtime data disks
+	ServerlessRuntimeDataDisks []*ServerlessRuntimeDataDisk
 
 	// Informatica Serverless Network profile properties.
 	ServerlessRuntimeNetworkProfile *ServerlessRuntimeNetworkProfile
@@ -582,6 +588,24 @@ type ServerlessRuntimeConfigPropertiesUpdate struct {
 	CdieConfigProps []*CdiConfigProps
 }
 
+// ServerlessRuntimeDataDisk - Serverless Runtime Data Disk
+type ServerlessRuntimeDataDisk struct {
+	// Mount options
+	MountOptions *string
+
+	// Server Host or IP Address
+	ServerHostOrIPAddress *string
+
+	// Source mount point
+	SourceMount *string
+
+	// Target mount point
+	TargetMount *string
+
+	// Type of the data disk
+	Type *string
+}
+
 // ServerlessRuntimeDependency - Dependency reference for a serverless runtime resource
 type ServerlessRuntimeDependency struct {
 	// REQUIRED; Application context ID
@@ -640,6 +664,9 @@ type ServerlessRuntimePropertiesCustomUpdate struct {
 
 	// Serverless config properties
 	ServerlessRuntimeConfig *ServerlessRuntimeConfigPropertiesUpdate
+
+	// Serverless runtime data disks
+	ServerlessRuntimeDataDisks []*ServerlessRuntimeDataDisk
 
 	// Informatica Serverless Network profile properties.
 	ServerlessRuntimeNetworkProfile *ServerlessRuntimeNetworkProfileUpdate
