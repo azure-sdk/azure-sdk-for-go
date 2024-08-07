@@ -15,7 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/serialconsole/armserialconsole"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/serialconsole/armserialconsole/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -30,10 +30,6 @@ type SerialPortsServer struct {
 	// Create is the fake for method SerialPortsClient.Create
 	// HTTP status codes to indicate success: http.StatusCreated
 	Create func(ctx context.Context, resourceGroupName string, resourceProviderNamespace string, parentResourceType string, parentResource string, serialPort string, parameters armserialconsole.SerialPort, options *armserialconsole.SerialPortsClientCreateOptions) (resp azfake.Responder[armserialconsole.SerialPortsClientCreateResponse], errResp azfake.ErrorResponder)
-
-	// Delete is the fake for method SerialPortsClient.Delete
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
-	Delete func(ctx context.Context, resourceGroupName string, resourceProviderNamespace string, parentResourceType string, parentResource string, serialPort string, options *armserialconsole.SerialPortsClientDeleteOptions) (resp azfake.Responder[armserialconsole.SerialPortsClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method SerialPortsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
@@ -77,8 +73,6 @@ func (s *SerialPortsServerTransport) Do(req *http.Request) (*http.Response, erro
 		resp, err = s.dispatchConnect(req)
 	case "SerialPortsClient.Create":
 		resp, err = s.dispatchCreate(req)
-	case "SerialPortsClient.Delete":
-		resp, err = s.dispatchDelete(req)
 	case "SerialPortsClient.Get":
 		resp, err = s.dispatchGet(req)
 	case "SerialPortsClient.List":
@@ -184,51 +178,6 @@ func (s *SerialPortsServerTransport) dispatchCreate(req *http.Request) (*http.Re
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusCreated", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SerialPort, req)
-	if err != nil {
-		return nil, err
-	}
-	return resp, nil
-}
-
-func (s *SerialPortsServerTransport) dispatchDelete(req *http.Request) (*http.Response, error) {
-	if s.srv.Delete == nil {
-		return nil, &nonRetriableError{errors.New("fake for method Delete not implemented")}
-	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourcegroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/(?P<resourceProviderNamespace>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<parentResourceType>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<parentResource>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.SerialConsole/serialPorts/(?P<serialPort>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 6 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-	if err != nil {
-		return nil, err
-	}
-	resourceProviderNamespaceParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceProviderNamespace")])
-	if err != nil {
-		return nil, err
-	}
-	parentResourceTypeParam, err := url.PathUnescape(matches[regex.SubexpIndex("parentResourceType")])
-	if err != nil {
-		return nil, err
-	}
-	parentResourceParam, err := url.PathUnescape(matches[regex.SubexpIndex("parentResource")])
-	if err != nil {
-		return nil, err
-	}
-	serialPortParam, err := url.PathUnescape(matches[regex.SubexpIndex("serialPort")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := s.srv.Delete(req.Context(), resourceGroupNameParam, resourceProviderNamespaceParam, parentResourceTypeParam, parentResourceParam, serialPortParam, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK, http.StatusNoContent}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusNoContent", respContent.HTTPStatus)}
-	}
-	resp, err := server.NewResponse(respContent, req, nil)
 	if err != nil {
 		return nil, err
 	}

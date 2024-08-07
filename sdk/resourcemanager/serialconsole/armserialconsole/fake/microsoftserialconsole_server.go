@@ -15,7 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/serialconsole/armserialconsole"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/serialconsole/armserialconsole/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -24,21 +24,15 @@ import (
 // MicrosoftSerialConsoleServer is a fake server for instances of the armserialconsole.MicrosoftSerialConsoleClient type.
 type MicrosoftSerialConsoleServer struct {
 	// DisableConsole is the fake for method MicrosoftSerialConsoleClient.DisableConsole
-	// HTTP status codes to indicate success:
-	//   - http.StatusOK (returns armserialconsole.DisableSerialConsoleResult)
-	//   - http.StatusNotFound (returns armserialconsole.GetSerialConsoleSubscriptionNotFound)
+	// HTTP status codes to indicate success: http.StatusOK
 	DisableConsole func(ctx context.Context, defaultParam string, options *armserialconsole.MicrosoftSerialConsoleClientDisableConsoleOptions) (resp azfake.Responder[armserialconsole.MicrosoftSerialConsoleClientDisableConsoleResponse], errResp azfake.ErrorResponder)
 
 	// EnableConsole is the fake for method MicrosoftSerialConsoleClient.EnableConsole
-	// HTTP status codes to indicate success:
-	//   - http.StatusOK (returns armserialconsole.EnableSerialConsoleResult)
-	//   - http.StatusNotFound (returns armserialconsole.GetSerialConsoleSubscriptionNotFound)
+	// HTTP status codes to indicate success: http.StatusOK
 	EnableConsole func(ctx context.Context, defaultParam string, options *armserialconsole.MicrosoftSerialConsoleClientEnableConsoleOptions) (resp azfake.Responder[armserialconsole.MicrosoftSerialConsoleClientEnableConsoleResponse], errResp azfake.ErrorResponder)
 
 	// GetConsoleStatus is the fake for method MicrosoftSerialConsoleClient.GetConsoleStatus
-	// HTTP status codes to indicate success:
-	//   - http.StatusOK (returns armserialconsole.Status)
-	//   - http.StatusNotFound (returns armserialconsole.GetSerialConsoleSubscriptionNotFound)
+	// HTTP status codes to indicate success: http.StatusOK
 	GetConsoleStatus func(ctx context.Context, defaultParam string, options *armserialconsole.MicrosoftSerialConsoleClientGetConsoleStatusOptions) (resp azfake.Responder[armserialconsole.MicrosoftSerialConsoleClientGetConsoleStatusResponse], errResp azfake.ErrorResponder)
 
 	// ListOperations is the fake for method MicrosoftSerialConsoleClient.ListOperations
@@ -109,10 +103,10 @@ func (m *MicrosoftSerialConsoleServerTransport) dispatchDisableConsole(req *http
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK, http.StatusNotFound}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusNotFound", respContent.HTTPStatus)}
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Value, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).DisableSerialConsoleResult, req)
 	if err != nil {
 		return nil, err
 	}
@@ -138,10 +132,10 @@ func (m *MicrosoftSerialConsoleServerTransport) dispatchEnableConsole(req *http.
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK, http.StatusNotFound}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusNotFound", respContent.HTTPStatus)}
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Value, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).EnableSerialConsoleResult, req)
 	if err != nil {
 		return nil, err
 	}
@@ -167,10 +161,10 @@ func (m *MicrosoftSerialConsoleServerTransport) dispatchGetConsoleStatus(req *ht
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK, http.StatusNotFound}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusNotFound", respContent.HTTPStatus)}
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Value, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Status, req)
 	if err != nil {
 		return nil, err
 	}
