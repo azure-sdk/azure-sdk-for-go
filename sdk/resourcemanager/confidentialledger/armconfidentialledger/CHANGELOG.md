@@ -1,5 +1,11 @@
 # Release History
 
+## 1.3.0-beta.3 (2024-08-07)
+### Features Added
+
+- New field `HostLevel`, `MaxBodySizeInMb`, `NodeCount`, `SubjectName` in struct `LedgerProperties`
+
+
 ## 1.3.0-beta.2 (2024-04-26)
 ### Features Added
 
