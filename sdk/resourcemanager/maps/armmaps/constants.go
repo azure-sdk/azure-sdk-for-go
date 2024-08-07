@@ -10,7 +10,7 @@ package armmaps
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/maps/armmaps"
-	moduleVersion = "v1.1.0"
+	moduleVersion = "v2.0.0-beta.1"
 )
 
 // CreatedByType - The type of identity that created the resource.
@@ -87,14 +87,12 @@ func PossibleKeyTypeValues() []KeyType {
 type Kind string
 
 const (
-	KindGen1 Kind = "Gen1"
 	KindGen2 Kind = "Gen2"
 )
 
 // PossibleKindValues returns the possible values for the Kind const type.
 func PossibleKindValues() []Kind {
 	return []Kind{
-		KindGen1,
 		KindGen2,
 	}
 }
@@ -124,16 +122,12 @@ type Name string
 
 const (
 	NameG2 Name = "G2"
-	NameS0 Name = "S0"
-	NameS1 Name = "S1"
 )
 
 // PossibleNameValues returns the possible values for the Name const type.
 func PossibleNameValues() []Name {
 	return []Name{
 		NameG2,
-		NameS0,
-		NameS1,
 	}
 }
 
