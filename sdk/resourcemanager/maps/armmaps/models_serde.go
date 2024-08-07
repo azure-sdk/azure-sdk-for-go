@@ -124,6 +124,7 @@ func (a AccountProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "disableLocalAuth", a.DisableLocalAuth)
 	populate(objectMap, "encryption", a.Encryption)
 	populate(objectMap, "linkedResources", a.LinkedResources)
+	populate(objectMap, "locations", a.Locations)
 	populate(objectMap, "provisioningState", a.ProvisioningState)
 	populate(objectMap, "uniqueId", a.UniqueID)
 	return json.Marshal(objectMap)
@@ -149,6 +150,9 @@ func (a *AccountProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "linkedResources":
 			err = unpopulate(val, "LinkedResources", &a.LinkedResources)
+			delete(rawMsg, key)
+		case "locations":
+			err = unpopulate(val, "Locations", &a.Locations)
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &a.ProvisioningState)
@@ -813,6 +817,33 @@ func (l *LinkedResource) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type LocationsItem.
+func (l LocationsItem) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "locationName", l.LocationName)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type LocationsItem.
+func (l *LocationsItem) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", l, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "locationName":
+			err = unpopulate(val, "LocationName", &l.LocationName)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", l, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type ManagedServiceIdentity.
 func (m ManagedServiceIdentity) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -1306,7 +1337,7 @@ func populateAny(m map[string]any, k string, v any) {
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {

@@ -81,6 +81,10 @@ type AccountProperties struct {
 	// resource(s).
 	LinkedResources []*LinkedResource
 
+	// List of enabled data processing locations for the Maps Account. If no locations are set, Azure REST APIs will only enable
+	// features available in the Maps Account's location.
+	Locations []*LocationsItem
+
 	// READ-ONLY; The provisioning state of the Map account resource, Account updates can only be performed on terminal states.
 	// Terminal states: Succeeded and Failed
 	ProvisioningState *string
@@ -328,6 +332,12 @@ type LinkedResource struct {
 
 	// REQUIRED; A provided name which uniquely identifies the linked resource.
 	UniqueName *string
+}
+
+// LocationsItem - Data processing location.
+type LocationsItem struct {
+	// REQUIRED; The location name.
+	LocationName *string
 }
 
 // ManagedServiceIdentity - Managed service identity (system assigned and/or user assigned identities)

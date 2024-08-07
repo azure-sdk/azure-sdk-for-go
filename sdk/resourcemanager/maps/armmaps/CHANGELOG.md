@@ -1,5 +1,17 @@
 # Release History
 
+## 2.0.0-beta.1 (2024-08-07)
+### Breaking Changes
+
+- `KindGen1` from enum `Kind` has been removed
+- `NameS0`, `NameS1` from enum `Name` has been removed
+
+### Features Added
+
+- New struct `LocationsItem`
+- New field `Locations` in struct `AccountProperties`
+
+
 ## 1.1.0 (2023-11-24)
 ### Features Added
 

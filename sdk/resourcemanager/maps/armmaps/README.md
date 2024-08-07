@@ -1,6 +1,6 @@
 # Azure Maps Module for Go
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/maps/armmaps)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/maps/armmaps)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/maps/armmaps/v2)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/maps/armmaps/v2)
 
 The `armmaps` module provides operations for working with Azure Maps.
 
@@ -20,7 +20,7 @@ This project uses [Go modules](https://github.com/golang/go/wiki/Modules) for ve
 Install the Azure Maps module:
 
 ```sh
-go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/maps/armmaps
+go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/maps/armmaps/v2
 ```
 
 ## Authorization
@@ -57,7 +57,7 @@ clientFactory, err := armmaps.NewClientFactory(<subscription ID>, cred, &options
 A client groups a set of related APIs, providing access to its functionality.  Create one or more clients to access the APIs you require using client factory.
 
 ```go
-client := clientFactory.NewClient()
+client := clientFactory.NewAccountsClient()
 ```
 
 ## Fakes
