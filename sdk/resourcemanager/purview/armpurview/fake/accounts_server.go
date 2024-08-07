@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/purview/armpurview"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/purview/armpurview/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -51,10 +51,6 @@ type AccountsServer struct {
 	// NewListBySubscriptionPager is the fake for method AccountsClient.NewListBySubscriptionPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListBySubscriptionPager func(options *armpurview.AccountsClientListBySubscriptionOptions) (resp azfake.PagerResponder[armpurview.AccountsClientListBySubscriptionResponse])
-
-	// ListKeys is the fake for method AccountsClient.ListKeys
-	// HTTP status codes to indicate success: http.StatusOK
-	ListKeys func(ctx context.Context, resourceGroupName string, accountName string, options *armpurview.AccountsClientListKeysOptions) (resp azfake.Responder[armpurview.AccountsClientListKeysResponse], errResp azfake.ErrorResponder)
 
 	// BeginUpdate is the fake for method AccountsClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
@@ -112,8 +108,6 @@ func (a *AccountsServerTransport) Do(req *http.Request) (*http.Response, error) 
 		resp, err = a.dispatchNewListByResourceGroupPager(req)
 	case "AccountsClient.NewListBySubscriptionPager":
 		resp, err = a.dispatchNewListBySubscriptionPager(req)
-	case "AccountsClient.ListKeys":
-		resp, err = a.dispatchListKeys(req)
 	case "AccountsClient.BeginUpdate":
 		resp, err = a.dispatchBeginUpdate(req)
 	default:
@@ -408,39 +402,6 @@ func (a *AccountsServerTransport) dispatchNewListBySubscriptionPager(req *http.R
 	}
 	if !server.PagerResponderMore(newListBySubscriptionPager) {
 		a.newListBySubscriptionPager.remove(req)
-	}
-	return resp, nil
-}
-
-func (a *AccountsServerTransport) dispatchListKeys(req *http.Request) (*http.Response, error) {
-	if a.srv.ListKeys == nil {
-		return nil, &nonRetriableError{errors.New("fake for method ListKeys not implemented")}
-	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Purview/accounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/listkeys`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 3 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-	if err != nil {
-		return nil, err
-	}
-	accountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("accountName")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := a.srv.ListKeys(req.Context(), resourceGroupNameParam, accountNameParam, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).AccessKeys, req)
-	if err != nil {
-		return nil, err
 	}
 	return resp, nil
 }

@@ -57,17 +57,6 @@ type AccountsClientListBySubscriptionOptions struct {
 	SkipToken *string
 }
 
-// AccountsClientListKeysOptions contains the optional parameters for the AccountsClient.ListKeys method.
-type AccountsClientListKeysOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DefaultAccountsClientGetOptions contains the optional parameters for the DefaultAccountsClient.Get method.
-type DefaultAccountsClientGetOptions struct {
-	// The Id of the scope object, for example if the scope is "Subscription" then it is the ID of that subscription.
-	Scope *string
-}
-
 // DefaultAccountsClientRemoveOptions contains the optional parameters for the DefaultAccountsClient.Remove method.
 type DefaultAccountsClientRemoveOptions struct {
 	// The Id of the scope object, for example if the scope is "Subscription" then it is the ID of that subscription.
@@ -77,6 +66,39 @@ type DefaultAccountsClientRemoveOptions struct {
 // DefaultAccountsClientSetOptions contains the optional parameters for the DefaultAccountsClient.Set method.
 type DefaultAccountsClientSetOptions struct {
 	// placeholder for future optional parameters
+}
+
+// FeaturesClientAccountGetOptions contains the optional parameters for the FeaturesClient.AccountGet method.
+type FeaturesClientAccountGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FeaturesClientSubscriptionGetOptions contains the optional parameters for the FeaturesClient.SubscriptionGet method.
+type FeaturesClientSubscriptionGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// KafkaConfigurationsClientCreateOrUpdateOptions contains the optional parameters for the KafkaConfigurationsClient.CreateOrUpdate
+// method.
+type KafkaConfigurationsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// KafkaConfigurationsClientDeleteOptions contains the optional parameters for the KafkaConfigurationsClient.Delete method.
+type KafkaConfigurationsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// KafkaConfigurationsClientGetOptions contains the optional parameters for the KafkaConfigurationsClient.Get method.
+type KafkaConfigurationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// KafkaConfigurationsClientListByAccountOptions contains the optional parameters for the KafkaConfigurationsClient.NewListByAccountPager
+// method.
+type KafkaConfigurationsClientListByAccountOptions struct {
+	// The skip token.
+	SkipToken *string
 }
 
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
@@ -121,4 +143,9 @@ type PrivateLinkResourcesClientGetByGroupIDOptions struct {
 // method.
 type PrivateLinkResourcesClientListByAccountOptions struct {
 	// placeholder for future optional parameters
+}
+
+// UsagesClientGetOptions contains the optional parameters for the UsagesClient.Get method.
+type UsagesClientGetOptions struct {
+	Filter *string
 }

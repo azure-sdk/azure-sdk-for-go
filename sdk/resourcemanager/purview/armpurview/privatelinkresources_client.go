@@ -46,7 +46,7 @@ func NewPrivateLinkResourcesClient(subscriptionID string, credential azcore.Toke
 // GetByGroupID - Gets a privately linkable resources for an account with given group identifier
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-07-01
+// Generated from API version 2021-12-01
 //   - resourceGroupName - The resource group name.
 //   - accountName - The name of the account.
 //   - groupID - The group identifier.
@@ -98,7 +98,7 @@ func (client *PrivateLinkResourcesClient) getByGroupIDCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-01")
+	reqQP.Set("api-version", "2021-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -115,7 +115,7 @@ func (client *PrivateLinkResourcesClient) getByGroupIDHandleResponse(resp *http.
 
 // NewListByAccountPager - Gets a list of privately linkable resources for an account
 //
-// Generated from API version 2021-07-01
+// Generated from API version 2021-12-01
 //   - resourceGroupName - The resource group name.
 //   - accountName - The name of the account.
 //   - options - PrivateLinkResourcesClientListByAccountOptions contains the optional parameters for the PrivateLinkResourcesClient.NewListByAccountPager
@@ -163,7 +163,7 @@ func (client *PrivateLinkResourcesClient) listByAccountCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-01")
+	reqQP.Set("api-version", "2021-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -21,9 +21,12 @@ import (
 type ServerFactory struct {
 	AccountsServer                   AccountsServer
 	DefaultAccountsServer            DefaultAccountsServer
+	FeaturesServer                   FeaturesServer
+	KafkaConfigurationsServer        KafkaConfigurationsServer
 	OperationsServer                 OperationsServer
 	PrivateEndpointConnectionsServer PrivateEndpointConnectionsServer
 	PrivateLinkResourcesServer       PrivateLinkResourcesServer
+	UsagesServer                     UsagesServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -42,9 +45,12 @@ type ServerFactoryTransport struct {
 	trMu                               sync.Mutex
 	trAccountsServer                   *AccountsServerTransport
 	trDefaultAccountsServer            *DefaultAccountsServerTransport
+	trFeaturesServer                   *FeaturesServerTransport
+	trKafkaConfigurationsServer        *KafkaConfigurationsServerTransport
 	trOperationsServer                 *OperationsServerTransport
 	trPrivateEndpointConnectionsServer *PrivateEndpointConnectionsServerTransport
 	trPrivateLinkResourcesServer       *PrivateLinkResourcesServerTransport
+	trUsagesServer                     *UsagesServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -68,6 +74,14 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewDefaultAccountsServerTransport(&s.srv.DefaultAccountsServer)
 		})
 		resp, err = s.trDefaultAccountsServer.Do(req)
+	case "FeaturesClient":
+		initServer(s, &s.trFeaturesServer, func() *FeaturesServerTransport { return NewFeaturesServerTransport(&s.srv.FeaturesServer) })
+		resp, err = s.trFeaturesServer.Do(req)
+	case "KafkaConfigurationsClient":
+		initServer(s, &s.trKafkaConfigurationsServer, func() *KafkaConfigurationsServerTransport {
+			return NewKafkaConfigurationsServerTransport(&s.srv.KafkaConfigurationsServer)
+		})
+		resp, err = s.trKafkaConfigurationsServer.Do(req)
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
@@ -81,6 +95,9 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewPrivateLinkResourcesServerTransport(&s.srv.PrivateLinkResourcesServer)
 		})
 		resp, err = s.trPrivateLinkResourcesServer.Do(req)
+	case "UsagesClient":
+		initServer(s, &s.trUsagesServer, func() *UsagesServerTransport { return NewUsagesServerTransport(&s.srv.UsagesServer) })
+		resp, err = s.trUsagesServer.Do(req)
 	default:
 		err = fmt.Errorf("unhandled client %s", client)
 	}
