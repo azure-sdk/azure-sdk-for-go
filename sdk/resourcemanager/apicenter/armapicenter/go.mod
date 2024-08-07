@@ -1,4 +1,4 @@
-module github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/apicenter/armapicenter
+module github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/apicenter/armapicenter/v2
 
 go 1.18
 
