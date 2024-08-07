@@ -47,7 +47,7 @@ func NewSerialPortsClient(subscriptionID string, credential azcore.TokenCredenti
 // Connect - Connect to serial port of the target resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-05-01
+// Generated from API version 2024-07-01
 //   - resourceGroupName - The name of the resource group.
 //   - resourceProviderNamespace - The namespace of the resource provider.
 //   - parentResourceType - The resource type of the parent resource. For example: 'virtualMachines' or 'virtualMachineScaleSets'
@@ -106,7 +106,7 @@ func (client *SerialPortsClient) connectCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-05-01")
+	reqQP.Set("api-version", "2024-07-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -124,7 +124,7 @@ func (client *SerialPortsClient) connectHandleResponse(resp *http.Response) (Ser
 // Create - Creates or updates a serial port
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-05-01
+// Generated from API version 2024-07-01
 //   - resourceGroupName - The name of the resource group.
 //   - resourceProviderNamespace - The namespace of the resource provider.
 //   - parentResourceType - The resource type of the parent resource. For example: 'virtualMachines' or 'virtualMachineScaleSets'
@@ -184,7 +184,7 @@ func (client *SerialPortsClient) createCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-05-01")
+	reqQP.Set("api-version", "2024-07-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -202,77 +202,10 @@ func (client *SerialPortsClient) createHandleResponse(resp *http.Response) (Seri
 	return result, nil
 }
 
-// Delete - Deletes a serial port
-// If the operation fails it returns an *azcore.ResponseError type.
-//
-// Generated from API version 2018-05-01
-//   - resourceGroupName - The name of the resource group.
-//   - resourceProviderNamespace - The namespace of the resource provider.
-//   - parentResourceType - The resource type of the parent resource. For example: 'virtualMachines' or 'virtualMachineScaleSets'
-//   - parentResource - The resource name, or subordinate path, for the parent of the serial port. For example: the name of the
-//     virtual machine.
-//   - serialPort - The name of the serial port to delete.
-//   - options - SerialPortsClientDeleteOptions contains the optional parameters for the SerialPortsClient.Delete method.
-func (client *SerialPortsClient) Delete(ctx context.Context, resourceGroupName string, resourceProviderNamespace string, parentResourceType string, parentResource string, serialPort string, options *SerialPortsClientDeleteOptions) (SerialPortsClientDeleteResponse, error) {
-	var err error
-	const operationName = "SerialPortsClient.Delete"
-	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
-	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
-	defer func() { endSpan(err) }()
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, resourceProviderNamespace, parentResourceType, parentResource, serialPort, options)
-	if err != nil {
-		return SerialPortsClientDeleteResponse{}, err
-	}
-	httpResp, err := client.internal.Pipeline().Do(req)
-	if err != nil {
-		return SerialPortsClientDeleteResponse{}, err
-	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusNoContent) {
-		err = runtime.NewResponseError(httpResp)
-		return SerialPortsClientDeleteResponse{}, err
-	}
-	return SerialPortsClientDeleteResponse{}, nil
-}
-
-// deleteCreateRequest creates the Delete request.
-func (client *SerialPortsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, resourceProviderNamespace string, parentResourceType string, parentResource string, serialPort string, options *SerialPortsClientDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{parentResourceType}/{parentResource}/providers/Microsoft.SerialConsole/serialPorts/{serialPort}"
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if resourceProviderNamespace == "" {
-		return nil, errors.New("parameter resourceProviderNamespace cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceProviderNamespace}", url.PathEscape(resourceProviderNamespace))
-	urlPath = strings.ReplaceAll(urlPath, "{parentResourceType}", parentResourceType)
-	if parentResource == "" {
-		return nil, errors.New("parameter parentResource cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{parentResource}", url.PathEscape(parentResource))
-	if serialPort == "" {
-		return nil, errors.New("parameter serialPort cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{serialPort}", url.PathEscape(serialPort))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-05-01")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, nil
-}
-
 // Get - Gets the configured settings for a serial port
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-05-01
+// Generated from API version 2024-07-01
 //   - resourceGroupName - The name of the resource group.
 //   - resourceProviderNamespace - The namespace of the resource provider.
 //   - parentResourceType - The resource type of the parent resource. For example: 'virtualMachines' or 'virtualMachineScaleSets'
@@ -331,7 +264,7 @@ func (client *SerialPortsClient) getCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-05-01")
+	reqQP.Set("api-version", "2024-07-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -349,7 +282,7 @@ func (client *SerialPortsClient) getHandleResponse(resp *http.Response) (SerialP
 // List - Lists all of the configured serial ports for a parent resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-05-01
+// Generated from API version 2024-07-01
 //   - resourceGroupName - The name of the resource group.
 //   - resourceProviderNamespace - The namespace of the resource provider.
 //   - parentResourceType - The resource type of the parent resource. For example: 'virtualMachines' or 'virtualMachineScaleSets'
@@ -403,7 +336,7 @@ func (client *SerialPortsClient) listCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-05-01")
+	reqQP.Set("api-version", "2024-07-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -421,7 +354,7 @@ func (client *SerialPortsClient) listHandleResponse(resp *http.Response) (Serial
 // ListBySubscriptions - Handles requests to list all SerialPort resources in a subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-05-01
+// Generated from API version 2024-07-01
 //   - options - SerialPortsClientListBySubscriptionsOptions contains the optional parameters for the SerialPortsClient.ListBySubscriptions
 //     method.
 func (client *SerialPortsClient) ListBySubscriptions(ctx context.Context, options *SerialPortsClientListBySubscriptionsOptions) (SerialPortsClientListBySubscriptionsResponse, error) {

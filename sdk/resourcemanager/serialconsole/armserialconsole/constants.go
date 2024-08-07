@@ -10,8 +10,44 @@ package armserialconsole
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/serialconsole/armserialconsole"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v2.0.0"
 )
+
+// CreatedByType - The type of identity that created the resource.
+type CreatedByType string
+
+const (
+	CreatedByTypeApplication     CreatedByType = "Application"
+	CreatedByTypeKey             CreatedByType = "Key"
+	CreatedByTypeManagedIdentity CreatedByType = "ManagedIdentity"
+	CreatedByTypeUser            CreatedByType = "User"
+)
+
+// PossibleCreatedByTypeValues returns the possible values for the CreatedByType const type.
+func PossibleCreatedByTypeValues() []CreatedByType {
+	return []CreatedByType{
+		CreatedByTypeApplication,
+		CreatedByTypeKey,
+		CreatedByTypeManagedIdentity,
+		CreatedByTypeUser,
+	}
+}
+
+// SerialPortConnectionState - Specifies whether the port is currently active.
+type SerialPortConnectionState string
+
+const (
+	SerialPortConnectionStateActive   SerialPortConnectionState = "active"
+	SerialPortConnectionStateInactive SerialPortConnectionState = "inactive"
+)
+
+// PossibleSerialPortConnectionStateValues returns the possible values for the SerialPortConnectionState const type.
+func PossibleSerialPortConnectionStateValues() []SerialPortConnectionState {
+	return []SerialPortConnectionState{
+		SerialPortConnectionStateActive,
+		SerialPortConnectionStateInactive,
+	}
+}
 
 // SerialPortState - Specifies whether the port is enabled for a serial console connection.
 type SerialPortState string
