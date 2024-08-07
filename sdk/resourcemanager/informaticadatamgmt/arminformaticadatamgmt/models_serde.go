@@ -401,6 +401,7 @@ func (i InfaServerlessFetchConfigProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "region", i.Region)
 	populate(objectMap, "resourceGroupName", i.ResourceGroupName)
 	populate(objectMap, "serverlessArmResourceId", i.ServerlessArmResourceID)
+	populate(objectMap, "serverlessRuntimeDataDisks", i.ServerlessRuntimeDataDisks)
 	populate(objectMap, "subnet", i.Subnet)
 	populate(objectMap, "subscriptionId", i.SubscriptionID)
 	populate(objectMap, "supplementaryFileLocation", i.SupplementaryFileLocation)
@@ -442,6 +443,9 @@ func (i *InfaServerlessFetchConfigProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "serverlessArmResourceId":
 			err = unpopulate(val, "ServerlessArmResourceID", &i.ServerlessArmResourceID)
+			delete(rawMsg, key)
+		case "serverlessRuntimeDataDisks":
+			err = unpopulate(val, "ServerlessRuntimeDataDisks", &i.ServerlessRuntimeDataDisks)
 			delete(rawMsg, key)
 		case "subnet":
 			err = unpopulate(val, "Subnet", &i.Subnet)
@@ -633,6 +637,7 @@ func (i InformaticaServerlessRuntimeProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "provisioningState", i.ProvisioningState)
 	populate(objectMap, "serverlessAccountLocation", i.ServerlessAccountLocation)
 	populate(objectMap, "serverlessRuntimeConfig", i.ServerlessRuntimeConfig)
+	populate(objectMap, "serverlessRuntimeDataDisks", i.ServerlessRuntimeDataDisks)
 	populate(objectMap, "serverlessRuntimeNetworkProfile", i.ServerlessRuntimeNetworkProfile)
 	populate(objectMap, "serverlessRuntimeTags", i.ServerlessRuntimeTags)
 	populate(objectMap, "serverlessRuntimeUserContextProperties", i.ServerlessRuntimeUserContextProperties)
@@ -675,6 +680,9 @@ func (i *InformaticaServerlessRuntimeProperties) UnmarshalJSON(data []byte) erro
 			delete(rawMsg, key)
 		case "serverlessRuntimeConfig":
 			err = unpopulate(val, "ServerlessRuntimeConfig", &i.ServerlessRuntimeConfig)
+			delete(rawMsg, key)
+		case "serverlessRuntimeDataDisks":
+			err = unpopulate(val, "ServerlessRuntimeDataDisks", &i.ServerlessRuntimeDataDisks)
 			delete(rawMsg, key)
 		case "serverlessRuntimeNetworkProfile":
 			err = unpopulate(val, "ServerlessRuntimeNetworkProfile", &i.ServerlessRuntimeNetworkProfile)
@@ -1451,6 +1459,49 @@ func (s *ServerlessRuntimeConfigPropertiesUpdate) UnmarshalJSON(data []byte) err
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type ServerlessRuntimeDataDisk.
+func (s ServerlessRuntimeDataDisk) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "mountOptions", s.MountOptions)
+	populate(objectMap, "serverHostOrIpAddress", s.ServerHostOrIPAddress)
+	populate(objectMap, "sourceMount", s.SourceMount)
+	populate(objectMap, "targetMount", s.TargetMount)
+	populate(objectMap, "type", s.Type)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ServerlessRuntimeDataDisk.
+func (s *ServerlessRuntimeDataDisk) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", s, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "mountOptions":
+			err = unpopulate(val, "MountOptions", &s.MountOptions)
+			delete(rawMsg, key)
+		case "serverHostOrIpAddress":
+			err = unpopulate(val, "ServerHostOrIPAddress", &s.ServerHostOrIPAddress)
+			delete(rawMsg, key)
+		case "sourceMount":
+			err = unpopulate(val, "SourceMount", &s.SourceMount)
+			delete(rawMsg, key)
+		case "targetMount":
+			err = unpopulate(val, "TargetMount", &s.TargetMount)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &s.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", s, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type ServerlessRuntimeDependency.
 func (s ServerlessRuntimeDependency) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -1563,6 +1614,7 @@ func (s ServerlessRuntimePropertiesCustomUpdate) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "platform", s.Platform)
 	populate(objectMap, "serverlessAccountLocation", s.ServerlessAccountLocation)
 	populate(objectMap, "serverlessRuntimeConfig", s.ServerlessRuntimeConfig)
+	populate(objectMap, "serverlessRuntimeDataDisks", s.ServerlessRuntimeDataDisks)
 	populate(objectMap, "serverlessRuntimeNetworkProfile", s.ServerlessRuntimeNetworkProfile)
 	populate(objectMap, "serverlessRuntimeTags", s.ServerlessRuntimeTags)
 	populate(objectMap, "serverlessRuntimeUserContextProperties", s.ServerlessRuntimeUserContextProperties)
@@ -1602,6 +1654,9 @@ func (s *ServerlessRuntimePropertiesCustomUpdate) UnmarshalJSON(data []byte) err
 			delete(rawMsg, key)
 		case "serverlessRuntimeConfig":
 			err = unpopulate(val, "ServerlessRuntimeConfig", &s.ServerlessRuntimeConfig)
+			delete(rawMsg, key)
+		case "serverlessRuntimeDataDisks":
+			err = unpopulate(val, "ServerlessRuntimeDataDisks", &s.ServerlessRuntimeDataDisks)
 			delete(rawMsg, key)
 		case "serverlessRuntimeNetworkProfile":
 			err = unpopulate(val, "ServerlessRuntimeNetworkProfile", &s.ServerlessRuntimeNetworkProfile)
