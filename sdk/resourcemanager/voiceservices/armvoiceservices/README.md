@@ -1,6 +1,6 @@
 # Azure VoiceServices Module for Go
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/voiceservices/armvoiceservices)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/voiceservices/armvoiceservices)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/voiceservices/armvoiceservices/v2)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/voiceservices/armvoiceservices/v2)
 
 The `armvoiceservices` module provides operations for working with Azure VoiceServices.
 
@@ -20,7 +20,7 @@ This project uses [Go modules](https://github.com/golang/go/wiki/Modules) for ve
 Install the Azure VoiceServices module:
 
 ```sh
-go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/voiceservices/armvoiceservices
+go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/voiceservices/armvoiceservices/v2
 ```
 
 ## Authorization
@@ -57,7 +57,7 @@ clientFactory, err := armvoiceservices.NewClientFactory(<subscription ID>, cred,
 A client groups a set of related APIs, providing access to its functionality.  Create one or more clients to access the APIs you require using client factory.
 
 ```go
-client := clientFactory.NewTestLinesClient()
+client := clientFactory.NewCommunicationsGatewaysClient()
 ```
 
 ## Fakes

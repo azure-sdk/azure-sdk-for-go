@@ -55,31 +55,8 @@ type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// TestLinesClientBeginCreateOrUpdateOptions contains the optional parameters for the TestLinesClient.BeginCreateOrUpdate
-// method.
-type TestLinesClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// TestLinesClientBeginDeleteOptions contains the optional parameters for the TestLinesClient.BeginDelete method.
-type TestLinesClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// TestLinesClientGetOptions contains the optional parameters for the TestLinesClient.Get method.
-type TestLinesClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
 // TestLinesClientListByCommunicationsGatewayOptions contains the optional parameters for the TestLinesClient.NewListByCommunicationsGatewayPager
 // method.
 type TestLinesClientListByCommunicationsGatewayOptions struct {
-	// placeholder for future optional parameters
-}
-
-// TestLinesClientUpdateOptions contains the optional parameters for the TestLinesClient.Update method.
-type TestLinesClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }

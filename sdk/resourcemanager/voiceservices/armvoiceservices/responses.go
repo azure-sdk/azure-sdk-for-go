@@ -55,31 +55,8 @@ type OperationsClientListResponse struct {
 	OperationListResult
 }
 
-// TestLinesClientCreateOrUpdateResponse contains the response from method TestLinesClient.BeginCreateOrUpdate.
-type TestLinesClientCreateOrUpdateResponse struct {
-	// A TestLine resource
-	TestLine
-}
-
-// TestLinesClientDeleteResponse contains the response from method TestLinesClient.BeginDelete.
-type TestLinesClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// TestLinesClientGetResponse contains the response from method TestLinesClient.Get.
-type TestLinesClientGetResponse struct {
-	// A TestLine resource
-	TestLine
-}
-
 // TestLinesClientListByCommunicationsGatewayResponse contains the response from method TestLinesClient.NewListByCommunicationsGatewayPager.
 type TestLinesClientListByCommunicationsGatewayResponse struct {
 	// The response of a TestLine list operation.
 	TestLineListResult
-}
-
-// TestLinesClientUpdateResponse contains the response from method TestLinesClient.Update.
-type TestLinesClientUpdateResponse struct {
-	// A TestLine resource
-	TestLine
 }
