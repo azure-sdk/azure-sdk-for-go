@@ -1,6 +1,6 @@
 # Azure Apicenter Module for Go
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/apicenter/armapicenter)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/apicenter/armapicenter)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/apicenter/armapicenter/v2)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/apicenter/armapicenter/v2)
 
 The `armapicenter` module provides operations for working with Azure Apicenter.
 
@@ -20,7 +20,7 @@ This project uses [Go modules](https://github.com/golang/go/wiki/Modules) for ve
 Install the Azure Apicenter module:
 
 ```sh
-go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/apicenter/armapicenter
+go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/apicenter/armapicenter/v2
 ```
 
 ## Authorization
