@@ -10,7 +10,7 @@ package armconfidentialledger
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/confidentialledger/armconfidentialledger"
-	moduleVersion = "v1.3.0-beta.2"
+	moduleVersion = "v1.3.0-beta.3"
 )
 
 // CheckNameAvailabilityReason - The reason why the given name is not available.
