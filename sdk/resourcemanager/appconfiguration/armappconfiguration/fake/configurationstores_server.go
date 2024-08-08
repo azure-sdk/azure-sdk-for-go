@@ -32,6 +32,10 @@ type ConfigurationStoresServer struct {
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
 	BeginDelete func(ctx context.Context, resourceGroupName string, configStoreName string, options *armappconfiguration.ConfigurationStoresClientBeginDeleteOptions) (resp azfake.PollerResponder[armappconfiguration.ConfigurationStoresClientDeleteResponse], errResp azfake.ErrorResponder)
 
+	// GenerateSasToken is the fake for method ConfigurationStoresClient.GenerateSasToken
+	// HTTP status codes to indicate success: http.StatusOK
+	GenerateSasToken func(ctx context.Context, resourceGroupName string, configStoreName string, sasTokenGenerationParameters armappconfiguration.SasTokenGenerationParameters, options *armappconfiguration.ConfigurationStoresClientGenerateSasTokenOptions) (resp azfake.Responder[armappconfiguration.ConfigurationStoresClientGenerateSasTokenResponse], errResp azfake.ErrorResponder)
+
 	// Get is the fake for method ConfigurationStoresClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, configStoreName string, options *armappconfiguration.ConfigurationStoresClientGetOptions) (resp azfake.Responder[armappconfiguration.ConfigurationStoresClientGetResponse], errResp azfake.ErrorResponder)
@@ -63,6 +67,10 @@ type ConfigurationStoresServer struct {
 	// RegenerateKey is the fake for method ConfigurationStoresClient.RegenerateKey
 	// HTTP status codes to indicate success: http.StatusOK
 	RegenerateKey func(ctx context.Context, resourceGroupName string, configStoreName string, regenerateKeyParameters armappconfiguration.RegenerateKeyParameters, options *armappconfiguration.ConfigurationStoresClientRegenerateKeyOptions) (resp azfake.Responder[armappconfiguration.ConfigurationStoresClientRegenerateKeyResponse], errResp azfake.ErrorResponder)
+
+	// ResetSasTokens is the fake for method ConfigurationStoresClient.ResetSasTokens
+	// HTTP status codes to indicate success: http.StatusOK
+	ResetSasTokens func(ctx context.Context, resourceGroupName string, configStoreName string, resetSasTokensParameters armappconfiguration.ResetSasTokensParameters, options *armappconfiguration.ConfigurationStoresClientResetSasTokensOptions) (resp azfake.Responder[armappconfiguration.ConfigurationStoresClientResetSasTokensResponse], errResp azfake.ErrorResponder)
 
 	// BeginUpdate is the fake for method ConfigurationStoresClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
@@ -116,6 +124,8 @@ func (c *ConfigurationStoresServerTransport) Do(req *http.Request) (*http.Respon
 		resp, err = c.dispatchBeginCreate(req)
 	case "ConfigurationStoresClient.BeginDelete":
 		resp, err = c.dispatchBeginDelete(req)
+	case "ConfigurationStoresClient.GenerateSasToken":
+		resp, err = c.dispatchGenerateSasToken(req)
 	case "ConfigurationStoresClient.Get":
 		resp, err = c.dispatchGet(req)
 	case "ConfigurationStoresClient.GetDeleted":
@@ -132,6 +142,8 @@ func (c *ConfigurationStoresServerTransport) Do(req *http.Request) (*http.Respon
 		resp, err = c.dispatchBeginPurgeDeleted(req)
 	case "ConfigurationStoresClient.RegenerateKey":
 		resp, err = c.dispatchRegenerateKey(req)
+	case "ConfigurationStoresClient.ResetSasTokens":
+		resp, err = c.dispatchResetSasTokens(req)
 	case "ConfigurationStoresClient.BeginUpdate":
 		resp, err = c.dispatchBeginUpdate(req)
 	default:
@@ -234,6 +246,43 @@ func (c *ConfigurationStoresServerTransport) dispatchBeginDelete(req *http.Reque
 		c.beginDelete.remove(req)
 	}
 
+	return resp, nil
+}
+
+func (c *ConfigurationStoresServerTransport) dispatchGenerateSasToken(req *http.Request) (*http.Response, error) {
+	if c.srv.GenerateSasToken == nil {
+		return nil, &nonRetriableError{errors.New("fake for method GenerateSasToken not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AppConfiguration/configurationStores/(?P<configStoreName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/generateSasToken`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armappconfiguration.SasTokenGenerationParameters](req)
+	if err != nil {
+		return nil, err
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	configStoreNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("configStoreName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := c.srv.GenerateSasToken(req.Context(), resourceGroupNameParam, configStoreNameParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SasTokenGenerationResult, req)
+	if err != nil {
+		return nil, err
+	}
 	return resp, nil
 }
 
@@ -558,6 +607,43 @@ func (c *ConfigurationStoresServerTransport) dispatchRegenerateKey(req *http.Req
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).APIKey, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (c *ConfigurationStoresServerTransport) dispatchResetSasTokens(req *http.Request) (*http.Response, error) {
+	if c.srv.ResetSasTokens == nil {
+		return nil, &nonRetriableError{errors.New("fake for method ResetSasTokens not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AppConfiguration/configurationStores/(?P<configStoreName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resetSasTokens`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armappconfiguration.ResetSasTokensParameters](req)
+	if err != nil {
+		return nil, err
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	configStoreNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("configStoreName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := c.srv.ResetSasTokens(req.Context(), resourceGroupNameParam, configStoreNameParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.NewResponse(respContent, req, nil)
 	if err != nil {
 		return nil, err
 	}
