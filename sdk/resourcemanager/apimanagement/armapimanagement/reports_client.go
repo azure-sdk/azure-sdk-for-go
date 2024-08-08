@@ -29,7 +29,7 @@ type ReportsClient struct {
 }
 
 // NewReportsClient creates a new instance of ReportsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewReportsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ReportsClient, error) {
@@ -46,7 +46,7 @@ func NewReportsClient(subscriptionID string, credential azcore.TokenCredential, 
 
 // NewListByAPIPager - Lists report records by API.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2024-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - filter - The filter to apply on the operation.
@@ -95,16 +95,16 @@ func (client *ReportsClient) listByAPICreateRequest(ctx context.Context, resourc
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("$filter", filter)
-	if options != nil && options.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
+	if options != nil && options.Orderby != nil {
+		reqQP.Set("$orderby", *options.Orderby)
 	}
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	if options != nil && options.Orderby != nil {
-		reqQP.Set("$orderby", *options.Orderby)
+	if options != nil && options.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2024-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -121,7 +121,7 @@ func (client *ReportsClient) listByAPIHandleResponse(resp *http.Response) (Repor
 
 // NewListByGeoPager - Lists report records by geography.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2024-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - filter - | Field | Usage | Supported operators | Supported functions |
@@ -194,13 +194,13 @@ func (client *ReportsClient) listByGeoCreateRequest(ctx context.Context, resourc
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("$filter", filter)
-	if options != nil && options.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
-	}
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	if options != nil && options.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
+	}
+	reqQP.Set("api-version", "2024-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -217,7 +217,7 @@ func (client *ReportsClient) listByGeoHandleResponse(resp *http.Response) (Repor
 
 // NewListByOperationPager - Lists report records by API Operations.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2024-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - filter - | Field | Usage | Supported operators | Supported functions |
@@ -290,16 +290,16 @@ func (client *ReportsClient) listByOperationCreateRequest(ctx context.Context, r
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("$filter", filter)
-	if options != nil && options.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
+	if options != nil && options.Orderby != nil {
+		reqQP.Set("$orderby", *options.Orderby)
 	}
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	if options != nil && options.Orderby != nil {
-		reqQP.Set("$orderby", *options.Orderby)
+	if options != nil && options.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2024-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -316,7 +316,7 @@ func (client *ReportsClient) listByOperationHandleResponse(resp *http.Response) 
 
 // NewListByProductPager - Lists report records by Product.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2024-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - filter - | Field | Usage | Supported operators | Supported functions |
@@ -387,16 +387,16 @@ func (client *ReportsClient) listByProductCreateRequest(ctx context.Context, res
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("$filter", filter)
-	if options != nil && options.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
+	if options != nil && options.Orderby != nil {
+		reqQP.Set("$orderby", *options.Orderby)
 	}
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	if options != nil && options.Orderby != nil {
-		reqQP.Set("$orderby", *options.Orderby)
+	if options != nil && options.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2024-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -413,7 +413,7 @@ func (client *ReportsClient) listByProductHandleResponse(resp *http.Response) (R
 
 // NewListByRequestPager - Lists report records by Request.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2024-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - filter - | Field | Usage | Supported operators | Supported functions |
@@ -472,13 +472,13 @@ func (client *ReportsClient) listByRequestCreateRequest(ctx context.Context, res
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("$filter", filter)
-	if options != nil && options.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
-	}
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	if options != nil && options.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
+	}
+	reqQP.Set("api-version", "2024-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -495,7 +495,7 @@ func (client *ReportsClient) listByRequestHandleResponse(resp *http.Response) (R
 
 // NewListBySubscriptionPager - Lists report records by subscription.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2024-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - filter - | Field | Usage | Supported operators | Supported functions |
@@ -566,16 +566,16 @@ func (client *ReportsClient) listBySubscriptionCreateRequest(ctx context.Context
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("$filter", filter)
-	if options != nil && options.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
+	if options != nil && options.Orderby != nil {
+		reqQP.Set("$orderby", *options.Orderby)
 	}
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	if options != nil && options.Orderby != nil {
-		reqQP.Set("$orderby", *options.Orderby)
+	if options != nil && options.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2024-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -592,7 +592,7 @@ func (client *ReportsClient) listBySubscriptionHandleResponse(resp *http.Respons
 
 // NewListByTimePager - Lists report records by Time.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2024-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - filter - | Field | Usage | Supported operators | Supported functions |
@@ -666,17 +666,17 @@ func (client *ReportsClient) listByTimeCreateRequest(ctx context.Context, resour
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("$filter", filter)
-	if options != nil && options.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
+	if options != nil && options.Orderby != nil {
+		reqQP.Set("$orderby", *options.Orderby)
 	}
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	if options != nil && options.Orderby != nil {
-		reqQP.Set("$orderby", *options.Orderby)
+	if options != nil && options.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
+	reqQP.Set("api-version", "2024-05-01")
 	reqQP.Set("interval", interval)
-	reqQP.Set("api-version", "2022-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -693,7 +693,7 @@ func (client *ReportsClient) listByTimeHandleResponse(resp *http.Response) (Repo
 
 // NewListByUserPager - Lists report records by User.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2024-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - filter - | Field | Usage | Supported operators | Supported functions |
@@ -765,16 +765,16 @@ func (client *ReportsClient) listByUserCreateRequest(ctx context.Context, resour
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("$filter", filter)
-	if options != nil && options.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
+	if options != nil && options.Orderby != nil {
+		reqQP.Set("$orderby", *options.Orderby)
 	}
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	if options != nil && options.Orderby != nil {
-		reqQP.Set("$orderby", *options.Orderby)
+	if options != nil && options.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2024-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
