@@ -402,7 +402,7 @@ func (client *ManagementClient) expressRouteProviderPortHandleResponse(resp *htt
 // and associated VpnServerConfiguration combination in the specified resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-01-01
+// Generated from API version 2024-03-01
 //   - resourceGroupName - The resource group name.
 //   - virtualWANName - The name of the VirtualWAN whose associated VpnServerConfigurations is needed.
 //   - vpnClientParams - Parameters supplied to the generate VirtualWan VPN profile generation operation.
@@ -430,7 +430,7 @@ func (client *ManagementClient) BeginGeneratevirtualwanvpnserverconfigurationvpn
 // associated VpnServerConfiguration combination in the specified resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-01-01
+// Generated from API version 2024-03-01
 func (client *ManagementClient) generatevirtualwanvpnserverconfigurationvpnprofile(ctx context.Context, resourceGroupName string, virtualWANName string, vpnClientParams VirtualWanVPNProfileParameters, options *ManagementClientBeginGeneratevirtualwanvpnserverconfigurationvpnprofileOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ManagementClient.BeginGeneratevirtualwanvpnserverconfigurationvpnprofile"
@@ -472,7 +472,7 @@ func (client *ManagementClient) generatevirtualwanvpnserverconfigurationvpnprofi
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-01-01")
+	reqQP.Set("api-version", "2024-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, vpnClientParams); err != nil {
@@ -1050,7 +1050,7 @@ func (client *ManagementClient) putBastionShareableLinkHandleResponse(resp *http
 // SupportedSecurityProviders - Gives the supported security providers for the virtual wan.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-01-01
+// Generated from API version 2024-03-01
 //   - resourceGroupName - The resource group name.
 //   - virtualWANName - The name of the VirtualWAN for which supported security providers are needed.
 //   - options - ManagementClientSupportedSecurityProvidersOptions contains the optional parameters for the ManagementClient.SupportedSecurityProviders
@@ -1097,7 +1097,7 @@ func (client *ManagementClient) supportedSecurityProvidersCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-01-01")
+	reqQP.Set("api-version", "2024-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

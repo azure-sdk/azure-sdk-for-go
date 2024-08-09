@@ -3665,6 +3665,31 @@ type ConnectionSharedKey struct {
 	ID *string
 }
 
+// ConnectionSharedKeyResult - SharedKey Resource .
+type ConnectionSharedKeyResult struct {
+	// Resource ID.
+	ID *string
+
+	// The name of the resource that is unique within a resource group. This name can be used to access the resource.
+	Name *string
+
+	// Properties of the shared key.
+	Properties *SharedKeyProperties
+
+	// READ-ONLY; Resource type.
+	Type *string
+}
+
+// ConnectionSharedKeyResultList - The list of shared keys for the vpn link connection. It should only contain one shared
+// key for each vpn link connection.
+type ConnectionSharedKeyResultList struct {
+	// URL to get the next set of operation list results if there are any.
+	NextLink *string
+
+	// List of SharedKeys.
+	Value []*ConnectionSharedKeyResult
+}
+
 // ConnectionStateSnapshot - Connection state snapshot.
 type ConnectionStateSnapshot struct {
 	// Average latency in ms.
@@ -11148,6 +11173,18 @@ type ServiceTagsListResult struct {
 type SessionIDs struct {
 	// List of session IDs.
 	SessionIDs []*string
+}
+
+// SharedKeyProperties - Parameters for SharedKey.
+type SharedKeyProperties struct {
+	// The value of the shared key for the vpn link connection.
+	SharedKey *string
+
+	// The length of the shared key for the vpn link connection.
+	SharedKeyLength *int32
+
+	// READ-ONLY; The provisioning state of the SharedKey resource.
+	ProvisioningState *ProvisioningState
 }
 
 // SignatureOverridesFilterValuesQuery - Describes the filter values possibles for a given column
