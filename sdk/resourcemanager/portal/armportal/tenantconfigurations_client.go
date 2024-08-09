@@ -45,17 +45,17 @@ func NewTenantConfigurationsClient(credential azcore.TokenCredential, options *a
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2020-09-01-preview
-//   - configurationName - The configuration name. Value must be 'default'
-//   - tenantConfiguration - The parameters required to create or update tenant configuration.
+//   - configurationName - The name of the Configuration
+//   - resource - The parameters required to create or update tenant configuration.
 //   - options - TenantConfigurationsClientCreateOptions contains the optional parameters for the TenantConfigurationsClient.Create
 //     method.
-func (client *TenantConfigurationsClient) Create(ctx context.Context, configurationName ConfigurationName, tenantConfiguration Configuration, options *TenantConfigurationsClientCreateOptions) (TenantConfigurationsClientCreateResponse, error) {
+func (client *TenantConfigurationsClient) Create(ctx context.Context, configurationName string, resource Configuration, options *TenantConfigurationsClientCreateOptions) (TenantConfigurationsClientCreateResponse, error) {
 	var err error
 	const operationName = "TenantConfigurationsClient.Create"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createCreateRequest(ctx, configurationName, tenantConfiguration, options)
+	req, err := client.createCreateRequest(ctx, configurationName, resource, options)
 	if err != nil {
 		return TenantConfigurationsClientCreateResponse{}, err
 	}
@@ -72,12 +72,12 @@ func (client *TenantConfigurationsClient) Create(ctx context.Context, configurat
 }
 
 // createCreateRequest creates the Create request.
-func (client *TenantConfigurationsClient) createCreateRequest(ctx context.Context, configurationName ConfigurationName, tenantConfiguration Configuration, options *TenantConfigurationsClientCreateOptions) (*policy.Request, error) {
+func (client *TenantConfigurationsClient) createCreateRequest(ctx context.Context, configurationName string, resource Configuration, options *TenantConfigurationsClientCreateOptions) (*policy.Request, error) {
 	urlPath := "/providers/Microsoft.Portal/tenantConfigurations/{configurationName}"
 	if configurationName == "" {
 		return nil, errors.New("parameter configurationName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{configurationName}", url.PathEscape(string(configurationName)))
+	urlPath = strings.ReplaceAll(urlPath, "{configurationName}", url.PathEscape(configurationName))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -86,7 +86,7 @@ func (client *TenantConfigurationsClient) createCreateRequest(ctx context.Contex
 	reqQP.Set("api-version", "2020-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, tenantConfiguration); err != nil {
+	if err := runtime.MarshalAsJSON(req, resource); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -105,10 +105,10 @@ func (client *TenantConfigurationsClient) createHandleResponse(resp *http.Respon
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2020-09-01-preview
-//   - configurationName - The configuration name. Value must be 'default'
+//   - configurationName - The name of the Configuration
 //   - options - TenantConfigurationsClientDeleteOptions contains the optional parameters for the TenantConfigurationsClient.Delete
 //     method.
-func (client *TenantConfigurationsClient) Delete(ctx context.Context, configurationName ConfigurationName, options *TenantConfigurationsClientDeleteOptions) (TenantConfigurationsClientDeleteResponse, error) {
+func (client *TenantConfigurationsClient) Delete(ctx context.Context, configurationName string, options *TenantConfigurationsClientDeleteOptions) (TenantConfigurationsClientDeleteResponse, error) {
 	var err error
 	const operationName = "TenantConfigurationsClient.Delete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
@@ -130,12 +130,12 @@ func (client *TenantConfigurationsClient) Delete(ctx context.Context, configurat
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *TenantConfigurationsClient) deleteCreateRequest(ctx context.Context, configurationName ConfigurationName, options *TenantConfigurationsClientDeleteOptions) (*policy.Request, error) {
+func (client *TenantConfigurationsClient) deleteCreateRequest(ctx context.Context, configurationName string, options *TenantConfigurationsClientDeleteOptions) (*policy.Request, error) {
 	urlPath := "/providers/Microsoft.Portal/tenantConfigurations/{configurationName}"
 	if configurationName == "" {
 		return nil, errors.New("parameter configurationName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{configurationName}", url.PathEscape(string(configurationName)))
+	urlPath = strings.ReplaceAll(urlPath, "{configurationName}", url.PathEscape(configurationName))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -151,10 +151,10 @@ func (client *TenantConfigurationsClient) deleteCreateRequest(ctx context.Contex
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2020-09-01-preview
-//   - configurationName - The configuration name. Value must be 'default'
+//   - configurationName - The name of the Configuration
 //   - options - TenantConfigurationsClientGetOptions contains the optional parameters for the TenantConfigurationsClient.Get
 //     method.
-func (client *TenantConfigurationsClient) Get(ctx context.Context, configurationName ConfigurationName, options *TenantConfigurationsClientGetOptions) (TenantConfigurationsClientGetResponse, error) {
+func (client *TenantConfigurationsClient) Get(ctx context.Context, configurationName string, options *TenantConfigurationsClientGetOptions) (TenantConfigurationsClientGetResponse, error) {
 	var err error
 	const operationName = "TenantConfigurationsClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
@@ -168,7 +168,7 @@ func (client *TenantConfigurationsClient) Get(ctx context.Context, configuration
 	if err != nil {
 		return TenantConfigurationsClientGetResponse{}, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusNotFound) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
 		return TenantConfigurationsClientGetResponse{}, err
 	}
@@ -177,12 +177,12 @@ func (client *TenantConfigurationsClient) Get(ctx context.Context, configuration
 }
 
 // getCreateRequest creates the Get request.
-func (client *TenantConfigurationsClient) getCreateRequest(ctx context.Context, configurationName ConfigurationName, options *TenantConfigurationsClientGetOptions) (*policy.Request, error) {
+func (client *TenantConfigurationsClient) getCreateRequest(ctx context.Context, configurationName string, options *TenantConfigurationsClientGetOptions) (*policy.Request, error) {
 	urlPath := "/providers/Microsoft.Portal/tenantConfigurations/{configurationName}"
 	if configurationName == "" {
 		return nil, errors.New("parameter configurationName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{configurationName}", url.PathEscape(string(configurationName)))
+	urlPath = strings.ReplaceAll(urlPath, "{configurationName}", url.PathEscape(configurationName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -248,7 +248,7 @@ func (client *TenantConfigurationsClient) listCreateRequest(ctx context.Context,
 // listHandleResponse handles the List response.
 func (client *TenantConfigurationsClient) listHandleResponse(resp *http.Response) (TenantConfigurationsClientListResponse, error) {
 	result := TenantConfigurationsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ConfigurationList); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.ConfigurationListResult); err != nil {
 		return TenantConfigurationsClientListResponse{}, err
 	}
 	return result, nil
