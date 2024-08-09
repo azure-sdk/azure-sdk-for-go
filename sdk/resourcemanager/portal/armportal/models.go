@@ -8,55 +8,66 @@
 
 package armportal
 
-// Configuration - Tenant configuration.
+import "time"
+
+// Configuration - The tenant configuration resource definition.
 type Configuration struct {
-	// Tenant configuration properties.
+	// The resource-specific properties for this resource.
 	Properties *ConfigurationProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
 
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// ConfigurationList - List of tenant configurations.
-type ConfigurationList struct {
-	// The URL to use for getting the next set of results.
-	NextLink *string
-
-	// The array of tenant configurations.
+// ConfigurationListResult - The response of a Configuration list operation.
+type ConfigurationListResult struct {
+	// REQUIRED; The Configuration items on this page
 	Value []*Configuration
+
+	// The link to the next page of items
+	NextLink *string
 }
 
-// ConfigurationProperties - Tenant configuration properties.
+// ConfigurationProperties - Tenant Configuration Properties with Provisioning state
 type ConfigurationProperties struct {
 	// When flag is set to true Markdown tile will require external storage configuration (URI). The inline content configuration
 	// will be prohibited.
 	EnforcePrivateMarkdownStorage *bool
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ResourceProvisioningState
 }
 
 // Dashboard - The shared dashboard resource definition.
 type Dashboard struct {
-	// REQUIRED; Resource location
+	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
-	// The shared dashboard properties.
-	Properties *DashboardProperties
+	// The resource-specific properties for this resource.
+	Properties *DashboardPropertiesWithProvisioningState
 
-	// Resource tags
+	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Resource Id
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
-	// READ-ONLY; Resource name
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; Resource type
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -69,25 +80,22 @@ type DashboardLens struct {
 	Parts []*DashboardParts
 
 	// The dashboard len's metadata.
-	Metadata map[string]any
+	Metadata any
 }
 
-// DashboardListResult - List of dashboards.
+// DashboardListResult - The response of a Dashboard list operation.
 type DashboardListResult struct {
-	// The URL to use for getting the next set of results.
-	NextLink *string
-
-	// The array of custom resource provider manifests.
+	// REQUIRED; The Dashboard items on this page
 	Value []*Dashboard
+
+	// The link to the next page of items
+	NextLink *string
 }
 
 // DashboardPartMetadata - A dashboard part metadata.
 type DashboardPartMetadata struct {
-	// REQUIRED; The type of dashboard part.
-	Type *string
-
-	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
-	AdditionalProperties map[string]any
+	// REQUIRED; The dashboard part metadata type.
+	Type *DashboardPartMetadataType
 }
 
 // GetDashboardPartMetadata implements the DashboardPartMetadataClassification interface for type DashboardPartMetadata.
@@ -117,7 +125,7 @@ type DashboardPartsPosition struct {
 	Y *int32
 
 	// The dashboard part's metadata.
-	Metadata map[string]any
+	Metadata any
 }
 
 // DashboardProperties - The shared dashboard properties.
@@ -126,34 +134,59 @@ type DashboardProperties struct {
 	Lenses []*DashboardLens
 
 	// The dashboard metadata.
-	Metadata map[string]any
+	Metadata any
 }
 
-// ErrorDefinition - Error definition.
-type ErrorDefinition struct {
-	// READ-ONLY; Service specific error code which serves as the substatus for the HTTP error code.
-	Code *int32
+// DashboardPropertiesWithProvisioningState - Dashboard Properties with Provisioning state
+type DashboardPropertiesWithProvisioningState struct {
+	// The dashboard lenses.
+	Lenses []*DashboardLens
 
-	// READ-ONLY; Internal error details.
-	Details []*ErrorDefinition
+	// The dashboard metadata.
+	Metadata any
 
-	// READ-ONLY; Description of the error.
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ResourceProvisioningState
+}
+
+// ErrorAdditionalInfo - The resource management error additional info.
+type ErrorAdditionalInfo struct {
+	// READ-ONLY; The additional info.
+	Info any
+
+	// READ-ONLY; The additional info type.
+	Type *string
+}
+
+// ErrorDetail - The error detail.
+type ErrorDetail struct {
+	// READ-ONLY; The error additional info.
+	AdditionalInfo []*ErrorAdditionalInfo
+
+	// READ-ONLY; The error code.
+	Code *string
+
+	// READ-ONLY; The error details.
+	Details []*ErrorDetail
+
+	// READ-ONLY; The error message.
 	Message *string
+
+	// READ-ONLY; The error target.
+	Target *string
 }
 
-// ErrorResponse - Error response.
+// ErrorResponse - Common error response for all Azure Resource Manager APIs to return error details for failed operations.
+// (This also follows the OData error response format.).
 type ErrorResponse struct {
-	// The error details.
-	Error *ErrorDefinition
+	// The error object.
+	Error *ErrorDetail
 }
 
 // MarkdownPartMetadata - Markdown part metadata.
 type MarkdownPartMetadata struct {
-	// REQUIRED; The type of dashboard part.
-	Type *string
-
-	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
-	AdditionalProperties map[string]any
+	// REQUIRED; The dashboard part metadata type.
+	Type *DashboardPartMetadataType
 
 	// Input to dashboard part.
 	Inputs []any
@@ -165,8 +198,7 @@ type MarkdownPartMetadata struct {
 // GetDashboardPartMetadata implements the DashboardPartMetadataClassification interface for type MarkdownPartMetadata.
 func (m *MarkdownPartMetadata) GetDashboardPartMetadata() *DashboardPartMetadata {
 	return &DashboardPartMetadata{
-		AdditionalProperties: m.AdditionalProperties,
-		Type:                 m.Type,
+		Type: m.Type,
 	}
 }
 
@@ -200,6 +232,55 @@ type MarkdownPartMetadataSettingsContentSettings struct {
 	Title *string
 }
 
+// Operation - Details of a REST API operation, returned from the Resource Provider Operations API
+type Operation struct {
+	// Localized display information for this particular operation.
+	Display *OperationDisplay
+
+	// READ-ONLY; Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+	ActionType *ActionType
+
+	// READ-ONLY; Whether the operation applies to data-plane. This is "true" for data-plane operations and "false" for ARM/control-plane
+	// operations.
+	IsDataAction *bool
+
+	// READ-ONLY; The name of the operation, as per Resource-Based Access Control (RBAC). Examples: "Microsoft.Compute/virtualMachines/write",
+	// "Microsoft.Compute/virtualMachines/capture/action"
+	Name *string
+
+	// READ-ONLY; The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
+	// value is "user,system"
+	Origin *Origin
+}
+
+// OperationDisplay - Localized display information for this particular operation.
+type OperationDisplay struct {
+	// READ-ONLY; The short, localized friendly description of the operation; suitable for tool tips and detailed views.
+	Description *string
+
+	// READ-ONLY; The concise, localized friendly name for the operation; suitable for dropdowns. E.g. "Create or Update Virtual
+	// Machine", "Restart Virtual Machine".
+	Operation *string
+
+	// READ-ONLY; The localized friendly form of the resource provider name, e.g. "Microsoft Monitoring Insights" or "Microsoft
+	// Compute".
+	Provider *string
+
+	// READ-ONLY; The localized friendly name of the resource type related to this operation. E.g. "Virtual Machines" or "Job
+	// Schedule Collections".
+	Resource *string
+}
+
+// OperationListResult - A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to
+// get the next set of results.
+type OperationListResult struct {
+	// READ-ONLY; URL to get the next set of operation list results (if there are any).
+	NextLink *string
+
+	// READ-ONLY; List of operations supported by the resource provider
+	Value []*Operation
+}
+
 // PatchableDashboard - The shared dashboard resource definition.
 type PatchableDashboard struct {
 	// The shared dashboard properties.
@@ -212,11 +293,14 @@ type PatchableDashboard struct {
 // ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
 // location
 type ProxyResource struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -224,50 +308,60 @@ type ProxyResource struct {
 
 // Resource - Common fields that are returned in the response for all Azure Resource Manager resources
 type Resource struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
 
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// ResourceProviderOperation - Supported operations of this resource provider.
-type ResourceProviderOperation struct {
-	// Display metadata associated with the operation.
-	Display *ResourceProviderOperationDisplay
+// SystemData - Metadata pertaining to creation and last modification of the resource.
+type SystemData struct {
+	// The timestamp of resource creation (UTC).
+	CreatedAt *time.Time
 
-	// Indicates whether the operation applies to data-plane.
-	IsDataAction *string
+	// The identity that created the resource.
+	CreatedBy *string
 
-	// Operation name, in format of {provider}/{resource}/{operation}
+	// The type of identity that created the resource.
+	CreatedByType *CreatedByType
+
+	// The timestamp of resource last modification (UTC)
+	LastModifiedAt *time.Time
+
+	// The identity that last modified the resource.
+	LastModifiedBy *string
+
+	// The type of identity that last modified the resource.
+	LastModifiedByType *CreatedByType
+}
+
+// TrackedResource - The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags'
+// and a 'location'
+type TrackedResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
 	Name *string
-}
 
-// ResourceProviderOperationDisplay - Display metadata associated with the operation.
-type ResourceProviderOperationDisplay struct {
-	// Description of this operation.
-	Description *string
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
-	// Type of operation: get, read, delete, etc.
-	Operation *string
-
-	// Resource provider: Microsoft Custom Providers.
-	Provider *string
-
-	// Resource on which the operation is performed.
-	Resource *string
-}
-
-// ResourceProviderOperationList - Results of the request to list operations.
-type ResourceProviderOperationList struct {
-	// The URL to use for getting the next set of results.
-	NextLink *string
-
-	// List of operations supported by this resource provider.
-	Value []*ResourceProviderOperation
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
 }
 
 // Violation information.
@@ -284,9 +378,9 @@ type Violation struct {
 
 // ViolationsList - List of list of items that violate tenant's configuration.
 type ViolationsList struct {
-	// The URL to use for getting the next set of results.
-	NextLink *string
-
-	// The array of violations.
+	// REQUIRED; The Violation items on this page
 	Value []*Violation
+
+	// The link to the next page of items
+	NextLink *string
 }
