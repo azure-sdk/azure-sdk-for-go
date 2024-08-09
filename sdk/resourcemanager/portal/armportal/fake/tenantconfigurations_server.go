@@ -26,15 +26,15 @@ import (
 type TenantConfigurationsServer struct {
 	// Create is the fake for method TenantConfigurationsClient.Create
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	Create func(ctx context.Context, configurationName armportal.ConfigurationName, tenantConfiguration armportal.Configuration, options *armportal.TenantConfigurationsClientCreateOptions) (resp azfake.Responder[armportal.TenantConfigurationsClientCreateResponse], errResp azfake.ErrorResponder)
+	Create func(ctx context.Context, configurationName string, resource armportal.Configuration, options *armportal.TenantConfigurationsClientCreateOptions) (resp azfake.Responder[armportal.TenantConfigurationsClientCreateResponse], errResp azfake.ErrorResponder)
 
 	// Delete is the fake for method TenantConfigurationsClient.Delete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
-	Delete func(ctx context.Context, configurationName armportal.ConfigurationName, options *armportal.TenantConfigurationsClientDeleteOptions) (resp azfake.Responder[armportal.TenantConfigurationsClientDeleteResponse], errResp azfake.ErrorResponder)
+	Delete func(ctx context.Context, configurationName string, options *armportal.TenantConfigurationsClientDeleteOptions) (resp azfake.Responder[armportal.TenantConfigurationsClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method TenantConfigurationsClient.Get
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusNotFound
-	Get func(ctx context.Context, configurationName armportal.ConfigurationName, options *armportal.TenantConfigurationsClientGetOptions) (resp azfake.Responder[armportal.TenantConfigurationsClientGetResponse], errResp azfake.ErrorResponder)
+	// HTTP status codes to indicate success: http.StatusOK
+	Get func(ctx context.Context, configurationName string, options *armportal.TenantConfigurationsClientGetOptions) (resp azfake.Responder[armportal.TenantConfigurationsClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method TenantConfigurationsClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
@@ -103,13 +103,7 @@ func (t *TenantConfigurationsServerTransport) dispatchCreate(req *http.Request) 
 	if err != nil {
 		return nil, err
 	}
-	configurationNameParam, err := parseWithCast(matches[regex.SubexpIndex("configurationName")], func(v string) (armportal.ConfigurationName, error) {
-		p, unescapeErr := url.PathUnescape(v)
-		if unescapeErr != nil {
-			return "", unescapeErr
-		}
-		return armportal.ConfigurationName(p), nil
-	})
+	configurationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("configurationName")])
 	if err != nil {
 		return nil, err
 	}
@@ -138,13 +132,7 @@ func (t *TenantConfigurationsServerTransport) dispatchDelete(req *http.Request) 
 	if matches == nil || len(matches) < 1 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	configurationNameParam, err := parseWithCast(matches[regex.SubexpIndex("configurationName")], func(v string) (armportal.ConfigurationName, error) {
-		p, unescapeErr := url.PathUnescape(v)
-		if unescapeErr != nil {
-			return "", unescapeErr
-		}
-		return armportal.ConfigurationName(p), nil
-	})
+	configurationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("configurationName")])
 	if err != nil {
 		return nil, err
 	}
@@ -173,13 +161,7 @@ func (t *TenantConfigurationsServerTransport) dispatchGet(req *http.Request) (*h
 	if matches == nil || len(matches) < 1 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	configurationNameParam, err := parseWithCast(matches[regex.SubexpIndex("configurationName")], func(v string) (armportal.ConfigurationName, error) {
-		p, unescapeErr := url.PathUnescape(v)
-		if unescapeErr != nil {
-			return "", unescapeErr
-		}
-		return armportal.ConfigurationName(p), nil
-	})
+	configurationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("configurationName")])
 	if err != nil {
 		return nil, err
 	}
@@ -188,8 +170,8 @@ func (t *TenantConfigurationsServerTransport) dispatchGet(req *http.Request) (*h
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK, http.StatusNotFound}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusNotFound", respContent.HTTPStatus)}
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Configuration, req)
 	if err != nil {
