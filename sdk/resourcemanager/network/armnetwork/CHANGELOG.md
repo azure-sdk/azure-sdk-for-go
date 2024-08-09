@@ -1,5 +1,17 @@
 # Release History
 
+## 6.1.0 (2024-08-09)
+### Features Added
+
+- New function `*VPNLinkConnectionsClient.NewGetAllSharedKeysPager(string, string, string, string, *VPNLinkConnectionsClientGetAllSharedKeysOptions) *runtime.Pager[VPNLinkConnectionsClientGetAllSharedKeysResponse]`
+- New function `*VPNLinkConnectionsClient.GetDefaultSharedKey(context.Context, string, string, string, string, *VPNLinkConnectionsClientGetDefaultSharedKeyOptions) (VPNLinkConnectionsClientGetDefaultSharedKeyResponse, error)`
+- New function `*VPNLinkConnectionsClient.ListDefaultSharedKey(context.Context, string, string, string, string, *VPNLinkConnectionsClientListDefaultSharedKeyOptions) (VPNLinkConnectionsClientListDefaultSharedKeyResponse, error)`
+- New function `*VPNLinkConnectionsClient.BeginSetOrInitDefaultSharedKey(context.Context, string, string, string, string, ConnectionSharedKeyResult, *VPNLinkConnectionsClientBeginSetOrInitDefaultSharedKeyOptions) (*runtime.Poller[VPNLinkConnectionsClientSetOrInitDefaultSharedKeyResponse], error)`
+- New struct `ConnectionSharedKeyResult`
+- New struct `ConnectionSharedKeyResultList`
+- New struct `SharedKeyProperties`
+
+
 ## 6.0.0 (2024-07-25)
 ### Breaking Changes
 

@@ -2978,9 +2978,34 @@ type VPNLinkConnectionsClientBeginResetConnectionOptions struct {
 	ResumeToken string
 }
 
+// VPNLinkConnectionsClientBeginSetOrInitDefaultSharedKeyOptions contains the optional parameters for the VPNLinkConnectionsClient.BeginSetOrInitDefaultSharedKey
+// method.
+type VPNLinkConnectionsClientBeginSetOrInitDefaultSharedKeyOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VPNLinkConnectionsClientGetAllSharedKeysOptions contains the optional parameters for the VPNLinkConnectionsClient.NewGetAllSharedKeysPager
+// method.
+type VPNLinkConnectionsClientGetAllSharedKeysOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VPNLinkConnectionsClientGetDefaultSharedKeyOptions contains the optional parameters for the VPNLinkConnectionsClient.GetDefaultSharedKey
+// method.
+type VPNLinkConnectionsClientGetDefaultSharedKeyOptions struct {
+	// placeholder for future optional parameters
+}
+
 // VPNLinkConnectionsClientListByVPNConnectionOptions contains the optional parameters for the VPNLinkConnectionsClient.NewListByVPNConnectionPager
 // method.
 type VPNLinkConnectionsClientListByVPNConnectionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VPNLinkConnectionsClientListDefaultSharedKeyOptions contains the optional parameters for the VPNLinkConnectionsClient.ListDefaultSharedKey
+// method.
+type VPNLinkConnectionsClientListDefaultSharedKeyOptions struct {
 	// placeholder for future optional parameters
 }
 

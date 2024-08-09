@@ -2800,6 +2800,18 @@ type VPNGatewaysClientUpdateTagsResponse struct {
 	VPNGateway
 }
 
+// VPNLinkConnectionsClientGetAllSharedKeysResponse contains the response from method VPNLinkConnectionsClient.NewGetAllSharedKeysPager.
+type VPNLinkConnectionsClientGetAllSharedKeysResponse struct {
+	// The list of shared keys for the vpn link connection. It should only contain one shared key for each vpn link connection.
+	ConnectionSharedKeyResultList
+}
+
+// VPNLinkConnectionsClientGetDefaultSharedKeyResponse contains the response from method VPNLinkConnectionsClient.GetDefaultSharedKey.
+type VPNLinkConnectionsClientGetDefaultSharedKeyResponse struct {
+	// SharedKey Resource .
+	ConnectionSharedKeyResult
+}
+
 // VPNLinkConnectionsClientGetIkeSasResponse contains the response from method VPNLinkConnectionsClient.BeginGetIkeSas.
 type VPNLinkConnectionsClientGetIkeSasResponse struct {
 	Value *string
@@ -2817,9 +2829,21 @@ type VPNLinkConnectionsClientListByVPNConnectionResponse struct {
 	ListVPNSiteLinkConnectionsResult
 }
 
+// VPNLinkConnectionsClientListDefaultSharedKeyResponse contains the response from method VPNLinkConnectionsClient.ListDefaultSharedKey.
+type VPNLinkConnectionsClientListDefaultSharedKeyResponse struct {
+	// SharedKey Resource .
+	ConnectionSharedKeyResult
+}
+
 // VPNLinkConnectionsClientResetConnectionResponse contains the response from method VPNLinkConnectionsClient.BeginResetConnection.
 type VPNLinkConnectionsClientResetConnectionResponse struct {
 	// placeholder for future response values
+}
+
+// VPNLinkConnectionsClientSetOrInitDefaultSharedKeyResponse contains the response from method VPNLinkConnectionsClient.BeginSetOrInitDefaultSharedKey.
+type VPNLinkConnectionsClientSetOrInitDefaultSharedKeyResponse struct {
+	// SharedKey Resource .
+	ConnectionSharedKeyResult
 }
 
 // VPNServerConfigurationsAssociatedWithVirtualWanClientListResponse contains the response from method VPNServerConfigurationsAssociatedWithVirtualWanClient.BeginList.
