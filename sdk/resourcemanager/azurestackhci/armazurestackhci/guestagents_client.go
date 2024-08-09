@@ -40,7 +40,7 @@ func NewGuestAgentsClient(credential azcore.TokenCredential, options *arm.Client
 
 // NewListPager - Returns the list of GuestAgent of the given vm.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-01-01
 //   - resourceURI - The fully qualified Azure Resource manager identifier of the Hybrid Compute machine resource to be extended.
 //   - options - GuestAgentsClientListOptions contains the optional parameters for the GuestAgentsClient.NewListPager method.
 func (client *GuestAgentsClient) NewListPager(resourceURI string, options *GuestAgentsClientListOptions) *runtime.Pager[GuestAgentsClientListResponse] {
@@ -75,7 +75,7 @@ func (client *GuestAgentsClient) listCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
