@@ -1,5 +1,12 @@
 # Release History
 
+## 1.1.0 (2024-08-09)
+### Features Added
+
+- New field `PrivateLinkScopeResourceID` in struct `GuestAgentProperties`
+- New field `DomainName`, `DomainPassword`, `DomainUsername`, `ProductKey`, `RunOnceCommands`, `Timezone`, `Workgroup` in struct `OsProfileForVMInstance`
+
+
 ## 1.0.0 (2024-06-28)
 ### Breaking Changes
 
