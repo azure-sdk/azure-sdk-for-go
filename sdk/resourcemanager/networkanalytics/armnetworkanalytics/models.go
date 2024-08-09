@@ -198,7 +198,7 @@ type DataProductUpdate struct {
 	// The managed service identities assigned to this resource.
 	Identity *ManagedServiceIdentity
 
-	// The updatable properties of the DataProduct.
+	// The resource-specific properties for this resource.
 	Properties *DataProductUpdateProperties
 
 	// Resource tags.
@@ -318,7 +318,7 @@ type DataTypeProperties struct {
 
 // DataTypeUpdate - The type used for update operations of the DataType.
 type DataTypeUpdate struct {
-	// The updatable properties of the DataType.
+	// The resource-specific properties for this resource.
 	Properties *DataTypeUpdateProperties
 }
 

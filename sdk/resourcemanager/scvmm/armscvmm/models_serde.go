@@ -586,6 +586,7 @@ func (g GuestAgentProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "credentials", g.Credentials)
 	populate(objectMap, "customResourceName", g.CustomResourceName)
 	populate(objectMap, "httpProxyConfig", g.HTTPProxyConfig)
+	populate(objectMap, "privateLinkScopeResourceId", g.PrivateLinkScopeResourceID)
 	populate(objectMap, "provisioningAction", g.ProvisioningAction)
 	populate(objectMap, "provisioningState", g.ProvisioningState)
 	populate(objectMap, "status", g.Status)
@@ -610,6 +611,9 @@ func (g *GuestAgentProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "httpProxyConfig":
 			err = unpopulate(val, "HTTPProxyConfig", &g.HTTPProxyConfig)
+			delete(rawMsg, key)
+		case "privateLinkScopeResourceId":
+			err = unpopulate(val, "PrivateLinkScopeResourceID", &g.PrivateLinkScopeResourceID)
 			delete(rawMsg, key)
 		case "provisioningAction":
 			err = unpopulate(val, "ProvisioningAction", &g.ProvisioningAction)
@@ -1323,9 +1327,16 @@ func (o OsProfileForVMInstance) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "adminPassword", o.AdminPassword)
 	populate(objectMap, "computerName", o.ComputerName)
+	populate(objectMap, "domainName", o.DomainName)
+	populate(objectMap, "domainPassword", o.DomainPassword)
+	populate(objectMap, "domainUsername", o.DomainUsername)
 	populate(objectMap, "osSku", o.OSSKU)
 	populate(objectMap, "osType", o.OSType)
 	populate(objectMap, "osVersion", o.OSVersion)
+	populate(objectMap, "productKey", o.ProductKey)
+	populate(objectMap, "runOnceCommands", o.RunOnceCommands)
+	populate(objectMap, "timezone", o.Timezone)
+	populate(objectMap, "workgroup", o.Workgroup)
 	return json.Marshal(objectMap)
 }
 
@@ -1344,6 +1355,15 @@ func (o *OsProfileForVMInstance) UnmarshalJSON(data []byte) error {
 		case "computerName":
 			err = unpopulate(val, "ComputerName", &o.ComputerName)
 			delete(rawMsg, key)
+		case "domainName":
+			err = unpopulate(val, "DomainName", &o.DomainName)
+			delete(rawMsg, key)
+		case "domainPassword":
+			err = unpopulate(val, "DomainPassword", &o.DomainPassword)
+			delete(rawMsg, key)
+		case "domainUsername":
+			err = unpopulate(val, "DomainUsername", &o.DomainUsername)
+			delete(rawMsg, key)
 		case "osSku":
 			err = unpopulate(val, "OSSKU", &o.OSSKU)
 			delete(rawMsg, key)
@@ -1352,6 +1372,18 @@ func (o *OsProfileForVMInstance) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "osVersion":
 			err = unpopulate(val, "OSVersion", &o.OSVersion)
+			delete(rawMsg, key)
+		case "productKey":
+			err = unpopulate(val, "ProductKey", &o.ProductKey)
+			delete(rawMsg, key)
+		case "runOnceCommands":
+			err = unpopulate(val, "RunOnceCommands", &o.RunOnceCommands)
+			delete(rawMsg, key)
+		case "timezone":
+			err = unpopulate(val, "Timezone", &o.Timezone)
+			delete(rawMsg, key)
+		case "workgroup":
+			err = unpopulate(val, "Workgroup", &o.Workgroup)
 			delete(rawMsg, key)
 		}
 		if err != nil {
