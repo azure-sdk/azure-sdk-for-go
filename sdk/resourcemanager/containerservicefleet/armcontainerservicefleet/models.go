@@ -179,7 +179,7 @@ type FleetMemberProperties struct {
 
 // FleetMemberUpdate - The type used for update operations of the FleetMember.
 type FleetMemberUpdate struct {
-	// The updatable properties of the FleetMember.
+	// The resource-specific properties for this resource.
 	Properties *FleetMemberUpdateProperties
 }
 
