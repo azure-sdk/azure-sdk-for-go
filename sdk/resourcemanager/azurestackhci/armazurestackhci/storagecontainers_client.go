@@ -47,7 +47,7 @@ func NewStorageContainersClient(subscriptionID string, credential azcore.TokenCr
 // during storage container creation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - storageContainerName - Name of the storage container
 //   - options - StorageContainersClientBeginCreateOrUpdateOptions contains the optional parameters for the StorageContainersClient.BeginCreateOrUpdate
@@ -74,7 +74,7 @@ func (client *StorageContainersClient) BeginCreateOrUpdate(ctx context.Context, 
 // storage container creation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-01-01
 func (client *StorageContainersClient) createOrUpdate(ctx context.Context, resourceGroupName string, storageContainerName string, storageContainers StorageContainers, options *StorageContainersClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "StorageContainersClient.BeginCreateOrUpdate"
@@ -116,7 +116,7 @@ func (client *StorageContainersClient) createOrUpdateCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, storageContainers); err != nil {
@@ -128,7 +128,7 @@ func (client *StorageContainersClient) createOrUpdateCreateRequest(ctx context.C
 // BeginDelete - The operation to delete a storage container.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - storageContainerName - Name of the storage container
 //   - options - StorageContainersClientBeginDeleteOptions contains the optional parameters for the StorageContainersClient.BeginDelete
@@ -154,7 +154,7 @@ func (client *StorageContainersClient) BeginDelete(ctx context.Context, resource
 // Delete - The operation to delete a storage container.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-01-01
 func (client *StorageContainersClient) deleteOperation(ctx context.Context, resourceGroupName string, storageContainerName string, options *StorageContainersClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "StorageContainersClient.BeginDelete"
@@ -196,7 +196,7 @@ func (client *StorageContainersClient) deleteCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -205,7 +205,7 @@ func (client *StorageContainersClient) deleteCreateRequest(ctx context.Context, 
 // Get - Gets a storage container
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - storageContainerName - Name of the storage container
 //   - options - StorageContainersClientGetOptions contains the optional parameters for the StorageContainersClient.Get method.
@@ -251,7 +251,7 @@ func (client *StorageContainersClient) getCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -269,7 +269,7 @@ func (client *StorageContainersClient) getHandleResponse(resp *http.Response) (S
 // NewListPager - Lists all of the storage containers in the specified resource group. Use the nextLink property in the response
 // to get the next page of storage containers.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - StorageContainersClientListOptions contains the optional parameters for the StorageContainersClient.NewListPager
 //     method.
@@ -312,7 +312,7 @@ func (client *StorageContainersClient) listCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -330,7 +330,7 @@ func (client *StorageContainersClient) listHandleResponse(resp *http.Response) (
 // NewListAllPager - Lists all of the storage containers in the specified subscription. Use the nextLink property in the response
 // to get the next page of storage containers.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-01-01
 //   - options - StorageContainersClientListAllOptions contains the optional parameters for the StorageContainersClient.NewListAllPager
 //     method.
 func (client *StorageContainersClient) NewListAllPager(options *StorageContainersClientListAllOptions) *runtime.Pager[StorageContainersClientListAllResponse] {
@@ -368,7 +368,7 @@ func (client *StorageContainersClient) listAllCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -386,7 +386,7 @@ func (client *StorageContainersClient) listAllHandleResponse(resp *http.Response
 // BeginUpdate - The operation to update a storage container.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - storageContainerName - Name of the storage container
 //   - options - StorageContainersClientBeginUpdateOptions contains the optional parameters for the StorageContainersClient.BeginUpdate
@@ -412,7 +412,7 @@ func (client *StorageContainersClient) BeginUpdate(ctx context.Context, resource
 // Update - The operation to update a storage container.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-01-01
 func (client *StorageContainersClient) update(ctx context.Context, resourceGroupName string, storageContainerName string, storageContainers StorageContainersUpdateRequest, options *StorageContainersClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "StorageContainersClient.BeginUpdate"
@@ -454,7 +454,7 @@ func (client *StorageContainersClient) updateCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, storageContainers); err != nil {
