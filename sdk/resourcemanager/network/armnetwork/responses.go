@@ -1733,6 +1733,29 @@ type ManagerDeploymentStatusClientListResponse struct {
 	ManagerDeploymentStatusListResult
 }
 
+// ManagerRoutingConfigurationsClientCreateOrUpdateResponse contains the response from method ManagerRoutingConfigurationsClient.CreateOrUpdate.
+type ManagerRoutingConfigurationsClientCreateOrUpdateResponse struct {
+	// Defines the routing configuration
+	ManagerRoutingConfiguration
+}
+
+// ManagerRoutingConfigurationsClientDeleteResponse contains the response from method ManagerRoutingConfigurationsClient.BeginDelete.
+type ManagerRoutingConfigurationsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ManagerRoutingConfigurationsClientGetResponse contains the response from method ManagerRoutingConfigurationsClient.Get.
+type ManagerRoutingConfigurationsClientGetResponse struct {
+	// Defines the routing configuration
+	ManagerRoutingConfiguration
+}
+
+// ManagerRoutingConfigurationsClientListResponse contains the response from method ManagerRoutingConfigurationsClient.NewListPager.
+type ManagerRoutingConfigurationsClientListResponse struct {
+	// A list of network manager routing configurations
+	ManagerRoutingConfigurationListResult
+}
+
 // ManagersClientCreateOrUpdateResponse contains the response from method ManagersClient.CreateOrUpdate.
 type ManagersClientCreateOrUpdateResponse struct {
 	// The Managed Network resource
@@ -2392,6 +2415,52 @@ type RoutingIntentClientListResponse struct {
 	ListRoutingIntentResult
 }
 
+// RoutingRuleCollectionsClientCreateOrUpdateResponse contains the response from method RoutingRuleCollectionsClient.CreateOrUpdate.
+type RoutingRuleCollectionsClientCreateOrUpdateResponse struct {
+	// Defines the routing rule collection.
+	RoutingRuleCollection
+}
+
+// RoutingRuleCollectionsClientDeleteResponse contains the response from method RoutingRuleCollectionsClient.BeginDelete.
+type RoutingRuleCollectionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// RoutingRuleCollectionsClientGetResponse contains the response from method RoutingRuleCollectionsClient.Get.
+type RoutingRuleCollectionsClientGetResponse struct {
+	// Defines the routing rule collection.
+	RoutingRuleCollection
+}
+
+// RoutingRuleCollectionsClientListResponse contains the response from method RoutingRuleCollectionsClient.NewListPager.
+type RoutingRuleCollectionsClientListResponse struct {
+	// Routing configuration rule collection list result.
+	RoutingRuleCollectionListResult
+}
+
+// RoutingRulesClientCreateOrUpdateResponse contains the response from method RoutingRulesClient.CreateOrUpdate.
+type RoutingRulesClientCreateOrUpdateResponse struct {
+	// Network routing rule.
+	RoutingRule
+}
+
+// RoutingRulesClientDeleteResponse contains the response from method RoutingRulesClient.BeginDelete.
+type RoutingRulesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// RoutingRulesClientGetResponse contains the response from method RoutingRulesClient.Get.
+type RoutingRulesClientGetResponse struct {
+	// Network routing rule.
+	RoutingRule
+}
+
+// RoutingRulesClientListResponse contains the response from method RoutingRulesClient.NewListPager.
+type RoutingRulesClientListResponse struct {
+	// Routing configuration rule list result.
+	RoutingRuleListResult
+}
+
 // ScopeConnectionsClientCreateOrUpdateResponse contains the response from method ScopeConnectionsClient.CreateOrUpdate.
 type ScopeConnectionsClientCreateOrUpdateResponse struct {
 	// The Scope Connections resource
@@ -2529,6 +2598,75 @@ type SecurityRulesClientGetResponse struct {
 type SecurityRulesClientListResponse struct {
 	// Response for ListSecurityRule API service call. Retrieves all security rules that belongs to a network security group.
 	SecurityRuleListResult
+}
+
+// SecurityUserConfigurationsClientCreateOrUpdateResponse contains the response from method SecurityUserConfigurationsClient.CreateOrUpdate.
+type SecurityUserConfigurationsClientCreateOrUpdateResponse struct {
+	// Defines the security user configuration
+	SecurityUserConfiguration
+}
+
+// SecurityUserConfigurationsClientDeleteResponse contains the response from method SecurityUserConfigurationsClient.BeginDelete.
+type SecurityUserConfigurationsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// SecurityUserConfigurationsClientGetResponse contains the response from method SecurityUserConfigurationsClient.Get.
+type SecurityUserConfigurationsClientGetResponse struct {
+	// Defines the security user configuration
+	SecurityUserConfiguration
+}
+
+// SecurityUserConfigurationsClientListResponse contains the response from method SecurityUserConfigurationsClient.NewListPager.
+type SecurityUserConfigurationsClientListResponse struct {
+	// A list of network manager security user configurations
+	SecurityUserConfigurationListResult
+}
+
+// SecurityUserRuleCollectionsClientCreateOrUpdateResponse contains the response from method SecurityUserRuleCollectionsClient.CreateOrUpdate.
+type SecurityUserRuleCollectionsClientCreateOrUpdateResponse struct {
+	// Defines the security user rule collection.
+	SecurityUserRuleCollection
+}
+
+// SecurityUserRuleCollectionsClientDeleteResponse contains the response from method SecurityUserRuleCollectionsClient.BeginDelete.
+type SecurityUserRuleCollectionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// SecurityUserRuleCollectionsClientGetResponse contains the response from method SecurityUserRuleCollectionsClient.Get.
+type SecurityUserRuleCollectionsClientGetResponse struct {
+	// Defines the security user rule collection.
+	SecurityUserRuleCollection
+}
+
+// SecurityUserRuleCollectionsClientListResponse contains the response from method SecurityUserRuleCollectionsClient.NewListPager.
+type SecurityUserRuleCollectionsClientListResponse struct {
+	// Security user configuration rule collection list result.
+	SecurityUserRuleCollectionListResult
+}
+
+// SecurityUserRulesClientCreateOrUpdateResponse contains the response from method SecurityUserRulesClient.CreateOrUpdate.
+type SecurityUserRulesClientCreateOrUpdateResponse struct {
+	// Network security user rule.
+	SecurityUserRule
+}
+
+// SecurityUserRulesClientDeleteResponse contains the response from method SecurityUserRulesClient.BeginDelete.
+type SecurityUserRulesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// SecurityUserRulesClientGetResponse contains the response from method SecurityUserRulesClient.Get.
+type SecurityUserRulesClientGetResponse struct {
+	// Network security user rule.
+	SecurityUserRule
+}
+
+// SecurityUserRulesClientListResponse contains the response from method SecurityUserRulesClient.NewListPager.
+type SecurityUserRulesClientListResponse struct {
+	// security user rule list result.
+	SecurityUserRuleListResult
 }
 
 // ServiceAssociationLinksClientListResponse contains the response from method ServiceAssociationLinksClient.List.
