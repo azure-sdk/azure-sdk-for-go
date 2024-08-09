@@ -327,6 +327,13 @@ type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// OracleSubscriptionsClientBeginAddAzureSubscriptionsOptions contains the optional parameters for the OracleSubscriptionsClient.BeginAddAzureSubscriptions
+// method.
+type OracleSubscriptionsClientBeginAddAzureSubscriptionsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // OracleSubscriptionsClientBeginCreateOrUpdateOptions contains the optional parameters for the OracleSubscriptionsClient.BeginCreateOrUpdate
 // method.
 type OracleSubscriptionsClientBeginCreateOrUpdateOptions struct {
