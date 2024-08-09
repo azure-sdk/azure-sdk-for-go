@@ -98,7 +98,7 @@ type AssetEndpointProfileProperties struct {
 
 // AssetEndpointProfileUpdate - The type used for update operations of the AssetEndpointProfile.
 type AssetEndpointProfileUpdate struct {
-	// The updatable properties of the AssetEndpointProfile.
+	// The resource-specific properties for this resource.
 	Properties *AssetEndpointProfileUpdateProperties
 
 	// Resource tags.
@@ -233,7 +233,7 @@ type AssetStatusError struct {
 
 // AssetUpdate - The type used for update operations of the Asset.
 type AssetUpdate struct {
-	// The updatable properties of the Asset.
+	// The resource-specific properties for this resource.
 	Properties *AssetUpdateProperties
 
 	// Resource tags.
