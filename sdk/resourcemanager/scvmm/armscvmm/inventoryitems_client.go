@@ -46,7 +46,7 @@ func NewInventoryItemsClient(subscriptionID string, credential azcore.TokenCrede
 // Create - Create Or Update InventoryItem.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-07
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vmmServerName - Name of the VmmServer.
 //   - inventoryItemResourceName - Name of the inventoryItem.
@@ -98,7 +98,7 @@ func (client *InventoryItemsClient) createCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-07")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, resource); err != nil {
@@ -119,7 +119,7 @@ func (client *InventoryItemsClient) createHandleResponse(resp *http.Response) (I
 // Delete - Deletes an inventoryItem.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-07
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vmmServerName - Name of the VmmServer.
 //   - inventoryItemResourceName - Name of the inventoryItem.
@@ -169,7 +169,7 @@ func (client *InventoryItemsClient) deleteCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-07")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -178,7 +178,7 @@ func (client *InventoryItemsClient) deleteCreateRequest(ctx context.Context, res
 // Get - Shows an inventory item.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-07
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vmmServerName - Name of the VmmServer.
 //   - inventoryItemResourceName - Name of the inventoryItem.
@@ -229,7 +229,7 @@ func (client *InventoryItemsClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-07")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -246,7 +246,7 @@ func (client *InventoryItemsClient) getHandleResponse(resp *http.Response) (Inve
 
 // NewListByVmmServerPager - Returns the list of inventoryItems in the given VmmServer.
 //
-// Generated from API version 2023-10-07
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vmmServerName - Name of the VmmServer.
 //   - options - InventoryItemsClientListByVmmServerOptions contains the optional parameters for the InventoryItemsClient.NewListByVmmServerPager
@@ -294,7 +294,7 @@ func (client *InventoryItemsClient) listByVmmServerCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-07")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

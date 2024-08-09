@@ -47,7 +47,7 @@ func NewLogicalNetworksClient(subscriptionID string, credential azcore.TokenCred
 // during logical network creation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - logicalNetworkName - Name of the logical network
 //   - options - LogicalNetworksClientBeginCreateOrUpdateOptions contains the optional parameters for the LogicalNetworksClient.BeginCreateOrUpdate
@@ -74,7 +74,7 @@ func (client *LogicalNetworksClient) BeginCreateOrUpdate(ctx context.Context, re
 // logical network creation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-01-01
 func (client *LogicalNetworksClient) createOrUpdate(ctx context.Context, resourceGroupName string, logicalNetworkName string, logicalNetworks LogicalNetworks, options *LogicalNetworksClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "LogicalNetworksClient.BeginCreateOrUpdate"
@@ -116,7 +116,7 @@ func (client *LogicalNetworksClient) createOrUpdateCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, logicalNetworks); err != nil {
@@ -128,7 +128,7 @@ func (client *LogicalNetworksClient) createOrUpdateCreateRequest(ctx context.Con
 // BeginDelete - The operation to delete a logical network.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - logicalNetworkName - Name of the logical network
 //   - options - LogicalNetworksClientBeginDeleteOptions contains the optional parameters for the LogicalNetworksClient.BeginDelete
@@ -154,7 +154,7 @@ func (client *LogicalNetworksClient) BeginDelete(ctx context.Context, resourceGr
 // Delete - The operation to delete a logical network.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-01-01
 func (client *LogicalNetworksClient) deleteOperation(ctx context.Context, resourceGroupName string, logicalNetworkName string, options *LogicalNetworksClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "LogicalNetworksClient.BeginDelete"
@@ -196,7 +196,7 @@ func (client *LogicalNetworksClient) deleteCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -205,7 +205,7 @@ func (client *LogicalNetworksClient) deleteCreateRequest(ctx context.Context, re
 // Get -
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - logicalNetworkName - Name of the logical network
 //   - options - LogicalNetworksClientGetOptions contains the optional parameters for the LogicalNetworksClient.Get method.
@@ -251,7 +251,7 @@ func (client *LogicalNetworksClient) getCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -269,7 +269,7 @@ func (client *LogicalNetworksClient) getHandleResponse(resp *http.Response) (Log
 // NewListPager - Lists all of the logical networks in the specified resource group. Use the nextLink property in the response
 // to get the next page of logical networks.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - LogicalNetworksClientListOptions contains the optional parameters for the LogicalNetworksClient.NewListPager
 //     method.
@@ -312,7 +312,7 @@ func (client *LogicalNetworksClient) listCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -330,7 +330,7 @@ func (client *LogicalNetworksClient) listHandleResponse(resp *http.Response) (Lo
 // NewListAllPager - Lists all of the logical networks in the specified subscription. Use the nextLink property in the response
 // to get the next page of logical networks.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-01-01
 //   - options - LogicalNetworksClientListAllOptions contains the optional parameters for the LogicalNetworksClient.NewListAllPager
 //     method.
 func (client *LogicalNetworksClient) NewListAllPager(options *LogicalNetworksClientListAllOptions) *runtime.Pager[LogicalNetworksClientListAllResponse] {
@@ -368,7 +368,7 @@ func (client *LogicalNetworksClient) listAllCreateRequest(ctx context.Context, o
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -386,7 +386,7 @@ func (client *LogicalNetworksClient) listAllHandleResponse(resp *http.Response) 
 // BeginUpdate - The operation to update a logical network.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - logicalNetworkName - Name of the logical network
 //   - options - LogicalNetworksClientBeginUpdateOptions contains the optional parameters for the LogicalNetworksClient.BeginUpdate
@@ -412,7 +412,7 @@ func (client *LogicalNetworksClient) BeginUpdate(ctx context.Context, resourceGr
 // Update - The operation to update a logical network.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-01-01
 func (client *LogicalNetworksClient) update(ctx context.Context, resourceGroupName string, logicalNetworkName string, logicalNetworks LogicalNetworksUpdateRequest, options *LogicalNetworksClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "LogicalNetworksClient.BeginUpdate"
@@ -454,7 +454,7 @@ func (client *LogicalNetworksClient) updateCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, logicalNetworks); err != nil {
