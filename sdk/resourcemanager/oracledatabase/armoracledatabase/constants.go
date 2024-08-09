@@ -10,7 +10,7 @@ package armoracledatabase
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/oracledatabase/armoracledatabase"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.1.0"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -24,6 +24,27 @@ const (
 func PossibleActionTypeValues() []ActionType {
 	return []ActionType{
 		ActionTypeInternal,
+	}
+}
+
+// AddSubscriptionOperationState - Add Subscription Operation state enum
+type AddSubscriptionOperationState string
+
+const (
+	// AddSubscriptionOperationStateFailed - Failed - State when Add Subscription operation failed
+	AddSubscriptionOperationStateFailed AddSubscriptionOperationState = "Failed"
+	// AddSubscriptionOperationStateSucceeded - Succeeded - State when Add Subscription operation succeeded
+	AddSubscriptionOperationStateSucceeded AddSubscriptionOperationState = "Succeeded"
+	// AddSubscriptionOperationStateUpdating - Updating - State when Add Subscription operation is being Updated
+	AddSubscriptionOperationStateUpdating AddSubscriptionOperationState = "Updating"
+)
+
+// PossibleAddSubscriptionOperationStateValues returns the possible values for the AddSubscriptionOperationState const type.
+func PossibleAddSubscriptionOperationStateValues() []AddSubscriptionOperationState {
+	return []AddSubscriptionOperationState{
+		AddSubscriptionOperationStateFailed,
+		AddSubscriptionOperationStateSucceeded,
+		AddSubscriptionOperationStateUpdating,
 	}
 }
 
