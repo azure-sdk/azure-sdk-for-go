@@ -1,5 +1,14 @@
 # Release History
 
+## 1.1.0 (2024-08-09)
+### Features Added
+
+- New enum type `AddSubscriptionOperationState` with values `AddSubscriptionOperationStateFailed`, `AddSubscriptionOperationStateSucceeded`, `AddSubscriptionOperationStateUpdating`
+- New function `*OracleSubscriptionsClient.BeginAddAzureSubscriptions(context.Context, AzureSubscriptions, *OracleSubscriptionsClientBeginAddAzureSubscriptionsOptions) (*runtime.Poller[OracleSubscriptionsClientAddAzureSubscriptionsResponse], error)`
+- New struct `AzureSubscriptions`
+- New field `AddSubscriptionOperationState`, `AzureSubscriptionIDs`, `LastOperationStatusDetail` in struct `OracleSubscriptionProperties`
+
+
 ## 1.0.0 (2024-06-28)
 ### Other Changes
 
