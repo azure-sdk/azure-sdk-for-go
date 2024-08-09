@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/loadtesting/armloadtesting"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/loadtesting/armloadtesting/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -26,7 +26,7 @@ import (
 type QuotasServer struct {
 	// CheckAvailability is the fake for method QuotasClient.CheckAvailability
 	// HTTP status codes to indicate success: http.StatusOK
-	CheckAvailability func(ctx context.Context, location string, quotaBucketName string, quotaBucketRequest armloadtesting.QuotaBucketRequest, options *armloadtesting.QuotasClientCheckAvailabilityOptions) (resp azfake.Responder[armloadtesting.QuotasClientCheckAvailabilityResponse], errResp azfake.ErrorResponder)
+	CheckAvailability func(ctx context.Context, location string, quotaBucketName string, body armloadtesting.QuotaBucketRequest, options *armloadtesting.QuotasClientCheckAvailabilityOptions) (resp azfake.Responder[armloadtesting.QuotasClientCheckAvailabilityResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method QuotasClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
