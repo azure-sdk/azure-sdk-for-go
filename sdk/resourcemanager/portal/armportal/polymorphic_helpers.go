@@ -11,7 +11,7 @@ package armportal
 import "encoding/json"
 
 func unmarshalDashboardPartMetadataClassification(rawMsg json.RawMessage) (DashboardPartMetadataClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -20,7 +20,7 @@ func unmarshalDashboardPartMetadataClassification(rawMsg json.RawMessage) (Dashb
 	}
 	var b DashboardPartMetadataClassification
 	switch m["type"] {
-	case "Extension/HubsExtension/PartType/MarkdownPart":
+	case string(DashboardPartMetadataTypeMarkdown):
 		b = &MarkdownPartMetadata{}
 	default:
 		b = &DashboardPartMetadata{}
