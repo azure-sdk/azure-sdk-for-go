@@ -316,6 +316,11 @@ type OperationsClientListResponse struct {
 	OperationListResult
 }
 
+// OracleSubscriptionsClientAddAzureSubscriptionsResponse contains the response from method OracleSubscriptionsClient.BeginAddAzureSubscriptions.
+type OracleSubscriptionsClientAddAzureSubscriptionsResponse struct {
+	// placeholder for future response values
+}
+
 // OracleSubscriptionsClientCreateOrUpdateResponse contains the response from method OracleSubscriptionsClient.BeginCreateOrUpdate.
 type OracleSubscriptionsClientCreateOrUpdateResponse struct {
 	// OracleSubscription resource definition
