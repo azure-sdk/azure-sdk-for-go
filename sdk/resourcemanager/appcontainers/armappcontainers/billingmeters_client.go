@@ -46,7 +46,7 @@ func NewBillingMetersClient(subscriptionID string, credential azcore.TokenCreden
 // Get - Get all billingMeters for a location.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-11-02-preview
+// Generated from API version 2024-02-02-preview
 //   - location - The name of Azure region.
 //   - options - BillingMetersClientGetOptions contains the optional parameters for the BillingMetersClient.Get method.
 func (client *BillingMetersClient) Get(ctx context.Context, location string, options *BillingMetersClientGetOptions) (BillingMetersClientGetResponse, error) {
@@ -87,7 +87,7 @@ func (client *BillingMetersClient) getCreateRequest(ctx context.Context, locatio
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-11-02-preview")
+	reqQP.Set("api-version", "2024-02-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
