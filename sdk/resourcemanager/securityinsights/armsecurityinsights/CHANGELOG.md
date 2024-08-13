@@ -1,5 +1,481 @@
 # Release History
 
+## 2.0.0-beta.5 (2024-08-13)
+### Breaking Changes
+
+- Function `*SourceControlClient.NewListRepositoriesPager` parameter(s) have been changed from `(string, string, RepoType, *SourceControlClientListRepositoriesOptions)` to `(string, string, RepositoryAccessProperties, *SourceControlClientListRepositoriesOptions)`
+- Function `*SourceControlsClient.Delete` parameter(s) have been changed from `(context.Context, string, string, string, *SourceControlsClientDeleteOptions)` to `(context.Context, string, string, string, RepositoryAccessProperties, *SourceControlsClientDeleteOptions)`
+- Type of `AccountEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `AzureResourceEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `CloudApplicationEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `DNSEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `Entity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `FileEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `FileHashEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `HostEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `HuntingBookmark.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `IPEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `IncidentEntitiesResultsMetadata.EntityKind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `IoTDeviceEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `MailClusterEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `MailMessageEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `MailboxEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `MalwareEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `MetadataProperties.Kind` has been changed from `*Kind` to `*string`
+- Type of `MetadataPropertiesPatch.Kind` has been changed from `*Kind` to `*string`
+- Type of `ProcessEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `RegistryKeyEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `RegistryValueEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `SecurityAlert.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `SecurityGroupEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `SubmissionMailEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `ThreatIntelligenceIndicatorModel.Kind` has been changed from `*ThreatIntelligenceResourceKindEnum` to `*ThreatIntelligenceResourceInnerKind`
+- Type of `ThreatIntelligenceInformation.Kind` has been changed from `*ThreatIntelligenceResourceKindEnum` to `*ThreatIntelligenceResourceInnerKind`
+- Type of `ThreatIntelligenceSortingCriteria.SortOrder` has been changed from `*ThreatIntelligenceSortingCriteriaEnum` to `*ThreatIntelligenceSortingOrder`
+- Type of `URLEntity.Kind` has been changed from `*EntityKind` to `*EntityKindEnum`
+- Type of `Webhook.WebhookSecretUpdateTime` has been changed from `*string` to `*time.Time`
+- `AlertRuleKindMLBehaviorAnalytics`, `AlertRuleKindNRT`, `AlertRuleKindThreatIntelligence` from enum `AlertRuleKind` has been removed
+- `DataConnectorKindAPIPolling`, `DataConnectorKindAmazonWebServicesS3`, `DataConnectorKindDynamics365`, `DataConnectorKindGenericUI`, `DataConnectorKindIOT`, `DataConnectorKindMicrosoftThreatIntelligence`, `DataConnectorKindMicrosoftThreatProtection`, `DataConnectorKindOffice365Project`, `DataConnectorKindOfficeATP`, `DataConnectorKindOfficeIRM`, `DataConnectorKindOfficePowerBI`, `DataConnectorKindThreatIntelligenceTaxii` from enum `DataConnectorKind` has been removed
+- `MicrosoftSecurityProductNameMicrosoftDefenderAdvancedThreatProtection`, `MicrosoftSecurityProductNameOffice365AdvancedThreatProtection` from enum `MicrosoftSecurityProductName` has been removed
+- `RepoTypeDevOps` from enum `RepoType` has been removed
+- Enum `ConnectAuthKind` has been removed
+- Enum `ConnectivityType` has been removed
+- Enum `CustomEntityQueryKind` has been removed
+- Enum `DataConnectorAuthorizationState` has been removed
+- Enum `DataConnectorLicenseState` has been removed
+- Enum `DeleteStatus` has been removed
+- Enum `DeviceImportance` has been removed
+- Enum `EntityItemQueryKind` has been removed
+- Enum `EntityKind` has been removed
+- Enum `EntityProviders` has been removed
+- Enum `EntityQueryKind` has been removed
+- Enum `EntityQueryTemplateKind` has been removed
+- Enum `EntityTimelineKind` has been removed
+- Enum `EntityType` has been removed
+- Enum `Enum13` has been removed
+- Enum `Enum15` has been removed
+- Enum `FileFormat` has been removed
+- Enum `FileImportContentType` has been removed
+- Enum `FileImportState` has been removed
+- Enum `GetInsightsError` has been removed
+- Enum `IngestionMode` has been removed
+- Enum `OutputType` has been removed
+- Enum `PermissionProviderScope` has been removed
+- Enum `PollingFrequency` has been removed
+- Enum `ProviderName` has been removed
+- Enum `SettingKind` has been removed
+- Enum `SettingType` has been removed
+- Enum `SourceType` has been removed
+- Enum `ThreatIntelligenceResourceKindEnum` has been removed
+- Enum `ThreatIntelligenceSortingCriteriaEnum` has been removed
+- Enum `UebaDataSources` has been removed
+- Function `*AADCheckRequirements.GetDataConnectorsCheckRequirements` has been removed
+- Function `*AATPCheckRequirements.GetDataConnectorsCheckRequirements` has been removed
+- Function `*ASCCheckRequirements.GetDataConnectorsCheckRequirements` has been removed
+- Function `*ActivityCustomEntityQuery.GetCustomEntityQuery` has been removed
+- Function `*ActivityEntityQuery.GetEntityQuery` has been removed
+- Function `*ActivityEntityQueryTemplate.GetEntityQueryTemplate` has been removed
+- Function `*ActivityTimelineItem.GetEntityTimelineItem` has been removed
+- Function `*Anomalies.GetSettings` has been removed
+- Function `*AnomalyTimelineItem.GetEntityTimelineItem` has been removed
+- Function `*AwsCloudTrailCheckRequirements.GetDataConnectorsCheckRequirements` has been removed
+- Function `*AwsS3CheckRequirements.GetDataConnectorsCheckRequirements` has been removed
+- Function `*AwsS3DataConnector.GetDataConnector` has been removed
+- Function `NewBookmarkClient` has been removed
+- Function `*BookmarkClient.Expand` has been removed
+- Function `NewBookmarkRelationsClient` has been removed
+- Function `*BookmarkRelationsClient.CreateOrUpdate` has been removed
+- Function `*BookmarkRelationsClient.Delete` has been removed
+- Function `*BookmarkRelationsClient.Get` has been removed
+- Function `*BookmarkRelationsClient.NewListPager` has been removed
+- Function `*BookmarkTimelineItem.GetEntityTimelineItem` has been removed
+- Function `*ClientFactory.NewBookmarkClient` has been removed
+- Function `*ClientFactory.NewBookmarkRelationsClient` has been removed
+- Function `*ClientFactory.NewDataConnectorsCheckRequirementsClient` has been removed
+- Function `*ClientFactory.NewDomainWhoisClient` has been removed
+- Function `*ClientFactory.NewEntitiesGetTimelineClient` has been removed
+- Function `*ClientFactory.NewEntitiesRelationsClient` has been removed
+- Function `*ClientFactory.NewEntityQueriesClient` has been removed
+- Function `*ClientFactory.NewEntityQueryTemplatesClient` has been removed
+- Function `*ClientFactory.NewEntityRelationsClient` has been removed
+- Function `*ClientFactory.NewFileImportsClient` has been removed
+- Function `*ClientFactory.NewIPGeodataClient` has been removed
+- Function `*ClientFactory.NewOfficeConsentsClient` has been removed
+- Function `*ClientFactory.NewProductSettingsClient` has been removed
+- Function `*CodelessAPIPollingDataConnector.GetDataConnector` has been removed
+- Function `*CodelessUIDataConnector.GetDataConnector` has been removed
+- Function `*CustomEntityQuery.GetCustomEntityQuery` has been removed
+- Function `*DataConnectorsCheckRequirements.GetDataConnectorsCheckRequirements` has been removed
+- Function `NewDataConnectorsCheckRequirementsClient` has been removed
+- Function `*DataConnectorsCheckRequirementsClient.Post` has been removed
+- Function `*DataConnectorsClient.Connect` has been removed
+- Function `*DataConnectorsClient.Disconnect` has been removed
+- Function `NewDomainWhoisClient` has been removed
+- Function `*DomainWhoisClient.Get` has been removed
+- Function `*Dynamics365CheckRequirements.GetDataConnectorsCheckRequirements` has been removed
+- Function `*Dynamics365DataConnector.GetDataConnector` has been removed
+- Function `*EntitiesClient.Expand` has been removed
+- Function `*EntitiesClient.Get` has been removed
+- Function `*EntitiesClient.GetInsights` has been removed
+- Function `*EntitiesClient.NewListPager` has been removed
+- Function `*EntitiesClient.Queries` has been removed
+- Function `NewEntitiesGetTimelineClient` has been removed
+- Function `*EntitiesGetTimelineClient.List` has been removed
+- Function `NewEntitiesRelationsClient` has been removed
+- Function `*EntitiesRelationsClient.NewListPager` has been removed
+- Function `*EntityAnalytics.GetSettings` has been removed
+- Function `NewEntityQueriesClient` has been removed
+- Function `*EntityQueriesClient.CreateOrUpdate` has been removed
+- Function `*EntityQueriesClient.Delete` has been removed
+- Function `*EntityQueriesClient.Get` has been removed
+- Function `*EntityQueriesClient.NewListPager` has been removed
+- Function `*EntityQuery.GetEntityQuery` has been removed
+- Function `*EntityQueryItem.GetEntityQueryItem` has been removed
+- Function `*EntityQueryTemplate.GetEntityQueryTemplate` has been removed
+- Function `NewEntityQueryTemplatesClient` has been removed
+- Function `*EntityQueryTemplatesClient.Get` has been removed
+- Function `*EntityQueryTemplatesClient.NewListPager` has been removed
+- Function `NewEntityRelationsClient` has been removed
+- Function `*EntityRelationsClient.GetRelation` has been removed
+- Function `*EntityTimelineItem.GetEntityTimelineItem` has been removed
+- Function `*ExpansionEntityQuery.GetEntityQuery` has been removed
+- Function `*EyesOn.GetSettings` has been removed
+- Function `NewFileImportsClient` has been removed
+- Function `*FileImportsClient.Create` has been removed
+- Function `*FileImportsClient.BeginDelete` has been removed
+- Function `*FileImportsClient.Get` has been removed
+- Function `*FileImportsClient.NewListPager` has been removed
+- Function `NewIPGeodataClient` has been removed
+- Function `*IPGeodataClient.Get` has been removed
+- Function `*IncidentsClient.CreateTeam` has been removed
+- Function `*InsightQueryItem.GetEntityQueryItem` has been removed
+- Function `*IoTCheckRequirements.GetDataConnectorsCheckRequirements` has been removed
+- Function `*IoTDataConnector.GetDataConnector` has been removed
+- Function `*MCASCheckRequirements.GetDataConnectorsCheckRequirements` has been removed
+- Function `*MDATPCheckRequirements.GetDataConnectorsCheckRequirements` has been removed
+- Function `*MLBehaviorAnalyticsAlertRule.GetAlertRule` has been removed
+- Function `*MLBehaviorAnalyticsAlertRuleTemplate.GetAlertRuleTemplate` has been removed
+- Function `*MSTICheckRequirements.GetDataConnectorsCheckRequirements` has been removed
+- Function `*MSTIDataConnector.GetDataConnector` has been removed
+- Function `*MTPDataConnector.GetDataConnector` has been removed
+- Function `*MtpCheckRequirements.GetDataConnectorsCheckRequirements` has been removed
+- Function `*Office365ProjectCheckRequirements.GetDataConnectorsCheckRequirements` has been removed
+- Function `*Office365ProjectDataConnector.GetDataConnector` has been removed
+- Function `*OfficeATPCheckRequirements.GetDataConnectorsCheckRequirements` has been removed
+- Function `*OfficeATPDataConnector.GetDataConnector` has been removed
+- Function `NewOfficeConsentsClient` has been removed
+- Function `*OfficeConsentsClient.Delete` has been removed
+- Function `*OfficeConsentsClient.Get` has been removed
+- Function `*OfficeConsentsClient.NewListPager` has been removed
+- Function `*OfficeIRMCheckRequirements.GetDataConnectorsCheckRequirements` has been removed
+- Function `*OfficeIRMDataConnector.GetDataConnector` has been removed
+- Function `*OfficePowerBICheckRequirements.GetDataConnectorsCheckRequirements` has been removed
+- Function `*OfficePowerBIDataConnector.GetDataConnector` has been removed
+- Function `NewProductSettingsClient` has been removed
+- Function `*ProductSettingsClient.Delete` has been removed
+- Function `*ProductSettingsClient.Get` has been removed
+- Function `*ProductSettingsClient.List` has been removed
+- Function `*ProductSettingsClient.Update` has been removed
+- Function `*SecurityAlertTimelineItem.GetEntityTimelineItem` has been removed
+- Function `*Settings.GetSettings` has been removed
+- Function `*TICheckRequirements.GetDataConnectorsCheckRequirements` has been removed
+- Function `*ThreatIntelligenceAlertRule.GetAlertRule` has been removed
+- Function `*ThreatIntelligenceAlertRuleTemplate.GetAlertRuleTemplate` has been removed
+- Function `*TiTaxiiCheckRequirements.GetDataConnectorsCheckRequirements` has been removed
+- Function `*TiTaxiiDataConnector.GetDataConnector` has been removed
+- Function `*Ueba.GetSettings` has been removed
+- Function `*NicEntity.GetEntity` has been removed
+- Function `*NrtAlertRule.GetAlertRule` has been removed
+- Function `*NrtAlertRuleTemplate.GetAlertRuleTemplate` has been removed
+- Struct `AADCheckRequirements` has been removed
+- Struct `AADCheckRequirementsProperties` has been removed
+- Struct `AATPCheckRequirements` has been removed
+- Struct `AATPCheckRequirementsProperties` has been removed
+- Struct `APIPollingParameters` has been removed
+- Struct `ASCCheckRequirements` has been removed
+- Struct `ASCCheckRequirementsProperties` has been removed
+- Struct `ActivityCustomEntityQuery` has been removed
+- Struct `ActivityEntityQueriesProperties` has been removed
+- Struct `ActivityEntityQueriesPropertiesQueryDefinitions` has been removed
+- Struct `ActivityEntityQuery` has been removed
+- Struct `ActivityEntityQueryTemplate` has been removed
+- Struct `ActivityEntityQueryTemplateProperties` has been removed
+- Struct `ActivityEntityQueryTemplatePropertiesQueryDefinitions` has been removed
+- Struct `ActivityTimelineItem` has been removed
+- Struct `Anomalies` has been removed
+- Struct `AnomaliesSettingsProperties` has been removed
+- Struct `AnomalyTimelineItem` has been removed
+- Struct `Availability` has been removed
+- Struct `AwsCloudTrailCheckRequirements` has been removed
+- Struct `AwsS3CheckRequirements` has been removed
+- Struct `AwsS3DataConnector` has been removed
+- Struct `AwsS3DataConnectorDataTypes` has been removed
+- Struct `AwsS3DataConnectorDataTypesLogs` has been removed
+- Struct `AwsS3DataConnectorProperties` has been removed
+- Struct `BookmarkEntityMappings` has been removed
+- Struct `BookmarkExpandParameters` has been removed
+- Struct `BookmarkExpandResponse` has been removed
+- Struct `BookmarkExpandResponseValue` has been removed
+- Struct `BookmarkTimelineItem` has been removed
+- Struct `CodelessAPIPollingDataConnector` has been removed
+- Struct `CodelessConnectorPollingAuthProperties` has been removed
+- Struct `CodelessConnectorPollingConfigProperties` has been removed
+- Struct `CodelessConnectorPollingPagingProperties` has been removed
+- Struct `CodelessConnectorPollingRequestProperties` has been removed
+- Struct `CodelessConnectorPollingResponseProperties` has been removed
+- Struct `CodelessParameters` has been removed
+- Struct `CodelessUIConnectorConfigProperties` has been removed
+- Struct `CodelessUIConnectorConfigPropertiesConnectivityCriteriaItem` has been removed
+- Struct `CodelessUIConnectorConfigPropertiesDataTypesItem` has been removed
+- Struct `CodelessUIConnectorConfigPropertiesGraphQueriesItem` has been removed
+- Struct `CodelessUIConnectorConfigPropertiesInstructionStepsItem` has been removed
+- Struct `CodelessUIConnectorConfigPropertiesSampleQueriesItem` has been removed
+- Struct `CodelessUIDataConnector` has been removed
+- Struct `ConnectedEntity` has been removed
+- Struct `ContentPathMap` has been removed
+- Struct `DataConnectorConnectBody` has been removed
+- Struct `DataConnectorRequirementsState` has been removed
+- Struct `DataTypeDefinitions` has been removed
+- Struct `Dynamics365CheckRequirements` has been removed
+- Struct `Dynamics365CheckRequirementsProperties` has been removed
+- Struct `Dynamics365DataConnector` has been removed
+- Struct `Dynamics365DataConnectorDataTypes` has been removed
+- Struct `Dynamics365DataConnectorDataTypesDynamics365CdsActivities` has been removed
+- Struct `Dynamics365DataConnectorProperties` has been removed
+- Struct `EnrichmentDomainWhois` has been removed
+- Struct `EnrichmentDomainWhoisContact` has been removed
+- Struct `EnrichmentDomainWhoisContacts` has been removed
+- Struct `EnrichmentDomainWhoisDetails` has been removed
+- Struct `EnrichmentDomainWhoisRegistrarDetails` has been removed
+- Struct `EnrichmentIPGeodata` has been removed
+- Struct `EntityAnalytics` has been removed
+- Struct `EntityAnalyticsProperties` has been removed
+- Struct `EntityEdges` has been removed
+- Struct `EntityExpandParameters` has been removed
+- Struct `EntityExpandResponse` has been removed
+- Struct `EntityExpandResponseValue` has been removed
+- Struct `EntityFieldMapping` has been removed
+- Struct `EntityGetInsightsParameters` has been removed
+- Struct `EntityGetInsightsResponse` has been removed
+- Struct `EntityInsightItem` has been removed
+- Struct `EntityInsightItemQueryTimeInterval` has been removed
+- Struct `EntityList` has been removed
+- Struct `EntityQueryItemPropertiesDataTypesItem` has been removed
+- Struct `EntityQueryList` has been removed
+- Struct `EntityQueryTemplateList` has been removed
+- Struct `EntityTimelineParameters` has been removed
+- Struct `EntityTimelineResponse` has been removed
+- Struct `ExpansionEntityQueriesProperties` has been removed
+- Struct `ExpansionEntityQuery` has been removed
+- Struct `ExpansionResultAggregation` has been removed
+- Struct `ExpansionResultsMetadata` has been removed
+- Struct `EyesOn` has been removed
+- Struct `EyesOnSettingsProperties` has been removed
+- Struct `FileImport` has been removed
+- Struct `FileImportList` has been removed
+- Struct `FileImportProperties` has been removed
+- Struct `FileMetadata` has been removed
+- Struct `FusionScenarioExclusionPattern` has been removed
+- Struct `FusionSourceSettings` has been removed
+- Struct `FusionSourceSubTypeSetting` has been removed
+- Struct `FusionSubTypeSeverityFilter` has been removed
+- Struct `FusionSubTypeSeverityFiltersItem` has been removed
+- Struct `FusionTemplateSourceSetting` has been removed
+- Struct `FusionTemplateSourceSubType` has been removed
+- Struct `FusionTemplateSubTypeSeverityFilter` has been removed
+- Struct `GetInsightsErrorKind` has been removed
+- Struct `GetInsightsResultsMetadata` has been removed
+- Struct `GetQueriesResponse` has been removed
+- Struct `InsightQueryItem` has been removed
+- Struct `InsightQueryItemProperties` has been removed
+- Struct `InsightQueryItemPropertiesAdditionalQuery` has been removed
+- Struct `InsightQueryItemPropertiesDefaultTimeRange` has been removed
+- Struct `InsightQueryItemPropertiesReferenceTimeRange` has been removed
+- Struct `InsightQueryItemPropertiesTableQuery` has been removed
+- Struct `InsightQueryItemPropertiesTableQueryColumnsDefinitionsItem` has been removed
+- Struct `InsightQueryItemPropertiesTableQueryQueriesDefinitionsItem` has been removed
+- Struct `InsightQueryItemPropertiesTableQueryQueriesDefinitionsPropertiesItemsItem` has been removed
+- Struct `InsightsTableResult` has been removed
+- Struct `InsightsTableResultColumnsItem` has been removed
+- Struct `InstructionStepsInstructionsItem` has been removed
+- Struct `IoTCheckRequirements` has been removed
+- Struct `IoTCheckRequirementsProperties` has been removed
+- Struct `IoTDataConnector` has been removed
+- Struct `IoTDataConnectorProperties` has been removed
+- Struct `MCASCheckRequirements` has been removed
+- Struct `MCASCheckRequirementsProperties` has been removed
+- Struct `MDATPCheckRequirements` has been removed
+- Struct `MDATPCheckRequirementsProperties` has been removed
+- Struct `MLBehaviorAnalyticsAlertRule` has been removed
+- Struct `MLBehaviorAnalyticsAlertRuleProperties` has been removed
+- Struct `MLBehaviorAnalyticsAlertRuleTemplate` has been removed
+- Struct `MLBehaviorAnalyticsAlertRuleTemplateProperties` has been removed
+- Struct `MSTICheckRequirements` has been removed
+- Struct `MSTICheckRequirementsProperties` has been removed
+- Struct `MSTIDataConnector` has been removed
+- Struct `MSTIDataConnectorDataTypes` has been removed
+- Struct `MSTIDataConnectorDataTypesBingSafetyPhishingURL` has been removed
+- Struct `MSTIDataConnectorDataTypesMicrosoftEmergingThreatFeed` has been removed
+- Struct `MSTIDataConnectorProperties` has been removed
+- Struct `MTPCheckRequirementsProperties` has been removed
+- Struct `MTPDataConnector` has been removed
+- Struct `MTPDataConnectorDataTypes` has been removed
+- Struct `MTPDataConnectorDataTypesIncidents` has been removed
+- Struct `MTPDataConnectorProperties` has been removed
+- Struct `MtpCheckRequirements` has been removed
+- Struct `NicEntity` has been removed
+- Struct `NicEntityProperties` has been removed
+- Struct `NrtAlertRule` has been removed
+- Struct `NrtAlertRuleProperties` has been removed
+- Struct `NrtAlertRuleTemplate` has been removed
+- Struct `NrtAlertRuleTemplateProperties` has been removed
+- Struct `Office365ProjectCheckRequirements` has been removed
+- Struct `Office365ProjectCheckRequirementsProperties` has been removed
+- Struct `Office365ProjectConnectorDataTypes` has been removed
+- Struct `Office365ProjectConnectorDataTypesLogs` has been removed
+- Struct `Office365ProjectDataConnector` has been removed
+- Struct `Office365ProjectDataConnectorProperties` has been removed
+- Struct `OfficeATPCheckRequirements` has been removed
+- Struct `OfficeATPCheckRequirementsProperties` has been removed
+- Struct `OfficeATPDataConnector` has been removed
+- Struct `OfficeATPDataConnectorProperties` has been removed
+- Struct `OfficeConsent` has been removed
+- Struct `OfficeConsentList` has been removed
+- Struct `OfficeConsentProperties` has been removed
+- Struct `OfficeIRMCheckRequirements` has been removed
+- Struct `OfficeIRMCheckRequirementsProperties` has been removed
+- Struct `OfficeIRMDataConnector` has been removed
+- Struct `OfficeIRMDataConnectorProperties` has been removed
+- Struct `OfficePowerBICheckRequirements` has been removed
+- Struct `OfficePowerBICheckRequirementsProperties` has been removed
+- Struct `OfficePowerBIConnectorDataTypes` has been removed
+- Struct `OfficePowerBIConnectorDataTypesLogs` has been removed
+- Struct `OfficePowerBIDataConnector` has been removed
+- Struct `OfficePowerBIDataConnectorProperties` has been removed
+- Struct `Permissions` has been removed
+- Struct `PermissionsCustomsItem` has been removed
+- Struct `PermissionsResourceProviderItem` has been removed
+- Struct `RequiredPermissions` has been removed
+- Struct `SecurityAlertTimelineItem` has been removed
+- Struct `SettingList` has been removed
+- Struct `TICheckRequirements` has been removed
+- Struct `TICheckRequirementsProperties` has been removed
+- Struct `TeamInformation` has been removed
+- Struct `TeamProperties` has been removed
+- Struct `ThreatIntelligenceAlertRule` has been removed
+- Struct `ThreatIntelligenceAlertRuleProperties` has been removed
+- Struct `ThreatIntelligenceAlertRuleTemplate` has been removed
+- Struct `ThreatIntelligenceAlertRuleTemplateProperties` has been removed
+- Struct `TiTaxiiCheckRequirements` has been removed
+- Struct `TiTaxiiCheckRequirementsProperties` has been removed
+- Struct `TiTaxiiDataConnector` has been removed
+- Struct `TiTaxiiDataConnectorDataTypes` has been removed
+- Struct `TiTaxiiDataConnectorDataTypesTaxiiClient` has been removed
+- Struct `TiTaxiiDataConnectorProperties` has been removed
+- Struct `TimelineAggregation` has been removed
+- Struct `TimelineError` has been removed
+- Struct `TimelineResultsMetadata` has been removed
+- Struct `Ueba` has been removed
+- Struct `UebaProperties` has been removed
+- Struct `ValidationError` has been removed
+- Field `EntityMappings`, `Tactics`, `Techniques` of struct `BookmarkProperties` has been removed
+- Field `ScenarioExclusionPatterns`, `SourceSettings` of struct `FusionAlertRuleProperties` has been removed
+- Field `SourceSettings` of struct `FusionAlertRuleTemplateProperties` has been removed
+- Field `Techniques` of struct `IncidentAdditionalData` has been removed
+- Field `TeamInformation` of struct `IncidentProperties` has been removed
+- Field `Interface` of struct `IncidentsClientRunPlaybookResponse` has been removed
+- Field `DeviceSubType`, `Importance`, `IsAuthorized`, `IsProgramming`, `IsScanner`, `NicEntityIDs`, `Owners`, `PurdueLayer`, `Sensor`, `Site`, `Zone` of struct `IoTDeviceEntityProperties` has been removed
+- Field `Etag`, `ID`, `Name`, `SystemData`, `Type` of struct `MetadataPatch` has been removed
+- Field `PathMapping` of struct `Repository` has been removed
+- Field `SourceType` of struct `WatchlistProperties` has been removed
+- Field `AzureAsyncOperation` of struct `WatchlistsClientCreateOrUpdateResponse` has been removed
+- Field `AzureAsyncOperation` of struct `WatchlistsClientDeleteResponse` has been removed
+
+### Features Added
+
+- Type of `WatchlistItemProperties.EntityMapping` has been changed from `map[string]any` to `any`
+- Type of `WatchlistItemProperties.ItemsKeyValue` has been changed from `map[string]any` to `any`
+- New value `ActionTypeAddIncidentTask` added to enum type `ActionType`
+- New value `ContentTypeAutomationRule`, `ContentTypeHuntingQuery`, `ContentTypeParser`, `ContentTypePlaybook` added to enum type `ContentType`
+- New value `RepoTypeAzureDevOps` added to enum type `RepoType`
+- New enum type `AlertProperty` with values `AlertPropertyAlertLink`, `AlertPropertyConfidenceLevel`, `AlertPropertyConfidenceScore`, `AlertPropertyExtendedLinks`, `AlertPropertyProductComponentName`, `AlertPropertyProductName`, `AlertPropertyProviderName`, `AlertPropertyRemediationSteps`, `AlertPropertyTechniques`
+- New enum type `EntityKindEnum` with values `EntityKindEnumAccount`, `EntityKindEnumAzureResource`, `EntityKindEnumBookmark`, `EntityKindEnumCloudApplication`, `EntityKindEnumDNSResolution`, `EntityKindEnumFile`, `EntityKindEnumFileHash`, `EntityKindEnumHost`, `EntityKindEnumIP`, `EntityKindEnumIoTDevice`, `EntityKindEnumMailCluster`, `EntityKindEnumMailMessage`, `EntityKindEnumMailbox`, `EntityKindEnumMalware`, `EntityKindEnumProcess`, `EntityKindEnumRegistryKey`, `EntityKindEnumRegistryValue`, `EntityKindEnumSecurityAlert`, `EntityKindEnumSecurityGroup`, `EntityKindEnumSubmissionMail`, `EntityKindEnumURL`
+- New enum type `Flag` with values `FlagFalse`, `FlagTrue`
+- New enum type `IncidentTaskStatus` with values `IncidentTaskStatusCompleted`, `IncidentTaskStatusNew`
+- New enum type `PackageKind` with values `PackageKindSolution`, `PackageKindStandalone`
+- New enum type `RepositoryAccessKind` with values `RepositoryAccessKindApp`, `RepositoryAccessKindOAuth`, `RepositoryAccessKindPAT`
+- New enum type `State` with values `StateClosed`, `StateOpen`
+- New enum type `ThreatIntelligenceResourceInnerKind` with values `ThreatIntelligenceResourceInnerKindIndicator`
+- New enum type `ThreatIntelligenceSortingOrder` with values `ThreatIntelligenceSortingOrderAscending`, `ThreatIntelligenceSortingOrderDescending`, `ThreatIntelligenceSortingOrderUnsorted`
+- New enum type `WarningCode` with values `WarningCodeSourceControlDeletedWithWarnings`, `WarningCodeSourceControlWarningDeletePipelineFromAzureDevOps`, `WarningCodeSourceControlWarningDeleteRoleAssignment`, `WarningCodeSourceControlWarningDeleteServicePrincipal`, `WarningCodeSourceControlWarningDeleteWorkflowAndSecretFromGitHub`
+- New function `*AutomationRuleAddIncidentTaskAction.GetAutomationRuleAction() *AutomationRuleAction`
+- New function `*ClientFactory.NewContentPackageClient() *ContentPackageClient`
+- New function `*ClientFactory.NewContentPackagesClient() *ContentPackagesClient`
+- New function `*ClientFactory.NewContentTemplateClient() *ContentTemplateClient`
+- New function `*ClientFactory.NewContentTemplatesClient() *ContentTemplatesClient`
+- New function `*ClientFactory.NewIncidentTasksClient() *IncidentTasksClient`
+- New function `*ClientFactory.NewProductPackageClient() *ProductPackageClient`
+- New function `*ClientFactory.NewProductPackagesClient() *ProductPackagesClient`
+- New function `*ClientFactory.NewProductTemplateClient() *ProductTemplateClient`
+- New function `*ClientFactory.NewProductTemplatesClient() *ProductTemplatesClient`
+- New function `NewContentPackageClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ContentPackageClient, error)`
+- New function `*ContentPackageClient.Install(context.Context, string, string, string, PackageModel, *ContentPackageClientInstallOptions) (ContentPackageClientInstallResponse, error)`
+- New function `*ContentPackageClient.Uninstall(context.Context, string, string, string, *ContentPackageClientUninstallOptions) (ContentPackageClientUninstallResponse, error)`
+- New function `NewContentPackagesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ContentPackagesClient, error)`
+- New function `*ContentPackagesClient.Get(context.Context, string, string, string, *ContentPackagesClientGetOptions) (ContentPackagesClientGetResponse, error)`
+- New function `*ContentPackagesClient.NewListPager(string, string, *ContentPackagesClientListOptions) *runtime.Pager[ContentPackagesClientListResponse]`
+- New function `NewContentTemplateClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ContentTemplateClient, error)`
+- New function `*ContentTemplateClient.Delete(context.Context, string, string, string, *ContentTemplateClientDeleteOptions) (ContentTemplateClientDeleteResponse, error)`
+- New function `*ContentTemplateClient.Get(context.Context, string, string, string, *ContentTemplateClientGetOptions) (ContentTemplateClientGetResponse, error)`
+- New function `*ContentTemplateClient.Install(context.Context, string, string, string, TemplateModel, *ContentTemplateClientInstallOptions) (ContentTemplateClientInstallResponse, error)`
+- New function `NewContentTemplatesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ContentTemplatesClient, error)`
+- New function `*ContentTemplatesClient.NewListPager(string, string, *ContentTemplatesClientListOptions) *runtime.Pager[ContentTemplatesClientListResponse]`
+- New function `*EntitiesClient.RunPlaybook(context.Context, string, string, string, *EntitiesClientRunPlaybookOptions) (EntitiesClientRunPlaybookResponse, error)`
+- New function `NewIncidentTasksClient(string, azcore.TokenCredential, *arm.ClientOptions) (*IncidentTasksClient, error)`
+- New function `*IncidentTasksClient.CreateOrUpdate(context.Context, string, string, string, string, IncidentTask, *IncidentTasksClientCreateOrUpdateOptions) (IncidentTasksClientCreateOrUpdateResponse, error)`
+- New function `*IncidentTasksClient.Delete(context.Context, string, string, string, string, *IncidentTasksClientDeleteOptions) (IncidentTasksClientDeleteResponse, error)`
+- New function `*IncidentTasksClient.Get(context.Context, string, string, string, string, *IncidentTasksClientGetOptions) (IncidentTasksClientGetResponse, error)`
+- New function `*IncidentTasksClient.NewListPager(string, string, string, *IncidentTasksClientListOptions) *runtime.Pager[IncidentTasksClientListResponse]`
+- New function `NewProductPackageClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ProductPackageClient, error)`
+- New function `*ProductPackageClient.Get(context.Context, string, string, string, *ProductPackageClientGetOptions) (ProductPackageClientGetResponse, error)`
+- New function `NewProductPackagesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ProductPackagesClient, error)`
+- New function `*ProductPackagesClient.NewListPager(string, string, *ProductPackagesClientListOptions) *runtime.Pager[ProductPackagesClientListResponse]`
+- New function `NewProductTemplateClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ProductTemplateClient, error)`
+- New function `*ProductTemplateClient.Get(context.Context, string, string, string, *ProductTemplateClientGetOptions) (ProductTemplateClientGetResponse, error)`
+- New function `NewProductTemplatesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ProductTemplatesClient, error)`
+- New function `*ProductTemplatesClient.NewListPager(string, string, *ProductTemplatesClientListOptions) *runtime.Pager[ProductTemplatesClientListResponse]`
+- New struct `AddIncidentTaskActionProperties`
+- New struct `AlertPropertyMapping`
+- New struct `AutomationRuleAddIncidentTaskAction`
+- New struct `EntityManualTriggerRequestBody`
+- New struct `IncidentTask`
+- New struct `IncidentTaskList`
+- New struct `IncidentTaskProperties`
+- New struct `PackageList`
+- New struct `PackageModel`
+- New struct `PackageProperties`
+- New struct `ProductPackageList`
+- New struct `ProductPackageModel`
+- New struct `ProductPackageProperties`
+- New struct `ProductTemplateList`
+- New struct `ProductTemplateModel`
+- New struct `ProductTemplateProperties`
+- New struct `PullRequest`
+- New struct `RepositoryAccess`
+- New struct `RepositoryAccessObject`
+- New struct `RepositoryAccessProperties`
+- New struct `ServicePrincipal`
+- New struct `TemplateList`
+- New struct `TemplateModel`
+- New struct `TemplateProperties`
+- New struct `Warning`
+- New struct `WarningBody`
+- New field `AlertDynamicProperties` in struct `AlertDetailsOverride`
+- New field `InstallationID` in struct `Repo`
+- New field `PullRequest`, `RepositoryAccess`, `ServicePrincipal` in struct `SourceControlProperties`
+- New anonymous field `Warning` in struct `SourceControlsClientDeleteResponse`
+
+
 ## 2.0.0-beta.4 (2024-06-14)
 ### Features Added
 

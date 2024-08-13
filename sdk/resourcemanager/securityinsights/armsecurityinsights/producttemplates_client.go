@@ -21,43 +21,43 @@ import (
 	"strings"
 )
 
-// ThreatIntelligenceIndicatorsClient contains the methods for the ThreatIntelligenceIndicators group.
-// Don't use this type directly, use NewThreatIntelligenceIndicatorsClient() instead.
-type ThreatIntelligenceIndicatorsClient struct {
+// ProductTemplatesClient contains the methods for the ProductTemplates group.
+// Don't use this type directly, use NewProductTemplatesClient() instead.
+type ProductTemplatesClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewThreatIntelligenceIndicatorsClient creates a new instance of ThreatIntelligenceIndicatorsClient with the specified values.
+// NewProductTemplatesClient creates a new instance of ProductTemplatesClient with the specified values.
 //   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewThreatIntelligenceIndicatorsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ThreatIntelligenceIndicatorsClient, error) {
+func NewProductTemplatesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ProductTemplatesClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &ThreatIntelligenceIndicatorsClient{
+	client := &ProductTemplatesClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// NewListPager - Get all threat intelligence indicators.
+// NewListPager - Gets all templates in the catalog.
 //
 // Generated from API version 2025-01-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
-//   - options - ThreatIntelligenceIndicatorsClientListOptions contains the optional parameters for the ThreatIntelligenceIndicatorsClient.NewListPager
+//   - options - ProductTemplatesClientListOptions contains the optional parameters for the ProductTemplatesClient.NewListPager
 //     method.
-func (client *ThreatIntelligenceIndicatorsClient) NewListPager(resourceGroupName string, workspaceName string, options *ThreatIntelligenceIndicatorsClientListOptions) *runtime.Pager[ThreatIntelligenceIndicatorsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[ThreatIntelligenceIndicatorsClientListResponse]{
-		More: func(page ThreatIntelligenceIndicatorsClientListResponse) bool {
+func (client *ProductTemplatesClient) NewListPager(resourceGroupName string, workspaceName string, options *ProductTemplatesClientListOptions) *runtime.Pager[ProductTemplatesClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ProductTemplatesClientListResponse]{
+		More: func(page ProductTemplatesClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *ThreatIntelligenceIndicatorsClientListResponse) (ThreatIntelligenceIndicatorsClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ThreatIntelligenceIndicatorsClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *ProductTemplatesClientListResponse) (ProductTemplatesClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ProductTemplatesClient.NewListPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
@@ -66,7 +66,7 @@ func (client *ThreatIntelligenceIndicatorsClient) NewListPager(resourceGroupName
 				return client.listCreateRequest(ctx, resourceGroupName, workspaceName, options)
 			}, nil)
 			if err != nil {
-				return ThreatIntelligenceIndicatorsClientListResponse{}, err
+				return ProductTemplatesClientListResponse{}, err
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -75,8 +75,8 @@ func (client *ThreatIntelligenceIndicatorsClient) NewListPager(resourceGroupName
 }
 
 // listCreateRequest creates the List request.
-func (client *ThreatIntelligenceIndicatorsClient) listCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, options *ThreatIntelligenceIndicatorsClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/main/indicators"
+func (client *ProductTemplatesClient) listCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, options *ProductTemplatesClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/contentProductTemplates"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -94,11 +94,20 @@ func (client *ThreatIntelligenceIndicatorsClient) listCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
+	if options != nil && options.Count != nil {
+		reqQP.Set("$count", strconv.FormatBool(*options.Count))
+	}
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
 	if options != nil && options.Orderby != nil {
 		reqQP.Set("$orderby", *options.Orderby)
+	}
+	if options != nil && options.Search != nil {
+		reqQP.Set("$search", *options.Search)
+	}
+	if options != nil && options.Skip != nil {
+		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
 	if options != nil && options.SkipToken != nil {
 		reqQP.Set("$skipToken", *options.SkipToken)
@@ -113,10 +122,10 @@ func (client *ThreatIntelligenceIndicatorsClient) listCreateRequest(ctx context.
 }
 
 // listHandleResponse handles the List response.
-func (client *ThreatIntelligenceIndicatorsClient) listHandleResponse(resp *http.Response) (ThreatIntelligenceIndicatorsClientListResponse, error) {
-	result := ThreatIntelligenceIndicatorsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ThreatIntelligenceInformationList); err != nil {
-		return ThreatIntelligenceIndicatorsClientListResponse{}, err
+func (client *ProductTemplatesClient) listHandleResponse(resp *http.Response) (ProductTemplatesClientListResponse, error) {
+	result := ProductTemplatesClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ProductTemplateList); err != nil {
+		return ProductTemplatesClientListResponse{}, err
 	}
 	return result, nil
 }
