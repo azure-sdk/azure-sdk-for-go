@@ -36,10 +36,6 @@ type GalleryImagesServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, galleryImageName string, options *armazurestackhci.GalleryImagesClientGetOptions) (resp azfake.Responder[armazurestackhci.GalleryImagesClientGetResponse], errResp azfake.ErrorResponder)
 
-	// NewListPager is the fake for method GalleryImagesClient.NewListPager
-	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceGroupName string, options *armazurestackhci.GalleryImagesClientListOptions) (resp azfake.PagerResponder[armazurestackhci.GalleryImagesClientListResponse])
-
 	// NewListAllPager is the fake for method GalleryImagesClient.NewListAllPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListAllPager func(options *armazurestackhci.GalleryImagesClientListAllOptions) (resp azfake.PagerResponder[armazurestackhci.GalleryImagesClientListAllResponse])
@@ -57,7 +53,6 @@ func NewGalleryImagesServerTransport(srv *GalleryImagesServer) *GalleryImagesSer
 		srv:                 srv,
 		beginCreateOrUpdate: newTracker[azfake.PollerResponder[armazurestackhci.GalleryImagesClientCreateOrUpdateResponse]](),
 		beginDelete:         newTracker[azfake.PollerResponder[armazurestackhci.GalleryImagesClientDeleteResponse]](),
-		newListPager:        newTracker[azfake.PagerResponder[armazurestackhci.GalleryImagesClientListResponse]](),
 		newListAllPager:     newTracker[azfake.PagerResponder[armazurestackhci.GalleryImagesClientListAllResponse]](),
 		beginUpdate:         newTracker[azfake.PollerResponder[armazurestackhci.GalleryImagesClientUpdateResponse]](),
 	}
@@ -69,7 +64,6 @@ type GalleryImagesServerTransport struct {
 	srv                 *GalleryImagesServer
 	beginCreateOrUpdate *tracker[azfake.PollerResponder[armazurestackhci.GalleryImagesClientCreateOrUpdateResponse]]
 	beginDelete         *tracker[azfake.PollerResponder[armazurestackhci.GalleryImagesClientDeleteResponse]]
-	newListPager        *tracker[azfake.PagerResponder[armazurestackhci.GalleryImagesClientListResponse]]
 	newListAllPager     *tracker[azfake.PagerResponder[armazurestackhci.GalleryImagesClientListAllResponse]]
 	beginUpdate         *tracker[azfake.PollerResponder[armazurestackhci.GalleryImagesClientUpdateResponse]]
 }
@@ -92,8 +86,6 @@ func (g *GalleryImagesServerTransport) Do(req *http.Request) (*http.Response, er
 		resp, err = g.dispatchBeginDelete(req)
 	case "GalleryImagesClient.Get":
 		resp, err = g.dispatchGet(req)
-	case "GalleryImagesClient.NewListPager":
-		resp, err = g.dispatchNewListPager(req)
 	case "GalleryImagesClient.NewListAllPager":
 		resp, err = g.dispatchNewListAllPager(req)
 	case "GalleryImagesClient.BeginUpdate":
@@ -230,43 +222,6 @@ func (g *GalleryImagesServerTransport) dispatchGet(req *http.Request) (*http.Res
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).GalleryImages, req)
 	if err != nil {
 		return nil, err
-	}
-	return resp, nil
-}
-
-func (g *GalleryImagesServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if g.srv.NewListPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
-	}
-	newListPager := g.newListPager.get(req)
-	if newListPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AzureStackHCI/galleryImages`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 2 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		resp := g.srv.NewListPager(resourceGroupNameParam, nil)
-		newListPager = &resp
-		g.newListPager.add(req, newListPager)
-		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armazurestackhci.GalleryImagesClientListResponse, createLink func() string) {
-			page.NextLink = to.Ptr(createLink())
-		})
-	}
-	resp, err := server.PagerResponderNext(newListPager, req)
-	if err != nil {
-		return nil, err
-	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		g.newListPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
-	}
-	if !server.PagerResponderMore(newListPager) {
-		g.newListPager.remove(req)
 	}
 	return resp, nil
 }

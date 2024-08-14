@@ -47,7 +47,7 @@ func NewGalleryImagesClient(subscriptionID string, credential azcore.TokenCreden
 // gallery image creation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - galleryImageName - Name of the gallery image
 //   - options - GalleryImagesClientBeginCreateOrUpdateOptions contains the optional parameters for the GalleryImagesClient.BeginCreateOrUpdate
@@ -74,7 +74,7 @@ func (client *GalleryImagesClient) BeginCreateOrUpdate(ctx context.Context, reso
 // gallery image creation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-01-01
 func (client *GalleryImagesClient) createOrUpdate(ctx context.Context, resourceGroupName string, galleryImageName string, galleryImages GalleryImages, options *GalleryImagesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "GalleryImagesClient.BeginCreateOrUpdate"
@@ -116,7 +116,7 @@ func (client *GalleryImagesClient) createOrUpdateCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, galleryImages); err != nil {
@@ -128,7 +128,7 @@ func (client *GalleryImagesClient) createOrUpdateCreateRequest(ctx context.Conte
 // BeginDelete - The operation to delete a gallery image.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - galleryImageName - Name of the gallery image
 //   - options - GalleryImagesClientBeginDeleteOptions contains the optional parameters for the GalleryImagesClient.BeginDelete
@@ -154,7 +154,7 @@ func (client *GalleryImagesClient) BeginDelete(ctx context.Context, resourceGrou
 // Delete - The operation to delete a gallery image.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-01-01
 func (client *GalleryImagesClient) deleteOperation(ctx context.Context, resourceGroupName string, galleryImageName string, options *GalleryImagesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "GalleryImagesClient.BeginDelete"
@@ -196,7 +196,7 @@ func (client *GalleryImagesClient) deleteCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -205,7 +205,7 @@ func (client *GalleryImagesClient) deleteCreateRequest(ctx context.Context, reso
 // Get - Gets a gallery image
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - galleryImageName - Name of the gallery image
 //   - options - GalleryImagesClientGetOptions contains the optional parameters for the GalleryImagesClient.Get method.
@@ -251,7 +251,7 @@ func (client *GalleryImagesClient) getCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -266,70 +266,10 @@ func (client *GalleryImagesClient) getHandleResponse(resp *http.Response) (Galle
 	return result, nil
 }
 
-// NewListPager - Lists all of the gallery images in the specified resource group. Use the nextLink property in the response
-// to get the next page of gallery images.
-//
-// Generated from API version 2023-09-01-preview
-//   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - options - GalleryImagesClientListOptions contains the optional parameters for the GalleryImagesClient.NewListPager method.
-func (client *GalleryImagesClient) NewListPager(resourceGroupName string, options *GalleryImagesClientListOptions) *runtime.Pager[GalleryImagesClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[GalleryImagesClientListResponse]{
-		More: func(page GalleryImagesClientListResponse) bool {
-			return page.NextLink != nil && len(*page.NextLink) > 0
-		},
-		Fetcher: func(ctx context.Context, page *GalleryImagesClientListResponse) (GalleryImagesClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "GalleryImagesClient.NewListPager")
-			nextLink := ""
-			if page != nil {
-				nextLink = *page.NextLink
-			}
-			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, resourceGroupName, options)
-			}, nil)
-			if err != nil {
-				return GalleryImagesClientListResponse{}, err
-			}
-			return client.listHandleResponse(resp)
-		},
-		Tracer: client.internal.Tracer(),
-	})
-}
-
-// listCreateRequest creates the List request.
-func (client *GalleryImagesClient) listCreateRequest(ctx context.Context, resourceGroupName string, options *GalleryImagesClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/galleryImages"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, nil
-}
-
-// listHandleResponse handles the List response.
-func (client *GalleryImagesClient) listHandleResponse(resp *http.Response) (GalleryImagesClientListResponse, error) {
-	result := GalleryImagesClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.GalleryImagesListResult); err != nil {
-		return GalleryImagesClientListResponse{}, err
-	}
-	return result, nil
-}
-
 // NewListAllPager - Lists all of the gallery images in the specified subscription. Use the nextLink property in the response
 // to get the next page of gallery images.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-01-01
 //   - options - GalleryImagesClientListAllOptions contains the optional parameters for the GalleryImagesClient.NewListAllPager
 //     method.
 func (client *GalleryImagesClient) NewListAllPager(options *GalleryImagesClientListAllOptions) *runtime.Pager[GalleryImagesClientListAllResponse] {
@@ -367,7 +307,7 @@ func (client *GalleryImagesClient) listAllCreateRequest(ctx context.Context, opt
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -385,7 +325,7 @@ func (client *GalleryImagesClient) listAllHandleResponse(resp *http.Response) (G
 // BeginUpdate - The operation to update a gallery image.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - galleryImageName - Name of the gallery image
 //   - options - GalleryImagesClientBeginUpdateOptions contains the optional parameters for the GalleryImagesClient.BeginUpdate
@@ -411,7 +351,7 @@ func (client *GalleryImagesClient) BeginUpdate(ctx context.Context, resourceGrou
 // Update - The operation to update a gallery image.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-01-01
 func (client *GalleryImagesClient) update(ctx context.Context, resourceGroupName string, galleryImageName string, galleryImages GalleryImagesUpdateRequest, options *GalleryImagesClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "GalleryImagesClient.BeginUpdate"
@@ -453,7 +393,7 @@ func (client *GalleryImagesClient) updateCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, galleryImages); err != nil {
