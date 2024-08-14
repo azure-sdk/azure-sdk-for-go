@@ -1434,7 +1434,7 @@ func (a *AutomationActionLogicApp) GetAutomationAction() *AutomationAction {
 	}
 }
 
-// AutomationActionWorkspace - The�Log�Analytics�Workspace�to�which�event data will be exported. Security alerts data will
+// AutomationActionWorkspace - The Log Analytics Workspace to which event data will be exported. Security alerts data will
 // reside in the 'SecurityAlert' table and the assessments data will reside in the 'SecurityRecommendation'
 // table (under the 'Security'/'SecurityCenterFree' solutions). Note that in order to view the data in the workspace, the
 // Security Center Log Analytics free/standard solution needs to be enabled on that
@@ -1722,16 +1722,16 @@ type AzureDevOpsOrgProperties struct {
 	// state is not applicable to the current endpoint.
 	OnboardingState *OnboardingState
 
-	// The provisioning state of the resource.
+	// READ-ONLY; The provisioning state of the resource.
 	// Pending - Provisioning pending. Failed - Provisioning failed. Succeeded - Successful provisioning. Canceled - Provisioning
 	// canceled. PendingDeletion - Deletion pending. DeletionSuccess - Deletion
 	// successful. DeletionFailure - Deletion failure.
 	ProvisioningState *DevOpsProvisioningState
 
-	// READ-ONLY; Gets or sets resource status message.
+	// READ-ONLY; Gets the resource status message.
 	ProvisioningStatusMessage *string
 
-	// READ-ONLY; Gets or sets time when resource was last checked.
+	// READ-ONLY; Gets the time when resource was last checked.
 	ProvisioningStatusUpdateTimeUTC *time.Time
 }
 
@@ -1797,19 +1797,19 @@ type AzureDevOpsProjectProperties struct {
 	// Gets or sets parent Azure DevOps Organization name.
 	ParentOrgName *string
 
-	// The provisioning state of the resource.
+	// READ-ONLY; Gets or sets Azure DevOps Project id.
+	ProjectID *string
+
+	// READ-ONLY; The provisioning state of the resource.
 	// Pending - Provisioning pending. Failed - Provisioning failed. Succeeded - Successful provisioning. Canceled - Provisioning
 	// canceled. PendingDeletion - Deletion pending. DeletionSuccess - Deletion
 	// successful. DeletionFailure - Deletion failure.
 	ProvisioningState *DevOpsProvisioningState
 
-	// READ-ONLY; Gets or sets Azure DevOps Project id.
-	ProjectID *string
-
-	// READ-ONLY; Gets or sets resource status message.
+	// READ-ONLY; Gets the resource status message.
 	ProvisioningStatusMessage *string
 
-	// READ-ONLY; Gets or sets time when resource was last checked.
+	// READ-ONLY; Gets the time when resource was last checked.
 	ProvisioningStatusUpdateTimeUTC *time.Time
 }
 
@@ -1858,16 +1858,16 @@ type AzureDevOpsRepositoryProperties struct {
 	// Gets or sets parent Azure DevOps Project name.
 	ParentProjectName *string
 
-	// The provisioning state of the resource.
+	// READ-ONLY; The provisioning state of the resource.
 	// Pending - Provisioning pending. Failed - Provisioning failed. Succeeded - Successful provisioning. Canceled - Provisioning
 	// canceled. PendingDeletion - Deletion pending. DeletionSuccess - Deletion
 	// successful. DeletionFailure - Deletion failure.
 	ProvisioningState *DevOpsProvisioningState
 
-	// READ-ONLY; Gets or sets resource status message.
+	// READ-ONLY; Gets the resource status message.
 	ProvisioningStatusMessage *string
 
-	// READ-ONLY; Gets or sets time when resource was last checked.
+	// READ-ONLY; Gets the time when resource was last checked.
 	ProvisioningStatusUpdateTimeUTC *time.Time
 
 	// READ-ONLY; Gets or sets Azure DevOps Repository id.
@@ -3563,6 +3563,15 @@ func (d *DenylistCustomAlertRule) GetListCustomAlertRule() *ListCustomAlertRule 
 	}
 }
 
+// DevOpsCapability - Details about DevOps capability.
+type DevOpsCapability struct {
+	// READ-ONLY; Gets the name of the DevOps capability.
+	Name *string
+
+	// READ-ONLY; Gets the value of the DevOps capability.
+	Value *string
+}
+
 // DevOpsConfiguration - DevOps Configuration resource.
 type DevOpsConfiguration struct {
 	// DevOps Configuration properties.
@@ -3598,20 +3607,152 @@ type DevOpsConfigurationProperties struct {
 	// AutoDiscovery states.
 	AutoDiscovery *AutoDiscovery
 
-	// The provisioning state of the resource.
+	// List of top-level inventory to select when AutoDiscovery is disabled. This field is ignored when AutoDiscovery is enabled.
+	TopLevelInventoryList []*string
+
+	// READ-ONLY; List of capabilities assigned to the DevOps configuration during the discovery process.
+	Capabilities []*DevOpsCapability
+
+	// READ-ONLY; The provisioning state of the resource.
 	// Pending - Provisioning pending. Failed - Provisioning failed. Succeeded - Successful provisioning. Canceled - Provisioning
 	// canceled. PendingDeletion - Deletion pending. DeletionSuccess - Deletion
 	// successful. DeletionFailure - Deletion failure.
 	ProvisioningState *DevOpsProvisioningState
 
-	// List of top-level inventory to select when AutoDiscovery is disabled. This field is ignored when AutoDiscovery is enabled.
-	TopLevelInventoryList []*string
-
-	// READ-ONLY; Gets or sets resource status message.
+	// READ-ONLY; Gets the resource status message.
 	ProvisioningStatusMessage *string
 
-	// READ-ONLY; Gets or sets time when resource was last checked.
+	// READ-ONLY; Gets the time when resource was last checked.
 	ProvisioningStatusUpdateTimeUTC *time.Time
+}
+
+// DevOpsPolicy - DevOps Policy Resource.
+type DevOpsPolicy struct {
+	// Policy DevOps Resource properties that contain the full definition of a DevOps policy resource.
+	Properties *DevOpsPolicyProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// DevOpsPolicyAssignment - DevOps Policy assignment resource.
+type DevOpsPolicyAssignment struct {
+	// Properties of the DevOps policy assignment resource.
+	Properties *DevOpsPolicyAssignmentProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// DevOpsPolicyAssignmentListResponse - List of RP resources which supports pagination.
+type DevOpsPolicyAssignmentListResponse struct {
+	// Gets or sets next link to scroll over the results.
+	NextLink *string
+
+	// Gets or sets list of resources.
+	Value []*DevOpsPolicyAssignment
+}
+
+// DevOpsPolicyAssignmentProperties - Properties of the DevOps policy assignment resource.
+type DevOpsPolicyAssignmentProperties struct {
+	// Gets or sets time when the assignment was created in UTC.
+	AssignedAt *time.Time
+
+	// The behavior of a policy on descendant resources.
+	DescendantBehavior *DescendantBehavior
+
+	// Condensed information to identify a DevOps Policy resource.
+	Policy *DevOpsPolicyDescriptor
+
+	// Gets or sets the Azure resource id.
+	ResourceID *string
+
+	// READ-ONLY; The provisioning state of the resource.
+	// Pending - Provisioning pending. Failed - Provisioning failed. Succeeded - Successful provisioning. Canceled - Provisioning
+	// canceled. PendingDeletion - Deletion pending. DeletionSuccess - Deletion
+	// successful. DeletionFailure - Deletion failure.
+	ProvisioningState *DevOpsProvisioningState
+
+	// READ-ONLY; Gets the resource status message.
+	ProvisioningStatusMessage *string
+
+	// READ-ONLY; Gets the time when resource was last checked.
+	ProvisioningStatusUpdateTimeUTC *time.Time
+}
+
+// DevOpsPolicyDescriptor - Condensed information to identify a DevOps Policy resource.
+type DevOpsPolicyDescriptor struct {
+	// Gets or sets the policy GUID.
+	PolicyID *string
+
+	// Gets or sets the policy name.
+	PolicyName *string
+
+	// DevOps Policy resource types.
+	PolicyType *DevOpsPolicyType
+
+	// Gets or sets the version.
+	PolicyVersion *string
+}
+
+// DevOpsPolicyListResponse - List of RP resources which supports pagination.
+type DevOpsPolicyListResponse struct {
+	// Gets or sets next link to scroll over the results.
+	NextLink *string
+
+	// Gets or sets list of resources.
+	Value []*DevOpsPolicy
+}
+
+// DevOpsPolicyProperties - Policy DevOps Resource properties that contain the full definition of a DevOps policy resource.
+type DevOpsPolicyProperties struct {
+	// Gets or sets the policy definition content JSON string.
+	Content *string
+
+	// DevOps Policy creation sources.
+	Source *DevOpsPolicySource
+
+	// DevOps Policy resource types.
+	Type *DevOpsPolicyType
+
+	// Gets or sets the semantic version.
+	Version *string
+
+	// READ-ONLY; Gets the policy resource GUID.
+	PolicyID *string
+
+	// READ-ONLY; The provisioning state of the resource.
+	// Pending - Provisioning pending. Failed - Provisioning failed. Succeeded - Successful provisioning. Canceled - Provisioning
+	// canceled. PendingDeletion - Deletion pending. DeletionSuccess - Deletion
+	// successful. DeletionFailure - Deletion failure.
+	ProvisioningState *DevOpsProvisioningState
+
+	// READ-ONLY; Gets the resource status message.
+	ProvisioningStatusMessage *string
+
+	// READ-ONLY; Gets the time when resource was last checked.
+	ProvisioningStatusUpdateTimeUTC *time.Time
+
+	// READ-ONLY; Gets the web URL.
+	WebURL *string
 }
 
 // DeviceSecurityGroup - The device security group resource
@@ -3882,7 +4023,7 @@ type Extension struct {
 	AdditionalExtensionProperties map[string]any
 
 	// READ-ONLY; Optional. A status describing the success/failure of the extension's enablement/disablement operation.
-	OperationStatus *OperationStatusAutoGenerated
+	OperationStatus *OperationStatus
 }
 
 // ExternalSecuritySolution - Represents a security solution external to Microsoft Defender for Cloud which sends information
@@ -4287,22 +4428,22 @@ type GitHubOwnerProperties struct {
 	// state is not applicable to the current endpoint.
 	OnboardingState *OnboardingState
 
-	// The provisioning state of the resource.
-	// Pending - Provisioning pending. Failed - Provisioning failed. Succeeded - Successful provisioning. Canceled - Provisioning
-	// canceled. PendingDeletion - Deletion pending. DeletionSuccess - Deletion
-	// successful. DeletionFailure - Deletion failure.
-	ProvisioningState *DevOpsProvisioningState
-
 	// READ-ONLY; Gets or sets internal GitHub id.
 	GitHubInternalID *string
 
 	// READ-ONLY; Gets or sets GitHub Owner url.
 	OwnerURL *string
 
-	// READ-ONLY; Gets or sets resource status message.
+	// READ-ONLY; The provisioning state of the resource.
+	// Pending - Provisioning pending. Failed - Provisioning failed. Succeeded - Successful provisioning. Canceled - Provisioning
+	// canceled. PendingDeletion - Deletion pending. DeletionSuccess - Deletion
+	// successful. DeletionFailure - Deletion failure.
+	ProvisioningState *DevOpsProvisioningState
+
+	// READ-ONLY; Gets the resource status message.
 	ProvisioningStatusMessage *string
 
-	// READ-ONLY; Gets or sets time when resource was last checked.
+	// READ-ONLY; Gets the time when resource was last checked.
 	ProvisioningStatusUpdateTimeUTC *time.Time
 }
 
@@ -4345,16 +4486,16 @@ type GitHubRepositoryProperties struct {
 	// Gets or sets parent GitHub Owner name.
 	ParentOwnerName *string
 
-	// The provisioning state of the resource.
+	// READ-ONLY; The provisioning state of the resource.
 	// Pending - Provisioning pending. Failed - Provisioning failed. Succeeded - Successful provisioning. Canceled - Provisioning
 	// canceled. PendingDeletion - Deletion pending. DeletionSuccess - Deletion
 	// successful. DeletionFailure - Deletion failure.
 	ProvisioningState *DevOpsProvisioningState
 
-	// READ-ONLY; Gets or sets resource status message.
+	// READ-ONLY; Gets the resource status message.
 	ProvisioningStatusMessage *string
 
-	// READ-ONLY; Gets or sets time when resource was last checked.
+	// READ-ONLY; Gets the time when resource was last checked.
 	ProvisioningStatusUpdateTimeUTC *time.Time
 
 	// READ-ONLY; Gets or sets GitHub Full Name. Repository name, prefixed with Owner name. Eg: "my-org/new-repo-1".
@@ -4417,12 +4558,6 @@ type GitLabGroupProperties struct {
 	// state is not applicable to the current endpoint.
 	OnboardingState *OnboardingState
 
-	// The provisioning state of the resource.
-	// Pending - Provisioning pending. Failed - Provisioning failed. Succeeded - Successful provisioning. Canceled - Provisioning
-	// canceled. PendingDeletion - Deletion pending. DeletionSuccess - Deletion
-	// successful. DeletionFailure - Deletion failure.
-	ProvisioningState *DevOpsProvisioningState
-
 	// READ-ONLY; Gets or sets the human readable fully-qualified name of the Group object.
 	// This contains the entire namespace hierarchy as seen on GitLab UI where namespaces are separated by the '/' character.
 	FullyQualifiedFriendlyName *string
@@ -4431,10 +4566,16 @@ type GitLabGroupProperties struct {
 	// This contains the entire namespace hierarchy where namespaces are separated by the '$' character.
 	FullyQualifiedName *string
 
-	// READ-ONLY; Gets or sets resource status message.
+	// READ-ONLY; The provisioning state of the resource.
+	// Pending - Provisioning pending. Failed - Provisioning failed. Succeeded - Successful provisioning. Canceled - Provisioning
+	// canceled. PendingDeletion - Deletion pending. DeletionSuccess - Deletion
+	// successful. DeletionFailure - Deletion failure.
+	ProvisioningState *DevOpsProvisioningState
+
+	// READ-ONLY; Gets the resource status message.
 	ProvisioningStatusMessage *string
 
-	// READ-ONLY; Gets or sets time when resource was last checked.
+	// READ-ONLY; Gets the time when resource was last checked.
 	ProvisioningStatusUpdateTimeUTC *time.Time
 
 	// READ-ONLY; Gets or sets the url of the GitLab Group.
@@ -4477,12 +4618,6 @@ type GitLabProjectProperties struct {
 	// state is not applicable to the current endpoint.
 	OnboardingState *OnboardingState
 
-	// The provisioning state of the resource.
-	// Pending - Provisioning pending. Failed - Provisioning failed. Succeeded - Successful provisioning. Canceled - Provisioning
-	// canceled. PendingDeletion - Deletion pending. DeletionSuccess - Deletion
-	// successful. DeletionFailure - Deletion failure.
-	ProvisioningState *DevOpsProvisioningState
-
 	// READ-ONLY; Gets or sets the human readable fully-qualified name of the Project object.
 	// This contains the entire namespace hierarchy as seen on GitLab UI where entities are separated by the '/' character.
 	FullyQualifiedFriendlyName *string
@@ -4495,10 +4630,16 @@ type GitLabProjectProperties struct {
 	// This contains the entire hierarchy where namespaces are separated by the '$' character.
 	FullyQualifiedParentGroupName *string
 
-	// READ-ONLY; Gets or sets resource status message.
+	// READ-ONLY; The provisioning state of the resource.
+	// Pending - Provisioning pending. Failed - Provisioning failed. Succeeded - Successful provisioning. Canceled - Provisioning
+	// canceled. PendingDeletion - Deletion pending. DeletionSuccess - Deletion
+	// successful. DeletionFailure - Deletion failure.
+	ProvisioningState *DevOpsProvisioningState
+
+	// READ-ONLY; Gets the resource status message.
 	ProvisioningStatusMessage *string
 
-	// READ-ONLY; Gets or sets time when resource was last checked.
+	// READ-ONLY; Gets the time when resource was last checked.
 	ProvisioningStatusUpdateTimeUTC *time.Time
 
 	// READ-ONLY; Gets or sets the url of the GitLab Project.
@@ -5684,7 +5825,7 @@ type MalwareScanningProperties struct {
 	ScanResultsEventGridTopicResourceID *string
 
 	// READ-ONLY; Upon failure or partial success. Additional data describing Malware Scanning enable/disable operation.
-	OperationStatus *OperationStatus
+	OperationStatus *OperationStatusAutoGenerated
 }
 
 // MdeOnboardingData - The resource of the configuration or data needed to onboard the machine to MDE
@@ -6008,10 +6149,24 @@ func (o *OnPremiseSQLResourceDetails) GetResourceDetails() *ResourceDetails {
 	}
 }
 
+type OnUploadFilters struct {
+	// Exclude each blob that begins with ANY OF the given prefixes from On Upload malware scanning.
+	ExcludeBlobsBeginningWith []*string
+
+	// Exclude each blob that begins with ANY OF the given suffixes from On Upload malware scanning.
+	ExcludeBlobsEndingWith []*string
+
+	// Exclude each blob larger than the given value in bytes from On Upload malware scanning.
+	ExcludeBlobsLargerThan *int32
+}
+
 // OnUploadProperties - Properties of On Upload malware scanning.
 type OnUploadProperties struct {
 	// Defines the max GB to be scanned per Month. Set to -1 if no capping is needed.
 	CapGBPerMonth *int32
+
+	// Determine which blobs get scanned by On Upload malware scanning. An Or operation is performed between each filter type.
+	Filters *OnUploadFilters
 
 	// Indicates whether On Upload malware scanning should be enabled.
 	IsEnabled *bool
@@ -6059,19 +6214,19 @@ type OperationResultAutoGenerated struct {
 	Status *OperationResult
 }
 
-// OperationStatus - A status describing the success/failure of the enablement/disablement operation.
+// OperationStatus - A status describing the success/failure of the extension's enablement/disablement operation.
 type OperationStatus struct {
 	// The operation status code.
-	Code *string
+	Code *Code
 
 	// Additional information regarding the success/failure of the operation.
 	Message *string
 }
 
-// OperationStatusAutoGenerated - A status describing the success/failure of the extension's enablement/disablement operation.
+// OperationStatusAutoGenerated - A status describing the success/failure of the enablement/disablement operation.
 type OperationStatusAutoGenerated struct {
 	// The operation status code.
-	Code *Code
+	Code *string
 
 	// Additional information regarding the success/failure of the operation.
 	Message *string
@@ -7017,7 +7172,7 @@ type SensitiveDataDiscoveryProperties struct {
 	IsEnabled *bool
 
 	// READ-ONLY; Upon failure or partial success. Additional data describing Sensitive Data Discovery enable/disable operation.
-	OperationStatus *OperationStatus
+	OperationStatus *OperationStatusAutoGenerated
 }
 
 // SensitivityLabel - The sensitivity label.

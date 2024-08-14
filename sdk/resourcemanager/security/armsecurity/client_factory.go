@@ -255,6 +255,22 @@ func (c *ClientFactory) NewDevOpsOperationResultsClient() *DevOpsOperationResult
 	}
 }
 
+// NewDevOpsPoliciesClient creates a new instance of DevOpsPoliciesClient.
+func (c *ClientFactory) NewDevOpsPoliciesClient() *DevOpsPoliciesClient {
+	return &DevOpsPoliciesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewDevOpsPolicyAssignmentsClient creates a new instance of DevOpsPolicyAssignmentsClient.
+func (c *ClientFactory) NewDevOpsPolicyAssignmentsClient() *DevOpsPolicyAssignmentsClient {
+	return &DevOpsPolicyAssignmentsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewDeviceSecurityGroupsClient creates a new instance of DeviceSecurityGroupsClient.
 func (c *ClientFactory) NewDeviceSecurityGroupsClient() *DeviceSecurityGroupsClient {
 	return &DeviceSecurityGroupsClient{
