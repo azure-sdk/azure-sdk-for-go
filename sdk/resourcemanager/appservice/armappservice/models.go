@@ -194,7 +194,9 @@ type AppCertificate struct {
 	// REQUIRED; Resource Location.
 	Location *string
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// Certificate resource specific properties
@@ -1113,7 +1115,9 @@ type CertificateOrder struct {
 	// REQUIRED; Resource Location.
 	Location *string
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// AppServiceCertificateOrder resource specific properties
@@ -1324,7 +1328,9 @@ type CertificateResource struct {
 	// REQUIRED; Resource Location.
 	Location *string
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// Core resource properties
@@ -1341,6 +1347,12 @@ type CertificateResource struct {
 
 	// READ-ONLY; Resource type.
 	Type *string
+}
+
+// CipherSuites - Describes valid TLS cipher suites.
+type CipherSuites struct {
+	// List of TLS Cipher Suites that are supported by App Service.
+	Suites []*string
 }
 
 // ClientRegistration - The configuration settings of the app registration for providers that have client ids and client secrets
@@ -1506,7 +1518,9 @@ type ContainerApp struct {
 	// REQUIRED; Resource Location.
 	Location *string
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// ContainerApp resource specific properties
@@ -2819,7 +2833,9 @@ type Domain struct {
 	// REQUIRED; Resource Location.
 	Location *string
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// Domain resource specific properties
@@ -3199,7 +3215,9 @@ type EnvironmentResource struct {
 	// REQUIRED; Resource Location.
 	Location *string
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// Core resource properties
@@ -3662,7 +3680,7 @@ type FunctionSecrets struct {
 type FunctionsAlwaysReadyConfig struct {
 	// Sets the number of 'Always Ready' instances for a given function group or a specific function. For additional information
 	// see https://aka.ms/flexconsumption/alwaysready.
-	InstanceCount *float32
+	InstanceCount *int32
 
 	// Either a function group or a function name is required. For additional information see https://aka.ms/flexconsumption/alwaysready.
 	Name *string
@@ -3718,10 +3736,10 @@ type FunctionsScaleAndConcurrency struct {
 
 	// Set the amount of memory allocated to each instance of the function app in MB. CPU and network bandwidth are allocated
 	// proportionally.
-	InstanceMemoryMB *float32
+	InstanceMemoryMB *int32
 
 	// The maximum number of instances for the function app.
-	MaximumInstanceCount *float32
+	MaximumInstanceCount *int32
 
 	// Scale and concurrency settings for the function app triggers.
 	Triggers *FunctionsScaleAndConcurrencyTriggers
@@ -3736,7 +3754,7 @@ type FunctionsScaleAndConcurrencyTriggers struct {
 // FunctionsScaleAndConcurrencyTriggersHTTP - Scale and concurrency settings for the HTTP trigger.
 type FunctionsScaleAndConcurrencyTriggersHTTP struct {
 	// The maximum number of concurrent HTTP trigger invocations per instance.
-	PerInstanceConcurrency *float32
+	PerInstanceConcurrency *int32
 }
 
 // GeoRegion - Geographical region.
@@ -4435,7 +4453,9 @@ type KubeEnvironment struct {
 	// Extended Location.
 	ExtendedLocation *ExtendedLocation
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// KubeEnvironment resource specific properties
@@ -5194,7 +5214,9 @@ type Plan struct {
 	// Extended Location.
 	ExtendedLocation *ExtendedLocation
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// AppServicePlan resource specific properties
@@ -5396,7 +5418,9 @@ type PremierAddOn struct {
 	// REQUIRED; Resource Location.
 	Location *string
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// PremierAddOn resource specific properties
@@ -6542,7 +6566,9 @@ type Resource struct {
 	// REQUIRED; Resource Location.
 	Location *string
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// Resource tags.
@@ -6852,7 +6878,9 @@ type Revision struct {
 	// REQUIRED; Resource Location.
 	Location *string
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// Revision resource specific properties
@@ -7087,7 +7115,9 @@ type Site struct {
 	// Managed service identity.
 	Identity *ManagedServiceIdentity
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// Site resource specific properties
@@ -8075,6 +8105,9 @@ type SitePhpErrorLogFlagProperties struct {
 
 // SiteProperties - Site resource specific properties
 type SiteProperties struct {
+	// Specifies the scope of uniqueness for the default hostname during resource creation
+	AutoGeneratedDomainNameLabelScope *AutoGeneratedDomainNameLabelScope
+
 	// true to enable client affinity; false to stop sending session affinity cookies, which route client requests in the same
 	// session to the same instance. Default is true.
 	ClientAffinityEnabled *bool
@@ -8112,6 +8145,9 @@ type SiteProperties struct {
 	// true if the app is enabled; otherwise, false. Setting this value to false disables the app (takes the app offline).
 	Enabled *bool
 
+	// Whether to use end to end encryption between the FrontEnd and the Worker
+	EndToEndEncryptionEnabled *bool
+
 	// Configuration specific of the Azure Function app.
 	FunctionAppConfig *FunctionAppConfig
 
@@ -8130,6 +8166,9 @@ type SiteProperties struct {
 
 	// Hyper-V sandbox.
 	HyperV *bool
+
+	// Specifies the IP mode of the app.
+	IPMode *IPMode
 
 	// Obsolete: Hyper-V sandbox.
 	IsXenon *bool
@@ -8225,6 +8264,10 @@ type SiteProperties struct {
 
 	// READ-ONLY; Name of the resource group the app belongs to. Read-only.
 	ResourceGroup *string
+
+	// READ-ONLY; Current SKU of application based on associated App Service Plan. Some valid SKU values are Free, Shared, Basic,
+	// Dynamic, FlexConsumption, Standard, Premium, PremiumV2, PremiumV3, Isolated, IsolatedV2
+	SKU *string
 
 	// READ-ONLY; Status of the last deployment slot swap operation.
 	SlotSwapStatus *SlotSwapStatus
@@ -8724,7 +8767,9 @@ type StaticSiteARMResource struct {
 	// Managed service identity.
 	Identity *ManagedServiceIdentity
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// Core resource properties
@@ -10499,7 +10544,10 @@ type WebSiteInstanceStatusProperties struct {
 
 	// Link to the console to web app instance
 	HealthCheckURL *string
-	State          *SiteRuntimeState
+
+	// The physical zone that the instance is in
+	PhysicalZone *string
+	State        *SiteRuntimeState
 
 	// Link to the GetStatusApi in Kudu
 	StatusURL *string
