@@ -1,5 +1,9 @@
 # Release History
 
+## 6.0.1 (2024-08-16)
+### Other Changes
+
+
 ## 6.0.0 (2024-07-25)
 ### Breaking Changes
 
