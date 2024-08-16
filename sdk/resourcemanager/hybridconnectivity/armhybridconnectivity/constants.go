@@ -10,7 +10,7 @@ package armhybridconnectivity
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hybridconnectivity/armhybridconnectivity"
-	moduleVersion = "v1.1.0"
+	moduleVersion = "v1.2.0"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -24,6 +24,21 @@ const (
 func PossibleActionTypeValues() []ActionType {
 	return []ActionType{
 		ActionTypeInternal,
+	}
+}
+
+// CloudNativeType - Cloud Native Type enum.
+type CloudNativeType string
+
+const (
+	// CloudNativeTypeEc2 - ec2 enum.
+	CloudNativeTypeEc2 CloudNativeType = "ec2"
+)
+
+// PossibleCloudNativeTypeValues returns the possible values for the CloudNativeType const type.
+func PossibleCloudNativeTypeValues() []CloudNativeType {
+	return []CloudNativeType{
+		CloudNativeTypeEc2,
 	}
 }
 
@@ -44,6 +59,21 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 		CreatedByTypeKey,
 		CreatedByTypeManagedIdentity,
 		CreatedByTypeUser,
+	}
+}
+
+// HostType - Enum of host cloud the public cloud connector is referencing.
+type HostType string
+
+const (
+	// HostTypeAWS - AWS state
+	HostTypeAWS HostType = "AWS"
+)
+
+// PossibleHostTypeValues returns the possible values for the HostType const type.
+func PossibleHostTypeValues() []HostType {
+	return []HostType{
+		HostTypeAWS,
 	}
 }
 
@@ -88,6 +118,27 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 	}
 }
 
+// ResourceProvisioningState - The provisioning state of a resource type.
+type ResourceProvisioningState string
+
+const (
+	// ResourceProvisioningStateCanceled - Resource creation was canceled.
+	ResourceProvisioningStateCanceled ResourceProvisioningState = "Canceled"
+	// ResourceProvisioningStateFailed - Resource creation failed.
+	ResourceProvisioningStateFailed ResourceProvisioningState = "Failed"
+	// ResourceProvisioningStateSucceeded - Resource has been created.
+	ResourceProvisioningStateSucceeded ResourceProvisioningState = "Succeeded"
+)
+
+// PossibleResourceProvisioningStateValues returns the possible values for the ResourceProvisioningState const type.
+func PossibleResourceProvisioningStateValues() []ResourceProvisioningState {
+	return []ResourceProvisioningState{
+		ResourceProvisioningStateCanceled,
+		ResourceProvisioningStateFailed,
+		ResourceProvisioningStateSucceeded,
+	}
+}
+
 // ServiceName - Name of the service.
 type ServiceName string
 
@@ -101,6 +152,69 @@ func PossibleServiceNameValues() []ServiceName {
 	return []ServiceName{
 		ServiceNameSSH,
 		ServiceNameWAC,
+	}
+}
+
+// SolutionConfigurationStatus - Solution Configuration Status.
+type SolutionConfigurationStatus string
+
+const (
+	// SolutionConfigurationStatusCompleted - Canceled status
+	SolutionConfigurationStatusCompleted SolutionConfigurationStatus = "Completed"
+	// SolutionConfigurationStatusFailed - Failed status
+	SolutionConfigurationStatusFailed SolutionConfigurationStatus = "Failed"
+	// SolutionConfigurationStatusInProgress - InProgress status
+	SolutionConfigurationStatusInProgress SolutionConfigurationStatus = "InProgress"
+	// SolutionConfigurationStatusNew - New status
+	SolutionConfigurationStatusNew SolutionConfigurationStatus = "New"
+)
+
+// PossibleSolutionConfigurationStatusValues returns the possible values for the SolutionConfigurationStatus const type.
+func PossibleSolutionConfigurationStatusValues() []SolutionConfigurationStatus {
+	return []SolutionConfigurationStatus{
+		SolutionConfigurationStatusCompleted,
+		SolutionConfigurationStatusFailed,
+		SolutionConfigurationStatusInProgress,
+		SolutionConfigurationStatusNew,
+	}
+}
+
+// SolutionTypeEnum - Solution types.
+type SolutionTypeEnum string
+
+const (
+	// SolutionTypeEnumMicrosoftAssetManagement - Asset Management solution type
+	SolutionTypeEnumMicrosoftAssetManagement SolutionTypeEnum = "Microsoft.AssetManagement"
+	// SolutionTypeEnumMicrosoftHybridComputeOnboard - Hybrid Compute Onboard solution type
+	SolutionTypeEnumMicrosoftHybridComputeOnboard SolutionTypeEnum = "Microsoft.HybridCompute.Onboard"
+	// SolutionTypeEnumMicrosoftHybridNetworkVWanProvision - VWan Provisioning solution type
+	SolutionTypeEnumMicrosoftHybridNetworkVWanProvision SolutionTypeEnum = "Microsoft.HybridNetwork.VWan.Provision"
+)
+
+// PossibleSolutionTypeEnumValues returns the possible values for the SolutionTypeEnum const type.
+func PossibleSolutionTypeEnumValues() []SolutionTypeEnum {
+	return []SolutionTypeEnum{
+		SolutionTypeEnumMicrosoftAssetManagement,
+		SolutionTypeEnumMicrosoftHybridComputeOnboard,
+		SolutionTypeEnumMicrosoftHybridNetworkVWanProvision,
+	}
+}
+
+// Status - Connection status.
+type Status string
+
+const (
+	// StatusConnected - Connected status
+	StatusConnected Status = "Connected"
+	// StatusDisconnected - Disconnected status
+	StatusDisconnected Status = "Disconnected"
+)
+
+// PossibleStatusValues returns the possible values for the Status const type.
+func PossibleStatusValues() []Status {
+	return []Status{
+		StatusConnected,
+		StatusDisconnected,
 	}
 }
 
