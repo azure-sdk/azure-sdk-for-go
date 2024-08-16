@@ -10,7 +10,7 @@ package armelasticsan
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/elasticsan/armelasticsan"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.1.0-beta.1"
 )
 
 // Action - The action of virtual network rule.
@@ -170,14 +170,17 @@ func PossiblePrivateEndpointServiceConnectionStatusValues() []PrivateEndpointSer
 type ProvisioningStates string
 
 const (
-	ProvisioningStatesCanceled  ProvisioningStates = "Canceled"
-	ProvisioningStatesCreating  ProvisioningStates = "Creating"
-	ProvisioningStatesDeleting  ProvisioningStates = "Deleting"
-	ProvisioningStatesFailed    ProvisioningStates = "Failed"
-	ProvisioningStatesInvalid   ProvisioningStates = "Invalid"
-	ProvisioningStatesPending   ProvisioningStates = "Pending"
-	ProvisioningStatesSucceeded ProvisioningStates = "Succeeded"
-	ProvisioningStatesUpdating  ProvisioningStates = "Updating"
+	ProvisioningStatesCanceled     ProvisioningStates = "Canceled"
+	ProvisioningStatesCreating     ProvisioningStates = "Creating"
+	ProvisioningStatesDeleted      ProvisioningStates = "Deleted"
+	ProvisioningStatesDeleting     ProvisioningStates = "Deleting"
+	ProvisioningStatesFailed       ProvisioningStates = "Failed"
+	ProvisioningStatesInvalid      ProvisioningStates = "Invalid"
+	ProvisioningStatesPending      ProvisioningStates = "Pending"
+	ProvisioningStatesRestoring    ProvisioningStates = "Restoring"
+	ProvisioningStatesSoftDeleting ProvisioningStates = "SoftDeleting"
+	ProvisioningStatesSucceeded    ProvisioningStates = "Succeeded"
+	ProvisioningStatesUpdating     ProvisioningStates = "Updating"
 )
 
 // PossibleProvisioningStatesValues returns the possible values for the ProvisioningStates const type.
@@ -185,10 +188,13 @@ func PossibleProvisioningStatesValues() []ProvisioningStates {
 	return []ProvisioningStates{
 		ProvisioningStatesCanceled,
 		ProvisioningStatesCreating,
+		ProvisioningStatesDeleted,
 		ProvisioningStatesDeleting,
 		ProvisioningStatesFailed,
 		ProvisioningStatesInvalid,
 		ProvisioningStatesPending,
+		ProvisioningStatesRestoring,
+		ProvisioningStatesSoftDeleting,
 		ProvisioningStatesSucceeded,
 		ProvisioningStatesUpdating,
 	}
@@ -208,6 +214,21 @@ func PossiblePublicNetworkAccessValues() []PublicNetworkAccess {
 	return []PublicNetworkAccess{
 		PublicNetworkAccessDisabled,
 		PublicNetworkAccessEnabled,
+	}
+}
+
+type Purge string
+
+const (
+	PurgeFalse Purge = "false"
+	PurgeTrue  Purge = "true"
+)
+
+// PossiblePurgeValues returns the possible values for the Purge const type.
+func PossiblePurgeValues() []Purge {
+	return []Purge{
+		PurgeFalse,
+		PurgeTrue,
 	}
 }
 
@@ -279,6 +300,21 @@ func PossibleVolumeCreateOptionValues() []VolumeCreateOption {
 		VolumeCreateOptionDiskSnapshot,
 		VolumeCreateOptionNone,
 		VolumeCreateOptionVolumeSnapshot,
+	}
+}
+
+type XMSAccessSoftDeletedResources string
+
+const (
+	XMSAccessSoftDeletedResourcesFalse XMSAccessSoftDeletedResources = "false"
+	XMSAccessSoftDeletedResourcesTrue  XMSAccessSoftDeletedResources = "true"
+)
+
+// PossibleXMSAccessSoftDeletedResourcesValues returns the possible values for the XMSAccessSoftDeletedResources const type.
+func PossibleXMSAccessSoftDeletedResourcesValues() []XMSAccessSoftDeletedResources {
+	return []XMSAccessSoftDeletedResources{
+		XMSAccessSoftDeletedResourcesFalse,
+		XMSAccessSoftDeletedResourcesTrue,
 	}
 }
 

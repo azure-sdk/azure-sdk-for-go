@@ -43,6 +43,13 @@ type ElasticSansClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ManagementClientBeginRestoreVolumeOptions contains the optional parameters for the ManagementClient.BeginRestoreVolume
+// method.
+type ManagementClientBeginRestoreVolumeOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
@@ -94,6 +101,9 @@ type VolumeGroupsClientBeginCreateOptions struct {
 
 // VolumeGroupsClientBeginDeleteOptions contains the optional parameters for the VolumeGroupsClient.BeginDelete method.
 type VolumeGroupsClientBeginDeleteOptions struct {
+	// Optional, used to purge soft deleted volume groups if set to true.
+	Purge *Purge
+
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -106,13 +116,15 @@ type VolumeGroupsClientBeginUpdateOptions struct {
 
 // VolumeGroupsClientGetOptions contains the optional parameters for the VolumeGroupsClient.Get method.
 type VolumeGroupsClientGetOptions struct {
-	// placeholder for future optional parameters
+	// Optional, used to get soft deleted volume groups if set to true.
+	XMSAccessSoftDeletedResources *XMSAccessSoftDeletedResources
 }
 
 // VolumeGroupsClientListByElasticSanOptions contains the optional parameters for the VolumeGroupsClient.NewListByElasticSanPager
 // method.
 type VolumeGroupsClientListByElasticSanOptions struct {
-	// placeholder for future optional parameters
+	// Optional, used to get soft deleted volumes if set to true.
+	XMSAccessSoftDeletedResources *XMSAccessSoftDeletedResources
 }
 
 // VolumeSnapshotsClientBeginCreateOptions contains the optional parameters for the VolumeSnapshotsClient.BeginCreate method.
@@ -147,6 +159,9 @@ type VolumesClientBeginCreateOptions struct {
 
 // VolumesClientBeginDeleteOptions contains the optional parameters for the VolumesClient.BeginDelete method.
 type VolumesClientBeginDeleteOptions struct {
+	// Optional, used to purge soft deleted volumes if set to true.
+	Purge *Purge
+
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 
@@ -165,11 +180,13 @@ type VolumesClientBeginUpdateOptions struct {
 
 // VolumesClientGetOptions contains the optional parameters for the VolumesClient.Get method.
 type VolumesClientGetOptions struct {
-	// placeholder for future optional parameters
+	// Optional, used to get soft deleted volumes if set to true.
+	XMSAccessSoftDeletedResources *XMSAccessSoftDeletedResources
 }
 
 // VolumesClientListByVolumeGroupOptions contains the optional parameters for the VolumesClient.NewListByVolumeGroupPager
 // method.
 type VolumesClientListByVolumeGroupOptions struct {
-	// placeholder for future optional parameters
+	// Optional, used to get soft deleted volumes if set to true.
+	XMSAccessSoftDeletedResources *XMSAccessSoftDeletedResources
 }
