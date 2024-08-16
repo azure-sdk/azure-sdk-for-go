@@ -26,14 +26,14 @@ import (
 type DashboardsServer struct {
 	// CreateOrUpdate is the fake for method DashboardsClient.CreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	CreateOrUpdate func(ctx context.Context, resourceGroupName string, dashboardName string, dashboard armportal.Dashboard, options *armportal.DashboardsClientCreateOrUpdateOptions) (resp azfake.Responder[armportal.DashboardsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	CreateOrUpdate func(ctx context.Context, resourceGroupName string, dashboardName string, resource armportal.Dashboard, options *armportal.DashboardsClientCreateOrUpdateOptions) (resp azfake.Responder[armportal.DashboardsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// Delete is the fake for method DashboardsClient.Delete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
 	Delete func(ctx context.Context, resourceGroupName string, dashboardName string, options *armportal.DashboardsClientDeleteOptions) (resp azfake.Responder[armportal.DashboardsClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method DashboardsClient.Get
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusNotFound
+	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, dashboardName string, options *armportal.DashboardsClientGetOptions) (resp azfake.Responder[armportal.DashboardsClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListByResourceGroupPager is the fake for method DashboardsClient.NewListByResourceGroupPager
@@ -45,8 +45,8 @@ type DashboardsServer struct {
 	NewListBySubscriptionPager func(options *armportal.DashboardsClientListBySubscriptionOptions) (resp azfake.PagerResponder[armportal.DashboardsClientListBySubscriptionResponse])
 
 	// Update is the fake for method DashboardsClient.Update
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusNotFound
-	Update func(ctx context.Context, resourceGroupName string, dashboardName string, dashboard armportal.PatchableDashboard, options *armportal.DashboardsClientUpdateOptions) (resp azfake.Responder[armportal.DashboardsClientUpdateResponse], errResp azfake.ErrorResponder)
+	// HTTP status codes to indicate success: http.StatusOK
+	Update func(ctx context.Context, resourceGroupName string, dashboardName string, properties armportal.PatchableDashboard, options *armportal.DashboardsClientUpdateOptions) (resp azfake.Responder[armportal.DashboardsClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewDashboardsServerTransport creates a new instance of DashboardsServerTransport with the provided implementation.
@@ -196,8 +196,8 @@ func (d *DashboardsServerTransport) dispatchGet(req *http.Request) (*http.Respon
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK, http.StatusNotFound}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusNotFound", respContent.HTTPStatus)}
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Dashboard, req)
 	if err != nil {
@@ -303,8 +303,8 @@ func (d *DashboardsServerTransport) dispatchUpdate(req *http.Request) (*http.Res
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK, http.StatusNotFound}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusNotFound", respContent.HTTPStatus)}
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Dashboard, req)
 	if err != nil {
