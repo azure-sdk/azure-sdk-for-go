@@ -1,5 +1,170 @@
 # Release History
 
+## 3.0.0-beta.2 (2024-08-19)
+### Breaking Changes
+
+- Function `*ContainerAppsSourceControlsClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, SourceControl, *ContainerAppsSourceControlsClientBeginCreateOrUpdateOptions)` to `(context.Context, string, string, string, string, SourceControl, *ContainerAppsSourceControlsClientBeginCreateOrUpdateOptions)`
+- Function `*ContainerAppsSourceControlsClient.BeginDelete` parameter(s) have been changed from `(context.Context, string, string, string, *ContainerAppsSourceControlsClientBeginDeleteOptions)` to `(context.Context, string, string, string, string, *ContainerAppsSourceControlsClientBeginDeleteOptions)`
+- Type of `JavaComponent.Properties` has been changed from `*JavaComponentProperties` to `JavaComponentPropertiesClassification`
+- `DotNetComponentTypeAspireResourceServerAPI` from enum `DotNetComponentType` has been removed
+- Operation `*JobsClient.ListDetectors` has supported pagination, use `*JobsClient.NewListDetectorsPager` instead.
+- Field `SystemData` of struct `BillingMeter` has been removed
+
+### Features Added
+
+- New value `JavaComponentTypeNacos`, `JavaComponentTypeSpringCloudGateway` added to enum type `JavaComponentType`
+- New value `StorageTypeSmb` added to enum type `StorageType`
+- New enum type `ContainerType` with values `ContainerTypeCustomContainer`, `ContainerTypePythonLTS`
+- New enum type `DetectionStatus` with values `DetectionStatusFailed`, `DetectionStatusRegistryLoginFailed`, `DetectionStatusSucceeded`
+- New enum type `ExecutionType` with values `ExecutionTypeTimed`
+- New enum type `IdentitySettingsLifeCycle` with values `IdentitySettingsLifeCycleAll`, `IdentitySettingsLifeCycleInit`, `IdentitySettingsLifeCycleMain`, `IdentitySettingsLifeCycleNone`
+- New enum type `ImageType` with values `ImageTypeCloudBuild`, `ImageTypeContainerImage`
+- New enum type `Kind` with values `KindWorkflowapp`
+- New enum type `Level` with values `LevelDebug`, `LevelError`, `LevelInfo`, `LevelOff`, `LevelTrace`, `LevelWarn`
+- New enum type `LogicAppsProxyMethod` with values `LogicAppsProxyMethodGET`, `LogicAppsProxyMethodPOST`
+- New enum type `PatchApplyStatus` with values `PatchApplyStatusCanceled`, `PatchApplyStatusCreatingRevision`, `PatchApplyStatusImagePushPullFailed`, `PatchApplyStatusManuallySkipped`, `PatchApplyStatusNotStarted`, `PatchApplyStatusRebaseFailed`, `PatchApplyStatusRebaseInProgress`, `PatchApplyStatusRevisionCreationFailed`, `PatchApplyStatusSucceeded`
+- New enum type `PatchType` with values `PatchTypeFrameworkAndOSSecurity`, `PatchTypeFrameworkSecurity`, `PatchTypeOSSecurity`, `PatchTypeOther`
+- New enum type `PatchingMode` with values `PatchingModeAutomatic`, `PatchingModeDisabled`, `PatchingModeManual`
+- New enum type `PoolManagementType` with values `PoolManagementTypeDynamic`, `PoolManagementTypeManual`
+- New enum type `PrivateEndpointConnectionProvisioningState` with values `PrivateEndpointConnectionProvisioningStateCanceled`, `PrivateEndpointConnectionProvisioningStateDeleting`, `PrivateEndpointConnectionProvisioningStateFailed`, `PrivateEndpointConnectionProvisioningStatePending`, `PrivateEndpointConnectionProvisioningStateSucceeded`, `PrivateEndpointConnectionProvisioningStateUpdating`, `PrivateEndpointConnectionProvisioningStateWaiting`
+- New enum type `PrivateEndpointServiceConnectionStatus` with values `PrivateEndpointServiceConnectionStatusApproved`, `PrivateEndpointServiceConnectionStatusDisconnected`, `PrivateEndpointServiceConnectionStatusPending`, `PrivateEndpointServiceConnectionStatusRejected`
+- New enum type `PublicNetworkAccess` with values `PublicNetworkAccessDisabled`, `PublicNetworkAccessEnabled`
+- New enum type `SessionNetworkStatus` with values `SessionNetworkStatusEgressDisabled`, `SessionNetworkStatusEgressEnabled`
+- New enum type `SessionPoolProvisioningState` with values `SessionPoolProvisioningStateCanceled`, `SessionPoolProvisioningStateDeleting`, `SessionPoolProvisioningStateFailed`, `SessionPoolProvisioningStateInProgress`, `SessionPoolProvisioningStateSucceeded`
+- New enum type `WorkflowHealthState` with values `WorkflowHealthStateHealthy`, `WorkflowHealthStateNotSpecified`, `WorkflowHealthStateUnhealthy`, `WorkflowHealthStateUnknown`
+- New enum type `WorkflowState` with values `WorkflowStateCompleted`, `WorkflowStateDeleted`, `WorkflowStateDisabled`, `WorkflowStateEnabled`, `WorkflowStateNotSpecified`, `WorkflowStateSuspended`
+- New function `*ClientFactory.NewContainerAppsBuildsByContainerAppClient() *ContainerAppsBuildsByContainerAppClient`
+- New function `*ClientFactory.NewContainerAppsBuildsClient() *ContainerAppsBuildsClient`
+- New function `*ClientFactory.NewContainerAppsPatchesClient() *ContainerAppsPatchesClient`
+- New function `*ClientFactory.NewContainerAppsSessionPoolsClient() *ContainerAppsSessionPoolsClient`
+- New function `*ClientFactory.NewFunctionsExtensionClient() *FunctionsExtensionClient`
+- New function `*ClientFactory.NewLogicAppsClient() *LogicAppsClient`
+- New function `*ClientFactory.NewManagedEnvironmentPrivateEndpointConnectionsClient() *ManagedEnvironmentPrivateEndpointConnectionsClient`
+- New function `*ClientFactory.NewManagedEnvironmentPrivateLinkResourcesClient() *ManagedEnvironmentPrivateLinkResourcesClient`
+- New function `NewContainerAppsBuildsByContainerAppClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ContainerAppsBuildsByContainerAppClient, error)`
+- New function `*ContainerAppsBuildsByContainerAppClient.NewListPager(string, string, *ContainerAppsBuildsByContainerAppClientListOptions) *runtime.Pager[ContainerAppsBuildsByContainerAppClientListResponse]`
+- New function `NewContainerAppsBuildsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ContainerAppsBuildsClient, error)`
+- New function `*ContainerAppsBuildsClient.BeginDelete(context.Context, string, string, string, *ContainerAppsBuildsClientBeginDeleteOptions) (*runtime.Poller[ContainerAppsBuildsClientDeleteResponse], error)`
+- New function `*ContainerAppsBuildsClient.Get(context.Context, string, string, string, *ContainerAppsBuildsClientGetOptions) (ContainerAppsBuildsClientGetResponse, error)`
+- New function `NewContainerAppsPatchesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ContainerAppsPatchesClient, error)`
+- New function `*ContainerAppsPatchesClient.BeginApply(context.Context, string, string, string, *ContainerAppsPatchesClientBeginApplyOptions) (*runtime.Poller[ContainerAppsPatchesClientApplyResponse], error)`
+- New function `*ContainerAppsPatchesClient.BeginDelete(context.Context, string, string, string, *ContainerAppsPatchesClientBeginDeleteOptions) (*runtime.Poller[ContainerAppsPatchesClientDeleteResponse], error)`
+- New function `*ContainerAppsPatchesClient.Get(context.Context, string, string, string, *ContainerAppsPatchesClientGetOptions) (ContainerAppsPatchesClientGetResponse, error)`
+- New function `*ContainerAppsPatchesClient.NewListByContainerAppPager(string, string, *ContainerAppsPatchesClientListByContainerAppOptions) *runtime.Pager[ContainerAppsPatchesClientListByContainerAppResponse]`
+- New function `*ContainerAppsPatchesClient.BeginSkipConfigure(context.Context, string, string, string, PatchSkipConfig, *ContainerAppsPatchesClientBeginSkipConfigureOptions) (*runtime.Poller[ContainerAppsPatchesClientSkipConfigureResponse], error)`
+- New function `NewContainerAppsSessionPoolsClient(string, string, azcore.TokenCredential, *arm.ClientOptions) (*ContainerAppsSessionPoolsClient, error)`
+- New function `*ContainerAppsSessionPoolsClient.BeginCreateOrUpdate(context.Context, string, SessionPool, *ContainerAppsSessionPoolsClientBeginCreateOrUpdateOptions) (*runtime.Poller[ContainerAppsSessionPoolsClientCreateOrUpdateResponse], error)`
+- New function `*ContainerAppsSessionPoolsClient.BeginDelete(context.Context, string, *ContainerAppsSessionPoolsClientBeginDeleteOptions) (*runtime.Poller[ContainerAppsSessionPoolsClientDeleteResponse], error)`
+- New function `*ContainerAppsSessionPoolsClient.Get(context.Context, string, *ContainerAppsSessionPoolsClientGetOptions) (ContainerAppsSessionPoolsClientGetResponse, error)`
+- New function `*ContainerAppsSessionPoolsClient.NewListByResourceGroupPager(string, *ContainerAppsSessionPoolsClientListByResourceGroupOptions) *runtime.Pager[ContainerAppsSessionPoolsClientListByResourceGroupResponse]`
+- New function `*ContainerAppsSessionPoolsClient.NewListBySubscriptionPager(*ContainerAppsSessionPoolsClientListBySubscriptionOptions) *runtime.Pager[ContainerAppsSessionPoolsClientListBySubscriptionResponse]`
+- New function `*ContainerAppsSessionPoolsClient.BeginUpdate(context.Context, string, SessionPoolUpdatableProperties, *ContainerAppsSessionPoolsClientBeginUpdateOptions) (*runtime.Poller[ContainerAppsSessionPoolsClientUpdateResponse], error)`
+- New function `NewFunctionsExtensionClient(string, azcore.TokenCredential, *arm.ClientOptions) (*FunctionsExtensionClient, error)`
+- New function `*FunctionsExtensionClient.InvokeFunctionsHost(context.Context, string, string, string, string, *FunctionsExtensionClientInvokeFunctionsHostOptions) (FunctionsExtensionClientInvokeFunctionsHostResponse, error)`
+- New function `*JavaComponentProperties.GetJavaComponentProperties() *JavaComponentProperties`
+- New function `NewLogicAppsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*LogicAppsClient, error)`
+- New function `*LogicAppsClient.CreateOrUpdate(context.Context, string, string, string, LogicApp, *LogicAppsClientCreateOrUpdateOptions) (LogicAppsClientCreateOrUpdateResponse, error)`
+- New function `*LogicAppsClient.Delete(context.Context, string, string, string, *LogicAppsClientDeleteOptions) (LogicAppsClientDeleteResponse, error)`
+- New function `*LogicAppsClient.DeployWorkflowArtifacts(context.Context, string, string, string, *LogicAppsClientDeployWorkflowArtifactsOptions) (LogicAppsClientDeployWorkflowArtifactsResponse, error)`
+- New function `*LogicAppsClient.Get(context.Context, string, string, string, *LogicAppsClientGetOptions) (LogicAppsClientGetResponse, error)`
+- New function `*LogicAppsClient.GetWorkflow(context.Context, string, string, string, string, *LogicAppsClientGetWorkflowOptions) (LogicAppsClientGetWorkflowResponse, error)`
+- New function `*LogicAppsClient.Invoke(context.Context, string, string, string, string, LogicAppsProxyMethod, *LogicAppsClientInvokeOptions) (LogicAppsClientInvokeResponse, error)`
+- New function `*LogicAppsClient.ListWorkflowsConnections(context.Context, string, string, string, *LogicAppsClientListWorkflowsConnectionsOptions) (LogicAppsClientListWorkflowsConnectionsResponse, error)`
+- New function `*LogicAppsClient.NewListWorkflowsPager(string, string, string, *LogicAppsClientListWorkflowsOptions) *runtime.Pager[LogicAppsClientListWorkflowsResponse]`
+- New function `NewManagedEnvironmentPrivateEndpointConnectionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ManagedEnvironmentPrivateEndpointConnectionsClient, error)`
+- New function `*ManagedEnvironmentPrivateEndpointConnectionsClient.BeginCreateOrUpdate(context.Context, string, string, string, PrivateEndpointConnection, *ManagedEnvironmentPrivateEndpointConnectionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[ManagedEnvironmentPrivateEndpointConnectionsClientCreateOrUpdateResponse], error)`
+- New function `*ManagedEnvironmentPrivateEndpointConnectionsClient.BeginDelete(context.Context, string, string, string, *ManagedEnvironmentPrivateEndpointConnectionsClientBeginDeleteOptions) (*runtime.Poller[ManagedEnvironmentPrivateEndpointConnectionsClientDeleteResponse], error)`
+- New function `*ManagedEnvironmentPrivateEndpointConnectionsClient.Get(context.Context, string, string, string, *ManagedEnvironmentPrivateEndpointConnectionsClientGetOptions) (ManagedEnvironmentPrivateEndpointConnectionsClientGetResponse, error)`
+- New function `*ManagedEnvironmentPrivateEndpointConnectionsClient.NewListPager(string, string, *ManagedEnvironmentPrivateEndpointConnectionsClientListOptions) *runtime.Pager[ManagedEnvironmentPrivateEndpointConnectionsClientListResponse]`
+- New function `NewManagedEnvironmentPrivateLinkResourcesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ManagedEnvironmentPrivateLinkResourcesClient, error)`
+- New function `*ManagedEnvironmentPrivateLinkResourcesClient.NewListPager(string, string, *ManagedEnvironmentPrivateLinkResourcesClientListOptions) *runtime.Pager[ManagedEnvironmentPrivateLinkResourcesClientListResponse]`
+- New function `*SpringBootAdminComponent.GetJavaComponentProperties() *JavaComponentProperties`
+- New function `*SpringCloudConfigComponent.GetJavaComponentProperties() *JavaComponentProperties`
+- New function `*SpringCloudEurekaComponent.GetJavaComponentProperties() *JavaComponentProperties`
+- New function `*SpringCloudGatewayComponent.GetJavaComponentProperties() *JavaComponentProperties`
+- New function `*NacosComponent.GetJavaComponentProperties() *JavaComponentProperties`
+- New struct `ContainerAppPropertiesPatchingConfiguration`
+- New struct `ContainerAppsBuildCollection`
+- New struct `ContainerAppsBuildConfiguration`
+- New struct `ContainerAppsBuildProperties`
+- New struct `ContainerAppsBuildResource`
+- New struct `ContainerAppsPatchResource`
+- New struct `ContainerExecutionStatus`
+- New struct `CustomContainerTemplate`
+- New struct `DynamicPoolConfiguration`
+- New struct `ErrorEntity`
+- New struct `ExecutionStatus`
+- New struct `IdentitySettings`
+- New struct `JavaComponentIngress`
+- New struct `JavaComponentPropertiesScale`
+- New struct `LoggerSetting`
+- New struct `LogicApp`
+- New struct `ManagedEnvironmentPropertiesPeerTrafficConfiguration`
+- New struct `ManagedEnvironmentPropertiesPeerTrafficConfigurationEncryption`
+- New struct `NacosComponent`
+- New struct `PatchCollection`
+- New struct `PatchDetails`
+- New struct `PatchDetailsNewLayer`
+- New struct `PatchDetailsOldLayer`
+- New struct `PatchProperties`
+- New struct `PatchSkipConfig`
+- New struct `PrivateEndpoint`
+- New struct `PrivateEndpointConnection`
+- New struct `PrivateEndpointConnectionListResult`
+- New struct `PrivateEndpointConnectionProperties`
+- New struct `PrivateLinkResource`
+- New struct `PrivateLinkResourceListResult`
+- New struct `PrivateLinkResourceProperties`
+- New struct `PrivateLinkServiceConnectionState`
+- New struct `ReplicaExecutionStatus`
+- New struct `Runtime`
+- New struct `RuntimeDotnet`
+- New struct `RuntimeJava`
+- New struct `RuntimeJavaAgent`
+- New struct `RuntimeJavaAgentLogging`
+- New struct `ScaleConfiguration`
+- New struct `ScgRoute`
+- New struct `SessionContainer`
+- New struct `SessionContainerResources`
+- New struct `SessionIngress`
+- New struct `SessionNetworkConfiguration`
+- New struct `SessionPool`
+- New struct `SessionPoolCollection`
+- New struct `SessionPoolProperties`
+- New struct `SessionPoolSecret`
+- New struct `SessionPoolUpdatableProperties`
+- New struct `SessionPoolUpdatablePropertiesProperties`
+- New struct `SessionRegistryCredentials`
+- New struct `SmbStorage`
+- New struct `SpringBootAdminComponent`
+- New struct `SpringCloudConfigComponent`
+- New struct `SpringCloudEurekaComponent`
+- New struct `SpringCloudGatewayComponent`
+- New struct `WorkflowArtifacts`
+- New struct `WorkflowEnvelope`
+- New struct `WorkflowEnvelopeCollection`
+- New struct `WorkflowEnvelopeProperties`
+- New struct `WorkflowHealth`
+- New field `ImageType` in struct `BaseContainer`
+- New field `IdentitySettings`, `Runtime` in struct `Configuration`
+- New field `Smb` in struct `ConnectedEnvironmentStorageProperties`
+- New field `ImageType` in struct `Container`
+- New field `Kind` in struct `ContainerApp`
+- New field `DeploymentErrors`, `PatchingConfiguration` in struct `ContainerAppProperties`
+- New field `DeleteWorkflow`, `IgnoreWorkflowDeletionFailure` in struct `ContainerAppsSourceControlsClientBeginDeleteOptions`
+- New field `Identity` in struct `CustomScaleRule`
+- New field `DockerfilePath` in struct `GithubActionConfiguration`
+- New field `Identity` in struct `HTTPScaleRule`
+- New field `ImageType` in struct `InitContainer`
+- New field `IdentitySettings` in struct `JobConfiguration`
+- New field `DetailedStatus` in struct `JobExecutionProperties`
+- New field `Identity` in struct `JobScaleRule`
+- New field `PeerTrafficConfiguration`, `PrivateEndpointConnections`, `PublicNetworkAccess` in struct `ManagedEnvironmentProperties`
+- New field `AccountName`, `Identity` in struct `QueueScaleRule`
+- New field `DebugEndpoint` in struct `ReplicaContainer`
+- New field `Identity` in struct `TCPScaleRule`
+
+
 ## 3.0.0-beta.1 (2024-03-22)
 ### Breaking Changes
 
