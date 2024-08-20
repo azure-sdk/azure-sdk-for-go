@@ -42,7 +42,7 @@ func NewEndpointsClient(credential azcore.TokenCredential, options *arm.ClientOp
 // CreateOrUpdate - Create or update the endpoint to the target resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15
+// Generated from API version 2024-12-01
 //   - resourceURI - The fully qualified Azure Resource manager identifier of the resource to be connected.
 //   - endpointName - The endpoint name.
 //   - endpointResource - Endpoint details
@@ -80,7 +80,7 @@ func (client *EndpointsClient) createOrUpdateCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-15")
+	reqQP.Set("api-version", "2024-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, endpointResource); err != nil {
@@ -101,7 +101,7 @@ func (client *EndpointsClient) createOrUpdateHandleResponse(resp *http.Response)
 // Delete - Deletes the endpoint access to the target resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15
+// Generated from API version 2024-12-01
 //   - resourceURI - The fully qualified Azure Resource manager identifier of the resource to be connected.
 //   - endpointName - The endpoint name.
 //   - options - EndpointsClientDeleteOptions contains the optional parameters for the EndpointsClient.Delete method.
@@ -136,7 +136,7 @@ func (client *EndpointsClient) deleteCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-15")
+	reqQP.Set("api-version", "2024-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -145,7 +145,7 @@ func (client *EndpointsClient) deleteCreateRequest(ctx context.Context, resource
 // Get - Gets the endpoint to the resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15
+// Generated from API version 2024-12-01
 //   - resourceURI - The fully qualified Azure Resource manager identifier of the resource to be connected.
 //   - endpointName - The endpoint name.
 //   - options - EndpointsClientGetOptions contains the optional parameters for the EndpointsClient.Get method.
@@ -181,7 +181,7 @@ func (client *EndpointsClient) getCreateRequest(ctx context.Context, resourceURI
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-15")
+	reqQP.Set("api-version", "2024-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -198,7 +198,7 @@ func (client *EndpointsClient) getHandleResponse(resp *http.Response) (Endpoints
 
 // NewListPager - List of endpoints to the target resource.
 //
-// Generated from API version 2023-03-15
+// Generated from API version 2024-12-01
 //   - resourceURI - The fully qualified Azure Resource manager identifier of the resource to be connected.
 //   - options - EndpointsClientListOptions contains the optional parameters for the EndpointsClient.NewListPager method.
 func (client *EndpointsClient) NewListPager(resourceURI string, options *EndpointsClientListOptions) *runtime.Pager[EndpointsClientListResponse] {
@@ -233,7 +233,7 @@ func (client *EndpointsClient) listCreateRequest(ctx context.Context, resourceUR
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-15")
+	reqQP.Set("api-version", "2024-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -251,7 +251,7 @@ func (client *EndpointsClient) listHandleResponse(resp *http.Response) (Endpoint
 // ListCredentials - Gets the endpoint access credentials to the resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15
+// Generated from API version 2024-12-01
 //   - resourceURI - The fully qualified Azure Resource manager identifier of the resource to be connected.
 //   - endpointName - The endpoint name.
 //   - options - EndpointsClientListCredentialsOptions contains the optional parameters for the EndpointsClient.ListCredentials
@@ -288,7 +288,7 @@ func (client *EndpointsClient) listCredentialsCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-15")
+	reqQP.Set("api-version", "2024-12-01")
 	if options != nil && options.Expiresin != nil {
 		reqQP.Set("expiresin", strconv.FormatInt(*options.Expiresin, 10))
 	}
@@ -315,7 +315,7 @@ func (client *EndpointsClient) listCredentialsHandleResponse(resp *http.Response
 // ListIngressGatewayCredentials - Gets the ingress gateway endpoint credentials
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15
+// Generated from API version 2024-12-01
 //   - resourceURI - The fully qualified Azure Resource manager identifier of the resource to be connected.
 //   - endpointName - The endpoint name.
 //   - options - EndpointsClientListIngressGatewayCredentialsOptions contains the optional parameters for the EndpointsClient.ListIngressGatewayCredentials
@@ -352,7 +352,7 @@ func (client *EndpointsClient) listIngressGatewayCredentialsCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-15")
+	reqQP.Set("api-version", "2024-12-01")
 	if options != nil && options.Expiresin != nil {
 		reqQP.Set("expiresin", strconv.FormatInt(*options.Expiresin, 10))
 	}
@@ -379,7 +379,7 @@ func (client *EndpointsClient) listIngressGatewayCredentialsHandleResponse(resp 
 // ListManagedProxyDetails - Fetches the managed proxy details
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15
+// Generated from API version 2024-12-01
 //   - resourceURI - The fully qualified Azure Resource manager identifier of the resource to be connected.
 //   - endpointName - The endpoint name.
 //   - managedProxyRequest - Object of type ManagedProxyRequest
@@ -417,7 +417,7 @@ func (client *EndpointsClient) listManagedProxyDetailsCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-15")
+	reqQP.Set("api-version", "2024-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, managedProxyRequest); err != nil {
@@ -438,7 +438,7 @@ func (client *EndpointsClient) listManagedProxyDetailsHandleResponse(resp *http.
 // Update - Update the endpoint to the target resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-15
+// Generated from API version 2024-12-01
 //   - resourceURI - The fully qualified Azure Resource manager identifier of the resource to be connected.
 //   - endpointName - The endpoint name.
 //   - endpointResource - Endpoint details
@@ -475,7 +475,7 @@ func (client *EndpointsClient) updateCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-15")
+	reqQP.Set("api-version", "2024-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, endpointResource); err != nil {

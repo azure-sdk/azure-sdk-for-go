@@ -19,6 +19,44 @@ type AADProfileProperties struct {
 	TenantID *string
 }
 
+// AwsCloudProfile - cloud profile for AWS.
+type AwsCloudProfile struct {
+	// REQUIRED; Account id for the AWS account.
+	AccountID *string
+
+	// List of AWS accounts which need to be excluded.
+	ExcludedAccounts []*string
+
+	// Boolean value that indicates whether the account is organizational or not. True represents organization account, whereas
+	// false represents a single account.
+	IsOrganizationalAccount *bool
+}
+
+// AwsCloudProfileUpdate - cloud profile for AWS.
+type AwsCloudProfileUpdate struct {
+	// List of AWS accounts which need to be excluded.
+	ExcludedAccounts []*string
+}
+
+// AzureResourceManagerCommonTypesTrackedResourceUpdate - The resource model definition for an Azure Resource Manager tracked
+// top level resource which has 'tags' and a 'location'
+type AzureResourceManagerCommonTypesTrackedResourceUpdate struct {
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
 // EndpointAccessResource - The endpoint access for the target resource.
 type EndpointAccessResource struct {
 	// Azure relay hybrid connection access properties
@@ -98,6 +136,15 @@ type ErrorResponse struct {
 	Error *ErrorDetail
 }
 
+// GenerateAwsTemplateRequest - ConnectorId and SolutionTypes and their properties to Generate AWS CFT Template.
+type GenerateAwsTemplateRequest struct {
+	// REQUIRED; The name of public cloud connector
+	ConnectorID *string
+
+	// The list of solution types and their settings
+	SolutionTypes []*SolutionTypeSettings
+}
+
 // IngressGatewayResource - The ingress gateway access credentials
 type IngressGatewayResource struct {
 	// Ingress gateway profile
@@ -114,6 +161,54 @@ type IngressProfileProperties struct {
 
 	// REQUIRED; The ingress hostname.
 	Hostname *string
+}
+
+// InventoryProperties - Definition of inventory.
+type InventoryProperties struct {
+	// Gets or sets the mapped azure resource id.
+	AzureResourceID *string
+
+	// Gets or sets the cloud native resource name.
+	CloudNativeResourceID *string
+
+	// Gets or sets the cloud native resource type.
+	CloudNativeType *CloudNativeType
+
+	// Gets or sets the status of the inventory.
+	Status *SolutionConfigurationStatus
+
+	// Gets or sets the status details.
+	StatusDetails *string
+
+	// READ-ONLY; The resource provisioning state.
+	ProvisioningState *ResourceProvisioningState
+}
+
+// InventoryResource - Concrete proxy resource types can be created by aliasing this type using a specific property type.
+type InventoryResource struct {
+	// The resource-specific properties for this resource.
+	Properties *InventoryProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// InventoryResourceListResult - The response of a InventoryResource list operation.
+type InventoryResourceListResult struct {
+	// REQUIRED; The InventoryResource items on this page
+	Value []*InventoryResource
+
+	// The link to the next page of items
+	NextLink *string
 }
 
 // ListCredentialsRequest - The details of the service for which credentials needs to be returned.
@@ -202,6 +297,81 @@ type OperationListResult struct {
 // ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
 // location
 type ProxyResource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// PublicCloudConnector - Public Cloud Connector
+type PublicCloudConnector struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// The resource-specific properties for this resource.
+	Properties *PublicCloudConnectorProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// PublicCloudConnectorListResult - The response of a PublicCloudConnector list operation.
+type PublicCloudConnectorListResult struct {
+	// REQUIRED; The PublicCloudConnector items on this page
+	Value []*PublicCloudConnector
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// PublicCloudConnectorProperties - Properties of public cloud connectors.
+type PublicCloudConnectorProperties struct {
+	// REQUIRED; Cloud profile for AWS.
+	AwsCloudProfile *AwsCloudProfile
+
+	// REQUIRED; Host cloud the public cloud connector.
+	HostType *HostType
+
+	// READ-ONLY; Connector primary identifier.
+	ConnectorPrimaryIdentifier *string
+
+	// READ-ONLY; The resource provisioning state.
+	ProvisioningState *ResourceProvisioningState
+}
+
+// PublicCloudConnectorPropertiesUpdate - Properties of public cloud connectors.
+type PublicCloudConnectorPropertiesUpdate struct {
+	// Cloud profile for AWS.
+	AwsCloudProfile *AwsCloudProfileUpdate
+}
+
+// PublicCloudConnectorUpdate - Public Cloud Connector
+type PublicCloudConnectorUpdate struct {
+	// The resource-specific properties for this resource.
+	Properties *PublicCloudConnectorPropertiesUpdate
+
+	// Resource tags.
+	Tags map[string]*string
+
 	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
@@ -305,6 +475,165 @@ type ServiceConfigurationResourcePatch struct {
 	Properties *ServiceConfigurationPropertiesPatch
 }
 
+// SolutionConfiguration - Solution Configuration
+type SolutionConfiguration struct {
+	// The resource-specific properties for this resource.
+	Properties *SolutionConfigurationProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SolutionConfigurationListResult - The response of a SolutionConfiguration list operation.
+type SolutionConfigurationListResult struct {
+	// REQUIRED; The SolutionConfiguration items on this page
+	Value []*SolutionConfiguration
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// SolutionConfigurationProperties - Solution configuration resource.
+type SolutionConfigurationProperties struct {
+	// REQUIRED; The type of the solution
+	SolutionType *string
+
+	// Solution settings
+	SolutionSettings map[string]*string
+
+	// READ-ONLY; The last time resources were inventoried
+	LastSyncTime *time.Time
+
+	// READ-ONLY; The resource provisioning state.
+	ProvisioningState *ResourceProvisioningState
+
+	// READ-ONLY; The status of solution configurations
+	Status *SolutionConfigurationStatus
+
+	// READ-ONLY; The detailed message of status details
+	StatusDetails *string
+}
+
+// SolutionConfigurationPropertiesUpdate - Solution configuration resource.
+type SolutionConfigurationPropertiesUpdate struct {
+	// Solution settings
+	SolutionSettings map[string]*string
+
+	// The type of the solution
+	SolutionType *string
+}
+
+// SolutionConfigurationUpdate - Solution Configuration
+type SolutionConfigurationUpdate struct {
+	// The resource-specific properties for this resource.
+	Properties *SolutionConfigurationPropertiesUpdate
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SolutionTypePermissions - Solution type permissions.
+type SolutionTypePermissions struct {
+	// REQUIRED; The name of solution Type
+	SolutionType *SolutionTypeEnum
+
+	// REQUIRED; The status
+	Status *Status
+
+	// REQUIRED; The details of the status
+	StatusDetails *string
+}
+
+// SolutionTypeProperties - Definition of Solution type resource.
+type SolutionTypeProperties struct {
+	// Short description of solution type.
+	Description *string
+
+	// Array of solution settings and its description.
+	SolutionSettings []*SolutionTypeSettingsProperties
+
+	// The name of the solution type.
+	SolutionType *string
+
+	// The locations this solution is supported in.
+	SupportedAzureRegions []*string
+}
+
+// SolutionTypeResource - Concrete proxy resource types can be created by aliasing this type using a specific property type.
+type SolutionTypeResource struct {
+	// The resource-specific properties for this resource.
+	Properties *SolutionTypeProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SolutionTypeResourceListResult - The response of a SolutionTypeResource list operation.
+type SolutionTypeResourceListResult struct {
+	// REQUIRED; The SolutionTypeResource items on this page
+	Value []*SolutionTypeResource
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// SolutionTypeSettings - The properties of Solution Type
+type SolutionTypeSettings struct {
+	// REQUIRED; The type of the solution
+	SolutionType *string
+
+	// Solution settings
+	SolutionSettings map[string]*string
+}
+
+// SolutionTypeSettingsProperties - Represent Solution settings properties description array.
+type SolutionTypeSettingsProperties struct {
+	// REQUIRED; Array of allowed values for this solution settings property.
+	AllowedValues []*string
+
+	// REQUIRED; Default value for this solution settings property.
+	DefaultValue *string
+
+	// REQUIRED; Description of solution setting property.
+	Description *string
+
+	// REQUIRED; The UI friendly name of the solution setting property.
+	DisplayName *string
+
+	// REQUIRED; The name of the solution setting property.
+	Name *string
+
+	// REQUIRED; Type of the solution setting property, represented as a string.
+	Type *string
+}
+
 // SystemData - Metadata pertaining to creation and last modification of the resource.
 type SystemData struct {
 	// The timestamp of resource creation (UTC).
@@ -324,4 +653,32 @@ type SystemData struct {
 
 	// The type of identity that last modified the resource.
 	LastModifiedByType *CreatedByType
+}
+
+// TestPermissionResult - Public connector permissions.
+type TestPermissionResult struct {
+	// REQUIRED; Solution type permissions.
+	SolutionTypes []*SolutionTypePermissions
+}
+
+// TrackedResource - The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags'
+// and a 'location'
+type TrackedResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
 }
