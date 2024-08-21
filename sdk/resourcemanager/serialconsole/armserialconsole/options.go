@@ -42,11 +42,6 @@ type SerialPortsClientCreateOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SerialPortsClientDeleteOptions contains the optional parameters for the SerialPortsClient.Delete method.
-type SerialPortsClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
 // SerialPortsClientGetOptions contains the optional parameters for the SerialPortsClient.Get method.
 type SerialPortsClientGetOptions struct {
 	// placeholder for future optional parameters
