@@ -43,10 +43,10 @@ func NewAzureBareMetalStorageInstancesClient(subscriptionID string, credential a
 	return client, nil
 }
 
-// Create - Create an azure bare metal storage resource.
+// Create - Creates an Azure Bare Metal Storage Instance for the specified subscription, resource group, and instance name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-04-preview
+// Generated from API version 2024-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - azureBareMetalStorageInstanceName - Name of the Azure Bare Metal Storage Instance, also known as the ResourceName.
 //   - requestBodyParameters - request body for put call
@@ -94,7 +94,7 @@ func (client *AzureBareMetalStorageInstancesClient) createCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-04-preview")
+	reqQP.Set("api-version", "2024-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, requestBodyParameters); err != nil {
@@ -112,10 +112,10 @@ func (client *AzureBareMetalStorageInstancesClient) createHandleResponse(resp *h
 	return result, nil
 }
 
-// Delete - Delete an AzureBareMetalStorageInstance.
+// Delete - Deletes an Azure Bare Metal Storage Instance for the specified subscription, resource group, and instance name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-04-preview
+// Generated from API version 2024-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - azureBareMetalStorageInstanceName - Name of the Azure Bare Metal Storage Instance, also known as the ResourceName.
 //   - options - AzureBareMetalStorageInstancesClientDeleteOptions contains the optional parameters for the AzureBareMetalStorageInstancesClient.Delete
@@ -161,7 +161,7 @@ func (client *AzureBareMetalStorageInstancesClient) deleteCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-04-preview")
+	reqQP.Set("api-version", "2024-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -170,7 +170,7 @@ func (client *AzureBareMetalStorageInstancesClient) deleteCreateRequest(ctx cont
 // Get - Gets an Azure Bare Metal Storage instance for the specified subscription, resource group, and instance name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-04-preview
+// Generated from API version 2024-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - azureBareMetalStorageInstanceName - Name of the Azure Bare Metal Storage Instance, also known as the ResourceName.
 //   - options - AzureBareMetalStorageInstancesClientGetOptions contains the optional parameters for the AzureBareMetalStorageInstancesClient.Get
@@ -217,7 +217,7 @@ func (client *AzureBareMetalStorageInstancesClient) getCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-04-preview")
+	reqQP.Set("api-version", "2024-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -235,7 +235,7 @@ func (client *AzureBareMetalStorageInstancesClient) getHandleResponse(resp *http
 // NewListByResourceGroupPager - Gets a list of AzureBareMetalStorage instances in the specified subscription and resource
 // group. The operations returns various properties of each Azure Bare Metal Instance.
 //
-// Generated from API version 2023-08-04-preview
+// Generated from API version 2024-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - AzureBareMetalStorageInstancesClientListByResourceGroupOptions contains the optional parameters for the AzureBareMetalStorageInstancesClient.NewListByResourceGroupPager
 //     method.
@@ -278,7 +278,7 @@ func (client *AzureBareMetalStorageInstancesClient) listByResourceGroupCreateReq
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-04-preview")
+	reqQP.Set("api-version", "2024-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -296,7 +296,7 @@ func (client *AzureBareMetalStorageInstancesClient) listByResourceGroupHandleRes
 // NewListBySubscriptionPager - Gets a list of AzureBareMetalStorage instances in the specified subscription. The operations
 // returns various properties of each Azure Bare Metal Instance.
 //
-// Generated from API version 2023-08-04-preview
+// Generated from API version 2024-08-01-preview
 //   - options - AzureBareMetalStorageInstancesClientListBySubscriptionOptions contains the optional parameters for the AzureBareMetalStorageInstancesClient.NewListBySubscriptionPager
 //     method.
 func (client *AzureBareMetalStorageInstancesClient) NewListBySubscriptionPager(options *AzureBareMetalStorageInstancesClientListBySubscriptionOptions) *runtime.Pager[AzureBareMetalStorageInstancesClientListBySubscriptionResponse] {
@@ -334,7 +334,7 @@ func (client *AzureBareMetalStorageInstancesClient) listBySubscriptionCreateRequ
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-04-preview")
+	reqQP.Set("api-version", "2024-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -349,23 +349,23 @@ func (client *AzureBareMetalStorageInstancesClient) listBySubscriptionHandleResp
 	return result, nil
 }
 
-// Update - Patches the Tags field of a Azure Bare Metal Storage instance for the specified subscription, resource group,
-// and instance name.
+// Update - Patches the Tags field of a Azure BareMetalStorage instance for the specified subscription, resource group, and
+// instance name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-04-preview
+// Generated from API version 2024-08-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - azureBareMetalStorageInstanceName - Name of the Azure Bare Metal Storage Instance, also known as the ResourceName.
-//   - tagsParameter - Request body that only contains the new Tags field
+//   - azureBareMetalStorageInstanceBodyParameter - Request body that only contains the Tags and Identity Field
 //   - options - AzureBareMetalStorageInstancesClientUpdateOptions contains the optional parameters for the AzureBareMetalStorageInstancesClient.Update
 //     method.
-func (client *AzureBareMetalStorageInstancesClient) Update(ctx context.Context, resourceGroupName string, azureBareMetalStorageInstanceName string, tagsParameter Tags, options *AzureBareMetalStorageInstancesClientUpdateOptions) (AzureBareMetalStorageInstancesClientUpdateResponse, error) {
+func (client *AzureBareMetalStorageInstancesClient) Update(ctx context.Context, resourceGroupName string, azureBareMetalStorageInstanceName string, azureBareMetalStorageInstanceBodyParameter AzureBareMetalStorageInstanceBody, options *AzureBareMetalStorageInstancesClientUpdateOptions) (AzureBareMetalStorageInstancesClientUpdateResponse, error) {
 	var err error
 	const operationName = "AzureBareMetalStorageInstancesClient.Update"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, azureBareMetalStorageInstanceName, tagsParameter, options)
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, azureBareMetalStorageInstanceName, azureBareMetalStorageInstanceBodyParameter, options)
 	if err != nil {
 		return AzureBareMetalStorageInstancesClientUpdateResponse{}, err
 	}
@@ -382,7 +382,7 @@ func (client *AzureBareMetalStorageInstancesClient) Update(ctx context.Context, 
 }
 
 // updateCreateRequest creates the Update request.
-func (client *AzureBareMetalStorageInstancesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, azureBareMetalStorageInstanceName string, tagsParameter Tags, options *AzureBareMetalStorageInstancesClientUpdateOptions) (*policy.Request, error) {
+func (client *AzureBareMetalStorageInstancesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, azureBareMetalStorageInstanceName string, azureBareMetalStorageInstanceBodyParameter AzureBareMetalStorageInstanceBody, options *AzureBareMetalStorageInstancesClientUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BareMetalInfrastructure/bareMetalStorageInstances/{azureBareMetalStorageInstanceName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -401,10 +401,10 @@ func (client *AzureBareMetalStorageInstancesClient) updateCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-04-preview")
+	reqQP.Set("api-version", "2024-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, tagsParameter); err != nil {
+	if err := runtime.MarshalAsJSON(req, azureBareMetalStorageInstanceBodyParameter); err != nil {
 		return nil, err
 	}
 	return req, nil

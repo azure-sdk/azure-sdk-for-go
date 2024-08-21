@@ -8,6 +8,17 @@
 
 package armbaremetalinfrastructure
 
+// AzureBareMetalInstancesClientCreateResponse contains the response from method AzureBareMetalInstancesClient.Create.
+type AzureBareMetalInstancesClientCreateResponse struct {
+	// AzureBareMetal instance info on Azure (ARM properties and AzureBareMetal properties)
+	AzureBareMetalInstance
+}
+
+// AzureBareMetalInstancesClientDeleteResponse contains the response from method AzureBareMetalInstancesClient.Delete.
+type AzureBareMetalInstancesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
 // AzureBareMetalInstancesClientGetResponse contains the response from method AzureBareMetalInstancesClient.Get.
 type AzureBareMetalInstancesClientGetResponse struct {
 	// AzureBareMetal instance info on Azure (ARM properties and AzureBareMetal properties)

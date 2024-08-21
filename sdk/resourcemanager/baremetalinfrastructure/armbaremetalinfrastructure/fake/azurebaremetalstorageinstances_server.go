@@ -46,7 +46,7 @@ type AzureBareMetalStorageInstancesServer struct {
 
 	// Update is the fake for method AzureBareMetalStorageInstancesClient.Update
 	// HTTP status codes to indicate success: http.StatusOK
-	Update func(ctx context.Context, resourceGroupName string, azureBareMetalStorageInstanceName string, tagsParameter armbaremetalinfrastructure.Tags, options *armbaremetalinfrastructure.AzureBareMetalStorageInstancesClientUpdateOptions) (resp azfake.Responder[armbaremetalinfrastructure.AzureBareMetalStorageInstancesClientUpdateResponse], errResp azfake.ErrorResponder)
+	Update func(ctx context.Context, resourceGroupName string, azureBareMetalStorageInstanceName string, azureBareMetalStorageInstanceBodyParameter armbaremetalinfrastructure.AzureBareMetalStorageInstanceBody, options *armbaremetalinfrastructure.AzureBareMetalStorageInstancesClientUpdateOptions) (resp azfake.Responder[armbaremetalinfrastructure.AzureBareMetalStorageInstancesClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewAzureBareMetalStorageInstancesServerTransport creates a new instance of AzureBareMetalStorageInstancesServerTransport with the provided implementation.
@@ -286,7 +286,7 @@ func (a *AzureBareMetalStorageInstancesServerTransport) dispatchUpdate(req *http
 	if matches == nil || len(matches) < 3 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armbaremetalinfrastructure.Tags](req)
+	body, err := server.UnmarshalRequestAsJSON[armbaremetalinfrastructure.AzureBareMetalStorageInstanceBody](req)
 	if err != nil {
 		return nil, err
 	}

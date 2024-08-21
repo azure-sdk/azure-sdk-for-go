@@ -33,6 +33,18 @@ type AzureBareMetalInstancesClientBeginStartOptions struct {
 	ResumeToken string
 }
 
+// AzureBareMetalInstancesClientCreateOptions contains the optional parameters for the AzureBareMetalInstancesClient.Create
+// method.
+type AzureBareMetalInstancesClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AzureBareMetalInstancesClientDeleteOptions contains the optional parameters for the AzureBareMetalInstancesClient.Delete
+// method.
+type AzureBareMetalInstancesClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
 // AzureBareMetalInstancesClientGetOptions contains the optional parameters for the AzureBareMetalInstancesClient.Get method.
 type AzureBareMetalInstancesClientGetOptions struct {
 	// placeholder for future optional parameters
