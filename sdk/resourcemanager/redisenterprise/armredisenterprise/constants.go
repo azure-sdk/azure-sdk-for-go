@@ -10,7 +10,7 @@ package armredisenterprise
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/redisenterprise/armredisenterprise"
-	moduleVersion = "v2.1.0-beta.1"
+	moduleVersion = "v2.1.0-beta.2"
 )
 
 // AccessKeyType - Which access key to regenerate.
@@ -29,6 +29,23 @@ func PossibleAccessKeyTypeValues() []AccessKeyType {
 	}
 }
 
+// AccessKeysAuthentication - Access database using keys - default is enabled. This property can be Enabled/Disabled to allow
+// or deny access with those. Can be updated even after database is created.
+type AccessKeysAuthentication string
+
+const (
+	AccessKeysAuthenticationDisabled AccessKeysAuthentication = "Disabled"
+	AccessKeysAuthenticationEnabled  AccessKeysAuthentication = "Enabled"
+)
+
+// PossibleAccessKeysAuthenticationValues returns the possible values for the AccessKeysAuthentication const type.
+func PossibleAccessKeysAuthenticationValues() []AccessKeysAuthentication {
+	return []AccessKeysAuthentication{
+		AccessKeysAuthenticationDisabled,
+		AccessKeysAuthenticationEnabled,
+	}
+}
+
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
 type ActionType string
 
@@ -43,7 +60,8 @@ func PossibleActionTypeValues() []ActionType {
 	}
 }
 
-// AofFrequency - Sets the frequency at which data is written to disk.
+// AofFrequency - Sets the frequency at which data is written to disk. Defaults to '1s', meaning 'every second'. Note that
+// the 'always' setting is deprecated, because of its performance impact.
 type AofFrequency string
 
 const (
@@ -59,12 +77,17 @@ func PossibleAofFrequencyValues() []AofFrequency {
 	}
 }
 
-// ClusteringPolicy - Clustering policy - default is OSSCluster. Specified at create time.
+// ClusteringPolicy - Clustering policy - default is OSSCluster. This property must be chosen at create time, and cannot be
+// changed without deleting the database.
 type ClusteringPolicy string
 
 const (
+	// ClusteringPolicyEnterpriseCluster - Enterprise clustering policy uses only the classic redis protocol, which does not support
+	// redis cluster commands.
 	ClusteringPolicyEnterpriseCluster ClusteringPolicy = "EnterpriseCluster"
-	ClusteringPolicyOSSCluster        ClusteringPolicy = "OSSCluster"
+	// ClusteringPolicyOSSCluster - OSS clustering policy follows the redis cluster specification, and requires all clients to
+	// support redis clustering.
+	ClusteringPolicyOSSCluster ClusteringPolicy = "OSSCluster"
 )
 
 // PossibleClusteringPolicyValues returns the possible values for the ClusteringPolicy const type.
@@ -88,6 +111,26 @@ func PossibleCmkIdentityTypeValues() []CmkIdentityType {
 	return []CmkIdentityType{
 		CmkIdentityTypeSystemAssignedIdentity,
 		CmkIdentityTypeUserAssignedIdentity,
+	}
+}
+
+// CreatedByType - The type of identity that created the resource.
+type CreatedByType string
+
+const (
+	CreatedByTypeApplication     CreatedByType = "Application"
+	CreatedByTypeKey             CreatedByType = "Key"
+	CreatedByTypeManagedIdentity CreatedByType = "ManagedIdentity"
+	CreatedByTypeUser            CreatedByType = "User"
+)
+
+// PossibleCreatedByTypeValues returns the possible values for the CreatedByType const type.
+func PossibleCreatedByTypeValues() []CreatedByType {
+	return []CreatedByType{
+		CreatedByTypeApplication,
+		CreatedByTypeKey,
+		CreatedByTypeManagedIdentity,
+		CreatedByTypeUser,
 	}
 }
 
@@ -135,6 +178,23 @@ func PossibleEvictionPolicyValues() []EvictionPolicy {
 	}
 }
 
+// HighAvailability - Enabled by default. If highAvailability is disabled, the data set is not replicated. This affects the
+// availability SLA, and increases the risk of data loss.
+type HighAvailability string
+
+const (
+	HighAvailabilityDisabled HighAvailability = "Disabled"
+	HighAvailabilityEnabled  HighAvailability = "Enabled"
+)
+
+// PossibleHighAvailabilityValues returns the possible values for the HighAvailability const type.
+func PossibleHighAvailabilityValues() []HighAvailability {
+	return []HighAvailability{
+		HighAvailabilityDisabled,
+		HighAvailabilityEnabled,
+	}
+}
+
 // LinkState - State of the link between the database resources.
 type LinkState string
 
@@ -163,7 +223,7 @@ type ManagedServiceIdentityType string
 const (
 	ManagedServiceIdentityTypeNone                       ManagedServiceIdentityType = "None"
 	ManagedServiceIdentityTypeSystemAssigned             ManagedServiceIdentityType = "SystemAssigned"
-	ManagedServiceIdentityTypeSystemAssignedUserAssigned ManagedServiceIdentityType = "SystemAssigned, UserAssigned"
+	ManagedServiceIdentityTypeSystemAssignedUserAssigned ManagedServiceIdentityType = "SystemAssigned,UserAssigned"
 	ManagedServiceIdentityTypeUserAssigned               ManagedServiceIdentityType = "UserAssigned"
 )
 
@@ -292,6 +352,27 @@ func PossibleRdbFrequencyValues() []RdbFrequency {
 	}
 }
 
+// RedundancyMode - Explains the current redundancy strategy of the cluster, which affects the expected SLA.
+type RedundancyMode string
+
+const (
+	// RedundancyModeLR - Local redundancy with high availability.
+	RedundancyModeLR RedundancyMode = "LR"
+	// RedundancyModeNone - No redundancy. Availability loss will occur.
+	RedundancyModeNone RedundancyMode = "None"
+	// RedundancyModeZR - Zone redundant. Higher availability.
+	RedundancyModeZR RedundancyMode = "ZR"
+)
+
+// PossibleRedundancyModeValues returns the possible values for the RedundancyMode const type.
+func PossibleRedundancyModeValues() []RedundancyMode {
+	return []RedundancyMode{
+		RedundancyModeLR,
+		RedundancyModeNone,
+		RedundancyModeZR,
+	}
+}
+
 // ResourceState - Current resource status
 type ResourceState string
 
@@ -332,35 +413,135 @@ func PossibleResourceStateValues() []ResourceState {
 	}
 }
 
-// SKUName - The type of RedisEnterprise cluster to deploy. Possible values: (EnterpriseE10, EnterpriseFlashF300 etc.)
+// SKUName - The level of Redis Enterprise cluster to deploy. Possible values: ('GeneralPurposeG5', 'MemoryOptimizedM20',
+// etc.). For more information on SKUs see the latest pricing documentation. Note that
+// additional SKUs may become supported in the future.
 type SKUName string
 
 const (
+	SKUNameAutoTieringT1000     SKUName = "AutoTiering_T1000"
+	SKUNameAutoTieringT1500     SKUName = "AutoTiering_T1500"
+	SKUNameAutoTieringT2000     SKUName = "AutoTiering_T2000"
+	SKUNameAutoTieringT250      SKUName = "AutoTiering_T250"
+	SKUNameAutoTieringT4500     SKUName = "AutoTiering_T4500"
+	SKUNameAutoTieringT500      SKUName = "AutoTiering_T500"
+	SKUNameAutoTieringT700      SKUName = "AutoTiering_T700"
+	SKUNameComputeOptimizedX1   SKUName = "ComputeOptimized_X1"
+	SKUNameComputeOptimizedX10  SKUName = "ComputeOptimized_X10"
+	SKUNameComputeOptimizedX100 SKUName = "ComputeOptimized_X100"
+	SKUNameComputeOptimizedX150 SKUName = "ComputeOptimized_X150"
+	SKUNameComputeOptimizedX20  SKUName = "ComputeOptimized_X20"
+	SKUNameComputeOptimizedX250 SKUName = "ComputeOptimized_X250"
+	SKUNameComputeOptimizedX3   SKUName = "ComputeOptimized_X3"
+	SKUNameComputeOptimizedX350 SKUName = "ComputeOptimized_X350"
+	SKUNameComputeOptimizedX5   SKUName = "ComputeOptimized_X5"
+	SKUNameComputeOptimizedX50  SKUName = "ComputeOptimized_X50"
+	SKUNameComputeOptimizedX500 SKUName = "ComputeOptimized_X500"
+	SKUNameComputeOptimizedX700 SKUName = "ComputeOptimized_X700"
+	SKUNameEnterpriseE1         SKUName = "Enterprise_E1"
 	SKUNameEnterpriseE10        SKUName = "Enterprise_E10"
 	SKUNameEnterpriseE100       SKUName = "Enterprise_E100"
 	SKUNameEnterpriseE20        SKUName = "Enterprise_E20"
+	SKUNameEnterpriseE200       SKUName = "Enterprise_E200"
+	SKUNameEnterpriseE400       SKUName = "Enterprise_E400"
 	SKUNameEnterpriseE5         SKUName = "Enterprise_E5"
 	SKUNameEnterpriseE50        SKUName = "Enterprise_E50"
 	SKUNameEnterpriseFlashF1500 SKUName = "EnterpriseFlash_F1500"
 	SKUNameEnterpriseFlashF300  SKUName = "EnterpriseFlash_F300"
 	SKUNameEnterpriseFlashF700  SKUName = "EnterpriseFlash_F700"
+	SKUNameGeneralPurposeG0     SKUName = "GeneralPurpose_G0"
+	SKUNameGeneralPurposeG1     SKUName = "GeneralPurpose_G1"
+	SKUNameGeneralPurposeG10    SKUName = "GeneralPurpose_G10"
+	SKUNameGeneralPurposeG100   SKUName = "GeneralPurpose_G100"
+	SKUNameGeneralPurposeG1000  SKUName = "GeneralPurpose_G1000"
+	SKUNameGeneralPurposeG150   SKUName = "GeneralPurpose_G150"
+	SKUNameGeneralPurposeG20    SKUName = "GeneralPurpose_G20"
+	SKUNameGeneralPurposeG250   SKUName = "GeneralPurpose_G250"
+	SKUNameGeneralPurposeG3     SKUName = "GeneralPurpose_G3"
+	SKUNameGeneralPurposeG350   SKUName = "GeneralPurpose_G350"
+	SKUNameGeneralPurposeG5     SKUName = "GeneralPurpose_G5"
+	SKUNameGeneralPurposeG50    SKUName = "GeneralPurpose_G50"
+	SKUNameGeneralPurposeG500   SKUName = "GeneralPurpose_G500"
+	SKUNameGeneralPurposeG700   SKUName = "GeneralPurpose_G700"
+	SKUNameMemoryOptimizedM10   SKUName = "MemoryOptimized_M10"
+	SKUNameMemoryOptimizedM100  SKUName = "MemoryOptimized_M100"
+	SKUNameMemoryOptimizedM1000 SKUName = "MemoryOptimized_M1000"
+	SKUNameMemoryOptimizedM150  SKUName = "MemoryOptimized_M150"
+	SKUNameMemoryOptimizedM1500 SKUName = "MemoryOptimized_M1500"
+	SKUNameMemoryOptimizedM20   SKUName = "MemoryOptimized_M20"
+	SKUNameMemoryOptimizedM2000 SKUName = "MemoryOptimized_M2000"
+	SKUNameMemoryOptimizedM250  SKUName = "MemoryOptimized_M250"
+	SKUNameMemoryOptimizedM350  SKUName = "MemoryOptimized_M350"
+	SKUNameMemoryOptimizedM50   SKUName = "MemoryOptimized_M50"
+	SKUNameMemoryOptimizedM500  SKUName = "MemoryOptimized_M500"
+	SKUNameMemoryOptimizedM700  SKUName = "MemoryOptimized_M700"
 )
 
 // PossibleSKUNameValues returns the possible values for the SKUName const type.
 func PossibleSKUNameValues() []SKUName {
 	return []SKUName{
+		SKUNameAutoTieringT1000,
+		SKUNameAutoTieringT1500,
+		SKUNameAutoTieringT2000,
+		SKUNameAutoTieringT250,
+		SKUNameAutoTieringT4500,
+		SKUNameAutoTieringT500,
+		SKUNameAutoTieringT700,
+		SKUNameComputeOptimizedX1,
+		SKUNameComputeOptimizedX10,
+		SKUNameComputeOptimizedX100,
+		SKUNameComputeOptimizedX150,
+		SKUNameComputeOptimizedX20,
+		SKUNameComputeOptimizedX250,
+		SKUNameComputeOptimizedX3,
+		SKUNameComputeOptimizedX350,
+		SKUNameComputeOptimizedX5,
+		SKUNameComputeOptimizedX50,
+		SKUNameComputeOptimizedX500,
+		SKUNameComputeOptimizedX700,
+		SKUNameEnterpriseE1,
 		SKUNameEnterpriseE10,
 		SKUNameEnterpriseE100,
 		SKUNameEnterpriseE20,
+		SKUNameEnterpriseE200,
+		SKUNameEnterpriseE400,
 		SKUNameEnterpriseE5,
 		SKUNameEnterpriseE50,
 		SKUNameEnterpriseFlashF1500,
 		SKUNameEnterpriseFlashF300,
 		SKUNameEnterpriseFlashF700,
+		SKUNameGeneralPurposeG0,
+		SKUNameGeneralPurposeG1,
+		SKUNameGeneralPurposeG10,
+		SKUNameGeneralPurposeG100,
+		SKUNameGeneralPurposeG1000,
+		SKUNameGeneralPurposeG150,
+		SKUNameGeneralPurposeG20,
+		SKUNameGeneralPurposeG250,
+		SKUNameGeneralPurposeG3,
+		SKUNameGeneralPurposeG350,
+		SKUNameGeneralPurposeG5,
+		SKUNameGeneralPurposeG50,
+		SKUNameGeneralPurposeG500,
+		SKUNameGeneralPurposeG700,
+		SKUNameMemoryOptimizedM10,
+		SKUNameMemoryOptimizedM100,
+		SKUNameMemoryOptimizedM1000,
+		SKUNameMemoryOptimizedM150,
+		SKUNameMemoryOptimizedM1500,
+		SKUNameMemoryOptimizedM20,
+		SKUNameMemoryOptimizedM2000,
+		SKUNameMemoryOptimizedM250,
+		SKUNameMemoryOptimizedM350,
+		SKUNameMemoryOptimizedM50,
+		SKUNameMemoryOptimizedM500,
+		SKUNameMemoryOptimizedM700,
 	}
 }
 
-// TLSVersion - The minimum TLS version for the cluster to support, e.g. '1.2'
+// TLSVersion - The minimum TLS version for the cluster to support, e.g. '1.2'. Newer versions can be added in the future.
+// Note that TLS 1.0 and TLS 1.1 are now completely obsolete -- you cannot use them. They are
+// mentioned only for the sake of consistency with old API versions.
 type TLSVersion string
 
 const (

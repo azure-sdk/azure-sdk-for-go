@@ -24,6 +24,10 @@ import (
 
 // Server is a fake server for instances of the armredisenterprise.Client type.
 type Server struct {
+	// CheckNameAvailability is the fake for method Client.CheckNameAvailability
+	// HTTP status codes to indicate success: http.StatusNoContent
+	CheckNameAvailability func(ctx context.Context, location string, parameters armredisenterprise.CheckNameAvailabilityParameters, options *armredisenterprise.ClientCheckNameAvailabilityOptions) (resp azfake.Responder[armredisenterprise.ClientCheckNameAvailabilityResponse], errResp azfake.ErrorResponder)
+
 	// BeginCreate is the fake for method Client.BeginCreate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
 	BeginCreate func(ctx context.Context, resourceGroupName string, clusterName string, parameters armredisenterprise.Cluster, options *armredisenterprise.ClientBeginCreateOptions) (resp azfake.PollerResponder[armredisenterprise.ClientCreateResponse], errResp azfake.ErrorResponder)
@@ -86,6 +90,8 @@ func (s *ServerTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch method {
+	case "Client.CheckNameAvailability":
+		resp, err = s.dispatchCheckNameAvailability(req)
 	case "Client.BeginCreate":
 		resp, err = s.dispatchBeginCreate(req)
 	case "Client.BeginDelete":
@@ -106,6 +112,39 @@ func (s *ServerTransport) Do(req *http.Request) (*http.Response, error) {
 		return nil, err
 	}
 
+	return resp, nil
+}
+
+func (s *ServerTransport) dispatchCheckNameAvailability(req *http.Request) (*http.Response, error) {
+	if s.srv.CheckNameAvailability == nil {
+		return nil, &nonRetriableError{errors.New("fake for method CheckNameAvailability not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Cache/locations/(?P<location>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/checkNameAvailability`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 2 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armredisenterprise.CheckNameAvailabilityParameters](req)
+	if err != nil {
+		return nil, err
+	}
+	locationParam, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := s.srv.CheckNameAvailability(req.Context(), locationParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusNoContent}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusNoContent", respContent.HTTPStatus)}
+	}
+	resp, err := server.NewResponse(respContent, req, nil)
+	if err != nil {
+		return nil, err
+	}
 	return resp, nil
 }
 

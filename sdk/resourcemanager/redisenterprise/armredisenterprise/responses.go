@@ -8,9 +8,37 @@
 
 package armredisenterprise
 
+// AccessPolicyAssignmentClientCreateResponse contains the response from method AccessPolicyAssignmentClient.BeginCreate.
+type AccessPolicyAssignmentClientCreateResponse struct {
+	// Describes the access policy assignment of Redis Enterprise database
+	AccessPolicyAssignment
+}
+
+// AccessPolicyAssignmentClientDeleteResponse contains the response from method AccessPolicyAssignmentClient.BeginDelete.
+type AccessPolicyAssignmentClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// AccessPolicyAssignmentClientGetResponse contains the response from method AccessPolicyAssignmentClient.Get.
+type AccessPolicyAssignmentClientGetResponse struct {
+	// Describes the access policy assignment of Redis Enterprise database
+	AccessPolicyAssignment
+}
+
+// AccessPolicyAssignmentsClientListResponse contains the response from method AccessPolicyAssignmentsClient.NewListPager.
+type AccessPolicyAssignmentsClientListResponse struct {
+	// The response of a list-all operation.
+	AccessPolicyAssignmentList
+}
+
+// ClientCheckNameAvailabilityResponse contains the response from method Client.CheckNameAvailability.
+type ClientCheckNameAvailabilityResponse struct {
+	// placeholder for future response values
+}
+
 // ClientCreateResponse contains the response from method Client.BeginCreate.
 type ClientCreateResponse struct {
-	// Describes the RedisEnterprise cluster
+	// Describes the Redis Enterprise cluster
 	Cluster
 }
 
@@ -21,7 +49,7 @@ type ClientDeleteResponse struct {
 
 // ClientGetResponse contains the response from method Client.Get.
 type ClientGetResponse struct {
-	// Describes the RedisEnterprise cluster
+	// Describes the Redis Enterprise cluster
 	Cluster
 }
 
@@ -39,13 +67,13 @@ type ClientListResponse struct {
 
 // ClientUpdateResponse contains the response from method Client.BeginUpdate.
 type ClientUpdateResponse struct {
-	// Describes the RedisEnterprise cluster
+	// Describes the Redis Enterprise cluster
 	Cluster
 }
 
 // DatabasesClientCreateResponse contains the response from method DatabasesClient.BeginCreate.
 type DatabasesClientCreateResponse struct {
-	// Describes a database on the RedisEnterprise cluster
+	// Describes a database on the Redis Enterprise cluster
 	Database
 }
 
@@ -76,7 +104,7 @@ type DatabasesClientForceUnlinkResponse struct {
 
 // DatabasesClientGetResponse contains the response from method DatabasesClient.Get.
 type DatabasesClientGetResponse struct {
-	// Describes a database on the RedisEnterprise cluster
+	// Describes a database on the Redis Enterprise cluster
 	Database
 }
 
@@ -105,7 +133,7 @@ type DatabasesClientRegenerateKeyResponse struct {
 
 // DatabasesClientUpdateResponse contains the response from method DatabasesClient.BeginUpdate.
 type DatabasesClientUpdateResponse struct {
-	// Describes a database on the RedisEnterprise cluster
+	// Describes a database on the Redis Enterprise cluster
 	Database
 }
 
@@ -122,8 +150,8 @@ type OperationsClientListResponse struct {
 
 // OperationsStatusClientGetResponse contains the response from method OperationsStatusClient.Get.
 type OperationsStatusClientGetResponse struct {
-	// The status of a long-running operation.
-	OperationStatus
+	// The current status of an async operation.
+	OperationStatusResult
 }
 
 // PrivateEndpointConnectionsClientDeleteResponse contains the response from method PrivateEndpointConnectionsClient.BeginDelete.
@@ -133,24 +161,24 @@ type PrivateEndpointConnectionsClientDeleteResponse struct {
 
 // PrivateEndpointConnectionsClientGetResponse contains the response from method PrivateEndpointConnectionsClient.Get.
 type PrivateEndpointConnectionsClientGetResponse struct {
-	// The Private Endpoint Connection resource.
+	// The private endpoint connection resource.
 	PrivateEndpointConnection
 }
 
 // PrivateEndpointConnectionsClientListResponse contains the response from method PrivateEndpointConnectionsClient.NewListPager.
 type PrivateEndpointConnectionsClientListResponse struct {
-	// List of private endpoint connection associated with the specified storage account
+	// List of private endpoint connections associated with the specified resource.
 	PrivateEndpointConnectionListResult
 }
 
 // PrivateEndpointConnectionsClientPutResponse contains the response from method PrivateEndpointConnectionsClient.BeginPut.
 type PrivateEndpointConnectionsClientPutResponse struct {
-	// The Private Endpoint Connection resource.
+	// The private endpoint connection resource.
 	PrivateEndpointConnection
 }
 
 // PrivateLinkResourcesClientListByClusterResponse contains the response from method PrivateLinkResourcesClient.NewListByClusterPager.
 type PrivateLinkResourcesClientListByClusterResponse struct {
-	// A list of private link resources
+	// A list of private link resources.
 	PrivateLinkResourceListResult
 }

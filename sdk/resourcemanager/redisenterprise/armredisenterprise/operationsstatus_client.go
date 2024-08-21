@@ -28,7 +28,7 @@ type OperationsStatusClient struct {
 }
 
 // NewOperationsStatusClient creates a new instance of OperationsStatusClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewOperationsStatusClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*OperationsStatusClient, error) {
@@ -46,8 +46,8 @@ func NewOperationsStatusClient(subscriptionID string, credential azcore.TokenCre
 // Get - Gets the status of operation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-01-preview
-//   - location - The name of Azure region.
+// Generated from API version 2024-09-01-preview
+//   - location - The name of the Azure region.
 //   - operationID - The ID of an ongoing async operation.
 //   - options - OperationsStatusClientGetOptions contains the optional parameters for the OperationsStatusClient.Get method.
 func (client *OperationsStatusClient) Get(ctx context.Context, location string, operationID string, options *OperationsStatusClientGetOptions) (OperationsStatusClientGetResponse, error) {
@@ -92,7 +92,7 @@ func (client *OperationsStatusClient) getCreateRequest(ctx context.Context, loca
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-01-preview")
+	reqQP.Set("api-version", "2024-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -101,7 +101,7 @@ func (client *OperationsStatusClient) getCreateRequest(ctx context.Context, loca
 // getHandleResponse handles the Get response.
 func (client *OperationsStatusClient) getHandleResponse(resp *http.Response) (OperationsStatusClientGetResponse, error) {
 	result := OperationsStatusClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.OperationStatus); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.OperationStatusResult); err != nil {
 		return OperationsStatusClientGetResponse{}, err
 	}
 	return result, nil

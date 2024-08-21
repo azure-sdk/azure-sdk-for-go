@@ -1,5 +1,47 @@
 # Release History
 
+## 2.1.0-beta.2 (2024-08-21)
+### Breaking Changes
+
+- Struct `OperationStatus` has been removed
+- Field `OperationStatus` of struct `OperationsStatusClientGetResponse` has been removed
+
+### Features Added
+
+- New value `SKUNameAutoTieringT1000`, `SKUNameAutoTieringT1500`, `SKUNameAutoTieringT2000`, `SKUNameAutoTieringT250`, `SKUNameAutoTieringT4500`, `SKUNameAutoTieringT500`, `SKUNameAutoTieringT700`, `SKUNameComputeOptimizedX1`, `SKUNameComputeOptimizedX10`, `SKUNameComputeOptimizedX100`, `SKUNameComputeOptimizedX150`, `SKUNameComputeOptimizedX20`, `SKUNameComputeOptimizedX250`, `SKUNameComputeOptimizedX3`, `SKUNameComputeOptimizedX350`, `SKUNameComputeOptimizedX5`, `SKUNameComputeOptimizedX50`, `SKUNameComputeOptimizedX500`, `SKUNameComputeOptimizedX700`, `SKUNameEnterpriseE1`, `SKUNameEnterpriseE200`, `SKUNameEnterpriseE400`, `SKUNameGeneralPurposeG0`, `SKUNameGeneralPurposeG1`, `SKUNameGeneralPurposeG10`, `SKUNameGeneralPurposeG100`, `SKUNameGeneralPurposeG1000`, `SKUNameGeneralPurposeG150`, `SKUNameGeneralPurposeG20`, `SKUNameGeneralPurposeG250`, `SKUNameGeneralPurposeG3`, `SKUNameGeneralPurposeG350`, `SKUNameGeneralPurposeG5`, `SKUNameGeneralPurposeG50`, `SKUNameGeneralPurposeG500`, `SKUNameGeneralPurposeG700`, `SKUNameMemoryOptimizedM10`, `SKUNameMemoryOptimizedM100`, `SKUNameMemoryOptimizedM1000`, `SKUNameMemoryOptimizedM150`, `SKUNameMemoryOptimizedM1500`, `SKUNameMemoryOptimizedM20`, `SKUNameMemoryOptimizedM2000`, `SKUNameMemoryOptimizedM250`, `SKUNameMemoryOptimizedM350`, `SKUNameMemoryOptimizedM50`, `SKUNameMemoryOptimizedM500`, `SKUNameMemoryOptimizedM700` added to enum type `SKUName`
+- New enum type `AccessKeysAuthentication` with values `AccessKeysAuthenticationDisabled`, `AccessKeysAuthenticationEnabled`
+- New enum type `CreatedByType` with values `CreatedByTypeApplication`, `CreatedByTypeKey`, `CreatedByTypeManagedIdentity`, `CreatedByTypeUser`
+- New enum type `HighAvailability` with values `HighAvailabilityDisabled`, `HighAvailabilityEnabled`
+- New enum type `RedundancyMode` with values `RedundancyModeLR`, `RedundancyModeNone`, `RedundancyModeZR`
+- New function `NewAccessPolicyAssignmentClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AccessPolicyAssignmentClient, error)`
+- New function `*AccessPolicyAssignmentClient.BeginCreate(context.Context, string, string, string, string, AccessPolicyAssignment, *AccessPolicyAssignmentClientBeginCreateOptions) (*runtime.Poller[AccessPolicyAssignmentClientCreateResponse], error)`
+- New function `*AccessPolicyAssignmentClient.BeginDelete(context.Context, string, string, string, string, *AccessPolicyAssignmentClientBeginDeleteOptions) (*runtime.Poller[AccessPolicyAssignmentClientDeleteResponse], error)`
+- New function `*AccessPolicyAssignmentClient.Get(context.Context, string, string, string, string, *AccessPolicyAssignmentClientGetOptions) (AccessPolicyAssignmentClientGetResponse, error)`
+- New function `NewAccessPolicyAssignmentsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AccessPolicyAssignmentsClient, error)`
+- New function `*AccessPolicyAssignmentsClient.NewListPager(string, string, string, *AccessPolicyAssignmentsClientListOptions) *runtime.Pager[AccessPolicyAssignmentsClientListResponse]`
+- New function `*Client.CheckNameAvailability(context.Context, string, CheckNameAvailabilityParameters, *ClientCheckNameAvailabilityOptions) (ClientCheckNameAvailabilityResponse, error)`
+- New function `*ClientFactory.NewAccessPolicyAssignmentClient() *AccessPolicyAssignmentClient`
+- New function `*ClientFactory.NewAccessPolicyAssignmentsClient() *AccessPolicyAssignmentsClient`
+- New struct `AccessPolicyAssignment`
+- New struct `AccessPolicyAssignmentList`
+- New struct `AccessPolicyAssignmentProperties`
+- New struct `AccessPolicyAssignmentPropertiesUser`
+- New struct `CheckNameAvailabilityParameters`
+- New struct `OperationStatusResult`
+- New struct `SystemData`
+- New field `SystemData` in struct `Cluster`
+- New field `HighAvailability`, `RedundancyMode` in struct `ClusterProperties`
+- New field `SystemData` in struct `Database`
+- New field `AccessKeysAuthentication` in struct `DatabaseProperties`
+- New anonymous field `OperationStatusResult` in struct `OperationsStatusClientGetResponse`
+- New field `SystemData` in struct `PrivateEndpointConnection`
+- New field `GroupIDs` in struct `PrivateEndpointConnectionProperties`
+- New field `SystemData` in struct `PrivateLinkResource`
+- New field `SystemData` in struct `ProxyResource`
+- New field `SystemData` in struct `Resource`
+- New field `SystemData` in struct `TrackedResource`
+
+
 ## 2.1.0-beta.1 (2024-05-24)
 ### Features Added
 

@@ -8,6 +8,8 @@
 
 package armredisenterprise
 
+import "time"
+
 // AccessKeys - The secret access keys used for authenticating connections to redis
 type AccessKeys struct {
 	// READ-ONLY; The current primary key that clients can use to authenticate
@@ -17,7 +19,47 @@ type AccessKeys struct {
 	SecondaryKey *string
 }
 
-// Cluster - Describes the RedisEnterprise cluster
+// AccessPolicyAssignment - Describes the access policy assignment of Redis Enterprise database
+type AccessPolicyAssignment struct {
+	// Properties of the access policy assignment.
+	Properties *AccessPolicyAssignmentProperties
+}
+
+// AccessPolicyAssignmentList - The response of a list-all operation.
+type AccessPolicyAssignmentList struct {
+	// List of access policy assignment
+	Value []*AccessPolicyAssignment
+
+	// READ-ONLY; The URI to fetch the next page of results.
+	NextLink *string
+}
+
+// AccessPolicyAssignmentProperties - Properties of Redis Enterprise database access policy assignment.
+type AccessPolicyAssignmentProperties struct {
+	// Name of access policy under specific access policy assignment.
+	AccessPolicyName *string
+
+	// The user associated with the access policy.
+	User *AccessPolicyAssignmentPropertiesUser
+}
+
+// AccessPolicyAssignmentPropertiesUser - The user associated with the access policy.
+type AccessPolicyAssignmentPropertiesUser struct {
+	// The object ID of the user.
+	ObjectID *string
+}
+
+// CheckNameAvailabilityParameters - Parameters body to pass for resource name availability check.
+type CheckNameAvailabilityParameters struct {
+	// REQUIRED; Resource name.
+	Name *string
+
+	// REQUIRED; Resource type. The only legal value of this property for checking redis enterprise cache name availability is
+	// 'Microsoft.Cache/redisenterprise'.
+	Type *string
+}
+
+// Cluster - Describes the Redis Enterprise cluster
 type Cluster struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
@@ -37,11 +79,14 @@ type Cluster struct {
 	// The Availability Zones where this cluster will be deployed.
 	Zones []*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -56,18 +101,24 @@ type ClusterList struct {
 	NextLink *string
 }
 
-// ClusterProperties - Properties of RedisEnterprise clusters, as opposed to general resource properties like location, tags
+// ClusterProperties - Properties of Redis Enterprise clusters, as opposed to general resource properties like location, tags
 type ClusterProperties struct {
 	// Encryption-at-rest configuration for the cluster.
 	Encryption *ClusterPropertiesEncryption
 
-	// The minimum TLS version for the cluster to support, e.g. '1.2'
+	// Enabled by default. If highAvailability is disabled, the data set is not replicated. This affects the availability SLA,
+	// and increases the risk of data loss.
+	HighAvailability *HighAvailability
+
+	// The minimum TLS version for the cluster to support, e.g. '1.2'. Newer versions can be added in the future. Note that TLS
+	// 1.0 and TLS 1.1 are now completely obsolete -- you cannot use them. They are
+	// mentioned only for the sake of consistency with old API versions.
 	MinimumTLSVersion *TLSVersion
 
 	// READ-ONLY; DNS name of the cluster endpoint
 	HostName *string
 
-	// READ-ONLY; List of private endpoint connections associated with the specified RedisEnterprise cluster
+	// READ-ONLY; List of private endpoint connections associated with the specified Redis Enterprise cluster
 	PrivateEndpointConnections []*PrivateEndpointConnection
 
 	// READ-ONLY; Current provisioning status of the cluster
@@ -75,6 +126,9 @@ type ClusterProperties struct {
 
 	// READ-ONLY; Version of redis the cluster supports, e.g. '6'
 	RedisVersion *string
+
+	// READ-ONLY; Explains the current redundancy strategy of the cluster, which affects the expected SLA.
+	RedundancyMode *RedundancyMode
 
 	// READ-ONLY; Current resource status of the cluster
 	ResourceState *ResourceState
@@ -107,7 +161,7 @@ type ClusterPropertiesEncryptionCustomerManagedKeyEncryptionKeyIdentity struct {
 	UserAssignedIdentityResourceID *string
 }
 
-// ClusterUpdate - A partial update to the RedisEnterprise cluster
+// ClusterUpdate - A partial update to the Redis Enterprise cluster
 type ClusterUpdate struct {
 	// The identity of the resource.
 	Identity *ManagedServiceIdentity
@@ -122,16 +176,19 @@ type ClusterUpdate struct {
 	Tags map[string]*string
 }
 
-// Database - Describes a database on the RedisEnterprise cluster
+// Database - Describes a database on the Redis Enterprise cluster
 type Database struct {
 	// Other properties of the database.
 	Properties *DatabaseProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -146,13 +203,18 @@ type DatabaseList struct {
 	NextLink *string
 }
 
-// DatabaseProperties - Properties of RedisEnterprise databases, as opposed to general resource properties like location,
+// DatabaseProperties - Properties of Redis Enterprise databases, as opposed to general resource properties like location,
 // tags
 type DatabaseProperties struct {
+	// Access database using keys - default is enabled. This property can be Enabled/Disabled to allow or deny access with those.
+	// Can be updated even after database is created.
+	AccessKeysAuthentication *AccessKeysAuthentication
+
 	// Specifies whether redis clients can connect using TLS-encrypted or plaintext redis protocols. Default is TLS-encrypted.
 	ClientProtocol *Protocol
 
-	// Clustering policy - default is OSSCluster. Specified at create time.
+	// Clustering policy - default is OSSCluster. This property must be chosen at create time, and cannot be changed without deleting
+	// the database.
 	ClusteringPolicy *ClusteringPolicy
 
 	// Option to defer upgrade when newest version is released - default is NotDeferred. Learn more: https://aka.ms/redisversionupgrade
@@ -192,7 +254,7 @@ type DatabasePropertiesGeoReplication struct {
 	LinkedDatabases []*LinkedDatabase
 }
 
-// DatabaseUpdate - A partial update to the RedisEnterprise database
+// DatabaseUpdate - A partial update to the Redis Enterprise database
 type DatabaseUpdate struct {
 	// Properties of the database.
 	Properties *DatabaseProperties
@@ -256,7 +318,7 @@ type ForceLinkParameters struct {
 	LinkedDatabases []*LinkedDatabase
 }
 
-// ForceUnlinkParameters - Parameters for a Redis Enterprise Active Geo Replication Force Unlink operation.
+// ForceUnlinkParameters - Parameters for a redis enterprise active geo-replication force unlink operation.
 type ForceUnlinkParameters struct {
 	// REQUIRED; The resource IDs of the database resources to be unlinked.
 	IDs []*string
@@ -358,97 +420,116 @@ type OperationListResult struct {
 	Value []*Operation
 }
 
-// OperationStatus - The status of a long-running operation.
-type OperationStatus struct {
+// OperationStatusResult - The current status of an async operation.
+type OperationStatusResult struct {
+	// REQUIRED; Operation status.
+	Status *string
+
 	// The end time of the operation.
-	EndTime *string
+	EndTime *time.Time
 
-	// Error response describing why the operation failed.
-	Error *ErrorResponse
+	// If present, details of the operation error.
+	Error *ErrorDetail
 
-	// The operation's unique id.
+	// Fully qualified ID for the async operation.
 	ID *string
 
-	// The operation's name.
+	// Name of the async operation.
 	Name *string
 
-	// The start time of the operation.
-	StartTime *string
+	// The operations list.
+	Operations []*OperationStatusResult
 
-	// The current status of the operation.
-	Status *string
+	// Percent of the operation that is complete.
+	PercentComplete *float32
+
+	// The start time of the operation.
+	StartTime *time.Time
+
+	// READ-ONLY; Fully qualified ID of the resource against which the original async operation was started.
+	ResourceID *string
 }
 
-// Persistence-related configuration for the RedisEnterprise database
+// Persistence-related configuration for the Redis Enterprise database
 type Persistence struct {
-	// Sets whether AOF is enabled.
+	// Sets whether AOF is enabled. Note that at most one of AOF or RDB persistence may be enabled.
 	AofEnabled *bool
 
-	// Sets the frequency at which data is written to disk.
+	// Sets the frequency at which data is written to disk. Defaults to '1s', meaning 'every second'. Note that the 'always' setting
+	// is deprecated, because of its performance impact.
 	AofFrequency *AofFrequency
 
-	// Sets whether RDB is enabled.
+	// Sets whether RDB is enabled. Note that at most one of AOF or RDB persistence may be enabled.
 	RdbEnabled *bool
 
 	// Sets the frequency at which a snapshot of the database is created.
 	RdbFrequency *RdbFrequency
 }
 
-// PrivateEndpoint - The Private Endpoint resource.
+// PrivateEndpoint - The private endpoint resource.
 type PrivateEndpoint struct {
-	// READ-ONLY; The ARM identifier for Private Endpoint
+	// READ-ONLY; The ARM identifier for private endpoint.
 	ID *string
 }
 
-// PrivateEndpointConnection - The Private Endpoint Connection resource.
+// PrivateEndpointConnection - The private endpoint connection resource.
 type PrivateEndpointConnection struct {
 	// Resource properties.
 	Properties *PrivateEndpointConnectionProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
 
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// PrivateEndpointConnectionListResult - List of private endpoint connection associated with the specified storage account
+// PrivateEndpointConnectionListResult - List of private endpoint connections associated with the specified resource.
 type PrivateEndpointConnectionListResult struct {
-	// Array of private endpoint connections
+	// Array of private endpoint connections.
 	Value []*PrivateEndpointConnection
 }
 
-// PrivateEndpointConnectionProperties - Properties of the PrivateEndpointConnectProperties.
+// PrivateEndpointConnectionProperties - Properties of the private endpoint connection.
 type PrivateEndpointConnectionProperties struct {
 	// REQUIRED; A collection of information about the state of the connection between service consumer and provider.
 	PrivateLinkServiceConnectionState *PrivateLinkServiceConnectionState
 
-	// The resource of private end point.
+	// The private endpoint resource.
 	PrivateEndpoint *PrivateEndpoint
+
+	// READ-ONLY; The group ids for the private endpoint resource.
+	GroupIDs []*string
 
 	// READ-ONLY; The provisioning state of the private endpoint connection resource.
 	ProvisioningState *PrivateEndpointConnectionProvisioningState
 }
 
-// PrivateLinkResource - A private link resource
+// PrivateLinkResource - A private link resource.
 type PrivateLinkResource struct {
 	// Resource properties.
 	Properties *PrivateLinkResourceProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
 
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// PrivateLinkResourceListResult - A list of private link resources
+// PrivateLinkResourceListResult - A list of private link resources.
 type PrivateLinkResourceListResult struct {
 	// Array of private link resources
 	Value []*PrivateLinkResource
@@ -456,7 +537,7 @@ type PrivateLinkResourceListResult struct {
 
 // PrivateLinkResourceProperties - Properties of a private link resource.
 type PrivateLinkResourceProperties struct {
-	// The private link resource Private link DNS zone name.
+	// The private link resource private link DNS zone name.
 	RequiredZoneNames []*string
 
 	// READ-ONLY; The private link resource group id.
@@ -482,11 +563,14 @@ type PrivateLinkServiceConnectionState struct {
 // ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
 // location
 type ProxyResource struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -500,24 +584,51 @@ type RegenerateKeyParameters struct {
 
 // Resource - Common fields that are returned in the response for all Azure Resource Manager resources
 type Resource struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
 
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// SKU parameters supplied to the create RedisEnterprise operation.
+// SKU parameters supplied to the create Redis Enterprise cluster operation.
 type SKU struct {
-	// REQUIRED; The type of RedisEnterprise cluster to deploy. Possible values: (EnterpriseE10, EnterpriseFlashF300 etc.)
+	// REQUIRED; The level of Redis Enterprise cluster to deploy. Possible values: ('GeneralPurposeG5', 'MemoryOptimizedM20',
+	// etc.). For more information on SKUs see the latest pricing documentation. Note that
+	// additional SKUs may become supported in the future.
 	Name *SKUName
 
-	// The size of the RedisEnterprise cluster. Defaults to 2 or 3 depending on SKU. Valid values are (2, 4, 6, …) for Enterprise
-	// SKUs and (3, 9, 15, …) for Flash SKUs.
+	// The size of the Redis Enterprise cluster. Valid values depend upon the SKU, and are (2, 4, 6, …) for EnterpriseE SKUs and
+	// (3, 9, 15, …) for EnterpriseFlash SKUs. This parameter is not used with the
+	// other (GeneralPurpose, MemoryOptimized, ComputeOptimized) SKUs. They operate without any capacity value.
 	Capacity *int32
+}
+
+// SystemData - Metadata pertaining to creation and last modification of the resource.
+type SystemData struct {
+	// The timestamp of resource creation (UTC).
+	CreatedAt *time.Time
+
+	// The identity that created the resource.
+	CreatedBy *string
+
+	// The type of identity that created the resource.
+	CreatedByType *CreatedByType
+
+	// The timestamp of resource last modification (UTC)
+	LastModifiedAt *time.Time
+
+	// The identity that last modified the resource.
+	LastModifiedBy *string
+
+	// The type of identity that last modified the resource.
+	LastModifiedByType *CreatedByType
 }
 
 // TrackedResource - The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags'
@@ -529,11 +640,14 @@ type TrackedResource struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string

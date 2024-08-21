@@ -19,6 +19,8 @@ import (
 
 // ServerFactory is a fake server for instances of the armredisenterprise.ClientFactory type.
 type ServerFactory struct {
+	AccessPolicyAssignmentServer     AccessPolicyAssignmentServer
+	AccessPolicyAssignmentsServer    AccessPolicyAssignmentsServer
 	Server                           Server
 	DatabasesServer                  DatabasesServer
 	OperationsServer                 OperationsServer
@@ -41,6 +43,8 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 type ServerFactoryTransport struct {
 	srv                                *ServerFactory
 	trMu                               sync.Mutex
+	trAccessPolicyAssignmentServer     *AccessPolicyAssignmentServerTransport
+	trAccessPolicyAssignmentsServer    *AccessPolicyAssignmentsServerTransport
 	trServer                           *ServerTransport
 	trDatabasesServer                  *DatabasesServerTransport
 	trOperationsServer                 *OperationsServerTransport
@@ -62,6 +66,16 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch client {
+	case "AccessPolicyAssignmentClient":
+		initServer(s, &s.trAccessPolicyAssignmentServer, func() *AccessPolicyAssignmentServerTransport {
+			return NewAccessPolicyAssignmentServerTransport(&s.srv.AccessPolicyAssignmentServer)
+		})
+		resp, err = s.trAccessPolicyAssignmentServer.Do(req)
+	case "AccessPolicyAssignmentsClient":
+		initServer(s, &s.trAccessPolicyAssignmentsServer, func() *AccessPolicyAssignmentsServerTransport {
+			return NewAccessPolicyAssignmentsServerTransport(&s.srv.AccessPolicyAssignmentsServer)
+		})
+		resp, err = s.trAccessPolicyAssignmentsServer.Do(req)
 	case "Client":
 		initServer(s, &s.trServer, func() *ServerTransport { return NewServerTransport(&s.srv.Server) })
 		resp, err = s.trServer.Do(req)
