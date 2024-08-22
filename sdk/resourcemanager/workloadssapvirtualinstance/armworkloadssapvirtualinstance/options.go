@@ -13,238 +13,214 @@ type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SAPApplicationServerInstancesClientBeginCreateOptions contains the optional parameters for the SAPApplicationServerInstancesClient.BeginCreate
+// SapApplicationServerInstancesClientBeginCreateOptions contains the optional parameters for the SapApplicationServerInstancesClient.BeginCreate
 // method.
-type SAPApplicationServerInstancesClientBeginCreateOptions struct {
+type SapApplicationServerInstancesClientBeginCreateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
 
-// SAPApplicationServerInstancesClientBeginDeleteOptions contains the optional parameters for the SAPApplicationServerInstancesClient.BeginDelete
+// SapApplicationServerInstancesClientBeginDeleteOptions contains the optional parameters for the SapApplicationServerInstancesClient.BeginDelete
 // method.
-type SAPApplicationServerInstancesClientBeginDeleteOptions struct {
+type SapApplicationServerInstancesClientBeginDeleteOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
 
-// SAPApplicationServerInstancesClientBeginStartInstanceOptions contains the optional parameters for the SAPApplicationServerInstancesClient.BeginStartInstance
+// SapApplicationServerInstancesClientBeginStartOptions contains the optional parameters for the SapApplicationServerInstancesClient.BeginStart
 // method.
-type SAPApplicationServerInstancesClientBeginStartInstanceOptions struct {
-	// SAP Application server instance start request body.
-	Body *StartRequest
-
+type SapApplicationServerInstancesClientBeginStartOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
 
-// SAPApplicationServerInstancesClientBeginStopInstanceOptions contains the optional parameters for the SAPApplicationServerInstancesClient.BeginStopInstance
+// SapApplicationServerInstancesClientBeginStopOptions contains the optional parameters for the SapApplicationServerInstancesClient.BeginStop
 // method.
-type SAPApplicationServerInstancesClientBeginStopInstanceOptions struct {
-	// SAP Application server instance stop request body.
-	Body *StopRequest
-
+type SapApplicationServerInstancesClientBeginStopOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
 
-// SAPApplicationServerInstancesClientGetOptions contains the optional parameters for the SAPApplicationServerInstancesClient.Get
+// SapApplicationServerInstancesClientGetOptions contains the optional parameters for the SapApplicationServerInstancesClient.Get
 // method.
-type SAPApplicationServerInstancesClientGetOptions struct {
+type SapApplicationServerInstancesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SAPApplicationServerInstancesClientListOptions contains the optional parameters for the SAPApplicationServerInstancesClient.NewListPager
+// SapApplicationServerInstancesClientListOptions contains the optional parameters for the SapApplicationServerInstancesClient.NewListPager
 // method.
-type SAPApplicationServerInstancesClientListOptions struct {
+type SapApplicationServerInstancesClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SAPApplicationServerInstancesClientUpdateOptions contains the optional parameters for the SAPApplicationServerInstancesClient.Update
+// SapApplicationServerInstancesClientUpdateOptions contains the optional parameters for the SapApplicationServerInstancesClient.Update
 // method.
-type SAPApplicationServerInstancesClientUpdateOptions struct {
+type SapApplicationServerInstancesClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SAPCentralInstancesClientBeginCreateOptions contains the optional parameters for the SAPCentralInstancesClient.BeginCreate
+// SapCentralServerInstancesClientBeginCreateOptions contains the optional parameters for the SapCentralServerInstancesClient.BeginCreate
 // method.
-type SAPCentralInstancesClientBeginCreateOptions struct {
+type SapCentralServerInstancesClientBeginCreateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
 
-// SAPCentralInstancesClientBeginDeleteOptions contains the optional parameters for the SAPCentralInstancesClient.BeginDelete
+// SapCentralServerInstancesClientBeginDeleteOptions contains the optional parameters for the SapCentralServerInstancesClient.BeginDelete
 // method.
-type SAPCentralInstancesClientBeginDeleteOptions struct {
+type SapCentralServerInstancesClientBeginDeleteOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
 
-// SAPCentralInstancesClientBeginStartInstanceOptions contains the optional parameters for the SAPCentralInstancesClient.BeginStartInstance
+// SapCentralServerInstancesClientBeginStartOptions contains the optional parameters for the SapCentralServerInstancesClient.BeginStart
 // method.
-type SAPCentralInstancesClientBeginStartInstanceOptions struct {
-	// SAP Central Services instance start request body.
-	Body *StartRequest
-
+type SapCentralServerInstancesClientBeginStartOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
 
-// SAPCentralInstancesClientBeginStopInstanceOptions contains the optional parameters for the SAPCentralInstancesClient.BeginStopInstance
+// SapCentralServerInstancesClientBeginStopOptions contains the optional parameters for the SapCentralServerInstancesClient.BeginStop
 // method.
-type SAPCentralInstancesClientBeginStopInstanceOptions struct {
-	// SAP Central Services instance stop request body.
-	Body *StopRequest
-
+type SapCentralServerInstancesClientBeginStopOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
 
-// SAPCentralInstancesClientGetOptions contains the optional parameters for the SAPCentralInstancesClient.Get method.
-type SAPCentralInstancesClientGetOptions struct {
+// SapCentralServerInstancesClientGetOptions contains the optional parameters for the SapCentralServerInstancesClient.Get
+// method.
+type SapCentralServerInstancesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SAPCentralInstancesClientListOptions contains the optional parameters for the SAPCentralInstancesClient.NewListPager method.
-type SAPCentralInstancesClientListOptions struct {
+// SapCentralServerInstancesClientListOptions contains the optional parameters for the SapCentralServerInstancesClient.NewListPager
+// method.
+type SapCentralServerInstancesClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SAPCentralInstancesClientUpdateOptions contains the optional parameters for the SAPCentralInstancesClient.Update method.
-type SAPCentralInstancesClientUpdateOptions struct {
+// SapCentralServerInstancesClientUpdateOptions contains the optional parameters for the SapCentralServerInstancesClient.Update
+// method.
+type SapCentralServerInstancesClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SAPDatabaseInstancesClientBeginCreateOptions contains the optional parameters for the SAPDatabaseInstancesClient.BeginCreate
+// SapDatabaseInstancesClientBeginCreateOptions contains the optional parameters for the SapDatabaseInstancesClient.BeginCreate
 // method.
-type SAPDatabaseInstancesClientBeginCreateOptions struct {
+type SapDatabaseInstancesClientBeginCreateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
 
-// SAPDatabaseInstancesClientBeginDeleteOptions contains the optional parameters for the SAPDatabaseInstancesClient.BeginDelete
+// SapDatabaseInstancesClientBeginDeleteOptions contains the optional parameters for the SapDatabaseInstancesClient.BeginDelete
 // method.
-type SAPDatabaseInstancesClientBeginDeleteOptions struct {
+type SapDatabaseInstancesClientBeginDeleteOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
 
-// SAPDatabaseInstancesClientBeginStartInstanceOptions contains the optional parameters for the SAPDatabaseInstancesClient.BeginStartInstance
+// SapDatabaseInstancesClientBeginStartOptions contains the optional parameters for the SapDatabaseInstancesClient.BeginStart
 // method.
-type SAPDatabaseInstancesClientBeginStartInstanceOptions struct {
-	// SAP Database server instance start request body.
-	Body *StartRequest
-
+type SapDatabaseInstancesClientBeginStartOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
 
-// SAPDatabaseInstancesClientBeginStopInstanceOptions contains the optional parameters for the SAPDatabaseInstancesClient.BeginStopInstance
+// SapDatabaseInstancesClientBeginStopOptions contains the optional parameters for the SapDatabaseInstancesClient.BeginStop
 // method.
-type SAPDatabaseInstancesClientBeginStopInstanceOptions struct {
-	// Stop request for the database instance of the SAP system.
-	Body *StopRequest
-
+type SapDatabaseInstancesClientBeginStopOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
 
-// SAPDatabaseInstancesClientGetOptions contains the optional parameters for the SAPDatabaseInstancesClient.Get method.
-type SAPDatabaseInstancesClientGetOptions struct {
+// SapDatabaseInstancesClientGetOptions contains the optional parameters for the SapDatabaseInstancesClient.Get method.
+type SapDatabaseInstancesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SAPDatabaseInstancesClientListOptions contains the optional parameters for the SAPDatabaseInstancesClient.NewListPager
+// SapDatabaseInstancesClientListOptions contains the optional parameters for the SapDatabaseInstancesClient.NewListPager
 // method.
-type SAPDatabaseInstancesClientListOptions struct {
+type SapDatabaseInstancesClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SAPDatabaseInstancesClientUpdateOptions contains the optional parameters for the SAPDatabaseInstancesClient.Update method.
-type SAPDatabaseInstancesClientUpdateOptions struct {
+// SapDatabaseInstancesClientUpdateOptions contains the optional parameters for the SapDatabaseInstancesClient.Update method.
+type SapDatabaseInstancesClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SAPVirtualInstancesClientBeginCreateOptions contains the optional parameters for the SAPVirtualInstancesClient.BeginCreate
+// SapVirtualInstancesClientBeginCreateOptions contains the optional parameters for the SapVirtualInstancesClient.BeginCreate
 // method.
-type SAPVirtualInstancesClientBeginCreateOptions struct {
+type SapVirtualInstancesClientBeginCreateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
 
-// SAPVirtualInstancesClientBeginDeleteOptions contains the optional parameters for the SAPVirtualInstancesClient.BeginDelete
+// SapVirtualInstancesClientBeginDeleteOptions contains the optional parameters for the SapVirtualInstancesClient.BeginDelete
 // method.
-type SAPVirtualInstancesClientBeginDeleteOptions struct {
+type SapVirtualInstancesClientBeginDeleteOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
 
-// SAPVirtualInstancesClientBeginStartOptions contains the optional parameters for the SAPVirtualInstancesClient.BeginStart
+// SapVirtualInstancesClientBeginStartOptions contains the optional parameters for the SapVirtualInstancesClient.BeginStart
 // method.
-type SAPVirtualInstancesClientBeginStartOptions struct {
-	// The Virtual Instance for SAP solutions resource start request body.
-	Body *StartRequest
-
+type SapVirtualInstancesClientBeginStartOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
 
-// SAPVirtualInstancesClientBeginStopOptions contains the optional parameters for the SAPVirtualInstancesClient.BeginStop
+// SapVirtualInstancesClientBeginStopOptions contains the optional parameters for the SapVirtualInstancesClient.BeginStop
 // method.
-type SAPVirtualInstancesClientBeginStopOptions struct {
-	// The Virtual Instance for SAP solutions resource stop request body.
-	Body *StopRequest
-
+type SapVirtualInstancesClientBeginStopOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
 
-// SAPVirtualInstancesClientBeginUpdateOptions contains the optional parameters for the SAPVirtualInstancesClient.BeginUpdate
+// SapVirtualInstancesClientBeginUpdateOptions contains the optional parameters for the SapVirtualInstancesClient.BeginUpdate
 // method.
-type SAPVirtualInstancesClientBeginUpdateOptions struct {
+type SapVirtualInstancesClientBeginUpdateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
 
-// SAPVirtualInstancesClientGetOptions contains the optional parameters for the SAPVirtualInstancesClient.Get method.
-type SAPVirtualInstancesClientGetOptions struct {
+// SapVirtualInstancesClientGetAvailabilityZoneDetailsOptions contains the optional parameters for the SapVirtualInstancesClient.GetAvailabilityZoneDetails
+// method.
+type SapVirtualInstancesClientGetAvailabilityZoneDetailsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SAPVirtualInstancesClientListByResourceGroupOptions contains the optional parameters for the SAPVirtualInstancesClient.NewListByResourceGroupPager
+// SapVirtualInstancesClientGetDiskConfigurationsOptions contains the optional parameters for the SapVirtualInstancesClient.GetDiskConfigurations
 // method.
-type SAPVirtualInstancesClientListByResourceGroupOptions struct {
+type SapVirtualInstancesClientGetDiskConfigurationsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SAPVirtualInstancesClientListBySubscriptionOptions contains the optional parameters for the SAPVirtualInstancesClient.NewListBySubscriptionPager
-// method.
-type SAPVirtualInstancesClientListBySubscriptionOptions struct {
+// SapVirtualInstancesClientGetOptions contains the optional parameters for the SapVirtualInstancesClient.Get method.
+type SapVirtualInstancesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// WorkloadsClientSAPAvailabilityZoneDetailsOptions contains the optional parameters for the WorkloadsClient.SAPAvailabilityZoneDetails
+// SapVirtualInstancesClientGetSapSupportedSKUOptions contains the optional parameters for the SapVirtualInstancesClient.GetSapSupportedSKU
 // method.
-type WorkloadsClientSAPAvailabilityZoneDetailsOptions struct {
-	// SAP Availability Zone Details Request body
-	SAPAvailabilityZoneDetails *SAPAvailabilityZoneDetailsRequest
+type SapVirtualInstancesClientGetSapSupportedSKUOptions struct {
+	// placeholder for future optional parameters
 }
 
-// WorkloadsClientSAPDiskConfigurationsOptions contains the optional parameters for the WorkloadsClient.SAPDiskConfigurations
+// SapVirtualInstancesClientGetSizingRecommendationsOptions contains the optional parameters for the SapVirtualInstancesClient.GetSizingRecommendations
 // method.
-type WorkloadsClientSAPDiskConfigurationsOptions struct {
-	// SAP Disk Configurations Request body
-	SAPDiskConfigurations *SAPDiskConfigurationsRequest
+type SapVirtualInstancesClientGetSizingRecommendationsOptions struct {
+	// placeholder for future optional parameters
 }
 
-// WorkloadsClientSAPSizingRecommendationsOptions contains the optional parameters for the WorkloadsClient.SAPSizingRecommendations
+// SapVirtualInstancesClientListByResourceGroupOptions contains the optional parameters for the SapVirtualInstancesClient.NewListByResourceGroupPager
 // method.
-type WorkloadsClientSAPSizingRecommendationsOptions struct {
-	// SAP Sizing Recommendation Request body
-	SAPSizingRecommendation *SAPSizingRecommendationRequest
+type SapVirtualInstancesClientListByResourceGroupOptions struct {
+	// placeholder for future optional parameters
 }
 
-// WorkloadsClientSAPSupportedSKUOptions contains the optional parameters for the WorkloadsClient.SAPSupportedSKU method.
-type WorkloadsClientSAPSupportedSKUOptions struct {
-	// SAP Supported SKU Request body
-	SAPSupportedSKU *SAPSupportedSKUsRequest
+// SapVirtualInstancesClientListBySubscriptionOptions contains the optional parameters for the SapVirtualInstancesClient.NewListBySubscriptionPager
+// method.
+type SapVirtualInstancesClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
 }
