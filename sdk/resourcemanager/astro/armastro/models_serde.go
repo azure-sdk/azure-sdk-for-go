@@ -178,6 +178,7 @@ func (l *LiftrBaseMarketplaceDetails) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type LiftrBaseOfferDetails.
 func (l LiftrBaseOfferDetails) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "autoRenew", l.AutoRenew)
 	populate(objectMap, "offerId", l.OfferID)
 	populate(objectMap, "planId", l.PlanID)
 	populate(objectMap, "planName", l.PlanName)
@@ -196,6 +197,9 @@ func (l *LiftrBaseOfferDetails) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "autoRenew":
+			err = unpopulate(val, "AutoRenew", &l.AutoRenew)
+			delete(rawMsg, key)
 		case "offerId":
 			err = unpopulate(val, "OfferID", &l.OfferID)
 			delete(rawMsg, key)
