@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hybridkubernetes/armhybridkubernetes"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hybridkubernetes/armhybridkubernetes/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -24,9 +24,9 @@ import (
 
 // ConnectedClusterServer is a fake server for instances of the armhybridkubernetes.ConnectedClusterClient type.
 type ConnectedClusterServer struct {
-	// BeginCreate is the fake for method ConnectedClusterClient.BeginCreate
+	// BeginCreateOrUpdate is the fake for method ConnectedClusterClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	BeginCreate func(ctx context.Context, resourceGroupName string, clusterName string, connectedCluster armhybridkubernetes.ConnectedCluster, options *armhybridkubernetes.ConnectedClusterClientBeginCreateOptions) (resp azfake.PollerResponder[armhybridkubernetes.ConnectedClusterClientCreateResponse], errResp azfake.ErrorResponder)
+	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, clusterName string, connectedCluster armhybridkubernetes.ConnectedCluster, options *armhybridkubernetes.ConnectedClusterClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armhybridkubernetes.ConnectedClusterClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method ConnectedClusterClient.BeginDelete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
@@ -59,7 +59,7 @@ type ConnectedClusterServer struct {
 func NewConnectedClusterServerTransport(srv *ConnectedClusterServer) *ConnectedClusterServerTransport {
 	return &ConnectedClusterServerTransport{
 		srv:                         srv,
-		beginCreate:                 newTracker[azfake.PollerResponder[armhybridkubernetes.ConnectedClusterClientCreateResponse]](),
+		beginCreateOrUpdate:         newTracker[azfake.PollerResponder[armhybridkubernetes.ConnectedClusterClientCreateOrUpdateResponse]](),
 		beginDelete:                 newTracker[azfake.PollerResponder[armhybridkubernetes.ConnectedClusterClientDeleteResponse]](),
 		newListByResourceGroupPager: newTracker[azfake.PagerResponder[armhybridkubernetes.ConnectedClusterClientListByResourceGroupResponse]](),
 		newListBySubscriptionPager:  newTracker[azfake.PagerResponder[armhybridkubernetes.ConnectedClusterClientListBySubscriptionResponse]](),
@@ -70,7 +70,7 @@ func NewConnectedClusterServerTransport(srv *ConnectedClusterServer) *ConnectedC
 // Don't use this type directly, use NewConnectedClusterServerTransport instead.
 type ConnectedClusterServerTransport struct {
 	srv                         *ConnectedClusterServer
-	beginCreate                 *tracker[azfake.PollerResponder[armhybridkubernetes.ConnectedClusterClientCreateResponse]]
+	beginCreateOrUpdate         *tracker[azfake.PollerResponder[armhybridkubernetes.ConnectedClusterClientCreateOrUpdateResponse]]
 	beginDelete                 *tracker[azfake.PollerResponder[armhybridkubernetes.ConnectedClusterClientDeleteResponse]]
 	newListByResourceGroupPager *tracker[azfake.PagerResponder[armhybridkubernetes.ConnectedClusterClientListByResourceGroupResponse]]
 	newListBySubscriptionPager  *tracker[azfake.PagerResponder[armhybridkubernetes.ConnectedClusterClientListBySubscriptionResponse]]
@@ -88,8 +88,8 @@ func (c *ConnectedClusterServerTransport) Do(req *http.Request) (*http.Response,
 	var err error
 
 	switch method {
-	case "ConnectedClusterClient.BeginCreate":
-		resp, err = c.dispatchBeginCreate(req)
+	case "ConnectedClusterClient.BeginCreateOrUpdate":
+		resp, err = c.dispatchBeginCreateOrUpdate(req)
 	case "ConnectedClusterClient.BeginDelete":
 		resp, err = c.dispatchBeginDelete(req)
 	case "ConnectedClusterClient.Get":
@@ -113,12 +113,12 @@ func (c *ConnectedClusterServerTransport) Do(req *http.Request) (*http.Response,
 	return resp, nil
 }
 
-func (c *ConnectedClusterServerTransport) dispatchBeginCreate(req *http.Request) (*http.Response, error) {
-	if c.srv.BeginCreate == nil {
-		return nil, &nonRetriableError{errors.New("fake for method BeginCreate not implemented")}
+func (c *ConnectedClusterServerTransport) dispatchBeginCreateOrUpdate(req *http.Request) (*http.Response, error) {
+	if c.srv.BeginCreateOrUpdate == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginCreateOrUpdate not implemented")}
 	}
-	beginCreate := c.beginCreate.get(req)
-	if beginCreate == nil {
+	beginCreateOrUpdate := c.beginCreateOrUpdate.get(req)
+	if beginCreateOrUpdate == nil {
 		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourcegroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Kubernetes/connectedClusters/(?P<clusterName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
@@ -137,25 +137,25 @@ func (c *ConnectedClusterServerTransport) dispatchBeginCreate(req *http.Request)
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := c.srv.BeginCreate(req.Context(), resourceGroupNameParam, clusterNameParam, body, nil)
+		respr, errRespr := c.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, clusterNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
-		beginCreate = &respr
-		c.beginCreate.add(req, beginCreate)
+		beginCreateOrUpdate = &respr
+		c.beginCreateOrUpdate.add(req, beginCreateOrUpdate)
 	}
 
-	resp, err := server.PollerResponderNext(beginCreate, req)
+	resp, err := server.PollerResponderNext(beginCreateOrUpdate, req)
 	if err != nil {
 		return nil, err
 	}
 
 	if !contains([]int{http.StatusOK, http.StatusCreated}, resp.StatusCode) {
-		c.beginCreate.remove(req)
+		c.beginCreateOrUpdate.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", resp.StatusCode)}
 	}
-	if !server.PollerResponderMore(beginCreate) {
-		c.beginCreate.remove(req)
+	if !server.PollerResponderMore(beginCreateOrUpdate) {
+		c.beginCreateOrUpdate.remove(req)
 	}
 
 	return resp, nil
