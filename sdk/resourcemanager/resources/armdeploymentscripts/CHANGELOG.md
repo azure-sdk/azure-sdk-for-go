@@ -1,5 +1,12 @@
 # Release History
 
+## 2.2.0 (2024-08-22)
+### Features Added
+
+- New struct `ContainerGroupSubnetID`
+- New field `SubnetIDs` in struct `ContainerConfiguration`
+
+
 ## 2.1.0 (2023-11-24)
 ### Features Added
 
