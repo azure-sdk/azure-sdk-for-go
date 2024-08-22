@@ -359,21 +359,21 @@ type EnqueueServerProperties struct {
 	Port *int64
 }
 
-// Error - Standard error object.
+// Error - Common error representation.
 type Error struct {
-	// READ-ONLY; Server-defined set of error codes.
+	// Error code.
 	Code *string
 
-	// READ-ONLY; Array of details about specific errors that led to this reported error.
-	Details []*Error
+	// Error details.
+	Details []*ErrorDetails
 
-	// READ-ONLY; Object containing more specific information than the current object about the error.
-	InnerError *ErrorInnerError
+	// Inner error message.
+	InnerError *string
 
-	// READ-ONLY; Human-readable representation of the error.
+	// Error message.
 	Message *string
 
-	// READ-ONLY; Target of the error.
+	// Error target.
 	Target *string
 }
 
@@ -416,10 +416,16 @@ type ErrorDetail struct {
 	Target *string
 }
 
-// ErrorInnerError - Object containing more specific information than the current object about the error.
-type ErrorInnerError struct {
-	// Standard error object.
-	InnerError *Error
+// ErrorDetails - Common error details representation.
+type ErrorDetails struct {
+	// Error code.
+	Code *string
+
+	// Error message.
+	Message *string
+
+	// Error target.
+	Target *string
 }
 
 // ErrorResponse - Common error response for all Azure Resource Manager APIs to return error details for failed operations.
@@ -712,19 +718,19 @@ type MonitorProperties struct {
 
 // MonitorPropertiesErrors - Defines the SAP monitor errors.
 type MonitorPropertiesErrors struct {
-	// READ-ONLY; Server-defined set of error codes.
+	// Error code.
 	Code *string
 
-	// READ-ONLY; Array of details about specific errors that led to this reported error.
-	Details []*Error
+	// Error details.
+	Details []*ErrorDetails
 
-	// READ-ONLY; Object containing more specific information than the current object about the error.
-	InnerError *ErrorInnerError
+	// Inner error message.
+	InnerError *string
 
-	// READ-ONLY; Human-readable representation of the error.
+	// Error message.
 	Message *string
 
-	// READ-ONLY; Target of the error.
+	// Error target.
 	Target *string
 }
 
@@ -1108,19 +1114,19 @@ type ProviderInstanceProperties struct {
 
 // ProviderInstancePropertiesErrors - Defines the provider instance errors.
 type ProviderInstancePropertiesErrors struct {
-	// READ-ONLY; Server-defined set of error codes.
+	// Error code.
 	Code *string
 
-	// READ-ONLY; Array of details about specific errors that led to this reported error.
-	Details []*Error
+	// Error details.
+	Details []*ErrorDetails
 
-	// READ-ONLY; Object containing more specific information than the current object about the error.
-	InnerError *ErrorInnerError
+	// Inner error message.
+	InnerError *string
 
-	// READ-ONLY; Human-readable representation of the error.
+	// Error message.
 	Message *string
 
-	// READ-ONLY; Target of the error.
+	// Error target.
 	Target *string
 }
 

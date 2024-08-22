@@ -1,5 +1,21 @@
 # Release History
 
+## 2.0.0 (2024-08-22)
+### Breaking Changes
+
+- Type of `Error.Details` has been changed from `[]*Error` to `[]*ErrorDetails`
+- Type of `Error.InnerError` has been changed from `*ErrorInnerError` to `*string`
+- Type of `MonitorPropertiesErrors.Details` has been changed from `[]*Error` to `[]*ErrorDetails`
+- Type of `MonitorPropertiesErrors.InnerError` has been changed from `*ErrorInnerError` to `*string`
+- Type of `ProviderInstancePropertiesErrors.Details` has been changed from `[]*Error` to `[]*ErrorDetails`
+- Type of `ProviderInstancePropertiesErrors.InnerError` has been changed from `*ErrorInnerError` to `*string`
+- Struct `ErrorInnerError` has been removed
+
+### Features Added
+
+- New struct `ErrorDetails`
+
+
 ## 1.1.0 (2023-11-30)
 ### Features Added
 
