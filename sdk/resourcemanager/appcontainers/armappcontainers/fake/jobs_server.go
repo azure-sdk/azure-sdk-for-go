@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appcontainers/armappcontainers/v3"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appcontainers/armappcontainers/v4"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -59,7 +59,7 @@ type JobsServer struct {
 
 	// ProxyGet is the fake for method JobsClient.ProxyGet
 	// HTTP status codes to indicate success: http.StatusOK
-	ProxyGet func(ctx context.Context, resourceGroupName string, jobName string, apiName string, options *armappcontainers.JobsClientProxyGetOptions) (resp azfake.Responder[armappcontainers.JobsClientProxyGetResponse], errResp azfake.ErrorResponder)
+	ProxyGet func(ctx context.Context, resourceGroupName string, jobName string, options *armappcontainers.JobsClientProxyGetOptions) (resp azfake.Responder[armappcontainers.JobsClientProxyGetResponse], errResp azfake.ErrorResponder)
 
 	// BeginStart is the fake for method JobsClient.BeginStart
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
@@ -473,7 +473,7 @@ func (j *JobsServerTransport) dispatchProxyGet(req *http.Request) (*http.Respons
 	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.App/jobs/(?P<jobName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/detectorProperties/(?P<apiName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 4 {
+	if matches == nil || len(matches) < 3 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
 	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
@@ -484,11 +484,7 @@ func (j *JobsServerTransport) dispatchProxyGet(req *http.Request) (*http.Respons
 	if err != nil {
 		return nil, err
 	}
-	apiNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("apiName")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := j.srv.ProxyGet(req.Context(), resourceGroupNameParam, jobNameParam, apiNameParam, nil)
+	respr, errRespr := j.srv.ProxyGet(req.Context(), resourceGroupNameParam, jobNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
