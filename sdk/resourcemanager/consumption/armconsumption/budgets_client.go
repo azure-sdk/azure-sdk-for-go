@@ -45,7 +45,7 @@ func NewBudgetsClient(credential azcore.TokenCredential, options *arm.ClientOpti
 // to your put operation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-10-01
+// Generated from API version 2024-08-01
 //   - scope - The scope associated with budget operations. This includes '/subscriptions/{subscriptionId}/' for subscription
 //     scope, '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}' for
 //     resourceGroup scope, '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}' for Billing Account scope,
@@ -53,7 +53,7 @@ func NewBudgetsClient(credential azcore.TokenCredential, options *arm.ClientOpti
 //     '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/enrollmentAccounts/{enrollmentAccountId}' for EnrollmentAccount
 //     scope,
 //     '/providers/Microsoft.Management/managementGroups/{managementGroupId}' for Management Group scope, '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}'
-//     for billingProfile scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}/invoiceSections/{invoiceSectionId}'
+//     for billingProfile scope, '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/invoiceSections/{invoiceSectionId}'
 //     for invoiceSection scope.
 //   - budgetName - Budget Name.
 //   - parameters - Parameters supplied to the Create Budget operation.
@@ -93,7 +93,7 @@ func (client *BudgetsClient) createOrUpdateCreateRequest(ctx context.Context, sc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01")
+	reqQP.Set("api-version", "2024-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -114,7 +114,7 @@ func (client *BudgetsClient) createOrUpdateHandleResponse(resp *http.Response) (
 // Delete - The operation to delete a budget.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-10-01
+// Generated from API version 2024-08-01
 //   - scope - The scope associated with budget operations. This includes '/subscriptions/{subscriptionId}/' for subscription
 //     scope, '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}' for
 //     resourceGroup scope, '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}' for Billing Account scope,
@@ -122,7 +122,7 @@ func (client *BudgetsClient) createOrUpdateHandleResponse(resp *http.Response) (
 //     '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/enrollmentAccounts/{enrollmentAccountId}' for EnrollmentAccount
 //     scope,
 //     '/providers/Microsoft.Management/managementGroups/{managementGroupId}' for Management Group scope, '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}'
-//     for billingProfile scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}/invoiceSections/{invoiceSectionId}'
+//     for billingProfile scope, '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/invoiceSections/{invoiceSectionId}'
 //     for invoiceSection scope.
 //   - budgetName - Budget Name.
 //   - options - BudgetsClientDeleteOptions contains the optional parameters for the BudgetsClient.Delete method.
@@ -160,7 +160,7 @@ func (client *BudgetsClient) deleteCreateRequest(ctx context.Context, scope stri
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01")
+	reqQP.Set("api-version", "2024-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -169,7 +169,7 @@ func (client *BudgetsClient) deleteCreateRequest(ctx context.Context, scope stri
 // Get - Gets the budget for the scope by budget name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-10-01
+// Generated from API version 2024-08-01
 //   - scope - The scope associated with budget operations. This includes '/subscriptions/{subscriptionId}/' for subscription
 //     scope, '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}' for
 //     resourceGroup scope, '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}' for Billing Account scope,
@@ -177,7 +177,7 @@ func (client *BudgetsClient) deleteCreateRequest(ctx context.Context, scope stri
 //     '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/enrollmentAccounts/{enrollmentAccountId}' for EnrollmentAccount
 //     scope,
 //     '/providers/Microsoft.Management/managementGroups/{managementGroupId}' for Management Group scope, '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}'
-//     for billingProfile scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}/invoiceSections/{invoiceSectionId}'
+//     for billingProfile scope, '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/invoiceSections/{invoiceSectionId}'
 //     for invoiceSection scope.
 //   - budgetName - Budget Name.
 //   - options - BudgetsClientGetOptions contains the optional parameters for the BudgetsClient.Get method.
@@ -216,7 +216,7 @@ func (client *BudgetsClient) getCreateRequest(ctx context.Context, scope string,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01")
+	reqQP.Set("api-version", "2024-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -233,7 +233,7 @@ func (client *BudgetsClient) getHandleResponse(resp *http.Response) (BudgetsClie
 
 // NewListPager - Lists all budgets for the defined scope.
 //
-// Generated from API version 2021-10-01
+// Generated from API version 2024-08-01
 //   - scope - The scope associated with budget operations. This includes '/subscriptions/{subscriptionId}/' for subscription
 //     scope, '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}' for
 //     resourceGroup scope, '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}' for Billing Account scope,
@@ -241,7 +241,7 @@ func (client *BudgetsClient) getHandleResponse(resp *http.Response) (BudgetsClie
 //     '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/enrollmentAccounts/{enrollmentAccountId}' for EnrollmentAccount
 //     scope,
 //     '/providers/Microsoft.Management/managementGroups/{managementGroupId}' for Management Group scope, '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}'
-//     for billingProfile scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}/invoiceSections/{invoiceSectionId}'
+//     for billingProfile scope, '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/invoiceSections/{invoiceSectionId}'
 //     for invoiceSection scope.
 //   - options - BudgetsClientListOptions contains the optional parameters for the BudgetsClient.NewListPager method.
 func (client *BudgetsClient) NewListPager(scope string, options *BudgetsClientListOptions) *runtime.Pager[BudgetsClientListResponse] {
@@ -276,7 +276,7 @@ func (client *BudgetsClient) listCreateRequest(ctx context.Context, scope string
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01")
+	reqQP.Set("api-version", "2024-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
