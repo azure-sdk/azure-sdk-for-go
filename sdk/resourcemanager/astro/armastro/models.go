@@ -66,7 +66,7 @@ type LiftrBaseMarketplaceDetails struct {
 	// REQUIRED; Offer details for the marketplace that is selected by the user
 	OfferDetails *LiftrBaseOfferDetails
 
-	// REQUIRED; Azure subscription id for the the marketplace offer is purchased from
+	// Azure subscription id for the the marketplace offer is purchased from
 	SubscriptionID *string
 
 	// Marketplace subscription status
@@ -83,6 +83,9 @@ type LiftrBaseOfferDetails struct {
 
 	// REQUIRED; Publisher Id for the marketplace offer
 	PublisherID *string
+
+	// Subscription auto renewal flag
+	AutoRenew *bool
 
 	// Plan Name for the marketplace offer
 	PlanName *string
@@ -258,7 +261,7 @@ type OrganizationResourceUpdate struct {
 	// The managed service identities assigned to this resource.
 	Identity *ManagedServiceIdentity
 
-	// The updatable properties of the OrganizationResource.
+	// The resource-specific properties for this resource.
 	Properties *OrganizationResourceUpdateProperties
 
 	// Resource tags.
