@@ -10,7 +10,7 @@ package armloadtesting
 
 // LoadTestsClientCreateOrUpdateResponse contains the response from method LoadTestsClient.BeginCreateOrUpdate.
 type LoadTestsClientCreateOrUpdateResponse struct {
-	// LoadTest details
+	// LoadTest details.
 	LoadTestResource
 }
 
@@ -21,31 +21,31 @@ type LoadTestsClientDeleteResponse struct {
 
 // LoadTestsClientGetResponse contains the response from method LoadTestsClient.Get.
 type LoadTestsClientGetResponse struct {
-	// LoadTest details
+	// LoadTest details.
 	LoadTestResource
 }
 
 // LoadTestsClientListByResourceGroupResponse contains the response from method LoadTestsClient.NewListByResourceGroupPager.
 type LoadTestsClientListByResourceGroupResponse struct {
-	// List of resources page result.
-	LoadTestResourcePageList
+	// The response of a LoadTestResource list operation.
+	LoadTestResourceListResult
 }
 
 // LoadTestsClientListBySubscriptionResponse contains the response from method LoadTestsClient.NewListBySubscriptionPager.
 type LoadTestsClientListBySubscriptionResponse struct {
-	// List of resources page result.
-	LoadTestResourcePageList
+	// The response of a LoadTestResource list operation.
+	LoadTestResourceListResult
 }
 
 // LoadTestsClientListOutboundNetworkDependenciesEndpointsResponse contains the response from method LoadTestsClient.NewListOutboundNetworkDependenciesEndpointsPager.
 type LoadTestsClientListOutboundNetworkDependenciesEndpointsResponse struct {
 	// Values returned by the List operation.
-	OutboundEnvironmentEndpointCollection
+	PagedOutboundEnvironmentEndpoint
 }
 
 // LoadTestsClientUpdateResponse contains the response from method LoadTestsClient.BeginUpdate.
 type LoadTestsClientUpdateResponse struct {
-	// LoadTest details
+	// LoadTest details.
 	LoadTestResource
 }
 
@@ -69,6 +69,6 @@ type QuotasClientGetResponse struct {
 
 // QuotasClientListResponse contains the response from method QuotasClient.NewListPager.
 type QuotasClientListResponse struct {
-	// List of quota bucket objects. It contains a URL link to get the next set of results.
-	QuotaResourceList
+	// The response of a QuotaResource list operation.
+	QuotaResourceListResult
 }
