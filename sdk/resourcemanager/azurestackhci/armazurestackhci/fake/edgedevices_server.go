@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/azurestackhci/armazurestackhci/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/azurestackhci/armazurestackhci/v3"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -26,7 +26,7 @@ import (
 type EdgeDevicesServer struct {
 	// BeginCreateOrUpdate is the fake for method EdgeDevicesClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	BeginCreateOrUpdate func(ctx context.Context, resourceURI string, edgeDeviceName string, resource armazurestackhci.EdgeDeviceClassification, options *armazurestackhci.EdgeDevicesClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armazurestackhci.EdgeDevicesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	BeginCreateOrUpdate func(ctx context.Context, resourceURI string, edgeDeviceName string, resource armazurestackhci.EdgeDevice, options *armazurestackhci.EdgeDevicesClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armazurestackhci.EdgeDevicesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method EdgeDevicesClient.BeginDelete
 	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
@@ -113,11 +113,7 @@ func (e *EdgeDevicesServerTransport) dispatchBeginCreateOrUpdate(req *http.Reque
 		if matches == nil || len(matches) < 2 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		raw, err := readRequestBody(req)
-		if err != nil {
-			return nil, err
-		}
-		body, err := unmarshalEdgeDeviceClassification(raw)
+		body, err := server.UnmarshalRequestAsJSON[armazurestackhci.EdgeDevice](req)
 		if err != nil {
 			return nil, err
 		}
@@ -223,7 +219,7 @@ func (e *EdgeDevicesServerTransport) dispatchGet(req *http.Request) (*http.Respo
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).EdgeDeviceClassification, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).EdgeDevice, req)
 	if err != nil {
 		return nil, err
 	}
