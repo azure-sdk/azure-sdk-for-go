@@ -19,7 +19,10 @@ import (
 
 // ServerFactory is a fake server for instances of the armedgeorder.ClientFactory type.
 type ServerFactory struct {
-	ManagementServer ManagementServer
+	AddressesServer                 AddressesServer
+	OrderItemsServer                OrderItemsServer
+	OrdersServer                    OrdersServer
+	ProductsAndConfigurationsServer ProductsAndConfigurationsServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -34,9 +37,12 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armedgeorder.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                *ServerFactory
-	trMu               sync.Mutex
-	trManagementServer *ManagementServerTransport
+	srv                               *ServerFactory
+	trMu                              sync.Mutex
+	trAddressesServer                 *AddressesServerTransport
+	trOrderItemsServer                *OrderItemsServerTransport
+	trOrdersServer                    *OrdersServerTransport
+	trProductsAndConfigurationsServer *ProductsAndConfigurationsServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -52,9 +58,20 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch client {
-	case "ManagementClient":
-		initServer(s, &s.trManagementServer, func() *ManagementServerTransport { return NewManagementServerTransport(&s.srv.ManagementServer) })
-		resp, err = s.trManagementServer.Do(req)
+	case "AddressesClient":
+		initServer(s, &s.trAddressesServer, func() *AddressesServerTransport { return NewAddressesServerTransport(&s.srv.AddressesServer) })
+		resp, err = s.trAddressesServer.Do(req)
+	case "OrderItemsClient":
+		initServer(s, &s.trOrderItemsServer, func() *OrderItemsServerTransport { return NewOrderItemsServerTransport(&s.srv.OrderItemsServer) })
+		resp, err = s.trOrderItemsServer.Do(req)
+	case "OrdersClient":
+		initServer(s, &s.trOrdersServer, func() *OrdersServerTransport { return NewOrdersServerTransport(&s.srv.OrdersServer) })
+		resp, err = s.trOrdersServer.Do(req)
+	case "ProductsAndConfigurationsClient":
+		initServer(s, &s.trProductsAndConfigurationsServer, func() *ProductsAndConfigurationsServerTransport {
+			return NewProductsAndConfigurationsServerTransport(&s.srv.ProductsAndConfigurationsServer)
+		})
+		resp, err = s.trProductsAndConfigurationsServer.Do(req)
 	default:
 		err = fmt.Errorf("unhandled client %s", client)
 	}
