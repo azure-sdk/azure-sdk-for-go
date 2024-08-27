@@ -10,7 +10,7 @@ package armedgeorder
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/edgeorder/armedgeorder"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v2.0.0"
 )
 
 // ActionStatusEnum - Describes whether the order item is deletable or not.
@@ -31,17 +31,21 @@ func PossibleActionStatusEnumValues() []ActionStatusEnum {
 	}
 }
 
-// ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
-type ActionType string
+// AddressClassification - Type of address based on its usage context.
+type AddressClassification string
 
 const (
-	ActionTypeInternal ActionType = "Internal"
+	// AddressClassificationShipping - Shipping address for the order.
+	AddressClassificationShipping AddressClassification = "Shipping"
+	// AddressClassificationSite - Site Address.
+	AddressClassificationSite AddressClassification = "Site"
 )
 
-// PossibleActionTypeValues returns the possible values for the ActionType const type.
-func PossibleActionTypeValues() []ActionType {
-	return []ActionType{
-		ActionTypeInternal,
+// PossibleAddressClassificationValues returns the possible values for the AddressClassification const type.
+func PossibleAddressClassificationValues() []AddressClassification {
+	return []AddressClassification{
+		AddressClassificationShipping,
+		AddressClassificationSite,
 	}
 }
 
@@ -66,7 +70,7 @@ func PossibleAddressTypeValues() []AddressType {
 	}
 }
 
-// AddressValidationStatus - Status of address validation
+// AddressValidationStatus - Status of address validation.
 type AddressValidationStatus string
 
 const (
@@ -87,7 +91,26 @@ func PossibleAddressValidationStatusValues() []AddressValidationStatus {
 	}
 }
 
-// AvailabilityStage - Current availability stage of the product. Availability stage
+// AutoProvisioningStatus - Auto Provisioning Details.
+type AutoProvisioningStatus string
+
+const (
+	// AutoProvisioningStatusDisabled - Provisioning Disabled.
+	AutoProvisioningStatusDisabled AutoProvisioningStatus = "Disabled"
+	// AutoProvisioningStatusEnabled - Provisioning Enabled. Will act as pre-approved, and arc extension will be enabled as soon
+	// as the device is verified to be at the right edge location.
+	AutoProvisioningStatusEnabled AutoProvisioningStatus = "Enabled"
+)
+
+// PossibleAutoProvisioningStatusValues returns the possible values for the AutoProvisioningStatus const type.
+func PossibleAutoProvisioningStatusValues() []AutoProvisioningStatus {
+	return []AutoProvisioningStatus{
+		AutoProvisioningStatusDisabled,
+		AutoProvisioningStatusEnabled,
+	}
+}
+
+// AvailabilityStage - Current availability stage of the product.
 type AvailabilityStage string
 
 const (
@@ -97,6 +120,8 @@ const (
 	AvailabilityStageComingSoon AvailabilityStage = "ComingSoon"
 	// AvailabilityStageDeprecated - Product is deprecated.
 	AvailabilityStageDeprecated AvailabilityStage = "Deprecated"
+	// AvailabilityStageDiscoverable - Product is not available in our service but can be discovered from other sources.
+	AvailabilityStageDiscoverable AvailabilityStage = "Discoverable"
 	// AvailabilityStagePreview - Product is in preview.
 	AvailabilityStagePreview AvailabilityStage = "Preview"
 	// AvailabilityStageSignup - Product is available only on signup.
@@ -111,6 +136,7 @@ func PossibleAvailabilityStageValues() []AvailabilityStage {
 		AvailabilityStageAvailable,
 		AvailabilityStageComingSoon,
 		AvailabilityStageDeprecated,
+		AvailabilityStageDiscoverable,
 		AvailabilityStagePreview,
 		AvailabilityStageSignup,
 		AvailabilityStageUnavailable,
@@ -153,6 +179,23 @@ func PossibleChargingTypeValues() []ChargingType {
 	}
 }
 
+type ChildConfigurationType string
+
+const (
+	// ChildConfigurationTypeAdditionalConfiguration - Child configuration is an additional configuration.
+	ChildConfigurationTypeAdditionalConfiguration ChildConfigurationType = "AdditionalConfiguration"
+	// ChildConfigurationTypeDeviceConfiguration - Child configuration is a device configuration.
+	ChildConfigurationTypeDeviceConfiguration ChildConfigurationType = "DeviceConfiguration"
+)
+
+// PossibleChildConfigurationTypeValues returns the possible values for the ChildConfigurationType const type.
+func PossibleChildConfigurationTypeValues() []ChildConfigurationType {
+	return []ChildConfigurationType{
+		ChildConfigurationTypeAdditionalConfiguration,
+		ChildConfigurationTypeDeviceConfiguration,
+	}
+}
+
 // CreatedByType - The type of identity that created the resource.
 type CreatedByType string
 
@@ -185,6 +228,26 @@ const (
 func PossibleDescriptionTypeValues() []DescriptionType {
 	return []DescriptionType{
 		DescriptionTypeBase,
+	}
+}
+
+// DevicePresenceVerificationStatus - Proof of possession status.
+type DevicePresenceVerificationStatus string
+
+const (
+	// DevicePresenceVerificationStatusCompleted - Confirms that the device is verified to be with the right edge operator or
+	// at the right location.
+	DevicePresenceVerificationStatusCompleted DevicePresenceVerificationStatus = "Completed"
+	// DevicePresenceVerificationStatusNotInitiated - The device has not yet been verified to be with the right edge operator
+	// or at the right location.
+	DevicePresenceVerificationStatusNotInitiated DevicePresenceVerificationStatus = "NotInitiated"
+)
+
+// PossibleDevicePresenceVerificationStatusValues returns the possible values for the DevicePresenceVerificationStatus const type.
+func PossibleDevicePresenceVerificationStatusValues() []DevicePresenceVerificationStatus {
+	return []DevicePresenceVerificationStatus{
+		DevicePresenceVerificationStatusCompleted,
+		DevicePresenceVerificationStatusNotInitiated,
 	}
 }
 
@@ -230,9 +293,9 @@ func PossibleDisabledReasonValues() []DisabledReason {
 type DoubleEncryptionStatus string
 
 const (
-	// DoubleEncryptionStatusDisabled - Double encryption is disabled
+	// DoubleEncryptionStatusDisabled - Double encryption is disabled.
 	DoubleEncryptionStatusDisabled DoubleEncryptionStatus = "Disabled"
-	// DoubleEncryptionStatusEnabled - Double encryption is enabled
+	// DoubleEncryptionStatusEnabled - Double encryption is enabled.
 	DoubleEncryptionStatusEnabled DoubleEncryptionStatus = "Enabled"
 )
 
@@ -244,7 +307,44 @@ func PossibleDoubleEncryptionStatusValues() []DoubleEncryptionStatus {
 	}
 }
 
-// ImageType - Type of the image
+// FulfillmentType - The entity responsible for fulfillment of the item at the given hierarchy level.
+type FulfillmentType string
+
+const (
+	// FulfillmentTypeExternal - The fulfillment (the whole journey of the product offering) is handled by external third party
+	// entities.
+	FulfillmentTypeExternal FulfillmentType = "External"
+	// FulfillmentTypeMicrosoft - The fulfillment (the whole journey of the product offering) is handled by microsoft.
+	FulfillmentTypeMicrosoft FulfillmentType = "Microsoft"
+)
+
+// PossibleFulfillmentTypeValues returns the possible values for the FulfillmentType const type.
+func PossibleFulfillmentTypeValues() []FulfillmentType {
+	return []FulfillmentType{
+		FulfillmentTypeExternal,
+		FulfillmentTypeMicrosoft,
+	}
+}
+
+// IdentificationType - Identification type of the configuration.
+type IdentificationType string
+
+const (
+	// IdentificationTypeNotSupported - Product does not have any explicit identifier.
+	IdentificationTypeNotSupported IdentificationType = "NotSupported"
+	// IdentificationTypeSerialNumber - Product is identifiable by serial number.
+	IdentificationTypeSerialNumber IdentificationType = "SerialNumber"
+)
+
+// PossibleIdentificationTypeValues returns the possible values for the IdentificationType const type.
+func PossibleIdentificationTypeValues() []IdentificationType {
+	return []IdentificationType{
+		IdentificationTypeNotSupported,
+		IdentificationTypeSerialNumber,
+	}
+}
+
+// ImageType - Type of the image.
 type ImageType string
 
 const (
@@ -283,17 +383,19 @@ func PossibleLengthHeightUnitValues() []LengthHeightUnit {
 	}
 }
 
-// LinkType - Type of link
+// LinkType - Type of link.
 type LinkType string
 
 const (
-	// LinkTypeDocumentation - Link to product documentation
+	// LinkTypeDiscoverable - Link to order the product from another source and not from Azure Edge Hardware Center.
+	LinkTypeDiscoverable LinkType = "Discoverable"
+	// LinkTypeDocumentation - Link to product documentation.
 	LinkTypeDocumentation LinkType = "Documentation"
 	// LinkTypeGeneric - Generic link.
 	LinkTypeGeneric LinkType = "Generic"
-	// LinkTypeKnowMore - Link to know more
+	// LinkTypeKnowMore - Link to know more.
 	LinkTypeKnowMore LinkType = "KnowMore"
-	// LinkTypeSignUp - Link to sign up for products
+	// LinkTypeSignUp - Link to sign up for products.
 	LinkTypeSignUp LinkType = "SignUp"
 	// LinkTypeSpecification - Link to product specification.
 	LinkTypeSpecification LinkType = "Specification"
@@ -304,6 +406,7 @@ const (
 // PossibleLinkTypeValues returns the possible values for the LinkType const type.
 func PossibleLinkTypeValues() []LinkType {
 	return []LinkType{
+		LinkTypeDiscoverable,
 		LinkTypeDocumentation,
 		LinkTypeGeneric,
 		LinkTypeKnowMore,
@@ -313,7 +416,7 @@ func PossibleLinkTypeValues() []LinkType {
 	}
 }
 
-// MeteringType - Represents Metering type (eg one-time or recurrent)
+// MeteringType - Represents Metering type (eg one-time or recurrent).
 type MeteringType string
 
 const (
@@ -398,6 +501,8 @@ func PossibleOrderItemReturnEnumValues() []OrderItemReturnEnum {
 type OrderItemType string
 
 const (
+	// OrderItemTypeExternal - Orders placed outside of azure.
+	OrderItemTypeExternal OrderItemType = "External"
 	// OrderItemTypePurchase - Purchase OrderItem.
 	OrderItemTypePurchase OrderItemType = "Purchase"
 	// OrderItemTypeRental - Rental OrderItem.
@@ -407,57 +512,101 @@ const (
 // PossibleOrderItemTypeValues returns the possible values for the OrderItemType const type.
 func PossibleOrderItemTypeValues() []OrderItemType {
 	return []OrderItemType{
+		OrderItemTypeExternal,
 		OrderItemTypePurchase,
 		OrderItemTypeRental,
 	}
 }
 
-// Origin - The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
-// value is "user,system"
-type Origin string
+// OrderMode - Defines the mode of the Order item.
+type OrderMode string
 
 const (
-	OriginSystem     Origin = "system"
-	OriginUser       Origin = "user"
-	OriginUserSystem Origin = "user,system"
+	// OrderModeDefault - Default Order mode.
+	OrderModeDefault OrderMode = "Default"
+	// OrderModeDoNotFulfill - Mode in which the Order will not be fulfilled.
+	OrderModeDoNotFulfill OrderMode = "DoNotFulfill"
 )
 
-// PossibleOriginValues returns the possible values for the Origin const type.
-func PossibleOriginValues() []Origin {
-	return []Origin{
-		OriginSystem,
-		OriginUser,
-		OriginUserSystem,
+// PossibleOrderModeValues returns the possible values for the OrderMode const type.
+func PossibleOrderModeValues() []OrderMode {
+	return []OrderMode{
+		OrderModeDefault,
+		OrderModeDoNotFulfill,
 	}
 }
 
-// StageName - Stage name
+// ProvisioningState - Provisioning state
+type ProvisioningState string
+
+const (
+	// ProvisioningStateCanceled - Canceled state.
+	ProvisioningStateCanceled ProvisioningState = "Canceled"
+	// ProvisioningStateCreating - Creating state.
+	ProvisioningStateCreating ProvisioningState = "Creating"
+	// ProvisioningStateFailed - Failed state.
+	ProvisioningStateFailed ProvisioningState = "Failed"
+	// ProvisioningStateSucceeded - Succeeded state.
+	ProvisioningStateSucceeded ProvisioningState = "Succeeded"
+)
+
+// PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
+func PossibleProvisioningStateValues() []ProvisioningState {
+	return []ProvisioningState{
+		ProvisioningStateCanceled,
+		ProvisioningStateCreating,
+		ProvisioningStateFailed,
+		ProvisioningStateSucceeded,
+	}
+}
+
+// ProvisioningSupport - Determining nature of provisioning that the configuration supports.
+type ProvisioningSupport string
+
+const (
+	// ProvisioningSupportCloudBased - The configuration can be provisioned from the cloud.
+	ProvisioningSupportCloudBased ProvisioningSupport = "CloudBased"
+	// ProvisioningSupportManual - The configuration need to be provisioned manually by the end user.
+	ProvisioningSupportManual ProvisioningSupport = "Manual"
+)
+
+// PossibleProvisioningSupportValues returns the possible values for the ProvisioningSupport const type.
+func PossibleProvisioningSupportValues() []ProvisioningSupport {
+	return []ProvisioningSupport{
+		ProvisioningSupportCloudBased,
+		ProvisioningSupportManual,
+	}
+}
+
+// StageName - Stage name.
 type StageName string
 
 const (
 	// StageNameCancelled - Order has been cancelled.
 	StageNameCancelled StageName = "Cancelled"
-	// StageNameConfirmed - Order is confirmed
+	// StageNameConfirmed - Order is confirmed.
 	StageNameConfirmed StageName = "Confirmed"
-	// StageNameDelivered - Order is delivered to customer
+	// StageNameDelivered - Order is delivered to customer.
 	StageNameDelivered StageName = "Delivered"
-	// StageNameInReview - Order is currently in draft mode and can still be cancelled
+	// StageNameInReview - Order is currently in draft mode and can still be cancelled.
 	StageNameInReview StageName = "InReview"
-	// StageNameInUse - Order is in use at customer site
+	// StageNameInUse - Order is in use at customer site.
 	StageNameInUse StageName = "InUse"
-	// StageNamePlaced - Currently in draft mode and can still be cancelled
+	// StageNamePlaced - Currently in draft mode and can still be cancelled.
 	StageNamePlaced StageName = "Placed"
-	// StageNameReadyToShip - Order is ready to ship
+	// StageNameReadyToSetup - Order is ready to get cloud connected.
+	StageNameReadyToSetup StageName = "ReadyToSetup"
+	// StageNameReadyToShip - Order is ready to ship.
 	StageNameReadyToShip StageName = "ReadyToShip"
 	// StageNameReturnCompleted - Return has now completed.
 	StageNameReturnCompleted StageName = "ReturnCompleted"
 	// StageNameReturnInitiated - Return has been initiated by customer.
 	StageNameReturnInitiated StageName = "ReturnInitiated"
-	// StageNameReturnPickedUp - Order is in transit from customer to microsoft.
+	// StageNameReturnPickedUp - Order is in transit from customer to Microsoft.
 	StageNameReturnPickedUp StageName = "ReturnPickedUp"
-	// StageNameReturnedToMicrosoft - Order has been received back to microsoft.
+	// StageNameReturnedToMicrosoft - Order has been received back to Microsoft.
 	StageNameReturnedToMicrosoft StageName = "ReturnedToMicrosoft"
-	// StageNameShipped - Order is in transit to customer
+	// StageNameShipped - Order is in transit to customer.
 	StageNameShipped StageName = "Shipped"
 )
 
@@ -470,6 +619,7 @@ func PossibleStageNameValues() []StageName {
 		StageNameInReview,
 		StageNameInUse,
 		StageNamePlaced,
+		StageNameReadyToSetup,
 		StageNameReadyToShip,
 		StageNameReturnCompleted,
 		StageNameReturnInitiated,
@@ -513,9 +663,9 @@ func PossibleStageStatusValues() []StageStatus {
 type SupportedFilterTypes string
 
 const (
-	// SupportedFilterTypesDoubleEncryptionStatus - Double encryption status
+	// SupportedFilterTypesDoubleEncryptionStatus - Double encryption status.
 	SupportedFilterTypesDoubleEncryptionStatus SupportedFilterTypes = "DoubleEncryptionStatus"
-	// SupportedFilterTypesShipToCountries - Ship to country
+	// SupportedFilterTypesShipToCountries - Ship to country.
 	SupportedFilterTypesShipToCountries SupportedFilterTypes = "ShipToCountries"
 )
 
@@ -524,6 +674,27 @@ func PossibleSupportedFilterTypesValues() []SupportedFilterTypes {
 	return []SupportedFilterTypes{
 		SupportedFilterTypesDoubleEncryptionStatus,
 		SupportedFilterTypesShipToCountries,
+	}
+}
+
+// TermCommitmentType - Term Commitment Type
+type TermCommitmentType string
+
+const (
+	// TermCommitmentTypeNone - Pay as you go Term Commitment Model.
+	TermCommitmentTypeNone TermCommitmentType = "None"
+	// TermCommitmentTypeTimed - Time based Term Commitment Model.
+	TermCommitmentTypeTimed TermCommitmentType = "Timed"
+	// TermCommitmentTypeTrial - Trial Term Commitment Model.
+	TermCommitmentTypeTrial TermCommitmentType = "Trial"
+)
+
+// PossibleTermCommitmentTypeValues returns the possible values for the TermCommitmentType const type.
+func PossibleTermCommitmentTypeValues() []TermCommitmentType {
+	return []TermCommitmentType{
+		TermCommitmentTypeNone,
+		TermCommitmentTypeTimed,
+		TermCommitmentTypeTrial,
 	}
 }
 
