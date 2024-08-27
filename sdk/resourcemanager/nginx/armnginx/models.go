@@ -195,6 +195,9 @@ type DeploymentProperties struct {
 	ManagedResourceGroup *string
 	NetworkProfile       *NetworkProfile
 
+	// Settings for NGINX App Protect (NAP)
+	NginxAppProtect *DeploymentPropertiesNginxAppProtect
+
 	// Information on how the deployment will be scaled.
 	ScalingProperties *DeploymentScalingProperties
 	UserProfile       *DeploymentUserProfile
@@ -207,6 +210,15 @@ type DeploymentProperties struct {
 
 	// READ-ONLY
 	ProvisioningState *ProvisioningState
+}
+
+// DeploymentPropertiesNginxAppProtect - Settings for NGINX App Protect (NAP)
+type DeploymentPropertiesNginxAppProtect struct {
+	// REQUIRED; Settings for the NGINX App Protect Web Application Firewall (WAF)
+	WebApplicationFirewallSettings *WebApplicationFirewallSettings
+
+	// READ-ONLY; The status of the NGINX App Protect Web Application Firewall
+	WebApplicationFirewallStatus *WebApplicationFirewallStatus
 }
 
 // DeploymentScalingProperties - Information on how the deployment will be scaled.
@@ -239,9 +251,18 @@ type DeploymentUpdateProperties struct {
 	EnableDiagnosticsSupport *bool
 	Logging                  *Logging
 
+	// Update settings for NGINX App Protect (NAP)
+	NginxAppProtect *DeploymentUpdatePropertiesNginxAppProtect
+
 	// Information on how the deployment will be scaled.
 	ScalingProperties *DeploymentScalingProperties
 	UserProfile       *DeploymentUserProfile
+}
+
+// DeploymentUpdatePropertiesNginxAppProtect - Update settings for NGINX App Protect (NAP)
+type DeploymentUpdatePropertiesNginxAppProtect struct {
+	// Settings for the NGINX App Protect Web Application Firewall (WAF)
+	WebApplicationFirewallSettings *WebApplicationFirewallSettings
 }
 
 type DeploymentUserProfile struct {
@@ -382,4 +403,44 @@ type UserIdentityProperties struct {
 
 	// READ-ONLY
 	PrincipalID *string
+}
+
+// WebApplicationFirewallComponentVersions - Versions of the NGINX App Protect Web Application Firewall (WAF) components.
+type WebApplicationFirewallComponentVersions struct {
+	// REQUIRED; The version of the NGINX App Protect Web Application Firewall (WAF) engine.
+	WafEngineVersion *string
+
+	// REQUIRED; The version of the NGINX App Protect Web Application Firewall (WAF) module for NGINX.
+	WafNginxVersion *string
+}
+
+// WebApplicationFirewallPackage - NGINX App Protect Web Application Firewall (WAF) Package. Contains the version and revision
+// date of the package.
+type WebApplicationFirewallPackage struct {
+	// REQUIRED; The date and time of the package revision.
+	RevisionDatetime *time.Time
+
+	// REQUIRED; The version of the NGINX App Protect Web Application Firewall (WAF) package.
+	Version *string
+}
+
+// WebApplicationFirewallSettings - Settings for the NGINX App Protect Web Application Firewall (WAF)
+type WebApplicationFirewallSettings struct {
+	// The activation state of the WAF. Use 'Enabled' to enable the WAF and 'Disabled' to disable it.
+	ActivationState *ActivationState
+}
+
+// WebApplicationFirewallStatus - The status of the NGINX App Protect Web Application Firewall
+type WebApplicationFirewallStatus struct {
+	// READ-ONLY; Package containing attack signatures for the NGINX App Protect Web Application Firewall (WAF).
+	AttackSignaturesPackage *WebApplicationFirewallPackage
+
+	// READ-ONLY; Package containing bot signatures for the NGINX App Protect Web Application Firewall (WAF).
+	BotSignaturesPackage *WebApplicationFirewallPackage
+
+	// READ-ONLY; Versions of the NGINX App Protect Web Application Firewall (WAF) components.
+	ComponentVersions *WebApplicationFirewallComponentVersions
+
+	// READ-ONLY; Package containing threat campaigns for the NGINX App Protect Web Application Firewall (WAF).
+	ThreatCampaignsPackage *WebApplicationFirewallPackage
 }

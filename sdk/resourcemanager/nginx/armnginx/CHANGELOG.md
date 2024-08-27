@@ -1,5 +1,19 @@
 # Release History
 
+## 3.1.0-beta.2 (2024-08-27)
+### Features Added
+
+- New enum type `ActivationState` with values `ActivationStateDisabled`, `ActivationStateEnabled`
+- New struct `DeploymentPropertiesNginxAppProtect`
+- New struct `DeploymentUpdatePropertiesNginxAppProtect`
+- New struct `WebApplicationFirewallComponentVersions`
+- New struct `WebApplicationFirewallPackage`
+- New struct `WebApplicationFirewallSettings`
+- New struct `WebApplicationFirewallStatus`
+- New field `NginxAppProtect` in struct `DeploymentProperties`
+- New field `NginxAppProtect` in struct `DeploymentUpdateProperties`
+
+
 ## 3.1.0-beta.1 (2024-03-22)
 ### Features Added
 
