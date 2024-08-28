@@ -39,7 +39,7 @@ func NewListTenantConfigurationViolationsClient(credential azcore.TokenCredentia
 
 // NewListPager - Gets list of items that violate tenant's configuration.
 //
-// Generated from API version 2020-09-01-preview
+// Generated from API version 2022-12-01-preview
 //   - options - ListTenantConfigurationViolationsClientListOptions contains the optional parameters for the ListTenantConfigurationViolationsClient.NewListPager
 //     method.
 func (client *ListTenantConfigurationViolationsClient) NewListPager(options *ListTenantConfigurationViolationsClientListOptions) *runtime.Pager[ListTenantConfigurationViolationsClientListResponse] {
@@ -73,7 +73,7 @@ func (client *ListTenantConfigurationViolationsClient) listCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-09-01-preview")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
