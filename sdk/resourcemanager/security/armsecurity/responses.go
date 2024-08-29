@@ -66,44 +66,6 @@ type AccountConnectorsClientListResponse struct {
 	ConnectorSettingList
 }
 
-// AdaptiveApplicationControlsClientDeleteResponse contains the response from method AdaptiveApplicationControlsClient.Delete.
-type AdaptiveApplicationControlsClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// AdaptiveApplicationControlsClientGetResponse contains the response from method AdaptiveApplicationControlsClient.Get.
-type AdaptiveApplicationControlsClientGetResponse struct {
-	AdaptiveApplicationControlGroup
-}
-
-// AdaptiveApplicationControlsClientListResponse contains the response from method AdaptiveApplicationControlsClient.List.
-type AdaptiveApplicationControlsClientListResponse struct {
-	// Represents a list of VM/server groups and set of rules that are Recommended by Microsoft Defender for Cloud to be allowed
-	AdaptiveApplicationControlGroups
-}
-
-// AdaptiveApplicationControlsClientPutResponse contains the response from method AdaptiveApplicationControlsClient.Put.
-type AdaptiveApplicationControlsClientPutResponse struct {
-	AdaptiveApplicationControlGroup
-}
-
-// AdaptiveNetworkHardeningsClientEnforceResponse contains the response from method AdaptiveNetworkHardeningsClient.BeginEnforce.
-type AdaptiveNetworkHardeningsClientEnforceResponse struct {
-	// placeholder for future response values
-}
-
-// AdaptiveNetworkHardeningsClientGetResponse contains the response from method AdaptiveNetworkHardeningsClient.Get.
-type AdaptiveNetworkHardeningsClientGetResponse struct {
-	// The resource whose properties describes the Adaptive Network Hardening settings for some Azure resource
-	AdaptiveNetworkHardening
-}
-
-// AdaptiveNetworkHardeningsClientListByExtendedResourceResponse contains the response from method AdaptiveNetworkHardeningsClient.NewListByExtendedResourcePager.
-type AdaptiveNetworkHardeningsClientListByExtendedResourceResponse struct {
-	// Response for ListAdaptiveNetworkHardenings API service call
-	AdaptiveNetworkHardeningsList
-}
-
 // AdvancedThreatProtectionClientCreateResponse contains the response from method AdvancedThreatProtectionClient.Create.
 type AdvancedThreatProtectionClientCreateResponse struct {
 	// The Advanced Threat Protection resource.
@@ -664,6 +626,47 @@ type DevOpsConfigurationsClientUpdateResponse struct {
 type DevOpsOperationResultsClientGetResponse struct {
 	// The current status of an async operation.
 	OperationStatusResult
+}
+
+// DevOpsPoliciesClientGetResponse contains the response from method DevOpsPoliciesClient.Get.
+type DevOpsPoliciesClientGetResponse struct {
+	// DevOps Policy Resource.
+	DevOpsPolicy
+}
+
+// DevOpsPoliciesClientListResponse contains the response from method DevOpsPoliciesClient.NewListPager.
+type DevOpsPoliciesClientListResponse struct {
+	// List of RP resources which supports pagination.
+	DevOpsPolicyListResponse
+}
+
+// DevOpsPolicyAssignmentsClientCreateOrUpdateResponse contains the response from method DevOpsPolicyAssignmentsClient.BeginCreateOrUpdate.
+type DevOpsPolicyAssignmentsClientCreateOrUpdateResponse struct {
+	// DevOps Policy assignment resource.
+	DevOpsPolicyAssignment
+}
+
+// DevOpsPolicyAssignmentsClientDeleteResponse contains the response from method DevOpsPolicyAssignmentsClient.BeginDelete.
+type DevOpsPolicyAssignmentsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// DevOpsPolicyAssignmentsClientGetResponse contains the response from method DevOpsPolicyAssignmentsClient.Get.
+type DevOpsPolicyAssignmentsClientGetResponse struct {
+	// DevOps Policy assignment resource.
+	DevOpsPolicyAssignment
+}
+
+// DevOpsPolicyAssignmentsClientListResponse contains the response from method DevOpsPolicyAssignmentsClient.NewListPager.
+type DevOpsPolicyAssignmentsClientListResponse struct {
+	// List of RP resources which supports pagination.
+	DevOpsPolicyAssignmentListResponse
+}
+
+// DevOpsPolicyAssignmentsClientUpdateResponse contains the response from method DevOpsPolicyAssignmentsClient.BeginUpdate.
+type DevOpsPolicyAssignmentsClientUpdateResponse struct {
+	// DevOps Policy assignment resource.
+	DevOpsPolicyAssignment
 }
 
 // DeviceSecurityGroupsClientCreateOrUpdateResponse contains the response from method DeviceSecurityGroupsClient.CreateOrUpdate.
