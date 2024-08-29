@@ -1541,6 +1541,58 @@ type InterfacesClientUpdateTagsOptions struct {
 	// placeholder for future optional parameters
 }
 
+// IpamPoolsClientBeginDeleteOptions contains the optional parameters for the IpamPoolsClient.BeginDelete method.
+type IpamPoolsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// IpamPoolsClientCreateOptions contains the optional parameters for the IpamPoolsClient.Create method.
+type IpamPoolsClientCreateOptions struct {
+	// Pool resource object to create/update.
+	Body *IpamPool
+}
+
+// IpamPoolsClientGetOptions contains the optional parameters for the IpamPoolsClient.Get method.
+type IpamPoolsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// IpamPoolsClientGetPoolUsageOptions contains the optional parameters for the IpamPoolsClient.GetPoolUsage method.
+type IpamPoolsClientGetPoolUsageOptions struct {
+	// placeholder for future optional parameters
+}
+
+// IpamPoolsClientListAssociatedResourcesOptions contains the optional parameters for the IpamPoolsClient.NewListAssociatedResourcesPager
+// method.
+type IpamPoolsClientListAssociatedResourcesOptions struct {
+	// placeholder for future optional parameters
+}
+
+// IpamPoolsClientListOptions contains the optional parameters for the IpamPoolsClient.NewListPager method.
+type IpamPoolsClientListOptions struct {
+	// Optional num entries to skip.
+	Skip *int32
+
+	// Optional skip token.
+	SkipToken *string
+
+	// Optional key by which to sort.
+	SortKey *string
+
+	// Optional sort value for pagination.
+	SortValue *string
+
+	// Optional num entries to show.
+	Top *int32
+}
+
+// IpamPoolsClientUpdateOptions contains the optional parameters for the IpamPoolsClient.Update method.
+type IpamPoolsClientUpdateOptions struct {
+	// Pool resource object to update partially.
+	Body *IpamPoolUpdate
+}
+
 // LoadBalancerBackendAddressPoolsClientBeginCreateOrUpdateOptions contains the optional parameters for the LoadBalancerBackendAddressPoolsClient.BeginCreateOrUpdate
 // method.
 type LoadBalancerBackendAddressPoolsClientBeginCreateOrUpdateOptions struct {
@@ -1836,6 +1888,41 @@ type ManagerCommitsClientBeginPostOptions struct {
 
 // ManagerDeploymentStatusClientListOptions contains the optional parameters for the ManagerDeploymentStatusClient.List method.
 type ManagerDeploymentStatusClientListOptions struct {
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
+// ManagerRoutingConfigurationsClientBeginDeleteOptions contains the optional parameters for the ManagerRoutingConfigurationsClient.BeginDelete
+// method.
+type ManagerRoutingConfigurationsClientBeginDeleteOptions struct {
+	// Deletes the resource even if it is part of a deployed configuration. If the configuration has been deployed, the service
+	// will do a cleanup deployment in the background, prior to the delete.
+	Force *bool
+
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ManagerRoutingConfigurationsClientCreateOrUpdateOptions contains the optional parameters for the ManagerRoutingConfigurationsClient.CreateOrUpdate
+// method.
+type ManagerRoutingConfigurationsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagerRoutingConfigurationsClientGetOptions contains the optional parameters for the ManagerRoutingConfigurationsClient.Get
+// method.
+type ManagerRoutingConfigurationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagerRoutingConfigurationsClientListOptions contains the optional parameters for the ManagerRoutingConfigurationsClient.NewListPager
+// method.
+type ManagerRoutingConfigurationsClientListOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+
 	// An optional query parameter which specifies the maximum number of records to be returned by the server.
 	Top *int32
 }
@@ -2352,6 +2439,81 @@ type PublicIPPrefixesClientUpdateTagsOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ReachabilityAnalysisIntentsClientCreateOptions contains the optional parameters for the ReachabilityAnalysisIntentsClient.Create
+// method.
+type ReachabilityAnalysisIntentsClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ReachabilityAnalysisIntentsClientDeleteOptions contains the optional parameters for the ReachabilityAnalysisIntentsClient.Delete
+// method.
+type ReachabilityAnalysisIntentsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ReachabilityAnalysisIntentsClientGetOptions contains the optional parameters for the ReachabilityAnalysisIntentsClient.Get
+// method.
+type ReachabilityAnalysisIntentsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ReachabilityAnalysisIntentsClientListOptions contains the optional parameters for the ReachabilityAnalysisIntentsClient.NewListPager
+// method.
+type ReachabilityAnalysisIntentsClientListOptions struct {
+	// Optional num entries to skip.
+	Skip *int32
+
+	// Optional skip token.
+	SkipToken *string
+
+	// Optional key by which to sort.
+	SortKey *string
+
+	// Optional sort value for pagination.
+	SortValue *string
+
+	// Optional num entries to show.
+	Top *int32
+}
+
+// ReachabilityAnalysisRunsClientBeginCreateOptions contains the optional parameters for the ReachabilityAnalysisRunsClient.BeginCreate
+// method.
+type ReachabilityAnalysisRunsClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ReachabilityAnalysisRunsClientBeginDeleteOptions contains the optional parameters for the ReachabilityAnalysisRunsClient.BeginDelete
+// method.
+type ReachabilityAnalysisRunsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ReachabilityAnalysisRunsClientGetOptions contains the optional parameters for the ReachabilityAnalysisRunsClient.Get method.
+type ReachabilityAnalysisRunsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ReachabilityAnalysisRunsClientListOptions contains the optional parameters for the ReachabilityAnalysisRunsClient.NewListPager
+// method.
+type ReachabilityAnalysisRunsClientListOptions struct {
+	// Optional num entries to skip.
+	Skip *int32
+
+	// Optional skip token.
+	SkipToken *string
+
+	// Optional key by which to sort.
+	SortKey *string
+
+	// Optional sort value for pagination.
+	SortValue *string
+
+	// Optional num entries to show.
+	Top *int32
+}
+
 // ResourceNavigationLinksClientListOptions contains the optional parameters for the ResourceNavigationLinksClient.List method.
 type ResourceNavigationLinksClientListOptions struct {
 	// placeholder for future optional parameters
@@ -2518,6 +2680,71 @@ type RoutingIntentClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// RoutingRuleCollectionsClientBeginDeleteOptions contains the optional parameters for the RoutingRuleCollectionsClient.BeginDelete
+// method.
+type RoutingRuleCollectionsClientBeginDeleteOptions struct {
+	// Deletes the resource even if it is part of a deployed configuration. If the configuration has been deployed, the service
+	// will do a cleanup deployment in the background, prior to the delete.
+	Force *bool
+
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RoutingRuleCollectionsClientCreateOrUpdateOptions contains the optional parameters for the RoutingRuleCollectionsClient.CreateOrUpdate
+// method.
+type RoutingRuleCollectionsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RoutingRuleCollectionsClientGetOptions contains the optional parameters for the RoutingRuleCollectionsClient.Get method.
+type RoutingRuleCollectionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RoutingRuleCollectionsClientListOptions contains the optional parameters for the RoutingRuleCollectionsClient.NewListPager
+// method.
+type RoutingRuleCollectionsClientListOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
+// RoutingRulesClientBeginDeleteOptions contains the optional parameters for the RoutingRulesClient.BeginDelete method.
+type RoutingRulesClientBeginDeleteOptions struct {
+	// Deletes the resource even if it is part of a deployed configuration. If the configuration has been deployed, the service
+	// will do a cleanup deployment in the background, prior to the delete.
+	Force *bool
+
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RoutingRulesClientCreateOrUpdateOptions contains the optional parameters for the RoutingRulesClient.CreateOrUpdate method.
+type RoutingRulesClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RoutingRulesClientGetOptions contains the optional parameters for the RoutingRulesClient.Get method.
+type RoutingRulesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RoutingRulesClientListOptions contains the optional parameters for the RoutingRulesClient.NewListPager method.
+type RoutingRulesClientListOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
 // ScopeConnectionsClientCreateOrUpdateOptions contains the optional parameters for the ScopeConnectionsClient.CreateOrUpdate
 // method.
 type ScopeConnectionsClientCreateOrUpdateOptions struct {
@@ -2674,6 +2901,109 @@ type SecurityRulesClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// SecurityUserConfigurationsClientBeginDeleteOptions contains the optional parameters for the SecurityUserConfigurationsClient.BeginDelete
+// method.
+type SecurityUserConfigurationsClientBeginDeleteOptions struct {
+	// Deletes the resource even if it is part of a deployed configuration. If the configuration has been deployed, the service
+	// will do a cleanup deployment in the background, prior to the delete.
+	Force *bool
+
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SecurityUserConfigurationsClientCreateOrUpdateOptions contains the optional parameters for the SecurityUserConfigurationsClient.CreateOrUpdate
+// method.
+type SecurityUserConfigurationsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityUserConfigurationsClientGetOptions contains the optional parameters for the SecurityUserConfigurationsClient.Get
+// method.
+type SecurityUserConfigurationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityUserConfigurationsClientListOptions contains the optional parameters for the SecurityUserConfigurationsClient.NewListPager
+// method.
+type SecurityUserConfigurationsClientListOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
+// SecurityUserRuleCollectionsClientBeginDeleteOptions contains the optional parameters for the SecurityUserRuleCollectionsClient.BeginDelete
+// method.
+type SecurityUserRuleCollectionsClientBeginDeleteOptions struct {
+	// Deletes the resource even if it is part of a deployed configuration. If the configuration has been deployed, the service
+	// will do a cleanup deployment in the background, prior to the delete.
+	Force *bool
+
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SecurityUserRuleCollectionsClientCreateOrUpdateOptions contains the optional parameters for the SecurityUserRuleCollectionsClient.CreateOrUpdate
+// method.
+type SecurityUserRuleCollectionsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityUserRuleCollectionsClientGetOptions contains the optional parameters for the SecurityUserRuleCollectionsClient.Get
+// method.
+type SecurityUserRuleCollectionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityUserRuleCollectionsClientListOptions contains the optional parameters for the SecurityUserRuleCollectionsClient.NewListPager
+// method.
+type SecurityUserRuleCollectionsClientListOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
+// SecurityUserRulesClientBeginDeleteOptions contains the optional parameters for the SecurityUserRulesClient.BeginDelete
+// method.
+type SecurityUserRulesClientBeginDeleteOptions struct {
+	// Deletes the resource even if it is part of a deployed configuration. If the configuration has been deployed, the service
+	// will do a cleanup deployment in the background, prior to the delete.
+	Force *bool
+
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SecurityUserRulesClientCreateOrUpdateOptions contains the optional parameters for the SecurityUserRulesClient.CreateOrUpdate
+// method.
+type SecurityUserRulesClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityUserRulesClientGetOptions contains the optional parameters for the SecurityUserRulesClient.Get method.
+type SecurityUserRulesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityUserRulesClientListOptions contains the optional parameters for the SecurityUserRulesClient.NewListPager method.
+type SecurityUserRulesClientListOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
 // ServiceAssociationLinksClientListOptions contains the optional parameters for the ServiceAssociationLinksClient.List method.
 type ServiceAssociationLinksClientListOptions struct {
 	// placeholder for future optional parameters
@@ -2756,6 +3086,41 @@ type ServiceTagInformationClientListOptions struct {
 // ServiceTagsClientListOptions contains the optional parameters for the ServiceTagsClient.List method.
 type ServiceTagsClientListOptions struct {
 	// placeholder for future optional parameters
+}
+
+// StaticCidrsClientBeginDeleteOptions contains the optional parameters for the StaticCidrsClient.BeginDelete method.
+type StaticCidrsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// StaticCidrsClientCreateOptions contains the optional parameters for the StaticCidrsClient.Create method.
+type StaticCidrsClientCreateOptions struct {
+	// StaticCidr resource object to create/update.
+	Body *StaticCidr
+}
+
+// StaticCidrsClientGetOptions contains the optional parameters for the StaticCidrsClient.Get method.
+type StaticCidrsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// StaticCidrsClientListOptions contains the optional parameters for the StaticCidrsClient.NewListPager method.
+type StaticCidrsClientListOptions struct {
+	// Optional num entries to skip.
+	Skip *int32
+
+	// Optional skip token.
+	SkipToken *string
+
+	// Optional key by which to sort.
+	SortKey *string
+
+	// Optional sort value for pagination.
+	SortValue *string
+
+	// Optional num entries to show.
+	Top *int32
 }
 
 // StaticMembersClientCreateOrUpdateOptions contains the optional parameters for the StaticMembersClient.CreateOrUpdate method.
@@ -2978,9 +3343,34 @@ type VPNLinkConnectionsClientBeginResetConnectionOptions struct {
 	ResumeToken string
 }
 
+// VPNLinkConnectionsClientBeginSetOrInitDefaultSharedKeyOptions contains the optional parameters for the VPNLinkConnectionsClient.BeginSetOrInitDefaultSharedKey
+// method.
+type VPNLinkConnectionsClientBeginSetOrInitDefaultSharedKeyOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VPNLinkConnectionsClientGetAllSharedKeysOptions contains the optional parameters for the VPNLinkConnectionsClient.NewGetAllSharedKeysPager
+// method.
+type VPNLinkConnectionsClientGetAllSharedKeysOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VPNLinkConnectionsClientGetDefaultSharedKeyOptions contains the optional parameters for the VPNLinkConnectionsClient.GetDefaultSharedKey
+// method.
+type VPNLinkConnectionsClientGetDefaultSharedKeyOptions struct {
+	// placeholder for future optional parameters
+}
+
 // VPNLinkConnectionsClientListByVPNConnectionOptions contains the optional parameters for the VPNLinkConnectionsClient.NewListByVPNConnectionPager
 // method.
 type VPNLinkConnectionsClientListByVPNConnectionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VPNLinkConnectionsClientListDefaultSharedKeyOptions contains the optional parameters for the VPNLinkConnectionsClient.ListDefaultSharedKey
+// method.
+type VPNLinkConnectionsClientListDefaultSharedKeyOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -3082,6 +3472,47 @@ type VPNSitesClientUpdateTagsOptions struct {
 type VPNSitesConfigurationClientBeginDownloadOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
+}
+
+// VerifierWorkspacesClientBeginDeleteOptions contains the optional parameters for the VerifierWorkspacesClient.BeginDelete
+// method.
+type VerifierWorkspacesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VerifierWorkspacesClientCreateOptions contains the optional parameters for the VerifierWorkspacesClient.Create method.
+type VerifierWorkspacesClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VerifierWorkspacesClientGetOptions contains the optional parameters for the VerifierWorkspacesClient.Get method.
+type VerifierWorkspacesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VerifierWorkspacesClientListOptions contains the optional parameters for the VerifierWorkspacesClient.NewListPager method.
+type VerifierWorkspacesClientListOptions struct {
+	// Optional num entries to skip.
+	Skip *int32
+
+	// Optional skip token.
+	SkipToken *string
+
+	// Optional key by which to sort.
+	SortKey *string
+
+	// Optional sort value for pagination.
+	SortValue *string
+
+	// Optional num entries to show.
+	Top *int32
+}
+
+// VerifierWorkspacesClientUpdateOptions contains the optional parameters for the VerifierWorkspacesClient.Update method.
+type VerifierWorkspacesClientUpdateOptions struct {
+	// Verifier Workspace object to create/update.
+	Body *VerifierWorkspaceUpdate
 }
 
 // VipSwapClientBeginCreateOptions contains the optional parameters for the VipSwapClient.BeginCreate method.
