@@ -10,7 +10,7 @@ package armcompute
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute"
-	moduleVersion = "v6.1.0"
+	moduleVersion = "v7.0.0"
 )
 
 type AccessLevel string
@@ -497,7 +497,7 @@ func PossibleDiskDeleteOptionTypesValues() []DiskDeleteOptionTypes {
 // is applicable only for managed data disks. If a previous detachment attempt of the data disk did not complete due to an
 // unexpected failure from the virtual machine and the disk is still not released
 // then use force-detach as a last resort option to detach the disk forcibly from the VM. All writes might not have been flushed
-// when using this detach behavior. This feature is still in preview mode. To
+// when using this detach behavior. This feature is still in preview. To
 // force-detach a data disk update toBeDetached to 'true' along with setting detachOption: 'ForceDetach'.
 type DiskDetachOptionTypes string
 
@@ -1183,20 +1183,22 @@ func PossibleMaintenanceOperationResultCodeTypesValues() []MaintenanceOperationR
 	}
 }
 
-// Mode - Specifies the mode that ProxyAgent will execute on if the feature is enabled. ProxyAgent will start to audit or
-// monitor but not enforce access control over requests to host endpoints in Audit mode,
-// while in Enforce mode it will enforce access control. The default value is Enforce mode.
+// Mode - Specifies the execution mode. In Audit mode, the system acts as if it is enforcing the access control policy, including
+// emitting access denial entries in the logs but it does not actually deny any
+// requests to host endpoints. Enforce mode is the recommended mode of operation and system will enforce the access control.
 type Mode string
 
 const (
-	ModeAudit   Mode = "Audit"
-	ModeEnforce Mode = "Enforce"
+	ModeAudit    Mode = "Audit"
+	ModeDisabled Mode = "Disabled"
+	ModeEnforce  Mode = "Enforce"
 )
 
 // PossibleModeValues returns the possible values for the Mode const type.
 func PossibleModeValues() []Mode {
 	return []Mode{
 		ModeAudit,
+		ModeDisabled,
 		ModeEnforce,
 	}
 }
