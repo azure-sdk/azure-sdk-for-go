@@ -10,8 +10,26 @@ package armappconfiguration
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appconfiguration/armappconfiguration"
-	moduleVersion = "v2.1.0"
+	moduleVersion = "v3.0.0-beta.1"
 )
+
+// AccessRuleDirection - Direction of Access Rule
+type AccessRuleDirection string
+
+const (
+	// AccessRuleDirectionInbound - Applies to inbound network traffic to the secured resources.
+	AccessRuleDirectionInbound AccessRuleDirection = "Inbound"
+	// AccessRuleDirectionOutbound - Applies to outbound network traffic from the secured resources
+	AccessRuleDirectionOutbound AccessRuleDirection = "Outbound"
+)
+
+// PossibleAccessRuleDirectionValues returns the possible values for the AccessRuleDirection const type.
+func PossibleAccessRuleDirectionValues() []AccessRuleDirection {
+	return []AccessRuleDirection{
+		AccessRuleDirectionInbound,
+		AccessRuleDirectionOutbound,
+	}
+}
 
 // ActionsRequired - Any action that is required beyond basic workflow (approve/ reject/ disconnect)
 type ActionsRequired string
@@ -26,6 +44,45 @@ func PossibleActionsRequiredValues() []ActionsRequired {
 	return []ActionsRequired{
 		ActionsRequiredNone,
 		ActionsRequiredRecreate,
+	}
+}
+
+// AuthenticationMode - The data plane proxy authentication mode. This property manages the authentication mode of request
+// to the data plane resources.
+type AuthenticationMode string
+
+const (
+	// AuthenticationModeLocal - The local authentication mode. Users are not required to have data plane permissions if local
+	// authentication is not disabled.
+	AuthenticationModeLocal AuthenticationMode = "Local"
+	// AuthenticationModePassThrough - The pass-through authentication mode. User identity will be passed through from ARM, requiring
+	// user to have data plane action permissions (Available via App Configuration Data Owner/ App Configuration Data Reader).
+	AuthenticationModePassThrough AuthenticationMode = "Pass-through"
+)
+
+// PossibleAuthenticationModeValues returns the possible values for the AuthenticationMode const type.
+func PossibleAuthenticationModeValues() []AuthenticationMode {
+	return []AuthenticationMode{
+		AuthenticationModeLocal,
+		AuthenticationModePassThrough,
+	}
+}
+
+// CompositionType - The composition type describes how the key-values within the snapshot are composed. The 'key' composition
+// type ensures there are no two key-values containing the same key. The 'key_label' composition
+// type ensures there are no two key-values containing the same key and label.
+type CompositionType string
+
+const (
+	CompositionTypeKey      CompositionType = "Key"
+	CompositionTypeKeyLabel CompositionType = "Key_Label"
+)
+
+// PossibleCompositionTypeValues returns the possible values for the CompositionType const type.
+func PossibleCompositionTypeValues() []CompositionType {
+	return []CompositionType{
+		CompositionTypeKey,
+		CompositionTypeKeyLabel,
 	}
 }
 
@@ -121,6 +178,79 @@ func PossibleIdentityTypeValues() []IdentityType {
 	}
 }
 
+// IssueType - Type of issue
+type IssueType string
+
+const (
+	// IssueTypeConfigurationPropagationFailure - An error occurred while applying the network security perimeter (NSP) configuration.
+	IssueTypeConfigurationPropagationFailure IssueType = "ConfigurationPropagationFailure"
+	// IssueTypeMissingIdentityConfiguration - An managed identity hasn't been associated with the resource. The resource will
+	// still be able to validate inbound traffic from the network security perimeter (NSP) or matching inbound access rules, but
+	// it won't be able to perform outbound access as a member of the NSP.
+	IssueTypeMissingIdentityConfiguration IssueType = "MissingIdentityConfiguration"
+	// IssueTypeMissingPerimeterConfiguration - A network connectivity issue is happening on the resource which could be addressed
+	// either by adding new resources to the network security perimeter (NSP) or by modifying access rules.
+	IssueTypeMissingPerimeterConfiguration IssueType = "MissingPerimeterConfiguration"
+	// IssueTypeUnknown - Unknown issue type
+	IssueTypeUnknown IssueType = "Unknown"
+)
+
+// PossibleIssueTypeValues returns the possible values for the IssueType const type.
+func PossibleIssueTypeValues() []IssueType {
+	return []IssueType{
+		IssueTypeConfigurationPropagationFailure,
+		IssueTypeMissingIdentityConfiguration,
+		IssueTypeMissingPerimeterConfiguration,
+		IssueTypeUnknown,
+	}
+}
+
+// NetworkSecurityPerimeterConfigurationProvisioningState - Provisioning state of a network security perimeter configuration
+// that is being created or updated.
+type NetworkSecurityPerimeterConfigurationProvisioningState string
+
+const (
+	NetworkSecurityPerimeterConfigurationProvisioningStateAccepted  NetworkSecurityPerimeterConfigurationProvisioningState = "Accepted"
+	NetworkSecurityPerimeterConfigurationProvisioningStateCanceled  NetworkSecurityPerimeterConfigurationProvisioningState = "Canceled"
+	NetworkSecurityPerimeterConfigurationProvisioningStateCreating  NetworkSecurityPerimeterConfigurationProvisioningState = "Creating"
+	NetworkSecurityPerimeterConfigurationProvisioningStateDeleting  NetworkSecurityPerimeterConfigurationProvisioningState = "Deleting"
+	NetworkSecurityPerimeterConfigurationProvisioningStateFailed    NetworkSecurityPerimeterConfigurationProvisioningState = "Failed"
+	NetworkSecurityPerimeterConfigurationProvisioningStateSucceeded NetworkSecurityPerimeterConfigurationProvisioningState = "Succeeded"
+	NetworkSecurityPerimeterConfigurationProvisioningStateUpdating  NetworkSecurityPerimeterConfigurationProvisioningState = "Updating"
+)
+
+// PossibleNetworkSecurityPerimeterConfigurationProvisioningStateValues returns the possible values for the NetworkSecurityPerimeterConfigurationProvisioningState const type.
+func PossibleNetworkSecurityPerimeterConfigurationProvisioningStateValues() []NetworkSecurityPerimeterConfigurationProvisioningState {
+	return []NetworkSecurityPerimeterConfigurationProvisioningState{
+		NetworkSecurityPerimeterConfigurationProvisioningStateAccepted,
+		NetworkSecurityPerimeterConfigurationProvisioningStateCanceled,
+		NetworkSecurityPerimeterConfigurationProvisioningStateCreating,
+		NetworkSecurityPerimeterConfigurationProvisioningStateDeleting,
+		NetworkSecurityPerimeterConfigurationProvisioningStateFailed,
+		NetworkSecurityPerimeterConfigurationProvisioningStateSucceeded,
+		NetworkSecurityPerimeterConfigurationProvisioningStateUpdating,
+	}
+}
+
+// PrivateLinkDelegation - The data plane proxy private link delegation. This property manages if a request from delegated
+// ARM private link is allowed when the data plane resource requires private link.
+type PrivateLinkDelegation string
+
+const (
+	// PrivateLinkDelegationDisabled - Request is denied if the resource requires private link.
+	PrivateLinkDelegationDisabled PrivateLinkDelegation = "Disabled"
+	// PrivateLinkDelegationEnabled - ARM private endpoint is required if the resource requires private link.
+	PrivateLinkDelegationEnabled PrivateLinkDelegation = "Enabled"
+)
+
+// PossiblePrivateLinkDelegationValues returns the possible values for the PrivateLinkDelegation const type.
+func PossiblePrivateLinkDelegationValues() []PrivateLinkDelegation {
+	return []PrivateLinkDelegation{
+		PrivateLinkDelegationDisabled,
+		PrivateLinkDelegationEnabled,
+	}
+}
+
 // ProvisioningState - The provisioning state of the configuration store.
 type ProvisioningState string
 
@@ -145,12 +275,14 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 	}
 }
 
-// PublicNetworkAccess - Control permission for data plane traffic coming from public networks while private endpoint is enabled.
+// PublicNetworkAccess - Allow, disallow, or let network security perimeter configuration control public network access to
+// the data plane.
 type PublicNetworkAccess string
 
 const (
-	PublicNetworkAccessDisabled PublicNetworkAccess = "Disabled"
-	PublicNetworkAccessEnabled  PublicNetworkAccess = "Enabled"
+	PublicNetworkAccessDisabled           PublicNetworkAccess = "Disabled"
+	PublicNetworkAccessEnabled            PublicNetworkAccess = "Enabled"
+	PublicNetworkAccessSecuredByPerimeter PublicNetworkAccess = "SecuredByPerimeter"
 )
 
 // PossiblePublicNetworkAccessValues returns the possible values for the PublicNetworkAccess const type.
@@ -158,6 +290,7 @@ func PossiblePublicNetworkAccessValues() []PublicNetworkAccess {
 	return []PublicNetworkAccess{
 		PublicNetworkAccessDisabled,
 		PublicNetworkAccessEnabled,
+		PublicNetworkAccessSecuredByPerimeter,
 	}
 }
 
@@ -180,5 +313,64 @@ func PossibleReplicaProvisioningStateValues() []ReplicaProvisioningState {
 		ReplicaProvisioningStateDeleting,
 		ReplicaProvisioningStateFailed,
 		ReplicaProvisioningStateSucceeded,
+	}
+}
+
+// ResourceAssociationAccessMode - Access mode of the resource association
+type ResourceAssociationAccessMode string
+
+const (
+	// ResourceAssociationAccessModeAudit - Audit access mode - traffic to the resource that fails access checks is logged but
+	// not blocked
+	ResourceAssociationAccessModeAudit ResourceAssociationAccessMode = "Audit"
+	// ResourceAssociationAccessModeEnforced - Enforced access mode - traffic to the resource that failed access checks is blocked
+	ResourceAssociationAccessModeEnforced ResourceAssociationAccessMode = "Enforced"
+	// ResourceAssociationAccessModeLearning - Learning access mode - traffic to the resource is enabled for analysis but not
+	// blocked
+	ResourceAssociationAccessModeLearning ResourceAssociationAccessMode = "Learning"
+)
+
+// PossibleResourceAssociationAccessModeValues returns the possible values for the ResourceAssociationAccessMode const type.
+func PossibleResourceAssociationAccessModeValues() []ResourceAssociationAccessMode {
+	return []ResourceAssociationAccessMode{
+		ResourceAssociationAccessModeAudit,
+		ResourceAssociationAccessModeEnforced,
+		ResourceAssociationAccessModeLearning,
+	}
+}
+
+// Severity - Severity of the issue.
+type Severity string
+
+const (
+	SeverityError   Severity = "Error"
+	SeverityWarning Severity = "Warning"
+)
+
+// PossibleSeverityValues returns the possible values for the Severity const type.
+func PossibleSeverityValues() []Severity {
+	return []Severity{
+		SeverityError,
+		SeverityWarning,
+	}
+}
+
+// SnapshotStatus - The current status of the snapshot.
+type SnapshotStatus string
+
+const (
+	SnapshotStatusArchived     SnapshotStatus = "Archived"
+	SnapshotStatusFailed       SnapshotStatus = "Failed"
+	SnapshotStatusProvisioning SnapshotStatus = "Provisioning"
+	SnapshotStatusReady        SnapshotStatus = "Ready"
+)
+
+// PossibleSnapshotStatusValues returns the possible values for the SnapshotStatus const type.
+func PossibleSnapshotStatusValues() []SnapshotStatus {
+	return []SnapshotStatus{
+		SnapshotStatusArchived,
+		SnapshotStatusFailed,
+		SnapshotStatusProvisioning,
+		SnapshotStatusReady,
 	}
 }

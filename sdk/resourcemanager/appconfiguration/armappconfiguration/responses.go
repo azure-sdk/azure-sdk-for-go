@@ -92,6 +92,24 @@ type KeyValuesClientGetResponse struct {
 	KeyValue
 }
 
+// NetworkSecurityPerimeterConfigurationsClientGetResponse contains the response from method NetworkSecurityPerimeterConfigurationsClient.Get.
+type NetworkSecurityPerimeterConfigurationsClientGetResponse struct {
+	// Network security perimeter (NSP) configuration resource
+	NetworkSecurityPerimeterConfiguration
+}
+
+// NetworkSecurityPerimeterConfigurationsClientListByConfigurationStoreResponse contains the response from method NetworkSecurityPerimeterConfigurationsClient.NewListByConfigurationStorePager.
+type NetworkSecurityPerimeterConfigurationsClientListByConfigurationStoreResponse struct {
+	// Result of a list NSP (network security perimeter) configurations request.
+	NetworkSecurityPerimeterConfigurationListResult
+}
+
+// NetworkSecurityPerimeterConfigurationsClientReconcileResponse contains the response from method NetworkSecurityPerimeterConfigurationsClient.BeginReconcile.
+type NetworkSecurityPerimeterConfigurationsClientReconcileResponse struct {
+	// Network security perimeter (NSP) configuration resource
+	NetworkSecurityPerimeterConfiguration
+}
+
 // OperationsClientCheckNameAvailabilityResponse contains the response from method OperationsClient.CheckNameAvailability.
 type OperationsClientCheckNameAvailabilityResponse struct {
 	// The result of a request to check the availability of a resource name.
@@ -166,4 +184,16 @@ type ReplicasClientGetResponse struct {
 type ReplicasClientListByConfigurationStoreResponse struct {
 	// The result of a request to list replicas.
 	ReplicaListResult
+}
+
+// SnapshotsClientCreateResponse contains the response from method SnapshotsClient.BeginCreate.
+type SnapshotsClientCreateResponse struct {
+	// The snapshot resource.
+	Snapshot
+}
+
+// SnapshotsClientGetResponse contains the response from method SnapshotsClient.Get.
+type SnapshotsClientGetResponse struct {
+	// The snapshot resource.
+	Snapshot
 }

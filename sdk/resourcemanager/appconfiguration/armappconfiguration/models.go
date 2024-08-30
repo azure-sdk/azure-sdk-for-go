@@ -40,6 +40,45 @@ type APIKeyListResult struct {
 	Value []*APIKey
 }
 
+// AccessRule - Access rule in a network security perimeter configuration profile
+type AccessRule struct {
+	// Name of the access rule
+	Name *string
+
+	// Properties of Access Rule
+	Properties *AccessRuleProperties
+}
+
+// AccessRuleProperties - Properties of Access Rule
+type AccessRuleProperties struct {
+	// Address prefixes in the CIDR format for inbound rules
+	AddressPrefixes []*string
+
+	// Direction of Access Rule
+	Direction *AccessRuleDirection
+
+	// Email addresses for outbound rules
+	EmailAddresses []*string
+
+	// Fully qualified domain names (FQDN) for outbound rules
+	FullyQualifiedDomainNames []*string
+
+	// Network security perimeters for inbound rules
+	NetworkSecurityPerimeters []*NetworkSecurityPerimeter
+
+	// Phone numbers for outbound rules
+	PhoneNumbers []*string
+
+	// Subscriptions for inbound rules
+	Subscriptions []*AccessRulePropertiesSubscriptionsItem
+}
+
+// AccessRulePropertiesSubscriptionsItem - Subscription identifiers
+type AccessRulePropertiesSubscriptionsItem struct {
+	// The fully qualified Azure resource ID of the subscription e.g. ('/subscriptions/00000000-0000-0000-0000-000000000000')
+	ID *string
+}
+
 // CheckNameAvailabilityParameters - Parameters used for checking whether a resource name is available.
 type CheckNameAvailabilityParameters struct {
 	// REQUIRED; The name to check for availability.
@@ -94,6 +133,9 @@ type ConfigurationStoreProperties struct {
 	// Indicates whether the configuration store need to be recovered.
 	CreateMode *CreateMode
 
+	// Property specifying the configuration of data plane proxy for Azure Resource Manager (ARM).
+	DataPlaneProxy *DataPlaneProxyProperties
+
 	// Disables all authentication methods other than AAD authentication.
 	DisableLocalAuth *bool
 
@@ -103,11 +145,21 @@ type ConfigurationStoreProperties struct {
 	// The encryption settings of the configuration store.
 	Encryption *EncryptionProperties
 
-	// Control permission for data plane traffic coming from public networks while private endpoint is enabled.
+	// Property specifying the configuration of experimentation for this configuration store
+	Experimentation *ExperimentationProperties
+
+	// Allow, disallow, or let network security perimeter configuration control public network access to the data plane.
 	PublicNetworkAccess *PublicNetworkAccess
+
+	// The amount of time in seconds to retain new key value revisions. Defaults to 604800 (7 days) for Free SKU stores and 2592000
+	// (30 days) for Standard SKU stores.
+	RevisionRetentionPeriodInSeconds *int64
 
 	// The amount of time in days that the configuration store will be retained when it is soft deleted.
 	SoftDeleteRetentionInDays *int32
+
+	// Property specifying the configuration of telemetry for this configuration store
+	Telemetry *TelemetryProperties
 
 	// READ-ONLY; The creation date of configuration store.
 	CreationDate *time.Time
@@ -124,6 +176,9 @@ type ConfigurationStoreProperties struct {
 
 // ConfigurationStorePropertiesUpdateParameters - The properties for updating a configuration store.
 type ConfigurationStorePropertiesUpdateParameters struct {
+	// Property specifying the configuration of data plane proxy for Azure Resource Manager (ARM).
+	DataPlaneProxy *DataPlaneProxyProperties
+
 	// Disables all authentication methods other than AAD authentication.
 	DisableLocalAuth *bool
 
@@ -133,8 +188,18 @@ type ConfigurationStorePropertiesUpdateParameters struct {
 	// The encryption settings of the configuration store.
 	Encryption *EncryptionProperties
 
-	// Control permission for data plane traffic coming from public networks while private endpoint is enabled.
+	// Property specifying the configuration of experimentation to update for this configuration store
+	Experimentation *ExperimentationProperties
+
+	// Allow, disallow, or let network security perimeter configuration control public network access to the data plane.
 	PublicNetworkAccess *PublicNetworkAccess
+
+	// The amount of time in seconds to retain new key value revisions. Defaults to 604800 (7 days) for Free SKU stores and 2592000
+	// (30 days) for Standard SKU stores.
+	RevisionRetentionPeriodInSeconds *int64
+
+	// Property specifying the configuration of telemetry to update for this configuration store
+	Telemetry *TelemetryProperties
 }
 
 // ConfigurationStoreUpdateParameters - The parameters for updating a configuration store.
@@ -150,6 +215,16 @@ type ConfigurationStoreUpdateParameters struct {
 
 	// The ARM resource tags.
 	Tags map[string]*string
+}
+
+// DataPlaneProxyProperties - The data plane proxy settings for a configuration store.
+type DataPlaneProxyProperties struct {
+	// The data plane proxy authentication mode. This property manages the authentication mode of request to the data plane resources.
+	AuthenticationMode *AuthenticationMode
+
+	// The data plane proxy private link delegation. This property manages if a request from delegated ARM private link is allowed
+	// when the data plane resource requires private link.
+	PrivateLinkDelegation *PrivateLinkDelegation
 }
 
 // DeletedConfigurationStore - Deleted configuration store information with extended details.
@@ -212,23 +287,38 @@ type ErrorAdditionalInfo struct {
 	Type *string
 }
 
-// ErrorDetails - The details of the error.
-type ErrorDetails struct {
+// ErrorDetail - The error detail.
+type ErrorDetail struct {
 	// READ-ONLY; The error additional info.
 	AdditionalInfo []*ErrorAdditionalInfo
 
-	// READ-ONLY; Error code.
+	// READ-ONLY; The error code.
 	Code *string
 
-	// READ-ONLY; Error message indicating why the operation failed.
+	// READ-ONLY; The error details.
+	Details []*ErrorDetail
+
+	// READ-ONLY; The error message.
 	Message *string
+
+	// READ-ONLY; The error target.
+	Target *string
 }
 
-// ErrorResponse - Error response indicates that the service is not able to process the incoming request. The reason is provided
-// in the error message.
+// ErrorResponse - Common error response for all Azure Resource Manager APIs to return error details for failed operations.
+// (This also follows the OData error response format.).
 type ErrorResponse struct {
-	// The details of the error.
-	Error *ErrorDetails
+	// The error object.
+	Error *ErrorDetail
+}
+
+// ExperimentationProperties - Experimentation settings
+type ExperimentationProperties struct {
+	// The data plane endpoint of the Split experimentation workspace resource where experimentation data can be retrieved
+	DataPlaneEndpoint *string
+
+	// Resource ID of a resource enabling experimentation
+	ResourceID *string
 }
 
 // KeyValue - The key-value resource along with all resource properties.
@@ -244,6 +334,15 @@ type KeyValue struct {
 
 	// READ-ONLY; The type of the resource.
 	Type *string
+}
+
+// KeyValueFilter - Enables filtering of key-values.
+type KeyValueFilter struct {
+	// REQUIRED; Filters key-values by their key field.
+	Key *string
+
+	// Filters key-values by their label field.
+	Label *string
 }
 
 // KeyValueListResult - The result of a request to list key-values.
@@ -353,6 +452,81 @@ type NameAvailabilityStatus struct {
 
 	// READ-ONLY; If any, the reason that the name is not available.
 	Reason *string
+}
+
+// NetworkSecurityPerimeter - Information about a network security perimeter (NSP)
+type NetworkSecurityPerimeter struct {
+	// Fully qualified Azure resource ID of the NSP resource
+	ID *string
+
+	// Location of the network security perimeter
+	Location *string
+
+	// Universal unique ID (UUID) of the network security perimeter
+	PerimeterGUID *string
+}
+
+// NetworkSecurityPerimeterConfiguration - Network security perimeter (NSP) configuration resource
+type NetworkSecurityPerimeterConfiguration struct {
+	// Network security configuration properties.
+	Properties *NetworkSecurityPerimeterConfigurationProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// NetworkSecurityPerimeterConfigurationListResult - Result of a list NSP (network security perimeter) configurations request.
+type NetworkSecurityPerimeterConfigurationListResult struct {
+	// The link used to get the next page of results.
+	NextLink *string
+
+	// Array of network security perimeter results.
+	Value []*NetworkSecurityPerimeterConfiguration
+}
+
+// NetworkSecurityPerimeterConfigurationProperties - Network security configuration properties.
+type NetworkSecurityPerimeterConfigurationProperties struct {
+	// Information about a network security perimeter (NSP)
+	NetworkSecurityPerimeter *NetworkSecurityPerimeter
+
+	// Network security perimeter configuration profile
+	Profile *NetworkSecurityProfile
+
+	// Information about resource association
+	ResourceAssociation *ResourceAssociation
+
+	// READ-ONLY; List of provisioning issues, if any
+	ProvisioningIssues []*ProvisioningIssue
+
+	// READ-ONLY; Provisioning state of a network security perimeter configuration that is being created or updated.
+	ProvisioningState *NetworkSecurityPerimeterConfigurationProvisioningState
+}
+
+// NetworkSecurityProfile - Network security perimeter configuration profile
+type NetworkSecurityProfile struct {
+	// List of Access Rules
+	AccessRules []*AccessRule
+
+	// Current access rules version
+	AccessRulesVersion *int32
+
+	// Current diagnostic settings version
+	DiagnosticSettingsVersion *int32
+
+	// List of log categories that are enabled
+	EnabledLogCategories []*string
+
+	// Name of the profile
+	Name *string
 }
 
 // OperationDefinition - The definition of a configuration store operation.
@@ -508,6 +682,54 @@ type PrivateLinkServiceConnectionState struct {
 	ActionsRequired *ActionsRequired
 }
 
+// ProvisioningIssue - Describes a provisioning issue for a network security perimeter configuration
+type ProvisioningIssue struct {
+	// READ-ONLY; Name of the issue
+	Name *string
+
+	// READ-ONLY; Details of a provisioning issue for a network security perimeter (NSP) configuration. Resource providers should
+	// generate separate provisioning issue elements for each separate issue detected, and
+	// include a meaningful and distinctive description, as well as any appropriate suggestedResourceIds and suggestedAccessRules
+	Properties *ProvisioningIssueProperties
+}
+
+// ProvisioningIssueProperties - Details of a provisioning issue for a network security perimeter (NSP) configuration. Resource
+// providers should generate separate provisioning issue elements for each separate issue detected, and
+// include a meaningful and distinctive description, as well as any appropriate suggestedResourceIds and suggestedAccessRules
+type ProvisioningIssueProperties struct {
+	// READ-ONLY; Description of the issue
+	Description *string
+
+	// READ-ONLY; Type of issue
+	IssueType *IssueType
+
+	// READ-ONLY; Severity of the issue.
+	Severity *Severity
+
+	// READ-ONLY; Access rules that can be added to the network security profile (NSP) to remediate the issue.
+	SuggestedAccessRules []*AccessRule
+
+	// READ-ONLY; Fully qualified resource IDs of suggested resources that can be associated to the network security perimeter
+	// (NSP) to remediate the issue.
+	SuggestedResourceIDs []*string
+}
+
+// ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
+// location
+type ProxyResource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
 // RegenerateKeyParameters - The parameters used to regenerate an API key.
 type RegenerateKeyParameters struct {
 	// The id of the key to regenerate.
@@ -565,6 +787,30 @@ type Resource struct {
 	Type *string
 }
 
+// ResourceAssociation - Information about resource association
+type ResourceAssociation struct {
+	// Access mode of the resource association
+	AccessMode *ResourceAssociationAccessMode
+
+	// Name of the resource association
+	Name *string
+}
+
+// ResourceAutoGenerated - Common fields that are returned in the response for all Azure Resource Manager resources
+type ResourceAutoGenerated struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
 // ResourceIdentity - An identity that can be associated with a resource.
 type ResourceIdentity struct {
 	// The type of managed identity used. The type 'SystemAssigned, UserAssigned' includes both an implicitly created identity
@@ -600,6 +846,61 @@ type ServiceSpecification struct {
 	MetricSpecifications []*MetricSpecification
 }
 
+// Snapshot - The snapshot resource.
+type Snapshot struct {
+	// All snapshot properties.
+	Properties *SnapshotProperties
+
+	// READ-ONLY; The resource ID.
+	ID *string
+
+	// READ-ONLY; The name of the snapshot.
+	Name *string
+
+	// READ-ONLY; The type of the resource.
+	Type *string
+}
+
+// SnapshotProperties - All snapshot properties.
+type SnapshotProperties struct {
+	// REQUIRED; A list of filters used to filter the key-values included in the snapshot.
+	Filters []*KeyValueFilter
+
+	// The composition type describes how the key-values within the snapshot are composed. The 'key' composition type ensures
+	// there are no two key-values containing the same key. The 'key_label' composition
+	// type ensures there are no two key-values containing the same key and label.
+	CompositionType *CompositionType
+
+	// The amount of time, in seconds, that a snapshot will remain in the archived state before expiring. This property is only
+	// writable during the creation of a snapshot. If not specified, the default
+	// lifetime of key-value revisions will be used.
+	RetentionPeriod *int64
+
+	// The tags of the snapshot. NOTE: These are data plane tags, not ARM tags.
+	Tags map[string]*string
+
+	// READ-ONLY; The time that the snapshot was created.
+	Created *time.Time
+
+	// READ-ONLY; A value representing the current state of the snapshot.
+	Etag *string
+
+	// READ-ONLY; The time that the snapshot will expire.
+	Expires *time.Time
+
+	// READ-ONLY; The amount of key-values in the snapshot.
+	ItemsCount *int64
+
+	// READ-ONLY; The provisioning state of the snapshot.
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; The size in bytes of the snapshot.
+	Size *int64
+
+	// READ-ONLY; The current status of the snapshot.
+	Status *SnapshotStatus
+}
+
 // SystemData - Metadata pertaining to creation and last modification of the resource.
 type SystemData struct {
 	// The timestamp of resource creation (UTC).
@@ -619,6 +920,12 @@ type SystemData struct {
 
 	// The type of identity that last modified the resource.
 	LastModifiedByType *CreatedByType
+}
+
+// TelemetryProperties - Telemetry settings
+type TelemetryProperties struct {
+	// Resource ID of a resource enabling telemetry collection
+	ResourceID *string
 }
 
 // TrackedResource - The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags'

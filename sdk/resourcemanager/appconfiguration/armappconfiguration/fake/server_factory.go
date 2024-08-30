@@ -19,12 +19,14 @@ import (
 
 // ServerFactory is a fake server for instances of the armappconfiguration.ClientFactory type.
 type ServerFactory struct {
-	ConfigurationStoresServer        ConfigurationStoresServer
-	KeyValuesServer                  KeyValuesServer
-	OperationsServer                 OperationsServer
-	PrivateEndpointConnectionsServer PrivateEndpointConnectionsServer
-	PrivateLinkResourcesServer       PrivateLinkResourcesServer
-	ReplicasServer                   ReplicasServer
+	ConfigurationStoresServer                    ConfigurationStoresServer
+	KeyValuesServer                              KeyValuesServer
+	NetworkSecurityPerimeterConfigurationsServer NetworkSecurityPerimeterConfigurationsServer
+	OperationsServer                             OperationsServer
+	PrivateEndpointConnectionsServer             PrivateEndpointConnectionsServer
+	PrivateLinkResourcesServer                   PrivateLinkResourcesServer
+	ReplicasServer                               ReplicasServer
+	SnapshotsServer                              SnapshotsServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -39,14 +41,16 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armappconfiguration.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                                *ServerFactory
-	trMu                               sync.Mutex
-	trConfigurationStoresServer        *ConfigurationStoresServerTransport
-	trKeyValuesServer                  *KeyValuesServerTransport
-	trOperationsServer                 *OperationsServerTransport
-	trPrivateEndpointConnectionsServer *PrivateEndpointConnectionsServerTransport
-	trPrivateLinkResourcesServer       *PrivateLinkResourcesServerTransport
-	trReplicasServer                   *ReplicasServerTransport
+	srv                                            *ServerFactory
+	trMu                                           sync.Mutex
+	trConfigurationStoresServer                    *ConfigurationStoresServerTransport
+	trKeyValuesServer                              *KeyValuesServerTransport
+	trNetworkSecurityPerimeterConfigurationsServer *NetworkSecurityPerimeterConfigurationsServerTransport
+	trOperationsServer                             *OperationsServerTransport
+	trPrivateEndpointConnectionsServer             *PrivateEndpointConnectionsServerTransport
+	trPrivateLinkResourcesServer                   *PrivateLinkResourcesServerTransport
+	trReplicasServer                               *ReplicasServerTransport
+	trSnapshotsServer                              *SnapshotsServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -70,6 +74,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "KeyValuesClient":
 		initServer(s, &s.trKeyValuesServer, func() *KeyValuesServerTransport { return NewKeyValuesServerTransport(&s.srv.KeyValuesServer) })
 		resp, err = s.trKeyValuesServer.Do(req)
+	case "NetworkSecurityPerimeterConfigurationsClient":
+		initServer(s, &s.trNetworkSecurityPerimeterConfigurationsServer, func() *NetworkSecurityPerimeterConfigurationsServerTransport {
+			return NewNetworkSecurityPerimeterConfigurationsServerTransport(&s.srv.NetworkSecurityPerimeterConfigurationsServer)
+		})
+		resp, err = s.trNetworkSecurityPerimeterConfigurationsServer.Do(req)
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
@@ -86,6 +95,9 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "ReplicasClient":
 		initServer(s, &s.trReplicasServer, func() *ReplicasServerTransport { return NewReplicasServerTransport(&s.srv.ReplicasServer) })
 		resp, err = s.trReplicasServer.Do(req)
+	case "SnapshotsClient":
+		initServer(s, &s.trSnapshotsServer, func() *SnapshotsServerTransport { return NewSnapshotsServerTransport(&s.srv.SnapshotsServer) })
+		resp, err = s.trSnapshotsServer.Do(req)
 	default:
 		err = fmt.Errorf("unhandled client %s", client)
 	}
