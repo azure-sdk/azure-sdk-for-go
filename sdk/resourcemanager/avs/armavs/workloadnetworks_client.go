@@ -566,12 +566,12 @@ func (client *WorkloadNetworksClient) createSegmentsCreateRequest(ctx context.Co
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - privateCloudName - Name of the private cloud
 //   - vmGroupID - ID of the VM group.
-//   - workloadNetworkVMGroup - Resource create parameters.
+//   - resource - Resource create parameters.
 //   - options - WorkloadNetworksClientBeginCreateVMGroupOptions contains the optional parameters for the WorkloadNetworksClient.BeginCreateVMGroup
 //     method.
-func (client *WorkloadNetworksClient) BeginCreateVMGroup(ctx context.Context, resourceGroupName string, privateCloudName string, vmGroupID string, workloadNetworkVMGroup WorkloadNetworkVMGroup, options *WorkloadNetworksClientBeginCreateVMGroupOptions) (*runtime.Poller[WorkloadNetworksClientCreateVMGroupResponse], error) {
+func (client *WorkloadNetworksClient) BeginCreateVMGroup(ctx context.Context, resourceGroupName string, privateCloudName string, vmGroupID string, resource WorkloadNetworkVMGroup, options *WorkloadNetworksClientBeginCreateVMGroupOptions) (*runtime.Poller[WorkloadNetworksClientCreateVMGroupResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createVMGroup(ctx, resourceGroupName, privateCloudName, vmGroupID, workloadNetworkVMGroup, options)
+		resp, err := client.createVMGroup(ctx, resourceGroupName, privateCloudName, vmGroupID, resource, options)
 		if err != nil {
 			return nil, err
 		}
@@ -591,13 +591,13 @@ func (client *WorkloadNetworksClient) BeginCreateVMGroup(ctx context.Context, re
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-09-01
-func (client *WorkloadNetworksClient) createVMGroup(ctx context.Context, resourceGroupName string, privateCloudName string, vmGroupID string, workloadNetworkVMGroup WorkloadNetworkVMGroup, options *WorkloadNetworksClientBeginCreateVMGroupOptions) (*http.Response, error) {
+func (client *WorkloadNetworksClient) createVMGroup(ctx context.Context, resourceGroupName string, privateCloudName string, vmGroupID string, resource WorkloadNetworkVMGroup, options *WorkloadNetworksClientBeginCreateVMGroupOptions) (*http.Response, error) {
 	var err error
 	const operationName = "WorkloadNetworksClient.BeginCreateVMGroup"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createVMGroupCreateRequest(ctx, resourceGroupName, privateCloudName, vmGroupID, workloadNetworkVMGroup, options)
+	req, err := client.createVMGroupCreateRequest(ctx, resourceGroupName, privateCloudName, vmGroupID, resource, options)
 	if err != nil {
 		return nil, err
 	}
@@ -613,7 +613,7 @@ func (client *WorkloadNetworksClient) createVMGroup(ctx context.Context, resourc
 }
 
 // createVMGroupCreateRequest creates the CreateVMGroup request.
-func (client *WorkloadNetworksClient) createVMGroupCreateRequest(ctx context.Context, resourceGroupName string, privateCloudName string, vmGroupID string, workloadNetworkVMGroup WorkloadNetworkVMGroup, options *WorkloadNetworksClientBeginCreateVMGroupOptions) (*policy.Request, error) {
+func (client *WorkloadNetworksClient) createVMGroupCreateRequest(ctx context.Context, resourceGroupName string, privateCloudName string, vmGroupID string, resource WorkloadNetworkVMGroup, options *WorkloadNetworksClientBeginCreateVMGroupOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/vmGroups/{vmGroupId}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -639,7 +639,7 @@ func (client *WorkloadNetworksClient) createVMGroupCreateRequest(ctx context.Con
 	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, workloadNetworkVMGroup); err != nil {
+	if err := runtime.MarshalAsJSON(req, resource); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -2914,12 +2914,12 @@ func (client *WorkloadNetworksClient) updatePortMirroringCreateRequest(ctx conte
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - privateCloudName - Name of the private cloud
 //   - segmentID - The ID of the NSX Segment
-//   - workloadNetworkSegment - The resource properties to be updated.
+//   - properties - The resource properties to be updated.
 //   - options - WorkloadNetworksClientBeginUpdateSegmentsOptions contains the optional parameters for the WorkloadNetworksClient.BeginUpdateSegments
 //     method.
-func (client *WorkloadNetworksClient) BeginUpdateSegments(ctx context.Context, resourceGroupName string, privateCloudName string, segmentID string, workloadNetworkSegment WorkloadNetworkSegment, options *WorkloadNetworksClientBeginUpdateSegmentsOptions) (*runtime.Poller[WorkloadNetworksClientUpdateSegmentsResponse], error) {
+func (client *WorkloadNetworksClient) BeginUpdateSegments(ctx context.Context, resourceGroupName string, privateCloudName string, segmentID string, properties WorkloadNetworkSegment, options *WorkloadNetworksClientBeginUpdateSegmentsOptions) (*runtime.Poller[WorkloadNetworksClientUpdateSegmentsResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.updateSegments(ctx, resourceGroupName, privateCloudName, segmentID, workloadNetworkSegment, options)
+		resp, err := client.updateSegments(ctx, resourceGroupName, privateCloudName, segmentID, properties, options)
 		if err != nil {
 			return nil, err
 		}
@@ -2939,13 +2939,13 @@ func (client *WorkloadNetworksClient) BeginUpdateSegments(ctx context.Context, r
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-09-01
-func (client *WorkloadNetworksClient) updateSegments(ctx context.Context, resourceGroupName string, privateCloudName string, segmentID string, workloadNetworkSegment WorkloadNetworkSegment, options *WorkloadNetworksClientBeginUpdateSegmentsOptions) (*http.Response, error) {
+func (client *WorkloadNetworksClient) updateSegments(ctx context.Context, resourceGroupName string, privateCloudName string, segmentID string, properties WorkloadNetworkSegment, options *WorkloadNetworksClientBeginUpdateSegmentsOptions) (*http.Response, error) {
 	var err error
 	const operationName = "WorkloadNetworksClient.BeginUpdateSegments"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateSegmentsCreateRequest(ctx, resourceGroupName, privateCloudName, segmentID, workloadNetworkSegment, options)
+	req, err := client.updateSegmentsCreateRequest(ctx, resourceGroupName, privateCloudName, segmentID, properties, options)
 	if err != nil {
 		return nil, err
 	}
@@ -2961,7 +2961,7 @@ func (client *WorkloadNetworksClient) updateSegments(ctx context.Context, resour
 }
 
 // updateSegmentsCreateRequest creates the UpdateSegments request.
-func (client *WorkloadNetworksClient) updateSegmentsCreateRequest(ctx context.Context, resourceGroupName string, privateCloudName string, segmentID string, workloadNetworkSegment WorkloadNetworkSegment, options *WorkloadNetworksClientBeginUpdateSegmentsOptions) (*policy.Request, error) {
+func (client *WorkloadNetworksClient) updateSegmentsCreateRequest(ctx context.Context, resourceGroupName string, privateCloudName string, segmentID string, properties WorkloadNetworkSegment, options *WorkloadNetworksClientBeginUpdateSegmentsOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AVS/privateClouds/{privateCloudName}/workloadNetworks/default/segments/{segmentId}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -2987,7 +2987,7 @@ func (client *WorkloadNetworksClient) updateSegmentsCreateRequest(ctx context.Co
 	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, workloadNetworkSegment); err != nil {
+	if err := runtime.MarshalAsJSON(req, properties); err != nil {
 		return nil, err
 	}
 	return req, nil

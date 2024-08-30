@@ -27,7 +27,7 @@ import (
 type WebhookServer struct {
 	// CreateOrUpdate is the fake for method WebhookClient.CreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	CreateOrUpdate func(ctx context.Context, reportName string, webhookName string, properties armappcomplianceautomation.WebhookResource, options *armappcomplianceautomation.WebhookClientCreateOrUpdateOptions) (resp azfake.Responder[armappcomplianceautomation.WebhookClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	CreateOrUpdate func(ctx context.Context, reportName string, webhookName string, parameters armappcomplianceautomation.WebhookResource, options *armappcomplianceautomation.WebhookClientCreateOrUpdateOptions) (resp azfake.Responder[armappcomplianceautomation.WebhookClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// Delete is the fake for method WebhookClient.Delete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
