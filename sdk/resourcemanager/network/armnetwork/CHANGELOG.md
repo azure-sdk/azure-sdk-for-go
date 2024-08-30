@@ -1,5 +1,184 @@
 # Release History
 
+## 7.0.0 (2024-08-30)
+### Breaking Changes
+
+- Field `Etag` of struct `AdminRule` has been removed
+- Field `Etag` of struct `AdminRuleCollection` has been removed
+- Field `Etag` of struct `BaseAdminRule` has been removed
+- Field `Etag` of struct `DefaultAdminRule` has been removed
+- Field `Etag` of struct `SecurityAdminConfiguration` has been removed
+
+### Features Added
+
+- New value `AddressPrefixTypeNetworkGroup` added to enum type `AddressPrefixType`
+- New value `ConfigurationTypeRouting`, `ConfigurationTypeSecurityUser` added to enum type `ConfigurationType`
+- New value `ProvisioningStateCanceled`, `ProvisioningStateCreating` added to enum type `ProvisioningState`
+- New enum type `AddressSpaceAggregationOption` with values `AddressSpaceAggregationOptionManual`, `AddressSpaceAggregationOptionNone`
+- New enum type `ApplicationGatewayWafRuleSensitivityTypes` with values `ApplicationGatewayWafRuleSensitivityTypesHigh`, `ApplicationGatewayWafRuleSensitivityTypesLow`, `ApplicationGatewayWafRuleSensitivityTypesMedium`, `ApplicationGatewayWafRuleSensitivityTypesNone`
+- New enum type `DisableBgpRoutePropagation` with values `DisableBgpRoutePropagationFalse`, `DisableBgpRoutePropagationTrue`
+- New enum type `ExceptionEntryMatchVariable` with values `ExceptionEntryMatchVariableRemoteAddr`, `ExceptionEntryMatchVariableRequestHeader`, `ExceptionEntryMatchVariableRequestURI`
+- New enum type `ExceptionEntrySelectorMatchOperator` with values `ExceptionEntrySelectorMatchOperatorContains`, `ExceptionEntrySelectorMatchOperatorEndsWith`, `ExceptionEntrySelectorMatchOperatorEquals`, `ExceptionEntrySelectorMatchOperatorStartsWith`
+- New enum type `ExceptionEntryValueMatchOperator` with values `ExceptionEntryValueMatchOperatorContains`, `ExceptionEntryValueMatchOperatorEndsWith`, `ExceptionEntryValueMatchOperatorEquals`, `ExceptionEntryValueMatchOperatorIPMatch`, `ExceptionEntryValueMatchOperatorStartsWith`
+- New enum type `GroupMemberType` with values `GroupMemberTypeSubnet`, `GroupMemberTypeVirtualNetwork`
+- New enum type `IPType` with values `IPTypeIPv4`, `IPTypeIPv6`
+- New enum type `NetworkProtocol` with values `NetworkProtocolAny`, `NetworkProtocolICMP`, `NetworkProtocolTCP`, `NetworkProtocolUDP`
+- New enum type `PrivateEndpointVNetPolicies` with values `PrivateEndpointVNetPoliciesBasic`, `PrivateEndpointVNetPoliciesDisabled`
+- New enum type `ResiliencyModel` with values `ResiliencyModelMultiHomed`, `ResiliencyModelSingleHomed`
+- New enum type `RoutingRuleDestinationType` with values `RoutingRuleDestinationTypeAddressPrefix`, `RoutingRuleDestinationTypeServiceTag`
+- New enum type `RoutingRuleNextHopType` with values `RoutingRuleNextHopTypeInternet`, `RoutingRuleNextHopTypeNoNextHop`, `RoutingRuleNextHopTypeVirtualAppliance`, `RoutingRuleNextHopTypeVirtualNetworkGateway`, `RoutingRuleNextHopTypeVnetLocal`
+- New enum type `SensitivityType` with values `SensitivityTypeHigh`, `SensitivityTypeLow`, `SensitivityTypeMedium`, `SensitivityTypeNone`
+- New function `*ClientFactory.NewIpamPoolsClient() *IpamPoolsClient`
+- New function `*ClientFactory.NewManagerRoutingConfigurationsClient() *ManagerRoutingConfigurationsClient`
+- New function `*ClientFactory.NewReachabilityAnalysisIntentsClient() *ReachabilityAnalysisIntentsClient`
+- New function `*ClientFactory.NewReachabilityAnalysisRunsClient() *ReachabilityAnalysisRunsClient`
+- New function `*ClientFactory.NewRoutingRuleCollectionsClient() *RoutingRuleCollectionsClient`
+- New function `*ClientFactory.NewRoutingRulesClient() *RoutingRulesClient`
+- New function `*ClientFactory.NewSecurityUserConfigurationsClient() *SecurityUserConfigurationsClient`
+- New function `*ClientFactory.NewSecurityUserRuleCollectionsClient() *SecurityUserRuleCollectionsClient`
+- New function `*ClientFactory.NewSecurityUserRulesClient() *SecurityUserRulesClient`
+- New function `*ClientFactory.NewStaticCidrsClient() *StaticCidrsClient`
+- New function `*ClientFactory.NewVerifierWorkspacesClient() *VerifierWorkspacesClient`
+- New function `NewIpamPoolsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*IpamPoolsClient, error)`
+- New function `*IpamPoolsClient.Create(context.Context, string, string, string, *IpamPoolsClientCreateOptions) (IpamPoolsClientCreateResponse, error)`
+- New function `*IpamPoolsClient.BeginDelete(context.Context, string, string, string, *IpamPoolsClientBeginDeleteOptions) (*runtime.Poller[IpamPoolsClientDeleteResponse], error)`
+- New function `*IpamPoolsClient.Get(context.Context, string, string, string, *IpamPoolsClientGetOptions) (IpamPoolsClientGetResponse, error)`
+- New function `*IpamPoolsClient.GetPoolUsage(context.Context, string, string, string, *IpamPoolsClientGetPoolUsageOptions) (IpamPoolsClientGetPoolUsageResponse, error)`
+- New function `*IpamPoolsClient.NewListAssociatedResourcesPager(string, string, string, *IpamPoolsClientListAssociatedResourcesOptions) *runtime.Pager[IpamPoolsClientListAssociatedResourcesResponse]`
+- New function `*IpamPoolsClient.NewListPager(string, string, *IpamPoolsClientListOptions) *runtime.Pager[IpamPoolsClientListResponse]`
+- New function `*IpamPoolsClient.Update(context.Context, string, string, string, *IpamPoolsClientUpdateOptions) (IpamPoolsClientUpdateResponse, error)`
+- New function `NewManagerRoutingConfigurationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ManagerRoutingConfigurationsClient, error)`
+- New function `*ManagerRoutingConfigurationsClient.CreateOrUpdate(context.Context, string, string, string, ManagerRoutingConfiguration, *ManagerRoutingConfigurationsClientCreateOrUpdateOptions) (ManagerRoutingConfigurationsClientCreateOrUpdateResponse, error)`
+- New function `*ManagerRoutingConfigurationsClient.BeginDelete(context.Context, string, string, string, *ManagerRoutingConfigurationsClientBeginDeleteOptions) (*runtime.Poller[ManagerRoutingConfigurationsClientDeleteResponse], error)`
+- New function `*ManagerRoutingConfigurationsClient.Get(context.Context, string, string, string, *ManagerRoutingConfigurationsClientGetOptions) (ManagerRoutingConfigurationsClientGetResponse, error)`
+- New function `*ManagerRoutingConfigurationsClient.NewListPager(string, string, *ManagerRoutingConfigurationsClientListOptions) *runtime.Pager[ManagerRoutingConfigurationsClientListResponse]`
+- New function `NewReachabilityAnalysisIntentsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ReachabilityAnalysisIntentsClient, error)`
+- New function `*ReachabilityAnalysisIntentsClient.Create(context.Context, string, string, string, string, ReachabilityAnalysisIntent, *ReachabilityAnalysisIntentsClientCreateOptions) (ReachabilityAnalysisIntentsClientCreateResponse, error)`
+- New function `*ReachabilityAnalysisIntentsClient.Delete(context.Context, string, string, string, string, *ReachabilityAnalysisIntentsClientDeleteOptions) (ReachabilityAnalysisIntentsClientDeleteResponse, error)`
+- New function `*ReachabilityAnalysisIntentsClient.Get(context.Context, string, string, string, string, *ReachabilityAnalysisIntentsClientGetOptions) (ReachabilityAnalysisIntentsClientGetResponse, error)`
+- New function `*ReachabilityAnalysisIntentsClient.NewListPager(string, string, string, *ReachabilityAnalysisIntentsClientListOptions) *runtime.Pager[ReachabilityAnalysisIntentsClientListResponse]`
+- New function `NewReachabilityAnalysisRunsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ReachabilityAnalysisRunsClient, error)`
+- New function `*ReachabilityAnalysisRunsClient.BeginCreate(context.Context, string, string, string, string, ReachabilityAnalysisRun, *ReachabilityAnalysisRunsClientBeginCreateOptions) (*runtime.Poller[ReachabilityAnalysisRunsClientCreateResponse], error)`
+- New function `*ReachabilityAnalysisRunsClient.BeginDelete(context.Context, string, string, string, string, *ReachabilityAnalysisRunsClientBeginDeleteOptions) (*runtime.Poller[ReachabilityAnalysisRunsClientDeleteResponse], error)`
+- New function `*ReachabilityAnalysisRunsClient.Get(context.Context, string, string, string, string, *ReachabilityAnalysisRunsClientGetOptions) (ReachabilityAnalysisRunsClientGetResponse, error)`
+- New function `*ReachabilityAnalysisRunsClient.NewListPager(string, string, string, *ReachabilityAnalysisRunsClientListOptions) *runtime.Pager[ReachabilityAnalysisRunsClientListResponse]`
+- New function `NewRoutingRuleCollectionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RoutingRuleCollectionsClient, error)`
+- New function `*RoutingRuleCollectionsClient.CreateOrUpdate(context.Context, string, string, string, string, RoutingRuleCollection, *RoutingRuleCollectionsClientCreateOrUpdateOptions) (RoutingRuleCollectionsClientCreateOrUpdateResponse, error)`
+- New function `*RoutingRuleCollectionsClient.BeginDelete(context.Context, string, string, string, string, *RoutingRuleCollectionsClientBeginDeleteOptions) (*runtime.Poller[RoutingRuleCollectionsClientDeleteResponse], error)`
+- New function `*RoutingRuleCollectionsClient.Get(context.Context, string, string, string, string, *RoutingRuleCollectionsClientGetOptions) (RoutingRuleCollectionsClientGetResponse, error)`
+- New function `*RoutingRuleCollectionsClient.NewListPager(string, string, string, *RoutingRuleCollectionsClientListOptions) *runtime.Pager[RoutingRuleCollectionsClientListResponse]`
+- New function `NewRoutingRulesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RoutingRulesClient, error)`
+- New function `*RoutingRulesClient.CreateOrUpdate(context.Context, string, string, string, string, string, RoutingRule, *RoutingRulesClientCreateOrUpdateOptions) (RoutingRulesClientCreateOrUpdateResponse, error)`
+- New function `*RoutingRulesClient.BeginDelete(context.Context, string, string, string, string, string, *RoutingRulesClientBeginDeleteOptions) (*runtime.Poller[RoutingRulesClientDeleteResponse], error)`
+- New function `*RoutingRulesClient.Get(context.Context, string, string, string, string, string, *RoutingRulesClientGetOptions) (RoutingRulesClientGetResponse, error)`
+- New function `*RoutingRulesClient.NewListPager(string, string, string, string, *RoutingRulesClientListOptions) *runtime.Pager[RoutingRulesClientListResponse]`
+- New function `NewSecurityUserConfigurationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SecurityUserConfigurationsClient, error)`
+- New function `*SecurityUserConfigurationsClient.CreateOrUpdate(context.Context, string, string, string, SecurityUserConfiguration, *SecurityUserConfigurationsClientCreateOrUpdateOptions) (SecurityUserConfigurationsClientCreateOrUpdateResponse, error)`
+- New function `*SecurityUserConfigurationsClient.BeginDelete(context.Context, string, string, string, *SecurityUserConfigurationsClientBeginDeleteOptions) (*runtime.Poller[SecurityUserConfigurationsClientDeleteResponse], error)`
+- New function `*SecurityUserConfigurationsClient.Get(context.Context, string, string, string, *SecurityUserConfigurationsClientGetOptions) (SecurityUserConfigurationsClientGetResponse, error)`
+- New function `*SecurityUserConfigurationsClient.NewListPager(string, string, *SecurityUserConfigurationsClientListOptions) *runtime.Pager[SecurityUserConfigurationsClientListResponse]`
+- New function `NewSecurityUserRuleCollectionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SecurityUserRuleCollectionsClient, error)`
+- New function `*SecurityUserRuleCollectionsClient.CreateOrUpdate(context.Context, string, string, string, string, SecurityUserRuleCollection, *SecurityUserRuleCollectionsClientCreateOrUpdateOptions) (SecurityUserRuleCollectionsClientCreateOrUpdateResponse, error)`
+- New function `*SecurityUserRuleCollectionsClient.BeginDelete(context.Context, string, string, string, string, *SecurityUserRuleCollectionsClientBeginDeleteOptions) (*runtime.Poller[SecurityUserRuleCollectionsClientDeleteResponse], error)`
+- New function `*SecurityUserRuleCollectionsClient.Get(context.Context, string, string, string, string, *SecurityUserRuleCollectionsClientGetOptions) (SecurityUserRuleCollectionsClientGetResponse, error)`
+- New function `*SecurityUserRuleCollectionsClient.NewListPager(string, string, string, *SecurityUserRuleCollectionsClientListOptions) *runtime.Pager[SecurityUserRuleCollectionsClientListResponse]`
+- New function `NewSecurityUserRulesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SecurityUserRulesClient, error)`
+- New function `*SecurityUserRulesClient.CreateOrUpdate(context.Context, string, string, string, string, string, SecurityUserRule, *SecurityUserRulesClientCreateOrUpdateOptions) (SecurityUserRulesClientCreateOrUpdateResponse, error)`
+- New function `*SecurityUserRulesClient.BeginDelete(context.Context, string, string, string, string, string, *SecurityUserRulesClientBeginDeleteOptions) (*runtime.Poller[SecurityUserRulesClientDeleteResponse], error)`
+- New function `*SecurityUserRulesClient.Get(context.Context, string, string, string, string, string, *SecurityUserRulesClientGetOptions) (SecurityUserRulesClientGetResponse, error)`
+- New function `*SecurityUserRulesClient.NewListPager(string, string, string, string, *SecurityUserRulesClientListOptions) *runtime.Pager[SecurityUserRulesClientListResponse]`
+- New function `NewStaticCidrsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*StaticCidrsClient, error)`
+- New function `*StaticCidrsClient.Create(context.Context, string, string, string, string, *StaticCidrsClientCreateOptions) (StaticCidrsClientCreateResponse, error)`
+- New function `*StaticCidrsClient.BeginDelete(context.Context, string, string, string, string, *StaticCidrsClientBeginDeleteOptions) (*runtime.Poller[StaticCidrsClientDeleteResponse], error)`
+- New function `*StaticCidrsClient.Get(context.Context, string, string, string, string, *StaticCidrsClientGetOptions) (StaticCidrsClientGetResponse, error)`
+- New function `*StaticCidrsClient.NewListPager(string, string, string, *StaticCidrsClientListOptions) *runtime.Pager[StaticCidrsClientListResponse]`
+- New function `*VPNLinkConnectionsClient.NewGetAllSharedKeysPager(string, string, string, string, *VPNLinkConnectionsClientGetAllSharedKeysOptions) *runtime.Pager[VPNLinkConnectionsClientGetAllSharedKeysResponse]`
+- New function `*VPNLinkConnectionsClient.GetDefaultSharedKey(context.Context, string, string, string, string, *VPNLinkConnectionsClientGetDefaultSharedKeyOptions) (VPNLinkConnectionsClientGetDefaultSharedKeyResponse, error)`
+- New function `*VPNLinkConnectionsClient.ListDefaultSharedKey(context.Context, string, string, string, string, *VPNLinkConnectionsClientListDefaultSharedKeyOptions) (VPNLinkConnectionsClientListDefaultSharedKeyResponse, error)`
+- New function `*VPNLinkConnectionsClient.BeginSetOrInitDefaultSharedKey(context.Context, string, string, string, string, ConnectionSharedKeyResult, *VPNLinkConnectionsClientBeginSetOrInitDefaultSharedKeyOptions) (*runtime.Poller[VPNLinkConnectionsClientSetOrInitDefaultSharedKeyResponse], error)`
+- New function `NewVerifierWorkspacesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VerifierWorkspacesClient, error)`
+- New function `*VerifierWorkspacesClient.Create(context.Context, string, string, string, VerifierWorkspace, *VerifierWorkspacesClientCreateOptions) (VerifierWorkspacesClientCreateResponse, error)`
+- New function `*VerifierWorkspacesClient.BeginDelete(context.Context, string, string, string, *VerifierWorkspacesClientBeginDeleteOptions) (*runtime.Poller[VerifierWorkspacesClientDeleteResponse], error)`
+- New function `*VerifierWorkspacesClient.Get(context.Context, string, string, string, *VerifierWorkspacesClientGetOptions) (VerifierWorkspacesClientGetResponse, error)`
+- New function `*VerifierWorkspacesClient.NewListPager(string, string, *VerifierWorkspacesClientListOptions) *runtime.Pager[VerifierWorkspacesClientListResponse]`
+- New function `*VerifierWorkspacesClient.Update(context.Context, string, string, string, *VerifierWorkspacesClientUpdateOptions) (VerifierWorkspacesClientUpdateResponse, error)`
+- New struct `ApplicationGatewayForContainersReferenceDefinition`
+- New struct `AzureFirewallAutoscaleConfiguration`
+- New struct `CommonErrorAdditionalInfo`
+- New struct `CommonErrorDetail`
+- New struct `CommonErrorResponse`
+- New struct `CommonProxyResource`
+- New struct `CommonResource`
+- New struct `CommonTrackedResource`
+- New struct `ConnectionSharedKeyResult`
+- New struct `ConnectionSharedKeyResultList`
+- New struct `ExceptionEntry`
+- New struct `IPTraffic`
+- New struct `IntentContent`
+- New struct `IpamPool`
+- New struct `IpamPoolList`
+- New struct `IpamPoolPrefixAllocation`
+- New struct `IpamPoolPrefixAllocationPool`
+- New struct `IpamPoolProperties`
+- New struct `IpamPoolUpdate`
+- New struct `IpamPoolUpdateProperties`
+- New struct `ManagerRoutingConfiguration`
+- New struct `ManagerRoutingConfigurationListResult`
+- New struct `ManagerRoutingConfigurationPropertiesFormat`
+- New struct `ManagerRoutingGroupItem`
+- New struct `PoolAssociation`
+- New struct `PoolAssociationList`
+- New struct `PoolUsage`
+- New struct `ReachabilityAnalysisIntent`
+- New struct `ReachabilityAnalysisIntentListResult`
+- New struct `ReachabilityAnalysisIntentProperties`
+- New struct `ReachabilityAnalysisRun`
+- New struct `ReachabilityAnalysisRunListResult`
+- New struct `ReachabilityAnalysisRunProperties`
+- New struct `ResourceBasics`
+- New struct `RoutingRule`
+- New struct `RoutingRuleCollection`
+- New struct `RoutingRuleCollectionListResult`
+- New struct `RoutingRuleCollectionPropertiesFormat`
+- New struct `RoutingRuleListResult`
+- New struct `RoutingRuleNextHop`
+- New struct `RoutingRulePropertiesFormat`
+- New struct `RoutingRuleRouteDestination`
+- New struct `SecurityUserConfiguration`
+- New struct `SecurityUserConfigurationListResult`
+- New struct `SecurityUserConfigurationPropertiesFormat`
+- New struct `SecurityUserGroupItem`
+- New struct `SecurityUserRule`
+- New struct `SecurityUserRuleCollection`
+- New struct `SecurityUserRuleCollectionListResult`
+- New struct `SecurityUserRuleCollectionPropertiesFormat`
+- New struct `SecurityUserRuleListResult`
+- New struct `SecurityUserRulePropertiesFormat`
+- New struct `SharedKeyProperties`
+- New struct `StaticCidr`
+- New struct `StaticCidrList`
+- New struct `StaticCidrProperties`
+- New struct `VerifierWorkspace`
+- New struct `VerifierWorkspaceListResult`
+- New struct `VerifierWorkspaceProperties`
+- New struct `VerifierWorkspaceUpdate`
+- New struct `VerifierWorkspaceUpdateProperties`
+- New field `IpamPoolPrefixAllocations` in struct `AddressSpace`
+- New field `Sensitivity` in struct `ApplicationGatewayFirewallRule`
+- New field `AutoscaleConfiguration` in struct `AzureFirewallPropertiesFormat`
+- New field `EnabledFilteringCriteria` in struct `FlowLogProperties`
+- New field `EnabledFilteringCriteria` in struct `FlowLogPropertiesFormat`
+- New field `MemberType` in struct `GroupProperties`
+- New field `Sensitivity` in struct `ManagedRuleOverride`
+- New field `Exceptions` in struct `ManagedRulesDefinition`
+- New field `DestinationIPAddress` in struct `PrivateLinkServiceProperties`
+- New field `NetworkGroupAddressSpaceAggregationOption` in struct `SecurityAdminConfigurationPropertiesFormat`
+- New field `IpamPoolPrefixAllocations` in struct `SubnetPropertiesFormat`
+- New field `ResiliencyModel` in struct `VirtualNetworkGatewayPropertiesFormat`
+- New field `PrivateEndpointVNetPolicies` in struct `VirtualNetworkPropertiesFormat`
+- New field `ApplicationGatewayForContainers` in struct `WebApplicationFirewallPolicyPropertiesFormat`
+
+
 ## 6.0.0 (2024-07-25)
 ### Breaking Changes
 
