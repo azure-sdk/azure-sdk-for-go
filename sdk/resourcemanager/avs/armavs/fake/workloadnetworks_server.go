@@ -50,7 +50,7 @@ type WorkloadNetworksServer struct {
 
 	// BeginCreateVMGroup is the fake for method WorkloadNetworksClient.BeginCreateVMGroup
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	BeginCreateVMGroup func(ctx context.Context, resourceGroupName string, privateCloudName string, vmGroupID string, workloadNetworkVMGroup armavs.WorkloadNetworkVMGroup, options *armavs.WorkloadNetworksClientBeginCreateVMGroupOptions) (resp azfake.PollerResponder[armavs.WorkloadNetworksClientCreateVMGroupResponse], errResp azfake.ErrorResponder)
+	BeginCreateVMGroup func(ctx context.Context, resourceGroupName string, privateCloudName string, vmGroupID string, resource armavs.WorkloadNetworkVMGroup, options *armavs.WorkloadNetworksClientBeginCreateVMGroupOptions) (resp azfake.PollerResponder[armavs.WorkloadNetworksClientCreateVMGroupResponse], errResp azfake.ErrorResponder)
 
 	// BeginDeleteDNSService is the fake for method WorkloadNetworksClient.BeginDeleteDNSService
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
@@ -178,7 +178,7 @@ type WorkloadNetworksServer struct {
 
 	// BeginUpdateSegments is the fake for method WorkloadNetworksClient.BeginUpdateSegments
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginUpdateSegments func(ctx context.Context, resourceGroupName string, privateCloudName string, segmentID string, workloadNetworkSegment armavs.WorkloadNetworkSegment, options *armavs.WorkloadNetworksClientBeginUpdateSegmentsOptions) (resp azfake.PollerResponder[armavs.WorkloadNetworksClientUpdateSegmentsResponse], errResp azfake.ErrorResponder)
+	BeginUpdateSegments func(ctx context.Context, resourceGroupName string, privateCloudName string, segmentID string, properties armavs.WorkloadNetworkSegment, options *armavs.WorkloadNetworksClientBeginUpdateSegmentsOptions) (resp azfake.PollerResponder[armavs.WorkloadNetworksClientUpdateSegmentsResponse], errResp azfake.ErrorResponder)
 
 	// BeginUpdateVMGroup is the fake for method WorkloadNetworksClient.BeginUpdateVMGroup
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
