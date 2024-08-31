@@ -1,5 +1,80 @@
 # Release History
 
+## 1.4.0 (2024-08-31)
+### Features Added
+
+- New enum type `AuthType` with values `AuthTypeKAFKAAPIKEY`, `AuthTypeSERVICEACCOUNT`
+- New enum type `ConnectorClass` with values `ConnectorClassAZUREBLOBSINK`, `ConnectorClassAZUREBLOBSOURCE`
+- New enum type `ConnectorServiceType` with values `ConnectorServiceTypeAzureBlobStorageSinkConnector`, `ConnectorServiceTypeAzureBlobStorageSourceConnector`, `ConnectorServiceTypeAzureCosmosDBSinkConnector`, `ConnectorServiceTypeAzureCosmosDBSourceConnector`, `ConnectorServiceTypeAzureSynapseAnalyticsSinkConnector`
+- New enum type `ConnectorStatus` with values `ConnectorStatusFAILED`, `ConnectorStatusPAUSED`, `ConnectorStatusPROVISIONING`, `ConnectorStatusRUNNING`
+- New enum type `ConnectorType` with values `ConnectorTypeSINK`, `ConnectorTypeSOURCE`
+- New enum type `DataFormatType` with values `DataFormatTypeAVRO`, `DataFormatTypeBYTES`, `DataFormatTypeJSON`, `DataFormatTypePROTOBUF`, `DataFormatTypeSTRING`
+- New enum type `Package` with values `PackageADVANCED`, `PackageESSENTIALS`
+- New enum type `PartnerConnectorType` with values `PartnerConnectorTypeKafkaAzureBlobStorageSink`, `PartnerConnectorTypeKafkaAzureBlobStorageSource`, `PartnerConnectorTypeKafkaAzureCosmosDBSink`, `PartnerConnectorTypeKafkaAzureCosmosDBSource`, `PartnerConnectorTypeKafkaAzureSynapseAnalyticsSink`
+- New function `*AzureBlobStorageSinkConnectorServiceInfo.GetConnectorServiceTypeInfoBase() *ConnectorServiceTypeInfoBase`
+- New function `*AzureBlobStorageSourceConnectorServiceInfo.GetConnectorServiceTypeInfoBase() *ConnectorServiceTypeInfoBase`
+- New function `*AzureCosmosDBSinkConnectorServiceInfo.GetConnectorServiceTypeInfoBase() *ConnectorServiceTypeInfoBase`
+- New function `*AzureCosmosDBSourceConnectorServiceInfo.GetConnectorServiceTypeInfoBase() *ConnectorServiceTypeInfoBase`
+- New function `*AzureSynapseAnalyticsSinkConnectorServiceInfo.GetConnectorServiceTypeInfoBase() *ConnectorServiceTypeInfoBase`
+- New function `*ClientFactory.NewClusterClient() *ClusterClient`
+- New function `*ClientFactory.NewConnectorClient() *ConnectorClient`
+- New function `*ClientFactory.NewEnvironmentClient() *EnvironmentClient`
+- New function `*ClientFactory.NewTopicsClient() *TopicsClient`
+- New function `NewClusterClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ClusterClient, error)`
+- New function `*ClusterClient.CreateOrUpdate(context.Context, string, string, string, string, *ClusterClientCreateOrUpdateOptions) (ClusterClientCreateOrUpdateResponse, error)`
+- New function `*ClusterClient.BeginDelete(context.Context, string, string, string, string, *ClusterClientBeginDeleteOptions) (*runtime.Poller[ClusterClientDeleteResponse], error)`
+- New function `NewConnectorClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectorClient, error)`
+- New function `*ConnectorClient.CreateOrUpdate(context.Context, string, string, string, string, string, *ConnectorClientCreateOrUpdateOptions) (ConnectorClientCreateOrUpdateResponse, error)`
+- New function `*ConnectorClient.BeginDelete(context.Context, string, string, string, string, string, *ConnectorClientBeginDeleteOptions) (*runtime.Poller[ConnectorClientDeleteResponse], error)`
+- New function `*ConnectorClient.Get(context.Context, string, string, string, string, string, *ConnectorClientGetOptions) (ConnectorClientGetResponse, error)`
+- New function `*ConnectorClient.NewListPager(string, string, string, string, *ConnectorClientListOptions) *runtime.Pager[ConnectorClientListResponse]`
+- New function `*ConnectorServiceTypeInfoBase.GetConnectorServiceTypeInfoBase() *ConnectorServiceTypeInfoBase`
+- New function `NewEnvironmentClient(string, azcore.TokenCredential, *arm.ClientOptions) (*EnvironmentClient, error)`
+- New function `*EnvironmentClient.CreateOrUpdate(context.Context, string, string, string, *EnvironmentClientCreateOrUpdateOptions) (EnvironmentClientCreateOrUpdateResponse, error)`
+- New function `*EnvironmentClient.BeginDelete(context.Context, string, string, string, *EnvironmentClientBeginDeleteOptions) (*runtime.Poller[EnvironmentClientDeleteResponse], error)`
+- New function `*KafkaAzureBlobStorageSinkConnectorInfo.GetPartnerInfoBase() *PartnerInfoBase`
+- New function `*KafkaAzureBlobStorageSourceConnectorInfo.GetPartnerInfoBase() *PartnerInfoBase`
+- New function `*KafkaAzureCosmosDBSinkConnectorInfo.GetPartnerInfoBase() *PartnerInfoBase`
+- New function `*KafkaAzureCosmosDBSourceConnectorInfo.GetPartnerInfoBase() *PartnerInfoBase`
+- New function `*KafkaAzureSynapseAnalyticsSinkConnectorInfo.GetPartnerInfoBase() *PartnerInfoBase`
+- New function `*PartnerInfoBase.GetPartnerInfoBase() *PartnerInfoBase`
+- New function `NewTopicsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*TopicsClient, error)`
+- New function `*TopicsClient.Create(context.Context, string, string, string, string, string, *TopicsClientCreateOptions) (TopicsClientCreateResponse, error)`
+- New function `*TopicsClient.BeginDelete(context.Context, string, string, string, string, string, *TopicsClientBeginDeleteOptions) (*runtime.Poller[TopicsClientDeleteResponse], error)`
+- New function `*TopicsClient.Get(context.Context, string, string, string, string, string, *TopicsClientGetOptions) (TopicsClientGetResponse, error)`
+- New function `*TopicsClient.NewListPager(string, string, string, string, *TopicsClientListOptions) *runtime.Pager[TopicsClientListResponse]`
+- New struct `AzureBlobStorageSinkConnectorServiceInfo`
+- New struct `AzureBlobStorageSourceConnectorServiceInfo`
+- New struct `AzureCosmosDBSinkConnectorServiceInfo`
+- New struct `AzureCosmosDBSourceConnectorServiceInfo`
+- New struct `AzureSynapseAnalyticsSinkConnectorServiceInfo`
+- New struct `ConnectorInfoBase`
+- New struct `ConnectorResource`
+- New struct `ConnectorResourceProperties`
+- New struct `ErrorAdditionalInfo`
+- New struct `ErrorDetail`
+- New struct `ErrorResponse`
+- New struct `KafkaAzureBlobStorageSinkConnectorInfo`
+- New struct `KafkaAzureBlobStorageSourceConnectorInfo`
+- New struct `KafkaAzureCosmosDBSinkConnectorInfo`
+- New struct `KafkaAzureCosmosDBSourceConnectorInfo`
+- New struct `KafkaAzureSynapseAnalyticsSinkConnectorInfo`
+- New struct `ListConnectorsSuccessResponse`
+- New struct `ListTopicsSuccessResponse`
+- New struct `ProxyResource`
+- New struct `Resource`
+- New struct `StreamGovernanceConfig`
+- New struct `TopicMetadataEntity`
+- New struct `TopicProperties`
+- New struct `TopicRecord`
+- New struct `TopicsInputConfig`
+- New struct `TopicsRelatedLink`
+- New field `StreamGovernanceConfig` in struct `EnvironmentProperties`
+- New field `Type` in struct `SCClusterRecord`
+- New field `Package` in struct `SCClusterSpecEntity`
+- New field `Type` in struct `SCEnvironmentRecord`
+
+
 ## 1.3.0 (2024-03-22)
 ### Features Added
 
