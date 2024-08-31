@@ -256,6 +256,134 @@ type AgreementResourceListResponse struct {
 	Value []*AgreementResource
 }
 
+// AzureBlobStorageSinkConnectorServiceInfo - The authentication info when auth_type is azureBlobStorageSinkConnector
+type AzureBlobStorageSinkConnectorServiceInfo struct {
+	// REQUIRED; The connector service type.
+	ConnectorServiceType *ConnectorServiceType
+
+	// Azure Blob Storage Account Key
+	StorageAccountKey *string
+
+	// Azure Blob Storage Account Name
+	StorageAccountName *string
+
+	// Azure Blob Storage Account Container Name
+	StorageContainerName *string
+}
+
+// GetConnectorServiceTypeInfoBase implements the ConnectorServiceTypeInfoBaseClassification interface for type AzureBlobStorageSinkConnectorServiceInfo.
+func (a *AzureBlobStorageSinkConnectorServiceInfo) GetConnectorServiceTypeInfoBase() *ConnectorServiceTypeInfoBase {
+	return &ConnectorServiceTypeInfoBase{
+		ConnectorServiceType: a.ConnectorServiceType,
+	}
+}
+
+// AzureBlobStorageSourceConnectorServiceInfo - The connector service type is AzureBlobStorageSourceConnector
+type AzureBlobStorageSourceConnectorServiceInfo struct {
+	// REQUIRED; The connector service type.
+	ConnectorServiceType *ConnectorServiceType
+
+	// Azure Blob Storage Account Key
+	StorageAccountKey *string
+
+	// Azure Blob Storage Account Name
+	StorageAccountName *string
+
+	// Azure Blob Storage Account Container Name
+	StorageContainerName *string
+}
+
+// GetConnectorServiceTypeInfoBase implements the ConnectorServiceTypeInfoBaseClassification interface for type AzureBlobStorageSourceConnectorServiceInfo.
+func (a *AzureBlobStorageSourceConnectorServiceInfo) GetConnectorServiceTypeInfoBase() *ConnectorServiceTypeInfoBase {
+	return &ConnectorServiceTypeInfoBase{
+		ConnectorServiceType: a.ConnectorServiceType,
+	}
+}
+
+// AzureCosmosDBSinkConnectorServiceInfo - The authentication info when auth_type is AzureCosmosDBSinkConnector
+type AzureCosmosDBSinkConnectorServiceInfo struct {
+	// REQUIRED; The connector service type.
+	ConnectorServiceType *ConnectorServiceType
+
+	// Azure Cosmos Database Connection Endpoint
+	CosmosConnectionEndpoint *string
+
+	// Azure Cosmos Database Containers Topic Mapping
+	CosmosContainersTopicMapping *string
+
+	// Azure Cosmos Database Name
+	CosmosDatabaseName *string
+
+	// Azure Cosmos Database Id Strategy
+	CosmosIDStrategy *string
+
+	// Azure Cosmos Database Master Key
+	CosmosMasterKey *string
+}
+
+// GetConnectorServiceTypeInfoBase implements the ConnectorServiceTypeInfoBaseClassification interface for type AzureCosmosDBSinkConnectorServiceInfo.
+func (a *AzureCosmosDBSinkConnectorServiceInfo) GetConnectorServiceTypeInfoBase() *ConnectorServiceTypeInfoBase {
+	return &ConnectorServiceTypeInfoBase{
+		ConnectorServiceType: a.ConnectorServiceType,
+	}
+}
+
+// AzureCosmosDBSourceConnectorServiceInfo - The authentication info when auth_type is AzureCosmosDBSourceConnector
+type AzureCosmosDBSourceConnectorServiceInfo struct {
+	// REQUIRED; The connector service type.
+	ConnectorServiceType *ConnectorServiceType
+
+	// Azure Cosmos Database Connection Endpoint
+	CosmosConnectionEndpoint *string
+
+	// Azure Cosmos Database Containers Topic Mapping
+	CosmosContainersTopicMapping *string
+
+	// Azure Cosmos Database Name
+	CosmosDatabaseName *string
+
+	// Azure Cosmos Database Master Key
+	CosmosMasterKey *string
+
+	// Azure Cosmos Database Message Key Enabled
+	CosmosMessageKeyEnabled *bool
+
+	// Azure Cosmos Database Message Key Field
+	CosmosMessageKeyField *string
+}
+
+// GetConnectorServiceTypeInfoBase implements the ConnectorServiceTypeInfoBaseClassification interface for type AzureCosmosDBSourceConnectorServiceInfo.
+func (a *AzureCosmosDBSourceConnectorServiceInfo) GetConnectorServiceTypeInfoBase() *ConnectorServiceTypeInfoBase {
+	return &ConnectorServiceTypeInfoBase{
+		ConnectorServiceType: a.ConnectorServiceType,
+	}
+}
+
+// AzureSynapseAnalyticsSinkConnectorServiceInfo - The authentication info when auth_type is AzureSynapseAnalyticsSinkConnector
+type AzureSynapseAnalyticsSinkConnectorServiceInfo struct {
+	// REQUIRED; The connector service type.
+	ConnectorServiceType *ConnectorServiceType
+
+	// Azure Synapse Dedicated SQL Pool Database Name
+	SynapseSQLDatabaseName *string
+
+	// Azure Synapse SQL login details
+	SynapseSQLPassword *string
+
+	// Azure Synapse Analytics SQL Server Name
+	SynapseSQLServerName *string
+
+	// Azure Synapse SQL login details
+	SynapseSQLUser *string
+}
+
+// GetConnectorServiceTypeInfoBase implements the ConnectorServiceTypeInfoBaseClassification interface for type AzureSynapseAnalyticsSinkConnectorServiceInfo.
+func (a *AzureSynapseAnalyticsSinkConnectorServiceInfo) GetConnectorServiceTypeInfoBase() *ConnectorServiceTypeInfoBase {
+	return &ConnectorServiceTypeInfoBase{
+		ConnectorServiceType: a.ConnectorServiceType,
+	}
+}
+
 // ClusterByokEntity - The network associated with this object
 type ClusterByokEntity struct {
 	// ID of the referred resource
@@ -304,7 +432,7 @@ type ClusterNetworkEntity struct {
 	ResourceName *string
 }
 
-// ClusterProperties - Cluster Properties
+// ClusterProperties - Service Connector Cluster Properties
 type ClusterProperties struct {
 	// Metadata of the record
 	Metadata *SCMetadataEntity
@@ -385,6 +513,65 @@ type ClusterStatusEntity struct {
 	Phase *string
 }
 
+// ConnectorInfoBase - Connector Info Base properties
+type ConnectorInfoBase struct {
+	// Connector Class
+	ConnectorClass *ConnectorClass
+
+	// Connector Id
+	ConnectorID *string
+
+	// Connector Name
+	ConnectorName *string
+
+	// Connector Status
+	ConnectorState *ConnectorStatus
+
+	// Connector Type
+	ConnectorType *ConnectorType
+}
+
+// ConnectorResource - Details of connector record
+type ConnectorResource struct {
+	// REQUIRED; The properties of the Connector
+	Properties *ConnectorResourceProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ConnectorResourceProperties - The resource properties of the Connector
+type ConnectorResourceProperties struct {
+	// Connector Info Base
+	ConnectorBasicInfo *ConnectorInfoBase
+
+	// Connector Service type info base properties.
+	ConnectorServiceTypeInfo ConnectorServiceTypeInfoBaseClassification
+
+	// The connection information consumed by applications.
+	PartnerConnectorInfo PartnerInfoBaseClassification
+}
+
+// ConnectorServiceTypeInfoBase - The connector service type info
+type ConnectorServiceTypeInfoBase struct {
+	// REQUIRED; The connector service type.
+	ConnectorServiceType *ConnectorServiceType
+}
+
+// GetConnectorServiceTypeInfoBase implements the ConnectorServiceTypeInfoBaseClassification interface for type ConnectorServiceTypeInfoBase.
+func (c *ConnectorServiceTypeInfoBase) GetConnectorServiceTypeInfoBase() *ConnectorServiceTypeInfoBase {
+	return c
+}
+
 // CreateAPIKeyModel - Create API Key model
 type CreateAPIKeyModel struct {
 	// Description of the API Key
@@ -398,6 +585,9 @@ type CreateAPIKeyModel struct {
 type EnvironmentProperties struct {
 	// Metadata of the record
 	Metadata *SCMetadataEntity
+
+	// Stream governance configuration
+	StreamGovernanceConfig *StreamGovernanceConfig
 }
 
 // EnvironmentRecord - Details about environment name, metadata and environment id of an environment
@@ -413,6 +603,40 @@ type EnvironmentRecord struct {
 
 	// Metadata of the record
 	Metadata *MetadataEntity
+}
+
+// ErrorAdditionalInfo - The resource management error additional info.
+type ErrorAdditionalInfo struct {
+	// READ-ONLY; The additional info.
+	Info any
+
+	// READ-ONLY; The additional info type.
+	Type *string
+}
+
+// ErrorDetail - The error detail.
+type ErrorDetail struct {
+	// READ-ONLY; The error additional info.
+	AdditionalInfo []*ErrorAdditionalInfo
+
+	// READ-ONLY; The error code.
+	Code *string
+
+	// READ-ONLY; The error details.
+	Details []*ErrorDetail
+
+	// READ-ONLY; The error message.
+	Message *string
+
+	// READ-ONLY; The error target.
+	Target *string
+}
+
+// ErrorResponse - Common error response for all Azure Resource Manager APIs to return error details for failed operations.
+// (This also follows the OData error response format.).
+type ErrorResponse struct {
+	// The error object.
+	Error *ErrorDetail
 }
 
 // ErrorResponseBody - Response body of Error
@@ -466,6 +690,224 @@ type InvitationRecord struct {
 	Status *string
 }
 
+// KafkaAzureBlobStorageSinkConnectorInfo - The partner connector type is KafkaAzureBlobStorageSink
+type KafkaAzureBlobStorageSinkConnectorInfo struct {
+	// REQUIRED; The partner connector type.
+	PartnerConnectorType *PartnerConnectorType
+
+	// Kafka API Key
+	APIKey *string
+
+	// Kafka API Key Secret
+	APISecret *string
+
+	// Kafka Auth Type
+	AuthType *AuthType
+
+	// Flush size
+	FlushSize *string
+
+	// Kafka Input Data Format Type
+	InputFormat *DataFormatType
+
+	// Maximum Tasks
+	MaxTasks *string
+
+	// Kafka Output Data Format Type
+	OutputFormat *DataFormatType
+
+	// Kafka Service Account Id
+	ServiceAccountID *string
+
+	// Time Interval
+	TimeInterval *string
+
+	// Kafka topics list
+	Topics []*string
+
+	// Kafka topics directory
+	TopicsDir *string
+}
+
+// GetPartnerInfoBase implements the PartnerInfoBaseClassification interface for type KafkaAzureBlobStorageSinkConnectorInfo.
+func (k *KafkaAzureBlobStorageSinkConnectorInfo) GetPartnerInfoBase() *PartnerInfoBase {
+	return &PartnerInfoBase{
+		PartnerConnectorType: k.PartnerConnectorType,
+	}
+}
+
+// KafkaAzureBlobStorageSourceConnectorInfo - The partner connector type is KafkaAzureBlobStorageSource
+type KafkaAzureBlobStorageSourceConnectorInfo struct {
+	// REQUIRED; The partner connector type.
+	PartnerConnectorType *PartnerConnectorType
+
+	// Kafka API Key
+	APIKey *string
+
+	// Kafka API Secret
+	APISecret *string
+
+	// Kafka Auth Type
+	AuthType *AuthType
+
+	// Kafka Input Data Format Type
+	InputFormat *DataFormatType
+
+	// Maximum Tasks
+	MaxTasks *string
+
+	// Kafka Output Data Format Type
+	OutputFormat *DataFormatType
+
+	// Kafka Service Account Id
+	ServiceAccountID *string
+
+	// Kafka topics Regex pattern
+	TopicRegex *string
+
+	// Kafka topics directory
+	TopicsDir *string
+}
+
+// GetPartnerInfoBase implements the PartnerInfoBaseClassification interface for type KafkaAzureBlobStorageSourceConnectorInfo.
+func (k *KafkaAzureBlobStorageSourceConnectorInfo) GetPartnerInfoBase() *PartnerInfoBase {
+	return &PartnerInfoBase{
+		PartnerConnectorType: k.PartnerConnectorType,
+	}
+}
+
+// KafkaAzureCosmosDBSinkConnectorInfo - The partner connector type is KafkaAzureCosmosDBSink
+type KafkaAzureCosmosDBSinkConnectorInfo struct {
+	// REQUIRED; The partner connector type.
+	PartnerConnectorType *PartnerConnectorType
+
+	// Kafka API Key
+	APIKey *string
+
+	// Kafka API Key Secret
+	APISecret *string
+
+	// Kafka Auth Type
+	AuthType *AuthType
+
+	// Flush size
+	FlushSize *string
+
+	// Kafka Input Data Format Type
+	InputFormat *DataFormatType
+
+	// Maximum Tasks
+	MaxTasks *string
+
+	// Kafka Output Data Format Type
+	OutputFormat *DataFormatType
+
+	// Kafka Service Account Id
+	ServiceAccountID *string
+
+	// Time Interval
+	TimeInterval *string
+
+	// Kafka topics list
+	Topics []*string
+
+	// Kafka topics directory
+	TopicsDir *string
+}
+
+// GetPartnerInfoBase implements the PartnerInfoBaseClassification interface for type KafkaAzureCosmosDBSinkConnectorInfo.
+func (k *KafkaAzureCosmosDBSinkConnectorInfo) GetPartnerInfoBase() *PartnerInfoBase {
+	return &PartnerInfoBase{
+		PartnerConnectorType: k.PartnerConnectorType,
+	}
+}
+
+// KafkaAzureCosmosDBSourceConnectorInfo - The partner connector type is KafkaAzureCosmosDBSource
+type KafkaAzureCosmosDBSourceConnectorInfo struct {
+	// REQUIRED; The partner connector type.
+	PartnerConnectorType *PartnerConnectorType
+
+	// Kafka API Key
+	APIKey *string
+
+	// Kafka API Secret
+	APISecret *string
+
+	// Kafka Auth Type
+	AuthType *AuthType
+
+	// Kafka Input Data Format Type
+	InputFormat *DataFormatType
+
+	// Maximum Tasks
+	MaxTasks *string
+
+	// Kafka Output Data Format Type
+	OutputFormat *DataFormatType
+
+	// Kafka Service Account Id
+	ServiceAccountID *string
+
+	// Kafka topics Regex pattern
+	TopicRegex *string
+
+	// Kafka topics directory
+	TopicsDir *string
+}
+
+// GetPartnerInfoBase implements the PartnerInfoBaseClassification interface for type KafkaAzureCosmosDBSourceConnectorInfo.
+func (k *KafkaAzureCosmosDBSourceConnectorInfo) GetPartnerInfoBase() *PartnerInfoBase {
+	return &PartnerInfoBase{
+		PartnerConnectorType: k.PartnerConnectorType,
+	}
+}
+
+// KafkaAzureSynapseAnalyticsSinkConnectorInfo - The partner connector type is KafkaAzureSynapseAnalyticsSink
+type KafkaAzureSynapseAnalyticsSinkConnectorInfo struct {
+	// REQUIRED; The partner connector type.
+	PartnerConnectorType *PartnerConnectorType
+
+	// Kafka API Key
+	APIKey *string
+
+	// Kafka API Key Secret
+	APISecret *string
+
+	// Kafka Auth Type
+	AuthType *AuthType
+
+	// Flush size
+	FlushSize *string
+
+	// Kafka Input Data Format Type
+	InputFormat *DataFormatType
+
+	// Maximum Tasks
+	MaxTasks *string
+
+	// Kafka Output Data Format Type
+	OutputFormat *DataFormatType
+
+	// Kafka Service Account Id
+	ServiceAccountID *string
+
+	// Time Interval
+	TimeInterval *string
+
+	// Kafka topics list
+	Topics []*string
+
+	// Kafka topics directory
+	TopicsDir *string
+}
+
+// GetPartnerInfoBase implements the PartnerInfoBaseClassification interface for type KafkaAzureSynapseAnalyticsSinkConnectorInfo.
+func (k *KafkaAzureSynapseAnalyticsSinkConnectorInfo) GetPartnerInfoBase() *PartnerInfoBase {
+	return &PartnerInfoBase{
+		PartnerConnectorType: k.PartnerConnectorType,
+	}
+}
+
 // LinkOrganization - Link an existing Confluent organization
 type LinkOrganization struct {
 	// REQUIRED; User auth token
@@ -485,6 +927,15 @@ type ListClustersSuccessResponse struct {
 
 	// List of clusters in an environment of a confluent organization
 	Value []*SCClusterRecord
+}
+
+// ListConnectorsSuccessResponse - Result of GET request to list connectors in the cluster of a confluent organization
+type ListConnectorsSuccessResponse struct {
+	// URL to get the next set of connectors records if there are any.
+	NextLink *string
+
+	// List of connectors in a cluster of a confluent organization
+	Value []*ConnectorResource
 }
 
 // ListMetadata - Metadata of the list
@@ -519,6 +970,15 @@ type ListSchemaRegistryClustersResponse struct {
 
 	// List of schema registry clusters in an environment of a confluent organization
 	Value []*SchemaRegistryClusterRecord
+}
+
+// ListTopicsSuccessResponse - Result of GET request to list topics in the cluster of a confluent organization
+type ListTopicsSuccessResponse struct {
+	// URL to get the next set of topics records if there are any.
+	NextLink *string
+
+	// List of topics in a cluster of a confluent organization
+	Value []*TopicRecord
 }
 
 // MetadataEntity - Metadata of the data record
@@ -668,6 +1128,31 @@ type OrganizationResourceUpdate struct {
 	Tags map[string]*string
 }
 
+// PartnerInfoBase - The partner info base
+type PartnerInfoBase struct {
+	// REQUIRED; The partner connector type.
+	PartnerConnectorType *PartnerConnectorType
+}
+
+// GetPartnerInfoBase implements the PartnerInfoBaseClassification interface for type PartnerInfoBase.
+func (p *PartnerInfoBase) GetPartnerInfoBase() *PartnerInfoBase { return p }
+
+// ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
+// location
+type ProxyResource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
 // RegionProperties - Region Properties
 type RegionProperties struct {
 	// Metadata of the record
@@ -700,6 +1185,21 @@ type RegionSpecEntity struct {
 
 	// Region name
 	RegionName *string
+}
+
+// Resource - Common fields that are returned in the response for all Azure Resource Manager resources
+type Resource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
 }
 
 // ResourceProviderDefaultErrorResponse - Default error response for resource provider
@@ -769,6 +1269,9 @@ type SCClusterRecord struct {
 
 	// Cluster Properties
 	Properties *ClusterProperties
+
+	// Type of the resource
+	Type *string
 }
 
 // SCClusterSpecEntity - Spec of the cluster record
@@ -802,6 +1305,9 @@ type SCClusterSpecEntity struct {
 
 	// Specification of the cluster network
 	Network *SCClusterNetworkEnvironmentEntity
+
+	// Stream governance configuration
+	Package *Package
 
 	// The cloud service provider region
 	Region *string
@@ -841,6 +1347,9 @@ type SCEnvironmentRecord struct {
 
 	// Environment properties
 	Properties *EnvironmentProperties
+
+	// Type of the resource
+	Type *string
 }
 
 // SCMetadataEntity - Metadata of the data record
@@ -942,6 +1451,12 @@ type ServiceAccountRecord struct {
 	Metadata *MetadataEntity
 }
 
+// StreamGovernanceConfig - Stream governance configuration
+type StreamGovernanceConfig struct {
+	// Stream governance configuration
+	Package *Package
+}
+
 // SystemData - Metadata pertaining to creation and last modification of the resource.
 type SystemData struct {
 	// The timestamp of resource creation (UTC).
@@ -961,6 +1476,75 @@ type SystemData struct {
 
 	// The type of identity that last modified the resource.
 	LastModifiedByType *CreatedByType
+}
+
+// TopicMetadataEntity - Metadata of the data record
+type TopicMetadataEntity struct {
+	// Resource name of the record
+	ResourceName *string
+
+	// Self lookup url
+	Self *string
+}
+
+// TopicProperties - Topic Properties
+type TopicProperties struct {
+	// Config Specification of the topic
+	Configs *TopicsRelatedLink
+
+	// Input Config Specification of the topic
+	InputConfigs []*TopicsInputConfig
+
+	// Type of topic
+	Kind *string
+
+	// Metadata of the record
+	Metadata *TopicMetadataEntity
+
+	// Partition Specification of the topic
+	Partitions *TopicsRelatedLink
+
+	// Partition count of the topic
+	PartitionsCount *string
+
+	// Partition Reassignment Specification of the topic
+	PartitionsReassignments *TopicsRelatedLink
+
+	// Replication factor of the topic
+	ReplicationFactor *string
+
+	// Topic Id returned by Confluent
+	TopicID *string
+}
+
+// TopicRecord - Details of topic record
+type TopicRecord struct {
+	// Topic Properties
+	Properties *TopicProperties
+
+	// READ-ONLY; The ARM Resource Id of the Topic
+	ID *string
+
+	// READ-ONLY; Display name of the topic
+	Name *string
+
+	// READ-ONLY; The type of the resource.
+	Type *string
+}
+
+// TopicsInputConfig - Topics input config
+type TopicsInputConfig struct {
+	// Name of the topic input config
+	Name *string
+
+	// Value of the topic input config
+	Value *string
+}
+
+// TopicsRelatedLink - Partition Config spec of the topic record
+type TopicsRelatedLink struct {
+	// Relationship of the topic
+	Related *string
 }
 
 // UserDetail - Subscriber detail
