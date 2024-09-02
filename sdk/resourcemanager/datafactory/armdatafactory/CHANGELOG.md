@@ -1,5 +1,17 @@
 # Release History
 
+## 9.1.0 (2024-09-02)
+### Features Added
+
+- New function `*IcebergDataset.GetDataset() *Dataset`
+- New function `*IcebergSink.GetCopySink() *CopySink`
+- New function `*IcebergWriteSettings.GetFormatWriteSettings() *FormatWriteSettings`
+- New struct `IcebergDataset`
+- New struct `IcebergDatasetTypeProperties`
+- New struct `IcebergSink`
+- New struct `IcebergWriteSettings`
+
+
 ## 9.0.0 (2024-08-23)
 ### Breaking Changes
 

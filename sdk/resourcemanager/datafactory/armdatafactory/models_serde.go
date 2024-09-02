@@ -26707,6 +26707,223 @@ func (h *HubspotSource) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type IcebergDataset.
+func (i IcebergDataset) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "annotations", i.Annotations)
+	populate(objectMap, "description", i.Description)
+	populate(objectMap, "folder", i.Folder)
+	populate(objectMap, "linkedServiceName", i.LinkedServiceName)
+	populate(objectMap, "parameters", i.Parameters)
+	populateAny(objectMap, "schema", i.Schema)
+	populateAny(objectMap, "structure", i.Structure)
+	objectMap["type"] = "Iceberg"
+	populate(objectMap, "typeProperties", i.TypeProperties)
+	if i.AdditionalProperties != nil {
+		for key, val := range i.AdditionalProperties {
+			objectMap[key] = val
+		}
+	}
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type IcebergDataset.
+func (i *IcebergDataset) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", i, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "annotations":
+			err = unpopulate(val, "Annotations", &i.Annotations)
+			delete(rawMsg, key)
+		case "description":
+			err = unpopulate(val, "Description", &i.Description)
+			delete(rawMsg, key)
+		case "folder":
+			err = unpopulate(val, "Folder", &i.Folder)
+			delete(rawMsg, key)
+		case "linkedServiceName":
+			err = unpopulate(val, "LinkedServiceName", &i.LinkedServiceName)
+			delete(rawMsg, key)
+		case "parameters":
+			err = unpopulate(val, "Parameters", &i.Parameters)
+			delete(rawMsg, key)
+		case "schema":
+			err = unpopulate(val, "Schema", &i.Schema)
+			delete(rawMsg, key)
+		case "structure":
+			err = unpopulate(val, "Structure", &i.Structure)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &i.Type)
+			delete(rawMsg, key)
+		case "typeProperties":
+			err = unpopulate(val, "TypeProperties", &i.TypeProperties)
+			delete(rawMsg, key)
+		default:
+			if i.AdditionalProperties == nil {
+				i.AdditionalProperties = map[string]any{}
+			}
+			if val != nil {
+				var aux any
+				err = json.Unmarshal(val, &aux)
+				i.AdditionalProperties[key] = aux
+			}
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", i, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type IcebergDatasetTypeProperties.
+func (i IcebergDatasetTypeProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "location", i.Location)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type IcebergDatasetTypeProperties.
+func (i *IcebergDatasetTypeProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", i, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "location":
+			i.Location, err = unmarshalDatasetLocationClassification(val)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", i, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type IcebergSink.
+func (i IcebergSink) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populateAny(objectMap, "disableMetricsCollection", i.DisableMetricsCollection)
+	populate(objectMap, "formatSettings", i.FormatSettings)
+	populateAny(objectMap, "maxConcurrentConnections", i.MaxConcurrentConnections)
+	populateAny(objectMap, "sinkRetryCount", i.SinkRetryCount)
+	populateAny(objectMap, "sinkRetryWait", i.SinkRetryWait)
+	populate(objectMap, "storeSettings", i.StoreSettings)
+	objectMap["type"] = "IcebergSink"
+	populateAny(objectMap, "writeBatchSize", i.WriteBatchSize)
+	populateAny(objectMap, "writeBatchTimeout", i.WriteBatchTimeout)
+	if i.AdditionalProperties != nil {
+		for key, val := range i.AdditionalProperties {
+			objectMap[key] = val
+		}
+	}
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type IcebergSink.
+func (i *IcebergSink) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", i, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "disableMetricsCollection":
+			err = unpopulate(val, "DisableMetricsCollection", &i.DisableMetricsCollection)
+			delete(rawMsg, key)
+		case "formatSettings":
+			err = unpopulate(val, "FormatSettings", &i.FormatSettings)
+			delete(rawMsg, key)
+		case "maxConcurrentConnections":
+			err = unpopulate(val, "MaxConcurrentConnections", &i.MaxConcurrentConnections)
+			delete(rawMsg, key)
+		case "sinkRetryCount":
+			err = unpopulate(val, "SinkRetryCount", &i.SinkRetryCount)
+			delete(rawMsg, key)
+		case "sinkRetryWait":
+			err = unpopulate(val, "SinkRetryWait", &i.SinkRetryWait)
+			delete(rawMsg, key)
+		case "storeSettings":
+			i.StoreSettings, err = unmarshalStoreWriteSettingsClassification(val)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &i.Type)
+			delete(rawMsg, key)
+		case "writeBatchSize":
+			err = unpopulate(val, "WriteBatchSize", &i.WriteBatchSize)
+			delete(rawMsg, key)
+		case "writeBatchTimeout":
+			err = unpopulate(val, "WriteBatchTimeout", &i.WriteBatchTimeout)
+			delete(rawMsg, key)
+		default:
+			if i.AdditionalProperties == nil {
+				i.AdditionalProperties = map[string]any{}
+			}
+			if val != nil {
+				var aux any
+				err = json.Unmarshal(val, &aux)
+				i.AdditionalProperties[key] = aux
+			}
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", i, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type IcebergWriteSettings.
+func (i IcebergWriteSettings) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	objectMap["type"] = "IcebergWriteSettings"
+	if i.AdditionalProperties != nil {
+		for key, val := range i.AdditionalProperties {
+			objectMap[key] = val
+		}
+	}
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type IcebergWriteSettings.
+func (i *IcebergWriteSettings) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", i, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "type":
+			err = unpopulate(val, "Type", &i.Type)
+			delete(rawMsg, key)
+		default:
+			if i.AdditionalProperties == nil {
+				i.AdditionalProperties = map[string]any{}
+			}
+			if val != nil {
+				var aux any
+				err = json.Unmarshal(val, &aux)
+				i.AdditionalProperties[key] = aux
+			}
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", i, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type IfConditionActivity.
 func (i IfConditionActivity) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
