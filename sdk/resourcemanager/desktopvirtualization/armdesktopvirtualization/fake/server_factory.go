@@ -19,22 +19,31 @@ import (
 
 // ServerFactory is a fake server for instances of the armdesktopvirtualization.ClientFactory type.
 type ServerFactory struct {
-	ApplicationGroupsServer            ApplicationGroupsServer
-	ApplicationsServer                 ApplicationsServer
-	DesktopsServer                     DesktopsServer
-	HostPoolsServer                    HostPoolsServer
-	MSIXPackagesServer                 MSIXPackagesServer
-	MsixImagesServer                   MsixImagesServer
-	OperationsServer                   OperationsServer
-	PrivateEndpointConnectionsServer   PrivateEndpointConnectionsServer
-	PrivateLinkResourcesServer         PrivateLinkResourcesServer
-	ScalingPlanPersonalSchedulesServer ScalingPlanPersonalSchedulesServer
-	ScalingPlanPooledSchedulesServer   ScalingPlanPooledSchedulesServer
-	ScalingPlansServer                 ScalingPlansServer
-	SessionHostsServer                 SessionHostsServer
-	StartMenuItemsServer               StartMenuItemsServer
-	UserSessionsServer                 UserSessionsServer
-	WorkspacesServer                   WorkspacesServer
+	ActiveSessionHostConfigurationsServer    ActiveSessionHostConfigurationsServer
+	AppAttachPackageServer                   AppAttachPackageServer
+	AppAttachPackageInfoServer               AppAttachPackageInfoServer
+	ApplicationGroupsServer                  ApplicationGroupsServer
+	ApplicationsServer                       ApplicationsServer
+	ControlSessionHostUpdateServer           ControlSessionHostUpdateServer
+	DesktopsServer                           DesktopsServer
+	HostPoolsServer                          HostPoolsServer
+	InitiateSessionHostUpdateServer          InitiateSessionHostUpdateServer
+	MSIXPackagesServer                       MSIXPackagesServer
+	MsixImagesServer                         MsixImagesServer
+	OperationsServer                         OperationsServer
+	PrivateEndpointConnectionsServer         PrivateEndpointConnectionsServer
+	PrivateLinkResourcesServer               PrivateLinkResourcesServer
+	ScalingPlanPersonalSchedulesServer       ScalingPlanPersonalSchedulesServer
+	ScalingPlanPooledSchedulesServer         ScalingPlanPooledSchedulesServer
+	ScalingPlansServer                       ScalingPlansServer
+	SessionHostServer                        SessionHostServer
+	SessionHostConfigurationsServer          SessionHostConfigurationsServer
+	SessionHostManagementsServer             SessionHostManagementsServer
+	SessionHostManagementsUpdateStatusServer SessionHostManagementsUpdateStatusServer
+	SessionHostsServer                       SessionHostsServer
+	StartMenuItemsServer                     StartMenuItemsServer
+	UserSessionsServer                       UserSessionsServer
+	WorkspacesServer                         WorkspacesServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -49,24 +58,33 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armdesktopvirtualization.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                                  *ServerFactory
-	trMu                                 sync.Mutex
-	trApplicationGroupsServer            *ApplicationGroupsServerTransport
-	trApplicationsServer                 *ApplicationsServerTransport
-	trDesktopsServer                     *DesktopsServerTransport
-	trHostPoolsServer                    *HostPoolsServerTransport
-	trMSIXPackagesServer                 *MSIXPackagesServerTransport
-	trMsixImagesServer                   *MsixImagesServerTransport
-	trOperationsServer                   *OperationsServerTransport
-	trPrivateEndpointConnectionsServer   *PrivateEndpointConnectionsServerTransport
-	trPrivateLinkResourcesServer         *PrivateLinkResourcesServerTransport
-	trScalingPlanPersonalSchedulesServer *ScalingPlanPersonalSchedulesServerTransport
-	trScalingPlanPooledSchedulesServer   *ScalingPlanPooledSchedulesServerTransport
-	trScalingPlansServer                 *ScalingPlansServerTransport
-	trSessionHostsServer                 *SessionHostsServerTransport
-	trStartMenuItemsServer               *StartMenuItemsServerTransport
-	trUserSessionsServer                 *UserSessionsServerTransport
-	trWorkspacesServer                   *WorkspacesServerTransport
+	srv                                        *ServerFactory
+	trMu                                       sync.Mutex
+	trActiveSessionHostConfigurationsServer    *ActiveSessionHostConfigurationsServerTransport
+	trAppAttachPackageServer                   *AppAttachPackageServerTransport
+	trAppAttachPackageInfoServer               *AppAttachPackageInfoServerTransport
+	trApplicationGroupsServer                  *ApplicationGroupsServerTransport
+	trApplicationsServer                       *ApplicationsServerTransport
+	trControlSessionHostUpdateServer           *ControlSessionHostUpdateServerTransport
+	trDesktopsServer                           *DesktopsServerTransport
+	trHostPoolsServer                          *HostPoolsServerTransport
+	trInitiateSessionHostUpdateServer          *InitiateSessionHostUpdateServerTransport
+	trMSIXPackagesServer                       *MSIXPackagesServerTransport
+	trMsixImagesServer                         *MsixImagesServerTransport
+	trOperationsServer                         *OperationsServerTransport
+	trPrivateEndpointConnectionsServer         *PrivateEndpointConnectionsServerTransport
+	trPrivateLinkResourcesServer               *PrivateLinkResourcesServerTransport
+	trScalingPlanPersonalSchedulesServer       *ScalingPlanPersonalSchedulesServerTransport
+	trScalingPlanPooledSchedulesServer         *ScalingPlanPooledSchedulesServerTransport
+	trScalingPlansServer                       *ScalingPlansServerTransport
+	trSessionHostServer                        *SessionHostServerTransport
+	trSessionHostConfigurationsServer          *SessionHostConfigurationsServerTransport
+	trSessionHostManagementsServer             *SessionHostManagementsServerTransport
+	trSessionHostManagementsUpdateStatusServer *SessionHostManagementsUpdateStatusServerTransport
+	trSessionHostsServer                       *SessionHostsServerTransport
+	trStartMenuItemsServer                     *StartMenuItemsServerTransport
+	trUserSessionsServer                       *UserSessionsServerTransport
+	trWorkspacesServer                         *WorkspacesServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -82,6 +100,21 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch client {
+	case "ActiveSessionHostConfigurationsClient":
+		initServer(s, &s.trActiveSessionHostConfigurationsServer, func() *ActiveSessionHostConfigurationsServerTransport {
+			return NewActiveSessionHostConfigurationsServerTransport(&s.srv.ActiveSessionHostConfigurationsServer)
+		})
+		resp, err = s.trActiveSessionHostConfigurationsServer.Do(req)
+	case "AppAttachPackageClient":
+		initServer(s, &s.trAppAttachPackageServer, func() *AppAttachPackageServerTransport {
+			return NewAppAttachPackageServerTransport(&s.srv.AppAttachPackageServer)
+		})
+		resp, err = s.trAppAttachPackageServer.Do(req)
+	case "AppAttachPackageInfoClient":
+		initServer(s, &s.trAppAttachPackageInfoServer, func() *AppAttachPackageInfoServerTransport {
+			return NewAppAttachPackageInfoServerTransport(&s.srv.AppAttachPackageInfoServer)
+		})
+		resp, err = s.trAppAttachPackageInfoServer.Do(req)
 	case "ApplicationGroupsClient":
 		initServer(s, &s.trApplicationGroupsServer, func() *ApplicationGroupsServerTransport {
 			return NewApplicationGroupsServerTransport(&s.srv.ApplicationGroupsServer)
@@ -90,12 +123,22 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "ApplicationsClient":
 		initServer(s, &s.trApplicationsServer, func() *ApplicationsServerTransport { return NewApplicationsServerTransport(&s.srv.ApplicationsServer) })
 		resp, err = s.trApplicationsServer.Do(req)
+	case "ControlSessionHostUpdateClient":
+		initServer(s, &s.trControlSessionHostUpdateServer, func() *ControlSessionHostUpdateServerTransport {
+			return NewControlSessionHostUpdateServerTransport(&s.srv.ControlSessionHostUpdateServer)
+		})
+		resp, err = s.trControlSessionHostUpdateServer.Do(req)
 	case "DesktopsClient":
 		initServer(s, &s.trDesktopsServer, func() *DesktopsServerTransport { return NewDesktopsServerTransport(&s.srv.DesktopsServer) })
 		resp, err = s.trDesktopsServer.Do(req)
 	case "HostPoolsClient":
 		initServer(s, &s.trHostPoolsServer, func() *HostPoolsServerTransport { return NewHostPoolsServerTransport(&s.srv.HostPoolsServer) })
 		resp, err = s.trHostPoolsServer.Do(req)
+	case "InitiateSessionHostUpdateClient":
+		initServer(s, &s.trInitiateSessionHostUpdateServer, func() *InitiateSessionHostUpdateServerTransport {
+			return NewInitiateSessionHostUpdateServerTransport(&s.srv.InitiateSessionHostUpdateServer)
+		})
+		resp, err = s.trInitiateSessionHostUpdateServer.Do(req)
 	case "MSIXPackagesClient":
 		initServer(s, &s.trMSIXPackagesServer, func() *MSIXPackagesServerTransport { return NewMSIXPackagesServerTransport(&s.srv.MSIXPackagesServer) })
 		resp, err = s.trMSIXPackagesServer.Do(req)
@@ -128,6 +171,24 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "ScalingPlansClient":
 		initServer(s, &s.trScalingPlansServer, func() *ScalingPlansServerTransport { return NewScalingPlansServerTransport(&s.srv.ScalingPlansServer) })
 		resp, err = s.trScalingPlansServer.Do(req)
+	case "SessionHostClient":
+		initServer(s, &s.trSessionHostServer, func() *SessionHostServerTransport { return NewSessionHostServerTransport(&s.srv.SessionHostServer) })
+		resp, err = s.trSessionHostServer.Do(req)
+	case "SessionHostConfigurationsClient":
+		initServer(s, &s.trSessionHostConfigurationsServer, func() *SessionHostConfigurationsServerTransport {
+			return NewSessionHostConfigurationsServerTransport(&s.srv.SessionHostConfigurationsServer)
+		})
+		resp, err = s.trSessionHostConfigurationsServer.Do(req)
+	case "SessionHostManagementsClient":
+		initServer(s, &s.trSessionHostManagementsServer, func() *SessionHostManagementsServerTransport {
+			return NewSessionHostManagementsServerTransport(&s.srv.SessionHostManagementsServer)
+		})
+		resp, err = s.trSessionHostManagementsServer.Do(req)
+	case "SessionHostManagementsUpdateStatusClient":
+		initServer(s, &s.trSessionHostManagementsUpdateStatusServer, func() *SessionHostManagementsUpdateStatusServerTransport {
+			return NewSessionHostManagementsUpdateStatusServerTransport(&s.srv.SessionHostManagementsUpdateStatusServer)
+		})
+		resp, err = s.trSessionHostManagementsUpdateStatusServer.Do(req)
 	case "SessionHostsClient":
 		initServer(s, &s.trSessionHostsServer, func() *SessionHostsServerTransport { return NewSessionHostsServerTransport(&s.srv.SessionHostsServer) })
 		resp, err = s.trSessionHostsServer.Do(req)

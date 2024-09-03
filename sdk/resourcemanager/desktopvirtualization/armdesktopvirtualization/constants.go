@@ -10,8 +10,34 @@ package armdesktopvirtualization
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization"
-	moduleVersion = "v2.2.0"
+	moduleVersion = "v3.0.0-beta.1"
 )
+
+// AppAttachPackageArchitectures - Possible device architectures that an app attach package can be configured for
+type AppAttachPackageArchitectures string
+
+const (
+	AppAttachPackageArchitecturesALL     AppAttachPackageArchitectures = "ALL"
+	AppAttachPackageArchitecturesARM     AppAttachPackageArchitectures = "ARM"
+	AppAttachPackageArchitecturesARM64   AppAttachPackageArchitectures = "ARM64"
+	AppAttachPackageArchitecturesNeutral AppAttachPackageArchitectures = "Neutral"
+	AppAttachPackageArchitecturesX64     AppAttachPackageArchitectures = "x64"
+	AppAttachPackageArchitecturesX86     AppAttachPackageArchitectures = "x86"
+	AppAttachPackageArchitecturesX86A64  AppAttachPackageArchitectures = "x86a64"
+)
+
+// PossibleAppAttachPackageArchitecturesValues returns the possible values for the AppAttachPackageArchitectures const type.
+func PossibleAppAttachPackageArchitecturesValues() []AppAttachPackageArchitectures {
+	return []AppAttachPackageArchitectures{
+		AppAttachPackageArchitecturesALL,
+		AppAttachPackageArchitecturesARM,
+		AppAttachPackageArchitecturesARM64,
+		AppAttachPackageArchitecturesNeutral,
+		AppAttachPackageArchitecturesX64,
+		AppAttachPackageArchitecturesX86,
+		AppAttachPackageArchitecturesX86A64,
+	}
+}
 
 // ApplicationGroupType - Resource Type of ApplicationGroup.
 type ApplicationGroupType string
@@ -107,6 +133,63 @@ func PossibleDayOfWeekValues() []DayOfWeek {
 		DayOfWeekThursday,
 		DayOfWeekTuesday,
 		DayOfWeekWednesday,
+	}
+}
+
+// DirectUDP - Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection
+// type when making connections. This means that this connection is possible, but is
+// not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection
+// type when making connections
+type DirectUDP string
+
+const (
+	DirectUDPDefault  DirectUDP = "Default"
+	DirectUDPDisabled DirectUDP = "Disabled"
+	DirectUDPEnabled  DirectUDP = "Enabled"
+)
+
+// PossibleDirectUDPValues returns the possible values for the DirectUDP const type.
+func PossibleDirectUDPValues() []DirectUDP {
+	return []DirectUDP{
+		DirectUDPDefault,
+		DirectUDPDisabled,
+		DirectUDPEnabled,
+	}
+}
+
+// DomainJoinType - The type of domain join done by the virtual machine.
+type DomainJoinType string
+
+const (
+	// DomainJoinTypeActiveDirectory - Using microsoft active directory.
+	DomainJoinTypeActiveDirectory DomainJoinType = "ActiveDirectory"
+	// DomainJoinTypeAzureActiveDirectory - Using microsoft azure active directory.
+	DomainJoinTypeAzureActiveDirectory DomainJoinType = "AzureActiveDirectory"
+)
+
+// PossibleDomainJoinTypeValues returns the possible values for the DomainJoinType const type.
+func PossibleDomainJoinTypeValues() []DomainJoinType {
+	return []DomainJoinType{
+		DomainJoinTypeActiveDirectory,
+		DomainJoinTypeAzureActiveDirectory,
+	}
+}
+
+// FailHealthCheckOnStagingFailure - Parameter indicating how the health check should behave if this package fails staging
+type FailHealthCheckOnStagingFailure string
+
+const (
+	FailHealthCheckOnStagingFailureDoNotFail       FailHealthCheckOnStagingFailure = "DoNotFail"
+	FailHealthCheckOnStagingFailureNeedsAssistance FailHealthCheckOnStagingFailure = "NeedsAssistance"
+	FailHealthCheckOnStagingFailureUnhealthy       FailHealthCheckOnStagingFailure = "Unhealthy"
+)
+
+// PossibleFailHealthCheckOnStagingFailureValues returns the possible values for the FailHealthCheckOnStagingFailure const type.
+func PossibleFailHealthCheckOnStagingFailureValues() []FailHealthCheckOnStagingFailure {
+	return []FailHealthCheckOnStagingFailure{
+		FailHealthCheckOnStagingFailureDoNotFail,
+		FailHealthCheckOnStagingFailureNeedsAssistance,
+		FailHealthCheckOnStagingFailureUnhealthy,
 	}
 }
 
@@ -227,6 +310,33 @@ func PossibleHostPoolTypeValues() []HostPoolType {
 	}
 }
 
+// HostPoolUpdateAction - Action types for controlling hostpool update.
+type HostPoolUpdateAction string
+
+const (
+	// HostPoolUpdateActionCancel - Cancel the hostpool update.
+	HostPoolUpdateActionCancel HostPoolUpdateAction = "Cancel"
+	// HostPoolUpdateActionPause - Pause the hostpool update.
+	HostPoolUpdateActionPause HostPoolUpdateAction = "Pause"
+	// HostPoolUpdateActionResume - Resume the hostpool update.
+	HostPoolUpdateActionResume HostPoolUpdateAction = "Resume"
+	// HostPoolUpdateActionRetry - Retry the hostpool update.
+	HostPoolUpdateActionRetry HostPoolUpdateAction = "Retry"
+	// HostPoolUpdateActionStart - Start the hostpool update.
+	HostPoolUpdateActionStart HostPoolUpdateAction = "Start"
+)
+
+// PossibleHostPoolUpdateActionValues returns the possible values for the HostPoolUpdateAction const type.
+func PossibleHostPoolUpdateActionValues() []HostPoolUpdateAction {
+	return []HostPoolUpdateAction{
+		HostPoolUpdateActionCancel,
+		HostPoolUpdateActionPause,
+		HostPoolUpdateActionResume,
+		HostPoolUpdateActionRetry,
+		HostPoolUpdateActionStart,
+	}
+}
+
 // HostpoolPublicNetworkAccess - Enabled allows this resource to be accessed from both public and private networks, Disabled
 // allows this resource to only be accessed via private endpoints
 type HostpoolPublicNetworkAccess string
@@ -252,9 +362,10 @@ func PossibleHostpoolPublicNetworkAccessValues() []HostpoolPublicNetworkAccess {
 type LoadBalancerType string
 
 const (
-	LoadBalancerTypeBreadthFirst LoadBalancerType = "BreadthFirst"
-	LoadBalancerTypeDepthFirst   LoadBalancerType = "DepthFirst"
-	LoadBalancerTypePersistent   LoadBalancerType = "Persistent"
+	LoadBalancerTypeBreadthFirst       LoadBalancerType = "BreadthFirst"
+	LoadBalancerTypeDepthFirst         LoadBalancerType = "DepthFirst"
+	LoadBalancerTypeMultiplePersistent LoadBalancerType = "MultiplePersistent"
+	LoadBalancerTypePersistent         LoadBalancerType = "Persistent"
 )
 
 // PossibleLoadBalancerTypeValues returns the possible values for the LoadBalancerType const type.
@@ -262,7 +373,81 @@ func PossibleLoadBalancerTypeValues() []LoadBalancerType {
 	return []LoadBalancerType{
 		LoadBalancerTypeBreadthFirst,
 		LoadBalancerTypeDepthFirst,
+		LoadBalancerTypeMultiplePersistent,
 		LoadBalancerTypePersistent,
+	}
+}
+
+// ManagedPrivateUDP - Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt
+// this connection type when making connections. This means that this connection is possible, but is
+// not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection
+// type when making connections
+type ManagedPrivateUDP string
+
+const (
+	ManagedPrivateUDPDefault  ManagedPrivateUDP = "Default"
+	ManagedPrivateUDPDisabled ManagedPrivateUDP = "Disabled"
+	ManagedPrivateUDPEnabled  ManagedPrivateUDP = "Enabled"
+)
+
+// PossibleManagedPrivateUDPValues returns the possible values for the ManagedPrivateUDP const type.
+func PossibleManagedPrivateUDPValues() []ManagedPrivateUDP {
+	return []ManagedPrivateUDP{
+		ManagedPrivateUDPDefault,
+		ManagedPrivateUDPDisabled,
+		ManagedPrivateUDPEnabled,
+	}
+}
+
+// ManagedServiceIdentityType - Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
+type ManagedServiceIdentityType string
+
+const (
+	ManagedServiceIdentityTypeNone                       ManagedServiceIdentityType = "None"
+	ManagedServiceIdentityTypeSystemAssigned             ManagedServiceIdentityType = "SystemAssigned"
+	ManagedServiceIdentityTypeSystemAssignedUserAssigned ManagedServiceIdentityType = "SystemAssigned,UserAssigned"
+	ManagedServiceIdentityTypeUserAssigned               ManagedServiceIdentityType = "UserAssigned"
+)
+
+// PossibleManagedServiceIdentityTypeValues returns the possible values for the ManagedServiceIdentityType const type.
+func PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType {
+	return []ManagedServiceIdentityType{
+		ManagedServiceIdentityTypeNone,
+		ManagedServiceIdentityTypeSystemAssigned,
+		ManagedServiceIdentityTypeSystemAssignedUserAssigned,
+		ManagedServiceIdentityTypeUserAssigned,
+	}
+}
+
+// ManagementType - The type of management for this hostpool, Automated or Standard. The default value is Automated.
+type ManagementType string
+
+const (
+	ManagementTypeAutomated ManagementType = "Automated"
+	ManagementTypeStandard  ManagementType = "Standard"
+)
+
+// PossibleManagementTypeValues returns the possible values for the ManagementType const type.
+func PossibleManagementTypeValues() []ManagementType {
+	return []ManagementType{
+		ManagementTypeAutomated,
+		ManagementTypeStandard,
+	}
+}
+
+// PackageTimestamped - Is package timestamped so it can ignore the certificate expiry date
+type PackageTimestamped string
+
+const (
+	PackageTimestampedNotTimestamped PackageTimestamped = "NotTimestamped"
+	PackageTimestampedTimestamped    PackageTimestamped = "Timestamped"
+)
+
+// PossiblePackageTimestampedValues returns the possible values for the PackageTimestamped const type.
+func PossiblePackageTimestampedValues() []PackageTimestamped {
+	return []PackageTimestamped{
+		PackageTimestampedNotTimestamped,
+		PackageTimestampedTimestamped,
 	}
 }
 
@@ -286,8 +471,13 @@ func PossiblePersonalDesktopAssignmentTypeValues() []PersonalDesktopAssignmentTy
 type PreferredAppGroupType string
 
 const (
-	PreferredAppGroupTypeDesktop          PreferredAppGroupType = "Desktop"
-	PreferredAppGroupTypeNone             PreferredAppGroupType = "None"
+	// PreferredAppGroupTypeDesktop - Users access the full Windows desktop from a session host. Available with pooled or personal
+	// host pools.
+	PreferredAppGroupTypeDesktop PreferredAppGroupType = "Desktop"
+	// PreferredAppGroupTypeNone - This value is read only, it is not accepted on input.
+	PreferredAppGroupTypeNone PreferredAppGroupType = "None"
+	// PreferredAppGroupTypeRailApplications - Users access individual applications you select and publish to the application
+	// group. Available with pooled host pools only.
 	PreferredAppGroupTypeRailApplications PreferredAppGroupType = "RailApplications"
 )
 
@@ -338,6 +528,46 @@ func PossiblePrivateEndpointServiceConnectionStatusValues() []PrivateEndpointSer
 	}
 }
 
+// ProvisioningState - The current provisioning state.
+type ProvisioningState string
+
+const (
+	ProvisioningStateCanceled     ProvisioningState = "Canceled"
+	ProvisioningStateFailed       ProvisioningState = "Failed"
+	ProvisioningStateProvisioning ProvisioningState = "Provisioning"
+	ProvisioningStateSucceeded    ProvisioningState = "Succeeded"
+)
+
+// PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
+func PossibleProvisioningStateValues() []ProvisioningState {
+	return []ProvisioningState{
+		ProvisioningStateCanceled,
+		ProvisioningStateFailed,
+		ProvisioningStateProvisioning,
+		ProvisioningStateSucceeded,
+	}
+}
+
+// ProvisioningStateSHC - Provisioning state of the Session Host Configuration.
+type ProvisioningStateSHC string
+
+const (
+	ProvisioningStateSHCCanceled     ProvisioningStateSHC = "Canceled"
+	ProvisioningStateSHCFailed       ProvisioningStateSHC = "Failed"
+	ProvisioningStateSHCProvisioning ProvisioningStateSHC = "Provisioning"
+	ProvisioningStateSHCSucceeded    ProvisioningStateSHC = "Succeeded"
+)
+
+// PossibleProvisioningStateSHCValues returns the possible values for the ProvisioningStateSHC const type.
+func PossibleProvisioningStateSHCValues() []ProvisioningStateSHC {
+	return []ProvisioningStateSHC{
+		ProvisioningStateSHCCanceled,
+		ProvisioningStateSHCFailed,
+		ProvisioningStateSHCProvisioning,
+		ProvisioningStateSHCSucceeded,
+	}
+}
+
 // PublicNetworkAccess - Enabled allows this resource to be accessed from both public and private networks, Disabled allows
 // this resource to only be accessed via private endpoints
 type PublicNetworkAccess string
@@ -352,6 +582,27 @@ func PossiblePublicNetworkAccessValues() []PublicNetworkAccess {
 	return []PublicNetworkAccess{
 		PublicNetworkAccessDisabled,
 		PublicNetworkAccessEnabled,
+	}
+}
+
+// PublicUDP - Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection
+// type when making connections. This means that this connection is possible, but is
+// not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection
+// type when making connections
+type PublicUDP string
+
+const (
+	PublicUDPDefault  PublicUDP = "Default"
+	PublicUDPDisabled PublicUDP = "Disabled"
+	PublicUDPEnabled  PublicUDP = "Enabled"
+)
+
+// PossiblePublicUDPValues returns the possible values for the PublicUDP const type.
+func PossiblePublicUDPValues() []PublicUDP {
+	return []PublicUDP{
+		PublicUDPDefault,
+		PublicUDPDisabled,
+		PublicUDPEnabled,
 	}
 }
 
@@ -370,6 +621,27 @@ func PossibleRegistrationTokenOperationValues() []RegistrationTokenOperation {
 		RegistrationTokenOperationDelete,
 		RegistrationTokenOperationNone,
 		RegistrationTokenOperationUpdate,
+	}
+}
+
+// RelayUDP - Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection
+// type when making connections. This means that this connection is possible, but is
+// not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection
+// type when making connections
+type RelayUDP string
+
+const (
+	RelayUDPDefault  RelayUDP = "Default"
+	RelayUDPDisabled RelayUDP = "Disabled"
+	RelayUDPEnabled  RelayUDP = "Enabled"
+)
+
+// PossibleRelayUDPValues returns the possible values for the RelayUDP const type.
+func PossibleRelayUDPValues() []RelayUDP {
+	return []RelayUDP{
+		RelayUDPDefault,
+		RelayUDPDisabled,
+		RelayUDPEnabled,
 	}
 }
 
@@ -434,6 +706,10 @@ func PossibleSSOSecretTypeValues() []SSOSecretType {
 type ScalingHostPoolType string
 
 const (
+	// ScalingHostPoolTypePersonal - Users will be assigned a SessionHost either by administrators (PersonalDesktopAssignmentType
+	// = Direct) or upon connecting to the pool (PersonalDesktopAssignmentType = Automatic). They will always be redirected to
+	// their assigned SessionHost.
+	ScalingHostPoolTypePersonal ScalingHostPoolType = "Personal"
 	// ScalingHostPoolTypePooled - Users get a new (random) SessionHost every time it connects to the HostPool.
 	ScalingHostPoolTypePooled ScalingHostPoolType = "Pooled"
 )
@@ -441,32 +717,8 @@ const (
 // PossibleScalingHostPoolTypeValues returns the possible values for the ScalingHostPoolType const type.
 func PossibleScalingHostPoolTypeValues() []ScalingHostPoolType {
 	return []ScalingHostPoolType{
+		ScalingHostPoolTypePersonal,
 		ScalingHostPoolTypePooled,
-	}
-}
-
-type ScalingScheduleDaysOfWeekItem string
-
-const (
-	ScalingScheduleDaysOfWeekItemFriday    ScalingScheduleDaysOfWeekItem = "Friday"
-	ScalingScheduleDaysOfWeekItemMonday    ScalingScheduleDaysOfWeekItem = "Monday"
-	ScalingScheduleDaysOfWeekItemSaturday  ScalingScheduleDaysOfWeekItem = "Saturday"
-	ScalingScheduleDaysOfWeekItemSunday    ScalingScheduleDaysOfWeekItem = "Sunday"
-	ScalingScheduleDaysOfWeekItemThursday  ScalingScheduleDaysOfWeekItem = "Thursday"
-	ScalingScheduleDaysOfWeekItemTuesday   ScalingScheduleDaysOfWeekItem = "Tuesday"
-	ScalingScheduleDaysOfWeekItemWednesday ScalingScheduleDaysOfWeekItem = "Wednesday"
-)
-
-// PossibleScalingScheduleDaysOfWeekItemValues returns the possible values for the ScalingScheduleDaysOfWeekItem const type.
-func PossibleScalingScheduleDaysOfWeekItemValues() []ScalingScheduleDaysOfWeekItem {
-	return []ScalingScheduleDaysOfWeekItem{
-		ScalingScheduleDaysOfWeekItemFriday,
-		ScalingScheduleDaysOfWeekItemMonday,
-		ScalingScheduleDaysOfWeekItemSaturday,
-		ScalingScheduleDaysOfWeekItemSunday,
-		ScalingScheduleDaysOfWeekItemThursday,
-		ScalingScheduleDaysOfWeekItemTuesday,
-		ScalingScheduleDaysOfWeekItemWednesday,
 	}
 }
 
@@ -655,6 +907,24 @@ func PossibleStopHostsWhenValues() []StopHostsWhen {
 	}
 }
 
+// Type - The type of image session hosts use in the hostpool.
+type Type string
+
+const (
+	// TypeCustom - Using a custom image.
+	TypeCustom Type = "Custom"
+	// TypeMarketplace - Using default marketplace images offered by Azure Marketplace.
+	TypeMarketplace Type = "Marketplace"
+)
+
+// PossibleTypeValues returns the possible values for the Type const type.
+func PossibleTypeValues() []Type {
+	return []Type{
+		TypeCustom,
+		TypeMarketplace,
+	}
+}
+
 // UpdateState - Update state of a SessionHost.
 type UpdateState string
 
@@ -674,5 +944,50 @@ func PossibleUpdateStateValues() []UpdateState {
 		UpdateStatePending,
 		UpdateStateStarted,
 		UpdateStateSucceeded,
+	}
+}
+
+// VirtualMachineDiskType - The disk type used by virtual machine in hostpool session host.
+type VirtualMachineDiskType string
+
+const (
+	// VirtualMachineDiskTypePremiumLRS - Premium SSD locally redundant storage. Best for production and performance sensitive
+	// workloads.
+	VirtualMachineDiskTypePremiumLRS VirtualMachineDiskType = "Premium_LRS"
+	// VirtualMachineDiskTypeStandardLRS - Standard HDD locally redundant storage. Best for backup, non-critical, and infrequent
+	// access.
+	VirtualMachineDiskTypeStandardLRS VirtualMachineDiskType = "Standard_LRS"
+	// VirtualMachineDiskTypeStandardSSDLRS - Standard SSD locally redundant storage. Best for web servers, lightly used enterprise
+	// applications and dev/test.
+	VirtualMachineDiskTypeStandardSSDLRS VirtualMachineDiskType = "StandardSSD_LRS"
+)
+
+// PossibleVirtualMachineDiskTypeValues returns the possible values for the VirtualMachineDiskType const type.
+func PossibleVirtualMachineDiskTypeValues() []VirtualMachineDiskType {
+	return []VirtualMachineDiskType{
+		VirtualMachineDiskTypePremiumLRS,
+		VirtualMachineDiskTypeStandardLRS,
+		VirtualMachineDiskTypeStandardSSDLRS,
+	}
+}
+
+// VirtualMachineSecurityType - The security type used by virtual machine in hostpool session host. Default is Standard.
+type VirtualMachineSecurityType string
+
+const (
+	// VirtualMachineSecurityTypeConfidentialVM - Confidential Virtual Machine security protocol
+	VirtualMachineSecurityTypeConfidentialVM VirtualMachineSecurityType = "ConfidentialVM"
+	// VirtualMachineSecurityTypeStandard - Standard security protocol. No additional parameters
+	VirtualMachineSecurityTypeStandard VirtualMachineSecurityType = "Standard"
+	// VirtualMachineSecurityTypeTrustedLaunch - TrustedLaunch allows for secure boot adn vTPM
+	VirtualMachineSecurityTypeTrustedLaunch VirtualMachineSecurityType = "TrustedLaunch"
+)
+
+// PossibleVirtualMachineSecurityTypeValues returns the possible values for the VirtualMachineSecurityType const type.
+func PossibleVirtualMachineSecurityTypeValues() []VirtualMachineSecurityType {
+	return []VirtualMachineSecurityType{
+		VirtualMachineSecurityTypeConfidentialVM,
+		VirtualMachineSecurityTypeStandard,
+		VirtualMachineSecurityTypeTrustedLaunch,
 	}
 }

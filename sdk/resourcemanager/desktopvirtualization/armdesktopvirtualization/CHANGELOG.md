@@ -1,5 +1,177 @@
 # Release History
 
+## 3.0.0-beta.1 (2024-09-03)
+### Breaking Changes
+
+- Function `*ScalingPlanPooledSchedulesClient.Create` parameter(s) have been changed from `(context.Context, string, string, string, ScalingPlanPooledSchedule, *ScalingPlanPooledSchedulesClientCreateOptions)` to `(context.Context, string, string, string, ScalingPlanPooledSchedulePut, *ScalingPlanPooledSchedulesClientCreateOptions)`
+- Type of `ApplicationGroup.Identity` has been changed from `*ResourceModelWithAllowedPropertySetIdentity` to `*ManagedServiceIdentity`
+- Type of `ApplicationGroup.Plan` has been changed from `*ResourceModelWithAllowedPropertySetPlan` to `*Plan`
+- Type of `ApplicationGroup.SKU` has been changed from `*ResourceModelWithAllowedPropertySetSKU` to `*SKU`
+- Type of `HostPool.Identity` has been changed from `*ResourceModelWithAllowedPropertySetIdentity` to `*ManagedServiceIdentity`
+- Type of `HostPool.Plan` has been changed from `*ResourceModelWithAllowedPropertySetPlan` to `*Plan`
+- Type of `HostPool.SKU` has been changed from `*ResourceModelWithAllowedPropertySetSKU` to `*SKU`
+- Type of `ScalingPlan.Identity` has been changed from `*ResourceModelWithAllowedPropertySetIdentity` to `*ManagedServiceIdentity`
+- Type of `ScalingPlan.Plan` has been changed from `*ResourceModelWithAllowedPropertySetPlan` to `*Plan`
+- Type of `ScalingPlan.SKU` has been changed from `*ResourceModelWithAllowedPropertySetSKU` to `*SKU`
+- Type of `ScalingPlanPatchProperties.Schedules` has been changed from `[]*ScalingSchedule` to `[]*ScalingPlanPooledScheduleProperties`
+- Type of `ScalingPlanPersonalSchedulePatch.Properties` has been changed from `*ScalingPlanPersonalScheduleProperties` to `*ScalingPlanPersonalSchedulePatchProperties`
+- Type of `ScalingPlanPooledScheduleList.Value` has been changed from `[]*ScalingPlanPooledSchedule` to `[]*ScalingPlanPooledSchedulePut`
+- Type of `ScalingPlanPooledSchedulePatch.Properties` has been changed from `*ScalingPlanPooledScheduleProperties` to `*ScalingPlanPooledSchedulePatchProperties`
+- Type of `ScalingPlanProperties.Schedules` has been changed from `[]*ScalingSchedule` to `[]*ScalingPlanPooledScheduleProperties`
+- Type of `Workspace.Identity` has been changed from `*ResourceModelWithAllowedPropertySetIdentity` to `*ManagedServiceIdentity`
+- Type of `Workspace.Plan` has been changed from `*ResourceModelWithAllowedPropertySetPlan` to `*Plan`
+- Type of `Workspace.SKU` has been changed from `*ResourceModelWithAllowedPropertySetSKU` to `*SKU`
+- Enum `ScalingScheduleDaysOfWeekItem` has been removed
+- Struct `ResourceModelWithAllowedPropertySetIdentity` has been removed
+- Struct `ResourceModelWithAllowedPropertySetPlan` has been removed
+- Struct `ResourceModelWithAllowedPropertySetSKU` has been removed
+- Struct `ScalingPlanPooledSchedule` has been removed
+- Struct `ScalingSchedule` has been removed
+- Field `ScalingPlanPooledSchedule` of struct `ScalingPlanPooledSchedulesClientCreateResponse` has been removed
+- Field `ScalingPlanPooledSchedule` of struct `ScalingPlanPooledSchedulesClientGetResponse` has been removed
+- Field `ScalingPlanPooledSchedule` of struct `ScalingPlanPooledSchedulesClientUpdateResponse` has been removed
+
+### Features Added
+
+- New value `LoadBalancerTypeMultiplePersistent` added to enum type `LoadBalancerType`
+- New value `ScalingHostPoolTypePersonal` added to enum type `ScalingHostPoolType`
+- New enum type `AppAttachPackageArchitectures` with values `AppAttachPackageArchitecturesALL`, `AppAttachPackageArchitecturesARM`, `AppAttachPackageArchitecturesARM64`, `AppAttachPackageArchitecturesNeutral`, `AppAttachPackageArchitecturesX64`, `AppAttachPackageArchitecturesX86`, `AppAttachPackageArchitecturesX86A64`
+- New enum type `DirectUDP` with values `DirectUDPDefault`, `DirectUDPDisabled`, `DirectUDPEnabled`
+- New enum type `DomainJoinType` with values `DomainJoinTypeActiveDirectory`, `DomainJoinTypeAzureActiveDirectory`
+- New enum type `FailHealthCheckOnStagingFailure` with values `FailHealthCheckOnStagingFailureDoNotFail`, `FailHealthCheckOnStagingFailureNeedsAssistance`, `FailHealthCheckOnStagingFailureUnhealthy`
+- New enum type `HostPoolUpdateAction` with values `HostPoolUpdateActionCancel`, `HostPoolUpdateActionPause`, `HostPoolUpdateActionResume`, `HostPoolUpdateActionRetry`, `HostPoolUpdateActionStart`
+- New enum type `ManagedPrivateUDP` with values `ManagedPrivateUDPDefault`, `ManagedPrivateUDPDisabled`, `ManagedPrivateUDPEnabled`
+- New enum type `ManagedServiceIdentityType` with values `ManagedServiceIdentityTypeNone`, `ManagedServiceIdentityTypeSystemAssigned`, `ManagedServiceIdentityTypeSystemAssignedUserAssigned`, `ManagedServiceIdentityTypeUserAssigned`
+- New enum type `ManagementType` with values `ManagementTypeAutomated`, `ManagementTypeStandard`
+- New enum type `PackageTimestamped` with values `PackageTimestampedNotTimestamped`, `PackageTimestampedTimestamped`
+- New enum type `ProvisioningState` with values `ProvisioningStateCanceled`, `ProvisioningStateFailed`, `ProvisioningStateProvisioning`, `ProvisioningStateSucceeded`
+- New enum type `ProvisioningStateSHC` with values `ProvisioningStateSHCCanceled`, `ProvisioningStateSHCFailed`, `ProvisioningStateSHCProvisioning`, `ProvisioningStateSHCSucceeded`
+- New enum type `PublicUDP` with values `PublicUDPDefault`, `PublicUDPDisabled`, `PublicUDPEnabled`
+- New enum type `RelayUDP` with values `RelayUDPDefault`, `RelayUDPDisabled`, `RelayUDPEnabled`
+- New enum type `Type` with values `TypeCustom`, `TypeMarketplace`
+- New enum type `VirtualMachineDiskType` with values `VirtualMachineDiskTypePremiumLRS`, `VirtualMachineDiskTypeStandardLRS`, `VirtualMachineDiskTypeStandardSSDLRS`
+- New enum type `VirtualMachineSecurityType` with values `VirtualMachineSecurityTypeConfidentialVM`, `VirtualMachineSecurityTypeStandard`, `VirtualMachineSecurityTypeTrustedLaunch`
+- New function `NewActiveSessionHostConfigurationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ActiveSessionHostConfigurationsClient, error)`
+- New function `*ActiveSessionHostConfigurationsClient.Get(context.Context, string, string, *ActiveSessionHostConfigurationsClientGetOptions) (ActiveSessionHostConfigurationsClientGetResponse, error)`
+- New function `*ActiveSessionHostConfigurationsClient.NewListByHostPoolPager(string, string, *ActiveSessionHostConfigurationsClientListByHostPoolOptions) *runtime.Pager[ActiveSessionHostConfigurationsClientListByHostPoolResponse]`
+- New function `NewAppAttachPackageClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AppAttachPackageClient, error)`
+- New function `*AppAttachPackageClient.CreateOrUpdate(context.Context, string, string, AppAttachPackage, *AppAttachPackageClientCreateOrUpdateOptions) (AppAttachPackageClientCreateOrUpdateResponse, error)`
+- New function `*AppAttachPackageClient.Delete(context.Context, string, string, *AppAttachPackageClientDeleteOptions) (AppAttachPackageClientDeleteResponse, error)`
+- New function `*AppAttachPackageClient.Get(context.Context, string, string, *AppAttachPackageClientGetOptions) (AppAttachPackageClientGetResponse, error)`
+- New function `*AppAttachPackageClient.NewListByResourceGroupPager(string, *AppAttachPackageClientListByResourceGroupOptions) *runtime.Pager[AppAttachPackageClientListByResourceGroupResponse]`
+- New function `*AppAttachPackageClient.NewListBySubscriptionPager(*AppAttachPackageClientListBySubscriptionOptions) *runtime.Pager[AppAttachPackageClientListBySubscriptionResponse]`
+- New function `*AppAttachPackageClient.Update(context.Context, string, string, *AppAttachPackageClientUpdateOptions) (AppAttachPackageClientUpdateResponse, error)`
+- New function `NewAppAttachPackageInfoClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AppAttachPackageInfoClient, error)`
+- New function `*AppAttachPackageInfoClient.NewImportPager(string, string, ImportPackageInfoRequest, *AppAttachPackageInfoClientImportOptions) *runtime.Pager[AppAttachPackageInfoClientImportResponse]`
+- New function `*ClientFactory.NewActiveSessionHostConfigurationsClient() *ActiveSessionHostConfigurationsClient`
+- New function `*ClientFactory.NewAppAttachPackageClient() *AppAttachPackageClient`
+- New function `*ClientFactory.NewAppAttachPackageInfoClient() *AppAttachPackageInfoClient`
+- New function `*ClientFactory.NewControlSessionHostUpdateClient() *ControlSessionHostUpdateClient`
+- New function `*ClientFactory.NewInitiateSessionHostUpdateClient() *InitiateSessionHostUpdateClient`
+- New function `*ClientFactory.NewSessionHostClient() *SessionHostClient`
+- New function `*ClientFactory.NewSessionHostConfigurationsClient() *SessionHostConfigurationsClient`
+- New function `*ClientFactory.NewSessionHostManagementsClient() *SessionHostManagementsClient`
+- New function `*ClientFactory.NewSessionHostManagementsUpdateStatusClient() *SessionHostManagementsUpdateStatusClient`
+- New function `NewControlSessionHostUpdateClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ControlSessionHostUpdateClient, error)`
+- New function `*ControlSessionHostUpdateClient.BeginPost(context.Context, string, string, HostPoolUpdateControlParameter, *ControlSessionHostUpdateClientBeginPostOptions) (*runtime.Poller[ControlSessionHostUpdateClientPostResponse], error)`
+- New function `*HostPoolsClient.ListRegistrationTokens(context.Context, string, string, *HostPoolsClientListRegistrationTokensOptions) (HostPoolsClientListRegistrationTokensResponse, error)`
+- New function `NewInitiateSessionHostUpdateClient(string, azcore.TokenCredential, *arm.ClientOptions) (*InitiateSessionHostUpdateClient, error)`
+- New function `*InitiateSessionHostUpdateClient.Post(context.Context, string, string, *InitiateSessionHostUpdateClientPostOptions) (InitiateSessionHostUpdateClientPostResponse, error)`
+- New function `NewSessionHostClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SessionHostClient, error)`
+- New function `*SessionHostClient.RetryProvisioning(context.Context, string, string, string, *SessionHostClientRetryProvisioningOptions) (SessionHostClientRetryProvisioningResponse, error)`
+- New function `NewSessionHostConfigurationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SessionHostConfigurationsClient, error)`
+- New function `*SessionHostConfigurationsClient.BeginCreateOrUpdate(context.Context, string, string, SessionHostConfiguration, *SessionHostConfigurationsClientBeginCreateOrUpdateOptions) (*runtime.Poller[SessionHostConfigurationsClientCreateOrUpdateResponse], error)`
+- New function `*SessionHostConfigurationsClient.Get(context.Context, string, string, *SessionHostConfigurationsClientGetOptions) (SessionHostConfigurationsClientGetResponse, error)`
+- New function `*SessionHostConfigurationsClient.NewListByHostPoolPager(string, string, *SessionHostConfigurationsClientListByHostPoolOptions) *runtime.Pager[SessionHostConfigurationsClientListByHostPoolResponse]`
+- New function `*SessionHostConfigurationsClient.BeginUpdate(context.Context, string, string, *SessionHostConfigurationsClientBeginUpdateOptions) (*runtime.Poller[SessionHostConfigurationsClientUpdateResponse], error)`
+- New function `NewSessionHostManagementsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SessionHostManagementsClient, error)`
+- New function `*SessionHostManagementsClient.CreateOrUpdate(context.Context, string, string, SessionHostManagement, *SessionHostManagementsClientCreateOrUpdateOptions) (SessionHostManagementsClientCreateOrUpdateResponse, error)`
+- New function `*SessionHostManagementsClient.Get(context.Context, string, string, *SessionHostManagementsClientGetOptions) (SessionHostManagementsClientGetResponse, error)`
+- New function `*SessionHostManagementsClient.NewListByHostPoolPager(string, string, *SessionHostManagementsClientListByHostPoolOptions) *runtime.Pager[SessionHostManagementsClientListByHostPoolResponse]`
+- New function `*SessionHostManagementsClient.Update(context.Context, string, string, *SessionHostManagementsClientUpdateOptions) (SessionHostManagementsClientUpdateResponse, error)`
+- New function `NewSessionHostManagementsUpdateStatusClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SessionHostManagementsUpdateStatusClient, error)`
+- New function `*SessionHostManagementsUpdateStatusClient.Get(context.Context, string, string, *SessionHostManagementsUpdateStatusClientGetOptions) (SessionHostManagementsUpdateStatusClientGetResponse, error)`
+- New struct `ActiveDirectoryInfoPatchProperties`
+- New struct `ActiveDirectoryInfoProperties`
+- New struct `ActiveSessionHostConfiguration`
+- New struct `ActiveSessionHostConfigurationList`
+- New struct `ActiveSessionHostConfigurationProperties`
+- New struct `AppAttachPackage`
+- New struct `AppAttachPackageInfoProperties`
+- New struct `AppAttachPackageList`
+- New struct `AppAttachPackagePatch`
+- New struct `AppAttachPackagePatchProperties`
+- New struct `AppAttachPackageProperties`
+- New struct `AzureActiveDirectoryInfoProperties`
+- New struct `BootDiagnosticsInfoPatchProperties`
+- New struct `BootDiagnosticsInfoProperties`
+- New struct `CustomInfoPatchProperties`
+- New struct `CustomInfoProperties`
+- New struct `DiskInfoPatchProperties`
+- New struct `DiskInfoProperties`
+- New struct `DomainInfoPatchProperties`
+- New struct `DomainInfoProperties`
+- New struct `ErrorAdditionalInfo`
+- New struct `ErrorDetail`
+- New struct `HostPoolUpdateConfigurationPatchProperties`
+- New struct `HostPoolUpdateConfigurationProperties`
+- New struct `HostPoolUpdateControlParameter`
+- New struct `ImageInfoPatchProperties`
+- New struct `ImageInfoProperties`
+- New struct `ImportPackageInfoRequest`
+- New struct `KeyVaultCredentialsPatchProperties`
+- New struct `KeyVaultCredentialsProperties`
+- New struct `ManagedServiceIdentity`
+- New struct `MarketplaceInfoPatchProperties`
+- New struct `MarketplaceInfoProperties`
+- New struct `NetworkInfoPatchProperties`
+- New struct `NetworkInfoProperties`
+- New struct `Plan`
+- New struct `RegistrationTokenList`
+- New struct `RegistrationTokenMinimal`
+- New struct `SKU`
+- New struct `ScalingPlanPersonalSchedulePatchProperties`
+- New struct `ScalingPlanPooledSchedulePatchProperties`
+- New struct `ScalingPlanPooledSchedulePut`
+- New struct `ScalingPlanPooledSchedulePutProperties`
+- New struct `SecurityInfoPatchProperties`
+- New struct `SecurityInfoProperties`
+- New struct `SessionHostConfiguration`
+- New struct `SessionHostConfigurationList`
+- New struct `SessionHostConfigurationPatch`
+- New struct `SessionHostConfigurationPatchProperties`
+- New struct `SessionHostConfigurationProperties`
+- New struct `SessionHostManagement`
+- New struct `SessionHostManagementList`
+- New struct `SessionHostManagementOperationProgress`
+- New struct `SessionHostManagementPatch`
+- New struct `SessionHostManagementPatchProperties`
+- New struct `SessionHostManagementProperties`
+- New struct `SessionHostManagementUpdateStatus`
+- New struct `SessionHostManagementUpdateStatusProperties`
+- New struct `UpdateSessionHostsRequestBody`
+- New struct `UserAssignedIdentity`
+- New field `SystemData` in struct `ApplicationGroupPatch`
+- New field `SystemData` in struct `ExpandMsixImage`
+- New field `CertificateExpiry`, `CertificateName` in struct `ExpandMsixImageProperties`
+- New field `SystemData` in struct `HostPoolPatch`
+- New field `DirectUDP`, `ManagedPrivateUDP`, `PublicUDP`, `RelayUDP` in struct `HostPoolPatchProperties`
+- New field `AppAttachPackageReferences`, `DirectUDP`, `ManagedPrivateUDP`, `ManagementType`, `PublicUDP`, `RelayUDP` in struct `HostPoolProperties`
+- New field `SystemData` in struct `MSIXPackagePatch`
+- New field `SystemData` in struct `PrivateEndpointConnection`
+- New field `GroupIDs` in struct `PrivateEndpointConnectionProperties`
+- New field `SystemData` in struct `PrivateLinkResource`
+- New field `SystemData` in struct `ScalingPlanPooledSchedulePatch`
+- New field `Name` in struct `ScalingPlanPooledScheduleProperties`
+- New anonymous field `ScalingPlanPooledSchedulePut` in struct `ScalingPlanPooledSchedulesClientCreateResponse`
+- New anonymous field `ScalingPlanPooledSchedulePut` in struct `ScalingPlanPooledSchedulesClientGetResponse`
+- New anonymous field `ScalingPlanPooledSchedulePut` in struct `ScalingPlanPooledSchedulesClientUpdateResponse`
+- New field `SystemData` in struct `SessionHostPatch`
+- New field `LastSessionHostUpdateTime`, `SessionHostConfiguration` in struct `SessionHostProperties`
+- New field `VMPath` in struct `SessionHostsClientListOptions`
+- New field `SystemData` in struct `StartMenuItem`
+
+
 ## 2.2.0 (2023-11-24)
 ### Features Added
 

@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v3"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -28,7 +28,7 @@ import (
 type ScalingPlanPooledSchedulesServer struct {
 	// Create is the fake for method ScalingPlanPooledSchedulesClient.Create
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	Create func(ctx context.Context, resourceGroupName string, scalingPlanName string, scalingPlanScheduleName string, scalingPlanSchedule armdesktopvirtualization.ScalingPlanPooledSchedule, options *armdesktopvirtualization.ScalingPlanPooledSchedulesClientCreateOptions) (resp azfake.Responder[armdesktopvirtualization.ScalingPlanPooledSchedulesClientCreateResponse], errResp azfake.ErrorResponder)
+	Create func(ctx context.Context, resourceGroupName string, scalingPlanName string, scalingPlanScheduleName string, scalingPlanSchedule armdesktopvirtualization.ScalingPlanPooledSchedulePut, options *armdesktopvirtualization.ScalingPlanPooledSchedulesClientCreateOptions) (resp azfake.Responder[armdesktopvirtualization.ScalingPlanPooledSchedulesClientCreateResponse], errResp azfake.ErrorResponder)
 
 	// Delete is the fake for method ScalingPlanPooledSchedulesClient.Delete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
@@ -107,7 +107,7 @@ func (s *ScalingPlanPooledSchedulesServerTransport) dispatchCreate(req *http.Req
 	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armdesktopvirtualization.ScalingPlanPooledSchedule](req)
+	body, err := server.UnmarshalRequestAsJSON[armdesktopvirtualization.ScalingPlanPooledSchedulePut](req)
 	if err != nil {
 		return nil, err
 	}
@@ -131,7 +131,7 @@ func (s *ScalingPlanPooledSchedulesServerTransport) dispatchCreate(req *http.Req
 	if !contains([]int{http.StatusOK, http.StatusCreated}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ScalingPlanPooledSchedule, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ScalingPlanPooledSchedulePut, req)
 	if err != nil {
 		return nil, err
 	}
@@ -205,7 +205,7 @@ func (s *ScalingPlanPooledSchedulesServerTransport) dispatchGet(req *http.Reques
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ScalingPlanPooledSchedule, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ScalingPlanPooledSchedulePut, req)
 	if err != nil {
 		return nil, err
 	}
@@ -338,7 +338,7 @@ func (s *ScalingPlanPooledSchedulesServerTransport) dispatchUpdate(req *http.Req
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ScalingPlanPooledSchedule, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ScalingPlanPooledSchedulePut, req)
 	if err != nil {
 		return nil, err
 	}
