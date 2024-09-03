@@ -1,5 +1,14 @@
 # Release History
 
+## 1.1.0 (2024-09-03)
+### Features Added
+
+- New struct `ServerlessRuntimeDataDisk`
+- New field `ServerlessRuntimeDataDisks` in struct `InfaServerlessFetchConfigProperties`
+- New field `ServerlessRuntimeDataDisks` in struct `InformaticaServerlessRuntimeProperties`
+- New field `ServerlessRuntimeDataDisks` in struct `ServerlessRuntimePropertiesCustomUpdate`
+
+
 ## 1.0.0 (2024-07-15)
 ### Other Changes
 

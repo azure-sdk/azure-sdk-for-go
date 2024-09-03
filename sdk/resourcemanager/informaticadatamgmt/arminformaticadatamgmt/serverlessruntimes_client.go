@@ -46,7 +46,7 @@ func NewServerlessRuntimesClient(subscriptionID string, credential azcore.TokenC
 // CheckDependencies - Checks all dependencies for a serverless runtime resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-08
+// Generated from API version 2024-07-22
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Name of the Organizations resource
 //   - serverlessRuntimeName - Name of the Serverless Runtime resource
@@ -98,7 +98,7 @@ func (client *ServerlessRuntimesClient) checkDependenciesCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-08")
+	reqQP.Set("api-version", "2024-07-22")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -116,7 +116,7 @@ func (client *ServerlessRuntimesClient) checkDependenciesHandleResponse(resp *ht
 // BeginCreateOrUpdate - Create a InformaticaServerlessRuntimeResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-08
+// Generated from API version 2024-07-22
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Name of the Organizations resource
 //   - serverlessRuntimeName - Name of the Serverless Runtime resource
@@ -144,7 +144,7 @@ func (client *ServerlessRuntimesClient) BeginCreateOrUpdate(ctx context.Context,
 // CreateOrUpdate - Create a InformaticaServerlessRuntimeResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-08
+// Generated from API version 2024-07-22
 func (client *ServerlessRuntimesClient) createOrUpdate(ctx context.Context, resourceGroupName string, organizationName string, serverlessRuntimeName string, resource InformaticaServerlessRuntimeResource, options *ServerlessRuntimesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ServerlessRuntimesClient.BeginCreateOrUpdate"
@@ -190,7 +190,7 @@ func (client *ServerlessRuntimesClient) createOrUpdateCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-08")
+	reqQP.Set("api-version", "2024-07-22")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, resource); err != nil {
@@ -202,7 +202,7 @@ func (client *ServerlessRuntimesClient) createOrUpdateCreateRequest(ctx context.
 // BeginDelete - Delete a InformaticaServerlessRuntimeResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-08
+// Generated from API version 2024-07-22
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Name of the Organizations resource
 //   - serverlessRuntimeName - Name of the Serverless Runtime resource
@@ -229,7 +229,7 @@ func (client *ServerlessRuntimesClient) BeginDelete(ctx context.Context, resourc
 // Delete - Delete a InformaticaServerlessRuntimeResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-08
+// Generated from API version 2024-07-22
 func (client *ServerlessRuntimesClient) deleteOperation(ctx context.Context, resourceGroupName string, organizationName string, serverlessRuntimeName string, options *ServerlessRuntimesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ServerlessRuntimesClient.BeginDelete"
@@ -275,7 +275,7 @@ func (client *ServerlessRuntimesClient) deleteCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-08")
+	reqQP.Set("api-version", "2024-07-22")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -284,7 +284,7 @@ func (client *ServerlessRuntimesClient) deleteCreateRequest(ctx context.Context,
 // Get - Get a InformaticaServerlessRuntimeResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-08
+// Generated from API version 2024-07-22
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Name of the Organizations resource
 //   - serverlessRuntimeName - Name of the Serverless Runtime resource
@@ -335,7 +335,7 @@ func (client *ServerlessRuntimesClient) getCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-08")
+	reqQP.Set("api-version", "2024-07-22")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -352,7 +352,7 @@ func (client *ServerlessRuntimesClient) getHandleResponse(resp *http.Response) (
 
 // NewListByInformaticaOrganizationResourcePager - List InformaticaServerlessRuntimeResource resources by InformaticaOrganizationResource
 //
-// Generated from API version 2024-05-08
+// Generated from API version 2024-07-22
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Name of the Organizations resource
 //   - options - ServerlessRuntimesClientListByInformaticaOrganizationResourceOptions contains the optional parameters for the
@@ -400,7 +400,7 @@ func (client *ServerlessRuntimesClient) listByInformaticaOrganizationResourceCre
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-08")
+	reqQP.Set("api-version", "2024-07-22")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -418,7 +418,7 @@ func (client *ServerlessRuntimesClient) listByInformaticaOrganizationResourceHan
 // ServerlessResourceByID - Returns a serverless runtime resource by ID
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-08
+// Generated from API version 2024-07-22
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Name of the Organizations resource
 //   - serverlessRuntimeName - Name of the Serverless Runtime resource
@@ -470,7 +470,7 @@ func (client *ServerlessRuntimesClient) serverlessResourceByIDCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-08")
+	reqQP.Set("api-version", "2024-07-22")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -488,7 +488,7 @@ func (client *ServerlessRuntimesClient) serverlessResourceByIDHandleResponse(res
 // StartFailedServerlessRuntime - Starts a failed runtime resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-08
+// Generated from API version 2024-07-22
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Name of the Organizations resource
 //   - serverlessRuntimeName - Name of the Serverless Runtime resource
@@ -539,7 +539,7 @@ func (client *ServerlessRuntimesClient) startFailedServerlessRuntimeCreateReques
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-08")
+	reqQP.Set("api-version", "2024-07-22")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -548,7 +548,7 @@ func (client *ServerlessRuntimesClient) startFailedServerlessRuntimeCreateReques
 // Update - Update a InformaticaServerlessRuntimeResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-08
+// Generated from API version 2024-07-22
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Name of the Organizations resource
 //   - serverlessRuntimeName - Name of the Serverless Runtime resource
@@ -601,7 +601,7 @@ func (client *ServerlessRuntimesClient) updateCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-08")
+	reqQP.Set("api-version", "2024-07-22")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, properties); err != nil {

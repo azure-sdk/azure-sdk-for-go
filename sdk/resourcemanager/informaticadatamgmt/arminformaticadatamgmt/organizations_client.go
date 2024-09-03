@@ -46,7 +46,7 @@ func NewOrganizationsClient(subscriptionID string, credential azcore.TokenCreden
 // BeginCreateOrUpdate - Create a InformaticaOrganizationResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-08
+// Generated from API version 2024-07-22
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Name of the Organizations resource
 //   - resource - Resource create parameters.
@@ -73,7 +73,7 @@ func (client *OrganizationsClient) BeginCreateOrUpdate(ctx context.Context, reso
 // CreateOrUpdate - Create a InformaticaOrganizationResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-08
+// Generated from API version 2024-07-22
 func (client *OrganizationsClient) createOrUpdate(ctx context.Context, resourceGroupName string, organizationName string, resource InformaticaOrganizationResource, options *OrganizationsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "OrganizationsClient.BeginCreateOrUpdate"
@@ -115,7 +115,7 @@ func (client *OrganizationsClient) createOrUpdateCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-08")
+	reqQP.Set("api-version", "2024-07-22")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, resource); err != nil {
@@ -127,7 +127,7 @@ func (client *OrganizationsClient) createOrUpdateCreateRequest(ctx context.Conte
 // BeginDelete - Delete a InformaticaOrganizationResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-08
+// Generated from API version 2024-07-22
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Name of the Organizations resource
 //   - options - OrganizationsClientBeginDeleteOptions contains the optional parameters for the OrganizationsClient.BeginDelete
@@ -153,7 +153,7 @@ func (client *OrganizationsClient) BeginDelete(ctx context.Context, resourceGrou
 // Delete - Delete a InformaticaOrganizationResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-08
+// Generated from API version 2024-07-22
 func (client *OrganizationsClient) deleteOperation(ctx context.Context, resourceGroupName string, organizationName string, options *OrganizationsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "OrganizationsClient.BeginDelete"
@@ -195,7 +195,7 @@ func (client *OrganizationsClient) deleteCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-08")
+	reqQP.Set("api-version", "2024-07-22")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -204,7 +204,7 @@ func (client *OrganizationsClient) deleteCreateRequest(ctx context.Context, reso
 // Get - Get a InformaticaOrganizationResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-08
+// Generated from API version 2024-07-22
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Name of the Organizations resource
 //   - options - OrganizationsClientGetOptions contains the optional parameters for the OrganizationsClient.Get method.
@@ -250,7 +250,7 @@ func (client *OrganizationsClient) getCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-08")
+	reqQP.Set("api-version", "2024-07-22")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -268,7 +268,7 @@ func (client *OrganizationsClient) getHandleResponse(resp *http.Response) (Organ
 // GetAllServerlessRuntimes - Gets all serverless runtime resources in a given informatica organization resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-08
+// Generated from API version 2024-07-22
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Name of the Organizations resource
 //   - options - OrganizationsClientGetAllServerlessRuntimesOptions contains the optional parameters for the OrganizationsClient.GetAllServerlessRuntimes
@@ -315,7 +315,7 @@ func (client *OrganizationsClient) getAllServerlessRuntimesCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-08")
+	reqQP.Set("api-version", "2024-07-22")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -333,7 +333,7 @@ func (client *OrganizationsClient) getAllServerlessRuntimesHandleResponse(resp *
 // GetServerlessMetadata - Gets Metadata of the serverless runtime environment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-08
+// Generated from API version 2024-07-22
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Name of the Organizations resource
 //   - options - OrganizationsClientGetServerlessMetadataOptions contains the optional parameters for the OrganizationsClient.GetServerlessMetadata
@@ -380,7 +380,7 @@ func (client *OrganizationsClient) getServerlessMetadataCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-08")
+	reqQP.Set("api-version", "2024-07-22")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -397,7 +397,7 @@ func (client *OrganizationsClient) getServerlessMetadataHandleResponse(resp *htt
 
 // NewListByResourceGroupPager - List InformaticaOrganizationResource resources by resource group
 //
-// Generated from API version 2024-05-08
+// Generated from API version 2024-07-22
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - OrganizationsClientListByResourceGroupOptions contains the optional parameters for the OrganizationsClient.NewListByResourceGroupPager
 //     method.
@@ -440,7 +440,7 @@ func (client *OrganizationsClient) listByResourceGroupCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-08")
+	reqQP.Set("api-version", "2024-07-22")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -457,7 +457,7 @@ func (client *OrganizationsClient) listByResourceGroupHandleResponse(resp *http.
 
 // NewListBySubscriptionPager - List InformaticaOrganizationResource resources by subscription ID
 //
-// Generated from API version 2024-05-08
+// Generated from API version 2024-07-22
 //   - options - OrganizationsClientListBySubscriptionOptions contains the optional parameters for the OrganizationsClient.NewListBySubscriptionPager
 //     method.
 func (client *OrganizationsClient) NewListBySubscriptionPager(options *OrganizationsClientListBySubscriptionOptions) *runtime.Pager[OrganizationsClientListBySubscriptionResponse] {
@@ -495,7 +495,7 @@ func (client *OrganizationsClient) listBySubscriptionCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-08")
+	reqQP.Set("api-version", "2024-07-22")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -513,7 +513,7 @@ func (client *OrganizationsClient) listBySubscriptionHandleResponse(resp *http.R
 // Update - Update a InformaticaOrganizationResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-08
+// Generated from API version 2024-07-22
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Name of the Organizations resource
 //   - properties - The resource properties to be updated.
@@ -560,7 +560,7 @@ func (client *OrganizationsClient) updateCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-08")
+	reqQP.Set("api-version", "2024-07-22")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, properties); err != nil {
