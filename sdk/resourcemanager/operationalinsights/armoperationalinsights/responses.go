@@ -298,8 +298,14 @@ type SchemaClientGetResponse struct {
 	SearchGetSchemaResponse
 }
 
-// SharedKeysClientGetSharedKeysResponse contains the response from method SharedKeysClient.GetSharedKeys.
-type SharedKeysClientGetSharedKeysResponse struct {
+// SharedKeysClientGetResponse contains the response from method SharedKeysClient.Get.
+type SharedKeysClientGetResponse struct {
+	// The shared keys for a workspace.
+	SharedKeys
+}
+
+// SharedKeysClientListResponse contains the response from method SharedKeysClient.List.
+type SharedKeysClientListResponse struct {
 	// The shared keys for a workspace.
 	SharedKeys
 }
@@ -331,6 +337,11 @@ type StorageInsightConfigsClientGetResponse struct {
 type StorageInsightConfigsClientListByWorkspaceResponse struct {
 	// The list storage insights operation response.
 	StorageInsightListResult
+}
+
+// TablesClientCancelSearchResponse contains the response from method TablesClient.CancelSearch.
+type TablesClientCancelSearchResponse struct {
+	// placeholder for future response values
 }
 
 // TablesClientCreateOrUpdateResponse contains the response from method TablesClient.BeginCreateOrUpdate.

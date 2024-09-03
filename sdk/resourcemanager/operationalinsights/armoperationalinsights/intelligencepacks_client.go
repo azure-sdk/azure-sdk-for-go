@@ -46,7 +46,7 @@ func NewIntelligencePacksClient(subscriptionID string, credential azcore.TokenCr
 // Disable - Disables an intelligence pack for a given workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-08-01
+// Generated from API version 2023-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - intelligencePackName - The name of the intelligence pack to be disabled.
@@ -97,7 +97,7 @@ func (client *IntelligencePacksClient) disableCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-08-01")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -105,7 +105,7 @@ func (client *IntelligencePacksClient) disableCreateRequest(ctx context.Context,
 // Enable - Enables an intelligence pack for a given workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-08-01
+// Generated from API version 2023-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - intelligencePackName - The name of the intelligence pack to be enabled.
@@ -156,7 +156,7 @@ func (client *IntelligencePacksClient) enableCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-08-01")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -164,7 +164,7 @@ func (client *IntelligencePacksClient) enableCreateRequest(ctx context.Context, 
 // List - Lists all the intelligence packs possible and whether they are enabled or disabled for a given workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-08-01
+// Generated from API version 2023-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - options - IntelligencePacksClientListOptions contains the optional parameters for the IntelligencePacksClient.List method.
@@ -210,7 +210,7 @@ func (client *IntelligencePacksClient) listCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-08-01")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
