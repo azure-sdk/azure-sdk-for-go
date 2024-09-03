@@ -15850,6 +15850,125 @@ func (h *HubspotSource) GetTabularSource() *TabularSource {
 	}
 }
 
+// IcebergDataset - Iceberg dataset.
+type IcebergDataset struct {
+	// REQUIRED; Linked service reference.
+	LinkedServiceName *LinkedServiceReference
+
+	// REQUIRED; Type of dataset.
+	Type *string
+
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// List of tags that can be used for describing the Dataset.
+	Annotations []any
+
+	// Dataset description.
+	Description *string
+
+	// The folder that this Dataset is in. If not specified, Dataset will appear at the root level.
+	Folder *DatasetFolder
+
+	// Parameters for dataset.
+	Parameters map[string]*ParameterSpecification
+
+	// Columns that define the physical type schema of the dataset. Type: array (or Expression with resultType array), itemType:
+	// DatasetSchemaDataElement.
+	Schema any
+
+	// Columns that define the structure of the dataset. Type: array (or Expression with resultType array), itemType: DatasetDataElement.
+	Structure any
+
+	// Iceberg dataset properties.
+	TypeProperties *IcebergDatasetTypeProperties
+}
+
+// GetDataset implements the DatasetClassification interface for type IcebergDataset.
+func (i *IcebergDataset) GetDataset() *Dataset {
+	return &Dataset{
+		AdditionalProperties: i.AdditionalProperties,
+		Annotations:          i.Annotations,
+		Description:          i.Description,
+		Folder:               i.Folder,
+		LinkedServiceName:    i.LinkedServiceName,
+		Parameters:           i.Parameters,
+		Schema:               i.Schema,
+		Structure:            i.Structure,
+		Type:                 i.Type,
+	}
+}
+
+// IcebergDatasetTypeProperties - Iceberg dataset properties.
+type IcebergDatasetTypeProperties struct {
+	// REQUIRED; The location of the iceberg storage. Setting a file name is not allowed for iceberg format.
+	Location DatasetLocationClassification
+}
+
+// IcebergSink - A copy activity Iceberg sink.
+type IcebergSink struct {
+	// REQUIRED; Copy sink type.
+	Type *string
+
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// If true, disable data store metrics collection. Default is false. Type: boolean (or Expression with resultType boolean).
+	DisableMetricsCollection any
+
+	// Iceberg format settings.
+	FormatSettings *IcebergWriteSettings
+
+	// The maximum concurrent connection count for the sink data store. Type: integer (or Expression with resultType integer).
+	MaxConcurrentConnections any
+
+	// Sink retry count. Type: integer (or Expression with resultType integer).
+	SinkRetryCount any
+
+	// Sink retry wait. Type: string (or Expression with resultType string), pattern: ((\d+).)?(\d\d):(60|([0-5][0-9])):(60|([0-5][0-9])).
+	SinkRetryWait any
+
+	// Iceberg store settings.
+	StoreSettings StoreWriteSettingsClassification
+
+	// Write batch size. Type: integer (or Expression with resultType integer), minimum: 0.
+	WriteBatchSize any
+
+	// Write batch timeout. Type: string (or Expression with resultType string), pattern: ((\d+).)?(\d\d):(60|([0-5][0-9])):(60|([0-5][0-9])).
+	WriteBatchTimeout any
+}
+
+// GetCopySink implements the CopySinkClassification interface for type IcebergSink.
+func (i *IcebergSink) GetCopySink() *CopySink {
+	return &CopySink{
+		AdditionalProperties:     i.AdditionalProperties,
+		DisableMetricsCollection: i.DisableMetricsCollection,
+		MaxConcurrentConnections: i.MaxConcurrentConnections,
+		SinkRetryCount:           i.SinkRetryCount,
+		SinkRetryWait:            i.SinkRetryWait,
+		Type:                     i.Type,
+		WriteBatchSize:           i.WriteBatchSize,
+		WriteBatchTimeout:        i.WriteBatchTimeout,
+	}
+}
+
+// IcebergWriteSettings - Iceberg write settings.
+type IcebergWriteSettings struct {
+	// REQUIRED; The write setting type.
+	Type *string
+
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+}
+
+// GetFormatWriteSettings implements the FormatWriteSettingsClassification interface for type IcebergWriteSettings.
+func (i *IcebergWriteSettings) GetFormatWriteSettings() *FormatWriteSettings {
+	return &FormatWriteSettings{
+		AdditionalProperties: i.AdditionalProperties,
+		Type:                 i.Type,
+	}
+}
+
 // IfConditionActivity - This activity evaluates a boolean expression and executes either the activities under the ifTrueActivities
 // property or the ifFalseActivities property depending on the result of the expression.
 type IfConditionActivity struct {
