@@ -43,39 +43,38 @@ func NewSharedKeysClient(subscriptionID string, credential azcore.TokenCredentia
 	return client, nil
 }
 
-// GetSharedKeys - Gets the shared keys for a workspace.
+// Get - Gets the shared keys for a workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-08-01
+// Generated from API version 2023-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
-//   - options - SharedKeysClientGetSharedKeysOptions contains the optional parameters for the SharedKeysClient.GetSharedKeys
-//     method.
-func (client *SharedKeysClient) GetSharedKeys(ctx context.Context, resourceGroupName string, workspaceName string, options *SharedKeysClientGetSharedKeysOptions) (SharedKeysClientGetSharedKeysResponse, error) {
+//   - options - SharedKeysClientGetOptions contains the optional parameters for the SharedKeysClient.Get method.
+func (client *SharedKeysClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, options *SharedKeysClientGetOptions) (SharedKeysClientGetResponse, error) {
 	var err error
-	const operationName = "SharedKeysClient.GetSharedKeys"
+	const operationName = "SharedKeysClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getSharedKeysCreateRequest(ctx, resourceGroupName, workspaceName, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, options)
 	if err != nil {
-		return SharedKeysClientGetSharedKeysResponse{}, err
+		return SharedKeysClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return SharedKeysClientGetSharedKeysResponse{}, err
+		return SharedKeysClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return SharedKeysClientGetSharedKeysResponse{}, err
+		return SharedKeysClientGetResponse{}, err
 	}
-	resp, err := client.getSharedKeysHandleResponse(httpResp)
+	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
-// getSharedKeysCreateRequest creates the GetSharedKeys request.
-func (client *SharedKeysClient) getSharedKeysCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, options *SharedKeysClientGetSharedKeysOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/sharedKeys"
+// getCreateRequest creates the Get request.
+func (client *SharedKeysClient) getCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, options *SharedKeysClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/sharedKeys"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -93,17 +92,81 @@ func (client *SharedKeysClient) getSharedKeysCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-08-01")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
-// getSharedKeysHandleResponse handles the GetSharedKeys response.
-func (client *SharedKeysClient) getSharedKeysHandleResponse(resp *http.Response) (SharedKeysClientGetSharedKeysResponse, error) {
-	result := SharedKeysClientGetSharedKeysResponse{}
+// getHandleResponse handles the Get response.
+func (client *SharedKeysClient) getHandleResponse(resp *http.Response) (SharedKeysClientGetResponse, error) {
+	result := SharedKeysClientGetResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.SharedKeys); err != nil {
-		return SharedKeysClientGetSharedKeysResponse{}, err
+		return SharedKeysClientGetResponse{}, err
+	}
+	return result, nil
+}
+
+// List - Gets the shared keys for a workspace.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-09-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the workspace.
+//   - options - SharedKeysClientListOptions contains the optional parameters for the SharedKeysClient.List method.
+func (client *SharedKeysClient) List(ctx context.Context, resourceGroupName string, workspaceName string, options *SharedKeysClientListOptions) (SharedKeysClientListResponse, error) {
+	var err error
+	const operationName = "SharedKeysClient.List"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.listCreateRequest(ctx, resourceGroupName, workspaceName, options)
+	if err != nil {
+		return SharedKeysClientListResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return SharedKeysClientListResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return SharedKeysClientListResponse{}, err
+	}
+	resp, err := client.listHandleResponse(httpResp)
+	return resp, err
+}
+
+// listCreateRequest creates the List request.
+func (client *SharedKeysClient) listCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, options *SharedKeysClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/listkeys"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if workspaceName == "" {
+		return nil, errors.New("parameter workspaceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-09-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// listHandleResponse handles the List response.
+func (client *SharedKeysClient) listHandleResponse(resp *http.Response) (SharedKeysClientListResponse, error) {
+	result := SharedKeysClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.SharedKeys); err != nil {
+		return SharedKeysClientListResponse{}, err
 	}
 	return result, nil
 }
@@ -112,7 +175,7 @@ func (client *SharedKeysClient) getSharedKeysHandleResponse(resp *http.Response)
 // Insights agents to the workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-08-01
+// Generated from API version 2023-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - options - SharedKeysClientRegenerateOptions contains the optional parameters for the SharedKeysClient.Regenerate method.
@@ -140,7 +203,7 @@ func (client *SharedKeysClient) Regenerate(ctx context.Context, resourceGroupNam
 
 // regenerateCreateRequest creates the Regenerate request.
 func (client *SharedKeysClient) regenerateCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, options *SharedKeysClientRegenerateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/regenerateSharedKey"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/regenerateSharedKey"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -158,7 +221,7 @@ func (client *SharedKeysClient) regenerateCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-08-01")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

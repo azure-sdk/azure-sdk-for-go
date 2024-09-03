@@ -290,8 +290,13 @@ type SchemaClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SharedKeysClientGetSharedKeysOptions contains the optional parameters for the SharedKeysClient.GetSharedKeys method.
-type SharedKeysClientGetSharedKeysOptions struct {
+// SharedKeysClientGetOptions contains the optional parameters for the SharedKeysClient.Get method.
+type SharedKeysClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SharedKeysClientListOptions contains the optional parameters for the SharedKeysClient.List method.
+type SharedKeysClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -338,6 +343,11 @@ type TablesClientBeginDeleteOptions struct {
 type TablesClientBeginUpdateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
+}
+
+// TablesClientCancelSearchOptions contains the optional parameters for the TablesClient.CancelSearch method.
+type TablesClientCancelSearchOptions struct {
+	// placeholder for future optional parameters
 }
 
 // TablesClientGetOptions contains the optional parameters for the TablesClient.Get method.

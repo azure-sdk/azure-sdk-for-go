@@ -23,9 +23,13 @@ import (
 
 // SharedKeysServer is a fake server for instances of the armoperationalinsights.SharedKeysClient type.
 type SharedKeysServer struct {
-	// GetSharedKeys is the fake for method SharedKeysClient.GetSharedKeys
+	// Get is the fake for method SharedKeysClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	GetSharedKeys func(ctx context.Context, resourceGroupName string, workspaceName string, options *armoperationalinsights.SharedKeysClientGetSharedKeysOptions) (resp azfake.Responder[armoperationalinsights.SharedKeysClientGetSharedKeysResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, workspaceName string, options *armoperationalinsights.SharedKeysClientGetOptions) (resp azfake.Responder[armoperationalinsights.SharedKeysClientGetResponse], errResp azfake.ErrorResponder)
+
+	// List is the fake for method SharedKeysClient.List
+	// HTTP status codes to indicate success: http.StatusOK
+	List func(ctx context.Context, resourceGroupName string, workspaceName string, options *armoperationalinsights.SharedKeysClientListOptions) (resp azfake.Responder[armoperationalinsights.SharedKeysClientListResponse], errResp azfake.ErrorResponder)
 
 	// Regenerate is the fake for method SharedKeysClient.Regenerate
 	// HTTP status codes to indicate success: http.StatusOK
@@ -57,8 +61,10 @@ func (s *SharedKeysServerTransport) Do(req *http.Request) (*http.Response, error
 	var err error
 
 	switch method {
-	case "SharedKeysClient.GetSharedKeys":
-		resp, err = s.dispatchGetSharedKeys(req)
+	case "SharedKeysClient.Get":
+		resp, err = s.dispatchGet(req)
+	case "SharedKeysClient.List":
+		resp, err = s.dispatchList(req)
 	case "SharedKeysClient.Regenerate":
 		resp, err = s.dispatchRegenerate(req)
 	default:
@@ -72,11 +78,11 @@ func (s *SharedKeysServerTransport) Do(req *http.Request) (*http.Response, error
 	return resp, nil
 }
 
-func (s *SharedKeysServerTransport) dispatchGetSharedKeys(req *http.Request) (*http.Response, error) {
-	if s.srv.GetSharedKeys == nil {
-		return nil, &nonRetriableError{errors.New("fake for method GetSharedKeys not implemented")}
+func (s *SharedKeysServerTransport) dispatchGet(req *http.Request) (*http.Response, error) {
+	if s.srv.Get == nil {
+		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourcegroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.OperationalInsights/workspaces/(?P<workspaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/sharedKeys`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.OperationalInsights/workspaces/(?P<workspaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/sharedKeys`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 3 {
@@ -90,7 +96,40 @@ func (s *SharedKeysServerTransport) dispatchGetSharedKeys(req *http.Request) (*h
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := s.srv.GetSharedKeys(req.Context(), resourceGroupNameParam, workspaceNameParam, nil)
+	respr, errRespr := s.srv.Get(req.Context(), resourceGroupNameParam, workspaceNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SharedKeys, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (s *SharedKeysServerTransport) dispatchList(req *http.Request) (*http.Response, error) {
+	if s.srv.List == nil {
+		return nil, &nonRetriableError{errors.New("fake for method List not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.OperationalInsights/workspaces/(?P<workspaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/listkeys`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	workspaceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("workspaceName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := s.srv.List(req.Context(), resourceGroupNameParam, workspaceNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -109,7 +148,7 @@ func (s *SharedKeysServerTransport) dispatchRegenerate(req *http.Request) (*http
 	if s.srv.Regenerate == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Regenerate not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourcegroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.OperationalInsights/workspaces/(?P<workspaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/regenerateSharedKey`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.OperationalInsights/workspaces/(?P<workspaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/regenerateSharedKey`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 3 {

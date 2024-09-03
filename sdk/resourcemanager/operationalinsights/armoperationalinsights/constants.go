@@ -10,7 +10,7 @@ package armoperationalinsights
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/operationalinsights/armoperationalinsights"
-	moduleVersion = "v2.0.0-beta.4"
+	moduleVersion = "v2.0.0"
 )
 
 // BillingType - Configures whether billing will be only on the cluster or each workspace will be billed by its proportional
@@ -31,22 +31,36 @@ func PossibleBillingTypeValues() []BillingType {
 	}
 }
 
-// Capacity - The capacity value
+// Capacity - The capacity reservation level in Gigabytes for this cluster.
 type Capacity int64
 
 const (
-	CapacityFiveHundred  Capacity = 500
-	CapacityFiveThousand Capacity = 5000
-	CapacityTenHundred   Capacity = 1000
-	CapacityTwoThousand  Capacity = 2000
+	CapacityFiftyThousand      Capacity = 50000
+	CapacityFiveHundred        Capacity = 500
+	CapacityFiveThousand       Capacity = 5000
+	CapacityFourHundred        Capacity = 400
+	CapacityOneHundred         Capacity = 100
+	CapacityTenHundred         Capacity = 1000
+	CapacityTenThousand        Capacity = 10000
+	CapacityThreeHundred       Capacity = 300
+	CapacityTwentyFiveThousand Capacity = 25000
+	CapacityTwoHundred         Capacity = 200
+	CapacityTwoThousand        Capacity = 2000
 )
 
 // PossibleCapacityValues returns the possible values for the Capacity const type.
 func PossibleCapacityValues() []Capacity {
 	return []Capacity{
+		CapacityFiftyThousand,
 		CapacityFiveHundred,
 		CapacityFiveThousand,
+		CapacityFourHundred,
+		CapacityOneHundred,
 		CapacityTenHundred,
+		CapacityTenThousand,
+		CapacityThreeHundred,
+		CapacityTwentyFiveThousand,
+		CapacityTwoHundred,
 		CapacityTwoThousand,
 	}
 }
@@ -55,25 +69,31 @@ func PossibleCapacityValues() []Capacity {
 type CapacityReservationLevel int32
 
 const (
-	CapacityReservationLevelFiveHundred  CapacityReservationLevel = 500
-	CapacityReservationLevelFiveThousand CapacityReservationLevel = 5000
-	CapacityReservationLevelFourHundred  CapacityReservationLevel = 400
-	CapacityReservationLevelOneHundred   CapacityReservationLevel = 100
-	CapacityReservationLevelTenHundred   CapacityReservationLevel = 1000
-	CapacityReservationLevelThreeHundred CapacityReservationLevel = 300
-	CapacityReservationLevelTwoHundred   CapacityReservationLevel = 200
-	CapacityReservationLevelTwoThousand  CapacityReservationLevel = 2000
+	CapacityReservationLevelFiftyThousand      CapacityReservationLevel = 50000
+	CapacityReservationLevelFiveHundred        CapacityReservationLevel = 500
+	CapacityReservationLevelFiveThousand       CapacityReservationLevel = 5000
+	CapacityReservationLevelFourHundred        CapacityReservationLevel = 400
+	CapacityReservationLevelOneHundred         CapacityReservationLevel = 100
+	CapacityReservationLevelTenHundred         CapacityReservationLevel = 1000
+	CapacityReservationLevelTenThousand        CapacityReservationLevel = 10000
+	CapacityReservationLevelThreeHundred       CapacityReservationLevel = 300
+	CapacityReservationLevelTwentyFiveThousand CapacityReservationLevel = 25000
+	CapacityReservationLevelTwoHundred         CapacityReservationLevel = 200
+	CapacityReservationLevelTwoThousand        CapacityReservationLevel = 2000
 )
 
 // PossibleCapacityReservationLevelValues returns the possible values for the CapacityReservationLevel const type.
 func PossibleCapacityReservationLevelValues() []CapacityReservationLevel {
 	return []CapacityReservationLevel{
+		CapacityReservationLevelFiftyThousand,
 		CapacityReservationLevelFiveHundred,
 		CapacityReservationLevelFiveThousand,
 		CapacityReservationLevelFourHundred,
 		CapacityReservationLevelOneHundred,
 		CapacityReservationLevelTenHundred,
+		CapacityReservationLevelTenThousand,
 		CapacityReservationLevelThreeHundred,
+		CapacityReservationLevelTwentyFiveThousand,
 		CapacityReservationLevelTwoHundred,
 		CapacityReservationLevelTwoThousand,
 	}
@@ -105,7 +125,7 @@ func PossibleClusterEntityStatusValues() []ClusterEntityStatus {
 	}
 }
 
-// ClusterSKUNameEnum - The name of the SKU.
+// ClusterSKUNameEnum - The SKU (tier) of a cluster.
 type ClusterSKUNameEnum string
 
 const (
@@ -367,11 +387,33 @@ func PossibleLinkedServiceEntityStatusValues() []LinkedServiceEntityStatus {
 	}
 }
 
+// ManagedServiceIdentityType - Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
+type ManagedServiceIdentityType string
+
+const (
+	ManagedServiceIdentityTypeNone                       ManagedServiceIdentityType = "None"
+	ManagedServiceIdentityTypeSystemAssigned             ManagedServiceIdentityType = "SystemAssigned"
+	ManagedServiceIdentityTypeSystemAssignedUserAssigned ManagedServiceIdentityType = "SystemAssigned,UserAssigned"
+	ManagedServiceIdentityTypeUserAssigned               ManagedServiceIdentityType = "UserAssigned"
+)
+
+// PossibleManagedServiceIdentityTypeValues returns the possible values for the ManagedServiceIdentityType const type.
+func PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType {
+	return []ManagedServiceIdentityType{
+		ManagedServiceIdentityTypeNone,
+		ManagedServiceIdentityTypeSystemAssigned,
+		ManagedServiceIdentityTypeSystemAssignedUserAssigned,
+		ManagedServiceIdentityTypeUserAssigned,
+	}
+}
+
 // ProvisioningStateEnum - Table's current provisioning state. If set to 'updating', indicates a resource lock due to ongoing
 // operation, forbidding any update to the table until the ongoing operation is concluded.
 type ProvisioningStateEnum string
 
 const (
+	// ProvisioningStateEnumDeleting - Table state is deleting.
+	ProvisioningStateEnumDeleting ProvisioningStateEnum = "Deleting"
 	// ProvisioningStateEnumInProgress - Table schema is stable and without changes, table data is being updated.
 	ProvisioningStateEnumInProgress ProvisioningStateEnum = "InProgress"
 	// ProvisioningStateEnumSucceeded - Table state is stable and without changes, table is unlocked and open for new updates.
@@ -384,6 +426,7 @@ const (
 // PossibleProvisioningStateEnumValues returns the possible values for the ProvisioningStateEnum const type.
 func PossibleProvisioningStateEnumValues() []ProvisioningStateEnum {
 	return []ProvisioningStateEnum{
+		ProvisioningStateEnumDeleting,
 		ProvisioningStateEnumInProgress,
 		ProvisioningStateEnumSucceeded,
 		ProvisioningStateEnumUpdating,
