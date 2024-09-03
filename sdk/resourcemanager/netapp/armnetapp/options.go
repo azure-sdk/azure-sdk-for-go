@@ -8,6 +8,15 @@
 
 package armnetapp
 
+// AccountsClientBeginChangeKeyVaultOptions contains the optional parameters for the AccountsClient.BeginChangeKeyVault method.
+type AccountsClientBeginChangeKeyVaultOptions struct {
+	// The required parameters to perform encryption migration.
+	Body *ChangeKeyVault
+
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // AccountsClientBeginCreateOrUpdateOptions contains the optional parameters for the AccountsClient.BeginCreateOrUpdate method.
 type AccountsClientBeginCreateOrUpdateOptions struct {
 	// Resumes the LRO from the provided token.
@@ -20,9 +29,26 @@ type AccountsClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
+// AccountsClientBeginGetChangeKeyVaultInformationOptions contains the optional parameters for the AccountsClient.BeginGetChangeKeyVaultInformation
+// method.
+type AccountsClientBeginGetChangeKeyVaultInformationOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // AccountsClientBeginRenewCredentialsOptions contains the optional parameters for the AccountsClient.BeginRenewCredentials
 // method.
 type AccountsClientBeginRenewCredentialsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// AccountsClientBeginTransitionToCmkOptions contains the optional parameters for the AccountsClient.BeginTransitionToCmk
+// method.
+type AccountsClientBeginTransitionToCmkOptions struct {
+	// The required parameters to perform encryption transition.
+	Body *EncryptionTransitionRequest
+
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -409,6 +435,13 @@ type VolumeQuotaRulesClientListByVolumeOptions struct {
 	// placeholder for future optional parameters
 }
 
+// VolumesClientBeginAuthorizeExternalReplicationOptions contains the optional parameters for the VolumesClient.BeginAuthorizeExternalReplication
+// method.
+type VolumesClientBeginAuthorizeExternalReplicationOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // VolumesClientBeginAuthorizeReplicationOptions contains the optional parameters for the VolumesClient.BeginAuthorizeReplication
 // method.
 type VolumesClientBeginAuthorizeReplicationOptions struct {
@@ -457,6 +490,13 @@ type VolumesClientBeginDeleteReplicationOptions struct {
 	ResumeToken string
 }
 
+// VolumesClientBeginFinalizeExternalReplicationOptions contains the optional parameters for the VolumesClient.BeginFinalizeExternalReplication
+// method.
+type VolumesClientBeginFinalizeExternalReplicationOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // VolumesClientBeginFinalizeRelocationOptions contains the optional parameters for the VolumesClient.BeginFinalizeRelocation
 // method.
 type VolumesClientBeginFinalizeRelocationOptions struct {
@@ -467,6 +507,26 @@ type VolumesClientBeginFinalizeRelocationOptions struct {
 // VolumesClientBeginListGetGroupIDListForLdapUserOptions contains the optional parameters for the VolumesClient.BeginListGetGroupIDListForLdapUser
 // method.
 type VolumesClientBeginListGetGroupIDListForLdapUserOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VolumesClientBeginListQuotaReportOptions contains the optional parameters for the VolumesClient.BeginListQuotaReport method.
+type VolumesClientBeginListQuotaReportOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VolumesClientBeginPeerExternalClusterOptions contains the optional parameters for the VolumesClient.BeginPeerExternalCluster
+// method.
+type VolumesClientBeginPeerExternalClusterOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VolumesClientBeginPerformReplicationTransferOptions contains the optional parameters for the VolumesClient.BeginPerformReplicationTransfer
+// method.
+type VolumesClientBeginPerformReplicationTransferOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -530,6 +590,13 @@ type VolumesClientBeginRevertOptions struct {
 // VolumesClientBeginRevertRelocationOptions contains the optional parameters for the VolumesClient.BeginRevertRelocation
 // method.
 type VolumesClientBeginRevertRelocationOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VolumesClientBeginSplitCloneFromParentOptions contains the optional parameters for the VolumesClient.BeginSplitCloneFromParent
+// method.
+type VolumesClientBeginSplitCloneFromParentOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
