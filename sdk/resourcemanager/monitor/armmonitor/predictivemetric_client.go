@@ -28,7 +28,7 @@ type PredictiveMetricClient struct {
 }
 
 // NewPredictiveMetricClient creates a new instance of PredictiveMetricClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewPredictiveMetricClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*PredictiveMetricClient, error) {
@@ -98,12 +98,12 @@ func (client *PredictiveMetricClient) getCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("timespan", timespan)
-	reqQP.Set("interval", interval)
-	reqQP.Set("metricNamespace", metricNamespace)
-	reqQP.Set("metricName", metricName)
 	reqQP.Set("aggregation", aggregation)
 	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("interval", interval)
+	reqQP.Set("metricName", metricName)
+	reqQP.Set("metricNamespace", metricNamespace)
+	reqQP.Set("timespan", timespan)
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
