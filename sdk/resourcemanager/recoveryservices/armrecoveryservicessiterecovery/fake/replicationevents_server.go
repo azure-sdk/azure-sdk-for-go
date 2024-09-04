@@ -26,11 +26,11 @@ import (
 type ReplicationEventsServer struct {
 	// Get is the fake for method ReplicationEventsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceName string, resourceGroupName string, eventName string, options *armrecoveryservicessiterecovery.ReplicationEventsClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationEventsClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, resourceName string, eventName string, options *armrecoveryservicessiterecovery.ReplicationEventsClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationEventsClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method ReplicationEventsClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceName string, resourceGroupName string, options *armrecoveryservicessiterecovery.ReplicationEventsClientListOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationEventsClientListResponse])
+	NewListPager func(resourceGroupName string, resourceName string, options *armrecoveryservicessiterecovery.ReplicationEventsClientListOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationEventsClientListResponse])
 }
 
 // NewReplicationEventsServerTransport creates a new instance of ReplicationEventsServerTransport with the provided implementation.
@@ -87,11 +87,11 @@ func (r *ReplicationEventsServerTransport) dispatchGet(req *http.Request) (*http
 	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 	if err != nil {
 		return nil, err
 	}
@@ -99,7 +99,7 @@ func (r *ReplicationEventsServerTransport) dispatchGet(req *http.Request) (*http
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := r.srv.Get(req.Context(), resourceNameParam, resourceGroupNameParam, eventNameParam, nil)
+	respr, errRespr := r.srv.Get(req.Context(), resourceGroupNameParam, resourceNameParam, eventNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -127,10 +127,6 @@ func (r *ReplicationEventsServerTransport) dispatchNewListPager(req *http.Reques
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		qp := req.URL.Query()
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
-		if err != nil {
-			return nil, err
-		}
 		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
@@ -140,13 +136,17 @@ func (r *ReplicationEventsServerTransport) dispatchNewListPager(req *http.Reques
 			return nil, err
 		}
 		filterParam := getOptional(filterUnescaped)
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		if err != nil {
+			return nil, err
+		}
 		var options *armrecoveryservicessiterecovery.ReplicationEventsClientListOptions
 		if filterParam != nil {
 			options = &armrecoveryservicessiterecovery.ReplicationEventsClientListOptions{
 				Filter: filterParam,
 			}
 		}
-		resp := r.srv.NewListPager(resourceNameParam, resourceGroupNameParam, options)
+		resp := r.srv.NewListPager(resourceGroupNameParam, resourceNameParam, options)
 		newListPager = &resp
 		r.newListPager.add(req, newListPager)
 		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armrecoveryservicessiterecovery.ReplicationEventsClientListResponse, createLink func() string) {

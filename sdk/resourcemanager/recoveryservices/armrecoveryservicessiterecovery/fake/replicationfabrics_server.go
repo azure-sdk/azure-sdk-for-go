@@ -26,35 +26,35 @@ import (
 type ReplicationFabricsServer struct {
 	// BeginCheckConsistency is the fake for method ReplicationFabricsClient.BeginCheckConsistency
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginCheckConsistency func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, options *armrecoveryservicessiterecovery.ReplicationFabricsClientBeginCheckConsistencyOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationFabricsClientCheckConsistencyResponse], errResp azfake.ErrorResponder)
+	BeginCheckConsistency func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, options *armrecoveryservicessiterecovery.ReplicationFabricsClientBeginCheckConsistencyOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationFabricsClientCheckConsistencyResponse], errResp azfake.ErrorResponder)
 
 	// BeginCreate is the fake for method ReplicationFabricsClient.BeginCreate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginCreate func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, input armrecoveryservicessiterecovery.FabricCreationInput, options *armrecoveryservicessiterecovery.ReplicationFabricsClientBeginCreateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationFabricsClientCreateResponse], errResp azfake.ErrorResponder)
+	BeginCreate func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, input armrecoveryservicessiterecovery.FabricCreationInput, options *armrecoveryservicessiterecovery.ReplicationFabricsClientBeginCreateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationFabricsClientCreateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method ReplicationFabricsClient.BeginDelete
 	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
-	BeginDelete func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, options *armrecoveryservicessiterecovery.ReplicationFabricsClientBeginDeleteOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationFabricsClientDeleteResponse], errResp azfake.ErrorResponder)
+	BeginDelete func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, options *armrecoveryservicessiterecovery.ReplicationFabricsClientBeginDeleteOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationFabricsClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method ReplicationFabricsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, options *armrecoveryservicessiterecovery.ReplicationFabricsClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationFabricsClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, options *armrecoveryservicessiterecovery.ReplicationFabricsClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationFabricsClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method ReplicationFabricsClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceName string, resourceGroupName string, options *armrecoveryservicessiterecovery.ReplicationFabricsClientListOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationFabricsClientListResponse])
+	NewListPager func(resourceGroupName string, resourceName string, options *armrecoveryservicessiterecovery.ReplicationFabricsClientListOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationFabricsClientListResponse])
 
 	// BeginMigrateToAAD is the fake for method ReplicationFabricsClient.BeginMigrateToAAD
 	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
-	BeginMigrateToAAD func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, options *armrecoveryservicessiterecovery.ReplicationFabricsClientBeginMigrateToAADOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationFabricsClientMigrateToAADResponse], errResp azfake.ErrorResponder)
+	BeginMigrateToAAD func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, options *armrecoveryservicessiterecovery.ReplicationFabricsClientBeginMigrateToAADOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationFabricsClientMigrateToAADResponse], errResp azfake.ErrorResponder)
 
 	// BeginPurge is the fake for method ReplicationFabricsClient.BeginPurge
 	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
-	BeginPurge func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, options *armrecoveryservicessiterecovery.ReplicationFabricsClientBeginPurgeOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationFabricsClientPurgeResponse], errResp azfake.ErrorResponder)
+	BeginPurge func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, options *armrecoveryservicessiterecovery.ReplicationFabricsClientBeginPurgeOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationFabricsClientPurgeResponse], errResp azfake.ErrorResponder)
 
 	// BeginReassociateGateway is the fake for method ReplicationFabricsClient.BeginReassociateGateway
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginReassociateGateway func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, failoverProcessServerRequest armrecoveryservicessiterecovery.FailoverProcessServerRequest, options *armrecoveryservicessiterecovery.ReplicationFabricsClientBeginReassociateGatewayOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationFabricsClientReassociateGatewayResponse], errResp azfake.ErrorResponder)
+	BeginReassociateGateway func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, failoverProcessServerRequest armrecoveryservicessiterecovery.FailoverProcessServerRequest, options *armrecoveryservicessiterecovery.ReplicationFabricsClientBeginReassociateGatewayOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationFabricsClientReassociateGatewayResponse], errResp azfake.ErrorResponder)
 
 	// BeginRemoveInfra is the fake for method ReplicationFabricsClient.BeginRemoveInfra
 	// HTTP status codes to indicate success: http.StatusAccepted
@@ -62,7 +62,7 @@ type ReplicationFabricsServer struct {
 
 	// BeginRenewCertificate is the fake for method ReplicationFabricsClient.BeginRenewCertificate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginRenewCertificate func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, renewCertificate armrecoveryservicessiterecovery.RenewCertificateInput, options *armrecoveryservicessiterecovery.ReplicationFabricsClientBeginRenewCertificateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationFabricsClientRenewCertificateResponse], errResp azfake.ErrorResponder)
+	BeginRenewCertificate func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, renewCertificate armrecoveryservicessiterecovery.RenewCertificateInput, options *armrecoveryservicessiterecovery.ReplicationFabricsClientBeginRenewCertificateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationFabricsClientRenewCertificateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewReplicationFabricsServerTransport creates a new instance of ReplicationFabricsServerTransport with the provided implementation.
@@ -153,11 +153,11 @@ func (r *ReplicationFabricsServerTransport) dispatchBeginCheckConsistency(req *h
 		if matches == nil || len(matches) < 4 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -165,7 +165,7 @@ func (r *ReplicationFabricsServerTransport) dispatchBeginCheckConsistency(req *h
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginCheckConsistency(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, nil)
+		respr, errRespr := r.srv.BeginCheckConsistency(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -205,11 +205,11 @@ func (r *ReplicationFabricsServerTransport) dispatchBeginCreate(req *http.Reques
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -217,7 +217,7 @@ func (r *ReplicationFabricsServerTransport) dispatchBeginCreate(req *http.Reques
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginCreate(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, body, nil)
+		respr, errRespr := r.srv.BeginCreate(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -253,11 +253,11 @@ func (r *ReplicationFabricsServerTransport) dispatchBeginDelete(req *http.Reques
 		if matches == nil || len(matches) < 4 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -265,7 +265,7 @@ func (r *ReplicationFabricsServerTransport) dispatchBeginDelete(req *http.Reques
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginDelete(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, nil)
+		respr, errRespr := r.srv.BeginDelete(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -300,11 +300,11 @@ func (r *ReplicationFabricsServerTransport) dispatchGet(req *http.Request) (*htt
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
 	qp := req.URL.Query()
-	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 	if err != nil {
 		return nil, err
 	}
@@ -323,7 +323,7 @@ func (r *ReplicationFabricsServerTransport) dispatchGet(req *http.Request) (*htt
 			Filter: filterParam,
 		}
 	}
-	respr, errRespr := r.srv.Get(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, options)
+	respr, errRespr := r.srv.Get(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, options)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -350,15 +350,15 @@ func (r *ReplicationFabricsServerTransport) dispatchNewListPager(req *http.Reque
 		if matches == nil || len(matches) < 3 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
-		if err != nil {
-			return nil, err
-		}
 		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resp := r.srv.NewListPager(resourceNameParam, resourceGroupNameParam, nil)
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		if err != nil {
+			return nil, err
+		}
+		resp := r.srv.NewListPager(resourceGroupNameParam, resourceNameParam, nil)
 		newListPager = &resp
 		r.newListPager.add(req, newListPager)
 		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armrecoveryservicessiterecovery.ReplicationFabricsClientListResponse, createLink func() string) {
@@ -391,11 +391,11 @@ func (r *ReplicationFabricsServerTransport) dispatchBeginMigrateToAAD(req *http.
 		if matches == nil || len(matches) < 4 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -403,7 +403,7 @@ func (r *ReplicationFabricsServerTransport) dispatchBeginMigrateToAAD(req *http.
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginMigrateToAAD(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, nil)
+		respr, errRespr := r.srv.BeginMigrateToAAD(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -439,11 +439,11 @@ func (r *ReplicationFabricsServerTransport) dispatchBeginPurge(req *http.Request
 		if matches == nil || len(matches) < 4 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -451,7 +451,7 @@ func (r *ReplicationFabricsServerTransport) dispatchBeginPurge(req *http.Request
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginPurge(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, nil)
+		respr, errRespr := r.srv.BeginPurge(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -491,11 +491,11 @@ func (r *ReplicationFabricsServerTransport) dispatchBeginReassociateGateway(req 
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -503,7 +503,7 @@ func (r *ReplicationFabricsServerTransport) dispatchBeginReassociateGateway(req 
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginReassociateGateway(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, body, nil)
+		respr, errRespr := r.srv.BeginReassociateGateway(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -591,11 +591,11 @@ func (r *ReplicationFabricsServerTransport) dispatchBeginRenewCertificate(req *h
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -603,7 +603,7 @@ func (r *ReplicationFabricsServerTransport) dispatchBeginRenewCertificate(req *h
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginRenewCertificate(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, body, nil)
+		respr, errRespr := r.srv.BeginRenewCertificate(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}

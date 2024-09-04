@@ -25,7 +25,7 @@ import (
 type SupportedOperatingSystemsServer struct {
 	// Get is the fake for method SupportedOperatingSystemsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceName string, resourceGroupName string, options *armrecoveryservicessiterecovery.SupportedOperatingSystemsClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.SupportedOperatingSystemsClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, resourceName string, options *armrecoveryservicessiterecovery.SupportedOperatingSystemsClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.SupportedOperatingSystemsClientGetResponse], errResp azfake.ErrorResponder)
 }
 
 // NewSupportedOperatingSystemsServerTransport creates a new instance of SupportedOperatingSystemsServerTransport with the provided implementation.
@@ -77,11 +77,11 @@ func (s *SupportedOperatingSystemsServerTransport) dispatchGet(req *http.Request
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
 	qp := req.URL.Query()
-	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 	if err != nil {
 		return nil, err
 	}
@@ -96,7 +96,7 @@ func (s *SupportedOperatingSystemsServerTransport) dispatchGet(req *http.Request
 			InstanceType: instanceTypeParam,
 		}
 	}
-	respr, errRespr := s.srv.Get(req.Context(), resourceNameParam, resourceGroupNameParam, options)
+	respr, errRespr := s.srv.Get(req.Context(), resourceGroupNameParam, resourceNameParam, options)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
