@@ -26,15 +26,15 @@ import (
 type ReplicationVaultSettingServer struct {
 	// BeginCreate is the fake for method ReplicationVaultSettingClient.BeginCreate
 	// HTTP status codes to indicate success: http.StatusOK
-	BeginCreate func(ctx context.Context, resourceName string, resourceGroupName string, vaultSettingName string, input armrecoveryservicessiterecovery.VaultSettingCreationInput, options *armrecoveryservicessiterecovery.ReplicationVaultSettingClientBeginCreateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationVaultSettingClientCreateResponse], errResp azfake.ErrorResponder)
+	BeginCreate func(ctx context.Context, resourceGroupName string, resourceName string, vaultSettingName string, input armrecoveryservicessiterecovery.VaultSettingCreationInput, options *armrecoveryservicessiterecovery.ReplicationVaultSettingClientBeginCreateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationVaultSettingClientCreateResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method ReplicationVaultSettingClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceName string, resourceGroupName string, vaultSettingName string, options *armrecoveryservicessiterecovery.ReplicationVaultSettingClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationVaultSettingClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, resourceName string, vaultSettingName string, options *armrecoveryservicessiterecovery.ReplicationVaultSettingClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationVaultSettingClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method ReplicationVaultSettingClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceName string, resourceGroupName string, options *armrecoveryservicessiterecovery.ReplicationVaultSettingClientListOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationVaultSettingClientListResponse])
+	NewListPager func(resourceGroupName string, resourceName string, options *armrecoveryservicessiterecovery.ReplicationVaultSettingClientListOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationVaultSettingClientListResponse])
 }
 
 // NewReplicationVaultSettingServerTransport creates a new instance of ReplicationVaultSettingServerTransport with the provided implementation.
@@ -101,11 +101,11 @@ func (r *ReplicationVaultSettingServerTransport) dispatchBeginCreate(req *http.R
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -113,7 +113,7 @@ func (r *ReplicationVaultSettingServerTransport) dispatchBeginCreate(req *http.R
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginCreate(req.Context(), resourceNameParam, resourceGroupNameParam, vaultSettingNameParam, body, nil)
+		respr, errRespr := r.srv.BeginCreate(req.Context(), resourceGroupNameParam, resourceNameParam, vaultSettingNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -147,11 +147,11 @@ func (r *ReplicationVaultSettingServerTransport) dispatchGet(req *http.Request) 
 	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 	if err != nil {
 		return nil, err
 	}
@@ -159,7 +159,7 @@ func (r *ReplicationVaultSettingServerTransport) dispatchGet(req *http.Request) 
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := r.srv.Get(req.Context(), resourceNameParam, resourceGroupNameParam, vaultSettingNameParam, nil)
+	respr, errRespr := r.srv.Get(req.Context(), resourceGroupNameParam, resourceNameParam, vaultSettingNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -186,15 +186,15 @@ func (r *ReplicationVaultSettingServerTransport) dispatchNewListPager(req *http.
 		if matches == nil || len(matches) < 3 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
-		if err != nil {
-			return nil, err
-		}
 		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resp := r.srv.NewListPager(resourceNameParam, resourceGroupNameParam, nil)
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		if err != nil {
+			return nil, err
+		}
+		resp := r.srv.NewListPager(resourceGroupNameParam, resourceNameParam, nil)
 		newListPager = &resp
 		r.newListPager.add(req, newListPager)
 		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armrecoveryservicessiterecovery.ReplicationVaultSettingClientListResponse, createLink func() string) {

@@ -46,18 +46,18 @@ func NewReplicationEventsClient(subscriptionID string, credential azcore.TokenCr
 // Get - The operation to get the details of an Azure Site recovery event.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
-//   - resourceName - The name of the recovery services vault.
+// Generated from API version 2024-10-01
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
+//   - resourceName - The name of the recovery services vault.
 //   - eventName - The name of the Azure Site Recovery event.
 //   - options - ReplicationEventsClientGetOptions contains the optional parameters for the ReplicationEventsClient.Get method.
-func (client *ReplicationEventsClient) Get(ctx context.Context, resourceName string, resourceGroupName string, eventName string, options *ReplicationEventsClientGetOptions) (ReplicationEventsClientGetResponse, error) {
+func (client *ReplicationEventsClient) Get(ctx context.Context, resourceGroupName string, resourceName string, eventName string, options *ReplicationEventsClientGetOptions) (ReplicationEventsClientGetResponse, error) {
 	var err error
 	const operationName = "ReplicationEventsClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, resourceName, resourceGroupName, eventName, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, resourceName, eventName, options)
 	if err != nil {
 		return ReplicationEventsClientGetResponse{}, err
 	}
@@ -74,16 +74,16 @@ func (client *ReplicationEventsClient) Get(ctx context.Context, resourceName str
 }
 
 // getCreateRequest creates the Get request.
-func (client *ReplicationEventsClient) getCreateRequest(ctx context.Context, resourceName string, resourceGroupName string, eventName string, options *ReplicationEventsClientGetOptions) (*policy.Request, error) {
+func (client *ReplicationEventsClient) getCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, eventName string, options *ReplicationEventsClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{resourceName}/replicationEvents/{eventName}"
-	if resourceName == "" {
-		return nil, errors.New("parameter resourceName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceName}", url.PathEscape(resourceName))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if resourceName == "" {
+		return nil, errors.New("parameter resourceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceName}", url.PathEscape(resourceName))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -97,7 +97,7 @@ func (client *ReplicationEventsClient) getCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -114,12 +114,12 @@ func (client *ReplicationEventsClient) getHandleResponse(resp *http.Response) (R
 
 // NewListPager - Gets the list of Azure Site Recovery events for the vault.
 //
-// Generated from API version 2023-08-01
-//   - resourceName - The name of the recovery services vault.
+// Generated from API version 2024-10-01
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
+//   - resourceName - The name of the recovery services vault.
 //   - options - ReplicationEventsClientListOptions contains the optional parameters for the ReplicationEventsClient.NewListPager
 //     method.
-func (client *ReplicationEventsClient) NewListPager(resourceName string, resourceGroupName string, options *ReplicationEventsClientListOptions) *runtime.Pager[ReplicationEventsClientListResponse] {
+func (client *ReplicationEventsClient) NewListPager(resourceGroupName string, resourceName string, options *ReplicationEventsClientListOptions) *runtime.Pager[ReplicationEventsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ReplicationEventsClientListResponse]{
 		More: func(page ReplicationEventsClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
@@ -131,7 +131,7 @@ func (client *ReplicationEventsClient) NewListPager(resourceName string, resourc
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, resourceName, resourceGroupName, options)
+				return client.listCreateRequest(ctx, resourceGroupName, resourceName, options)
 			}, nil)
 			if err != nil {
 				return ReplicationEventsClientListResponse{}, err
@@ -143,16 +143,16 @@ func (client *ReplicationEventsClient) NewListPager(resourceName string, resourc
 }
 
 // listCreateRequest creates the List request.
-func (client *ReplicationEventsClient) listCreateRequest(ctx context.Context, resourceName string, resourceGroupName string, options *ReplicationEventsClientListOptions) (*policy.Request, error) {
+func (client *ReplicationEventsClient) listCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, options *ReplicationEventsClientListOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{resourceName}/replicationEvents"
-	if resourceName == "" {
-		return nil, errors.New("parameter resourceName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceName}", url.PathEscape(resourceName))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if resourceName == "" {
+		return nil, errors.New("parameter resourceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceName}", url.PathEscape(resourceName))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -165,7 +165,7 @@ func (client *ReplicationEventsClient) listCreateRequest(ctx context.Context, re
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -26,11 +26,11 @@ import (
 type RecoveryPointsServer struct {
 	// Get is the fake for method RecoveryPointsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, recoveryPointName string, options *armrecoveryservicessiterecovery.RecoveryPointsClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.RecoveryPointsClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, recoveryPointName string, options *armrecoveryservicessiterecovery.RecoveryPointsClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.RecoveryPointsClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListByReplicationProtectedItemsPager is the fake for method RecoveryPointsClient.NewListByReplicationProtectedItemsPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListByReplicationProtectedItemsPager func(resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, options *armrecoveryservicessiterecovery.RecoveryPointsClientListByReplicationProtectedItemsOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.RecoveryPointsClientListByReplicationProtectedItemsResponse])
+	NewListByReplicationProtectedItemsPager func(resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, options *armrecoveryservicessiterecovery.RecoveryPointsClientListByReplicationProtectedItemsOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.RecoveryPointsClientListByReplicationProtectedItemsResponse])
 }
 
 // NewRecoveryPointsServerTransport creates a new instance of RecoveryPointsServerTransport with the provided implementation.
@@ -87,11 +87,11 @@ func (r *RecoveryPointsServerTransport) dispatchGet(req *http.Request) (*http.Re
 	if matches == nil || len(matches) < 7 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 	if err != nil {
 		return nil, err
 	}
@@ -111,7 +111,7 @@ func (r *RecoveryPointsServerTransport) dispatchGet(req *http.Request) (*http.Re
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := r.srv.Get(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, recoveryPointNameParam, nil)
+	respr, errRespr := r.srv.Get(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, recoveryPointNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -138,11 +138,11 @@ func (r *RecoveryPointsServerTransport) dispatchNewListByReplicationProtectedIte
 		if matches == nil || len(matches) < 6 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -158,7 +158,7 @@ func (r *RecoveryPointsServerTransport) dispatchNewListByReplicationProtectedIte
 		if err != nil {
 			return nil, err
 		}
-		resp := r.srv.NewListByReplicationProtectedItemsPager(resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, nil)
+		resp := r.srv.NewListByReplicationProtectedItemsPager(resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, nil)
 		newListByReplicationProtectedItemsPager = &resp
 		r.newListByReplicationProtectedItemsPager.add(req, newListByReplicationProtectedItemsPager)
 		server.PagerResponderInjectNextLinks(newListByReplicationProtectedItemsPager, req, func(page *armrecoveryservicessiterecovery.RecoveryPointsClientListByReplicationProtectedItemsResponse, createLink func() string) {

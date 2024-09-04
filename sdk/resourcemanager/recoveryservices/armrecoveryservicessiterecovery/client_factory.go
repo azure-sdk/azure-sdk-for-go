@@ -36,6 +36,22 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 	}, nil
 }
 
+// NewClusterRecoveryPointClient creates a new instance of ClusterRecoveryPointClient.
+func (c *ClientFactory) NewClusterRecoveryPointClient() *ClusterRecoveryPointClient {
+	return &ClusterRecoveryPointClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewClusterRecoveryPointsClient creates a new instance of ClusterRecoveryPointsClient.
+func (c *ClientFactory) NewClusterRecoveryPointsClient() *ClusterRecoveryPointsClient {
+	return &ClusterRecoveryPointsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewMigrationRecoveryPointsClient creates a new instance of MigrationRecoveryPointsClient.
 func (c *ClientFactory) NewMigrationRecoveryPointsClient() *MigrationRecoveryPointsClient {
 	return &MigrationRecoveryPointsClient{
@@ -159,6 +175,14 @@ func (c *ClientFactory) NewReplicationProtectableItemsClient() *ReplicationProte
 // NewReplicationProtectedItemsClient creates a new instance of ReplicationProtectedItemsClient.
 func (c *ClientFactory) NewReplicationProtectedItemsClient() *ReplicationProtectedItemsClient {
 	return &ReplicationProtectedItemsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewReplicationProtectionClustersClient creates a new instance of ReplicationProtectionClustersClient.
+func (c *ClientFactory) NewReplicationProtectionClustersClient() *ReplicationProtectionClustersClient {
+	return &ReplicationProtectionClustersClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}

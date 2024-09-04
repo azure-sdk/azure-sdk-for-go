@@ -26,51 +26,51 @@ import (
 type ReplicationMigrationItemsServer struct {
 	// BeginCreate is the fake for method ReplicationMigrationItemsClient.BeginCreate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginCreate func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, migrationItemName string, input armrecoveryservicessiterecovery.EnableMigrationInput, options *armrecoveryservicessiterecovery.ReplicationMigrationItemsClientBeginCreateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationMigrationItemsClientCreateResponse], errResp azfake.ErrorResponder)
+	BeginCreate func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, migrationItemName string, input armrecoveryservicessiterecovery.EnableMigrationInput, options *armrecoveryservicessiterecovery.ReplicationMigrationItemsClientBeginCreateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationMigrationItemsClientCreateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method ReplicationMigrationItemsClient.BeginDelete
 	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
-	BeginDelete func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, migrationItemName string, options *armrecoveryservicessiterecovery.ReplicationMigrationItemsClientBeginDeleteOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationMigrationItemsClientDeleteResponse], errResp azfake.ErrorResponder)
+	BeginDelete func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, migrationItemName string, options *armrecoveryservicessiterecovery.ReplicationMigrationItemsClientBeginDeleteOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationMigrationItemsClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method ReplicationMigrationItemsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, migrationItemName string, options *armrecoveryservicessiterecovery.ReplicationMigrationItemsClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationMigrationItemsClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, migrationItemName string, options *armrecoveryservicessiterecovery.ReplicationMigrationItemsClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationMigrationItemsClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method ReplicationMigrationItemsClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceName string, resourceGroupName string, options *armrecoveryservicessiterecovery.ReplicationMigrationItemsClientListOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationMigrationItemsClientListResponse])
+	NewListPager func(resourceGroupName string, resourceName string, options *armrecoveryservicessiterecovery.ReplicationMigrationItemsClientListOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationMigrationItemsClientListResponse])
 
 	// NewListByReplicationProtectionContainersPager is the fake for method ReplicationMigrationItemsClient.NewListByReplicationProtectionContainersPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListByReplicationProtectionContainersPager func(resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, options *armrecoveryservicessiterecovery.ReplicationMigrationItemsClientListByReplicationProtectionContainersOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationMigrationItemsClientListByReplicationProtectionContainersResponse])
+	NewListByReplicationProtectionContainersPager func(resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, options *armrecoveryservicessiterecovery.ReplicationMigrationItemsClientListByReplicationProtectionContainersOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationMigrationItemsClientListByReplicationProtectionContainersResponse])
 
 	// BeginMigrate is the fake for method ReplicationMigrationItemsClient.BeginMigrate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginMigrate func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, migrationItemName string, migrateInput armrecoveryservicessiterecovery.MigrateInput, options *armrecoveryservicessiterecovery.ReplicationMigrationItemsClientBeginMigrateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationMigrationItemsClientMigrateResponse], errResp azfake.ErrorResponder)
+	BeginMigrate func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, migrationItemName string, migrateInput armrecoveryservicessiterecovery.MigrateInput, options *armrecoveryservicessiterecovery.ReplicationMigrationItemsClientBeginMigrateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationMigrationItemsClientMigrateResponse], errResp azfake.ErrorResponder)
 
 	// BeginPauseReplication is the fake for method ReplicationMigrationItemsClient.BeginPauseReplication
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginPauseReplication func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, migrationItemName string, pauseReplicationInput armrecoveryservicessiterecovery.PauseReplicationInput, options *armrecoveryservicessiterecovery.ReplicationMigrationItemsClientBeginPauseReplicationOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationMigrationItemsClientPauseReplicationResponse], errResp azfake.ErrorResponder)
+	BeginPauseReplication func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, migrationItemName string, pauseReplicationInput armrecoveryservicessiterecovery.PauseReplicationInput, options *armrecoveryservicessiterecovery.ReplicationMigrationItemsClientBeginPauseReplicationOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationMigrationItemsClientPauseReplicationResponse], errResp azfake.ErrorResponder)
 
 	// BeginResumeReplication is the fake for method ReplicationMigrationItemsClient.BeginResumeReplication
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginResumeReplication func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, migrationItemName string, resumeReplicationInput armrecoveryservicessiterecovery.ResumeReplicationInput, options *armrecoveryservicessiterecovery.ReplicationMigrationItemsClientBeginResumeReplicationOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationMigrationItemsClientResumeReplicationResponse], errResp azfake.ErrorResponder)
+	BeginResumeReplication func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, migrationItemName string, resumeReplicationInput armrecoveryservicessiterecovery.ResumeReplicationInput, options *armrecoveryservicessiterecovery.ReplicationMigrationItemsClientBeginResumeReplicationOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationMigrationItemsClientResumeReplicationResponse], errResp azfake.ErrorResponder)
 
 	// BeginResync is the fake for method ReplicationMigrationItemsClient.BeginResync
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginResync func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, migrationItemName string, input armrecoveryservicessiterecovery.ResyncInput, options *armrecoveryservicessiterecovery.ReplicationMigrationItemsClientBeginResyncOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationMigrationItemsClientResyncResponse], errResp azfake.ErrorResponder)
+	BeginResync func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, migrationItemName string, input armrecoveryservicessiterecovery.ResyncInput, options *armrecoveryservicessiterecovery.ReplicationMigrationItemsClientBeginResyncOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationMigrationItemsClientResyncResponse], errResp azfake.ErrorResponder)
 
 	// BeginTestMigrate is the fake for method ReplicationMigrationItemsClient.BeginTestMigrate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginTestMigrate func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, migrationItemName string, testMigrateInput armrecoveryservicessiterecovery.TestMigrateInput, options *armrecoveryservicessiterecovery.ReplicationMigrationItemsClientBeginTestMigrateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationMigrationItemsClientTestMigrateResponse], errResp azfake.ErrorResponder)
+	BeginTestMigrate func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, migrationItemName string, testMigrateInput armrecoveryservicessiterecovery.TestMigrateInput, options *armrecoveryservicessiterecovery.ReplicationMigrationItemsClientBeginTestMigrateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationMigrationItemsClientTestMigrateResponse], errResp azfake.ErrorResponder)
 
 	// BeginTestMigrateCleanup is the fake for method ReplicationMigrationItemsClient.BeginTestMigrateCleanup
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginTestMigrateCleanup func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, migrationItemName string, testMigrateCleanupInput armrecoveryservicessiterecovery.TestMigrateCleanupInput, options *armrecoveryservicessiterecovery.ReplicationMigrationItemsClientBeginTestMigrateCleanupOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationMigrationItemsClientTestMigrateCleanupResponse], errResp azfake.ErrorResponder)
+	BeginTestMigrateCleanup func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, migrationItemName string, testMigrateCleanupInput armrecoveryservicessiterecovery.TestMigrateCleanupInput, options *armrecoveryservicessiterecovery.ReplicationMigrationItemsClientBeginTestMigrateCleanupOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationMigrationItemsClientTestMigrateCleanupResponse], errResp azfake.ErrorResponder)
 
 	// BeginUpdate is the fake for method ReplicationMigrationItemsClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginUpdate func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, migrationItemName string, input armrecoveryservicessiterecovery.UpdateMigrationItemInput, options *armrecoveryservicessiterecovery.ReplicationMigrationItemsClientBeginUpdateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationMigrationItemsClientUpdateResponse], errResp azfake.ErrorResponder)
+	BeginUpdate func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, migrationItemName string, input armrecoveryservicessiterecovery.UpdateMigrationItemInput, options *armrecoveryservicessiterecovery.ReplicationMigrationItemsClientBeginUpdateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationMigrationItemsClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewReplicationMigrationItemsServerTransport creates a new instance of ReplicationMigrationItemsServerTransport with the provided implementation.
@@ -173,11 +173,11 @@ func (r *ReplicationMigrationItemsServerTransport) dispatchBeginCreate(req *http
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -193,7 +193,7 @@ func (r *ReplicationMigrationItemsServerTransport) dispatchBeginCreate(req *http
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginCreate(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, migrationItemNameParam, body, nil)
+		respr, errRespr := r.srv.BeginCreate(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, migrationItemNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -230,11 +230,11 @@ func (r *ReplicationMigrationItemsServerTransport) dispatchBeginDelete(req *http
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		qp := req.URL.Query()
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -261,7 +261,7 @@ func (r *ReplicationMigrationItemsServerTransport) dispatchBeginDelete(req *http
 				DeleteOption: deleteOptionParam,
 			}
 		}
-		respr, errRespr := r.srv.BeginDelete(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, migrationItemNameParam, options)
+		respr, errRespr := r.srv.BeginDelete(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, migrationItemNameParam, options)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -295,11 +295,11 @@ func (r *ReplicationMigrationItemsServerTransport) dispatchGet(req *http.Request
 	if matches == nil || len(matches) < 6 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 	if err != nil {
 		return nil, err
 	}
@@ -315,7 +315,7 @@ func (r *ReplicationMigrationItemsServerTransport) dispatchGet(req *http.Request
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := r.srv.Get(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, migrationItemNameParam, nil)
+	respr, errRespr := r.srv.Get(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, migrationItemNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -343,11 +343,11 @@ func (r *ReplicationMigrationItemsServerTransport) dispatchNewListPager(req *htt
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		qp := req.URL.Query()
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -374,7 +374,7 @@ func (r *ReplicationMigrationItemsServerTransport) dispatchNewListPager(req *htt
 				Filter:    filterParam,
 			}
 		}
-		resp := r.srv.NewListPager(resourceNameParam, resourceGroupNameParam, options)
+		resp := r.srv.NewListPager(resourceGroupNameParam, resourceNameParam, options)
 		newListPager = &resp
 		r.newListPager.add(req, newListPager)
 		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armrecoveryservicessiterecovery.ReplicationMigrationItemsClientListResponse, createLink func() string) {
@@ -408,11 +408,11 @@ func (r *ReplicationMigrationItemsServerTransport) dispatchNewListByReplicationP
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		qp := req.URL.Query()
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -447,7 +447,7 @@ func (r *ReplicationMigrationItemsServerTransport) dispatchNewListByReplicationP
 				Filter:    filterParam,
 			}
 		}
-		resp := r.srv.NewListByReplicationProtectionContainersPager(resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, options)
+		resp := r.srv.NewListByReplicationProtectionContainersPager(resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, options)
 		newListByReplicationProtectionContainersPager = &resp
 		r.newListByReplicationProtectionContainersPager.add(req, newListByReplicationProtectionContainersPager)
 		server.PagerResponderInjectNextLinks(newListByReplicationProtectionContainersPager, req, func(page *armrecoveryservicessiterecovery.ReplicationMigrationItemsClientListByReplicationProtectionContainersResponse, createLink func() string) {
@@ -484,11 +484,11 @@ func (r *ReplicationMigrationItemsServerTransport) dispatchBeginMigrate(req *htt
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -504,7 +504,7 @@ func (r *ReplicationMigrationItemsServerTransport) dispatchBeginMigrate(req *htt
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginMigrate(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, migrationItemNameParam, body, nil)
+		respr, errRespr := r.srv.BeginMigrate(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, migrationItemNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -544,11 +544,11 @@ func (r *ReplicationMigrationItemsServerTransport) dispatchBeginPauseReplication
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -564,7 +564,7 @@ func (r *ReplicationMigrationItemsServerTransport) dispatchBeginPauseReplication
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginPauseReplication(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, migrationItemNameParam, body, nil)
+		respr, errRespr := r.srv.BeginPauseReplication(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, migrationItemNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -604,11 +604,11 @@ func (r *ReplicationMigrationItemsServerTransport) dispatchBeginResumeReplicatio
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -624,7 +624,7 @@ func (r *ReplicationMigrationItemsServerTransport) dispatchBeginResumeReplicatio
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginResumeReplication(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, migrationItemNameParam, body, nil)
+		respr, errRespr := r.srv.BeginResumeReplication(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, migrationItemNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -664,11 +664,11 @@ func (r *ReplicationMigrationItemsServerTransport) dispatchBeginResync(req *http
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -684,7 +684,7 @@ func (r *ReplicationMigrationItemsServerTransport) dispatchBeginResync(req *http
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginResync(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, migrationItemNameParam, body, nil)
+		respr, errRespr := r.srv.BeginResync(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, migrationItemNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -724,11 +724,11 @@ func (r *ReplicationMigrationItemsServerTransport) dispatchBeginTestMigrate(req 
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -744,7 +744,7 @@ func (r *ReplicationMigrationItemsServerTransport) dispatchBeginTestMigrate(req 
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginTestMigrate(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, migrationItemNameParam, body, nil)
+		respr, errRespr := r.srv.BeginTestMigrate(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, migrationItemNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -784,11 +784,11 @@ func (r *ReplicationMigrationItemsServerTransport) dispatchBeginTestMigrateClean
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -804,7 +804,7 @@ func (r *ReplicationMigrationItemsServerTransport) dispatchBeginTestMigrateClean
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginTestMigrateCleanup(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, migrationItemNameParam, body, nil)
+		respr, errRespr := r.srv.BeginTestMigrateCleanup(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, migrationItemNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -844,11 +844,11 @@ func (r *ReplicationMigrationItemsServerTransport) dispatchBeginUpdate(req *http
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -864,7 +864,7 @@ func (r *ReplicationMigrationItemsServerTransport) dispatchBeginUpdate(req *http
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginUpdate(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, migrationItemNameParam, body, nil)
+		respr, errRespr := r.srv.BeginUpdate(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, migrationItemNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}

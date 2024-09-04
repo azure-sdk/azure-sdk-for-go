@@ -46,16 +46,16 @@ func NewReplicationVaultSettingClient(subscriptionID string, credential azcore.T
 // BeginCreate - The operation to configure vault setting.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
-//   - resourceName - The name of the recovery services vault.
+// Generated from API version 2024-10-01
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
+//   - resourceName - The name of the recovery services vault.
 //   - vaultSettingName - Vault setting name.
 //   - input - Vault setting creation input.
 //   - options - ReplicationVaultSettingClientBeginCreateOptions contains the optional parameters for the ReplicationVaultSettingClient.BeginCreate
 //     method.
-func (client *ReplicationVaultSettingClient) BeginCreate(ctx context.Context, resourceName string, resourceGroupName string, vaultSettingName string, input VaultSettingCreationInput, options *ReplicationVaultSettingClientBeginCreateOptions) (*runtime.Poller[ReplicationVaultSettingClientCreateResponse], error) {
+func (client *ReplicationVaultSettingClient) BeginCreate(ctx context.Context, resourceGroupName string, resourceName string, vaultSettingName string, input VaultSettingCreationInput, options *ReplicationVaultSettingClientBeginCreateOptions) (*runtime.Poller[ReplicationVaultSettingClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.create(ctx, resourceName, resourceGroupName, vaultSettingName, input, options)
+		resp, err := client.create(ctx, resourceGroupName, resourceName, vaultSettingName, input, options)
 		if err != nil {
 			return nil, err
 		}
@@ -73,14 +73,14 @@ func (client *ReplicationVaultSettingClient) BeginCreate(ctx context.Context, re
 // Create - The operation to configure vault setting.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
-func (client *ReplicationVaultSettingClient) create(ctx context.Context, resourceName string, resourceGroupName string, vaultSettingName string, input VaultSettingCreationInput, options *ReplicationVaultSettingClientBeginCreateOptions) (*http.Response, error) {
+// Generated from API version 2024-10-01
+func (client *ReplicationVaultSettingClient) create(ctx context.Context, resourceGroupName string, resourceName string, vaultSettingName string, input VaultSettingCreationInput, options *ReplicationVaultSettingClientBeginCreateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ReplicationVaultSettingClient.BeginCreate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createCreateRequest(ctx, resourceName, resourceGroupName, vaultSettingName, input, options)
+	req, err := client.createCreateRequest(ctx, resourceGroupName, resourceName, vaultSettingName, input, options)
 	if err != nil {
 		return nil, err
 	}
@@ -96,16 +96,16 @@ func (client *ReplicationVaultSettingClient) create(ctx context.Context, resourc
 }
 
 // createCreateRequest creates the Create request.
-func (client *ReplicationVaultSettingClient) createCreateRequest(ctx context.Context, resourceName string, resourceGroupName string, vaultSettingName string, input VaultSettingCreationInput, options *ReplicationVaultSettingClientBeginCreateOptions) (*policy.Request, error) {
+func (client *ReplicationVaultSettingClient) createCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, vaultSettingName string, input VaultSettingCreationInput, options *ReplicationVaultSettingClientBeginCreateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{resourceName}/replicationVaultSettings/{vaultSettingName}"
-	if resourceName == "" {
-		return nil, errors.New("parameter resourceName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceName}", url.PathEscape(resourceName))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if resourceName == "" {
+		return nil, errors.New("parameter resourceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceName}", url.PathEscape(resourceName))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -119,7 +119,7 @@ func (client *ReplicationVaultSettingClient) createCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, input); err != nil {
@@ -131,19 +131,19 @@ func (client *ReplicationVaultSettingClient) createCreateRequest(ctx context.Con
 // Get - Gets the vault setting. This includes the Migration Hub connection settings.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
-//   - resourceName - The name of the recovery services vault.
+// Generated from API version 2024-10-01
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
+//   - resourceName - The name of the recovery services vault.
 //   - vaultSettingName - Vault setting name.
 //   - options - ReplicationVaultSettingClientGetOptions contains the optional parameters for the ReplicationVaultSettingClient.Get
 //     method.
-func (client *ReplicationVaultSettingClient) Get(ctx context.Context, resourceName string, resourceGroupName string, vaultSettingName string, options *ReplicationVaultSettingClientGetOptions) (ReplicationVaultSettingClientGetResponse, error) {
+func (client *ReplicationVaultSettingClient) Get(ctx context.Context, resourceGroupName string, resourceName string, vaultSettingName string, options *ReplicationVaultSettingClientGetOptions) (ReplicationVaultSettingClientGetResponse, error) {
 	var err error
 	const operationName = "ReplicationVaultSettingClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, resourceName, resourceGroupName, vaultSettingName, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, resourceName, vaultSettingName, options)
 	if err != nil {
 		return ReplicationVaultSettingClientGetResponse{}, err
 	}
@@ -160,16 +160,16 @@ func (client *ReplicationVaultSettingClient) Get(ctx context.Context, resourceNa
 }
 
 // getCreateRequest creates the Get request.
-func (client *ReplicationVaultSettingClient) getCreateRequest(ctx context.Context, resourceName string, resourceGroupName string, vaultSettingName string, options *ReplicationVaultSettingClientGetOptions) (*policy.Request, error) {
+func (client *ReplicationVaultSettingClient) getCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, vaultSettingName string, options *ReplicationVaultSettingClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{resourceName}/replicationVaultSettings/{vaultSettingName}"
-	if resourceName == "" {
-		return nil, errors.New("parameter resourceName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceName}", url.PathEscape(resourceName))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if resourceName == "" {
+		return nil, errors.New("parameter resourceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceName}", url.PathEscape(resourceName))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -183,7 +183,7 @@ func (client *ReplicationVaultSettingClient) getCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -200,12 +200,12 @@ func (client *ReplicationVaultSettingClient) getHandleResponse(resp *http.Respon
 
 // NewListPager - Gets the list of vault setting. This includes the Migration Hub connection settings.
 //
-// Generated from API version 2023-08-01
-//   - resourceName - The name of the recovery services vault.
+// Generated from API version 2024-10-01
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
+//   - resourceName - The name of the recovery services vault.
 //   - options - ReplicationVaultSettingClientListOptions contains the optional parameters for the ReplicationVaultSettingClient.NewListPager
 //     method.
-func (client *ReplicationVaultSettingClient) NewListPager(resourceName string, resourceGroupName string, options *ReplicationVaultSettingClientListOptions) *runtime.Pager[ReplicationVaultSettingClientListResponse] {
+func (client *ReplicationVaultSettingClient) NewListPager(resourceGroupName string, resourceName string, options *ReplicationVaultSettingClientListOptions) *runtime.Pager[ReplicationVaultSettingClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ReplicationVaultSettingClientListResponse]{
 		More: func(page ReplicationVaultSettingClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
@@ -217,7 +217,7 @@ func (client *ReplicationVaultSettingClient) NewListPager(resourceName string, r
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, resourceName, resourceGroupName, options)
+				return client.listCreateRequest(ctx, resourceGroupName, resourceName, options)
 			}, nil)
 			if err != nil {
 				return ReplicationVaultSettingClientListResponse{}, err
@@ -229,16 +229,16 @@ func (client *ReplicationVaultSettingClient) NewListPager(resourceName string, r
 }
 
 // listCreateRequest creates the List request.
-func (client *ReplicationVaultSettingClient) listCreateRequest(ctx context.Context, resourceName string, resourceGroupName string, options *ReplicationVaultSettingClientListOptions) (*policy.Request, error) {
+func (client *ReplicationVaultSettingClient) listCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, options *ReplicationVaultSettingClientListOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{resourceName}/replicationVaultSettings"
-	if resourceName == "" {
-		return nil, errors.New("parameter resourceName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceName}", url.PathEscape(resourceName))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if resourceName == "" {
+		return nil, errors.New("parameter resourceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceName}", url.PathEscape(resourceName))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -248,7 +248,7 @@ func (client *ReplicationVaultSettingClient) listCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
