@@ -73,6 +73,10 @@ type WebSiteManagementServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListSourceControlsPager func(options *armappservice.WebSiteManagementClientListSourceControlsOptions) (resp azfake.PagerResponder[armappservice.WebSiteManagementClientListSourceControlsResponse])
 
+	// NewListStaticSiteRegionsPager is the fake for method WebSiteManagementClient.NewListStaticSiteRegionsPager
+	// HTTP status codes to indicate success: http.StatusOK
+	NewListStaticSiteRegionsPager func(options *armappservice.WebSiteManagementClientListStaticSiteRegionsOptions) (resp azfake.PagerResponder[armappservice.WebSiteManagementClientListStaticSiteRegionsResponse])
+
 	// Move is the fake for method WebSiteManagementClient.Move
 	// HTTP status codes to indicate success: http.StatusNoContent
 	Move func(ctx context.Context, resourceGroupName string, moveResourceEnvelope armappservice.CsmMoveResourceEnvelope, options *armappservice.WebSiteManagementClientMoveOptions) (resp azfake.Responder[armappservice.WebSiteManagementClientMoveResponse], errResp azfake.ErrorResponder)
@@ -111,6 +115,7 @@ func NewWebSiteManagementServerTransport(srv *WebSiteManagementServer) *WebSiteM
 		newListPremierAddOnOffersPager:  newTracker[azfake.PagerResponder[armappservice.WebSiteManagementClientListPremierAddOnOffersResponse]](),
 		newListSiteIdentifiersAssignedToHostNamePager: newTracker[azfake.PagerResponder[armappservice.WebSiteManagementClientListSiteIdentifiersAssignedToHostNameResponse]](),
 		newListSourceControlsPager:                    newTracker[azfake.PagerResponder[armappservice.WebSiteManagementClientListSourceControlsResponse]](),
+		newListStaticSiteRegionsPager:                 newTracker[azfake.PagerResponder[armappservice.WebSiteManagementClientListStaticSiteRegionsResponse]](),
 	}
 }
 
@@ -125,6 +130,7 @@ type WebSiteManagementServerTransport struct {
 	newListPremierAddOnOffersPager                *tracker[azfake.PagerResponder[armappservice.WebSiteManagementClientListPremierAddOnOffersResponse]]
 	newListSiteIdentifiersAssignedToHostNamePager *tracker[azfake.PagerResponder[armappservice.WebSiteManagementClientListSiteIdentifiersAssignedToHostNameResponse]]
 	newListSourceControlsPager                    *tracker[azfake.PagerResponder[armappservice.WebSiteManagementClientListSourceControlsResponse]]
+	newListStaticSiteRegionsPager                 *tracker[azfake.PagerResponder[armappservice.WebSiteManagementClientListStaticSiteRegionsResponse]]
 }
 
 // Do implements the policy.Transporter interface for WebSiteManagementServerTransport.
@@ -163,6 +169,8 @@ func (w *WebSiteManagementServerTransport) Do(req *http.Request) (*http.Response
 		resp, err = w.dispatchNewListSiteIdentifiersAssignedToHostNamePager(req)
 	case "WebSiteManagementClient.NewListSourceControlsPager":
 		resp, err = w.dispatchNewListSourceControlsPager(req)
+	case "WebSiteManagementClient.NewListStaticSiteRegionsPager":
+		resp, err = w.dispatchNewListStaticSiteRegionsPager(req)
 	case "WebSiteManagementClient.Move":
 		resp, err = w.dispatchMove(req)
 	case "WebSiteManagementClient.UpdatePublishingUser":
@@ -607,6 +615,51 @@ func (w *WebSiteManagementServerTransport) dispatchNewListSourceControlsPager(re
 	}
 	if !server.PagerResponderMore(newListSourceControlsPager) {
 		w.newListSourceControlsPager.remove(req)
+	}
+	return resp, nil
+}
+
+func (w *WebSiteManagementServerTransport) dispatchNewListStaticSiteRegionsPager(req *http.Request) (*http.Response, error) {
+	if w.srv.NewListStaticSiteRegionsPager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListStaticSiteRegionsPager not implemented")}
+	}
+	newListStaticSiteRegionsPager := w.newListStaticSiteRegionsPager.get(req)
+	if newListStaticSiteRegionsPager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Web/staticSiteRegions`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 1 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		qp := req.URL.Query()
+		sKUUnescaped, err := url.QueryUnescape(qp.Get("sku"))
+		if err != nil {
+			return nil, err
+		}
+		sKUParam := getOptional(armappservice.SKUName(sKUUnescaped))
+		var options *armappservice.WebSiteManagementClientListStaticSiteRegionsOptions
+		if sKUParam != nil {
+			options = &armappservice.WebSiteManagementClientListStaticSiteRegionsOptions{
+				SKU: sKUParam,
+			}
+		}
+		resp := w.srv.NewListStaticSiteRegionsPager(options)
+		newListStaticSiteRegionsPager = &resp
+		w.newListStaticSiteRegionsPager.add(req, newListStaticSiteRegionsPager)
+		server.PagerResponderInjectNextLinks(newListStaticSiteRegionsPager, req, func(page *armappservice.WebSiteManagementClientListStaticSiteRegionsResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
+	}
+	resp, err := server.PagerResponderNext(newListStaticSiteRegionsPager, req)
+	if err != nil {
+		return nil, err
+	}
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+		w.newListStaticSiteRegionsPager.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+	}
+	if !server.PagerResponderMore(newListStaticSiteRegionsPager) {
+		w.newListStaticSiteRegionsPager.remove(req)
 	}
 	return resp, nil
 }

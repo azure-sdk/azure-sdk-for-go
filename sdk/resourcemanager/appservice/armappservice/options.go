@@ -4084,6 +4084,11 @@ type WebAppsClientUpdateHybridConnectionSlotOptions struct {
 	// placeholder for future optional parameters
 }
 
+// WebAppsClientUpdateMachineKeyOptions contains the optional parameters for the WebAppsClient.UpdateMachineKey method.
+type WebAppsClientUpdateMachineKeyOptions struct {
+	// placeholder for future optional parameters
+}
+
 // WebAppsClientUpdateMetadataOptions contains the optional parameters for the WebAppsClient.UpdateMetadata method.
 type WebAppsClientUpdateMetadataOptions struct {
 	// placeholder for future optional parameters
@@ -4285,6 +4290,13 @@ type WebSiteManagementClientListSiteIdentifiersAssignedToHostNameOptions struct 
 // method.
 type WebSiteManagementClientListSourceControlsOptions struct {
 	// placeholder for future optional parameters
+}
+
+// WebSiteManagementClientListStaticSiteRegionsOptions contains the optional parameters for the WebSiteManagementClient.NewListStaticSiteRegionsPager
+// method.
+type WebSiteManagementClientListStaticSiteRegionsOptions struct {
+	// Name of SKU used to filter the regions.
+	SKU *SKUName
 }
 
 // WebSiteManagementClientMoveOptions contains the optional parameters for the WebSiteManagementClient.Move method.

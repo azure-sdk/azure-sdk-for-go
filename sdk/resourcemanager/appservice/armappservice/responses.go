@@ -3903,6 +3903,12 @@ type WebAppsClientUpdateHybridConnectionSlotResponse struct {
 	HybridConnection
 }
 
+// WebAppsClientUpdateMachineKeyResponse contains the response from method WebAppsClient.UpdateMachineKey.
+type WebAppsClientUpdateMachineKeyResponse struct {
+	// Anything
+	Interface any
+}
+
 // WebAppsClientUpdateMetadataResponse contains the response from method WebAppsClient.UpdateMetadata.
 type WebAppsClientUpdateMetadataResponse struct {
 	// String dictionary resource.
@@ -4100,6 +4106,12 @@ type WebSiteManagementClientListSiteIdentifiersAssignedToHostNameResponse struct
 type WebSiteManagementClientListSourceControlsResponse struct {
 	// Collection of source controls.
 	SourceControlCollection
+}
+
+// WebSiteManagementClientListStaticSiteRegionsResponse contains the response from method WebSiteManagementClient.NewListStaticSiteRegionsPager.
+type WebSiteManagementClientListStaticSiteRegionsResponse struct {
+	// Collection of Static Site regions.
+	StaticSiteRegionCollection
 }
 
 // WebSiteManagementClientMoveResponse contains the response from method WebSiteManagementClient.Move.
