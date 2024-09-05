@@ -124,6 +124,32 @@ type ApisClientListResponse struct {
 	APIListResult
 }
 
+// DeletedServicesClientDeleteResponse contains the response from method DeletedServicesClient.Delete.
+type DeletedServicesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// DeletedServicesClientGetResponse contains the response from method DeletedServicesClient.Get.
+type DeletedServicesClientGetResponse struct {
+	// Soft-deleted service entity.
+	DeletedService
+
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// DeletedServicesClientListBySubscriptionResponse contains the response from method DeletedServicesClient.NewListBySubscriptionPager.
+type DeletedServicesClientListBySubscriptionResponse struct {
+	// The response of a DeletedService list operation.
+	DeletedServiceListResult
+}
+
+// DeletedServicesClientListResponse contains the response from method DeletedServicesClient.NewListPager.
+type DeletedServicesClientListResponse struct {
+	// The response of a DeletedService list operation.
+	DeletedServiceListResult
+}
+
 // DeploymentsClientCreateOrUpdateResponse contains the response from method DeploymentsClient.CreateOrUpdate.
 type DeploymentsClientCreateOrUpdateResponse struct {
 	// API deployment entity.
