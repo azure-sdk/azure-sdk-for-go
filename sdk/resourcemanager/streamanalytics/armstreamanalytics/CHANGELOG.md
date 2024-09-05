@@ -1,5 +1,25 @@
 # Release History
 
+## 2.0.0 (2024-09-05)
+### Breaking Changes
+
+- Type of `OutputProperties.SizeWindow` has been changed from `*float32` to `*int32`
+
+### Features Added
+
+- New function `*FileReferenceInputDataSource.GetReferenceInputDataSource() *ReferenceInputDataSource`
+- New function `*GatewayMessageBusOutputDataSource.GetOutputDataSource() *OutputDataSource`
+- New function `*GatewayMessageBusStreamInputDataSource.GetStreamInputDataSource() *StreamInputDataSource`
+- New struct `FileReferenceInputDataSource`
+- New struct `FileReferenceInputDataSourceProperties`
+- New struct `GatewayMessageBusOutputDataSource`
+- New struct `GatewayMessageBusOutputDataSourceProperties`
+- New struct `GatewayMessageBusSourceProperties`
+- New struct `GatewayMessageBusStreamInputDataSource`
+- New struct `GatewayMessageBusStreamInputDataSourceProperties`
+- New field `BlobPathPrefix` in struct `BlobOutputDataSourceProperties`
+
+
 ## 2.0.0-beta.1 (2024-01-26)
 ### Breaking Changes
 
