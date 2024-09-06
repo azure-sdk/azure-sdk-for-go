@@ -1,5 +1,20 @@
 # Release History
 
+## 3.0.0-beta.3 (2024-09-06)
+### Features Added
+
+- New value `RoleManagementPolicyRuleTypeRoleManagementPolicyPimOnlyModeRule` added to enum type `RoleManagementPolicyRuleType`
+- New value `UserTypeServicePrincipal` added to enum type `UserType`
+- New enum type `ExcludedPrincipalTypes` with values `ExcludedPrincipalTypesServicePrincipalsAsRequestor`, `ExcludedPrincipalTypesServicePrincipalsAsTarget`
+- New enum type `PIMOnlyMode` with values `PIMOnlyModeDisabled`, `PIMOnlyModeEnabled`, `PIMOnlyModeReportOnly`
+- New function `*RoleManagementPolicyPimOnlyModeRule.GetRoleManagementPolicyRule() *RoleManagementPolicyRule`
+- New struct `PIMOnlyModeSettings`
+- New struct `RoleManagementPolicyPimOnlyModeRule`
+- New struct `UsersOrServicePrincipalSet`
+- New field `EffectiveRules` in struct `RoleManagementPolicyAssignmentProperties`
+- New field `ExceptionMembers` in struct `RoleManagementPolicyExpirationRule`
+
+
 ## 3.0.0-beta.2 (2023-11-30)
 ### Features Added
 
