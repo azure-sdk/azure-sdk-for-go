@@ -81,6 +81,92 @@ type AssetsClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
 }
 
+// BillingContainersClientGetOptions contains the optional parameters for the BillingContainersClient.Get method.
+type BillingContainersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// BillingContainersClientListBySubscriptionOptions contains the optional parameters for the BillingContainersClient.NewListBySubscriptionPager
+// method.
+type BillingContainersClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DiscoveredAssetEndpointProfilesClientBeginCreateOrReplaceOptions contains the optional parameters for the DiscoveredAssetEndpointProfilesClient.BeginCreateOrReplace
+// method.
+type DiscoveredAssetEndpointProfilesClientBeginCreateOrReplaceOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// DiscoveredAssetEndpointProfilesClientBeginDeleteOptions contains the optional parameters for the DiscoveredAssetEndpointProfilesClient.BeginDelete
+// method.
+type DiscoveredAssetEndpointProfilesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// DiscoveredAssetEndpointProfilesClientBeginUpdateOptions contains the optional parameters for the DiscoveredAssetEndpointProfilesClient.BeginUpdate
+// method.
+type DiscoveredAssetEndpointProfilesClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// DiscoveredAssetEndpointProfilesClientGetOptions contains the optional parameters for the DiscoveredAssetEndpointProfilesClient.Get
+// method.
+type DiscoveredAssetEndpointProfilesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DiscoveredAssetEndpointProfilesClientListByResourceGroupOptions contains the optional parameters for the DiscoveredAssetEndpointProfilesClient.NewListByResourceGroupPager
+// method.
+type DiscoveredAssetEndpointProfilesClientListByResourceGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DiscoveredAssetEndpointProfilesClientListBySubscriptionOptions contains the optional parameters for the DiscoveredAssetEndpointProfilesClient.NewListBySubscriptionPager
+// method.
+type DiscoveredAssetEndpointProfilesClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DiscoveredAssetsClientBeginCreateOrReplaceOptions contains the optional parameters for the DiscoveredAssetsClient.BeginCreateOrReplace
+// method.
+type DiscoveredAssetsClientBeginCreateOrReplaceOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// DiscoveredAssetsClientBeginDeleteOptions contains the optional parameters for the DiscoveredAssetsClient.BeginDelete method.
+type DiscoveredAssetsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// DiscoveredAssetsClientBeginUpdateOptions contains the optional parameters for the DiscoveredAssetsClient.BeginUpdate method.
+type DiscoveredAssetsClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// DiscoveredAssetsClientGetOptions contains the optional parameters for the DiscoveredAssetsClient.Get method.
+type DiscoveredAssetsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DiscoveredAssetsClientListByResourceGroupOptions contains the optional parameters for the DiscoveredAssetsClient.NewListByResourceGroupPager
+// method.
+type DiscoveredAssetsClientListByResourceGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DiscoveredAssetsClientListBySubscriptionOptions contains the optional parameters for the DiscoveredAssetsClient.NewListBySubscriptionPager
+// method.
+type DiscoveredAssetsClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
+}
+
 // OperationStatusClientGetOptions contains the optional parameters for the OperationStatusClient.Get method.
 type OperationStatusClientGetOptions struct {
 	// placeholder for future optional parameters
@@ -88,5 +174,84 @@ type OperationStatusClientGetOptions struct {
 
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SchemaRegistriesClientBeginCreateOrReplaceOptions contains the optional parameters for the SchemaRegistriesClient.BeginCreateOrReplace
+// method.
+type SchemaRegistriesClientBeginCreateOrReplaceOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SchemaRegistriesClientBeginDeleteOptions contains the optional parameters for the SchemaRegistriesClient.BeginDelete method.
+type SchemaRegistriesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SchemaRegistriesClientBeginUpdateOptions contains the optional parameters for the SchemaRegistriesClient.BeginUpdate method.
+type SchemaRegistriesClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SchemaRegistriesClientGetOptions contains the optional parameters for the SchemaRegistriesClient.Get method.
+type SchemaRegistriesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SchemaRegistriesClientListByResourceGroupOptions contains the optional parameters for the SchemaRegistriesClient.NewListByResourceGroupPager
+// method.
+type SchemaRegistriesClientListByResourceGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SchemaRegistriesClientListBySubscriptionOptions contains the optional parameters for the SchemaRegistriesClient.NewListBySubscriptionPager
+// method.
+type SchemaRegistriesClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SchemaVersionsClientCreateOrReplaceOptions contains the optional parameters for the SchemaVersionsClient.CreateOrReplace
+// method.
+type SchemaVersionsClientCreateOrReplaceOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SchemaVersionsClientDeleteOptions contains the optional parameters for the SchemaVersionsClient.Delete method.
+type SchemaVersionsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SchemaVersionsClientGetOptions contains the optional parameters for the SchemaVersionsClient.Get method.
+type SchemaVersionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SchemaVersionsClientListBySchemaOptions contains the optional parameters for the SchemaVersionsClient.NewListBySchemaPager
+// method.
+type SchemaVersionsClientListBySchemaOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SchemasClientCreateOrReplaceOptions contains the optional parameters for the SchemasClient.CreateOrReplace method.
+type SchemasClientCreateOrReplaceOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SchemasClientDeleteOptions contains the optional parameters for the SchemasClient.Delete method.
+type SchemasClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SchemasClientGetOptions contains the optional parameters for the SchemasClient.Get method.
+type SchemasClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SchemasClientListBySchemaRegistryOptions contains the optional parameters for the SchemasClient.NewListBySchemaRegistryPager
+// method.
+type SchemasClientListBySchemaRegistryOptions struct {
 	// placeholder for future optional parameters
 }

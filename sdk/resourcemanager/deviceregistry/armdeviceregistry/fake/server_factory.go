@@ -19,10 +19,16 @@ import (
 
 // ServerFactory is a fake server for instances of the armdeviceregistry.ClientFactory type.
 type ServerFactory struct {
-	AssetEndpointProfilesServer AssetEndpointProfilesServer
-	AssetsServer                AssetsServer
-	OperationStatusServer       OperationStatusServer
-	OperationsServer            OperationsServer
+	AssetEndpointProfilesServer           AssetEndpointProfilesServer
+	AssetsServer                          AssetsServer
+	BillingContainersServer               BillingContainersServer
+	DiscoveredAssetEndpointProfilesServer DiscoveredAssetEndpointProfilesServer
+	DiscoveredAssetsServer                DiscoveredAssetsServer
+	OperationStatusServer                 OperationStatusServer
+	OperationsServer                      OperationsServer
+	SchemaRegistriesServer                SchemaRegistriesServer
+	SchemaVersionsServer                  SchemaVersionsServer
+	SchemasServer                         SchemasServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -37,12 +43,18 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armdeviceregistry.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                           *ServerFactory
-	trMu                          sync.Mutex
-	trAssetEndpointProfilesServer *AssetEndpointProfilesServerTransport
-	trAssetsServer                *AssetsServerTransport
-	trOperationStatusServer       *OperationStatusServerTransport
-	trOperationsServer            *OperationsServerTransport
+	srv                                     *ServerFactory
+	trMu                                    sync.Mutex
+	trAssetEndpointProfilesServer           *AssetEndpointProfilesServerTransport
+	trAssetsServer                          *AssetsServerTransport
+	trBillingContainersServer               *BillingContainersServerTransport
+	trDiscoveredAssetEndpointProfilesServer *DiscoveredAssetEndpointProfilesServerTransport
+	trDiscoveredAssetsServer                *DiscoveredAssetsServerTransport
+	trOperationStatusServer                 *OperationStatusServerTransport
+	trOperationsServer                      *OperationsServerTransport
+	trSchemaRegistriesServer                *SchemaRegistriesServerTransport
+	trSchemaVersionsServer                  *SchemaVersionsServerTransport
+	trSchemasServer                         *SchemasServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -66,6 +78,21 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "AssetsClient":
 		initServer(s, &s.trAssetsServer, func() *AssetsServerTransport { return NewAssetsServerTransport(&s.srv.AssetsServer) })
 		resp, err = s.trAssetsServer.Do(req)
+	case "BillingContainersClient":
+		initServer(s, &s.trBillingContainersServer, func() *BillingContainersServerTransport {
+			return NewBillingContainersServerTransport(&s.srv.BillingContainersServer)
+		})
+		resp, err = s.trBillingContainersServer.Do(req)
+	case "DiscoveredAssetEndpointProfilesClient":
+		initServer(s, &s.trDiscoveredAssetEndpointProfilesServer, func() *DiscoveredAssetEndpointProfilesServerTransport {
+			return NewDiscoveredAssetEndpointProfilesServerTransport(&s.srv.DiscoveredAssetEndpointProfilesServer)
+		})
+		resp, err = s.trDiscoveredAssetEndpointProfilesServer.Do(req)
+	case "DiscoveredAssetsClient":
+		initServer(s, &s.trDiscoveredAssetsServer, func() *DiscoveredAssetsServerTransport {
+			return NewDiscoveredAssetsServerTransport(&s.srv.DiscoveredAssetsServer)
+		})
+		resp, err = s.trDiscoveredAssetsServer.Do(req)
 	case "OperationStatusClient":
 		initServer(s, &s.trOperationStatusServer, func() *OperationStatusServerTransport {
 			return NewOperationStatusServerTransport(&s.srv.OperationStatusServer)
@@ -74,6 +101,19 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
+	case "SchemaRegistriesClient":
+		initServer(s, &s.trSchemaRegistriesServer, func() *SchemaRegistriesServerTransport {
+			return NewSchemaRegistriesServerTransport(&s.srv.SchemaRegistriesServer)
+		})
+		resp, err = s.trSchemaRegistriesServer.Do(req)
+	case "SchemaVersionsClient":
+		initServer(s, &s.trSchemaVersionsServer, func() *SchemaVersionsServerTransport {
+			return NewSchemaVersionsServerTransport(&s.srv.SchemaVersionsServer)
+		})
+		resp, err = s.trSchemaVersionsServer.Do(req)
+	case "SchemasClient":
+		initServer(s, &s.trSchemasServer, func() *SchemasServerTransport { return NewSchemasServerTransport(&s.srv.SchemasServer) })
+		resp, err = s.trSchemasServer.Do(req)
 	default:
 		err = fmt.Errorf("unhandled client %s", client)
 	}

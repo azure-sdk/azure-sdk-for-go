@@ -22,7 +22,7 @@ type ClientFactory struct {
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
@@ -52,6 +52,30 @@ func (c *ClientFactory) NewAssetsClient() *AssetsClient {
 	}
 }
 
+// NewBillingContainersClient creates a new instance of BillingContainersClient.
+func (c *ClientFactory) NewBillingContainersClient() *BillingContainersClient {
+	return &BillingContainersClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewDiscoveredAssetEndpointProfilesClient creates a new instance of DiscoveredAssetEndpointProfilesClient.
+func (c *ClientFactory) NewDiscoveredAssetEndpointProfilesClient() *DiscoveredAssetEndpointProfilesClient {
+	return &DiscoveredAssetEndpointProfilesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewDiscoveredAssetsClient creates a new instance of DiscoveredAssetsClient.
+func (c *ClientFactory) NewDiscoveredAssetsClient() *DiscoveredAssetsClient {
+	return &DiscoveredAssetsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewOperationStatusClient creates a new instance of OperationStatusClient.
 func (c *ClientFactory) NewOperationStatusClient() *OperationStatusClient {
 	return &OperationStatusClient{
@@ -64,5 +88,29 @@ func (c *ClientFactory) NewOperationStatusClient() *OperationStatusClient {
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	return &OperationsClient{
 		internal: c.internal,
+	}
+}
+
+// NewSchemaRegistriesClient creates a new instance of SchemaRegistriesClient.
+func (c *ClientFactory) NewSchemaRegistriesClient() *SchemaRegistriesClient {
+	return &SchemaRegistriesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewSchemaVersionsClient creates a new instance of SchemaVersionsClient.
+func (c *ClientFactory) NewSchemaVersionsClient() *SchemaVersionsClient {
+	return &SchemaVersionsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewSchemasClient creates a new instance of SchemasClient.
+func (c *ClientFactory) NewSchemasClient() *SchemasClient {
+	return &SchemasClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
 	}
 }

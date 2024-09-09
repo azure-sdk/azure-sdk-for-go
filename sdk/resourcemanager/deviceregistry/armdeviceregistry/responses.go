@@ -78,6 +78,88 @@ type AssetsClientUpdateResponse struct {
 	Asset
 }
 
+// BillingContainersClientGetResponse contains the response from method BillingContainersClient.Get.
+type BillingContainersClientGetResponse struct {
+	// billingContainer Model as Azure resource whose sole purpose is to keep track of billables resources under a subscription.
+	BillingContainer
+}
+
+// BillingContainersClientListBySubscriptionResponse contains the response from method BillingContainersClient.NewListBySubscriptionPager.
+type BillingContainersClientListBySubscriptionResponse struct {
+	// The response of a BillingContainer list operation.
+	BillingContainerListResult
+}
+
+// DiscoveredAssetEndpointProfilesClientCreateOrReplaceResponse contains the response from method DiscoveredAssetEndpointProfilesClient.BeginCreateOrReplace.
+type DiscoveredAssetEndpointProfilesClientCreateOrReplaceResponse struct {
+	// Discovered Asset Endpoint Profile definition.
+	DiscoveredAssetEndpointProfile
+}
+
+// DiscoveredAssetEndpointProfilesClientDeleteResponse contains the response from method DiscoveredAssetEndpointProfilesClient.BeginDelete.
+type DiscoveredAssetEndpointProfilesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// DiscoveredAssetEndpointProfilesClientGetResponse contains the response from method DiscoveredAssetEndpointProfilesClient.Get.
+type DiscoveredAssetEndpointProfilesClientGetResponse struct {
+	// Discovered Asset Endpoint Profile definition.
+	DiscoveredAssetEndpointProfile
+}
+
+// DiscoveredAssetEndpointProfilesClientListByResourceGroupResponse contains the response from method DiscoveredAssetEndpointProfilesClient.NewListByResourceGroupPager.
+type DiscoveredAssetEndpointProfilesClientListByResourceGroupResponse struct {
+	// The response of a DiscoveredAssetEndpointProfile list operation.
+	DiscoveredAssetEndpointProfileListResult
+}
+
+// DiscoveredAssetEndpointProfilesClientListBySubscriptionResponse contains the response from method DiscoveredAssetEndpointProfilesClient.NewListBySubscriptionPager.
+type DiscoveredAssetEndpointProfilesClientListBySubscriptionResponse struct {
+	// The response of a DiscoveredAssetEndpointProfile list operation.
+	DiscoveredAssetEndpointProfileListResult
+}
+
+// DiscoveredAssetEndpointProfilesClientUpdateResponse contains the response from method DiscoveredAssetEndpointProfilesClient.BeginUpdate.
+type DiscoveredAssetEndpointProfilesClientUpdateResponse struct {
+	// Discovered Asset Endpoint Profile definition.
+	DiscoveredAssetEndpointProfile
+}
+
+// DiscoveredAssetsClientCreateOrReplaceResponse contains the response from method DiscoveredAssetsClient.BeginCreateOrReplace.
+type DiscoveredAssetsClientCreateOrReplaceResponse struct {
+	// Discovered Asset definition.
+	DiscoveredAsset
+}
+
+// DiscoveredAssetsClientDeleteResponse contains the response from method DiscoveredAssetsClient.BeginDelete.
+type DiscoveredAssetsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// DiscoveredAssetsClientGetResponse contains the response from method DiscoveredAssetsClient.Get.
+type DiscoveredAssetsClientGetResponse struct {
+	// Discovered Asset definition.
+	DiscoveredAsset
+}
+
+// DiscoveredAssetsClientListByResourceGroupResponse contains the response from method DiscoveredAssetsClient.NewListByResourceGroupPager.
+type DiscoveredAssetsClientListByResourceGroupResponse struct {
+	// The response of a DiscoveredAsset list operation.
+	DiscoveredAssetListResult
+}
+
+// DiscoveredAssetsClientListBySubscriptionResponse contains the response from method DiscoveredAssetsClient.NewListBySubscriptionPager.
+type DiscoveredAssetsClientListBySubscriptionResponse struct {
+	// The response of a DiscoveredAsset list operation.
+	DiscoveredAssetListResult
+}
+
+// DiscoveredAssetsClientUpdateResponse contains the response from method DiscoveredAssetsClient.BeginUpdate.
+type DiscoveredAssetsClientUpdateResponse struct {
+	// Discovered Asset definition.
+	DiscoveredAsset
+}
+
 // OperationStatusClientGetResponse contains the response from method OperationStatusClient.Get.
 type OperationStatusClientGetResponse struct {
 	// The current status of an async operation.
@@ -88,4 +170,85 @@ type OperationStatusClientGetResponse struct {
 type OperationsClientListResponse struct {
 	// A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to get the next set of results.
 	OperationListResult
+}
+
+// SchemaRegistriesClientCreateOrReplaceResponse contains the response from method SchemaRegistriesClient.BeginCreateOrReplace.
+type SchemaRegistriesClientCreateOrReplaceResponse struct {
+	// Schema registry definition.
+	SchemaRegistry
+}
+
+// SchemaRegistriesClientDeleteResponse contains the response from method SchemaRegistriesClient.BeginDelete.
+type SchemaRegistriesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// SchemaRegistriesClientGetResponse contains the response from method SchemaRegistriesClient.Get.
+type SchemaRegistriesClientGetResponse struct {
+	// Schema registry definition.
+	SchemaRegistry
+}
+
+// SchemaRegistriesClientListByResourceGroupResponse contains the response from method SchemaRegistriesClient.NewListByResourceGroupPager.
+type SchemaRegistriesClientListByResourceGroupResponse struct {
+	// The response of a SchemaRegistry list operation.
+	SchemaRegistryListResult
+}
+
+// SchemaRegistriesClientListBySubscriptionResponse contains the response from method SchemaRegistriesClient.NewListBySubscriptionPager.
+type SchemaRegistriesClientListBySubscriptionResponse struct {
+	// The response of a SchemaRegistry list operation.
+	SchemaRegistryListResult
+}
+
+// SchemaRegistriesClientUpdateResponse contains the response from method SchemaRegistriesClient.BeginUpdate.
+type SchemaRegistriesClientUpdateResponse struct {
+	// Schema registry definition.
+	SchemaRegistry
+}
+
+// SchemaVersionsClientCreateOrReplaceResponse contains the response from method SchemaVersionsClient.CreateOrReplace.
+type SchemaVersionsClientCreateOrReplaceResponse struct {
+	// Schema version's definition.
+	SchemaVersion
+}
+
+// SchemaVersionsClientDeleteResponse contains the response from method SchemaVersionsClient.Delete.
+type SchemaVersionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// SchemaVersionsClientGetResponse contains the response from method SchemaVersionsClient.Get.
+type SchemaVersionsClientGetResponse struct {
+	// Schema version's definition.
+	SchemaVersion
+}
+
+// SchemaVersionsClientListBySchemaResponse contains the response from method SchemaVersionsClient.NewListBySchemaPager.
+type SchemaVersionsClientListBySchemaResponse struct {
+	// The response of a SchemaVersion list operation.
+	SchemaVersionListResult
+}
+
+// SchemasClientCreateOrReplaceResponse contains the response from method SchemasClient.CreateOrReplace.
+type SchemasClientCreateOrReplaceResponse struct {
+	// Schema definition.
+	Schema
+}
+
+// SchemasClientDeleteResponse contains the response from method SchemasClient.Delete.
+type SchemasClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// SchemasClientGetResponse contains the response from method SchemasClient.Get.
+type SchemasClientGetResponse struct {
+	// Schema definition.
+	Schema
+}
+
+// SchemasClientListBySchemaRegistryResponse contains the response from method SchemasClient.NewListBySchemaRegistryPager.
+type SchemasClientListBySchemaRegistryResponse struct {
+	// The response of a Schema list operation.
+	SchemaListResult
 }
