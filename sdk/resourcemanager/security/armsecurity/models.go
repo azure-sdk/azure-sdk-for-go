@@ -197,107 +197,6 @@ func (a *ActiveConnectionsNotInAllowedRange) GetTimeWindowCustomAlertRule() *Tim
 	}
 }
 
-type AdaptiveApplicationControlGroup struct {
-	// REQUIRED; Represents a machines group and set of rules to be allowed running on a machine
-	Properties *AdaptiveApplicationControlGroupData
-
-	// READ-ONLY; Resource Id
-	ID *string
-
-	// READ-ONLY; Location where the resource is stored
-	Location *string
-
-	// READ-ONLY; Resource name
-	Name *string
-
-	// READ-ONLY; Resource type
-	Type *string
-}
-
-// AdaptiveApplicationControlGroupData - Represents a machines group and set of rules to be allowed running on a machine
-type AdaptiveApplicationControlGroupData struct {
-	// The application control policy enforcement/protection mode of the machine group
-	EnforcementMode     *EnforcementMode
-	PathRecommendations []*PathRecommendation
-
-	// The protection mode of the collection/file types. Exe/Msi/Script are used for Windows, Executable is used for Linux.
-	ProtectionMode    *ProtectionMode
-	VMRecommendations []*VMRecommendation
-
-	// READ-ONLY; The configuration status of the machines group or machine or rule
-	ConfigurationStatus *ConfigurationStatus
-
-	// READ-ONLY
-	Issues []*AdaptiveApplicationControlIssueSummary
-
-	// READ-ONLY; The initial recommendation status of the machine group or machine
-	RecommendationStatus *RecommendationStatus
-
-	// READ-ONLY; The source type of the machine group
-	SourceSystem *SourceSystem
-}
-
-// AdaptiveApplicationControlGroups - Represents a list of VM/server groups and set of rules that are Recommended by Microsoft
-// Defender for Cloud to be allowed
-type AdaptiveApplicationControlGroups struct {
-	Value []*AdaptiveApplicationControlGroup
-}
-
-// AdaptiveApplicationControlIssueSummary - Represents a summary of the alerts of the machine group
-type AdaptiveApplicationControlIssueSummary struct {
-	// An alert that machines within a group can have
-	Issue *AdaptiveApplicationControlIssue
-
-	// The number of machines in the group that have this alert
-	NumberOfVMs *float32
-}
-
-// AdaptiveNetworkHardening - The resource whose properties describes the Adaptive Network Hardening settings for some Azure
-// resource
-type AdaptiveNetworkHardening struct {
-	// Properties of the Adaptive Network Hardening resource
-	Properties *AdaptiveNetworkHardeningProperties
-
-	// READ-ONLY; Resource Id
-	ID *string
-
-	// READ-ONLY; Resource name
-	Name *string
-
-	// READ-ONLY; Resource type
-	Type *string
-}
-
-type AdaptiveNetworkHardeningEnforceRequest struct {
-	// REQUIRED; The Azure resource IDs of the effective network security groups that will be updated with the created security
-	// rules from the Adaptive Network Hardening rules
-	NetworkSecurityGroups []*string
-
-	// REQUIRED; The rules to enforce
-	Rules []*Rule
-}
-
-// AdaptiveNetworkHardeningProperties - Adaptive Network Hardening resource properties
-type AdaptiveNetworkHardeningProperties struct {
-	// The Network Security Groups effective on the network interfaces of the protected resource
-	EffectiveNetworkSecurityGroups []*EffectiveNetworkSecurityGroups
-
-	// The security rules which are recommended to be effective on the VM
-	Rules []*Rule
-
-	// The UTC time on which the rules were calculated
-	RulesCalculationTime *time.Time
-}
-
-// AdaptiveNetworkHardeningsList - Response for ListAdaptiveNetworkHardenings API service call
-type AdaptiveNetworkHardeningsList struct {
-	// The URL to get the next set of results
-	NextLink *string
-
-	// A list of Adaptive Network Hardenings resources
-	Value []*AdaptiveNetworkHardening
-}
-
 // AdditionalData - Details of the sub-assessment
 type AdditionalData struct {
 	// REQUIRED; Sub-assessment resource type
@@ -1434,7 +1333,7 @@ func (a *AutomationActionLogicApp) GetAutomationAction() *AutomationAction {
 	}
 }
 
-// AutomationActionWorkspace - The�Log�Analytics�Workspace�to�which�event data will be exported. Security alerts data will
+// AutomationActionWorkspace - The Log Analytics Workspace to which event data will be exported. Security alerts data will
 // reside in the 'SecurityAlert' table and the assessments data will reside in the 'SecurityRecommendation'
 // table (under the 'Security'/'SecurityCenterFree' solutions). Note that in order to view the data in the workspace, the
 // Security Center Log Analytics free/standard solution needs to be enabled on that
@@ -1722,16 +1621,16 @@ type AzureDevOpsOrgProperties struct {
 	// state is not applicable to the current endpoint.
 	OnboardingState *OnboardingState
 
-	// The provisioning state of the resource.
+	// READ-ONLY; The provisioning state of the resource.
 	// Pending - Provisioning pending. Failed - Provisioning failed. Succeeded - Successful provisioning. Canceled - Provisioning
 	// canceled. PendingDeletion - Deletion pending. DeletionSuccess - Deletion
 	// successful. DeletionFailure - Deletion failure.
 	ProvisioningState *DevOpsProvisioningState
 
-	// READ-ONLY; Gets or sets resource status message.
+	// READ-ONLY; Gets the resource status message.
 	ProvisioningStatusMessage *string
 
-	// READ-ONLY; Gets or sets time when resource was last checked.
+	// READ-ONLY; Gets the time when resource was last checked.
 	ProvisioningStatusUpdateTimeUTC *time.Time
 }
 
@@ -1797,19 +1696,19 @@ type AzureDevOpsProjectProperties struct {
 	// Gets or sets parent Azure DevOps Organization name.
 	ParentOrgName *string
 
-	// The provisioning state of the resource.
+	// READ-ONLY; Gets or sets Azure DevOps Project id.
+	ProjectID *string
+
+	// READ-ONLY; The provisioning state of the resource.
 	// Pending - Provisioning pending. Failed - Provisioning failed. Succeeded - Successful provisioning. Canceled - Provisioning
 	// canceled. PendingDeletion - Deletion pending. DeletionSuccess - Deletion
 	// successful. DeletionFailure - Deletion failure.
 	ProvisioningState *DevOpsProvisioningState
 
-	// READ-ONLY; Gets or sets Azure DevOps Project id.
-	ProjectID *string
-
-	// READ-ONLY; Gets or sets resource status message.
+	// READ-ONLY; Gets the resource status message.
 	ProvisioningStatusMessage *string
 
-	// READ-ONLY; Gets or sets time when resource was last checked.
+	// READ-ONLY; Gets the time when resource was last checked.
 	ProvisioningStatusUpdateTimeUTC *time.Time
 }
 
@@ -1858,16 +1757,16 @@ type AzureDevOpsRepositoryProperties struct {
 	// Gets or sets parent Azure DevOps Project name.
 	ParentProjectName *string
 
-	// The provisioning state of the resource.
+	// READ-ONLY; The provisioning state of the resource.
 	// Pending - Provisioning pending. Failed - Provisioning failed. Succeeded - Successful provisioning. Canceled - Provisioning
 	// canceled. PendingDeletion - Deletion pending. DeletionSuccess - Deletion
 	// successful. DeletionFailure - Deletion failure.
 	ProvisioningState *DevOpsProvisioningState
 
-	// READ-ONLY; Gets or sets resource status message.
+	// READ-ONLY; Gets the resource status message.
 	ProvisioningStatusMessage *string
 
-	// READ-ONLY; Gets or sets time when resource was last checked.
+	// READ-ONLY; Gets the time when resource was last checked.
 	ProvisioningStatusUpdateTimeUTC *time.Time
 
 	// READ-ONLY; Gets or sets Azure DevOps Repository id.
@@ -2640,141 +2539,6 @@ type CustomAlertRule struct {
 
 // GetCustomAlertRule implements the CustomAlertRuleClassification interface for type CustomAlertRule.
 func (c *CustomAlertRule) GetCustomAlertRule() *CustomAlertRule { return c }
-
-// CustomAssessmentAutomation - Custom Assessment Automation
-type CustomAssessmentAutomation struct {
-	// describes Custom Assessment Automation properties.
-	Properties *CustomAssessmentAutomationProperties
-
-	// READ-ONLY; Resource Id
-	ID *string
-
-	// READ-ONLY; Resource name
-	Name *string
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
-
-	// READ-ONLY; Resource type
-	Type *string
-}
-
-// CustomAssessmentAutomationProperties - describes the Custom Assessment Automation properties
-type CustomAssessmentAutomationProperties struct {
-	// The assessment metadata key used when an assessment is generated for this assessment automation.
-	AssessmentKey *string
-
-	// GZip encoded KQL query representing the assessment automation results required.
-	CompressedQuery *string
-
-	// The description to relate to the assessments generated by this assessment automation.
-	Description *string
-
-	// The display name of the assessments generated by this assessment automation.
-	DisplayName *string
-
-	// The remediation description to relate to the assessments generated by this assessment automation.
-	RemediationDescription *string
-
-	// The severity to relate to the assessments generated by this assessment automation.
-	Severity *SeverityEnum
-
-	// Relevant cloud for the custom assessment automation.
-	SupportedCloud *SupportedCloudEnum
-}
-
-// CustomAssessmentAutomationRequest - Custom Assessment Automation request
-type CustomAssessmentAutomationRequest struct {
-	// describes Custom Assessment Automation request properties.
-	Properties *CustomAssessmentAutomationRequestProperties
-
-	// READ-ONLY; Resource Id
-	ID *string
-
-	// READ-ONLY; Resource name
-	Name *string
-
-	// READ-ONLY; Resource type
-	Type *string
-}
-
-// CustomAssessmentAutomationRequestProperties - describes the Custom Assessment Automation properties
-type CustomAssessmentAutomationRequestProperties struct {
-	// Base 64 encoded KQL query representing the assessment automation results required.
-	CompressedQuery *string
-
-	// The description to relate to the assessments generated by this assessment automation.
-	Description *string
-
-	// The display name of the assessments generated by this assessment automation.
-	DisplayName *string
-
-	// The remediation description to relate to the assessments generated by this assessment automation.
-	RemediationDescription *string
-
-	// The severity to relate to the assessments generated by this assessment automation.
-	Severity *SeverityEnum
-
-	// Relevant cloud for the custom assessment automation.
-	SupportedCloud *SupportedCloudEnum
-}
-
-// CustomAssessmentAutomationsListResult - A list of Custom Assessment Automations
-type CustomAssessmentAutomationsListResult struct {
-	// The link used to get the next page of operations.
-	NextLink *string
-
-	// READ-ONLY; Collection of Custom Assessment Automations
-	Value []*CustomAssessmentAutomation
-}
-
-// CustomEntityStoreAssignment - Custom entity store assignment
-type CustomEntityStoreAssignment struct {
-	// describes custom entity store assignment properties.
-	Properties *CustomEntityStoreAssignmentProperties
-
-	// READ-ONLY; Resource Id
-	ID *string
-
-	// READ-ONLY; Resource name
-	Name *string
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
-
-	// READ-ONLY; Resource type
-	Type *string
-}
-
-// CustomEntityStoreAssignmentProperties - describes the custom entity store assignment properties
-type CustomEntityStoreAssignmentProperties struct {
-	// The link to entity store database.
-	EntityStoreDatabaseLink *string
-
-	// The principal assigned with entity store. Format of principal is: [AAD type]=[PrincipalObjectId];[TenantId]
-	Principal *string
-}
-
-// CustomEntityStoreAssignmentRequest - describes the custom entity store assignment request
-type CustomEntityStoreAssignmentRequest struct {
-	// describes properties of custom entity store assignment request
-	Properties *CustomEntityStoreAssignmentRequestProperties
-}
-
-// CustomEntityStoreAssignmentRequestProperties - describes properties of custom entity store assignment request
-type CustomEntityStoreAssignmentRequestProperties struct {
-	// The principal assigned with entity store. If not provided, will use caller principal. Format of principal is: [AAD type]=[PrincipalObjectId];[TenantId]
-	Principal *string
-}
-
-// CustomEntityStoreAssignmentsListResult - A list of custom entity store assignments
-type CustomEntityStoreAssignmentsListResult struct {
-	// The link used to get the next page of operations.
-	NextLink *string
-
-	// READ-ONLY; Collection of custom entity store assignments
-	Value []*CustomEntityStoreAssignment
-}
 
 // DataExportSettingProperties - The data export setting properties
 type DataExportSettingProperties struct {
@@ -3563,6 +3327,15 @@ func (d *DenylistCustomAlertRule) GetListCustomAlertRule() *ListCustomAlertRule 
 	}
 }
 
+// DevOpsCapability - Details about DevOps capability.
+type DevOpsCapability struct {
+	// READ-ONLY; Gets the name of the DevOps capability.
+	Name *string
+
+	// READ-ONLY; Gets the value of the DevOps capability.
+	Value *string
+}
+
 // DevOpsConfiguration - DevOps Configuration resource.
 type DevOpsConfiguration struct {
 	// DevOps Configuration properties.
@@ -3598,20 +3371,152 @@ type DevOpsConfigurationProperties struct {
 	// AutoDiscovery states.
 	AutoDiscovery *AutoDiscovery
 
-	// The provisioning state of the resource.
+	// List of top-level inventory to select when AutoDiscovery is disabled. This field is ignored when AutoDiscovery is enabled.
+	TopLevelInventoryList []*string
+
+	// READ-ONLY; List of capabilities assigned to the DevOps configuration during the discovery process.
+	Capabilities []*DevOpsCapability
+
+	// READ-ONLY; The provisioning state of the resource.
 	// Pending - Provisioning pending. Failed - Provisioning failed. Succeeded - Successful provisioning. Canceled - Provisioning
 	// canceled. PendingDeletion - Deletion pending. DeletionSuccess - Deletion
 	// successful. DeletionFailure - Deletion failure.
 	ProvisioningState *DevOpsProvisioningState
 
-	// List of top-level inventory to select when AutoDiscovery is disabled. This field is ignored when AutoDiscovery is enabled.
-	TopLevelInventoryList []*string
-
-	// READ-ONLY; Gets or sets resource status message.
+	// READ-ONLY; Gets the resource status message.
 	ProvisioningStatusMessage *string
 
-	// READ-ONLY; Gets or sets time when resource was last checked.
+	// READ-ONLY; Gets the time when resource was last checked.
 	ProvisioningStatusUpdateTimeUTC *time.Time
+}
+
+// DevOpsPolicy - DevOps Policy Resource.
+type DevOpsPolicy struct {
+	// Policy DevOps Resource properties that contain the full definition of a DevOps policy resource.
+	Properties *DevOpsPolicyProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// DevOpsPolicyAssignment - DevOps Policy assignment resource.
+type DevOpsPolicyAssignment struct {
+	// Properties of the DevOps policy assignment resource.
+	Properties *DevOpsPolicyAssignmentProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// DevOpsPolicyAssignmentListResponse - List of RP resources which supports pagination.
+type DevOpsPolicyAssignmentListResponse struct {
+	// Gets or sets next link to scroll over the results.
+	NextLink *string
+
+	// Gets or sets list of resources.
+	Value []*DevOpsPolicyAssignment
+}
+
+// DevOpsPolicyAssignmentProperties - Properties of the DevOps policy assignment resource.
+type DevOpsPolicyAssignmentProperties struct {
+	// Gets or sets time when the assignment was created in UTC.
+	AssignedAt *time.Time
+
+	// The behavior of a policy on descendant resources.
+	DescendantBehavior *DescendantBehavior
+
+	// Condensed information to identify a DevOps Policy resource.
+	Policy *DevOpsPolicyDescriptor
+
+	// Gets or sets the Azure resource id.
+	ResourceID *string
+
+	// READ-ONLY; The provisioning state of the resource.
+	// Pending - Provisioning pending. Failed - Provisioning failed. Succeeded - Successful provisioning. Canceled - Provisioning
+	// canceled. PendingDeletion - Deletion pending. DeletionSuccess - Deletion
+	// successful. DeletionFailure - Deletion failure.
+	ProvisioningState *DevOpsProvisioningState
+
+	// READ-ONLY; Gets the resource status message.
+	ProvisioningStatusMessage *string
+
+	// READ-ONLY; Gets the time when resource was last checked.
+	ProvisioningStatusUpdateTimeUTC *time.Time
+}
+
+// DevOpsPolicyDescriptor - Condensed information to identify a DevOps Policy resource.
+type DevOpsPolicyDescriptor struct {
+	// Gets or sets the policy GUID.
+	PolicyID *string
+
+	// Gets or sets the policy name.
+	PolicyName *string
+
+	// DevOps Policy resource types.
+	PolicyType *DevOpsPolicyType
+
+	// Gets or sets the version.
+	PolicyVersion *string
+}
+
+// DevOpsPolicyListResponse - List of RP resources which supports pagination.
+type DevOpsPolicyListResponse struct {
+	// Gets or sets next link to scroll over the results.
+	NextLink *string
+
+	// Gets or sets list of resources.
+	Value []*DevOpsPolicy
+}
+
+// DevOpsPolicyProperties - Policy DevOps Resource properties that contain the full definition of a DevOps policy resource.
+type DevOpsPolicyProperties struct {
+	// Gets or sets the policy definition content JSON string.
+	Content *string
+
+	// DevOps Policy creation sources.
+	Source *DevOpsPolicySource
+
+	// DevOps Policy resource types.
+	Type *DevOpsPolicyType
+
+	// Gets or sets the semantic version.
+	Version *string
+
+	// READ-ONLY; Gets the policy resource GUID.
+	PolicyID *string
+
+	// READ-ONLY; The provisioning state of the resource.
+	// Pending - Provisioning pending. Failed - Provisioning failed. Succeeded - Successful provisioning. Canceled - Provisioning
+	// canceled. PendingDeletion - Deletion pending. DeletionSuccess - Deletion
+	// successful. DeletionFailure - Deletion failure.
+	ProvisioningState *DevOpsProvisioningState
+
+	// READ-ONLY; Gets the resource status message.
+	ProvisioningStatusMessage *string
+
+	// READ-ONLY; Gets the time when resource was last checked.
+	ProvisioningStatusUpdateTimeUTC *time.Time
+
+	// READ-ONLY; Gets the web URL.
+	WebURL *string
 }
 
 // DeviceSecurityGroup - The device security group resource
@@ -3754,15 +3659,6 @@ type DiscoveredSecuritySolutionProperties struct {
 type ETag struct {
 	// Entity tag is used for comparing two or more entities from the same requested resource.
 	Etag *string
-}
-
-// EffectiveNetworkSecurityGroups - Describes the Network Security Groups effective on a network interface
-type EffectiveNetworkSecurityGroups struct {
-	// The Azure resource ID of the network interface
-	NetworkInterface *string
-
-	// The Network Security Groups effective on the network interface
-	NetworkSecurityGroups []*string
 }
 
 // EnvironmentData - The security connector environment data.
@@ -4287,22 +4183,22 @@ type GitHubOwnerProperties struct {
 	// state is not applicable to the current endpoint.
 	OnboardingState *OnboardingState
 
-	// The provisioning state of the resource.
-	// Pending - Provisioning pending. Failed - Provisioning failed. Succeeded - Successful provisioning. Canceled - Provisioning
-	// canceled. PendingDeletion - Deletion pending. DeletionSuccess - Deletion
-	// successful. DeletionFailure - Deletion failure.
-	ProvisioningState *DevOpsProvisioningState
-
 	// READ-ONLY; Gets or sets internal GitHub id.
 	GitHubInternalID *string
 
 	// READ-ONLY; Gets or sets GitHub Owner url.
 	OwnerURL *string
 
-	// READ-ONLY; Gets or sets resource status message.
+	// READ-ONLY; The provisioning state of the resource.
+	// Pending - Provisioning pending. Failed - Provisioning failed. Succeeded - Successful provisioning. Canceled - Provisioning
+	// canceled. PendingDeletion - Deletion pending. DeletionSuccess - Deletion
+	// successful. DeletionFailure - Deletion failure.
+	ProvisioningState *DevOpsProvisioningState
+
+	// READ-ONLY; Gets the resource status message.
 	ProvisioningStatusMessage *string
 
-	// READ-ONLY; Gets or sets time when resource was last checked.
+	// READ-ONLY; Gets the time when resource was last checked.
 	ProvisioningStatusUpdateTimeUTC *time.Time
 }
 
@@ -4345,16 +4241,16 @@ type GitHubRepositoryProperties struct {
 	// Gets or sets parent GitHub Owner name.
 	ParentOwnerName *string
 
-	// The provisioning state of the resource.
+	// READ-ONLY; The provisioning state of the resource.
 	// Pending - Provisioning pending. Failed - Provisioning failed. Succeeded - Successful provisioning. Canceled - Provisioning
 	// canceled. PendingDeletion - Deletion pending. DeletionSuccess - Deletion
 	// successful. DeletionFailure - Deletion failure.
 	ProvisioningState *DevOpsProvisioningState
 
-	// READ-ONLY; Gets or sets resource status message.
+	// READ-ONLY; Gets the resource status message.
 	ProvisioningStatusMessage *string
 
-	// READ-ONLY; Gets or sets time when resource was last checked.
+	// READ-ONLY; Gets the time when resource was last checked.
 	ProvisioningStatusUpdateTimeUTC *time.Time
 
 	// READ-ONLY; Gets or sets GitHub Full Name. Repository name, prefixed with Owner name. Eg: "my-org/new-repo-1".
@@ -4417,12 +4313,6 @@ type GitLabGroupProperties struct {
 	// state is not applicable to the current endpoint.
 	OnboardingState *OnboardingState
 
-	// The provisioning state of the resource.
-	// Pending - Provisioning pending. Failed - Provisioning failed. Succeeded - Successful provisioning. Canceled - Provisioning
-	// canceled. PendingDeletion - Deletion pending. DeletionSuccess - Deletion
-	// successful. DeletionFailure - Deletion failure.
-	ProvisioningState *DevOpsProvisioningState
-
 	// READ-ONLY; Gets or sets the human readable fully-qualified name of the Group object.
 	// This contains the entire namespace hierarchy as seen on GitLab UI where namespaces are separated by the '/' character.
 	FullyQualifiedFriendlyName *string
@@ -4431,10 +4321,16 @@ type GitLabGroupProperties struct {
 	// This contains the entire namespace hierarchy where namespaces are separated by the '$' character.
 	FullyQualifiedName *string
 
-	// READ-ONLY; Gets or sets resource status message.
+	// READ-ONLY; The provisioning state of the resource.
+	// Pending - Provisioning pending. Failed - Provisioning failed. Succeeded - Successful provisioning. Canceled - Provisioning
+	// canceled. PendingDeletion - Deletion pending. DeletionSuccess - Deletion
+	// successful. DeletionFailure - Deletion failure.
+	ProvisioningState *DevOpsProvisioningState
+
+	// READ-ONLY; Gets the resource status message.
 	ProvisioningStatusMessage *string
 
-	// READ-ONLY; Gets or sets time when resource was last checked.
+	// READ-ONLY; Gets the time when resource was last checked.
 	ProvisioningStatusUpdateTimeUTC *time.Time
 
 	// READ-ONLY; Gets or sets the url of the GitLab Group.
@@ -4477,12 +4373,6 @@ type GitLabProjectProperties struct {
 	// state is not applicable to the current endpoint.
 	OnboardingState *OnboardingState
 
-	// The provisioning state of the resource.
-	// Pending - Provisioning pending. Failed - Provisioning failed. Succeeded - Successful provisioning. Canceled - Provisioning
-	// canceled. PendingDeletion - Deletion pending. DeletionSuccess - Deletion
-	// successful. DeletionFailure - Deletion failure.
-	ProvisioningState *DevOpsProvisioningState
-
 	// READ-ONLY; Gets or sets the human readable fully-qualified name of the Project object.
 	// This contains the entire namespace hierarchy as seen on GitLab UI where entities are separated by the '/' character.
 	FullyQualifiedFriendlyName *string
@@ -4495,10 +4385,16 @@ type GitLabProjectProperties struct {
 	// This contains the entire hierarchy where namespaces are separated by the '$' character.
 	FullyQualifiedParentGroupName *string
 
-	// READ-ONLY; Gets or sets resource status message.
+	// READ-ONLY; The provisioning state of the resource.
+	// Pending - Provisioning pending. Failed - Provisioning failed. Succeeded - Successful provisioning. Canceled - Provisioning
+	// canceled. PendingDeletion - Deletion pending. DeletionSuccess - Deletion
+	// successful. DeletionFailure - Deletion failure.
+	ProvisioningState *DevOpsProvisioningState
+
+	// READ-ONLY; Gets the resource status message.
 	ProvisioningStatusMessage *string
 
-	// READ-ONLY; Gets or sets time when resource was last checked.
+	// READ-ONLY; Gets the time when resource was last checked.
 	ProvisioningStatusUpdateTimeUTC *time.Time
 
 	// READ-ONLY; Gets or sets the url of the GitLab Project.
@@ -6125,32 +6021,6 @@ type OperatorResource struct {
 	Type *string
 }
 
-// PathRecommendation - Represents a path that is recommended to be allowed and its properties
-type PathRecommendation struct {
-	// The recommendation action of the machine or rule
-	Action *RecommendationAction
-
-	// Whether the application is commonly run on the machine
-	Common *bool
-
-	// The configuration status of the machines group or machine or rule
-	ConfigurationStatus *ConfigurationStatus
-
-	// The type of the file (for Linux files - Executable is used)
-	FileType *FileType
-
-	// The full path of the file, or an identifier of the application
-	Path *string
-
-	// Represents the publisher information of a process/rule
-	PublisherInfo *PublisherInfo
-
-	// The type of IoT Security recommendation.
-	Type      *RecommendationType
-	UserSids  []*string
-	Usernames []*UserRecommendation
-}
-
 // Pricing - Microsoft Defender for Cloud is provided in two pricing tiers: free and standard. The standard tier offers advanced
 // security capabilities, while the free tier offers basic security features.
 type Pricing struct {
@@ -6280,22 +6150,6 @@ func (p *ProcessNotAllowed) GetListCustomAlertRule() *ListCustomAlertRule {
 	}
 }
 
-// ProtectionMode - The protection mode of the collection/file types. Exe/Msi/Script are used for Windows, Executable is used
-// for Linux.
-type ProtectionMode struct {
-	// The application control policy enforcement/protection mode of the machine group
-	Exe *EnforcementMode
-
-	// The application control policy enforcement/protection mode of the machine group
-	Executable *EnforcementMode
-
-	// The application control policy enforcement/protection mode of the machine group
-	Msi *EnforcementMode
-
-	// The application control policy enforcement/protection mode of the machine group
-	Script *EnforcementMode
-}
-
 // ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
 // location
 type ProxyResource struct {
@@ -6317,22 +6171,6 @@ type ProxyServerProperties struct {
 
 	// Proxy server port
 	Port *string
-}
-
-// PublisherInfo - Represents the publisher information of a process/rule
-type PublisherInfo struct {
-	// The "OriginalName" field taken from the file's version resource
-	BinaryName *string
-
-	// The product name taken from the file's version resource
-	ProductName *string
-
-	// The Subject field of the x.509 certificate used to sign the code, using the following fields - O = Organization, L = Locality,
-	// S = State or Province, and C = Country
-	PublisherName *string
-
-	// The binary file version taken from the file's version resource
-	Version *string
 }
 
 // QueryCheck - The rule query details.
@@ -6646,25 +6484,6 @@ type ResourceIdentifier struct {
 
 // GetResourceIdentifier implements the ResourceIdentifierClassification interface for type ResourceIdentifier.
 func (r *ResourceIdentifier) GetResourceIdentifier() *ResourceIdentifier { return r }
-
-// Rule - Describes remote addresses that is recommended to communicate with the Azure resource on some (Protocol, Port, Direction).
-// All other remote addresses are recommended to be blocked
-type Rule struct {
-	// The rule's destination port
-	DestinationPort *int32
-
-	// The rule's direction
-	Direction *Direction
-
-	// The remote IP addresses that should be able to communicate with the Azure resource on the rule's destination port and protocol
-	IPAddresses []*string
-
-	// The name of the rule
-	Name *string
-
-	// The rule's transport protocols
-	Protocols []*TransportProtocol
-}
 
 // RuleResults - Rule results.
 type RuleResults struct {
@@ -7835,30 +7654,6 @@ type UserDefinedResourcesProperties struct {
 
 	// REQUIRED; List of Azure subscription ids on which the user defined resources query should be executed.
 	QuerySubscriptions []*string
-}
-
-// UserRecommendation - Represents a user that is recommended to be allowed for a certain rule
-type UserRecommendation struct {
-	// The recommendation action of the machine or rule
-	RecommendationAction *RecommendationAction
-
-	// Represents a user that is recommended to be allowed for a certain rule
-	Username *string
-}
-
-// VMRecommendation - Represents a machine that is part of a machine group
-type VMRecommendation struct {
-	// The configuration status of the machines group or machine or rule
-	ConfigurationStatus *ConfigurationStatus
-
-	// The machine supportability of Enforce feature
-	EnforcementSupport *EnforcementSupport
-
-	// The recommendation action of the machine or rule
-	RecommendationAction *RecommendationAction
-
-	// The full resource id of the machine
-	ResourceID *string
 }
 
 // VMScannersAws - A VM scanning configuration for a security offering of a Aws environment
