@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/apimanagement/armapimanagement/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/apimanagement/armapimanagement/v3"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -45,13 +45,25 @@ type GatewayServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	GetEntityTag func(ctx context.Context, resourceGroupName string, serviceName string, gatewayID string, options *armapimanagement.GatewayClientGetEntityTagOptions) (resp azfake.Responder[armapimanagement.GatewayClientGetEntityTagResponse], errResp azfake.ErrorResponder)
 
+	// InvalidateDebugCredentials is the fake for method GatewayClient.InvalidateDebugCredentials
+	// HTTP status codes to indicate success: http.StatusNoContent
+	InvalidateDebugCredentials func(ctx context.Context, resourceGroupName string, serviceName string, gatewayID string, options *armapimanagement.GatewayClientInvalidateDebugCredentialsOptions) (resp azfake.Responder[armapimanagement.GatewayClientInvalidateDebugCredentialsResponse], errResp azfake.ErrorResponder)
+
 	// NewListByServicePager is the fake for method GatewayClient.NewListByServicePager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListByServicePager func(resourceGroupName string, serviceName string, options *armapimanagement.GatewayClientListByServiceOptions) (resp azfake.PagerResponder[armapimanagement.GatewayClientListByServiceResponse])
 
+	// ListDebugCredentials is the fake for method GatewayClient.ListDebugCredentials
+	// HTTP status codes to indicate success: http.StatusOK
+	ListDebugCredentials func(ctx context.Context, resourceGroupName string, serviceName string, gatewayID string, parameters armapimanagement.GatewayListDebugCredentialsContract, options *armapimanagement.GatewayClientListDebugCredentialsOptions) (resp azfake.Responder[armapimanagement.GatewayClientListDebugCredentialsResponse], errResp azfake.ErrorResponder)
+
 	// ListKeys is the fake for method GatewayClient.ListKeys
 	// HTTP status codes to indicate success: http.StatusOK
 	ListKeys func(ctx context.Context, resourceGroupName string, serviceName string, gatewayID string, options *armapimanagement.GatewayClientListKeysOptions) (resp azfake.Responder[armapimanagement.GatewayClientListKeysResponse], errResp azfake.ErrorResponder)
+
+	// ListTrace is the fake for method GatewayClient.ListTrace
+	// HTTP status codes to indicate success: http.StatusOK
+	ListTrace func(ctx context.Context, resourceGroupName string, serviceName string, gatewayID string, parameters armapimanagement.GatewayListTraceContract, options *armapimanagement.GatewayClientListTraceOptions) (resp azfake.Responder[armapimanagement.GatewayClientListTraceResponse], errResp azfake.ErrorResponder)
 
 	// RegenerateKey is the fake for method GatewayClient.RegenerateKey
 	// HTTP status codes to indicate success: http.StatusNoContent
@@ -101,10 +113,16 @@ func (g *GatewayServerTransport) Do(req *http.Request) (*http.Response, error) {
 		resp, err = g.dispatchGet(req)
 	case "GatewayClient.GetEntityTag":
 		resp, err = g.dispatchGetEntityTag(req)
+	case "GatewayClient.InvalidateDebugCredentials":
+		resp, err = g.dispatchInvalidateDebugCredentials(req)
 	case "GatewayClient.NewListByServicePager":
 		resp, err = g.dispatchNewListByServicePager(req)
+	case "GatewayClient.ListDebugCredentials":
+		resp, err = g.dispatchListDebugCredentials(req)
 	case "GatewayClient.ListKeys":
 		resp, err = g.dispatchListKeys(req)
+	case "GatewayClient.ListTrace":
+		resp, err = g.dispatchListTrace(req)
 	case "GatewayClient.RegenerateKey":
 		resp, err = g.dispatchRegenerateKey(req)
 	case "GatewayClient.Update":
@@ -329,6 +347,43 @@ func (g *GatewayServerTransport) dispatchGetEntityTag(req *http.Request) (*http.
 	return resp, nil
 }
 
+func (g *GatewayServerTransport) dispatchInvalidateDebugCredentials(req *http.Request) (*http.Response, error) {
+	if g.srv.InvalidateDebugCredentials == nil {
+		return nil, &nonRetriableError{errors.New("fake for method InvalidateDebugCredentials not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ApiManagement/service/(?P<serviceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/gateways/(?P<gatewayId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/invalidateDebugCredentials`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 4 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	serviceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("serviceName")])
+	if err != nil {
+		return nil, err
+	}
+	gatewayIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("gatewayId")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := g.srv.InvalidateDebugCredentials(req.Context(), resourceGroupNameParam, serviceNameParam, gatewayIDParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusNoContent}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusNoContent", respContent.HTTPStatus)}
+	}
+	resp, err := server.NewResponse(respContent, req, nil)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
 func (g *GatewayServerTransport) dispatchNewListByServicePager(req *http.Request) (*http.Response, error) {
 	if g.srv.NewListByServicePager == nil {
 		return nil, &nonRetriableError{errors.New("fake for method NewListByServicePager not implemented")}
@@ -412,6 +467,47 @@ func (g *GatewayServerTransport) dispatchNewListByServicePager(req *http.Request
 	return resp, nil
 }
 
+func (g *GatewayServerTransport) dispatchListDebugCredentials(req *http.Request) (*http.Response, error) {
+	if g.srv.ListDebugCredentials == nil {
+		return nil, &nonRetriableError{errors.New("fake for method ListDebugCredentials not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ApiManagement/service/(?P<serviceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/gateways/(?P<gatewayId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/listDebugCredentials`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 4 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armapimanagement.GatewayListDebugCredentialsContract](req)
+	if err != nil {
+		return nil, err
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	serviceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("serviceName")])
+	if err != nil {
+		return nil, err
+	}
+	gatewayIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("gatewayId")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := g.srv.ListDebugCredentials(req.Context(), resourceGroupNameParam, serviceNameParam, gatewayIDParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).GatewayDebugCredentialsContract, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
 func (g *GatewayServerTransport) dispatchListKeys(req *http.Request) (*http.Response, error) {
 	if g.srv.ListKeys == nil {
 		return nil, &nonRetriableError{errors.New("fake for method ListKeys not implemented")}
@@ -448,6 +544,47 @@ func (g *GatewayServerTransport) dispatchListKeys(req *http.Request) (*http.Resp
 	}
 	if val := server.GetResponse(respr).ETag; val != nil {
 		resp.Header.Set("ETag", *val)
+	}
+	return resp, nil
+}
+
+func (g *GatewayServerTransport) dispatchListTrace(req *http.Request) (*http.Response, error) {
+	if g.srv.ListTrace == nil {
+		return nil, &nonRetriableError{errors.New("fake for method ListTrace not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ApiManagement/service/(?P<serviceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/gateways/(?P<gatewayId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/listTrace`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 4 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armapimanagement.GatewayListTraceContract](req)
+	if err != nil {
+		return nil, err
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	serviceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("serviceName")])
+	if err != nil {
+		return nil, err
+	}
+	gatewayIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("gatewayId")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := g.srv.ListTrace(req.Context(), resourceGroupNameParam, serviceNameParam, gatewayIDParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Value, req)
+	if err != nil {
+		return nil, err
 	}
 	return resp, nil
 }
