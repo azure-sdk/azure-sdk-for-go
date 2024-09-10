@@ -109,19 +109,20 @@ type CustomLocationProperties struct {
 	// This is optional input that contains the authentication that should be used to generate the namespace.
 	Authentication *CustomLocationPropertiesAuthentication
 
-	// Contains the reference to the add-on that contains charts to deploy CRDs and operators.
+	// Contains the reference to the add-on that contains charts to deploy CRDs and operators. Optional for EdgeCluster hostType.
 	ClusterExtensionIDs []*string
 
 	// Display name for the Custom Locations location.
 	DisplayName *string
 
-	// Connected Cluster or AKS Cluster. The Custom Locations RP will perform a checkAccess API for listAdminCredentials permissions.
+	// Connected Cluster, AKS Cluster or Edge Cluster. The Custom Locations RP will perform a checkAccess API for listAdminCredentials
+	// permissions for Connected Cluster and AKS Cluster.
 	HostResourceID *string
 
-	// Type of host the Custom Locations is referencing (Kubernetes, etc…).
+	// Type of host the Custom Locations is referencing (Kubernetes, EdgeCluster, etc…).
 	HostType *HostType
 
-	// Kubernetes namespace that will be created on the specified cluster.
+	// Kubernetes namespace that will be created on the specified cluster. Optional for EdgeCluster hostType.
 	Namespace *string
 
 	// Provisioning State for the Custom Location.
