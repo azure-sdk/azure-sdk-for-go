@@ -64,14 +64,8 @@ type AccountsClientUpdateResponse struct {
 
 // ClientListOperationsResponse contains the response from method Client.NewListOperationsPager.
 type ClientListOperationsResponse struct {
-	// The set of operations available for Maps.
-	Operations
-}
-
-// ClientListSubscriptionOperationsResponse contains the response from method Client.NewListSubscriptionOperationsPager.
-type ClientListSubscriptionOperationsResponse struct {
-	// The set of operations available for Maps.
-	Operations
+	// A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to get the next set of results.
+	OperationListResult
 }
 
 // CreatorsClientCreateOrUpdateResponse contains the response from method CreatorsClient.CreateOrUpdate.
