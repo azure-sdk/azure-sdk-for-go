@@ -1,5 +1,11 @@
 # Release History
 
+## 6.2.0 (2024-09-11)
+### Features Added
+
+- New field `BlockDeletionBeforeEndOfLife` in struct `GalleryImageVersionSafetyProfile`
+
+
 ## 6.1.0 (2024-08-23)
 ### Features Added
 
