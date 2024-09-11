@@ -6225,6 +6225,7 @@ func (g *GalleryImageVersionPublishingProfile) UnmarshalJSON(data []byte) error 
 func (g GalleryImageVersionSafetyProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "allowDeletionOfReplicatedLocations", g.AllowDeletionOfReplicatedLocations)
+	populate(objectMap, "blockDeletionBeforeEndOfLife", g.BlockDeletionBeforeEndOfLife)
 	populate(objectMap, "policyViolations", g.PolicyViolations)
 	populate(objectMap, "reportedForPolicyViolation", g.ReportedForPolicyViolation)
 	return json.Marshal(objectMap)
@@ -6241,6 +6242,9 @@ func (g *GalleryImageVersionSafetyProfile) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "allowDeletionOfReplicatedLocations":
 			err = unpopulate(val, "AllowDeletionOfReplicatedLocations", &g.AllowDeletionOfReplicatedLocations)
+			delete(rawMsg, key)
+		case "blockDeletionBeforeEndOfLife":
+			err = unpopulate(val, "BlockDeletionBeforeEndOfLife", &g.BlockDeletionBeforeEndOfLife)
 			delete(rawMsg, key)
 		case "policyViolations":
 			err = unpopulate(val, "PolicyViolations", &g.PolicyViolations)
