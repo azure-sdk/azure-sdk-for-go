@@ -1,5 +1,23 @@
 # Release History
 
+## 10.0.0 (2024-09-11)
+### Breaking Changes
+
+- Field `ConnectionString` of struct `AzurePostgreSQLLinkedServiceTypeProperties` has been removed
+
+### Features Added
+
+- New function `*IcebergDataset.GetDataset() *Dataset`
+- New function `*IcebergSink.GetCopySink() *CopySink`
+- New function `*IcebergWriteSettings.GetFormatWriteSettings() *FormatWriteSettings`
+- New struct `IcebergDataset`
+- New struct `IcebergDatasetTypeProperties`
+- New struct `IcebergSink`
+- New struct `IcebergWriteSettings`
+- New field `CommandTimeout`, `Database`, `Encoding`, `Port`, `ReadBufferSize`, `SSLMode`, `Server`, `Timeout`, `Timezone`, `TrustServerCertificate`, `Username` in struct `AzurePostgreSQLLinkedServiceTypeProperties`
+- New field `SSLMode`, `UseSystemTrustStore` in struct `MariaDBLinkedServiceTypeProperties`
+
+
 ## 9.0.0 (2024-08-23)
 ### Breaking Changes
 
