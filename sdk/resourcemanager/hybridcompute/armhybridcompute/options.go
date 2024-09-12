@@ -52,6 +52,35 @@ type GatewaysClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
+// LicenseProfilesClientBeginCreateOrUpdateOptions contains the optional parameters for the LicenseProfilesClient.BeginCreateOrUpdate
+// method.
+type LicenseProfilesClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// LicenseProfilesClientBeginDeleteOptions contains the optional parameters for the LicenseProfilesClient.BeginDelete method.
+type LicenseProfilesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// LicenseProfilesClientBeginUpdateOptions contains the optional parameters for the LicenseProfilesClient.BeginUpdate method.
+type LicenseProfilesClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// LicenseProfilesClientGetOptions contains the optional parameters for the LicenseProfilesClient.Get method.
+type LicenseProfilesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// LicenseProfilesClientListOptions contains the optional parameters for the LicenseProfilesClient.NewListPager method.
+type LicenseProfilesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
 // LicensesClientBeginCreateOrUpdateOptions contains the optional parameters for the LicensesClient.BeginCreateOrUpdate method.
 type LicensesClientBeginCreateOrUpdateOptions struct {
 	// Resumes the LRO from the provided token.
@@ -66,6 +95,13 @@ type LicensesClientBeginDeleteOptions struct {
 
 // LicensesClientBeginUpdateOptions contains the optional parameters for the LicensesClient.BeginUpdate method.
 type LicensesClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// LicensesClientBeginValidateLicenseOptions contains the optional parameters for the LicensesClient.BeginValidateLicense
+// method.
+type LicensesClientBeginValidateLicenseOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -170,7 +206,7 @@ type MachinesClientDeleteOptions struct {
 // MachinesClientGetOptions contains the optional parameters for the MachinesClient.Get method.
 type MachinesClientGetOptions struct {
 	// The expand expression to apply on the operation.
-	Expand *string
+	Expand *InstanceViewTypes
 }
 
 // MachinesClientListByResourceGroupOptions contains the optional parameters for the MachinesClient.NewListByResourceGroupPager
