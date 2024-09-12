@@ -46,7 +46,7 @@ func NewNetworkServiceDesignVersionsClient(subscriptionID string, credential azc
 // BeginCreateOrUpdate - Creates or updates a network service design version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - networkServiceDesignGroupName - The name of the network service design group.
@@ -76,7 +76,7 @@ func (client *NetworkServiceDesignVersionsClient) BeginCreateOrUpdate(ctx contex
 // CreateOrUpdate - Creates or updates a network service design version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 func (client *NetworkServiceDesignVersionsClient) createOrUpdate(ctx context.Context, resourceGroupName string, publisherName string, networkServiceDesignGroupName string, networkServiceDesignVersionName string, parameters NetworkServiceDesignVersion, options *NetworkServiceDesignVersionsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "NetworkServiceDesignVersionsClient.BeginCreateOrUpdate"
@@ -126,7 +126,7 @@ func (client *NetworkServiceDesignVersionsClient) createOrUpdateCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2024-04-15")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -138,7 +138,7 @@ func (client *NetworkServiceDesignVersionsClient) createOrUpdateCreateRequest(ct
 // BeginDelete - Deletes the specified network service design version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - networkServiceDesignGroupName - The name of the network service design group.
@@ -167,7 +167,7 @@ func (client *NetworkServiceDesignVersionsClient) BeginDelete(ctx context.Contex
 // Delete - Deletes the specified network service design version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 func (client *NetworkServiceDesignVersionsClient) deleteOperation(ctx context.Context, resourceGroupName string, publisherName string, networkServiceDesignGroupName string, networkServiceDesignVersionName string, options *NetworkServiceDesignVersionsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "NetworkServiceDesignVersionsClient.BeginDelete"
@@ -217,7 +217,7 @@ func (client *NetworkServiceDesignVersionsClient) deleteCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2024-04-15")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -226,7 +226,7 @@ func (client *NetworkServiceDesignVersionsClient) deleteCreateRequest(ctx contex
 // Get - Gets information about a network service design version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - networkServiceDesignGroupName - The name of the network service design group.
@@ -284,7 +284,7 @@ func (client *NetworkServiceDesignVersionsClient) getCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2024-04-15")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -302,7 +302,7 @@ func (client *NetworkServiceDesignVersionsClient) getHandleResponse(resp *http.R
 // NewListByNetworkServiceDesignGroupPager - Gets information about a list of network service design versions under a network
 // service design group.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - networkServiceDesignGroupName - The name of the network service design group.
@@ -355,7 +355,7 @@ func (client *NetworkServiceDesignVersionsClient) listByNetworkServiceDesignGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2024-04-15")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -373,7 +373,7 @@ func (client *NetworkServiceDesignVersionsClient) listByNetworkServiceDesignGrou
 // Update - Updates a network service design version resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - networkServiceDesignGroupName - The name of the network service design group.
@@ -432,7 +432,7 @@ func (client *NetworkServiceDesignVersionsClient) updateCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2024-04-15")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -453,7 +453,7 @@ func (client *NetworkServiceDesignVersionsClient) updateHandleResponse(resp *htt
 // BeginUpdateState - Update network service design version state.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - networkServiceDesignGroupName - The name of the network service design group.
@@ -483,7 +483,7 @@ func (client *NetworkServiceDesignVersionsClient) BeginUpdateState(ctx context.C
 // UpdateState - Update network service design version state.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 func (client *NetworkServiceDesignVersionsClient) updateState(ctx context.Context, resourceGroupName string, publisherName string, networkServiceDesignGroupName string, networkServiceDesignVersionName string, parameters NetworkServiceDesignVersionUpdateState, options *NetworkServiceDesignVersionsClientBeginUpdateStateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "NetworkServiceDesignVersionsClient.BeginUpdateState"
@@ -533,7 +533,7 @@ func (client *NetworkServiceDesignVersionsClient) updateStateCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2024-04-15")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {

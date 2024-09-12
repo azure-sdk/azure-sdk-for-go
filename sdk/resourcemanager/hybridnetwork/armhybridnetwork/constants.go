@@ -10,7 +10,7 @@ package armhybridnetwork
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hybridnetwork/armhybridnetwork"
-	moduleVersion = "v2.0.0"
+	moduleVersion = "v2.1.0"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -194,6 +194,22 @@ func PossibleAzureOperatorNexusArtifactTypeValues() []AzureOperatorNexusArtifact
 		AzureOperatorNexusArtifactTypeArmTemplate,
 		AzureOperatorNexusArtifactTypeImageFile,
 		AzureOperatorNexusArtifactTypeUnknown,
+	}
+}
+
+// BackingResourcePublicNetworkAccess - The backing resource network access type.
+type BackingResourcePublicNetworkAccess string
+
+const (
+	BackingResourcePublicNetworkAccessDisabled BackingResourcePublicNetworkAccess = "Disabled"
+	BackingResourcePublicNetworkAccessEnabled  BackingResourcePublicNetworkAccess = "Enabled"
+)
+
+// PossibleBackingResourcePublicNetworkAccessValues returns the possible values for the BackingResourcePublicNetworkAccess const type.
+func PossibleBackingResourcePublicNetworkAccessValues() []BackingResourcePublicNetworkAccess {
+	return []BackingResourcePublicNetworkAccess{
+		BackingResourcePublicNetworkAccessDisabled,
+		BackingResourcePublicNetworkAccessEnabled,
 	}
 }
 

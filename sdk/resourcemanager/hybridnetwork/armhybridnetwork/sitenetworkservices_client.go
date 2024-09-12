@@ -46,7 +46,7 @@ func NewSiteNetworkServicesClient(subscriptionID string, credential azcore.Token
 // BeginCreateOrUpdate - Creates or updates a network site.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - siteNetworkServiceName - The name of the site network service.
 //   - parameters - Parameters supplied to the create or update site network service operation.
@@ -73,7 +73,7 @@ func (client *SiteNetworkServicesClient) BeginCreateOrUpdate(ctx context.Context
 // CreateOrUpdate - Creates or updates a network site.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 func (client *SiteNetworkServicesClient) createOrUpdate(ctx context.Context, resourceGroupName string, siteNetworkServiceName string, parameters SiteNetworkService, options *SiteNetworkServicesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "SiteNetworkServicesClient.BeginCreateOrUpdate"
@@ -115,7 +115,7 @@ func (client *SiteNetworkServicesClient) createOrUpdateCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2024-04-15")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -127,7 +127,7 @@ func (client *SiteNetworkServicesClient) createOrUpdateCreateRequest(ctx context
 // BeginDelete - Deletes the specified site network service.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - siteNetworkServiceName - The name of the site network service.
 //   - options - SiteNetworkServicesClientBeginDeleteOptions contains the optional parameters for the SiteNetworkServicesClient.BeginDelete
@@ -153,7 +153,7 @@ func (client *SiteNetworkServicesClient) BeginDelete(ctx context.Context, resour
 // Delete - Deletes the specified site network service.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 func (client *SiteNetworkServicesClient) deleteOperation(ctx context.Context, resourceGroupName string, siteNetworkServiceName string, options *SiteNetworkServicesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "SiteNetworkServicesClient.BeginDelete"
@@ -195,7 +195,7 @@ func (client *SiteNetworkServicesClient) deleteCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2024-04-15")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -204,7 +204,7 @@ func (client *SiteNetworkServicesClient) deleteCreateRequest(ctx context.Context
 // Get - Gets information about the specified site network service.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - siteNetworkServiceName - The name of the site network service.
 //   - options - SiteNetworkServicesClientGetOptions contains the optional parameters for the SiteNetworkServicesClient.Get method.
@@ -250,7 +250,7 @@ func (client *SiteNetworkServicesClient) getCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2024-04-15")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -267,7 +267,7 @@ func (client *SiteNetworkServicesClient) getHandleResponse(resp *http.Response) 
 
 // NewListByResourceGroupPager - Lists all site network services.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - SiteNetworkServicesClientListByResourceGroupOptions contains the optional parameters for the SiteNetworkServicesClient.NewListByResourceGroupPager
 //     method.
@@ -310,7 +310,7 @@ func (client *SiteNetworkServicesClient) listByResourceGroupCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2024-04-15")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -327,7 +327,7 @@ func (client *SiteNetworkServicesClient) listByResourceGroupHandleResponse(resp 
 
 // NewListBySubscriptionPager - Lists all sites in the network service in a subscription.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 //   - options - SiteNetworkServicesClientListBySubscriptionOptions contains the optional parameters for the SiteNetworkServicesClient.NewListBySubscriptionPager
 //     method.
 func (client *SiteNetworkServicesClient) NewListBySubscriptionPager(options *SiteNetworkServicesClientListBySubscriptionOptions) *runtime.Pager[SiteNetworkServicesClientListBySubscriptionResponse] {
@@ -365,7 +365,7 @@ func (client *SiteNetworkServicesClient) listBySubscriptionCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2024-04-15")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -383,7 +383,7 @@ func (client *SiteNetworkServicesClient) listBySubscriptionHandleResponse(resp *
 // UpdateTags - Updates a site update tags.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - siteNetworkServiceName - The name of the site network service.
 //   - parameters - Parameters supplied to update network site tags.
@@ -431,7 +431,7 @@ func (client *SiteNetworkServicesClient) updateTagsCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2024-04-15")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {

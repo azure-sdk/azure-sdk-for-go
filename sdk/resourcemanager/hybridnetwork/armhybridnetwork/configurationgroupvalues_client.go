@@ -46,7 +46,7 @@ func NewConfigurationGroupValuesClient(subscriptionID string, credential azcore.
 // BeginCreateOrUpdate - Creates or updates a hybrid configuration group value.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - configurationGroupValueName - The name of the configuration group value.
 //   - parameters - Parameters supplied to the create or update configuration group value resource.
@@ -73,7 +73,7 @@ func (client *ConfigurationGroupValuesClient) BeginCreateOrUpdate(ctx context.Co
 // CreateOrUpdate - Creates or updates a hybrid configuration group value.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 func (client *ConfigurationGroupValuesClient) createOrUpdate(ctx context.Context, resourceGroupName string, configurationGroupValueName string, parameters ConfigurationGroupValue, options *ConfigurationGroupValuesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ConfigurationGroupValuesClient.BeginCreateOrUpdate"
@@ -115,7 +115,7 @@ func (client *ConfigurationGroupValuesClient) createOrUpdateCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2024-04-15")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -127,7 +127,7 @@ func (client *ConfigurationGroupValuesClient) createOrUpdateCreateRequest(ctx co
 // BeginDelete - Deletes the specified hybrid configuration group value.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - configurationGroupValueName - The name of the configuration group value.
 //   - options - ConfigurationGroupValuesClientBeginDeleteOptions contains the optional parameters for the ConfigurationGroupValuesClient.BeginDelete
@@ -153,7 +153,7 @@ func (client *ConfigurationGroupValuesClient) BeginDelete(ctx context.Context, r
 // Delete - Deletes the specified hybrid configuration group value.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 func (client *ConfigurationGroupValuesClient) deleteOperation(ctx context.Context, resourceGroupName string, configurationGroupValueName string, options *ConfigurationGroupValuesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ConfigurationGroupValuesClient.BeginDelete"
@@ -195,7 +195,7 @@ func (client *ConfigurationGroupValuesClient) deleteCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2024-04-15")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -204,7 +204,7 @@ func (client *ConfigurationGroupValuesClient) deleteCreateRequest(ctx context.Co
 // Get - Gets information about the specified hybrid configuration group values.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - configurationGroupValueName - The name of the configuration group value.
 //   - options - ConfigurationGroupValuesClientGetOptions contains the optional parameters for the ConfigurationGroupValuesClient.Get
@@ -251,7 +251,7 @@ func (client *ConfigurationGroupValuesClient) getCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2024-04-15")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -268,7 +268,7 @@ func (client *ConfigurationGroupValuesClient) getHandleResponse(resp *http.Respo
 
 // NewListByResourceGroupPager - Lists all the hybrid network configurationGroupValues in a resource group.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - ConfigurationGroupValuesClientListByResourceGroupOptions contains the optional parameters for the ConfigurationGroupValuesClient.NewListByResourceGroupPager
 //     method.
@@ -311,7 +311,7 @@ func (client *ConfigurationGroupValuesClient) listByResourceGroupCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2024-04-15")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -328,7 +328,7 @@ func (client *ConfigurationGroupValuesClient) listByResourceGroupHandleResponse(
 
 // NewListBySubscriptionPager - Lists all sites in the configuration group value in a subscription.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 //   - options - ConfigurationGroupValuesClientListBySubscriptionOptions contains the optional parameters for the ConfigurationGroupValuesClient.NewListBySubscriptionPager
 //     method.
 func (client *ConfigurationGroupValuesClient) NewListBySubscriptionPager(options *ConfigurationGroupValuesClientListBySubscriptionOptions) *runtime.Pager[ConfigurationGroupValuesClientListBySubscriptionResponse] {
@@ -366,7 +366,7 @@ func (client *ConfigurationGroupValuesClient) listBySubscriptionCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2024-04-15")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -384,7 +384,7 @@ func (client *ConfigurationGroupValuesClient) listBySubscriptionHandleResponse(r
 // UpdateTags - Updates a hybrid configuration group tags.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - configurationGroupValueName - The name of the configuration group value.
 //   - parameters - Parameters supplied to update configuration group values tags.
@@ -432,7 +432,7 @@ func (client *ConfigurationGroupValuesClient) updateTagsCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2024-04-15")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {

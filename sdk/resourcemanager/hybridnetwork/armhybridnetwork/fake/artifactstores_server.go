@@ -24,6 +24,14 @@ import (
 
 // ArtifactStoresServer is a fake server for instances of the armhybridnetwork.ArtifactStoresClient type.
 type ArtifactStoresServer struct {
+	// BeginAddNetworkFabricControllerEndPoints is the fake for method ArtifactStoresClient.BeginAddNetworkFabricControllerEndPoints
+	// HTTP status codes to indicate success: http.StatusAccepted
+	BeginAddNetworkFabricControllerEndPoints func(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, parameters armhybridnetwork.ArtifactStoreNetworkFabricControllerEndPoints, options *armhybridnetwork.ArtifactStoresClientBeginAddNetworkFabricControllerEndPointsOptions) (resp azfake.PollerResponder[armhybridnetwork.ArtifactStoresClientAddNetworkFabricControllerEndPointsResponse], errResp azfake.ErrorResponder)
+
+	// BeginApprovePrivateEndPoints is the fake for method ArtifactStoresClient.BeginApprovePrivateEndPoints
+	// HTTP status codes to indicate success: http.StatusAccepted
+	BeginApprovePrivateEndPoints func(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, parameters armhybridnetwork.ArtifactStorePrivateEndPointsFormat, options *armhybridnetwork.ArtifactStoresClientBeginApprovePrivateEndPointsOptions) (resp azfake.PollerResponder[armhybridnetwork.ArtifactStoresClientApprovePrivateEndPointsResponse], errResp azfake.ErrorResponder)
+
 	// BeginCreateOrUpdate is the fake for method ArtifactStoresClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
 	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, parameters armhybridnetwork.ArtifactStore, options *armhybridnetwork.ArtifactStoresClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armhybridnetwork.ArtifactStoresClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
@@ -32,6 +40,10 @@ type ArtifactStoresServer struct {
 	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
 	BeginDelete func(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, options *armhybridnetwork.ArtifactStoresClientBeginDeleteOptions) (resp azfake.PollerResponder[armhybridnetwork.ArtifactStoresClientDeleteResponse], errResp azfake.ErrorResponder)
 
+	// BeginDeleteNetworkFabricControllerEndPoints is the fake for method ArtifactStoresClient.BeginDeleteNetworkFabricControllerEndPoints
+	// HTTP status codes to indicate success: http.StatusAccepted
+	BeginDeleteNetworkFabricControllerEndPoints func(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, parameters armhybridnetwork.ArtifactStoreNetworkFabricControllerEndPoints, options *armhybridnetwork.ArtifactStoresClientBeginDeleteNetworkFabricControllerEndPointsOptions) (resp azfake.PollerResponder[armhybridnetwork.ArtifactStoresClientDeleteNetworkFabricControllerEndPointsResponse], errResp azfake.ErrorResponder)
+
 	// Get is the fake for method ArtifactStoresClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, options *armhybridnetwork.ArtifactStoresClientGetOptions) (resp azfake.Responder[armhybridnetwork.ArtifactStoresClientGetResponse], errResp azfake.ErrorResponder)
@@ -39,6 +51,18 @@ type ArtifactStoresServer struct {
 	// NewListByPublisherPager is the fake for method ArtifactStoresClient.NewListByPublisherPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListByPublisherPager func(resourceGroupName string, publisherName string, options *armhybridnetwork.ArtifactStoresClientListByPublisherOptions) (resp azfake.PagerResponder[armhybridnetwork.ArtifactStoresClientListByPublisherResponse])
+
+	// BeginListNetworkFabricControllerPrivateEndPoints is the fake for method ArtifactStoresClient.BeginListNetworkFabricControllerPrivateEndPoints
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginListNetworkFabricControllerPrivateEndPoints func(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, options *armhybridnetwork.ArtifactStoresClientBeginListNetworkFabricControllerPrivateEndPointsOptions) (resp azfake.PollerResponder[azfake.PagerResponder[armhybridnetwork.ArtifactStoresClientListNetworkFabricControllerPrivateEndPointsResponse]], errResp azfake.ErrorResponder)
+
+	// BeginListPrivateEndPoints is the fake for method ArtifactStoresClient.BeginListPrivateEndPoints
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginListPrivateEndPoints func(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, options *armhybridnetwork.ArtifactStoresClientBeginListPrivateEndPointsOptions) (resp azfake.PollerResponder[azfake.PagerResponder[armhybridnetwork.ArtifactStoresClientListPrivateEndPointsResponse]], errResp azfake.ErrorResponder)
+
+	// BeginRemovePrivateEndPoints is the fake for method ArtifactStoresClient.BeginRemovePrivateEndPoints
+	// HTTP status codes to indicate success: http.StatusAccepted
+	BeginRemovePrivateEndPoints func(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, parameters armhybridnetwork.ArtifactStorePrivateEndPointsFormat, options *armhybridnetwork.ArtifactStoresClientBeginRemovePrivateEndPointsOptions) (resp azfake.PollerResponder[armhybridnetwork.ArtifactStoresClientRemovePrivateEndPointsResponse], errResp azfake.ErrorResponder)
 
 	// Update is the fake for method ArtifactStoresClient.Update
 	// HTTP status codes to indicate success: http.StatusOK
@@ -50,20 +74,32 @@ type ArtifactStoresServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewArtifactStoresServerTransport(srv *ArtifactStoresServer) *ArtifactStoresServerTransport {
 	return &ArtifactStoresServerTransport{
-		srv:                     srv,
-		beginCreateOrUpdate:     newTracker[azfake.PollerResponder[armhybridnetwork.ArtifactStoresClientCreateOrUpdateResponse]](),
-		beginDelete:             newTracker[azfake.PollerResponder[armhybridnetwork.ArtifactStoresClientDeleteResponse]](),
-		newListByPublisherPager: newTracker[azfake.PagerResponder[armhybridnetwork.ArtifactStoresClientListByPublisherResponse]](),
+		srv:                                      srv,
+		beginAddNetworkFabricControllerEndPoints: newTracker[azfake.PollerResponder[armhybridnetwork.ArtifactStoresClientAddNetworkFabricControllerEndPointsResponse]](),
+		beginApprovePrivateEndPoints:             newTracker[azfake.PollerResponder[armhybridnetwork.ArtifactStoresClientApprovePrivateEndPointsResponse]](),
+		beginCreateOrUpdate:                      newTracker[azfake.PollerResponder[armhybridnetwork.ArtifactStoresClientCreateOrUpdateResponse]](),
+		beginDelete:                              newTracker[azfake.PollerResponder[armhybridnetwork.ArtifactStoresClientDeleteResponse]](),
+		beginDeleteNetworkFabricControllerEndPoints:      newTracker[azfake.PollerResponder[armhybridnetwork.ArtifactStoresClientDeleteNetworkFabricControllerEndPointsResponse]](),
+		newListByPublisherPager:                          newTracker[azfake.PagerResponder[armhybridnetwork.ArtifactStoresClientListByPublisherResponse]](),
+		beginListNetworkFabricControllerPrivateEndPoints: newTracker[azfake.PollerResponder[azfake.PagerResponder[armhybridnetwork.ArtifactStoresClientListNetworkFabricControllerPrivateEndPointsResponse]]](),
+		beginListPrivateEndPoints:                        newTracker[azfake.PollerResponder[azfake.PagerResponder[armhybridnetwork.ArtifactStoresClientListPrivateEndPointsResponse]]](),
+		beginRemovePrivateEndPoints:                      newTracker[azfake.PollerResponder[armhybridnetwork.ArtifactStoresClientRemovePrivateEndPointsResponse]](),
 	}
 }
 
 // ArtifactStoresServerTransport connects instances of armhybridnetwork.ArtifactStoresClient to instances of ArtifactStoresServer.
 // Don't use this type directly, use NewArtifactStoresServerTransport instead.
 type ArtifactStoresServerTransport struct {
-	srv                     *ArtifactStoresServer
-	beginCreateOrUpdate     *tracker[azfake.PollerResponder[armhybridnetwork.ArtifactStoresClientCreateOrUpdateResponse]]
-	beginDelete             *tracker[azfake.PollerResponder[armhybridnetwork.ArtifactStoresClientDeleteResponse]]
-	newListByPublisherPager *tracker[azfake.PagerResponder[armhybridnetwork.ArtifactStoresClientListByPublisherResponse]]
+	srv                                              *ArtifactStoresServer
+	beginAddNetworkFabricControllerEndPoints         *tracker[azfake.PollerResponder[armhybridnetwork.ArtifactStoresClientAddNetworkFabricControllerEndPointsResponse]]
+	beginApprovePrivateEndPoints                     *tracker[azfake.PollerResponder[armhybridnetwork.ArtifactStoresClientApprovePrivateEndPointsResponse]]
+	beginCreateOrUpdate                              *tracker[azfake.PollerResponder[armhybridnetwork.ArtifactStoresClientCreateOrUpdateResponse]]
+	beginDelete                                      *tracker[azfake.PollerResponder[armhybridnetwork.ArtifactStoresClientDeleteResponse]]
+	beginDeleteNetworkFabricControllerEndPoints      *tracker[azfake.PollerResponder[armhybridnetwork.ArtifactStoresClientDeleteNetworkFabricControllerEndPointsResponse]]
+	newListByPublisherPager                          *tracker[azfake.PagerResponder[armhybridnetwork.ArtifactStoresClientListByPublisherResponse]]
+	beginListNetworkFabricControllerPrivateEndPoints *tracker[azfake.PollerResponder[azfake.PagerResponder[armhybridnetwork.ArtifactStoresClientListNetworkFabricControllerPrivateEndPointsResponse]]]
+	beginListPrivateEndPoints                        *tracker[azfake.PollerResponder[azfake.PagerResponder[armhybridnetwork.ArtifactStoresClientListPrivateEndPointsResponse]]]
+	beginRemovePrivateEndPoints                      *tracker[azfake.PollerResponder[armhybridnetwork.ArtifactStoresClientRemovePrivateEndPointsResponse]]
 }
 
 // Do implements the policy.Transporter interface for ArtifactStoresServerTransport.
@@ -78,14 +114,26 @@ func (a *ArtifactStoresServerTransport) Do(req *http.Request) (*http.Response, e
 	var err error
 
 	switch method {
+	case "ArtifactStoresClient.BeginAddNetworkFabricControllerEndPoints":
+		resp, err = a.dispatchBeginAddNetworkFabricControllerEndPoints(req)
+	case "ArtifactStoresClient.BeginApprovePrivateEndPoints":
+		resp, err = a.dispatchBeginApprovePrivateEndPoints(req)
 	case "ArtifactStoresClient.BeginCreateOrUpdate":
 		resp, err = a.dispatchBeginCreateOrUpdate(req)
 	case "ArtifactStoresClient.BeginDelete":
 		resp, err = a.dispatchBeginDelete(req)
+	case "ArtifactStoresClient.BeginDeleteNetworkFabricControllerEndPoints":
+		resp, err = a.dispatchBeginDeleteNetworkFabricControllerEndPoints(req)
 	case "ArtifactStoresClient.Get":
 		resp, err = a.dispatchGet(req)
 	case "ArtifactStoresClient.NewListByPublisherPager":
 		resp, err = a.dispatchNewListByPublisherPager(req)
+	case "ArtifactStoresClient.BeginListNetworkFabricControllerPrivateEndPoints":
+		resp, err = a.dispatchBeginListNetworkFabricControllerPrivateEndPoints(req)
+	case "ArtifactStoresClient.BeginListPrivateEndPoints":
+		resp, err = a.dispatchBeginListPrivateEndPoints(req)
+	case "ArtifactStoresClient.BeginRemovePrivateEndPoints":
+		resp, err = a.dispatchBeginRemovePrivateEndPoints(req)
 	case "ArtifactStoresClient.Update":
 		resp, err = a.dispatchUpdate(req)
 	default:
@@ -94,6 +142,110 @@ func (a *ArtifactStoresServerTransport) Do(req *http.Request) (*http.Response, e
 
 	if err != nil {
 		return nil, err
+	}
+
+	return resp, nil
+}
+
+func (a *ArtifactStoresServerTransport) dispatchBeginAddNetworkFabricControllerEndPoints(req *http.Request) (*http.Response, error) {
+	if a.srv.BeginAddNetworkFabricControllerEndPoints == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginAddNetworkFabricControllerEndPoints not implemented")}
+	}
+	beginAddNetworkFabricControllerEndPoints := a.beginAddNetworkFabricControllerEndPoints.get(req)
+	if beginAddNetworkFabricControllerEndPoints == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.HybridNetwork/publishers/(?P<publisherName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/artifactStores/(?P<artifactStoreName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/addNetworkFabricControllerEndPoints`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 4 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armhybridnetwork.ArtifactStoreNetworkFabricControllerEndPoints](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		publisherNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("publisherName")])
+		if err != nil {
+			return nil, err
+		}
+		artifactStoreNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("artifactStoreName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := a.srv.BeginAddNetworkFabricControllerEndPoints(req.Context(), resourceGroupNameParam, publisherNameParam, artifactStoreNameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginAddNetworkFabricControllerEndPoints = &respr
+		a.beginAddNetworkFabricControllerEndPoints.add(req, beginAddNetworkFabricControllerEndPoints)
+	}
+
+	resp, err := server.PollerResponderNext(beginAddNetworkFabricControllerEndPoints, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusAccepted}, resp.StatusCode) {
+		a.beginAddNetworkFabricControllerEndPoints.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginAddNetworkFabricControllerEndPoints) {
+		a.beginAddNetworkFabricControllerEndPoints.remove(req)
+	}
+
+	return resp, nil
+}
+
+func (a *ArtifactStoresServerTransport) dispatchBeginApprovePrivateEndPoints(req *http.Request) (*http.Response, error) {
+	if a.srv.BeginApprovePrivateEndPoints == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginApprovePrivateEndPoints not implemented")}
+	}
+	beginApprovePrivateEndPoints := a.beginApprovePrivateEndPoints.get(req)
+	if beginApprovePrivateEndPoints == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.HybridNetwork/publishers/(?P<publisherName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/artifactStores/(?P<artifactStoreName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/approvePrivateEndPoints`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 4 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armhybridnetwork.ArtifactStorePrivateEndPointsFormat](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		publisherNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("publisherName")])
+		if err != nil {
+			return nil, err
+		}
+		artifactStoreNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("artifactStoreName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := a.srv.BeginApprovePrivateEndPoints(req.Context(), resourceGroupNameParam, publisherNameParam, artifactStoreNameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginApprovePrivateEndPoints = &respr
+		a.beginApprovePrivateEndPoints.add(req, beginApprovePrivateEndPoints)
+	}
+
+	resp, err := server.PollerResponderNext(beginApprovePrivateEndPoints, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusAccepted}, resp.StatusCode) {
+		a.beginApprovePrivateEndPoints.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginApprovePrivateEndPoints) {
+		a.beginApprovePrivateEndPoints.remove(req)
 	}
 
 	return resp, nil
@@ -199,6 +351,58 @@ func (a *ArtifactStoresServerTransport) dispatchBeginDelete(req *http.Request) (
 	return resp, nil
 }
 
+func (a *ArtifactStoresServerTransport) dispatchBeginDeleteNetworkFabricControllerEndPoints(req *http.Request) (*http.Response, error) {
+	if a.srv.BeginDeleteNetworkFabricControllerEndPoints == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginDeleteNetworkFabricControllerEndPoints not implemented")}
+	}
+	beginDeleteNetworkFabricControllerEndPoints := a.beginDeleteNetworkFabricControllerEndPoints.get(req)
+	if beginDeleteNetworkFabricControllerEndPoints == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.HybridNetwork/publishers/(?P<publisherName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/artifactStores/(?P<artifactStoreName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/deleteNetworkFabricControllerEndPoints`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 4 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armhybridnetwork.ArtifactStoreNetworkFabricControllerEndPoints](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		publisherNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("publisherName")])
+		if err != nil {
+			return nil, err
+		}
+		artifactStoreNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("artifactStoreName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := a.srv.BeginDeleteNetworkFabricControllerEndPoints(req.Context(), resourceGroupNameParam, publisherNameParam, artifactStoreNameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginDeleteNetworkFabricControllerEndPoints = &respr
+		a.beginDeleteNetworkFabricControllerEndPoints.add(req, beginDeleteNetworkFabricControllerEndPoints)
+	}
+
+	resp, err := server.PollerResponderNext(beginDeleteNetworkFabricControllerEndPoints, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusAccepted}, resp.StatusCode) {
+		a.beginDeleteNetworkFabricControllerEndPoints.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginDeleteNetworkFabricControllerEndPoints) {
+		a.beginDeleteNetworkFabricControllerEndPoints.remove(req)
+	}
+
+	return resp, nil
+}
+
 func (a *ArtifactStoresServerTransport) dispatchGet(req *http.Request) (*http.Response, error) {
 	if a.srv.Get == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
@@ -274,6 +478,154 @@ func (a *ArtifactStoresServerTransport) dispatchNewListByPublisherPager(req *htt
 	if !server.PagerResponderMore(newListByPublisherPager) {
 		a.newListByPublisherPager.remove(req)
 	}
+	return resp, nil
+}
+
+func (a *ArtifactStoresServerTransport) dispatchBeginListNetworkFabricControllerPrivateEndPoints(req *http.Request) (*http.Response, error) {
+	if a.srv.BeginListNetworkFabricControllerPrivateEndPoints == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginListNetworkFabricControllerPrivateEndPoints not implemented")}
+	}
+	beginListNetworkFabricControllerPrivateEndPoints := a.beginListNetworkFabricControllerPrivateEndPoints.get(req)
+	if beginListNetworkFabricControllerPrivateEndPoints == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.HybridNetwork/publishers/(?P<publisherName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/artifactStores/(?P<artifactStoreName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/listNetworkFabricControllerPrivateEndPoints`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 4 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		publisherNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("publisherName")])
+		if err != nil {
+			return nil, err
+		}
+		artifactStoreNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("artifactStoreName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := a.srv.BeginListNetworkFabricControllerPrivateEndPoints(req.Context(), resourceGroupNameParam, publisherNameParam, artifactStoreNameParam, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginListNetworkFabricControllerPrivateEndPoints = &respr
+		a.beginListNetworkFabricControllerPrivateEndPoints.add(req, beginListNetworkFabricControllerPrivateEndPoints)
+	}
+
+	resp, err := server.PollerResponderNext(beginListNetworkFabricControllerPrivateEndPoints, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		a.beginListNetworkFabricControllerPrivateEndPoints.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginListNetworkFabricControllerPrivateEndPoints) {
+		a.beginListNetworkFabricControllerPrivateEndPoints.remove(req)
+	}
+
+	return resp, nil
+}
+
+func (a *ArtifactStoresServerTransport) dispatchBeginListPrivateEndPoints(req *http.Request) (*http.Response, error) {
+	if a.srv.BeginListPrivateEndPoints == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginListPrivateEndPoints not implemented")}
+	}
+	beginListPrivateEndPoints := a.beginListPrivateEndPoints.get(req)
+	if beginListPrivateEndPoints == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.HybridNetwork/publishers/(?P<publisherName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/artifactStores/(?P<artifactStoreName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/listPrivateEndPoints`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 4 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		publisherNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("publisherName")])
+		if err != nil {
+			return nil, err
+		}
+		artifactStoreNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("artifactStoreName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := a.srv.BeginListPrivateEndPoints(req.Context(), resourceGroupNameParam, publisherNameParam, artifactStoreNameParam, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginListPrivateEndPoints = &respr
+		a.beginListPrivateEndPoints.add(req, beginListPrivateEndPoints)
+	}
+
+	resp, err := server.PollerResponderNext(beginListPrivateEndPoints, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		a.beginListPrivateEndPoints.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginListPrivateEndPoints) {
+		a.beginListPrivateEndPoints.remove(req)
+	}
+
+	return resp, nil
+}
+
+func (a *ArtifactStoresServerTransport) dispatchBeginRemovePrivateEndPoints(req *http.Request) (*http.Response, error) {
+	if a.srv.BeginRemovePrivateEndPoints == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginRemovePrivateEndPoints not implemented")}
+	}
+	beginRemovePrivateEndPoints := a.beginRemovePrivateEndPoints.get(req)
+	if beginRemovePrivateEndPoints == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.HybridNetwork/publishers/(?P<publisherName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/artifactStores/(?P<artifactStoreName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/removePrivateEndPoints`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 4 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armhybridnetwork.ArtifactStorePrivateEndPointsFormat](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		publisherNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("publisherName")])
+		if err != nil {
+			return nil, err
+		}
+		artifactStoreNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("artifactStoreName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := a.srv.BeginRemovePrivateEndPoints(req.Context(), resourceGroupNameParam, publisherNameParam, artifactStoreNameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginRemovePrivateEndPoints = &respr
+		a.beginRemovePrivateEndPoints.add(req, beginRemovePrivateEndPoints)
+	}
+
+	resp, err := server.PollerResponderNext(beginRemovePrivateEndPoints, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusAccepted}, resp.StatusCode) {
+		a.beginRemovePrivateEndPoints.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginRemovePrivateEndPoints) {
+		a.beginRemovePrivateEndPoints.remove(req)
+	}
+
 	return resp, nil
 }
 

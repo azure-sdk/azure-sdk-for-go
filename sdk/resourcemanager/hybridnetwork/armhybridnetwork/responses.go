@@ -60,10 +60,25 @@ type ArtifactManifestsClientUpdateStateResponse struct {
 	ArtifactManifestUpdateState
 }
 
+// ArtifactStoresClientAddNetworkFabricControllerEndPointsResponse contains the response from method ArtifactStoresClient.BeginAddNetworkFabricControllerEndPoints.
+type ArtifactStoresClientAddNetworkFabricControllerEndPointsResponse struct {
+	// placeholder for future response values
+}
+
+// ArtifactStoresClientApprovePrivateEndPointsResponse contains the response from method ArtifactStoresClient.BeginApprovePrivateEndPoints.
+type ArtifactStoresClientApprovePrivateEndPointsResponse struct {
+	// placeholder for future response values
+}
+
 // ArtifactStoresClientCreateOrUpdateResponse contains the response from method ArtifactStoresClient.BeginCreateOrUpdate.
 type ArtifactStoresClientCreateOrUpdateResponse struct {
 	// Artifact store properties.
 	ArtifactStore
+}
+
+// ArtifactStoresClientDeleteNetworkFabricControllerEndPointsResponse contains the response from method ArtifactStoresClient.BeginDeleteNetworkFabricControllerEndPoints.
+type ArtifactStoresClientDeleteNetworkFabricControllerEndPointsResponse struct {
+	// placeholder for future response values
 }
 
 // ArtifactStoresClientDeleteResponse contains the response from method ArtifactStoresClient.BeginDelete.
@@ -81,6 +96,23 @@ type ArtifactStoresClientGetResponse struct {
 type ArtifactStoresClientListByPublisherResponse struct {
 	// A list of artifact stores.
 	ArtifactStoreListResult
+}
+
+// ArtifactStoresClientListNetworkFabricControllerPrivateEndPointsResponse contains the response from method ArtifactStoresClient.BeginListNetworkFabricControllerPrivateEndPoints.
+type ArtifactStoresClientListNetworkFabricControllerPrivateEndPointsResponse struct {
+	// List of manual private endpoints.
+	ArtifactStoreNetworkFabricControllerEndPointsList
+}
+
+// ArtifactStoresClientListPrivateEndPointsResponse contains the response from method ArtifactStoresClient.BeginListPrivateEndPoints.
+type ArtifactStoresClientListPrivateEndPointsResponse struct {
+	// List of manual private endpoints.
+	ArtifactStorePrivateEndPointsListResult
+}
+
+// ArtifactStoresClientRemovePrivateEndPointsResponse contains the response from method ArtifactStoresClient.BeginRemovePrivateEndPoints.
+type ArtifactStoresClientRemovePrivateEndPointsResponse struct {
+	// placeholder for future response values
 }
 
 // ArtifactStoresClientUpdateResponse contains the response from method ArtifactStoresClient.Update.

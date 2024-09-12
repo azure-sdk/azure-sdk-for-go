@@ -167,9 +167,41 @@ type ArtifactStoreListResult struct {
 	NextLink *string
 }
 
+// ArtifactStoreNetworkFabricControllerEndPoints - List of network fabric controller ids.
+type ArtifactStoreNetworkFabricControllerEndPoints struct {
+	// list of network fabric controllers.
+	NetworkFabricControllerIDs []*ReferencedResource
+}
+
+// ArtifactStoreNetworkFabricControllerEndPointsList - List of manual private endpoints.
+type ArtifactStoreNetworkFabricControllerEndPointsList struct {
+	// A list of network fabric controllers.
+	Value []*ArtifactStoreNetworkFabricControllerEndPoints
+
+	// READ-ONLY; The URI to get the next set of results.
+	NextLink *string
+}
+
+// ArtifactStorePrivateEndPointsFormat - List of manual private endpoints.
+type ArtifactStorePrivateEndPointsFormat struct {
+	// list of private endpoints.
+	ManualPrivateEndPointConnections []*ReferencedResource
+}
+
+// ArtifactStorePrivateEndPointsListResult - List of manual private endpoints.
+type ArtifactStorePrivateEndPointsListResult struct {
+	// A list of private endpoints.
+	Value []*ArtifactStorePrivateEndPointsFormat
+
+	// READ-ONLY; The URI to get the next set of results.
+	NextLink *string
+}
+
 // ArtifactStorePropertiesFormat - Artifact store properties.
 type ArtifactStorePropertiesFormat struct {
-	ManagedResourceGroupConfiguration *ArtifactStorePropertiesFormatManagedResourceGroupConfiguration
+	// The artifact store backing resource network access type
+	BackingResourcePublicNetworkAccess *BackingResourcePublicNetworkAccess
+	ManagedResourceGroupConfiguration  *ArtifactStorePropertiesFormatManagedResourceGroupConfiguration
 
 	// The replication strategy.
 	ReplicationStrategy *ArtifactReplicationStrategy
@@ -1348,6 +1380,15 @@ type NetworkFunctionPropertiesFormat struct {
 	// Indicates if software updates are allowed during deployment.
 	AllowSoftwareUpdate *bool
 
+	// The network function definition group name for the network function.
+	NetworkFunctionDefinitionGroupName *string
+
+	// The location of the network function definition offering.
+	NetworkFunctionDefinitionOfferingLocation *string
+
+	// The network function definition version for the network function.
+	NetworkFunctionDefinitionVersion *string
+
 	// The network function definition version resource reference.
 	NetworkFunctionDefinitionVersionResourceReference DeploymentResourceIDReferenceClassification
 
@@ -1357,26 +1398,17 @@ type NetworkFunctionPropertiesFormat struct {
 	// The nfvi type for the network function.
 	NfviType *NFVIType
 
+	// The publisher name for the network function.
+	PublisherName *string
+
+	// The scope of the publisher.
+	PublisherScope *PublisherScope
+
 	// The role configuration override values from the user.
 	RoleOverrideValues []*string
 
-	// READ-ONLY; The network function definition group name for the network function.
-	NetworkFunctionDefinitionGroupName *string
-
-	// READ-ONLY; The location of the network function definition offering.
-	NetworkFunctionDefinitionOfferingLocation *string
-
-	// READ-ONLY; The network function definition version for the network function.
-	NetworkFunctionDefinitionVersion *string
-
 	// READ-ONLY; The provisioning state of the network function resource.
 	ProvisioningState *ProvisioningState
-
-	// READ-ONLY; The publisher name for the network function.
-	PublisherName *string
-
-	// READ-ONLY; The scope of the publisher.
-	PublisherScope *PublisherScope
 }
 
 // GetNetworkFunctionPropertiesFormat implements the NetworkFunctionPropertiesFormatClassification interface for type NetworkFunctionPropertiesFormat.
@@ -1392,6 +1424,15 @@ type NetworkFunctionValueWithSecrets struct {
 	// Indicates if software updates are allowed during deployment.
 	AllowSoftwareUpdate *bool
 
+	// The network function definition group name for the network function.
+	NetworkFunctionDefinitionGroupName *string
+
+	// The location of the network function definition offering.
+	NetworkFunctionDefinitionOfferingLocation *string
+
+	// The network function definition version for the network function.
+	NetworkFunctionDefinitionVersion *string
+
 	// The network function definition version resource reference.
 	NetworkFunctionDefinitionVersionResourceReference DeploymentResourceIDReferenceClassification
 
@@ -1401,29 +1442,20 @@ type NetworkFunctionValueWithSecrets struct {
 	// The nfvi type for the network function.
 	NfviType *NFVIType
 
+	// The publisher name for the network function.
+	PublisherName *string
+
+	// The scope of the publisher.
+	PublisherScope *PublisherScope
+
 	// The role configuration override values from the user.
 	RoleOverrideValues []*string
 
 	// The JSON-serialized secret deployment values from the user. This contains secrets like passwords,keys etc
 	SecretDeploymentValues *string
 
-	// READ-ONLY; The network function definition group name for the network function.
-	NetworkFunctionDefinitionGroupName *string
-
-	// READ-ONLY; The location of the network function definition offering.
-	NetworkFunctionDefinitionOfferingLocation *string
-
-	// READ-ONLY; The network function definition version for the network function.
-	NetworkFunctionDefinitionVersion *string
-
 	// READ-ONLY; The provisioning state of the network function resource.
 	ProvisioningState *ProvisioningState
-
-	// READ-ONLY; The publisher name for the network function.
-	PublisherName *string
-
-	// READ-ONLY; The scope of the publisher.
-	PublisherScope *PublisherScope
 }
 
 // GetNetworkFunctionPropertiesFormat implements the NetworkFunctionPropertiesFormatClassification interface for type NetworkFunctionValueWithSecrets.
@@ -1455,6 +1487,15 @@ type NetworkFunctionValueWithoutSecrets struct {
 	// The JSON-serialized deployment values from the user.
 	DeploymentValues *string
 
+	// The network function definition group name for the network function.
+	NetworkFunctionDefinitionGroupName *string
+
+	// The location of the network function definition offering.
+	NetworkFunctionDefinitionOfferingLocation *string
+
+	// The network function definition version for the network function.
+	NetworkFunctionDefinitionVersion *string
+
 	// The network function definition version resource reference.
 	NetworkFunctionDefinitionVersionResourceReference DeploymentResourceIDReferenceClassification
 
@@ -1464,26 +1505,17 @@ type NetworkFunctionValueWithoutSecrets struct {
 	// The nfvi type for the network function.
 	NfviType *NFVIType
 
+	// The publisher name for the network function.
+	PublisherName *string
+
+	// The scope of the publisher.
+	PublisherScope *PublisherScope
+
 	// The role configuration override values from the user.
 	RoleOverrideValues []*string
 
-	// READ-ONLY; The network function definition group name for the network function.
-	NetworkFunctionDefinitionGroupName *string
-
-	// READ-ONLY; The location of the network function definition offering.
-	NetworkFunctionDefinitionOfferingLocation *string
-
-	// READ-ONLY; The network function definition version for the network function.
-	NetworkFunctionDefinitionVersion *string
-
 	// READ-ONLY; The provisioning state of the network function resource.
 	ProvisioningState *ProvisioningState
-
-	// READ-ONLY; The publisher name for the network function.
-	PublisherName *string
-
-	// READ-ONLY; The scope of the publisher.
-	PublisherScope *PublisherScope
 }
 
 // GetNetworkFunctionPropertiesFormat implements the NetworkFunctionPropertiesFormatClassification interface for type NetworkFunctionValueWithoutSecrets.

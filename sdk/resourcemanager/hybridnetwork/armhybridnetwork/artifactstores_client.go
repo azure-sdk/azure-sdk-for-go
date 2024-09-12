@@ -43,10 +43,182 @@ func NewArtifactStoresClient(subscriptionID string, credential azcore.TokenCrede
 	return client, nil
 }
 
+// BeginAddNetworkFabricControllerEndPoints - Add network fabric controllers to artifact stores
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-04-15
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - publisherName - The name of the publisher.
+//   - artifactStoreName - The name of the artifact store.
+//   - parameters - Parameters supplied to the create or update application group operation.
+//   - options - ArtifactStoresClientBeginAddNetworkFabricControllerEndPointsOptions contains the optional parameters for the
+//     ArtifactStoresClient.BeginAddNetworkFabricControllerEndPoints method.
+func (client *ArtifactStoresClient) BeginAddNetworkFabricControllerEndPoints(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, parameters ArtifactStoreNetworkFabricControllerEndPoints, options *ArtifactStoresClientBeginAddNetworkFabricControllerEndPointsOptions) (*runtime.Poller[ArtifactStoresClientAddNetworkFabricControllerEndPointsResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.addNetworkFabricControllerEndPoints(ctx, resourceGroupName, publisherName, artifactStoreName, parameters, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ArtifactStoresClientAddNetworkFabricControllerEndPointsResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ArtifactStoresClientAddNetworkFabricControllerEndPointsResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// AddNetworkFabricControllerEndPoints - Add network fabric controllers to artifact stores
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-04-15
+func (client *ArtifactStoresClient) addNetworkFabricControllerEndPoints(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, parameters ArtifactStoreNetworkFabricControllerEndPoints, options *ArtifactStoresClientBeginAddNetworkFabricControllerEndPointsOptions) (*http.Response, error) {
+	var err error
+	const operationName = "ArtifactStoresClient.BeginAddNetworkFabricControllerEndPoints"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.addNetworkFabricControllerEndPointsCreateRequest(ctx, resourceGroupName, publisherName, artifactStoreName, parameters, options)
+	if err != nil {
+		return nil, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusAccepted) {
+		err = runtime.NewResponseError(httpResp)
+		return nil, err
+	}
+	return httpResp, nil
+}
+
+// addNetworkFabricControllerEndPointsCreateRequest creates the AddNetworkFabricControllerEndPoints request.
+func (client *ArtifactStoresClient) addNetworkFabricControllerEndPointsCreateRequest(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, parameters ArtifactStoreNetworkFabricControllerEndPoints, options *ArtifactStoresClientBeginAddNetworkFabricControllerEndPointsOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HybridNetwork/publishers/{publisherName}/artifactStores/{artifactStoreName}/addNetworkFabricControllerEndPoints"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if publisherName == "" {
+		return nil, errors.New("parameter publisherName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{publisherName}", url.PathEscape(publisherName))
+	if artifactStoreName == "" {
+		return nil, errors.New("parameter artifactStoreName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{artifactStoreName}", url.PathEscape(artifactStoreName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-04-15")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+// BeginApprovePrivateEndPoints - Approve manual private endpoints on artifact stores
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-04-15
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - publisherName - The name of the publisher.
+//   - artifactStoreName - The name of the artifact store.
+//   - parameters - Parameters supplied to approve private endpoints.
+//   - options - ArtifactStoresClientBeginApprovePrivateEndPointsOptions contains the optional parameters for the ArtifactStoresClient.BeginApprovePrivateEndPoints
+//     method.
+func (client *ArtifactStoresClient) BeginApprovePrivateEndPoints(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, parameters ArtifactStorePrivateEndPointsFormat, options *ArtifactStoresClientBeginApprovePrivateEndPointsOptions) (*runtime.Poller[ArtifactStoresClientApprovePrivateEndPointsResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.approvePrivateEndPoints(ctx, resourceGroupName, publisherName, artifactStoreName, parameters, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ArtifactStoresClientApprovePrivateEndPointsResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ArtifactStoresClientApprovePrivateEndPointsResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// ApprovePrivateEndPoints - Approve manual private endpoints on artifact stores
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-04-15
+func (client *ArtifactStoresClient) approvePrivateEndPoints(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, parameters ArtifactStorePrivateEndPointsFormat, options *ArtifactStoresClientBeginApprovePrivateEndPointsOptions) (*http.Response, error) {
+	var err error
+	const operationName = "ArtifactStoresClient.BeginApprovePrivateEndPoints"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.approvePrivateEndPointsCreateRequest(ctx, resourceGroupName, publisherName, artifactStoreName, parameters, options)
+	if err != nil {
+		return nil, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusAccepted) {
+		err = runtime.NewResponseError(httpResp)
+		return nil, err
+	}
+	return httpResp, nil
+}
+
+// approvePrivateEndPointsCreateRequest creates the ApprovePrivateEndPoints request.
+func (client *ArtifactStoresClient) approvePrivateEndPointsCreateRequest(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, parameters ArtifactStorePrivateEndPointsFormat, options *ArtifactStoresClientBeginApprovePrivateEndPointsOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HybridNetwork/publishers/{publisherName}/artifactStores/{artifactStoreName}/approvePrivateEndPoints"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if publisherName == "" {
+		return nil, errors.New("parameter publisherName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{publisherName}", url.PathEscape(publisherName))
+	if artifactStoreName == "" {
+		return nil, errors.New("parameter artifactStoreName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{artifactStoreName}", url.PathEscape(artifactStoreName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-04-15")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
 // BeginCreateOrUpdate - Creates or updates a artifact store.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - artifactStoreName - The name of the artifact store.
@@ -74,7 +246,7 @@ func (client *ArtifactStoresClient) BeginCreateOrUpdate(ctx context.Context, res
 // CreateOrUpdate - Creates or updates a artifact store.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 func (client *ArtifactStoresClient) createOrUpdate(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, parameters ArtifactStore, options *ArtifactStoresClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ArtifactStoresClient.BeginCreateOrUpdate"
@@ -120,7 +292,7 @@ func (client *ArtifactStoresClient) createOrUpdateCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2024-04-15")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -132,7 +304,7 @@ func (client *ArtifactStoresClient) createOrUpdateCreateRequest(ctx context.Cont
 // BeginDelete - Deletes the specified artifact store.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - artifactStoreName - The name of the artifact store.
@@ -159,7 +331,7 @@ func (client *ArtifactStoresClient) BeginDelete(ctx context.Context, resourceGro
 // Delete - Deletes the specified artifact store.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 func (client *ArtifactStoresClient) deleteOperation(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, options *ArtifactStoresClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ArtifactStoresClient.BeginDelete"
@@ -205,16 +377,102 @@ func (client *ArtifactStoresClient) deleteCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2024-04-15")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// BeginDeleteNetworkFabricControllerEndPoints - Delete network fabric controllers on artifact stores
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-04-15
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - publisherName - The name of the publisher.
+//   - artifactStoreName - The name of the artifact store.
+//   - parameters - Parameters supplied to the create or update application group operation.
+//   - options - ArtifactStoresClientBeginDeleteNetworkFabricControllerEndPointsOptions contains the optional parameters for the
+//     ArtifactStoresClient.BeginDeleteNetworkFabricControllerEndPoints method.
+func (client *ArtifactStoresClient) BeginDeleteNetworkFabricControllerEndPoints(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, parameters ArtifactStoreNetworkFabricControllerEndPoints, options *ArtifactStoresClientBeginDeleteNetworkFabricControllerEndPointsOptions) (*runtime.Poller[ArtifactStoresClientDeleteNetworkFabricControllerEndPointsResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.deleteNetworkFabricControllerEndPoints(ctx, resourceGroupName, publisherName, artifactStoreName, parameters, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ArtifactStoresClientDeleteNetworkFabricControllerEndPointsResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ArtifactStoresClientDeleteNetworkFabricControllerEndPointsResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// DeleteNetworkFabricControllerEndPoints - Delete network fabric controllers on artifact stores
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-04-15
+func (client *ArtifactStoresClient) deleteNetworkFabricControllerEndPoints(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, parameters ArtifactStoreNetworkFabricControllerEndPoints, options *ArtifactStoresClientBeginDeleteNetworkFabricControllerEndPointsOptions) (*http.Response, error) {
+	var err error
+	const operationName = "ArtifactStoresClient.BeginDeleteNetworkFabricControllerEndPoints"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.deleteNetworkFabricControllerEndPointsCreateRequest(ctx, resourceGroupName, publisherName, artifactStoreName, parameters, options)
+	if err != nil {
+		return nil, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusAccepted) {
+		err = runtime.NewResponseError(httpResp)
+		return nil, err
+	}
+	return httpResp, nil
+}
+
+// deleteNetworkFabricControllerEndPointsCreateRequest creates the DeleteNetworkFabricControllerEndPoints request.
+func (client *ArtifactStoresClient) deleteNetworkFabricControllerEndPointsCreateRequest(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, parameters ArtifactStoreNetworkFabricControllerEndPoints, options *ArtifactStoresClientBeginDeleteNetworkFabricControllerEndPointsOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HybridNetwork/publishers/{publisherName}/artifactStores/{artifactStoreName}/deleteNetworkFabricControllerEndPoints"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if publisherName == "" {
+		return nil, errors.New("parameter publisherName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{publisherName}", url.PathEscape(publisherName))
+	if artifactStoreName == "" {
+		return nil, errors.New("parameter artifactStoreName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{artifactStoreName}", url.PathEscape(artifactStoreName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-04-15")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
+		return nil, err
+	}
 	return req, nil
 }
 
 // Get - Gets information about the specified artifact store.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - artifactStoreName - The name of the artifact store.
@@ -265,7 +523,7 @@ func (client *ArtifactStoresClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2024-04-15")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -282,7 +540,7 @@ func (client *ArtifactStoresClient) getHandleResponse(resp *http.Response) (Arti
 
 // NewListByPublisherPager - Gets information of the ArtifactStores under publisher.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - options - ArtifactStoresClientListByPublisherOptions contains the optional parameters for the ArtifactStoresClient.NewListByPublisherPager
@@ -330,7 +588,7 @@ func (client *ArtifactStoresClient) listByPublisherCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2024-04-15")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -345,10 +603,310 @@ func (client *ArtifactStoresClient) listByPublisherHandleResponse(resp *http.Res
 	return result, nil
 }
 
+// BeginListNetworkFabricControllerPrivateEndPoints - List network fabric controllers to artifact stores
+//
+// Generated from API version 2024-04-15
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - publisherName - The name of the publisher.
+//   - artifactStoreName - The name of the artifact store.
+//   - options - ArtifactStoresClientBeginListNetworkFabricControllerPrivateEndPointsOptions contains the optional parameters
+//     for the ArtifactStoresClient.BeginListNetworkFabricControllerPrivateEndPoints method.
+func (client *ArtifactStoresClient) BeginListNetworkFabricControllerPrivateEndPoints(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, options *ArtifactStoresClientBeginListNetworkFabricControllerPrivateEndPointsOptions) (*runtime.Poller[*runtime.Pager[ArtifactStoresClientListNetworkFabricControllerPrivateEndPointsResponse]], error) {
+	pager := runtime.NewPager(runtime.PagingHandler[ArtifactStoresClientListNetworkFabricControllerPrivateEndPointsResponse]{
+		More: func(page ArtifactStoresClientListNetworkFabricControllerPrivateEndPointsResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *ArtifactStoresClientListNetworkFabricControllerPrivateEndPointsResponse) (ArtifactStoresClientListNetworkFabricControllerPrivateEndPointsResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ArtifactStoresClient.BeginListNetworkFabricControllerPrivateEndPoints")
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), *page.NextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listNetworkFabricControllerPrivateEndPointsCreateRequest(ctx, resourceGroupName, publisherName, artifactStoreName, options)
+			}, nil)
+			if err != nil {
+				return ArtifactStoresClientListNetworkFabricControllerPrivateEndPointsResponse{}, err
+			}
+			return client.listNetworkFabricControllerPrivateEndPointsHandleResponse(resp)
+		},
+		Tracer: client.internal.Tracer(),
+	})
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.listNetworkFabricControllerPrivateEndPoints(ctx, resourceGroupName, publisherName, artifactStoreName, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[*runtime.Pager[ArtifactStoresClientListNetworkFabricControllerPrivateEndPointsResponse]]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Response:      &pager,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[*runtime.Pager[ArtifactStoresClientListNetworkFabricControllerPrivateEndPointsResponse]]{
+			Response: &pager,
+			Tracer:   client.internal.Tracer(),
+		})
+	}
+}
+
+// ListNetworkFabricControllerPrivateEndPoints - List network fabric controllers to artifact stores
+//
+// Generated from API version 2024-04-15
+func (client *ArtifactStoresClient) listNetworkFabricControllerPrivateEndPoints(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, options *ArtifactStoresClientBeginListNetworkFabricControllerPrivateEndPointsOptions) (*http.Response, error) {
+	var err error
+	const operationName = "ArtifactStoresClient.BeginListNetworkFabricControllerPrivateEndPoints"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.listNetworkFabricControllerPrivateEndPointsCreateRequest(ctx, resourceGroupName, publisherName, artifactStoreName, options)
+	if err != nil {
+		return nil, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
+		err = runtime.NewResponseError(httpResp)
+		return nil, err
+	}
+	return httpResp, nil
+}
+
+// listNetworkFabricControllerPrivateEndPointsCreateRequest creates the ListNetworkFabricControllerPrivateEndPoints request.
+func (client *ArtifactStoresClient) listNetworkFabricControllerPrivateEndPointsCreateRequest(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, options *ArtifactStoresClientBeginListNetworkFabricControllerPrivateEndPointsOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HybridNetwork/publishers/{publisherName}/artifactStores/{artifactStoreName}/listNetworkFabricControllerPrivateEndPoints"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if publisherName == "" {
+		return nil, errors.New("parameter publisherName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{publisherName}", url.PathEscape(publisherName))
+	if artifactStoreName == "" {
+		return nil, errors.New("parameter artifactStoreName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{artifactStoreName}", url.PathEscape(artifactStoreName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-04-15")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// listNetworkFabricControllerPrivateEndPointsHandleResponse handles the ListNetworkFabricControllerPrivateEndPoints response.
+func (client *ArtifactStoresClient) listNetworkFabricControllerPrivateEndPointsHandleResponse(resp *http.Response) (ArtifactStoresClientListNetworkFabricControllerPrivateEndPointsResponse, error) {
+	result := ArtifactStoresClientListNetworkFabricControllerPrivateEndPointsResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ArtifactStoreNetworkFabricControllerEndPointsList); err != nil {
+		return ArtifactStoresClientListNetworkFabricControllerPrivateEndPointsResponse{}, err
+	}
+	return result, nil
+}
+
+// BeginListPrivateEndPoints - List manual private endpoints on artifact stores
+//
+// Generated from API version 2024-04-15
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - publisherName - The name of the publisher.
+//   - artifactStoreName - The name of the artifact store.
+//   - options - ArtifactStoresClientBeginListPrivateEndPointsOptions contains the optional parameters for the ArtifactStoresClient.BeginListPrivateEndPoints
+//     method.
+func (client *ArtifactStoresClient) BeginListPrivateEndPoints(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, options *ArtifactStoresClientBeginListPrivateEndPointsOptions) (*runtime.Poller[*runtime.Pager[ArtifactStoresClientListPrivateEndPointsResponse]], error) {
+	pager := runtime.NewPager(runtime.PagingHandler[ArtifactStoresClientListPrivateEndPointsResponse]{
+		More: func(page ArtifactStoresClientListPrivateEndPointsResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *ArtifactStoresClientListPrivateEndPointsResponse) (ArtifactStoresClientListPrivateEndPointsResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ArtifactStoresClient.BeginListPrivateEndPoints")
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), *page.NextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listPrivateEndPointsCreateRequest(ctx, resourceGroupName, publisherName, artifactStoreName, options)
+			}, nil)
+			if err != nil {
+				return ArtifactStoresClientListPrivateEndPointsResponse{}, err
+			}
+			return client.listPrivateEndPointsHandleResponse(resp)
+		},
+		Tracer: client.internal.Tracer(),
+	})
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.listPrivateEndPoints(ctx, resourceGroupName, publisherName, artifactStoreName, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[*runtime.Pager[ArtifactStoresClientListPrivateEndPointsResponse]]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Response:      &pager,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[*runtime.Pager[ArtifactStoresClientListPrivateEndPointsResponse]]{
+			Response: &pager,
+			Tracer:   client.internal.Tracer(),
+		})
+	}
+}
+
+// ListPrivateEndPoints - List manual private endpoints on artifact stores
+//
+// Generated from API version 2024-04-15
+func (client *ArtifactStoresClient) listPrivateEndPoints(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, options *ArtifactStoresClientBeginListPrivateEndPointsOptions) (*http.Response, error) {
+	var err error
+	const operationName = "ArtifactStoresClient.BeginListPrivateEndPoints"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.listPrivateEndPointsCreateRequest(ctx, resourceGroupName, publisherName, artifactStoreName, options)
+	if err != nil {
+		return nil, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
+		err = runtime.NewResponseError(httpResp)
+		return nil, err
+	}
+	return httpResp, nil
+}
+
+// listPrivateEndPointsCreateRequest creates the ListPrivateEndPoints request.
+func (client *ArtifactStoresClient) listPrivateEndPointsCreateRequest(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, options *ArtifactStoresClientBeginListPrivateEndPointsOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HybridNetwork/publishers/{publisherName}/artifactStores/{artifactStoreName}/listPrivateEndPoints"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if publisherName == "" {
+		return nil, errors.New("parameter publisherName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{publisherName}", url.PathEscape(publisherName))
+	if artifactStoreName == "" {
+		return nil, errors.New("parameter artifactStoreName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{artifactStoreName}", url.PathEscape(artifactStoreName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-04-15")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// listPrivateEndPointsHandleResponse handles the ListPrivateEndPoints response.
+func (client *ArtifactStoresClient) listPrivateEndPointsHandleResponse(resp *http.Response) (ArtifactStoresClientListPrivateEndPointsResponse, error) {
+	result := ArtifactStoresClientListPrivateEndPointsResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ArtifactStorePrivateEndPointsListResult); err != nil {
+		return ArtifactStoresClientListPrivateEndPointsResponse{}, err
+	}
+	return result, nil
+}
+
+// BeginRemovePrivateEndPoints - Remove manual private endpoints on artifact stores
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-04-15
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - publisherName - The name of the publisher.
+//   - artifactStoreName - The name of the artifact store.
+//   - parameters - Parameters supplied to the create or update application group operation.
+//   - options - ArtifactStoresClientBeginRemovePrivateEndPointsOptions contains the optional parameters for the ArtifactStoresClient.BeginRemovePrivateEndPoints
+//     method.
+func (client *ArtifactStoresClient) BeginRemovePrivateEndPoints(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, parameters ArtifactStorePrivateEndPointsFormat, options *ArtifactStoresClientBeginRemovePrivateEndPointsOptions) (*runtime.Poller[ArtifactStoresClientRemovePrivateEndPointsResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.removePrivateEndPoints(ctx, resourceGroupName, publisherName, artifactStoreName, parameters, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ArtifactStoresClientRemovePrivateEndPointsResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ArtifactStoresClientRemovePrivateEndPointsResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// RemovePrivateEndPoints - Remove manual private endpoints on artifact stores
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-04-15
+func (client *ArtifactStoresClient) removePrivateEndPoints(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, parameters ArtifactStorePrivateEndPointsFormat, options *ArtifactStoresClientBeginRemovePrivateEndPointsOptions) (*http.Response, error) {
+	var err error
+	const operationName = "ArtifactStoresClient.BeginRemovePrivateEndPoints"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.removePrivateEndPointsCreateRequest(ctx, resourceGroupName, publisherName, artifactStoreName, parameters, options)
+	if err != nil {
+		return nil, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusAccepted) {
+		err = runtime.NewResponseError(httpResp)
+		return nil, err
+	}
+	return httpResp, nil
+}
+
+// removePrivateEndPointsCreateRequest creates the RemovePrivateEndPoints request.
+func (client *ArtifactStoresClient) removePrivateEndPointsCreateRequest(ctx context.Context, resourceGroupName string, publisherName string, artifactStoreName string, parameters ArtifactStorePrivateEndPointsFormat, options *ArtifactStoresClientBeginRemovePrivateEndPointsOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HybridNetwork/publishers/{publisherName}/artifactStores/{artifactStoreName}/removePrivateEndPoints"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if publisherName == "" {
+		return nil, errors.New("parameter publisherName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{publisherName}", url.PathEscape(publisherName))
+	if artifactStoreName == "" {
+		return nil, errors.New("parameter artifactStoreName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{artifactStoreName}", url.PathEscape(artifactStoreName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-04-15")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
 // Update - Update artifact store resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - publisherName - The name of the publisher.
 //   - artifactStoreName - The name of the artifact store.
@@ -400,7 +958,7 @@ func (client *ArtifactStoresClient) updateCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2024-04-15")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {

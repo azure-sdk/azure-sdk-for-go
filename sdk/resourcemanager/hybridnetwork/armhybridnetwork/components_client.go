@@ -46,7 +46,7 @@ func NewComponentsClient(subscriptionID string, credential azcore.TokenCredentia
 // Get - Gets information about the specified application instance resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - networkFunctionName - The name of the network function.
 //   - componentName - The name of the component.
@@ -97,7 +97,7 @@ func (client *ComponentsClient) getCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2024-04-15")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -114,7 +114,7 @@ func (client *ComponentsClient) getHandleResponse(resp *http.Response) (Componen
 
 // NewListByNetworkFunctionPager - Lists all the component resources in a network function.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-04-15
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - networkFunctionName - The name of the network function.
 //   - options - ComponentsClientListByNetworkFunctionOptions contains the optional parameters for the ComponentsClient.NewListByNetworkFunctionPager
@@ -162,7 +162,7 @@ func (client *ComponentsClient) listByNetworkFunctionCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2024-04-15")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

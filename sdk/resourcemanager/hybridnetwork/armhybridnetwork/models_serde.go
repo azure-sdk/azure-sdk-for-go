@@ -454,9 +454,126 @@ func (a *ArtifactStoreListResult) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type ArtifactStoreNetworkFabricControllerEndPoints.
+func (a ArtifactStoreNetworkFabricControllerEndPoints) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "networkFabricControllerIds", a.NetworkFabricControllerIDs)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ArtifactStoreNetworkFabricControllerEndPoints.
+func (a *ArtifactStoreNetworkFabricControllerEndPoints) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "networkFabricControllerIds":
+			err = unpopulate(val, "NetworkFabricControllerIDs", &a.NetworkFabricControllerIDs)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ArtifactStoreNetworkFabricControllerEndPointsList.
+func (a ArtifactStoreNetworkFabricControllerEndPointsList) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "nextLink", a.NextLink)
+	populate(objectMap, "value", a.Value)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ArtifactStoreNetworkFabricControllerEndPointsList.
+func (a *ArtifactStoreNetworkFabricControllerEndPointsList) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "nextLink":
+			err = unpopulate(val, "NextLink", &a.NextLink)
+			delete(rawMsg, key)
+		case "value":
+			err = unpopulate(val, "Value", &a.Value)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ArtifactStorePrivateEndPointsFormat.
+func (a ArtifactStorePrivateEndPointsFormat) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "manualPrivateEndPointConnections", a.ManualPrivateEndPointConnections)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ArtifactStorePrivateEndPointsFormat.
+func (a *ArtifactStorePrivateEndPointsFormat) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "manualPrivateEndPointConnections":
+			err = unpopulate(val, "ManualPrivateEndPointConnections", &a.ManualPrivateEndPointConnections)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ArtifactStorePrivateEndPointsListResult.
+func (a ArtifactStorePrivateEndPointsListResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "nextLink", a.NextLink)
+	populate(objectMap, "value", a.Value)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ArtifactStorePrivateEndPointsListResult.
+func (a *ArtifactStorePrivateEndPointsListResult) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "nextLink":
+			err = unpopulate(val, "NextLink", &a.NextLink)
+			delete(rawMsg, key)
+		case "value":
+			err = unpopulate(val, "Value", &a.Value)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type ArtifactStorePropertiesFormat.
 func (a ArtifactStorePropertiesFormat) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "backingResourcePublicNetworkAccess", a.BackingResourcePublicNetworkAccess)
 	populate(objectMap, "managedResourceGroupConfiguration", a.ManagedResourceGroupConfiguration)
 	populate(objectMap, "provisioningState", a.ProvisioningState)
 	populate(objectMap, "replicationStrategy", a.ReplicationStrategy)
@@ -474,6 +591,9 @@ func (a *ArtifactStorePropertiesFormat) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "backingResourcePublicNetworkAccess":
+			err = unpopulate(val, "BackingResourcePublicNetworkAccess", &a.BackingResourcePublicNetworkAccess)
+			delete(rawMsg, key)
 		case "managedResourceGroupConfiguration":
 			err = unpopulate(val, "ManagedResourceGroupConfiguration", &a.ManagedResourceGroupConfiguration)
 			delete(rawMsg, key)
@@ -4960,7 +5080,7 @@ func populate(m map[string]any, k string, v any) {
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {

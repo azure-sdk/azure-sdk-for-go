@@ -1,5 +1,24 @@
 # Release History
 
+## 2.1.0 (2024-09-12)
+### Features Added
+
+- New enum type `BackingResourcePublicNetworkAccess` with values `BackingResourcePublicNetworkAccessDisabled`, `BackingResourcePublicNetworkAccessEnabled`
+- New function `*ArtifactStoresClient.BeginAddNetworkFabricControllerEndPoints(context.Context, string, string, string, ArtifactStoreNetworkFabricControllerEndPoints, *ArtifactStoresClientBeginAddNetworkFabricControllerEndPointsOptions) (*runtime.Poller[ArtifactStoresClientAddNetworkFabricControllerEndPointsResponse], error)`
+- New function `*ArtifactStoresClient.BeginApprovePrivateEndPoints(context.Context, string, string, string, ArtifactStorePrivateEndPointsFormat, *ArtifactStoresClientBeginApprovePrivateEndPointsOptions) (*runtime.Poller[ArtifactStoresClientApprovePrivateEndPointsResponse], error)`
+- New function `*ArtifactStoresClient.BeginDeleteNetworkFabricControllerEndPoints(context.Context, string, string, string, ArtifactStoreNetworkFabricControllerEndPoints, *ArtifactStoresClientBeginDeleteNetworkFabricControllerEndPointsOptions) (*runtime.Poller[ArtifactStoresClientDeleteNetworkFabricControllerEndPointsResponse], error)`
+- New function `*ArtifactStoresClient.BeginListNetworkFabricControllerPrivateEndPoints(context.Context, string, string, string, *ArtifactStoresClientBeginListNetworkFabricControllerPrivateEndPointsOptions) (*runtime.Poller[*runtime.Pager[ArtifactStoresClientListNetworkFabricControllerPrivateEndPointsResponse]], error)`
+- New function `*ArtifactStoresClient.BeginListPrivateEndPoints(context.Context, string, string, string, *ArtifactStoresClientBeginListPrivateEndPointsOptions) (*runtime.Poller[*runtime.Pager[ArtifactStoresClientListPrivateEndPointsResponse]], error)`
+- New function `*ArtifactStoresClient.BeginRemovePrivateEndPoints(context.Context, string, string, string, ArtifactStorePrivateEndPointsFormat, *ArtifactStoresClientBeginRemovePrivateEndPointsOptions) (*runtime.Poller[ArtifactStoresClientRemovePrivateEndPointsResponse], error)`
+- New struct `ArtifactStoreNetworkFabricControllerEndPoints`
+- New struct `ArtifactStoreNetworkFabricControllerEndPointsList`
+- New struct `ArtifactStorePrivateEndPointsFormat`
+- New struct `ArtifactStorePrivateEndPointsListResult`
+- New struct `ArtifactStoresClientListNetworkFabricControllerPrivateEndPointsResponse`
+- New struct `ArtifactStoresClientListPrivateEndPointsResponse`
+- New field `BackingResourcePublicNetworkAccess` in struct `ArtifactStorePropertiesFormat`
+
+
 ## 2.0.0 (2023-11-24)
 ### Breaking Changes
 

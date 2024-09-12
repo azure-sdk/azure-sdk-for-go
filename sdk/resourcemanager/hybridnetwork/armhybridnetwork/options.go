@@ -51,6 +51,20 @@ type ArtifactManifestsClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ArtifactStoresClientBeginAddNetworkFabricControllerEndPointsOptions contains the optional parameters for the ArtifactStoresClient.BeginAddNetworkFabricControllerEndPoints
+// method.
+type ArtifactStoresClientBeginAddNetworkFabricControllerEndPointsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ArtifactStoresClientBeginApprovePrivateEndPointsOptions contains the optional parameters for the ArtifactStoresClient.BeginApprovePrivateEndPoints
+// method.
+type ArtifactStoresClientBeginApprovePrivateEndPointsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // ArtifactStoresClientBeginCreateOrUpdateOptions contains the optional parameters for the ArtifactStoresClient.BeginCreateOrUpdate
 // method.
 type ArtifactStoresClientBeginCreateOrUpdateOptions struct {
@@ -58,8 +72,36 @@ type ArtifactStoresClientBeginCreateOrUpdateOptions struct {
 	ResumeToken string
 }
 
+// ArtifactStoresClientBeginDeleteNetworkFabricControllerEndPointsOptions contains the optional parameters for the ArtifactStoresClient.BeginDeleteNetworkFabricControllerEndPoints
+// method.
+type ArtifactStoresClientBeginDeleteNetworkFabricControllerEndPointsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // ArtifactStoresClientBeginDeleteOptions contains the optional parameters for the ArtifactStoresClient.BeginDelete method.
 type ArtifactStoresClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ArtifactStoresClientBeginListNetworkFabricControllerPrivateEndPointsOptions contains the optional parameters for the ArtifactStoresClient.BeginListNetworkFabricControllerPrivateEndPoints
+// method.
+type ArtifactStoresClientBeginListNetworkFabricControllerPrivateEndPointsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ArtifactStoresClientBeginListPrivateEndPointsOptions contains the optional parameters for the ArtifactStoresClient.BeginListPrivateEndPoints
+// method.
+type ArtifactStoresClientBeginListPrivateEndPointsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ArtifactStoresClientBeginRemovePrivateEndPointsOptions contains the optional parameters for the ArtifactStoresClient.BeginRemovePrivateEndPoints
+// method.
+type ArtifactStoresClientBeginRemovePrivateEndPointsOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
