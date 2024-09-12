@@ -5822,6 +5822,7 @@ func (g *GalleryImage) UnmarshalJSON(data []byte) error {
 func (g GalleryImageFeature) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "name", g.Name)
+	populate(objectMap, "startsAtVersion", g.StartsAtVersion)
 	populate(objectMap, "value", g.Value)
 	return json.Marshal(objectMap)
 }
@@ -5837,6 +5838,9 @@ func (g *GalleryImageFeature) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "name":
 			err = unpopulate(val, "Name", &g.Name)
+			delete(rawMsg, key)
+		case "startsAtVersion":
+			err = unpopulate(val, "StartsAtVersion", &g.StartsAtVersion)
 			delete(rawMsg, key)
 		case "value":
 			err = unpopulate(val, "Value", &g.Value)
