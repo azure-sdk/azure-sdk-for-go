@@ -10,7 +10,7 @@ package armmachinelearning
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/machinelearning/armmachinelearning"
-	moduleVersion = "v4.0.0"
+	moduleVersion = "v5.0.0-beta.1"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -44,6 +44,24 @@ func PossibleAllocationStateValues() []AllocationState {
 	return []AllocationState{
 		AllocationStateResizing,
 		AllocationStateSteady,
+	}
+}
+
+// AllowedContentLevel - Level at which content is filtered.
+type AllowedContentLevel string
+
+const (
+	AllowedContentLevelHigh   AllowedContentLevel = "High"
+	AllowedContentLevelLow    AllowedContentLevel = "Low"
+	AllowedContentLevelMedium AllowedContentLevel = "Medium"
+)
+
+// PossibleAllowedContentLevelValues returns the possible values for the AllowedContentLevel const type.
+func PossibleAllowedContentLevelValues() []AllowedContentLevel {
+	return []AllowedContentLevel{
+		AllowedContentLevelHigh,
+		AllowedContentLevelLow,
+		AllowedContentLevelMedium,
 	}
 }
 
@@ -352,7 +370,7 @@ const (
 	// tf-idf may also work.
 	ClassificationModelsMultinomialNaiveBayes ClassificationModels = "MultinomialNaiveBayes"
 	// ClassificationModelsRandomForest - Random forest is a supervised learning algorithm.
-	// The "forest" it builds, is an ensemble of decision trees, usually trained with the “bagging” method.
+	// The "forest" it builds, is an ensemble of decision trees, usually trained with the "bagging" method.
 	// The general idea of the bagging method is that a combination of learning models increases the overall result.
 	ClassificationModelsRandomForest ClassificationModels = "RandomForest"
 	// ClassificationModelsSGD - SGD: Stochastic gradient descent is an optimization algorithm often used in machine learning
@@ -499,6 +517,7 @@ const (
 	ComputeInstanceStateCreating        ComputeInstanceState = "Creating"
 	ComputeInstanceStateDeleting        ComputeInstanceState = "Deleting"
 	ComputeInstanceStateJobRunning      ComputeInstanceState = "JobRunning"
+	ComputeInstanceStateResizing        ComputeInstanceState = "Resizing"
 	ComputeInstanceStateRestarting      ComputeInstanceState = "Restarting"
 	ComputeInstanceStateRunning         ComputeInstanceState = "Running"
 	ComputeInstanceStateSettingUp       ComputeInstanceState = "SettingUp"
@@ -519,6 +538,7 @@ func PossibleComputeInstanceStateValues() []ComputeInstanceState {
 		ComputeInstanceStateCreating,
 		ComputeInstanceStateDeleting,
 		ComputeInstanceStateJobRunning,
+		ComputeInstanceStateResizing,
 		ComputeInstanceStateRestarting,
 		ComputeInstanceStateRunning,
 		ComputeInstanceStateSettingUp,
@@ -533,7 +553,7 @@ func PossibleComputeInstanceStateValues() []ComputeInstanceState {
 	}
 }
 
-// ComputePowerAction - The compute power action.
+// ComputePowerAction - [Required] The compute power action.
 type ComputePowerAction string
 
 const (
@@ -576,7 +596,6 @@ func PossibleComputeRecurrenceFrequencyValues() []ComputeRecurrenceFrequency {
 	}
 }
 
-// ComputeTriggerType - Is the trigger type recurrence or cron.
 type ComputeTriggerType string
 
 const (
@@ -1102,6 +1121,55 @@ func PossibleDatastoreTypeValues() []DatastoreType {
 	}
 }
 
+type DefaultResourceProvisioningState string
+
+const (
+	DefaultResourceProvisioningStateAccepted   DefaultResourceProvisioningState = "Accepted"
+	DefaultResourceProvisioningStateCanceled   DefaultResourceProvisioningState = "Canceled"
+	DefaultResourceProvisioningStateCreating   DefaultResourceProvisioningState = "Creating"
+	DefaultResourceProvisioningStateDeleting   DefaultResourceProvisioningState = "Deleting"
+	DefaultResourceProvisioningStateDisabled   DefaultResourceProvisioningState = "Disabled"
+	DefaultResourceProvisioningStateFailed     DefaultResourceProvisioningState = "Failed"
+	DefaultResourceProvisioningStateNotStarted DefaultResourceProvisioningState = "NotStarted"
+	DefaultResourceProvisioningStateScaling    DefaultResourceProvisioningState = "Scaling"
+	DefaultResourceProvisioningStateSucceeded  DefaultResourceProvisioningState = "Succeeded"
+	DefaultResourceProvisioningStateUpdating   DefaultResourceProvisioningState = "Updating"
+)
+
+// PossibleDefaultResourceProvisioningStateValues returns the possible values for the DefaultResourceProvisioningState const type.
+func PossibleDefaultResourceProvisioningStateValues() []DefaultResourceProvisioningState {
+	return []DefaultResourceProvisioningState{
+		DefaultResourceProvisioningStateAccepted,
+		DefaultResourceProvisioningStateCanceled,
+		DefaultResourceProvisioningStateCreating,
+		DefaultResourceProvisioningStateDeleting,
+		DefaultResourceProvisioningStateDisabled,
+		DefaultResourceProvisioningStateFailed,
+		DefaultResourceProvisioningStateNotStarted,
+		DefaultResourceProvisioningStateScaling,
+		DefaultResourceProvisioningStateSucceeded,
+		DefaultResourceProvisioningStateUpdating,
+	}
+}
+
+// DeploymentModelVersionUpgradeOption - Deployment model version upgrade option.
+type DeploymentModelVersionUpgradeOption string
+
+const (
+	DeploymentModelVersionUpgradeOptionNoAutoUpgrade                  DeploymentModelVersionUpgradeOption = "NoAutoUpgrade"
+	DeploymentModelVersionUpgradeOptionOnceCurrentVersionExpired      DeploymentModelVersionUpgradeOption = "OnceCurrentVersionExpired"
+	DeploymentModelVersionUpgradeOptionOnceNewDefaultVersionAvailable DeploymentModelVersionUpgradeOption = "OnceNewDefaultVersionAvailable"
+)
+
+// PossibleDeploymentModelVersionUpgradeOptionValues returns the possible values for the DeploymentModelVersionUpgradeOption const type.
+func PossibleDeploymentModelVersionUpgradeOptionValues() []DeploymentModelVersionUpgradeOption {
+	return []DeploymentModelVersionUpgradeOption{
+		DeploymentModelVersionUpgradeOptionNoAutoUpgrade,
+		DeploymentModelVersionUpgradeOptionOnceCurrentVersionExpired,
+		DeploymentModelVersionUpgradeOptionOnceNewDefaultVersionAvailable,
+	}
+}
+
 // DeploymentProvisioningState - Possible values for DeploymentProvisioningState.
 type DeploymentProvisioningState string
 
@@ -1299,6 +1367,7 @@ const (
 	EndpointServiceConnectionStatusDisconnected EndpointServiceConnectionStatus = "Disconnected"
 	EndpointServiceConnectionStatusPending      EndpointServiceConnectionStatus = "Pending"
 	EndpointServiceConnectionStatusRejected     EndpointServiceConnectionStatus = "Rejected"
+	EndpointServiceConnectionStatusTimeout      EndpointServiceConnectionStatus = "Timeout"
 )
 
 // PossibleEndpointServiceConnectionStatusValues returns the possible values for the EndpointServiceConnectionStatus const type.
@@ -1308,6 +1377,31 @@ func PossibleEndpointServiceConnectionStatusValues() []EndpointServiceConnection
 		EndpointServiceConnectionStatusDisconnected,
 		EndpointServiceConnectionStatusPending,
 		EndpointServiceConnectionStatusRejected,
+		EndpointServiceConnectionStatusTimeout,
+	}
+}
+
+// EndpointType - Type of the endpoint.
+type EndpointType string
+
+const (
+	EndpointTypeAzureContentSafety    EndpointType = "Azure.ContentSafety"
+	EndpointTypeAzureLlama            EndpointType = "Azure.Llama"
+	EndpointTypeAzureOpenAI           EndpointType = "Azure.OpenAI"
+	EndpointTypeAzureSpeech           EndpointType = "Azure.Speech"
+	EndpointTypeManagedOnlineEndpoint EndpointType = "managedOnlineEndpoint"
+	EndpointTypeServerlessEndpoint    EndpointType = "serverlessEndpoint"
+)
+
+// PossibleEndpointTypeValues returns the possible values for the EndpointType const type.
+func PossibleEndpointTypeValues() []EndpointType {
+	return []EndpointType{
+		EndpointTypeAzureContentSafety,
+		EndpointTypeAzureLlama,
+		EndpointTypeAzureOpenAI,
+		EndpointTypeAzureSpeech,
+		EndpointTypeManagedOnlineEndpoint,
+		EndpointTypeServerlessEndpoint,
 	}
 }
 
@@ -1439,6 +1533,39 @@ func PossibleFeaturizationModeValues() []FeaturizationMode {
 	}
 }
 
+type FineTuningTaskType string
+
+const (
+	FineTuningTaskTypeChatCompletion            FineTuningTaskType = "ChatCompletion"
+	FineTuningTaskTypeImageClassification       FineTuningTaskType = "ImageClassification"
+	FineTuningTaskTypeImageInstanceSegmentation FineTuningTaskType = "ImageInstanceSegmentation"
+	FineTuningTaskTypeImageObjectDetection      FineTuningTaskType = "ImageObjectDetection"
+	FineTuningTaskTypeQuestionAnswering         FineTuningTaskType = "QuestionAnswering"
+	FineTuningTaskTypeTextClassification        FineTuningTaskType = "TextClassification"
+	FineTuningTaskTypeTextCompletion            FineTuningTaskType = "TextCompletion"
+	FineTuningTaskTypeTextSummarization         FineTuningTaskType = "TextSummarization"
+	FineTuningTaskTypeTextTranslation           FineTuningTaskType = "TextTranslation"
+	FineTuningTaskTypeTokenClassification       FineTuningTaskType = "TokenClassification"
+	FineTuningTaskTypeVideoMultiObjectTracking  FineTuningTaskType = "VideoMultiObjectTracking"
+)
+
+// PossibleFineTuningTaskTypeValues returns the possible values for the FineTuningTaskType const type.
+func PossibleFineTuningTaskTypeValues() []FineTuningTaskType {
+	return []FineTuningTaskType{
+		FineTuningTaskTypeChatCompletion,
+		FineTuningTaskTypeImageClassification,
+		FineTuningTaskTypeImageInstanceSegmentation,
+		FineTuningTaskTypeImageObjectDetection,
+		FineTuningTaskTypeQuestionAnswering,
+		FineTuningTaskTypeTextClassification,
+		FineTuningTaskTypeTextCompletion,
+		FineTuningTaskTypeTextSummarization,
+		FineTuningTaskTypeTextTranslation,
+		FineTuningTaskTypeTokenClassification,
+		FineTuningTaskTypeVideoMultiObjectTracking,
+	}
+}
+
 // ForecastHorizonMode - Enum to determine forecast horizon selection mode.
 type ForecastHorizonMode string
 
@@ -1508,7 +1635,7 @@ const (
 	// to missing data and shifts in the trend, and typically handles outliers well.
 	ForecastingModelsProphet ForecastingModels = "Prophet"
 	// ForecastingModelsRandomForest - Random forest is a supervised learning algorithm.
-	// The "forest" it builds, is an ensemble of decision trees, usually trained with the “bagging” method.
+	// The "forest" it builds, is an ensemble of decision trees, usually trained with the "bagging" method.
 	// The general idea of the bagging method is that a combination of learning models increases the overall result.
 	ForecastingModelsRandomForest ForecastingModels = "RandomForest"
 	// ForecastingModelsSGD - SGD: Stochastic gradient descent is an optimization algorithm often used in machine learning applications
@@ -1616,7 +1743,8 @@ func PossibleIdentityConfigurationTypeValues() []IdentityConfigurationType {
 	}
 }
 
-// ImageType - Type of the image. Possible values are: docker - For docker images. azureml - For AzureML images
+// ImageType - Type of the image. Possible values are: docker - For docker images. azureml - For AzureML Environment images
+// (custom and curated)
 type ImageType string
 
 const (
@@ -1840,11 +1968,12 @@ func PossibleJobTierValues() []JobTier {
 type JobType string
 
 const (
-	JobTypeAutoML   JobType = "AutoML"
-	JobTypeCommand  JobType = "Command"
-	JobTypePipeline JobType = "Pipeline"
-	JobTypeSpark    JobType = "Spark"
-	JobTypeSweep    JobType = "Sweep"
+	JobTypeAutoML     JobType = "AutoML"
+	JobTypeCommand    JobType = "Command"
+	JobTypeFineTuning JobType = "FineTuning"
+	JobTypePipeline   JobType = "Pipeline"
+	JobTypeSpark      JobType = "Spark"
+	JobTypeSweep      JobType = "Sweep"
 )
 
 // PossibleJobTypeValues returns the possible values for the JobType const type.
@@ -1852,6 +1981,7 @@ func PossibleJobTypeValues() []JobType {
 	return []JobType{
 		JobTypeAutoML,
 		JobTypeCommand,
+		JobTypeFineTuning,
 		JobTypePipeline,
 		JobTypeSpark,
 		JobTypeSweep,
@@ -1973,6 +2103,40 @@ func PossibleManagedNetworkStatusValues() []ManagedNetworkStatus {
 	}
 }
 
+type ManagedPERequirement string
+
+const (
+	ManagedPERequirementNotApplicable ManagedPERequirement = "NotApplicable"
+	ManagedPERequirementNotRequired   ManagedPERequirement = "NotRequired"
+	ManagedPERequirementRequired      ManagedPERequirement = "Required"
+)
+
+// PossibleManagedPERequirementValues returns the possible values for the ManagedPERequirement const type.
+func PossibleManagedPERequirementValues() []ManagedPERequirement {
+	return []ManagedPERequirement{
+		ManagedPERequirementNotApplicable,
+		ManagedPERequirementNotRequired,
+		ManagedPERequirementRequired,
+	}
+}
+
+type ManagedPEStatus string
+
+const (
+	ManagedPEStatusActive        ManagedPEStatus = "Active"
+	ManagedPEStatusInactive      ManagedPEStatus = "Inactive"
+	ManagedPEStatusNotApplicable ManagedPEStatus = "NotApplicable"
+)
+
+// PossibleManagedPEStatusValues returns the possible values for the ManagedPEStatus const type.
+func PossibleManagedPEStatusValues() []ManagedPEStatus {
+	return []ManagedPEStatus{
+		ManagedPEStatusActive,
+		ManagedPEStatusInactive,
+		ManagedPEStatusNotApplicable,
+	}
+}
+
 // ManagedServiceIdentityType - Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
 type ManagedServiceIdentityType string
 
@@ -2062,6 +2226,56 @@ func PossibleMaterializationStoreTypeValues() []MaterializationStoreType {
 		MaterializationStoreTypeOffline,
 		MaterializationStoreTypeOnline,
 		MaterializationStoreTypeOnlineAndOffline,
+	}
+}
+
+// MlflowAutologger - Indicates whether mlflow autologger is enabled for notebooks.
+type MlflowAutologger string
+
+const (
+	MlflowAutologgerDisabled MlflowAutologger = "Disabled"
+	MlflowAutologgerEnabled  MlflowAutologger = "Enabled"
+)
+
+// PossibleMlflowAutologgerValues returns the possible values for the MlflowAutologger const type.
+func PossibleMlflowAutologgerValues() []MlflowAutologger {
+	return []MlflowAutologger{
+		MlflowAutologgerDisabled,
+		MlflowAutologgerEnabled,
+	}
+}
+
+// ModelLifecycleStatus - Model lifecycle status.
+type ModelLifecycleStatus string
+
+const (
+	ModelLifecycleStatusGenerallyAvailable ModelLifecycleStatus = "GenerallyAvailable"
+	ModelLifecycleStatusPreview            ModelLifecycleStatus = "Preview"
+)
+
+// PossibleModelLifecycleStatusValues returns the possible values for the ModelLifecycleStatus const type.
+func PossibleModelLifecycleStatusValues() []ModelLifecycleStatus {
+	return []ModelLifecycleStatus{
+		ModelLifecycleStatusGenerallyAvailable,
+		ModelLifecycleStatusPreview,
+	}
+}
+
+// ModelProvider - Enum to determine the type of fine tuning.
+type ModelProvider string
+
+const (
+	// ModelProviderAzureOpenAI - Fine tuning using Azure Open AI model.
+	ModelProviderAzureOpenAI ModelProvider = "AzureOpenAI"
+	// ModelProviderCustom - Fine tuning using custom model.
+	ModelProviderCustom ModelProvider = "Custom"
+)
+
+// PossibleModelProviderValues returns the possible values for the ModelProvider const type.
+func PossibleModelProviderValues() []ModelProvider {
+	return []ModelProvider{
+		ModelProviderAzureOpenAI,
+		ModelProviderCustom,
 	}
 }
 
@@ -2258,6 +2472,22 @@ func PossibleMountActionValues() []MountAction {
 	}
 }
 
+// MountMode - Mount Mode.
+type MountMode string
+
+const (
+	MountModeReadOnly  MountMode = "ReadOnly"
+	MountModeReadWrite MountMode = "ReadWrite"
+)
+
+// PossibleMountModeValues returns the possible values for the MountMode const type.
+func PossibleMountModeValues() []MountMode {
+	return []MountMode{
+		MountModeReadOnly,
+		MountModeReadWrite,
+	}
+}
+
 // MountState - Mount state.
 type MountState string
 
@@ -2364,7 +2594,7 @@ const (
 	NumericalDataDriftMetricNormalizedWassersteinDistance NumericalDataDriftMetric = "NormalizedWassersteinDistance"
 	// NumericalDataDriftMetricPopulationStabilityIndex - The Population Stability Index (PSI) metric.
 	NumericalDataDriftMetricPopulationStabilityIndex NumericalDataDriftMetric = "PopulationStabilityIndex"
-	// NumericalDataDriftMetricTwoSampleKolmogorovSmirnovTest - The Two Sample Kolmogorov-Smirnov Test (two-sample K–S) metric.
+	// NumericalDataDriftMetricTwoSampleKolmogorovSmirnovTest - The Two Sample Kolmogorov-Smirnov Test (two-sample Kâ€“S) metric.
 	NumericalDataDriftMetricTwoSampleKolmogorovSmirnovTest NumericalDataDriftMetric = "TwoSampleKolmogorovSmirnovTest"
 )
 
@@ -2407,7 +2637,7 @@ const (
 	NumericalPredictionDriftMetricNormalizedWassersteinDistance NumericalPredictionDriftMetric = "NormalizedWassersteinDistance"
 	// NumericalPredictionDriftMetricPopulationStabilityIndex - The Population Stability Index (PSI) metric.
 	NumericalPredictionDriftMetricPopulationStabilityIndex NumericalPredictionDriftMetric = "PopulationStabilityIndex"
-	// NumericalPredictionDriftMetricTwoSampleKolmogorovSmirnovTest - The Two Sample Kolmogorov-Smirnov Test (two-sample K–S)
+	// NumericalPredictionDriftMetricTwoSampleKolmogorovSmirnovTest - The Two Sample Kolmogorov-Smirnov Test (two-sample Kâ€“S)
 	// metric.
 	NumericalPredictionDriftMetricTwoSampleKolmogorovSmirnovTest NumericalPredictionDriftMetric = "TwoSampleKolmogorovSmirnovTest"
 )
@@ -2475,6 +2705,7 @@ const (
 	OperationNameCreate  OperationName = "Create"
 	OperationNameDelete  OperationName = "Delete"
 	OperationNameReimage OperationName = "Reimage"
+	OperationNameResize  OperationName = "Resize"
 	OperationNameRestart OperationName = "Restart"
 	OperationNameStart   OperationName = "Start"
 	OperationNameStop    OperationName = "Stop"
@@ -2486,6 +2717,7 @@ func PossibleOperationNameValues() []OperationName {
 		OperationNameCreate,
 		OperationNameDelete,
 		OperationNameReimage,
+		OperationNameResize,
 		OperationNameRestart,
 		OperationNameStart,
 		OperationNameStop,
@@ -2500,6 +2732,7 @@ const (
 	OperationStatusDeleteFailed  OperationStatus = "DeleteFailed"
 	OperationStatusInProgress    OperationStatus = "InProgress"
 	OperationStatusReimageFailed OperationStatus = "ReimageFailed"
+	OperationStatusResizeFailed  OperationStatus = "ResizeFailed"
 	OperationStatusRestartFailed OperationStatus = "RestartFailed"
 	OperationStatusStartFailed   OperationStatus = "StartFailed"
 	OperationStatusStopFailed    OperationStatus = "StopFailed"
@@ -2513,6 +2746,7 @@ func PossibleOperationStatusValues() []OperationStatus {
 		OperationStatusDeleteFailed,
 		OperationStatusInProgress,
 		OperationStatusReimageFailed,
+		OperationStatusResizeFailed,
 		OperationStatusRestartFailed,
 		OperationStatusStartFailed,
 		OperationStatusStopFailed,
@@ -2610,6 +2844,28 @@ func PossibleOutputDeliveryModeValues() []OutputDeliveryMode {
 	}
 }
 
+// PatchStatus - The os patching status.
+type PatchStatus string
+
+const (
+	PatchStatusCompletedWithWarnings PatchStatus = "CompletedWithWarnings"
+	PatchStatusFailed                PatchStatus = "Failed"
+	PatchStatusInProgress            PatchStatus = "InProgress"
+	PatchStatusSucceeded             PatchStatus = "Succeeded"
+	PatchStatusUnknown               PatchStatus = "Unknown"
+)
+
+// PossiblePatchStatusValues returns the possible values for the PatchStatus const type.
+func PossiblePatchStatusValues() []PatchStatus {
+	return []PatchStatus{
+		PatchStatusCompletedWithWarnings,
+		PatchStatusFailed,
+		PatchStatusInProgress,
+		PatchStatusSucceeded,
+		PatchStatusUnknown,
+	}
+}
+
 // PendingUploadCredentialType - Enum to determine the PendingUpload credentials type.
 type PendingUploadCredentialType string
 
@@ -2660,28 +2916,6 @@ func PossiblePrivateEndpointConnectionProvisioningStateValues() []PrivateEndpoin
 	}
 }
 
-// PrivateEndpointServiceConnectionStatus - The private endpoint connection status.
-type PrivateEndpointServiceConnectionStatus string
-
-const (
-	PrivateEndpointServiceConnectionStatusApproved     PrivateEndpointServiceConnectionStatus = "Approved"
-	PrivateEndpointServiceConnectionStatusDisconnected PrivateEndpointServiceConnectionStatus = "Disconnected"
-	PrivateEndpointServiceConnectionStatusPending      PrivateEndpointServiceConnectionStatus = "Pending"
-	PrivateEndpointServiceConnectionStatusRejected     PrivateEndpointServiceConnectionStatus = "Rejected"
-	PrivateEndpointServiceConnectionStatusTimeout      PrivateEndpointServiceConnectionStatus = "Timeout"
-)
-
-// PossiblePrivateEndpointServiceConnectionStatusValues returns the possible values for the PrivateEndpointServiceConnectionStatus const type.
-func PossiblePrivateEndpointServiceConnectionStatusValues() []PrivateEndpointServiceConnectionStatus {
-	return []PrivateEndpointServiceConnectionStatus{
-		PrivateEndpointServiceConnectionStatusApproved,
-		PrivateEndpointServiceConnectionStatusDisconnected,
-		PrivateEndpointServiceConnectionStatusPending,
-		PrivateEndpointServiceConnectionStatusRejected,
-		PrivateEndpointServiceConnectionStatusTimeout,
-	}
-}
-
 // Protocol - Protocol over which communication will happen over this endpoint
 type Protocol string
 
@@ -2700,8 +2934,8 @@ func PossibleProtocolValues() []Protocol {
 	}
 }
 
-// ProvisioningState - The current deployment state of workspace resource. The provisioningState is to indicate states for
-// resource provisioning.
+// ProvisioningState - The provision state of the cluster. Valid values are Unknown, Updating, Provisioning, Succeeded, and
+// Failed.
 type ProvisioningState string
 
 const (
@@ -2745,22 +2979,6 @@ func PossibleProvisioningStatusValues() []ProvisioningStatus {
 	}
 }
 
-// PublicNetworkAccess - Whether requests from Public Network are allowed.
-type PublicNetworkAccess string
-
-const (
-	PublicNetworkAccessDisabled PublicNetworkAccess = "Disabled"
-	PublicNetworkAccessEnabled  PublicNetworkAccess = "Enabled"
-)
-
-// PossiblePublicNetworkAccessValues returns the possible values for the PublicNetworkAccess const type.
-func PossiblePublicNetworkAccessValues() []PublicNetworkAccess {
-	return []PublicNetworkAccess{
-		PublicNetworkAccessDisabled,
-		PublicNetworkAccessEnabled,
-	}
-}
-
 // PublicNetworkAccessType - Enum to determine whether PublicNetworkAccess is Enabled or Disabled.
 type PublicNetworkAccessType string
 
@@ -2788,6 +3006,56 @@ const (
 func PossibleQuotaUnitValues() []QuotaUnit {
 	return []QuotaUnit{
 		QuotaUnitCount,
+	}
+}
+
+// RaiPolicyContentSource - Content source to apply the Content Filters.
+type RaiPolicyContentSource string
+
+const (
+	RaiPolicyContentSourceCompletion RaiPolicyContentSource = "Completion"
+	RaiPolicyContentSourcePrompt     RaiPolicyContentSource = "Prompt"
+)
+
+// PossibleRaiPolicyContentSourceValues returns the possible values for the RaiPolicyContentSource const type.
+func PossibleRaiPolicyContentSourceValues() []RaiPolicyContentSource {
+	return []RaiPolicyContentSource{
+		RaiPolicyContentSourceCompletion,
+		RaiPolicyContentSourcePrompt,
+	}
+}
+
+// RaiPolicyMode - Content Filters mode.
+type RaiPolicyMode string
+
+const (
+	RaiPolicyModeBlocking RaiPolicyMode = "Blocking"
+	RaiPolicyModeDefault  RaiPolicyMode = "Default"
+	RaiPolicyModeDeferred RaiPolicyMode = "Deferred"
+)
+
+// PossibleRaiPolicyModeValues returns the possible values for the RaiPolicyMode const type.
+func PossibleRaiPolicyModeValues() []RaiPolicyMode {
+	return []RaiPolicyMode{
+		RaiPolicyModeBlocking,
+		RaiPolicyModeDefault,
+		RaiPolicyModeDeferred,
+	}
+}
+
+// RaiPolicyType - Content Filters policy type.
+type RaiPolicyType string
+
+const (
+	RaiPolicyTypeSystemManaged RaiPolicyType = "SystemManaged"
+	RaiPolicyTypeUserManaged   RaiPolicyType = "UserManaged"
+)
+
+// PossibleRaiPolicyTypeValues returns the possible values for the RaiPolicyType const type.
+func PossibleRaiPolicyTypeValues() []RaiPolicyType {
+	return []RaiPolicyType{
+		RaiPolicyTypeSystemManaged,
+		RaiPolicyTypeUserManaged,
 	}
 }
 
@@ -2880,7 +3148,7 @@ const (
 	// RegressionModelsLightGBM - LightGBM is a gradient boosting framework that uses tree based learning algorithms.
 	RegressionModelsLightGBM RegressionModels = "LightGBM"
 	// RegressionModelsRandomForest - Random forest is a supervised learning algorithm.
-	// The "forest" it builds, is an ensemble of decision trees, usually trained with the “bagging” method.
+	// The "forest" it builds, is an ensemble of decision trees, usually trained with the "bagging" method.
 	// The general idea of the bagging method is that a combination of learning models increases the overall result.
 	RegressionModelsRandomForest RegressionModels = "RandomForest"
 	// RegressionModelsSGD - SGD: Stochastic gradient descent is an optimization algorithm often used in machine learning applications
@@ -3328,6 +3596,21 @@ const (
 func PossibleServerlessInferenceEndpointAuthModeValues() []ServerlessInferenceEndpointAuthMode {
 	return []ServerlessInferenceEndpointAuthMode{
 		ServerlessInferenceEndpointAuthModeKey,
+	}
+}
+
+type ServiceAccountKeyName string
+
+const (
+	ServiceAccountKeyNameKey1 ServiceAccountKeyName = "Key1"
+	ServiceAccountKeyNameKey2 ServiceAccountKeyName = "Key2"
+)
+
+// PossibleServiceAccountKeyNameValues returns the possible values for the ServiceAccountKeyName const type.
+func PossibleServiceAccountKeyNameValues() []ServiceAccountKeyName {
+	return []ServiceAccountKeyName{
+		ServiceAccountKeyNameKey1,
+		ServiceAccountKeyNameKey2,
 	}
 }
 
@@ -3783,20 +4066,6 @@ func PossibleValidationMetricTypeValues() []ValidationMetricType {
 		ValidationMetricTypeCocoVoc,
 		ValidationMetricTypeNone,
 		ValidationMetricTypeVoc,
-	}
-}
-
-// ValueFormat - format for the workspace connection value
-type ValueFormat string
-
-const (
-	ValueFormatJSON ValueFormat = "JSON"
-)
-
-// PossibleValueFormatValues returns the possible values for the ValueFormat const type.
-func PossibleValueFormatValues() []ValueFormat {
-	return []ValueFormat{
-		ValueFormatJSON,
 	}
 }
 
