@@ -6,7 +6,7 @@ package armcomputefleet
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/computefleet/armcomputefleet"
-	moduleVersion = "v0.1.0"
+	moduleVersion = "v0.2.0"
 )
 
 // ActionType - Extensible enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -395,14 +395,14 @@ func PossibleModeValues() []Mode {
 type NetworkAPIVersion string
 
 const (
-	// NetworkAPIVersion20201101 - Initial version supported. Later versions are supported as well.
-	NetworkAPIVersion20201101 NetworkAPIVersion = "2020-11-01"
+	// NetworkAPIVersionV20201101 - Initial version supported. Later versions are supported as well.
+	NetworkAPIVersionV20201101 NetworkAPIVersion = "2020-11-01"
 )
 
 // PossibleNetworkAPIVersionValues returns the possible values for the NetworkAPIVersion const type.
 func PossibleNetworkAPIVersionValues() []NetworkAPIVersion {
 	return []NetworkAPIVersion{
-		NetworkAPIVersion20201101,
+		NetworkAPIVersionV20201101,
 	}
 }
 
@@ -525,12 +525,8 @@ const (
 	ProvisioningStateCanceled ProvisioningState = "Canceled"
 	// ProvisioningStateCreating - Initial creation in progress.
 	ProvisioningStateCreating ProvisioningState = "Creating"
-	// ProvisioningStateDeleting - Deletion in progress.
-	ProvisioningStateDeleting ProvisioningState = "Deleting"
 	// ProvisioningStateFailed - Resource creation failed.
 	ProvisioningStateFailed ProvisioningState = "Failed"
-	// ProvisioningStateMigrating - Resource is being migrated from one subscription or resource group to another.
-	ProvisioningStateMigrating ProvisioningState = "Migrating"
 	// ProvisioningStateSucceeded - Resource has been created.
 	ProvisioningStateSucceeded ProvisioningState = "Succeeded"
 	// ProvisioningStateUpdating - Update in progress.
@@ -542,9 +538,7 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 	return []ProvisioningState{
 		ProvisioningStateCanceled,
 		ProvisioningStateCreating,
-		ProvisioningStateDeleting,
 		ProvisioningStateFailed,
-		ProvisioningStateMigrating,
 		ProvisioningStateSucceeded,
 		ProvisioningStateUpdating,
 	}
