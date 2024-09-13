@@ -10,18 +10,16 @@ package armstandbypool
 
 import "time"
 
+// ContainerGroupInstanceCountSummary - Displays the counts of container groups in each state, as known by the StandbyPool
+// resource provider.
+type ContainerGroupInstanceCountSummary struct {
+	// REQUIRED; The count of pooled resources in each state.
+	InstanceCountsByState []*PoolResourceStateCount
+}
+
 // ContainerGroupProfile - Details of the ContainerGroupProfile.
 type ContainerGroupProfile struct {
 	// REQUIRED; Specifies container group profile id of standby container groups.
-	ID *string
-
-	// Specifies revision of container group profile.
-	Revision *int64
-}
-
-// ContainerGroupProfileUpdate - Details of the ContainerGroupProfile.
-type ContainerGroupProfileUpdate struct {
-	// Specifies container group profile id of standby container groups.
 	ID *string
 
 	// Specifies revision of container group profile.
@@ -32,15 +30,6 @@ type ContainerGroupProfileUpdate struct {
 type ContainerGroupProperties struct {
 	// REQUIRED; Specifies container group profile of standby container groups.
 	ContainerGroupProfile *ContainerGroupProfile
-
-	// Specifies subnet Ids for container group.
-	SubnetIDs []*Subnet
-}
-
-// ContainerGroupPropertiesUpdate - Details of the ContainerGroupProperties.
-type ContainerGroupPropertiesUpdate struct {
-	// Specifies container group profile of standby container groups.
-	ContainerGroupProfile *ContainerGroupProfileUpdate
 
 	// Specifies subnet Ids for container group.
 	SubnetIDs []*Subnet
@@ -95,18 +84,18 @@ type OperationListResult struct {
 	Value []*Operation
 }
 
+// PoolResourceStateCount - Displays the counts of pooled resources in each state, as known by the StandbyPool resource provider.
+type PoolResourceStateCount struct {
+	// REQUIRED; The count of pooled resources in the given state.
+	Count *int64
+
+	// REQUIRED; The state that the pooled resources count is for.
+	State *string
+}
+
 // StandbyContainerGroupPoolElasticityProfile - Specifies the elasticity profile of the standby container group pools.
 type StandbyContainerGroupPoolElasticityProfile struct {
 	// REQUIRED; Specifies maximum number of standby container groups in the standby pool.
-	MaxReadyCapacity *int64
-
-	// Specifies refill policy of the pool.
-	RefillPolicy *RefillPolicy
-}
-
-// StandbyContainerGroupPoolElasticityProfileUpdate - Specifies the elasticity profile of the standby container group pools.
-type StandbyContainerGroupPoolElasticityProfileUpdate struct {
-	// Specifies maximum number of standby container groups in the standby pool.
 	MaxReadyCapacity *int64
 
 	// Specifies refill policy of the pool.
@@ -142,7 +131,7 @@ type StandbyContainerGroupPoolResourceListResult struct {
 	// REQUIRED; The StandbyContainerGroupPoolResource items on this page
 	Value []*StandbyContainerGroupPoolResource
 
-	// READ-ONLY; The link to the next page of items
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -160,7 +149,7 @@ type StandbyContainerGroupPoolResourceProperties struct {
 
 // StandbyContainerGroupPoolResourceUpdate - The type used for update operations of the StandbyContainerGroupPoolResource.
 type StandbyContainerGroupPoolResourceUpdate struct {
-	// The updatable properties of the StandbyContainerGroupPoolResource.
+	// The resource-specific properties for this resource.
 	Properties *StandbyContainerGroupPoolResourceUpdateProperties
 
 	// Resource tags.
@@ -170,22 +159,60 @@ type StandbyContainerGroupPoolResourceUpdate struct {
 // StandbyContainerGroupPoolResourceUpdateProperties - The updatable properties of the StandbyContainerGroupPoolResource.
 type StandbyContainerGroupPoolResourceUpdateProperties struct {
 	// Specifies container group properties of standby container group pools.
-	ContainerGroupProperties *ContainerGroupPropertiesUpdate
+	ContainerGroupProperties *ContainerGroupProperties
 
 	// Specifies elasticity profile of standby container group pools.
-	ElasticityProfile *StandbyContainerGroupPoolElasticityProfileUpdate
+	ElasticityProfile *StandbyContainerGroupPoolElasticityProfile
+}
+
+// StandbyContainerGroupPoolRuntimeViewResource - Contains information about a standby container group pool as last known
+// by the StandbyPool resource provider.
+type StandbyContainerGroupPoolRuntimeViewResource struct {
+	// The resource-specific properties for this resource.
+	Properties *StandbyContainerGroupPoolRuntimeViewResourceProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// StandbyContainerGroupPoolRuntimeViewResourceListResult - The response of a StandbyContainerGroupPoolRuntimeViewResource
+// list operation.
+type StandbyContainerGroupPoolRuntimeViewResourceListResult struct {
+	// REQUIRED; The StandbyContainerGroupPoolRuntimeViewResource items on this page
+	Value []*StandbyContainerGroupPoolRuntimeViewResource
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// StandbyContainerGroupPoolRuntimeViewResourceProperties - Contains information about a standby pool as last known by the
+// StandbyPool resource provider.
+type StandbyContainerGroupPoolRuntimeViewResourceProperties struct {
+	// READ-ONLY; A list containing the counts of container groups in each possible state, as known by the StandbyPool resource
+	// provider.
+	InstanceCountSummary []*ContainerGroupInstanceCountSummary
+
+	// READ-ONLY; Displays the provisioning state of the standby pool
+	ProvisioningState *ProvisioningState
 }
 
 // StandbyVirtualMachinePoolElasticityProfile - Details of the elasticity profile.
 type StandbyVirtualMachinePoolElasticityProfile struct {
 	// REQUIRED; Specifies the maximum number of virtual machines in the standby virtual machine pool.
 	MaxReadyCapacity *int64
-}
 
-// StandbyVirtualMachinePoolElasticityProfileUpdate - Details of the elasticity profile.
-type StandbyVirtualMachinePoolElasticityProfileUpdate struct {
-	// Specifies the maximum number of virtual machines in the standby virtual machine pool.
-	MaxReadyCapacity *int64
+	// Specifies the desired minimum number of virtual machines in the standby virtual machine pool. MinReadyCapacity cannot exceed
+	// MaxReadyCapacity.
+	MinReadyCapacity *int64
 }
 
 // StandbyVirtualMachinePoolResource - A StandbyVirtualMachinePoolResource.
@@ -217,7 +244,7 @@ type StandbyVirtualMachinePoolResourceListResult struct {
 	// REQUIRED; The StandbyVirtualMachinePoolResource items on this page
 	Value []*StandbyVirtualMachinePoolResource
 
-	// READ-ONLY; The link to the next page of items
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -238,7 +265,7 @@ type StandbyVirtualMachinePoolResourceProperties struct {
 
 // StandbyVirtualMachinePoolResourceUpdate - The type used for update operations of the StandbyVirtualMachinePoolResource.
 type StandbyVirtualMachinePoolResourceUpdate struct {
-	// The updatable properties of the StandbyVirtualMachinePoolResource.
+	// The resource-specific properties for this resource.
 	Properties *StandbyVirtualMachinePoolResourceUpdateProperties
 
 	// Resource tags.
@@ -251,10 +278,53 @@ type StandbyVirtualMachinePoolResourceUpdateProperties struct {
 	AttachedVirtualMachineScaleSetID *string
 
 	// Specifies the elasticity profile of the standby virtual machine pools.
-	ElasticityProfile *StandbyVirtualMachinePoolElasticityProfileUpdate
+	ElasticityProfile *StandbyVirtualMachinePoolElasticityProfile
 
 	// Specifies the desired state of virtual machines in the pool.
 	VirtualMachineState *VirtualMachineState
+}
+
+// StandbyVirtualMachinePoolRuntimeViewResource - Contains information about a standby virtual machine pool as last known
+// by the StandbyPool resource provider.
+type StandbyVirtualMachinePoolRuntimeViewResource struct {
+	// The resource-specific properties for this resource.
+	Properties *StandbyVirtualMachinePoolRuntimeViewResourceProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// StandbyVirtualMachinePoolRuntimeViewResourceListResult - The response of a StandbyVirtualMachinePoolRuntimeViewResource
+// list operation.
+type StandbyVirtualMachinePoolRuntimeViewResourceListResult struct {
+	// REQUIRED; The StandbyVirtualMachinePoolRuntimeViewResource items on this page
+	Value []*StandbyVirtualMachinePoolRuntimeViewResource
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// StandbyVirtualMachinePoolRuntimeViewResourceProperties - Contains information about a standby pool as last known by the
+// StandbyPool resource provider.
+type StandbyVirtualMachinePoolRuntimeViewResourceProperties struct {
+	// READ-ONLY; A list containing the counts of virtual machines in each possible power state for each zone if enabled, as known
+	// by the StandbyPool resource provider. If zones are not enabled on the attached VMSS,
+	// the list will contain a single entry with null zone values. Note: any updates to pool resources outside of StandbyPoolRP
+	// (i.e deleting a VM through portal) are not reflected here. Note: any resources
+	// in the Running state may still be installing extensions / not fully provisioned.
+	InstanceCountSummary []*VirtualMachineInstanceCountSummary
+
+	// READ-ONLY; Displays the provisioning state of the standby pool
+	ProvisioningState *ProvisioningState
 }
 
 // StandbyVirtualMachineResource - Concrete proxy resource types can be created by aliasing this type using a specific property
@@ -281,7 +351,7 @@ type StandbyVirtualMachineResourceListResult struct {
 	// REQUIRED; The StandbyVirtualMachineResource items on this page
 	Value []*StandbyVirtualMachineResource
 
-	// READ-ONLY; The link to the next page of items
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -319,4 +389,16 @@ type SystemData struct {
 
 	// The type of identity that last modified the resource.
 	LastModifiedByType *CreatedByType
+}
+
+// VirtualMachineInstanceCountSummary - Contains the counts of VMs in each power state in a given zone, fault domain, as known
+// by the StandbyPool resource provider. Note: any updates to pool resources outside of StandbyPoolRP (i.e deleting
+// a VM through portal) are not reflected here. Note: any resources in the Running state may still be installing extensions
+// / not fully provisioned.
+type VirtualMachineInstanceCountSummary struct {
+	// REQUIRED; The count of pooled resources in each state for the given zone.
+	InstanceCountsByState []*PoolResourceStateCount
+
+	// The zone that the provided counts are in. This is null if zones are not enabled on the attached VMSS.
+	Zone *int64
 }
