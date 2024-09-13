@@ -66,53 +66,6 @@ type AccountConnectorsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AdaptiveApplicationControlsClientDeleteOptions contains the optional parameters for the AdaptiveApplicationControlsClient.Delete
-// method.
-type AdaptiveApplicationControlsClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
-// AdaptiveApplicationControlsClientGetOptions contains the optional parameters for the AdaptiveApplicationControlsClient.Get
-// method.
-type AdaptiveApplicationControlsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// AdaptiveApplicationControlsClientListOptions contains the optional parameters for the AdaptiveApplicationControlsClient.List
-// method.
-type AdaptiveApplicationControlsClientListOptions struct {
-	// Include the policy rules
-	IncludePathRecommendations *bool
-
-	// Return output in a summarized form
-	Summary *bool
-}
-
-// AdaptiveApplicationControlsClientPutOptions contains the optional parameters for the AdaptiveApplicationControlsClient.Put
-// method.
-type AdaptiveApplicationControlsClientPutOptions struct {
-	// placeholder for future optional parameters
-}
-
-// AdaptiveNetworkHardeningsClientBeginEnforceOptions contains the optional parameters for the AdaptiveNetworkHardeningsClient.BeginEnforce
-// method.
-type AdaptiveNetworkHardeningsClientBeginEnforceOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// AdaptiveNetworkHardeningsClientGetOptions contains the optional parameters for the AdaptiveNetworkHardeningsClient.Get
-// method.
-type AdaptiveNetworkHardeningsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// AdaptiveNetworkHardeningsClientListByExtendedResourceOptions contains the optional parameters for the AdaptiveNetworkHardeningsClient.NewListByExtendedResourcePager
-// method.
-type AdaptiveNetworkHardeningsClientListByExtendedResourceOptions struct {
-	// placeholder for future optional parameters
-}
-
 // AdvancedThreatProtectionClientCreateOptions contains the optional parameters for the AdvancedThreatProtectionClient.Create
 // method.
 type AdvancedThreatProtectionClientCreateOptions struct {
@@ -608,6 +561,28 @@ type CustomEntityStoreAssignmentsClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
 }
 
+// CustomRecommendationsClientCreateOrUpdateOptions contains the optional parameters for the CustomRecommendationsClient.CreateOrUpdate
+// method.
+type CustomRecommendationsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// CustomRecommendationsClientDeleteOptions contains the optional parameters for the CustomRecommendationsClient.Delete method.
+type CustomRecommendationsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// CustomRecommendationsClientGetOptions contains the optional parameters for the CustomRecommendationsClient.Get method.
+type CustomRecommendationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// CustomRecommendationsClientListOptions contains the optional parameters for the CustomRecommendationsClient.NewListPager
+// method.
+type CustomRecommendationsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
 // DefenderForStorageClientCreateOptions contains the optional parameters for the DefenderForStorageClient.Create method.
 type DefenderForStorageClientCreateOptions struct {
 	// placeholder for future optional parameters
@@ -653,6 +628,53 @@ type DevOpsConfigurationsClientListOptions struct {
 // DevOpsOperationResultsClientGetOptions contains the optional parameters for the DevOpsOperationResultsClient.Get method.
 type DevOpsOperationResultsClientGetOptions struct {
 	// placeholder for future optional parameters
+}
+
+// DevOpsPoliciesClientGetOptions contains the optional parameters for the DevOpsPoliciesClient.Get method.
+type DevOpsPoliciesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DevOpsPoliciesClientListOptions contains the optional parameters for the DevOpsPoliciesClient.NewListPager method.
+type DevOpsPoliciesClientListOptions struct {
+	// Optional filter for listing the policies.
+	DevOpsPolicyType *string
+}
+
+// DevOpsPolicyAssignmentsClientBeginCreateOrUpdateOptions contains the optional parameters for the DevOpsPolicyAssignmentsClient.BeginCreateOrUpdate
+// method.
+type DevOpsPolicyAssignmentsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// DevOpsPolicyAssignmentsClientBeginDeleteOptions contains the optional parameters for the DevOpsPolicyAssignmentsClient.BeginDelete
+// method.
+type DevOpsPolicyAssignmentsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// DevOpsPolicyAssignmentsClientBeginUpdateOptions contains the optional parameters for the DevOpsPolicyAssignmentsClient.BeginUpdate
+// method.
+type DevOpsPolicyAssignmentsClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// DevOpsPolicyAssignmentsClientGetOptions contains the optional parameters for the DevOpsPolicyAssignmentsClient.Get method.
+type DevOpsPolicyAssignmentsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DevOpsPolicyAssignmentsClientListOptions contains the optional parameters for the DevOpsPolicyAssignmentsClient.NewListPager
+// method.
+type DevOpsPolicyAssignmentsClientListOptions struct {
+	// Optional filter for listing the policies.
+	DevOpsPolicyType *string
+
+	// Optional filter for listing the assignments of a specific resource.
+	ResourceID *string
 }
 
 // DeviceSecurityGroupsClientCreateOrUpdateOptions contains the optional parameters for the DeviceSecurityGroupsClient.CreateOrUpdate
@@ -1292,6 +1314,46 @@ type SolutionsReferenceDataClientListByHomeRegionOptions struct {
 
 // SolutionsReferenceDataClientListOptions contains the optional parameters for the SolutionsReferenceDataClient.List method.
 type SolutionsReferenceDataClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// StandardAssignmentsClientCreateOptions contains the optional parameters for the StandardAssignmentsClient.Create method.
+type StandardAssignmentsClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// StandardAssignmentsClientDeleteOptions contains the optional parameters for the StandardAssignmentsClient.Delete method.
+type StandardAssignmentsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// StandardAssignmentsClientGetOptions contains the optional parameters for the StandardAssignmentsClient.Get method.
+type StandardAssignmentsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// StandardAssignmentsClientListOptions contains the optional parameters for the StandardAssignmentsClient.NewListPager method.
+type StandardAssignmentsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// StandardsClientCreateOrUpdateOptions contains the optional parameters for the StandardsClient.CreateOrUpdate method.
+type StandardsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// StandardsClientDeleteOptions contains the optional parameters for the StandardsClient.Delete method.
+type StandardsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// StandardsClientGetOptions contains the optional parameters for the StandardsClient.Get method.
+type StandardsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// StandardsClientListOptions contains the optional parameters for the StandardsClient.NewListPager method.
+type StandardsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
