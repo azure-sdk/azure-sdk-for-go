@@ -48,7 +48,7 @@ func NewAdminRulesClient(subscriptionID string, credential azcore.TokenCredentia
 // CreateOrUpdate - Creates or updates an admin rule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-01-01
+// Generated from API version 2024-05-01
 //   - resourceGroupName - The name of the resource group.
 //   - networkManagerName - The name of the network manager.
 //   - configurationName - The name of the network manager Security Configuration.
@@ -57,7 +57,7 @@ func NewAdminRulesClient(subscriptionID string, credential azcore.TokenCredentia
 //   - adminRule - The admin rule to create or update
 //   - options - AdminRulesClientCreateOrUpdateOptions contains the optional parameters for the AdminRulesClient.CreateOrUpdate
 //     method.
-func (client *AdminRulesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, networkManagerName string, configurationName string, ruleCollectionName string, ruleName string, adminRule BaseAdminRuleClassification, options *AdminRulesClientCreateOrUpdateOptions) (AdminRulesClientCreateOrUpdateResponse, error) {
+func (client *AdminRulesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, networkManagerName string, configurationName string, ruleCollectionName string, ruleName string, adminRule AdminRule, options *AdminRulesClientCreateOrUpdateOptions) (AdminRulesClientCreateOrUpdateResponse, error) {
 	var err error
 	const operationName = "AdminRulesClient.CreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
@@ -80,7 +80,7 @@ func (client *AdminRulesClient) CreateOrUpdate(ctx context.Context, resourceGrou
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *AdminRulesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, networkManagerName string, configurationName string, ruleCollectionName string, ruleName string, adminRule BaseAdminRuleClassification, options *AdminRulesClientCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *AdminRulesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, networkManagerName string, configurationName string, ruleCollectionName string, ruleName string, adminRule AdminRule, options *AdminRulesClientCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/networkManagers/{networkManagerName}/securityAdminConfigurations/{configurationName}/ruleCollections/{ruleCollectionName}/rules/{ruleName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -111,7 +111,7 @@ func (client *AdminRulesClient) createOrUpdateCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-01-01")
+	reqQP.Set("api-version", "2024-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, adminRule); err != nil {
@@ -123,7 +123,7 @@ func (client *AdminRulesClient) createOrUpdateCreateRequest(ctx context.Context,
 // createOrUpdateHandleResponse handles the CreateOrUpdate response.
 func (client *AdminRulesClient) createOrUpdateHandleResponse(resp *http.Response) (AdminRulesClientCreateOrUpdateResponse, error) {
 	result := AdminRulesClientCreateOrUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.AdminRule); err != nil {
 		return AdminRulesClientCreateOrUpdateResponse{}, err
 	}
 	return result, nil
@@ -132,7 +132,7 @@ func (client *AdminRulesClient) createOrUpdateHandleResponse(resp *http.Response
 // BeginDelete - Deletes an admin rule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-01-01
+// Generated from API version 2024-05-01
 //   - resourceGroupName - The name of the resource group.
 //   - networkManagerName - The name of the network manager.
 //   - configurationName - The name of the network manager Security Configuration.
@@ -160,7 +160,7 @@ func (client *AdminRulesClient) BeginDelete(ctx context.Context, resourceGroupNa
 // Delete - Deletes an admin rule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-01-01
+// Generated from API version 2024-05-01
 func (client *AdminRulesClient) deleteOperation(ctx context.Context, resourceGroupName string, networkManagerName string, configurationName string, ruleCollectionName string, ruleName string, options *AdminRulesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "AdminRulesClient.BeginDelete"
@@ -214,7 +214,7 @@ func (client *AdminRulesClient) deleteCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-01-01")
+	reqQP.Set("api-version", "2024-05-01")
 	if options != nil && options.Force != nil {
 		reqQP.Set("force", strconv.FormatBool(*options.Force))
 	}
@@ -226,7 +226,7 @@ func (client *AdminRulesClient) deleteCreateRequest(ctx context.Context, resourc
 // Get - Gets a network manager security configuration admin rule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-01-01
+// Generated from API version 2024-05-01
 //   - resourceGroupName - The name of the resource group.
 //   - networkManagerName - The name of the network manager.
 //   - configurationName - The name of the network manager Security Configuration.
@@ -287,7 +287,7 @@ func (client *AdminRulesClient) getCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-01-01")
+	reqQP.Set("api-version", "2024-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -296,7 +296,7 @@ func (client *AdminRulesClient) getCreateRequest(ctx context.Context, resourceGr
 // getHandleResponse handles the Get response.
 func (client *AdminRulesClient) getHandleResponse(resp *http.Response) (AdminRulesClientGetResponse, error) {
 	result := AdminRulesClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.AdminRule); err != nil {
 		return AdminRulesClientGetResponse{}, err
 	}
 	return result, nil
@@ -304,7 +304,7 @@ func (client *AdminRulesClient) getHandleResponse(resp *http.Response) (AdminRul
 
 // NewListPager - List all network manager security configuration admin rules.
 //
-// Generated from API version 2024-01-01
+// Generated from API version 2024-05-01
 //   - resourceGroupName - The name of the resource group.
 //   - networkManagerName - The name of the network manager.
 //   - configurationName - The name of the network manager Security Configuration.
@@ -367,7 +367,7 @@ func (client *AdminRulesClient) listCreateRequest(ctx context.Context, resourceG
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	reqQP.Set("api-version", "2024-01-01")
+	reqQP.Set("api-version", "2024-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

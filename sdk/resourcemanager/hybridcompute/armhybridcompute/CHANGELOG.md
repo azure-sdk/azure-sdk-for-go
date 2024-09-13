@@ -1,5 +1,44 @@
 # Release History
 
+## 2.0.0-beta.5 (2024-09-13)
+### Breaking Changes
+
+- Type of `MachinesClientGetOptions.Expand` has been changed from `*string` to `*InstanceViewTypes`
+
+### Features Added
+
+- New enum type `InstanceViewTypes` with values `InstanceViewTypesInstanceView`
+- New enum type `LicenseProfileSubscriptionStatusUpdate` with values `LicenseProfileSubscriptionStatusUpdateDisable`, `LicenseProfileSubscriptionStatusUpdateEnable`
+- New function `*ClientFactory.NewLicenseProfilesClient() *LicenseProfilesClient`
+- New function `NewLicenseProfilesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*LicenseProfilesClient, error)`
+- New function `*LicenseProfilesClient.BeginCreateOrUpdate(context.Context, string, string, LicenseProfile, *LicenseProfilesClientBeginCreateOrUpdateOptions) (*runtime.Poller[LicenseProfilesClientCreateOrUpdateResponse], error)`
+- New function `*LicenseProfilesClient.BeginDelete(context.Context, string, string, *LicenseProfilesClientBeginDeleteOptions) (*runtime.Poller[LicenseProfilesClientDeleteResponse], error)`
+- New function `*LicenseProfilesClient.Get(context.Context, string, string, *LicenseProfilesClientGetOptions) (LicenseProfilesClientGetResponse, error)`
+- New function `*LicenseProfilesClient.NewListPager(string, string, *LicenseProfilesClientListOptions) *runtime.Pager[LicenseProfilesClientListResponse]`
+- New function `*LicenseProfilesClient.BeginUpdate(context.Context, string, string, LicenseProfileUpdate, *LicenseProfilesClientBeginUpdateOptions) (*runtime.Poller[LicenseProfilesClientUpdateResponse], error)`
+- New function `*LicensesClient.BeginValidateLicense(context.Context, License, *LicensesClientBeginValidateLicenseOptions) (*runtime.Poller[LicensesClientValidateLicenseResponse], error)`
+- New struct `Disk`
+- New struct `EsuProfileUpdateProperties`
+- New struct `FirmwareProfile`
+- New struct `HardwareProfile`
+- New struct `LicenseProfile`
+- New struct `LicenseProfileArmEsuProperties`
+- New struct `LicenseProfileProperties`
+- New struct `LicenseProfilePropertiesSoftwareAssurance`
+- New struct `LicenseProfileUpdate`
+- New struct `LicenseProfileUpdateProperties`
+- New struct `LicenseProfileUpdatePropertiesSoftwareAssurance`
+- New struct `LicenseProfilesListResult`
+- New struct `NetworkSecurityPerimeterConfigurationReconcileResult`
+- New struct `Processor`
+- New struct `ProductFeatureUpdate`
+- New struct `ProductProfileUpdateProperties`
+- New struct `StorageProfile`
+- New field `FirmwareProfile`, `HardwareProfile`, `StorageProfile` in struct `MachineProperties`
+- New field `ID`, `MacAddress`, `Name` in struct `NetworkInterface`
+- New anonymous field `NetworkSecurityPerimeterConfigurationReconcileResult` in struct `NetworkSecurityPerimeterConfigurationsClientReconcileForPrivateLinkScopeResponse`
+
+
 ## 2.0.0-beta.4 (2024-07-23)
 ### Breaking Changes
 

@@ -1,5 +1,114 @@
 # Release History
 
+## 0.15.0 (2024-09-13)
+### Breaking Changes
+
+- Enum `AdaptiveApplicationControlIssue` has been removed
+- Enum `ConfigurationStatus` has been removed
+- Enum `Direction` has been removed
+- Enum `EnforcementMode` has been removed
+- Enum `EnforcementSupport` has been removed
+- Enum `FileType` has been removed
+- Enum `RecommendationAction` has been removed
+- Enum `RecommendationStatus` has been removed
+- Enum `SourceSystem` has been removed
+- Enum `TransportProtocol` has been removed
+- Function `NewAdaptiveApplicationControlsClient` has been removed
+- Function `*AdaptiveApplicationControlsClient.Delete` has been removed
+- Function `*AdaptiveApplicationControlsClient.Get` has been removed
+- Function `*AdaptiveApplicationControlsClient.List` has been removed
+- Function `*AdaptiveApplicationControlsClient.Put` has been removed
+- Function `NewAdaptiveNetworkHardeningsClient` has been removed
+- Function `*AdaptiveNetworkHardeningsClient.BeginEnforce` has been removed
+- Function `*AdaptiveNetworkHardeningsClient.Get` has been removed
+- Function `*AdaptiveNetworkHardeningsClient.NewListByExtendedResourcePager` has been removed
+- Function `*ClientFactory.NewAdaptiveApplicationControlsClient` has been removed
+- Function `*ClientFactory.NewAdaptiveNetworkHardeningsClient` has been removed
+- Struct `AdaptiveApplicationControlGroup` has been removed
+- Struct `AdaptiveApplicationControlGroupData` has been removed
+- Struct `AdaptiveApplicationControlGroups` has been removed
+- Struct `AdaptiveApplicationControlIssueSummary` has been removed
+- Struct `AdaptiveNetworkHardening` has been removed
+- Struct `AdaptiveNetworkHardeningEnforceRequest` has been removed
+- Struct `AdaptiveNetworkHardeningProperties` has been removed
+- Struct `AdaptiveNetworkHardeningsList` has been removed
+- Struct `EffectiveNetworkSecurityGroups` has been removed
+- Struct `PathRecommendation` has been removed
+- Struct `ProtectionMode` has been removed
+- Struct `PublisherInfo` has been removed
+- Struct `Rule` has been removed
+- Struct `UserRecommendation` has been removed
+- Struct `VMRecommendation` has been removed
+
+### Features Added
+
+- New enum type `AttestationComplianceState` with values `AttestationComplianceStateCompliant`, `AttestationComplianceStateNonCompliant`, `AttestationComplianceStateUnknown`
+- New enum type `DescendantBehavior` with values `DescendantBehaviorFallBack`, `DescendantBehaviorOverride`, `DescendantBehaviorUnknown`
+- New enum type `DevOpsPolicySource` with values `DevOpsPolicySourceBuiltIn`, `DevOpsPolicySourceUnknown`, `DevOpsPolicySourceUserDefined`
+- New enum type `DevOpsPolicyType` with values `DevOpsPolicyTypePipeline`, `DevOpsPolicyTypeUnknown`
+- New enum type `Effect` with values `EffectAttest`, `EffectAudit`, `EffectExempt`
+- New enum type `ExemptionCategory` with values `ExemptionCategoryMitigated`, `ExemptionCategoryWaiver`
+- New enum type `RecommendationSupportedClouds` with values `RecommendationSupportedCloudsAWS`, `RecommendationSupportedCloudsAzure`, `RecommendationSupportedCloudsGCP`
+- New enum type `SecurityIssue` with values `SecurityIssueAnonymousAccess`, `SecurityIssueBestPractices`, `SecurityIssueExcessivePermissions`, `SecurityIssueNetworkExposure`, `SecurityIssueTrafficEncryption`, `SecurityIssueVulnerability`
+- New enum type `StandardSupportedCloud` with values `StandardSupportedCloudAWS`, `StandardSupportedCloudAzure`, `StandardSupportedCloudGCP`
+- New enum type `StandardType` with values `StandardTypeCompliance`, `StandardTypeCustom`, `StandardTypeDefault`
+- New function `*ClientFactory.NewCustomRecommendationsClient() *CustomRecommendationsClient`
+- New function `*ClientFactory.NewDevOpsPoliciesClient() *DevOpsPoliciesClient`
+- New function `*ClientFactory.NewDevOpsPolicyAssignmentsClient() *DevOpsPolicyAssignmentsClient`
+- New function `*ClientFactory.NewStandardAssignmentsClient() *StandardAssignmentsClient`
+- New function `*ClientFactory.NewStandardsClient() *StandardsClient`
+- New function `NewCustomRecommendationsClient(azcore.TokenCredential, *arm.ClientOptions) (*CustomRecommendationsClient, error)`
+- New function `*CustomRecommendationsClient.CreateOrUpdate(context.Context, string, string, CustomRecommendation, *CustomRecommendationsClientCreateOrUpdateOptions) (CustomRecommendationsClientCreateOrUpdateResponse, error)`
+- New function `*CustomRecommendationsClient.Delete(context.Context, string, string, *CustomRecommendationsClientDeleteOptions) (CustomRecommendationsClientDeleteResponse, error)`
+- New function `*CustomRecommendationsClient.Get(context.Context, string, string, *CustomRecommendationsClientGetOptions) (CustomRecommendationsClientGetResponse, error)`
+- New function `*CustomRecommendationsClient.NewListPager(string, *CustomRecommendationsClientListOptions) *runtime.Pager[CustomRecommendationsClientListResponse]`
+- New function `NewDevOpsPoliciesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DevOpsPoliciesClient, error)`
+- New function `*DevOpsPoliciesClient.Get(context.Context, string, string, string, *DevOpsPoliciesClientGetOptions) (DevOpsPoliciesClientGetResponse, error)`
+- New function `*DevOpsPoliciesClient.NewListPager(string, string, *DevOpsPoliciesClientListOptions) *runtime.Pager[DevOpsPoliciesClientListResponse]`
+- New function `NewDevOpsPolicyAssignmentsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DevOpsPolicyAssignmentsClient, error)`
+- New function `*DevOpsPolicyAssignmentsClient.BeginCreateOrUpdate(context.Context, string, string, string, DevOpsPolicyAssignment, *DevOpsPolicyAssignmentsClientBeginCreateOrUpdateOptions) (*runtime.Poller[DevOpsPolicyAssignmentsClientCreateOrUpdateResponse], error)`
+- New function `*DevOpsPolicyAssignmentsClient.BeginDelete(context.Context, string, string, string, *DevOpsPolicyAssignmentsClientBeginDeleteOptions) (*runtime.Poller[DevOpsPolicyAssignmentsClientDeleteResponse], error)`
+- New function `*DevOpsPolicyAssignmentsClient.Get(context.Context, string, string, string, *DevOpsPolicyAssignmentsClientGetOptions) (DevOpsPolicyAssignmentsClientGetResponse, error)`
+- New function `*DevOpsPolicyAssignmentsClient.NewListPager(string, string, *DevOpsPolicyAssignmentsClientListOptions) *runtime.Pager[DevOpsPolicyAssignmentsClientListResponse]`
+- New function `*DevOpsPolicyAssignmentsClient.BeginUpdate(context.Context, string, string, string, DevOpsPolicyAssignment, *DevOpsPolicyAssignmentsClientBeginUpdateOptions) (*runtime.Poller[DevOpsPolicyAssignmentsClientUpdateResponse], error)`
+- New function `NewStandardAssignmentsClient(azcore.TokenCredential, *arm.ClientOptions) (*StandardAssignmentsClient, error)`
+- New function `*StandardAssignmentsClient.Create(context.Context, string, string, StandardAssignment, *StandardAssignmentsClientCreateOptions) (StandardAssignmentsClientCreateResponse, error)`
+- New function `*StandardAssignmentsClient.Delete(context.Context, string, string, *StandardAssignmentsClientDeleteOptions) (StandardAssignmentsClientDeleteResponse, error)`
+- New function `*StandardAssignmentsClient.Get(context.Context, string, string, *StandardAssignmentsClientGetOptions) (StandardAssignmentsClientGetResponse, error)`
+- New function `*StandardAssignmentsClient.NewListPager(string, *StandardAssignmentsClientListOptions) *runtime.Pager[StandardAssignmentsClientListResponse]`
+- New function `NewStandardsClient(azcore.TokenCredential, *arm.ClientOptions) (*StandardsClient, error)`
+- New function `*StandardsClient.CreateOrUpdate(context.Context, string, string, Standard, *StandardsClientCreateOrUpdateOptions) (StandardsClientCreateOrUpdateResponse, error)`
+- New function `*StandardsClient.Delete(context.Context, string, string, *StandardsClientDeleteOptions) (StandardsClientDeleteResponse, error)`
+- New function `*StandardsClient.Get(context.Context, string, string, *StandardsClientGetOptions) (StandardsClientGetResponse, error)`
+- New function `*StandardsClient.NewListPager(string, *StandardsClientListOptions) *runtime.Pager[StandardsClientListResponse]`
+- New struct `AssignedAssessmentItem`
+- New struct `AssignedStandardItem`
+- New struct `AttestationEvidence`
+- New struct `CustomRecommendation`
+- New struct `CustomRecommendationProperties`
+- New struct `CustomRecommendationsList`
+- New struct `DevOpsCapability`
+- New struct `DevOpsPolicy`
+- New struct `DevOpsPolicyAssignment`
+- New struct `DevOpsPolicyAssignmentListResponse`
+- New struct `DevOpsPolicyAssignmentProperties`
+- New struct `DevOpsPolicyDescriptor`
+- New struct `DevOpsPolicyListResponse`
+- New struct `DevOpsPolicyProperties`
+- New struct `PartialAssessmentProperties`
+- New struct `Standard`
+- New struct `StandardAssignment`
+- New struct `StandardAssignmentMetadata`
+- New struct `StandardAssignmentProperties`
+- New struct `StandardAssignmentPropertiesAttestationData`
+- New struct `StandardAssignmentPropertiesExemptionData`
+- New struct `StandardAssignmentsList`
+- New struct `StandardList`
+- New struct `StandardMetadata`
+- New struct `StandardProperties`
+- New field `Capabilities` in struct `DevOpsConfigurationProperties`
+
+
 ## 0.14.0 (2024-04-04)
 ### Breaking Changes
 
