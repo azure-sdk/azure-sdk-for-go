@@ -21,8 +21,6 @@ import (
 type ServerFactory struct {
 	APICollectionsServer                               APICollectionsServer
 	AccountConnectorsServer                            AccountConnectorsServer
-	AdaptiveApplicationControlsServer                  AdaptiveApplicationControlsServer
-	AdaptiveNetworkHardeningsServer                    AdaptiveNetworkHardeningsServer
 	AdvancedThreatProtectionServer                     AdvancedThreatProtectionServer
 	AlertsServer                                       AlertsServer
 	AlertsSuppressionRulesServer                       AlertsSuppressionRulesServer
@@ -44,9 +42,12 @@ type ServerFactory struct {
 	ContactsServer                                     ContactsServer
 	CustomAssessmentAutomationsServer                  CustomAssessmentAutomationsServer
 	CustomEntityStoreAssignmentsServer                 CustomEntityStoreAssignmentsServer
+	CustomRecommendationsServer                        CustomRecommendationsServer
 	DefenderForStorageServer                           DefenderForStorageServer
 	DevOpsConfigurationsServer                         DevOpsConfigurationsServer
 	DevOpsOperationResultsServer                       DevOpsOperationResultsServer
+	DevOpsPoliciesServer                               DevOpsPoliciesServer
+	DevOpsPolicyAssignmentsServer                      DevOpsPolicyAssignmentsServer
 	DeviceSecurityGroupsServer                         DeviceSecurityGroupsServer
 	DiscoveredSecuritySolutionsServer                  DiscoveredSecuritySolutionsServer
 	ExternalSecuritySolutionsServer                    ExternalSecuritySolutionsServer
@@ -85,6 +86,8 @@ type ServerFactory struct {
 	SoftwareInventoriesServer                          SoftwareInventoriesServer
 	SolutionsServer                                    SolutionsServer
 	SolutionsReferenceDataServer                       SolutionsReferenceDataServer
+	StandardAssignmentsServer                          StandardAssignmentsServer
+	StandardsServer                                    StandardsServer
 	SubAssessmentsServer                               SubAssessmentsServer
 	TasksServer                                        TasksServer
 	TopologyServer                                     TopologyServer
@@ -107,8 +110,6 @@ type ServerFactoryTransport struct {
 	trMu                                                 sync.Mutex
 	trAPICollectionsServer                               *APICollectionsServerTransport
 	trAccountConnectorsServer                            *AccountConnectorsServerTransport
-	trAdaptiveApplicationControlsServer                  *AdaptiveApplicationControlsServerTransport
-	trAdaptiveNetworkHardeningsServer                    *AdaptiveNetworkHardeningsServerTransport
 	trAdvancedThreatProtectionServer                     *AdvancedThreatProtectionServerTransport
 	trAlertsServer                                       *AlertsServerTransport
 	trAlertsSuppressionRulesServer                       *AlertsSuppressionRulesServerTransport
@@ -130,9 +131,12 @@ type ServerFactoryTransport struct {
 	trContactsServer                                     *ContactsServerTransport
 	trCustomAssessmentAutomationsServer                  *CustomAssessmentAutomationsServerTransport
 	trCustomEntityStoreAssignmentsServer                 *CustomEntityStoreAssignmentsServerTransport
+	trCustomRecommendationsServer                        *CustomRecommendationsServerTransport
 	trDefenderForStorageServer                           *DefenderForStorageServerTransport
 	trDevOpsConfigurationsServer                         *DevOpsConfigurationsServerTransport
 	trDevOpsOperationResultsServer                       *DevOpsOperationResultsServerTransport
+	trDevOpsPoliciesServer                               *DevOpsPoliciesServerTransport
+	trDevOpsPolicyAssignmentsServer                      *DevOpsPolicyAssignmentsServerTransport
 	trDeviceSecurityGroupsServer                         *DeviceSecurityGroupsServerTransport
 	trDiscoveredSecuritySolutionsServer                  *DiscoveredSecuritySolutionsServerTransport
 	trExternalSecuritySolutionsServer                    *ExternalSecuritySolutionsServerTransport
@@ -171,6 +175,8 @@ type ServerFactoryTransport struct {
 	trSoftwareInventoriesServer                          *SoftwareInventoriesServerTransport
 	trSolutionsServer                                    *SolutionsServerTransport
 	trSolutionsReferenceDataServer                       *SolutionsReferenceDataServerTransport
+	trStandardAssignmentsServer                          *StandardAssignmentsServerTransport
+	trStandardsServer                                    *StandardsServerTransport
 	trSubAssessmentsServer                               *SubAssessmentsServerTransport
 	trTasksServer                                        *TasksServerTransport
 	trTopologyServer                                     *TopologyServerTransport
@@ -200,16 +206,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewAccountConnectorsServerTransport(&s.srv.AccountConnectorsServer)
 		})
 		resp, err = s.trAccountConnectorsServer.Do(req)
-	case "AdaptiveApplicationControlsClient":
-		initServer(s, &s.trAdaptiveApplicationControlsServer, func() *AdaptiveApplicationControlsServerTransport {
-			return NewAdaptiveApplicationControlsServerTransport(&s.srv.AdaptiveApplicationControlsServer)
-		})
-		resp, err = s.trAdaptiveApplicationControlsServer.Do(req)
-	case "AdaptiveNetworkHardeningsClient":
-		initServer(s, &s.trAdaptiveNetworkHardeningsServer, func() *AdaptiveNetworkHardeningsServerTransport {
-			return NewAdaptiveNetworkHardeningsServerTransport(&s.srv.AdaptiveNetworkHardeningsServer)
-		})
-		resp, err = s.trAdaptiveNetworkHardeningsServer.Do(req)
 	case "AdvancedThreatProtectionClient":
 		initServer(s, &s.trAdvancedThreatProtectionServer, func() *AdvancedThreatProtectionServerTransport {
 			return NewAdvancedThreatProtectionServerTransport(&s.srv.AdvancedThreatProtectionServer)
@@ -299,6 +295,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewCustomEntityStoreAssignmentsServerTransport(&s.srv.CustomEntityStoreAssignmentsServer)
 		})
 		resp, err = s.trCustomEntityStoreAssignmentsServer.Do(req)
+	case "CustomRecommendationsClient":
+		initServer(s, &s.trCustomRecommendationsServer, func() *CustomRecommendationsServerTransport {
+			return NewCustomRecommendationsServerTransport(&s.srv.CustomRecommendationsServer)
+		})
+		resp, err = s.trCustomRecommendationsServer.Do(req)
 	case "DefenderForStorageClient":
 		initServer(s, &s.trDefenderForStorageServer, func() *DefenderForStorageServerTransport {
 			return NewDefenderForStorageServerTransport(&s.srv.DefenderForStorageServer)
@@ -314,6 +315,16 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewDevOpsOperationResultsServerTransport(&s.srv.DevOpsOperationResultsServer)
 		})
 		resp, err = s.trDevOpsOperationResultsServer.Do(req)
+	case "DevOpsPoliciesClient":
+		initServer(s, &s.trDevOpsPoliciesServer, func() *DevOpsPoliciesServerTransport {
+			return NewDevOpsPoliciesServerTransport(&s.srv.DevOpsPoliciesServer)
+		})
+		resp, err = s.trDevOpsPoliciesServer.Do(req)
+	case "DevOpsPolicyAssignmentsClient":
+		initServer(s, &s.trDevOpsPolicyAssignmentsServer, func() *DevOpsPolicyAssignmentsServerTransport {
+			return NewDevOpsPolicyAssignmentsServerTransport(&s.srv.DevOpsPolicyAssignmentsServer)
+		})
+		resp, err = s.trDevOpsPolicyAssignmentsServer.Do(req)
 	case "DeviceSecurityGroupsClient":
 		initServer(s, &s.trDeviceSecurityGroupsServer, func() *DeviceSecurityGroupsServerTransport {
 			return NewDeviceSecurityGroupsServerTransport(&s.srv.DeviceSecurityGroupsServer)
@@ -484,6 +495,14 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewSolutionsReferenceDataServerTransport(&s.srv.SolutionsReferenceDataServer)
 		})
 		resp, err = s.trSolutionsReferenceDataServer.Do(req)
+	case "StandardAssignmentsClient":
+		initServer(s, &s.trStandardAssignmentsServer, func() *StandardAssignmentsServerTransport {
+			return NewStandardAssignmentsServerTransport(&s.srv.StandardAssignmentsServer)
+		})
+		resp, err = s.trStandardAssignmentsServer.Do(req)
+	case "StandardsClient":
+		initServer(s, &s.trStandardsServer, func() *StandardsServerTransport { return NewStandardsServerTransport(&s.srv.StandardsServer) })
+		resp, err = s.trStandardsServer.Do(req)
 	case "SubAssessmentsClient":
 		initServer(s, &s.trSubAssessmentsServer, func() *SubAssessmentsServerTransport {
 			return NewSubAssessmentsServerTransport(&s.srv.SubAssessmentsServer)
