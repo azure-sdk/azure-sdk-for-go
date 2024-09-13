@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork/v6"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork/v7"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -27,7 +27,7 @@ import (
 type AdminRulesServer struct {
 	// CreateOrUpdate is the fake for method AdminRulesClient.CreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	CreateOrUpdate func(ctx context.Context, resourceGroupName string, networkManagerName string, configurationName string, ruleCollectionName string, ruleName string, adminRule armnetwork.BaseAdminRuleClassification, options *armnetwork.AdminRulesClientCreateOrUpdateOptions) (resp azfake.Responder[armnetwork.AdminRulesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	CreateOrUpdate func(ctx context.Context, resourceGroupName string, networkManagerName string, configurationName string, ruleCollectionName string, ruleName string, adminRule armnetwork.AdminRule, options *armnetwork.AdminRulesClientCreateOrUpdateOptions) (resp azfake.Responder[armnetwork.AdminRulesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method AdminRulesClient.BeginDelete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
@@ -102,11 +102,7 @@ func (a *AdminRulesServerTransport) dispatchCreateOrUpdate(req *http.Request) (*
 	if matches == nil || len(matches) < 6 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	raw, err := readRequestBody(req)
-	if err != nil {
-		return nil, err
-	}
-	body, err := unmarshalBaseAdminRuleClassification(raw)
+	body, err := server.UnmarshalRequestAsJSON[armnetwork.AdminRule](req)
 	if err != nil {
 		return nil, err
 	}
@@ -138,7 +134,7 @@ func (a *AdminRulesServerTransport) dispatchCreateOrUpdate(req *http.Request) (*
 	if !contains([]int{http.StatusOK, http.StatusCreated}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).BaseAdminRuleClassification, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).AdminRule, req)
 	if err != nil {
 		return nil, err
 	}
@@ -254,7 +250,7 @@ func (a *AdminRulesServerTransport) dispatchGet(req *http.Request) (*http.Respon
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).BaseAdminRuleClassification, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).AdminRule, req)
 	if err != nil {
 		return nil, err
 	}
