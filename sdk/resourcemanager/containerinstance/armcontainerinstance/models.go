@@ -23,6 +23,9 @@ type AzureFileVolume struct {
 
 	// The storage account access key used to access the Azure File share.
 	StorageAccountKey *string
+
+	// The reference to the storage account access key used to access the Azure File share.
+	StorageAccountKeyReference *string
 }
 
 // CachedImages - The cached image and OS type.
@@ -89,6 +92,12 @@ type CapabilitiesListResult struct {
 type ConfidentialComputeProperties struct {
 	// The base64 encoded confidential compute enforcement policy
 	CcePolicy *string
+}
+
+// ConfigMap - The container config map.
+type ConfigMap struct {
+	// The key value pairs dictionary in the config map.
+	KeyValuePairs map[string]*string
 }
 
 // Container - A container instance.
@@ -203,6 +212,16 @@ type ContainerGroupListResult struct {
 	Value []*ContainerGroup
 }
 
+// ContainerGroupProfileReferenceDefinition - The container group profile reference.
+type ContainerGroupProfileReferenceDefinition struct {
+	// The container group profile reference id.This will be an ARM resource id in the form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerInstance/containerGroupProfiles/{containerGroupProfileName}'.
+	ID *string
+
+	// The container group profile reference revision.
+	Revision *int32
+}
+
 // ContainerGroupProperties - The container group properties
 type ContainerGroupProperties struct {
 	// REQUIRED; The container group properties
@@ -231,6 +250,9 @@ type ContainerGroupPropertiesProperties struct {
 
 	// The properties for confidential container group
 	ConfidentialComputeProperties *ConfidentialComputeProperties
+
+	// The reference container group profile properties.
+	ContainerGroupProfile *ContainerGroupProfileReferenceDefinition
 
 	// The DNS config information for a container group.
 	DNSConfig *DNSConfiguration
@@ -265,6 +287,12 @@ type ContainerGroupPropertiesProperties struct {
 	// The SKU for a container group.
 	SKU *ContainerGroupSKU
 
+	// The secret references that will be referenced within the container group.
+	Secrets []*SecretReference
+
+	// The reference standby pool profile properties.
+	StandbyPoolProfile *StandbyPoolProfileDefinition
+
 	// The subnet resource IDs for a container group.
 	SubnetIDs []*ContainerGroupSubnetID
 
@@ -273,6 +301,9 @@ type ContainerGroupPropertiesProperties struct {
 
 	// READ-ONLY; The instance view of the container group. Only valid in response.
 	InstanceView *ContainerGroupPropertiesInstanceView
+
+	// READ-ONLY; The flag indicating whether the container group is created by standby pool.
+	IsCreatedFromStandbyPool *bool
 
 	// READ-ONLY; The provisioning state of the container group. This only appears in the response.
 	ProvisioningState *string
@@ -345,6 +376,9 @@ type ContainerProperties struct {
 
 	// The commands to execute within the container instance in exec form.
 	Command []*string
+
+	// The config map.
+	ConfigMap *ConfigMap
 
 	// The environment variables to set in the container instance.
 	EnvironmentVariables []*EnvironmentVariable
@@ -460,6 +494,9 @@ type EnvironmentVariable struct {
 	// The value of the secure environment variable.
 	SecureValue *string
 
+	// The reference of the secure environment variable.
+	SecureValueReference *string
+
 	// The value of the environment variable.
 	Value *string
 }
@@ -557,6 +594,9 @@ type ImageRegistryCredential struct {
 
 	// The password for the private registry.
 	Password *string
+
+	// The reference for the private registry password.
+	PasswordReference *string
 
 	// The username for the private registry.
 	Username *string
@@ -733,6 +773,18 @@ type ResourceRequirements struct {
 	Limits *ResourceLimits
 }
 
+// SecretReference - A secret reference
+type SecretReference struct {
+	// REQUIRED; The resource id of the managed identity that has access to the secret in the key vault
+	Identity *string
+
+	// REQUIRED; The identifier of the secret reference
+	Name *string
+
+	// REQUIRED
+	SecretReferenceURI *string
+}
+
 // SecurityContextCapabilitiesDefinition - The capabilities to add or drop from a container.
 type SecurityContextCapabilitiesDefinition struct {
 	// The capabilities to add to the container.
@@ -761,6 +813,17 @@ type SecurityContextDefinition struct {
 
 	// a base64 encoded string containing the contents of the JSON in the seccomp profile
 	SeccompProfile *string
+}
+
+// StandbyPoolProfileDefinition - The standby pool profile reference.
+type StandbyPoolProfileDefinition struct {
+	// The flag to determine whether ACI should fail the create request if the container group can not be obtained from standby
+	// pool.
+	FailContainerGroupCreateOnReuseFailure *bool
+
+	// The standby pool profile reference id.This will be an ARM resource id in the form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StandbyPool/standbyContainerGroupPools/{standbyPoolName}'.
+	ID *string
 }
 
 // Usage - A single usage result
@@ -823,6 +886,9 @@ type Volume struct {
 
 	// The secret volume.
 	Secret map[string]*string
+
+	// The secret reference volume.
+	SecretReference map[string]*string
 }
 
 // VolumeMount - The properties of the volume mount.

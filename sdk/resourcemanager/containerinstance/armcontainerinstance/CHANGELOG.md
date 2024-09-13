@@ -1,5 +1,20 @@
 # Release History
 
+## 2.5.0-beta.1 (2024-09-13)
+### Features Added
+
+- New struct `ConfigMap`
+- New struct `ContainerGroupProfileReferenceDefinition`
+- New struct `SecretReference`
+- New struct `StandbyPoolProfileDefinition`
+- New field `StorageAccountKeyReference` in struct `AzureFileVolume`
+- New field `ContainerGroupProfile`, `IsCreatedFromStandbyPool`, `Secrets`, `StandbyPoolProfile` in struct `ContainerGroupPropertiesProperties`
+- New field `ConfigMap` in struct `ContainerProperties`
+- New field `SecureValueReference` in struct `EnvironmentVariable`
+- New field `PasswordReference` in struct `ImageRegistryCredential`
+- New field `SecretReference` in struct `Volume`
+
+
 ## 2.4.0 (2023-11-24)
 ### Features Added
 
