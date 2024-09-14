@@ -8,17 +8,6 @@
 
 package armautomanage
 
-// BestPracticesClientGetOptions contains the optional parameters for the BestPracticesClient.Get method.
-type BestPracticesClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// BestPracticesClientListByTenantOptions contains the optional parameters for the BestPracticesClient.NewListByTenantPager
-// method.
-type BestPracticesClientListByTenantOptions struct {
-	// placeholder for future optional parameters
-}
-
 // BestPracticesVersionsClientGetOptions contains the optional parameters for the BestPracticesVersionsClient.Get method.
 type BestPracticesVersionsClientGetOptions struct {
 	// placeholder for future optional parameters
