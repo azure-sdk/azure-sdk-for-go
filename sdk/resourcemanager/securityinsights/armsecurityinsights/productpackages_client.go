@@ -21,43 +21,45 @@ import (
 	"strings"
 )
 
-// ThreatIntelligenceIndicatorsClient contains the methods for the ThreatIntelligenceIndicators group.
-// Don't use this type directly, use NewThreatIntelligenceIndicatorsClient() instead.
-type ThreatIntelligenceIndicatorsClient struct {
+// ProductPackagesClient contains the methods for the ProductPackages group.
+// Don't use this type directly, use NewProductPackagesClient() instead.
+type ProductPackagesClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewThreatIntelligenceIndicatorsClient creates a new instance of ThreatIntelligenceIndicatorsClient with the specified values.
+// NewProductPackagesClient creates a new instance of ProductPackagesClient with the specified values.
 //   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewThreatIntelligenceIndicatorsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ThreatIntelligenceIndicatorsClient, error) {
+func NewProductPackagesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ProductPackagesClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &ThreatIntelligenceIndicatorsClient{
+	client := &ProductPackagesClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// NewListPager - Get all threat intelligence indicators.
+// NewListPager - Gets all packages from the catalog. Expandable properties:
+// * properties/installed
+// * properties/packagedContent
 //
 // Generated from API version 2024-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
-//   - options - ThreatIntelligenceIndicatorsClientListOptions contains the optional parameters for the ThreatIntelligenceIndicatorsClient.NewListPager
+//   - options - ProductPackagesClientListOptions contains the optional parameters for the ProductPackagesClient.NewListPager
 //     method.
-func (client *ThreatIntelligenceIndicatorsClient) NewListPager(resourceGroupName string, workspaceName string, options *ThreatIntelligenceIndicatorsClientListOptions) *runtime.Pager[ThreatIntelligenceIndicatorsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[ThreatIntelligenceIndicatorsClientListResponse]{
-		More: func(page ThreatIntelligenceIndicatorsClientListResponse) bool {
+func (client *ProductPackagesClient) NewListPager(resourceGroupName string, workspaceName string, options *ProductPackagesClientListOptions) *runtime.Pager[ProductPackagesClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ProductPackagesClientListResponse]{
+		More: func(page ProductPackagesClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *ThreatIntelligenceIndicatorsClientListResponse) (ThreatIntelligenceIndicatorsClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ThreatIntelligenceIndicatorsClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *ProductPackagesClientListResponse) (ProductPackagesClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ProductPackagesClient.NewListPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
@@ -66,7 +68,7 @@ func (client *ThreatIntelligenceIndicatorsClient) NewListPager(resourceGroupName
 				return client.listCreateRequest(ctx, resourceGroupName, workspaceName, options)
 			}, nil)
 			if err != nil {
-				return ThreatIntelligenceIndicatorsClientListResponse{}, err
+				return ProductPackagesClientListResponse{}, err
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -75,8 +77,8 @@ func (client *ThreatIntelligenceIndicatorsClient) NewListPager(resourceGroupName
 }
 
 // listCreateRequest creates the List request.
-func (client *ThreatIntelligenceIndicatorsClient) listCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, options *ThreatIntelligenceIndicatorsClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/main/indicators"
+func (client *ProductPackagesClient) listCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, options *ProductPackagesClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/contentProductPackages"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -113,10 +115,10 @@ func (client *ThreatIntelligenceIndicatorsClient) listCreateRequest(ctx context.
 }
 
 // listHandleResponse handles the List response.
-func (client *ThreatIntelligenceIndicatorsClient) listHandleResponse(resp *http.Response) (ThreatIntelligenceIndicatorsClientListResponse, error) {
-	result := ThreatIntelligenceIndicatorsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ThreatIntelligenceInformationList); err != nil {
-		return ThreatIntelligenceIndicatorsClientListResponse{}, err
+func (client *ProductPackagesClient) listHandleResponse(resp *http.Response) (ProductPackagesClientListResponse, error) {
+	result := ProductPackagesClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ProductPackageList); err != nil {
+		return ProductPackagesClientListResponse{}, err
 	}
 	return result, nil
 }
