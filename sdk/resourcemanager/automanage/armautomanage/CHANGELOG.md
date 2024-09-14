@@ -1,5 +1,14 @@
 # Release History
 
+## 2.0.0 (2024-09-14)
+### Breaking Changes
+
+- Function `NewBestPracticesClient` has been removed
+- Function `*BestPracticesClient.Get` has been removed
+- Function `*BestPracticesClient.NewListByTenantPager` has been removed
+- Function `*ClientFactory.NewBestPracticesClient` has been removed
+
+
 ## 1.2.0 (2023-11-24)
 ### Features Added
 

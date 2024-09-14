@@ -19,7 +19,6 @@ import (
 
 // ServerFactory is a fake server for instances of the armautomanage.ClientFactory type.
 type ServerFactory struct {
-	BestPracticesServer                       BestPracticesServer
 	BestPracticesVersionsServer               BestPracticesVersionsServer
 	ConfigurationProfileAssignmentsServer     ConfigurationProfileAssignmentsServer
 	ConfigurationProfileHCIAssignmentsServer  ConfigurationProfileHCIAssignmentsServer
@@ -47,7 +46,6 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 type ServerFactoryTransport struct {
 	srv                                         *ServerFactory
 	trMu                                        sync.Mutex
-	trBestPracticesServer                       *BestPracticesServerTransport
 	trBestPracticesVersionsServer               *BestPracticesVersionsServerTransport
 	trConfigurationProfileAssignmentsServer     *ConfigurationProfileAssignmentsServerTransport
 	trConfigurationProfileHCIAssignmentsServer  *ConfigurationProfileHCIAssignmentsServerTransport
@@ -74,11 +72,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch client {
-	case "BestPracticesClient":
-		initServer(s, &s.trBestPracticesServer, func() *BestPracticesServerTransport {
-			return NewBestPracticesServerTransport(&s.srv.BestPracticesServer)
-		})
-		resp, err = s.trBestPracticesServer.Do(req)
 	case "BestPracticesVersionsClient":
 		initServer(s, &s.trBestPracticesVersionsServer, func() *BestPracticesVersionsServerTransport {
 			return NewBestPracticesVersionsServerTransport(&s.srv.BestPracticesVersionsServer)

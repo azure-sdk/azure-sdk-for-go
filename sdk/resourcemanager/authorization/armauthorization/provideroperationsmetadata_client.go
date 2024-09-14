@@ -15,7 +15,6 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
-	"strings"
 )
 
 // ProviderOperationsMetadataClient contains the methods for the ProviderOperationsMetadata group.
@@ -36,62 +35,6 @@ func NewProviderOperationsMetadataClient(credential azcore.TokenCredential, opti
 		internal: cl,
 	}
 	return client, nil
-}
-
-// Get - Gets provider operations metadata for the specified resource provider.
-// If the operation fails it returns an *azcore.ResponseError type.
-//
-// Generated from API version 2022-04-01
-//   - resourceProviderNamespace - The namespace of the resource provider.
-//   - options - ProviderOperationsMetadataClientGetOptions contains the optional parameters for the ProviderOperationsMetadataClient.Get
-//     method.
-func (client *ProviderOperationsMetadataClient) Get(ctx context.Context, resourceProviderNamespace string, options *ProviderOperationsMetadataClientGetOptions) (ProviderOperationsMetadataClientGetResponse, error) {
-	var err error
-	const operationName = "ProviderOperationsMetadataClient.Get"
-	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
-	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
-	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, resourceProviderNamespace, options)
-	if err != nil {
-		return ProviderOperationsMetadataClientGetResponse{}, err
-	}
-	httpResp, err := client.internal.Pipeline().Do(req)
-	if err != nil {
-		return ProviderOperationsMetadataClientGetResponse{}, err
-	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
-		err = runtime.NewResponseError(httpResp)
-		return ProviderOperationsMetadataClientGetResponse{}, err
-	}
-	resp, err := client.getHandleResponse(httpResp)
-	return resp, err
-}
-
-// getCreateRequest creates the Get request.
-func (client *ProviderOperationsMetadataClient) getCreateRequest(ctx context.Context, resourceProviderNamespace string, options *ProviderOperationsMetadataClientGetOptions) (*policy.Request, error) {
-	urlPath := "/providers/Microsoft.Authorization/providerOperations/{resourceProviderNamespace}"
-	urlPath = strings.ReplaceAll(urlPath, "{resourceProviderNamespace}", resourceProviderNamespace)
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-04-01")
-	if options != nil && options.Expand != nil {
-		reqQP.Set("$expand", *options.Expand)
-	}
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, nil
-}
-
-// getHandleResponse handles the Get response.
-func (client *ProviderOperationsMetadataClient) getHandleResponse(resp *http.Response) (ProviderOperationsMetadataClientGetResponse, error) {
-	result := ProviderOperationsMetadataClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ProviderOperationsMetadata); err != nil {
-		return ProviderOperationsMetadataClientGetResponse{}, err
-	}
-	return result, nil
 }
 
 // NewListPager - Gets provider operations metadata for all resource providers.
@@ -130,10 +73,10 @@ func (client *ProviderOperationsMetadataClient) listCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-04-01")
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
+	reqQP.Set("api-version", "2022-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
