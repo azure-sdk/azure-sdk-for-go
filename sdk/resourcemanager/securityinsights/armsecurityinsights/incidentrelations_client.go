@@ -44,10 +44,10 @@ func NewIncidentRelationsClient(subscriptionID string, credential azcore.TokenCr
 	return client, nil
 }
 
-// CreateOrUpdate - Creates or updates the incident relation.
+// CreateOrUpdate - Creates or updates a relation for a given incident.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01-preview
+// Generated from API version 2024-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - incidentID - Incident ID
@@ -105,7 +105,7 @@ func (client *IncidentRelationsClient) createOrUpdateCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01-preview")
+	reqQP.Set("api-version", "2024-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, relation); err != nil {
@@ -123,10 +123,10 @@ func (client *IncidentRelationsClient) createOrUpdateHandleResponse(resp *http.R
 	return result, nil
 }
 
-// Delete - Delete the incident relation.
+// Delete - Deletes a relation for a given incident.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01-preview
+// Generated from API version 2024-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - incidentID - Incident ID
@@ -182,16 +182,16 @@ func (client *IncidentRelationsClient) deleteCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01-preview")
+	reqQP.Set("api-version", "2024-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
-// Get - Gets an incident relation.
+// Get - Gets a relation for a given incident.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01-preview
+// Generated from API version 2024-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - incidentID - Incident ID
@@ -247,7 +247,7 @@ func (client *IncidentRelationsClient) getCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01-preview")
+	reqQP.Set("api-version", "2024-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -262,9 +262,9 @@ func (client *IncidentRelationsClient) getHandleResponse(resp *http.Response) (I
 	return result, nil
 }
 
-// NewListPager - Gets all incident relations.
+// NewListPager - Gets all relations for a given incident.
 //
-// Generated from API version 2022-09-01-preview
+// Generated from API version 2024-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - incidentID - Incident ID
@@ -329,7 +329,7 @@ func (client *IncidentRelationsClient) listCreateRequest(ctx context.Context, re
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	reqQP.Set("api-version", "2022-09-01-preview")
+	reqQP.Set("api-version", "2024-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
