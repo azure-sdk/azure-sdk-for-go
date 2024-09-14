@@ -1,5 +1,17 @@
 # Release History
 
+## 3.0.0 (2024-09-14)
+### Breaking Changes
+
+- Function `*ProviderOperationsMetadataClient.Get` has been removed
+- Function `*RoleAssignmentsClient.NewListForResourceGroupPager` has been removed
+
+### Features Added
+
+- New field `Condition`, `ConditionVersion`, `CreatedBy`, `CreatedOn`, `UpdatedBy`, `UpdatedOn` in struct `DenyAssignmentProperties`
+- New field `CreatedBy`, `CreatedOn`, `UpdatedBy`, `UpdatedOn` in struct `RoleDefinitionProperties`
+
+
 ## 3.0.0-beta.2 (2023-11-30)
 ### Features Added
 

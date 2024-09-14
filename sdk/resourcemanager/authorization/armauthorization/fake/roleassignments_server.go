@@ -52,10 +52,6 @@ type RoleAssignmentsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListForResourcePager func(resourceGroupName string, resourceProviderNamespace string, resourceType string, resourceName string, options *armauthorization.RoleAssignmentsClientListForResourceOptions) (resp azfake.PagerResponder[armauthorization.RoleAssignmentsClientListForResourceResponse])
 
-	// NewListForResourceGroupPager is the fake for method RoleAssignmentsClient.NewListForResourceGroupPager
-	// HTTP status codes to indicate success: http.StatusOK
-	NewListForResourceGroupPager func(resourceGroupName string, options *armauthorization.RoleAssignmentsClientListForResourceGroupOptions) (resp azfake.PagerResponder[armauthorization.RoleAssignmentsClientListForResourceGroupResponse])
-
 	// NewListForScopePager is the fake for method RoleAssignmentsClient.NewListForScopePager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListForScopePager func(scope string, options *armauthorization.RoleAssignmentsClientListForScopeOptions) (resp azfake.PagerResponder[armauthorization.RoleAssignmentsClientListForScopeResponse])
@@ -70,22 +66,20 @@ type RoleAssignmentsServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewRoleAssignmentsServerTransport(srv *RoleAssignmentsServer) *RoleAssignmentsServerTransport {
 	return &RoleAssignmentsServerTransport{
-		srv:                          srv,
-		newListForResourcePager:      newTracker[azfake.PagerResponder[armauthorization.RoleAssignmentsClientListForResourceResponse]](),
-		newListForResourceGroupPager: newTracker[azfake.PagerResponder[armauthorization.RoleAssignmentsClientListForResourceGroupResponse]](),
-		newListForScopePager:         newTracker[azfake.PagerResponder[armauthorization.RoleAssignmentsClientListForScopeResponse]](),
-		newListForSubscriptionPager:  newTracker[azfake.PagerResponder[armauthorization.RoleAssignmentsClientListForSubscriptionResponse]](),
+		srv:                         srv,
+		newListForResourcePager:     newTracker[azfake.PagerResponder[armauthorization.RoleAssignmentsClientListForResourceResponse]](),
+		newListForScopePager:        newTracker[azfake.PagerResponder[armauthorization.RoleAssignmentsClientListForScopeResponse]](),
+		newListForSubscriptionPager: newTracker[azfake.PagerResponder[armauthorization.RoleAssignmentsClientListForSubscriptionResponse]](),
 	}
 }
 
 // RoleAssignmentsServerTransport connects instances of armauthorization.RoleAssignmentsClient to instances of RoleAssignmentsServer.
 // Don't use this type directly, use NewRoleAssignmentsServerTransport instead.
 type RoleAssignmentsServerTransport struct {
-	srv                          *RoleAssignmentsServer
-	newListForResourcePager      *tracker[azfake.PagerResponder[armauthorization.RoleAssignmentsClientListForResourceResponse]]
-	newListForResourceGroupPager *tracker[azfake.PagerResponder[armauthorization.RoleAssignmentsClientListForResourceGroupResponse]]
-	newListForScopePager         *tracker[azfake.PagerResponder[armauthorization.RoleAssignmentsClientListForScopeResponse]]
-	newListForSubscriptionPager  *tracker[azfake.PagerResponder[armauthorization.RoleAssignmentsClientListForSubscriptionResponse]]
+	srv                         *RoleAssignmentsServer
+	newListForResourcePager     *tracker[azfake.PagerResponder[armauthorization.RoleAssignmentsClientListForResourceResponse]]
+	newListForScopePager        *tracker[azfake.PagerResponder[armauthorization.RoleAssignmentsClientListForScopeResponse]]
+	newListForSubscriptionPager *tracker[azfake.PagerResponder[armauthorization.RoleAssignmentsClientListForSubscriptionResponse]]
 }
 
 // Do implements the policy.Transporter interface for RoleAssignmentsServerTransport.
@@ -114,8 +108,6 @@ func (r *RoleAssignmentsServerTransport) Do(req *http.Request) (*http.Response, 
 		resp, err = r.dispatchGetByID(req)
 	case "RoleAssignmentsClient.NewListForResourcePager":
 		resp, err = r.dispatchNewListForResourcePager(req)
-	case "RoleAssignmentsClient.NewListForResourceGroupPager":
-		resp, err = r.dispatchNewListForResourceGroupPager(req)
 	case "RoleAssignmentsClient.NewListForScopePager":
 		resp, err = r.dispatchNewListForScopePager(req)
 	case "RoleAssignmentsClient.NewListForSubscriptionPager":
@@ -436,61 +428,6 @@ func (r *RoleAssignmentsServerTransport) dispatchNewListForResourcePager(req *ht
 	}
 	if !server.PagerResponderMore(newListForResourcePager) {
 		r.newListForResourcePager.remove(req)
-	}
-	return resp, nil
-}
-
-func (r *RoleAssignmentsServerTransport) dispatchNewListForResourceGroupPager(req *http.Request) (*http.Response, error) {
-	if r.srv.NewListForResourceGroupPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListForResourceGroupPager not implemented")}
-	}
-	newListForResourceGroupPager := r.newListForResourceGroupPager.get(req)
-	if newListForResourceGroupPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Authorization/roleAssignments`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 2 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		qp := req.URL.Query()
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		filterUnescaped, err := url.QueryUnescape(qp.Get("$filter"))
-		if err != nil {
-			return nil, err
-		}
-		filterParam := getOptional(filterUnescaped)
-		tenantIDUnescaped, err := url.QueryUnescape(qp.Get("tenantId"))
-		if err != nil {
-			return nil, err
-		}
-		tenantIDParam := getOptional(tenantIDUnescaped)
-		var options *armauthorization.RoleAssignmentsClientListForResourceGroupOptions
-		if filterParam != nil || tenantIDParam != nil {
-			options = &armauthorization.RoleAssignmentsClientListForResourceGroupOptions{
-				Filter:   filterParam,
-				TenantID: tenantIDParam,
-			}
-		}
-		resp := r.srv.NewListForResourceGroupPager(resourceGroupNameParam, options)
-		newListForResourceGroupPager = &resp
-		r.newListForResourceGroupPager.add(req, newListForResourceGroupPager)
-		server.PagerResponderInjectNextLinks(newListForResourceGroupPager, req, func(page *armauthorization.RoleAssignmentsClientListForResourceGroupResponse, createLink func() string) {
-			page.NextLink = to.Ptr(createLink())
-		})
-	}
-	resp, err := server.PagerResponderNext(newListForResourceGroupPager, req)
-	if err != nil {
-		return nil, err
-	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		r.newListForResourceGroupPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
-	}
-	if !server.PagerResponderMore(newListForResourceGroupPager) {
-		r.newListForResourceGroupPager.remove(req)
 	}
 	return resp, nil
 }
