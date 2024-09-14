@@ -9,7 +9,6 @@
 package fake
 
 import (
-	"context"
 	"errors"
 	"fmt"
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
@@ -19,15 +18,10 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/authorization/armauthorization/v3"
 	"net/http"
 	"net/url"
-	"regexp"
 )
 
 // ProviderOperationsMetadataServer is a fake server for instances of the armauthorization.ProviderOperationsMetadataClient type.
 type ProviderOperationsMetadataServer struct {
-	// Get is the fake for method ProviderOperationsMetadataClient.Get
-	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceProviderNamespace string, options *armauthorization.ProviderOperationsMetadataClientGetOptions) (resp azfake.Responder[armauthorization.ProviderOperationsMetadataClientGetResponse], errResp azfake.ErrorResponder)
-
 	// NewListPager is the fake for method ProviderOperationsMetadataClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListPager func(options *armauthorization.ProviderOperationsMetadataClientListOptions) (resp azfake.PagerResponder[armauthorization.ProviderOperationsMetadataClientListResponse])
@@ -62,8 +56,6 @@ func (p *ProviderOperationsMetadataServerTransport) Do(req *http.Request) (*http
 	var err error
 
 	switch method {
-	case "ProviderOperationsMetadataClient.Get":
-		resp, err = p.dispatchGet(req)
 	case "ProviderOperationsMetadataClient.NewListPager":
 		resp, err = p.dispatchNewListPager(req)
 	default:
@@ -74,47 +66,6 @@ func (p *ProviderOperationsMetadataServerTransport) Do(req *http.Request) (*http
 		return nil, err
 	}
 
-	return resp, nil
-}
-
-func (p *ProviderOperationsMetadataServerTransport) dispatchGet(req *http.Request) (*http.Response, error) {
-	if p.srv.Get == nil {
-		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
-	}
-	const regexStr = `/providers/Microsoft\.Authorization/providerOperations/(?P<resourceProviderNamespace>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 1 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	qp := req.URL.Query()
-	resourceProviderNamespaceParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceProviderNamespace")])
-	if err != nil {
-		return nil, err
-	}
-	expandUnescaped, err := url.QueryUnescape(qp.Get("$expand"))
-	if err != nil {
-		return nil, err
-	}
-	expandParam := getOptional(expandUnescaped)
-	var options *armauthorization.ProviderOperationsMetadataClientGetOptions
-	if expandParam != nil {
-		options = &armauthorization.ProviderOperationsMetadataClientGetOptions{
-			Expand: expandParam,
-		}
-	}
-	respr, errRespr := p.srv.Get(req.Context(), resourceProviderNamespaceParam, options)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ProviderOperationsMetadata, req)
-	if err != nil {
-		return nil, err
-	}
 	return resp, nil
 }
 
