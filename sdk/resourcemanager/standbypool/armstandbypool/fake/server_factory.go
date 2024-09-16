@@ -19,10 +19,12 @@ import (
 
 // ServerFactory is a fake server for instances of the armstandbypool.ClientFactory type.
 type ServerFactory struct {
-	OperationsServer                 OperationsServer
-	StandbyContainerGroupPoolsServer StandbyContainerGroupPoolsServer
-	StandbyVirtualMachinePoolsServer StandbyVirtualMachinePoolsServer
-	StandbyVirtualMachinesServer     StandbyVirtualMachinesServer
+	OperationsServer                            OperationsServer
+	StandbyContainerGroupPoolRuntimeViewsServer StandbyContainerGroupPoolRuntimeViewsServer
+	StandbyContainerGroupPoolsServer            StandbyContainerGroupPoolsServer
+	StandbyVirtualMachinePoolRuntimeViewsServer StandbyVirtualMachinePoolRuntimeViewsServer
+	StandbyVirtualMachinePoolsServer            StandbyVirtualMachinePoolsServer
+	StandbyVirtualMachinesServer                StandbyVirtualMachinesServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -37,12 +39,14 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armstandbypool.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                                *ServerFactory
-	trMu                               sync.Mutex
-	trOperationsServer                 *OperationsServerTransport
-	trStandbyContainerGroupPoolsServer *StandbyContainerGroupPoolsServerTransport
-	trStandbyVirtualMachinePoolsServer *StandbyVirtualMachinePoolsServerTransport
-	trStandbyVirtualMachinesServer     *StandbyVirtualMachinesServerTransport
+	srv                                           *ServerFactory
+	trMu                                          sync.Mutex
+	trOperationsServer                            *OperationsServerTransport
+	trStandbyContainerGroupPoolRuntimeViewsServer *StandbyContainerGroupPoolRuntimeViewsServerTransport
+	trStandbyContainerGroupPoolsServer            *StandbyContainerGroupPoolsServerTransport
+	trStandbyVirtualMachinePoolRuntimeViewsServer *StandbyVirtualMachinePoolRuntimeViewsServerTransport
+	trStandbyVirtualMachinePoolsServer            *StandbyVirtualMachinePoolsServerTransport
+	trStandbyVirtualMachinesServer                *StandbyVirtualMachinesServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -61,11 +65,21 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
+	case "StandbyContainerGroupPoolRuntimeViewsClient":
+		initServer(s, &s.trStandbyContainerGroupPoolRuntimeViewsServer, func() *StandbyContainerGroupPoolRuntimeViewsServerTransport {
+			return NewStandbyContainerGroupPoolRuntimeViewsServerTransport(&s.srv.StandbyContainerGroupPoolRuntimeViewsServer)
+		})
+		resp, err = s.trStandbyContainerGroupPoolRuntimeViewsServer.Do(req)
 	case "StandbyContainerGroupPoolsClient":
 		initServer(s, &s.trStandbyContainerGroupPoolsServer, func() *StandbyContainerGroupPoolsServerTransport {
 			return NewStandbyContainerGroupPoolsServerTransport(&s.srv.StandbyContainerGroupPoolsServer)
 		})
 		resp, err = s.trStandbyContainerGroupPoolsServer.Do(req)
+	case "StandbyVirtualMachinePoolRuntimeViewsClient":
+		initServer(s, &s.trStandbyVirtualMachinePoolRuntimeViewsServer, func() *StandbyVirtualMachinePoolRuntimeViewsServerTransport {
+			return NewStandbyVirtualMachinePoolRuntimeViewsServerTransport(&s.srv.StandbyVirtualMachinePoolRuntimeViewsServer)
+		})
+		resp, err = s.trStandbyVirtualMachinePoolRuntimeViewsServer.Do(req)
 	case "StandbyVirtualMachinePoolsClient":
 		initServer(s, &s.trStandbyVirtualMachinePoolsServer, func() *StandbyVirtualMachinePoolsServerTransport {
 			return NewStandbyVirtualMachinePoolsServerTransport(&s.srv.StandbyVirtualMachinePoolsServer)
