@@ -45,7 +45,7 @@ func NewOrganizationsClient(subscriptionID string, credential azcore.TokenCreden
 
 // NewListPager - List all the existing organizations
 //
-// Generated from API version 2024-01-01
+// Generated from API version 2024-10-01
 //   - userEmail - User Email.
 //   - location - Location for NewRelic.
 //   - options - OrganizationsClientListOptions contains the optional parameters for the OrganizationsClient.NewListPager method.
@@ -84,7 +84,7 @@ func (client *OrganizationsClient) listCreateRequest(ctx context.Context, userEm
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-01-01")
+	reqQP.Set("api-version", "2024-10-01")
 	reqQP.Set("location", location)
 	reqQP.Set("userEmail", userEmail)
 	req.Raw().URL.RawQuery = reqQP.Encode()
