@@ -10,7 +10,7 @@ package armnewrelicobservability
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/newrelic/armnewrelicobservability"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v2.0.0"
 )
 
 // AccountCreationSource - Source of Account creation
@@ -42,27 +42,6 @@ const (
 func PossibleActionTypeValues() []ActionType {
 	return []ActionType{
 		ActionTypeInternal,
-	}
-}
-
-// BillingCycle - Different usage type like YEARLY/MONTHLY
-type BillingCycle string
-
-const (
-	// BillingCycleMONTHLY - Billing cycle is MONTHLY
-	BillingCycleMONTHLY BillingCycle = "MONTHLY"
-	// BillingCycleWEEKLY - Billing cycle is WEEKLY
-	BillingCycleWEEKLY BillingCycle = "WEEKLY"
-	// BillingCycleYEARLY - Billing cycle is YEARLY
-	BillingCycleYEARLY BillingCycle = "YEARLY"
-)
-
-// PossibleBillingCycleValues returns the possible values for the BillingCycle const type.
-func PossibleBillingCycleValues() []BillingCycle {
-	return []BillingCycle{
-		BillingCycleMONTHLY,
-		BillingCycleWEEKLY,
-		BillingCycleYEARLY,
 	}
 }
 
