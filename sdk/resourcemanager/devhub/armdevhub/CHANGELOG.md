@@ -1,5 +1,55 @@
 # Release History
 
+## 0.6.0 (2024-09-16)
+### Breaking Changes
+
+- Type of `GitHubWorkflowProfile.DeploymentProperties` has been changed from `*DeploymentProperties` to `*Deployment`
+- Struct `DeploymentProperties` has been removed
+
+### Features Added
+
+- New enum type `QuickStartTemplateType` with values `QuickStartTemplateTypeHCI`, `QuickStartTemplateTypeHCIAKS`, `QuickStartTemplateTypeHCIARCVM`, `QuickStartTemplateTypeNone`
+- New function `NewADOOAuthClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ADOOAuthClient, error)`
+- New function `*ADOOAuthClient.Get(context.Context, string, *ADOOAuthClientGetOptions) (ADOOAuthClientGetResponse, error)`
+- New function `*ADOOAuthClient.NewListPager(string, *ADOOAuthClientListOptions) *runtime.Pager[ADOOAuthClientListResponse]`
+- New function `*ClientFactory.NewADOOAuthClient() *ADOOAuthClient`
+- New function `*ClientFactory.NewIacProfilesClient() *IacProfilesClient`
+- New function `*DeveloperHubServiceClient.GetADOOAuthInfo(context.Context, string, *DeveloperHubServiceClientGetADOOAuthInfoOptions) (DeveloperHubServiceClientGetADOOAuthInfoResponse, error)`
+- New function `NewIacProfilesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*IacProfilesClient, error)`
+- New function `*IacProfilesClient.CreateOrUpdate(context.Context, string, string, IacProfile, *IacProfilesClientCreateOrUpdateOptions) (IacProfilesClientCreateOrUpdateResponse, error)`
+- New function `*IacProfilesClient.Delete(context.Context, string, string, *IacProfilesClientDeleteOptions) (IacProfilesClientDeleteResponse, error)`
+- New function `*IacProfilesClient.Export(context.Context, string, string, ExportTemplateRequest, *IacProfilesClientExportOptions) (IacProfilesClientExportResponse, error)`
+- New function `*IacProfilesClient.Get(context.Context, string, string, *IacProfilesClientGetOptions) (IacProfilesClientGetResponse, error)`
+- New function `*IacProfilesClient.NewListByResourceGroupPager(string, *IacProfilesClientListByResourceGroupOptions) *runtime.Pager[IacProfilesClientListByResourceGroupResponse]`
+- New function `*IacProfilesClient.NewListPager(*IacProfilesClientListOptions) *runtime.Pager[IacProfilesClientListResponse]`
+- New function `*IacProfilesClient.Scale(context.Context, string, string, ScaleTemplateRequest, *IacProfilesClientScaleOptions) (IacProfilesClientScaleResponse, error)`
+- New function `*IacProfilesClient.Sync(context.Context, string, string, *IacProfilesClientSyncOptions) (IacProfilesClientSyncResponse, error)`
+- New function `*IacProfilesClient.UpdateTags(context.Context, string, string, TagsObject, *IacProfilesClientUpdateTagsOptions) (IacProfilesClientUpdateTagsResponse, error)`
+- New struct `ADOOAuth`
+- New struct `ADOOAuthCallRequest`
+- New struct `ADOOAuthInfoResponse`
+- New struct `ADOOAuthListResponse`
+- New struct `ADOOAuthResponse`
+- New struct `ADORepository`
+- New struct `AzurePipelineProfile`
+- New struct `Build`
+- New struct `Deployment`
+- New struct `ExportTemplateRequest`
+- New struct `IacGitHubProfile`
+- New struct `IacProfile`
+- New struct `IacProfileListResult`
+- New struct `IacProfileProperties`
+- New struct `IacTemplateDetails`
+- New struct `IacTemplateProperties`
+- New struct `PrLinkResponse`
+- New struct `PullRequest`
+- New struct `ScaleProperty`
+- New struct `ScaleTemplateRequest`
+- New struct `StageProperties`
+- New struct `TerraformProfile`
+- New field `AzurePipelineProfile` in struct `WorkflowProperties`
+
+
 ## 0.5.0 (2023-11-24)
 ### Features Added
 

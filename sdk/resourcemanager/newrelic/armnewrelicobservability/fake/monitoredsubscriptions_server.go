@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/newrelic/armnewrelicobservability"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/newrelic/armnewrelicobservability/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -24,9 +24,9 @@ import (
 
 // MonitoredSubscriptionsServer is a fake server for instances of the armnewrelicobservability.MonitoredSubscriptionsClient type.
 type MonitoredSubscriptionsServer struct {
-	// BeginCreateorUpdate is the fake for method MonitoredSubscriptionsClient.BeginCreateorUpdate
+	// BeginCreateOrUpdate is the fake for method MonitoredSubscriptionsClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	BeginCreateorUpdate func(ctx context.Context, resourceGroupName string, monitorName string, configurationName armnewrelicobservability.ConfigurationName, body armnewrelicobservability.MonitoredSubscriptionProperties, options *armnewrelicobservability.MonitoredSubscriptionsClientBeginCreateorUpdateOptions) (resp azfake.PollerResponder[armnewrelicobservability.MonitoredSubscriptionsClientCreateorUpdateResponse], errResp azfake.ErrorResponder)
+	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, monitorName string, configurationName armnewrelicobservability.ConfigurationName, body armnewrelicobservability.MonitoredSubscriptionProperties, options *armnewrelicobservability.MonitoredSubscriptionsClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armnewrelicobservability.MonitoredSubscriptionsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method MonitoredSubscriptionsClient.BeginDelete
 	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
@@ -51,7 +51,7 @@ type MonitoredSubscriptionsServer struct {
 func NewMonitoredSubscriptionsServerTransport(srv *MonitoredSubscriptionsServer) *MonitoredSubscriptionsServerTransport {
 	return &MonitoredSubscriptionsServerTransport{
 		srv:                 srv,
-		beginCreateorUpdate: newTracker[azfake.PollerResponder[armnewrelicobservability.MonitoredSubscriptionsClientCreateorUpdateResponse]](),
+		beginCreateOrUpdate: newTracker[azfake.PollerResponder[armnewrelicobservability.MonitoredSubscriptionsClientCreateOrUpdateResponse]](),
 		beginDelete:         newTracker[azfake.PollerResponder[armnewrelicobservability.MonitoredSubscriptionsClientDeleteResponse]](),
 		newListPager:        newTracker[azfake.PagerResponder[armnewrelicobservability.MonitoredSubscriptionsClientListResponse]](),
 		beginUpdate:         newTracker[azfake.PollerResponder[armnewrelicobservability.MonitoredSubscriptionsClientUpdateResponse]](),
@@ -62,7 +62,7 @@ func NewMonitoredSubscriptionsServerTransport(srv *MonitoredSubscriptionsServer)
 // Don't use this type directly, use NewMonitoredSubscriptionsServerTransport instead.
 type MonitoredSubscriptionsServerTransport struct {
 	srv                 *MonitoredSubscriptionsServer
-	beginCreateorUpdate *tracker[azfake.PollerResponder[armnewrelicobservability.MonitoredSubscriptionsClientCreateorUpdateResponse]]
+	beginCreateOrUpdate *tracker[azfake.PollerResponder[armnewrelicobservability.MonitoredSubscriptionsClientCreateOrUpdateResponse]]
 	beginDelete         *tracker[azfake.PollerResponder[armnewrelicobservability.MonitoredSubscriptionsClientDeleteResponse]]
 	newListPager        *tracker[azfake.PagerResponder[armnewrelicobservability.MonitoredSubscriptionsClientListResponse]]
 	beginUpdate         *tracker[azfake.PollerResponder[armnewrelicobservability.MonitoredSubscriptionsClientUpdateResponse]]
@@ -80,8 +80,8 @@ func (m *MonitoredSubscriptionsServerTransport) Do(req *http.Request) (*http.Res
 	var err error
 
 	switch method {
-	case "MonitoredSubscriptionsClient.BeginCreateorUpdate":
-		resp, err = m.dispatchBeginCreateorUpdate(req)
+	case "MonitoredSubscriptionsClient.BeginCreateOrUpdate":
+		resp, err = m.dispatchBeginCreateOrUpdate(req)
 	case "MonitoredSubscriptionsClient.BeginDelete":
 		resp, err = m.dispatchBeginDelete(req)
 	case "MonitoredSubscriptionsClient.Get":
@@ -101,12 +101,12 @@ func (m *MonitoredSubscriptionsServerTransport) Do(req *http.Request) (*http.Res
 	return resp, nil
 }
 
-func (m *MonitoredSubscriptionsServerTransport) dispatchBeginCreateorUpdate(req *http.Request) (*http.Response, error) {
-	if m.srv.BeginCreateorUpdate == nil {
-		return nil, &nonRetriableError{errors.New("fake for method BeginCreateorUpdate not implemented")}
+func (m *MonitoredSubscriptionsServerTransport) dispatchBeginCreateOrUpdate(req *http.Request) (*http.Response, error) {
+	if m.srv.BeginCreateOrUpdate == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginCreateOrUpdate not implemented")}
 	}
-	beginCreateorUpdate := m.beginCreateorUpdate.get(req)
-	if beginCreateorUpdate == nil {
+	beginCreateOrUpdate := m.beginCreateOrUpdate.get(req)
+	if beginCreateOrUpdate == nil {
 		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/NewRelic\.Observability/monitors/(?P<monitorName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/monitoredSubscriptions/(?P<configurationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
@@ -135,25 +135,25 @@ func (m *MonitoredSubscriptionsServerTransport) dispatchBeginCreateorUpdate(req 
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := m.srv.BeginCreateorUpdate(req.Context(), resourceGroupNameParam, monitorNameParam, configurationNameParam, body, nil)
+		respr, errRespr := m.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, monitorNameParam, configurationNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
-		beginCreateorUpdate = &respr
-		m.beginCreateorUpdate.add(req, beginCreateorUpdate)
+		beginCreateOrUpdate = &respr
+		m.beginCreateOrUpdate.add(req, beginCreateOrUpdate)
 	}
 
-	resp, err := server.PollerResponderNext(beginCreateorUpdate, req)
+	resp, err := server.PollerResponderNext(beginCreateOrUpdate, req)
 	if err != nil {
 		return nil, err
 	}
 
 	if !contains([]int{http.StatusOK, http.StatusCreated}, resp.StatusCode) {
-		m.beginCreateorUpdate.remove(req)
+		m.beginCreateOrUpdate.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", resp.StatusCode)}
 	}
-	if !server.PollerResponderMore(beginCreateorUpdate) {
-		m.beginCreateorUpdate.remove(req)
+	if !server.PollerResponderMore(beginCreateOrUpdate) {
+		m.beginCreateOrUpdate.remove(req)
 	}
 
 	return resp, nil
