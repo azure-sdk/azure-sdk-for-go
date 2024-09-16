@@ -43,43 +43,43 @@ func NewMonitoredSubscriptionsClient(subscriptionID string, credential azcore.To
 	return client, nil
 }
 
-// BeginCreateorUpdate - Add the subscriptions that should be monitored by the NewRelic monitor resource.
+// BeginCreateOrUpdate - Add the subscriptions that should be monitored by the NewRelic monitor resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-01-01
+// Generated from API version 2024-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - monitorName - Name of the Monitors resource
 //   - configurationName - The configuration name. Only 'default' value is supported.
-//   - options - MonitoredSubscriptionsClientBeginCreateorUpdateOptions contains the optional parameters for the MonitoredSubscriptionsClient.BeginCreateorUpdate
+//   - options - MonitoredSubscriptionsClientBeginCreateOrUpdateOptions contains the optional parameters for the MonitoredSubscriptionsClient.BeginCreateOrUpdate
 //     method.
-func (client *MonitoredSubscriptionsClient) BeginCreateorUpdate(ctx context.Context, resourceGroupName string, monitorName string, configurationName ConfigurationName, body MonitoredSubscriptionProperties, options *MonitoredSubscriptionsClientBeginCreateorUpdateOptions) (*runtime.Poller[MonitoredSubscriptionsClientCreateorUpdateResponse], error) {
+func (client *MonitoredSubscriptionsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, monitorName string, configurationName ConfigurationName, body MonitoredSubscriptionProperties, options *MonitoredSubscriptionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[MonitoredSubscriptionsClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createorUpdate(ctx, resourceGroupName, monitorName, configurationName, body, options)
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, monitorName, configurationName, body, options)
 		if err != nil {
 			return nil, err
 		}
-		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[MonitoredSubscriptionsClientCreateorUpdateResponse]{
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[MonitoredSubscriptionsClientCreateOrUpdateResponse]{
 			Tracer: client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[MonitoredSubscriptionsClientCreateorUpdateResponse]{
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[MonitoredSubscriptionsClientCreateOrUpdateResponse]{
 			Tracer: client.internal.Tracer(),
 		})
 	}
 }
 
-// CreateorUpdate - Add the subscriptions that should be monitored by the NewRelic monitor resource.
+// CreateOrUpdate - Add the subscriptions that should be monitored by the NewRelic monitor resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-01-01
-func (client *MonitoredSubscriptionsClient) createorUpdate(ctx context.Context, resourceGroupName string, monitorName string, configurationName ConfigurationName, body MonitoredSubscriptionProperties, options *MonitoredSubscriptionsClientBeginCreateorUpdateOptions) (*http.Response, error) {
+// Generated from API version 2024-10-01
+func (client *MonitoredSubscriptionsClient) createOrUpdate(ctx context.Context, resourceGroupName string, monitorName string, configurationName ConfigurationName, body MonitoredSubscriptionProperties, options *MonitoredSubscriptionsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
-	const operationName = "MonitoredSubscriptionsClient.BeginCreateorUpdate"
+	const operationName = "MonitoredSubscriptionsClient.BeginCreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createorUpdateCreateRequest(ctx, resourceGroupName, monitorName, configurationName, body, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, monitorName, configurationName, body, options)
 	if err != nil {
 		return nil, err
 	}
@@ -94,8 +94,8 @@ func (client *MonitoredSubscriptionsClient) createorUpdate(ctx context.Context, 
 	return httpResp, nil
 }
 
-// createorUpdateCreateRequest creates the CreateorUpdate request.
-func (client *MonitoredSubscriptionsClient) createorUpdateCreateRequest(ctx context.Context, resourceGroupName string, monitorName string, configurationName ConfigurationName, body MonitoredSubscriptionProperties, options *MonitoredSubscriptionsClientBeginCreateorUpdateOptions) (*policy.Request, error) {
+// createOrUpdateCreateRequest creates the CreateOrUpdate request.
+func (client *MonitoredSubscriptionsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, monitorName string, configurationName ConfigurationName, body MonitoredSubscriptionProperties, options *MonitoredSubscriptionsClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/NewRelic.Observability/monitors/{monitorName}/monitoredSubscriptions/{configurationName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -118,7 +118,7 @@ func (client *MonitoredSubscriptionsClient) createorUpdateCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-01-01")
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -130,7 +130,7 @@ func (client *MonitoredSubscriptionsClient) createorUpdateCreateRequest(ctx cont
 // BeginDelete - Updates the subscriptions that are being monitored by the NewRelic monitor resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-01-01
+// Generated from API version 2024-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - monitorName - Name of the Monitors resource
 //   - configurationName - The configuration name. Only 'default' value is supported.
@@ -156,7 +156,7 @@ func (client *MonitoredSubscriptionsClient) BeginDelete(ctx context.Context, res
 // Delete - Updates the subscriptions that are being monitored by the NewRelic monitor resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-01-01
+// Generated from API version 2024-10-01
 func (client *MonitoredSubscriptionsClient) deleteOperation(ctx context.Context, resourceGroupName string, monitorName string, configurationName ConfigurationName, options *MonitoredSubscriptionsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "MonitoredSubscriptionsClient.BeginDelete"
@@ -202,7 +202,7 @@ func (client *MonitoredSubscriptionsClient) deleteCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-01-01")
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -211,7 +211,7 @@ func (client *MonitoredSubscriptionsClient) deleteCreateRequest(ctx context.Cont
 // Get - List the subscriptions currently being monitored by the NewRelic monitor resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-01-01
+// Generated from API version 2024-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - monitorName - Name of the Monitors resource
 //   - configurationName - The configuration name. Only 'default' value is supported.
@@ -263,7 +263,7 @@ func (client *MonitoredSubscriptionsClient) getCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-01-01")
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -280,7 +280,7 @@ func (client *MonitoredSubscriptionsClient) getHandleResponse(resp *http.Respons
 
 // NewListPager - List the subscriptions currently being monitored by the NewRelic monitor resource.
 //
-// Generated from API version 2024-01-01
+// Generated from API version 2024-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - monitorName - Name of the Monitors resource
 //   - options - MonitoredSubscriptionsClientListOptions contains the optional parameters for the MonitoredSubscriptionsClient.NewListPager
@@ -328,7 +328,7 @@ func (client *MonitoredSubscriptionsClient) listCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-01-01")
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -346,7 +346,7 @@ func (client *MonitoredSubscriptionsClient) listHandleResponse(resp *http.Respon
 // BeginUpdate - Updates the subscriptions that are being monitored by the NewRelic monitor resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-01-01
+// Generated from API version 2024-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - monitorName - Name of the Monitors resource
 //   - configurationName - The configuration name. Only 'default' value is supported.
@@ -372,7 +372,7 @@ func (client *MonitoredSubscriptionsClient) BeginUpdate(ctx context.Context, res
 // Update - Updates the subscriptions that are being monitored by the NewRelic monitor resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-01-01
+// Generated from API version 2024-10-01
 func (client *MonitoredSubscriptionsClient) update(ctx context.Context, resourceGroupName string, monitorName string, configurationName ConfigurationName, body MonitoredSubscriptionProperties, options *MonitoredSubscriptionsClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "MonitoredSubscriptionsClient.BeginUpdate"
@@ -418,7 +418,7 @@ func (client *MonitoredSubscriptionsClient) updateCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-01-01")
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
