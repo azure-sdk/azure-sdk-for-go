@@ -637,6 +637,8 @@ func (m MarketplaceSaaSInfo) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "marketplaceStatus", m.MarketplaceStatus)
 	populate(objectMap, "marketplaceSubscriptionId", m.MarketplaceSubscriptionID)
 	populate(objectMap, "marketplaceSubscriptionName", m.MarketplaceSubscriptionName)
+	populate(objectMap, "offerId", m.OfferID)
+	populate(objectMap, "publisherId", m.PublisherID)
 	return json.Marshal(objectMap)
 }
 
@@ -663,6 +665,12 @@ func (m *MarketplaceSaaSInfo) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "marketplaceSubscriptionName":
 			err = unpopulate(val, "MarketplaceSubscriptionName", &m.MarketplaceSubscriptionName)
+			delete(rawMsg, key)
+		case "offerId":
+			err = unpopulate(val, "OfferID", &m.OfferID)
+			delete(rawMsg, key)
+		case "publisherId":
+			err = unpopulate(val, "PublisherID", &m.PublisherID)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -1711,6 +1719,57 @@ func (p *PlanDataResource) UnmarshalJSON(data []byte) error {
 		}
 		if err != nil {
 			return fmt.Errorf("unmarshalling type %T: %v", p, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ResubscribeProperties.
+func (r ResubscribeProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "offerId", r.OfferID)
+	populate(objectMap, "organizationId", r.OrganizationID)
+	populate(objectMap, "planId", r.PlanID)
+	populate(objectMap, "publisherId", r.PublisherID)
+	populate(objectMap, "resourceGroup", r.ResourceGroup)
+	populate(objectMap, "subscriptionId", r.SubscriptionID)
+	populate(objectMap, "termId", r.TermID)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ResubscribeProperties.
+func (r *ResubscribeProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", r, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "offerId":
+			err = unpopulate(val, "OfferID", &r.OfferID)
+			delete(rawMsg, key)
+		case "organizationId":
+			err = unpopulate(val, "OrganizationID", &r.OrganizationID)
+			delete(rawMsg, key)
+		case "planId":
+			err = unpopulate(val, "PlanID", &r.PlanID)
+			delete(rawMsg, key)
+		case "publisherId":
+			err = unpopulate(val, "PublisherID", &r.PublisherID)
+			delete(rawMsg, key)
+		case "resourceGroup":
+			err = unpopulate(val, "ResourceGroup", &r.ResourceGroup)
+			delete(rawMsg, key)
+		case "subscriptionId":
+			err = unpopulate(val, "SubscriptionID", &r.SubscriptionID)
+			delete(rawMsg, key)
+		case "termId":
+			err = unpopulate(val, "TermID", &r.TermID)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", r, err)
 		}
 	}
 	return nil
