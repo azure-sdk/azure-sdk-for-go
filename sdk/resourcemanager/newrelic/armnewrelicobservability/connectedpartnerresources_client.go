@@ -46,7 +46,7 @@ func NewConnectedPartnerResourcesClient(subscriptionID string, credential azcore
 // NewListPager - List of all active deployments that are associated with the marketplace subscription linked to the given
 // monitor.
 //
-// Generated from API version 2024-01-01
+// Generated from API version 2024-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - monitorName - Name of the Monitors resource
 //   - options - ConnectedPartnerResourcesClientListOptions contains the optional parameters for the ConnectedPartnerResourcesClient.NewListPager
@@ -94,7 +94,7 @@ func (client *ConnectedPartnerResourcesClient) listCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-01-01")
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Body != nil {
