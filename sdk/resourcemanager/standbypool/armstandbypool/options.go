@@ -13,6 +13,18 @@ type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// StandbyContainerGroupPoolRuntimeViewsClientGetOptions contains the optional parameters for the StandbyContainerGroupPoolRuntimeViewsClient.Get
+// method.
+type StandbyContainerGroupPoolRuntimeViewsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// StandbyContainerGroupPoolRuntimeViewsClientListByStandbyPoolOptions contains the optional parameters for the StandbyContainerGroupPoolRuntimeViewsClient.NewListByStandbyPoolPager
+// method.
+type StandbyContainerGroupPoolRuntimeViewsClientListByStandbyPoolOptions struct {
+	// placeholder for future optional parameters
+}
+
 // StandbyContainerGroupPoolsClientBeginCreateOrUpdateOptions contains the optional parameters for the StandbyContainerGroupPoolsClient.BeginCreateOrUpdate
 // method.
 type StandbyContainerGroupPoolsClientBeginCreateOrUpdateOptions struct {
@@ -48,6 +60,18 @@ type StandbyContainerGroupPoolsClientListBySubscriptionOptions struct {
 // StandbyContainerGroupPoolsClientUpdateOptions contains the optional parameters for the StandbyContainerGroupPoolsClient.Update
 // method.
 type StandbyContainerGroupPoolsClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// StandbyVirtualMachinePoolRuntimeViewsClientGetOptions contains the optional parameters for the StandbyVirtualMachinePoolRuntimeViewsClient.Get
+// method.
+type StandbyVirtualMachinePoolRuntimeViewsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// StandbyVirtualMachinePoolRuntimeViewsClientListByStandbyPoolOptions contains the optional parameters for the StandbyVirtualMachinePoolRuntimeViewsClient.NewListByStandbyPoolPager
+// method.
+type StandbyVirtualMachinePoolRuntimeViewsClientListByStandbyPoolOptions struct {
 	// placeholder for future optional parameters
 }
 

@@ -15,7 +15,8 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/apimanagement/armapimanagement/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/apimanagement/armapimanagement/v3"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -25,7 +26,7 @@ import (
 // PolicyFragmentServer is a fake server for instances of the armapimanagement.PolicyFragmentClient type.
 type PolicyFragmentServer struct {
 	// BeginCreateOrUpdate is the fake for method PolicyFragmentClient.BeginCreateOrUpdate
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated, http.StatusAccepted
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
 	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, serviceName string, id string, parameters armapimanagement.PolicyFragmentContract, options *armapimanagement.PolicyFragmentClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armapimanagement.PolicyFragmentClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// Delete is the fake for method PolicyFragmentClient.Delete
@@ -40,9 +41,9 @@ type PolicyFragmentServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	GetEntityTag func(ctx context.Context, resourceGroupName string, serviceName string, id string, options *armapimanagement.PolicyFragmentClientGetEntityTagOptions) (resp azfake.Responder[armapimanagement.PolicyFragmentClientGetEntityTagResponse], errResp azfake.ErrorResponder)
 
-	// ListByService is the fake for method PolicyFragmentClient.ListByService
+	// NewListByServicePager is the fake for method PolicyFragmentClient.NewListByServicePager
 	// HTTP status codes to indicate success: http.StatusOK
-	ListByService func(ctx context.Context, resourceGroupName string, serviceName string, options *armapimanagement.PolicyFragmentClientListByServiceOptions) (resp azfake.Responder[armapimanagement.PolicyFragmentClientListByServiceResponse], errResp azfake.ErrorResponder)
+	NewListByServicePager func(resourceGroupName string, serviceName string, options *armapimanagement.PolicyFragmentClientListByServiceOptions) (resp azfake.PagerResponder[armapimanagement.PolicyFragmentClientListByServiceResponse])
 
 	// ListReferences is the fake for method PolicyFragmentClient.ListReferences
 	// HTTP status codes to indicate success: http.StatusOK
@@ -54,16 +55,18 @@ type PolicyFragmentServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewPolicyFragmentServerTransport(srv *PolicyFragmentServer) *PolicyFragmentServerTransport {
 	return &PolicyFragmentServerTransport{
-		srv:                 srv,
-		beginCreateOrUpdate: newTracker[azfake.PollerResponder[armapimanagement.PolicyFragmentClientCreateOrUpdateResponse]](),
+		srv:                   srv,
+		beginCreateOrUpdate:   newTracker[azfake.PollerResponder[armapimanagement.PolicyFragmentClientCreateOrUpdateResponse]](),
+		newListByServicePager: newTracker[azfake.PagerResponder[armapimanagement.PolicyFragmentClientListByServiceResponse]](),
 	}
 }
 
 // PolicyFragmentServerTransport connects instances of armapimanagement.PolicyFragmentClient to instances of PolicyFragmentServer.
 // Don't use this type directly, use NewPolicyFragmentServerTransport instead.
 type PolicyFragmentServerTransport struct {
-	srv                 *PolicyFragmentServer
-	beginCreateOrUpdate *tracker[azfake.PollerResponder[armapimanagement.PolicyFragmentClientCreateOrUpdateResponse]]
+	srv                   *PolicyFragmentServer
+	beginCreateOrUpdate   *tracker[azfake.PollerResponder[armapimanagement.PolicyFragmentClientCreateOrUpdateResponse]]
+	newListByServicePager *tracker[azfake.PagerResponder[armapimanagement.PolicyFragmentClientListByServiceResponse]]
 }
 
 // Do implements the policy.Transporter interface for PolicyFragmentServerTransport.
@@ -86,8 +89,8 @@ func (p *PolicyFragmentServerTransport) Do(req *http.Request) (*http.Response, e
 		resp, err = p.dispatchGet(req)
 	case "PolicyFragmentClient.GetEntityTag":
 		resp, err = p.dispatchGetEntityTag(req)
-	case "PolicyFragmentClient.ListByService":
-		resp, err = p.dispatchListByService(req)
+	case "PolicyFragmentClient.NewListByServicePager":
+		resp, err = p.dispatchNewListByServicePager(req)
 	case "PolicyFragmentClient.ListReferences":
 		resp, err = p.dispatchListReferences(req)
 	default:
@@ -149,9 +152,9 @@ func (p *PolicyFragmentServerTransport) dispatchBeginCreateOrUpdate(req *http.Re
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusCreated, http.StatusAccepted}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK, http.StatusCreated}, resp.StatusCode) {
 		p.beginCreateOrUpdate.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated, http.StatusAccepted", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginCreateOrUpdate) {
 		p.beginCreateOrUpdate.remove(req)
@@ -289,83 +292,91 @@ func (p *PolicyFragmentServerTransport) dispatchGetEntityTag(req *http.Request) 
 	return resp, nil
 }
 
-func (p *PolicyFragmentServerTransport) dispatchListByService(req *http.Request) (*http.Response, error) {
-	if p.srv.ListByService == nil {
-		return nil, &nonRetriableError{errors.New("fake for method ListByService not implemented")}
+func (p *PolicyFragmentServerTransport) dispatchNewListByServicePager(req *http.Request) (*http.Response, error) {
+	if p.srv.NewListByServicePager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListByServicePager not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ApiManagement/service/(?P<serviceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/policyFragments`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 3 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	qp := req.URL.Query()
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-	if err != nil {
-		return nil, err
-	}
-	serviceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("serviceName")])
-	if err != nil {
-		return nil, err
-	}
-	filterUnescaped, err := url.QueryUnescape(qp.Get("$filter"))
-	if err != nil {
-		return nil, err
-	}
-	filterParam := getOptional(filterUnescaped)
-	orderbyUnescaped, err := url.QueryUnescape(qp.Get("$orderby"))
-	if err != nil {
-		return nil, err
-	}
-	orderbyParam := getOptional(orderbyUnescaped)
-	topUnescaped, err := url.QueryUnescape(qp.Get("$top"))
-	if err != nil {
-		return nil, err
-	}
-	topParam, err := parseOptional(topUnescaped, func(v string) (int32, error) {
-		p, parseErr := strconv.ParseInt(v, 10, 32)
-		if parseErr != nil {
-			return 0, parseErr
+	newListByServicePager := p.newListByServicePager.get(req)
+	if newListByServicePager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ApiManagement/service/(?P<serviceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/policyFragments`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		return int32(p), nil
-	})
-	if err != nil {
-		return nil, err
-	}
-	skipUnescaped, err := url.QueryUnescape(qp.Get("$skip"))
-	if err != nil {
-		return nil, err
-	}
-	skipParam, err := parseOptional(skipUnescaped, func(v string) (int32, error) {
-		p, parseErr := strconv.ParseInt(v, 10, 32)
-		if parseErr != nil {
-			return 0, parseErr
+		qp := req.URL.Query()
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
 		}
-		return int32(p), nil
-	})
-	if err != nil {
-		return nil, err
-	}
-	var options *armapimanagement.PolicyFragmentClientListByServiceOptions
-	if filterParam != nil || orderbyParam != nil || topParam != nil || skipParam != nil {
-		options = &armapimanagement.PolicyFragmentClientListByServiceOptions{
-			Filter:  filterParam,
-			Orderby: orderbyParam,
-			Top:     topParam,
-			Skip:    skipParam,
+		serviceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("serviceName")])
+		if err != nil {
+			return nil, err
 		}
+		filterUnescaped, err := url.QueryUnescape(qp.Get("$filter"))
+		if err != nil {
+			return nil, err
+		}
+		filterParam := getOptional(filterUnescaped)
+		orderbyUnescaped, err := url.QueryUnescape(qp.Get("$orderby"))
+		if err != nil {
+			return nil, err
+		}
+		orderbyParam := getOptional(orderbyUnescaped)
+		topUnescaped, err := url.QueryUnescape(qp.Get("$top"))
+		if err != nil {
+			return nil, err
+		}
+		topParam, err := parseOptional(topUnescaped, func(v string) (int32, error) {
+			p, parseErr := strconv.ParseInt(v, 10, 32)
+			if parseErr != nil {
+				return 0, parseErr
+			}
+			return int32(p), nil
+		})
+		if err != nil {
+			return nil, err
+		}
+		skipUnescaped, err := url.QueryUnescape(qp.Get("$skip"))
+		if err != nil {
+			return nil, err
+		}
+		skipParam, err := parseOptional(skipUnescaped, func(v string) (int32, error) {
+			p, parseErr := strconv.ParseInt(v, 10, 32)
+			if parseErr != nil {
+				return 0, parseErr
+			}
+			return int32(p), nil
+		})
+		if err != nil {
+			return nil, err
+		}
+		var options *armapimanagement.PolicyFragmentClientListByServiceOptions
+		if filterParam != nil || orderbyParam != nil || topParam != nil || skipParam != nil {
+			options = &armapimanagement.PolicyFragmentClientListByServiceOptions{
+				Filter:  filterParam,
+				Orderby: orderbyParam,
+				Top:     topParam,
+				Skip:    skipParam,
+			}
+		}
+		resp := p.srv.NewListByServicePager(resourceGroupNameParam, serviceNameParam, options)
+		newListByServicePager = &resp
+		p.newListByServicePager.add(req, newListByServicePager)
+		server.PagerResponderInjectNextLinks(newListByServicePager, req, func(page *armapimanagement.PolicyFragmentClientListByServiceResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
 	}
-	respr, errRespr := p.srv.ListByService(req.Context(), resourceGroupNameParam, serviceNameParam, options)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).PolicyFragmentCollection, req)
+	resp, err := server.PagerResponderNext(newListByServicePager, req)
 	if err != nil {
 		return nil, err
+	}
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+		p.newListByServicePager.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+	}
+	if !server.PagerResponderMore(newListByServicePager) {
+		p.newListByServicePager.remove(req)
 	}
 	return resp, nil
 }
