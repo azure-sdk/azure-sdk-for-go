@@ -8,10 +8,27 @@
 
 package armdevhub
 
+// ADOOAuthClientGetOptions contains the optional parameters for the ADOOAuthClient.Get method.
+type ADOOAuthClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ADOOAuthClientListOptions contains the optional parameters for the ADOOAuthClient.NewListPager method.
+type ADOOAuthClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
 // DeveloperHubServiceClientGeneratePreviewArtifactsOptions contains the optional parameters for the DeveloperHubServiceClient.GeneratePreviewArtifacts
 // method.
 type DeveloperHubServiceClientGeneratePreviewArtifactsOptions struct {
 	// placeholder for future optional parameters
+}
+
+// DeveloperHubServiceClientGetADOOAuthInfoOptions contains the optional parameters for the DeveloperHubServiceClient.GetADOOAuthInfo
+// method.
+type DeveloperHubServiceClientGetADOOAuthInfoOptions struct {
+	// The fields required in ADO OAuth call request.
+	Parameters *ADOOAuthCallRequest
 }
 
 // DeveloperHubServiceClientGitHubOAuthCallbackOptions contains the optional parameters for the DeveloperHubServiceClient.GitHubOAuthCallback
@@ -29,6 +46,52 @@ type DeveloperHubServiceClientGitHubOAuthOptions struct {
 // DeveloperHubServiceClientListGitHubOAuthOptions contains the optional parameters for the DeveloperHubServiceClient.ListGitHubOAuth
 // method.
 type DeveloperHubServiceClientListGitHubOAuthOptions struct {
+	// placeholder for future optional parameters
+}
+
+// IacProfilesClientCreateOrUpdateOptions contains the optional parameters for the IacProfilesClient.CreateOrUpdate method.
+type IacProfilesClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// IacProfilesClientDeleteOptions contains the optional parameters for the IacProfilesClient.Delete method.
+type IacProfilesClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// IacProfilesClientExportOptions contains the optional parameters for the IacProfilesClient.Export method.
+type IacProfilesClientExportOptions struct {
+	// placeholder for future optional parameters
+}
+
+// IacProfilesClientGetOptions contains the optional parameters for the IacProfilesClient.Get method.
+type IacProfilesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// IacProfilesClientListByResourceGroupOptions contains the optional parameters for the IacProfilesClient.NewListByResourceGroupPager
+// method.
+type IacProfilesClientListByResourceGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// IacProfilesClientListOptions contains the optional parameters for the IacProfilesClient.NewListPager method.
+type IacProfilesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// IacProfilesClientScaleOptions contains the optional parameters for the IacProfilesClient.Scale method.
+type IacProfilesClientScaleOptions struct {
+	// placeholder for future optional parameters
+}
+
+// IacProfilesClientSyncOptions contains the optional parameters for the IacProfilesClient.Sync method.
+type IacProfilesClientSyncOptions struct {
+	// placeholder for future optional parameters
+}
+
+// IacProfilesClientUpdateTagsOptions contains the optional parameters for the IacProfilesClient.UpdateTags method.
+type IacProfilesClientUpdateTagsOptions struct {
 	// placeholder for future optional parameters
 }
 
