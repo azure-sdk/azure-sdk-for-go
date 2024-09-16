@@ -28,7 +28,7 @@ type DeveloperHubServiceClient struct {
 }
 
 // NewDeveloperHubServiceClient creates a new instance of DeveloperHubServiceClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewDeveloperHubServiceClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DeveloperHubServiceClient, error) {
@@ -46,8 +46,8 @@ func NewDeveloperHubServiceClient(subscriptionID string, credential azcore.Token
 // GeneratePreviewArtifacts - Generate preview dockerfile and manifests.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-11-preview
-//   - location - The name of Azure region.
+// Generated from API version 2024-08-01-preview
+//   - location - The name of the Azure region.
 //   - options - DeveloperHubServiceClientGeneratePreviewArtifactsOptions contains the optional parameters for the DeveloperHubServiceClient.GeneratePreviewArtifacts
 //     method.
 func (client *DeveloperHubServiceClient) GeneratePreviewArtifacts(ctx context.Context, location string, parameters ArtifactGenerationProperties, options *DeveloperHubServiceClientGeneratePreviewArtifactsOptions) (DeveloperHubServiceClientGeneratePreviewArtifactsResponse, error) {
@@ -88,7 +88,7 @@ func (client *DeveloperHubServiceClient) generatePreviewArtifactsCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-11-preview")
+	reqQP.Set("api-version", "2024-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -106,11 +106,77 @@ func (client *DeveloperHubServiceClient) generatePreviewArtifactsHandleResponse(
 	return result, nil
 }
 
+// GetADOOAuthInfo - Gets ADOOAuth info used to authenticate users with ADO.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-08-01-preview
+//   - location - The name of the Azure region.
+//   - options - DeveloperHubServiceClientGetADOOAuthInfoOptions contains the optional parameters for the DeveloperHubServiceClient.GetADOOAuthInfo
+//     method.
+func (client *DeveloperHubServiceClient) GetADOOAuthInfo(ctx context.Context, location string, options *DeveloperHubServiceClientGetADOOAuthInfoOptions) (DeveloperHubServiceClientGetADOOAuthInfoResponse, error) {
+	var err error
+	const operationName = "DeveloperHubServiceClient.GetADOOAuthInfo"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.getADOOAuthInfoCreateRequest(ctx, location, options)
+	if err != nil {
+		return DeveloperHubServiceClientGetADOOAuthInfoResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return DeveloperHubServiceClientGetADOOAuthInfoResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return DeveloperHubServiceClientGetADOOAuthInfoResponse{}, err
+	}
+	resp, err := client.getADOOAuthInfoHandleResponse(httpResp)
+	return resp, err
+}
+
+// getADOOAuthInfoCreateRequest creates the GetADOOAuthInfo request.
+func (client *DeveloperHubServiceClient) getADOOAuthInfoCreateRequest(ctx context.Context, location string, options *DeveloperHubServiceClientGetADOOAuthInfoOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.DevHub/locations/{location}/adooauth/default/getADOOAuthInfo"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if location == "" {
+		return nil, errors.New("parameter location cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-08-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if options != nil && options.Parameters != nil {
+		if err := runtime.MarshalAsJSON(req, *options.Parameters); err != nil {
+			return nil, err
+		}
+		return req, nil
+	}
+	return req, nil
+}
+
+// getADOOAuthInfoHandleResponse handles the GetADOOAuthInfo response.
+func (client *DeveloperHubServiceClient) getADOOAuthInfoHandleResponse(resp *http.Response) (DeveloperHubServiceClientGetADOOAuthInfoResponse, error) {
+	result := DeveloperHubServiceClientGetADOOAuthInfoResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ADOOAuthInfoResponse); err != nil {
+		return DeveloperHubServiceClientGetADOOAuthInfoResponse{}, err
+	}
+	return result, nil
+}
+
 // GitHubOAuth - Gets GitHubOAuth info used to authenticate users with the Developer Hub GitHub App.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-11-preview
-//   - location - The name of Azure region.
+// Generated from API version 2024-08-01-preview
+//   - location - The name of the Azure region.
 //   - options - DeveloperHubServiceClientGitHubOAuthOptions contains the optional parameters for the DeveloperHubServiceClient.GitHubOAuth
 //     method.
 func (client *DeveloperHubServiceClient) GitHubOAuth(ctx context.Context, location string, options *DeveloperHubServiceClientGitHubOAuthOptions) (DeveloperHubServiceClientGitHubOAuthResponse, error) {
@@ -151,7 +217,7 @@ func (client *DeveloperHubServiceClient) gitHubOAuthCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-11-preview")
+	reqQP.Set("api-version", "2024-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Parameters != nil {
@@ -175,8 +241,8 @@ func (client *DeveloperHubServiceClient) gitHubOAuthHandleResponse(resp *http.Re
 // GitHubOAuthCallback - Callback URL to hit once authenticated with GitHub App to have the service store the OAuth token.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-11-preview
-//   - location - The name of Azure region.
+// Generated from API version 2024-08-01-preview
+//   - location - The name of the Azure region.
 //   - code - The code response from authenticating the GitHub App.
 //   - state - The state response from authenticating the GitHub App.
 //   - options - DeveloperHubServiceClientGitHubOAuthCallbackOptions contains the optional parameters for the DeveloperHubServiceClient.GitHubOAuthCallback
@@ -219,7 +285,7 @@ func (client *DeveloperHubServiceClient) gitHubOAuthCallbackCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-11-preview")
+	reqQP.Set("api-version", "2024-08-01-preview")
 	reqQP.Set("code", code)
 	reqQP.Set("state", state)
 	req.Raw().URL.RawQuery = reqQP.Encode()
@@ -239,8 +305,8 @@ func (client *DeveloperHubServiceClient) gitHubOAuthCallbackHandleResponse(resp 
 // ListGitHubOAuth - Callback URL to hit once authenticated with GitHub App to have the service store the OAuth token.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-11-preview
-//   - location - The name of Azure region.
+// Generated from API version 2024-08-01-preview
+//   - location - The name of the Azure region.
 //   - options - DeveloperHubServiceClientListGitHubOAuthOptions contains the optional parameters for the DeveloperHubServiceClient.ListGitHubOAuth
 //     method.
 func (client *DeveloperHubServiceClient) ListGitHubOAuth(ctx context.Context, location string, options *DeveloperHubServiceClientListGitHubOAuthOptions) (DeveloperHubServiceClientListGitHubOAuthResponse, error) {
@@ -281,7 +347,7 @@ func (client *DeveloperHubServiceClient) listGitHubOAuthCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-11-preview")
+	reqQP.Set("api-version", "2024-08-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

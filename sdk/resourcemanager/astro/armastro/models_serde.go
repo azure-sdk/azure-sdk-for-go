@@ -178,10 +178,12 @@ func (l *LiftrBaseMarketplaceDetails) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type LiftrBaseOfferDetails.
 func (l LiftrBaseOfferDetails) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populateDateTimeRFC3339(objectMap, "endDate", l.EndDate)
 	populate(objectMap, "offerId", l.OfferID)
 	populate(objectMap, "planId", l.PlanID)
 	populate(objectMap, "planName", l.PlanName)
 	populate(objectMap, "publisherId", l.PublisherID)
+	populate(objectMap, "renewalMode", l.RenewalMode)
 	populate(objectMap, "termId", l.TermID)
 	populate(objectMap, "termUnit", l.TermUnit)
 	return json.Marshal(objectMap)
@@ -196,6 +198,9 @@ func (l *LiftrBaseOfferDetails) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "endDate":
+			err = unpopulateDateTimeRFC3339(val, "EndDate", &l.EndDate)
+			delete(rawMsg, key)
 		case "offerId":
 			err = unpopulate(val, "OfferID", &l.OfferID)
 			delete(rawMsg, key)
@@ -207,6 +212,9 @@ func (l *LiftrBaseOfferDetails) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "publisherId":
 			err = unpopulate(val, "PublisherID", &l.PublisherID)
+			delete(rawMsg, key)
+		case "renewalMode":
+			err = unpopulate(val, "RenewalMode", &l.RenewalMode)
 			delete(rawMsg, key)
 		case "termId":
 			err = unpopulate(val, "TermID", &l.TermID)
