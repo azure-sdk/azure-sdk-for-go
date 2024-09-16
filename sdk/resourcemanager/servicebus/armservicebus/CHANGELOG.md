@@ -1,5 +1,13 @@
 # Release History
 
+## 1.3.0 (2024-09-16)
+### Features Added
+
+- New enum type `PublicNetworkAccess` with values `PublicNetworkAccessDisabled`, `PublicNetworkAccessEnabled`, `PublicNetworkAccessSecuredByPerimeter`
+- New enum type `TLSVersion` with values `TLSVersionOne0`, `TLSVersionOne1`, `TLSVersionOne2`
+- New field `MinimumTLSVersion`, `PremiumMessagingPartitions`, `PublicNetworkAccess` in struct `SBNamespaceProperties`
+
+
 ## 1.2.0 (2023-11-24)
 ### Features Added
 

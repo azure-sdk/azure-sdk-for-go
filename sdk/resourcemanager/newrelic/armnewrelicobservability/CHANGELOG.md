@@ -1,5 +1,22 @@
 # Release History
 
+## 2.0.0 (2024-09-16)
+### Breaking Changes
+
+- Type of `PlanData.BillingCycle` has been changed from `*BillingCycle` to `*string`
+- Enum `BillingCycle` has been removed
+- Function `*MonitoredSubscriptionsClient.BeginCreateorUpdate` has been removed
+- Operation `*MonitorsClient.Update` has been changed to LRO, use `*MonitorsClient.BeginUpdate` instead.
+
+### Features Added
+
+- New function `*MonitoredSubscriptionsClient.BeginCreateOrUpdate(context.Context, string, string, ConfigurationName, MonitoredSubscriptionProperties, *MonitoredSubscriptionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[MonitoredSubscriptionsClientCreateOrUpdateResponse], error)`
+- New function `*MonitorsClient.RefreshIngestionKey(context.Context, string, string, *MonitorsClientRefreshIngestionKeyOptions) (MonitorsClientRefreshIngestionKeyResponse, error)`
+- New function `*MonitorsClient.BeginResubscribe(context.Context, string, string, *MonitorsClientBeginResubscribeOptions) (*runtime.Poller[MonitorsClientResubscribeResponse], error)`
+- New struct `ResubscribeProperties`
+- New field `OfferID`, `PublisherID` in struct `MarketplaceSaaSInfo`
+
+
 ## 1.2.0 (2024-03-22)
 ### Features Added
 
