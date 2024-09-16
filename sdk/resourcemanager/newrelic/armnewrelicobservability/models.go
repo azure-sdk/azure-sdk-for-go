@@ -239,6 +239,12 @@ type MarketplaceSaaSInfo struct {
 
 	// Marketplace Subscription Details: SAAS Name
 	MarketplaceSubscriptionName *string
+
+	// Offer Id of the Marketplace offer,
+	OfferID *string
+
+	// Publisher Id of the Marketplace offer.
+	PublisherID *string
 }
 
 // MetricRules - Set of rules for sending metrics for the Monitor resource.
@@ -577,8 +583,8 @@ type PartnerBillingEntity struct {
 
 // PlanData - Plan data of NewRelic Monitor resource
 type PlanData struct {
-	// Different billing cycles like MONTHLY/WEEKLY. this could be enum
-	BillingCycle *BillingCycle
+	// Different billing cycles like Monthly/Weekly.
+	BillingCycle *string
 
 	// date when plan was applied
 	EffectiveDate *time.Time
@@ -627,6 +633,30 @@ type PlanDataResource struct {
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
+}
+
+// ResubscribeProperties - Resubscribe Properties
+type ResubscribeProperties struct {
+	// Offer Id of the NewRelic offer that needs to be resubscribed
+	OfferID *string
+
+	// Organization Id of the NewRelic Organization that needs to be resubscribed
+	OrganizationID *string
+
+	// Newly selected plan Id to create the new Marketplace subscription for Resubscribe
+	PlanID *string
+
+	// Publisher Id of the NewRelic offer that needs to be resubscribed
+	PublisherID *string
+
+	// Newly selected Azure resource group in which the new Marketplace subscription will be created for Resubscribe
+	ResourceGroup *string
+
+	// Newly selected Azure Subscription Id in which the new Marketplace subscription will be created for Resubscribe
+	SubscriptionID *string
+
+	// Newly selected term Id to create the new Marketplace subscription for Resubscribe
+	TermID *string
 }
 
 // SubscriptionList - The request to update subscriptions needed to be monitored by the NewRelic monitor resource.
