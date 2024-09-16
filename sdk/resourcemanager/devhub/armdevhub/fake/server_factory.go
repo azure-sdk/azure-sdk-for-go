@@ -19,7 +19,9 @@ import (
 
 // ServerFactory is a fake server for instances of the armdevhub.ClientFactory type.
 type ServerFactory struct {
+	ADOOAuthServer            ADOOAuthServer
 	DeveloperHubServiceServer DeveloperHubServiceServer
+	IacProfilesServer         IacProfilesServer
 	OperationsServer          OperationsServer
 	WorkflowServer            WorkflowServer
 }
@@ -38,7 +40,9 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 type ServerFactoryTransport struct {
 	srv                         *ServerFactory
 	trMu                        sync.Mutex
+	trADOOAuthServer            *ADOOAuthServerTransport
 	trDeveloperHubServiceServer *DeveloperHubServiceServerTransport
+	trIacProfilesServer         *IacProfilesServerTransport
 	trOperationsServer          *OperationsServerTransport
 	trWorkflowServer            *WorkflowServerTransport
 }
@@ -56,11 +60,17 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch client {
+	case "ADOOAuthClient":
+		initServer(s, &s.trADOOAuthServer, func() *ADOOAuthServerTransport { return NewADOOAuthServerTransport(&s.srv.ADOOAuthServer) })
+		resp, err = s.trADOOAuthServer.Do(req)
 	case "DeveloperHubServiceClient":
 		initServer(s, &s.trDeveloperHubServiceServer, func() *DeveloperHubServiceServerTransport {
 			return NewDeveloperHubServiceServerTransport(&s.srv.DeveloperHubServiceServer)
 		})
 		resp, err = s.trDeveloperHubServiceServer.Do(req)
+	case "IacProfilesClient":
+		initServer(s, &s.trIacProfilesServer, func() *IacProfilesServerTransport { return NewIacProfilesServerTransport(&s.srv.IacProfilesServer) })
+		resp, err = s.trIacProfilesServer.Do(req)
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
