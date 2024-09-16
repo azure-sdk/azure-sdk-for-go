@@ -1,6 +1,6 @@
 # Azure Provider HUB Module for Go
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/providerhub/armproviderhub)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/providerhub/armproviderhub)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/providerhub/armproviderhub/v2)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/providerhub/armproviderhub/v2)
 
 The `armproviderhub` module provides operations for working with Azure Provider HUB.
 
@@ -20,7 +20,7 @@ This project uses [Go modules](https://github.com/golang/go/wiki/Modules) for ve
 Install the Azure Provider HUB module:
 
 ```sh
-go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/providerhub/armproviderhub
+go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/providerhub/armproviderhub/v2
 ```
 
 ## Authorization
