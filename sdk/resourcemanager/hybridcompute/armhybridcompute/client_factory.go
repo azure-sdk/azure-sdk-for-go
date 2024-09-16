@@ -52,6 +52,14 @@ func (c *ClientFactory) NewGatewaysClient() *GatewaysClient {
 	}
 }
 
+// NewLicenseProfilesClient creates a new instance of LicenseProfilesClient.
+func (c *ClientFactory) NewLicenseProfilesClient() *LicenseProfilesClient {
+	return &LicenseProfilesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewLicensesClient creates a new instance of LicensesClient.
 func (c *ClientFactory) NewLicensesClient() *LicensesClient {
 	return &LicensesClient{
