@@ -16,9 +16,10 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/newrelic/armnewrelicobservability"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/newrelic/armnewrelicobservability/v2"
 	"net/http"
 	"net/url"
+	"reflect"
 	"regexp"
 	"strconv"
 )
@@ -69,13 +70,21 @@ type MonitorsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListMonitoredResourcesPager func(resourceGroupName string, monitorName string, options *armnewrelicobservability.MonitorsClientListMonitoredResourcesOptions) (resp azfake.PagerResponder[armnewrelicobservability.MonitorsClientListMonitoredResourcesResponse])
 
+	// RefreshIngestionKey is the fake for method MonitorsClient.RefreshIngestionKey
+	// HTTP status codes to indicate success: http.StatusNoContent
+	RefreshIngestionKey func(ctx context.Context, resourceGroupName string, monitorName string, options *armnewrelicobservability.MonitorsClientRefreshIngestionKeyOptions) (resp azfake.Responder[armnewrelicobservability.MonitorsClientRefreshIngestionKeyResponse], errResp azfake.ErrorResponder)
+
+	// BeginResubscribe is the fake for method MonitorsClient.BeginResubscribe
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginResubscribe func(ctx context.Context, resourceGroupName string, monitorName string, options *armnewrelicobservability.MonitorsClientBeginResubscribeOptions) (resp azfake.PollerResponder[armnewrelicobservability.MonitorsClientResubscribeResponse], errResp azfake.ErrorResponder)
+
 	// SwitchBilling is the fake for method MonitorsClient.SwitchBilling
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
 	SwitchBilling func(ctx context.Context, resourceGroupName string, monitorName string, request armnewrelicobservability.SwitchBillingRequest, options *armnewrelicobservability.MonitorsClientSwitchBillingOptions) (resp azfake.Responder[armnewrelicobservability.MonitorsClientSwitchBillingResponse], errResp azfake.ErrorResponder)
 
-	// Update is the fake for method MonitorsClient.Update
-	// HTTP status codes to indicate success: http.StatusOK
-	Update func(ctx context.Context, resourceGroupName string, monitorName string, properties armnewrelicobservability.NewRelicMonitorResourceUpdate, options *armnewrelicobservability.MonitorsClientUpdateOptions) (resp azfake.Responder[armnewrelicobservability.MonitorsClientUpdateResponse], errResp azfake.ErrorResponder)
+	// BeginUpdate is the fake for method MonitorsClient.BeginUpdate
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginUpdate func(ctx context.Context, resourceGroupName string, monitorName string, properties armnewrelicobservability.NewRelicMonitorResourceUpdate, options *armnewrelicobservability.MonitorsClientBeginUpdateOptions) (resp azfake.PollerResponder[armnewrelicobservability.MonitorsClientUpdateResponse], errResp azfake.ErrorResponder)
 
 	// VMHostPayload is the fake for method MonitorsClient.VMHostPayload
 	// HTTP status codes to indicate success: http.StatusOK
@@ -96,6 +105,8 @@ func NewMonitorsServerTransport(srv *MonitorsServer) *MonitorsServerTransport {
 		newListHostsPager:              newTracker[azfake.PagerResponder[armnewrelicobservability.MonitorsClientListHostsResponse]](),
 		newListLinkedResourcesPager:    newTracker[azfake.PagerResponder[armnewrelicobservability.MonitorsClientListLinkedResourcesResponse]](),
 		newListMonitoredResourcesPager: newTracker[azfake.PagerResponder[armnewrelicobservability.MonitorsClientListMonitoredResourcesResponse]](),
+		beginResubscribe:               newTracker[azfake.PollerResponder[armnewrelicobservability.MonitorsClientResubscribeResponse]](),
+		beginUpdate:                    newTracker[azfake.PollerResponder[armnewrelicobservability.MonitorsClientUpdateResponse]](),
 	}
 }
 
@@ -111,6 +122,8 @@ type MonitorsServerTransport struct {
 	newListHostsPager              *tracker[azfake.PagerResponder[armnewrelicobservability.MonitorsClientListHostsResponse]]
 	newListLinkedResourcesPager    *tracker[azfake.PagerResponder[armnewrelicobservability.MonitorsClientListLinkedResourcesResponse]]
 	newListMonitoredResourcesPager *tracker[azfake.PagerResponder[armnewrelicobservability.MonitorsClientListMonitoredResourcesResponse]]
+	beginResubscribe               *tracker[azfake.PollerResponder[armnewrelicobservability.MonitorsClientResubscribeResponse]]
+	beginUpdate                    *tracker[azfake.PollerResponder[armnewrelicobservability.MonitorsClientUpdateResponse]]
 }
 
 // Do implements the policy.Transporter interface for MonitorsServerTransport.
@@ -147,10 +160,14 @@ func (m *MonitorsServerTransport) Do(req *http.Request) (*http.Response, error) 
 		resp, err = m.dispatchNewListLinkedResourcesPager(req)
 	case "MonitorsClient.NewListMonitoredResourcesPager":
 		resp, err = m.dispatchNewListMonitoredResourcesPager(req)
+	case "MonitorsClient.RefreshIngestionKey":
+		resp, err = m.dispatchRefreshIngestionKey(req)
+	case "MonitorsClient.BeginResubscribe":
+		resp, err = m.dispatchBeginResubscribe(req)
 	case "MonitorsClient.SwitchBilling":
 		resp, err = m.dispatchSwitchBilling(req)
-	case "MonitorsClient.Update":
-		resp, err = m.dispatchUpdate(req)
+	case "MonitorsClient.BeginUpdate":
+		resp, err = m.dispatchBeginUpdate(req)
 	case "MonitorsClient.VMHostPayload":
 		resp, err = m.dispatchVMHostPayload(req)
 	default:
@@ -610,6 +627,93 @@ func (m *MonitorsServerTransport) dispatchNewListMonitoredResourcesPager(req *ht
 	return resp, nil
 }
 
+func (m *MonitorsServerTransport) dispatchRefreshIngestionKey(req *http.Request) (*http.Response, error) {
+	if m.srv.RefreshIngestionKey == nil {
+		return nil, &nonRetriableError{errors.New("fake for method RefreshIngestionKey not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/NewRelic\.Observability/monitors/(?P<monitorName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/refreshIngestionKey`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	monitorNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("monitorName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := m.srv.RefreshIngestionKey(req.Context(), resourceGroupNameParam, monitorNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusNoContent}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusNoContent", respContent.HTTPStatus)}
+	}
+	resp, err := server.NewResponse(respContent, req, nil)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (m *MonitorsServerTransport) dispatchBeginResubscribe(req *http.Request) (*http.Response, error) {
+	if m.srv.BeginResubscribe == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginResubscribe not implemented")}
+	}
+	beginResubscribe := m.beginResubscribe.get(req)
+	if beginResubscribe == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/NewRelic\.Observability/monitors/(?P<monitorName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resubscribe`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armnewrelicobservability.ResubscribeProperties](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		monitorNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("monitorName")])
+		if err != nil {
+			return nil, err
+		}
+		var options *armnewrelicobservability.MonitorsClientBeginResubscribeOptions
+		if !reflect.ValueOf(body).IsZero() {
+			options = &armnewrelicobservability.MonitorsClientBeginResubscribeOptions{
+				Body: &body,
+			}
+		}
+		respr, errRespr := m.srv.BeginResubscribe(req.Context(), resourceGroupNameParam, monitorNameParam, options)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginResubscribe = &respr
+		m.beginResubscribe.add(req, beginResubscribe)
+	}
+
+	resp, err := server.PollerResponderNext(beginResubscribe, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		m.beginResubscribe.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginResubscribe) {
+		m.beginResubscribe.remove(req)
+	}
+
+	return resp, nil
+}
+
 func (m *MonitorsServerTransport) dispatchSwitchBilling(req *http.Request) (*http.Response, error) {
 	if m.srv.SwitchBilling == nil {
 		return nil, &nonRetriableError{errors.New("fake for method SwitchBilling not implemented")}
@@ -650,40 +754,51 @@ func (m *MonitorsServerTransport) dispatchSwitchBilling(req *http.Request) (*htt
 	return resp, nil
 }
 
-func (m *MonitorsServerTransport) dispatchUpdate(req *http.Request) (*http.Response, error) {
-	if m.srv.Update == nil {
-		return nil, &nonRetriableError{errors.New("fake for method Update not implemented")}
+func (m *MonitorsServerTransport) dispatchBeginUpdate(req *http.Request) (*http.Response, error) {
+	if m.srv.BeginUpdate == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginUpdate not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/NewRelic\.Observability/monitors/(?P<monitorName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 3 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	beginUpdate := m.beginUpdate.get(req)
+	if beginUpdate == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/NewRelic\.Observability/monitors/(?P<monitorName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armnewrelicobservability.NewRelicMonitorResourceUpdate](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		monitorNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("monitorName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := m.srv.BeginUpdate(req.Context(), resourceGroupNameParam, monitorNameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginUpdate = &respr
+		m.beginUpdate.add(req, beginUpdate)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armnewrelicobservability.NewRelicMonitorResourceUpdate](req)
+
+	resp, err := server.PollerResponderNext(beginUpdate, req)
 	if err != nil {
 		return nil, err
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-	if err != nil {
-		return nil, err
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		m.beginUpdate.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
 	}
-	monitorNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("monitorName")])
-	if err != nil {
-		return nil, err
+	if !server.PollerResponderMore(beginUpdate) {
+		m.beginUpdate.remove(req)
 	}
-	respr, errRespr := m.srv.Update(req.Context(), resourceGroupNameParam, monitorNameParam, body, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).NewRelicMonitorResource, req)
-	if err != nil {
-		return nil, err
-	}
+
 	return resp, nil
 }
 
