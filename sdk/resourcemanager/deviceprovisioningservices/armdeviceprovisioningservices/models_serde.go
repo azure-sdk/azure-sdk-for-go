@@ -77,7 +77,9 @@ func (c *CertificateListDescription) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type CertificateProperties.
 func (c CertificateProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
-	populateByteArray(objectMap, "certificate", c.Certificate, runtime.Base64StdFormat)
+	populateByteArray(objectMap, "certificate", c.Certificate, func() any {
+		return runtime.EncodeByteArray(c.Certificate, runtime.Base64StdFormat)
+	})
 	populateDateTimeRFC1123(objectMap, "created", c.Created)
 	populateDateTimeRFC1123(objectMap, "expiry", c.Expiry)
 	populate(objectMap, "isVerified", c.IsVerified)
@@ -97,7 +99,9 @@ func (c *CertificateProperties) UnmarshalJSON(data []byte) error {
 		var err error
 		switch key {
 		case "certificate":
-			err = runtime.DecodeByteArray(string(val), &c.Certificate, runtime.Base64StdFormat)
+			if val != nil && string(val) != "null" {
+				err = runtime.DecodeByteArray(string(val), &c.Certificate, runtime.Base64StdFormat)
+			}
 			delete(rawMsg, key)
 		case "created":
 			err = unpopulateDateTimeRFC1123(val, "Created", &c.Created)
@@ -1242,7 +1246,9 @@ func (v *VerificationCodeResponse) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type VerificationCodeResponseProperties.
 func (v VerificationCodeResponseProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
-	populateByteArray(objectMap, "certificate", v.Certificate, runtime.Base64StdFormat)
+	populateByteArray(objectMap, "certificate", v.Certificate, func() any {
+		return runtime.EncodeByteArray(v.Certificate, runtime.Base64StdFormat)
+	})
 	populate(objectMap, "created", v.Created)
 	populate(objectMap, "expiry", v.Expiry)
 	populate(objectMap, "isVerified", v.IsVerified)
@@ -1263,7 +1269,9 @@ func (v *VerificationCodeResponseProperties) UnmarshalJSON(data []byte) error {
 		var err error
 		switch key {
 		case "certificate":
-			err = runtime.DecodeByteArray(string(val), &v.Certificate, runtime.Base64StdFormat)
+			if val != nil && string(val) != "null" {
+				err = runtime.DecodeByteArray(string(val), &v.Certificate, runtime.Base64StdFormat)
+			}
 			delete(rawMsg, key)
 		case "created":
 			err = unpopulate(val, "Created", &v.Created)
@@ -1304,18 +1312,18 @@ func populate(m map[string]any, k string, v any) {
 	}
 }
 
-func populateByteArray(m map[string]any, k string, b []byte, f runtime.Base64Encoding) {
+func populateByteArray[T any](m map[string]any, k string, b []T, convert func() any) {
 	if azcore.IsNullValue(b) {
 		m[k] = nil
 	} else if len(b) == 0 {
 		return
 	} else {
-		m[k] = runtime.EncodeByteArray(b, f)
+		m[k] = convert()
 	}
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {

@@ -551,8 +551,8 @@ func (client *IotDpsResourceClient) getOperationResultCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("asyncinfo", asyncinfo)
 	reqQP.Set("api-version", "2023-03-01-preview")
+	reqQP.Set("asyncinfo", asyncinfo)
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -10,7 +10,7 @@ package armdeviceprovisioningservices
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/deviceprovisioningservices/armdeviceprovisioningservices"
-	moduleVersion = "v1.3.0-beta.1"
+	moduleVersion = "v1.3.0-beta.2"
 )
 
 // AccessRightsDescription - Rights that this key has.

@@ -104,10 +104,10 @@ func (client *DpsCertificateClient) createOrUpdateCreateRequest(ctx context.Cont
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
-	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, certificateDescription); err != nil {
 		return nil, err
 	}
@@ -178,34 +178,34 @@ func (client *DpsCertificateClient) deleteCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	if options != nil && options.CertificateName1 != nil {
-		reqQP.Set("certificate.name", *options.CertificateName1)
-	}
-	if options != nil && options.CertificateRawBytes != nil {
-		reqQP.Set("certificate.rawBytes", base64.StdEncoding.EncodeToString(options.CertificateRawBytes))
-	}
-	if options != nil && options.CertificateIsVerified != nil {
-		reqQP.Set("certificate.isVerified", strconv.FormatBool(*options.CertificateIsVerified))
-	}
-	if options != nil && options.CertificatePurpose != nil {
-		reqQP.Set("certificate.purpose", string(*options.CertificatePurpose))
-	}
+	reqQP.Set("api-version", "2023-03-01-preview")
 	if options != nil && options.CertificateCreated != nil {
 		reqQP.Set("certificate.created", options.CertificateCreated.Format(time.RFC3339Nano))
-	}
-	if options != nil && options.CertificateLastUpdated != nil {
-		reqQP.Set("certificate.lastUpdated", options.CertificateLastUpdated.Format(time.RFC3339Nano))
 	}
 	if options != nil && options.CertificateHasPrivateKey != nil {
 		reqQP.Set("certificate.hasPrivateKey", strconv.FormatBool(*options.CertificateHasPrivateKey))
 	}
+	if options != nil && options.CertificateIsVerified != nil {
+		reqQP.Set("certificate.isVerified", strconv.FormatBool(*options.CertificateIsVerified))
+	}
+	if options != nil && options.CertificateLastUpdated != nil {
+		reqQP.Set("certificate.lastUpdated", options.CertificateLastUpdated.Format(time.RFC3339Nano))
+	}
+	if options != nil && options.CertificateName1 != nil {
+		reqQP.Set("certificate.name", *options.CertificateName1)
+	}
 	if options != nil && options.CertificateNonce != nil {
 		reqQP.Set("certificate.nonce", *options.CertificateNonce)
 	}
-	reqQP.Set("api-version", "2023-03-01-preview")
+	if options != nil && options.CertificatePurpose != nil {
+		reqQP.Set("certificate.purpose", string(*options.CertificatePurpose))
+	}
+	if options != nil && options.CertificateRawBytes != nil {
+		reqQP.Set("certificate.rawBytes", base64.StdEncoding.EncodeToString(options.CertificateRawBytes))
+	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	req.Raw().Header["If-Match"] = []string{ifMatch}
 	return req, nil
 }
 
@@ -266,34 +266,34 @@ func (client *DpsCertificateClient) generateVerificationCodeCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	if options != nil && options.CertificateName1 != nil {
-		reqQP.Set("certificate.name", *options.CertificateName1)
-	}
-	if options != nil && options.CertificateRawBytes != nil {
-		reqQP.Set("certificate.rawBytes", base64.StdEncoding.EncodeToString(options.CertificateRawBytes))
-	}
-	if options != nil && options.CertificateIsVerified != nil {
-		reqQP.Set("certificate.isVerified", strconv.FormatBool(*options.CertificateIsVerified))
-	}
-	if options != nil && options.CertificatePurpose != nil {
-		reqQP.Set("certificate.purpose", string(*options.CertificatePurpose))
-	}
+	reqQP.Set("api-version", "2023-03-01-preview")
 	if options != nil && options.CertificateCreated != nil {
 		reqQP.Set("certificate.created", options.CertificateCreated.Format(time.RFC3339Nano))
-	}
-	if options != nil && options.CertificateLastUpdated != nil {
-		reqQP.Set("certificate.lastUpdated", options.CertificateLastUpdated.Format(time.RFC3339Nano))
 	}
 	if options != nil && options.CertificateHasPrivateKey != nil {
 		reqQP.Set("certificate.hasPrivateKey", strconv.FormatBool(*options.CertificateHasPrivateKey))
 	}
+	if options != nil && options.CertificateIsVerified != nil {
+		reqQP.Set("certificate.isVerified", strconv.FormatBool(*options.CertificateIsVerified))
+	}
+	if options != nil && options.CertificateLastUpdated != nil {
+		reqQP.Set("certificate.lastUpdated", options.CertificateLastUpdated.Format(time.RFC3339Nano))
+	}
+	if options != nil && options.CertificateName1 != nil {
+		reqQP.Set("certificate.name", *options.CertificateName1)
+	}
 	if options != nil && options.CertificateNonce != nil {
 		reqQP.Set("certificate.nonce", *options.CertificateNonce)
 	}
-	reqQP.Set("api-version", "2023-03-01-preview")
+	if options != nil && options.CertificatePurpose != nil {
+		reqQP.Set("certificate.purpose", string(*options.CertificatePurpose))
+	}
+	if options != nil && options.CertificateRawBytes != nil {
+		reqQP.Set("certificate.rawBytes", base64.StdEncoding.EncodeToString(options.CertificateRawBytes))
+	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	req.Raw().Header["If-Match"] = []string{ifMatch}
 	return req, nil
 }
 
@@ -362,10 +362,10 @@ func (client *DpsCertificateClient) getCreateRequest(ctx context.Context, certif
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
-	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
@@ -500,34 +500,34 @@ func (client *DpsCertificateClient) verifyCertificateCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	if options != nil && options.CertificateName1 != nil {
-		reqQP.Set("certificate.name", *options.CertificateName1)
-	}
-	if options != nil && options.CertificateRawBytes != nil {
-		reqQP.Set("certificate.rawBytes", base64.StdEncoding.EncodeToString(options.CertificateRawBytes))
-	}
-	if options != nil && options.CertificateIsVerified != nil {
-		reqQP.Set("certificate.isVerified", strconv.FormatBool(*options.CertificateIsVerified))
-	}
-	if options != nil && options.CertificatePurpose != nil {
-		reqQP.Set("certificate.purpose", string(*options.CertificatePurpose))
-	}
+	reqQP.Set("api-version", "2023-03-01-preview")
 	if options != nil && options.CertificateCreated != nil {
 		reqQP.Set("certificate.created", options.CertificateCreated.Format(time.RFC3339Nano))
-	}
-	if options != nil && options.CertificateLastUpdated != nil {
-		reqQP.Set("certificate.lastUpdated", options.CertificateLastUpdated.Format(time.RFC3339Nano))
 	}
 	if options != nil && options.CertificateHasPrivateKey != nil {
 		reqQP.Set("certificate.hasPrivateKey", strconv.FormatBool(*options.CertificateHasPrivateKey))
 	}
+	if options != nil && options.CertificateIsVerified != nil {
+		reqQP.Set("certificate.isVerified", strconv.FormatBool(*options.CertificateIsVerified))
+	}
+	if options != nil && options.CertificateLastUpdated != nil {
+		reqQP.Set("certificate.lastUpdated", options.CertificateLastUpdated.Format(time.RFC3339Nano))
+	}
+	if options != nil && options.CertificateName1 != nil {
+		reqQP.Set("certificate.name", *options.CertificateName1)
+	}
 	if options != nil && options.CertificateNonce != nil {
 		reqQP.Set("certificate.nonce", *options.CertificateNonce)
 	}
-	reqQP.Set("api-version", "2023-03-01-preview")
+	if options != nil && options.CertificatePurpose != nil {
+		reqQP.Set("certificate.purpose", string(*options.CertificatePurpose))
+	}
+	if options != nil && options.CertificateRawBytes != nil {
+		reqQP.Set("certificate.rawBytes", base64.StdEncoding.EncodeToString(options.CertificateRawBytes))
+	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	req.Raw().Header["If-Match"] = []string{ifMatch}
 	if err := runtime.MarshalAsJSON(req, request); err != nil {
 		return nil, err
 	}
