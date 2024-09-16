@@ -15,7 +15,8 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/apimanagement/armapimanagement/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/apimanagement/armapimanagement/v3"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -39,22 +40,26 @@ type ProductPolicyServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	GetEntityTag func(ctx context.Context, resourceGroupName string, serviceName string, productID string, policyID armapimanagement.PolicyIDName, options *armapimanagement.ProductPolicyClientGetEntityTagOptions) (resp azfake.Responder[armapimanagement.ProductPolicyClientGetEntityTagResponse], errResp azfake.ErrorResponder)
 
-	// ListByProduct is the fake for method ProductPolicyClient.ListByProduct
+	// NewListByProductPager is the fake for method ProductPolicyClient.NewListByProductPager
 	// HTTP status codes to indicate success: http.StatusOK
-	ListByProduct func(ctx context.Context, resourceGroupName string, serviceName string, productID string, options *armapimanagement.ProductPolicyClientListByProductOptions) (resp azfake.Responder[armapimanagement.ProductPolicyClientListByProductResponse], errResp azfake.ErrorResponder)
+	NewListByProductPager func(resourceGroupName string, serviceName string, productID string, options *armapimanagement.ProductPolicyClientListByProductOptions) (resp azfake.PagerResponder[armapimanagement.ProductPolicyClientListByProductResponse])
 }
 
 // NewProductPolicyServerTransport creates a new instance of ProductPolicyServerTransport with the provided implementation.
 // The returned ProductPolicyServerTransport instance is connected to an instance of armapimanagement.ProductPolicyClient via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewProductPolicyServerTransport(srv *ProductPolicyServer) *ProductPolicyServerTransport {
-	return &ProductPolicyServerTransport{srv: srv}
+	return &ProductPolicyServerTransport{
+		srv:                   srv,
+		newListByProductPager: newTracker[azfake.PagerResponder[armapimanagement.ProductPolicyClientListByProductResponse]](),
+	}
 }
 
 // ProductPolicyServerTransport connects instances of armapimanagement.ProductPolicyClient to instances of ProductPolicyServer.
 // Don't use this type directly, use NewProductPolicyServerTransport instead.
 type ProductPolicyServerTransport struct {
-	srv *ProductPolicyServer
+	srv                   *ProductPolicyServer
+	newListByProductPager *tracker[azfake.PagerResponder[armapimanagement.ProductPolicyClientListByProductResponse]]
 }
 
 // Do implements the policy.Transporter interface for ProductPolicyServerTransport.
@@ -77,8 +82,8 @@ func (p *ProductPolicyServerTransport) Do(req *http.Request) (*http.Response, er
 		resp, err = p.dispatchGet(req)
 	case "ProductPolicyClient.GetEntityTag":
 		resp, err = p.dispatchGetEntityTag(req)
-	case "ProductPolicyClient.ListByProduct":
-		resp, err = p.dispatchListByProduct(req)
+	case "ProductPolicyClient.NewListByProductPager":
+		resp, err = p.dispatchNewListByProductPager(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -310,39 +315,47 @@ func (p *ProductPolicyServerTransport) dispatchGetEntityTag(req *http.Request) (
 	return resp, nil
 }
 
-func (p *ProductPolicyServerTransport) dispatchListByProduct(req *http.Request) (*http.Response, error) {
-	if p.srv.ListByProduct == nil {
-		return nil, &nonRetriableError{errors.New("fake for method ListByProduct not implemented")}
+func (p *ProductPolicyServerTransport) dispatchNewListByProductPager(req *http.Request) (*http.Response, error) {
+	if p.srv.NewListByProductPager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListByProductPager not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ApiManagement/service/(?P<serviceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/products/(?P<productId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/policies`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 4 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	newListByProductPager := p.newListByProductPager.get(req)
+	if newListByProductPager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ApiManagement/service/(?P<serviceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/products/(?P<productId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/policies`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 4 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		serviceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("serviceName")])
+		if err != nil {
+			return nil, err
+		}
+		productIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("productId")])
+		if err != nil {
+			return nil, err
+		}
+		resp := p.srv.NewListByProductPager(resourceGroupNameParam, serviceNameParam, productIDParam, nil)
+		newListByProductPager = &resp
+		p.newListByProductPager.add(req, newListByProductPager)
+		server.PagerResponderInjectNextLinks(newListByProductPager, req, func(page *armapimanagement.ProductPolicyClientListByProductResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	resp, err := server.PagerResponderNext(newListByProductPager, req)
 	if err != nil {
 		return nil, err
 	}
-	serviceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("serviceName")])
-	if err != nil {
-		return nil, err
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+		p.newListByProductPager.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
-	productIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("productId")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := p.srv.ListByProduct(req.Context(), resourceGroupNameParam, serviceNameParam, productIDParam, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).PolicyCollection, req)
-	if err != nil {
-		return nil, err
+	if !server.PagerResponderMore(newListByProductPager) {
+		p.newListByProductPager.remove(req)
 	}
 	return resp, nil
 }
