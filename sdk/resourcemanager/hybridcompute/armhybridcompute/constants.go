@@ -10,7 +10,7 @@ package armhybridcompute
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hybridcompute/armhybridcompute"
-	moduleVersion = "v2.0.0-beta.4"
+	moduleVersion = "v2.0.0-beta.5"
 )
 
 // AccessMode - Property that impacts a resource's logging behavior and its connectivity with other resources and public networks.
@@ -261,6 +261,19 @@ func PossibleHotpatchEnablementStatusValues() []HotpatchEnablementStatus {
 	}
 }
 
+type InstanceViewTypes string
+
+const (
+	InstanceViewTypesInstanceView InstanceViewTypes = "instanceView"
+)
+
+// PossibleInstanceViewTypesValues returns the possible values for the InstanceViewTypes const type.
+func PossibleInstanceViewTypesValues() []InstanceViewTypes {
+	return []InstanceViewTypes{
+		InstanceViewTypesInstanceView,
+	}
+}
+
 // LastAttemptStatusEnum - Specifies the status of Agent Upgrade.
 type LastAttemptStatusEnum string
 
@@ -362,6 +375,22 @@ func PossibleLicenseProfileSubscriptionStatusValues() []LicenseProfileSubscripti
 		LicenseProfileSubscriptionStatusEnabling,
 		LicenseProfileSubscriptionStatusFailed,
 		LicenseProfileSubscriptionStatusUnknown,
+	}
+}
+
+// LicenseProfileSubscriptionStatusUpdate - Indicates the new subscription status of the OS or Product Features.
+type LicenseProfileSubscriptionStatusUpdate string
+
+const (
+	LicenseProfileSubscriptionStatusUpdateDisable LicenseProfileSubscriptionStatusUpdate = "Disable"
+	LicenseProfileSubscriptionStatusUpdateEnable  LicenseProfileSubscriptionStatusUpdate = "Enable"
+)
+
+// PossibleLicenseProfileSubscriptionStatusUpdateValues returns the possible values for the LicenseProfileSubscriptionStatusUpdate const type.
+func PossibleLicenseProfileSubscriptionStatusUpdateValues() []LicenseProfileSubscriptionStatusUpdate {
+	return []LicenseProfileSubscriptionStatusUpdate{
+		LicenseProfileSubscriptionStatusUpdateDisable,
+		LicenseProfileSubscriptionStatusUpdateEnable,
 	}
 }
 

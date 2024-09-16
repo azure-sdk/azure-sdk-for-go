@@ -25,9 +25,9 @@ type ConnectedPartnerResourcesClientListOptions struct {
 	Body *string
 }
 
-// MonitoredSubscriptionsClientBeginCreateorUpdateOptions contains the optional parameters for the MonitoredSubscriptionsClient.BeginCreateorUpdate
+// MonitoredSubscriptionsClientBeginCreateOrUpdateOptions contains the optional parameters for the MonitoredSubscriptionsClient.BeginCreateOrUpdate
 // method.
-type MonitoredSubscriptionsClientBeginCreateorUpdateOptions struct {
+type MonitoredSubscriptionsClientBeginCreateOrUpdateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -65,6 +65,21 @@ type MonitorsClientBeginCreateOrUpdateOptions struct {
 
 // MonitorsClientBeginDeleteOptions contains the optional parameters for the MonitorsClient.BeginDelete method.
 type MonitorsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// MonitorsClientBeginResubscribeOptions contains the optional parameters for the MonitorsClient.BeginResubscribe method.
+type MonitorsClientBeginResubscribeOptions struct {
+	// Resubscribe Properties
+	Body *ResubscribeProperties
+
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// MonitorsClientBeginUpdateOptions contains the optional parameters for the MonitorsClient.BeginUpdate method.
+type MonitorsClientBeginUpdateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -118,13 +133,13 @@ type MonitorsClientListMonitoredResourcesOptions struct {
 	// placeholder for future optional parameters
 }
 
-// MonitorsClientSwitchBillingOptions contains the optional parameters for the MonitorsClient.SwitchBilling method.
-type MonitorsClientSwitchBillingOptions struct {
+// MonitorsClientRefreshIngestionKeyOptions contains the optional parameters for the MonitorsClient.RefreshIngestionKey method.
+type MonitorsClientRefreshIngestionKeyOptions struct {
 	// placeholder for future optional parameters
 }
 
-// MonitorsClientUpdateOptions contains the optional parameters for the MonitorsClient.Update method.
-type MonitorsClientUpdateOptions struct {
+// MonitorsClientSwitchBillingOptions contains the optional parameters for the MonitorsClient.SwitchBilling method.
+type MonitorsClientSwitchBillingOptions struct {
 	// placeholder for future optional parameters
 }
 

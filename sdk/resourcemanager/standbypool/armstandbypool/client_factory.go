@@ -43,9 +43,25 @@ func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	}
 }
 
+// NewStandbyContainerGroupPoolRuntimeViewsClient creates a new instance of StandbyContainerGroupPoolRuntimeViewsClient.
+func (c *ClientFactory) NewStandbyContainerGroupPoolRuntimeViewsClient() *StandbyContainerGroupPoolRuntimeViewsClient {
+	return &StandbyContainerGroupPoolRuntimeViewsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewStandbyContainerGroupPoolsClient creates a new instance of StandbyContainerGroupPoolsClient.
 func (c *ClientFactory) NewStandbyContainerGroupPoolsClient() *StandbyContainerGroupPoolsClient {
 	return &StandbyContainerGroupPoolsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewStandbyVirtualMachinePoolRuntimeViewsClient creates a new instance of StandbyVirtualMachinePoolRuntimeViewsClient.
+func (c *ClientFactory) NewStandbyVirtualMachinePoolRuntimeViewsClient() *StandbyVirtualMachinePoolRuntimeViewsClient {
+	return &StandbyVirtualMachinePoolRuntimeViewsClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
