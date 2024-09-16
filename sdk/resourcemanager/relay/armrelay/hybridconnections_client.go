@@ -47,7 +47,7 @@ func NewHybridConnectionsClient(subscriptionID string, credential azcore.TokenCr
 // CreateOrUpdate - Creates or updates a service hybrid connection. This operation is idempotent.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - namespaceName - The namespace name
 //   - hybridConnectionName - The hybrid connection name.
@@ -100,7 +100,7 @@ func (client *HybridConnectionsClient) createOrUpdateCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -121,7 +121,7 @@ func (client *HybridConnectionsClient) createOrUpdateHandleResponse(resp *http.R
 // CreateOrUpdateAuthorizationRule - Creates or updates an authorization rule for a hybrid connection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - namespaceName - The namespace name
 //   - hybridConnectionName - The hybrid connection name.
@@ -179,7 +179,7 @@ func (client *HybridConnectionsClient) createOrUpdateAuthorizationRuleCreateRequ
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -200,7 +200,7 @@ func (client *HybridConnectionsClient) createOrUpdateAuthorizationRuleHandleResp
 // Delete - Deletes a hybrid connection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - namespaceName - The namespace name
 //   - hybridConnectionName - The hybrid connection name.
@@ -251,7 +251,7 @@ func (client *HybridConnectionsClient) deleteCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -260,7 +260,7 @@ func (client *HybridConnectionsClient) deleteCreateRequest(ctx context.Context, 
 // DeleteAuthorizationRule - Deletes a hybrid connection authorization rule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - namespaceName - The namespace name
 //   - hybridConnectionName - The hybrid connection name.
@@ -316,7 +316,7 @@ func (client *HybridConnectionsClient) deleteAuthorizationRuleCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -325,7 +325,7 @@ func (client *HybridConnectionsClient) deleteAuthorizationRuleCreateRequest(ctx 
 // Get - Returns the description for the specified hybrid connection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - namespaceName - The namespace name
 //   - hybridConnectionName - The hybrid connection name.
@@ -376,7 +376,7 @@ func (client *HybridConnectionsClient) getCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -394,7 +394,7 @@ func (client *HybridConnectionsClient) getHandleResponse(resp *http.Response) (H
 // GetAuthorizationRule - Hybrid connection authorization rule for a hybrid connection by name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - namespaceName - The namespace name
 //   - hybridConnectionName - The hybrid connection name.
@@ -451,7 +451,7 @@ func (client *HybridConnectionsClient) getAuthorizationRuleCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -468,7 +468,7 @@ func (client *HybridConnectionsClient) getAuthorizationRuleHandleResponse(resp *
 
 // NewListAuthorizationRulesPager - Authorization rules for a hybrid connection.
 //
-// Generated from API version 2021-11-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - namespaceName - The namespace name
 //   - hybridConnectionName - The hybrid connection name.
@@ -521,7 +521,7 @@ func (client *HybridConnectionsClient) listAuthorizationRulesCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -538,7 +538,7 @@ func (client *HybridConnectionsClient) listAuthorizationRulesHandleResponse(resp
 
 // NewListByNamespacePager - Lists the hybrid connection within the namespace.
 //
-// Generated from API version 2021-11-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - namespaceName - The namespace name
 //   - options - HybridConnectionsClientListByNamespaceOptions contains the optional parameters for the HybridConnectionsClient.NewListByNamespacePager
@@ -586,7 +586,7 @@ func (client *HybridConnectionsClient) listByNamespaceCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -604,7 +604,7 @@ func (client *HybridConnectionsClient) listByNamespaceHandleResponse(resp *http.
 // ListKeys - Primary and secondary connection strings to the hybrid connection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - namespaceName - The namespace name
 //   - hybridConnectionName - The hybrid connection name.
@@ -661,7 +661,7 @@ func (client *HybridConnectionsClient) listKeysCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -679,7 +679,7 @@ func (client *HybridConnectionsClient) listKeysHandleResponse(resp *http.Respons
 // RegenerateKeys - Regenerates the primary or secondary connection strings to the hybrid connection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-11-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - namespaceName - The namespace name
 //   - hybridConnectionName - The hybrid connection name.
@@ -737,7 +737,7 @@ func (client *HybridConnectionsClient) regenerateKeysCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
