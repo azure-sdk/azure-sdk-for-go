@@ -28,6 +28,10 @@ type DeveloperHubServiceServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	GeneratePreviewArtifacts func(ctx context.Context, location string, parameters armdevhub.ArtifactGenerationProperties, options *armdevhub.DeveloperHubServiceClientGeneratePreviewArtifactsOptions) (resp azfake.Responder[armdevhub.DeveloperHubServiceClientGeneratePreviewArtifactsResponse], errResp azfake.ErrorResponder)
 
+	// GetADOOAuthInfo is the fake for method DeveloperHubServiceClient.GetADOOAuthInfo
+	// HTTP status codes to indicate success: http.StatusOK
+	GetADOOAuthInfo func(ctx context.Context, location string, options *armdevhub.DeveloperHubServiceClientGetADOOAuthInfoOptions) (resp azfake.Responder[armdevhub.DeveloperHubServiceClientGetADOOAuthInfoResponse], errResp azfake.ErrorResponder)
+
 	// GitHubOAuth is the fake for method DeveloperHubServiceClient.GitHubOAuth
 	// HTTP status codes to indicate success: http.StatusOK
 	GitHubOAuth func(ctx context.Context, location string, options *armdevhub.DeveloperHubServiceClientGitHubOAuthOptions) (resp azfake.Responder[armdevhub.DeveloperHubServiceClientGitHubOAuthResponse], errResp azfake.ErrorResponder)
@@ -68,6 +72,8 @@ func (d *DeveloperHubServiceServerTransport) Do(req *http.Request) (*http.Respon
 	switch method {
 	case "DeveloperHubServiceClient.GeneratePreviewArtifacts":
 		resp, err = d.dispatchGeneratePreviewArtifacts(req)
+	case "DeveloperHubServiceClient.GetADOOAuthInfo":
+		resp, err = d.dispatchGetADOOAuthInfo(req)
 	case "DeveloperHubServiceClient.GitHubOAuth":
 		resp, err = d.dispatchGitHubOAuth(req)
 	case "DeveloperHubServiceClient.GitHubOAuthCallback":
@@ -112,6 +118,45 @@ func (d *DeveloperHubServiceServerTransport) dispatchGeneratePreviewArtifacts(re
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Value, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (d *DeveloperHubServiceServerTransport) dispatchGetADOOAuthInfo(req *http.Request) (*http.Response, error) {
+	if d.srv.GetADOOAuthInfo == nil {
+		return nil, &nonRetriableError{errors.New("fake for method GetADOOAuthInfo not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DevHub/locations/(?P<location>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/adooauth/default/getADOOAuthInfo`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 2 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armdevhub.ADOOAuthCallRequest](req)
+	if err != nil {
+		return nil, err
+	}
+	locationParam, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
+	if err != nil {
+		return nil, err
+	}
+	var options *armdevhub.DeveloperHubServiceClientGetADOOAuthInfoOptions
+	if !reflect.ValueOf(body).IsZero() {
+		options = &armdevhub.DeveloperHubServiceClientGetADOOAuthInfoOptions{
+			Parameters: &body,
+		}
+	}
+	respr, errRespr := d.srv.GetADOOAuthInfo(req.Context(), locationParam, options)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ADOOAuthInfoResponse, req)
 	if err != nil {
 		return nil, err
 	}
