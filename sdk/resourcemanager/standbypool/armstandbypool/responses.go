@@ -14,6 +14,18 @@ type OperationsClientListResponse struct {
 	OperationListResult
 }
 
+// StandbyContainerGroupPoolRuntimeViewsClientGetResponse contains the response from method StandbyContainerGroupPoolRuntimeViewsClient.Get.
+type StandbyContainerGroupPoolRuntimeViewsClientGetResponse struct {
+	// Contains information about a standby container group pool as last known by the StandbyPool resource provider.
+	StandbyContainerGroupPoolRuntimeViewResource
+}
+
+// StandbyContainerGroupPoolRuntimeViewsClientListByStandbyPoolResponse contains the response from method StandbyContainerGroupPoolRuntimeViewsClient.NewListByStandbyPoolPager.
+type StandbyContainerGroupPoolRuntimeViewsClientListByStandbyPoolResponse struct {
+	// The response of a StandbyContainerGroupPoolRuntimeViewResource list operation.
+	StandbyContainerGroupPoolRuntimeViewResourceListResult
+}
+
 // StandbyContainerGroupPoolsClientCreateOrUpdateResponse contains the response from method StandbyContainerGroupPoolsClient.BeginCreateOrUpdate.
 type StandbyContainerGroupPoolsClientCreateOrUpdateResponse struct {
 	// A StandbyContainerGroupPoolResource.
@@ -47,6 +59,18 @@ type StandbyContainerGroupPoolsClientListBySubscriptionResponse struct {
 type StandbyContainerGroupPoolsClientUpdateResponse struct {
 	// A StandbyContainerGroupPoolResource.
 	StandbyContainerGroupPoolResource
+}
+
+// StandbyVirtualMachinePoolRuntimeViewsClientGetResponse contains the response from method StandbyVirtualMachinePoolRuntimeViewsClient.Get.
+type StandbyVirtualMachinePoolRuntimeViewsClientGetResponse struct {
+	// Contains information about a standby virtual machine pool as last known by the StandbyPool resource provider.
+	StandbyVirtualMachinePoolRuntimeViewResource
+}
+
+// StandbyVirtualMachinePoolRuntimeViewsClientListByStandbyPoolResponse contains the response from method StandbyVirtualMachinePoolRuntimeViewsClient.NewListByStandbyPoolPager.
+type StandbyVirtualMachinePoolRuntimeViewsClientListByStandbyPoolResponse struct {
+	// The response of a StandbyVirtualMachinePoolRuntimeViewResource list operation.
+	StandbyVirtualMachinePoolRuntimeViewResourceListResult
 }
 
 // StandbyVirtualMachinePoolsClientCreateOrUpdateResponse contains the response from method StandbyVirtualMachinePoolsClient.BeginCreateOrUpdate.

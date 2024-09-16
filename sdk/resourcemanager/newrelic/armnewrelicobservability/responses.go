@@ -26,8 +26,8 @@ type ConnectedPartnerResourcesClientListResponse struct {
 	ConnectedPartnerResourcesListResponse
 }
 
-// MonitoredSubscriptionsClientCreateorUpdateResponse contains the response from method MonitoredSubscriptionsClient.BeginCreateorUpdate.
-type MonitoredSubscriptionsClientCreateorUpdateResponse struct {
+// MonitoredSubscriptionsClientCreateOrUpdateResponse contains the response from method MonitoredSubscriptionsClient.BeginCreateOrUpdate.
+type MonitoredSubscriptionsClientCreateOrUpdateResponse struct {
 	// The request to update subscriptions needed to be monitored by the NewRelic monitor resource.
 	MonitoredSubscriptionProperties
 }
@@ -119,6 +119,17 @@ type MonitorsClientListMonitoredResourcesResponse struct {
 	MonitoredResourceListResponse
 }
 
+// MonitorsClientRefreshIngestionKeyResponse contains the response from method MonitorsClient.RefreshIngestionKey.
+type MonitorsClientRefreshIngestionKeyResponse struct {
+	// placeholder for future response values
+}
+
+// MonitorsClientResubscribeResponse contains the response from method MonitorsClient.BeginResubscribe.
+type MonitorsClientResubscribeResponse struct {
+	// A Monitor Resource by NewRelic
+	NewRelicMonitorResource
+}
+
 // MonitorsClientSwitchBillingResponse contains the response from method MonitorsClient.SwitchBilling.
 type MonitorsClientSwitchBillingResponse struct {
 	// A Monitor Resource by NewRelic
@@ -128,7 +139,7 @@ type MonitorsClientSwitchBillingResponse struct {
 	RetryAfter *int32
 }
 
-// MonitorsClientUpdateResponse contains the response from method MonitorsClient.Update.
+// MonitorsClientUpdateResponse contains the response from method MonitorsClient.BeginUpdate.
 type MonitorsClientUpdateResponse struct {
 	// A Monitor Resource by NewRelic
 	NewRelicMonitorResource
