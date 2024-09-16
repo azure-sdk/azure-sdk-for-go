@@ -16,11 +16,78 @@ import (
 	"reflect"
 )
 
+// MarshalJSON implements the json.Marshaller interface for type AADProfile.
+func (a AADProfile) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "adminGroupObjectIDs", a.AdminGroupObjectIDs)
+	populate(objectMap, "enableAzureRBAC", a.EnableAzureRBAC)
+	populate(objectMap, "tenantID", a.TenantID)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AADProfile.
+func (a *AADProfile) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "adminGroupObjectIDs":
+			err = unpopulate(val, "AdminGroupObjectIDs", &a.AdminGroupObjectIDs)
+			delete(rawMsg, key)
+		case "enableAzureRBAC":
+			err = unpopulate(val, "EnableAzureRBAC", &a.EnableAzureRBAC)
+			delete(rawMsg, key)
+		case "tenantID":
+			err = unpopulate(val, "TenantID", &a.TenantID)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ArcAgentProfile.
+func (a ArcAgentProfile) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "agentAutoUpgrade", a.AgentAutoUpgrade)
+	populate(objectMap, "desiredAgentVersion", a.DesiredAgentVersion)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ArcAgentProfile.
+func (a *ArcAgentProfile) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "agentAutoUpgrade":
+			err = unpopulate(val, "AgentAutoUpgrade", &a.AgentAutoUpgrade)
+			delete(rawMsg, key)
+		case "desiredAgentVersion":
+			err = unpopulate(val, "DesiredAgentVersion", &a.DesiredAgentVersion)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type ConnectedCluster.
 func (c ConnectedCluster) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "id", c.ID)
 	populate(objectMap, "identity", c.Identity)
+	populate(objectMap, "kind", c.Kind)
 	populate(objectMap, "location", c.Location)
 	populate(objectMap, "name", c.Name)
 	populate(objectMap, "properties", c.Properties)
@@ -44,6 +111,9 @@ func (c *ConnectedCluster) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "identity":
 			err = unpopulate(val, "Identity", &c.Identity)
+			delete(rawMsg, key)
+		case "kind":
+			err = unpopulate(val, "Kind", &c.Kind)
 			delete(rawMsg, key)
 		case "location":
 			err = unpopulate(val, "Location", &c.Location)
@@ -140,7 +210,7 @@ func (c *ConnectedClusterList) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type ConnectedClusterPatch.
 func (c ConnectedClusterPatch) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
-	populateAny(objectMap, "properties", c.Properties)
+	populate(objectMap, "properties", c.Properties)
 	populate(objectMap, "tags", c.Tags)
 	return json.Marshal(objectMap)
 }
@@ -168,18 +238,60 @@ func (c *ConnectedClusterPatch) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type ConnectedClusterPatchProperties.
+func (c ConnectedClusterPatchProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "azureHybridBenefit", c.AzureHybridBenefit)
+	populate(objectMap, "distribution", c.Distribution)
+	populate(objectMap, "distributionVersion", c.DistributionVersion)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ConnectedClusterPatchProperties.
+func (c *ConnectedClusterPatchProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "azureHybridBenefit":
+			err = unpopulate(val, "AzureHybridBenefit", &c.AzureHybridBenefit)
+			delete(rawMsg, key)
+		case "distribution":
+			err = unpopulate(val, "Distribution", &c.Distribution)
+			delete(rawMsg, key)
+		case "distributionVersion":
+			err = unpopulate(val, "DistributionVersion", &c.DistributionVersion)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type ConnectedClusterProperties.
 func (c ConnectedClusterProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "aadProfile", c.AADProfile)
 	populate(objectMap, "agentPublicKeyCertificate", c.AgentPublicKeyCertificate)
 	populate(objectMap, "agentVersion", c.AgentVersion)
+	populate(objectMap, "arcAgentProfile", c.ArcAgentProfile)
+	populate(objectMap, "azureHybridBenefit", c.AzureHybridBenefit)
 	populate(objectMap, "connectivityStatus", c.ConnectivityStatus)
 	populate(objectMap, "distribution", c.Distribution)
+	populate(objectMap, "distributionVersion", c.DistributionVersion)
 	populate(objectMap, "infrastructure", c.Infrastructure)
 	populate(objectMap, "kubernetesVersion", c.KubernetesVersion)
 	populateDateTimeRFC3339(objectMap, "lastConnectivityTime", c.LastConnectivityTime)
 	populateDateTimeRFC3339(objectMap, "managedIdentityCertificateExpirationTime", c.ManagedIdentityCertificateExpirationTime)
+	populate(objectMap, "miscellaneousProperties", c.MiscellaneousProperties)
 	populate(objectMap, "offering", c.Offering)
+	populate(objectMap, "privateLinkScopeResourceId", c.PrivateLinkScopeResourceID)
+	populate(objectMap, "privateLinkState", c.PrivateLinkState)
 	populate(objectMap, "provisioningState", c.ProvisioningState)
 	populate(objectMap, "totalCoreCount", c.TotalCoreCount)
 	populate(objectMap, "totalNodeCount", c.TotalNodeCount)
@@ -195,17 +307,29 @@ func (c *ConnectedClusterProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "aadProfile":
+			err = unpopulate(val, "AADProfile", &c.AADProfile)
+			delete(rawMsg, key)
 		case "agentPublicKeyCertificate":
 			err = unpopulate(val, "AgentPublicKeyCertificate", &c.AgentPublicKeyCertificate)
 			delete(rawMsg, key)
 		case "agentVersion":
 			err = unpopulate(val, "AgentVersion", &c.AgentVersion)
 			delete(rawMsg, key)
+		case "arcAgentProfile":
+			err = unpopulate(val, "ArcAgentProfile", &c.ArcAgentProfile)
+			delete(rawMsg, key)
+		case "azureHybridBenefit":
+			err = unpopulate(val, "AzureHybridBenefit", &c.AzureHybridBenefit)
+			delete(rawMsg, key)
 		case "connectivityStatus":
 			err = unpopulate(val, "ConnectivityStatus", &c.ConnectivityStatus)
 			delete(rawMsg, key)
 		case "distribution":
 			err = unpopulate(val, "Distribution", &c.Distribution)
+			delete(rawMsg, key)
+		case "distributionVersion":
+			err = unpopulate(val, "DistributionVersion", &c.DistributionVersion)
 			delete(rawMsg, key)
 		case "infrastructure":
 			err = unpopulate(val, "Infrastructure", &c.Infrastructure)
@@ -219,8 +343,17 @@ func (c *ConnectedClusterProperties) UnmarshalJSON(data []byte) error {
 		case "managedIdentityCertificateExpirationTime":
 			err = unpopulateDateTimeRFC3339(val, "ManagedIdentityCertificateExpirationTime", &c.ManagedIdentityCertificateExpirationTime)
 			delete(rawMsg, key)
+		case "miscellaneousProperties":
+			err = unpopulate(val, "MiscellaneousProperties", &c.MiscellaneousProperties)
+			delete(rawMsg, key)
 		case "offering":
 			err = unpopulate(val, "Offering", &c.Offering)
+			delete(rawMsg, key)
+		case "privateLinkScopeResourceId":
+			err = unpopulate(val, "PrivateLinkScopeResourceID", &c.PrivateLinkScopeResourceID)
+			delete(rawMsg, key)
+		case "privateLinkState":
+			err = unpopulate(val, "PrivateLinkState", &c.PrivateLinkState)
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &c.ProvisioningState)
@@ -243,7 +376,9 @@ func (c *ConnectedClusterProperties) UnmarshalJSON(data []byte) error {
 func (c CredentialResult) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "name", c.Name)
-	populateByteArray(objectMap, "value", c.Value, runtime.Base64StdFormat)
+	populateByteArray(objectMap, "value", c.Value, func() any {
+		return runtime.EncodeByteArray(c.Value, runtime.Base64StdFormat)
+	})
 	return json.Marshal(objectMap)
 }
 
@@ -260,7 +395,9 @@ func (c *CredentialResult) UnmarshalJSON(data []byte) error {
 			err = unpopulate(val, "Name", &c.Name)
 			delete(rawMsg, key)
 		case "value":
-			err = runtime.DecodeByteArray(string(val), &c.Value, runtime.Base64StdFormat)
+			if val != nil && string(val) != "null" {
+				err = runtime.DecodeByteArray(string(val), &c.Value, runtime.Base64StdFormat)
+			}
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -718,18 +855,18 @@ func populateAny(m map[string]any, k string, v any) {
 	}
 }
 
-func populateByteArray(m map[string]any, k string, b []byte, f runtime.Base64Encoding) {
+func populateByteArray[T any](m map[string]any, k string, b []T, convert func() any) {
 	if azcore.IsNullValue(b) {
 		m[k] = nil
 	} else if len(b) == 0 {
 		return
 	} else {
-		m[k] = runtime.EncodeByteArray(b, f)
+		m[k] = convert()
 	}
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {
