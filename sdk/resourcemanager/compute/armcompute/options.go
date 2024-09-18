@@ -1751,12 +1751,6 @@ type VirtualMachineScaleSetsClientListAllOptions struct {
 	// placeholder for future optional parameters
 }
 
-// VirtualMachineScaleSetsClientListByLocationOptions contains the optional parameters for the VirtualMachineScaleSetsClient.NewListByLocationPager
-// method.
-type VirtualMachineScaleSetsClientListByLocationOptions struct {
-	// placeholder for future optional parameters
-}
-
 // VirtualMachineScaleSetsClientListOptions contains the optional parameters for the VirtualMachineScaleSetsClient.NewListPager
 // method.
 type VirtualMachineScaleSetsClientListOptions struct {

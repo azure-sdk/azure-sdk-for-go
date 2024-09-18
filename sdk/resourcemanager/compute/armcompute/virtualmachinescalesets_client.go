@@ -914,66 +914,6 @@ func (client *VirtualMachineScaleSetsClient) listAllHandleResponse(resp *http.Re
 	return result, nil
 }
 
-// NewListByLocationPager - Gets all the VM scale sets under the specified subscription for the specified location.
-//
-// Generated from API version 2024-07-01
-//   - location - The location for which VM scale sets under the subscription are queried.
-//   - options - VirtualMachineScaleSetsClientListByLocationOptions contains the optional parameters for the VirtualMachineScaleSetsClient.NewListByLocationPager
-//     method.
-func (client *VirtualMachineScaleSetsClient) NewListByLocationPager(location string, options *VirtualMachineScaleSetsClientListByLocationOptions) *runtime.Pager[VirtualMachineScaleSetsClientListByLocationResponse] {
-	return runtime.NewPager(runtime.PagingHandler[VirtualMachineScaleSetsClientListByLocationResponse]{
-		More: func(page VirtualMachineScaleSetsClientListByLocationResponse) bool {
-			return page.NextLink != nil && len(*page.NextLink) > 0
-		},
-		Fetcher: func(ctx context.Context, page *VirtualMachineScaleSetsClientListByLocationResponse) (VirtualMachineScaleSetsClientListByLocationResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "VirtualMachineScaleSetsClient.NewListByLocationPager")
-			nextLink := ""
-			if page != nil {
-				nextLink = *page.NextLink
-			}
-			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listByLocationCreateRequest(ctx, location, options)
-			}, nil)
-			if err != nil {
-				return VirtualMachineScaleSetsClientListByLocationResponse{}, err
-			}
-			return client.listByLocationHandleResponse(resp)
-		},
-		Tracer: client.internal.Tracer(),
-	})
-}
-
-// listByLocationCreateRequest creates the ListByLocation request.
-func (client *VirtualMachineScaleSetsClient) listByLocationCreateRequest(ctx context.Context, location string, options *VirtualMachineScaleSetsClientListByLocationOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/virtualMachineScaleSets"
-	if location == "" {
-		return nil, errors.New("parameter location cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-07-01")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, nil
-}
-
-// listByLocationHandleResponse handles the ListByLocation response.
-func (client *VirtualMachineScaleSetsClient) listByLocationHandleResponse(resp *http.Response) (VirtualMachineScaleSetsClientListByLocationResponse, error) {
-	result := VirtualMachineScaleSetsClientListByLocationResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.VirtualMachineScaleSetListResult); err != nil {
-		return VirtualMachineScaleSetsClientListByLocationResponse{}, err
-	}
-	return result, nil
-}
-
 // NewListSKUsPager - Gets a list of SKUs available for your VM scale set, including the minimum and maximum VM instances
 // allowed for each SKU.
 //
