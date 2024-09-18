@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v6"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v7"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -73,10 +73,6 @@ type VirtualMachineScaleSetsServer struct {
 	// NewListAllPager is the fake for method VirtualMachineScaleSetsClient.NewListAllPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListAllPager func(options *armcompute.VirtualMachineScaleSetsClientListAllOptions) (resp azfake.PagerResponder[armcompute.VirtualMachineScaleSetsClientListAllResponse])
-
-	// NewListByLocationPager is the fake for method VirtualMachineScaleSetsClient.NewListByLocationPager
-	// HTTP status codes to indicate success: http.StatusOK
-	NewListByLocationPager func(location string, options *armcompute.VirtualMachineScaleSetsClientListByLocationOptions) (resp azfake.PagerResponder[armcompute.VirtualMachineScaleSetsClientListByLocationResponse])
 
 	// NewListSKUsPager is the fake for method VirtualMachineScaleSetsClient.NewListSKUsPager
 	// HTTP status codes to indicate success: http.StatusOK
@@ -141,7 +137,6 @@ func NewVirtualMachineScaleSetsServerTransport(srv *VirtualMachineScaleSetsServe
 		newGetOSUpgradeHistoryPager:       newTracker[azfake.PagerResponder[armcompute.VirtualMachineScaleSetsClientGetOSUpgradeHistoryResponse]](),
 		newListPager:                      newTracker[azfake.PagerResponder[armcompute.VirtualMachineScaleSetsClientListResponse]](),
 		newListAllPager:                   newTracker[azfake.PagerResponder[armcompute.VirtualMachineScaleSetsClientListAllResponse]](),
-		newListByLocationPager:            newTracker[azfake.PagerResponder[armcompute.VirtualMachineScaleSetsClientListByLocationResponse]](),
 		newListSKUsPager:                  newTracker[azfake.PagerResponder[armcompute.VirtualMachineScaleSetsClientListSKUsResponse]](),
 		beginPerformMaintenance:           newTracker[azfake.PollerResponder[armcompute.VirtualMachineScaleSetsClientPerformMaintenanceResponse]](),
 		beginPowerOff:                     newTracker[azfake.PollerResponder[armcompute.VirtualMachineScaleSetsClientPowerOffResponse]](),
@@ -169,7 +164,6 @@ type VirtualMachineScaleSetsServerTransport struct {
 	newGetOSUpgradeHistoryPager       *tracker[azfake.PagerResponder[armcompute.VirtualMachineScaleSetsClientGetOSUpgradeHistoryResponse]]
 	newListPager                      *tracker[azfake.PagerResponder[armcompute.VirtualMachineScaleSetsClientListResponse]]
 	newListAllPager                   *tracker[azfake.PagerResponder[armcompute.VirtualMachineScaleSetsClientListAllResponse]]
-	newListByLocationPager            *tracker[azfake.PagerResponder[armcompute.VirtualMachineScaleSetsClientListByLocationResponse]]
 	newListSKUsPager                  *tracker[azfake.PagerResponder[armcompute.VirtualMachineScaleSetsClientListSKUsResponse]]
 	beginPerformMaintenance           *tracker[azfake.PollerResponder[armcompute.VirtualMachineScaleSetsClientPerformMaintenanceResponse]]
 	beginPowerOff                     *tracker[azfake.PollerResponder[armcompute.VirtualMachineScaleSetsClientPowerOffResponse]]
@@ -220,8 +214,6 @@ func (v *VirtualMachineScaleSetsServerTransport) Do(req *http.Request) (*http.Re
 		resp, err = v.dispatchNewListPager(req)
 	case "VirtualMachineScaleSetsClient.NewListAllPager":
 		resp, err = v.dispatchNewListAllPager(req)
-	case "VirtualMachineScaleSetsClient.NewListByLocationPager":
-		resp, err = v.dispatchNewListByLocationPager(req)
 	case "VirtualMachineScaleSetsClient.NewListSKUsPager":
 		resp, err = v.dispatchNewListSKUsPager(req)
 	case "VirtualMachineScaleSetsClient.BeginPerformMaintenance":
@@ -841,43 +833,6 @@ func (v *VirtualMachineScaleSetsServerTransport) dispatchNewListAllPager(req *ht
 	}
 	if !server.PagerResponderMore(newListAllPager) {
 		v.newListAllPager.remove(req)
-	}
-	return resp, nil
-}
-
-func (v *VirtualMachineScaleSetsServerTransport) dispatchNewListByLocationPager(req *http.Request) (*http.Response, error) {
-	if v.srv.NewListByLocationPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListByLocationPager not implemented")}
-	}
-	newListByLocationPager := v.newListByLocationPager.get(req)
-	if newListByLocationPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Compute/locations/(?P<location>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/virtualMachineScaleSets`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 2 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		locationParam, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
-		if err != nil {
-			return nil, err
-		}
-		resp := v.srv.NewListByLocationPager(locationParam, nil)
-		newListByLocationPager = &resp
-		v.newListByLocationPager.add(req, newListByLocationPager)
-		server.PagerResponderInjectNextLinks(newListByLocationPager, req, func(page *armcompute.VirtualMachineScaleSetsClientListByLocationResponse, createLink func() string) {
-			page.NextLink = to.Ptr(createLink())
-		})
-	}
-	resp, err := server.PagerResponderNext(newListByLocationPager, req)
-	if err != nil {
-		return nil, err
-	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		v.newListByLocationPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
-	}
-	if !server.PagerResponderMore(newListByLocationPager) {
-		v.newListByLocationPager.remove(req)
 	}
 	return resp, nil
 }

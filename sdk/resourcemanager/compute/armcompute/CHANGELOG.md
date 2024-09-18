@@ -1,5 +1,11 @@
 # Release History
 
+## 7.0.0 (2024-09-18)
+### Breaking Changes
+
+- Function `*VirtualMachineScaleSetsClient.NewListByLocationPager` has been removed
+
+
 ## 6.1.0 (2024-08-23)
 ### Features Added
 

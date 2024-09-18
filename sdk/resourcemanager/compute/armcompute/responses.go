@@ -1449,12 +1449,6 @@ type VirtualMachineScaleSetsClientListAllResponse struct {
 	VirtualMachineScaleSetListWithLinkResult
 }
 
-// VirtualMachineScaleSetsClientListByLocationResponse contains the response from method VirtualMachineScaleSetsClient.NewListByLocationPager.
-type VirtualMachineScaleSetsClientListByLocationResponse struct {
-	// The List Virtual Machine operation response.
-	VirtualMachineScaleSetListResult
-}
-
 // VirtualMachineScaleSetsClientListResponse contains the response from method VirtualMachineScaleSetsClient.NewListPager.
 type VirtualMachineScaleSetsClientListResponse struct {
 	// The List Virtual Machine operation response.
