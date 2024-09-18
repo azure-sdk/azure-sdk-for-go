@@ -1095,9 +1095,8 @@ type DataDisk struct {
 	// applicable only for managed data disks. If a previous detachment attempt of the data disk did not complete due to an unexpected
 	// failure from the virtual machine and the disk is still not released then
 	// use force-detach as a last resort option to detach the disk forcibly from the VM. All writes might not have been flushed
-	// when using this detach behavior. This feature is still in preview mode and is
-	// not supported for VirtualMachineScaleSet. To force-detach a data disk update toBeDetached to 'true' along with setting
-	// detachOption: 'ForceDetach'.
+	// when using this detach behavior. This feature is still in preview. To
+	// force-detach a data disk update toBeDetached to 'true' along with setting detachOption: 'ForceDetach'.
 	DetachOption *DiskDetachOptionTypes
 
 	// Specifies the size of an empty data disk in gigabytes. This element can be used to overwrite the size of the disk in a
@@ -2852,6 +2851,18 @@ type HardwareProfile struct {
 	VMSizeProperties *VMSizeProperties
 }
 
+// HostEndpointSettings - Specifies particular host endpoint settings.
+type HostEndpointSettings struct {
+	// Specifies the InVMAccessControlProfileVersion resource id on the form of
+	// /subscriptions/{SubscriptionId}/resourceGroups/{ResourceGroupName}/providers/Microsoft.Compute/galleries/{galleryName}/inVMAccessControlProfiles/{profile}/versions/{version}
+	InVMAccessControlProfileReferenceID *string
+
+	// Specifies the execution mode. In Audit mode, the system acts as if it is enforcing the access control policy, including
+	// emitting access denial entries in the logs but it does not actually deny any
+	// requests to host endpoints. Enforce mode is the recommended mode of operation and system will enforce the access control.
+	Mode *Mode
+}
+
 // Image - The source user image virtual hard disk. The virtual hard disk will be copied before being attached to the virtual
 // machine. If SourceImage is provided, the destination virtual hard drive must not
 // exist.
@@ -4109,19 +4120,23 @@ type ProximityPlacementGroupUpdate struct {
 	Tags map[string]*string
 }
 
-// ProxyAgentSettings - Specifies ProxyAgent settings while creating the virtual machine. Minimum api-version: 2023-09-01.
+// ProxyAgentSettings - Specifies ProxyAgent settings for the virtual machine or virtual machine scale set. Minimum api-version:
+// 2023-09-01.
 type ProxyAgentSettings struct {
 	// Specifies whether ProxyAgent feature should be enabled on the virtual machine or virtual machine scale set.
 	Enabled *bool
+
+	// Specifies the IMDS endpoint settings while creating the virtual machine or virtual machine scale set. Minimum api-version:
+	// 2024-03-01.
+	Imds *HostEndpointSettings
 
 	// Increase the value of this property allows user to reset the key used for securing communication channel between guest
 	// and host.
 	KeyIncarnationID *int32
 
-	// Specifies the mode that ProxyAgent will execute on if the feature is enabled. ProxyAgent will start to audit or monitor
-	// but not enforce access control over requests to host endpoints in Audit mode,
-	// while in Enforce mode it will enforce access control. The default value is Enforce mode.
-	Mode *Mode
+	// Specifies the WireServer endpoint settings while creating the virtual machine or virtual machine scale set. Minimum api-version:
+	// 2024-03-01.
+	WireServer *HostEndpointSettings
 }
 
 // ProxyOnlyResource - The ProxyOnly Resource model definition.
