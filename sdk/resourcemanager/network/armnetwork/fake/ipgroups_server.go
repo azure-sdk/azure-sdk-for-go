@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork/v6"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork/v7"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -28,9 +28,9 @@ type IPGroupsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
 	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, ipGroupsName string, parameters armnetwork.IPGroup, options *armnetwork.IPGroupsClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armnetwork.IPGroupsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
-	// BeginDelete is the fake for method IPGroupsClient.BeginDelete
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
-	BeginDelete func(ctx context.Context, resourceGroupName string, ipGroupsName string, options *armnetwork.IPGroupsClientBeginDeleteOptions) (resp azfake.PollerResponder[armnetwork.IPGroupsClientDeleteResponse], errResp azfake.ErrorResponder)
+	// Delete is the fake for method IPGroupsClient.Delete
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
+	Delete func(ctx context.Context, resourceGroupName string, ipGroupsName string, options *armnetwork.IPGroupsClientDeleteOptions) (resp azfake.Responder[armnetwork.IPGroupsClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method IPGroupsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
@@ -56,7 +56,6 @@ func NewIPGroupsServerTransport(srv *IPGroupsServer) *IPGroupsServerTransport {
 	return &IPGroupsServerTransport{
 		srv:                         srv,
 		beginCreateOrUpdate:         newTracker[azfake.PollerResponder[armnetwork.IPGroupsClientCreateOrUpdateResponse]](),
-		beginDelete:                 newTracker[azfake.PollerResponder[armnetwork.IPGroupsClientDeleteResponse]](),
 		newListPager:                newTracker[azfake.PagerResponder[armnetwork.IPGroupsClientListResponse]](),
 		newListByResourceGroupPager: newTracker[azfake.PagerResponder[armnetwork.IPGroupsClientListByResourceGroupResponse]](),
 	}
@@ -67,7 +66,6 @@ func NewIPGroupsServerTransport(srv *IPGroupsServer) *IPGroupsServerTransport {
 type IPGroupsServerTransport struct {
 	srv                         *IPGroupsServer
 	beginCreateOrUpdate         *tracker[azfake.PollerResponder[armnetwork.IPGroupsClientCreateOrUpdateResponse]]
-	beginDelete                 *tracker[azfake.PollerResponder[armnetwork.IPGroupsClientDeleteResponse]]
 	newListPager                *tracker[azfake.PagerResponder[armnetwork.IPGroupsClientListResponse]]
 	newListByResourceGroupPager *tracker[azfake.PagerResponder[armnetwork.IPGroupsClientListByResourceGroupResponse]]
 }
@@ -86,8 +84,8 @@ func (i *IPGroupsServerTransport) Do(req *http.Request) (*http.Response, error) 
 	switch method {
 	case "IPGroupsClient.BeginCreateOrUpdate":
 		resp, err = i.dispatchBeginCreateOrUpdate(req)
-	case "IPGroupsClient.BeginDelete":
-		resp, err = i.dispatchBeginDelete(req)
+	case "IPGroupsClient.Delete":
+		resp, err = i.dispatchDelete(req)
 	case "IPGroupsClient.Get":
 		resp, err = i.dispatchGet(req)
 	case "IPGroupsClient.NewListPager":
@@ -155,47 +153,36 @@ func (i *IPGroupsServerTransport) dispatchBeginCreateOrUpdate(req *http.Request)
 	return resp, nil
 }
 
-func (i *IPGroupsServerTransport) dispatchBeginDelete(req *http.Request) (*http.Response, error) {
-	if i.srv.BeginDelete == nil {
-		return nil, &nonRetriableError{errors.New("fake for method BeginDelete not implemented")}
+func (i *IPGroupsServerTransport) dispatchDelete(req *http.Request) (*http.Response, error) {
+	if i.srv.Delete == nil {
+		return nil, &nonRetriableError{errors.New("fake for method Delete not implemented")}
 	}
-	beginDelete := i.beginDelete.get(req)
-	if beginDelete == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Network/ipGroups/(?P<ipGroupsName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		ipGroupsNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("ipGroupsName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := i.srv.BeginDelete(req.Context(), resourceGroupNameParam, ipGroupsNameParam, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
-		beginDelete = &respr
-		i.beginDelete.add(req, beginDelete)
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Network/ipGroups/(?P<ipGroupsName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-
-	resp, err := server.PollerResponderNext(beginDelete, req)
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
 	}
-
-	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
-		i.beginDelete.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
+	ipGroupsNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("ipGroupsName")])
+	if err != nil {
+		return nil, err
 	}
-	if !server.PollerResponderMore(beginDelete) {
-		i.beginDelete.remove(req)
+	respr, errRespr := i.srv.Delete(req.Context(), resourceGroupNameParam, ipGroupsNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
 	}
-
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK, http.StatusNoContent}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusNoContent", respContent.HTTPStatus)}
+	}
+	resp, err := server.NewResponse(respContent, req, nil)
+	if err != nil {
+		return nil, err
+	}
 	return resp, nil
 }
 
