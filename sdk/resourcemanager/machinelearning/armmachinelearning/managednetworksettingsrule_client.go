@@ -46,9 +46,9 @@ func NewManagedNetworkSettingsRuleClient(subscriptionID string, credential azcor
 // BeginCreateOrUpdate - Creates or updates an outbound rule in the managed network of a machine learning workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - workspaceName - Azure Machine Learning Workspace Name
 //   - ruleName - Name of the workspace managed network outbound rule
 //   - body - Outbound Rule to be created or updated in the managed network of a machine learning workspace.
 //   - options - ManagedNetworkSettingsRuleClientBeginCreateOrUpdateOptions contains the optional parameters for the ManagedNetworkSettingsRuleClient.BeginCreateOrUpdate
@@ -74,7 +74,7 @@ func (client *ManagedNetworkSettingsRuleClient) BeginCreateOrUpdate(ctx context.
 // CreateOrUpdate - Creates or updates an outbound rule in the managed network of a machine learning workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-07-01-preview
 func (client *ManagedNetworkSettingsRuleClient) createOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, ruleName string, body OutboundRuleBasicResource, options *ManagedNetworkSettingsRuleClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ManagedNetworkSettingsRuleClient.BeginCreateOrUpdate"
@@ -120,7 +120,7 @@ func (client *ManagedNetworkSettingsRuleClient) createOrUpdateCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -132,9 +132,9 @@ func (client *ManagedNetworkSettingsRuleClient) createOrUpdateCreateRequest(ctx 
 // BeginDelete - Deletes an outbound rule from the managed network of a machine learning workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - workspaceName - Azure Machine Learning Workspace Name
 //   - ruleName - Name of the workspace managed network outbound rule
 //   - options - ManagedNetworkSettingsRuleClientBeginDeleteOptions contains the optional parameters for the ManagedNetworkSettingsRuleClient.BeginDelete
 //     method.
@@ -145,7 +145,8 @@ func (client *ManagedNetworkSettingsRuleClient) BeginDelete(ctx context.Context,
 			return nil, err
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ManagedNetworkSettingsRuleClientDeleteResponse]{
-			Tracer: client.internal.Tracer(),
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
@@ -158,7 +159,7 @@ func (client *ManagedNetworkSettingsRuleClient) BeginDelete(ctx context.Context,
 // Delete - Deletes an outbound rule from the managed network of a machine learning workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-07-01-preview
 func (client *ManagedNetworkSettingsRuleClient) deleteOperation(ctx context.Context, resourceGroupName string, workspaceName string, ruleName string, options *ManagedNetworkSettingsRuleClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ManagedNetworkSettingsRuleClient.BeginDelete"
@@ -204,7 +205,7 @@ func (client *ManagedNetworkSettingsRuleClient) deleteCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -213,9 +214,9 @@ func (client *ManagedNetworkSettingsRuleClient) deleteCreateRequest(ctx context.
 // Get - Gets an outbound rule from the managed network of a machine learning workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - workspaceName - Azure Machine Learning Workspace Name
 //   - ruleName - Name of the workspace managed network outbound rule
 //   - options - ManagedNetworkSettingsRuleClientGetOptions contains the optional parameters for the ManagedNetworkSettingsRuleClient.Get
 //     method.
@@ -265,7 +266,7 @@ func (client *ManagedNetworkSettingsRuleClient) getCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -282,9 +283,9 @@ func (client *ManagedNetworkSettingsRuleClient) getHandleResponse(resp *http.Res
 
 // NewListPager - Lists the managed network outbound rules for a machine learning workspace.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - workspaceName - Azure Machine Learning Workspace Name
 //   - options - ManagedNetworkSettingsRuleClientListOptions contains the optional parameters for the ManagedNetworkSettingsRuleClient.NewListPager
 //     method.
 func (client *ManagedNetworkSettingsRuleClient) NewListPager(resourceGroupName string, workspaceName string, options *ManagedNetworkSettingsRuleClientListOptions) *runtime.Pager[ManagedNetworkSettingsRuleClientListResponse] {
@@ -330,7 +331,7 @@ func (client *ManagedNetworkSettingsRuleClient) listCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

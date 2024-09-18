@@ -43,23 +43,24 @@ func NewPrivateEndpointConnectionsClient(subscriptionID string, credential azcor
 	return client, nil
 }
 
-// CreateOrUpdate - Update the state of specified private endpoint connection associated with the workspace.
+// CreateOrUpdate - Called by end-users to approve or reject a PE connection. This method must validate and forward the call
+// to NRP.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - workspaceName - Name of Azure Machine Learning workspace.
-//   - privateEndpointConnectionName - The name of the private endpoint connection associated with the workspace
-//   - properties - The private endpoint connection properties.
+//   - workspaceName - Azure Machine Learning Workspace Name
+//   - privateEndpointConnectionName - NRP Private Endpoint Connection Name
+//   - body - PrivateEndpointConnection object
 //   - options - PrivateEndpointConnectionsClientCreateOrUpdateOptions contains the optional parameters for the PrivateEndpointConnectionsClient.CreateOrUpdate
 //     method.
-func (client *PrivateEndpointConnectionsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, privateEndpointConnectionName string, properties PrivateEndpointConnection, options *PrivateEndpointConnectionsClientCreateOrUpdateOptions) (PrivateEndpointConnectionsClientCreateOrUpdateResponse, error) {
+func (client *PrivateEndpointConnectionsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, privateEndpointConnectionName string, body PrivateEndpointConnection, options *PrivateEndpointConnectionsClientCreateOrUpdateOptions) (PrivateEndpointConnectionsClientCreateOrUpdateResponse, error) {
 	var err error
 	const operationName = "PrivateEndpointConnectionsClient.CreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, privateEndpointConnectionName, properties, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, privateEndpointConnectionName, body, options)
 	if err != nil {
 		return PrivateEndpointConnectionsClientCreateOrUpdateResponse{}, err
 	}
@@ -76,7 +77,7 @@ func (client *PrivateEndpointConnectionsClient) CreateOrUpdate(ctx context.Conte
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *PrivateEndpointConnectionsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, privateEndpointConnectionName string, properties PrivateEndpointConnection, options *PrivateEndpointConnectionsClientCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *PrivateEndpointConnectionsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, privateEndpointConnectionName string, body PrivateEndpointConnection, options *PrivateEndpointConnectionsClientCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/privateEndpointConnections/{privateEndpointConnectionName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -99,10 +100,10 @@ func (client *PrivateEndpointConnectionsClient) createOrUpdateCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, properties); err != nil {
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -117,13 +118,13 @@ func (client *PrivateEndpointConnectionsClient) createOrUpdateHandleResponse(res
 	return result, nil
 }
 
-// Delete - Deletes the specified private endpoint connection associated with the workspace.
+// Delete - Called by end-users to delete a PE connection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - workspaceName - Name of Azure Machine Learning workspace.
-//   - privateEndpointConnectionName - The name of the private endpoint connection associated with the workspace
+//   - workspaceName - Azure Machine Learning Workspace Name
+//   - privateEndpointConnectionName - NRP Private Endpoint Connection Name
 //   - options - PrivateEndpointConnectionsClientDeleteOptions contains the optional parameters for the PrivateEndpointConnectionsClient.Delete
 //     method.
 func (client *PrivateEndpointConnectionsClient) Delete(ctx context.Context, resourceGroupName string, workspaceName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionsClientDeleteOptions) (PrivateEndpointConnectionsClientDeleteResponse, error) {
@@ -171,19 +172,19 @@ func (client *PrivateEndpointConnectionsClient) deleteCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
-// Get - Gets the specified private endpoint connection associated with the workspace.
+// Get - Called by end-users to get a PE connection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - workspaceName - Name of Azure Machine Learning workspace.
-//   - privateEndpointConnectionName - The name of the private endpoint connection associated with the workspace
+//   - workspaceName - Azure Machine Learning Workspace Name
+//   - privateEndpointConnectionName - NRP Private Endpoint Connection Name
 //   - options - PrivateEndpointConnectionsClientGetOptions contains the optional parameters for the PrivateEndpointConnectionsClient.Get
 //     method.
 func (client *PrivateEndpointConnectionsClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionsClientGetOptions) (PrivateEndpointConnectionsClientGetResponse, error) {
@@ -232,7 +233,7 @@ func (client *PrivateEndpointConnectionsClient) getCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -247,11 +248,11 @@ func (client *PrivateEndpointConnectionsClient) getHandleResponse(resp *http.Res
 	return result, nil
 }
 
-// NewListPager - List all the private endpoint connections associated with the workspace.
+// NewListPager - Called by end-users to get all PE connections.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - workspaceName - Azure Machine Learning Workspace Name
 //   - options - PrivateEndpointConnectionsClientListOptions contains the optional parameters for the PrivateEndpointConnectionsClient.NewListPager
 //     method.
 func (client *PrivateEndpointConnectionsClient) NewListPager(resourceGroupName string, workspaceName string, options *PrivateEndpointConnectionsClientListOptions) *runtime.Pager[PrivateEndpointConnectionsClientListResponse] {
@@ -281,6 +282,10 @@ func (client *PrivateEndpointConnectionsClient) NewListPager(resourceGroupName s
 // listCreateRequest creates the List request.
 func (client *PrivateEndpointConnectionsClient) listCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, options *PrivateEndpointConnectionsClientListOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/privateEndpointConnections"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -289,16 +294,12 @@ func (client *PrivateEndpointConnectionsClient) listCreateRequest(ctx context.Co
 		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
