@@ -1,5 +1,16 @@
 # Release History
 
+## 0.2.0 (2024-09-18)
+### Breaking Changes
+
+- `NetworkAPIVersion20201101` from enum `NetworkAPIVersion` has been removed
+- `ProvisioningStateDeleting`, `ProvisioningStateMigrating` from enum `ProvisioningState` has been removed
+
+### Features Added
+
+- New value `NetworkAPIVersionV20201101` added to enum type `NetworkAPIVersion`
+
+
 ## 0.1.0 (2024-07-26)
 ### Other Changes
 
