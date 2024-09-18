@@ -46,6 +46,69 @@ type APIErrorBase struct {
 	Target *string
 }
 
+// AccessControlRules - This is the Access Control Rules specification for an inVMAccessControlProfile version.
+type AccessControlRules struct {
+	// A list of identities.
+	Identities []*AccessControlRulesIdentity
+
+	// A list of privileges.
+	Privileges []*AccessControlRulesPrivilege
+
+	// A list of role assignments.
+	RoleAssignments []*AccessControlRulesRoleAssignment
+
+	// A list of roles.
+	Roles []*AccessControlRulesRole
+}
+
+// AccessControlRulesIdentity - The properties of an Access Control Rule Identity.
+type AccessControlRulesIdentity struct {
+	// REQUIRED; The name of the identity.
+	Name *string
+
+	// The path to the executable.
+	ExePath *string
+
+	// The groupName corresponding to this identity.
+	GroupName *string
+
+	// The process name of the executable.
+	ProcessName *string
+
+	// The username corresponding to this identity.
+	UserName *string
+}
+
+// AccessControlRulesPrivilege - The properties of an Access Control Rule Privilege.
+type AccessControlRulesPrivilege struct {
+	// REQUIRED; The name of the privilege.
+	Name *string
+
+	// REQUIRED; The HTTP path corresponding to the privilege.
+	Path *string
+
+	// The query parameters to match in the path.
+	QueryParameters map[string]*string
+}
+
+// AccessControlRulesRole - The properties of an Access Control Rule Role.
+type AccessControlRulesRole struct {
+	// REQUIRED; The name of the role.
+	Name *string
+
+	// REQUIRED; A list of privileges needed by this role.
+	Privileges []*string
+}
+
+// AccessControlRulesRoleAssignment - The properties of an Access Control Rule RoleAssignment.
+type AccessControlRulesRoleAssignment struct {
+	// REQUIRED; A list of identities that can access the privileges defined by the role.
+	Identities []*string
+
+	// REQUIRED; The name of the role.
+	Role *string
+}
+
 // AccessURI - A disk access SAS uri.
 type AccessURI struct {
 	// READ-ONLY; A SAS uri for accessing a disk.
@@ -870,7 +933,7 @@ type CommunityGalleryImageProperties struct {
 	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture
 
 	// The artifact tags of a community gallery resource.
@@ -1095,9 +1158,8 @@ type DataDisk struct {
 	// applicable only for managed data disks. If a previous detachment attempt of the data disk did not complete due to an unexpected
 	// failure from the virtual machine and the disk is still not released then
 	// use force-detach as a last resort option to detach the disk forcibly from the VM. All writes might not have been flushed
-	// when using this detach behavior. This feature is still in preview mode and is
-	// not supported for VirtualMachineScaleSet. To force-detach a data disk update toBeDetached to 'true' along with setting
-	// detachOption: 'ForceDetach'.
+	// when using this detach behavior. This feature is still in preview. To
+	// force-detach a data disk update toBeDetached to 'true' along with setting detachOption: 'ForceDetach'.
 	DetachOption *DiskDetachOptionTypes
 
 	// Specifies the size of an empty data disk in gigabytes. This element can be used to overwrite the size of the disk in a
@@ -2554,7 +2616,7 @@ type GalleryImageProperties struct {
 	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture
 
 	// The description of this gallery image definition resource. This property is updatable.
@@ -2742,6 +2804,154 @@ type GalleryImageVersionUpdate struct {
 	Type *string
 }
 
+// GalleryInVMAccessControlProfile - Specifies information about the gallery inVMAccessControlProfile that you want to create
+// or update.
+type GalleryInVMAccessControlProfile struct {
+	// REQUIRED; Resource location
+	Location *string
+
+	// Describes the properties of a gallery inVMAccessControlProfile.
+	Properties *GalleryInVMAccessControlProfileProperties
+
+	// Resource tags
+	Tags map[string]*string
+
+	// READ-ONLY; Resource Id
+	ID *string
+
+	// READ-ONLY; Resource name
+	Name *string
+
+	// READ-ONLY; Resource type
+	Type *string
+}
+
+// GalleryInVMAccessControlProfileList - The List Gallery InVMAccessControlProfiles operation response.
+type GalleryInVMAccessControlProfileList struct {
+	// REQUIRED; A list of Gallery InVMAccessControlProfiles.
+	Value []*GalleryInVMAccessControlProfile
+
+	// The uri to fetch the next page of inVMAccessControlProfiles in the gallery. Call ListNext() with this to fetch the next
+	// page of gallery inVMAccessControlProfiles.
+	NextLink *string
+}
+
+// GalleryInVMAccessControlProfileProperties - Describes the properties of a gallery inVMAccessControlProfile.
+type GalleryInVMAccessControlProfileProperties struct {
+	// REQUIRED; This property allows you to specify the Endpoint type for which this profile is defining the access control for.
+	// Possible values are: 'WireServer' or 'IMDS'
+	ApplicableHostEndpoint *EndpointTypes
+
+	// REQUIRED; This property allows you to specify the OS type of the VMs/VMSS for which this profile can be used against. Possible
+	// values are: 'Windows' or 'Linux'
+	OSType *OperatingSystemTypes
+
+	// The description of this gallery inVMAccessControlProfile resources. This property is updatable.
+	Description *string
+
+	// READ-ONLY; The provisioning state, which only appears in the response.
+	ProvisioningState *GalleryProvisioningState
+}
+
+// GalleryInVMAccessControlProfileUpdate - Specifies information about the gallery inVMAccessControlProfile that you want
+// to update.
+type GalleryInVMAccessControlProfileUpdate struct {
+	// Describes the properties of a gallery inVMAccessControlProfile.
+	Properties *GalleryInVMAccessControlProfileProperties
+
+	// Resource tags
+	Tags map[string]*string
+
+	// READ-ONLY; Resource Id
+	ID *string
+
+	// READ-ONLY; Resource name
+	Name *string
+
+	// READ-ONLY; Resource type
+	Type *string
+}
+
+// GalleryInVMAccessControlProfileVersion - Specifies information about the gallery inVMAccessControlProfile version that
+// you want to create or update.
+type GalleryInVMAccessControlProfileVersion struct {
+	// REQUIRED; Resource location
+	Location *string
+
+	// Describes the properties of an inVMAccessControlProfile version.
+	Properties *GalleryInVMAccessControlProfileVersionProperties
+
+	// Resource tags
+	Tags map[string]*string
+
+	// READ-ONLY; Resource Id
+	ID *string
+
+	// READ-ONLY; Resource name
+	Name *string
+
+	// READ-ONLY; Resource type
+	Type *string
+}
+
+// GalleryInVMAccessControlProfileVersionList - The List Gallery InVMAccessControlProfile Versions operation response.
+type GalleryInVMAccessControlProfileVersionList struct {
+	// REQUIRED; A list of Gallery InVMAccessControlProfile Versions.
+	Value []*GalleryInVMAccessControlProfileVersion
+
+	// The uri to fetch the next page of inVMAccessControlProfile versions. Call ListNext() with this to fetch the next page of
+	// gallery inVMAccessControlProfile versions.
+	NextLink *string
+}
+
+// GalleryInVMAccessControlProfileVersionProperties - Describes the properties of an inVMAccessControlProfile version.
+type GalleryInVMAccessControlProfileVersionProperties struct {
+	// REQUIRED; This property allows you to specify if the requests will be allowed to access the host endpoints. Possible values
+	// are: 'Allow', 'Deny'.
+	DefaultAccess *EndpointAccess
+
+	// REQUIRED; This property allows you to specify whether the access control rules are in Audit mode, in Enforce mode or Disabled.
+	// Possible values are: 'Audit', 'Enforce' or 'Disabled'.
+	Mode *AccessControlRulesMode
+
+	// If set to true, Virtual Machines deployed from the latest version of the Resource Profile won't use this Profile version.
+	ExcludeFromLatest *bool
+
+	// This is the Access Control Rules specification for an inVMAccessControlProfile version.
+	Rules *AccessControlRules
+
+	// The target regions where the Resource Profile version is going to be replicated to. This property is updatable.
+	TargetLocations []*TargetRegion
+
+	// READ-ONLY; The provisioning state, which only appears in the response.
+	ProvisioningState *GalleryProvisioningState
+
+	// READ-ONLY; The timestamp for when the Resource Profile Version is published.
+	PublishedDate *time.Time
+
+	// READ-ONLY; This is the replication status of the gallery image version.
+	ReplicationStatus *ReplicationStatus
+}
+
+// GalleryInVMAccessControlProfileVersionUpdate - Specifies information about the gallery inVMAccessControlProfile version
+// that you want to update.
+type GalleryInVMAccessControlProfileVersionUpdate struct {
+	// Describes the properties of an inVMAccessControlProfile version.
+	Properties *GalleryInVMAccessControlProfileVersionProperties
+
+	// Resource tags
+	Tags map[string]*string
+
+	// READ-ONLY; Resource Id
+	ID *string
+
+	// READ-ONLY; Resource name
+	Name *string
+
+	// READ-ONLY; Resource type
+	Type *string
+}
+
 // GalleryList - The List Galleries operation response.
 type GalleryList struct {
 	// REQUIRED; A list of galleries.
@@ -2782,6 +2992,30 @@ type GalleryProperties struct {
 
 	// READ-ONLY; Sharing status of current gallery.
 	SharingStatus *SharingStatus
+}
+
+// GalleryResourceProfilePropertiesBase - The properties of a gallery ResourceProfile.
+type GalleryResourceProfilePropertiesBase struct {
+	// READ-ONLY; The provisioning state, which only appears in the response.
+	ProvisioningState *GalleryProvisioningState
+}
+
+// GalleryResourceProfileVersionPropertiesBase - The properties of a gallery ResourceProfile version.
+type GalleryResourceProfileVersionPropertiesBase struct {
+	// If set to true, Virtual Machines deployed from the latest version of the Resource Profile won't use this Profile version.
+	ExcludeFromLatest *bool
+
+	// The target regions where the Resource Profile version is going to be replicated to. This property is updatable.
+	TargetLocations []*TargetRegion
+
+	// READ-ONLY; The provisioning state, which only appears in the response.
+	ProvisioningState *GalleryProvisioningState
+
+	// READ-ONLY; The timestamp for when the Resource Profile Version is published.
+	PublishedDate *time.Time
+
+	// READ-ONLY; This is the replication status of the gallery image version.
+	ReplicationStatus *ReplicationStatus
 }
 
 type GalleryTargetExtendedLocation struct {
@@ -5341,7 +5575,7 @@ type SharedGalleryImageProperties struct {
 	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture
 
 	// The artifact tags of a shared gallery resource.
