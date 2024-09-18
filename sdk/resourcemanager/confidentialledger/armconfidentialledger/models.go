@@ -108,14 +108,32 @@ type LedgerProperties struct {
 	// Array of all cert based Security Principals.
 	CertBasedSecurityPrincipals []*CertBasedSecurityPrincipal
 
+	// CCF Property for the logging level for the untrusted host: Trace, Debug, Info, Fail, Fatal.
+	HostLevel *string
+
 	// SKU associated with the ledger
 	LedgerSKU *LedgerSKU
 
 	// Type of Confidential Ledger
 	LedgerType *LedgerType
 
+	// CCF Property for the maximum size of the http request body: 1MB, 5MB, 10MB.
+	MaxBodySizeInMb *int32
+
+	// Number of CCF nodes in the ACC Ledger.
+	NodeCount *int32
+
 	// Object representing RunningState for Ledger.
 	RunningState *RunningState
+
+	// CCF Property for the subject name to include in the node certificate. Default: CN=CCF Node.
+	SubjectName *string
+
+	// Number of additional threads processing incoming client requests in the enclave (modify with care!)
+	WorkerThreads *int32
+
+	// Prefix for the write load balancer. Example: write
+	WriteLBAddressPrefix *string
 
 	// READ-ONLY; Endpoint for accessing network identity.
 	IdentityServiceURI *string
