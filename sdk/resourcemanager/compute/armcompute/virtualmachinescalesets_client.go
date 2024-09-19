@@ -920,7 +920,7 @@ func (client *VirtualMachineScaleSetsClient) listAllHandleResponse(resp *http.Re
 //   - location - The location for which VM scale sets under the subscription are queried.
 //   - options - VirtualMachineScaleSetsClientListByLocationOptions contains the optional parameters for the VirtualMachineScaleSetsClient.NewListByLocationPager
 //     method.
-func (client *VirtualMachineScaleSetsClient) NewListByLocationPager(location string, options *VirtualMachineScaleSetsClientListByLocationOptions) *runtime.Pager[VirtualMachineScaleSetsClientListByLocationResponse] {
+func (client *VirtualMachineScaleSetsClient) NewListByLocationPager(location int32, options *VirtualMachineScaleSetsClientListByLocationOptions) *runtime.Pager[VirtualMachineScaleSetsClientListByLocationResponse] {
 	return runtime.NewPager(runtime.PagingHandler[VirtualMachineScaleSetsClientListByLocationResponse]{
 		More: func(page VirtualMachineScaleSetsClientListByLocationResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
@@ -944,12 +944,9 @@ func (client *VirtualMachineScaleSetsClient) NewListByLocationPager(location str
 }
 
 // listByLocationCreateRequest creates the ListByLocation request.
-func (client *VirtualMachineScaleSetsClient) listByLocationCreateRequest(ctx context.Context, location string, options *VirtualMachineScaleSetsClientListByLocationOptions) (*policy.Request, error) {
+func (client *VirtualMachineScaleSetsClient) listByLocationCreateRequest(ctx context.Context, location int32, options *VirtualMachineScaleSetsClientListByLocationOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/virtualMachineScaleSets"
-	if location == "" {
-		return nil, errors.New("parameter location cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
+	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(strconv.FormatInt(int64(location), 10)))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}

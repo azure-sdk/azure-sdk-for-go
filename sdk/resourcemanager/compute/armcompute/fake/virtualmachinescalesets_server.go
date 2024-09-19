@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v6"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v7"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -76,7 +76,7 @@ type VirtualMachineScaleSetsServer struct {
 
 	// NewListByLocationPager is the fake for method VirtualMachineScaleSetsClient.NewListByLocationPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListByLocationPager func(location string, options *armcompute.VirtualMachineScaleSetsClientListByLocationOptions) (resp azfake.PagerResponder[armcompute.VirtualMachineScaleSetsClientListByLocationResponse])
+	NewListByLocationPager func(location int32, options *armcompute.VirtualMachineScaleSetsClientListByLocationOptions) (resp azfake.PagerResponder[armcompute.VirtualMachineScaleSetsClientListByLocationResponse])
 
 	// NewListSKUsPager is the fake for method VirtualMachineScaleSetsClient.NewListSKUsPager
 	// HTTP status codes to indicate success: http.StatusOK
@@ -857,7 +857,17 @@ func (v *VirtualMachineScaleSetsServerTransport) dispatchNewListByLocationPager(
 		if matches == nil || len(matches) < 2 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		locationParam, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
+		locationUnescaped, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
+		if err != nil {
+			return nil, err
+		}
+		locationParam, err := parseWithCast(locationUnescaped, func(v string) (int32, error) {
+			p, parseErr := strconv.ParseInt(v, 10, 32)
+			if parseErr != nil {
+				return 0, parseErr
+			}
+			return int32(p), nil
+		})
 		if err != nil {
 			return nil, err
 		}

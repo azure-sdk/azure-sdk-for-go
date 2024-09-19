@@ -1,5 +1,11 @@
 # Release History
 
+## 7.0.0 (2024-09-19)
+### Breaking Changes
+
+- Function `*VirtualMachineScaleSetsClient.NewListByLocationPager` parameter(s) have been changed from `(string, *VirtualMachineScaleSetsClientListByLocationOptions)` to `(int32, *VirtualMachineScaleSetsClientListByLocationOptions)`
+
+
 ## 6.1.0 (2024-08-23)
 ### Features Added
 
