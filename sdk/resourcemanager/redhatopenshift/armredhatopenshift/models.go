@@ -30,6 +30,9 @@ type ClusterProfile struct {
 	// If FIPS validated crypto modules are used
 	FipsValidatedModules *FipsValidatedModules
 
+	// The URL of the managed OIDC issuer in a workload identity cluster.
+	OidcIssuer *string
+
 	// The pull secret for the cluster.
 	PullSecret *string
 
@@ -38,6 +41,16 @@ type ClusterProfile struct {
 
 	// The version of the cluster.
 	Version *string
+}
+
+// ClusterUserAssignedIdentity stores information about a user-assigned managed identity in a predefined format required by
+// Microsoft's Managed Identity team.
+type ClusterUserAssignedIdentity struct {
+	// The ClientID of the ClusterUserAssignedIdentity resource
+	ClientID *string
+
+	// The PrincipalID of the ClusterUserAssignedIdentity resource
+	PrincipalID *string
 }
 
 // ConsoleProfile represents a console profile.
@@ -65,6 +78,22 @@ type Display struct {
 type EffectiveOutboundIP struct {
 	// The fully qualified Azure resource id of an IP address resource.
 	ID *string
+}
+
+// Identity stores information about the cluster MSI(s) in a workload identity cluster.
+type Identity struct {
+	// The type of the Identity resource.
+	Type *ResourceIdentityType
+
+	// A map of ClusterUserAssigned identities attached to the cluster, specified in a type required by Microsoft's Managed Identity
+	// team.
+	UserAssignedIdentities map[string]*ClusterUserAssignedIdentity
+
+	// READ-ONLY; The PrincipalID of the Identity resource.
+	PrincipalID *string
+
+	// READ-ONLY; The TenantID provided by the MSI RP
+	TenantID *string
 }
 
 // IngressProfile represents an ingress profile.
@@ -174,6 +203,9 @@ type OpenShiftCluster struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
+	// Identity stores information about the cluster MSI(s) in a workload identity cluster.
+	Identity *Identity
+
 	// The cluster properties.
 	Properties *OpenShiftClusterProperties
 
@@ -237,6 +269,9 @@ type OpenShiftClusterProperties struct {
 	// The cluster network profile.
 	NetworkProfile *NetworkProfile
 
+	// The workload identity profile.
+	PlatformWorkloadIdentityProfile *PlatformWorkloadIdentityProfile
+
 	// The cluster provisioning state.
 	ProvisioningState *ProvisioningState
 
@@ -252,6 +287,9 @@ type OpenShiftClusterProperties struct {
 
 // OpenShiftClusterUpdate - OpenShiftCluster represents an Azure Red Hat OpenShift cluster.
 type OpenShiftClusterUpdate struct {
+	// Identity stores information about the cluster MSI(s) in a workload identity cluster.
+	Identity *Identity
+
 	// The cluster properties.
 	Properties *OpenShiftClusterProperties
 
@@ -314,6 +352,80 @@ type OperationList struct {
 
 	// List of operations supported by the resource provider.
 	Value []*Operation
+}
+
+// PlatformWorkloadIdentity stores information representing a single workload identity.
+type PlatformWorkloadIdentity struct {
+	// The name of the operator the PlatformWorkloadIdentity is to be used for
+	OperatorName *string
+
+	// The resource ID of the PlatformWorkloadIdentity resource
+	ResourceID *string
+
+	// READ-ONLY; The ClientID of the PlatformWorkloadIdentity resource
+	ClientID *string
+
+	// READ-ONLY; The ObjectID of the PlatformWorkloadIdentity resource
+	ObjectID *string
+}
+
+// PlatformWorkloadIdentityProfile encapsulates all information that is specific to workload identity clusters.
+type PlatformWorkloadIdentityProfile struct {
+	PlatformWorkloadIdentities []*PlatformWorkloadIdentity
+
+	// UpgradeableTo stores a single OpenShift version a workload identity cluster can be upgraded to
+	UpgradeableTo *string
+}
+
+// PlatformWorkloadIdentityRole represents a mapping from a particular OCP operator to the built-in role that should be assigned
+// to that operator's corresponding managed identity.
+type PlatformWorkloadIdentityRole struct {
+	// OperatorName represents the name of the operator that this role is for.
+	OperatorName *string
+
+	// RoleDefinitionID represents the resource ID of the role definition.
+	RoleDefinitionID *string
+
+	// RoleDefinitionName represents the name of the role.
+	RoleDefinitionName *string
+}
+
+// PlatformWorkloadIdentityRoleSet represents a mapping from the names of OCP operators to the built-in roles that should
+// be assigned to those operator's corresponding managed identities for a particular
+// OCP version.
+type PlatformWorkloadIdentityRoleSet struct {
+	// The properties for the PlatformWorkloadIdentityRoleSet resource.
+	Properties *PlatformWorkloadIdentityRoleSetProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// PlatformWorkloadIdentityRoleSetList represents a List of role sets.
+type PlatformWorkloadIdentityRoleSetList struct {
+	// Next Link to next operation.
+	NextLink *string
+
+	// The list of role sets.
+	Value []*PlatformWorkloadIdentityRoleSet
+}
+
+// PlatformWorkloadIdentityRoleSetProperties represents the properties of a PlatformWorkloadIdentityRoleSet resource.
+type PlatformWorkloadIdentityRoleSetProperties struct {
+	// OpenShiftVersion represents the version associated with this set of roles.
+	OpenShiftVersion *string
+
+	// PlatformWorkloadIdentityRoles represents the set of roles associated with this version.
+	PlatformWorkloadIdentityRoles []*PlatformWorkloadIdentityRole
 }
 
 // Secret represents a secret.
