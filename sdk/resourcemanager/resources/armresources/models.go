@@ -123,6 +123,23 @@ type Deployment struct {
 	Tags map[string]*string
 }
 
+type DeploymentDiagnosticsDefinition struct {
+	// READ-ONLY; The error code.
+	Code *string
+
+	// READ-ONLY; Denotes the additional response level.
+	Level *Level
+
+	// READ-ONLY; The error message.
+	Message *string
+
+	// READ-ONLY; The error additional info.
+	AdditionalInfo []*ErrorAdditionalInfo
+
+	// READ-ONLY; The error target.
+	Target *string
+}
+
 // DeploymentExportResult - The deployment export result.
 type DeploymentExportResult struct {
 	// The template content.
@@ -221,6 +238,15 @@ type DeploymentOperationsListResult struct {
 	NextLink *string
 }
 
+// DeploymentParameter - Deployment parameter for the template.
+type DeploymentParameter struct {
+	// Azure Key Vault parameter reference.
+	Reference *KeyVaultParameterReference
+
+	// Input value to the parameter .
+	Value any
+}
+
 // DeploymentProperties - Deployment properties.
 type DeploymentProperties struct {
 	// REQUIRED; The mode that is used to deploy resources. This value can be either Incremental or Complete. In Incremental mode,
@@ -244,7 +270,7 @@ type DeploymentProperties struct {
 	// the parameter values directly in the request rather than link to an existing
 	// parameter file. Use either the parametersLink property or the parameters property, but not both. It can be a JObject or
 	// a well formed JSON string.
-	Parameters any
+	Parameters map[string]*DeploymentParameter
 
 	// The URI of parameters file. You use this element to link to an existing parameters file. Use either the parametersLink
 	// property or the parameters property, but not both.
@@ -257,10 +283,16 @@ type DeploymentProperties struct {
 
 	// The URI of the template. Use either the templateLink property or the template property, but not both.
 	TemplateLink *TemplateLink
+
+	// The validation level of the deployment
+	ValidationLevel *ValidationLevel
 }
 
 // DeploymentPropertiesExtended - Deployment properties with additional details.
 type DeploymentPropertiesExtended struct {
+	// The validation level of the deployment
+	ValidationLevel *ValidationLevel
+
 	// READ-ONLY; The correlation ID of the deployment.
 	CorrelationID *string
 
@@ -269,6 +301,9 @@ type DeploymentPropertiesExtended struct {
 
 	// READ-ONLY; The list of deployment dependencies.
 	Dependencies []*Dependency
+
+	// READ-ONLY; Contains diagnostic information collected during validation process.
+	Diagnostics []*DeploymentDiagnosticsDefinition
 
 	// READ-ONLY; The duration of the template deployment.
 	Duration *string
@@ -313,13 +348,10 @@ type DeploymentPropertiesExtended struct {
 	ValidatedResources []*ResourceReference
 }
 
-// DeploymentValidateResult - Information from validate template deployment response.
-type DeploymentValidateResult struct {
-	// The template deployment properties.
-	Properties *DeploymentPropertiesExtended
-
-	// READ-ONLY; The deployment validation error.
-	Error *ErrorResponse
+// DeploymentValidationError - The template deployment validation detected failures.
+type DeploymentValidationError struct {
+	// The error detail.
+	Error *ErrorDetail
 }
 
 // DeploymentWhatIf - Deployment What-if operation parameters.
@@ -354,7 +386,7 @@ type DeploymentWhatIfProperties struct {
 	// the parameter values directly in the request rather than link to an existing
 	// parameter file. Use either the parametersLink property or the parameters property, but not both. It can be a JObject or
 	// a well formed JSON string.
-	Parameters any
+	Parameters map[string]*DeploymentParameter
 
 	// The URI of parameters file. You use this element to link to an existing parameters file. Use either the parametersLink
 	// property or the parameters property, but not both.
@@ -367,6 +399,9 @@ type DeploymentWhatIfProperties struct {
 
 	// The URI of the template. Use either the templateLink property or the template property, but not both.
 	TemplateLink *TemplateLink
+
+	// The validation level of the deployment
+	ValidationLevel *ValidationLevel
 
 	// Optional What-If operation settings.
 	WhatIfSettings *DeploymentWhatIfSettings
@@ -385,6 +420,24 @@ type ErrorAdditionalInfo struct {
 
 	// READ-ONLY; The additional info type.
 	Type *string
+}
+
+// ErrorDetail - The error detail.
+type ErrorDetail struct {
+	// READ-ONLY; The error additional info.
+	AdditionalInfo []*ErrorAdditionalInfo
+
+	// READ-ONLY; The error code.
+	Code *string
+
+	// READ-ONLY; The error details.
+	Details []*ErrorDetail
+
+	// READ-ONLY; The error message.
+	Message *string
+
+	// READ-ONLY; The error target.
+	Target *string
 }
 
 // ErrorResponse - Common error response for all Azure Resource Manager APIs to return error details for failed operations.
@@ -412,6 +465,9 @@ type ExportTemplateRequest struct {
 	// 'IncludeComments', 'SkipResourceNameParameterization',
 	// 'SkipAllParameterization'
 	Options *string
+
+	// The output format for the exported resources.
+	OutputFormat *ExportTemplateOutputFormat
 
 	// The IDs of the resources to filter the export by. To export all resources, supply an array with single entry '*'.
 	Resources []*string
@@ -561,6 +617,24 @@ type IdentityUserAssignedIdentitiesValue struct {
 
 	// READ-ONLY; The principal id of user assigned identity.
 	PrincipalID *string
+}
+
+// KeyVaultParameterReference - Azure Key Vault parameter reference.
+type KeyVaultParameterReference struct {
+	// REQUIRED; Azure Key Vault reference.
+	KeyVault *KeyVaultReference
+
+	// REQUIRED; Azure Key Vault secret name.
+	SecretName *string
+
+	// Azure Key Vault secret version.
+	SecretVersion *string
+}
+
+// KeyVaultReference - Azure Key Vault reference.
+type KeyVaultReference struct {
+	// REQUIRED; Azure Key Vault resource id.
+	ID *string
 }
 
 // MoveInfo - Parameters of move resources.
@@ -838,7 +912,10 @@ type ResourceGroupExportResult struct {
 	// The template export error.
 	Error *ErrorResponse
 
-	// The template content.
+	// The formatted export content. Used if outputFormat is set to 'Bicep'.
+	Output *string
+
+	// The template content. Used if outputFormat is empty or set to 'Json'.
 	Template any
 }
 
@@ -1133,6 +1210,12 @@ type WhatIfChange struct {
 type WhatIfOperationProperties struct {
 	// List of resource changes predicted by What-If operation.
 	Changes []*WhatIfChange
+
+	// List of resource changes predicted by What-If operation.
+	PotentialChanges []*WhatIfChange
+
+	// READ-ONLY; List of resource diagnostics detected by What-If operation.
+	Diagnostics []*DeploymentDiagnosticsDefinition
 }
 
 // WhatIfOperationResult - Result of the What-If operation. Contains a list of predicted changes and a URL link to get to
