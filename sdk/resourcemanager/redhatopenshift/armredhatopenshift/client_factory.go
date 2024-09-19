@@ -67,6 +67,14 @@ func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	}
 }
 
+// NewPlatformWorkloadIdentityRoleSetClient creates a new instance of PlatformWorkloadIdentityRoleSetClient.
+func (c *ClientFactory) NewPlatformWorkloadIdentityRoleSetClient() *PlatformWorkloadIdentityRoleSetClient {
+	return &PlatformWorkloadIdentityRoleSetClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewSecretsClient creates a new instance of SecretsClient.
 func (c *ClientFactory) NewSecretsClient() *SecretsClient {
 	return &SecretsClient{
