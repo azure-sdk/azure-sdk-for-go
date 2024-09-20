@@ -1,5 +1,14 @@
 # Release History
 
+## 2.0.0 (2024-09-20)
+### Breaking Changes
+
+- Function `*ClientFactory.NewPropertyClient` has been removed
+- Function `NewPropertyClient` has been removed
+- Function `*PropertyClient.Get` has been removed
+- Function `*PropertyClient.Update` has been removed
+
+
 ## 1.0.0 (2024-09-09)
 ### Breaking Changes
 

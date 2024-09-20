@@ -11,11 +11,10 @@ package fake
 import (
 	"errors"
 	"fmt"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
 	"strings"
 	"sync"
-
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 )
 
 // ServerFactory is a fake server for instances of the armbilling.ClientFactory type.
@@ -37,7 +36,6 @@ type ServerFactory struct {
 	PoliciesServer             PoliciesServer
 	ProductsServer             ProductsServer
 	ProfilesServer             ProfilesServer
-	PropertyServer             PropertyServer
 	RecipientTransfersServer   RecipientTransfersServer
 	RequestsServer             RequestsServer
 	ReservationOrdersServer    ReservationOrdersServer
@@ -83,7 +81,6 @@ type ServerFactoryTransport struct {
 	trPoliciesServer             *PoliciesServerTransport
 	trProductsServer             *ProductsServerTransport
 	trProfilesServer             *ProfilesServerTransport
-	trPropertyServer             *PropertyServerTransport
 	trRecipientTransfersServer   *RecipientTransfersServerTransport
 	trRequestsServer             *RequestsServerTransport
 	trReservationOrdersServer    *ReservationOrdersServerTransport
@@ -174,9 +171,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "ProfilesClient":
 		initServer(s, &s.trProfilesServer, func() *ProfilesServerTransport { return NewProfilesServerTransport(&s.srv.ProfilesServer) })
 		resp, err = s.trProfilesServer.Do(req)
-	case "PropertyClient":
-		initServer(s, &s.trPropertyServer, func() *PropertyServerTransport { return NewPropertyServerTransport(&s.srv.PropertyServer) })
-		resp, err = s.trPropertyServer.Do(req)
 	case "RecipientTransfersClient":
 		initServer(s, &s.trRecipientTransfersServer, func() *RecipientTransfersServerTransport {
 			return NewRecipientTransfersServerTransport(&s.srv.RecipientTransfersServer)

@@ -550,18 +550,6 @@ type ProfilesClientValidateDeleteEligibilityResponse struct {
 	DeleteBillingProfileEligibilityResult
 }
 
-// PropertyClientGetResponse contains the response from method PropertyClient.Get.
-type PropertyClientGetResponse struct {
-	// A billing property.
-	Property
-}
-
-// PropertyClientUpdateResponse contains the response from method PropertyClient.Update.
-type PropertyClientUpdateResponse struct {
-	// A billing property.
-	Property
-}
-
 // RecipientTransfersClientAcceptResponse contains the response from method RecipientTransfersClient.Accept.
 type RecipientTransfersClientAcceptResponse struct {
 	// Details of the transfer.

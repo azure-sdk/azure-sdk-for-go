@@ -910,21 +910,6 @@ type ProfilesClientValidateDeleteEligibilityOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PropertyClientGetOptions contains the optional parameters for the PropertyClient.Get method.
-type PropertyClientGetOptions struct {
-	// A flag that specifies whether or not to include billing country.
-	IncludeBillingCountry *bool
-
-	// A flag that specifies whether or not to include transition status for billing accounts with agreement type Microsoft Customer
-	// Agreement.
-	IncludeTransitionStatus *bool
-}
-
-// PropertyClientUpdateOptions contains the optional parameters for the PropertyClient.Update method.
-type PropertyClientUpdateOptions struct {
-	// placeholder for future optional parameters
-}
-
 // RecipientTransfersClientAcceptOptions contains the optional parameters for the RecipientTransfersClient.Accept method.
 type RecipientTransfersClientAcceptOptions struct {
 	// placeholder for future optional parameters
