@@ -10,7 +10,7 @@ package armconfidentialledger
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/confidentialledger/armconfidentialledger"
-	moduleVersion = "v1.3.0-beta.2"
+	moduleVersion = "v1.3.0-beta.3"
 )
 
 // CheckNameAvailabilityReason - The reason why the given name is not available.
@@ -46,6 +46,22 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 		CreatedByTypeKey,
 		CreatedByTypeManagedIdentity,
 		CreatedByTypeUser,
+	}
+}
+
+// EnclavePlatform - Object representing the enclave platform for the Confidential Ledger application. Defaults to IntelSgx.
+type EnclavePlatform string
+
+const (
+	EnclavePlatformAmdSevSnp EnclavePlatform = "AmdSevSnp"
+	EnclavePlatformIntelSgx  EnclavePlatform = "IntelSgx"
+)
+
+// PossibleEnclavePlatformValues returns the possible values for the EnclavePlatform const type.
+func PossibleEnclavePlatformValues() []EnclavePlatform {
+	return []EnclavePlatform{
+		EnclavePlatformAmdSevSnp,
+		EnclavePlatformIntelSgx,
 	}
 }
 

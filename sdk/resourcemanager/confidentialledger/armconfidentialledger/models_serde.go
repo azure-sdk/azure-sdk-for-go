@@ -292,14 +292,21 @@ func (l LedgerProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "aadBasedSecurityPrincipals", l.AADBasedSecurityPrincipals)
 	populate(objectMap, "certBasedSecurityPrincipals", l.CertBasedSecurityPrincipals)
+	populate(objectMap, "enclavePlatform", l.EnclavePlatform)
+	populate(objectMap, "hostLevel", l.HostLevel)
 	populate(objectMap, "identityServiceUri", l.IdentityServiceURI)
 	populate(objectMap, "ledgerInternalNamespace", l.LedgerInternalNamespace)
 	populate(objectMap, "ledgerName", l.LedgerName)
 	populate(objectMap, "ledgerSku", l.LedgerSKU)
 	populate(objectMap, "ledgerType", l.LedgerType)
 	populate(objectMap, "ledgerUri", l.LedgerURI)
+	populate(objectMap, "maxBodySizeInMb", l.MaxBodySizeInMb)
+	populate(objectMap, "nodeCount", l.NodeCount)
 	populate(objectMap, "provisioningState", l.ProvisioningState)
 	populate(objectMap, "runningState", l.RunningState)
+	populate(objectMap, "subjectName", l.SubjectName)
+	populate(objectMap, "workerThreads", l.WorkerThreads)
+	populate(objectMap, "writeLBAddressPrefix", l.WriteLBAddressPrefix)
 	return json.Marshal(objectMap)
 }
 
@@ -317,6 +324,12 @@ func (l *LedgerProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "certBasedSecurityPrincipals":
 			err = unpopulate(val, "CertBasedSecurityPrincipals", &l.CertBasedSecurityPrincipals)
+			delete(rawMsg, key)
+		case "enclavePlatform":
+			err = unpopulate(val, "EnclavePlatform", &l.EnclavePlatform)
+			delete(rawMsg, key)
+		case "hostLevel":
+			err = unpopulate(val, "HostLevel", &l.HostLevel)
 			delete(rawMsg, key)
 		case "identityServiceUri":
 			err = unpopulate(val, "IdentityServiceURI", &l.IdentityServiceURI)
@@ -336,11 +349,26 @@ func (l *LedgerProperties) UnmarshalJSON(data []byte) error {
 		case "ledgerUri":
 			err = unpopulate(val, "LedgerURI", &l.LedgerURI)
 			delete(rawMsg, key)
+		case "maxBodySizeInMb":
+			err = unpopulate(val, "MaxBodySizeInMb", &l.MaxBodySizeInMb)
+			delete(rawMsg, key)
+		case "nodeCount":
+			err = unpopulate(val, "NodeCount", &l.NodeCount)
+			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &l.ProvisioningState)
 			delete(rawMsg, key)
 		case "runningState":
 			err = unpopulate(val, "RunningState", &l.RunningState)
+			delete(rawMsg, key)
+		case "subjectName":
+			err = unpopulate(val, "SubjectName", &l.SubjectName)
+			delete(rawMsg, key)
+		case "workerThreads":
+			err = unpopulate(val, "WorkerThreads", &l.WorkerThreads)
+			delete(rawMsg, key)
+		case "writeLBAddressPrefix":
+			err = unpopulate(val, "WriteLBAddressPrefix", &l.WriteLBAddressPrefix)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -527,6 +555,7 @@ func (m ManagedCCFProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "appName", m.AppName)
 	populate(objectMap, "appUri", m.AppURI)
 	populate(objectMap, "deploymentType", m.DeploymentType)
+	populate(objectMap, "enclavePlatform", m.EnclavePlatform)
 	populate(objectMap, "identityServiceUri", m.IdentityServiceURI)
 	populate(objectMap, "memberIdentityCertificates", m.MemberIdentityCertificates)
 	populate(objectMap, "nodeCount", m.NodeCount)
@@ -552,6 +581,9 @@ func (m *ManagedCCFProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "deploymentType":
 			err = unpopulate(val, "DeploymentType", &m.DeploymentType)
+			delete(rawMsg, key)
+		case "enclavePlatform":
+			err = unpopulate(val, "EnclavePlatform", &m.EnclavePlatform)
 			delete(rawMsg, key)
 		case "identityServiceUri":
 			err = unpopulate(val, "IdentityServiceURI", &m.IdentityServiceURI)
