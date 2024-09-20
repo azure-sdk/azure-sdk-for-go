@@ -198,7 +198,7 @@ type AppCertificate struct {
 	Kind *string
 
 	// Certificate resource specific properties
-	Properties *AppCertificateProperties
+	Properties *CertificateProperties
 
 	// Resource tags.
 	Tags map[string]*string
@@ -228,7 +228,7 @@ type AppCertificatePatchResource struct {
 	Kind *string
 
 	// CertificatePatchResource resource specific properties
-	Properties *AppCertificatePatchResourceProperties
+	Properties *CertificatePatchResourceProperties
 
 	// READ-ONLY; Resource Id.
 	ID *string
@@ -238,138 +238,6 @@ type AppCertificatePatchResource struct {
 
 	// READ-ONLY; Resource type.
 	Type *string
-}
-
-// AppCertificatePatchResourceProperties - CertificatePatchResource resource specific properties
-type AppCertificatePatchResourceProperties struct {
-	// CNAME of the certificate to be issued via free certificate
-	CanonicalName *string
-
-	// Method of domain validation for free cert
-	DomainValidationMethod *string
-
-	// Host names the certificate applies to.
-	HostNames []*string
-
-	// Key Vault Csm resource Id.
-	KeyVaultID *string
-
-	// Key Vault secret name.
-	KeyVaultSecretName *string
-
-	// Certificate password.
-	Password *string
-
-	// Pfx blob.
-	PfxBlob []byte
-
-	// Resource ID of the associated App Service plan, formatted as: "/subscriptions/{subscriptionID}/resourceGroups/{groupName}/providers/Microsoft.Web/serverfarms/{appServicePlanName}".
-	ServerFarmID *string
-
-	// READ-ONLY; Raw bytes of .cer file
-	CerBlob []byte
-
-	// READ-ONLY; Certificate expiration date.
-	ExpirationDate *time.Time
-
-	// READ-ONLY; Friendly name of the certificate.
-	FriendlyName *string
-
-	// READ-ONLY; Specification for the App Service Environment to use for the certificate.
-	HostingEnvironmentProfile *HostingEnvironmentProfile
-
-	// READ-ONLY; Certificate issue Date.
-	IssueDate *time.Time
-
-	// READ-ONLY; Certificate issuer.
-	Issuer *string
-
-	// READ-ONLY; Status of the Key Vault secret.
-	KeyVaultSecretStatus *KeyVaultSecretStatus
-
-	// READ-ONLY; Public key hash.
-	PublicKeyHash *string
-
-	// READ-ONLY; Self link.
-	SelfLink *string
-
-	// READ-ONLY; App name.
-	SiteName *string
-
-	// READ-ONLY; Subject name of the certificate.
-	SubjectName *string
-
-	// READ-ONLY; Certificate thumbprint.
-	Thumbprint *string
-
-	// READ-ONLY; Is the certificate valid?.
-	Valid *bool
-}
-
-// AppCertificateProperties - Certificate resource specific properties
-type AppCertificateProperties struct {
-	// CNAME of the certificate to be issued via free certificate
-	CanonicalName *string
-
-	// Method of domain validation for free cert
-	DomainValidationMethod *string
-
-	// Host names the certificate applies to.
-	HostNames []*string
-
-	// Key Vault Csm resource Id.
-	KeyVaultID *string
-
-	// Key Vault secret name.
-	KeyVaultSecretName *string
-
-	// Certificate password.
-	Password *string
-
-	// Pfx blob.
-	PfxBlob []byte
-
-	// Resource ID of the associated App Service plan, formatted as: "/subscriptions/{subscriptionID}/resourceGroups/{groupName}/providers/Microsoft.Web/serverfarms/{appServicePlanName}".
-	ServerFarmID *string
-
-	// READ-ONLY; Raw bytes of .cer file
-	CerBlob []byte
-
-	// READ-ONLY; Certificate expiration date.
-	ExpirationDate *time.Time
-
-	// READ-ONLY; Friendly name of the certificate.
-	FriendlyName *string
-
-	// READ-ONLY; Specification for the App Service Environment to use for the certificate.
-	HostingEnvironmentProfile *HostingEnvironmentProfile
-
-	// READ-ONLY; Certificate issue Date.
-	IssueDate *time.Time
-
-	// READ-ONLY; Certificate issuer.
-	Issuer *string
-
-	// READ-ONLY; Status of the Key Vault secret.
-	KeyVaultSecretStatus *KeyVaultSecretStatus
-
-	// READ-ONLY; Public key hash.
-	PublicKeyHash *string
-
-	// READ-ONLY; Self link.
-	SelfLink *string
-
-	// READ-ONLY; App name.
-	SiteName *string
-
-	// READ-ONLY; Subject name of the certificate.
-	SubjectName *string
-
-	// READ-ONLY; Certificate thumbprint.
-	Thumbprint *string
-
-	// READ-ONLY; Is the certificate valid?.
-	Valid *bool
 }
 
 // AppInsightsWebAppStackSettings - App Insights Web App stack settings.
@@ -1317,6 +1185,138 @@ type CertificatePatchResource struct {
 
 	// READ-ONLY; Resource type.
 	Type *string
+}
+
+// CertificatePatchResourceProperties - CertificatePatchResource resource specific properties
+type CertificatePatchResourceProperties struct {
+	// CNAME of the certificate to be issued via free certificate
+	CanonicalName *string
+
+	// Method of domain validation for free cert
+	DomainValidationMethod *string
+
+	// Host names the certificate applies to.
+	HostNames []*string
+
+	// Key Vault Csm resource Id.
+	KeyVaultID *string
+
+	// Key Vault secret name.
+	KeyVaultSecretName *string
+
+	// Certificate password.
+	Password *string
+
+	// Pfx blob.
+	PfxBlob []byte
+
+	// Resource ID of the associated App Service plan, formatted as: "/subscriptions/{subscriptionID}/resourceGroups/{groupName}/providers/Microsoft.Web/serverfarms/{appServicePlanName}".
+	ServerFarmID *string
+
+	// READ-ONLY; Raw bytes of .cer file
+	CerBlob []byte
+
+	// READ-ONLY; Certificate expiration date.
+	ExpirationDate *time.Time
+
+	// READ-ONLY; Friendly name of the certificate.
+	FriendlyName *string
+
+	// READ-ONLY; Specification for the App Service Environment to use for the certificate.
+	HostingEnvironmentProfile *HostingEnvironmentProfile
+
+	// READ-ONLY; Certificate issue Date.
+	IssueDate *time.Time
+
+	// READ-ONLY; Certificate issuer.
+	Issuer *string
+
+	// READ-ONLY; Status of the Key Vault secret.
+	KeyVaultSecretStatus *KeyVaultSecretStatus
+
+	// READ-ONLY; Public key hash.
+	PublicKeyHash *string
+
+	// READ-ONLY; Self link.
+	SelfLink *string
+
+	// READ-ONLY; App name.
+	SiteName *string
+
+	// READ-ONLY; Subject name of the certificate.
+	SubjectName *string
+
+	// READ-ONLY; Certificate thumbprint.
+	Thumbprint *string
+
+	// READ-ONLY; Is the certificate valid?.
+	Valid *bool
+}
+
+// CertificateProperties - Certificate resource specific properties
+type CertificateProperties struct {
+	// CNAME of the certificate to be issued via free certificate
+	CanonicalName *string
+
+	// Method of domain validation for free cert
+	DomainValidationMethod *string
+
+	// Host names the certificate applies to.
+	HostNames []*string
+
+	// Key Vault Csm resource Id.
+	KeyVaultID *string
+
+	// Key Vault secret name.
+	KeyVaultSecretName *string
+
+	// Certificate password.
+	Password *string
+
+	// Pfx blob.
+	PfxBlob []byte
+
+	// Resource ID of the associated App Service plan, formatted as: "/subscriptions/{subscriptionID}/resourceGroups/{groupName}/providers/Microsoft.Web/serverfarms/{appServicePlanName}".
+	ServerFarmID *string
+
+	// READ-ONLY; Raw bytes of .cer file
+	CerBlob []byte
+
+	// READ-ONLY; Certificate expiration date.
+	ExpirationDate *time.Time
+
+	// READ-ONLY; Friendly name of the certificate.
+	FriendlyName *string
+
+	// READ-ONLY; Specification for the App Service Environment to use for the certificate.
+	HostingEnvironmentProfile *HostingEnvironmentProfile
+
+	// READ-ONLY; Certificate issue Date.
+	IssueDate *time.Time
+
+	// READ-ONLY; Certificate issuer.
+	Issuer *string
+
+	// READ-ONLY; Status of the Key Vault secret.
+	KeyVaultSecretStatus *KeyVaultSecretStatus
+
+	// READ-ONLY; Public key hash.
+	PublicKeyHash *string
+
+	// READ-ONLY; Self link.
+	SelfLink *string
+
+	// READ-ONLY; App name.
+	SiteName *string
+
+	// READ-ONLY; Subject name of the certificate.
+	SubjectName *string
+
+	// READ-ONLY; Certificate thumbprint.
+	Thumbprint *string
+
+	// READ-ONLY; Is the certificate valid?.
+	Valid *bool
 }
 
 // CertificateResource - Key Vault container ARM resource for a certificate that is purchased through Azure.

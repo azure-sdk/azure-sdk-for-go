@@ -1,5 +1,19 @@
 # Release History
 
+## 5.0.0 (2024-09-20)
+### Breaking Changes
+
+- Type of `AppCertificate.Properties` has been changed from `*AppCertificateProperties` to `*CertificateProperties`
+- Type of `AppCertificatePatchResource.Properties` has been changed from `*AppCertificatePatchResourceProperties` to `*CertificatePatchResourceProperties`
+- Struct `AppCertificatePatchResourceProperties` has been removed
+- Struct `AppCertificateProperties` has been removed
+
+### Features Added
+
+- New struct `CertificatePatchResourceProperties`
+- New struct `CertificateProperties`
+
+
 ## 4.0.0 (2024-08-08)
 ### Breaking Changes
 
