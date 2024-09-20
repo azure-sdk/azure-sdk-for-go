@@ -16,21 +16,22 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appcontainers/armappcontainers/v3"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appcontainers/armappcontainers/v4"
 	"net/http"
 	"net/url"
 	"regexp"
+	"strconv"
 )
 
 // ContainerAppsSourceControlsServer is a fake server for instances of the armappcontainers.ContainerAppsSourceControlsClient type.
 type ContainerAppsSourceControlsServer struct {
 	// BeginCreateOrUpdate is the fake for method ContainerAppsSourceControlsClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, containerAppName string, sourceControlName string, sourceControlEnvelope armappcontainers.SourceControl, options *armappcontainers.ContainerAppsSourceControlsClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armappcontainers.ContainerAppsSourceControlsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, containerAppName string, sourceControlName string, xmsGithubAuxiliary string, sourceControlEnvelope armappcontainers.SourceControl, options *armappcontainers.ContainerAppsSourceControlsClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armappcontainers.ContainerAppsSourceControlsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method ContainerAppsSourceControlsClient.BeginDelete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
-	BeginDelete func(ctx context.Context, resourceGroupName string, containerAppName string, sourceControlName string, options *armappcontainers.ContainerAppsSourceControlsClientBeginDeleteOptions) (resp azfake.PollerResponder[armappcontainers.ContainerAppsSourceControlsClientDeleteResponse], errResp azfake.ErrorResponder)
+	BeginDelete func(ctx context.Context, resourceGroupName string, containerAppName string, sourceControlName string, xmsGithubAuxiliary string, options *armappcontainers.ContainerAppsSourceControlsClientBeginDeleteOptions) (resp azfake.PollerResponder[armappcontainers.ContainerAppsSourceControlsClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method ContainerAppsSourceControlsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
@@ -121,7 +122,7 @@ func (c *ContainerAppsSourceControlsServerTransport) dispatchBeginCreateOrUpdate
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := c.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, containerAppNameParam, sourceControlNameParam, body, nil)
+		respr, errRespr := c.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, containerAppNameParam, sourceControlNameParam, getHeaderValue(req.Header, "x-ms-github-auxiliary"), body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -157,6 +158,7 @@ func (c *ContainerAppsSourceControlsServerTransport) dispatchBeginDelete(req *ht
 		if matches == nil || len(matches) < 4 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
+		qp := req.URL.Query()
 		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
@@ -169,7 +171,30 @@ func (c *ContainerAppsSourceControlsServerTransport) dispatchBeginDelete(req *ht
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := c.srv.BeginDelete(req.Context(), resourceGroupNameParam, containerAppNameParam, sourceControlNameParam, nil)
+		ignoreWorkflowDeletionFailureUnescaped, err := url.QueryUnescape(qp.Get("ignoreWorkflowDeletionFailure"))
+		if err != nil {
+			return nil, err
+		}
+		ignoreWorkflowDeletionFailureParam, err := parseOptional(ignoreWorkflowDeletionFailureUnescaped, strconv.ParseBool)
+		if err != nil {
+			return nil, err
+		}
+		deleteWorkflowUnescaped, err := url.QueryUnescape(qp.Get("deleteWorkflow"))
+		if err != nil {
+			return nil, err
+		}
+		deleteWorkflowParam, err := parseOptional(deleteWorkflowUnescaped, strconv.ParseBool)
+		if err != nil {
+			return nil, err
+		}
+		var options *armappcontainers.ContainerAppsSourceControlsClientBeginDeleteOptions
+		if ignoreWorkflowDeletionFailureParam != nil || deleteWorkflowParam != nil {
+			options = &armappcontainers.ContainerAppsSourceControlsClientBeginDeleteOptions{
+				IgnoreWorkflowDeletionFailure: ignoreWorkflowDeletionFailureParam,
+				DeleteWorkflow:                deleteWorkflowParam,
+			}
+		}
+		respr, errRespr := c.srv.BeginDelete(req.Context(), resourceGroupNameParam, containerAppNameParam, sourceControlNameParam, getHeaderValue(req.Header, "x-ms-github-auxiliary"), options)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
