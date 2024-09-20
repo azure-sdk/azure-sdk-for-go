@@ -667,236 +667,6 @@ func (a *AppCertificatePatchResource) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type AppCertificatePatchResourceProperties.
-func (a AppCertificatePatchResourceProperties) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]any)
-	populate(objectMap, "canonicalName", a.CanonicalName)
-	populateByteArray(objectMap, "cerBlob", a.CerBlob, func() any {
-		return runtime.EncodeByteArray(a.CerBlob, runtime.Base64StdFormat)
-	})
-	populate(objectMap, "domainValidationMethod", a.DomainValidationMethod)
-	populateDateTimeRFC3339(objectMap, "expirationDate", a.ExpirationDate)
-	populate(objectMap, "friendlyName", a.FriendlyName)
-	populate(objectMap, "hostNames", a.HostNames)
-	populate(objectMap, "hostingEnvironmentProfile", a.HostingEnvironmentProfile)
-	populateDateTimeRFC3339(objectMap, "issueDate", a.IssueDate)
-	populate(objectMap, "issuer", a.Issuer)
-	populate(objectMap, "keyVaultId", a.KeyVaultID)
-	populate(objectMap, "keyVaultSecretName", a.KeyVaultSecretName)
-	populate(objectMap, "keyVaultSecretStatus", a.KeyVaultSecretStatus)
-	populate(objectMap, "password", a.Password)
-	populateByteArray(objectMap, "pfxBlob", a.PfxBlob, func() any {
-		return runtime.EncodeByteArray(a.PfxBlob, runtime.Base64StdFormat)
-	})
-	populate(objectMap, "publicKeyHash", a.PublicKeyHash)
-	populate(objectMap, "selfLink", a.SelfLink)
-	populate(objectMap, "serverFarmId", a.ServerFarmID)
-	populate(objectMap, "siteName", a.SiteName)
-	populate(objectMap, "subjectName", a.SubjectName)
-	populate(objectMap, "thumbprint", a.Thumbprint)
-	populate(objectMap, "valid", a.Valid)
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type AppCertificatePatchResourceProperties.
-func (a *AppCertificatePatchResourceProperties) UnmarshalJSON(data []byte) error {
-	var rawMsg map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", a, err)
-	}
-	for key, val := range rawMsg {
-		var err error
-		switch key {
-		case "canonicalName":
-			err = unpopulate(val, "CanonicalName", &a.CanonicalName)
-			delete(rawMsg, key)
-		case "cerBlob":
-			if val != nil && string(val) != "null" {
-				err = runtime.DecodeByteArray(string(val), &a.CerBlob, runtime.Base64StdFormat)
-			}
-			delete(rawMsg, key)
-		case "domainValidationMethod":
-			err = unpopulate(val, "DomainValidationMethod", &a.DomainValidationMethod)
-			delete(rawMsg, key)
-		case "expirationDate":
-			err = unpopulateDateTimeRFC3339(val, "ExpirationDate", &a.ExpirationDate)
-			delete(rawMsg, key)
-		case "friendlyName":
-			err = unpopulate(val, "FriendlyName", &a.FriendlyName)
-			delete(rawMsg, key)
-		case "hostNames":
-			err = unpopulate(val, "HostNames", &a.HostNames)
-			delete(rawMsg, key)
-		case "hostingEnvironmentProfile":
-			err = unpopulate(val, "HostingEnvironmentProfile", &a.HostingEnvironmentProfile)
-			delete(rawMsg, key)
-		case "issueDate":
-			err = unpopulateDateTimeRFC3339(val, "IssueDate", &a.IssueDate)
-			delete(rawMsg, key)
-		case "issuer":
-			err = unpopulate(val, "Issuer", &a.Issuer)
-			delete(rawMsg, key)
-		case "keyVaultId":
-			err = unpopulate(val, "KeyVaultID", &a.KeyVaultID)
-			delete(rawMsg, key)
-		case "keyVaultSecretName":
-			err = unpopulate(val, "KeyVaultSecretName", &a.KeyVaultSecretName)
-			delete(rawMsg, key)
-		case "keyVaultSecretStatus":
-			err = unpopulate(val, "KeyVaultSecretStatus", &a.KeyVaultSecretStatus)
-			delete(rawMsg, key)
-		case "password":
-			err = unpopulate(val, "Password", &a.Password)
-			delete(rawMsg, key)
-		case "pfxBlob":
-			if val != nil && string(val) != "null" {
-				err = runtime.DecodeByteArray(string(val), &a.PfxBlob, runtime.Base64StdFormat)
-			}
-			delete(rawMsg, key)
-		case "publicKeyHash":
-			err = unpopulate(val, "PublicKeyHash", &a.PublicKeyHash)
-			delete(rawMsg, key)
-		case "selfLink":
-			err = unpopulate(val, "SelfLink", &a.SelfLink)
-			delete(rawMsg, key)
-		case "serverFarmId":
-			err = unpopulate(val, "ServerFarmID", &a.ServerFarmID)
-			delete(rawMsg, key)
-		case "siteName":
-			err = unpopulate(val, "SiteName", &a.SiteName)
-			delete(rawMsg, key)
-		case "subjectName":
-			err = unpopulate(val, "SubjectName", &a.SubjectName)
-			delete(rawMsg, key)
-		case "thumbprint":
-			err = unpopulate(val, "Thumbprint", &a.Thumbprint)
-			delete(rawMsg, key)
-		case "valid":
-			err = unpopulate(val, "Valid", &a.Valid)
-			delete(rawMsg, key)
-		}
-		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", a, err)
-		}
-	}
-	return nil
-}
-
-// MarshalJSON implements the json.Marshaller interface for type AppCertificateProperties.
-func (a AppCertificateProperties) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]any)
-	populate(objectMap, "canonicalName", a.CanonicalName)
-	populateByteArray(objectMap, "cerBlob", a.CerBlob, func() any {
-		return runtime.EncodeByteArray(a.CerBlob, runtime.Base64StdFormat)
-	})
-	populate(objectMap, "domainValidationMethod", a.DomainValidationMethod)
-	populateDateTimeRFC3339(objectMap, "expirationDate", a.ExpirationDate)
-	populate(objectMap, "friendlyName", a.FriendlyName)
-	populate(objectMap, "hostNames", a.HostNames)
-	populate(objectMap, "hostingEnvironmentProfile", a.HostingEnvironmentProfile)
-	populateDateTimeRFC3339(objectMap, "issueDate", a.IssueDate)
-	populate(objectMap, "issuer", a.Issuer)
-	populate(objectMap, "keyVaultId", a.KeyVaultID)
-	populate(objectMap, "keyVaultSecretName", a.KeyVaultSecretName)
-	populate(objectMap, "keyVaultSecretStatus", a.KeyVaultSecretStatus)
-	populate(objectMap, "password", a.Password)
-	populateByteArray(objectMap, "pfxBlob", a.PfxBlob, func() any {
-		return runtime.EncodeByteArray(a.PfxBlob, runtime.Base64StdFormat)
-	})
-	populate(objectMap, "publicKeyHash", a.PublicKeyHash)
-	populate(objectMap, "selfLink", a.SelfLink)
-	populate(objectMap, "serverFarmId", a.ServerFarmID)
-	populate(objectMap, "siteName", a.SiteName)
-	populate(objectMap, "subjectName", a.SubjectName)
-	populate(objectMap, "thumbprint", a.Thumbprint)
-	populate(objectMap, "valid", a.Valid)
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type AppCertificateProperties.
-func (a *AppCertificateProperties) UnmarshalJSON(data []byte) error {
-	var rawMsg map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", a, err)
-	}
-	for key, val := range rawMsg {
-		var err error
-		switch key {
-		case "canonicalName":
-			err = unpopulate(val, "CanonicalName", &a.CanonicalName)
-			delete(rawMsg, key)
-		case "cerBlob":
-			if val != nil && string(val) != "null" {
-				err = runtime.DecodeByteArray(string(val), &a.CerBlob, runtime.Base64StdFormat)
-			}
-			delete(rawMsg, key)
-		case "domainValidationMethod":
-			err = unpopulate(val, "DomainValidationMethod", &a.DomainValidationMethod)
-			delete(rawMsg, key)
-		case "expirationDate":
-			err = unpopulateDateTimeRFC3339(val, "ExpirationDate", &a.ExpirationDate)
-			delete(rawMsg, key)
-		case "friendlyName":
-			err = unpopulate(val, "FriendlyName", &a.FriendlyName)
-			delete(rawMsg, key)
-		case "hostNames":
-			err = unpopulate(val, "HostNames", &a.HostNames)
-			delete(rawMsg, key)
-		case "hostingEnvironmentProfile":
-			err = unpopulate(val, "HostingEnvironmentProfile", &a.HostingEnvironmentProfile)
-			delete(rawMsg, key)
-		case "issueDate":
-			err = unpopulateDateTimeRFC3339(val, "IssueDate", &a.IssueDate)
-			delete(rawMsg, key)
-		case "issuer":
-			err = unpopulate(val, "Issuer", &a.Issuer)
-			delete(rawMsg, key)
-		case "keyVaultId":
-			err = unpopulate(val, "KeyVaultID", &a.KeyVaultID)
-			delete(rawMsg, key)
-		case "keyVaultSecretName":
-			err = unpopulate(val, "KeyVaultSecretName", &a.KeyVaultSecretName)
-			delete(rawMsg, key)
-		case "keyVaultSecretStatus":
-			err = unpopulate(val, "KeyVaultSecretStatus", &a.KeyVaultSecretStatus)
-			delete(rawMsg, key)
-		case "password":
-			err = unpopulate(val, "Password", &a.Password)
-			delete(rawMsg, key)
-		case "pfxBlob":
-			if val != nil && string(val) != "null" {
-				err = runtime.DecodeByteArray(string(val), &a.PfxBlob, runtime.Base64StdFormat)
-			}
-			delete(rawMsg, key)
-		case "publicKeyHash":
-			err = unpopulate(val, "PublicKeyHash", &a.PublicKeyHash)
-			delete(rawMsg, key)
-		case "selfLink":
-			err = unpopulate(val, "SelfLink", &a.SelfLink)
-			delete(rawMsg, key)
-		case "serverFarmId":
-			err = unpopulate(val, "ServerFarmID", &a.ServerFarmID)
-			delete(rawMsg, key)
-		case "siteName":
-			err = unpopulate(val, "SiteName", &a.SiteName)
-			delete(rawMsg, key)
-		case "subjectName":
-			err = unpopulate(val, "SubjectName", &a.SubjectName)
-			delete(rawMsg, key)
-		case "thumbprint":
-			err = unpopulate(val, "Thumbprint", &a.Thumbprint)
-			delete(rawMsg, key)
-		case "valid":
-			err = unpopulate(val, "Valid", &a.Valid)
-			delete(rawMsg, key)
-		}
-		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", a, err)
-		}
-	}
-	return nil
-}
-
 // MarshalJSON implements the json.Marshaller interface for type AppInsightsWebAppStackSettings.
 func (a AppInsightsWebAppStackSettings) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -3239,6 +3009,236 @@ func (c *CertificatePatchResource) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &c.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type CertificatePatchResourceProperties.
+func (c CertificatePatchResourceProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "canonicalName", c.CanonicalName)
+	populateByteArray(objectMap, "cerBlob", c.CerBlob, func() any {
+		return runtime.EncodeByteArray(c.CerBlob, runtime.Base64StdFormat)
+	})
+	populate(objectMap, "domainValidationMethod", c.DomainValidationMethod)
+	populateDateTimeRFC3339(objectMap, "expirationDate", c.ExpirationDate)
+	populate(objectMap, "friendlyName", c.FriendlyName)
+	populate(objectMap, "hostNames", c.HostNames)
+	populate(objectMap, "hostingEnvironmentProfile", c.HostingEnvironmentProfile)
+	populateDateTimeRFC3339(objectMap, "issueDate", c.IssueDate)
+	populate(objectMap, "issuer", c.Issuer)
+	populate(objectMap, "keyVaultId", c.KeyVaultID)
+	populate(objectMap, "keyVaultSecretName", c.KeyVaultSecretName)
+	populate(objectMap, "keyVaultSecretStatus", c.KeyVaultSecretStatus)
+	populate(objectMap, "password", c.Password)
+	populateByteArray(objectMap, "pfxBlob", c.PfxBlob, func() any {
+		return runtime.EncodeByteArray(c.PfxBlob, runtime.Base64StdFormat)
+	})
+	populate(objectMap, "publicKeyHash", c.PublicKeyHash)
+	populate(objectMap, "selfLink", c.SelfLink)
+	populate(objectMap, "serverFarmId", c.ServerFarmID)
+	populate(objectMap, "siteName", c.SiteName)
+	populate(objectMap, "subjectName", c.SubjectName)
+	populate(objectMap, "thumbprint", c.Thumbprint)
+	populate(objectMap, "valid", c.Valid)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type CertificatePatchResourceProperties.
+func (c *CertificatePatchResourceProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "canonicalName":
+			err = unpopulate(val, "CanonicalName", &c.CanonicalName)
+			delete(rawMsg, key)
+		case "cerBlob":
+			if val != nil && string(val) != "null" {
+				err = runtime.DecodeByteArray(string(val), &c.CerBlob, runtime.Base64StdFormat)
+			}
+			delete(rawMsg, key)
+		case "domainValidationMethod":
+			err = unpopulate(val, "DomainValidationMethod", &c.DomainValidationMethod)
+			delete(rawMsg, key)
+		case "expirationDate":
+			err = unpopulateDateTimeRFC3339(val, "ExpirationDate", &c.ExpirationDate)
+			delete(rawMsg, key)
+		case "friendlyName":
+			err = unpopulate(val, "FriendlyName", &c.FriendlyName)
+			delete(rawMsg, key)
+		case "hostNames":
+			err = unpopulate(val, "HostNames", &c.HostNames)
+			delete(rawMsg, key)
+		case "hostingEnvironmentProfile":
+			err = unpopulate(val, "HostingEnvironmentProfile", &c.HostingEnvironmentProfile)
+			delete(rawMsg, key)
+		case "issueDate":
+			err = unpopulateDateTimeRFC3339(val, "IssueDate", &c.IssueDate)
+			delete(rawMsg, key)
+		case "issuer":
+			err = unpopulate(val, "Issuer", &c.Issuer)
+			delete(rawMsg, key)
+		case "keyVaultId":
+			err = unpopulate(val, "KeyVaultID", &c.KeyVaultID)
+			delete(rawMsg, key)
+		case "keyVaultSecretName":
+			err = unpopulate(val, "KeyVaultSecretName", &c.KeyVaultSecretName)
+			delete(rawMsg, key)
+		case "keyVaultSecretStatus":
+			err = unpopulate(val, "KeyVaultSecretStatus", &c.KeyVaultSecretStatus)
+			delete(rawMsg, key)
+		case "password":
+			err = unpopulate(val, "Password", &c.Password)
+			delete(rawMsg, key)
+		case "pfxBlob":
+			if val != nil && string(val) != "null" {
+				err = runtime.DecodeByteArray(string(val), &c.PfxBlob, runtime.Base64StdFormat)
+			}
+			delete(rawMsg, key)
+		case "publicKeyHash":
+			err = unpopulate(val, "PublicKeyHash", &c.PublicKeyHash)
+			delete(rawMsg, key)
+		case "selfLink":
+			err = unpopulate(val, "SelfLink", &c.SelfLink)
+			delete(rawMsg, key)
+		case "serverFarmId":
+			err = unpopulate(val, "ServerFarmID", &c.ServerFarmID)
+			delete(rawMsg, key)
+		case "siteName":
+			err = unpopulate(val, "SiteName", &c.SiteName)
+			delete(rawMsg, key)
+		case "subjectName":
+			err = unpopulate(val, "SubjectName", &c.SubjectName)
+			delete(rawMsg, key)
+		case "thumbprint":
+			err = unpopulate(val, "Thumbprint", &c.Thumbprint)
+			delete(rawMsg, key)
+		case "valid":
+			err = unpopulate(val, "Valid", &c.Valid)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type CertificateProperties.
+func (c CertificateProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "canonicalName", c.CanonicalName)
+	populateByteArray(objectMap, "cerBlob", c.CerBlob, func() any {
+		return runtime.EncodeByteArray(c.CerBlob, runtime.Base64StdFormat)
+	})
+	populate(objectMap, "domainValidationMethod", c.DomainValidationMethod)
+	populateDateTimeRFC3339(objectMap, "expirationDate", c.ExpirationDate)
+	populate(objectMap, "friendlyName", c.FriendlyName)
+	populate(objectMap, "hostNames", c.HostNames)
+	populate(objectMap, "hostingEnvironmentProfile", c.HostingEnvironmentProfile)
+	populateDateTimeRFC3339(objectMap, "issueDate", c.IssueDate)
+	populate(objectMap, "issuer", c.Issuer)
+	populate(objectMap, "keyVaultId", c.KeyVaultID)
+	populate(objectMap, "keyVaultSecretName", c.KeyVaultSecretName)
+	populate(objectMap, "keyVaultSecretStatus", c.KeyVaultSecretStatus)
+	populate(objectMap, "password", c.Password)
+	populateByteArray(objectMap, "pfxBlob", c.PfxBlob, func() any {
+		return runtime.EncodeByteArray(c.PfxBlob, runtime.Base64StdFormat)
+	})
+	populate(objectMap, "publicKeyHash", c.PublicKeyHash)
+	populate(objectMap, "selfLink", c.SelfLink)
+	populate(objectMap, "serverFarmId", c.ServerFarmID)
+	populate(objectMap, "siteName", c.SiteName)
+	populate(objectMap, "subjectName", c.SubjectName)
+	populate(objectMap, "thumbprint", c.Thumbprint)
+	populate(objectMap, "valid", c.Valid)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type CertificateProperties.
+func (c *CertificateProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "canonicalName":
+			err = unpopulate(val, "CanonicalName", &c.CanonicalName)
+			delete(rawMsg, key)
+		case "cerBlob":
+			if val != nil && string(val) != "null" {
+				err = runtime.DecodeByteArray(string(val), &c.CerBlob, runtime.Base64StdFormat)
+			}
+			delete(rawMsg, key)
+		case "domainValidationMethod":
+			err = unpopulate(val, "DomainValidationMethod", &c.DomainValidationMethod)
+			delete(rawMsg, key)
+		case "expirationDate":
+			err = unpopulateDateTimeRFC3339(val, "ExpirationDate", &c.ExpirationDate)
+			delete(rawMsg, key)
+		case "friendlyName":
+			err = unpopulate(val, "FriendlyName", &c.FriendlyName)
+			delete(rawMsg, key)
+		case "hostNames":
+			err = unpopulate(val, "HostNames", &c.HostNames)
+			delete(rawMsg, key)
+		case "hostingEnvironmentProfile":
+			err = unpopulate(val, "HostingEnvironmentProfile", &c.HostingEnvironmentProfile)
+			delete(rawMsg, key)
+		case "issueDate":
+			err = unpopulateDateTimeRFC3339(val, "IssueDate", &c.IssueDate)
+			delete(rawMsg, key)
+		case "issuer":
+			err = unpopulate(val, "Issuer", &c.Issuer)
+			delete(rawMsg, key)
+		case "keyVaultId":
+			err = unpopulate(val, "KeyVaultID", &c.KeyVaultID)
+			delete(rawMsg, key)
+		case "keyVaultSecretName":
+			err = unpopulate(val, "KeyVaultSecretName", &c.KeyVaultSecretName)
+			delete(rawMsg, key)
+		case "keyVaultSecretStatus":
+			err = unpopulate(val, "KeyVaultSecretStatus", &c.KeyVaultSecretStatus)
+			delete(rawMsg, key)
+		case "password":
+			err = unpopulate(val, "Password", &c.Password)
+			delete(rawMsg, key)
+		case "pfxBlob":
+			if val != nil && string(val) != "null" {
+				err = runtime.DecodeByteArray(string(val), &c.PfxBlob, runtime.Base64StdFormat)
+			}
+			delete(rawMsg, key)
+		case "publicKeyHash":
+			err = unpopulate(val, "PublicKeyHash", &c.PublicKeyHash)
+			delete(rawMsg, key)
+		case "selfLink":
+			err = unpopulate(val, "SelfLink", &c.SelfLink)
+			delete(rawMsg, key)
+		case "serverFarmId":
+			err = unpopulate(val, "ServerFarmID", &c.ServerFarmID)
+			delete(rawMsg, key)
+		case "siteName":
+			err = unpopulate(val, "SiteName", &c.SiteName)
+			delete(rawMsg, key)
+		case "subjectName":
+			err = unpopulate(val, "SubjectName", &c.SubjectName)
+			delete(rawMsg, key)
+		case "thumbprint":
+			err = unpopulate(val, "Thumbprint", &c.Thumbprint)
+			delete(rawMsg, key)
+		case "valid":
+			err = unpopulate(val, "Valid", &c.Valid)
 			delete(rawMsg, key)
 		}
 		if err != nil {
