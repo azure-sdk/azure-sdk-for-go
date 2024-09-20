@@ -1,5 +1,13 @@
 # Release History
 
+## 1.3.0-beta.3 (2024-09-20)
+### Features Added
+
+- New enum type `EnclavePlatform` with values `EnclavePlatformAmdSevSnp`, `EnclavePlatformIntelSgx`
+- New field `EnclavePlatform`, `HostLevel`, `MaxBodySizeInMb`, `NodeCount`, `SubjectName`, `WorkerThreads`, `WriteLBAddressPrefix` in struct `LedgerProperties`
+- New field `EnclavePlatform` in struct `ManagedCCFProperties`
+
+
 ## 1.3.0-beta.2 (2024-04-26)
 ### Features Added
 
