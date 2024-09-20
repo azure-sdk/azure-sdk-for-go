@@ -1,5 +1,28 @@
 # Release History
 
+## 6.1.0 (2024-09-20)
+### Features Added
+
+- New enum type `RestrictionLevel` with values `RestrictionLevelReadOnly`, `RestrictionLevelUnrestricted`
+- New function `*AgentPoolsClient.BeginDeleteMachines(context.Context, string, string, string, AgentPoolDeleteMachinesParameter, *AgentPoolsClientBeginDeleteMachinesOptions) (*runtime.Poller[AgentPoolsClientDeleteMachinesResponse], error)`
+- New function `*ClientFactory.NewMachinesClient() *MachinesClient`
+- New function `NewMachinesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*MachinesClient, error)`
+- New function `*MachinesClient.Get(context.Context, string, string, string, string, *MachinesClientGetOptions) (MachinesClientGetResponse, error)`
+- New function `*MachinesClient.NewListPager(string, string, string, *MachinesClientListOptions) *runtime.Pager[MachinesClientListResponse]`
+- New struct `AgentPoolDeleteMachinesParameter`
+- New struct `AgentPoolSecurityProfile`
+- New struct `Machine`
+- New struct `MachineIPAddress`
+- New struct `MachineListResult`
+- New struct `MachineNetworkProperties`
+- New struct `MachineProperties`
+- New struct `ManagedClusterNodeResourceGroupProfile`
+- New field `IgnorePodDisruptionBudget` in struct `AgentPoolsClientBeginDeleteOptions`
+- New field `SecurityProfile` in struct `ManagedClusterAgentPoolProfile`
+- New field `SecurityProfile` in struct `ManagedClusterAgentPoolProfileProperties`
+- New field `NodeResourceGroupProfile` in struct `ManagedClusterProperties`
+
+
 ## 6.1.0-beta.1 (2024-08-22)
 ### Features Added
 
