@@ -157,14 +157,6 @@ func (c *ClientFactory) NewProfilesClient() *ProfilesClient {
 	}
 }
 
-// NewPropertyClient creates a new instance of PropertyClient.
-func (c *ClientFactory) NewPropertyClient() *PropertyClient {
-	return &PropertyClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
-	}
-}
-
 // NewRecipientTransfersClient creates a new instance of RecipientTransfersClient.
 func (c *ClientFactory) NewRecipientTransfersClient() *RecipientTransfersClient {
 	return &RecipientTransfersClient{
