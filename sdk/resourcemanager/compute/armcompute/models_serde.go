@@ -6125,6 +6125,7 @@ func (g GalleryImageVersionProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "provisioningState", g.ProvisioningState)
 	populate(objectMap, "publishingProfile", g.PublishingProfile)
 	populate(objectMap, "replicationStatus", g.ReplicationStatus)
+	populate(objectMap, "restore", g.Restore)
 	populate(objectMap, "safetyProfile", g.SafetyProfile)
 	populate(objectMap, "securityProfile", g.SecurityProfile)
 	populate(objectMap, "storageProfile", g.StorageProfile)
@@ -6148,6 +6149,9 @@ func (g *GalleryImageVersionProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "replicationStatus":
 			err = unpopulate(val, "ReplicationStatus", &g.ReplicationStatus)
+			delete(rawMsg, key)
+		case "restore":
+			err = unpopulate(val, "Restore", &g.Restore)
 			delete(rawMsg, key)
 		case "safetyProfile":
 			err = unpopulate(val, "SafetyProfile", &g.SafetyProfile)

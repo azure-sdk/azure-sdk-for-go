@@ -1,5 +1,11 @@
 # Release History
 
+## 6.2.0 (2024-09-23)
+### Features Added
+
+- New field `Restore` in struct `GalleryImageVersionProperties`
+
+
 ## 6.1.0 (2024-08-23)
 ### Features Added
 
