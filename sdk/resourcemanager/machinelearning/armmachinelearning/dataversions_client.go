@@ -47,7 +47,7 @@ func NewDataVersionsClient(subscriptionID string, credential azcore.TokenCredent
 // CreateOrUpdate - Create or update version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - name - Container name.
@@ -105,7 +105,7 @@ func (client *DataVersionsClient) createOrUpdateCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -126,7 +126,7 @@ func (client *DataVersionsClient) createOrUpdateHandleResponse(resp *http.Respon
 // Delete - Delete version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - name - Container name.
@@ -181,7 +181,7 @@ func (client *DataVersionsClient) deleteCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -190,7 +190,7 @@ func (client *DataVersionsClient) deleteCreateRequest(ctx context.Context, resou
 // Get - Get version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - name - Container name.
@@ -246,7 +246,7 @@ func (client *DataVersionsClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -263,7 +263,7 @@ func (client *DataVersionsClient) getHandleResponse(resp *http.Response) (DataVe
 
 // NewListPager - List data versions in the data container
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - name - Data container's name
@@ -327,7 +327,7 @@ func (client *DataVersionsClient) listCreateRequest(ctx context.Context, resourc
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-10-01")
 	if options != nil && options.ListViewType != nil {
 		reqQP.Set("listViewType", string(*options.ListViewType))
 	}
@@ -348,7 +348,7 @@ func (client *DataVersionsClient) listHandleResponse(resp *http.Response) (DataV
 // BeginPublish - Publish version asset into registry.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - name - Container name.
@@ -377,7 +377,7 @@ func (client *DataVersionsClient) BeginPublish(ctx context.Context, resourceGrou
 // Publish - Publish version asset into registry.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-10-01
 func (client *DataVersionsClient) publish(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, body DestinationAsset, options *DataVersionsClientBeginPublishOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DataVersionsClient.BeginPublish"
@@ -427,7 +427,7 @@ func (client *DataVersionsClient) publishCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
