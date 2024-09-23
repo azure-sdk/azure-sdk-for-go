@@ -1,6 +1,6 @@
 # Azure Automanage Module for Go
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/automanage/armautomanage)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/automanage/armautomanage)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/automanage/armautomanage/v2)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/automanage/armautomanage/v2)
 
 The `armautomanage` module provides operations for working with Azure Automanage.
 
@@ -20,7 +20,7 @@ This project uses [Go modules](https://github.com/golang/go/wiki/Modules) for ve
 Install the Azure Automanage and Azure Identity modules:
 
 ```sh
-go get "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/automanage/armautomanage"
+go get "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/automanage/armautomanage/v2"
 go get "github.com/Azure/azure-sdk-for-go/sdk/azidentity"
 ```
 
@@ -29,7 +29,7 @@ Import the Azure Automanage and Azure Identity modules:
 ```go
 import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/automanage/armautomanage"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/automanage/armautomanage/v2"
 )
 ```
 
@@ -67,9 +67,9 @@ clientFactory, err := armautomanage.NewClientFactory(<subscription ID>, cred, &o
 A client groups a set of related APIs, providing access to its functionality.  Create one or more clients to access the APIs you require using client factory.
 
 ```go
-reportsClient := clientFactory.NewReportsClient()
-configProfilesClient := clientFactory.NewReportsClient()
-assignmentClient := clientFactory.NewReportsClient()
+reportsClient := clientFactory.NewConfigurationProfileAssignmentsClient()
+configProfilesClient := clientFactory.NewConfigurationProfileAssignmentsClient()
+assignmentClient := clientFactory.NewConfigurationProfileAssignmentsClient()
 ```
 
 ## Fakes
