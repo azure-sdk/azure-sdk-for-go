@@ -46,7 +46,7 @@ func NewCloudsClient(subscriptionID string, credential azcore.TokenCredential, o
 // BeginCreateOrUpdate - Onboards the ScVmm fabric cloud as an Azure cloud resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-07
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - cloudResourceName - Name of the Cloud.
 //   - resource - Resource create parameters.
@@ -73,7 +73,7 @@ func (client *CloudsClient) BeginCreateOrUpdate(ctx context.Context, resourceGro
 // CreateOrUpdate - Onboards the ScVmm fabric cloud as an Azure cloud resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-07
+// Generated from API version 2024-06-01
 func (client *CloudsClient) createOrUpdate(ctx context.Context, resourceGroupName string, cloudResourceName string, resource Cloud, options *CloudsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "CloudsClient.BeginCreateOrUpdate"
@@ -115,7 +115,7 @@ func (client *CloudsClient) createOrUpdateCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-07")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, resource); err != nil {
@@ -127,7 +127,7 @@ func (client *CloudsClient) createOrUpdateCreateRequest(ctx context.Context, res
 // BeginDelete - Deregisters the ScVmm fabric cloud from Azure.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-07
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - cloudResourceName - Name of the Cloud.
 //   - options - CloudsClientBeginDeleteOptions contains the optional parameters for the CloudsClient.BeginDelete method.
@@ -152,7 +152,7 @@ func (client *CloudsClient) BeginDelete(ctx context.Context, resourceGroupName s
 // Delete - Deregisters the ScVmm fabric cloud from Azure.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-07
+// Generated from API version 2024-06-01
 func (client *CloudsClient) deleteOperation(ctx context.Context, resourceGroupName string, cloudResourceName string, options *CloudsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "CloudsClient.BeginDelete"
@@ -194,7 +194,7 @@ func (client *CloudsClient) deleteCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-07")
+	reqQP.Set("api-version", "2024-06-01")
 	if options != nil && options.Force != nil {
 		reqQP.Set("force", string(*options.Force))
 	}
@@ -206,7 +206,7 @@ func (client *CloudsClient) deleteCreateRequest(ctx context.Context, resourceGro
 // Get - Implements Cloud GET method.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-07
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - cloudResourceName - Name of the Cloud.
 //   - options - CloudsClientGetOptions contains the optional parameters for the CloudsClient.Get method.
@@ -252,7 +252,7 @@ func (client *CloudsClient) getCreateRequest(ctx context.Context, resourceGroupN
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-07")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -269,7 +269,7 @@ func (client *CloudsClient) getHandleResponse(resp *http.Response) (CloudsClient
 
 // NewListByResourceGroupPager - List of Clouds in a resource group.
 //
-// Generated from API version 2023-10-07
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - CloudsClientListByResourceGroupOptions contains the optional parameters for the CloudsClient.NewListByResourceGroupPager
 //     method.
@@ -312,7 +312,7 @@ func (client *CloudsClient) listByResourceGroupCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-07")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -329,7 +329,7 @@ func (client *CloudsClient) listByResourceGroupHandleResponse(resp *http.Respons
 
 // NewListBySubscriptionPager - List of Clouds in a subscription.
 //
-// Generated from API version 2023-10-07
+// Generated from API version 2024-06-01
 //   - options - CloudsClientListBySubscriptionOptions contains the optional parameters for the CloudsClient.NewListBySubscriptionPager
 //     method.
 func (client *CloudsClient) NewListBySubscriptionPager(options *CloudsClientListBySubscriptionOptions) *runtime.Pager[CloudsClientListBySubscriptionResponse] {
@@ -367,7 +367,7 @@ func (client *CloudsClient) listBySubscriptionCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-07")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -385,7 +385,7 @@ func (client *CloudsClient) listBySubscriptionHandleResponse(resp *http.Response
 // BeginUpdate - Updates the Clouds resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-07
+// Generated from API version 2024-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - cloudResourceName - Name of the Cloud.
 //   - properties - The resource properties to be updated.
@@ -411,7 +411,7 @@ func (client *CloudsClient) BeginUpdate(ctx context.Context, resourceGroupName s
 // Update - Updates the Clouds resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-07
+// Generated from API version 2024-06-01
 func (client *CloudsClient) update(ctx context.Context, resourceGroupName string, cloudResourceName string, properties CloudTagsUpdate, options *CloudsClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "CloudsClient.BeginUpdate"
@@ -453,7 +453,7 @@ func (client *CloudsClient) updateCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-07")
+	reqQP.Set("api-version", "2024-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, properties); err != nil {
