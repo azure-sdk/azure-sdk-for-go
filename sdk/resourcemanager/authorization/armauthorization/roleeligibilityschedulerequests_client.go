@@ -43,7 +43,7 @@ func NewRoleEligibilityScheduleRequestsClient(credential azcore.TokenCredential,
 // Cancel - Cancels a pending role eligibility schedule request.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-04-01-preview
+// Generated from API version 2020-10-01
 //   - scope - The scope of the role eligibility request to cancel.
 //   - roleEligibilityScheduleRequestName - The name of the role eligibility request to cancel.
 //   - options - RoleEligibilityScheduleRequestsClientCancelOptions contains the optional parameters for the RoleEligibilityScheduleRequestsClient.Cancel
@@ -82,7 +82,7 @@ func (client *RoleEligibilityScheduleRequestsClient) cancelCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-04-01-preview")
+	reqQP.Set("api-version", "2020-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -91,12 +91,11 @@ func (client *RoleEligibilityScheduleRequestsClient) cancelCreateRequest(ctx con
 // Create - Creates a role eligibility schedule request.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-04-01-preview
+// Generated from API version 2020-10-01
 //   - scope - The scope of the role eligibility schedule request to create. The scope can be any REST resource instance. For
-//     example, use '/providers/Microsoft.Subscription/subscriptions/{subscription-id}/' for a
-//     subscription, '/providers/Microsoft.Subscription/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}'
-//     for a resource group, and
-//     '/providers/Microsoft.Subscription/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}/providers/{resource-provider}/{resource-type}/{resource-name}'
+//     example, use '/subscriptions/{subscription-id}/' for a subscription,
+//     '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}' for a resource group, and
+//     '/subscriptions/{subscription-id}/resourceGroups/{resource-group-name}/providers/{resource-provider}/{resource-type}/{resource-name}'
 //     for a resource.
 //   - roleEligibilityScheduleRequestName - The name of the role eligibility to create. It can be any valid GUID.
 //   - parameters - Parameters for the role eligibility schedule request.
@@ -137,7 +136,7 @@ func (client *RoleEligibilityScheduleRequestsClient) createCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-04-01-preview")
+	reqQP.Set("api-version", "2020-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -158,7 +157,7 @@ func (client *RoleEligibilityScheduleRequestsClient) createHandleResponse(resp *
 // Get - Get the specified role eligibility schedule request.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-04-01-preview
+// Generated from API version 2020-10-01
 //   - scope - The scope of the role eligibility schedule request.
 //   - roleEligibilityScheduleRequestName - The name (guid) of the role eligibility schedule request to get.
 //   - options - RoleEligibilityScheduleRequestsClientGetOptions contains the optional parameters for the RoleEligibilityScheduleRequestsClient.Get
@@ -198,7 +197,7 @@ func (client *RoleEligibilityScheduleRequestsClient) getCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-04-01-preview")
+	reqQP.Set("api-version", "2020-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -215,7 +214,7 @@ func (client *RoleEligibilityScheduleRequestsClient) getHandleResponse(resp *htt
 
 // NewListForScopePager - Gets role eligibility schedule requests for a scope.
 //
-// Generated from API version 2022-04-01-preview
+// Generated from API version 2020-10-01
 //   - scope - The scope of the role eligibility schedule requests.
 //   - options - RoleEligibilityScheduleRequestsClientListForScopeOptions contains the optional parameters for the RoleEligibilityScheduleRequestsClient.NewListForScopePager
 //     method.
@@ -254,7 +253,7 @@ func (client *RoleEligibilityScheduleRequestsClient) listForScopeCreateRequest(c
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2022-04-01-preview")
+	reqQP.Set("api-version", "2020-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -272,7 +271,7 @@ func (client *RoleEligibilityScheduleRequestsClient) listForScopeHandleResponse(
 // Validate - Validates a new role eligibility schedule request.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-04-01-preview
+// Generated from API version 2020-10-01
 //   - scope - The scope of the role eligibility request to validate.
 //   - roleEligibilityScheduleRequestName - The name of the role eligibility request to validate.
 //   - parameters - Parameters for the role eligibility schedule request.
@@ -313,7 +312,7 @@ func (client *RoleEligibilityScheduleRequestsClient) validateCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-04-01-preview")
+	reqQP.Set("api-version", "2020-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
