@@ -17,8 +17,7 @@ import (
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
 	subscriptionID string
-	credential     azcore.TokenCredential
-	options        *arm.ClientOptions
+	internal       *arm.Client
 }
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
@@ -27,84 +26,98 @@ type ClientFactory struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
-	_, err := arm.NewClient(moduleName, moduleVersion, credential, options)
+	internal, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		subscriptionID: subscriptionID, credential: credential,
-		options: options.Clone(),
+		subscriptionID: subscriptionID,
+		internal:       internal,
 	}, nil
-}
-
-// NewBestPracticesClient creates a new instance of BestPracticesClient.
-func (c *ClientFactory) NewBestPracticesClient() *BestPracticesClient {
-	subClient, _ := NewBestPracticesClient(c.credential, c.options)
-	return subClient
 }
 
 // NewBestPracticesVersionsClient creates a new instance of BestPracticesVersionsClient.
 func (c *ClientFactory) NewBestPracticesVersionsClient() *BestPracticesVersionsClient {
-	subClient, _ := NewBestPracticesVersionsClient(c.credential, c.options)
-	return subClient
+	return &BestPracticesVersionsClient{
+		internal: c.internal,
+	}
 }
 
 // NewConfigurationProfileAssignmentsClient creates a new instance of ConfigurationProfileAssignmentsClient.
 func (c *ClientFactory) NewConfigurationProfileAssignmentsClient() *ConfigurationProfileAssignmentsClient {
-	subClient, _ := NewConfigurationProfileAssignmentsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &ConfigurationProfileAssignmentsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewConfigurationProfileHCIAssignmentsClient creates a new instance of ConfigurationProfileHCIAssignmentsClient.
 func (c *ClientFactory) NewConfigurationProfileHCIAssignmentsClient() *ConfigurationProfileHCIAssignmentsClient {
-	subClient, _ := NewConfigurationProfileHCIAssignmentsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &ConfigurationProfileHCIAssignmentsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewConfigurationProfileHCRPAssignmentsClient creates a new instance of ConfigurationProfileHCRPAssignmentsClient.
 func (c *ClientFactory) NewConfigurationProfileHCRPAssignmentsClient() *ConfigurationProfileHCRPAssignmentsClient {
-	subClient, _ := NewConfigurationProfileHCRPAssignmentsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &ConfigurationProfileHCRPAssignmentsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewConfigurationProfilesClient creates a new instance of ConfigurationProfilesClient.
 func (c *ClientFactory) NewConfigurationProfilesClient() *ConfigurationProfilesClient {
-	subClient, _ := NewConfigurationProfilesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &ConfigurationProfilesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewConfigurationProfilesVersionsClient creates a new instance of ConfigurationProfilesVersionsClient.
 func (c *ClientFactory) NewConfigurationProfilesVersionsClient() *ConfigurationProfilesVersionsClient {
-	subClient, _ := NewConfigurationProfilesVersionsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &ConfigurationProfilesVersionsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewHCIReportsClient creates a new instance of HCIReportsClient.
 func (c *ClientFactory) NewHCIReportsClient() *HCIReportsClient {
-	subClient, _ := NewHCIReportsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &HCIReportsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewHCRPReportsClient creates a new instance of HCRPReportsClient.
 func (c *ClientFactory) NewHCRPReportsClient() *HCRPReportsClient {
-	subClient, _ := NewHCRPReportsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &HCRPReportsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewOperationsClient creates a new instance of OperationsClient.
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
-	subClient, _ := NewOperationsClient(c.credential, c.options)
-	return subClient
+	return &OperationsClient{
+		internal: c.internal,
+	}
 }
 
 // NewReportsClient creates a new instance of ReportsClient.
 func (c *ClientFactory) NewReportsClient() *ReportsClient {
-	subClient, _ := NewReportsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &ReportsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewServicePrincipalsClient creates a new instance of ServicePrincipalsClient.
 func (c *ClientFactory) NewServicePrincipalsClient() *ServicePrincipalsClient {
-	subClient, _ := NewServicePrincipalsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &ServicePrincipalsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
