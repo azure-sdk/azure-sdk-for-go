@@ -37,7 +37,6 @@ type ServerFactory struct {
 	PrivateEndpointConnectionServer         PrivateEndpointConnectionServer
 	PrivateEndpointConnectionsServer        PrivateEndpointConnectionsServer
 	PrivateLinkResourcesServer              PrivateLinkResourcesServer
-	QuotaUsagesServer                       QuotaUsagesServer
 	ReplicasServer                          ReplicasServer
 	ServerCapabilitiesServer                ServerCapabilitiesServer
 	ServerThreatProtectionSettingsServer    ServerThreatProtectionSettingsServer
@@ -78,7 +77,6 @@ type ServerFactoryTransport struct {
 	trPrivateEndpointConnectionServer         *PrivateEndpointConnectionServerTransport
 	trPrivateEndpointConnectionsServer        *PrivateEndpointConnectionsServerTransport
 	trPrivateLinkResourcesServer              *PrivateLinkResourcesServerTransport
-	trQuotaUsagesServer                       *QuotaUsagesServerTransport
 	trReplicasServer                          *ReplicasServerTransport
 	trServerCapabilitiesServer                *ServerCapabilitiesServerTransport
 	trServerThreatProtectionSettingsServer    *ServerThreatProtectionSettingsServerTransport
@@ -180,9 +178,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewPrivateLinkResourcesServerTransport(&s.srv.PrivateLinkResourcesServer)
 		})
 		resp, err = s.trPrivateLinkResourcesServer.Do(req)
-	case "QuotaUsagesClient":
-		initServer(s, &s.trQuotaUsagesServer, func() *QuotaUsagesServerTransport { return NewQuotaUsagesServerTransport(&s.srv.QuotaUsagesServer) })
-		resp, err = s.trQuotaUsagesServer.Do(req)
 	case "ReplicasClient":
 		initServer(s, &s.trReplicasServer, func() *ReplicasServerTransport { return NewReplicasServerTransport(&s.srv.ReplicasServer) })
 		resp, err = s.trReplicasServer.Do(req)
