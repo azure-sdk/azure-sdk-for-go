@@ -43,8 +43,9 @@ func NewCustomAssessmentAutomationsClient(subscriptionID string, credential azco
 	return client, nil
 }
 
-// Create - Creates or updates a custom assessment automation for the provided subscription. Please note that providing an
-// existing custom assessment automation will replace the existing record.
+// Create - [DEPRECATED NOTICE: This operation will soon be removed] Creates or updates a custom assessment automation for
+// the provided subscription. Please note that providing an existing custom assessment
+// automation will replace the existing record.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-07-01-preview
@@ -113,7 +114,8 @@ func (client *CustomAssessmentAutomationsClient) createHandleResponse(resp *http
 	return result, nil
 }
 
-// Delete - Deletes a custom assessment automation by name for a provided subscription
+// Delete - [DEPRECATED NOTICE: This operation will soon be removed] Deletes a custom assessment automation by name for a
+// provided subscription
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-07-01-preview
@@ -168,7 +170,8 @@ func (client *CustomAssessmentAutomationsClient) deleteCreateRequest(ctx context
 	return req, nil
 }
 
-// Get - Gets a single custom assessment automation by name for the provided subscription and resource group.
+// Get - [DEPRECATED NOTICE: This operation will soon be removed] Gets a single custom assessment automation by name for the
+// provided subscription and resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-07-01-preview
@@ -233,7 +236,8 @@ func (client *CustomAssessmentAutomationsClient) getHandleResponse(resp *http.Re
 	return result, nil
 }
 
-// NewListByResourceGroupPager - List custom assessment automations by provided subscription and resource group
+// NewListByResourceGroupPager - [DEPRECATED NOTICE: This operation will soon be removed] List custom assessment automations
+// by provided subscription and resource group
 //
 // Generated from API version 2021-07-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
@@ -293,7 +297,8 @@ func (client *CustomAssessmentAutomationsClient) listByResourceGroupHandleRespon
 	return result, nil
 }
 
-// NewListBySubscriptionPager - List custom assessment automations by provided subscription
+// NewListBySubscriptionPager - [DEPRECATED NOTICE: This operation will soon be removed] List custom assessment automations
+// by provided subscription
 //
 // Generated from API version 2021-07-01-preview
 //   - options - CustomAssessmentAutomationsClientListBySubscriptionOptions contains the optional parameters for the CustomAssessmentAutomationsClient.NewListBySubscriptionPager

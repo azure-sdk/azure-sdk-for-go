@@ -43,7 +43,8 @@ func NewCustomEntityStoreAssignmentsClient(subscriptionID string, credential azc
 	return client, nil
 }
 
-// Create - Creates a custom entity store assignment for the provided subscription, if not already exists.
+// Create - [DEPRECATED NOTICE: This operation will soon be removed] Creates a custom entity store assignment for the provided
+// subscription, if not already exists.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-07-01-preview
@@ -112,7 +113,8 @@ func (client *CustomEntityStoreAssignmentsClient) createHandleResponse(resp *htt
 	return result, nil
 }
 
-// Delete - Delete a custom entity store assignment by name for a provided subscription
+// Delete - [DEPRECATED NOTICE: This operation will soon be removed] Delete a custom entity store assignment by name for a
+// provided subscription
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-07-01-preview
@@ -167,7 +169,8 @@ func (client *CustomEntityStoreAssignmentsClient) deleteCreateRequest(ctx contex
 	return req, nil
 }
 
-// Get - Gets a single custom entity store assignment by name for the provided subscription and resource group.
+// Get - [DEPRECATED NOTICE: This operation will soon be removed] Gets a single custom entity store assignment by name for
+// the provided subscription and resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-07-01-preview
@@ -232,7 +235,8 @@ func (client *CustomEntityStoreAssignmentsClient) getHandleResponse(resp *http.R
 	return result, nil
 }
 
-// NewListByResourceGroupPager - List custom entity store assignments by a provided subscription and resource group
+// NewListByResourceGroupPager - [DEPRECATED NOTICE: This operation will soon be removed] List custom entity store assignments
+// by a provided subscription and resource group
 //
 // Generated from API version 2021-07-01-preview
 //   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
@@ -292,7 +296,8 @@ func (client *CustomEntityStoreAssignmentsClient) listByResourceGroupHandleRespo
 	return result, nil
 }
 
-// NewListBySubscriptionPager - List custom entity store assignments by provided subscription
+// NewListBySubscriptionPager - [DEPRECATED NOTICE: This operation will soon be removed] List custom entity store assignments
+// by provided subscription
 //
 // Generated from API version 2021-07-01-preview
 //   - options - CustomEntityStoreAssignmentsClientListBySubscriptionOptions contains the optional parameters for the CustomEntityStoreAssignmentsClient.NewListBySubscriptionPager
