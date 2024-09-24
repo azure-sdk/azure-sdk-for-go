@@ -1,5 +1,60 @@
 # Release History
 
+## 0.11.0 (2024-09-24)
+### Breaking Changes
+
+- Operation `*MonitorsClient.Update` has been changed to LRO, use `*MonitorsClient.BeginUpdate` instead.
+
+### Features Added
+
+- New enum type `Operation` with values `OperationActive`, `OperationAddBegin`, `OperationAddComplete`, `OperationDeleteBegin`, `OperationDeleteComplete`
+- New enum type `Status` with values `StatusActive`, `StatusDeleting`, `StatusFailed`, `StatusInProgress`
+- New function `NewBillingInfoClient(string, azcore.TokenCredential, *arm.ClientOptions) (*BillingInfoClient, error)`
+- New function `*BillingInfoClient.Get(context.Context, string, string, *BillingInfoClientGetOptions) (BillingInfoClientGetResponse, error)`
+- New function `*ClientFactory.NewBillingInfoClient() *BillingInfoClient`
+- New function `*ClientFactory.NewConnectedPartnerResourcesClient() *ConnectedPartnerResourcesClient`
+- New function `*ClientFactory.NewMonitoredSubscriptionsClient() *MonitoredSubscriptionsClient`
+- New function `*ClientFactory.NewOpenAIClient() *OpenAIClient`
+- New function `NewConnectedPartnerResourcesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectedPartnerResourcesClient, error)`
+- New function `*ConnectedPartnerResourcesClient.NewListPager(string, string, *ConnectedPartnerResourcesClientListOptions) *runtime.Pager[ConnectedPartnerResourcesClientListResponse]`
+- New function `NewMonitoredSubscriptionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*MonitoredSubscriptionsClient, error)`
+- New function `*MonitoredSubscriptionsClient.BeginCreateorUpdate(context.Context, string, string, string, *MonitoredSubscriptionsClientBeginCreateorUpdateOptions) (*runtime.Poller[MonitoredSubscriptionsClientCreateorUpdateResponse], error)`
+- New function `*MonitoredSubscriptionsClient.BeginDelete(context.Context, string, string, string, *MonitoredSubscriptionsClientBeginDeleteOptions) (*runtime.Poller[MonitoredSubscriptionsClientDeleteResponse], error)`
+- New function `*MonitoredSubscriptionsClient.Get(context.Context, string, string, string, *MonitoredSubscriptionsClientGetOptions) (MonitoredSubscriptionsClientGetResponse, error)`
+- New function `*MonitoredSubscriptionsClient.NewListPager(string, string, *MonitoredSubscriptionsClientListOptions) *runtime.Pager[MonitoredSubscriptionsClientListResponse]`
+- New function `*MonitoredSubscriptionsClient.BeginUpdate(context.Context, string, string, string, *MonitoredSubscriptionsClientBeginUpdateOptions) (*runtime.Poller[MonitoredSubscriptionsClientUpdateResponse], error)`
+- New function `NewOpenAIClient(string, azcore.TokenCredential, *arm.ClientOptions) (*OpenAIClient, error)`
+- New function `*OpenAIClient.CreateOrUpdate(context.Context, string, string, string, *OpenAIClientCreateOrUpdateOptions) (OpenAIClientCreateOrUpdateResponse, error)`
+- New function `*OpenAIClient.Delete(context.Context, string, string, string, *OpenAIClientDeleteOptions) (OpenAIClientDeleteResponse, error)`
+- New function `*OpenAIClient.Get(context.Context, string, string, string, *OpenAIClientGetOptions) (OpenAIClientGetResponse, error)`
+- New function `*OpenAIClient.GetStatus(context.Context, string, string, string, *OpenAIClientGetStatusOptions) (OpenAIClientGetStatusResponse, error)`
+- New function `*OpenAIClient.NewListPager(string, string, *OpenAIClientListOptions) *runtime.Pager[OpenAIClientListResponse]`
+- New function `*OrganizationsClient.GetElasticToAzureSubscriptionMapping(context.Context, *OrganizationsClientGetElasticToAzureSubscriptionMappingOptions) (OrganizationsClientGetElasticToAzureSubscriptionMappingResponse, error)`
+- New function `*OrganizationsClient.BeginResubscribe(context.Context, string, string, *OrganizationsClientBeginResubscribeOptions) (*runtime.Poller[OrganizationsClientResubscribeResponse], error)`
+- New struct `BillingInfoResponse`
+- New struct `ConnectedPartnerResourceProperties`
+- New struct `ConnectedPartnerResourcesListFormat`
+- New struct `ConnectedPartnerResourcesListResponse`
+- New struct `MonitoredSubscription`
+- New struct `MonitoredSubscriptionProperties`
+- New struct `MonitoredSubscriptionPropertiesList`
+- New struct `OpenAIIntegrationProperties`
+- New struct `OpenAIIntegrationRPModel`
+- New struct `OpenAIIntegrationRPModelListResponse`
+- New struct `OpenAIIntegrationStatusResponse`
+- New struct `OpenAIIntegrationStatusResponseProperties`
+- New struct `OrganizationToAzureSubscriptionMappingResponse`
+- New struct `OrganizationToAzureSubscriptionMappingResponseProperties`
+- New struct `PartnerBillingEntity`
+- New struct `PlanDetails`
+- New struct `ResubscribeProperties`
+- New struct `SubscriptionList`
+- New field `ElasticsearchEndPoint` in struct `DeploymentInfoResponse`
+- New field `BilledAzureSubscriptionID`, `MarketplaceStatus`, `Subscribed` in struct `MarketplaceSaaSInfo`
+- New field `OfferID`, `PublisherID` in struct `MarketplaceSaaSInfoMarketplaceSubscription`
+- New field `PlanDetails`, `SaaSAzureSubscriptionStatus`, `SourceCampaignID`, `SourceCampaignName`, `SubscriptionState` in struct `MonitorProperties`
+
+
 ## 0.10.0 (2023-11-24)
 ### Features Added
 

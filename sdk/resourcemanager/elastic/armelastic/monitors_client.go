@@ -37,7 +37,7 @@ type MonitorsClient struct {
 }
 
 // NewMonitorsClient creates a new instance of MonitorsClient with the specified values.
-//   - subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000)
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewMonitorsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*MonitorsClient, error) {
@@ -55,8 +55,8 @@ func NewMonitorsClient(subscriptionID string, credential azcore.TokenCredential,
 // BeginCreate - Create a monitor resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-02-01-preview
-//   - resourceGroupName - The name of the resource group to which the Elastic resource belongs.
+// Generated from API version 2024-06-15-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - monitorName - Monitor resource name
 //   - options - MonitorsClientBeginCreateOptions contains the optional parameters for the MonitorsClient.BeginCreate method.
 func (client *MonitorsClient) BeginCreate(ctx context.Context, resourceGroupName string, monitorName string, options *MonitorsClientBeginCreateOptions) (*runtime.Poller[MonitorsClientCreateResponse], error) {
@@ -80,7 +80,7 @@ func (client *MonitorsClient) BeginCreate(ctx context.Context, resourceGroupName
 // Create - Create a monitor resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-02-01-preview
+// Generated from API version 2024-06-15-preview
 func (client *MonitorsClient) create(ctx context.Context, resourceGroupName string, monitorName string, options *MonitorsClientBeginCreateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "MonitorsClient.BeginCreate"
@@ -122,7 +122,7 @@ func (client *MonitorsClient) createCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-02-01-preview")
+	reqQP.Set("api-version", "2024-06-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Body != nil {
@@ -137,8 +137,8 @@ func (client *MonitorsClient) createCreateRequest(ctx context.Context, resourceG
 // BeginDelete - Delete a monitor resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-02-01-preview
-//   - resourceGroupName - The name of the resource group to which the Elastic resource belongs.
+// Generated from API version 2024-06-15-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - monitorName - Monitor resource name
 //   - options - MonitorsClientBeginDeleteOptions contains the optional parameters for the MonitorsClient.BeginDelete method.
 func (client *MonitorsClient) BeginDelete(ctx context.Context, resourceGroupName string, monitorName string, options *MonitorsClientBeginDeleteOptions) (*runtime.Poller[MonitorsClientDeleteResponse], error) {
@@ -161,7 +161,7 @@ func (client *MonitorsClient) BeginDelete(ctx context.Context, resourceGroupName
 // Delete - Delete a monitor resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-02-01-preview
+// Generated from API version 2024-06-15-preview
 func (client *MonitorsClient) deleteOperation(ctx context.Context, resourceGroupName string, monitorName string, options *MonitorsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "MonitorsClient.BeginDelete"
@@ -203,7 +203,7 @@ func (client *MonitorsClient) deleteCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-02-01-preview")
+	reqQP.Set("api-version", "2024-06-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -212,8 +212,8 @@ func (client *MonitorsClient) deleteCreateRequest(ctx context.Context, resourceG
 // Get - Get the properties of a specific monitor resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-02-01-preview
-//   - resourceGroupName - The name of the resource group to which the Elastic resource belongs.
+// Generated from API version 2024-06-15-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - monitorName - Monitor resource name
 //   - options - MonitorsClientGetOptions contains the optional parameters for the MonitorsClient.Get method.
 func (client *MonitorsClient) Get(ctx context.Context, resourceGroupName string, monitorName string, options *MonitorsClientGetOptions) (MonitorsClientGetResponse, error) {
@@ -258,7 +258,7 @@ func (client *MonitorsClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-02-01-preview")
+	reqQP.Set("api-version", "2024-06-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -275,7 +275,7 @@ func (client *MonitorsClient) getHandleResponse(resp *http.Response) (MonitorsCl
 
 // NewListPager - List all monitors under the specified subscription.
 //
-// Generated from API version 2023-02-01-preview
+// Generated from API version 2024-06-15-preview
 //   - options - MonitorsClientListOptions contains the optional parameters for the MonitorsClient.NewListPager method.
 func (client *MonitorsClient) NewListPager(options *MonitorsClientListOptions) *runtime.Pager[MonitorsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[MonitorsClientListResponse]{
@@ -312,7 +312,7 @@ func (client *MonitorsClient) listCreateRequest(ctx context.Context, options *Mo
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-02-01-preview")
+	reqQP.Set("api-version", "2024-06-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -329,8 +329,8 @@ func (client *MonitorsClient) listHandleResponse(resp *http.Response) (MonitorsC
 
 // NewListByResourceGroupPager - List all monitors under the specified resource group.
 //
-// Generated from API version 2023-02-01-preview
-//   - resourceGroupName - The name of the resource group to which the Elastic resource belongs.
+// Generated from API version 2024-06-15-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - MonitorsClientListByResourceGroupOptions contains the optional parameters for the MonitorsClient.NewListByResourceGroupPager
 //     method.
 func (client *MonitorsClient) NewListByResourceGroupPager(resourceGroupName string, options *MonitorsClientListByResourceGroupOptions) *runtime.Pager[MonitorsClientListByResourceGroupResponse] {
@@ -372,7 +372,7 @@ func (client *MonitorsClient) listByResourceGroupCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-02-01-preview")
+	reqQP.Set("api-version", "2024-06-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -387,37 +387,58 @@ func (client *MonitorsClient) listByResourceGroupHandleResponse(resp *http.Respo
 	return result, nil
 }
 
+// BeginUpdate - Update a monitor resource.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-06-15-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - monitorName - Monitor resource name
+//   - options - MonitorsClientBeginUpdateOptions contains the optional parameters for the MonitorsClient.BeginUpdate method.
+func (client *MonitorsClient) BeginUpdate(ctx context.Context, resourceGroupName string, monitorName string, options *MonitorsClientBeginUpdateOptions) (*runtime.Poller[MonitorsClientUpdateResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.update(ctx, resourceGroupName, monitorName, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[MonitorsClientUpdateResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[MonitorsClientUpdateResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
 // Update - Update a monitor resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-02-01-preview
-//   - resourceGroupName - The name of the resource group to which the Elastic resource belongs.
-//   - monitorName - Monitor resource name
-//   - options - MonitorsClientUpdateOptions contains the optional parameters for the MonitorsClient.Update method.
-func (client *MonitorsClient) Update(ctx context.Context, resourceGroupName string, monitorName string, options *MonitorsClientUpdateOptions) (MonitorsClientUpdateResponse, error) {
+// Generated from API version 2024-06-15-preview
+func (client *MonitorsClient) update(ctx context.Context, resourceGroupName string, monitorName string, options *MonitorsClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
-	const operationName = "MonitorsClient.Update"
+	const operationName = "MonitorsClient.BeginUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, monitorName, options)
 	if err != nil {
-		return MonitorsClientUpdateResponse{}, err
+		return nil, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return MonitorsClientUpdateResponse{}, err
+		return nil, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
 		err = runtime.NewResponseError(httpResp)
-		return MonitorsClientUpdateResponse{}, err
+		return nil, err
 	}
-	resp, err := client.updateHandleResponse(httpResp)
-	return resp, err
+	return httpResp, nil
 }
 
 // updateCreateRequest creates the Update request.
-func (client *MonitorsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, monitorName string, options *MonitorsClientUpdateOptions) (*policy.Request, error) {
+func (client *MonitorsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, monitorName string, options *MonitorsClientBeginUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Elastic/monitors/{monitorName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -436,7 +457,7 @@ func (client *MonitorsClient) updateCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-02-01-preview")
+	reqQP.Set("api-version", "2024-06-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Body != nil {
@@ -446,13 +467,4 @@ func (client *MonitorsClient) updateCreateRequest(ctx context.Context, resourceG
 		return req, nil
 	}
 	return req, nil
-}
-
-// updateHandleResponse handles the Update response.
-func (client *MonitorsClient) updateHandleResponse(resp *http.Response) (MonitorsClientUpdateResponse, error) {
-	result := MonitorsClientUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.MonitorResource); err != nil {
-		return MonitorsClientUpdateResponse{}, err
-	}
-	return result, nil
 }
