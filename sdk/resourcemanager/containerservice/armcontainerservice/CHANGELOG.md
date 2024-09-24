@@ -1,5 +1,17 @@
 # Release History
 
+## 6.1.0-beta.2 (2024-09-24)
+### Features Added
+
+- New enum type `DriverType` with values `DriverTypeCUDA`, `DriverTypeGRID`
+- New enum type `NginxIngressControllerType` with values `NginxIngressControllerTypeAnnotationControlled`, `NginxIngressControllerTypeExternal`, `NginxIngressControllerTypeInternal`, `NginxIngressControllerTypeNone`
+- New struct `AdvancedNetworkingSecurity`
+- New struct `ManagedClusterIngressProfileNginx`
+- New field `Enabled`, `Security` in struct `AdvancedNetworking`
+- New field `DriverType` in struct `AgentPoolGPUProfile`
+- New field `Nginx` in struct `ManagedClusterIngressProfileWebAppRouting`
+
+
 ## 6.1.0-beta.1 (2024-08-22)
 ### Features Added
 

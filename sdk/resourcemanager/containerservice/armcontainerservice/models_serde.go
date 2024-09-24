@@ -81,7 +81,9 @@ func (a *AccessProfile) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type AdvancedNetworking.
 func (a AdvancedNetworking) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "enabled", a.Enabled)
 	populate(objectMap, "observability", a.Observability)
+	populate(objectMap, "security", a.Security)
 	return json.Marshal(objectMap)
 }
 
@@ -94,8 +96,14 @@ func (a *AdvancedNetworking) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "enabled":
+			err = unpopulate(val, "Enabled", &a.Enabled)
+			delete(rawMsg, key)
 		case "observability":
 			err = unpopulate(val, "Observability", &a.Observability)
+			delete(rawMsg, key)
+		case "security":
+			err = unpopulate(val, "Security", &a.Security)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -114,6 +122,33 @@ func (a AdvancedNetworkingObservability) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements the json.Unmarshaller interface for type AdvancedNetworkingObservability.
 func (a *AdvancedNetworkingObservability) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "enabled":
+			err = unpopulate(val, "Enabled", &a.Enabled)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AdvancedNetworkingSecurity.
+func (a AdvancedNetworkingSecurity) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "enabled", a.Enabled)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AdvancedNetworkingSecurity.
+func (a *AdvancedNetworkingSecurity) UnmarshalJSON(data []byte) error {
 	var rawMsg map[string]json.RawMessage
 	if err := json.Unmarshal(data, &rawMsg); err != nil {
 		return fmt.Errorf("unmarshalling type %T: %v", a, err)
@@ -329,6 +364,7 @@ func (a *AgentPoolDeleteMachinesParameter) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type AgentPoolGPUProfile.
 func (a AgentPoolGPUProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "driverType", a.DriverType)
 	populate(objectMap, "installGPUDriver", a.InstallGPUDriver)
 	return json.Marshal(objectMap)
 }
@@ -342,6 +378,9 @@ func (a *AgentPoolGPUProfile) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "driverType":
+			err = unpopulate(val, "DriverType", &a.DriverType)
+			delete(rawMsg, key)
 		case "installGPUDriver":
 			err = unpopulate(val, "InstallGPUDriver", &a.InstallGPUDriver)
 			delete(rawMsg, key)
@@ -3640,12 +3679,40 @@ func (m *ManagedClusterIngressProfile) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type ManagedClusterIngressProfileNginx.
+func (m ManagedClusterIngressProfileNginx) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "defaultIngressControllerType", m.DefaultIngressControllerType)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ManagedClusterIngressProfileNginx.
+func (m *ManagedClusterIngressProfileNginx) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", m, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "defaultIngressControllerType":
+			err = unpopulate(val, "DefaultIngressControllerType", &m.DefaultIngressControllerType)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", m, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type ManagedClusterIngressProfileWebAppRouting.
 func (m ManagedClusterIngressProfileWebAppRouting) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "dnsZoneResourceIds", m.DNSZoneResourceIDs)
 	populate(objectMap, "enabled", m.Enabled)
 	populate(objectMap, "identity", m.Identity)
+	populate(objectMap, "nginx", m.Nginx)
 	return json.Marshal(objectMap)
 }
 
@@ -3666,6 +3733,9 @@ func (m *ManagedClusterIngressProfileWebAppRouting) UnmarshalJSON(data []byte) e
 			delete(rawMsg, key)
 		case "identity":
 			err = unpopulate(val, "Identity", &m.Identity)
+			delete(rawMsg, key)
+		case "nginx":
+			err = unpopulate(val, "Nginx", &m.Nginx)
 			delete(rawMsg, key)
 		}
 		if err != nil {
