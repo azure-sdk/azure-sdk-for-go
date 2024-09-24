@@ -194,11 +194,13 @@ type AppCertificate struct {
 	// REQUIRED; Resource Location.
 	Location *string
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// Certificate resource specific properties
-	Properties *AppCertificateProperties
+	Properties *CertificateProperties
 
 	// Resource tags.
 	Tags map[string]*string
@@ -228,7 +230,7 @@ type AppCertificatePatchResource struct {
 	Kind *string
 
 	// CertificatePatchResource resource specific properties
-	Properties *AppCertificatePatchResourceProperties
+	Properties *CertificatePatchResourceProperties
 
 	// READ-ONLY; Resource Id.
 	ID *string
@@ -238,138 +240,6 @@ type AppCertificatePatchResource struct {
 
 	// READ-ONLY; Resource type.
 	Type *string
-}
-
-// AppCertificatePatchResourceProperties - CertificatePatchResource resource specific properties
-type AppCertificatePatchResourceProperties struct {
-	// CNAME of the certificate to be issued via free certificate
-	CanonicalName *string
-
-	// Method of domain validation for free cert
-	DomainValidationMethod *string
-
-	// Host names the certificate applies to.
-	HostNames []*string
-
-	// Key Vault Csm resource Id.
-	KeyVaultID *string
-
-	// Key Vault secret name.
-	KeyVaultSecretName *string
-
-	// Certificate password.
-	Password *string
-
-	// Pfx blob.
-	PfxBlob []byte
-
-	// Resource ID of the associated App Service plan, formatted as: "/subscriptions/{subscriptionID}/resourceGroups/{groupName}/providers/Microsoft.Web/serverfarms/{appServicePlanName}".
-	ServerFarmID *string
-
-	// READ-ONLY; Raw bytes of .cer file
-	CerBlob []byte
-
-	// READ-ONLY; Certificate expiration date.
-	ExpirationDate *time.Time
-
-	// READ-ONLY; Friendly name of the certificate.
-	FriendlyName *string
-
-	// READ-ONLY; Specification for the App Service Environment to use for the certificate.
-	HostingEnvironmentProfile *HostingEnvironmentProfile
-
-	// READ-ONLY; Certificate issue Date.
-	IssueDate *time.Time
-
-	// READ-ONLY; Certificate issuer.
-	Issuer *string
-
-	// READ-ONLY; Status of the Key Vault secret.
-	KeyVaultSecretStatus *KeyVaultSecretStatus
-
-	// READ-ONLY; Public key hash.
-	PublicKeyHash *string
-
-	// READ-ONLY; Self link.
-	SelfLink *string
-
-	// READ-ONLY; App name.
-	SiteName *string
-
-	// READ-ONLY; Subject name of the certificate.
-	SubjectName *string
-
-	// READ-ONLY; Certificate thumbprint.
-	Thumbprint *string
-
-	// READ-ONLY; Is the certificate valid?.
-	Valid *bool
-}
-
-// AppCertificateProperties - Certificate resource specific properties
-type AppCertificateProperties struct {
-	// CNAME of the certificate to be issued via free certificate
-	CanonicalName *string
-
-	// Method of domain validation for free cert
-	DomainValidationMethod *string
-
-	// Host names the certificate applies to.
-	HostNames []*string
-
-	// Key Vault Csm resource Id.
-	KeyVaultID *string
-
-	// Key Vault secret name.
-	KeyVaultSecretName *string
-
-	// Certificate password.
-	Password *string
-
-	// Pfx blob.
-	PfxBlob []byte
-
-	// Resource ID of the associated App Service plan, formatted as: "/subscriptions/{subscriptionID}/resourceGroups/{groupName}/providers/Microsoft.Web/serverfarms/{appServicePlanName}".
-	ServerFarmID *string
-
-	// READ-ONLY; Raw bytes of .cer file
-	CerBlob []byte
-
-	// READ-ONLY; Certificate expiration date.
-	ExpirationDate *time.Time
-
-	// READ-ONLY; Friendly name of the certificate.
-	FriendlyName *string
-
-	// READ-ONLY; Specification for the App Service Environment to use for the certificate.
-	HostingEnvironmentProfile *HostingEnvironmentProfile
-
-	// READ-ONLY; Certificate issue Date.
-	IssueDate *time.Time
-
-	// READ-ONLY; Certificate issuer.
-	Issuer *string
-
-	// READ-ONLY; Status of the Key Vault secret.
-	KeyVaultSecretStatus *KeyVaultSecretStatus
-
-	// READ-ONLY; Public key hash.
-	PublicKeyHash *string
-
-	// READ-ONLY; Self link.
-	SelfLink *string
-
-	// READ-ONLY; App name.
-	SiteName *string
-
-	// READ-ONLY; Subject name of the certificate.
-	SubjectName *string
-
-	// READ-ONLY; Certificate thumbprint.
-	Thumbprint *string
-
-	// READ-ONLY; Is the certificate valid?.
-	Valid *bool
 }
 
 // AppInsightsWebAppStackSettings - App Insights Web App stack settings.
@@ -1113,7 +983,9 @@ type CertificateOrder struct {
 	// REQUIRED; Resource Location.
 	Location *string
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// AppServiceCertificateOrder resource specific properties
@@ -1319,12 +1191,146 @@ type CertificatePatchResource struct {
 	Type *string
 }
 
+// CertificatePatchResourceProperties - CertificatePatchResource resource specific properties
+type CertificatePatchResourceProperties struct {
+	// CNAME of the certificate to be issued via free certificate
+	CanonicalName *string
+
+	// Method of domain validation for free cert
+	DomainValidationMethod *string
+
+	// Host names the certificate applies to.
+	HostNames []*string
+
+	// Key Vault Csm resource Id.
+	KeyVaultID *string
+
+	// Key Vault secret name.
+	KeyVaultSecretName *string
+
+	// Certificate password.
+	Password *string
+
+	// Pfx blob.
+	PfxBlob []byte
+
+	// Resource ID of the associated App Service plan, formatted as: "/subscriptions/{subscriptionID}/resourceGroups/{groupName}/providers/Microsoft.Web/serverfarms/{appServicePlanName}".
+	ServerFarmID *string
+
+	// READ-ONLY; Raw bytes of .cer file
+	CerBlob []byte
+
+	// READ-ONLY; Certificate expiration date.
+	ExpirationDate *time.Time
+
+	// READ-ONLY; Friendly name of the certificate.
+	FriendlyName *string
+
+	// READ-ONLY; Specification for the App Service Environment to use for the certificate.
+	HostingEnvironmentProfile *HostingEnvironmentProfile
+
+	// READ-ONLY; Certificate issue Date.
+	IssueDate *time.Time
+
+	// READ-ONLY; Certificate issuer.
+	Issuer *string
+
+	// READ-ONLY; Status of the Key Vault secret.
+	KeyVaultSecretStatus *KeyVaultSecretStatus
+
+	// READ-ONLY; Public key hash.
+	PublicKeyHash *string
+
+	// READ-ONLY; Self link.
+	SelfLink *string
+
+	// READ-ONLY; App name.
+	SiteName *string
+
+	// READ-ONLY; Subject name of the certificate.
+	SubjectName *string
+
+	// READ-ONLY; Certificate thumbprint.
+	Thumbprint *string
+
+	// READ-ONLY; Is the certificate valid?.
+	Valid *bool
+}
+
+// CertificateProperties - Certificate resource specific properties
+type CertificateProperties struct {
+	// CNAME of the certificate to be issued via free certificate
+	CanonicalName *string
+
+	// Method of domain validation for free cert
+	DomainValidationMethod *string
+
+	// Host names the certificate applies to.
+	HostNames []*string
+
+	// Key Vault Csm resource Id.
+	KeyVaultID *string
+
+	// Key Vault secret name.
+	KeyVaultSecretName *string
+
+	// Certificate password.
+	Password *string
+
+	// Pfx blob.
+	PfxBlob []byte
+
+	// Resource ID of the associated App Service plan, formatted as: "/subscriptions/{subscriptionID}/resourceGroups/{groupName}/providers/Microsoft.Web/serverfarms/{appServicePlanName}".
+	ServerFarmID *string
+
+	// READ-ONLY; Raw bytes of .cer file
+	CerBlob []byte
+
+	// READ-ONLY; Certificate expiration date.
+	ExpirationDate *time.Time
+
+	// READ-ONLY; Friendly name of the certificate.
+	FriendlyName *string
+
+	// READ-ONLY; Specification for the App Service Environment to use for the certificate.
+	HostingEnvironmentProfile *HostingEnvironmentProfile
+
+	// READ-ONLY; Certificate issue Date.
+	IssueDate *time.Time
+
+	// READ-ONLY; Certificate issuer.
+	Issuer *string
+
+	// READ-ONLY; Status of the Key Vault secret.
+	KeyVaultSecretStatus *KeyVaultSecretStatus
+
+	// READ-ONLY; Public key hash.
+	PublicKeyHash *string
+
+	// READ-ONLY; Self link.
+	SelfLink *string
+
+	// READ-ONLY; App name.
+	SiteName *string
+
+	// READ-ONLY; Subject name of the certificate.
+	SubjectName *string
+
+	// READ-ONLY; Certificate thumbprint.
+	Thumbprint *string
+
+	// READ-ONLY; Is the certificate valid?.
+	Valid *bool
+}
+
 // CertificateResource - Key Vault container ARM resource for a certificate that is purchased through Azure.
 type CertificateResource struct {
 	// REQUIRED; Resource Location.
 	Location *string
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// Core resource properties
@@ -1341,6 +1347,12 @@ type CertificateResource struct {
 
 	// READ-ONLY; Resource type.
 	Type *string
+}
+
+// CipherSuites - Describes valid TLS cipher suites.
+type CipherSuites struct {
+	// List of TLS Cipher Suites that are supported by App Service.
+	Suites []*string
 }
 
 // ClientRegistration - The configuration settings of the app registration for providers that have client ids and client secrets
@@ -1506,7 +1518,9 @@ type ContainerApp struct {
 	// REQUIRED; Resource Location.
 	Location *string
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// ContainerApp resource specific properties
@@ -2819,7 +2833,9 @@ type Domain struct {
 	// REQUIRED; Resource Location.
 	Location *string
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// Domain resource specific properties
@@ -3199,7 +3215,9 @@ type EnvironmentResource struct {
 	// REQUIRED; Resource Location.
 	Location *string
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// Core resource properties
@@ -4435,7 +4453,9 @@ type KubeEnvironment struct {
 	// Extended Location.
 	ExtendedLocation *ExtendedLocation
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// KubeEnvironment resource specific properties
@@ -5194,7 +5214,9 @@ type Plan struct {
 	// Extended Location.
 	ExtendedLocation *ExtendedLocation
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// AppServicePlan resource specific properties
@@ -5396,7 +5418,9 @@ type PremierAddOn struct {
 	// REQUIRED; Resource Location.
 	Location *string
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// PremierAddOn resource specific properties
@@ -6542,7 +6566,9 @@ type Resource struct {
 	// REQUIRED; Resource Location.
 	Location *string
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// Resource tags.
@@ -6852,7 +6878,9 @@ type Revision struct {
 	// REQUIRED; Resource Location.
 	Location *string
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// Revision resource specific properties
@@ -7087,7 +7115,9 @@ type Site struct {
 	// Managed service identity.
 	Identity *ManagedServiceIdentity
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// Site resource specific properties
@@ -8075,6 +8105,9 @@ type SitePhpErrorLogFlagProperties struct {
 
 // SiteProperties - Site resource specific properties
 type SiteProperties struct {
+	// Specifies the scope of uniqueness for the default hostname during resource creation
+	AutoGeneratedDomainNameLabelScope *AutoGeneratedDomainNameLabelScope
+
 	// true to enable client affinity; false to stop sending session affinity cookies, which route client requests in the same
 	// session to the same instance. Default is true.
 	ClientAffinityEnabled *bool
@@ -8112,6 +8145,9 @@ type SiteProperties struct {
 	// true if the app is enabled; otherwise, false. Setting this value to false disables the app (takes the app offline).
 	Enabled *bool
 
+	// Whether to use end to end encryption between the FrontEnd and the Worker
+	EndToEndEncryptionEnabled *bool
+
 	// Configuration specific of the Azure Function app.
 	FunctionAppConfig *FunctionAppConfig
 
@@ -8130,6 +8166,9 @@ type SiteProperties struct {
 
 	// Hyper-V sandbox.
 	HyperV *bool
+
+	// Specifies the IP mode of the app.
+	IPMode *IPMode
 
 	// Obsolete: Hyper-V sandbox.
 	IsXenon *bool
@@ -8225,6 +8264,10 @@ type SiteProperties struct {
 
 	// READ-ONLY; Name of the resource group the app belongs to. Read-only.
 	ResourceGroup *string
+
+	// READ-ONLY; Current SKU of application based on associated App Service Plan. Some valid SKU values are Free, Shared, Basic,
+	// Dynamic, FlexConsumption, Standard, Premium, PremiumV2, PremiumV3, Isolated, IsolatedV2
+	SKU *string
 
 	// READ-ONLY; Status of the last deployment slot swap operation.
 	SlotSwapStatus *SlotSwapStatus
@@ -8724,7 +8767,9 @@ type StaticSiteARMResource struct {
 	// Managed service identity.
 	Identity *ManagedServiceIdentity
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// Core resource properties
@@ -10499,7 +10544,10 @@ type WebSiteInstanceStatusProperties struct {
 
 	// Link to the console to web app instance
 	HealthCheckURL *string
-	State          *SiteRuntimeState
+
+	// The physical zone that the instance is in
+	PhysicalZone *string
+	State        *SiteRuntimeState
 
 	// Link to the GetStatusApi in Kudu
 	StatusURL *string
