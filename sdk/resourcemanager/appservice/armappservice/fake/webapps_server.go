@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appservice/armappservice/v4"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appservice/armappservice/v5"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -192,11 +192,11 @@ type WebAppsServer struct {
 
 	// CreateOrUpdateSwiftVirtualNetworkConnectionWithCheck is the fake for method WebAppsClient.CreateOrUpdateSwiftVirtualNetworkConnectionWithCheck
 	// HTTP status codes to indicate success: http.StatusOK
-	CreateOrUpdateSwiftVirtualNetworkConnectionWithCheck func(ctx context.Context, resourceGroupName string, name string, connectionEnvelope armappservice.SwiftVirtualNetwork, options *armappservice.WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckOptions) (resp azfake.Responder[armappservice.WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckResponse], errResp azfake.ErrorResponder)
+	CreateOrUpdateSwiftVirtualNetworkConnectionWithCheck func(ctx context.Context, resourceGroupName string, name string, connectionEnvelope armappservice.SwiftVirtualNetworkProxy, options *armappservice.WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckOptions) (resp azfake.Responder[armappservice.WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckResponse], errResp azfake.ErrorResponder)
 
 	// CreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlot is the fake for method WebAppsClient.CreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlot
 	// HTTP status codes to indicate success: http.StatusOK
-	CreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlot func(ctx context.Context, resourceGroupName string, name string, slot string, connectionEnvelope armappservice.SwiftVirtualNetwork, options *armappservice.WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlotOptions) (resp azfake.Responder[armappservice.WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlotResponse], errResp azfake.ErrorResponder)
+	CreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlot func(ctx context.Context, resourceGroupName string, name string, slot string, connectionEnvelope armappservice.SwiftVirtualNetworkProxy, options *armappservice.WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlotOptions) (resp azfake.Responder[armappservice.WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlotResponse], errResp azfake.ErrorResponder)
 
 	// CreateOrUpdateVnetConnection is the fake for method WebAppsClient.CreateOrUpdateVnetConnection
 	// HTTP status codes to indicate success: http.StatusOK
@@ -1606,6 +1606,10 @@ type WebAppsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	UpdateHybridConnectionSlot func(ctx context.Context, resourceGroupName string, name string, namespaceName string, relayName string, slot string, connectionEnvelope armappservice.HybridConnection, options *armappservice.WebAppsClientUpdateHybridConnectionSlotOptions) (resp azfake.Responder[armappservice.WebAppsClientUpdateHybridConnectionSlotResponse], errResp azfake.ErrorResponder)
 
+	// UpdateMachineKey is the fake for method WebAppsClient.UpdateMachineKey
+	// HTTP status codes to indicate success: http.StatusOK
+	UpdateMachineKey func(ctx context.Context, resourceGroupName string, name string, options *armappservice.WebAppsClientUpdateMachineKeyOptions) (resp azfake.Responder[armappservice.WebAppsClientUpdateMachineKeyResponse], errResp azfake.ErrorResponder)
+
 	// UpdateMetadata is the fake for method WebAppsClient.UpdateMetadata
 	// HTTP status codes to indicate success: http.StatusOK
 	UpdateMetadata func(ctx context.Context, resourceGroupName string, name string, metadata armappservice.StringDictionary, options *armappservice.WebAppsClientUpdateMetadataOptions) (resp azfake.Responder[armappservice.WebAppsClientUpdateMetadataResponse], errResp azfake.ErrorResponder)
@@ -1664,11 +1668,11 @@ type WebAppsServer struct {
 
 	// UpdateSwiftVirtualNetworkConnectionWithCheck is the fake for method WebAppsClient.UpdateSwiftVirtualNetworkConnectionWithCheck
 	// HTTP status codes to indicate success: http.StatusOK
-	UpdateSwiftVirtualNetworkConnectionWithCheck func(ctx context.Context, resourceGroupName string, name string, connectionEnvelope armappservice.SwiftVirtualNetwork, options *armappservice.WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckOptions) (resp azfake.Responder[armappservice.WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckResponse], errResp azfake.ErrorResponder)
+	UpdateSwiftVirtualNetworkConnectionWithCheck func(ctx context.Context, resourceGroupName string, name string, connectionEnvelope armappservice.SwiftVirtualNetworkProxy, options *armappservice.WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckOptions) (resp azfake.Responder[armappservice.WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckResponse], errResp azfake.ErrorResponder)
 
 	// UpdateSwiftVirtualNetworkConnectionWithCheckSlot is the fake for method WebAppsClient.UpdateSwiftVirtualNetworkConnectionWithCheckSlot
 	// HTTP status codes to indicate success: http.StatusOK
-	UpdateSwiftVirtualNetworkConnectionWithCheckSlot func(ctx context.Context, resourceGroupName string, name string, slot string, connectionEnvelope armappservice.SwiftVirtualNetwork, options *armappservice.WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckSlotOptions) (resp azfake.Responder[armappservice.WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckSlotResponse], errResp azfake.ErrorResponder)
+	UpdateSwiftVirtualNetworkConnectionWithCheckSlot func(ctx context.Context, resourceGroupName string, name string, slot string, connectionEnvelope armappservice.SwiftVirtualNetworkProxy, options *armappservice.WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckSlotOptions) (resp azfake.Responder[armappservice.WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckSlotResponse], errResp azfake.ErrorResponder)
 
 	// UpdateVnetConnection is the fake for method WebAppsClient.UpdateVnetConnection
 	// HTTP status codes to indicate success: http.StatusOK
@@ -2714,6 +2718,8 @@ func (w *WebAppsServerTransport) Do(req *http.Request) (*http.Response, error) {
 		resp, err = w.dispatchUpdateHybridConnection(req)
 	case "WebAppsClient.UpdateHybridConnectionSlot":
 		resp, err = w.dispatchUpdateHybridConnectionSlot(req)
+	case "WebAppsClient.UpdateMachineKey":
+		resp, err = w.dispatchUpdateMachineKey(req)
 	case "WebAppsClient.UpdateMetadata":
 		resp, err = w.dispatchUpdateMetadata(req)
 	case "WebAppsClient.UpdateMetadataSlot":
@@ -4644,7 +4650,7 @@ func (w *WebAppsServerTransport) dispatchCreateOrUpdateSwiftVirtualNetworkConnec
 	if matches == nil || len(matches) < 3 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armappservice.SwiftVirtualNetwork](req)
+	body, err := server.UnmarshalRequestAsJSON[armappservice.SwiftVirtualNetworkProxy](req)
 	if err != nil {
 		return nil, err
 	}
@@ -4664,7 +4670,7 @@ func (w *WebAppsServerTransport) dispatchCreateOrUpdateSwiftVirtualNetworkConnec
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SwiftVirtualNetwork, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SwiftVirtualNetworkProxy, req)
 	if err != nil {
 		return nil, err
 	}
@@ -4681,7 +4687,7 @@ func (w *WebAppsServerTransport) dispatchCreateOrUpdateSwiftVirtualNetworkConnec
 	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armappservice.SwiftVirtualNetwork](req)
+	body, err := server.UnmarshalRequestAsJSON[armappservice.SwiftVirtualNetworkProxy](req)
 	if err != nil {
 		return nil, err
 	}
@@ -4705,7 +4711,7 @@ func (w *WebAppsServerTransport) dispatchCreateOrUpdateSwiftVirtualNetworkConnec
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SwiftVirtualNetwork, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SwiftVirtualNetworkProxy, req)
 	if err != nil {
 		return nil, err
 	}
@@ -11064,7 +11070,7 @@ func (w *WebAppsServerTransport) dispatchGetSwiftVirtualNetworkConnection(req *h
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SwiftVirtualNetwork, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SwiftVirtualNetworkProxy, req)
 	if err != nil {
 		return nil, err
 	}
@@ -11101,7 +11107,7 @@ func (w *WebAppsServerTransport) dispatchGetSwiftVirtualNetworkConnectionSlot(re
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SwiftVirtualNetwork, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SwiftVirtualNetworkProxy, req)
 	if err != nil {
 		return nil, err
 	}
@@ -19242,6 +19248,39 @@ func (w *WebAppsServerTransport) dispatchUpdateHybridConnectionSlot(req *http.Re
 	return resp, nil
 }
 
+func (w *WebAppsServerTransport) dispatchUpdateMachineKey(req *http.Request) (*http.Response, error) {
+	if w.srv.UpdateMachineKey == nil {
+		return nil, &nonRetriableError{errors.New("fake for method UpdateMachineKey not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Web/sites/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/updatemachinekey`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	nameParam, err := url.PathUnescape(matches[regex.SubexpIndex("name")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := w.srv.UpdateMachineKey(req.Context(), resourceGroupNameParam, nameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Interface, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
 func (w *WebAppsServerTransport) dispatchUpdateMetadata(req *http.Request) (*http.Response, error) {
 	if w.srv.UpdateMetadata == nil {
 		return nil, &nonRetriableError{errors.New("fake for method UpdateMetadata not implemented")}
@@ -19814,7 +19853,7 @@ func (w *WebAppsServerTransport) dispatchUpdateSwiftVirtualNetworkConnectionWith
 	if matches == nil || len(matches) < 3 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armappservice.SwiftVirtualNetwork](req)
+	body, err := server.UnmarshalRequestAsJSON[armappservice.SwiftVirtualNetworkProxy](req)
 	if err != nil {
 		return nil, err
 	}
@@ -19834,7 +19873,7 @@ func (w *WebAppsServerTransport) dispatchUpdateSwiftVirtualNetworkConnectionWith
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SwiftVirtualNetwork, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SwiftVirtualNetworkProxy, req)
 	if err != nil {
 		return nil, err
 	}
@@ -19851,7 +19890,7 @@ func (w *WebAppsServerTransport) dispatchUpdateSwiftVirtualNetworkConnectionWith
 	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armappservice.SwiftVirtualNetwork](req)
+	body, err := server.UnmarshalRequestAsJSON[armappservice.SwiftVirtualNetworkProxy](req)
 	if err != nil {
 		return nil, err
 	}
@@ -19875,7 +19914,7 @@ func (w *WebAppsServerTransport) dispatchUpdateSwiftVirtualNetworkConnectionWith
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SwiftVirtualNetwork, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SwiftVirtualNetworkProxy, req)
 	if err != nil {
 		return nil, err
 	}

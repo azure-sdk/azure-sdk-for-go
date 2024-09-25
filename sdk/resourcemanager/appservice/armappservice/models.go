@@ -194,7 +194,9 @@ type AppCertificate struct {
 	// REQUIRED; Resource Location.
 	Location *string
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// Certificate resource specific properties
@@ -1113,7 +1115,9 @@ type CertificateOrder struct {
 	// REQUIRED; Resource Location.
 	Location *string
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// AppServiceCertificateOrder resource specific properties
@@ -1324,7 +1328,9 @@ type CertificateResource struct {
 	// REQUIRED; Resource Location.
 	Location *string
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// Core resource properties
@@ -1341,6 +1347,12 @@ type CertificateResource struct {
 
 	// READ-ONLY; Resource type.
 	Type *string
+}
+
+// CipherSuites - Describes valid TLS cipher suites.
+type CipherSuites struct {
+	// List of TLS Cipher Suites that are supported by App Service.
+	Suites []*string
 }
 
 // ClientRegistration - The configuration settings of the app registration for providers that have client ids and client secrets
@@ -1506,7 +1518,9 @@ type ContainerApp struct {
 	// REQUIRED; Resource Location.
 	Location *string
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// ContainerApp resource specific properties
@@ -2819,7 +2833,9 @@ type Domain struct {
 	// REQUIRED; Resource Location.
 	Location *string
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// Domain resource specific properties
@@ -3199,7 +3215,9 @@ type EnvironmentResource struct {
 	// REQUIRED; Resource Location.
 	Location *string
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// Core resource properties
@@ -4435,7 +4453,9 @@ type KubeEnvironment struct {
 	// Extended Location.
 	ExtendedLocation *ExtendedLocation
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// KubeEnvironment resource specific properties
@@ -5194,7 +5214,9 @@ type Plan struct {
 	// Extended Location.
 	ExtendedLocation *ExtendedLocation
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// AppServicePlan resource specific properties
@@ -5396,7 +5418,9 @@ type PremierAddOn struct {
 	// REQUIRED; Resource Location.
 	Location *string
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// PremierAddOn resource specific properties
@@ -6542,7 +6566,9 @@ type Resource struct {
 	// REQUIRED; Resource Location.
 	Location *string
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// Resource tags.
@@ -6852,7 +6878,9 @@ type Revision struct {
 	// REQUIRED; Resource Location.
 	Location *string
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// Revision resource specific properties
@@ -7087,7 +7115,9 @@ type Site struct {
 	// Managed service identity.
 	Identity *ManagedServiceIdentity
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// Site resource specific properties
@@ -8075,6 +8105,9 @@ type SitePhpErrorLogFlagProperties struct {
 
 // SiteProperties - Site resource specific properties
 type SiteProperties struct {
+	// Specifies the scope of uniqueness for the default hostname during resource creation
+	AutoGeneratedDomainNameLabelScope *AutoGeneratedDomainNameLabelScope
+
 	// true to enable client affinity; false to stop sending session affinity cookies, which route client requests in the same
 	// session to the same instance. Default is true.
 	ClientAffinityEnabled *bool
@@ -8112,6 +8145,9 @@ type SiteProperties struct {
 	// true if the app is enabled; otherwise, false. Setting this value to false disables the app (takes the app offline).
 	Enabled *bool
 
+	// Whether to use end to end encryption between the FrontEnd and the Worker
+	EndToEndEncryptionEnabled *bool
+
 	// Configuration specific of the Azure Function app.
 	FunctionAppConfig *FunctionAppConfig
 
@@ -8130,6 +8166,9 @@ type SiteProperties struct {
 
 	// Hyper-V sandbox.
 	HyperV *bool
+
+	// Specifies the IP mode of the app.
+	IPMode *IPMode
 
 	// Obsolete: Hyper-V sandbox.
 	IsXenon *bool
@@ -8225,6 +8264,10 @@ type SiteProperties struct {
 
 	// READ-ONLY; Name of the resource group the app belongs to. Read-only.
 	ResourceGroup *string
+
+	// READ-ONLY; Current SKU of application based on associated App Service Plan. Some valid SKU values are Free, Shared, Basic,
+	// Dynamic, FlexConsumption, Standard, Premium, PremiumV2, PremiumV3, Isolated, IsolatedV2
+	SKU *string
 
 	// READ-ONLY; Status of the last deployment slot swap operation.
 	SlotSwapStatus *SlotSwapStatus
@@ -8724,7 +8767,9 @@ type StaticSiteARMResource struct {
 	// Managed service identity.
 	Identity *ManagedServiceIdentity
 
-	// Kind of resource.
+	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
+	// for
+	// details supported values for kind.
 	Kind *string
 
 	// Core resource properties
@@ -9548,11 +9593,39 @@ type SupportTopic struct {
 // SwiftVirtualNetwork - Swift Virtual Network Contract. This is used to enable the new Swift way of doing virtual network
 // integration.
 type SwiftVirtualNetwork struct {
+	// Resources (sites and serverfarms) allocated to this subnet
+	ResourceAllocation *SwiftVirtualNetworkResourceAllocation
+
+	// IP allocation for a Swift Subnet
+	SubnetIPAllocation *SwiftVirtualNetworkSubnetIPAllocation
+
+	// The Virtual Network subnet's Azure resource ID
+	SubnetResourceID *string
+
+	// Boolean flag indicating whether Swift integration is supported
+	SwiftSupported *bool
+
+	// Swift Connection allocations for an App Service Plan
+	VnetConnectionAllocation *SwiftVirtualNetworkVnetConnectionAllocation
+}
+
+// SwiftVirtualNetworkCollection - Collection of Swift Virtual Networks
+type SwiftVirtualNetworkCollection struct {
+	// REQUIRED; Collection of resources.
+	Value []*SwiftVirtualNetwork
+
+	// READ-ONLY; Link to next page of resources.
+	NextLink *string
+}
+
+// SwiftVirtualNetworkProxy - Swift Virtual Network Contract. This is used to enable the new Swift way of doing virtual network
+// integration.
+type SwiftVirtualNetworkProxy struct {
 	// Kind of resource.
 	Kind *string
 
-	// SwiftVirtualNetwork resource specific properties
-	Properties *SwiftVirtualNetworkProperties
+	// Swift Virtual Network Contract. This is used to enable the new Swift way of doing virtual network integration.
+	Properties *SwiftVirtualNetwork
 
 	// READ-ONLY; Resource Id.
 	ID *string
@@ -9564,14 +9637,31 @@ type SwiftVirtualNetwork struct {
 	Type *string
 }
 
-// SwiftVirtualNetworkProperties - SwiftVirtualNetwork resource specific properties
-type SwiftVirtualNetworkProperties struct {
-	// The Virtual Network subnet's resource ID. This is the subnet that this Web App will join. This subnet must have a delegation
-	// to Microsoft.Web/serverFarms defined first.
-	SubnetResourceID *string
+// SwiftVirtualNetworkResourceAllocation - Resources (sites and serverfarms) allocated to this subnet
+type SwiftVirtualNetworkResourceAllocation struct {
+	// The list of all ServerFarms' Azure resource ID that are using the VNET
+	ConnectedServerFarmsID []*string
 
-	// A flag that specifies if the scale unit this Web App is on supports Swift integration.
-	SwiftSupported *bool
+	// The list of all Sites' Azure resource ID that are using the VNET
+	ConnectedSitesID []*string
+}
+
+// SwiftVirtualNetworkSubnetIPAllocation - IP allocation for a Swift Subnet
+type SwiftVirtualNetworkSubnetIPAllocation struct {
+	// The number of IP addresses available in the Swift subnet address space
+	SubnetIPAddressesAvailable *int32
+
+	// The number of IP addresses that have already been used in the Swift subnet address space
+	SubnetIPAddressesUsed *int32
+}
+
+// SwiftVirtualNetworkVnetConnectionAllocation - Swift Connection allocations for an App Service Plan
+type SwiftVirtualNetworkVnetConnectionAllocation struct {
+	// The maximum number of Swift Connections available for an App Service Plan
+	VnetConnectionsMax *int32
+
+	// The number of Swift Connections used for an App Service Plan
+	VnetConnectionsUsed *int32
 }
 
 // Template - Container App versioned application definition. Defines the desired state of an immutable revision. Any changes
@@ -10058,6 +10148,21 @@ type VirtualIPMapping struct {
 	VirtualIP *string
 }
 
+// VirtualNetworkIntegrationRequest - Virtual Network Integration request content.
+type VirtualNetworkIntegrationRequest struct {
+	// REQUIRED; The Azure Resource ID of the subnet
+	SubnetResourceID *string
+}
+
+// VirtualNetworkIntegrationResponse - Response wrapper for PurgedUnusedVirtualNetworkIntegrations.
+type VirtualNetworkIntegrationResponse struct {
+	// Description of the result
+	Message *VirtualNetworkIntegrationResponseMessage
+
+	// The Swift Virtual Network object
+	SwiftVirtualNetwork *SwiftVirtualNetwork
+}
+
 // VirtualNetworkProfile - Specification for using a Virtual Network.
 type VirtualNetworkProfile struct {
 	// REQUIRED; Resource id of the Virtual Network.
@@ -10499,7 +10604,10 @@ type WebSiteInstanceStatusProperties struct {
 
 	// Link to the console to web app instance
 	HealthCheckURL *string
-	State          *SiteRuntimeState
+
+	// The physical zone that the instance is in
+	PhysicalZone *string
+	State        *SiteRuntimeState
 
 	// Link to the GetStatusApi in Kudu
 	StatusURL *string

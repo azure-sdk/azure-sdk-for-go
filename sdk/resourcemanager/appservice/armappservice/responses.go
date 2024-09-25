@@ -894,6 +894,18 @@ type PlansClientGetServerFarmSKUsResponse struct {
 	Interface any
 }
 
+// PlansClientGetVirtualNetworkIntegrationResponse contains the response from method PlansClient.GetVirtualNetworkIntegration.
+type PlansClientGetVirtualNetworkIntegrationResponse struct {
+	// Swift Virtual Network Contract. This is used to enable the new Swift way of doing virtual network integration.
+	SwiftVirtualNetwork
+}
+
+// PlansClientGetVirtualNetworkIntegrationsResponse contains the response from method PlansClient.NewGetVirtualNetworkIntegrationsPager.
+type PlansClientGetVirtualNetworkIntegrationsResponse struct {
+	// Collection of Swift Virtual Networks
+	SwiftVirtualNetworkCollection
+}
+
 // PlansClientGetVnetFromServerFarmResponse contains the response from method PlansClient.GetVnetFromServerFarm.
 type PlansClientGetVnetFromServerFarmResponse struct {
 	// Virtual Network information ARM resource.
@@ -1856,13 +1868,13 @@ type WebAppsClientCreateOrUpdateSourceControlSlotResponse struct {
 // WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckResponse contains the response from method WebAppsClient.CreateOrUpdateSwiftVirtualNetworkConnectionWithCheck.
 type WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckResponse struct {
 	// Swift Virtual Network Contract. This is used to enable the new Swift way of doing virtual network integration.
-	SwiftVirtualNetwork
+	SwiftVirtualNetworkProxy
 }
 
 // WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlotResponse contains the response from method WebAppsClient.CreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlot.
 type WebAppsClientCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlotResponse struct {
 	// Swift Virtual Network Contract. This is used to enable the new Swift way of doing virtual network integration.
-	SwiftVirtualNetwork
+	SwiftVirtualNetworkProxy
 }
 
 // WebAppsClientCreateOrUpdateVnetConnectionGatewayResponse contains the response from method WebAppsClient.CreateOrUpdateVnetConnectionGateway.
@@ -2780,13 +2792,13 @@ type WebAppsClientGetSourceControlSlotResponse struct {
 // WebAppsClientGetSwiftVirtualNetworkConnectionResponse contains the response from method WebAppsClient.GetSwiftVirtualNetworkConnection.
 type WebAppsClientGetSwiftVirtualNetworkConnectionResponse struct {
 	// Swift Virtual Network Contract. This is used to enable the new Swift way of doing virtual network integration.
-	SwiftVirtualNetwork
+	SwiftVirtualNetworkProxy
 }
 
 // WebAppsClientGetSwiftVirtualNetworkConnectionSlotResponse contains the response from method WebAppsClient.GetSwiftVirtualNetworkConnectionSlot.
 type WebAppsClientGetSwiftVirtualNetworkConnectionSlotResponse struct {
 	// Swift Virtual Network Contract. This is used to enable the new Swift way of doing virtual network integration.
-	SwiftVirtualNetwork
+	SwiftVirtualNetworkProxy
 }
 
 // WebAppsClientGetTriggeredWebJobHistoryResponse contains the response from method WebAppsClient.GetTriggeredWebJobHistory.
@@ -3903,6 +3915,12 @@ type WebAppsClientUpdateHybridConnectionSlotResponse struct {
 	HybridConnection
 }
 
+// WebAppsClientUpdateMachineKeyResponse contains the response from method WebAppsClient.UpdateMachineKey.
+type WebAppsClientUpdateMachineKeyResponse struct {
+	// Anything
+	Interface any
+}
+
 // WebAppsClientUpdateMetadataResponse contains the response from method WebAppsClient.UpdateMetadata.
 type WebAppsClientUpdateMetadataResponse struct {
 	// String dictionary resource.
@@ -3996,13 +4014,13 @@ type WebAppsClientUpdateSourceControlSlotResponse struct {
 // WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckResponse contains the response from method WebAppsClient.UpdateSwiftVirtualNetworkConnectionWithCheck.
 type WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckResponse struct {
 	// Swift Virtual Network Contract. This is used to enable the new Swift way of doing virtual network integration.
-	SwiftVirtualNetwork
+	SwiftVirtualNetworkProxy
 }
 
 // WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckSlotResponse contains the response from method WebAppsClient.UpdateSwiftVirtualNetworkConnectionWithCheckSlot.
 type WebAppsClientUpdateSwiftVirtualNetworkConnectionWithCheckSlotResponse struct {
 	// Swift Virtual Network Contract. This is used to enable the new Swift way of doing virtual network integration.
-	SwiftVirtualNetwork
+	SwiftVirtualNetworkProxy
 }
 
 // WebAppsClientUpdateVnetConnectionGatewayResponse contains the response from method WebAppsClient.UpdateVnetConnectionGateway.
@@ -4107,6 +4125,12 @@ type WebSiteManagementClientMoveResponse struct {
 	// placeholder for future response values
 }
 
+// WebSiteManagementClientPurgeUnusedVirtualNetworkIntegrationsResponse contains the response from method WebSiteManagementClient.PurgeUnusedVirtualNetworkIntegrations.
+type WebSiteManagementClientPurgeUnusedVirtualNetworkIntegrationsResponse struct {
+	// Response wrapper for PurgedUnusedVirtualNetworkIntegrations.
+	VirtualNetworkIntegrationResponse
+}
+
 // WebSiteManagementClientUpdatePublishingUserResponse contains the response from method WebSiteManagementClient.UpdatePublishingUser.
 type WebSiteManagementClientUpdatePublishingUserResponse struct {
 	// User credentials used for publishing activity.
@@ -4134,6 +4158,12 @@ type WebSiteManagementClientValidateResponse struct {
 type WebSiteManagementClientVerifyHostingEnvironmentVnetResponse struct {
 	// A class that describes the reason for a validation failure.
 	VnetValidationFailureDetails
+}
+
+// WebSiteManagementClientVirtualNetworkIntegrationsResponse contains the response from method WebSiteManagementClient.VirtualNetworkIntegrations.
+type WebSiteManagementClientVirtualNetworkIntegrationsResponse struct {
+	// Swift Virtual Network Contract. This is used to enable the new Swift way of doing virtual network integration.
+	SwiftVirtualNetwork
 }
 
 // WorkflowRunActionRepetitionsClientGetResponse contains the response from method WorkflowRunActionRepetitionsClient.Get.

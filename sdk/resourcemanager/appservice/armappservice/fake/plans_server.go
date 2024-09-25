@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appservice/armappservice/v4"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appservice/armappservice/v5"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -64,6 +64,14 @@ type PlansServer struct {
 	// GetServerFarmSKUs is the fake for method PlansClient.GetServerFarmSKUs
 	// HTTP status codes to indicate success: http.StatusOK
 	GetServerFarmSKUs func(ctx context.Context, resourceGroupName string, name string, options *armappservice.PlansClientGetServerFarmSKUsOptions) (resp azfake.Responder[armappservice.PlansClientGetServerFarmSKUsResponse], errResp azfake.ErrorResponder)
+
+	// GetVirtualNetworkIntegration is the fake for method PlansClient.GetVirtualNetworkIntegration
+	// HTTP status codes to indicate success: http.StatusOK
+	GetVirtualNetworkIntegration func(ctx context.Context, resourceGroupName string, name string, vnetName string, options *armappservice.PlansClientGetVirtualNetworkIntegrationOptions) (resp azfake.Responder[armappservice.PlansClientGetVirtualNetworkIntegrationResponse], errResp azfake.ErrorResponder)
+
+	// NewGetVirtualNetworkIntegrationsPager is the fake for method PlansClient.NewGetVirtualNetworkIntegrationsPager
+	// HTTP status codes to indicate success: http.StatusOK
+	NewGetVirtualNetworkIntegrationsPager func(resourceGroupName string, name string, options *armappservice.PlansClientGetVirtualNetworkIntegrationsOptions) (resp azfake.PagerResponder[armappservice.PlansClientGetVirtualNetworkIntegrationsResponse])
 
 	// GetVnetFromServerFarm is the fake for method PlansClient.GetVnetFromServerFarm
 	// HTTP status codes to indicate success: http.StatusOK
@@ -141,6 +149,7 @@ func NewPlansServerTransport(srv *PlansServer) *PlansServerTransport {
 	return &PlansServerTransport{
 		srv:                                   srv,
 		beginCreateOrUpdate:                   newTracker[azfake.PollerResponder[armappservice.PlansClientCreateOrUpdateResponse]](),
+		newGetVirtualNetworkIntegrationsPager: newTracker[azfake.PagerResponder[armappservice.PlansClientGetVirtualNetworkIntegrationsResponse]](),
 		newListPager:                          newTracker[azfake.PagerResponder[armappservice.PlansClientListResponse]](),
 		newListByResourceGroupPager:           newTracker[azfake.PagerResponder[armappservice.PlansClientListByResourceGroupResponse]](),
 		newListHybridConnectionsPager:         newTracker[azfake.PagerResponder[armappservice.PlansClientListHybridConnectionsResponse]](),
@@ -155,6 +164,7 @@ func NewPlansServerTransport(srv *PlansServer) *PlansServerTransport {
 type PlansServerTransport struct {
 	srv                                   *PlansServer
 	beginCreateOrUpdate                   *tracker[azfake.PollerResponder[armappservice.PlansClientCreateOrUpdateResponse]]
+	newGetVirtualNetworkIntegrationsPager *tracker[azfake.PagerResponder[armappservice.PlansClientGetVirtualNetworkIntegrationsResponse]]
 	newListPager                          *tracker[azfake.PagerResponder[armappservice.PlansClientListResponse]]
 	newListByResourceGroupPager           *tracker[azfake.PagerResponder[armappservice.PlansClientListByResourceGroupResponse]]
 	newListHybridConnectionsPager         *tracker[azfake.PagerResponder[armappservice.PlansClientListHybridConnectionsResponse]]
@@ -195,6 +205,10 @@ func (p *PlansServerTransport) Do(req *http.Request) (*http.Response, error) {
 		resp, err = p.dispatchGetRouteForVnet(req)
 	case "PlansClient.GetServerFarmSKUs":
 		resp, err = p.dispatchGetServerFarmSKUs(req)
+	case "PlansClient.GetVirtualNetworkIntegration":
+		resp, err = p.dispatchGetVirtualNetworkIntegration(req)
+	case "PlansClient.NewGetVirtualNetworkIntegrationsPager":
+		resp, err = p.dispatchNewGetVirtualNetworkIntegrationsPager(req)
 	case "PlansClient.GetVnetFromServerFarm":
 		resp, err = p.dispatchGetVnetFromServerFarm(req)
 	case "PlansClient.GetVnetGateway":
@@ -625,6 +639,84 @@ func (p *PlansServerTransport) dispatchGetServerFarmSKUs(req *http.Request) (*ht
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Interface, req)
 	if err != nil {
 		return nil, err
+	}
+	return resp, nil
+}
+
+func (p *PlansServerTransport) dispatchGetVirtualNetworkIntegration(req *http.Request) (*http.Response, error) {
+	if p.srv.GetVirtualNetworkIntegration == nil {
+		return nil, &nonRetriableError{errors.New("fake for method GetVirtualNetworkIntegration not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Web/serverfarms/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/virtualNetworkIntegrations/(?P<vnetName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 4 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	nameParam, err := url.PathUnescape(matches[regex.SubexpIndex("name")])
+	if err != nil {
+		return nil, err
+	}
+	vnetNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("vnetName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := p.srv.GetVirtualNetworkIntegration(req.Context(), resourceGroupNameParam, nameParam, vnetNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SwiftVirtualNetwork, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (p *PlansServerTransport) dispatchNewGetVirtualNetworkIntegrationsPager(req *http.Request) (*http.Response, error) {
+	if p.srv.NewGetVirtualNetworkIntegrationsPager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewGetVirtualNetworkIntegrationsPager not implemented")}
+	}
+	newGetVirtualNetworkIntegrationsPager := p.newGetVirtualNetworkIntegrationsPager.get(req)
+	if newGetVirtualNetworkIntegrationsPager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Web/serverfarms/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/virtualNetworkIntegrations`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		nameParam, err := url.PathUnescape(matches[regex.SubexpIndex("name")])
+		if err != nil {
+			return nil, err
+		}
+		resp := p.srv.NewGetVirtualNetworkIntegrationsPager(resourceGroupNameParam, nameParam, nil)
+		newGetVirtualNetworkIntegrationsPager = &resp
+		p.newGetVirtualNetworkIntegrationsPager.add(req, newGetVirtualNetworkIntegrationsPager)
+		server.PagerResponderInjectNextLinks(newGetVirtualNetworkIntegrationsPager, req, func(page *armappservice.PlansClientGetVirtualNetworkIntegrationsResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
+	}
+	resp, err := server.PagerResponderNext(newGetVirtualNetworkIntegrationsPager, req)
+	if err != nil {
+		return nil, err
+	}
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+		p.newGetVirtualNetworkIntegrationsPager.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+	}
+	if !server.PagerResponderMore(newGetVirtualNetworkIntegrationsPager) {
+		p.newGetVirtualNetworkIntegrationsPager.remove(req)
 	}
 	return resp, nil
 }

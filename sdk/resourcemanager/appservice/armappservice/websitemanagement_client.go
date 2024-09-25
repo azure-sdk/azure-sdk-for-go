@@ -47,7 +47,7 @@ func NewWebSiteManagementClient(subscriptionID string, credential azcore.TokenCr
 // CheckNameAvailability - Description for Check if a resource name is available.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-04-01
 //   - request - Name availability request.
 //   - options - WebSiteManagementClientCheckNameAvailabilityOptions contains the optional parameters for the WebSiteManagementClient.CheckNameAvailability
 //     method.
@@ -85,7 +85,7 @@ func (client *WebSiteManagementClient) checkNameAvailabilityCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, request); err != nil {
@@ -106,7 +106,7 @@ func (client *WebSiteManagementClient) checkNameAvailabilityHandleResponse(resp 
 // GetPublishingUser - Description for Gets publishing user
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-04-01
 //   - options - WebSiteManagementClientGetPublishingUserOptions contains the optional parameters for the WebSiteManagementClient.GetPublishingUser
 //     method.
 func (client *WebSiteManagementClient) GetPublishingUser(ctx context.Context, options *WebSiteManagementClientGetPublishingUserOptions) (WebSiteManagementClientGetPublishingUserResponse, error) {
@@ -139,7 +139,7 @@ func (client *WebSiteManagementClient) getPublishingUserCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -157,7 +157,7 @@ func (client *WebSiteManagementClient) getPublishingUserHandleResponse(resp *htt
 // GetSourceControl - Description for Gets source control token
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-04-01
 //   - sourceControlType - Type of source control
 //   - options - WebSiteManagementClientGetSourceControlOptions contains the optional parameters for the WebSiteManagementClient.GetSourceControl
 //     method.
@@ -195,7 +195,7 @@ func (client *WebSiteManagementClient) getSourceControlCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -213,7 +213,7 @@ func (client *WebSiteManagementClient) getSourceControlHandleResponse(resp *http
 // GetSubscriptionDeploymentLocations - Description for Gets list of available geo regions plus ministamps
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-04-01
 //   - options - WebSiteManagementClientGetSubscriptionDeploymentLocationsOptions contains the optional parameters for the WebSiteManagementClient.GetSubscriptionDeploymentLocations
 //     method.
 func (client *WebSiteManagementClient) GetSubscriptionDeploymentLocations(ctx context.Context, options *WebSiteManagementClientGetSubscriptionDeploymentLocationsOptions) (WebSiteManagementClientGetSubscriptionDeploymentLocationsResponse, error) {
@@ -250,7 +250,7 @@ func (client *WebSiteManagementClient) getSubscriptionDeploymentLocationsCreateR
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -267,7 +267,7 @@ func (client *WebSiteManagementClient) getSubscriptionDeploymentLocationsHandleR
 
 // NewListAseRegionsPager - Description for get a list of available ASE regions and its supported Skus.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-04-01
 //   - options - WebSiteManagementClientListAseRegionsOptions contains the optional parameters for the WebSiteManagementClient.NewListAseRegionsPager
 //     method.
 func (client *WebSiteManagementClient) NewListAseRegionsPager(options *WebSiteManagementClientListAseRegionsOptions) *runtime.Pager[WebSiteManagementClientListAseRegionsResponse] {
@@ -305,7 +305,7 @@ func (client *WebSiteManagementClient) listAseRegionsCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -322,7 +322,7 @@ func (client *WebSiteManagementClient) listAseRegionsHandleResponse(resp *http.R
 
 // NewListBillingMetersPager - Description for Gets a list of meters for a given location.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-04-01
 //   - options - WebSiteManagementClientListBillingMetersOptions contains the optional parameters for the WebSiteManagementClient.NewListBillingMetersPager
 //     method.
 func (client *WebSiteManagementClient) NewListBillingMetersPager(options *WebSiteManagementClientListBillingMetersOptions) *runtime.Pager[WebSiteManagementClientListBillingMetersResponse] {
@@ -360,7 +360,7 @@ func (client *WebSiteManagementClient) listBillingMetersCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-04-01")
 	if options != nil && options.BillingLocation != nil {
 		reqQP.Set("billingLocation", *options.BillingLocation)
 	}
@@ -383,7 +383,7 @@ func (client *WebSiteManagementClient) listBillingMetersHandleResponse(resp *htt
 
 // NewListCustomHostNameSitesPager - Get custom hostnames under this subscription
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-04-01
 //   - options - WebSiteManagementClientListCustomHostNameSitesOptions contains the optional parameters for the WebSiteManagementClient.NewListCustomHostNameSitesPager
 //     method.
 func (client *WebSiteManagementClient) NewListCustomHostNameSitesPager(options *WebSiteManagementClientListCustomHostNameSitesOptions) *runtime.Pager[WebSiteManagementClientListCustomHostNameSitesResponse] {
@@ -421,7 +421,7 @@ func (client *WebSiteManagementClient) listCustomHostNameSitesCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-04-01")
 	if options != nil && options.Hostname != nil {
 		reqQP.Set("hostname", *options.Hostname)
 	}
@@ -441,7 +441,7 @@ func (client *WebSiteManagementClient) listCustomHostNameSitesHandleResponse(res
 
 // NewListGeoRegionsPager - Description for Get a list of available geographical regions.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-04-01
 //   - options - WebSiteManagementClientListGeoRegionsOptions contains the optional parameters for the WebSiteManagementClient.NewListGeoRegionsPager
 //     method.
 func (client *WebSiteManagementClient) NewListGeoRegionsPager(options *WebSiteManagementClientListGeoRegionsOptions) *runtime.Pager[WebSiteManagementClientListGeoRegionsResponse] {
@@ -479,7 +479,7 @@ func (client *WebSiteManagementClient) listGeoRegionsCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-04-01")
 	if options != nil && options.LinuxDynamicWorkersEnabled != nil {
 		reqQP.Set("linuxDynamicWorkersEnabled", strconv.FormatBool(*options.LinuxDynamicWorkersEnabled))
 	}
@@ -508,7 +508,7 @@ func (client *WebSiteManagementClient) listGeoRegionsHandleResponse(resp *http.R
 
 // NewListPremierAddOnOffersPager - Description for List all premier add-on offers.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-04-01
 //   - options - WebSiteManagementClientListPremierAddOnOffersOptions contains the optional parameters for the WebSiteManagementClient.NewListPremierAddOnOffersPager
 //     method.
 func (client *WebSiteManagementClient) NewListPremierAddOnOffersPager(options *WebSiteManagementClientListPremierAddOnOffersOptions) *runtime.Pager[WebSiteManagementClientListPremierAddOnOffersResponse] {
@@ -546,7 +546,7 @@ func (client *WebSiteManagementClient) listPremierAddOnOffersCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -564,7 +564,7 @@ func (client *WebSiteManagementClient) listPremierAddOnOffersHandleResponse(resp
 // ListSKUs - Description for List all SKUs.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-04-01
 //   - options - WebSiteManagementClientListSKUsOptions contains the optional parameters for the WebSiteManagementClient.ListSKUs
 //     method.
 func (client *WebSiteManagementClient) ListSKUs(ctx context.Context, options *WebSiteManagementClientListSKUsOptions) (WebSiteManagementClientListSKUsResponse, error) {
@@ -601,7 +601,7 @@ func (client *WebSiteManagementClient) listSKUsCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -618,7 +618,7 @@ func (client *WebSiteManagementClient) listSKUsHandleResponse(resp *http.Respons
 
 // NewListSiteIdentifiersAssignedToHostNamePager - Description for List all apps that are assigned to a hostname.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-04-01
 //   - nameIdentifier - Hostname information.
 //   - options - WebSiteManagementClientListSiteIdentifiersAssignedToHostNameOptions contains the optional parameters for the
 //     WebSiteManagementClient.NewListSiteIdentifiersAssignedToHostNamePager method.
@@ -657,7 +657,7 @@ func (client *WebSiteManagementClient) listSiteIdentifiersAssignedToHostNameCrea
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, nameIdentifier); err != nil {
@@ -677,7 +677,7 @@ func (client *WebSiteManagementClient) listSiteIdentifiersAssignedToHostNameHand
 
 // NewListSourceControlsPager - Description for Gets the source controls available for Azure websites.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-04-01
 //   - options - WebSiteManagementClientListSourceControlsOptions contains the optional parameters for the WebSiteManagementClient.NewListSourceControlsPager
 //     method.
 func (client *WebSiteManagementClient) NewListSourceControlsPager(options *WebSiteManagementClientListSourceControlsOptions) *runtime.Pager[WebSiteManagementClientListSourceControlsResponse] {
@@ -711,7 +711,7 @@ func (client *WebSiteManagementClient) listSourceControlsCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -729,7 +729,7 @@ func (client *WebSiteManagementClient) listSourceControlsHandleResponse(resp *ht
 // Move - Description for Move resources between resource groups.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-04-01
 //   - resourceGroupName - Name of the resource group to which the resource belongs.
 //   - moveResourceEnvelope - Object that represents the resource to move.
 //   - options - WebSiteManagementClientMoveOptions contains the optional parameters for the WebSiteManagementClient.Move method.
@@ -770,7 +770,7 @@ func (client *WebSiteManagementClient) moveCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, moveResourceEnvelope); err != nil {
@@ -779,10 +779,75 @@ func (client *WebSiteManagementClient) moveCreateRequest(ctx context.Context, re
 	return req, nil
 }
 
+// PurgeUnusedVirtualNetworkIntegrations - Delete orphaned (unused) VNET integration, otherwise fail the call if there are
+// sites that are still using the VNET integrations
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-04-01
+//   - location - The name of the Azure region.
+//   - request - Object contains the subnetResourceId
+//   - options - WebSiteManagementClientPurgeUnusedVirtualNetworkIntegrationsOptions contains the optional parameters for the
+//     WebSiteManagementClient.PurgeUnusedVirtualNetworkIntegrations method.
+func (client *WebSiteManagementClient) PurgeUnusedVirtualNetworkIntegrations(ctx context.Context, location string, request VirtualNetworkIntegrationRequest, options *WebSiteManagementClientPurgeUnusedVirtualNetworkIntegrationsOptions) (WebSiteManagementClientPurgeUnusedVirtualNetworkIntegrationsResponse, error) {
+	var err error
+	const operationName = "WebSiteManagementClient.PurgeUnusedVirtualNetworkIntegrations"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.purgeUnusedVirtualNetworkIntegrationsCreateRequest(ctx, location, request, options)
+	if err != nil {
+		return WebSiteManagementClientPurgeUnusedVirtualNetworkIntegrationsResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return WebSiteManagementClientPurgeUnusedVirtualNetworkIntegrationsResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return WebSiteManagementClientPurgeUnusedVirtualNetworkIntegrationsResponse{}, err
+	}
+	resp, err := client.purgeUnusedVirtualNetworkIntegrationsHandleResponse(httpResp)
+	return resp, err
+}
+
+// purgeUnusedVirtualNetworkIntegrationsCreateRequest creates the PurgeUnusedVirtualNetworkIntegrations request.
+func (client *WebSiteManagementClient) purgeUnusedVirtualNetworkIntegrationsCreateRequest(ctx context.Context, location string, request VirtualNetworkIntegrationRequest, options *WebSiteManagementClientPurgeUnusedVirtualNetworkIntegrationsOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Web/locations/{location}/purgeUnusedVirtualNetworkIntegration"
+	if location == "" {
+		return nil, errors.New("parameter location cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-04-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, request); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+// purgeUnusedVirtualNetworkIntegrationsHandleResponse handles the PurgeUnusedVirtualNetworkIntegrations response.
+func (client *WebSiteManagementClient) purgeUnusedVirtualNetworkIntegrationsHandleResponse(resp *http.Response) (WebSiteManagementClientPurgeUnusedVirtualNetworkIntegrationsResponse, error) {
+	result := WebSiteManagementClientPurgeUnusedVirtualNetworkIntegrationsResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.VirtualNetworkIntegrationResponse); err != nil {
+		return WebSiteManagementClientPurgeUnusedVirtualNetworkIntegrationsResponse{}, err
+	}
+	return result, nil
+}
+
 // UpdatePublishingUser - Description for Updates publishing user
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-04-01
 //   - userDetails - Details of publishing user
 //   - options - WebSiteManagementClientUpdatePublishingUserOptions contains the optional parameters for the WebSiteManagementClient.UpdatePublishingUser
 //     method.
@@ -816,7 +881,7 @@ func (client *WebSiteManagementClient) updatePublishingUserCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, userDetails); err != nil {
@@ -837,7 +902,7 @@ func (client *WebSiteManagementClient) updatePublishingUserHandleResponse(resp *
 // UpdateSourceControl - Description for Updates source control token
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-04-01
 //   - sourceControlType - Type of source control
 //   - requestMessage - Source control token information
 //   - options - WebSiteManagementClientUpdateSourceControlOptions contains the optional parameters for the WebSiteManagementClient.UpdateSourceControl
@@ -876,7 +941,7 @@ func (client *WebSiteManagementClient) updateSourceControlCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, requestMessage); err != nil {
@@ -897,7 +962,7 @@ func (client *WebSiteManagementClient) updateSourceControlHandleResponse(resp *h
 // Validate - Description for Validate if a resource can be created.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-04-01
 //   - resourceGroupName - Name of the resource group to which the resource belongs.
 //   - validateRequest - Request with the resources to validate.
 //   - options - WebSiteManagementClientValidateOptions contains the optional parameters for the WebSiteManagementClient.Validate
@@ -940,7 +1005,7 @@ func (client *WebSiteManagementClient) validateCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, validateRequest); err != nil {
@@ -961,7 +1026,7 @@ func (client *WebSiteManagementClient) validateHandleResponse(resp *http.Respons
 // ValidateMove - Description for Validate whether a resource can be moved.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-04-01
 //   - resourceGroupName - Name of the resource group to which the resource belongs.
 //   - moveResourceEnvelope - Object that represents the resource to move.
 //   - options - WebSiteManagementClientValidateMoveOptions contains the optional parameters for the WebSiteManagementClient.ValidateMove
@@ -1003,7 +1068,7 @@ func (client *WebSiteManagementClient) validateMoveCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, moveResourceEnvelope); err != nil {
@@ -1016,7 +1081,7 @@ func (client *WebSiteManagementClient) validateMoveCreateRequest(ctx context.Con
 // the Network Security Group rules.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-12-01
+// Generated from API version 2024-04-01
 //   - parameters - VNET information
 //   - options - WebSiteManagementClientVerifyHostingEnvironmentVnetOptions contains the optional parameters for the WebSiteManagementClient.VerifyHostingEnvironmentVnet
 //     method.
@@ -1054,7 +1119,7 @@ func (client *WebSiteManagementClient) verifyHostingEnvironmentVnetCreateRequest
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-12-01")
+	reqQP.Set("api-version", "2024-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -1068,6 +1133,71 @@ func (client *WebSiteManagementClient) verifyHostingEnvironmentVnetHandleRespons
 	result := WebSiteManagementClientVerifyHostingEnvironmentVnetResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.VnetValidationFailureDetails); err != nil {
 		return WebSiteManagementClientVerifyHostingEnvironmentVnetResponse{}, err
+	}
+	return result, nil
+}
+
+// VirtualNetworkIntegrations - Retrieve information regarding the provided virtual network integration, such as its allocated
+// resources and its allocated IP
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-04-01
+//   - location - The name of the Azure region.
+//   - request - Object contains the subnetResourceId
+//   - options - WebSiteManagementClientVirtualNetworkIntegrationsOptions contains the optional parameters for the WebSiteManagementClient.VirtualNetworkIntegrations
+//     method.
+func (client *WebSiteManagementClient) VirtualNetworkIntegrations(ctx context.Context, location string, request VirtualNetworkIntegrationRequest, options *WebSiteManagementClientVirtualNetworkIntegrationsOptions) (WebSiteManagementClientVirtualNetworkIntegrationsResponse, error) {
+	var err error
+	const operationName = "WebSiteManagementClient.VirtualNetworkIntegrations"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.virtualNetworkIntegrationsCreateRequest(ctx, location, request, options)
+	if err != nil {
+		return WebSiteManagementClientVirtualNetworkIntegrationsResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return WebSiteManagementClientVirtualNetworkIntegrationsResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return WebSiteManagementClientVirtualNetworkIntegrationsResponse{}, err
+	}
+	resp, err := client.virtualNetworkIntegrationsHandleResponse(httpResp)
+	return resp, err
+}
+
+// virtualNetworkIntegrationsCreateRequest creates the VirtualNetworkIntegrations request.
+func (client *WebSiteManagementClient) virtualNetworkIntegrationsCreateRequest(ctx context.Context, location string, request VirtualNetworkIntegrationRequest, options *WebSiteManagementClientVirtualNetworkIntegrationsOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Web/locations/{location}/virtualNetworkIntegrations"
+	if location == "" {
+		return nil, errors.New("parameter location cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-04-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, request); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+// virtualNetworkIntegrationsHandleResponse handles the VirtualNetworkIntegrations response.
+func (client *WebSiteManagementClient) virtualNetworkIntegrationsHandleResponse(resp *http.Response) (WebSiteManagementClientVirtualNetworkIntegrationsResponse, error) {
+	result := WebSiteManagementClientVirtualNetworkIntegrationsResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.SwiftVirtualNetwork); err != nil {
+		return WebSiteManagementClientVirtualNetworkIntegrationsResponse{}, err
 	}
 	return result, nil
 }
