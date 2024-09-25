@@ -16,11 +16,12 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v3"
 	"net/http"
 	"net/url"
 	"reflect"
 	"regexp"
+	"strconv"
 )
 
 // AppAttachPackageServer is a fake server for instances of the armdesktopvirtualization.AppAttachPackageClient type.
@@ -151,6 +152,7 @@ func (a *AppAttachPackageServerTransport) dispatchDelete(req *http.Request) (*ht
 	if matches == nil || len(matches) < 3 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
+	qp := req.URL.Query()
 	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
@@ -159,7 +161,21 @@ func (a *AppAttachPackageServerTransport) dispatchDelete(req *http.Request) (*ht
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := a.srv.Delete(req.Context(), resourceGroupNameParam, appAttachPackageNameParam, nil)
+	forceUnescaped, err := url.QueryUnescape(qp.Get("force"))
+	if err != nil {
+		return nil, err
+	}
+	forceParam, err := parseOptional(forceUnescaped, strconv.ParseBool)
+	if err != nil {
+		return nil, err
+	}
+	var options *armdesktopvirtualization.AppAttachPackageClientDeleteOptions
+	if forceParam != nil {
+		options = &armdesktopvirtualization.AppAttachPackageClientDeleteOptions{
+			Force: forceParam,
+		}
+	}
+	respr, errRespr := a.srv.Delete(req.Context(), resourceGroupNameParam, appAttachPackageNameParam, options)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
