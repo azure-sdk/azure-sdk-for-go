@@ -1,5 +1,42 @@
 # Release History
 
+## 6.2.0 (2024-09-26)
+### Features Added
+
+- New enum type `AccessControlRulesMode` with values `AccessControlRulesModeAudit`, `AccessControlRulesModeDisabled`, `AccessControlRulesModeEnforce`
+- New enum type `EndpointAccess` with values `EndpointAccessAllow`, `EndpointAccessDeny`
+- New enum type `EndpointTypes` with values `EndpointTypesIMDS`, `EndpointTypesWireServer`
+- New function `*ClientFactory.NewGalleryInVMAccessControlProfileVersionsClient() *GalleryInVMAccessControlProfileVersionsClient`
+- New function `*ClientFactory.NewGalleryInVMAccessControlProfilesClient() *GalleryInVMAccessControlProfilesClient`
+- New function `NewGalleryInVMAccessControlProfileVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*GalleryInVMAccessControlProfileVersionsClient, error)`
+- New function `*GalleryInVMAccessControlProfileVersionsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, GalleryInVMAccessControlProfileVersion, *GalleryInVMAccessControlProfileVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[GalleryInVMAccessControlProfileVersionsClientCreateOrUpdateResponse], error)`
+- New function `*GalleryInVMAccessControlProfileVersionsClient.BeginDelete(context.Context, string, string, string, string, *GalleryInVMAccessControlProfileVersionsClientBeginDeleteOptions) (*runtime.Poller[GalleryInVMAccessControlProfileVersionsClientDeleteResponse], error)`
+- New function `*GalleryInVMAccessControlProfileVersionsClient.Get(context.Context, string, string, string, string, *GalleryInVMAccessControlProfileVersionsClientGetOptions) (GalleryInVMAccessControlProfileVersionsClientGetResponse, error)`
+- New function `*GalleryInVMAccessControlProfileVersionsClient.NewListByGalleryInVMAccessControlProfilePager(string, string, string, *GalleryInVMAccessControlProfileVersionsClientListByGalleryInVMAccessControlProfileOptions) *runtime.Pager[GalleryInVMAccessControlProfileVersionsClientListByGalleryInVMAccessControlProfileResponse]`
+- New function `*GalleryInVMAccessControlProfileVersionsClient.BeginUpdate(context.Context, string, string, string, string, GalleryInVMAccessControlProfileVersionUpdate, *GalleryInVMAccessControlProfileVersionsClientBeginUpdateOptions) (*runtime.Poller[GalleryInVMAccessControlProfileVersionsClientUpdateResponse], error)`
+- New function `NewGalleryInVMAccessControlProfilesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*GalleryInVMAccessControlProfilesClient, error)`
+- New function `*GalleryInVMAccessControlProfilesClient.BeginCreateOrUpdate(context.Context, string, string, string, GalleryInVMAccessControlProfile, *GalleryInVMAccessControlProfilesClientBeginCreateOrUpdateOptions) (*runtime.Poller[GalleryInVMAccessControlProfilesClientCreateOrUpdateResponse], error)`
+- New function `*GalleryInVMAccessControlProfilesClient.BeginDelete(context.Context, string, string, string, *GalleryInVMAccessControlProfilesClientBeginDeleteOptions) (*runtime.Poller[GalleryInVMAccessControlProfilesClientDeleteResponse], error)`
+- New function `*GalleryInVMAccessControlProfilesClient.Get(context.Context, string, string, string, *GalleryInVMAccessControlProfilesClientGetOptions) (GalleryInVMAccessControlProfilesClientGetResponse, error)`
+- New function `*GalleryInVMAccessControlProfilesClient.NewListByGalleryPager(string, string, *GalleryInVMAccessControlProfilesClientListByGalleryOptions) *runtime.Pager[GalleryInVMAccessControlProfilesClientListByGalleryResponse]`
+- New function `*GalleryInVMAccessControlProfilesClient.BeginUpdate(context.Context, string, string, string, GalleryInVMAccessControlProfileUpdate, *GalleryInVMAccessControlProfilesClientBeginUpdateOptions) (*runtime.Poller[GalleryInVMAccessControlProfilesClientUpdateResponse], error)`
+- New struct `AccessControlRules`
+- New struct `AccessControlRulesIdentity`
+- New struct `AccessControlRulesPrivilege`
+- New struct `AccessControlRulesRole`
+- New struct `AccessControlRulesRoleAssignment`
+- New struct `GalleryInVMAccessControlProfile`
+- New struct `GalleryInVMAccessControlProfileList`
+- New struct `GalleryInVMAccessControlProfileProperties`
+- New struct `GalleryInVMAccessControlProfileUpdate`
+- New struct `GalleryInVMAccessControlProfileVersion`
+- New struct `GalleryInVMAccessControlProfileVersionList`
+- New struct `GalleryInVMAccessControlProfileVersionProperties`
+- New struct `GalleryInVMAccessControlProfileVersionUpdate`
+- New struct `GalleryResourceProfilePropertiesBase`
+- New struct `GalleryResourceProfileVersionPropertiesBase`
+
+
 ## 6.1.0 (2024-08-23)
 ### Features Added
 

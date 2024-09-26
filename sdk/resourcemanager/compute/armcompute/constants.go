@@ -10,8 +10,27 @@ package armcompute
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute"
-	moduleVersion = "v6.1.0"
+	moduleVersion = "v6.2.0"
 )
+
+// AccessControlRulesMode - This property allows you to specify whether the access control rules are in Audit mode, in Enforce
+// mode or Disabled. Possible values are: 'Audit', 'Enforce' or 'Disabled'.
+type AccessControlRulesMode string
+
+const (
+	AccessControlRulesModeAudit    AccessControlRulesMode = "Audit"
+	AccessControlRulesModeDisabled AccessControlRulesMode = "Disabled"
+	AccessControlRulesModeEnforce  AccessControlRulesMode = "Enforce"
+)
+
+// PossibleAccessControlRulesModeValues returns the possible values for the AccessControlRulesMode const type.
+func PossibleAccessControlRulesModeValues() []AccessControlRulesMode {
+	return []AccessControlRulesMode{
+		AccessControlRulesModeAudit,
+		AccessControlRulesModeDisabled,
+		AccessControlRulesModeEnforce,
+	}
+}
 
 type AccessLevel string
 
@@ -85,7 +104,7 @@ func PossibleAlternativeTypeValues() []AlternativeType {
 	}
 }
 
-// Architecture - The architecture of the image. Applicable to OS disks only.
+// Architecture - CPU architecture supported by an OS disk.
 type Architecture string
 
 const (
@@ -497,7 +516,7 @@ func PossibleDiskDeleteOptionTypesValues() []DiskDeleteOptionTypes {
 // is applicable only for managed data disks. If a previous detachment attempt of the data disk did not complete due to an
 // unexpected failure from the virtual machine and the disk is still not released
 // then use force-detach as a last resort option to detach the disk forcibly from the VM. All writes might not have been flushed
-// when using this detach behavior. This feature is still in preview mode. To
+// when using this detach behavior. This feature is still in preview. To
 // force-detach a data disk update toBeDetached to 'true' along with setting detachOption: 'ForceDetach'.
 type DiskDetachOptionTypes string
 
@@ -729,6 +748,40 @@ func PossibleEncryptionTypeValues() []EncryptionType {
 		EncryptionTypeEncryptionAtRestWithCustomerKey,
 		EncryptionTypeEncryptionAtRestWithPlatformAndCustomerKeys,
 		EncryptionTypeEncryptionAtRestWithPlatformKey,
+	}
+}
+
+// EndpointAccess - This property allows you to specify if the requests will be allowed to access the host endpoints. Possible
+// values are: 'Allow', 'Deny'.
+type EndpointAccess string
+
+const (
+	EndpointAccessAllow EndpointAccess = "Allow"
+	EndpointAccessDeny  EndpointAccess = "Deny"
+)
+
+// PossibleEndpointAccessValues returns the possible values for the EndpointAccess const type.
+func PossibleEndpointAccessValues() []EndpointAccess {
+	return []EndpointAccess{
+		EndpointAccessAllow,
+		EndpointAccessDeny,
+	}
+}
+
+// EndpointTypes - This property allows you to specify the Endpoint type for which this profile is defining the access control
+// for. Possible values are: 'WireServer' or 'IMDS'
+type EndpointTypes string
+
+const (
+	EndpointTypesIMDS       EndpointTypes = "IMDS"
+	EndpointTypesWireServer EndpointTypes = "WireServer"
+)
+
+// PossibleEndpointTypesValues returns the possible values for the EndpointTypes const type.
+func PossibleEndpointTypesValues() []EndpointTypes {
+	return []EndpointTypes{
+		EndpointTypesIMDS,
+		EndpointTypesWireServer,
 	}
 }
 
@@ -1310,8 +1363,7 @@ func PossibleOperatingSystemTypeValues() []OperatingSystemType {
 	}
 }
 
-// OperatingSystemTypes - This property allows you to specify the supported type of the OS that application is built for.
-// Possible values are: Windows, Linux.
+// OperatingSystemTypes - The Operating System type.
 type OperatingSystemTypes string
 
 const (
