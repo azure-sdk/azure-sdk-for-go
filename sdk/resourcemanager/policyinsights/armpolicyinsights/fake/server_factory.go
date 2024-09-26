@@ -19,14 +19,7 @@ import (
 
 // ServerFactory is a fake server for instances of the armpolicyinsights.ClientFactory type.
 type ServerFactory struct {
-	AttestationsServer           AttestationsServer
-	OperationsServer             OperationsServer
-	PolicyEventsServer           PolicyEventsServer
-	PolicyMetadataServer         PolicyMetadataServer
-	PolicyRestrictionsServer     PolicyRestrictionsServer
-	PolicyStatesServer           PolicyStatesServer
-	PolicyTrackedResourcesServer PolicyTrackedResourcesServer
-	RemediationsServer           RemediationsServer
+	RemediationsServer RemediationsServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -41,16 +34,9 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armpolicyinsights.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                            *ServerFactory
-	trMu                           sync.Mutex
-	trAttestationsServer           *AttestationsServerTransport
-	trOperationsServer             *OperationsServerTransport
-	trPolicyEventsServer           *PolicyEventsServerTransport
-	trPolicyMetadataServer         *PolicyMetadataServerTransport
-	trPolicyRestrictionsServer     *PolicyRestrictionsServerTransport
-	trPolicyStatesServer           *PolicyStatesServerTransport
-	trPolicyTrackedResourcesServer *PolicyTrackedResourcesServerTransport
-	trRemediationsServer           *RemediationsServerTransport
+	srv                  *ServerFactory
+	trMu                 sync.Mutex
+	trRemediationsServer *RemediationsServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -66,33 +52,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch client {
-	case "AttestationsClient":
-		initServer(s, &s.trAttestationsServer, func() *AttestationsServerTransport { return NewAttestationsServerTransport(&s.srv.AttestationsServer) })
-		resp, err = s.trAttestationsServer.Do(req)
-	case "OperationsClient":
-		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
-		resp, err = s.trOperationsServer.Do(req)
-	case "PolicyEventsClient":
-		initServer(s, &s.trPolicyEventsServer, func() *PolicyEventsServerTransport { return NewPolicyEventsServerTransport(&s.srv.PolicyEventsServer) })
-		resp, err = s.trPolicyEventsServer.Do(req)
-	case "PolicyMetadataClient":
-		initServer(s, &s.trPolicyMetadataServer, func() *PolicyMetadataServerTransport {
-			return NewPolicyMetadataServerTransport(&s.srv.PolicyMetadataServer)
-		})
-		resp, err = s.trPolicyMetadataServer.Do(req)
-	case "PolicyRestrictionsClient":
-		initServer(s, &s.trPolicyRestrictionsServer, func() *PolicyRestrictionsServerTransport {
-			return NewPolicyRestrictionsServerTransport(&s.srv.PolicyRestrictionsServer)
-		})
-		resp, err = s.trPolicyRestrictionsServer.Do(req)
-	case "PolicyStatesClient":
-		initServer(s, &s.trPolicyStatesServer, func() *PolicyStatesServerTransport { return NewPolicyStatesServerTransport(&s.srv.PolicyStatesServer) })
-		resp, err = s.trPolicyStatesServer.Do(req)
-	case "PolicyTrackedResourcesClient":
-		initServer(s, &s.trPolicyTrackedResourcesServer, func() *PolicyTrackedResourcesServerTransport {
-			return NewPolicyTrackedResourcesServerTransport(&s.srv.PolicyTrackedResourcesServer)
-		})
-		resp, err = s.trPolicyTrackedResourcesServer.Do(req)
 	case "RemediationsClient":
 		initServer(s, &s.trRemediationsServer, func() *RemediationsServerTransport { return NewRemediationsServerTransport(&s.srv.RemediationsServer) })
 		resp, err = s.trRemediationsServer.Do(req)
