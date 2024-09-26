@@ -213,6 +213,22 @@ func (c *ClientFactory) NewGalleryImagesClient() *GalleryImagesClient {
 	}
 }
 
+// NewGalleryInVMAccessControlProfileVersionsClient creates a new instance of GalleryInVMAccessControlProfileVersionsClient.
+func (c *ClientFactory) NewGalleryInVMAccessControlProfileVersionsClient() *GalleryInVMAccessControlProfileVersionsClient {
+	return &GalleryInVMAccessControlProfileVersionsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewGalleryInVMAccessControlProfilesClient creates a new instance of GalleryInVMAccessControlProfilesClient.
+func (c *ClientFactory) NewGalleryInVMAccessControlProfilesClient() *GalleryInVMAccessControlProfilesClient {
+	return &GalleryInVMAccessControlProfilesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewGallerySharingProfileClient creates a new instance of GallerySharingProfileClient.
 func (c *ClientFactory) NewGallerySharingProfileClient() *GallerySharingProfileClient {
 	return &GallerySharingProfileClient{
