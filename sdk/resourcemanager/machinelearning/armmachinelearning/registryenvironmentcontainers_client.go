@@ -46,7 +46,7 @@ func NewRegistryEnvironmentContainersClient(subscriptionID string, credential az
 // BeginCreateOrUpdate - Create or update container.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - registryName - Name of Azure Machine Learning registry. This is case-insensitive
 //   - environmentName - Container name.
@@ -74,7 +74,7 @@ func (client *RegistryEnvironmentContainersClient) BeginCreateOrUpdate(ctx conte
 // CreateOrUpdate - Create or update container.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-07-01-preview
 func (client *RegistryEnvironmentContainersClient) createOrUpdate(ctx context.Context, resourceGroupName string, registryName string, environmentName string, body EnvironmentContainer, options *RegistryEnvironmentContainersClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "RegistryEnvironmentContainersClient.BeginCreateOrUpdate"
@@ -120,7 +120,7 @@ func (client *RegistryEnvironmentContainersClient) createOrUpdateCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -132,7 +132,7 @@ func (client *RegistryEnvironmentContainersClient) createOrUpdateCreateRequest(c
 // BeginDelete - Delete container.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - registryName - Name of Azure Machine Learning registry. This is case-insensitive
 //   - environmentName - Container name.
@@ -159,7 +159,7 @@ func (client *RegistryEnvironmentContainersClient) BeginDelete(ctx context.Conte
 // Delete - Delete container.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-07-01-preview
 func (client *RegistryEnvironmentContainersClient) deleteOperation(ctx context.Context, resourceGroupName string, registryName string, environmentName string, options *RegistryEnvironmentContainersClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "RegistryEnvironmentContainersClient.BeginDelete"
@@ -205,7 +205,7 @@ func (client *RegistryEnvironmentContainersClient) deleteCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -214,7 +214,7 @@ func (client *RegistryEnvironmentContainersClient) deleteCreateRequest(ctx conte
 // Get - Get container.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - registryName - Name of Azure Machine Learning registry. This is case-insensitive
 //   - environmentName - Container name. This is case-sensitive.
@@ -266,7 +266,7 @@ func (client *RegistryEnvironmentContainersClient) getCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -283,7 +283,7 @@ func (client *RegistryEnvironmentContainersClient) getHandleResponse(resp *http.
 
 // NewListPager - List environment containers.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-07-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - registryName - Name of Azure Machine Learning registry. This is case-insensitive
 //   - options - RegistryEnvironmentContainersClientListOptions contains the optional parameters for the RegistryEnvironmentContainersClient.NewListPager
@@ -334,7 +334,7 @@ func (client *RegistryEnvironmentContainersClient) listCreateRequest(ctx context
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", *options.Skip)
 	}
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-07-01-preview")
 	if options != nil && options.ListViewType != nil {
 		reqQP.Set("listViewType", string(*options.ListViewType))
 	}
