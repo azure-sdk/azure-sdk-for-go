@@ -1,4 +1,4 @@
-module github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/standbypool/armstandbypool
+module github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/contoso/armcontoso
 
 go 1.18
 
