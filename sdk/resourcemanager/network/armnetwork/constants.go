@@ -10,7 +10,7 @@ package armnetwork
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork"
-	moduleVersion = "v6.1.0"
+	moduleVersion = "v7.0.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -55,15 +55,34 @@ func PossibleActionTypeValues() []ActionType {
 type AddressPrefixType string
 
 const (
-	AddressPrefixTypeIPPrefix   AddressPrefixType = "IPPrefix"
-	AddressPrefixTypeServiceTag AddressPrefixType = "ServiceTag"
+	AddressPrefixTypeIPPrefix     AddressPrefixType = "IPPrefix"
+	AddressPrefixTypeNetworkGroup AddressPrefixType = "NetworkGroup"
+	AddressPrefixTypeServiceTag   AddressPrefixType = "ServiceTag"
 )
 
 // PossibleAddressPrefixTypeValues returns the possible values for the AddressPrefixType const type.
 func PossibleAddressPrefixTypeValues() []AddressPrefixType {
 	return []AddressPrefixType{
 		AddressPrefixTypeIPPrefix,
+		AddressPrefixTypeNetworkGroup,
 		AddressPrefixTypeServiceTag,
+	}
+}
+
+// AddressSpaceAggregationOption - Option indicating the update behavior of a resource's address prefixes referenced within
+// a network manager configuration.
+type AddressSpaceAggregationOption string
+
+const (
+	AddressSpaceAggregationOptionManual AddressSpaceAggregationOption = "Manual"
+	AddressSpaceAggregationOptionNone   AddressSpaceAggregationOption = "None"
+)
+
+// PossibleAddressSpaceAggregationOptionValues returns the possible values for the AddressSpaceAggregationOption const type.
+func PossibleAddressSpaceAggregationOptionValues() []AddressSpaceAggregationOption {
+	return []AddressSpaceAggregationOption{
+		AddressSpaceAggregationOptionManual,
+		AddressSpaceAggregationOptionNone,
 	}
 }
 
@@ -2269,6 +2288,22 @@ func PossibleIPSecIntegrityValues() []IPSecIntegrity {
 	}
 }
 
+// IPType - Enumeration to indicate the IP type.
+type IPType string
+
+const (
+	IPTypeIPv4 IPType = "IPv4"
+	IPTypeIPv6 IPType = "IPv6"
+)
+
+// PossibleIPTypeValues returns the possible values for the IPType const type.
+func PossibleIPTypeValues() []IPType {
+	return []IPType{
+		IPTypeIPv4,
+		IPTypeIPv6,
+	}
+}
+
 // IPVersion - IP address version.
 type IPVersion string
 
@@ -2662,6 +2697,26 @@ func PossibleNetworkOperationStatusValues() []NetworkOperationStatus {
 		NetworkOperationStatusFailed,
 		NetworkOperationStatusInProgress,
 		NetworkOperationStatusSucceeded,
+	}
+}
+
+// NetworkProtocol - Network Protocol.
+type NetworkProtocol string
+
+const (
+	NetworkProtocolAny  NetworkProtocol = "Any"
+	NetworkProtocolICMP NetworkProtocol = "ICMP"
+	NetworkProtocolTCP  NetworkProtocol = "TCP"
+	NetworkProtocolUDP  NetworkProtocol = "UDP"
+)
+
+// PossibleNetworkProtocolValues returns the possible values for the NetworkProtocol const type.
+func PossibleNetworkProtocolValues() []NetworkProtocol {
+	return []NetworkProtocol{
+		NetworkProtocolAny,
+		NetworkProtocolICMP,
+		NetworkProtocolTCP,
+		NetworkProtocolUDP,
 	}
 }
 
@@ -3110,10 +3165,12 @@ func PossibleProtocolTypeValues() []ProtocolType {
 	}
 }
 
-// ProvisioningState - The current provisioning state.
+// ProvisioningState - Provisioning states of a resource.
 type ProvisioningState string
 
 const (
+	ProvisioningStateCanceled  ProvisioningState = "Canceled"
+	ProvisioningStateCreating  ProvisioningState = "Creating"
 	ProvisioningStateDeleting  ProvisioningState = "Deleting"
 	ProvisioningStateFailed    ProvisioningState = "Failed"
 	ProvisioningStateSucceeded ProvisioningState = "Succeeded"
@@ -3123,6 +3180,8 @@ const (
 // PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
 func PossibleProvisioningStateValues() []ProvisioningState {
 	return []ProvisioningState{
+		ProvisioningStateCanceled,
+		ProvisioningStateCreating,
 		ProvisioningStateDeleting,
 		ProvisioningStateFailed,
 		ProvisioningStateSucceeded,
