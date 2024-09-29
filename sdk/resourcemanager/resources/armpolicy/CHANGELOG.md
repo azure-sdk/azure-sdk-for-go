@@ -1,5 +1,120 @@
 # Release History
 
+## 1.0.0 (2024-09-29)
+### Breaking Changes
+
+- Enum `AliasPathAttributes` has been removed
+- Enum `AliasPathTokenType` has been removed
+- Enum `AliasPatternType` has been removed
+- Enum `AliasType` has been removed
+- Enum `AssignmentScopeValidation` has been removed
+- Enum `ExemptionCategory` has been removed
+- Function `*ClientFactory.NewDataPolicyManifestsClient` has been removed
+- Function `*ClientFactory.NewExemptionsClient` has been removed
+- Function `*ClientFactory.NewVariableValuesClient` has been removed
+- Function `*ClientFactory.NewVariablesClient` has been removed
+- Function `NewDataPolicyManifestsClient` has been removed
+- Function `*DataPolicyManifestsClient.GetByPolicyMode` has been removed
+- Function `*DataPolicyManifestsClient.NewListPager` has been removed
+- Function `NewExemptionsClient` has been removed
+- Function `*ExemptionsClient.CreateOrUpdate` has been removed
+- Function `*ExemptionsClient.Delete` has been removed
+- Function `*ExemptionsClient.Get` has been removed
+- Function `*ExemptionsClient.NewListForManagementGroupPager` has been removed
+- Function `*ExemptionsClient.NewListForResourceGroupPager` has been removed
+- Function `*ExemptionsClient.NewListForResourcePager` has been removed
+- Function `*ExemptionsClient.NewListPager` has been removed
+- Function `*ExemptionsClient.Update` has been removed
+- Function `NewVariableValuesClient` has been removed
+- Function `*VariableValuesClient.CreateOrUpdate` has been removed
+- Function `*VariableValuesClient.CreateOrUpdateAtManagementGroup` has been removed
+- Function `*VariableValuesClient.Delete` has been removed
+- Function `*VariableValuesClient.DeleteAtManagementGroup` has been removed
+- Function `*VariableValuesClient.Get` has been removed
+- Function `*VariableValuesClient.GetAtManagementGroup` has been removed
+- Function `*VariableValuesClient.NewListForManagementGroupPager` has been removed
+- Function `*VariableValuesClient.NewListPager` has been removed
+- Function `NewVariablesClient` has been removed
+- Function `*VariablesClient.CreateOrUpdate` has been removed
+- Function `*VariablesClient.CreateOrUpdateAtManagementGroup` has been removed
+- Function `*VariablesClient.Delete` has been removed
+- Function `*VariablesClient.DeleteAtManagementGroup` has been removed
+- Function `*VariablesClient.Get` has been removed
+- Function `*VariablesClient.GetAtManagementGroup` has been removed
+- Function `*VariablesClient.NewListForManagementGroupPager` has been removed
+- Function `*VariablesClient.NewListPager` has been removed
+- Struct `Alias` has been removed
+- Struct `AliasPath` has been removed
+- Struct `AliasPathMetadata` has been removed
+- Struct `AliasPattern` has been removed
+- Struct `DataEffect` has been removed
+- Struct `DataManifestCustomResourceFunctionDefinition` has been removed
+- Struct `DataManifestResourceFunctionsDefinition` has been removed
+- Struct `DataPolicyManifest` has been removed
+- Struct `DataPolicyManifestListResult` has been removed
+- Struct `DataPolicyManifestProperties` has been removed
+- Struct `Exemption` has been removed
+- Struct `ExemptionListResult` has been removed
+- Struct `ExemptionProperties` has been removed
+- Struct `ExemptionUpdate` has been removed
+- Struct `ExemptionUpdateProperties` has been removed
+- Struct `ResourceTypeAliases` has been removed
+- Struct `Variable` has been removed
+- Struct `VariableColumn` has been removed
+- Struct `VariableListResult` has been removed
+- Struct `VariableProperties` has been removed
+- Struct `VariableValue` has been removed
+- Struct `VariableValueColumnValue` has been removed
+- Struct `VariableValueListResult` has been removed
+- Struct `VariableValueProperties` has been removed
+
+### Features Added
+
+- New value `OverrideKindDefinitionVersion` added to enum type `OverrideKind`
+- New enum type `AssignmentType` with values `AssignmentTypeCustom`, `AssignmentTypeNotSpecified`, `AssignmentTypeSystem`, `AssignmentTypeSystemHidden`
+- New function `*ClientFactory.NewDefinitionVersionsClient() *DefinitionVersionsClient`
+- New function `*ClientFactory.NewSetDefinitionVersionsClient() *SetDefinitionVersionsClient`
+- New function `NewDefinitionVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DefinitionVersionsClient, error)`
+- New function `*DefinitionVersionsClient.CreateOrUpdate(context.Context, string, string, DefinitionVersion, *DefinitionVersionsClientCreateOrUpdateOptions) (DefinitionVersionsClientCreateOrUpdateResponse, error)`
+- New function `*DefinitionVersionsClient.CreateOrUpdateAtManagementGroup(context.Context, string, string, string, DefinitionVersion, *DefinitionVersionsClientCreateOrUpdateAtManagementGroupOptions) (DefinitionVersionsClientCreateOrUpdateAtManagementGroupResponse, error)`
+- New function `*DefinitionVersionsClient.Delete(context.Context, string, string, *DefinitionVersionsClientDeleteOptions) (DefinitionVersionsClientDeleteResponse, error)`
+- New function `*DefinitionVersionsClient.DeleteAtManagementGroup(context.Context, string, string, string, *DefinitionVersionsClientDeleteAtManagementGroupOptions) (DefinitionVersionsClientDeleteAtManagementGroupResponse, error)`
+- New function `*DefinitionVersionsClient.Get(context.Context, string, string, *DefinitionVersionsClientGetOptions) (DefinitionVersionsClientGetResponse, error)`
+- New function `*DefinitionVersionsClient.GetAtManagementGroup(context.Context, string, string, string, *DefinitionVersionsClientGetAtManagementGroupOptions) (DefinitionVersionsClientGetAtManagementGroupResponse, error)`
+- New function `*DefinitionVersionsClient.GetBuiltIn(context.Context, string, string, *DefinitionVersionsClientGetBuiltInOptions) (DefinitionVersionsClientGetBuiltInResponse, error)`
+- New function `*DefinitionVersionsClient.ListAll(context.Context, *DefinitionVersionsClientListAllOptions) (DefinitionVersionsClientListAllResponse, error)`
+- New function `*DefinitionVersionsClient.ListAllAtManagementGroup(context.Context, string, *DefinitionVersionsClientListAllAtManagementGroupOptions) (DefinitionVersionsClientListAllAtManagementGroupResponse, error)`
+- New function `*DefinitionVersionsClient.ListAllBuiltins(context.Context, *DefinitionVersionsClientListAllBuiltinsOptions) (DefinitionVersionsClientListAllBuiltinsResponse, error)`
+- New function `*DefinitionVersionsClient.NewListBuiltInPager(string, *DefinitionVersionsClientListBuiltInOptions) *runtime.Pager[DefinitionVersionsClientListBuiltInResponse]`
+- New function `*DefinitionVersionsClient.NewListByManagementGroupPager(string, string, *DefinitionVersionsClientListByManagementGroupOptions) *runtime.Pager[DefinitionVersionsClientListByManagementGroupResponse]`
+- New function `*DefinitionVersionsClient.NewListPager(string, *DefinitionVersionsClientListOptions) *runtime.Pager[DefinitionVersionsClientListResponse]`
+- New function `NewSetDefinitionVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SetDefinitionVersionsClient, error)`
+- New function `*SetDefinitionVersionsClient.CreateOrUpdate(context.Context, string, string, SetDefinitionVersion, *SetDefinitionVersionsClientCreateOrUpdateOptions) (SetDefinitionVersionsClientCreateOrUpdateResponse, error)`
+- New function `*SetDefinitionVersionsClient.CreateOrUpdateAtManagementGroup(context.Context, string, string, string, SetDefinitionVersion, *SetDefinitionVersionsClientCreateOrUpdateAtManagementGroupOptions) (SetDefinitionVersionsClientCreateOrUpdateAtManagementGroupResponse, error)`
+- New function `*SetDefinitionVersionsClient.Delete(context.Context, string, string, *SetDefinitionVersionsClientDeleteOptions) (SetDefinitionVersionsClientDeleteResponse, error)`
+- New function `*SetDefinitionVersionsClient.DeleteAtManagementGroup(context.Context, string, string, string, *SetDefinitionVersionsClientDeleteAtManagementGroupOptions) (SetDefinitionVersionsClientDeleteAtManagementGroupResponse, error)`
+- New function `*SetDefinitionVersionsClient.Get(context.Context, string, string, *SetDefinitionVersionsClientGetOptions) (SetDefinitionVersionsClientGetResponse, error)`
+- New function `*SetDefinitionVersionsClient.GetAtManagementGroup(context.Context, string, string, string, *SetDefinitionVersionsClientGetAtManagementGroupOptions) (SetDefinitionVersionsClientGetAtManagementGroupResponse, error)`
+- New function `*SetDefinitionVersionsClient.GetBuiltIn(context.Context, string, string, *SetDefinitionVersionsClientGetBuiltInOptions) (SetDefinitionVersionsClientGetBuiltInResponse, error)`
+- New function `*SetDefinitionVersionsClient.ListAll(context.Context, *SetDefinitionVersionsClientListAllOptions) (SetDefinitionVersionsClientListAllResponse, error)`
+- New function `*SetDefinitionVersionsClient.ListAllAtManagementGroup(context.Context, string, *SetDefinitionVersionsClientListAllAtManagementGroupOptions) (SetDefinitionVersionsClientListAllAtManagementGroupResponse, error)`
+- New function `*SetDefinitionVersionsClient.ListAllBuiltins(context.Context, *SetDefinitionVersionsClientListAllBuiltinsOptions) (SetDefinitionVersionsClientListAllBuiltinsResponse, error)`
+- New function `*SetDefinitionVersionsClient.NewListBuiltInPager(string, *SetDefinitionVersionsClientListBuiltInOptions) *runtime.Pager[SetDefinitionVersionsClientListBuiltInResponse]`
+- New function `*SetDefinitionVersionsClient.NewListByManagementGroupPager(string, string, *SetDefinitionVersionsClientListByManagementGroupOptions) *runtime.Pager[SetDefinitionVersionsClientListByManagementGroupResponse]`
+- New function `*SetDefinitionVersionsClient.NewListPager(string, *SetDefinitionVersionsClientListOptions) *runtime.Pager[SetDefinitionVersionsClientListResponse]`
+- New struct `DefinitionVersion`
+- New struct `DefinitionVersionListResult`
+- New struct `DefinitionVersionProperties`
+- New struct `SetDefinitionVersion`
+- New struct `SetDefinitionVersionListResult`
+- New struct `SetDefinitionVersionProperties`
+- New field `AssignmentType`, `DefinitionVersion` in struct `AssignmentProperties`
+- New field `Version`, `Versions` in struct `DefinitionProperties`
+- New field `DefinitionVersion` in struct `DefinitionReference`
+- New field `Schema` in struct `ParameterDefinitionsValue`
+- New field `Version`, `Versions` in struct `SetDefinitionProperties`
+
+
 ## 0.9.0 (2023-11-24)
 ### Features Added
 
