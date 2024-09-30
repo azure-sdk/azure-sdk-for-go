@@ -21,6 +21,7 @@ import (
 type ServerFactory struct {
 	ExtensionMetadataServer                      ExtensionMetadataServer
 	GatewaysServer                               GatewaysServer
+	LicenseProfilesServer                        LicenseProfilesServer
 	LicensesServer                               LicensesServer
 	MachineExtensionsServer                      MachineExtensionsServer
 	MachineRunCommandsServer                     MachineRunCommandsServer
@@ -51,6 +52,7 @@ type ServerFactoryTransport struct {
 	trMu                                           sync.Mutex
 	trExtensionMetadataServer                      *ExtensionMetadataServerTransport
 	trGatewaysServer                               *GatewaysServerTransport
+	trLicenseProfilesServer                        *LicenseProfilesServerTransport
 	trLicensesServer                               *LicensesServerTransport
 	trMachineExtensionsServer                      *MachineExtensionsServerTransport
 	trMachineRunCommandsServer                     *MachineRunCommandsServerTransport
@@ -86,6 +88,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "GatewaysClient":
 		initServer(s, &s.trGatewaysServer, func() *GatewaysServerTransport { return NewGatewaysServerTransport(&s.srv.GatewaysServer) })
 		resp, err = s.trGatewaysServer.Do(req)
+	case "LicenseProfilesClient":
+		initServer(s, &s.trLicenseProfilesServer, func() *LicenseProfilesServerTransport {
+			return NewLicenseProfilesServerTransport(&s.srv.LicenseProfilesServer)
+		})
+		resp, err = s.trLicenseProfilesServer.Do(req)
 	case "LicensesClient":
 		initServer(s, &s.trLicensesServer, func() *LicensesServerTransport { return NewLicensesServerTransport(&s.srv.LicensesServer) })
 		resp, err = s.trLicensesServer.Do(req)
