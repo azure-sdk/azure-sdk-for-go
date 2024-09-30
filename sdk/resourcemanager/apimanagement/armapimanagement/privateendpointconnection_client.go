@@ -28,7 +28,7 @@ type PrivateEndpointConnectionClient struct {
 }
 
 // NewPrivateEndpointConnectionClient creates a new instance of PrivateEndpointConnectionClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewPrivateEndpointConnectionClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*PrivateEndpointConnectionClient, error) {
@@ -46,7 +46,7 @@ func NewPrivateEndpointConnectionClient(subscriptionID string, credential azcore
 // BeginCreateOrUpdate - Creates a new Private Endpoint Connection or updates an existing one.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2024-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - privateEndpointConnectionName - Name of the private endpoint connection.
@@ -72,7 +72,7 @@ func (client *PrivateEndpointConnectionClient) BeginCreateOrUpdate(ctx context.C
 // CreateOrUpdate - Creates a new Private Endpoint Connection or updates an existing one.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2024-09-01
 func (client *PrivateEndpointConnectionClient) createOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, privateEndpointConnectionName string, privateEndpointConnectionRequest PrivateEndpointConnectionRequest, options *PrivateEndpointConnectionClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "PrivateEndpointConnectionClient.BeginCreateOrUpdate"
@@ -118,7 +118,7 @@ func (client *PrivateEndpointConnectionClient) createOrUpdateCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2024-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, privateEndpointConnectionRequest); err != nil {
@@ -130,7 +130,7 @@ func (client *PrivateEndpointConnectionClient) createOrUpdateCreateRequest(ctx c
 // BeginDelete - Deletes the specified Private Endpoint Connection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2024-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - privateEndpointConnectionName - Name of the private endpoint connection.
@@ -156,7 +156,7 @@ func (client *PrivateEndpointConnectionClient) BeginDelete(ctx context.Context, 
 // Delete - Deletes the specified Private Endpoint Connection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2024-09-01
 func (client *PrivateEndpointConnectionClient) deleteOperation(ctx context.Context, resourceGroupName string, serviceName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "PrivateEndpointConnectionClient.BeginDelete"
@@ -202,7 +202,7 @@ func (client *PrivateEndpointConnectionClient) deleteCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2024-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -211,7 +211,7 @@ func (client *PrivateEndpointConnectionClient) deleteCreateRequest(ctx context.C
 // GetByName - Gets the details of the Private Endpoint Connection specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2024-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - privateEndpointConnectionName - Name of the private endpoint connection.
@@ -263,7 +263,7 @@ func (client *PrivateEndpointConnectionClient) getByNameCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2024-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -281,7 +281,7 @@ func (client *PrivateEndpointConnectionClient) getByNameHandleResponse(resp *htt
 // GetPrivateLinkResource - Gets the private link resources
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2024-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - privateLinkSubResourceName - Name of the private link resource.
@@ -333,7 +333,7 @@ func (client *PrivateEndpointConnectionClient) getPrivateLinkResourceCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2024-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -350,7 +350,7 @@ func (client *PrivateEndpointConnectionClient) getPrivateLinkResourceHandleRespo
 
 // NewListByServicePager - Lists all private endpoint connections of the API Management service instance.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2024-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - options - PrivateEndpointConnectionClientListByServiceOptions contains the optional parameters for the PrivateEndpointConnectionClient.NewListByServicePager
@@ -399,7 +399,7 @@ func (client *PrivateEndpointConnectionClient) listByServiceCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2024-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -417,7 +417,7 @@ func (client *PrivateEndpointConnectionClient) listByServiceHandleResponse(resp 
 // ListPrivateLinkResources - Gets the private link resources
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2024-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - options - PrivateEndpointConnectionClientListPrivateLinkResourcesOptions contains the optional parameters for the PrivateEndpointConnectionClient.ListPrivateLinkResources
@@ -464,7 +464,7 @@ func (client *PrivateEndpointConnectionClient) listPrivateLinkResourcesCreateReq
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2024-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

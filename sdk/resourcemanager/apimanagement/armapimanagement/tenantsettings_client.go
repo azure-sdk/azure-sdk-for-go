@@ -28,7 +28,7 @@ type TenantSettingsClient struct {
 }
 
 // NewTenantSettingsClient creates a new instance of TenantSettingsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewTenantSettingsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*TenantSettingsClient, error) {
@@ -46,7 +46,7 @@ func NewTenantSettingsClient(subscriptionID string, credential azcore.TokenCrede
 // Get - Get tenant settings.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2024-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - settingsType - The identifier of the settings.
@@ -97,7 +97,7 @@ func (client *TenantSettingsClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2024-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -117,7 +117,7 @@ func (client *TenantSettingsClient) getHandleResponse(resp *http.Response) (Tena
 
 // NewListByServicePager - Public settings.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2024-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - options - TenantSettingsClientListByServiceOptions contains the optional parameters for the TenantSettingsClient.NewListByServicePager
@@ -168,7 +168,7 @@ func (client *TenantSettingsClient) listByServiceCreateRequest(ctx context.Conte
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2024-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
