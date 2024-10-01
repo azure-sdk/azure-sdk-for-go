@@ -3172,6 +3172,7 @@ func (s *ServerProperties) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type ServerPropertiesForUpdate.
 func (s ServerPropertiesForUpdate) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "administratorLogin", s.AdministratorLogin)
 	populate(objectMap, "administratorLoginPassword", s.AdministratorLoginPassword)
 	populate(objectMap, "authConfig", s.AuthConfig)
 	populate(objectMap, "backup", s.Backup)
@@ -3196,6 +3197,9 @@ func (s *ServerPropertiesForUpdate) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "administratorLogin":
+			err = unpopulate(val, "AdministratorLogin", &s.AdministratorLogin)
+			delete(rawMsg, key)
 		case "administratorLoginPassword":
 			err = unpopulate(val, "AdministratorLoginPassword", &s.AdministratorLoginPassword)
 			delete(rawMsg, key)
