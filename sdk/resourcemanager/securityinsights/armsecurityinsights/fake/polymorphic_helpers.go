@@ -89,6 +89,8 @@ func unmarshalDataConnectorClassification(rawMsg json.RawMessage) (armsecurityin
 		b = &armsecurityinsights.ASCDataConnector{}
 	case string(armsecurityinsights.DataConnectorKindDynamics365):
 		b = &armsecurityinsights.Dynamics365DataConnector{}
+	case string(armsecurityinsights.DataConnectorKindGCP):
+		b = &armsecurityinsights.GCPDataConnector{}
 	case string(armsecurityinsights.DataConnectorKindGenericUI):
 		b = &armsecurityinsights.CodelessUIDataConnector{}
 	case string(armsecurityinsights.DataConnectorKindIOT):
@@ -97,6 +99,8 @@ func unmarshalDataConnectorClassification(rawMsg json.RawMessage) (armsecurityin
 		b = &armsecurityinsights.MCASDataConnector{}
 	case string(armsecurityinsights.DataConnectorKindMicrosoftDefenderAdvancedThreatProtection):
 		b = &armsecurityinsights.MDATPDataConnector{}
+	case string(armsecurityinsights.DataConnectorKindMicrosoftPurviewInformationProtection):
+		b = &armsecurityinsights.MicrosoftPurviewInformationProtectionDataConnector{}
 	case string(armsecurityinsights.DataConnectorKindMicrosoftThreatIntelligence):
 		b = &armsecurityinsights.MSTIDataConnector{}
 	case string(armsecurityinsights.DataConnectorKindMicrosoftThreatProtection):
@@ -111,12 +115,35 @@ func unmarshalDataConnectorClassification(rawMsg json.RawMessage) (armsecurityin
 		b = &armsecurityinsights.OfficeIRMDataConnector{}
 	case string(armsecurityinsights.DataConnectorKindOfficePowerBI):
 		b = &armsecurityinsights.OfficePowerBIDataConnector{}
+	case string(armsecurityinsights.DataConnectorKindRestAPIPoller):
+		b = &armsecurityinsights.RestAPIPollerDataConnector{}
 	case string(armsecurityinsights.DataConnectorKindThreatIntelligence):
 		b = &armsecurityinsights.TIDataConnector{}
 	case string(armsecurityinsights.DataConnectorKindThreatIntelligenceTaxii):
 		b = &armsecurityinsights.TiTaxiiDataConnector{}
 	default:
 		b = &armsecurityinsights.DataConnector{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
+func unmarshalDataConnectorDefinitionClassification(rawMsg json.RawMessage) (armsecurityinsights.DataConnectorDefinitionClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b armsecurityinsights.DataConnectorDefinitionClassification
+	switch m["kind"] {
+	case string(armsecurityinsights.DataConnectorDefinitionKindCustomizable):
+		b = &armsecurityinsights.CustomizableConnectorDefinition{}
+	default:
+		b = &armsecurityinsights.DataConnectorDefinition{}
 	}
 	if err := json.Unmarshal(rawMsg, b); err != nil {
 		return nil, err
@@ -152,6 +179,8 @@ func unmarshalDataConnectorsCheckRequirementsClassification(rawMsg json.RawMessa
 		b = &armsecurityinsights.MCASCheckRequirements{}
 	case string(armsecurityinsights.DataConnectorKindMicrosoftDefenderAdvancedThreatProtection):
 		b = &armsecurityinsights.MDATPCheckRequirements{}
+	case string(armsecurityinsights.DataConnectorKindMicrosoftPurviewInformationProtection):
+		b = &armsecurityinsights.MicrosoftPurviewInformationProtectionCheckRequirements{}
 	case string(armsecurityinsights.DataConnectorKindMicrosoftThreatIntelligence):
 		b = &armsecurityinsights.MSTICheckRequirements{}
 	case string(armsecurityinsights.DataConnectorKindMicrosoftThreatProtection):
