@@ -8,6 +8,24 @@
 
 package armsecurityinsights
 
+// ActionClassification provides polymorphic access to related types.
+// Call the interface's GetAction() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *Action, *LockUserAction, *UnlockUserAction
+type ActionClassification interface {
+	// GetAction returns the Action content of the underlying type.
+	GetAction() *Action
+}
+
+// AgentConfigurationClassification provides polymorphic access to related types.
+// Call the interface's GetAgentConfiguration() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *AgentConfiguration, *SapAgentConfiguration
+type AgentConfigurationClassification interface {
+	// GetAgentConfiguration returns the AgentConfiguration content of the underlying type.
+	GetAgentConfiguration() *AgentConfiguration
+}
+
 // AlertRuleClassification provides polymorphic access to related types.
 // Call the interface's GetAlertRule() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
@@ -31,7 +49,7 @@ type AlertRuleTemplateClassification interface {
 // AutomationRuleActionClassification provides polymorphic access to related types.
 // Call the interface's GetAutomationRuleAction() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *AutomationRuleAction, *AutomationRuleModifyPropertiesAction, *AutomationRuleRunPlaybookAction
+// - *AutomationRuleAction, *AutomationRuleAddIncidentTaskAction, *AutomationRuleModifyPropertiesAction, *AutomationRuleRunPlaybookAction
 type AutomationRuleActionClassification interface {
 	// GetAutomationRuleAction returns the AutomationRuleAction content of the underlying type.
 	GetAutomationRuleAction() *AutomationRuleAction
@@ -47,6 +65,25 @@ type AutomationRuleConditionClassification interface {
 	GetAutomationRuleCondition() *AutomationRuleCondition
 }
 
+// BillingStatisticClassification provides polymorphic access to related types.
+// Call the interface's GetBillingStatistic() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *BillingStatistic, *SapSolutionUsageStatistic
+type BillingStatisticClassification interface {
+	// GetBillingStatistic returns the BillingStatistic content of the underlying type.
+	GetBillingStatistic() *BillingStatistic
+}
+
+// CcpAuthConfigClassification provides polymorphic access to related types.
+// Call the interface's GetCcpAuthConfig() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *APIKeyAuthModel, *AWSAuthModel, *BasicAuthModel, *CcpAuthConfig, *GCPAuthModel, *GenericBlobSbsAuthModel, *GitHubAuthModel,
+// - *JwtAuthModel, *NoneAuthModel, *OAuthModel, *OracleAuthModel, *SessionAuthModel
+type CcpAuthConfigClassification interface {
+	// GetCcpAuthConfig returns the CcpAuthConfig content of the underlying type.
+	GetCcpAuthConfig() *CcpAuthConfig
+}
+
 // CustomEntityQueryClassification provides polymorphic access to related types.
 // Call the interface's GetCustomEntityQuery() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
@@ -60,12 +97,22 @@ type CustomEntityQueryClassification interface {
 // Call the interface's GetDataConnector() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
 // - *AADDataConnector, *AATPDataConnector, *ASCDataConnector, *AwsCloudTrailDataConnector, *AwsS3DataConnector, *CodelessAPIPollingDataConnector,
-// - *CodelessUIDataConnector, *DataConnector, *Dynamics365DataConnector, *IoTDataConnector, *MCASDataConnector, *MDATPDataConnector,
-// - *MSTIDataConnector, *MTPDataConnector, *Office365ProjectDataConnector, *OfficeATPDataConnector, *OfficeDataConnector,
-// - *OfficeIRMDataConnector, *OfficePowerBIDataConnector, *TIDataConnector, *TiTaxiiDataConnector
+// - *CodelessUIDataConnector, *DataConnector, *Dynamics365DataConnector, *GCPDataConnector, *IoTDataConnector, *MCASDataConnector,
+// - *MDATPDataConnector, *MSTIDataConnector, *MTPDataConnector, *MicrosoftPurviewInformationProtectionDataConnector, *Office365ProjectDataConnector,
+// - *OfficeATPDataConnector, *OfficeDataConnector, *OfficeIRMDataConnector, *OfficePowerBIDataConnector, *RestAPIPollerDataConnector,
+// - *TIDataConnector, *TiTaxiiDataConnector
 type DataConnectorClassification interface {
 	// GetDataConnector returns the DataConnector content of the underlying type.
 	GetDataConnector() *DataConnector
+}
+
+// DataConnectorDefinitionClassification provides polymorphic access to related types.
+// Call the interface's GetDataConnectorDefinition() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *CustomizableConnectorDefinition, *DataConnectorDefinition
+type DataConnectorDefinitionClassification interface {
+	// GetDataConnectorDefinition returns the DataConnectorDefinition content of the underlying type.
+	GetDataConnectorDefinition() *DataConnectorDefinition
 }
 
 // DataConnectorsCheckRequirementsClassification provides polymorphic access to related types.
@@ -73,8 +120,8 @@ type DataConnectorClassification interface {
 // Use a type switch to determine the concrete type.  The possible types are:
 // - *AADCheckRequirements, *AATPCheckRequirements, *ASCCheckRequirements, *AwsCloudTrailCheckRequirements, *AwsS3CheckRequirements,
 // - *DataConnectorsCheckRequirements, *Dynamics365CheckRequirements, *IoTCheckRequirements, *MCASCheckRequirements, *MDATPCheckRequirements,
-// - *MSTICheckRequirements, *MtpCheckRequirements, *Office365ProjectCheckRequirements, *OfficeATPCheckRequirements, *OfficeIRMCheckRequirements,
-// - *OfficePowerBICheckRequirements, *TICheckRequirements, *TiTaxiiCheckRequirements
+// - *MSTICheckRequirements, *MicrosoftPurviewInformationProtectionCheckRequirements, *MtpCheckRequirements, *Office365ProjectCheckRequirements,
+// - *OfficeATPCheckRequirements, *OfficeIRMCheckRequirements, *OfficePowerBICheckRequirements, *TICheckRequirements, *TiTaxiiCheckRequirements
 type DataConnectorsCheckRequirementsClassification interface {
 	// GetDataConnectorsCheckRequirements returns the DataConnectorsCheckRequirements content of the underlying type.
 	GetDataConnectorsCheckRequirements() *DataConnectorsCheckRequirements
@@ -144,6 +191,33 @@ type SecurityMLAnalyticsSettingClassification interface {
 type SettingsClassification interface {
 	// GetSettings returns the Settings content of the underlying type.
 	GetSettings() *Settings
+}
+
+// SystemsConfigurationClassification provides polymorphic access to related types.
+// Call the interface's GetSystemsConfiguration() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *SapSystemsConfiguration, *SystemsConfiguration
+type SystemsConfigurationClassification interface {
+	// GetSystemsConfiguration returns the SystemsConfiguration content of the underlying type.
+	GetSystemsConfiguration() *SystemsConfiguration
+}
+
+// SystemsConfigurationConnectorClassification provides polymorphic access to related types.
+// Call the interface's GetSystemsConfigurationConnector() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *RFCConnector, *SapControlConnector, *SystemsConfigurationConnector
+type SystemsConfigurationConnectorClassification interface {
+	// GetSystemsConfigurationConnector returns the SystemsConfigurationConnector content of the underlying type.
+	GetSystemsConfigurationConnector() *SystemsConfigurationConnector
+}
+
+// TIObjectClassification provides polymorphic access to related types.
+// Call the interface's GetTIObject() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *AttackPattern, *Identity, *Indicator, *Relationship, *TIObject, *ThreatActor
+type TIObjectClassification interface {
+	// GetTIObject returns the TIObject content of the underlying type.
+	GetTIObject() *TIObject
 }
 
 // ThreatIntelligenceInformationClassification provides polymorphic access to related types.
