@@ -1,5 +1,20 @@
 # Release History
 
+## 1.2.0-beta.2 (2024-10-01)
+### Features Added
+
+- New enum type `AADEnabledEnum` with values `AADEnabledEnumDisabled`, `AADEnabledEnumEnabled`
+- New enum type `DataEncryptionType` with values `DataEncryptionTypeAzureKeyVault`, `DataEncryptionTypeSystemAssigned`
+- New enum type `IdentityType` with values `IdentityTypeSystemAssigned`, `IdentityTypeUserAssigned`
+- New enum type `PasswordEnabledEnum` with values `PasswordEnabledEnumDisabled`, `PasswordEnabledEnumEnabled`
+- New struct `DataEncryption`
+- New struct `IdentityProperties`
+- New struct `UserAssignedIdentity`
+- New field `Identity` in struct `Cluster`
+- New field `Identity` in struct `ClusterForUpdate`
+- New field `AADAuthEnabled`, `DataEncryption`, `PasswordEnabled` in struct `ClusterProperties`
+
+
 ## 1.2.0-beta.1 (2024-03-22)
 ### Features Added
 
