@@ -45,7 +45,7 @@ func NewMsixImagesClient(subscriptionID string, credential azcore.TokenCredentia
 
 // NewExpandPager - Expands and Lists MSIX packages in an Image, given the Image Path.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-04-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - msixImageURI - Object containing URI to MSIX Image
@@ -93,7 +93,7 @@ func (client *MsixImagesClient) expandCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-04-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, msixImageURI); err != nil {
