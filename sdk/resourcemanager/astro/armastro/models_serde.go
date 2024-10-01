@@ -175,13 +175,50 @@ func (l *LiftrBaseMarketplaceDetails) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type LiftrBaseMarketplaceDetailsUpdate.
+func (l LiftrBaseMarketplaceDetailsUpdate) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "offerDetails", l.OfferDetails)
+	populate(objectMap, "subscriptionId", l.SubscriptionID)
+	populate(objectMap, "subscriptionStatus", l.SubscriptionStatus)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type LiftrBaseMarketplaceDetailsUpdate.
+func (l *LiftrBaseMarketplaceDetailsUpdate) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", l, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "offerDetails":
+			err = unpopulate(val, "OfferDetails", &l.OfferDetails)
+			delete(rawMsg, key)
+		case "subscriptionId":
+			err = unpopulate(val, "SubscriptionID", &l.SubscriptionID)
+			delete(rawMsg, key)
+		case "subscriptionStatus":
+			err = unpopulate(val, "SubscriptionStatus", &l.SubscriptionStatus)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", l, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type LiftrBaseOfferDetails.
 func (l LiftrBaseOfferDetails) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populateDateTimeRFC3339(objectMap, "endDate", l.EndDate)
 	populate(objectMap, "offerId", l.OfferID)
 	populate(objectMap, "planId", l.PlanID)
 	populate(objectMap, "planName", l.PlanName)
 	populate(objectMap, "publisherId", l.PublisherID)
+	populate(objectMap, "renewalMode", l.RenewalMode)
 	populate(objectMap, "termId", l.TermID)
 	populate(objectMap, "termUnit", l.TermUnit)
 	return json.Marshal(objectMap)
@@ -189,6 +226,60 @@ func (l LiftrBaseOfferDetails) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements the json.Unmarshaller interface for type LiftrBaseOfferDetails.
 func (l *LiftrBaseOfferDetails) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", l, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "endDate":
+			err = unpopulateDateTimeRFC3339(val, "EndDate", &l.EndDate)
+			delete(rawMsg, key)
+		case "offerId":
+			err = unpopulate(val, "OfferID", &l.OfferID)
+			delete(rawMsg, key)
+		case "planId":
+			err = unpopulate(val, "PlanID", &l.PlanID)
+			delete(rawMsg, key)
+		case "planName":
+			err = unpopulate(val, "PlanName", &l.PlanName)
+			delete(rawMsg, key)
+		case "publisherId":
+			err = unpopulate(val, "PublisherID", &l.PublisherID)
+			delete(rawMsg, key)
+		case "renewalMode":
+			err = unpopulate(val, "RenewalMode", &l.RenewalMode)
+			delete(rawMsg, key)
+		case "termId":
+			err = unpopulate(val, "TermID", &l.TermID)
+			delete(rawMsg, key)
+		case "termUnit":
+			err = unpopulate(val, "TermUnit", &l.TermUnit)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", l, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type LiftrBaseOfferDetailsUpdate.
+func (l LiftrBaseOfferDetailsUpdate) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "offerId", l.OfferID)
+	populate(objectMap, "planId", l.PlanID)
+	populate(objectMap, "planName", l.PlanName)
+	populate(objectMap, "publisherId", l.PublisherID)
+	populate(objectMap, "renewalMode", l.RenewalMode)
+	populate(objectMap, "termId", l.TermID)
+	populate(objectMap, "termUnit", l.TermUnit)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type LiftrBaseOfferDetailsUpdate.
+func (l *LiftrBaseOfferDetailsUpdate) UnmarshalJSON(data []byte) error {
 	var rawMsg map[string]json.RawMessage
 	if err := json.Unmarshal(data, &rawMsg); err != nil {
 		return fmt.Errorf("unmarshalling type %T: %v", l, err)
@@ -207,6 +298,9 @@ func (l *LiftrBaseOfferDetails) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "publisherId":
 			err = unpopulate(val, "PublisherID", &l.PublisherID)
+			delete(rawMsg, key)
+		case "renewalMode":
+			err = unpopulate(val, "RenewalMode", &l.RenewalMode)
 			delete(rawMsg, key)
 		case "termId":
 			err = unpopulate(val, "TermID", &l.TermID)
@@ -627,6 +721,7 @@ func (o *OrganizationResourceUpdate) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type OrganizationResourceUpdateProperties.
 func (o OrganizationResourceUpdateProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "marketplace", o.Marketplace)
 	populate(objectMap, "partnerOrganizationProperties", o.PartnerOrganizationProperties)
 	populate(objectMap, "user", o.User)
 	return json.Marshal(objectMap)
@@ -641,6 +736,9 @@ func (o *OrganizationResourceUpdateProperties) UnmarshalJSON(data []byte) error 
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "marketplace":
+			err = unpopulate(val, "Marketplace", &o.Marketplace)
+			delete(rawMsg, key)
 		case "partnerOrganizationProperties":
 			err = unpopulate(val, "PartnerOrganizationProperties", &o.PartnerOrganizationProperties)
 			delete(rawMsg, key)
