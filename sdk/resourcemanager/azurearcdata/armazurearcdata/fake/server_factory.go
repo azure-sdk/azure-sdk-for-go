@@ -19,12 +19,17 @@ import (
 
 // ServerFactory is a fake server for instances of the armazurearcdata.ClientFactory type.
 type ServerFactory struct {
-	ActiveDirectoryConnectorsServer ActiveDirectoryConnectorsServer
-	DataControllersServer           DataControllersServer
-	OperationsServer                OperationsServer
-	PostgresInstancesServer         PostgresInstancesServer
-	SQLManagedInstancesServer       SQLManagedInstancesServer
-	SQLServerInstancesServer        SQLServerInstancesServer
+	ActiveDirectoryConnectorsServer   ActiveDirectoryConnectorsServer
+	DataControllersServer             DataControllersServer
+	FailoverGroupsServer              FailoverGroupsServer
+	OperationsServer                  OperationsServer
+	PostgresInstancesServer           PostgresInstancesServer
+	SQLManagedInstancesServer         SQLManagedInstancesServer
+	SQLServerAvailabilityGroupsServer SQLServerAvailabilityGroupsServer
+	SQLServerDatabasesServer          SQLServerDatabasesServer
+	SQLServerEsuLicensesServer        SQLServerEsuLicensesServer
+	SQLServerInstancesServer          SQLServerInstancesServer
+	SQLServerLicensesServer           SQLServerLicensesServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -39,14 +44,19 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armazurearcdata.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                               *ServerFactory
-	trMu                              sync.Mutex
-	trActiveDirectoryConnectorsServer *ActiveDirectoryConnectorsServerTransport
-	trDataControllersServer           *DataControllersServerTransport
-	trOperationsServer                *OperationsServerTransport
-	trPostgresInstancesServer         *PostgresInstancesServerTransport
-	trSQLManagedInstancesServer       *SQLManagedInstancesServerTransport
-	trSQLServerInstancesServer        *SQLServerInstancesServerTransport
+	srv                                 *ServerFactory
+	trMu                                sync.Mutex
+	trActiveDirectoryConnectorsServer   *ActiveDirectoryConnectorsServerTransport
+	trDataControllersServer             *DataControllersServerTransport
+	trFailoverGroupsServer              *FailoverGroupsServerTransport
+	trOperationsServer                  *OperationsServerTransport
+	trPostgresInstancesServer           *PostgresInstancesServerTransport
+	trSQLManagedInstancesServer         *SQLManagedInstancesServerTransport
+	trSQLServerAvailabilityGroupsServer *SQLServerAvailabilityGroupsServerTransport
+	trSQLServerDatabasesServer          *SQLServerDatabasesServerTransport
+	trSQLServerEsuLicensesServer        *SQLServerEsuLicensesServerTransport
+	trSQLServerInstancesServer          *SQLServerInstancesServerTransport
+	trSQLServerLicensesServer           *SQLServerLicensesServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -72,6 +82,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewDataControllersServerTransport(&s.srv.DataControllersServer)
 		})
 		resp, err = s.trDataControllersServer.Do(req)
+	case "FailoverGroupsClient":
+		initServer(s, &s.trFailoverGroupsServer, func() *FailoverGroupsServerTransport {
+			return NewFailoverGroupsServerTransport(&s.srv.FailoverGroupsServer)
+		})
+		resp, err = s.trFailoverGroupsServer.Do(req)
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
@@ -85,11 +100,31 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewSQLManagedInstancesServerTransport(&s.srv.SQLManagedInstancesServer)
 		})
 		resp, err = s.trSQLManagedInstancesServer.Do(req)
+	case "SQLServerAvailabilityGroupsClient":
+		initServer(s, &s.trSQLServerAvailabilityGroupsServer, func() *SQLServerAvailabilityGroupsServerTransport {
+			return NewSQLServerAvailabilityGroupsServerTransport(&s.srv.SQLServerAvailabilityGroupsServer)
+		})
+		resp, err = s.trSQLServerAvailabilityGroupsServer.Do(req)
+	case "SQLServerDatabasesClient":
+		initServer(s, &s.trSQLServerDatabasesServer, func() *SQLServerDatabasesServerTransport {
+			return NewSQLServerDatabasesServerTransport(&s.srv.SQLServerDatabasesServer)
+		})
+		resp, err = s.trSQLServerDatabasesServer.Do(req)
+	case "SQLServerEsuLicensesClient":
+		initServer(s, &s.trSQLServerEsuLicensesServer, func() *SQLServerEsuLicensesServerTransport {
+			return NewSQLServerEsuLicensesServerTransport(&s.srv.SQLServerEsuLicensesServer)
+		})
+		resp, err = s.trSQLServerEsuLicensesServer.Do(req)
 	case "SQLServerInstancesClient":
 		initServer(s, &s.trSQLServerInstancesServer, func() *SQLServerInstancesServerTransport {
 			return NewSQLServerInstancesServerTransport(&s.srv.SQLServerInstancesServer)
 		})
 		resp, err = s.trSQLServerInstancesServer.Do(req)
+	case "SQLServerLicensesClient":
+		initServer(s, &s.trSQLServerLicensesServer, func() *SQLServerLicensesServerTransport {
+			return NewSQLServerLicensesServerTransport(&s.srv.SQLServerLicensesServer)
+		})
+		resp, err = s.trSQLServerLicensesServer.Do(req)
 	default:
 		err = fmt.Errorf("unhandled client %s", client)
 	}
