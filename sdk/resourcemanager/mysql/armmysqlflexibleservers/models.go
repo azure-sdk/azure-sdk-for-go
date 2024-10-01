@@ -658,6 +658,12 @@ type MaintenanceListResult struct {
 	Value []*Maintenance
 }
 
+// MaintenancePolicy - Maintenance policy of a server.
+type MaintenancePolicy struct {
+	// The patch strategy of this server
+	PatchStrategy *PatchStrategy
+}
+
 // MaintenanceProperties - The properties of a maintenance resource.
 type MaintenanceProperties struct {
 	// The start time for a maintenance.
@@ -1179,6 +1185,12 @@ type ServerBackupV2ListResult struct {
 	Value []*ServerBackupV2
 }
 
+// ServerDetachVNetParameter - Parameters to detach Vnet.
+type ServerDetachVNetParameter struct {
+	// Whether or not public network access is allowed for this server. Value is 'Disabled' when server has VNet integration.
+	PublicNetworkAccess *EnableStatusEnum
+}
+
 // ServerEditionCapability - Server edition capabilities.
 type ServerEditionCapability struct {
 	// READ-ONLY; Server edition name
@@ -1224,7 +1236,7 @@ type ServerForUpdate struct {
 	Tags map[string]*string
 }
 
-// ServerGtidSetParameter - Server Gtid set parameters.
+// ServerGtidSetParameter - Server Gtid set parameters: Replication with Global Transaction Identifiers.
 type ServerGtidSetParameter struct {
 	// The Gtid set of server.
 	GtidSet *string
@@ -1260,13 +1272,20 @@ type ServerProperties struct {
 	// The Data Encryption for CMK.
 	DataEncryption *DataEncryption
 
+	// The server database port. Can only be specified when the server is being created.
+	DatabasePort *int32
+
 	// High availability related properties of a server.
 	HighAvailability *HighAvailability
 
 	// Source properties for import from storage.
 	ImportSourceProperties *ImportSourceProperties
 
-	// Maintenance window of a server.
+	// Maintenance policy of a server.
+	MaintenancePolicy *MaintenancePolicy
+
+	// Maintenance window of a server. Known issue: cannot be set during server creation or updated with other properties during
+	// server update; must be updated separately.
 	MaintenanceWindow *MaintenanceWindow
 
 	// Network related properties of a server.
@@ -1313,6 +1332,9 @@ type ServerPropertiesForUpdate struct {
 
 	// High availability related properties of a server.
 	HighAvailability *HighAvailability
+
+	// Maintenance policy of a server.
+	MaintenancePolicy *MaintenancePolicy
 
 	// Maintenance window of a server.
 	MaintenanceWindow *MaintenanceWindow
@@ -1367,6 +1389,9 @@ type Storage struct {
 
 	// Enable Log On Disk or not.
 	LogOnDisk *EnableStatusEnum
+
+	// The redundant type of the server storage. The parameter is used for server creation.
+	StorageRedundancy *StorageRedundancyEnum
 
 	// Max storage size allowed for a server.
 	StorageSizeGB *int32

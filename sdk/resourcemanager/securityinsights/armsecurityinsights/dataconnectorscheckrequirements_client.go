@@ -28,7 +28,7 @@ type DataConnectorsCheckRequirementsClient struct {
 }
 
 // NewDataConnectorsCheckRequirementsClient creates a new instance of DataConnectorsCheckRequirementsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewDataConnectorsCheckRequirementsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DataConnectorsCheckRequirementsClient, error) {
@@ -46,7 +46,7 @@ func NewDataConnectorsCheckRequirementsClient(subscriptionID string, credential 
 // Post - Get requirements state for a data connector type.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - dataConnectorsCheckRequirements - The parameters for requirements check message
@@ -94,7 +94,7 @@ func (client *DataConnectorsCheckRequirementsClient) postCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, dataConnectorsCheckRequirements); err != nil {

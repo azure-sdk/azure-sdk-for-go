@@ -29,7 +29,7 @@ type IncidentRelationsClient struct {
 }
 
 // NewIncidentRelationsClient creates a new instance of IncidentRelationsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewIncidentRelationsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*IncidentRelationsClient, error) {
@@ -47,7 +47,7 @@ func NewIncidentRelationsClient(subscriptionID string, credential azcore.TokenCr
 // CreateOrUpdate - Creates or updates the incident relation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - incidentID - Incident ID
@@ -105,7 +105,7 @@ func (client *IncidentRelationsClient) createOrUpdateCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, relation); err != nil {
@@ -126,7 +126,7 @@ func (client *IncidentRelationsClient) createOrUpdateHandleResponse(resp *http.R
 // Delete - Delete the incident relation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - incidentID - Incident ID
@@ -182,7 +182,7 @@ func (client *IncidentRelationsClient) deleteCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -191,7 +191,7 @@ func (client *IncidentRelationsClient) deleteCreateRequest(ctx context.Context, 
 // Get - Gets an incident relation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - incidentID - Incident ID
@@ -247,7 +247,7 @@ func (client *IncidentRelationsClient) getCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -264,7 +264,7 @@ func (client *IncidentRelationsClient) getHandleResponse(resp *http.Response) (I
 
 // NewListPager - Gets all incident relations.
 //
-// Generated from API version 2022-09-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - incidentID - Incident ID
@@ -329,7 +329,7 @@ func (client *IncidentRelationsClient) listCreateRequest(ctx context.Context, re
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	reqQP.Set("api-version", "2022-09-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
