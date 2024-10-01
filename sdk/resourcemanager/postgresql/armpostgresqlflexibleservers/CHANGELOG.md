@@ -1,5 +1,14 @@
 # Release History
 
+## 4.0.0-beta.6 (2024-10-01)
+### Features Added
+
+- New value `OriginCustomerOnDemand` added to enum type `Origin`
+- New function `*BackupsClient.BeginCreate(context.Context, string, string, string, *BackupsClientBeginCreateOptions) (*runtime.Poller[BackupsClientCreateResponse], error)`
+- New function `*BackupsClient.BeginDelete(context.Context, string, string, string, *BackupsClientBeginDeleteOptions) (*runtime.Poller[BackupsClientDeleteResponse], error)`
+- New field `AdministratorLogin` in struct `ServerPropertiesForUpdate`
+
+
 ## 4.0.0-beta.5 (2024-04-26)
 ### Features Added
 

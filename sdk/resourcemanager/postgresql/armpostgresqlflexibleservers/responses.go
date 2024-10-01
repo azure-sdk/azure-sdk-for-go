@@ -31,6 +31,17 @@ type AdministratorsClientListByServerResponse struct {
 	AdministratorListResult
 }
 
+// BackupsClientCreateResponse contains the response from method BackupsClient.BeginCreate.
+type BackupsClientCreateResponse struct {
+	// Server backup properties
+	ServerBackup
+}
+
+// BackupsClientDeleteResponse contains the response from method BackupsClient.BeginDelete.
+type BackupsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
 // BackupsClientGetResponse contains the response from method BackupsClient.Get.
 type BackupsClientGetResponse struct {
 	// Server backup properties
