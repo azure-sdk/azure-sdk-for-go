@@ -31,6 +31,18 @@ type AdministratorsClientListByServerOptions struct {
 	// placeholder for future optional parameters
 }
 
+// BackupsClientBeginCreateOptions contains the optional parameters for the BackupsClient.BeginCreate method.
+type BackupsClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// BackupsClientBeginDeleteOptions contains the optional parameters for the BackupsClient.BeginDelete method.
+type BackupsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // BackupsClientGetOptions contains the optional parameters for the BackupsClient.Get method.
 type BackupsClientGetOptions struct {
 	// placeholder for future optional parameters
