@@ -10,8 +10,24 @@ package armcosmosforpostgresql
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/cosmosforpostgresql/armcosmosforpostgresql"
-	moduleVersion = "v1.2.0-beta.1"
+	moduleVersion = "v1.2.0-beta.2"
 )
+
+// AADEnabledEnum - Indicates whether the cluster was created using AAD authentication.
+type AADEnabledEnum string
+
+const (
+	AADEnabledEnumDisabled AADEnabledEnum = "disabled"
+	AADEnabledEnumEnabled  AADEnabledEnum = "enabled"
+)
+
+// PossibleAADEnabledEnumValues returns the possible values for the AADEnabledEnum const type.
+func PossibleAADEnabledEnumValues() []AADEnabledEnum {
+	return []AADEnabledEnum{
+		AADEnabledEnumDisabled,
+		AADEnabledEnumEnabled,
+	}
+}
 
 type ActiveDirectoryAuth string
 
@@ -68,6 +84,36 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 	}
 }
 
+type DataEncryptionType string
+
+const (
+	DataEncryptionTypeAzureKeyVault  DataEncryptionType = "AzureKeyVault"
+	DataEncryptionTypeSystemAssigned DataEncryptionType = "SystemAssigned"
+)
+
+// PossibleDataEncryptionTypeValues returns the possible values for the DataEncryptionType const type.
+func PossibleDataEncryptionTypeValues() []DataEncryptionType {
+	return []DataEncryptionType{
+		DataEncryptionTypeAzureKeyVault,
+		DataEncryptionTypeSystemAssigned,
+	}
+}
+
+type IdentityType string
+
+const (
+	IdentityTypeSystemAssigned IdentityType = "SystemAssigned"
+	IdentityTypeUserAssigned   IdentityType = "UserAssigned"
+)
+
+// PossibleIdentityTypeValues returns the possible values for the IdentityType const type.
+func PossibleIdentityTypeValues() []IdentityType {
+	return []IdentityType{
+		IdentityTypeSystemAssigned,
+		IdentityTypeUserAssigned,
+	}
+}
+
 // OperationOrigin - The intended executor of the operation.
 type OperationOrigin string
 
@@ -98,6 +144,22 @@ func PossiblePasswordAuthValues() []PasswordAuth {
 	return []PasswordAuth{
 		PasswordAuthDisabled,
 		PasswordAuthEnabled,
+	}
+}
+
+// PasswordEnabledEnum - Indicates whether the cluster was created with a password or using AAD authentication.
+type PasswordEnabledEnum string
+
+const (
+	PasswordEnabledEnumDisabled PasswordEnabledEnum = "disabled"
+	PasswordEnabledEnumEnabled  PasswordEnabledEnum = "enabled"
+)
+
+// PossiblePasswordEnabledEnumValues returns the possible values for the PasswordEnabledEnum const type.
+func PossiblePasswordEnabledEnumValues() []PasswordEnabledEnum {
+	return []PasswordEnabledEnum{
+		PasswordEnabledEnumDisabled,
+		PasswordEnabledEnumEnabled,
 	}
 }
 
