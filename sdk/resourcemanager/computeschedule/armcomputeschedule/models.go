@@ -12,7 +12,7 @@ import "time"
 
 // CancelOperationsRequest - This is the request to cancel running operations in scheduled actions using the operation ids
 type CancelOperationsRequest struct {
-	// REQUIRED; Correlationid item
+	// REQUIRED; CorrelationId item
 	Correlationid *string
 
 	// REQUIRED; The list of operation ids to cancel operations on
@@ -42,7 +42,7 @@ type DeallocateResourceOperationResponse struct {
 
 // ExecuteDeallocateRequest - The ExecuteDeallocateRequest request for executeDeallocate operations
 type ExecuteDeallocateRequest struct {
-	// REQUIRED; Correlationid item
+	// REQUIRED; CorrelationId item
 	Correlationid *string
 
 	// REQUIRED; The execution parameters for the request
@@ -54,7 +54,7 @@ type ExecuteDeallocateRequest struct {
 
 // ExecuteHibernateRequest - The ExecuteHibernateRequest request for executeHibernate operations
 type ExecuteHibernateRequest struct {
-	// REQUIRED; Correlationid item
+	// REQUIRED; CorrelationId item
 	Correlationid *string
 
 	// REQUIRED; The execution parameters for the request
@@ -66,7 +66,7 @@ type ExecuteHibernateRequest struct {
 
 // ExecuteStartRequest - The ExecuteStartRequest request for executeStart operations
 type ExecuteStartRequest struct {
-	// REQUIRED; Correlationid item
+	// REQUIRED; CorrelationId item
 	Correlationid *string
 
 	// REQUIRED; The execution parameters for the request
@@ -99,7 +99,7 @@ type GetOperationErrorsResponse struct {
 
 // GetOperationStatusRequest - This is the request to get operation status using operationids
 type GetOperationStatusRequest struct {
-	// REQUIRED; Correlationid item
+	// REQUIRED; CorrelationId item
 	Correlationid *string
 
 	// REQUIRED; The list of operation ids to get the status of
@@ -319,7 +319,7 @@ type StartResourceOperationResponse struct {
 
 // SubmitDeallocateRequest - The deallocate request for resources
 type SubmitDeallocateRequest struct {
-	// REQUIRED; Correlationid item
+	// REQUIRED; CorrelationId item
 	Correlationid *string
 
 	// REQUIRED; The execution parameters for the request
@@ -334,7 +334,7 @@ type SubmitDeallocateRequest struct {
 
 // SubmitHibernateRequest - This is the request for hibernate
 type SubmitHibernateRequest struct {
-	// REQUIRED; Correlationid item
+	// REQUIRED; CorrelationId item
 	Correlationid *string
 
 	// REQUIRED; The execution parameters for the request
@@ -349,7 +349,7 @@ type SubmitHibernateRequest struct {
 
 // SubmitStartRequest - This is the request for start
 type SubmitStartRequest struct {
-	// REQUIRED; Correlationid item
+	// REQUIRED; CorrelationId item
 	Correlationid *string
 
 	// REQUIRED; The execution parameters for the request
