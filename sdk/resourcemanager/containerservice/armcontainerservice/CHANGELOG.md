@@ -1,5 +1,19 @@
 # Release History
 
+## 6.2.0 (2024-10-01)
+### Features Added
+
+- New enum type `RestrictionLevel` with values `RestrictionLevelReadOnly`, `RestrictionLevelUnrestricted`
+- New struct `AdvancedNetworking`
+- New struct `AdvancedNetworkingObservability`
+- New struct `AdvancedNetworkingSecurity`
+- New struct `ManagedClusterNodeResourceGroupProfile`
+- New field `IgnorePodDisruptionBudget` in struct `AgentPoolsClientBeginDeleteOptions`
+- New field `NodeResourceGroupProfile` in struct `ManagedClusterProperties`
+- New field `IfMatch`, `IfNoneMatch` in struct `ManagedClustersClientBeginCreateOrUpdateOptions`
+- New field `AdvancedNetworking` in struct `NetworkProfile`
+
+
 ## 6.2.0-beta.1 (2024-09-29)
 ### Features Added
 
