@@ -356,32 +356,32 @@ type DeploymentsClientListByResourceGroupResponse struct {
 
 // DeploymentsClientValidateAtManagementGroupScopeResponse contains the response from method DeploymentsClient.BeginValidateAtManagementGroupScope.
 type DeploymentsClientValidateAtManagementGroupScopeResponse struct {
-	// Information from validate template deployment response.
-	DeploymentValidateResult
+	// Deployment information.
+	DeploymentExtended
 }
 
 // DeploymentsClientValidateAtScopeResponse contains the response from method DeploymentsClient.BeginValidateAtScope.
 type DeploymentsClientValidateAtScopeResponse struct {
-	// Information from validate template deployment response.
-	DeploymentValidateResult
+	// Deployment information.
+	DeploymentExtended
 }
 
 // DeploymentsClientValidateAtSubscriptionScopeResponse contains the response from method DeploymentsClient.BeginValidateAtSubscriptionScope.
 type DeploymentsClientValidateAtSubscriptionScopeResponse struct {
-	// Information from validate template deployment response.
-	DeploymentValidateResult
+	// Deployment information.
+	DeploymentExtended
 }
 
 // DeploymentsClientValidateAtTenantScopeResponse contains the response from method DeploymentsClient.BeginValidateAtTenantScope.
 type DeploymentsClientValidateAtTenantScopeResponse struct {
-	// Information from validate template deployment response.
-	DeploymentValidateResult
+	// Deployment information.
+	DeploymentExtended
 }
 
 // DeploymentsClientValidateResponse contains the response from method DeploymentsClient.BeginValidate.
 type DeploymentsClientValidateResponse struct {
-	// Information from validate template deployment response.
-	DeploymentValidateResult
+	// Deployment information.
+	DeploymentExtended
 }
 
 // DeploymentsClientWhatIfAtManagementGroupScopeResponse contains the response from method DeploymentsClient.BeginWhatIfAtManagementGroupScope.
@@ -509,7 +509,7 @@ type ResourceGroupsClientUpdateResponse struct {
 	ResourceGroup
 }
 
-// TagsClientCreateOrUpdateAtScopeResponse contains the response from method TagsClient.CreateOrUpdateAtScope.
+// TagsClientCreateOrUpdateAtScopeResponse contains the response from method TagsClient.BeginCreateOrUpdateAtScope.
 type TagsClientCreateOrUpdateAtScopeResponse struct {
 	// Wrapper resource for tags API requests and responses.
 	TagsResource
@@ -527,7 +527,7 @@ type TagsClientCreateOrUpdateValueResponse struct {
 	TagValue
 }
 
-// TagsClientDeleteAtScopeResponse contains the response from method TagsClient.DeleteAtScope.
+// TagsClientDeleteAtScopeResponse contains the response from method TagsClient.BeginDeleteAtScope.
 type TagsClientDeleteAtScopeResponse struct {
 	// placeholder for future response values
 }
@@ -554,7 +554,7 @@ type TagsClientListResponse struct {
 	TagsListResult
 }
 
-// TagsClientUpdateAtScopeResponse contains the response from method TagsClient.UpdateAtScope.
+// TagsClientUpdateAtScopeResponse contains the response from method TagsClient.BeginUpdateAtScope.
 type TagsClientUpdateAtScopeResponse struct {
 	// Wrapper resource for tags API requests and responses.
 	TagsResource
