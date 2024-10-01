@@ -10,6 +10,103 @@ package armdesktopvirtualization
 
 import "time"
 
+// ActiveDirectoryInfoPatchProperties - Active directory info. Only one should be populated based on the join type.
+type ActiveDirectoryInfoPatchProperties struct {
+	// Credentials needed to create the virtual machine.
+	DomainCredentials *KeyVaultCredentialsPatchProperties
+}
+
+// ActiveDirectoryInfoProperties - Active directory info. Only one should be populated based on the join type.
+type ActiveDirectoryInfoProperties struct {
+	// REQUIRED; Credentials needed to create the virtual machine.
+	DomainCredentials *KeyVaultCredentialsProperties
+
+	// REQUIRED; The organizational unit(OU) path.
+	OuPath *string
+
+	// The domain a virtual machine connected to a hostpool will join.
+	DomainName *string
+}
+
+// ActiveSessionHostConfiguration - Represents a ActiveSessionHostConfiguration definition. This has all of the sessionHostConfiguration
+// properties except provisioningState
+type ActiveSessionHostConfiguration struct {
+	// REQUIRED; Detailed properties for SessionHostConfiguration
+	Properties *ActiveSessionHostConfigurationProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ActiveSessionHostConfigurationList - List of ActiveSessionHostConfiguration definitions.
+type ActiveSessionHostConfigurationList struct {
+	// List of ActiveSessionHostConfiguration definitions.
+	Value []*ActiveSessionHostConfiguration
+
+	// READ-ONLY; Link to the next page of results.
+	NextLink *string
+}
+
+// ActiveSessionHostConfigurationProperties - Session host configurations of HostPool.
+type ActiveSessionHostConfigurationProperties struct {
+	// REQUIRED; Disk information.
+	DiskInfo *DiskInfoProperties
+
+	// REQUIRED; Domain configurations of session hosts.
+	DomainInfo *DomainInfoProperties
+
+	// REQUIRED; Image configurations of HostPool.
+	ImageInfo *ImageInfoProperties
+
+	// REQUIRED; Network information.
+	NetworkInfo *NetworkInfoProperties
+
+	// REQUIRED; Local Admin credentials for session hosts.
+	VMAdminCredentials *KeyVaultCredentialsProperties
+
+	// REQUIRED; The prefix that should be associated with session host names
+	VMNamePrefix *string
+
+	// REQUIRED; The id of the size of a virtual machine connected to a hostpool. Example: StandardD2asv6
+	VMSizeID *string
+
+	// Value for availability zones to be used by the session host. Should be from [1,2,3].
+	AvailabilityZones []*int32
+
+	// Boot Diagnostics information.
+	BootDiagnosticsInfo *BootDiagnosticsInfoProperties
+
+	// The uri to the storage blob containing the arm template to be run on the virtual machine after provisioning.
+	CustomConfigurationScriptURL *string
+
+	// Friendly name to describe this version of the SessionHostConfiguration.
+	FriendlyName *string
+
+	// Security information.
+	SecurityInfo *SecurityInfoProperties
+
+	// The Location for the session host to be created in. It will default to the location of the hostpool if not provided.
+	VMLocation *string
+
+	// The ResourceGroup for the session hosts to be created in. It will default to the ResourceGroup of the hostpool if not provided.
+	VMResourceGroup *string
+
+	// Hashtable that lists key/value pair tags to apply to the VMs
+	VMTags map[string]*string
+
+	// READ-ONLY; The timestamp of the last update.
+	Version *time.Time
+}
+
 // AgentUpdatePatchProperties - The session host configuration for updating agent, monitoring agent, and stack component.
 type AgentUpdatePatchProperties struct {
 	// Time zone for maintenance as defined in https://docs.microsoft.com/en-us/dotnet/api/system.timezoneinfo.findsystemtimezonebyid?view=net-5.0.
@@ -77,7 +174,7 @@ type AppAttachPackageInfoProperties struct {
 	// User friendly Name to be displayed in the portal.
 	DisplayName *string
 
-	// VHD/CIM image path on Network Share.
+	// VHD/CIM/APP-V image path on Network Share.
 	ImagePath *string
 
 	// Make this version of the package the active one across the hostpool.
@@ -89,7 +186,7 @@ type AppAttachPackageInfoProperties struct {
 	// Specifies how to register Package in feed.
 	IsRegularRegistration *bool
 
-	// Date Package was last updated, found in the appxmanifest.xml.
+	// Date the package source was last updated, for Msix packages this is found in the appxmanifest.xml.
 	LastUpdated *time.Time
 
 	// Alias of App Attach Package. Assigned at import time
@@ -101,10 +198,10 @@ type AppAttachPackageInfoProperties struct {
 	// List of package dependencies.
 	PackageDependencies []*MsixPackageDependencies
 
-	// Package Family Name from appxmanifest.xml. Contains Package Name and Publisher name.
+	// Identifier not including the package version, for Msix packages it is the family name from the appxmanifest.xml.
 	PackageFamilyName *string
 
-	// Package Full Name from appxmanifest.xml.
+	// Identifier including the package version, for Msix packages it is the full name from the appxmanifest.xml.
 	PackageFullName *string
 
 	// Package Name from appxmanifest.xml.
@@ -113,7 +210,7 @@ type AppAttachPackageInfoProperties struct {
 	// Relative Path to the package inside the image.
 	PackageRelativePath *string
 
-	// Package version found in the appxmanifest.xml.
+	// Package Version found in the appxmanifest.xml.
 	Version *string
 }
 
@@ -126,10 +223,13 @@ type AppAttachPackageList struct {
 	NextLink *string
 }
 
-// AppAttachPackagePatch - Schema for updatable App Attach Package properties.
+// AppAttachPackagePatch - Schema for patchable App Attach Package properties.
 type AppAttachPackagePatch struct {
 	// Detailed properties for App Attach Package
 	Properties *AppAttachPackagePatchProperties
+
+	// tags to be updated
+	Tags map[string]*string
 
 	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
@@ -146,6 +246,9 @@ type AppAttachPackagePatch struct {
 
 // AppAttachPackagePatchProperties - Schema for patchable fields on an App Attach Package.
 type AppAttachPackagePatchProperties struct {
+	// Field that can be populated with custom data and filtered on in list GET calls
+	CustomData *string
+
 	// Parameter indicating how the health check should behave if this package fails staging
 	FailHealthCheckOnStagingFailure *FailHealthCheckOnStagingFailure
 
@@ -155,12 +258,18 @@ type AppAttachPackagePatchProperties struct {
 	// Detailed properties for App Attach Package
 	Image *AppAttachPackageInfoProperties
 
-	// URL path to certificate name located in keyVault
+	// URL of keyvault location to store certificate
 	KeyVaultURL *string
+
+	// Lookback url to third party control plane, should be null for first party packages
+	PackageLookbackURL *string
 }
 
 // AppAttachPackageProperties - Schema for App Attach Package properties.
 type AppAttachPackageProperties struct {
+	// Field that can be populated with custom data and filtered on in list GET calls
+	CustomData *string
+
 	// Parameter indicating how the health check should behave if this package fails staging
 	FailHealthCheckOnStagingFailure *FailHealthCheckOnStagingFailure
 
@@ -170,8 +279,14 @@ type AppAttachPackageProperties struct {
 	// Detailed properties for App Attach Package
 	Image *AppAttachPackageInfoProperties
 
-	// URL path to certificate name located in keyVault
+	// URL of keyvault location to store certificate
 	KeyVaultURL *string
+
+	// Lookback url to third party control plane, is null for native app attach packages
+	PackageLookbackURL *string
+
+	// Specific name of package owner, is "AppAttach" for native app attach packages
+	PackageOwnerName *string
 
 	// READ-ONLY; The provisioning state of the App Attach Package.
 	ProvisioningState *ProvisioningState
@@ -202,7 +317,9 @@ type ApplicationGroup struct {
 
 	// REQUIRED; Detailed properties for ApplicationGroup
 	Properties *ApplicationGroupProperties
-	Identity   *ResourceModelWithAllowedPropertySetIdentity
+
+	// Managed service identity (system assigned and/or user assigned identities)
+	Identity *ManagedServiceIdentity
 
 	// Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type. E.g. ApiApps are
 	// a kind of Microsoft.Web/sites type. If supported, the resource provider must
@@ -213,8 +330,12 @@ type ApplicationGroup struct {
 	// Azure resource. If this is present, complete mode deployment will not
 	// delete the resource if it is removed from the template since it is managed by another resource.
 	ManagedBy *string
-	Plan      *ResourceModelWithAllowedPropertySetPlan
-	SKU       *ResourceModelWithAllowedPropertySetSKU
+
+	// Plan for the resource.
+	Plan *Plan
+
+	// The resource model definition representing SKU
+	SKU *SKU
 
 	// Resource tags.
 	Tags map[string]*string
@@ -408,6 +529,50 @@ type ApplicationProperties struct {
 	ObjectID *string
 }
 
+// AzureActiveDirectoryInfoProperties - Azure Active directory info. Only one should be populated based on the join type.
+type AzureActiveDirectoryInfoProperties struct {
+	// REQUIRED; The Mobile Device Management(MDM) guid.
+	MdmProviderGUID *string
+}
+
+// BootDiagnosticsInfoPatchProperties - Boot Diagnostics is a debugging feature which allows you to view Console Output and
+// Screenshot to diagnose VM status.
+// You can easily view the output of your console log.
+// Azure also enables you to see a screenshot of the VM from the hypervisor.
+type BootDiagnosticsInfoPatchProperties struct {
+	// Whether boot diagnostics should be enabled on the Virtual Machine.
+	Enabled *bool
+
+	// Uri of the storage account to use for placing the console output and screenshot.
+	// If storageUri is not specified while enabling boot diagnostics, managed storage will be used.
+	StorageURI *string
+}
+
+// BootDiagnosticsInfoProperties - Boot Diagnostics is a debugging feature which allows you to view Console Output and Screenshot
+// to diagnose VM status.
+// You can easily view the output of your console log.
+// Azure also enables you to see a screenshot of the VM from the hypervisor.
+type BootDiagnosticsInfoProperties struct {
+	// Whether boot diagnostics should be enabled on the Virtual Machine.
+	Enabled *bool
+
+	// Uri of the storage account to use for placing the console output and screenshot.
+	// If storageUri is not specified while enabling boot diagnostics, managed storage will be used.
+	StorageURI *string
+}
+
+// CustomInfoPatchProperties - Custom image information.
+type CustomInfoPatchProperties struct {
+	// The resource id of the custom image.
+	ResourceID *string
+}
+
+// CustomInfoProperties - Custom image information.
+type CustomInfoProperties struct {
+	// REQUIRED; The resource id of the custom image.
+	ResourceID *string
+}
+
 // Desktop - Schema for Desktop properties.
 type Desktop struct {
 	// Detailed properties for Desktop
@@ -469,6 +634,63 @@ type DesktopProperties struct {
 
 	// READ-ONLY; ObjectId of Desktop. (internal use)
 	ObjectID *string
+}
+
+// DiskInfoPatchProperties - Disk information.
+type DiskInfoPatchProperties struct {
+	// The disk type used by virtual machine in hostpool session host.
+	Type *VirtualMachineDiskType
+}
+
+// DiskInfoProperties - Disk information.
+type DiskInfoProperties struct {
+	// REQUIRED; The disk type used by virtual machine in hostpool session host.
+	Type *VirtualMachineDiskType
+}
+
+// DomainInfoPatchProperties - Domain configurations of session hosts.
+type DomainInfoPatchProperties struct {
+	// Active directory info. Only one should be populated based on the join type.
+	ActiveDirectoryInfo *ActiveDirectoryInfoPatchProperties
+}
+
+// DomainInfoProperties - Domain configurations of session hosts.
+type DomainInfoProperties struct {
+	// REQUIRED; The type of domain join done by the virtual machine.
+	JoinType *DomainJoinType
+
+	// Active directory info. Only one should be populated based on the join type.
+	ActiveDirectoryInfo *ActiveDirectoryInfoProperties
+
+	// Azure active directory info. Only one should be populated based on the join type.
+	AzureActiveDirectoryInfo *AzureActiveDirectoryInfoProperties
+}
+
+// ErrorAdditionalInfo - The resource management error additional info.
+type ErrorAdditionalInfo struct {
+	// READ-ONLY; The additional info.
+	Info any
+
+	// READ-ONLY; The additional info type.
+	Type *string
+}
+
+// ErrorDetail - The error detail.
+type ErrorDetail struct {
+	// READ-ONLY; The error additional info.
+	AdditionalInfo []*ErrorAdditionalInfo
+
+	// READ-ONLY; The error code.
+	Code *string
+
+	// READ-ONLY; The error details.
+	Details []*ErrorDetail
+
+	// READ-ONLY; The error message.
+	Message *string
+
+	// READ-ONLY; The error target.
+	Target *string
 }
 
 // ExpandMsixImage - Represents the definition of contents retrieved after expanding the MSIX Image.
@@ -542,7 +764,7 @@ type ExpandMsixImageProperties struct {
 	// Relative Path to the package inside the image.
 	PackageRelativePath *string
 
-	// Package version found in the appxmanifest.xml.
+	// Package Version found in the appxmanifest.xml.
 	Version *string
 }
 
@@ -553,7 +775,9 @@ type HostPool struct {
 
 	// REQUIRED; Detailed properties for HostPool
 	Properties *HostPoolProperties
-	Identity   *ResourceModelWithAllowedPropertySetIdentity
+
+	// Managed service identity (system assigned and/or user assigned identities)
+	Identity *ManagedServiceIdentity
 
 	// Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type. E.g. ApiApps are
 	// a kind of Microsoft.Web/sites type. If supported, the resource provider must
@@ -564,8 +788,12 @@ type HostPool struct {
 	// Azure resource. If this is present, complete mode deployment will not
 	// delete the resource if it is removed from the template since it is managed by another resource.
 	ManagedBy *string
-	Plan      *ResourceModelWithAllowedPropertySetPlan
-	SKU       *ResourceModelWithAllowedPropertySetSKU
+
+	// Plan for the resource.
+	Plan *Plan
+
+	// The resource model definition representing SKU
+	SKU *SKU
 
 	// Resource tags.
 	Tags map[string]*string
@@ -630,11 +858,23 @@ type HostPoolPatchProperties struct {
 	// Description of HostPool.
 	Description *string
 
+	// Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection type
+	// when making connections. This means that this connection is possible, but is
+	// not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection
+	// type when making connections
+	DirectUDP *DirectUDP
+
 	// Friendly name of HostPool.
 	FriendlyName *string
 
 	// The type of the load balancer.
 	LoadBalancerType *LoadBalancerType
+
+	// Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection type
+	// when making connections. This means that this connection is possible, but is
+	// not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection
+	// type when making connections
+	ManagedPrivateUDP *ManagedPrivateUDP
 
 	// The max session limit of HostPool.
 	MaxSessionLimit *int32
@@ -648,8 +888,20 @@ type HostPoolPatchProperties struct {
 	// Enabled to allow this resource to be access from the public network
 	PublicNetworkAccess *HostpoolPublicNetworkAccess
 
+	// Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection type
+	// when making connections. This means that this connection is possible, but is
+	// not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection
+	// type when making connections
+	PublicUDP *PublicUDP
+
 	// The registration info of HostPool.
 	RegistrationInfo *RegistrationInfoPatch
+
+	// Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection type
+	// when making connections. This means that this connection is possible, but is
+	// not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection
+	// type when making connections
+	RelayUDP *RelayUDP
 
 	// The ring number of HostPool.
 	Ring *int32
@@ -696,8 +948,23 @@ type HostPoolProperties struct {
 	// Description of HostPool.
 	Description *string
 
+	// Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection type
+	// when making connections. This means that this connection is possible, but is
+	// not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection
+	// type when making connections
+	DirectUDP *DirectUDP
+
 	// Friendly name of HostPool.
 	FriendlyName *string
+
+	// Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection type
+	// when making connections. This means that this connection is possible, but is
+	// not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection
+	// type when making connections
+	ManagedPrivateUDP *ManagedPrivateUDP
+
+	// The type of management for this hostpool, Automated or Standard. The default value is Automated.
+	ManagementType *ManagementType
 
 	// The max session limit of HostPool.
 	MaxSessionLimit *int32
@@ -709,8 +976,20 @@ type HostPoolProperties struct {
 	// be accessed via private endpoints
 	PublicNetworkAccess *HostpoolPublicNetworkAccess
 
+	// Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection type
+	// when making connections. This means that this connection is possible, but is
+	// not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection
+	// type when making connections
+	PublicUDP *PublicUDP
+
 	// The registration info of HostPool.
 	RegistrationInfo *RegistrationInfo
+
+	// Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection type
+	// when making connections. This means that this connection is possible, but is
+	// not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection
+	// type when making connections
+	RelayUDP *RelayUDP
 
 	// The ring number of HostPool.
 	Ring *int32
@@ -752,6 +1031,69 @@ type HostPoolProperties struct {
 	PrivateEndpointConnections []*PrivateEndpointConnection
 }
 
+// HostPoolUpdateConfigurationPatchProperties - The configurations of a hostpool update.
+type HostPoolUpdateConfigurationPatchProperties struct {
+	// Whether not to save original disk. False by default.
+	DeleteOriginalVM *bool
+
+	// Grace period before logging off users in minutes.
+	LogOffDelayMinutes *int32
+
+	// Log off message sent to user for logoff.
+	LogOffMessage *string
+
+	// The maximum number of virtual machines to be removed during hostpool update.
+	MaxVMsRemoved *int32
+}
+
+// HostPoolUpdateConfigurationProperties - The configurations of a hostpool update.
+type HostPoolUpdateConfigurationProperties struct {
+	// REQUIRED; Grace period before logging off users in minutes.
+	LogOffDelayMinutes *int32
+
+	// REQUIRED; The maximum number of virtual machines to be removed during hostpool update.
+	MaxVMsRemoved *int32
+
+	// Whether not to save original disk. False by default.
+	DeleteOriginalVM *bool
+
+	// Log off message sent to user for logoff. Default value is an empty string.
+	LogOffMessage *string
+}
+
+// HostPoolUpdateControlParameter - Represents properties for a hostpool update control request.
+type HostPoolUpdateControlParameter struct {
+	// REQUIRED; Action types for controlling hostpool update.
+	Action *HostPoolUpdateAction
+
+	// The cancel message sent to the user on the session host. This is can only be specified if the action is 'Cancel'.
+	CancelMessage *string
+}
+
+// ImageInfoPatchProperties - Image configurations of session host in a HostPool.
+type ImageInfoPatchProperties struct {
+	// The values to uniquely identify a custom image. Only one should be populated based on the image type.
+	CustomInfo *CustomInfoPatchProperties
+
+	// The type of image session hosts use in the hostpool.
+	ImageType *Type
+
+	// The values to uniquely identify a marketplace image. Only one should be populated based on the image type.
+	MarketplaceInfo *MarketplaceInfoPatchProperties
+}
+
+// ImageInfoProperties - Image configurations of session host in a HostPool.
+type ImageInfoProperties struct {
+	// REQUIRED; The type of image session hosts use in the hostpool.
+	ImageType *Type
+
+	// The values to uniquely identify a custom image. Only one should be populated based on the image type.
+	CustomInfo *CustomInfoProperties
+
+	// The values to uniquely identify a marketplace image. Only one should be populated based on the image type.
+	MarketplaceInfo *MarketplaceInfoProperties
+}
+
 // ImportPackageInfoRequest - Information to import app attach package
 type ImportPackageInfoRequest struct {
 	// Possible device architectures that an app attach package can be configured for
@@ -759,6 +1101,24 @@ type ImportPackageInfoRequest struct {
 
 	// URI to Image
 	Path *string
+}
+
+// KeyVaultCredentialsPatchProperties - Credentials kept in the keyvault.
+type KeyVaultCredentialsPatchProperties struct {
+	// The uri to access the secret that the password is stored in.
+	PasswordKeyVaultSecretURI *string
+
+	// The uri to access the secret that the username is stored in.
+	UsernameKeyVaultSecretURI *string
+}
+
+// KeyVaultCredentialsProperties - Credentials kept in the keyvault.
+type KeyVaultCredentialsProperties struct {
+	// REQUIRED; The uri to access the secret that the password is stored in.
+	PasswordKeyVaultSecretURI *string
+
+	// REQUIRED; The uri to access the secret that the username is stored in.
+	UsernameKeyVaultSecretURI *string
 }
 
 // LogSpecification - Specifications of the Log for Azure Monitoring
@@ -868,7 +1228,7 @@ type MSIXPackageProperties struct {
 	// Relative Path to the package inside the image.
 	PackageRelativePath *string
 
-	// Package version found in the appxmanifest.xml.
+	// Package Version found in the appxmanifest.xml.
 	Version *string
 }
 
@@ -888,6 +1248,56 @@ type MaintenanceWindowProperties struct {
 
 	// The update start hour of the day. (0 - 23)
 	Hour *int32
+}
+
+// ManagedServiceIdentity - Managed service identity (system assigned and/or user assigned identities)
+type ManagedServiceIdentity struct {
+	// REQUIRED; Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
+	Type *ManagedServiceIdentityType
+
+	// The set of user assigned identities associated with the resource. The userAssignedIdentities dictionary keys will be ARM
+	// resource ids in the form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}.
+	// The dictionary values can be empty objects ({}) in
+	// requests.
+	UserAssignedIdentities map[string]*UserAssignedIdentity
+
+	// READ-ONLY; The service principal ID of the system assigned identity. This property will only be provided for a system assigned
+	// identity.
+	PrincipalID *string
+
+	// READ-ONLY; The tenant ID of the system assigned identity. This property will only be provided for a system assigned identity.
+	TenantID *string
+}
+
+// MarketplaceInfoPatchProperties - Marketplace image information.
+type MarketplaceInfoPatchProperties struct {
+	// The exact version of the image.
+	ExactVersion *string
+
+	// The offer of the image.
+	Offer *string
+
+	// The publisher of the image.
+	Publisher *string
+
+	// The sku of the image.
+	SKU *string
+}
+
+// MarketplaceInfoProperties - Marketplace image information.
+type MarketplaceInfoProperties struct {
+	// REQUIRED; The exact version of the image.
+	ExactVersion *string
+
+	// REQUIRED; The offer of the image.
+	Offer *string
+
+	// REQUIRED; The publisher of the image.
+	Publisher *string
+
+	// REQUIRED; The sku of the image.
+	SKU *string
 }
 
 // MsixPackageApplications - Schema for MSIX Package Application properties.
@@ -916,7 +1326,8 @@ type MsixPackageApplications struct {
 
 // MsixPackageDependencies - Schema for MSIX Package Dependencies properties.
 type MsixPackageDependencies struct {
-	// Name of package dependency.
+	// Name of the package dependency. For Msix packages, this is the other packages this package depends upon, for APP-V packages
+	// this is the locations of the user and deployment config files
 	DependencyName *string
 
 	// Dependency version required.
@@ -926,10 +1337,47 @@ type MsixPackageDependencies struct {
 	Publisher *string
 }
 
+// NetworkInfoPatchProperties - Network information.
+type NetworkInfoPatchProperties struct {
+	// The resource ID of the security group. Any allowable/open ports should be specified in the Network Security Group(NSG).
+	SecurityGroupID *string
+
+	// The resource ID of the subnet.
+	SubnetID *string
+}
+
+// NetworkInfoProperties - Network information.
+type NetworkInfoProperties struct {
+	// REQUIRED; The resource ID of the subnet.
+	SubnetID *string
+
+	// The resource ID of the security group. Any allowable/open ports should be specified in the Network Security Group(NSG).
+	SecurityGroupID *string
+}
+
 // OperationProperties - Properties of the operation
 type OperationProperties struct {
 	// Service specification payload
 	ServiceSpecification *ServiceSpecification
+}
+
+// Plan for the resource.
+type Plan struct {
+	// REQUIRED; A user defined name of the 3rd Party Artifact that is being procured.
+	Name *string
+
+	// REQUIRED; The 3rd Party artifact that is being procured. E.g. NewRelic. Product maps to the OfferID specified for the artifact
+	// at the time of Data Market onboarding.
+	Product *string
+
+	// REQUIRED; The publisher of the 3rd Party Artifact that is being bought. E.g. NewRelic
+	Publisher *string
+
+	// A publisher provided promotion code as provisioned in Data Market for the said product/artifact.
+	PromotionCode *string
+
+	// The version of the desired product/artifact.
+	Version *string
 }
 
 // PrivateEndpoint - The private endpoint resource.
@@ -1090,54 +1538,6 @@ type RegistrationTokenMinimal struct {
 	Token *string
 }
 
-type ResourceModelWithAllowedPropertySetIdentity struct {
-	// The identity type.
-	Type *string
-
-	// READ-ONLY; The principal ID of resource identity. The value must be an UUID.
-	PrincipalID *string
-
-	// READ-ONLY; The tenant ID of resource. The value must be an UUID.
-	TenantID *string
-}
-
-type ResourceModelWithAllowedPropertySetPlan struct {
-	// REQUIRED; A user defined name of the 3rd Party Artifact that is being procured.
-	Name *string
-
-	// REQUIRED; The 3rd Party artifact that is being procured. E.g. NewRelic. Product maps to the OfferID specified for the artifact
-	// at the time of Data Market onboarding.
-	Product *string
-
-	// REQUIRED; The publisher of the 3rd Party Artifact that is being bought. E.g. NewRelic
-	Publisher *string
-
-	// A publisher provided promotion code as provisioned in Data Market for the said product/artifact.
-	PromotionCode *string
-
-	// The version of the desired product/artifact.
-	Version *string
-}
-
-type ResourceModelWithAllowedPropertySetSKU struct {
-	// REQUIRED; The name of the SKU. E.g. P3. It is typically a letter+number code
-	Name *string
-
-	// If the SKU supports scale out/in then the capacity integer should be included. If scale out/in is not possible for the
-	// resource this may be omitted.
-	Capacity *int32
-
-	// If the service has different generations of hardware, for the same SKU, then that can be captured here.
-	Family *string
-
-	// The SKU size. When the name field is the combination of tier and some other value, this would be the standalone code.
-	Size *string
-
-	// This field is required to be implemented by the Resource Provider if the service has more than one tier, but is not required
-	// on a PUT.
-	Tier *SKUTier
-}
-
 // ResourceProviderOperation - Supported operation of this resource provider.
 type ResourceProviderOperation struct {
 	// Display metadata associated with the operation.
@@ -1177,6 +1577,26 @@ type ResourceProviderOperationList struct {
 	NextLink *string
 }
 
+// SKU - The resource model definition representing SKU
+type SKU struct {
+	// REQUIRED; The name of the SKU. E.g. P3. It is typically a letter+number code
+	Name *string
+
+	// If the SKU supports scale out/in then the capacity integer should be included. If scale out/in is not possible for the
+	// resource this may be omitted.
+	Capacity *int32
+
+	// If the service has different generations of hardware, for the same SKU, then that can be captured here.
+	Family *string
+
+	// The SKU size. When the name field is the combination of tier and some other value, this would be the standalone code.
+	Size *string
+
+	// This field is required to be implemented by the Resource Provider if the service has more than one tier, but is not required
+	// on a PUT.
+	Tier *SKUTier
+}
+
 // ScalingHostPoolReference - Scaling plan reference to hostpool.
 type ScalingHostPoolReference struct {
 	// Arm path of referenced hostpool.
@@ -1193,7 +1613,9 @@ type ScalingPlan struct {
 
 	// REQUIRED; Detailed properties for scaling plan.
 	Properties *ScalingPlanProperties
-	Identity   *ResourceModelWithAllowedPropertySetIdentity
+
+	// Managed service identity (system assigned and/or user assigned identities)
+	Identity *ManagedServiceIdentity
 
 	// Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type. E.g. ApiApps are
 	// a kind of Microsoft.Web/sites type. If supported, the resource provider must
@@ -1204,8 +1626,12 @@ type ScalingPlan struct {
 	// Azure resource. If this is present, complete mode deployment will not
 	// delete the resource if it is removed from the template since it is managed by another resource.
 	ManagedBy *string
-	Plan      *ResourceModelWithAllowedPropertySetPlan
-	SKU       *ResourceModelWithAllowedPropertySetSKU
+
+	// Plan for the resource.
+	Plan *Plan
+
+	// The resource model definition representing SKU
+	SKU *SKU
 
 	// Resource tags.
 	Tags map[string]*string
@@ -1575,6 +2001,30 @@ type ScalingSchedule struct {
 	RampUpStartTime *Time
 }
 
+// SecurityInfoPatchProperties - Security information.
+type SecurityInfoPatchProperties struct {
+	// Whether to use secureBoot on the virtual machine.
+	SecureBootEnabled *bool
+
+	// The security type used by virtual machine in hostpool session host.
+	Type *VirtualMachineSecurityType
+
+	// Whether to use vTPM on the virtual machine.
+	VTpmEnabled *bool
+}
+
+// SecurityInfoProperties - Security information.
+type SecurityInfoProperties struct {
+	// Whether to use secureBoot on the virtual machine.
+	SecureBootEnabled *bool
+
+	// The security type used by virtual machine in hostpool session host. Default is Standard.
+	Type *VirtualMachineSecurityType
+
+	// Whether to use vTPM on the virtual machine.
+	VTpmEnabled *bool
+}
+
 // SendMessage - Represents message sent to a UserSession.
 type SendMessage struct {
 	// Body of message.
@@ -1608,6 +2058,141 @@ type SessionHost struct {
 	Type *string
 }
 
+// SessionHostConfiguration - Represents a SessionHostConfiguration definition.
+type SessionHostConfiguration struct {
+	// REQUIRED; Detailed properties for SessionHostConfiguration
+	Properties *SessionHostConfigurationProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SessionHostConfigurationList - List of SessionHostConfiguration definitions.
+type SessionHostConfigurationList struct {
+	// List of SessionHostConfiguration definitions.
+	Value []*SessionHostConfiguration
+
+	// READ-ONLY; Link to the next page of results.
+	NextLink *string
+}
+
+// SessionHostConfigurationPatch - Represents a SessionHostConfigurationPatch definition.
+type SessionHostConfigurationPatch struct {
+	// Detailed properties for SessionHostConfigurationPatch
+	Properties *SessionHostConfigurationPatchProperties
+}
+
+// SessionHostConfigurationPatchProperties - Session host configurations of HostPool.
+type SessionHostConfigurationPatchProperties struct {
+	// Value for availability zones to be used by the session host. Should be from [1,2,3].
+	AvailabilityZones []*int32
+
+	// Boot Diagnostics information.
+	BootDiagnosticsInfo *BootDiagnosticsInfoPatchProperties
+
+	// The uri to the storage blob containing the arm template to be run on the virtual machine after provisioning.
+	CustomConfigurationScriptURL *string
+
+	// Disk information.
+	DiskInfo *DiskInfoPatchProperties
+
+	// Domain configurations of session hosts.
+	DomainInfo *DomainInfoPatchProperties
+
+	// Friendly name to describe this version of the SessionHostConfiguration.
+	FriendlyName *string
+
+	// Image configurations of HostPool.
+	ImageInfo *ImageInfoPatchProperties
+
+	// Network information.
+	NetworkInfo *NetworkInfoPatchProperties
+
+	// Security information.
+	SecurityInfo *SecurityInfoPatchProperties
+
+	// Local Admin credentials for session hosts.
+	VMAdminCredentials *KeyVaultCredentialsPatchProperties
+
+	// The Location for the session host to be created in
+	VMLocation *string
+
+	// The prefix that should be associated with session host names
+	VMNamePrefix *string
+
+	// The ResourceGroup for the session hosts to be created in. It will default to the ResourceGroup of the hostpool if not provided.
+	VMResourceGroup *string
+
+	// The id of the size of a virtual machine connected to a hostpool. Example: StandardD2asv6
+	VMSizeID *string
+
+	// Hashtable that lists key/value pair tags to apply to the VMs
+	VMTags map[string]*string
+}
+
+// SessionHostConfigurationProperties - Session host configurations of HostPool.
+type SessionHostConfigurationProperties struct {
+	// REQUIRED; Disk information.
+	DiskInfo *DiskInfoProperties
+
+	// REQUIRED; Domain configurations of session hosts.
+	DomainInfo *DomainInfoProperties
+
+	// REQUIRED; Image configurations of HostPool.
+	ImageInfo *ImageInfoProperties
+
+	// REQUIRED; Network information.
+	NetworkInfo *NetworkInfoProperties
+
+	// REQUIRED; Local Admin credentials for session hosts.
+	VMAdminCredentials *KeyVaultCredentialsProperties
+
+	// REQUIRED; The prefix that should be associated with session host names
+	VMNamePrefix *string
+
+	// REQUIRED; The id of the size of a virtual machine connected to a hostpool. Example: StandardD2asv6
+	VMSizeID *string
+
+	// Value for availability zones to be used by the session host. Should be from [1,2,3].
+	AvailabilityZones []*int32
+
+	// Boot Diagnostics information.
+	BootDiagnosticsInfo *BootDiagnosticsInfoProperties
+
+	// The uri to the storage blob containing the arm template to be run on the virtual machine after provisioning.
+	CustomConfigurationScriptURL *string
+
+	// Friendly name to describe this version of the SessionHostConfiguration.
+	FriendlyName *string
+
+	// Security information.
+	SecurityInfo *SecurityInfoProperties
+
+	// The Location for the session host to be created in. It will default to the location of the hostpool if not provided.
+	VMLocation *string
+
+	// The ResourceGroup for the session hosts to be created in. It will default to the ResourceGroup of the hostpool if not provided.
+	VMResourceGroup *string
+
+	// Hashtable that lists key/value pair tags to apply to the VMs
+	VMTags map[string]*string
+
+	// READ-ONLY; Provisioning state of the Session Host Configuration.
+	ProvisioningState *ProvisioningStateSHC
+
+	// READ-ONLY; The timestamp of the last update.
+	Version *time.Time
+}
+
 // SessionHostHealthCheckFailureDetails - Contains details on the failure.
 type SessionHostHealthCheckFailureDetails struct {
 	// READ-ONLY; Error code corresponding for the failure.
@@ -1639,6 +2224,121 @@ type SessionHostList struct {
 
 	// READ-ONLY; Link to the next page of results.
 	NextLink *string
+}
+
+// SessionHostManagement - Represents a SessionHostManagement definition.
+type SessionHostManagement struct {
+	// REQUIRED; Detailed properties for SessionHostManagement
+	Properties *SessionHostManagementProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SessionHostManagementList - List of SessionHostManagement definitions.
+type SessionHostManagementList struct {
+	// List of SessionHostManagement definitions.
+	Value []*SessionHostManagement
+
+	// READ-ONLY; Link to the next page of results.
+	NextLink *string
+}
+
+// SessionHostManagementOperationProgress - SessionHostManagement Operation Progress information.
+type SessionHostManagementOperationProgress struct {
+	// Time that the sessionHostManagement operation was created.
+	ExecutionStartTime *time.Time
+
+	// The number of sessionHosts completed in the sessionHostManagement operation.
+	SessionHostsCompleted *int32
+
+	// The number of sessionHosts in progress in the sessionHostManagement operation.
+	SessionHostsInProgress *int32
+
+	// The number of sessionHosts rollback failed in the sessionHostManagement operation.
+	SessionHostsRollbackFailed *int32
+
+	// The number of sessionHosts to be started in the sessionHostManagement operation.
+	TotalSessionHosts *int32
+}
+
+// SessionHostManagementPatch - Represents a SessionHostManagementPatch definition.
+type SessionHostManagementPatch struct {
+	// Detailed properties for SessionHostManagementPatch
+	Properties *SessionHostManagementPatchProperties
+}
+
+// SessionHostManagementPatchProperties - Session host Managements of HostPool.
+type SessionHostManagementPatchProperties struct {
+	// Time zone for sessionHostManagement operations as defined in https://docs.microsoft.com/dotnet/api/system.timezoneinfo.findsystemtimezonebyid.
+	// Must be set if useLocalTime is true.
+	ScheduledDateTimeZone *string
+
+	// Parameters for a hostpool update.
+	Update *HostPoolUpdateConfigurationPatchProperties
+}
+
+// SessionHostManagementProperties - Session host Managements of HostPool.
+type SessionHostManagementProperties struct {
+	// REQUIRED; Time zone for sessionHostManagement operations as defined in https://docs.microsoft.com/dotnet/api/system.timezoneinfo.findsystemtimezonebyid.
+	// Must be set if useLocalTime is true.
+	ScheduledDateTimeZone *string
+
+	// REQUIRED; Parameters for a hostpool update.
+	Update *HostPoolUpdateConfigurationProperties
+}
+
+// SessionHostManagementUpdateStatus - The current status of the session host update async operation.
+type SessionHostManagementUpdateStatus struct {
+	// REQUIRED; Operation status. Current defined values are < Error | Scheduled | UpdatingSessionHosts | ValidatingSessionHostUpdate
+	// | Paused | Pausing | Cancelling > | Succeeded | Failed | Canceled
+	Status *string
+
+	// The end time of the operation.
+	EndTime *time.Time
+
+	// If present, details of the operation error.
+	Error *ErrorDetail
+
+	// Fully qualified ID for the async operation.
+	ID *string
+
+	// Name of the async operation.
+	Name *string
+
+	// Percent of the operation that is complete.
+	PercentComplete *float32
+
+	// The custom properties of the SessionHost Update Status.
+	Properties *SessionHostManagementUpdateStatusProperties
+
+	// The start time of the operation.
+	StartTime *time.Time
+}
+
+// SessionHostManagementUpdateStatusProperties - Properties bag to hold custom RP properties for sessionHostManagement Update
+// Statuses.
+type SessionHostManagementUpdateStatusProperties struct {
+	// The Log Analytics.
+	CorrelationID *string
+
+	// Progress information on the sessionHostManagement operation.
+	Progress *SessionHostManagementOperationProgress
+
+	// The timestamp that the update is scheduled for.
+	ScheduledDateTime *time.Time
+
+	// SessionHostManagement properties used for the operation.
+	SessionHostManagement *SessionHostManagement
 }
 
 // SessionHostPatch - SessionHost properties that can be patched.
@@ -1706,6 +2406,9 @@ type SessionHostProperties struct {
 	// Update state of a SessionHost.
 	UpdateState *UpdateState
 
+	// READ-ONLY; The last time update was completed.
+	LastSessionHostUpdateTime *time.Time
+
 	// READ-ONLY; The timestamp of the last update.
 	LastUpdateTime *time.Time
 
@@ -1714,6 +2417,10 @@ type SessionHostProperties struct {
 
 	// READ-ONLY; Resource Id of SessionHost's underlying virtual machine.
 	ResourceID *string
+
+	// READ-ONLY; SessionHostConfiguration version reference at the time the update is initiated, in the format of date time.
+	// Example: 2024-04-26T04:56:45Z
+	SessionHostConfiguration *string
 
 	// READ-ONLY; List of SessionHostHealthCheckReports
 	SessionHostHealthCheckResults []*SessionHostHealthCheckReport
@@ -1800,6 +2507,28 @@ type Time struct {
 	Minute *int32
 }
 
+// UpdateSessionHostsRequestBody - Object containing the definition for properties to be used for a sessionHostUpdate operation.
+type UpdateSessionHostsRequestBody struct {
+	// The timestamp that the update validation is scheduled for. If none is provided, the update will be executed immediately
+	ScheduledDateTime *time.Time
+
+	// The timeZone as defined in https://docs.microsoft.com/dotnet/api/system.timezoneinfo.findsystemtimezonebyid.
+	ScheduledDateTimeZone *string
+
+	// settings for management information for the hostpool update operation. If none is provided the update will use the settings
+	// saved in the sessionHostManagement object.
+	Update *HostPoolUpdateConfigurationPatchProperties
+}
+
+// UserAssignedIdentity - User assigned identity properties
+type UserAssignedIdentity struct {
+	// READ-ONLY; The client ID of the assigned identity.
+	ClientID *string
+
+	// READ-ONLY; The principal ID of the assigned identity.
+	PrincipalID *string
+}
+
 // UserSession - Represents a UserSession definition.
 type UserSession struct {
 	// Detailed properties for UserSession
@@ -1852,7 +2581,9 @@ type UserSessionProperties struct {
 type Workspace struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
-	Identity *ResourceModelWithAllowedPropertySetIdentity
+
+	// Managed service identity (system assigned and/or user assigned identities)
+	Identity *ManagedServiceIdentity
 
 	// Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type. E.g. ApiApps are
 	// a kind of Microsoft.Web/sites type. If supported, the resource provider must
@@ -1863,11 +2594,15 @@ type Workspace struct {
 	// Azure resource. If this is present, complete mode deployment will not
 	// delete the resource if it is removed from the template since it is managed by another resource.
 	ManagedBy *string
-	Plan      *ResourceModelWithAllowedPropertySetPlan
+
+	// Plan for the resource.
+	Plan *Plan
 
 	// Detailed properties for Workspace
 	Properties *WorkspaceProperties
-	SKU        *ResourceModelWithAllowedPropertySetSKU
+
+	// The resource model definition representing SKU
+	SKU *SKU
 
 	// Resource tags.
 	Tags map[string]*string

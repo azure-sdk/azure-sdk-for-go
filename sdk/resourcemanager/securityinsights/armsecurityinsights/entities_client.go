@@ -28,7 +28,7 @@ type EntitiesClient struct {
 }
 
 // NewEntitiesClient creates a new instance of EntitiesClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewEntitiesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*EntitiesClient, error) {
@@ -46,7 +46,7 @@ func NewEntitiesClient(subscriptionID string, credential azcore.TokenCredential,
 // Expand - Expands an entity.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - entityID - entity ID
@@ -98,7 +98,7 @@ func (client *EntitiesClient) expandCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -119,7 +119,7 @@ func (client *EntitiesClient) expandHandleResponse(resp *http.Response) (Entitie
 // Get - Gets an entity.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - entityID - entity ID
@@ -170,7 +170,7 @@ func (client *EntitiesClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -188,7 +188,7 @@ func (client *EntitiesClient) getHandleResponse(resp *http.Response) (EntitiesCl
 // GetInsights - Execute Insights for an entity.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - entityID - entity ID
@@ -240,7 +240,7 @@ func (client *EntitiesClient) getInsightsCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -260,7 +260,7 @@ func (client *EntitiesClient) getInsightsHandleResponse(resp *http.Response) (En
 
 // NewListPager - Gets all entities.
 //
-// Generated from API version 2022-09-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - options - EntitiesClientListOptions contains the optional parameters for the EntitiesClient.NewListPager method.
@@ -307,7 +307,7 @@ func (client *EntitiesClient) listCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -322,35 +322,36 @@ func (client *EntitiesClient) listHandleResponse(resp *http.Response) (EntitiesC
 	return result, nil
 }
 
-// Queries - Get Insights and Activities for an entity.
-// If the operation fails it returns an *azcore.ResponseError type.
+// NewQueriesPager - Get Insights and Activities for an entity.
 //
-// Generated from API version 2022-09-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - entityID - entity ID
 //   - kind - The Kind parameter for queries
-//   - options - EntitiesClientQueriesOptions contains the optional parameters for the EntitiesClient.Queries method.
-func (client *EntitiesClient) Queries(ctx context.Context, resourceGroupName string, workspaceName string, entityID string, kind EntityItemQueryKind, options *EntitiesClientQueriesOptions) (EntitiesClientQueriesResponse, error) {
-	var err error
-	const operationName = "EntitiesClient.Queries"
-	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
-	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
-	defer func() { endSpan(err) }()
-	req, err := client.queriesCreateRequest(ctx, resourceGroupName, workspaceName, entityID, kind, options)
-	if err != nil {
-		return EntitiesClientQueriesResponse{}, err
-	}
-	httpResp, err := client.internal.Pipeline().Do(req)
-	if err != nil {
-		return EntitiesClientQueriesResponse{}, err
-	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
-		err = runtime.NewResponseError(httpResp)
-		return EntitiesClientQueriesResponse{}, err
-	}
-	resp, err := client.queriesHandleResponse(httpResp)
-	return resp, err
+//   - options - EntitiesClientQueriesOptions contains the optional parameters for the EntitiesClient.NewQueriesPager method.
+func (client *EntitiesClient) NewQueriesPager(resourceGroupName string, workspaceName string, entityID string, kind EntityItemQueryKind, options *EntitiesClientQueriesOptions) *runtime.Pager[EntitiesClientQueriesResponse] {
+	return runtime.NewPager(runtime.PagingHandler[EntitiesClientQueriesResponse]{
+		More: func(page EntitiesClientQueriesResponse) bool {
+			return false
+		},
+		Fetcher: func(ctx context.Context, page *EntitiesClientQueriesResponse) (EntitiesClientQueriesResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "EntitiesClient.NewQueriesPager")
+			req, err := client.queriesCreateRequest(ctx, resourceGroupName, workspaceName, entityID, kind, options)
+			if err != nil {
+				return EntitiesClientQueriesResponse{}, err
+			}
+			resp, err := client.internal.Pipeline().Do(req)
+			if err != nil {
+				return EntitiesClientQueriesResponse{}, err
+			}
+			if !runtime.HasStatusCode(resp, http.StatusOK) {
+				return EntitiesClientQueriesResponse{}, runtime.NewResponseError(resp)
+			}
+			return client.queriesHandleResponse(resp)
+		},
+		Tracer: client.internal.Tracer(),
+	})
 }
 
 // queriesCreateRequest creates the Queries request.
@@ -377,7 +378,7 @@ func (client *EntitiesClient) queriesCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	reqQP.Set("kind", string(kind))
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -391,4 +392,69 @@ func (client *EntitiesClient) queriesHandleResponse(resp *http.Response) (Entiti
 		return EntitiesClientQueriesResponse{}, err
 	}
 	return result, nil
+}
+
+// RunPlaybook - Triggers playbook on a specific entity.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-04-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the workspace.
+//   - entityIdentifier - Entity identifier.
+//   - options - EntitiesClientRunPlaybookOptions contains the optional parameters for the EntitiesClient.RunPlaybook method.
+func (client *EntitiesClient) RunPlaybook(ctx context.Context, resourceGroupName string, workspaceName string, entityIdentifier string, options *EntitiesClientRunPlaybookOptions) (EntitiesClientRunPlaybookResponse, error) {
+	var err error
+	const operationName = "EntitiesClient.RunPlaybook"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.runPlaybookCreateRequest(ctx, resourceGroupName, workspaceName, entityIdentifier, options)
+	if err != nil {
+		return EntitiesClientRunPlaybookResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return EntitiesClientRunPlaybookResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusNoContent) {
+		err = runtime.NewResponseError(httpResp)
+		return EntitiesClientRunPlaybookResponse{}, err
+	}
+	return EntitiesClientRunPlaybookResponse{}, nil
+}
+
+// runPlaybookCreateRequest creates the RunPlaybook request.
+func (client *EntitiesClient) runPlaybookCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, entityIdentifier string, options *EntitiesClientRunPlaybookOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/entities/{entityIdentifier}/runPlaybook"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if workspaceName == "" {
+		return nil, errors.New("parameter workspaceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
+	if entityIdentifier == "" {
+		return nil, errors.New("parameter entityIdentifier cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{entityIdentifier}", url.PathEscape(entityIdentifier))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-04-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if options != nil && options.RequestBody != nil {
+		if err := runtime.MarshalAsJSON(req, *options.RequestBody); err != nil {
+			return nil, err
+		}
+		return req, nil
+	}
+	return req, nil
 }
