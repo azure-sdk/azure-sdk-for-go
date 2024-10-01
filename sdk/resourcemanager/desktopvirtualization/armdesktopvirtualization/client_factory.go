@@ -36,6 +36,14 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 	}, nil
 }
 
+// NewActiveSessionHostConfigurationsClient creates a new instance of ActiveSessionHostConfigurationsClient.
+func (c *ClientFactory) NewActiveSessionHostConfigurationsClient() *ActiveSessionHostConfigurationsClient {
+	return &ActiveSessionHostConfigurationsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewAppAttachPackageClient creates a new instance of AppAttachPackageClient.
 func (c *ClientFactory) NewAppAttachPackageClient() *AppAttachPackageClient {
 	return &AppAttachPackageClient{
@@ -68,6 +76,14 @@ func (c *ClientFactory) NewApplicationsClient() *ApplicationsClient {
 	}
 }
 
+// NewControlSessionHostUpdateClient creates a new instance of ControlSessionHostUpdateClient.
+func (c *ClientFactory) NewControlSessionHostUpdateClient() *ControlSessionHostUpdateClient {
+	return &ControlSessionHostUpdateClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewDesktopsClient creates a new instance of DesktopsClient.
 func (c *ClientFactory) NewDesktopsClient() *DesktopsClient {
 	return &DesktopsClient{
@@ -79,6 +95,14 @@ func (c *ClientFactory) NewDesktopsClient() *DesktopsClient {
 // NewHostPoolsClient creates a new instance of HostPoolsClient.
 func (c *ClientFactory) NewHostPoolsClient() *HostPoolsClient {
 	return &HostPoolsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewInitiateSessionHostUpdateClient creates a new instance of InitiateSessionHostUpdateClient.
+func (c *ClientFactory) NewInitiateSessionHostUpdateClient() *InitiateSessionHostUpdateClient {
+	return &InitiateSessionHostUpdateClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
@@ -142,6 +166,38 @@ func (c *ClientFactory) NewScalingPlanPooledSchedulesClient() *ScalingPlanPooled
 // NewScalingPlansClient creates a new instance of ScalingPlansClient.
 func (c *ClientFactory) NewScalingPlansClient() *ScalingPlansClient {
 	return &ScalingPlansClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewSessionHostClient creates a new instance of SessionHostClient.
+func (c *ClientFactory) NewSessionHostClient() *SessionHostClient {
+	return &SessionHostClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewSessionHostConfigurationsClient creates a new instance of SessionHostConfigurationsClient.
+func (c *ClientFactory) NewSessionHostConfigurationsClient() *SessionHostConfigurationsClient {
+	return &SessionHostConfigurationsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewSessionHostManagementsClient creates a new instance of SessionHostManagementsClient.
+func (c *ClientFactory) NewSessionHostManagementsClient() *SessionHostManagementsClient {
+	return &SessionHostManagementsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewSessionHostManagementsUpdateStatusClient creates a new instance of SessionHostManagementsUpdateStatusClient.
+func (c *ClientFactory) NewSessionHostManagementsUpdateStatusClient() *SessionHostManagementsUpdateStatusClient {
+	return &SessionHostManagementsUpdateStatusClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
