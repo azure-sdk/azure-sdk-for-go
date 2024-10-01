@@ -28,7 +28,7 @@ type ProductSettingsClient struct {
 }
 
 // NewProductSettingsClient creates a new instance of ProductSettingsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewProductSettingsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ProductSettingsClient, error) {
@@ -46,7 +46,7 @@ func NewProductSettingsClient(subscriptionID string, credential azcore.TokenCred
 // Delete - Delete setting of the product.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - settingsName - The setting name. Supports - Anomalies, EyesOn, EntityAnalytics, Ueba
@@ -96,7 +96,7 @@ func (client *ProductSettingsClient) deleteCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -105,7 +105,7 @@ func (client *ProductSettingsClient) deleteCreateRequest(ctx context.Context, re
 // Get - Gets a setting.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - settingsName - The setting name. Supports - Anomalies, EyesOn, EntityAnalytics, Ueba
@@ -156,7 +156,7 @@ func (client *ProductSettingsClient) getCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -171,33 +171,34 @@ func (client *ProductSettingsClient) getHandleResponse(resp *http.Response) (Pro
 	return result, nil
 }
 
-// List - List of all the settings
-// If the operation fails it returns an *azcore.ResponseError type.
+// NewListPager - List of all the settings
 //
-// Generated from API version 2022-09-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
-//   - options - ProductSettingsClientListOptions contains the optional parameters for the ProductSettingsClient.List method.
-func (client *ProductSettingsClient) List(ctx context.Context, resourceGroupName string, workspaceName string, options *ProductSettingsClientListOptions) (ProductSettingsClientListResponse, error) {
-	var err error
-	const operationName = "ProductSettingsClient.List"
-	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
-	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
-	defer func() { endSpan(err) }()
-	req, err := client.listCreateRequest(ctx, resourceGroupName, workspaceName, options)
-	if err != nil {
-		return ProductSettingsClientListResponse{}, err
-	}
-	httpResp, err := client.internal.Pipeline().Do(req)
-	if err != nil {
-		return ProductSettingsClientListResponse{}, err
-	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
-		err = runtime.NewResponseError(httpResp)
-		return ProductSettingsClientListResponse{}, err
-	}
-	resp, err := client.listHandleResponse(httpResp)
-	return resp, err
+//   - options - ProductSettingsClientListOptions contains the optional parameters for the ProductSettingsClient.NewListPager
+//     method.
+func (client *ProductSettingsClient) NewListPager(resourceGroupName string, workspaceName string, options *ProductSettingsClientListOptions) *runtime.Pager[ProductSettingsClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ProductSettingsClientListResponse]{
+		More: func(page ProductSettingsClientListResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *ProductSettingsClientListResponse) (ProductSettingsClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ProductSettingsClient.NewListPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
+			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listCreateRequest(ctx, resourceGroupName, workspaceName, options)
+			}, nil)
+			if err != nil {
+				return ProductSettingsClientListResponse{}, err
+			}
+			return client.listHandleResponse(resp)
+		},
+		Tracer: client.internal.Tracer(),
+	})
 }
 
 // listCreateRequest creates the List request.
@@ -220,7 +221,7 @@ func (client *ProductSettingsClient) listCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -238,7 +239,7 @@ func (client *ProductSettingsClient) listHandleResponse(resp *http.Response) (Pr
 // Update - Updates setting.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - settingsName - The setting name. Supports - Anomalies, EyesOn, EntityAnalytics, Ueba
@@ -258,7 +259,7 @@ func (client *ProductSettingsClient) Update(ctx context.Context, resourceGroupNa
 	if err != nil {
 		return ProductSettingsClientUpdateResponse{}, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated) {
 		err = runtime.NewResponseError(httpResp)
 		return ProductSettingsClientUpdateResponse{}, err
 	}
@@ -290,7 +291,7 @@ func (client *ProductSettingsClient) updateCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, settings); err != nil {
