@@ -1,5 +1,337 @@
 # Release History
 
+## 2.0.0 (2024-10-01)
+### Breaking Changes
+
+- Type of `Operation.Origin` has been changed from `*string` to `*Origin`
+- Type of `PrivateEndpointConnectionProperties.ProvisioningState` has been changed from `*PrivateEndpointConnectionPropertiesProvisioningState` to `*ProvisioningState`
+- Type of `ProjectProperties.PublicNetworkAccess` has been changed from `*string` to `*PublicNetworkAccess`
+- `ProvisioningStateCreating`, `ProvisioningStateDeleting`, `ProvisioningStateMoving` from enum `ProvisioningState` has been removed
+- Enum `AssessmentSizingCriterion` has been removed
+- Enum `AssessmentStage` has been removed
+- Enum `AssessmentStatus` has been removed
+- Enum `AzureDiskSize` has been removed
+- Enum `AzureDiskSuitabilityDetail` has been removed
+- Enum `AzureDiskSuitabilityExplanation` has been removed
+- Enum `AzureDiskType` has been removed
+- Enum `AzureHybridUseBenefit` has been removed
+- Enum `AzureLocation` has been removed
+- Enum `AzureNetworkAdapterSuitabilityDetail` has been removed
+- Enum `AzureNetworkAdapterSuitabilityExplanation` has been removed
+- Enum `AzureOfferCode` has been removed
+- Enum `AzurePricingTier` has been removed
+- Enum `AzureStorageRedundancy` has been removed
+- Enum `AzureVMFamily` has been removed
+- Enum `AzureVMSize` has been removed
+- Enum `AzureVMSuitabilityDetail` has been removed
+- Enum `AzureVMSuitabilityExplanation` has been removed
+- Enum `CloudSuitability` has been removed
+- Enum `Currency` has been removed
+- Enum `GroupStatus` has been removed
+- Enum `GroupUpdateOperation` has been removed
+- Enum `MachineBootType` has been removed
+- Enum `Percentile` has been removed
+- Enum `PrivateEndpointConnectionPropertiesProvisioningState` has been removed
+- Enum `ProjectStatus` has been removed
+- Enum `ReservedInstance` has been removed
+- Enum `TimeRange` has been removed
+- Function `NewAssessedMachinesClient` has been removed
+- Function `*AssessedMachinesClient.Get` has been removed
+- Function `*AssessedMachinesClient.NewListByAssessmentPager` has been removed
+- Function `NewAssessmentsClient` has been removed
+- Function `*AssessmentsClient.Create` has been removed
+- Function `*AssessmentsClient.Delete` has been removed
+- Function `*AssessmentsClient.Get` has been removed
+- Function `*AssessmentsClient.GetReportDownloadURL` has been removed
+- Function `*AssessmentsClient.NewListByGroupPager` has been removed
+- Function `*AssessmentsClient.NewListByProjectPager` has been removed
+- Function `*ClientFactory.NewAssessedMachinesClient` has been removed
+- Function `*ClientFactory.NewAssessmentsClient` has been removed
+- Function `*ClientFactory.NewGroupsClient` has been removed
+- Function `*ClientFactory.NewHyperVCollectorsClient` has been removed
+- Function `*ClientFactory.NewImportCollectorsClient` has been removed
+- Function `*ClientFactory.NewMachinesClient` has been removed
+- Function `*ClientFactory.NewPrivateEndpointConnectionClient` has been removed
+- Function `*ClientFactory.NewPrivateLinkResourceClient` has been removed
+- Function `*ClientFactory.NewServerCollectorsClient` has been removed
+- Function `*ClientFactory.NewVMwareCollectorsClient` has been removed
+- Function `NewGroupsClient` has been removed
+- Function `*GroupsClient.Create` has been removed
+- Function `*GroupsClient.Delete` has been removed
+- Function `*GroupsClient.Get` has been removed
+- Function `*GroupsClient.NewListByProjectPager` has been removed
+- Function `*GroupsClient.UpdateMachines` has been removed
+- Function `NewHyperVCollectorsClient` has been removed
+- Function `*HyperVCollectorsClient.Create` has been removed
+- Function `*HyperVCollectorsClient.Delete` has been removed
+- Function `*HyperVCollectorsClient.Get` has been removed
+- Function `*HyperVCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewImportCollectorsClient` has been removed
+- Function `*ImportCollectorsClient.Create` has been removed
+- Function `*ImportCollectorsClient.Delete` has been removed
+- Function `*ImportCollectorsClient.Get` has been removed
+- Function `*ImportCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewMachinesClient` has been removed
+- Function `*MachinesClient.Get` has been removed
+- Function `*MachinesClient.NewListByProjectPager` has been removed
+- Function `NewPrivateEndpointConnectionClient` has been removed
+- Function `*PrivateEndpointConnectionClient.Delete` has been removed
+- Function `*PrivateEndpointConnectionClient.Get` has been removed
+- Function `*PrivateEndpointConnectionClient.ListByProject` has been removed
+- Function `*PrivateEndpointConnectionClient.Update` has been removed
+- Function `NewPrivateLinkResourceClient` has been removed
+- Function `*PrivateLinkResourceClient.Get` has been removed
+- Function `*PrivateLinkResourceClient.ListByProject` has been removed
+- Function `*ProjectsClient.AssessmentOptions` has been removed
+- Function `*ProjectsClient.NewAssessmentOptionsListPager` has been removed
+- Function `*ProjectsClient.Create` has been removed
+- Function `*ProjectsClient.Delete` has been removed
+- Function `*ProjectsClient.Get` has been removed
+- Function `*ProjectsClient.Update` has been removed
+- Function `NewServerCollectorsClient` has been removed
+- Function `*ServerCollectorsClient.Create` has been removed
+- Function `*ServerCollectorsClient.Delete` has been removed
+- Function `*ServerCollectorsClient.Get` has been removed
+- Function `*ServerCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewVMwareCollectorsClient` has been removed
+- Function `*VMwareCollectorsClient.Create` has been removed
+- Function `*VMwareCollectorsClient.Delete` has been removed
+- Function `*VMwareCollectorsClient.Get` has been removed
+- Function `*VMwareCollectorsClient.NewListByProjectPager` has been removed
+- Struct `AssessedDisk` has been removed
+- Struct `AssessedMachine` has been removed
+- Struct `AssessedMachineProperties` has been removed
+- Struct `AssessedMachineResultList` has been removed
+- Struct `AssessedNetworkAdapter` has been removed
+- Struct `Assessment` has been removed
+- Struct `AssessmentOptions` has been removed
+- Struct `AssessmentOptionsProperties` has been removed
+- Struct `AssessmentOptionsResultList` has been removed
+- Struct `AssessmentProperties` has been removed
+- Struct `AssessmentResultList` has been removed
+- Struct `CollectorAgentProperties` has been removed
+- Struct `CollectorBodyAgentSpnProperties` has been removed
+- Struct `CollectorProperties` has been removed
+- Struct `Disk` has been removed
+- Struct `DownloadURL` has been removed
+- Struct `Group` has been removed
+- Struct `GroupBodyProperties` has been removed
+- Struct `GroupProperties` has been removed
+- Struct `GroupResultList` has been removed
+- Struct `HyperVCollector` has been removed
+- Struct `HyperVCollectorList` has been removed
+- Struct `ImportCollector` has been removed
+- Struct `ImportCollectorList` has been removed
+- Struct `ImportCollectorProperties` has been removed
+- Struct `MachineResultList` has been removed
+- Struct `NetworkAdapter` has been removed
+- Struct `OperationResultList` has been removed
+- Struct `ServerCollector` has been removed
+- Struct `ServerCollectorList` has been removed
+- Struct `UpdateGroupBody` has been removed
+- Struct `VMFamily` has been removed
+- Struct `VMUptime` has been removed
+- Struct `VMwareCollector` has been removed
+- Struct `VMwareCollectorList` has been removed
+- Field `ETag` of struct `Machine` has been removed
+- Field `BootType`, `CreatedTimestamp`, `DatacenterManagementServerArmID`, `DatacenterManagementServerName`, `Description`, `DiscoveryMachineArmID`, `Disks`, `DisplayName`, `Groups`, `MegabytesOfMemory`, `NetworkAdapters`, `NumberOfCores`, `OperatingSystemName`, `OperatingSystemType`, `OperatingSystemVersion`, `UpdatedTimestamp` of struct `MachineProperties` has been removed
+- Field `OperationResultList` of struct `OperationsClientListResponse` has been removed
+- Field `Tags` of struct `Project` has been removed
+- Field `AssessmentSolutionID`, `CreatedTimestamp`, `CustomerStorageAccountArmID`, `CustomerWorkspaceID`, `CustomerWorkspaceLocation`, `LastAssessmentTimestamp`, `NumberOfAssessments`, `NumberOfGroups`, `NumberOfMachines`, `ProjectStatus`, `ProvisioningState`, `UpdatedTimestamp` of struct `ProjectProperties` has been removed
+
+### Features Added
+
+- New value `ProvisioningStateCanceled`, `ProvisioningStateInProgress` added to enum type `ProvisioningState`
+- New enum type `ActionType` with values `ActionTypeInternal`
+- New enum type `CleanupState` with values `CleanupStateCompleted`, `CleanupStateFailed`, `CleanupStateInProgress`, `CleanupStateNone`, `CleanupStateStarted`
+- New enum type `ContainerElementKind` with values `ContainerElementKindActionImport`, `ContainerElementKindEntitySet`, `ContainerElementKindFunctionImport`, `ContainerElementKindNone`, `ContainerElementKindSingleton`
+- New enum type `CreatedByType` with values `CreatedByTypeApplication`, `CreatedByTypeKey`, `CreatedByTypeManagedIdentity`, `CreatedByTypeUser`
+- New enum type `Enum` with values `EnumAccepted`, `EnumAmbiguous`, `EnumBadGateway`, `EnumBadRequest`, `EnumConflict`, `EnumContinue`, `EnumCreated`, `EnumExpectationFailed`, `EnumForbidden`, `EnumFound`, `EnumGatewayTimeout`, `EnumGone`, `EnumHTTPVersionNotSupported`, `EnumInternalServerError`, `EnumLengthRequired`, `EnumMethodNotAllowed`, `EnumMoved`, `EnumMovedPermanently`, `EnumMultipleChoices`, `EnumNoContent`, `EnumNonAuthoritativeInformation`, `EnumNotAcceptable`, `EnumNotFound`, `EnumNotImplemented`, `EnumNotModified`, `EnumOK`, `EnumPartialContent`, `EnumPaymentRequired`, `EnumPreconditionFailed`, `EnumProxyAuthenticationRequired`, `EnumRedirect`, `EnumRedirectKeepVerb`, `EnumRedirectMethod`, `EnumRequestEntityTooLarge`, `EnumRequestTimeout`, `EnumRequestURITooLong`, `EnumRequestedRangeNotSatisfiable`, `EnumResetContent`, `EnumSeeOther`, `EnumServiceUnavailable`, `EnumSwitchingProtocols`, `EnumTemporaryRedirect`, `EnumUnauthorized`, `EnumUnsupportedMediaType`, `EnumUnused`, `EnumUpgradeRequired`, `EnumUseProxy`
+- New enum type `ExpressionKind` with values `ExpressionKindAnnotationPath`, `ExpressionKindBinaryConstant`, `ExpressionKindBooleanConstant`, `ExpressionKindCast`, `ExpressionKindCollection`, `ExpressionKindDateConstant`, `ExpressionKindDateTimeOffsetConstant`, `ExpressionKindDecimalConstant`, `ExpressionKindDurationConstant`, `ExpressionKindEnumMember`, `ExpressionKindFloatingConstant`, `ExpressionKindFunctionApplication`, `ExpressionKindGUIDConstant`, `ExpressionKindIf`, `ExpressionKindIntegerConstant`, `ExpressionKindIsType`, `ExpressionKindLabeled`, `ExpressionKindLabeledExpressionReference`, `ExpressionKindNavigationPropertyPath`, `ExpressionKindNone`, `ExpressionKindNull`, `ExpressionKindPath`, `ExpressionKindPropertyPath`, `ExpressionKindRecord`, `ExpressionKindStringConstant`, `ExpressionKindTimeOfDayConstant`
+- New enum type `Goal` with values `GoalDataCenter`, `GoalDatabases`, `GoalDesktopVirtualization`, `GoalServers`, `GoalWebApplications`
+- New enum type `Items` with values `ItemsAppServiceMigrationAssistant`, `ItemsCarbonite`, `ItemsCloudSphere`, `ItemsCloudamize`, `ItemsCorentTech`, `ItemsDataMigrationAssistant`, `ItemsDatabaseMigrationService`, `ItemsDevice42`, `ItemsFlexera`, `ItemsJetStream`, `ItemsLakeside`, `ItemsModernization`, `ItemsMovere`, `ItemsRackWare`, `ItemsServerAssessment`, `ItemsServerAssessmentV1`, `ItemsServerDiscovery`, `ItemsServerDiscoveryImport`, `ItemsServerMigration`, `ItemsServerMigrationDataReplication`, `ItemsServerMigrationReplication`, `ItemsTurbonomic`, `ItemsUnifyCloud`, `ItemsUnknown`, `ItemsZerto`
+- New enum type `OnDelete` with values `OnDeleteCascade`, `OnDeleteNone`
+- New enum type `Origin` with values `OriginSystem`, `OriginUser`, `OriginUserSystem`
+- New enum type `PrivateEndpointConnectionProxyPropertiesStatus` with values `PrivateEndpointConnectionProxyPropertiesStatusCancelled`, `PrivateEndpointConnectionProxyPropertiesStatusFailed`, `PrivateEndpointConnectionProxyPropertiesStatusRunning`, `PrivateEndpointConnectionProxyPropertiesStatusSucceeded`
+- New enum type `PropertyKind` with values `PropertyKindNavigation`, `PropertyKindNone`, `PropertyKindStructural`
+- New enum type `PublicNetworkAccess` with values `PublicNetworkAccessDisabled`, `PublicNetworkAccessEnabled`, `PublicNetworkAccessNotSpecified`
+- New enum type `Purpose` with values `PurposeAssessment`, `PurposeDiscovery`, `PurposeMigration`
+- New enum type `RefreshSummaryState` with values `RefreshSummaryStateCompleted`, `RefreshSummaryStateFailed`, `RefreshSummaryStateInProgress`, `RefreshSummaryStateStarted`
+- New enum type `SchemaElementKind` with values `SchemaElementKindAction`, `SchemaElementKindEntityContainer`, `SchemaElementKindFunction`, `SchemaElementKindNone`, `SchemaElementKindTerm`, `SchemaElementKindTypeDefinition`
+- New enum type `SingleValueNodeKind` with values `SingleValueNodeKindAggregatedCollectionPropertyNode`, `SingleValueNodeKindAll`, `SingleValueNodeKindAny`, `SingleValueNodeKindBinaryOperator`, `SingleValueNodeKindCollectionComplexNode`, `SingleValueNodeKindCollectionConstant`, `SingleValueNodeKindCollectionFunctionCall`, `SingleValueNodeKindCollectionNavigationNode`, `SingleValueNodeKindCollectionOpenPropertyAccess`, `SingleValueNodeKindCollectionPropertyAccess`, `SingleValueNodeKindCollectionPropertyNode`, `SingleValueNodeKindCollectionResourceCast`, `SingleValueNodeKindCollectionResourceFunctionCall`, `SingleValueNodeKindConstant`, `SingleValueNodeKindConvert`, `SingleValueNodeKindCount`, `SingleValueNodeKindEntitySet`, `SingleValueNodeKindIn`, `SingleValueNodeKindKeyLookup`, `SingleValueNodeKindNamedFunctionParameter`, `SingleValueNodeKindNonResourceRangeVariableReference`, `SingleValueNodeKindNone`, `SingleValueNodeKindParameterAlias`, `SingleValueNodeKindResourceRangeVariableReference`, `SingleValueNodeKindSearchTerm`, `SingleValueNodeKindSingleComplexNode`, `SingleValueNodeKindSingleNavigationNode`, `SingleValueNodeKindSingleResourceCast`, `SingleValueNodeKindSingleResourceFunctionCall`, `SingleValueNodeKindSingleValueCast`, `SingleValueNodeKindSingleValueFunctionCall`, `SingleValueNodeKindSingleValueOpenPropertyAccess`, `SingleValueNodeKindSingleValuePropertyAccess`, `SingleValueNodeKindUnaryOperator`
+- New enum type `Status` with values `StatusActive`, `StatusInactive`
+- New enum type `Tool` with values `ToolAppServiceMigrationAssistant`, `ToolCarbonite`, `ToolCloudSphere`, `ToolCloudamize`, `ToolCorentTech`, `ToolDataMigrationAssistant`, `ToolDatabaseMigrationService`, `ToolDevice42`, `ToolFlexera`, `ToolJetStream`, `ToolLakeside`, `ToolModernization`, `ToolMovere`, `ToolRackWare`, `ToolServerAssessment`, `ToolServerAssessmentV1`, `ToolServerDiscovery`, `ToolServerDiscoveryImport`, `ToolServerMigration`, `ToolServerMigrationDataReplication`, `ToolServerMigrationReplication`, `ToolTurbonomic`, `ToolUnifyCloud`, `ToolUnknown`, `ToolZerto`
+- New enum type `TransformationNodeKind` with values `TransformationNodeKindAggregate`, `TransformationNodeKindCompute`, `TransformationNodeKindFilter`, `TransformationNodeKindGroupBy`
+- New enum type `TypeKind` with values `TypeKindCollection`, `TypeKindComplex`, `TypeKindEntity`, `TypeKindEntityReference`, `TypeKindEnum`, `TypeKindNone`, `TypeKindPath`, `TypeKindPrimitive`, `TypeKindTypeDefinition`, `TypeKindUntyped`
+- New function `*ClientFactory.NewDatabaseInstancesControllerClient() *DatabaseInstancesControllerClient`
+- New function `*ClientFactory.NewDatabasesControllerClient() *DatabasesControllerClient`
+- New function `*ClientFactory.NewEventsControllerClient() *EventsControllerClient`
+- New function `*ClientFactory.NewMachinesControllerClient() *MachinesControllerClient`
+- New function `*ClientFactory.NewPrivateEndpointConnectionControllerClient() *PrivateEndpointConnectionControllerClient`
+- New function `*ClientFactory.NewPrivateEndpointConnectionProxyControllerClient() *PrivateEndpointConnectionProxyControllerClient`
+- New function `*ClientFactory.NewPrivateEndpointConnectionsControllerClient() *PrivateEndpointConnectionsControllerClient`
+- New function `*ClientFactory.NewPrivateLinkResourceControllerClient() *PrivateLinkResourceControllerClient`
+- New function `*ClientFactory.NewProjectsControllerClient() *ProjectsControllerClient`
+- New function `*ClientFactory.NewSolutionsControllerClient() *SolutionsControllerClient`
+- New function `*ClientFactory.NewVirtualDesktopUserControllerClient() *VirtualDesktopUserControllerClient`
+- New function `*ClientFactory.NewWebServersControllerClient() *WebServersControllerClient`
+- New function `*ClientFactory.NewWebSitesControllerClient() *WebSitesControllerClient`
+- New function `NewDatabaseInstancesControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DatabaseInstancesControllerClient, error)`
+- New function `*DatabaseInstancesControllerClient.GetDatabaseInstance(context.Context, string, string, string, *DatabaseInstancesControllerClientGetDatabaseInstanceOptions) (DatabaseInstancesControllerClientGetDatabaseInstanceResponse, error)`
+- New function `*DatabaseInstancesControllerClient.NewListDatabaseInstancesPager(string, string, *DatabaseInstancesControllerClientListDatabaseInstancesOptions) *runtime.Pager[DatabaseInstancesControllerClientListDatabaseInstancesResponse]`
+- New function `NewDatabasesControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DatabasesControllerClient, error)`
+- New function `*DatabasesControllerClient.GetDatabase(context.Context, string, string, string, *DatabasesControllerClientGetDatabaseOptions) (DatabasesControllerClientGetDatabaseResponse, error)`
+- New function `*DatabasesControllerClient.NewListDatabasesPager(string, string, *DatabasesControllerClientListDatabasesOptions) *runtime.Pager[DatabasesControllerClientListDatabasesResponse]`
+- New function `NewEventsControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*EventsControllerClient, error)`
+- New function `*EventsControllerClient.Delete(context.Context, string, string, string, *EventsControllerClientDeleteOptions) (EventsControllerClientDeleteResponse, error)`
+- New function `*EventsControllerClient.GetEvent(context.Context, string, string, string, *EventsControllerClientGetEventOptions) (EventsControllerClientGetEventResponse, error)`
+- New function `*EventsControllerClient.NewListEventsPager(string, string, *EventsControllerClientListEventsOptions) *runtime.Pager[EventsControllerClientListEventsResponse]`
+- New function `NewMachinesControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*MachinesControllerClient, error)`
+- New function `*MachinesControllerClient.GetMachine(context.Context, string, string, string, *MachinesControllerClientGetMachineOptions) (MachinesControllerClientGetMachineResponse, error)`
+- New function `*MachinesControllerClient.NewListMachinesPager(string, string, *MachinesControllerClientListMachinesOptions) *runtime.Pager[MachinesControllerClientListMachinesResponse]`
+- New function `NewPrivateEndpointConnectionControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PrivateEndpointConnectionControllerClient, error)`
+- New function `*PrivateEndpointConnectionControllerClient.DeletePrivateEndpointConnection(context.Context, string, string, string, *PrivateEndpointConnectionControllerClientDeletePrivateEndpointConnectionOptions) (PrivateEndpointConnectionControllerClientDeletePrivateEndpointConnectionResponse, error)`
+- New function `*PrivateEndpointConnectionControllerClient.GetPrivateEndpointConnection(context.Context, string, string, string, *PrivateEndpointConnectionControllerClientGetPrivateEndpointConnectionOptions) (PrivateEndpointConnectionControllerClientGetPrivateEndpointConnectionResponse, error)`
+- New function `*PrivateEndpointConnectionControllerClient.PutPrivateEndpointConnection(context.Context, string, string, string, PrivateEndpointConnection, *PrivateEndpointConnectionControllerClientPutPrivateEndpointConnectionOptions) (PrivateEndpointConnectionControllerClientPutPrivateEndpointConnectionResponse, error)`
+- New function `NewPrivateEndpointConnectionProxyControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PrivateEndpointConnectionProxyControllerClient, error)`
+- New function `*PrivateEndpointConnectionProxyControllerClient.Create(context.Context, string, string, string, PrivateEndpointConnectionProxy, *PrivateEndpointConnectionProxyControllerClientCreateOptions) (PrivateEndpointConnectionProxyControllerClientCreateResponse, error)`
+- New function `*PrivateEndpointConnectionProxyControllerClient.Delete(context.Context, string, string, string, *PrivateEndpointConnectionProxyControllerClientDeleteOptions) (PrivateEndpointConnectionProxyControllerClientDeleteResponse, error)`
+- New function `*PrivateEndpointConnectionProxyControllerClient.Get(context.Context, string, string, string, *PrivateEndpointConnectionProxyControllerClientGetOptions) (PrivateEndpointConnectionProxyControllerClientGetResponse, error)`
+- New function `*PrivateEndpointConnectionProxyControllerClient.NewListPrivateEndpointConnectionProxiesPager(string, string, *PrivateEndpointConnectionProxyControllerClientListPrivateEndpointConnectionProxiesOptions) *runtime.Pager[PrivateEndpointConnectionProxyControllerClientListPrivateEndpointConnectionProxiesResponse]`
+- New function `*PrivateEndpointConnectionProxyControllerClient.Validate(context.Context, string, string, string, PrivateEndpointConnectionProxy, *PrivateEndpointConnectionProxyControllerClientValidateOptions) (PrivateEndpointConnectionProxyControllerClientValidateResponse, error)`
+- New function `NewPrivateEndpointConnectionsControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PrivateEndpointConnectionsControllerClient, error)`
+- New function `*PrivateEndpointConnectionsControllerClient.NewGetPrivateEndpointConnectionsPager(string, string, *PrivateEndpointConnectionsControllerClientGetPrivateEndpointConnectionsOptions) *runtime.Pager[PrivateEndpointConnectionsControllerClientGetPrivateEndpointConnectionsResponse]`
+- New function `NewPrivateLinkResourceControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PrivateLinkResourceControllerClient, error)`
+- New function `*PrivateLinkResourceControllerClient.GetPrivateLinkResource(context.Context, string, string, string, *PrivateLinkResourceControllerClientGetPrivateLinkResourceOptions) (PrivateLinkResourceControllerClientGetPrivateLinkResourceResponse, error)`
+- New function `*PrivateLinkResourceControllerClient.NewGetPrivateLinkResourcesPager(string, string, *PrivateLinkResourceControllerClientGetPrivateLinkResourcesOptions) *runtime.Pager[PrivateLinkResourceControllerClientGetPrivateLinkResourcesResponse]`
+- New function `NewProjectsControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ProjectsControllerClient, error)`
+- New function `*ProjectsControllerClient.DeleteMigrateProject(context.Context, string, string, *ProjectsControllerClientDeleteMigrateProjectOptions) (ProjectsControllerClientDeleteMigrateProjectResponse, error)`
+- New function `*ProjectsControllerClient.GetMigrateProject(context.Context, string, string, *ProjectsControllerClientGetMigrateProjectOptions) (ProjectsControllerClientGetMigrateProjectResponse, error)`
+- New function `*ProjectsControllerClient.GetToolRegistrationDetails(context.Context, string, string, RegistrationDetailsInput, *ProjectsControllerClientGetToolRegistrationDetailsOptions) (ProjectsControllerClientGetToolRegistrationDetailsResponse, error)`
+- New function `*ProjectsControllerClient.PatchMigrateProject(context.Context, string, string, Project, *ProjectsControllerClientPatchMigrateProjectOptions) (ProjectsControllerClientPatchMigrateProjectResponse, error)`
+- New function `*ProjectsControllerClient.PutMigrateProject(context.Context, string, string, Project, *ProjectsControllerClientPutMigrateProjectOptions) (ProjectsControllerClientPutMigrateProjectResponse, error)`
+- New function `*ProjectsControllerClient.RefreshSummary(context.Context, string, string, RefreshSummaryInput, *ProjectsControllerClientRefreshSummaryOptions) (ProjectsControllerClientRefreshSummaryResponse, error)`
+- New function `*ProjectsControllerClient.RegisterTool(context.Context, string, string, RegisterToolInput, *ProjectsControllerClientRegisterToolOptions) (ProjectsControllerClientRegisterToolResponse, error)`
+- New function `NewSolutionsControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SolutionsControllerClient, error)`
+- New function `*SolutionsControllerClient.CleanupData(context.Context, string, string, string, *SolutionsControllerClientCleanupDataOptions) (SolutionsControllerClientCleanupDataResponse, error)`
+- New function `*SolutionsControllerClient.Create(context.Context, string, string, string, Solution, *SolutionsControllerClientCreateOptions) (SolutionsControllerClientCreateResponse, error)`
+- New function `*SolutionsControllerClient.DeleteSolution(context.Context, string, string, string, *SolutionsControllerClientDeleteSolutionOptions) (SolutionsControllerClientDeleteSolutionResponse, error)`
+- New function `*SolutionsControllerClient.GetConfig(context.Context, string, string, string, *SolutionsControllerClientGetConfigOptions) (SolutionsControllerClientGetConfigResponse, error)`
+- New function `*SolutionsControllerClient.GetSolution(context.Context, string, string, string, *SolutionsControllerClientGetSolutionOptions) (SolutionsControllerClientGetSolutionResponse, error)`
+- New function `*SolutionsControllerClient.NewListSolutionsPager(string, string, *SolutionsControllerClientListSolutionsOptions) *runtime.Pager[SolutionsControllerClientListSolutionsResponse]`
+- New function `*SolutionsControllerClient.Update(context.Context, string, string, string, Solution, *SolutionsControllerClientUpdateOptions) (SolutionsControllerClientUpdateResponse, error)`
+- New function `NewVirtualDesktopUserControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VirtualDesktopUserControllerClient, error)`
+- New function `*VirtualDesktopUserControllerClient.GetVirtualDesktopUser(context.Context, string, string, string, *VirtualDesktopUserControllerClientGetVirtualDesktopUserOptions) (VirtualDesktopUserControllerClientGetVirtualDesktopUserResponse, error)`
+- New function `*VirtualDesktopUserControllerClient.NewListVirtualDesktopUsersPager(string, string, *VirtualDesktopUserControllerClientListVirtualDesktopUsersOptions) *runtime.Pager[VirtualDesktopUserControllerClientListVirtualDesktopUsersResponse]`
+- New function `NewWebServersControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WebServersControllerClient, error)`
+- New function `*WebServersControllerClient.GetWebServer(context.Context, string, string, string, *WebServersControllerClientGetWebServerOptions) (WebServersControllerClientGetWebServerResponse, error)`
+- New function `*WebServersControllerClient.NewListWebServersPager(string, string, *WebServersControllerClientListWebServersOptions) *runtime.Pager[WebServersControllerClientListWebServersResponse]`
+- New function `NewWebSitesControllerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WebSitesControllerClient, error)`
+- New function `*WebSitesControllerClient.GetWebSite(context.Context, string, string, string, *WebSitesControllerClientGetWebSiteOptions) (WebSitesControllerClientGetWebSiteResponse, error)`
+- New function `*WebSitesControllerClient.NewListWebSitesPager(string, string, *WebSitesControllerClientListWebSitesOptions) *runtime.Pager[WebSitesControllerClientListWebSitesResponse]`
+- New struct `AADAppDetails`
+- New struct `ApplyClause`
+- New struct `AssessmentDetails`
+- New struct `Database`
+- New struct `DatabaseAssessmentDetails`
+- New struct `DatabaseCollection`
+- New struct `DatabaseInstance`
+- New struct `DatabaseInstanceCollection`
+- New struct `DatabaseInstanceDiscoveryDetails`
+- New struct `DatabaseInstanceProperties`
+- New struct `DatabaseInstanceSummary`
+- New struct `DatabaseMigrateEventProperties`
+- New struct `DatabaseProjectSummary`
+- New struct `DatabaseProperties`
+- New struct `DatabasesSolutionSummary`
+- New struct `DefaultQuerySettings`
+- New struct `DiscoveryDetails`
+- New struct `EdmReferentialConstraintPropertyPair`
+- New struct `ErrorAdditionalInfo`
+- New struct `ErrorDetail`
+- New struct `ErrorResponse`
+- New struct `Event`
+- New struct `EventCollection`
+- New struct `EventProperties`
+- New struct `FilterClause`
+- New struct `FilterQueryOption`
+- New struct `GroupConnectivityInformation`
+- New struct `IEdmEntityContainer`
+- New struct `IEdmEntityContainerElement`
+- New struct `IEdmExpression`
+- New struct `IEdmModel`
+- New struct `IEdmNavigationProperty`
+- New struct `IEdmNavigationPropertyBinding`
+- New struct `IEdmNavigationSource`
+- New struct `IEdmPathExpression`
+- New struct `IEdmProperty`
+- New struct `IEdmReferentialConstraint`
+- New struct `IEdmSchemaElement`
+- New struct `IEdmStructuralProperty`
+- New struct `IEdmStructuredType`
+- New struct `IEdmTerm`
+- New struct `IEdmType`
+- New struct `IEdmTypeReference`
+- New struct `IEdmVocabularyAnnotation`
+- New struct `IPConfiguration`
+- New struct `MachineCollection`
+- New struct `MachineMigrateEventProperties`
+- New struct `MigrationDetails`
+- New struct `ODataPath`
+- New struct `ODataPathSegment`
+- New struct `ODataQueryContext`
+- New struct `ODataQueryOptions1`
+- New struct `ODataRawQueryOptions`
+- New struct `OperationListResult`
+- New struct `PrivateEndpointConnectionProxy`
+- New struct `PrivateEndpointConnectionProxyCollection`
+- New struct `PrivateEndpointConnectionProxyProperties`
+- New struct `PrivateEndpointDetails`
+- New struct `PrivateLinkServiceConnection`
+- New struct `PrivateLinkServiceProxy`
+- New struct `ProjectSummary`
+- New struct `RangeVariable`
+- New struct `RefreshSummaryInput`
+- New struct `RefreshSummaryResult`
+- New struct `RegisterToolInput`
+- New struct `RegistrationDetailsInput`
+- New struct `RegistrationDetailsResponse`
+- New struct `RegistrationResult`
+- New struct `SelectExpandClause`
+- New struct `ServersProjectSummary`
+- New struct `ServersSolutionSummary`
+- New struct `SingleValueNode`
+- New struct `Solution`
+- New struct `SolutionConfig`
+- New struct `SolutionDetails`
+- New struct `SolutionProperties`
+- New struct `SolutionSummary`
+- New struct `SolutionsCollection`
+- New struct `SystemData`
+- New struct `TransformationNode`
+- New struct `VirtualDesktopUser`
+- New struct `VirtualDesktopUserAssessmentDetails`
+- New struct `VirtualDesktopUserCollection`
+- New struct `VirtualDesktopUserProperties`
+- New struct `WebServer`
+- New struct `WebServerCollection`
+- New struct `WebServerDiscoveryDetails`
+- New struct `WebServerProperties`
+- New struct `WebServerSummary`
+- New struct `WebSite`
+- New struct `WebSiteAssessmentDetails`
+- New struct `WebSiteCollection`
+- New struct `WebSiteDiscoveryDetails`
+- New struct `WebSiteMigrationDetails`
+- New struct `WebSiteProperties`
+- New field `AssessmentData`, `DiscoveryData`, `LastUpdatedTime`, `MigrationData` in struct `MachineProperties`
+- New field `ActionType`, `IsDataAction` in struct `Operation`
+- New anonymous field `OperationListResult` in struct `OperationsClientListResponse`
+- New field `SystemData` in struct `PrivateEndpointConnection`
+- New field `SystemData` in struct `Project`
+- New field `LastSummaryRefreshedTime`, `RefreshSummaryState`, `RegisteredTools`, `Summary`, `UtilityStorageAccountID` in struct `ProjectProperties`
+
+
 ## 1.2.0 (2023-11-24)
 ### Features Added
 

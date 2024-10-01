@@ -1,6 +1,6 @@
 # Azure Migrate Module for Go
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/migrate/armmigrate)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/migrate/armmigrate)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/migrate/armmigrate/v2)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/migrate/armmigrate/v2)
 
 The `armmigrate` module provides operations for working with Azure Migrate.
 
@@ -20,7 +20,7 @@ This project uses [Go modules](https://github.com/golang/go/wiki/Modules) for ve
 Install the Azure Migrate module:
 
 ```sh
-go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/migrate/armmigrate
+go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/migrate/armmigrate/v2
 ```
 
 ## Authorization
@@ -57,7 +57,7 @@ clientFactory, err := armmigrate.NewClientFactory(<subscription ID>, cred, &opti
 A client groups a set of related APIs, providing access to its functionality.  Create one or more clients to access the APIs you require using client factory.
 
 ```go
-client := clientFactory.NewGroupsClient()
+client := clientFactory.NewDatabaseInstancesControllerClient()
 ```
 
 ## Fakes
