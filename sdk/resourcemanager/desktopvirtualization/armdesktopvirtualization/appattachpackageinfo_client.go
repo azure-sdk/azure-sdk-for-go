@@ -45,7 +45,7 @@ func NewAppAttachPackageInfoClient(subscriptionID string, credential azcore.Toke
 
 // NewImportPager - Gets information from a package given the path to the package.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-04-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - importPackageInfoRequest - Object containing URI to package image and other optional properties
@@ -94,7 +94,7 @@ func (client *AppAttachPackageInfoClient) importCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-04-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, importPackageInfoRequest); err != nil {
