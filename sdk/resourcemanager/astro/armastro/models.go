@@ -66,7 +66,19 @@ type LiftrBaseMarketplaceDetails struct {
 	// REQUIRED; Offer details for the marketplace that is selected by the user
 	OfferDetails *LiftrBaseOfferDetails
 
-	// REQUIRED; Azure subscription id for the the marketplace offer is purchased from
+	// Azure subscription id for the the marketplace offer is purchased from
+	SubscriptionID *string
+
+	// Marketplace subscription status
+	SubscriptionStatus *MarketplaceSubscriptionStatus
+}
+
+// LiftrBaseMarketplaceDetailsUpdate - Marketplace details for an organization
+type LiftrBaseMarketplaceDetailsUpdate struct {
+	// Offer details for the marketplace that is selected by the user
+	OfferDetails *LiftrBaseOfferDetailsUpdate
+
+	// Azure subscription id for the the marketplace offer is purchased from
 	SubscriptionID *string
 
 	// Marketplace subscription status
@@ -86,6 +98,36 @@ type LiftrBaseOfferDetails struct {
 
 	// Plan Name for the marketplace offer
 	PlanName *string
+
+	// Subscription renewal mode
+	RenewalMode *RenewalMode
+
+	// Plan Display Name for the marketplace offer
+	TermID *string
+
+	// Plan Display Name for the marketplace offer
+	TermUnit *string
+
+	// READ-ONLY; Current subscription end date and time
+	EndDate *time.Time
+}
+
+// LiftrBaseOfferDetailsUpdate - Offer details for the marketplace that is selected by the user
+type LiftrBaseOfferDetailsUpdate struct {
+	// Offer Id for the marketplace offer
+	OfferID *string
+
+	// Plan Id for the marketplace offer
+	PlanID *string
+
+	// Plan Name for the marketplace offer
+	PlanName *string
+
+	// Publisher Id for the marketplace offer
+	PublisherID *string
+
+	// Subscription renewal mode
+	RenewalMode *RenewalMode
 
 	// Plan Display Name for the marketplace offer
 	TermID *string
@@ -258,7 +300,7 @@ type OrganizationResourceUpdate struct {
 	// The managed service identities assigned to this resource.
 	Identity *ManagedServiceIdentity
 
-	// The updatable properties of the OrganizationResource.
+	// The resource-specific properties for this resource.
 	Properties *OrganizationResourceUpdateProperties
 
 	// Resource tags.
@@ -267,6 +309,9 @@ type OrganizationResourceUpdate struct {
 
 // OrganizationResourceUpdateProperties - The updatable properties of the OrganizationResource.
 type OrganizationResourceUpdateProperties struct {
+	// Marketplace details of the resource.
+	Marketplace *LiftrBaseMarketplaceDetailsUpdate
+
 	// Organization properties
 	PartnerOrganizationProperties *LiftrBaseDataPartnerOrganizationPropertiesUpdate
 
