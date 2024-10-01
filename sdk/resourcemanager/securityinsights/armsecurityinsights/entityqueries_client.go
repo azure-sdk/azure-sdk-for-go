@@ -28,7 +28,7 @@ type EntityQueriesClient struct {
 }
 
 // NewEntityQueriesClient creates a new instance of EntityQueriesClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewEntityQueriesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*EntityQueriesClient, error) {
@@ -46,7 +46,7 @@ func NewEntityQueriesClient(subscriptionID string, credential azcore.TokenCreden
 // CreateOrUpdate - Creates or updates the entity query.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - entityQueryID - entity query ID
@@ -99,7 +99,7 @@ func (client *EntityQueriesClient) createOrUpdateCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, entityQuery); err != nil {
@@ -120,7 +120,7 @@ func (client *EntityQueriesClient) createOrUpdateHandleResponse(resp *http.Respo
 // Delete - Delete the entity query.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - entityQueryID - entity query ID
@@ -170,7 +170,7 @@ func (client *EntityQueriesClient) deleteCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -179,7 +179,7 @@ func (client *EntityQueriesClient) deleteCreateRequest(ctx context.Context, reso
 // Get - Gets an entity query.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - entityQueryID - entity query ID
@@ -230,7 +230,7 @@ func (client *EntityQueriesClient) getCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -247,7 +247,7 @@ func (client *EntityQueriesClient) getHandleResponse(resp *http.Response) (Entit
 
 // NewListPager - Gets all entity queries.
 //
-// Generated from API version 2022-09-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - options - EntityQueriesClientListOptions contains the optional parameters for the EntityQueriesClient.NewListPager method.
@@ -294,7 +294,7 @@ func (client *EntityQueriesClient) listCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	if options != nil && options.Kind != nil {
 		reqQP.Set("kind", string(*options.Kind))
 	}
