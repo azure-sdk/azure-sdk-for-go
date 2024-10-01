@@ -1,5 +1,20 @@
 # Release History
 
+## 9.1.0 (2024-10-01)
+### Features Added
+
+- New function `*IcebergDataset.GetDataset() *Dataset`
+- New function `*IcebergSink.GetCopySink() *CopySink`
+- New function `*IcebergWriteSettings.GetFormatWriteSettings() *FormatWriteSettings`
+- New struct `IcebergDataset`
+- New struct `IcebergDatasetTypeProperties`
+- New struct `IcebergSink`
+- New struct `IcebergWriteSettings`
+- New field `SSLMode`, `UseSystemTrustStore` in struct `MariaDBLinkedServiceTypeProperties`
+- New field `AuthenticationType` in struct `PostgreSQLV2LinkedServiceTypeProperties`
+- New field `PageSize` in struct `ServiceNowV2Source`
+
+
 ## 9.0.0 (2024-08-23)
 ### Breaking Changes
 
