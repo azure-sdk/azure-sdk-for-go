@@ -47,7 +47,7 @@ func NewPrivateEndpointConnectionsClient(subscriptionID string, credential azcor
 // DeleteByHostPool - Remove a connection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-04-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - privateEndpointConnectionName - The name of the private endpoint connection associated with the Azure resource.
@@ -98,7 +98,7 @@ func (client *PrivateEndpointConnectionsClient) deleteByHostPoolCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-04-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -107,7 +107,7 @@ func (client *PrivateEndpointConnectionsClient) deleteByHostPoolCreateRequest(ct
 // DeleteByWorkspace - Remove a connection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-04-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace
 //   - privateEndpointConnectionName - The name of the private endpoint connection associated with the Azure resource.
@@ -158,7 +158,7 @@ func (client *PrivateEndpointConnectionsClient) deleteByWorkspaceCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-04-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -167,7 +167,7 @@ func (client *PrivateEndpointConnectionsClient) deleteByWorkspaceCreateRequest(c
 // GetByHostPool - Get a private endpoint connection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-04-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - privateEndpointConnectionName - The name of the private endpoint connection associated with the Azure resource.
@@ -219,7 +219,7 @@ func (client *PrivateEndpointConnectionsClient) getByHostPoolCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-04-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -237,7 +237,7 @@ func (client *PrivateEndpointConnectionsClient) getByHostPoolHandleResponse(resp
 // GetByWorkspace - Get a private endpoint connection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-04-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace
 //   - privateEndpointConnectionName - The name of the private endpoint connection associated with the Azure resource.
@@ -289,7 +289,7 @@ func (client *PrivateEndpointConnectionsClient) getByWorkspaceCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-04-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -306,7 +306,7 @@ func (client *PrivateEndpointConnectionsClient) getByWorkspaceHandleResponse(res
 
 // NewListByHostPoolPager - List private endpoint connections associated with hostpool.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-04-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - options - PrivateEndpointConnectionsClientListByHostPoolOptions contains the optional parameters for the PrivateEndpointConnectionsClient.NewListByHostPoolPager
@@ -354,7 +354,7 @@ func (client *PrivateEndpointConnectionsClient) listByHostPoolCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-04-08-preview")
 	if options != nil && options.InitialSkip != nil {
 		reqQP.Set("initialSkip", strconv.FormatInt(int64(*options.InitialSkip), 10))
 	}
@@ -380,7 +380,7 @@ func (client *PrivateEndpointConnectionsClient) listByHostPoolHandleResponse(res
 
 // NewListByWorkspacePager - List private endpoint connections.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-04-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace
 //   - options - PrivateEndpointConnectionsClientListByWorkspaceOptions contains the optional parameters for the PrivateEndpointConnectionsClient.NewListByWorkspacePager
@@ -428,7 +428,7 @@ func (client *PrivateEndpointConnectionsClient) listByWorkspaceCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-04-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -446,7 +446,7 @@ func (client *PrivateEndpointConnectionsClient) listByWorkspaceHandleResponse(re
 // UpdateByHostPool - Approve or reject a private endpoint connection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-04-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - privateEndpointConnectionName - The name of the private endpoint connection associated with the Azure resource.
@@ -499,7 +499,7 @@ func (client *PrivateEndpointConnectionsClient) updateByHostPoolCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-04-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, connection); err != nil {
@@ -520,7 +520,7 @@ func (client *PrivateEndpointConnectionsClient) updateByHostPoolHandleResponse(r
 // UpdateByWorkspace - Approve or reject a private endpoint connection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-04-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace
 //   - privateEndpointConnectionName - The name of the private endpoint connection associated with the Azure resource.
@@ -573,7 +573,7 @@ func (client *PrivateEndpointConnectionsClient) updateByWorkspaceCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-04-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, connection); err != nil {
