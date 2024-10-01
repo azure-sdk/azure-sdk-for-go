@@ -28,7 +28,7 @@ type EntitiesGetTimelineClient struct {
 }
 
 // NewEntitiesGetTimelineClient creates a new instance of EntitiesGetTimelineClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewEntitiesGetTimelineClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*EntitiesGetTimelineClient, error) {
@@ -46,7 +46,7 @@ func NewEntitiesGetTimelineClient(subscriptionID string, credential azcore.Token
 // List - Timeline for an entity.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - entityID - entity ID
@@ -99,7 +99,7 @@ func (client *EntitiesGetTimelineClient) listCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
