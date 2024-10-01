@@ -21,6 +21,9 @@ type Cluster struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
+	// Describes the identity of the cluster.
+	Identity *IdentityProperties
+
 	// Properties of the cluster.
 	Properties *ClusterProperties
 
@@ -51,6 +54,9 @@ type ClusterConfigurationListResult struct {
 
 // ClusterForUpdate - Represents a cluster for update.
 type ClusterForUpdate struct {
+	// Describes the identity of the cluster.
+	Identity *IdentityProperties
+
 	// Properties of the cluster.
 	Properties *ClusterPropertiesForUpdate
 
@@ -91,6 +97,9 @@ type ClusterProperties struct {
 	// The vCores count of a server (max: 96). Required for creation. See https://learn.microsoft.com/azure/cosmos-db/postgresql/resources-compute
 	// for more information.
 	CoordinatorVCores *int32
+
+	// The data encryption properties of a cluster.
+	DataEncryption *DataEncryption
 
 	// The database name of the cluster. Only one database per cluster is supported.
 	DatabaseName *string
@@ -143,11 +152,17 @@ type ClusterProperties struct {
 	// The resource id of source cluster for read replica clusters.
 	SourceResourceID *string
 
+	// READ-ONLY; Indicates whether the cluster was created using AAD authentication.
+	AADAuthEnabled *AADEnabledEnum
+
 	// READ-ONLY; The administrator's login name of the servers in the cluster.
 	AdministratorLogin *string
 
 	// READ-ONLY; The earliest restore point time (ISO8601 format) for the cluster.
 	EarliestRestoreTime *time.Time
+
+	// READ-ONLY; Indicates whether the cluster was created with a password or using AAD authentication.
+	PasswordEnabled *PasswordEnabledEnum
 
 	// READ-ONLY; The private endpoint connections for a cluster.
 	PrivateEndpointConnections []*SimplePrivateEndpointConnection
@@ -327,6 +342,16 @@ type ConfigurationProperties struct {
 	ProvisioningState *ProvisioningState
 }
 
+// DataEncryption - The data encryption properties of a cluster.
+type DataEncryption struct {
+	// URI for the key in keyvault for data encryption of the primary server.
+	PrimaryKeyURI *string
+
+	// Resource Id for the User assigned identity to be used for data encryption of the primary server.
+	PrimaryUserAssignedIdentityID *string
+	Type                          *DataEncryptionType
+}
+
 // FirewallRule - Represents a cluster firewall rule.
 type FirewallRule struct {
 	// REQUIRED; The properties of a firewall rule.
@@ -361,6 +386,18 @@ type FirewallRuleProperties struct {
 
 	// READ-ONLY; Provisioning state of the firewall rule.
 	ProvisioningState *ProvisioningState
+}
+
+// IdentityProperties - Describes the identity of the cluster.
+type IdentityProperties struct {
+	Type *IdentityType
+
+	// The set of user assigned identities associated with the resource. The userAssignedIdentities dictionary keys will be ARM
+	// resource ids in the form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}.
+	// The dictionary values can be empty objects ({}) in
+	// requests.
+	UserAssignedIdentities map[string]*UserAssignedIdentity
 }
 
 // MaintenanceWindow - Schedule settings for regular cluster updates.
@@ -559,7 +596,7 @@ type PrivateLinkServiceConnectionState struct {
 
 // PromoteRequest - Request from client to promote geo-redundant replica
 type PromoteRequest struct {
-	// Cluster name to verify.
+	// Boolean property to enable geo-redundant replica promotion.
 	EnableGeoBackup *bool
 }
 
@@ -723,4 +760,13 @@ type SystemData struct {
 
 	// The type of identity that last modified the resource.
 	LastModifiedByType *CreatedByType
+}
+
+// UserAssignedIdentity - User assigned identity properties
+type UserAssignedIdentity struct {
+	// READ-ONLY; The client ID of the assigned identity.
+	ClientID *string
+
+	// READ-ONLY; The principal ID of the assigned identity.
+	PrincipalID *string
 }
