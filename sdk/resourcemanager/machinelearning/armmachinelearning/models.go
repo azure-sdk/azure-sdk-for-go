@@ -17,19 +17,17 @@ type AADAuthTypeWorkspaceConnectionProperties struct {
 
 	// Category of the connection
 	Category      *ConnectionCategory
+	Error         *string
 	ExpiryTime    *time.Time
 	IsSharedToAll *bool
 
 	// Store user metadata for this connection
-	Metadata       map[string]*string
-	SharedUserList []*string
-	Target         *string
-
-	// Value details of the workspace connection.
-	Value *string
-
-	// format for the workspace connection value
-	ValueFormat *ValueFormat
+	Metadata                    map[string]*string
+	PeRequirement               *ManagedPERequirement
+	PeStatus                    *ManagedPEStatus
+	SharedUserList              []*string
+	Target                      *string
+	UseWorkspaceManagedIdentity *bool
 
 	// READ-ONLY
 	CreatedByWorkspaceArmID *string
@@ -41,17 +39,19 @@ type AADAuthTypeWorkspaceConnectionProperties struct {
 // GetWorkspaceConnectionPropertiesV2 implements the WorkspaceConnectionPropertiesV2Classification interface for type AADAuthTypeWorkspaceConnectionProperties.
 func (a *AADAuthTypeWorkspaceConnectionProperties) GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2 {
 	return &WorkspaceConnectionPropertiesV2{
-		AuthType:                a.AuthType,
-		Category:                a.Category,
-		CreatedByWorkspaceArmID: a.CreatedByWorkspaceArmID,
-		ExpiryTime:              a.ExpiryTime,
-		Group:                   a.Group,
-		IsSharedToAll:           a.IsSharedToAll,
-		Metadata:                a.Metadata,
-		SharedUserList:          a.SharedUserList,
-		Target:                  a.Target,
-		Value:                   a.Value,
-		ValueFormat:             a.ValueFormat,
+		AuthType:                    a.AuthType,
+		Category:                    a.Category,
+		CreatedByWorkspaceArmID:     a.CreatedByWorkspaceArmID,
+		Error:                       a.Error,
+		ExpiryTime:                  a.ExpiryTime,
+		Group:                       a.Group,
+		IsSharedToAll:               a.IsSharedToAll,
+		Metadata:                    a.Metadata,
+		PeRequirement:               a.PeRequirement,
+		PeStatus:                    a.PeStatus,
+		SharedUserList:              a.SharedUserList,
+		Target:                      a.Target,
+		UseWorkspaceManagedIdentity: a.UseWorkspaceManagedIdentity,
 	}
 }
 
@@ -162,19 +162,17 @@ type APIKeyAuthWorkspaceConnectionProperties struct {
 
 	// Api key object for workspace connection credential.
 	Credentials   *WorkspaceConnectionAPIKey
+	Error         *string
 	ExpiryTime    *time.Time
 	IsSharedToAll *bool
 
 	// Store user metadata for this connection
-	Metadata       map[string]*string
-	SharedUserList []*string
-	Target         *string
-
-	// Value details of the workspace connection.
-	Value *string
-
-	// format for the workspace connection value
-	ValueFormat *ValueFormat
+	Metadata                    map[string]*string
+	PeRequirement               *ManagedPERequirement
+	PeStatus                    *ManagedPEStatus
+	SharedUserList              []*string
+	Target                      *string
+	UseWorkspaceManagedIdentity *bool
 
 	// READ-ONLY
 	CreatedByWorkspaceArmID *string
@@ -186,17 +184,19 @@ type APIKeyAuthWorkspaceConnectionProperties struct {
 // GetWorkspaceConnectionPropertiesV2 implements the WorkspaceConnectionPropertiesV2Classification interface for type APIKeyAuthWorkspaceConnectionProperties.
 func (a *APIKeyAuthWorkspaceConnectionProperties) GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2 {
 	return &WorkspaceConnectionPropertiesV2{
-		AuthType:                a.AuthType,
-		Category:                a.Category,
-		CreatedByWorkspaceArmID: a.CreatedByWorkspaceArmID,
-		ExpiryTime:              a.ExpiryTime,
-		Group:                   a.Group,
-		IsSharedToAll:           a.IsSharedToAll,
-		Metadata:                a.Metadata,
-		SharedUserList:          a.SharedUserList,
-		Target:                  a.Target,
-		Value:                   a.Value,
-		ValueFormat:             a.ValueFormat,
+		AuthType:                    a.AuthType,
+		Category:                    a.Category,
+		CreatedByWorkspaceArmID:     a.CreatedByWorkspaceArmID,
+		Error:                       a.Error,
+		ExpiryTime:                  a.ExpiryTime,
+		Group:                       a.Group,
+		IsSharedToAll:               a.IsSharedToAll,
+		Metadata:                    a.Metadata,
+		PeRequirement:               a.PeRequirement,
+		PeStatus:                    a.PeStatus,
+		SharedUserList:              a.SharedUserList,
+		Target:                      a.Target,
+		UseWorkspaceManagedIdentity: a.UseWorkspaceManagedIdentity,
 	}
 }
 
@@ -207,19 +207,17 @@ type AccessKeyAuthTypeWorkspaceConnectionProperties struct {
 	// Category of the connection
 	Category      *ConnectionCategory
 	Credentials   *WorkspaceConnectionAccessKey
+	Error         *string
 	ExpiryTime    *time.Time
 	IsSharedToAll *bool
 
 	// Store user metadata for this connection
-	Metadata       map[string]*string
-	SharedUserList []*string
-	Target         *string
-
-	// Value details of the workspace connection.
-	Value *string
-
-	// format for the workspace connection value
-	ValueFormat *ValueFormat
+	Metadata                    map[string]*string
+	PeRequirement               *ManagedPERequirement
+	PeStatus                    *ManagedPEStatus
+	SharedUserList              []*string
+	Target                      *string
+	UseWorkspaceManagedIdentity *bool
 
 	// READ-ONLY
 	CreatedByWorkspaceArmID *string
@@ -231,18 +229,25 @@ type AccessKeyAuthTypeWorkspaceConnectionProperties struct {
 // GetWorkspaceConnectionPropertiesV2 implements the WorkspaceConnectionPropertiesV2Classification interface for type AccessKeyAuthTypeWorkspaceConnectionProperties.
 func (a *AccessKeyAuthTypeWorkspaceConnectionProperties) GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2 {
 	return &WorkspaceConnectionPropertiesV2{
-		AuthType:                a.AuthType,
-		Category:                a.Category,
-		CreatedByWorkspaceArmID: a.CreatedByWorkspaceArmID,
-		ExpiryTime:              a.ExpiryTime,
-		Group:                   a.Group,
-		IsSharedToAll:           a.IsSharedToAll,
-		Metadata:                a.Metadata,
-		SharedUserList:          a.SharedUserList,
-		Target:                  a.Target,
-		Value:                   a.Value,
-		ValueFormat:             a.ValueFormat,
+		AuthType:                    a.AuthType,
+		Category:                    a.Category,
+		CreatedByWorkspaceArmID:     a.CreatedByWorkspaceArmID,
+		Error:                       a.Error,
+		ExpiryTime:                  a.ExpiryTime,
+		Group:                       a.Group,
+		IsSharedToAll:               a.IsSharedToAll,
+		Metadata:                    a.Metadata,
+		PeRequirement:               a.PeRequirement,
+		PeStatus:                    a.PeStatus,
+		SharedUserList:              a.SharedUserList,
+		Target:                      a.Target,
+		UseWorkspaceManagedIdentity: a.UseWorkspaceManagedIdentity,
 	}
+}
+
+type AccountAPIKeys struct {
+	Key1 *string
+	Key2 *string
 }
 
 // AccountKeyAuthTypeWorkspaceConnectionProperties - This connection type covers the account key connection for Azure storage
@@ -251,21 +256,21 @@ type AccountKeyAuthTypeWorkspaceConnectionProperties struct {
 	AuthType *ConnectionAuthType
 
 	// Category of the connection
-	Category      *ConnectionCategory
+	Category *ConnectionCategory
+
+	// Account key object for workspace connection credential.
 	Credentials   *WorkspaceConnectionAccountKey
+	Error         *string
 	ExpiryTime    *time.Time
 	IsSharedToAll *bool
 
 	// Store user metadata for this connection
-	Metadata       map[string]*string
-	SharedUserList []*string
-	Target         *string
-
-	// Value details of the workspace connection.
-	Value *string
-
-	// format for the workspace connection value
-	ValueFormat *ValueFormat
+	Metadata                    map[string]*string
+	PeRequirement               *ManagedPERequirement
+	PeStatus                    *ManagedPEStatus
+	SharedUserList              []*string
+	Target                      *string
+	UseWorkspaceManagedIdentity *bool
 
 	// READ-ONLY
 	CreatedByWorkspaceArmID *string
@@ -277,17 +282,19 @@ type AccountKeyAuthTypeWorkspaceConnectionProperties struct {
 // GetWorkspaceConnectionPropertiesV2 implements the WorkspaceConnectionPropertiesV2Classification interface for type AccountKeyAuthTypeWorkspaceConnectionProperties.
 func (a *AccountKeyAuthTypeWorkspaceConnectionProperties) GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2 {
 	return &WorkspaceConnectionPropertiesV2{
-		AuthType:                a.AuthType,
-		Category:                a.Category,
-		CreatedByWorkspaceArmID: a.CreatedByWorkspaceArmID,
-		ExpiryTime:              a.ExpiryTime,
-		Group:                   a.Group,
-		IsSharedToAll:           a.IsSharedToAll,
-		Metadata:                a.Metadata,
-		SharedUserList:          a.SharedUserList,
-		Target:                  a.Target,
-		Value:                   a.Value,
-		ValueFormat:             a.ValueFormat,
+		AuthType:                    a.AuthType,
+		Category:                    a.Category,
+		CreatedByWorkspaceArmID:     a.CreatedByWorkspaceArmID,
+		Error:                       a.Error,
+		ExpiryTime:                  a.ExpiryTime,
+		Group:                       a.Group,
+		IsSharedToAll:               a.IsSharedToAll,
+		Metadata:                    a.Metadata,
+		PeRequirement:               a.PeRequirement,
+		PeStatus:                    a.PeStatus,
+		SharedUserList:              a.SharedUserList,
+		Target:                      a.Target,
+		UseWorkspaceManagedIdentity: a.UseWorkspaceManagedIdentity,
 	}
 }
 
@@ -330,6 +337,17 @@ type AcrDetails struct {
 
 	// Details of user created ACR account to be used for the Registry
 	UserCreatedAcrAccount *UserCreatedAcrAccount
+}
+
+type ActualCapacityInfo struct {
+	// Gets or sets the total number of instances for the group.
+	Allocated *int32
+
+	// Gets or sets the number of instances which failed to successfully complete assignment.
+	AssignmentFailed *int32
+
+	// Gets or sets the number of instances which successfully completed assignment.
+	AssignmentSuccess *int32
 }
 
 // AksComputeSecrets - Secrets related to a Machine Learning compute based on AKS.
@@ -670,6 +688,9 @@ type AssetJobInput struct {
 
 // AssetJobOutput - Asset output type.
 type AssetJobOutput struct {
+	// Output Asset Name.
+	AssetName *string
+
 	// Output Asset Delivery Mode.
 	Mode *OutputDeliveryMode
 
@@ -1105,6 +1126,50 @@ func (a *AzureFileDatastore) GetDatastoreProperties() *DatastoreProperties {
 	}
 }
 
+type AzureOpenAiFineTuning struct {
+	// REQUIRED; [Required] Input model for fine tuning.
+	Model JobInputClassification
+
+	// REQUIRED; [Required] Enum to determine the type of fine tuning.
+	ModelProvider *ModelProvider
+
+	// REQUIRED; [Required] Fine tuning task type.
+	TaskType *FineTuningTaskType
+
+	// REQUIRED; [Required] Training data for fine tuning.
+	TrainingData JobInputClassification
+
+	// HyperParameters for fine tuning Azure Open AI model.
+	HyperParameters *AzureOpenAiHyperParameters
+
+	// Validation data for fine tuning.
+	ValidationData JobInputClassification
+}
+
+// GetFineTuningVertical implements the FineTuningVerticalClassification interface for type AzureOpenAiFineTuning.
+func (a *AzureOpenAiFineTuning) GetFineTuningVertical() *FineTuningVertical {
+	return &FineTuningVertical{
+		Model:          a.Model,
+		ModelProvider:  a.ModelProvider,
+		TaskType:       a.TaskType,
+		TrainingData:   a.TrainingData,
+		ValidationData: a.ValidationData,
+	}
+}
+
+// AzureOpenAiHyperParameters - Azure Open AI hyperparameters for fine tuning.
+type AzureOpenAiHyperParameters struct {
+	// Number of examples in each batch. A larger batch size means that model parameters are updated less frequently, but with
+	// lower variance.
+	BatchSize *int32
+
+	// Scaling factor for the learning rate. A smaller learning rate may be useful to avoid over fitting.
+	LearningRateMultiplier *float64
+
+	// The number of epochs to train the model for. An epoch refers to one full cycle through the training dataset.
+	NEpochs *int32
+}
+
 // BanditPolicy - Defines an early termination policy based on slack criteria, and a frequency and delay interval for evaluation
 type BanditPolicy struct {
 	// REQUIRED; [Required] Name of policy configuration
@@ -1366,7 +1431,6 @@ func (b *BayesianSamplingAlgorithm) GetSamplingAlgorithm() *SamplingAlgorithm {
 	}
 }
 
-// BindOptions - Describes the bind options for the container
 type BindOptions struct {
 	// Indicate whether to create host path.
 	CreateHostPath *bool
@@ -1397,6 +1461,24 @@ type BuildContext struct {
 
 	// Path to the Dockerfile in the build context.
 	DockerfilePath *string
+}
+
+// CapacityConfig - The capacity configuration.
+type CapacityConfig struct {
+	// The array of allowed values for capacity.
+	AllowedValues []*int32
+
+	// The default capacity.
+	Default *int32
+
+	// The maximum capacity.
+	Maximum *int32
+
+	// The minimum capacity.
+	Minimum *int32
+
+	// The minimal incremental between allowed values for capacity.
+	Step *int32
 }
 
 type CategoricalDataDriftMetricThreshold struct {
@@ -1721,6 +1803,26 @@ type CodeVersionResourceArmPaginatedResult struct {
 
 	// An array of objects of type CodeVersion.
 	Value []*CodeVersion
+}
+
+type CognitiveServiceEndpointDeploymentResourceProperties struct {
+	// REQUIRED; Model used for the endpoint deployment.
+	Model *EndpointDeploymentModel
+
+	// The name of RAI policy.
+	RaiPolicyName *string
+	SKU           *CognitiveServicesSKU
+
+	// Deployment model version upgrade option.
+	VersionUpgradeOption *DeploymentModelVersionUpgradeOption
+}
+
+type CognitiveServicesSKU struct {
+	Capacity *int32
+	Family   *string
+	Name     *string
+	Size     *string
+	Tier     *string
 }
 
 type Collection struct {
@@ -2062,6 +2164,12 @@ type ComputeInstanceApplication struct {
 	EndpointURI *string
 }
 
+// ComputeInstanceAutologgerSettings - Specifies settings for autologger.
+type ComputeInstanceAutologgerSettings struct {
+	// Indicates whether mlflow autologger is enabled for notebooks.
+	MlflowAutologger *MlflowAutologger
+}
+
 // ComputeInstanceConnectivityEndpoints - Defines all connectivity endpoints and properties for an ComputeInstance.
 type ComputeInstanceConnectivityEndpoints struct {
 	// READ-ONLY; Private IP Address of this ComputeInstance (local to the VNET in which the compute instance is deployed).
@@ -2130,6 +2238,9 @@ type ComputeInstanceDataMount struct {
 	// Mount Action.
 	MountAction *MountAction
 
+	// Mount Mode.
+	MountMode *MountMode
+
 	// name of the ComputeInstance data mount.
 	MountName *string
 
@@ -2180,6 +2291,9 @@ type ComputeInstanceProperties struct {
 	// user can access applications on this instance depending on his/her assigned role.
 	ApplicationSharingPolicy *ApplicationSharingPolicy
 
+	// Specifies settings for autologger.
+	AutologgerSettings *ComputeInstanceAutologgerSettings
+
 	// The Compute Instance Authorization type. Available values are personal (default).
 	ComputeInstanceAuthorizationType *ComputeInstanceAuthorizationType
 
@@ -2191,8 +2305,25 @@ type ComputeInstanceProperties struct {
 	// compute nodes will have a private endpoint and no public IPs.
 	EnableNodePublicIP *bool
 
+	// Enable Auto OS Patching. Possible values are: true, false.
+	EnableOSPatching *bool
+
+	// Enable root access. Possible values are: true, false.
+	EnableRootAccess *bool
+
+	// Enable SSO (single sign on). Possible values are: true, false.
+	EnableSSO *bool
+
+	// Stops compute instance after user defined period of inactivity. Time is defined in ISO8601 format. Minimum is 15 min, maximum
+	// is 3 days.
+	IdleTimeBeforeShutdown *string
+
 	// Settings for a personal compute instance.
 	PersonalComputeInstanceSettings *PersonalComputeInstanceSettings
+
+	// Release quota if compute instance stopped. Possible values are: true - release quota if compute instance stopped. false
+	// - don't release quota when compute instance stopped.
+	ReleaseQuotaOnStop *bool
 
 	// Specifies policy and settings for SSH access.
 	SSHSettings *ComputeInstanceSSHSettings
@@ -2321,7 +2452,6 @@ type ComputeResourceSchema struct {
 	Properties ComputeClassification
 }
 
-// ComputeRuntimeDto - Compute runtime config for feature store type workspace.
 type ComputeRuntimeDto struct {
 	SparkRuntimeVersion *string
 }
@@ -2393,8 +2523,84 @@ type ContentSafety struct {
 	ContentSafetyStatus *ContentSafetyStatus
 }
 
+type ContentSafetyEndpointDeploymentResourceProperties struct {
+	// REQUIRED; Model used for the endpoint deployment.
+	Model *EndpointDeploymentModel
+
+	// REQUIRED; Kind of the deployment.
+	Type *string
+
+	// The failure reason if the creation failed.
+	FailureReason *string
+
+	// The name of RAI policy.
+	RaiPolicyName *string
+	SKU           *CognitiveServicesSKU
+
+	// Deployment model version upgrade option.
+	VersionUpgradeOption *DeploymentModelVersionUpgradeOption
+
+	// READ-ONLY; Read-only provision state status property.
+	ProvisioningState *DefaultResourceProvisioningState
+}
+
+// GetEndpointDeploymentResourceProperties implements the EndpointDeploymentResourcePropertiesClassification interface for
+// type ContentSafetyEndpointDeploymentResourceProperties.
+func (c *ContentSafetyEndpointDeploymentResourceProperties) GetEndpointDeploymentResourceProperties() *EndpointDeploymentResourceProperties {
+	return &EndpointDeploymentResourceProperties{
+		FailureReason:     c.FailureReason,
+		ProvisioningState: c.ProvisioningState,
+		Type:              c.Type,
+	}
+}
+
+type ContentSafetyEndpointResourceProperties struct {
+	// REQUIRED; Type of the endpoint.
+	EndpointType *EndpointType
+
+	// Byo resource id for creating the built-in model service endpoints.
+	AssociatedResourceID *string
+
+	// Deployments info.
+	Deployments []*EndpointDeploymentResourcePropertiesBasicResource
+
+	// Uri of the endpoint.
+	EndpointURI *string
+
+	// The failure reason if the creation failed.
+	FailureReason *string
+
+	// Location of the endpoint. Since input dto and when parse endpoint resource share the same contract this Location field
+	// is just for parse the endpoint resource info we won't let customer specify the
+	// endpoint resource location since we will create it the same location as workspace
+	Location *string
+
+	// Name of the endpoint.
+	Name *string
+
+	// Whether the proxy (non-byo) endpoint is a regular endpoint or a OneKeyV2 AI services account endpoint.
+	ShouldCreateAiServicesEndpoint *bool
+
+	// READ-ONLY; Read-only provision state status property.
+	ProvisioningState *DefaultResourceProvisioningState
+}
+
+// GetEndpointResourceProperties implements the EndpointResourcePropertiesClassification interface for type ContentSafetyEndpointResourceProperties.
+func (c *ContentSafetyEndpointResourceProperties) GetEndpointResourceProperties() *EndpointResourceProperties {
+	return &EndpointResourceProperties{
+		AssociatedResourceID:           c.AssociatedResourceID,
+		Deployments:                    c.Deployments,
+		EndpointType:                   c.EndpointType,
+		EndpointURI:                    c.EndpointURI,
+		FailureReason:                  c.FailureReason,
+		Location:                       c.Location,
+		Name:                           c.Name,
+		ProvisioningState:              c.ProvisioningState,
+		ShouldCreateAiServicesEndpoint: c.ShouldCreateAiServicesEndpoint,
+	}
+}
+
 type CosmosDbSettings struct {
-	// The throughput of the collections in cosmosdb database
 	CollectionsThroughput *int32
 }
 
@@ -2490,19 +2696,17 @@ type CustomKeysWorkspaceConnectionProperties struct {
 
 	// Custom Keys credential object
 	Credentials   *CustomKeys
+	Error         *string
 	ExpiryTime    *time.Time
 	IsSharedToAll *bool
 
 	// Store user metadata for this connection
-	Metadata       map[string]*string
-	SharedUserList []*string
-	Target         *string
-
-	// Value details of the workspace connection.
-	Value *string
-
-	// format for the workspace connection value
-	ValueFormat *ValueFormat
+	Metadata                    map[string]*string
+	PeRequirement               *ManagedPERequirement
+	PeStatus                    *ManagedPEStatus
+	SharedUserList              []*string
+	Target                      *string
+	UseWorkspaceManagedIdentity *bool
 
 	// READ-ONLY
 	CreatedByWorkspaceArmID *string
@@ -2514,17 +2718,19 @@ type CustomKeysWorkspaceConnectionProperties struct {
 // GetWorkspaceConnectionPropertiesV2 implements the WorkspaceConnectionPropertiesV2Classification interface for type CustomKeysWorkspaceConnectionProperties.
 func (c *CustomKeysWorkspaceConnectionProperties) GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2 {
 	return &WorkspaceConnectionPropertiesV2{
-		AuthType:                c.AuthType,
-		Category:                c.Category,
-		CreatedByWorkspaceArmID: c.CreatedByWorkspaceArmID,
-		ExpiryTime:              c.ExpiryTime,
-		Group:                   c.Group,
-		IsSharedToAll:           c.IsSharedToAll,
-		Metadata:                c.Metadata,
-		SharedUserList:          c.SharedUserList,
-		Target:                  c.Target,
-		Value:                   c.Value,
-		ValueFormat:             c.ValueFormat,
+		AuthType:                    c.AuthType,
+		Category:                    c.Category,
+		CreatedByWorkspaceArmID:     c.CreatedByWorkspaceArmID,
+		Error:                       c.Error,
+		ExpiryTime:                  c.ExpiryTime,
+		Group:                       c.Group,
+		IsSharedToAll:               c.IsSharedToAll,
+		Metadata:                    c.Metadata,
+		PeRequirement:               c.PeRequirement,
+		PeStatus:                    c.PeStatus,
+		SharedUserList:              c.SharedUserList,
+		Target:                      c.Target,
+		UseWorkspaceManagedIdentity: c.UseWorkspaceManagedIdentity,
 	}
 }
 
@@ -2534,6 +2740,37 @@ type CustomMetricThreshold struct {
 
 	// The threshold value. If null, a default value will be set depending on the selected metric.
 	Threshold *MonitoringThreshold
+}
+
+type CustomModelFineTuning struct {
+	// REQUIRED; [Required] Input model for fine tuning.
+	Model JobInputClassification
+
+	// REQUIRED; [Required] Enum to determine the type of fine tuning.
+	ModelProvider *ModelProvider
+
+	// REQUIRED; [Required] Fine tuning task type.
+	TaskType *FineTuningTaskType
+
+	// REQUIRED; [Required] Training data for fine tuning.
+	TrainingData JobInputClassification
+
+	// HyperParameters for fine tuning custom model.
+	HyperParameters map[string]*string
+
+	// Validation data for fine tuning.
+	ValidationData JobInputClassification
+}
+
+// GetFineTuningVertical implements the FineTuningVerticalClassification interface for type CustomModelFineTuning.
+func (c *CustomModelFineTuning) GetFineTuningVertical() *FineTuningVertical {
+	return &FineTuningVertical{
+		Model:          c.Model,
+		ModelProvider:  c.ModelProvider,
+		TaskType:       c.TaskType,
+		TrainingData:   c.TrainingData,
+		ValidationData: c.ValidationData,
+	}
 }
 
 type CustomModelJobInput struct {
@@ -2561,6 +2798,9 @@ func (c *CustomModelJobInput) GetJobInput() *JobInput {
 type CustomModelJobOutput struct {
 	// REQUIRED; [Required] Specifies the type of job.
 	JobOutputType *JobOutputType
+
+	// Output Asset Name.
+	AssetName *string
 
 	// Description for the output.
 	Description *string
@@ -2659,6 +2899,9 @@ type CustomService struct {
 
 	// Describes the Image Specifications
 	Image *Image
+
+	// Describes the jupyter kernel settings for the image if its a custom environment
+	Kernel *JupyterKernelConfig
 
 	// Name of the Custom Service
 	Name *string
@@ -3232,6 +3475,67 @@ func (d *DefaultScaleSettings) GetOnlineScaleSettings() *OnlineScaleSettings {
 	}
 }
 
+// DeltaModelCurrentState - Contract for DeltaModelCurrentState.
+type DeltaModelCurrentState struct {
+	// Gets or sets Count of instances with model.
+	Count *int32
+
+	// Gets or sets sample of instances with model.
+	SampleInstanceID *string
+
+	// Gets or sets status.
+	Status *string
+}
+
+type DeltaModelListRequest struct {
+	// Gets or sets number of delta models to return. Default: -1, means that all will be returned.
+	Count *int32
+
+	// Gets or sets skip token for paginated response.
+	SkipToken *string
+
+	// Gets or sets target base model.
+	TargetBaseModel *string
+}
+
+// DeltaModelModifyRequest - Contract base for DeltaModelChangeRequest. Used for adding or removing.
+type DeltaModelModifyRequest struct {
+	// Gets or sets delta models to remove.
+	AddDeltaModels []*string
+
+	// Gets or sets delta models to remove.
+	RemoveDeltaModels []*string
+
+	// Gets or sets target base model.
+	TargetBaseModel *string
+}
+
+type DeltaModelStatusRequest struct {
+	// Gets or sets collection of delta models to retrieve status for.
+	DeltaModels []*string
+
+	// Gets or sets target base model.
+	TargetBaseModel *string
+}
+
+// DeltaModelStatusResponse - Contract returning to user the delta models.
+type DeltaModelStatusResponse struct {
+	// Gets or sets actual instance count.
+	ActualInstanceCount *int32
+
+	// Gets or sets dictionary representing modelID and its current state.
+	DeltaModels map[string][]*DeltaModelCurrentState
+
+	// Gets or sets expected instance count.
+	ExpectedInstanceCount *int32
+
+	// Gets or sets revision ID.
+	RevisionID *string
+
+	// Gets or sets target base model.
+	TargetBaseModel *string
+}
+
 type DeploymentLogs struct {
 	// The retrieved online deployment logs.
 	Content *string
@@ -3287,6 +3591,9 @@ type DiagnoseRequestProperties struct {
 	// Setting for diagnosing unclassified category of problems
 	Others map[string]any
 
+	// Setting for diagnosing the presence of required resource providers in the workspace.
+	RequiredResourceProviders map[string]any
+
 	// Setting for diagnosing resource lock
 	ResourceLock map[string]any
 
@@ -3327,7 +3634,6 @@ type DiagnoseResult struct {
 
 // DiagnoseWorkspaceParameters - Parameters to diagnose a workspace
 type DiagnoseWorkspaceParameters struct {
-	// Value of Parameters
 	Value *DiagnoseRequestProperties
 }
 
@@ -3342,7 +3648,6 @@ func (d *DistributionConfiguration) GetDistributionConfiguration() *Distribution
 	return d
 }
 
-// Docker container configuration
 type Docker struct {
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
 	AdditionalProperties map[string]any
@@ -3385,31 +3690,29 @@ type EarlyTerminationPolicy struct {
 // GetEarlyTerminationPolicy implements the EarlyTerminationPolicyClassification interface for type EarlyTerminationPolicy.
 func (e *EarlyTerminationPolicy) GetEarlyTerminationPolicy() *EarlyTerminationPolicy { return e }
 
-type EncryptionKeyVaultProperties struct {
-	// REQUIRED; Key vault uri to access the encryption key.
-	KeyIdentifier *string
-
-	// REQUIRED; The ArmId of the keyVault where the customer owned encryption key is present.
-	KeyVaultArmID *string
-
-	// For future use - The client id of the identity which will be used to access key vault.
-	IdentityClientID *string
-}
-
 type EncryptionKeyVaultUpdateProperties struct {
 	// REQUIRED
 	KeyIdentifier *string
 }
 
 type EncryptionProperty struct {
-	// REQUIRED; Customer Key vault properties.
-	KeyVaultProperties *EncryptionKeyVaultProperties
+	// REQUIRED; KeyVault details to do the encryption
+	KeyVaultProperties *KeyVaultProperties
 
 	// REQUIRED; Indicates whether or not the encryption is enabled for the workspace.
 	Status *EncryptionStatus
 
-	// The identity that will be used to access the key vault for encryption at rest.
+	// The byok cosmosdb account that customer brings to store customer's data with encryption
+	CosmosDbResourceID *string
+
+	// Identity to be used with the keyVault
 	Identity *IdentityForCmk
+
+	// The byok search account that customer brings to store customer's data with encryption
+	SearchAccountResourceID *string
+
+	// The byok storage account that customer brings to store customer's data with encryption
+	StorageAccountResourceID *string
 }
 
 type EncryptionUpdateProperties struct {
@@ -3417,7 +3720,6 @@ type EncryptionUpdateProperties struct {
 	KeyVaultProperties *EncryptionKeyVaultUpdateProperties
 }
 
-// Endpoint - Describes the endpoint configuration for the container
 type Endpoint struct {
 	// Host IP over which the application is exposed from the container
 	HostIP *string
@@ -3459,6 +3761,20 @@ type EndpointAuthToken struct {
 	TokenType *string
 }
 
+type EndpointDeploymentModel struct {
+	// Model format
+	Format *string
+
+	// Model name.
+	Name *string
+
+	// Optional. Deployment model source ARM resource ID.
+	Source *string
+
+	// Model version.
+	Version *string
+}
+
 // EndpointDeploymentPropertiesBase - Base definition for endpoint deployment.
 type EndpointDeploymentPropertiesBase struct {
 	// Code configuration for the endpoint deployment.
@@ -3475,6 +3791,154 @@ type EndpointDeploymentPropertiesBase struct {
 
 	// Property dictionary. Properties can be added, but not removed or altered.
 	Properties map[string]*string
+}
+
+type EndpointDeploymentResourceProperties struct {
+	// REQUIRED; Kind of the deployment.
+	Type *string
+
+	// The failure reason if the creation failed.
+	FailureReason *string
+
+	// READ-ONLY; Read-only provision state status property.
+	ProvisioningState *DefaultResourceProvisioningState
+}
+
+// GetEndpointDeploymentResourceProperties implements the EndpointDeploymentResourcePropertiesClassification interface for
+// type EndpointDeploymentResourceProperties.
+func (e *EndpointDeploymentResourceProperties) GetEndpointDeploymentResourceProperties() *EndpointDeploymentResourceProperties {
+	return e
+}
+
+type EndpointDeploymentResourcePropertiesBasicResource struct {
+	// REQUIRED
+	Properties EndpointDeploymentResourcePropertiesClassification
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+type EndpointDeploymentResourcePropertiesBasicResourceArmPaginatedResult struct {
+	NextLink *string
+	Value    []*EndpointDeploymentResourcePropertiesBasicResource
+}
+
+type EndpointKeys struct {
+	// Dictionary of Keys for the endpoint.
+	Keys *AccountAPIKeys
+}
+
+type EndpointModelDeprecationProperties struct {
+	// The datetime of deprecation of the fineTune Model.
+	FineTune *time.Time
+
+	// The datetime of deprecation of the inference Model.
+	Inference *time.Time
+}
+
+// EndpointModelProperties - Endpoint Model properties.
+type EndpointModelProperties struct {
+	// The capabilities.
+	Capabilities map[string]*string
+	Deprecation  *EndpointModelDeprecationProperties
+
+	// The capabilities for finetune models.
+	FinetuneCapabilities map[string]*string
+
+	// Deployment model format.
+	Format *string
+
+	// If the model is default version.
+	IsDefaultVersion *bool
+
+	// Model lifecycle status.
+	LifecycleStatus *ModelLifecycleStatus
+
+	// The max capacity.
+	MaxCapacity *int32
+
+	// Deployment model name.
+	Name *string
+
+	// The list of Model Sku.
+	SKUs []*EndpointModelSKUProperties
+
+	// Optional. Deployment model version. If version is not specified, a default version will be assigned. The default version
+	// is different for different models and might change when there is new version
+	// available for a model. Default version for a model could be found from list models API.
+	Version *string
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData
+}
+
+type EndpointModelSKUCapacityProperties struct {
+	// The default capacity.
+	Default *int32
+
+	// The maximum capacity.
+	Maximum *int32
+}
+
+type EndpointModelSKUProperties struct {
+	Capacity *EndpointModelSKUCapacityProperties
+
+	// The list of ARM id for the connection support this SKU.
+	ConnectionIDs []*string
+
+	// The datetime of deprecation of the model SKU.
+	DeprecationDate *time.Time
+
+	// The name of the model SKU.
+	Name       *string
+	RateLimits []*EndpointModelSKURateLimitProperties
+
+	// The usage name of the model SKU.
+	UsageName *string
+}
+
+type EndpointModelSKURateLimitProperties struct {
+	// The count value of Call Rate Limit.
+	Count *float32
+
+	// The renewal period in seconds of Call Rate Limit.
+	RenewalPeriod *float32
+
+	// The call rate limit for the model.
+	Rules []*EndpointModelSKURateLimitRuleProperties
+}
+
+type EndpointModelSKURateLimitRulePatternProperties struct {
+	Method *string
+	Path   *string
+}
+
+type EndpointModelSKURateLimitRuleProperties struct {
+	Count *float32
+
+	// If the dynamic throttling is enabled.
+	DynamicThrottlingEnabled *bool
+	Key                      *string
+	MatchPatterns            []*EndpointModelSKURateLimitRulePatternProperties
+	MinCount                 *float32
+	RenewalPeriod            *float32
+}
+
+type EndpointModels struct {
+	// The link to the next page constructed using the continuationToken. If null, there are no additional pages.
+	NextLink *string
+
+	// List of models.
+	Value []*EndpointModelProperties
 }
 
 // EndpointPropertiesBase - Inference Endpoint base definition
@@ -3498,6 +3962,64 @@ type EndpointPropertiesBase struct {
 
 	// READ-ONLY; Endpoint Swagger URI.
 	SwaggerURI *string
+}
+
+type EndpointResourceProperties struct {
+	// REQUIRED; Type of the endpoint.
+	EndpointType *EndpointType
+
+	// Byo resource id for creating the built-in model service endpoints.
+	AssociatedResourceID *string
+
+	// Deployments info.
+	Deployments []*EndpointDeploymentResourcePropertiesBasicResource
+
+	// Uri of the endpoint.
+	EndpointURI *string
+
+	// The failure reason if the creation failed.
+	FailureReason *string
+
+	// Location of the endpoint. Since input dto and when parse endpoint resource share the same contract this Location field
+	// is just for parse the endpoint resource info we won't let customer specify the
+	// endpoint resource location since we will create it the same location as workspace
+	Location *string
+
+	// Name of the endpoint.
+	Name *string
+
+	// Whether the proxy (non-byo) endpoint is a regular endpoint or a OneKeyV2 AI services account endpoint.
+	ShouldCreateAiServicesEndpoint *bool
+
+	// READ-ONLY; Read-only provision state status property.
+	ProvisioningState *DefaultResourceProvisioningState
+}
+
+// GetEndpointResourceProperties implements the EndpointResourcePropertiesClassification interface for type EndpointResourceProperties.
+func (e *EndpointResourceProperties) GetEndpointResourceProperties() *EndpointResourceProperties {
+	return e
+}
+
+type EndpointResourcePropertiesBasicResource struct {
+	// REQUIRED
+	Properties EndpointResourcePropertiesClassification
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+type EndpointResourcePropertiesBasicResourceArmPaginatedResult struct {
+	NextLink *string
+	Value    []*EndpointResourcePropertiesBasicResource
 }
 
 type EndpointScheduleAction struct {
@@ -3566,7 +4088,6 @@ type EnvironmentContainerResourceArmPaginatedResult struct {
 	Value []*EnvironmentContainer
 }
 
-// EnvironmentVariable - Environment Variables for the container
 type EnvironmentVariable struct {
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
 	AdditionalProperties map[string]any
@@ -3709,7 +4230,7 @@ type EstimatedVMPrices struct {
 }
 
 type ExternalFQDNResponse struct {
-	Value []*FQDNEndpoints
+	Value []*FQDNEndpointsPropertyBag
 }
 
 type FQDNEndpoint struct {
@@ -3722,12 +4243,13 @@ type FQDNEndpointDetail struct {
 }
 
 type FQDNEndpoints struct {
-	Properties *FQDNEndpointsProperties
-}
-
-type FQDNEndpointsProperties struct {
 	Category  *string
 	Endpoints []*FQDNEndpoint
+}
+
+// FQDNEndpointsPropertyBag - Property bag for FQDN endpoints result
+type FQDNEndpointsPropertyBag struct {
+	Properties *FQDNEndpoints
 }
 
 // Feature - Azure Resource Manager resource envelope.
@@ -3826,9 +4348,7 @@ type FeatureResourceArmPaginatedResult struct {
 	Value []*Feature
 }
 
-// FeatureStoreSettings - Settings for feature store type workspace.
 type FeatureStoreSettings struct {
-	// Compute runtime config for feature store type workspace.
 	ComputeRuntime             *ComputeRuntimeDto
 	OfflineStoreConnectionName *string
 	OnlineStoreConnectionName  *string
@@ -4122,6 +4642,100 @@ type FeaturizationSettings struct {
 	DatasetLanguage *string
 }
 
+// FineTuningJob - FineTuning Job definition.
+type FineTuningJob struct {
+	// REQUIRED; [Required]
+	FineTuningDetails FineTuningVerticalClassification
+
+	// REQUIRED; [Required] Specifies the type of job.
+	JobType *JobType
+
+	// REQUIRED; [Required]
+	Outputs map[string]JobOutputClassification
+
+	// ARM resource ID of the component resource.
+	ComponentID *string
+
+	// ARM resource ID of the compute resource.
+	ComputeID *string
+
+	// The asset description text.
+	Description *string
+
+	// Display name of job.
+	DisplayName *string
+
+	// The name of the experiment the job belongs to. If not set, the job is placed in the "Default" experiment.
+	ExperimentName *string
+
+	// Identity configuration. If set, this should be one of AmlToken, ManagedIdentity, UserIdentity or null. Defaults to AmlToken
+	// if null.
+	Identity IdentityConfigurationClassification
+
+	// Is the asset archived?
+	IsArchived *bool
+
+	// Notification setting for the job
+	NotificationSetting *NotificationSetting
+
+	// The asset property dictionary.
+	Properties map[string]*string
+
+	// Queue settings for the job
+	QueueSettings *QueueSettings
+
+	// Instance types and other resources for the job
+	Resources *JobResources
+
+	// List of JobEndpoints. For local jobs, a job endpoint will have an endpoint value of FileStreamObject.
+	Services map[string]*JobService
+
+	// Tag dictionary. Tags can be added, removed, and updated.
+	Tags map[string]*string
+
+	// READ-ONLY; Status of the job.
+	Status *JobStatus
+}
+
+// GetJobBaseProperties implements the JobBasePropertiesClassification interface for type FineTuningJob.
+func (f *FineTuningJob) GetJobBaseProperties() *JobBaseProperties {
+	return &JobBaseProperties{
+		ComponentID:         f.ComponentID,
+		ComputeID:           f.ComputeID,
+		Description:         f.Description,
+		DisplayName:         f.DisplayName,
+		ExperimentName:      f.ExperimentName,
+		Identity:            f.Identity,
+		IsArchived:          f.IsArchived,
+		JobType:             f.JobType,
+		NotificationSetting: f.NotificationSetting,
+		Properties:          f.Properties,
+		Services:            f.Services,
+		Status:              f.Status,
+		Tags:                f.Tags,
+	}
+}
+
+type FineTuningVertical struct {
+	// REQUIRED; [Required] Input model for fine tuning.
+	Model JobInputClassification
+
+	// REQUIRED; [Required] Enum to determine the type of fine tuning.
+	ModelProvider *ModelProvider
+
+	// REQUIRED; [Required] Fine tuning task type.
+	TaskType *FineTuningTaskType
+
+	// REQUIRED; [Required] Training data for fine tuning.
+	TrainingData JobInputClassification
+
+	// Validation data for fine tuning.
+	ValidationData JobInputClassification
+}
+
+// GetFineTuningVertical implements the FineTuningVerticalClassification interface for type FineTuningVertical.
+func (f *FineTuningVertical) GetFineTuningVertical() *FineTuningVertical { return f }
+
 // FixedInputData - Fixed input data definition.
 type FixedInputData struct {
 	// REQUIRED; [Required] Specifies the type of signal to monitor.
@@ -4323,14 +4937,18 @@ type FqdnOutboundRule struct {
 
 	// Type of a managed network Outbound Rule of a machine learning workspace.
 	Status *RuleStatus
+
+	// READ-ONLY
+	ParentRuleNames []*string
 }
 
 // GetOutboundRule implements the OutboundRuleClassification interface for type FqdnOutboundRule.
 func (f *FqdnOutboundRule) GetOutboundRule() *OutboundRule {
 	return &OutboundRule{
-		Category: f.Category,
-		Status:   f.Status,
-		Type:     f.Type,
+		Category:        f.Category,
+		ParentRuleNames: f.ParentRuleNames,
+		Status:          f.Status,
+		Type:            f.Type,
 	}
 }
 
@@ -4371,6 +4989,43 @@ func (g *GridSamplingAlgorithm) GetSamplingAlgorithm() *SamplingAlgorithm {
 	return &SamplingAlgorithm{
 		SamplingAlgorithmType: g.SamplingAlgorithmType,
 	}
+}
+
+// GroupEnvironmentConfiguration - Environment configuration options.
+type GroupEnvironmentConfiguration struct {
+	// ARM resource ID of the environment specification for the inference pool.
+	EnvironmentID *string
+
+	// Environment variables configuration for the inference pool.
+	EnvironmentVariables []*StringKeyValuePair
+
+	// Liveness probe monitors the health of the container regularly.
+	LivenessProbe *ProbeSettings
+
+	// Readiness probe validates if the container is ready to serve traffic. The properties and defaults are the same as liveness
+	// probe.
+	ReadinessProbe *ProbeSettings
+
+	// This verifies whether the application within a container is started. Startup probes run before any other probe, and, unless
+	// it finishes successfully, disables other probes.
+	StartupProbe *ProbeSettings
+}
+
+// GroupModelConfiguration - Model configuration options.
+type GroupModelConfiguration struct {
+	// The URI path to the model.
+	ModelID *string
+}
+
+type GroupStatus struct {
+	// Gets or sets the actual capacity info for the group.
+	ActualCapacityInfo *ActualCapacityInfo
+
+	// Gets or sets the actual number of endpoints in the group.
+	EndpointCount *int32
+
+	// Gets or sets the request number of instances for the group.
+	RequestedCapacity *int32
 }
 
 // HDInsight - A HDInsight compute.
@@ -4459,6 +5114,14 @@ func (i *IDAssetReference) GetAssetReferenceBase() *AssetReferenceBase {
 	}
 }
 
+// IPRule - Contains an IPv4 address range in CIDR notation, such as '124.56.78.91' (simple IP address) or '124.56.78.0/24'
+// (all addresses that start with 124.56.78). Value could be 'Allow' or 'Deny'.
+type IPRule struct {
+	// An IPv4 address range in CIDR notation, such as '124.56.78.91' (simple IP address) or '124.56.78.0/24' (all addresses that
+	// start with 124.56.78). Value could be 'Allow' or 'Deny'.
+	Value *string
+}
+
 // IdentityConfiguration - Base definition for identity configuration.
 type IdentityConfiguration struct {
 	// REQUIRED; [Required] Specifies the type of identity framework.
@@ -4468,9 +5131,9 @@ type IdentityConfiguration struct {
 // GetIdentityConfiguration implements the IdentityConfigurationClassification interface for type IdentityConfiguration.
 func (i *IdentityConfiguration) GetIdentityConfiguration() *IdentityConfiguration { return i }
 
-// IdentityForCmk - Identity that will be used to access key vault for encryption at rest
+// IdentityForCmk - Identity object used for encryption.
 type IdentityForCmk struct {
-	// The ArmId of the user assigned identity that will be used to access the customer managed key vault
+	// UserAssignedIdentity to be used to fetch the encryption key from keyVault
 	UserAssignedIdentity *string
 }
 
@@ -4480,16 +5143,19 @@ type IdleShutdownSetting struct {
 	IdleTimeBeforeShutdown *string
 }
 
-// Image - Describes the Image Specifications
 type Image struct {
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
 	AdditionalProperties map[string]any
 
-	// Image reference
+	// Image reference URL if type is docker. Environment name if type is azureml
 	Reference *string
 
-	// Type of the image. Possible values are: docker - For docker images. azureml - For AzureML images
+	// Type of the image. Possible values are: docker - For docker images. azureml - For AzureML Environment images (custom and
+	// curated)
 	Type *ImageType
+
+	// Version of image being used. If latest then skip this field
+	Version *string
 }
 
 // ImageClassification - Image Classification. Multi-class image classification is used when an image is classified with only
@@ -4680,6 +5346,9 @@ type ImageMetadata struct {
 
 	// Specifies the latest available operating system image version.
 	LatestImageVersion *string
+
+	// READ-ONLY; Metadata about the os patching.
+	OSPatchingStatus *OsPatchingStatus
 }
 
 // ImageModelDistributionSettings - Distribution expressions to sweep over values of model settings.Some examples are:
@@ -5558,6 +6227,192 @@ type InferenceContainerProperties struct {
 	ScoringRoute *Route
 }
 
+type InferenceEndpoint struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// REQUIRED; [Required] Additional attributes of the entity.
+	Properties *InferenceEndpointProperties
+
+	// Managed service identity (system assigned and/or user assigned identities)
+	Identity *ManagedServiceIdentity
+
+	// Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type.
+	Kind *string
+
+	// Sku details required for ARM contract for Autoscaling.
+	SKU *SKU
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// InferenceEndpointProperties - InferenceEndpoint configuration
+type InferenceEndpointProperties struct {
+	// REQUIRED; [Required] Authentication mode for the endpoint.
+	AuthMode *AuthMode
+
+	// REQUIRED; [Required] Group within the same pool with which this endpoint needs to be associated with.
+	GroupName *string
+
+	// Description of the resource.
+	Description *string
+
+	// Property dictionary. Properties can be added, but not removed or altered.
+	Properties []*StringKeyValuePair
+
+	// RequestConfiguration for endpoint.
+	RequestConfiguration *RequestConfiguration
+
+	// READ-ONLY; Endpoint URI for the inference endpoint.
+	EndpointURI *string
+
+	// READ-ONLY; Provisioning state for the endpoint.
+	ProvisioningState *PoolProvisioningState
+}
+
+// InferenceEndpointTrackedResourceArmPaginatedResult - A paginated list of InferenceEndpoint entities.
+type InferenceEndpointTrackedResourceArmPaginatedResult struct {
+	// The link to the next page of InferenceEndpoint objects. If null, there are no additional pages.
+	NextLink *string
+
+	// An array of objects of type InferenceEndpoint.
+	Value []*InferenceEndpoint
+}
+
+type InferenceGroup struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// REQUIRED; [Required] Additional attributes of the entity.
+	Properties *InferenceGroupProperties
+
+	// Managed service identity (system assigned and/or user assigned identities)
+	Identity *ManagedServiceIdentity
+
+	// Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type.
+	Kind *string
+
+	// Sku details required for ARM contract for Autoscaling.
+	SKU *SKU
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// InferenceGroupProperties - Inference group configuration
+type InferenceGroupProperties struct {
+	// Description of the resource.
+	Description *string
+
+	// Gets or sets environment configuration for the inference group. Used if PoolType=ScaleUnit.
+	EnvironmentConfiguration *GroupEnvironmentConfiguration
+
+	// Gets or sets model configuration for the inference group. Used if PoolType=ScaleUnit.
+	ModelConfiguration *GroupModelConfiguration
+
+	// Gets or sets compute instance type.
+	NodeSKUType *string
+
+	// Property dictionary. Properties can be added, but not removed or altered.
+	Properties []*StringKeyValuePair
+
+	// Gets or sets Scale Unit size.
+	ScaleUnitSize *int32
+
+	// READ-ONLY; Provisioning state for the inference group.
+	ProvisioningState *PoolProvisioningState
+}
+
+// InferenceGroupTrackedResourceArmPaginatedResult - A paginated list of InferenceGroup entities.
+type InferenceGroupTrackedResourceArmPaginatedResult struct {
+	// The link to the next page of InferenceGroup objects. If null, there are no additional pages.
+	NextLink *string
+
+	// An array of objects of type InferenceGroup.
+	Value []*InferenceGroup
+}
+
+type InferencePool struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// REQUIRED; [Required] Additional attributes of the entity.
+	Properties *InferencePoolProperties
+
+	// Managed service identity (system assigned and/or user assigned identities)
+	Identity *ManagedServiceIdentity
+
+	// Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type.
+	Kind *string
+
+	// Sku details required for ARM contract for Autoscaling.
+	SKU *SKU
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// InferencePoolProperties - Inference pool configuration
+type InferencePoolProperties struct {
+	// Description of the resource.
+	Description *string
+
+	// Property dictionary. Properties can be added, but not removed or altered.
+	Properties []*StringKeyValuePair
+
+	// Gets or sets ScaleUnitConfiguration for the inference pool. Used if PoolType=ScaleUnit.
+	ScaleUnitConfiguration *ScaleUnitConfiguration
+
+	// READ-ONLY; Provisioning state for the pool.
+	ProvisioningState *PoolProvisioningState
+}
+
+// InferencePoolTrackedResourceArmPaginatedResult - A paginated list of InferencePool entities.
+type InferencePoolTrackedResourceArmPaginatedResult struct {
+	// The link to the next page of InferencePool objects. If null, there are no additional pages.
+	NextLink *string
+
+	// An array of objects of type InferencePool.
+	Value []*InferencePool
+}
+
 // InstanceTypeSchema - Instance type schema.
 type InstanceTypeSchema struct {
 	// Node Selector
@@ -5706,6 +6561,11 @@ type JobResourceConfiguration struct {
 	ShmSize *string
 }
 
+type JobResources struct {
+	// List of instance types to choose from.
+	InstanceTypes []*string
+}
+
 type JobScheduleAction struct {
 	// REQUIRED; [Required] Specifies the action type of the schedule
 	ActionType *ScheduleActionType
@@ -5744,6 +6604,30 @@ type JobService struct {
 
 	// READ-ONLY; Status of endpoint.
 	Status *string
+}
+
+// JupyterKernelConfig - Jupyter kernel configuration.
+type JupyterKernelConfig struct {
+	// Argument to the the runtime
+	Argv []*string
+
+	// Display name of the kernel
+	DisplayName *string
+
+	// Language of the kernel [Example value: python]
+	Language *string
+}
+
+// KeyVaultProperties - Customer Key vault properties.
+type KeyVaultProperties struct {
+	// REQUIRED; KeyVault key identifier to encrypt the data
+	KeyIdentifier *string
+
+	// REQUIRED; KeyVault Arm Id that contains the data encryption key
+	KeyVaultArmID *string
+
+	// Currently, we support only SystemAssigned MSI. We need this when we support UserAssignedIdentities
+	IdentityClientID *string
 }
 
 // Kubernetes - A Machine Learning compute based on Kubernetes Compute.
@@ -5941,15 +6825,15 @@ type ListAmlUserFeatureResult struct {
 }
 
 type ListNotebookKeysResult struct {
-	// READ-ONLY
+	// READ-ONLY; The primary access key of the Notebook
 	PrimaryAccessKey *string
 
-	// READ-ONLY
+	// READ-ONLY; The secondary access key of the Notebook
 	SecondaryAccessKey *string
 }
 
 type ListStorageAccountKeysResult struct {
-	// READ-ONLY
+	// READ-ONLY; The access key of the storage
 	UserStorageKey *string
 }
 
@@ -5964,20 +6848,17 @@ type ListUsagesResult struct {
 }
 
 type ListWorkspaceKeysResult struct {
-	// READ-ONLY
+	ContainerRegistryCredentials *RegistryListCredentialsResult
+	NotebookAccessKeys           *ListNotebookKeysResult
+
+	// READ-ONLY; The access key of the workspace app insights
 	AppInsightsInstrumentationKey *string
 
-	// READ-ONLY
-	ContainerRegistryCredentials *RegistryListCredentialsResult
+	// READ-ONLY; The arm Id key of the workspace storage
+	UserStorageArmID *string
 
-	// READ-ONLY
-	NotebookAccessKeys *ListNotebookKeysResult
-
-	// READ-ONLY
+	// READ-ONLY; The access key of the workspace storage
 	UserStorageKey *string
-
-	// READ-ONLY
-	UserStorageResourceID *string
 }
 
 // ListWorkspaceQuotas - The List WorkspaceQuotasByVMFamily operation response.
@@ -6035,6 +6916,9 @@ func (m *MLFlowModelJobInput) GetJobInput() *JobInput {
 type MLFlowModelJobOutput struct {
 	// REQUIRED; [Required] Specifies the type of job.
 	JobOutputType *JobOutputType
+
+	// Output Asset Name.
+	AssetName *string
 
 	// Description for the output.
 	Description *string
@@ -6120,6 +7004,9 @@ type MLTableJobOutput struct {
 	// REQUIRED; [Required] Specifies the type of job.
 	JobOutputType *JobOutputType
 
+	// Output Asset Name.
+	AssetName *string
+
 	// Description for the output.
 	Description *string
 
@@ -6183,19 +7070,17 @@ type ManagedIdentityAuthTypeWorkspaceConnectionProperties struct {
 	// Category of the connection
 	Category      *ConnectionCategory
 	Credentials   *WorkspaceConnectionManagedIdentity
+	Error         *string
 	ExpiryTime    *time.Time
 	IsSharedToAll *bool
 
 	// Store user metadata for this connection
-	Metadata       map[string]*string
-	SharedUserList []*string
-	Target         *string
-
-	// Value details of the workspace connection.
-	Value *string
-
-	// format for the workspace connection value
-	ValueFormat *ValueFormat
+	Metadata                    map[string]*string
+	PeRequirement               *ManagedPERequirement
+	PeStatus                    *ManagedPEStatus
+	SharedUserList              []*string
+	Target                      *string
+	UseWorkspaceManagedIdentity *bool
 
 	// READ-ONLY
 	CreatedByWorkspaceArmID *string
@@ -6207,17 +7092,19 @@ type ManagedIdentityAuthTypeWorkspaceConnectionProperties struct {
 // GetWorkspaceConnectionPropertiesV2 implements the WorkspaceConnectionPropertiesV2Classification interface for type ManagedIdentityAuthTypeWorkspaceConnectionProperties.
 func (m *ManagedIdentityAuthTypeWorkspaceConnectionProperties) GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2 {
 	return &WorkspaceConnectionPropertiesV2{
-		AuthType:                m.AuthType,
-		Category:                m.Category,
-		CreatedByWorkspaceArmID: m.CreatedByWorkspaceArmID,
-		ExpiryTime:              m.ExpiryTime,
-		Group:                   m.Group,
-		IsSharedToAll:           m.IsSharedToAll,
-		Metadata:                m.Metadata,
-		SharedUserList:          m.SharedUserList,
-		Target:                  m.Target,
-		Value:                   m.Value,
-		ValueFormat:             m.ValueFormat,
+		AuthType:                    m.AuthType,
+		Category:                    m.Category,
+		CreatedByWorkspaceArmID:     m.CreatedByWorkspaceArmID,
+		Error:                       m.Error,
+		ExpiryTime:                  m.ExpiryTime,
+		Group:                       m.Group,
+		IsSharedToAll:               m.IsSharedToAll,
+		Metadata:                    m.Metadata,
+		PeRequirement:               m.PeRequirement,
+		PeStatus:                    m.PeStatus,
+		SharedUserList:              m.SharedUserList,
+		Target:                      m.Target,
+		UseWorkspaceManagedIdentity: m.UseWorkspaceManagedIdentity,
 	}
 }
 
@@ -6264,6 +7151,9 @@ type ManagedNetworkProvisionStatus struct {
 
 // ManagedNetworkSettings - Managed Network settings for a machine learning workspace.
 type ManagedNetworkSettings struct {
+	// Firewall Sku used for FQDN Rules
+	FirewallSKU *FirewallSKU
+
 	// Isolation mode for the managed network of a machine learning workspace.
 	IsolationMode *IsolationMode
 
@@ -6272,6 +7162,9 @@ type ManagedNetworkSettings struct {
 
 	// Status of the Provisioning for the managed network of a machine learning workspace.
 	Status *ManagedNetworkProvisionStatus
+
+	// READ-ONLY
+	ChangeableIsolationModes []*IsolationMode
 
 	// READ-ONLY
 	NetworkID *string
@@ -6354,6 +7247,101 @@ func (m *ManagedOnlineDeployment) GetOnlineDeploymentProperties() *OnlineDeploym
 		RequestSettings:           m.RequestSettings,
 		ScaleSettings:             m.ScaleSettings,
 	}
+}
+
+type ManagedOnlineEndpointDeploymentResourceProperties struct {
+	// REQUIRED; Kind of the deployment.
+	Type *string
+
+	// Enum to determine endpoint compute type.
+	EndpointComputeType *EndpointComputeType
+
+	// The failure reason if the creation failed.
+	FailureReason *string
+	Model         *string
+
+	// READ-ONLY; Read-only provision state status property.
+	ProvisioningState *DefaultResourceProvisioningState
+}
+
+// GetEndpointDeploymentResourceProperties implements the EndpointDeploymentResourcePropertiesClassification interface for
+// type ManagedOnlineEndpointDeploymentResourceProperties.
+func (m *ManagedOnlineEndpointDeploymentResourceProperties) GetEndpointDeploymentResourceProperties() *EndpointDeploymentResourceProperties {
+	return &EndpointDeploymentResourceProperties{
+		FailureReason:     m.FailureReason,
+		ProvisioningState: m.ProvisioningState,
+		Type:              m.Type,
+	}
+}
+
+type ManagedOnlineEndpointResourceProperties struct {
+	// REQUIRED; Type of the endpoint.
+	EndpointType *EndpointType
+
+	// Byo resource id for creating the built-in model service endpoints.
+	AssociatedResourceID *string
+
+	// Enum to determine endpoint authentication mode.
+	AuthMode *EndpointAuthMode
+	Compute  *string
+
+	// Deployments info.
+	Deployments []*EndpointDeploymentResourcePropertiesBasicResource
+	Description *string
+
+	// Uri of the endpoint.
+	EndpointURI *string
+
+	// The failure reason if the creation failed.
+	FailureReason *string
+
+	// Location of the endpoint. Since input dto and when parse endpoint resource share the same contract this Location field
+	// is just for parse the endpoint resource info we won't let customer specify the
+	// endpoint resource location since we will create it the same location as workspace
+	Location *string
+
+	// Dictionary of
+	MirrorTraffic map[string]*int32
+
+	// Name of the endpoint.
+	Name       *string
+	ScoringURI *string
+
+	// Whether the proxy (non-byo) endpoint is a regular endpoint or a OneKeyV2 AI services account endpoint.
+	ShouldCreateAiServicesEndpoint *bool
+
+	// Dictionary of
+	Traffic map[string]*int32
+
+	// READ-ONLY; Read-only provision state status property.
+	ProvisioningState *DefaultResourceProvisioningState
+}
+
+// GetEndpointResourceProperties implements the EndpointResourcePropertiesClassification interface for type ManagedOnlineEndpointResourceProperties.
+func (m *ManagedOnlineEndpointResourceProperties) GetEndpointResourceProperties() *EndpointResourceProperties {
+	return &EndpointResourceProperties{
+		AssociatedResourceID:           m.AssociatedResourceID,
+		Deployments:                    m.Deployments,
+		EndpointType:                   m.EndpointType,
+		EndpointURI:                    m.EndpointURI,
+		FailureReason:                  m.FailureReason,
+		Location:                       m.Location,
+		Name:                           m.Name,
+		ProvisioningState:              m.ProvisioningState,
+		ShouldCreateAiServicesEndpoint: m.ShouldCreateAiServicesEndpoint,
+	}
+}
+
+// ManagedResourceGroupAssignedIdentities - Details for managed resource group assigned identities.
+type ManagedResourceGroupAssignedIdentities struct {
+	// READ-ONLY; Identity principal Id
+	PrincipalID *string
+}
+
+// ManagedResourceGroupSettings - Managed resource group settings
+type ManagedResourceGroupSettings struct {
+	// List of assigned identities for the managed resource group
+	AssignedIdentities []*ManagedResourceGroupAssignedIdentities
 }
 
 // ManagedServiceIdentity - Managed service identity (system assigned and/or user assigned identities)
@@ -6745,6 +7733,15 @@ type NCrossValidations struct {
 // GetNCrossValidations implements the NCrossValidationsClassification interface for type NCrossValidations.
 func (n *NCrossValidations) GetNCrossValidations() *NCrossValidations { return n }
 
+type NetworkACLs struct {
+	// The default action when no rule from ipRules and from virtualNetworkRules match. This is only used after the bypass property
+	// has been evaluated.
+	DefaultAction *DefaultActionType
+
+	// Rules governing the accessibility of a resource from a specific ip address or ip range.
+	IPRules []*IPRule
+}
+
 // NlpVertical - Abstract class for NLP related AutoML tasks. NLP - Natural Language Processing.
 type NlpVertical struct {
 	// Featurization inputs needed for AutoML job.
@@ -6810,19 +7807,17 @@ type NoneAuthTypeWorkspaceConnectionProperties struct {
 
 	// Category of the connection
 	Category      *ConnectionCategory
+	Error         *string
 	ExpiryTime    *time.Time
 	IsSharedToAll *bool
 
 	// Store user metadata for this connection
-	Metadata       map[string]*string
-	SharedUserList []*string
-	Target         *string
-
-	// Value details of the workspace connection.
-	Value *string
-
-	// format for the workspace connection value
-	ValueFormat *ValueFormat
+	Metadata                    map[string]*string
+	PeRequirement               *ManagedPERequirement
+	PeStatus                    *ManagedPEStatus
+	SharedUserList              []*string
+	Target                      *string
+	UseWorkspaceManagedIdentity *bool
 
 	// READ-ONLY
 	CreatedByWorkspaceArmID *string
@@ -6834,17 +7829,19 @@ type NoneAuthTypeWorkspaceConnectionProperties struct {
 // GetWorkspaceConnectionPropertiesV2 implements the WorkspaceConnectionPropertiesV2Classification interface for type NoneAuthTypeWorkspaceConnectionProperties.
 func (n *NoneAuthTypeWorkspaceConnectionProperties) GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2 {
 	return &WorkspaceConnectionPropertiesV2{
-		AuthType:                n.AuthType,
-		Category:                n.Category,
-		CreatedByWorkspaceArmID: n.CreatedByWorkspaceArmID,
-		ExpiryTime:              n.ExpiryTime,
-		Group:                   n.Group,
-		IsSharedToAll:           n.IsSharedToAll,
-		Metadata:                n.Metadata,
-		SharedUserList:          n.SharedUserList,
-		Target:                  n.Target,
-		Value:                   n.Value,
-		ValueFormat:             n.ValueFormat,
+		AuthType:                    n.AuthType,
+		Category:                    n.Category,
+		CreatedByWorkspaceArmID:     n.CreatedByWorkspaceArmID,
+		Error:                       n.Error,
+		ExpiryTime:                  n.ExpiryTime,
+		Group:                       n.Group,
+		IsSharedToAll:               n.IsSharedToAll,
+		Metadata:                    n.Metadata,
+		PeRequirement:               n.PeRequirement,
+		PeStatus:                    n.PeStatus,
+		SharedUserList:              n.SharedUserList,
+		Target:                      n.Target,
+		UseWorkspaceManagedIdentity: n.UseWorkspaceManagedIdentity,
 	}
 }
 
@@ -6893,7 +7890,8 @@ type NotebookPreparationError struct {
 }
 
 type NotebookResourceInfo struct {
-	Fqdn *string
+	Fqdn                 *string
+	IsPrivateLinkEnabled *bool
 
 	// The error that occurs when preparing notebook.
 	NotebookPreparationError *NotebookPreparationError
@@ -6981,19 +7979,17 @@ type OAuth2AuthTypeWorkspaceConnectionProperties struct {
 
 	// ClientId and ClientSecret are required. Other properties are optional depending on each OAuth2 provider's implementation.
 	Credentials   *WorkspaceConnectionOAuth2
+	Error         *string
 	ExpiryTime    *time.Time
 	IsSharedToAll *bool
 
 	// Store user metadata for this connection
-	Metadata       map[string]*string
-	SharedUserList []*string
-	Target         *string
-
-	// Value details of the workspace connection.
-	Value *string
-
-	// format for the workspace connection value
-	ValueFormat *ValueFormat
+	Metadata                    map[string]*string
+	PeRequirement               *ManagedPERequirement
+	PeStatus                    *ManagedPEStatus
+	SharedUserList              []*string
+	Target                      *string
+	UseWorkspaceManagedIdentity *bool
 
 	// READ-ONLY
 	CreatedByWorkspaceArmID *string
@@ -7005,17 +8001,19 @@ type OAuth2AuthTypeWorkspaceConnectionProperties struct {
 // GetWorkspaceConnectionPropertiesV2 implements the WorkspaceConnectionPropertiesV2Classification interface for type OAuth2AuthTypeWorkspaceConnectionProperties.
 func (o *OAuth2AuthTypeWorkspaceConnectionProperties) GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2 {
 	return &WorkspaceConnectionPropertiesV2{
-		AuthType:                o.AuthType,
-		Category:                o.Category,
-		CreatedByWorkspaceArmID: o.CreatedByWorkspaceArmID,
-		ExpiryTime:              o.ExpiryTime,
-		Group:                   o.Group,
-		IsSharedToAll:           o.IsSharedToAll,
-		Metadata:                o.Metadata,
-		SharedUserList:          o.SharedUserList,
-		Target:                  o.Target,
-		Value:                   o.Value,
-		ValueFormat:             o.ValueFormat,
+		AuthType:                    o.AuthType,
+		Category:                    o.Category,
+		CreatedByWorkspaceArmID:     o.CreatedByWorkspaceArmID,
+		Error:                       o.Error,
+		ExpiryTime:                  o.ExpiryTime,
+		Group:                       o.Group,
+		IsSharedToAll:               o.IsSharedToAll,
+		Metadata:                    o.Metadata,
+		PeRequirement:               o.PeRequirement,
+		PeStatus:                    o.PeStatus,
+		SharedUserList:              o.SharedUserList,
+		Target:                      o.Target,
+		UseWorkspaceManagedIdentity: o.UseWorkspaceManagedIdentity,
 	}
 }
 
@@ -7289,6 +8287,83 @@ type OnlineScaleSettings struct {
 // GetOnlineScaleSettings implements the OnlineScaleSettingsClassification interface for type OnlineScaleSettings.
 func (o *OnlineScaleSettings) GetOnlineScaleSettings() *OnlineScaleSettings { return o }
 
+type OpenAIEndpointDeploymentResourceProperties struct {
+	// REQUIRED; Model used for the endpoint deployment.
+	Model *EndpointDeploymentModel
+
+	// REQUIRED; Kind of the deployment.
+	Type *string
+
+	// The failure reason if the creation failed.
+	FailureReason *string
+
+	// The name of RAI policy.
+	RaiPolicyName *string
+	SKU           *CognitiveServicesSKU
+
+	// Deployment model version upgrade option.
+	VersionUpgradeOption *DeploymentModelVersionUpgradeOption
+
+	// READ-ONLY; Read-only provision state status property.
+	ProvisioningState *DefaultResourceProvisioningState
+}
+
+// GetEndpointDeploymentResourceProperties implements the EndpointDeploymentResourcePropertiesClassification interface for
+// type OpenAIEndpointDeploymentResourceProperties.
+func (o *OpenAIEndpointDeploymentResourceProperties) GetEndpointDeploymentResourceProperties() *EndpointDeploymentResourceProperties {
+	return &EndpointDeploymentResourceProperties{
+		FailureReason:     o.FailureReason,
+		ProvisioningState: o.ProvisioningState,
+		Type:              o.Type,
+	}
+}
+
+type OpenAIEndpointResourceProperties struct {
+	// REQUIRED; Type of the endpoint.
+	EndpointType *EndpointType
+
+	// Byo resource id for creating the built-in model service endpoints.
+	AssociatedResourceID *string
+
+	// Deployments info.
+	Deployments []*EndpointDeploymentResourcePropertiesBasicResource
+
+	// Uri of the endpoint.
+	EndpointURI *string
+
+	// The failure reason if the creation failed.
+	FailureReason *string
+
+	// Location of the endpoint. Since input dto and when parse endpoint resource share the same contract this Location field
+	// is just for parse the endpoint resource info we won't let customer specify the
+	// endpoint resource location since we will create it the same location as workspace
+	Location *string
+
+	// Name of the endpoint.
+	Name *string
+
+	// Whether the proxy (non-byo) endpoint is a regular endpoint or a OneKeyV2 AI services account endpoint.
+	ShouldCreateAiServicesEndpoint *bool
+
+	// READ-ONLY; Read-only provision state status property.
+	ProvisioningState *DefaultResourceProvisioningState
+}
+
+// GetEndpointResourceProperties implements the EndpointResourcePropertiesClassification interface for type OpenAIEndpointResourceProperties.
+func (o *OpenAIEndpointResourceProperties) GetEndpointResourceProperties() *EndpointResourceProperties {
+	return &EndpointResourceProperties{
+		AssociatedResourceID:           o.AssociatedResourceID,
+		Deployments:                    o.Deployments,
+		EndpointType:                   o.EndpointType,
+		EndpointURI:                    o.EndpointURI,
+		FailureReason:                  o.FailureReason,
+		Location:                       o.Location,
+		Name:                           o.Name,
+		ProvisioningState:              o.ProvisioningState,
+		ShouldCreateAiServicesEndpoint: o.ShouldCreateAiServicesEndpoint,
+	}
+}
+
 // Operation - Details of a REST API operation, returned from the Resource Provider Operations API
 type Operation struct {
 	// Localized display information for this particular operation.
@@ -7338,6 +8413,24 @@ type OperationListResult struct {
 	Value []*Operation
 }
 
+// OsPatchingStatus - Returns metadata about the os patching.
+type OsPatchingStatus struct {
+	// Time of the latest os patching.
+	LatestPatchTime *string
+
+	// Collection of errors encountered when doing os patching.
+	OSPatchingErrors []*ErrorResponse
+
+	// The os patching status.
+	PatchStatus *PatchStatus
+
+	// Specifies whether this compute instance is pending for reboot to finish os patching.
+	RebootPending *bool
+
+	// Time of scheduled reboot.
+	ScheduledRebootTime *string
+}
+
 // OutboundRule - Outbound Rule for the managed network of a machine learning workspace.
 type OutboundRule struct {
 	// REQUIRED; Type of a managed network Outbound Rule of a machine learning workspace.
@@ -7348,12 +8441,14 @@ type OutboundRule struct {
 
 	// Type of a managed network Outbound Rule of a machine learning workspace.
 	Status *RuleStatus
+
+	// READ-ONLY
+	ParentRuleNames []*string
 }
 
 // GetOutboundRule implements the OutboundRuleClassification interface for type OutboundRule.
 func (o *OutboundRule) GetOutboundRule() *OutboundRule { return o }
 
-// OutboundRuleBasicResource - Outbound Rule Basic Resource for the managed network of a machine learning workspace.
 type OutboundRuleBasicResource struct {
 	// REQUIRED; Outbound Rule for the managed network of a machine learning workspace.
 	Properties OutboundRuleClassification
@@ -7407,19 +8502,17 @@ type PATAuthTypeWorkspaceConnectionProperties struct {
 	// Category of the connection
 	Category      *ConnectionCategory
 	Credentials   *WorkspaceConnectionPersonalAccessToken
+	Error         *string
 	ExpiryTime    *time.Time
 	IsSharedToAll *bool
 
 	// Store user metadata for this connection
-	Metadata       map[string]*string
-	SharedUserList []*string
-	Target         *string
-
-	// Value details of the workspace connection.
-	Value *string
-
-	// format for the workspace connection value
-	ValueFormat *ValueFormat
+	Metadata                    map[string]*string
+	PeRequirement               *ManagedPERequirement
+	PeStatus                    *ManagedPEStatus
+	SharedUserList              []*string
+	Target                      *string
+	UseWorkspaceManagedIdentity *bool
 
 	// READ-ONLY
 	CreatedByWorkspaceArmID *string
@@ -7431,17 +8524,19 @@ type PATAuthTypeWorkspaceConnectionProperties struct {
 // GetWorkspaceConnectionPropertiesV2 implements the WorkspaceConnectionPropertiesV2Classification interface for type PATAuthTypeWorkspaceConnectionProperties.
 func (p *PATAuthTypeWorkspaceConnectionProperties) GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2 {
 	return &WorkspaceConnectionPropertiesV2{
-		AuthType:                p.AuthType,
-		Category:                p.Category,
-		CreatedByWorkspaceArmID: p.CreatedByWorkspaceArmID,
-		ExpiryTime:              p.ExpiryTime,
-		Group:                   p.Group,
-		IsSharedToAll:           p.IsSharedToAll,
-		Metadata:                p.Metadata,
-		SharedUserList:          p.SharedUserList,
-		Target:                  p.Target,
-		Value:                   p.Value,
-		ValueFormat:             p.ValueFormat,
+		AuthType:                    p.AuthType,
+		Category:                    p.Category,
+		CreatedByWorkspaceArmID:     p.CreatedByWorkspaceArmID,
+		Error:                       p.Error,
+		ExpiryTime:                  p.ExpiryTime,
+		Group:                       p.Group,
+		IsSharedToAll:               p.IsSharedToAll,
+		Metadata:                    p.Metadata,
+		PeRequirement:               p.PeRequirement,
+		PeStatus:                    p.PeStatus,
+		SharedUserList:              p.SharedUserList,
+		Target:                      p.Target,
+		UseWorkspaceManagedIdentity: p.UseWorkspaceManagedIdentity,
 	}
 }
 
@@ -7724,19 +8819,19 @@ type PrivateEndpoint struct {
 
 // PrivateEndpointConnection - The Private Endpoint Connection resource.
 type PrivateEndpointConnection struct {
-	// The identity of the resource.
+	// Managed service identity (system assigned and/or user assigned identities)
 	Identity *ManagedServiceIdentity
 
-	// Specifies the location of the resource.
+	// Same as workspace location.
 	Location *string
 
-	// Resource properties.
+	// Private endpoint connection properties.
 	Properties *PrivateEndpointConnectionProperties
 
-	// The sku of the workspace.
+	// Optional. This field is required to be implemented by the RP because AML is supporting more than one tier
 	SKU *SKU
 
-	// Contains resource tags defined as key/value pairs.
+	// Dictionary of
 	Tags map[string]*string
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
@@ -7758,15 +8853,15 @@ type PrivateEndpointConnectionListResult struct {
 	Value []*PrivateEndpointConnection
 }
 
-// PrivateEndpointConnectionProperties - Properties of the PrivateEndpointConnectProperties.
+// PrivateEndpointConnectionProperties - Private endpoint connection properties.
 type PrivateEndpointConnectionProperties struct {
-	// REQUIRED; A collection of information about the state of the connection between service consumer and provider.
+	// The Private Endpoint resource.
+	PrivateEndpoint *WorkspacePrivateEndpointResource
+
+	// The connection state.
 	PrivateLinkServiceConnectionState *PrivateLinkServiceConnectionState
 
-	// The resource of private end point.
-	PrivateEndpoint *PrivateEndpoint
-
-	// READ-ONLY; The provisioning state of the private endpoint connection resource.
+	// The current provisioning state.
 	ProvisioningState *PrivateEndpointConnectionProvisioningState
 }
 
@@ -7791,17 +8886,22 @@ type PrivateEndpointOutboundRule struct {
 
 	// Private Endpoint destination for a Private Endpoint Outbound Rule for the managed network of a machine learning workspace.
 	Destination *PrivateEndpointDestination
+	Fqdns       []*string
 
 	// Type of a managed network Outbound Rule of a machine learning workspace.
 	Status *RuleStatus
+
+	// READ-ONLY
+	ParentRuleNames []*string
 }
 
 // GetOutboundRule implements the OutboundRuleClassification interface for type PrivateEndpointOutboundRule.
 func (p *PrivateEndpointOutboundRule) GetOutboundRule() *OutboundRule {
 	return &OutboundRule{
-		Category: p.Category,
-		Status:   p.Status,
-		Type:     p.Type,
+		Category:        p.Category,
+		ParentRuleNames: p.ParentRuleNames,
+		Status:          p.Status,
+		Type:            p.Type,
 	}
 }
 
@@ -7816,19 +8916,19 @@ type PrivateEndpointResource struct {
 
 // PrivateLinkResource - A private link resource
 type PrivateLinkResource struct {
-	// The identity of the resource.
+	// Managed service identity (system assigned and/or user assigned identities)
 	Identity *ManagedServiceIdentity
 
-	// Specifies the location of the resource.
+	// Same as workspace location.
 	Location *string
 
-	// Resource properties.
+	// Properties of a private link resource.
 	Properties *PrivateLinkResourceProperties
 
-	// The sku of the workspace.
+	// Optional. This field is required to be implemented by the RP because AML is supporting more than one tier
 	SKU *SKU
 
-	// Contains resource tags defined as key/value pairs.
+	// Dictionary of
 	Tags map[string]*string
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
@@ -7846,33 +8946,32 @@ type PrivateLinkResource struct {
 
 // PrivateLinkResourceListResult - A list of private link resources
 type PrivateLinkResourceListResult struct {
-	// Array of private link resources
 	Value []*PrivateLinkResource
 }
 
 // PrivateLinkResourceProperties - Properties of a private link resource.
 type PrivateLinkResourceProperties struct {
-	// The private link resource Private link DNS zone name.
-	RequiredZoneNames []*string
-
-	// READ-ONLY; The private link resource group id.
+	// The private link resource group id.
 	GroupID *string
 
-	// READ-ONLY; The private link resource required member names.
+	// The private link resource required member names.
 	RequiredMembers []*string
+
+	// The private link resource Private link DNS zone name.
+	RequiredZoneNames []*string
 }
 
 // PrivateLinkServiceConnectionState - A collection of information about the state of the connection between service consumer
 // and provider.
 type PrivateLinkServiceConnectionState struct {
-	// A message indicating if changes on the service provider require any updates on the consumer.
+	// Some RP chose "None". Other RPs use this for region expansion.
 	ActionsRequired *string
 
-	// The reason for approval/rejection of the connection.
+	// User-defined message that, per NRP doc, may be used for approval-related message.
 	Description *string
 
-	// Indicates whether the connection has been Approved/Rejected/Removed by the owner of the service.
-	Status *PrivateEndpointServiceConnectionStatus
+	// Connection status of the service consumer with the service provider
+	Status *EndpointServiceConnectionStatus
 }
 
 // ProbeSettings - Deployment container liveness/readiness probe configuration.
@@ -7891,6 +8990,15 @@ type ProbeSettings struct {
 
 	// The probe timeout in ISO 8601 format.
 	Timeout *string
+}
+
+// PropertiesBase - Base definition for pool resources.
+type PropertiesBase struct {
+	// Description of the resource.
+	Description *string
+
+	// Property dictionary. Properties can be added, but not removed or altered.
+	Properties []*StringKeyValuePair
 }
 
 // ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
@@ -7952,6 +9060,139 @@ type QuotaUpdateParameters struct {
 
 	// The list for update quota.
 	Value []*QuotaBaseProperties
+}
+
+// RaiBlocklistConfig - Azure OpenAI blocklist config.
+type RaiBlocklistConfig struct {
+	// If blocking would occur.
+	Blocking *bool
+
+	// Name of ContentFilter.
+	BlocklistName *string
+}
+
+// RaiBlocklistItemBulkRequest - The Cognitive Services RaiBlocklist Item request body.
+type RaiBlocklistItemBulkRequest struct {
+	Name *string
+
+	// Properties of Cognitive Services RaiBlocklist Item.
+	Properties *RaiBlocklistItemProperties
+}
+
+// RaiBlocklistItemProperties - RAI Custom Blocklist Item properties.
+type RaiBlocklistItemProperties struct {
+	// If the pattern is a regex pattern.
+	IsRegex *bool
+
+	// Pattern to match against.
+	Pattern *string
+}
+
+type RaiBlocklistItemPropertiesBasicResource struct {
+	// REQUIRED; RAI Custom Blocklist Item properties.
+	Properties *RaiBlocklistItemProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+type RaiBlocklistItemPropertiesBasicResourceArmPaginatedResult struct {
+	NextLink *string
+	Value    []*RaiBlocklistItemPropertiesBasicResource
+}
+
+// RaiBlocklistProperties - RAI Custom Blocklist properties.
+type RaiBlocklistProperties struct {
+	// Description of the block list.
+	Description *string
+}
+
+type RaiBlocklistPropertiesBasicResource struct {
+	// REQUIRED; RAI Custom Blocklist properties.
+	Properties *RaiBlocklistProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+type RaiBlocklistPropertiesBasicResourceArmPaginatedResult struct {
+	NextLink *string
+	Value    []*RaiBlocklistPropertiesBasicResource
+}
+
+// RaiPolicyContentFilter - Azure OpenAI Content Filter.
+type RaiPolicyContentFilter struct {
+	// Level at which content is filtered.
+	AllowedContentLevel *AllowedContentLevel
+
+	// If blocking would occur.
+	Blocking *bool
+
+	// If the ContentFilter is enabled.
+	Enabled *bool
+
+	// Name of ContentFilter.
+	Name *string
+
+	// Content source to apply the Content Filters.
+	Source *RaiPolicyContentSource
+}
+
+// RaiPolicyProperties - Azure OpenAI Content Filters properties.
+type RaiPolicyProperties struct {
+	// Name of the base Content Filters.
+	BasePolicyName       *string
+	CompletionBlocklists []*RaiBlocklistConfig
+	ContentFilters       []*RaiPolicyContentFilter
+
+	// Content Filters mode.
+	Mode             *RaiPolicyMode
+	PromptBlocklists []*RaiBlocklistConfig
+
+	// Content Filters policy type.
+	Type *RaiPolicyType
+}
+
+// RaiPolicyPropertiesBasicResource - Azure OpenAI Content Filters resource.
+type RaiPolicyPropertiesBasicResource struct {
+	// REQUIRED; Azure OpenAI Content Filters properties.
+	Properties *RaiPolicyProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// RaiPolicyPropertiesBasicResourceArmPaginatedResult - Azure OpenAI Content Filters resource list.
+type RaiPolicyPropertiesBasicResourceArmPaginatedResult struct {
+	NextLink *string
+	Value    []*RaiPolicyPropertiesBasicResource
 }
 
 // RandomSamplingAlgorithm - Defines a Sampling Algorithm that generates values randomly
@@ -8050,6 +9291,10 @@ type RegenerateEndpointKeysRequest struct {
 	KeyValue *string
 }
 
+type RegenerateServiceAccountKeyContent struct {
+	KeyName *ServiceAccountKeyName
+}
+
 type Registry struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
@@ -8085,10 +9330,10 @@ type Registry struct {
 type RegistryListCredentialsResult struct {
 	Passwords []*Password
 
-	// READ-ONLY
+	// READ-ONLY; The location of the workspace ACR
 	Location *string
 
-	// READ-ONLY
+	// READ-ONLY; The username of the workspace ACR
 	Username *string
 }
 
@@ -8162,6 +9407,9 @@ type RegistryProperties struct {
 
 	// ResourceId of the managed RG if the registry has system created resources
 	ManagedResourceGroup *ArmResourceID
+
+	// Managed resource group specific settings
+	ManagedResourceGroupSettings *ManagedResourceGroupSettings
 
 	// MLFlow Registry URI for the Registry
 	MlFlowRegistryURI *string
@@ -8290,11 +9538,26 @@ type RegressionTrainingSettings struct {
 	StackEnsembleSettings *StackEnsembleSettings
 }
 
+// RequestConfiguration - Scoring requests configuration.
+type RequestConfiguration struct {
+	// The number of maximum concurrent requests per node allowed per deployment. Defaults to 1.
+	MaxConcurrentRequestsPerInstance *int32
+
+	// The scoring timeout in ISO 8601 format. Defaults to 5000ms.
+	RequestTimeout *string
+}
+
 type RequestLogging struct {
 	// For payload logging, we only collect payload by default. If customers also want to collect the specified headers, they
 	// can set them in captureHeaders so that backend will collect those headers along
 	// with payload.
 	CaptureHeaders []*string
+}
+
+// ResizeSchema - Schema for Compute Instance resize.
+type ResizeSchema struct {
+	// The name of the virtual machine size.
+	TargetVMSize *string
 }
 
 // Resource - Common fields that are returned in the response for all Azure Resource Manager resources
@@ -8423,19 +9686,17 @@ type SASAuthTypeWorkspaceConnectionProperties struct {
 	// Category of the connection
 	Category      *ConnectionCategory
 	Credentials   *WorkspaceConnectionSharedAccessSignature
+	Error         *string
 	ExpiryTime    *time.Time
 	IsSharedToAll *bool
 
 	// Store user metadata for this connection
-	Metadata       map[string]*string
-	SharedUserList []*string
-	Target         *string
-
-	// Value details of the workspace connection.
-	Value *string
-
-	// format for the workspace connection value
-	ValueFormat *ValueFormat
+	Metadata                    map[string]*string
+	PeRequirement               *ManagedPERequirement
+	PeStatus                    *ManagedPEStatus
+	SharedUserList              []*string
+	Target                      *string
+	UseWorkspaceManagedIdentity *bool
 
 	// READ-ONLY
 	CreatedByWorkspaceArmID *string
@@ -8447,17 +9708,19 @@ type SASAuthTypeWorkspaceConnectionProperties struct {
 // GetWorkspaceConnectionPropertiesV2 implements the WorkspaceConnectionPropertiesV2Classification interface for type SASAuthTypeWorkspaceConnectionProperties.
 func (s *SASAuthTypeWorkspaceConnectionProperties) GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2 {
 	return &WorkspaceConnectionPropertiesV2{
-		AuthType:                s.AuthType,
-		Category:                s.Category,
-		CreatedByWorkspaceArmID: s.CreatedByWorkspaceArmID,
-		ExpiryTime:              s.ExpiryTime,
-		Group:                   s.Group,
-		IsSharedToAll:           s.IsSharedToAll,
-		Metadata:                s.Metadata,
-		SharedUserList:          s.SharedUserList,
-		Target:                  s.Target,
-		Value:                   s.Value,
-		ValueFormat:             s.ValueFormat,
+		AuthType:                    s.AuthType,
+		Category:                    s.Category,
+		CreatedByWorkspaceArmID:     s.CreatedByWorkspaceArmID,
+		Error:                       s.Error,
+		ExpiryTime:                  s.ExpiryTime,
+		Group:                       s.Group,
+		IsSharedToAll:               s.IsSharedToAll,
+		Metadata:                    s.Metadata,
+		PeRequirement:               s.PeRequirement,
+		PeStatus:                    s.PeStatus,
+		SharedUserList:              s.SharedUserList,
+		Target:                      s.Target,
+		UseWorkspaceManagedIdentity: s.UseWorkspaceManagedIdentity,
 	}
 }
 
@@ -8639,6 +9902,15 @@ type ScaleSettingsInformation struct {
 	ScaleSettings *ScaleSettings
 }
 
+// ScaleUnitConfiguration - Configuration for ScaleUnit pool.
+type ScaleUnitConfiguration struct {
+	// Gets or sets a value indicating whether PublicEgress is disabled.
+	DisablePublicEgress *bool
+
+	// Gets or sets a list of Registry sources that will be used to confirm identity, storage, ACR.
+	Registries []*string
+}
+
 // Schedule - Azure Resource Manager resource envelope.
 type Schedule struct {
 	// REQUIRED; [Required] Additional attributes of the entity.
@@ -8720,7 +9992,7 @@ type ScriptReference struct {
 	// The location of scripts in the mounted volume.
 	ScriptData *string
 
-	// The storage source of the script: workspace.
+	// The storage source of the script: inline, workspace.
 	ScriptSource *string
 
 	// Optional time period passed to timeout command.
@@ -8744,6 +10016,15 @@ type Seasonality struct {
 
 // GetSeasonality implements the SeasonalityClassification interface for type Seasonality.
 func (s *Seasonality) GetSeasonality() *Seasonality { return s }
+
+// SecretExpiry - Secret expiration configuration.
+type SecretExpiry struct {
+	// Indicates if the secret is expirable.
+	ExpirableSecret *bool
+
+	// Number of hours after which the secret will expire.
+	ExpireAfterHours *int32
+}
 
 type ServerlessComputeSettings struct {
 	// The resource ID of an existing virtual network subnet in which serverless compute nodes should be deployed
@@ -8786,6 +10067,30 @@ type ServerlessEndpoint struct {
 	Type *string
 }
 
+type ServerlessEndpointCapacityReservation struct {
+	// REQUIRED
+	CapacityReservationGroupID *string
+	EndpointReservedCapacity   *int32
+}
+
+type ServerlessEndpointContentSafety struct {
+	// REQUIRED; Specifies the status of content safety.
+	ContentSafetyStatus *ContentSafetyStatus
+}
+
+type ServerlessEndpointInferenceEndpoint struct {
+	// REQUIRED
+	URI *string
+
+	// READ-ONLY; Dictionary of
+	Headers map[string]*string
+}
+
+type ServerlessEndpointModelSettings struct {
+	// REQUIRED
+	ModelID *string
+}
+
 type ServerlessEndpointProperties struct {
 	// REQUIRED; [Required] Specifies the authentication mode for the Serverless endpoint.
 	AuthMode *ServerlessInferenceEndpointAuthMode
@@ -8809,6 +10114,65 @@ type ServerlessEndpointProperties struct {
 	ProvisioningState *EndpointProvisioningState
 }
 
+type ServerlessEndpointResourceProperties struct {
+	// REQUIRED; Type of the endpoint.
+	EndpointType *EndpointType
+
+	// Byo resource id for creating the built-in model service endpoints.
+	AssociatedResourceID *string
+	AuthMode             *ServerlessInferenceEndpointAuthMode
+	CapacityReservation  *ServerlessEndpointCapacityReservation
+	ContentSafety        *ServerlessEndpointContentSafety
+
+	// Deployments info.
+	Deployments []*EndpointDeploymentResourcePropertiesBasicResource
+
+	// State of the Serverless Endpoint.
+	EndpointState *ServerlessEndpointState
+
+	// Uri of the endpoint.
+	EndpointURI *string
+
+	// The failure reason if the creation failed.
+	FailureReason     *string
+	InferenceEndpoint *ServerlessEndpointInferenceEndpoint
+
+	// Location of the endpoint. Since input dto and when parse endpoint resource share the same contract this Location field
+	// is just for parse the endpoint resource info we won't let customer specify the
+	// endpoint resource location since we will create it the same location as workspace
+	Location                  *string
+	MarketplaceSubscriptionID *string
+
+	// Anything
+	Metadata      any
+	ModelSettings *ServerlessEndpointModelSettings
+
+	// Name of the endpoint.
+	Name  *string
+	Offer *ServerlessOffer
+
+	// Whether the proxy (non-byo) endpoint is a regular endpoint or a OneKeyV2 AI services account endpoint.
+	ShouldCreateAiServicesEndpoint *bool
+
+	// READ-ONLY; Read-only provision state status property.
+	ProvisioningState *DefaultResourceProvisioningState
+}
+
+// GetEndpointResourceProperties implements the EndpointResourcePropertiesClassification interface for type ServerlessEndpointResourceProperties.
+func (s *ServerlessEndpointResourceProperties) GetEndpointResourceProperties() *EndpointResourceProperties {
+	return &EndpointResourceProperties{
+		AssociatedResourceID:           s.AssociatedResourceID,
+		Deployments:                    s.Deployments,
+		EndpointType:                   s.EndpointType,
+		EndpointURI:                    s.EndpointURI,
+		FailureReason:                  s.FailureReason,
+		Location:                       s.Location,
+		Name:                           s.Name,
+		ProvisioningState:              s.ProvisioningState,
+		ShouldCreateAiServicesEndpoint: s.ShouldCreateAiServicesEndpoint,
+	}
+}
+
 // ServerlessEndpointTrackedResourceArmPaginatedResult - A paginated list of ServerlessEndpoint entities.
 type ServerlessEndpointTrackedResourceArmPaginatedResult struct {
 	// The link to the next page of ServerlessEndpoint objects. If null, there are no additional pages.
@@ -8826,8 +10190,15 @@ type ServerlessInferenceEndpoint struct {
 	Headers map[string]*string
 }
 
+type ServerlessOffer struct {
+	// REQUIRED
+	OfferName *string
+
+	// REQUIRED
+	Publisher *string
+}
+
 type ServiceManagedResourcesSettings struct {
-	// The settings for the service managed cosmosdb account.
 	CosmosDb *CosmosDbSettings
 }
 
@@ -8838,19 +10209,17 @@ type ServicePrincipalAuthTypeWorkspaceConnectionProperties struct {
 	// Category of the connection
 	Category      *ConnectionCategory
 	Credentials   *WorkspaceConnectionServicePrincipal
+	Error         *string
 	ExpiryTime    *time.Time
 	IsSharedToAll *bool
 
 	// Store user metadata for this connection
-	Metadata       map[string]*string
-	SharedUserList []*string
-	Target         *string
-
-	// Value details of the workspace connection.
-	Value *string
-
-	// format for the workspace connection value
-	ValueFormat *ValueFormat
+	Metadata                    map[string]*string
+	PeRequirement               *ManagedPERequirement
+	PeStatus                    *ManagedPEStatus
+	SharedUserList              []*string
+	Target                      *string
+	UseWorkspaceManagedIdentity *bool
 
 	// READ-ONLY
 	CreatedByWorkspaceArmID *string
@@ -8862,17 +10231,19 @@ type ServicePrincipalAuthTypeWorkspaceConnectionProperties struct {
 // GetWorkspaceConnectionPropertiesV2 implements the WorkspaceConnectionPropertiesV2Classification interface for type ServicePrincipalAuthTypeWorkspaceConnectionProperties.
 func (s *ServicePrincipalAuthTypeWorkspaceConnectionProperties) GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2 {
 	return &WorkspaceConnectionPropertiesV2{
-		AuthType:                s.AuthType,
-		Category:                s.Category,
-		CreatedByWorkspaceArmID: s.CreatedByWorkspaceArmID,
-		ExpiryTime:              s.ExpiryTime,
-		Group:                   s.Group,
-		IsSharedToAll:           s.IsSharedToAll,
-		Metadata:                s.Metadata,
-		SharedUserList:          s.SharedUserList,
-		Target:                  s.Target,
-		Value:                   s.Value,
-		ValueFormat:             s.ValueFormat,
+		AuthType:                    s.AuthType,
+		Category:                    s.Category,
+		CreatedByWorkspaceArmID:     s.CreatedByWorkspaceArmID,
+		Error:                       s.Error,
+		ExpiryTime:                  s.ExpiryTime,
+		Group:                       s.Group,
+		IsSharedToAll:               s.IsSharedToAll,
+		Metadata:                    s.Metadata,
+		PeRequirement:               s.PeRequirement,
+		PeStatus:                    s.PeStatus,
+		SharedUserList:              s.SharedUserList,
+		Target:                      s.Target,
+		UseWorkspaceManagedIdentity: s.UseWorkspaceManagedIdentity,
 	}
 }
 
@@ -8946,14 +10317,18 @@ type ServiceTagOutboundRule struct {
 
 	// Type of a managed network Outbound Rule of a machine learning workspace.
 	Status *RuleStatus
+
+	// READ-ONLY
+	ParentRuleNames []*string
 }
 
 // GetOutboundRule implements the OutboundRuleClassification interface for type ServiceTagOutboundRule.
 func (s *ServiceTagOutboundRule) GetOutboundRule() *OutboundRule {
 	return &OutboundRule{
-		Category: s.Category,
-		Status:   s.Status,
-		Type:     s.Type,
+		Category:        s.Category,
+		ParentRuleNames: s.ParentRuleNames,
+		Status:          s.Status,
+		Type:            s.Type,
 	}
 }
 
@@ -8964,26 +10339,26 @@ type SetupScripts struct {
 }
 
 type SharedPrivateLinkResource struct {
-	// Unique name of the private link.
+	// Unique name of the private link
 	Name *string
 
-	// Resource properties.
+	// Properties of a shared private link resource.
 	Properties *SharedPrivateLinkResourceProperty
 }
 
 // SharedPrivateLinkResourceProperty - Properties of a shared private link resource.
 type SharedPrivateLinkResourceProperty struct {
-	// The private link resource group id.
+	// group id of the private link
 	GroupID *string
 
-	// The resource id that private link links to.
+	// the resource id that private link links to
 	PrivateLinkResourceID *string
 
-	// Request message.
+	// Request message
 	RequestMessage *string
 
-	// Indicates whether the connection has been Approved/Rejected/Removed by the owner of the service.
-	Status *PrivateEndpointServiceConnectionStatus
+	// Connection status of the service consumer with the service provider
+	Status *EndpointServiceConnectionStatus
 }
 
 // SparkJob - Spark job definition.
@@ -9137,6 +10512,83 @@ type SparkResourceConfiguration struct {
 	RuntimeVersion *string
 }
 
+type SpeechEndpointDeploymentResourceProperties struct {
+	// REQUIRED; Model used for the endpoint deployment.
+	Model *EndpointDeploymentModel
+
+	// REQUIRED; Kind of the deployment.
+	Type *string
+
+	// The failure reason if the creation failed.
+	FailureReason *string
+
+	// The name of RAI policy.
+	RaiPolicyName *string
+	SKU           *CognitiveServicesSKU
+
+	// Deployment model version upgrade option.
+	VersionUpgradeOption *DeploymentModelVersionUpgradeOption
+
+	// READ-ONLY; Read-only provision state status property.
+	ProvisioningState *DefaultResourceProvisioningState
+}
+
+// GetEndpointDeploymentResourceProperties implements the EndpointDeploymentResourcePropertiesClassification interface for
+// type SpeechEndpointDeploymentResourceProperties.
+func (s *SpeechEndpointDeploymentResourceProperties) GetEndpointDeploymentResourceProperties() *EndpointDeploymentResourceProperties {
+	return &EndpointDeploymentResourceProperties{
+		FailureReason:     s.FailureReason,
+		ProvisioningState: s.ProvisioningState,
+		Type:              s.Type,
+	}
+}
+
+type SpeechEndpointResourceProperties struct {
+	// REQUIRED; Type of the endpoint.
+	EndpointType *EndpointType
+
+	// Byo resource id for creating the built-in model service endpoints.
+	AssociatedResourceID *string
+
+	// Deployments info.
+	Deployments []*EndpointDeploymentResourcePropertiesBasicResource
+
+	// Uri of the endpoint.
+	EndpointURI *string
+
+	// The failure reason if the creation failed.
+	FailureReason *string
+
+	// Location of the endpoint. Since input dto and when parse endpoint resource share the same contract this Location field
+	// is just for parse the endpoint resource info we won't let customer specify the
+	// endpoint resource location since we will create it the same location as workspace
+	Location *string
+
+	// Name of the endpoint.
+	Name *string
+
+	// Whether the proxy (non-byo) endpoint is a regular endpoint or a OneKeyV2 AI services account endpoint.
+	ShouldCreateAiServicesEndpoint *bool
+
+	// READ-ONLY; Read-only provision state status property.
+	ProvisioningState *DefaultResourceProvisioningState
+}
+
+// GetEndpointResourceProperties implements the EndpointResourcePropertiesClassification interface for type SpeechEndpointResourceProperties.
+func (s *SpeechEndpointResourceProperties) GetEndpointResourceProperties() *EndpointResourceProperties {
+	return &EndpointResourceProperties{
+		AssociatedResourceID:           s.AssociatedResourceID,
+		Deployments:                    s.Deployments,
+		EndpointType:                   s.EndpointType,
+		EndpointURI:                    s.EndpointURI,
+		FailureReason:                  s.FailureReason,
+		Location:                       s.Location,
+		Name:                           s.Name,
+		ProvisioningState:              s.ProvisioningState,
+		ShouldCreateAiServicesEndpoint: s.ShouldCreateAiServicesEndpoint,
+	}
+}
+
 // StackEnsembleSettings - Advances setting to customize StackEnsemble run.
 type StackEnsembleSettings struct {
 	// Optional parameters to pass to the initializer of the meta-learner.
@@ -9195,6 +10647,20 @@ type StorageAccountDetails struct {
 
 	// Details of user created storage account to be used for the registry
 	UserCreatedStorageAccount *UserCreatedStorageAccount
+}
+
+// StringArmPaginatedResult - A paginated list of String entities.
+type StringArmPaginatedResult struct {
+	// The link to the next page of String objects. If null, there are no additional pages.
+	NextLink *string
+
+	// An array of objects of type String.
+	Value []*string
+}
+
+type StringKeyValuePair struct {
+	Key   *string
+	Value *string
 }
 
 // SweepJob - Sweep job definition.
@@ -9714,7 +11180,6 @@ func (t *TextNer) GetAutoMLVertical() *AutoMLVertical {
 	}
 }
 
-// TmpfsOptions - Describes the tmpfs options for the container
 type TmpfsOptions struct {
 	// Mention the Tmpfs size
 	Size *int32
@@ -9850,6 +11315,9 @@ type TritonModelJobOutput struct {
 	// REQUIRED; [Required] Specifies the type of job.
 	JobOutputType *JobOutputType
 
+	// Output Asset Name.
+	AssetName *string
+
 	// Description for the output.
 	Description *string
 
@@ -9956,6 +11424,9 @@ type URIFileJobOutput struct {
 	// REQUIRED; [Required] Specifies the type of job.
 	JobOutputType *JobOutputType
 
+	// Output Asset Name.
+	AssetName *string
+
 	// Description for the output.
 	Description *string
 
@@ -10036,6 +11507,9 @@ func (u *URIFolderJobInput) GetJobInput() *JobInput {
 type URIFolderJobOutput struct {
 	// REQUIRED; [Required] Specifies the type of job.
 	JobOutputType *JobOutputType
+
+	// Output Asset Name.
+	AssetName *string
 
 	// Description for the output.
 	Description *string
@@ -10167,19 +11641,17 @@ type UsernamePasswordAuthTypeWorkspaceConnectionProperties struct {
 	// Category of the connection
 	Category      *ConnectionCategory
 	Credentials   *WorkspaceConnectionUsernamePassword
+	Error         *string
 	ExpiryTime    *time.Time
 	IsSharedToAll *bool
 
 	// Store user metadata for this connection
-	Metadata       map[string]*string
-	SharedUserList []*string
-	Target         *string
-
-	// Value details of the workspace connection.
-	Value *string
-
-	// format for the workspace connection value
-	ValueFormat *ValueFormat
+	Metadata                    map[string]*string
+	PeRequirement               *ManagedPERequirement
+	PeStatus                    *ManagedPEStatus
+	SharedUserList              []*string
+	Target                      *string
+	UseWorkspaceManagedIdentity *bool
 
 	// READ-ONLY
 	CreatedByWorkspaceArmID *string
@@ -10191,17 +11663,19 @@ type UsernamePasswordAuthTypeWorkspaceConnectionProperties struct {
 // GetWorkspaceConnectionPropertiesV2 implements the WorkspaceConnectionPropertiesV2Classification interface for type UsernamePasswordAuthTypeWorkspaceConnectionProperties.
 func (u *UsernamePasswordAuthTypeWorkspaceConnectionProperties) GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2 {
 	return &WorkspaceConnectionPropertiesV2{
-		AuthType:                u.AuthType,
-		Category:                u.Category,
-		CreatedByWorkspaceArmID: u.CreatedByWorkspaceArmID,
-		ExpiryTime:              u.ExpiryTime,
-		Group:                   u.Group,
-		IsSharedToAll:           u.IsSharedToAll,
-		Metadata:                u.Metadata,
-		SharedUserList:          u.SharedUserList,
-		Target:                  u.Target,
-		Value:                   u.Value,
-		ValueFormat:             u.ValueFormat,
+		AuthType:                    u.AuthType,
+		Category:                    u.Category,
+		CreatedByWorkspaceArmID:     u.CreatedByWorkspaceArmID,
+		Error:                       u.Error,
+		ExpiryTime:                  u.ExpiryTime,
+		Group:                       u.Group,
+		IsSharedToAll:               u.IsSharedToAll,
+		Metadata:                    u.Metadata,
+		PeRequirement:               u.PeRequirement,
+		PeStatus:                    u.PeStatus,
+		SharedUserList:              u.SharedUserList,
+		Target:                      u.Target,
+		UseWorkspaceManagedIdentity: u.UseWorkspaceManagedIdentity,
 	}
 }
 
@@ -10364,7 +11838,6 @@ type VirtualMachineSizeListResult struct {
 	Value []*VirtualMachineSize
 }
 
-// VolumeDefinition - Describes the volume configuration for the container
 type VolumeDefinition struct {
 	// Bind Options of the mount
 	Bind *BindOptions
@@ -10391,7 +11864,6 @@ type VolumeDefinition struct {
 	Volume *VolumeOptions
 }
 
-// VolumeOptions - Describes the volume options for the container
 type VolumeOptions struct {
 	// Indicate whether volume is nocopy
 	Nocopy *bool
@@ -10411,20 +11883,18 @@ func (w *Webhook) GetWebhook() *Webhook { return w }
 
 // Workspace - An object that represents a machine learning workspace.
 type Workspace struct {
-	// The identity of the resource.
-	Identity *ManagedServiceIdentity
-	Kind     *string
-
-	// Specifies the location of the resource.
-	Location *string
-
-	// The properties of the machine learning workspace.
+	// REQUIRED; Additional attributes of the entity.
 	Properties *WorkspaceProperties
 
-	// The sku of the workspace.
+	// Managed service identity (system assigned and/or user assigned identities)
+	Identity *ManagedServiceIdentity
+	Kind     *string
+	Location *string
+
+	// Optional. This field is required to be implemented by the RP because AML is supporting more than one tier
 	SKU *SKU
 
-	// Contains resource tags defined as key/value pairs.
+	// Dictionary of
 	Tags map[string]*string
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
@@ -10450,6 +11920,7 @@ type WorkspaceConnectionAccessKey struct {
 	SecretAccessKey *string
 }
 
+// WorkspaceConnectionAccountKey - Account key object for workspace connection credential.
 type WorkspaceConnectionAccountKey struct {
 	Key *string
 }
@@ -10494,19 +11965,17 @@ type WorkspaceConnectionPropertiesV2 struct {
 
 	// Category of the connection
 	Category      *ConnectionCategory
+	Error         *string
 	ExpiryTime    *time.Time
 	IsSharedToAll *bool
 
 	// Store user metadata for this connection
-	Metadata       map[string]*string
-	SharedUserList []*string
-	Target         *string
-
-	// Value details of the workspace connection.
-	Value *string
-
-	// format for the workspace connection value
-	ValueFormat *ValueFormat
+	Metadata                    map[string]*string
+	PeRequirement               *ManagedPERequirement
+	PeStatus                    *ManagedPEStatus
+	SharedUserList              []*string
+	Target                      *string
+	UseWorkspaceManagedIdentity *bool
 
 	// READ-ONLY
 	CreatedByWorkspaceArmID *string
@@ -10538,10 +12007,8 @@ type WorkspaceConnectionPropertiesV2BasicResource struct {
 }
 
 type WorkspaceConnectionPropertiesV2BasicResourceArmPaginatedResult struct {
-	Value []*WorkspaceConnectionPropertiesV2BasicResource
-
-	// READ-ONLY
 	NextLink *string
+	Value    []*WorkspaceConnectionPropertiesV2BasicResource
 }
 
 type WorkspaceConnectionServicePrincipal struct {
@@ -10552,6 +12019,12 @@ type WorkspaceConnectionServicePrincipal struct {
 
 type WorkspaceConnectionSharedAccessSignature struct {
 	Sas *string
+}
+
+// WorkspaceConnectionUpdateParameter - The properties that the machine learning workspace connection will be updated with.
+type WorkspaceConnectionUpdateParameter struct {
+	// The properties that the machine learning workspace connection will be updated with.
+	Properties WorkspaceConnectionPropertiesV2Classification
 }
 
 type WorkspaceConnectionUsernamePassword struct {
@@ -10570,7 +12043,7 @@ type WorkspaceHubConfig struct {
 
 // WorkspaceListResult - The result of a request to list machine learning workspaces.
 type WorkspaceListResult struct {
-	// The URI that can be used to request the next list of machine learning workspaces.
+	// The link to the next page constructed using the continuationToken. If null, there are no additional pages.
 	NextLink *string
 
 	// The list of machine learning workspaces. Since this list may be incomplete, the nextLink field should be used to request
@@ -10578,14 +12051,27 @@ type WorkspaceListResult struct {
 	Value []*Workspace
 }
 
+// WorkspacePrivateEndpointResource - The Private Endpoint resource.
+type WorkspacePrivateEndpointResource struct {
+	// READ-ONLY; e.g. /subscriptions/{networkSubscriptionId}/resourceGroups/{rgName}/providers/Microsoft.Network/privateEndpoints/{privateEndpointName}
+	ID *string
+
+	// READ-ONLY; The subnetId that the private endpoint is connected to.
+	SubnetArmID *string
+}
+
 // WorkspaceProperties - The properties of a machine learning workspace.
 type WorkspaceProperties struct {
 	// The flag to indicate whether to allow public access when behind VNet.
 	AllowPublicAccessWhenBehindVnet *bool
 
+	// The flag to indicate whether we will do role assignment for the workspace MSI on resource group level.
+	AllowRoleAssignmentOnRG *bool
+
 	// ARM id of the application insights associated with this workspace.
 	ApplicationInsights  *string
 	AssociatedWorkspaces []*string
+	ContainerRegistries  []*string
 
 	// ARM id of the container registry associated with this workspace.
 	ContainerRegistry *string
@@ -10594,11 +12080,17 @@ type WorkspaceProperties struct {
 	Description *string
 
 	// Url for the discovery service to identify regional endpoints for machine learning experimentation services
-	DiscoveryURL        *string
-	EnableDataIsolation *bool
+	DiscoveryURL                   *string
+	EnableDataIsolation            *bool
+	EnableServiceSideCMKEncryption *bool
 
-	// The encryption settings of Azure ML workspace.
-	Encryption *EncryptionProperty
+	// Flag to tell if simplified CMK should be enabled for this workspace.
+	EnableSimplifiedCmk *bool
+
+	// Flag to tell if SoftwareBillOfMaterials should be enabled for this workspace.
+	EnableSoftwareBillOfMaterials *bool
+	Encryption                    *EncryptionProperty
+	ExistingWorkspaces            []*string
 
 	// Settings for feature store type workspace.
 	FeatureStoreSettings *FeatureStoreSettings
@@ -10610,22 +12102,33 @@ type WorkspaceProperties struct {
 	HbiWorkspace  *bool
 	HubResourceID *string
 
+	// The list of IPv4 addresses that are allowed to access the workspace.
+	IPAllowlist []*string
+
 	// The compute name for image build
 	ImageBuildCompute *string
 
 	// ARM id of the key vault associated with this workspace. This cannot be changed once the workspace has been created
-	KeyVault *string
+	KeyVault  *string
+	KeyVaults []*string
 
 	// Managed Network settings for a machine learning workspace.
 	ManagedNetwork *ManagedNetworkSettings
 
+	// A set of rules governing the network accessibility of the workspace.
+	NetworkACLs *NetworkACLs
+
 	// The user assigned identity resource id that represents the workspace identity.
 	PrimaryUserAssignedIdentity *string
 
-	// Whether requests from Public Network are allowed.
-	PublicNetworkAccess *PublicNetworkAccess
+	// Set to trigger the provisioning of the managed VNet with the default Options when creating a Workspace with the managed
+	// VNet enabled, or else it does nothing.
+	ProvisionNetworkNow *bool
 
-	// Settings for serverless compute created in the workspace
+	// Whether requests from Public Network are allowed.
+	PublicNetworkAccess *PublicNetworkAccessType
+
+	// Settings for serverless compute in a workspace
 	ServerlessComputeSettings *ServerlessComputeSettings
 
 	// The service managed resource settings.
@@ -10634,14 +12137,24 @@ type WorkspaceProperties struct {
 	// The list of shared private link resources in this workspace.
 	SharedPrivateLinkResources []*SharedPrivateLinkResource
 
+	// Retention time in days after workspace get soft deleted.
+	SoftDeleteRetentionInDays *int32
+
 	// ARM id of the storage account associated with this workspace. This cannot be changed once the workspace has been created
-	StorageAccount *string
+	StorageAccount  *string
+	StorageAccounts []*string
+
+	// The auth mode used for accessing the system datastores of the workspace.
+	SystemDatastoresAuthMode *SystemDatastoresAuthMode
 
 	// Enabling v1legacymode may prevent you from using features provided by the v2 API.
 	V1LegacyMode *bool
 
 	// WorkspaceHub's configuration object.
 	WorkspaceHubConfig *WorkspaceHubConfig
+
+	// READ-ONLY; The URI of agents endpoint associated with this workspace.
+	AgentsEndpointURI *string
 
 	// READ-ONLY; The URI associated with this workspace that machine learning flow must point at to set up tracking.
 	MlFlowTrackingURI *string
@@ -10673,8 +12186,10 @@ type WorkspaceProperties struct {
 	WorkspaceID *string
 }
 
-// WorkspacePropertiesUpdateParameters - The parameters for updating the properties of a machine learning workspace.
+// WorkspacePropertiesUpdateParameters - The parameters for updating a machine learning workspace.
 type WorkspacePropertiesUpdateParameters struct {
+	AllowRoleAssignmentOnRG *bool
+
 	// ARM id of the application insights associated with this workspace.
 	ApplicationInsights *string
 
@@ -10684,13 +12199,19 @@ type WorkspacePropertiesUpdateParameters struct {
 	// The description of this workspace.
 	Description         *string
 	EnableDataIsolation *bool
-	Encryption          *EncryptionUpdateProperties
+
+	// Flag to tell if SoftwareBillOfMaterials should be enabled for this workspace
+	EnableSoftwareBillOfMaterials *bool
+	Encryption                    *EncryptionUpdateProperties
 
 	// Settings for feature store type workspace.
 	FeatureStoreSettings *FeatureStoreSettings
 
-	// The friendly name for this workspace.
+	// The friendly name for this workspace. This name in mutable
 	FriendlyName *string
+
+	// The list of IPv4 addresses that are allowed to access the workspace.
+	IPAllowlist []*string
 
 	// The compute name for image build
 	ImageBuildCompute *string
@@ -10698,17 +12219,26 @@ type WorkspacePropertiesUpdateParameters struct {
 	// Managed Network settings for a machine learning workspace.
 	ManagedNetwork *ManagedNetworkSettings
 
+	// A set of rules governing the network accessibility of the workspace.
+	NetworkACLs *NetworkACLs
+
 	// The user assigned identity resource id that represents the workspace identity.
 	PrimaryUserAssignedIdentity *string
 
 	// Whether requests from Public Network are allowed.
-	PublicNetworkAccess *PublicNetworkAccess
+	PublicNetworkAccess *PublicNetworkAccessType
 
-	// Settings for serverless compute created in the workspace
+	// Settings for serverless compute in a workspace
 	ServerlessComputeSettings *ServerlessComputeSettings
 
 	// The service managed resource settings.
 	ServiceManagedResourcesSettings *ServiceManagedResourcesSettings
+
+	// Retention time in days after workspace get soft deleted.
+	SoftDeleteRetentionInDays *int32
+
+	// The auth mode used for accessing the system datastores of the workspace.
+	SystemDatastoresAuthMode *SystemDatastoresAuthMode
 
 	// Enabling v1legacymode may prevent you from using features provided by the v2 API.
 	V1LegacyMode *bool
@@ -10716,13 +12246,13 @@ type WorkspacePropertiesUpdateParameters struct {
 
 // WorkspaceUpdateParameters - The parameters for updating a machine learning workspace.
 type WorkspaceUpdateParameters struct {
-	// The identity of the resource.
+	// Managed service identity (system assigned and/or user assigned identities)
 	Identity *ManagedServiceIdentity
 
 	// The properties that the machine learning workspace will be updated with.
 	Properties *WorkspacePropertiesUpdateParameters
 
-	// The sku of the workspace.
+	// Optional. This field is required to be implemented by the RP because AML is supporting more than one tier
 	SKU *SKU
 
 	// The resource tags for the machine learning workspace.
