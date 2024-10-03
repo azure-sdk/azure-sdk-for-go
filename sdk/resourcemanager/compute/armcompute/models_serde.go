@@ -14582,6 +14582,7 @@ func (u UserArtifactSettings) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "configFileName", u.ConfigFileName)
 	populate(objectMap, "packageFileName", u.PackageFileName)
+	populate(objectMap, "scriptBehaviorAfterReboot", u.ScriptBehaviorAfterReboot)
 	return json.Marshal(objectMap)
 }
 
@@ -14599,6 +14600,9 @@ func (u *UserArtifactSettings) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "packageFileName":
 			err = unpopulate(val, "PackageFileName", &u.PackageFileName)
+			delete(rawMsg, key)
+		case "scriptBehaviorAfterReboot":
+			err = unpopulate(val, "ScriptBehaviorAfterReboot", &u.ScriptBehaviorAfterReboot)
 			delete(rawMsg, key)
 		}
 		if err != nil {

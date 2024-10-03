@@ -870,7 +870,7 @@ type CommunityGalleryImageProperties struct {
 	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture
 
 	// The artifact tags of a community gallery resource.
@@ -1095,9 +1095,8 @@ type DataDisk struct {
 	// applicable only for managed data disks. If a previous detachment attempt of the data disk did not complete due to an unexpected
 	// failure from the virtual machine and the disk is still not released then
 	// use force-detach as a last resort option to detach the disk forcibly from the VM. All writes might not have been flushed
-	// when using this detach behavior. This feature is still in preview mode and is
-	// not supported for VirtualMachineScaleSet. To force-detach a data disk update toBeDetached to 'true' along with setting
-	// detachOption: 'ForceDetach'.
+	// when using this detach behavior. This feature is still in preview. To
+	// force-detach a data disk update toBeDetached to 'true' along with setting detachOption: 'ForceDetach'.
 	DetachOption *DiskDetachOptionTypes
 
 	// Specifies the size of an empty data disk in gigabytes. This element can be used to overwrite the size of the disk in a
@@ -2554,7 +2553,7 @@ type GalleryImageProperties struct {
 	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture
 
 	// The description of this gallery image definition resource. This property is updatable.
@@ -5341,7 +5340,7 @@ type SharedGalleryImageProperties struct {
 	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture
 
 	// The artifact tags of a shared gallery resource.
@@ -6006,6 +6005,9 @@ type UserArtifactSettings struct {
 	// Optional. The name to assign the downloaded package file on the VM. This is limited to 4096 characters. If not specified,
 	// the package file will be named the same as the Gallery Application name.
 	PackageFileName *string
+
+	// Optional. The action to be taken with regards to install/update/remove of the gallery application in the event of a reboot.
+	ScriptBehaviorAfterReboot *GalleryApplicationScriptRebootBehavior
 }
 
 // UserArtifactSource - The source image from which the Image Version is going to be created.
