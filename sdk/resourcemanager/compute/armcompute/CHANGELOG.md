@@ -1,5 +1,12 @@
 # Release History
 
+## 6.2.0 (2024-10-03)
+### Features Added
+
+- New enum type `GalleryApplicationScriptRebootBehavior` with values `GalleryApplicationScriptRebootBehaviorNone`, `GalleryApplicationScriptRebootBehaviorRerun`
+- New field `ScriptBehaviorAfterReboot` in struct `UserArtifactSettings`
+
+
 ## 6.1.0 (2024-08-23)
 ### Features Added
 
