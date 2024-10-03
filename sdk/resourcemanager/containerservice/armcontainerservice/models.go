@@ -25,9 +25,14 @@ type AccessProfile struct {
 	KubeConfig []byte
 }
 
-// AdvancedNetworking - Advanced Networking profile for enabling observability on a cluster. Note that enabling advanced networking
-// features may incur additional costs. For more information see aka.ms/aksadvancednetworking.
+// AdvancedNetworking - Advanced Networking profile for enabling observability and security feature suite on a cluster. For
+// more information see aka.ms/aksadvancednetworking.
 type AdvancedNetworking struct {
+	// Indicates the enablement of Advanced Networking functionalities of observability and security on AKS clusters. When this
+	// is set to true, all observability and security features will be set to enabled
+	// unless explicitly disabled. If not specified, the default is false.
+	Enabled *bool
+
 	// Observability profile to enable advanced network metrics and flow logs with historical contexts.
 	Observability *AdvancedNetworkingObservability
 
@@ -35,29 +40,18 @@ type AdvancedNetworking struct {
 	Security *AdvancedNetworkingSecurity
 }
 
-// AdvancedNetworkingFQDNPolicy - FQDNFiltering profile to enable FQDN Policy filtering on cilium based cluster.
-type AdvancedNetworkingFQDNPolicy struct {
-	// This feature allows user to configure network policy based on DNS (FQDN) names. It can be enabled only on cilium based
-	// clusters. If not specified, the default is false.
-	Enabled *bool
-}
-
 // AdvancedNetworkingObservability - Observability profile to enable advanced network metrics and flow logs with historical
 // contexts.
 type AdvancedNetworkingObservability struct {
 	// Indicates the enablement of Advanced Networking observability functionalities on clusters.
 	Enabled *bool
-
-	// Management of TLS certificates for querying network flow logs via the flow log endpoint for Advanced Networking observability
-	// clusters. If not specified, the default is Managed. For more information
-	// see aka.ms/acnstls.
-	TLSManagement *TLSManagement
 }
 
 // AdvancedNetworkingSecurity - Security profile to enable security features on cilium based cluster.
 type AdvancedNetworkingSecurity struct {
-	// FQDNFiltering profile to enable FQDN Policy filtering on cilium based cluster.
-	FqdnPolicy *AdvancedNetworkingFQDNPolicy
+	// This feature allows user to configure network policy based on DNS (FQDN) names. It can be enabled only on cilium based
+	// clusters. If not specified, the default is false.
+	Enabled *bool
 }
 
 // AgentPool - Agent Pool.
@@ -2486,8 +2480,8 @@ type MeshUpgradeProfileProperties struct {
 
 // NetworkProfile - Profile of network configuration.
 type NetworkProfile struct {
-	// Advanced Networking profile for enabling observability on a cluster. Note that enabling advanced networking features may
-	// incur additional costs. For more information see aka.ms/aksadvancednetworking.
+	// Advanced Networking profile for enabling observability and security feature suite on a cluster. For more information see
+	// aka.ms/aksadvancednetworking.
 	AdvancedNetworking *AdvancedNetworking
 
 	// An IP address assigned to the Kubernetes DNS service. It must be within the Kubernetes service address range specified

@@ -81,6 +81,7 @@ func (a *AccessProfile) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type AdvancedNetworking.
 func (a AdvancedNetworking) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "enabled", a.Enabled)
 	populate(objectMap, "observability", a.Observability)
 	populate(objectMap, "security", a.Security)
 	return json.Marshal(objectMap)
@@ -95,6 +96,9 @@ func (a *AdvancedNetworking) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "enabled":
+			err = unpopulate(val, "Enabled", &a.Enabled)
+			delete(rawMsg, key)
 		case "observability":
 			err = unpopulate(val, "Observability", &a.Observability)
 			delete(rawMsg, key)
@@ -109,38 +113,10 @@ func (a *AdvancedNetworking) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type AdvancedNetworkingFQDNPolicy.
-func (a AdvancedNetworkingFQDNPolicy) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]any)
-	populate(objectMap, "enabled", a.Enabled)
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type AdvancedNetworkingFQDNPolicy.
-func (a *AdvancedNetworkingFQDNPolicy) UnmarshalJSON(data []byte) error {
-	var rawMsg map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", a, err)
-	}
-	for key, val := range rawMsg {
-		var err error
-		switch key {
-		case "enabled":
-			err = unpopulate(val, "Enabled", &a.Enabled)
-			delete(rawMsg, key)
-		}
-		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", a, err)
-		}
-	}
-	return nil
-}
-
 // MarshalJSON implements the json.Marshaller interface for type AdvancedNetworkingObservability.
 func (a AdvancedNetworkingObservability) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "enabled", a.Enabled)
-	populate(objectMap, "tlsManagement", a.TLSManagement)
 	return json.Marshal(objectMap)
 }
 
@@ -156,9 +132,6 @@ func (a *AdvancedNetworkingObservability) UnmarshalJSON(data []byte) error {
 		case "enabled":
 			err = unpopulate(val, "Enabled", &a.Enabled)
 			delete(rawMsg, key)
-		case "tlsManagement":
-			err = unpopulate(val, "TLSManagement", &a.TLSManagement)
-			delete(rawMsg, key)
 		}
 		if err != nil {
 			return fmt.Errorf("unmarshalling type %T: %v", a, err)
@@ -170,7 +143,7 @@ func (a *AdvancedNetworkingObservability) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type AdvancedNetworkingSecurity.
 func (a AdvancedNetworkingSecurity) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
-	populate(objectMap, "fqdnPolicy", a.FqdnPolicy)
+	populate(objectMap, "enabled", a.Enabled)
 	return json.Marshal(objectMap)
 }
 
@@ -183,8 +156,8 @@ func (a *AdvancedNetworkingSecurity) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
-		case "fqdnPolicy":
-			err = unpopulate(val, "FqdnPolicy", &a.FqdnPolicy)
+		case "enabled":
+			err = unpopulate(val, "Enabled", &a.Enabled)
 			delete(rawMsg, key)
 		}
 		if err != nil {
