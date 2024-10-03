@@ -10,7 +10,7 @@ package armcontainerservice
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservice/armcontainerservice"
-	moduleVersion = "v6.2.0-beta.1"
+	moduleVersion = "v6.2.0-beta.2"
 )
 
 // AddonAutoscaling - Whether VPA add-on is enabled and configured to scale AKS-managed add-ons.
@@ -1172,28 +1172,6 @@ func PossibleSnapshotTypeValues() []SnapshotType {
 	return []SnapshotType{
 		SnapshotTypeManagedCluster,
 		SnapshotTypeNodePool,
-	}
-}
-
-// TLSManagement - Management of TLS certificates for querying network flow logs via the flow log endpoint for Advanced Networking
-// observability clusters. If not specified, the default is Managed. For more information
-// see aka.ms/acnstls.
-type TLSManagement string
-
-const (
-	// TLSManagementManaged - Enable TLS and cert rotation is managed by Azure.
-	TLSManagementManaged TLSManagement = "Managed"
-	// TLSManagementNone - Disable TLS management of certificates. This leaves the flow log endpoint unencrypted. It is strongly
-	// recommended when using this option that you configure your own encryption on top, for example by putting the flow logs
-	// endpoint behind an ingress controller.
-	TLSManagementNone TLSManagement = "None"
-)
-
-// PossibleTLSManagementValues returns the possible values for the TLSManagement const type.
-func PossibleTLSManagementValues() []TLSManagement {
-	return []TLSManagement{
-		TLSManagementManaged,
-		TLSManagementNone,
 	}
 }
 
