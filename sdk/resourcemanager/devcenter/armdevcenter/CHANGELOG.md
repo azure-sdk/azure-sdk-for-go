@@ -1,5 +1,134 @@
 # Release History
 
+## 2.1.0-beta.1 (2024-10-04)
+### Features Added
+
+- New value `CatalogItemTypeImageDefinition` added to enum type `CatalogItemType`
+- New value `DomainJoinTypeNone` added to enum type `DomainJoinType`
+- New enum type `CustomizationTaskInputType` with values `CustomizationTaskInputTypeBoolean`, `CustomizationTaskInputTypeNumber`, `CustomizationTaskInputTypeString`
+- New enum type `DevCenterResourceType` with values `DevCenterResourceTypeAttachedNetworks`, `DevCenterResourceTypeImages`, `DevCenterResourceTypeSKUs`
+- New enum type `DevboxDisksEncryptionEnableStatus` with values `DevboxDisksEncryptionEnableStatusDisabled`, `DevboxDisksEncryptionEnableStatusEnabled`
+- New enum type `ImageDefinitionBuildStatus` with values `ImageDefinitionBuildStatusCancelled`, `ImageDefinitionBuildStatusFailed`, `ImageDefinitionBuildStatusRunning`, `ImageDefinitionBuildStatusSucceeded`, `ImageDefinitionBuildStatusTimedOut`, `ImageDefinitionBuildStatusValidationFailed`
+- New enum type `InstallAzureMonitorAgentEnableStatus` with values `InstallAzureMonitorAgentEnableStatusDisabled`, `InstallAzureMonitorAgentEnableStatusEnabled`
+- New enum type `MicrosoftHostedNetworkEnableStatus` with values `MicrosoftHostedNetworkEnableStatusDisabled`, `MicrosoftHostedNetworkEnableStatusEnabled`
+- New enum type `PlanMemberSyncState` with values `PlanMemberSyncStateCanceled`, `PlanMemberSyncStateFailed`, `PlanMemberSyncStateInProgress`, `PlanMemberSyncStateNotStarted`, `PlanMemberSyncStateSucceeded`
+- New enum type `PlanMemberType` with values `PlanMemberTypeGroup`, `PlanMemberTypeUser`
+- New enum type `PoolDevBoxDefinitionType` with values `PoolDevBoxDefinitionTypeReference`, `PoolDevBoxDefinitionTypeValue`
+- New enum type `StopOnNoConnectEnableStatus` with values `StopOnNoConnectEnableStatusDisabled`, `StopOnNoConnectEnableStatusEnabled`
+- New function `*ClientFactory.NewCurationProfilesClient() *CurationProfilesClient`
+- New function `*ClientFactory.NewCustomizationTasksClient() *CustomizationTasksClient`
+- New function `*ClientFactory.NewEncryptionSetsClient() *EncryptionSetsClient`
+- New function `*ClientFactory.NewPlanMembersClient() *PlanMembersClient`
+- New function `*ClientFactory.NewPlansClient() *PlansClient`
+- New function `*ClientFactory.NewProjectCatalogImageDefinitionBuildClient() *ProjectCatalogImageDefinitionBuildClient`
+- New function `*ClientFactory.NewProjectCatalogImageDefinitionBuildsClient() *ProjectCatalogImageDefinitionBuildsClient`
+- New function `*ClientFactory.NewProjectCatalogImageDefinitionsClient() *ProjectCatalogImageDefinitionsClient`
+- New function `*ClientFactory.NewProjectPoliciesClient() *ProjectPoliciesClient`
+- New function `NewCurationProfilesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*CurationProfilesClient, error)`
+- New function `*CurationProfilesClient.BeginCreateOrUpdate(context.Context, string, string, string, CurationProfile, *CurationProfilesClientBeginCreateOrUpdateOptions) (*runtime.Poller[CurationProfilesClientCreateOrUpdateResponse], error)`
+- New function `*CurationProfilesClient.BeginDelete(context.Context, string, string, string, *CurationProfilesClientBeginDeleteOptions) (*runtime.Poller[CurationProfilesClientDeleteResponse], error)`
+- New function `*CurationProfilesClient.Get(context.Context, string, string, string, *CurationProfilesClientGetOptions) (CurationProfilesClientGetResponse, error)`
+- New function `*CurationProfilesClient.NewListByDevCenterPager(string, string, *CurationProfilesClientListByDevCenterOptions) *runtime.Pager[CurationProfilesClientListByDevCenterResponse]`
+- New function `*CurationProfilesClient.BeginUpdate(context.Context, string, string, string, CurationProfileUpdate, *CurationProfilesClientBeginUpdateOptions) (*runtime.Poller[CurationProfilesClientUpdateResponse], error)`
+- New function `NewCustomizationTasksClient(string, azcore.TokenCredential, *arm.ClientOptions) (*CustomizationTasksClient, error)`
+- New function `*CustomizationTasksClient.Get(context.Context, string, string, string, string, *CustomizationTasksClientGetOptions) (CustomizationTasksClientGetResponse, error)`
+- New function `*CustomizationTasksClient.GetErrorDetails(context.Context, string, string, string, string, *CustomizationTasksClientGetErrorDetailsOptions) (CustomizationTasksClientGetErrorDetailsResponse, error)`
+- New function `*CustomizationTasksClient.NewListByCatalogPager(string, string, string, *CustomizationTasksClientListByCatalogOptions) *runtime.Pager[CustomizationTasksClientListByCatalogResponse]`
+- New function `NewEncryptionSetsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*EncryptionSetsClient, error)`
+- New function `*EncryptionSetsClient.BeginCreateOrUpdate(context.Context, string, string, string, EncryptionSet, *EncryptionSetsClientBeginCreateOrUpdateOptions) (*runtime.Poller[EncryptionSetsClientCreateOrUpdateResponse], error)`
+- New function `*EncryptionSetsClient.BeginDelete(context.Context, string, string, string, *EncryptionSetsClientBeginDeleteOptions) (*runtime.Poller[EncryptionSetsClientDeleteResponse], error)`
+- New function `*EncryptionSetsClient.Get(context.Context, string, string, string, *EncryptionSetsClientGetOptions) (EncryptionSetsClientGetResponse, error)`
+- New function `*EncryptionSetsClient.NewListPager(string, string, *EncryptionSetsClientListOptions) *runtime.Pager[EncryptionSetsClientListResponse]`
+- New function `*EncryptionSetsClient.BeginUpdate(context.Context, string, string, string, EncryptionSetUpdate, *EncryptionSetsClientBeginUpdateOptions) (*runtime.Poller[EncryptionSetsClientUpdateResponse], error)`
+- New function `*ImageVersionsClient.GetByProject(context.Context, string, string, string, string, *ImageVersionsClientGetByProjectOptions) (ImageVersionsClientGetByProjectResponse, error)`
+- New function `*ImageVersionsClient.NewListByProjectPager(string, string, string, *ImageVersionsClientListByProjectOptions) *runtime.Pager[ImageVersionsClientListByProjectResponse]`
+- New function `*ImagesClient.GetByProject(context.Context, string, string, string, *ImagesClientGetByProjectOptions) (ImagesClientGetByProjectResponse, error)`
+- New function `*ImagesClient.NewListByProjectPager(string, string, *ImagesClientListByProjectOptions) *runtime.Pager[ImagesClientListByProjectResponse]`
+- New function `NewPlanMembersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PlanMembersClient, error)`
+- New function `*PlanMembersClient.BeginCreateOrUpdate(context.Context, string, string, string, PlanMember, *PlanMembersClientBeginCreateOrUpdateOptions) (*runtime.Poller[PlanMembersClientCreateOrUpdateResponse], error)`
+- New function `*PlanMembersClient.BeginDelete(context.Context, string, string, string, *PlanMembersClientBeginDeleteOptions) (*runtime.Poller[PlanMembersClientDeleteResponse], error)`
+- New function `*PlanMembersClient.Get(context.Context, string, string, string, *PlanMembersClientGetOptions) (PlanMembersClientGetResponse, error)`
+- New function `*PlanMembersClient.NewListPager(string, string, *PlanMembersClientListOptions) *runtime.Pager[PlanMembersClientListResponse]`
+- New function `*PlanMembersClient.BeginUpdate(context.Context, string, string, string, PlanMemberUpdate, *PlanMembersClientBeginUpdateOptions) (*runtime.Poller[PlanMembersClientUpdateResponse], error)`
+- New function `NewPlansClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PlansClient, error)`
+- New function `*PlansClient.BeginCreateOrUpdate(context.Context, string, string, Plan, *PlansClientBeginCreateOrUpdateOptions) (*runtime.Poller[PlansClientCreateOrUpdateResponse], error)`
+- New function `*PlansClient.BeginDelete(context.Context, string, string, *PlansClientBeginDeleteOptions) (*runtime.Poller[PlansClientDeleteResponse], error)`
+- New function `*PlansClient.Get(context.Context, string, string, *PlansClientGetOptions) (PlansClientGetResponse, error)`
+- New function `*PlansClient.NewListByResourceGroupPager(string, *PlansClientListByResourceGroupOptions) *runtime.Pager[PlansClientListByResourceGroupResponse]`
+- New function `*PlansClient.NewListBySubscriptionPager(*PlansClientListBySubscriptionOptions) *runtime.Pager[PlansClientListBySubscriptionResponse]`
+- New function `*PlansClient.BeginUpdate(context.Context, string, string, PlanUpdate, *PlansClientBeginUpdateOptions) (*runtime.Poller[PlansClientUpdateResponse], error)`
+- New function `NewProjectCatalogImageDefinitionBuildClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ProjectCatalogImageDefinitionBuildClient, error)`
+- New function `*ProjectCatalogImageDefinitionBuildClient.BeginCancel(context.Context, string, string, string, string, string, *ProjectCatalogImageDefinitionBuildClientBeginCancelOptions) (*runtime.Poller[ProjectCatalogImageDefinitionBuildClientCancelResponse], error)`
+- New function `*ProjectCatalogImageDefinitionBuildClient.Get(context.Context, string, string, string, string, string, *ProjectCatalogImageDefinitionBuildClientGetOptions) (ProjectCatalogImageDefinitionBuildClientGetResponse, error)`
+- New function `*ProjectCatalogImageDefinitionBuildClient.GetBuildDetails(context.Context, string, string, string, string, string, *ProjectCatalogImageDefinitionBuildClientGetBuildDetailsOptions) (ProjectCatalogImageDefinitionBuildClientGetBuildDetailsResponse, error)`
+- New function `NewProjectCatalogImageDefinitionBuildsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ProjectCatalogImageDefinitionBuildsClient, error)`
+- New function `*ProjectCatalogImageDefinitionBuildsClient.NewListByImageDefinitionPager(string, string, string, string, *ProjectCatalogImageDefinitionBuildsClientListByImageDefinitionOptions) *runtime.Pager[ProjectCatalogImageDefinitionBuildsClientListByImageDefinitionResponse]`
+- New function `NewProjectCatalogImageDefinitionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ProjectCatalogImageDefinitionsClient, error)`
+- New function `*ProjectCatalogImageDefinitionsClient.GetByProjectCatalog(context.Context, string, string, string, string, *ProjectCatalogImageDefinitionsClientGetByProjectCatalogOptions) (ProjectCatalogImageDefinitionsClientGetByProjectCatalogResponse, error)`
+- New function `*ProjectCatalogImageDefinitionsClient.NewListByProjectCatalogPager(string, string, string, *ProjectCatalogImageDefinitionsClientListByProjectCatalogOptions) *runtime.Pager[ProjectCatalogImageDefinitionsClientListByProjectCatalogResponse]`
+- New function `*ProjectCatalogImageDefinitionsClient.BeginBuildImage(context.Context, string, string, string, string, *ProjectCatalogImageDefinitionsClientBeginBuildImageOptions) (*runtime.Poller[ProjectCatalogImageDefinitionsClientBuildImageResponse], error)`
+- New function `NewProjectPoliciesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ProjectPoliciesClient, error)`
+- New function `*ProjectPoliciesClient.BeginCreateOrUpdate(context.Context, string, string, string, ProjectPolicy, *ProjectPoliciesClientBeginCreateOrUpdateOptions) (*runtime.Poller[ProjectPoliciesClientCreateOrUpdateResponse], error)`
+- New function `*ProjectPoliciesClient.BeginDelete(context.Context, string, string, string, *ProjectPoliciesClientBeginDeleteOptions) (*runtime.Poller[ProjectPoliciesClientDeleteResponse], error)`
+- New function `*ProjectPoliciesClient.Get(context.Context, string, string, string, *ProjectPoliciesClientGetOptions) (ProjectPoliciesClientGetResponse, error)`
+- New function `*ProjectPoliciesClient.NewListByDevCenterPager(string, string, *ProjectPoliciesClientListByDevCenterOptions) *runtime.Pager[ProjectPoliciesClientListByDevCenterResponse]`
+- New function `*ProjectPoliciesClient.BeginUpdate(context.Context, string, string, string, ProjectPolicyUpdate, *ProjectPoliciesClientBeginUpdateOptions) (*runtime.Poller[ProjectPoliciesClientUpdateResponse], error)`
+- New function `*ProjectsClient.GetInheritedSettings(context.Context, string, string, *ProjectsClientGetInheritedSettingsOptions) (ProjectsClientGetInheritedSettingsResponse, error)`
+- New function `*SKUsClient.NewListByProjectPager(string, string, *SKUsClientListByProjectOptions) *runtime.Pager[SKUsClientListByProjectResponse]`
+- New struct `CurationProfile`
+- New struct `CurationProfileListResult`
+- New struct `CurationProfileProperties`
+- New struct `CurationProfileUpdate`
+- New struct `CurationProfileUpdateProperties`
+- New struct `CustomizationTask`
+- New struct `CustomizationTaskInput`
+- New struct `CustomizationTaskListResult`
+- New struct `CustomizationTaskProperties`
+- New struct `DevBoxProvisioningSettings`
+- New struct `EncryptionSet`
+- New struct `EncryptionSetListResult`
+- New struct `EncryptionSetProperties`
+- New struct `EncryptionSetUpdate`
+- New struct `EncryptionSetUpdateProperties`
+- New struct `ImageCreationErrorDetails`
+- New struct `ImageDefinition`
+- New struct `ImageDefinitionBuild`
+- New struct `ImageDefinitionBuildDetails`
+- New struct `ImageDefinitionBuildListResult`
+- New struct `ImageDefinitionBuildProperties`
+- New struct `ImageDefinitionBuildTask`
+- New struct `ImageDefinitionBuildTaskGroup`
+- New struct `ImageDefinitionBuildTaskParametersItem`
+- New struct `ImageDefinitionListResult`
+- New struct `ImageDefinitionProperties`
+- New struct `InheritedSettingsForProject`
+- New struct `LatestImageBuild`
+- New struct `NetworkSettings`
+- New struct `Plan`
+- New struct `PlanListResult`
+- New struct `PlanMember`
+- New struct `PlanMemberProperties`
+- New struct `PlanMemberSyncStatus`
+- New struct `PlanMemberUpdate`
+- New struct `PlanMemberUpdateProperties`
+- New struct `PlanMembersListResult`
+- New struct `PlanProperties`
+- New struct `PlanUpdate`
+- New struct `PoolDevBoxDefinition`
+- New struct `ProjectNetworkSettings`
+- New struct `ProjectPolicy`
+- New struct `ProjectPolicyListResult`
+- New struct `ProjectPolicyProperties`
+- New struct `ProjectPolicyUpdate`
+- New struct `ProjectPolicyUpdateProperties`
+- New struct `ResourcePolicy`
+- New struct `StopOnNoConnectConfiguration`
+- New field `DevBoxDefinition`, `DevBoxDefinitionType`, `StopOnNoConnect` in struct `PoolProperties`
+- New field `DevBoxDefinition`, `DevBoxDefinitionType`, `StopOnNoConnect` in struct `PoolUpdateProperties`
+- New field `DevBoxProvisioningSettings`, `NetworkSettings`, `PlanID`, `RestrictedResourceTypes` in struct `Properties`
+- New field `DevBoxProvisioningSettings`, `NetworkSettings`, `PlanID`, `RestrictedResourceTypes` in struct `UpdateProperties`
+
+
 ## 2.0.0 (2024-04-26)
 ### Breaking Changes
 

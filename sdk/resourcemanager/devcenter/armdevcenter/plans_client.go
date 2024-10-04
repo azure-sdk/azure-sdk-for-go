@@ -21,67 +21,67 @@ import (
 	"strings"
 )
 
-// DevCentersClient contains the methods for the DevCenters group.
-// Don't use this type directly, use NewDevCentersClient() instead.
-type DevCentersClient struct {
+// PlansClient contains the methods for the Plans group.
+// Don't use this type directly, use NewPlansClient() instead.
+type PlansClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewDevCentersClient creates a new instance of DevCentersClient with the specified values.
+// NewPlansClient creates a new instance of PlansClient with the specified values.
 //   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewDevCentersClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DevCentersClient, error) {
+func NewPlansClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*PlansClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &DevCentersClient{
+	client := &PlansClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// BeginCreateOrUpdate - Creates or updates a devcenter resource
+// BeginCreateOrUpdate - Creates or updates a devcenter plan resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - devCenterName - The name of the devcenter.
-//   - body - Represents a devcenter.
-//   - options - DevCentersClientBeginCreateOrUpdateOptions contains the optional parameters for the DevCentersClient.BeginCreateOrUpdate
+//   - planName - The name of the devcenter plan.
+//   - body - Represents a devcenter plan.
+//   - options - PlansClientBeginCreateOrUpdateOptions contains the optional parameters for the PlansClient.BeginCreateOrUpdate
 //     method.
-func (client *DevCentersClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, devCenterName string, body DevCenter, options *DevCentersClientBeginCreateOrUpdateOptions) (*runtime.Poller[DevCentersClientCreateOrUpdateResponse], error) {
+func (client *PlansClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, planName string, body Plan, options *PlansClientBeginCreateOrUpdateOptions) (*runtime.Poller[PlansClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, resourceGroupName, devCenterName, body, options)
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, planName, body, options)
 		if err != nil {
 			return nil, err
 		}
-		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[DevCentersClientCreateOrUpdateResponse]{
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[PlansClientCreateOrUpdateResponse]{
 			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
 			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[DevCentersClientCreateOrUpdateResponse]{
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[PlansClientCreateOrUpdateResponse]{
 			Tracer: client.internal.Tracer(),
 		})
 	}
 }
 
-// CreateOrUpdate - Creates or updates a devcenter resource
+// CreateOrUpdate - Creates or updates a devcenter plan resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-10-01-preview
-func (client *DevCentersClient) createOrUpdate(ctx context.Context, resourceGroupName string, devCenterName string, body DevCenter, options *DevCentersClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+func (client *PlansClient) createOrUpdate(ctx context.Context, resourceGroupName string, planName string, body Plan, options *PlansClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
-	const operationName = "DevCentersClient.BeginCreateOrUpdate"
+	const operationName = "PlansClient.BeginCreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, devCenterName, body, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, planName, body, options)
 	if err != nil {
 		return nil, err
 	}
@@ -97,8 +97,8 @@ func (client *DevCentersClient) createOrUpdate(ctx context.Context, resourceGrou
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *DevCentersClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, devCenterName string, body DevCenter, options *DevCentersClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevCenter/devcenters/{devCenterName}"
+func (client *PlansClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, planName string, body Plan, options *PlansClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevCenter/plans/{planName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -107,10 +107,10 @@ func (client *DevCentersClient) createOrUpdateCreateRequest(ctx context.Context,
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if devCenterName == "" {
-		return nil, errors.New("parameter devCenterName cannot be empty")
+	if planName == "" {
+		return nil, errors.New("parameter planName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{devCenterName}", url.PathEscape(devCenterName))
+	urlPath = strings.ReplaceAll(urlPath, "{planName}", url.PathEscape(planName))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -125,42 +125,42 @@ func (client *DevCentersClient) createOrUpdateCreateRequest(ctx context.Context,
 	return req, nil
 }
 
-// BeginDelete - Deletes a devcenter
+// BeginDelete - Deletes a devcenter plan
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - devCenterName - The name of the devcenter.
-//   - options - DevCentersClientBeginDeleteOptions contains the optional parameters for the DevCentersClient.BeginDelete method.
-func (client *DevCentersClient) BeginDelete(ctx context.Context, resourceGroupName string, devCenterName string, options *DevCentersClientBeginDeleteOptions) (*runtime.Poller[DevCentersClientDeleteResponse], error) {
+//   - planName - The name of the devcenter plan.
+//   - options - PlansClientBeginDeleteOptions contains the optional parameters for the PlansClient.BeginDelete method.
+func (client *PlansClient) BeginDelete(ctx context.Context, resourceGroupName string, planName string, options *PlansClientBeginDeleteOptions) (*runtime.Poller[PlansClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.deleteOperation(ctx, resourceGroupName, devCenterName, options)
+		resp, err := client.deleteOperation(ctx, resourceGroupName, planName, options)
 		if err != nil {
 			return nil, err
 		}
-		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[DevCentersClientDeleteResponse]{
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[PlansClientDeleteResponse]{
 			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
 			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[DevCentersClientDeleteResponse]{
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[PlansClientDeleteResponse]{
 			Tracer: client.internal.Tracer(),
 		})
 	}
 }
 
-// Delete - Deletes a devcenter
+// Delete - Deletes a devcenter plan
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-10-01-preview
-func (client *DevCentersClient) deleteOperation(ctx context.Context, resourceGroupName string, devCenterName string, options *DevCentersClientBeginDeleteOptions) (*http.Response, error) {
+func (client *PlansClient) deleteOperation(ctx context.Context, resourceGroupName string, planName string, options *PlansClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
-	const operationName = "DevCentersClient.BeginDelete"
+	const operationName = "PlansClient.BeginDelete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, devCenterName, options)
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, planName, options)
 	if err != nil {
 		return nil, err
 	}
@@ -176,8 +176,8 @@ func (client *DevCentersClient) deleteOperation(ctx context.Context, resourceGro
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *DevCentersClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, devCenterName string, options *DevCentersClientBeginDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevCenter/devcenters/{devCenterName}"
+func (client *PlansClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, planName string, options *PlansClientBeginDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevCenter/plans/{planName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -186,10 +186,10 @@ func (client *DevCentersClient) deleteCreateRequest(ctx context.Context, resourc
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if devCenterName == "" {
-		return nil, errors.New("parameter devCenterName cannot be empty")
+	if planName == "" {
+		return nil, errors.New("parameter planName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{devCenterName}", url.PathEscape(devCenterName))
+	urlPath = strings.ReplaceAll(urlPath, "{planName}", url.PathEscape(planName))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -201,38 +201,38 @@ func (client *DevCentersClient) deleteCreateRequest(ctx context.Context, resourc
 	return req, nil
 }
 
-// Get - Gets a devcenter.
+// Get - Gets a devcenter plan.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - devCenterName - The name of the devcenter.
-//   - options - DevCentersClientGetOptions contains the optional parameters for the DevCentersClient.Get method.
-func (client *DevCentersClient) Get(ctx context.Context, resourceGroupName string, devCenterName string, options *DevCentersClientGetOptions) (DevCentersClientGetResponse, error) {
+//   - planName - The name of the devcenter plan.
+//   - options - PlansClientGetOptions contains the optional parameters for the PlansClient.Get method.
+func (client *PlansClient) Get(ctx context.Context, resourceGroupName string, planName string, options *PlansClientGetOptions) (PlansClientGetResponse, error) {
 	var err error
-	const operationName = "DevCentersClient.Get"
+	const operationName = "PlansClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, resourceGroupName, devCenterName, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, planName, options)
 	if err != nil {
-		return DevCentersClientGetResponse{}, err
+		return PlansClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return DevCentersClientGetResponse{}, err
+		return PlansClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return DevCentersClientGetResponse{}, err
+		return PlansClientGetResponse{}, err
 	}
 	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
 // getCreateRequest creates the Get request.
-func (client *DevCentersClient) getCreateRequest(ctx context.Context, resourceGroupName string, devCenterName string, options *DevCentersClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevCenter/devcenters/{devCenterName}"
+func (client *PlansClient) getCreateRequest(ctx context.Context, resourceGroupName string, planName string, options *PlansClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevCenter/plans/{planName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -241,10 +241,10 @@ func (client *DevCentersClient) getCreateRequest(ctx context.Context, resourceGr
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if devCenterName == "" {
-		return nil, errors.New("parameter devCenterName cannot be empty")
+	if planName == "" {
+		return nil, errors.New("parameter planName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{devCenterName}", url.PathEscape(devCenterName))
+	urlPath = strings.ReplaceAll(urlPath, "{planName}", url.PathEscape(planName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -257,27 +257,27 @@ func (client *DevCentersClient) getCreateRequest(ctx context.Context, resourceGr
 }
 
 // getHandleResponse handles the Get response.
-func (client *DevCentersClient) getHandleResponse(resp *http.Response) (DevCentersClientGetResponse, error) {
-	result := DevCentersClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.DevCenter); err != nil {
-		return DevCentersClientGetResponse{}, err
+func (client *PlansClient) getHandleResponse(resp *http.Response) (PlansClientGetResponse, error) {
+	result := PlansClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.Plan); err != nil {
+		return PlansClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListByResourceGroupPager - Lists all devcenters in a resource group.
+// NewListByResourceGroupPager - Lists all devcenter plans in a resource group.
 //
 // Generated from API version 2024-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - options - DevCentersClientListByResourceGroupOptions contains the optional parameters for the DevCentersClient.NewListByResourceGroupPager
+//   - options - PlansClientListByResourceGroupOptions contains the optional parameters for the PlansClient.NewListByResourceGroupPager
 //     method.
-func (client *DevCentersClient) NewListByResourceGroupPager(resourceGroupName string, options *DevCentersClientListByResourceGroupOptions) *runtime.Pager[DevCentersClientListByResourceGroupResponse] {
-	return runtime.NewPager(runtime.PagingHandler[DevCentersClientListByResourceGroupResponse]{
-		More: func(page DevCentersClientListByResourceGroupResponse) bool {
+func (client *PlansClient) NewListByResourceGroupPager(resourceGroupName string, options *PlansClientListByResourceGroupOptions) *runtime.Pager[PlansClientListByResourceGroupResponse] {
+	return runtime.NewPager(runtime.PagingHandler[PlansClientListByResourceGroupResponse]{
+		More: func(page PlansClientListByResourceGroupResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *DevCentersClientListByResourceGroupResponse) (DevCentersClientListByResourceGroupResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "DevCentersClient.NewListByResourceGroupPager")
+		Fetcher: func(ctx context.Context, page *PlansClientListByResourceGroupResponse) (PlansClientListByResourceGroupResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "PlansClient.NewListByResourceGroupPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
@@ -286,7 +286,7 @@ func (client *DevCentersClient) NewListByResourceGroupPager(resourceGroupName st
 				return client.listByResourceGroupCreateRequest(ctx, resourceGroupName, options)
 			}, nil)
 			if err != nil {
-				return DevCentersClientListByResourceGroupResponse{}, err
+				return PlansClientListByResourceGroupResponse{}, err
 			}
 			return client.listByResourceGroupHandleResponse(resp)
 		},
@@ -295,8 +295,8 @@ func (client *DevCentersClient) NewListByResourceGroupPager(resourceGroupName st
 }
 
 // listByResourceGroupCreateRequest creates the ListByResourceGroup request.
-func (client *DevCentersClient) listByResourceGroupCreateRequest(ctx context.Context, resourceGroupName string, options *DevCentersClientListByResourceGroupOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevCenter/devcenters"
+func (client *PlansClient) listByResourceGroupCreateRequest(ctx context.Context, resourceGroupName string, options *PlansClientListByResourceGroupOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevCenter/plans"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -320,26 +320,26 @@ func (client *DevCentersClient) listByResourceGroupCreateRequest(ctx context.Con
 }
 
 // listByResourceGroupHandleResponse handles the ListByResourceGroup response.
-func (client *DevCentersClient) listByResourceGroupHandleResponse(resp *http.Response) (DevCentersClientListByResourceGroupResponse, error) {
-	result := DevCentersClientListByResourceGroupResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ListResult); err != nil {
-		return DevCentersClientListByResourceGroupResponse{}, err
+func (client *PlansClient) listByResourceGroupHandleResponse(resp *http.Response) (PlansClientListByResourceGroupResponse, error) {
+	result := PlansClientListByResourceGroupResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.PlanListResult); err != nil {
+		return PlansClientListByResourceGroupResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListBySubscriptionPager - Lists all devcenters in a subscription.
+// NewListBySubscriptionPager - Lists all devcenter plans in a subscription.
 //
 // Generated from API version 2024-10-01-preview
-//   - options - DevCentersClientListBySubscriptionOptions contains the optional parameters for the DevCentersClient.NewListBySubscriptionPager
+//   - options - PlansClientListBySubscriptionOptions contains the optional parameters for the PlansClient.NewListBySubscriptionPager
 //     method.
-func (client *DevCentersClient) NewListBySubscriptionPager(options *DevCentersClientListBySubscriptionOptions) *runtime.Pager[DevCentersClientListBySubscriptionResponse] {
-	return runtime.NewPager(runtime.PagingHandler[DevCentersClientListBySubscriptionResponse]{
-		More: func(page DevCentersClientListBySubscriptionResponse) bool {
+func (client *PlansClient) NewListBySubscriptionPager(options *PlansClientListBySubscriptionOptions) *runtime.Pager[PlansClientListBySubscriptionResponse] {
+	return runtime.NewPager(runtime.PagingHandler[PlansClientListBySubscriptionResponse]{
+		More: func(page PlansClientListBySubscriptionResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *DevCentersClientListBySubscriptionResponse) (DevCentersClientListBySubscriptionResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "DevCentersClient.NewListBySubscriptionPager")
+		Fetcher: func(ctx context.Context, page *PlansClientListBySubscriptionResponse) (PlansClientListBySubscriptionResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "PlansClient.NewListBySubscriptionPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
@@ -348,7 +348,7 @@ func (client *DevCentersClient) NewListBySubscriptionPager(options *DevCentersCl
 				return client.listBySubscriptionCreateRequest(ctx, options)
 			}, nil)
 			if err != nil {
-				return DevCentersClientListBySubscriptionResponse{}, err
+				return PlansClientListBySubscriptionResponse{}, err
 			}
 			return client.listBySubscriptionHandleResponse(resp)
 		},
@@ -357,8 +357,8 @@ func (client *DevCentersClient) NewListBySubscriptionPager(options *DevCentersCl
 }
 
 // listBySubscriptionCreateRequest creates the ListBySubscription request.
-func (client *DevCentersClient) listBySubscriptionCreateRequest(ctx context.Context, options *DevCentersClientListBySubscriptionOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.DevCenter/devcenters"
+func (client *PlansClient) listBySubscriptionCreateRequest(ctx context.Context, options *PlansClientListBySubscriptionOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.DevCenter/plans"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -378,51 +378,51 @@ func (client *DevCentersClient) listBySubscriptionCreateRequest(ctx context.Cont
 }
 
 // listBySubscriptionHandleResponse handles the ListBySubscription response.
-func (client *DevCentersClient) listBySubscriptionHandleResponse(resp *http.Response) (DevCentersClientListBySubscriptionResponse, error) {
-	result := DevCentersClientListBySubscriptionResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ListResult); err != nil {
-		return DevCentersClientListBySubscriptionResponse{}, err
+func (client *PlansClient) listBySubscriptionHandleResponse(resp *http.Response) (PlansClientListBySubscriptionResponse, error) {
+	result := PlansClientListBySubscriptionResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.PlanListResult); err != nil {
+		return PlansClientListBySubscriptionResponse{}, err
 	}
 	return result, nil
 }
 
-// BeginUpdate - Partially updates a devcenter.
+// BeginUpdate - Partially updates a devcenter plan.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - devCenterName - The name of the devcenter.
-//   - body - Updatable devcenter properties.
-//   - options - DevCentersClientBeginUpdateOptions contains the optional parameters for the DevCentersClient.BeginUpdate method.
-func (client *DevCentersClient) BeginUpdate(ctx context.Context, resourceGroupName string, devCenterName string, body Update, options *DevCentersClientBeginUpdateOptions) (*runtime.Poller[DevCentersClientUpdateResponse], error) {
+//   - planName - The name of the devcenter plan.
+//   - body - Updatable devcenter plan properties.
+//   - options - PlansClientBeginUpdateOptions contains the optional parameters for the PlansClient.BeginUpdate method.
+func (client *PlansClient) BeginUpdate(ctx context.Context, resourceGroupName string, planName string, body PlanUpdate, options *PlansClientBeginUpdateOptions) (*runtime.Poller[PlansClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.update(ctx, resourceGroupName, devCenterName, body, options)
+		resp, err := client.update(ctx, resourceGroupName, planName, body, options)
 		if err != nil {
 			return nil, err
 		}
-		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[DevCentersClientUpdateResponse]{
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[PlansClientUpdateResponse]{
 			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
 			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[DevCentersClientUpdateResponse]{
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[PlansClientUpdateResponse]{
 			Tracer: client.internal.Tracer(),
 		})
 	}
 }
 
-// Update - Partially updates a devcenter.
+// Update - Partially updates a devcenter plan.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-10-01-preview
-func (client *DevCentersClient) update(ctx context.Context, resourceGroupName string, devCenterName string, body Update, options *DevCentersClientBeginUpdateOptions) (*http.Response, error) {
+func (client *PlansClient) update(ctx context.Context, resourceGroupName string, planName string, body PlanUpdate, options *PlansClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
-	const operationName = "DevCentersClient.BeginUpdate"
+	const operationName = "PlansClient.BeginUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, devCenterName, body, options)
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, planName, body, options)
 	if err != nil {
 		return nil, err
 	}
@@ -438,8 +438,8 @@ func (client *DevCentersClient) update(ctx context.Context, resourceGroupName st
 }
 
 // updateCreateRequest creates the Update request.
-func (client *DevCentersClient) updateCreateRequest(ctx context.Context, resourceGroupName string, devCenterName string, body Update, options *DevCentersClientBeginUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevCenter/devcenters/{devCenterName}"
+func (client *PlansClient) updateCreateRequest(ctx context.Context, resourceGroupName string, planName string, body PlanUpdate, options *PlansClientBeginUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevCenter/plans/{planName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -448,10 +448,10 @@ func (client *DevCentersClient) updateCreateRequest(ctx context.Context, resourc
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if devCenterName == "" {
-		return nil, errors.New("parameter devCenterName cannot be empty")
+	if planName == "" {
+		return nil, errors.New("parameter planName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{devCenterName}", url.PathEscape(devCenterName))
+	urlPath = strings.ReplaceAll(urlPath, "{planName}", url.PathEscape(planName))
 	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err

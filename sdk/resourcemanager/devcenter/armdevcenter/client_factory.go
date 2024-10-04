@@ -68,6 +68,22 @@ func (c *ClientFactory) NewCheckScopedNameAvailabilityClient() *CheckScopedNameA
 	}
 }
 
+// NewCurationProfilesClient creates a new instance of CurationProfilesClient.
+func (c *ClientFactory) NewCurationProfilesClient() *CurationProfilesClient {
+	return &CurationProfilesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewCustomizationTasksClient creates a new instance of CustomizationTasksClient.
+func (c *ClientFactory) NewCustomizationTasksClient() *CustomizationTasksClient {
+	return &CustomizationTasksClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewDevBoxDefinitionsClient creates a new instance of DevBoxDefinitionsClient.
 func (c *ClientFactory) NewDevBoxDefinitionsClient() *DevBoxDefinitionsClient {
 	return &DevBoxDefinitionsClient{
@@ -79,6 +95,14 @@ func (c *ClientFactory) NewDevBoxDefinitionsClient() *DevBoxDefinitionsClient {
 // NewDevCentersClient creates a new instance of DevCentersClient.
 func (c *ClientFactory) NewDevCentersClient() *DevCentersClient {
 	return &DevCentersClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewEncryptionSetsClient creates a new instance of EncryptionSetsClient.
+func (c *ClientFactory) NewEncryptionSetsClient() *EncryptionSetsClient {
+	return &EncryptionSetsClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
@@ -147,6 +171,22 @@ func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	}
 }
 
+// NewPlanMembersClient creates a new instance of PlanMembersClient.
+func (c *ClientFactory) NewPlanMembersClient() *PlanMembersClient {
+	return &PlanMembersClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewPlansClient creates a new instance of PlansClient.
+func (c *ClientFactory) NewPlansClient() *PlansClient {
+	return &PlansClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewPoolsClient creates a new instance of PoolsClient.
 func (c *ClientFactory) NewPoolsClient() *PoolsClient {
 	return &PoolsClient{
@@ -171,6 +211,30 @@ func (c *ClientFactory) NewProjectCatalogEnvironmentDefinitionsClient() *Project
 	}
 }
 
+// NewProjectCatalogImageDefinitionBuildClient creates a new instance of ProjectCatalogImageDefinitionBuildClient.
+func (c *ClientFactory) NewProjectCatalogImageDefinitionBuildClient() *ProjectCatalogImageDefinitionBuildClient {
+	return &ProjectCatalogImageDefinitionBuildClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewProjectCatalogImageDefinitionBuildsClient creates a new instance of ProjectCatalogImageDefinitionBuildsClient.
+func (c *ClientFactory) NewProjectCatalogImageDefinitionBuildsClient() *ProjectCatalogImageDefinitionBuildsClient {
+	return &ProjectCatalogImageDefinitionBuildsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewProjectCatalogImageDefinitionsClient creates a new instance of ProjectCatalogImageDefinitionsClient.
+func (c *ClientFactory) NewProjectCatalogImageDefinitionsClient() *ProjectCatalogImageDefinitionsClient {
+	return &ProjectCatalogImageDefinitionsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewProjectCatalogsClient creates a new instance of ProjectCatalogsClient.
 func (c *ClientFactory) NewProjectCatalogsClient() *ProjectCatalogsClient {
 	return &ProjectCatalogsClient{
@@ -182,6 +246,14 @@ func (c *ClientFactory) NewProjectCatalogsClient() *ProjectCatalogsClient {
 // NewProjectEnvironmentTypesClient creates a new instance of ProjectEnvironmentTypesClient.
 func (c *ClientFactory) NewProjectEnvironmentTypesClient() *ProjectEnvironmentTypesClient {
 	return &ProjectEnvironmentTypesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewProjectPoliciesClient creates a new instance of ProjectPoliciesClient.
+func (c *ClientFactory) NewProjectPoliciesClient() *ProjectPoliciesClient {
+	return &ProjectPoliciesClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}

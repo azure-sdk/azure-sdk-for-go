@@ -249,6 +249,62 @@ type CheckScopedNameAvailabilityRequest struct {
 	Type *string
 }
 
+// CurationProfile - Represents an curation profile resource.
+type CurationProfile struct {
+	// Properties of an curation profile.
+	Properties *CurationProfileProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// CurationProfileListResult - Results of the curation profile list operation.
+type CurationProfileListResult struct {
+	// READ-ONLY; URL to get the next set of results if there are any.
+	NextLink *string
+
+	// READ-ONLY; Current page of results.
+	Value []*CurationProfile
+}
+
+// CurationProfileProperties - Properties of an curation profile.
+type CurationProfileProperties struct {
+	// Resource policies that are a part of this curation profile.
+	ResourcePolicies []*ResourcePolicy
+
+	// Resources that have access to the shared resources that are a part of this curation profile.
+	Scopes []*string
+
+	// READ-ONLY; The provisioning state of the resource.
+	ProvisioningState *ProvisioningState
+}
+
+// CurationProfileUpdate - The curation profile properties for partial update. Properties not provided in the update request
+// will not be changed.
+type CurationProfileUpdate struct {
+	// Properties of an curation profile to be updated.
+	Properties *CurationProfileUpdateProperties
+}
+
+// CurationProfileUpdateProperties - Properties of an curation profile. These properties can be updated after the resource
+// has been created.
+type CurationProfileUpdateProperties struct {
+	// Resource policies that are a part of this curation profile.
+	ResourcePolicies []*ResourcePolicy
+
+	// Resources that have access to the shared resources that are a part of this curation profile.
+	Scopes []*string
+}
+
 // CustomerManagedKeyEncryption - All Customer-managed key encryption properties for the resource.
 type CustomerManagedKeyEncryption struct {
 	// All identity configuration for Customer-managed key settings defining which identity should be used to auth to Key Vault.
@@ -273,6 +329,57 @@ type CustomerManagedKeyEncryptionKeyIdentity struct {
 	// /providers/Microsoft.ManagedIdentity/userAssignedIdentities/myId. Mutually exclusive with identityType systemAssignedIdentity
 	// and delegatedResourceIdentity.
 	UserAssignedIdentityResourceID *string
+}
+
+// CustomizationTask - Represents a Task to be used in customizing a Dev Box.
+type CustomizationTask struct {
+	// Task properties
+	Properties *CustomizationTaskProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// CustomizationTaskInput - Input for a Task.
+type CustomizationTaskInput struct {
+	// READ-ONLY; Description of the input.
+	Description *string
+
+	// READ-ONLY; Whether or not the input is required.
+	Required *bool
+
+	// READ-ONLY; Type of the input.
+	Type *CustomizationTaskInputType
+}
+
+// CustomizationTaskListResult - Results of the Task list operation.
+type CustomizationTaskListResult struct {
+	// READ-ONLY; URL to get the next set of results if there are any.
+	NextLink *string
+
+	// READ-ONLY; Current page of results.
+	Value []*CustomizationTask
+}
+
+// CustomizationTaskProperties - Properties of a Task.
+type CustomizationTaskProperties struct {
+	// READ-ONLY; Inputs to the task.
+	Inputs map[string]*CustomizationTaskInput
+
+	// READ-ONLY; The default timeout for the task.
+	Timeout *int32
+
+	// READ-ONLY; Validation status for the Task.
+	ValidationStatus *CatalogResourceValidationStatus
 }
 
 // DevBoxDefinition - Represents a definition for a Developer Machine.
@@ -368,6 +475,12 @@ type DevBoxDefinitionUpdateProperties struct {
 	SKU *SKU
 }
 
+// DevBoxProvisioningSettings - Provisioning settings that apply to all Dev Boxes created in this dev center
+type DevBoxProvisioningSettings struct {
+	// Whether project catalogs associated with projects in this dev center can be configured to sync catalog items.
+	InstallAzureMonitorAgentEnableStatus *InstallAzureMonitorAgentEnableStatus
+}
+
 // DevCenter - Represents a devcenter resource.
 type DevCenter struct {
 	// REQUIRED; The geo-location where the resource lives
@@ -398,6 +511,84 @@ type DevCenter struct {
 type Encryption struct {
 	// All Customer-managed key encryption properties for the resource.
 	CustomerManagedKeyEncryption *CustomerManagedKeyEncryption
+}
+
+// EncryptionSet - Represents a devcenter encryption set resource.
+type EncryptionSet struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// Managed identity properties
+	Identity *ManagedServiceIdentity
+
+	// Properties of a devcenter encryption set.
+	Properties *EncryptionSetProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// EncryptionSetListResult - Result of the list devcenter encryption set operation
+type EncryptionSetListResult struct {
+	// READ-ONLY; URL to get the next set of results if there are any.
+	NextLink *string
+
+	// READ-ONLY; Current page of results.
+	Value []*EncryptionSet
+}
+
+// EncryptionSetProperties - Properties of the devcenter encryption set.
+type EncryptionSetProperties struct {
+	// Devbox disk encryption enable or disable status. Indicates if Devbox disks encryption using DevCenter CMK is enabled or
+	// not.
+	DevboxDisksEncryptionEnableStatus *DevboxDisksEncryptionEnableStatus
+
+	// Key encryption key Url, versioned or non-versioned. Ex: https://contosovault.vault.azure.net/keys/contosokek/562a4bb76b524a1493a6afe8e536ee78
+	// or https://contosovault.vault.azure.net/keys/contosokek.
+	KeyEncryptionKeyURL *string
+
+	// READ-ONLY; The provisioning state of the resource.
+	ProvisioningState *ProvisioningState
+}
+
+// EncryptionSetUpdate - The devcenter encryption set resource for partial updates. Properties not provided in the update
+// request will not be changed.
+type EncryptionSetUpdate struct {
+	// Managed identity properties
+	Identity *ManagedServiceIdentity
+
+	// The geo-location where the resource lives
+	Location *string
+
+	// Properties of a Dev Center encryption set to be updated.
+	Properties *EncryptionSetUpdateProperties
+
+	// Resource tags.
+	Tags map[string]*string
+}
+
+// EncryptionSetUpdateProperties - Properties of the devcenter encryption set. These properties can be updated after the resource
+// has been created.
+type EncryptionSetUpdateProperties struct {
+	// Devbox disk encryption enable or disable status. Indicates if Devbox disks encryption using DevCenter CMK is enabled or
+	// not.
+	DevboxDisksEncryptionEnableStatus *DevboxDisksEncryptionEnableStatus
+
+	// Key encryption key Url, versioned or non-versioned. Ex: https://contosovault.vault.azure.net/keys/contosokek/562a4bb76b524a1493a6afe8e536ee78
+	// or https://contosovault.vault.azure.net/keys/contosokek.
+	KeyEncryptionKeyURL *string
 }
 
 // EndpointDependency - A domain name and connection details used to access a dependency.
@@ -714,6 +905,197 @@ type Image struct {
 	Type *string
 }
 
+// ImageCreationErrorDetails - Image creation error details
+type ImageCreationErrorDetails struct {
+	// An identifier for the error.
+	Code *string
+
+	// A message describing the error.
+	Message *string
+}
+
+// ImageDefinition - Represents a definition for an Image.
+type ImageDefinition struct {
+	// Image Definition properties
+	Properties *ImageDefinitionProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ImageDefinitionBuild - Represents a specific build of an Image Definition.
+type ImageDefinitionBuild struct {
+	// Image Definition Build properties
+	Properties *ImageDefinitionBuildProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ImageDefinitionBuildDetails - Represents a specific build of an Image Definition.
+type ImageDefinitionBuildDetails struct {
+	// READ-ONLY; End time of the task group.
+	EndTime *time.Time
+
+	// READ-ONLY; Details for image creation error. Populated when the image creation is not successful.
+	ErrorDetails *ImageCreationErrorDetails
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The specific image version used by the build.
+	ImageReference *ImageReference
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Start time of the task group.
+	StartTime *time.Time
+
+	// READ-ONLY; The status of the build.
+	Status *ImageDefinitionBuildStatus
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The list of task groups executed during the image definition build.
+	TaskGroups []*ImageDefinitionBuildTaskGroup
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ImageDefinitionBuildListResult - Results of the Image Definition Build list operation.
+type ImageDefinitionBuildListResult struct {
+	// READ-ONLY; URL to get the next set of results if there are any.
+	NextLink *string
+
+	// READ-ONLY; Current page of results.
+	Value []*ImageDefinitionBuild
+}
+
+// ImageDefinitionBuildProperties - Properties of an Image Definition Build.
+type ImageDefinitionBuildProperties struct {
+	// READ-ONLY; End time of the task group.
+	EndTime *time.Time
+
+	// READ-ONLY; Details for image creation error. Populated when the image creation is not successful.
+	ErrorDetails *ImageCreationErrorDetails
+
+	// READ-ONLY; The specific image version used by the build.
+	ImageReference *ImageReference
+
+	// READ-ONLY; Start time of the task group.
+	StartTime *time.Time
+
+	// READ-ONLY; The status of the build.
+	Status *ImageDefinitionBuildStatus
+}
+
+// ImageDefinitionBuildTask - A task executed during the image definition build.
+type ImageDefinitionBuildTask struct {
+	// Display name to help differentiate multiple instances of the same task.
+	DisplayName *string
+
+	// The name of the task.
+	Name *string
+
+	// Parameters for the task.
+	Parameters []*ImageDefinitionBuildTaskParametersItem
+
+	// READ-ONLY; End time of the task.
+	EndTime *time.Time
+
+	// READ-ONLY; ID of the task instance.
+	ID *string
+
+	// READ-ONLY; The URI for retrieving logs for the task execution.
+	LogURI *string
+
+	// READ-ONLY; Start time of the task.
+	StartTime *time.Time
+
+	// READ-ONLY; The status of the task.
+	Status *ImageDefinitionBuildStatus
+}
+
+// ImageDefinitionBuildTaskGroup - A task group executed during the image definition build.
+type ImageDefinitionBuildTaskGroup struct {
+	// READ-ONLY; End time of the task group.
+	EndTime *time.Time
+
+	// READ-ONLY; The name of the task group.
+	Name *string
+
+	// READ-ONLY; Start time of the task group.
+	StartTime *time.Time
+
+	// READ-ONLY; The status of the task group.
+	Status *ImageDefinitionBuildStatus
+
+	// READ-ONLY; The list of tasks executed during the task group.
+	Tasks []*ImageDefinitionBuildTask
+}
+
+type ImageDefinitionBuildTaskParametersItem struct {
+	// REQUIRED
+	Key *string
+
+	// REQUIRED
+	Value *string
+}
+
+// ImageDefinitionListResult - Results of the Image Definition list operation.
+type ImageDefinitionListResult struct {
+	// READ-ONLY; URL to get the next set of results if there are any.
+	NextLink *string
+
+	// READ-ONLY; Current page of results.
+	Value []*ImageDefinition
+}
+
+// ImageDefinitionProperties - Properties of an Image Definition.
+type ImageDefinitionProperties struct {
+	// Image reference information.
+	ImageReference *ImageReference
+
+	// Details about the latest build.
+	LatestBuild *LatestImageBuild
+
+	// READ-ONLY; Image reference information for the currently active image (only populated during updates).
+	ActiveImageReference *ImageReference
+
+	// READ-ONLY; The URL to the repository file containing the image definition.
+	FileURL *string
+
+	// READ-ONLY; Details for image validator error. Populated when the image validation is not successful.
+	ImageValidationErrorDetails *ImageValidationErrorDetails
+
+	// READ-ONLY; Validation status of the configured image.
+	ImageValidationStatus *ImageValidationStatus
+
+	// READ-ONLY; Validation status for the Image Definition.
+	ValidationStatus *CatalogResourceValidationStatus
+}
+
 // ImageListResult - Results of the image list operation.
 type ImageListResult struct {
 	// READ-ONLY; URL to get the next set of results if there are any.
@@ -810,6 +1192,30 @@ type ImageVersionProperties struct {
 
 	// READ-ONLY; The datetime that the backing image version was published.
 	PublishedDate *time.Time
+}
+
+// InheritedSettingsForProject - Applicable inherited settings for a project.
+type InheritedSettingsForProject struct {
+	// READ-ONLY; Network settings that will be enforced on this project.
+	NetworkSettings *ProjectNetworkSettings
+
+	// READ-ONLY; Dev Center settings to be used when associating a project with a catalog.
+	ProjectCatalogSettings *ProjectCatalogSettingsInfo
+}
+
+// LatestImageBuild - Details about the latest build.
+type LatestImageBuild struct {
+	// READ-ONLY; End time of the task group.
+	EndTime *time.Time
+
+	// READ-ONLY; Identifier of a build.
+	Name *string
+
+	// READ-ONLY; Start time of the task group.
+	StartTime *time.Time
+
+	// READ-ONLY; The state of an Image Definition Build.
+	Status *ImageDefinitionBuildStatus
 }
 
 // ListResult - Result of the list devcenters operation
@@ -948,6 +1354,12 @@ type NetworkProperties struct {
 	ProvisioningState *ProvisioningState
 }
 
+// NetworkSettings - Network settings for the Dev Center.
+type NetworkSettings struct {
+	// Indicates whether pools in this Dev Center can use Microsoft Hosted Networks. Defaults to Enabled if not set.
+	MicrosoftHostedNetworkEnableStatus *MicrosoftHostedNetworkEnableStatus
+}
+
 // Operation - Details of a REST API operation, returned from the Resource Provider Operations API
 type Operation struct {
 	// Localized display information for this particular operation.
@@ -1079,6 +1491,137 @@ type OutboundEnvironmentEndpointCollection struct {
 	Value []*OutboundEnvironmentEndpoint
 }
 
+// Plan - Represents a devcenter plan resource.
+type Plan struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// Plan properties
+	Properties *PlanProperties
+
+	// The SKU for DevCenters created using this definition.
+	SKU *SKU
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// PlanListResult - Result of the list devcenter plans operation
+type PlanListResult struct {
+	// READ-ONLY; URL to get the next set of results if there are any.
+	NextLink *string
+
+	// READ-ONLY; Current page of results.
+	Value []*Plan
+}
+
+// PlanMember - Represents a devcenter plan member resource.
+type PlanMember struct {
+	// Plan member properties
+	Properties *PlanMemberProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// PlanMemberProperties - Properties of the devcenter plan member.
+type PlanMemberProperties struct {
+	// The unique id of the member.
+	MemberID *string
+
+	// The type of the member (user, group)
+	MemberType *PlanMemberType
+
+	// The tier of the member.
+	Tier *string
+
+	// READ-ONLY; The provisioning state of the resource.
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; The sync status of the member.
+	SyncStatus *PlanMemberSyncStatus
+}
+
+// PlanMemberSyncStatus - The sync status of the plan member.
+type PlanMemberSyncStatus struct {
+	// Error response describing why the sync failed.
+	LastSyncError *ErrorDetail
+
+	// READ-ONLY; When the plan member was last synced.
+	LastSyncTime *time.Time
+
+	// READ-ONLY; The synchronization state of the plan member.
+	SyncState *PlanMemberSyncState
+}
+
+// PlanMemberUpdate - The devcenter plan member resource for partial updates. Properties not provided in the update request
+// will not be changed.
+type PlanMemberUpdate struct {
+	// Plan member update properties
+	Properties *PlanMemberUpdateProperties
+
+	// Resource tags.
+	Tags map[string]*string
+}
+
+// PlanMemberUpdateProperties - Properties of the devcenter plan member.
+type PlanMemberUpdateProperties struct {
+	// The tier of the member.
+	Tier *string
+}
+
+// PlanMembersListResult - Result of the list devcenter plan members operation
+type PlanMembersListResult struct {
+	// READ-ONLY; URL to get the next set of results if there are any.
+	NextLink *string
+
+	// READ-ONLY; Current page of results.
+	Value []*PlanMember
+}
+
+// PlanProperties - Properties of the devcenter plan.
+type PlanProperties struct {
+	// READ-ONLY; The provisioning state of the resource.
+	ProvisioningState *ProvisioningState
+}
+
+// PlanUpdate - The devcenter plan resource for partial updates. Properties not provided in the update request will not be
+// changed.
+type PlanUpdate struct {
+	// The geo-location where the resource lives
+	Location *string
+
+	// The SKU for DevCenters created using this definition.
+	SKU *SKU
+
+	// Resource tags.
+	Tags map[string]*string
+}
+
 // Pool - A pool of Virtual Machines.
 type Pool struct {
 	// REQUIRED; The geo-location where the resource lives
@@ -1103,6 +1646,18 @@ type Pool struct {
 	Type *string
 }
 
+// PoolDevBoxDefinition - Represents a definition for a Developer Machine.
+type PoolDevBoxDefinition struct {
+	// Image reference information.
+	ImageReference *ImageReference
+
+	// The SKU for Dev Boxes created from the Pool.
+	SKU *SKU
+
+	// READ-ONLY; Image reference information for the currently active image (only populated during updates).
+	ActiveImageReference *ImageReference
+}
+
 // PoolListResult - Results of the machine pool list operation.
 type PoolListResult struct {
 	// READ-ONLY; URL to get the next set of results if there are any.
@@ -1114,8 +1669,15 @@ type PoolListResult struct {
 
 // PoolProperties - Properties of a Pool
 type PoolProperties struct {
-	// Name of a Dev Box definition in parent Project of this Pool
+	// A definition of the machines that are created from this Pool. Will be ignored if devBoxDefinitionType is Reference or not
+	// provided.
+	DevBoxDefinition *PoolDevBoxDefinition
+
+	// Name of a Dev Box definition in parent Project of this Pool. Will be ignored if devBoxDefinitionType is Value.
 	DevBoxDefinitionName *string
+
+	// Indicates if the pool is created from an existing Dev Box Definition or if one is provided directly.
+	DevBoxDefinitionType *PoolDevBoxDefinitionType
 
 	// The display name of the pool.
 	DisplayName *string
@@ -1138,6 +1700,9 @@ type PoolProperties struct {
 
 	// Stop on disconnect configuration settings for Dev Boxes created in this pool.
 	StopOnDisconnect *StopOnDisconnectConfiguration
+
+	// Stop on no connect configuration settings for Dev Boxes created in this pool.
+	StopOnNoConnect *StopOnNoConnectConfiguration
 
 	// Indicates whether the pool uses a Virtual Network managed by Microsoft or a customer provided network.
 	VirtualNetworkType *VirtualNetworkType
@@ -1170,8 +1735,15 @@ type PoolUpdate struct {
 
 // PoolUpdateProperties - Properties of a Pool. These properties can be updated after the resource has been created.
 type PoolUpdateProperties struct {
-	// Name of a Dev Box definition in parent Project of this Pool
+	// A definition of the machines that are created from this Pool. Will be ignored if devBoxDefinitionType is Reference or not
+	// provided.
+	DevBoxDefinition *PoolDevBoxDefinition
+
+	// Name of a Dev Box definition in parent Project of this Pool. Will be ignored if devBoxDefinitionType is Value.
 	DevBoxDefinitionName *string
+
+	// Indicates if the pool is created from an existing Dev Box Definition or if one is provided directly.
+	DevBoxDefinitionType *PoolDevBoxDefinitionType
 
 	// The display name of the pool.
 	DisplayName *string
@@ -1194,6 +1766,9 @@ type PoolUpdateProperties struct {
 
 	// Stop on disconnect configuration settings for Dev Boxes created in this pool.
 	StopOnDisconnect *StopOnDisconnectConfiguration
+
+	// Stop on no connect configuration settings for Dev Boxes created in this pool.
+	StopOnNoConnect *StopOnNoConnectConfiguration
 
 	// Indicates whether the pool uses a Virtual Network managed by Microsoft or a customer provided network.
 	VirtualNetworkType *VirtualNetworkType
@@ -1350,6 +1925,68 @@ type ProjectListResult struct {
 	Value []*Project
 }
 
+// ProjectNetworkSettings - Network settings for the project.
+type ProjectNetworkSettings struct {
+	// READ-ONLY; Indicates whether pools in this Dev Center can use Microsoft Hosted Networks. Defaults to Enabled if not set.
+	MicrosoftHostedNetworkEnableStatus *MicrosoftHostedNetworkEnableStatus
+}
+
+// ProjectPolicy - Represents an project policy resource.
+type ProjectPolicy struct {
+	// Properties of an project policy.
+	Properties *ProjectPolicyProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ProjectPolicyListResult - Results of the project policy list operation.
+type ProjectPolicyListResult struct {
+	// READ-ONLY; URL to get the next set of results if there are any.
+	NextLink *string
+
+	// READ-ONLY; Current page of results.
+	Value []*ProjectPolicy
+}
+
+// ProjectPolicyProperties - Properties of an project policy.
+type ProjectPolicyProperties struct {
+	// Resource policies that are a part of this project policy.
+	ResourcePolicies []*ResourcePolicy
+
+	// Resources that have access to the shared resources that are a part of this project policy.
+	Scopes []*string
+
+	// READ-ONLY; The provisioning state of the resource.
+	ProvisioningState *ProvisioningState
+}
+
+// ProjectPolicyUpdate - The project policy properties for partial update. Properties not provided in the update request will
+// not be changed.
+type ProjectPolicyUpdate struct {
+	// Properties of an project policy to be updated.
+	Properties *ProjectPolicyUpdateProperties
+}
+
+// ProjectPolicyUpdateProperties - Properties of an project policy. These properties can be updated after the resource has
+// been created.
+type ProjectPolicyUpdateProperties struct {
+	// Resource policies that are a part of this project policy.
+	ResourcePolicies []*ResourcePolicy
+
+	// Resources that have access to the shared resources that are a part of this project policy.
+	Scopes []*string
+}
+
 // ProjectProperties - Properties of a project.
 type ProjectProperties struct {
 	// Settings to be used when associating a project with a catalog.
@@ -1411,14 +2048,26 @@ type ProjectUpdateProperties struct {
 
 // Properties of the devcenter.
 type Properties struct {
+	// Settings to be used in the provisioning of all Dev Boxes that belong to this dev center.
+	DevBoxProvisioningSettings *DevBoxProvisioningSettings
+
 	// The display name of the devcenter.
 	DisplayName *string
 
 	// Encryption settings to be used for server-side encryption for proprietary content (such as catalogs, logs, customizations).
 	Encryption *Encryption
 
+	// Network settings that will be enforced on network resources associated with the Dev Center.
+	NetworkSettings *NetworkSettings
+
+	// Resource Id of an associated Plan
+	PlanID *string
+
 	// Dev Center settings to be used when associating a project with a catalog.
 	ProjectCatalogSettings *ProjectCatalogSettingsInfo
+
+	// Indicates the resource types that are restricted from being accessed by a project unless allowed by a project policy.
+	RestrictedResourceTypes []*DevCenterResourceType
 
 	// READ-ONLY; The URI of the Dev Center.
 	DevCenterURI *string
@@ -1436,6 +2085,15 @@ type RecommendedMachineConfiguration struct {
 	VCPUs *ResourceRange
 }
 
+// ResourcePolicy - A resource policy.
+type ResourcePolicy struct {
+	// Optional. When specified, this expression is used to filter the resources.
+	Filter *string
+
+	// Resources that are included and shared as a part of a project policy.
+	Resources *string
+}
+
 // ResourceRange - Properties for a range of values.
 type ResourceRange struct {
 	// READ-ONLY; Maximum value.
@@ -1447,7 +2105,7 @@ type ResourceRange struct {
 
 // SKU - The resource model definition representing SKU
 type SKU struct {
-	// REQUIRED; The name of the SKU. Ex - P3. It is typically a letter+number code
+	// REQUIRED; The name of the SKU. E.g. P3. It is typically a letter+number code
 	Name *string
 
 	// If the SKU supports scale out/in then the capacity integer should be included. If scale out/in is not possible for the
@@ -1467,7 +2125,7 @@ type SKU struct {
 
 // SKUInfo - The resource model definition representing SKU for DevCenter resources
 type SKUInfo struct {
-	// REQUIRED; The name of the SKU. Ex - P3. It is typically a letter+number code
+	// REQUIRED; The name of the SKU. E.g. P3. It is typically a letter+number code
 	Name *string
 
 	// If the SKU supports scale out/in then the capacity integer should be included. If scale out/in is not possible for the
@@ -1597,6 +2255,15 @@ type StopOnDisconnectConfiguration struct {
 	Status *StopOnDisconnectEnableStatus
 }
 
+// StopOnNoConnectConfiguration - Stop on no connect configuration settings for Dev Boxes created in this pool.
+type StopOnNoConnectConfiguration struct {
+	// The specified time in minutes to wait before stopping a Dev Box if no connection is made.
+	GracePeriodMinutes *int32
+
+	// Enables the feature to stop a started Dev Box when it has not been connected to, once the grace period has lapsed.
+	Status *StopOnNoConnectEnableStatus
+}
+
 // SyncErrorDetails - Synchronization error details.
 type SyncErrorDetails struct {
 	// READ-ONLY; Catalog items that have conflicting names.
@@ -1671,14 +2338,26 @@ type Update struct {
 
 // UpdateProperties - Properties of the devcenter. These properties can be updated after the resource has been created.
 type UpdateProperties struct {
+	// Settings to be used in the provisioning of all Dev Boxes that belong to this dev center.
+	DevBoxProvisioningSettings *DevBoxProvisioningSettings
+
 	// The display name of the devcenter.
 	DisplayName *string
 
 	// Encryption settings to be used for server-side encryption for proprietary content (such as catalogs, logs, customizations).
 	Encryption *Encryption
 
+	// Network settings that will be enforced on network resources associated with the Dev Center.
+	NetworkSettings *NetworkSettings
+
+	// Resource Id of an associated Plan
+	PlanID *string
+
 	// Dev Center settings to be used when associating a project with a catalog.
 	ProjectCatalogSettings *ProjectCatalogSettingsInfo
+
+	// Indicates the resource types that are restricted from being accessed by a project unless allowed by a project policy.
+	RestrictedResourceTypes []*DevCenterResourceType
 }
 
 // Usage - The core usage details.
