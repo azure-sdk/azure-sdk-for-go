@@ -10,7 +10,6 @@ package fake
 
 import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
-	"io"
 	"net/http"
 	"reflect"
 	"sync"
@@ -38,18 +37,6 @@ func getOptional[T any](v T) *T {
 		return nil
 	}
 	return &v
-}
-
-func readRequestBody(req *http.Request) ([]byte, error) {
-	if req.Body == nil {
-		return nil, nil
-	}
-	body, err := io.ReadAll(req.Body)
-	if err != nil {
-		return nil, err
-	}
-	req.Body.Close()
-	return body, nil
 }
 
 func newTracker[T any]() *tracker[T] {
