@@ -16,9 +16,10 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/machinelearning/armmachinelearning/v4"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/machinelearning/armmachinelearning/v5"
 	"net/http"
 	"net/url"
+	"reflect"
 	"regexp"
 	"strconv"
 )
@@ -340,6 +341,10 @@ func (d *DatastoresServerTransport) dispatchListSecrets(req *http.Request) (*htt
 	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
+	body, err := server.UnmarshalRequestAsJSON[armmachinelearning.SecretExpiry](req)
+	if err != nil {
+		return nil, err
+	}
 	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
@@ -352,7 +357,13 @@ func (d *DatastoresServerTransport) dispatchListSecrets(req *http.Request) (*htt
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := d.srv.ListSecrets(req.Context(), resourceGroupNameParam, workspaceNameParam, nameParam, nil)
+	var options *armmachinelearning.DatastoresClientListSecretsOptions
+	if !reflect.ValueOf(body).IsZero() {
+		options = &armmachinelearning.DatastoresClientListSecretsOptions{
+			Body: &body,
+		}
+	}
+	respr, errRespr := d.srv.ListSecrets(req.Context(), resourceGroupNameParam, workspaceNameParam, nameParam, options)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
