@@ -46,7 +46,7 @@ func NewCheckScopedNameAvailabilityClient(subscriptionID string, credential azco
 // Execute - Check the availability of name for resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-02-01
+// Generated from API version 2024-10-01-preview
 //   - nameAvailabilityRequest - The required parameters for checking if resource name is available.
 //   - options - CheckScopedNameAvailabilityClientExecuteOptions contains the optional parameters for the CheckScopedNameAvailabilityClient.Execute
 //     method.
@@ -84,7 +84,7 @@ func (client *CheckScopedNameAvailabilityClient) executeCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-02-01")
+	reqQP.Set("api-version", "2024-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, nameAvailabilityRequest); err != nil {
