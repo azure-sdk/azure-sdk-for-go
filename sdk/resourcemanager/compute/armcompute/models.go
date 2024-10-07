@@ -870,7 +870,7 @@ type CommunityGalleryImageProperties struct {
 	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture
 
 	// The artifact tags of a community gallery resource.
@@ -1095,9 +1095,8 @@ type DataDisk struct {
 	// applicable only for managed data disks. If a previous detachment attempt of the data disk did not complete due to an unexpected
 	// failure from the virtual machine and the disk is still not released then
 	// use force-detach as a last resort option to detach the disk forcibly from the VM. All writes might not have been flushed
-	// when using this detach behavior. This feature is still in preview mode and is
-	// not supported for VirtualMachineScaleSet. To force-detach a data disk update toBeDetached to 'true' along with setting
-	// detachOption: 'ForceDetach'.
+	// when using this detach behavior. This feature is still in preview. To
+	// force-detach a data disk update toBeDetached to 'true' along with setting detachOption: 'ForceDetach'.
 	DetachOption *DiskDetachOptionTypes
 
 	// Specifies the size of an empty data disk in gigabytes. This element can be used to overwrite the size of the disk in a
@@ -2133,6 +2132,9 @@ type Gallery struct {
 	// REQUIRED; Resource location
 	Location *string
 
+	// The identity of the gallery, if configured.
+	Identity *GalleryIdentity
+
 	// Describes the properties of a Shared Image Gallery.
 	Properties *GalleryProperties
 
@@ -2489,6 +2491,25 @@ type GalleryIdentifier struct {
 	UniqueName *string
 }
 
+// GalleryIdentity - Identity for the virtual machine.
+type GalleryIdentity struct {
+	// The type of identity used for the gallery. The type 'SystemAssigned, UserAssigned' includes both an implicitly created
+	// identity and a set of user assigned identities. The type 'None' will remove all
+	// identities from the gallery.
+	Type *ResourceIdentityType
+
+	// The list of user identities associated with the gallery. The user identity dictionary key references will be ARM resource
+	// ids in the form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.
+	UserAssignedIdentities map[string]*UserAssignedIdentitiesValue
+
+	// READ-ONLY; The principal id of the gallery identity. This property will only be provided for a system assigned identity.
+	PrincipalID *string
+
+	// READ-ONLY; The AAD tenant id of the gallery identity. This property will only be provided for a system assigned identity.
+	TenantID *string
+}
+
 // GalleryImage - Specifies information about the gallery image definition that you want to create or update.
 type GalleryImage struct {
 	// REQUIRED; Resource location
@@ -2554,7 +2575,7 @@ type GalleryImageProperties struct {
 	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture
 
 	// The description of this gallery image definition resource. This property is updatable.
@@ -2803,6 +2824,9 @@ type GalleryTargetExtendedLocation struct {
 
 // GalleryUpdate - Specifies information about the Shared Image Gallery that you want to update.
 type GalleryUpdate struct {
+	// The identity of the gallery, if configured.
+	Identity *GalleryIdentity
+
 	// Describes the properties of a Shared Image Gallery.
 	Properties *GalleryProperties
 
@@ -5341,7 +5365,7 @@ type SharedGalleryImageProperties struct {
 	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture
 
 	// The artifact tags of a shared gallery resource.
