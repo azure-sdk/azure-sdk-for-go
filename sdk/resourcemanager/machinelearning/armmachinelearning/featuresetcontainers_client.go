@@ -47,7 +47,7 @@ func NewFeaturesetContainersClient(subscriptionID string, credential azcore.Toke
 // BeginCreateOrUpdate - Create or update container.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - name - Container name. This is case-sensitive.
@@ -75,7 +75,7 @@ func (client *FeaturesetContainersClient) BeginCreateOrUpdate(ctx context.Contex
 // CreateOrUpdate - Create or update container.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-10-01
 func (client *FeaturesetContainersClient) createOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, name string, body FeaturesetContainer, options *FeaturesetContainersClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "FeaturesetContainersClient.BeginCreateOrUpdate"
@@ -121,7 +121,7 @@ func (client *FeaturesetContainersClient) createOrUpdateCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -133,7 +133,7 @@ func (client *FeaturesetContainersClient) createOrUpdateCreateRequest(ctx contex
 // BeginDelete - Delete container.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - name - Container name. This is case-sensitive.
@@ -160,7 +160,7 @@ func (client *FeaturesetContainersClient) BeginDelete(ctx context.Context, resou
 // Delete - Delete container.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-10-01
 func (client *FeaturesetContainersClient) deleteOperation(ctx context.Context, resourceGroupName string, workspaceName string, name string, options *FeaturesetContainersClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "FeaturesetContainersClient.BeginDelete"
@@ -206,7 +206,7 @@ func (client *FeaturesetContainersClient) deleteCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -215,7 +215,7 @@ func (client *FeaturesetContainersClient) deleteCreateRequest(ctx context.Contex
 // GetEntity - Get container.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - name - Container name. This is case-sensitive.
@@ -267,7 +267,7 @@ func (client *FeaturesetContainersClient) getEntityCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -284,7 +284,7 @@ func (client *FeaturesetContainersClient) getEntityHandleResponse(resp *http.Res
 
 // NewListPager - List featurestore entity containers.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - options - FeaturesetContainersClientListOptions contains the optional parameters for the FeaturesetContainersClient.NewListPager
@@ -335,7 +335,7 @@ func (client *FeaturesetContainersClient) listCreateRequest(ctx context.Context,
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", *options.Skip)
 	}
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-10-01")
 	if options != nil && options.CreatedBy != nil {
 		reqQP.Set("createdBy", *options.CreatedBy)
 	}

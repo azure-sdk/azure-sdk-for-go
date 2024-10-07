@@ -6264,6 +6264,9 @@ type ManagedNetworkProvisionStatus struct {
 
 // ManagedNetworkSettings - Managed Network settings for a machine learning workspace.
 type ManagedNetworkSettings struct {
+	// Firewall Sku used for FQDN Rules
+	FirewallSKU *FirewallSKU
+
 	// Isolation mode for the managed network of a machine learning workspace.
 	IsolationMode *IsolationMode
 
@@ -10552,6 +10555,12 @@ type WorkspaceConnectionServicePrincipal struct {
 
 type WorkspaceConnectionSharedAccessSignature struct {
 	Sas *string
+}
+
+// WorkspaceConnectionUpdateParameter - The properties that the machine learning workspace connection will be updated with.
+type WorkspaceConnectionUpdateParameter struct {
+	// The properties that the machine learning workspace connection will be updated with.
+	Properties WorkspaceConnectionPropertiesV2Classification
 }
 
 type WorkspaceConnectionUsernamePassword struct {
