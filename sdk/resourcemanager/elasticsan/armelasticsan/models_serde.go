@@ -15,6 +15,64 @@ import (
 	"reflect"
 )
 
+// MarshalJSON implements the json.Marshaller interface for type AutoScaleProperties.
+func (a AutoScaleProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "scaleUpProperties", a.ScaleUpProperties)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AutoScaleProperties.
+func (a *AutoScaleProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "scaleUpProperties":
+			err = unpopulate(val, "ScaleUpProperties", &a.ScaleUpProperties)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type DeleteRetentionPolicy.
+func (d DeleteRetentionPolicy) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "policyState", d.PolicyState)
+	populate(objectMap, "retentionPeriodDays", d.RetentionPeriodDays)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type DeleteRetentionPolicy.
+func (d *DeleteRetentionPolicy) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", d, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "policyState":
+			err = unpopulate(val, "PolicyState", &d.PolicyState)
+			delete(rawMsg, key)
+		case "retentionPeriodDays":
+			err = unpopulate(val, "RetentionPeriodDays", &d.RetentionPeriodDays)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", d, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type ElasticSan.
 func (e ElasticSan) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -738,6 +796,7 @@ func (p *PrivateLinkServiceConnectionState) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type Properties.
 func (p Properties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "autoScaleProperties", p.AutoScaleProperties)
 	populate(objectMap, "availabilityZones", p.AvailabilityZones)
 	populate(objectMap, "baseSizeTiB", p.BaseSizeTiB)
 	populate(objectMap, "extendedCapacitySizeTiB", p.ExtendedCapacitySizeTiB)
@@ -762,6 +821,9 @@ func (p *Properties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "autoScaleProperties":
+			err = unpopulate(val, "AutoScaleProperties", &p.AutoScaleProperties)
+			delete(rawMsg, key)
 		case "availabilityZones":
 			err = unpopulate(val, "AvailabilityZones", &p.AvailabilityZones)
 			delete(rawMsg, key)
@@ -968,6 +1030,45 @@ func (s *SKULocationInfo) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "zones":
 			err = unpopulate(val, "Zones", &s.Zones)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", s, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ScaleUpProperties.
+func (s ScaleUpProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "autoScalePolicyEnforcement", s.AutoScalePolicyEnforcement)
+	populate(objectMap, "capacityUnitScaleUpLimitTiB", s.CapacityUnitScaleUpLimitTiB)
+	populate(objectMap, "increaseCapacityUnitByTiB", s.IncreaseCapacityUnitByTiB)
+	populate(objectMap, "unusedSizeTiB", s.UnusedSizeTiB)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ScaleUpProperties.
+func (s *ScaleUpProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", s, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "autoScalePolicyEnforcement":
+			err = unpopulate(val, "AutoScalePolicyEnforcement", &s.AutoScalePolicyEnforcement)
+			delete(rawMsg, key)
+		case "capacityUnitScaleUpLimitTiB":
+			err = unpopulate(val, "CapacityUnitScaleUpLimitTiB", &s.CapacityUnitScaleUpLimitTiB)
+			delete(rawMsg, key)
+		case "increaseCapacityUnitByTiB":
+			err = unpopulate(val, "IncreaseCapacityUnitByTiB", &s.IncreaseCapacityUnitByTiB)
+			delete(rawMsg, key)
+		case "unusedSizeTiB":
+			err = unpopulate(val, "UnusedSizeTiB", &s.UnusedSizeTiB)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -1229,6 +1330,7 @@ func (u *Update) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type UpdateProperties.
 func (u UpdateProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "autoScaleProperties", u.AutoScaleProperties)
 	populate(objectMap, "baseSizeTiB", u.BaseSizeTiB)
 	populate(objectMap, "extendedCapacitySizeTiB", u.ExtendedCapacitySizeTiB)
 	populate(objectMap, "publicNetworkAccess", u.PublicNetworkAccess)
@@ -1244,6 +1346,9 @@ func (u *UpdateProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "autoScaleProperties":
+			err = unpopulate(val, "AutoScaleProperties", &u.AutoScaleProperties)
+			delete(rawMsg, key)
 		case "baseSizeTiB":
 			err = unpopulate(val, "BaseSizeTiB", &u.BaseSizeTiB)
 			delete(rawMsg, key)
@@ -1447,6 +1552,7 @@ func (v *VolumeGroupList) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type VolumeGroupProperties.
 func (v VolumeGroupProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "deleteRetentionPolicy", v.DeleteRetentionPolicy)
 	populate(objectMap, "encryption", v.Encryption)
 	populate(objectMap, "encryptionProperties", v.EncryptionProperties)
 	populate(objectMap, "enforceDataIntegrityCheckForIscsi", v.EnforceDataIntegrityCheckForIscsi)
@@ -1466,6 +1572,9 @@ func (v *VolumeGroupProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "deleteRetentionPolicy":
+			err = unpopulate(val, "DeleteRetentionPolicy", &v.DeleteRetentionPolicy)
+			delete(rawMsg, key)
 		case "encryption":
 			err = unpopulate(val, "Encryption", &v.Encryption)
 			delete(rawMsg, key)
@@ -1529,6 +1638,7 @@ func (v *VolumeGroupUpdate) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type VolumeGroupUpdateProperties.
 func (v VolumeGroupUpdateProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "deleteRetentionPolicy", v.DeleteRetentionPolicy)
 	populate(objectMap, "encryption", v.Encryption)
 	populate(objectMap, "encryptionProperties", v.EncryptionProperties)
 	populate(objectMap, "enforceDataIntegrityCheckForIscsi", v.EnforceDataIntegrityCheckForIscsi)
@@ -1546,6 +1656,9 @@ func (v *VolumeGroupUpdateProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "deleteRetentionPolicy":
+			err = unpopulate(val, "DeleteRetentionPolicy", &v.DeleteRetentionPolicy)
+			delete(rawMsg, key)
 		case "encryption":
 			err = unpopulate(val, "Encryption", &v.Encryption)
 			delete(rawMsg, key)

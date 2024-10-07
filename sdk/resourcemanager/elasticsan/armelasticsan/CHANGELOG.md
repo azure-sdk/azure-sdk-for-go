@@ -1,5 +1,29 @@
 # Release History
 
+## 1.2.0-beta.1 (2024-10-07)
+### Features Added
+
+- New value `ProvisioningStatesDeleted`, `ProvisioningStatesRestoring`, `ProvisioningStatesSoftDeleting` added to enum type `ProvisioningStates`
+- New enum type `AutoScalePolicyEnforcement` with values `AutoScalePolicyEnforcementDisabled`, `AutoScalePolicyEnforcementEnabled`, `AutoScalePolicyEnforcementNone`
+- New enum type `DeleteType` with values `DeleteTypePermanent`
+- New enum type `PolicyState` with values `PolicyStateDisabled`, `PolicyStateEnabled`
+- New enum type `XMSAccessSoftDeletedResources` with values `XMSAccessSoftDeletedResourcesFalse`, `XMSAccessSoftDeletedResourcesTrue`
+- New function `*ClientFactory.NewManagementClient() *ManagementClient`
+- New function `NewManagementClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ManagementClient, error)`
+- New function `*ManagementClient.BeginRestoreVolume(context.Context, string, string, string, string, *ManagementClientBeginRestoreVolumeOptions) (*runtime.Poller[ManagementClientRestoreVolumeResponse], error)`
+- New struct `AutoScaleProperties`
+- New struct `DeleteRetentionPolicy`
+- New struct `ScaleUpProperties`
+- New field `AutoScaleProperties` in struct `Properties`
+- New field `AutoScaleProperties` in struct `UpdateProperties`
+- New field `DeleteRetentionPolicy` in struct `VolumeGroupProperties`
+- New field `DeleteRetentionPolicy` in struct `VolumeGroupUpdateProperties`
+- New field `DeleteType` in struct `VolumeGroupsClientBeginDeleteOptions`
+- New field `XMSAccessSoftDeletedResources` in struct `VolumeGroupsClientListByElasticSanOptions`
+- New field `DeleteType` in struct `VolumesClientBeginDeleteOptions`
+- New field `XMSAccessSoftDeletedResources` in struct `VolumesClientListByVolumeGroupOptions`
+
+
 ## 1.1.0 (2024-08-22)
 ### Features Added
 
