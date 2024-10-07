@@ -10,7 +10,7 @@ package armelasticsan
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/elasticsan/armelasticsan"
-	moduleVersion = "v1.1.0"
+	moduleVersion = "v1.2.0-beta.1"
 )
 
 // Action - The action of virtual network rule.
@@ -41,6 +41,24 @@ func PossibleActionTypeValues() []ActionType {
 	}
 }
 
+// AutoScalePolicyEnforcement - Enable or Disable scale up setting on Elastic San Appliance.
+type AutoScalePolicyEnforcement string
+
+const (
+	AutoScalePolicyEnforcementDisabled AutoScalePolicyEnforcement = "Disabled"
+	AutoScalePolicyEnforcementEnabled  AutoScalePolicyEnforcement = "Enabled"
+	AutoScalePolicyEnforcementNone     AutoScalePolicyEnforcement = "None"
+)
+
+// PossibleAutoScalePolicyEnforcementValues returns the possible values for the AutoScalePolicyEnforcement const type.
+func PossibleAutoScalePolicyEnforcementValues() []AutoScalePolicyEnforcement {
+	return []AutoScalePolicyEnforcement{
+		AutoScalePolicyEnforcementDisabled,
+		AutoScalePolicyEnforcementEnabled,
+		AutoScalePolicyEnforcementNone,
+	}
+}
+
 // CreatedByType - The type of identity that created the resource.
 type CreatedByType string
 
@@ -58,6 +76,19 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 		CreatedByTypeKey,
 		CreatedByTypeManagedIdentity,
 		CreatedByTypeUser,
+	}
+}
+
+type DeleteType string
+
+const (
+	DeleteTypePermanent DeleteType = "permanent"
+)
+
+// PossibleDeleteTypeValues returns the possible values for the DeleteType const type.
+func PossibleDeleteTypeValues() []DeleteType {
+	return []DeleteType{
+		DeleteTypePermanent,
 	}
 }
 
@@ -146,6 +177,21 @@ func PossibleOriginValues() []Origin {
 	}
 }
 
+type PolicyState string
+
+const (
+	PolicyStateDisabled PolicyState = "Disabled"
+	PolicyStateEnabled  PolicyState = "Enabled"
+)
+
+// PossiblePolicyStateValues returns the possible values for the PolicyState const type.
+func PossiblePolicyStateValues() []PolicyState {
+	return []PolicyState{
+		PolicyStateDisabled,
+		PolicyStateEnabled,
+	}
+}
+
 // PrivateEndpointServiceConnectionStatus - The private endpoint connection status.
 type PrivateEndpointServiceConnectionStatus string
 
@@ -170,14 +216,17 @@ func PossiblePrivateEndpointServiceConnectionStatusValues() []PrivateEndpointSer
 type ProvisioningStates string
 
 const (
-	ProvisioningStatesCanceled  ProvisioningStates = "Canceled"
-	ProvisioningStatesCreating  ProvisioningStates = "Creating"
-	ProvisioningStatesDeleting  ProvisioningStates = "Deleting"
-	ProvisioningStatesFailed    ProvisioningStates = "Failed"
-	ProvisioningStatesInvalid   ProvisioningStates = "Invalid"
-	ProvisioningStatesPending   ProvisioningStates = "Pending"
-	ProvisioningStatesSucceeded ProvisioningStates = "Succeeded"
-	ProvisioningStatesUpdating  ProvisioningStates = "Updating"
+	ProvisioningStatesCanceled     ProvisioningStates = "Canceled"
+	ProvisioningStatesCreating     ProvisioningStates = "Creating"
+	ProvisioningStatesDeleted      ProvisioningStates = "Deleted"
+	ProvisioningStatesDeleting     ProvisioningStates = "Deleting"
+	ProvisioningStatesFailed       ProvisioningStates = "Failed"
+	ProvisioningStatesInvalid      ProvisioningStates = "Invalid"
+	ProvisioningStatesPending      ProvisioningStates = "Pending"
+	ProvisioningStatesRestoring    ProvisioningStates = "Restoring"
+	ProvisioningStatesSoftDeleting ProvisioningStates = "SoftDeleting"
+	ProvisioningStatesSucceeded    ProvisioningStates = "Succeeded"
+	ProvisioningStatesUpdating     ProvisioningStates = "Updating"
 )
 
 // PossibleProvisioningStatesValues returns the possible values for the ProvisioningStates const type.
@@ -185,10 +234,13 @@ func PossibleProvisioningStatesValues() []ProvisioningStates {
 	return []ProvisioningStates{
 		ProvisioningStatesCanceled,
 		ProvisioningStatesCreating,
+		ProvisioningStatesDeleted,
 		ProvisioningStatesDeleting,
 		ProvisioningStatesFailed,
 		ProvisioningStatesInvalid,
 		ProvisioningStatesPending,
+		ProvisioningStatesRestoring,
+		ProvisioningStatesSoftDeleting,
 		ProvisioningStatesSucceeded,
 		ProvisioningStatesUpdating,
 	}
@@ -279,6 +331,21 @@ func PossibleVolumeCreateOptionValues() []VolumeCreateOption {
 		VolumeCreateOptionDiskSnapshot,
 		VolumeCreateOptionNone,
 		VolumeCreateOptionVolumeSnapshot,
+	}
+}
+
+type XMSAccessSoftDeletedResources string
+
+const (
+	XMSAccessSoftDeletedResourcesFalse XMSAccessSoftDeletedResources = "false"
+	XMSAccessSoftDeletedResourcesTrue  XMSAccessSoftDeletedResources = "true"
+)
+
+// PossibleXMSAccessSoftDeletedResourcesValues returns the possible values for the XMSAccessSoftDeletedResources const type.
+func PossibleXMSAccessSoftDeletedResourcesValues() []XMSAccessSoftDeletedResources {
+	return []XMSAccessSoftDeletedResources{
+		XMSAccessSoftDeletedResourcesFalse,
+		XMSAccessSoftDeletedResourcesTrue,
 	}
 }
 
