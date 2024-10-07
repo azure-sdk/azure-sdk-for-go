@@ -45,7 +45,7 @@ func NewSKUClient(subscriptionID string, credential azcore.TokenCredential, opti
 
 // NewListByLocationPager - List ResourceSku resources by subscription ID
 //
-// Generated from API version 2024-04-04-preview
+// Generated from API version 2024-10-19
 //   - locationName - Name of the location.
 //   - options - SKUClientListByLocationOptions contains the optional parameters for the SKUClient.NewListByLocationPager method.
 func (client *SKUClient) NewListByLocationPager(locationName string, options *SKUClientListByLocationOptions) *runtime.Pager[SKUClientListByLocationResponse] {
@@ -87,7 +87,7 @@ func (client *SKUClient) listByLocationCreateRequest(ctx context.Context, locati
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-04-preview")
+	reqQP.Set("api-version", "2024-10-19")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
