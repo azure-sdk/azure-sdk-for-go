@@ -29,13 +29,16 @@ type ConfigData struct {
 	// The Advisor configuration data structure.
 	Properties *ConfigDataProperties
 
-	// READ-ONLY; The resource ID.
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The type of the resource.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -43,6 +46,10 @@ type ConfigData struct {
 type ConfigDataProperties struct {
 	// Advisor digest configuration. Valid only for subscriptions
 	Digests []*DigestConfig
+
+	// Minimum duration for Advisor low CPU utilization evaluation. Valid only for subscriptions. Valid values: 7 (default), 14,
+	// 21, 30, 60 or 90.
+	Duration *Duration
 
 	// Exclude the resource from Advisor evaluations. Valid values: False (default) or True.
 	Exclude *bool
@@ -164,6 +171,67 @@ type OperationEntityListResult struct {
 	Value []*OperationEntity
 }
 
+// PredictionRequest - Parameters for predict recommendation.
+type PredictionRequest struct {
+	// Request properties for prediction recommendation.
+	Properties *PredictionRequestProperties
+}
+
+// PredictionRequestProperties - Properties given for the predictor.
+type PredictionRequestProperties struct {
+	// Extended properties are arguments specific for each prediction type.
+	ExtendedProperties any
+
+	// Type of the prediction.
+	PredictionType *PredictionType
+}
+
+// PredictionResponse - Response used by predictions.
+type PredictionResponse struct {
+	// The properties of the prediction.
+	Properties *PredictionResponseProperties
+}
+
+// PredictionResponseProperties - Properties of the prediction
+type PredictionResponseProperties struct {
+	// The category of the recommendation.
+	Category *Category
+
+	// Extended properties
+	ExtendedProperties any
+
+	// The business impact of the recommendation.
+	Impact *Impact
+
+	// The resource type identified by Advisor.
+	ImpactedField *string
+
+	// The most recent time that Advisor checked the validity of the recommendation.
+	LastUpdated *time.Time
+
+	// Type of the prediction.
+	PredictionType *PredictionType
+
+	// A summary of the recommendation.
+	ShortDescription *ShortDescription
+}
+
+// ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
+// location
+type ProxyResource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
 // RecommendationProperties - The properties of the recommendation.
 type RecommendationProperties struct {
 	// The list of recommended actions to implement recommendation.
@@ -224,15 +292,18 @@ type RecommendationProperties struct {
 	SuppressionIDs []*string
 }
 
-// Resource - An Azure resource.
+// Resource - Common fields that are returned in the response for all Azure Resource Manager resources
 type Resource struct {
-	// READ-ONLY; The resource ID.
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The type of the resource.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -259,13 +330,16 @@ type ResourceRecommendationBase struct {
 	// The properties of the recommendation.
 	Properties *RecommendationProperties
 
-	// READ-ONLY; The resource ID.
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The type of the resource.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -278,12 +352,65 @@ type ResourceRecommendationBaseListResult struct {
 	Value []*ResourceRecommendationBase
 }
 
+// ScoreEntity - The details of Advisor Score
+type ScoreEntity struct {
+	// The consumption units for the score.
+	ConsumptionUnits *float32
+
+	// The date score was calculated.
+	Date *string
+
+	// The number of impacted resources.
+	ImpactedResourceCount *float32
+
+	// The potential percentage increase in overall score at subscription level once all recommendations in this scope are implemented.
+	PotentialScoreIncrease *float32
+
+	// The percentage score.
+	Score *float32
+
+	// READ-ONLY; The count of impacted categories.
+	CategoryCount *float32
+}
+
+// ScoreEntityForAdvisor - The details of Advisor score for a single category.
+type ScoreEntityForAdvisor struct {
+	// The Advisor score data.
+	Properties *ScoreEntityForAdvisorProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ScoreEntityForAdvisorProperties - The Advisor score data.
+type ScoreEntityForAdvisorProperties struct {
+	// The details of latest available score.
+	LastRefreshedScore *ScoreEntity
+
+	// The historic Advisor score data.
+	TimeSeries []*TimeSeriesEntityItem
+}
+
+type ScoreResponse struct {
+	// The list of operations.
+	Value []*ScoreEntityForAdvisor
+}
+
 // ShortDescription - A summary of the recommendation.
 type ShortDescription struct {
-	// The issue or opportunity identified by the recommendation.
+	// The issue or opportunity identified by the recommendation and proposed solution.
 	Problem *string
 
-	// The remediation action suggested by the recommendation.
+	// The issue or opportunity identified by the recommendation and proposed solution.
 	Solution *string
 }
 
@@ -293,13 +420,16 @@ type SuppressionContract struct {
 	// The properties of the suppression.
 	Properties *SuppressionProperties
 
-	// READ-ONLY; The resource ID.
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The type of the resource.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -322,4 +452,34 @@ type SuppressionProperties struct {
 
 	// READ-ONLY; Gets or sets the expiration time stamp.
 	ExpirationTimeStamp *time.Time
+}
+
+// SystemData - Metadata pertaining to creation and last modification of the resource.
+type SystemData struct {
+	// The timestamp of resource creation (UTC).
+	CreatedAt *time.Time
+
+	// The identity that created the resource.
+	CreatedBy *string
+
+	// The type of identity that created the resource.
+	CreatedByType *CreatedByType
+
+	// The timestamp of resource last modification (UTC)
+	LastModifiedAt *time.Time
+
+	// The identity that last modified the resource.
+	LastModifiedBy *string
+
+	// The type of identity that last modified the resource.
+	LastModifiedByType *CreatedByType
+}
+
+// TimeSeriesEntityItem - The data from different aggregation levels.
+type TimeSeriesEntityItem struct {
+	// The aggregation level of the score.
+	AggregationLevel *Aggregated
+
+	// The past score data
+	ScoreHistory []*ScoreEntity
 }

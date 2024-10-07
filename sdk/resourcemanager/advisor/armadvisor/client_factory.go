@@ -17,8 +17,7 @@ import (
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
 	subscriptionID string
-	credential     azcore.TokenCredential
-	options        *arm.ClientOptions
+	internal       *arm.Client
 }
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
@@ -27,42 +26,66 @@ type ClientFactory struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
-	_, err := arm.NewClient(moduleName, moduleVersion, credential, options)
+	internal, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		subscriptionID: subscriptionID, credential: credential,
-		options: options.Clone(),
+		subscriptionID: subscriptionID,
+		internal:       internal,
 	}, nil
 }
 
 // NewConfigurationsClient creates a new instance of ConfigurationsClient.
 func (c *ClientFactory) NewConfigurationsClient() *ConfigurationsClient {
-	subClient, _ := NewConfigurationsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &ConfigurationsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewManagementClient creates a new instance of ManagementClient.
+func (c *ClientFactory) NewManagementClient() *ManagementClient {
+	return &ManagementClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewOperationsClient creates a new instance of OperationsClient.
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
-	subClient, _ := NewOperationsClient(c.credential, c.options)
-	return subClient
+	return &OperationsClient{
+		internal: c.internal,
+	}
 }
 
 // NewRecommendationMetadataClient creates a new instance of RecommendationMetadataClient.
 func (c *ClientFactory) NewRecommendationMetadataClient() *RecommendationMetadataClient {
-	subClient, _ := NewRecommendationMetadataClient(c.credential, c.options)
-	return subClient
+	return &RecommendationMetadataClient{
+		internal: c.internal,
+	}
 }
 
 // NewRecommendationsClient creates a new instance of RecommendationsClient.
 func (c *ClientFactory) NewRecommendationsClient() *RecommendationsClient {
-	subClient, _ := NewRecommendationsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &RecommendationsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewScoresClient creates a new instance of ScoresClient.
+func (c *ClientFactory) NewScoresClient() *ScoresClient {
+	return &ScoresClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSuppressionsClient creates a new instance of SuppressionsClient.
 func (c *ClientFactory) NewSuppressionsClient() *SuppressionsClient {
-	subClient, _ := NewSuppressionsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SuppressionsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
