@@ -1,5 +1,14 @@
 # Release History
 
+## 4.1.0 (2024-10-07)
+### Features Added
+
+- New enum type `FirewallSKU` with values `FirewallSKUBasic`, `FirewallSKUStandard`
+- New function `*WorkspaceConnectionsClient.Update(context.Context, string, string, string, *WorkspaceConnectionsClientUpdateOptions) (WorkspaceConnectionsClientUpdateResponse, error)`
+- New struct `WorkspaceConnectionUpdateParameter`
+- New field `FirewallSKU` in struct `ManagedNetworkSettings`
+
+
 ## 4.0.0 (2024-08-23)
 ### Breaking Changes
 
