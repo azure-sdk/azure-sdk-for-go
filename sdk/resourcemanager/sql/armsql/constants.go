@@ -10,7 +10,7 @@ package armsql
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/sql/armsql"
-	moduleVersion = "v2.0.0-beta.6"
+	moduleVersion = "v2.0.0-beta.7"
 )
 
 type AdministratorName string
