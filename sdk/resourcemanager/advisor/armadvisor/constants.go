@@ -10,8 +10,26 @@ package armadvisor
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/advisor/armadvisor"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v1.3.0"
 )
+
+// Aggregated - The aggregation level of the score.
+type Aggregated string
+
+const (
+	AggregatedDay   Aggregated = "day"
+	AggregatedMonth Aggregated = "month"
+	AggregatedWeek  Aggregated = "week"
+)
+
+// PossibleAggregatedValues returns the possible values for the Aggregated const type.
+func PossibleAggregatedValues() []Aggregated {
+	return []Aggregated{
+		AggregatedDay,
+		AggregatedMonth,
+		AggregatedWeek,
+	}
+}
 
 // CPUThreshold - Minimum percentage threshold for Advisor low CPU utilization evaluation. Valid only for subscriptions. Valid
 // values: 5 (default), 10, 15 or 20.
@@ -68,6 +86,26 @@ func PossibleConfigurationNameValues() []ConfigurationName {
 	}
 }
 
+// CreatedByType - The type of identity that created the resource.
+type CreatedByType string
+
+const (
+	CreatedByTypeApplication     CreatedByType = "Application"
+	CreatedByTypeKey             CreatedByType = "Key"
+	CreatedByTypeManagedIdentity CreatedByType = "ManagedIdentity"
+	CreatedByTypeUser            CreatedByType = "User"
+)
+
+// PossibleCreatedByTypeValues returns the possible values for the CreatedByType const type.
+func PossibleCreatedByTypeValues() []CreatedByType {
+	return []CreatedByType{
+		CreatedByTypeApplication,
+		CreatedByTypeKey,
+		CreatedByTypeManagedIdentity,
+		CreatedByTypeUser,
+	}
+}
+
 // DigestConfigState - State of digest configuration.
 type DigestConfigState string
 
@@ -81,6 +119,31 @@ func PossibleDigestConfigStateValues() []DigestConfigState {
 	return []DigestConfigState{
 		DigestConfigStateActive,
 		DigestConfigStateDisabled,
+	}
+}
+
+// Duration - Minimum duration for Advisor low CPU utilization evaluation. Valid only for subscriptions. Valid values: 7 (default),
+// 14, 21, 30, 60 or 90.
+type Duration string
+
+const (
+	DurationFourteen  Duration = "14"
+	DurationNinety    Duration = "90"
+	DurationSeven     Duration = "7"
+	DurationSixty     Duration = "60"
+	DurationThirty    Duration = "30"
+	DurationTwentyOne Duration = "21"
+)
+
+// PossibleDurationValues returns the possible values for the Duration const type.
+func PossibleDurationValues() []Duration {
+	return []Duration{
+		DurationFourteen,
+		DurationNinety,
+		DurationSeven,
+		DurationSixty,
+		DurationThirty,
+		DurationTwentyOne,
 	}
 }
 
@@ -99,6 +162,20 @@ func PossibleImpactValues() []Impact {
 		ImpactHigh,
 		ImpactLow,
 		ImpactMedium,
+	}
+}
+
+// PredictionType - Type of the prediction.
+type PredictionType string
+
+const (
+	PredictionTypePredictiveRightsizing PredictionType = "PredictiveRightsizing"
+)
+
+// PossiblePredictionTypeValues returns the possible values for the PredictionType const type.
+func PossiblePredictionTypeValues() []PredictionType {
+	return []PredictionType{
+		PredictionTypePredictiveRightsizing,
 	}
 }
 
