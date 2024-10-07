@@ -1,5 +1,13 @@
 # Release History
 
+## 6.2.0 (2024-10-07)
+### Features Added
+
+- New struct `GalleryIdentity`
+- New field `Identity` in struct `Gallery`
+- New field `Identity` in struct `GalleryUpdate`
+
+
 ## 6.1.0 (2024-08-23)
 ### Features Added
 

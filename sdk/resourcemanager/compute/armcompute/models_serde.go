@@ -4870,6 +4870,7 @@ func (e *Extension) UnmarshalJSON(data []byte) error {
 func (g Gallery) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "id", g.ID)
+	populate(objectMap, "identity", g.Identity)
 	populate(objectMap, "location", g.Location)
 	populate(objectMap, "name", g.Name)
 	populate(objectMap, "properties", g.Properties)
@@ -4889,6 +4890,9 @@ func (g *Gallery) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "id":
 			err = unpopulate(val, "ID", &g.ID)
+			delete(rawMsg, key)
+		case "identity":
+			err = unpopulate(val, "Identity", &g.Identity)
 			delete(rawMsg, key)
 		case "location":
 			err = unpopulate(val, "Location", &g.Location)
@@ -5771,6 +5775,45 @@ func (g *GalleryIdentifier) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type GalleryIdentity.
+func (g GalleryIdentity) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "principalId", g.PrincipalID)
+	populate(objectMap, "tenantId", g.TenantID)
+	populate(objectMap, "type", g.Type)
+	populate(objectMap, "userAssignedIdentities", g.UserAssignedIdentities)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type GalleryIdentity.
+func (g *GalleryIdentity) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", g, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "principalId":
+			err = unpopulate(val, "PrincipalID", &g.PrincipalID)
+			delete(rawMsg, key)
+		case "tenantId":
+			err = unpopulate(val, "TenantID", &g.TenantID)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &g.Type)
+			delete(rawMsg, key)
+		case "userAssignedIdentities":
+			err = unpopulate(val, "UserAssignedIdentities", &g.UserAssignedIdentities)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", g, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type GalleryImage.
 func (g GalleryImage) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -6525,6 +6568,7 @@ func (g *GalleryTargetExtendedLocation) UnmarshalJSON(data []byte) error {
 func (g GalleryUpdate) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "id", g.ID)
+	populate(objectMap, "identity", g.Identity)
 	populate(objectMap, "name", g.Name)
 	populate(objectMap, "properties", g.Properties)
 	populate(objectMap, "tags", g.Tags)
@@ -6543,6 +6587,9 @@ func (g *GalleryUpdate) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "id":
 			err = unpopulate(val, "ID", &g.ID)
+			delete(rawMsg, key)
+		case "identity":
+			err = unpopulate(val, "Identity", &g.Identity)
 			delete(rawMsg, key)
 		case "name":
 			err = unpopulate(val, "Name", &g.Name)
