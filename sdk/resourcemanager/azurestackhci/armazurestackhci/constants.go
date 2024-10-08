@@ -10,24 +10,8 @@ package armazurestackhci
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/azurestackhci/armazurestackhci"
-	moduleVersion = "v2.0.0"
+	moduleVersion = "v3.0.0"
 )
-
-// AccessLevel - Remote Support Access Level
-type AccessLevel string
-
-const (
-	AccessLevelDiagnostics          AccessLevel = "Diagnostics"
-	AccessLevelDiagnosticsAndRepair AccessLevel = "DiagnosticsAndRepair"
-)
-
-// PossibleAccessLevelValues returns the possible values for the AccessLevel const type.
-func PossibleAccessLevelValues() []AccessLevel {
-	return []AccessLevel{
-		AccessLevelDiagnostics,
-		AccessLevelDiagnosticsAndRepair,
-	}
-}
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
 type ActionType string
@@ -40,48 +24,6 @@ const (
 func PossibleActionTypeValues() []ActionType {
 	return []ActionType{
 		ActionTypeInternal,
-	}
-}
-
-// ArcExtensionState - Arc extension installation state.
-type ArcExtensionState string
-
-const (
-	// ArcExtensionStateAccepted - Arc extension state is Accepted when extension installation triggered.
-	ArcExtensionStateAccepted ArcExtensionState = "Accepted"
-	// ArcExtensionStateCanceled - Arc extension state is Canceled.
-	ArcExtensionStateCanceled ArcExtensionState = "Canceled"
-	// ArcExtensionStateCreating - Arc extension is in Creating State.
-	ArcExtensionStateCreating ArcExtensionState = "Creating"
-	// ArcExtensionStateDeleted - Arc extension is in Deleted State.
-	ArcExtensionStateDeleted ArcExtensionState = "Deleted"
-	// ArcExtensionStateDeleting - Arc extension is in Deleting State.
-	ArcExtensionStateDeleting ArcExtensionState = "Deleting"
-	// ArcExtensionStateFailed - Arc extension state is Failed.
-	ArcExtensionStateFailed ArcExtensionState = "Failed"
-	// ArcExtensionStateMoving - Arc extension is in Moving State.
-	ArcExtensionStateMoving ArcExtensionState = "Moving"
-	// ArcExtensionStateNotSpecified - Arc extension state is not specified.
-	ArcExtensionStateNotSpecified ArcExtensionState = "NotSpecified"
-	// ArcExtensionStateSucceeded - Arc extension state is Succeeded.
-	ArcExtensionStateSucceeded ArcExtensionState = "Succeeded"
-	// ArcExtensionStateUpdating - Arc extension is in Updating State.
-	ArcExtensionStateUpdating ArcExtensionState = "Updating"
-)
-
-// PossibleArcExtensionStateValues returns the possible values for the ArcExtensionState const type.
-func PossibleArcExtensionStateValues() []ArcExtensionState {
-	return []ArcExtensionState{
-		ArcExtensionStateAccepted,
-		ArcExtensionStateCanceled,
-		ArcExtensionStateCreating,
-		ArcExtensionStateDeleted,
-		ArcExtensionStateDeleting,
-		ArcExtensionStateFailed,
-		ArcExtensionStateMoving,
-		ArcExtensionStateNotSpecified,
-		ArcExtensionStateSucceeded,
-		ArcExtensionStateUpdating,
 	}
 }
 
@@ -148,6 +90,22 @@ func PossibleAvailabilityTypeValues() []AvailabilityType {
 		AvailabilityTypeLocal,
 		AvailabilityTypeNotify,
 		AvailabilityTypeOnline,
+	}
+}
+
+// CloudInitDataSource - Datasource for the gallery image when provisioning with cloud-init [NoCloud, Azure]
+type CloudInitDataSource string
+
+const (
+	CloudInitDataSourceAzure   CloudInitDataSource = "Azure"
+	CloudInitDataSourceNoCloud CloudInitDataSource = "NoCloud"
+)
+
+// PossibleCloudInitDataSourceValues returns the possible values for the CloudInitDataSource const type.
+func PossibleCloudInitDataSourceValues() []CloudInitDataSource {
+	return []CloudInitDataSource{
+		CloudInitDataSourceAzure,
+		CloudInitDataSourceNoCloud,
 	}
 }
 
@@ -251,13 +209,13 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 	}
 }
 
-// DeploymentMode - The deployment mode of EnterpriseCloudEngine(ECE) action for a cluster.
+// DeploymentMode - The deployment mode for cluster deployment.
 type DeploymentMode string
 
 const (
-	// DeploymentModeDeploy - Deploy ECE action deployment for a cluster.
+	// DeploymentModeDeploy - Deploy cluster using deployment settings.
 	DeploymentModeDeploy DeploymentMode = "Deploy"
-	// DeploymentModeValidate - Validate ECE action deployment for a cluster.
+	// DeploymentModeValidate - Validate deployment settings for cluster.
 	DeploymentModeValidate DeploymentMode = "Validate"
 )
 
@@ -266,57 +224,6 @@ func PossibleDeploymentModeValues() []DeploymentMode {
 	return []DeploymentMode{
 		DeploymentModeDeploy,
 		DeploymentModeValidate,
-	}
-}
-
-// DeviceKind - Edge device kind.
-type DeviceKind string
-
-const (
-	// DeviceKindHCI - Arc-enabled edge device with HCI OS.
-	DeviceKindHCI DeviceKind = "HCI"
-)
-
-// PossibleDeviceKindValues returns the possible values for the DeviceKind const type.
-func PossibleDeviceKindValues() []DeviceKind {
-	return []DeviceKind{
-		DeviceKindHCI,
-	}
-}
-
-// DeviceState - The edge device state.
-type DeviceState string
-
-const (
-	// DeviceStateConnected - The edge device state is in connected state.
-	DeviceStateConnected DeviceState = "Connected"
-	// DeviceStateDisconnected - The edge device state is in disconnected state.
-	DeviceStateDisconnected DeviceState = "Disconnected"
-	// DeviceStateDraining - The edge device state is in draining state.
-	DeviceStateDraining DeviceState = "Draining"
-	// DeviceStateInMaintenance - The edge device state is in maintenance state.
-	DeviceStateInMaintenance DeviceState = "InMaintenance"
-	// DeviceStateNotSpecified - The edge device state is not specified.
-	DeviceStateNotSpecified DeviceState = "NotSpecified"
-	// DeviceStateProcessing - The edge device state is in processing state.
-	DeviceStateProcessing DeviceState = "Processing"
-	// DeviceStateRepairing - The edge device state is in repairing state.
-	DeviceStateRepairing DeviceState = "Repairing"
-	// DeviceStateResuming - The edge device state is in resuming state.
-	DeviceStateResuming DeviceState = "Resuming"
-)
-
-// PossibleDeviceStateValues returns the possible values for the DeviceState const type.
-func PossibleDeviceStateValues() []DeviceState {
-	return []DeviceState{
-		DeviceStateConnected,
-		DeviceStateDisconnected,
-		DeviceStateDraining,
-		DeviceStateInMaintenance,
-		DeviceStateNotSpecified,
-		DeviceStateProcessing,
-		DeviceStateRepairing,
-		DeviceStateResuming,
 	}
 }
 
@@ -338,28 +245,33 @@ func PossibleDiagnosticLevelValues() []DiagnosticLevel {
 	}
 }
 
-// EceSecrets - Secret names allowed for Enterprise Cloud Engine (ECE) deployment.
-type EceSecrets string
+// DiskFileFormat - The format of the actual VHD file [vhd, vhdx]
+type DiskFileFormat string
 
 const (
-	// EceSecretsAzureStackLCMUserCredential - AzureStackLCMUserCredential used for LCM operations for AzureStackHCI cluster.
-	EceSecretsAzureStackLCMUserCredential EceSecrets = "AzureStackLCMUserCredential"
-	// EceSecretsDefaultARBApplication - DefaultARBApplication used to manage Azure Arc resource bridge (ARB) for AzureStackHCI
-	// cluster.
-	EceSecretsDefaultARBApplication EceSecrets = "DefaultARBApplication"
-	// EceSecretsLocalAdminCredential - LocalAdminCredential used for admin operations for AzureStackHCI cluster.
-	EceSecretsLocalAdminCredential EceSecrets = "LocalAdminCredential"
-	// EceSecretsWitnessStorageKey - WitnessStorageKey used for setting up a cloud witness for AzureStackHCI cluster.
-	EceSecretsWitnessStorageKey EceSecrets = "WitnessStorageKey"
+	DiskFileFormatVhd  DiskFileFormat = "vhd"
+	DiskFileFormatVhdx DiskFileFormat = "vhdx"
 )
 
-// PossibleEceSecretsValues returns the possible values for the EceSecrets const type.
-func PossibleEceSecretsValues() []EceSecrets {
-	return []EceSecrets{
-		EceSecretsAzureStackLCMUserCredential,
-		EceSecretsDefaultARBApplication,
-		EceSecretsLocalAdminCredential,
-		EceSecretsWitnessStorageKey,
+// PossibleDiskFileFormatValues returns the possible values for the DiskFileFormat const type.
+func PossibleDiskFileFormatValues() []DiskFileFormat {
+	return []DiskFileFormat{
+		DiskFileFormatVhd,
+		DiskFileFormatVhdx,
+	}
+}
+
+// ExtendedLocationTypes - The type of extendedLocation.
+type ExtendedLocationTypes string
+
+const (
+	ExtendedLocationTypesCustomLocation ExtendedLocationTypes = "CustomLocation"
+)
+
+// PossibleExtendedLocationTypesValues returns the possible values for the ExtendedLocationTypes const type.
+func PossibleExtendedLocationTypesValues() []ExtendedLocationTypes {
+	return []ExtendedLocationTypes{
+		ExtendedLocationTypesCustomLocation,
 	}
 }
 
@@ -411,7 +323,7 @@ func PossibleExtensionAggregateStateValues() []ExtensionAggregateState {
 	}
 }
 
-// ExtensionManagedBy - Extension managed by user or Azure.
+// ExtensionManagedBy - Indicates if the extension is managed by azure or the user.
 type ExtensionManagedBy string
 
 const (
@@ -450,6 +362,54 @@ func PossibleHealthStateValues() []HealthState {
 	}
 }
 
+// HyperVGeneration - The hypervisor generation of the Virtual Machine [V1, V2]
+type HyperVGeneration string
+
+const (
+	HyperVGenerationV1 HyperVGeneration = "V1"
+	HyperVGenerationV2 HyperVGeneration = "V2"
+)
+
+// PossibleHyperVGenerationValues returns the possible values for the HyperVGeneration const type.
+func PossibleHyperVGenerationValues() []HyperVGeneration {
+	return []HyperVGeneration{
+		HyperVGenerationV1,
+		HyperVGenerationV2,
+	}
+}
+
+// IPAllocationMethodEnum - IPAllocationMethod - The IP address allocation method. Possible values include: 'Static', 'Dynamic'
+type IPAllocationMethodEnum string
+
+const (
+	IPAllocationMethodEnumDynamic IPAllocationMethodEnum = "Dynamic"
+	IPAllocationMethodEnumStatic  IPAllocationMethodEnum = "Static"
+)
+
+// PossibleIPAllocationMethodEnumValues returns the possible values for the IPAllocationMethodEnum const type.
+func PossibleIPAllocationMethodEnumValues() []IPAllocationMethodEnum {
+	return []IPAllocationMethodEnum{
+		IPAllocationMethodEnumDynamic,
+		IPAllocationMethodEnumStatic,
+	}
+}
+
+// IPPoolTypeEnum - Type of the IP Pool [vm, vippool]
+type IPPoolTypeEnum string
+
+const (
+	IPPoolTypeEnumVM      IPPoolTypeEnum = "vm"
+	IPPoolTypeEnumVippool IPPoolTypeEnum = "vippool"
+)
+
+// PossibleIPPoolTypeEnumValues returns the possible values for the IPPoolTypeEnum const type.
+func PossibleIPPoolTypeEnumValues() []IPPoolTypeEnum {
+	return []IPPoolTypeEnum{
+		IPPoolTypeEnumVM,
+		IPPoolTypeEnumVippool,
+	}
+}
+
 // ImdsAttestation - IMDS attestation status of the cluster.
 type ImdsAttestation string
 
@@ -463,42 +423,6 @@ func PossibleImdsAttestationValues() []ImdsAttestation {
 	return []ImdsAttestation{
 		ImdsAttestationDisabled,
 		ImdsAttestationEnabled,
-	}
-}
-
-// LogCollectionJobType - LogCollection job type
-type LogCollectionJobType string
-
-const (
-	LogCollectionJobTypeOnDemand  LogCollectionJobType = "OnDemand"
-	LogCollectionJobTypeScheduled LogCollectionJobType = "Scheduled"
-)
-
-// PossibleLogCollectionJobTypeValues returns the possible values for the LogCollectionJobType const type.
-func PossibleLogCollectionJobTypeValues() []LogCollectionJobType {
-	return []LogCollectionJobType{
-		LogCollectionJobTypeOnDemand,
-		LogCollectionJobTypeScheduled,
-	}
-}
-
-// LogCollectionStatus - LogCollection status
-type LogCollectionStatus string
-
-const (
-	LogCollectionStatusFailed     LogCollectionStatus = "Failed"
-	LogCollectionStatusInProgress LogCollectionStatus = "InProgress"
-	LogCollectionStatusNone       LogCollectionStatus = "None"
-	LogCollectionStatusSucceeded  LogCollectionStatus = "Succeeded"
-)
-
-// PossibleLogCollectionStatusValues returns the possible values for the LogCollectionStatus const type.
-func PossibleLogCollectionStatusValues() []LogCollectionStatus {
-	return []LogCollectionStatus{
-		LogCollectionStatusFailed,
-		LogCollectionStatusInProgress,
-		LogCollectionStatusNone,
-		LogCollectionStatusSucceeded,
 	}
 }
 
@@ -632,21 +556,19 @@ func PossibleOemActivationValues() []OemActivation {
 	}
 }
 
-// OperationType - The intended operation for a cluster.
-type OperationType string
+// OperatingSystemTypes - Operating system type that the gallery image uses [Windows, Linux]
+type OperatingSystemTypes string
 
 const (
-	// OperationTypeClusterProvisioning - Cluster provisioning operation.
-	OperationTypeClusterProvisioning OperationType = "ClusterProvisioning"
-	// OperationTypeClusterUpgrade - Cluster upgrade operation.
-	OperationTypeClusterUpgrade OperationType = "ClusterUpgrade"
+	OperatingSystemTypesLinux   OperatingSystemTypes = "Linux"
+	OperatingSystemTypesWindows OperatingSystemTypes = "Windows"
 )
 
-// PossibleOperationTypeValues returns the possible values for the OperationType const type.
-func PossibleOperationTypeValues() []OperationType {
-	return []OperationType{
-		OperationTypeClusterProvisioning,
-		OperationTypeClusterUpgrade,
+// PossibleOperatingSystemTypesValues returns the possible values for the OperatingSystemTypes const type.
+func PossibleOperatingSystemTypesValues() []OperatingSystemTypes {
+	return []OperatingSystemTypes{
+		OperatingSystemTypesLinux,
+		OperatingSystemTypesWindows,
 	}
 }
 
@@ -666,6 +588,50 @@ func PossibleOriginValues() []Origin {
 		OriginSystem,
 		OriginUser,
 		OriginUserSystem,
+	}
+}
+
+// PowerStateEnum - The power state of the virtual machine instance
+type PowerStateEnum string
+
+const (
+	PowerStateEnumDeallocated  PowerStateEnum = "Deallocated"
+	PowerStateEnumDeallocating PowerStateEnum = "Deallocating"
+	PowerStateEnumRunning      PowerStateEnum = "Running"
+	PowerStateEnumStarting     PowerStateEnum = "Starting"
+	PowerStateEnumStopped      PowerStateEnum = "Stopped"
+	PowerStateEnumStopping     PowerStateEnum = "Stopping"
+	PowerStateEnumUnknown      PowerStateEnum = "Unknown"
+)
+
+// PossiblePowerStateEnumValues returns the possible values for the PowerStateEnum const type.
+func PossiblePowerStateEnumValues() []PowerStateEnum {
+	return []PowerStateEnum{
+		PowerStateEnumDeallocated,
+		PowerStateEnumDeallocating,
+		PowerStateEnumRunning,
+		PowerStateEnumStarting,
+		PowerStateEnumStopped,
+		PowerStateEnumStopping,
+		PowerStateEnumUnknown,
+	}
+}
+
+// ProvisioningAction - Defines the different types of operations for guest agent.
+type ProvisioningAction string
+
+const (
+	ProvisioningActionInstall   ProvisioningAction = "install"
+	ProvisioningActionRepair    ProvisioningAction = "repair"
+	ProvisioningActionUninstall ProvisioningAction = "uninstall"
+)
+
+// PossibleProvisioningActionValues returns the possible values for the ProvisioningAction const type.
+func PossibleProvisioningActionValues() []ProvisioningAction {
+	return []ProvisioningAction{
+		ProvisioningActionInstall,
+		ProvisioningActionRepair,
+		ProvisioningActionUninstall,
 	}
 }
 
@@ -717,6 +683,30 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 	}
 }
 
+// ProvisioningStateEnum - Provisioning state of the gallery image.
+type ProvisioningStateEnum string
+
+const (
+	ProvisioningStateEnumAccepted   ProvisioningStateEnum = "Accepted"
+	ProvisioningStateEnumCanceled   ProvisioningStateEnum = "Canceled"
+	ProvisioningStateEnumDeleting   ProvisioningStateEnum = "Deleting"
+	ProvisioningStateEnumFailed     ProvisioningStateEnum = "Failed"
+	ProvisioningStateEnumInProgress ProvisioningStateEnum = "InProgress"
+	ProvisioningStateEnumSucceeded  ProvisioningStateEnum = "Succeeded"
+)
+
+// PossibleProvisioningStateEnumValues returns the possible values for the ProvisioningStateEnum const type.
+func PossibleProvisioningStateEnumValues() []ProvisioningStateEnum {
+	return []ProvisioningStateEnum{
+		ProvisioningStateEnumAccepted,
+		ProvisioningStateEnumCanceled,
+		ProvisioningStateEnumDeleting,
+		ProvisioningStateEnumFailed,
+		ProvisioningStateEnumInProgress,
+		ProvisioningStateEnumSucceeded,
+	}
+}
+
 type RebootRequirement string
 
 const (
@@ -734,19 +724,20 @@ func PossibleRebootRequirementValues() []RebootRequirement {
 	}
 }
 
-// RemoteSupportType - Remote Support Type for cluster
-type RemoteSupportType string
+// SecurityTypes - Specifies the SecurityType of the virtual machine. EnableTPM and SecureBootEnabled must be set to true
+// for SecurityType to function.
+type SecurityTypes string
 
 const (
-	RemoteSupportTypeEnable RemoteSupportType = "Enable"
-	RemoteSupportTypeRevoke RemoteSupportType = "Revoke"
+	SecurityTypesConfidentialVM SecurityTypes = "ConfidentialVM"
+	SecurityTypesTrustedLaunch  SecurityTypes = "TrustedLaunch"
 )
 
-// PossibleRemoteSupportTypeValues returns the possible values for the RemoteSupportType const type.
-func PossibleRemoteSupportTypeValues() []RemoteSupportType {
-	return []RemoteSupportType{
-		RemoteSupportTypeEnable,
-		RemoteSupportTypeRevoke,
+// PossibleSecurityTypesValues returns the possible values for the SecurityTypes const type.
+func PossibleSecurityTypesValues() []SecurityTypes {
+	return []SecurityTypes{
+		SecurityTypesConfidentialVM,
+		SecurityTypesTrustedLaunch,
 	}
 }
 
@@ -913,6 +904,24 @@ func PossibleStatusLevelTypesValues() []StatusLevelTypes {
 	}
 }
 
+// StatusTypes - The installation status of the hybrid machine agent installation.
+type StatusTypes string
+
+const (
+	StatusTypesFailed     StatusTypes = "Failed"
+	StatusTypesInProgress StatusTypes = "InProgress"
+	StatusTypesSucceeded  StatusTypes = "Succeeded"
+)
+
+// PossibleStatusTypesValues returns the possible values for the StatusTypes const type.
+func PossibleStatusTypesValues() []StatusTypes {
+	return []StatusTypes{
+		StatusTypesFailed,
+		StatusTypesInProgress,
+		StatusTypesSucceeded,
+	}
+}
+
 // UpdateRunPropertiesState - State of the update run.
 type UpdateRunPropertiesState string
 
@@ -958,6 +967,63 @@ func PossibleUpdateSummariesPropertiesStateValues() []UpdateSummariesPropertiesS
 		UpdateSummariesPropertiesStateUpdateAvailable,
 		UpdateSummariesPropertiesStateUpdateFailed,
 		UpdateSummariesPropertiesStateUpdateInProgress,
+	}
+}
+
+type VMSizeEnum string
+
+const (
+	VMSizeEnumCustom         VMSizeEnum = "Custom"
+	VMSizeEnumDefault        VMSizeEnum = "Default"
+	VMSizeEnumStandardA2V2   VMSizeEnum = "Standard_A2_v2"
+	VMSizeEnumStandardA4V2   VMSizeEnum = "Standard_A4_v2"
+	VMSizeEnumStandardD16SV3 VMSizeEnum = "Standard_D16s_v3"
+	VMSizeEnumStandardD2SV3  VMSizeEnum = "Standard_D2s_v3"
+	VMSizeEnumStandardD32SV3 VMSizeEnum = "Standard_D32s_v3"
+	VMSizeEnumStandardD4SV3  VMSizeEnum = "Standard_D4s_v3"
+	VMSizeEnumStandardD8SV3  VMSizeEnum = "Standard_D8s_v3"
+	VMSizeEnumStandardDS13V2 VMSizeEnum = "Standard_DS13_v2"
+	VMSizeEnumStandardDS2V2  VMSizeEnum = "Standard_DS2_v2"
+	VMSizeEnumStandardDS3V2  VMSizeEnum = "Standard_DS3_v2"
+	VMSizeEnumStandardDS4V2  VMSizeEnum = "Standard_DS4_v2"
+	VMSizeEnumStandardDS5V2  VMSizeEnum = "Standard_DS5_v2"
+	VMSizeEnumStandardK8S2V1 VMSizeEnum = "Standard_K8S2_v1"
+	VMSizeEnumStandardK8S3V1 VMSizeEnum = "Standard_K8S3_v1"
+	VMSizeEnumStandardK8S4V1 VMSizeEnum = "Standard_K8S4_v1"
+	VMSizeEnumStandardK8S5V1 VMSizeEnum = "Standard_K8S5_v1"
+	VMSizeEnumStandardK8SV1  VMSizeEnum = "Standard_K8S_v1"
+	VMSizeEnumStandardNK12   VMSizeEnum = "Standard_NK12"
+	VMSizeEnumStandardNK6    VMSizeEnum = "Standard_NK6"
+	VMSizeEnumStandardNV12   VMSizeEnum = "Standard_NV12"
+	VMSizeEnumStandardNV6    VMSizeEnum = "Standard_NV6"
+)
+
+// PossibleVMSizeEnumValues returns the possible values for the VMSizeEnum const type.
+func PossibleVMSizeEnumValues() []VMSizeEnum {
+	return []VMSizeEnum{
+		VMSizeEnumCustom,
+		VMSizeEnumDefault,
+		VMSizeEnumStandardA2V2,
+		VMSizeEnumStandardA4V2,
+		VMSizeEnumStandardD16SV3,
+		VMSizeEnumStandardD2SV3,
+		VMSizeEnumStandardD32SV3,
+		VMSizeEnumStandardD4SV3,
+		VMSizeEnumStandardD8SV3,
+		VMSizeEnumStandardDS13V2,
+		VMSizeEnumStandardDS2V2,
+		VMSizeEnumStandardDS3V2,
+		VMSizeEnumStandardDS4V2,
+		VMSizeEnumStandardDS5V2,
+		VMSizeEnumStandardK8S2V1,
+		VMSizeEnumStandardK8S3V1,
+		VMSizeEnumStandardK8S4V1,
+		VMSizeEnumStandardK8S5V1,
+		VMSizeEnumStandardK8SV1,
+		VMSizeEnumStandardNK12,
+		VMSizeEnumStandardNK6,
+		VMSizeEnumStandardNV12,
+		VMSizeEnumStandardNV6,
 	}
 }
 

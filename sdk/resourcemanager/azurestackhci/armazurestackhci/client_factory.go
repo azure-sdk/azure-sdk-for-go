@@ -22,7 +22,7 @@ type ClientFactory struct {
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
@@ -75,6 +75,59 @@ func (c *ClientFactory) NewExtensionsClient() *ExtensionsClient {
 	}
 }
 
+// NewGalleryImagesClient creates a new instance of GalleryImagesClient.
+func (c *ClientFactory) NewGalleryImagesClient() *GalleryImagesClient {
+	return &GalleryImagesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewGuestAgentClient creates a new instance of GuestAgentClient.
+func (c *ClientFactory) NewGuestAgentClient() *GuestAgentClient {
+	return &GuestAgentClient{
+		internal: c.internal,
+	}
+}
+
+// NewGuestAgentsClient creates a new instance of GuestAgentsClient.
+func (c *ClientFactory) NewGuestAgentsClient() *GuestAgentsClient {
+	return &GuestAgentsClient{
+		internal: c.internal,
+	}
+}
+
+// NewHybridIdentityMetadataClient creates a new instance of HybridIdentityMetadataClient.
+func (c *ClientFactory) NewHybridIdentityMetadataClient() *HybridIdentityMetadataClient {
+	return &HybridIdentityMetadataClient{
+		internal: c.internal,
+	}
+}
+
+// NewLogicalNetworksClient creates a new instance of LogicalNetworksClient.
+func (c *ClientFactory) NewLogicalNetworksClient() *LogicalNetworksClient {
+	return &LogicalNetworksClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewMarketplaceGalleryImagesClient creates a new instance of MarketplaceGalleryImagesClient.
+func (c *ClientFactory) NewMarketplaceGalleryImagesClient() *MarketplaceGalleryImagesClient {
+	return &MarketplaceGalleryImagesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewNetworkInterfacesClient creates a new instance of NetworkInterfacesClient.
+func (c *ClientFactory) NewNetworkInterfacesClient() *NetworkInterfacesClient {
+	return &NetworkInterfacesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewOffersClient creates a new instance of OffersClient.
 func (c *ClientFactory) NewOffersClient() *OffersClient {
 	return &OffersClient{
@@ -114,6 +167,14 @@ func (c *ClientFactory) NewSecuritySettingsClient() *SecuritySettingsClient {
 	}
 }
 
+// NewStorageContainersClient creates a new instance of StorageContainersClient.
+func (c *ClientFactory) NewStorageContainersClient() *StorageContainersClient {
+	return &StorageContainersClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewUpdateRunsClient creates a new instance of UpdateRunsClient.
 func (c *ClientFactory) NewUpdateRunsClient() *UpdateRunsClient {
 	return &UpdateRunsClient{
@@ -135,5 +196,20 @@ func (c *ClientFactory) NewUpdatesClient() *UpdatesClient {
 	return &UpdatesClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
+	}
+}
+
+// NewVirtualHardDisksClient creates a new instance of VirtualHardDisksClient.
+func (c *ClientFactory) NewVirtualHardDisksClient() *VirtualHardDisksClient {
+	return &VirtualHardDisksClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewVirtualMachineInstancesClient creates a new instance of VirtualMachineInstancesClient.
+func (c *ClientFactory) NewVirtualMachineInstancesClient() *VirtualMachineInstancesClient {
+	return &VirtualMachineInstancesClient{
+		internal: c.internal,
 	}
 }
