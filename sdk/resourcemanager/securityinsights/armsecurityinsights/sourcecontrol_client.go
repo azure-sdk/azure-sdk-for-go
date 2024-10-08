@@ -28,7 +28,7 @@ type SourceControlClient struct {
 }
 
 // NewSourceControlClient creates a new instance of SourceControlClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewSourceControlClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SourceControlClient, error) {
@@ -45,13 +45,13 @@ func NewSourceControlClient(subscriptionID string, credential azcore.TokenCreden
 
 // NewListRepositoriesPager - Gets a list of repositories metadata.
 //
-// Generated from API version 2022-09-01-preview
+// Generated from API version 2024-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
-//   - repoType - The repo type.
+//   - repositoryAccess - The repository access credentials.
 //   - options - SourceControlClientListRepositoriesOptions contains the optional parameters for the SourceControlClient.NewListRepositoriesPager
 //     method.
-func (client *SourceControlClient) NewListRepositoriesPager(resourceGroupName string, workspaceName string, repoType RepoType, options *SourceControlClientListRepositoriesOptions) *runtime.Pager[SourceControlClientListRepositoriesResponse] {
+func (client *SourceControlClient) NewListRepositoriesPager(resourceGroupName string, workspaceName string, repositoryAccess RepositoryAccessProperties, options *SourceControlClientListRepositoriesOptions) *runtime.Pager[SourceControlClientListRepositoriesResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SourceControlClientListRepositoriesResponse]{
 		More: func(page SourceControlClientListRepositoriesResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
@@ -63,7 +63,7 @@ func (client *SourceControlClient) NewListRepositoriesPager(resourceGroupName st
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listRepositoriesCreateRequest(ctx, resourceGroupName, workspaceName, repoType, options)
+				return client.listRepositoriesCreateRequest(ctx, resourceGroupName, workspaceName, repositoryAccess, options)
 			}, nil)
 			if err != nil {
 				return SourceControlClientListRepositoriesResponse{}, err
@@ -75,7 +75,7 @@ func (client *SourceControlClient) NewListRepositoriesPager(resourceGroupName st
 }
 
 // listRepositoriesCreateRequest creates the ListRepositories request.
-func (client *SourceControlClient) listRepositoriesCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, repoType RepoType, options *SourceControlClientListRepositoriesOptions) (*policy.Request, error) {
+func (client *SourceControlClient) listRepositoriesCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, repositoryAccess RepositoryAccessProperties, options *SourceControlClientListRepositoriesOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/listRepositories"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -94,10 +94,10 @@ func (client *SourceControlClient) listRepositoriesCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01-preview")
+	reqQP.Set("api-version", "2024-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, repoType); err != nil {
+	if err := runtime.MarshalAsJSON(req, repositoryAccess); err != nil {
 		return nil, err
 	}
 	return req, nil
