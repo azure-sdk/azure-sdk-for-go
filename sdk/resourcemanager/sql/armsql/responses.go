@@ -547,6 +547,12 @@ type DistributedAvailabilityGroupsClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
+// DistributedAvailabilityGroupsClientFailoverResponse contains the response from method DistributedAvailabilityGroupsClient.BeginFailover.
+type DistributedAvailabilityGroupsClientFailoverResponse struct {
+	// Distributed availability group between box and Sql Managed Instance.
+	DistributedAvailabilityGroup
+}
+
 // DistributedAvailabilityGroupsClientGetResponse contains the response from method DistributedAvailabilityGroupsClient.Get.
 type DistributedAvailabilityGroupsClientGetResponse struct {
 	// Distributed availability group between box and Sql Managed Instance.
@@ -557,6 +563,12 @@ type DistributedAvailabilityGroupsClientGetResponse struct {
 type DistributedAvailabilityGroupsClientListByInstanceResponse struct {
 	// A list of distributed availability groups in instance.
 	DistributedAvailabilityGroupsListResult
+}
+
+// DistributedAvailabilityGroupsClientSetRoleResponse contains the response from method DistributedAvailabilityGroupsClient.BeginSetRole.
+type DistributedAvailabilityGroupsClientSetRoleResponse struct {
+	// Distributed availability group between box and Sql Managed Instance.
+	DistributedAvailabilityGroup
 }
 
 // DistributedAvailabilityGroupsClientUpdateResponse contains the response from method DistributedAvailabilityGroupsClient.BeginUpdate.
