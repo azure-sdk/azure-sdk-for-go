@@ -168,6 +168,7 @@ func (a AllocationRequestBaseProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "limit", a.Limit)
 	populate(objectMap, "name", a.Name)
 	populate(objectMap, "region", a.Region)
+	populate(objectMap, "resourceName", a.ResourceName)
 	return json.Marshal(objectMap)
 }
 
@@ -188,6 +189,9 @@ func (a *AllocationRequestBaseProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "region":
 			err = unpopulate(val, "Region", &a.Region)
+			delete(rawMsg, key)
+		case "resourceName":
+			err = unpopulate(val, "ResourceName", &a.ResourceName)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -857,6 +861,7 @@ func (g GroupQuotaRequestBaseProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "limit", g.Limit)
 	populate(objectMap, "name", g.Name)
 	populate(objectMap, "region", g.Region)
+	populate(objectMap, "resourceName", g.ResourceName)
 	return json.Marshal(objectMap)
 }
 
@@ -880,6 +885,9 @@ func (g *GroupQuotaRequestBaseProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "region":
 			err = unpopulate(val, "Region", &g.Region)
+			delete(rawMsg, key)
+		case "resourceName":
+			err = unpopulate(val, "ResourceName", &g.ResourceName)
 			delete(rawMsg, key)
 		}
 		if err != nil {

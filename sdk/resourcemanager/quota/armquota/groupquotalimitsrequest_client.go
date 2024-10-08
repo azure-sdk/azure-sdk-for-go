@@ -52,12 +52,11 @@ func NewGroupQuotaLimitsRequestClient(credential azcore.TokenCredential, options
 //   - groupQuotaName - The GroupQuota name. The name should be unique for the provided context tenantId/MgId.
 //   - resourceProviderName - The resource provider name, such as - Microsoft.Compute. Currently only Microsoft.Compute resource
 //     provider supports this API.
-//   - resourceName - Resource name.
 //   - options - GroupQuotaLimitsRequestClientBeginCreateOrUpdateOptions contains the optional parameters for the GroupQuotaLimitsRequestClient.BeginCreateOrUpdate
 //     method.
-func (client *GroupQuotaLimitsRequestClient) BeginCreateOrUpdate(ctx context.Context, managementGroupID string, groupQuotaName string, resourceProviderName string, resourceName string, options *GroupQuotaLimitsRequestClientBeginCreateOrUpdateOptions) (*runtime.Poller[GroupQuotaLimitsRequestClientCreateOrUpdateResponse], error) {
+func (client *GroupQuotaLimitsRequestClient) BeginCreateOrUpdate(ctx context.Context, managementGroupID string, groupQuotaName string, resourceProviderName string, options *GroupQuotaLimitsRequestClientBeginCreateOrUpdateOptions) (*runtime.Poller[GroupQuotaLimitsRequestClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, managementGroupID, groupQuotaName, resourceProviderName, resourceName, options)
+		resp, err := client.createOrUpdate(ctx, managementGroupID, groupQuotaName, resourceProviderName, options)
 		if err != nil {
 			return nil, err
 		}
@@ -81,13 +80,13 @@ func (client *GroupQuotaLimitsRequestClient) BeginCreateOrUpdate(ctx context.Con
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-06-01-preview
-func (client *GroupQuotaLimitsRequestClient) createOrUpdate(ctx context.Context, managementGroupID string, groupQuotaName string, resourceProviderName string, resourceName string, options *GroupQuotaLimitsRequestClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+func (client *GroupQuotaLimitsRequestClient) createOrUpdate(ctx context.Context, managementGroupID string, groupQuotaName string, resourceProviderName string, options *GroupQuotaLimitsRequestClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "GroupQuotaLimitsRequestClient.BeginCreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, managementGroupID, groupQuotaName, resourceProviderName, resourceName, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, managementGroupID, groupQuotaName, resourceProviderName, options)
 	if err != nil {
 		return nil, err
 	}
@@ -95,7 +94,7 @@ func (client *GroupQuotaLimitsRequestClient) createOrUpdate(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
 		err = runtime.NewResponseError(httpResp)
 		return nil, err
 	}
@@ -103,8 +102,8 @@ func (client *GroupQuotaLimitsRequestClient) createOrUpdate(ctx context.Context,
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *GroupQuotaLimitsRequestClient) createOrUpdateCreateRequest(ctx context.Context, managementGroupID string, groupQuotaName string, resourceProviderName string, resourceName string, options *GroupQuotaLimitsRequestClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/providers/Microsoft.Management/managementGroups/{managementGroupId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}/groupQuotaRequests/{resourceName}"
+func (client *GroupQuotaLimitsRequestClient) createOrUpdateCreateRequest(ctx context.Context, managementGroupID string, groupQuotaName string, resourceProviderName string, options *GroupQuotaLimitsRequestClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.Management/managementGroups/{managementGroupId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}/createLimitRequest"
 	if managementGroupID == "" {
 		return nil, errors.New("parameter managementGroupID cannot be empty")
 	}
@@ -117,11 +116,7 @@ func (client *GroupQuotaLimitsRequestClient) createOrUpdateCreateRequest(ctx con
 		return nil, errors.New("parameter resourceProviderName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceProviderName}", url.PathEscape(resourceProviderName))
-	if resourceName == "" {
-		return nil, errors.New("parameter resourceName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceName}", url.PathEscape(resourceName))
-	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
@@ -287,12 +282,11 @@ func (client *GroupQuotaLimitsRequestClient) listHandleResponse(resp *http.Respo
 //   - groupQuotaName - The GroupQuota name. The name should be unique for the provided context tenantId/MgId.
 //   - resourceProviderName - The resource provider name, such as - Microsoft.Compute. Currently only Microsoft.Compute resource
 //     provider supports this API.
-//   - resourceName - Resource name.
 //   - options - GroupQuotaLimitsRequestClientBeginUpdateOptions contains the optional parameters for the GroupQuotaLimitsRequestClient.BeginUpdate
 //     method.
-func (client *GroupQuotaLimitsRequestClient) BeginUpdate(ctx context.Context, managementGroupID string, groupQuotaName string, resourceProviderName string, resourceName string, options *GroupQuotaLimitsRequestClientBeginUpdateOptions) (*runtime.Poller[GroupQuotaLimitsRequestClientUpdateResponse], error) {
+func (client *GroupQuotaLimitsRequestClient) BeginUpdate(ctx context.Context, managementGroupID string, groupQuotaName string, resourceProviderName string, options *GroupQuotaLimitsRequestClientBeginUpdateOptions) (*runtime.Poller[GroupQuotaLimitsRequestClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.update(ctx, managementGroupID, groupQuotaName, resourceProviderName, resourceName, options)
+		resp, err := client.update(ctx, managementGroupID, groupQuotaName, resourceProviderName, options)
 		if err != nil {
 			return nil, err
 		}
@@ -316,13 +310,13 @@ func (client *GroupQuotaLimitsRequestClient) BeginUpdate(ctx context.Context, ma
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-06-01-preview
-func (client *GroupQuotaLimitsRequestClient) update(ctx context.Context, managementGroupID string, groupQuotaName string, resourceProviderName string, resourceName string, options *GroupQuotaLimitsRequestClientBeginUpdateOptions) (*http.Response, error) {
+func (client *GroupQuotaLimitsRequestClient) update(ctx context.Context, managementGroupID string, groupQuotaName string, resourceProviderName string, options *GroupQuotaLimitsRequestClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "GroupQuotaLimitsRequestClient.BeginUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateCreateRequest(ctx, managementGroupID, groupQuotaName, resourceProviderName, resourceName, options)
+	req, err := client.updateCreateRequest(ctx, managementGroupID, groupQuotaName, resourceProviderName, options)
 	if err != nil {
 		return nil, err
 	}
@@ -338,8 +332,8 @@ func (client *GroupQuotaLimitsRequestClient) update(ctx context.Context, managem
 }
 
 // updateCreateRequest creates the Update request.
-func (client *GroupQuotaLimitsRequestClient) updateCreateRequest(ctx context.Context, managementGroupID string, groupQuotaName string, resourceProviderName string, resourceName string, options *GroupQuotaLimitsRequestClientBeginUpdateOptions) (*policy.Request, error) {
-	urlPath := "/providers/Microsoft.Management/managementGroups/{managementGroupId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}/groupQuotaRequests/{resourceName}"
+func (client *GroupQuotaLimitsRequestClient) updateCreateRequest(ctx context.Context, managementGroupID string, groupQuotaName string, resourceProviderName string, options *GroupQuotaLimitsRequestClientBeginUpdateOptions) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.Management/managementGroups/{managementGroupId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/resourceProviders/{resourceProviderName}/createLimitRequest"
 	if managementGroupID == "" {
 		return nil, errors.New("parameter managementGroupID cannot be empty")
 	}
@@ -352,10 +346,6 @@ func (client *GroupQuotaLimitsRequestClient) updateCreateRequest(ctx context.Con
 		return nil, errors.New("parameter resourceProviderName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceProviderName}", url.PathEscape(resourceProviderName))
-	if resourceName == "" {
-		return nil, errors.New("parameter resourceName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceName}", url.PathEscape(resourceName))
 	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err

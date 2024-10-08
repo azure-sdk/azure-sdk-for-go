@@ -1,5 +1,19 @@
 # Release History
 
+## 1.1.0-beta.2 (2024-10-08)
+### Breaking Changes
+
+- Function `*GroupQuotaLimitsRequestClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, string, *GroupQuotaLimitsRequestClientBeginCreateOrUpdateOptions)` to `(context.Context, string, string, string, *GroupQuotaLimitsRequestClientBeginCreateOrUpdateOptions)`
+- Function `*GroupQuotaLimitsRequestClient.BeginUpdate` parameter(s) have been changed from `(context.Context, string, string, string, string, *GroupQuotaLimitsRequestClientBeginUpdateOptions)` to `(context.Context, string, string, string, *GroupQuotaLimitsRequestClientBeginUpdateOptions)`
+- Function `*GroupQuotaSubscriptionAllocationRequestClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, string, AllocationRequestStatus, *GroupQuotaSubscriptionAllocationRequestClientBeginCreateOrUpdateOptions)` to `(context.Context, string, string, string, AllocationRequestStatus, *GroupQuotaSubscriptionAllocationRequestClientBeginCreateOrUpdateOptions)`
+- Function `*GroupQuotaSubscriptionAllocationRequestClient.BeginUpdate` parameter(s) have been changed from `(context.Context, string, string, string, string, AllocationRequestStatus, *GroupQuotaSubscriptionAllocationRequestClientBeginUpdateOptions)` to `(context.Context, string, string, string, AllocationRequestStatus, *GroupQuotaSubscriptionAllocationRequestClientBeginUpdateOptions)`
+
+### Features Added
+
+- New field `ResourceName` in struct `AllocationRequestBaseProperties`
+- New field `ResourceName` in struct `GroupQuotaRequestBaseProperties`
+
+
 ## 1.1.0-beta.1 (2024-04-26)
 ### Features Added
 

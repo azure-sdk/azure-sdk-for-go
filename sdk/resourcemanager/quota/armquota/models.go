@@ -57,6 +57,9 @@ type AllocationRequestBaseProperties struct {
 	// The location for which the subscription is allocated
 	Region *string
 
+	// The resource name, such as SKU name.
+	ResourceName *string
+
 	// READ-ONLY; Name of the resource provided by the resource provider. This property is already included in the request URI,
 	// so it is a readonly property returned in the response.
 	Name *AllocationRequestBasePropertiesName
@@ -292,6 +295,9 @@ type GroupQuotaRequestBaseProperties struct {
 
 	// Location/Azure region for the quota requested for resource.
 	Region *string
+
+	// The resource name, such as SKU name.
+	ResourceName *string
 
 	// READ-ONLY; Name of the resource provided by the resource provider. This property is already included in the request URI,
 	// so it is a readonly property returned in the response.
