@@ -276,6 +276,15 @@ type BenchmarkReference struct {
 	Reference *string
 }
 
+// CertificateInfo - Certificate information
+type CertificateInfo struct {
+	// READ-ONLY; The certificate name
+	CertificateName *string
+
+	// READ-ONLY; The certificate expiry date
+	ExpiryDate *time.Time
+}
+
 // ChangeLongTermRetentionBackupAccessTierParameters - Contains the information necessary to change long term retention backup
 // access tier and related operation mode.
 type ChangeLongTermRetentionBackupAccessTierParameters struct {
@@ -1650,37 +1659,122 @@ type DistributedAvailabilityGroup struct {
 	Type *string
 }
 
-// DistributedAvailabilityGroupProperties - The properties of a distributed availability group.
-type DistributedAvailabilityGroupProperties struct {
-	// The primary availability group name
-	PrimaryAvailabilityGroupName *string
+// DistributedAvailabilityGroupDatabase - Database specific information
+type DistributedAvailabilityGroupDatabase struct {
+	// The name of the database in link
+	DatabaseName *string
 
-	// The replication mode of a distributed availability group. Parameter will be ignored during link creation.
-	ReplicationMode *ReplicationMode
+	// READ-ONLY; Link connected state
+	ConnectedState *ReplicaConnectedState
 
-	// The secondary availability group name
-	SecondaryAvailabilityGroupName *string
+	// READ-ONLY; Redo lag when Managed Instance link side is primary
+	InstanceRedoReplicationLagSeconds *int32
 
-	// The source endpoint
-	SourceEndpoint *string
+	// READ-ONLY; Managed instance replica id
+	InstanceReplicaID *string
 
-	// The name of the target database
-	TargetDatabase *string
+	// READ-ONLY; Replication lag when Managed Instance link side is primary
+	InstanceSendReplicationLagSeconds *int32
 
-	// READ-ONLY; The distributed availability group id
-	DistributedAvailabilityGroupID *string
+	// READ-ONLY; Last backup LSN
+	LastBackupLsn *string
 
-	// READ-ONLY; The last hardened lsn
+	// READ-ONLY; Last backup LSN time
+	LastBackupTime *time.Time
+
+	// READ-ONLY; Last commit LSN
+	LastCommitLsn *string
+
+	// READ-ONLY; Last commit LSN time
+	LastCommitTime *time.Time
+
+	// READ-ONLY; Last hardened LSN
 	LastHardenedLsn *string
 
-	// READ-ONLY; The link state
-	LinkState *string
+	// READ-ONLY; Last hardened LSN time
+	LastHardenedTime *time.Time
 
-	// READ-ONLY; The source replica id
-	SourceReplicaID *string
+	// READ-ONLY; Last received LSN
+	LastReceivedLsn *string
 
-	// READ-ONLY; The target replica id
-	TargetReplicaID *string
+	// READ-ONLY; Last received LSN time
+	LastReceivedTime *time.Time
+
+	// READ-ONLY; Last sent LSN
+	LastSentLsn *string
+
+	// READ-ONLY; Last sent LSN time
+	LastSentTime *time.Time
+
+	// READ-ONLY; The most recent link connection error description
+	MostRecentLinkError *string
+
+	// READ-ONLY; SQL server certificate validity
+	PartnerAuthCertValidity *CertificateInfo
+
+	// READ-ONLY; SQL server replica id
+	PartnerReplicaID *string
+
+	// READ-ONLY; Current link state
+	ReplicaState *string
+
+	// READ-ONLY; Seeding progress
+	SeedingProgress *string
+
+	// READ-ONLY; Link health state
+	SynchronizationHealth *ReplicaSynchronizationHealth
+}
+
+// DistributedAvailabilityGroupProperties - The properties of a distributed availability group.
+type DistributedAvailabilityGroupProperties struct {
+	// Databases in the distributed availability group
+	Databases []*DistributedAvailabilityGroupDatabase
+
+	// The link failover mode - can be Manual if intended to be used for two-way failover with a supported SQL Server, or None
+	// for one-way failover to Azure.
+	FailoverMode *FailoverModeType
+
+	// Managed instance side availability group name
+	InstanceAvailabilityGroupName *string
+
+	// Managed instance side link role
+	InstanceLinkRole *LinkRole
+
+	// SQL server side availability group name
+	PartnerAvailabilityGroupName *string
+
+	// SQL server side endpoint - IP or DNS resolvable name
+	PartnerEndpoint *string
+
+	// Replication mode of the link
+	ReplicationMode *ReplicationModeType
+
+	// Database seeding mode – can be Automatic (default), or Manual for supported scenarios.
+	SeedingMode *SeedingModeType
+
+	// READ-ONLY; ID of the distributed availability group
+	DistributedAvailabilityGroupID *string
+
+	// READ-ONLY; Name of the distributed availability group
+	DistributedAvailabilityGroupName *string
+
+	// READ-ONLY; SQL server side link role
+	PartnerLinkRole *LinkRole
+}
+
+// DistributedAvailabilityGroupSetRole - Distributed availability group failover request.
+type DistributedAvailabilityGroupSetRole struct {
+	// REQUIRED; New role of managed instance in a distributed availability group, can be Primary or Secondary.
+	InstanceRole *InstanceRole
+
+	// REQUIRED; The type of the role change, can be Planned or Forced.
+	RoleChangeType *RoleChangeType
+}
+
+// DistributedAvailabilityGroupsFailoverRequest - Distributed availability group failover.
+type DistributedAvailabilityGroupsFailoverRequest struct {
+	// REQUIRED; The failover type, can be ForcedAllowDataLoss or Planned.
+	FailoverType *FailoverType
 }
 
 // DistributedAvailabilityGroupsListResult - A list of distributed availability groups in instance.
