@@ -19,9 +19,14 @@ import (
 
 // ServerFactory is a fake server for instances of the armhybridconnectivity.ClientFactory type.
 type ServerFactory struct {
-	EndpointsServer             EndpointsServer
-	OperationsServer            OperationsServer
-	ServiceConfigurationsServer ServiceConfigurationsServer
+	EndpointsServer              EndpointsServer
+	GenerateAwsTemplateServer    GenerateAwsTemplateServer
+	InventoryServer              InventoryServer
+	OperationsServer             OperationsServer
+	PublicCloudConnectorsServer  PublicCloudConnectorsServer
+	ServiceConfigurationsServer  ServiceConfigurationsServer
+	SolutionConfigurationsServer SolutionConfigurationsServer
+	SolutionTypesServer          SolutionTypesServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -36,11 +41,16 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armhybridconnectivity.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                           *ServerFactory
-	trMu                          sync.Mutex
-	trEndpointsServer             *EndpointsServerTransport
-	trOperationsServer            *OperationsServerTransport
-	trServiceConfigurationsServer *ServiceConfigurationsServerTransport
+	srv                            *ServerFactory
+	trMu                           sync.Mutex
+	trEndpointsServer              *EndpointsServerTransport
+	trGenerateAwsTemplateServer    *GenerateAwsTemplateServerTransport
+	trInventoryServer              *InventoryServerTransport
+	trOperationsServer             *OperationsServerTransport
+	trPublicCloudConnectorsServer  *PublicCloudConnectorsServerTransport
+	trServiceConfigurationsServer  *ServiceConfigurationsServerTransport
+	trSolutionConfigurationsServer *SolutionConfigurationsServerTransport
+	trSolutionTypesServer          *SolutionTypesServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -59,14 +69,37 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "EndpointsClient":
 		initServer(s, &s.trEndpointsServer, func() *EndpointsServerTransport { return NewEndpointsServerTransport(&s.srv.EndpointsServer) })
 		resp, err = s.trEndpointsServer.Do(req)
+	case "GenerateAwsTemplateClient":
+		initServer(s, &s.trGenerateAwsTemplateServer, func() *GenerateAwsTemplateServerTransport {
+			return NewGenerateAwsTemplateServerTransport(&s.srv.GenerateAwsTemplateServer)
+		})
+		resp, err = s.trGenerateAwsTemplateServer.Do(req)
+	case "InventoryClient":
+		initServer(s, &s.trInventoryServer, func() *InventoryServerTransport { return NewInventoryServerTransport(&s.srv.InventoryServer) })
+		resp, err = s.trInventoryServer.Do(req)
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
+	case "PublicCloudConnectorsClient":
+		initServer(s, &s.trPublicCloudConnectorsServer, func() *PublicCloudConnectorsServerTransport {
+			return NewPublicCloudConnectorsServerTransport(&s.srv.PublicCloudConnectorsServer)
+		})
+		resp, err = s.trPublicCloudConnectorsServer.Do(req)
 	case "ServiceConfigurationsClient":
 		initServer(s, &s.trServiceConfigurationsServer, func() *ServiceConfigurationsServerTransport {
 			return NewServiceConfigurationsServerTransport(&s.srv.ServiceConfigurationsServer)
 		})
 		resp, err = s.trServiceConfigurationsServer.Do(req)
+	case "SolutionConfigurationsClient":
+		initServer(s, &s.trSolutionConfigurationsServer, func() *SolutionConfigurationsServerTransport {
+			return NewSolutionConfigurationsServerTransport(&s.srv.SolutionConfigurationsServer)
+		})
+		resp, err = s.trSolutionConfigurationsServer.Do(req)
+	case "SolutionTypesClient":
+		initServer(s, &s.trSolutionTypesServer, func() *SolutionTypesServerTransport {
+			return NewSolutionTypesServerTransport(&s.srv.SolutionTypesServer)
+		})
+		resp, err = s.trSolutionTypesServer.Do(req)
 	default:
 		err = fmt.Errorf("unhandled client %s", client)
 	}
