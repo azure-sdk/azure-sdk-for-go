@@ -16,9 +16,10 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/scvmm/armscvmm"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/scvmm/armscvmm/v2"
 	"net/http"
 	"net/url"
+	"reflect"
 	"regexp"
 )
 
@@ -62,7 +63,7 @@ type VirtualMachineInstancesServer struct {
 
 	// BeginStop is the fake for method VirtualMachineInstancesClient.BeginStop
 	// HTTP status codes to indicate success: http.StatusAccepted
-	BeginStop func(ctx context.Context, resourceURI string, body armscvmm.StopVirtualMachineOptions, options *armscvmm.VirtualMachineInstancesClientBeginStopOptions) (resp azfake.PollerResponder[armscvmm.VirtualMachineInstancesClientStopResponse], errResp azfake.ErrorResponder)
+	BeginStop func(ctx context.Context, resourceURI string, options *armscvmm.VirtualMachineInstancesClientBeginStopOptions) (resp azfake.PollerResponder[armscvmm.VirtualMachineInstancesClientStopResponse], errResp azfake.ErrorResponder)
 
 	// BeginUpdate is the fake for method VirtualMachineInstancesClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
@@ -549,7 +550,13 @@ func (v *VirtualMachineInstancesServerTransport) dispatchBeginStop(req *http.Req
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := v.srv.BeginStop(req.Context(), resourceURIParam, body, nil)
+		var options *armscvmm.VirtualMachineInstancesClientBeginStopOptions
+		if !reflect.ValueOf(body).IsZero() {
+			options = &armscvmm.VirtualMachineInstancesClientBeginStopOptions{
+				Body: &body,
+			}
+		}
+		respr, errRespr := v.srv.BeginStop(req.Context(), resourceURIParam, options)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
