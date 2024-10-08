@@ -25,8 +25,8 @@ import (
 // GroupQuotaSubscriptionAllocationRequestServer is a fake server for instances of the armquota.GroupQuotaSubscriptionAllocationRequestClient type.
 type GroupQuotaSubscriptionAllocationRequestServer struct {
 	// BeginCreateOrUpdate is the fake for method GroupQuotaSubscriptionAllocationRequestClient.BeginCreateOrUpdate
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	BeginCreateOrUpdate func(ctx context.Context, managementGroupID string, groupQuotaName string, resourceProviderName string, resourceName string, allocateQuotaRequest armquota.AllocationRequestStatus, options *armquota.GroupQuotaSubscriptionAllocationRequestClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armquota.GroupQuotaSubscriptionAllocationRequestClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginCreateOrUpdate func(ctx context.Context, managementGroupID string, groupQuotaName string, resourceProviderName string, allocateQuotaRequest armquota.AllocationRequestStatus, options *armquota.GroupQuotaSubscriptionAllocationRequestClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armquota.GroupQuotaSubscriptionAllocationRequestClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method GroupQuotaSubscriptionAllocationRequestClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
@@ -38,7 +38,7 @@ type GroupQuotaSubscriptionAllocationRequestServer struct {
 
 	// BeginUpdate is the fake for method GroupQuotaSubscriptionAllocationRequestClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginUpdate func(ctx context.Context, managementGroupID string, groupQuotaName string, resourceProviderName string, resourceName string, allocateQuotaRequest armquota.AllocationRequestStatus, options *armquota.GroupQuotaSubscriptionAllocationRequestClientBeginUpdateOptions) (resp azfake.PollerResponder[armquota.GroupQuotaSubscriptionAllocationRequestClientUpdateResponse], errResp azfake.ErrorResponder)
+	BeginUpdate func(ctx context.Context, managementGroupID string, groupQuotaName string, resourceProviderName string, allocateQuotaRequest armquota.AllocationRequestStatus, options *armquota.GroupQuotaSubscriptionAllocationRequestClientBeginUpdateOptions) (resp azfake.PollerResponder[armquota.GroupQuotaSubscriptionAllocationRequestClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewGroupQuotaSubscriptionAllocationRequestServerTransport creates a new instance of GroupQuotaSubscriptionAllocationRequestServerTransport with the provided implementation.
@@ -99,10 +99,10 @@ func (g *GroupQuotaSubscriptionAllocationRequestServerTransport) dispatchBeginCr
 	}
 	beginCreateOrUpdate := g.beginCreateOrUpdate.get(req)
 	if beginCreateOrUpdate == nil {
-		const regexStr = `/providers/Microsoft\.Management/managementGroups/(?P<managementGroupId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Quota/groupQuotas/(?P<groupQuotaName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceProviders/(?P<resourceProviderName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/quotaAllocationRequests/(?P<resourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+		const regexStr = `/providers/Microsoft\.Management/managementGroups/(?P<managementGroupId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Quota/groupQuotas/(?P<groupQuotaName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceProviders/(?P<resourceProviderName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/createAllocationRequest`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 5 {
+		if matches == nil || len(matches) < 4 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		body, err := server.UnmarshalRequestAsJSON[armquota.AllocationRequestStatus](req)
@@ -121,11 +121,7 @@ func (g *GroupQuotaSubscriptionAllocationRequestServerTransport) dispatchBeginCr
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := g.srv.BeginCreateOrUpdate(req.Context(), managementGroupIDParam, groupQuotaNameParam, resourceProviderNameParam, resourceNameParam, body, nil)
+		respr, errRespr := g.srv.BeginCreateOrUpdate(req.Context(), managementGroupIDParam, groupQuotaNameParam, resourceProviderNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -138,9 +134,9 @@ func (g *GroupQuotaSubscriptionAllocationRequestServerTransport) dispatchBeginCr
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusCreated}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
 		g.beginCreateOrUpdate.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginCreateOrUpdate) {
 		g.beginCreateOrUpdate.remove(req)
@@ -242,10 +238,10 @@ func (g *GroupQuotaSubscriptionAllocationRequestServerTransport) dispatchBeginUp
 	}
 	beginUpdate := g.beginUpdate.get(req)
 	if beginUpdate == nil {
-		const regexStr = `/providers/Microsoft\.Management/managementGroups/(?P<managementGroupId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Quota/groupQuotas/(?P<groupQuotaName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceProviders/(?P<resourceProviderName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/quotaAllocationRequests/(?P<resourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+		const regexStr = `/providers/Microsoft\.Management/managementGroups/(?P<managementGroupId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Quota/groupQuotas/(?P<groupQuotaName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceProviders/(?P<resourceProviderName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/createAllocationRequest`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 5 {
+		if matches == nil || len(matches) < 4 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		body, err := server.UnmarshalRequestAsJSON[armquota.AllocationRequestStatus](req)
@@ -264,11 +260,7 @@ func (g *GroupQuotaSubscriptionAllocationRequestServerTransport) dispatchBeginUp
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := g.srv.BeginUpdate(req.Context(), managementGroupIDParam, groupQuotaNameParam, resourceProviderNameParam, resourceNameParam, body, nil)
+		respr, errRespr := g.srv.BeginUpdate(req.Context(), managementGroupIDParam, groupQuotaNameParam, resourceProviderNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
