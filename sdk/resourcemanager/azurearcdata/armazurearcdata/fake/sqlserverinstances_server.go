@@ -19,6 +19,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/azurearcdata/armazurearcdata"
 	"net/http"
 	"net/url"
+	"reflect"
 	"regexp"
 )
 
@@ -36,6 +37,14 @@ type SQLServerInstancesServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, sqlServerInstanceName string, options *armazurearcdata.SQLServerInstancesClientGetOptions) (resp azfake.Responder[armazurearcdata.SQLServerInstancesClientGetResponse], errResp azfake.ErrorResponder)
 
+	// GetJobsStatus is the fake for method SQLServerInstancesClient.GetJobsStatus
+	// HTTP status codes to indicate success: http.StatusOK
+	GetJobsStatus func(ctx context.Context, resourceGroupName string, sqlServerInstanceName string, options *armazurearcdata.SQLServerInstancesClientGetJobsStatusOptions) (resp azfake.Responder[armazurearcdata.SQLServerInstancesClientGetJobsStatusResponse], errResp azfake.ErrorResponder)
+
+	// BeginGetTelemetry is the fake for method SQLServerInstancesClient.BeginGetTelemetry
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginGetTelemetry func(ctx context.Context, resourceGroupName string, sqlServerInstanceName string, sqlServerInstanceTelemetryRequest armazurearcdata.SQLServerInstanceTelemetryRequest, options *armazurearcdata.SQLServerInstancesClientBeginGetTelemetryOptions) (resp azfake.PollerResponder[azfake.PagerResponder[armazurearcdata.SQLServerInstancesClientGetTelemetryResponse]], errResp azfake.ErrorResponder)
+
 	// NewListPager is the fake for method SQLServerInstancesClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListPager func(options *armazurearcdata.SQLServerInstancesClientListOptions) (resp azfake.PagerResponder[armazurearcdata.SQLServerInstancesClientListResponse])
@@ -44,9 +53,21 @@ type SQLServerInstancesServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListByResourceGroupPager func(resourceGroupName string, options *armazurearcdata.SQLServerInstancesClientListByResourceGroupOptions) (resp azfake.PagerResponder[armazurearcdata.SQLServerInstancesClientListByResourceGroupResponse])
 
-	// Update is the fake for method SQLServerInstancesClient.Update
+	// PostUpgrade is the fake for method SQLServerInstancesClient.PostUpgrade
 	// HTTP status codes to indicate success: http.StatusOK
-	Update func(ctx context.Context, resourceGroupName string, sqlServerInstanceName string, parameters armazurearcdata.SQLServerInstanceUpdate, options *armazurearcdata.SQLServerInstancesClientUpdateOptions) (resp azfake.Responder[armazurearcdata.SQLServerInstancesClientUpdateResponse], errResp azfake.ErrorResponder)
+	PostUpgrade func(ctx context.Context, resourceGroupName string, sqlServerInstanceName string, options *armazurearcdata.SQLServerInstancesClientPostUpgradeOptions) (resp azfake.Responder[armazurearcdata.SQLServerInstancesClientPostUpgradeResponse], errResp azfake.ErrorResponder)
+
+	// PreUpgrade is the fake for method SQLServerInstancesClient.PreUpgrade
+	// HTTP status codes to indicate success: http.StatusOK
+	PreUpgrade func(ctx context.Context, resourceGroupName string, sqlServerInstanceName string, options *armazurearcdata.SQLServerInstancesClientPreUpgradeOptions) (resp azfake.Responder[armazurearcdata.SQLServerInstancesClientPreUpgradeResponse], errResp azfake.ErrorResponder)
+
+	// RunMigrationAssessment is the fake for method SQLServerInstancesClient.RunMigrationAssessment
+	// HTTP status codes to indicate success: http.StatusOK
+	RunMigrationAssessment func(ctx context.Context, resourceGroupName string, sqlServerInstanceName string, options *armazurearcdata.SQLServerInstancesClientRunMigrationAssessmentOptions) (resp azfake.Responder[armazurearcdata.SQLServerInstancesClientRunMigrationAssessmentResponse], errResp azfake.ErrorResponder)
+
+	// BeginUpdate is the fake for method SQLServerInstancesClient.BeginUpdate
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginUpdate func(ctx context.Context, resourceGroupName string, sqlServerInstanceName string, parameters armazurearcdata.SQLServerInstanceUpdate, options *armazurearcdata.SQLServerInstancesClientBeginUpdateOptions) (resp azfake.PollerResponder[armazurearcdata.SQLServerInstancesClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewSQLServerInstancesServerTransport creates a new instance of SQLServerInstancesServerTransport with the provided implementation.
@@ -57,8 +78,10 @@ func NewSQLServerInstancesServerTransport(srv *SQLServerInstancesServer) *SQLSer
 		srv:                         srv,
 		beginCreate:                 newTracker[azfake.PollerResponder[armazurearcdata.SQLServerInstancesClientCreateResponse]](),
 		beginDelete:                 newTracker[azfake.PollerResponder[armazurearcdata.SQLServerInstancesClientDeleteResponse]](),
+		beginGetTelemetry:           newTracker[azfake.PollerResponder[azfake.PagerResponder[armazurearcdata.SQLServerInstancesClientGetTelemetryResponse]]](),
 		newListPager:                newTracker[azfake.PagerResponder[armazurearcdata.SQLServerInstancesClientListResponse]](),
 		newListByResourceGroupPager: newTracker[azfake.PagerResponder[armazurearcdata.SQLServerInstancesClientListByResourceGroupResponse]](),
+		beginUpdate:                 newTracker[azfake.PollerResponder[armazurearcdata.SQLServerInstancesClientUpdateResponse]](),
 	}
 }
 
@@ -68,8 +91,10 @@ type SQLServerInstancesServerTransport struct {
 	srv                         *SQLServerInstancesServer
 	beginCreate                 *tracker[azfake.PollerResponder[armazurearcdata.SQLServerInstancesClientCreateResponse]]
 	beginDelete                 *tracker[azfake.PollerResponder[armazurearcdata.SQLServerInstancesClientDeleteResponse]]
+	beginGetTelemetry           *tracker[azfake.PollerResponder[azfake.PagerResponder[armazurearcdata.SQLServerInstancesClientGetTelemetryResponse]]]
 	newListPager                *tracker[azfake.PagerResponder[armazurearcdata.SQLServerInstancesClientListResponse]]
 	newListByResourceGroupPager *tracker[azfake.PagerResponder[armazurearcdata.SQLServerInstancesClientListByResourceGroupResponse]]
+	beginUpdate                 *tracker[azfake.PollerResponder[armazurearcdata.SQLServerInstancesClientUpdateResponse]]
 }
 
 // Do implements the policy.Transporter interface for SQLServerInstancesServerTransport.
@@ -90,12 +115,22 @@ func (s *SQLServerInstancesServerTransport) Do(req *http.Request) (*http.Respons
 		resp, err = s.dispatchBeginDelete(req)
 	case "SQLServerInstancesClient.Get":
 		resp, err = s.dispatchGet(req)
+	case "SQLServerInstancesClient.GetJobsStatus":
+		resp, err = s.dispatchGetJobsStatus(req)
+	case "SQLServerInstancesClient.BeginGetTelemetry":
+		resp, err = s.dispatchBeginGetTelemetry(req)
 	case "SQLServerInstancesClient.NewListPager":
 		resp, err = s.dispatchNewListPager(req)
 	case "SQLServerInstancesClient.NewListByResourceGroupPager":
 		resp, err = s.dispatchNewListByResourceGroupPager(req)
-	case "SQLServerInstancesClient.Update":
-		resp, err = s.dispatchUpdate(req)
+	case "SQLServerInstancesClient.PostUpgrade":
+		resp, err = s.dispatchPostUpgrade(req)
+	case "SQLServerInstancesClient.PreUpgrade":
+		resp, err = s.dispatchPreUpgrade(req)
+	case "SQLServerInstancesClient.RunMigrationAssessment":
+		resp, err = s.dispatchRunMigrationAssessment(req)
+	case "SQLServerInstancesClient.BeginUpdate":
+		resp, err = s.dispatchBeginUpdate(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -232,6 +267,97 @@ func (s *SQLServerInstancesServerTransport) dispatchGet(req *http.Request) (*htt
 	return resp, nil
 }
 
+func (s *SQLServerInstancesServerTransport) dispatchGetJobsStatus(req *http.Request) (*http.Response, error) {
+	if s.srv.GetJobsStatus == nil {
+		return nil, &nonRetriableError{errors.New("fake for method GetJobsStatus not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AzureArcData/sqlServerInstances/(?P<sqlServerInstanceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/getJobsStatus`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armazurearcdata.SQLServerInstanceJobsStatusRequest](req)
+	if err != nil {
+		return nil, err
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	sqlServerInstanceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("sqlServerInstanceName")])
+	if err != nil {
+		return nil, err
+	}
+	var options *armazurearcdata.SQLServerInstancesClientGetJobsStatusOptions
+	if !reflect.ValueOf(body).IsZero() {
+		options = &armazurearcdata.SQLServerInstancesClientGetJobsStatusOptions{
+			SQLServerInstanceJobsStatusRequest: &body,
+		}
+	}
+	respr, errRespr := s.srv.GetJobsStatus(req.Context(), resourceGroupNameParam, sqlServerInstanceNameParam, options)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SQLServerInstanceJobsStatusResponse, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (s *SQLServerInstancesServerTransport) dispatchBeginGetTelemetry(req *http.Request) (*http.Response, error) {
+	if s.srv.BeginGetTelemetry == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginGetTelemetry not implemented")}
+	}
+	beginGetTelemetry := s.beginGetTelemetry.get(req)
+	if beginGetTelemetry == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AzureArcData/sqlServerInstances/(?P<sqlServerInstanceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/getTelemetry`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armazurearcdata.SQLServerInstanceTelemetryRequest](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		sqlServerInstanceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("sqlServerInstanceName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := s.srv.BeginGetTelemetry(req.Context(), resourceGroupNameParam, sqlServerInstanceNameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginGetTelemetry = &respr
+		s.beginGetTelemetry.add(req, beginGetTelemetry)
+	}
+
+	resp, err := server.PollerResponderNext(beginGetTelemetry, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		s.beginGetTelemetry.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginGetTelemetry) {
+		s.beginGetTelemetry.remove(req)
+	}
+
+	return resp, nil
+}
+
 func (s *SQLServerInstancesServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
 	if s.srv.NewListPager == nil {
 		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
@@ -302,19 +428,15 @@ func (s *SQLServerInstancesServerTransport) dispatchNewListByResourceGroupPager(
 	return resp, nil
 }
 
-func (s *SQLServerInstancesServerTransport) dispatchUpdate(req *http.Request) (*http.Response, error) {
-	if s.srv.Update == nil {
-		return nil, &nonRetriableError{errors.New("fake for method Update not implemented")}
+func (s *SQLServerInstancesServerTransport) dispatchPostUpgrade(req *http.Request) (*http.Response, error) {
+	if s.srv.PostUpgrade == nil {
+		return nil, &nonRetriableError{errors.New("fake for method PostUpgrade not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AzureArcData/sqlServerInstances/(?P<sqlServerInstanceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AzureArcData/sqlServerInstances/(?P<sqlServerInstanceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/postUpgrade`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 3 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	body, err := server.UnmarshalRequestAsJSON[armazurearcdata.SQLServerInstanceUpdate](req)
-	if err != nil {
-		return nil, err
 	}
 	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
@@ -324,7 +446,7 @@ func (s *SQLServerInstancesServerTransport) dispatchUpdate(req *http.Request) (*
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := s.srv.Update(req.Context(), resourceGroupNameParam, sqlServerInstanceNameParam, body, nil)
+	respr, errRespr := s.srv.PostUpgrade(req.Context(), resourceGroupNameParam, sqlServerInstanceNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -336,5 +458,119 @@ func (s *SQLServerInstancesServerTransport) dispatchUpdate(req *http.Request) (*
 	if err != nil {
 		return nil, err
 	}
+	return resp, nil
+}
+
+func (s *SQLServerInstancesServerTransport) dispatchPreUpgrade(req *http.Request) (*http.Response, error) {
+	if s.srv.PreUpgrade == nil {
+		return nil, &nonRetriableError{errors.New("fake for method PreUpgrade not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AzureArcData/sqlServerInstances/(?P<sqlServerInstanceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/preUpgrade`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	sqlServerInstanceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("sqlServerInstanceName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := s.srv.PreUpgrade(req.Context(), resourceGroupNameParam, sqlServerInstanceNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SQLServerInstance, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (s *SQLServerInstancesServerTransport) dispatchRunMigrationAssessment(req *http.Request) (*http.Response, error) {
+	if s.srv.RunMigrationAssessment == nil {
+		return nil, &nonRetriableError{errors.New("fake for method RunMigrationAssessment not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AzureArcData/sqlServerInstances/(?P<sqlServerInstanceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/runMigrationAssessment`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	sqlServerInstanceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("sqlServerInstanceName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := s.srv.RunMigrationAssessment(req.Context(), resourceGroupNameParam, sqlServerInstanceNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SQLServerInstanceRunMigrationAssessmentResponse, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (s *SQLServerInstancesServerTransport) dispatchBeginUpdate(req *http.Request) (*http.Response, error) {
+	if s.srv.BeginUpdate == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginUpdate not implemented")}
+	}
+	beginUpdate := s.beginUpdate.get(req)
+	if beginUpdate == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AzureArcData/sqlServerInstances/(?P<sqlServerInstanceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armazurearcdata.SQLServerInstanceUpdate](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		sqlServerInstanceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("sqlServerInstanceName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := s.srv.BeginUpdate(req.Context(), resourceGroupNameParam, sqlServerInstanceNameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginUpdate = &respr
+		s.beginUpdate.add(req, beginUpdate)
+	}
+
+	resp, err := server.PollerResponderNext(beginUpdate, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		s.beginUpdate.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginUpdate) {
+		s.beginUpdate.remove(req)
+	}
+
 	return resp, nil
 }
