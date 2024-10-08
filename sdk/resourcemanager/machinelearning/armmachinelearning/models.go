@@ -1283,8 +1283,9 @@ type BatchEndpointDefaults struct {
 
 // BatchEndpointProperties - Batch endpoint configuration.
 type BatchEndpointProperties struct {
-	// REQUIRED; [Required] Use 'Key' for key based authentication and 'AMLToken' for Azure Machine Learning token-based authentication.
-	// 'Key' doesn't expire but 'AMLToken' does.
+	// REQUIRED; [Required] The authentication method for invoking the endpoint (data plane operation). Use 'key' for key-based
+	// authentication. Use 'amltoken' for Azure Machine Learning token-based authentication. Use
+	// 'aadtoken' for Microsoft Entra token-based authentication.
 	AuthMode *EndpointAuthMode
 
 	// Default values for Batch Endpoint
@@ -3479,8 +3480,9 @@ type EndpointDeploymentPropertiesBase struct {
 
 // EndpointPropertiesBase - Inference Endpoint base definition
 type EndpointPropertiesBase struct {
-	// REQUIRED; [Required] Use 'Key' for key based authentication and 'AMLToken' for Azure Machine Learning token-based authentication.
-	// 'Key' doesn't expire but 'AMLToken' does.
+	// REQUIRED; [Required] The authentication method for invoking the endpoint (data plane operation). Use 'key' for key-based
+	// authentication. Use 'amltoken' for Azure Machine Learning token-based authentication. Use
+	// 'aadtoken' for Microsoft Entra token-based authentication.
 	AuthMode *EndpointAuthMode
 
 	// Description of the inference endpoint.
@@ -7220,8 +7222,9 @@ type OnlineEndpoint struct {
 
 // OnlineEndpointProperties - Online endpoint configuration
 type OnlineEndpointProperties struct {
-	// REQUIRED; [Required] Use 'Key' for key based authentication and 'AMLToken' for Azure Machine Learning token-based authentication.
-	// 'Key' doesn't expire but 'AMLToken' does.
+	// REQUIRED; [Required] The authentication method for invoking the endpoint (data plane operation). Use 'key' for key-based
+	// authentication. Use 'amltoken' for Azure Machine Learning token-based authentication. Use
+	// 'aadtoken' for Microsoft Entra token-based authentication.
 	AuthMode *EndpointAuthMode
 
 	// ARM resource ID of the compute if it exists. optional

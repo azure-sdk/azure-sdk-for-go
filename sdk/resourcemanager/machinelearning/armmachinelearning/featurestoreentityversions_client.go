@@ -47,7 +47,7 @@ func NewFeaturestoreEntityVersionsClient(subscriptionID string, credential azcor
 // BeginCreateOrUpdate - Create or update version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - name - Container name. This is case-sensitive.
@@ -76,7 +76,7 @@ func (client *FeaturestoreEntityVersionsClient) BeginCreateOrUpdate(ctx context.
 // CreateOrUpdate - Create or update version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-10-01
 func (client *FeaturestoreEntityVersionsClient) createOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, body FeaturestoreEntityVersion, options *FeaturestoreEntityVersionsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "FeaturestoreEntityVersionsClient.BeginCreateOrUpdate"
@@ -126,7 +126,7 @@ func (client *FeaturestoreEntityVersionsClient) createOrUpdateCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -138,7 +138,7 @@ func (client *FeaturestoreEntityVersionsClient) createOrUpdateCreateRequest(ctx 
 // BeginDelete - Delete version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - name - Container name. This is case-sensitive.
@@ -166,7 +166,7 @@ func (client *FeaturestoreEntityVersionsClient) BeginDelete(ctx context.Context,
 // Delete - Delete version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-10-01
 func (client *FeaturestoreEntityVersionsClient) deleteOperation(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *FeaturestoreEntityVersionsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "FeaturestoreEntityVersionsClient.BeginDelete"
@@ -216,7 +216,7 @@ func (client *FeaturestoreEntityVersionsClient) deleteCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -225,7 +225,7 @@ func (client *FeaturestoreEntityVersionsClient) deleteCreateRequest(ctx context.
 // Get - Get version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - name - Container name. This is case-sensitive.
@@ -282,7 +282,7 @@ func (client *FeaturestoreEntityVersionsClient) getCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -299,7 +299,7 @@ func (client *FeaturestoreEntityVersionsClient) getHandleResponse(resp *http.Res
 
 // NewListPager - List versions.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - name - Feature entity name. This is case-sensitive.
@@ -355,7 +355,7 @@ func (client *FeaturestoreEntityVersionsClient) listCreateRequest(ctx context.Co
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", *options.Skip)
 	}
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-10-01")
 	if options != nil && options.CreatedBy != nil {
 		reqQP.Set("createdBy", *options.CreatedBy)
 	}
