@@ -1293,6 +1293,18 @@ type OperationListResult struct {
 	Value []*Operation
 }
 
+// PIMOnlyModeSettings - The PIM Only Mode settings.
+type PIMOnlyModeSettings struct {
+	// The list of excluded assignment types allowed.
+	ExcludedAssignmentTypes []*ExcludedPrincipalTypes
+
+	// The list of excluded entities that the rule does not apply to.
+	Excludes []*UsersOrServicePrincipalSet
+
+	// Determines whether the setting is enabled, disabled or report only.
+	Mode *PIMOnlyMode
+}
+
 // Permission - Role definition permissions.
 type Permission struct {
 	// Allowed actions.
@@ -1325,6 +1337,7 @@ type PermissionGetResult struct {
 	Value []*Permission
 }
 
+// PolicyAssignmentProperties - Expanded info of resource scope, role definition and policy
 type PolicyAssignmentProperties struct {
 	// Details of the policy
 	Policy *PolicyAssignmentPropertiesPolicy
@@ -1372,6 +1385,7 @@ type PolicyAssignmentPropertiesScope struct {
 	Type *string
 }
 
+// PolicyProperties - Expanded info of resource scope
 type PolicyProperties struct {
 	// READ-ONLY; Details of the resource scope
 	Scope *PolicyPropertiesScope
@@ -2299,6 +2313,9 @@ type RoleManagementPolicyAssignmentProperties struct {
 	// The role management policy scope.
 	Scope *string
 
+	// READ-ONLY; The readonly computed rule applied to the policy.
+	EffectiveRules []RoleManagementPolicyRuleClassification
+
 	// READ-ONLY; Additional properties of scope, role definition and policy
 	PolicyAssignmentProperties *PolicyAssignmentProperties
 }
@@ -2358,6 +2375,9 @@ func (r *RoleManagementPolicyEnablementRule) GetRoleManagementPolicyRule() *Role
 type RoleManagementPolicyExpirationRule struct {
 	// REQUIRED; The type of rule
 	RuleType *RoleManagementPolicyRuleType
+
+	// The members not restricted by expiration rule.
+	ExceptionMembers []*UserSet
 
 	// The id of the rule.
 	ID *string
@@ -2419,6 +2439,30 @@ type RoleManagementPolicyNotificationRule struct {
 
 // GetRoleManagementPolicyRule implements the RoleManagementPolicyRuleClassification interface for type RoleManagementPolicyNotificationRule.
 func (r *RoleManagementPolicyNotificationRule) GetRoleManagementPolicyRule() *RoleManagementPolicyRule {
+	return &RoleManagementPolicyRule{
+		ID:       r.ID,
+		RuleType: r.RuleType,
+		Target:   r.Target,
+	}
+}
+
+// RoleManagementPolicyPimOnlyModeRule - The role management policy PIM only mode rule.
+type RoleManagementPolicyPimOnlyModeRule struct {
+	// REQUIRED; The type of rule
+	RuleType *RoleManagementPolicyRuleType
+
+	// The id of the rule.
+	ID *string
+
+	// The PIM Only Mode settings
+	PimOnlyModeSettings *PIMOnlyModeSettings
+
+	// The target of the current rule.
+	Target *RoleManagementPolicyRuleTarget
+}
+
+// GetRoleManagementPolicyRule implements the RoleManagementPolicyRuleClassification interface for type RoleManagementPolicyPimOnlyModeRule.
+func (r *RoleManagementPolicyPimOnlyModeRule) GetRoleManagementPolicyRule() *RoleManagementPolicyRule {
 	return &RoleManagementPolicyRule{
 		ID:       r.ID,
 		RuleType: r.RuleType,
@@ -2616,6 +2660,18 @@ type UserSet struct {
 
 	// The type of user.
 	UserType *UserType
+}
+
+// UsersOrServicePrincipalSet - The detail of a subject.
+type UsersOrServicePrincipalSet struct {
+	// The display Name of the entity.
+	DisplayName *string
+
+	// The object id of the entity.
+	ID *string
+
+	// The type of user.
+	Type *UserType
 }
 
 // ValidationResponse - Validation response
