@@ -66,6 +66,15 @@ type AdditionalCapabilities struct {
 	UltraSSDEnabled *bool
 }
 
+// AdditionalReplicaSet - Describes the additional replica set information.
+type AdditionalReplicaSet struct {
+	// The number of direct drive replicas of the Image Version to be created.This Property is updatable
+	RegionalReplicaCount *int32
+
+	// Specifies the storage account type to be used to create the direct drive replicas
+	StorageAccountType *StorageAccountType
+}
+
 // AdditionalUnattendContent - Specifies additional XML formatted information that can be included in the Unattend.xml file,
 // which is used by Windows Setup. Contents are defined by setting name, component name, and the pass in
 // which the content is applied.
@@ -870,7 +879,7 @@ type CommunityGalleryImageProperties struct {
 	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture
 
 	// The artifact tags of a community gallery resource.
@@ -1095,9 +1104,8 @@ type DataDisk struct {
 	// applicable only for managed data disks. If a previous detachment attempt of the data disk did not complete due to an unexpected
 	// failure from the virtual machine and the disk is still not released then
 	// use force-detach as a last resort option to detach the disk forcibly from the VM. All writes might not have been flushed
-	// when using this detach behavior. This feature is still in preview mode and is
-	// not supported for VirtualMachineScaleSet. To force-detach a data disk update toBeDetached to 'true' along with setting
-	// detachOption: 'ForceDetach'.
+	// when using this detach behavior. This feature is still in preview. To
+	// force-detach a data disk update toBeDetached to 'true' along with setting detachOption: 'ForceDetach'.
 	DetachOption *DiskDetachOptionTypes
 
 	// Specifies the size of an empty data disk in gigabytes. This element can be used to overwrite the size of the disk in a
@@ -2554,7 +2562,7 @@ type GalleryImageProperties struct {
 	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture
 
 	// The description of this gallery image definition resource. This property is updatable.
@@ -5341,7 +5349,7 @@ type SharedGalleryImageProperties struct {
 	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture
 
 	// The artifact tags of a shared gallery resource.
@@ -5772,6 +5780,9 @@ type SystemData struct {
 type TargetRegion struct {
 	// REQUIRED; The name of the region.
 	Name *string
+
+	// List of storage sku with replica count to create direct drive replicas.
+	AdditionalReplicaSets []*AdditionalReplicaSet
 
 	// Optional. Allows users to provide customer managed keys for encrypting the OS and data disks in the gallery artifact.
 	Encryption *EncryptionImages
