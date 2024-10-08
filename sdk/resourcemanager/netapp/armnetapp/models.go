@@ -129,8 +129,7 @@ type ActiveDirectory struct {
 	// If enabled, Traffic between the SMB server to Domain Controller (DC) will be encrypted.
 	EncryptDCConnections *bool
 
-	// kdc server IP addresses for the active directory machine. This optional parameter is used only while creating kerberos
-	// volume.
+	// kdc server IP address for the active directory machine. This optional parameter is used only while creating kerberos volume.
 	KdcIP *string
 
 	// Specifies whether or not the LDAP traffic needs to be secured via TLS.
@@ -281,7 +280,7 @@ type BackupPolicyProperties struct {
 	// Weekly backups count to keep
 	WeeklyBackupsToKeep *int32
 
-	// READ-ONLY; Backup Policy Resource ID
+	// READ-ONLY; Backup Policy GUID ID
 	BackupPolicyID *string
 
 	// READ-ONLY; Azure lifecycle management
@@ -522,6 +521,13 @@ type CheckAvailabilityResponse struct {
 	Reason *InAvailabilityReasonType
 }
 
+// ClusterPeerCommandResponse - Information about cluster peering process
+type ClusterPeerCommandResponse struct {
+	// A command that needs to be run on the external ONTAP to accept cluster peering. Will only be present if clusterPeeringStatus
+	// is pending
+	PeerAcceptCommand *string
+}
+
 // DailySchedule - Daily Schedule properties
 type DailySchedule struct {
 	// Indicates which hour in UTC timezone a snapshot should be taken
@@ -613,6 +619,10 @@ type FilePathAvailabilityRequest struct {
 
 	// REQUIRED; The Azure Resource URI for a delegated subnet. Must have the delegation Microsoft.NetApp/volumes
 	SubnetID *string
+
+	// The Azure Resource logical availability zone which is used within zone mapping lookup for the subscription and region.
+	// The lookup will retrieve the physical zone where volume is placed.
+	AvailabilityZone *string
 }
 
 // GetGroupIDListForLDAPUserRequest - Get group Id list for LDAP User request
@@ -862,6 +872,12 @@ type OperationProperties struct {
 	ServiceSpecification *ServiceSpecification
 }
 
+// PeerClusterForVolumeMigrationRequest - Source Cluster properties for a cluster peer request
+type PeerClusterForVolumeMigrationRequest struct {
+	// REQUIRED; A list of IC-LIF IPs that can be used to connect to the On-prem cluster
+	PeerIPAddresses []*string
+}
+
 // PlacementKeyValuePairs - Application specific parameters for the placement of volumes in the volume group
 type PlacementKeyValuePairs struct {
 	// REQUIRED; Key for an application specific parameter for the placement of volumes in the volume group
@@ -998,6 +1014,18 @@ type RelocateVolumeRequest struct {
 	CreationToken *string
 }
 
+// RemotePath - The full path to a volume that is to be migrated into ANF. Required for Migration volumes
+type RemotePath struct {
+	// REQUIRED; The Path to a ONTAP Host
+	ExternalHostName *string
+
+	// REQUIRED; The name of a server on the ONTAP Host
+	ServerName *string
+
+	// REQUIRED; The name of a volume on the server
+	VolumeName *string
+}
+
 // Replication properties
 type Replication struct {
 	// REQUIRED; The resource ID of the remote volume.
@@ -1023,6 +1051,9 @@ type ReplicationObject struct {
 
 	// Indicates whether the local volume is the source or destination for the Volume Replication
 	EndpointType *EndpointType
+
+	// The full path to a volume that is to be migrated into ANF. Required for Migration volumes
+	RemotePath *RemotePath
 
 	// The remote region for the other end of the Volume Replication.
 	RemoteVolumeRegion *string
@@ -1361,6 +1392,13 @@ type SubvolumesList struct {
 	Value []*SubvolumeInfo
 }
 
+// SvmPeerCommandResponse - Information about svm peering process
+type SvmPeerCommandResponse struct {
+	// A command that needs to be run on the external ONTAP to accept svm peering. Will only be present if svmPeeringStatus is
+	// pending
+	SvmPeeringCommand *string
+}
+
 // SystemData - Metadata pertaining to creation and last modification of the resource.
 type SystemData struct {
 	// The timestamp of resource creation (UTC).
@@ -1655,8 +1693,8 @@ type VolumePatchProperties struct {
 
 	// Maximum storage quota allowed for a file system in bytes. This is a soft quota used for alerting only. For regular volumes,
 	// valid values are in the range 50GiB to 100TiB. For large volumes, valid
-	// values are in the range 100TiB to 500TiB, and on an exceptional basis, from to 2400GiB to 2400TiB. Values expressed in
-	// bytes as multiples of 1 GiB.
+	// values are in the range 100TiB to 1PiB, and on an exceptional basis, from to 2400GiB to 2400TiB. Values expressed in bytes
+	// as multiples of 1 GiB.
 	UsageThreshold *int64
 }
 
@@ -1683,10 +1721,9 @@ type VolumeProperties struct {
 	// REQUIRED; The Azure Resource URI for a delegated subnet. Must have the delegation Microsoft.NetApp/volumes
 	SubnetID *string
 
-	// REQUIRED; Maximum storage quota allowed for a file system in bytes. This is a soft quota used for alerting only. For regular
-	// volumes, valid values are in the range 50GiB to 100TiB. For large volumes, valid
-	// values are in the range 100TiB to 500TiB, and on an exceptional basis, from to 2400GiB to 2400TiB. Values expressed in
-	// bytes as multiples of 1 GiB.
+	// REQUIRED; Maximum storage quota allowed for a file system in bytes. This is a soft quota used for alerting only. Minimum
+	// size is 100 GiB. Upper limit is 100TiB, 1 PiB for LargeVolume or 2400Tib for LargeVolume
+	// on exceptional basis. Specified in bytes.
 	UsageThreshold *int64
 
 	// Specifies whether the volume is enabled for Azure VMware Solution (AVS) datastore purpose
@@ -1754,7 +1791,7 @@ type VolumeProperties struct {
 	// Specifies whether LDAP is enabled or not for a given NFS volume.
 	LdapEnabled *bool
 
-	// Network features available to the volume, or current state of update.
+	// The original value of the network features type available to the volume at the time it was created.
 	NetworkFeatures *NetworkFeatures
 
 	// Application specific placement rules for the particular volume
@@ -1823,6 +1860,9 @@ type VolumeProperties struct {
 
 	// READ-ONLY; Data store resource unique identifier
 	DataStoreResourceID []*string
+
+	// READ-ONLY; The effective value of the network features type available to the volume, or current effective state of update.
+	EffectiveNetworkFeatures *NetworkFeatures
 
 	// READ-ONLY; Specifies if the volume is encrypted or not. Only available on volumes created or updated after 2022-01-01.
 	Encrypted *bool
