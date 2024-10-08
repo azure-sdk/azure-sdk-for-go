@@ -10,7 +10,7 @@ package armauthorization
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/authorization/armauthorization"
-	moduleVersion = "v3.0.0-beta.2"
+	moduleVersion = "v3.0.0-beta.3"
 )
 
 // AccessRecommendationType - The feature- generated recommendation shown to the reviewer.
@@ -441,6 +441,21 @@ func PossibleEnablementRulesValues() []EnablementRules {
 	}
 }
 
+type ExcludedPrincipalTypes string
+
+const (
+	ExcludedPrincipalTypesServicePrincipalsAsRequestor ExcludedPrincipalTypes = "ServicePrincipalsAsRequestor"
+	ExcludedPrincipalTypesServicePrincipalsAsTarget    ExcludedPrincipalTypes = "ServicePrincipalsAsTarget"
+)
+
+// PossibleExcludedPrincipalTypesValues returns the possible values for the ExcludedPrincipalTypes const type.
+func PossibleExcludedPrincipalTypesValues() []ExcludedPrincipalTypes {
+	return []ExcludedPrincipalTypes{
+		ExcludedPrincipalTypesServicePrincipalsAsRequestor,
+		ExcludedPrincipalTypesServicePrincipalsAsTarget,
+	}
+}
+
 // MemberType - Membership type of the role assignment schedule
 type MemberType string
 
@@ -488,6 +503,24 @@ func PossibleNotificationLevelValues() []NotificationLevel {
 		NotificationLevelAll,
 		NotificationLevelCritical,
 		NotificationLevelNone,
+	}
+}
+
+// PIMOnlyMode - Determines whether the setting is enabled, disabled or report only.
+type PIMOnlyMode string
+
+const (
+	PIMOnlyModeDisabled   PIMOnlyMode = "Disabled"
+	PIMOnlyModeEnabled    PIMOnlyMode = "Enabled"
+	PIMOnlyModeReportOnly PIMOnlyMode = "ReportOnly"
+)
+
+// PossiblePIMOnlyModeValues returns the possible values for the PIMOnlyMode const type.
+func PossiblePIMOnlyModeValues() []PIMOnlyMode {
+	return []PIMOnlyMode{
+		PIMOnlyModeDisabled,
+		PIMOnlyModeEnabled,
+		PIMOnlyModeReportOnly,
 	}
 }
 
@@ -586,6 +619,7 @@ const (
 	RoleManagementPolicyRuleTypeRoleManagementPolicyEnablementRule            RoleManagementPolicyRuleType = "RoleManagementPolicyEnablementRule"
 	RoleManagementPolicyRuleTypeRoleManagementPolicyExpirationRule            RoleManagementPolicyRuleType = "RoleManagementPolicyExpirationRule"
 	RoleManagementPolicyRuleTypeRoleManagementPolicyNotificationRule          RoleManagementPolicyRuleType = "RoleManagementPolicyNotificationRule"
+	RoleManagementPolicyRuleTypeRoleManagementPolicyPimOnlyModeRule           RoleManagementPolicyRuleType = "RoleManagementPolicyPimOnlyModeRule"
 )
 
 // PossibleRoleManagementPolicyRuleTypeValues returns the possible values for the RoleManagementPolicyRuleType const type.
@@ -596,6 +630,7 @@ func PossibleRoleManagementPolicyRuleTypeValues() []RoleManagementPolicyRuleType
 		RoleManagementPolicyRuleTypeRoleManagementPolicyEnablementRule,
 		RoleManagementPolicyRuleTypeRoleManagementPolicyExpirationRule,
 		RoleManagementPolicyRuleTypeRoleManagementPolicyNotificationRule,
+		RoleManagementPolicyRuleTypeRoleManagementPolicyPimOnlyModeRule,
 	}
 }
 
@@ -695,14 +730,16 @@ func PossibleTypeValues() []Type {
 type UserType string
 
 const (
-	UserTypeGroup UserType = "Group"
-	UserTypeUser  UserType = "User"
+	UserTypeGroup            UserType = "Group"
+	UserTypeServicePrincipal UserType = "ServicePrincipal"
+	UserTypeUser             UserType = "User"
 )
 
 // PossibleUserTypeValues returns the possible values for the UserType const type.
 func PossibleUserTypeValues() []UserType {
 	return []UserType{
 		UserTypeGroup,
+		UserTypeServicePrincipal,
 		UserTypeUser,
 	}
 }
