@@ -27,11 +27,11 @@ type ActiveDirectoryConnectorDNSDetails struct {
 
 // ActiveDirectoryConnectorDomainDetails - Active Directory domain details
 type ActiveDirectoryConnectorDomainDetails struct {
-	// REQUIRED; null
-	DomainControllers *ActiveDirectoryDomainControllers
-
 	// REQUIRED; Name (uppercase) of the Active Directory domain that this AD connector will be associated with.
 	Realm *string
+
+	// null
+	DomainControllers *ActiveDirectoryDomainControllers
 
 	// NETBIOS name of the Active Directory domain.
 	NetbiosDomainName *string
@@ -131,6 +131,305 @@ type ActiveDirectoryInformation struct {
 	KeytabInformation *KeytabInformation
 }
 
+// ArcSQLServerAvailabilityGroupListResult - A list of Arc Sql Server Availability Groups.
+type ArcSQLServerAvailabilityGroupListResult struct {
+	// READ-ONLY; Link to retrieve next page of results.
+	NextLink *string
+
+	// READ-ONLY; Array of Arc Sql Server Availability Groups.
+	Value []*SQLServerAvailabilityGroupResource
+}
+
+// ArcSQLServerDatabaseListResult - A list of Arc Sql Server database.
+type ArcSQLServerDatabaseListResult struct {
+	// READ-ONLY; Link to retrieve next page of results.
+	NextLink *string
+
+	// READ-ONLY; Array of Arc Sql Server database.
+	Value []*SQLServerDatabaseResource
+}
+
+// AvailabilityGroupConfigure - The specifications of the availability group replica configuration
+type AvailabilityGroupConfigure struct {
+	// Property that determines whether a given availability replica can run in synchronous-commit mode
+	AvailabilityMode *ArcSQLServerAvailabilityMode
+
+	// Represents the user-specified priority for performing backups on this replica relative to the other replicas in the same
+	// availability group.
+	BackupPriority *int32
+
+	// Name of certificate to use for authentication. Required if any CERTIFICATE authentication modes are specified.
+	CertificateName *string
+
+	// Permitted authentication modes for the mirroring endpoint.
+	EndpointAuthenticationMode *ConnectionAuth
+
+	// The login which will connect to the mirroring endpoint.
+	EndpointConnectLogin *string
+
+	// Name of the mirroring endpoint URL
+	EndpointName *string
+
+	// Mirroring endpoint URL of availability group replica
+	EndpointURL *string
+
+	// Property to set the failover mode of the availability group replica
+	FailoverMode *ArcSQLServerFailoverMode
+
+	// Whether the primary replica should allow all connections or only READ_WRITE connections (disallowing ReadOnly connections)
+	PrimaryAllowConnections *PrimaryAllowConnections
+
+	// Connectivity endpoint (URL) of the read only availability replica.
+	ReadOnlyRoutingURL *string
+
+	// Connectivity endpoint (URL) of the read write availability replica.
+	ReadWriteRoutingURL *string
+
+	// Whether the secondary replica should allow all connections, no connections, or only ReadOnly connections.
+	SecondaryAllowConnections *SecondaryAllowConnections
+
+	// Specifies how the secondary replica will be initially seeded. AUTOMATIC enables direct seeding. This method will seed the
+	// secondary replica over the network. This method does not require you to backup
+	// and restore a copy of the primary database on the replica. MANUAL specifies manual seeding (default). This method requires
+	// you to create a backup of the database on the primary replica and manually
+	// restore that backup on the secondary replica.
+	SeedingMode *SeedingMode
+
+	// The time-out period of availability group session replica, in seconds.
+	SessionTimeout *int32
+
+	// READ-ONLY; The Availability Synchronization mode of the availability group replica.
+	AvailabilityModeDescription *string
+
+	// READ-ONLY; The failover mode of the availability group replica.
+	FailoverModeDescription *string
+
+	// READ-ONLY; Whether the availability allows all connections or only read-write connections.
+	PrimaryRoleAllowConnectionsDescription *string
+
+	// READ-ONLY; Date that the replica was created.
+	ReplicaCreateDate *time.Time
+
+	// READ-ONLY; Date that the replica was modified.
+	ReplicaModifyDate *time.Time
+
+	// READ-ONLY; Whether an availability replica that is performing the secondary role (that is, a secondary replica) can accept
+	// connections from clients.
+	SecondaryRoleAllowConnectionsDescription *string
+
+	// READ-ONLY; Describes seeding mode.
+	SeedingModeDescription *string
+}
+
+// AvailabilityGroupCreateUpdateConfiguration - Options used in creating an availability group
+type AvailabilityGroupCreateUpdateConfiguration struct {
+	// Preferred replica for running automated backups.
+	AutomatedBackupPreference *AutomatedBackupPreference
+
+	// Name of the availability group.
+	AvailabilityGroupName *string
+
+	// Set to WSFC when availability group is on a failover cluster instance on a Windows Server failover cluster. Set to NONE
+	// when availability group not using WSFC for cluster coordination.
+	ClusterType *ClusterType
+
+	// List of databases to include in the availability group.
+	Databases []*string
+
+	// Specifies whether the availability group supports failover for database health conditions.
+	DbFailover *DbFailover
+
+	// Specifies whether DTC support has been enabled for this availability group.
+	DtcSupport *DtcSupport
+
+	// User-defined failure condition level under which an automatic failover must be triggered.
+	FailureConditionLevel *FailureConditionLevel
+
+	// Wait time (in milliseconds) for the spserverdiagnostics system stored procedure to return server-health information, before
+	// the server instance is assumed to be slow or not responding.
+	HealthCheckTimeout *int32
+
+	// The listener for the sql server availability group
+	Listener *SQLAvailabilityGroupStaticIPListenerProperties
+
+	// List of availability group replicas.
+	Replicas []*AvailabilityGroupCreateUpdateReplicaConfiguration
+
+	// The number of secondary replicas that must be in a synchronized state for a commit to complete.
+	RequiredSynchronizedSecondariesToCommit *int32
+}
+
+// AvailabilityGroupCreateUpdateReplicaConfiguration - The specifications of the availability group replica configuration
+type AvailabilityGroupCreateUpdateReplicaConfiguration struct {
+	// Property that determines whether a given availability replica can run in synchronous-commit mode
+	AvailabilityMode *ArcSQLServerAvailabilityMode
+
+	// Represents the user-specified priority for performing backups on this replica relative to the other replicas in the same
+	// availability group.
+	BackupPriority *int32
+
+	// Name of certificate to use for authentication. Required if any CERTIFICATE authentication modes are specified.
+	CertificateName *string
+
+	// Permitted authentication modes for the mirroring endpoint.
+	EndpointAuthenticationMode *ConnectionAuth
+
+	// The login which will connect to the mirroring endpoint
+	EndpointConnectLogin *string
+
+	// Name of the database mirroring endpoint URL for the availability group replica
+	EndpointName *string
+
+	// Database mirroring endpoint URL of availability group replica
+	EndpointURL *string
+
+	// Property to set the failover mode of the availability group replica
+	FailoverMode *ArcSQLServerFailoverMode
+
+	// Whether the primary replica should allow all connections or only READ_WRITE connections (disallowing ReadOnly connections)
+	PrimaryRoleAllowConnections *PrimaryAllowConnections
+
+	// List of read only routing URLs.
+	PrimaryRoleReadOnlyRoutingList []*string
+
+	// Whether the secondary replica should allow all connections, no connections, or only ReadOnly connections.
+	SecondaryRoleAllowConnections *SecondaryAllowConnections
+
+	// Connectivity endpoint (URL) of the read only availability replica.
+	SecondaryRoleReadOnlyRoutingURL *string
+
+	// Specifies how the secondary replica will be initially seeded. AUTOMATIC enables direct seeding. This method will seed the
+	// secondary replica over the network. This method does not require you to backup
+	// and restore a copy of the primary database on the replica. MANUAL specifies manual seeding (default). This method requires
+	// you to create a backup of the database on the primary replica and manually
+	// restore that backup on the secondary replica.
+	SeedingMode *SeedingMode
+
+	// the server instance hosting the replica.
+	ServerInstance *string
+
+	// The time-out period of availability group session replica, in seconds.
+	SessionTimeout *int32
+}
+
+// AvailabilityGroupInfo - The specifications of the availability group state
+type AvailabilityGroupInfo struct {
+	// Specifies whether this is a basic availability group.
+	BasicFeatures *bool
+
+	// Specifies whether the availability group supports failover for database health conditions.
+	DbFailover *bool
+
+	// Specifies whether DTC support has been enabled for this availability group.
+	DtcSupport *bool
+
+	// User-defined failure condition level under which an automatic failover must be triggered.
+	FailureConditionLevel *int32
+
+	// Wait time (in milliseconds) for the spserverdiagnostics system stored procedure to return server-health information, before
+	// the server instance is assumed to be slow or not responding.
+	HealthCheckTimeout *int32
+
+	// SQL Server availability group contained system databases.
+	IsContained *bool
+
+	// Specifies whether this is a distributed availability group.
+	IsDistributed *bool
+
+	// The listener for the sql server availability group
+	Listener *SQLAvailabilityGroupStaticIPListenerProperties
+
+	// The number of secondary replicas that must be in a synchronized state for a commit to complete.
+	RequiredSynchronizedSecondariesToCommit *int32
+
+	// READ-ONLY; Preferred location for performing backups on the availability databases in this availability group.
+	AutomatedBackupPreferenceDescription *string
+
+	// READ-ONLY; SQL Server availability group cluster type description
+	ClusterTypeDescription *string
+
+	// READ-ONLY; Indicates the recovery health of the primary replica.
+	PrimaryRecoveryHealthDescription *string
+
+	// READ-ONLY; Name of the server instance that is hosting the current primary replica.
+	PrimaryReplica *string
+
+	// READ-ONLY
+	ReplicationPartnerType *ReplicationPartnerType
+
+	// READ-ONLY; Indicates the recovery health of a secondary replica.
+	SecondaryRecoveryHealthDescription *string
+
+	// READ-ONLY; Reflects a roll-up of the synchronization health of all availability replicas in the availability group.
+	SynchronizationHealthDescription *string
+
+	// READ-ONLY; SQL Server availability group current version.
+	Version *int32
+}
+
+// AvailabilityGroupState - The specifications of the availability group state
+type AvailabilityGroupState struct {
+	// READ-ONLY; Current Always On availability groups role of the availability group replica.
+	AvailabilityGroupReplicaRole *string
+
+	// READ-ONLY; Whether a secondary replica is currently connected to the primary replica.
+	ConnectedStateDescription *string
+
+	// READ-ONLY; Text description of the last connection error of the availability group replica.
+	LastConnectErrorDescription *string
+
+	// READ-ONLY; Date and time timestamp indicating when the last connect error occurred.
+	LastConnectErrorTimestamp *time.Time
+
+	// READ-ONLY; Current operational state of the availability group replica
+	OperationalStateDescription *string
+
+	// READ-ONLY; Recovery health of the availability group replica.
+	RecoveryHealthDescription *string
+
+	// READ-ONLY; Reflects a rollup of the database synchronization state (synchronization_state) of all joined availability databases
+	// (also known as replicas) and the availability mode of the replica
+	// (synchronous-commit or asynchronous-commit mode). The rollup will reflect the least healthy accumulated state the databases
+	// on the replica.
+	SynchronizationHealthDescription *string
+}
+
+// BackgroundJob - The background job details.
+type BackgroundJob struct {
+	// The end time of the background job.
+	EndTime *time.Time
+
+	// The execution state of the background job.
+	ExecutionState *ExecutionState
+
+	// The last execution status of the background job.
+	LastExecutionStatus *LastExecutionStatus
+
+	// The last execution time of the background job.
+	LastExecutionTime *time.Time
+
+	// The start time of the background job.
+	StartTime *time.Time
+
+	// The state of the background job.
+	State *State
+}
+
+// BackupPolicy - The backup profile for the SQL server.
+type BackupPolicy struct {
+	// The differential backup interval in hours.
+	DifferentialBackupHours *DifferentialBackupHours
+
+	// The value indicating days between full backups.
+	FullBackupDays *int32
+
+	// The retention period for all the databases in this managed instance.
+	RetentionPeriodDays *int32
+
+	// The value indicating minutes between transaction log backups.
+	TransactionLogBackupMinutes *int32
+}
+
 // BasicLoginInformation - Username and password for basic login authentication.
 type BasicLoginInformation struct {
 	// Login password.
@@ -138,6 +437,12 @@ type BasicLoginInformation struct {
 
 	// Login username.
 	Username *string
+}
+
+// ClientConnection - Client connection related configuration.
+type ClientConnection struct {
+	// Indicates if client connection is enabled for this SQL Server instance.
+	Enabled *bool
 }
 
 // CommonSKU - The resource model definition representing SKU for ARM resources
@@ -157,6 +462,54 @@ type CommonSKU struct {
 
 	// The SKU size. When the name field is the combination of tier and some other value, this would be the standalone code.
 	Size *string
+}
+
+// DBMEndpoint - Database mirroring endpoint related properties.
+type DBMEndpoint struct {
+	// READ-ONLY; Name of the certificate.
+	CertificateName *string
+
+	// READ-ONLY; The type of connection authentication required for connections to this endpoint
+	ConnectionAuth *ConnectionAuth
+
+	// READ-ONLY; Encryption Algorithm
+	EncryptionAlgorithm *EncryptionAlgorithm
+
+	// READ-ONLY; Name of the database mirroring endpoint.
+	EndpointName *string
+
+	// READ-ONLY; Listener IP address.
+	IPAddress *string
+
+	// READ-ONLY; Is the port number dynamically assigned.
+	IsDynamicPort *bool
+
+	// READ-ONLY; Is Encryption enabled
+	IsEncryptionEnabled *bool
+
+	// READ-ONLY; The port number that the endpoint is listening on.
+	Port *int32
+
+	// READ-ONLY; Mirroring Role
+	Role *Role
+}
+
+// DataBaseMigration - Migration related configuration.
+type DataBaseMigration struct {
+	// Migration assessments related configuration.
+	Assessment *DataBaseMigrationAssessment
+}
+
+// DataBaseMigrationAssessment - The migration assessment related configuration.
+type DataBaseMigrationAssessment struct {
+	// READ-ONLY; The time when Migration Assessment Report upload was last performed.
+	AssessmentUploadTime *time.Time
+
+	// READ-ONLY; Issues and warnings impacting the migration of Database to particular Azure Migration Target.
+	DatabaseAssessments []*DatabaseAssessmentsItem
+
+	// READ-ONLY; The target readiness for migration for this database.
+	TargetReadiness *TargetReadiness
 }
 
 // DataControllerProperties - The data controller properties.
@@ -238,25 +591,92 @@ type DataControllerUpdate struct {
 	Tags map[string]*string
 }
 
-// ErrorResponse - An error response from the Azure Data on Azure Arc service.
-type ErrorResponse struct {
-	// null
-	Error *ErrorResponseBody
+type DatabaseAssessmentsItem struct {
+	AppliesToMigrationTargetPlatform *string
+	FeatureID                        *string
+	IssueCategory                    *string
+	MoreInformation                  *string
 }
 
-// ErrorResponseBody - An error response from the Batch service.
-type ErrorResponseBody struct {
-	// An identifier for the error. Codes are invariant and are intended to be consumed programmatically.
+// Databases - List of database names.
+type Databases struct {
+	// List of database names.
+	Values []*string
+}
+
+// DistributedAvailabilityGroupCreateUpdateAvailabilityGroupCertificateConfiguration - The availability group certificate
+// configuration.
+type DistributedAvailabilityGroupCreateUpdateAvailabilityGroupCertificateConfiguration struct {
+	// Name of the certificate.
+	CertificateName *string
+}
+
+// DistributedAvailabilityGroupCreateUpdateAvailabilityGroupConfiguration - The availability group configuration specification
+// for a distributed availability group.
+type DistributedAvailabilityGroupCreateUpdateAvailabilityGroupConfiguration struct {
+	// The azure resource identifier for the availability group.
+	AvailabilityGroup *string
+
+	// The availability mode of the availability group.
+	AvailabilityMode *ArcSQLServerAvailabilityMode
+
+	// The certificate configuration for the availability group.
+	CertificateConfiguration *DistributedAvailabilityGroupCreateUpdateAvailabilityGroupCertificateConfiguration
+
+	// The failover mode of the availability group.
+	FailoverMode *ArcSQLServerFailoverMode
+
+	// The listener URL of the availability group.
+	ListenerURL *string
+
+	// The seeding mode of the availability group.
+	SeedingMode *SeedingMode
+}
+
+// DistributedAvailabilityGroupCreateUpdateConfiguration - Options used in creating a distributed availability group.
+type DistributedAvailabilityGroupCreateUpdateConfiguration struct {
+	// Name of the availability group.
+	AvailabilityGroupName *string
+
+	// The initial primary availability group for the distributed availability group.
+	PrimaryAvailabilityGroup *DistributedAvailabilityGroupCreateUpdateAvailabilityGroupConfiguration
+
+	// The initial secondary availability group for the distributed availability group.
+	SecondaryAvailabilityGroup *DistributedAvailabilityGroupCreateUpdateAvailabilityGroupConfiguration
+}
+
+// ErrorAdditionalInfo - The resource management error additional info.
+type ErrorAdditionalInfo struct {
+	// READ-ONLY; The additional info.
+	Info any
+
+	// READ-ONLY; The additional info type.
+	Type *string
+}
+
+// ErrorDetail - The error detail.
+type ErrorDetail struct {
+	// READ-ONLY; The error additional info.
+	AdditionalInfo []*ErrorAdditionalInfo
+
+	// READ-ONLY; The error code.
 	Code *string
 
-	// A list of additional details about the error.
-	Details []*ErrorResponseBody
+	// READ-ONLY; The error details.
+	Details []*ErrorDetail
 
-	// A message describing the error, intended to be suitable for display in a user interface.
+	// READ-ONLY; The error message.
 	Message *string
 
-	// The target of the particular error. For example, the name of the property in error.
+	// READ-ONLY; The error target.
 	Target *string
+}
+
+// ErrorResponse - Common error response for all Azure Resource Manager APIs to return error details for failed operations.
+// (This also follows the OData error response format.).
+type ErrorResponse struct {
+	// The error object.
+	Error *ErrorDetail
 }
 
 // ExtendedLocation - The complex type of the extended location.
@@ -266,6 +686,127 @@ type ExtendedLocation struct {
 
 	// The type of the extended location.
 	Type *ExtendedLocationTypes
+}
+
+// FailoverCluster - Failover Cluster Instance properties.
+type FailoverCluster struct {
+	// READ-ONLY; The host names which are part of the SQL FCI resource group.
+	HostNames []*string
+
+	// READ-ONLY; The GUID of the SQL Server's underlying Failover Cluster.
+	ID *string
+
+	// READ-ONLY; The network name to connect to the SQL FCI.
+	NetworkName *string
+
+	// READ-ONLY; The ARM IDs of the Arc SQL Server resources, belonging to the current server's Failover cluster.
+	SQLInstanceIDs []*string
+}
+
+// FailoverGroupListResult - A list of failover groups.
+type FailoverGroupListResult struct {
+	// READ-ONLY; Link to retrieve next page of results.
+	NextLink *string
+
+	// READ-ONLY; Array of failover group results.
+	Value []*FailoverGroupResource
+}
+
+// FailoverGroupProperties - The properties of a failover group resource.
+type FailoverGroupProperties struct {
+	// REQUIRED; The resource ID of the partner SQL managed instance.
+	PartnerManagedInstanceID *string
+
+	// REQUIRED; The specifications of the failover group resource.
+	Spec *FailoverGroupSpec
+
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// The status of the failover group custom resource.
+	Status any
+
+	// READ-ONLY; The provisioning state of the failover group resource.
+	ProvisioningState *ProvisioningState
+}
+
+// FailoverGroupResource - A failover group resource.
+type FailoverGroupResource struct {
+	// REQUIRED; null
+	Properties *FailoverGroupProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// FailoverGroupSpec - The specifications of the failover group resource.
+type FailoverGroupSpec struct {
+	// REQUIRED; The role of the SQL managed instance in this failover group.
+	Role *InstanceFailoverGroupRole
+
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// The name of the partner SQL managed instance.
+	PartnerMI *string
+
+	// The mirroring endpoint public certificate for the partner SQL managed instance. Only PEM format is supported.
+	PartnerMirroringCert *string
+
+	// The mirroring endpoint URL of the partner SQL managed instance.
+	PartnerMirroringURL *string
+
+	// The partner sync mode of the SQL managed instance.
+	PartnerSyncMode *FailoverGroupPartnerSyncMode
+
+	// The shared name of the failover group for this SQL managed instance. Both SQL managed instance and its partner have to
+	// use the same shared name.
+	SharedName *string
+
+	// The name of the SQL managed instance with this failover group role.
+	SourceMI *string
+}
+
+// K8SActiveDirectory - The kubernetes active directory information.
+type K8SActiveDirectory struct {
+	// Account name for AAD
+	AccountName *string
+	Connector   *K8SActiveDirectoryConnector
+
+	// An array of encryption types
+	EncryptionTypes []*string
+
+	// Keytab secret used to authenticate with Active Directory.
+	KeytabSecret *string
+}
+
+type K8SActiveDirectoryConnector struct {
+	// Name of the connector
+	Name *string
+
+	// Name space of the connector
+	Namespace *string
+}
+
+// K8SNetworkSettings - The kubernetes network settings information.
+type K8SNetworkSettings struct {
+	// If 1, then SQL Server forces all connections to be encrypted. By default, this option is 0
+	Forceencryption *int32
+
+	// Specifies which ciphers are allowed by SQL Server for TLS
+	Tlsciphers *string
+
+	// A comma-separated list of which TLS protocols are allowed by SQL Server
+	Tlsprotocols *string
 }
 
 // K8SResourceRequirements - The kubernetes resource limits and requests used to restrict or reserve resource usage.
@@ -304,6 +845,42 @@ type K8SSchedulingOptions struct {
 	Resources *K8SResourceRequirements
 }
 
+// K8SSecurity - The kubernetes security information.
+type K8SSecurity struct {
+	// The kubernetes active directory information.
+	ActiveDirectory *K8SActiveDirectory
+
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// Admin login secret key
+	AdminLoginSecret *string
+
+	// Service certificate secret used
+	ServiceCertificateSecret *string
+
+	// Transparent data encryption information.
+	TransparentDataEncryption *K8StransparentDataEncryption
+}
+
+// K8SSettings - The kubernetes settings information.
+type K8SSettings struct {
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// The kubernetes network settings information.
+	Network *K8SNetworkSettings
+}
+
+// K8StransparentDataEncryption - Transparent data encryption information.
+type K8StransparentDataEncryption struct {
+	// Transparent data encryption mode. Can be Service Managed, Customer managed or disabled
+	Mode *string
+
+	// Protector secret for customer managed Transparent data encryption mode
+	ProtectorSecret *string
+}
+
 // KeytabInformation - Keytab used for authenticate with Active Directory.
 type KeytabInformation struct {
 	// A base64-encoded keytab.
@@ -317,6 +894,33 @@ type LogAnalyticsWorkspaceConfig struct {
 
 	// Azure Log Analytics workspace ID
 	WorkspaceID *string
+}
+
+// Migration related configuration.
+type Migration struct {
+	// Migration assessments related configuration.
+	Assessment *MigrationAssessment
+}
+
+// MigrationAssessment - The migration assessment related configuration.
+type MigrationAssessment struct {
+	// Indicates if migration assessment is enabled for this SQL Server instance.
+	Enabled *bool
+
+	// READ-ONLY; The time when Migration Assessment Report upload was last performed.
+	AssessmentUploadTime *time.Time
+
+	// READ-ONLY; SKU Recommendation results for Azure migration targets for SQL Server.
+	SKURecommendationResults *SKURecommendationResults
+
+	// READ-ONLY; Issues and warnings impacting the migration of SQL Server instance to particular Azure Migration Target.
+	ServerAssessments []*ServerAssessmentsItem
+}
+
+// Monitoring - The monitoring configuration.
+type Monitoring struct {
+	// Indicates if monitoring is enabled for this SQL Server instance.
+	Enabled *bool
 }
 
 // OnPremiseProperty - Properties from the Kubernetes data controller
@@ -504,6 +1108,233 @@ type Resource struct {
 	Type *string
 }
 
+// ResourceAutoGenerated - Common fields that are returned in the response for all Azure Resource Manager resources
+type ResourceAutoGenerated struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SKURecommendationResults - SKU Recommendation results for Azure migration targets for SQL Server.
+type SKURecommendationResults struct {
+	// SKU Recommendation results for Azure SQL Database.
+	AzureSQLDatabase *SKURecommendationResultsAzureSQLDatabase
+
+	// SKU Recommendation results for Azure SQL Managed Instance.
+	AzureSQLManagedInstance *SKURecommendationResultsAzureSQLManagedInstance
+
+	// SKU Recommendation results for Azure SQL Virtual Machine.
+	AzureSQLVirtualMachine *SKURecommendationResultsAzureSQLVirtualMachine
+}
+
+// SKURecommendationResultsAzureSQLDatabase - SKU Recommendation results for Azure SQL Database.
+type SKURecommendationResultsAzureSQLDatabase struct {
+	// The Monthly cost of the particular SKU.
+	MonthlyCost *SKURecommendationResultsMonthlyCost
+
+	// Number of blocker issues to fix before migrating to the target platform.
+	NumberOfServerBlockerIssues *int32
+
+	// The target recommendation Status for this database.
+	RecommendationStatus *RecommendationStatus
+	TargetSKU            *SKURecommendationResultsAzureSQLDatabaseTargetSKU
+}
+
+type SKURecommendationResultsAzureSQLDatabaseTargetSKU struct {
+	Category *SKURecommendationResultsAzureSQLDatabaseTargetSKUCategory
+}
+
+type SKURecommendationResultsAzureSQLDatabaseTargetSKUCategory struct {
+	// The compute tier of the target SKU.
+	ComputeTier *string
+
+	// The hardware type of the target SKU.
+	HardwareType *string
+
+	// The SQL purchasing model of the target SKU.
+	SQLPurchasingModel *string
+
+	// The SQL service tier of the target SKU.
+	SQLServiceTier *string
+
+	// Indicates if zone redundancy is available for the target SKU.
+	ZoneRedundancyAvailable *bool
+}
+
+// SKURecommendationResultsAzureSQLManagedInstance - SKU Recommendation results for Azure SQL Managed Instance.
+type SKURecommendationResultsAzureSQLManagedInstance struct {
+	// The Monthly cost of the particular SKU.
+	MonthlyCost *SKURecommendationResultsMonthlyCost
+
+	// Number of blocker issues to fix before migrating to the target platform.
+	NumberOfServerBlockerIssues *int32
+
+	// The target recommendation Status for this database.
+	RecommendationStatus *RecommendationStatus
+	TargetSKU            *SKURecommendationResultsAzureSQLManagedInstanceTargetSKU
+}
+
+type SKURecommendationResultsAzureSQLManagedInstanceTargetSKU struct {
+	Category *SKURecommendationResultsAzureSQLManagedInstanceTargetSKUCategory
+}
+
+type SKURecommendationResultsAzureSQLManagedInstanceTargetSKUCategory struct {
+	// The compute tier of the target SKU.
+	ComputeTier *string
+
+	// The hardware type of the target SKU.
+	HardwareType *string
+
+	// The SQL purchasing model of the target SKU.
+	SQLPurchasingModel *string
+
+	// The SQL service tier of the target SKU.
+	SQLServiceTier *string
+
+	// Indicates if zone redundancy is available for the target SKU.
+	ZoneRedundancyAvailable *bool
+}
+
+// SKURecommendationResultsAzureSQLVirtualMachine - SKU Recommendation results for Azure SQL Virtual Machine.
+type SKURecommendationResultsAzureSQLVirtualMachine struct {
+	// The Monthly cost of the particular SKU.
+	MonthlyCost *SKURecommendationResultsMonthlyCost
+
+	// Number of blocker issues to fix before migrating to the target platform.
+	NumberOfServerBlockerIssues *int32
+
+	// The target recommendation Status for this database.
+	RecommendationStatus *RecommendationStatus
+	TargetSKU            *SKURecommendationResultsAzureSQLVirtualMachineTargetSKU
+}
+
+type SKURecommendationResultsAzureSQLVirtualMachineTargetSKU struct {
+	Category *SKURecommendationResultsAzureSQLVirtualMachineTargetSKUCategory
+}
+
+type SKURecommendationResultsAzureSQLVirtualMachineTargetSKUCategory struct {
+	// Available VM SKUs for the Azure SQL Virtual Machine.
+	AvailableVMSKUs []*string
+
+	// The virtual machine family of the target SKU.
+	VirtualMachineFamily *string
+}
+
+// SKURecommendationResultsMonthlyCost - The Monthly cost of the particular SKU.
+type SKURecommendationResultsMonthlyCost struct {
+	// Represents the Cost of Compute.
+	ComputeCost *float32
+
+	// Represents the Cost of Storage.
+	StorageCost *float32
+
+	// Represents the Total Cost.
+	TotalCost *float32
+}
+
+// SKURecommendationSummary - The SKU recommendation summary.
+type SKURecommendationSummary struct {
+	// Number of blocker issues to fix before migrating this database to the target platform.
+	NumOfBlockerIssues *int32
+
+	// The target recommendation Status for this database.
+	RecommendationStatus *RecommendationStatus
+}
+
+// SQLAvailabilityGroupDatabaseReplicaResourceProperties - The properties of Arc Sql availability group database replica resource
+type SQLAvailabilityGroupDatabaseReplicaResourceProperties struct {
+	// the database name.
+	DatabaseName *string
+
+	// READ-ONLY; Description of the database state of the availability replica.
+	DatabaseStateDescription *string
+
+	// READ-ONLY; Whether this replica is transaction committer.
+	IsCommitParticipant *bool
+
+	// READ-ONLY; Whether the availability database is local.
+	IsLocal *bool
+
+	// READ-ONLY; Returns 1 if the replica is primary, or 0 if it is a secondary replica.
+	IsPrimaryReplica *bool
+
+	// READ-ONLY; Whether this data movement is suspended.
+	IsSuspended *bool
+
+	// READ-ONLY; the database replica name.
+	ReplicaName *string
+
+	// READ-ONLY; Description of the database suspended state reason.
+	SuspendReasonDescription *string
+
+	// READ-ONLY; Description of the health of database.
+	SynchronizationHealthDescription *string
+
+	// READ-ONLY; Description of the data-movement state.
+	SynchronizationStateDescription *string
+}
+
+// SQLAvailabilityGroupDhcpListenerProperties - The properties of a DHCP Arc Sql availability group listener
+type SQLAvailabilityGroupDhcpListenerProperties struct {
+	// the DNS name for the listener.
+	DNSName *string
+
+	// The netmask for the listener.
+	Mask *string
+
+	// Network port for the listener. Default is 1433.
+	Port *int32
+
+	// The IPV4 subnet for the listener.
+	Subnet *string
+}
+
+type SQLAvailabilityGroupIPV4AddressesAndMasksPropertiesItem struct {
+	// IPV4 address
+	IPAddress *string
+
+	// IPV4 netmask
+	Mask *string
+}
+
+// SQLAvailabilityGroupReplicaResourceProperties - The properties of Arc Sql availability group replica resource
+type SQLAvailabilityGroupReplicaResourceProperties struct {
+	// null
+	Configure *AvailabilityGroupConfigure
+
+	// the replica name.
+	ReplicaName *string
+
+	// null
+	State *AvailabilityGroupState
+
+	// READ-ONLY; ID GUID of the availability group.
+	ReplicaID *string
+}
+
+// SQLAvailabilityGroupStaticIPListenerProperties - The properties of a static IP Arc Sql availability group listener
+type SQLAvailabilityGroupStaticIPListenerProperties struct {
+	// the DNS name for the listener.
+	DNSName *string
+
+	// IP V4 Addresses and masks for the listener.
+	IPV4AddressesAndMasks []*SQLAvailabilityGroupIPV4AddressesAndMasksPropertiesItem
+
+	// IP V6 Addresses for the listener
+	IPV6Addresses []*string
+
+	// Network port for the listener. Default is 1433.
+	Port *int32
+}
+
 // SQLManagedInstance - A SqlManagedInstance.
 type SQLManagedInstance struct {
 	// REQUIRED; The geo-location where the resource lives
@@ -555,6 +1386,12 @@ type SQLManagedInstanceK8SSpec struct {
 
 	// The kubernetes scheduling information.
 	Scheduling *K8SScheduling
+
+	// The kubernetes security information.
+	Security *K8SSecurity
+
+	// The kubernetes settings information.
+	Settings *K8SSettings
 }
 
 // SQLManagedInstanceListResult - A list of SqlManagedInstance.
@@ -633,6 +1470,297 @@ type SQLManagedInstanceUpdate struct {
 	Tags map[string]*string
 }
 
+// SQLServerAvailabilityGroupResource - Arc Sql Server Availability Group
+type SQLServerAvailabilityGroupResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// REQUIRED; Properties of Arc Sql Server availability group
+	Properties *SQLServerAvailabilityGroupResourceProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SQLServerAvailabilityGroupResourceProperties - The properties of Arc Sql Server availability group resource
+type SQLServerAvailabilityGroupResourceProperties struct {
+	// A list of Availability Group Database Replicas.
+	Databases *SQLServerAvailabilityGroupResourcePropertiesDatabases
+
+	// Availability Group Info
+	Info *AvailabilityGroupInfo
+
+	// A list of Availability Group Replicas.
+	Replicas *SQLServerAvailabilityGroupResourcePropertiesReplicas
+
+	// READ-ONLY; ID GUID of the availability group.
+	AvailabilityGroupID *string
+
+	// READ-ONLY; Timestamp for when the data was collected from the client machine.
+	CollectionTimestamp *time.Time
+
+	// READ-ONLY; the SQL Server Instance name.
+	InstanceName *string
+
+	// READ-ONLY; The provisioning state of the Arc-enabled SQL Server availability group resource.
+	ProvisioningState *string
+
+	// READ-ONLY; the SQL server name.
+	ServerName *string
+}
+
+// SQLServerAvailabilityGroupResourcePropertiesDatabases - A list of Availability Group Database Replicas.
+type SQLServerAvailabilityGroupResourcePropertiesDatabases struct {
+	// Array of Availability Group Database Replicas.
+	Value []*SQLAvailabilityGroupDatabaseReplicaResourceProperties
+
+	// READ-ONLY; Link to retrieve next page of results.
+	NextLink *string
+}
+
+// SQLServerAvailabilityGroupResourcePropertiesReplicas - A list of Availability Group Replicas.
+type SQLServerAvailabilityGroupResourcePropertiesReplicas struct {
+	// Array of Availability Group Replicas.
+	Value []*SQLAvailabilityGroupReplicaResourceProperties
+
+	// READ-ONLY; Link to retrieve next page of results.
+	NextLink *string
+}
+
+// SQLServerAvailabilityGroupUpdate - An update to availability group resource.
+type SQLServerAvailabilityGroupUpdate struct {
+	// The Server Availability Group's properties
+	Properties *SQLServerAvailabilityGroupResourceProperties
+
+	// Resource tags.
+	Tags map[string]*string
+}
+
+// SQLServerDatabaseResource - Arc Sql Server database
+type SQLServerDatabaseResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// REQUIRED; Properties of Arc Sql Server database
+	Properties *SQLServerDatabaseResourceProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SQLServerDatabaseResourceProperties - The properties of Arc Sql Server database resource
+type SQLServerDatabaseResourceProperties struct {
+	BackupInformation *SQLServerDatabaseResourcePropertiesBackupInformation
+
+	// The backup profile for the SQL server.
+	BackupPolicy *BackupPolicy
+
+	// Collation of the database.
+	CollationName *string
+
+	// Compatibility level of the database
+	CompatibilityLevel *int32
+
+	// Database create mode. PointInTimeRestore: Create a database by restoring a point in time backup of an existing database.
+	// sourceDatabaseId and restorePointInTime must be specified.
+	CreateMode *DatabaseCreateMode
+
+	// Creation date of the database.
+	DatabaseCreationDate *time.Time
+
+	// List of features that are enabled for the database
+	DatabaseOptions *SQLServerDatabaseResourcePropertiesDatabaseOptions
+
+	// Whether the database is read only or not.
+	IsReadOnly *bool
+
+	// Migration related configuration.
+	Migration *DataBaseMigration
+
+	// Status of the database.
+	RecoveryMode *RecoveryMode
+
+	// Conditional. If createMode is PointInTimeRestore, this value is required. Specifies the point in time (ISO8601 format)
+	// of the source database that will be restored to create the new database.
+	RestorePointInTime *time.Time
+
+	// Size of the database.
+	SizeMB *float32
+
+	// The name of the source database associated with create operation of this database.
+	SourceDatabaseID *string
+
+	// Space left of the database.
+	SpaceAvailableMB *float32
+
+	// State of the database.
+	State *DatabaseState
+
+	// READ-ONLY; This records the earliest start date and time that restore is available for this database (ISO8601 format).
+	EarliestRestoreDate *time.Time
+
+	// READ-ONLY; The time when last successful database upload was performed.
+	LastDatabaseUploadTime *time.Time
+
+	// READ-ONLY; The provisioning state of the Arc-enabled SQL Server database resource.
+	ProvisioningState *string
+}
+
+type SQLServerDatabaseResourcePropertiesBackupInformation struct {
+	// Date time of last full backup.
+	LastFullBackup *time.Time
+
+	// Date time of last log backup.
+	LastLogBackup *time.Time
+}
+
+// SQLServerDatabaseResourcePropertiesDatabaseOptions - List of features that are enabled for the database
+type SQLServerDatabaseResourcePropertiesDatabaseOptions struct {
+	IsAutoCloseOn               *bool
+	IsAutoCreateStatsOn         *bool
+	IsAutoShrinkOn              *bool
+	IsAutoUpdateStatsOn         *bool
+	IsEncrypted                 *bool
+	IsMemoryOptimizationEnabled *bool
+	IsRemoteDataArchiveEnabled  *bool
+	IsTrustworthyOn             *bool
+}
+
+// SQLServerDatabaseUpdate - An update to database resource.
+type SQLServerDatabaseUpdate struct {
+	// The data controller's properties
+	Properties *SQLServerDatabaseResourceProperties
+
+	// Resource tags.
+	Tags map[string]*string
+}
+
+// SQLServerEsuLicense - Describe SQL Server ESU license resource.
+type SQLServerEsuLicense struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// REQUIRED; SQL Server ESU license properties
+	Properties *SQLServerEsuLicenseProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SQLServerEsuLicenseListResult - A list of SQL Server ESU licenses.
+type SQLServerEsuLicenseListResult struct {
+	// READ-ONLY; Link to retrieve next page of results.
+	NextLink *string
+
+	// READ-ONLY; Array of results.
+	Value []*SQLServerEsuLicense
+}
+
+// SQLServerEsuLicenseProperties - Properties of SQL Server ESU license.
+type SQLServerEsuLicenseProperties struct {
+	// REQUIRED; The activation state of the license.
+	ActivationState *State
+
+	// REQUIRED; SQL Server ESU license type.
+	BillingPlan *BillingPlan
+
+	// REQUIRED; The number of total cores of the license covers.
+	PhysicalCores *int32
+
+	// REQUIRED; The Azure scope to which the license will apply.
+	ScopeType *ScopeType
+
+	// REQUIRED; The SQL Server version the license covers.
+	Version *Version
+
+	// READ-ONLY; The timestamp of the activation of the SqlServerEsuLicense in ISO 8601 date-time format.
+	ActivatedAt *time.Time
+
+	// READ-ONLY; The tenantId the SQL Server ESU license resource subscription resides in.
+	TenantID *string
+
+	// READ-ONLY; The timestamp of the termination of the SqlServerEsuLicense in ISO 8601 date-time format.
+	TerminatedAt *time.Time
+
+	// READ-ONLY; The unique ID of this license. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
+	UniqueID *string
+}
+
+// SQLServerEsuLicenseUpdate - An update to a SQL Server ESU license resource.
+type SQLServerEsuLicenseUpdate struct {
+	// null
+	Properties *SQLServerEsuLicenseUpdateProperties
+
+	// Resource tags.
+	Tags map[string]*string
+}
+
+// SQLServerEsuLicenseUpdateProperties - Properties of update SqlServerEsuLicense.
+type SQLServerEsuLicenseUpdateProperties struct {
+	// The activation state of the license.
+	ActivationState *State
+
+	// SQL Server ESU license type.
+	BillingPlan *BillingPlan
+
+	// The number of total cores of the license covers.
+	PhysicalCores *int32
+
+	// The Azure scope to which the license will apply.
+	ScopeType *ScopeType
+
+	// The SQL Server version the license covers.
+	Version *Version
+
+	// READ-ONLY; The timestamp of the activation of the SqlServerEsuLicense in ISO 8601 date-time format.
+	ActivatedAt *time.Time
+
+	// READ-ONLY; The tenantId the SQL Server ESU license resource subscription resides in.
+	TenantID *string
+
+	// READ-ONLY; The timestamp of the termination of the SqlServerEsuLicense in ISO 8601 date-time format.
+	TerminatedAt *time.Time
+
+	// READ-ONLY; The unique ID of this license. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
+	UniqueID *string
+}
+
 // SQLServerInstance - A SqlServerInstance.
 type SQLServerInstance struct {
 	// REQUIRED; The geo-location where the resource lives
@@ -657,6 +1785,42 @@ type SQLServerInstance struct {
 	Type *string
 }
 
+// SQLServerInstanceJobStatus - The status of the job running on the SQL Server instance.
+type SQLServerInstanceJobStatus struct {
+	// The background job details.
+	BackgroundJob *BackgroundJob
+
+	// The unique identifier of the job.
+	ID *string
+
+	// The name of the SQL Server instance.
+	InstanceName *string
+
+	// The exception message if the job failed.
+	JobException *string
+
+	// The status of the job.
+	JobStatus *JobStatus
+
+	// The list of sequencer actions.
+	SequencerActions []*SequencerAction
+}
+
+// SQLServerInstanceJobsStatusRequest - The request for the status of the jobs running on the SQL Server instance.
+type SQLServerInstanceJobsStatusRequest struct {
+	// The name of the feature to retrieve the job status for.
+	FeatureName *string
+
+	// The type of the job to retrieve the status for.
+	JobType *string
+}
+
+// SQLServerInstanceJobsStatusResponse - The response for the status of the jobs running on the SQL Server instance.
+type SQLServerInstanceJobsStatusResponse struct {
+	// The list of jobs status running on the SQL Server instance.
+	JobsStatus []*SQLServerInstanceJobStatus
+}
+
 // SQLServerInstanceListResult - A list of SqlServerInstance.
 type SQLServerInstanceListResult struct {
 	// READ-ONLY; Link to retrieve next page of results.
@@ -668,26 +1832,23 @@ type SQLServerInstanceListResult struct {
 
 // SQLServerInstanceProperties - Properties of SqlServerInstance.
 type SQLServerInstanceProperties struct {
-	// REQUIRED; ARM Resource id of the container resource (Azure Arc for Servers).
-	ContainerResourceID *string
+	// The backup profile for the SQL server.
+	BackupPolicy *BackupPolicy
 
-	// REQUIRED; The cloud connectivity status.
-	Status *ConnectionStatus
+	// Client connection related configuration.
+	ClientConnection *ClientConnection
 
-	// Status of Azure Defender.
-	AzureDefenderStatus *DefenderStatus
+	// The number of total cores of the Operating System Environment (OSE) hosting the SQL Server instance.
+	Cores *string
 
-	// Timestamp of last Azure Defender status update.
-	AzureDefenderStatusLastUpdated *time.Time
-
-	// SQL Server collation.
-	Collation *string
-
-	// SQL Server current version.
-	CurrentVersion *string
+	// Database mirroring endpoint related properties.
+	DatabaseMirroringEndpoint *DBMEndpoint
 
 	// SQL Server edition.
 	Edition *EditionType
+
+	// Failover Cluster Instance properties.
+	FailoverCluster *FailoverCluster
 
 	// Type of host for Azure Arc SQL Server
 	HostType *HostType
@@ -695,38 +1856,377 @@ type SQLServerInstanceProperties struct {
 	// SQL Server instance name.
 	InstanceName *string
 
-	// SQL Server license type.
-	LicenseType *ArcSQLServerLicenseType
+	// Migration related configuration.
+	Migration *Migration
 
-	// SQL Server update level.
-	PatchLevel *string
+	// The monitoring configuration.
+	Monitoring *Monitoring
 
-	// SQL Server product ID.
-	ProductID *string
+	// Indicates if the resource represents a SQL Server engine or a SQL Server component service installed on the host.
+	ServiceType *ServiceType
 
-	// Dynamic TCP ports used by SQL Server.
-	TCPDynamicPorts *string
-
-	// Static TCP ports used by SQL Server.
-	TCPStaticPorts *string
-
-	// The number of logical processors used by the SQL Server instance.
-	VCore *string
+	// Upgrade Action for this resource is locked until it expires. The Expiration time indicated by this value. It is not locked
+	// when it is empty.
+	UpgradeLockedUntil *time.Time
 
 	// SQL Server version.
 	Version *SQLVersion
 
+	// READ-ONLY; The role of the SQL Server, based on availability.
+	AlwaysOnRole *AlwaysOnRole
+
+	// READ-ONLY; Status of Azure Defender.
+	AzureDefenderStatus *DefenderStatus
+
+	// READ-ONLY; Timestamp of last Azure Defender status update.
+	AzureDefenderStatusLastUpdated *time.Time
+
+	// READ-ONLY; SQL Server collation.
+	Collation *string
+
+	// READ-ONLY; ARM Resource id of the container resource (Azure Arc for Servers).
+	ContainerResourceID *string
+
 	// READ-ONLY; The time when the resource was created.
 	CreateTime *string
 
+	// READ-ONLY; SQL Server current version.
+	CurrentVersion *string
+
+	// READ-ONLY; Indicates whether database master key exists in SQL Server.
+	DbMasterKeyExists *bool
+
+	// READ-ONLY; Indicates whether always On availability groups is enabled in SQL Server.
+	IsHadrEnabled *bool
+
+	// READ-ONLY; The time when last successful inventory upload was performed.
+	LastInventoryUploadTime *time.Time
+
+	// READ-ONLY; The time when last successful usage upload was performed.
+	LastUsageUploadTime *time.Time
+
+	// READ-ONLY; SQL Server license type.
+	LicenseType *ArcSQLServerLicenseType
+
+	// READ-ONLY; SQL Server update level.
+	PatchLevel *string
+
+	// READ-ONLY; SQL Server product ID.
+	ProductID *string
+
 	// READ-ONLY; The provisioning state of the Arc-enabled SQL Server resource.
 	ProvisioningState *string
+
+	// READ-ONLY; The cloud connectivity status.
+	Status *ConnectionStatus
+
+	// READ-ONLY; Dynamic TCP ports used by SQL Server.
+	TCPDynamicPorts *string
+
+	// READ-ONLY; Static TCP ports used by SQL Server.
+	TCPStaticPorts *string
+
+	// READ-ONLY; An array of integers, where each value represents the enabled trace flags in SQL Server.
+	TraceFlags []*int32
+
+	// READ-ONLY; The number of logical processors used by the SQL Server instance.
+	VCore *string
+}
+
+// SQLServerInstanceRunMigrationAssessmentResponse - The response for running migration assessment on the SQL Server instance.
+type SQLServerInstanceRunMigrationAssessmentResponse struct {
+	// The background job details.
+	BackgroundJob *BackgroundJob
+
+	// The unique identifier of the job.
+	ID *string
+
+	// The name of the SQL Server instance.
+	InstanceName *string
+
+	// The exception message if the job failed.
+	JobException *string
+
+	// The status of the job.
+	JobStatus *JobStatus
+
+	// The list of sequencer actions.
+	SequencerActions []*SequencerAction
+}
+
+// SQLServerInstanceTelemetryColumn - The telemetry column for the SQL Server instance.
+type SQLServerInstanceTelemetryColumn struct {
+	// The name of the telemetry column.
+	Name *string
+
+	// The type of the telemetry column.
+	Type *SQLServerInstanceTelemetryColumnType
+}
+
+// SQLServerInstanceTelemetryRequest - The Arc SQL Server instance telemetry retrieval request.
+type SQLServerInstanceTelemetryRequest struct {
+	// REQUIRED; The name of the telemetry dataset to retrieve.
+	DatasetName *string
+
+	// The aggregation type to use for the numerical columns in the dataset.
+	AggregationType *AggregationType
+
+	// The list of database names to return telemetry for. If not specified, telemetry for all databases will be aggregated and
+	// returned.
+	DatabaseNames []*string
+
+	// The end time for the time range to fetch telemetry for. If not specified, the current time is used.
+	EndTime *time.Time
+
+	// The time granularity to fetch telemetry for. This is an ISO8601 duration. Examples: PT15M, PT1H, P1D
+	Interval *string
+
+	// The start time for the time range to fetch telemetry for. If not specified, the current time minus 1 hour is used.
+	StartTime *time.Time
+}
+
+// SQLServerInstanceTelemetryResponse - A section of the telemetry response for the SQL Server instance.
+type SQLServerInstanceTelemetryResponse struct {
+	// REQUIRED; The columns of the result telemetry table for the SQL Server instance.
+	Columns []*SQLServerInstanceTelemetryColumn
+
+	// REQUIRED; A list of rows from the result telemetry table for the SQL Server instance.
+	Rows [][]*string
+
+	// READ-ONLY; The link to the next section of rows of the telemetry response for the SQL Server instance. Null if no more
+	// sections are available.
+	NextLink *string
 }
 
 // SQLServerInstanceUpdate - An update to a SQL Server Instance.
 type SQLServerInstanceUpdate struct {
+	// null
+	Properties *SQLServerInstanceUpdateProperties
+
 	// Resource tags.
 	Tags map[string]*string
+}
+
+// SQLServerInstanceUpdateProperties - Properties of update SqlServerInstance.
+type SQLServerInstanceUpdateProperties struct {
+	// The backup profile for the SQL server.
+	BackupPolicy *BackupPolicy
+
+	// Client connection related configuration.
+	ClientConnection *ClientConnection
+
+	// The number of total cores of the Operating System Environment (OSE) hosting the SQL Server instance.
+	Cores *string
+
+	// SQL Server edition.
+	Edition *EditionType
+
+	// Failover Cluster Instance properties.
+	FailoverCluster *FailoverCluster
+
+	// Type of host for Azure Arc SQL Server
+	HostType *HostType
+
+	// SQL Server instance name.
+	InstanceName *string
+
+	// Migration related configuration.
+	Migration *Migration
+
+	// The monitoring configuration.
+	Monitoring *Monitoring
+
+	// Indicates if the resource represents a SQL Server engine or a SQL Server component service installed on the host.
+	ServiceType *ServiceType
+
+	// Upgrade Action for this resource is locked until it expires. The Expiration time indicated by this value. It is not locked
+	// when it is empty.
+	UpgradeLockedUntil *time.Time
+
+	// SQL Server version.
+	Version *SQLVersion
+
+	// READ-ONLY; The role of the SQL Server, based on availability.
+	AlwaysOnRole *AlwaysOnRole
+
+	// READ-ONLY; Status of Azure Defender.
+	AzureDefenderStatus *DefenderStatus
+
+	// READ-ONLY; Timestamp of last Azure Defender status update.
+	AzureDefenderStatusLastUpdated *time.Time
+
+	// READ-ONLY; SQL Server collation.
+	Collation *string
+
+	// READ-ONLY; ARM Resource id of the container resource (Azure Arc for Servers).
+	ContainerResourceID *string
+
+	// READ-ONLY; The time when the resource was created.
+	CreateTime *string
+
+	// READ-ONLY; SQL Server current version.
+	CurrentVersion *string
+
+	// READ-ONLY; Indicates whether database master key exists in SQL Server.
+	DbMasterKeyExists *bool
+
+	// READ-ONLY; Indicates whether always On availability groups is enabled in SQL Server.
+	IsHadrEnabled *bool
+
+	// READ-ONLY; The time when last successful inventory upload was performed.
+	LastInventoryUploadTime *time.Time
+
+	// READ-ONLY; The time when last successful usage upload was performed.
+	LastUsageUploadTime *time.Time
+
+	// READ-ONLY; SQL Server license type.
+	LicenseType *ArcSQLServerLicenseType
+
+	// READ-ONLY; SQL Server update level.
+	PatchLevel *string
+
+	// READ-ONLY; SQL Server product ID.
+	ProductID *string
+
+	// READ-ONLY; The provisioning state of the Arc-enabled SQL Server resource.
+	ProvisioningState *string
+
+	// READ-ONLY; The cloud connectivity status.
+	Status *ConnectionStatus
+
+	// READ-ONLY; Dynamic TCP ports used by SQL Server.
+	TCPDynamicPorts *string
+
+	// READ-ONLY; Static TCP ports used by SQL Server.
+	TCPStaticPorts *string
+
+	// READ-ONLY; An array of integers, where each value represents the enabled trace flags in SQL Server.
+	TraceFlags []*int32
+
+	// READ-ONLY; The number of logical processors used by the SQL Server instance.
+	VCore *string
+}
+
+// SQLServerLicense - Describe SQL Server license resource.
+type SQLServerLicense struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// REQUIRED; SQL Server license properties
+	Properties *SQLServerLicenseProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SQLServerLicenseListResult - A list of SQL Server licenses.
+type SQLServerLicenseListResult struct {
+	// READ-ONLY; Link to retrieve next page of results.
+	NextLink *string
+
+	// READ-ONLY; Array of results.
+	Value []*SQLServerLicense
+}
+
+// SQLServerLicenseProperties - Properties of SQL Server License.
+type SQLServerLicenseProperties struct {
+	// REQUIRED; The activation state of the license.
+	ActivationState *ActivationState
+
+	// REQUIRED; SQL Server license type.
+	BillingPlan *BillingPlan
+
+	// REQUIRED; This property represents the choice between SQL Server Core and ESU licenses.
+	LicenseCategory *LicenseCategory
+
+	// REQUIRED; The number of total cores of the license covers.
+	PhysicalCores *int32
+
+	// REQUIRED; The Azure scope to which the license will apply.
+	ScopeType *ScopeType
+
+	// READ-ONLY; The timestamp of the most recent activation of the SqlServerLicense.
+	LastActivatedAt *time.Time
+
+	// READ-ONLY; The timestamp of the most recent deactivation of the SqlServerLicense.
+	LastDeactivatedAt *time.Time
+
+	// READ-ONLY; The tenantId the SQL Server license resource subscription resides in.
+	TenantID *string
+}
+
+// SQLServerLicenseUpdate - An update to a SQL Server license resource.
+type SQLServerLicenseUpdate struct {
+	// null
+	Properties *SQLServerLicenseUpdateProperties
+
+	// Resource tags.
+	Tags map[string]*string
+}
+
+// SQLServerLicenseUpdateProperties - Properties of update SqlServerLicense.
+type SQLServerLicenseUpdateProperties struct {
+	// The activation state of the license.
+	ActivationState *ActivationState
+
+	// SQL Server license type.
+	BillingPlan *BillingPlan
+
+	// This property represents the choice between SQL Server Core and ESU licenses.
+	LicenseCategory *LicenseCategory
+
+	// The number of total cores of the license covers.
+	PhysicalCores *int32
+
+	// The Azure scope to which the license will apply.
+	ScopeType *ScopeType
+
+	// READ-ONLY; The timestamp of the most recent activation of the SqlServerLicense.
+	LastActivatedAt *time.Time
+
+	// READ-ONLY; The timestamp of the most recent deactivation of the SqlServerLicense.
+	LastDeactivatedAt *time.Time
+
+	// READ-ONLY; The tenantId the SQL Server license resource subscription resides in.
+	TenantID *string
+}
+
+// SequencerAction - The sequencer action details.
+type SequencerAction struct {
+	// The unique identifier of the sequencer action.
+	ActionID *string
+
+	// The result of the sequencer action.
+	Result *Result
+
+	// The state of the sequencer action.
+	State *SequencerState
+}
+
+type ServerAssessmentsItem struct {
+	AppliesToMigrationTargetPlatform *string
+	FeatureID                        *string
+	ImpactedObjects                  []*ServerAssessmentsPropertiesItemsItem
+	IssueCategory                    *string
+	MoreInformation                  *string
+}
+
+type ServerAssessmentsPropertiesItemsItem struct {
+	ImpactDetail *string
+	Name         *string
+	ObjectType   *string
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
@@ -750,6 +2250,18 @@ type SystemData struct {
 	LastModifiedByType *CreatedByType
 }
 
+// TargetReadiness - The target readiness for migration for this database.
+type TargetReadiness struct {
+	// The SKU recommendation summary.
+	AzureSQLDatabase *SKURecommendationSummary
+
+	// The SKU recommendation summary.
+	AzureSQLManagedInstance *SKURecommendationSummary
+
+	// The SKU recommendation summary.
+	AzureSQLVirtualMachine *SKURecommendationSummary
+}
+
 // TrackedResource - The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags'
 // and a 'location'
 type TrackedResource struct {
@@ -760,6 +2272,28 @@ type TrackedResource struct {
 	Tags map[string]*string
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// TrackedResourceAutoGenerated - The resource model definition for an Azure Resource Manager tracked top level resource which
+// has 'tags' and a 'location'
+type TrackedResourceAutoGenerated struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
