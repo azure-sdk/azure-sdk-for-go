@@ -870,7 +870,7 @@ type CommunityGalleryImageProperties struct {
 	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture
 
 	// The artifact tags of a community gallery resource.
@@ -1095,9 +1095,8 @@ type DataDisk struct {
 	// applicable only for managed data disks. If a previous detachment attempt of the data disk did not complete due to an unexpected
 	// failure from the virtual machine and the disk is still not released then
 	// use force-detach as a last resort option to detach the disk forcibly from the VM. All writes might not have been flushed
-	// when using this detach behavior. This feature is still in preview mode and is
-	// not supported for VirtualMachineScaleSet. To force-detach a data disk update toBeDetached to 'true' along with setting
-	// detachOption: 'ForceDetach'.
+	// when using this detach behavior. This feature is still in preview. To
+	// force-detach a data disk update toBeDetached to 'true' along with setting detachOption: 'ForceDetach'.
 	DetachOption *DiskDetachOptionTypes
 
 	// Specifies the size of an empty data disk in gigabytes. This element can be used to overwrite the size of the disk in a
@@ -2110,6 +2109,21 @@ type EventGridAndResourceGraph struct {
 	Enable *bool
 }
 
+// ExecutedValidation - This is the executed Validation.
+type ExecutedValidation struct {
+	// This property specifies the starting timestamp.
+	ExecutionTime *time.Time
+
+	// This property specifies the status of the validationProfile of the image version.
+	Status *string
+
+	// This property specifies the type of image version validation.
+	Type *string
+
+	// This property specifies the valid version of the validation.
+	Version *string
+}
+
 // ExtendedLocation - The complex type of the extended location.
 type ExtendedLocation struct {
 	// The name of the extended location.
@@ -2554,7 +2568,7 @@ type GalleryImageProperties struct {
 	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture
 
 	// The description of this gallery image definition resource. This property is updatable.
@@ -2660,6 +2674,9 @@ type GalleryImageVersionProperties struct {
 
 	// READ-ONLY; This is the replication status of the gallery image version.
 	ReplicationStatus *ReplicationStatus
+
+	// READ-ONLY; This is the validations profile of a Gallery Image Version.
+	ValidationsProfile *ValidationsProfile
 }
 
 // GalleryImageVersionPublishingProfile - The publishing profile of a gallery image Version.
@@ -3923,6 +3940,16 @@ type Plan struct {
 
 	// The publisher ID.
 	Publisher *string
+}
+
+// PlatformAttribute - This is the platform attribute of the image version.
+type PlatformAttribute struct {
+	// This property specifies the name of the platformAttributes. It could be either sourceimagepublisher or sourceimageoffer
+	// or sourceimagesku or sourceimageversion
+	Name *string
+
+	// This property specifies the value of the corresponding name property.
+	Value *string
 }
 
 // PolicyViolation - A policy violation reported against a gallery artifact.
@@ -5341,7 +5368,7 @@ type SharedGalleryImageProperties struct {
 	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture
 
 	// The artifact tags of a shared gallery resource.
@@ -6102,6 +6129,17 @@ type VMSizeProperties struct {
 	// List all available virtual machine sizes in a region [https://docs.microsoft.com/en-us/rest/api/compute/resource-skus/list].
 	// Setting this property to 1 also means that hyper-threading is disabled.
 	VCPUsPerCore *int32
+}
+
+// ValidationsProfile - This is the validations profile of a Gallery Image Version.
+type ValidationsProfile struct {
+	ExecutedValidations []*ExecutedValidation
+
+	// This specifies the pub, offer, sku and version of the image version metadata
+	PlatformAttributes []*PlatformAttribute
+
+	// The published time of the image version
+	ValidationEtag *string
 }
 
 // VaultCertificate - Describes a single certificate reference in a Key Vault, and where the certificate should reside on
