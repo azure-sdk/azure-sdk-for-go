@@ -94,11 +94,11 @@ func (client *PolicyTrackedResourcesClient) listQueryResultsForManagementGroupCr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	if queryOptions != nil && queryOptions.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*queryOptions.Top), 10))
-	}
 	if queryOptions != nil && queryOptions.Filter != nil {
 		reqQP.Set("$filter", *queryOptions.Filter)
+	}
+	if queryOptions != nil && queryOptions.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*queryOptions.Top), 10))
 	}
 	reqQP.Set("api-version", "2018-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
@@ -161,11 +161,11 @@ func (client *PolicyTrackedResourcesClient) listQueryResultsForResourceCreateReq
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	if queryOptions != nil && queryOptions.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*queryOptions.Top), 10))
-	}
 	if queryOptions != nil && queryOptions.Filter != nil {
 		reqQP.Set("$filter", *queryOptions.Filter)
+	}
+	if queryOptions != nil && queryOptions.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*queryOptions.Top), 10))
 	}
 	reqQP.Set("api-version", "2018-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
@@ -235,11 +235,11 @@ func (client *PolicyTrackedResourcesClient) listQueryResultsForResourceGroupCrea
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	if queryOptions != nil && queryOptions.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*queryOptions.Top), 10))
-	}
 	if queryOptions != nil && queryOptions.Filter != nil {
 		reqQP.Set("$filter", *queryOptions.Filter)
+	}
+	if queryOptions != nil && queryOptions.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*queryOptions.Top), 10))
 	}
 	reqQP.Set("api-version", "2018-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
@@ -304,11 +304,11 @@ func (client *PolicyTrackedResourcesClient) listQueryResultsForSubscriptionCreat
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	if queryOptions != nil && queryOptions.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*queryOptions.Top), 10))
-	}
 	if queryOptions != nil && queryOptions.Filter != nil {
 		reqQP.Set("$filter", *queryOptions.Filter)
+	}
+	if queryOptions != nil && queryOptions.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*queryOptions.Top), 10))
 	}
 	reqQP.Set("api-version", "2018-07-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()

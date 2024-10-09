@@ -10,7 +10,7 @@ package armpolicyinsights
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/policyinsights/armpolicyinsights"
-	moduleVersion = "v0.8.0"
+	moduleVersion = "v0.9.0"
 )
 
 // ComplianceState - The compliance state that should be set on the resource.
@@ -31,6 +31,19 @@ func PossibleComplianceStateValues() []ComplianceState {
 		ComplianceStateCompliant,
 		ComplianceStateNonCompliant,
 		ComplianceStateUnknown,
+	}
+}
+
+type ComponentPolicyStatesResource string
+
+const (
+	ComponentPolicyStatesResourceLatest ComponentPolicyStatesResource = "latest"
+)
+
+// PossibleComponentPolicyStatesResourceValues returns the possible values for the ComponentPolicyStatesResource const type.
+func PossibleComponentPolicyStatesResourceValues() []ComponentPolicyStatesResource {
+	return []ComponentPolicyStatesResource{
+		ComponentPolicyStatesResourceLatest,
 	}
 }
 
@@ -58,6 +71,8 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 type FieldRestrictionResult string
 
 const (
+	// FieldRestrictionResultAudit - The field and/or values will be audited by policy.
+	FieldRestrictionResultAudit FieldRestrictionResult = "Audit"
 	// FieldRestrictionResultDeny - The field and/or values will be denied by policy.
 	FieldRestrictionResultDeny FieldRestrictionResult = "Deny"
 	// FieldRestrictionResultRemoved - The field will be removed by policy.
@@ -69,6 +84,7 @@ const (
 // PossibleFieldRestrictionResultValues returns the possible values for the FieldRestrictionResult const type.
 func PossibleFieldRestrictionResultValues() []FieldRestrictionResult {
 	return []FieldRestrictionResult{
+		FieldRestrictionResultAudit,
 		FieldRestrictionResultDeny,
 		FieldRestrictionResultRemoved,
 		FieldRestrictionResultRequired,
@@ -136,7 +152,7 @@ const (
 	// ResourceDiscoveryModeExistingNonCompliant - Remediate resources that are already known to be non-compliant.
 	ResourceDiscoveryModeExistingNonCompliant ResourceDiscoveryMode = "ExistingNonCompliant"
 	// ResourceDiscoveryModeReEvaluateCompliance - Re-evaluate the compliance state of resources and then remediate the resources
-	// found to be non-compliant.
+	// found to be non-compliant. The resourceIds filter cannot be used in this mode.
 	ResourceDiscoveryModeReEvaluateCompliance ResourceDiscoveryMode = "ReEvaluateCompliance"
 )
 

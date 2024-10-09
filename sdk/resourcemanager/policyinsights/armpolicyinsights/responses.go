@@ -77,6 +77,44 @@ type AttestationsClientListForSubscriptionResponse struct {
 	AttestationListResult
 }
 
+// ComponentPolicyStatesClientListQueryResultsForPolicyDefinitionResponse contains the response from method ComponentPolicyStatesClient.ListQueryResultsForPolicyDefinition.
+type ComponentPolicyStatesClientListQueryResultsForPolicyDefinitionResponse struct {
+	// Query results.
+	ComponentPolicyStatesQueryResults
+}
+
+// ComponentPolicyStatesClientListQueryResultsForResourceGroupLevelPolicyAssignmentResponse contains the response from method
+// ComponentPolicyStatesClient.ListQueryResultsForResourceGroupLevelPolicyAssignment.
+type ComponentPolicyStatesClientListQueryResultsForResourceGroupLevelPolicyAssignmentResponse struct {
+	// Query results.
+	ComponentPolicyStatesQueryResults
+}
+
+// ComponentPolicyStatesClientListQueryResultsForResourceGroupResponse contains the response from method ComponentPolicyStatesClient.ListQueryResultsForResourceGroup.
+type ComponentPolicyStatesClientListQueryResultsForResourceGroupResponse struct {
+	// Query results.
+	ComponentPolicyStatesQueryResults
+}
+
+// ComponentPolicyStatesClientListQueryResultsForResourceResponse contains the response from method ComponentPolicyStatesClient.ListQueryResultsForResource.
+type ComponentPolicyStatesClientListQueryResultsForResourceResponse struct {
+	// Query results.
+	ComponentPolicyStatesQueryResults
+}
+
+// ComponentPolicyStatesClientListQueryResultsForSubscriptionLevelPolicyAssignmentResponse contains the response from method
+// ComponentPolicyStatesClient.ListQueryResultsForSubscriptionLevelPolicyAssignment.
+type ComponentPolicyStatesClientListQueryResultsForSubscriptionLevelPolicyAssignmentResponse struct {
+	// Query results.
+	ComponentPolicyStatesQueryResults
+}
+
+// ComponentPolicyStatesClientListQueryResultsForSubscriptionResponse contains the response from method ComponentPolicyStatesClient.ListQueryResultsForSubscription.
+type ComponentPolicyStatesClientListQueryResultsForSubscriptionResponse struct {
+	// Query results.
+	ComponentPolicyStatesQueryResults
+}
+
 // OperationsClientListResponse contains the response from method OperationsClient.List.
 type OperationsClientListResponse struct {
 	// List of available operations.
