@@ -42,7 +42,7 @@ func NewPolicyMetadataClient(credential azcore.TokenCredential, options *arm.Cli
 // GetResource - Get policy metadata resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2019-10-01
+// Generated from API version 2024-10-01
 //   - resourceName - The name of the policy metadata resource.
 //   - options - PolicyMetadataClientGetResourceOptions contains the optional parameters for the PolicyMetadataClient.GetResource
 //     method.
@@ -77,7 +77,7 @@ func (client *PolicyMetadataClient) getResourceCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-10-01")
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -94,7 +94,7 @@ func (client *PolicyMetadataClient) getResourceHandleResponse(resp *http.Respons
 
 // NewListPager - Get a list of the policy metadata resources.
 //
-// Generated from API version 2019-10-01
+// Generated from API version 2024-10-01
 //   - QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
 //     method.
 //   - options - PolicyMetadataClientListOptions contains the optional parameters for the PolicyMetadataClient.NewListPager method.
@@ -129,10 +129,10 @@ func (client *PolicyMetadataClient) listCreateRequest(ctx context.Context, query
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-10-01")
 	if queryOptions != nil && queryOptions.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*queryOptions.Top), 10))
 	}
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

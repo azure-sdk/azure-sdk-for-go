@@ -84,6 +84,183 @@ type AttestationsClientListForSubscriptionOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ComponentPolicyStatesClientListQueryResultsForPolicyDefinitionOptions contains the optional parameters for the ComponentPolicyStatesClient.ListQueryResultsForPolicyDefinition
+// method.
+type ComponentPolicyStatesClientListQueryResultsForPolicyDefinitionOptions struct {
+	// OData apply expression for aggregations.
+	Apply *string
+
+	// OData filter expression.
+	Filter *string
+
+	// ISO 8601 formatted timestamp specifying the start time of the interval to query. When not specified, the service uses ($to
+	// - 1-day).
+	From *time.Time
+
+	// Ordering expression using OData notation. One or more comma-separated column names with an optional "desc" (the default)
+	// or "asc", e.g. "$orderby=PolicyAssignmentId, ResourceId asc".
+	OrderBy *string
+
+	// Select expression using OData notation. Limits the columns on each record to just those requested, e.g. "$select=PolicyAssignmentId,
+	// ResourceId".
+	Select *string
+
+	// ISO 8601 formatted timestamp specifying the end time of the interval to query. When not specified, the service uses request
+	// time.
+	To *time.Time
+
+	// Maximum number of records to return.
+	Top *int32
+}
+
+// ComponentPolicyStatesClientListQueryResultsForResourceGroupLevelPolicyAssignmentOptions contains the optional parameters
+// for the ComponentPolicyStatesClient.ListQueryResultsForResourceGroupLevelPolicyAssignment method.
+type ComponentPolicyStatesClientListQueryResultsForResourceGroupLevelPolicyAssignmentOptions struct {
+	// OData apply expression for aggregations.
+	Apply *string
+
+	// OData filter expression.
+	Filter *string
+
+	// ISO 8601 formatted timestamp specifying the start time of the interval to query. When not specified, the service uses ($to
+	// - 1-day).
+	From *time.Time
+
+	// Ordering expression using OData notation. One or more comma-separated column names with an optional "desc" (the default)
+	// or "asc", e.g. "$orderby=PolicyAssignmentId, ResourceId asc".
+	OrderBy *string
+
+	// Select expression using OData notation. Limits the columns on each record to just those requested, e.g. "$select=PolicyAssignmentId,
+	// ResourceId".
+	Select *string
+
+	// ISO 8601 formatted timestamp specifying the end time of the interval to query. When not specified, the service uses request
+	// time.
+	To *time.Time
+
+	// Maximum number of records to return.
+	Top *int32
+}
+
+// ComponentPolicyStatesClientListQueryResultsForResourceGroupOptions contains the optional parameters for the ComponentPolicyStatesClient.ListQueryResultsForResourceGroup
+// method.
+type ComponentPolicyStatesClientListQueryResultsForResourceGroupOptions struct {
+	// OData apply expression for aggregations.
+	Apply *string
+
+	// OData filter expression.
+	Filter *string
+
+	// ISO 8601 formatted timestamp specifying the start time of the interval to query. When not specified, the service uses ($to
+	// - 1-day).
+	From *time.Time
+
+	// Ordering expression using OData notation. One or more comma-separated column names with an optional "desc" (the default)
+	// or "asc", e.g. "$orderby=PolicyAssignmentId, ResourceId asc".
+	OrderBy *string
+
+	// Select expression using OData notation. Limits the columns on each record to just those requested, e.g. "$select=PolicyAssignmentId,
+	// ResourceId".
+	Select *string
+
+	// ISO 8601 formatted timestamp specifying the end time of the interval to query. When not specified, the service uses request
+	// time.
+	To *time.Time
+
+	// Maximum number of records to return.
+	Top *int32
+}
+
+// ComponentPolicyStatesClientListQueryResultsForResourceOptions contains the optional parameters for the ComponentPolicyStatesClient.ListQueryResultsForResource
+// method.
+type ComponentPolicyStatesClientListQueryResultsForResourceOptions struct {
+	// OData apply expression for aggregations.
+	Apply *string
+
+	// The $expand query parameter.
+	Expand *string
+
+	// OData filter expression.
+	Filter *string
+
+	// ISO 8601 formatted timestamp specifying the start time of the interval to query. When not specified, the service uses ($to
+	// - 1-day).
+	From *time.Time
+
+	// Ordering expression using OData notation. One or more comma-separated column names with an optional "desc" (the default)
+	// or "asc", e.g. "$orderby=PolicyAssignmentId, ResourceId asc".
+	OrderBy *string
+
+	// Select expression using OData notation. Limits the columns on each record to just those requested, e.g. "$select=PolicyAssignmentId,
+	// ResourceId".
+	Select *string
+
+	// ISO 8601 formatted timestamp specifying the end time of the interval to query. When not specified, the service uses request
+	// time.
+	To *time.Time
+
+	// Maximum number of records to return.
+	Top *int32
+}
+
+// ComponentPolicyStatesClientListQueryResultsForSubscriptionLevelPolicyAssignmentOptions contains the optional parameters
+// for the ComponentPolicyStatesClient.ListQueryResultsForSubscriptionLevelPolicyAssignment method.
+type ComponentPolicyStatesClientListQueryResultsForSubscriptionLevelPolicyAssignmentOptions struct {
+	// OData apply expression for aggregations.
+	Apply *string
+
+	// OData filter expression.
+	Filter *string
+
+	// ISO 8601 formatted timestamp specifying the start time of the interval to query. When not specified, the service uses ($to
+	// - 1-day).
+	From *time.Time
+
+	// Ordering expression using OData notation. One or more comma-separated column names with an optional "desc" (the default)
+	// or "asc", e.g. "$orderby=PolicyAssignmentId, ResourceId asc".
+	OrderBy *string
+
+	// Select expression using OData notation. Limits the columns on each record to just those requested, e.g. "$select=PolicyAssignmentId,
+	// ResourceId".
+	Select *string
+
+	// ISO 8601 formatted timestamp specifying the end time of the interval to query. When not specified, the service uses request
+	// time.
+	To *time.Time
+
+	// Maximum number of records to return.
+	Top *int32
+}
+
+// ComponentPolicyStatesClientListQueryResultsForSubscriptionOptions contains the optional parameters for the ComponentPolicyStatesClient.ListQueryResultsForSubscription
+// method.
+type ComponentPolicyStatesClientListQueryResultsForSubscriptionOptions struct {
+	// OData apply expression for aggregations.
+	Apply *string
+
+	// OData filter expression.
+	Filter *string
+
+	// ISO 8601 formatted timestamp specifying the start time of the interval to query. When not specified, the service uses ($to
+	// - 1-day).
+	From *time.Time
+
+	// Ordering expression using OData notation. One or more comma-separated column names with an optional "desc" (the default)
+	// or "asc", e.g. "$orderby=PolicyAssignmentId, ResourceId asc".
+	OrderBy *string
+
+	// Select expression using OData notation. Limits the columns on each record to just those requested, e.g. "$select=PolicyAssignmentId,
+	// ResourceId".
+	Select *string
+
+	// ISO 8601 formatted timestamp specifying the end time of the interval to query. When not specified, the service uses request
+	// time.
+	To *time.Time
+
+	// Maximum number of records to return.
+	Top *int32
+}
+
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters

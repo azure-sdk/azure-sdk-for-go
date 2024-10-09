@@ -20,6 +20,7 @@ import (
 // ServerFactory is a fake server for instances of the armpolicyinsights.ClientFactory type.
 type ServerFactory struct {
 	AttestationsServer           AttestationsServer
+	ComponentPolicyStatesServer  ComponentPolicyStatesServer
 	OperationsServer             OperationsServer
 	PolicyEventsServer           PolicyEventsServer
 	PolicyMetadataServer         PolicyMetadataServer
@@ -44,6 +45,7 @@ type ServerFactoryTransport struct {
 	srv                            *ServerFactory
 	trMu                           sync.Mutex
 	trAttestationsServer           *AttestationsServerTransport
+	trComponentPolicyStatesServer  *ComponentPolicyStatesServerTransport
 	trOperationsServer             *OperationsServerTransport
 	trPolicyEventsServer           *PolicyEventsServerTransport
 	trPolicyMetadataServer         *PolicyMetadataServerTransport
@@ -69,6 +71,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "AttestationsClient":
 		initServer(s, &s.trAttestationsServer, func() *AttestationsServerTransport { return NewAttestationsServerTransport(&s.srv.AttestationsServer) })
 		resp, err = s.trAttestationsServer.Do(req)
+	case "ComponentPolicyStatesClient":
+		initServer(s, &s.trComponentPolicyStatesServer, func() *ComponentPolicyStatesServerTransport {
+			return NewComponentPolicyStatesServerTransport(&s.srv.ComponentPolicyStatesServer)
+		})
+		resp, err = s.trComponentPolicyStatesServer.Do(req)
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
