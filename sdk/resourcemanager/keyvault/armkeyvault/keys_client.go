@@ -46,7 +46,7 @@ func NewKeysClient(subscriptionID string, credential azcore.TokenCredential, opt
 
 // CreateIfNotExist - Creates the first version of a new key if it does not exist. If it already exists, then the existing
 // key is returned without any write operations being performed. This API does not create subsequent
-// versions, and does not update existing keys.
+// versions, and does not update existing keys. Test a trivial change. Another trivial change.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-07-01
