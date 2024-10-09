@@ -29,8 +29,8 @@ type SourceControlsServer struct {
 	Create func(ctx context.Context, resourceGroupName string, workspaceName string, sourceControlID string, sourceControl armsecurityinsights.SourceControl, options *armsecurityinsights.SourceControlsClientCreateOptions) (resp azfake.Responder[armsecurityinsights.SourceControlsClientCreateResponse], errResp azfake.ErrorResponder)
 
 	// Delete is the fake for method SourceControlsClient.Delete
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
-	Delete func(ctx context.Context, resourceGroupName string, workspaceName string, sourceControlID string, options *armsecurityinsights.SourceControlsClientDeleteOptions) (resp azfake.Responder[armsecurityinsights.SourceControlsClientDeleteResponse], errResp azfake.ErrorResponder)
+	// HTTP status codes to indicate success: http.StatusOK
+	Delete func(ctx context.Context, resourceGroupName string, workspaceName string, sourceControlID string, repositoryAccess armsecurityinsights.RepositoryAccessProperties, options *armsecurityinsights.SourceControlsClientDeleteOptions) (resp azfake.Responder[armsecurityinsights.SourceControlsClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method SourceControlsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
@@ -134,11 +134,15 @@ func (s *SourceControlsServerTransport) dispatchDelete(req *http.Request) (*http
 	if s.srv.Delete == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Delete not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.OperationalInsights/workspaces/(?P<workspaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.SecurityInsights/sourcecontrols/(?P<sourceControlId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.OperationalInsights/workspaces/(?P<workspaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.SecurityInsights/sourcecontrols/(?P<sourceControlId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/delete`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armsecurityinsights.RepositoryAccessProperties](req)
+	if err != nil {
+		return nil, err
 	}
 	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
@@ -152,15 +156,15 @@ func (s *SourceControlsServerTransport) dispatchDelete(req *http.Request) (*http
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := s.srv.Delete(req.Context(), resourceGroupNameParam, workspaceNameParam, sourceControlIDParam, nil)
+	respr, errRespr := s.srv.Delete(req.Context(), resourceGroupNameParam, workspaceNameParam, sourceControlIDParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK, http.StatusNoContent}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusNoContent", respContent.HTTPStatus)}
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.NewResponse(respContent, req, nil)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Warning, req)
 	if err != nil {
 		return nil, err
 	}
