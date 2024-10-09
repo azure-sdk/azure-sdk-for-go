@@ -1,5 +1,14 @@
 # Release History
 
+## 6.2.0 (2024-10-09)
+### Features Added
+
+- New struct `ExecutedValidation`
+- New struct `PlatformAttribute`
+- New struct `ValidationsProfile`
+- New field `ValidationsProfile` in struct `GalleryImageVersionProperties`
+
+
 ## 6.1.0 (2024-08-23)
 ### Features Added
 
