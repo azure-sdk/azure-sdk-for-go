@@ -194,6 +194,14 @@ func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	}
 }
 
+// NewOperationsOngoingClient creates a new instance of OperationsOngoingClient.
+func (c *ClientFactory) NewOperationsOngoingClient() *OperationsOngoingClient {
+	return &OperationsOngoingClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewReplicasClient creates a new instance of ReplicasClient.
 func (c *ClientFactory) NewReplicasClient() *ReplicasClient {
 	return &ReplicasClient{

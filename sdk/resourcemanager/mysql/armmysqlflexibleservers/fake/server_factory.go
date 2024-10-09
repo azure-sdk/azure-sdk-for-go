@@ -39,6 +39,7 @@ type ServerFactory struct {
 	OperationProgressServer                    OperationProgressServer
 	OperationResultsServer                     OperationResultsServer
 	OperationsServer                           OperationsServer
+	OperationsOngoingServer                    OperationsOngoingServer
 	ReplicasServer                             ReplicasServer
 	ServersServer                              ServersServer
 	ServersMigrationServer                     ServersMigrationServer
@@ -78,6 +79,7 @@ type ServerFactoryTransport struct {
 	trOperationProgressServer                    *OperationProgressServerTransport
 	trOperationResultsServer                     *OperationResultsServerTransport
 	trOperationsServer                           *OperationsServerTransport
+	trOperationsOngoingServer                    *OperationsOngoingServerTransport
 	trReplicasServer                             *ReplicasServerTransport
 	trServersServer                              *ServersServerTransport
 	trServersMigrationServer                     *ServersMigrationServerTransport
@@ -186,6 +188,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
+	case "OperationsOngoingClient":
+		initServer(s, &s.trOperationsOngoingServer, func() *OperationsOngoingServerTransport {
+			return NewOperationsOngoingServerTransport(&s.srv.OperationsOngoingServer)
+		})
+		resp, err = s.trOperationsOngoingServer.Do(req)
 	case "ReplicasClient":
 		initServer(s, &s.trReplicasServer, func() *ReplicasServerTransport { return NewReplicasServerTransport(&s.srv.ReplicasServer) })
 		resp, err = s.trReplicasServer.Do(req)

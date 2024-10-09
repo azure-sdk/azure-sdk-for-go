@@ -275,6 +275,11 @@ type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// OperationsOngoingClientListOptions contains the optional parameters for the OperationsOngoingClient.NewListPager method.
+type OperationsOngoingClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ReplicasClientListByServerOptions contains the optional parameters for the ReplicasClient.NewListByServerPager method.
 type ReplicasClientListByServerOptions struct {
 	// placeholder for future optional parameters
@@ -288,6 +293,12 @@ type ServersClientBeginCreateOptions struct {
 
 // ServersClientBeginDeleteOptions contains the optional parameters for the ServersClient.BeginDelete method.
 type ServersClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ServersClientBeginDetachVNetOptions contains the optional parameters for the ServersClient.BeginDetachVNet method.
+type ServersClientBeginDetachVNetOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -326,6 +337,12 @@ type ServersClientBeginStopOptions struct {
 type ServersClientBeginUpdateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
+}
+
+// ServersClientEstimateRestoreSnapshotOptions contains the optional parameters for the ServersClient.EstimateRestoreSnapshot
+// method.
+type ServersClientEstimateRestoreSnapshotOptions struct {
+	// placeholder for future optional parameters
 }
 
 // ServersClientGetOptions contains the optional parameters for the ServersClient.Get method.

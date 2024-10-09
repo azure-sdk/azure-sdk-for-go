@@ -20,51 +20,52 @@ import (
 	"strings"
 )
 
-// LocationBasedCapabilitiesClient contains the methods for the LocationBasedCapabilities group.
-// Don't use this type directly, use NewLocationBasedCapabilitiesClient() instead.
-type LocationBasedCapabilitiesClient struct {
+// OperationsOngoingClient contains the methods for the OperationsOngoing group.
+// Don't use this type directly, use NewOperationsOngoingClient() instead.
+type OperationsOngoingClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewLocationBasedCapabilitiesClient creates a new instance of LocationBasedCapabilitiesClient with the specified values.
+// NewOperationsOngoingClient creates a new instance of OperationsOngoingClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewLocationBasedCapabilitiesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*LocationBasedCapabilitiesClient, error) {
+func NewOperationsOngoingClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*OperationsOngoingClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &LocationBasedCapabilitiesClient{
+	client := &OperationsOngoingClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// NewListPager - Get capabilities at specified location in a given subscription.
+// NewListPager - Lists all of operations according to specific operation type under a sub.
 //
 // Generated from API version 2024-10-01-preview
 //   - locationName - The name of the location.
-//   - options - LocationBasedCapabilitiesClientListOptions contains the optional parameters for the LocationBasedCapabilitiesClient.NewListPager
+//   - filter - The operation type to query.
+//   - options - OperationsOngoingClientListOptions contains the optional parameters for the OperationsOngoingClient.NewListPager
 //     method.
-func (client *LocationBasedCapabilitiesClient) NewListPager(locationName string, options *LocationBasedCapabilitiesClientListOptions) *runtime.Pager[LocationBasedCapabilitiesClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[LocationBasedCapabilitiesClientListResponse]{
-		More: func(page LocationBasedCapabilitiesClientListResponse) bool {
+func (client *OperationsOngoingClient) NewListPager(locationName string, filter string, options *OperationsOngoingClientListOptions) *runtime.Pager[OperationsOngoingClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[OperationsOngoingClientListResponse]{
+		More: func(page OperationsOngoingClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *LocationBasedCapabilitiesClientListResponse) (LocationBasedCapabilitiesClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "LocationBasedCapabilitiesClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *OperationsOngoingClientListResponse) (OperationsOngoingClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "OperationsOngoingClient.NewListPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, locationName, options)
+				return client.listCreateRequest(ctx, locationName, filter, options)
 			}, nil)
 			if err != nil {
-				return LocationBasedCapabilitiesClientListResponse{}, err
+				return OperationsOngoingClientListResponse{}, err
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -73,8 +74,8 @@ func (client *LocationBasedCapabilitiesClient) NewListPager(locationName string,
 }
 
 // listCreateRequest creates the List request.
-func (client *LocationBasedCapabilitiesClient) listCreateRequest(ctx context.Context, locationName string, options *LocationBasedCapabilitiesClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.DBforMySQL/locations/{locationName}/capabilities"
+func (client *OperationsOngoingClient) listCreateRequest(ctx context.Context, locationName string, filter string, options *OperationsOngoingClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.DBforMySQL/locations/{locationName}/operationsOngoing"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -89,16 +90,17 @@ func (client *LocationBasedCapabilitiesClient) listCreateRequest(ctx context.Con
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2024-10-01-preview")
+	reqQP.Set("filter", filter)
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
 // listHandleResponse handles the List response.
-func (client *LocationBasedCapabilitiesClient) listHandleResponse(resp *http.Response) (LocationBasedCapabilitiesClientListResponse, error) {
-	result := LocationBasedCapabilitiesClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.CapabilitiesListResult); err != nil {
-		return LocationBasedCapabilitiesClientListResponse{}, err
+func (client *OperationsOngoingClient) listHandleResponse(resp *http.Response) (OperationsOngoingClientListResponse, error) {
+	result := OperationsOngoingClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.OperationOngoingListResult); err != nil {
+		return OperationsOngoingClientListResponse{}, err
 	}
 	return result, nil
 }
