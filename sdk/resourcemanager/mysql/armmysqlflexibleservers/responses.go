@@ -263,6 +263,12 @@ type OperationsClientListResponse struct {
 	OperationListResult
 }
 
+// OperationsOngoingClientListResponse contains the response from method OperationsOngoingClient.NewListPager.
+type OperationsOngoingClientListResponse struct {
+	// A list of ongoing operations.
+	OperationOngoingListResult
+}
+
 // ReplicasClientListByServerResponse contains the response from method ReplicasClient.NewListByServerPager.
 type ReplicasClientListByServerResponse struct {
 	// A list of servers.
@@ -278,6 +284,18 @@ type ServersClientCreateResponse struct {
 // ServersClientDeleteResponse contains the response from method ServersClient.BeginDelete.
 type ServersClientDeleteResponse struct {
 	// placeholder for future response values
+}
+
+// ServersClientDetachVNetResponse contains the response from method ServersClient.BeginDetachVNet.
+type ServersClientDetachVNetResponse struct {
+	// Represents a server.
+	Server
+}
+
+// ServersClientEstimateRestoreSnapshotResponse contains the response from method ServersClient.EstimateRestoreSnapshot.
+type ServersClientEstimateRestoreSnapshotResponse struct {
+	// The parameters to estimate RestoreSnapshot.
+	ServerForEstimateRestoreSnapshotResponse
 }
 
 // ServersClientFailoverResponse contains the response from method ServersClient.BeginFailover.

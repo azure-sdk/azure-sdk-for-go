@@ -267,6 +267,9 @@ type CapabilityProperties struct {
 
 // CapabilityPropertiesV2 - Location capability.
 type CapabilityPropertiesV2 struct {
+	// READ-ONLY; A list of supported features.
+	SupportedFeatures []*FeatureProperty
+
 	// READ-ONLY; A list of supported flexible server editions.
 	SupportedFlexibleServerEditions []*ServerEditionCapabilityV2
 
@@ -473,6 +476,15 @@ type ErrorResponse struct {
 	Error *ErrorDetail
 }
 
+// FeatureProperty - Server version capabilities.
+type FeatureProperty struct {
+	// READ-ONLY; feature name
+	FeatureName *string
+
+	// READ-ONLY; feature value
+	FeatureValue *string
+}
+
 // FirewallRule - Represents a server firewall rule.
 type FirewallRule struct {
 	// REQUIRED; The properties of a firewall rule.
@@ -658,6 +670,12 @@ type MaintenanceListResult struct {
 	Value []*Maintenance
 }
 
+// MaintenancePolicy - Maintenance policy of a server.
+type MaintenancePolicy struct {
+	// The patch strategy of this server
+	PatchStrategy *PatchStrategy
+}
+
 // MaintenanceProperties - The properties of a maintenance resource.
 type MaintenanceProperties struct {
 	// The start time for a maintenance.
@@ -815,6 +833,44 @@ type OperationListResult struct {
 
 	// Collection of available operation details
 	Value []*Operation
+}
+
+// OperationOngoing - REST API operation ongoing definition.
+type OperationOngoing struct {
+	// The end time.
+	EndTime *string
+
+	// The error message.
+	ErrorMessage *string
+
+	// The last updated time.
+	LastUpdatedTime *string
+
+	// The operation parameters.
+	OperationParameters *string
+
+	// The operation id.
+	OperationRequestID *string
+
+	// The operation type.
+	OperationType *string
+
+	// The start time.
+	StartTime *string
+
+	// State of the operation.
+	State *string
+
+	// The subscription id.
+	SubscriptionID *string
+}
+
+// OperationOngoingListResult - A list of ongoing operations.
+type OperationOngoingListResult struct {
+	NextLink *string
+
+	// Collection of ongoing operations
+	Value []*OperationOngoing
 }
 
 // OperationProgressResponseType - Represents the response properties specific to the operation
@@ -1031,6 +1087,71 @@ type Resource struct {
 	Type *string
 }
 
+// RestoreSnapshotResponseSubTask - Sub tasks of RestoreSnapshot
+type RestoreSnapshotResponseSubTask struct {
+	// REQUIRED; Identifies the type of source operation
+	ObjectType *ObjectType
+
+	// REQUIRED; The task name.
+	TaskName *string
+
+	// Detail log.
+	Detail *string
+
+	// The end time.
+	EndTime *time.Time
+
+	// Error message.
+	ErrorMessage *string
+
+	// The estimated end time.
+	EstimatedEndTime *time.Time
+
+	// The percent complete.
+	PercentComplete *int32
+
+	// The start time.
+	StartTime *time.Time
+
+	// Sub task status.
+	Status *string
+}
+
+// GetOperationProgressResponseType implements the OperationProgressResponseTypeClassification interface for type RestoreSnapshotResponseSubTask.
+func (r *RestoreSnapshotResponseSubTask) GetOperationProgressResponseType() *OperationProgressResponseType {
+	return &OperationProgressResponseType{
+		ObjectType: r.ObjectType,
+	}
+}
+
+// RestoreSnapshotResponseType - RestoreSnapshot Response Properties
+type RestoreSnapshotResponseType struct {
+	// REQUIRED; Identifies the type of source operation
+	ObjectType *ObjectType
+
+	// Detail log.
+	Detail *string
+
+	// The estimated time of operation completion.
+	EstimatedCompletionTime *time.Time
+
+	// The operation parameters.
+	OperationParameters *string
+
+	// Retry times.
+	RetryTimes *int32
+
+	// Sub tasks.
+	SubTasks []*RestoreSnapshotResponseSubTask
+}
+
+// GetOperationProgressResponseType implements the OperationProgressResponseTypeClassification interface for type RestoreSnapshotResponseType.
+func (r *RestoreSnapshotResponseType) GetOperationProgressResponseType() *OperationProgressResponseType {
+	return &OperationProgressResponseType{
+		ObjectType: r.ObjectType,
+	}
+}
+
 // SKUCapability - Sku capability
 type SKUCapability struct {
 	// READ-ONLY; vCore name
@@ -1179,6 +1300,12 @@ type ServerBackupV2ListResult struct {
 	Value []*ServerBackupV2
 }
 
+// ServerDetachVNetParameter - Parameters to detach Vnet.
+type ServerDetachVNetParameter struct {
+	// Whether or not public network access is allowed for this server. Value is 'Disabled' when server has VNet integration.
+	PublicNetworkAccess *EnableStatusEnum
+}
+
 // ServerEditionCapability - Server edition capabilities.
 type ServerEditionCapability struct {
 	// READ-ONLY; Server edition name
@@ -1209,6 +1336,48 @@ type ServerEditionCapabilityV2 struct {
 	SupportedStorageEditions []*StorageEditionCapability
 }
 
+// ServerForEstimateRestoreSnapshotParameter - The parameters to estimate RestoreSnapshot.
+type ServerForEstimateRestoreSnapshotParameter struct {
+	// The mode to restore a new MySQL server.
+	CreateMode *CreateMode
+
+	// The location to restore a new MySQL server.
+	Location *string
+
+	// Restore point creation time (ISO8601 format), specifying the time to restore from.
+	RestorePointInTime *time.Time
+
+	// The SKU (pricing tier) of the server.
+	SKU *MySQLServerSKU
+
+	// Storage related properties of a server.
+	Storage *Storage
+}
+
+// ServerForEstimateRestoreSnapshotResponse - The parameters to estimate RestoreSnapshot.
+type ServerForEstimateRestoreSnapshotResponse struct {
+	// The max estimated completion time.
+	EstimatedDurationInSecondsMax *int32
+
+	// The min estimated completion time.
+	EstimatedDurationInSecondsMin *int32
+
+	// READ-ONLY; Sub tasks
+	SubTasks []*ServerForEstimateRestoreSnapshotResponseSubTask
+}
+
+// ServerForEstimateRestoreSnapshotResponseSubTask - The parameters to estimate RestoreSnapshot.
+type ServerForEstimateRestoreSnapshotResponseSubTask struct {
+	// The max estimated completion time.
+	EstimatedDurationInSecondsMax *int32
+
+	// The min estimated completion time.
+	EstimatedDurationInSecondsMin *int32
+
+	// Sub task name
+	TaskName *string
+}
+
 // ServerForUpdate - Parameters allowed to update for a server.
 type ServerForUpdate struct {
 	// The cmk identity for the server.
@@ -1224,7 +1393,7 @@ type ServerForUpdate struct {
 	Tags map[string]*string
 }
 
-// ServerGtidSetParameter - Server Gtid set parameters.
+// ServerGtidSetParameter - Server Gtid set parameters: Replication with Global Transaction Identifiers.
 type ServerGtidSetParameter struct {
 	// The Gtid set of server.
 	GtidSet *string
@@ -1260,13 +1429,23 @@ type ServerProperties struct {
 	// The Data Encryption for CMK.
 	DataEncryption *DataEncryption
 
+	// The server database port. Can only be specified when the server is being created.
+	DatabasePort *int32
+
+	// Major version and actual engine version
+	FullVersion *string
+
 	// High availability related properties of a server.
 	HighAvailability *HighAvailability
 
 	// Source properties for import from storage.
 	ImportSourceProperties *ImportSourceProperties
 
-	// Maintenance window of a server.
+	// Maintenance policy of a server.
+	MaintenancePolicy *MaintenancePolicy
+
+	// Maintenance window of a server. Known issue: cannot be set during server creation or updated with other properties during
+	// server update; must be updated separately.
 	MaintenanceWindow *MaintenanceWindow
 
 	// Network related properties of a server.
@@ -1284,7 +1463,7 @@ type ServerProperties struct {
 	// Storage related properties of a server.
 	Storage *Storage
 
-	// Server version.
+	// Major version of MySQL. 8.0.21 stands for MySQL 8.0, 5.7.44 stands for MySQL 5.7
 	Version *ServerVersion
 
 	// READ-ONLY; The fully qualified domain name of a server.
@@ -1313,6 +1492,9 @@ type ServerPropertiesForUpdate struct {
 
 	// High availability related properties of a server.
 	HighAvailability *HighAvailability
+
+	// Maintenance policy of a server.
+	MaintenancePolicy *MaintenancePolicy
 
 	// Maintenance window of a server.
 	MaintenanceWindow *MaintenanceWindow
@@ -1367,6 +1549,9 @@ type Storage struct {
 
 	// Enable Log On Disk or not.
 	LogOnDisk *EnableStatusEnum
+
+	// The redundant type of the server storage. The parameter is used for server creation.
+	StorageRedundancy *StorageRedundancyEnum
 
 	// Max storage size allowed for a server.
 	StorageSizeGB *int32
