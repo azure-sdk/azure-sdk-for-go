@@ -10,7 +10,7 @@ package armredisenterprise
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/redisenterprise/armredisenterprise"
-	moduleVersion = "v2.1.0-beta.1"
+	moduleVersion = "v2.1.0"
 )
 
 // AccessKeyType - Which access key to regenerate.
@@ -88,22 +88,6 @@ func PossibleCmkIdentityTypeValues() []CmkIdentityType {
 	return []CmkIdentityType{
 		CmkIdentityTypeSystemAssignedIdentity,
 		CmkIdentityTypeUserAssignedIdentity,
-	}
-}
-
-// DeferUpgradeSetting - Option to defer upgrade when newest version is released - default is NotDeferred. Learn more: https://aka.ms/redisversionupgrade
-type DeferUpgradeSetting string
-
-const (
-	DeferUpgradeSettingDeferred    DeferUpgradeSetting = "Deferred"
-	DeferUpgradeSettingNotDeferred DeferUpgradeSetting = "NotDeferred"
-)
-
-// PossibleDeferUpgradeSettingValues returns the possible values for the DeferUpgradeSetting const type.
-func PossibleDeferUpgradeSettingValues() []DeferUpgradeSetting {
-	return []DeferUpgradeSetting{
-		DeferUpgradeSettingDeferred,
-		DeferUpgradeSettingNotDeferred,
 	}
 }
 
@@ -336,9 +320,12 @@ func PossibleResourceStateValues() []ResourceState {
 type SKUName string
 
 const (
+	SKUNameEnterpriseE1         SKUName = "Enterprise_E1"
 	SKUNameEnterpriseE10        SKUName = "Enterprise_E10"
 	SKUNameEnterpriseE100       SKUName = "Enterprise_E100"
 	SKUNameEnterpriseE20        SKUName = "Enterprise_E20"
+	SKUNameEnterpriseE200       SKUName = "Enterprise_E200"
+	SKUNameEnterpriseE400       SKUName = "Enterprise_E400"
 	SKUNameEnterpriseE5         SKUName = "Enterprise_E5"
 	SKUNameEnterpriseE50        SKUName = "Enterprise_E50"
 	SKUNameEnterpriseFlashF1500 SKUName = "EnterpriseFlash_F1500"
@@ -349,9 +336,12 @@ const (
 // PossibleSKUNameValues returns the possible values for the SKUName const type.
 func PossibleSKUNameValues() []SKUName {
 	return []SKUName{
+		SKUNameEnterpriseE1,
 		SKUNameEnterpriseE10,
 		SKUNameEnterpriseE100,
 		SKUNameEnterpriseE20,
+		SKUNameEnterpriseE200,
+		SKUNameEnterpriseE400,
 		SKUNameEnterpriseE5,
 		SKUNameEnterpriseE50,
 		SKUNameEnterpriseFlashF1500,
