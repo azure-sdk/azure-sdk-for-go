@@ -20,7 +20,11 @@ import (
 // ServerFactory is a fake server for instances of the armhybridcompute.ClientFactory type.
 type ServerFactory struct {
 	ExtensionMetadataServer                      ExtensionMetadataServer
+	ExtensionMetadataV2Server                    ExtensionMetadataV2Server
+	ExtensionPublisherServer                     ExtensionPublisherServer
+	ExtensionTypeServer                          ExtensionTypeServer
 	GatewaysServer                               GatewaysServer
+	LicenseProfilesServer                        LicenseProfilesServer
 	LicensesServer                               LicensesServer
 	MachineExtensionsServer                      MachineExtensionsServer
 	MachineRunCommandsServer                     MachineRunCommandsServer
@@ -50,7 +54,11 @@ type ServerFactoryTransport struct {
 	srv                                            *ServerFactory
 	trMu                                           sync.Mutex
 	trExtensionMetadataServer                      *ExtensionMetadataServerTransport
+	trExtensionMetadataV2Server                    *ExtensionMetadataV2ServerTransport
+	trExtensionPublisherServer                     *ExtensionPublisherServerTransport
+	trExtensionTypeServer                          *ExtensionTypeServerTransport
 	trGatewaysServer                               *GatewaysServerTransport
+	trLicenseProfilesServer                        *LicenseProfilesServerTransport
 	trLicensesServer                               *LicensesServerTransport
 	trMachineExtensionsServer                      *MachineExtensionsServerTransport
 	trMachineRunCommandsServer                     *MachineRunCommandsServerTransport
@@ -83,9 +91,29 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewExtensionMetadataServerTransport(&s.srv.ExtensionMetadataServer)
 		})
 		resp, err = s.trExtensionMetadataServer.Do(req)
+	case "ExtensionMetadataV2Client":
+		initServer(s, &s.trExtensionMetadataV2Server, func() *ExtensionMetadataV2ServerTransport {
+			return NewExtensionMetadataV2ServerTransport(&s.srv.ExtensionMetadataV2Server)
+		})
+		resp, err = s.trExtensionMetadataV2Server.Do(req)
+	case "ExtensionPublisherClient":
+		initServer(s, &s.trExtensionPublisherServer, func() *ExtensionPublisherServerTransport {
+			return NewExtensionPublisherServerTransport(&s.srv.ExtensionPublisherServer)
+		})
+		resp, err = s.trExtensionPublisherServer.Do(req)
+	case "ExtensionTypeClient":
+		initServer(s, &s.trExtensionTypeServer, func() *ExtensionTypeServerTransport {
+			return NewExtensionTypeServerTransport(&s.srv.ExtensionTypeServer)
+		})
+		resp, err = s.trExtensionTypeServer.Do(req)
 	case "GatewaysClient":
 		initServer(s, &s.trGatewaysServer, func() *GatewaysServerTransport { return NewGatewaysServerTransport(&s.srv.GatewaysServer) })
 		resp, err = s.trGatewaysServer.Do(req)
+	case "LicenseProfilesClient":
+		initServer(s, &s.trLicenseProfilesServer, func() *LicenseProfilesServerTransport {
+			return NewLicenseProfilesServerTransport(&s.srv.LicenseProfilesServer)
+		})
+		resp, err = s.trLicenseProfilesServer.Do(req)
 	case "LicensesClient":
 		initServer(s, &s.trLicensesServer, func() *LicensesServerTransport { return NewLicensesServerTransport(&s.srv.LicensesServer) })
 		resp, err = s.trLicensesServer.Do(req)
