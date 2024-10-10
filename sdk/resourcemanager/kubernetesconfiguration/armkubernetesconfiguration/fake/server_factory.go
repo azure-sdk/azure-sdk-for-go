@@ -19,12 +19,8 @@ import (
 
 // ServerFactory is a fake server for instances of the armkubernetesconfiguration.ClientFactory type.
 type ServerFactory struct {
-	ExtensionsServer                  ExtensionsServer
-	FluxConfigOperationStatusServer   FluxConfigOperationStatusServer
-	FluxConfigurationsServer          FluxConfigurationsServer
-	OperationStatusServer             OperationStatusServer
-	OperationsServer                  OperationsServer
-	SourceControlConfigurationsServer SourceControlConfigurationsServer
+	FluxConfigOperationStatusServer FluxConfigOperationStatusServer
+	FluxConfigurationsServer        FluxConfigurationsServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -39,14 +35,10 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armkubernetesconfiguration.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                                 *ServerFactory
-	trMu                                sync.Mutex
-	trExtensionsServer                  *ExtensionsServerTransport
-	trFluxConfigOperationStatusServer   *FluxConfigOperationStatusServerTransport
-	trFluxConfigurationsServer          *FluxConfigurationsServerTransport
-	trOperationStatusServer             *OperationStatusServerTransport
-	trOperationsServer                  *OperationsServerTransport
-	trSourceControlConfigurationsServer *SourceControlConfigurationsServerTransport
+	srv                               *ServerFactory
+	trMu                              sync.Mutex
+	trFluxConfigOperationStatusServer *FluxConfigOperationStatusServerTransport
+	trFluxConfigurationsServer        *FluxConfigurationsServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -62,9 +54,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch client {
-	case "ExtensionsClient":
-		initServer(s, &s.trExtensionsServer, func() *ExtensionsServerTransport { return NewExtensionsServerTransport(&s.srv.ExtensionsServer) })
-		resp, err = s.trExtensionsServer.Do(req)
 	case "FluxConfigOperationStatusClient":
 		initServer(s, &s.trFluxConfigOperationStatusServer, func() *FluxConfigOperationStatusServerTransport {
 			return NewFluxConfigOperationStatusServerTransport(&s.srv.FluxConfigOperationStatusServer)
@@ -75,19 +64,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewFluxConfigurationsServerTransport(&s.srv.FluxConfigurationsServer)
 		})
 		resp, err = s.trFluxConfigurationsServer.Do(req)
-	case "OperationStatusClient":
-		initServer(s, &s.trOperationStatusServer, func() *OperationStatusServerTransport {
-			return NewOperationStatusServerTransport(&s.srv.OperationStatusServer)
-		})
-		resp, err = s.trOperationStatusServer.Do(req)
-	case "OperationsClient":
-		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
-		resp, err = s.trOperationsServer.Do(req)
-	case "SourceControlConfigurationsClient":
-		initServer(s, &s.trSourceControlConfigurationsServer, func() *SourceControlConfigurationsServerTransport {
-			return NewSourceControlConfigurationsServerTransport(&s.srv.SourceControlConfigurationsServer)
-		})
-		resp, err = s.trSourceControlConfigurationsServer.Do(req)
 	default:
 		err = fmt.Errorf("unhandled client %s", client)
 	}
