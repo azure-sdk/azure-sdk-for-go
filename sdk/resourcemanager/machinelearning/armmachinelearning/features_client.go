@@ -47,7 +47,7 @@ func NewFeaturesClient(subscriptionID string, credential azcore.TokenCredential,
 // Get - Get feature.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - featuresetName - Feature set name. This is case-sensitive.
@@ -108,7 +108,7 @@ func (client *FeaturesClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -125,7 +125,7 @@ func (client *FeaturesClient) getHandleResponse(resp *http.Response) (FeaturesCl
 
 // NewListPager - List Features.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - featuresetName - Featureset name. This is case-sensitive.
@@ -185,7 +185,7 @@ func (client *FeaturesClient) listCreateRequest(ctx context.Context, resourceGro
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", *options.Skip)
 	}
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-10-01-preview")
 	if options != nil && options.Description != nil {
 		reqQP.Set("description", *options.Description)
 	}
