@@ -122,21 +122,6 @@ type BucketPatchDefinition struct {
 	URL *string
 }
 
-// ComplianceStatus - Compliance Status details
-type ComplianceStatus struct {
-	// Datetime the configuration was last applied.
-	LastConfigApplied *time.Time
-
-	// Message from when the configuration was applied.
-	Message *string
-
-	// Level of the message.
-	MessageLevel *MessageLevelType
-
-	// READ-ONLY; The compliance state of the configuration.
-	ComplianceState *ComplianceStateType
-}
-
 // ErrorAdditionalInfo - The resource management error additional info.
 type ErrorAdditionalInfo struct {
 	// READ-ONLY; The additional info.
@@ -169,121 +154,6 @@ type ErrorDetail struct {
 type ErrorResponse struct {
 	// The error object.
 	Error *ErrorDetail
-}
-
-// Extension - The Extension object.
-type Extension struct {
-	// Identity of the Extension resource
-	Identity *Identity
-
-	// The plan information.
-	Plan *Plan
-
-	// Properties of an Extension resource
-	Properties *ExtensionProperties
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
-	// READ-ONLY; Top level metadata https://github.com/Azure/azure-resource-manager-rpc/blob/master/v1.0/common-api-contracts.md#system-metadata-for-all-azure-resources
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// ExtensionProperties - Properties of an Extension resource
-type ExtensionProperties struct {
-	// Identity of the Extension resource in an AKS cluster
-	AksAssignedIdentity *ExtensionPropertiesAksAssignedIdentity
-
-	// Flag to note if this extension participates in auto upgrade of minor version, or not.
-	AutoUpgradeMinorVersion *bool
-
-	// Configuration settings that are sensitive, as name-value pairs for configuring this extension.
-	ConfigurationProtectedSettings map[string]*string
-
-	// Configuration settings, as name-value pairs for configuring this extension.
-	ConfigurationSettings map[string]*string
-
-	// Type of the Extension, of which this resource is an instance of. It must be one of the Extension Types registered with
-	// Microsoft.KubernetesConfiguration by the Extension publisher.
-	ExtensionType *string
-
-	// ReleaseTrain this extension participates in for auto-upgrade (e.g. Stable, Preview, etc.) - only if autoUpgradeMinorVersion
-	// is 'true'.
-	ReleaseTrain *string
-
-	// Scope at which the extension is installed.
-	Scope *Scope
-
-	// Status from this extension.
-	Statuses []*ExtensionStatus
-
-	// User-specified version of the extension for this extension to 'pin'. To use 'version', autoUpgradeMinorVersion must be
-	// 'false'.
-	Version *string
-
-	// READ-ONLY; Currently installed version of the extension.
-	CurrentVersion *string
-
-	// READ-ONLY; Custom Location settings properties.
-	CustomLocationSettings map[string]*string
-
-	// READ-ONLY; Error information from the Agent - e.g. errors during installation.
-	ErrorInfo *ErrorDetail
-
-	// READ-ONLY; Flag to note if this extension is a system extension
-	IsSystemExtension *bool
-
-	// READ-ONLY; Uri of the Helm package
-	PackageURI *string
-
-	// READ-ONLY; Status of installation of this extension.
-	ProvisioningState *ProvisioningState
-}
-
-// ExtensionPropertiesAksAssignedIdentity - Identity of the Extension resource in an AKS cluster
-type ExtensionPropertiesAksAssignedIdentity struct {
-	// The identity type.
-	Type *AKSIdentityType
-
-	// READ-ONLY; The principal ID of resource identity.
-	PrincipalID *string
-
-	// READ-ONLY; The tenant ID of resource.
-	TenantID *string
-}
-
-// ExtensionStatus - Status from the extension.
-type ExtensionStatus struct {
-	// Status code provided by the Extension
-	Code *string
-
-	// Short description of status of the extension.
-	DisplayStatus *string
-
-	// Level of the status.
-	Level *LevelType
-
-	// Detailed message of the status from the Extension.
-	Message *string
-
-	// DateLiteral (per ISO8601) noting the time of installation status.
-	Time *string
-}
-
-// ExtensionsList - Result of the request to list Extensions. It contains a list of Extension objects and a URL link to get
-// the next set of results.
-type ExtensionsList struct {
-	// READ-ONLY; URL to get the next set of extension objects, if any.
-	NextLink *string
-
-	// READ-ONLY; List of Extensions within a Kubernetes cluster.
-	Value []*Extension
 }
 
 // FluxConfiguration - The Flux Configuration object returned in Get & Put response.
@@ -327,6 +197,9 @@ type FluxConfigurationPatchProperties struct {
 	// Array of kustomizations used to reconcile the artifact pulled by the source type on the cluster.
 	Kustomizations map[string]*KustomizationPatchDefinition
 
+	// Parameters to reconcile to the OCIRepository source kind type.
+	OciRepository *OCIRepositoryPatchDefinition
+
 	// Source Kind to pull the configuration data from.
 	SourceKind *SourceKindType
 
@@ -354,6 +227,9 @@ type FluxConfigurationProperties struct {
 	// The namespace to which this configuration is installed to. Maximum of 253 lower case alphanumeric characters, hyphen and
 	// period only.
 	Namespace *string
+
+	// Parameters to reconcile to the OCIRepository source kind type.
+	OciRepository *OCIRepositoryDefinition
 
 	// Maximum duration to wait for flux configuration reconciliation. E.g PT1H, PT5M, P1D
 	ReconciliationWaitDuration *string
@@ -419,6 +295,9 @@ type GitRepositoryDefinition struct {
 	// configuration secrets.
 	LocalAuthRef *string
 
+	// Name of the provider used for authentication.
+	Provider *string
+
 	// The source reference for the GitRepository object.
 	RepositoryRef *RepositoryRefDefinition
 
@@ -447,6 +326,9 @@ type GitRepositoryPatchDefinition struct {
 	// configuration secrets.
 	LocalAuthRef *string
 
+	// Name of the provider used for authentication.
+	Provider *string
+
 	// The source reference for the GitRepository object.
 	RepositoryRef *RepositoryRefDefinition
 
@@ -461,15 +343,6 @@ type GitRepositoryPatchDefinition struct {
 
 	// The URL to sync for the flux configuration git repository.
 	URL *string
-}
-
-// HelmOperatorProperties - Properties for Helm operator.
-type HelmOperatorProperties struct {
-	// Values override for the operator Helm chart.
-	ChartValues *string
-
-	// Version of the operator Helm chart.
-	ChartVersion *string
 }
 
 // HelmReleasePropertiesDefinition - Properties for HelmRelease objects
@@ -488,18 +361,6 @@ type HelmReleasePropertiesDefinition struct {
 
 	// Number of times that the HelmRelease failed to upgrade
 	UpgradeFailureCount *int64
-}
-
-// Identity for the resource.
-type Identity struct {
-	// The identity type.
-	Type *string
-
-	// READ-ONLY; The principal ID of resource identity.
-	PrincipalID *string
-
-	// READ-ONLY; The tenant ID of resource.
-	TenantID *string
 }
 
 // KustomizationDefinition - The Kustomization defining how to reconcile the artifact pulled by the source type on the cluster.
@@ -550,7 +411,7 @@ type KustomizationPatchDefinition struct {
 	Path *string
 
 	// Used for variable substitution for this Kustomization after kustomize build.
-	PostBuild *PostBuildDefinition
+	PostBuild *PostBuildPatchDefinition
 
 	// Enable/disable garbage collections of Kubernetes objects created by this Kustomization.
 	Prune *bool
@@ -568,6 +429,26 @@ type KustomizationPatchDefinition struct {
 	Wait *bool
 }
 
+// LayerSelectorDefinition - Parameters to specify which layer to pull from the OCI artifact. By default, the first layer
+// in the artifact is pulled.
+type LayerSelectorDefinition struct {
+	// The first layer matching the specified media type will be used.
+	MediaType *string
+
+	// The operation to be performed on the selected layer. The default value is 'extract', but it can be set to 'copy'.
+	Operation *OperationType
+}
+
+// LayerSelectorPatchDefinition - Parameters to specify which layer to pull from the OCI artifact. By default, the first layer
+// in the artifact is pulled.
+type LayerSelectorPatchDefinition struct {
+	// The first layer matching the specified media type will be used.
+	MediaType *string
+
+	// The operation to be performed on the selected layer. The default value is 'extract', but it can be set to 'copy'.
+	Operation *OperationType
+}
+
 // ManagedIdentityDefinition - Parameters to authenticate using a Managed Identity.
 type ManagedIdentityDefinition struct {
 	// The client Id for authenticating a Managed Identity.
@@ -578,6 +459,123 @@ type ManagedIdentityDefinition struct {
 type ManagedIdentityPatchDefinition struct {
 	// The client Id for authenticating a Managed Identity.
 	ClientID *string
+}
+
+// MatchOidcIdentityDefinition - MatchOIDCIdentity defines the criteria for matching the identity while verifying an OCI artifact.
+type MatchOidcIdentityDefinition struct {
+	// The regex pattern to match against to verify the OIDC issuer.
+	Issuer *string
+
+	// The regex pattern to match against to verify the identity subject.
+	Subject *string
+}
+
+// MatchOidcIdentityPatchDefinition - MatchOIDCIdentity defines the criteria for matching the identity while verifying an
+// OCI artifact.
+type MatchOidcIdentityPatchDefinition struct {
+	// The regex pattern to match against to verify the OIDC issuer.
+	Issuer *string
+
+	// The regex pattern to match against to verify the identity subject.
+	Subject *string
+}
+
+// OCIRepositoryDefinition - Parameters to reconcile to the OCIRepository source kind type.
+type OCIRepositoryDefinition struct {
+	// Specify whether to allow connecting to a non-TLS HTTP container registry.
+	Insecure *bool
+
+	// The layer to be pulled from the OCI artifact.
+	LayerSelector *LayerSelectorDefinition
+
+	// Name of a local secret on the Kubernetes cluster to use as the authentication secret rather than the managed or user-provided
+	// configuration secrets.
+	LocalAuthRef *string
+
+	// The source reference for the OCIRepository object.
+	RepositoryRef *OCIRepositoryRefDefinition
+
+	// The service account name to authenticate with the OCI repository.
+	ServiceAccountName *string
+
+	// The interval at which to re-reconcile the cluster OCI repository source with the remote.
+	SyncIntervalInSeconds *int64
+
+	// Parameters to authenticate using TLS config for OCI repository.
+	TLSConfig *TLSConfigDefinition
+
+	// The maximum time to attempt to reconcile the cluster OCI repository source with the remote.
+	TimeoutInSeconds *int64
+
+	// The URL to sync for the flux configuration OCI repository.
+	URL *string
+
+	// Specifies whether to use Workload Identity to authenticate with the OCI repository.
+	UseWorkloadIdentity *bool
+
+	// Verification of the authenticity of an OCI Artifact.
+	Verify *VerifyDefinition
+}
+
+// OCIRepositoryPatchDefinition - Parameters to reconcile to the OCIRepository source kind type.
+type OCIRepositoryPatchDefinition struct {
+	// Specify whether to allow connecting to a non-TLS HTTP container registry.
+	Insecure *bool
+
+	// The layer to be pulled from the OCI artifact.
+	LayerSelector *LayerSelectorPatchDefinition
+
+	// Name of a local secret on the Kubernetes cluster to use as the authentication secret rather than the managed or user-provided
+	// configuration secrets.
+	LocalAuthRef *string
+
+	// The source reference for the OCIRepository object.
+	RepositoryRef *OCIRepositoryRefPatchDefinition
+
+	// The service account name to authenticate with the OCI repository.
+	ServiceAccountName *string
+
+	// The interval at which to re-reconcile the cluster OCI repository source with the remote.
+	SyncIntervalInSeconds *int64
+
+	// Parameters to authenticate using TLS config for OCI repository.
+	TLSConfig *TLSConfigPatchDefinition
+
+	// The maximum time to attempt to reconcile the cluster OCI repository source with the remote.
+	TimeoutInSeconds *int64
+
+	// The URL to sync for the flux configuration OCI repository.
+	URL *string
+
+	// Specifies whether to use Workload Identity to authenticate with the OCI repository.
+	UseWorkloadIdentity *bool
+
+	// Verification of the authenticity of an OCI Artifact.
+	Verify *VerifyPatchDefinition
+}
+
+// OCIRepositoryRefDefinition - The source reference for the OCIRepository object.
+type OCIRepositoryRefDefinition struct {
+	// The image digest to pull from OCI repository, the value should be in the format ‘sha256:’. This takes precedence over semver.
+	Digest *string
+
+	// The semver range used to match against OCI repository tags. This takes precedence over tag.
+	Semver *string
+
+	// The OCI repository image tag name to pull. This defaults to 'latest'.
+	Tag *string
+}
+
+// OCIRepositoryRefPatchDefinition - The source reference for the OCIRepository object.
+type OCIRepositoryRefPatchDefinition struct {
+	// The image digest to pull from OCI repository, the value should be in the format ‘sha256:’. This takes precedence over semver.
+	Digest *string
+
+	// The semver range used to match against OCI repository tags. This takes precedence over tag.
+	Semver *string
+
+	// The OCI repository image tag name to pull. This defaults to 'latest'.
+	Tag *string
 }
 
 // ObjectReferenceDefinition - Object reference to a Kubernetes object on a cluster
@@ -631,15 +629,6 @@ type ObjectStatusDefinition struct {
 	StatusConditions []*ObjectStatusConditionDefinition
 }
 
-// OperationStatusList - The async operations in progress, in the cluster.
-type OperationStatusList struct {
-	// READ-ONLY; URL to get the next set of Operation Result objects, if any.
-	NextLink *string
-
-	// READ-ONLY; List of async operations in progress, in the cluster.
-	Value []*OperationStatusResult
-}
-
 // OperationStatusResult - The current status of an async operation.
 type OperationStatusResult struct {
 	// REQUIRED; Operation status.
@@ -658,50 +647,6 @@ type OperationStatusResult struct {
 	Error *ErrorDetail
 }
 
-// PatchExtension - The Extension Patch Request object.
-type PatchExtension struct {
-	// Updatable properties of an Extension Patch Request
-	Properties *PatchExtensionProperties
-}
-
-// PatchExtensionProperties - Updatable properties of an Extension Patch Request
-type PatchExtensionProperties struct {
-	// Flag to note if this extension participates in auto upgrade of minor version, or not.
-	AutoUpgradeMinorVersion *bool
-
-	// Configuration settings that are sensitive, as name-value pairs for configuring this extension.
-	ConfigurationProtectedSettings map[string]*string
-
-	// Configuration settings, as name-value pairs for configuring this extension.
-	ConfigurationSettings map[string]*string
-
-	// ReleaseTrain this extension participates in for auto-upgrade (e.g. Stable, Preview, etc.) - only if autoUpgradeMinorVersion
-	// is 'true'.
-	ReleaseTrain *string
-
-	// Version of the extension for this extension, if it is 'pinned' to a specific version. autoUpgradeMinorVersion must be 'false'.
-	Version *string
-}
-
-// Plan for the resource.
-type Plan struct {
-	// REQUIRED; A user defined name of the 3rd Party Artifact that is being procured.
-	Name *string
-
-	// REQUIRED; The 3rd Party artifact that is being procured. E.g. NewRelic. Product maps to the OfferID specified for the artifact
-	// at the time of Data Market onboarding.
-	Product *string
-
-	// REQUIRED; The publisher of the 3rd Party Artifact that is being bought. E.g. NewRelic
-	Publisher *string
-
-	// A publisher provided promotion code as provisioned in Data Market for the said product/artifact.
-	PromotionCode *string
-
-	// The version of the desired product/artifact.
-	Version *string
-}
-
 // PostBuildDefinition - The postBuild definitions defining variable substitutions for this Kustomization after kustomize
 // build.
 type PostBuildDefinition struct {
@@ -710,6 +655,16 @@ type PostBuildDefinition struct {
 
 	// Array of ConfigMaps/Secrets from which the variables are substituted for this Kustomization.
 	SubstituteFrom []*SubstituteFromDefinition
+}
+
+// PostBuildPatchDefinition - The postBuild definitions defining variable substitutions for this Kustomization after kustomize
+// build.
+type PostBuildPatchDefinition struct {
+	// Key/value pairs holding the variables to be substituted in this Kustomization.
+	Substitute map[string]*string
+
+	// Array of ConfigMaps/Secrets from which the variables are substituted for this Kustomization.
+	SubstituteFrom []*SubstituteFromPatchDefinition
 }
 
 // ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
@@ -750,68 +705,6 @@ type Resource struct {
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
-}
-
-// ResourceProviderOperation - Supported operation of this resource provider.
-type ResourceProviderOperation struct {
-	// Display metadata associated with the operation.
-	Display *ResourceProviderOperationDisplay
-
-	// Operation name, in format of {provider}/{resource}/{operation}
-	Name *string
-
-	// READ-ONLY; The flag that indicates whether the operation applies to data plane.
-	IsDataAction *bool
-
-	// READ-ONLY; Origin of the operation
-	Origin *string
-}
-
-// ResourceProviderOperationDisplay - Display metadata associated with the operation.
-type ResourceProviderOperationDisplay struct {
-	// Description of this operation.
-	Description *string
-
-	// Type of operation: get, read, delete, etc.
-	Operation *string
-
-	// Resource provider: Microsoft KubernetesConfiguration.
-	Provider *string
-
-	// Resource on which the operation is performed.
-	Resource *string
-}
-
-// ResourceProviderOperationList - Result of the request to list operations.
-type ResourceProviderOperationList struct {
-	// List of operations supported by this resource provider.
-	Value []*ResourceProviderOperation
-
-	// READ-ONLY; URL to the next set of results, if any.
-	NextLink *string
-}
-
-// Scope of the extension. It can be either Cluster or Namespace; but not both.
-type Scope struct {
-	// Specifies that the scope of the extension is Cluster
-	Cluster *ScopeCluster
-
-	// Specifies that the scope of the extension is Namespace
-	Namespace *ScopeNamespace
-}
-
-// ScopeCluster - Specifies that the scope of the extension is Cluster
-type ScopeCluster struct {
-	// Namespace where the extension Release must be placed, for a Cluster scoped extension. If this namespace does not exist,
-	// it will be created
-	ReleaseNamespace *string
-}
-
-// ScopeNamespace - Specifies that the scope of the extension is Namespace
-type ScopeNamespace struct {
-	// Namespace where the extension will be created for an Namespace scoped extension. If this namespace does not exist, it will
-	// be created
-	TargetNamespace *string
 }
 
 // ServicePrincipalDefinition - Parameters to authenticate using Service Principal.
@@ -858,80 +751,20 @@ type ServicePrincipalPatchDefinition struct {
 	TenantID *string
 }
 
-// SourceControlConfiguration - The SourceControl Configuration object returned in Get & Put response.
-type SourceControlConfiguration struct {
-	// Properties to create a Source Control Configuration resource
-	Properties *SourceControlConfigurationProperties
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
-	// READ-ONLY; Top level metadata https://github.com/Azure/azure-resource-manager-rpc/blob/master/v1.0/common-api-contracts.md#system-metadata-for-all-azure-resources
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// SourceControlConfigurationList - Result of the request to list Source Control Configurations. It contains a list of SourceControlConfiguration
-// objects and a URL link to get the next set of results.
-type SourceControlConfigurationList struct {
-	// READ-ONLY; URL to get the next set of configuration objects, if any.
-	NextLink *string
-
-	// READ-ONLY; List of Source Control Configurations within a Kubernetes cluster.
-	Value []*SourceControlConfiguration
-}
-
-// SourceControlConfigurationProperties - Properties to create a Source Control Configuration resource
-type SourceControlConfigurationProperties struct {
-	// Name-value pairs of protected configuration settings for the configuration
-	ConfigurationProtectedSettings map[string]*string
-
-	// Option to enable Helm Operator for this git configuration.
-	EnableHelmOperator *bool
-
-	// Properties for Helm operator.
-	HelmOperatorProperties *HelmOperatorProperties
-
-	// Instance name of the operator - identifying the specific configuration.
-	OperatorInstanceName *string
-
-	// The namespace to which this operator is installed to. Maximum of 253 lower case alphanumeric characters, hyphen and period
-	// only.
-	OperatorNamespace *string
-
-	// Any Parameters for the Operator instance in string format.
-	OperatorParams *string
-
-	// Scope at which the operator will be installed.
-	OperatorScope *OperatorScopeType
-
-	// Type of the operator
-	OperatorType *OperatorType
-
-	// Url of the SourceControl Repository.
-	RepositoryURL *string
-
-	// Base64-encoded known_hosts contents containing public SSH keys required to access private Git instances
-	SSHKnownHostsContents *string
-
-	// READ-ONLY; Compliance Status of the Configuration
-	ComplianceStatus *ComplianceStatus
-
-	// READ-ONLY; The provisioning state of the resource provider.
-	ProvisioningState *ProvisioningStateType
-
-	// READ-ONLY; Public Key associated with this SourceControl configuration (either generated within the cluster or provided
-	// by the user).
-	RepositoryPublicKey *string
-}
-
 // SubstituteFromDefinition - Array of ConfigMaps/Secrets from which the variables are substituted for this Kustomization.
 type SubstituteFromDefinition struct {
+	// Define whether it is ConfigMap or Secret that holds the variables to be used in substitution.
+	Kind *string
+
+	// Name of the ConfigMap/Secret that holds the variables to be used in substitution.
+	Name *string
+
+	// Set to True to proceed without ConfigMap/Secret, if it is not present.
+	Optional *bool
+}
+
+// SubstituteFromPatchDefinition - Array of ConfigMaps/Secrets from which the variables are substituted for this Kustomization.
+type SubstituteFromPatchDefinition struct {
 	// Define whether it is ConfigMap or Secret that holds the variables to be used in substitution.
 	Kind *string
 
@@ -961,4 +794,52 @@ type SystemData struct {
 
 	// The type of identity that last modified the resource.
 	LastModifiedByType *CreatedByType
+}
+
+// TLSConfigDefinition - Parameters to authenticate using TLS config for OCI repository.
+type TLSConfigDefinition struct {
+	// Base64-encoded CA certificate used to verify the server.
+	CaCertificate *string
+
+	// Base64-encoded certificate used to authenticate a client with the OCI repository.
+	ClientCertificate *string
+
+	// Base64-encoded private key used to authenticate a client with the OCI repository.
+	PrivateKey *string
+}
+
+// TLSConfigPatchDefinition - Parameters to authenticate using TLS config for OCI repository.
+type TLSConfigPatchDefinition struct {
+	// Base64-encoded CA certificate used to verify the server.
+	CaCertificate *string
+
+	// Base64-encoded certificate used to authenticate a client with the OCI repository.
+	ClientCertificate *string
+
+	// Base64-encoded private key used to authenticate a client with the OCI repository.
+	PrivateKey *string
+}
+
+// VerifyDefinition - Parameters to verify the authenticity of an OCI Artifact.
+type VerifyDefinition struct {
+	// Array defining the criteria for matching the identity while verifying an OCI artifact.
+	MatchOidcIdentity []*MatchOidcIdentityDefinition
+
+	// Verification provider name.
+	Provider *string
+
+	// An object containing trusted public keys of trusted authors.
+	VerificationConfig map[string]*string
+}
+
+// VerifyPatchDefinition - Parameters to verify the authenticity of an OCI Artifact.
+type VerifyPatchDefinition struct {
+	// Array defining the criteria for matching the OIDC identity while verifying an OCI artifact.
+	MatchOidcIdentity []*MatchOidcIdentityPatchDefinition
+
+	// Verification provider name.
+	Provider *string
+
+	// An object containing trusted public keys of trusted authors.
+	VerificationConfig map[string]*string
 }

@@ -10,46 +10,8 @@ package armkubernetesconfiguration
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/kubernetesconfiguration/armkubernetesconfiguration"
-	moduleVersion = "v2.2.0"
+	moduleVersion = "v3.0.0"
 )
-
-// AKSIdentityType - The identity type.
-type AKSIdentityType string
-
-const (
-	AKSIdentityTypeSystemAssigned AKSIdentityType = "SystemAssigned"
-	AKSIdentityTypeUserAssigned   AKSIdentityType = "UserAssigned"
-)
-
-// PossibleAKSIdentityTypeValues returns the possible values for the AKSIdentityType const type.
-func PossibleAKSIdentityTypeValues() []AKSIdentityType {
-	return []AKSIdentityType{
-		AKSIdentityTypeSystemAssigned,
-		AKSIdentityTypeUserAssigned,
-	}
-}
-
-// ComplianceStateType - The compliance state of the configuration.
-type ComplianceStateType string
-
-const (
-	ComplianceStateTypeCompliant    ComplianceStateType = "Compliant"
-	ComplianceStateTypeFailed       ComplianceStateType = "Failed"
-	ComplianceStateTypeInstalled    ComplianceStateType = "Installed"
-	ComplianceStateTypeNoncompliant ComplianceStateType = "Noncompliant"
-	ComplianceStateTypePending      ComplianceStateType = "Pending"
-)
-
-// PossibleComplianceStateTypeValues returns the possible values for the ComplianceStateType const type.
-func PossibleComplianceStateTypeValues() []ComplianceStateType {
-	return []ComplianceStateType{
-		ComplianceStateTypeCompliant,
-		ComplianceStateTypeFailed,
-		ComplianceStateTypeInstalled,
-		ComplianceStateTypeNoncompliant,
-		ComplianceStateTypePending,
-	}
-}
 
 // CreatedByType - The type of identity that created the resource.
 type CreatedByType string
@@ -112,69 +74,20 @@ func PossibleKustomizationValidationTypeValues() []KustomizationValidationType {
 	}
 }
 
-// LevelType - Level of the status.
-type LevelType string
+// OperationType - The operation to be performed on the selected layer. The default value is 'extract', but it can be set
+// to 'copy'.
+type OperationType string
 
 const (
-	LevelTypeError       LevelType = "Error"
-	LevelTypeInformation LevelType = "Information"
-	LevelTypeWarning     LevelType = "Warning"
+	OperationTypeCopy    OperationType = "copy"
+	OperationTypeExtract OperationType = "extract"
 )
 
-// PossibleLevelTypeValues returns the possible values for the LevelType const type.
-func PossibleLevelTypeValues() []LevelType {
-	return []LevelType{
-		LevelTypeError,
-		LevelTypeInformation,
-		LevelTypeWarning,
-	}
-}
-
-// MessageLevelType - Level of the message.
-type MessageLevelType string
-
-const (
-	MessageLevelTypeError       MessageLevelType = "Error"
-	MessageLevelTypeInformation MessageLevelType = "Information"
-	MessageLevelTypeWarning     MessageLevelType = "Warning"
-)
-
-// PossibleMessageLevelTypeValues returns the possible values for the MessageLevelType const type.
-func PossibleMessageLevelTypeValues() []MessageLevelType {
-	return []MessageLevelType{
-		MessageLevelTypeError,
-		MessageLevelTypeInformation,
-		MessageLevelTypeWarning,
-	}
-}
-
-// OperatorScopeType - Scope at which the operator will be installed.
-type OperatorScopeType string
-
-const (
-	OperatorScopeTypeCluster   OperatorScopeType = "cluster"
-	OperatorScopeTypeNamespace OperatorScopeType = "namespace"
-)
-
-// PossibleOperatorScopeTypeValues returns the possible values for the OperatorScopeType const type.
-func PossibleOperatorScopeTypeValues() []OperatorScopeType {
-	return []OperatorScopeType{
-		OperatorScopeTypeCluster,
-		OperatorScopeTypeNamespace,
-	}
-}
-
-// OperatorType - Type of the operator
-type OperatorType string
-
-const (
-	OperatorTypeFlux OperatorType = "Flux"
-)
-
-// PossibleOperatorTypeValues returns the possible values for the OperatorType const type.
-func PossibleOperatorTypeValues() []OperatorType {
-	return []OperatorType{
-		OperatorTypeFlux,
+// PossibleOperationTypeValues returns the possible values for the OperationType const type.
+func PossibleOperationTypeValues() []OperationType {
+	return []OperationType{
+		OperationTypeCopy,
+		OperationTypeExtract,
 	}
 }
 
@@ -202,28 +115,6 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 	}
 }
 
-// ProvisioningStateType - The provisioning state of the resource provider.
-type ProvisioningStateType string
-
-const (
-	ProvisioningStateTypeAccepted  ProvisioningStateType = "Accepted"
-	ProvisioningStateTypeDeleting  ProvisioningStateType = "Deleting"
-	ProvisioningStateTypeFailed    ProvisioningStateType = "Failed"
-	ProvisioningStateTypeRunning   ProvisioningStateType = "Running"
-	ProvisioningStateTypeSucceeded ProvisioningStateType = "Succeeded"
-)
-
-// PossibleProvisioningStateTypeValues returns the possible values for the ProvisioningStateType const type.
-func PossibleProvisioningStateTypeValues() []ProvisioningStateType {
-	return []ProvisioningStateType{
-		ProvisioningStateTypeAccepted,
-		ProvisioningStateTypeDeleting,
-		ProvisioningStateTypeFailed,
-		ProvisioningStateTypeRunning,
-		ProvisioningStateTypeSucceeded,
-	}
-}
-
 // ScopeType - Scope at which the configuration will be installed.
 type ScopeType string
 
@@ -247,6 +138,7 @@ const (
 	SourceKindTypeAzureBlob     SourceKindType = "AzureBlob"
 	SourceKindTypeBucket        SourceKindType = "Bucket"
 	SourceKindTypeGitRepository SourceKindType = "GitRepository"
+	SourceKindTypeOCIRepository SourceKindType = "OCIRepository"
 )
 
 // PossibleSourceKindTypeValues returns the possible values for the SourceKindType const type.
@@ -255,5 +147,6 @@ func PossibleSourceKindTypeValues() []SourceKindType {
 		SourceKindTypeAzureBlob,
 		SourceKindTypeBucket,
 		SourceKindTypeGitRepository,
+		SourceKindTypeOCIRepository,
 	}
 }
