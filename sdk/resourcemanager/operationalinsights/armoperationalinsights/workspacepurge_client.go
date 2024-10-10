@@ -46,7 +46,7 @@ func NewWorkspacePurgeClient(subscriptionID string, credential azcore.TokenCrede
 // GetPurgeStatus - Gets status of an ongoing purge operation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-08-01
+// Generated from API version 2023-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - purgeID - In a purge status request, this is the Id of the operation the status of which is returned.
@@ -98,7 +98,7 @@ func (client *WorkspacePurgeClient) getPurgeStatusCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-08-01")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -123,7 +123,7 @@ func (client *WorkspacePurgeClient) getPurgeStatusHandleResponse(resp *http.Resp
 // GDPR compliance. In the event of a dispute, please create a support ticket
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-08-01
+// Generated from API version 2023-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - body - Describes the body of a request to purge data in a single table of an Log Analytics Workspace
@@ -170,7 +170,7 @@ func (client *WorkspacePurgeClient) purgeCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-08-01")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
