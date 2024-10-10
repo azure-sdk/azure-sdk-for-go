@@ -44,9 +44,38 @@ func (c *ClientFactory) NewExtensionMetadataClient() *ExtensionMetadataClient {
 	}
 }
 
+// NewExtensionMetadataV2Client creates a new instance of ExtensionMetadataV2Client.
+func (c *ClientFactory) NewExtensionMetadataV2Client() *ExtensionMetadataV2Client {
+	return &ExtensionMetadataV2Client{
+		internal: c.internal,
+	}
+}
+
+// NewExtensionPublisherClient creates a new instance of ExtensionPublisherClient.
+func (c *ClientFactory) NewExtensionPublisherClient() *ExtensionPublisherClient {
+	return &ExtensionPublisherClient{
+		internal: c.internal,
+	}
+}
+
+// NewExtensionTypeClient creates a new instance of ExtensionTypeClient.
+func (c *ClientFactory) NewExtensionTypeClient() *ExtensionTypeClient {
+	return &ExtensionTypeClient{
+		internal: c.internal,
+	}
+}
+
 // NewGatewaysClient creates a new instance of GatewaysClient.
 func (c *ClientFactory) NewGatewaysClient() *GatewaysClient {
 	return &GatewaysClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewLicenseProfilesClient creates a new instance of LicenseProfilesClient.
+func (c *ClientFactory) NewLicenseProfilesClient() *LicenseProfilesClient {
+	return &LicenseProfilesClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}

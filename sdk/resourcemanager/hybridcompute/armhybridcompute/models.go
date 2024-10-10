@@ -59,13 +59,13 @@ type AgentConfiguration struct {
 
 // AgentUpgrade - The info w.r.t Agent Upgrade.
 type AgentUpgrade struct {
-	// The correlation ID passed in from RSM per upgrade.
+	// The correlation ID associated with an agent upgrade operation.
 	CorrelationID *string
 
 	// Specifies the version info w.r.t AgentUpgrade for the machine.
 	DesiredVersion *string
 
-	// Specifies if RSM should try to upgrade this machine
+	// Specifies if the machine's agent should be upgraded
 	EnableAutomaticUpgrade *bool
 
 	// READ-ONLY; Specifies the version of the last attempt
@@ -143,6 +143,30 @@ type ConnectionDetail struct {
 	PrivateIPAddress *string
 }
 
+// Disk - Describes a disk on the machine
+type Disk struct {
+	// The type of the disk.
+	DiskType *string
+
+	// The generated ID of the disk.
+	GeneratedID *string
+
+	// The ID of the disk.
+	ID *string
+
+	// The size of the disk, in bytes
+	MaxSizeInBytes *int64
+
+	// The name of the disk.
+	Name *string
+
+	// The path of the disk.
+	Path *string
+
+	// The amount of space used on the disk, in bytes
+	UsedSpaceInBytes *int64
+}
+
 // ErrorAdditionalInfo - The resource management error additional info.
 type ErrorAdditionalInfo struct {
 	// READ-ONLY; The additional info.
@@ -180,10 +204,52 @@ type EsuKey struct {
 	SKU *string
 }
 
+// EsuProfileUpdateProperties - Describes the Update properties of a ESU License Profile.
+type EsuProfileUpdateProperties struct {
+	// The resource id of the license.
+	AssignedLicense *string
+}
+
+// ExtensionPublisher - Describes an Extension Publisher.
+type ExtensionPublisher struct {
+	// The ID of the extension publisher.
+	ID *string
+
+	// The name of the extension publisher.
+	Name *string
+}
+
+// ExtensionPublisherListResult - The List of Extension Publishers.
+type ExtensionPublisherListResult struct {
+	// The URI to fetch the next page of extension publishers.
+	NextLink *string
+
+	// READ-ONLY; The list of extension publishers.
+	Value []*ExtensionPublisher
+}
+
 // ExtensionTargetProperties - Describes the Machine Extension Target Version Properties
 type ExtensionTargetProperties struct {
 	// Properties for the specified Extension to Upgrade.
 	TargetVersion *string
+}
+
+// ExtensionType - Describes an Extension Type.
+type ExtensionType struct {
+	// The ID of the extension type.
+	ID *string
+
+	// The name of the extension type.
+	Name *string
+}
+
+// ExtensionTypeListResult - The List of Extension Types.
+type ExtensionTypeListResult struct {
+	// The URI to fetch the next page of extension types.
+	NextLink *string
+
+	// READ-ONLY; The list of extension types.
+	Value []*ExtensionType
 }
 
 // ExtensionValue - Describes a Extension Metadata
@@ -210,10 +276,61 @@ type ExtensionValueListResult struct {
 	Value []*ExtensionValue
 }
 
+// ExtensionValueListResultV2 - The List Extension Metadata response.
+type ExtensionValueListResultV2 struct {
+	// The URI to fetch the next page of extension metadata.
+	NextLink *string
+
+	// READ-ONLY; The list of extension metadata.
+	Value []*ExtensionValue
+}
+
 // ExtensionValueProperties - Describes Extension Metadata properties
 type ExtensionValueProperties struct {
 	// READ-ONLY; The type of the Extension being received.
 	ExtensionType *string
+
+	// READ-ONLY; The publisher of the Extension being received.
+	Publisher *string
+
+	// READ-ONLY; The version of the Extension being received.
+	Version *string
+}
+
+// ExtensionValueV2 - Describes an Extension Metadata.
+type ExtensionValueV2 struct {
+	// The single extension based on search criteria.
+	Properties *ExtensionValueV2Properties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ExtensionValueV2Properties - Describes Extension Metadata properties.
+type ExtensionValueV2Properties struct {
+	// READ-ONLY; Architectures (x64, arms64, etc.) that this extension supports.
+	Architecture []*string
+
+	// READ-ONLY; Location of the signature files for the extension.
+	ExtensionSignatureURI *string
+
+	// READ-ONLY; The type of the Extension being received.
+	ExtensionType *string
+
+	// READ-ONLY; A list of locations where the extension packages can be found.
+	ExtensionUris []*string
+
+	// READ-ONLY; The operating system (Windows, Linux, etc.) this extension supports.
+	OperatingSystem *string
 
 	// READ-ONLY; The publisher of the Extension being received.
 	Publisher *string
@@ -238,6 +355,15 @@ type ExtensionsResourceStatus struct {
 
 	// The time of the status.
 	Time *time.Time
+}
+
+// FirmwareProfile - Describes the firmware of the machine
+type FirmwareProfile struct {
+	// READ-ONLY; The serial number of the firmware
+	SerialNumber *string
+
+	// READ-ONLY; The type of the firmware
+	Type *string
 }
 
 // Gateway - Describes an Arc Gateway.
@@ -304,6 +430,18 @@ type GatewaysListResult struct {
 
 	// The URI to fetch the next page of Gateways. Call ListNext() with this URI to fetch the next page of Gateways.
 	NextLink *string
+}
+
+// HardwareProfile - Describes the hardware of the machine
+type HardwareProfile struct {
+	// READ-ONLY; The total number of CPU sockets available on the machine
+	NumberOfCPUSockets *int32
+
+	// READ-ONLY; The physical processors of the machine.
+	Processors []*Processor
+
+	// READ-ONLY; The total physical memory on the machine
+	TotalPhysicalMemoryInBytes *int64
 }
 
 // IPAddress - Describes properties of the IP address.
@@ -381,6 +519,51 @@ type LicenseDetails struct {
 	ImmutableID *string
 }
 
+// LicenseProfile - Describes a license profile in a hybrid machine.
+type LicenseProfile struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// Describe the properties of a license profile.
+	Properties *LicenseProfileProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// LicenseProfileArmEsuProperties - Describes the properties of a License Profile ARM model.
+type LicenseProfileArmEsuProperties struct {
+	// The resource id of the license.
+	AssignedLicense *string
+
+	// READ-ONLY; The guid id of the license.
+	AssignedLicenseImmutableID *string
+
+	// READ-ONLY; Indicates the eligibility state of Esu.
+	EsuEligibility *EsuEligibility
+
+	// READ-ONLY; Indicates whether there is an ESU Key currently active for the machine.
+	EsuKeyState *EsuKeyState
+
+	// READ-ONLY; The list of ESU keys.
+	EsuKeys []*EsuKey
+
+	// READ-ONLY; The type of the Esu servers.
+	ServerType *EsuServerType
+}
+
 // LicenseProfileArmProductProfileProperties - Describes the properties of a Product License Profile ARM model.
 type LicenseProfileArmProductProfileProperties struct {
 	// The list of product features.
@@ -453,6 +636,57 @@ type LicenseProfileMachineInstanceViewEsuProperties struct {
 type LicenseProfileMachineInstanceViewSoftwareAssurance struct {
 	// Specifies if this machine is licensed as part of a Software Assurance agreement.
 	SoftwareAssuranceCustomer *bool
+}
+
+// LicenseProfileProperties - Describe the properties of a license profile.
+type LicenseProfileProperties struct {
+	// Hybrid Compute ESU Profile properties
+	EsuProfile *LicenseProfileArmEsuProperties
+
+	// Hybrid Compute Product Profile properties
+	ProductProfile    *LicenseProfileArmProductProfileProperties
+	SoftwareAssurance *LicenseProfilePropertiesSoftwareAssurance
+
+	// READ-ONLY; The provisioning state, which only appears in the response.
+	ProvisioningState *ProvisioningState
+}
+
+type LicenseProfilePropertiesSoftwareAssurance struct {
+	// Specifies if this machine is licensed as part of a Software Assurance agreement.
+	SoftwareAssuranceCustomer *bool
+}
+
+// LicenseProfileUpdate - Describes a License Profile Update.
+type LicenseProfileUpdate struct {
+	// Describe the Update properties of a license profile.
+	Properties *LicenseProfileUpdateProperties
+
+	// Resource tags
+	Tags map[string]*string
+}
+
+// LicenseProfileUpdateProperties - Describe the Update properties of a license profile.
+type LicenseProfileUpdateProperties struct {
+	// Hybrid Compute ESU Profile Update properties
+	EsuProfile *EsuProfileUpdateProperties
+
+	// Hybrid Compute Product Profile Update properties
+	ProductProfile    *ProductProfileUpdateProperties
+	SoftwareAssurance *LicenseProfileUpdatePropertiesSoftwareAssurance
+}
+
+type LicenseProfileUpdatePropertiesSoftwareAssurance struct {
+	// Specifies if this machine is licensed as part of a Software Assurance agreement.
+	SoftwareAssuranceCustomer *bool
+}
+
+// LicenseProfilesListResult - The List hybrid machine license profile operation response.
+type LicenseProfilesListResult struct {
+	// REQUIRED; The list of license profiles.
+	Value []*LicenseProfile
+
+	// The URI to fetch the next page of Machines. Call ListNext() with this URI to fetch the next page of license profile.
+	NextLink *string
 }
 
 // LicenseProperties - Describes the properties of a License Profile.
@@ -894,6 +1128,12 @@ type MachineProperties struct {
 	// READ-ONLY; Details about the error state.
 	ErrorDetails []*ErrorDetail
 
+	// READ-ONLY; Information about the machine's firmware
+	FirmwareProfile *FirmwareProfile
+
+	// READ-ONLY; Information about the machine's hardware
+	HardwareProfile *HardwareProfile
+
 	// READ-ONLY; The time of the last status change.
 	LastStatusChange *time.Time
 
@@ -920,6 +1160,9 @@ type MachineProperties struct {
 
 	// READ-ONLY; The status of the hybrid machine agent.
 	Status *StatusTypes
+
+	// READ-ONLY; Information about the machine's storage
+	StorageProfile *StorageProfile
 
 	// READ-ONLY; Specifies the Arc Machine's unique SMBIOS ID
 	VMUUID *string
@@ -1096,8 +1339,17 @@ type MachineUpdateProperties struct {
 
 // NetworkInterface - Describes a network interface.
 type NetworkInterface struct {
+	// Represents the ID of the network interface.
+	ID *string
+
 	// The list of IP addresses in this interface.
 	IPAddresses []*IPAddress
+
+	// Represents MAC address of the network interface.
+	MacAddress *string
+
+	// Represents the name of the network interface.
+	Name *string
 }
 
 // NetworkProfile - Describes the network information on this machine.
@@ -1160,6 +1412,12 @@ type NetworkSecurityPerimeterConfigurationProperties struct {
 	// it is defined. Users cannot change this value but are able to read from it. Values will
 	// include Provisioning ,Succeeded, Canceled and Failed.
 	ProvisioningState *string
+}
+
+// NetworkSecurityPerimeterConfigurationReconcileResult - Result of network security perimeter configurations.
+type NetworkSecurityPerimeterConfigurationReconcileResult struct {
+	// The URL of the resource used to check the status of the asynchronous operation.
+	Location *string
 }
 
 // NetworkSecurityPerimeterProfile - Network Security Perimeter profile
@@ -1441,6 +1699,15 @@ type PrivateLinkServiceConnectionStateProperty struct {
 	ActionsRequired *string
 }
 
+// Processor - Describes the firmware of the machine
+type Processor struct {
+	// READ-ONLY; The name of the processor.
+	Name *string
+
+	// READ-ONLY; The total number of physical cores on the processor.
+	NumberOfCores *int32
+}
+
 // ProductFeature - Product Feature
 type ProductFeature struct {
 	// Product feature name.
@@ -1463,6 +1730,27 @@ type ProductFeature struct {
 
 	// READ-ONLY; The errors that were encountered during the feature enrollment or disenrollment.
 	Error *ErrorDetail
+}
+
+// ProductFeatureUpdate - Product Feature
+type ProductFeatureUpdate struct {
+	// Product feature name.
+	Name *string
+
+	// Indicates the new status of the product feature.
+	SubscriptionStatus *LicenseProfileSubscriptionStatusUpdate
+}
+
+// ProductProfileUpdateProperties - Describes the Update properties of a Product Profile.
+type ProductProfileUpdateProperties struct {
+	// The list of product feature updates.
+	ProductFeatures []*ProductFeatureUpdate
+
+	// Indicates the product type of the license.
+	ProductType *LicenseProfileProductType
+
+	// Indicates the subscription status of the product.
+	SubscriptionStatus *LicenseProfileSubscriptionStatusUpdate
 }
 
 // ProvisioningIssue - Details on issues that occurred during provisioning.
@@ -1573,6 +1861,12 @@ type SettingsProperties struct {
 
 	// READ-ONLY; Azure resource tenant Id
 	TenantID *string
+}
+
+// StorageProfile - Describes the storage configuration of the machine
+type StorageProfile struct {
+	// The disks on the machine.
+	Disks []*Disk
 }
 
 // Subnet - Describes the subnet.
