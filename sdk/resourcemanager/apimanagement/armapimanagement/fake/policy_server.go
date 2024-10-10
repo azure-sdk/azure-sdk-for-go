@@ -15,7 +15,8 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/apimanagement/armapimanagement/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/apimanagement/armapimanagement/v3"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -39,22 +40,26 @@ type PolicyServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	GetEntityTag func(ctx context.Context, resourceGroupName string, serviceName string, policyID armapimanagement.PolicyIDName, options *armapimanagement.PolicyClientGetEntityTagOptions) (resp azfake.Responder[armapimanagement.PolicyClientGetEntityTagResponse], errResp azfake.ErrorResponder)
 
-	// ListByService is the fake for method PolicyClient.ListByService
+	// NewListByServicePager is the fake for method PolicyClient.NewListByServicePager
 	// HTTP status codes to indicate success: http.StatusOK
-	ListByService func(ctx context.Context, resourceGroupName string, serviceName string, options *armapimanagement.PolicyClientListByServiceOptions) (resp azfake.Responder[armapimanagement.PolicyClientListByServiceResponse], errResp azfake.ErrorResponder)
+	NewListByServicePager func(resourceGroupName string, serviceName string, options *armapimanagement.PolicyClientListByServiceOptions) (resp azfake.PagerResponder[armapimanagement.PolicyClientListByServiceResponse])
 }
 
 // NewPolicyServerTransport creates a new instance of PolicyServerTransport with the provided implementation.
 // The returned PolicyServerTransport instance is connected to an instance of armapimanagement.PolicyClient via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewPolicyServerTransport(srv *PolicyServer) *PolicyServerTransport {
-	return &PolicyServerTransport{srv: srv}
+	return &PolicyServerTransport{
+		srv:                   srv,
+		newListByServicePager: newTracker[azfake.PagerResponder[armapimanagement.PolicyClientListByServiceResponse]](),
+	}
 }
 
 // PolicyServerTransport connects instances of armapimanagement.PolicyClient to instances of PolicyServer.
 // Don't use this type directly, use NewPolicyServerTransport instead.
 type PolicyServerTransport struct {
-	srv *PolicyServer
+	srv                   *PolicyServer
+	newListByServicePager *tracker[azfake.PagerResponder[armapimanagement.PolicyClientListByServiceResponse]]
 }
 
 // Do implements the policy.Transporter interface for PolicyServerTransport.
@@ -77,8 +82,8 @@ func (p *PolicyServerTransport) Do(req *http.Request) (*http.Response, error) {
 		resp, err = p.dispatchGet(req)
 	case "PolicyClient.GetEntityTag":
 		resp, err = p.dispatchGetEntityTag(req)
-	case "PolicyClient.ListByService":
-		resp, err = p.dispatchListByService(req)
+	case "PolicyClient.NewListByServicePager":
+		resp, err = p.dispatchNewListByServicePager(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -294,35 +299,43 @@ func (p *PolicyServerTransport) dispatchGetEntityTag(req *http.Request) (*http.R
 	return resp, nil
 }
 
-func (p *PolicyServerTransport) dispatchListByService(req *http.Request) (*http.Response, error) {
-	if p.srv.ListByService == nil {
-		return nil, &nonRetriableError{errors.New("fake for method ListByService not implemented")}
+func (p *PolicyServerTransport) dispatchNewListByServicePager(req *http.Request) (*http.Response, error) {
+	if p.srv.NewListByServicePager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListByServicePager not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ApiManagement/service/(?P<serviceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/policies`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 3 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	newListByServicePager := p.newListByServicePager.get(req)
+	if newListByServicePager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ApiManagement/service/(?P<serviceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/policies`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		serviceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("serviceName")])
+		if err != nil {
+			return nil, err
+		}
+		resp := p.srv.NewListByServicePager(resourceGroupNameParam, serviceNameParam, nil)
+		newListByServicePager = &resp
+		p.newListByServicePager.add(req, newListByServicePager)
+		server.PagerResponderInjectNextLinks(newListByServicePager, req, func(page *armapimanagement.PolicyClientListByServiceResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	resp, err := server.PagerResponderNext(newListByServicePager, req)
 	if err != nil {
 		return nil, err
 	}
-	serviceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("serviceName")])
-	if err != nil {
-		return nil, err
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+		p.newListByServicePager.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
-	respr, errRespr := p.srv.ListByService(req.Context(), resourceGroupNameParam, serviceNameParam, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).PolicyCollection, req)
-	if err != nil {
-		return nil, err
+	if !server.PagerResponderMore(newListByServicePager) {
+		p.newListByServicePager.remove(req)
 	}
 	return resp, nil
 }
