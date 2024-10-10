@@ -15740,6 +15740,11 @@ func (v VirtualMachineImage) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "name", v.Name)
 	populate(objectMap, "properties", v.Properties)
 	populate(objectMap, "tags", v.Tags)
+	if v.AdditionalProperties != nil {
+		for key, val := range v.AdditionalProperties {
+			objectMap[key] = val
+		}
+	}
 	return json.Marshal(objectMap)
 }
 
@@ -15769,6 +15774,16 @@ func (v *VirtualMachineImage) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "tags":
 			err = unpopulate(val, "Tags", &v.Tags)
+			delete(rawMsg, key)
+		default:
+			if v.AdditionalProperties == nil {
+				v.AdditionalProperties = map[string]*string{}
+			}
+			if val != nil {
+				var aux string
+				err = json.Unmarshal(val, &aux)
+				v.AdditionalProperties[key] = &aux
+			}
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -15876,6 +15891,11 @@ func (v VirtualMachineImageResource) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "location", v.Location)
 	populate(objectMap, "name", v.Name)
 	populate(objectMap, "tags", v.Tags)
+	if v.AdditionalProperties != nil {
+		for key, val := range v.AdditionalProperties {
+			objectMap[key] = val
+		}
+	}
 	return json.Marshal(objectMap)
 }
 
@@ -15902,6 +15922,16 @@ func (v *VirtualMachineImageResource) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "tags":
 			err = unpopulate(val, "Tags", &v.Tags)
+			delete(rawMsg, key)
+		default:
+			if v.AdditionalProperties == nil {
+				v.AdditionalProperties = map[string]*string{}
+			}
+			if val != nil {
+				var aux string
+				err = json.Unmarshal(val, &aux)
+				v.AdditionalProperties[key] = &aux
+			}
 			delete(rawMsg, key)
 		}
 		if err != nil {
