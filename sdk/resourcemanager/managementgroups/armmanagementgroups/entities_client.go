@@ -40,7 +40,7 @@ func NewEntitiesClient(credential azcore.TokenCredential, options *arm.ClientOpt
 
 // NewListPager - List all entities (Management Groups, Subscriptions, etc.) for the authenticated user.
 //
-// Generated from API version 2021-04-01
+// Generated from API version 2023-04-01
 //   - options - EntitiesClientListOptions contains the optional parameters for the EntitiesClient.NewListPager method.
 func (client *EntitiesClient) NewListPager(options *EntitiesClientListOptions) *runtime.Pager[EntitiesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[EntitiesClientListResponse]{
@@ -73,36 +73,36 @@ func (client *EntitiesClient) listCreateRequest(ctx context.Context, options *En
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-01")
-	if options != nil && options.Skiptoken != nil {
-		reqQP.Set("$skiptoken", *options.Skiptoken)
-	}
-	if options != nil && options.Skip != nil {
-		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
-	}
-	if options != nil && options.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
-	}
-	if options != nil && options.Select != nil {
-		reqQP.Set("$select", *options.Select)
+	if options != nil && options.Filter != nil {
+		reqQP.Set("$filter", *options.Filter)
 	}
 	if options != nil && options.Search != nil {
 		reqQP.Set("$search", string(*options.Search))
 	}
-	if options != nil && options.Filter != nil {
-		reqQP.Set("$filter", *options.Filter)
+	if options != nil && options.Select != nil {
+		reqQP.Set("$select", *options.Select)
+	}
+	if options != nil && options.Skip != nil {
+		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
+	}
+	if options != nil && options.Skiptoken != nil {
+		reqQP.Set("$skiptoken", *options.Skiptoken)
+	}
+	if options != nil && options.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
 	if options != nil && options.View != nil {
 		reqQP.Set("$view", string(*options.View))
 	}
+	reqQP.Set("api-version", "2023-04-01")
 	if options != nil && options.GroupName != nil {
 		reqQP.Set("groupName", *options.GroupName)
 	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.CacheControl != nil {
 		req.Raw().Header["Cache-Control"] = []string{*options.CacheControl}
 	}
-	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
