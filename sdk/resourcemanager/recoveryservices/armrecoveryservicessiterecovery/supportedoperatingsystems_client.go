@@ -46,18 +46,18 @@ func NewSupportedOperatingSystemsClient(subscriptionID string, credential azcore
 // Get - Gets the data of supported operating systems by SRS.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
-//   - resourceName - The name of the recovery services vault.
+// Generated from API version 2024-10-01
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
+//   - resourceName - The name of the recovery services vault.
 //   - options - SupportedOperatingSystemsClientGetOptions contains the optional parameters for the SupportedOperatingSystemsClient.Get
 //     method.
-func (client *SupportedOperatingSystemsClient) Get(ctx context.Context, resourceName string, resourceGroupName string, options *SupportedOperatingSystemsClientGetOptions) (SupportedOperatingSystemsClientGetResponse, error) {
+func (client *SupportedOperatingSystemsClient) Get(ctx context.Context, resourceGroupName string, resourceName string, options *SupportedOperatingSystemsClientGetOptions) (SupportedOperatingSystemsClientGetResponse, error) {
 	var err error
 	const operationName = "SupportedOperatingSystemsClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, resourceName, resourceGroupName, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, resourceName, options)
 	if err != nil {
 		return SupportedOperatingSystemsClientGetResponse{}, err
 	}
@@ -74,16 +74,16 @@ func (client *SupportedOperatingSystemsClient) Get(ctx context.Context, resource
 }
 
 // getCreateRequest creates the Get request.
-func (client *SupportedOperatingSystemsClient) getCreateRequest(ctx context.Context, resourceName string, resourceGroupName string, options *SupportedOperatingSystemsClientGetOptions) (*policy.Request, error) {
+func (client *SupportedOperatingSystemsClient) getCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, options *SupportedOperatingSystemsClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{resourceName}/replicationSupportedOperatingSystems"
-	if resourceName == "" {
-		return nil, errors.New("parameter resourceName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceName}", url.PathEscape(resourceName))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if resourceName == "" {
+		return nil, errors.New("parameter resourceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceName}", url.PathEscape(resourceName))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -93,7 +93,7 @@ func (client *SupportedOperatingSystemsClient) getCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-10-01")
 	if options != nil && options.InstanceType != nil {
 		reqQP.Set("instanceType", *options.InstanceType)
 	}

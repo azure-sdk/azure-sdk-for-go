@@ -8,6 +8,17 @@
 
 package armrecoveryservicessiterecovery
 
+// ClusterRecoveryPointClientGetOptions contains the optional parameters for the ClusterRecoveryPointClient.Get method.
+type ClusterRecoveryPointClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ClusterRecoveryPointsClientListByReplicationProtectionClusterOptions contains the optional parameters for the ClusterRecoveryPointsClient.NewListByReplicationProtectionClusterPager
+// method.
+type ClusterRecoveryPointsClientListByReplicationProtectionClusterOptions struct {
+	// placeholder for future optional parameters
+}
+
 // MigrationRecoveryPointsClientGetOptions contains the optional parameters for the MigrationRecoveryPointsClient.Get method.
 type MigrationRecoveryPointsClientGetOptions struct {
 	// placeholder for future optional parameters
@@ -554,6 +565,90 @@ type ReplicationProtectedItemsClientListOptions struct {
 	SkipToken *string
 }
 
+// ReplicationProtectionClustersClientBeginApplyRecoveryPointOptions contains the optional parameters for the ReplicationProtectionClustersClient.BeginApplyRecoveryPoint
+// method.
+type ReplicationProtectionClustersClientBeginApplyRecoveryPointOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ReplicationProtectionClustersClientBeginCreateOptions contains the optional parameters for the ReplicationProtectionClustersClient.BeginCreate
+// method.
+type ReplicationProtectionClustersClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ReplicationProtectionClustersClientBeginFailoverCommitOptions contains the optional parameters for the ReplicationProtectionClustersClient.BeginFailoverCommit
+// method.
+type ReplicationProtectionClustersClientBeginFailoverCommitOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ReplicationProtectionClustersClientBeginPurgeOptions contains the optional parameters for the ReplicationProtectionClustersClient.BeginPurge
+// method.
+type ReplicationProtectionClustersClientBeginPurgeOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ReplicationProtectionClustersClientBeginRepairReplicationOptions contains the optional parameters for the ReplicationProtectionClustersClient.BeginRepairReplication
+// method.
+type ReplicationProtectionClustersClientBeginRepairReplicationOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ReplicationProtectionClustersClientBeginTestFailoverCleanupOptions contains the optional parameters for the ReplicationProtectionClustersClient.BeginTestFailoverCleanup
+// method.
+type ReplicationProtectionClustersClientBeginTestFailoverCleanupOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ReplicationProtectionClustersClientBeginTestFailoverOptions contains the optional parameters for the ReplicationProtectionClustersClient.BeginTestFailover
+// method.
+type ReplicationProtectionClustersClientBeginTestFailoverOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ReplicationProtectionClustersClientBeginUnplannedFailoverOptions contains the optional parameters for the ReplicationProtectionClustersClient.BeginUnplannedFailover
+// method.
+type ReplicationProtectionClustersClientBeginUnplannedFailoverOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ReplicationProtectionClustersClientGetOperationResultsOptions contains the optional parameters for the ReplicationProtectionClustersClient.GetOperationResults
+// method.
+type ReplicationProtectionClustersClientGetOperationResultsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ReplicationProtectionClustersClientGetOptions contains the optional parameters for the ReplicationProtectionClustersClient.Get
+// method.
+type ReplicationProtectionClustersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ReplicationProtectionClustersClientListByReplicationProtectionContainersOptions contains the optional parameters for the
+// ReplicationProtectionClustersClient.NewListByReplicationProtectionContainersPager method.
+type ReplicationProtectionClustersClientListByReplicationProtectionContainersOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ReplicationProtectionClustersClientListOptions contains the optional parameters for the ReplicationProtectionClustersClient.NewListPager
+// method.
+type ReplicationProtectionClustersClientListOptions struct {
+	// OData filter options.
+	Filter *string
+
+	// The pagination token. Possible values: "FabricId" or "FabricId_CloudId" or null.
+	SkipToken *string
+}
+
 // ReplicationProtectionContainerMappingsClientBeginCreateOptions contains the optional parameters for the ReplicationProtectionContainerMappingsClient.BeginCreate
 // method.
 type ReplicationProtectionContainerMappingsClientBeginCreateOptions struct {
@@ -617,6 +712,13 @@ type ReplicationProtectionContainersClientBeginDeleteOptions struct {
 // ReplicationProtectionContainersClientBeginDiscoverProtectableItemOptions contains the optional parameters for the ReplicationProtectionContainersClient.BeginDiscoverProtectableItem
 // method.
 type ReplicationProtectionContainersClientBeginDiscoverProtectableItemOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ReplicationProtectionContainersClientBeginSwitchClusterProtectionOptions contains the optional parameters for the ReplicationProtectionContainersClient.BeginSwitchClusterProtection
+// method.
+type ReplicationProtectionContainersClientBeginSwitchClusterProtectionOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
