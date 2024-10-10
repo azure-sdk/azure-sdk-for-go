@@ -45,7 +45,7 @@ type ClustersServer struct {
 	NewListByResourceGroupPager func(resourceGroupName string, options *armoperationalinsights.ClustersClientListByResourceGroupOptions) (resp azfake.PagerResponder[armoperationalinsights.ClustersClientListByResourceGroupResponse])
 
 	// BeginUpdate is the fake for method ClustersClient.BeginUpdate
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	// HTTP status codes to indicate success: http.StatusOK
 	BeginUpdate func(ctx context.Context, resourceGroupName string, clusterName string, parameters armoperationalinsights.ClusterPatch, options *armoperationalinsights.ClustersClientBeginUpdateOptions) (resp azfake.PollerResponder[armoperationalinsights.ClustersClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
@@ -341,9 +341,9 @@ func (c *ClustersServerTransport) dispatchBeginUpdate(req *http.Request) (*http.
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
 		c.beginUpdate.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginUpdate) {
 		c.beginUpdate.remove(req)
