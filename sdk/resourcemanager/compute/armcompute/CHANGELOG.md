@@ -1,5 +1,12 @@
 # Release History
 
+## 6.2.0 (2024-10-10)
+### Features Added
+
+- New field `AdditionalProperties` in struct `VirtualMachineImage`
+- New field `AdditionalProperties` in struct `VirtualMachineImageResource`
+
+
 ## 6.1.0 (2024-08-23)
 ### Features Added
 
