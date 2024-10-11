@@ -333,6 +333,11 @@ type StorageInsightConfigsClientListByWorkspaceResponse struct {
 	StorageInsightListResult
 }
 
+// TablesClientCancelSearchResponse contains the response from method TablesClient.CancelSearch.
+type TablesClientCancelSearchResponse struct {
+	// placeholder for future response values
+}
+
 // TablesClientCreateOrUpdateResponse contains the response from method TablesClient.BeginCreateOrUpdate.
 type TablesClientCreateOrUpdateResponse struct {
 	// Workspace data table definition.
