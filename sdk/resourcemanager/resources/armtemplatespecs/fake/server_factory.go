@@ -19,8 +19,11 @@ import (
 
 // ServerFactory is a fake server for instances of the armtemplatespecs.ClientFactory type.
 type ServerFactory struct {
-	Server                     Server
-	TemplateSpecVersionsServer TemplateSpecVersionsServer
+	PolicyAssignmentsServer           PolicyAssignmentsServer
+	PolicyDefinitionVersionsServer    PolicyDefinitionVersionsServer
+	PolicyDefinitionsServer           PolicyDefinitionsServer
+	PolicySetDefinitionVersionsServer PolicySetDefinitionVersionsServer
+	PolicySetDefinitionsServer        PolicySetDefinitionsServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -35,10 +38,13 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armtemplatespecs.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                          *ServerFactory
-	trMu                         sync.Mutex
-	trServer                     *ServerTransport
-	trTemplateSpecVersionsServer *TemplateSpecVersionsServerTransport
+	srv                                 *ServerFactory
+	trMu                                sync.Mutex
+	trPolicyAssignmentsServer           *PolicyAssignmentsServerTransport
+	trPolicyDefinitionVersionsServer    *PolicyDefinitionVersionsServerTransport
+	trPolicyDefinitionsServer           *PolicyDefinitionsServerTransport
+	trPolicySetDefinitionVersionsServer *PolicySetDefinitionVersionsServerTransport
+	trPolicySetDefinitionsServer        *PolicySetDefinitionsServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -54,14 +60,31 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch client {
-	case "Client":
-		initServer(s, &s.trServer, func() *ServerTransport { return NewServerTransport(&s.srv.Server) })
-		resp, err = s.trServer.Do(req)
-	case "TemplateSpecVersionsClient":
-		initServer(s, &s.trTemplateSpecVersionsServer, func() *TemplateSpecVersionsServerTransport {
-			return NewTemplateSpecVersionsServerTransport(&s.srv.TemplateSpecVersionsServer)
+	case "PolicyAssignmentsClient":
+		initServer(s, &s.trPolicyAssignmentsServer, func() *PolicyAssignmentsServerTransport {
+			return NewPolicyAssignmentsServerTransport(&s.srv.PolicyAssignmentsServer)
 		})
-		resp, err = s.trTemplateSpecVersionsServer.Do(req)
+		resp, err = s.trPolicyAssignmentsServer.Do(req)
+	case "PolicyDefinitionVersionsClient":
+		initServer(s, &s.trPolicyDefinitionVersionsServer, func() *PolicyDefinitionVersionsServerTransport {
+			return NewPolicyDefinitionVersionsServerTransport(&s.srv.PolicyDefinitionVersionsServer)
+		})
+		resp, err = s.trPolicyDefinitionVersionsServer.Do(req)
+	case "PolicyDefinitionsClient":
+		initServer(s, &s.trPolicyDefinitionsServer, func() *PolicyDefinitionsServerTransport {
+			return NewPolicyDefinitionsServerTransport(&s.srv.PolicyDefinitionsServer)
+		})
+		resp, err = s.trPolicyDefinitionsServer.Do(req)
+	case "PolicySetDefinitionVersionsClient":
+		initServer(s, &s.trPolicySetDefinitionVersionsServer, func() *PolicySetDefinitionVersionsServerTransport {
+			return NewPolicySetDefinitionVersionsServerTransport(&s.srv.PolicySetDefinitionVersionsServer)
+		})
+		resp, err = s.trPolicySetDefinitionVersionsServer.Do(req)
+	case "PolicySetDefinitionsClient":
+		initServer(s, &s.trPolicySetDefinitionsServer, func() *PolicySetDefinitionsServerTransport {
+			return NewPolicySetDefinitionsServerTransport(&s.srv.PolicySetDefinitionsServer)
+		})
+		resp, err = s.trPolicySetDefinitionsServer.Do(req)
 	default:
 		err = fmt.Errorf("unhandled client %s", client)
 	}
