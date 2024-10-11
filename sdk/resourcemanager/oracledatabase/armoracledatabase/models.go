@@ -154,7 +154,7 @@ type AutonomousDatabaseBackupProperties struct {
 
 // AutonomousDatabaseBackupUpdate - The type used for update operations of the AutonomousDatabaseBackup.
 type AutonomousDatabaseBackupUpdate struct {
-	// The updatable properties of the AutonomousDatabaseBackup.
+	// The resource-specific properties for this resource.
 	Properties *AutonomousDatabaseBackupUpdateProperties
 }
 
@@ -438,7 +438,7 @@ type AutonomousDatabaseCharacterSetListResult struct {
 
 // AutonomousDatabaseCharacterSetProperties - AutonomousDatabaseCharacterSet resource model
 type AutonomousDatabaseCharacterSetProperties struct {
-	// READ-ONLY; The Oracle Autonomous Database supported character sets.
+	// REQUIRED; The Oracle Autonomous Database supported character sets.
 	CharacterSet *string
 }
 
@@ -826,7 +826,7 @@ type AutonomousDatabaseNationalCharacterSetListResult struct {
 
 // AutonomousDatabaseNationalCharacterSetProperties - AutonomousDatabaseNationalCharacterSet resource model
 type AutonomousDatabaseNationalCharacterSetProperties struct {
-	// READ-ONLY; The Oracle Autonomous Database supported national character sets.
+	// REQUIRED; The Oracle Autonomous Database supported national character sets.
 	CharacterSet *string
 }
 
@@ -1172,7 +1172,7 @@ type AutonomousDatabaseStandbySummary struct {
 
 // AutonomousDatabaseUpdate - The type used for update operations of the AutonomousDatabase.
 type AutonomousDatabaseUpdate struct {
-	// The updatable properties of the AutonomousDatabase.
+	// The resource-specific properties for this resource.
 	Properties *AutonomousDatabaseUpdateProperties
 
 	// Resource tags.
@@ -1289,23 +1289,29 @@ type AutonomousDbVersionListResult struct {
 
 // AutonomousDbVersionProperties - AutonomousDbVersion resource model
 type AutonomousDbVersionProperties struct {
-	// READ-ONLY; Supported Autonomous Db versions.
+	// REQUIRED; Supported Autonomous Db versions.
 	Version *string
 
-	// READ-ONLY; The Autonomous Database workload type
+	// The Autonomous Database workload type
 	DbWorkload *WorkloadType
 
-	// READ-ONLY; True if this version of the Oracle Database software's default is free.
+	// True if this version of the Oracle Database software's default is free.
 	IsDefaultForFree *bool
 
-	// READ-ONLY; True if this version of the Oracle Database software's default is paid.
+	// True if this version of the Oracle Database software's default is paid.
 	IsDefaultForPaid *bool
 
-	// READ-ONLY; True if this version of the Oracle Database software can be used for Always-Free Autonomous Databases.
+	// True if this version of the Oracle Database software can be used for Always-Free Autonomous Databases.
 	IsFreeTierEnabled *bool
 
-	// READ-ONLY; True if this version of the Oracle Database software has payments enabled.
+	// True if this version of the Oracle Database software has payments enabled.
 	IsPaidEnabled *bool
+}
+
+// AzureSubscriptions - Azure Subscriptions model
+type AzureSubscriptions struct {
+	// REQUIRED; Azure Subscription Ids to be updated
+	AzureSubscriptionIDs []*string
 }
 
 // CloudAccountDetails - Cloud Account Details model
@@ -1456,7 +1462,7 @@ type CloudExadataInfrastructureProperties struct {
 
 // CloudExadataInfrastructureUpdate - The type used for update operations of the CloudExadataInfrastructure.
 type CloudExadataInfrastructureUpdate struct {
-	// The updatable properties of the CloudExadataInfrastructure.
+	// The resource-specific properties for this resource.
 	Properties *CloudExadataInfrastructureUpdateProperties
 
 	// Resource tags.
@@ -1683,7 +1689,7 @@ type CloudVMClusterProperties struct {
 
 // CloudVMClusterUpdate - The type used for update operations of the CloudVmCluster.
 type CloudVMClusterUpdate struct {
-	// The updatable properties of the CloudVmCluster.
+	// The resource-specific properties for this resource.
 	Properties *CloudVMClusterUpdateProperties
 
 	// Resource tags.
@@ -1812,26 +1818,26 @@ type DNSPrivateViewListResult struct {
 
 // DNSPrivateViewProperties - Views resource model
 type DNSPrivateViewProperties struct {
-	// READ-ONLY; A Boolean flag indicating whether or not parts of the resource are unable to be explicitly managed.
-	IsProtected *bool
-
-	// READ-ONLY; The OCID of the view
-	Ocid *string
-
-	// READ-ONLY; The canonical absolute URL of the resource.
-	Self *string
-
-	// READ-ONLY; views timeCreated
-	TimeCreated *time.Time
-
-	// READ-ONLY; views timeCreated
-	TimeUpdated *time.Time
-
-	// READ-ONLY; The display name of the view resource
+	// REQUIRED; The display name of the view resource
 	DisplayName *string
 
-	// READ-ONLY; Views lifecycleState
+	// REQUIRED; A Boolean flag indicating whether or not parts of the resource are unable to be explicitly managed.
+	IsProtected *bool
+
+	// REQUIRED; Views lifecycleState
 	LifecycleState *DNSPrivateViewsLifecycleState
+
+	// REQUIRED; The OCID of the view
+	Ocid *string
+
+	// REQUIRED; The canonical absolute URL of the resource.
+	Self *string
+
+	// REQUIRED; views timeCreated
+	TimeCreated *time.Time
+
+	// REQUIRED; views timeUpdated
+	TimeUpdated *time.Time
 
 	// READ-ONLY; Azure resource provisioning state.
 	ProvisioningState *ResourceProvisioningState
@@ -1866,37 +1872,37 @@ type DNSPrivateZoneListResult struct {
 
 // DNSPrivateZoneProperties - Zones resource model
 type DNSPrivateZoneProperties struct {
-	// READ-ONLY; A Boolean flag indicating whether or not parts of the resource are unable to be explicitly managed.
+	// REQUIRED; A Boolean flag indicating whether or not parts of the resource are unable to be explicitly managed.
 	IsProtected *bool
 
-	// READ-ONLY; The OCID of the Zone
+	// REQUIRED; Zones lifecycleState
+	LifecycleState *DNSPrivateZonesLifecycleState
+
+	// REQUIRED; The OCID of the Zone
 	Ocid *string
 
-	// READ-ONLY; The canonical absolute URL of the resource.
+	// REQUIRED; The canonical absolute URL of the resource.
 	Self *string
 
-	// READ-ONLY; The current serial of the zone. As seen in the zone's SOA record.
+	// REQUIRED; The current serial of the zone. As seen in the zone's SOA record.
 	Serial *int32
 
-	// READ-ONLY; Zones timeCreated
+	// REQUIRED; Zones timeCreated
 	TimeCreated *time.Time
 
-	// READ-ONLY; Version is the never-repeating, totally-orderable, version of the zone, from which the serial field of the zone's
+	// REQUIRED; Version is the never-repeating, totally-orderable, version of the zone, from which the serial field of the zone's
 	// SOA record is derived.
 	Version *string
 
-	// READ-ONLY; The type of the zone. Must be either PRIMARY or SECONDARY. SECONDARY is only supported for GLOBAL zones.
+	// REQUIRED; The type of the zone. Must be either PRIMARY or SECONDARY. SECONDARY is only supported for GLOBAL zones.
 	ZoneType *ZoneType
 
-	// READ-ONLY; Zones lifecycleState
-	LifecycleState *DNSPrivateZonesLifecycleState
+	// The OCID of the private view containing the zone. This value will be null for zones in the global DNS, which are publicly
+	// resolvable and not part of a private view.
+	ViewID *string
 
 	// READ-ONLY; Azure resource provisioning state.
 	ProvisioningState *ResourceProvisioningState
-
-	// READ-ONLY; The OCID of the private view containing the zone. This value will be null for zones in the global DNS, which
-	// are publicly resolvable and not part of a private view.
-	ViewID *string
 }
 
 // DataCollectionOptions resource properties
@@ -1970,75 +1976,75 @@ type DbNodeListResult struct {
 
 // DbNodeProperties - The properties of DbNodeResource
 type DbNodeProperties struct {
-	// READ-ONLY; The OCID of the DB system.
+	// REQUIRED; The OCID of the DB system.
 	DbSystemID *string
 
-	// READ-ONLY; DbNode OCID
-	Ocid *string
-
-	// READ-ONLY; Additional information about the planned maintenance.
-	AdditionalDetails *string
-
-	// READ-ONLY; The OCID of the backup IP address associated with the database node.
-	BackupIPID *string
-
-	// READ-ONLY; The OCID of the second backup VNIC.
-	BackupVnic2ID *string
-
-	// READ-ONLY; The OCID of the backup VNIC.
-	BackupVnicID *string
-
-	// READ-ONLY; The number of CPU cores enabled on the Db node.
-	CPUCoreCount *int32
-
-	// READ-ONLY; The allocated local node storage in GBs on the Db node.
-	DbNodeStorageSizeInGbs *int32
-
-	// READ-ONLY; The OCID of the Exacc Db server associated with the database node.
-	DbServerID *string
-
-	// READ-ONLY; The name of the Fault Domain the instance is contained in.
-	FaultDomain *string
-
-	// READ-ONLY; The OCID of the host IP address associated with the database node.
-	HostIPID *string
-
-	// READ-ONLY; The host name for the database node.
-	Hostname *string
-
-	// READ-ONLY; Lifecycle details of Db Node.
-	LifecycleDetails *string
-
-	// READ-ONLY; The current state of the database node.
+	// REQUIRED; The current state of the database node.
 	LifecycleState *DbNodeProvisioningState
 
-	// READ-ONLY; The type of database node maintenance.
+	// REQUIRED; DbNode OCID
+	Ocid *string
+
+	// REQUIRED; The date and time that the database node was created.
+	TimeCreated *time.Time
+
+	// Additional information about the planned maintenance.
+	AdditionalDetails *string
+
+	// The OCID of the backup IP address associated with the database node.
+	BackupIPID *string
+
+	// The OCID of the second backup VNIC.
+	BackupVnic2ID *string
+
+	// The OCID of the backup VNIC.
+	BackupVnicID *string
+
+	// The number of CPU cores enabled on the Db node.
+	CPUCoreCount *int32
+
+	// The allocated local node storage in GBs on the Db node.
+	DbNodeStorageSizeInGbs *int32
+
+	// The OCID of the Exacc Db server associated with the database node.
+	DbServerID *string
+
+	// The name of the Fault Domain the instance is contained in.
+	FaultDomain *string
+
+	// The OCID of the host IP address associated with the database node.
+	HostIPID *string
+
+	// The host name for the database node.
+	Hostname *string
+
+	// Lifecycle details of Db Node.
+	LifecycleDetails *string
+
+	// The type of database node maintenance.
 	MaintenanceType *DbNodeMaintenanceType
 
-	// READ-ONLY; The allocated memory in GBs on the Db node.
+	// The allocated memory in GBs on the Db node.
 	MemorySizeInGbs *int32
+
+	// The size (in GB) of the block storage volume allocation for the DB system. This attribute applies only for virtual machine
+	// DB systems.
+	SoftwareStorageSizeInGb *int32
+
+	// End date and time of maintenance window.
+	TimeMaintenanceWindowEnd *time.Time
+
+	// Start date and time of maintenance window.
+	TimeMaintenanceWindowStart *time.Time
+
+	// The OCID of the second VNIC.
+	Vnic2ID *string
+
+	// The OCID of the VNIC.
+	VnicID *string
 
 	// READ-ONLY; Azure resource provisioning state.
 	ProvisioningState *ResourceProvisioningState
-
-	// READ-ONLY; The size (in GB) of the block storage volume allocation for the DB system. This attribute applies only for virtual
-	// machine DB systems.
-	SoftwareStorageSizeInGb *int32
-
-	// READ-ONLY; The date and time that the database node was created.
-	TimeCreated *time.Time
-
-	// READ-ONLY; End date and time of maintenance window.
-	TimeMaintenanceWindowEnd *time.Time
-
-	// READ-ONLY; Start date and time of maintenance window.
-	TimeMaintenanceWindowStart *time.Time
-
-	// READ-ONLY; The OCID of the second VNIC.
-	Vnic2ID *string
-
-	// READ-ONLY; The OCID of the VNIC.
-	VnicID *string
 }
 
 // DbServer resource model
@@ -2175,65 +2181,65 @@ type DbSystemShapeListResult struct {
 
 // DbSystemShapeProperties - DbSystemShape resource model
 type DbSystemShapeProperties struct {
-	// READ-ONLY; The maximum number of CPU cores that can be enabled on the DB system for this shape.
+	// REQUIRED; The maximum number of CPU cores that can be enabled on the DB system for this shape.
 	AvailableCoreCount *int32
 
-	// READ-ONLY; The maximum number of CPU cores per database node that can be enabled for this shape. Only applicable to the
-	// flex Exadata shape and ExaCC Elastic shapes.
+	// The maximum number of CPU cores per database node that can be enabled for this shape. Only applicable to the flex Exadata
+	// shape and ExaCC Elastic shapes.
 	AvailableCoreCountPerNode *int32
 
-	// READ-ONLY; The maximum DATA storage that can be enabled for this shape.
+	// The maximum DATA storage that can be enabled for this shape.
 	AvailableDataStorageInTbs *int32
 
-	// READ-ONLY; The maximum data storage available per storage server for this shape. Only applicable to ExaCC Elastic shapes.
+	// The maximum data storage available per storage server for this shape. Only applicable to ExaCC Elastic shapes.
 	AvailableDataStoragePerServerInTbs *float64
 
-	// READ-ONLY; The maximum Db Node storage available per database node for this shape. Only applicable to ExaCC Elastic shapes.
+	// The maximum Db Node storage available per database node for this shape. Only applicable to ExaCC Elastic shapes.
 	AvailableDbNodePerNodeInGbs *int32
 
-	// READ-ONLY; The maximum Db Node storage that can be enabled for this shape.
+	// The maximum Db Node storage that can be enabled for this shape.
 	AvailableDbNodeStorageInGbs *int32
 
-	// READ-ONLY; The maximum memory that can be enabled for this shape.
+	// The maximum memory that can be enabled for this shape.
 	AvailableMemoryInGbs *int32
 
-	// READ-ONLY; The maximum memory available per database node for this shape. Only applicable to ExaCC Elastic shapes.
+	// The maximum memory available per database node for this shape. Only applicable to ExaCC Elastic shapes.
 	AvailableMemoryPerNodeInGbs *int32
 
-	// READ-ONLY; The discrete number by which the CPU core count for this shape can be increased or decreased.
+	// The discrete number by which the CPU core count for this shape can be increased or decreased.
 	CoreCountIncrement *int32
 
-	// READ-ONLY; The maximum number of Exadata storage servers available for the Exadata infrastructure.
+	// The maximum number of Exadata storage servers available for the Exadata infrastructure.
 	MaxStorageCount *int32
 
-	// READ-ONLY; The maximum number of database nodes available for this shape.
+	// The maximum number of database nodes available for this shape.
 	MaximumNodeCount *int32
 
-	// READ-ONLY; The minimum number of CPU cores that can be enabled per node for this shape.
+	// The minimum number of CPU cores that can be enabled per node for this shape.
 	MinCoreCountPerNode *int32
 
-	// READ-ONLY; The minimum data storage that need be allocated for this shape.
+	// The minimum data storage that need be allocated for this shape.
 	MinDataStorageInTbs *int32
 
-	// READ-ONLY; The minimum Db Node storage that need be allocated per node for this shape.
+	// The minimum Db Node storage that need be allocated per node for this shape.
 	MinDbNodeStoragePerNodeInGbs *int32
 
-	// READ-ONLY; The minimum memory that need be allocated per node for this shape.
+	// The minimum memory that need be allocated per node for this shape.
 	MinMemoryPerNodeInGbs *int32
 
-	// READ-ONLY; The minimum number of Exadata storage servers available for the Exadata infrastructure.
+	// The minimum number of Exadata storage servers available for the Exadata infrastructure.
 	MinStorageCount *int32
 
-	// READ-ONLY; The minimum number of CPU cores that can be enabled on the DB system for this shape.
+	// The minimum number of CPU cores that can be enabled on the DB system for this shape.
 	MinimumCoreCount *int32
 
-	// READ-ONLY; The minimum number of database nodes available for this shape.
+	// The minimum number of database nodes available for this shape.
 	MinimumNodeCount *int32
 
-	// READ-ONLY; The runtime minimum number of CPU cores that can be enabled on the DB system for this shape.
+	// The runtime minimum number of CPU cores that can be enabled on the DB system for this shape.
 	RuntimeMinimumCoreCount *int32
 
-	// READ-ONLY; The family of the shape used for the DB system.
+	// The family of the shape used for the DB system.
 	ShapeFamily *string
 }
 
@@ -2309,7 +2315,7 @@ type GiVersionListResult struct {
 
 // GiVersionProperties - GiVersion resource model
 type GiVersionProperties struct {
-	// READ-ONLY; A valid Oracle Grid Infrastructure (GI) software version.
+	// REQUIRED; A valid Oracle Grid Infrastructure (GI) software version.
 	Version *string
 }
 
@@ -2478,11 +2484,20 @@ type OracleSubscriptionProperties struct {
 	// Term Unit. P1Y, P3Y, etc, see Durations https://en.wikipedia.org/wiki/ISO_8601
 	TermUnit *string
 
+	// READ-ONLY; State of the add Azure subscription operation on Oracle subscription
+	AddSubscriptionOperationState *AddSubscriptionOperationState
+
+	// READ-ONLY; Azure subscriptions associated with this OracleSubscription
+	AzureSubscriptionIDs []*string
+
 	// READ-ONLY; Cloud Account Id
 	CloudAccountID *string
 
 	// READ-ONLY; Cloud Account provisioning state.
 	CloudAccountState *CloudAccountProvisioningState
+
+	// READ-ONLY; Status details of the last operation on Oracle subscription
+	LastOperationStatusDetail *string
 
 	// READ-ONLY; OracleSubscriptionProvisioningState provisioning state
 	ProvisioningState *OracleSubscriptionProvisioningState
@@ -2496,7 +2511,7 @@ type OracleSubscriptionUpdate struct {
 	// Details of the resource plan.
 	Plan *PlanUpdate
 
-	// The updatable properties of the OracleSubscription.
+	// The resource-specific properties for this resource.
 	Properties *OracleSubscriptionUpdateProperties
 }
 
@@ -2742,7 +2757,7 @@ type SystemVersionListResult struct {
 
 // SystemVersionProperties - System Version Resource model
 type SystemVersionProperties struct {
-	// READ-ONLY; A valid Oracle System Version
+	// REQUIRED; A valid Oracle System Version
 	SystemVersion *string
 }
 
