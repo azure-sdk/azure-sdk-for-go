@@ -10,295 +10,6 @@ package armdeploymentscripts
 
 import "time"
 
-// AzureCliScript - Object model for the Azure CLI script.
-type AzureCliScript struct {
-	// REQUIRED; Type of the script.
-	Kind *ScriptType
-
-	// REQUIRED; The location of the ACI and the storage account for the deployment script.
-	Location *string
-
-	// REQUIRED; Properties of the Azure CLI script object.
-	Properties *AzureCliScriptProperties
-
-	// Optional property. Managed identity to be used for this deployment script. Currently, only user-assigned MSI is supported.
-	Identity *ManagedServiceIdentity
-
-	// Resource tags.
-	Tags map[string]*string
-
-	// READ-ONLY; String Id used to locate any resource on Azure.
-	ID *string
-
-	// READ-ONLY; Name of this resource.
-	Name *string
-
-	// READ-ONLY; The system metadata related to this resource.
-	SystemData *SystemData
-
-	// READ-ONLY; Type of this resource.
-	Type *string
-}
-
-// GetDeploymentScript implements the DeploymentScriptClassification interface for type AzureCliScript.
-func (a *AzureCliScript) GetDeploymentScript() *DeploymentScript {
-	return &DeploymentScript{
-		ID:         a.ID,
-		Identity:   a.Identity,
-		Kind:       a.Kind,
-		Location:   a.Location,
-		Name:       a.Name,
-		SystemData: a.SystemData,
-		Tags:       a.Tags,
-		Type:       a.Type,
-	}
-}
-
-// AzureCliScriptProperties - Properties of the Azure CLI script object.
-type AzureCliScriptProperties struct {
-	// REQUIRED; Azure CLI module version to be used.
-	AzCliVersion *string
-
-	// REQUIRED; Interval for which the service retains the script resource after it reaches a terminal state. Resource will be
-	// deleted when this duration expires. Duration is based on ISO 8601 pattern (for example
-	// P1D means one day).
-	RetentionInterval *string
-
-	// Command line arguments to pass to the script. Arguments are separated by spaces. ex: -Name blue* -Location 'West US 2'
-	Arguments *string
-
-	// The clean up preference when the script execution gets in a terminal state. Default setting is 'Always'.
-	CleanupPreference *CleanupOptions
-
-	// Container settings.
-	ContainerSettings *ContainerConfiguration
-
-	// The environment variables to pass over to the script.
-	EnvironmentVariables []*EnvironmentVariable
-
-	// Gets or sets how the deployment script should be forced to execute even if the script resource has not changed. Can be
-	// current time stamp or a GUID.
-	ForceUpdateTag *string
-
-	// Uri for the script. This is the entry point for the external script.
-	PrimaryScriptURI *string
-
-	// Script body.
-	ScriptContent *string
-
-	// Storage Account settings.
-	StorageAccountSettings *StorageAccountConfiguration
-
-	// Supporting files for the external script.
-	SupportingScriptUris []*string
-
-	// Maximum allowed script execution time specified in ISO 8601 format. Default value is P1D
-	Timeout *string
-
-	// READ-ONLY; List of script outputs.
-	Outputs map[string]any
-
-	// READ-ONLY; State of the script execution. This only appears in the response.
-	ProvisioningState *ScriptProvisioningState
-
-	// READ-ONLY; Contains the results of script execution.
-	Status *ScriptStatus
-}
-
-// AzurePowerShellScript - Object model for the Azure PowerShell script.
-type AzurePowerShellScript struct {
-	// REQUIRED; Type of the script.
-	Kind *ScriptType
-
-	// REQUIRED; The location of the ACI and the storage account for the deployment script.
-	Location *string
-
-	// REQUIRED; Properties of the Azure PowerShell script object.
-	Properties *AzurePowerShellScriptProperties
-
-	// Optional property. Managed identity to be used for this deployment script. Currently, only user-assigned MSI is supported.
-	Identity *ManagedServiceIdentity
-
-	// Resource tags.
-	Tags map[string]*string
-
-	// READ-ONLY; String Id used to locate any resource on Azure.
-	ID *string
-
-	// READ-ONLY; Name of this resource.
-	Name *string
-
-	// READ-ONLY; The system metadata related to this resource.
-	SystemData *SystemData
-
-	// READ-ONLY; Type of this resource.
-	Type *string
-}
-
-// GetDeploymentScript implements the DeploymentScriptClassification interface for type AzurePowerShellScript.
-func (a *AzurePowerShellScript) GetDeploymentScript() *DeploymentScript {
-	return &DeploymentScript{
-		ID:         a.ID,
-		Identity:   a.Identity,
-		Kind:       a.Kind,
-		Location:   a.Location,
-		Name:       a.Name,
-		SystemData: a.SystemData,
-		Tags:       a.Tags,
-		Type:       a.Type,
-	}
-}
-
-// AzurePowerShellScriptProperties - Properties of the Azure PowerShell script object.
-type AzurePowerShellScriptProperties struct {
-	// REQUIRED; Azure PowerShell module version to be used.
-	AzPowerShellVersion *string
-
-	// REQUIRED; Interval for which the service retains the script resource after it reaches a terminal state. Resource will be
-	// deleted when this duration expires. Duration is based on ISO 8601 pattern (for example
-	// P1D means one day).
-	RetentionInterval *string
-
-	// Command line arguments to pass to the script. Arguments are separated by spaces. ex: -Name blue* -Location 'West US 2'
-	Arguments *string
-
-	// The clean up preference when the script execution gets in a terminal state. Default setting is 'Always'.
-	CleanupPreference *CleanupOptions
-
-	// Container settings.
-	ContainerSettings *ContainerConfiguration
-
-	// The environment variables to pass over to the script.
-	EnvironmentVariables []*EnvironmentVariable
-
-	// Gets or sets how the deployment script should be forced to execute even if the script resource has not changed. Can be
-	// current time stamp or a GUID.
-	ForceUpdateTag *string
-
-	// Uri for the script. This is the entry point for the external script.
-	PrimaryScriptURI *string
-
-	// Script body.
-	ScriptContent *string
-
-	// Storage Account settings.
-	StorageAccountSettings *StorageAccountConfiguration
-
-	// Supporting files for the external script.
-	SupportingScriptUris []*string
-
-	// Maximum allowed script execution time specified in ISO 8601 format. Default value is P1D
-	Timeout *string
-
-	// READ-ONLY; List of script outputs.
-	Outputs map[string]any
-
-	// READ-ONLY; State of the script execution. This only appears in the response.
-	ProvisioningState *ScriptProvisioningState
-
-	// READ-ONLY; Contains the results of script execution.
-	Status *ScriptStatus
-}
-
-// AzureResourceBase - Common properties for all Azure resources.
-type AzureResourceBase struct {
-	// READ-ONLY; String Id used to locate any resource on Azure.
-	ID *string
-
-	// READ-ONLY; Name of this resource.
-	Name *string
-
-	// READ-ONLY; Type of this resource.
-	Type *string
-}
-
-// ContainerConfiguration - Settings to customize ACI container instance.
-type ContainerConfiguration struct {
-	// Container group name, if not specified then the name will get auto-generated. Not specifying a 'containerGroupName' indicates
-	// the system to generate a unique name which might end up flagging an Azure
-	// Policy as non-compliant. Use 'containerGroupName' when you have an Azure Policy that expects a specific naming convention
-	// or when you want to fully control the name. 'containerGroupName' property must
-	// be between 1 and 63 characters long, must contain only lowercase letters, numbers, and dashes and it cannot start or end
-	// with a dash and consecutive dashes are not allowed. To specify a
-	// 'containerGroupName', add the following object to properties: { "containerSettings": { "containerGroupName": "contoso-container"
-	// } }. If you do not want to specify a 'containerGroupName' then do not
-	// add 'containerSettings' property.
-	ContainerGroupName *string
-}
-
-// DeploymentScript - Deployment script object.
-type DeploymentScript struct {
-	// REQUIRED; Type of the script.
-	Kind *ScriptType
-
-	// REQUIRED; The location of the ACI and the storage account for the deployment script.
-	Location *string
-
-	// Optional property. Managed identity to be used for this deployment script. Currently, only user-assigned MSI is supported.
-	Identity *ManagedServiceIdentity
-
-	// Resource tags.
-	Tags map[string]*string
-
-	// READ-ONLY; String Id used to locate any resource on Azure.
-	ID *string
-
-	// READ-ONLY; Name of this resource.
-	Name *string
-
-	// READ-ONLY; The system metadata related to this resource.
-	SystemData *SystemData
-
-	// READ-ONLY; Type of this resource.
-	Type *string
-}
-
-// GetDeploymentScript implements the DeploymentScriptClassification interface for type DeploymentScript.
-func (d *DeploymentScript) GetDeploymentScript() *DeploymentScript { return d }
-
-// DeploymentScriptListResult - List of deployment scripts.
-type DeploymentScriptListResult struct {
-	// An array of deployment scripts.
-	Value []DeploymentScriptClassification
-
-	// READ-ONLY; The URL to use for getting the next set of results.
-	NextLink *string
-}
-
-// DeploymentScriptUpdateParameter - Deployment script parameters to be updated.
-type DeploymentScriptUpdateParameter struct {
-	// Resource tags to be updated.
-	Tags map[string]*string
-
-	// READ-ONLY; String Id used to locate any resource on Azure.
-	ID *string
-
-	// READ-ONLY; Name of this resource.
-	Name *string
-
-	// READ-ONLY; Type of this resource.
-	Type *string
-}
-
-// EnvironmentVariable - The environment variable to pass to the script in the container instance.
-type EnvironmentVariable struct {
-	// REQUIRED; The name of the environment variable.
-	Name *string
-
-	// The value of the secure environment variable.
-	SecureValue *string
-
-	// The value of the environment variable.
-	Value *string
-}
-
-// Error - Deployment scripts error response.
-type Error struct {
-	// Common error response for all Azure Resource Manager APIs to return error details for failed operations. (This also follows
-	// the OData error response format.)
-	Error *ErrorResponse
-}
-
 // ErrorAdditionalInfo - The resource management error additional info.
 type ErrorAdditionalInfo struct {
 	// READ-ONLY; The additional info.
@@ -327,75 +38,469 @@ type ErrorResponse struct {
 	Target *string
 }
 
-// LogProperties - Script log properties.
-type LogProperties struct {
-	// READ-ONLY; Script execution logs in text format.
-	Log *string
-}
+// Identity for the resource. Policy assignments support a maximum of one identity. That is either a system assigned identity
+// or a single user assigned identity.
+type Identity struct {
+	// The identity type. This is the only required field when adding a system or user assigned identity to a resource.
+	Type *ResourceIdentityType
 
-// ManagedServiceIdentity - Managed identity generic object.
-type ManagedServiceIdentity struct {
-	// Type of the managed identity.
-	Type *ManagedServiceIdentityType
+	// The user identity associated with the policy. The user identity dictionary key references will be ARM resource ids in the
+	// form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.
+	UserAssignedIdentities map[string]*UserAssignedIdentitiesValue
 
-	// The list of user-assigned managed identities associated with the resource. Key is the Azure resource Id of the managed
-	// identity.
-	UserAssignedIdentities map[string]*UserAssignedIdentity
+	// READ-ONLY; The principal ID of the resource identity. This property will only be provided for a system assigned identity
+	PrincipalID *string
 
-	// READ-ONLY; ID of the Azure Active Directory.
+	// READ-ONLY; The tenant ID of the resource identity. This property will only be provided for a system assigned identity
 	TenantID *string
 }
 
-// ScriptLog - Script execution log object.
-type ScriptLog struct {
-	// Script log properties.
-	Properties *LogProperties
+// NonComplianceMessage - A message that describes why a resource is non-compliant with the policy. This is shown in 'deny'
+// error messages and on resource's non-compliant compliance results.
+type NonComplianceMessage struct {
+	// REQUIRED; A message that describes why a resource is non-compliant with the policy. This is shown in 'deny' error messages
+	// and on resource's non-compliant compliance results.
+	Message *string
 
-	// READ-ONLY; String Id used to locate any resource on Azure.
+	// The policy definition reference ID within a policy set definition the message is intended for. This is only applicable
+	// if the policy assignment assigns a policy set definition. If this is not provided
+	// the message applies to all policies assigned by this policy assignment.
+	PolicyDefinitionReferenceID *string
+}
+
+// Override - The policy property value override.
+type Override struct {
+	// The override kind.
+	Kind *OverrideKind
+
+	// The list of the selector expressions.
+	Selectors []*Selector
+
+	// The value to override the policy property.
+	Value *string
+}
+
+// ParameterDefinitionsValue - The definition of a parameter that can be provided to the policy.
+type ParameterDefinitionsValue struct {
+	// The allowed values for the parameter.
+	AllowedValues []any
+
+	// The default value for the parameter if no value is provided.
+	DefaultValue any
+
+	// General metadata for the parameter.
+	Metadata *ParameterDefinitionsValueMetadata
+
+	// Provides validation of parameter inputs during assignment using a self-defined JSON schema. This property is only supported
+	// for object-type parameters and follows the Json.NET Schema 2019-09
+	// implementation. You can learn more about using schemas at https://json-schema.org/ and test draft schemas at https://www.jsonschemavalidator.net/.
+	Schema any
+
+	// The data type of the parameter.
+	Type *ParameterType
+}
+
+// ParameterDefinitionsValueMetadata - General metadata for the parameter.
+type ParameterDefinitionsValueMetadata struct {
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// Set to true to have Azure portal create role assignments on the resource ID or resource scope value of this parameter during
+	// policy assignment. This property is useful in case you wish to assign
+	// permissions outside the assignment scope.
+	AssignPermissions *bool
+
+	// The description of the parameter.
+	Description *string
+
+	// The display name for the parameter.
+	DisplayName *string
+
+	// Used when assigning the policy definition through the portal. Provides a context aware list of values for the user to choose
+	// from.
+	StrongType *string
+}
+
+// ParameterValuesValue - The value of a parameter.
+type ParameterValuesValue struct {
+	// The value of the parameter.
+	Value any
+}
+
+// PolicyAssignment - The policy assignment.
+type PolicyAssignment struct {
+	// The managed identity associated with the policy assignment.
+	Identity *Identity
+
+	// The location of the policy assignment. Only required when utilizing managed identity.
+	Location *string
+
+	// Properties for the policy assignment.
+	Properties *PolicyAssignmentProperties
+
+	// READ-ONLY; The ID of the policy assignment.
 	ID *string
 
-	// READ-ONLY; Name of this resource.
+	// READ-ONLY; The name of the policy assignment.
 	Name *string
 
-	// READ-ONLY; Type of this resource.
+	// READ-ONLY; The system metadata relating to this resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the policy assignment.
 	Type *string
 }
 
-// ScriptLogsList - Deployment script execution logs.
-type ScriptLogsList struct {
-	// Deployment scripts logs.
-	Value []*ScriptLog
+// PolicyAssignmentListResult - List of policy assignments.
+type PolicyAssignmentListResult struct {
+	// The URL to use for getting the next set of results.
+	NextLink *string
+
+	// An array of policy assignments.
+	Value []*PolicyAssignment
 }
 
-// ScriptStatus - Generic object modeling results of script execution.
-type ScriptStatus struct {
-	// Error that is relayed from the script execution.
-	Error *ErrorResponse
+// PolicyAssignmentProperties - The policy assignment properties.
+type PolicyAssignmentProperties struct {
+	// The type of policy assignment. Possible values are NotSpecified, System, SystemHidden, and Custom. Immutable.
+	AssignmentType *AssignmentType
 
-	// READ-ONLY; ACI resource Id.
-	ContainerInstanceID *string
+	// The version of the policy definition to use.
+	DefinitionVersion *string
 
-	// READ-ONLY; End time of the script execution.
-	EndTime *time.Time
+	// This message will be part of response in case of policy violation.
+	Description *string
 
-	// READ-ONLY; Time the deployment script resource will expire.
-	ExpirationTime *time.Time
+	// The display name of the policy assignment.
+	DisplayName *string
 
-	// READ-ONLY; Start time of the script execution.
-	StartTime *time.Time
+	// The policy assignment enforcement mode. Possible values are Default and DoNotEnforce.
+	EnforcementMode *EnforcementMode
 
-	// READ-ONLY; Storage account resource Id.
-	StorageAccountID *string
+	// The policy assignment metadata. Metadata is an open ended object and is typically a collection of key value pairs.
+	Metadata any
+
+	// The messages that describe why a resource is non-compliant with the policy.
+	NonComplianceMessages []*NonComplianceMessage
+
+	// The policy's excluded scopes.
+	NotScopes []*string
+
+	// The policy property value override.
+	Overrides []*Override
+
+	// The parameter values for the assigned policy rule. The keys are the parameter names.
+	Parameters map[string]*ParameterValuesValue
+
+	// The ID of the policy definition or policy set definition being assigned.
+	PolicyDefinitionID *string
+
+	// The resource selector list to filter policies by resource properties.
+	ResourceSelectors []*ResourceSelector
+
+	// READ-ONLY; The scope for the policy assignment.
+	Scope *string
 }
 
-// StorageAccountConfiguration - Settings to use an existing storage account. Valid storage account kinds are: Storage, StorageV2
-// and FileStorage
-type StorageAccountConfiguration struct {
-	// The storage account access key.
-	StorageAccountKey *string
+// PolicyAssignmentUpdate - The policy assignment for Patch request.
+type PolicyAssignmentUpdate struct {
+	// The managed identity associated with the policy assignment.
+	Identity *Identity
 
-	// The storage account name.
-	StorageAccountName *string
+	// The location of the policy assignment. Only required when utilizing managed identity.
+	Location *string
+
+	// The policy assignment properties for Patch request.
+	Properties *PolicyAssignmentUpdateProperties
+}
+
+// PolicyAssignmentUpdateProperties - The policy assignment properties for Patch request.
+type PolicyAssignmentUpdateProperties struct {
+	// The policy property value override.
+	Overrides []*Override
+
+	// The resource selector list to filter policies by resource properties.
+	ResourceSelectors []*ResourceSelector
+}
+
+// PolicyDefinition - The policy definition.
+type PolicyDefinition struct {
+	// The policy definition properties.
+	Properties *PolicyDefinitionProperties
+
+	// READ-ONLY; The ID of the policy definition.
+	ID *string
+
+	// READ-ONLY; The name of the policy definition.
+	Name *string
+
+	// READ-ONLY; The system metadata relating to this resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource (Microsoft.Authorization/policyDefinitions).
+	Type *string
+}
+
+// PolicyDefinitionGroup - The policy definition group.
+type PolicyDefinitionGroup struct {
+	// REQUIRED; The name of the group.
+	Name *string
+
+	// A resource ID of a resource that contains additional metadata about the group.
+	AdditionalMetadataID *string
+
+	// The group's category.
+	Category *string
+
+	// The group's description.
+	Description *string
+
+	// The group's display name.
+	DisplayName *string
+}
+
+// PolicyDefinitionListResult - List of policy definitions.
+type PolicyDefinitionListResult struct {
+	// The URL to use for getting the next set of results.
+	NextLink *string
+
+	// An array of policy definitions.
+	Value []*PolicyDefinition
+}
+
+// PolicyDefinitionProperties - The policy definition properties.
+type PolicyDefinitionProperties struct {
+	// The policy definition description.
+	Description *string
+
+	// The display name of the policy definition.
+	DisplayName *string
+
+	// The policy definition metadata. Metadata is an open ended object and is typically a collection of key value pairs.
+	Metadata any
+
+	// The policy definition mode. Some examples are All, Indexed, Microsoft.KeyVault.Data.
+	Mode *string
+
+	// The parameter definitions for parameters used in the policy rule. The keys are the parameter names.
+	Parameters map[string]*ParameterDefinitionsValue
+
+	// The policy rule.
+	PolicyRule any
+
+	// The type of policy definition. Possible values are NotSpecified, BuiltIn, Custom, and Static.
+	PolicyType *PolicyType
+
+	// The policy definition version in #.#.# format.
+	Version *string
+
+	// A list of available versions for this policy definition.
+	Versions []*string
+}
+
+// PolicyDefinitionReference - The policy definition reference.
+type PolicyDefinitionReference struct {
+	// REQUIRED; The ID of the policy definition or policy set definition.
+	PolicyDefinitionID *string
+
+	// The version of the policy definition to use.
+	DefinitionVersion *string
+
+	// The name of the groups that this policy definition reference belongs to.
+	GroupNames []*string
+
+	// The parameter values for the referenced policy rule. The keys are the parameter names.
+	Parameters map[string]*ParameterValuesValue
+
+	// A unique id (within the policy set definition) for this policy definition reference.
+	PolicyDefinitionReferenceID *string
+}
+
+// PolicyDefinitionVersion - The ID of the policy definition version.
+type PolicyDefinitionVersion struct {
+	// The policy definition version properties.
+	Properties *PolicyDefinitionVersionProperties
+
+	// READ-ONLY; The ID of the policy definition version.
+	ID *string
+
+	// READ-ONLY; The name of the policy definition version.
+	Name *string
+
+	// READ-ONLY; The system metadata relating to this resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource (Microsoft.Authorization/policyDefinitions/versions).
+	Type *string
+}
+
+// PolicyDefinitionVersionListResult - List of policy definition versions.
+type PolicyDefinitionVersionListResult struct {
+	// The URL to use for getting the next set of results.
+	NextLink *string
+
+	// An array of policy definitions versions.
+	Value []*PolicyDefinitionVersion
+}
+
+// PolicyDefinitionVersionProperties - The policy definition properties.
+type PolicyDefinitionVersionProperties struct {
+	// The policy definition description.
+	Description *string
+
+	// The display name of the policy definition.
+	DisplayName *string
+
+	// The policy definition metadata. Metadata is an open ended object and is typically a collection of key value pairs.
+	Metadata any
+
+	// The policy definition mode. Some examples are All, Indexed, Microsoft.KeyVault.Data.
+	Mode *string
+
+	// The parameter definitions for parameters used in the policy rule. The keys are the parameter names.
+	Parameters map[string]*ParameterDefinitionsValue
+
+	// The policy rule.
+	PolicyRule any
+
+	// The type of policy definition. Possible values are NotSpecified, BuiltIn, Custom, and Static.
+	PolicyType *PolicyType
+
+	// The policy definition version in #.#.# format.
+	Version *string
+}
+
+// PolicySetDefinition - The policy set definition.
+type PolicySetDefinition struct {
+	// The policy set definition properties.
+	Properties *PolicySetDefinitionProperties
+
+	// READ-ONLY; The ID of the policy set definition.
+	ID *string
+
+	// READ-ONLY; The name of the policy set definition.
+	Name *string
+
+	// READ-ONLY; The system metadata relating to this resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource (Microsoft.Authorization/policySetDefinitions).
+	Type *string
+}
+
+// PolicySetDefinitionListResult - List of policy set definitions.
+type PolicySetDefinitionListResult struct {
+	// The URL to use for getting the next set of results.
+	NextLink *string
+
+	// An array of policy set definitions.
+	Value []*PolicySetDefinition
+}
+
+// PolicySetDefinitionProperties - The policy set definition properties.
+type PolicySetDefinitionProperties struct {
+	// REQUIRED; An array of policy definition references.
+	PolicyDefinitions []*PolicyDefinitionReference
+
+	// The policy set definition description.
+	Description *string
+
+	// The display name of the policy set definition.
+	DisplayName *string
+
+	// The policy set definition metadata. Metadata is an open ended object and is typically a collection of key value pairs.
+	Metadata any
+
+	// The policy set definition parameters that can be used in policy definition references.
+	Parameters map[string]*ParameterDefinitionsValue
+
+	// The metadata describing groups of policy definition references within the policy set definition.
+	PolicyDefinitionGroups []*PolicyDefinitionGroup
+
+	// The type of policy set definition. Possible values are NotSpecified, BuiltIn, Custom, and Static.
+	PolicyType *PolicyType
+
+	// The policy set definition version in #.#.# format.
+	Version *string
+
+	// A list of available versions for this policy set definition.
+	Versions []*string
+}
+
+// PolicySetDefinitionVersion - The policy set definition version.
+type PolicySetDefinitionVersion struct {
+	// The policy set definition version properties.
+	Properties *PolicySetDefinitionVersionProperties
+
+	// READ-ONLY; The ID of the policy set definition version.
+	ID *string
+
+	// READ-ONLY; The name of the policy set definition version.
+	Name *string
+
+	// READ-ONLY; The system metadata relating to this resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource (Microsoft.Authorization/policySetDefinitions/versions).
+	Type *string
+}
+
+// PolicySetDefinitionVersionListResult - List of policy set definition versions.
+type PolicySetDefinitionVersionListResult struct {
+	// The URL to use for getting the next set of results.
+	NextLink *string
+
+	// An array of policy set definition versions.
+	Value []*PolicySetDefinitionVersion
+}
+
+// PolicySetDefinitionVersionProperties - The policy set definition properties.
+type PolicySetDefinitionVersionProperties struct {
+	// REQUIRED; An array of policy definition references.
+	PolicyDefinitions []*PolicyDefinitionReference
+
+	// The policy set definition description.
+	Description *string
+
+	// The display name of the policy set definition.
+	DisplayName *string
+
+	// The policy set definition metadata. Metadata is an open ended object and is typically a collection of key value pairs.
+	Metadata any
+
+	// The policy set definition parameters that can be used in policy definition references.
+	Parameters map[string]*ParameterDefinitionsValue
+
+	// The metadata describing groups of policy definition references within the policy set definition.
+	PolicyDefinitionGroups []*PolicyDefinitionGroup
+
+	// The type of policy definition. Possible values are NotSpecified, BuiltIn, Custom, and Static.
+	PolicyType *PolicyType
+
+	// The policy set definition version in #.#.# format.
+	Version *string
+}
+
+// ResourceSelector - The resource selector to filter policies by resource properties.
+type ResourceSelector struct {
+	// The name of the resource selector.
+	Name *string
+
+	// The list of the selector expressions.
+	Selectors []*Selector
+}
+
+// Selector - The selector expression.
+type Selector struct {
+	// The list of values to filter in.
+	In []*string
+
+	// The selector kind.
+	Kind *SelectorKind
+
+	// The list of values to filter out.
+	NotIn []*string
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
@@ -419,11 +524,10 @@ type SystemData struct {
 	LastModifiedByType *CreatedByType
 }
 
-// UserAssignedIdentity - User-assigned managed identity.
-type UserAssignedIdentity struct {
-	// READ-ONLY; Client App Id associated with this identity.
+type UserAssignedIdentitiesValue struct {
+	// READ-ONLY; The client id of user assigned identity.
 	ClientID *string
 
-	// READ-ONLY; Azure Active Directory principal ID associated with this identity.
+	// READ-ONLY; The principal id of user assigned identity.
 	PrincipalID *string
 }
