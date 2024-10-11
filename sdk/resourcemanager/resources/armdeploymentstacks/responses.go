@@ -8,107 +8,342 @@
 
 package armdeploymentstacks
 
-// ClientCreateOrUpdateAtManagementGroupResponse contains the response from method Client.BeginCreateOrUpdateAtManagementGroup.
-type ClientCreateOrUpdateAtManagementGroupResponse struct {
-	// Deployment stack object.
-	DeploymentStack
+// PolicyAssignmentsClientCreateByIDResponse contains the response from method PolicyAssignmentsClient.CreateByID.
+type PolicyAssignmentsClientCreateByIDResponse struct {
+	// The policy assignment.
+	PolicyAssignment
 }
 
-// ClientCreateOrUpdateAtResourceGroupResponse contains the response from method Client.BeginCreateOrUpdateAtResourceGroup.
-type ClientCreateOrUpdateAtResourceGroupResponse struct {
-	// Deployment stack object.
-	DeploymentStack
+// PolicyAssignmentsClientCreateResponse contains the response from method PolicyAssignmentsClient.Create.
+type PolicyAssignmentsClientCreateResponse struct {
+	// The policy assignment.
+	PolicyAssignment
 }
 
-// ClientCreateOrUpdateAtSubscriptionResponse contains the response from method Client.BeginCreateOrUpdateAtSubscription.
-type ClientCreateOrUpdateAtSubscriptionResponse struct {
-	// Deployment stack object.
-	DeploymentStack
+// PolicyAssignmentsClientDeleteByIDResponse contains the response from method PolicyAssignmentsClient.DeleteByID.
+type PolicyAssignmentsClientDeleteByIDResponse struct {
+	// The policy assignment.
+	PolicyAssignment
 }
 
-// ClientDeleteAtManagementGroupResponse contains the response from method Client.BeginDeleteAtManagementGroup.
-type ClientDeleteAtManagementGroupResponse struct {
+// PolicyAssignmentsClientDeleteResponse contains the response from method PolicyAssignmentsClient.Delete.
+type PolicyAssignmentsClientDeleteResponse struct {
+	// The policy assignment.
+	PolicyAssignment
+}
+
+// PolicyAssignmentsClientGetByIDResponse contains the response from method PolicyAssignmentsClient.GetByID.
+type PolicyAssignmentsClientGetByIDResponse struct {
+	// The policy assignment.
+	PolicyAssignment
+}
+
+// PolicyAssignmentsClientGetResponse contains the response from method PolicyAssignmentsClient.Get.
+type PolicyAssignmentsClientGetResponse struct {
+	// The policy assignment.
+	PolicyAssignment
+}
+
+// PolicyAssignmentsClientListForManagementGroupResponse contains the response from method PolicyAssignmentsClient.NewListForManagementGroupPager.
+type PolicyAssignmentsClientListForManagementGroupResponse struct {
+	// List of policy assignments.
+	PolicyAssignmentListResult
+}
+
+// PolicyAssignmentsClientListForResourceGroupResponse contains the response from method PolicyAssignmentsClient.NewListForResourceGroupPager.
+type PolicyAssignmentsClientListForResourceGroupResponse struct {
+	// List of policy assignments.
+	PolicyAssignmentListResult
+}
+
+// PolicyAssignmentsClientListForResourceResponse contains the response from method PolicyAssignmentsClient.NewListForResourcePager.
+type PolicyAssignmentsClientListForResourceResponse struct {
+	// List of policy assignments.
+	PolicyAssignmentListResult
+}
+
+// PolicyAssignmentsClientListResponse contains the response from method PolicyAssignmentsClient.NewListPager.
+type PolicyAssignmentsClientListResponse struct {
+	// List of policy assignments.
+	PolicyAssignmentListResult
+}
+
+// PolicyAssignmentsClientUpdateByIDResponse contains the response from method PolicyAssignmentsClient.UpdateByID.
+type PolicyAssignmentsClientUpdateByIDResponse struct {
+	// The policy assignment.
+	PolicyAssignment
+}
+
+// PolicyAssignmentsClientUpdateResponse contains the response from method PolicyAssignmentsClient.Update.
+type PolicyAssignmentsClientUpdateResponse struct {
+	// The policy assignment.
+	PolicyAssignment
+}
+
+// PolicyDefinitionVersionsClientCreateOrUpdateAtManagementGroupResponse contains the response from method PolicyDefinitionVersionsClient.CreateOrUpdateAtManagementGroup.
+type PolicyDefinitionVersionsClientCreateOrUpdateAtManagementGroupResponse struct {
+	// The ID of the policy definition version.
+	PolicyDefinitionVersion
+}
+
+// PolicyDefinitionVersionsClientCreateOrUpdateResponse contains the response from method PolicyDefinitionVersionsClient.CreateOrUpdate.
+type PolicyDefinitionVersionsClientCreateOrUpdateResponse struct {
+	// The ID of the policy definition version.
+	PolicyDefinitionVersion
+}
+
+// PolicyDefinitionVersionsClientDeleteAtManagementGroupResponse contains the response from method PolicyDefinitionVersionsClient.DeleteAtManagementGroup.
+type PolicyDefinitionVersionsClientDeleteAtManagementGroupResponse struct {
 	// placeholder for future response values
 }
 
-// ClientDeleteAtResourceGroupResponse contains the response from method Client.BeginDeleteAtResourceGroup.
-type ClientDeleteAtResourceGroupResponse struct {
+// PolicyDefinitionVersionsClientDeleteResponse contains the response from method PolicyDefinitionVersionsClient.Delete.
+type PolicyDefinitionVersionsClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
-// ClientDeleteAtSubscriptionResponse contains the response from method Client.BeginDeleteAtSubscription.
-type ClientDeleteAtSubscriptionResponse struct {
+// PolicyDefinitionVersionsClientGetAtManagementGroupResponse contains the response from method PolicyDefinitionVersionsClient.GetAtManagementGroup.
+type PolicyDefinitionVersionsClientGetAtManagementGroupResponse struct {
+	// The ID of the policy definition version.
+	PolicyDefinitionVersion
+}
+
+// PolicyDefinitionVersionsClientGetBuiltInResponse contains the response from method PolicyDefinitionVersionsClient.GetBuiltIn.
+type PolicyDefinitionVersionsClientGetBuiltInResponse struct {
+	// The ID of the policy definition version.
+	PolicyDefinitionVersion
+}
+
+// PolicyDefinitionVersionsClientGetResponse contains the response from method PolicyDefinitionVersionsClient.Get.
+type PolicyDefinitionVersionsClientGetResponse struct {
+	// The ID of the policy definition version.
+	PolicyDefinitionVersion
+}
+
+// PolicyDefinitionVersionsClientListAllAtManagementGroupResponse contains the response from method PolicyDefinitionVersionsClient.ListAllAtManagementGroup.
+type PolicyDefinitionVersionsClientListAllAtManagementGroupResponse struct {
+	// List of policy definition versions.
+	PolicyDefinitionVersionListResult
+}
+
+// PolicyDefinitionVersionsClientListAllBuiltinsResponse contains the response from method PolicyDefinitionVersionsClient.ListAllBuiltins.
+type PolicyDefinitionVersionsClientListAllBuiltinsResponse struct {
+	// List of policy definition versions.
+	PolicyDefinitionVersionListResult
+}
+
+// PolicyDefinitionVersionsClientListAllResponse contains the response from method PolicyDefinitionVersionsClient.ListAll.
+type PolicyDefinitionVersionsClientListAllResponse struct {
+	// List of policy definition versions.
+	PolicyDefinitionVersionListResult
+}
+
+// PolicyDefinitionVersionsClientListBuiltInResponse contains the response from method PolicyDefinitionVersionsClient.NewListBuiltInPager.
+type PolicyDefinitionVersionsClientListBuiltInResponse struct {
+	// List of policy definition versions.
+	PolicyDefinitionVersionListResult
+}
+
+// PolicyDefinitionVersionsClientListByManagementGroupResponse contains the response from method PolicyDefinitionVersionsClient.NewListByManagementGroupPager.
+type PolicyDefinitionVersionsClientListByManagementGroupResponse struct {
+	// List of policy definition versions.
+	PolicyDefinitionVersionListResult
+}
+
+// PolicyDefinitionVersionsClientListResponse contains the response from method PolicyDefinitionVersionsClient.NewListPager.
+type PolicyDefinitionVersionsClientListResponse struct {
+	// List of policy definition versions.
+	PolicyDefinitionVersionListResult
+}
+
+// PolicyDefinitionsClientCreateOrUpdateAtManagementGroupResponse contains the response from method PolicyDefinitionsClient.CreateOrUpdateAtManagementGroup.
+type PolicyDefinitionsClientCreateOrUpdateAtManagementGroupResponse struct {
+	// The policy definition.
+	PolicyDefinition
+}
+
+// PolicyDefinitionsClientCreateOrUpdateResponse contains the response from method PolicyDefinitionsClient.CreateOrUpdate.
+type PolicyDefinitionsClientCreateOrUpdateResponse struct {
+	// The policy definition.
+	PolicyDefinition
+}
+
+// PolicyDefinitionsClientDeleteAtManagementGroupResponse contains the response from method PolicyDefinitionsClient.DeleteAtManagementGroup.
+type PolicyDefinitionsClientDeleteAtManagementGroupResponse struct {
 	// placeholder for future response values
 }
 
-// ClientExportTemplateAtManagementGroupResponse contains the response from method Client.ExportTemplateAtManagementGroup.
-type ClientExportTemplateAtManagementGroupResponse struct {
-	// Export Template specific properties of the Deployment stack.
-	DeploymentStackTemplateDefinition
+// PolicyDefinitionsClientDeleteResponse contains the response from method PolicyDefinitionsClient.Delete.
+type PolicyDefinitionsClientDeleteResponse struct {
+	// placeholder for future response values
 }
 
-// ClientExportTemplateAtResourceGroupResponse contains the response from method Client.ExportTemplateAtResourceGroup.
-type ClientExportTemplateAtResourceGroupResponse struct {
-	// Export Template specific properties of the Deployment stack.
-	DeploymentStackTemplateDefinition
+// PolicyDefinitionsClientGetAtManagementGroupResponse contains the response from method PolicyDefinitionsClient.GetAtManagementGroup.
+type PolicyDefinitionsClientGetAtManagementGroupResponse struct {
+	// The policy definition.
+	PolicyDefinition
 }
 
-// ClientExportTemplateAtSubscriptionResponse contains the response from method Client.ExportTemplateAtSubscription.
-type ClientExportTemplateAtSubscriptionResponse struct {
-	// Export Template specific properties of the Deployment stack.
-	DeploymentStackTemplateDefinition
+// PolicyDefinitionsClientGetBuiltInResponse contains the response from method PolicyDefinitionsClient.GetBuiltIn.
+type PolicyDefinitionsClientGetBuiltInResponse struct {
+	// The policy definition.
+	PolicyDefinition
 }
 
-// ClientGetAtManagementGroupResponse contains the response from method Client.GetAtManagementGroup.
-type ClientGetAtManagementGroupResponse struct {
-	// Deployment stack object.
-	DeploymentStack
+// PolicyDefinitionsClientGetResponse contains the response from method PolicyDefinitionsClient.Get.
+type PolicyDefinitionsClientGetResponse struct {
+	// The policy definition.
+	PolicyDefinition
 }
 
-// ClientGetAtResourceGroupResponse contains the response from method Client.GetAtResourceGroup.
-type ClientGetAtResourceGroupResponse struct {
-	// Deployment stack object.
-	DeploymentStack
+// PolicyDefinitionsClientListBuiltInResponse contains the response from method PolicyDefinitionsClient.NewListBuiltInPager.
+type PolicyDefinitionsClientListBuiltInResponse struct {
+	// List of policy definitions.
+	PolicyDefinitionListResult
 }
 
-// ClientGetAtSubscriptionResponse contains the response from method Client.GetAtSubscription.
-type ClientGetAtSubscriptionResponse struct {
-	// Deployment stack object.
-	DeploymentStack
+// PolicyDefinitionsClientListByManagementGroupResponse contains the response from method PolicyDefinitionsClient.NewListByManagementGroupPager.
+type PolicyDefinitionsClientListByManagementGroupResponse struct {
+	// List of policy definitions.
+	PolicyDefinitionListResult
 }
 
-// ClientListAtManagementGroupResponse contains the response from method Client.NewListAtManagementGroupPager.
-type ClientListAtManagementGroupResponse struct {
-	// List of Deployment stacks.
-	DeploymentStackListResult
+// PolicyDefinitionsClientListResponse contains the response from method PolicyDefinitionsClient.NewListPager.
+type PolicyDefinitionsClientListResponse struct {
+	// List of policy definitions.
+	PolicyDefinitionListResult
 }
 
-// ClientListAtResourceGroupResponse contains the response from method Client.NewListAtResourceGroupPager.
-type ClientListAtResourceGroupResponse struct {
-	// List of Deployment stacks.
-	DeploymentStackListResult
+// PolicySetDefinitionVersionsClientCreateOrUpdateAtManagementGroupResponse contains the response from method PolicySetDefinitionVersionsClient.CreateOrUpdateAtManagementGroup.
+type PolicySetDefinitionVersionsClientCreateOrUpdateAtManagementGroupResponse struct {
+	// The policy set definition version.
+	PolicySetDefinitionVersion
 }
 
-// ClientListAtSubscriptionResponse contains the response from method Client.NewListAtSubscriptionPager.
-type ClientListAtSubscriptionResponse struct {
-	// List of Deployment stacks.
-	DeploymentStackListResult
+// PolicySetDefinitionVersionsClientCreateOrUpdateResponse contains the response from method PolicySetDefinitionVersionsClient.CreateOrUpdate.
+type PolicySetDefinitionVersionsClientCreateOrUpdateResponse struct {
+	// The policy set definition version.
+	PolicySetDefinitionVersion
 }
 
-// ClientValidateStackAtManagementGroupResponse contains the response from method Client.BeginValidateStackAtManagementGroup.
-type ClientValidateStackAtManagementGroupResponse struct {
-	// The Deployment stack validation result.
-	DeploymentStackValidateResult
+// PolicySetDefinitionVersionsClientDeleteAtManagementGroupResponse contains the response from method PolicySetDefinitionVersionsClient.DeleteAtManagementGroup.
+type PolicySetDefinitionVersionsClientDeleteAtManagementGroupResponse struct {
+	// placeholder for future response values
 }
 
-// ClientValidateStackAtResourceGroupResponse contains the response from method Client.BeginValidateStackAtResourceGroup.
-type ClientValidateStackAtResourceGroupResponse struct {
-	// The Deployment stack validation result.
-	DeploymentStackValidateResult
+// PolicySetDefinitionVersionsClientDeleteResponse contains the response from method PolicySetDefinitionVersionsClient.Delete.
+type PolicySetDefinitionVersionsClientDeleteResponse struct {
+	// placeholder for future response values
 }
 
-// ClientValidateStackAtSubscriptionResponse contains the response from method Client.BeginValidateStackAtSubscription.
-type ClientValidateStackAtSubscriptionResponse struct {
-	// The Deployment stack validation result.
-	DeploymentStackValidateResult
+// PolicySetDefinitionVersionsClientGetAtManagementGroupResponse contains the response from method PolicySetDefinitionVersionsClient.GetAtManagementGroup.
+type PolicySetDefinitionVersionsClientGetAtManagementGroupResponse struct {
+	// The policy set definition version.
+	PolicySetDefinitionVersion
+}
+
+// PolicySetDefinitionVersionsClientGetBuiltInResponse contains the response from method PolicySetDefinitionVersionsClient.GetBuiltIn.
+type PolicySetDefinitionVersionsClientGetBuiltInResponse struct {
+	// The policy set definition version.
+	PolicySetDefinitionVersion
+}
+
+// PolicySetDefinitionVersionsClientGetResponse contains the response from method PolicySetDefinitionVersionsClient.Get.
+type PolicySetDefinitionVersionsClientGetResponse struct {
+	// The policy set definition version.
+	PolicySetDefinitionVersion
+}
+
+// PolicySetDefinitionVersionsClientListAllAtManagementGroupResponse contains the response from method PolicySetDefinitionVersionsClient.ListAllAtManagementGroup.
+type PolicySetDefinitionVersionsClientListAllAtManagementGroupResponse struct {
+	// List of policy set definition versions.
+	PolicySetDefinitionVersionListResult
+}
+
+// PolicySetDefinitionVersionsClientListAllBuiltinsResponse contains the response from method PolicySetDefinitionVersionsClient.ListAllBuiltins.
+type PolicySetDefinitionVersionsClientListAllBuiltinsResponse struct {
+	// List of policy set definition versions.
+	PolicySetDefinitionVersionListResult
+}
+
+// PolicySetDefinitionVersionsClientListAllResponse contains the response from method PolicySetDefinitionVersionsClient.ListAll.
+type PolicySetDefinitionVersionsClientListAllResponse struct {
+	// List of policy set definition versions.
+	PolicySetDefinitionVersionListResult
+}
+
+// PolicySetDefinitionVersionsClientListBuiltInResponse contains the response from method PolicySetDefinitionVersionsClient.NewListBuiltInPager.
+type PolicySetDefinitionVersionsClientListBuiltInResponse struct {
+	// List of policy set definition versions.
+	PolicySetDefinitionVersionListResult
+}
+
+// PolicySetDefinitionVersionsClientListByManagementGroupResponse contains the response from method PolicySetDefinitionVersionsClient.NewListByManagementGroupPager.
+type PolicySetDefinitionVersionsClientListByManagementGroupResponse struct {
+	// List of policy set definition versions.
+	PolicySetDefinitionVersionListResult
+}
+
+// PolicySetDefinitionVersionsClientListResponse contains the response from method PolicySetDefinitionVersionsClient.NewListPager.
+type PolicySetDefinitionVersionsClientListResponse struct {
+	// List of policy set definition versions.
+	PolicySetDefinitionVersionListResult
+}
+
+// PolicySetDefinitionsClientCreateOrUpdateAtManagementGroupResponse contains the response from method PolicySetDefinitionsClient.CreateOrUpdateAtManagementGroup.
+type PolicySetDefinitionsClientCreateOrUpdateAtManagementGroupResponse struct {
+	// The policy set definition.
+	PolicySetDefinition
+}
+
+// PolicySetDefinitionsClientCreateOrUpdateResponse contains the response from method PolicySetDefinitionsClient.CreateOrUpdate.
+type PolicySetDefinitionsClientCreateOrUpdateResponse struct {
+	// The policy set definition.
+	PolicySetDefinition
+}
+
+// PolicySetDefinitionsClientDeleteAtManagementGroupResponse contains the response from method PolicySetDefinitionsClient.DeleteAtManagementGroup.
+type PolicySetDefinitionsClientDeleteAtManagementGroupResponse struct {
+	// placeholder for future response values
+}
+
+// PolicySetDefinitionsClientDeleteResponse contains the response from method PolicySetDefinitionsClient.Delete.
+type PolicySetDefinitionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// PolicySetDefinitionsClientGetAtManagementGroupResponse contains the response from method PolicySetDefinitionsClient.GetAtManagementGroup.
+type PolicySetDefinitionsClientGetAtManagementGroupResponse struct {
+	// The policy set definition.
+	PolicySetDefinition
+}
+
+// PolicySetDefinitionsClientGetBuiltInResponse contains the response from method PolicySetDefinitionsClient.GetBuiltIn.
+type PolicySetDefinitionsClientGetBuiltInResponse struct {
+	// The policy set definition.
+	PolicySetDefinition
+}
+
+// PolicySetDefinitionsClientGetResponse contains the response from method PolicySetDefinitionsClient.Get.
+type PolicySetDefinitionsClientGetResponse struct {
+	// The policy set definition.
+	PolicySetDefinition
+}
+
+// PolicySetDefinitionsClientListBuiltInResponse contains the response from method PolicySetDefinitionsClient.NewListBuiltInPager.
+type PolicySetDefinitionsClientListBuiltInResponse struct {
+	// List of policy set definitions.
+	PolicySetDefinitionListResult
+}
+
+// PolicySetDefinitionsClientListByManagementGroupResponse contains the response from method PolicySetDefinitionsClient.NewListByManagementGroupPager.
+type PolicySetDefinitionsClientListByManagementGroupResponse struct {
+	// List of policy set definitions.
+	PolicySetDefinitionListResult
+}
+
+// PolicySetDefinitionsClientListResponse contains the response from method PolicySetDefinitionsClient.NewListPager.
+type PolicySetDefinitionsClientListResponse struct {
+	// List of policy set definitions.
+	PolicySetDefinitionListResult
 }
