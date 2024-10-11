@@ -8,78 +8,526 @@
 
 package armlinks
 
-// Operation - Microsoft.Resources operation
-type Operation struct {
-	// The object that represents the operation.
-	Display *OperationDisplay
+import "time"
 
-	// Operation name: {provider}/{resource}/{operation}
-	Name *string
+// ErrorAdditionalInfo - The resource management error additional info.
+type ErrorAdditionalInfo struct {
+	// READ-ONLY; The additional info.
+	Info any
+
+	// READ-ONLY; The additional info type.
+	Type *string
 }
 
-// OperationDisplay - The object that represents the operation.
-type OperationDisplay struct {
-	// Description of the operation.
+// ErrorResponse - Common error response for all Azure Resource Manager APIs to return error details for failed operations.
+// (This also follows the OData error response format.)
+type ErrorResponse struct {
+	// READ-ONLY; The error additional info.
+	AdditionalInfo []*ErrorAdditionalInfo
+
+	// READ-ONLY; The error code.
+	Code *string
+
+	// READ-ONLY; The error details.
+	Details []*ErrorResponse
+
+	// READ-ONLY; The error message.
+	Message *string
+
+	// READ-ONLY; The error target.
+	Target *string
+}
+
+// Identity for the resource. Policy assignments support a maximum of one identity. That is either a system assigned identity
+// or a single user assigned identity.
+type Identity struct {
+	// The identity type. This is the only required field when adding a system or user assigned identity to a resource.
+	Type *ResourceIdentityType
+
+	// The user identity associated with the policy. The user identity dictionary key references will be ARM resource ids in the
+	// form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.
+	UserAssignedIdentities map[string]*UserAssignedIdentitiesValue
+
+	// READ-ONLY; The principal ID of the resource identity. This property will only be provided for a system assigned identity
+	PrincipalID *string
+
+	// READ-ONLY; The tenant ID of the resource identity. This property will only be provided for a system assigned identity
+	TenantID *string
+}
+
+// NonComplianceMessage - A message that describes why a resource is non-compliant with the policy. This is shown in 'deny'
+// error messages and on resource's non-compliant compliance results.
+type NonComplianceMessage struct {
+	// REQUIRED; A message that describes why a resource is non-compliant with the policy. This is shown in 'deny' error messages
+	// and on resource's non-compliant compliance results.
+	Message *string
+
+	// The policy definition reference ID within a policy set definition the message is intended for. This is only applicable
+	// if the policy assignment assigns a policy set definition. If this is not provided
+	// the message applies to all policies assigned by this policy assignment.
+	PolicyDefinitionReferenceID *string
+}
+
+// Override - The policy property value override.
+type Override struct {
+	// The override kind.
+	Kind *OverrideKind
+
+	// The list of the selector expressions.
+	Selectors []*Selector
+
+	// The value to override the policy property.
+	Value *string
+}
+
+// ParameterDefinitionsValue - The definition of a parameter that can be provided to the policy.
+type ParameterDefinitionsValue struct {
+	// The allowed values for the parameter.
+	AllowedValues []any
+
+	// The default value for the parameter if no value is provided.
+	DefaultValue any
+
+	// General metadata for the parameter.
+	Metadata *ParameterDefinitionsValueMetadata
+
+	// Provides validation of parameter inputs during assignment using a self-defined JSON schema. This property is only supported
+	// for object-type parameters and follows the Json.NET Schema 2019-09
+	// implementation. You can learn more about using schemas at https://json-schema.org/ and test draft schemas at https://www.jsonschemavalidator.net/.
+	Schema any
+
+	// The data type of the parameter.
+	Type *ParameterType
+}
+
+// ParameterDefinitionsValueMetadata - General metadata for the parameter.
+type ParameterDefinitionsValueMetadata struct {
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// Set to true to have Azure portal create role assignments on the resource ID or resource scope value of this parameter during
+	// policy assignment. This property is useful in case you wish to assign
+	// permissions outside the assignment scope.
+	AssignPermissions *bool
+
+	// The description of the parameter.
 	Description *string
 
-	// Operation type: Read, write, delete, etc.
-	Operation *string
+	// The display name for the parameter.
+	DisplayName *string
 
-	// Service provider: Microsoft.Resources
-	Provider *string
-
-	// Resource on which the operation is performed: Profile, endpoint, etc.
-	Resource *string
+	// Used when assigning the policy definition through the portal. Provides a context aware list of values for the user to choose
+	// from.
+	StrongType *string
 }
 
-// OperationListResult - Result of the request to list Microsoft.Resources operations. It contains a list of operations and
-// a URL link to get the next set of results.
-type OperationListResult struct {
-	// URL to get the next set of operation list results if there are any.
-	NextLink *string
-
-	// List of Microsoft.Resources operations.
-	Value []*Operation
+// ParameterValuesValue - The value of a parameter.
+type ParameterValuesValue struct {
+	// The value of the parameter.
+	Value any
 }
 
-// ResourceLink - The resource link.
-type ResourceLink struct {
-	// Properties for resource link.
-	Properties *ResourceLinkProperties
+// PolicyAssignment - The policy assignment.
+type PolicyAssignment struct {
+	// The managed identity associated with the policy assignment.
+	Identity *Identity
 
-	// READ-ONLY; The fully qualified ID of the resource link.
+	// The location of the policy assignment. Only required when utilizing managed identity.
+	Location *string
+
+	// Properties for the policy assignment.
+	Properties *PolicyAssignmentProperties
+
+	// READ-ONLY; The ID of the policy assignment.
 	ID *string
 
-	// READ-ONLY; The name of the resource link.
+	// READ-ONLY; The name of the policy assignment.
 	Name *string
 
-	// READ-ONLY; The resource link object.
-	Type any
+	// READ-ONLY; The system metadata relating to this resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the policy assignment.
+	Type *string
 }
 
-// ResourceLinkFilter - Resource link filter.
-type ResourceLinkFilter struct {
-	// REQUIRED; The ID of the target resource.
-	TargetID *string
-}
-
-// ResourceLinkProperties - The resource link properties.
-type ResourceLinkProperties struct {
-	// REQUIRED; The fully qualified ID of the target resource in the link.
-	TargetID *string
-
-	// Notes about the resource link.
-	Notes *string
-
-	// READ-ONLY; The fully qualified ID of the source resource in the link.
-	SourceID *string
-}
-
-// ResourceLinkResult - List of resource links.
-type ResourceLinkResult struct {
-	// REQUIRED; An array of resource links.
-	Value []*ResourceLink
-
-	// READ-ONLY; The URL to use for getting the next set of results.
+// PolicyAssignmentListResult - List of policy assignments.
+type PolicyAssignmentListResult struct {
+	// The URL to use for getting the next set of results.
 	NextLink *string
+
+	// An array of policy assignments.
+	Value []*PolicyAssignment
+}
+
+// PolicyAssignmentProperties - The policy assignment properties.
+type PolicyAssignmentProperties struct {
+	// The type of policy assignment. Possible values are NotSpecified, System, SystemHidden, and Custom. Immutable.
+	AssignmentType *AssignmentType
+
+	// The version of the policy definition to use.
+	DefinitionVersion *string
+
+	// This message will be part of response in case of policy violation.
+	Description *string
+
+	// The display name of the policy assignment.
+	DisplayName *string
+
+	// The policy assignment enforcement mode. Possible values are Default and DoNotEnforce.
+	EnforcementMode *EnforcementMode
+
+	// The policy assignment metadata. Metadata is an open ended object and is typically a collection of key value pairs.
+	Metadata any
+
+	// The messages that describe why a resource is non-compliant with the policy.
+	NonComplianceMessages []*NonComplianceMessage
+
+	// The policy's excluded scopes.
+	NotScopes []*string
+
+	// The policy property value override.
+	Overrides []*Override
+
+	// The parameter values for the assigned policy rule. The keys are the parameter names.
+	Parameters map[string]*ParameterValuesValue
+
+	// The ID of the policy definition or policy set definition being assigned.
+	PolicyDefinitionID *string
+
+	// The resource selector list to filter policies by resource properties.
+	ResourceSelectors []*ResourceSelector
+
+	// READ-ONLY; The scope for the policy assignment.
+	Scope *string
+}
+
+// PolicyAssignmentUpdate - The policy assignment for Patch request.
+type PolicyAssignmentUpdate struct {
+	// The managed identity associated with the policy assignment.
+	Identity *Identity
+
+	// The location of the policy assignment. Only required when utilizing managed identity.
+	Location *string
+
+	// The policy assignment properties for Patch request.
+	Properties *PolicyAssignmentUpdateProperties
+}
+
+// PolicyAssignmentUpdateProperties - The policy assignment properties for Patch request.
+type PolicyAssignmentUpdateProperties struct {
+	// The policy property value override.
+	Overrides []*Override
+
+	// The resource selector list to filter policies by resource properties.
+	ResourceSelectors []*ResourceSelector
+}
+
+// PolicyDefinition - The policy definition.
+type PolicyDefinition struct {
+	// The policy definition properties.
+	Properties *PolicyDefinitionProperties
+
+	// READ-ONLY; The ID of the policy definition.
+	ID *string
+
+	// READ-ONLY; The name of the policy definition.
+	Name *string
+
+	// READ-ONLY; The system metadata relating to this resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource (Microsoft.Authorization/policyDefinitions).
+	Type *string
+}
+
+// PolicyDefinitionGroup - The policy definition group.
+type PolicyDefinitionGroup struct {
+	// REQUIRED; The name of the group.
+	Name *string
+
+	// A resource ID of a resource that contains additional metadata about the group.
+	AdditionalMetadataID *string
+
+	// The group's category.
+	Category *string
+
+	// The group's description.
+	Description *string
+
+	// The group's display name.
+	DisplayName *string
+}
+
+// PolicyDefinitionListResult - List of policy definitions.
+type PolicyDefinitionListResult struct {
+	// The URL to use for getting the next set of results.
+	NextLink *string
+
+	// An array of policy definitions.
+	Value []*PolicyDefinition
+}
+
+// PolicyDefinitionProperties - The policy definition properties.
+type PolicyDefinitionProperties struct {
+	// The policy definition description.
+	Description *string
+
+	// The display name of the policy definition.
+	DisplayName *string
+
+	// The policy definition metadata. Metadata is an open ended object and is typically a collection of key value pairs.
+	Metadata any
+
+	// The policy definition mode. Some examples are All, Indexed, Microsoft.KeyVault.Data.
+	Mode *string
+
+	// The parameter definitions for parameters used in the policy rule. The keys are the parameter names.
+	Parameters map[string]*ParameterDefinitionsValue
+
+	// The policy rule.
+	PolicyRule any
+
+	// The type of policy definition. Possible values are NotSpecified, BuiltIn, Custom, and Static.
+	PolicyType *PolicyType
+
+	// The policy definition version in #.#.# format.
+	Version *string
+
+	// A list of available versions for this policy definition.
+	Versions []*string
+}
+
+// PolicyDefinitionReference - The policy definition reference.
+type PolicyDefinitionReference struct {
+	// REQUIRED; The ID of the policy definition or policy set definition.
+	PolicyDefinitionID *string
+
+	// The version of the policy definition to use.
+	DefinitionVersion *string
+
+	// The name of the groups that this policy definition reference belongs to.
+	GroupNames []*string
+
+	// The parameter values for the referenced policy rule. The keys are the parameter names.
+	Parameters map[string]*ParameterValuesValue
+
+	// A unique id (within the policy set definition) for this policy definition reference.
+	PolicyDefinitionReferenceID *string
+}
+
+// PolicyDefinitionVersion - The ID of the policy definition version.
+type PolicyDefinitionVersion struct {
+	// The policy definition version properties.
+	Properties *PolicyDefinitionVersionProperties
+
+	// READ-ONLY; The ID of the policy definition version.
+	ID *string
+
+	// READ-ONLY; The name of the policy definition version.
+	Name *string
+
+	// READ-ONLY; The system metadata relating to this resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource (Microsoft.Authorization/policyDefinitions/versions).
+	Type *string
+}
+
+// PolicyDefinitionVersionListResult - List of policy definition versions.
+type PolicyDefinitionVersionListResult struct {
+	// The URL to use for getting the next set of results.
+	NextLink *string
+
+	// An array of policy definitions versions.
+	Value []*PolicyDefinitionVersion
+}
+
+// PolicyDefinitionVersionProperties - The policy definition properties.
+type PolicyDefinitionVersionProperties struct {
+	// The policy definition description.
+	Description *string
+
+	// The display name of the policy definition.
+	DisplayName *string
+
+	// The policy definition metadata. Metadata is an open ended object and is typically a collection of key value pairs.
+	Metadata any
+
+	// The policy definition mode. Some examples are All, Indexed, Microsoft.KeyVault.Data.
+	Mode *string
+
+	// The parameter definitions for parameters used in the policy rule. The keys are the parameter names.
+	Parameters map[string]*ParameterDefinitionsValue
+
+	// The policy rule.
+	PolicyRule any
+
+	// The type of policy definition. Possible values are NotSpecified, BuiltIn, Custom, and Static.
+	PolicyType *PolicyType
+
+	// The policy definition version in #.#.# format.
+	Version *string
+}
+
+// PolicySetDefinition - The policy set definition.
+type PolicySetDefinition struct {
+	// The policy set definition properties.
+	Properties *PolicySetDefinitionProperties
+
+	// READ-ONLY; The ID of the policy set definition.
+	ID *string
+
+	// READ-ONLY; The name of the policy set definition.
+	Name *string
+
+	// READ-ONLY; The system metadata relating to this resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource (Microsoft.Authorization/policySetDefinitions).
+	Type *string
+}
+
+// PolicySetDefinitionListResult - List of policy set definitions.
+type PolicySetDefinitionListResult struct {
+	// The URL to use for getting the next set of results.
+	NextLink *string
+
+	// An array of policy set definitions.
+	Value []*PolicySetDefinition
+}
+
+// PolicySetDefinitionProperties - The policy set definition properties.
+type PolicySetDefinitionProperties struct {
+	// REQUIRED; An array of policy definition references.
+	PolicyDefinitions []*PolicyDefinitionReference
+
+	// The policy set definition description.
+	Description *string
+
+	// The display name of the policy set definition.
+	DisplayName *string
+
+	// The policy set definition metadata. Metadata is an open ended object and is typically a collection of key value pairs.
+	Metadata any
+
+	// The policy set definition parameters that can be used in policy definition references.
+	Parameters map[string]*ParameterDefinitionsValue
+
+	// The metadata describing groups of policy definition references within the policy set definition.
+	PolicyDefinitionGroups []*PolicyDefinitionGroup
+
+	// The type of policy set definition. Possible values are NotSpecified, BuiltIn, Custom, and Static.
+	PolicyType *PolicyType
+
+	// The policy set definition version in #.#.# format.
+	Version *string
+
+	// A list of available versions for this policy set definition.
+	Versions []*string
+}
+
+// PolicySetDefinitionVersion - The policy set definition version.
+type PolicySetDefinitionVersion struct {
+	// The policy set definition version properties.
+	Properties *PolicySetDefinitionVersionProperties
+
+	// READ-ONLY; The ID of the policy set definition version.
+	ID *string
+
+	// READ-ONLY; The name of the policy set definition version.
+	Name *string
+
+	// READ-ONLY; The system metadata relating to this resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource (Microsoft.Authorization/policySetDefinitions/versions).
+	Type *string
+}
+
+// PolicySetDefinitionVersionListResult - List of policy set definition versions.
+type PolicySetDefinitionVersionListResult struct {
+	// The URL to use for getting the next set of results.
+	NextLink *string
+
+	// An array of policy set definition versions.
+	Value []*PolicySetDefinitionVersion
+}
+
+// PolicySetDefinitionVersionProperties - The policy set definition properties.
+type PolicySetDefinitionVersionProperties struct {
+	// REQUIRED; An array of policy definition references.
+	PolicyDefinitions []*PolicyDefinitionReference
+
+	// The policy set definition description.
+	Description *string
+
+	// The display name of the policy set definition.
+	DisplayName *string
+
+	// The policy set definition metadata. Metadata is an open ended object and is typically a collection of key value pairs.
+	Metadata any
+
+	// The policy set definition parameters that can be used in policy definition references.
+	Parameters map[string]*ParameterDefinitionsValue
+
+	// The metadata describing groups of policy definition references within the policy set definition.
+	PolicyDefinitionGroups []*PolicyDefinitionGroup
+
+	// The type of policy definition. Possible values are NotSpecified, BuiltIn, Custom, and Static.
+	PolicyType *PolicyType
+
+	// The policy set definition version in #.#.# format.
+	Version *string
+}
+
+// ResourceSelector - The resource selector to filter policies by resource properties.
+type ResourceSelector struct {
+	// The name of the resource selector.
+	Name *string
+
+	// The list of the selector expressions.
+	Selectors []*Selector
+}
+
+// Selector - The selector expression.
+type Selector struct {
+	// The list of values to filter in.
+	In []*string
+
+	// The selector kind.
+	Kind *SelectorKind
+
+	// The list of values to filter out.
+	NotIn []*string
+}
+
+// SystemData - Metadata pertaining to creation and last modification of the resource.
+type SystemData struct {
+	// The timestamp of resource creation (UTC).
+	CreatedAt *time.Time
+
+	// The identity that created the resource.
+	CreatedBy *string
+
+	// The type of identity that created the resource.
+	CreatedByType *CreatedByType
+
+	// The timestamp of resource last modification (UTC)
+	LastModifiedAt *time.Time
+
+	// The identity that last modified the resource.
+	LastModifiedBy *string
+
+	// The type of identity that last modified the resource.
+	LastModifiedByType *CreatedByType
+}
+
+type UserAssignedIdentitiesValue struct {
+	// READ-ONLY; The client id of user assigned identity.
+	ClientID *string
+
+	// READ-ONLY; The principal id of user assigned identity.
+	PrincipalID *string
 }

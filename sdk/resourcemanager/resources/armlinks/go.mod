@@ -1,4 +1,4 @@
-module github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armlinks
+module github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armlinks/v2
 
 go 1.18
 

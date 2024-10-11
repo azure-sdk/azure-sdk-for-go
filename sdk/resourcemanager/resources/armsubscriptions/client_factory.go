@@ -16,45 +16,62 @@ import (
 // ClientFactory is a client factory used to create any client in this module.
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
-	credential azcore.TokenCredential
-	options    *arm.ClientOptions
+	subscriptionID string
+	internal       *arm.Client
 }
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewClientFactory(credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
-	_, err := arm.NewClient(moduleName, moduleVersion, credential, options)
+func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
+	internal, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		credential: credential,
-		options:    options.Clone(),
+		subscriptionID: subscriptionID,
+		internal:       internal,
 	}, nil
 }
 
-// NewClient creates a new instance of Client.
-func (c *ClientFactory) NewClient() *Client {
-	subClient, _ := NewClient(c.credential, c.options)
-	return subClient
+// NewPolicyAssignmentsClient creates a new instance of PolicyAssignmentsClient.
+func (c *ClientFactory) NewPolicyAssignmentsClient() *PolicyAssignmentsClient {
+	return &PolicyAssignmentsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
-// NewOperationsClient creates a new instance of OperationsClient.
-func (c *ClientFactory) NewOperationsClient() *OperationsClient {
-	subClient, _ := NewOperationsClient(c.credential, c.options)
-	return subClient
+// NewPolicyDefinitionVersionsClient creates a new instance of PolicyDefinitionVersionsClient.
+func (c *ClientFactory) NewPolicyDefinitionVersionsClient() *PolicyDefinitionVersionsClient {
+	return &PolicyDefinitionVersionsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
-// NewSubscriptionClient creates a new instance of SubscriptionClient.
-func (c *ClientFactory) NewSubscriptionClient() *SubscriptionClient {
-	subClient, _ := NewSubscriptionClient(c.credential, c.options)
-	return subClient
+// NewPolicyDefinitionsClient creates a new instance of PolicyDefinitionsClient.
+func (c *ClientFactory) NewPolicyDefinitionsClient() *PolicyDefinitionsClient {
+	return &PolicyDefinitionsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
-// NewTenantsClient creates a new instance of TenantsClient.
-func (c *ClientFactory) NewTenantsClient() *TenantsClient {
-	subClient, _ := NewTenantsClient(c.credential, c.options)
-	return subClient
+// NewPolicySetDefinitionVersionsClient creates a new instance of PolicySetDefinitionVersionsClient.
+func (c *ClientFactory) NewPolicySetDefinitionVersionsClient() *PolicySetDefinitionVersionsClient {
+	return &PolicySetDefinitionVersionsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewPolicySetDefinitionsClient creates a new instance of PolicySetDefinitionsClient.
+func (c *ClientFactory) NewPolicySetDefinitionsClient() *PolicySetDefinitionsClient {
+	return &PolicySetDefinitionsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
