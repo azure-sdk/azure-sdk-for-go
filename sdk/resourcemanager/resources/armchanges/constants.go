@@ -10,65 +10,174 @@ package armchanges
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armchanges"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v2.0.0"
 )
 
-// ChangeCategory - The entity that made the change
-type ChangeCategory string
+// AssignmentType - The type of policy assignment. Possible values are NotSpecified, System, SystemHidden, and Custom. Immutable.
+type AssignmentType string
 
 const (
-	// ChangeCategorySystem - System initiated change
-	ChangeCategorySystem ChangeCategory = "System"
-	// ChangeCategoryUser - User initiated change
-	ChangeCategoryUser ChangeCategory = "User"
+	AssignmentTypeCustom       AssignmentType = "Custom"
+	AssignmentTypeNotSpecified AssignmentType = "NotSpecified"
+	AssignmentTypeSystem       AssignmentType = "System"
+	AssignmentTypeSystemHidden AssignmentType = "SystemHidden"
 )
 
-// PossibleChangeCategoryValues returns the possible values for the ChangeCategory const type.
-func PossibleChangeCategoryValues() []ChangeCategory {
-	return []ChangeCategory{
-		ChangeCategorySystem,
-		ChangeCategoryUser,
+// PossibleAssignmentTypeValues returns the possible values for the AssignmentType const type.
+func PossibleAssignmentTypeValues() []AssignmentType {
+	return []AssignmentType{
+		AssignmentTypeCustom,
+		AssignmentTypeNotSpecified,
+		AssignmentTypeSystem,
+		AssignmentTypeSystemHidden,
 	}
 }
 
-// ChangeType - The type of change that was captured in the resource
-type ChangeType string
+// CreatedByType - The type of identity that created the resource.
+type CreatedByType string
 
 const (
-	// ChangeTypeCreate - A newly created resource
-	ChangeTypeCreate ChangeType = "Create"
-	// ChangeTypeDelete - An existing resource was deleted
-	ChangeTypeDelete ChangeType = "Delete"
-	// ChangeTypeUpdate - An existing resource underwent a change
-	ChangeTypeUpdate ChangeType = "Update"
+	CreatedByTypeApplication     CreatedByType = "Application"
+	CreatedByTypeKey             CreatedByType = "Key"
+	CreatedByTypeManagedIdentity CreatedByType = "ManagedIdentity"
+	CreatedByTypeUser            CreatedByType = "User"
 )
 
-// PossibleChangeTypeValues returns the possible values for the ChangeType const type.
-func PossibleChangeTypeValues() []ChangeType {
-	return []ChangeType{
-		ChangeTypeCreate,
-		ChangeTypeDelete,
-		ChangeTypeUpdate,
+// PossibleCreatedByTypeValues returns the possible values for the CreatedByType const type.
+func PossibleCreatedByTypeValues() []CreatedByType {
+	return []CreatedByType{
+		CreatedByTypeApplication,
+		CreatedByTypeKey,
+		CreatedByTypeManagedIdentity,
+		CreatedByTypeUser,
 	}
 }
 
-// PropertyChangeType - The type of change that occurred
-type PropertyChangeType string
+// EnforcementMode - The policy assignment enforcement mode. Possible values are Default and DoNotEnforce.
+type EnforcementMode string
 
 const (
-	// PropertyChangeTypeInsert - A property was newly created
-	PropertyChangeTypeInsert PropertyChangeType = "Insert"
-	// PropertyChangeTypeRemove - An existing property was deleted
-	PropertyChangeTypeRemove PropertyChangeType = "Remove"
-	// PropertyChangeTypeUpdate - An existing property underwent a change
-	PropertyChangeTypeUpdate PropertyChangeType = "Update"
+	// EnforcementModeDefault - The policy effect is enforced during resource creation or update.
+	EnforcementModeDefault EnforcementMode = "Default"
+	// EnforcementModeDoNotEnforce - The policy effect is not enforced during resource creation or update.
+	EnforcementModeDoNotEnforce EnforcementMode = "DoNotEnforce"
 )
 
-// PossiblePropertyChangeTypeValues returns the possible values for the PropertyChangeType const type.
-func PossiblePropertyChangeTypeValues() []PropertyChangeType {
-	return []PropertyChangeType{
-		PropertyChangeTypeInsert,
-		PropertyChangeTypeRemove,
-		PropertyChangeTypeUpdate,
+// PossibleEnforcementModeValues returns the possible values for the EnforcementMode const type.
+func PossibleEnforcementModeValues() []EnforcementMode {
+	return []EnforcementMode{
+		EnforcementModeDefault,
+		EnforcementModeDoNotEnforce,
+	}
+}
+
+// OverrideKind - The override kind.
+type OverrideKind string
+
+const (
+	// OverrideKindDefinitionVersion - It will override the definition version property value of the policy assignment.
+	OverrideKindDefinitionVersion OverrideKind = "definitionVersion"
+	// OverrideKindPolicyEffect - It will override the policy effect type.
+	OverrideKindPolicyEffect OverrideKind = "policyEffect"
+)
+
+// PossibleOverrideKindValues returns the possible values for the OverrideKind const type.
+func PossibleOverrideKindValues() []OverrideKind {
+	return []OverrideKind{
+		OverrideKindDefinitionVersion,
+		OverrideKindPolicyEffect,
+	}
+}
+
+// ParameterType - The data type of the parameter.
+type ParameterType string
+
+const (
+	ParameterTypeArray    ParameterType = "Array"
+	ParameterTypeBoolean  ParameterType = "Boolean"
+	ParameterTypeDateTime ParameterType = "DateTime"
+	ParameterTypeFloat    ParameterType = "Float"
+	ParameterTypeInteger  ParameterType = "Integer"
+	ParameterTypeObject   ParameterType = "Object"
+	ParameterTypeString   ParameterType = "String"
+)
+
+// PossibleParameterTypeValues returns the possible values for the ParameterType const type.
+func PossibleParameterTypeValues() []ParameterType {
+	return []ParameterType{
+		ParameterTypeArray,
+		ParameterTypeBoolean,
+		ParameterTypeDateTime,
+		ParameterTypeFloat,
+		ParameterTypeInteger,
+		ParameterTypeObject,
+		ParameterTypeString,
+	}
+}
+
+// PolicyType - The type of policy definition. Possible values are NotSpecified, BuiltIn, Custom, and Static.
+type PolicyType string
+
+const (
+	PolicyTypeBuiltIn      PolicyType = "BuiltIn"
+	PolicyTypeCustom       PolicyType = "Custom"
+	PolicyTypeNotSpecified PolicyType = "NotSpecified"
+	PolicyTypeStatic       PolicyType = "Static"
+)
+
+// PossiblePolicyTypeValues returns the possible values for the PolicyType const type.
+func PossiblePolicyTypeValues() []PolicyType {
+	return []PolicyType{
+		PolicyTypeBuiltIn,
+		PolicyTypeCustom,
+		PolicyTypeNotSpecified,
+		PolicyTypeStatic,
+	}
+}
+
+// ResourceIdentityType - The identity type. This is the only required field when adding a system or user assigned identity
+// to a resource.
+type ResourceIdentityType string
+
+const (
+	// ResourceIdentityTypeNone - Indicates that no identity is associated with the resource or that the existing identity should
+	// be removed.
+	ResourceIdentityTypeNone ResourceIdentityType = "None"
+	// ResourceIdentityTypeSystemAssigned - Indicates that a system assigned identity is associated with the resource.
+	ResourceIdentityTypeSystemAssigned ResourceIdentityType = "SystemAssigned"
+	// ResourceIdentityTypeUserAssigned - Indicates that a system assigned identity is associated with the resource.
+	ResourceIdentityTypeUserAssigned ResourceIdentityType = "UserAssigned"
+)
+
+// PossibleResourceIdentityTypeValues returns the possible values for the ResourceIdentityType const type.
+func PossibleResourceIdentityTypeValues() []ResourceIdentityType {
+	return []ResourceIdentityType{
+		ResourceIdentityTypeNone,
+		ResourceIdentityTypeSystemAssigned,
+		ResourceIdentityTypeUserAssigned,
+	}
+}
+
+// SelectorKind - The selector kind.
+type SelectorKind string
+
+const (
+	// SelectorKindPolicyDefinitionReferenceID - The selector kind to filter policies by the policy definition reference ID.
+	SelectorKindPolicyDefinitionReferenceID SelectorKind = "policyDefinitionReferenceId"
+	// SelectorKindResourceLocation - The selector kind to filter policies by the resource location.
+	SelectorKindResourceLocation SelectorKind = "resourceLocation"
+	// SelectorKindResourceType - The selector kind to filter policies by the resource type.
+	SelectorKindResourceType SelectorKind = "resourceType"
+	// SelectorKindResourceWithoutLocation - The selector kind to filter policies by the resource without location.
+	SelectorKindResourceWithoutLocation SelectorKind = "resourceWithoutLocation"
+)
+
+// PossibleSelectorKindValues returns the possible values for the SelectorKind const type.
+func PossibleSelectorKindValues() []SelectorKind {
+	return []SelectorKind{
+		SelectorKindPolicyDefinitionReferenceID,
+		SelectorKindResourceLocation,
+		SelectorKindResourceType,
+		SelectorKindResourceWithoutLocation,
 	}
 }
