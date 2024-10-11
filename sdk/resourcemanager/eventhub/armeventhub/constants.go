@@ -10,7 +10,7 @@ package armeventhub
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/eventhub/armeventhub"
-	moduleVersion = "v1.3.0"
+	moduleVersion = "v1.3.1"
 )
 
 type AccessRights string
