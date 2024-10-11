@@ -10,311 +10,469 @@ package armdeploymentstacks
 
 import "time"
 
-// ActionOnUnmanage - Defines the behavior of resources that are no longer managed after the stack is updated or deleted.
-type ActionOnUnmanage struct {
-	// REQUIRED; Specifies an action for a newly unmanaged resource. Delete will attempt to delete the resource from Azure. Detach
-	// will leave the resource in it's current state.
-	Resources *DeploymentStacksDeleteDetachEnum
+// Identity for the resource. Policy assignments support a maximum of one identity. That is either a system assigned identity
+// or a single user assigned identity.
+type Identity struct {
+	// The identity type. This is the only required field when adding a system or user assigned identity to a resource.
+	Type *ResourceIdentityType
 
-	// Specifies an action for a newly unmanaged resource. Delete will attempt to delete the resource from Azure. Detach will
-	// leave the resource in it's current state.
-	ManagementGroups *DeploymentStacksDeleteDetachEnum
+	// The user identity associated with the policy. The user identity dictionary key references will be ARM resource ids in the
+	// form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.
+	UserAssignedIdentities map[string]*UserAssignedIdentitiesValue
 
-	// Specifies an action for a newly unmanaged resource. Delete will attempt to delete the resource from Azure. Detach will
-	// leave the resource in it's current state.
-	ResourceGroups *DeploymentStacksDeleteDetachEnum
+	// READ-ONLY; The principal ID of the resource identity. This property will only be provided for a system assigned identity
+	PrincipalID *string
+
+	// READ-ONLY; The tenant ID of the resource identity. This property will only be provided for a system assigned identity
+	TenantID *string
 }
 
-// DebugSetting - The debug setting.
-type DebugSetting struct {
-	// Specifies the type of information to log for debugging. The permitted values are none, requestContent, responseContent,
-	// or both requestContent and responseContent separated by a comma. The default is
-	// none. When setting this value, carefully consider the type of information that is being passed in during deployment. By
-	// logging information about the request or response, sensitive data that is
-	// retrieved through the deployment operations could potentially be exposed.
-	DetailLevel *string
+// NonComplianceMessage - A message that describes why a resource is non-compliant with the policy. This is shown in 'deny'
+// error messages and on resource's non-compliant compliance results.
+type NonComplianceMessage struct {
+	// REQUIRED; A message that describes why a resource is non-compliant with the policy. This is shown in 'deny' error messages
+	// and on resource's non-compliant compliance results.
+	Message *string
+
+	// The policy definition reference ID within a policy set definition the message is intended for. This is only applicable
+	// if the policy assignment assigns a policy set definition. If this is not provided
+	// the message applies to all policies assigned by this policy assignment.
+	PolicyDefinitionReferenceID *string
 }
 
-// DenySettings - Defines how resources deployed by the Deployment stack are locked.
-type DenySettings struct {
-	// REQUIRED; denySettings Mode that defines denied actions.
-	Mode *DenySettingsMode
+// Override - The policy property value override.
+type Override struct {
+	// The override kind.
+	Kind *OverrideKind
 
-	// DenySettings will be applied to child resource scopes of every managed resource with a deny assignment.
-	ApplyToChildScopes *bool
+	// The list of the selector expressions.
+	Selectors []*Selector
 
-	// List of role-based management operations that are excluded from the denySettings. Up to 200 actions are permitted. If the
-	// denySetting mode is set to 'denyWriteAndDelete', then the following actions
-	// are automatically appended to 'excludedActions': '*\/read' and 'Microsoft.Authorization/locks/delete'. If the denySetting
-	// mode is set to 'denyDelete', then the following actions are automatically
-	// appended to 'excludedActions': 'Microsoft.Authorization/locks/delete'. Duplicate actions will be removed.
-	ExcludedActions []*string
-
-	// List of AAD principal IDs excluded from the lock. Up to 5 principals are permitted.
-	ExcludedPrincipals []*string
+	// The value to override the policy property.
+	Value *string
 }
 
-// DeploymentParameter - Deployment parameter for the template.
-type DeploymentParameter struct {
-	// Azure Key Vault parameter reference.
-	Reference *KeyVaultParameterReference
+// ParameterDefinitionsValue - The definition of a parameter that can be provided to the policy.
+type ParameterDefinitionsValue struct {
+	// The allowed values for the parameter.
+	AllowedValues []any
 
-	// Type of the value.
-	Type *string
+	// The default value for the parameter if no value is provided.
+	DefaultValue any
 
-	// Input value to the parameter.
+	// General metadata for the parameter.
+	Metadata *ParameterDefinitionsValueMetadata
+
+	// Provides validation of parameter inputs during assignment using a self-defined JSON schema. This property is only supported
+	// for object-type parameters and follows the Json.NET Schema 2019-09
+	// implementation. You can learn more about using schemas at https://json-schema.org/ and test draft schemas at https://www.jsonschemavalidator.net/.
+	Schema any
+
+	// The data type of the parameter.
+	Type *ParameterType
+}
+
+// ParameterDefinitionsValueMetadata - General metadata for the parameter.
+type ParameterDefinitionsValueMetadata struct {
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// Set to true to have Azure portal create role assignments on the resource ID or resource scope value of this parameter during
+	// policy assignment. This property is useful in case you wish to assign
+	// permissions outside the assignment scope.
+	AssignPermissions *bool
+
+	// The description of the parameter.
+	Description *string
+
+	// The display name for the parameter.
+	DisplayName *string
+
+	// Used when assigning the policy definition through the portal. Provides a context aware list of values for the user to choose
+	// from.
+	StrongType *string
+}
+
+// ParameterValuesValue - The value of a parameter.
+type ParameterValuesValue struct {
+	// The value of the parameter.
 	Value any
 }
 
-// DeploymentStack - Deployment stack object.
-type DeploymentStack struct {
-	// The location of the Deployment stack. It cannot be changed after creation. It must be one of the supported Azure locations.
+// PolicyAssignment - The policy assignment.
+type PolicyAssignment struct {
+	// The managed identity associated with the policy assignment.
+	Identity *Identity
+
+	// The location of the policy assignment. Only required when utilizing managed identity.
 	Location *string
 
-	// Deployment stack properties.
-	Properties *DeploymentStackProperties
+	// Properties for the policy assignment.
+	Properties *PolicyAssignmentProperties
 
-	// Deployment stack resource tags.
-	Tags map[string]*string
-
-	// READ-ONLY; String Id used to locate any resource on Azure.
+	// READ-ONLY; The ID of the policy assignment.
 	ID *string
 
-	// READ-ONLY; Name of this resource.
+	// READ-ONLY; The name of the policy assignment.
 	Name *string
 
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	// READ-ONLY; The system metadata relating to this resource.
 	SystemData *SystemData
 
-	// READ-ONLY; Type of this resource.
+	// READ-ONLY; The type of the policy assignment.
 	Type *string
 }
 
-// DeploymentStackListResult - List of Deployment stacks.
-type DeploymentStackListResult struct {
-	// An array of Deployment stacks.
-	Value []*DeploymentStack
-
-	// READ-ONLY; The URL to use for getting the next set of results.
+// PolicyAssignmentListResult - List of policy assignments.
+type PolicyAssignmentListResult struct {
+	// The URL to use for getting the next set of results.
 	NextLink *string
+
+	// An array of policy assignments.
+	Value []*PolicyAssignment
 }
 
-// DeploymentStackProperties - Deployment stack properties.
-type DeploymentStackProperties struct {
-	// REQUIRED; Defines the behavior of resources that are no longer managed after the Deployment stack is updated or deleted.
-	ActionOnUnmanage *ActionOnUnmanage
+// PolicyAssignmentProperties - The policy assignment properties.
+type PolicyAssignmentProperties struct {
+	// The type of policy assignment. Possible values are NotSpecified, System, SystemHidden, and Custom. Immutable.
+	AssignmentType *AssignmentType
 
-	// REQUIRED; Defines how resources deployed by the stack are locked.
-	DenySettings *DenySettings
+	// The version of the policy definition to use.
+	DefinitionVersion *string
 
-	// Flag to bypass service errors that indicate the stack resource list is not correctly synchronized.
-	BypassStackOutOfSyncError *bool
-
-	// The debug setting of the deployment.
-	DebugSetting *DebugSetting
-
-	// The scope at which the initial deployment should be created. If a scope is not specified, it will default to the scope
-	// of the deployment stack. Valid scopes are: management group (format:
-	// '/providers/Microsoft.Management/managementGroups/{managementGroupId}'), subscription (format: '/subscriptions/{subscriptionId}'),
-	// resource group (format:
-	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}').
-	DeploymentScope *string
-
-	// Deployment stack description. Max length of 4096 characters.
+	// This message will be part of response in case of policy violation.
 	Description *string
 
-	// The error detail.
-	Error *ErrorDetail
+	// The display name of the policy assignment.
+	DisplayName *string
 
-	// Name and value pairs that define the deployment parameters for the template. Use this element when providing the parameter
-	// values directly in the request, rather than linking to an existing parameter
-	// file. Use either the parametersLink property or the parameters property, but not both.
-	Parameters map[string]*DeploymentParameter
+	// The policy assignment enforcement mode. Possible values are Default and DoNotEnforce.
+	EnforcementMode *EnforcementMode
 
-	// The URI of parameters file. Use this element to link to an existing parameters file. Use either the parametersLink property
-	// or the parameters property, but not both.
-	ParametersLink *ParametersLink
+	// The policy assignment metadata. Metadata is an open ended object and is typically a collection of key value pairs.
+	Metadata any
 
-	// The template content. You use this element when you want to pass the template syntax directly in the request rather than
-	// link to an existing template. It can be a JObject or well-formed JSON string.
-	// Use either the templateLink property or the template property, but not both.
-	Template any
+	// The messages that describe why a resource is non-compliant with the policy.
+	NonComplianceMessages []*NonComplianceMessage
 
-	// The URI of the template. Use either the templateLink property or the template property, but not both.
-	TemplateLink *TemplateLink
+	// The policy's excluded scopes.
+	NotScopes []*string
 
-	// READ-ONLY; The correlation id of the last Deployment stack upsert or delete operation. It is in GUID format and is used
-	// for tracing.
-	CorrelationID *string
+	// The policy property value override.
+	Overrides []*Override
 
-	// READ-ONLY; An array of resources that were deleted during the most recent Deployment stack update. Deleted means that the
-	// resource was removed from the template and relevant deletion operations were specified.
-	DeletedResources []*ResourceReference
+	// The parameter values for the assigned policy rule. The keys are the parameter names.
+	Parameters map[string]*ParameterValuesValue
 
-	// READ-ONLY; The resourceId of the deployment resource created by the deployment stack.
-	DeploymentID *string
+	// The ID of the policy definition or policy set definition being assigned.
+	PolicyDefinitionID *string
 
-	// READ-ONLY; An array of resources that were detached during the most recent Deployment stack update. Detached means that
-	// the resource was removed from the template, but no relevant deletion operations were
-	// specified. So, the resource still exists while no longer being associated with the stack.
-	DetachedResources []*ResourceReference
+	// The resource selector list to filter policies by resource properties.
+	ResourceSelectors []*ResourceSelector
 
-	// READ-ONLY; The duration of the last successful Deployment stack update.
-	Duration *string
-
-	// READ-ONLY; An array of resources that failed to reach goal state during the most recent update. Each resourceId is accompanied
-	// by an error message.
-	FailedResources []*ResourceReferenceExtended
-
-	// READ-ONLY; The outputs of the deployment resource created by the deployment stack.
-	Outputs any
-
-	// READ-ONLY; State of the deployment stack.
-	ProvisioningState *DeploymentStackProvisioningState
-
-	// READ-ONLY; An array of resources currently managed by the deployment stack.
-	Resources []*ManagedResourceReference
+	// READ-ONLY; The scope for the policy assignment.
+	Scope *string
 }
 
-// DeploymentStackTemplateDefinition - Export Template specific properties of the Deployment stack.
-type DeploymentStackTemplateDefinition struct {
-	// The template content. Use this element to pass the template syntax directly in the request rather than link to an existing
-	// template. It can be a JObject or well-formed JSON string. Use either the
-	// templateLink property or the template property, but not both.
-	Template any
+// PolicyAssignmentUpdate - The policy assignment for Patch request.
+type PolicyAssignmentUpdate struct {
+	// The managed identity associated with the policy assignment.
+	Identity *Identity
 
-	// The URI of the template. Use either the templateLink property or the template property, but not both.
-	TemplateLink *TemplateLink
+	// The location of the policy assignment. Only required when utilizing managed identity.
+	Location *string
+
+	// The policy assignment properties for Patch request.
+	Properties *PolicyAssignmentUpdateProperties
 }
 
-// DeploymentStackValidateProperties - The Deployment stack validation result details.
-type DeploymentStackValidateProperties struct {
-	// Defines the behavior of resources that are no longer managed after the Deployment stack is updated or deleted.
-	ActionOnUnmanage *ActionOnUnmanage
+// PolicyAssignmentUpdateProperties - The policy assignment properties for Patch request.
+type PolicyAssignmentUpdateProperties struct {
+	// The policy property value override.
+	Overrides []*Override
 
-	// The correlation id of the Deployment stack validate operation. It is in GUID format and is used for tracing.
-	CorrelationID *string
-
-	// The Deployment stack deny settings.
-	DenySettings *DenySettings
-
-	// The Deployment stack deployment scope.
-	DeploymentScope *string
-
-	// The Deployment stack validation description.
-	Description *string
-
-	// Deployment parameters.
-	Parameters map[string]*DeploymentParameter
-
-	// The URI of the template.
-	TemplateLink *TemplateLink
-
-	// The array of resources that were validated.
-	ValidatedResources []*ResourceReference
+	// The resource selector list to filter policies by resource properties.
+	ResourceSelectors []*ResourceSelector
 }
 
-// DeploymentStackValidateResult - The Deployment stack validation result.
-type DeploymentStackValidateResult struct {
-	// The error detail.
-	Error *ErrorDetail
+// PolicyDefinition - The policy definition.
+type PolicyDefinition struct {
+	// The policy definition properties.
+	Properties *PolicyDefinitionProperties
 
-	// The validation result details.
-	Properties *DeploymentStackValidateProperties
-
-	// READ-ONLY; String Id used to locate any resource on Azure.
+	// READ-ONLY; The ID of the policy definition.
 	ID *string
 
-	// READ-ONLY; Name of this resource.
+	// READ-ONLY; The name of the policy definition.
 	Name *string
 
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	// READ-ONLY; The system metadata relating to this resource.
 	SystemData *SystemData
 
-	// READ-ONLY; Type of this resource.
+	// READ-ONLY; The type of the resource (Microsoft.Authorization/policyDefinitions).
 	Type *string
 }
 
-// ErrorAdditionalInfo - The resource management error additional info.
-type ErrorAdditionalInfo struct {
-	// READ-ONLY; The additional info.
-	Info any
+// PolicyDefinitionGroup - The policy definition group.
+type PolicyDefinitionGroup struct {
+	// REQUIRED; The name of the group.
+	Name *string
 
-	// READ-ONLY; The additional info type.
+	// A resource ID of a resource that contains additional metadata about the group.
+	AdditionalMetadataID *string
+
+	// The group's category.
+	Category *string
+
+	// The group's description.
+	Description *string
+
+	// The group's display name.
+	DisplayName *string
+}
+
+// PolicyDefinitionListResult - List of policy definitions.
+type PolicyDefinitionListResult struct {
+	// The URL to use for getting the next set of results.
+	NextLink *string
+
+	// An array of policy definitions.
+	Value []*PolicyDefinition
+}
+
+// PolicyDefinitionProperties - The policy definition properties.
+type PolicyDefinitionProperties struct {
+	// The policy definition description.
+	Description *string
+
+	// The display name of the policy definition.
+	DisplayName *string
+
+	// The policy definition metadata. Metadata is an open ended object and is typically a collection of key value pairs.
+	Metadata any
+
+	// The policy definition mode. Some examples are All, Indexed, Microsoft.KeyVault.Data.
+	Mode *string
+
+	// The parameter definitions for parameters used in the policy rule. The keys are the parameter names.
+	Parameters map[string]*ParameterDefinitionsValue
+
+	// The policy rule.
+	PolicyRule any
+
+	// The type of policy definition. Possible values are NotSpecified, BuiltIn, Custom, and Static.
+	PolicyType *PolicyType
+
+	// The policy definition version in #.#.# format.
+	Version *string
+
+	// A list of available versions for this policy definition.
+	Versions []*string
+}
+
+// PolicyDefinitionReference - The policy definition reference.
+type PolicyDefinitionReference struct {
+	// REQUIRED; The ID of the policy definition or policy set definition.
+	PolicyDefinitionID *string
+
+	// The version of the policy definition to use.
+	DefinitionVersion *string
+
+	// The name of the groups that this policy definition reference belongs to.
+	GroupNames []*string
+
+	// The parameter values for the referenced policy rule. The keys are the parameter names.
+	Parameters map[string]*ParameterValuesValue
+
+	// A unique id (within the policy set definition) for this policy definition reference.
+	PolicyDefinitionReferenceID *string
+}
+
+// PolicyDefinitionVersion - The ID of the policy definition version.
+type PolicyDefinitionVersion struct {
+	// The policy definition version properties.
+	Properties *PolicyDefinitionVersionProperties
+
+	// READ-ONLY; The ID of the policy definition version.
+	ID *string
+
+	// READ-ONLY; The name of the policy definition version.
+	Name *string
+
+	// READ-ONLY; The system metadata relating to this resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource (Microsoft.Authorization/policyDefinitions/versions).
 	Type *string
 }
 
-// ErrorDetail - The error detail.
-type ErrorDetail struct {
-	// READ-ONLY; The error additional info.
-	AdditionalInfo []*ErrorAdditionalInfo
+// PolicyDefinitionVersionListResult - List of policy definition versions.
+type PolicyDefinitionVersionListResult struct {
+	// The URL to use for getting the next set of results.
+	NextLink *string
 
-	// READ-ONLY; The error code.
-	Code *string
-
-	// READ-ONLY; The error details.
-	Details []*ErrorDetail
-
-	// READ-ONLY; The error message.
-	Message *string
-
-	// READ-ONLY; The error target.
-	Target *string
+	// An array of policy definitions versions.
+	Value []*PolicyDefinitionVersion
 }
 
-// KeyVaultParameterReference - Azure Key Vault parameter reference.
-type KeyVaultParameterReference struct {
-	// REQUIRED; Azure Key Vault reference.
-	KeyVault *KeyVaultReference
+// PolicyDefinitionVersionProperties - The policy definition properties.
+type PolicyDefinitionVersionProperties struct {
+	// The policy definition description.
+	Description *string
 
-	// REQUIRED; Azure Key Vault secret name.
-	SecretName *string
+	// The display name of the policy definition.
+	DisplayName *string
 
-	// Azure Key Vault secret version.
-	SecretVersion *string
+	// The policy definition metadata. Metadata is an open ended object and is typically a collection of key value pairs.
+	Metadata any
+
+	// The policy definition mode. Some examples are All, Indexed, Microsoft.KeyVault.Data.
+	Mode *string
+
+	// The parameter definitions for parameters used in the policy rule. The keys are the parameter names.
+	Parameters map[string]*ParameterDefinitionsValue
+
+	// The policy rule.
+	PolicyRule any
+
+	// The type of policy definition. Possible values are NotSpecified, BuiltIn, Custom, and Static.
+	PolicyType *PolicyType
+
+	// The policy definition version in #.#.# format.
+	Version *string
 }
 
-// KeyVaultReference - Azure Key Vault reference.
-type KeyVaultReference struct {
-	// REQUIRED; Azure Key Vault resourceId.
+// PolicySetDefinition - The policy set definition.
+type PolicySetDefinition struct {
+	// The policy set definition properties.
+	Properties *PolicySetDefinitionProperties
+
+	// READ-ONLY; The ID of the policy set definition.
 	ID *string
+
+	// READ-ONLY; The name of the policy set definition.
+	Name *string
+
+	// READ-ONLY; The system metadata relating to this resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource (Microsoft.Authorization/policySetDefinitions).
+	Type *string
 }
 
-// ManagedResourceReference - The managed resource model.
-type ManagedResourceReference struct {
-	// denyAssignment settings applied to the resource.
-	DenyStatus *DenyStatusMode
+// PolicySetDefinitionListResult - List of policy set definitions.
+type PolicySetDefinitionListResult struct {
+	// The URL to use for getting the next set of results.
+	NextLink *string
 
-	// Current management state of the resource in the deployment stack.
-	Status *ResourceStatusMode
+	// An array of policy set definitions.
+	Value []*PolicySetDefinition
+}
 
-	// READ-ONLY; The resourceId of a resource managed by the deployment stack.
+// PolicySetDefinitionProperties - The policy set definition properties.
+type PolicySetDefinitionProperties struct {
+	// REQUIRED; An array of policy definition references.
+	PolicyDefinitions []*PolicyDefinitionReference
+
+	// The policy set definition description.
+	Description *string
+
+	// The display name of the policy set definition.
+	DisplayName *string
+
+	// The policy set definition metadata. Metadata is an open ended object and is typically a collection of key value pairs.
+	Metadata any
+
+	// The policy set definition parameters that can be used in policy definition references.
+	Parameters map[string]*ParameterDefinitionsValue
+
+	// The metadata describing groups of policy definition references within the policy set definition.
+	PolicyDefinitionGroups []*PolicyDefinitionGroup
+
+	// The type of policy set definition. Possible values are NotSpecified, BuiltIn, Custom, and Static.
+	PolicyType *PolicyType
+
+	// The policy set definition version in #.#.# format.
+	Version *string
+
+	// A list of available versions for this policy set definition.
+	Versions []*string
+}
+
+// PolicySetDefinitionVersion - The policy set definition version.
+type PolicySetDefinitionVersion struct {
+	// The policy set definition version properties.
+	Properties *PolicySetDefinitionVersionProperties
+
+	// READ-ONLY; The ID of the policy set definition version.
 	ID *string
+
+	// READ-ONLY; The name of the policy set definition version.
+	Name *string
+
+	// READ-ONLY; The system metadata relating to this resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource (Microsoft.Authorization/policySetDefinitions/versions).
+	Type *string
 }
 
-// ParametersLink - Entity representing the reference to the deployment parameters.
-type ParametersLink struct {
-	// REQUIRED; The URI of the parameters file.
-	URI *string
+// PolicySetDefinitionVersionListResult - List of policy set definition versions.
+type PolicySetDefinitionVersionListResult struct {
+	// The URL to use for getting the next set of results.
+	NextLink *string
 
-	// If included, must match the ContentVersion in the template.
-	ContentVersion *string
+	// An array of policy set definition versions.
+	Value []*PolicySetDefinitionVersion
 }
 
-// ResourceReference - The resourceId model.
-type ResourceReference struct {
-	// READ-ONLY; The resourceId of a resource managed by the deployment stack.
-	ID *string
+// PolicySetDefinitionVersionProperties - The policy set definition properties.
+type PolicySetDefinitionVersionProperties struct {
+	// REQUIRED; An array of policy definition references.
+	PolicyDefinitions []*PolicyDefinitionReference
+
+	// The policy set definition description.
+	Description *string
+
+	// The display name of the policy set definition.
+	DisplayName *string
+
+	// The policy set definition metadata. Metadata is an open ended object and is typically a collection of key value pairs.
+	Metadata any
+
+	// The policy set definition parameters that can be used in policy definition references.
+	Parameters map[string]*ParameterDefinitionsValue
+
+	// The metadata describing groups of policy definition references within the policy set definition.
+	PolicyDefinitionGroups []*PolicyDefinitionGroup
+
+	// The type of policy definition. Possible values are NotSpecified, BuiltIn, Custom, and Static.
+	PolicyType *PolicyType
+
+	// The policy set definition version in #.#.# format.
+	Version *string
 }
 
-// ResourceReferenceExtended - The resourceId extended model. This is used to document failed resources with a resourceId
-// and a corresponding error.
-type ResourceReferenceExtended struct {
-	// The error detail.
-	Error *ErrorDetail
+// ResourceSelector - The resource selector to filter policies by resource properties.
+type ResourceSelector struct {
+	// The name of the resource selector.
+	Name *string
 
-	// READ-ONLY; The resourceId of a resource managed by the deployment stack.
-	ID *string
+	// The list of the selector expressions.
+	Selectors []*Selector
+}
+
+// Selector - The selector expression.
+type Selector struct {
+	// The list of values to filter in.
+	In []*string
+
+	// The selector kind.
+	Kind *SelectorKind
+
+	// The list of values to filter out.
+	NotIn []*string
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
@@ -338,23 +496,10 @@ type SystemData struct {
 	LastModifiedByType *CreatedByType
 }
 
-// TemplateLink - Entity representing the reference to the template.
-type TemplateLink struct {
-	// If included, must match the ContentVersion in the template.
-	ContentVersion *string
+type UserAssignedIdentitiesValue struct {
+	// READ-ONLY; The client id of user assigned identity.
+	ClientID *string
 
-	// The resourceId of a Template Spec. Use either the id or uri property, but not both.
-	ID *string
-
-	// The query string (for example, a SAS token) to be used with the templateLink URI.
-	QueryString *string
-
-	// The relativePath property can be used to deploy a linked template at a location relative to the parent. If the parent template
-	// was linked with a TemplateSpec, this will reference an artifact in the
-	// TemplateSpec. If the parent was linked with a URI, the child deployment will be a combination of the parent and relativePath
-	// URIs.
-	RelativePath *string
-
-	// The URI of the template to deploy. Use either the uri or id property, but not both.
-	URI *string
+	// READ-ONLY; The principal id of user assigned identity.
+	PrincipalID *string
 }
