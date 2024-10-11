@@ -10,24 +10,26 @@ package armdeploymentscripts
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armdeploymentscripts"
-	moduleVersion = "v2.1.0"
+	moduleVersion = "v3.0.0"
 )
 
-// CleanupOptions - The clean up preference when the script execution gets in a terminal state. Default setting is 'Always'.
-type CleanupOptions string
+// AssignmentType - The type of policy assignment. Possible values are NotSpecified, System, SystemHidden, and Custom. Immutable.
+type AssignmentType string
 
 const (
-	CleanupOptionsAlways       CleanupOptions = "Always"
-	CleanupOptionsOnExpiration CleanupOptions = "OnExpiration"
-	CleanupOptionsOnSuccess    CleanupOptions = "OnSuccess"
+	AssignmentTypeCustom       AssignmentType = "Custom"
+	AssignmentTypeNotSpecified AssignmentType = "NotSpecified"
+	AssignmentTypeSystem       AssignmentType = "System"
+	AssignmentTypeSystemHidden AssignmentType = "SystemHidden"
 )
 
-// PossibleCleanupOptionsValues returns the possible values for the CleanupOptions const type.
-func PossibleCleanupOptionsValues() []CleanupOptions {
-	return []CleanupOptions{
-		CleanupOptionsAlways,
-		CleanupOptionsOnExpiration,
-		CleanupOptionsOnSuccess,
+// PossibleAssignmentTypeValues returns the possible values for the AssignmentType const type.
+func PossibleAssignmentTypeValues() []AssignmentType {
+	return []AssignmentType{
+		AssignmentTypeCustom,
+		AssignmentTypeNotSpecified,
+		AssignmentTypeSystem,
+		AssignmentTypeSystemHidden,
 	}
 }
 
@@ -51,56 +53,131 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 	}
 }
 
-// ManagedServiceIdentityType - Type of the managed identity.
-type ManagedServiceIdentityType string
+// EnforcementMode - The policy assignment enforcement mode. Possible values are Default and DoNotEnforce.
+type EnforcementMode string
 
 const (
-	ManagedServiceIdentityTypeUserAssigned ManagedServiceIdentityType = "UserAssigned"
+	// EnforcementModeDefault - The policy effect is enforced during resource creation or update.
+	EnforcementModeDefault EnforcementMode = "Default"
+	// EnforcementModeDoNotEnforce - The policy effect is not enforced during resource creation or update.
+	EnforcementModeDoNotEnforce EnforcementMode = "DoNotEnforce"
 )
 
-// PossibleManagedServiceIdentityTypeValues returns the possible values for the ManagedServiceIdentityType const type.
-func PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType {
-	return []ManagedServiceIdentityType{
-		ManagedServiceIdentityTypeUserAssigned,
+// PossibleEnforcementModeValues returns the possible values for the EnforcementMode const type.
+func PossibleEnforcementModeValues() []EnforcementMode {
+	return []EnforcementMode{
+		EnforcementModeDefault,
+		EnforcementModeDoNotEnforce,
 	}
 }
 
-// ScriptProvisioningState - State of the script execution. This only appears in the response.
-type ScriptProvisioningState string
+// OverrideKind - The override kind.
+type OverrideKind string
 
 const (
-	ScriptProvisioningStateCanceled              ScriptProvisioningState = "Canceled"
-	ScriptProvisioningStateCreating              ScriptProvisioningState = "Creating"
-	ScriptProvisioningStateFailed                ScriptProvisioningState = "Failed"
-	ScriptProvisioningStateProvisioningResources ScriptProvisioningState = "ProvisioningResources"
-	ScriptProvisioningStateRunning               ScriptProvisioningState = "Running"
-	ScriptProvisioningStateSucceeded             ScriptProvisioningState = "Succeeded"
+	// OverrideKindDefinitionVersion - It will override the definition version property value of the policy assignment.
+	OverrideKindDefinitionVersion OverrideKind = "definitionVersion"
+	// OverrideKindPolicyEffect - It will override the policy effect type.
+	OverrideKindPolicyEffect OverrideKind = "policyEffect"
 )
 
-// PossibleScriptProvisioningStateValues returns the possible values for the ScriptProvisioningState const type.
-func PossibleScriptProvisioningStateValues() []ScriptProvisioningState {
-	return []ScriptProvisioningState{
-		ScriptProvisioningStateCanceled,
-		ScriptProvisioningStateCreating,
-		ScriptProvisioningStateFailed,
-		ScriptProvisioningStateProvisioningResources,
-		ScriptProvisioningStateRunning,
-		ScriptProvisioningStateSucceeded,
+// PossibleOverrideKindValues returns the possible values for the OverrideKind const type.
+func PossibleOverrideKindValues() []OverrideKind {
+	return []OverrideKind{
+		OverrideKindDefinitionVersion,
+		OverrideKindPolicyEffect,
 	}
 }
 
-// ScriptType - Type of the script.
-type ScriptType string
+// ParameterType - The data type of the parameter.
+type ParameterType string
 
 const (
-	ScriptTypeAzureCLI        ScriptType = "AzureCLI"
-	ScriptTypeAzurePowerShell ScriptType = "AzurePowerShell"
+	ParameterTypeArray    ParameterType = "Array"
+	ParameterTypeBoolean  ParameterType = "Boolean"
+	ParameterTypeDateTime ParameterType = "DateTime"
+	ParameterTypeFloat    ParameterType = "Float"
+	ParameterTypeInteger  ParameterType = "Integer"
+	ParameterTypeObject   ParameterType = "Object"
+	ParameterTypeString   ParameterType = "String"
 )
 
-// PossibleScriptTypeValues returns the possible values for the ScriptType const type.
-func PossibleScriptTypeValues() []ScriptType {
-	return []ScriptType{
-		ScriptTypeAzureCLI,
-		ScriptTypeAzurePowerShell,
+// PossibleParameterTypeValues returns the possible values for the ParameterType const type.
+func PossibleParameterTypeValues() []ParameterType {
+	return []ParameterType{
+		ParameterTypeArray,
+		ParameterTypeBoolean,
+		ParameterTypeDateTime,
+		ParameterTypeFloat,
+		ParameterTypeInteger,
+		ParameterTypeObject,
+		ParameterTypeString,
+	}
+}
+
+// PolicyType - The type of policy definition. Possible values are NotSpecified, BuiltIn, Custom, and Static.
+type PolicyType string
+
+const (
+	PolicyTypeBuiltIn      PolicyType = "BuiltIn"
+	PolicyTypeCustom       PolicyType = "Custom"
+	PolicyTypeNotSpecified PolicyType = "NotSpecified"
+	PolicyTypeStatic       PolicyType = "Static"
+)
+
+// PossiblePolicyTypeValues returns the possible values for the PolicyType const type.
+func PossiblePolicyTypeValues() []PolicyType {
+	return []PolicyType{
+		PolicyTypeBuiltIn,
+		PolicyTypeCustom,
+		PolicyTypeNotSpecified,
+		PolicyTypeStatic,
+	}
+}
+
+// ResourceIdentityType - The identity type. This is the only required field when adding a system or user assigned identity
+// to a resource.
+type ResourceIdentityType string
+
+const (
+	// ResourceIdentityTypeNone - Indicates that no identity is associated with the resource or that the existing identity should
+	// be removed.
+	ResourceIdentityTypeNone ResourceIdentityType = "None"
+	// ResourceIdentityTypeSystemAssigned - Indicates that a system assigned identity is associated with the resource.
+	ResourceIdentityTypeSystemAssigned ResourceIdentityType = "SystemAssigned"
+	// ResourceIdentityTypeUserAssigned - Indicates that a system assigned identity is associated with the resource.
+	ResourceIdentityTypeUserAssigned ResourceIdentityType = "UserAssigned"
+)
+
+// PossibleResourceIdentityTypeValues returns the possible values for the ResourceIdentityType const type.
+func PossibleResourceIdentityTypeValues() []ResourceIdentityType {
+	return []ResourceIdentityType{
+		ResourceIdentityTypeNone,
+		ResourceIdentityTypeSystemAssigned,
+		ResourceIdentityTypeUserAssigned,
+	}
+}
+
+// SelectorKind - The selector kind.
+type SelectorKind string
+
+const (
+	// SelectorKindPolicyDefinitionReferenceID - The selector kind to filter policies by the policy definition reference ID.
+	SelectorKindPolicyDefinitionReferenceID SelectorKind = "policyDefinitionReferenceId"
+	// SelectorKindResourceLocation - The selector kind to filter policies by the resource location.
+	SelectorKindResourceLocation SelectorKind = "resourceLocation"
+	// SelectorKindResourceType - The selector kind to filter policies by the resource type.
+	SelectorKindResourceType SelectorKind = "resourceType"
+	// SelectorKindResourceWithoutLocation - The selector kind to filter policies by the resource without location.
+	SelectorKindResourceWithoutLocation SelectorKind = "resourceWithoutLocation"
+)
+
+// PossibleSelectorKindValues returns the possible values for the SelectorKind const type.
+func PossibleSelectorKindValues() []SelectorKind {
+	return []SelectorKind{
+		SelectorKindPolicyDefinitionReferenceID,
+		SelectorKindResourceLocation,
+		SelectorKindResourceType,
+		SelectorKindResourceWithoutLocation,
 	}
 }
