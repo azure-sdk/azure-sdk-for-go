@@ -1526,6 +1526,12 @@ type WorkspaceConnectionsClientListSecretsOptions struct {
 	// placeholder for future optional parameters
 }
 
+// WorkspaceConnectionsClientUpdateOptions contains the optional parameters for the WorkspaceConnectionsClient.Update method.
+type WorkspaceConnectionsClientUpdateOptions struct {
+	// Parameters for workspace connection update.
+	Body *WorkspaceConnectionUpdateParameter
+}
+
 // WorkspaceFeaturesClientListOptions contains the optional parameters for the WorkspaceFeaturesClient.NewListPager method.
 type WorkspaceFeaturesClientListOptions struct {
 	// placeholder for future optional parameters
