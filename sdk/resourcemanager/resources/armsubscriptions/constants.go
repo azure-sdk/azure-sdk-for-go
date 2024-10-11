@@ -10,162 +10,174 @@ package armsubscriptions
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armsubscriptions"
-	moduleVersion = "v1.3.0"
+	moduleVersion = "v2.0.0"
 )
 
-// ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
-type ActionType string
+// AssignmentType - The type of policy assignment. Possible values are NotSpecified, System, SystemHidden, and Custom. Immutable.
+type AssignmentType string
 
 const (
-	ActionTypeInternal ActionType = "Internal"
+	AssignmentTypeCustom       AssignmentType = "Custom"
+	AssignmentTypeNotSpecified AssignmentType = "NotSpecified"
+	AssignmentTypeSystem       AssignmentType = "System"
+	AssignmentTypeSystemHidden AssignmentType = "SystemHidden"
 )
 
-// PossibleActionTypeValues returns the possible values for the ActionType const type.
-func PossibleActionTypeValues() []ActionType {
-	return []ActionType{
-		ActionTypeInternal,
+// PossibleAssignmentTypeValues returns the possible values for the AssignmentType const type.
+func PossibleAssignmentTypeValues() []AssignmentType {
+	return []AssignmentType{
+		AssignmentTypeCustom,
+		AssignmentTypeNotSpecified,
+		AssignmentTypeSystem,
+		AssignmentTypeSystemHidden,
 	}
 }
 
-// LocationType - The location type.
-type LocationType string
+// CreatedByType - The type of identity that created the resource.
+type CreatedByType string
 
 const (
-	LocationTypeEdgeZone LocationType = "EdgeZone"
-	LocationTypeRegion   LocationType = "Region"
+	CreatedByTypeApplication     CreatedByType = "Application"
+	CreatedByTypeKey             CreatedByType = "Key"
+	CreatedByTypeManagedIdentity CreatedByType = "ManagedIdentity"
+	CreatedByTypeUser            CreatedByType = "User"
 )
 
-// PossibleLocationTypeValues returns the possible values for the LocationType const type.
-func PossibleLocationTypeValues() []LocationType {
-	return []LocationType{
-		LocationTypeEdgeZone,
-		LocationTypeRegion,
+// PossibleCreatedByTypeValues returns the possible values for the CreatedByType const type.
+func PossibleCreatedByTypeValues() []CreatedByType {
+	return []CreatedByType{
+		CreatedByTypeApplication,
+		CreatedByTypeKey,
+		CreatedByTypeManagedIdentity,
+		CreatedByTypeUser,
 	}
 }
 
-// Origin - The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
-// value is "user,system"
-type Origin string
+// EnforcementMode - The policy assignment enforcement mode. Possible values are Default and DoNotEnforce.
+type EnforcementMode string
 
 const (
-	OriginSystem     Origin = "system"
-	OriginUser       Origin = "user"
-	OriginUserSystem Origin = "user,system"
+	// EnforcementModeDefault - The policy effect is enforced during resource creation or update.
+	EnforcementModeDefault EnforcementMode = "Default"
+	// EnforcementModeDoNotEnforce - The policy effect is not enforced during resource creation or update.
+	EnforcementModeDoNotEnforce EnforcementMode = "DoNotEnforce"
 )
 
-// PossibleOriginValues returns the possible values for the Origin const type.
-func PossibleOriginValues() []Origin {
-	return []Origin{
-		OriginSystem,
-		OriginUser,
-		OriginUserSystem,
+// PossibleEnforcementModeValues returns the possible values for the EnforcementMode const type.
+func PossibleEnforcementModeValues() []EnforcementMode {
+	return []EnforcementMode{
+		EnforcementModeDefault,
+		EnforcementModeDoNotEnforce,
 	}
 }
 
-// RegionCategory - The category of the region.
-type RegionCategory string
+// OverrideKind - The override kind.
+type OverrideKind string
 
 const (
-	RegionCategoryExtended    RegionCategory = "Extended"
-	RegionCategoryOther       RegionCategory = "Other"
-	RegionCategoryRecommended RegionCategory = "Recommended"
+	// OverrideKindDefinitionVersion - It will override the definition version property value of the policy assignment.
+	OverrideKindDefinitionVersion OverrideKind = "definitionVersion"
+	// OverrideKindPolicyEffect - It will override the policy effect type.
+	OverrideKindPolicyEffect OverrideKind = "policyEffect"
 )
 
-// PossibleRegionCategoryValues returns the possible values for the RegionCategory const type.
-func PossibleRegionCategoryValues() []RegionCategory {
-	return []RegionCategory{
-		RegionCategoryExtended,
-		RegionCategoryOther,
-		RegionCategoryRecommended,
+// PossibleOverrideKindValues returns the possible values for the OverrideKind const type.
+func PossibleOverrideKindValues() []OverrideKind {
+	return []OverrideKind{
+		OverrideKindDefinitionVersion,
+		OverrideKindPolicyEffect,
 	}
 }
 
-// RegionType - The type of the region.
-type RegionType string
+// ParameterType - The data type of the parameter.
+type ParameterType string
 
 const (
-	RegionTypeLogical  RegionType = "Logical"
-	RegionTypePhysical RegionType = "Physical"
+	ParameterTypeArray    ParameterType = "Array"
+	ParameterTypeBoolean  ParameterType = "Boolean"
+	ParameterTypeDateTime ParameterType = "DateTime"
+	ParameterTypeFloat    ParameterType = "Float"
+	ParameterTypeInteger  ParameterType = "Integer"
+	ParameterTypeObject   ParameterType = "Object"
+	ParameterTypeString   ParameterType = "String"
 )
 
-// PossibleRegionTypeValues returns the possible values for the RegionType const type.
-func PossibleRegionTypeValues() []RegionType {
-	return []RegionType{
-		RegionTypeLogical,
-		RegionTypePhysical,
+// PossibleParameterTypeValues returns the possible values for the ParameterType const type.
+func PossibleParameterTypeValues() []ParameterType {
+	return []ParameterType{
+		ParameterTypeArray,
+		ParameterTypeBoolean,
+		ParameterTypeDateTime,
+		ParameterTypeFloat,
+		ParameterTypeInteger,
+		ParameterTypeObject,
+		ParameterTypeString,
 	}
 }
 
-// ResourceNameStatus - Is the resource name Allowed or Reserved
-type ResourceNameStatus string
+// PolicyType - The type of policy definition. Possible values are NotSpecified, BuiltIn, Custom, and Static.
+type PolicyType string
 
 const (
-	ResourceNameStatusAllowed  ResourceNameStatus = "Allowed"
-	ResourceNameStatusReserved ResourceNameStatus = "Reserved"
+	PolicyTypeBuiltIn      PolicyType = "BuiltIn"
+	PolicyTypeCustom       PolicyType = "Custom"
+	PolicyTypeNotSpecified PolicyType = "NotSpecified"
+	PolicyTypeStatic       PolicyType = "Static"
 )
 
-// PossibleResourceNameStatusValues returns the possible values for the ResourceNameStatus const type.
-func PossibleResourceNameStatusValues() []ResourceNameStatus {
-	return []ResourceNameStatus{
-		ResourceNameStatusAllowed,
-		ResourceNameStatusReserved,
+// PossiblePolicyTypeValues returns the possible values for the PolicyType const type.
+func PossiblePolicyTypeValues() []PolicyType {
+	return []PolicyType{
+		PolicyTypeBuiltIn,
+		PolicyTypeCustom,
+		PolicyTypeNotSpecified,
+		PolicyTypeStatic,
 	}
 }
 
-// SpendingLimit - The subscription spending limit.
-type SpendingLimit string
+// ResourceIdentityType - The identity type. This is the only required field when adding a system or user assigned identity
+// to a resource.
+type ResourceIdentityType string
 
 const (
-	SpendingLimitCurrentPeriodOff SpendingLimit = "CurrentPeriodOff"
-	SpendingLimitOff              SpendingLimit = "Off"
-	SpendingLimitOn               SpendingLimit = "On"
+	// ResourceIdentityTypeNone - Indicates that no identity is associated with the resource or that the existing identity should
+	// be removed.
+	ResourceIdentityTypeNone ResourceIdentityType = "None"
+	// ResourceIdentityTypeSystemAssigned - Indicates that a system assigned identity is associated with the resource.
+	ResourceIdentityTypeSystemAssigned ResourceIdentityType = "SystemAssigned"
+	// ResourceIdentityTypeUserAssigned - Indicates that a system assigned identity is associated with the resource.
+	ResourceIdentityTypeUserAssigned ResourceIdentityType = "UserAssigned"
 )
 
-// PossibleSpendingLimitValues returns the possible values for the SpendingLimit const type.
-func PossibleSpendingLimitValues() []SpendingLimit {
-	return []SpendingLimit{
-		SpendingLimitCurrentPeriodOff,
-		SpendingLimitOff,
-		SpendingLimitOn,
+// PossibleResourceIdentityTypeValues returns the possible values for the ResourceIdentityType const type.
+func PossibleResourceIdentityTypeValues() []ResourceIdentityType {
+	return []ResourceIdentityType{
+		ResourceIdentityTypeNone,
+		ResourceIdentityTypeSystemAssigned,
+		ResourceIdentityTypeUserAssigned,
 	}
 }
 
-// SubscriptionState - The subscription state. Possible values are Enabled, Warned, PastDue, Disabled, and Deleted.
-type SubscriptionState string
+// SelectorKind - The selector kind.
+type SelectorKind string
 
 const (
-	SubscriptionStateDeleted  SubscriptionState = "Deleted"
-	SubscriptionStateDisabled SubscriptionState = "Disabled"
-	SubscriptionStateEnabled  SubscriptionState = "Enabled"
-	SubscriptionStatePastDue  SubscriptionState = "PastDue"
-	SubscriptionStateWarned   SubscriptionState = "Warned"
+	// SelectorKindPolicyDefinitionReferenceID - The selector kind to filter policies by the policy definition reference ID.
+	SelectorKindPolicyDefinitionReferenceID SelectorKind = "policyDefinitionReferenceId"
+	// SelectorKindResourceLocation - The selector kind to filter policies by the resource location.
+	SelectorKindResourceLocation SelectorKind = "resourceLocation"
+	// SelectorKindResourceType - The selector kind to filter policies by the resource type.
+	SelectorKindResourceType SelectorKind = "resourceType"
+	// SelectorKindResourceWithoutLocation - The selector kind to filter policies by the resource without location.
+	SelectorKindResourceWithoutLocation SelectorKind = "resourceWithoutLocation"
 )
 
-// PossibleSubscriptionStateValues returns the possible values for the SubscriptionState const type.
-func PossibleSubscriptionStateValues() []SubscriptionState {
-	return []SubscriptionState{
-		SubscriptionStateDeleted,
-		SubscriptionStateDisabled,
-		SubscriptionStateEnabled,
-		SubscriptionStatePastDue,
-		SubscriptionStateWarned,
-	}
-}
-
-// TenantCategory - Category of the tenant.
-type TenantCategory string
-
-const (
-	TenantCategoryHome        TenantCategory = "Home"
-	TenantCategoryManagedBy   TenantCategory = "ManagedBy"
-	TenantCategoryProjectedBy TenantCategory = "ProjectedBy"
-)
-
-// PossibleTenantCategoryValues returns the possible values for the TenantCategory const type.
-func PossibleTenantCategoryValues() []TenantCategory {
-	return []TenantCategory{
-		TenantCategoryHome,
-		TenantCategoryManagedBy,
-		TenantCategoryProjectedBy,
+// PossibleSelectorKindValues returns the possible values for the SelectorKind const type.
+func PossibleSelectorKindValues() []SelectorKind {
+	return []SelectorKind{
+		SelectorKindPolicyDefinitionReferenceID,
+		SelectorKindResourceLocation,
+		SelectorKindResourceType,
+		SelectorKindResourceWithoutLocation,
 	}
 }
