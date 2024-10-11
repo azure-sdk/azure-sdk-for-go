@@ -47,7 +47,7 @@ func NewQueryPacksClient(subscriptionID string, credential azcore.TokenCredentia
 // nor AppId in the Put operation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2019-09-01
+// Generated from API version 2023-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - queryPackName - The name of the Log Analytics QueryPack resource.
 //   - logAnalyticsQueryPackPayload - Properties that need to be specified to create or update a Log Analytics QueryPack.
@@ -95,7 +95,7 @@ func (client *QueryPacksClient) createOrUpdateCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-09-01")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, logAnalyticsQueryPackPayload); err != nil {
@@ -117,7 +117,7 @@ func (client *QueryPacksClient) createOrUpdateHandleResponse(resp *http.Response
 // nor AppId in the Put operation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2019-09-01
+// Generated from API version 2023-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - logAnalyticsQueryPackPayload - Properties that need to be specified to create or update a Log Analytics QueryPack.
 //   - options - QueryPacksClientCreateOrUpdateWithoutNameOptions contains the optional parameters for the QueryPacksClient.CreateOrUpdateWithoutName
@@ -160,7 +160,7 @@ func (client *QueryPacksClient) createOrUpdateWithoutNameCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-09-01")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, logAnalyticsQueryPackPayload); err != nil {
@@ -181,7 +181,7 @@ func (client *QueryPacksClient) createOrUpdateWithoutNameHandleResponse(resp *ht
 // Delete - Deletes a Log Analytics QueryPack.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2019-09-01
+// Generated from API version 2023-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - queryPackName - The name of the Log Analytics QueryPack resource.
 //   - options - QueryPacksClientDeleteOptions contains the optional parameters for the QueryPacksClient.Delete method.
@@ -226,7 +226,7 @@ func (client *QueryPacksClient) deleteCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-09-01")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -235,7 +235,7 @@ func (client *QueryPacksClient) deleteCreateRequest(ctx context.Context, resourc
 // Get - Returns a Log Analytics QueryPack.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2019-09-01
+// Generated from API version 2023-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - queryPackName - The name of the Log Analytics QueryPack resource.
 //   - options - QueryPacksClientGetOptions contains the optional parameters for the QueryPacksClient.Get method.
@@ -281,7 +281,7 @@ func (client *QueryPacksClient) getCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-09-01")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -298,7 +298,7 @@ func (client *QueryPacksClient) getHandleResponse(resp *http.Response) (QueryPac
 
 // NewListPager - Gets a list of all Log Analytics QueryPacks within a subscription.
 //
-// Generated from API version 2019-09-01
+// Generated from API version 2023-09-01
 //   - options - QueryPacksClientListOptions contains the optional parameters for the QueryPacksClient.NewListPager method.
 func (client *QueryPacksClient) NewListPager(options *QueryPacksClientListOptions) *runtime.Pager[QueryPacksClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[QueryPacksClientListResponse]{
@@ -335,7 +335,7 @@ func (client *QueryPacksClient) listCreateRequest(ctx context.Context, options *
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-09-01")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -352,7 +352,7 @@ func (client *QueryPacksClient) listHandleResponse(resp *http.Response) (QueryPa
 
 // NewListByResourceGroupPager - Gets a list of Log Analytics QueryPacks within a resource group.
 //
-// Generated from API version 2019-09-01
+// Generated from API version 2023-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - QueryPacksClientListByResourceGroupOptions contains the optional parameters for the QueryPacksClient.NewListByResourceGroupPager
 //     method.
@@ -395,7 +395,7 @@ func (client *QueryPacksClient) listByResourceGroupCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-09-01")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -413,7 +413,7 @@ func (client *QueryPacksClient) listByResourceGroupHandleResponse(resp *http.Res
 // UpdateTags - Updates an existing QueryPack's tags. To update other fields use the CreateOrUpdate method.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2019-09-01
+// Generated from API version 2023-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - queryPackName - The name of the Log Analytics QueryPack resource.
 //   - queryPackTags - Updated tag information to set into the QueryPack instance.
@@ -460,7 +460,7 @@ func (client *QueryPacksClient) updateTagsCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-09-01")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, queryPackTags); err != nil {

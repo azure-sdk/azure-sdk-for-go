@@ -45,7 +45,7 @@ func NewManagementGroupsClient(subscriptionID string, credential azcore.TokenCre
 
 // NewListPager - Gets a list of management groups connected to a workspace.
 //
-// Generated from API version 2020-08-01
+// Generated from API version 2023-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - options - ManagementGroupsClientListOptions contains the optional parameters for the ManagementGroupsClient.NewListPager
@@ -94,7 +94,7 @@ func (client *ManagementGroupsClient) listCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-08-01")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

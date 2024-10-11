@@ -46,7 +46,7 @@ func NewLinkedServicesClient(subscriptionID string, credential azcore.TokenCrede
 // BeginCreateOrUpdate - Create or update a linked service.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-08-01
+// Generated from API version 2023-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - linkedServiceName - Name of the linkedServices resource
@@ -73,7 +73,7 @@ func (client *LinkedServicesClient) BeginCreateOrUpdate(ctx context.Context, res
 // CreateOrUpdate - Create or update a linked service.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-08-01
+// Generated from API version 2023-09-01
 func (client *LinkedServicesClient) createOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, linkedServiceName string, parameters LinkedService, options *LinkedServicesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "LinkedServicesClient.BeginCreateOrUpdate"
@@ -119,7 +119,7 @@ func (client *LinkedServicesClient) createOrUpdateCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-08-01")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -131,7 +131,7 @@ func (client *LinkedServicesClient) createOrUpdateCreateRequest(ctx context.Cont
 // BeginDelete - Deletes a linked service instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-08-01
+// Generated from API version 2023-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - linkedServiceName - Name of the linked service.
@@ -157,7 +157,7 @@ func (client *LinkedServicesClient) BeginDelete(ctx context.Context, resourceGro
 // Delete - Deletes a linked service instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-08-01
+// Generated from API version 2023-09-01
 func (client *LinkedServicesClient) deleteOperation(ctx context.Context, resourceGroupName string, workspaceName string, linkedServiceName string, options *LinkedServicesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "LinkedServicesClient.BeginDelete"
@@ -203,7 +203,7 @@ func (client *LinkedServicesClient) deleteCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-08-01")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -212,7 +212,7 @@ func (client *LinkedServicesClient) deleteCreateRequest(ctx context.Context, res
 // Get - Gets a linked service instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-08-01
+// Generated from API version 2023-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - linkedServiceName - Name of the linked service.
@@ -263,7 +263,7 @@ func (client *LinkedServicesClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-08-01")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -280,7 +280,7 @@ func (client *LinkedServicesClient) getHandleResponse(resp *http.Response) (Link
 
 // NewListByWorkspacePager - Gets the linked services instances in a workspace.
 //
-// Generated from API version 2020-08-01
+// Generated from API version 2023-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - options - LinkedServicesClientListByWorkspaceOptions contains the optional parameters for the LinkedServicesClient.NewListByWorkspacePager
@@ -329,7 +329,7 @@ func (client *LinkedServicesClient) listByWorkspaceCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-08-01")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -340,6 +340,11 @@ type TablesClientBeginUpdateOptions struct {
 	ResumeToken string
 }
 
+// TablesClientCancelSearchOptions contains the optional parameters for the TablesClient.CancelSearch method.
+type TablesClientCancelSearchOptions struct {
+	// placeholder for future optional parameters
+}
+
 // TablesClientGetOptions contains the optional parameters for the TablesClient.Get method.
 type TablesClientGetOptions struct {
 	// placeholder for future optional parameters

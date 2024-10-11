@@ -15,13 +15,13 @@ type AssociatedWorkspace struct {
 	// READ-ONLY; The time of workspace association.
 	AssociateDate *string
 
-	// READ-ONLY; The ResourceId id the assigned workspace.
+	// READ-ONLY; Associated workspace arm resource id, in the form of: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}.
 	ResourceID *string
 
-	// READ-ONLY; The id of the assigned workspace.
+	// READ-ONLY; Associated workspace immutable id.
 	WorkspaceID *string
 
-	// READ-ONLY; The name id the assigned workspace.
+	// READ-ONLY; Associated workspace resource name.
 	WorkspaceName *string
 }
 
@@ -64,27 +64,12 @@ type AzureEntityResource struct {
 	Type *string
 }
 
-// AzureResourceProperties - An Azure resource QueryPack-Query object
-type AzureResourceProperties struct {
-	// READ-ONLY; Azure resource Id
-	ID *string
-
-	// READ-ONLY; Azure resource name
-	Name *string
-
-	// READ-ONLY; Read only system data
-	SystemData *SystemData
-
-	// READ-ONLY; Azure resource type
-	Type *string
-}
-
 // CapacityReservationProperties - The Capacity Reservation properties.
 type CapacityReservationProperties struct {
 	// READ-ONLY; The last time Sku was updated.
 	LastSKUUpdate *string
 
-	// READ-ONLY; Minimum CapacityReservation value in GB.
+	// READ-ONLY; Minimum CapacityReservation value in Gigabytes.
 	MinCapacity *int64
 }
 
@@ -93,8 +78,8 @@ type Cluster struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
-	// The identity of the resource.
-	Identity *Identity
+	// Resource's identity.
+	Identity *ManagedServiceIdentity
 
 	// Log Analytics cluster properties.
 	Properties *ClusterProperties
@@ -126,8 +111,8 @@ type ClusterListResult struct {
 
 // ClusterPatch - The top level Log Analytics cluster resource container.
 type ClusterPatch struct {
-	// The identity of the resource.
-	Identity *Identity
+	// Resource's identity.
+	Identity *ManagedServiceIdentity
 
 	// Log Analytics cluster properties.
 	Properties *ClusterPatchProperties
@@ -186,10 +171,10 @@ type ClusterProperties struct {
 
 // ClusterSKU - The cluster sku definition.
 type ClusterSKU struct {
-	// The capacity value
+	// The capacity reservation level in Gigabytes for this cluster.
 	Capacity *Capacity
 
-	// The name of the SKU.
+	// The SKU (tier) of a cluster.
 	Name *ClusterSKUNameEnum
 }
 
@@ -473,22 +458,25 @@ type LinkedStorageAccountsResource struct {
 
 // LogAnalyticsQueryPack - An Log Analytics QueryPack definition.
 type LogAnalyticsQueryPack struct {
-	// REQUIRED; Resource location
+	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
 	// REQUIRED; Properties that define a Log Analytics QueryPack resource.
 	Properties *LogAnalyticsQueryPackProperties
 
-	// Resource tags
+	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Azure resource Id
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
-	// READ-ONLY; Azure resource name
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; Azure resource type
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -524,16 +512,16 @@ type LogAnalyticsQueryPackQuery struct {
 	// Properties that define an Log Analytics QueryPack-Query resource.
 	Properties *LogAnalyticsQueryPackQueryProperties
 
-	// READ-ONLY; Azure resource Id
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
-	// READ-ONLY; Azure resource name
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; Read only system data
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
-	// READ-ONLY; Azure resource type
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -611,6 +599,26 @@ type LogAnalyticsQueryPackQuerySearchPropertiesRelated struct {
 
 	// The related Log Analytics solutions for the function.
 	Solutions []*string
+}
+
+// ManagedServiceIdentity - Managed service identity (system assigned and/or user assigned identities)
+type ManagedServiceIdentity struct {
+	// REQUIRED; Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
+	Type *ManagedServiceIdentityType
+
+	// The set of user assigned identities associated with the resource. The userAssignedIdentities dictionary keys will be ARM
+	// resource ids in the form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}.
+	// The dictionary values can be empty objects ({}) in
+	// requests.
+	UserAssignedIdentities map[string]*UserAssignedIdentity
+
+	// READ-ONLY; The service principal ID of the system assigned identity. This property will only be provided for a system assigned
+	// identity.
+	PrincipalID *string
+
+	// READ-ONLY; The tenant ID of the system assigned identity. This property will only be provided for a system assigned identity.
+	TenantID *string
 }
 
 // ManagementGroup - A management group that is connected to a workspace
@@ -721,6 +729,22 @@ type PrivateLinkScopedResource struct {
 // ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
 // location
 type ProxyResource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ProxyResourceAutoGenerated - The resource model definition for a Azure Resource Manager proxy resource. It will not have
+// tags and a location
+type ProxyResourceAutoGenerated struct {
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
@@ -731,26 +755,23 @@ type ProxyResource struct {
 	Type *string
 }
 
-// QueryPacksResource - An azure resource object
-type QueryPacksResource struct {
-	// REQUIRED; Resource location
-	Location *string
-
-	// Resource tags
-	Tags map[string]*string
-
-	// READ-ONLY; Azure resource Id
+// Resource - Common fields that are returned in the response for all Azure Resource Manager resources
+type Resource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
-	// READ-ONLY; Azure resource name
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; Azure resource type
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// Resource - Common fields that are returned in the response for all Azure Resource Manager resources
-type Resource struct {
+// ResourceAutoGenerated - Common fields that are returned in the response for all Azure Resource Manager resources
+type ResourceAutoGenerated struct {
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
@@ -771,6 +792,9 @@ type RestoredLogs struct {
 
 	// The timestamp to start the restore from (UTC).
 	StartRestoreTime *time.Time
+
+	// READ-ONLY; Search results table async operation id.
+	AzureAsyncOperationID *string
 }
 
 // ResultStatistics - Search job execution statistics.
@@ -780,6 +804,9 @@ type ResultStatistics struct {
 
 	// READ-ONLY; Search job completion percentage.
 	Progress *float32
+
+	// READ-ONLY; Search job: Amount of scanned data.
+	ScannedGb *float32
 }
 
 // SavedSearch - Value object for saved search results.
@@ -851,12 +878,6 @@ type Schema struct {
 
 	// READ-ONLY; Table labels.
 	Labels []*string
-
-	// READ-ONLY; Parameters of the restore operation that initiated this table.
-	RestoredLogs *RestoredLogs
-
-	// READ-ONLY; Parameters of the search job that initiated this table.
-	SearchResults *SearchResults
 
 	// READ-ONLY; List of solutions the table is affiliated with
 	Solutions []*string
@@ -963,6 +984,9 @@ type SearchResults struct {
 
 	// The timestamp to start the search from (UTC)
 	StartSearchTime *time.Time
+
+	// READ-ONLY; Search results table async operation id.
+	AzureAsyncOperationID *string
 
 	// READ-ONLY; The table used in the search job.
 	SourceTable *string
@@ -1073,29 +1097,8 @@ type StorageInsightStatus struct {
 	Description *string
 }
 
-// SystemData - Read only system data
+// SystemData - Metadata pertaining to creation and last modification of the resource.
 type SystemData struct {
-	// The timestamp of resource creation (UTC)
-	CreatedAt *time.Time
-
-	// An identifier for the identity that created the resource
-	CreatedBy *string
-
-	// The type of identity that created the resource
-	CreatedByType *IdentityType
-
-	// The timestamp of resource last modification (UTC)
-	LastModifiedAt *time.Time
-
-	// An identifier for the identity that last modified the resource
-	LastModifiedBy *string
-
-	// The type of identity that last modified the resource
-	LastModifiedByType *IdentityType
-}
-
-// SystemDataAutoGenerated - Metadata pertaining to creation and last modification of the resource.
-type SystemDataAutoGenerated struct {
 	// The timestamp of resource creation (UTC).
 	CreatedAt *time.Time
 
@@ -1127,7 +1130,7 @@ type Table struct {
 	Name *string
 
 	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
-	SystemData *SystemDataAutoGenerated
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -1141,9 +1144,6 @@ type TableProperties struct {
 	// Parameters of the restore operation that initiated this table.
 	RestoredLogs *RestoredLogs
 
-	// Search job execution statistics.
-	ResultStatistics *ResultStatistics
-
 	// The table retention in days, between 4 and 730. Setting this property to -1 will default to the workspace retention.
 	RetentionInDays *int32
 
@@ -1153,7 +1153,7 @@ type TableProperties struct {
 	// Parameters of the search job that initiated this table.
 	SearchResults *SearchResults
 
-	// The table total retention in days, between 4 and 2555. Setting this property to -1 will default to table retention.
+	// The table total retention in days, between 4 and 4383. Setting this property to -1 will default to table retention.
 	TotalRetentionInDays *int32
 
 	// READ-ONLY; The table data archive retention in days. Calculated as (totalRetentionInDays-retentionInDays)
@@ -1165,6 +1165,15 @@ type TableProperties struct {
 	// READ-ONLY; Table's current provisioning state. If set to 'updating', indicates a resource lock due to ongoing operation,
 	// forbidding any update to the table until the ongoing operation is concluded.
 	ProvisioningState *ProvisioningStateEnum
+
+	// READ-ONLY; Search job execution statistics.
+	ResultStatistics *ResultStatistics
+
+	// READ-ONLY; True - Value originates from workspace retention in days, False - Customer specific.
+	RetentionInDaysAsDefault *bool
+
+	// READ-ONLY; True - Value originates from retention in days, False - Customer specific.
+	TotalRetentionInDaysAsDefault *bool
 }
 
 // TablesListResult - The list tables operation response.
@@ -1191,6 +1200,28 @@ type TagsResource struct {
 // TrackedResource - The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags'
 // and a 'location'
 type TrackedResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// TrackedResourceAutoGenerated - The resource model definition for an Azure Resource Manager tracked top level resource which
+// has 'tags' and a 'location'
+type TrackedResourceAutoGenerated struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
@@ -1228,6 +1259,15 @@ type UsageMetric struct {
 	Unit *string
 }
 
+// UserAssignedIdentity - User assigned identity properties
+type UserAssignedIdentity struct {
+	// READ-ONLY; The client ID of the assigned identity.
+	ClientID *string
+
+	// READ-ONLY; The principal ID of the assigned identity.
+	PrincipalID *string
+}
+
 // UserIdentityProperties - User assigned identity properties.
 type UserIdentityProperties struct {
 	// READ-ONLY; The client id of user assigned identity.
@@ -1242,8 +1282,11 @@ type Workspace struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
-	// The ETag of the workspace.
-	ETag *string
+	// The etag of the workspace.
+	Etag *string
+
+	// The identity of the resource.
+	Identity *Identity
 
 	// Workspace properties.
 	Properties *WorkspaceProperties
@@ -1258,7 +1301,7 @@ type Workspace struct {
 	Name *string
 
 	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
-	SystemData *SystemDataAutoGenerated
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -1295,6 +1338,9 @@ type WorkspaceFeatures struct {
 
 	// Flag that describes if we want to remove the data after 30 days.
 	ImmediatePurgeDataOn30Days *bool
+
+	// READ-ONLY; An indication if the specify workspace is limited to sentinel's unified billing model only.
+	UnifiedSentinelBillingOnly *bool
 }
 
 // WorkspaceListManagementGroupsResult - The list workspace management groups operation response.
@@ -1317,6 +1363,9 @@ type WorkspaceListUsagesResult struct {
 
 // WorkspacePatch - The top level Workspace resource container.
 type WorkspacePatch struct {
+	// The identity of the resource.
+	Identity *Identity
+
 	// Workspace properties.
 	Properties *WorkspaceProperties
 
