@@ -1,5 +1,18 @@
 # Release History
 
+## 3.0.0 (2024-10-11)
+### Breaking Changes
+
+- Field `AutoUpgradeMinorVersion` of struct `ExtensionProperties` has been removed
+- Field `AutoUpgradeMinorVersion` of struct `PatchExtensionProperties` has been removed
+
+### Features Added
+
+- New enum type `AutoUpgradeMode` with values `AutoUpgradeModeCompatible`, `AutoUpgradeModeNone`, `AutoUpgradeModePatch`
+- New field `AutoUpgradeMode` in struct `ExtensionProperties`
+- New field `AutoUpgradeMode` in struct `PatchExtensionProperties`
+
+
 ## 2.2.0 (2023-11-24)
 ### Features Added
 
