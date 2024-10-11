@@ -8,647 +8,440 @@
 
 package armresources
 
-// ClientBeginCreateOrUpdateByIDOptions contains the optional parameters for the Client.BeginCreateOrUpdateByID method.
-type ClientBeginCreateOrUpdateByIDOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ClientBeginCreateOrUpdateOptions contains the optional parameters for the Client.BeginCreateOrUpdate method.
-type ClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ClientBeginDeleteByIDOptions contains the optional parameters for the Client.BeginDeleteByID method.
-type ClientBeginDeleteByIDOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ClientBeginDeleteOptions contains the optional parameters for the Client.BeginDelete method.
-type ClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ClientBeginMoveResourcesOptions contains the optional parameters for the Client.BeginMoveResources method.
-type ClientBeginMoveResourcesOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ClientBeginUpdateByIDOptions contains the optional parameters for the Client.BeginUpdateByID method.
-type ClientBeginUpdateByIDOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ClientBeginUpdateOptions contains the optional parameters for the Client.BeginUpdate method.
-type ClientBeginUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ClientBeginValidateMoveResourcesOptions contains the optional parameters for the Client.BeginValidateMoveResources method.
-type ClientBeginValidateMoveResourcesOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ClientCheckExistenceByIDOptions contains the optional parameters for the Client.CheckExistenceByID method.
-type ClientCheckExistenceByIDOptions struct {
+// PolicyAssignmentsClientCreateByIDOptions contains the optional parameters for the PolicyAssignmentsClient.CreateByID method.
+type PolicyAssignmentsClientCreateByIDOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ClientCheckExistenceOptions contains the optional parameters for the Client.CheckExistence method.
-type ClientCheckExistenceOptions struct {
+// PolicyAssignmentsClientCreateOptions contains the optional parameters for the PolicyAssignmentsClient.Create method.
+type PolicyAssignmentsClientCreateOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ClientGetByIDOptions contains the optional parameters for the Client.GetByID method.
-type ClientGetByIDOptions struct {
+// PolicyAssignmentsClientDeleteByIDOptions contains the optional parameters for the PolicyAssignmentsClient.DeleteByID method.
+type PolicyAssignmentsClientDeleteByIDOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ClientGetOptions contains the optional parameters for the Client.Get method.
-type ClientGetOptions struct {
+// PolicyAssignmentsClientDeleteOptions contains the optional parameters for the PolicyAssignmentsClient.Delete method.
+type PolicyAssignmentsClientDeleteOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ClientListByResourceGroupOptions contains the optional parameters for the Client.NewListByResourceGroupPager method.
-type ClientListByResourceGroupOptions struct {
-	// Comma-separated list of additional properties to be included in the response. Valid values include createdTime, changedTime
-	// and provisioningState. For example, $expand=createdTime,changedTime.
-	Expand *string
+// PolicyAssignmentsClientGetByIDOptions contains the optional parameters for the PolicyAssignmentsClient.GetByID method.
+type PolicyAssignmentsClientGetByIDOptions struct {
+	// placeholder for future optional parameters
+}
 
-	// The filter to apply on the operation.
-	// The properties you can use for eq (equals) or ne (not equals) are: location, resourceType, name, resourceGroup, identity,
-	// identity/principalId, plan, plan/publisher, plan/product, plan/name,
-	// plan/version, and plan/promotionCode.
-	// For example, to filter by a resource type, use: $filter=resourceType eq 'Microsoft.Network/virtualNetworks'
-	// You can use substringof(value, property) in the filter. The properties you can use for substring are: name and resourceGroup.
-	// For example, to get all resources with 'demo' anywhere in the name, use: $filter=substringof('demo', name)
-	// You can link more than one substringof together by adding and/or operators.
-	// You can filter by tag names and values. For example, to filter for a tag name and value, use $filter=tagName eq 'tag1'
-	// and tagValue eq 'Value1'. When you filter by a tag name and value, the tags for
-	// each resource are not returned in the results.
-	// You can use some properties together when filtering. The combinations you can use are: substringof and/or resourceType,
-	// plan and plan/publisher and plan/name, identity and identity/principalId.
+// PolicyAssignmentsClientGetOptions contains the optional parameters for the PolicyAssignmentsClient.Get method.
+type PolicyAssignmentsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicyAssignmentsClientListForManagementGroupOptions contains the optional parameters for the PolicyAssignmentsClient.NewListForManagementGroupPager
+// method.
+type PolicyAssignmentsClientListForManagementGroupOptions struct {
+	// The filter to apply on the operation. Valid values for $filter are: 'atScope()', 'atExactScope()' or 'policyDefinitionId
+	// eq '{value}''. If $filter is not provided, no filtering is performed. If
+	// $filter=atScope() is provided, the returned list only includes all policy assignments that apply to the scope, which is
+	// everything in the unfiltered list except those applied to sub scopes contained
+	// within the given scope. If $filter=atExactScope() is provided, the returned list only includes all policy assignments that
+	// at the given scope. If $filter=policyDefinitionId eq '{value}' is provided,
+	// the returned list includes all policy assignments of the policy definition whose id is {value}.
 	Filter *string
 
-	// The number of results to return. If null is passed, returns all resources.
+	// Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
 	Top *int32
 }
 
-// ClientListOptions contains the optional parameters for the Client.NewListPager method.
-type ClientListOptions struct {
-	// Comma-separated list of additional properties to be included in the response. Valid values include createdTime, changedTime
-	// and provisioningState. For example, $expand=createdTime,changedTime.
-	Expand *string
-
-	// The filter to apply on the operation.
-	// Filter comparison operators include eq (equals) and ne (not equals) and may be used with the following properties: location,
-	// resourceType, name, resourceGroup, identity, identity/principalId, plan,
-	// plan/publisher, plan/product, plan/name, plan/version, and plan/promotionCode.
-	// For example, to filter by a resource type, use $filter=resourceType eq 'Microsoft.Network/virtualNetworks'
-	// substringof(value, property) can be used to filter for substrings of the following currently-supported properties: name
-	// and resourceGroup
-	// For example, to get all resources with 'demo' anywhere in the resource name, use $filter=substringof('demo', name)
-	// Multiple substring operations can also be combined using and/or operators.
-	// Note that any truncated number of results queried via $top may also not be compatible when using a filter.
-	// Resources can be filtered by tag names and values. For example, to filter for a tag name and value, use $filter=tagName
-	// eq 'tag1' and tagValue eq 'Value1'. Note that when resources are filtered by tag
-	// name and value, the original tags for each resource will not be returned in the results. Any list of additional properties
-	// queried via $expand may also not be compatible when filtering by tag
-	// names/values.
-	// For tag names only, resources can be filtered by prefix using the following syntax: $filter=startswith(tagName, 'depart').
-	// This query will return all resources with a tag name prefixed by the phrase
-	// depart (i.e.department, departureDate, departureTime, etc.)
-	// Note that some properties can be combined when filtering resources, which include the following: substringof() and/or resourceType,
-	// plan and plan/publisher and plan/name, and identity and
-	// identity/principalId.
+// PolicyAssignmentsClientListForResourceGroupOptions contains the optional parameters for the PolicyAssignmentsClient.NewListForResourceGroupPager
+// method.
+type PolicyAssignmentsClientListForResourceGroupOptions struct {
+	// The filter to apply on the operation. Valid values for $filter are: 'atScope()', 'atExactScope()' or 'policyDefinitionId
+	// eq '{value}''. If $filter is not provided, no filtering is performed. If
+	// $filter=atScope() is provided, the returned list only includes all policy assignments that apply to the scope, which is
+	// everything in the unfiltered list except those applied to sub scopes contained
+	// within the given scope. If $filter=atExactScope() is provided, the returned list only includes all policy assignments that
+	// at the given scope. If $filter=policyDefinitionId eq '{value}' is provided,
+	// the returned list includes all policy assignments of the policy definition whose id is {value}.
 	Filter *string
 
-	// The number of results to return. If null is passed, returns all resources.
+	// Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
 	Top *int32
 }
 
-// DeploymentOperationsClientGetAtManagementGroupScopeOptions contains the optional parameters for the DeploymentOperationsClient.GetAtManagementGroupScope
+// PolicyAssignmentsClientListForResourceOptions contains the optional parameters for the PolicyAssignmentsClient.NewListForResourcePager
 // method.
-type DeploymentOperationsClientGetAtManagementGroupScopeOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DeploymentOperationsClientGetAtScopeOptions contains the optional parameters for the DeploymentOperationsClient.GetAtScope
-// method.
-type DeploymentOperationsClientGetAtScopeOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DeploymentOperationsClientGetAtSubscriptionScopeOptions contains the optional parameters for the DeploymentOperationsClient.GetAtSubscriptionScope
-// method.
-type DeploymentOperationsClientGetAtSubscriptionScopeOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DeploymentOperationsClientGetAtTenantScopeOptions contains the optional parameters for the DeploymentOperationsClient.GetAtTenantScope
-// method.
-type DeploymentOperationsClientGetAtTenantScopeOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DeploymentOperationsClientGetOptions contains the optional parameters for the DeploymentOperationsClient.Get method.
-type DeploymentOperationsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DeploymentOperationsClientListAtManagementGroupScopeOptions contains the optional parameters for the DeploymentOperationsClient.NewListAtManagementGroupScopePager
-// method.
-type DeploymentOperationsClientListAtManagementGroupScopeOptions struct {
-	// The number of results to return.
-	Top *int32
-}
-
-// DeploymentOperationsClientListAtScopeOptions contains the optional parameters for the DeploymentOperationsClient.NewListAtScopePager
-// method.
-type DeploymentOperationsClientListAtScopeOptions struct {
-	// The number of results to return.
-	Top *int32
-}
-
-// DeploymentOperationsClientListAtSubscriptionScopeOptions contains the optional parameters for the DeploymentOperationsClient.NewListAtSubscriptionScopePager
-// method.
-type DeploymentOperationsClientListAtSubscriptionScopeOptions struct {
-	// The number of results to return.
-	Top *int32
-}
-
-// DeploymentOperationsClientListAtTenantScopeOptions contains the optional parameters for the DeploymentOperationsClient.NewListAtTenantScopePager
-// method.
-type DeploymentOperationsClientListAtTenantScopeOptions struct {
-	// The number of results to return.
-	Top *int32
-}
-
-// DeploymentOperationsClientListOptions contains the optional parameters for the DeploymentOperationsClient.NewListPager
-// method.
-type DeploymentOperationsClientListOptions struct {
-	// The number of results to return.
-	Top *int32
-}
-
-// DeploymentsClientBeginCreateOrUpdateAtManagementGroupScopeOptions contains the optional parameters for the DeploymentsClient.BeginCreateOrUpdateAtManagementGroupScope
-// method.
-type DeploymentsClientBeginCreateOrUpdateAtManagementGroupScopeOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// DeploymentsClientBeginCreateOrUpdateAtScopeOptions contains the optional parameters for the DeploymentsClient.BeginCreateOrUpdateAtScope
-// method.
-type DeploymentsClientBeginCreateOrUpdateAtScopeOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// DeploymentsClientBeginCreateOrUpdateAtSubscriptionScopeOptions contains the optional parameters for the DeploymentsClient.BeginCreateOrUpdateAtSubscriptionScope
-// method.
-type DeploymentsClientBeginCreateOrUpdateAtSubscriptionScopeOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// DeploymentsClientBeginCreateOrUpdateAtTenantScopeOptions contains the optional parameters for the DeploymentsClient.BeginCreateOrUpdateAtTenantScope
-// method.
-type DeploymentsClientBeginCreateOrUpdateAtTenantScopeOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// DeploymentsClientBeginCreateOrUpdateOptions contains the optional parameters for the DeploymentsClient.BeginCreateOrUpdate
-// method.
-type DeploymentsClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// DeploymentsClientBeginDeleteAtManagementGroupScopeOptions contains the optional parameters for the DeploymentsClient.BeginDeleteAtManagementGroupScope
-// method.
-type DeploymentsClientBeginDeleteAtManagementGroupScopeOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// DeploymentsClientBeginDeleteAtScopeOptions contains the optional parameters for the DeploymentsClient.BeginDeleteAtScope
-// method.
-type DeploymentsClientBeginDeleteAtScopeOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// DeploymentsClientBeginDeleteAtSubscriptionScopeOptions contains the optional parameters for the DeploymentsClient.BeginDeleteAtSubscriptionScope
-// method.
-type DeploymentsClientBeginDeleteAtSubscriptionScopeOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// DeploymentsClientBeginDeleteAtTenantScopeOptions contains the optional parameters for the DeploymentsClient.BeginDeleteAtTenantScope
-// method.
-type DeploymentsClientBeginDeleteAtTenantScopeOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// DeploymentsClientBeginDeleteOptions contains the optional parameters for the DeploymentsClient.BeginDelete method.
-type DeploymentsClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// DeploymentsClientBeginValidateAtManagementGroupScopeOptions contains the optional parameters for the DeploymentsClient.BeginValidateAtManagementGroupScope
-// method.
-type DeploymentsClientBeginValidateAtManagementGroupScopeOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// DeploymentsClientBeginValidateAtScopeOptions contains the optional parameters for the DeploymentsClient.BeginValidateAtScope
-// method.
-type DeploymentsClientBeginValidateAtScopeOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// DeploymentsClientBeginValidateAtSubscriptionScopeOptions contains the optional parameters for the DeploymentsClient.BeginValidateAtSubscriptionScope
-// method.
-type DeploymentsClientBeginValidateAtSubscriptionScopeOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// DeploymentsClientBeginValidateAtTenantScopeOptions contains the optional parameters for the DeploymentsClient.BeginValidateAtTenantScope
-// method.
-type DeploymentsClientBeginValidateAtTenantScopeOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// DeploymentsClientBeginValidateOptions contains the optional parameters for the DeploymentsClient.BeginValidate method.
-type DeploymentsClientBeginValidateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// DeploymentsClientBeginWhatIfAtManagementGroupScopeOptions contains the optional parameters for the DeploymentsClient.BeginWhatIfAtManagementGroupScope
-// method.
-type DeploymentsClientBeginWhatIfAtManagementGroupScopeOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// DeploymentsClientBeginWhatIfAtSubscriptionScopeOptions contains the optional parameters for the DeploymentsClient.BeginWhatIfAtSubscriptionScope
-// method.
-type DeploymentsClientBeginWhatIfAtSubscriptionScopeOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// DeploymentsClientBeginWhatIfAtTenantScopeOptions contains the optional parameters for the DeploymentsClient.BeginWhatIfAtTenantScope
-// method.
-type DeploymentsClientBeginWhatIfAtTenantScopeOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// DeploymentsClientBeginWhatIfOptions contains the optional parameters for the DeploymentsClient.BeginWhatIf method.
-type DeploymentsClientBeginWhatIfOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// DeploymentsClientCalculateTemplateHashOptions contains the optional parameters for the DeploymentsClient.CalculateTemplateHash
-// method.
-type DeploymentsClientCalculateTemplateHashOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DeploymentsClientCancelAtManagementGroupScopeOptions contains the optional parameters for the DeploymentsClient.CancelAtManagementGroupScope
-// method.
-type DeploymentsClientCancelAtManagementGroupScopeOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DeploymentsClientCancelAtScopeOptions contains the optional parameters for the DeploymentsClient.CancelAtScope method.
-type DeploymentsClientCancelAtScopeOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DeploymentsClientCancelAtSubscriptionScopeOptions contains the optional parameters for the DeploymentsClient.CancelAtSubscriptionScope
-// method.
-type DeploymentsClientCancelAtSubscriptionScopeOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DeploymentsClientCancelAtTenantScopeOptions contains the optional parameters for the DeploymentsClient.CancelAtTenantScope
-// method.
-type DeploymentsClientCancelAtTenantScopeOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DeploymentsClientCancelOptions contains the optional parameters for the DeploymentsClient.Cancel method.
-type DeploymentsClientCancelOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DeploymentsClientCheckExistenceAtManagementGroupScopeOptions contains the optional parameters for the DeploymentsClient.CheckExistenceAtManagementGroupScope
-// method.
-type DeploymentsClientCheckExistenceAtManagementGroupScopeOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DeploymentsClientCheckExistenceAtScopeOptions contains the optional parameters for the DeploymentsClient.CheckExistenceAtScope
-// method.
-type DeploymentsClientCheckExistenceAtScopeOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DeploymentsClientCheckExistenceAtSubscriptionScopeOptions contains the optional parameters for the DeploymentsClient.CheckExistenceAtSubscriptionScope
-// method.
-type DeploymentsClientCheckExistenceAtSubscriptionScopeOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DeploymentsClientCheckExistenceAtTenantScopeOptions contains the optional parameters for the DeploymentsClient.CheckExistenceAtTenantScope
-// method.
-type DeploymentsClientCheckExistenceAtTenantScopeOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DeploymentsClientCheckExistenceOptions contains the optional parameters for the DeploymentsClient.CheckExistence method.
-type DeploymentsClientCheckExistenceOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DeploymentsClientExportTemplateAtManagementGroupScopeOptions contains the optional parameters for the DeploymentsClient.ExportTemplateAtManagementGroupScope
-// method.
-type DeploymentsClientExportTemplateAtManagementGroupScopeOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DeploymentsClientExportTemplateAtScopeOptions contains the optional parameters for the DeploymentsClient.ExportTemplateAtScope
-// method.
-type DeploymentsClientExportTemplateAtScopeOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DeploymentsClientExportTemplateAtSubscriptionScopeOptions contains the optional parameters for the DeploymentsClient.ExportTemplateAtSubscriptionScope
-// method.
-type DeploymentsClientExportTemplateAtSubscriptionScopeOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DeploymentsClientExportTemplateAtTenantScopeOptions contains the optional parameters for the DeploymentsClient.ExportTemplateAtTenantScope
-// method.
-type DeploymentsClientExportTemplateAtTenantScopeOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DeploymentsClientExportTemplateOptions contains the optional parameters for the DeploymentsClient.ExportTemplate method.
-type DeploymentsClientExportTemplateOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DeploymentsClientGetAtManagementGroupScopeOptions contains the optional parameters for the DeploymentsClient.GetAtManagementGroupScope
-// method.
-type DeploymentsClientGetAtManagementGroupScopeOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DeploymentsClientGetAtScopeOptions contains the optional parameters for the DeploymentsClient.GetAtScope method.
-type DeploymentsClientGetAtScopeOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DeploymentsClientGetAtSubscriptionScopeOptions contains the optional parameters for the DeploymentsClient.GetAtSubscriptionScope
-// method.
-type DeploymentsClientGetAtSubscriptionScopeOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DeploymentsClientGetAtTenantScopeOptions contains the optional parameters for the DeploymentsClient.GetAtTenantScope method.
-type DeploymentsClientGetAtTenantScopeOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DeploymentsClientGetOptions contains the optional parameters for the DeploymentsClient.Get method.
-type DeploymentsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DeploymentsClientListAtManagementGroupScopeOptions contains the optional parameters for the DeploymentsClient.NewListAtManagementGroupScopePager
-// method.
-type DeploymentsClientListAtManagementGroupScopeOptions struct {
-	// The filter to apply on the operation. For example, you can use $filter=provisioningState eq '{state}'.
+type PolicyAssignmentsClientListForResourceOptions struct {
+	// The filter to apply on the operation. Valid values for $filter are: 'atScope()', 'atExactScope()' or 'policyDefinitionId
+	// eq '{value}''. If $filter is not provided, no filtering is performed. If
+	// $filter=atScope() is provided, the returned list only includes all policy assignments that apply to the scope, which is
+	// everything in the unfiltered list except those applied to sub scopes contained
+	// within the given scope. If $filter=atExactScope() is provided, the returned list only includes all policy assignments that
+	// at the given scope. If $filter=policyDefinitionId eq '{value}' is provided,
+	// the returned list includes all policy assignments of the policy definition whose id is {value}.
 	Filter *string
 
-	// The number of results to get. If null is passed, returns all deployments.
+	// Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
 	Top *int32
 }
 
-// DeploymentsClientListAtScopeOptions contains the optional parameters for the DeploymentsClient.NewListAtScopePager method.
-type DeploymentsClientListAtScopeOptions struct {
-	// The filter to apply on the operation. For example, you can use $filter=provisioningState eq '{state}'.
+// PolicyAssignmentsClientListOptions contains the optional parameters for the PolicyAssignmentsClient.NewListPager method.
+type PolicyAssignmentsClientListOptions struct {
+	// The filter to apply on the operation. Valid values for $filter are: 'atScope()', 'atExactScope()' or 'policyDefinitionId
+	// eq '{value}''. If $filter is not provided, no filtering is performed. If
+	// $filter=atScope() is provided, the returned list only includes all policy assignments that apply to the scope, which is
+	// everything in the unfiltered list except those applied to sub scopes contained
+	// within the given scope. If $filter=atExactScope() is provided, the returned list only includes all policy assignments that
+	// at the given scope. If $filter=policyDefinitionId eq '{value}' is provided,
+	// the returned list includes all policy assignments of the policy definition whose id is {value}.
 	Filter *string
 
-	// The number of results to get. If null is passed, returns all deployments.
+	// Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
 	Top *int32
 }
 
-// DeploymentsClientListAtSubscriptionScopeOptions contains the optional parameters for the DeploymentsClient.NewListAtSubscriptionScopePager
+// PolicyAssignmentsClientUpdateByIDOptions contains the optional parameters for the PolicyAssignmentsClient.UpdateByID method.
+type PolicyAssignmentsClientUpdateByIDOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicyAssignmentsClientUpdateOptions contains the optional parameters for the PolicyAssignmentsClient.Update method.
+type PolicyAssignmentsClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicyDefinitionVersionsClientCreateOrUpdateAtManagementGroupOptions contains the optional parameters for the PolicyDefinitionVersionsClient.CreateOrUpdateAtManagementGroup
 // method.
-type DeploymentsClientListAtSubscriptionScopeOptions struct {
-	// The filter to apply on the operation. For example, you can use $filter=provisioningState eq '{state}'.
+type PolicyDefinitionVersionsClientCreateOrUpdateAtManagementGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicyDefinitionVersionsClientCreateOrUpdateOptions contains the optional parameters for the PolicyDefinitionVersionsClient.CreateOrUpdate
+// method.
+type PolicyDefinitionVersionsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicyDefinitionVersionsClientDeleteAtManagementGroupOptions contains the optional parameters for the PolicyDefinitionVersionsClient.DeleteAtManagementGroup
+// method.
+type PolicyDefinitionVersionsClientDeleteAtManagementGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicyDefinitionVersionsClientDeleteOptions contains the optional parameters for the PolicyDefinitionVersionsClient.Delete
+// method.
+type PolicyDefinitionVersionsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicyDefinitionVersionsClientGetAtManagementGroupOptions contains the optional parameters for the PolicyDefinitionVersionsClient.GetAtManagementGroup
+// method.
+type PolicyDefinitionVersionsClientGetAtManagementGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicyDefinitionVersionsClientGetBuiltInOptions contains the optional parameters for the PolicyDefinitionVersionsClient.GetBuiltIn
+// method.
+type PolicyDefinitionVersionsClientGetBuiltInOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicyDefinitionVersionsClientGetOptions contains the optional parameters for the PolicyDefinitionVersionsClient.Get method.
+type PolicyDefinitionVersionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicyDefinitionVersionsClientListAllAtManagementGroupOptions contains the optional parameters for the PolicyDefinitionVersionsClient.ListAllAtManagementGroup
+// method.
+type PolicyDefinitionVersionsClientListAllAtManagementGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicyDefinitionVersionsClientListAllBuiltinsOptions contains the optional parameters for the PolicyDefinitionVersionsClient.ListAllBuiltins
+// method.
+type PolicyDefinitionVersionsClientListAllBuiltinsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicyDefinitionVersionsClientListAllOptions contains the optional parameters for the PolicyDefinitionVersionsClient.ListAll
+// method.
+type PolicyDefinitionVersionsClientListAllOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicyDefinitionVersionsClientListBuiltInOptions contains the optional parameters for the PolicyDefinitionVersionsClient.NewListBuiltInPager
+// method.
+type PolicyDefinitionVersionsClientListBuiltInOptions struct {
+	// Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
+	Top *int32
+}
+
+// PolicyDefinitionVersionsClientListByManagementGroupOptions contains the optional parameters for the PolicyDefinitionVersionsClient.NewListByManagementGroupPager
+// method.
+type PolicyDefinitionVersionsClientListByManagementGroupOptions struct {
+	// Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
+	Top *int32
+}
+
+// PolicyDefinitionVersionsClientListOptions contains the optional parameters for the PolicyDefinitionVersionsClient.NewListPager
+// method.
+type PolicyDefinitionVersionsClientListOptions struct {
+	// Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
+	Top *int32
+}
+
+// PolicyDefinitionsClientCreateOrUpdateAtManagementGroupOptions contains the optional parameters for the PolicyDefinitionsClient.CreateOrUpdateAtManagementGroup
+// method.
+type PolicyDefinitionsClientCreateOrUpdateAtManagementGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicyDefinitionsClientCreateOrUpdateOptions contains the optional parameters for the PolicyDefinitionsClient.CreateOrUpdate
+// method.
+type PolicyDefinitionsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicyDefinitionsClientDeleteAtManagementGroupOptions contains the optional parameters for the PolicyDefinitionsClient.DeleteAtManagementGroup
+// method.
+type PolicyDefinitionsClientDeleteAtManagementGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicyDefinitionsClientDeleteOptions contains the optional parameters for the PolicyDefinitionsClient.Delete method.
+type PolicyDefinitionsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicyDefinitionsClientGetAtManagementGroupOptions contains the optional parameters for the PolicyDefinitionsClient.GetAtManagementGroup
+// method.
+type PolicyDefinitionsClientGetAtManagementGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicyDefinitionsClientGetBuiltInOptions contains the optional parameters for the PolicyDefinitionsClient.GetBuiltIn method.
+type PolicyDefinitionsClientGetBuiltInOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicyDefinitionsClientGetOptions contains the optional parameters for the PolicyDefinitionsClient.Get method.
+type PolicyDefinitionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicyDefinitionsClientListBuiltInOptions contains the optional parameters for the PolicyDefinitionsClient.NewListBuiltInPager
+// method.
+type PolicyDefinitionsClientListBuiltInOptions struct {
+	// The filter to apply on the operation. Valid values for $filter are: 'atExactScope()', 'policyType -eq {value}' or 'category
+	// eq '{value}''. If $filter is not provided, no filtering is performed. If
+	// $filter=atExactScope() is provided, the returned list only includes all policy definitions that at the given scope. If
+	// $filter='policyType -eq {value}' is provided, the returned list only includes all
+	// policy definitions whose type match the {value}. Possible policyType values are NotSpecified, BuiltIn, Custom, and Static.
+	// If $filter='category -eq {value}' is provided, the returned list only
+	// includes all policy definitions whose category match the {value}.
 	Filter *string
 
-	// The number of results to get. If null is passed, returns all deployments.
+	// Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
 	Top *int32
 }
 
-// DeploymentsClientListAtTenantScopeOptions contains the optional parameters for the DeploymentsClient.NewListAtTenantScopePager
+// PolicyDefinitionsClientListByManagementGroupOptions contains the optional parameters for the PolicyDefinitionsClient.NewListByManagementGroupPager
 // method.
-type DeploymentsClientListAtTenantScopeOptions struct {
-	// The filter to apply on the operation. For example, you can use $filter=provisioningState eq '{state}'.
+type PolicyDefinitionsClientListByManagementGroupOptions struct {
+	// The filter to apply on the operation. Valid values for $filter are: 'atExactScope()', 'policyType -eq {value}' or 'category
+	// eq '{value}''. If $filter is not provided, no filtering is performed. If
+	// $filter=atExactScope() is provided, the returned list only includes all policy definitions that at the given scope. If
+	// $filter='policyType -eq {value}' is provided, the returned list only includes all
+	// policy definitions whose type match the {value}. Possible policyType values are NotSpecified, BuiltIn, Custom, and Static.
+	// If $filter='category -eq {value}' is provided, the returned list only
+	// includes all policy definitions whose category match the {value}.
 	Filter *string
 
-	// The number of results to get. If null is passed, returns all deployments.
+	// Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
 	Top *int32
 }
 
-// DeploymentsClientListByResourceGroupOptions contains the optional parameters for the DeploymentsClient.NewListByResourceGroupPager
-// method.
-type DeploymentsClientListByResourceGroupOptions struct {
-	// The filter to apply on the operation. For example, you can use $filter=provisioningState eq '{state}'.
+// PolicyDefinitionsClientListOptions contains the optional parameters for the PolicyDefinitionsClient.NewListPager method.
+type PolicyDefinitionsClientListOptions struct {
+	// The filter to apply on the operation. Valid values for $filter are: 'atExactScope()', 'policyType -eq {value}' or 'category
+	// eq '{value}''. If $filter is not provided, no filtering is performed. If
+	// $filter=atExactScope() is provided, the returned list only includes all policy definitions that at the given scope. If
+	// $filter='policyType -eq {value}' is provided, the returned list only includes all
+	// policy definitions whose type match the {value}. Possible policyType values are NotSpecified, BuiltIn, Custom, and Static.
+	// If $filter='category -eq {value}' is provided, the returned list only
+	// includes all policy definitions whose category match the {value}.
 	Filter *string
 
-	// The number of results to get. If null is passed, returns all deployments.
+	// Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
 	Top *int32
 }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
-type OperationsClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ProviderResourceTypesClientListOptions contains the optional parameters for the ProviderResourceTypesClient.List method.
-type ProviderResourceTypesClientListOptions struct {
-	// The $expand query parameter. For example, to include property aliases in response, use $expand=resourceTypes/aliases.
-	Expand *string
-}
-
-// ProvidersClientGetAtTenantScopeOptions contains the optional parameters for the ProvidersClient.GetAtTenantScope method.
-type ProvidersClientGetAtTenantScopeOptions struct {
-	// The $expand query parameter. For example, to include property aliases in response, use $expand=resourceTypes/aliases.
-	Expand *string
-}
-
-// ProvidersClientGetOptions contains the optional parameters for the ProvidersClient.Get method.
-type ProvidersClientGetOptions struct {
-	// The $expand query parameter. For example, to include property aliases in response, use $expand=resourceTypes/aliases.
-	Expand *string
-}
-
-// ProvidersClientListAtTenantScopeOptions contains the optional parameters for the ProvidersClient.NewListAtTenantScopePager
+// PolicySetDefinitionVersionsClientCreateOrUpdateAtManagementGroupOptions contains the optional parameters for the PolicySetDefinitionVersionsClient.CreateOrUpdateAtManagementGroup
 // method.
-type ProvidersClientListAtTenantScopeOptions struct {
-	// The properties to include in the results. For example, use &$expand=metadata in the query string to retrieve resource provider
-	// metadata. To include property aliases in response, use
-	// $expand=resourceTypes/aliases.
-	Expand *string
+type PolicySetDefinitionVersionsClientCreateOrUpdateAtManagementGroupOptions struct {
+	// placeholder for future optional parameters
 }
 
-// ProvidersClientListOptions contains the optional parameters for the ProvidersClient.NewListPager method.
-type ProvidersClientListOptions struct {
-	// The properties to include in the results. For example, use &$expand=metadata in the query string to retrieve resource provider
-	// metadata. To include property aliases in response, use
-	// $expand=resourceTypes/aliases.
-	Expand *string
-}
-
-// ProvidersClientProviderPermissionsOptions contains the optional parameters for the ProvidersClient.ProviderPermissions
+// PolicySetDefinitionVersionsClientCreateOrUpdateOptions contains the optional parameters for the PolicySetDefinitionVersionsClient.CreateOrUpdate
 // method.
-type ProvidersClientProviderPermissionsOptions struct {
+type PolicySetDefinitionVersionsClientCreateOrUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ProvidersClientRegisterAtManagementGroupScopeOptions contains the optional parameters for the ProvidersClient.RegisterAtManagementGroupScope
+// PolicySetDefinitionVersionsClientDeleteAtManagementGroupOptions contains the optional parameters for the PolicySetDefinitionVersionsClient.DeleteAtManagementGroup
 // method.
-type ProvidersClientRegisterAtManagementGroupScopeOptions struct {
+type PolicySetDefinitionVersionsClientDeleteAtManagementGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ProvidersClientRegisterOptions contains the optional parameters for the ProvidersClient.Register method.
-type ProvidersClientRegisterOptions struct {
-	// The third party consent for S2S.
-	Properties *ProviderRegistrationRequest
-}
-
-// ProvidersClientUnregisterOptions contains the optional parameters for the ProvidersClient.Unregister method.
-type ProvidersClientUnregisterOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ResourceGroupsClientBeginDeleteOptions contains the optional parameters for the ResourceGroupsClient.BeginDelete method.
-type ResourceGroupsClientBeginDeleteOptions struct {
-	// The resource types you want to force delete. Currently, only the following is supported: forceDeletionTypes=Microsoft.Compute/virtualMachines,Microsoft.Compute/virtualMachineScaleSets
-	ForceDeletionTypes *string
-
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ResourceGroupsClientBeginExportTemplateOptions contains the optional parameters for the ResourceGroupsClient.BeginExportTemplate
+// PolicySetDefinitionVersionsClientDeleteOptions contains the optional parameters for the PolicySetDefinitionVersionsClient.Delete
 // method.
-type ResourceGroupsClientBeginExportTemplateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
+type PolicySetDefinitionVersionsClientDeleteOptions struct {
+	// placeholder for future optional parameters
 }
 
-// ResourceGroupsClientCheckExistenceOptions contains the optional parameters for the ResourceGroupsClient.CheckExistence
+// PolicySetDefinitionVersionsClientGetAtManagementGroupOptions contains the optional parameters for the PolicySetDefinitionVersionsClient.GetAtManagementGroup
 // method.
-type ResourceGroupsClientCheckExistenceOptions struct {
+type PolicySetDefinitionVersionsClientGetAtManagementGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ResourceGroupsClientCreateOrUpdateOptions contains the optional parameters for the ResourceGroupsClient.CreateOrUpdate
+// PolicySetDefinitionVersionsClientGetBuiltInOptions contains the optional parameters for the PolicySetDefinitionVersionsClient.GetBuiltIn
 // method.
-type ResourceGroupsClientCreateOrUpdateOptions struct {
+type PolicySetDefinitionVersionsClientGetBuiltInOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ResourceGroupsClientGetOptions contains the optional parameters for the ResourceGroupsClient.Get method.
-type ResourceGroupsClientGetOptions struct {
+// PolicySetDefinitionVersionsClientGetOptions contains the optional parameters for the PolicySetDefinitionVersionsClient.Get
+// method.
+type PolicySetDefinitionVersionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ResourceGroupsClientListOptions contains the optional parameters for the ResourceGroupsClient.NewListPager method.
-type ResourceGroupsClientListOptions struct {
-	// The filter to apply on the operation.
-	// You can filter by tag names and values. For example, to filter for a tag name and value, use $filter=tagName eq 'tag1'
-	// and tagValue eq 'Value1'
+// PolicySetDefinitionVersionsClientListAllAtManagementGroupOptions contains the optional parameters for the PolicySetDefinitionVersionsClient.ListAllAtManagementGroup
+// method.
+type PolicySetDefinitionVersionsClientListAllAtManagementGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicySetDefinitionVersionsClientListAllBuiltinsOptions contains the optional parameters for the PolicySetDefinitionVersionsClient.ListAllBuiltins
+// method.
+type PolicySetDefinitionVersionsClientListAllBuiltinsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicySetDefinitionVersionsClientListAllOptions contains the optional parameters for the PolicySetDefinitionVersionsClient.ListAll
+// method.
+type PolicySetDefinitionVersionsClientListAllOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicySetDefinitionVersionsClientListBuiltInOptions contains the optional parameters for the PolicySetDefinitionVersionsClient.NewListBuiltInPager
+// method.
+type PolicySetDefinitionVersionsClientListBuiltInOptions struct {
+	// Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
+	Top *int32
+}
+
+// PolicySetDefinitionVersionsClientListByManagementGroupOptions contains the optional parameters for the PolicySetDefinitionVersionsClient.NewListByManagementGroupPager
+// method.
+type PolicySetDefinitionVersionsClientListByManagementGroupOptions struct {
+	// Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
+	Top *int32
+}
+
+// PolicySetDefinitionVersionsClientListOptions contains the optional parameters for the PolicySetDefinitionVersionsClient.NewListPager
+// method.
+type PolicySetDefinitionVersionsClientListOptions struct {
+	// Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
+	Top *int32
+}
+
+// PolicySetDefinitionsClientCreateOrUpdateAtManagementGroupOptions contains the optional parameters for the PolicySetDefinitionsClient.CreateOrUpdateAtManagementGroup
+// method.
+type PolicySetDefinitionsClientCreateOrUpdateAtManagementGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicySetDefinitionsClientCreateOrUpdateOptions contains the optional parameters for the PolicySetDefinitionsClient.CreateOrUpdate
+// method.
+type PolicySetDefinitionsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicySetDefinitionsClientDeleteAtManagementGroupOptions contains the optional parameters for the PolicySetDefinitionsClient.DeleteAtManagementGroup
+// method.
+type PolicySetDefinitionsClientDeleteAtManagementGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicySetDefinitionsClientDeleteOptions contains the optional parameters for the PolicySetDefinitionsClient.Delete method.
+type PolicySetDefinitionsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicySetDefinitionsClientGetAtManagementGroupOptions contains the optional parameters for the PolicySetDefinitionsClient.GetAtManagementGroup
+// method.
+type PolicySetDefinitionsClientGetAtManagementGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicySetDefinitionsClientGetBuiltInOptions contains the optional parameters for the PolicySetDefinitionsClient.GetBuiltIn
+// method.
+type PolicySetDefinitionsClientGetBuiltInOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicySetDefinitionsClientGetOptions contains the optional parameters for the PolicySetDefinitionsClient.Get method.
+type PolicySetDefinitionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicySetDefinitionsClientListBuiltInOptions contains the optional parameters for the PolicySetDefinitionsClient.NewListBuiltInPager
+// method.
+type PolicySetDefinitionsClientListBuiltInOptions struct {
+	// The filter to apply on the operation. Valid values for $filter are: 'atExactScope()', 'policyType -eq {value}' or 'category
+	// eq '{value}''. If $filter is not provided, no filtering is performed. If
+	// $filter=atExactScope() is provided, the returned list only includes all policy set definitions that at the given scope.
+	// If $filter='policyType -eq {value}' is provided, the returned list only includes
+	// all policy set definitions whose type match the {value}. Possible policyType values are NotSpecified, BuiltIn, Custom,
+	// and Static. If $filter='category -eq {value}' is provided, the returned list only
+	// includes all policy set definitions whose category match the {value}.
 	Filter *string
 
-	// The number of results to return. If null is passed, returns all resource groups.
+	// Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
 	Top *int32
 }
 
-// ResourceGroupsClientUpdateOptions contains the optional parameters for the ResourceGroupsClient.Update method.
-type ResourceGroupsClientUpdateOptions struct {
-	// placeholder for future optional parameters
+// PolicySetDefinitionsClientListByManagementGroupOptions contains the optional parameters for the PolicySetDefinitionsClient.NewListByManagementGroupPager
+// method.
+type PolicySetDefinitionsClientListByManagementGroupOptions struct {
+	// The filter to apply on the operation. Valid values for $filter are: 'atExactScope()', 'policyType -eq {value}' or 'category
+	// eq '{value}''. If $filter is not provided, no filtering is performed. If
+	// $filter=atExactScope() is provided, the returned list only includes all policy set definitions that at the given scope.
+	// If $filter='policyType -eq {value}' is provided, the returned list only includes
+	// all policy set definitions whose type match the {value}. Possible policyType values are NotSpecified, BuiltIn, Custom,
+	// and Static. If $filter='category -eq {value}' is provided, the returned list only
+	// includes all policy set definitions whose category match the {value}.
+	Filter *string
+
+	// Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
+	Top *int32
 }
 
-// TagsClientCreateOrUpdateAtScopeOptions contains the optional parameters for the TagsClient.CreateOrUpdateAtScope method.
-type TagsClientCreateOrUpdateAtScopeOptions struct {
-	// placeholder for future optional parameters
-}
+// PolicySetDefinitionsClientListOptions contains the optional parameters for the PolicySetDefinitionsClient.NewListPager
+// method.
+type PolicySetDefinitionsClientListOptions struct {
+	// The filter to apply on the operation. Valid values for $filter are: 'atExactScope()', 'policyType -eq {value}' or 'category
+	// eq '{value}''. If $filter is not provided, no filtering is performed. If
+	// $filter=atExactScope() is provided, the returned list only includes all policy set definitions that at the given scope.
+	// If $filter='policyType -eq {value}' is provided, the returned list only includes
+	// all policy set definitions whose type match the {value}. Possible policyType values are NotSpecified, BuiltIn, Custom,
+	// and Static. If $filter='category -eq {value}' is provided, the returned list only
+	// includes all policy set definitions whose category match the {value}.
+	Filter *string
 
-// TagsClientCreateOrUpdateOptions contains the optional parameters for the TagsClient.CreateOrUpdate method.
-type TagsClientCreateOrUpdateOptions struct {
-	// placeholder for future optional parameters
-}
-
-// TagsClientCreateOrUpdateValueOptions contains the optional parameters for the TagsClient.CreateOrUpdateValue method.
-type TagsClientCreateOrUpdateValueOptions struct {
-	// placeholder for future optional parameters
-}
-
-// TagsClientDeleteAtScopeOptions contains the optional parameters for the TagsClient.DeleteAtScope method.
-type TagsClientDeleteAtScopeOptions struct {
-	// placeholder for future optional parameters
-}
-
-// TagsClientDeleteOptions contains the optional parameters for the TagsClient.Delete method.
-type TagsClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
-// TagsClientDeleteValueOptions contains the optional parameters for the TagsClient.DeleteValue method.
-type TagsClientDeleteValueOptions struct {
-	// placeholder for future optional parameters
-}
-
-// TagsClientGetAtScopeOptions contains the optional parameters for the TagsClient.GetAtScope method.
-type TagsClientGetAtScopeOptions struct {
-	// placeholder for future optional parameters
-}
-
-// TagsClientListOptions contains the optional parameters for the TagsClient.NewListPager method.
-type TagsClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// TagsClientUpdateAtScopeOptions contains the optional parameters for the TagsClient.UpdateAtScope method.
-type TagsClientUpdateAtScopeOptions struct {
-	// placeholder for future optional parameters
+	// Maximum number of records to return. When the $top filter is not provided, it will return 500 records.
+	Top *int32
 }

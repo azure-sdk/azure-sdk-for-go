@@ -10,8 +10,28 @@ package armdeploymentstacks
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armdeploymentstacks"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v2.0.0"
 )
+
+// AssignmentType - The type of policy assignment. Possible values are NotSpecified, System, SystemHidden, and Custom. Immutable.
+type AssignmentType string
+
+const (
+	AssignmentTypeCustom       AssignmentType = "Custom"
+	AssignmentTypeNotSpecified AssignmentType = "NotSpecified"
+	AssignmentTypeSystem       AssignmentType = "System"
+	AssignmentTypeSystemHidden AssignmentType = "SystemHidden"
+)
+
+// PossibleAssignmentTypeValues returns the possible values for the AssignmentType const type.
+func PossibleAssignmentTypeValues() []AssignmentType {
+	return []AssignmentType{
+		AssignmentTypeCustom,
+		AssignmentTypeNotSpecified,
+		AssignmentTypeSystem,
+		AssignmentTypeSystemHidden,
+	}
+}
 
 // CreatedByType - The type of identity that created the resource.
 type CreatedByType string
@@ -33,172 +53,131 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 	}
 }
 
-// DenySettingsMode - denySettings Mode that defines denied actions.
-type DenySettingsMode string
+// EnforcementMode - The policy assignment enforcement mode. Possible values are Default and DoNotEnforce.
+type EnforcementMode string
 
 const (
-	// DenySettingsModeDenyDelete - Authorized users are able to read and modify the resources, but cannot delete.
-	DenySettingsModeDenyDelete DenySettingsMode = "denyDelete"
-	// DenySettingsModeDenyWriteAndDelete - Authorized users can read from a resource, but cannot modify or delete it.
-	DenySettingsModeDenyWriteAndDelete DenySettingsMode = "denyWriteAndDelete"
-	// DenySettingsModeNone - No denyAssignments have been applied.
-	DenySettingsModeNone DenySettingsMode = "none"
+	// EnforcementModeDefault - The policy effect is enforced during resource creation or update.
+	EnforcementModeDefault EnforcementMode = "Default"
+	// EnforcementModeDoNotEnforce - The policy effect is not enforced during resource creation or update.
+	EnforcementModeDoNotEnforce EnforcementMode = "DoNotEnforce"
 )
 
-// PossibleDenySettingsModeValues returns the possible values for the DenySettingsMode const type.
-func PossibleDenySettingsModeValues() []DenySettingsMode {
-	return []DenySettingsMode{
-		DenySettingsModeDenyDelete,
-		DenySettingsModeDenyWriteAndDelete,
-		DenySettingsModeNone,
+// PossibleEnforcementModeValues returns the possible values for the EnforcementMode const type.
+func PossibleEnforcementModeValues() []EnforcementMode {
+	return []EnforcementMode{
+		EnforcementModeDefault,
+		EnforcementModeDoNotEnforce,
 	}
 }
 
-// DenyStatusMode - denyAssignment settings applied to the resource.
-type DenyStatusMode string
+// OverrideKind - The override kind.
+type OverrideKind string
 
 const (
-	// DenyStatusModeDenyDelete - Authorized users are able to read and modify the resources, but cannot delete.
-	DenyStatusModeDenyDelete DenyStatusMode = "denyDelete"
-	// DenyStatusModeDenyWriteAndDelete - Authorized users can only read from a resource, but cannot modify or delete it.
-	DenyStatusModeDenyWriteAndDelete DenyStatusMode = "denyWriteAndDelete"
-	// DenyStatusModeInapplicable - denyAssignments are not supported on resources outside the scope of the deployment stack.
-	DenyStatusModeInapplicable DenyStatusMode = "inapplicable"
-	// DenyStatusModeNone - No denyAssignments have been applied.
-	DenyStatusModeNone DenyStatusMode = "none"
-	// DenyStatusModeNotSupported - Resource type does not support denyAssignments.
-	DenyStatusModeNotSupported DenyStatusMode = "notSupported"
-	// DenyStatusModeRemovedBySystem - Deny assignment has been removed by Azure due to a resource management change (management
-	// group move, etc.)
-	DenyStatusModeRemovedBySystem DenyStatusMode = "removedBySystem"
+	// OverrideKindDefinitionVersion - It will override the definition version property value of the policy assignment.
+	OverrideKindDefinitionVersion OverrideKind = "definitionVersion"
+	// OverrideKindPolicyEffect - It will override the policy effect type.
+	OverrideKindPolicyEffect OverrideKind = "policyEffect"
 )
 
-// PossibleDenyStatusModeValues returns the possible values for the DenyStatusMode const type.
-func PossibleDenyStatusModeValues() []DenyStatusMode {
-	return []DenyStatusMode{
-		DenyStatusModeDenyDelete,
-		DenyStatusModeDenyWriteAndDelete,
-		DenyStatusModeInapplicable,
-		DenyStatusModeNone,
-		DenyStatusModeNotSupported,
-		DenyStatusModeRemovedBySystem,
+// PossibleOverrideKindValues returns the possible values for the OverrideKind const type.
+func PossibleOverrideKindValues() []OverrideKind {
+	return []OverrideKind{
+		OverrideKindDefinitionVersion,
+		OverrideKindPolicyEffect,
 	}
 }
 
-// DeploymentStackProvisioningState - State of the deployment stack.
-type DeploymentStackProvisioningState string
+// ParameterType - The data type of the parameter.
+type ParameterType string
 
 const (
-	DeploymentStackProvisioningStateCanceled                DeploymentStackProvisioningState = "canceled"
-	DeploymentStackProvisioningStateCanceling               DeploymentStackProvisioningState = "canceling"
-	DeploymentStackProvisioningStateCreating                DeploymentStackProvisioningState = "creating"
-	DeploymentStackProvisioningStateDeleting                DeploymentStackProvisioningState = "deleting"
-	DeploymentStackProvisioningStateDeletingResources       DeploymentStackProvisioningState = "deletingResources"
-	DeploymentStackProvisioningStateDeploying               DeploymentStackProvisioningState = "deploying"
-	DeploymentStackProvisioningStateFailed                  DeploymentStackProvisioningState = "failed"
-	DeploymentStackProvisioningStateSucceeded               DeploymentStackProvisioningState = "succeeded"
-	DeploymentStackProvisioningStateUpdatingDenyAssignments DeploymentStackProvisioningState = "updatingDenyAssignments"
-	DeploymentStackProvisioningStateValidating              DeploymentStackProvisioningState = "validating"
-	DeploymentStackProvisioningStateWaiting                 DeploymentStackProvisioningState = "waiting"
+	ParameterTypeArray    ParameterType = "Array"
+	ParameterTypeBoolean  ParameterType = "Boolean"
+	ParameterTypeDateTime ParameterType = "DateTime"
+	ParameterTypeFloat    ParameterType = "Float"
+	ParameterTypeInteger  ParameterType = "Integer"
+	ParameterTypeObject   ParameterType = "Object"
+	ParameterTypeString   ParameterType = "String"
 )
 
-// PossibleDeploymentStackProvisioningStateValues returns the possible values for the DeploymentStackProvisioningState const type.
-func PossibleDeploymentStackProvisioningStateValues() []DeploymentStackProvisioningState {
-	return []DeploymentStackProvisioningState{
-		DeploymentStackProvisioningStateCanceled,
-		DeploymentStackProvisioningStateCanceling,
-		DeploymentStackProvisioningStateCreating,
-		DeploymentStackProvisioningStateDeleting,
-		DeploymentStackProvisioningStateDeletingResources,
-		DeploymentStackProvisioningStateDeploying,
-		DeploymentStackProvisioningStateFailed,
-		DeploymentStackProvisioningStateSucceeded,
-		DeploymentStackProvisioningStateUpdatingDenyAssignments,
-		DeploymentStackProvisioningStateValidating,
-		DeploymentStackProvisioningStateWaiting,
+// PossibleParameterTypeValues returns the possible values for the ParameterType const type.
+func PossibleParameterTypeValues() []ParameterType {
+	return []ParameterType{
+		ParameterTypeArray,
+		ParameterTypeBoolean,
+		ParameterTypeDateTime,
+		ParameterTypeFloat,
+		ParameterTypeInteger,
+		ParameterTypeObject,
+		ParameterTypeString,
 	}
 }
 
-// DeploymentStacksDeleteDetachEnum - Specifies an action for a newly unmanaged resource. Delete will attempt to delete the
-// resource from Azure. Detach will leave the resource in it's current state.
-type DeploymentStacksDeleteDetachEnum string
+// PolicyType - The type of policy definition. Possible values are NotSpecified, BuiltIn, Custom, and Static.
+type PolicyType string
 
 const (
-	DeploymentStacksDeleteDetachEnumDelete DeploymentStacksDeleteDetachEnum = "delete"
-	DeploymentStacksDeleteDetachEnumDetach DeploymentStacksDeleteDetachEnum = "detach"
+	PolicyTypeBuiltIn      PolicyType = "BuiltIn"
+	PolicyTypeCustom       PolicyType = "Custom"
+	PolicyTypeNotSpecified PolicyType = "NotSpecified"
+	PolicyTypeStatic       PolicyType = "Static"
 )
 
-// PossibleDeploymentStacksDeleteDetachEnumValues returns the possible values for the DeploymentStacksDeleteDetachEnum const type.
-func PossibleDeploymentStacksDeleteDetachEnumValues() []DeploymentStacksDeleteDetachEnum {
-	return []DeploymentStacksDeleteDetachEnum{
-		DeploymentStacksDeleteDetachEnumDelete,
-		DeploymentStacksDeleteDetachEnumDetach,
+// PossiblePolicyTypeValues returns the possible values for the PolicyType const type.
+func PossiblePolicyTypeValues() []PolicyType {
+	return []PolicyType{
+		PolicyTypeBuiltIn,
+		PolicyTypeCustom,
+		PolicyTypeNotSpecified,
+		PolicyTypeStatic,
 	}
 }
 
-// ResourceStatusMode - Current management state of the resource in the deployment stack.
-type ResourceStatusMode string
+// ResourceIdentityType - The identity type. This is the only required field when adding a system or user assigned identity
+// to a resource.
+type ResourceIdentityType string
 
 const (
-	// ResourceStatusModeDeleteFailed - Unable to delete the resource from Azure. The delete will be retried on the next stack
-	// deployment, or can be deleted manually.
-	ResourceStatusModeDeleteFailed ResourceStatusMode = "deleteFailed"
-	// ResourceStatusModeManaged - This resource is managed by the deployment stack.
-	ResourceStatusModeManaged ResourceStatusMode = "managed"
-	// ResourceStatusModeRemoveDenyFailed - Unable to remove the deny assignment on resource.
-	ResourceStatusModeRemoveDenyFailed ResourceStatusMode = "removeDenyFailed"
+	// ResourceIdentityTypeNone - Indicates that no identity is associated with the resource or that the existing identity should
+	// be removed.
+	ResourceIdentityTypeNone ResourceIdentityType = "None"
+	// ResourceIdentityTypeSystemAssigned - Indicates that a system assigned identity is associated with the resource.
+	ResourceIdentityTypeSystemAssigned ResourceIdentityType = "SystemAssigned"
+	// ResourceIdentityTypeUserAssigned - Indicates that a system assigned identity is associated with the resource.
+	ResourceIdentityTypeUserAssigned ResourceIdentityType = "UserAssigned"
 )
 
-// PossibleResourceStatusModeValues returns the possible values for the ResourceStatusMode const type.
-func PossibleResourceStatusModeValues() []ResourceStatusMode {
-	return []ResourceStatusMode{
-		ResourceStatusModeDeleteFailed,
-		ResourceStatusModeManaged,
-		ResourceStatusModeRemoveDenyFailed,
+// PossibleResourceIdentityTypeValues returns the possible values for the ResourceIdentityType const type.
+func PossibleResourceIdentityTypeValues() []ResourceIdentityType {
+	return []ResourceIdentityType{
+		ResourceIdentityTypeNone,
+		ResourceIdentityTypeSystemAssigned,
+		ResourceIdentityTypeUserAssigned,
 	}
 }
 
-type UnmanageActionManagementGroupMode string
+// SelectorKind - The selector kind.
+type SelectorKind string
 
 const (
-	UnmanageActionManagementGroupModeDelete UnmanageActionManagementGroupMode = "delete"
-	UnmanageActionManagementGroupModeDetach UnmanageActionManagementGroupMode = "detach"
+	// SelectorKindPolicyDefinitionReferenceID - The selector kind to filter policies by the policy definition reference ID.
+	SelectorKindPolicyDefinitionReferenceID SelectorKind = "policyDefinitionReferenceId"
+	// SelectorKindResourceLocation - The selector kind to filter policies by the resource location.
+	SelectorKindResourceLocation SelectorKind = "resourceLocation"
+	// SelectorKindResourceType - The selector kind to filter policies by the resource type.
+	SelectorKindResourceType SelectorKind = "resourceType"
+	// SelectorKindResourceWithoutLocation - The selector kind to filter policies by the resource without location.
+	SelectorKindResourceWithoutLocation SelectorKind = "resourceWithoutLocation"
 )
 
-// PossibleUnmanageActionManagementGroupModeValues returns the possible values for the UnmanageActionManagementGroupMode const type.
-func PossibleUnmanageActionManagementGroupModeValues() []UnmanageActionManagementGroupMode {
-	return []UnmanageActionManagementGroupMode{
-		UnmanageActionManagementGroupModeDelete,
-		UnmanageActionManagementGroupModeDetach,
-	}
-}
-
-type UnmanageActionResourceGroupMode string
-
-const (
-	UnmanageActionResourceGroupModeDelete UnmanageActionResourceGroupMode = "delete"
-	UnmanageActionResourceGroupModeDetach UnmanageActionResourceGroupMode = "detach"
-)
-
-// PossibleUnmanageActionResourceGroupModeValues returns the possible values for the UnmanageActionResourceGroupMode const type.
-func PossibleUnmanageActionResourceGroupModeValues() []UnmanageActionResourceGroupMode {
-	return []UnmanageActionResourceGroupMode{
-		UnmanageActionResourceGroupModeDelete,
-		UnmanageActionResourceGroupModeDetach,
-	}
-}
-
-type UnmanageActionResourceMode string
-
-const (
-	UnmanageActionResourceModeDelete UnmanageActionResourceMode = "delete"
-	UnmanageActionResourceModeDetach UnmanageActionResourceMode = "detach"
-)
-
-// PossibleUnmanageActionResourceModeValues returns the possible values for the UnmanageActionResourceMode const type.
-func PossibleUnmanageActionResourceModeValues() []UnmanageActionResourceMode {
-	return []UnmanageActionResourceMode{
-		UnmanageActionResourceModeDelete,
-		UnmanageActionResourceModeDetach,
+// PossibleSelectorKindValues returns the possible values for the SelectorKind const type.
+func PossibleSelectorKindValues() []SelectorKind {
+	return []SelectorKind{
+		SelectorKindPolicyDefinitionReferenceID,
+		SelectorKindResourceLocation,
+		SelectorKindResourceType,
+		SelectorKindResourceWithoutLocation,
 	}
 }
