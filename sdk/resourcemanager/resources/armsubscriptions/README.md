@@ -1,6 +1,6 @@
 # Azure Subscriptions Module for Go
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armsubscriptions)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armsubscriptions)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armsubscriptions/v2)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armsubscriptions/v2)
 
 The `armsubscriptions` module provides operations for working with Azure Subscriptions.
 
@@ -20,7 +20,7 @@ This project uses [Go modules](https://github.com/golang/go/wiki/Modules) for ve
 Install the Azure Subscriptions module:
 
 ```sh
-go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armsubscriptions
+go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armsubscriptions/v2
 ```
 
 ## Authorization
@@ -57,7 +57,7 @@ clientFactory, err := armsubscriptions.NewClientFactory(<subscription ID>, cred,
 A client groups a set of related APIs, providing access to its functionality.  Create one or more clients to access the APIs you require using client factory.
 
 ```go
-client := clientFactory.NewClient()
+client := clientFactory.NewPolicyAssignmentsClient()
 ```
 
 ## Fakes
