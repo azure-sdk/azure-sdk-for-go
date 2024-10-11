@@ -200,8 +200,8 @@ type ExtensionProperties struct {
 	// Identity of the Extension resource in an AKS cluster
 	AksAssignedIdentity *ExtensionPropertiesAksAssignedIdentity
 
-	// Flag to note if this extension participates in auto upgrade of minor version, or not.
-	AutoUpgradeMinorVersion *bool
+	// Defines extension automatic upgrades modes
+	AutoUpgradeMode *AutoUpgradeMode
 
 	// Configuration settings that are sensitive, as name-value pairs for configuring this extension.
 	ConfigurationProtectedSettings map[string]*string
@@ -666,8 +666,8 @@ type PatchExtension struct {
 
 // PatchExtensionProperties - Updatable properties of an Extension Patch Request
 type PatchExtensionProperties struct {
-	// Flag to note if this extension participates in auto upgrade of minor version, or not.
-	AutoUpgradeMinorVersion *bool
+	// Defines extension automatic upgrades modes
+	AutoUpgradeMode *AutoUpgradeMode
 
 	// Configuration settings that are sensitive, as name-value pairs for configuring this extension.
 	ConfigurationProtectedSettings map[string]*string
