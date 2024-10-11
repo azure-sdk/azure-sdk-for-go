@@ -28,7 +28,7 @@ type DeploymentSettingsClient struct {
 }
 
 // NewDeploymentSettingsClient creates a new instance of DeploymentSettingsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewDeploymentSettingsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DeploymentSettingsClient, error) {
@@ -46,7 +46,7 @@ func NewDeploymentSettingsClient(subscriptionID string, credential azcore.TokenC
 // BeginCreateOrUpdate - Create a DeploymentSetting
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - deploymentSettingsName - Name of Deployment Setting
@@ -74,7 +74,7 @@ func (client *DeploymentSettingsClient) BeginCreateOrUpdate(ctx context.Context,
 // CreateOrUpdate - Create a DeploymentSetting
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-01-01
 func (client *DeploymentSettingsClient) createOrUpdate(ctx context.Context, resourceGroupName string, clusterName string, deploymentSettingsName string, resource DeploymentSetting, options *DeploymentSettingsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DeploymentSettingsClient.BeginCreateOrUpdate"
@@ -120,7 +120,7 @@ func (client *DeploymentSettingsClient) createOrUpdateCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, resource); err != nil {
@@ -132,7 +132,7 @@ func (client *DeploymentSettingsClient) createOrUpdateCreateRequest(ctx context.
 // BeginDelete - Delete a DeploymentSetting
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - deploymentSettingsName - Name of Deployment Setting
@@ -159,7 +159,7 @@ func (client *DeploymentSettingsClient) BeginDelete(ctx context.Context, resourc
 // Delete - Delete a DeploymentSetting
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-01-01
 func (client *DeploymentSettingsClient) deleteOperation(ctx context.Context, resourceGroupName string, clusterName string, deploymentSettingsName string, options *DeploymentSettingsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DeploymentSettingsClient.BeginDelete"
@@ -205,7 +205,7 @@ func (client *DeploymentSettingsClient) deleteCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -214,7 +214,7 @@ func (client *DeploymentSettingsClient) deleteCreateRequest(ctx context.Context,
 // Get - Get a DeploymentSetting
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - deploymentSettingsName - Name of Deployment Setting
@@ -265,7 +265,7 @@ func (client *DeploymentSettingsClient) getCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -282,7 +282,7 @@ func (client *DeploymentSettingsClient) getHandleResponse(resp *http.Response) (
 
 // NewListByClustersPager - List DeploymentSetting resources by Clusters
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - options - DeploymentSettingsClientListByClustersOptions contains the optional parameters for the DeploymentSettingsClient.NewListByClustersPager
@@ -330,7 +330,7 @@ func (client *DeploymentSettingsClient) listByClustersCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

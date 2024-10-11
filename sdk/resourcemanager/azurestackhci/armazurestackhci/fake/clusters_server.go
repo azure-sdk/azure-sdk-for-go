@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/azurestackhci/armazurestackhci/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/azurestackhci/armazurestackhci/v3"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -24,10 +24,6 @@ import (
 
 // ClustersServer is a fake server for instances of the armazurestackhci.ClustersClient type.
 type ClustersServer struct {
-	// BeginConfigureRemoteSupport is the fake for method ClustersClient.BeginConfigureRemoteSupport
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginConfigureRemoteSupport func(ctx context.Context, resourceGroupName string, clusterName string, remoteSupportRequest armazurestackhci.RemoteSupportRequest, options *armazurestackhci.ClustersClientBeginConfigureRemoteSupportOptions) (resp azfake.PollerResponder[armazurestackhci.ClustersClientConfigureRemoteSupportResponse], errResp azfake.ErrorResponder)
-
 	// Create is the fake for method ClustersClient.Create
 	// HTTP status codes to indicate success: http.StatusOK
 	Create func(ctx context.Context, resourceGroupName string, clusterName string, cluster armazurestackhci.Cluster, options *armazurestackhci.ClustersClientCreateOptions) (resp azfake.Responder[armazurestackhci.ClustersClientCreateResponse], errResp azfake.ErrorResponder)
@@ -56,10 +52,6 @@ type ClustersServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListBySubscriptionPager func(options *armazurestackhci.ClustersClientListBySubscriptionOptions) (resp azfake.PagerResponder[armazurestackhci.ClustersClientListBySubscriptionResponse])
 
-	// BeginTriggerLogCollection is the fake for method ClustersClient.BeginTriggerLogCollection
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginTriggerLogCollection func(ctx context.Context, resourceGroupName string, clusterName string, logCollectionRequest armazurestackhci.LogCollectionRequest, options *armazurestackhci.ClustersClientBeginTriggerLogCollectionOptions) (resp azfake.PollerResponder[armazurestackhci.ClustersClientTriggerLogCollectionResponse], errResp azfake.ErrorResponder)
-
 	// Update is the fake for method ClustersClient.Update
 	// HTTP status codes to indicate success: http.StatusOK
 	Update func(ctx context.Context, resourceGroupName string, clusterName string, cluster armazurestackhci.ClusterPatch, options *armazurestackhci.ClustersClientUpdateOptions) (resp azfake.Responder[armazurestackhci.ClustersClientUpdateResponse], errResp azfake.ErrorResponder)
@@ -75,13 +67,11 @@ type ClustersServer struct {
 func NewClustersServerTransport(srv *ClustersServer) *ClustersServerTransport {
 	return &ClustersServerTransport{
 		srv:                                 srv,
-		beginConfigureRemoteSupport:         newTracker[azfake.PollerResponder[armazurestackhci.ClustersClientConfigureRemoteSupportResponse]](),
 		beginCreateIdentity:                 newTracker[azfake.PollerResponder[armazurestackhci.ClustersClientCreateIdentityResponse]](),
 		beginDelete:                         newTracker[azfake.PollerResponder[armazurestackhci.ClustersClientDeleteResponse]](),
 		beginExtendSoftwareAssuranceBenefit: newTracker[azfake.PollerResponder[armazurestackhci.ClustersClientExtendSoftwareAssuranceBenefitResponse]](),
 		newListByResourceGroupPager:         newTracker[azfake.PagerResponder[armazurestackhci.ClustersClientListByResourceGroupResponse]](),
 		newListBySubscriptionPager:          newTracker[azfake.PagerResponder[armazurestackhci.ClustersClientListBySubscriptionResponse]](),
-		beginTriggerLogCollection:           newTracker[azfake.PollerResponder[armazurestackhci.ClustersClientTriggerLogCollectionResponse]](),
 		beginUploadCertificate:              newTracker[azfake.PollerResponder[armazurestackhci.ClustersClientUploadCertificateResponse]](),
 	}
 }
@@ -90,13 +80,11 @@ func NewClustersServerTransport(srv *ClustersServer) *ClustersServerTransport {
 // Don't use this type directly, use NewClustersServerTransport instead.
 type ClustersServerTransport struct {
 	srv                                 *ClustersServer
-	beginConfigureRemoteSupport         *tracker[azfake.PollerResponder[armazurestackhci.ClustersClientConfigureRemoteSupportResponse]]
 	beginCreateIdentity                 *tracker[azfake.PollerResponder[armazurestackhci.ClustersClientCreateIdentityResponse]]
 	beginDelete                         *tracker[azfake.PollerResponder[armazurestackhci.ClustersClientDeleteResponse]]
 	beginExtendSoftwareAssuranceBenefit *tracker[azfake.PollerResponder[armazurestackhci.ClustersClientExtendSoftwareAssuranceBenefitResponse]]
 	newListByResourceGroupPager         *tracker[azfake.PagerResponder[armazurestackhci.ClustersClientListByResourceGroupResponse]]
 	newListBySubscriptionPager          *tracker[azfake.PagerResponder[armazurestackhci.ClustersClientListBySubscriptionResponse]]
-	beginTriggerLogCollection           *tracker[azfake.PollerResponder[armazurestackhci.ClustersClientTriggerLogCollectionResponse]]
 	beginUploadCertificate              *tracker[azfake.PollerResponder[armazurestackhci.ClustersClientUploadCertificateResponse]]
 }
 
@@ -112,8 +100,6 @@ func (c *ClustersServerTransport) Do(req *http.Request) (*http.Response, error) 
 	var err error
 
 	switch method {
-	case "ClustersClient.BeginConfigureRemoteSupport":
-		resp, err = c.dispatchBeginConfigureRemoteSupport(req)
 	case "ClustersClient.Create":
 		resp, err = c.dispatchCreate(req)
 	case "ClustersClient.BeginCreateIdentity":
@@ -128,8 +114,6 @@ func (c *ClustersServerTransport) Do(req *http.Request) (*http.Response, error) 
 		resp, err = c.dispatchNewListByResourceGroupPager(req)
 	case "ClustersClient.NewListBySubscriptionPager":
 		resp, err = c.dispatchNewListBySubscriptionPager(req)
-	case "ClustersClient.BeginTriggerLogCollection":
-		resp, err = c.dispatchBeginTriggerLogCollection(req)
 	case "ClustersClient.Update":
 		resp, err = c.dispatchUpdate(req)
 	case "ClustersClient.BeginUploadCertificate":
@@ -140,54 +124,6 @@ func (c *ClustersServerTransport) Do(req *http.Request) (*http.Response, error) 
 
 	if err != nil {
 		return nil, err
-	}
-
-	return resp, nil
-}
-
-func (c *ClustersServerTransport) dispatchBeginConfigureRemoteSupport(req *http.Request) (*http.Response, error) {
-	if c.srv.BeginConfigureRemoteSupport == nil {
-		return nil, &nonRetriableError{errors.New("fake for method BeginConfigureRemoteSupport not implemented")}
-	}
-	beginConfigureRemoteSupport := c.beginConfigureRemoteSupport.get(req)
-	if beginConfigureRemoteSupport == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AzureStackHCI/clusters/(?P<clusterName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/configureRemoteSupport`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		body, err := server.UnmarshalRequestAsJSON[armazurestackhci.RemoteSupportRequest](req)
-		if err != nil {
-			return nil, err
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		clusterNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("clusterName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := c.srv.BeginConfigureRemoteSupport(req.Context(), resourceGroupNameParam, clusterNameParam, body, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
-		beginConfigureRemoteSupport = &respr
-		c.beginConfigureRemoteSupport.add(req, beginConfigureRemoteSupport)
-	}
-
-	resp, err := server.PollerResponderNext(beginConfigureRemoteSupport, req)
-	if err != nil {
-		return nil, err
-	}
-
-	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
-		c.beginConfigureRemoteSupport.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
-	}
-	if !server.PollerResponderMore(beginConfigureRemoteSupport) {
-		c.beginConfigureRemoteSupport.remove(req)
 	}
 
 	return resp, nil
@@ -466,54 +402,6 @@ func (c *ClustersServerTransport) dispatchNewListBySubscriptionPager(req *http.R
 	if !server.PagerResponderMore(newListBySubscriptionPager) {
 		c.newListBySubscriptionPager.remove(req)
 	}
-	return resp, nil
-}
-
-func (c *ClustersServerTransport) dispatchBeginTriggerLogCollection(req *http.Request) (*http.Response, error) {
-	if c.srv.BeginTriggerLogCollection == nil {
-		return nil, &nonRetriableError{errors.New("fake for method BeginTriggerLogCollection not implemented")}
-	}
-	beginTriggerLogCollection := c.beginTriggerLogCollection.get(req)
-	if beginTriggerLogCollection == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AzureStackHCI/clusters/(?P<clusterName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/triggerLogCollection`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		body, err := server.UnmarshalRequestAsJSON[armazurestackhci.LogCollectionRequest](req)
-		if err != nil {
-			return nil, err
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		clusterNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("clusterName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := c.srv.BeginTriggerLogCollection(req.Context(), resourceGroupNameParam, clusterNameParam, body, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
-		beginTriggerLogCollection = &respr
-		c.beginTriggerLogCollection.add(req, beginTriggerLogCollection)
-	}
-
-	resp, err := server.PollerResponderNext(beginTriggerLogCollection, req)
-	if err != nil {
-		return nil, err
-	}
-
-	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
-		c.beginTriggerLogCollection.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
-	}
-	if !server.PollerResponderMore(beginTriggerLogCollection) {
-		c.beginTriggerLogCollection.remove(req)
-	}
-
 	return resp, nil
 }
 
