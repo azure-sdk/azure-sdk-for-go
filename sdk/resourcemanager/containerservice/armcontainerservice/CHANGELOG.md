@@ -1,5 +1,19 @@
 # Release History
 
+## 6.2.0-beta.2 (2024-10-11)
+### Breaking Changes
+
+- Enum `TLSManagement` has been removed
+- Struct `AdvancedNetworkingFQDNPolicy` has been removed
+- Field `TLSManagement` of struct `AdvancedNetworkingObservability` has been removed
+- Field `FqdnPolicy` of struct `AdvancedNetworkingSecurity` has been removed
+
+### Features Added
+
+- New field `Enabled` in struct `AdvancedNetworking`
+- New field `Enabled` in struct `AdvancedNetworkingSecurity`
+
+
 ## 6.2.0-beta.1 (2024-09-29)
 ### Features Added
 
