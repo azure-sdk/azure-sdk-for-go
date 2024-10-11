@@ -19,10 +19,11 @@ import (
 
 // ServerFactory is a fake server for instances of the armsubscriptions.ClientFactory type.
 type ServerFactory struct {
-	Server             Server
-	OperationsServer   OperationsServer
-	SubscriptionServer SubscriptionServer
-	TenantsServer      TenantsServer
+	PolicyAssignmentsServer           PolicyAssignmentsServer
+	PolicyDefinitionVersionsServer    PolicyDefinitionVersionsServer
+	PolicyDefinitionsServer           PolicyDefinitionsServer
+	PolicySetDefinitionVersionsServer PolicySetDefinitionVersionsServer
+	PolicySetDefinitionsServer        PolicySetDefinitionsServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -37,12 +38,13 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armsubscriptions.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                  *ServerFactory
-	trMu                 sync.Mutex
-	trServer             *ServerTransport
-	trOperationsServer   *OperationsServerTransport
-	trSubscriptionServer *SubscriptionServerTransport
-	trTenantsServer      *TenantsServerTransport
+	srv                                 *ServerFactory
+	trMu                                sync.Mutex
+	trPolicyAssignmentsServer           *PolicyAssignmentsServerTransport
+	trPolicyDefinitionVersionsServer    *PolicyDefinitionVersionsServerTransport
+	trPolicyDefinitionsServer           *PolicyDefinitionsServerTransport
+	trPolicySetDefinitionVersionsServer *PolicySetDefinitionVersionsServerTransport
+	trPolicySetDefinitionsServer        *PolicySetDefinitionsServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -58,18 +60,31 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch client {
-	case "Client":
-		initServer(s, &s.trServer, func() *ServerTransport { return NewServerTransport(&s.srv.Server) })
-		resp, err = s.trServer.Do(req)
-	case "OperationsClient":
-		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
-		resp, err = s.trOperationsServer.Do(req)
-	case "SubscriptionClient":
-		initServer(s, &s.trSubscriptionServer, func() *SubscriptionServerTransport { return NewSubscriptionServerTransport(&s.srv.SubscriptionServer) })
-		resp, err = s.trSubscriptionServer.Do(req)
-	case "TenantsClient":
-		initServer(s, &s.trTenantsServer, func() *TenantsServerTransport { return NewTenantsServerTransport(&s.srv.TenantsServer) })
-		resp, err = s.trTenantsServer.Do(req)
+	case "PolicyAssignmentsClient":
+		initServer(s, &s.trPolicyAssignmentsServer, func() *PolicyAssignmentsServerTransport {
+			return NewPolicyAssignmentsServerTransport(&s.srv.PolicyAssignmentsServer)
+		})
+		resp, err = s.trPolicyAssignmentsServer.Do(req)
+	case "PolicyDefinitionVersionsClient":
+		initServer(s, &s.trPolicyDefinitionVersionsServer, func() *PolicyDefinitionVersionsServerTransport {
+			return NewPolicyDefinitionVersionsServerTransport(&s.srv.PolicyDefinitionVersionsServer)
+		})
+		resp, err = s.trPolicyDefinitionVersionsServer.Do(req)
+	case "PolicyDefinitionsClient":
+		initServer(s, &s.trPolicyDefinitionsServer, func() *PolicyDefinitionsServerTransport {
+			return NewPolicyDefinitionsServerTransport(&s.srv.PolicyDefinitionsServer)
+		})
+		resp, err = s.trPolicyDefinitionsServer.Do(req)
+	case "PolicySetDefinitionVersionsClient":
+		initServer(s, &s.trPolicySetDefinitionVersionsServer, func() *PolicySetDefinitionVersionsServerTransport {
+			return NewPolicySetDefinitionVersionsServerTransport(&s.srv.PolicySetDefinitionVersionsServer)
+		})
+		resp, err = s.trPolicySetDefinitionVersionsServer.Do(req)
+	case "PolicySetDefinitionsClient":
+		initServer(s, &s.trPolicySetDefinitionsServer, func() *PolicySetDefinitionsServerTransport {
+			return NewPolicySetDefinitionsServerTransport(&s.srv.PolicySetDefinitionsServer)
+		})
+		resp, err = s.trPolicySetDefinitionsServer.Do(req)
 	default:
 		err = fmt.Errorf("unhandled client %s", client)
 	}
