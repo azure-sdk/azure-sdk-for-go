@@ -22,6 +22,7 @@ type ServerFactory struct {
 	AmlFilesystemsServer AmlFilesystemsServer
 	AscOperationsServer  AscOperationsServer
 	AscUsagesServer      AscUsagesServer
+	AutoExportJobsServer AutoExportJobsServer
 	CachesServer         CachesServer
 	ImportJobsServer     ImportJobsServer
 	ManagementServer     ManagementServer
@@ -49,6 +50,7 @@ type ServerFactoryTransport struct {
 	trAmlFilesystemsServer *AmlFilesystemsServerTransport
 	trAscOperationsServer  *AscOperationsServerTransport
 	trAscUsagesServer      *AscUsagesServerTransport
+	trAutoExportJobsServer *AutoExportJobsServerTransport
 	trCachesServer         *CachesServerTransport
 	trImportJobsServer     *ImportJobsServerTransport
 	trManagementServer     *ManagementServerTransport
@@ -85,6 +87,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "AscUsagesClient":
 		initServer(s, &s.trAscUsagesServer, func() *AscUsagesServerTransport { return NewAscUsagesServerTransport(&s.srv.AscUsagesServer) })
 		resp, err = s.trAscUsagesServer.Do(req)
+	case "AutoExportJobsClient":
+		initServer(s, &s.trAutoExportJobsServer, func() *AutoExportJobsServerTransport {
+			return NewAutoExportJobsServerTransport(&s.srv.AutoExportJobsServer)
+		})
+		resp, err = s.trAutoExportJobsServer.Do(req)
 	case "CachesClient":
 		initServer(s, &s.trCachesServer, func() *CachesServerTransport { return NewCachesServerTransport(&s.srv.CachesServer) })
 		resp, err = s.trCachesServer.Do(req)
