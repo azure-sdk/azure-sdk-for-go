@@ -46,7 +46,7 @@ func NewSKUsClient(subscriptionID string, credential azcore.TokenCredential, opt
 // Get - Get SKU resource details within a offer of HCI Cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - publisherName - The name of the publisher available within HCI cluster.
@@ -110,7 +110,7 @@ func (client *SKUsClient) getCreateRequest(ctx context.Context, resourceGroupNam
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -127,7 +127,7 @@ func (client *SKUsClient) getHandleResponse(resp *http.Response) (SKUsClientGetR
 
 // NewListByOfferPager - List Skus available for a offer within the HCI Cluster.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - publisherName - The name of the publisher available within HCI cluster.
@@ -187,7 +187,7 @@ func (client *SKUsClient) listByOfferCreateRequest(ctx context.Context, resource
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -10,7 +10,7 @@ package armazurestackhci
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/azurestackhci/armazurestackhci"
-	moduleVersion = "v2.0.0"
+	moduleVersion = "v2.1.0-beta.1"
 )
 
 // AccessLevel - Remote Support Access Level
@@ -251,7 +251,7 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 	}
 }
 
-// DeploymentMode - The deployment mode of EnterpriseCloudEngine(ECE) action for a cluster.
+// DeploymentMode - Deployment mode to trigger job.
 type DeploymentMode string
 
 const (
@@ -281,6 +281,33 @@ const (
 func PossibleDeviceKindValues() []DeviceKind {
 	return []DeviceKind{
 		DeviceKindHCI,
+	}
+}
+
+// DeviceLogCollectionStatus - Represents the status of a log collection operation.
+type DeviceLogCollectionStatus string
+
+const (
+	// DeviceLogCollectionStatusCanceled - Indicates that the log collection operation has completed successfully.
+	DeviceLogCollectionStatusCanceled DeviceLogCollectionStatus = "Canceled"
+	// DeviceLogCollectionStatusFailed - Indicates that the log collection operation has failed.
+	DeviceLogCollectionStatusFailed DeviceLogCollectionStatus = "Failed"
+	// DeviceLogCollectionStatusNotStarted - Log collection operation has not been initiated.
+	DeviceLogCollectionStatusNotStarted DeviceLogCollectionStatus = "NotStarted"
+	// DeviceLogCollectionStatusRunning - Indicates that the log collection operation is currently running.
+	DeviceLogCollectionStatusRunning DeviceLogCollectionStatus = "Running"
+	// DeviceLogCollectionStatusSucceeded - Indicates that the log collection operation has completed successfully.
+	DeviceLogCollectionStatusSucceeded DeviceLogCollectionStatus = "Succeeded"
+)
+
+// PossibleDeviceLogCollectionStatusValues returns the possible values for the DeviceLogCollectionStatus const type.
+func PossibleDeviceLogCollectionStatusValues() []DeviceLogCollectionStatus {
+	return []DeviceLogCollectionStatus{
+		DeviceLogCollectionStatusCanceled,
+		DeviceLogCollectionStatusFailed,
+		DeviceLogCollectionStatusNotStarted,
+		DeviceLogCollectionStatusRunning,
+		DeviceLogCollectionStatusSucceeded,
 	}
 }
 
@@ -363,6 +390,21 @@ func PossibleEceSecretsValues() []EceSecrets {
 	}
 }
 
+// EdgeDeviceKind - Edge device kind.
+type EdgeDeviceKind string
+
+const (
+	// EdgeDeviceKindHCI - Arc-enabled edge device with HCI OS.
+	EdgeDeviceKindHCI EdgeDeviceKind = "HCI"
+)
+
+// PossibleEdgeDeviceKindValues returns the possible values for the EdgeDeviceKind const type.
+func PossibleEdgeDeviceKindValues() []EdgeDeviceKind {
+	return []EdgeDeviceKind{
+		EdgeDeviceKindHCI,
+	}
+}
+
 // ExtensionAggregateState - Aggregate state of Arc Extensions across the nodes in this HCI cluster.
 type ExtensionAggregateState string
 
@@ -427,6 +469,45 @@ func PossibleExtensionManagedByValues() []ExtensionManagedBy {
 	}
 }
 
+// HardwareClass - Hardware class of the cluster.
+type HardwareClass string
+
+const (
+	// HardwareClassLarge - The hardware class is large.
+	HardwareClassLarge HardwareClass = "Large"
+	// HardwareClassMedium - The hardware class is medium. This corresponds to the default
+	HardwareClassMedium HardwareClass = "Medium"
+	// HardwareClassSmall - The hardware class is small.
+	HardwareClassSmall HardwareClass = "Small"
+)
+
+// PossibleHardwareClassValues returns the possible values for the HardwareClass const type.
+func PossibleHardwareClassValues() []HardwareClass {
+	return []HardwareClass{
+		HardwareClassLarge,
+		HardwareClassMedium,
+		HardwareClassSmall,
+	}
+}
+
+// HciEdgeDeviceJobType - Job Type supported.
+type HciEdgeDeviceJobType string
+
+const (
+	// HciEdgeDeviceJobTypeCollectLog - Job to collect logs from the device.
+	HciEdgeDeviceJobTypeCollectLog HciEdgeDeviceJobType = "CollectLog"
+	// HciEdgeDeviceJobTypeRemoteSupport - Job to provide remote support to the device.
+	HciEdgeDeviceJobTypeRemoteSupport HciEdgeDeviceJobType = "RemoteSupport"
+)
+
+// PossibleHciEdgeDeviceJobTypeValues returns the possible values for the HciEdgeDeviceJobType const type.
+func PossibleHciEdgeDeviceJobTypeValues() []HciEdgeDeviceJobType {
+	return []HciEdgeDeviceJobType{
+		HciEdgeDeviceJobTypeCollectLog,
+		HciEdgeDeviceJobTypeRemoteSupport,
+	}
+}
+
 type HealthState string
 
 const (
@@ -463,6 +544,54 @@ func PossibleImdsAttestationValues() []ImdsAttestation {
 	return []ImdsAttestation{
 		ImdsAttestationDisabled,
 		ImdsAttestationEnabled,
+	}
+}
+
+// JobStatus - Represents the various statuses a job can have throughout its lifecycle.
+type JobStatus string
+
+const (
+	// JobStatusCanceled - The job has been canceled.
+	JobStatusCanceled JobStatus = "Canceled"
+	// JobStatusDeploymentFailed - The job's deployment has failed.
+	JobStatusDeploymentFailed JobStatus = "DeploymentFailed"
+	// JobStatusDeploymentInProgress - The job's deployment is currently in progress.
+	JobStatusDeploymentInProgress JobStatus = "DeploymentInProgress"
+	// JobStatusDeploymentSuccess - The job has been successfully deployed.
+	JobStatusDeploymentSuccess JobStatus = "DeploymentSuccess"
+	// JobStatusFailed - The job has failed.
+	JobStatusFailed JobStatus = "Failed"
+	// JobStatusNotSpecified - The job status has not been specified.
+	JobStatusNotSpecified JobStatus = "NotSpecified"
+	// JobStatusPaused - The job is paused.
+	JobStatusPaused JobStatus = "Paused"
+	// JobStatusScheduled - The job is scheduled to run.
+	JobStatusScheduled JobStatus = "Scheduled"
+	// JobStatusSucceeded - The job has succeeded.
+	JobStatusSucceeded JobStatus = "Succeeded"
+	// JobStatusValidationFailed - The job has failed validation.
+	JobStatusValidationFailed JobStatus = "ValidationFailed"
+	// JobStatusValidationInProgress - The job is currently undergoing validation.
+	JobStatusValidationInProgress JobStatus = "ValidationInProgress"
+	// JobStatusValidationSuccess - The job has successfully passed validation.
+	JobStatusValidationSuccess JobStatus = "ValidationSuccess"
+)
+
+// PossibleJobStatusValues returns the possible values for the JobStatus const type.
+func PossibleJobStatusValues() []JobStatus {
+	return []JobStatus{
+		JobStatusCanceled,
+		JobStatusDeploymentFailed,
+		JobStatusDeploymentInProgress,
+		JobStatusDeploymentSuccess,
+		JobStatusFailed,
+		JobStatusNotSpecified,
+		JobStatusPaused,
+		JobStatusScheduled,
+		JobStatusSucceeded,
+		JobStatusValidationFailed,
+		JobStatusValidationInProgress,
+		JobStatusValidationSuccess,
 	}
 }
 
@@ -717,6 +846,24 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 	}
 }
 
+// RdmaCapability - Describes the RDMA capability of the network adapter.
+type RdmaCapability string
+
+const (
+	// RdmaCapabilityDisabled - Network Adapter on the device is RDMA Capable
+	RdmaCapabilityDisabled RdmaCapability = "Disabled"
+	// RdmaCapabilityEnabled - Network Adapter on the device is RDMA Capable
+	RdmaCapabilityEnabled RdmaCapability = "Enabled"
+)
+
+// PossibleRdmaCapabilityValues returns the possible values for the RdmaCapability const type.
+func PossibleRdmaCapabilityValues() []RdmaCapability {
+	return []RdmaCapability{
+		RdmaCapabilityDisabled,
+		RdmaCapabilityEnabled,
+	}
+}
+
 type RebootRequirement string
 
 const (
@@ -734,6 +881,27 @@ func PossibleRebootRequirementValues() []RebootRequirement {
 	}
 }
 
+// RemoteSupportAccessLevel - Defines the level of remote support access granted.
+type RemoteSupportAccessLevel string
+
+const (
+	// RemoteSupportAccessLevelDiagnostics - Access is limited to diagnostics information only.
+	RemoteSupportAccessLevelDiagnostics RemoteSupportAccessLevel = "Diagnostics"
+	// RemoteSupportAccessLevelDiagnosticsAndRepair - Access includes diagnostics information and the ability to perform repairs.
+	RemoteSupportAccessLevelDiagnosticsAndRepair RemoteSupportAccessLevel = "DiagnosticsAndRepair"
+	// RemoteSupportAccessLevelNone - No remote support access is granted.
+	RemoteSupportAccessLevelNone RemoteSupportAccessLevel = "None"
+)
+
+// PossibleRemoteSupportAccessLevelValues returns the possible values for the RemoteSupportAccessLevel const type.
+func PossibleRemoteSupportAccessLevelValues() []RemoteSupportAccessLevel {
+	return []RemoteSupportAccessLevel{
+		RemoteSupportAccessLevelDiagnostics,
+		RemoteSupportAccessLevelDiagnosticsAndRepair,
+		RemoteSupportAccessLevelNone,
+	}
+}
+
 // RemoteSupportType - Remote Support Type for cluster
 type RemoteSupportType string
 
@@ -747,6 +915,21 @@ func PossibleRemoteSupportTypeValues() []RemoteSupportType {
 	return []RemoteSupportType{
 		RemoteSupportTypeEnable,
 		RemoteSupportTypeRevoke,
+	}
+}
+
+// SecretsType - Type of secrets to store
+type SecretsType string
+
+const (
+	// SecretsTypeBackupSecrets - Backup secrets type
+	SecretsTypeBackupSecrets SecretsType = "BackupSecrets"
+)
+
+// PossibleSecretsTypeValues returns the possible values for the SecretsType const type.
+func PossibleSecretsTypeValues() []SecretsType {
+	return []SecretsType{
+		SecretsTypeBackupSecrets,
 	}
 }
 

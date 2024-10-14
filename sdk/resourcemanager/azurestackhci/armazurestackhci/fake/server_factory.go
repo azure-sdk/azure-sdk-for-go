@@ -22,6 +22,7 @@ type ServerFactory struct {
 	ArcSettingsServer        ArcSettingsServer
 	ClustersServer           ClustersServer
 	DeploymentSettingsServer DeploymentSettingsServer
+	EdgeDeviceJobsServer     EdgeDeviceJobsServer
 	EdgeDevicesServer        EdgeDevicesServer
 	ExtensionsServer         ExtensionsServer
 	OffersServer             OffersServer
@@ -51,6 +52,7 @@ type ServerFactoryTransport struct {
 	trArcSettingsServer        *ArcSettingsServerTransport
 	trClustersServer           *ClustersServerTransport
 	trDeploymentSettingsServer *DeploymentSettingsServerTransport
+	trEdgeDeviceJobsServer     *EdgeDeviceJobsServerTransport
 	trEdgeDevicesServer        *EdgeDevicesServerTransport
 	trExtensionsServer         *ExtensionsServerTransport
 	trOffersServer             *OffersServerTransport
@@ -87,6 +89,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewDeploymentSettingsServerTransport(&s.srv.DeploymentSettingsServer)
 		})
 		resp, err = s.trDeploymentSettingsServer.Do(req)
+	case "EdgeDeviceJobsClient":
+		initServer(s, &s.trEdgeDeviceJobsServer, func() *EdgeDeviceJobsServerTransport {
+			return NewEdgeDeviceJobsServerTransport(&s.srv.EdgeDeviceJobsServer)
+		})
+		resp, err = s.trEdgeDeviceJobsServer.Do(req)
 	case "EdgeDevicesClient":
 		initServer(s, &s.trEdgeDevicesServer, func() *EdgeDevicesServerTransport { return NewEdgeDevicesServerTransport(&s.srv.EdgeDevicesServer) })
 		resp, err = s.trEdgeDevicesServer.Do(req)

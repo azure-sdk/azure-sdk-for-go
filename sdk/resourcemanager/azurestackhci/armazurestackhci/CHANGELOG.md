@@ -1,5 +1,45 @@
 # Release History
 
+## 2.1.0-beta.1 (2024-10-14)
+### Features Added
+
+- New enum type `DeviceLogCollectionStatus` with values `DeviceLogCollectionStatusCanceled`, `DeviceLogCollectionStatusFailed`, `DeviceLogCollectionStatusNotStarted`, `DeviceLogCollectionStatusRunning`, `DeviceLogCollectionStatusSucceeded`
+- New enum type `EdgeDeviceKind` with values `EdgeDeviceKindHCI`
+- New enum type `HardwareClass` with values `HardwareClassLarge`, `HardwareClassMedium`, `HardwareClassSmall`
+- New enum type `HciEdgeDeviceJobType` with values `HciEdgeDeviceJobTypeCollectLog`, `HciEdgeDeviceJobTypeRemoteSupport`
+- New enum type `JobStatus` with values `JobStatusCanceled`, `JobStatusDeploymentFailed`, `JobStatusDeploymentInProgress`, `JobStatusDeploymentSuccess`, `JobStatusFailed`, `JobStatusNotSpecified`, `JobStatusPaused`, `JobStatusScheduled`, `JobStatusSucceeded`, `JobStatusValidationFailed`, `JobStatusValidationInProgress`, `JobStatusValidationSuccess`
+- New enum type `RdmaCapability` with values `RdmaCapabilityDisabled`, `RdmaCapabilityEnabled`
+- New enum type `RemoteSupportAccessLevel` with values `RemoteSupportAccessLevelDiagnostics`, `RemoteSupportAccessLevelDiagnosticsAndRepair`, `RemoteSupportAccessLevelNone`
+- New enum type `SecretsType` with values `SecretsTypeBackupSecrets`
+- New function `*ClientFactory.NewEdgeDeviceJobsClient() *EdgeDeviceJobsClient`
+- New function `*ClustersClient.BeginUpdateSecretsLocations(context.Context, string, string, SecretsLocationsChangeRequest, *ClustersClientBeginUpdateSecretsLocationsOptions) (*runtime.Poller[ClustersClientUpdateSecretsLocationsResponse], error)`
+- New function `*EdgeDeviceJob.GetEdgeDeviceJob() *EdgeDeviceJob`
+- New function `NewEdgeDeviceJobsClient(azcore.TokenCredential, *arm.ClientOptions) (*EdgeDeviceJobsClient, error)`
+- New function `*EdgeDeviceJobsClient.BeginCreateOrUpdate(context.Context, string, string, string, EdgeDeviceJobClassification, *EdgeDeviceJobsClientBeginCreateOrUpdateOptions) (*runtime.Poller[EdgeDeviceJobsClientCreateOrUpdateResponse], error)`
+- New function `*EdgeDeviceJobsClient.BeginDelete(context.Context, string, string, string, *EdgeDeviceJobsClientBeginDeleteOptions) (*runtime.Poller[EdgeDeviceJobsClientDeleteResponse], error)`
+- New function `*EdgeDeviceJobsClient.Get(context.Context, string, string, string, *EdgeDeviceJobsClientGetOptions) (EdgeDeviceJobsClientGetResponse, error)`
+- New function `*EdgeDeviceJobsClient.NewListByEdgeDevicePager(string, string, *EdgeDeviceJobsClientListByEdgeDeviceOptions) *runtime.Pager[EdgeDeviceJobsClientListByEdgeDeviceResponse]`
+- New function `*HciCollectLogJobProperties.GetHciEdgeDeviceJobProperties() *HciEdgeDeviceJobProperties`
+- New function `*HciEdgeDeviceJob.GetEdgeDeviceJob() *EdgeDeviceJob`
+- New function `*HciEdgeDeviceJobProperties.GetHciEdgeDeviceJobProperties() *HciEdgeDeviceJobProperties`
+- New function `*HciRemoteSupportJobProperties.GetHciEdgeDeviceJobProperties() *HciEdgeDeviceJobProperties`
+- New struct `EdgeDeviceJobListResult`
+- New struct `HciCollectLogJobProperties`
+- New struct `HciEdgeDeviceJob`
+- New struct `HciRemoteSupportJobProperties`
+- New struct `LogCollectionJobSession`
+- New struct `LogCollectionReportedProperties`
+- New struct `RemoteSupportJobNodeSettings`
+- New struct `RemoteSupportJobReportedProperties`
+- New struct `RemoteSupportSession`
+- New struct `SecretsLocationDetails`
+- New struct `SecretsLocationsChangeRequest`
+- New field `SecretsLocations` in struct `ClusterProperties`
+- New field `HardwareClass` in struct `ClusterReportedProperties`
+- New field `HardwareClass` in struct `DeploymentCluster`
+- New field `RdmaCapability` in struct `HciNicDetail`
+
+
 ## 2.0.0 (2024-08-22)
 ### Breaking Changes
 
