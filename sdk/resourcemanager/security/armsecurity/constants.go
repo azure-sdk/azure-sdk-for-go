@@ -10,7 +10,7 @@ package armsecurity
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/security/armsecurity"
-	moduleVersion = "v0.14.0"
+	moduleVersion = "v0.15.0"
 )
 
 // AADConnectivityState - The connectivity state of the external AAD solution
@@ -68,30 +68,6 @@ func PossibleActionableRemediationStateValues() []ActionableRemediationState {
 	}
 }
 
-// AdaptiveApplicationControlIssue - An alert that machines within a group can have
-type AdaptiveApplicationControlIssue string
-
-const (
-	AdaptiveApplicationControlIssueExecutableViolationsAudited   AdaptiveApplicationControlIssue = "ExecutableViolationsAudited"
-	AdaptiveApplicationControlIssueMsiAndScriptViolationsAudited AdaptiveApplicationControlIssue = "MsiAndScriptViolationsAudited"
-	AdaptiveApplicationControlIssueMsiAndScriptViolationsBlocked AdaptiveApplicationControlIssue = "MsiAndScriptViolationsBlocked"
-	AdaptiveApplicationControlIssueRulesViolatedManually         AdaptiveApplicationControlIssue = "RulesViolatedManually"
-	AdaptiveApplicationControlIssueViolationsAudited             AdaptiveApplicationControlIssue = "ViolationsAudited"
-	AdaptiveApplicationControlIssueViolationsBlocked             AdaptiveApplicationControlIssue = "ViolationsBlocked"
-)
-
-// PossibleAdaptiveApplicationControlIssueValues returns the possible values for the AdaptiveApplicationControlIssue const type.
-func PossibleAdaptiveApplicationControlIssueValues() []AdaptiveApplicationControlIssue {
-	return []AdaptiveApplicationControlIssue{
-		AdaptiveApplicationControlIssueExecutableViolationsAudited,
-		AdaptiveApplicationControlIssueMsiAndScriptViolationsAudited,
-		AdaptiveApplicationControlIssueMsiAndScriptViolationsBlocked,
-		AdaptiveApplicationControlIssueRulesViolatedManually,
-		AdaptiveApplicationControlIssueViolationsAudited,
-		AdaptiveApplicationControlIssueViolationsBlocked,
-	}
-}
-
 // AdditionalWorkspaceDataType - Data types sent to workspace.
 type AdditionalWorkspaceDataType string
 
@@ -119,6 +95,24 @@ const (
 func PossibleAdditionalWorkspaceTypeValues() []AdditionalWorkspaceType {
 	return []AdditionalWorkspaceType{
 		AdditionalWorkspaceTypeSentinel,
+	}
+}
+
+// AgentlessScanning - Agentless Scanning states.
+type AgentlessScanning string
+
+const (
+	AgentlessScanningDisabled      AgentlessScanning = "Disabled"
+	AgentlessScanningEnabled       AgentlessScanning = "Enabled"
+	AgentlessScanningNotApplicable AgentlessScanning = "NotApplicable"
+)
+
+// PossibleAgentlessScanningValues returns the possible values for the AgentlessScanning const type.
+func PossibleAgentlessScanningValues() []AgentlessScanning {
+	return []AgentlessScanning{
+		AgentlessScanningDisabled,
+		AgentlessScanningEnabled,
+		AgentlessScanningNotApplicable,
 	}
 }
 
@@ -290,6 +284,24 @@ func PossibleAssessmentTypeValues() []AssessmentType {
 		AssessmentTypeCustomPolicy,
 		AssessmentTypeCustomerManaged,
 		AssessmentTypeVerifiedPartner,
+	}
+}
+
+// AttestationComplianceState - Attest category of this assignment
+type AttestationComplianceState string
+
+const (
+	AttestationComplianceStateCompliant    AttestationComplianceState = "compliant"
+	AttestationComplianceStateNonCompliant AttestationComplianceState = "nonCompliant"
+	AttestationComplianceStateUnknown      AttestationComplianceState = "unknown"
+)
+
+// PossibleAttestationComplianceStateValues returns the possible values for the AttestationComplianceState const type.
+func PossibleAttestationComplianceStateValues() []AttestationComplianceState {
+	return []AttestationComplianceState{
+		AttestationComplianceStateCompliant,
+		AttestationComplianceStateNonCompliant,
+		AttestationComplianceStateUnknown,
 	}
 }
 
@@ -469,28 +481,6 @@ func PossibleCodeValues() []Code {
 	}
 }
 
-// ConfigurationStatus - The configuration status of the machines group or machine or rule
-type ConfigurationStatus string
-
-const (
-	ConfigurationStatusConfigured    ConfigurationStatus = "Configured"
-	ConfigurationStatusFailed        ConfigurationStatus = "Failed"
-	ConfigurationStatusInProgress    ConfigurationStatus = "InProgress"
-	ConfigurationStatusNoStatus      ConfigurationStatus = "NoStatus"
-	ConfigurationStatusNotConfigured ConfigurationStatus = "NotConfigured"
-)
-
-// PossibleConfigurationStatusValues returns the possible values for the ConfigurationStatus const type.
-func PossibleConfigurationStatusValues() []ConfigurationStatus {
-	return []ConfigurationStatus{
-		ConfigurationStatusConfigured,
-		ConfigurationStatusFailed,
-		ConfigurationStatusInProgress,
-		ConfigurationStatusNoStatus,
-		ConfigurationStatusNotConfigured,
-	}
-}
-
 type ConnectionType string
 
 const (
@@ -558,6 +548,24 @@ func PossibleDataSourceValues() []DataSource {
 	}
 }
 
+// DescendantBehavior - The behavior of a policy on descendant resources.
+type DescendantBehavior string
+
+const (
+	DescendantBehaviorFallBack DescendantBehavior = "FallBack"
+	DescendantBehaviorOverride DescendantBehavior = "Override"
+	DescendantBehaviorUnknown  DescendantBehavior = "Unknown"
+)
+
+// PossibleDescendantBehaviorValues returns the possible values for the DescendantBehavior const type.
+func PossibleDescendantBehaviorValues() []DescendantBehavior {
+	return []DescendantBehavior{
+		DescendantBehaviorFallBack,
+		DescendantBehaviorOverride,
+		DescendantBehaviorUnknown,
+	}
+}
+
 // DesiredOnboardingState - Onboarding states.
 type DesiredOnboardingState string
 
@@ -571,6 +579,40 @@ func PossibleDesiredOnboardingStateValues() []DesiredOnboardingState {
 	return []DesiredOnboardingState{
 		DesiredOnboardingStateDisabled,
 		DesiredOnboardingStateEnabled,
+	}
+}
+
+// DevOpsPolicySource - DevOps Policy creation sources.
+type DevOpsPolicySource string
+
+const (
+	DevOpsPolicySourceBuiltIn     DevOpsPolicySource = "BuiltIn"
+	DevOpsPolicySourceUnknown     DevOpsPolicySource = "Unknown"
+	DevOpsPolicySourceUserDefined DevOpsPolicySource = "UserDefined"
+)
+
+// PossibleDevOpsPolicySourceValues returns the possible values for the DevOpsPolicySource const type.
+func PossibleDevOpsPolicySourceValues() []DevOpsPolicySource {
+	return []DevOpsPolicySource{
+		DevOpsPolicySourceBuiltIn,
+		DevOpsPolicySourceUnknown,
+		DevOpsPolicySourceUserDefined,
+	}
+}
+
+// DevOpsPolicyType - DevOps Policy resource types.
+type DevOpsPolicyType string
+
+const (
+	DevOpsPolicyTypePipeline DevOpsPolicyType = "Pipeline"
+	DevOpsPolicyTypeUnknown  DevOpsPolicyType = "Unknown"
+)
+
+// PossibleDevOpsPolicyTypeValues returns the possible values for the DevOpsPolicyType const type.
+func PossibleDevOpsPolicyTypeValues() []DevOpsPolicyType {
+	return []DevOpsPolicyType{
+		DevOpsPolicyTypePipeline,
+		DevOpsPolicyTypeUnknown,
 	}
 }
 
@@ -603,19 +645,21 @@ func PossibleDevOpsProvisioningStateValues() []DevOpsProvisioningState {
 	}
 }
 
-// Direction - The rule's direction
-type Direction string
+// Effect - Expected effect of this assignment (Audit/Exempt/Attest)
+type Effect string
 
 const (
-	DirectionInbound  Direction = "Inbound"
-	DirectionOutbound Direction = "Outbound"
+	EffectAttest Effect = "Attest"
+	EffectAudit  Effect = "Audit"
+	EffectExempt Effect = "Exempt"
 )
 
-// PossibleDirectionValues returns the possible values for the Direction const type.
-func PossibleDirectionValues() []Direction {
-	return []Direction{
-		DirectionInbound,
-		DirectionOutbound,
+// PossibleEffectValues returns the possible values for the Effect const type.
+func PossibleEffectValues() []Effect {
+	return []Effect{
+		EffectAttest,
+		EffectAudit,
+		EffectExempt,
 	}
 }
 
@@ -660,42 +704,6 @@ func PossibleEnforceValues() []Enforce {
 	return []Enforce{
 		EnforceFalse,
 		EnforceTrue,
-	}
-}
-
-// EnforcementMode - The application control policy enforcement/protection mode of the machine group
-type EnforcementMode string
-
-const (
-	EnforcementModeAudit   EnforcementMode = "Audit"
-	EnforcementModeEnforce EnforcementMode = "Enforce"
-	EnforcementModeNone    EnforcementMode = "None"
-)
-
-// PossibleEnforcementModeValues returns the possible values for the EnforcementMode const type.
-func PossibleEnforcementModeValues() []EnforcementMode {
-	return []EnforcementMode{
-		EnforcementModeAudit,
-		EnforcementModeEnforce,
-		EnforcementModeNone,
-	}
-}
-
-// EnforcementSupport - The machine supportability of Enforce feature
-type EnforcementSupport string
-
-const (
-	EnforcementSupportNotSupported EnforcementSupport = "NotSupported"
-	EnforcementSupportSupported    EnforcementSupport = "Supported"
-	EnforcementSupportUnknown      EnforcementSupport = "Unknown"
-)
-
-// PossibleEnforcementSupportValues returns the possible values for the EnforcementSupport const type.
-func PossibleEnforcementSupportValues() []EnforcementSupport {
-	return []EnforcementSupport{
-		EnforcementSupportNotSupported,
-		EnforcementSupportSupported,
-		EnforcementSupportUnknown,
 	}
 }
 
@@ -759,6 +767,22 @@ func PossibleEventSourceValues() []EventSource {
 	}
 }
 
+// ExemptionCategory - Exemption category of this assignment
+type ExemptionCategory string
+
+const (
+	ExemptionCategoryMitigated ExemptionCategory = "mitigated"
+	ExemptionCategoryWaiver    ExemptionCategory = "waiver"
+)
+
+// PossibleExemptionCategoryValues returns the possible values for the ExemptionCategory const type.
+func PossibleExemptionCategoryValues() []ExemptionCategory {
+	return []ExemptionCategory{
+		ExemptionCategoryMitigated,
+		ExemptionCategoryWaiver,
+	}
+}
+
 type ExpandControlsEnum string
 
 const (
@@ -819,30 +843,6 @@ func PossibleExternalSecuritySolutionKindValues() []ExternalSecuritySolutionKind
 		ExternalSecuritySolutionKindAAD,
 		ExternalSecuritySolutionKindATA,
 		ExternalSecuritySolutionKindCEF,
-	}
-}
-
-// FileType - The type of the file (for Linux files - Executable is used)
-type FileType string
-
-const (
-	FileTypeDll        FileType = "Dll"
-	FileTypeExe        FileType = "Exe"
-	FileTypeExecutable FileType = "Executable"
-	FileTypeMsi        FileType = "Msi"
-	FileTypeScript     FileType = "Script"
-	FileTypeUnknown    FileType = "Unknown"
-)
-
-// PossibleFileTypeValues returns the possible values for the FileType const type.
-func PossibleFileTypeValues() []FileType {
-	return []FileType{
-		FileTypeDll,
-		FileTypeExe,
-		FileTypeExecutable,
-		FileTypeMsi,
-		FileTypeScript,
-		FileTypeUnknown,
 	}
 }
 
@@ -1446,24 +1446,6 @@ func PossibleRankValues() []Rank {
 	}
 }
 
-// RecommendationAction - The recommendation action of the machine or rule
-type RecommendationAction string
-
-const (
-	RecommendationActionAdd         RecommendationAction = "Add"
-	RecommendationActionRecommended RecommendationAction = "Recommended"
-	RecommendationActionRemove      RecommendationAction = "Remove"
-)
-
-// PossibleRecommendationActionValues returns the possible values for the RecommendationAction const type.
-func PossibleRecommendationActionValues() []RecommendationAction {
-	return []RecommendationAction{
-		RecommendationActionAdd,
-		RecommendationActionRecommended,
-		RecommendationActionRemove,
-	}
-}
-
 // RecommendationConfigStatus - Recommendation status. When the recommendation status is disabled recommendations are not
 // generated.
 type RecommendationConfigStatus string
@@ -1481,23 +1463,21 @@ func PossibleRecommendationConfigStatusValues() []RecommendationConfigStatus {
 	}
 }
 
-// RecommendationStatus - The initial recommendation status of the machine group or machine
-type RecommendationStatus string
+// RecommendationSupportedClouds - The cloud that the recommendation is supported on.
+type RecommendationSupportedClouds string
 
 const (
-	RecommendationStatusNoStatus       RecommendationStatus = "NoStatus"
-	RecommendationStatusNotAvailable   RecommendationStatus = "NotAvailable"
-	RecommendationStatusNotRecommended RecommendationStatus = "NotRecommended"
-	RecommendationStatusRecommended    RecommendationStatus = "Recommended"
+	RecommendationSupportedCloudsAWS   RecommendationSupportedClouds = "AWS"
+	RecommendationSupportedCloudsAzure RecommendationSupportedClouds = "Azure"
+	RecommendationSupportedCloudsGCP   RecommendationSupportedClouds = "GCP"
 )
 
-// PossibleRecommendationStatusValues returns the possible values for the RecommendationStatus const type.
-func PossibleRecommendationStatusValues() []RecommendationStatus {
-	return []RecommendationStatus{
-		RecommendationStatusNoStatus,
-		RecommendationStatusNotAvailable,
-		RecommendationStatusNotRecommended,
-		RecommendationStatusRecommended,
+// PossibleRecommendationSupportedCloudsValues returns the possible values for the RecommendationSupportedClouds const type.
+func PossibleRecommendationSupportedCloudsValues() []RecommendationSupportedClouds {
+	return []RecommendationSupportedClouds{
+		RecommendationSupportedCloudsAWS,
+		RecommendationSupportedCloudsAzure,
+		RecommendationSupportedCloudsGCP,
 	}
 }
 
@@ -1891,6 +1871,30 @@ func PossibleSecurityFamilyValues() []SecurityFamily {
 	}
 }
 
+// SecurityIssue - The severity to relate to the assessments generated by this Recommendation.
+type SecurityIssue string
+
+const (
+	SecurityIssueAnonymousAccess      SecurityIssue = "AnonymousAccess"
+	SecurityIssueBestPractices        SecurityIssue = "BestPractices"
+	SecurityIssueExcessivePermissions SecurityIssue = "ExcessivePermissions"
+	SecurityIssueNetworkExposure      SecurityIssue = "NetworkExposure"
+	SecurityIssueTrafficEncryption    SecurityIssue = "TrafficEncryption"
+	SecurityIssueVulnerability        SecurityIssue = "Vulnerability"
+)
+
+// PossibleSecurityIssueValues returns the possible values for the SecurityIssue const type.
+func PossibleSecurityIssueValues() []SecurityIssue {
+	return []SecurityIssue{
+		SecurityIssueAnonymousAccess,
+		SecurityIssueBestPractices,
+		SecurityIssueExcessivePermissions,
+		SecurityIssueNetworkExposure,
+		SecurityIssueTrafficEncryption,
+		SecurityIssueVulnerability,
+	}
+}
+
 // SecuritySolutionStatus - Status of the IoT Security solution.
 type SecuritySolutionStatus string
 
@@ -2084,28 +2088,6 @@ func PossibleSourceValues() []Source {
 	}
 }
 
-// SourceSystem - The source type of the machine group
-type SourceSystem string
-
-const (
-	SourceSystemAzureAppLocker    SourceSystem = "Azure_AppLocker"
-	SourceSystemAzureAuditD       SourceSystem = "Azure_AuditD"
-	SourceSystemNonAzureAppLocker SourceSystem = "NonAzure_AppLocker"
-	SourceSystemNonAzureAuditD    SourceSystem = "NonAzure_AuditD"
-	SourceSystemNone              SourceSystem = "None"
-)
-
-// PossibleSourceSystemValues returns the possible values for the SourceSystem const type.
-func PossibleSourceSystemValues() []SourceSystem {
-	return []SourceSystem{
-		SourceSystemAzureAppLocker,
-		SourceSystemAzureAuditD,
-		SourceSystemNonAzureAppLocker,
-		SourceSystemNonAzureAuditD,
-		SourceSystemNone,
-	}
-}
-
 // SourceType - The source type that will trigger the notification
 type SourceType string
 
@@ -2119,6 +2101,42 @@ func PossibleSourceTypeValues() []SourceType {
 	return []SourceType{
 		SourceTypeAlert,
 		SourceTypeAttackPath,
+	}
+}
+
+// StandardSupportedCloud - The cloud that the standard is supported on.
+type StandardSupportedCloud string
+
+const (
+	StandardSupportedCloudAWS   StandardSupportedCloud = "AWS"
+	StandardSupportedCloudAzure StandardSupportedCloud = "Azure"
+	StandardSupportedCloudGCP   StandardSupportedCloud = "GCP"
+)
+
+// PossibleStandardSupportedCloudValues returns the possible values for the StandardSupportedCloud const type.
+func PossibleStandardSupportedCloudValues() []StandardSupportedCloud {
+	return []StandardSupportedCloud{
+		StandardSupportedCloudAWS,
+		StandardSupportedCloudAzure,
+		StandardSupportedCloudGCP,
+	}
+}
+
+// StandardType - Standard type (Custom or Default or Compliance only currently)
+type StandardType string
+
+const (
+	StandardTypeCompliance StandardType = "Compliance"
+	StandardTypeCustom     StandardType = "Custom"
+	StandardTypeDefault    StandardType = "Default"
+)
+
+// PossibleStandardTypeValues returns the possible values for the StandardType const type.
+func PossibleStandardTypeValues() []StandardType {
+	return []StandardType{
+		StandardTypeCompliance,
+		StandardTypeCustom,
+		StandardTypeDefault,
 	}
 }
 
@@ -2557,21 +2575,6 @@ func PossibleThreatsValues() []Threats {
 		ThreatsMaliciousInsider,
 		ThreatsMissingCoverage,
 		ThreatsThreatResistance,
-	}
-}
-
-type TransportProtocol string
-
-const (
-	TransportProtocolTCP TransportProtocol = "TCP"
-	TransportProtocolUDP TransportProtocol = "UDP"
-)
-
-// PossibleTransportProtocolValues returns the possible values for the TransportProtocol const type.
-func PossibleTransportProtocolValues() []TransportProtocol {
-	return []TransportProtocol{
-		TransportProtocolTCP,
-		TransportProtocolUDP,
 	}
 }
 
