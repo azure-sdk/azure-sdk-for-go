@@ -522,6 +522,13 @@ type CheckAvailabilityResponse struct {
 	Reason *InAvailabilityReasonType
 }
 
+// ClusterPeerCommandResponse - Information about cluster peering process
+type ClusterPeerCommandResponse struct {
+	// A command that needs to be run on the external ONTAP to accept cluster peering. Will only be present if clusterPeeringStatus
+	// is pending
+	PeerAcceptCommand *string
+}
+
 // DailySchedule - Daily Schedule properties
 type DailySchedule struct {
 	// Indicates which hour in UTC timezone a snapshot should be taken
@@ -613,6 +620,10 @@ type FilePathAvailabilityRequest struct {
 
 	// REQUIRED; The Azure Resource URI for a delegated subnet. Must have the delegation Microsoft.NetApp/volumes
 	SubnetID *string
+
+	// The Azure Resource logical availability zone which is used within zone mapping lookup for the subscription and region.
+	// The lookup will retrieve the physical zone where volume is placed.
+	AvailabilityZone *string
 }
 
 // GetGroupIDListForLDAPUserRequest - Get group Id list for LDAP User request
@@ -862,6 +873,12 @@ type OperationProperties struct {
 	ServiceSpecification *ServiceSpecification
 }
 
+// PeerClusterForVolumeMigrationRequest - Source Cluster properties for a cluster peer request
+type PeerClusterForVolumeMigrationRequest struct {
+	// REQUIRED; A list of IC-LIF IPs that can be used to connect to the On-prem cluster
+	PeerIPAddresses []*string
+}
+
 // PlacementKeyValuePairs - Application specific parameters for the placement of volumes in the volume group
 type PlacementKeyValuePairs struct {
 	// REQUIRED; Key for an application specific parameter for the placement of volumes in the volume group
@@ -998,6 +1015,18 @@ type RelocateVolumeRequest struct {
 	CreationToken *string
 }
 
+// RemotePath - The full path to a volume that is to be migrated into ANF. Required for Migration volumes
+type RemotePath struct {
+	// REQUIRED; The Path to a ONTAP Host
+	ExternalHostName *string
+
+	// REQUIRED; The name of a server on the ONTAP Host
+	ServerName *string
+
+	// REQUIRED; The name of a volume on the server
+	VolumeName *string
+}
+
 // Replication properties
 type Replication struct {
 	// REQUIRED; The resource ID of the remote volume.
@@ -1023,6 +1052,9 @@ type ReplicationObject struct {
 
 	// Indicates whether the local volume is the source or destination for the Volume Replication
 	EndpointType *EndpointType
+
+	// The full path to a volume that is to be migrated into ANF. Required for Migration volumes
+	RemotePath *RemotePath
 
 	// The remote region for the other end of the Volume Replication.
 	RemoteVolumeRegion *string
@@ -1359,6 +1391,13 @@ type SubvolumesList struct {
 
 	// A list of Subvolumes
 	Value []*SubvolumeInfo
+}
+
+// SvmPeerCommandResponse - Information about svm peering process
+type SvmPeerCommandResponse struct {
+	// A command that needs to be run on the external ONTAP to accept svm peering. Will only be present if svmPeeringStatus is
+	// pending
+	SvmPeeringCommand *string
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
