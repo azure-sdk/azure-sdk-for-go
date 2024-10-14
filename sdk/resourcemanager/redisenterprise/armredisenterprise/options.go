@@ -96,13 +96,6 @@ type DatabasesClientBeginUpdateOptions struct {
 	ResumeToken string
 }
 
-// DatabasesClientBeginUpgradeDBRedisVersionOptions contains the optional parameters for the DatabasesClient.BeginUpgradeDBRedisVersion
-// method.
-type DatabasesClientBeginUpgradeDBRedisVersionOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
 // DatabasesClientGetOptions contains the optional parameters for the DatabasesClient.Get method.
 type DatabasesClientGetOptions struct {
 	// placeholder for future optional parameters
