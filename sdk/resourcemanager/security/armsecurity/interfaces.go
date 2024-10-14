@@ -36,6 +36,15 @@ type AllowlistCustomAlertRuleClassification interface {
 	GetAllowlistCustomAlertRule() *AllowlistCustomAlertRule
 }
 
+// AuthenticationClassification provides polymorphic access to related types.
+// Call the interface's GetAuthentication() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *AccessTokenAuthentication, *Authentication
+type AuthenticationClassification interface {
+	// GetAuthentication returns the Authentication content of the underlying type.
+	GetAuthentication() *Authentication
+}
+
 // AuthenticationDetailsPropertiesClassification provides polymorphic access to related types.
 // Call the interface's GetAuthenticationDetailsProperties() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
@@ -67,9 +76,10 @@ type AwsOrganizationalDataClassification interface {
 // CloudOfferingClassification provides polymorphic access to related types.
 // Call the interface's GetCloudOffering() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *CloudOffering, *CspmMonitorAwsOffering, *CspmMonitorAzureDevOpsOffering, *CspmMonitorGcpOffering, *CspmMonitorGitLabOffering,
-// - *CspmMonitorGithubOffering, *DefenderCspmAwsOffering, *DefenderCspmGcpOffering, *DefenderFoDatabasesAwsOffering, *DefenderForContainersAwsOffering,
-// - *DefenderForContainersGcpOffering, *DefenderForDatabasesGcpOffering, *DefenderForServersAwsOffering, *DefenderForServersGcpOffering
+// - *CloudOffering, *CspmMonitorAwsOffering, *CspmMonitorAzureDevOpsOffering, *CspmMonitorDockerHubOffering, *CspmMonitorGcpOffering,
+// - *CspmMonitorGitLabOffering, *CspmMonitorGithubOffering, *DefenderCspmAwsOffering, *DefenderCspmDockerHubOffering, *DefenderCspmGcpOffering,
+// - *DefenderFoDatabasesAwsOffering, *DefenderForContainersAwsOffering, *DefenderForContainersDockerHubOffering, *DefenderForContainersGcpOffering,
+// - *DefenderForDatabasesGcpOffering, *DefenderForServersAwsOffering, *DefenderForServersGcpOffering
 type CloudOfferingClassification interface {
 	// GetCloudOffering returns the CloudOffering content of the underlying type.
 	GetCloudOffering() *CloudOffering
@@ -93,8 +103,8 @@ type CustomAlertRuleClassification interface {
 // EnvironmentDataClassification provides polymorphic access to related types.
 // Call the interface's GetEnvironmentData() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *AwsEnvironmentData, *AzureDevOpsScopeEnvironmentData, *EnvironmentData, *GcpProjectEnvironmentData, *GithubScopeEnvironmentData,
-// - *GitlabScopeEnvironmentData
+// - *AwsEnvironmentData, *AzureDevOpsScopeEnvironmentData, *DockerHubEnvironmentData, *EnvironmentData, *GcpProjectEnvironmentData,
+// - *GithubScopeEnvironmentData, *GitlabScopeEnvironmentData
 type EnvironmentDataClassification interface {
 	// GetEnvironmentData returns the EnvironmentData content of the underlying type.
 	GetEnvironmentData() *EnvironmentData
