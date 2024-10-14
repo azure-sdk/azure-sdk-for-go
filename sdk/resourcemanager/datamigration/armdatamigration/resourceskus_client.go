@@ -28,7 +28,7 @@ type ResourceSKUsClient struct {
 }
 
 // NewResourceSKUsClient creates a new instance of ResourceSKUsClient with the specified values.
-//   - subscriptionID - Identifier of the subscription
+//   - subscriptionID - Subscription ID that identifies an Azure subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewResourceSKUsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ResourceSKUsClient, error) {
@@ -43,9 +43,9 @@ func NewResourceSKUsClient(subscriptionID string, credential azcore.TokenCredent
 	return client, nil
 }
 
-// NewListSKUsPager - The skus action returns the list of SKUs that DMS supports.
+// NewListSKUsPager - The skus action returns the list of SKUs that DMS (classic) supports.
 //
-// Generated from API version 2021-06-30
+// Generated from API version 2023-07-15-preview
 //   - options - ResourceSKUsClientListSKUsOptions contains the optional parameters for the ResourceSKUsClient.NewListSKUsPager
 //     method.
 func (client *ResourceSKUsClient) NewListSKUsPager(options *ResourceSKUsClientListSKUsOptions) *runtime.Pager[ResourceSKUsClientListSKUsResponse] {
@@ -83,7 +83,7 @@ func (client *ResourceSKUsClient) listSKUsCreateRequest(ctx context.Context, opt
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-30")
+	reqQP.Set("api-version", "2023-07-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

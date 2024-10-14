@@ -19,14 +19,21 @@ import (
 
 // ServerFactory is a fake server for instances of the armdatamigration.ClientFactory type.
 type ServerFactory struct {
-	FilesServer        FilesServer
-	OperationsServer   OperationsServer
-	ProjectsServer     ProjectsServer
-	ResourceSKUsServer ResourceSKUsServer
-	ServiceTasksServer ServiceTasksServer
-	ServicesServer     ServicesServer
-	TasksServer        TasksServer
-	UsagesServer       UsagesServer
+	DatabaseMigrationsMongoToCosmosDbRUMongoServer    DatabaseMigrationsMongoToCosmosDbRUMongoServer
+	DatabaseMigrationsMongoToCosmosDbvCoreMongoServer DatabaseMigrationsMongoToCosmosDbvCoreMongoServer
+	DatabaseMigrationsSQLDbServer                     DatabaseMigrationsSQLDbServer
+	DatabaseMigrationsSQLMiServer                     DatabaseMigrationsSQLMiServer
+	DatabaseMigrationsSQLVMServer                     DatabaseMigrationsSQLVMServer
+	FilesServer                                       FilesServer
+	MigrationServicesServer                           MigrationServicesServer
+	OperationsServer                                  OperationsServer
+	ProjectsServer                                    ProjectsServer
+	ResourceSKUsServer                                ResourceSKUsServer
+	SQLMigrationServicesServer                        SQLMigrationServicesServer
+	ServiceTasksServer                                ServiceTasksServer
+	ServicesServer                                    ServicesServer
+	TasksServer                                       TasksServer
+	UsagesServer                                      UsagesServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -41,16 +48,23 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armdatamigration.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                  *ServerFactory
-	trMu                 sync.Mutex
-	trFilesServer        *FilesServerTransport
-	trOperationsServer   *OperationsServerTransport
-	trProjectsServer     *ProjectsServerTransport
-	trResourceSKUsServer *ResourceSKUsServerTransport
-	trServiceTasksServer *ServiceTasksServerTransport
-	trServicesServer     *ServicesServerTransport
-	trTasksServer        *TasksServerTransport
-	trUsagesServer       *UsagesServerTransport
+	srv                                                 *ServerFactory
+	trMu                                                sync.Mutex
+	trDatabaseMigrationsMongoToCosmosDbRUMongoServer    *DatabaseMigrationsMongoToCosmosDbRUMongoServerTransport
+	trDatabaseMigrationsMongoToCosmosDbvCoreMongoServer *DatabaseMigrationsMongoToCosmosDbvCoreMongoServerTransport
+	trDatabaseMigrationsSQLDbServer                     *DatabaseMigrationsSQLDbServerTransport
+	trDatabaseMigrationsSQLMiServer                     *DatabaseMigrationsSQLMiServerTransport
+	trDatabaseMigrationsSQLVMServer                     *DatabaseMigrationsSQLVMServerTransport
+	trFilesServer                                       *FilesServerTransport
+	trMigrationServicesServer                           *MigrationServicesServerTransport
+	trOperationsServer                                  *OperationsServerTransport
+	trProjectsServer                                    *ProjectsServerTransport
+	trResourceSKUsServer                                *ResourceSKUsServerTransport
+	trSQLMigrationServicesServer                        *SQLMigrationServicesServerTransport
+	trServiceTasksServer                                *ServiceTasksServerTransport
+	trServicesServer                                    *ServicesServerTransport
+	trTasksServer                                       *TasksServerTransport
+	trUsagesServer                                      *UsagesServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -66,9 +80,39 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch client {
+	case "DatabaseMigrationsMongoToCosmosDbRUMongoClient":
+		initServer(s, &s.trDatabaseMigrationsMongoToCosmosDbRUMongoServer, func() *DatabaseMigrationsMongoToCosmosDbRUMongoServerTransport {
+			return NewDatabaseMigrationsMongoToCosmosDbRUMongoServerTransport(&s.srv.DatabaseMigrationsMongoToCosmosDbRUMongoServer)
+		})
+		resp, err = s.trDatabaseMigrationsMongoToCosmosDbRUMongoServer.Do(req)
+	case "DatabaseMigrationsMongoToCosmosDbvCoreMongoClient":
+		initServer(s, &s.trDatabaseMigrationsMongoToCosmosDbvCoreMongoServer, func() *DatabaseMigrationsMongoToCosmosDbvCoreMongoServerTransport {
+			return NewDatabaseMigrationsMongoToCosmosDbvCoreMongoServerTransport(&s.srv.DatabaseMigrationsMongoToCosmosDbvCoreMongoServer)
+		})
+		resp, err = s.trDatabaseMigrationsMongoToCosmosDbvCoreMongoServer.Do(req)
+	case "DatabaseMigrationsSQLDbClient":
+		initServer(s, &s.trDatabaseMigrationsSQLDbServer, func() *DatabaseMigrationsSQLDbServerTransport {
+			return NewDatabaseMigrationsSQLDbServerTransport(&s.srv.DatabaseMigrationsSQLDbServer)
+		})
+		resp, err = s.trDatabaseMigrationsSQLDbServer.Do(req)
+	case "DatabaseMigrationsSQLMiClient":
+		initServer(s, &s.trDatabaseMigrationsSQLMiServer, func() *DatabaseMigrationsSQLMiServerTransport {
+			return NewDatabaseMigrationsSQLMiServerTransport(&s.srv.DatabaseMigrationsSQLMiServer)
+		})
+		resp, err = s.trDatabaseMigrationsSQLMiServer.Do(req)
+	case "DatabaseMigrationsSQLVMClient":
+		initServer(s, &s.trDatabaseMigrationsSQLVMServer, func() *DatabaseMigrationsSQLVMServerTransport {
+			return NewDatabaseMigrationsSQLVMServerTransport(&s.srv.DatabaseMigrationsSQLVMServer)
+		})
+		resp, err = s.trDatabaseMigrationsSQLVMServer.Do(req)
 	case "FilesClient":
 		initServer(s, &s.trFilesServer, func() *FilesServerTransport { return NewFilesServerTransport(&s.srv.FilesServer) })
 		resp, err = s.trFilesServer.Do(req)
+	case "MigrationServicesClient":
+		initServer(s, &s.trMigrationServicesServer, func() *MigrationServicesServerTransport {
+			return NewMigrationServicesServerTransport(&s.srv.MigrationServicesServer)
+		})
+		resp, err = s.trMigrationServicesServer.Do(req)
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
@@ -78,6 +122,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "ResourceSKUsClient":
 		initServer(s, &s.trResourceSKUsServer, func() *ResourceSKUsServerTransport { return NewResourceSKUsServerTransport(&s.srv.ResourceSKUsServer) })
 		resp, err = s.trResourceSKUsServer.Do(req)
+	case "SQLMigrationServicesClient":
+		initServer(s, &s.trSQLMigrationServicesServer, func() *SQLMigrationServicesServerTransport {
+			return NewSQLMigrationServicesServerTransport(&s.srv.SQLMigrationServicesServer)
+		})
+		resp, err = s.trSQLMigrationServicesServer.Do(req)
 	case "ServiceTasksClient":
 		initServer(s, &s.trServiceTasksServer, func() *ServiceTasksServerTransport { return NewServiceTasksServerTransport(&s.srv.ServiceTasksServer) })
 		resp, err = s.trServiceTasksServer.Do(req)
