@@ -29,7 +29,7 @@ type IncidentCommentsClient struct {
 }
 
 // NewIncidentCommentsClient creates a new instance of IncidentCommentsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewIncidentCommentsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*IncidentCommentsClient, error) {
@@ -44,10 +44,10 @@ func NewIncidentCommentsClient(subscriptionID string, credential azcore.TokenCre
 	return client, nil
 }
 
-// CreateOrUpdate - Creates or updates the incident comment.
+// CreateOrUpdate - Creates or updates a comment for a given incident.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01-preview
+// Generated from API version 2024-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - incidentID - Incident ID
@@ -105,7 +105,7 @@ func (client *IncidentCommentsClient) createOrUpdateCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01-preview")
+	reqQP.Set("api-version", "2024-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, incidentComment); err != nil {
@@ -123,10 +123,10 @@ func (client *IncidentCommentsClient) createOrUpdateHandleResponse(resp *http.Re
 	return result, nil
 }
 
-// Delete - Delete the incident comment.
+// Delete - Deletes a comment for a given incident.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01-preview
+// Generated from API version 2024-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - incidentID - Incident ID
@@ -181,16 +181,16 @@ func (client *IncidentCommentsClient) deleteCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01-preview")
+	reqQP.Set("api-version", "2024-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
-// Get - Gets an incident comment.
+// Get - Gets a comment for a given incident.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01-preview
+// Generated from API version 2024-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - incidentID - Incident ID
@@ -246,7 +246,7 @@ func (client *IncidentCommentsClient) getCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01-preview")
+	reqQP.Set("api-version", "2024-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -261,9 +261,9 @@ func (client *IncidentCommentsClient) getHandleResponse(resp *http.Response) (In
 	return result, nil
 }
 
-// NewListPager - Gets all incident comments.
+// NewListPager - Gets all comments for a given incident.
 //
-// Generated from API version 2022-09-01-preview
+// Generated from API version 2024-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - incidentID - Incident ID
@@ -328,7 +328,7 @@ func (client *IncidentCommentsClient) listCreateRequest(ctx context.Context, res
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	reqQP.Set("api-version", "2022-09-01-preview")
+	reqQP.Set("api-version", "2024-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
