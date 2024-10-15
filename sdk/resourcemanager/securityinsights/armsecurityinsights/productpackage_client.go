@@ -20,62 +20,62 @@ import (
 	"strings"
 )
 
-// ThreatIntelligenceIndicatorMetricsClient contains the methods for the ThreatIntelligenceIndicatorMetrics group.
-// Don't use this type directly, use NewThreatIntelligenceIndicatorMetricsClient() instead.
-type ThreatIntelligenceIndicatorMetricsClient struct {
+// ProductPackageClient contains the methods for the ProductPackage group.
+// Don't use this type directly, use NewProductPackageClient() instead.
+type ProductPackageClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewThreatIntelligenceIndicatorMetricsClient creates a new instance of ThreatIntelligenceIndicatorMetricsClient with the specified values.
+// NewProductPackageClient creates a new instance of ProductPackageClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewThreatIntelligenceIndicatorMetricsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ThreatIntelligenceIndicatorMetricsClient, error) {
+func NewProductPackageClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ProductPackageClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &ThreatIntelligenceIndicatorMetricsClient{
+	client := &ProductPackageClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// List - Get threat intelligence indicators metrics (Indicators counts by Type, Threat Type, Source).
+// Get - Gets a package by its identifier from the catalog.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
-//   - options - ThreatIntelligenceIndicatorMetricsClientListOptions contains the optional parameters for the ThreatIntelligenceIndicatorMetricsClient.List
-//     method.
-func (client *ThreatIntelligenceIndicatorMetricsClient) List(ctx context.Context, resourceGroupName string, workspaceName string, options *ThreatIntelligenceIndicatorMetricsClientListOptions) (ThreatIntelligenceIndicatorMetricsClientListResponse, error) {
+//   - packageID - package Id
+//   - options - ProductPackageClientGetOptions contains the optional parameters for the ProductPackageClient.Get method.
+func (client *ProductPackageClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, packageID string, options *ProductPackageClientGetOptions) (ProductPackageClientGetResponse, error) {
 	var err error
-	const operationName = "ThreatIntelligenceIndicatorMetricsClient.List"
+	const operationName = "ProductPackageClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.listCreateRequest(ctx, resourceGroupName, workspaceName, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, packageID, options)
 	if err != nil {
-		return ThreatIntelligenceIndicatorMetricsClientListResponse{}, err
+		return ProductPackageClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ThreatIntelligenceIndicatorMetricsClientListResponse{}, err
+		return ProductPackageClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return ThreatIntelligenceIndicatorMetricsClientListResponse{}, err
+		return ProductPackageClientGetResponse{}, err
 	}
-	resp, err := client.listHandleResponse(httpResp)
+	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
-// listCreateRequest creates the List request.
-func (client *ThreatIntelligenceIndicatorMetricsClient) listCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, options *ThreatIntelligenceIndicatorMetricsClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/main/metrics"
+// getCreateRequest creates the Get request.
+func (client *ProductPackageClient) getCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, packageID string, options *ProductPackageClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/contentProductPackages/{packageId}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -88,6 +88,10 @@ func (client *ThreatIntelligenceIndicatorMetricsClient) listCreateRequest(ctx co
 		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
+	if packageID == "" {
+		return nil, errors.New("parameter packageID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{packageId}", url.PathEscape(packageID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -99,11 +103,11 @@ func (client *ThreatIntelligenceIndicatorMetricsClient) listCreateRequest(ctx co
 	return req, nil
 }
 
-// listHandleResponse handles the List response.
-func (client *ThreatIntelligenceIndicatorMetricsClient) listHandleResponse(resp *http.Response) (ThreatIntelligenceIndicatorMetricsClientListResponse, error) {
-	result := ThreatIntelligenceIndicatorMetricsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ThreatIntelligenceMetricsList); err != nil {
-		return ThreatIntelligenceIndicatorMetricsClientListResponse{}, err
+// getHandleResponse handles the Get response.
+func (client *ProductPackageClient) getHandleResponse(resp *http.Response) (ProductPackageClientGetResponse, error) {
+	result := ProductPackageClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ProductPackageModel); err != nil {
+		return ProductPackageClientGetResponse{}, err
 	}
 	return result, nil
 }
