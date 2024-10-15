@@ -1,5 +1,11 @@
 # Release History
 
+## 1.3.0-beta.2 (2024-10-15)
+### Features Added
+
+- New value `HostTypeEdgeCluster` added to enum type `HostType`
+
+
 ## 1.3.0-beta.1 (2023-11-30)
 ### Features Added
 
