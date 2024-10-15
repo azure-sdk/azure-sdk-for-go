@@ -23,6 +23,10 @@ import (
 
 // DefenderForStorageServer is a fake server for instances of the armsecurity.DefenderForStorageClient type.
 type DefenderForStorageServer struct {
+	// CancelMalwareScan is the fake for method DefenderForStorageClient.CancelMalwareScan
+	// HTTP status codes to indicate success: http.StatusOK
+	CancelMalwareScan func(ctx context.Context, resourceID string, settingName armsecurity.SettingName, scanID string, options *armsecurity.DefenderForStorageClientCancelMalwareScanOptions) (resp azfake.Responder[armsecurity.DefenderForStorageClientCancelMalwareScanResponse], errResp azfake.ErrorResponder)
+
 	// Create is the fake for method DefenderForStorageClient.Create
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
 	Create func(ctx context.Context, resourceID string, settingName armsecurity.SettingName, defenderForStorageSetting armsecurity.DefenderForStorageSetting, options *armsecurity.DefenderForStorageClientCreateOptions) (resp azfake.Responder[armsecurity.DefenderForStorageClientCreateResponse], errResp azfake.ErrorResponder)
@@ -30,6 +34,14 @@ type DefenderForStorageServer struct {
 	// Get is the fake for method DefenderForStorageClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceID string, settingName armsecurity.SettingName, options *armsecurity.DefenderForStorageClientGetOptions) (resp azfake.Responder[armsecurity.DefenderForStorageClientGetResponse], errResp azfake.ErrorResponder)
+
+	// GetMalwareScan is the fake for method DefenderForStorageClient.GetMalwareScan
+	// HTTP status codes to indicate success: http.StatusOK
+	GetMalwareScan func(ctx context.Context, resourceID string, settingName armsecurity.SettingName, scanID string, options *armsecurity.DefenderForStorageClientGetMalwareScanOptions) (resp azfake.Responder[armsecurity.DefenderForStorageClientGetMalwareScanResponse], errResp azfake.ErrorResponder)
+
+	// StartMalwareScan is the fake for method DefenderForStorageClient.StartMalwareScan
+	// HTTP status codes to indicate success: http.StatusOK
+	StartMalwareScan func(ctx context.Context, resourceID string, settingName armsecurity.SettingName, options *armsecurity.DefenderForStorageClientStartMalwareScanOptions) (resp azfake.Responder[armsecurity.DefenderForStorageClientStartMalwareScanResponse], errResp azfake.ErrorResponder)
 }
 
 // NewDefenderForStorageServerTransport creates a new instance of DefenderForStorageServerTransport with the provided implementation.
@@ -57,10 +69,16 @@ func (d *DefenderForStorageServerTransport) Do(req *http.Request) (*http.Respons
 	var err error
 
 	switch method {
+	case "DefenderForStorageClient.CancelMalwareScan":
+		resp, err = d.dispatchCancelMalwareScan(req)
 	case "DefenderForStorageClient.Create":
 		resp, err = d.dispatchCreate(req)
 	case "DefenderForStorageClient.Get":
 		resp, err = d.dispatchGet(req)
+	case "DefenderForStorageClient.GetMalwareScan":
+		resp, err = d.dispatchGetMalwareScan(req)
+	case "DefenderForStorageClient.StartMalwareScan":
+		resp, err = d.dispatchStartMalwareScan(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -69,6 +87,49 @@ func (d *DefenderForStorageServerTransport) Do(req *http.Request) (*http.Respons
 		return nil, err
 	}
 
+	return resp, nil
+}
+
+func (d *DefenderForStorageServerTransport) dispatchCancelMalwareScan(req *http.Request) (*http.Response, error) {
+	if d.srv.CancelMalwareScan == nil {
+		return nil, &nonRetriableError{errors.New("fake for method CancelMalwareScan not implemented")}
+	}
+	const regexStr = `/(?P<resourceId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Security/defenderForStorageSettings/(?P<settingName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/malwareScans/(?P<scanId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/cancelMalwareScan`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceId")])
+	if err != nil {
+		return nil, err
+	}
+	settingNameParam, err := parseWithCast(matches[regex.SubexpIndex("settingName")], func(v string) (armsecurity.SettingName, error) {
+		p, unescapeErr := url.PathUnescape(v)
+		if unescapeErr != nil {
+			return "", unescapeErr
+		}
+		return armsecurity.SettingName(p), nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	scanIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("scanId")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := d.srv.CancelMalwareScan(req.Context(), resourceIDParam, settingNameParam, scanIDParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).MalwareScan, req)
+	if err != nil {
+		return nil, err
+	}
 	return resp, nil
 }
 
@@ -148,6 +209,88 @@ func (d *DefenderForStorageServerTransport) dispatchGet(req *http.Request) (*htt
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).DefenderForStorageSetting, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (d *DefenderForStorageServerTransport) dispatchGetMalwareScan(req *http.Request) (*http.Response, error) {
+	if d.srv.GetMalwareScan == nil {
+		return nil, &nonRetriableError{errors.New("fake for method GetMalwareScan not implemented")}
+	}
+	const regexStr = `/(?P<resourceId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Security/defenderForStorageSettings/(?P<settingName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/malwareScans/(?P<scanId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceId")])
+	if err != nil {
+		return nil, err
+	}
+	settingNameParam, err := parseWithCast(matches[regex.SubexpIndex("settingName")], func(v string) (armsecurity.SettingName, error) {
+		p, unescapeErr := url.PathUnescape(v)
+		if unescapeErr != nil {
+			return "", unescapeErr
+		}
+		return armsecurity.SettingName(p), nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	scanIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("scanId")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := d.srv.GetMalwareScan(req.Context(), resourceIDParam, settingNameParam, scanIDParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).MalwareScan, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (d *DefenderForStorageServerTransport) dispatchStartMalwareScan(req *http.Request) (*http.Response, error) {
+	if d.srv.StartMalwareScan == nil {
+		return nil, &nonRetriableError{errors.New("fake for method StartMalwareScan not implemented")}
+	}
+	const regexStr = `/(?P<resourceId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Security/defenderForStorageSettings/(?P<settingName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/startMalwareScan`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 2 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceId")])
+	if err != nil {
+		return nil, err
+	}
+	settingNameParam, err := parseWithCast(matches[regex.SubexpIndex("settingName")], func(v string) (armsecurity.SettingName, error) {
+		p, unescapeErr := url.PathUnescape(v)
+		if unescapeErr != nil {
+			return "", unescapeErr
+		}
+		return armsecurity.SettingName(p), nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := d.srv.StartMalwareScan(req.Context(), resourceIDParam, settingNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).MalwareScan, req)
 	if err != nil {
 		return nil, err
 	}
