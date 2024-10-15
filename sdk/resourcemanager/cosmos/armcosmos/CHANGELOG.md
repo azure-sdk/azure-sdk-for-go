@@ -1,5 +1,13 @@
 # Release History
 
+## 3.2.0 (2024-10-15)
+### Features Added
+
+- New field `EnablePerRegionPerPartitionAutoscale` in struct `DatabaseAccountCreateUpdateProperties`
+- New field `EnablePerRegionPerPartitionAutoscale` in struct `DatabaseAccountGetProperties`
+- New field `EnablePerRegionPerPartitionAutoscale` in struct `DatabaseAccountUpdateProperties`
+
+
 ## 4.0.0-beta.1 (2024-09-27)
 ### Breaking Changes
 
