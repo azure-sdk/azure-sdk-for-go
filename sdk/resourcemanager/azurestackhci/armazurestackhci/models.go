@@ -257,6 +257,9 @@ type ClusterProperties struct {
 	// RemoteSupport properties of the cluster.
 	RemoteSupportProperties *RemoteSupportProperties
 
+	// List of secret locations.
+	SecretsLocations []*SecretsLocationDetails
+
 	// Software Assurance properties of the cluster.
 	SoftwareAssuranceProperties *SoftwareAssuranceProperties
 
@@ -317,6 +320,9 @@ type ClusterReportedProperties struct {
 	// READ-ONLY; Version of the cluster software.
 	ClusterVersion *string
 
+	// READ-ONLY; Hardware class of the cluster.
+	HardwareClass *HardwareClass
+
 	// READ-ONLY; IMDS attestation status of the cluster.
 	ImdsAttestation *ImdsAttestation
 
@@ -364,6 +370,9 @@ type DeploymentCluster struct {
 	// A cloud witness uses Azure Blob Storage to read or write a blob file and
 	// then uses it to arbitrate in split-brain resolution. Only allowed values are 'Cloud', 'FileShare'.
 	WitnessType *string
+
+	// READ-ONLY; Hardware class of the cluster.
+	HardwareClass *HardwareClass
 }
 
 // DeploymentConfiguration - Deployment Configuration
@@ -687,6 +696,36 @@ type EdgeDevice struct {
 // GetEdgeDevice implements the EdgeDeviceClassification interface for type EdgeDevice.
 func (e *EdgeDevice) GetEdgeDevice() *EdgeDevice { return e }
 
+// EdgeDeviceJob - EdgeDevice Jobs resource
+type EdgeDeviceJob struct {
+	// REQUIRED; Edge Solution type to support polymorphic resource.
+	Kind *EdgeDeviceKind
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// GetEdgeDeviceJob implements the EdgeDeviceJobClassification interface for type EdgeDeviceJob.
+func (e *EdgeDeviceJob) GetEdgeDeviceJob() *EdgeDeviceJob { return e }
+
+// EdgeDeviceJobListResult - The response of a EdgeDeviceJob list operation.
+type EdgeDeviceJobListResult struct {
+	// REQUIRED; The EdgeDeviceJob items on this page
+	Value []EdgeDeviceJobClassification
+
+	// The link to the next page of items
+	NextLink *string
+}
+
 // EdgeDeviceListResult - The response of a EdgeDevice list operation.
 type EdgeDeviceListResult struct {
 	// REQUIRED; The EdgeDevice items on this page
@@ -842,6 +881,55 @@ type ExtensionUpgradeParameters struct {
 	TargetVersion *string
 }
 
+// HciCollectLogJobProperties - Represents the properties of an HCI Collect Log job.
+type HciCollectLogJobProperties struct {
+	// REQUIRED; From date for log collection.
+	FromDate *time.Time
+
+	// REQUIRED; Job Type to support polymorphic resource.
+	JobType *HciEdgeDeviceJobType
+
+	// REQUIRED; To date for log collection.
+	ToDate *time.Time
+
+	// Deployment mode to trigger job.
+	DeploymentMode *DeploymentMode
+
+	// READ-ONLY; The UTC date and time at which the job completed.
+	EndTimeUTC *time.Time
+
+	// READ-ONLY; Unique, immutable job id.
+	JobID *string
+
+	// READ-ONLY; To date for log collection.
+	LastLogGenerated *time.Time
+
+	// READ-ONLY; Job provisioning state
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; log collection job reported properties.
+	ReportedProperties *LogCollectionReportedProperties
+
+	// READ-ONLY; The UTC date and time at which the job started.
+	StartTimeUTC *time.Time
+
+	// READ-ONLY; Status of Edge device job.
+	Status *JobStatus
+}
+
+// GetHciEdgeDeviceJobProperties implements the HciEdgeDeviceJobPropertiesClassification interface for type HciCollectLogJobProperties.
+func (h *HciCollectLogJobProperties) GetHciEdgeDeviceJobProperties() *HciEdgeDeviceJobProperties {
+	return &HciEdgeDeviceJobProperties{
+		DeploymentMode:    h.DeploymentMode,
+		EndTimeUTC:        h.EndTimeUTC,
+		JobID:             h.JobID,
+		JobType:           h.JobType,
+		ProvisioningState: h.ProvisioningState,
+		StartTimeUTC:      h.StartTimeUTC,
+		Status:            h.Status,
+	}
+}
+
 // HciEdgeDevice - Arc-enabled edge device with HCI OS.
 type HciEdgeDevice struct {
 	// REQUIRED; Device kind to support polymorphic resource.
@@ -984,6 +1072,67 @@ type HciEdgeDeviceIntents struct {
 	VirtualSwitchConfigurationOverrides *HciEdgeDeviceVirtualSwitchConfigurationOverrides
 }
 
+// HciEdgeDeviceJob - Edge device job for Azure Stack HCI solution.
+type HciEdgeDeviceJob struct {
+	// REQUIRED; Edge Solution type to support polymorphic resource.
+	Kind *EdgeDeviceKind
+
+	// REQUIRED; HCI Edge device job properties
+	Properties HciEdgeDeviceJobPropertiesClassification
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// GetEdgeDeviceJob implements the EdgeDeviceJobClassification interface for type HciEdgeDeviceJob.
+func (h *HciEdgeDeviceJob) GetEdgeDeviceJob() *EdgeDeviceJob {
+	return &EdgeDeviceJob{
+		ID:         h.ID,
+		Kind:       h.Kind,
+		Name:       h.Name,
+		SystemData: h.SystemData,
+		Type:       h.Type,
+	}
+}
+
+// HciEdgeDeviceJobProperties - HCI Edge device job properties
+type HciEdgeDeviceJobProperties struct {
+	// REQUIRED; Job Type to support polymorphic resource.
+	JobType *HciEdgeDeviceJobType
+
+	// Deployment mode to trigger job.
+	DeploymentMode *DeploymentMode
+
+	// READ-ONLY; The UTC date and time at which the job completed.
+	EndTimeUTC *time.Time
+
+	// READ-ONLY; Unique, immutable job id.
+	JobID *string
+
+	// READ-ONLY; Job provisioning state
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; The UTC date and time at which the job started.
+	StartTimeUTC *time.Time
+
+	// READ-ONLY; Status of Edge device job.
+	Status *JobStatus
+}
+
+// GetHciEdgeDeviceJobProperties implements the HciEdgeDeviceJobPropertiesClassification interface for type HciEdgeDeviceJobProperties.
+func (h *HciEdgeDeviceJobProperties) GetHciEdgeDeviceJobProperties() *HciEdgeDeviceJobProperties {
+	return h
+}
+
 // HciEdgeDeviceProperties - properties for Arc-enabled edge device with HCI OS.
 type HciEdgeDeviceProperties struct {
 	// Device Configuration
@@ -1080,6 +1229,9 @@ type HciNicDetail struct {
 	// READ-ONLY; The type of NIC, physical, virtual, management.
 	NicType *string
 
+	// READ-ONLY; Describes the RDMA capability of the network adapter.
+	RdmaCapability *RdmaCapability
+
 	// READ-ONLY; The slot attached to the NIC.
 	Slot *string
 
@@ -1100,6 +1252,55 @@ type HciOsProfile struct {
 
 	// READ-ONLY; The boot type of the device. e.g. UEFI, Legacy etc
 	BootType *string
+}
+
+// HciRemoteSupportJobProperties - Represents the properties of a remote support job for HCI.
+type HciRemoteSupportJobProperties struct {
+	// REQUIRED; Remote support access level.
+	AccessLevel *RemoteSupportAccessLevel
+
+	// REQUIRED; Remote support expiration timestamp.
+	ExpirationTimestamp *time.Time
+
+	// REQUIRED; Job Type to support polymorphic resource.
+	JobType *HciEdgeDeviceJobType
+
+	// REQUIRED; Remote support type.
+	Type *RemoteSupportType
+
+	// Deployment mode to trigger job.
+	DeploymentMode *DeploymentMode
+
+	// READ-ONLY; The UTC date and time at which the job completed.
+	EndTimeUTC *time.Time
+
+	// READ-ONLY; Unique, immutable job id.
+	JobID *string
+
+	// READ-ONLY; Job provisioning state
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; log collection job reported properties.
+	ReportedProperties *RemoteSupportJobReportedProperties
+
+	// READ-ONLY; The UTC date and time at which the job started.
+	StartTimeUTC *time.Time
+
+	// READ-ONLY; Status of Edge device job.
+	Status *JobStatus
+}
+
+// GetHciEdgeDeviceJobProperties implements the HciEdgeDeviceJobPropertiesClassification interface for type HciRemoteSupportJobProperties.
+func (h *HciRemoteSupportJobProperties) GetHciEdgeDeviceJobProperties() *HciEdgeDeviceJobProperties {
+	return &HciEdgeDeviceJobProperties{
+		DeploymentMode:    h.DeploymentMode,
+		EndTimeUTC:        h.EndTimeUTC,
+		JobID:             h.JobID,
+		JobType:           h.JobType,
+		ProvisioningState: h.ProvisioningState,
+		StartTimeUTC:      h.StartTimeUTC,
+		Status:            h.Status,
+	}
 }
 
 // HciReportedProperties - The device Configuration for HCI device.
@@ -1177,6 +1378,27 @@ type LogCollectionError struct {
 	ErrorMessage *string
 }
 
+// LogCollectionJobSession - Represents a session for collecting logs from an edge device.
+type LogCollectionJobSession struct {
+	// READ-ONLY; A unique identifier for correlating this log collection session with other operations or sessions.
+	CorrelationID *string
+
+	// READ-ONLY; The timestamp when log collection ended, in ISO 8601 format.
+	EndTime *string
+
+	// READ-ONLY; The size of the collected logs in bytes.
+	LogSize *int32
+
+	// READ-ONLY; The timestamp when log collection started, in ISO 8601 format.
+	StartTime *string
+
+	// READ-ONLY; The status of the log collection session.
+	Status *DeviceLogCollectionStatus
+
+	// READ-ONLY; The total time logs were collected for, in ISO 8601 duration format.
+	TimeCollected *string
+}
+
 // LogCollectionProperties - Log Collection properties of the cluster.
 type LogCollectionProperties struct {
 	// READ-ONLY; From DateTimeStamp from when logs need to be connected
@@ -1190,6 +1412,21 @@ type LogCollectionProperties struct {
 
 	// READ-ONLY; To DateTimeStamp till when logs need to be connected
 	ToDate *time.Time
+}
+
+// LogCollectionReportedProperties - Represents the reported properties of a log collection job.
+type LogCollectionReportedProperties struct {
+	// READ-ONLY; Deployment status of job.
+	DeploymentStatus *EceActionStatus
+
+	// READ-ONLY; Details of the log collection session.
+	LogCollectionSessionDetails []*LogCollectionJobSession
+
+	// READ-ONLY; The percentage of the job that is complete.
+	PercentComplete *int32
+
+	// READ-ONLY; Validation status of job.
+	ValidationStatus *EceActionStatus
 }
 
 // LogCollectionRequest - Log Collection Request
@@ -1599,6 +1836,42 @@ type RawCertificateData struct {
 	Certificates []*string
 }
 
+// RemoteSupportJobNodeSettings - Represents the settings of a remote support node.
+type RemoteSupportJobNodeSettings struct {
+	// READ-ONLY; The error message, if any, from the last connection attempt.
+	ConnectionErrorMessage *string
+
+	// READ-ONLY; The current connection status of the remote support session.
+	ConnectionStatus *string
+
+	// READ-ONLY; The timestamp when the node settings were created, in UTC.
+	CreatedAt *time.Time
+
+	// READ-ONLY; The state of the remote support node.
+	State *string
+
+	// READ-ONLY; The timestamp when the node settings were last updated, in UTC.
+	UpdatedAt *time.Time
+}
+
+// RemoteSupportJobReportedProperties - Represents the reported properties of a remote support job.
+type RemoteSupportJobReportedProperties struct {
+	// READ-ONLY; Deployment status of job.
+	DeploymentStatus *EceActionStatus
+
+	// READ-ONLY; Optional settings for configuring the node for remote support.
+	NodeSettings *RemoteSupportJobNodeSettings
+
+	// READ-ONLY; The percentage of the job that is complete.
+	PercentComplete *int32
+
+	// READ-ONLY; Details of the remote support session.
+	SessionDetails []*RemoteSupportSession
+
+	// READ-ONLY; Validation status of job.
+	ValidationStatus *EceActionStatus
+}
+
 // RemoteSupportNodeSettings - Remote Support Node Settings of the cluster.
 type RemoteSupportNodeSettings struct {
 	// READ-ONLY; Arc ResourceId of the Node
@@ -1657,6 +1930,24 @@ type RemoteSupportRequestProperties struct {
 
 	// READ-ONLY; Remote Support Access Level
 	AccessLevel *AccessLevel
+}
+
+// RemoteSupportSession - Represents a remote support session.
+type RemoteSupportSession struct {
+	// READ-ONLY; The level of access granted during the remote support session.
+	AccessLevel *RemoteSupportAccessLevel
+
+	// READ-ONLY; The end time of the remote support session, in UTC.
+	SessionEndTime *time.Time
+
+	// READ-ONLY; Unique session Id.
+	SessionID *string
+
+	// READ-ONLY; The start time of the remote support session, in UTC.
+	SessionStartTime *time.Time
+
+	// READ-ONLY; The location where the session transcript is stored.
+	TranscriptLocation *string
 }
 
 // SKU - Sku details.
@@ -1796,6 +2087,21 @@ type ScaleUnits struct {
 type SdnIntegration struct {
 	// network controller config for SDN Integration to deploy AzureStackHCI Cluster.
 	NetworkController *NetworkController
+}
+
+// SecretsLocationDetails - Secrets location details
+type SecretsLocationDetails struct {
+	// REQUIRED; secrets location
+	SecretsLocation *string
+
+	// REQUIRED; Type of secrets to store
+	SecretsType *SecretsType
+}
+
+// SecretsLocationsChangeRequest - Update secrets locations change Request.
+type SecretsLocationsChangeRequest struct {
+	// List of secret locations
+	Properties []*SecretsLocationDetails
 }
 
 // SecurityComplianceStatus - Security compliance properties of the resource

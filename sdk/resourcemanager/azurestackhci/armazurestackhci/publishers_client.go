@@ -46,7 +46,7 @@ func NewPublishersClient(subscriptionID string, credential azcore.TokenCredentia
 // Get - Get Publisher resource details of HCI Cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - publisherName - The name of the publisher available within HCI cluster.
@@ -97,7 +97,7 @@ func (client *PublishersClient) getCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -114,7 +114,7 @@ func (client *PublishersClient) getHandleResponse(resp *http.Response) (Publishe
 
 // NewListByClusterPager - List Publishers available for the HCI Cluster.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-09-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - options - PublishersClientListByClusterOptions contains the optional parameters for the PublishersClient.NewListByClusterPager
@@ -162,7 +162,7 @@ func (client *PublishersClient) listByClusterCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
