@@ -237,15 +237,15 @@ func (w *WatchlistItemsServerTransport) dispatchNewListPager(req *http.Request) 
 		if err != nil {
 			return nil, err
 		}
+		watchlistAliasParam, err := url.PathUnescape(matches[regex.SubexpIndex("watchlistAlias")])
+		if err != nil {
+			return nil, err
+		}
 		skipTokenUnescaped, err := url.QueryUnescape(qp.Get("$skipToken"))
 		if err != nil {
 			return nil, err
 		}
 		skipTokenParam := getOptional(skipTokenUnescaped)
-		watchlistAliasParam, err := url.PathUnescape(matches[regex.SubexpIndex("watchlistAlias")])
-		if err != nil {
-			return nil, err
-		}
 		var options *armsecurityinsights.WatchlistItemsClientListOptions
 		if skipTokenParam != nil {
 			options = &armsecurityinsights.WatchlistItemsClientListOptions{

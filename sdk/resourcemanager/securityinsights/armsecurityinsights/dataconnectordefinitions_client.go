@@ -20,64 +20,64 @@ import (
 	"strings"
 )
 
-// AlertRulesClient contains the methods for the AlertRules group.
-// Don't use this type directly, use NewAlertRulesClient() instead.
-type AlertRulesClient struct {
+// DataConnectorDefinitionsClient contains the methods for the DataConnectorDefinitions group.
+// Don't use this type directly, use NewDataConnectorDefinitionsClient() instead.
+type DataConnectorDefinitionsClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewAlertRulesClient creates a new instance of AlertRulesClient with the specified values.
+// NewDataConnectorDefinitionsClient creates a new instance of DataConnectorDefinitionsClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewAlertRulesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AlertRulesClient, error) {
+func NewDataConnectorDefinitionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DataConnectorDefinitionsClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &AlertRulesClient{
+	client := &DataConnectorDefinitionsClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// CreateOrUpdate - Creates or updates the alert rule.
+// CreateOrUpdate - Creates or updates the data connector definition.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
-//   - ruleID - Alert rule ID
-//   - alertRule - The alert rule
-//   - options - AlertRulesClientCreateOrUpdateOptions contains the optional parameters for the AlertRulesClient.CreateOrUpdate
+//   - dataConnectorDefinitionName - The data connector definition name.
+//   - connectorDefinitionInput - The data connector definition
+//   - options - DataConnectorDefinitionsClientCreateOrUpdateOptions contains the optional parameters for the DataConnectorDefinitionsClient.CreateOrUpdate
 //     method.
-func (client *AlertRulesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, ruleID string, alertRule AlertRuleClassification, options *AlertRulesClientCreateOrUpdateOptions) (AlertRulesClientCreateOrUpdateResponse, error) {
+func (client *DataConnectorDefinitionsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, dataConnectorDefinitionName string, connectorDefinitionInput DataConnectorDefinitionClassification, options *DataConnectorDefinitionsClientCreateOrUpdateOptions) (DataConnectorDefinitionsClientCreateOrUpdateResponse, error) {
 	var err error
-	const operationName = "AlertRulesClient.CreateOrUpdate"
+	const operationName = "DataConnectorDefinitionsClient.CreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, ruleID, alertRule, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, dataConnectorDefinitionName, connectorDefinitionInput, options)
 	if err != nil {
-		return AlertRulesClientCreateOrUpdateResponse{}, err
+		return DataConnectorDefinitionsClientCreateOrUpdateResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return AlertRulesClientCreateOrUpdateResponse{}, err
+		return DataConnectorDefinitionsClientCreateOrUpdateResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated) {
 		err = runtime.NewResponseError(httpResp)
-		return AlertRulesClientCreateOrUpdateResponse{}, err
+		return DataConnectorDefinitionsClientCreateOrUpdateResponse{}, err
 	}
 	resp, err := client.createOrUpdateHandleResponse(httpResp)
 	return resp, err
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *AlertRulesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, ruleID string, alertRule AlertRuleClassification, options *AlertRulesClientCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/alertRules/{ruleId}"
+func (client *DataConnectorDefinitionsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, dataConnectorDefinitionName string, connectorDefinitionInput DataConnectorDefinitionClassification, options *DataConnectorDefinitionsClientCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/dataConnectorDefinitions/{dataConnectorDefinitionName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -90,10 +90,10 @@ func (client *AlertRulesClient) createOrUpdateCreateRequest(ctx context.Context,
 		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
-	if ruleID == "" {
-		return nil, errors.New("parameter ruleID cannot be empty")
+	if dataConnectorDefinitionName == "" {
+		return nil, errors.New("parameter dataConnectorDefinitionName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{ruleId}", url.PathEscape(ruleID))
+	urlPath = strings.ReplaceAll(urlPath, "{dataConnectorDefinitionName}", url.PathEscape(dataConnectorDefinitionName))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -102,53 +102,54 @@ func (client *AlertRulesClient) createOrUpdateCreateRequest(ctx context.Context,
 	reqQP.Set("api-version", "2024-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, alertRule); err != nil {
+	if err := runtime.MarshalAsJSON(req, connectorDefinitionInput); err != nil {
 		return nil, err
 	}
 	return req, nil
 }
 
 // createOrUpdateHandleResponse handles the CreateOrUpdate response.
-func (client *AlertRulesClient) createOrUpdateHandleResponse(resp *http.Response) (AlertRulesClientCreateOrUpdateResponse, error) {
-	result := AlertRulesClientCreateOrUpdateResponse{}
+func (client *DataConnectorDefinitionsClient) createOrUpdateHandleResponse(resp *http.Response) (DataConnectorDefinitionsClientCreateOrUpdateResponse, error) {
+	result := DataConnectorDefinitionsClientCreateOrUpdateResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result); err != nil {
-		return AlertRulesClientCreateOrUpdateResponse{}, err
+		return DataConnectorDefinitionsClientCreateOrUpdateResponse{}, err
 	}
 	return result, nil
 }
 
-// Delete - Delete the alert rule.
+// Delete - Delete the data connector definition.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
-//   - ruleID - Alert rule ID
-//   - options - AlertRulesClientDeleteOptions contains the optional parameters for the AlertRulesClient.Delete method.
-func (client *AlertRulesClient) Delete(ctx context.Context, resourceGroupName string, workspaceName string, ruleID string, options *AlertRulesClientDeleteOptions) (AlertRulesClientDeleteResponse, error) {
+//   - dataConnectorDefinitionName - The data connector definition name.
+//   - options - DataConnectorDefinitionsClientDeleteOptions contains the optional parameters for the DataConnectorDefinitionsClient.Delete
+//     method.
+func (client *DataConnectorDefinitionsClient) Delete(ctx context.Context, resourceGroupName string, workspaceName string, dataConnectorDefinitionName string, options *DataConnectorDefinitionsClientDeleteOptions) (DataConnectorDefinitionsClientDeleteResponse, error) {
 	var err error
-	const operationName = "AlertRulesClient.Delete"
+	const operationName = "DataConnectorDefinitionsClient.Delete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, ruleID, options)
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, dataConnectorDefinitionName, options)
 	if err != nil {
-		return AlertRulesClientDeleteResponse{}, err
+		return DataConnectorDefinitionsClientDeleteResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return AlertRulesClientDeleteResponse{}, err
+		return DataConnectorDefinitionsClientDeleteResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
-		return AlertRulesClientDeleteResponse{}, err
+		return DataConnectorDefinitionsClientDeleteResponse{}, err
 	}
-	return AlertRulesClientDeleteResponse{}, nil
+	return DataConnectorDefinitionsClientDeleteResponse{}, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *AlertRulesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, ruleID string, options *AlertRulesClientDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/alertRules/{ruleId}"
+func (client *DataConnectorDefinitionsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, dataConnectorDefinitionName string, options *DataConnectorDefinitionsClientDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/dataConnectorDefinitions/{dataConnectorDefinitionName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -161,10 +162,10 @@ func (client *AlertRulesClient) deleteCreateRequest(ctx context.Context, resourc
 		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
-	if ruleID == "" {
-		return nil, errors.New("parameter ruleID cannot be empty")
+	if dataConnectorDefinitionName == "" {
+		return nil, errors.New("parameter dataConnectorDefinitionName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{ruleId}", url.PathEscape(ruleID))
+	urlPath = strings.ReplaceAll(urlPath, "{dataConnectorDefinitionName}", url.PathEscape(dataConnectorDefinitionName))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -176,39 +177,40 @@ func (client *AlertRulesClient) deleteCreateRequest(ctx context.Context, resourc
 	return req, nil
 }
 
-// Get - Gets the alert rule.
+// Get - Gets a data connector definition.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
-//   - ruleID - Alert rule ID
-//   - options - AlertRulesClientGetOptions contains the optional parameters for the AlertRulesClient.Get method.
-func (client *AlertRulesClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, ruleID string, options *AlertRulesClientGetOptions) (AlertRulesClientGetResponse, error) {
+//   - dataConnectorDefinitionName - The data connector definition name.
+//   - options - DataConnectorDefinitionsClientGetOptions contains the optional parameters for the DataConnectorDefinitionsClient.Get
+//     method.
+func (client *DataConnectorDefinitionsClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, dataConnectorDefinitionName string, options *DataConnectorDefinitionsClientGetOptions) (DataConnectorDefinitionsClientGetResponse, error) {
 	var err error
-	const operationName = "AlertRulesClient.Get"
+	const operationName = "DataConnectorDefinitionsClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, ruleID, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, dataConnectorDefinitionName, options)
 	if err != nil {
-		return AlertRulesClientGetResponse{}, err
+		return DataConnectorDefinitionsClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return AlertRulesClientGetResponse{}, err
+		return DataConnectorDefinitionsClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return AlertRulesClientGetResponse{}, err
+		return DataConnectorDefinitionsClientGetResponse{}, err
 	}
 	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
 // getCreateRequest creates the Get request.
-func (client *AlertRulesClient) getCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, ruleID string, options *AlertRulesClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/alertRules/{ruleId}"
+func (client *DataConnectorDefinitionsClient) getCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, dataConnectorDefinitionName string, options *DataConnectorDefinitionsClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/dataConnectorDefinitions/{dataConnectorDefinitionName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -221,10 +223,10 @@ func (client *AlertRulesClient) getCreateRequest(ctx context.Context, resourceGr
 		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
-	if ruleID == "" {
-		return nil, errors.New("parameter ruleID cannot be empty")
+	if dataConnectorDefinitionName == "" {
+		return nil, errors.New("parameter dataConnectorDefinitionName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{ruleId}", url.PathEscape(ruleID))
+	urlPath = strings.ReplaceAll(urlPath, "{dataConnectorDefinitionName}", url.PathEscape(dataConnectorDefinitionName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -237,27 +239,28 @@ func (client *AlertRulesClient) getCreateRequest(ctx context.Context, resourceGr
 }
 
 // getHandleResponse handles the Get response.
-func (client *AlertRulesClient) getHandleResponse(resp *http.Response) (AlertRulesClientGetResponse, error) {
-	result := AlertRulesClientGetResponse{}
+func (client *DataConnectorDefinitionsClient) getHandleResponse(resp *http.Response) (DataConnectorDefinitionsClientGetResponse, error) {
+	result := DataConnectorDefinitionsClientGetResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result); err != nil {
-		return AlertRulesClientGetResponse{}, err
+		return DataConnectorDefinitionsClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListPager - Gets all alert rules.
+// NewListPager - Gets all data connector definitions.
 //
 // Generated from API version 2024-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
-//   - options - AlertRulesClientListOptions contains the optional parameters for the AlertRulesClient.NewListPager method.
-func (client *AlertRulesClient) NewListPager(resourceGroupName string, workspaceName string, options *AlertRulesClientListOptions) *runtime.Pager[AlertRulesClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[AlertRulesClientListResponse]{
-		More: func(page AlertRulesClientListResponse) bool {
+//   - options - DataConnectorDefinitionsClientListOptions contains the optional parameters for the DataConnectorDefinitionsClient.NewListPager
+//     method.
+func (client *DataConnectorDefinitionsClient) NewListPager(resourceGroupName string, workspaceName string, options *DataConnectorDefinitionsClientListOptions) *runtime.Pager[DataConnectorDefinitionsClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[DataConnectorDefinitionsClientListResponse]{
+		More: func(page DataConnectorDefinitionsClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *AlertRulesClientListResponse) (AlertRulesClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "AlertRulesClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *DataConnectorDefinitionsClientListResponse) (DataConnectorDefinitionsClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "DataConnectorDefinitionsClient.NewListPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
@@ -266,7 +269,7 @@ func (client *AlertRulesClient) NewListPager(resourceGroupName string, workspace
 				return client.listCreateRequest(ctx, resourceGroupName, workspaceName, options)
 			}, nil)
 			if err != nil {
-				return AlertRulesClientListResponse{}, err
+				return DataConnectorDefinitionsClientListResponse{}, err
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -275,8 +278,8 @@ func (client *AlertRulesClient) NewListPager(resourceGroupName string, workspace
 }
 
 // listCreateRequest creates the List request.
-func (client *AlertRulesClient) listCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, options *AlertRulesClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/alertRules"
+func (client *DataConnectorDefinitionsClient) listCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, options *DataConnectorDefinitionsClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/dataConnectorDefinitions"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -301,10 +304,10 @@ func (client *AlertRulesClient) listCreateRequest(ctx context.Context, resourceG
 }
 
 // listHandleResponse handles the List response.
-func (client *AlertRulesClient) listHandleResponse(resp *http.Response) (AlertRulesClientListResponse, error) {
-	result := AlertRulesClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.AlertRulesList); err != nil {
-		return AlertRulesClientListResponse{}, err
+func (client *DataConnectorDefinitionsClient) listHandleResponse(resp *http.Response) (DataConnectorDefinitionsClientListResponse, error) {
+	result := DataConnectorDefinitionsClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.DataConnectorDefinitionArmCollectionWrapper); err != nil {
+		return DataConnectorDefinitionsClientListResponse{}, err
 	}
 	return result, nil
 }
