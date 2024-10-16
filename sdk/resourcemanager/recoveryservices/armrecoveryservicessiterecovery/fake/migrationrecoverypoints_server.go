@@ -26,11 +26,11 @@ import (
 type MigrationRecoveryPointsServer struct {
 	// Get is the fake for method MigrationRecoveryPointsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, migrationItemName string, migrationRecoveryPointName string, options *armrecoveryservicessiterecovery.MigrationRecoveryPointsClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.MigrationRecoveryPointsClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, migrationItemName string, migrationRecoveryPointName string, options *armrecoveryservicessiterecovery.MigrationRecoveryPointsClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.MigrationRecoveryPointsClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListByReplicationMigrationItemsPager is the fake for method MigrationRecoveryPointsClient.NewListByReplicationMigrationItemsPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListByReplicationMigrationItemsPager func(resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, migrationItemName string, options *armrecoveryservicessiterecovery.MigrationRecoveryPointsClientListByReplicationMigrationItemsOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.MigrationRecoveryPointsClientListByReplicationMigrationItemsResponse])
+	NewListByReplicationMigrationItemsPager func(resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, migrationItemName string, options *armrecoveryservicessiterecovery.MigrationRecoveryPointsClientListByReplicationMigrationItemsOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.MigrationRecoveryPointsClientListByReplicationMigrationItemsResponse])
 }
 
 // NewMigrationRecoveryPointsServerTransport creates a new instance of MigrationRecoveryPointsServerTransport with the provided implementation.
@@ -87,11 +87,11 @@ func (m *MigrationRecoveryPointsServerTransport) dispatchGet(req *http.Request) 
 	if matches == nil || len(matches) < 7 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 	if err != nil {
 		return nil, err
 	}
@@ -111,7 +111,7 @@ func (m *MigrationRecoveryPointsServerTransport) dispatchGet(req *http.Request) 
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := m.srv.Get(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, migrationItemNameParam, migrationRecoveryPointNameParam, nil)
+	respr, errRespr := m.srv.Get(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, migrationItemNameParam, migrationRecoveryPointNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -138,11 +138,11 @@ func (m *MigrationRecoveryPointsServerTransport) dispatchNewListByReplicationMig
 		if matches == nil || len(matches) < 6 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -158,7 +158,7 @@ func (m *MigrationRecoveryPointsServerTransport) dispatchNewListByReplicationMig
 		if err != nil {
 			return nil, err
 		}
-		resp := m.srv.NewListByReplicationMigrationItemsPager(resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, migrationItemNameParam, nil)
+		resp := m.srv.NewListByReplicationMigrationItemsPager(resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, migrationItemNameParam, nil)
 		newListByReplicationMigrationItemsPager = &resp
 		m.newListByReplicationMigrationItemsPager.add(req, newListByReplicationMigrationItemsPager)
 		server.PagerResponderInjectNextLinks(newListByReplicationMigrationItemsPager, req, func(page *armrecoveryservicessiterecovery.MigrationRecoveryPointsClientListByReplicationMigrationItemsResponse, createLink func() string) {

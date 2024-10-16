@@ -26,15 +26,15 @@ import (
 type ReplicationProtectionIntentsServer struct {
 	// Create is the fake for method ReplicationProtectionIntentsClient.Create
 	// HTTP status codes to indicate success: http.StatusOK
-	Create func(ctx context.Context, resourceName string, resourceGroupName string, intentObjectName string, input armrecoveryservicessiterecovery.CreateProtectionIntentInput, options *armrecoveryservicessiterecovery.ReplicationProtectionIntentsClientCreateOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationProtectionIntentsClientCreateResponse], errResp azfake.ErrorResponder)
+	Create func(ctx context.Context, resourceGroupName string, resourceName string, intentObjectName string, input armrecoveryservicessiterecovery.CreateProtectionIntentInput, options *armrecoveryservicessiterecovery.ReplicationProtectionIntentsClientCreateOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationProtectionIntentsClientCreateResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method ReplicationProtectionIntentsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceName string, resourceGroupName string, intentObjectName string, options *armrecoveryservicessiterecovery.ReplicationProtectionIntentsClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationProtectionIntentsClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, resourceName string, intentObjectName string, options *armrecoveryservicessiterecovery.ReplicationProtectionIntentsClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationProtectionIntentsClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method ReplicationProtectionIntentsClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceName string, resourceGroupName string, options *armrecoveryservicessiterecovery.ReplicationProtectionIntentsClientListOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationProtectionIntentsClientListResponse])
+	NewListPager func(resourceGroupName string, resourceName string, options *armrecoveryservicessiterecovery.ReplicationProtectionIntentsClientListOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationProtectionIntentsClientListResponse])
 }
 
 // NewReplicationProtectionIntentsServerTransport creates a new instance of ReplicationProtectionIntentsServerTransport with the provided implementation.
@@ -97,11 +97,11 @@ func (r *ReplicationProtectionIntentsServerTransport) dispatchCreate(req *http.R
 	if err != nil {
 		return nil, err
 	}
-	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 	if err != nil {
 		return nil, err
 	}
@@ -109,7 +109,7 @@ func (r *ReplicationProtectionIntentsServerTransport) dispatchCreate(req *http.R
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := r.srv.Create(req.Context(), resourceNameParam, resourceGroupNameParam, intentObjectNameParam, body, nil)
+	respr, errRespr := r.srv.Create(req.Context(), resourceGroupNameParam, resourceNameParam, intentObjectNameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -134,11 +134,11 @@ func (r *ReplicationProtectionIntentsServerTransport) dispatchGet(req *http.Requ
 	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 	if err != nil {
 		return nil, err
 	}
@@ -146,7 +146,7 @@ func (r *ReplicationProtectionIntentsServerTransport) dispatchGet(req *http.Requ
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := r.srv.Get(req.Context(), resourceNameParam, resourceGroupNameParam, intentObjectNameParam, nil)
+	respr, errRespr := r.srv.Get(req.Context(), resourceGroupNameParam, resourceNameParam, intentObjectNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -174,11 +174,11 @@ func (r *ReplicationProtectionIntentsServerTransport) dispatchNewListPager(req *
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		qp := req.URL.Query()
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -199,7 +199,7 @@ func (r *ReplicationProtectionIntentsServerTransport) dispatchNewListPager(req *
 				TakeToken: takeTokenParam,
 			}
 		}
-		resp := r.srv.NewListPager(resourceNameParam, resourceGroupNameParam, options)
+		resp := r.srv.NewListPager(resourceGroupNameParam, resourceNameParam, options)
 		newListPager = &resp
 		r.newListPager.add(req, newListPager)
 		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armrecoveryservicessiterecovery.ReplicationProtectionIntentsClientListResponse, createLink func() string) {

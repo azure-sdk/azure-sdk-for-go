@@ -26,15 +26,15 @@ import (
 type ReplicationAlertSettingsServer struct {
 	// Create is the fake for method ReplicationAlertSettingsClient.Create
 	// HTTP status codes to indicate success: http.StatusOK
-	Create func(ctx context.Context, resourceName string, resourceGroupName string, alertSettingName string, request armrecoveryservicessiterecovery.ConfigureAlertRequest, options *armrecoveryservicessiterecovery.ReplicationAlertSettingsClientCreateOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationAlertSettingsClientCreateResponse], errResp azfake.ErrorResponder)
+	Create func(ctx context.Context, resourceGroupName string, resourceName string, alertSettingName string, request armrecoveryservicessiterecovery.ConfigureAlertRequest, options *armrecoveryservicessiterecovery.ReplicationAlertSettingsClientCreateOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationAlertSettingsClientCreateResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method ReplicationAlertSettingsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceName string, resourceGroupName string, alertSettingName string, options *armrecoveryservicessiterecovery.ReplicationAlertSettingsClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationAlertSettingsClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, resourceName string, alertSettingName string, options *armrecoveryservicessiterecovery.ReplicationAlertSettingsClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationAlertSettingsClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method ReplicationAlertSettingsClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceName string, resourceGroupName string, options *armrecoveryservicessiterecovery.ReplicationAlertSettingsClientListOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationAlertSettingsClientListResponse])
+	NewListPager func(resourceGroupName string, resourceName string, options *armrecoveryservicessiterecovery.ReplicationAlertSettingsClientListOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationAlertSettingsClientListResponse])
 }
 
 // NewReplicationAlertSettingsServerTransport creates a new instance of ReplicationAlertSettingsServerTransport with the provided implementation.
@@ -97,11 +97,11 @@ func (r *ReplicationAlertSettingsServerTransport) dispatchCreate(req *http.Reque
 	if err != nil {
 		return nil, err
 	}
-	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 	if err != nil {
 		return nil, err
 	}
@@ -109,7 +109,7 @@ func (r *ReplicationAlertSettingsServerTransport) dispatchCreate(req *http.Reque
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := r.srv.Create(req.Context(), resourceNameParam, resourceGroupNameParam, alertSettingNameParam, body, nil)
+	respr, errRespr := r.srv.Create(req.Context(), resourceGroupNameParam, resourceNameParam, alertSettingNameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -134,11 +134,11 @@ func (r *ReplicationAlertSettingsServerTransport) dispatchGet(req *http.Request)
 	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 	if err != nil {
 		return nil, err
 	}
@@ -146,7 +146,7 @@ func (r *ReplicationAlertSettingsServerTransport) dispatchGet(req *http.Request)
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := r.srv.Get(req.Context(), resourceNameParam, resourceGroupNameParam, alertSettingNameParam, nil)
+	respr, errRespr := r.srv.Get(req.Context(), resourceGroupNameParam, resourceNameParam, alertSettingNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -173,15 +173,15 @@ func (r *ReplicationAlertSettingsServerTransport) dispatchNewListPager(req *http
 		if matches == nil || len(matches) < 3 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
-		if err != nil {
-			return nil, err
-		}
 		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resp := r.srv.NewListPager(resourceNameParam, resourceGroupNameParam, nil)
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		if err != nil {
+			return nil, err
+		}
+		resp := r.srv.NewListPager(resourceGroupNameParam, resourceNameParam, nil)
 		newListPager = &resp
 		r.newListPager.add(req, newListPager)
 		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armrecoveryservicessiterecovery.ReplicationAlertSettingsClientListResponse, createLink func() string) {
