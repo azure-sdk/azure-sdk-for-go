@@ -97,11 +97,6 @@ func (t *ThreatIntelligenceIndicatorsServerTransport) dispatchNewListPager(req *
 			return nil, err
 		}
 		filterParam := getOptional(filterUnescaped)
-		orderbyUnescaped, err := url.QueryUnescape(qp.Get("$orderby"))
-		if err != nil {
-			return nil, err
-		}
-		orderbyParam := getOptional(orderbyUnescaped)
 		topUnescaped, err := url.QueryUnescape(qp.Get("$top"))
 		if err != nil {
 			return nil, err
@@ -121,13 +116,18 @@ func (t *ThreatIntelligenceIndicatorsServerTransport) dispatchNewListPager(req *
 			return nil, err
 		}
 		skipTokenParam := getOptional(skipTokenUnescaped)
+		orderbyUnescaped, err := url.QueryUnescape(qp.Get("$orderby"))
+		if err != nil {
+			return nil, err
+		}
+		orderbyParam := getOptional(orderbyUnescaped)
 		var options *armsecurityinsights.ThreatIntelligenceIndicatorsClientListOptions
-		if filterParam != nil || orderbyParam != nil || topParam != nil || skipTokenParam != nil {
+		if filterParam != nil || topParam != nil || skipTokenParam != nil || orderbyParam != nil {
 			options = &armsecurityinsights.ThreatIntelligenceIndicatorsClientListOptions{
 				Filter:    filterParam,
-				Orderby:   orderbyParam,
 				Top:       topParam,
 				SkipToken: skipTokenParam,
+				Orderby:   orderbyParam,
 			}
 		}
 		resp := t.srv.NewListPager(resourceGroupNameParam, workspaceNameParam, options)
