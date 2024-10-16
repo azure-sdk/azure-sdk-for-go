@@ -10,7 +10,7 @@ package armstandbypool
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/standbypool/armstandbypool"
-	moduleVersion = "v0.1.0"
+	moduleVersion = "v2.0.0-beta.1"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -24,26 +24,6 @@ const (
 func PossibleActionTypeValues() []ActionType {
 	return []ActionType{
 		ActionTypeInternal,
-	}
-}
-
-// CreatedByType - The type of identity that created the resource.
-type CreatedByType string
-
-const (
-	CreatedByTypeApplication     CreatedByType = "Application"
-	CreatedByTypeKey             CreatedByType = "Key"
-	CreatedByTypeManagedIdentity CreatedByType = "ManagedIdentity"
-	CreatedByTypeUser            CreatedByType = "User"
-)
-
-// PossibleCreatedByTypeValues returns the possible values for the CreatedByType const type.
-func PossibleCreatedByTypeValues() []CreatedByType {
-	return []CreatedByType{
-		CreatedByTypeApplication,
-		CreatedByTypeKey,
-		CreatedByTypeManagedIdentity,
-		CreatedByTypeUser,
 	}
 }
 
@@ -63,62 +43,5 @@ func PossibleOriginValues() []Origin {
 		OriginSystem,
 		OriginUser,
 		OriginUserSystem,
-	}
-}
-
-// ProvisioningState - Provisioning state
-type ProvisioningState string
-
-const (
-	// ProvisioningStateCanceled - Resource creation was canceled.
-	ProvisioningStateCanceled ProvisioningState = "Canceled"
-	// ProvisioningStateDeleting - Resource is being deleted.
-	ProvisioningStateDeleting ProvisioningState = "Deleting"
-	// ProvisioningStateFailed - Resource creation failed.
-	ProvisioningStateFailed ProvisioningState = "Failed"
-	// ProvisioningStateSucceeded - Resource has been created.
-	ProvisioningStateSucceeded ProvisioningState = "Succeeded"
-)
-
-// PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
-func PossibleProvisioningStateValues() []ProvisioningState {
-	return []ProvisioningState{
-		ProvisioningStateCanceled,
-		ProvisioningStateDeleting,
-		ProvisioningStateFailed,
-		ProvisioningStateSucceeded,
-	}
-}
-
-// RefillPolicy - Refill policy of standby pool
-type RefillPolicy string
-
-const (
-	// RefillPolicyAlways - A refill policy that standby pool is automatically refilled to maintain maxReadyCapacity.
-	RefillPolicyAlways RefillPolicy = "always"
-)
-
-// PossibleRefillPolicyValues returns the possible values for the RefillPolicy const type.
-func PossibleRefillPolicyValues() []RefillPolicy {
-	return []RefillPolicy{
-		RefillPolicyAlways,
-	}
-}
-
-// VirtualMachineState - State of standby virtual machines
-type VirtualMachineState string
-
-const (
-	// VirtualMachineStateDeallocated - The virtual machine has released the lease on the underlying hardware and is powered off.
-	VirtualMachineStateDeallocated VirtualMachineState = "Deallocated"
-	// VirtualMachineStateRunning - The virtual machine is up and running.
-	VirtualMachineStateRunning VirtualMachineState = "Running"
-)
-
-// PossibleVirtualMachineStateValues returns the possible values for the VirtualMachineState const type.
-func PossibleVirtualMachineStateValues() []VirtualMachineState {
-	return []VirtualMachineState{
-		VirtualMachineStateDeallocated,
-		VirtualMachineStateRunning,
 	}
 }
