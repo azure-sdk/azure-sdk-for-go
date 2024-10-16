@@ -26,23 +26,23 @@ import (
 type ReplicationStorageClassificationMappingsServer struct {
 	// BeginCreate is the fake for method ReplicationStorageClassificationMappingsClient.BeginCreate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginCreate func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, storageClassificationName string, storageClassificationMappingName string, pairingInput armrecoveryservicessiterecovery.StorageClassificationMappingInput, options *armrecoveryservicessiterecovery.ReplicationStorageClassificationMappingsClientBeginCreateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationStorageClassificationMappingsClientCreateResponse], errResp azfake.ErrorResponder)
+	BeginCreate func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, storageClassificationName string, storageClassificationMappingName string, pairingInput armrecoveryservicessiterecovery.StorageClassificationMappingInput, options *armrecoveryservicessiterecovery.ReplicationStorageClassificationMappingsClientBeginCreateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationStorageClassificationMappingsClientCreateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method ReplicationStorageClassificationMappingsClient.BeginDelete
 	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
-	BeginDelete func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, storageClassificationName string, storageClassificationMappingName string, options *armrecoveryservicessiterecovery.ReplicationStorageClassificationMappingsClientBeginDeleteOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationStorageClassificationMappingsClientDeleteResponse], errResp azfake.ErrorResponder)
+	BeginDelete func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, storageClassificationName string, storageClassificationMappingName string, options *armrecoveryservicessiterecovery.ReplicationStorageClassificationMappingsClientBeginDeleteOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationStorageClassificationMappingsClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method ReplicationStorageClassificationMappingsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, storageClassificationName string, storageClassificationMappingName string, options *armrecoveryservicessiterecovery.ReplicationStorageClassificationMappingsClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationStorageClassificationMappingsClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, storageClassificationName string, storageClassificationMappingName string, options *armrecoveryservicessiterecovery.ReplicationStorageClassificationMappingsClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationStorageClassificationMappingsClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method ReplicationStorageClassificationMappingsClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceName string, resourceGroupName string, options *armrecoveryservicessiterecovery.ReplicationStorageClassificationMappingsClientListOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationStorageClassificationMappingsClientListResponse])
+	NewListPager func(resourceGroupName string, resourceName string, options *armrecoveryservicessiterecovery.ReplicationStorageClassificationMappingsClientListOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationStorageClassificationMappingsClientListResponse])
 
 	// NewListByReplicationStorageClassificationsPager is the fake for method ReplicationStorageClassificationMappingsClient.NewListByReplicationStorageClassificationsPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListByReplicationStorageClassificationsPager func(resourceName string, resourceGroupName string, fabricName string, storageClassificationName string, options *armrecoveryservicessiterecovery.ReplicationStorageClassificationMappingsClientListByReplicationStorageClassificationsOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationStorageClassificationMappingsClientListByReplicationStorageClassificationsResponse])
+	NewListByReplicationStorageClassificationsPager func(resourceGroupName string, resourceName string, fabricName string, storageClassificationName string, options *armrecoveryservicessiterecovery.ReplicationStorageClassificationMappingsClientListByReplicationStorageClassificationsOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationStorageClassificationMappingsClientListByReplicationStorageClassificationsResponse])
 }
 
 // NewReplicationStorageClassificationMappingsServerTransport creates a new instance of ReplicationStorageClassificationMappingsServerTransport with the provided implementation.
@@ -117,11 +117,11 @@ func (r *ReplicationStorageClassificationMappingsServerTransport) dispatchBeginC
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -137,7 +137,7 @@ func (r *ReplicationStorageClassificationMappingsServerTransport) dispatchBeginC
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginCreate(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, storageClassificationNameParam, storageClassificationMappingNameParam, body, nil)
+		respr, errRespr := r.srv.BeginCreate(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, storageClassificationNameParam, storageClassificationMappingNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -173,11 +173,11 @@ func (r *ReplicationStorageClassificationMappingsServerTransport) dispatchBeginD
 		if matches == nil || len(matches) < 6 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -193,7 +193,7 @@ func (r *ReplicationStorageClassificationMappingsServerTransport) dispatchBeginD
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginDelete(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, storageClassificationNameParam, storageClassificationMappingNameParam, nil)
+		respr, errRespr := r.srv.BeginDelete(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, storageClassificationNameParam, storageClassificationMappingNameParam, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -227,11 +227,11 @@ func (r *ReplicationStorageClassificationMappingsServerTransport) dispatchGet(re
 	if matches == nil || len(matches) < 6 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 	if err != nil {
 		return nil, err
 	}
@@ -247,7 +247,7 @@ func (r *ReplicationStorageClassificationMappingsServerTransport) dispatchGet(re
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := r.srv.Get(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, storageClassificationNameParam, storageClassificationMappingNameParam, nil)
+	respr, errRespr := r.srv.Get(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, storageClassificationNameParam, storageClassificationMappingNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -274,15 +274,15 @@ func (r *ReplicationStorageClassificationMappingsServerTransport) dispatchNewLis
 		if matches == nil || len(matches) < 3 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
-		if err != nil {
-			return nil, err
-		}
 		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resp := r.srv.NewListPager(resourceNameParam, resourceGroupNameParam, nil)
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		if err != nil {
+			return nil, err
+		}
+		resp := r.srv.NewListPager(resourceGroupNameParam, resourceNameParam, nil)
 		newListPager = &resp
 		r.newListPager.add(req, newListPager)
 		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armrecoveryservicessiterecovery.ReplicationStorageClassificationMappingsClientListResponse, createLink func() string) {
@@ -315,11 +315,11 @@ func (r *ReplicationStorageClassificationMappingsServerTransport) dispatchNewLis
 		if matches == nil || len(matches) < 5 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -331,7 +331,7 @@ func (r *ReplicationStorageClassificationMappingsServerTransport) dispatchNewLis
 		if err != nil {
 			return nil, err
 		}
-		resp := r.srv.NewListByReplicationStorageClassificationsPager(resourceNameParam, resourceGroupNameParam, fabricNameParam, storageClassificationNameParam, nil)
+		resp := r.srv.NewListByReplicationStorageClassificationsPager(resourceGroupNameParam, resourceNameParam, fabricNameParam, storageClassificationNameParam, nil)
 		newListByReplicationStorageClassificationsPager = &resp
 		r.newListByReplicationStorageClassificationsPager.add(req, newListByReplicationStorageClassificationsPager)
 		server.PagerResponderInjectNextLinks(newListByReplicationStorageClassificationsPager, req, func(page *armrecoveryservicessiterecovery.ReplicationStorageClassificationMappingsClientListByReplicationStorageClassificationsResponse, createLink func() string) {

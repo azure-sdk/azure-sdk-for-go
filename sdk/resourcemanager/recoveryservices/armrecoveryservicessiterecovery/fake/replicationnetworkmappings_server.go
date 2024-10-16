@@ -26,27 +26,27 @@ import (
 type ReplicationNetworkMappingsServer struct {
 	// BeginCreate is the fake for method ReplicationNetworkMappingsClient.BeginCreate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginCreate func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, networkName string, networkMappingName string, input armrecoveryservicessiterecovery.CreateNetworkMappingInput, options *armrecoveryservicessiterecovery.ReplicationNetworkMappingsClientBeginCreateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationNetworkMappingsClientCreateResponse], errResp azfake.ErrorResponder)
+	BeginCreate func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, networkName string, networkMappingName string, input armrecoveryservicessiterecovery.CreateNetworkMappingInput, options *armrecoveryservicessiterecovery.ReplicationNetworkMappingsClientBeginCreateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationNetworkMappingsClientCreateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method ReplicationNetworkMappingsClient.BeginDelete
 	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
-	BeginDelete func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, networkName string, networkMappingName string, options *armrecoveryservicessiterecovery.ReplicationNetworkMappingsClientBeginDeleteOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationNetworkMappingsClientDeleteResponse], errResp azfake.ErrorResponder)
+	BeginDelete func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, networkName string, networkMappingName string, options *armrecoveryservicessiterecovery.ReplicationNetworkMappingsClientBeginDeleteOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationNetworkMappingsClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method ReplicationNetworkMappingsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, networkName string, networkMappingName string, options *armrecoveryservicessiterecovery.ReplicationNetworkMappingsClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationNetworkMappingsClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, networkName string, networkMappingName string, options *armrecoveryservicessiterecovery.ReplicationNetworkMappingsClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationNetworkMappingsClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method ReplicationNetworkMappingsClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceName string, resourceGroupName string, options *armrecoveryservicessiterecovery.ReplicationNetworkMappingsClientListOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationNetworkMappingsClientListResponse])
+	NewListPager func(resourceGroupName string, resourceName string, options *armrecoveryservicessiterecovery.ReplicationNetworkMappingsClientListOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationNetworkMappingsClientListResponse])
 
 	// NewListByReplicationNetworksPager is the fake for method ReplicationNetworkMappingsClient.NewListByReplicationNetworksPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListByReplicationNetworksPager func(resourceName string, resourceGroupName string, fabricName string, networkName string, options *armrecoveryservicessiterecovery.ReplicationNetworkMappingsClientListByReplicationNetworksOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationNetworkMappingsClientListByReplicationNetworksResponse])
+	NewListByReplicationNetworksPager func(resourceGroupName string, resourceName string, fabricName string, networkName string, options *armrecoveryservicessiterecovery.ReplicationNetworkMappingsClientListByReplicationNetworksOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationNetworkMappingsClientListByReplicationNetworksResponse])
 
 	// BeginUpdate is the fake for method ReplicationNetworkMappingsClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginUpdate func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, networkName string, networkMappingName string, input armrecoveryservicessiterecovery.UpdateNetworkMappingInput, options *armrecoveryservicessiterecovery.ReplicationNetworkMappingsClientBeginUpdateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationNetworkMappingsClientUpdateResponse], errResp azfake.ErrorResponder)
+	BeginUpdate func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, networkName string, networkMappingName string, input armrecoveryservicessiterecovery.UpdateNetworkMappingInput, options *armrecoveryservicessiterecovery.ReplicationNetworkMappingsClientBeginUpdateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationNetworkMappingsClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewReplicationNetworkMappingsServerTransport creates a new instance of ReplicationNetworkMappingsServerTransport with the provided implementation.
@@ -125,11 +125,11 @@ func (r *ReplicationNetworkMappingsServerTransport) dispatchBeginCreate(req *htt
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -145,7 +145,7 @@ func (r *ReplicationNetworkMappingsServerTransport) dispatchBeginCreate(req *htt
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginCreate(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, networkNameParam, networkMappingNameParam, body, nil)
+		respr, errRespr := r.srv.BeginCreate(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, networkNameParam, networkMappingNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -181,11 +181,11 @@ func (r *ReplicationNetworkMappingsServerTransport) dispatchBeginDelete(req *htt
 		if matches == nil || len(matches) < 6 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -201,7 +201,7 @@ func (r *ReplicationNetworkMappingsServerTransport) dispatchBeginDelete(req *htt
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginDelete(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, networkNameParam, networkMappingNameParam, nil)
+		respr, errRespr := r.srv.BeginDelete(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, networkNameParam, networkMappingNameParam, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -235,11 +235,11 @@ func (r *ReplicationNetworkMappingsServerTransport) dispatchGet(req *http.Reques
 	if matches == nil || len(matches) < 6 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 	if err != nil {
 		return nil, err
 	}
@@ -255,7 +255,7 @@ func (r *ReplicationNetworkMappingsServerTransport) dispatchGet(req *http.Reques
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := r.srv.Get(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, networkNameParam, networkMappingNameParam, nil)
+	respr, errRespr := r.srv.Get(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, networkNameParam, networkMappingNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -282,15 +282,15 @@ func (r *ReplicationNetworkMappingsServerTransport) dispatchNewListPager(req *ht
 		if matches == nil || len(matches) < 3 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
-		if err != nil {
-			return nil, err
-		}
 		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resp := r.srv.NewListPager(resourceNameParam, resourceGroupNameParam, nil)
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		if err != nil {
+			return nil, err
+		}
+		resp := r.srv.NewListPager(resourceGroupNameParam, resourceNameParam, nil)
 		newListPager = &resp
 		r.newListPager.add(req, newListPager)
 		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armrecoveryservicessiterecovery.ReplicationNetworkMappingsClientListResponse, createLink func() string) {
@@ -323,11 +323,11 @@ func (r *ReplicationNetworkMappingsServerTransport) dispatchNewListByReplication
 		if matches == nil || len(matches) < 5 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -339,7 +339,7 @@ func (r *ReplicationNetworkMappingsServerTransport) dispatchNewListByReplication
 		if err != nil {
 			return nil, err
 		}
-		resp := r.srv.NewListByReplicationNetworksPager(resourceNameParam, resourceGroupNameParam, fabricNameParam, networkNameParam, nil)
+		resp := r.srv.NewListByReplicationNetworksPager(resourceGroupNameParam, resourceNameParam, fabricNameParam, networkNameParam, nil)
 		newListByReplicationNetworksPager = &resp
 		r.newListByReplicationNetworksPager.add(req, newListByReplicationNetworksPager)
 		server.PagerResponderInjectNextLinks(newListByReplicationNetworksPager, req, func(page *armrecoveryservicessiterecovery.ReplicationNetworkMappingsClientListByReplicationNetworksResponse, createLink func() string) {
@@ -376,11 +376,11 @@ func (r *ReplicationNetworkMappingsServerTransport) dispatchBeginUpdate(req *htt
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -396,7 +396,7 @@ func (r *ReplicationNetworkMappingsServerTransport) dispatchBeginUpdate(req *htt
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginUpdate(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, networkNameParam, networkMappingNameParam, body, nil)
+		respr, errRespr := r.srv.BeginUpdate(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, networkNameParam, networkMappingNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
