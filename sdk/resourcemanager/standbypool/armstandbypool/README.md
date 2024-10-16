@@ -1,6 +1,6 @@
 # Azure Standbypool Module for Go
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/standbypool/armstandbypool)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/standbypool/armstandbypool)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/standbypool/armstandbypool/v2)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/standbypool/armstandbypool/v2)
 
 The `armstandbypool` module provides operations for working with Azure Standbypool.
 
@@ -20,7 +20,7 @@ This project uses [Go modules](https://github.com/golang/go/wiki/Modules) for ve
 Install the Azure Standbypool module:
 
 ```sh
-go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/standbypool/armstandbypool
+go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/standbypool/armstandbypool/v2
 ```
 
 ## Authorization
