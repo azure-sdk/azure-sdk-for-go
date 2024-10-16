@@ -19,10 +19,7 @@ import (
 
 // ServerFactory is a fake server for instances of the armstandbypool.ClientFactory type.
 type ServerFactory struct {
-	OperationsServer                 OperationsServer
-	StandbyContainerGroupPoolsServer StandbyContainerGroupPoolsServer
-	StandbyVirtualMachinePoolsServer StandbyVirtualMachinePoolsServer
-	StandbyVirtualMachinesServer     StandbyVirtualMachinesServer
+	OperationsServer OperationsServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -37,12 +34,9 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armstandbypool.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                                *ServerFactory
-	trMu                               sync.Mutex
-	trOperationsServer                 *OperationsServerTransport
-	trStandbyContainerGroupPoolsServer *StandbyContainerGroupPoolsServerTransport
-	trStandbyVirtualMachinePoolsServer *StandbyVirtualMachinePoolsServerTransport
-	trStandbyVirtualMachinesServer     *StandbyVirtualMachinesServerTransport
+	srv                *ServerFactory
+	trMu               sync.Mutex
+	trOperationsServer *OperationsServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -61,21 +55,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
-	case "StandbyContainerGroupPoolsClient":
-		initServer(s, &s.trStandbyContainerGroupPoolsServer, func() *StandbyContainerGroupPoolsServerTransport {
-			return NewStandbyContainerGroupPoolsServerTransport(&s.srv.StandbyContainerGroupPoolsServer)
-		})
-		resp, err = s.trStandbyContainerGroupPoolsServer.Do(req)
-	case "StandbyVirtualMachinePoolsClient":
-		initServer(s, &s.trStandbyVirtualMachinePoolsServer, func() *StandbyVirtualMachinePoolsServerTransport {
-			return NewStandbyVirtualMachinePoolsServerTransport(&s.srv.StandbyVirtualMachinePoolsServer)
-		})
-		resp, err = s.trStandbyVirtualMachinePoolsServer.Do(req)
-	case "StandbyVirtualMachinesClient":
-		initServer(s, &s.trStandbyVirtualMachinesServer, func() *StandbyVirtualMachinesServerTransport {
-			return NewStandbyVirtualMachinesServerTransport(&s.srv.StandbyVirtualMachinesServer)
-		})
-		resp, err = s.trStandbyVirtualMachinesServer.Do(req)
 	default:
 		err = fmt.Errorf("unhandled client %s", client)
 	}
