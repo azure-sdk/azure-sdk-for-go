@@ -25,7 +25,7 @@ import (
 type SourceControlServer struct {
 	// NewListRepositoriesPager is the fake for method SourceControlClient.NewListRepositoriesPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListRepositoriesPager func(resourceGroupName string, workspaceName string, repoType armsecurityinsights.RepoType, options *armsecurityinsights.SourceControlClientListRepositoriesOptions) (resp azfake.PagerResponder[armsecurityinsights.SourceControlClientListRepositoriesResponse])
+	NewListRepositoriesPager func(resourceGroupName string, workspaceName string, repositoryAccess armsecurityinsights.RepositoryAccessProperties, options *armsecurityinsights.SourceControlClientListRepositoriesOptions) (resp azfake.PagerResponder[armsecurityinsights.SourceControlClientListRepositoriesResponse])
 }
 
 // NewSourceControlServerTransport creates a new instance of SourceControlServerTransport with the provided implementation.
@@ -82,7 +82,7 @@ func (s *SourceControlServerTransport) dispatchNewListRepositoriesPager(req *htt
 		if matches == nil || len(matches) < 3 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		body, err := server.UnmarshalRequestAsJSON[armsecurityinsights.RepoType](req)
+		body, err := server.UnmarshalRequestAsJSON[armsecurityinsights.RepositoryAccessProperties](req)
 		if err != nil {
 			return nil, err
 		}
