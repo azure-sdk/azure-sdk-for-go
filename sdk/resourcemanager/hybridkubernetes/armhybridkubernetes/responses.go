@@ -8,8 +8,8 @@
 
 package armhybridkubernetes
 
-// ConnectedClusterClientCreateResponse contains the response from method ConnectedClusterClient.BeginCreate.
-type ConnectedClusterClientCreateResponse struct {
+// ConnectedClusterClientCreateOrReplaceResponse contains the response from method ConnectedClusterClient.BeginCreateOrReplace.
+type ConnectedClusterClientCreateOrReplaceResponse struct {
 	// Represents a connected cluster.
 	ConnectedCluster
 }
