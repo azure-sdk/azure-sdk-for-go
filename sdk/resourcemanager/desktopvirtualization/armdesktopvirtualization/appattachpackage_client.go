@@ -17,6 +17,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 )
 
@@ -46,9 +47,9 @@ func NewAppAttachPackageClient(subscriptionID string, credential azcore.TokenCre
 // CreateOrUpdate - Create or update an App Attach package.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - appAttachPackageName - The name of the App Attach package
+//   - appAttachPackageName - The name of the App Attach package arm object
 //   - appAttachPackage - Object containing App Attach Package definitions.
 //   - options - AppAttachPackageClientCreateOrUpdateOptions contains the optional parameters for the AppAttachPackageClient.CreateOrUpdate
 //     method.
@@ -94,7 +95,7 @@ func (client *AppAttachPackageClient) createOrUpdateCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, appAttachPackage); err != nil {
@@ -115,9 +116,9 @@ func (client *AppAttachPackageClient) createOrUpdateHandleResponse(resp *http.Re
 // Delete - Remove an App Attach Package.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - appAttachPackageName - The name of the App Attach package
+//   - appAttachPackageName - The name of the App Attach package arm object
 //   - options - AppAttachPackageClientDeleteOptions contains the optional parameters for the AppAttachPackageClient.Delete method.
 func (client *AppAttachPackageClient) Delete(ctx context.Context, resourceGroupName string, appAttachPackageName string, options *AppAttachPackageClientDeleteOptions) (AppAttachPackageClientDeleteResponse, error) {
 	var err error
@@ -160,7 +161,10 @@ func (client *AppAttachPackageClient) deleteCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
+	if options != nil && options.Force != nil {
+		reqQP.Set("force", strconv.FormatBool(*options.Force))
+	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -169,9 +173,9 @@ func (client *AppAttachPackageClient) deleteCreateRequest(ctx context.Context, r
 // Get - Get an app attach package.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - appAttachPackageName - The name of the App Attach package
+//   - appAttachPackageName - The name of the App Attach package arm object
 //   - options - AppAttachPackageClientGetOptions contains the optional parameters for the AppAttachPackageClient.Get method.
 func (client *AppAttachPackageClient) Get(ctx context.Context, resourceGroupName string, appAttachPackageName string, options *AppAttachPackageClientGetOptions) (AppAttachPackageClientGetResponse, error) {
 	var err error
@@ -215,7 +219,7 @@ func (client *AppAttachPackageClient) getCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -232,7 +236,7 @@ func (client *AppAttachPackageClient) getHandleResponse(resp *http.Response) (Ap
 
 // NewListByResourceGroupPager - List App Attach packages in resource group.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - AppAttachPackageClientListByResourceGroupOptions contains the optional parameters for the AppAttachPackageClient.NewListByResourceGroupPager
 //     method.
@@ -278,7 +282,7 @@ func (client *AppAttachPackageClient) listByResourceGroupCreateRequest(ctx conte
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -295,7 +299,7 @@ func (client *AppAttachPackageClient) listByResourceGroupHandleResponse(resp *ht
 
 // NewListBySubscriptionPager - List App Attach packages in subscription.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - options - AppAttachPackageClientListBySubscriptionOptions contains the optional parameters for the AppAttachPackageClient.NewListBySubscriptionPager
 //     method.
 func (client *AppAttachPackageClient) NewListBySubscriptionPager(options *AppAttachPackageClientListBySubscriptionOptions) *runtime.Pager[AppAttachPackageClientListBySubscriptionResponse] {
@@ -336,7 +340,7 @@ func (client *AppAttachPackageClient) listBySubscriptionCreateRequest(ctx contex
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -354,9 +358,9 @@ func (client *AppAttachPackageClient) listBySubscriptionHandleResponse(resp *htt
 // Update - Update an App Attach Package
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - appAttachPackageName - The name of the App Attach package
+//   - appAttachPackageName - The name of the App Attach package arm object
 //   - options - AppAttachPackageClientUpdateOptions contains the optional parameters for the AppAttachPackageClient.Update method.
 func (client *AppAttachPackageClient) Update(ctx context.Context, resourceGroupName string, appAttachPackageName string, options *AppAttachPackageClientUpdateOptions) (AppAttachPackageClientUpdateResponse, error) {
 	var err error
@@ -400,7 +404,7 @@ func (client *AppAttachPackageClient) updateCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.AppAttachPackagePatch != nil {
