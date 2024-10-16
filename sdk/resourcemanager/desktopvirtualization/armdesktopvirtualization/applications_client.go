@@ -47,7 +47,7 @@ func NewApplicationsClient(subscriptionID string, credential azcore.TokenCredent
 // CreateOrUpdate - Create or update an application.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - applicationGroupName - The name of the application group
 //   - applicationName - The name of the application within the specified application group
@@ -100,7 +100,7 @@ func (client *ApplicationsClient) createOrUpdateCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, application); err != nil {
@@ -121,7 +121,7 @@ func (client *ApplicationsClient) createOrUpdateHandleResponse(resp *http.Respon
 // Delete - Remove an application.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - applicationGroupName - The name of the application group
 //   - applicationName - The name of the application within the specified application group
@@ -171,7 +171,7 @@ func (client *ApplicationsClient) deleteCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -180,7 +180,7 @@ func (client *ApplicationsClient) deleteCreateRequest(ctx context.Context, resou
 // Get - Get an application.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - applicationGroupName - The name of the application group
 //   - applicationName - The name of the application within the specified application group
@@ -231,7 +231,7 @@ func (client *ApplicationsClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -248,7 +248,7 @@ func (client *ApplicationsClient) getHandleResponse(resp *http.Response) (Applic
 
 // NewListPager - List applications.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - applicationGroupName - The name of the application group
 //   - options - ApplicationsClientListOptions contains the optional parameters for the ApplicationsClient.NewListPager method.
@@ -295,7 +295,7 @@ func (client *ApplicationsClient) listCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	if options != nil && options.InitialSkip != nil {
 		reqQP.Set("initialSkip", strconv.FormatInt(int64(*options.InitialSkip), 10))
 	}
@@ -322,7 +322,7 @@ func (client *ApplicationsClient) listHandleResponse(resp *http.Response) (Appli
 // Update - Update an application.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - applicationGroupName - The name of the application group
 //   - applicationName - The name of the application within the specified application group
@@ -373,7 +373,7 @@ func (client *ApplicationsClient) updateCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Application != nil {

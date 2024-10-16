@@ -47,7 +47,7 @@ func NewDesktopsClient(subscriptionID string, credential azcore.TokenCredential,
 // Get - Get a desktop.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - applicationGroupName - The name of the application group
 //   - desktopName - The name of the desktop within the specified desktop group
@@ -98,7 +98,7 @@ func (client *DesktopsClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -115,7 +115,7 @@ func (client *DesktopsClient) getHandleResponse(resp *http.Response) (DesktopsCl
 
 // NewListPager - List desktops.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - applicationGroupName - The name of the application group
 //   - options - DesktopsClientListOptions contains the optional parameters for the DesktopsClient.NewListPager method.
@@ -162,7 +162,7 @@ func (client *DesktopsClient) listCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	if options != nil && options.InitialSkip != nil {
 		reqQP.Set("initialSkip", strconv.FormatInt(int64(*options.InitialSkip), 10))
 	}
@@ -189,7 +189,7 @@ func (client *DesktopsClient) listHandleResponse(resp *http.Response) (DesktopsC
 // Update - Update a desktop.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - applicationGroupName - The name of the application group
 //   - desktopName - The name of the desktop within the specified desktop group
@@ -240,7 +240,7 @@ func (client *DesktopsClient) updateCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Desktop != nil {
