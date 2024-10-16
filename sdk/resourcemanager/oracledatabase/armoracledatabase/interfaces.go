@@ -11,7 +11,8 @@ package armoracledatabase
 // AutonomousDatabaseBasePropertiesClassification provides polymorphic access to related types.
 // Call the interface's GetAutonomousDatabaseBaseProperties() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *AutonomousDatabaseBaseProperties, *AutonomousDatabaseCloneProperties, *AutonomousDatabaseProperties
+// - *AutonomousDatabaseBaseProperties, *AutonomousDatabaseCloneProperties, *AutonomousDatabaseCrossRegionDisasterRecoveryProperties,
+// - *AutonomousDatabaseFromBackupTimestampProperties, *AutonomousDatabaseProperties
 type AutonomousDatabaseBasePropertiesClassification interface {
 	// GetAutonomousDatabaseBaseProperties returns the AutonomousDatabaseBaseProperties content of the underlying type.
 	GetAutonomousDatabaseBaseProperties() *AutonomousDatabaseBaseProperties

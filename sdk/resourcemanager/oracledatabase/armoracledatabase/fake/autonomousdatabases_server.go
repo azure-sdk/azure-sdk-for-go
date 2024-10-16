@@ -24,6 +24,10 @@ import (
 
 // AutonomousDatabasesServer is a fake server for instances of the armoracledatabase.AutonomousDatabasesClient type.
 type AutonomousDatabasesServer struct {
+	// BeginChangeDisasterRecoveryConfiguration is the fake for method AutonomousDatabasesClient.BeginChangeDisasterRecoveryConfiguration
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginChangeDisasterRecoveryConfiguration func(ctx context.Context, resourceGroupName string, autonomousdatabasename string, body armoracledatabase.DisasterRecoveryConfigurationDetails, options *armoracledatabase.AutonomousDatabasesClientBeginChangeDisasterRecoveryConfigurationOptions) (resp azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientChangeDisasterRecoveryConfigurationResponse], errResp azfake.ErrorResponder)
+
 	// BeginCreateOrUpdate is the fake for method AutonomousDatabasesClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
 	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, autonomousdatabasename string, resource armoracledatabase.AutonomousDatabase, options *armoracledatabase.AutonomousDatabasesClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
@@ -74,32 +78,34 @@ type AutonomousDatabasesServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewAutonomousDatabasesServerTransport(srv *AutonomousDatabasesServer) *AutonomousDatabasesServerTransport {
 	return &AutonomousDatabasesServerTransport{
-		srv:                         srv,
-		beginCreateOrUpdate:         newTracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientCreateOrUpdateResponse]](),
-		beginDelete:                 newTracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientDeleteResponse]](),
-		beginFailover:               newTracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientFailoverResponse]](),
-		newListByResourceGroupPager: newTracker[azfake.PagerResponder[armoracledatabase.AutonomousDatabasesClientListByResourceGroupResponse]](),
-		newListBySubscriptionPager:  newTracker[azfake.PagerResponder[armoracledatabase.AutonomousDatabasesClientListBySubscriptionResponse]](),
-		beginRestore:                newTracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientRestoreResponse]](),
-		beginShrink:                 newTracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientShrinkResponse]](),
-		beginSwitchover:             newTracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientSwitchoverResponse]](),
-		beginUpdate:                 newTracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientUpdateResponse]](),
+		srv:                                      srv,
+		beginChangeDisasterRecoveryConfiguration: newTracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientChangeDisasterRecoveryConfigurationResponse]](),
+		beginCreateOrUpdate:                      newTracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientCreateOrUpdateResponse]](),
+		beginDelete:                              newTracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientDeleteResponse]](),
+		beginFailover:                            newTracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientFailoverResponse]](),
+		newListByResourceGroupPager:              newTracker[azfake.PagerResponder[armoracledatabase.AutonomousDatabasesClientListByResourceGroupResponse]](),
+		newListBySubscriptionPager:               newTracker[azfake.PagerResponder[armoracledatabase.AutonomousDatabasesClientListBySubscriptionResponse]](),
+		beginRestore:                             newTracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientRestoreResponse]](),
+		beginShrink:                              newTracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientShrinkResponse]](),
+		beginSwitchover:                          newTracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientSwitchoverResponse]](),
+		beginUpdate:                              newTracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientUpdateResponse]](),
 	}
 }
 
 // AutonomousDatabasesServerTransport connects instances of armoracledatabase.AutonomousDatabasesClient to instances of AutonomousDatabasesServer.
 // Don't use this type directly, use NewAutonomousDatabasesServerTransport instead.
 type AutonomousDatabasesServerTransport struct {
-	srv                         *AutonomousDatabasesServer
-	beginCreateOrUpdate         *tracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientCreateOrUpdateResponse]]
-	beginDelete                 *tracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientDeleteResponse]]
-	beginFailover               *tracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientFailoverResponse]]
-	newListByResourceGroupPager *tracker[azfake.PagerResponder[armoracledatabase.AutonomousDatabasesClientListByResourceGroupResponse]]
-	newListBySubscriptionPager  *tracker[azfake.PagerResponder[armoracledatabase.AutonomousDatabasesClientListBySubscriptionResponse]]
-	beginRestore                *tracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientRestoreResponse]]
-	beginShrink                 *tracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientShrinkResponse]]
-	beginSwitchover             *tracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientSwitchoverResponse]]
-	beginUpdate                 *tracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientUpdateResponse]]
+	srv                                      *AutonomousDatabasesServer
+	beginChangeDisasterRecoveryConfiguration *tracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientChangeDisasterRecoveryConfigurationResponse]]
+	beginCreateOrUpdate                      *tracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientCreateOrUpdateResponse]]
+	beginDelete                              *tracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientDeleteResponse]]
+	beginFailover                            *tracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientFailoverResponse]]
+	newListByResourceGroupPager              *tracker[azfake.PagerResponder[armoracledatabase.AutonomousDatabasesClientListByResourceGroupResponse]]
+	newListBySubscriptionPager               *tracker[azfake.PagerResponder[armoracledatabase.AutonomousDatabasesClientListBySubscriptionResponse]]
+	beginRestore                             *tracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientRestoreResponse]]
+	beginShrink                              *tracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientShrinkResponse]]
+	beginSwitchover                          *tracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientSwitchoverResponse]]
+	beginUpdate                              *tracker[azfake.PollerResponder[armoracledatabase.AutonomousDatabasesClientUpdateResponse]]
 }
 
 // Do implements the policy.Transporter interface for AutonomousDatabasesServerTransport.
@@ -114,6 +120,8 @@ func (a *AutonomousDatabasesServerTransport) Do(req *http.Request) (*http.Respon
 	var err error
 
 	switch method {
+	case "AutonomousDatabasesClient.BeginChangeDisasterRecoveryConfiguration":
+		resp, err = a.dispatchBeginChangeDisasterRecoveryConfiguration(req)
 	case "AutonomousDatabasesClient.BeginCreateOrUpdate":
 		resp, err = a.dispatchBeginCreateOrUpdate(req)
 	case "AutonomousDatabasesClient.BeginDelete":
@@ -142,6 +150,54 @@ func (a *AutonomousDatabasesServerTransport) Do(req *http.Request) (*http.Respon
 
 	if err != nil {
 		return nil, err
+	}
+
+	return resp, nil
+}
+
+func (a *AutonomousDatabasesServerTransport) dispatchBeginChangeDisasterRecoveryConfiguration(req *http.Request) (*http.Response, error) {
+	if a.srv.BeginChangeDisasterRecoveryConfiguration == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginChangeDisasterRecoveryConfiguration not implemented")}
+	}
+	beginChangeDisasterRecoveryConfiguration := a.beginChangeDisasterRecoveryConfiguration.get(req)
+	if beginChangeDisasterRecoveryConfiguration == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Oracle\.Database/autonomousDatabases/(?P<autonomousdatabasename>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/changeDisasterRecoveryConfiguration`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armoracledatabase.DisasterRecoveryConfigurationDetails](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		autonomousdatabasenameParam, err := url.PathUnescape(matches[regex.SubexpIndex("autonomousdatabasename")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := a.srv.BeginChangeDisasterRecoveryConfiguration(req.Context(), resourceGroupNameParam, autonomousdatabasenameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginChangeDisasterRecoveryConfiguration = &respr
+		a.beginChangeDisasterRecoveryConfiguration.add(req, beginChangeDisasterRecoveryConfiguration)
+	}
+
+	resp, err := server.PollerResponderNext(beginChangeDisasterRecoveryConfiguration, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		a.beginChangeDisasterRecoveryConfiguration.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginChangeDisasterRecoveryConfiguration) {
+		a.beginChangeDisasterRecoveryConfiguration.remove(req)
 	}
 
 	return resp, nil
