@@ -10,7 +10,7 @@ package armnetworkfunction
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/networkfunction/armnetworkfunction"
-	moduleVersion = "v2.2.0"
+	moduleVersion = "v2.2.1"
 )
 
 type APIVersionParameter string
