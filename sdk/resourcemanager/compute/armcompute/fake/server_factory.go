@@ -44,7 +44,6 @@ type ServerFactory struct {
 	GallerySharingProfileServer                 GallerySharingProfileServer
 	ImagesServer                                ImagesServer
 	LogAnalyticsServer                          LogAnalyticsServer
-	OperationsServer                            OperationsServer
 	ProximityPlacementGroupsServer              ProximityPlacementGroupsServer
 	ResourceSKUsServer                          ResourceSKUsServer
 	RestorePointCollectionsServer               RestorePointCollectionsServer
@@ -109,7 +108,6 @@ type ServerFactoryTransport struct {
 	trGallerySharingProfileServer                 *GallerySharingProfileServerTransport
 	trImagesServer                                *ImagesServerTransport
 	trLogAnalyticsServer                          *LogAnalyticsServerTransport
-	trOperationsServer                            *OperationsServerTransport
 	trProximityPlacementGroupsServer              *ProximityPlacementGroupsServerTransport
 	trResourceSKUsServer                          *ResourceSKUsServerTransport
 	trRestorePointCollectionsServer               *RestorePointCollectionsServerTransport
@@ -263,9 +261,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "LogAnalyticsClient":
 		initServer(s, &s.trLogAnalyticsServer, func() *LogAnalyticsServerTransport { return NewLogAnalyticsServerTransport(&s.srv.LogAnalyticsServer) })
 		resp, err = s.trLogAnalyticsServer.Do(req)
-	case "OperationsClient":
-		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
-		resp, err = s.trOperationsServer.Do(req)
 	case "ProximityPlacementGroupsClient":
 		initServer(s, &s.trProximityPlacementGroupsServer, func() *ProximityPlacementGroupsServerTransport {
 			return NewProximityPlacementGroupsServerTransport(&s.srv.ProximityPlacementGroupsServer)
