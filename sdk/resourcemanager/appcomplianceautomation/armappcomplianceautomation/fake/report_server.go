@@ -27,7 +27,7 @@ import (
 type ReportServer struct {
 	// BeginCreateOrUpdate is the fake for method ReportClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	BeginCreateOrUpdate func(ctx context.Context, reportName string, properties armappcomplianceautomation.ReportResource, options *armappcomplianceautomation.ReportClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armappcomplianceautomation.ReportClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	BeginCreateOrUpdate func(ctx context.Context, reportName string, resource armappcomplianceautomation.ReportResource, options *armappcomplianceautomation.ReportClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armappcomplianceautomation.ReportClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method ReportClient.BeginDelete
 	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
