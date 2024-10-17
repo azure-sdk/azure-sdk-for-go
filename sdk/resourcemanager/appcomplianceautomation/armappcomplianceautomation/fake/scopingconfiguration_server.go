@@ -26,7 +26,7 @@ import (
 type ScopingConfigurationServer struct {
 	// CreateOrUpdate is the fake for method ScopingConfigurationClient.CreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	CreateOrUpdate func(ctx context.Context, reportName string, scopingConfigurationName string, properties armappcomplianceautomation.ScopingConfigurationResource, options *armappcomplianceautomation.ScopingConfigurationClientCreateOrUpdateOptions) (resp azfake.Responder[armappcomplianceautomation.ScopingConfigurationClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	CreateOrUpdate func(ctx context.Context, reportName string, scopingConfigurationName string, resource armappcomplianceautomation.ScopingConfigurationResource, options *armappcomplianceautomation.ScopingConfigurationClientCreateOrUpdateOptions) (resp azfake.Responder[armappcomplianceautomation.ScopingConfigurationClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// Delete is the fake for method ScopingConfigurationClient.Delete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent

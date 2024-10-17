@@ -47,15 +47,15 @@ func NewWebhookClient(credential azcore.TokenCredential, options *arm.ClientOpti
 // Generated from API version 2024-06-27
 //   - reportName - Report Name.
 //   - webhookName - Webhook Name.
-//   - properties - Parameters for the create or update operation
+//   - resource - Parameters for the create or update operation
 //   - options - WebhookClientCreateOrUpdateOptions contains the optional parameters for the WebhookClient.CreateOrUpdate method.
-func (client *WebhookClient) CreateOrUpdate(ctx context.Context, reportName string, webhookName string, properties WebhookResource, options *WebhookClientCreateOrUpdateOptions) (WebhookClientCreateOrUpdateResponse, error) {
+func (client *WebhookClient) CreateOrUpdate(ctx context.Context, reportName string, webhookName string, resource WebhookResource, options *WebhookClientCreateOrUpdateOptions) (WebhookClientCreateOrUpdateResponse, error) {
 	var err error
 	const operationName = "WebhookClient.CreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, reportName, webhookName, properties, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, reportName, webhookName, resource, options)
 	if err != nil {
 		return WebhookClientCreateOrUpdateResponse{}, err
 	}
@@ -72,7 +72,7 @@ func (client *WebhookClient) CreateOrUpdate(ctx context.Context, reportName stri
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *WebhookClient) createOrUpdateCreateRequest(ctx context.Context, reportName string, webhookName string, properties WebhookResource, options *WebhookClientCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *WebhookClient) createOrUpdateCreateRequest(ctx context.Context, reportName string, webhookName string, resource WebhookResource, options *WebhookClientCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/providers/Microsoft.AppComplianceAutomation/reports/{reportName}/webhooks/{webhookName}"
 	if reportName == "" {
 		return nil, errors.New("parameter reportName cannot be empty")
@@ -90,7 +90,7 @@ func (client *WebhookClient) createOrUpdateCreateRequest(ctx context.Context, re
 	reqQP.Set("api-version", "2024-06-27")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, properties); err != nil {
+	if err := runtime.MarshalAsJSON(req, resource); err != nil {
 		return nil, err
 	}
 	return req, nil

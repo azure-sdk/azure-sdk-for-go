@@ -46,12 +46,12 @@ func NewReportClient(credential azcore.TokenCredential, options *arm.ClientOptio
 //
 // Generated from API version 2024-06-27
 //   - reportName - Report Name.
-//   - properties - Parameters for the create or update operation
+//   - resource - Parameters for the create or update operation
 //   - options - ReportClientBeginCreateOrUpdateOptions contains the optional parameters for the ReportClient.BeginCreateOrUpdate
 //     method.
-func (client *ReportClient) BeginCreateOrUpdate(ctx context.Context, reportName string, properties ReportResource, options *ReportClientBeginCreateOrUpdateOptions) (*runtime.Poller[ReportClientCreateOrUpdateResponse], error) {
+func (client *ReportClient) BeginCreateOrUpdate(ctx context.Context, reportName string, resource ReportResource, options *ReportClientBeginCreateOrUpdateOptions) (*runtime.Poller[ReportClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, reportName, properties, options)
+		resp, err := client.createOrUpdate(ctx, reportName, resource, options)
 		if err != nil {
 			return nil, err
 		}
@@ -71,13 +71,13 @@ func (client *ReportClient) BeginCreateOrUpdate(ctx context.Context, reportName 
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-06-27
-func (client *ReportClient) createOrUpdate(ctx context.Context, reportName string, properties ReportResource, options *ReportClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+func (client *ReportClient) createOrUpdate(ctx context.Context, reportName string, resource ReportResource, options *ReportClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ReportClient.BeginCreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, reportName, properties, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, reportName, resource, options)
 	if err != nil {
 		return nil, err
 	}
@@ -93,7 +93,7 @@ func (client *ReportClient) createOrUpdate(ctx context.Context, reportName strin
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *ReportClient) createOrUpdateCreateRequest(ctx context.Context, reportName string, properties ReportResource, options *ReportClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *ReportClient) createOrUpdateCreateRequest(ctx context.Context, reportName string, resource ReportResource, options *ReportClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/providers/Microsoft.AppComplianceAutomation/reports/{reportName}"
 	if reportName == "" {
 		return nil, errors.New("parameter reportName cannot be empty")
@@ -107,7 +107,7 @@ func (client *ReportClient) createOrUpdateCreateRequest(ctx context.Context, rep
 	reqQP.Set("api-version", "2024-06-27")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, properties); err != nil {
+	if err := runtime.MarshalAsJSON(req, resource); err != nil {
 		return nil, err
 	}
 	return req, nil
