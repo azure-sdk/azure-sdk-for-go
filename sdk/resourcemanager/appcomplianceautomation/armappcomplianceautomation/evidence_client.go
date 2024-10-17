@@ -47,15 +47,15 @@ func NewEvidenceClient(credential azcore.TokenCredential, options *arm.ClientOpt
 // Generated from API version 2024-06-27
 //   - reportName - Report Name.
 //   - evidenceName - The evidence name.
-//   - properties - Parameters for the create or update operation
+//   - resource - Parameters for the create or update operation
 //   - options - EvidenceClientCreateOrUpdateOptions contains the optional parameters for the EvidenceClient.CreateOrUpdate method.
-func (client *EvidenceClient) CreateOrUpdate(ctx context.Context, reportName string, evidenceName string, properties EvidenceResource, options *EvidenceClientCreateOrUpdateOptions) (EvidenceClientCreateOrUpdateResponse, error) {
+func (client *EvidenceClient) CreateOrUpdate(ctx context.Context, reportName string, evidenceName string, resource EvidenceResource, options *EvidenceClientCreateOrUpdateOptions) (EvidenceClientCreateOrUpdateResponse, error) {
 	var err error
 	const operationName = "EvidenceClient.CreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, reportName, evidenceName, properties, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, reportName, evidenceName, resource, options)
 	if err != nil {
 		return EvidenceClientCreateOrUpdateResponse{}, err
 	}
@@ -72,7 +72,7 @@ func (client *EvidenceClient) CreateOrUpdate(ctx context.Context, reportName str
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *EvidenceClient) createOrUpdateCreateRequest(ctx context.Context, reportName string, evidenceName string, properties EvidenceResource, options *EvidenceClientCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *EvidenceClient) createOrUpdateCreateRequest(ctx context.Context, reportName string, evidenceName string, resource EvidenceResource, options *EvidenceClientCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/providers/Microsoft.AppComplianceAutomation/reports/{reportName}/evidences/{evidenceName}"
 	if reportName == "" {
 		return nil, errors.New("parameter reportName cannot be empty")
@@ -96,7 +96,7 @@ func (client *EvidenceClient) createOrUpdateCreateRequest(ctx context.Context, r
 	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, properties); err != nil {
+	if err := runtime.MarshalAsJSON(req, resource); err != nil {
 		return nil, err
 	}
 	return req, nil
