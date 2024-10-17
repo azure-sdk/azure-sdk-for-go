@@ -199,7 +199,7 @@ type CreateProperties struct {
 	// Specifies whether the non-ssl Redis server port (6379) is enabled.
 	EnableNonSSLPort *bool
 
-	// Optional: requires clients to use a specified TLS version (or higher) to connect (e,g, '1.0', '1.1', '1.2')
+	// Optional: requires clients to use a specified TLS version (or higher) to connect (e,g, '1.2')
 	MinimumTLSVersion *TLSVersion
 
 	// Whether or not public endpoint access is allowed for this cache. Value is optional but if passed in, must be 'Enabled'
@@ -241,6 +241,14 @@ type CreateProperties struct {
 	// update channel get latest Redis updates at least 4 weeks ahead of 'Stable'
 	// channel caches. Default value is 'Stable'.
 	UpdateChannel *UpdateChannel
+
+	// Optional: Specifies how availability zones are allocated to the Redis cache. 'Automatic' enables zone redundancy and Azure
+	// will automatically select zones based on regional availability and capacity.
+	// 'UserDefined' will select availability zones passed in by you using the 'zones' parameter. 'NoZones' will produce a non-zonal
+	// cache. If 'zonalAllocationPolicy' is not passed, it will be set to
+	// 'UserDefined' when zones are passed in, otherwise, it will be set to 'Automatic' in regions where zones are supported and
+	// 'NoZones' in regions where zones are not supported.
+	ZonalAllocationPolicy *ZonalAllocationPolicy
 }
 
 // ErrorAdditionalInfo - The resource management error additional info.
@@ -697,7 +705,7 @@ type Properties struct {
 	// Specifies whether the non-ssl Redis server port (6379) is enabled.
 	EnableNonSSLPort *bool
 
-	// Optional: requires clients to use a specified TLS version (or higher) to connect (e,g, '1.0', '1.1', '1.2')
+	// Optional: requires clients to use a specified TLS version (or higher) to connect (e,g, '1.2')
 	MinimumTLSVersion *TLSVersion
 
 	// Whether or not public endpoint access is allowed for this cache. Value is optional but if passed in, must be 'Enabled'
@@ -739,6 +747,14 @@ type Properties struct {
 	// update channel get latest Redis updates at least 4 weeks ahead of 'Stable'
 	// channel caches. Default value is 'Stable'.
 	UpdateChannel *UpdateChannel
+
+	// Optional: Specifies how availability zones are allocated to the Redis cache. 'Automatic' enables zone redundancy and Azure
+	// will automatically select zones based on regional availability and capacity.
+	// 'UserDefined' will select availability zones passed in by you using the 'zones' parameter. 'NoZones' will produce a non-zonal
+	// cache. If 'zonalAllocationPolicy' is not passed, it will be set to
+	// 'UserDefined' when zones are passed in, otherwise, it will be set to 'Automatic' in regions where zones are supported and
+	// 'NoZones' in regions where zones are not supported.
+	ZonalAllocationPolicy *ZonalAllocationPolicy
 
 	// READ-ONLY; The keys of the Redis cache - not set if this object is not the response to Create or Update redis cache
 	AccessKeys *AccessKeys
@@ -861,7 +877,7 @@ type UpdateProperties struct {
 	// Specifies whether the non-ssl Redis server port (6379) is enabled.
 	EnableNonSSLPort *bool
 
-	// Optional: requires clients to use a specified TLS version (or higher) to connect (e,g, '1.0', '1.1', '1.2')
+	// Optional: requires clients to use a specified TLS version (or higher) to connect (e,g, '1.2')
 	MinimumTLSVersion *TLSVersion
 
 	// Whether or not public endpoint access is allowed for this cache. Value is optional but if passed in, must be 'Enabled'
@@ -898,6 +914,14 @@ type UpdateProperties struct {
 	// update channel get latest Redis updates at least 4 weeks ahead of 'Stable'
 	// channel caches. Default value is 'Stable'.
 	UpdateChannel *UpdateChannel
+
+	// Optional: Specifies how availability zones are allocated to the Redis cache. 'Automatic' enables zone redundancy and Azure
+	// will automatically select zones based on regional availability and capacity.
+	// 'UserDefined' will select availability zones passed in by you using the 'zones' parameter. 'NoZones' will produce a non-zonal
+	// cache. If 'zonalAllocationPolicy' is not passed, it will be set to
+	// 'UserDefined' when zones are passed in, otherwise, it will be set to 'Automatic' in regions where zones are supported and
+	// 'NoZones' in regions where zones are not supported.
+	ZonalAllocationPolicy *ZonalAllocationPolicy
 }
 
 // UpgradeNotification - Properties of upgrade notification.
