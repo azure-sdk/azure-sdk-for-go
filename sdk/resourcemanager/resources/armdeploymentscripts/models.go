@@ -224,6 +224,18 @@ type ContainerConfiguration struct {
 	// } }. If you do not want to specify a 'containerGroupName' then do not
 	// add 'containerSettings' property.
 	ContainerGroupName *string
+
+	// The subnet resource IDs for a container group.
+	SubnetIDs []*ContainerGroupSubnetID
+}
+
+// ContainerGroupSubnetID - Container group subnet information.
+type ContainerGroupSubnetID struct {
+	// REQUIRED; Resource ID of subnet.
+	ID *string
+
+	// Friendly name for the subnet.
+	Name *string
 }
 
 // DeploymentScript - Deployment script object.
