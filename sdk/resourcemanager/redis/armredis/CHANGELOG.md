@@ -1,5 +1,18 @@
 # Release History
 
+## 4.0.0 (2024-10-17)
+### Breaking Changes
+
+- `TLSVersionOne0`, `TLSVersionOne1` from enum `TLSVersion` has been removed
+
+### Features Added
+
+- New enum type `ZonalAllocationPolicy` with values `ZonalAllocationPolicyAutomatic`, `ZonalAllocationPolicyNoZones`, `ZonalAllocationPolicyUserDefined`
+- New field `ZonalAllocationPolicy` in struct `CreateProperties`
+- New field `ZonalAllocationPolicy` in struct `Properties`
+- New field `ZonalAllocationPolicy` in struct `UpdateProperties`
+
+
 ## 3.2.0 (2024-07-25)
 ### Features Added
 
