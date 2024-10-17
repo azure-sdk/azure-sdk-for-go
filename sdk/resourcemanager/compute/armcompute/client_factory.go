@@ -237,13 +237,6 @@ func (c *ClientFactory) NewLogAnalyticsClient() *LogAnalyticsClient {
 	}
 }
 
-// NewOperationsClient creates a new instance of OperationsClient.
-func (c *ClientFactory) NewOperationsClient() *OperationsClient {
-	return &OperationsClient{
-		internal: c.internal,
-	}
-}
-
 // NewProximityPlacementGroupsClient creates a new instance of ProximityPlacementGroupsClient.
 func (c *ClientFactory) NewProximityPlacementGroupsClient() *ProximityPlacementGroupsClient {
 	return &ProximityPlacementGroupsClient{
