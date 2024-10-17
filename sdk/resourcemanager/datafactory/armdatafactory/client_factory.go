@@ -156,13 +156,6 @@ func (c *ClientFactory) NewManagedVirtualNetworksClient() *ManagedVirtualNetwork
 	}
 }
 
-// NewOperationsClient creates a new instance of OperationsClient.
-func (c *ClientFactory) NewOperationsClient() *OperationsClient {
-	return &OperationsClient{
-		internal: c.internal,
-	}
-}
-
 // NewPipelineRunsClient creates a new instance of PipelineRunsClient.
 func (c *ClientFactory) NewPipelineRunsClient() *PipelineRunsClient {
 	return &PipelineRunsClient{

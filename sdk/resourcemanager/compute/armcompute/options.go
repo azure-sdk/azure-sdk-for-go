@@ -849,11 +849,6 @@ type LogAnalyticsClientBeginExportThrottledRequestsOptions struct {
 	ResumeToken string
 }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
-type OperationsClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
 // ProximityPlacementGroupsClientCreateOrUpdateOptions contains the optional parameters for the ProximityPlacementGroupsClient.CreateOrUpdate
 // method.
 type ProximityPlacementGroupsClientCreateOrUpdateOptions struct {

@@ -204,12 +204,6 @@ type FactoriesClientGetResponse struct {
 	Factory
 }
 
-// FactoriesClientListByResourceGroupResponse contains the response from method FactoriesClient.NewListByResourceGroupPager.
-type FactoriesClientListByResourceGroupResponse struct {
-	// A list of factory resources.
-	FactoryListResponse
-}
-
 // FactoriesClientListResponse contains the response from method FactoriesClient.NewListPager.
 type FactoriesClientListResponse struct {
 	// A list of factory resources.
@@ -439,12 +433,6 @@ type ManagedVirtualNetworksClientGetResponse struct {
 type ManagedVirtualNetworksClientListByFactoryResponse struct {
 	// A list of managed Virtual Network resources.
 	ManagedVirtualNetworkListResponse
-}
-
-// OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
-type OperationsClientListResponse struct {
-	// A list of operations that can be performed by the Data Factory service.
-	OperationListResponse
 }
 
 // PipelineRunsClientCancelResponse contains the response from method PipelineRunsClient.Cancel.
