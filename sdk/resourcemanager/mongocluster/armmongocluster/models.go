@@ -62,6 +62,12 @@ type ConnectionString struct {
 	Name *string
 }
 
+// DataAPIProperties - Data API properties.
+type DataAPIProperties struct {
+	// The mode to indicate whether the Mongo Data API is enabled for a cluster.
+	Mode *DataAPIMode
+}
+
 // FirewallRule - Represents a mongo cluster firewall rule.
 type FirewallRule struct {
 	// The resource-specific properties for this resource.
@@ -337,6 +343,9 @@ type Properties struct {
 	// The mode to create a mongo cluster.
 	CreateMode *CreateMode
 
+	// The Data API properties of the mongo cluster.
+	DataAPI *DataAPIProperties
+
 	// The high availability properties of the mongo cluster.
 	HighAvailability *HighAvailabilityProperties
 
@@ -491,6 +500,9 @@ type UpdateProperties struct {
 
 	// The compute properties of the mongo cluster.
 	Compute *ComputeProperties
+
+	// The Data API properties of the mongo cluster.
+	DataAPI *DataAPIProperties
 
 	// The high availability properties of the mongo cluster.
 	HighAvailability *HighAvailabilityProperties
