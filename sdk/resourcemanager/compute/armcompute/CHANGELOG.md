@@ -1,5 +1,13 @@
 # Release History
 
+## 6.2.0 (2024-10-17)
+### Features Added
+
+- New value `StorageAccountTypePremiumV2LRS` added to enum type `StorageAccountType`
+- New struct `AdditionalReplicaSet`
+- New field `AdditionalReplicaSets` in struct `TargetRegion`
+
+
 ## 6.1.0 (2024-08-23)
 ### Features Added
 

@@ -182,6 +182,37 @@ func (a *AdditionalCapabilities) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type AdditionalReplicaSet.
+func (a AdditionalReplicaSet) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "regionalReplicaCount", a.RegionalReplicaCount)
+	populate(objectMap, "storageAccountType", a.StorageAccountType)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AdditionalReplicaSet.
+func (a *AdditionalReplicaSet) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "regionalReplicaCount":
+			err = unpopulate(val, "RegionalReplicaCount", &a.RegionalReplicaCount)
+			delete(rawMsg, key)
+		case "storageAccountType":
+			err = unpopulate(val, "StorageAccountType", &a.StorageAccountType)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type AdditionalUnattendContent.
 func (a AdditionalUnattendContent) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -13965,6 +13996,7 @@ func (s *SystemData) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type TargetRegion.
 func (t TargetRegion) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "additionalReplicaSets", t.AdditionalReplicaSets)
 	populate(objectMap, "encryption", t.Encryption)
 	populate(objectMap, "excludeFromLatest", t.ExcludeFromLatest)
 	populate(objectMap, "name", t.Name)
@@ -13982,6 +14014,9 @@ func (t *TargetRegion) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "additionalReplicaSets":
+			err = unpopulate(val, "AdditionalReplicaSets", &t.AdditionalReplicaSets)
+			delete(rawMsg, key)
 		case "encryption":
 			err = unpopulate(val, "Encryption", &t.Encryption)
 			delete(rawMsg, key)
