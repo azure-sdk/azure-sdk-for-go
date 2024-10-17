@@ -10,7 +10,7 @@ package armcdn
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/cdn/armcdn"
-	moduleVersion = "v2.2.0"
+	moduleVersion = "v3.0.0"
 )
 
 // AFDEndpointProtocols - Supported protocols for the customer's endpoint.
@@ -179,32 +179,6 @@ func PossibleCacheBehaviorValues() []CacheBehavior {
 	}
 }
 
-type CacheExpirationActionParametersTypeName string
-
-const (
-	CacheExpirationActionParametersTypeNameDeliveryRuleCacheExpirationActionParameters CacheExpirationActionParametersTypeName = "DeliveryRuleCacheExpirationActionParameters"
-)
-
-// PossibleCacheExpirationActionParametersTypeNameValues returns the possible values for the CacheExpirationActionParametersTypeName const type.
-func PossibleCacheExpirationActionParametersTypeNameValues() []CacheExpirationActionParametersTypeName {
-	return []CacheExpirationActionParametersTypeName{
-		CacheExpirationActionParametersTypeNameDeliveryRuleCacheExpirationActionParameters,
-	}
-}
-
-type CacheKeyQueryStringActionParametersTypeName string
-
-const (
-	CacheKeyQueryStringActionParametersTypeNameDeliveryRuleCacheKeyQueryStringBehaviorActionParameters CacheKeyQueryStringActionParametersTypeName = "DeliveryRuleCacheKeyQueryStringBehaviorActionParameters"
-)
-
-// PossibleCacheKeyQueryStringActionParametersTypeNameValues returns the possible values for the CacheKeyQueryStringActionParametersTypeName const type.
-func PossibleCacheKeyQueryStringActionParametersTypeNameValues() []CacheKeyQueryStringActionParametersTypeName {
-	return []CacheKeyQueryStringActionParametersTypeName{
-		CacheKeyQueryStringActionParametersTypeNameDeliveryRuleCacheKeyQueryStringBehaviorActionParameters,
-	}
-}
-
 // CacheType - The level at which the content needs to be cached.
 type CacheType string
 
@@ -235,19 +209,6 @@ func PossibleCanMigrateDefaultSKUValues() []CanMigrateDefaultSKU {
 	}
 }
 
-type CdnCertificateSourceParametersTypeName string
-
-const (
-	CdnCertificateSourceParametersTypeNameCdnCertificateSourceParameters CdnCertificateSourceParametersTypeName = "CdnCertificateSourceParameters"
-)
-
-// PossibleCdnCertificateSourceParametersTypeNameValues returns the possible values for the CdnCertificateSourceParametersTypeName const type.
-func PossibleCdnCertificateSourceParametersTypeNameValues() []CdnCertificateSourceParametersTypeName {
-	return []CdnCertificateSourceParametersTypeName{
-		CdnCertificateSourceParametersTypeNameCdnCertificateSourceParameters,
-	}
-}
-
 // CertificateSource - Defines the source of the SSL certificate.
 type CertificateSource string
 
@@ -264,6 +225,21 @@ func PossibleCertificateSourceValues() []CertificateSource {
 	}
 }
 
+type CertificateSourceParametersType string
+
+const (
+	CertificateSourceParametersTypeCdnCertificateSourceParameters      CertificateSourceParametersType = "CdnCertificateSourceParameters"
+	CertificateSourceParametersTypeKeyVaultCertificateSourceParameters CertificateSourceParametersType = "KeyVaultCertificateSourceParameters"
+)
+
+// PossibleCertificateSourceParametersTypeValues returns the possible values for the CertificateSourceParametersType const type.
+func PossibleCertificateSourceParametersTypeValues() []CertificateSourceParametersType {
+	return []CertificateSourceParametersType{
+		CertificateSourceParametersTypeCdnCertificateSourceParameters,
+		CertificateSourceParametersTypeKeyVaultCertificateSourceParameters,
+	}
+}
+
 // CertificateType - Type of certificate used
 type CertificateType string
 
@@ -277,19 +253,6 @@ func PossibleCertificateTypeValues() []CertificateType {
 	return []CertificateType{
 		CertificateTypeDedicated,
 		CertificateTypeShared,
-	}
-}
-
-type ClientPortMatchConditionParametersTypeName string
-
-const (
-	ClientPortMatchConditionParametersTypeNameDeliveryRuleClientPortConditionParameters ClientPortMatchConditionParametersTypeName = "DeliveryRuleClientPortConditionParameters"
-)
-
-// PossibleClientPortMatchConditionParametersTypeNameValues returns the possible values for the ClientPortMatchConditionParametersTypeName const type.
-func PossibleClientPortMatchConditionParametersTypeNameValues() []ClientPortMatchConditionParametersTypeName {
-	return []ClientPortMatchConditionParametersTypeName{
-		ClientPortMatchConditionParametersTypeNameDeliveryRuleClientPortConditionParameters,
 	}
 }
 
@@ -322,19 +285,6 @@ func PossibleClientPortOperatorValues() []ClientPortOperator {
 		ClientPortOperatorLessThan,
 		ClientPortOperatorLessThanOrEqual,
 		ClientPortOperatorRegEx,
-	}
-}
-
-type CookiesMatchConditionParametersTypeName string
-
-const (
-	CookiesMatchConditionParametersTypeNameDeliveryRuleCookiesConditionParameters CookiesMatchConditionParametersTypeName = "DeliveryRuleCookiesConditionParameters"
-)
-
-// PossibleCookiesMatchConditionParametersTypeNameValues returns the possible values for the CookiesMatchConditionParametersTypeName const type.
-func PossibleCookiesMatchConditionParametersTypeNameValues() []CookiesMatchConditionParametersTypeName {
-	return []CookiesMatchConditionParametersTypeName{
-		CookiesMatchConditionParametersTypeNameDeliveryRuleCookiesConditionParameters,
 	}
 }
 
@@ -473,33 +423,109 @@ func PossibleDeleteRuleValues() []DeleteRule {
 	}
 }
 
-// DeliveryRuleAction - The name of the action for the delivery rule.
-type DeliveryRuleAction string
+// DeliveryRuleActionName - The name of the action for the delivery rule.
+type DeliveryRuleActionName string
 
 const (
-	DeliveryRuleActionCacheExpiration            DeliveryRuleAction = "CacheExpiration"
-	DeliveryRuleActionCacheKeyQueryString        DeliveryRuleAction = "CacheKeyQueryString"
-	DeliveryRuleActionModifyRequestHeader        DeliveryRuleAction = "ModifyRequestHeader"
-	DeliveryRuleActionModifyResponseHeader       DeliveryRuleAction = "ModifyResponseHeader"
-	DeliveryRuleActionOriginGroupOverride        DeliveryRuleAction = "OriginGroupOverride"
-	DeliveryRuleActionRouteConfigurationOverride DeliveryRuleAction = "RouteConfigurationOverride"
-	DeliveryRuleActionURLRedirect                DeliveryRuleAction = "UrlRedirect"
-	DeliveryRuleActionURLRewrite                 DeliveryRuleAction = "UrlRewrite"
-	DeliveryRuleActionURLSigning                 DeliveryRuleAction = "UrlSigning"
+	DeliveryRuleActionNameCacheExpiration            DeliveryRuleActionName = "CacheExpiration"
+	DeliveryRuleActionNameCacheKeyQueryString        DeliveryRuleActionName = "CacheKeyQueryString"
+	DeliveryRuleActionNameModifyRequestHeader        DeliveryRuleActionName = "ModifyRequestHeader"
+	DeliveryRuleActionNameModifyResponseHeader       DeliveryRuleActionName = "ModifyResponseHeader"
+	DeliveryRuleActionNameOriginGroupOverride        DeliveryRuleActionName = "OriginGroupOverride"
+	DeliveryRuleActionNameRouteConfigurationOverride DeliveryRuleActionName = "RouteConfigurationOverride"
+	DeliveryRuleActionNameURLRedirect                DeliveryRuleActionName = "UrlRedirect"
+	DeliveryRuleActionNameURLRewrite                 DeliveryRuleActionName = "UrlRewrite"
+	DeliveryRuleActionNameURLSigning                 DeliveryRuleActionName = "UrlSigning"
 )
 
-// PossibleDeliveryRuleActionValues returns the possible values for the DeliveryRuleAction const type.
-func PossibleDeliveryRuleActionValues() []DeliveryRuleAction {
-	return []DeliveryRuleAction{
-		DeliveryRuleActionCacheExpiration,
-		DeliveryRuleActionCacheKeyQueryString,
-		DeliveryRuleActionModifyRequestHeader,
-		DeliveryRuleActionModifyResponseHeader,
-		DeliveryRuleActionOriginGroupOverride,
-		DeliveryRuleActionRouteConfigurationOverride,
-		DeliveryRuleActionURLRedirect,
-		DeliveryRuleActionURLRewrite,
-		DeliveryRuleActionURLSigning,
+// PossibleDeliveryRuleActionNameValues returns the possible values for the DeliveryRuleActionName const type.
+func PossibleDeliveryRuleActionNameValues() []DeliveryRuleActionName {
+	return []DeliveryRuleActionName{
+		DeliveryRuleActionNameCacheExpiration,
+		DeliveryRuleActionNameCacheKeyQueryString,
+		DeliveryRuleActionNameModifyRequestHeader,
+		DeliveryRuleActionNameModifyResponseHeader,
+		DeliveryRuleActionNameOriginGroupOverride,
+		DeliveryRuleActionNameRouteConfigurationOverride,
+		DeliveryRuleActionNameURLRedirect,
+		DeliveryRuleActionNameURLRewrite,
+		DeliveryRuleActionNameURLSigning,
+	}
+}
+
+type DeliveryRuleActionParametersType string
+
+const (
+	DeliveryRuleActionParametersTypeDeliveryRuleCacheExpirationActionParameters             DeliveryRuleActionParametersType = "DeliveryRuleCacheExpirationActionParameters"
+	DeliveryRuleActionParametersTypeDeliveryRuleCacheKeyQueryStringBehaviorActionParameters DeliveryRuleActionParametersType = "DeliveryRuleCacheKeyQueryStringBehaviorActionParameters"
+	DeliveryRuleActionParametersTypeDeliveryRuleHeaderActionParameters                      DeliveryRuleActionParametersType = "DeliveryRuleHeaderActionParameters"
+	DeliveryRuleActionParametersTypeDeliveryRuleOriginGroupOverrideActionParameters         DeliveryRuleActionParametersType = "DeliveryRuleOriginGroupOverrideActionParameters"
+	DeliveryRuleActionParametersTypeDeliveryRuleRouteConfigurationOverrideActionParameters  DeliveryRuleActionParametersType = "DeliveryRuleRouteConfigurationOverrideActionParameters"
+	DeliveryRuleActionParametersTypeDeliveryRuleURLRedirectActionParameters                 DeliveryRuleActionParametersType = "DeliveryRuleUrlRedirectActionParameters"
+	DeliveryRuleActionParametersTypeDeliveryRuleURLRewriteActionParameters                  DeliveryRuleActionParametersType = "DeliveryRuleUrlRewriteActionParameters"
+	DeliveryRuleActionParametersTypeDeliveryRuleURLSigningActionParameters                  DeliveryRuleActionParametersType = "DeliveryRuleUrlSigningActionParameters"
+)
+
+// PossibleDeliveryRuleActionParametersTypeValues returns the possible values for the DeliveryRuleActionParametersType const type.
+func PossibleDeliveryRuleActionParametersTypeValues() []DeliveryRuleActionParametersType {
+	return []DeliveryRuleActionParametersType{
+		DeliveryRuleActionParametersTypeDeliveryRuleCacheExpirationActionParameters,
+		DeliveryRuleActionParametersTypeDeliveryRuleCacheKeyQueryStringBehaviorActionParameters,
+		DeliveryRuleActionParametersTypeDeliveryRuleHeaderActionParameters,
+		DeliveryRuleActionParametersTypeDeliveryRuleOriginGroupOverrideActionParameters,
+		DeliveryRuleActionParametersTypeDeliveryRuleRouteConfigurationOverrideActionParameters,
+		DeliveryRuleActionParametersTypeDeliveryRuleURLRedirectActionParameters,
+		DeliveryRuleActionParametersTypeDeliveryRuleURLRewriteActionParameters,
+		DeliveryRuleActionParametersTypeDeliveryRuleURLSigningActionParameters,
+	}
+}
+
+type DeliveryRuleConditionParametersType string
+
+const (
+	DeliveryRuleConditionParametersTypeDeliveryRuleClientPortConditionParameters            DeliveryRuleConditionParametersType = "DeliveryRuleClientPortConditionParameters"
+	DeliveryRuleConditionParametersTypeDeliveryRuleCookiesConditionParameters               DeliveryRuleConditionParametersType = "DeliveryRuleCookiesConditionParameters"
+	DeliveryRuleConditionParametersTypeDeliveryRuleHTTPVersionConditionParameters           DeliveryRuleConditionParametersType = "DeliveryRuleHttpVersionConditionParameters"
+	DeliveryRuleConditionParametersTypeDeliveryRuleHostNameConditionParameters              DeliveryRuleConditionParametersType = "DeliveryRuleHostNameConditionParameters"
+	DeliveryRuleConditionParametersTypeDeliveryRuleIsDeviceConditionParameters              DeliveryRuleConditionParametersType = "DeliveryRuleIsDeviceConditionParameters"
+	DeliveryRuleConditionParametersTypeDeliveryRulePostArgsConditionParameters              DeliveryRuleConditionParametersType = "DeliveryRulePostArgsConditionParameters"
+	DeliveryRuleConditionParametersTypeDeliveryRuleQueryStringConditionParameters           DeliveryRuleConditionParametersType = "DeliveryRuleQueryStringConditionParameters"
+	DeliveryRuleConditionParametersTypeDeliveryRuleRemoteAddressConditionParameters         DeliveryRuleConditionParametersType = "DeliveryRuleRemoteAddressConditionParameters"
+	DeliveryRuleConditionParametersTypeDeliveryRuleRequestBodyConditionParameters           DeliveryRuleConditionParametersType = "DeliveryRuleRequestBodyConditionParameters"
+	DeliveryRuleConditionParametersTypeDeliveryRuleRequestHeaderConditionParameters         DeliveryRuleConditionParametersType = "DeliveryRuleRequestHeaderConditionParameters"
+	DeliveryRuleConditionParametersTypeDeliveryRuleRequestMethodConditionParameters         DeliveryRuleConditionParametersType = "DeliveryRuleRequestMethodConditionParameters"
+	DeliveryRuleConditionParametersTypeDeliveryRuleRequestSchemeConditionParameters         DeliveryRuleConditionParametersType = "DeliveryRuleRequestSchemeConditionParameters"
+	DeliveryRuleConditionParametersTypeDeliveryRuleRequestURIConditionParameters            DeliveryRuleConditionParametersType = "DeliveryRuleRequestUriConditionParameters"
+	DeliveryRuleConditionParametersTypeDeliveryRuleSSLProtocolConditionParameters           DeliveryRuleConditionParametersType = "DeliveryRuleSslProtocolConditionParameters"
+	DeliveryRuleConditionParametersTypeDeliveryRuleServerPortConditionParameters            DeliveryRuleConditionParametersType = "DeliveryRuleServerPortConditionParameters"
+	DeliveryRuleConditionParametersTypeDeliveryRuleSocketAddrConditionParameters            DeliveryRuleConditionParametersType = "DeliveryRuleSocketAddrConditionParameters"
+	DeliveryRuleConditionParametersTypeDeliveryRuleURLFileExtensionMatchConditionParameters DeliveryRuleConditionParametersType = "DeliveryRuleUrlFileExtensionMatchConditionParameters"
+	DeliveryRuleConditionParametersTypeDeliveryRuleURLFilenameConditionParameters           DeliveryRuleConditionParametersType = "DeliveryRuleUrlFilenameConditionParameters"
+	DeliveryRuleConditionParametersTypeDeliveryRuleURLPathMatchConditionParameters          DeliveryRuleConditionParametersType = "DeliveryRuleUrlPathMatchConditionParameters"
+)
+
+// PossibleDeliveryRuleConditionParametersTypeValues returns the possible values for the DeliveryRuleConditionParametersType const type.
+func PossibleDeliveryRuleConditionParametersTypeValues() []DeliveryRuleConditionParametersType {
+	return []DeliveryRuleConditionParametersType{
+		DeliveryRuleConditionParametersTypeDeliveryRuleClientPortConditionParameters,
+		DeliveryRuleConditionParametersTypeDeliveryRuleCookiesConditionParameters,
+		DeliveryRuleConditionParametersTypeDeliveryRuleHTTPVersionConditionParameters,
+		DeliveryRuleConditionParametersTypeDeliveryRuleHostNameConditionParameters,
+		DeliveryRuleConditionParametersTypeDeliveryRuleIsDeviceConditionParameters,
+		DeliveryRuleConditionParametersTypeDeliveryRulePostArgsConditionParameters,
+		DeliveryRuleConditionParametersTypeDeliveryRuleQueryStringConditionParameters,
+		DeliveryRuleConditionParametersTypeDeliveryRuleRemoteAddressConditionParameters,
+		DeliveryRuleConditionParametersTypeDeliveryRuleRequestBodyConditionParameters,
+		DeliveryRuleConditionParametersTypeDeliveryRuleRequestHeaderConditionParameters,
+		DeliveryRuleConditionParametersTypeDeliveryRuleRequestMethodConditionParameters,
+		DeliveryRuleConditionParametersTypeDeliveryRuleRequestSchemeConditionParameters,
+		DeliveryRuleConditionParametersTypeDeliveryRuleRequestURIConditionParameters,
+		DeliveryRuleConditionParametersTypeDeliveryRuleSSLProtocolConditionParameters,
+		DeliveryRuleConditionParametersTypeDeliveryRuleServerPortConditionParameters,
+		DeliveryRuleConditionParametersTypeDeliveryRuleSocketAddrConditionParameters,
+		DeliveryRuleConditionParametersTypeDeliveryRuleURLFileExtensionMatchConditionParameters,
+		DeliveryRuleConditionParametersTypeDeliveryRuleURLFilenameConditionParameters,
+		DeliveryRuleConditionParametersTypeDeliveryRuleURLPathMatchConditionParameters,
 	}
 }
 
@@ -684,19 +710,6 @@ func PossibleHTTPSRedirectValues() []HTTPSRedirect {
 	}
 }
 
-type HTTPVersionMatchConditionParametersTypeName string
-
-const (
-	HTTPVersionMatchConditionParametersTypeNameDeliveryRuleHTTPVersionConditionParameters HTTPVersionMatchConditionParametersTypeName = "DeliveryRuleHttpVersionConditionParameters"
-)
-
-// PossibleHTTPVersionMatchConditionParametersTypeNameValues returns the possible values for the HTTPVersionMatchConditionParametersTypeName const type.
-func PossibleHTTPVersionMatchConditionParametersTypeNameValues() []HTTPVersionMatchConditionParametersTypeName {
-	return []HTTPVersionMatchConditionParametersTypeName{
-		HTTPVersionMatchConditionParametersTypeNameDeliveryRuleHTTPVersionConditionParameters,
-	}
-}
-
 // HTTPVersionOperator - Describes operator to be matched
 type HTTPVersionOperator string
 
@@ -729,19 +742,6 @@ func PossibleHeaderActionValues() []HeaderAction {
 	}
 }
 
-type HeaderActionParametersTypeName string
-
-const (
-	HeaderActionParametersTypeNameDeliveryRuleHeaderActionParameters HeaderActionParametersTypeName = "DeliveryRuleHeaderActionParameters"
-)
-
-// PossibleHeaderActionParametersTypeNameValues returns the possible values for the HeaderActionParametersTypeName const type.
-func PossibleHeaderActionParametersTypeNameValues() []HeaderActionParametersTypeName {
-	return []HeaderActionParametersTypeName{
-		HeaderActionParametersTypeNameDeliveryRuleHeaderActionParameters,
-	}
-}
-
 // HealthProbeRequestType - The type of health probe request that is made.
 type HealthProbeRequestType string
 
@@ -757,19 +757,6 @@ func PossibleHealthProbeRequestTypeValues() []HealthProbeRequestType {
 		HealthProbeRequestTypeGET,
 		HealthProbeRequestTypeHEAD,
 		HealthProbeRequestTypeNotSet,
-	}
-}
-
-type HostNameMatchConditionParametersTypeName string
-
-const (
-	HostNameMatchConditionParametersTypeNameDeliveryRuleHostNameConditionParameters HostNameMatchConditionParametersTypeName = "DeliveryRuleHostNameConditionParameters"
-)
-
-// PossibleHostNameMatchConditionParametersTypeNameValues returns the possible values for the HostNameMatchConditionParametersTypeName const type.
-func PossibleHostNameMatchConditionParametersTypeNameValues() []HostNameMatchConditionParametersTypeName {
-	return []HostNameMatchConditionParametersTypeName{
-		HostNameMatchConditionParametersTypeNameDeliveryRuleHostNameConditionParameters,
 	}
 }
 
@@ -825,31 +812,18 @@ func PossibleIdentityTypeValues() []IdentityType {
 	}
 }
 
-type IsDeviceMatchConditionParametersMatchValuesItem string
+type IsDeviceMatchValue string
 
 const (
-	IsDeviceMatchConditionParametersMatchValuesItemDesktop IsDeviceMatchConditionParametersMatchValuesItem = "Desktop"
-	IsDeviceMatchConditionParametersMatchValuesItemMobile  IsDeviceMatchConditionParametersMatchValuesItem = "Mobile"
+	IsDeviceMatchValueDesktop IsDeviceMatchValue = "Desktop"
+	IsDeviceMatchValueMobile  IsDeviceMatchValue = "Mobile"
 )
 
-// PossibleIsDeviceMatchConditionParametersMatchValuesItemValues returns the possible values for the IsDeviceMatchConditionParametersMatchValuesItem const type.
-func PossibleIsDeviceMatchConditionParametersMatchValuesItemValues() []IsDeviceMatchConditionParametersMatchValuesItem {
-	return []IsDeviceMatchConditionParametersMatchValuesItem{
-		IsDeviceMatchConditionParametersMatchValuesItemDesktop,
-		IsDeviceMatchConditionParametersMatchValuesItemMobile,
-	}
-}
-
-type IsDeviceMatchConditionParametersTypeName string
-
-const (
-	IsDeviceMatchConditionParametersTypeNameDeliveryRuleIsDeviceConditionParameters IsDeviceMatchConditionParametersTypeName = "DeliveryRuleIsDeviceConditionParameters"
-)
-
-// PossibleIsDeviceMatchConditionParametersTypeNameValues returns the possible values for the IsDeviceMatchConditionParametersTypeName const type.
-func PossibleIsDeviceMatchConditionParametersTypeNameValues() []IsDeviceMatchConditionParametersTypeName {
-	return []IsDeviceMatchConditionParametersTypeName{
-		IsDeviceMatchConditionParametersTypeNameDeliveryRuleIsDeviceConditionParameters,
+// PossibleIsDeviceMatchValueValues returns the possible values for the IsDeviceMatchValue const type.
+func PossibleIsDeviceMatchValueValues() []IsDeviceMatchValue {
+	return []IsDeviceMatchValue{
+		IsDeviceMatchValueDesktop,
+		IsDeviceMatchValueMobile,
 	}
 }
 
@@ -867,29 +841,16 @@ func PossibleIsDeviceOperatorValues() []IsDeviceOperator {
 	}
 }
 
-type KeyVaultCertificateSourceParametersTypeName string
+type KeyVaultSigningKeyParametersType string
 
 const (
-	KeyVaultCertificateSourceParametersTypeNameKeyVaultCertificateSourceParameters KeyVaultCertificateSourceParametersTypeName = "KeyVaultCertificateSourceParameters"
+	KeyVaultSigningKeyParametersTypeKeyVaultSigningKeyParameters KeyVaultSigningKeyParametersType = "KeyVaultSigningKeyParameters"
 )
 
-// PossibleKeyVaultCertificateSourceParametersTypeNameValues returns the possible values for the KeyVaultCertificateSourceParametersTypeName const type.
-func PossibleKeyVaultCertificateSourceParametersTypeNameValues() []KeyVaultCertificateSourceParametersTypeName {
-	return []KeyVaultCertificateSourceParametersTypeName{
-		KeyVaultCertificateSourceParametersTypeNameKeyVaultCertificateSourceParameters,
-	}
-}
-
-type KeyVaultSigningKeyParametersTypeName string
-
-const (
-	KeyVaultSigningKeyParametersTypeNameKeyVaultSigningKeyParameters KeyVaultSigningKeyParametersTypeName = "KeyVaultSigningKeyParameters"
-)
-
-// PossibleKeyVaultSigningKeyParametersTypeNameValues returns the possible values for the KeyVaultSigningKeyParametersTypeName const type.
-func PossibleKeyVaultSigningKeyParametersTypeNameValues() []KeyVaultSigningKeyParametersTypeName {
-	return []KeyVaultSigningKeyParametersTypeName{
-		KeyVaultSigningKeyParametersTypeNameKeyVaultSigningKeyParameters,
+// PossibleKeyVaultSigningKeyParametersTypeValues returns the possible values for the KeyVaultSigningKeyParametersType const type.
+func PossibleKeyVaultSigningKeyParametersTypeValues() []KeyVaultSigningKeyParametersType {
+	return []KeyVaultSigningKeyParametersType{
+		KeyVaultSigningKeyParametersTypeKeyVaultSigningKeyParameters,
 	}
 }
 
@@ -1230,19 +1191,6 @@ func PossibleOptimizationTypeValues() []OptimizationType {
 	}
 }
 
-type OriginGroupOverrideActionParametersTypeName string
-
-const (
-	OriginGroupOverrideActionParametersTypeNameDeliveryRuleOriginGroupOverrideActionParameters OriginGroupOverrideActionParametersTypeName = "DeliveryRuleOriginGroupOverrideActionParameters"
-)
-
-// PossibleOriginGroupOverrideActionParametersTypeNameValues returns the possible values for the OriginGroupOverrideActionParametersTypeName const type.
-func PossibleOriginGroupOverrideActionParametersTypeNameValues() []OriginGroupOverrideActionParametersTypeName {
-	return []OriginGroupOverrideActionParametersTypeName{
-		OriginGroupOverrideActionParametersTypeNameDeliveryRuleOriginGroupOverrideActionParameters,
-	}
-}
-
 // OriginGroupProvisioningState - Provisioning status of the origin group.
 type OriginGroupProvisioningState string
 
@@ -1417,19 +1365,6 @@ func PossiblePolicySettingsDefaultCustomBlockResponseStatusCodeValues() []Policy
 		PolicySettingsDefaultCustomBlockResponseStatusCodeFourHundredThree,
 		PolicySettingsDefaultCustomBlockResponseStatusCodeFourHundredTwentyNine,
 		PolicySettingsDefaultCustomBlockResponseStatusCodeTwoHundred,
-	}
-}
-
-type PostArgsMatchConditionParametersTypeName string
-
-const (
-	PostArgsMatchConditionParametersTypeNameDeliveryRulePostArgsConditionParameters PostArgsMatchConditionParametersTypeName = "DeliveryRulePostArgsConditionParameters"
-)
-
-// PossiblePostArgsMatchConditionParametersTypeNameValues returns the possible values for the PostArgsMatchConditionParametersTypeName const type.
-func PossiblePostArgsMatchConditionParametersTypeNameValues() []PostArgsMatchConditionParametersTypeName {
-	return []PostArgsMatchConditionParametersTypeName{
-		PostArgsMatchConditionParametersTypeNameDeliveryRulePostArgsConditionParameters,
 	}
 }
 
@@ -1649,19 +1584,6 @@ func PossibleQueryStringCachingBehaviorValues() []QueryStringCachingBehavior {
 	}
 }
 
-type QueryStringMatchConditionParametersTypeName string
-
-const (
-	QueryStringMatchConditionParametersTypeNameDeliveryRuleQueryStringConditionParameters QueryStringMatchConditionParametersTypeName = "DeliveryRuleQueryStringConditionParameters"
-)
-
-// PossibleQueryStringMatchConditionParametersTypeNameValues returns the possible values for the QueryStringMatchConditionParametersTypeName const type.
-func PossibleQueryStringMatchConditionParametersTypeNameValues() []QueryStringMatchConditionParametersTypeName {
-	return []QueryStringMatchConditionParametersTypeName{
-		QueryStringMatchConditionParametersTypeNameDeliveryRuleQueryStringConditionParameters,
-	}
-}
-
 // QueryStringOperator - Describes operator to be matched
 type QueryStringOperator string
 
@@ -1714,19 +1636,6 @@ func PossibleRedirectTypeValues() []RedirectType {
 	}
 }
 
-type RemoteAddressMatchConditionParametersTypeName string
-
-const (
-	RemoteAddressMatchConditionParametersTypeNameDeliveryRuleRemoteAddressConditionParameters RemoteAddressMatchConditionParametersTypeName = "DeliveryRuleRemoteAddressConditionParameters"
-)
-
-// PossibleRemoteAddressMatchConditionParametersTypeNameValues returns the possible values for the RemoteAddressMatchConditionParametersTypeName const type.
-func PossibleRemoteAddressMatchConditionParametersTypeNameValues() []RemoteAddressMatchConditionParametersTypeName {
-	return []RemoteAddressMatchConditionParametersTypeName{
-		RemoteAddressMatchConditionParametersTypeNameDeliveryRuleRemoteAddressConditionParameters,
-	}
-}
-
 // RemoteAddressOperator - Describes operator to be matched
 type RemoteAddressOperator string
 
@@ -1742,19 +1651,6 @@ func PossibleRemoteAddressOperatorValues() []RemoteAddressOperator {
 		RemoteAddressOperatorAny,
 		RemoteAddressOperatorGeoMatch,
 		RemoteAddressOperatorIPMatch,
-	}
-}
-
-type RequestBodyMatchConditionParametersTypeName string
-
-const (
-	RequestBodyMatchConditionParametersTypeNameDeliveryRuleRequestBodyConditionParameters RequestBodyMatchConditionParametersTypeName = "DeliveryRuleRequestBodyConditionParameters"
-)
-
-// PossibleRequestBodyMatchConditionParametersTypeNameValues returns the possible values for the RequestBodyMatchConditionParametersTypeName const type.
-func PossibleRequestBodyMatchConditionParametersTypeNameValues() []RequestBodyMatchConditionParametersTypeName {
-	return []RequestBodyMatchConditionParametersTypeName{
-		RequestBodyMatchConditionParametersTypeNameDeliveryRuleRequestBodyConditionParameters,
 	}
 }
 
@@ -1790,19 +1686,6 @@ func PossibleRequestBodyOperatorValues() []RequestBodyOperator {
 	}
 }
 
-type RequestHeaderMatchConditionParametersTypeName string
-
-const (
-	RequestHeaderMatchConditionParametersTypeNameDeliveryRuleRequestHeaderConditionParameters RequestHeaderMatchConditionParametersTypeName = "DeliveryRuleRequestHeaderConditionParameters"
-)
-
-// PossibleRequestHeaderMatchConditionParametersTypeNameValues returns the possible values for the RequestHeaderMatchConditionParametersTypeName const type.
-func PossibleRequestHeaderMatchConditionParametersTypeNameValues() []RequestHeaderMatchConditionParametersTypeName {
-	return []RequestHeaderMatchConditionParametersTypeName{
-		RequestHeaderMatchConditionParametersTypeNameDeliveryRuleRequestHeaderConditionParameters,
-	}
-}
-
 // RequestHeaderOperator - Describes operator to be matched
 type RequestHeaderOperator string
 
@@ -1835,41 +1718,28 @@ func PossibleRequestHeaderOperatorValues() []RequestHeaderOperator {
 	}
 }
 
-type RequestMethodMatchConditionParametersMatchValuesItem string
+type RequestMethodMatchValue string
 
 const (
-	RequestMethodMatchConditionParametersMatchValuesItemDELETE  RequestMethodMatchConditionParametersMatchValuesItem = "DELETE"
-	RequestMethodMatchConditionParametersMatchValuesItemGET     RequestMethodMatchConditionParametersMatchValuesItem = "GET"
-	RequestMethodMatchConditionParametersMatchValuesItemHEAD    RequestMethodMatchConditionParametersMatchValuesItem = "HEAD"
-	RequestMethodMatchConditionParametersMatchValuesItemOPTIONS RequestMethodMatchConditionParametersMatchValuesItem = "OPTIONS"
-	RequestMethodMatchConditionParametersMatchValuesItemPOST    RequestMethodMatchConditionParametersMatchValuesItem = "POST"
-	RequestMethodMatchConditionParametersMatchValuesItemPUT     RequestMethodMatchConditionParametersMatchValuesItem = "PUT"
-	RequestMethodMatchConditionParametersMatchValuesItemTRACE   RequestMethodMatchConditionParametersMatchValuesItem = "TRACE"
+	RequestMethodMatchValueDELETE  RequestMethodMatchValue = "DELETE"
+	RequestMethodMatchValueGET     RequestMethodMatchValue = "GET"
+	RequestMethodMatchValueHEAD    RequestMethodMatchValue = "HEAD"
+	RequestMethodMatchValueOPTIONS RequestMethodMatchValue = "OPTIONS"
+	RequestMethodMatchValuePOST    RequestMethodMatchValue = "POST"
+	RequestMethodMatchValuePUT     RequestMethodMatchValue = "PUT"
+	RequestMethodMatchValueTRACE   RequestMethodMatchValue = "TRACE"
 )
 
-// PossibleRequestMethodMatchConditionParametersMatchValuesItemValues returns the possible values for the RequestMethodMatchConditionParametersMatchValuesItem const type.
-func PossibleRequestMethodMatchConditionParametersMatchValuesItemValues() []RequestMethodMatchConditionParametersMatchValuesItem {
-	return []RequestMethodMatchConditionParametersMatchValuesItem{
-		RequestMethodMatchConditionParametersMatchValuesItemDELETE,
-		RequestMethodMatchConditionParametersMatchValuesItemGET,
-		RequestMethodMatchConditionParametersMatchValuesItemHEAD,
-		RequestMethodMatchConditionParametersMatchValuesItemOPTIONS,
-		RequestMethodMatchConditionParametersMatchValuesItemPOST,
-		RequestMethodMatchConditionParametersMatchValuesItemPUT,
-		RequestMethodMatchConditionParametersMatchValuesItemTRACE,
-	}
-}
-
-type RequestMethodMatchConditionParametersTypeName string
-
-const (
-	RequestMethodMatchConditionParametersTypeNameDeliveryRuleRequestMethodConditionParameters RequestMethodMatchConditionParametersTypeName = "DeliveryRuleRequestMethodConditionParameters"
-)
-
-// PossibleRequestMethodMatchConditionParametersTypeNameValues returns the possible values for the RequestMethodMatchConditionParametersTypeName const type.
-func PossibleRequestMethodMatchConditionParametersTypeNameValues() []RequestMethodMatchConditionParametersTypeName {
-	return []RequestMethodMatchConditionParametersTypeName{
-		RequestMethodMatchConditionParametersTypeNameDeliveryRuleRequestMethodConditionParameters,
+// PossibleRequestMethodMatchValueValues returns the possible values for the RequestMethodMatchValue const type.
+func PossibleRequestMethodMatchValueValues() []RequestMethodMatchValue {
+	return []RequestMethodMatchValue{
+		RequestMethodMatchValueDELETE,
+		RequestMethodMatchValueGET,
+		RequestMethodMatchValueHEAD,
+		RequestMethodMatchValueOPTIONS,
+		RequestMethodMatchValuePOST,
+		RequestMethodMatchValuePUT,
+		RequestMethodMatchValueTRACE,
 	}
 }
 
@@ -1887,21 +1757,6 @@ func PossibleRequestMethodOperatorValues() []RequestMethodOperator {
 	}
 }
 
-type RequestSchemeMatchConditionParametersMatchValuesItem string
-
-const (
-	RequestSchemeMatchConditionParametersMatchValuesItemHTTP  RequestSchemeMatchConditionParametersMatchValuesItem = "HTTP"
-	RequestSchemeMatchConditionParametersMatchValuesItemHTTPS RequestSchemeMatchConditionParametersMatchValuesItem = "HTTPS"
-)
-
-// PossibleRequestSchemeMatchConditionParametersMatchValuesItemValues returns the possible values for the RequestSchemeMatchConditionParametersMatchValuesItem const type.
-func PossibleRequestSchemeMatchConditionParametersMatchValuesItemValues() []RequestSchemeMatchConditionParametersMatchValuesItem {
-	return []RequestSchemeMatchConditionParametersMatchValuesItem{
-		RequestSchemeMatchConditionParametersMatchValuesItemHTTP,
-		RequestSchemeMatchConditionParametersMatchValuesItemHTTPS,
-	}
-}
-
 // RequestSchemeMatchConditionParametersOperator - Describes operator to be matched
 type RequestSchemeMatchConditionParametersOperator string
 
@@ -1916,29 +1771,18 @@ func PossibleRequestSchemeMatchConditionParametersOperatorValues() []RequestSche
 	}
 }
 
-type RequestSchemeMatchConditionParametersTypeName string
+type RequestSchemeMatchValue string
 
 const (
-	RequestSchemeMatchConditionParametersTypeNameDeliveryRuleRequestSchemeConditionParameters RequestSchemeMatchConditionParametersTypeName = "DeliveryRuleRequestSchemeConditionParameters"
+	RequestSchemeMatchValueHTTP  RequestSchemeMatchValue = "HTTP"
+	RequestSchemeMatchValueHTTPS RequestSchemeMatchValue = "HTTPS"
 )
 
-// PossibleRequestSchemeMatchConditionParametersTypeNameValues returns the possible values for the RequestSchemeMatchConditionParametersTypeName const type.
-func PossibleRequestSchemeMatchConditionParametersTypeNameValues() []RequestSchemeMatchConditionParametersTypeName {
-	return []RequestSchemeMatchConditionParametersTypeName{
-		RequestSchemeMatchConditionParametersTypeNameDeliveryRuleRequestSchemeConditionParameters,
-	}
-}
-
-type RequestURIMatchConditionParametersTypeName string
-
-const (
-	RequestURIMatchConditionParametersTypeNameDeliveryRuleRequestURIConditionParameters RequestURIMatchConditionParametersTypeName = "DeliveryRuleRequestUriConditionParameters"
-)
-
-// PossibleRequestURIMatchConditionParametersTypeNameValues returns the possible values for the RequestURIMatchConditionParametersTypeName const type.
-func PossibleRequestURIMatchConditionParametersTypeNameValues() []RequestURIMatchConditionParametersTypeName {
-	return []RequestURIMatchConditionParametersTypeName{
-		RequestURIMatchConditionParametersTypeNameDeliveryRuleRequestURIConditionParameters,
+// PossibleRequestSchemeMatchValueValues returns the possible values for the RequestSchemeMatchValue const type.
+func PossibleRequestSchemeMatchValueValues() []RequestSchemeMatchValue {
+	return []RequestSchemeMatchValue{
+		RequestSchemeMatchValueHTTP,
+		RequestSchemeMatchValueHTTPS,
 	}
 }
 
@@ -2019,19 +1863,6 @@ func PossibleResponseBasedDetectedErrorTypesValues() []ResponseBasedDetectedErro
 		ResponseBasedDetectedErrorTypesNone,
 		ResponseBasedDetectedErrorTypesTCPAndHTTPErrors,
 		ResponseBasedDetectedErrorTypesTCPErrorsOnly,
-	}
-}
-
-type RouteConfigurationOverrideActionParametersTypeName string
-
-const (
-	RouteConfigurationOverrideActionParametersTypeNameDeliveryRuleRouteConfigurationOverrideActionParameters RouteConfigurationOverrideActionParametersTypeName = "DeliveryRuleRouteConfigurationOverrideActionParameters"
-)
-
-// PossibleRouteConfigurationOverrideActionParametersTypeNameValues returns the possible values for the RouteConfigurationOverrideActionParametersTypeName const type.
-func PossibleRouteConfigurationOverrideActionParametersTypeNameValues() []RouteConfigurationOverrideActionParametersTypeName {
-	return []RouteConfigurationOverrideActionParametersTypeName{
-		RouteConfigurationOverrideActionParametersTypeNameDeliveryRuleRouteConfigurationOverrideActionParameters,
 	}
 }
 
@@ -2149,19 +1980,6 @@ func PossibleSSLProtocolValues() []SSLProtocol {
 	}
 }
 
-type SSLProtocolMatchConditionParametersTypeName string
-
-const (
-	SSLProtocolMatchConditionParametersTypeNameDeliveryRuleSSLProtocolConditionParameters SSLProtocolMatchConditionParametersTypeName = "DeliveryRuleSslProtocolConditionParameters"
-)
-
-// PossibleSSLProtocolMatchConditionParametersTypeNameValues returns the possible values for the SSLProtocolMatchConditionParametersTypeName const type.
-func PossibleSSLProtocolMatchConditionParametersTypeNameValues() []SSLProtocolMatchConditionParametersTypeName {
-	return []SSLProtocolMatchConditionParametersTypeName{
-		SSLProtocolMatchConditionParametersTypeNameDeliveryRuleSSLProtocolConditionParameters,
-	}
-}
-
 // SSLProtocolOperator - Describes operator to be matched
 type SSLProtocolOperator string
 
@@ -2259,19 +2077,6 @@ func PossibleSecurityPolicyTypeValues() []SecurityPolicyType {
 	}
 }
 
-type ServerPortMatchConditionParametersTypeName string
-
-const (
-	ServerPortMatchConditionParametersTypeNameDeliveryRuleServerPortConditionParameters ServerPortMatchConditionParametersTypeName = "DeliveryRuleServerPortConditionParameters"
-)
-
-// PossibleServerPortMatchConditionParametersTypeNameValues returns the possible values for the ServerPortMatchConditionParametersTypeName const type.
-func PossibleServerPortMatchConditionParametersTypeNameValues() []ServerPortMatchConditionParametersTypeName {
-	return []ServerPortMatchConditionParametersTypeName{
-		ServerPortMatchConditionParametersTypeNameDeliveryRuleServerPortConditionParameters,
-	}
-}
-
 // ServerPortOperator - Describes operator to be matched
 type ServerPortOperator string
 
@@ -2324,19 +2129,6 @@ func PossibleSharedPrivateLinkResourceStatusValues() []SharedPrivateLinkResource
 		SharedPrivateLinkResourceStatusPending,
 		SharedPrivateLinkResourceStatusRejected,
 		SharedPrivateLinkResourceStatusTimeout,
-	}
-}
-
-type SocketAddrMatchConditionParametersTypeName string
-
-const (
-	SocketAddrMatchConditionParametersTypeNameDeliveryRuleSocketAddrConditionParameters SocketAddrMatchConditionParametersTypeName = "DeliveryRuleSocketAddrConditionParameters"
-)
-
-// PossibleSocketAddrMatchConditionParametersTypeNameValues returns the possible values for the SocketAddrMatchConditionParametersTypeName const type.
-func PossibleSocketAddrMatchConditionParametersTypeNameValues() []SocketAddrMatchConditionParametersTypeName {
-	return []SocketAddrMatchConditionParametersTypeName{
-		SocketAddrMatchConditionParametersTypeNameDeliveryRuleSocketAddrConditionParameters,
 	}
 }
 
@@ -2424,19 +2216,6 @@ func PossibleTransformTypeValues() []TransformType {
 	}
 }
 
-type URLFileExtensionMatchConditionParametersTypeName string
-
-const (
-	URLFileExtensionMatchConditionParametersTypeNameDeliveryRuleURLFileExtensionMatchConditionParameters URLFileExtensionMatchConditionParametersTypeName = "DeliveryRuleUrlFileExtensionMatchConditionParameters"
-)
-
-// PossibleURLFileExtensionMatchConditionParametersTypeNameValues returns the possible values for the URLFileExtensionMatchConditionParametersTypeName const type.
-func PossibleURLFileExtensionMatchConditionParametersTypeNameValues() []URLFileExtensionMatchConditionParametersTypeName {
-	return []URLFileExtensionMatchConditionParametersTypeName{
-		URLFileExtensionMatchConditionParametersTypeNameDeliveryRuleURLFileExtensionMatchConditionParameters,
-	}
-}
-
 // URLFileExtensionOperator - Describes operator to be matched
 type URLFileExtensionOperator string
 
@@ -2466,19 +2245,6 @@ func PossibleURLFileExtensionOperatorValues() []URLFileExtensionOperator {
 		URLFileExtensionOperatorLessThan,
 		URLFileExtensionOperatorLessThanOrEqual,
 		URLFileExtensionOperatorRegEx,
-	}
-}
-
-type URLFileNameMatchConditionParametersTypeName string
-
-const (
-	URLFileNameMatchConditionParametersTypeNameDeliveryRuleURLFilenameConditionParameters URLFileNameMatchConditionParametersTypeName = "DeliveryRuleUrlFilenameConditionParameters"
-)
-
-// PossibleURLFileNameMatchConditionParametersTypeNameValues returns the possible values for the URLFileNameMatchConditionParametersTypeName const type.
-func PossibleURLFileNameMatchConditionParametersTypeNameValues() []URLFileNameMatchConditionParametersTypeName {
-	return []URLFileNameMatchConditionParametersTypeName{
-		URLFileNameMatchConditionParametersTypeNameDeliveryRuleURLFilenameConditionParameters,
 	}
 }
 
@@ -2514,19 +2280,6 @@ func PossibleURLFileNameOperatorValues() []URLFileNameOperator {
 	}
 }
 
-type URLPathMatchConditionParametersTypeName string
-
-const (
-	URLPathMatchConditionParametersTypeNameDeliveryRuleURLPathMatchConditionParameters URLPathMatchConditionParametersTypeName = "DeliveryRuleUrlPathMatchConditionParameters"
-)
-
-// PossibleURLPathMatchConditionParametersTypeNameValues returns the possible values for the URLPathMatchConditionParametersTypeName const type.
-func PossibleURLPathMatchConditionParametersTypeNameValues() []URLPathMatchConditionParametersTypeName {
-	return []URLPathMatchConditionParametersTypeName{
-		URLPathMatchConditionParametersTypeNameDeliveryRuleURLPathMatchConditionParameters,
-	}
-}
-
 // URLPathOperator - Describes operator to be matched
 type URLPathOperator string
 
@@ -2558,45 +2311,6 @@ func PossibleURLPathOperatorValues() []URLPathOperator {
 		URLPathOperatorLessThanOrEqual,
 		URLPathOperatorRegEx,
 		URLPathOperatorWildcard,
-	}
-}
-
-type URLRedirectActionParametersTypeName string
-
-const (
-	URLRedirectActionParametersTypeNameDeliveryRuleURLRedirectActionParameters URLRedirectActionParametersTypeName = "DeliveryRuleUrlRedirectActionParameters"
-)
-
-// PossibleURLRedirectActionParametersTypeNameValues returns the possible values for the URLRedirectActionParametersTypeName const type.
-func PossibleURLRedirectActionParametersTypeNameValues() []URLRedirectActionParametersTypeName {
-	return []URLRedirectActionParametersTypeName{
-		URLRedirectActionParametersTypeNameDeliveryRuleURLRedirectActionParameters,
-	}
-}
-
-type URLRewriteActionParametersTypeName string
-
-const (
-	URLRewriteActionParametersTypeNameDeliveryRuleURLRewriteActionParameters URLRewriteActionParametersTypeName = "DeliveryRuleUrlRewriteActionParameters"
-)
-
-// PossibleURLRewriteActionParametersTypeNameValues returns the possible values for the URLRewriteActionParametersTypeName const type.
-func PossibleURLRewriteActionParametersTypeNameValues() []URLRewriteActionParametersTypeName {
-	return []URLRewriteActionParametersTypeName{
-		URLRewriteActionParametersTypeNameDeliveryRuleURLRewriteActionParameters,
-	}
-}
-
-type URLSigningActionParametersTypeName string
-
-const (
-	URLSigningActionParametersTypeNameDeliveryRuleURLSigningActionParameters URLSigningActionParametersTypeName = "DeliveryRuleUrlSigningActionParameters"
-)
-
-// PossibleURLSigningActionParametersTypeNameValues returns the possible values for the URLSigningActionParametersTypeName const type.
-func PossibleURLSigningActionParametersTypeNameValues() []URLSigningActionParametersTypeName {
-	return []URLSigningActionParametersTypeName{
-		URLSigningActionParametersTypeNameDeliveryRuleURLSigningActionParameters,
 	}
 }
 
