@@ -31,7 +31,7 @@ type SetDefinitionsServer struct {
 
 	// CreateOrUpdateAtManagementGroup is the fake for method SetDefinitionsClient.CreateOrUpdateAtManagementGroup
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	CreateOrUpdateAtManagementGroup func(ctx context.Context, policySetDefinitionName string, managementGroupID string, parameters armpolicy.SetDefinition, options *armpolicy.SetDefinitionsClientCreateOrUpdateAtManagementGroupOptions) (resp azfake.Responder[armpolicy.SetDefinitionsClientCreateOrUpdateAtManagementGroupResponse], errResp azfake.ErrorResponder)
+	CreateOrUpdateAtManagementGroup func(ctx context.Context, managementGroupID string, policySetDefinitionName string, parameters armpolicy.SetDefinition, options *armpolicy.SetDefinitionsClientCreateOrUpdateAtManagementGroupOptions) (resp azfake.Responder[armpolicy.SetDefinitionsClientCreateOrUpdateAtManagementGroupResponse], errResp azfake.ErrorResponder)
 
 	// Delete is the fake for method SetDefinitionsClient.Delete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
@@ -39,7 +39,7 @@ type SetDefinitionsServer struct {
 
 	// DeleteAtManagementGroup is the fake for method SetDefinitionsClient.DeleteAtManagementGroup
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
-	DeleteAtManagementGroup func(ctx context.Context, policySetDefinitionName string, managementGroupID string, options *armpolicy.SetDefinitionsClientDeleteAtManagementGroupOptions) (resp azfake.Responder[armpolicy.SetDefinitionsClientDeleteAtManagementGroupResponse], errResp azfake.ErrorResponder)
+	DeleteAtManagementGroup func(ctx context.Context, managementGroupID string, policySetDefinitionName string, options *armpolicy.SetDefinitionsClientDeleteAtManagementGroupOptions) (resp azfake.Responder[armpolicy.SetDefinitionsClientDeleteAtManagementGroupResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method SetDefinitionsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
@@ -47,7 +47,7 @@ type SetDefinitionsServer struct {
 
 	// GetAtManagementGroup is the fake for method SetDefinitionsClient.GetAtManagementGroup
 	// HTTP status codes to indicate success: http.StatusOK
-	GetAtManagementGroup func(ctx context.Context, policySetDefinitionName string, managementGroupID string, options *armpolicy.SetDefinitionsClientGetAtManagementGroupOptions) (resp azfake.Responder[armpolicy.SetDefinitionsClientGetAtManagementGroupResponse], errResp azfake.ErrorResponder)
+	GetAtManagementGroup func(ctx context.Context, managementGroupID string, policySetDefinitionName string, options *armpolicy.SetDefinitionsClientGetAtManagementGroupOptions) (resp azfake.Responder[armpolicy.SetDefinitionsClientGetAtManagementGroupResponse], errResp azfake.ErrorResponder)
 
 	// GetBuiltIn is the fake for method SetDefinitionsClient.GetBuiltIn
 	// HTTP status codes to indicate success: http.StatusOK
@@ -177,15 +177,15 @@ func (s *SetDefinitionsServerTransport) dispatchCreateOrUpdateAtManagementGroup(
 	if err != nil {
 		return nil, err
 	}
-	policySetDefinitionNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("policySetDefinitionName")])
-	if err != nil {
-		return nil, err
-	}
 	managementGroupIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("managementGroupId")])
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := s.srv.CreateOrUpdateAtManagementGroup(req.Context(), policySetDefinitionNameParam, managementGroupIDParam, body, nil)
+	policySetDefinitionNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("policySetDefinitionName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := s.srv.CreateOrUpdateAtManagementGroup(req.Context(), managementGroupIDParam, policySetDefinitionNameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -239,15 +239,15 @@ func (s *SetDefinitionsServerTransport) dispatchDeleteAtManagementGroup(req *htt
 	if matches == nil || len(matches) < 2 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	policySetDefinitionNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("policySetDefinitionName")])
-	if err != nil {
-		return nil, err
-	}
 	managementGroupIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("managementGroupId")])
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := s.srv.DeleteAtManagementGroup(req.Context(), policySetDefinitionNameParam, managementGroupIDParam, nil)
+	policySetDefinitionNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("policySetDefinitionName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := s.srv.DeleteAtManagementGroup(req.Context(), managementGroupIDParam, policySetDefinitionNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -301,15 +301,15 @@ func (s *SetDefinitionsServerTransport) dispatchGetAtManagementGroup(req *http.R
 	if matches == nil || len(matches) < 2 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	policySetDefinitionNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("policySetDefinitionName")])
-	if err != nil {
-		return nil, err
-	}
 	managementGroupIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("managementGroupId")])
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := s.srv.GetAtManagementGroup(req.Context(), policySetDefinitionNameParam, managementGroupIDParam, nil)
+	policySetDefinitionNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("policySetDefinitionName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := s.srv.GetAtManagementGroup(req.Context(), managementGroupIDParam, policySetDefinitionNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
