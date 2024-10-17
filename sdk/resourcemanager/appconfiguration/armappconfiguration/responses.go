@@ -20,6 +20,12 @@ type ConfigurationStoresClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
+// ConfigurationStoresClientGenerateSasTokenResponse contains the response from method ConfigurationStoresClient.GenerateSasToken.
+type ConfigurationStoresClientGenerateSasTokenResponse struct {
+	// The result of a request to generate a SAS token.
+	SasTokenGenerationResult
+}
+
 // ConfigurationStoresClientGetDeletedResponse contains the response from method ConfigurationStoresClient.GetDeleted.
 type ConfigurationStoresClientGetDeletedResponse struct {
 	// Deleted configuration store information with extended details.
@@ -66,6 +72,13 @@ type ConfigurationStoresClientPurgeDeletedResponse struct {
 type ConfigurationStoresClientRegenerateKeyResponse struct {
 	// An API key used for authenticating with a configuration store endpoint.
 	APIKey
+}
+
+// ConfigurationStoresClientResetSasKindResponse contains the response from method ConfigurationStoresClient.ResetSasKind.
+type ConfigurationStoresClientResetSasKindResponse struct {
+	// The configuration store along with all resource properties. The Configuration Store will have all information to begin
+	// utilizing it.
+	ConfigurationStore
 }
 
 // ConfigurationStoresClientUpdateResponse contains the response from method ConfigurationStoresClient.BeginUpdate.
@@ -166,4 +179,16 @@ type ReplicasClientGetResponse struct {
 type ReplicasClientListByConfigurationStoreResponse struct {
 	// The result of a request to list replicas.
 	ReplicaListResult
+}
+
+// SnapshotsClientCreateResponse contains the response from method SnapshotsClient.BeginCreate.
+type SnapshotsClientCreateResponse struct {
+	// The snapshot resource.
+	Snapshot
+}
+
+// SnapshotsClientGetResponse contains the response from method SnapshotsClient.Get.
+type SnapshotsClientGetResponse struct {
+	// The snapshot resource.
+	Snapshot
 }
