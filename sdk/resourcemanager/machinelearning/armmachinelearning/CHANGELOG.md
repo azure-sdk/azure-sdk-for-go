@@ -1,5 +1,315 @@
 # Release History
 
+## 5.0.0-beta.1 (2024-10-17)
+### Breaking Changes
+
+- Function `*WorkspaceConnectionsClient.Create` parameter(s) have been changed from `(context.Context, string, string, string, WorkspaceConnectionPropertiesV2BasicResource, *WorkspaceConnectionsClientCreateOptions)` to `(context.Context, string, string, string, *WorkspaceConnectionsClientCreateOptions)`
+- Type of `EncryptionProperty.KeyVaultProperties` has been changed from `*EncryptionKeyVaultProperties` to `*KeyVaultProperties`
+- Type of `ExternalFQDNResponse.Value` has been changed from `[]*FQDNEndpoints` to `[]*FQDNEndpointsPropertyBag`
+- Type of `PrivateEndpointConnectionProperties.PrivateEndpoint` has been changed from `*PrivateEndpoint` to `*WorkspacePrivateEndpointResource`
+- Type of `PrivateLinkServiceConnectionState.Status` has been changed from `*PrivateEndpointServiceConnectionStatus` to `*EndpointServiceConnectionStatus`
+- Type of `SharedPrivateLinkResourceProperty.Status` has been changed from `*PrivateEndpointServiceConnectionStatus` to `*EndpointServiceConnectionStatus`
+- Type of `WorkspaceProperties.PublicNetworkAccess` has been changed from `*PublicNetworkAccess` to `*PublicNetworkAccessType`
+- Type of `WorkspacePropertiesUpdateParameters.PublicNetworkAccess` has been changed from `*PublicNetworkAccess` to `*PublicNetworkAccessType`
+- Enum `PrivateEndpointServiceConnectionStatus` has been removed
+- Enum `PublicNetworkAccess` has been removed
+- Enum `ValueFormat` has been removed
+- Operation `*PrivateLinkResourcesClient.List` has supported pagination, use `*PrivateLinkResourcesClient.NewListPager` instead.
+- Struct `EncryptionKeyVaultProperties` has been removed
+- Struct `FQDNEndpointsProperties` has been removed
+- Field `Value`, `ValueFormat` of struct `AADAuthTypeWorkspaceConnectionProperties` has been removed
+- Field `Value`, `ValueFormat` of struct `APIKeyAuthWorkspaceConnectionProperties` has been removed
+- Field `Value`, `ValueFormat` of struct `AccessKeyAuthTypeWorkspaceConnectionProperties` has been removed
+- Field `Value`, `ValueFormat` of struct `AccountKeyAuthTypeWorkspaceConnectionProperties` has been removed
+- Field `Value`, `ValueFormat` of struct `CustomKeysWorkspaceConnectionProperties` has been removed
+- Field `Properties` of struct `FQDNEndpoints` has been removed
+- Field `UserStorageResourceID` of struct `ListWorkspaceKeysResult` has been removed
+- Field `Value`, `ValueFormat` of struct `ManagedIdentityAuthTypeWorkspaceConnectionProperties` has been removed
+- Field `Value`, `ValueFormat` of struct `NoneAuthTypeWorkspaceConnectionProperties` has been removed
+- Field `Value`, `ValueFormat` of struct `OAuth2AuthTypeWorkspaceConnectionProperties` has been removed
+- Field `Value`, `ValueFormat` of struct `PATAuthTypeWorkspaceConnectionProperties` has been removed
+- Field `Value`, `ValueFormat` of struct `SASAuthTypeWorkspaceConnectionProperties` has been removed
+- Field `Value`, `ValueFormat` of struct `ServicePrincipalAuthTypeWorkspaceConnectionProperties` has been removed
+- Field `Value`, `ValueFormat` of struct `UsernamePasswordAuthTypeWorkspaceConnectionProperties` has been removed
+- Field `Value`, `ValueFormat` of struct `WorkspaceConnectionPropertiesV2` has been removed
+- Field `Parameters` of struct `WorkspacesClientBeginDiagnoseOptions` has been removed
+
+### Features Added
+
+- New value `ComputeInstanceStateResizing` added to enum type `ComputeInstanceState`
+- New value `ConnectionCategoryElasticsearch`, `ConnectionCategoryManagedOnlineEndpoint`, `ConnectionCategoryPinecone` added to enum type `ConnectionCategory`
+- New value `EndpointServiceConnectionStatusTimeout` added to enum type `EndpointServiceConnectionStatus`
+- New value `JobTypeFineTuning` added to enum type `JobType`
+- New value `OperationNameResize` added to enum type `OperationName`
+- New value `OperationStatusResizeFailed` added to enum type `OperationStatus`
+- New enum type `AllowedContentLevel` with values `AllowedContentLevelHigh`, `AllowedContentLevelLow`, `AllowedContentLevelMedium`
+- New enum type `AuthMode` with values `AuthModeAAD`
+- New enum type `CapabilityHostKind` with values `CapabilityHostKindAgents`
+- New enum type `CapabilityHostProvisioningState` with values `CapabilityHostProvisioningStateCanceled`, `CapabilityHostProvisioningStateCreating`, `CapabilityHostProvisioningStateDeleting`, `CapabilityHostProvisioningStateFailed`, `CapabilityHostProvisioningStateSucceeded`, `CapabilityHostProvisioningStateUpdating`
+- New enum type `DefaultActionType` with values `DefaultActionTypeAllow`, `DefaultActionTypeDeny`
+- New enum type `DefaultResourceProvisioningState` with values `DefaultResourceProvisioningStateAccepted`, `DefaultResourceProvisioningStateCanceled`, `DefaultResourceProvisioningStateCreating`, `DefaultResourceProvisioningStateDeleting`, `DefaultResourceProvisioningStateDisabled`, `DefaultResourceProvisioningStateFailed`, `DefaultResourceProvisioningStateNotStarted`, `DefaultResourceProvisioningStateScaling`, `DefaultResourceProvisioningStateSucceeded`, `DefaultResourceProvisioningStateUpdating`
+- New enum type `DeploymentModelVersionUpgradeOption` with values `DeploymentModelVersionUpgradeOptionNoAutoUpgrade`, `DeploymentModelVersionUpgradeOptionOnceCurrentVersionExpired`, `DeploymentModelVersionUpgradeOptionOnceNewDefaultVersionAvailable`
+- New enum type `EndpointType` with values `EndpointTypeAzureContentSafety`, `EndpointTypeAzureLlama`, `EndpointTypeAzureOpenAI`, `EndpointTypeAzureSpeech`, `EndpointTypeManagedOnlineEndpoint`, `EndpointTypeServerlessEndpoint`
+- New enum type `FineTuningTaskType` with values `FineTuningTaskTypeChatCompletion`, `FineTuningTaskTypeImageClassification`, `FineTuningTaskTypeImageInstanceSegmentation`, `FineTuningTaskTypeImageObjectDetection`, `FineTuningTaskTypeQuestionAnswering`, `FineTuningTaskTypeTextClassification`, `FineTuningTaskTypeTextCompletion`, `FineTuningTaskTypeTextSummarization`, `FineTuningTaskTypeTextTranslation`, `FineTuningTaskTypeTokenClassification`, `FineTuningTaskTypeVideoMultiObjectTracking`
+- New enum type `FirewallSKU` with values `FirewallSKUBasic`, `FirewallSKUStandard`
+- New enum type `ManagedPERequirement` with values `ManagedPERequirementNotApplicable`, `ManagedPERequirementNotRequired`, `ManagedPERequirementRequired`
+- New enum type `ManagedPEStatus` with values `ManagedPEStatusActive`, `ManagedPEStatusInactive`, `ManagedPEStatusNotApplicable`
+- New enum type `MlflowAutologger` with values `MlflowAutologgerDisabled`, `MlflowAutologgerEnabled`
+- New enum type `ModelLifecycleStatus` with values `ModelLifecycleStatusGenerallyAvailable`, `ModelLifecycleStatusPreview`
+- New enum type `ModelProvider` with values `ModelProviderAzureOpenAI`, `ModelProviderCustom`
+- New enum type `MountMode` with values `MountModeReadOnly`, `MountModeReadWrite`
+- New enum type `PatchStatus` with values `PatchStatusCompletedWithWarnings`, `PatchStatusFailed`, `PatchStatusInProgress`, `PatchStatusSucceeded`, `PatchStatusUnknown`
+- New enum type `PoolProvisioningState` with values `PoolProvisioningStateCanceled`, `PoolProvisioningStateCreating`, `PoolProvisioningStateDeleting`, `PoolProvisioningStateFailed`, `PoolProvisioningStateSucceeded`, `PoolProvisioningStateUpdating`
+- New enum type `RaiPolicyContentSource` with values `RaiPolicyContentSourceCompletion`, `RaiPolicyContentSourcePrompt`
+- New enum type `RaiPolicyMode` with values `RaiPolicyModeBlocking`, `RaiPolicyModeDefault`, `RaiPolicyModeDeferred`
+- New enum type `RaiPolicyType` with values `RaiPolicyTypeSystemManaged`, `RaiPolicyTypeUserManaged`
+- New enum type `ServiceAccountKeyName` with values `ServiceAccountKeyNameKey1`, `ServiceAccountKeyNameKey2`
+- New enum type `SystemDatastoresAuthMode` with values `SystemDatastoresAuthModeAccessKey`, `SystemDatastoresAuthModeIdentity`, `SystemDatastoresAuthModeUserDelegationSAS`
+- New function `*AzureOpenAiFineTuning.GetFineTuningVertical() *FineTuningVertical`
+- New function `NewCapabilityHostsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*CapabilityHostsClient, error)`
+- New function `*CapabilityHostsClient.BeginCreateOrUpdate(context.Context, string, string, string, CapabilityHost, *CapabilityHostsClientBeginCreateOrUpdateOptions) (*runtime.Poller[CapabilityHostsClientCreateOrUpdateResponse], error)`
+- New function `*CapabilityHostsClient.BeginDelete(context.Context, string, string, string, *CapabilityHostsClientBeginDeleteOptions) (*runtime.Poller[CapabilityHostsClientDeleteResponse], error)`
+- New function `*CapabilityHostsClient.Get(context.Context, string, string, string, *CapabilityHostsClientGetOptions) (CapabilityHostsClientGetResponse, error)`
+- New function `*ClientFactory.NewCapabilityHostsClient() *CapabilityHostsClient`
+- New function `*ClientFactory.NewConnectionClient() *ConnectionClient`
+- New function `*ClientFactory.NewConnectionRaiBlocklistClient() *ConnectionRaiBlocklistClient`
+- New function `*ClientFactory.NewConnectionRaiBlocklistItemClient() *ConnectionRaiBlocklistItemClient`
+- New function `*ClientFactory.NewConnectionRaiBlocklistItemsClient() *ConnectionRaiBlocklistItemsClient`
+- New function `*ClientFactory.NewConnectionRaiBlocklistsClient() *ConnectionRaiBlocklistsClient`
+- New function `*ClientFactory.NewConnectionRaiPoliciesClient() *ConnectionRaiPoliciesClient`
+- New function `*ClientFactory.NewConnectionRaiPolicyClient() *ConnectionRaiPolicyClient`
+- New function `*ClientFactory.NewEndpointClient() *EndpointClient`
+- New function `*ClientFactory.NewEndpointDeploymentClient() *EndpointDeploymentClient`
+- New function `*ClientFactory.NewInferenceEndpointsClient() *InferenceEndpointsClient`
+- New function `*ClientFactory.NewInferenceGroupsClient() *InferenceGroupsClient`
+- New function `*ClientFactory.NewInferencePoolsClient() *InferencePoolsClient`
+- New function `*ClientFactory.NewRaiPoliciesClient() *RaiPoliciesClient`
+- New function `*ClientFactory.NewRaiPolicyClient() *RaiPolicyClient`
+- New function `*ComputeClient.GetAllowedResizeSizes(context.Context, string, string, string, *ComputeClientGetAllowedResizeSizesOptions) (ComputeClientGetAllowedResizeSizesResponse, error)`
+- New function `*ComputeClient.BeginResize(context.Context, string, string, string, ResizeSchema, *ComputeClientBeginResizeOptions) (*runtime.Poller[ComputeClientResizeResponse], error)`
+- New function `*ComputeClient.UpdateCustomServices(context.Context, string, string, string, []*CustomService, *ComputeClientUpdateCustomServicesOptions) (ComputeClientUpdateCustomServicesResponse, error)`
+- New function `*ComputeClient.UpdateDataMounts(context.Context, string, string, string, []*ComputeInstanceDataMount, *ComputeClientUpdateDataMountsOptions) (ComputeClientUpdateDataMountsResponse, error)`
+- New function `*ComputeClient.UpdateIdleShutdownSetting(context.Context, string, string, string, IdleShutdownSetting, *ComputeClientUpdateIdleShutdownSettingOptions) (ComputeClientUpdateIdleShutdownSettingResponse, error)`
+- New function `NewConnectionClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectionClient, error)`
+- New function `*ConnectionClient.BeginCreateOrUpdateDeployment(context.Context, string, string, string, string, EndpointDeploymentResourcePropertiesBasicResource, *ConnectionClientBeginCreateOrUpdateDeploymentOptions) (*runtime.Poller[ConnectionClientCreateOrUpdateDeploymentResponse], error)`
+- New function `*ConnectionClient.BeginDeleteDeployment(context.Context, string, string, string, string, *ConnectionClientBeginDeleteDeploymentOptions) (*runtime.Poller[ConnectionClientDeleteDeploymentResponse], error)`
+- New function `*ConnectionClient.GetAllModels(context.Context, string, string, *ConnectionClientGetAllModelsOptions) (ConnectionClientGetAllModelsResponse, error)`
+- New function `*ConnectionClient.GetDeployment(context.Context, string, string, string, string, *ConnectionClientGetDeploymentOptions) (ConnectionClientGetDeploymentResponse, error)`
+- New function `*ConnectionClient.NewGetModelsPager(string, string, string, *ConnectionClientGetModelsOptions) *runtime.Pager[ConnectionClientGetModelsResponse]`
+- New function `*ConnectionClient.NewListDeploymentsPager(string, string, string, *ConnectionClientListDeploymentsOptions) *runtime.Pager[ConnectionClientListDeploymentsResponse]`
+- New function `NewConnectionRaiBlocklistClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectionRaiBlocklistClient, error)`
+- New function `*ConnectionRaiBlocklistClient.BeginCreate(context.Context, string, string, string, string, RaiBlocklistPropertiesBasicResource, *ConnectionRaiBlocklistClientBeginCreateOptions) (*runtime.Poller[ConnectionRaiBlocklistClientCreateResponse], error)`
+- New function `*ConnectionRaiBlocklistClient.BeginDelete(context.Context, string, string, string, string, *ConnectionRaiBlocklistClientBeginDeleteOptions) (*runtime.Poller[ConnectionRaiBlocklistClientDeleteResponse], error)`
+- New function `*ConnectionRaiBlocklistClient.Get(context.Context, string, string, string, string, *ConnectionRaiBlocklistClientGetOptions) (ConnectionRaiBlocklistClientGetResponse, error)`
+- New function `NewConnectionRaiBlocklistItemClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectionRaiBlocklistItemClient, error)`
+- New function `*ConnectionRaiBlocklistItemClient.BeginAddBulk(context.Context, string, string, string, string, []*RaiBlocklistItemBulkRequest, *ConnectionRaiBlocklistItemClientBeginAddBulkOptions) (*runtime.Poller[ConnectionRaiBlocklistItemClientAddBulkResponse], error)`
+- New function `*ConnectionRaiBlocklistItemClient.BeginCreate(context.Context, string, string, string, string, string, RaiBlocklistItemPropertiesBasicResource, *ConnectionRaiBlocklistItemClientBeginCreateOptions) (*runtime.Poller[ConnectionRaiBlocklistItemClientCreateResponse], error)`
+- New function `*ConnectionRaiBlocklistItemClient.BeginDelete(context.Context, string, string, string, string, string, *ConnectionRaiBlocklistItemClientBeginDeleteOptions) (*runtime.Poller[ConnectionRaiBlocklistItemClientDeleteResponse], error)`
+- New function `*ConnectionRaiBlocklistItemClient.BeginDeleteBulk(context.Context, string, string, string, string, any, *ConnectionRaiBlocklistItemClientBeginDeleteBulkOptions) (*runtime.Poller[ConnectionRaiBlocklistItemClientDeleteBulkResponse], error)`
+- New function `*ConnectionRaiBlocklistItemClient.Get(context.Context, string, string, string, string, string, *ConnectionRaiBlocklistItemClientGetOptions) (ConnectionRaiBlocklistItemClientGetResponse, error)`
+- New function `NewConnectionRaiBlocklistItemsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectionRaiBlocklistItemsClient, error)`
+- New function `*ConnectionRaiBlocklistItemsClient.NewListPager(string, string, string, string, *ConnectionRaiBlocklistItemsClientListOptions) *runtime.Pager[ConnectionRaiBlocklistItemsClientListResponse]`
+- New function `NewConnectionRaiBlocklistsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectionRaiBlocklistsClient, error)`
+- New function `*ConnectionRaiBlocklistsClient.NewListPager(string, string, string, *ConnectionRaiBlocklistsClientListOptions) *runtime.Pager[ConnectionRaiBlocklistsClientListResponse]`
+- New function `NewConnectionRaiPoliciesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectionRaiPoliciesClient, error)`
+- New function `*ConnectionRaiPoliciesClient.NewListPager(string, string, string, *ConnectionRaiPoliciesClientListOptions) *runtime.Pager[ConnectionRaiPoliciesClientListResponse]`
+- New function `NewConnectionRaiPolicyClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectionRaiPolicyClient, error)`
+- New function `*ConnectionRaiPolicyClient.BeginCreate(context.Context, string, string, string, string, RaiPolicyPropertiesBasicResource, *ConnectionRaiPolicyClientBeginCreateOptions) (*runtime.Poller[ConnectionRaiPolicyClientCreateResponse], error)`
+- New function `*ConnectionRaiPolicyClient.BeginDelete(context.Context, string, string, string, string, *ConnectionRaiPolicyClientBeginDeleteOptions) (*runtime.Poller[ConnectionRaiPolicyClientDeleteResponse], error)`
+- New function `*ConnectionRaiPolicyClient.Get(context.Context, string, string, string, string, *ConnectionRaiPolicyClientGetOptions) (ConnectionRaiPolicyClientGetResponse, error)`
+- New function `*ContentSafetyEndpointDeploymentResourceProperties.GetEndpointDeploymentResourceProperties() *EndpointDeploymentResourceProperties`
+- New function `*ContentSafetyEndpointResourceProperties.GetEndpointResourceProperties() *EndpointResourceProperties`
+- New function `*CustomModelFineTuning.GetFineTuningVertical() *FineTuningVertical`
+- New function `NewEndpointClient(string, azcore.TokenCredential, *arm.ClientOptions) (*EndpointClient, error)`
+- New function `*EndpointClient.BeginCreateOrUpdate(context.Context, string, string, string, EndpointResourcePropertiesBasicResource, *EndpointClientBeginCreateOrUpdateOptions) (*runtime.Poller[EndpointClientCreateOrUpdateResponse], error)`
+- New function `*EndpointClient.Get(context.Context, string, string, string, *EndpointClientGetOptions) (EndpointClientGetResponse, error)`
+- New function `*EndpointClient.NewGetModelsPager(string, string, string, *EndpointClientGetModelsOptions) *runtime.Pager[EndpointClientGetModelsResponse]`
+- New function `*EndpointClient.ListKeys(context.Context, string, string, string, *EndpointClientListKeysOptions) (EndpointClientListKeysResponse, error)`
+- New function `*EndpointClient.NewListPager(string, string, *EndpointClientListOptions) *runtime.Pager[EndpointClientListResponse]`
+- New function `*EndpointClient.RegenerateKeys(context.Context, string, string, string, RegenerateServiceAccountKeyContent, *EndpointClientRegenerateKeysOptions) (EndpointClientRegenerateKeysResponse, error)`
+- New function `NewEndpointDeploymentClient(string, azcore.TokenCredential, *arm.ClientOptions) (*EndpointDeploymentClient, error)`
+- New function `*EndpointDeploymentClient.BeginCreateOrUpdate(context.Context, string, string, string, string, EndpointDeploymentResourcePropertiesBasicResource, *EndpointDeploymentClientBeginCreateOrUpdateOptions) (*runtime.Poller[EndpointDeploymentClientCreateOrUpdateResponse], error)`
+- New function `*EndpointDeploymentClient.BeginDelete(context.Context, string, string, string, string, *EndpointDeploymentClientBeginDeleteOptions) (*runtime.Poller[EndpointDeploymentClientDeleteResponse], error)`
+- New function `*EndpointDeploymentClient.Get(context.Context, string, string, string, string, *EndpointDeploymentClientGetOptions) (EndpointDeploymentClientGetResponse, error)`
+- New function `*EndpointDeploymentClient.NewGetInWorkspacePager(string, string, *EndpointDeploymentClientGetInWorkspaceOptions) *runtime.Pager[EndpointDeploymentClientGetInWorkspaceResponse]`
+- New function `*EndpointDeploymentClient.NewListPager(string, string, string, *EndpointDeploymentClientListOptions) *runtime.Pager[EndpointDeploymentClientListResponse]`
+- New function `*EndpointDeploymentResourceProperties.GetEndpointDeploymentResourceProperties() *EndpointDeploymentResourceProperties`
+- New function `*EndpointResourceProperties.GetEndpointResourceProperties() *EndpointResourceProperties`
+- New function `*FineTuningJob.GetJobBaseProperties() *JobBaseProperties`
+- New function `*FineTuningVertical.GetFineTuningVertical() *FineTuningVertical`
+- New function `NewInferenceEndpointsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*InferenceEndpointsClient, error)`
+- New function `*InferenceEndpointsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, InferenceEndpoint, *InferenceEndpointsClientBeginCreateOrUpdateOptions) (*runtime.Poller[InferenceEndpointsClientCreateOrUpdateResponse], error)`
+- New function `*InferenceEndpointsClient.BeginDelete(context.Context, string, string, string, string, *InferenceEndpointsClientBeginDeleteOptions) (*runtime.Poller[InferenceEndpointsClientDeleteResponse], error)`
+- New function `*InferenceEndpointsClient.Get(context.Context, string, string, string, string, *InferenceEndpointsClientGetOptions) (InferenceEndpointsClientGetResponse, error)`
+- New function `*InferenceEndpointsClient.NewListPager(string, string, string, *InferenceEndpointsClientListOptions) *runtime.Pager[InferenceEndpointsClientListResponse]`
+- New function `*InferenceEndpointsClient.BeginUpdate(context.Context, string, string, string, string, any, *InferenceEndpointsClientBeginUpdateOptions) (*runtime.Poller[InferenceEndpointsClientUpdateResponse], error)`
+- New function `NewInferenceGroupsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*InferenceGroupsClient, error)`
+- New function `*InferenceGroupsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, InferenceGroup, *InferenceGroupsClientBeginCreateOrUpdateOptions) (*runtime.Poller[InferenceGroupsClientCreateOrUpdateResponse], error)`
+- New function `*InferenceGroupsClient.BeginDelete(context.Context, string, string, string, string, *InferenceGroupsClientBeginDeleteOptions) (*runtime.Poller[InferenceGroupsClientDeleteResponse], error)`
+- New function `*InferenceGroupsClient.Get(context.Context, string, string, string, string, *InferenceGroupsClientGetOptions) (InferenceGroupsClientGetResponse, error)`
+- New function `*InferenceGroupsClient.GetDeltaModelsStatusAsync(context.Context, string, string, string, string, DeltaModelStatusRequest, *InferenceGroupsClientGetDeltaModelsStatusAsyncOptions) (InferenceGroupsClientGetDeltaModelsStatusAsyncResponse, error)`
+- New function `*InferenceGroupsClient.GetStatus(context.Context, string, string, string, string, *InferenceGroupsClientGetStatusOptions) (InferenceGroupsClientGetStatusResponse, error)`
+- New function `*InferenceGroupsClient.NewListDeltaModelsAsyncPager(string, string, string, string, DeltaModelListRequest, *InferenceGroupsClientListDeltaModelsAsyncOptions) *runtime.Pager[InferenceGroupsClientListDeltaModelsAsyncResponse]`
+- New function `*InferenceGroupsClient.NewListPager(string, string, string, *InferenceGroupsClientListOptions) *runtime.Pager[InferenceGroupsClientListResponse]`
+- New function `*InferenceGroupsClient.NewListSKUsPager(string, string, string, string, *InferenceGroupsClientListSKUsOptions) *runtime.Pager[InferenceGroupsClientListSKUsResponse]`
+- New function `*InferenceGroupsClient.ModifyDeltaModelsAsync(context.Context, string, string, string, string, DeltaModelModifyRequest, *InferenceGroupsClientModifyDeltaModelsAsyncOptions) (InferenceGroupsClientModifyDeltaModelsAsyncResponse, error)`
+- New function `*InferenceGroupsClient.BeginUpdate(context.Context, string, string, string, string, PartialMinimalTrackedResourceWithSKU, *InferenceGroupsClientBeginUpdateOptions) (*runtime.Poller[InferenceGroupsClientUpdateResponse], error)`
+- New function `NewInferencePoolsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*InferencePoolsClient, error)`
+- New function `*InferencePoolsClient.BeginCreateOrUpdate(context.Context, string, string, string, InferencePool, *InferencePoolsClientBeginCreateOrUpdateOptions) (*runtime.Poller[InferencePoolsClientCreateOrUpdateResponse], error)`
+- New function `*InferencePoolsClient.BeginDelete(context.Context, string, string, string, *InferencePoolsClientBeginDeleteOptions) (*runtime.Poller[InferencePoolsClientDeleteResponse], error)`
+- New function `*InferencePoolsClient.Get(context.Context, string, string, string, *InferencePoolsClientGetOptions) (InferencePoolsClientGetResponse, error)`
+- New function `*InferencePoolsClient.NewListPager(string, string, *InferencePoolsClientListOptions) *runtime.Pager[InferencePoolsClientListResponse]`
+- New function `*InferencePoolsClient.BeginUpdate(context.Context, string, string, string, PartialMinimalTrackedResourceWithSKUAndIdentity, *InferencePoolsClientBeginUpdateOptions) (*runtime.Poller[InferencePoolsClientUpdateResponse], error)`
+- New function `*ManagedOnlineEndpointDeploymentResourceProperties.GetEndpointDeploymentResourceProperties() *EndpointDeploymentResourceProperties`
+- New function `*ManagedOnlineEndpointResourceProperties.GetEndpointResourceProperties() *EndpointResourceProperties`
+- New function `*OpenAIEndpointDeploymentResourceProperties.GetEndpointDeploymentResourceProperties() *EndpointDeploymentResourceProperties`
+- New function `*OpenAIEndpointResourceProperties.GetEndpointResourceProperties() *EndpointResourceProperties`
+- New function `NewRaiPoliciesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RaiPoliciesClient, error)`
+- New function `*RaiPoliciesClient.NewListPager(string, string, string, *RaiPoliciesClientListOptions) *runtime.Pager[RaiPoliciesClientListResponse]`
+- New function `NewRaiPolicyClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RaiPolicyClient, error)`
+- New function `*RaiPolicyClient.BeginCreate(context.Context, string, string, string, string, RaiPolicyPropertiesBasicResource, *RaiPolicyClientBeginCreateOptions) (*runtime.Poller[RaiPolicyClientCreateResponse], error)`
+- New function `*RaiPolicyClient.BeginDelete(context.Context, string, string, string, string, *RaiPolicyClientBeginDeleteOptions) (*runtime.Poller[RaiPolicyClientDeleteResponse], error)`
+- New function `*RaiPolicyClient.Get(context.Context, string, string, string, string, *RaiPolicyClientGetOptions) (RaiPolicyClientGetResponse, error)`
+- New function `*ServerlessEndpointResourceProperties.GetEndpointResourceProperties() *EndpointResourceProperties`
+- New function `*SpeechEndpointDeploymentResourceProperties.GetEndpointDeploymentResourceProperties() *EndpointDeploymentResourceProperties`
+- New function `*SpeechEndpointResourceProperties.GetEndpointResourceProperties() *EndpointResourceProperties`
+- New function `*WorkspaceConnectionsClient.BeginTestConnection(context.Context, string, string, string, *WorkspaceConnectionsClientBeginTestConnectionOptions) (*runtime.Poller[WorkspaceConnectionsClientTestConnectionResponse], error)`
+- New function `*WorkspaceConnectionsClient.Update(context.Context, string, string, string, *WorkspaceConnectionsClientUpdateOptions) (WorkspaceConnectionsClientUpdateResponse, error)`
+- New struct `AccountAPIKeys`
+- New struct `ActualCapacityInfo`
+- New struct `AzureOpenAiFineTuning`
+- New struct `AzureOpenAiHyperParameters`
+- New struct `CapabilityHost`
+- New struct `CapabilityHostProperties`
+- New struct `CapacityConfig`
+- New struct `CognitiveServiceEndpointDeploymentResourceProperties`
+- New struct `CognitiveServicesSKU`
+- New struct `ComputeInstanceAutologgerSettings`
+- New struct `ContentSafetyEndpointDeploymentResourceProperties`
+- New struct `ContentSafetyEndpointResourceProperties`
+- New struct `CustomModelFineTuning`
+- New struct `DeltaModelCurrentState`
+- New struct `DeltaModelListRequest`
+- New struct `DeltaModelModifyRequest`
+- New struct `DeltaModelStatusRequest`
+- New struct `DeltaModelStatusResponse`
+- New struct `EndpointDeploymentModel`
+- New struct `EndpointDeploymentResourcePropertiesBasicResource`
+- New struct `EndpointDeploymentResourcePropertiesBasicResourceArmPaginatedResult`
+- New struct `EndpointKeys`
+- New struct `EndpointModelDeprecationProperties`
+- New struct `EndpointModelProperties`
+- New struct `EndpointModelSKUCapacityProperties`
+- New struct `EndpointModelSKUProperties`
+- New struct `EndpointModelSKURateLimitProperties`
+- New struct `EndpointModelSKURateLimitRulePatternProperties`
+- New struct `EndpointModelSKURateLimitRuleProperties`
+- New struct `EndpointModels`
+- New struct `EndpointResourcePropertiesBasicResource`
+- New struct `EndpointResourcePropertiesBasicResourceArmPaginatedResult`
+- New struct `FQDNEndpointsPropertyBag`
+- New struct `FineTuningJob`
+- New struct `GroupEnvironmentConfiguration`
+- New struct `GroupModelConfiguration`
+- New struct `GroupStatus`
+- New struct `IPRule`
+- New struct `InferenceEndpoint`
+- New struct `InferenceEndpointProperties`
+- New struct `InferenceEndpointTrackedResourceArmPaginatedResult`
+- New struct `InferenceGroup`
+- New struct `InferenceGroupProperties`
+- New struct `InferenceGroupTrackedResourceArmPaginatedResult`
+- New struct `InferencePool`
+- New struct `InferencePoolProperties`
+- New struct `InferencePoolTrackedResourceArmPaginatedResult`
+- New struct `JobResources`
+- New struct `JupyterKernelConfig`
+- New struct `KeyVaultProperties`
+- New struct `ManagedOnlineEndpointDeploymentResourceProperties`
+- New struct `ManagedOnlineEndpointResourceProperties`
+- New struct `ManagedResourceGroupAssignedIdentities`
+- New struct `ManagedResourceGroupSettings`
+- New struct `NetworkACLs`
+- New struct `OpenAIEndpointDeploymentResourceProperties`
+- New struct `OpenAIEndpointResourceProperties`
+- New struct `OsPatchingStatus`
+- New struct `PropertiesBase`
+- New struct `RaiBlocklistConfig`
+- New struct `RaiBlocklistItemBulkRequest`
+- New struct `RaiBlocklistItemProperties`
+- New struct `RaiBlocklistItemPropertiesBasicResource`
+- New struct `RaiBlocklistItemPropertiesBasicResourceArmPaginatedResult`
+- New struct `RaiBlocklistProperties`
+- New struct `RaiBlocklistPropertiesBasicResource`
+- New struct `RaiBlocklistPropertiesBasicResourceArmPaginatedResult`
+- New struct `RaiPolicyContentFilter`
+- New struct `RaiPolicyProperties`
+- New struct `RaiPolicyPropertiesBasicResource`
+- New struct `RaiPolicyPropertiesBasicResourceArmPaginatedResult`
+- New struct `RegenerateServiceAccountKeyContent`
+- New struct `RequestConfiguration`
+- New struct `ResizeSchema`
+- New struct `ScaleUnitConfiguration`
+- New struct `SecretExpiry`
+- New struct `ServerlessEndpointCapacityReservation`
+- New struct `ServerlessEndpointContentSafety`
+- New struct `ServerlessEndpointInferenceEndpoint`
+- New struct `ServerlessEndpointModelSettings`
+- New struct `ServerlessEndpointResourceProperties`
+- New struct `ServerlessOffer`
+- New struct `SpeechEndpointDeploymentResourceProperties`
+- New struct `SpeechEndpointResourceProperties`
+- New struct `StringArmPaginatedResult`
+- New struct `StringKeyValuePair`
+- New struct `WorkspaceConnectionUpdateParameter`
+- New struct `WorkspacePrivateEndpointResource`
+- New field `Error`, `PeRequirement`, `PeStatus`, `UseWorkspaceManagedIdentity` in struct `AADAuthTypeWorkspaceConnectionProperties`
+- New field `Error`, `PeRequirement`, `PeStatus`, `UseWorkspaceManagedIdentity` in struct `APIKeyAuthWorkspaceConnectionProperties`
+- New field `Error`, `PeRequirement`, `PeStatus`, `UseWorkspaceManagedIdentity` in struct `AccessKeyAuthTypeWorkspaceConnectionProperties`
+- New field `Error`, `PeRequirement`, `PeStatus`, `UseWorkspaceManagedIdentity` in struct `AccountKeyAuthTypeWorkspaceConnectionProperties`
+- New field `AssetName` in struct `AssetJobOutput`
+- New field `MountMode` in struct `ComputeInstanceDataMount`
+- New field `AutologgerSettings`, `EnableOSPatching`, `EnableRootAccess`, `EnableSSO`, `IdleTimeBeforeShutdown`, `ReleaseQuotaOnStop` in struct `ComputeInstanceProperties`
+- New field `Error`, `PeRequirement`, `PeStatus`, `UseWorkspaceManagedIdentity` in struct `CustomKeysWorkspaceConnectionProperties`
+- New field `AssetName` in struct `CustomModelJobOutput`
+- New field `Kernel` in struct `CustomService`
+- New field `Body` in struct `DatastoresClientListSecretsOptions`
+- New field `RequiredResourceProviders` in struct `DiagnoseRequestProperties`
+- New field `CosmosDbResourceID`, `SearchAccountResourceID`, `StorageAccountResourceID` in struct `EncryptionProperty`
+- New field `Category`, `Endpoints` in struct `FQDNEndpoints`
+- New field `ParentRuleNames` in struct `FqdnOutboundRule`
+- New field `Version` in struct `Image`
+- New field `OSPatchingStatus` in struct `ImageMetadata`
+- New field `UserStorageArmID` in struct `ListWorkspaceKeysResult`
+- New field `AssetName` in struct `MLFlowModelJobOutput`
+- New field `AssetName` in struct `MLTableJobOutput`
+- New field `Error`, `PeRequirement`, `PeStatus`, `UseWorkspaceManagedIdentity` in struct `ManagedIdentityAuthTypeWorkspaceConnectionProperties`
+- New field `ChangeableIsolationModes`, `FirewallSKU` in struct `ManagedNetworkSettings`
+- New field `SystemMetadata` in struct `ModelVersionProperties`
+- New field `Error`, `PeRequirement`, `PeStatus`, `UseWorkspaceManagedIdentity` in struct `NoneAuthTypeWorkspaceConnectionProperties`
+- New field `IsPrivateLinkEnabled` in struct `NotebookResourceInfo`
+- New field `Error`, `PeRequirement`, `PeStatus`, `UseWorkspaceManagedIdentity` in struct `OAuth2AuthTypeWorkspaceConnectionProperties`
+- New field `ParentRuleNames` in struct `OutboundRule`
+- New field `Error`, `PeRequirement`, `PeStatus`, `UseWorkspaceManagedIdentity` in struct `PATAuthTypeWorkspaceConnectionProperties`
+- New field `Fqdns`, `ParentRuleNames` in struct `PrivateEndpointOutboundRule`
+- New field `ManagedResourceGroupSettings` in struct `RegistryProperties`
+- New field `Error`, `PeRequirement`, `PeStatus`, `UseWorkspaceManagedIdentity` in struct `SASAuthTypeWorkspaceConnectionProperties`
+- New field `Error`, `PeRequirement`, `PeStatus`, `UseWorkspaceManagedIdentity` in struct `ServicePrincipalAuthTypeWorkspaceConnectionProperties`
+- New field `ParentRuleNames` in struct `ServiceTagOutboundRule`
+- New field `AssetName` in struct `TritonModelJobOutput`
+- New field `AssetName` in struct `URIFileJobOutput`
+- New field `AssetName` in struct `URIFolderJobOutput`
+- New field `Error`, `PeRequirement`, `PeStatus`, `UseWorkspaceManagedIdentity` in struct `UsernamePasswordAuthTypeWorkspaceConnectionProperties`
+- New field `Error`, `PeRequirement`, `PeStatus`, `UseWorkspaceManagedIdentity` in struct `WorkspaceConnectionPropertiesV2`
+- New field `Body` in struct `WorkspaceConnectionsClientCreateOptions`
+- New field `IncludeAll` in struct `WorkspaceConnectionsClientListOptions`
+- New field `AgentsEndpointURI`, `AllowRoleAssignmentOnRG`, `ContainerRegistries`, `EnableServiceSideCMKEncryption`, `EnableSimplifiedCmk`, `EnableSoftwareBillOfMaterials`, `ExistingWorkspaces`, `IPAllowlist`, `KeyVaults`, `NetworkACLs`, `ProvisionNetworkNow`, `SoftDeleteRetentionInDays`, `StorageAccounts`, `SystemDatastoresAuthMode` in struct `WorkspaceProperties`
+- New field `AllowRoleAssignmentOnRG`, `EnableSoftwareBillOfMaterials`, `IPAllowlist`, `NetworkACLs`, `SoftDeleteRetentionInDays`, `SystemDatastoresAuthMode` in struct `WorkspacePropertiesUpdateParameters`
+- New field `Body` in struct `WorkspacesClientBeginDiagnoseOptions`
+- New field `AiCapabilities`, `Kind` in struct `WorkspacesClientListByResourceGroupOptions`
+- New field `AiCapabilities`, `Kind` in struct `WorkspacesClientListBySubscriptionOptions`
+
+
 ## 4.0.0 (2024-08-23)
 ### Breaking Changes
 
