@@ -801,12 +801,6 @@ type LogAnalyticsClientExportThrottledRequestsResponse struct {
 	LogAnalyticsOperationResult
 }
 
-// OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
-type OperationsClientListResponse struct {
-	// The List Compute Operation operation response.
-	OperationListResult
-}
-
 // ProximityPlacementGroupsClientCreateOrUpdateResponse contains the response from method ProximityPlacementGroupsClient.CreateOrUpdate.
 type ProximityPlacementGroupsClientCreateOrUpdateResponse struct {
 	// Specifies information about the proximity placement group.

@@ -1,5 +1,13 @@
 # Release History
 
+## 7.0.0 (2024-10-17)
+### Breaking Changes
+
+- Function `*ClientFactory.NewOperationsClient` has been removed
+- Function `NewOperationsClient` has been removed
+- Function `*OperationsClient.NewListPager` has been removed
+
+
 ## 6.0.0 (2024-07-26)
 ### Breaking Changes
 
