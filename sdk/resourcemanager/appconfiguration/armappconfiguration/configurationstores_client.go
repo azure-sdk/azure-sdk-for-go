@@ -46,7 +46,7 @@ func NewConfigurationStoresClient(subscriptionID string, credential azcore.Token
 // BeginCreate - Creates a configuration store with the specified parameters.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group to which the container registry belongs.
 //   - configStoreName - The name of the configuration store.
 //   - configStoreCreationParameters - The parameters for creating a configuration store.
@@ -72,7 +72,7 @@ func (client *ConfigurationStoresClient) BeginCreate(ctx context.Context, resour
 // Create - Creates a configuration store with the specified parameters.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01
+// Generated from API version 2024-06-01-preview
 func (client *ConfigurationStoresClient) create(ctx context.Context, resourceGroupName string, configStoreName string, configStoreCreationParameters ConfigurationStore, options *ConfigurationStoresClientBeginCreateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ConfigurationStoresClient.BeginCreate"
@@ -114,7 +114,7 @@ func (client *ConfigurationStoresClient) createCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, configStoreCreationParameters); err != nil {
@@ -126,7 +126,7 @@ func (client *ConfigurationStoresClient) createCreateRequest(ctx context.Context
 // BeginDelete - Deletes a configuration store.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group to which the container registry belongs.
 //   - configStoreName - The name of the configuration store.
 //   - options - ConfigurationStoresClientBeginDeleteOptions contains the optional parameters for the ConfigurationStoresClient.BeginDelete
@@ -151,7 +151,7 @@ func (client *ConfigurationStoresClient) BeginDelete(ctx context.Context, resour
 // Delete - Deletes a configuration store.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01
+// Generated from API version 2024-06-01-preview
 func (client *ConfigurationStoresClient) deleteOperation(ctx context.Context, resourceGroupName string, configStoreName string, options *ConfigurationStoresClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ConfigurationStoresClient.BeginDelete"
@@ -193,16 +193,85 @@ func (client *ConfigurationStoresClient) deleteCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
+// GenerateSasToken - Generates a SAS token for scoped, read-only access of the specified configuration store.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-06-01-preview
+//   - resourceGroupName - The name of the resource group to which the container registry belongs.
+//   - configStoreName - The name of the configuration store.
+//   - sasTokenGenerationParameters - The object containing information for the SAS token generation request.
+//   - options - ConfigurationStoresClientGenerateSasTokenOptions contains the optional parameters for the ConfigurationStoresClient.GenerateSasToken
+//     method.
+func (client *ConfigurationStoresClient) GenerateSasToken(ctx context.Context, resourceGroupName string, configStoreName string, sasTokenGenerationParameters SasTokenGenerationParameters, options *ConfigurationStoresClientGenerateSasTokenOptions) (ConfigurationStoresClientGenerateSasTokenResponse, error) {
+	var err error
+	const operationName = "ConfigurationStoresClient.GenerateSasToken"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.generateSasTokenCreateRequest(ctx, resourceGroupName, configStoreName, sasTokenGenerationParameters, options)
+	if err != nil {
+		return ConfigurationStoresClientGenerateSasTokenResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return ConfigurationStoresClientGenerateSasTokenResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return ConfigurationStoresClientGenerateSasTokenResponse{}, err
+	}
+	resp, err := client.generateSasTokenHandleResponse(httpResp)
+	return resp, err
+}
+
+// generateSasTokenCreateRequest creates the GenerateSasToken request.
+func (client *ConfigurationStoresClient) generateSasTokenCreateRequest(ctx context.Context, resourceGroupName string, configStoreName string, sasTokenGenerationParameters SasTokenGenerationParameters, options *ConfigurationStoresClientGenerateSasTokenOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/generateSasToken"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if configStoreName == "" {
+		return nil, errors.New("parameter configStoreName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{configStoreName}", url.PathEscape(configStoreName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-06-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, sasTokenGenerationParameters); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+// generateSasTokenHandleResponse handles the GenerateSasToken response.
+func (client *ConfigurationStoresClient) generateSasTokenHandleResponse(resp *http.Response) (ConfigurationStoresClientGenerateSasTokenResponse, error) {
+	result := ConfigurationStoresClientGenerateSasTokenResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.SasTokenGenerationResult); err != nil {
+		return ConfigurationStoresClientGenerateSasTokenResponse{}, err
+	}
+	return result, nil
+}
+
 // Get - Gets the properties of the specified configuration store.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group to which the container registry belongs.
 //   - configStoreName - The name of the configuration store.
 //   - options - ConfigurationStoresClientGetOptions contains the optional parameters for the ConfigurationStoresClient.Get method.
@@ -248,7 +317,7 @@ func (client *ConfigurationStoresClient) getCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -266,7 +335,7 @@ func (client *ConfigurationStoresClient) getHandleResponse(resp *http.Response) 
 // GetDeleted - Gets a deleted Azure app configuration store.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01
+// Generated from API version 2024-06-01-preview
 //   - location - The location in which uniqueness will be verified.
 //   - configStoreName - The name of the configuration store.
 //   - options - ConfigurationStoresClientGetDeletedOptions contains the optional parameters for the ConfigurationStoresClient.GetDeleted
@@ -313,7 +382,7 @@ func (client *ConfigurationStoresClient) getDeletedCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -330,7 +399,7 @@ func (client *ConfigurationStoresClient) getDeletedHandleResponse(resp *http.Res
 
 // NewListPager - Lists the configuration stores for a given subscription.
 //
-// Generated from API version 2023-03-01
+// Generated from API version 2024-06-01-preview
 //   - options - ConfigurationStoresClientListOptions contains the optional parameters for the ConfigurationStoresClient.NewListPager
 //     method.
 func (client *ConfigurationStoresClient) NewListPager(options *ConfigurationStoresClientListOptions) *runtime.Pager[ConfigurationStoresClientListResponse] {
@@ -368,10 +437,10 @@ func (client *ConfigurationStoresClient) listCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01")
 	if options != nil && options.SkipToken != nil {
 		reqQP.Set("$skipToken", *options.SkipToken)
 	}
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -388,7 +457,7 @@ func (client *ConfigurationStoresClient) listHandleResponse(resp *http.Response)
 
 // NewListByResourceGroupPager - Lists the configuration stores for a given resource group.
 //
-// Generated from API version 2023-03-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group to which the container registry belongs.
 //   - options - ConfigurationStoresClientListByResourceGroupOptions contains the optional parameters for the ConfigurationStoresClient.NewListByResourceGroupPager
 //     method.
@@ -431,10 +500,10 @@ func (client *ConfigurationStoresClient) listByResourceGroupCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01")
 	if options != nil && options.SkipToken != nil {
 		reqQP.Set("$skipToken", *options.SkipToken)
 	}
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -451,7 +520,7 @@ func (client *ConfigurationStoresClient) listByResourceGroupHandleResponse(resp 
 
 // NewListDeletedPager - Gets information about the deleted configuration stores in a subscription.
 //
-// Generated from API version 2023-03-01
+// Generated from API version 2024-06-01-preview
 //   - options - ConfigurationStoresClientListDeletedOptions contains the optional parameters for the ConfigurationStoresClient.NewListDeletedPager
 //     method.
 func (client *ConfigurationStoresClient) NewListDeletedPager(options *ConfigurationStoresClientListDeletedOptions) *runtime.Pager[ConfigurationStoresClientListDeletedResponse] {
@@ -489,7 +558,7 @@ func (client *ConfigurationStoresClient) listDeletedCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -506,7 +575,7 @@ func (client *ConfigurationStoresClient) listDeletedHandleResponse(resp *http.Re
 
 // NewListKeysPager - Lists the access key for the specified configuration store.
 //
-// Generated from API version 2023-03-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group to which the container registry belongs.
 //   - configStoreName - The name of the configuration store.
 //   - options - ConfigurationStoresClientListKeysOptions contains the optional parameters for the ConfigurationStoresClient.NewListKeysPager
@@ -554,10 +623,10 @@ func (client *ConfigurationStoresClient) listKeysCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01")
 	if options != nil && options.SkipToken != nil {
 		reqQP.Set("$skipToken", *options.SkipToken)
 	}
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -575,7 +644,7 @@ func (client *ConfigurationStoresClient) listKeysHandleResponse(resp *http.Respo
 // BeginPurgeDeleted - Permanently deletes the specified configuration store.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01
+// Generated from API version 2024-06-01-preview
 //   - location - The location in which uniqueness will be verified.
 //   - configStoreName - The name of the configuration store.
 //   - options - ConfigurationStoresClientBeginPurgeDeletedOptions contains the optional parameters for the ConfigurationStoresClient.BeginPurgeDeleted
@@ -600,7 +669,7 @@ func (client *ConfigurationStoresClient) BeginPurgeDeleted(ctx context.Context, 
 // PurgeDeleted - Permanently deletes the specified configuration store.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01
+// Generated from API version 2024-06-01-preview
 func (client *ConfigurationStoresClient) purgeDeleted(ctx context.Context, location string, configStoreName string, options *ConfigurationStoresClientBeginPurgeDeletedOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ConfigurationStoresClient.BeginPurgeDeleted"
@@ -642,7 +711,7 @@ func (client *ConfigurationStoresClient) purgeDeletedCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -651,7 +720,7 @@ func (client *ConfigurationStoresClient) purgeDeletedCreateRequest(ctx context.C
 // RegenerateKey - Regenerates an access key for the specified configuration store.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group to which the container registry belongs.
 //   - configStoreName - The name of the configuration store.
 //   - regenerateKeyParameters - The parameters for regenerating an access key.
@@ -699,7 +768,7 @@ func (client *ConfigurationStoresClient) regenerateKeyCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, regenerateKeyParameters); err != nil {
@@ -717,10 +786,79 @@ func (client *ConfigurationStoresClient) regenerateKeyHandleResponse(resp *http.
 	return result, nil
 }
 
+// ResetSasKind - Reset SAS kind to invalidate all previously generated SAS tokens of the specified kind.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-06-01-preview
+//   - resourceGroupName - The name of the resource group to which the container registry belongs.
+//   - configStoreName - The name of the configuration store.
+//   - resetSasKindParameters - The object containing information for the SAS kind reset request.
+//   - options - ConfigurationStoresClientResetSasKindOptions contains the optional parameters for the ConfigurationStoresClient.ResetSasKind
+//     method.
+func (client *ConfigurationStoresClient) ResetSasKind(ctx context.Context, resourceGroupName string, configStoreName string, resetSasKindParameters ResetSasKindParameters, options *ConfigurationStoresClientResetSasKindOptions) (ConfigurationStoresClientResetSasKindResponse, error) {
+	var err error
+	const operationName = "ConfigurationStoresClient.ResetSasKind"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.resetSasKindCreateRequest(ctx, resourceGroupName, configStoreName, resetSasKindParameters, options)
+	if err != nil {
+		return ConfigurationStoresClientResetSasKindResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return ConfigurationStoresClientResetSasKindResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return ConfigurationStoresClientResetSasKindResponse{}, err
+	}
+	resp, err := client.resetSasKindHandleResponse(httpResp)
+	return resp, err
+}
+
+// resetSasKindCreateRequest creates the ResetSasKind request.
+func (client *ConfigurationStoresClient) resetSasKindCreateRequest(ctx context.Context, resourceGroupName string, configStoreName string, resetSasKindParameters ResetSasKindParameters, options *ConfigurationStoresClientResetSasKindOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/resetSasKind"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if configStoreName == "" {
+		return nil, errors.New("parameter configStoreName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{configStoreName}", url.PathEscape(configStoreName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-06-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, resetSasKindParameters); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+// resetSasKindHandleResponse handles the ResetSasKind response.
+func (client *ConfigurationStoresClient) resetSasKindHandleResponse(resp *http.Response) (ConfigurationStoresClientResetSasKindResponse, error) {
+	result := ConfigurationStoresClientResetSasKindResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ConfigurationStore); err != nil {
+		return ConfigurationStoresClientResetSasKindResponse{}, err
+	}
+	return result, nil
+}
+
 // BeginUpdate - Updates a configuration store with the specified parameters.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group to which the container registry belongs.
 //   - configStoreName - The name of the configuration store.
 //   - configStoreUpdateParameters - The parameters for updating a configuration store.
@@ -746,7 +884,7 @@ func (client *ConfigurationStoresClient) BeginUpdate(ctx context.Context, resour
 // Update - Updates a configuration store with the specified parameters.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-03-01
+// Generated from API version 2024-06-01-preview
 func (client *ConfigurationStoresClient) update(ctx context.Context, resourceGroupName string, configStoreName string, configStoreUpdateParameters ConfigurationStoreUpdateParameters, options *ConfigurationStoresClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ConfigurationStoresClient.BeginUpdate"
@@ -788,7 +926,7 @@ func (client *ConfigurationStoresClient) updateCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, configStoreUpdateParameters); err != nil {
