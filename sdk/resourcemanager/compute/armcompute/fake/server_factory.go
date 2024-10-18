@@ -54,6 +54,7 @@ type ServerFactory struct {
 	SharedGalleryImageVersionsServer            SharedGalleryImageVersionsServer
 	SharedGalleryImagesServer                   SharedGalleryImagesServer
 	SnapshotsServer                             SnapshotsServer
+	SoftDeleteServer                            SoftDeleteServer
 	UsageServer                                 UsageServer
 	VirtualMachineExtensionImagesServer         VirtualMachineExtensionImagesServer
 	VirtualMachineExtensionsServer              VirtualMachineExtensionsServer
@@ -119,6 +120,7 @@ type ServerFactoryTransport struct {
 	trSharedGalleryImageVersionsServer            *SharedGalleryImageVersionsServerTransport
 	trSharedGalleryImagesServer                   *SharedGalleryImagesServerTransport
 	trSnapshotsServer                             *SnapshotsServerTransport
+	trSoftDeleteServer                            *SoftDeleteServerTransport
 	trUsageServer                                 *UsageServerTransport
 	trVirtualMachineExtensionImagesServer         *VirtualMachineExtensionImagesServerTransport
 	trVirtualMachineExtensionsServer              *VirtualMachineExtensionsServerTransport
@@ -307,6 +309,9 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "SnapshotsClient":
 		initServer(s, &s.trSnapshotsServer, func() *SnapshotsServerTransport { return NewSnapshotsServerTransport(&s.srv.SnapshotsServer) })
 		resp, err = s.trSnapshotsServer.Do(req)
+	case "SoftDeleteClient":
+		initServer(s, &s.trSoftDeleteServer, func() *SoftDeleteServerTransport { return NewSoftDeleteServerTransport(&s.srv.SoftDeleteServer) })
+		resp, err = s.trSoftDeleteServer.Do(req)
 	case "UsageClient":
 		initServer(s, &s.trUsageServer, func() *UsageServerTransport { return NewUsageServerTransport(&s.srv.UsageServer) })
 		resp, err = s.trUsageServer.Do(req)

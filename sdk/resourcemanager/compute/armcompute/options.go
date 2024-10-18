@@ -1077,6 +1077,12 @@ type SnapshotsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// SoftDeleteClientListSoftDeletedResourcesByArtifactNameOptions contains the optional parameters for the SoftDeleteClient.NewListSoftDeletedResourcesByArtifactNamePager
+// method.
+type SoftDeleteClientListSoftDeletedResourcesByArtifactNameOptions struct {
+	// placeholder for future optional parameters
+}
+
 // UsageClientListOptions contains the optional parameters for the UsageClient.NewListPager method.
 type UsageClientListOptions struct {
 	// placeholder for future optional parameters
