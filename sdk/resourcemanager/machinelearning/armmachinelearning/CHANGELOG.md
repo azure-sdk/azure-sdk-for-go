@@ -1,5 +1,16 @@
 # Release History
 
+## 4.1.0 (2024-10-18)
+### Features Added
+
+- New value `ConnectionCategoryElasticsearch`, `ConnectionCategoryManagedOnlineEndpoint`, `ConnectionCategoryPinecone` added to enum type `ConnectionCategory`
+- New enum type `FirewallSKU` with values `FirewallSKUBasic`, `FirewallSKUStandard`
+- New function `*WorkspaceConnectionsClient.Update(context.Context, string, string, string, *WorkspaceConnectionsClientUpdateOptions) (WorkspaceConnectionsClientUpdateResponse, error)`
+- New struct `WorkspaceConnectionUpdateParameter`
+- New field `FirewallSKU` in struct `ManagedNetworkSettings`
+- New field `IncludeAll` in struct `WorkspaceConnectionsClientListOptions`
+
+
 ## 4.0.0 (2024-08-23)
 ### Breaking Changes
 
