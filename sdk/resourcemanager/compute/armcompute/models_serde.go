@@ -5822,6 +5822,7 @@ func (g *GalleryImage) UnmarshalJSON(data []byte) error {
 func (g GalleryImageFeature) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "name", g.Name)
+	populate(objectMap, "startsAtVersion", g.StartsAtVersion)
 	populate(objectMap, "value", g.Value)
 	return json.Marshal(objectMap)
 }
@@ -5837,6 +5838,9 @@ func (g *GalleryImageFeature) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "name":
 			err = unpopulate(val, "Name", &g.Name)
+			delete(rawMsg, key)
+		case "startsAtVersion":
+			err = unpopulate(val, "StartsAtVersion", &g.StartsAtVersion)
 			delete(rawMsg, key)
 		case "value":
 			err = unpopulate(val, "Value", &g.Value)
@@ -5918,6 +5922,7 @@ func (g *GalleryImageList) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type GalleryImageProperties.
 func (g GalleryImageProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "allowUpdateImage", g.AllowUpdateImage)
 	populate(objectMap, "architecture", g.Architecture)
 	populate(objectMap, "description", g.Description)
 	populate(objectMap, "disallowed", g.Disallowed)
@@ -5945,6 +5950,9 @@ func (g *GalleryImageProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "allowUpdateImage":
+			err = unpopulate(val, "AllowUpdateImage", &g.AllowUpdateImage)
+			delete(rawMsg, key)
 		case "architecture":
 			err = unpopulate(val, "Architecture", &g.Architecture)
 			delete(rawMsg, key)
