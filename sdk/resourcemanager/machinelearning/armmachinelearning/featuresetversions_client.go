@@ -47,7 +47,7 @@ func NewFeaturesetVersionsClient(subscriptionID string, credential azcore.TokenC
 // BeginBackfill - Backfill.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - name - Container name. This is case-sensitive.
@@ -76,7 +76,7 @@ func (client *FeaturesetVersionsClient) BeginBackfill(ctx context.Context, resou
 // Backfill - Backfill.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-10-01-preview
 func (client *FeaturesetVersionsClient) backfill(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, body FeaturesetVersionBackfillRequest, options *FeaturesetVersionsClientBeginBackfillOptions) (*http.Response, error) {
 	var err error
 	const operationName = "FeaturesetVersionsClient.BeginBackfill"
@@ -126,7 +126,7 @@ func (client *FeaturesetVersionsClient) backfillCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -138,7 +138,7 @@ func (client *FeaturesetVersionsClient) backfillCreateRequest(ctx context.Contex
 // BeginCreateOrUpdate - Create or update version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - name - Container name. This is case-sensitive.
@@ -167,7 +167,7 @@ func (client *FeaturesetVersionsClient) BeginCreateOrUpdate(ctx context.Context,
 // CreateOrUpdate - Create or update version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-10-01-preview
 func (client *FeaturesetVersionsClient) createOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, body FeaturesetVersion, options *FeaturesetVersionsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "FeaturesetVersionsClient.BeginCreateOrUpdate"
@@ -217,7 +217,7 @@ func (client *FeaturesetVersionsClient) createOrUpdateCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -229,7 +229,7 @@ func (client *FeaturesetVersionsClient) createOrUpdateCreateRequest(ctx context.
 // BeginDelete - Delete version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - name - Container name. This is case-sensitive.
@@ -257,7 +257,7 @@ func (client *FeaturesetVersionsClient) BeginDelete(ctx context.Context, resourc
 // Delete - Delete version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-10-01-preview
 func (client *FeaturesetVersionsClient) deleteOperation(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *FeaturesetVersionsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "FeaturesetVersionsClient.BeginDelete"
@@ -307,7 +307,7 @@ func (client *FeaturesetVersionsClient) deleteCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -316,7 +316,7 @@ func (client *FeaturesetVersionsClient) deleteCreateRequest(ctx context.Context,
 // Get - Get version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - name - Container name. This is case-sensitive.
@@ -372,7 +372,7 @@ func (client *FeaturesetVersionsClient) getCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -389,7 +389,7 @@ func (client *FeaturesetVersionsClient) getHandleResponse(resp *http.Response) (
 
 // NewListPager - List versions.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-10-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - name - Featureset name. This is case-sensitive.
@@ -445,7 +445,7 @@ func (client *FeaturesetVersionsClient) listCreateRequest(ctx context.Context, r
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", *options.Skip)
 	}
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-10-01-preview")
 	if options != nil && options.CreatedBy != nil {
 		reqQP.Set("createdBy", *options.CreatedBy)
 	}
