@@ -17,29 +17,42 @@ import (
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
 	subscriptionID string
+	apiKeyName     string
 	internal       *arm.Client
 }
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
+//   - apiKeyName - The resource name of the API key
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
+func NewClientFactory(subscriptionID string, apiKeyName string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
 	internal, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
 		subscriptionID: subscriptionID,
+		apiKeyName:     apiKeyName,
 		internal:       internal,
 	}, nil
+}
+
+// NewAPIKeysClient creates a new instance of APIKeysClient.
+func (c *ClientFactory) NewAPIKeysClient() *APIKeysClient {
+	return &APIKeysClient{
+		subscriptionID: c.subscriptionID,
+		apiKeyName:     c.apiKeyName,
+		internal:       c.internal,
+	}
 }
 
 // NewCertificatesClient creates a new instance of CertificatesClient.
 func (c *ClientFactory) NewCertificatesClient() *CertificatesClient {
 	return &CertificatesClient{
 		subscriptionID: c.subscriptionID,
+		apiKeyName:     c.apiKeyName,
 		internal:       c.internal,
 	}
 }
@@ -48,6 +61,7 @@ func (c *ClientFactory) NewCertificatesClient() *CertificatesClient {
 func (c *ClientFactory) NewConfigurationsClient() *ConfigurationsClient {
 	return &ConfigurationsClient{
 		subscriptionID: c.subscriptionID,
+		apiKeyName:     c.apiKeyName,
 		internal:       c.internal,
 	}
 }
@@ -56,6 +70,7 @@ func (c *ClientFactory) NewConfigurationsClient() *ConfigurationsClient {
 func (c *ClientFactory) NewDeploymentsClient() *DeploymentsClient {
 	return &DeploymentsClient{
 		subscriptionID: c.subscriptionID,
+		apiKeyName:     c.apiKeyName,
 		internal:       c.internal,
 	}
 }
