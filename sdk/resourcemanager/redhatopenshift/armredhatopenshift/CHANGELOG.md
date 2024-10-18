@@ -1,5 +1,34 @@
 # Release History
 
+## 2.0.0-beta.1 (2024-10-18)
+### Breaking Changes
+
+- Field `SystemData` of struct `MachinePoolUpdate` has been removed
+- Field `SystemData` of struct `OpenShiftClusterUpdate` has been removed
+- Field `SystemData` of struct `SecretUpdate` has been removed
+- Field `SystemData` of struct `SyncIdentityProviderUpdate` has been removed
+- Field `SystemData` of struct `SyncSetUpdate` has been removed
+
+### Features Added
+
+- New enum type `ManagedServiceIdentityType` with values `ManagedServiceIdentityTypeNone`, `ManagedServiceIdentityTypeSystemAssigned`, `ManagedServiceIdentityTypeSystemAssignedUserAssigned`, `ManagedServiceIdentityTypeUserAssigned`
+- New function `*ClientFactory.NewPlatformWorkloadIdentityRoleSetClient() *PlatformWorkloadIdentityRoleSetClient`
+- New function `NewPlatformWorkloadIdentityRoleSetClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PlatformWorkloadIdentityRoleSetClient, error)`
+- New function `*PlatformWorkloadIdentityRoleSetClient.NewListPager(string, *PlatformWorkloadIdentityRoleSetClientListOptions) *runtime.Pager[PlatformWorkloadIdentityRoleSetClientListResponse]`
+- New struct `ManagedServiceIdentity`
+- New struct `PlatformWorkloadIdentity`
+- New struct `PlatformWorkloadIdentityProfile`
+- New struct `PlatformWorkloadIdentityRole`
+- New struct `PlatformWorkloadIdentityRoleSet`
+- New struct `PlatformWorkloadIdentityRoleSetList`
+- New struct `PlatformWorkloadIdentityRoleSetProperties`
+- New struct `UserAssignedIdentity`
+- New field `OidcIssuer` in struct `ClusterProfile`
+- New field `Identity` in struct `OpenShiftCluster`
+- New field `PlatformWorkloadIdentityProfile` in struct `OpenShiftClusterProperties`
+- New field `Identity` in struct `OpenShiftClusterUpdate`
+
+
 ## 1.6.0 (2024-07-26)
 ### Features Added
 
