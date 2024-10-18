@@ -22,6 +22,7 @@ type ServerFactory struct {
 	AliasServer          AliasServer
 	BillingAccountServer BillingAccountServer
 	Server               Server
+	OperationServer      OperationServer
 	OperationsServer     OperationsServer
 	PolicyServer         PolicyServer
 	SubscriptionsServer  SubscriptionsServer
@@ -45,6 +46,7 @@ type ServerFactoryTransport struct {
 	trAliasServer          *AliasServerTransport
 	trBillingAccountServer *BillingAccountServerTransport
 	trServer               *ServerTransport
+	trOperationServer      *OperationServerTransport
 	trOperationsServer     *OperationsServerTransport
 	trPolicyServer         *PolicyServerTransport
 	trSubscriptionsServer  *SubscriptionsServerTransport
@@ -75,6 +77,9 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "Client":
 		initServer(s, &s.trServer, func() *ServerTransport { return NewServerTransport(&s.srv.Server) })
 		resp, err = s.trServer.Do(req)
+	case "OperationClient":
+		initServer(s, &s.trOperationServer, func() *OperationServerTransport { return NewOperationServerTransport(&s.srv.OperationServer) })
+		resp, err = s.trOperationServer.Do(req)
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
