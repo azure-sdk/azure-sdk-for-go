@@ -29,61 +29,61 @@ import (
 	"strings"
 )
 
-// VMIngestionClient contains the methods for the VMIngestion group.
-// Don't use this type directly, use NewVMIngestionClient() instead.
-type VMIngestionClient struct {
+// BillingInfoClient contains the methods for the BillingInfo group.
+// Don't use this type directly, use NewBillingInfoClient() instead.
+type BillingInfoClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewVMIngestionClient creates a new instance of VMIngestionClient with the specified values.
+// NewBillingInfoClient creates a new instance of BillingInfoClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewVMIngestionClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*VMIngestionClient, error) {
+func NewBillingInfoClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*BillingInfoClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &VMIngestionClient{
+	client := &BillingInfoClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// Details - List the vm ingestion details that will be monitored by the Elastic monitor resource.
+// Get - Get marketplace and organization info mapped to the given monitor.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-11-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - monitorName - Monitor resource name
-//   - options - VMIngestionClientDetailsOptions contains the optional parameters for the VMIngestionClient.Details method.
-func (client *VMIngestionClient) Details(ctx context.Context, resourceGroupName string, monitorName string, options *VMIngestionClientDetailsOptions) (VMIngestionClientDetailsResponse, error) {
+//   - options - BillingInfoClientGetOptions contains the optional parameters for the BillingInfoClient.Get method.
+func (client *BillingInfoClient) Get(ctx context.Context, resourceGroupName string, monitorName string, options *BillingInfoClientGetOptions) (BillingInfoClientGetResponse, error) {
 	var err error
-	const operationName = "VMIngestionClient.Details"
+	const operationName = "BillingInfoClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.detailsCreateRequest(ctx, resourceGroupName, monitorName, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, monitorName, options)
 	if err != nil {
-		return VMIngestionClientDetailsResponse{}, err
+		return BillingInfoClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return VMIngestionClientDetailsResponse{}, err
+		return BillingInfoClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return VMIngestionClientDetailsResponse{}, err
+		return BillingInfoClientGetResponse{}, err
 	}
-	resp, err := client.detailsHandleResponse(httpResp)
+	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
-// detailsCreateRequest creates the Details request.
-func (client *VMIngestionClient) detailsCreateRequest(ctx context.Context, resourceGroupName string, monitorName string, options *VMIngestionClientDetailsOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Elastic/monitors/{monitorName}/vmIngestionDetails"
+// getCreateRequest creates the Get request.
+func (client *BillingInfoClient) getCreateRequest(ctx context.Context, resourceGroupName string, monitorName string, options *BillingInfoClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Elastic/monitors/{monitorName}/getBillingInfo"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -107,11 +107,11 @@ func (client *VMIngestionClient) detailsCreateRequest(ctx context.Context, resou
 	return req, nil
 }
 
-// detailsHandleResponse handles the Details response.
-func (client *VMIngestionClient) detailsHandleResponse(resp *http.Response) (VMIngestionClientDetailsResponse, error) {
-	result := VMIngestionClientDetailsResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.VMIngestionDetailsResponse); err != nil {
-		return VMIngestionClientDetailsResponse{}, err
+// getHandleResponse handles the Get response.
+func (client *BillingInfoClient) getHandleResponse(resp *http.Response) (BillingInfoClientGetResponse, error) {
+	result := BillingInfoClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.BillingInfoResponse); err != nil {
+		return BillingInfoClientGetResponse{}, err
 	}
 	return result, nil
 }
