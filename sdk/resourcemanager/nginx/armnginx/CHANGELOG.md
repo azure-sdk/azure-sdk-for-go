@@ -1,5 +1,50 @@
 # Release History
 
+## 3.1.0-beta.2 (2024-10-21)
+### Breaking Changes
+
+- Function `NewClientFactory` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(string, string, azcore.TokenCredential, *arm.ClientOptions)`
+- Type of `AnalysisCreateConfig.ProtectedFiles` has been changed from `[]*ConfigurationFile` to `[]*ConfigurationProtectedFileRequest`
+- Type of `ConfigurationListResponse.Value` has been changed from `[]*Configuration` to `[]*ConfigurationResponse`
+- Type of `ConfigurationsClientBeginCreateOrUpdateOptions.Body` has been changed from `*Configuration` to `*ConfigurationRequest`
+- Struct `Configuration` has been removed
+- Struct `ConfigurationProperties` has been removed
+- Field `Configuration` of struct `ConfigurationsClientCreateOrUpdateResponse` has been removed
+- Field `Configuration` of struct `ConfigurationsClientGetResponse` has been removed
+- Field `ManagedResourceGroup` of struct `DeploymentProperties` has been removed
+
+### Features Added
+
+- New enum type `ActivationState` with values `ActivationStateDisabled`, `ActivationStateEnabled`
+- New function `NewAPIKeysClient(string, string, azcore.TokenCredential, *arm.ClientOptions) (*APIKeysClient, error)`
+- New function `*APIKeysClient.CreateOrUpdate(context.Context, string, string, *APIKeysClientCreateOrUpdateOptions) (APIKeysClientCreateOrUpdateResponse, error)`
+- New function `*APIKeysClient.Delete(context.Context, string, string, *APIKeysClientDeleteOptions) (APIKeysClientDeleteResponse, error)`
+- New function `*APIKeysClient.Get(context.Context, string, string, *APIKeysClientGetOptions) (APIKeysClientGetResponse, error)`
+- New function `*APIKeysClient.NewListPager(string, string, *APIKeysClientListOptions) *runtime.Pager[APIKeysClientListResponse]`
+- New function `*ClientFactory.NewAPIKeysClient() *APIKeysClient`
+- New struct `ConfigurationProtectedFileRequest`
+- New struct `ConfigurationProtectedFileResponse`
+- New struct `ConfigurationRequest`
+- New struct `ConfigurationRequestProperties`
+- New struct `ConfigurationResponse`
+- New struct `ConfigurationResponseProperties`
+- New struct `DeploymentAPIKeyListResponse`
+- New struct `DeploymentAPIKeyRequest`
+- New struct `DeploymentAPIKeyRequestProperties`
+- New struct `DeploymentAPIKeyResponse`
+- New struct `DeploymentAPIKeyResponseProperties`
+- New struct `DeploymentPropertiesNginxAppProtect`
+- New struct `DeploymentUpdatePropertiesNginxAppProtect`
+- New struct `WebApplicationFirewallComponentVersions`
+- New struct `WebApplicationFirewallPackage`
+- New struct `WebApplicationFirewallSettings`
+- New struct `WebApplicationFirewallStatus`
+- New anonymous field `ConfigurationResponse` in struct `ConfigurationsClientCreateOrUpdateResponse`
+- New anonymous field `ConfigurationResponse` in struct `ConfigurationsClientGetResponse`
+- New field `DataplaneAPIEndpoint`, `NginxAppProtect` in struct `DeploymentProperties`
+- New field `NginxAppProtect` in struct `DeploymentUpdateProperties`
+
+
 ## 3.1.0-beta.1 (2024-03-22)
 ### Features Added
 
