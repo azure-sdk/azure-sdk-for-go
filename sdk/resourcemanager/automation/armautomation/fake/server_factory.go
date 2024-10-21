@@ -46,9 +46,11 @@ type ServerFactory struct {
 	NodeReportsServer                            NodeReportsServer
 	ObjectDataTypesServer                        ObjectDataTypesServer
 	OperationsServer                             OperationsServer
+	PowerShell72ModuleServer                     PowerShell72ModuleServer
 	PrivateEndpointConnectionsServer             PrivateEndpointConnectionsServer
 	PrivateLinkResourcesServer                   PrivateLinkResourcesServer
 	Python2PackageServer                         Python2PackageServer
+	Python3PackageServer                         Python3PackageServer
 	RunbookServer                                RunbookServer
 	RunbookDraftServer                           RunbookDraftServer
 	ScheduleServer                               ScheduleServer
@@ -108,9 +110,11 @@ type ServerFactoryTransport struct {
 	trNodeReportsServer                            *NodeReportsServerTransport
 	trObjectDataTypesServer                        *ObjectDataTypesServerTransport
 	trOperationsServer                             *OperationsServerTransport
+	trPowerShell72ModuleServer                     *PowerShell72ModuleServerTransport
 	trPrivateEndpointConnectionsServer             *PrivateEndpointConnectionsServerTransport
 	trPrivateLinkResourcesServer                   *PrivateLinkResourcesServerTransport
 	trPython2PackageServer                         *Python2PackageServerTransport
+	trPython3PackageServer                         *Python3PackageServerTransport
 	trRunbookServer                                *RunbookServerTransport
 	trRunbookDraftServer                           *RunbookDraftServerTransport
 	trScheduleServer                               *ScheduleServerTransport
@@ -247,6 +251,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
+	case "PowerShell72ModuleClient":
+		initServer(s, &s.trPowerShell72ModuleServer, func() *PowerShell72ModuleServerTransport {
+			return NewPowerShell72ModuleServerTransport(&s.srv.PowerShell72ModuleServer)
+		})
+		resp, err = s.trPowerShell72ModuleServer.Do(req)
 	case "PrivateEndpointConnectionsClient":
 		initServer(s, &s.trPrivateEndpointConnectionsServer, func() *PrivateEndpointConnectionsServerTransport {
 			return NewPrivateEndpointConnectionsServerTransport(&s.srv.PrivateEndpointConnectionsServer)
@@ -262,6 +271,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewPython2PackageServerTransport(&s.srv.Python2PackageServer)
 		})
 		resp, err = s.trPython2PackageServer.Do(req)
+	case "Python3PackageClient":
+		initServer(s, &s.trPython3PackageServer, func() *Python3PackageServerTransport {
+			return NewPython3PackageServerTransport(&s.srv.Python3PackageServer)
+		})
+		resp, err = s.trPython3PackageServer.Do(req)
 	case "RunbookClient":
 		initServer(s, &s.trRunbookServer, func() *RunbookServerTransport { return NewRunbookServerTransport(&s.srv.RunbookServer) })
 		resp, err = s.trRunbookServer.Do(req)

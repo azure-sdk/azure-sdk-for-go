@@ -47,7 +47,7 @@ func NewKeysClient(subscriptionID string, credential azcore.TokenCredential, opt
 // ListByAutomationAccount - Retrieve the automation keys for an account.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-22
+// Generated from API version 2023-11-01
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - options - KeysClientListByAutomationAccountOptions contains the optional parameters for the KeysClient.ListByAutomationAccount
@@ -94,7 +94,7 @@ func (client *KeysClient) listByAutomationAccountCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-22")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

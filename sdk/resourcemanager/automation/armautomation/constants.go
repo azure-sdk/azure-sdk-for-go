@@ -10,7 +10,7 @@ package armautomation
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/automation/armautomation"
-	moduleVersion = "v0.9.0"
+	moduleVersion = "v0.10.0"
 )
 
 // AgentRegistrationKeyName - Gets or sets the agent registration key name - primary or secondary.
@@ -405,12 +405,12 @@ func PossibleLinuxUpdateClassesValues() []LinuxUpdateClasses {
 	}
 }
 
-// ModuleProvisioningState - Gets or sets the provisioning state of the module.
+// ModuleProvisioningState - Gets the provisioning state of the module.
 type ModuleProvisioningState string
 
 const (
 	ModuleProvisioningStateActivitiesStored            ModuleProvisioningState = "ActivitiesStored"
-	ModuleProvisioningStateCancelled                   ModuleProvisioningState = "Cancelled"
+	ModuleProvisioningStateCanceled                    ModuleProvisioningState = "Canceled"
 	ModuleProvisioningStateConnectionTypeImported      ModuleProvisioningState = "ConnectionTypeImported"
 	ModuleProvisioningStateContentDownloaded           ModuleProvisioningState = "ContentDownloaded"
 	ModuleProvisioningStateContentRetrieved            ModuleProvisioningState = "ContentRetrieved"
@@ -431,7 +431,7 @@ const (
 func PossibleModuleProvisioningStateValues() []ModuleProvisioningState {
 	return []ModuleProvisioningState{
 		ModuleProvisioningStateActivitiesStored,
-		ModuleProvisioningStateCancelled,
+		ModuleProvisioningStateCanceled,
 		ModuleProvisioningStateConnectionTypeImported,
 		ModuleProvisioningStateContentDownloaded,
 		ModuleProvisioningStateContentRetrieved,
@@ -529,6 +529,7 @@ const (
 	RunbookTypeEnumGraphPowerShell         RunbookTypeEnum = "GraphPowerShell"
 	RunbookTypeEnumGraphPowerShellWorkflow RunbookTypeEnum = "GraphPowerShellWorkflow"
 	RunbookTypeEnumPowerShell              RunbookTypeEnum = "PowerShell"
+	RunbookTypeEnumPowerShell72            RunbookTypeEnum = "PowerShell72"
 	RunbookTypeEnumPowerShellWorkflow      RunbookTypeEnum = "PowerShellWorkflow"
 	RunbookTypeEnumPython2                 RunbookTypeEnum = "Python2"
 	RunbookTypeEnumPython3                 RunbookTypeEnum = "Python3"
@@ -542,6 +543,7 @@ func PossibleRunbookTypeEnumValues() []RunbookTypeEnum {
 		RunbookTypeEnumGraphPowerShell,
 		RunbookTypeEnumGraphPowerShellWorkflow,
 		RunbookTypeEnumPowerShell,
+		RunbookTypeEnumPowerShell72,
 		RunbookTypeEnumPowerShellWorkflow,
 		RunbookTypeEnumPython2,
 		RunbookTypeEnumPython3,

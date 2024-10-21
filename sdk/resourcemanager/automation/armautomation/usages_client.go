@@ -46,7 +46,7 @@ func NewUsagesClient(subscriptionID string, credential azcore.TokenCredential, o
 
 // NewListByAutomationAccountPager - Retrieve the usage for the account id.
 //
-// Generated from API version 2021-06-22
+// Generated from API version 2023-11-01
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - options - UsagesClientListByAutomationAccountOptions contains the optional parameters for the UsagesClient.NewListByAutomationAccountPager
@@ -95,7 +95,7 @@ func (client *UsagesClient) listByAutomationAccountCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-22")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

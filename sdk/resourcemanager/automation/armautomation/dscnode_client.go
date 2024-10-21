@@ -226,14 +226,14 @@ func (client *DscNodeClient) listByAutomationAccountCreateRequest(ctx context.Co
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
+	if options != nil && options.Inlinecount != nil {
+		reqQP.Set("$inlinecount", *options.Inlinecount)
+	}
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
-	}
-	if options != nil && options.Inlinecount != nil {
-		reqQP.Set("$inlinecount", *options.Inlinecount)
 	}
 	reqQP.Set("api-version", "2020-01-13-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()

@@ -548,6 +548,33 @@ type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// PowerShell72ModuleClientCreateOrUpdateOptions contains the optional parameters for the PowerShell72ModuleClient.CreateOrUpdate
+// method.
+type PowerShell72ModuleClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PowerShell72ModuleClientDeleteOptions contains the optional parameters for the PowerShell72ModuleClient.Delete method.
+type PowerShell72ModuleClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PowerShell72ModuleClientGetOptions contains the optional parameters for the PowerShell72ModuleClient.Get method.
+type PowerShell72ModuleClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PowerShell72ModuleClientListByAutomationAccountOptions contains the optional parameters for the PowerShell72ModuleClient.NewListByAutomationAccountPager
+// method.
+type PowerShell72ModuleClientListByAutomationAccountOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PowerShell72ModuleClientUpdateOptions contains the optional parameters for the PowerShell72ModuleClient.Update method.
+type PowerShell72ModuleClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
 // PrivateEndpointConnectionsClientBeginCreateOrUpdateOptions contains the optional parameters for the PrivateEndpointConnectionsClient.BeginCreateOrUpdate
 // method.
 type PrivateEndpointConnectionsClientBeginCreateOrUpdateOptions struct {
@@ -604,6 +631,33 @@ type Python2PackageClientListByAutomationAccountOptions struct {
 
 // Python2PackageClientUpdateOptions contains the optional parameters for the Python2PackageClient.Update method.
 type Python2PackageClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// Python3PackageClientCreateOrUpdateOptions contains the optional parameters for the Python3PackageClient.CreateOrUpdate
+// method.
+type Python3PackageClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// Python3PackageClientDeleteOptions contains the optional parameters for the Python3PackageClient.Delete method.
+type Python3PackageClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// Python3PackageClientGetOptions contains the optional parameters for the Python3PackageClient.Get method.
+type Python3PackageClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// Python3PackageClientListByAutomationAccountOptions contains the optional parameters for the Python3PackageClient.NewListByAutomationAccountPager
+// method.
+type Python3PackageClientListByAutomationAccountOptions struct {
+	// placeholder for future optional parameters
+}
+
+// Python3PackageClientUpdateOptions contains the optional parameters for the Python3PackageClient.Update method.
+type Python3PackageClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
