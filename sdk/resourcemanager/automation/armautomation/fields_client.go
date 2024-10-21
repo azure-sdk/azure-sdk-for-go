@@ -46,7 +46,7 @@ func NewFieldsClient(subscriptionID string, credential azcore.TokenCredential, o
 
 // NewListByTypePager - Retrieve a list of fields of a given type identified by module name.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2023-11-01
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - moduleName - The name of module.
@@ -104,7 +104,7 @@ func (client *FieldsClient) listByTypeCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
