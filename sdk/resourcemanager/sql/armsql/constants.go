@@ -10,7 +10,7 @@ package armsql
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/sql/armsql"
-	moduleVersion = "v2.0.0-beta.6"
+	moduleVersion = "v2.0.0-beta.7"
 )
 
 type AdministratorName string
@@ -1038,6 +1038,39 @@ func PossibleFailoverGroupReplicationRoleValues() []FailoverGroupReplicationRole
 	}
 }
 
+// FailoverModeType - The link failover mode - can be Manual if intended to be used for two-way failover with a supported
+// SQL Server, or None for one-way failover to Azure.
+type FailoverModeType string
+
+const (
+	FailoverModeTypeManual FailoverModeType = "Manual"
+	FailoverModeTypeNone   FailoverModeType = "None"
+)
+
+// PossibleFailoverModeTypeValues returns the possible values for the FailoverModeType const type.
+func PossibleFailoverModeTypeValues() []FailoverModeType {
+	return []FailoverModeType{
+		FailoverModeTypeManual,
+		FailoverModeTypeNone,
+	}
+}
+
+// FailoverType - The failover type, can be ForcedAllowDataLoss or Planned.
+type FailoverType string
+
+const (
+	FailoverTypeForcedAllowDataLoss FailoverType = "ForcedAllowDataLoss"
+	FailoverTypePlanned             FailoverType = "Planned"
+)
+
+// PossibleFailoverTypeValues returns the possible values for the FailoverType const type.
+func PossibleFailoverTypeValues() []FailoverType {
+	return []FailoverType{
+		FailoverTypeForcedAllowDataLoss,
+		FailoverTypePlanned,
+	}
+}
+
 // FreeLimitExhaustionBehavior - Specifies the behavior when monthly free limits are exhausted for the free database.
 // AutoPause: The database will be auto paused upon exhaustion of free limits for remainder of the month.
 // BillForUsage: The database will continue to be online upon exhaustion of free limits and any overage will be billed.
@@ -1053,22 +1086,6 @@ func PossibleFreeLimitExhaustionBehaviorValues() []FreeLimitExhaustionBehavior {
 	return []FreeLimitExhaustionBehavior{
 		FreeLimitExhaustionBehaviorAutoPause,
 		FreeLimitExhaustionBehaviorBillOverUsage,
-	}
-}
-
-// FreemiumType - Weather or not Managed Instance is freemium.
-type FreemiumType string
-
-const (
-	FreemiumTypeFreemium FreemiumType = "Freemium"
-	FreemiumTypeRegular  FreemiumType = "Regular"
-)
-
-// PossibleFreemiumTypeValues returns the possible values for the FreemiumType const type.
-func PossibleFreemiumTypeValues() []FreemiumType {
-	return []FreemiumType{
-		FreemiumTypeFreemium,
-		FreemiumTypeRegular,
 	}
 }
 
@@ -1203,6 +1220,22 @@ func PossibleInstancePoolLicenseTypeValues() []InstancePoolLicenseType {
 	return []InstancePoolLicenseType{
 		InstancePoolLicenseTypeBasePrice,
 		InstancePoolLicenseTypeLicenseIncluded,
+	}
+}
+
+// InstanceRole - New role of managed instance in a distributed availability group, can be Primary or Secondary.
+type InstanceRole string
+
+const (
+	InstanceRolePrimary   InstanceRole = "Primary"
+	InstanceRoleSecondary InstanceRole = "Secondary"
+)
+
+// PossibleInstanceRoleValues returns the possible values for the InstanceRole const type.
+func PossibleInstanceRoleValues() []InstanceRole {
+	return []InstanceRole{
+		InstanceRolePrimary,
+		InstanceRoleSecondary,
 	}
 }
 
@@ -1398,6 +1431,22 @@ func PossibleLedgerDigestUploadsStateValues() []LedgerDigestUploadsState {
 	return []LedgerDigestUploadsState{
 		LedgerDigestUploadsStateDisabled,
 		LedgerDigestUploadsStateEnabled,
+	}
+}
+
+// LinkRole - SQL server side link role
+type LinkRole string
+
+const (
+	LinkRolePrimary   LinkRole = "Primary"
+	LinkRoleSecondary LinkRole = "Secondary"
+)
+
+// PossibleLinkRoleValues returns the possible values for the LinkRole const type.
+func PossibleLinkRoleValues() []LinkRole {
+	return []LinkRole{
+		LinkRolePrimary,
+		LinkRoleSecondary,
 	}
 }
 
@@ -1822,6 +1871,22 @@ func PossiblePhaseValues() []Phase {
 	}
 }
 
+// PricingModel - Pricing model of Managed Instance.
+type PricingModel string
+
+const (
+	PricingModelFreemium PricingModel = "Freemium"
+	PricingModelRegular  PricingModel = "Regular"
+)
+
+// PossiblePricingModelValues returns the possible values for the PricingModel const type.
+func PossiblePricingModelValues() []PricingModel {
+	return []PricingModel{
+		PricingModelFreemium,
+		PricingModelRegular,
+	}
+}
+
 // PrimaryAggregationType - The primary aggregation type defining how metric values are displayed.
 type PrimaryAggregationType string
 
@@ -2090,6 +2155,40 @@ func PossibleRecommendedSensitivityLabelUpdateKindValues() []RecommendedSensitiv
 	}
 }
 
+// ReplicaConnectedState - Link connected state
+type ReplicaConnectedState string
+
+const (
+	ReplicaConnectedStateCONNECTED    ReplicaConnectedState = "CONNECTED"
+	ReplicaConnectedStateDISCONNECTED ReplicaConnectedState = "DISCONNECTED"
+)
+
+// PossibleReplicaConnectedStateValues returns the possible values for the ReplicaConnectedState const type.
+func PossibleReplicaConnectedStateValues() []ReplicaConnectedState {
+	return []ReplicaConnectedState{
+		ReplicaConnectedStateCONNECTED,
+		ReplicaConnectedStateDISCONNECTED,
+	}
+}
+
+// ReplicaSynchronizationHealth - Link health state
+type ReplicaSynchronizationHealth string
+
+const (
+	ReplicaSynchronizationHealthHEALTHY          ReplicaSynchronizationHealth = "HEALTHY"
+	ReplicaSynchronizationHealthNOTHEALTHY       ReplicaSynchronizationHealth = "NOT_HEALTHY"
+	ReplicaSynchronizationHealthPARTIALLYHEALTHY ReplicaSynchronizationHealth = "PARTIALLY_HEALTHY"
+)
+
+// PossibleReplicaSynchronizationHealthValues returns the possible values for the ReplicaSynchronizationHealth const type.
+func PossibleReplicaSynchronizationHealthValues() []ReplicaSynchronizationHealth {
+	return []ReplicaSynchronizationHealth{
+		ReplicaSynchronizationHealthHEALTHY,
+		ReplicaSynchronizationHealthNOTHEALTHY,
+		ReplicaSynchronizationHealthPARTIALLYHEALTHY,
+	}
+}
+
 type ReplicaType string
 
 const (
@@ -2123,19 +2222,19 @@ func PossibleReplicationLinkTypeValues() []ReplicationLinkType {
 	}
 }
 
-// ReplicationMode - The replication mode of a distributed availability group. Parameter will be ignored during link creation.
-type ReplicationMode string
+// ReplicationModeType - Replication mode of the link
+type ReplicationModeType string
 
 const (
-	ReplicationModeAsync ReplicationMode = "Async"
-	ReplicationModeSync  ReplicationMode = "Sync"
+	ReplicationModeTypeAsync ReplicationModeType = "Async"
+	ReplicationModeTypeSync  ReplicationModeType = "Sync"
 )
 
-// PossibleReplicationModeValues returns the possible values for the ReplicationMode const type.
-func PossibleReplicationModeValues() []ReplicationMode {
-	return []ReplicationMode{
-		ReplicationModeAsync,
-		ReplicationModeSync,
+// PossibleReplicationModeTypeValues returns the possible values for the ReplicationModeType const type.
+func PossibleReplicationModeTypeValues() []ReplicationModeType {
+	return []ReplicationModeType{
+		ReplicationModeTypeAsync,
+		ReplicationModeTypeSync,
 	}
 }
 
@@ -2207,6 +2306,22 @@ func PossibleRestorePointTypeValues() []RestorePointType {
 	return []RestorePointType{
 		RestorePointTypeCONTINUOUS,
 		RestorePointTypeDISCRETE,
+	}
+}
+
+// RoleChangeType - The type of the role change, can be Planned or Forced.
+type RoleChangeType string
+
+const (
+	RoleChangeTypeForced  RoleChangeType = "Forced"
+	RoleChangeTypePlanned RoleChangeType = "Planned"
+)
+
+// PossibleRoleChangeTypeValues returns the possible values for the RoleChangeType const type.
+func PossibleRoleChangeTypeValues() []RoleChangeType {
+	return []RoleChangeType{
+		RoleChangeTypeForced,
+		RoleChangeTypePlanned,
 	}
 }
 
@@ -2432,6 +2547,22 @@ func PossibleSecurityEventTypeValues() []SecurityEventType {
 		SecurityEventTypeSQLInjectionExploit,
 		SecurityEventTypeSQLInjectionVulnerability,
 		SecurityEventTypeUndefined,
+	}
+}
+
+// SeedingModeType - Database seeding mode – can be Automatic (default), or Manual for supported scenarios.
+type SeedingModeType string
+
+const (
+	SeedingModeTypeAutomatic SeedingModeType = "Automatic"
+	SeedingModeTypeManual    SeedingModeType = "Manual"
+)
+
+// PossibleSeedingModeTypeValues returns the possible values for the SeedingModeType const type.
+func PossibleSeedingModeTypeValues() []SeedingModeType {
+	return []SeedingModeType{
+		SeedingModeTypeAutomatic,
+		SeedingModeTypeManual,
 	}
 }
 
