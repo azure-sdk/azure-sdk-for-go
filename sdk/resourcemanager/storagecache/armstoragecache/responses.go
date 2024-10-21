@@ -68,6 +68,36 @@ type AscUsagesClientListResponse struct {
 	ResourceUsagesListResult
 }
 
+// AutoExportJobsClientCreateOrUpdateResponse contains the response from method AutoExportJobsClient.BeginCreateOrUpdate.
+type AutoExportJobsClientCreateOrUpdateResponse struct {
+	// An auto export job instance. Follows Azure Resource Manager standards: https://github.com/Azure/azure-resource-manager-rpc/blob/master/v1.0/resource-api-reference.md
+	AutoExportJob
+}
+
+// AutoExportJobsClientDeleteResponse contains the response from method AutoExportJobsClient.BeginDelete.
+type AutoExportJobsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// AutoExportJobsClientGetResponse contains the response from method AutoExportJobsClient.Get.
+type AutoExportJobsClientGetResponse struct {
+	// An auto export job instance. Follows Azure Resource Manager standards: https://github.com/Azure/azure-resource-manager-rpc/blob/master/v1.0/resource-api-reference.md
+	AutoExportJob
+}
+
+// AutoExportJobsClientListByAmlFilesystemResponse contains the response from method AutoExportJobsClient.NewListByAmlFilesystemPager.
+type AutoExportJobsClientListByAmlFilesystemResponse struct {
+	// Result of the request to list auto export jobs. It contains a list of auto export jobs and a URL link to get the next set
+	// of results.
+	AutoExportJobsListResult
+}
+
+// AutoExportJobsClientUpdateResponse contains the response from method AutoExportJobsClient.BeginUpdate.
+type AutoExportJobsClientUpdateResponse struct {
+	// An auto export job instance. Follows Azure Resource Manager standards: https://github.com/Azure/azure-resource-manager-rpc/blob/master/v1.0/resource-api-reference.md
+	AutoExportJob
+}
+
 // CachesClientCreateOrUpdateResponse contains the response from method CachesClient.BeginCreateOrUpdate.
 type CachesClientCreateOrUpdateResponse struct {
 	// A cache instance. Follows Azure Resource Manager standards: https://github.com/Azure/azure-resource-manager-rpc/blob/master/v1.0/resource-api-reference.md
