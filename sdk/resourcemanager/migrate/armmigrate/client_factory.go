@@ -17,94 +17,452 @@ import (
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
 	subscriptionID string
-	credential     azcore.TokenCredential
-	options        *arm.ClientOptions
+	internal       *arm.Client
 }
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - Azure Subscription Id in which project was created.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
-	_, err := arm.NewClient(moduleName, moduleVersion, credential, options)
+	internal, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		subscriptionID: subscriptionID, credential: credential,
-		options: options.Clone(),
+		subscriptionID: subscriptionID,
+		internal:       internal,
 	}, nil
 }
 
-// NewAssessedMachinesClient creates a new instance of AssessedMachinesClient.
-func (c *ClientFactory) NewAssessedMachinesClient() *AssessedMachinesClient {
-	subClient, _ := NewAssessedMachinesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+// NewDependencyMapControllerClient creates a new instance of DependencyMapControllerClient.
+func (c *ClientFactory) NewDependencyMapControllerClient() *DependencyMapControllerClient {
+	return &DependencyMapControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
-// NewAssessmentsClient creates a new instance of AssessmentsClient.
-func (c *ClientFactory) NewAssessmentsClient() *AssessmentsClient {
-	subClient, _ := NewAssessmentsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+// NewHypervClusterControllerClient creates a new instance of HypervClusterControllerClient.
+func (c *ClientFactory) NewHypervClusterControllerClient() *HypervClusterControllerClient {
+	return &HypervClusterControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
-// NewGroupsClient creates a new instance of GroupsClient.
-func (c *ClientFactory) NewGroupsClient() *GroupsClient {
-	subClient, _ := NewGroupsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+// NewHypervDependencyMapControllerClient creates a new instance of HypervDependencyMapControllerClient.
+func (c *ClientFactory) NewHypervDependencyMapControllerClient() *HypervDependencyMapControllerClient {
+	return &HypervDependencyMapControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
-// NewHyperVCollectorsClient creates a new instance of HyperVCollectorsClient.
-func (c *ClientFactory) NewHyperVCollectorsClient() *HyperVCollectorsClient {
-	subClient, _ := NewHyperVCollectorsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+// NewHypervHostControllerClient creates a new instance of HypervHostControllerClient.
+func (c *ClientFactory) NewHypervHostControllerClient() *HypervHostControllerClient {
+	return &HypervHostControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
-// NewImportCollectorsClient creates a new instance of ImportCollectorsClient.
-func (c *ClientFactory) NewImportCollectorsClient() *ImportCollectorsClient {
-	subClient, _ := NewImportCollectorsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+// NewHypervJobsClient creates a new instance of HypervJobsClient.
+func (c *ClientFactory) NewHypervJobsClient() *HypervJobsClient {
+	return &HypervJobsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
-// NewMachinesClient creates a new instance of MachinesClient.
-func (c *ClientFactory) NewMachinesClient() *MachinesClient {
-	subClient, _ := NewMachinesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+// NewHypervJobsControllerClient creates a new instance of HypervJobsControllerClient.
+func (c *ClientFactory) NewHypervJobsControllerClient() *HypervJobsControllerClient {
+	return &HypervJobsControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewHypervMachinesControllerClient creates a new instance of HypervMachinesControllerClient.
+func (c *ClientFactory) NewHypervMachinesControllerClient() *HypervMachinesControllerClient {
+	return &HypervMachinesControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewHypervOperationsStatusControllerClient creates a new instance of HypervOperationsStatusControllerClient.
+func (c *ClientFactory) NewHypervOperationsStatusControllerClient() *HypervOperationsStatusControllerClient {
+	return &HypervOperationsStatusControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewHypervRunAsAccountsControllerClient creates a new instance of HypervRunAsAccountsControllerClient.
+func (c *ClientFactory) NewHypervRunAsAccountsControllerClient() *HypervRunAsAccountsControllerClient {
+	return &HypervRunAsAccountsControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewHypervSitesClient creates a new instance of HypervSitesClient.
+func (c *ClientFactory) NewHypervSitesClient() *HypervSitesClient {
+	return &HypervSitesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewHypervSitesControllerClient creates a new instance of HypervSitesControllerClient.
+func (c *ClientFactory) NewHypervSitesControllerClient() *HypervSitesControllerClient {
+	return &HypervSitesControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewHypervSoftwareInventoriesControllerClient creates a new instance of HypervSoftwareInventoriesControllerClient.
+func (c *ClientFactory) NewHypervSoftwareInventoriesControllerClient() *HypervSoftwareInventoriesControllerClient {
+	return &HypervSoftwareInventoriesControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewIisWebApplicationsControllerClient creates a new instance of IisWebApplicationsControllerClient.
+func (c *ClientFactory) NewIisWebApplicationsControllerClient() *IisWebApplicationsControllerClient {
+	return &IisWebApplicationsControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewIisWebServersControllerClient creates a new instance of IisWebServersControllerClient.
+func (c *ClientFactory) NewIisWebServersControllerClient() *IisWebServersControllerClient {
+	return &IisWebServersControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewImportJobsControllerClient creates a new instance of ImportJobsControllerClient.
+func (c *ClientFactory) NewImportJobsControllerClient() *ImportJobsControllerClient {
+	return &ImportJobsControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewImportMachinesControllerClient creates a new instance of ImportMachinesControllerClient.
+func (c *ClientFactory) NewImportMachinesControllerClient() *ImportMachinesControllerClient {
+	return &ImportMachinesControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewImportSitesControllerClient creates a new instance of ImportSitesControllerClient.
+func (c *ClientFactory) NewImportSitesControllerClient() *ImportSitesControllerClient {
+	return &ImportSitesControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewMachinesControllerClient creates a new instance of MachinesControllerClient.
+func (c *ClientFactory) NewMachinesControllerClient() *MachinesControllerClient {
+	return &MachinesControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewMasterSitesControllerClient creates a new instance of MasterSitesControllerClient.
+func (c *ClientFactory) NewMasterSitesControllerClient() *MasterSitesControllerClient {
+	return &MasterSitesControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewMasterSitesOperationsStatusControllerClient creates a new instance of MasterSitesOperationsStatusControllerClient.
+func (c *ClientFactory) NewMasterSitesOperationsStatusControllerClient() *MasterSitesOperationsStatusControllerClient {
+	return &MasterSitesOperationsStatusControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewOperationsClient creates a new instance of OperationsClient.
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
-	subClient, _ := NewOperationsClient(c.credential, c.options)
-	return subClient
+	return &OperationsClient{
+		internal: c.internal,
+	}
 }
 
-// NewPrivateEndpointConnectionClient creates a new instance of PrivateEndpointConnectionClient.
-func (c *ClientFactory) NewPrivateEndpointConnectionClient() *PrivateEndpointConnectionClient {
-	subClient, _ := NewPrivateEndpointConnectionClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+// NewPrivateEndpointConnectionControllerClient creates a new instance of PrivateEndpointConnectionControllerClient.
+func (c *ClientFactory) NewPrivateEndpointConnectionControllerClient() *PrivateEndpointConnectionControllerClient {
+	return &PrivateEndpointConnectionControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
-// NewPrivateLinkResourceClient creates a new instance of PrivateLinkResourceClient.
-func (c *ClientFactory) NewPrivateLinkResourceClient() *PrivateLinkResourceClient {
-	subClient, _ := NewPrivateLinkResourceClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+// NewPrivateLinkResourcesControllerClient creates a new instance of PrivateLinkResourcesControllerClient.
+func (c *ClientFactory) NewPrivateLinkResourcesControllerClient() *PrivateLinkResourcesControllerClient {
+	return &PrivateLinkResourcesControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
-// NewProjectsClient creates a new instance of ProjectsClient.
-func (c *ClientFactory) NewProjectsClient() *ProjectsClient {
-	subClient, _ := NewProjectsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+// NewRunAsAccountsControllerClient creates a new instance of RunAsAccountsControllerClient.
+func (c *ClientFactory) NewRunAsAccountsControllerClient() *RunAsAccountsControllerClient {
+	return &RunAsAccountsControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
-// NewServerCollectorsClient creates a new instance of ServerCollectorsClient.
-func (c *ClientFactory) NewServerCollectorsClient() *ServerCollectorsClient {
-	subClient, _ := NewServerCollectorsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+// NewSQLAvailabilityGroupsControllerClient creates a new instance of SQLAvailabilityGroupsControllerClient.
+func (c *ClientFactory) NewSQLAvailabilityGroupsControllerClient() *SQLAvailabilityGroupsControllerClient {
+	return &SQLAvailabilityGroupsControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
-// NewVMwareCollectorsClient creates a new instance of VMwareCollectorsClient.
-func (c *ClientFactory) NewVMwareCollectorsClient() *VMwareCollectorsClient {
-	subClient, _ := NewVMwareCollectorsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+// NewSQLDatabasesControllerClient creates a new instance of SQLDatabasesControllerClient.
+func (c *ClientFactory) NewSQLDatabasesControllerClient() *SQLDatabasesControllerClient {
+	return &SQLDatabasesControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewSQLDiscoverySiteDataSourceControllerClient creates a new instance of SQLDiscoverySiteDataSourceControllerClient.
+func (c *ClientFactory) NewSQLDiscoverySiteDataSourceControllerClient() *SQLDiscoverySiteDataSourceControllerClient {
+	return &SQLDiscoverySiteDataSourceControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewSQLJobsControllerClient creates a new instance of SQLJobsControllerClient.
+func (c *ClientFactory) NewSQLJobsControllerClient() *SQLJobsControllerClient {
+	return &SQLJobsControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewSQLOperationsStatusControllerClient creates a new instance of SQLOperationsStatusControllerClient.
+func (c *ClientFactory) NewSQLOperationsStatusControllerClient() *SQLOperationsStatusControllerClient {
+	return &SQLOperationsStatusControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewSQLRunAsAccountsControllerClient creates a new instance of SQLRunAsAccountsControllerClient.
+func (c *ClientFactory) NewSQLRunAsAccountsControllerClient() *SQLRunAsAccountsControllerClient {
+	return &SQLRunAsAccountsControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewSQLServersControllerClient creates a new instance of SQLServersControllerClient.
+func (c *ClientFactory) NewSQLServersControllerClient() *SQLServersControllerClient {
+	return &SQLServersControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewSQLSitesControllerClient creates a new instance of SQLSitesControllerClient.
+func (c *ClientFactory) NewSQLSitesControllerClient() *SQLSitesControllerClient {
+	return &SQLSitesControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewServerDependencyMapControllerClient creates a new instance of ServerDependencyMapControllerClient.
+func (c *ClientFactory) NewServerDependencyMapControllerClient() *ServerDependencyMapControllerClient {
+	return &ServerDependencyMapControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewServerJobsControllerClient creates a new instance of ServerJobsControllerClient.
+func (c *ClientFactory) NewServerJobsControllerClient() *ServerJobsControllerClient {
+	return &ServerJobsControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewServerOperationsStatusControllerClient creates a new instance of ServerOperationsStatusControllerClient.
+func (c *ClientFactory) NewServerOperationsStatusControllerClient() *ServerOperationsStatusControllerClient {
+	return &ServerOperationsStatusControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewServerRunAsAccountsControllerClient creates a new instance of ServerRunAsAccountsControllerClient.
+func (c *ClientFactory) NewServerRunAsAccountsControllerClient() *ServerRunAsAccountsControllerClient {
+	return &ServerRunAsAccountsControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewServerSitesControllerClient creates a new instance of ServerSitesControllerClient.
+func (c *ClientFactory) NewServerSitesControllerClient() *ServerSitesControllerClient {
+	return &ServerSitesControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewServerSoftwareInventoriesControllerClient creates a new instance of ServerSoftwareInventoriesControllerClient.
+func (c *ClientFactory) NewServerSoftwareInventoriesControllerClient() *ServerSoftwareInventoriesControllerClient {
+	return &ServerSoftwareInventoriesControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewServersControllerClient creates a new instance of ServersControllerClient.
+func (c *ClientFactory) NewServersControllerClient() *ServersControllerClient {
+	return &ServersControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewSitesControllerClient creates a new instance of SitesControllerClient.
+func (c *ClientFactory) NewSitesControllerClient() *SitesControllerClient {
+	return &SitesControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewTomcatWebApplicationsControllerClient creates a new instance of TomcatWebApplicationsControllerClient.
+func (c *ClientFactory) NewTomcatWebApplicationsControllerClient() *TomcatWebApplicationsControllerClient {
+	return &TomcatWebApplicationsControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewTomcatWebServersControllerClient creates a new instance of TomcatWebServersControllerClient.
+func (c *ClientFactory) NewTomcatWebServersControllerClient() *TomcatWebServersControllerClient {
+	return &TomcatWebServersControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewVcenterControllerClient creates a new instance of VcenterControllerClient.
+func (c *ClientFactory) NewVcenterControllerClient() *VcenterControllerClient {
+	return &VcenterControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewVmwareHostControllerClient creates a new instance of VmwareHostControllerClient.
+func (c *ClientFactory) NewVmwareHostControllerClient() *VmwareHostControllerClient {
+	return &VmwareHostControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewVmwareOperationsStatusClient creates a new instance of VmwareOperationsStatusClient.
+func (c *ClientFactory) NewVmwareOperationsStatusClient() *VmwareOperationsStatusClient {
+	return &VmwareOperationsStatusClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewVmwarePropertiesControllerClient creates a new instance of VmwarePropertiesControllerClient.
+func (c *ClientFactory) NewVmwarePropertiesControllerClient() *VmwarePropertiesControllerClient {
+	return &VmwarePropertiesControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewVmwareSoftwareInventoriesControllerClient creates a new instance of VmwareSoftwareInventoriesControllerClient.
+func (c *ClientFactory) NewVmwareSoftwareInventoriesControllerClient() *VmwareSoftwareInventoriesControllerClient {
+	return &VmwareSoftwareInventoriesControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewWebAppDiscoverySiteDataSourcesControllerClient creates a new instance of WebAppDiscoverySiteDataSourcesControllerClient.
+func (c *ClientFactory) NewWebAppDiscoverySiteDataSourcesControllerClient() *WebAppDiscoverySiteDataSourcesControllerClient {
+	return &WebAppDiscoverySiteDataSourcesControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewWebAppExtendedMachinesControllerClient creates a new instance of WebAppExtendedMachinesControllerClient.
+func (c *ClientFactory) NewWebAppExtendedMachinesControllerClient() *WebAppExtendedMachinesControllerClient {
+	return &WebAppExtendedMachinesControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewWebAppPropertiesControllerClient creates a new instance of WebAppPropertiesControllerClient.
+func (c *ClientFactory) NewWebAppPropertiesControllerClient() *WebAppPropertiesControllerClient {
+	return &WebAppPropertiesControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewWebAppRunAsAccountsControllerClient creates a new instance of WebAppRunAsAccountsControllerClient.
+func (c *ClientFactory) NewWebAppRunAsAccountsControllerClient() *WebAppRunAsAccountsControllerClient {
+	return &WebAppRunAsAccountsControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewWebAppSitesControllerClient creates a new instance of WebAppSitesControllerClient.
+func (c *ClientFactory) NewWebAppSitesControllerClient() *WebAppSitesControllerClient {
+	return &WebAppSitesControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewWebApplicationsControllerClient creates a new instance of WebApplicationsControllerClient.
+func (c *ClientFactory) NewWebApplicationsControllerClient() *WebApplicationsControllerClient {
+	return &WebApplicationsControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewWebServersControllerClient creates a new instance of WebServersControllerClient.
+func (c *ClientFactory) NewWebServersControllerClient() *WebServersControllerClient {
+	return &WebServersControllerClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
