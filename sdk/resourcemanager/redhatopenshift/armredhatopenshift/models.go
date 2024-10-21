@@ -30,6 +30,9 @@ type ClusterProfile struct {
 	// If FIPS validated crypto modules are used
 	FipsValidatedModules *FipsValidatedModules
 
+	// The URL of the managed OIDC issuer in a workload identity cluster.
+	OidcIssuer *string
+
 	// The pull secret for the cluster.
 	PullSecret *string
 
@@ -93,7 +96,7 @@ type MachinePool struct {
 	// The MachinePool Properties
 	Properties *MachinePoolProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -124,9 +127,6 @@ type MachinePoolProperties struct {
 type MachinePoolUpdate struct {
 	// The MachinePool Properties
 	Properties *MachinePoolProperties
-
-	// READ-ONLY; The system meta data relating to this resource.
-	SystemData *SystemData
 }
 
 // ManagedOutboundIPs represents the desired managed outbound IPs for the cluster public load balancer.
@@ -134,6 +134,26 @@ type ManagedOutboundIPs struct {
 	// Count represents the desired number of IPv4 outbound IPs created and managed by Azure for the cluster public load balancer.
 	// Allowed values are in the range of 1 - 20. The default value is 1.
 	Count *int32
+}
+
+// ManagedServiceIdentity - Managed service identity (system assigned and/or user assigned identities)
+type ManagedServiceIdentity struct {
+	// REQUIRED; Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
+	Type *ManagedServiceIdentityType
+
+	// The set of user assigned identities associated with the resource. The userAssignedIdentities dictionary keys will be ARM
+	// resource ids in the form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}.
+	// The dictionary values can be empty objects ({}) in
+	// requests.
+	UserAssignedIdentities map[string]*UserAssignedIdentity
+
+	// READ-ONLY; The service principal ID of the system assigned identity. This property will only be provided for a system assigned
+	// identity.
+	PrincipalID *string
+
+	// READ-ONLY; The tenant ID of the system assigned identity. This property will only be provided for a system assigned identity.
+	TenantID *string
 }
 
 // MasterProfile represents a master profile.
@@ -174,13 +194,16 @@ type OpenShiftCluster struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
+	// Identity stores information about the cluster MSI(s) in a workload identity cluster.
+	Identity *ManagedServiceIdentity
+
 	// The cluster properties.
 	Properties *OpenShiftClusterProperties
 
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -237,6 +260,9 @@ type OpenShiftClusterProperties struct {
 	// The cluster network profile.
 	NetworkProfile *NetworkProfile
 
+	// The workload identity profile.
+	PlatformWorkloadIdentityProfile *PlatformWorkloadIdentityProfile
+
 	// The cluster provisioning state.
 	ProvisioningState *ProvisioningState
 
@@ -252,14 +278,14 @@ type OpenShiftClusterProperties struct {
 
 // OpenShiftClusterUpdate - OpenShiftCluster represents an Azure Red Hat OpenShift cluster.
 type OpenShiftClusterUpdate struct {
+	// Identity stores information about the cluster MSI(s) in a workload identity cluster.
+	Identity *ManagedServiceIdentity
+
 	// The cluster properties.
 	Properties *OpenShiftClusterProperties
 
 	// The resource tags.
 	Tags map[string]*string
-
-	// READ-ONLY; The system meta data relating to this resource.
-	SystemData *SystemData
 }
 
 // OpenShiftVersion represents an OpenShift version that can be installed.
@@ -267,7 +293,7 @@ type OpenShiftVersion struct {
 	// The properties for the OpenShiftVersion resource.
 	Properties *OpenShiftVersionProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -316,12 +342,84 @@ type OperationList struct {
 	Value []*Operation
 }
 
+// PlatformWorkloadIdentity stores information representing a single workload identity.
+type PlatformWorkloadIdentity struct {
+	// The resource ID of the PlatformWorkloadIdentity resource
+	ResourceID *string
+
+	// READ-ONLY; The ClientID of the PlatformWorkloadIdentity resource
+	ClientID *string
+
+	// READ-ONLY; The ObjectID of the PlatformWorkloadIdentity resource
+	ObjectID *string
+}
+
+// PlatformWorkloadIdentityProfile encapsulates all information that is specific to workload identity clusters.
+type PlatformWorkloadIdentityProfile struct {
+	// Dictionary of
+	PlatformWorkloadIdentities map[string]*PlatformWorkloadIdentity
+
+	// UpgradeableTo stores a single OpenShift version a workload identity cluster can be upgraded to
+	UpgradeableTo *string
+}
+
+// PlatformWorkloadIdentityRole represents a mapping from a particular OCP operator to the built-in role that should be assigned
+// to that operator's corresponding managed identity.
+type PlatformWorkloadIdentityRole struct {
+	// OperatorName represents the name of the operator that this role is for.
+	OperatorName *string
+
+	// RoleDefinitionID represents the resource ID of the role definition.
+	RoleDefinitionID *string
+
+	// RoleDefinitionName represents the name of the role.
+	RoleDefinitionName *string
+}
+
+// PlatformWorkloadIdentityRoleSet represents a mapping from the names of OCP operators to the built-in roles that should
+// be assigned to those operator's corresponding managed identities for a particular
+// OCP version.
+type PlatformWorkloadIdentityRoleSet struct {
+	// The properties for the PlatformWorkloadIdentityRoleSet resource.
+	Properties *PlatformWorkloadIdentityRoleSetProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// PlatformWorkloadIdentityRoleSetList represents a List of role sets.
+type PlatformWorkloadIdentityRoleSetList struct {
+	// Next Link to next operation.
+	NextLink *string
+
+	// The list of role sets.
+	Value []*PlatformWorkloadIdentityRoleSet
+}
+
+// PlatformWorkloadIdentityRoleSetProperties represents the properties of a PlatformWorkloadIdentityRoleSet resource.
+type PlatformWorkloadIdentityRoleSetProperties struct {
+	// OpenShiftVersion represents the version associated with this set of roles.
+	OpenShiftVersion *string
+
+	// PlatformWorkloadIdentityRoles represents the set of roles associated with this version.
+	PlatformWorkloadIdentityRoles []*PlatformWorkloadIdentityRole
+}
+
 // Secret represents a secret.
 type Secret struct {
 	// The Secret Properties
 	Properties *SecretProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -353,9 +451,6 @@ type SecretProperties struct {
 type SecretUpdate struct {
 	// The Secret Properties
 	Properties *SecretProperties
-
-	// READ-ONLY; The system meta data relating to this resource.
-	SystemData *SystemData
 }
 
 // ServicePrincipalProfile represents a service principal profile.
@@ -372,7 +467,7 @@ type SyncIdentityProvider struct {
 	// The SyncIdentityProvider Properties
 	Properties *SyncIdentityProviderProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -403,9 +498,6 @@ type SyncIdentityProviderProperties struct {
 type SyncIdentityProviderUpdate struct {
 	// The SyncIdentityProvider Properties
 	Properties *SyncIdentityProviderProperties
-
-	// READ-ONLY; The system meta data relating to this resource.
-	SystemData *SystemData
 }
 
 // SyncSet represents a SyncSet for an Azure Red Hat OpenShift Cluster.
@@ -413,7 +505,7 @@ type SyncSet struct {
 	// The Syncsets properties
 	Properties *SyncSetProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -445,9 +537,6 @@ type SyncSetProperties struct {
 type SyncSetUpdate struct {
 	// The Syncsets properties
 	Properties *SyncSetProperties
-
-	// READ-ONLY; The system meta data relating to this resource.
-	SystemData *SystemData
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
@@ -469,6 +558,15 @@ type SystemData struct {
 
 	// The type of identity that last modified the resource.
 	LastModifiedByType *CreatedByType
+}
+
+// UserAssignedIdentity - User assigned identity properties
+type UserAssignedIdentity struct {
+	// READ-ONLY; The client ID of the assigned identity.
+	ClientID *string
+
+	// READ-ONLY; The principal ID of the assigned identity.
+	PrincipalID *string
 }
 
 // WorkerProfile represents a worker profile.

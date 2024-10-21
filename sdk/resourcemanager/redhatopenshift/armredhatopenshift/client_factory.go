@@ -22,7 +22,7 @@ type ClientFactory struct {
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
@@ -64,6 +64,14 @@ func (c *ClientFactory) NewOpenShiftVersionsClient() *OpenShiftVersionsClient {
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	return &OperationsClient{
 		internal: c.internal,
+	}
+}
+
+// NewPlatformWorkloadIdentityRoleSetClient creates a new instance of PlatformWorkloadIdentityRoleSetClient.
+func (c *ClientFactory) NewPlatformWorkloadIdentityRoleSetClient() *PlatformWorkloadIdentityRoleSetClient {
+	return &PlatformWorkloadIdentityRoleSetClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
 	}
 }
 
