@@ -198,6 +198,7 @@ func (client *ManagedInstancesClient) deleteCreateRequest(ctx context.Context, r
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2023-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
@@ -277,6 +278,7 @@ func (client *ManagedInstancesClient) failoverCreateRequest(ctx context.Context,
 		reqQP.Set("replicaType", string(*options.ReplicaType))
 	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
