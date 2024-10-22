@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/apimanagement/armapimanagement/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/apimanagement/armapimanagement/v3"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -26,7 +26,7 @@ import (
 // PortalRevisionServer is a fake server for instances of the armapimanagement.PortalRevisionClient type.
 type PortalRevisionServer struct {
 	// BeginCreateOrUpdate is the fake for method PortalRevisionClient.BeginCreateOrUpdate
-	// HTTP status codes to indicate success: http.StatusCreated, http.StatusAccepted
+	// HTTP status codes to indicate success: http.StatusCreated
 	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, serviceName string, portalRevisionID string, parameters armapimanagement.PortalRevisionContract, options *armapimanagement.PortalRevisionClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armapimanagement.PortalRevisionClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method PortalRevisionClient.Get
@@ -141,9 +141,9 @@ func (p *PortalRevisionServerTransport) dispatchBeginCreateOrUpdate(req *http.Re
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusCreated, http.StatusAccepted}, resp.StatusCode) {
+	if !contains([]int{http.StatusCreated}, resp.StatusCode) {
 		p.beginCreateOrUpdate.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusCreated, http.StatusAccepted", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusCreated", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginCreateOrUpdate) {
 		p.beginCreateOrUpdate.remove(req)
