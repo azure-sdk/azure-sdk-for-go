@@ -1023,6 +1023,12 @@ type SnapshotsClientUpdateResponse struct {
 	Snapshot
 }
 
+// SoftDeletedResourceClientListByArtifactNameResponse contains the response from method SoftDeletedResourceClient.NewListByArtifactNamePager.
+type SoftDeletedResourceClientListByArtifactNameResponse struct {
+	// The List Soft-deleted Resources operation response.
+	GallerySoftDeletedResourceList
+}
+
 // UsageClientListResponse contains the response from method UsageClient.NewListPager.
 type UsageClientListResponse struct {
 	// The List Usages operation response.
