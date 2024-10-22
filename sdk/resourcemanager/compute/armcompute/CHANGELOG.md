@@ -1,5 +1,16 @@
 # Release History
 
+## 6.2.0 (2024-10-22)
+### Features Added
+
+- New function `*ClientFactory.NewSoftDeletedResourceClient() *SoftDeletedResourceClient`
+- New function `NewSoftDeletedResourceClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SoftDeletedResourceClient, error)`
+- New function `*SoftDeletedResourceClient.NewListByArtifactNamePager(string, string, string, string, *SoftDeletedResourceClientListByArtifactNameOptions) *runtime.Pager[SoftDeletedResourceClientListByArtifactNameResponse]`
+- New struct `GallerySoftDeletedResource`
+- New struct `GallerySoftDeletedResourceList`
+- New struct `GallerySoftDeletedResourceProperties`
+
+
 ## 6.1.0 (2024-08-23)
 ### Features Added
 

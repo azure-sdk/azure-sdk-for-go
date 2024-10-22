@@ -870,7 +870,7 @@ type CommunityGalleryImageProperties struct {
 	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture
 
 	// The artifact tags of a community gallery resource.
@@ -1095,9 +1095,8 @@ type DataDisk struct {
 	// applicable only for managed data disks. If a previous detachment attempt of the data disk did not complete due to an unexpected
 	// failure from the virtual machine and the disk is still not released then
 	// use force-detach as a last resort option to detach the disk forcibly from the VM. All writes might not have been flushed
-	// when using this detach behavior. This feature is still in preview mode and is
-	// not supported for VirtualMachineScaleSet. To force-detach a data disk update toBeDetached to 'true' along with setting
-	// detachOption: 'ForceDetach'.
+	// when using this detach behavior. This feature is still in preview. To
+	// force-detach a data disk update toBeDetached to 'true' along with setting detachOption: 'ForceDetach'.
 	DetachOption *DiskDetachOptionTypes
 
 	// Specifies the size of an empty data disk in gigabytes. This element can be used to overwrite the size of the disk in a
@@ -2554,7 +2553,7 @@ type GalleryImageProperties struct {
 	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture
 
 	// The description of this gallery image definition resource. This property is updatable.
@@ -2782,6 +2781,49 @@ type GalleryProperties struct {
 
 	// READ-ONLY; Sharing status of current gallery.
 	SharingStatus *SharingStatus
+}
+
+// GallerySoftDeletedResource - The details information of soft-deleted resource.
+type GallerySoftDeletedResource struct {
+	// REQUIRED; Resource location
+	Location *string
+
+	// Describes the properties of a soft-deleted resource.
+	Properties *GallerySoftDeletedResourceProperties
+
+	// Resource tags
+	Tags map[string]*string
+
+	// READ-ONLY; Resource Id
+	ID *string
+
+	// READ-ONLY; Resource name
+	Name *string
+
+	// READ-ONLY; Resource type
+	Type *string
+}
+
+// GallerySoftDeletedResourceList - The List Soft-deleted Resources operation response.
+type GallerySoftDeletedResourceList struct {
+	// REQUIRED; A list of soft-deleted resources.
+	Value []*GallerySoftDeletedResource
+
+	// The uri to fetch the next page of soft-deleted resources. Call ListNext() with this to fetch the next page of soft-deleted
+	// resources.
+	NextLink *string
+}
+
+// GallerySoftDeletedResourceProperties - Describes the properties of a soft-deleted resource.
+type GallerySoftDeletedResourceProperties struct {
+	// arm id of the soft-deleted resource
+	ResourceArmID *string
+
+	// artifact type of the soft-deleted resource
+	SoftDeletedArtifactType *string
+
+	// The timestamp for when the resource is soft-deleted.
+	SoftDeletedTime *string
 }
 
 type GalleryTargetExtendedLocation struct {
@@ -5341,7 +5383,7 @@ type SharedGalleryImageProperties struct {
 	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture
 
 	// The artifact tags of a shared gallery resource.

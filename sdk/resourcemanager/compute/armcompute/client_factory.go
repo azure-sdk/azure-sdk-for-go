@@ -316,6 +316,14 @@ func (c *ClientFactory) NewSnapshotsClient() *SnapshotsClient {
 	}
 }
 
+// NewSoftDeletedResourceClient creates a new instance of SoftDeletedResourceClient.
+func (c *ClientFactory) NewSoftDeletedResourceClient() *SoftDeletedResourceClient {
+	return &SoftDeletedResourceClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewUsageClient creates a new instance of UsageClient.
 func (c *ClientFactory) NewUsageClient() *UsageClient {
 	return &UsageClient{
