@@ -46,7 +46,7 @@ func NewPrometheusRuleGroupsClient(subscriptionID string, credential azcore.Toke
 // CreateOrUpdate - Create or update a Prometheus rule group definition.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-07-22-preview
+// Generated from API version 2023-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - ruleGroupName - The name of the rule group.
 //   - parameters - The parameters of the rule group to create or update.
@@ -94,7 +94,7 @@ func (client *PrometheusRuleGroupsClient) createOrUpdateCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-22-preview")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -115,7 +115,7 @@ func (client *PrometheusRuleGroupsClient) createOrUpdateHandleResponse(resp *htt
 // Delete - Delete a Prometheus rule group definition.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-07-22-preview
+// Generated from API version 2023-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - ruleGroupName - The name of the rule group.
 //   - options - PrometheusRuleGroupsClientDeleteOptions contains the optional parameters for the PrometheusRuleGroupsClient.Delete
@@ -161,7 +161,7 @@ func (client *PrometheusRuleGroupsClient) deleteCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-22-preview")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -170,7 +170,7 @@ func (client *PrometheusRuleGroupsClient) deleteCreateRequest(ctx context.Contex
 // Get - Retrieve a Prometheus rule group definition.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-07-22-preview
+// Generated from API version 2023-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - ruleGroupName - The name of the rule group.
 //   - options - PrometheusRuleGroupsClientGetOptions contains the optional parameters for the PrometheusRuleGroupsClient.Get
@@ -217,7 +217,7 @@ func (client *PrometheusRuleGroupsClient) getCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-22-preview")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -232,70 +232,9 @@ func (client *PrometheusRuleGroupsClient) getHandleResponse(resp *http.Response)
 	return result, nil
 }
 
-// NewListByResourceGroupPager - Retrieve Prometheus rule group definitions in a resource group.
+// NewListBySubscriptionPager - Retrieve Prometheus all rule group definitions in a subscription.
 //
-// Generated from API version 2021-07-22-preview
-//   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - options - PrometheusRuleGroupsClientListByResourceGroupOptions contains the optional parameters for the PrometheusRuleGroupsClient.NewListByResourceGroupPager
-//     method.
-func (client *PrometheusRuleGroupsClient) NewListByResourceGroupPager(resourceGroupName string, options *PrometheusRuleGroupsClientListByResourceGroupOptions) *runtime.Pager[PrometheusRuleGroupsClientListByResourceGroupResponse] {
-	return runtime.NewPager(runtime.PagingHandler[PrometheusRuleGroupsClientListByResourceGroupResponse]{
-		More: func(page PrometheusRuleGroupsClientListByResourceGroupResponse) bool {
-			return false
-		},
-		Fetcher: func(ctx context.Context, page *PrometheusRuleGroupsClientListByResourceGroupResponse) (PrometheusRuleGroupsClientListByResourceGroupResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "PrometheusRuleGroupsClient.NewListByResourceGroupPager")
-			req, err := client.listByResourceGroupCreateRequest(ctx, resourceGroupName, options)
-			if err != nil {
-				return PrometheusRuleGroupsClientListByResourceGroupResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return PrometheusRuleGroupsClientListByResourceGroupResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return PrometheusRuleGroupsClientListByResourceGroupResponse{}, runtime.NewResponseError(resp)
-			}
-			return client.listByResourceGroupHandleResponse(resp)
-		},
-		Tracer: client.internal.Tracer(),
-	})
-}
-
-// listByResourceGroupCreateRequest creates the ListByResourceGroup request.
-func (client *PrometheusRuleGroupsClient) listByResourceGroupCreateRequest(ctx context.Context, resourceGroupName string, options *PrometheusRuleGroupsClientListByResourceGroupOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AlertsManagement/prometheusRuleGroups"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-22-preview")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, nil
-}
-
-// listByResourceGroupHandleResponse handles the ListByResourceGroup response.
-func (client *PrometheusRuleGroupsClient) listByResourceGroupHandleResponse(resp *http.Response) (PrometheusRuleGroupsClientListByResourceGroupResponse, error) {
-	result := PrometheusRuleGroupsClientListByResourceGroupResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.PrometheusRuleGroupResourceCollection); err != nil {
-		return PrometheusRuleGroupsClientListByResourceGroupResponse{}, err
-	}
-	return result, nil
-}
-
-// NewListBySubscriptionPager - Retrieve Prometheus rule group definitions in a subscription.
-//
-// Generated from API version 2021-07-22-preview
+// Generated from API version 2023-03-01
 //   - options - PrometheusRuleGroupsClientListBySubscriptionOptions contains the optional parameters for the PrometheusRuleGroupsClient.NewListBySubscriptionPager
 //     method.
 func (client *PrometheusRuleGroupsClient) NewListBySubscriptionPager(options *PrometheusRuleGroupsClientListBySubscriptionOptions) *runtime.Pager[PrometheusRuleGroupsClientListBySubscriptionResponse] {
@@ -334,7 +273,7 @@ func (client *PrometheusRuleGroupsClient) listBySubscriptionCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-22-preview")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -352,13 +291,13 @@ func (client *PrometheusRuleGroupsClient) listBySubscriptionHandleResponse(resp 
 // Update - Update an Prometheus rule group definition.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-07-22-preview
+// Generated from API version 2023-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - ruleGroupName - The name of the rule group.
 //   - parameters - The parameters of the rule group to update.
 //   - options - PrometheusRuleGroupsClientUpdateOptions contains the optional parameters for the PrometheusRuleGroupsClient.Update
 //     method.
-func (client *PrometheusRuleGroupsClient) Update(ctx context.Context, resourceGroupName string, ruleGroupName string, parameters PrometheusRuleGroupResourcePatch, options *PrometheusRuleGroupsClientUpdateOptions) (PrometheusRuleGroupsClientUpdateResponse, error) {
+func (client *PrometheusRuleGroupsClient) Update(ctx context.Context, resourceGroupName string, ruleGroupName string, parameters PrometheusRuleGroupResourcePatchParameters, options *PrometheusRuleGroupsClientUpdateOptions) (PrometheusRuleGroupsClientUpdateResponse, error) {
 	var err error
 	const operationName = "PrometheusRuleGroupsClient.Update"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
@@ -381,7 +320,7 @@ func (client *PrometheusRuleGroupsClient) Update(ctx context.Context, resourceGr
 }
 
 // updateCreateRequest creates the Update request.
-func (client *PrometheusRuleGroupsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, ruleGroupName string, parameters PrometheusRuleGroupResourcePatch, options *PrometheusRuleGroupsClientUpdateOptions) (*policy.Request, error) {
+func (client *PrometheusRuleGroupsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, ruleGroupName string, parameters PrometheusRuleGroupResourcePatchParameters, options *PrometheusRuleGroupsClientUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AlertsManagement/prometheusRuleGroups/{ruleGroupName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -400,7 +339,7 @@ func (client *PrometheusRuleGroupsClient) updateCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-22-preview")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {

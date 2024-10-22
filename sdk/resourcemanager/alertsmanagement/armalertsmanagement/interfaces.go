@@ -11,10 +11,19 @@ package armalertsmanagement
 // ActionClassification provides polymorphic access to related types.
 // Call the interface's GetAction() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *Action, *AddActionGroups, *RemoveAllActionGroups
+// - *Action, *AddActionGroups, *CorrelateAlerts, *RemoveAllActionGroups
 type ActionClassification interface {
 	// GetAction returns the Action content of the underlying type.
 	GetAction() *Action
+}
+
+// AlertEnrichmentItemClassification provides polymorphic access to related types.
+// Call the interface's GetAlertEnrichmentItem() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *AlertEnrichmentItem, *PrometheusEnrichmentItem, *PrometheusInstantQuery, *PrometheusRangeQuery
+type AlertEnrichmentItemClassification interface {
+	// GetAlertEnrichmentItem returns the AlertEnrichmentItem content of the underlying type.
+	GetAlertEnrichmentItem() *AlertEnrichmentItem
 }
 
 // AlertsMetaDataPropertiesClassification provides polymorphic access to related types.
@@ -24,6 +33,16 @@ type ActionClassification interface {
 type AlertsMetaDataPropertiesClassification interface {
 	// GetAlertsMetaDataProperties returns the AlertsMetaDataProperties content of the underlying type.
 	GetAlertsMetaDataProperties() *AlertsMetaDataProperties
+}
+
+// PrometheusEnrichmentItemClassification provides polymorphic access to related types.
+// Call the interface's GetPrometheusEnrichmentItem() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *PrometheusEnrichmentItem, *PrometheusInstantQuery, *PrometheusRangeQuery
+type PrometheusEnrichmentItemClassification interface {
+	AlertEnrichmentItemClassification
+	// GetPrometheusEnrichmentItem returns the PrometheusEnrichmentItem content of the underlying type.
+	GetPrometheusEnrichmentItem() *PrometheusEnrichmentItem
 }
 
 // RecurrenceClassification provides polymorphic access to related types.
