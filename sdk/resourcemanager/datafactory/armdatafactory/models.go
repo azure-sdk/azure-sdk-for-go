@@ -15850,6 +15850,125 @@ func (h *HubspotSource) GetTabularSource() *TabularSource {
 	}
 }
 
+// IcebergDataset - Iceberg dataset.
+type IcebergDataset struct {
+	// REQUIRED; Linked service reference.
+	LinkedServiceName *LinkedServiceReference
+
+	// REQUIRED; Type of dataset.
+	Type *string
+
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// List of tags that can be used for describing the Dataset.
+	Annotations []any
+
+	// Dataset description.
+	Description *string
+
+	// The folder that this Dataset is in. If not specified, Dataset will appear at the root level.
+	Folder *DatasetFolder
+
+	// Parameters for dataset.
+	Parameters map[string]*ParameterSpecification
+
+	// Columns that define the physical type schema of the dataset. Type: array (or Expression with resultType array), itemType:
+	// DatasetSchemaDataElement.
+	Schema any
+
+	// Columns that define the structure of the dataset. Type: array (or Expression with resultType array), itemType: DatasetDataElement.
+	Structure any
+
+	// Iceberg dataset properties.
+	TypeProperties *IcebergDatasetTypeProperties
+}
+
+// GetDataset implements the DatasetClassification interface for type IcebergDataset.
+func (i *IcebergDataset) GetDataset() *Dataset {
+	return &Dataset{
+		AdditionalProperties: i.AdditionalProperties,
+		Annotations:          i.Annotations,
+		Description:          i.Description,
+		Folder:               i.Folder,
+		LinkedServiceName:    i.LinkedServiceName,
+		Parameters:           i.Parameters,
+		Schema:               i.Schema,
+		Structure:            i.Structure,
+		Type:                 i.Type,
+	}
+}
+
+// IcebergDatasetTypeProperties - Iceberg dataset properties.
+type IcebergDatasetTypeProperties struct {
+	// REQUIRED; The location of the iceberg storage. Setting a file name is not allowed for iceberg format.
+	Location DatasetLocationClassification
+}
+
+// IcebergSink - A copy activity Iceberg sink.
+type IcebergSink struct {
+	// REQUIRED; Copy sink type.
+	Type *string
+
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// If true, disable data store metrics collection. Default is false. Type: boolean (or Expression with resultType boolean).
+	DisableMetricsCollection any
+
+	// Iceberg format settings.
+	FormatSettings *IcebergWriteSettings
+
+	// The maximum concurrent connection count for the sink data store. Type: integer (or Expression with resultType integer).
+	MaxConcurrentConnections any
+
+	// Sink retry count. Type: integer (or Expression with resultType integer).
+	SinkRetryCount any
+
+	// Sink retry wait. Type: string (or Expression with resultType string), pattern: ((\d+).)?(\d\d):(60|([0-5][0-9])):(60|([0-5][0-9])).
+	SinkRetryWait any
+
+	// Iceberg store settings.
+	StoreSettings StoreWriteSettingsClassification
+
+	// Write batch size. Type: integer (or Expression with resultType integer), minimum: 0.
+	WriteBatchSize any
+
+	// Write batch timeout. Type: string (or Expression with resultType string), pattern: ((\d+).)?(\d\d):(60|([0-5][0-9])):(60|([0-5][0-9])).
+	WriteBatchTimeout any
+}
+
+// GetCopySink implements the CopySinkClassification interface for type IcebergSink.
+func (i *IcebergSink) GetCopySink() *CopySink {
+	return &CopySink{
+		AdditionalProperties:     i.AdditionalProperties,
+		DisableMetricsCollection: i.DisableMetricsCollection,
+		MaxConcurrentConnections: i.MaxConcurrentConnections,
+		SinkRetryCount:           i.SinkRetryCount,
+		SinkRetryWait:            i.SinkRetryWait,
+		Type:                     i.Type,
+		WriteBatchSize:           i.WriteBatchSize,
+		WriteBatchTimeout:        i.WriteBatchTimeout,
+	}
+}
+
+// IcebergWriteSettings - Iceberg write settings.
+type IcebergWriteSettings struct {
+	// REQUIRED; The write setting type.
+	Type *string
+
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+}
+
+// GetFormatWriteSettings implements the FormatWriteSettingsClassification interface for type IcebergWriteSettings.
+func (i *IcebergWriteSettings) GetFormatWriteSettings() *FormatWriteSettings {
+	return &FormatWriteSettings{
+		AdditionalProperties: i.AdditionalProperties,
+		Type:                 i.Type,
+	}
+}
+
 // IfConditionActivity - This activity evaluates a boolean expression and executes either the activities under the ifTrueActivities
 // property or the ifFalseActivities property depending on the result of the expression.
 type IfConditionActivity struct {
@@ -18437,7 +18556,8 @@ type MariaDBLinkedServiceTypeProperties struct {
 	Database any
 
 	// The version of the MariaDB driver. Type: string. V1 or empty for legacy driver, V2 for new driver. V1 can support connection
-	// string and property bag, V2 can only support connection string.
+	// string and property bag, V2 can only support connection string. The legacy
+	// driver is scheduled for deprecation by October 2024.
 	DriverVersion any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
@@ -18450,8 +18570,17 @@ type MariaDBLinkedServiceTypeProperties struct {
 	// The port for the connection. Type: integer.
 	Port any
 
+	// This option specifies whether the driver uses TLS encryption and verification when connecting to MariaDB. E.g., SSLMode=.
+	// Options: DISABLED (0) / PREFERRED (1) (Default) / REQUIRED (2) / VERIFYCA (3)
+	// / VERIFYIDENTITY (4), REQUIRED (2) is recommended to only allow connections encrypted with SSL/TLS.
+	SSLMode any
+
 	// Server name for connection. Type: string.
 	Server any
+
+	// This option specifies whether to use a CA certificate from the system trust store, or from a specified PEM file. E.g. UseSystemTrustStore=;
+	// Options: Enabled (1) / Disabled (0) (Default)
+	UseSystemTrustStore any
 
 	// Username for authentication. Type: string.
 	Username any
@@ -20562,126 +20691,6 @@ func (o *Office365Source) GetCopySource() *CopySource {
 	}
 }
 
-// Operation - Azure Data Factory API operation definition.
-type Operation struct {
-	// Metadata associated with the operation.
-	Display *OperationDisplay
-
-	// Operation name: {provider}/{resource}/{operation}
-	Name *string
-
-	// The intended executor of the operation.
-	Origin *string
-
-	// Additional details about the operation.
-	Properties *OperationProperties
-}
-
-// OperationDisplay - Metadata associated with the operation.
-type OperationDisplay struct {
-	// The description of the operation.
-	Description *string
-
-	// The type of operation: get, read, delete, etc.
-	Operation *string
-
-	// The name of the provider.
-	Provider *string
-
-	// The name of the resource type on which the operation is performed.
-	Resource *string
-}
-
-// OperationListResponse - A list of operations that can be performed by the Data Factory service.
-type OperationListResponse struct {
-	// The link to the next page of results, if any remaining results exist.
-	NextLink *string
-
-	// List of Data Factory operations supported by the Data Factory resource provider.
-	Value []*Operation
-}
-
-// OperationLogSpecification - Details about an operation related to logs.
-type OperationLogSpecification struct {
-	// Blobs created in the customer storage account, per hour.
-	BlobDuration *string
-
-	// Localized display name.
-	DisplayName *string
-
-	// The name of the log category.
-	Name *string
-}
-
-// OperationMetricAvailability - Defines how often data for a metric becomes available.
-type OperationMetricAvailability struct {
-	// Blob created in the customer storage account, per hour.
-	BlobDuration *string
-
-	// The granularity for the metric.
-	TimeGrain *string
-}
-
-// OperationMetricDimension - Defines the metric dimension.
-type OperationMetricDimension struct {
-	// The display name of the metric dimension.
-	DisplayName *string
-
-	// The name of the dimension for the metric.
-	Name *string
-
-	// Whether the dimension should be exported to Azure Monitor.
-	ToBeExportedForShoebox *bool
-}
-
-// OperationMetricSpecification - Details about an operation related to metrics.
-type OperationMetricSpecification struct {
-	// The type of metric aggregation.
-	AggregationType *string
-
-	// Defines how often data for metrics becomes available.
-	Availabilities []*OperationMetricAvailability
-
-	// Defines the metric dimension.
-	Dimensions []*OperationMetricDimension
-
-	// The description of the metric.
-	DisplayDescription *string
-
-	// Localized display name of the metric.
-	DisplayName *string
-
-	// Whether or not the service is using regional MDM accounts.
-	EnableRegionalMdmAccount *string
-
-	// The name of the metric.
-	Name *string
-
-	// The name of the MDM account.
-	SourceMdmAccount *string
-
-	// The name of the MDM namespace.
-	SourceMdmNamespace *string
-
-	// The unit that the metric is measured in.
-	Unit *string
-}
-
-// OperationProperties - Additional details about an operation.
-type OperationProperties struct {
-	// Details about a service operation.
-	ServiceSpecification *OperationServiceSpecification
-}
-
-// OperationServiceSpecification - Details about a service operation.
-type OperationServiceSpecification struct {
-	// Details about operations related to logs.
-	LogSpecifications []*OperationLogSpecification
-
-	// Details about operations related to metrics.
-	MetricSpecifications []*OperationMetricSpecification
-}
-
 // OracleCloudStorageLinkedService - Linked service for Oracle Cloud Storage.
 type OracleCloudStorageLinkedService struct {
 	// REQUIRED; Type of linked service.
@@ -22448,6 +22457,9 @@ func (p *PostgreSQLV2LinkedService) GetLinkedService() *LinkedService {
 
 // PostgreSQLV2LinkedServiceTypeProperties - PostgreSqlV2 linked service properties.
 type PostgreSQLV2LinkedServiceTypeProperties struct {
+	// REQUIRED; The authentication type to use. Type: string.
+	AuthenticationType any
+
 	// REQUIRED; Database name for connection. Type: string.
 	Database any
 
@@ -26115,6 +26127,10 @@ type SalesforceV2Source struct {
 	// The maximum concurrent connection count for the source data store. Type: integer (or Expression with resultType integer).
 	MaxConcurrentConnections any
 
+	// Page size for each http request, too large pageSize will caused timeout, default 300,000. Type: integer (or Expression
+	// with resultType integer).
+	PageSize any
+
 	// You can only use Salesforce Object Query Language (SOQL) query with limitations. For SOQL limitations, see this article:
 	// https://developer.salesforce.com/docs/atlas.en-us.apiasynch.meta/api
 	// asynch/queries.htm#SOQL%20Considerations. If query is not specified, all the data of the Salesforce object specified in
@@ -28393,6 +28409,9 @@ type ServiceNowV2Source struct {
 	// The maximum concurrent connection count for the source data store. Type: integer (or Expression with resultType integer).
 	MaxConcurrentConnections any
 
+	// Page size of the result. Type: integer (or Expression with resultType integer).
+	PageSize any
+
 	// Query timeout. Type: string (or Expression with resultType string), pattern: ((\d+).)?(\d\d):(60|([0-5][0-9])):(60|([0-5][0-9])).
 	QueryTimeout any
 
@@ -29349,6 +29368,9 @@ type SnowflakeLinkedV2ServiceTypeProperties struct {
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
 	// Type: string.
 	EncryptedCredential *string
+
+	// The host name of the Snowflake account.
+	Host any
 
 	// The Azure key vault secret reference of password in connection string.
 	Password SecretBaseClassification
