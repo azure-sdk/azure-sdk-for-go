@@ -1,5 +1,19 @@
 # Release History
 
+## 4.0.0 (2024-10-22)
+### Breaking Changes
+
+- Field `Readwrite` of struct `CommandPostBody` has been removed
+
+### Features Added
+
+- Type of `CommandPostBody.Arguments` has been changed from `map[string]*string` to `any`
+- New field `ReadWrite` in struct `CommandPostBody`
+- New field `EnablePerRegionPerPartitionAutoscale` in struct `DatabaseAccountCreateUpdateProperties`
+- New field `EnablePerRegionPerPartitionAutoscale` in struct `DatabaseAccountGetProperties`
+- New field `EnablePerRegionPerPartitionAutoscale` in struct `DatabaseAccountUpdateProperties`
+
+
 ## 4.0.0-beta.1 (2024-09-27)
 ### Breaking Changes
 
