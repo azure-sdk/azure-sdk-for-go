@@ -1,10 +1,10 @@
 # Azure Workloads Module for Go
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/workloads/armworkloads)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/workloads/armworkloads)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/workloads/sapmonitors)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/workloads/sapmonitors)
 
-The `armworkloads` module provides operations for working with Azure Workloads.
+The `sapmonitors` module provides operations for working with Azure Workloads.
 
-[Source code](https://github.com/Azure/azure-sdk-for-go/tree/main/sdk/resourcemanager/workloads/armworkloads)
+[Source code](https://github.com/Azure/azure-sdk-for-go/tree/main/sdk/resourcemanager/workloads/sapmonitors)
 
 # Getting started
 
@@ -20,7 +20,7 @@ This project uses [Go modules](https://github.com/golang/go/wiki/Modules) for ve
 Install the Azure Workloads module:
 
 ```sh
-go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/workloads/armworkloads
+go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/workloads/sapmonitors
 ```
 
 ## Authorization
@@ -38,7 +38,7 @@ For more information on authentication, please see the documentation for `aziden
 Azure Workloads module consists of one or more clients. We provide a client factory which could be used to create any client in this module.
 
 ```go
-clientFactory, err := armworkloads.NewClientFactory(<subscription ID>, cred, nil)
+clientFactory, err := sapmonitors.NewClientFactory(<subscription ID>, cred, nil)
 ```
 
 You can use `ClientOptions` in package `github.com/Azure/azure-sdk-for-go/sdk/azcore/arm` to set endpoint to connect with public and sovereign clouds as well as Azure Stack. For more information, please see the documentation for `azcore` at [pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/azcore](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/azcore).
@@ -49,7 +49,7 @@ options := arm.ClientOptions {
         Cloud: cloud.AzureChina,
     },
 }
-clientFactory, err := armworkloads.NewClientFactory(<subscription ID>, cred, &options)
+clientFactory, err := sapmonitors.NewClientFactory(<subscription ID>, cred, &options)
 ```
 
 ## Clients
@@ -57,7 +57,7 @@ clientFactory, err := armworkloads.NewClientFactory(<subscription ID>, cred, &op
 A client groups a set of related APIs, providing access to its functionality.  Create one or more clients to access the APIs you require using client factory.
 
 ```go
-client := clientFactory.NewClient()
+client := clientFactory.NewAlertTemplatesClient()
 ```
 
 ## Fakes
@@ -66,7 +66,6 @@ The fake package contains types used for constructing in-memory fake servers use
 This allows writing tests to cover various success/error conditions without the need for connecting to a live service.
 
 Please see https://github.com/Azure/azure-sdk-for-go/tree/main/sdk/samples/fakes for details and examples on how to use fakes.
-
 
 ## Provide Feedback
 
