@@ -11,7 +11,7 @@ package armworkloads
 import "encoding/json"
 
 func unmarshalFileShareConfigurationClassification(rawMsg json.RawMessage) (FileShareConfigurationClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -36,7 +36,7 @@ func unmarshalFileShareConfigurationClassification(rawMsg json.RawMessage) (File
 }
 
 func unmarshalInfrastructureConfigurationClassification(rawMsg json.RawMessage) (InfrastructureConfigurationClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -59,7 +59,7 @@ func unmarshalInfrastructureConfigurationClassification(rawMsg json.RawMessage) 
 }
 
 func unmarshalOSConfigurationClassification(rawMsg json.RawMessage) (OSConfigurationClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -82,7 +82,7 @@ func unmarshalOSConfigurationClassification(rawMsg json.RawMessage) (OSConfigura
 }
 
 func unmarshalProviderSpecificPropertiesClassification(rawMsg json.RawMessage) (ProviderSpecificPropertiesClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -113,7 +113,7 @@ func unmarshalProviderSpecificPropertiesClassification(rawMsg json.RawMessage) (
 }
 
 func unmarshalSAPConfigurationClassification(rawMsg json.RawMessage) (SAPConfigurationClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -138,7 +138,7 @@ func unmarshalSAPConfigurationClassification(rawMsg json.RawMessage) (SAPConfigu
 }
 
 func unmarshalSAPSizingRecommendationResultClassification(rawMsg json.RawMessage) (SAPSizingRecommendationResultClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -161,7 +161,7 @@ func unmarshalSAPSizingRecommendationResultClassification(rawMsg json.RawMessage
 }
 
 func unmarshalSingleServerCustomResourceNamesClassification(rawMsg json.RawMessage) (SingleServerCustomResourceNamesClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -182,7 +182,7 @@ func unmarshalSingleServerCustomResourceNamesClassification(rawMsg json.RawMessa
 }
 
 func unmarshalSoftwareConfigurationClassification(rawMsg json.RawMessage) (SoftwareConfigurationClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -207,7 +207,7 @@ func unmarshalSoftwareConfigurationClassification(rawMsg json.RawMessage) (Softw
 }
 
 func unmarshalThreeTierCustomResourceNamesClassification(rawMsg json.RawMessage) (ThreeTierCustomResourceNamesClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
