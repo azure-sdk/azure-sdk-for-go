@@ -26,9 +26,18 @@ type ServerFactory struct {
 	ComponentContainersServer           ComponentContainersServer
 	ComponentVersionsServer             ComponentVersionsServer
 	ComputeServer                       ComputeServer
+	ConnectionServer                    ConnectionServer
+	ConnectionRaiBlocklistServer        ConnectionRaiBlocklistServer
+	ConnectionRaiBlocklistItemServer    ConnectionRaiBlocklistItemServer
+	ConnectionRaiBlocklistItemsServer   ConnectionRaiBlocklistItemsServer
+	ConnectionRaiBlocklistsServer       ConnectionRaiBlocklistsServer
+	ConnectionRaiPoliciesServer         ConnectionRaiPoliciesServer
+	ConnectionRaiPolicyServer           ConnectionRaiPolicyServer
 	DataContainersServer                DataContainersServer
 	DataVersionsServer                  DataVersionsServer
 	DatastoresServer                    DatastoresServer
+	EndpointServer                      EndpointServer
+	EndpointDeploymentServer            EndpointDeploymentServer
 	EnvironmentContainersServer         EnvironmentContainersServer
 	EnvironmentVersionsServer           EnvironmentVersionsServer
 	FeaturesServer                      FeaturesServer
@@ -48,6 +57,8 @@ type ServerFactory struct {
 	PrivateEndpointConnectionsServer    PrivateEndpointConnectionsServer
 	PrivateLinkResourcesServer          PrivateLinkResourcesServer
 	QuotasServer                        QuotasServer
+	RaiPoliciesServer                   RaiPoliciesServer
+	RaiPolicyServer                     RaiPolicyServer
 	RegistriesServer                    RegistriesServer
 	RegistryCodeContainersServer        RegistryCodeContainersServer
 	RegistryCodeVersionsServer          RegistryCodeVersionsServer
@@ -90,9 +101,18 @@ type ServerFactoryTransport struct {
 	trComponentContainersServer           *ComponentContainersServerTransport
 	trComponentVersionsServer             *ComponentVersionsServerTransport
 	trComputeServer                       *ComputeServerTransport
+	trConnectionServer                    *ConnectionServerTransport
+	trConnectionRaiBlocklistServer        *ConnectionRaiBlocklistServerTransport
+	trConnectionRaiBlocklistItemServer    *ConnectionRaiBlocklistItemServerTransport
+	trConnectionRaiBlocklistItemsServer   *ConnectionRaiBlocklistItemsServerTransport
+	trConnectionRaiBlocklistsServer       *ConnectionRaiBlocklistsServerTransport
+	trConnectionRaiPoliciesServer         *ConnectionRaiPoliciesServerTransport
+	trConnectionRaiPolicyServer           *ConnectionRaiPolicyServerTransport
 	trDataContainersServer                *DataContainersServerTransport
 	trDataVersionsServer                  *DataVersionsServerTransport
 	trDatastoresServer                    *DatastoresServerTransport
+	trEndpointServer                      *EndpointServerTransport
+	trEndpointDeploymentServer            *EndpointDeploymentServerTransport
 	trEnvironmentContainersServer         *EnvironmentContainersServerTransport
 	trEnvironmentVersionsServer           *EnvironmentVersionsServerTransport
 	trFeaturesServer                      *FeaturesServerTransport
@@ -112,6 +132,8 @@ type ServerFactoryTransport struct {
 	trPrivateEndpointConnectionsServer    *PrivateEndpointConnectionsServerTransport
 	trPrivateLinkResourcesServer          *PrivateLinkResourcesServerTransport
 	trQuotasServer                        *QuotasServerTransport
+	trRaiPoliciesServer                   *RaiPoliciesServerTransport
+	trRaiPolicyServer                     *RaiPolicyServerTransport
 	trRegistriesServer                    *RegistriesServerTransport
 	trRegistryCodeContainersServer        *RegistryCodeContainersServerTransport
 	trRegistryCodeVersionsServer          *RegistryCodeVersionsServerTransport
@@ -177,6 +199,39 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "ComputeClient":
 		initServer(s, &s.trComputeServer, func() *ComputeServerTransport { return NewComputeServerTransport(&s.srv.ComputeServer) })
 		resp, err = s.trComputeServer.Do(req)
+	case "ConnectionClient":
+		initServer(s, &s.trConnectionServer, func() *ConnectionServerTransport { return NewConnectionServerTransport(&s.srv.ConnectionServer) })
+		resp, err = s.trConnectionServer.Do(req)
+	case "ConnectionRaiBlocklistClient":
+		initServer(s, &s.trConnectionRaiBlocklistServer, func() *ConnectionRaiBlocklistServerTransport {
+			return NewConnectionRaiBlocklistServerTransport(&s.srv.ConnectionRaiBlocklistServer)
+		})
+		resp, err = s.trConnectionRaiBlocklistServer.Do(req)
+	case "ConnectionRaiBlocklistItemClient":
+		initServer(s, &s.trConnectionRaiBlocklistItemServer, func() *ConnectionRaiBlocklistItemServerTransport {
+			return NewConnectionRaiBlocklistItemServerTransport(&s.srv.ConnectionRaiBlocklistItemServer)
+		})
+		resp, err = s.trConnectionRaiBlocklistItemServer.Do(req)
+	case "ConnectionRaiBlocklistItemsClient":
+		initServer(s, &s.trConnectionRaiBlocklistItemsServer, func() *ConnectionRaiBlocklistItemsServerTransport {
+			return NewConnectionRaiBlocklistItemsServerTransport(&s.srv.ConnectionRaiBlocklistItemsServer)
+		})
+		resp, err = s.trConnectionRaiBlocklistItemsServer.Do(req)
+	case "ConnectionRaiBlocklistsClient":
+		initServer(s, &s.trConnectionRaiBlocklistsServer, func() *ConnectionRaiBlocklistsServerTransport {
+			return NewConnectionRaiBlocklistsServerTransport(&s.srv.ConnectionRaiBlocklistsServer)
+		})
+		resp, err = s.trConnectionRaiBlocklistsServer.Do(req)
+	case "ConnectionRaiPoliciesClient":
+		initServer(s, &s.trConnectionRaiPoliciesServer, func() *ConnectionRaiPoliciesServerTransport {
+			return NewConnectionRaiPoliciesServerTransport(&s.srv.ConnectionRaiPoliciesServer)
+		})
+		resp, err = s.trConnectionRaiPoliciesServer.Do(req)
+	case "ConnectionRaiPolicyClient":
+		initServer(s, &s.trConnectionRaiPolicyServer, func() *ConnectionRaiPolicyServerTransport {
+			return NewConnectionRaiPolicyServerTransport(&s.srv.ConnectionRaiPolicyServer)
+		})
+		resp, err = s.trConnectionRaiPolicyServer.Do(req)
 	case "DataContainersClient":
 		initServer(s, &s.trDataContainersServer, func() *DataContainersServerTransport {
 			return NewDataContainersServerTransport(&s.srv.DataContainersServer)
@@ -188,6 +243,14 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "DatastoresClient":
 		initServer(s, &s.trDatastoresServer, func() *DatastoresServerTransport { return NewDatastoresServerTransport(&s.srv.DatastoresServer) })
 		resp, err = s.trDatastoresServer.Do(req)
+	case "EndpointClient":
+		initServer(s, &s.trEndpointServer, func() *EndpointServerTransport { return NewEndpointServerTransport(&s.srv.EndpointServer) })
+		resp, err = s.trEndpointServer.Do(req)
+	case "EndpointDeploymentClient":
+		initServer(s, &s.trEndpointDeploymentServer, func() *EndpointDeploymentServerTransport {
+			return NewEndpointDeploymentServerTransport(&s.srv.EndpointDeploymentServer)
+		})
+		resp, err = s.trEndpointDeploymentServer.Do(req)
 	case "EnvironmentContainersClient":
 		initServer(s, &s.trEnvironmentContainersServer, func() *EnvironmentContainersServerTransport {
 			return NewEnvironmentContainersServerTransport(&s.srv.EnvironmentContainersServer)
@@ -275,6 +338,12 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "QuotasClient":
 		initServer(s, &s.trQuotasServer, func() *QuotasServerTransport { return NewQuotasServerTransport(&s.srv.QuotasServer) })
 		resp, err = s.trQuotasServer.Do(req)
+	case "RaiPoliciesClient":
+		initServer(s, &s.trRaiPoliciesServer, func() *RaiPoliciesServerTransport { return NewRaiPoliciesServerTransport(&s.srv.RaiPoliciesServer) })
+		resp, err = s.trRaiPoliciesServer.Do(req)
+	case "RaiPolicyClient":
+		initServer(s, &s.trRaiPolicyServer, func() *RaiPolicyServerTransport { return NewRaiPolicyServerTransport(&s.srv.RaiPolicyServer) })
+		resp, err = s.trRaiPolicyServer.Do(req)
 	case "RegistriesClient":
 		initServer(s, &s.trRegistriesServer, func() *RegistriesServerTransport { return NewRegistriesServerTransport(&s.srv.RegistriesServer) })
 		resp, err = s.trRegistriesServer.Do(req)

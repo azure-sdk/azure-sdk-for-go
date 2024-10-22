@@ -92,6 +92,62 @@ func (c *ClientFactory) NewComputeClient() *ComputeClient {
 	}
 }
 
+// NewConnectionClient creates a new instance of ConnectionClient.
+func (c *ClientFactory) NewConnectionClient() *ConnectionClient {
+	return &ConnectionClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewConnectionRaiBlocklistClient creates a new instance of ConnectionRaiBlocklistClient.
+func (c *ClientFactory) NewConnectionRaiBlocklistClient() *ConnectionRaiBlocklistClient {
+	return &ConnectionRaiBlocklistClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewConnectionRaiBlocklistItemClient creates a new instance of ConnectionRaiBlocklistItemClient.
+func (c *ClientFactory) NewConnectionRaiBlocklistItemClient() *ConnectionRaiBlocklistItemClient {
+	return &ConnectionRaiBlocklistItemClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewConnectionRaiBlocklistItemsClient creates a new instance of ConnectionRaiBlocklistItemsClient.
+func (c *ClientFactory) NewConnectionRaiBlocklistItemsClient() *ConnectionRaiBlocklistItemsClient {
+	return &ConnectionRaiBlocklistItemsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewConnectionRaiBlocklistsClient creates a new instance of ConnectionRaiBlocklistsClient.
+func (c *ClientFactory) NewConnectionRaiBlocklistsClient() *ConnectionRaiBlocklistsClient {
+	return &ConnectionRaiBlocklistsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewConnectionRaiPoliciesClient creates a new instance of ConnectionRaiPoliciesClient.
+func (c *ClientFactory) NewConnectionRaiPoliciesClient() *ConnectionRaiPoliciesClient {
+	return &ConnectionRaiPoliciesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewConnectionRaiPolicyClient creates a new instance of ConnectionRaiPolicyClient.
+func (c *ClientFactory) NewConnectionRaiPolicyClient() *ConnectionRaiPolicyClient {
+	return &ConnectionRaiPolicyClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewDataContainersClient creates a new instance of DataContainersClient.
 func (c *ClientFactory) NewDataContainersClient() *DataContainersClient {
 	return &DataContainersClient{
@@ -111,6 +167,22 @@ func (c *ClientFactory) NewDataVersionsClient() *DataVersionsClient {
 // NewDatastoresClient creates a new instance of DatastoresClient.
 func (c *ClientFactory) NewDatastoresClient() *DatastoresClient {
 	return &DatastoresClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewEndpointClient creates a new instance of EndpointClient.
+func (c *ClientFactory) NewEndpointClient() *EndpointClient {
+	return &EndpointClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewEndpointDeploymentClient creates a new instance of EndpointDeploymentClient.
+func (c *ClientFactory) NewEndpointDeploymentClient() *EndpointDeploymentClient {
+	return &EndpointDeploymentClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
@@ -262,6 +334,22 @@ func (c *ClientFactory) NewPrivateLinkResourcesClient() *PrivateLinkResourcesCli
 // NewQuotasClient creates a new instance of QuotasClient.
 func (c *ClientFactory) NewQuotasClient() *QuotasClient {
 	return &QuotasClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewRaiPoliciesClient creates a new instance of RaiPoliciesClient.
+func (c *ClientFactory) NewRaiPoliciesClient() *RaiPoliciesClient {
+	return &RaiPoliciesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewRaiPolicyClient creates a new instance of RaiPolicyClient.
+func (c *ClientFactory) NewRaiPolicyClient() *RaiPolicyClient {
+	return &RaiPolicyClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
