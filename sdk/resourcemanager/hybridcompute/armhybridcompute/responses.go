@@ -20,6 +20,41 @@ type ExtensionMetadataClientListResponse struct {
 	ExtensionValueListResult
 }
 
+// GatewaysClientCreateOrUpdateResponse contains the response from method GatewaysClient.BeginCreateOrUpdate.
+type GatewaysClientCreateOrUpdateResponse struct {
+	// Describes an Arc Gateway.
+	Gateway
+}
+
+// GatewaysClientDeleteResponse contains the response from method GatewaysClient.BeginDelete.
+type GatewaysClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// GatewaysClientGetResponse contains the response from method GatewaysClient.Get.
+type GatewaysClientGetResponse struct {
+	// Describes an Arc Gateway.
+	Gateway
+}
+
+// GatewaysClientListByResourceGroupResponse contains the response from method GatewaysClient.NewListByResourceGroupPager.
+type GatewaysClientListByResourceGroupResponse struct {
+	// The List license operation response.
+	GatewaysListResult
+}
+
+// GatewaysClientListBySubscriptionResponse contains the response from method GatewaysClient.NewListBySubscriptionPager.
+type GatewaysClientListBySubscriptionResponse struct {
+	// The List license operation response.
+	GatewaysListResult
+}
+
+// GatewaysClientUpdateResponse contains the response from method GatewaysClient.Update.
+type GatewaysClientUpdateResponse struct {
+	// Describes an Arc Gateway.
+	Gateway
+}
+
 // LicenseProfilesClientCreateOrUpdateResponse contains the response from method LicenseProfilesClient.BeginCreateOrUpdate.
 type LicenseProfilesClientCreateOrUpdateResponse struct {
 	// Describes a license profile in a hybrid machine.
@@ -119,6 +154,29 @@ type MachineExtensionsClientUpdateResponse struct {
 	MachineExtension
 }
 
+// MachineRunCommandsClientCreateOrUpdateResponse contains the response from method MachineRunCommandsClient.BeginCreateOrUpdate.
+type MachineRunCommandsClientCreateOrUpdateResponse struct {
+	// Describes a Run Command
+	MachineRunCommand
+}
+
+// MachineRunCommandsClientDeleteResponse contains the response from method MachineRunCommandsClient.BeginDelete.
+type MachineRunCommandsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// MachineRunCommandsClientGetResponse contains the response from method MachineRunCommandsClient.Get.
+type MachineRunCommandsClientGetResponse struct {
+	// Describes a Run Command
+	MachineRunCommand
+}
+
+// MachineRunCommandsClientListResponse contains the response from method MachineRunCommandsClient.NewListPager.
+type MachineRunCommandsClientListResponse struct {
+	// Describes the Run Commands List Result.
+	MachineRunCommandsListResult
+}
+
 // MachinesClientAssessPatchesResponse contains the response from method MachinesClient.BeginAssessPatches.
 type MachinesClientAssessPatchesResponse struct {
 	// Describes the properties of an AssessPatches result.
@@ -164,6 +222,11 @@ type MachinesClientListBySubscriptionResponse struct {
 type MachinesClientUpdateResponse struct {
 	// Describes a hybrid machine.
 	Machine
+}
+
+// ManagementClientSetupExtensionsResponse contains the response from method ManagementClient.BeginSetupExtensions.
+type ManagementClientSetupExtensionsResponse struct {
+	MachineExtensionSetup
 }
 
 // ManagementClientUpgradeExtensionsResponse contains the response from method ManagementClient.BeginUpgradeExtensions.
@@ -279,4 +342,19 @@ type PrivateLinkScopesClientListResponse struct {
 type PrivateLinkScopesClientUpdateTagsResponse struct {
 	// An Azure Arc PrivateLinkScope definition.
 	PrivateLinkScope
+}
+
+// SettingsClientGetResponse contains the response from method SettingsClient.Get.
+type SettingsClientGetResponse struct {
+	Settings
+}
+
+// SettingsClientPatchResponse contains the response from method SettingsClient.Patch.
+type SettingsClientPatchResponse struct {
+	Settings
+}
+
+// SettingsClientUpdateResponse contains the response from method SettingsClient.Update.
+type SettingsClientUpdateResponse struct {
+	Settings
 }

@@ -43,10 +43,90 @@ func NewManagementClient(subscriptionID string, credential azcore.TokenCredentia
 	return client, nil
 }
 
+// BeginSetupExtensions - The operation to Setup Machine Extensions.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-09-10-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - machineName - The name of the hybrid machine.
+//   - extensionSetupBody - Parameters supplied to the Setup Extensions operation.
+//   - options - ManagementClientBeginSetupExtensionsOptions contains the optional parameters for the ManagementClient.BeginSetupExtensions
+//     method.
+func (client *ManagementClient) BeginSetupExtensions(ctx context.Context, resourceGroupName string, machineName string, extensionSetupBody MachineExtensionSetup, options *ManagementClientBeginSetupExtensionsOptions) (*runtime.Poller[ManagementClientSetupExtensionsResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.setupExtensions(ctx, resourceGroupName, machineName, extensionSetupBody, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ManagementClientSetupExtensionsResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ManagementClientSetupExtensionsResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// SetupExtensions - The operation to Setup Machine Extensions.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-09-10-preview
+func (client *ManagementClient) setupExtensions(ctx context.Context, resourceGroupName string, machineName string, extensionSetupBody MachineExtensionSetup, options *ManagementClientBeginSetupExtensionsOptions) (*http.Response, error) {
+	var err error
+	const operationName = "ManagementClient.BeginSetupExtensions"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.setupExtensionsCreateRequest(ctx, resourceGroupName, machineName, extensionSetupBody, options)
+	if err != nil {
+		return nil, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
+		err = runtime.NewResponseError(httpResp)
+		return nil, err
+	}
+	return httpResp, nil
+}
+
+// setupExtensionsCreateRequest creates the SetupExtensions request.
+func (client *ManagementClient) setupExtensionsCreateRequest(ctx context.Context, resourceGroupName string, machineName string, extensionSetupBody MachineExtensionSetup, options *ManagementClientBeginSetupExtensionsOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HybridCompute/machines/{machineName}/setupExtensions"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if machineName == "" {
+		return nil, errors.New("parameter machineName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{machineName}", url.PathEscape(machineName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-09-10-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, extensionSetupBody); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
 // BeginUpgradeExtensions - The operation to Upgrade Machine Extensions.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-07-10
+// Generated from API version 2024-09-10-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - machineName - The name of the hybrid machine.
 //   - extensionUpgradeParameters - Parameters supplied to the Upgrade Extensions operation.
@@ -72,7 +152,7 @@ func (client *ManagementClient) BeginUpgradeExtensions(ctx context.Context, reso
 // UpgradeExtensions - The operation to Upgrade Machine Extensions.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-07-10
+// Generated from API version 2024-09-10-preview
 func (client *ManagementClient) upgradeExtensions(ctx context.Context, resourceGroupName string, machineName string, extensionUpgradeParameters MachineExtensionUpgrade, options *ManagementClientBeginUpgradeExtensionsOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ManagementClient.BeginUpgradeExtensions"
@@ -114,7 +194,7 @@ func (client *ManagementClient) upgradeExtensionsCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-07-10")
+	reqQP.Set("api-version", "2024-09-10-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, extensionUpgradeParameters); err != nil {
