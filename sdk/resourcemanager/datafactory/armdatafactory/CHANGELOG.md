@@ -1,5 +1,26 @@
 # Release History
 
+## 10.0.0 (2024-10-23)
+### Breaking Changes
+
+- Function `*FactoriesClient.NewListPager` has been removed
+
+### Features Added
+
+- New function `*IcebergDataset.GetDataset() *Dataset`
+- New function `*IcebergSink.GetCopySink() *CopySink`
+- New function `*IcebergWriteSettings.GetFormatWriteSettings() *FormatWriteSettings`
+- New struct `IcebergDataset`
+- New struct `IcebergDatasetTypeProperties`
+- New struct `IcebergSink`
+- New struct `IcebergWriteSettings`
+- New field `SSLMode`, `UseSystemTrustStore` in struct `MariaDBLinkedServiceTypeProperties`
+- New field `AuthenticationType` in struct `PostgreSQLV2LinkedServiceTypeProperties`
+- New field `PageSize` in struct `SalesforceV2Source`
+- New field `PageSize` in struct `ServiceNowV2Source`
+- New field `Host` in struct `SnowflakeLinkedV2ServiceTypeProperties`
+
+
 ## 8.0.0 (2024-06-05)
 ### Breaking Changes
 
