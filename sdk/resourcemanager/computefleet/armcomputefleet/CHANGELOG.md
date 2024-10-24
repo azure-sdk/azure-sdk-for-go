@@ -1,5 +1,13 @@
 # Release History
 
+## 2.0.0 (2024-10-24)
+### Breaking Changes
+
+- Struct `AdditionalCapabilities` has been removed
+- Struct `ComputeProfile` has been removed
+- Field `ComputeProfile` of struct `FleetProperties` has been removed
+
+
 ## 1.0.0 (2024-10-22)
 ### Breaking Changes
 
