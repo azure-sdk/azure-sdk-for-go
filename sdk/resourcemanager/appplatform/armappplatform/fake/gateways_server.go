@@ -48,6 +48,10 @@ type GatewaysServer struct {
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginRestart func(ctx context.Context, resourceGroupName string, serviceName string, gatewayName string, options *armappplatform.GatewaysClientBeginRestartOptions) (resp azfake.PollerResponder[armappplatform.GatewaysClientRestartResponse], errResp azfake.ErrorResponder)
 
+	// BeginUpdateCapacity is the fake for method GatewaysClient.BeginUpdateCapacity
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginUpdateCapacity func(ctx context.Context, resourceGroupName string, serviceName string, gatewayName string, gatewayCapacityResource armappplatform.SKUObject, options *armappplatform.GatewaysClientBeginUpdateCapacityOptions) (resp azfake.PollerResponder[armappplatform.GatewaysClientUpdateCapacityResponse], errResp azfake.ErrorResponder)
+
 	// ValidateDomain is the fake for method GatewaysClient.ValidateDomain
 	// HTTP status codes to indicate success: http.StatusOK
 	ValidateDomain func(ctx context.Context, resourceGroupName string, serviceName string, gatewayName string, validatePayload armappplatform.CustomDomainValidatePayload, options *armappplatform.GatewaysClientValidateDomainOptions) (resp azfake.Responder[armappplatform.GatewaysClientValidateDomainResponse], errResp azfake.ErrorResponder)
@@ -63,6 +67,7 @@ func NewGatewaysServerTransport(srv *GatewaysServer) *GatewaysServerTransport {
 		beginDelete:         newTracker[azfake.PollerResponder[armappplatform.GatewaysClientDeleteResponse]](),
 		newListPager:        newTracker[azfake.PagerResponder[armappplatform.GatewaysClientListResponse]](),
 		beginRestart:        newTracker[azfake.PollerResponder[armappplatform.GatewaysClientRestartResponse]](),
+		beginUpdateCapacity: newTracker[azfake.PollerResponder[armappplatform.GatewaysClientUpdateCapacityResponse]](),
 	}
 }
 
@@ -74,6 +79,7 @@ type GatewaysServerTransport struct {
 	beginDelete         *tracker[azfake.PollerResponder[armappplatform.GatewaysClientDeleteResponse]]
 	newListPager        *tracker[azfake.PagerResponder[armappplatform.GatewaysClientListResponse]]
 	beginRestart        *tracker[azfake.PollerResponder[armappplatform.GatewaysClientRestartResponse]]
+	beginUpdateCapacity *tracker[azfake.PollerResponder[armappplatform.GatewaysClientUpdateCapacityResponse]]
 }
 
 // Do implements the policy.Transporter interface for GatewaysServerTransport.
@@ -100,6 +106,8 @@ func (g *GatewaysServerTransport) Do(req *http.Request) (*http.Response, error) 
 		resp, err = g.dispatchListEnvSecrets(req)
 	case "GatewaysClient.BeginRestart":
 		resp, err = g.dispatchBeginRestart(req)
+	case "GatewaysClient.BeginUpdateCapacity":
+		resp, err = g.dispatchBeginUpdateCapacity(req)
 	case "GatewaysClient.ValidateDomain":
 		resp, err = g.dispatchValidateDomain(req)
 	default:
@@ -371,6 +379,58 @@ func (g *GatewaysServerTransport) dispatchBeginRestart(req *http.Request) (*http
 	}
 	if !server.PollerResponderMore(beginRestart) {
 		g.beginRestart.remove(req)
+	}
+
+	return resp, nil
+}
+
+func (g *GatewaysServerTransport) dispatchBeginUpdateCapacity(req *http.Request) (*http.Response, error) {
+	if g.srv.BeginUpdateCapacity == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginUpdateCapacity not implemented")}
+	}
+	beginUpdateCapacity := g.beginUpdateCapacity.get(req)
+	if beginUpdateCapacity == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AppPlatform/Spring/(?P<serviceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/gateways/(?P<gatewayName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 4 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armappplatform.SKUObject](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		serviceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("serviceName")])
+		if err != nil {
+			return nil, err
+		}
+		gatewayNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("gatewayName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := g.srv.BeginUpdateCapacity(req.Context(), resourceGroupNameParam, serviceNameParam, gatewayNameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginUpdateCapacity = &respr
+		g.beginUpdateCapacity.add(req, beginUpdateCapacity)
+	}
+
+	resp, err := server.PollerResponderNext(beginUpdateCapacity, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		g.beginUpdateCapacity.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginUpdateCapacity) {
+		g.beginUpdateCapacity.remove(req)
 	}
 
 	return resp, nil

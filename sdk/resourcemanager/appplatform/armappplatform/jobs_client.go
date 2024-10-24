@@ -20,50 +20,53 @@ import (
 	"strings"
 )
 
-// SKUsClient contains the methods for the SKUs group.
-// Don't use this type directly, use NewSKUsClient() instead.
-type SKUsClient struct {
+// JobsClient contains the methods for the Jobs group.
+// Don't use this type directly, use NewJobsClient() instead.
+type JobsClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewSKUsClient creates a new instance of SKUsClient with the specified values.
+// NewJobsClient creates a new instance of JobsClient with the specified values.
 //   - subscriptionID - Gets subscription ID which uniquely identify the Microsoft Azure subscription. The subscription ID forms
 //     part of the URI for every service call.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewSKUsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SKUsClient, error) {
+func NewJobsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*JobsClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &SKUsClient{
+	client := &JobsClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// NewListPager - Lists all of the available skus of the Microsoft.AppPlatform provider.
+// NewListPager - Get the Azure Spring Apps Jobs in a given service
 //
 // Generated from API version 2024-05-01-preview
-//   - options - SKUsClientListOptions contains the optional parameters for the SKUsClient.NewListPager method.
-func (client *SKUsClient) NewListPager(options *SKUsClientListOptions) *runtime.Pager[SKUsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[SKUsClientListResponse]{
-		More: func(page SKUsClientListResponse) bool {
+//   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
+//     Resource Manager API or the portal.
+//   - serviceName - The name of the Service resource.
+//   - options - JobsClientListOptions contains the optional parameters for the JobsClient.NewListPager method.
+func (client *JobsClient) NewListPager(resourceGroupName string, serviceName string, options *JobsClientListOptions) *runtime.Pager[JobsClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[JobsClientListResponse]{
+		More: func(page JobsClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *SKUsClientListResponse) (SKUsClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "SKUsClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *JobsClientListResponse) (JobsClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "JobsClient.NewListPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, options)
+				return client.listCreateRequest(ctx, resourceGroupName, serviceName, options)
 			}, nil)
 			if err != nil {
-				return SKUsClientListResponse{}, err
+				return JobsClientListResponse{}, err
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -72,12 +75,20 @@ func (client *SKUsClient) NewListPager(options *SKUsClientListOptions) *runtime.
 }
 
 // listCreateRequest creates the List request.
-func (client *SKUsClient) listCreateRequest(ctx context.Context, options *SKUsClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.AppPlatform/skus"
+func (client *JobsClient) listCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, options *JobsClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/jobs"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if serviceName == "" {
+		return nil, errors.New("parameter serviceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -90,10 +101,10 @@ func (client *SKUsClient) listCreateRequest(ctx context.Context, options *SKUsCl
 }
 
 // listHandleResponse handles the List response.
-func (client *SKUsClient) listHandleResponse(resp *http.Response) (SKUsClientListResponse, error) {
-	result := SKUsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ResourceSKUCollection); err != nil {
-		return SKUsClientListResponse{}, err
+func (client *JobsClient) listHandleResponse(resp *http.Response) (JobsClientListResponse, error) {
+	result := JobsClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.JobResourceCollection); err != nil {
+		return JobsClientListResponse{}, err
 	}
 	return result, nil
 }
