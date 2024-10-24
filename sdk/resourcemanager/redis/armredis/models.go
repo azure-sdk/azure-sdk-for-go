@@ -241,6 +241,13 @@ type CreateProperties struct {
 	// update channel get latest Redis updates at least 4 weeks ahead of 'Stable'
 	// channel caches. Default value is 'Stable'.
 	UpdateChannel *UpdateChannel
+
+	// Optional: Specifies how availability zones are allocated to the Redis cache. 'Automatic' enables zone redundancy and Azure
+	// will select zones based on regional availability and capacity. 'UserDefined'
+	// will select availability zones passed in by you using the 'zones' parameter. 'NoZones' will produce a non-zonal cache.
+	// If 'zonalAllocation' is not passed, it will be set to 'UserDefined' when zones
+	// are passed in, otherwise, will be set to 'NoZones'
+	ZonalAllocationPolicy *ZonalAllocationPolicy
 }
 
 // ErrorAdditionalInfo - The resource management error additional info.
@@ -740,6 +747,13 @@ type Properties struct {
 	// channel caches. Default value is 'Stable'.
 	UpdateChannel *UpdateChannel
 
+	// Optional: Specifies how availability zones are allocated to the Redis cache. 'Automatic' enables zone redundancy and Azure
+	// will select zones based on regional availability and capacity. 'UserDefined'
+	// will select availability zones passed in by you using the 'zones' parameter. 'NoZones' will produce a non-zonal cache.
+	// If 'zonalAllocation' is not passed, it will be set to 'UserDefined' when zones
+	// are passed in, otherwise, will be set to 'NoZones'
+	ZonalAllocationPolicy *ZonalAllocationPolicy
+
 	// READ-ONLY; The keys of the Redis cache - not set if this object is not the response to Create or Update redis cache
 	AccessKeys *AccessKeys
 
@@ -898,6 +912,13 @@ type UpdateProperties struct {
 	// update channel get latest Redis updates at least 4 weeks ahead of 'Stable'
 	// channel caches. Default value is 'Stable'.
 	UpdateChannel *UpdateChannel
+
+	// Optional: Specifies how availability zones are allocated to the Redis cache. 'Automatic' enables zone redundancy and Azure
+	// will select zones based on regional availability and capacity. 'UserDefined'
+	// will select availability zones passed in by you using the 'zones' parameter. 'NoZones' will produce a non-zonal cache.
+	// If 'zonalAllocation' is not passed, it will be set to 'UserDefined' when zones
+	// are passed in, otherwise, will be set to 'NoZones'
+	ZonalAllocationPolicy *ZonalAllocationPolicy
 }
 
 // UpgradeNotification - Properties of upgrade notification.
