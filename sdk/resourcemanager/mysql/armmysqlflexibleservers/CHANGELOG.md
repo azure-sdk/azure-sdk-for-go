@@ -1,5 +1,25 @@
 # Release History
 
+## 2.0.0-beta.4 (2024-10-24)
+### Features Added
+
+- New value `ObjectTypeRestoreSnapshotResponse` added to enum type `ObjectType`
+- New enum type `PatchStrategy` with values `PatchStrategyRegular`, `PatchStrategyVirtualCanary`
+- New enum type `StorageRedundancyEnum` with values `StorageRedundancyEnumLocalRedundancy`, `StorageRedundancyEnumZoneRedundancy`
+- New function `*RestoreSnapshotResponseSubTask.GetOperationProgressResponseType() *OperationProgressResponseType`
+- New function `*RestoreSnapshotResponseType.GetOperationProgressResponseType() *OperationProgressResponseType`
+- New function `*ServersClient.BeginDetachVNet(context.Context, string, string, ServerDetachVNetParameter, *ServersClientBeginDetachVNetOptions) (*runtime.Poller[ServersClientDetachVNetResponse], error)`
+- New struct `FeatureProperty`
+- New struct `MaintenancePolicy`
+- New struct `RestoreSnapshotResponseSubTask`
+- New struct `RestoreSnapshotResponseType`
+- New struct `ServerDetachVNetParameter`
+- New field `SupportedFeatures` in struct `CapabilityPropertiesV2`
+- New field `DatabasePort`, `FullVersion`, `MaintenancePolicy` in struct `ServerProperties`
+- New field `MaintenancePolicy` in struct `ServerPropertiesForUpdate`
+- New field `StorageRedundancy` in struct `Storage`
+
+
 ## 2.0.0-beta.3 (2024-04-30)
 ### Breaking Changes
 
