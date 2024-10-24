@@ -15,7 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datadog/armdatadog"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datadog/armdatadog/v2"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -36,9 +36,9 @@ type MonitoredSubscriptionsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, monitorName string, configurationName string, options *armdatadog.MonitoredSubscriptionsClientGetOptions) (resp azfake.Responder[armdatadog.MonitoredSubscriptionsClientGetResponse], errResp azfake.ErrorResponder)
 
-	// NewListPager is the fake for method MonitoredSubscriptionsClient.NewListPager
+	// List is the fake for method MonitoredSubscriptionsClient.List
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceGroupName string, monitorName string, options *armdatadog.MonitoredSubscriptionsClientListOptions) (resp azfake.PagerResponder[armdatadog.MonitoredSubscriptionsClientListResponse])
+	List func(ctx context.Context, resourceGroupName string, monitorName string, options *armdatadog.MonitoredSubscriptionsClientListOptions) (resp azfake.Responder[armdatadog.MonitoredSubscriptionsClientListResponse], errResp azfake.ErrorResponder)
 
 	// BeginUpdate is the fake for method MonitoredSubscriptionsClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
@@ -53,7 +53,6 @@ func NewMonitoredSubscriptionsServerTransport(srv *MonitoredSubscriptionsServer)
 		srv:                 srv,
 		beginCreateorUpdate: newTracker[azfake.PollerResponder[armdatadog.MonitoredSubscriptionsClientCreateorUpdateResponse]](),
 		beginDelete:         newTracker[azfake.PollerResponder[armdatadog.MonitoredSubscriptionsClientDeleteResponse]](),
-		newListPager:        newTracker[azfake.PagerResponder[armdatadog.MonitoredSubscriptionsClientListResponse]](),
 		beginUpdate:         newTracker[azfake.PollerResponder[armdatadog.MonitoredSubscriptionsClientUpdateResponse]](),
 	}
 }
@@ -64,7 +63,6 @@ type MonitoredSubscriptionsServerTransport struct {
 	srv                 *MonitoredSubscriptionsServer
 	beginCreateorUpdate *tracker[azfake.PollerResponder[armdatadog.MonitoredSubscriptionsClientCreateorUpdateResponse]]
 	beginDelete         *tracker[azfake.PollerResponder[armdatadog.MonitoredSubscriptionsClientDeleteResponse]]
-	newListPager        *tracker[azfake.PagerResponder[armdatadog.MonitoredSubscriptionsClientListResponse]]
 	beginUpdate         *tracker[azfake.PollerResponder[armdatadog.MonitoredSubscriptionsClientUpdateResponse]]
 }
 
@@ -86,8 +84,8 @@ func (m *MonitoredSubscriptionsServerTransport) Do(req *http.Request) (*http.Res
 		resp, err = m.dispatchBeginDelete(req)
 	case "MonitoredSubscriptionsClient.Get":
 		resp, err = m.dispatchGet(req)
-	case "MonitoredSubscriptionsClient.NewListPager":
-		resp, err = m.dispatchNewListPager(req)
+	case "MonitoredSubscriptionsClient.List":
+		resp, err = m.dispatchList(req)
 	case "MonitoredSubscriptionsClient.BeginUpdate":
 		resp, err = m.dispatchBeginUpdate(req)
 	default:
@@ -244,40 +242,35 @@ func (m *MonitoredSubscriptionsServerTransport) dispatchGet(req *http.Request) (
 	return resp, nil
 }
 
-func (m *MonitoredSubscriptionsServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if m.srv.NewListPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
+func (m *MonitoredSubscriptionsServerTransport) dispatchList(req *http.Request) (*http.Response, error) {
+	if m.srv.List == nil {
+		return nil, &nonRetriableError{errors.New("fake for method List not implemented")}
 	}
-	newListPager := m.newListPager.get(req)
-	if newListPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Datadog/monitors/(?P<monitorName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/monitoredSubscriptions`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		monitorNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("monitorName")])
-		if err != nil {
-			return nil, err
-		}
-		resp := m.srv.NewListPager(resourceGroupNameParam, monitorNameParam, nil)
-		newListPager = &resp
-		m.newListPager.add(req, newListPager)
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Datadog/monitors/(?P<monitorName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/monitoredSubscriptions`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	resp, err := server.PagerResponderNext(newListPager, req)
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
 	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		m.newListPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+	monitorNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("monitorName")])
+	if err != nil {
+		return nil, err
 	}
-	if !server.PagerResponderMore(newListPager) {
-		m.newListPager.remove(req)
+	respr, errRespr := m.srv.List(req.Context(), resourceGroupNameParam, monitorNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).MonitoredSubscriptionProperties, req)
+	if err != nil {
+		return nil, err
 	}
 	return resp, nil
 }
