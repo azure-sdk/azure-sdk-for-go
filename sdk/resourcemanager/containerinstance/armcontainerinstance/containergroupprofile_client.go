@@ -28,7 +28,8 @@ type ContainerGroupProfileClient struct {
 }
 
 // NewContainerGroupProfileClient creates a new instance of ContainerGroupProfileClient with the specified values.
-//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
+//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
+//     part of the URI for every service call.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewContainerGroupProfileClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ContainerGroupProfileClient, error) {
@@ -43,42 +44,40 @@ func NewContainerGroupProfileClient(subscriptionID string, credential azcore.Tok
 	return client, nil
 }
 
-// GetByRevisionNumber - Gets the properties of the specified revision of the container group profile in the given subscription
-// and resource group. The operation returns the properties of container group profile including
-// containers, image registry credentials, restart policy, IP address type, OS type, volumes, current revision number, etc.
+// CreateOrUpdate - Create a CGProfile if it doesn't exist or update an existing CGProfile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01-preview
-//   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - containerGroupProfileName - The name of the container group profile.
-//   - revisionNumber - The revision number of the container group profile.
-//   - options - ContainerGroupProfileClientGetByRevisionNumberOptions contains the optional parameters for the ContainerGroupProfileClient.GetByRevisionNumber
+// Generated from API version 2024-11-01-preview
+//   - resourceGroupName - The name of the resource group.
+//   - containerGroupProfileName - ContainerGroupProfile name.
+//   - containerGroupProfile - The ContainerGroupProfile object.
+//   - options - ContainerGroupProfileClientCreateOrUpdateOptions contains the optional parameters for the ContainerGroupProfileClient.CreateOrUpdate
 //     method.
-func (client *ContainerGroupProfileClient) GetByRevisionNumber(ctx context.Context, resourceGroupName string, containerGroupProfileName string, revisionNumber string, options *ContainerGroupProfileClientGetByRevisionNumberOptions) (ContainerGroupProfileClientGetByRevisionNumberResponse, error) {
+func (client *ContainerGroupProfileClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, containerGroupProfileName string, containerGroupProfile ContainerGroupProfile, options *ContainerGroupProfileClientCreateOrUpdateOptions) (ContainerGroupProfileClientCreateOrUpdateResponse, error) {
 	var err error
-	const operationName = "ContainerGroupProfileClient.GetByRevisionNumber"
+	const operationName = "ContainerGroupProfileClient.CreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getByRevisionNumberCreateRequest(ctx, resourceGroupName, containerGroupProfileName, revisionNumber, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, containerGroupProfileName, containerGroupProfile, options)
 	if err != nil {
-		return ContainerGroupProfileClientGetByRevisionNumberResponse{}, err
+		return ContainerGroupProfileClientCreateOrUpdateResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ContainerGroupProfileClientGetByRevisionNumberResponse{}, err
+		return ContainerGroupProfileClientCreateOrUpdateResponse{}, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated) {
 		err = runtime.NewResponseError(httpResp)
-		return ContainerGroupProfileClientGetByRevisionNumberResponse{}, err
+		return ContainerGroupProfileClientCreateOrUpdateResponse{}, err
 	}
-	resp, err := client.getByRevisionNumberHandleResponse(httpResp)
+	resp, err := client.createOrUpdateHandleResponse(httpResp)
 	return resp, err
 }
 
-// getByRevisionNumberCreateRequest creates the GetByRevisionNumber request.
-func (client *ContainerGroupProfileClient) getByRevisionNumberCreateRequest(ctx context.Context, resourceGroupName string, containerGroupProfileName string, revisionNumber string, options *ContainerGroupProfileClientGetByRevisionNumberOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerInstance/containerGroupProfiles/{containerGroupProfileName}/revisions/{revisionNumber}"
+// createOrUpdateCreateRequest creates the CreateOrUpdate request.
+func (client *ContainerGroupProfileClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, containerGroupProfileName string, containerGroupProfile ContainerGroupProfile, options *ContainerGroupProfileClientCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerInstance/containerGroupProfiles/{containerGroupProfileName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -91,66 +90,321 @@ func (client *ContainerGroupProfileClient) getByRevisionNumberCreateRequest(ctx 
 		return nil, errors.New("parameter containerGroupProfileName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{containerGroupProfileName}", url.PathEscape(containerGroupProfileName))
-	if revisionNumber == "" {
-		return nil, errors.New("parameter revisionNumber cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{revisionNumber}", url.PathEscape(revisionNumber))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01-preview")
+	reqQP.Set("api-version", "2024-11-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, containerGroupProfile); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+// createOrUpdateHandleResponse handles the CreateOrUpdate response.
+func (client *ContainerGroupProfileClient) createOrUpdateHandleResponse(resp *http.Response) (ContainerGroupProfileClientCreateOrUpdateResponse, error) {
+	result := ContainerGroupProfileClientCreateOrUpdateResponse{}
+	if val := resp.Header.Get("x-ms-correlation-request-id"); val != "" {
+		result.XMSCorrelationRequestID = &val
+	}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ContainerGroupProfile); err != nil {
+		return ContainerGroupProfileClientCreateOrUpdateResponse{}, err
+	}
+	return result, nil
+}
+
+// BeginDelete - Deletes a container group profile.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-11-01-preview
+//   - resourceGroupName - The name of the resource group.
+//   - containerGroupProfileName - ContainerGroupProfile name.
+//   - options - ContainerGroupProfileClientBeginDeleteOptions contains the optional parameters for the ContainerGroupProfileClient.BeginDelete
+//     method.
+func (client *ContainerGroupProfileClient) BeginDelete(ctx context.Context, resourceGroupName string, containerGroupProfileName string, options *ContainerGroupProfileClientBeginDeleteOptions) (*runtime.Poller[ContainerGroupProfileClientDeleteResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.deleteOperation(ctx, resourceGroupName, containerGroupProfileName, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ContainerGroupProfileClientDeleteResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ContainerGroupProfileClientDeleteResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// Delete - Deletes a container group profile.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-11-01-preview
+func (client *ContainerGroupProfileClient) deleteOperation(ctx context.Context, resourceGroupName string, containerGroupProfileName string, options *ContainerGroupProfileClientBeginDeleteOptions) (*http.Response, error) {
+	var err error
+	const operationName = "ContainerGroupProfileClient.BeginDelete"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, containerGroupProfileName, options)
+	if err != nil {
+		return nil, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusAccepted, http.StatusNoContent) {
+		err = runtime.NewResponseError(httpResp)
+		return nil, err
+	}
+	return httpResp, nil
+}
+
+// deleteCreateRequest creates the Delete request.
+func (client *ContainerGroupProfileClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, containerGroupProfileName string, options *ContainerGroupProfileClientBeginDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerInstance/containerGroupProfiles/{containerGroupProfileName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if containerGroupProfileName == "" {
+		return nil, errors.New("parameter containerGroupProfileName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{containerGroupProfileName}", url.PathEscape(containerGroupProfileName))
+	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
-// getByRevisionNumberHandleResponse handles the GetByRevisionNumber response.
-func (client *ContainerGroupProfileClient) getByRevisionNumberHandleResponse(resp *http.Response) (ContainerGroupProfileClientGetByRevisionNumberResponse, error) {
-	result := ContainerGroupProfileClientGetByRevisionNumberResponse{}
+// Get - Get the properties of the specified container group profile.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-11-01-preview
+//   - resourceGroupName - The name of the resource group.
+//   - containerGroupProfileName - ContainerGroupProfile name.
+//   - options - ContainerGroupProfileClientGetOptions contains the optional parameters for the ContainerGroupProfileClient.Get
+//     method.
+func (client *ContainerGroupProfileClient) Get(ctx context.Context, resourceGroupName string, containerGroupProfileName string, options *ContainerGroupProfileClientGetOptions) (ContainerGroupProfileClientGetResponse, error) {
+	var err error
+	const operationName = "ContainerGroupProfileClient.Get"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.getCreateRequest(ctx, resourceGroupName, containerGroupProfileName, options)
+	if err != nil {
+		return ContainerGroupProfileClientGetResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return ContainerGroupProfileClientGetResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return ContainerGroupProfileClientGetResponse{}, err
+	}
+	resp, err := client.getHandleResponse(httpResp)
+	return resp, err
+}
+
+// getCreateRequest creates the Get request.
+func (client *ContainerGroupProfileClient) getCreateRequest(ctx context.Context, resourceGroupName string, containerGroupProfileName string, options *ContainerGroupProfileClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerInstance/containerGroupProfiles/{containerGroupProfileName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if containerGroupProfileName == "" {
+		return nil, errors.New("parameter containerGroupProfileName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{containerGroupProfileName}", url.PathEscape(containerGroupProfileName))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-11-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// getHandleResponse handles the Get response.
+func (client *ContainerGroupProfileClient) getHandleResponse(resp *http.Response) (ContainerGroupProfileClientGetResponse, error) {
+	result := ContainerGroupProfileClientGetResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.ContainerGroupProfile); err != nil {
-		return ContainerGroupProfileClientGetByRevisionNumberResponse{}, err
+		return ContainerGroupProfileClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListAllRevisionsPager - Get a list of all the revisions of the specified container group profile in the given subscription
-// and resource group. This operation returns properties of each revision of the specified container
-// group profile including containers, image registry credentials, restart policy, IP address type, OS type volumes, revision
-// number, etc.
+// NewListByResourceGroupPager - Gets a list of all container group profiles under a resource group.
 //
-// Generated from API version 2024-05-01-preview
-//   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - containerGroupProfileName - The name of the container group profile.
-//   - options - ContainerGroupProfileClientListAllRevisionsOptions contains the optional parameters for the ContainerGroupProfileClient.NewListAllRevisionsPager
+// Generated from API version 2024-11-01-preview
+//   - resourceGroupName - The name of the resource group.
+//   - options - ContainerGroupProfileClientListByResourceGroupOptions contains the optional parameters for the ContainerGroupProfileClient.NewListByResourceGroupPager
 //     method.
-func (client *ContainerGroupProfileClient) NewListAllRevisionsPager(resourceGroupName string, containerGroupProfileName string, options *ContainerGroupProfileClientListAllRevisionsOptions) *runtime.Pager[ContainerGroupProfileClientListAllRevisionsResponse] {
-	return runtime.NewPager(runtime.PagingHandler[ContainerGroupProfileClientListAllRevisionsResponse]{
-		More: func(page ContainerGroupProfileClientListAllRevisionsResponse) bool {
+func (client *ContainerGroupProfileClient) NewListByResourceGroupPager(resourceGroupName string, options *ContainerGroupProfileClientListByResourceGroupOptions) *runtime.Pager[ContainerGroupProfileClientListByResourceGroupResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ContainerGroupProfileClientListByResourceGroupResponse]{
+		More: func(page ContainerGroupProfileClientListByResourceGroupResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *ContainerGroupProfileClientListAllRevisionsResponse) (ContainerGroupProfileClientListAllRevisionsResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ContainerGroupProfileClient.NewListAllRevisionsPager")
+		Fetcher: func(ctx context.Context, page *ContainerGroupProfileClientListByResourceGroupResponse) (ContainerGroupProfileClientListByResourceGroupResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ContainerGroupProfileClient.NewListByResourceGroupPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listAllRevisionsCreateRequest(ctx, resourceGroupName, containerGroupProfileName, options)
+				return client.listByResourceGroupCreateRequest(ctx, resourceGroupName, options)
 			}, nil)
 			if err != nil {
-				return ContainerGroupProfileClientListAllRevisionsResponse{}, err
+				return ContainerGroupProfileClientListByResourceGroupResponse{}, err
 			}
-			return client.listAllRevisionsHandleResponse(resp)
+			return client.listByResourceGroupHandleResponse(resp)
 		},
 		Tracer: client.internal.Tracer(),
 	})
 }
 
-// listAllRevisionsCreateRequest creates the ListAllRevisions request.
-func (client *ContainerGroupProfileClient) listAllRevisionsCreateRequest(ctx context.Context, resourceGroupName string, containerGroupProfileName string, options *ContainerGroupProfileClientListAllRevisionsOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerInstance/containerGroupProfiles/{containerGroupProfileName}/revisions"
+// listByResourceGroupCreateRequest creates the ListByResourceGroup request.
+func (client *ContainerGroupProfileClient) listByResourceGroupCreateRequest(ctx context.Context, resourceGroupName string, options *ContainerGroupProfileClientListByResourceGroupOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerInstance/containerGroupProfiles"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-11-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// listByResourceGroupHandleResponse handles the ListByResourceGroup response.
+func (client *ContainerGroupProfileClient) listByResourceGroupHandleResponse(resp *http.Response) (ContainerGroupProfileClientListByResourceGroupResponse, error) {
+	result := ContainerGroupProfileClientListByResourceGroupResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ContainerGroupProfileListResult); err != nil {
+		return ContainerGroupProfileClientListByResourceGroupResponse{}, err
+	}
+	return result, nil
+}
+
+// NewListBySubscriptionPager - Gets a list of all container group profiles under a subscription.
+//
+// Generated from API version 2024-11-01-preview
+//   - options - ContainerGroupProfileClientListBySubscriptionOptions contains the optional parameters for the ContainerGroupProfileClient.NewListBySubscriptionPager
+//     method.
+func (client *ContainerGroupProfileClient) NewListBySubscriptionPager(options *ContainerGroupProfileClientListBySubscriptionOptions) *runtime.Pager[ContainerGroupProfileClientListBySubscriptionResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ContainerGroupProfileClientListBySubscriptionResponse]{
+		More: func(page ContainerGroupProfileClientListBySubscriptionResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *ContainerGroupProfileClientListBySubscriptionResponse) (ContainerGroupProfileClientListBySubscriptionResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ContainerGroupProfileClient.NewListBySubscriptionPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
+			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listBySubscriptionCreateRequest(ctx, options)
+			}, nil)
+			if err != nil {
+				return ContainerGroupProfileClientListBySubscriptionResponse{}, err
+			}
+			return client.listBySubscriptionHandleResponse(resp)
+		},
+		Tracer: client.internal.Tracer(),
+	})
+}
+
+// listBySubscriptionCreateRequest creates the ListBySubscription request.
+func (client *ContainerGroupProfileClient) listBySubscriptionCreateRequest(ctx context.Context, options *ContainerGroupProfileClientListBySubscriptionOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.ContainerInstance/containerGroupProfiles"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-11-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// listBySubscriptionHandleResponse handles the ListBySubscription response.
+func (client *ContainerGroupProfileClient) listBySubscriptionHandleResponse(resp *http.Response) (ContainerGroupProfileClientListBySubscriptionResponse, error) {
+	result := ContainerGroupProfileClientListBySubscriptionResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ContainerGroupProfileListResult); err != nil {
+		return ContainerGroupProfileClientListBySubscriptionResponse{}, err
+	}
+	return result, nil
+}
+
+// Update - Update a specified container group profile.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-11-01-preview
+//   - resourceGroupName - The name of the resource group.
+//   - containerGroupProfileName - ContainerGroupProfile name.
+//   - options - ContainerGroupProfileClientUpdateOptions contains the optional parameters for the ContainerGroupProfileClient.Update
+//     method.
+func (client *ContainerGroupProfileClient) Update(ctx context.Context, resourceGroupName string, containerGroupProfileName string, options *ContainerGroupProfileClientUpdateOptions) (ContainerGroupProfileClientUpdateResponse, error) {
+	var err error
+	const operationName = "ContainerGroupProfileClient.Update"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, containerGroupProfileName, options)
+	if err != nil {
+		return ContainerGroupProfileClientUpdateResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return ContainerGroupProfileClientUpdateResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return ContainerGroupProfileClientUpdateResponse{}, err
+	}
+	resp, err := client.updateHandleResponse(httpResp)
+	return resp, err
+}
+
+// updateCreateRequest creates the Update request.
+func (client *ContainerGroupProfileClient) updateCreateRequest(ctx context.Context, resourceGroupName string, containerGroupProfileName string, options *ContainerGroupProfileClientUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerInstance/containerGroupProfiles/{containerGroupProfileName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -163,22 +417,31 @@ func (client *ContainerGroupProfileClient) listAllRevisionsCreateRequest(ctx con
 		return nil, errors.New("parameter containerGroupProfileName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{containerGroupProfileName}", url.PathEscape(containerGroupProfileName))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01-preview")
+	reqQP.Set("api-version", "2024-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	if options != nil && options.ContainerGroupProfile != nil {
+		if err := runtime.MarshalAsJSON(req, *options.ContainerGroupProfile); err != nil {
+			return nil, err
+		}
+		return req, nil
+	}
 	return req, nil
 }
 
-// listAllRevisionsHandleResponse handles the ListAllRevisions response.
-func (client *ContainerGroupProfileClient) listAllRevisionsHandleResponse(resp *http.Response) (ContainerGroupProfileClientListAllRevisionsResponse, error) {
-	result := ContainerGroupProfileClientListAllRevisionsResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ContainerGroupProfileListResult); err != nil {
-		return ContainerGroupProfileClientListAllRevisionsResponse{}, err
+// updateHandleResponse handles the Update response.
+func (client *ContainerGroupProfileClient) updateHandleResponse(resp *http.Response) (ContainerGroupProfileClientUpdateResponse, error) {
+	result := ContainerGroupProfileClientUpdateResponse{}
+	if val := resp.Header.Get("x-ms-correlation-request-id"); val != "" {
+		result.XMSCorrelationRequestID = &val
+	}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ContainerGroupProfile); err != nil {
+		return ContainerGroupProfileClientUpdateResponse{}, err
 	}
 	return result, nil
 }
