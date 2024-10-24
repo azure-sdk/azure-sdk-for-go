@@ -11,14 +11,13 @@ package armappcontainers
 import (
 	"context"
 	"errors"
-	"net/http"
-	"net/url"
-	"strings"
-
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"net/http"
+	"net/url"
+	"strings"
 )
 
 // ManagedEnvironmentPrivateEndpointConnectionsClient contains the methods for the ManagedEnvironmentPrivateEndpointConnections group.
@@ -47,7 +46,7 @@ func NewManagedEnvironmentPrivateEndpointConnectionsClient(subscriptionID string
 // BeginCreateOrUpdate - Update the state of a private endpoint connection for a given managed environment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - privateEndpointConnectionName - The name of the private endpoint connection associated with the Azure resource.
@@ -74,7 +73,7 @@ func (client *ManagedEnvironmentPrivateEndpointConnectionsClient) BeginCreateOrU
 // CreateOrUpdate - Update the state of a private endpoint connection for a given managed environment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 func (client *ManagedEnvironmentPrivateEndpointConnectionsClient) createOrUpdate(ctx context.Context, resourceGroupName string, environmentName string, privateEndpointConnectionName string, privateEndpointConnectionEnvelope PrivateEndpointConnection, options *ManagedEnvironmentPrivateEndpointConnectionsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ManagedEnvironmentPrivateEndpointConnectionsClient.BeginCreateOrUpdate"
@@ -120,7 +119,7 @@ func (client *ManagedEnvironmentPrivateEndpointConnectionsClient) createOrUpdate
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, privateEndpointConnectionEnvelope); err != nil {
@@ -132,7 +131,7 @@ func (client *ManagedEnvironmentPrivateEndpointConnectionsClient) createOrUpdate
 // BeginDelete - Delete a private endpoint connection for a given managed environment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - privateEndpointConnectionName - The name of the private endpoint connection associated with the Azure resource.
@@ -158,7 +157,7 @@ func (client *ManagedEnvironmentPrivateEndpointConnectionsClient) BeginDelete(ct
 // Delete - Delete a private endpoint connection for a given managed environment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 func (client *ManagedEnvironmentPrivateEndpointConnectionsClient) deleteOperation(ctx context.Context, resourceGroupName string, environmentName string, privateEndpointConnectionName string, options *ManagedEnvironmentPrivateEndpointConnectionsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ManagedEnvironmentPrivateEndpointConnectionsClient.BeginDelete"
@@ -204,7 +203,7 @@ func (client *ManagedEnvironmentPrivateEndpointConnectionsClient) deleteCreateRe
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -213,7 +212,7 @@ func (client *ManagedEnvironmentPrivateEndpointConnectionsClient) deleteCreateRe
 // Get - Get a private endpoint connection for a given managed environment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - privateEndpointConnectionName - The name of the private endpoint connection associated with the Azure resource.
@@ -265,7 +264,7 @@ func (client *ManagedEnvironmentPrivateEndpointConnectionsClient) getCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -282,7 +281,7 @@ func (client *ManagedEnvironmentPrivateEndpointConnectionsClient) getHandleRespo
 
 // NewListPager - List private endpoint connections for a given managed environment.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - options - ManagedEnvironmentPrivateEndpointConnectionsClientListOptions contains the optional parameters for the ManagedEnvironmentPrivateEndpointConnectionsClient.NewListPager
@@ -330,7 +329,7 @@ func (client *ManagedEnvironmentPrivateEndpointConnectionsClient) listCreateRequ
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
