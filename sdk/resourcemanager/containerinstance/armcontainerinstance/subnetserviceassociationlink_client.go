@@ -28,7 +28,8 @@ type SubnetServiceAssociationLinkClient struct {
 }
 
 // NewSubnetServiceAssociationLinkClient creates a new instance of SubnetServiceAssociationLinkClient with the specified values.
-//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
+//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
+//     part of the URI for every service call.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewSubnetServiceAssociationLinkClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SubnetServiceAssociationLinkClient, error) {
@@ -47,8 +48,8 @@ func NewSubnetServiceAssociationLinkClient(subscriptionID string, credential azc
 // by the user.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01-preview
-//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+// Generated from API version 2024-11-01-preview
+//   - resourceGroupName - The name of the resource group.
 //   - virtualNetworkName - The name of the virtual network.
 //   - subnetName - The name of the subnet.
 //   - options - SubnetServiceAssociationLinkClientBeginDeleteOptions contains the optional parameters for the SubnetServiceAssociationLinkClient.BeginDelete
@@ -74,7 +75,7 @@ func (client *SubnetServiceAssociationLinkClient) BeginDelete(ctx context.Contex
 // by the user.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01-preview
+// Generated from API version 2024-11-01-preview
 func (client *SubnetServiceAssociationLinkClient) deleteOperation(ctx context.Context, resourceGroupName string, virtualNetworkName string, subnetName string, options *SubnetServiceAssociationLinkClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "SubnetServiceAssociationLinkClient.BeginDelete"
@@ -120,7 +121,7 @@ func (client *SubnetServiceAssociationLinkClient) deleteCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01-preview")
+	reqQP.Set("api-version", "2024-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

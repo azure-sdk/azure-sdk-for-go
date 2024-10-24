@@ -22,7 +22,8 @@ type ClientFactory struct {
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
+//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
+//     part of the URI for every service call.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
@@ -39,14 +40,6 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 // NewContainerGroupProfileClient creates a new instance of ContainerGroupProfileClient.
 func (c *ClientFactory) NewContainerGroupProfileClient() *ContainerGroupProfileClient {
 	return &ContainerGroupProfileClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
-	}
-}
-
-// NewContainerGroupProfilesClient creates a new instance of ContainerGroupProfilesClient.
-func (c *ClientFactory) NewContainerGroupProfilesClient() *ContainerGroupProfilesClient {
-	return &ContainerGroupProfilesClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
@@ -71,6 +64,22 @@ func (c *ClientFactory) NewContainersClient() *ContainersClient {
 // NewLocationClient creates a new instance of LocationClient.
 func (c *ClientFactory) NewLocationClient() *LocationClient {
 	return &LocationClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewNGroupsClient creates a new instance of NGroupsClient.
+func (c *ClientFactory) NewNGroupsClient() *NGroupsClient {
+	return &NGroupsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewNGroupsSKUsClient creates a new instance of NGroupsSKUsClient.
+func (c *ClientFactory) NewNGroupsSKUsClient() *NGroupsSKUsClient {
+	return &NGroupsSKUsClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}

@@ -8,50 +8,40 @@
 
 package armcontainerinstance
 
-// ContainerGroupProfileClientGetByRevisionNumberOptions contains the optional parameters for the ContainerGroupProfileClient.GetByRevisionNumber
+// ContainerGroupProfileClientBeginDeleteOptions contains the optional parameters for the ContainerGroupProfileClient.BeginDelete
 // method.
-type ContainerGroupProfileClientGetByRevisionNumberOptions struct {
-	// placeholder for future optional parameters
+type ContainerGroupProfileClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
-// ContainerGroupProfileClientListAllRevisionsOptions contains the optional parameters for the ContainerGroupProfileClient.NewListAllRevisionsPager
+// ContainerGroupProfileClientCreateOrUpdateOptions contains the optional parameters for the ContainerGroupProfileClient.CreateOrUpdate
 // method.
-type ContainerGroupProfileClientListAllRevisionsOptions struct {
+type ContainerGroupProfileClientCreateOrUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ContainerGroupProfilesClientCreateOrUpdateOptions contains the optional parameters for the ContainerGroupProfilesClient.CreateOrUpdate
+// ContainerGroupProfileClientGetOptions contains the optional parameters for the ContainerGroupProfileClient.Get method.
+type ContainerGroupProfileClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ContainerGroupProfileClientListByResourceGroupOptions contains the optional parameters for the ContainerGroupProfileClient.NewListByResourceGroupPager
 // method.
-type ContainerGroupProfilesClientCreateOrUpdateOptions struct {
+type ContainerGroupProfileClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ContainerGroupProfilesClientDeleteOptions contains the optional parameters for the ContainerGroupProfilesClient.Delete
+// ContainerGroupProfileClientListBySubscriptionOptions contains the optional parameters for the ContainerGroupProfileClient.NewListBySubscriptionPager
 // method.
-type ContainerGroupProfilesClientDeleteOptions struct {
+type ContainerGroupProfileClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ContainerGroupProfilesClientGetOptions contains the optional parameters for the ContainerGroupProfilesClient.Get method.
-type ContainerGroupProfilesClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ContainerGroupProfilesClientListByResourceGroupOptions contains the optional parameters for the ContainerGroupProfilesClient.NewListByResourceGroupPager
-// method.
-type ContainerGroupProfilesClientListByResourceGroupOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ContainerGroupProfilesClientListOptions contains the optional parameters for the ContainerGroupProfilesClient.NewListPager
-// method.
-type ContainerGroupProfilesClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ContainerGroupProfilesClientPatchOptions contains the optional parameters for the ContainerGroupProfilesClient.Patch method.
-type ContainerGroupProfilesClientPatchOptions struct {
-	// placeholder for future optional parameters
+// ContainerGroupProfileClientUpdateOptions contains the optional parameters for the ContainerGroupProfileClient.Update method.
+type ContainerGroupProfileClientUpdateOptions struct {
+	// Update a specified container group profile that will also update the revision.
+	ContainerGroupProfile *Resource
 }
 
 // ContainerGroupsClientBeginCreateOrUpdateOptions contains the optional parameters for the ContainerGroupsClient.BeginCreateOrUpdate
@@ -145,6 +135,62 @@ type LocationClientListCapabilitiesOptions struct {
 
 // LocationClientListUsageOptions contains the optional parameters for the LocationClient.NewListUsagePager method.
 type LocationClientListUsageOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NGroupsClientBeginCreateOrUpdateOptions contains the optional parameters for the NGroupsClient.BeginCreateOrUpdate method.
+type NGroupsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// NGroupsClientBeginDeleteOptions contains the optional parameters for the NGroupsClient.BeginDelete method.
+type NGroupsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// NGroupsClientBeginRestartOptions contains the optional parameters for the NGroupsClient.BeginRestart method.
+type NGroupsClientBeginRestartOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// NGroupsClientBeginStartOptions contains the optional parameters for the NGroupsClient.BeginStart method.
+type NGroupsClientBeginStartOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// NGroupsClientBeginUpdateOptions contains the optional parameters for the NGroupsClient.BeginUpdate method.
+type NGroupsClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// NGroupsClientGetOptions contains the optional parameters for the NGroupsClient.Get method.
+type NGroupsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NGroupsClientListByResourceGroupOptions contains the optional parameters for the NGroupsClient.NewListByResourceGroupPager
+// method.
+type NGroupsClientListByResourceGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NGroupsClientListOptions contains the optional parameters for the NGroupsClient.NewListPager method.
+type NGroupsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NGroupsClientStopOptions contains the optional parameters for the NGroupsClient.Stop method.
+type NGroupsClientStopOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NGroupsSKUsClientGetOptions contains the optional parameters for the NGroupsSKUsClient.NewGetPager method.
+type NGroupsSKUsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
