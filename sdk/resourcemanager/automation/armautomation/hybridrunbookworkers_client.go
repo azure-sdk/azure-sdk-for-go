@@ -47,7 +47,7 @@ func NewHybridRunbookWorkersClient(subscriptionID string, credential azcore.Toke
 // Create - Create a hybrid runbook worker.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-22
+// Generated from API version 2024-10-23
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - hybridRunbookWorkerGroupName - The hybrid runbook worker group name
@@ -69,7 +69,7 @@ func (client *HybridRunbookWorkersClient) Create(ctx context.Context, resourceGr
 	if err != nil {
 		return HybridRunbookWorkersClientCreateResponse{}, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated) {
 		err = runtime.NewResponseError(httpResp)
 		return HybridRunbookWorkersClientCreateResponse{}, err
 	}
@@ -105,7 +105,7 @@ func (client *HybridRunbookWorkersClient) createCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-22")
+	reqQP.Set("api-version", "2024-10-23")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, hybridRunbookWorkerCreationParameters); err != nil {
@@ -126,7 +126,7 @@ func (client *HybridRunbookWorkersClient) createHandleResponse(resp *http.Respon
 // Delete - Delete a hybrid runbook worker.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-22
+// Generated from API version 2024-10-23
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - hybridRunbookWorkerGroupName - The hybrid runbook worker group name
@@ -182,7 +182,7 @@ func (client *HybridRunbookWorkersClient) deleteCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-22")
+	reqQP.Set("api-version", "2024-10-23")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -191,7 +191,7 @@ func (client *HybridRunbookWorkersClient) deleteCreateRequest(ctx context.Contex
 // Get - Retrieve a hybrid runbook worker.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-22
+// Generated from API version 2024-10-23
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - hybridRunbookWorkerGroupName - The hybrid runbook worker group name
@@ -248,7 +248,7 @@ func (client *HybridRunbookWorkersClient) getCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-22")
+	reqQP.Set("api-version", "2024-10-23")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -265,7 +265,7 @@ func (client *HybridRunbookWorkersClient) getHandleResponse(resp *http.Response)
 
 // NewListByHybridRunbookWorkerGroupPager - Retrieve a list of hybrid runbook workers.
 //
-// Generated from API version 2021-06-22
+// Generated from API version 2024-10-23
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - hybridRunbookWorkerGroupName - The hybrid runbook worker group name
@@ -321,7 +321,7 @@ func (client *HybridRunbookWorkersClient) listByHybridRunbookWorkerGroupCreateRe
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2021-06-22")
+	reqQP.Set("api-version", "2024-10-23")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -339,7 +339,7 @@ func (client *HybridRunbookWorkersClient) listByHybridRunbookWorkerGroupHandleRe
 // Move - Move a hybrid worker to a different group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-22
+// Generated from API version 2024-10-23
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - hybridRunbookWorkerGroupName - The hybrid runbook worker group name
@@ -396,11 +396,92 @@ func (client *HybridRunbookWorkersClient) moveCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-22")
+	reqQP.Set("api-version", "2024-10-23")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, hybridRunbookWorkerMoveParameters); err != nil {
 		return nil, err
 	}
 	return req, nil
+}
+
+// Patch - Update a hybrid runbook worker.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-10-23
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - hybridRunbookWorkerGroupName - The hybrid runbook worker group name
+//   - hybridRunbookWorkerID - The hybrid runbook worker id
+//   - options - HybridRunbookWorkersClientPatchOptions contains the optional parameters for the HybridRunbookWorkersClient.Patch
+//     method.
+func (client *HybridRunbookWorkersClient) Patch(ctx context.Context, resourceGroupName string, automationAccountName string, hybridRunbookWorkerGroupName string, hybridRunbookWorkerID string, options *HybridRunbookWorkersClientPatchOptions) (HybridRunbookWorkersClientPatchResponse, error) {
+	var err error
+	const operationName = "HybridRunbookWorkersClient.Patch"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.patchCreateRequest(ctx, resourceGroupName, automationAccountName, hybridRunbookWorkerGroupName, hybridRunbookWorkerID, options)
+	if err != nil {
+		return HybridRunbookWorkersClientPatchResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return HybridRunbookWorkersClientPatchResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return HybridRunbookWorkersClientPatchResponse{}, err
+	}
+	resp, err := client.patchHandleResponse(httpResp)
+	return resp, err
+}
+
+// patchCreateRequest creates the Patch request.
+func (client *HybridRunbookWorkersClient) patchCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, hybridRunbookWorkerGroupName string, hybridRunbookWorkerID string, options *HybridRunbookWorkersClientPatchOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/hybridRunbookWorkerGroups/{hybridRunbookWorkerGroupName}/hybridRunbookWorkers/{hybridRunbookWorkerId}"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if automationAccountName == "" {
+		return nil, errors.New("parameter automationAccountName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{automationAccountName}", url.PathEscape(automationAccountName))
+	if hybridRunbookWorkerGroupName == "" {
+		return nil, errors.New("parameter hybridRunbookWorkerGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{hybridRunbookWorkerGroupName}", url.PathEscape(hybridRunbookWorkerGroupName))
+	if hybridRunbookWorkerID == "" {
+		return nil, errors.New("parameter hybridRunbookWorkerID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{hybridRunbookWorkerId}", url.PathEscape(hybridRunbookWorkerID))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-10-23")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if options != nil && options.HybridRunbookWorkerCreationParameters != nil {
+		if err := runtime.MarshalAsJSON(req, *options.HybridRunbookWorkerCreationParameters); err != nil {
+			return nil, err
+		}
+		return req, nil
+	}
+	return req, nil
+}
+
+// patchHandleResponse handles the Patch response.
+func (client *HybridRunbookWorkersClient) patchHandleResponse(resp *http.Response) (HybridRunbookWorkersClientPatchResponse, error) {
+	result := HybridRunbookWorkersClientPatchResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.HybridRunbookWorker); err != nil {
+		return HybridRunbookWorkersClientPatchResponse{}, err
+	}
+	return result, nil
 }
