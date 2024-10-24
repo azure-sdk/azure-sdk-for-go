@@ -10,7 +10,7 @@ package armdatadog
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datadog/armdatadog"
-	moduleVersion = "v1.3.0"
+	moduleVersion = "v2.0.0"
 )
 
 // CreatedByType - The type of identity that created the resource.
@@ -48,7 +48,7 @@ func PossibleLiftrResourceCategoriesValues() []LiftrResourceCategories {
 	}
 }
 
-// ManagedIdentityTypes - Specifies the identity type of the Datadog Monitor. At this time the only allowed value is 'SystemAssigned'.
+// ManagedIdentityTypes - Identity type
 type ManagedIdentityTypes string
 
 const (

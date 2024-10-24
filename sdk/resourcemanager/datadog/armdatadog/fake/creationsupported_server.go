@@ -15,7 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datadog/armdatadog"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datadog/armdatadog/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -27,26 +27,22 @@ type CreationSupportedServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, datadogOrganizationID string, options *armdatadog.CreationSupportedClientGetOptions) (resp azfake.Responder[armdatadog.CreationSupportedClientGetResponse], errResp azfake.ErrorResponder)
 
-	// NewListPager is the fake for method CreationSupportedClient.NewListPager
+	// List is the fake for method CreationSupportedClient.List
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(datadogOrganizationID string, options *armdatadog.CreationSupportedClientListOptions) (resp azfake.PagerResponder[armdatadog.CreationSupportedClientListResponse])
+	List func(ctx context.Context, datadogOrganizationID string, options *armdatadog.CreationSupportedClientListOptions) (resp azfake.Responder[armdatadog.CreationSupportedClientListResponse], errResp azfake.ErrorResponder)
 }
 
 // NewCreationSupportedServerTransport creates a new instance of CreationSupportedServerTransport with the provided implementation.
 // The returned CreationSupportedServerTransport instance is connected to an instance of armdatadog.CreationSupportedClient via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewCreationSupportedServerTransport(srv *CreationSupportedServer) *CreationSupportedServerTransport {
-	return &CreationSupportedServerTransport{
-		srv:          srv,
-		newListPager: newTracker[azfake.PagerResponder[armdatadog.CreationSupportedClientListResponse]](),
-	}
+	return &CreationSupportedServerTransport{srv: srv}
 }
 
 // CreationSupportedServerTransport connects instances of armdatadog.CreationSupportedClient to instances of CreationSupportedServer.
 // Don't use this type directly, use NewCreationSupportedServerTransport instead.
 type CreationSupportedServerTransport struct {
-	srv          *CreationSupportedServer
-	newListPager *tracker[azfake.PagerResponder[armdatadog.CreationSupportedClientListResponse]]
+	srv *CreationSupportedServer
 }
 
 // Do implements the policy.Transporter interface for CreationSupportedServerTransport.
@@ -63,8 +59,8 @@ func (c *CreationSupportedServerTransport) Do(req *http.Request) (*http.Response
 	switch method {
 	case "CreationSupportedClient.Get":
 		resp, err = c.dispatchGet(req)
-	case "CreationSupportedClient.NewListPager":
-		resp, err = c.dispatchNewListPager(req)
+	case "CreationSupportedClient.List":
+		resp, err = c.dispatchList(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -106,37 +102,32 @@ func (c *CreationSupportedServerTransport) dispatchGet(req *http.Request) (*http
 	return resp, nil
 }
 
-func (c *CreationSupportedServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if c.srv.NewListPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
+func (c *CreationSupportedServerTransport) dispatchList(req *http.Request) (*http.Response, error) {
+	if c.srv.List == nil {
+		return nil, &nonRetriableError{errors.New("fake for method List not implemented")}
 	}
-	newListPager := c.newListPager.get(req)
-	if newListPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Datadog/subscriptionStatuses`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 1 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		qp := req.URL.Query()
-		datadogOrganizationIDParam, err := url.QueryUnescape(qp.Get("datadogOrganizationId"))
-		if err != nil {
-			return nil, err
-		}
-		resp := c.srv.NewListPager(datadogOrganizationIDParam, nil)
-		newListPager = &resp
-		c.newListPager.add(req, newListPager)
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Datadog/subscriptionStatuses`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 1 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	resp, err := server.PagerResponderNext(newListPager, req)
+	qp := req.URL.Query()
+	datadogOrganizationIDParam, err := url.QueryUnescape(qp.Get("datadogOrganizationId"))
 	if err != nil {
 		return nil, err
 	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		c.newListPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+	respr, errRespr := c.srv.List(req.Context(), datadogOrganizationIDParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
 	}
-	if !server.PagerResponderMore(newListPager) {
-		c.newListPager.remove(req)
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).CreateResourceSupportedResponse, req)
+	if err != nil {
+		return nil, err
 	}
 	return resp, nil
 }
