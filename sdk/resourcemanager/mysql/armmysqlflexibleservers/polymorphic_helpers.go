@@ -41,10 +41,14 @@ func unmarshalOperationProgressResponseTypeClassification(rawMsg json.RawMessage
 	}
 	var b OperationProgressResponseTypeClassification
 	switch m["objectType"] {
+	case "RestoreSnapshotResponseSubTask":
+		b = &RestoreSnapshotResponseSubTask{}
 	case string(ObjectTypeBackupAndExportResponse):
 		b = &BackupAndExportResponseType{}
 	case string(ObjectTypeImportFromStorageResponse):
 		b = &ImportFromStorageResponseType{}
+	case string(ObjectTypeRestoreSnapshotResponse):
+		b = &RestoreSnapshotResponseType{}
 	default:
 		b = &OperationProgressResponseType{}
 	}
