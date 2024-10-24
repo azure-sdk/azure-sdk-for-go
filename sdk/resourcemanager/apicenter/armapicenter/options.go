@@ -49,6 +49,32 @@ type APIDefinitionsClientListOptions struct {
 	Filter *string
 }
 
+// APISourcesClientCreateOrUpdateOptions contains the optional parameters for the APISourcesClient.CreateOrUpdate method.
+type APISourcesClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// APISourcesClientDeleteOptions contains the optional parameters for the APISourcesClient.Delete method.
+type APISourcesClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// APISourcesClientGetOptions contains the optional parameters for the APISourcesClient.Get method.
+type APISourcesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// APISourcesClientHeadOptions contains the optional parameters for the APISourcesClient.Head method.
+type APISourcesClientHeadOptions struct {
+	// placeholder for future optional parameters
+}
+
+// APISourcesClientListOptions contains the optional parameters for the APISourcesClient.NewListPager method.
+type APISourcesClientListOptions struct {
+	// OData filter parameter.
+	Filter *string
+}
+
 // APIVersionsClientCreateOrUpdateOptions contains the optional parameters for the APIVersionsClient.CreateOrUpdate method.
 type APIVersionsClientCreateOrUpdateOptions struct {
 	// placeholder for future optional parameters
@@ -97,6 +123,28 @@ type ApisClientHeadOptions struct {
 
 // ApisClientListOptions contains the optional parameters for the ApisClient.NewListPager method.
 type ApisClientListOptions struct {
+	// OData filter parameter.
+	Filter *string
+}
+
+// DeletedServicesClientDeleteOptions contains the optional parameters for the DeletedServicesClient.Delete method.
+type DeletedServicesClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DeletedServicesClientGetOptions contains the optional parameters for the DeletedServicesClient.Get method.
+type DeletedServicesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DeletedServicesClientListBySubscriptionOptions contains the optional parameters for the DeletedServicesClient.NewListBySubscriptionPager
+// method.
+type DeletedServicesClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DeletedServicesClientListOptions contains the optional parameters for the DeletedServicesClient.NewListPager method.
+type DeletedServicesClientListOptions struct {
 	// OData filter parameter.
 	Filter *string
 }
@@ -188,6 +236,12 @@ type OperationsClientListOptions struct {
 // ServicesClientBeginExportMetadataSchemaOptions contains the optional parameters for the ServicesClient.BeginExportMetadataSchema
 // method.
 type ServicesClientBeginExportMetadataSchemaOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ServicesClientBeginImportFromApimOptions contains the optional parameters for the ServicesClient.BeginImportFromApim method.
+type ServicesClientBeginImportFromApimOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }

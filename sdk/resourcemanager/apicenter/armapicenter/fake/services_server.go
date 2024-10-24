@@ -40,6 +40,10 @@ type ServicesServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, serviceName string, options *armapicenter.ServicesClientGetOptions) (resp azfake.Responder[armapicenter.ServicesClientGetResponse], errResp azfake.ErrorResponder)
 
+	// BeginImportFromApim is the fake for method ServicesClient.BeginImportFromApim
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginImportFromApim func(ctx context.Context, resourceGroupName string, serviceName string, body armapicenter.ImportFromApimRequest, options *armapicenter.ServicesClientBeginImportFromApimOptions) (resp azfake.PollerResponder[armapicenter.ServicesClientImportFromApimResponse], errResp azfake.ErrorResponder)
+
 	// NewListByResourceGroupPager is the fake for method ServicesClient.NewListByResourceGroupPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListByResourceGroupPager func(resourceGroupName string, options *armapicenter.ServicesClientListByResourceGroupOptions) (resp azfake.PagerResponder[armapicenter.ServicesClientListByResourceGroupResponse])
@@ -60,6 +64,7 @@ func NewServicesServerTransport(srv *ServicesServer) *ServicesServerTransport {
 	return &ServicesServerTransport{
 		srv:                         srv,
 		beginExportMetadataSchema:   newTracker[azfake.PollerResponder[armapicenter.ServicesClientExportMetadataSchemaResponse]](),
+		beginImportFromApim:         newTracker[azfake.PollerResponder[armapicenter.ServicesClientImportFromApimResponse]](),
 		newListByResourceGroupPager: newTracker[azfake.PagerResponder[armapicenter.ServicesClientListByResourceGroupResponse]](),
 		newListBySubscriptionPager:  newTracker[azfake.PagerResponder[armapicenter.ServicesClientListBySubscriptionResponse]](),
 	}
@@ -70,6 +75,7 @@ func NewServicesServerTransport(srv *ServicesServer) *ServicesServerTransport {
 type ServicesServerTransport struct {
 	srv                         *ServicesServer
 	beginExportMetadataSchema   *tracker[azfake.PollerResponder[armapicenter.ServicesClientExportMetadataSchemaResponse]]
+	beginImportFromApim         *tracker[azfake.PollerResponder[armapicenter.ServicesClientImportFromApimResponse]]
 	newListByResourceGroupPager *tracker[azfake.PagerResponder[armapicenter.ServicesClientListByResourceGroupResponse]]
 	newListBySubscriptionPager  *tracker[azfake.PagerResponder[armapicenter.ServicesClientListBySubscriptionResponse]]
 }
@@ -94,6 +100,8 @@ func (s *ServicesServerTransport) Do(req *http.Request) (*http.Response, error) 
 		resp, err = s.dispatchBeginExportMetadataSchema(req)
 	case "ServicesClient.Get":
 		resp, err = s.dispatchGet(req)
+	case "ServicesClient.BeginImportFromApim":
+		resp, err = s.dispatchBeginImportFromApim(req)
 	case "ServicesClient.NewListByResourceGroupPager":
 		resp, err = s.dispatchNewListByResourceGroupPager(req)
 	case "ServicesClient.NewListBySubscriptionPager":
@@ -259,6 +267,54 @@ func (s *ServicesServerTransport) dispatchGet(req *http.Request) (*http.Response
 	if err != nil {
 		return nil, err
 	}
+	return resp, nil
+}
+
+func (s *ServicesServerTransport) dispatchBeginImportFromApim(req *http.Request) (*http.Response, error) {
+	if s.srv.BeginImportFromApim == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginImportFromApim not implemented")}
+	}
+	beginImportFromApim := s.beginImportFromApim.get(req)
+	if beginImportFromApim == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ApiCenter/services/(?P<serviceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/importFromApim`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armapicenter.ImportFromApimRequest](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		serviceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("serviceName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := s.srv.BeginImportFromApim(req.Context(), resourceGroupNameParam, serviceNameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginImportFromApim = &respr
+		s.beginImportFromApim.add(req, beginImportFromApim)
+	}
+
+	resp, err := server.PollerResponderNext(beginImportFromApim, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		s.beginImportFromApim.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginImportFromApim) {
+		s.beginImportFromApim.remove(req)
+	}
+
 	return resp, nil
 }
 

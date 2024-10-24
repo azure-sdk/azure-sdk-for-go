@@ -46,7 +46,7 @@ func NewServicesClient(subscriptionID string, credential azcore.TokenCredential,
 // CreateOrUpdate - Creates new or updates existing API.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of Azure API Center service.
 //   - resource - Resource create parameters.
@@ -93,7 +93,7 @@ func (client *ServicesClient) createOrUpdateCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, resource); err != nil {
@@ -114,7 +114,7 @@ func (client *ServicesClient) createOrUpdateHandleResponse(resp *http.Response) 
 // Delete - Deletes specified service.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of Azure API Center service.
 //   - options - ServicesClientDeleteOptions contains the optional parameters for the ServicesClient.Delete method.
@@ -159,7 +159,7 @@ func (client *ServicesClient) deleteCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -168,7 +168,7 @@ func (client *ServicesClient) deleteCreateRequest(ctx context.Context, resourceG
 // BeginExportMetadataSchema - Exports the effective metadata schema.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of Azure API Center service.
 //   - body - The content of the action request
@@ -195,7 +195,7 @@ func (client *ServicesClient) BeginExportMetadataSchema(ctx context.Context, res
 // ExportMetadataSchema - Exports the effective metadata schema.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-01
+// Generated from API version 2024-06-01-preview
 func (client *ServicesClient) exportMetadataSchema(ctx context.Context, resourceGroupName string, serviceName string, body MetadataSchemaExportRequest, options *ServicesClientBeginExportMetadataSchemaOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ServicesClient.BeginExportMetadataSchema"
@@ -237,7 +237,7 @@ func (client *ServicesClient) exportMetadataSchemaCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -249,7 +249,7 @@ func (client *ServicesClient) exportMetadataSchemaCreateRequest(ctx context.Cont
 // Get - Returns details of the service.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of Azure API Center service.
 //   - options - ServicesClientGetOptions contains the optional parameters for the ServicesClient.Get method.
@@ -295,7 +295,7 @@ func (client *ServicesClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -310,9 +310,90 @@ func (client *ServicesClient) getHandleResponse(resp *http.Response) (ServicesCl
 	return result, nil
 }
 
+// BeginImportFromApim - Imports APIs from Azure API Management.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-06-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - serviceName - The name of Azure API Center service.
+//   - body - The content of the action request
+//   - options - ServicesClientBeginImportFromApimOptions contains the optional parameters for the ServicesClient.BeginImportFromApim
+//     method.
+func (client *ServicesClient) BeginImportFromApim(ctx context.Context, resourceGroupName string, serviceName string, body ImportFromApimRequest, options *ServicesClientBeginImportFromApimOptions) (*runtime.Poller[ServicesClientImportFromApimResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.importFromApim(ctx, resourceGroupName, serviceName, body, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ServicesClientImportFromApimResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ServicesClientImportFromApimResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// ImportFromApim - Imports APIs from Azure API Management.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-06-01-preview
+func (client *ServicesClient) importFromApim(ctx context.Context, resourceGroupName string, serviceName string, body ImportFromApimRequest, options *ServicesClientBeginImportFromApimOptions) (*http.Response, error) {
+	var err error
+	const operationName = "ServicesClient.BeginImportFromApim"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.importFromApimCreateRequest(ctx, resourceGroupName, serviceName, body, options)
+	if err != nil {
+		return nil, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
+		err = runtime.NewResponseError(httpResp)
+		return nil, err
+	}
+	return httpResp, nil
+}
+
+// importFromApimCreateRequest creates the ImportFromApim request.
+func (client *ServicesClient) importFromApimCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, body ImportFromApimRequest, options *ServicesClientBeginImportFromApimOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiCenter/services/{serviceName}/importFromApim"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if serviceName == "" {
+		return nil, errors.New("parameter serviceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-06-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
 // NewListByResourceGroupPager - Returns a collection of services within the resource group.
 //
-// Generated from API version 2024-03-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - ServicesClientListByResourceGroupOptions contains the optional parameters for the ServicesClient.NewListByResourceGroupPager
 //     method.
@@ -355,7 +436,7 @@ func (client *ServicesClient) listByResourceGroupCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -372,7 +453,7 @@ func (client *ServicesClient) listByResourceGroupHandleResponse(resp *http.Respo
 
 // NewListBySubscriptionPager - Lists services within an Azure subscription.
 //
-// Generated from API version 2024-03-01
+// Generated from API version 2024-06-01-preview
 //   - options - ServicesClientListBySubscriptionOptions contains the optional parameters for the ServicesClient.NewListBySubscriptionPager
 //     method.
 func (client *ServicesClient) NewListBySubscriptionPager(options *ServicesClientListBySubscriptionOptions) *runtime.Pager[ServicesClientListBySubscriptionResponse] {
@@ -410,7 +491,7 @@ func (client *ServicesClient) listBySubscriptionCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -428,7 +509,7 @@ func (client *ServicesClient) listBySubscriptionHandleResponse(resp *http.Respon
 // Update - Updates existing service.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of Azure API Center service.
 //   - properties - The resource properties to be updated.
@@ -475,7 +556,7 @@ func (client *ServicesClient) updateCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, properties); err != nil {

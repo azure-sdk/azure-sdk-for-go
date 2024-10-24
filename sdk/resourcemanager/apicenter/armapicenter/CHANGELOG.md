@@ -1,5 +1,38 @@
 # Release History
 
+## 1.1.0-beta.1 (2024-10-24)
+### Features Added
+
+- New enum type `ShouldImportSpec` with values `ShouldImportSpecAlways`, `ShouldImportSpecNever`, `ShouldImportSpecOnDemand`
+- New function `NewAPISourcesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*APISourcesClient, error)`
+- New function `*APISourcesClient.CreateOrUpdate(context.Context, string, string, string, string, APISource, *APISourcesClientCreateOrUpdateOptions) (APISourcesClientCreateOrUpdateResponse, error)`
+- New function `*APISourcesClient.Delete(context.Context, string, string, string, string, *APISourcesClientDeleteOptions) (APISourcesClientDeleteResponse, error)`
+- New function `*APISourcesClient.Get(context.Context, string, string, string, string, *APISourcesClientGetOptions) (APISourcesClientGetResponse, error)`
+- New function `*APISourcesClient.Head(context.Context, string, string, string, string, *APISourcesClientHeadOptions) (APISourcesClientHeadResponse, error)`
+- New function `*APISourcesClient.NewListPager(string, string, string, *APISourcesClientListOptions) *runtime.Pager[APISourcesClientListResponse]`
+- New function `*ClientFactory.NewAPISourcesClient() *APISourcesClient`
+- New function `*ClientFactory.NewDeletedServicesClient() *DeletedServicesClient`
+- New function `NewDeletedServicesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DeletedServicesClient, error)`
+- New function `*DeletedServicesClient.Delete(context.Context, string, string, *DeletedServicesClientDeleteOptions) (DeletedServicesClientDeleteResponse, error)`
+- New function `*DeletedServicesClient.Get(context.Context, string, string, *DeletedServicesClientGetOptions) (DeletedServicesClientGetResponse, error)`
+- New function `*DeletedServicesClient.NewListBySubscriptionPager(*DeletedServicesClientListBySubscriptionOptions) *runtime.Pager[DeletedServicesClientListBySubscriptionResponse]`
+- New function `*DeletedServicesClient.NewListPager(string, *DeletedServicesClientListOptions) *runtime.Pager[DeletedServicesClientListResponse]`
+- New function `*ServicesClient.BeginImportFromApim(context.Context, string, string, ImportFromApimRequest, *ServicesClientBeginImportFromApimOptions) (*runtime.Poller[ServicesClientImportFromApimResponse], error)`
+- New struct `APISource`
+- New struct `APISourceListResult`
+- New struct `APISourceProperties`
+- New struct `ApimSource`
+- New struct `DeletedService`
+- New struct `DeletedServiceListResult`
+- New struct `DeletedServiceProperties`
+- New struct `ImportFromApimRequest`
+- New struct `ImportFromApimSuccessResult`
+- New struct `LinkState`
+- New struct `ServiceUpdateProperties`
+- New field `Restore` in struct `ServiceProperties`
+- New field `Properties` in struct `ServiceUpdate`
+
+
 ## 1.0.0 (2024-02-23)
 ### Breaking Changes
 

@@ -10,7 +10,7 @@ package armapicenter
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/apicenter/armapicenter"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.1.0-beta.1"
 )
 
 // APIKind - The kind of the API
@@ -318,5 +318,26 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 		ProvisioningStateCanceled,
 		ProvisioningStateFailed,
 		ProvisioningStateSucceeded,
+	}
+}
+
+// ShouldImportSpec - Indicates if the specification should be imported along with metadata.
+type ShouldImportSpec string
+
+const (
+	// ShouldImportSpecAlways - Indicates that the specification should always be imported along with metadata.
+	ShouldImportSpecAlways ShouldImportSpec = "always"
+	// ShouldImportSpecNever - Indicates that the specification should be never be imported.
+	ShouldImportSpecNever ShouldImportSpec = "never"
+	// ShouldImportSpecOnDemand - Indicates that the specification should be imported only by request.
+	ShouldImportSpecOnDemand ShouldImportSpec = "ondemand"
+)
+
+// PossibleShouldImportSpecValues returns the possible values for the ShouldImportSpec const type.
+func PossibleShouldImportSpecValues() []ShouldImportSpec {
+	return []ShouldImportSpec{
+		ShouldImportSpecAlways,
+		ShouldImportSpecNever,
+		ShouldImportSpecOnDemand,
 	}
 }

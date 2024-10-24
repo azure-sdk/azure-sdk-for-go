@@ -118,6 +118,42 @@ type APIProperties struct {
 	LifecycleStage *LifecycleStage
 }
 
+// APISource - API source entity.
+type APISource struct {
+	// The resource-specific properties for this resource.
+	Properties *APISourceProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// APISourceListResult - The response of a ApiSource list operation.
+type APISourceListResult struct {
+	// READ-ONLY; The ApiSource items on this page
+	Value []*APISource
+
+	// READ-ONLY; The link to the next page of items
+	NextLink *string
+}
+
+// APISourceProperties - API source properties.
+type APISourceProperties struct {
+	// API source configuration for Azure API Management.
+	ApimSource *ApimSource
+
+	// Indicates if the specification should be imported along with metadata.
+	ShouldImportSpec *ShouldImportSpec
+}
+
 // APISpecExportResult - The API specification export result.
 type APISpecExportResult struct {
 	// The format of exported result
@@ -184,6 +220,24 @@ type APIVersionProperties struct {
 	Title *string
 }
 
+// ApimSource - API source configuration for Azure API Management.
+type ApimSource struct {
+	// REQUIRED; API Management service resource ID.
+	ResourceID *string
+
+	// The resource ID of the managed identity that has access to the API Management instance.
+	MsiResourceID *string
+
+	// The target environment resource ID.
+	TargetEnvironmentID *string
+
+	// The target lifecycle stage.
+	TargetLifecycleStage *LifecycleStage
+
+	// READ-ONLY; The state of the API source link
+	LinkState *LinkState
+}
+
 // Contact information
 type Contact struct {
 	// Email address of the contact.
@@ -194,6 +248,44 @@ type Contact struct {
 
 	// URL for the contact.
 	URL *string
+}
+
+// DeletedService - Soft-deleted service entity.
+type DeletedService struct {
+	// The resource-specific properties for this resource.
+	Properties *DeletedServiceProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// DeletedServiceListResult - The response of a DeletedService list operation.
+type DeletedServiceListResult struct {
+	// READ-ONLY; The DeletedService items on this page
+	Value []*DeletedService
+
+	// READ-ONLY; The link to the next page of items
+	NextLink *string
+}
+
+// DeletedServiceProperties - Deleted service properties.
+type DeletedServiceProperties struct {
+	// UTC date and time when the service will be automatically purged. The date conforms to the following format: yyyy-MM-ddTHH:mm:ssZ
+	// as specified by the ISO 8601 standard.
+	ScheduledPurgeDate *time.Time
+
+	// UTC date and time when the service was soft-deleted. The date conforms to the following format: yyyy-MM-ddTHH:mm:ssZ as
+	// specified by the ISO 8601 standard.
+	SoftDeletionDate *time.Time
 }
 
 // Deployment - API deployment entity.
@@ -322,6 +414,24 @@ type ExternalDocumentation struct {
 	Title *string
 }
 
+// ImportFromApimRequest - The import from Azure API Management request.
+type ImportFromApimRequest struct {
+	// An entity the metadata schema is requested for.
+	SourceResourceIDs []*string
+}
+
+// ImportFromApimSuccessResult - The import operation was successfully completed.
+type ImportFromApimSuccessResult struct {
+	// REQUIRED; Async operation start time.
+	StartTime *time.Time
+
+	// REQUIRED; Async operation status.
+	Status *string
+
+	// Async operation end time.
+	EndTime *time.Time
+}
+
 // License - The license information for the API.
 type License struct {
 	// SPDX license information for the API. The identifier field is mutually exclusive of the URL field.
@@ -332,6 +442,18 @@ type License struct {
 
 	// URL pointing to the license details. The URL field is mutually exclusive of the identifier field.
 	URL *string
+}
+
+// LinkState - The link state.
+type LinkState struct {
+	// REQUIRED; The timestamp of the last update of the link state.
+	LastUpdatedOn *time.Time
+
+	// The state message.
+	Message *string
+
+	// The state of the link.
+	State *string
 }
 
 // ManagedServiceIdentity - Managed service identity (system assigned and/or user assigned identities)
@@ -513,6 +635,9 @@ type ServiceListResult struct {
 
 // ServiceProperties - The properties of the service.
 type ServiceProperties struct {
+	// Flag used to restore soft-deleted API Center service. If specified and set to 'true' all other properties will be ignored.
+	Restore *bool
+
 	// READ-ONLY; Provisioning state of the service.
 	ProvisioningState *ProvisioningState
 }
@@ -522,8 +647,17 @@ type ServiceUpdate struct {
 	// The managed service identities assigned to this resource.
 	Identity *ManagedServiceIdentity
 
+	// The resource-specific properties for this resource.
+	Properties *ServiceUpdateProperties
+
 	// Resource tags.
 	Tags map[string]*string
+}
+
+// ServiceUpdateProperties - The updatable properties of the Service.
+type ServiceUpdateProperties struct {
+	// Flag used to restore soft-deleted API Center service. If specified and set to 'true' all other properties will be ignored.
+	Restore *bool
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.

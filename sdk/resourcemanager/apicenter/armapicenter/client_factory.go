@@ -44,6 +44,14 @@ func (c *ClientFactory) NewAPIDefinitionsClient() *APIDefinitionsClient {
 	}
 }
 
+// NewAPISourcesClient creates a new instance of APISourcesClient.
+func (c *ClientFactory) NewAPISourcesClient() *APISourcesClient {
+	return &APISourcesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewAPIVersionsClient creates a new instance of APIVersionsClient.
 func (c *ClientFactory) NewAPIVersionsClient() *APIVersionsClient {
 	return &APIVersionsClient{
@@ -55,6 +63,14 @@ func (c *ClientFactory) NewAPIVersionsClient() *APIVersionsClient {
 // NewApisClient creates a new instance of ApisClient.
 func (c *ClientFactory) NewApisClient() *ApisClient {
 	return &ApisClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewDeletedServicesClient creates a new instance of DeletedServicesClient.
+func (c *ClientFactory) NewDeletedServicesClient() *DeletedServicesClient {
+	return &DeletedServicesClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
