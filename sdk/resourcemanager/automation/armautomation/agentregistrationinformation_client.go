@@ -47,7 +47,7 @@ func NewAgentRegistrationInformationClient(subscriptionID string, credential azc
 // Get - Retrieve the automation agent registration information.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2024-10-23
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - options - AgentRegistrationInformationClientGetOptions contains the optional parameters for the AgentRegistrationInformationClient.Get
@@ -94,7 +94,7 @@ func (client *AgentRegistrationInformationClient) getCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2024-10-23")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -112,7 +112,7 @@ func (client *AgentRegistrationInformationClient) getHandleResponse(resp *http.R
 // RegenerateKey - Regenerate a primary or secondary agent registration key
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2024-10-23
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - parameters - The name of the agent registration key to be regenerated
@@ -160,7 +160,7 @@ func (client *AgentRegistrationInformationClient) regenerateKeyCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2024-10-23")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
