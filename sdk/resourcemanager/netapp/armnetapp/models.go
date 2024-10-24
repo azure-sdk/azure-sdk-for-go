@@ -1046,9 +1046,6 @@ type Replication struct {
 
 // ReplicationObject - Replication properties
 type ReplicationObject struct {
-	// REQUIRED; The resource ID of the remote volume.
-	RemoteVolumeResourceID *string
-
 	// Indicates whether the local volume is the source or destination for the Volume Replication
 	EndpointType *EndpointType
 
@@ -1057,6 +1054,9 @@ type ReplicationObject struct {
 
 	// The remote region for the other end of the Volume Replication.
 	RemoteVolumeRegion *string
+
+	// The resource ID of the remote volume. Required for cross region and cross zone replication
+	RemoteVolumeResourceID *string
 
 	// Schedule
 	ReplicationSchedule *ReplicationSchedule
