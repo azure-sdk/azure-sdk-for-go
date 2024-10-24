@@ -213,8 +213,8 @@ type GroupQuotaDetails struct {
 	// The current Group Quota Limit at the parentId level.
 	Limit *int64
 
-	// Location/Azure region for the quota requested for resource.
-	Region *string
+	// The resource name, such as SKU name.
+	ResourceName *string
 
 	// READ-ONLY; Quota allocated to subscriptions
 	AllocatedToSubscriptions *AllocatedQuotaToSubscriptionList
@@ -245,6 +245,11 @@ type GroupQuotaDetailsName struct {
 type GroupQuotaLimit struct {
 	// Group Quota properties for the specified resource.
 	Properties *GroupQuotaDetails
+}
+
+// GroupQuotaLimitList - List of Group Quota Limit details.
+type GroupQuotaLimitList struct {
+	Properties *GroupQuotaLimitListProperties
 
 	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
@@ -259,13 +264,15 @@ type GroupQuotaLimit struct {
 	Type *string
 }
 
-// GroupQuotaLimitList - List of Group Quota Limit details.
-type GroupQuotaLimitList struct {
+type GroupQuotaLimitListProperties struct {
 	// List of Group Quota Limit details.
 	Value []*GroupQuotaLimit
 
 	// READ-ONLY; The URL to use for getting the next set of results.
 	NextLink *string
+
+	// READ-ONLY; Request status.
+	ProvisioningState *RequestState
 }
 
 // GroupQuotaList - List of Group Quotas at MG level.
@@ -991,6 +998,11 @@ type SubscriptionQuotaAllocationRequestList struct {
 type SubscriptionQuotaAllocations struct {
 	// Quota properties for the specified resource.
 	Properties *SubscriptionQuotaDetails
+}
+
+// SubscriptionQuotaAllocationsList - Subscription quota list.
+type SubscriptionQuotaAllocationsList struct {
+	Properties *SubscriptionQuotaAllocationsListProperties
 
 	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
@@ -1005,13 +1017,15 @@ type SubscriptionQuotaAllocations struct {
 	Type *string
 }
 
-// SubscriptionQuotaAllocationsList - Subscription quota list.
-type SubscriptionQuotaAllocationsList struct {
+type SubscriptionQuotaAllocationsListProperties struct {
 	// Subscription quota list.
 	Value []*SubscriptionQuotaAllocations
 
 	// READ-ONLY; The URL to use for getting the next set of results.
 	NextLink *string
+
+	// READ-ONLY; Request status.
+	ProvisioningState *RequestState
 }
 
 // SubscriptionQuotaAllocationsStatusList - Subscription quota allocation requests status list.
@@ -1028,8 +1042,8 @@ type SubscriptionQuotaDetails struct {
 	// The total quota limit for the subscription.
 	Limit *int64
 
-	// Location/Azure region for the quota requested for resource.
-	Region *string
+	// The resource name, such as SKU name.
+	ResourceName *string
 
 	// READ-ONLY; Name of the resource provided by the resource provider. This property is already included in the request URI,
 	// so it is a readonly property returned in the response.
