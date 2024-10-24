@@ -51,7 +51,7 @@ func NewGroupQuotaLocationSettingsClient(credential azcore.TokenCredential, opti
 // 2. Ten delete the GroupQuota (Check the example - GroupQuotas_Delete).
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01-preview
+// Generated from API version 2024-10-15-preview
 //   - managementGroupID - Management Group Id.
 //   - groupQuotaName - The GroupQuota name. The name should be unique for the provided context tenantId/MgId.
 //   - resourceProviderName - The resource provider name, such as - Microsoft.Compute. Currently only Microsoft.Compute resource
@@ -87,7 +87,7 @@ func (client *GroupQuotaLocationSettingsClient) BeginCreateOrUpdate(ctx context.
 // 2. Ten delete the GroupQuota (Check the example - GroupQuotas_Delete).
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01-preview
+// Generated from API version 2024-10-15-preview
 func (client *GroupQuotaLocationSettingsClient) createOrUpdate(ctx context.Context, managementGroupID string, groupQuotaName string, resourceProviderName string, location string, options *GroupQuotaLocationSettingsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "GroupQuotaLocationSettingsClient.BeginCreateOrUpdate"
@@ -133,7 +133,7 @@ func (client *GroupQuotaLocationSettingsClient) createOrUpdateCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01-preview")
+	reqQP.Set("api-version", "2024-10-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.LocationSettings != nil {
@@ -149,7 +149,7 @@ func (client *GroupQuotaLocationSettingsClient) createOrUpdateCreateRequest(ctx 
 // is not enabled will return Not Found.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01-preview
+// Generated from API version 2024-10-15-preview
 //   - managementGroupID - Management Group Id.
 //   - groupQuotaName - The GroupQuota name. The name should be unique for the provided context tenantId/MgId.
 //   - resourceProviderName - The resource provider name, such as - Microsoft.Compute. Currently only Microsoft.Compute resource
@@ -203,7 +203,7 @@ func (client *GroupQuotaLocationSettingsClient) getCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01-preview")
+	reqQP.Set("api-version", "2024-10-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -222,7 +222,7 @@ func (client *GroupQuotaLocationSettingsClient) getHandleResponse(resp *http.Res
 // not included in GroupQuota Enforcement will not be listed, the regions in failed status
 // with listed as status Failed.
 //
-// Generated from API version 2023-06-01-preview
+// Generated from API version 2024-10-15-preview
 //   - managementGroupID - Management Group Id.
 //   - groupQuotaName - The GroupQuota name. The name should be unique for the provided context tenantId/MgId.
 //   - resourceProviderName - The resource provider name, such as - Microsoft.Compute. Currently only Microsoft.Compute resource
@@ -272,7 +272,7 @@ func (client *GroupQuotaLocationSettingsClient) listCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01-preview")
+	reqQP.Set("api-version", "2024-10-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -298,7 +298,7 @@ func (client *GroupQuotaLocationSettingsClient) listHandleResponse(resp *http.Re
 // 2. Ten delete the GroupQuota (Check the example - GroupQuotas_Delete).
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01-preview
+// Generated from API version 2024-10-15-preview
 //   - managementGroupID - Management Group Id.
 //   - groupQuotaName - The GroupQuota name. The name should be unique for the provided context tenantId/MgId.
 //   - resourceProviderName - The resource provider name, such as - Microsoft.Compute. Currently only Microsoft.Compute resource
@@ -334,7 +334,7 @@ func (client *GroupQuotaLocationSettingsClient) BeginUpdate(ctx context.Context,
 // 2. Ten delete the GroupQuota (Check the example - GroupQuotas_Delete).
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-06-01-preview
+// Generated from API version 2024-10-15-preview
 func (client *GroupQuotaLocationSettingsClient) update(ctx context.Context, managementGroupID string, groupQuotaName string, resourceProviderName string, location string, options *GroupQuotaLocationSettingsClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "GroupQuotaLocationSettingsClient.BeginUpdate"
@@ -380,7 +380,7 @@ func (client *GroupQuotaLocationSettingsClient) updateCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01-preview")
+	reqQP.Set("api-version", "2024-10-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.LocationSettings != nil {

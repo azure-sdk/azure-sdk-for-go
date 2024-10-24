@@ -42,7 +42,7 @@ func NewGroupQuotaUsagesClient(credential azcore.TokenCredential, options *arm.C
 
 // NewListPager - Gets the GroupQuotas usages and limits(quota). Location is required paramter.
 //
-// Generated from API version 2023-06-01-preview
+// Generated from API version 2024-10-15-preview
 //   - managementGroupID - Management Group Id.
 //   - groupQuotaName - The GroupQuota name. The name should be unique for the provided context tenantId/MgId.
 //   - resourceProviderName - The resource provider name, such as - Microsoft.Compute. Currently only Microsoft.Compute resource
@@ -97,7 +97,7 @@ func (client *GroupQuotaUsagesClient) listCreateRequest(ctx context.Context, man
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-06-01-preview")
+	reqQP.Set("api-version", "2024-10-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

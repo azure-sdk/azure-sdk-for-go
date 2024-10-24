@@ -1,5 +1,38 @@
 # Release History
 
+## 1.1.0-beta.2 (2024-10-24)
+### Breaking Changes
+
+- Function `*GroupQuotaSubscriptionAllocationRequestClient.BeginUpdate` parameter(s) have been changed from `(context.Context, string, string, string, string, AllocationRequestStatus, *GroupQuotaSubscriptionAllocationRequestClientBeginUpdateOptions)` to `(context.Context, string, string, string, string, SubscriptionQuotaAllocationsList, *GroupQuotaSubscriptionAllocationRequestClientBeginUpdateOptions)`
+- Function `*GroupQuotaSubscriptionAllocationRequestClient.Get` parameter(s) have been changed from `(context.Context, string, string, string, *GroupQuotaSubscriptionAllocationRequestClientGetOptions)` to `(context.Context, string, string, string, string, *GroupQuotaSubscriptionAllocationRequestClientGetOptions)`
+- Type of `GroupQuotaLimitsRequestClientBeginUpdateOptions.GroupQuotaRequest` has been changed from `*SubmittedResourceRequestStatus` to `*GroupQuotaLimitList`
+- Function `*GroupQuotaLimitsClient.Get` has been removed
+- Function `*GroupQuotaLimitsRequestClient.BeginCreateOrUpdate` has been removed
+- Function `*GroupQuotaSubscriptionAllocationClient.Get` has been removed
+- Function `*GroupQuotaSubscriptionAllocationRequestClient.BeginCreateOrUpdate` has been removed
+- Operation `*GroupQuotaLimitsClient.NewListPager` does not support pagination anymore, use `*GroupQuotaLimitsClient.List` instead.
+- Operation `*GroupQuotaSubscriptionAllocationClient.NewListPager` does not support pagination anymore, use `*GroupQuotaSubscriptionAllocationClient.List` instead.
+- Field `Region` of struct `GroupQuotaDetails` has been removed
+- Field `ID`, `Name`, `SystemData`, `Type` of struct `GroupQuotaLimit` has been removed
+- Field `NextLink`, `Value` of struct `GroupQuotaLimitList` has been removed
+- Field `SubmittedResourceRequestStatus` of struct `GroupQuotaLimitsRequestClientUpdateResponse` has been removed
+- Field `AllocationRequestStatus` of struct `GroupQuotaSubscriptionAllocationRequestClientUpdateResponse` has been removed
+- Field `ID`, `Name`, `SystemData`, `Type` of struct `SubscriptionQuotaAllocations` has been removed
+- Field `NextLink`, `Value` of struct `SubscriptionQuotaAllocationsList` has been removed
+- Field `Region` of struct `SubscriptionQuotaDetails` has been removed
+
+### Features Added
+
+- New struct `GroupQuotaLimitListProperties`
+- New struct `SubscriptionQuotaAllocationsListProperties`
+- New field `ResourceName` in struct `GroupQuotaDetails`
+- New field `ID`, `Name`, `Properties`, `SystemData`, `Type` in struct `GroupQuotaLimitList`
+- New anonymous field `GroupQuotaLimitList` in struct `GroupQuotaLimitsRequestClientUpdateResponse`
+- New anonymous field `SubscriptionQuotaAllocationsList` in struct `GroupQuotaSubscriptionAllocationRequestClientUpdateResponse`
+- New field `ID`, `Name`, `Properties`, `SystemData`, `Type` in struct `SubscriptionQuotaAllocationsList`
+- New field `ResourceName` in struct `SubscriptionQuotaDetails`
+
+
 ## 1.1.0-beta.1 (2024-04-26)
 ### Features Added
 
