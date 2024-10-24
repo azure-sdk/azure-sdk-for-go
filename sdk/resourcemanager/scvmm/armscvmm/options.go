@@ -203,6 +203,9 @@ type VirtualMachineInstancesClientBeginStartOptions struct {
 // VirtualMachineInstancesClientBeginStopOptions contains the optional parameters for the VirtualMachineInstancesClient.BeginStop
 // method.
 type VirtualMachineInstancesClientBeginStopOptions struct {
+	// The content of the action request
+	Body *StopVirtualMachineOptions
+
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }

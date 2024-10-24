@@ -239,6 +239,9 @@ type GuestAgentProperties struct {
 	// HTTP Proxy configuration for the VM.
 	HTTPProxyConfig *HTTPProxyConfiguration
 
+	// The resource id of the private link scope this machine is assigned to, if any.
+	PrivateLinkScopeResourceID *string
+
 	// Gets or sets the guest agent provisioning action.
 	ProvisioningAction *ProvisioningAction
 
@@ -548,6 +551,27 @@ type OsProfileForVMInstance struct {
 
 	// Gets or sets computer name.
 	ComputerName *string
+
+	// Gets or sets the domain name.
+	DomainName *string
+
+	// Password of the domain the VM has to join.
+	DomainPassword *string
+
+	// Gets or sets the domain username.
+	DomainUsername *string
+
+	// Gets or sets the product key.Input format xxxxx-xxxxx-xxxxx-xxxxx-xxxxx
+	ProductKey *string
+
+	// Get or sets the commands to be run once at the time of creation separated by semicolons.
+	RunOnceCommands *string
+
+	// Gets or sets the index value of the timezone.
+	Timezone *int32
+
+	// Gets or sets the workgroup.
+	Workgroup *string
 
 	// READ-ONLY; Gets os sku.
 	OSSKU *string

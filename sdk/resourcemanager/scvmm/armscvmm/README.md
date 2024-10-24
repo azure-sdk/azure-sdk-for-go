@@ -1,6 +1,6 @@
 # Azure Scvmm Module for Go
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/scvmm/armscvmm)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/scvmm/armscvmm)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/scvmm/armscvmm/v2)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/scvmm/armscvmm/v2)
 
 The `armscvmm` module provides operations for working with Azure Scvmm.
 
@@ -20,7 +20,7 @@ This project uses [Go modules](https://github.com/golang/go/wiki/Modules) for ve
 Install the Azure Scvmm module:
 
 ```sh
-go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/scvmm/armscvmm
+go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/scvmm/armscvmm/v2
 ```
 
 ## Authorization
