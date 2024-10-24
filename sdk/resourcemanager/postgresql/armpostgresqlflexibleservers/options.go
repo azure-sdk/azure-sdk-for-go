@@ -31,6 +31,18 @@ type AdministratorsClientListByServerOptions struct {
 	// placeholder for future optional parameters
 }
 
+// BackupsClientBeginCreateOptions contains the optional parameters for the BackupsClient.BeginCreate method.
+type BackupsClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// BackupsClientBeginDeleteOptions contains the optional parameters for the BackupsClient.BeginDelete method.
+type BackupsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // BackupsClientGetOptions contains the optional parameters for the BackupsClient.Get method.
 type BackupsClientGetOptions struct {
 	// placeholder for future optional parameters
@@ -195,9 +207,9 @@ type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PostgreSQLManagementClientCheckMigrationNameAvailabilityOptions contains the optional parameters for the PostgreSQLManagementClient.CheckMigrationNameAvailability
+// PostgreSQLServerManagementClientCheckMigrationNameAvailabilityOptions contains the optional parameters for the PostgreSQLServerManagementClient.CheckMigrationNameAvailability
 // method.
-type PostgreSQLManagementClientCheckMigrationNameAvailabilityOptions struct {
+type PostgreSQLServerManagementClientCheckMigrationNameAvailabilityOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -325,6 +337,24 @@ type ServersClientListByResourceGroupOptions struct {
 // ServersClientListOptions contains the optional parameters for the ServersClient.NewListPager method.
 type ServersClientListOptions struct {
 	// placeholder for future optional parameters
+}
+
+// TuningOptionsClientGetOptions contains the optional parameters for the TuningOptionsClient.Get method.
+type TuningOptionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// TuningOptionsClientListByServerOptions contains the optional parameters for the TuningOptionsClient.NewListByServerPager
+// method.
+type TuningOptionsClientListByServerOptions struct {
+	// placeholder for future optional parameters
+}
+
+// TuningOptionsClientListRecommendationsOptions contains the optional parameters for the TuningOptionsClient.NewListRecommendationsPager
+// method.
+type TuningOptionsClientListRecommendationsOptions struct {
+	// Recommendations list filter. Retrieves recommendations based on type.
+	RecommendationType *RecommendationType
 }
 
 // VirtualEndpointsClientBeginCreateOptions contains the optional parameters for the VirtualEndpointsClient.BeginCreate method.
