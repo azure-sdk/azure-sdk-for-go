@@ -10,7 +10,7 @@ package armappcontainers
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appcontainers/armappcontainers"
-	moduleVersion = "v3.1.0-beta.1"
+	moduleVersion = "v3.1.0-beta.2"
 )
 
 // AccessMode - Access mode for storage
@@ -45,12 +45,14 @@ func PossibleActionValues() []Action {
 	}
 }
 
-// ActiveRevisionsMode - ActiveRevisionsMode controls how active revisions are handled for the Container app:Multiple: multiple
-// revisions can be active.Single: Only one revision can be active at a time. Revision weights can
-// not be used in this mode. If no value if provided, this is the default.
+// ActiveRevisionsMode - ActiveRevisionsMode controls how active revisions are handled for the Container app:Single: Only
+// one revision can be active at a time. Traffic weights cannot be used. This is the default.Multiple:
+// Multiple revisions can be active, including optional traffic weights and labels.Labels: Only revisions with labels are
+// active. Traffic weights can be applied to labels.
 type ActiveRevisionsMode string
 
 const (
+	ActiveRevisionsModeLabels   ActiveRevisionsMode = "Labels"
 	ActiveRevisionsModeMultiple ActiveRevisionsMode = "Multiple"
 	ActiveRevisionsModeSingle   ActiveRevisionsMode = "Single"
 )
@@ -58,6 +60,7 @@ const (
 // PossibleActiveRevisionsModeValues returns the possible values for the ActiveRevisionsMode const type.
 func PossibleActiveRevisionsModeValues() []ActiveRevisionsMode {
 	return []ActiveRevisionsMode{
+		ActiveRevisionsModeLabels,
 		ActiveRevisionsModeMultiple,
 		ActiveRevisionsModeSingle,
 	}
@@ -115,6 +118,7 @@ func PossibleApplicabilityValues() []Applicability {
 type BindingType string
 
 const (
+	BindingTypeAuto       BindingType = "Auto"
 	BindingTypeDisabled   BindingType = "Disabled"
 	BindingTypeSniEnabled BindingType = "SniEnabled"
 )
@@ -122,6 +126,7 @@ const (
 // PossibleBindingTypeValues returns the possible values for the BindingType const type.
 func PossibleBindingTypeValues() []BindingType {
 	return []BindingType{
+		BindingTypeAuto,
 		BindingTypeDisabled,
 		BindingTypeSniEnabled,
 	}
@@ -251,6 +256,26 @@ func PossibleCheckNameAvailabilityReasonValues() []CheckNameAvailabilityReason {
 	}
 }
 
+// ConnectedEnvironmentDaprComponentProvisioningState - Provisioning state of the Connected Environment Dapr Component.
+type ConnectedEnvironmentDaprComponentProvisioningState string
+
+const (
+	ConnectedEnvironmentDaprComponentProvisioningStateCanceled   ConnectedEnvironmentDaprComponentProvisioningState = "Canceled"
+	ConnectedEnvironmentDaprComponentProvisioningStateFailed     ConnectedEnvironmentDaprComponentProvisioningState = "Failed"
+	ConnectedEnvironmentDaprComponentProvisioningStateInProgress ConnectedEnvironmentDaprComponentProvisioningState = "InProgress"
+	ConnectedEnvironmentDaprComponentProvisioningStateSucceeded  ConnectedEnvironmentDaprComponentProvisioningState = "Succeeded"
+)
+
+// PossibleConnectedEnvironmentDaprComponentProvisioningStateValues returns the possible values for the ConnectedEnvironmentDaprComponentProvisioningState const type.
+func PossibleConnectedEnvironmentDaprComponentProvisioningStateValues() []ConnectedEnvironmentDaprComponentProvisioningState {
+	return []ConnectedEnvironmentDaprComponentProvisioningState{
+		ConnectedEnvironmentDaprComponentProvisioningStateCanceled,
+		ConnectedEnvironmentDaprComponentProvisioningStateFailed,
+		ConnectedEnvironmentDaprComponentProvisioningStateInProgress,
+		ConnectedEnvironmentDaprComponentProvisioningStateSucceeded,
+	}
+}
+
 // ConnectedEnvironmentProvisioningState - Provisioning state of the Kubernetes Environment.
 type ConnectedEnvironmentProvisioningState string
 
@@ -276,6 +301,26 @@ func PossibleConnectedEnvironmentProvisioningStateValues() []ConnectedEnvironmen
 		ConnectedEnvironmentProvisioningStateScheduledForDelete,
 		ConnectedEnvironmentProvisioningStateSucceeded,
 		ConnectedEnvironmentProvisioningStateWaiting,
+	}
+}
+
+// ConnectedEnvironmentStorageProvisioningState - Provisioning state of the storage.
+type ConnectedEnvironmentStorageProvisioningState string
+
+const (
+	ConnectedEnvironmentStorageProvisioningStateCanceled   ConnectedEnvironmentStorageProvisioningState = "Canceled"
+	ConnectedEnvironmentStorageProvisioningStateFailed     ConnectedEnvironmentStorageProvisioningState = "Failed"
+	ConnectedEnvironmentStorageProvisioningStateInProgress ConnectedEnvironmentStorageProvisioningState = "InProgress"
+	ConnectedEnvironmentStorageProvisioningStateSucceeded  ConnectedEnvironmentStorageProvisioningState = "Succeeded"
+)
+
+// PossibleConnectedEnvironmentStorageProvisioningStateValues returns the possible values for the ConnectedEnvironmentStorageProvisioningState const type.
+func PossibleConnectedEnvironmentStorageProvisioningStateValues() []ConnectedEnvironmentStorageProvisioningState {
+	return []ConnectedEnvironmentStorageProvisioningState{
+		ConnectedEnvironmentStorageProvisioningStateCanceled,
+		ConnectedEnvironmentStorageProvisioningStateFailed,
+		ConnectedEnvironmentStorageProvisioningStateInProgress,
+		ConnectedEnvironmentStorageProvisioningStateSucceeded,
 	}
 }
 
@@ -334,6 +379,33 @@ func PossibleContainerAppReplicaRunningStateValues() []ContainerAppReplicaRunnin
 		ContainerAppReplicaRunningStateNotRunning,
 		ContainerAppReplicaRunningStateRunning,
 		ContainerAppReplicaRunningStateUnknown,
+	}
+}
+
+// ContainerAppRunningStatus - Running status of the Container App.
+type ContainerAppRunningStatus string
+
+const (
+	// ContainerAppRunningStatusProgressing - Container App is transitioning between Stopped and Running states.
+	ContainerAppRunningStatusProgressing ContainerAppRunningStatus = "Progressing"
+	// ContainerAppRunningStatusReady - Container App Job is in Ready state.
+	ContainerAppRunningStatusReady ContainerAppRunningStatus = "Ready"
+	// ContainerAppRunningStatusRunning - Container App is in Running state.
+	ContainerAppRunningStatusRunning ContainerAppRunningStatus = "Running"
+	// ContainerAppRunningStatusStopped - Container App is in Stopped state.
+	ContainerAppRunningStatusStopped ContainerAppRunningStatus = "Stopped"
+	// ContainerAppRunningStatusSuspended - Container App Job is in Suspended state.
+	ContainerAppRunningStatusSuspended ContainerAppRunningStatus = "Suspended"
+)
+
+// PossibleContainerAppRunningStatusValues returns the possible values for the ContainerAppRunningStatus const type.
+func PossibleContainerAppRunningStatusValues() []ContainerAppRunningStatus {
+	return []ContainerAppRunningStatus{
+		ContainerAppRunningStatusProgressing,
+		ContainerAppRunningStatusReady,
+		ContainerAppRunningStatusRunning,
+		ContainerAppRunningStatusStopped,
+		ContainerAppRunningStatusSuspended,
 	}
 }
 
@@ -536,6 +608,32 @@ func PossibleForwardProxyConventionValues() []ForwardProxyConvention {
 		ForwardProxyConventionCustom,
 		ForwardProxyConventionNoProxy,
 		ForwardProxyConventionStandard,
+	}
+}
+
+// HTTPRouteProvisioningState - The current provisioning state.
+type HTTPRouteProvisioningState string
+
+const (
+	HTTPRouteProvisioningStateCanceled  HTTPRouteProvisioningState = "Canceled"
+	HTTPRouteProvisioningStateDeleting  HTTPRouteProvisioningState = "Deleting"
+	HTTPRouteProvisioningStateFailed    HTTPRouteProvisioningState = "Failed"
+	HTTPRouteProvisioningStatePending   HTTPRouteProvisioningState = "Pending"
+	HTTPRouteProvisioningStateSucceeded HTTPRouteProvisioningState = "Succeeded"
+	HTTPRouteProvisioningStateUpdating  HTTPRouteProvisioningState = "Updating"
+	HTTPRouteProvisioningStateWaiting   HTTPRouteProvisioningState = "Waiting"
+)
+
+// PossibleHTTPRouteProvisioningStateValues returns the possible values for the HTTPRouteProvisioningState const type.
+func PossibleHTTPRouteProvisioningStateValues() []HTTPRouteProvisioningState {
+	return []HTTPRouteProvisioningState{
+		HTTPRouteProvisioningStateCanceled,
+		HTTPRouteProvisioningStateDeleting,
+		HTTPRouteProvisioningStateFailed,
+		HTTPRouteProvisioningStatePending,
+		HTTPRouteProvisioningStateSucceeded,
+		HTTPRouteProvisioningStateUpdating,
+		HTTPRouteProvisioningStateWaiting,
 	}
 }
 
@@ -1217,6 +1315,36 @@ func PossibleUnauthenticatedClientActionV2Values() []UnauthenticatedClientAction
 		UnauthenticatedClientActionV2RedirectToLoginPage,
 		UnauthenticatedClientActionV2Return401,
 		UnauthenticatedClientActionV2Return403,
+	}
+}
+
+// WeekDay - Day of the week when a managed environment can be patched.
+type WeekDay string
+
+const (
+	WeekDayEveryday  WeekDay = "Everyday"
+	WeekDayFriday    WeekDay = "Friday"
+	WeekDayMonday    WeekDay = "Monday"
+	WeekDaySaturday  WeekDay = "Saturday"
+	WeekDaySunday    WeekDay = "Sunday"
+	WeekDayThursday  WeekDay = "Thursday"
+	WeekDayTuesday   WeekDay = "Tuesday"
+	WeekDayWednesday WeekDay = "Wednesday"
+	WeekDayWeekend   WeekDay = "Weekend"
+)
+
+// PossibleWeekDayValues returns the possible values for the WeekDay const type.
+func PossibleWeekDayValues() []WeekDay {
+	return []WeekDay{
+		WeekDayEveryday,
+		WeekDayFriday,
+		WeekDayMonday,
+		WeekDaySaturday,
+		WeekDaySunday,
+		WeekDayThursday,
+		WeekDayTuesday,
+		WeekDayWednesday,
+		WeekDayWeekend,
 	}
 }
 

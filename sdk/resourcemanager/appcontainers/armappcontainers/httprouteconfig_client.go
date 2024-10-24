@@ -20,63 +20,63 @@ import (
 	"strings"
 )
 
-// CertificatesClient contains the methods for the Certificates group.
-// Don't use this type directly, use NewCertificatesClient() instead.
-type CertificatesClient struct {
+// HTTPRouteConfigClient contains the methods for the HTTPRouteConfig group.
+// Don't use this type directly, use NewHTTPRouteConfigClient() instead.
+type HTTPRouteConfigClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewCertificatesClient creates a new instance of CertificatesClient with the specified values.
+// NewHTTPRouteConfigClient creates a new instance of HTTPRouteConfigClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewCertificatesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*CertificatesClient, error) {
+func NewHTTPRouteConfigClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*HTTPRouteConfigClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &CertificatesClient{
+	client := &HTTPRouteConfigClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// CreateOrUpdate - Create or Update a Certificate.
+// CreateOrUpdate - Create or Update a Http Route Config.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
-//   - certificateName - Name of the Certificate.
-//   - options - CertificatesClientCreateOrUpdateOptions contains the optional parameters for the CertificatesClient.CreateOrUpdate
+//   - httpRouteName - Name of the Http Route Config Resource.
+//   - options - HTTPRouteConfigClientCreateOrUpdateOptions contains the optional parameters for the HTTPRouteConfigClient.CreateOrUpdate
 //     method.
-func (client *CertificatesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, environmentName string, certificateName string, options *CertificatesClientCreateOrUpdateOptions) (CertificatesClientCreateOrUpdateResponse, error) {
+func (client *HTTPRouteConfigClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, environmentName string, httpRouteName string, options *HTTPRouteConfigClientCreateOrUpdateOptions) (HTTPRouteConfigClientCreateOrUpdateResponse, error) {
 	var err error
-	const operationName = "CertificatesClient.CreateOrUpdate"
+	const operationName = "HTTPRouteConfigClient.CreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, environmentName, certificateName, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, environmentName, httpRouteName, options)
 	if err != nil {
-		return CertificatesClientCreateOrUpdateResponse{}, err
+		return HTTPRouteConfigClientCreateOrUpdateResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return CertificatesClientCreateOrUpdateResponse{}, err
+		return HTTPRouteConfigClientCreateOrUpdateResponse{}, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated) {
 		err = runtime.NewResponseError(httpResp)
-		return CertificatesClientCreateOrUpdateResponse{}, err
+		return HTTPRouteConfigClientCreateOrUpdateResponse{}, err
 	}
 	resp, err := client.createOrUpdateHandleResponse(httpResp)
 	return resp, err
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *CertificatesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, certificateName string, options *CertificatesClientCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}/certificates/{certificateName}"
+func (client *HTTPRouteConfigClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, httpRouteName string, options *HTTPRouteConfigClientCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}/httpRouteConfigs/{httpRouteName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -89,10 +89,10 @@ func (client *CertificatesClient) createOrUpdateCreateRequest(ctx context.Contex
 		return nil, errors.New("parameter environmentName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{environmentName}", url.PathEscape(environmentName))
-	if certificateName == "" {
-		return nil, errors.New("parameter certificateName cannot be empty")
+	if httpRouteName == "" {
+		return nil, errors.New("parameter httpRouteName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{certificateName}", url.PathEscape(certificateName))
+	urlPath = strings.ReplaceAll(urlPath, "{httpRouteName}", url.PathEscape(httpRouteName))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -101,8 +101,8 @@ func (client *CertificatesClient) createOrUpdateCreateRequest(ctx context.Contex
 	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if options != nil && options.CertificateEnvelope != nil {
-		if err := runtime.MarshalAsJSON(req, *options.CertificateEnvelope); err != nil {
+	if options != nil && options.HTTPRouteConfigEnvelope != nil {
+		if err := runtime.MarshalAsJSON(req, *options.HTTPRouteConfigEnvelope); err != nil {
 			return nil, err
 		}
 		return req, nil
@@ -111,46 +111,46 @@ func (client *CertificatesClient) createOrUpdateCreateRequest(ctx context.Contex
 }
 
 // createOrUpdateHandleResponse handles the CreateOrUpdate response.
-func (client *CertificatesClient) createOrUpdateHandleResponse(resp *http.Response) (CertificatesClientCreateOrUpdateResponse, error) {
-	result := CertificatesClientCreateOrUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.Certificate); err != nil {
-		return CertificatesClientCreateOrUpdateResponse{}, err
+func (client *HTTPRouteConfigClient) createOrUpdateHandleResponse(resp *http.Response) (HTTPRouteConfigClientCreateOrUpdateResponse, error) {
+	result := HTTPRouteConfigClientCreateOrUpdateResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.HTTPRouteConfig); err != nil {
+		return HTTPRouteConfigClientCreateOrUpdateResponse{}, err
 	}
 	return result, nil
 }
 
-// Delete - Deletes the specified Certificate.
+// Delete - Deletes the specified Managed Http Route.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
-//   - certificateName - Name of the Certificate.
-//   - options - CertificatesClientDeleteOptions contains the optional parameters for the CertificatesClient.Delete method.
-func (client *CertificatesClient) Delete(ctx context.Context, resourceGroupName string, environmentName string, certificateName string, options *CertificatesClientDeleteOptions) (CertificatesClientDeleteResponse, error) {
+//   - httpRouteName - Name of the Http Route Config Resource.
+//   - options - HTTPRouteConfigClientDeleteOptions contains the optional parameters for the HTTPRouteConfigClient.Delete method.
+func (client *HTTPRouteConfigClient) Delete(ctx context.Context, resourceGroupName string, environmentName string, httpRouteName string, options *HTTPRouteConfigClientDeleteOptions) (HTTPRouteConfigClientDeleteResponse, error) {
 	var err error
-	const operationName = "CertificatesClient.Delete"
+	const operationName = "HTTPRouteConfigClient.Delete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, environmentName, certificateName, options)
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, environmentName, httpRouteName, options)
 	if err != nil {
-		return CertificatesClientDeleteResponse{}, err
+		return HTTPRouteConfigClientDeleteResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return CertificatesClientDeleteResponse{}, err
+		return HTTPRouteConfigClientDeleteResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
-		return CertificatesClientDeleteResponse{}, err
+		return HTTPRouteConfigClientDeleteResponse{}, err
 	}
-	return CertificatesClientDeleteResponse{}, nil
+	return HTTPRouteConfigClientDeleteResponse{}, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *CertificatesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, certificateName string, options *CertificatesClientDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}/certificates/{certificateName}"
+func (client *HTTPRouteConfigClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, httpRouteName string, options *HTTPRouteConfigClientDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}/httpRouteConfigs/{httpRouteName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -163,10 +163,10 @@ func (client *CertificatesClient) deleteCreateRequest(ctx context.Context, resou
 		return nil, errors.New("parameter environmentName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{environmentName}", url.PathEscape(environmentName))
-	if certificateName == "" {
-		return nil, errors.New("parameter certificateName cannot be empty")
+	if httpRouteName == "" {
+		return nil, errors.New("parameter httpRouteName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{certificateName}", url.PathEscape(certificateName))
+	urlPath = strings.ReplaceAll(urlPath, "{httpRouteName}", url.PathEscape(httpRouteName))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -178,39 +178,39 @@ func (client *CertificatesClient) deleteCreateRequest(ctx context.Context, resou
 	return req, nil
 }
 
-// Get - Get the specified Certificate.
+// Get - Get the specified Managed Http Route Config.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
-//   - certificateName - Name of the Certificate.
-//   - options - CertificatesClientGetOptions contains the optional parameters for the CertificatesClient.Get method.
-func (client *CertificatesClient) Get(ctx context.Context, resourceGroupName string, environmentName string, certificateName string, options *CertificatesClientGetOptions) (CertificatesClientGetResponse, error) {
+//   - httpRouteName - Name of the Http Route Config Resource.
+//   - options - HTTPRouteConfigClientGetOptions contains the optional parameters for the HTTPRouteConfigClient.Get method.
+func (client *HTTPRouteConfigClient) Get(ctx context.Context, resourceGroupName string, environmentName string, httpRouteName string, options *HTTPRouteConfigClientGetOptions) (HTTPRouteConfigClientGetResponse, error) {
 	var err error
-	const operationName = "CertificatesClient.Get"
+	const operationName = "HTTPRouteConfigClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, resourceGroupName, environmentName, certificateName, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, environmentName, httpRouteName, options)
 	if err != nil {
-		return CertificatesClientGetResponse{}, err
+		return HTTPRouteConfigClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return CertificatesClientGetResponse{}, err
+		return HTTPRouteConfigClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return CertificatesClientGetResponse{}, err
+		return HTTPRouteConfigClientGetResponse{}, err
 	}
 	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
 // getCreateRequest creates the Get request.
-func (client *CertificatesClient) getCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, certificateName string, options *CertificatesClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}/certificates/{certificateName}"
+func (client *HTTPRouteConfigClient) getCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, httpRouteName string, options *HTTPRouteConfigClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}/httpRouteConfigs/{httpRouteName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -223,10 +223,10 @@ func (client *CertificatesClient) getCreateRequest(ctx context.Context, resource
 		return nil, errors.New("parameter environmentName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{environmentName}", url.PathEscape(environmentName))
-	if certificateName == "" {
-		return nil, errors.New("parameter certificateName cannot be empty")
+	if httpRouteName == "" {
+		return nil, errors.New("parameter httpRouteName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{certificateName}", url.PathEscape(certificateName))
+	urlPath = strings.ReplaceAll(urlPath, "{httpRouteName}", url.PathEscape(httpRouteName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -239,27 +239,28 @@ func (client *CertificatesClient) getCreateRequest(ctx context.Context, resource
 }
 
 // getHandleResponse handles the Get response.
-func (client *CertificatesClient) getHandleResponse(resp *http.Response) (CertificatesClientGetResponse, error) {
-	result := CertificatesClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.Certificate); err != nil {
-		return CertificatesClientGetResponse{}, err
+func (client *HTTPRouteConfigClient) getHandleResponse(resp *http.Response) (HTTPRouteConfigClientGetResponse, error) {
+	result := HTTPRouteConfigClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.HTTPRouteConfig); err != nil {
+		return HTTPRouteConfigClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListPager - Get the Certificates in a given managed environment.
+// NewListPager - Get the Managed Http Routes in a given managed environment.
 //
 // Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
-//   - options - CertificatesClientListOptions contains the optional parameters for the CertificatesClient.NewListPager method.
-func (client *CertificatesClient) NewListPager(resourceGroupName string, environmentName string, options *CertificatesClientListOptions) *runtime.Pager[CertificatesClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[CertificatesClientListResponse]{
-		More: func(page CertificatesClientListResponse) bool {
+//   - options - HTTPRouteConfigClientListOptions contains the optional parameters for the HTTPRouteConfigClient.NewListPager
+//     method.
+func (client *HTTPRouteConfigClient) NewListPager(resourceGroupName string, environmentName string, options *HTTPRouteConfigClientListOptions) *runtime.Pager[HTTPRouteConfigClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[HTTPRouteConfigClientListResponse]{
+		More: func(page HTTPRouteConfigClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *CertificatesClientListResponse) (CertificatesClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "CertificatesClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *HTTPRouteConfigClientListResponse) (HTTPRouteConfigClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "HTTPRouteConfigClient.NewListPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
@@ -268,7 +269,7 @@ func (client *CertificatesClient) NewListPager(resourceGroupName string, environ
 				return client.listCreateRequest(ctx, resourceGroupName, environmentName, options)
 			}, nil)
 			if err != nil {
-				return CertificatesClientListResponse{}, err
+				return HTTPRouteConfigClientListResponse{}, err
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -277,8 +278,8 @@ func (client *CertificatesClient) NewListPager(resourceGroupName string, environ
 }
 
 // listCreateRequest creates the List request.
-func (client *CertificatesClient) listCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, options *CertificatesClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}/certificates"
+func (client *HTTPRouteConfigClient) listCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, options *HTTPRouteConfigClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}/httpRouteConfigs"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -303,48 +304,48 @@ func (client *CertificatesClient) listCreateRequest(ctx context.Context, resourc
 }
 
 // listHandleResponse handles the List response.
-func (client *CertificatesClient) listHandleResponse(resp *http.Response) (CertificatesClientListResponse, error) {
-	result := CertificatesClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.CertificateCollection); err != nil {
-		return CertificatesClientListResponse{}, err
+func (client *HTTPRouteConfigClient) listHandleResponse(resp *http.Response) (HTTPRouteConfigClientListResponse, error) {
+	result := HTTPRouteConfigClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.HTTPRouteConfigCollection); err != nil {
+		return HTTPRouteConfigClientListResponse{}, err
 	}
 	return result, nil
 }
 
-// Update - Patches a certificate. Currently only patching of tags is supported
+// Update - Patches an http route config resource. Only patching of tags is supported
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
-//   - certificateName - Name of the Certificate.
-//   - certificateEnvelope - Properties of a certificate that need to be updated
-//   - options - CertificatesClientUpdateOptions contains the optional parameters for the CertificatesClient.Update method.
-func (client *CertificatesClient) Update(ctx context.Context, resourceGroupName string, environmentName string, certificateName string, certificateEnvelope CertificatePatch, options *CertificatesClientUpdateOptions) (CertificatesClientUpdateResponse, error) {
+//   - httpRouteName - Name of the Http Route Config Resource.
+//   - httpRouteConfigEnvelope - Properties of http route config that need to be updated
+//   - options - HTTPRouteConfigClientUpdateOptions contains the optional parameters for the HTTPRouteConfigClient.Update method.
+func (client *HTTPRouteConfigClient) Update(ctx context.Context, resourceGroupName string, environmentName string, httpRouteName string, httpRouteConfigEnvelope HTTPRouteConfig, options *HTTPRouteConfigClientUpdateOptions) (HTTPRouteConfigClientUpdateResponse, error) {
 	var err error
-	const operationName = "CertificatesClient.Update"
+	const operationName = "HTTPRouteConfigClient.Update"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, environmentName, certificateName, certificateEnvelope, options)
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, environmentName, httpRouteName, httpRouteConfigEnvelope, options)
 	if err != nil {
-		return CertificatesClientUpdateResponse{}, err
+		return HTTPRouteConfigClientUpdateResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return CertificatesClientUpdateResponse{}, err
+		return HTTPRouteConfigClientUpdateResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return CertificatesClientUpdateResponse{}, err
+		return HTTPRouteConfigClientUpdateResponse{}, err
 	}
 	resp, err := client.updateHandleResponse(httpResp)
 	return resp, err
 }
 
 // updateCreateRequest creates the Update request.
-func (client *CertificatesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, certificateName string, certificateEnvelope CertificatePatch, options *CertificatesClientUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}/certificates/{certificateName}"
+func (client *HTTPRouteConfigClient) updateCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, httpRouteName string, httpRouteConfigEnvelope HTTPRouteConfig, options *HTTPRouteConfigClientUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}/httpRouteConfigs/{httpRouteName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -357,10 +358,10 @@ func (client *CertificatesClient) updateCreateRequest(ctx context.Context, resou
 		return nil, errors.New("parameter environmentName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{environmentName}", url.PathEscape(environmentName))
-	if certificateName == "" {
-		return nil, errors.New("parameter certificateName cannot be empty")
+	if httpRouteName == "" {
+		return nil, errors.New("parameter httpRouteName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{certificateName}", url.PathEscape(certificateName))
+	urlPath = strings.ReplaceAll(urlPath, "{httpRouteName}", url.PathEscape(httpRouteName))
 	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -369,17 +370,17 @@ func (client *CertificatesClient) updateCreateRequest(ctx context.Context, resou
 	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, certificateEnvelope); err != nil {
+	if err := runtime.MarshalAsJSON(req, httpRouteConfigEnvelope); err != nil {
 		return nil, err
 	}
 	return req, nil
 }
 
 // updateHandleResponse handles the Update response.
-func (client *CertificatesClient) updateHandleResponse(resp *http.Response) (CertificatesClientUpdateResponse, error) {
-	result := CertificatesClientUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.Certificate); err != nil {
-		return CertificatesClientUpdateResponse{}, err
+func (client *HTTPRouteConfigClient) updateHandleResponse(resp *http.Response) (HTTPRouteConfigClientUpdateResponse, error) {
+	result := HTTPRouteConfigClientUpdateResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.HTTPRouteConfig); err != nil {
+		return HTTPRouteConfigClientUpdateResponse{}, err
 	}
 	return result, nil
 }

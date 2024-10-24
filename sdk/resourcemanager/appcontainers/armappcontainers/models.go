@@ -429,7 +429,17 @@ type BillingMeterProperties struct {
 
 // BlobStorageTokenStore - The configuration settings of the storage of the tokens if blob storage is used.
 type BlobStorageTokenStore struct {
-	// REQUIRED; The name of the app secrets containing the SAS URL of the blob storage containing the tokens.
+	// The URI of the blob storage containing the tokens. Should not be used along with sasUrlSettingName.
+	BlobContainerURI *string
+
+	// The Client ID of a User-Assigned Managed Identity. Should not be used along with managedIdentityResourceId.
+	ClientID *string
+
+	// The Resource ID of a User-Assigned Managed Identity. Should not be used along with clientId.
+	ManagedIdentityResourceID *string
+
+	// The name of the app secrets containing the SAS URL of the blob storage containing the tokens. Should not be used along
+	// with blobContainerUri.
 	SasURLSettingName *string
 }
 
@@ -639,6 +649,9 @@ type CertificateProperties struct {
 	// PFX or PEM blob
 	Value []byte
 
+	// READ-ONLY; Any errors that occurred during deployment or deployment validation
+	DeploymentErrors *string
+
 	// READ-ONLY; Certificate expiration date.
 	ExpirationDate *time.Time
 
@@ -712,9 +725,10 @@ type ClientRegistration struct {
 
 // Configuration - Non versioned Container App configuration properties that define the mutable settings of a Container app
 type Configuration struct {
-	// ActiveRevisionsMode controls how active revisions are handled for the Container app:Multiple: multiple revisions can be
-	// active.Single: Only one revision can be active at a time. Revision weights can
-	// not be used in this mode. If no value if provided, this is the default.
+	// ActiveRevisionsMode controls how active revisions are handled for the Container app:Single: Only one revision can be active
+	// at a time. Traffic weights cannot be used. This is the default.Multiple:
+	// Multiple revisions can be active, including optional traffic weights and labels.Labels: Only revisions with labels are
+	// active. Traffic weights can be applied to labels.
 	ActiveRevisionsMode *ActiveRevisionsMode
 
 	// Dapr configuration for the Container App.
@@ -733,6 +747,11 @@ type Configuration struct {
 	// Collection of private container registry credentials for containers used by the Container app
 	Registries []*RegistryCredentials
 
+	// Optional. The percent of the total number of replicas that must be brought up before revision transition occurs. Defaults
+	// to 100 when none is given. Value must be greater than 0 and less than or equal
+	// to 100.
+	RevisionTransitionThreshold *int32
+
 	// App runtime configuration for the Container App.
 	Runtime *Runtime
 
@@ -741,6 +760,9 @@ type Configuration struct {
 
 	// Container App to be a dev Container App Service
 	Service *Service
+
+	// Required in labels revisions mode. Label to apply to newly created revision.
+	TargetLabel *string
 }
 
 // ConnectedEnvironment - An environment for Kubernetes cluster specialized for web workloads by Azure App Service
@@ -774,6 +796,69 @@ type ConnectedEnvironment struct {
 type ConnectedEnvironmentCollection struct {
 	// Collection of resources.
 	Value []*ConnectedEnvironment
+
+	// READ-ONLY; Link to next page of resources.
+	NextLink *string
+}
+
+// ConnectedEnvironmentDaprComponent - Dapr Component.
+type ConnectedEnvironmentDaprComponent struct {
+	// Dapr component properties
+	Properties *ConnectedEnvironmentDaprComponentProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ConnectedEnvironmentDaprComponentProperties - Dapr component properties
+type ConnectedEnvironmentDaprComponentProperties struct {
+	// Component type
+	ComponentType *string
+
+	// Boolean describing if the component errors are ignores
+	IgnoreErrors *bool
+
+	// Initialization timeout
+	InitTimeout *string
+
+	// Component metadata
+	Metadata []*DaprMetadata
+
+	// Names of container apps that can use this Dapr component
+	Scopes []*string
+
+	// Name of a Dapr component to retrieve component secrets from
+	SecretStoreComponent *string
+
+	// Collection of secrets used by a Dapr component
+	Secrets []*Secret
+
+	// List of container app services that are bound to the Dapr component
+	ServiceComponentBind []*DaprComponentServiceBinding
+
+	// Component version
+	Version *string
+
+	// READ-ONLY; Any errors that occurred during deployment or deployment validation
+	DeploymentErrors *string
+
+	// READ-ONLY; Provisioning state of the Connected Environment Dapr Component.
+	ProvisioningState *ConnectedEnvironmentDaprComponentProvisioningState
+}
+
+// ConnectedEnvironmentDaprComponentsCollection - Collection of Dapr Components for Environments
+type ConnectedEnvironmentDaprComponentsCollection struct {
+	// REQUIRED; Collection of Dapr component resources.
+	Value []*ConnectedEnvironmentDaprComponent
 
 	// READ-ONLY; Link to next page of resources.
 	NextLink *string
@@ -825,6 +910,12 @@ type ConnectedEnvironmentStorageProperties struct {
 
 	// SMB storage properties
 	Smb *SmbStorage
+
+	// READ-ONLY; Any errors that occurred during deployment or deployment validation
+	DeploymentErrors *string
+
+	// READ-ONLY; Provisioning state of the storage.
+	ProvisioningState *ConnectedEnvironmentStorageProvisioningState
 }
 
 // ConnectedEnvironmentStoragesCollection - Collection of Storage for Environments
@@ -1078,6 +1169,9 @@ type ContainerAppProperties struct {
 
 	// READ-ONLY; Provisioning state of the Container App.
 	ProvisioningState *ContainerAppProvisioningState
+
+	// READ-ONLY; Running status of the Container App.
+	RunningStatus *ContainerAppRunningStatus
 }
 
 // ContainerAppPropertiesPatchingConfiguration - Container App auto patch configuration.
@@ -1222,6 +1316,9 @@ type ContainerRegistryWithCustomImage struct {
 type ContainerResources struct {
 	// Required CPU in cores, e.g. 0.5
 	CPU *float64
+
+	// Required GPU in cores for GPU based app, e.g. 1.0
+	Gpu *float64
 
 	// Required memory, e.g. "250Mb"
 	Memory *string
@@ -2300,6 +2397,117 @@ type HTTPRetryPolicyRetryBackOff struct {
 	MaxIntervalInMilliseconds *int64
 }
 
+// HTTPRoute - Http Routes configuration, including paths to match on and whether or not rewrites are to be done.
+type HTTPRoute struct {
+	// Once route is matched, what is the desired action
+	Action *HTTPRouteAction
+
+	// Conditions route will match on
+	Match *HTTPRouteMatch
+}
+
+// HTTPRouteAction - Action to perform once matching of routes is done
+type HTTPRouteAction struct {
+	// Rewrite prefix, default is no rewrites
+	PrefixRewrite *string
+}
+
+// HTTPRouteConfig - Advanced Ingress routing for path/header based routing for a Container App Environment
+type HTTPRouteConfig struct {
+	// Http Route Config properties
+	Properties *HTTPRouteConfigProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// HTTPRouteConfigCollection - Collection of Advanced Ingress Routing Config resources.
+type HTTPRouteConfigCollection struct {
+	// REQUIRED; Collection of resources.
+	Value []*HTTPRouteConfig
+
+	// READ-ONLY; Link to next page of resources.
+	NextLink *string
+}
+
+// HTTPRouteConfigProperties - Http Route Config properties
+type HTTPRouteConfigProperties struct {
+	// Custom domain bindings for http Routes' hostnames.
+	CustomDomains []*CustomDomain
+
+	// Routing Rules for http route resource.
+	Rules []*HTTPRouteRule
+
+	// READ-ONLY; FQDN of the route resource.
+	Fqdn *string
+
+	// READ-ONLY; List of errors when trying to reconcile http routes
+	ProvisioningErrors []*HTTPRouteProvisioningErrors
+
+	// READ-ONLY; The provisioning state of the Http Route Config in cluster
+	ProvisioningState *HTTPRouteProvisioningState
+}
+
+// HTTPRouteMatch - Criteria to match on
+type HTTPRouteMatch struct {
+	// path case sensitive, default is true
+	CaseSensitive *bool
+
+	// match on exact path
+	Path *string
+
+	// match on all prefix's. Not exact
+	PathSeparatedPrefix *string
+
+	// match on all prefix's. Not exact
+	Prefix *string
+}
+
+// HTTPRouteProvisioningErrors - List of provisioning errors for a http route config object
+type HTTPRouteProvisioningErrors struct {
+	// READ-ONLY; Description or error message
+	Message *string
+
+	// READ-ONLY; Timestamp error occured at
+	Timestamp *time.Time
+}
+
+// HTTPRouteRule - Http Route rule.
+type HTTPRouteRule struct {
+	// Description of rule. Optional.
+	Description *string
+
+	// Routing configuration that will allow matches on specific paths/headers.
+	Routes []*HTTPRoute
+
+	// Targets- container apps, revisions, labels
+	Targets []*HTTPRouteTarget
+}
+
+// HTTPRouteTarget - Targets - Container App Names, Revision Names, Labels.
+type HTTPRouteTarget struct {
+	// REQUIRED; Container App Name to route requests to
+	ContainerApp *string
+
+	// Label/Revision to route requests to
+	Label *string
+
+	// Revision to route requests to
+	Revision *string
+
+	// Weighted routing
+	Weight *int32
+}
+
 // HTTPScaleRule - Container App container Http scaling rule.
 type HTTPScaleRule struct {
 	// Authentication secrets for the custom scale rule.
@@ -2905,6 +3113,52 @@ type KedaConfiguration struct {
 	Version *string
 }
 
+// LabelHistory - Container App Label History.
+type LabelHistory struct {
+	// Container App Label History resource specific properties
+	Properties *LabelHistoryProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// LabelHistoryCollection - Container App Label History collection ARM resource.
+type LabelHistoryCollection struct {
+	// REQUIRED; Collection of resources.
+	Value []*LabelHistory
+
+	// READ-ONLY; Link to next page of resources.
+	NextLink *string
+}
+
+// LabelHistoryProperties - Container App Label History resource specific properties
+type LabelHistoryProperties struct {
+	// READ-ONLY; List of label history records.
+	Records []*LabelHistoryRecordItem
+}
+
+// LabelHistoryRecordItem - Container App Label History Item resource specific properties
+type LabelHistoryRecordItem struct {
+	// READ-ONLY; Container App revision name that label was applied to.
+	Revision *string
+
+	// READ-ONLY; Timestamp describing when the label was applied to the revision.
+	Start *time.Time
+
+	// READ-ONLY; Timestamp describing when the label was removed from the revision. Only meaningful when the label is currently
+	// applied to the revision.
+	Stop *time.Time
+}
+
 type ListUsagesResult struct {
 	// The URI to fetch the next page of compute resource usage information. Call ListNext() with this to fetch the next page
 	// of compute resource usage information.
@@ -2992,6 +3246,33 @@ type LoginScopes struct {
 type LogsConfiguration struct {
 	// Open telemetry logs destinations
 	Destinations []*string
+}
+
+// MaintenanceConfigurationCollection - The response of list maintenance configuration resources.
+type MaintenanceConfigurationCollection struct {
+	// Results of the list maintenance configuration resources.
+	Value []*MaintenanceConfigurationResource
+
+	// READ-ONLY; Link for next page of results.
+	NextLink *string
+}
+
+// MaintenanceConfigurationResource - Information about the Maintenance Configuration resource.
+type MaintenanceConfigurationResource struct {
+	// The resource-specific properties for this resource.
+	Properties *ScheduledEntries
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
 }
 
 // ManagedCertificate - Managed certificates used for Custom Domain bindings of Container Apps in a Managed Environment
@@ -3087,9 +3368,11 @@ type ManagedEnvironmentProperties struct {
 	// Environment level Application Insights configuration
 	AppInsightsConfiguration *AppInsightsConfiguration
 
-	// Cluster configuration which enables the log daemon to export app logs to a destination. Currently only "log-analytics"
-	// is supported
+	// Cluster configuration which enables the log daemon to export app logs to configured destination
 	AppLogsConfiguration *AppLogsConfiguration
+
+	// The list of availability zones to use for managed environment
+	AvailabilityZones []*string
 
 	// Custom domain configuration for the environment
 	CustomDomainConfiguration *CustomDomainConfiguration
@@ -3209,6 +3492,16 @@ type ManagedEnvironmentsCollection struct {
 
 	// READ-ONLY; Link to next page of resources.
 	NextLink *string
+}
+
+// ManagedIdentitySetting - Optional settings for a Managed Identity that is assigned to the Session pool.
+type ManagedIdentitySetting struct {
+	// REQUIRED; The resource ID of a user-assigned managed identity that is assigned to the Session Pool, or 'system' for system-assigned
+	// identity.
+	Identity *string
+
+	// Use to select the lifecycle stages of a Session Pool during which the Managed Identity should be available.
+	Lifecycle *IdentitySettingsLifeCycle
 }
 
 // ManagedServiceIdentity - Managed service identity (system assigned and/or user assigned identities)
@@ -3812,6 +4105,9 @@ type RevisionProperties struct {
 	// READ-ONLY; Current health State of the revision
 	HealthState *RevisionHealthState
 
+	// READ-ONLY; List of labels assigned to this revision.
+	Labels []*string
+
 	// READ-ONLY; Timestamp describing when the revision was last active. Only meaningful when revision is inactive
 	LastActiveTime *time.Time
 
@@ -3946,6 +4242,24 @@ type ScgRoute struct {
 	Predicates []*string
 }
 
+// ScheduledEntries - List of maintenance schedules for a managed environment.
+type ScheduledEntries struct {
+	// REQUIRED; List of maintenance schedules for a managed environment.
+	ScheduledEntries []*ScheduledEntry
+}
+
+// ScheduledEntry - Maintenance schedule entry for a managed environment.
+type ScheduledEntry struct {
+	// REQUIRED; Start hour after which managed environment maintenance can start from 0 to 23 hour.
+	StartHourUTC *int32
+
+	// REQUIRED; Day of the week when a managed environment can be patched.
+	WeekDay *WeekDay
+
+	// Length of maintenance window range from 8 to 24 hours.
+	DurationHours *int32
+}
+
 // Secret definition.
 type Secret struct {
 	// Resource ID of a managed identity to authenticate with Azure Key Vault, or System to use a system-assigned identity.
@@ -4044,6 +4358,10 @@ type SessionPool struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
+	// Managed identities needed by a session pool to interact with other Azure services to not maintain any secrets or credentials
+	// in code.
+	Identity *ManagedServiceIdentity
+
 	// Container App session pool resource specific properties
 	Properties *SessionPoolProperties
 
@@ -4086,6 +4404,9 @@ type SessionPoolProperties struct {
 	// Resource ID of the session pool's environment.
 	EnvironmentID *string
 
+	// Optional settings for a Managed Identity that is assigned to the Session pool.
+	ManagedIdentitySettings []*ManagedIdentitySetting
+
 	// The pool management type of the session pool.
 	PoolManagementType *PoolManagementType
 
@@ -4119,6 +4440,10 @@ type SessionPoolSecret struct {
 
 // SessionPoolUpdatableProperties - Container App session pool updatable properties.
 type SessionPoolUpdatableProperties struct {
+	// Managed identities needed by a session pool to interact with other Azure services to not maintain any secrets or credentials
+	// in code.
+	Identity *ManagedServiceIdentity
+
 	// Session pool resource specific updatable properties.
 	Properties *SessionPoolUpdatablePropertiesProperties
 }
