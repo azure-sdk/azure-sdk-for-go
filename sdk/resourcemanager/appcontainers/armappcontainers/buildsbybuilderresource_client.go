@@ -11,14 +11,13 @@ package armappcontainers
 import (
 	"context"
 	"errors"
-	"net/http"
-	"net/url"
-	"strings"
-
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"net/http"
+	"net/url"
+	"strings"
 )
 
 // BuildsByBuilderResourceClient contains the methods for the BuildsByBuilderResource group.
@@ -46,7 +45,7 @@ func NewBuildsByBuilderResourceClient(subscriptionID string, credential azcore.T
 
 // NewListPager - List BuildResource resources by BuilderResource
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - builderName - The name of the builder.
 //   - options - BuildsByBuilderResourceClientListOptions contains the optional parameters for the BuildsByBuilderResourceClient.NewListPager
@@ -94,7 +93,7 @@ func (client *BuildsByBuilderResourceClient) listCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
