@@ -11,14 +11,13 @@ package armappcontainers
 import (
 	"context"
 	"errors"
-	"net/http"
-	"net/url"
-	"strings"
-
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"net/http"
+	"net/url"
+	"strings"
 )
 
 // ContainerAppsRevisionsClient contains the methods for the ContainerAppsRevisions group.
@@ -47,7 +46,7 @@ func NewContainerAppsRevisionsClient(subscriptionID string, credential azcore.To
 // ActivateRevision - Activates a revision for a Container App
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App.
 //   - revisionName - Name of the Container App Revision.
@@ -98,7 +97,7 @@ func (client *ContainerAppsRevisionsClient) activateRevisionCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -107,7 +106,7 @@ func (client *ContainerAppsRevisionsClient) activateRevisionCreateRequest(ctx co
 // DeactivateRevision - Deactivates a revision for a Container App
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App.
 //   - revisionName - Name of the Container App Revision.
@@ -158,7 +157,7 @@ func (client *ContainerAppsRevisionsClient) deactivateRevisionCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -167,7 +166,7 @@ func (client *ContainerAppsRevisionsClient) deactivateRevisionCreateRequest(ctx 
 // GetRevision - Get a revision of a Container App.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App.
 //   - revisionName - Name of the Container App Revision.
@@ -219,7 +218,7 @@ func (client *ContainerAppsRevisionsClient) getRevisionCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -236,7 +235,7 @@ func (client *ContainerAppsRevisionsClient) getRevisionHandleResponse(resp *http
 
 // NewListRevisionsPager - Get the Revisions for a given Container App.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App for which Revisions are needed.
 //   - options - ContainerAppsRevisionsClientListRevisionsOptions contains the optional parameters for the ContainerAppsRevisionsClient.NewListRevisionsPager
@@ -287,7 +286,7 @@ func (client *ContainerAppsRevisionsClient) listRevisionsCreateRequest(ctx conte
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -305,7 +304,7 @@ func (client *ContainerAppsRevisionsClient) listRevisionsHandleResponse(resp *ht
 // RestartRevision - Restarts a revision for a Container App
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App.
 //   - revisionName - Name of the Container App Revision.
@@ -356,7 +355,7 @@ func (client *ContainerAppsRevisionsClient) restartRevisionCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
