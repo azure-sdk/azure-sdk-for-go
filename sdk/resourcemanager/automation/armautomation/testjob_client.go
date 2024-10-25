@@ -47,7 +47,7 @@ func NewTestJobClient(subscriptionID string, credential azcore.TokenCredential, 
 // Create - Create a test job of the runbook.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-06-30
+// Generated from API version 2023-11-01
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - runbookName - The parameters supplied to the create test job operation.
@@ -99,7 +99,7 @@ func (client *TestJobClient) createCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -120,7 +120,7 @@ func (client *TestJobClient) createHandleResponse(resp *http.Response) (TestJobC
 // Get - Retrieve the test job for the specified runbook.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-06-30
+// Generated from API version 2023-11-01
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - runbookName - The runbook name.
@@ -171,7 +171,7 @@ func (client *TestJobClient) getCreateRequest(ctx context.Context, resourceGroup
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -189,7 +189,7 @@ func (client *TestJobClient) getHandleResponse(resp *http.Response) (TestJobClie
 // Resume - Resume the test job.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-06-30
+// Generated from API version 2023-11-01
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - runbookName - The runbook name.
@@ -239,7 +239,7 @@ func (client *TestJobClient) resumeCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -248,7 +248,7 @@ func (client *TestJobClient) resumeCreateRequest(ctx context.Context, resourceGr
 // Stop - Stop the test job.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-06-30
+// Generated from API version 2023-11-01
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - runbookName - The runbook name.
@@ -298,7 +298,7 @@ func (client *TestJobClient) stopCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -307,7 +307,7 @@ func (client *TestJobClient) stopCreateRequest(ctx context.Context, resourceGrou
 // Suspend - Suspend the test job.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-06-30
+// Generated from API version 2023-11-01
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - runbookName - The runbook name.
@@ -357,7 +357,7 @@ func (client *TestJobClient) suspendCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

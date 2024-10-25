@@ -47,7 +47,7 @@ func NewTestJobStreamsClient(subscriptionID string, credential azcore.TokenCrede
 // Get - Retrieve a test job stream of the test job identified by runbook name and stream id.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-06-30
+// Generated from API version 2023-11-01
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - runbookName - The runbook name.
@@ -103,7 +103,7 @@ func (client *TestJobStreamsClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -120,7 +120,7 @@ func (client *TestJobStreamsClient) getHandleResponse(resp *http.Response) (Test
 
 // NewListByTestJobPager - Retrieve a list of test job streams identified by runbook name.
 //
-// Generated from API version 2018-06-30
+// Generated from API version 2023-11-01
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - runbookName - The runbook name.
@@ -176,7 +176,7 @@ func (client *TestJobStreamsClient) listByTestJobCreateRequest(ctx context.Conte
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2023-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
