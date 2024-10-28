@@ -1,5 +1,25 @@
 # Release History
 
+## 1.3.0-beta.1 (2024-10-28)
+### Features Added
+
+- New function `*ClientFactory.NewIntegrationFabricsClient() *IntegrationFabricsClient`
+- New function `NewIntegrationFabricsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*IntegrationFabricsClient, error)`
+- New function `*IntegrationFabricsClient.BeginCreate(context.Context, string, string, string, IntegrationFabric, *IntegrationFabricsClientBeginCreateOptions) (*runtime.Poller[IntegrationFabricsClientCreateResponse], error)`
+- New function `*IntegrationFabricsClient.BeginDelete(context.Context, string, string, string, *IntegrationFabricsClientBeginDeleteOptions) (*runtime.Poller[IntegrationFabricsClientDeleteResponse], error)`
+- New function `*IntegrationFabricsClient.Get(context.Context, string, string, string, *IntegrationFabricsClientGetOptions) (IntegrationFabricsClientGetResponse, error)`
+- New function `*IntegrationFabricsClient.NewListPager(string, string, *IntegrationFabricsClientListOptions) *runtime.Pager[IntegrationFabricsClientListResponse]`
+- New function `*IntegrationFabricsClient.BeginUpdate(context.Context, string, string, string, IntegrationFabricUpdateParameters, *IntegrationFabricsClientBeginUpdateOptions) (*runtime.Poller[IntegrationFabricsClientUpdateResponse], error)`
+- New struct `IntegrationFabric`
+- New struct `IntegrationFabricListResponse`
+- New struct `IntegrationFabricProperties`
+- New struct `IntegrationFabricPropertiesUpdateParameters`
+- New struct `IntegrationFabricUpdateParameters`
+- New struct `Snapshots`
+- New struct `Users`
+- New field `Snapshots`, `Users` in struct `GrafanaConfigurations`
+
+
 ## 1.2.0 (2023-11-24)
 ### Features Added
 

@@ -52,6 +52,12 @@ type GrafanaAvailablePluginListResponse struct {
 type GrafanaConfigurations struct {
 	// Email server settings. https://grafana.com/docs/grafana/v9.0/setup-grafana/configure-grafana/#smtp
 	SMTP *SMTP
+
+	// Grafana Snapshots settings
+	Snapshots *Snapshots
+
+	// Grafana users settings
+	Users *Users
 }
 
 // GrafanaIntegrations is a bundled observability experience (e.g. pre-configured data source, tailored Grafana dashboards,
@@ -64,6 +70,62 @@ type GrafanaIntegrations struct {
 type GrafanaPlugin struct {
 	// READ-ONLY; Grafana plugin id
 	PluginID *string
+}
+
+// IntegrationFabric - The integration fabric resource type.
+type IntegrationFabric struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location   *string
+	Properties *IntegrationFabricProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+type IntegrationFabricListResponse struct {
+	NextLink *string
+	Value    []*IntegrationFabric
+}
+
+type IntegrationFabricProperties struct {
+	// The resource Id of the Azure resource which is used to configure Grafana data source. E.g., an Azure Monitor Workspace,
+	// an Azure Data Explorer cluster, etc.
+	DataSourceResourceID *string
+
+	// A list of integration scenarios covered by this integration fabric
+	Scenarios []*string
+
+	// The resource Id of the Azure resource being integrated with Azure Managed Grafana. E.g., an Azure Kubernetes Service cluster.
+	TargetResourceID *string
+
+	// READ-ONLY; Provisioning state of the resource.
+	ProvisioningState *ProvisioningState
+}
+
+type IntegrationFabricPropertiesUpdateParameters struct {
+	// The new integration scenarios covered by this integration fabric.
+	Scenarios []*string
+}
+
+// IntegrationFabricUpdateParameters - The parameters for a PATCH request to a Integration Fabric resource.
+type IntegrationFabricUpdateParameters struct {
+	// The new properties of this Integration Fabric resource
+	Properties *IntegrationFabricPropertiesUpdateParameters
+
+	// The new tags of the Integration Fabric resource.
+	Tags map[string]*string
 }
 
 // ManagedGrafana - The grafana resource type.
@@ -502,6 +564,12 @@ type SaasSubscriptionDetails struct {
 	Term *SubscriptionTerm
 }
 
+// Snapshots - Grafana Snapshots settings
+type Snapshots struct {
+	// Set to false to disable external snapshot publish endpoint
+	ExternalEnabled *bool
+}
+
 // SubscriptionTerm - The current billing term of the SaaS Subscription.
 type SubscriptionTerm struct {
 	// The date and time in UTC of when the billing term ends.
@@ -542,4 +610,11 @@ type UserAssignedIdentity struct {
 
 	// READ-ONLY; The principal ID of the assigned identity.
 	PrincipalID *string
+}
+
+// Users - Grafana users settings
+type Users struct {
+	// Set to true so viewers can access and use explore and perform temporary edits on panels in dashboards they have access
+	// to. They cannot save their changes.
+	ViewersCanEdit *bool
 }
