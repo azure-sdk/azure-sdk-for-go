@@ -1,5 +1,11 @@
 # Release History
 
+## 6.2.0 (2024-10-28)
+### Features Added
+
+- New field `DefaultOutboundConnectivityEnabled` in struct `InterfacePropertiesFormat`
+
+
 ## 6.1.0 (2024-09-24)
 ### Features Added
 

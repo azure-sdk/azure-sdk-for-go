@@ -18754,6 +18754,7 @@ func (i InterfacePropertiesFormat) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "auxiliaryMode", i.AuxiliaryMode)
 	populate(objectMap, "auxiliarySku", i.AuxiliarySKU)
 	populate(objectMap, "dnsSettings", i.DNSSettings)
+	populate(objectMap, "defaultOutboundConnectivityEnabled", i.DefaultOutboundConnectivityEnabled)
 	populate(objectMap, "disableTcpStateTracking", i.DisableTCPStateTracking)
 	populate(objectMap, "dscpConfiguration", i.DscpConfiguration)
 	populate(objectMap, "enableAcceleratedNetworking", i.EnableAcceleratedNetworking)
@@ -18793,6 +18794,9 @@ func (i *InterfacePropertiesFormat) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "dnsSettings":
 			err = unpopulate(val, "DNSSettings", &i.DNSSettings)
+			delete(rawMsg, key)
+		case "defaultOutboundConnectivityEnabled":
+			err = unpopulate(val, "DefaultOutboundConnectivityEnabled", &i.DefaultOutboundConnectivityEnabled)
 			delete(rawMsg, key)
 		case "disableTcpStateTracking":
 			err = unpopulate(val, "DisableTCPStateTracking", &i.DisableTCPStateTracking)

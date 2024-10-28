@@ -7671,6 +7671,9 @@ type InterfacePropertiesFormat struct {
 	// WorkloadType of the NetworkInterface for BareMetal resources
 	WorkloadType *string
 
+	// READ-ONLY; Whether default outbound connectivity for nic was configured or not.
+	DefaultOutboundConnectivityEnabled *bool
+
 	// READ-ONLY; A reference to the dscp configuration to which the network interface is linked.
 	DscpConfiguration *SubResource
 
