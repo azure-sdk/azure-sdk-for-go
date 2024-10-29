@@ -43,18 +43,6 @@ type APIErrorBase struct {
 	Target *string
 }
 
-// AdditionalCapabilities for VM.
-type AdditionalCapabilities struct {
-	// The flag that enables or disables hibernation capability on the VM.
-	HibernationEnabled *bool
-
-	// The flag that enables or disables a capability to have one or more managed data disks with UltraSSD_LRS storage account
-	// type on the VM or VMSS.
-	// Managed disks with storage account type UltraSSD_LRS can be added to a virtual machine or virtual machine scale set only
-	// if this property is enabled.
-	UltraSSDEnabled *bool
-}
-
 // AdditionalLocationsProfile - Represents the configuration for additional locations where Fleet resources may be deployed.
 type AdditionalLocationsProfile struct {
 	// REQUIRED; The list of location profiles.
@@ -185,29 +173,6 @@ type CapacityReservationProfile struct {
 	CapacityReservationGroup *SubResource
 }
 
-// ComputeProfile - Compute Profile to use for running user's workloads.
-type ComputeProfile struct {
-	// REQUIRED; Base Virtual Machine Profile Properties to be specified according to "specification/compute/resource-manager/Microsoft.Compute/ComputeRP/stable/{computeApiVersion}/virtualMachineScaleSet.json#/definitions/VirtualMachineScaleSetVMProfile"
-	BaseVirtualMachineProfile *BaseVirtualMachineProfile
-
-	// Specifies VMSS and VM API entity models support two additional capabilities as of today: ultraSSDEnabled and hibernationEnabled.
-	// ultraSSDEnabled: Enables UltraSSD_LRS storage account type on the VMSS VMs.
-	// hibernationEnabled: Enables the hibernation capability on the VMSS VMs.
-	// Default value is null if not specified. This property cannot be updated once set.
-	AdditionalVirtualMachineCapabilities *AdditionalCapabilities
-
-	// Specifies the Microsoft.Compute API version to use when creating underlying Virtual Machine scale sets and Virtual Machines.
-	// The default value will be the latest supported computeApiVersion by Compute Fleet.
-	ComputeAPIVersion *string
-
-	// Specifies the number of fault domains to use when creating the underlying VMSS.
-	// A fault domain is a logical group of hardware within an Azure datacenter.
-	// VMs in the same fault domain share a common power source and network switch.
-	// If not specified, defaults to 1, which represents "Max Spreading" (using as many fault domains as possible).
-	// This property cannot be updated.
-	PlatformFaultDomainCount *int32
-}
-
 // DiagnosticsProfile - Specifies the boot diagnostic settings state. Minimum api-version: 2015-06-15.
 type DiagnosticsProfile struct {
 	// Boot Diagnostics is a debugging feature which allows you to view Console Output
@@ -295,9 +260,6 @@ type FleetListResult struct {
 
 // FleetProperties - Details of the Compute Fleet.
 type FleetProperties struct {
-	// REQUIRED; Compute Profile to use for running user's workloads.
-	ComputeProfile *ComputeProfile
-
 	// REQUIRED; List of VM sizes supported for Compute Fleet
 	VMSizesProfile []*VMSizeProfile
 
@@ -908,6 +870,7 @@ type VMAttributes struct {
 	LocalStorageInGiB *VMAttributeMinMaxDouble
 
 	// Specifies whether the VMSize supporting local storage should be used to build Fleet or not.
+	// Included - Default if not specified as most Azure VMs support local storage.
 	LocalStorageSupport *VMAttributeSupport
 
 	// The range of memory in GiB per vCPU specified from min to max. Optional parameter. Either Min or Max is required if specified.
