@@ -116,37 +116,6 @@ func (a *APIErrorBase) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type AdditionalCapabilities.
-func (a AdditionalCapabilities) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]any)
-	populate(objectMap, "hibernationEnabled", a.HibernationEnabled)
-	populate(objectMap, "ultraSSDEnabled", a.UltraSSDEnabled)
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type AdditionalCapabilities.
-func (a *AdditionalCapabilities) UnmarshalJSON(data []byte) error {
-	var rawMsg map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", a, err)
-	}
-	for key, val := range rawMsg {
-		var err error
-		switch key {
-		case "hibernationEnabled":
-			err = unpopulate(val, "HibernationEnabled", &a.HibernationEnabled)
-			delete(rawMsg, key)
-		case "ultraSSDEnabled":
-			err = unpopulate(val, "UltraSSDEnabled", &a.UltraSSDEnabled)
-			delete(rawMsg, key)
-		}
-		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", a, err)
-		}
-	}
-	return nil
-}
-
 // MarshalJSON implements the json.Marshaller interface for type AdditionalLocationsProfile.
 func (a AdditionalLocationsProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -385,45 +354,6 @@ func (c *CapacityReservationProfile) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type ComputeProfile.
-func (c ComputeProfile) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]any)
-	populate(objectMap, "additionalVirtualMachineCapabilities", c.AdditionalVirtualMachineCapabilities)
-	populate(objectMap, "baseVirtualMachineProfile", c.BaseVirtualMachineProfile)
-	populate(objectMap, "computeApiVersion", c.ComputeAPIVersion)
-	populate(objectMap, "platformFaultDomainCount", c.PlatformFaultDomainCount)
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type ComputeProfile.
-func (c *ComputeProfile) UnmarshalJSON(data []byte) error {
-	var rawMsg map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", c, err)
-	}
-	for key, val := range rawMsg {
-		var err error
-		switch key {
-		case "additionalVirtualMachineCapabilities":
-			err = unpopulate(val, "AdditionalVirtualMachineCapabilities", &c.AdditionalVirtualMachineCapabilities)
-			delete(rawMsg, key)
-		case "baseVirtualMachineProfile":
-			err = unpopulate(val, "BaseVirtualMachineProfile", &c.BaseVirtualMachineProfile)
-			delete(rawMsg, key)
-		case "computeApiVersion":
-			err = unpopulate(val, "ComputeAPIVersion", &c.ComputeAPIVersion)
-			delete(rawMsg, key)
-		case "platformFaultDomainCount":
-			err = unpopulate(val, "PlatformFaultDomainCount", &c.PlatformFaultDomainCount)
-			delete(rawMsg, key)
-		}
-		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", c, err)
-		}
-	}
-	return nil
-}
-
 // MarshalJSON implements the json.Marshaller interface for type DiagnosticsProfile.
 func (d DiagnosticsProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -634,7 +564,6 @@ func (f *FleetListResult) UnmarshalJSON(data []byte) error {
 func (f FleetProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "additionalLocationsProfile", f.AdditionalLocationsProfile)
-	populate(objectMap, "computeProfile", f.ComputeProfile)
 	populate(objectMap, "provisioningState", f.ProvisioningState)
 	populate(objectMap, "regularPriorityProfile", f.RegularPriorityProfile)
 	populate(objectMap, "spotPriorityProfile", f.SpotPriorityProfile)
@@ -656,9 +585,6 @@ func (f *FleetProperties) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "additionalLocationsProfile":
 			err = unpopulate(val, "AdditionalLocationsProfile", &f.AdditionalLocationsProfile)
-			delete(rawMsg, key)
-		case "computeProfile":
-			err = unpopulate(val, "ComputeProfile", &f.ComputeProfile)
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &f.ProvisioningState)

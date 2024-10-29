@@ -1,6 +1,6 @@
 # Azure Compute Fleet Module for Go
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/computefleet/armcomputefleet)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/computefleet/armcomputefleet)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/computefleet/armcomputefleet/v2)](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/computefleet/armcomputefleet/v2)
 
 The `armcomputefleet` module provides operations for working with Azure Compute Fleet.
 
@@ -20,7 +20,7 @@ This project uses [Go modules](https://github.com/golang/go/wiki/Modules) for ve
 Install the Azure Compute Fleet module:
 
 ```sh
-go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/computefleet/armcomputefleet
+go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/computefleet/armcomputefleet/v2
 ```
 
 ## Authorization
