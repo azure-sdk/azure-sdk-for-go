@@ -133,6 +133,12 @@ type CheckNameAvailabilityRequest struct {
 	Type *string
 }
 
+// Cluster properties of a server.
+type Cluster struct {
+	// The node count for the cluster.
+	ClusterSize *int32
+}
+
 // Configuration - Represents a Configuration.
 type Configuration struct {
 	// The properties of a configuration.
@@ -168,10 +174,10 @@ type ConfigurationListResult struct {
 
 // ConfigurationProperties - The properties of a configuration.
 type ConfigurationProperties struct {
-	// Source of the configuration.
+	// Source of the configuration. Required to update the configuration.
 	Source *string
 
-	// Value of the configuration.
+	// Value of the configuration. Required to update the configuration.
 	Value *string
 
 	// READ-ONLY; Allowed values of the configuration.
@@ -418,34 +424,41 @@ type FlexibleServerCapability struct {
 	Name *string
 
 	// READ-ONLY; Gets a value indicating whether fast provisioning is supported. "Enabled" means fast provisioning is supported.
-	// "Disabled" stands for fast provisioning is not supported.
+	// "Disabled" stands for fast provisioning is not supported. Will be deprecated in future,
+	// please look to Supported Features for "FastProvisioning".
 	FastProvisioningSupported *FastProvisioningSupportedEnum
 
 	// READ-ONLY; Determines if geo-backup is supported in this region. "Enabled" means geo-backup is supported. "Disabled" stands
-	// for geo-back is not supported.
+	// for geo-back is not supported. Will be deprecated in future, please look to Supported
+	// Features for "GeoBackup".
 	GeoBackupSupported *GeoBackupSupportedEnum
 
 	// READ-ONLY; A value indicating whether online resize is supported in this region for the given subscription. "Enabled" means
 	// storage online resize is supported. "Disabled" means storage online resize is not
-	// supported.
+	// supported. Will be deprecated in future, please look to Supported Features for "OnlineResize".
 	OnlineResizeSupported *OnlineResizeSupportedEnum
 
 	// READ-ONLY; The reason for the capability not being available.
 	Reason *string
 
 	// READ-ONLY; A value indicating whether this region is restricted. "Enabled" means region is restricted. "Disabled" stands
-	// for region is not restricted.
+	// for region is not restricted. Will be deprecated in future, please look to Supported
+	// Features for "Restricted".
 	Restricted *RestrictedEnum
 
 	// READ-ONLY; The status of the capability.
 	Status *CapabilityStatus
 
 	// READ-ONLY; A value indicating whether storage auto-grow is supported in this region. "Enabled" means storage auto-grow
-	// is supported. "Disabled" stands for storage auto-grow is not supported.
+	// is supported. "Disabled" stands for storage auto-grow is not supported. Will be deprecated
+	// in future, please look to Supported Features for "StorageAutoGrowth".
 	StorageAutoGrowthSupported *StorageAutoGrowthSupportedEnum
 
 	// READ-ONLY; List of supported server editions for fast provisioning
 	SupportedFastProvisioningEditions []*FastProvisioningEditionCapability
+
+	// READ-ONLY; The supported features.
+	SupportedFeatures []*SupportedFeature
 
 	// READ-ONLY; List of supported flexible server editions
 	SupportedServerEditions []*FlexibleServerEditionCapability
@@ -455,11 +468,12 @@ type FlexibleServerCapability struct {
 
 	// READ-ONLY; A value indicating whether Zone Redundant HA and Geo-backup is supported in this region. "Enabled" means zone
 	// redundant HA and geo-backup is supported. "Disabled" stands for zone redundant HA and
-	// geo-backup is not supported.
+	// geo-backup is not supported. Will be deprecated in future, please look to Supported Features for "ZoneRedundantHaAndGeoBackup".
 	ZoneRedundantHaAndGeoBackupSupported *ZoneRedundantHaAndGeoBackupSupportedEnum
 
 	// READ-ONLY; A value indicating whether Zone Redundant HA is supported in this region. "Enabled" means zone redundant HA
-	// is supported. "Disabled" stands for zone redundant HA is not supported.
+	// is supported. "Disabled" stands for zone redundant HA is not supported. Will be deprecated
+	// in future, please look to Supported Features for "ZoneRedundantHa".
 	ZoneRedundantHaSupported *ZoneRedundantHaSupportedEnum
 }
 
@@ -494,6 +508,123 @@ type HighAvailability struct {
 
 	// READ-ONLY; A state of a HA server that is visible to user.
 	State *ServerHAState
+}
+
+// ImpactRecord - Stores property that features impact on some metric if this recommended action is applied.
+type ImpactRecord struct {
+	// Absolute value
+	AbsoluteValue *float64
+
+	// Dimension name
+	DimensionName *string
+
+	// Optional property that can be used to store the QueryId if the metric is for a specific query.
+	QueryID *int64
+
+	// Dimension unit
+	Unit *string
+}
+
+// IndexRecommendationDetails - Recommendation details for the recommended action.
+type IndexRecommendationDetails struct {
+	// Database name.
+	DatabaseName *string
+
+	// Index columns. These will be semi-column separated.
+	IndexColumns *string
+
+	// Index name.
+	IndexName *string
+
+	// Index type.
+	IndexType *string
+
+	// Schema name.
+	Schema *string
+
+	// Table name.
+	Table *string
+}
+
+// IndexRecommendationListResult - A list of available index recommendations.
+type IndexRecommendationListResult struct {
+	// URL client should use to fetch the next page (per server side paging). It's null for now, added for future use.
+	NextLink *string
+
+	// A list of available index recommendations.
+	Value []*IndexRecommendationResource
+}
+
+// IndexRecommendationResource - Index recommendation properties.
+type IndexRecommendationResource struct {
+	// Properties of IndexRecommendationResource.
+	Properties *IndexRecommendationResourceProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// IndexRecommendationResourceProperties - Index recommendation properties.
+type IndexRecommendationResourceProperties struct {
+	// Stores workload information for the recommended action.
+	AnalyzedWorkload *IndexRecommendationResourcePropertiesAnalyzedWorkload
+
+	// Stores recommendation details for the recommended action.
+	Details *IndexRecommendationDetails
+
+	// Stores implementation details for the recommended action.
+	ImplementationDetails *IndexRecommendationResourcePropertiesImplementationDetails
+
+	// The ImprovedQueryIds. The list will only be populated for CREATE INDEX recommendations.
+	ImprovedQueryIDs []*int64
+
+	// Creation time of this recommendation in UTC date-time string format.
+	InitialRecommendedTime *time.Time
+
+	// The last refresh of this recommendation in UTC date-time string format.
+	LastRecommendedTime *time.Time
+
+	// Reason for this recommendation.
+	RecommendationReason *string
+
+	// Type for this recommendation.
+	RecommendationType *RecommendationTypeEnum
+
+	// The number of times this recommendation has encountered.
+	TimesRecommended *int32
+
+	// READ-ONLY; The estimated impact of this recommended action
+	EstimatedImpact []*ImpactRecord
+}
+
+// IndexRecommendationResourcePropertiesAnalyzedWorkload - Stores workload information for the recommended action.
+type IndexRecommendationResourcePropertiesAnalyzedWorkload struct {
+	// Workload end time in UTC date-time string format.
+	EndTime *time.Time
+
+	// Workload query examined count. For DROP INDEX will be 0.
+	QueryCount *int32
+
+	// Workload start time in UTC date-time string format.
+	StartTime *time.Time
+}
+
+// IndexRecommendationResourcePropertiesImplementationDetails - Stores implementation details for the recommended action.
+type IndexRecommendationResourcePropertiesImplementationDetails struct {
+	// Method of implementation for recommended action
+	Method *string
+
+	// Implementation script for the recommended action
+	Script *string
 }
 
 // LogFile - Represents a logFile.
@@ -757,8 +888,8 @@ type MigrationResourceProperties struct {
 	// Indicates whether to setup LogicalReplicationOnSourceDb, if needed
 	SetupLogicalReplicationOnSourceDbIfNeeded *LogicalReplicationOnSourceDbEnum
 
-	// Source server fully qualified domain name or ip. It is a optional value, if customer provide it, dms will always use it
-	// for connection
+	// Source server fully qualified domain name (FQDN) or IP address. It is a optional value, if customer provide it, migration
+	// service will always use it for connection
 	SourceDbServerFullyQualifiedDomainName *string
 
 	// ResourceId of the source database server in case the sourceType is PostgreSQLSingleServer. For other source types this
@@ -766,14 +897,16 @@ type MigrationResourceProperties struct {
 	SourceDbServerResourceID *string
 
 	// migration source server type : OnPremises, AWS, GCP, AzureVM, PostgreSQLSingleServer, AWSRDS, AWSAURORA, AWSEC2, GCPCloudSQL,
-	// GCPAlloyDB, GCPCompute, or EDB
+	// GCPAlloyDB, GCPCompute, EDB, EDBOracleServer, EDBPostgreSQL,
+	// PostgreSQLFlexibleServer, PostgreSQLCosmosDB, HuaweiRDS, HuaweiCompute, HerokuPostgreSQL, CrunchyPostgreSQL, ApsaraDBRDS,
+	// DigitalOceanDroplets, DigitalOceanPostgreSQL, or Supabase_PostgreSQL
 	SourceType *SourceType
 
 	// Indicates whether the data migration should start right away
 	StartDataMigration *StartDataMigrationEnum
 
-	// Target server fully qualified domain name or ip. It is a optional value, if customer provide it, dms will always use it
-	// for connection
+	// Target server fully qualified domain name (FQDN) or IP address. It is a optional value, if customer provide it, migration
+	// service will always use it for connection
 	TargetDbServerFullyQualifiedDomainName *string
 
 	// To trigger cutover for entire migration we need to send this flag as True
@@ -829,8 +962,8 @@ type MigrationResourcePropertiesForPatch struct {
 	// Indicates whether to setup LogicalReplicationOnSourceDb, if needed
 	SetupLogicalReplicationOnSourceDbIfNeeded *LogicalReplicationOnSourceDbEnum
 
-	// Source server fully qualified domain name or ip. It is a optional value, if customer provide it, dms will always use it
-	// for connection
+	// Source server fully qualified domain name (FQDN) or IP address. It is a optional value, if customer provide it, migration
+	// service will always use it for connection
 	SourceDbServerFullyQualifiedDomainName *string
 
 	// ResourceId of the source database server
@@ -839,8 +972,8 @@ type MigrationResourcePropertiesForPatch struct {
 	// Indicates whether the data migration should start right away
 	StartDataMigration *StartDataMigrationEnum
 
-	// Target server fully qualified domain name or ip. It is a optional value, if customer provide it, dms will always use it
-	// for connection
+	// Target server fully qualified domain name (FQDN) or IP address. It is a optional value, if customer provide it, migration
+	// service will always use it for connection
 	TargetDbServerFullyQualifiedDomainName *string
 
 	// To trigger cutover for entire migration we need to send this flag as True
@@ -1243,6 +1376,9 @@ type ServerProperties struct {
 	// Backup properties of a server.
 	Backup *Backup
 
+	// Cluster properties of a server.
+	Cluster *Cluster
+
 	// The mode to create a new PostgreSQL server.
 	CreateMode *CreateMode
 
@@ -1297,6 +1433,10 @@ type ServerProperties struct {
 }
 
 type ServerPropertiesForUpdate struct {
+	// The administrator's login name of a server. Can only be specified when the server is trying to switch to password authentication
+	// and does not have default administrator login.
+	AdministratorLogin *string
+
 	// The password of the administrator login.
 	AdministratorLoginPassword *string
 
@@ -1351,8 +1491,14 @@ type ServerSKUCapability struct {
 	// READ-ONLY; The reason for the capability not being available.
 	Reason *string
 
+	// READ-ONLY; The value of security profile indicating if its confidential vm
+	SecurityProfile *string
+
 	// READ-ONLY; The status of the capability.
 	Status *CapabilityStatus
+
+	// READ-ONLY; The supported features.
+	SupportedFeatures []*SupportedFeature
 
 	// READ-ONLY; Supported high availability mode
 	SupportedHaMode []*HaMode
@@ -1418,6 +1564,9 @@ type ServerVersionCapability struct {
 	// READ-ONLY; The status of the capability.
 	Status *CapabilityStatus
 
+	// READ-ONLY; The supported features.
+	SupportedFeatures []*SupportedFeature
+
 	// READ-ONLY; Supported servers versions to upgrade
 	SupportedVersionsToUpgrade []*string
 }
@@ -1427,19 +1576,20 @@ type Storage struct {
 	// Flag to enable / disable Storage Auto grow for flexible server.
 	AutoGrow *StorageAutoGrow
 
-	// Storage tier IOPS quantity. This property is required to be set for storage Type PremiumV2_LRS
+	// Storage tier IOPS quantity. This property is required to be set for storage Type PremiumV2LRS and UltraSSDLRS.
 	Iops *int32
 
 	// Max storage allowed for a server.
 	StorageSizeGB *int32
 
-	// Storage throughput for the server. This is required to be set for storage Type PremiumV2_LRS
+	// Storage throughput for the server. This is required to be set for storage Type PremiumV2LRS and UltraSSDLRS.
 	Throughput *int32
 
 	// Name of storage tier for IOPS.
 	Tier *AzureManagedDiskPerformanceTiers
 
-	// Storage type for the server. Allowed values are PremiumLRS and PremiumV2LRS, and default is Premium_LRS if not specified
+	// Storage type for the server. Allowed values are PremiumLRS, PremiumV2LRS, and UltraSSDLRS. Default is PremiumLRS if not
+	// specified
 	Type *StorageType
 }
 
@@ -1509,6 +1659,15 @@ type StorageTierCapability struct {
 	Status *CapabilityStatus
 }
 
+// SupportedFeature - The supported features.
+type SupportedFeature struct {
+	// READ-ONLY; Name of feature
+	Name *string
+
+	// READ-ONLY; Status of feature
+	Status *SupportedFeatureStatusEnum
+}
+
 // SystemData - Metadata pertaining to creation and last modification of the resource.
 type SystemData struct {
 	// The timestamp of resource creation (UTC).
@@ -1530,9 +1689,33 @@ type SystemData struct {
 	LastModifiedByType *CreatedByType
 }
 
+// TuningOptionsListResult - A list of server tuning options.
+type TuningOptionsListResult struct {
+	// URL client should use to fetch the next page (per server side paging). It's null for now, added for future use.
+	NextLink *string
+
+	// A list of available tuning options.
+	Value []*TuningOptionsResource
+}
+
+// TuningOptionsResource - Stores property that features impact on some metric if this recommended action is applied.
+type TuningOptionsResource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
 // UserAssignedIdentity - Information describing the identities associated with this application.
 type UserAssignedIdentity struct {
-	// REQUIRED; the types of identities associated with this resource; currently restricted to 'None and UserAssigned'
+	// REQUIRED; the types of identities associated with this resource
 	Type *IdentityType
 
 	// represents user assigned identities map.
