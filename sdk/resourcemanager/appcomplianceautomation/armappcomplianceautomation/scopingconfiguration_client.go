@@ -46,17 +46,17 @@ func NewScopingConfigurationClient(credential azcore.TokenCredential, options *a
 // Generated from API version 2024-06-27
 //   - reportName - Report Name.
 //   - scopingConfigurationName - The scoping configuration of the specific report.
-//   - properties - Parameters for the create or update operation, this is a singleton resource, so please make sure you're using
+//   - resource - Parameters for the create or update operation, this is a singleton resource, so please make sure you're using
 //     'default' as the name.
 //   - options - ScopingConfigurationClientCreateOrUpdateOptions contains the optional parameters for the ScopingConfigurationClient.CreateOrUpdate
 //     method.
-func (client *ScopingConfigurationClient) CreateOrUpdate(ctx context.Context, reportName string, scopingConfigurationName string, properties ScopingConfigurationResource, options *ScopingConfigurationClientCreateOrUpdateOptions) (ScopingConfigurationClientCreateOrUpdateResponse, error) {
+func (client *ScopingConfigurationClient) CreateOrUpdate(ctx context.Context, reportName string, scopingConfigurationName string, resource ScopingConfigurationResource, options *ScopingConfigurationClientCreateOrUpdateOptions) (ScopingConfigurationClientCreateOrUpdateResponse, error) {
 	var err error
 	const operationName = "ScopingConfigurationClient.CreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, reportName, scopingConfigurationName, properties, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, reportName, scopingConfigurationName, resource, options)
 	if err != nil {
 		return ScopingConfigurationClientCreateOrUpdateResponse{}, err
 	}
@@ -73,7 +73,7 @@ func (client *ScopingConfigurationClient) CreateOrUpdate(ctx context.Context, re
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *ScopingConfigurationClient) createOrUpdateCreateRequest(ctx context.Context, reportName string, scopingConfigurationName string, properties ScopingConfigurationResource, options *ScopingConfigurationClientCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *ScopingConfigurationClient) createOrUpdateCreateRequest(ctx context.Context, reportName string, scopingConfigurationName string, resource ScopingConfigurationResource, options *ScopingConfigurationClientCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/providers/Microsoft.AppComplianceAutomation/reports/{reportName}/scopingConfigurations/{scopingConfigurationName}"
 	if reportName == "" {
 		return nil, errors.New("parameter reportName cannot be empty")
@@ -91,7 +91,7 @@ func (client *ScopingConfigurationClient) createOrUpdateCreateRequest(ctx contex
 	reqQP.Set("api-version", "2024-06-27")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, properties); err != nil {
+	if err := runtime.MarshalAsJSON(req, resource); err != nil {
 		return nil, err
 	}
 	return req, nil

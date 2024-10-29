@@ -27,7 +27,7 @@ import (
 type EvidenceServer struct {
 	// CreateOrUpdate is the fake for method EvidenceClient.CreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	CreateOrUpdate func(ctx context.Context, reportName string, evidenceName string, properties armappcomplianceautomation.EvidenceResource, options *armappcomplianceautomation.EvidenceClientCreateOrUpdateOptions) (resp azfake.Responder[armappcomplianceautomation.EvidenceClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	CreateOrUpdate func(ctx context.Context, reportName string, evidenceName string, resource armappcomplianceautomation.EvidenceResource, options *armappcomplianceautomation.EvidenceClientCreateOrUpdateOptions) (resp azfake.Responder[armappcomplianceautomation.EvidenceClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// Delete is the fake for method EvidenceClient.Delete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
