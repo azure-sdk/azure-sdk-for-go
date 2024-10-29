@@ -1,5 +1,51 @@
 # Release History
 
+## 4.0.0-beta.6 (2024-10-29)
+### Breaking Changes
+
+- Function `*ClientFactory.NewPostgreSQLManagementClient` has been removed
+- Function `NewPostgreSQLManagementClient` has been removed
+- Function `*PostgreSQLManagementClient.CheckMigrationNameAvailability` has been removed
+
+### Features Added
+
+- New value `IdentityTypeSystemAssigned` added to enum type `IdentityType`
+- New value `OriginCustomerOnDemand` added to enum type `Origin`
+- New value `ServerVersionSeventeen` added to enum type `ServerVersion`
+- New value `SourceTypeApsaraDBRDS`, `SourceTypeCrunchyPostgreSQL`, `SourceTypeDigitalOceanDroplets`, `SourceTypeDigitalOceanPostgreSQL`, `SourceTypeEDBOracleServer`, `SourceTypeEDBPostgreSQL`, `SourceTypeHerokuPostgreSQL`, `SourceTypeHuaweiCompute`, `SourceTypeHuaweiRDS`, `SourceTypePostgreSQLCosmosDB`, `SourceTypePostgreSQLFlexibleServer`, `SourceTypeSupabasePostgreSQL` added to enum type `SourceType`
+- New value `StorageTypeUltraSSDLRS` added to enum type `StorageType`
+- New enum type `RecommendationType` with values `RecommendationTypeCreateIndex`, `RecommendationTypeDropIndex`
+- New enum type `RecommendationTypeEnum` with values `RecommendationTypeEnumCreateIndex`, `RecommendationTypeEnumDropIndex`
+- New enum type `SupportedFeatureStatusEnum` with values `SupportedFeatureStatusEnumDisabled`, `SupportedFeatureStatusEnumEnabled`
+- New enum type `TuningOptionEnum` with values `TuningOptionEnumIndex`
+- New function `*BackupsClient.BeginCreate(context.Context, string, string, string, *BackupsClientBeginCreateOptions) (*runtime.Poller[BackupsClientCreateResponse], error)`
+- New function `*BackupsClient.BeginDelete(context.Context, string, string, string, *BackupsClientBeginDeleteOptions) (*runtime.Poller[BackupsClientDeleteResponse], error)`
+- New function `*ClientFactory.NewPostgreSQLServerManagementClient() *PostgreSQLServerManagementClient`
+- New function `*ClientFactory.NewTuningOptionsClient() *TuningOptionsClient`
+- New function `NewPostgreSQLServerManagementClient(azcore.TokenCredential, *arm.ClientOptions) (*PostgreSQLServerManagementClient, error)`
+- New function `*PostgreSQLServerManagementClient.CheckMigrationNameAvailability(context.Context, string, string, string, MigrationNameAvailabilityResource, *PostgreSQLServerManagementClientCheckMigrationNameAvailabilityOptions) (PostgreSQLServerManagementClientCheckMigrationNameAvailabilityResponse, error)`
+- New function `NewTuningOptionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*TuningOptionsClient, error)`
+- New function `*TuningOptionsClient.Get(context.Context, string, string, TuningOptionEnum, *TuningOptionsClientGetOptions) (TuningOptionsClientGetResponse, error)`
+- New function `*TuningOptionsClient.NewListByServerPager(string, string, *TuningOptionsClientListByServerOptions) *runtime.Pager[TuningOptionsClientListByServerResponse]`
+- New function `*TuningOptionsClient.NewListRecommendationsPager(string, string, TuningOptionEnum, *TuningOptionsClientListRecommendationsOptions) *runtime.Pager[TuningOptionsClientListRecommendationsResponse]`
+- New struct `Cluster`
+- New struct `ImpactRecord`
+- New struct `IndexRecommendationDetails`
+- New struct `IndexRecommendationListResult`
+- New struct `IndexRecommendationResource`
+- New struct `IndexRecommendationResourceProperties`
+- New struct `IndexRecommendationResourcePropertiesAnalyzedWorkload`
+- New struct `IndexRecommendationResourcePropertiesImplementationDetails`
+- New struct `SupportedFeature`
+- New struct `TuningOptionsListResult`
+- New struct `TuningOptionsResource`
+- New field `SupportedFeatures` in struct `FlexibleServerCapability`
+- New field `Cluster` in struct `ServerProperties`
+- New field `AdministratorLogin` in struct `ServerPropertiesForUpdate`
+- New field `SecurityProfile`, `SupportedFeatures` in struct `ServerSKUCapability`
+- New field `SupportedFeatures` in struct `ServerVersionCapability`
+
+
 ## 4.0.0-beta.5 (2024-04-26)
 ### Features Added
 
