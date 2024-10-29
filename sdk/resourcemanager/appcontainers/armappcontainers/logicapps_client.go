@@ -11,14 +11,13 @@ package armappcontainers
 import (
 	"context"
 	"errors"
-	"net/http"
-	"net/url"
-	"strings"
-
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"net/http"
+	"net/url"
+	"strings"
 )
 
 // LogicAppsClient contains the methods for the LogicApps group.
@@ -47,7 +46,7 @@ func NewLogicAppsClient(subscriptionID string, credential azcore.TokenCredential
 // CreateOrUpdate - Create or update a Logic App extension resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App.
 //   - logicAppName - Name of the Logic App, the extension resource.
@@ -100,7 +99,7 @@ func (client *LogicAppsClient) createOrUpdateCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, resource); err != nil {
@@ -121,7 +120,7 @@ func (client *LogicAppsClient) createOrUpdateHandleResponse(resp *http.Response)
 // Delete - Deletes a Logic App extension resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App.
 //   - logicAppName - Name of the Logic App, the extension resource.
@@ -171,7 +170,7 @@ func (client *LogicAppsClient) deleteCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -180,7 +179,7 @@ func (client *LogicAppsClient) deleteCreateRequest(ctx context.Context, resource
 // DeployWorkflowArtifacts - Creates or updates the artifacts for the logic app
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App.
 //   - logicAppName - Name of the Logic App, the extension resource.
@@ -231,7 +230,7 @@ func (client *LogicAppsClient) deployWorkflowArtifactsCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.WorkflowArtifacts != nil {
@@ -246,7 +245,7 @@ func (client *LogicAppsClient) deployWorkflowArtifactsCreateRequest(ctx context.
 // Get - Gets a logic app extension resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App.
 //   - logicAppName - Name of the Logic App, the extension resource.
@@ -297,7 +296,7 @@ func (client *LogicAppsClient) getCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -315,7 +314,7 @@ func (client *LogicAppsClient) getHandleResponse(resp *http.Response) (LogicApps
 // GetWorkflow - Get workflow information by its name
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App.
 //   - logicAppName - Name of the Logic App, the extension resource.
@@ -371,7 +370,7 @@ func (client *LogicAppsClient) getWorkflowCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -389,7 +388,7 @@ func (client *LogicAppsClient) getWorkflowHandleResponse(resp *http.Response) (L
 // Invoke - Proxies a the API call to the logic app backed by the container app.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App.
 //   - logicAppName - Name of the LogicApp App, the extension resource.
@@ -442,7 +441,7 @@ func (client *LogicAppsClient) invokeCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["x-ms-logicApps-proxy-method"] = []string{string(xmsLogicAppsProxyMethod)}
@@ -461,7 +460,7 @@ func (client *LogicAppsClient) invokeHandleResponse(resp *http.Response) (LogicA
 
 // NewListWorkflowsPager - List the workflows for a logic app.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App.
 //   - logicAppName - Name of the Logic App, the extension resource.
@@ -514,7 +513,7 @@ func (client *LogicAppsClient) listWorkflowsCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -532,7 +531,7 @@ func (client *LogicAppsClient) listWorkflowsHandleResponse(resp *http.Response) 
 // ListWorkflowsConnections - Gets logic app's connections.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App.
 //   - logicAppName - Name of the Logic App, the extension resource.
@@ -584,7 +583,7 @@ func (client *LogicAppsClient) listWorkflowsConnectionsCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -11,14 +11,13 @@ package armappcontainers
 import (
 	"context"
 	"errors"
-	"net/http"
-	"net/url"
-	"strings"
-
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"net/http"
+	"net/url"
+	"strings"
 )
 
 // ConnectedEnvironmentsStoragesClient contains the methods for the ConnectedEnvironmentsStorages group.
@@ -44,40 +43,61 @@ func NewConnectedEnvironmentsStoragesClient(subscriptionID string, credential az
 	return client, nil
 }
 
-// CreateOrUpdate - Create or update storage for a connectedEnvironment.
+// BeginCreateOrUpdate - Create or update storage for a connectedEnvironment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - connectedEnvironmentName - Name of the Environment.
 //   - storageName - Name of the storage.
 //   - storageEnvelope - Configuration details of storage.
-//   - options - ConnectedEnvironmentsStoragesClientCreateOrUpdateOptions contains the optional parameters for the ConnectedEnvironmentsStoragesClient.CreateOrUpdate
+//   - options - ConnectedEnvironmentsStoragesClientBeginCreateOrUpdateOptions contains the optional parameters for the ConnectedEnvironmentsStoragesClient.BeginCreateOrUpdate
 //     method.
-func (client *ConnectedEnvironmentsStoragesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, connectedEnvironmentName string, storageName string, storageEnvelope ConnectedEnvironmentStorage, options *ConnectedEnvironmentsStoragesClientCreateOrUpdateOptions) (ConnectedEnvironmentsStoragesClientCreateOrUpdateResponse, error) {
+func (client *ConnectedEnvironmentsStoragesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, connectedEnvironmentName string, storageName string, storageEnvelope ConnectedEnvironmentStorage, options *ConnectedEnvironmentsStoragesClientBeginCreateOrUpdateOptions) (*runtime.Poller[ConnectedEnvironmentsStoragesClientCreateOrUpdateResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, connectedEnvironmentName, storageName, storageEnvelope, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ConnectedEnvironmentsStoragesClientCreateOrUpdateResponse]{
+			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ConnectedEnvironmentsStoragesClientCreateOrUpdateResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// CreateOrUpdate - Create or update storage for a connectedEnvironment.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-10-02-preview
+func (client *ConnectedEnvironmentsStoragesClient) createOrUpdate(ctx context.Context, resourceGroupName string, connectedEnvironmentName string, storageName string, storageEnvelope ConnectedEnvironmentStorage, options *ConnectedEnvironmentsStoragesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
-	const operationName = "ConnectedEnvironmentsStoragesClient.CreateOrUpdate"
+	const operationName = "ConnectedEnvironmentsStoragesClient.BeginCreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, connectedEnvironmentName, storageName, storageEnvelope, options)
 	if err != nil {
-		return ConnectedEnvironmentsStoragesClientCreateOrUpdateResponse{}, err
+		return nil, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ConnectedEnvironmentsStoragesClientCreateOrUpdateResponse{}, err
+		return nil, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated) {
 		err = runtime.NewResponseError(httpResp)
-		return ConnectedEnvironmentsStoragesClientCreateOrUpdateResponse{}, err
+		return nil, err
 	}
-	resp, err := client.createOrUpdateHandleResponse(httpResp)
-	return resp, err
+	return httpResp, nil
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *ConnectedEnvironmentsStoragesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, connectedEnvironmentName string, storageName string, storageEnvelope ConnectedEnvironmentStorage, options *ConnectedEnvironmentsStoragesClientCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *ConnectedEnvironmentsStoragesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, connectedEnvironmentName string, storageName string, storageEnvelope ConnectedEnvironmentStorage, options *ConnectedEnvironmentsStoragesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/connectedEnvironments/{connectedEnvironmentName}/storages/{storageName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -100,7 +120,7 @@ func (client *ConnectedEnvironmentsStoragesClient) createOrUpdateCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, storageEnvelope); err != nil {
@@ -109,47 +129,60 @@ func (client *ConnectedEnvironmentsStoragesClient) createOrUpdateCreateRequest(c
 	return req, nil
 }
 
-// createOrUpdateHandleResponse handles the CreateOrUpdate response.
-func (client *ConnectedEnvironmentsStoragesClient) createOrUpdateHandleResponse(resp *http.Response) (ConnectedEnvironmentsStoragesClientCreateOrUpdateResponse, error) {
-	result := ConnectedEnvironmentsStoragesClientCreateOrUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ConnectedEnvironmentStorage); err != nil {
-		return ConnectedEnvironmentsStoragesClientCreateOrUpdateResponse{}, err
+// BeginDelete - Delete storage for a connectedEnvironment.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-10-02-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - connectedEnvironmentName - Name of the Environment.
+//   - storageName - Name of the storage.
+//   - options - ConnectedEnvironmentsStoragesClientBeginDeleteOptions contains the optional parameters for the ConnectedEnvironmentsStoragesClient.BeginDelete
+//     method.
+func (client *ConnectedEnvironmentsStoragesClient) BeginDelete(ctx context.Context, resourceGroupName string, connectedEnvironmentName string, storageName string, options *ConnectedEnvironmentsStoragesClientBeginDeleteOptions) (*runtime.Poller[ConnectedEnvironmentsStoragesClientDeleteResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.deleteOperation(ctx, resourceGroupName, connectedEnvironmentName, storageName, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ConnectedEnvironmentsStoragesClientDeleteResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ConnectedEnvironmentsStoragesClientDeleteResponse]{
+			Tracer: client.internal.Tracer(),
+		})
 	}
-	return result, nil
 }
 
 // Delete - Delete storage for a connectedEnvironment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
-//   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - connectedEnvironmentName - Name of the Environment.
-//   - storageName - Name of the storage.
-//   - options - ConnectedEnvironmentsStoragesClientDeleteOptions contains the optional parameters for the ConnectedEnvironmentsStoragesClient.Delete
-//     method.
-func (client *ConnectedEnvironmentsStoragesClient) Delete(ctx context.Context, resourceGroupName string, connectedEnvironmentName string, storageName string, options *ConnectedEnvironmentsStoragesClientDeleteOptions) (ConnectedEnvironmentsStoragesClientDeleteResponse, error) {
+// Generated from API version 2024-10-02-preview
+func (client *ConnectedEnvironmentsStoragesClient) deleteOperation(ctx context.Context, resourceGroupName string, connectedEnvironmentName string, storageName string, options *ConnectedEnvironmentsStoragesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
-	const operationName = "ConnectedEnvironmentsStoragesClient.Delete"
+	const operationName = "ConnectedEnvironmentsStoragesClient.BeginDelete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, connectedEnvironmentName, storageName, options)
 	if err != nil {
-		return ConnectedEnvironmentsStoragesClientDeleteResponse{}, err
+		return nil, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ConnectedEnvironmentsStoragesClientDeleteResponse{}, err
+		return nil, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusNoContent) {
+	if !runtime.HasStatusCode(httpResp, http.StatusAccepted, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
-		return ConnectedEnvironmentsStoragesClientDeleteResponse{}, err
+		return nil, err
 	}
-	return ConnectedEnvironmentsStoragesClientDeleteResponse{}, nil
+	return httpResp, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *ConnectedEnvironmentsStoragesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, connectedEnvironmentName string, storageName string, options *ConnectedEnvironmentsStoragesClientDeleteOptions) (*policy.Request, error) {
+func (client *ConnectedEnvironmentsStoragesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, connectedEnvironmentName string, storageName string, options *ConnectedEnvironmentsStoragesClientBeginDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/connectedEnvironments/{connectedEnvironmentName}/storages/{storageName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -172,7 +205,7 @@ func (client *ConnectedEnvironmentsStoragesClient) deleteCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -181,7 +214,7 @@ func (client *ConnectedEnvironmentsStoragesClient) deleteCreateRequest(ctx conte
 // Get - Get storage for a connectedEnvironment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - connectedEnvironmentName - Name of the Environment.
 //   - storageName - Name of the storage.
@@ -233,7 +266,7 @@ func (client *ConnectedEnvironmentsStoragesClient) getCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -251,7 +284,7 @@ func (client *ConnectedEnvironmentsStoragesClient) getHandleResponse(resp *http.
 // List - Get all storages for a connectedEnvironment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - connectedEnvironmentName - Name of the Environment.
 //   - options - ConnectedEnvironmentsStoragesClientListOptions contains the optional parameters for the ConnectedEnvironmentsStoragesClient.List
@@ -298,7 +331,7 @@ func (client *ConnectedEnvironmentsStoragesClient) listCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
