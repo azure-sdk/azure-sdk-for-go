@@ -31,6 +31,17 @@ type AdministratorsClientListByServerResponse struct {
 	AdministratorListResult
 }
 
+// BackupsClientCreateResponse contains the response from method BackupsClient.BeginCreate.
+type BackupsClientCreateResponse struct {
+	// Server backup properties
+	ServerBackup
+}
+
+// BackupsClientDeleteResponse contains the response from method BackupsClient.BeginDelete.
+type BackupsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
 // BackupsClientGetResponse contains the response from method BackupsClient.Get.
 type BackupsClientGetResponse struct {
 	// Server backup properties
@@ -205,8 +216,8 @@ type OperationsClientListResponse struct {
 	OperationListResult
 }
 
-// PostgreSQLManagementClientCheckMigrationNameAvailabilityResponse contains the response from method PostgreSQLManagementClient.CheckMigrationNameAvailability.
-type PostgreSQLManagementClientCheckMigrationNameAvailabilityResponse struct {
+// PostgreSQLServerManagementClientCheckMigrationNameAvailabilityResponse contains the response from method PostgreSQLServerManagementClient.CheckMigrationNameAvailability.
+type PostgreSQLServerManagementClientCheckMigrationNameAvailabilityResponse struct {
 	// Represents a migration name's availability.
 	MigrationNameAvailabilityResource
 }
@@ -330,6 +341,24 @@ type ServersClientStopResponse struct {
 type ServersClientUpdateResponse struct {
 	// Represents a server.
 	Server
+}
+
+// TuningOptionsClientGetResponse contains the response from method TuningOptionsClient.Get.
+type TuningOptionsClientGetResponse struct {
+	// Stores property that features impact on some metric if this recommended action is applied.
+	TuningOptionsResource
+}
+
+// TuningOptionsClientListByServerResponse contains the response from method TuningOptionsClient.NewListByServerPager.
+type TuningOptionsClientListByServerResponse struct {
+	// A list of server tuning options.
+	TuningOptionsListResult
+}
+
+// TuningOptionsClientListRecommendationsResponse contains the response from method TuningOptionsClient.NewListRecommendationsPager.
+type TuningOptionsClientListRecommendationsResponse struct {
+	// A list of available index recommendations.
+	IndexRecommendationListResult
 }
 
 // VirtualEndpointsClientCreateResponse contains the response from method VirtualEndpointsClient.BeginCreate.
