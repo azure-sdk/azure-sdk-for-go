@@ -45,7 +45,7 @@ func NewAzureTrafficCollectorsBySubscriptionClient(subscriptionID string, creden
 
 // NewListPager - Return list of Azure Traffic Collectors in a subscription
 //
-// Generated from API version 2022-11-01
+// Generated from API version 2024-12-01
 //   - options - AzureTrafficCollectorsBySubscriptionClientListOptions contains the optional parameters for the AzureTrafficCollectorsBySubscriptionClient.NewListPager
 //     method.
 func (client *AzureTrafficCollectorsBySubscriptionClient) NewListPager(options *AzureTrafficCollectorsBySubscriptionClientListOptions) *runtime.Pager[AzureTrafficCollectorsBySubscriptionClientListResponse] {
@@ -83,7 +83,7 @@ func (client *AzureTrafficCollectorsBySubscriptionClient) listCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01")
+	reqQP.Set("api-version", "2024-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -105,6 +105,8 @@ func (a *AzureTrafficCollectorListResult) UnmarshalJSON(data []byte) error {
 func (a AzureTrafficCollectorPropertiesFormat) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "collectorPolicies", a.CollectorPolicies)
+	populate(objectMap, "dataSubnet", a.DataSubnet)
+	populate(objectMap, "managementSubnet", a.ManagementSubnet)
 	populate(objectMap, "provisioningState", a.ProvisioningState)
 	populate(objectMap, "virtualHub", a.VirtualHub)
 	return json.Marshal(objectMap)
@@ -121,6 +123,12 @@ func (a *AzureTrafficCollectorPropertiesFormat) UnmarshalJSON(data []byte) error
 		switch key {
 		case "collectorPolicies":
 			err = unpopulate(val, "CollectorPolicies", &a.CollectorPolicies)
+			delete(rawMsg, key)
+		case "dataSubnet":
+			err = unpopulate(val, "DataSubnet", &a.DataSubnet)
+			delete(rawMsg, key)
+		case "managementSubnet":
+			err = unpopulate(val, "ManagementSubnet", &a.ManagementSubnet)
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &a.ProvisioningState)
@@ -719,7 +727,7 @@ func populate(m map[string]any, k string, v any) {
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {

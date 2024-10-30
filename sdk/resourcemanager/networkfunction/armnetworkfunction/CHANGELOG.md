@@ -1,5 +1,14 @@
 # Release History
 
+## 2.3.0 (2024-10-30)
+### Features Added
+
+- New value `APIVersionParameterTwoThousandTwentyFour1201` added to enum type `APIVersionParameter`
+- New value `EmissionTypeFlowLogs` added to enum type `EmissionType`
+- New value `IngestionTypeVirtualTap` added to enum type `IngestionType`
+- New field `DataSubnet`, `ManagementSubnet` in struct `AzureTrafficCollectorPropertiesFormat`
+
+
 ## 2.2.0 (2023-11-24)
 ### Features Added
 

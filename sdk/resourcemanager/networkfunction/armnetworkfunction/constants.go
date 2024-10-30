@@ -10,20 +10,22 @@ package armnetworkfunction
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/networkfunction/armnetworkfunction"
-	moduleVersion = "v2.2.0"
+	moduleVersion = "v2.3.0"
 )
 
 type APIVersionParameter string
 
 const (
-	APIVersionParameterTwoThousandTwentyTwo0501 APIVersionParameter = "2022-05-01"
-	APIVersionParameterTwoThousandTwentyTwo0801 APIVersionParameter = "2022-08-01"
-	APIVersionParameterTwoThousandTwentyTwo1101 APIVersionParameter = "2022-11-01"
+	APIVersionParameterTwoThousandTwentyFour1201 APIVersionParameter = "2024-12-01"
+	APIVersionParameterTwoThousandTwentyTwo0501  APIVersionParameter = "2022-05-01"
+	APIVersionParameterTwoThousandTwentyTwo0801  APIVersionParameter = "2022-08-01"
+	APIVersionParameterTwoThousandTwentyTwo1101  APIVersionParameter = "2022-11-01"
 )
 
 // PossibleAPIVersionParameterValues returns the possible values for the APIVersionParameter const type.
 func PossibleAPIVersionParameterValues() []APIVersionParameter {
 	return []APIVersionParameter{
+		APIVersionParameterTwoThousandTwentyFour1201,
 		APIVersionParameterTwoThousandTwentyTwo0501,
 		APIVersionParameterTwoThousandTwentyTwo0801,
 		APIVersionParameterTwoThousandTwentyTwo1101,
@@ -68,12 +70,14 @@ func PossibleDestinationTypeValues() []DestinationType {
 type EmissionType string
 
 const (
-	EmissionTypeIPFIX EmissionType = "IPFIX"
+	EmissionTypeFlowLogs EmissionType = "FlowLogs"
+	EmissionTypeIPFIX    EmissionType = "IPFIX"
 )
 
 // PossibleEmissionTypeValues returns the possible values for the EmissionType const type.
 func PossibleEmissionTypeValues() []EmissionType {
 	return []EmissionType{
+		EmissionTypeFlowLogs,
 		EmissionTypeIPFIX,
 	}
 }
@@ -82,13 +86,15 @@ func PossibleEmissionTypeValues() []EmissionType {
 type IngestionType string
 
 const (
-	IngestionTypeIPFIX IngestionType = "IPFIX"
+	IngestionTypeIPFIX      IngestionType = "IPFIX"
+	IngestionTypeVirtualTap IngestionType = "VirtualTap"
 )
 
 // PossibleIngestionTypeValues returns the possible values for the IngestionType const type.
 func PossibleIngestionTypeValues() []IngestionType {
 	return []IngestionType{
 		IngestionTypeIPFIX,
+		IngestionTypeVirtualTap,
 	}
 }
 

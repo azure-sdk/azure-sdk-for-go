@@ -48,6 +48,12 @@ type AzureTrafficCollectorListResult struct {
 
 // AzureTrafficCollectorPropertiesFormat - Azure Traffic Collector resource properties.
 type AzureTrafficCollectorPropertiesFormat struct {
+	// Reference to the data subnet resource. This resource must be named 'atcDataSubnet'.
+	DataSubnet *ResourceReference
+
+	// Reference to the management subnet resource. This resource must be named 'atcManagementSubnet'.
+	ManagementSubnet *ResourceReference
+
 	// The virtualHub to which the Azure Traffic Collector belongs.
 	VirtualHub *ResourceReference
 
@@ -193,7 +199,7 @@ type ProxyResource struct {
 
 // ResourceReference - Resource reference properties.
 type ResourceReference struct {
-	// READ-ONLY; Resource ID.
+	// Resource ID.
 	ID *string
 }
 
