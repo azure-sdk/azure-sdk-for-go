@@ -1,5 +1,32 @@
 # Release History
 
+## 2.0.0-beta.7 (2024-10-30)
+### Breaking Changes
+
+- Type of `DistributedAvailabilityGroupProperties.ReplicationMode` has been changed from `*ReplicationMode` to `*ReplicationModeType`
+- Enum `ReplicationMode` has been removed
+- Field `LastHardenedLsn`, `LinkState`, `PrimaryAvailabilityGroupName`, `SecondaryAvailabilityGroupName`, `SourceEndpoint`, `SourceReplicaID`, `TargetDatabase`, `TargetReplicaID` of struct `DistributedAvailabilityGroupProperties` has been removed
+
+### Features Added
+
+- New enum type `FailoverModeType` with values `FailoverModeTypeManual`, `FailoverModeTypeNone`
+- New enum type `FailoverType` with values `FailoverTypeForcedAllowDataLoss`, `FailoverTypePlanned`
+- New enum type `InstanceRole` with values `InstanceRolePrimary`, `InstanceRoleSecondary`
+- New enum type `LinkRole` with values `LinkRolePrimary`, `LinkRoleSecondary`
+- New enum type `ReplicaConnectedState` with values `ReplicaConnectedStateCONNECTED`, `ReplicaConnectedStateDISCONNECTED`
+- New enum type `ReplicaSynchronizationHealth` with values `ReplicaSynchronizationHealthHEALTHY`, `ReplicaSynchronizationHealthNOTHEALTHY`, `ReplicaSynchronizationHealthPARTIALLYHEALTHY`
+- New enum type `ReplicationModeType` with values `ReplicationModeTypeAsync`, `ReplicationModeTypeSync`
+- New enum type `RoleChangeType` with values `RoleChangeTypeForced`, `RoleChangeTypePlanned`
+- New enum type `SeedingModeType` with values `SeedingModeTypeAutomatic`, `SeedingModeTypeManual`
+- New function `*DistributedAvailabilityGroupsClient.BeginFailover(context.Context, string, string, string, DistributedAvailabilityGroupsFailoverRequest, *DistributedAvailabilityGroupsClientBeginFailoverOptions) (*runtime.Poller[DistributedAvailabilityGroupsClientFailoverResponse], error)`
+- New function `*DistributedAvailabilityGroupsClient.BeginSetRole(context.Context, string, string, string, DistributedAvailabilityGroupSetRole, *DistributedAvailabilityGroupsClientBeginSetRoleOptions) (*runtime.Poller[DistributedAvailabilityGroupsClientSetRoleResponse], error)`
+- New struct `CertificateInfo`
+- New struct `DistributedAvailabilityGroupDatabase`
+- New struct `DistributedAvailabilityGroupSetRole`
+- New struct `DistributedAvailabilityGroupsFailoverRequest`
+- New field `Databases`, `DistributedAvailabilityGroupName`, `FailoverMode`, `InstanceAvailabilityGroupName`, `InstanceLinkRole`, `PartnerAvailabilityGroupName`, `PartnerEndpoint`, `PartnerLinkRole`, `SeedingMode` in struct `DistributedAvailabilityGroupProperties`
+
+
 ## 2.0.0-beta.6 (2024-08-30)
 ### Breaking Changes
 
