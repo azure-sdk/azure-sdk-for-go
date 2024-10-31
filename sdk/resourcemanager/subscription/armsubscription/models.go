@@ -45,6 +45,9 @@ type AcceptOwnershipStatusResponse struct {
 	// READ-ONLY; UPN of the billing owner
 	BillingOwner *string
 
+	// READ-ONLY; The provisioning state of the resource.
+	ProvisioningState *Provisioning
+
 	// READ-ONLY; Newly created subscription Id.
 	SubscriptionID *string
 }
@@ -148,6 +151,12 @@ type BillingAccountPoliciesResponseProperties struct {
 type CanceledSubscriptionID struct {
 	// READ-ONLY; The ID of the canceled subscription
 	SubscriptionID *string
+}
+
+// CreationResult - The created subscription object.
+type CreationResult struct {
+	// The link to the new subscription. Use this link to check the status of subscription creation operation.
+	SubscriptionLink *string
 }
 
 // EnabledSubscriptionID - The ID of the subscriptions that is being enabled
@@ -378,6 +387,9 @@ type Subscription struct {
 	// The subscription policies.
 	SubscriptionPolicies *Policies
 
+	// Tags for the subscription
+	Tags map[string]*string
+
 	// READ-ONLY; The subscription display name.
 	DisplayName *string
 
@@ -389,6 +401,9 @@ type Subscription struct {
 
 	// READ-ONLY; The subscription ID.
 	SubscriptionID *string
+
+	// READ-ONLY; The tenant ID. For example, 00000000-0000-0000-0000-000000000000.
+	TenantID *string
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
@@ -414,11 +429,32 @@ type SystemData struct {
 
 // TenantIDDescription - Tenant Id information.
 type TenantIDDescription struct {
+	// READ-ONLY; The country/region name of the address for the tenant.
+	Country *string
+
+	// READ-ONLY; The Country/region abbreviation for the tenant.
+	CountryCode *string
+
+	// READ-ONLY; The default domain for the tenant.
+	DefaultDomain *string
+
+	// READ-ONLY; The display name of the tenant.
+	DisplayName *string
+
+	// READ-ONLY; The list of domains for the tenant.
+	Domains *string
+
 	// READ-ONLY; The fully qualified ID of the tenant. For example, /tenants/00000000-0000-0000-0000-000000000000.
 	ID *string
 
+	// READ-ONLY; The category of the tenant. Possible values are TenantCategoryHome,TenantCategoryProjectedBy,TenantCategoryManagedBy
+	TenantCategory *string
+
 	// READ-ONLY; The tenant ID. For example, 00000000-0000-0000-0000-000000000000.
 	TenantID *string
+
+	// READ-ONLY; The tenant type. Only available for Home tenant category.
+	TenantType *string
 }
 
 // TenantListResult - Tenant Ids information.
