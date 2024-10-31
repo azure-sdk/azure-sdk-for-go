@@ -6,7 +6,7 @@ package armcomputefleet
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/computefleet/armcomputefleet"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.0.1"
 )
 
 // AcceleratorManufacturer - Accelerator manufacturers supported by Azure VMs.
