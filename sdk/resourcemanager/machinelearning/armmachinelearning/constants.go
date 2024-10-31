@@ -10,7 +10,7 @@ package armmachinelearning
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/machinelearning/armmachinelearning"
-	moduleVersion = "v4.0.0"
+	moduleVersion = "v4.1.0"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -352,7 +352,7 @@ const (
 	// tf-idf may also work.
 	ClassificationModelsMultinomialNaiveBayes ClassificationModels = "MultinomialNaiveBayes"
 	// ClassificationModelsRandomForest - Random forest is a supervised learning algorithm.
-	// The "forest" it builds, is an ensemble of decision trees, usually trained with the “bagging” method.
+	// The "forest" it builds, is an ensemble of decision trees, usually trained with the "bagging" method.
 	// The general idea of the bagging method is that a combination of learning models increases the overall result.
 	ClassificationModelsRandomForest ClassificationModels = "RandomForest"
 	// ClassificationModelsSGD - SGD: Stochastic gradient descent is an optimization algorithm often used in machine learning
@@ -732,6 +732,7 @@ const (
 	ConnectionCategoryDynamics                 ConnectionCategory = "Dynamics"
 	ConnectionCategoryDynamicsAx               ConnectionCategory = "DynamicsAx"
 	ConnectionCategoryDynamicsCrm              ConnectionCategory = "DynamicsCrm"
+	ConnectionCategoryElasticsearch            ConnectionCategory = "Elasticsearch"
 	ConnectionCategoryEloqua                   ConnectionCategory = "Eloqua"
 	ConnectionCategoryFileServer               ConnectionCategory = "FileServer"
 	ConnectionCategoryFtpServer                ConnectionCategory = "FtpServer"
@@ -751,6 +752,7 @@ const (
 	ConnectionCategoryInformix                 ConnectionCategory = "Informix"
 	ConnectionCategoryJira                     ConnectionCategory = "Jira"
 	ConnectionCategoryMagento                  ConnectionCategory = "Magento"
+	ConnectionCategoryManagedOnlineEndpoint    ConnectionCategory = "ManagedOnlineEndpoint"
 	ConnectionCategoryMariaDb                  ConnectionCategory = "MariaDb"
 	ConnectionCategoryMarketo                  ConnectionCategory = "Marketo"
 	ConnectionCategoryMicrosoftAccess          ConnectionCategory = "MicrosoftAccess"
@@ -767,6 +769,7 @@ const (
 	ConnectionCategoryOracleServiceCloud       ConnectionCategory = "OracleServiceCloud"
 	ConnectionCategoryPayPal                   ConnectionCategory = "PayPal"
 	ConnectionCategoryPhoenix                  ConnectionCategory = "Phoenix"
+	ConnectionCategoryPinecone                 ConnectionCategory = "Pinecone"
 	ConnectionCategoryPostgreSQL               ConnectionCategory = "PostgreSql"
 	ConnectionCategoryPresto                   ConnectionCategory = "Presto"
 	ConnectionCategoryPythonFeed               ConnectionCategory = "PythonFeed"
@@ -839,6 +842,7 @@ func PossibleConnectionCategoryValues() []ConnectionCategory {
 		ConnectionCategoryDynamics,
 		ConnectionCategoryDynamicsAx,
 		ConnectionCategoryDynamicsCrm,
+		ConnectionCategoryElasticsearch,
 		ConnectionCategoryEloqua,
 		ConnectionCategoryFileServer,
 		ConnectionCategoryFtpServer,
@@ -858,6 +862,7 @@ func PossibleConnectionCategoryValues() []ConnectionCategory {
 		ConnectionCategoryInformix,
 		ConnectionCategoryJira,
 		ConnectionCategoryMagento,
+		ConnectionCategoryManagedOnlineEndpoint,
 		ConnectionCategoryMariaDb,
 		ConnectionCategoryMarketo,
 		ConnectionCategoryMicrosoftAccess,
@@ -874,6 +879,7 @@ func PossibleConnectionCategoryValues() []ConnectionCategory {
 		ConnectionCategoryOracleServiceCloud,
 		ConnectionCategoryPayPal,
 		ConnectionCategoryPhoenix,
+		ConnectionCategoryPinecone,
 		ConnectionCategoryPostgreSQL,
 		ConnectionCategoryPresto,
 		ConnectionCategoryPythonFeed,
@@ -1439,6 +1445,22 @@ func PossibleFeaturizationModeValues() []FeaturizationMode {
 	}
 }
 
+// FirewallSKU - Firewall Sku used for FQDN Rules
+type FirewallSKU string
+
+const (
+	FirewallSKUBasic    FirewallSKU = "Basic"
+	FirewallSKUStandard FirewallSKU = "Standard"
+)
+
+// PossibleFirewallSKUValues returns the possible values for the FirewallSKU const type.
+func PossibleFirewallSKUValues() []FirewallSKU {
+	return []FirewallSKU{
+		FirewallSKUBasic,
+		FirewallSKUStandard,
+	}
+}
+
 // ForecastHorizonMode - Enum to determine forecast horizon selection mode.
 type ForecastHorizonMode string
 
@@ -1508,7 +1530,7 @@ const (
 	// to missing data and shifts in the trend, and typically handles outliers well.
 	ForecastingModelsProphet ForecastingModels = "Prophet"
 	// ForecastingModelsRandomForest - Random forest is a supervised learning algorithm.
-	// The "forest" it builds, is an ensemble of decision trees, usually trained with the “bagging” method.
+	// The "forest" it builds, is an ensemble of decision trees, usually trained with the "bagging" method.
 	// The general idea of the bagging method is that a combination of learning models increases the overall result.
 	ForecastingModelsRandomForest ForecastingModels = "RandomForest"
 	// ForecastingModelsSGD - SGD: Stochastic gradient descent is an optimization algorithm often used in machine learning applications
@@ -2364,7 +2386,7 @@ const (
 	NumericalDataDriftMetricNormalizedWassersteinDistance NumericalDataDriftMetric = "NormalizedWassersteinDistance"
 	// NumericalDataDriftMetricPopulationStabilityIndex - The Population Stability Index (PSI) metric.
 	NumericalDataDriftMetricPopulationStabilityIndex NumericalDataDriftMetric = "PopulationStabilityIndex"
-	// NumericalDataDriftMetricTwoSampleKolmogorovSmirnovTest - The Two Sample Kolmogorov-Smirnov Test (two-sample K–S) metric.
+	// NumericalDataDriftMetricTwoSampleKolmogorovSmirnovTest - The Two Sample Kolmogorov-Smirnov Test (two-sample Kâ€“S) metric.
 	NumericalDataDriftMetricTwoSampleKolmogorovSmirnovTest NumericalDataDriftMetric = "TwoSampleKolmogorovSmirnovTest"
 )
 
@@ -2407,7 +2429,7 @@ const (
 	NumericalPredictionDriftMetricNormalizedWassersteinDistance NumericalPredictionDriftMetric = "NormalizedWassersteinDistance"
 	// NumericalPredictionDriftMetricPopulationStabilityIndex - The Population Stability Index (PSI) metric.
 	NumericalPredictionDriftMetricPopulationStabilityIndex NumericalPredictionDriftMetric = "PopulationStabilityIndex"
-	// NumericalPredictionDriftMetricTwoSampleKolmogorovSmirnovTest - The Two Sample Kolmogorov-Smirnov Test (two-sample K–S)
+	// NumericalPredictionDriftMetricTwoSampleKolmogorovSmirnovTest - The Two Sample Kolmogorov-Smirnov Test (two-sample Kâ€“S)
 	// metric.
 	NumericalPredictionDriftMetricTwoSampleKolmogorovSmirnovTest NumericalPredictionDriftMetric = "TwoSampleKolmogorovSmirnovTest"
 )
@@ -2700,8 +2722,8 @@ func PossibleProtocolValues() []Protocol {
 	}
 }
 
-// ProvisioningState - The current deployment state of workspace resource. The provisioningState is to indicate states for
-// resource provisioning.
+// ProvisioningState - The provision state of the cluster. Valid values are Unknown, Updating, Provisioning, Succeeded, and
+// Failed.
 type ProvisioningState string
 
 const (
@@ -2880,7 +2902,7 @@ const (
 	// RegressionModelsLightGBM - LightGBM is a gradient boosting framework that uses tree based learning algorithms.
 	RegressionModelsLightGBM RegressionModels = "LightGBM"
 	// RegressionModelsRandomForest - Random forest is a supervised learning algorithm.
-	// The "forest" it builds, is an ensemble of decision trees, usually trained with the “bagging” method.
+	// The "forest" it builds, is an ensemble of decision trees, usually trained with the "bagging" method.
 	// The general idea of the bagging method is that a combination of learning models increases the overall result.
 	RegressionModelsRandomForest RegressionModels = "RandomForest"
 	// RegressionModelsSGD - SGD: Stochastic gradient descent is an optimization algorithm often used in machine learning applications
