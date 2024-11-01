@@ -10,7 +10,7 @@ package armcontainerinstance
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerinstance/armcontainerinstance"
-	moduleVersion = "v2.5.0-beta.1"
+	moduleVersion = "v2.5.0-beta.2"
 )
 
 // ContainerGroupIPAddressType - Specifies if the IP is exposed to the public internet or private VNET.
