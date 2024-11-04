@@ -10,7 +10,7 @@ package armrecoveryservices
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservices"
-	moduleVersion = "v2.0.0"
+	moduleVersion = "v2.0.1"
 )
 
 type AlertsState string
