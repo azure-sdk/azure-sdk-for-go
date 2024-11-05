@@ -1,5 +1,41 @@
 # Release History
 
+## 2.0.0 (2024-11-05)
+### Breaking Changes
+
+- Type of `DeploymentProperties.Parameters` has been changed from `any` to `map[string]*DeploymentParameter`
+- Type of `DeploymentWhatIfProperties.Parameters` has been changed from `any` to `map[string]*DeploymentParameter`
+- Operation `*TagsClient.CreateOrUpdateAtScope` has been changed to LRO, use `*TagsClient.BeginCreateOrUpdateAtScope` instead.
+- Operation `*TagsClient.DeleteAtScope` has been changed to LRO, use `*TagsClient.BeginDeleteAtScope` instead.
+- Operation `*TagsClient.UpdateAtScope` has been changed to LRO, use `*TagsClient.BeginUpdateAtScope` instead.
+- Struct `DeploymentValidateResult` has been removed
+- Field `DeploymentValidateResult` of struct `DeploymentsClientValidateAtManagementGroupScopeResponse` has been removed
+- Field `DeploymentValidateResult` of struct `DeploymentsClientValidateAtScopeResponse` has been removed
+- Field `DeploymentValidateResult` of struct `DeploymentsClientValidateAtSubscriptionScopeResponse` has been removed
+- Field `DeploymentValidateResult` of struct `DeploymentsClientValidateAtTenantScopeResponse` has been removed
+- Field `DeploymentValidateResult` of struct `DeploymentsClientValidateResponse` has been removed
+
+### Features Added
+
+- New enum type `ExportTemplateOutputFormat` with values `ExportTemplateOutputFormatBicep`, `ExportTemplateOutputFormatJSON`
+- New enum type `Level` with values `LevelError`, `LevelInfo`, `LevelWarning`
+- New struct `DeploymentDiagnosticsDefinition`
+- New struct `DeploymentParameter`
+- New struct `DeploymentValidationError`
+- New struct `ErrorDetail`
+- New struct `KeyVaultParameterReference`
+- New struct `KeyVaultReference`
+- New field `Diagnostics` in struct `DeploymentPropertiesExtended`
+- New anonymous field `DeploymentExtended` in struct `DeploymentsClientValidateAtManagementGroupScopeResponse`
+- New anonymous field `DeploymentExtended` in struct `DeploymentsClientValidateAtScopeResponse`
+- New anonymous field `DeploymentExtended` in struct `DeploymentsClientValidateAtSubscriptionScopeResponse`
+- New anonymous field `DeploymentExtended` in struct `DeploymentsClientValidateAtTenantScopeResponse`
+- New anonymous field `DeploymentExtended` in struct `DeploymentsClientValidateResponse`
+- New field `OutputFormat` in struct `ExportTemplateRequest`
+- New field `Output` in struct `ResourceGroupExportResult`
+- New field `Diagnostics`, `PotentialChanges` in struct `WhatIfOperationProperties`
+
+
 ## 1.2.0 (2023-11-24)
 ### Features Added
 
