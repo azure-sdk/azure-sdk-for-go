@@ -1,5 +1,17 @@
 # Release History
 
+## 2.0.0 (2024-11-05)
+### Breaking Changes
+
+- Function `*VirtualMachineInstancesClient.BeginStop` parameter(s) have been changed from `(context.Context, string, StopVirtualMachineOptions, *VirtualMachineInstancesClientBeginStopOptions)` to `(context.Context, string, *VirtualMachineInstancesClientBeginStopOptions)`
+
+### Features Added
+
+- New field `PrivateLinkScopeResourceID` in struct `GuestAgentProperties`
+- New field `DomainName`, `DomainPassword`, `DomainUsername`, `ProductKey`, `RunOnceCommands`, `Timezone`, `Workgroup` in struct `OsProfileForVMInstance`
+- New field `Body` in struct `VirtualMachineInstancesClientBeginStopOptions`
+
+
 ## 1.0.0 (2024-06-28)
 ### Breaking Changes
 
