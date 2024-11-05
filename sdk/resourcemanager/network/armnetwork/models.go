@@ -13802,6 +13802,9 @@ type VirtualNetworkGatewayIPConfigurationPropertiesFormat struct {
 	// READ-ONLY; Private IP Address for this gateway.
 	PrivateIPAddress *string
 
+	// READ-ONLY; Private IP Address for this gateway.
+	PrivateIPv6Address *string
+
 	// READ-ONLY; The provisioning state of the virtual network gateway IP configuration resource.
 	ProvisioningState *ProvisioningState
 }

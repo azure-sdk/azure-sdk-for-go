@@ -10,7 +10,7 @@ package armchaos
 
 import "encoding/json"
 
-func unmarshalExperimentActionClassification(rawMsg json.RawMessage) (ExperimentActionClassification, error) {
+func unmarshalActionClassification(rawMsg json.RawMessage) (ActionClassification, error) {
 	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
@@ -18,7 +18,7 @@ func unmarshalExperimentActionClassification(rawMsg json.RawMessage) (Experiment
 	if err := json.Unmarshal(rawMsg, &m); err != nil {
 		return nil, err
 	}
-	var b ExperimentActionClassification
+	var b ActionClassification
 	switch m["type"] {
 	case "continuous":
 		b = &ContinuousAction{}
@@ -27,7 +27,7 @@ func unmarshalExperimentActionClassification(rawMsg json.RawMessage) (Experiment
 	case "discrete":
 		b = &DiscreteAction{}
 	default:
-		b = &ExperimentAction{}
+		b = &Action{}
 	}
 	if err := json.Unmarshal(rawMsg, b); err != nil {
 		return nil, err
@@ -35,7 +35,7 @@ func unmarshalExperimentActionClassification(rawMsg json.RawMessage) (Experiment
 	return b, nil
 }
 
-func unmarshalExperimentActionClassificationArray(rawMsg json.RawMessage) ([]ExperimentActionClassification, error) {
+func unmarshalActionClassificationArray(rawMsg json.RawMessage) ([]ActionClassification, error) {
 	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
@@ -43,9 +43,9 @@ func unmarshalExperimentActionClassificationArray(rawMsg json.RawMessage) ([]Exp
 	if err := json.Unmarshal(rawMsg, &rawMessages); err != nil {
 		return nil, err
 	}
-	fArray := make([]ExperimentActionClassification, len(rawMessages))
+	fArray := make([]ActionClassification, len(rawMessages))
 	for index, rawMessage := range rawMessages {
-		f, err := unmarshalExperimentActionClassification(rawMessage)
+		f, err := unmarshalActionClassification(rawMessage)
 		if err != nil {
 			return nil, err
 		}
@@ -54,7 +54,7 @@ func unmarshalExperimentActionClassificationArray(rawMsg json.RawMessage) ([]Exp
 	return fArray, nil
 }
 
-func unmarshalTargetFilterClassification(rawMsg json.RawMessage) (TargetFilterClassification, error) {
+func unmarshalFilterClassification(rawMsg json.RawMessage) (FilterClassification, error) {
 	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
@@ -62,12 +62,12 @@ func unmarshalTargetFilterClassification(rawMsg json.RawMessage) (TargetFilterCl
 	if err := json.Unmarshal(rawMsg, &m); err != nil {
 		return nil, err
 	}
-	var b TargetFilterClassification
+	var b FilterClassification
 	switch m["type"] {
 	case string(FilterTypeSimple):
-		b = &TargetSimpleFilter{}
+		b = &SimpleFilter{}
 	default:
-		b = &TargetFilter{}
+		b = &Filter{}
 	}
 	if err := json.Unmarshal(rawMsg, b); err != nil {
 		return nil, err
@@ -75,7 +75,7 @@ func unmarshalTargetFilterClassification(rawMsg json.RawMessage) (TargetFilterCl
 	return b, nil
 }
 
-func unmarshalTargetSelectorClassification(rawMsg json.RawMessage) (TargetSelectorClassification, error) {
+func unmarshalSelectorClassification(rawMsg json.RawMessage) (SelectorClassification, error) {
 	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
@@ -83,14 +83,14 @@ func unmarshalTargetSelectorClassification(rawMsg json.RawMessage) (TargetSelect
 	if err := json.Unmarshal(rawMsg, &m); err != nil {
 		return nil, err
 	}
-	var b TargetSelectorClassification
+	var b SelectorClassification
 	switch m["type"] {
 	case string(SelectorTypeList):
-		b = &TargetListSelector{}
+		b = &ListSelector{}
 	case string(SelectorTypeQuery):
-		b = &TargetQuerySelector{}
+		b = &QuerySelector{}
 	default:
-		b = &TargetSelector{}
+		b = &Selector{}
 	}
 	if err := json.Unmarshal(rawMsg, b); err != nil {
 		return nil, err
@@ -98,7 +98,7 @@ func unmarshalTargetSelectorClassification(rawMsg json.RawMessage) (TargetSelect
 	return b, nil
 }
 
-func unmarshalTargetSelectorClassificationArray(rawMsg json.RawMessage) ([]TargetSelectorClassification, error) {
+func unmarshalSelectorClassificationArray(rawMsg json.RawMessage) ([]SelectorClassification, error) {
 	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
@@ -106,9 +106,9 @@ func unmarshalTargetSelectorClassificationArray(rawMsg json.RawMessage) ([]Targe
 	if err := json.Unmarshal(rawMsg, &rawMessages); err != nil {
 		return nil, err
 	}
-	fArray := make([]TargetSelectorClassification, len(rawMessages))
+	fArray := make([]SelectorClassification, len(rawMessages))
 	for index, rawMessage := range rawMessages {
-		f, err := unmarshalTargetSelectorClassification(rawMessage)
+		f, err := unmarshalSelectorClassification(rawMessage)
 		if err != nil {
 			return nil, err
 		}

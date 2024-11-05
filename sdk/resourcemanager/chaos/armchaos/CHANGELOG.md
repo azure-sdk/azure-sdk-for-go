@@ -1,5 +1,47 @@
 # Release History
 
+## 2.0.0-beta.1 (2024-11-05)
+### Breaking Changes
+
+- Type of `ExperimentProperties.Selectors` has been changed from `[]TargetSelectorClassification` to `[]SelectorClassification`
+- Type of `ExperimentProperties.Steps` has been changed from `[]*ExperimentStep` to `[]*Step`
+- Type of `OperationStatus.EndTime` has been changed from `*string` to `*time.Time`
+- Type of `OperationStatus.StartTime` has been changed from `*string` to `*time.Time`
+- Function `*ContinuousAction.GetExperimentAction` has been removed
+- Function `*DelayAction.GetExperimentAction` has been removed
+- Function `*DiscreteAction.GetExperimentAction` has been removed
+- Function `*ExperimentAction.GetExperimentAction` has been removed
+- Function `*TargetFilter.GetTargetFilter` has been removed
+- Function `*TargetListSelector.GetTargetSelector` has been removed
+- Function `*TargetQuerySelector.GetTargetSelector` has been removed
+- Function `*TargetSelector.GetTargetSelector` has been removed
+- Function `*TargetSimpleFilter.GetTargetFilter` has been removed
+- Struct `ExperimentBranch` has been removed
+- Struct `ExperimentStep` has been removed
+- Struct `TargetListSelector` has been removed
+- Struct `TargetQuerySelector` has been removed
+- Struct `TargetSimpleFilter` has been removed
+- Struct `TargetSimpleFilterParameters` has been removed
+
+### Features Added
+
+- New function `*Action.GetAction() *Action`
+- New function `*ContinuousAction.GetAction() *Action`
+- New function `*DelayAction.GetAction() *Action`
+- New function `*DiscreteAction.GetAction() *Action`
+- New function `*Filter.GetFilter() *Filter`
+- New function `*ListSelector.GetSelector() *Selector`
+- New function `*QuerySelector.GetSelector() *Selector`
+- New function `*Selector.GetSelector() *Selector`
+- New function `*SimpleFilter.GetFilter() *Filter`
+- New struct `Branch`
+- New struct `ListSelector`
+- New struct `QuerySelector`
+- New struct `SimpleFilter`
+- New struct `SimpleFilterParameters`
+- New struct `Step`
+
+
 ## 1.1.0 (2024-03-22)
 ### Features Added
 

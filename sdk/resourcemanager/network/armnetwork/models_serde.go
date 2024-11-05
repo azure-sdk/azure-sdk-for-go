@@ -34168,6 +34168,7 @@ func (v VirtualNetworkGatewayIPConfigurationPropertiesFormat) MarshalJSON() ([]b
 	objectMap := make(map[string]any)
 	populate(objectMap, "privateIPAddress", v.PrivateIPAddress)
 	populate(objectMap, "privateIPAllocationMethod", v.PrivateIPAllocationMethod)
+	populate(objectMap, "privateIPv6Address", v.PrivateIPv6Address)
 	populate(objectMap, "provisioningState", v.ProvisioningState)
 	populate(objectMap, "publicIPAddress", v.PublicIPAddress)
 	populate(objectMap, "subnet", v.Subnet)
@@ -34188,6 +34189,9 @@ func (v *VirtualNetworkGatewayIPConfigurationPropertiesFormat) UnmarshalJSON(dat
 			delete(rawMsg, key)
 		case "privateIPAllocationMethod":
 			err = unpopulate(val, "PrivateIPAllocationMethod", &v.PrivateIPAllocationMethod)
+			delete(rawMsg, key)
+		case "privateIPv6Address":
+			err = unpopulate(val, "PrivateIPv6Address", &v.PrivateIPv6Address)
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &v.ProvisioningState)
