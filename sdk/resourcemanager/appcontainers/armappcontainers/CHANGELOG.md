@@ -1,5 +1,79 @@
 # Release History
 
+## 3.1.0-beta.2 (2024-11-05)
+### Breaking Changes
+
+- Operation `*ConnectedEnvironmentsCertificatesClient.CreateOrUpdate` has been changed to LRO, use `*ConnectedEnvironmentsCertificatesClient.BeginCreateOrUpdate` instead.
+- Operation `*ConnectedEnvironmentsCertificatesClient.Delete` has been changed to LRO, use `*ConnectedEnvironmentsCertificatesClient.BeginDelete` instead.
+- Operation `*ConnectedEnvironmentsCertificatesClient.Update` has been changed to LRO, use `*ConnectedEnvironmentsCertificatesClient.BeginUpdate` instead.
+- Operation `*ConnectedEnvironmentsDaprComponentsClient.CreateOrUpdate` has been changed to LRO, use `*ConnectedEnvironmentsDaprComponentsClient.BeginCreateOrUpdate` instead.
+- Operation `*ConnectedEnvironmentsDaprComponentsClient.Delete` has been changed to LRO, use `*ConnectedEnvironmentsDaprComponentsClient.BeginDelete` instead.
+- Operation `*ConnectedEnvironmentsStoragesClient.CreateOrUpdate` has been changed to LRO, use `*ConnectedEnvironmentsStoragesClient.BeginCreateOrUpdate` instead.
+- Operation `*ConnectedEnvironmentsStoragesClient.Delete` has been changed to LRO, use `*ConnectedEnvironmentsStoragesClient.BeginDelete` instead.
+- Field `DaprComponent` of struct `ConnectedEnvironmentsDaprComponentsClientGetResponse` has been removed
+- Field `DaprComponentsCollection` of struct `ConnectedEnvironmentsDaprComponentsClientListResponse` has been removed
+
+### Features Added
+
+- New value `ActiveRevisionsModeLabels` added to enum type `ActiveRevisionsMode`
+- New value `BindingTypeAuto` added to enum type `BindingType`
+- New enum type `ConnectedEnvironmentDaprComponentProvisioningState` with values `ConnectedEnvironmentDaprComponentProvisioningStateCanceled`, `ConnectedEnvironmentDaprComponentProvisioningStateFailed`, `ConnectedEnvironmentDaprComponentProvisioningStateInProgress`, `ConnectedEnvironmentDaprComponentProvisioningStateSucceeded`
+- New enum type `ConnectedEnvironmentStorageProvisioningState` with values `ConnectedEnvironmentStorageProvisioningStateCanceled`, `ConnectedEnvironmentStorageProvisioningStateFailed`, `ConnectedEnvironmentStorageProvisioningStateInProgress`, `ConnectedEnvironmentStorageProvisioningStateSucceeded`
+- New enum type `ContainerAppRunningStatus` with values `ContainerAppRunningStatusProgressing`, `ContainerAppRunningStatusReady`, `ContainerAppRunningStatusRunning`, `ContainerAppRunningStatusStopped`, `ContainerAppRunningStatusSuspended`
+- New enum type `HTTPRouteProvisioningState` with values `HTTPRouteProvisioningStateCanceled`, `HTTPRouteProvisioningStateDeleting`, `HTTPRouteProvisioningStateFailed`, `HTTPRouteProvisioningStatePending`, `HTTPRouteProvisioningStateSucceeded`, `HTTPRouteProvisioningStateUpdating`, `HTTPRouteProvisioningStateWaiting`
+- New enum type `WeekDay` with values `WeekDayEveryday`, `WeekDayFriday`, `WeekDayMonday`, `WeekDaySaturday`, `WeekDaySunday`, `WeekDayThursday`, `WeekDayTuesday`, `WeekDayWednesday`, `WeekDayWeekend`
+- New function `*ClientFactory.NewContainerAppsLabelHistoryClient() *ContainerAppsLabelHistoryClient`
+- New function `*ClientFactory.NewHTTPRouteConfigClient() *HTTPRouteConfigClient`
+- New function `*ClientFactory.NewMaintenanceConfigurationsClient() *MaintenanceConfigurationsClient`
+- New function `NewContainerAppsLabelHistoryClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ContainerAppsLabelHistoryClient, error)`
+- New function `*ContainerAppsLabelHistoryClient.GetLabelHistory(context.Context, string, string, string, *ContainerAppsLabelHistoryClientGetLabelHistoryOptions) (ContainerAppsLabelHistoryClientGetLabelHistoryResponse, error)`
+- New function `*ContainerAppsLabelHistoryClient.NewListLabelHistoryPager(string, string, *ContainerAppsLabelHistoryClientListLabelHistoryOptions) *runtime.Pager[ContainerAppsLabelHistoryClientListLabelHistoryResponse]`
+- New function `NewHTTPRouteConfigClient(string, azcore.TokenCredential, *arm.ClientOptions) (*HTTPRouteConfigClient, error)`
+- New function `*HTTPRouteConfigClient.CreateOrUpdate(context.Context, string, string, string, *HTTPRouteConfigClientCreateOrUpdateOptions) (HTTPRouteConfigClientCreateOrUpdateResponse, error)`
+- New function `*HTTPRouteConfigClient.Delete(context.Context, string, string, string, *HTTPRouteConfigClientDeleteOptions) (HTTPRouteConfigClientDeleteResponse, error)`
+- New function `*HTTPRouteConfigClient.Get(context.Context, string, string, string, *HTTPRouteConfigClientGetOptions) (HTTPRouteConfigClientGetResponse, error)`
+- New function `*HTTPRouteConfigClient.NewListPager(string, string, *HTTPRouteConfigClientListOptions) *runtime.Pager[HTTPRouteConfigClientListResponse]`
+- New function `*HTTPRouteConfigClient.Update(context.Context, string, string, string, HTTPRouteConfig, *HTTPRouteConfigClientUpdateOptions) (HTTPRouteConfigClientUpdateResponse, error)`
+- New function `NewMaintenanceConfigurationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*MaintenanceConfigurationsClient, error)`
+- New function `*MaintenanceConfigurationsClient.CreateOrUpdate(context.Context, string, string, string, MaintenanceConfigurationResource, *MaintenanceConfigurationsClientCreateOrUpdateOptions) (MaintenanceConfigurationsClientCreateOrUpdateResponse, error)`
+- New function `*MaintenanceConfigurationsClient.Delete(context.Context, string, string, string, *MaintenanceConfigurationsClientDeleteOptions) (MaintenanceConfigurationsClientDeleteResponse, error)`
+- New function `*MaintenanceConfigurationsClient.Get(context.Context, string, string, string, *MaintenanceConfigurationsClientGetOptions) (MaintenanceConfigurationsClientGetResponse, error)`
+- New function `*MaintenanceConfigurationsClient.NewListPager(string, string, *MaintenanceConfigurationsClientListOptions) *runtime.Pager[MaintenanceConfigurationsClientListResponse]`
+- New struct `ConnectedEnvironmentDaprComponent`
+- New struct `ConnectedEnvironmentDaprComponentsCollection`
+- New struct `HTTPRoute`
+- New struct `HTTPRouteAction`
+- New struct `HTTPRouteConfig`
+- New struct `HTTPRouteConfigCollection`
+- New struct `HTTPRouteConfigProperties`
+- New struct `HTTPRouteMatch`
+- New struct `HTTPRouteProvisioningErrors`
+- New struct `HTTPRouteRule`
+- New struct `HTTPRouteTarget`
+- New struct `LabelHistory`
+- New struct `LabelHistoryCollection`
+- New struct `LabelHistoryProperties`
+- New struct `LabelHistoryRecordItem`
+- New struct `MaintenanceConfigurationCollection`
+- New struct `MaintenanceConfigurationResource`
+- New struct `ManagedIdentitySetting`
+- New struct `ScheduledEntries`
+- New struct `ScheduledEntry`
+- New field `BlobContainerURI`, `ClientID`, `ManagedIdentityResourceID` in struct `BlobStorageTokenStore`
+- New field `DeploymentErrors` in struct `CertificateProperties`
+- New field `RevisionTransitionThreshold`, `TargetLabel` in struct `Configuration`
+- New field `DeploymentErrors`, `ProvisioningState` in struct `ConnectedEnvironmentStorageProperties`
+- New anonymous field `ConnectedEnvironmentDaprComponent` in struct `ConnectedEnvironmentsDaprComponentsClientGetResponse`
+- New anonymous field `ConnectedEnvironmentDaprComponentsCollection` in struct `ConnectedEnvironmentsDaprComponentsClientListResponse`
+- New field `RunningStatus` in struct `ContainerAppProperties`
+- New field `Gpu` in struct `ContainerResources`
+- New field `AvailabilityZones` in struct `ManagedEnvironmentProperties`
+- New field `Labels` in struct `RevisionProperties`
+- New field `Identity` in struct `SessionPool`
+- New field `ManagedIdentitySettings` in struct `SessionPoolProperties`
+- New field `Identity` in struct `SessionPoolUpdatableProperties`
+
+
 ## 3.1.0-beta.1 (2024-10-23)
 ### Features Added
 

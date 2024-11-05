@@ -11,14 +11,13 @@ package armappcontainers
 import (
 	"context"
 	"errors"
-	"net/http"
-	"net/url"
-	"strings"
-
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"net/http"
+	"net/url"
+	"strings"
 )
 
 // DaprComponentResiliencyPoliciesClient contains the methods for the DaprComponentResiliencyPolicies group.
@@ -47,7 +46,7 @@ func NewDaprComponentResiliencyPoliciesClient(subscriptionID string, credential 
 // CreateOrUpdate - Creates or updates a resiliency policy for a Dapr component.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - componentName - Name of the Dapr Component.
@@ -105,7 +104,7 @@ func (client *DaprComponentResiliencyPoliciesClient) createOrUpdateCreateRequest
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, daprComponentResiliencyPolicyEnvelope); err != nil {
@@ -126,7 +125,7 @@ func (client *DaprComponentResiliencyPoliciesClient) createOrUpdateHandleRespons
 // Delete - Delete a resiliency policy for a Dapr component.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - componentName - Name of the Dapr Component.
@@ -182,7 +181,7 @@ func (client *DaprComponentResiliencyPoliciesClient) deleteCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -191,7 +190,7 @@ func (client *DaprComponentResiliencyPoliciesClient) deleteCreateRequest(ctx con
 // Get - Get a Dapr component resiliency policy.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - componentName - Name of the Dapr Component.
@@ -248,7 +247,7 @@ func (client *DaprComponentResiliencyPoliciesClient) getCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -265,7 +264,7 @@ func (client *DaprComponentResiliencyPoliciesClient) getHandleResponse(resp *htt
 
 // NewListPager - Get the resiliency policies for a Dapr component.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Managed Environment.
 //   - componentName - Name of the Dapr Component.
@@ -318,7 +317,7 @@ func (client *DaprComponentResiliencyPoliciesClient) listCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
