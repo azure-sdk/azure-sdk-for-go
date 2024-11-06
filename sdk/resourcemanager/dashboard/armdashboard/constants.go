@@ -10,7 +10,7 @@ package armdashboard
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/dashboard/armdashboard"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v1.3.0-beta.1"
 )
 
 type APIKey string
