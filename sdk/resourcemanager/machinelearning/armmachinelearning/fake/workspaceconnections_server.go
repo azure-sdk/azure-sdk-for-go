@@ -19,7 +19,9 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/machinelearning/armmachinelearning/v4"
 	"net/http"
 	"net/url"
+	"reflect"
 	"regexp"
+	"strconv"
 )
 
 // WorkspaceConnectionsServer is a fake server for instances of the armmachinelearning.WorkspaceConnectionsClient type.
@@ -43,6 +45,10 @@ type WorkspaceConnectionsServer struct {
 	// ListSecrets is the fake for method WorkspaceConnectionsClient.ListSecrets
 	// HTTP status codes to indicate success: http.StatusOK
 	ListSecrets func(ctx context.Context, resourceGroupName string, workspaceName string, connectionName string, options *armmachinelearning.WorkspaceConnectionsClientListSecretsOptions) (resp azfake.Responder[armmachinelearning.WorkspaceConnectionsClientListSecretsResponse], errResp azfake.ErrorResponder)
+
+	// Update is the fake for method WorkspaceConnectionsClient.Update
+	// HTTP status codes to indicate success: http.StatusOK
+	Update func(ctx context.Context, resourceGroupName string, workspaceName string, connectionName string, options *armmachinelearning.WorkspaceConnectionsClientUpdateOptions) (resp azfake.Responder[armmachinelearning.WorkspaceConnectionsClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewWorkspaceConnectionsServerTransport creates a new instance of WorkspaceConnectionsServerTransport with the provided implementation.
@@ -84,6 +90,8 @@ func (w *WorkspaceConnectionsServerTransport) Do(req *http.Request) (*http.Respo
 		resp, err = w.dispatchNewListPager(req)
 	case "WorkspaceConnectionsClient.ListSecrets":
 		resp, err = w.dispatchListSecrets(req)
+	case "WorkspaceConnectionsClient.Update":
+		resp, err = w.dispatchUpdate(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -241,11 +249,20 @@ func (w *WorkspaceConnectionsServerTransport) dispatchNewListPager(req *http.Req
 			return nil, err
 		}
 		categoryParam := getOptional(categoryUnescaped)
+		includeAllUnescaped, err := url.QueryUnescape(qp.Get("includeAll"))
+		if err != nil {
+			return nil, err
+		}
+		includeAllParam, err := parseOptional(includeAllUnescaped, strconv.ParseBool)
+		if err != nil {
+			return nil, err
+		}
 		var options *armmachinelearning.WorkspaceConnectionsClientListOptions
-		if targetParam != nil || categoryParam != nil {
+		if targetParam != nil || categoryParam != nil || includeAllParam != nil {
 			options = &armmachinelearning.WorkspaceConnectionsClientListOptions{
-				Target:   targetParam,
-				Category: categoryParam,
+				Target:     targetParam,
+				Category:   categoryParam,
+				IncludeAll: includeAllParam,
 			}
 		}
 		resp := w.srv.NewListPager(resourceGroupNameParam, workspaceNameParam, options)
@@ -292,6 +309,53 @@ func (w *WorkspaceConnectionsServerTransport) dispatchListSecrets(req *http.Requ
 		return nil, err
 	}
 	respr, errRespr := w.srv.ListSecrets(req.Context(), resourceGroupNameParam, workspaceNameParam, connectionNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).WorkspaceConnectionPropertiesV2BasicResource, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (w *WorkspaceConnectionsServerTransport) dispatchUpdate(req *http.Request) (*http.Response, error) {
+	if w.srv.Update == nil {
+		return nil, &nonRetriableError{errors.New("fake for method Update not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.MachineLearningServices/workspaces/(?P<workspaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/connections/(?P<connectionName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 4 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armmachinelearning.WorkspaceConnectionUpdateParameter](req)
+	if err != nil {
+		return nil, err
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	workspaceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("workspaceName")])
+	if err != nil {
+		return nil, err
+	}
+	connectionNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("connectionName")])
+	if err != nil {
+		return nil, err
+	}
+	var options *armmachinelearning.WorkspaceConnectionsClientUpdateOptions
+	if !reflect.ValueOf(body).IsZero() {
+		options = &armmachinelearning.WorkspaceConnectionsClientUpdateOptions{
+			Body: &body,
+		}
+	}
+	respr, errRespr := w.srv.Update(req.Context(), resourceGroupNameParam, workspaceNameParam, connectionNameParam, options)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
