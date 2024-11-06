@@ -10,7 +10,7 @@ package armkubernetesconfiguration
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/kubernetesconfiguration/armkubernetesconfiguration"
-	moduleVersion = "v2.2.0"
+	moduleVersion = "v2.3.0"
 )
 
 // AKSIdentityType - The identity type.
@@ -26,6 +26,24 @@ func PossibleAKSIdentityTypeValues() []AKSIdentityType {
 	return []AKSIdentityType{
 		AKSIdentityTypeSystemAssigned,
 		AKSIdentityTypeUserAssigned,
+	}
+}
+
+// AutoUpgradeMode - Defines extension automatic upgrades modes
+type AutoUpgradeMode string
+
+const (
+	AutoUpgradeModeCompatible AutoUpgradeMode = "compatible"
+	AutoUpgradeModeNone       AutoUpgradeMode = "none"
+	AutoUpgradeModePatch      AutoUpgradeMode = "patch"
+)
+
+// PossibleAutoUpgradeModeValues returns the possible values for the AutoUpgradeMode const type.
+func PossibleAutoUpgradeModeValues() []AutoUpgradeMode {
+	return []AutoUpgradeMode{
+		AutoUpgradeModeCompatible,
+		AutoUpgradeModeNone,
+		AutoUpgradeModePatch,
 	}
 }
 

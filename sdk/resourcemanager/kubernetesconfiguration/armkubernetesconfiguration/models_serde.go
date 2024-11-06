@@ -431,6 +431,7 @@ func (e ExtensionProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "aksAssignedIdentity", e.AksAssignedIdentity)
 	populate(objectMap, "autoUpgradeMinorVersion", e.AutoUpgradeMinorVersion)
+	populate(objectMap, "autoUpgradeMode", e.AutoUpgradeMode)
 	populate(objectMap, "configurationProtectedSettings", e.ConfigurationProtectedSettings)
 	populate(objectMap, "configurationSettings", e.ConfigurationSettings)
 	populate(objectMap, "currentVersion", e.CurrentVersion)
@@ -461,6 +462,9 @@ func (e *ExtensionProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "autoUpgradeMinorVersion":
 			err = unpopulate(val, "AutoUpgradeMinorVersion", &e.AutoUpgradeMinorVersion)
+			delete(rawMsg, key)
+		case "autoUpgradeMode":
+			err = unpopulate(val, "AutoUpgradeMode", &e.AutoUpgradeMode)
 			delete(rawMsg, key)
 		case "configurationProtectedSettings":
 			err = unpopulate(val, "ConfigurationProtectedSettings", &e.ConfigurationProtectedSettings)
@@ -1494,6 +1498,7 @@ func (p *PatchExtension) UnmarshalJSON(data []byte) error {
 func (p PatchExtensionProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "autoUpgradeMinorVersion", p.AutoUpgradeMinorVersion)
+	populate(objectMap, "autoUpgradeMode", p.AutoUpgradeMode)
 	populate(objectMap, "configurationProtectedSettings", p.ConfigurationProtectedSettings)
 	populate(objectMap, "configurationSettings", p.ConfigurationSettings)
 	populate(objectMap, "releaseTrain", p.ReleaseTrain)
@@ -1512,6 +1517,9 @@ func (p *PatchExtensionProperties) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "autoUpgradeMinorVersion":
 			err = unpopulate(val, "AutoUpgradeMinorVersion", &p.AutoUpgradeMinorVersion)
+			delete(rawMsg, key)
+		case "autoUpgradeMode":
+			err = unpopulate(val, "AutoUpgradeMode", &p.AutoUpgradeMode)
 			delete(rawMsg, key)
 		case "configurationProtectedSettings":
 			err = unpopulate(val, "ConfigurationProtectedSettings", &p.ConfigurationProtectedSettings)
@@ -2256,7 +2264,7 @@ func populateAny(m map[string]any, k string, v any) {
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {
