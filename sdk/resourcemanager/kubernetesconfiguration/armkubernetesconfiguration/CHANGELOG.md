@@ -1,5 +1,13 @@
 # Release History
 
+## 2.3.0 (2024-11-06)
+### Features Added
+
+- New enum type `AutoUpgradeMode` with values `AutoUpgradeModeCompatible`, `AutoUpgradeModeNone`, `AutoUpgradeModePatch`
+- New field `AutoUpgradeMode` in struct `ExtensionProperties`
+- New field `AutoUpgradeMode` in struct `PatchExtensionProperties`
+
+
 ## 2.2.0 (2023-11-24)
 ### Features Added
 
