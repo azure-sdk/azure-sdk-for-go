@@ -12180,6 +12180,9 @@ type VPNClientConnectionHealthDetail struct {
 	// READ-ONLY; The assigned private Ip of a connected vpn client.
 	PrivateIPAddress *string
 
+	// READ-ONLY; The assigned private Ipv6 of a connected vpn client.
+	PrivateIPv6Address *string
+
 	// READ-ONLY; The public Ip of a connected vpn client.
 	PublicIPAddress *string
 
