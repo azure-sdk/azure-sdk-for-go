@@ -30288,6 +30288,7 @@ func (v VPNClientConnectionHealthDetail) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "maxBandwidth", v.MaxBandwidth)
 	populate(objectMap, "maxPacketsPerSecond", v.MaxPacketsPerSecond)
 	populate(objectMap, "privateIpAddress", v.PrivateIPAddress)
+	populate(objectMap, "privateIpv6Address", v.PrivateIPv6Address)
 	populate(objectMap, "publicIpAddress", v.PublicIPAddress)
 	populate(objectMap, "vpnConnectionDuration", v.VPNConnectionDuration)
 	populate(objectMap, "vpnConnectionId", v.VPNConnectionID)
@@ -30325,6 +30326,9 @@ func (v *VPNClientConnectionHealthDetail) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "privateIpAddress":
 			err = unpopulate(val, "PrivateIPAddress", &v.PrivateIPAddress)
+			delete(rawMsg, key)
+		case "privateIpv6Address":
+			err = unpopulate(val, "PrivateIPv6Address", &v.PrivateIPv6Address)
 			delete(rawMsg, key)
 		case "publicIpAddress":
 			err = unpopulate(val, "PublicIPAddress", &v.PublicIPAddress)
