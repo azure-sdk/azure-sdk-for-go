@@ -1,5 +1,12 @@
 # Release History
 
+## 6.2.0 (2024-11-06)
+### Features Added
+
+- New enum type `Enum56` with values `Enum56Properties`
+- New function `*VirtualMachineImagesClient.ListWithProperties(context.Context, string, string, string, string, Enum56, *VirtualMachineImagesClientListWithPropertiesOptions) (VirtualMachineImagesClientListWithPropertiesResponse, error)`
+
+
 ## 6.1.0 (2024-08-23)
 ### Features Added
 

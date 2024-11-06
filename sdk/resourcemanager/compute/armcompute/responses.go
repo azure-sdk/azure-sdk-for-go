@@ -1112,6 +1112,12 @@ type VirtualMachineImagesClientListSKUsResponse struct {
 	VirtualMachineImageResourceArray []*VirtualMachineImageResource
 }
 
+// VirtualMachineImagesClientListWithPropertiesResponse contains the response from method VirtualMachineImagesClient.ListWithProperties.
+type VirtualMachineImagesClientListWithPropertiesResponse struct {
+	// Array of VirtualMachineImage
+	VirtualMachineImageArray []*VirtualMachineImage
+}
+
 // VirtualMachineImagesEdgeZoneClientGetResponse contains the response from method VirtualMachineImagesEdgeZoneClient.Get.
 type VirtualMachineImagesEdgeZoneClientGetResponse struct {
 	// Describes a Virtual Machine Image.

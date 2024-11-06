@@ -468,3 +468,86 @@ func (client *VirtualMachineImagesClient) listSKUsHandleResponse(resp *http.Resp
 	}
 	return result, nil
 }
+
+// ListWithProperties -
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-07-01
+//   - location - The name of a supported Azure region.
+//   - publisherName - A valid image publisher.
+//   - offer - A valid image publisher offer.
+//   - skus - A valid image SKU.
+//   - expand - The expand expression to apply on the operation.
+//   - options - VirtualMachineImagesClientListWithPropertiesOptions contains the optional parameters for the VirtualMachineImagesClient.ListWithProperties
+//     method.
+func (client *VirtualMachineImagesClient) ListWithProperties(ctx context.Context, location string, publisherName string, offer string, skus string, expand Enum56, options *VirtualMachineImagesClientListWithPropertiesOptions) (VirtualMachineImagesClientListWithPropertiesResponse, error) {
+	var err error
+	const operationName = "VirtualMachineImagesClient.ListWithProperties"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.listWithPropertiesCreateRequest(ctx, location, publisherName, offer, skus, expand, options)
+	if err != nil {
+		return VirtualMachineImagesClientListWithPropertiesResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return VirtualMachineImagesClientListWithPropertiesResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return VirtualMachineImagesClientListWithPropertiesResponse{}, err
+	}
+	resp, err := client.listWithPropertiesHandleResponse(httpResp)
+	return resp, err
+}
+
+// listWithPropertiesCreateRequest creates the ListWithProperties request.
+func (client *VirtualMachineImagesClient) listWithPropertiesCreateRequest(ctx context.Context, location string, publisherName string, offer string, skus string, expand Enum56, options *VirtualMachineImagesClientListWithPropertiesOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/publishers/{publisherName}/artifacttypes/vmimage/offers/{offer}/skus/{skus}/versions"
+	if location == "" {
+		return nil, errors.New("parameter location cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
+	if publisherName == "" {
+		return nil, errors.New("parameter publisherName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{publisherName}", url.PathEscape(publisherName))
+	if offer == "" {
+		return nil, errors.New("parameter offer cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{offer}", url.PathEscape(offer))
+	if skus == "" {
+		return nil, errors.New("parameter skus cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{skus}", url.PathEscape(skus))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("$expand", string(expand))
+	if options != nil && options.Orderby != nil {
+		reqQP.Set("$orderby", *options.Orderby)
+	}
+	if options != nil && options.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
+	}
+	reqQP.Set("api-version", "2024-07-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// listWithPropertiesHandleResponse handles the ListWithProperties response.
+func (client *VirtualMachineImagesClient) listWithPropertiesHandleResponse(resp *http.Response) (VirtualMachineImagesClientListWithPropertiesResponse, error) {
+	result := VirtualMachineImagesClientListWithPropertiesResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.VirtualMachineImageArray); err != nil {
+		return VirtualMachineImagesClientListWithPropertiesResponse{}, err
+	}
+	return result, nil
+}

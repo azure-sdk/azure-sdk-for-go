@@ -47,6 +47,10 @@ type VirtualMachineImagesServer struct {
 	// ListSKUs is the fake for method VirtualMachineImagesClient.ListSKUs
 	// HTTP status codes to indicate success: http.StatusOK
 	ListSKUs func(ctx context.Context, location string, publisherName string, offer string, options *armcompute.VirtualMachineImagesClientListSKUsOptions) (resp azfake.Responder[armcompute.VirtualMachineImagesClientListSKUsResponse], errResp azfake.ErrorResponder)
+
+	// ListWithProperties is the fake for method VirtualMachineImagesClient.ListWithProperties
+	// HTTP status codes to indicate success: http.StatusOK
+	ListWithProperties func(ctx context.Context, location string, publisherName string, offer string, skus string, expand armcompute.Enum56, options *armcompute.VirtualMachineImagesClientListWithPropertiesOptions) (resp azfake.Responder[armcompute.VirtualMachineImagesClientListWithPropertiesResponse], errResp azfake.ErrorResponder)
 }
 
 // NewVirtualMachineImagesServerTransport creates a new instance of VirtualMachineImagesServerTransport with the provided implementation.
@@ -86,6 +90,8 @@ func (v *VirtualMachineImagesServerTransport) Do(req *http.Request) (*http.Respo
 		resp, err = v.dispatchListPublishers(req)
 	case "VirtualMachineImagesClient.ListSKUs":
 		resp, err = v.dispatchListSKUs(req)
+	case "VirtualMachineImagesClient.ListWithProperties":
+		resp, err = v.dispatchListWithProperties(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -342,6 +348,84 @@ func (v *VirtualMachineImagesServerTransport) dispatchListSKUs(req *http.Request
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).VirtualMachineImageResourceArray, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (v *VirtualMachineImagesServerTransport) dispatchListWithProperties(req *http.Request) (*http.Response, error) {
+	if v.srv.ListWithProperties == nil {
+		return nil, &nonRetriableError{errors.New("fake for method ListWithProperties not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Compute/locations/(?P<location>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/publishers/(?P<publisherName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/artifacttypes/vmimage/offers/(?P<offer>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/skus/(?P<skus>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/versions`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 5 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	qp := req.URL.Query()
+	locationParam, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
+	if err != nil {
+		return nil, err
+	}
+	publisherNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("publisherName")])
+	if err != nil {
+		return nil, err
+	}
+	offerParam, err := url.PathUnescape(matches[regex.SubexpIndex("offer")])
+	if err != nil {
+		return nil, err
+	}
+	skusParam, err := url.PathUnescape(matches[regex.SubexpIndex("skus")])
+	if err != nil {
+		return nil, err
+	}
+	expandParam, err := parseWithCast(qp.Get("$expand"), func(v string) (armcompute.Enum56, error) {
+		p, unescapeErr := url.QueryUnescape(v)
+		if unescapeErr != nil {
+			return "", unescapeErr
+		}
+		return armcompute.Enum56(p), nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	topUnescaped, err := url.QueryUnescape(qp.Get("$top"))
+	if err != nil {
+		return nil, err
+	}
+	topParam, err := parseOptional(topUnescaped, func(v string) (int32, error) {
+		p, parseErr := strconv.ParseInt(v, 10, 32)
+		if parseErr != nil {
+			return 0, parseErr
+		}
+		return int32(p), nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	orderbyUnescaped, err := url.QueryUnescape(qp.Get("$orderby"))
+	if err != nil {
+		return nil, err
+	}
+	orderbyParam := getOptional(orderbyUnescaped)
+	var options *armcompute.VirtualMachineImagesClientListWithPropertiesOptions
+	if topParam != nil || orderbyParam != nil {
+		options = &armcompute.VirtualMachineImagesClientListWithPropertiesOptions{
+			Top:     topParam,
+			Orderby: orderbyParam,
+		}
+	}
+	respr, errRespr := v.srv.ListWithProperties(req.Context(), locationParam, publisherNameParam, offerParam, skusParam, expandParam, options)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).VirtualMachineImageArray, req)
 	if err != nil {
 		return nil, err
 	}
