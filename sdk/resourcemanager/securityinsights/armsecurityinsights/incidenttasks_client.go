@@ -20,64 +20,65 @@ import (
 	"strings"
 )
 
-// AlertRulesClient contains the methods for the AlertRules group.
-// Don't use this type directly, use NewAlertRulesClient() instead.
-type AlertRulesClient struct {
+// IncidentTasksClient contains the methods for the IncidentTasks group.
+// Don't use this type directly, use NewIncidentTasksClient() instead.
+type IncidentTasksClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewAlertRulesClient creates a new instance of AlertRulesClient with the specified values.
+// NewIncidentTasksClient creates a new instance of IncidentTasksClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewAlertRulesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AlertRulesClient, error) {
+func NewIncidentTasksClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*IncidentTasksClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &AlertRulesClient{
+	client := &IncidentTasksClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// CreateOrUpdate - Creates or updates the alert rule.
+// CreateOrUpdate - Creates or updates the incident task.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
-//   - ruleID - Alert rule ID
-//   - alertRule - The alert rule
-//   - options - AlertRulesClientCreateOrUpdateOptions contains the optional parameters for the AlertRulesClient.CreateOrUpdate
+//   - incidentID - Incident ID
+//   - incidentTaskID - Incident task ID
+//   - incidentTask - The incident task
+//   - options - IncidentTasksClientCreateOrUpdateOptions contains the optional parameters for the IncidentTasksClient.CreateOrUpdate
 //     method.
-func (client *AlertRulesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, ruleID string, alertRule AlertRuleClassification, options *AlertRulesClientCreateOrUpdateOptions) (AlertRulesClientCreateOrUpdateResponse, error) {
+func (client *IncidentTasksClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, incidentID string, incidentTaskID string, incidentTask IncidentTask, options *IncidentTasksClientCreateOrUpdateOptions) (IncidentTasksClientCreateOrUpdateResponse, error) {
 	var err error
-	const operationName = "AlertRulesClient.CreateOrUpdate"
+	const operationName = "IncidentTasksClient.CreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, ruleID, alertRule, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, incidentID, incidentTaskID, incidentTask, options)
 	if err != nil {
-		return AlertRulesClientCreateOrUpdateResponse{}, err
+		return IncidentTasksClientCreateOrUpdateResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return AlertRulesClientCreateOrUpdateResponse{}, err
+		return IncidentTasksClientCreateOrUpdateResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated) {
 		err = runtime.NewResponseError(httpResp)
-		return AlertRulesClientCreateOrUpdateResponse{}, err
+		return IncidentTasksClientCreateOrUpdateResponse{}, err
 	}
 	resp, err := client.createOrUpdateHandleResponse(httpResp)
 	return resp, err
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *AlertRulesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, ruleID string, alertRule AlertRuleClassification, options *AlertRulesClientCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/alertRules/{ruleId}"
+func (client *IncidentTasksClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, incidentID string, incidentTaskID string, incidentTask IncidentTask, options *IncidentTasksClientCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/incidents/{incidentId}/tasks/{incidentTaskId}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -90,10 +91,14 @@ func (client *AlertRulesClient) createOrUpdateCreateRequest(ctx context.Context,
 		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
-	if ruleID == "" {
-		return nil, errors.New("parameter ruleID cannot be empty")
+	if incidentID == "" {
+		return nil, errors.New("parameter incidentID cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{ruleId}", url.PathEscape(ruleID))
+	urlPath = strings.ReplaceAll(urlPath, "{incidentId}", url.PathEscape(incidentID))
+	if incidentTaskID == "" {
+		return nil, errors.New("parameter incidentTaskID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{incidentTaskId}", url.PathEscape(incidentTaskID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -102,53 +107,54 @@ func (client *AlertRulesClient) createOrUpdateCreateRequest(ctx context.Context,
 	reqQP.Set("api-version", "2024-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, alertRule); err != nil {
+	if err := runtime.MarshalAsJSON(req, incidentTask); err != nil {
 		return nil, err
 	}
 	return req, nil
 }
 
 // createOrUpdateHandleResponse handles the CreateOrUpdate response.
-func (client *AlertRulesClient) createOrUpdateHandleResponse(resp *http.Response) (AlertRulesClientCreateOrUpdateResponse, error) {
-	result := AlertRulesClientCreateOrUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result); err != nil {
-		return AlertRulesClientCreateOrUpdateResponse{}, err
+func (client *IncidentTasksClient) createOrUpdateHandleResponse(resp *http.Response) (IncidentTasksClientCreateOrUpdateResponse, error) {
+	result := IncidentTasksClientCreateOrUpdateResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.IncidentTask); err != nil {
+		return IncidentTasksClientCreateOrUpdateResponse{}, err
 	}
 	return result, nil
 }
 
-// Delete - Delete the alert rule.
+// Delete - Delete the incident task.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
-//   - ruleID - Alert rule ID
-//   - options - AlertRulesClientDeleteOptions contains the optional parameters for the AlertRulesClient.Delete method.
-func (client *AlertRulesClient) Delete(ctx context.Context, resourceGroupName string, workspaceName string, ruleID string, options *AlertRulesClientDeleteOptions) (AlertRulesClientDeleteResponse, error) {
+//   - incidentID - Incident ID
+//   - incidentTaskID - Incident task ID
+//   - options - IncidentTasksClientDeleteOptions contains the optional parameters for the IncidentTasksClient.Delete method.
+func (client *IncidentTasksClient) Delete(ctx context.Context, resourceGroupName string, workspaceName string, incidentID string, incidentTaskID string, options *IncidentTasksClientDeleteOptions) (IncidentTasksClientDeleteResponse, error) {
 	var err error
-	const operationName = "AlertRulesClient.Delete"
+	const operationName = "IncidentTasksClient.Delete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, ruleID, options)
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, incidentID, incidentTaskID, options)
 	if err != nil {
-		return AlertRulesClientDeleteResponse{}, err
+		return IncidentTasksClientDeleteResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return AlertRulesClientDeleteResponse{}, err
+		return IncidentTasksClientDeleteResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
-		return AlertRulesClientDeleteResponse{}, err
+		return IncidentTasksClientDeleteResponse{}, err
 	}
-	return AlertRulesClientDeleteResponse{}, nil
+	return IncidentTasksClientDeleteResponse{}, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *AlertRulesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, ruleID string, options *AlertRulesClientDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/alertRules/{ruleId}"
+func (client *IncidentTasksClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, incidentID string, incidentTaskID string, options *IncidentTasksClientDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/incidents/{incidentId}/tasks/{incidentTaskId}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -161,10 +167,14 @@ func (client *AlertRulesClient) deleteCreateRequest(ctx context.Context, resourc
 		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
-	if ruleID == "" {
-		return nil, errors.New("parameter ruleID cannot be empty")
+	if incidentID == "" {
+		return nil, errors.New("parameter incidentID cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{ruleId}", url.PathEscape(ruleID))
+	urlPath = strings.ReplaceAll(urlPath, "{incidentId}", url.PathEscape(incidentID))
+	if incidentTaskID == "" {
+		return nil, errors.New("parameter incidentTaskID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{incidentTaskId}", url.PathEscape(incidentTaskID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -176,39 +186,40 @@ func (client *AlertRulesClient) deleteCreateRequest(ctx context.Context, resourc
 	return req, nil
 }
 
-// Get - Gets the alert rule.
+// Get - Gets an incident task.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
-//   - ruleID - Alert rule ID
-//   - options - AlertRulesClientGetOptions contains the optional parameters for the AlertRulesClient.Get method.
-func (client *AlertRulesClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, ruleID string, options *AlertRulesClientGetOptions) (AlertRulesClientGetResponse, error) {
+//   - incidentID - Incident ID
+//   - incidentTaskID - Incident task ID
+//   - options - IncidentTasksClientGetOptions contains the optional parameters for the IncidentTasksClient.Get method.
+func (client *IncidentTasksClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, incidentID string, incidentTaskID string, options *IncidentTasksClientGetOptions) (IncidentTasksClientGetResponse, error) {
 	var err error
-	const operationName = "AlertRulesClient.Get"
+	const operationName = "IncidentTasksClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, ruleID, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, incidentID, incidentTaskID, options)
 	if err != nil {
-		return AlertRulesClientGetResponse{}, err
+		return IncidentTasksClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return AlertRulesClientGetResponse{}, err
+		return IncidentTasksClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return AlertRulesClientGetResponse{}, err
+		return IncidentTasksClientGetResponse{}, err
 	}
 	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
 // getCreateRequest creates the Get request.
-func (client *AlertRulesClient) getCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, ruleID string, options *AlertRulesClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/alertRules/{ruleId}"
+func (client *IncidentTasksClient) getCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, incidentID string, incidentTaskID string, options *IncidentTasksClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/incidents/{incidentId}/tasks/{incidentTaskId}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -221,10 +232,14 @@ func (client *AlertRulesClient) getCreateRequest(ctx context.Context, resourceGr
 		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
-	if ruleID == "" {
-		return nil, errors.New("parameter ruleID cannot be empty")
+	if incidentID == "" {
+		return nil, errors.New("parameter incidentID cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{ruleId}", url.PathEscape(ruleID))
+	urlPath = strings.ReplaceAll(urlPath, "{incidentId}", url.PathEscape(incidentID))
+	if incidentTaskID == "" {
+		return nil, errors.New("parameter incidentTaskID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{incidentTaskId}", url.PathEscape(incidentTaskID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -237,36 +252,37 @@ func (client *AlertRulesClient) getCreateRequest(ctx context.Context, resourceGr
 }
 
 // getHandleResponse handles the Get response.
-func (client *AlertRulesClient) getHandleResponse(resp *http.Response) (AlertRulesClientGetResponse, error) {
-	result := AlertRulesClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result); err != nil {
-		return AlertRulesClientGetResponse{}, err
+func (client *IncidentTasksClient) getHandleResponse(resp *http.Response) (IncidentTasksClientGetResponse, error) {
+	result := IncidentTasksClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.IncidentTask); err != nil {
+		return IncidentTasksClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListPager - Gets all alert rules.
+// NewListPager - Gets all incident tasks.
 //
 // Generated from API version 2024-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
-//   - options - AlertRulesClientListOptions contains the optional parameters for the AlertRulesClient.NewListPager method.
-func (client *AlertRulesClient) NewListPager(resourceGroupName string, workspaceName string, options *AlertRulesClientListOptions) *runtime.Pager[AlertRulesClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[AlertRulesClientListResponse]{
-		More: func(page AlertRulesClientListResponse) bool {
+//   - incidentID - Incident ID
+//   - options - IncidentTasksClientListOptions contains the optional parameters for the IncidentTasksClient.NewListPager method.
+func (client *IncidentTasksClient) NewListPager(resourceGroupName string, workspaceName string, incidentID string, options *IncidentTasksClientListOptions) *runtime.Pager[IncidentTasksClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[IncidentTasksClientListResponse]{
+		More: func(page IncidentTasksClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *AlertRulesClientListResponse) (AlertRulesClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "AlertRulesClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *IncidentTasksClientListResponse) (IncidentTasksClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "IncidentTasksClient.NewListPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, resourceGroupName, workspaceName, options)
+				return client.listCreateRequest(ctx, resourceGroupName, workspaceName, incidentID, options)
 			}, nil)
 			if err != nil {
-				return AlertRulesClientListResponse{}, err
+				return IncidentTasksClientListResponse{}, err
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -275,8 +291,8 @@ func (client *AlertRulesClient) NewListPager(resourceGroupName string, workspace
 }
 
 // listCreateRequest creates the List request.
-func (client *AlertRulesClient) listCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, options *AlertRulesClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/alertRules"
+func (client *IncidentTasksClient) listCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, incidentID string, options *IncidentTasksClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/incidents/{incidentId}/tasks"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -289,6 +305,10 @@ func (client *AlertRulesClient) listCreateRequest(ctx context.Context, resourceG
 		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
+	if incidentID == "" {
+		return nil, errors.New("parameter incidentID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{incidentId}", url.PathEscape(incidentID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -301,10 +321,10 @@ func (client *AlertRulesClient) listCreateRequest(ctx context.Context, resourceG
 }
 
 // listHandleResponse handles the List response.
-func (client *AlertRulesClient) listHandleResponse(resp *http.Response) (AlertRulesClientListResponse, error) {
-	result := AlertRulesClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.AlertRulesList); err != nil {
-		return AlertRulesClientListResponse{}, err
+func (client *IncidentTasksClient) listHandleResponse(resp *http.Response) (IncidentTasksClientListResponse, error) {
+	result := IncidentTasksClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.IncidentTaskList); err != nil {
+		return IncidentTasksClientListResponse{}, err
 	}
 	return result, nil
 }
