@@ -1,5 +1,11 @@
 # Release History
 
+## 6.2.0 (2024-11-06)
+### Features Added
+
+- New field `PrivateIPv6Address` in struct `VPNClientConnectionHealthDetail`
+
+
 ## 6.1.0 (2024-09-24)
 ### Features Added
 
