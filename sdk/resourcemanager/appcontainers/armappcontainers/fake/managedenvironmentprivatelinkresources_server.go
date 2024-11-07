@@ -11,15 +11,14 @@ package fake
 import (
 	"errors"
 	"fmt"
-	"net/http"
-	"net/url"
-	"regexp"
-
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appcontainers/armappcontainers/v3"
+	"net/http"
+	"net/url"
+	"regexp"
 )
 
 // ManagedEnvironmentPrivateLinkResourcesServer is a fake server for instances of the armappcontainers.ManagedEnvironmentPrivateLinkResourcesClient type.
