@@ -1,5 +1,13 @@
 # Release History
 
+## 1.3.0 (2024-11-08)
+### Features Added
+
+- New enum type `SasAuthenticationPolicyState` with values `SasAuthenticationPolicyStateDisabled`, `SasAuthenticationPolicyStateEnabled`
+- New struct `SasAuthenticationPolicy`
+- New field `SasAuthenticationPolicy` in struct `FlowAccessControlConfigurationPolicy`
+
+
 ## 1.2.0 (2023-11-24)
 ### Features Added
 

@@ -1246,6 +1246,9 @@ type FlowAccessControlConfigurationPolicy struct {
 
 	// The authentication policies for workflow.
 	OpenAuthenticationPolicies *OpenAuthenticationAccessPolicies
+
+	// The SAS authentication policy for workflow.
+	SasAuthenticationPolicy *SasAuthenticationPolicy
 }
 
 // FlowEndpoints - The flow endpoints configuration.
@@ -2423,6 +2426,12 @@ type SKU struct {
 
 	// The reference to plan.
 	Plan *ResourceReference
+}
+
+// SasAuthenticationPolicy - The SAS Authentication Policy of the logic app.
+type SasAuthenticationPolicy struct {
+	// SAS authentication policy state.
+	State *SasAuthenticationPolicyState
 }
 
 // SetTriggerStateActionDefinition - The set trigger state action definition.

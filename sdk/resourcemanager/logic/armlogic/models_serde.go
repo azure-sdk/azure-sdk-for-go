@@ -2838,6 +2838,7 @@ func (f FlowAccessControlConfigurationPolicy) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "allowedCallerIpAddresses", f.AllowedCallerIPAddresses)
 	populate(objectMap, "openAuthenticationPolicies", f.OpenAuthenticationPolicies)
+	populate(objectMap, "sasAuthenticationPolicy", f.SasAuthenticationPolicy)
 	return json.Marshal(objectMap)
 }
 
@@ -2855,6 +2856,9 @@ func (f *FlowAccessControlConfigurationPolicy) UnmarshalJSON(data []byte) error 
 			delete(rawMsg, key)
 		case "openAuthenticationPolicies":
 			err = unpopulate(val, "OpenAuthenticationPolicies", &f.OpenAuthenticationPolicies)
+			delete(rawMsg, key)
+		case "sasAuthenticationPolicy":
+			err = unpopulate(val, "SasAuthenticationPolicy", &f.SasAuthenticationPolicy)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -6123,6 +6127,33 @@ func (s *SKU) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type SasAuthenticationPolicy.
+func (s SasAuthenticationPolicy) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "state", s.State)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type SasAuthenticationPolicy.
+func (s *SasAuthenticationPolicy) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", s, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "state":
+			err = unpopulate(val, "State", &s.State)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", s, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type SetTriggerStateActionDefinition.
 func (s SetTriggerStateActionDefinition) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -9162,7 +9193,7 @@ func populateAny(m map[string]any, k string, v any) {
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {

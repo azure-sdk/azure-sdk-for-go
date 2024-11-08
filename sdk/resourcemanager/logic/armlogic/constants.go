@@ -10,7 +10,7 @@ package armlogic
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/logic/armlogic"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v1.3.0"
 )
 
 // APIDeploymentParameterVisibility - The Api deployment parameter visibility.
@@ -654,6 +654,22 @@ func PossibleSKUNameValues() []SKUName {
 		SKUNamePremium,
 		SKUNameShared,
 		SKUNameStandard,
+	}
+}
+
+// SasAuthenticationPolicyState - The SAS authentication policy state.
+type SasAuthenticationPolicyState string
+
+const (
+	SasAuthenticationPolicyStateDisabled SasAuthenticationPolicyState = "Disabled"
+	SasAuthenticationPolicyStateEnabled  SasAuthenticationPolicyState = "Enabled"
+)
+
+// PossibleSasAuthenticationPolicyStateValues returns the possible values for the SasAuthenticationPolicyState const type.
+func PossibleSasAuthenticationPolicyStateValues() []SasAuthenticationPolicyState {
+	return []SasAuthenticationPolicyState{
+		SasAuthenticationPolicyStateDisabled,
+		SasAuthenticationPolicyStateEnabled,
 	}
 }
 
