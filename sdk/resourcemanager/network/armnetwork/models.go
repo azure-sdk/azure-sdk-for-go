@@ -5429,6 +5429,12 @@ type ExpressRouteCrossConnectionProperties struct {
 	// The list of peerings.
 	Peerings []*ExpressRouteCrossConnectionPeering
 
+	// The name of the primary port.
+	PrimaryAzurePort *string
+
+	// The name of the secondary port.
+	SecondaryAzurePort *string
+
 	// Additional read only notes set by the connectivity provider.
 	ServiceProviderNotes *string
 
@@ -5441,17 +5447,11 @@ type ExpressRouteCrossConnectionProperties struct {
 	// READ-ONLY; The peering location of the ExpressRoute circuit.
 	PeeringLocation *string
 
-	// READ-ONLY; The name of the primary port.
-	PrimaryAzurePort *string
-
 	// READ-ONLY; The provisioning state of the express route cross connection resource.
 	ProvisioningState *ProvisioningState
 
 	// READ-ONLY; The identifier of the circuit traffic.
 	STag *int32
-
-	// READ-ONLY; The name of the secondary port.
-	SecondaryAzurePort *string
 }
 
 // ExpressRouteCrossConnectionRoutesTableSummary - The routes table associated with the ExpressRouteCircuit.
