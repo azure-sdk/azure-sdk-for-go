@@ -25,6 +25,35 @@ type AccessProfile struct {
 	KubeConfig []byte
 }
 
+// AdvancedNetworking - Advanced Networking profile for enabling observability and security feature suite on a cluster. For
+// more information see aka.ms/aksadvancednetworking.
+type AdvancedNetworking struct {
+	// Indicates the enablement of Advanced Networking functionalities of observability and security on AKS clusters. When this
+	// is set to true, all observability and security features will be set to enabled
+	// unless explicitly disabled. If not specified, the default is false.
+	Enabled *bool
+
+	// Observability profile to enable advanced network metrics and flow logs with historical contexts.
+	Observability *AdvancedNetworkingObservability
+
+	// Security profile to enable security features on cilium based cluster.
+	Security *AdvancedNetworkingSecurity
+}
+
+// AdvancedNetworkingObservability - Observability profile to enable advanced network metrics and flow logs with historical
+// contexts.
+type AdvancedNetworkingObservability struct {
+	// Indicates the enablement of Advanced Networking observability functionalities on clusters.
+	Enabled *bool
+}
+
+// AdvancedNetworkingSecurity - Security profile to enable security features on cilium based cluster.
+type AdvancedNetworkingSecurity struct {
+	// This feature allows user to configure network policy based on DNS (FQDN) names. It can be enabled only on cilium based
+	// clusters. If not specified, the default is false.
+	Enabled *bool
+}
+
 // AgentPool - Agent Pool.
 type AgentPool struct {
 	// Properties of an agent pool.
@@ -635,6 +664,11 @@ type ManagedCluster struct {
 	// Resource tags.
 	Tags map[string]*string
 
+	// READ-ONLY; Unique read-only string used to implement optimistic concurrency. The eTag value will change when the resource
+	// is updated. Specify an if-match or if-none-match header with the eTag value for a
+	// subsequent request to enable optimistic concurrency per the normal etag convention.
+	ETag *string
+
 	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
@@ -803,6 +837,11 @@ type ManagedClusterAgentPoolProfile struct {
 	// The maximum number of pods that can run on a node.
 	MaxPods *int32
 
+	// A base64-encoded string which will be written to /etc/motd after decoding. This allows customization of the message of
+	// the day for Linux nodes. It must not be specified for Windows nodes. It must be a
+	// static string (i.e., will be printed raw and not be executed as a script).
+	MessageOfTheDay *string
+
 	// The minimum number of nodes for auto-scaling
 	MinCount *int32
 
@@ -904,6 +943,11 @@ type ManagedClusterAgentPoolProfile struct {
 	// READ-ONLY; If orchestratorVersion is a fully specified version , this field will be exactly equal to it. If orchestratorVersion
 	// is , this field will contain the full version being used.
 	CurrentOrchestratorVersion *string
+
+	// READ-ONLY; Unique read-only string used to implement optimistic concurrency. The eTag value will change when the resource
+	// is updated. Specify an if-match or if-none-match header with the eTag value for a
+	// subsequent request to enable optimistic concurrency per the normal etag convention.
+	ETag *string
 
 	// READ-ONLY; The version of node image
 	NodeImageVersion *string
@@ -971,6 +1015,11 @@ type ManagedClusterAgentPoolProfileProperties struct {
 	// The maximum number of pods that can run on a node.
 	MaxPods *int32
 
+	// A base64-encoded string which will be written to /etc/motd after decoding. This allows customization of the message of
+	// the day for Linux nodes. It must not be specified for Windows nodes. It must be a
+	// static string (i.e., will be printed raw and not be executed as a script).
+	MessageOfTheDay *string
+
 	// The minimum number of nodes for auto-scaling
 	MinCount *int32
 
@@ -1072,6 +1121,11 @@ type ManagedClusterAgentPoolProfileProperties struct {
 	// READ-ONLY; If orchestratorVersion is a fully specified version , this field will be exactly equal to it. If orchestratorVersion
 	// is , this field will contain the full version being used.
 	CurrentOrchestratorVersion *string
+
+	// READ-ONLY; Unique read-only string used to implement optimistic concurrency. The eTag value will change when the resource
+	// is updated. Specify an if-match or if-none-match header with the eTag value for a
+	// subsequent request to enable optimistic concurrency per the normal etag convention.
+	ETag *string
 
 	// READ-ONLY; The version of node image
 	NodeImageVersion *string
@@ -1282,6 +1336,12 @@ type ManagedClusterNATGatewayProfile struct {
 	ManagedOutboundIPProfile *ManagedClusterManagedOutboundIPProfile
 }
 
+// ManagedClusterNodeResourceGroupProfile - Node resource group lockdown profile for a managed cluster.
+type ManagedClusterNodeResourceGroupProfile struct {
+	// The restriction level applied to the cluster's node resource group. If not specified, the default is 'Unrestricted'
+	RestrictionLevel *RestrictionLevel
+}
+
 // ManagedClusterOIDCIssuerProfile - The OIDC issuer profile of the Managed Cluster.
 type ManagedClusterOIDCIssuerProfile struct {
 	// Whether the OIDC issuer is enabled.
@@ -1441,7 +1501,9 @@ type ManagedClusterProperties struct {
 	// Configurations for provisioning the cluster with HTTP proxy servers.
 	HTTPProxyConfig *ManagedClusterHTTPProxyConfig
 
-	// Identities associated with the cluster.
+	// The user identity associated with the managed cluster. This identity will be used by the kubelet. Only one user assigned
+	// identity is allowed. The only accepted key is "kubeletidentity", with value of
+	// "resourceId": "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}".
 	IdentityProfile map[string]*UserAssignedIdentity
 
 	// Ingress profile for the managed cluster.
@@ -1467,6 +1529,9 @@ type ManagedClusterProperties struct {
 
 	// The name of the resource group containing agent pool nodes.
 	NodeResourceGroup *string
+
+	// Profile of the node resource group configuration.
+	NodeResourceGroupProfile *ManagedClusterNodeResourceGroupProfile
 
 	// The OIDC issuer profile of the Managed Cluster.
 	OidcIssuerProfile *ManagedClusterOIDCIssuerProfile
@@ -1890,6 +1955,10 @@ type MeshUpgradeProfileProperties struct {
 
 // NetworkProfile - Profile of network configuration.
 type NetworkProfile struct {
+	// Advanced Networking profile for enabling observability and security feature suite on a cluster. For more information see
+	// aka.ms/aksadvancednetworking.
+	AdvancedNetworking *AdvancedNetworking
+
 	// An IP address assigned to the Kubernetes DNS service. It must be within the Kubernetes service address range specified
 	// in serviceCidr.
 	DNSServiceIP *string
