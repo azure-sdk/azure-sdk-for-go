@@ -431,6 +431,12 @@ type RecoveryPointsClientListResponse struct {
 	RecoveryPointResourceList
 }
 
+// RecoveryPointsClientUpdateResponse contains the response from method RecoveryPointsClient.Update.
+type RecoveryPointsClientUpdateResponse struct {
+	// Base class for backup copies. Workload-specific backup copies are derived from this class.
+	RecoveryPointResource
+}
+
 // RecoveryPointsRecommendedForMoveClientListResponse contains the response from method RecoveryPointsRecommendedForMoveClient.NewListPager.
 type RecoveryPointsRecommendedForMoveClientListResponse struct {
 	// List of RecoveryPoint resources

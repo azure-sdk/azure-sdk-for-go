@@ -433,6 +433,11 @@ type RecoveryPointsClientListOptions struct {
 	Filter *string
 }
 
+// RecoveryPointsClientUpdateOptions contains the optional parameters for the RecoveryPointsClient.Update method.
+type RecoveryPointsClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
 // RecoveryPointsRecommendedForMoveClientListOptions contains the optional parameters for the RecoveryPointsRecommendedForMoveClient.NewListPager
 // method.
 type RecoveryPointsRecommendedForMoveClientListOptions struct {

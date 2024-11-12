@@ -201,6 +201,10 @@ func unmarshalProtectedItemClassification(rawMsg json.RawMessage) (ProtectedItem
 		b = &AzureFileshareProtectedItem{}
 	case "AzureIaaSVMProtectedItem":
 		b = &AzureIaaSVMProtectedItem{}
+	case "AzureVmWorkloadAnyDatabase":
+		b = &AzureVMWorkloadAnyDatabaseProtectedItem{}
+	case "AzureVmWorkloadOracleDatabase":
+		b = &AzureVMWorkloadOracleDatabaseProtectedItem{}
 	case "AzureVmWorkloadProtectedItem":
 		b = &AzureVMWorkloadProtectedItem{}
 	case "AzureVmWorkloadSAPAseDatabase":
@@ -347,10 +351,22 @@ func unmarshalRecoveryPointClassification(rawMsg json.RawMessage) (RecoveryPoint
 	switch m["objectType"] {
 	case "AzureFileShareRecoveryPoint":
 		b = &AzureFileShareRecoveryPoint{}
+	case "AzureWorkloadAnyDatabasePointInTimeRecoveryPoint":
+		b = &AzureWorkloadAnyDatabasePointInTimeRecoveryPoint{}
+	case "AzureWorkloadAnyDatabaseRecoveryPoint":
+		b = &AzureWorkloadAnyDatabaseRecoveryPoint{}
+	case "AzureWorkloadOraclePointInTimeRecoveryPoint":
+		b = &AzureWorkloadOraclePointInTimeRecoveryPoint{}
+	case "AzureWorkloadOracleRecoveryPoint":
+		b = &AzureWorkloadOracleRecoveryPoint{}
 	case "AzureWorkloadPointInTimeRecoveryPoint":
 		b = &AzureWorkloadPointInTimeRecoveryPoint{}
 	case "AzureWorkloadRecoveryPoint":
 		b = &AzureWorkloadRecoveryPoint{}
+	case "AzureWorkloadSAPAsePointInTimeRecoveryPoint":
+		b = &AzureWorkloadSAPAsePointInTimeRecoveryPoint{}
+	case "AzureWorkloadSAPAseRecoveryPoint":
+		b = &AzureWorkloadSAPAseRecoveryPoint{}
 	case "AzureWorkloadSAPHanaPointInTimeRecoveryPoint":
 		b = &AzureWorkloadSAPHanaPointInTimeRecoveryPoint{}
 	case "AzureWorkloadSAPHanaRecoveryPoint":
@@ -384,10 +400,34 @@ func unmarshalRestoreRequestClassification(rawMsg json.RawMessage) (RestoreReque
 	switch m["objectType"] {
 	case "AzureFileShareRestoreRequest":
 		b = &AzureFileShareRestoreRequest{}
+	case "AzureWorkloadAnyDatabasePointInTimeRestoreRequest":
+		b = &AzureWorkloadAnyDatabasePointInTimeRestoreRequest{}
+	case "AzureWorkloadAnyDatabasePointInTimeRestoreWithRehydrateRequest":
+		b = &AzureWorkloadAnyDatabasePointInTimeRestoreWithRehydrateRequest{}
+	case "AzureWorkloadAnyDatabaseRestoreRequest":
+		b = &AzureWorkloadAnyDatabaseRestoreRequest{}
+	case "AzureWorkloadAnyDatabaseRestoreWithRehydrateRequest":
+		b = &AzureWorkloadAnyDatabaseRestoreWithRehydrateRequest{}
+	case "AzureWorkloadOraclePointInTimeRestoreRequest":
+		b = &AzureWorkloadOraclePointInTimeRestoreRequest{}
+	case "AzureWorkloadOraclePointInTimeRestoreWithRehydrateRequest":
+		b = &AzureWorkloadOraclePointInTimeRestoreWithRehydrateRequest{}
+	case "AzureWorkloadOracleRestoreRequest":
+		b = &AzureWorkloadOracleRestoreRequest{}
+	case "AzureWorkloadOracleRestoreWithRehydrateRequest":
+		b = &AzureWorkloadOracleRestoreWithRehydrateRequest{}
 	case "AzureWorkloadPointInTimeRestoreRequest":
 		b = &AzureWorkloadPointInTimeRestoreRequest{}
 	case "AzureWorkloadRestoreRequest":
 		b = &AzureWorkloadRestoreRequest{}
+	case "AzureWorkloadSAPAsePointInTimeRestoreRequest":
+		b = &AzureWorkloadSAPAsePointInTimeRestoreRequest{}
+	case "AzureWorkloadSAPAsePointInTimeRestoreWithRehydrateRequest":
+		b = &AzureWorkloadSAPAsePointInTimeRestoreWithRehydrateRequest{}
+	case "AzureWorkloadSAPAseRestoreRequest":
+		b = &AzureWorkloadSAPAseRestoreRequest{}
+	case "AzureWorkloadSAPAseRestoreWithRehydrateRequest":
+		b = &AzureWorkloadSAPAseRestoreWithRehydrateRequest{}
 	case "AzureWorkloadSAPHanaPointInTimeRestoreRequest":
 		b = &AzureWorkloadSAPHanaPointInTimeRestoreRequest{}
 	case "AzureWorkloadSAPHanaPointInTimeRestoreWithRehydrateRequest":
@@ -544,8 +584,12 @@ func unmarshalWorkloadItemClassification(rawMsg json.RawMessage) (WorkloadItemCl
 	}
 	var b WorkloadItemClassification
 	switch m["workloadItemType"] {
+	case "AnyDataBase":
+		b = &AzureVMWorkloadAnyDatabaseWorkloadItem{}
 	case "AzureVmWorkloadItem":
 		b = &AzureVMWorkloadItem{}
+	case "OracleDataBase":
+		b = &AzureVMWorkloadOracleDatabaseWorkloadItem{}
 	case "SAPAseDatabase":
 		b = &AzureVMWorkloadSAPAseDatabaseWorkloadItem{}
 	case "SAPAseSystem":
@@ -577,18 +621,24 @@ func unmarshalWorkloadProtectableItemClassification(rawMsg json.RawMessage) (Wor
 	}
 	var b WorkloadProtectableItemClassification
 	switch m["protectableItemType"] {
+	case "AnyDatabase":
+		b = &AzureVMWorkloadAnyDatabaseProtectableItem{}
 	case "AzureFileShare":
 		b = &AzureFileShareProtectableItem{}
 	case "AzureVmWorkloadProtectableItem":
 		b = &AzureVMWorkloadProtectableItem{}
 	case "HanaHSRContainer":
 		b = &AzureVMWorkloadSAPHanaHSRProtectableItem{}
+	case "HanaScaleoutContainer":
+		b = &AzureVMWorkloadSAPHanaScaleoutProtectableItem{}
 	case "IaaSVMProtectableItem":
 		b = &IaaSVMProtectableItem{}
 	case "Microsoft.ClassicCompute/virtualMachines":
 		b = &AzureIaaSClassicComputeVMProtectableItem{}
 	case "Microsoft.Compute/virtualMachines":
 		b = &AzureIaaSComputeVMProtectableItem{}
+	case "OracleDatabase":
+		b = &AzureVMWorkloadOracleDatabaseProtectableItem{}
 	case "SAPAseSystem":
 		b = &AzureVMWorkloadSAPAseSystemProtectableItem{}
 	case "SAPHanaDBInstance":
