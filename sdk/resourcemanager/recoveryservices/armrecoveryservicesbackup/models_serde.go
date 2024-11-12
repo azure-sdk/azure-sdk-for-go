@@ -2633,6 +2633,303 @@ func (a *AzureVMResourceFeatureSupportResponse) UnmarshalJSON(data []byte) error
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type AzureVMWorkloadAnyDatabaseProtectableItem.
+func (a AzureVMWorkloadAnyDatabaseProtectableItem) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "backupManagementType", a.BackupManagementType)
+	populate(objectMap, "friendlyName", a.FriendlyName)
+	populate(objectMap, "isAutoProtectable", a.IsAutoProtectable)
+	populate(objectMap, "isAutoProtected", a.IsAutoProtected)
+	populate(objectMap, "isProtectable", a.IsProtectable)
+	populate(objectMap, "parentName", a.ParentName)
+	populate(objectMap, "parentUniqueName", a.ParentUniqueName)
+	populate(objectMap, "prebackupvalidation", a.Prebackupvalidation)
+	objectMap["protectableItemType"] = "AnyDatabase"
+	populate(objectMap, "protectionState", a.ProtectionState)
+	populate(objectMap, "serverName", a.ServerName)
+	populate(objectMap, "subinquireditemcount", a.Subinquireditemcount)
+	populate(objectMap, "subprotectableitemcount", a.Subprotectableitemcount)
+	populate(objectMap, "workloadType", a.WorkloadType)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureVMWorkloadAnyDatabaseProtectableItem.
+func (a *AzureVMWorkloadAnyDatabaseProtectableItem) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "backupManagementType":
+			err = unpopulate(val, "BackupManagementType", &a.BackupManagementType)
+			delete(rawMsg, key)
+		case "friendlyName":
+			err = unpopulate(val, "FriendlyName", &a.FriendlyName)
+			delete(rawMsg, key)
+		case "isAutoProtectable":
+			err = unpopulate(val, "IsAutoProtectable", &a.IsAutoProtectable)
+			delete(rawMsg, key)
+		case "isAutoProtected":
+			err = unpopulate(val, "IsAutoProtected", &a.IsAutoProtected)
+			delete(rawMsg, key)
+		case "isProtectable":
+			err = unpopulate(val, "IsProtectable", &a.IsProtectable)
+			delete(rawMsg, key)
+		case "parentName":
+			err = unpopulate(val, "ParentName", &a.ParentName)
+			delete(rawMsg, key)
+		case "parentUniqueName":
+			err = unpopulate(val, "ParentUniqueName", &a.ParentUniqueName)
+			delete(rawMsg, key)
+		case "prebackupvalidation":
+			err = unpopulate(val, "Prebackupvalidation", &a.Prebackupvalidation)
+			delete(rawMsg, key)
+		case "protectableItemType":
+			err = unpopulate(val, "ProtectableItemType", &a.ProtectableItemType)
+			delete(rawMsg, key)
+		case "protectionState":
+			err = unpopulate(val, "ProtectionState", &a.ProtectionState)
+			delete(rawMsg, key)
+		case "serverName":
+			err = unpopulate(val, "ServerName", &a.ServerName)
+			delete(rawMsg, key)
+		case "subinquireditemcount":
+			err = unpopulate(val, "Subinquireditemcount", &a.Subinquireditemcount)
+			delete(rawMsg, key)
+		case "subprotectableitemcount":
+			err = unpopulate(val, "Subprotectableitemcount", &a.Subprotectableitemcount)
+			delete(rawMsg, key)
+		case "workloadType":
+			err = unpopulate(val, "WorkloadType", &a.WorkloadType)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AzureVMWorkloadAnyDatabaseProtectedItem.
+func (a AzureVMWorkloadAnyDatabaseProtectedItem) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "backupManagementType", a.BackupManagementType)
+	populate(objectMap, "backupSetName", a.BackupSetName)
+	populate(objectMap, "containerName", a.ContainerName)
+	populate(objectMap, "createMode", a.CreateMode)
+	populateDateTimeRFC3339(objectMap, "deferredDeleteTimeInUTC", a.DeferredDeleteTimeInUTC)
+	populate(objectMap, "deferredDeleteTimeRemaining", a.DeferredDeleteTimeRemaining)
+	populate(objectMap, "extendedInfo", a.ExtendedInfo)
+	populate(objectMap, "friendlyName", a.FriendlyName)
+	populate(objectMap, "isArchiveEnabled", a.IsArchiveEnabled)
+	populate(objectMap, "isDeferredDeleteScheduleUpcoming", a.IsDeferredDeleteScheduleUpcoming)
+	populate(objectMap, "isRehydrate", a.IsRehydrate)
+	populate(objectMap, "isScheduledForDeferredDelete", a.IsScheduledForDeferredDelete)
+	populate(objectMap, "kpisHealths", a.KpisHealths)
+	populate(objectMap, "lastBackupErrorDetail", a.LastBackupErrorDetail)
+	populate(objectMap, "lastBackupStatus", a.LastBackupStatus)
+	populateDateTimeRFC3339(objectMap, "lastBackupTime", a.LastBackupTime)
+	populateDateTimeRFC3339(objectMap, "lastRecoveryPoint", a.LastRecoveryPoint)
+	populate(objectMap, "nodesList", a.NodesList)
+	populate(objectMap, "parentName", a.ParentName)
+	populate(objectMap, "parentType", a.ParentType)
+	populate(objectMap, "policyId", a.PolicyID)
+	populate(objectMap, "policyName", a.PolicyName)
+	populate(objectMap, "protectedItemDataSourceId", a.ProtectedItemDataSourceID)
+	populate(objectMap, "protectedItemHealthStatus", a.ProtectedItemHealthStatus)
+	objectMap["protectedItemType"] = "AzureVmWorkloadAnyDatabase"
+	populate(objectMap, "protectionState", a.ProtectionState)
+	populate(objectMap, "protectionStatus", a.ProtectionStatus)
+	populate(objectMap, "resourceGuardOperationRequests", a.ResourceGuardOperationRequests)
+	populate(objectMap, "serverName", a.ServerName)
+	populate(objectMap, "softDeleteRetentionPeriodInDays", a.SoftDeleteRetentionPeriodInDays)
+	populate(objectMap, "sourceResourceId", a.SourceResourceID)
+	populate(objectMap, "vaultId", a.VaultID)
+	populate(objectMap, "workloadType", a.WorkloadType)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureVMWorkloadAnyDatabaseProtectedItem.
+func (a *AzureVMWorkloadAnyDatabaseProtectedItem) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "backupManagementType":
+			err = unpopulate(val, "BackupManagementType", &a.BackupManagementType)
+			delete(rawMsg, key)
+		case "backupSetName":
+			err = unpopulate(val, "BackupSetName", &a.BackupSetName)
+			delete(rawMsg, key)
+		case "containerName":
+			err = unpopulate(val, "ContainerName", &a.ContainerName)
+			delete(rawMsg, key)
+		case "createMode":
+			err = unpopulate(val, "CreateMode", &a.CreateMode)
+			delete(rawMsg, key)
+		case "deferredDeleteTimeInUTC":
+			err = unpopulateDateTimeRFC3339(val, "DeferredDeleteTimeInUTC", &a.DeferredDeleteTimeInUTC)
+			delete(rawMsg, key)
+		case "deferredDeleteTimeRemaining":
+			err = unpopulate(val, "DeferredDeleteTimeRemaining", &a.DeferredDeleteTimeRemaining)
+			delete(rawMsg, key)
+		case "extendedInfo":
+			err = unpopulate(val, "ExtendedInfo", &a.ExtendedInfo)
+			delete(rawMsg, key)
+		case "friendlyName":
+			err = unpopulate(val, "FriendlyName", &a.FriendlyName)
+			delete(rawMsg, key)
+		case "isArchiveEnabled":
+			err = unpopulate(val, "IsArchiveEnabled", &a.IsArchiveEnabled)
+			delete(rawMsg, key)
+		case "isDeferredDeleteScheduleUpcoming":
+			err = unpopulate(val, "IsDeferredDeleteScheduleUpcoming", &a.IsDeferredDeleteScheduleUpcoming)
+			delete(rawMsg, key)
+		case "isRehydrate":
+			err = unpopulate(val, "IsRehydrate", &a.IsRehydrate)
+			delete(rawMsg, key)
+		case "isScheduledForDeferredDelete":
+			err = unpopulate(val, "IsScheduledForDeferredDelete", &a.IsScheduledForDeferredDelete)
+			delete(rawMsg, key)
+		case "kpisHealths":
+			err = unpopulate(val, "KpisHealths", &a.KpisHealths)
+			delete(rawMsg, key)
+		case "lastBackupErrorDetail":
+			err = unpopulate(val, "LastBackupErrorDetail", &a.LastBackupErrorDetail)
+			delete(rawMsg, key)
+		case "lastBackupStatus":
+			err = unpopulate(val, "LastBackupStatus", &a.LastBackupStatus)
+			delete(rawMsg, key)
+		case "lastBackupTime":
+			err = unpopulateDateTimeRFC3339(val, "LastBackupTime", &a.LastBackupTime)
+			delete(rawMsg, key)
+		case "lastRecoveryPoint":
+			err = unpopulateDateTimeRFC3339(val, "LastRecoveryPoint", &a.LastRecoveryPoint)
+			delete(rawMsg, key)
+		case "nodesList":
+			err = unpopulate(val, "NodesList", &a.NodesList)
+			delete(rawMsg, key)
+		case "parentName":
+			err = unpopulate(val, "ParentName", &a.ParentName)
+			delete(rawMsg, key)
+		case "parentType":
+			err = unpopulate(val, "ParentType", &a.ParentType)
+			delete(rawMsg, key)
+		case "policyId":
+			err = unpopulate(val, "PolicyID", &a.PolicyID)
+			delete(rawMsg, key)
+		case "policyName":
+			err = unpopulate(val, "PolicyName", &a.PolicyName)
+			delete(rawMsg, key)
+		case "protectedItemDataSourceId":
+			err = unpopulate(val, "ProtectedItemDataSourceID", &a.ProtectedItemDataSourceID)
+			delete(rawMsg, key)
+		case "protectedItemHealthStatus":
+			err = unpopulate(val, "ProtectedItemHealthStatus", &a.ProtectedItemHealthStatus)
+			delete(rawMsg, key)
+		case "protectedItemType":
+			err = unpopulate(val, "ProtectedItemType", &a.ProtectedItemType)
+			delete(rawMsg, key)
+		case "protectionState":
+			err = unpopulate(val, "ProtectionState", &a.ProtectionState)
+			delete(rawMsg, key)
+		case "protectionStatus":
+			err = unpopulate(val, "ProtectionStatus", &a.ProtectionStatus)
+			delete(rawMsg, key)
+		case "resourceGuardOperationRequests":
+			err = unpopulate(val, "ResourceGuardOperationRequests", &a.ResourceGuardOperationRequests)
+			delete(rawMsg, key)
+		case "serverName":
+			err = unpopulate(val, "ServerName", &a.ServerName)
+			delete(rawMsg, key)
+		case "softDeleteRetentionPeriodInDays":
+			err = unpopulate(val, "SoftDeleteRetentionPeriodInDays", &a.SoftDeleteRetentionPeriodInDays)
+			delete(rawMsg, key)
+		case "sourceResourceId":
+			err = unpopulate(val, "SourceResourceID", &a.SourceResourceID)
+			delete(rawMsg, key)
+		case "vaultId":
+			err = unpopulate(val, "VaultID", &a.VaultID)
+			delete(rawMsg, key)
+		case "workloadType":
+			err = unpopulate(val, "WorkloadType", &a.WorkloadType)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AzureVMWorkloadAnyDatabaseWorkloadItem.
+func (a AzureVMWorkloadAnyDatabaseWorkloadItem) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "backupManagementType", a.BackupManagementType)
+	populate(objectMap, "friendlyName", a.FriendlyName)
+	populate(objectMap, "isAutoProtectable", a.IsAutoProtectable)
+	populate(objectMap, "parentName", a.ParentName)
+	populate(objectMap, "protectionState", a.ProtectionState)
+	populate(objectMap, "serverName", a.ServerName)
+	populate(objectMap, "subWorkloadItemCount", a.SubWorkloadItemCount)
+	populate(objectMap, "subinquireditemcount", a.Subinquireditemcount)
+	objectMap["workloadItemType"] = "AnyDataBase"
+	populate(objectMap, "workloadType", a.WorkloadType)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureVMWorkloadAnyDatabaseWorkloadItem.
+func (a *AzureVMWorkloadAnyDatabaseWorkloadItem) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "backupManagementType":
+			err = unpopulate(val, "BackupManagementType", &a.BackupManagementType)
+			delete(rawMsg, key)
+		case "friendlyName":
+			err = unpopulate(val, "FriendlyName", &a.FriendlyName)
+			delete(rawMsg, key)
+		case "isAutoProtectable":
+			err = unpopulate(val, "IsAutoProtectable", &a.IsAutoProtectable)
+			delete(rawMsg, key)
+		case "parentName":
+			err = unpopulate(val, "ParentName", &a.ParentName)
+			delete(rawMsg, key)
+		case "protectionState":
+			err = unpopulate(val, "ProtectionState", &a.ProtectionState)
+			delete(rawMsg, key)
+		case "serverName":
+			err = unpopulate(val, "ServerName", &a.ServerName)
+			delete(rawMsg, key)
+		case "subWorkloadItemCount":
+			err = unpopulate(val, "SubWorkloadItemCount", &a.SubWorkloadItemCount)
+			delete(rawMsg, key)
+		case "subinquireditemcount":
+			err = unpopulate(val, "Subinquireditemcount", &a.Subinquireditemcount)
+			delete(rawMsg, key)
+		case "workloadItemType":
+			err = unpopulate(val, "WorkloadItemType", &a.WorkloadItemType)
+			delete(rawMsg, key)
+		case "workloadType":
+			err = unpopulate(val, "WorkloadType", &a.WorkloadType)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type AzureVMWorkloadItem.
 func (a AzureVMWorkloadItem) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -2651,6 +2948,303 @@ func (a AzureVMWorkloadItem) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements the json.Unmarshaller interface for type AzureVMWorkloadItem.
 func (a *AzureVMWorkloadItem) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "backupManagementType":
+			err = unpopulate(val, "BackupManagementType", &a.BackupManagementType)
+			delete(rawMsg, key)
+		case "friendlyName":
+			err = unpopulate(val, "FriendlyName", &a.FriendlyName)
+			delete(rawMsg, key)
+		case "isAutoProtectable":
+			err = unpopulate(val, "IsAutoProtectable", &a.IsAutoProtectable)
+			delete(rawMsg, key)
+		case "parentName":
+			err = unpopulate(val, "ParentName", &a.ParentName)
+			delete(rawMsg, key)
+		case "protectionState":
+			err = unpopulate(val, "ProtectionState", &a.ProtectionState)
+			delete(rawMsg, key)
+		case "serverName":
+			err = unpopulate(val, "ServerName", &a.ServerName)
+			delete(rawMsg, key)
+		case "subWorkloadItemCount":
+			err = unpopulate(val, "SubWorkloadItemCount", &a.SubWorkloadItemCount)
+			delete(rawMsg, key)
+		case "subinquireditemcount":
+			err = unpopulate(val, "Subinquireditemcount", &a.Subinquireditemcount)
+			delete(rawMsg, key)
+		case "workloadItemType":
+			err = unpopulate(val, "WorkloadItemType", &a.WorkloadItemType)
+			delete(rawMsg, key)
+		case "workloadType":
+			err = unpopulate(val, "WorkloadType", &a.WorkloadType)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AzureVMWorkloadOracleDatabaseProtectableItem.
+func (a AzureVMWorkloadOracleDatabaseProtectableItem) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "backupManagementType", a.BackupManagementType)
+	populate(objectMap, "friendlyName", a.FriendlyName)
+	populate(objectMap, "isAutoProtectable", a.IsAutoProtectable)
+	populate(objectMap, "isAutoProtected", a.IsAutoProtected)
+	populate(objectMap, "isProtectable", a.IsProtectable)
+	populate(objectMap, "parentName", a.ParentName)
+	populate(objectMap, "parentUniqueName", a.ParentUniqueName)
+	populate(objectMap, "prebackupvalidation", a.Prebackupvalidation)
+	objectMap["protectableItemType"] = "OracleDatabase"
+	populate(objectMap, "protectionState", a.ProtectionState)
+	populate(objectMap, "serverName", a.ServerName)
+	populate(objectMap, "subinquireditemcount", a.Subinquireditemcount)
+	populate(objectMap, "subprotectableitemcount", a.Subprotectableitemcount)
+	populate(objectMap, "workloadType", a.WorkloadType)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureVMWorkloadOracleDatabaseProtectableItem.
+func (a *AzureVMWorkloadOracleDatabaseProtectableItem) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "backupManagementType":
+			err = unpopulate(val, "BackupManagementType", &a.BackupManagementType)
+			delete(rawMsg, key)
+		case "friendlyName":
+			err = unpopulate(val, "FriendlyName", &a.FriendlyName)
+			delete(rawMsg, key)
+		case "isAutoProtectable":
+			err = unpopulate(val, "IsAutoProtectable", &a.IsAutoProtectable)
+			delete(rawMsg, key)
+		case "isAutoProtected":
+			err = unpopulate(val, "IsAutoProtected", &a.IsAutoProtected)
+			delete(rawMsg, key)
+		case "isProtectable":
+			err = unpopulate(val, "IsProtectable", &a.IsProtectable)
+			delete(rawMsg, key)
+		case "parentName":
+			err = unpopulate(val, "ParentName", &a.ParentName)
+			delete(rawMsg, key)
+		case "parentUniqueName":
+			err = unpopulate(val, "ParentUniqueName", &a.ParentUniqueName)
+			delete(rawMsg, key)
+		case "prebackupvalidation":
+			err = unpopulate(val, "Prebackupvalidation", &a.Prebackupvalidation)
+			delete(rawMsg, key)
+		case "protectableItemType":
+			err = unpopulate(val, "ProtectableItemType", &a.ProtectableItemType)
+			delete(rawMsg, key)
+		case "protectionState":
+			err = unpopulate(val, "ProtectionState", &a.ProtectionState)
+			delete(rawMsg, key)
+		case "serverName":
+			err = unpopulate(val, "ServerName", &a.ServerName)
+			delete(rawMsg, key)
+		case "subinquireditemcount":
+			err = unpopulate(val, "Subinquireditemcount", &a.Subinquireditemcount)
+			delete(rawMsg, key)
+		case "subprotectableitemcount":
+			err = unpopulate(val, "Subprotectableitemcount", &a.Subprotectableitemcount)
+			delete(rawMsg, key)
+		case "workloadType":
+			err = unpopulate(val, "WorkloadType", &a.WorkloadType)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AzureVMWorkloadOracleDatabaseProtectedItem.
+func (a AzureVMWorkloadOracleDatabaseProtectedItem) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "backupManagementType", a.BackupManagementType)
+	populate(objectMap, "backupSetName", a.BackupSetName)
+	populate(objectMap, "containerName", a.ContainerName)
+	populate(objectMap, "createMode", a.CreateMode)
+	populateDateTimeRFC3339(objectMap, "deferredDeleteTimeInUTC", a.DeferredDeleteTimeInUTC)
+	populate(objectMap, "deferredDeleteTimeRemaining", a.DeferredDeleteTimeRemaining)
+	populate(objectMap, "extendedInfo", a.ExtendedInfo)
+	populate(objectMap, "friendlyName", a.FriendlyName)
+	populate(objectMap, "isArchiveEnabled", a.IsArchiveEnabled)
+	populate(objectMap, "isDeferredDeleteScheduleUpcoming", a.IsDeferredDeleteScheduleUpcoming)
+	populate(objectMap, "isRehydrate", a.IsRehydrate)
+	populate(objectMap, "isScheduledForDeferredDelete", a.IsScheduledForDeferredDelete)
+	populate(objectMap, "kpisHealths", a.KpisHealths)
+	populate(objectMap, "lastBackupErrorDetail", a.LastBackupErrorDetail)
+	populate(objectMap, "lastBackupStatus", a.LastBackupStatus)
+	populateDateTimeRFC3339(objectMap, "lastBackupTime", a.LastBackupTime)
+	populateDateTimeRFC3339(objectMap, "lastRecoveryPoint", a.LastRecoveryPoint)
+	populate(objectMap, "nodesList", a.NodesList)
+	populate(objectMap, "parentName", a.ParentName)
+	populate(objectMap, "parentType", a.ParentType)
+	populate(objectMap, "policyId", a.PolicyID)
+	populate(objectMap, "policyName", a.PolicyName)
+	populate(objectMap, "protectedItemDataSourceId", a.ProtectedItemDataSourceID)
+	populate(objectMap, "protectedItemHealthStatus", a.ProtectedItemHealthStatus)
+	objectMap["protectedItemType"] = "AzureVmWorkloadOracleDatabase"
+	populate(objectMap, "protectionState", a.ProtectionState)
+	populate(objectMap, "protectionStatus", a.ProtectionStatus)
+	populate(objectMap, "resourceGuardOperationRequests", a.ResourceGuardOperationRequests)
+	populate(objectMap, "serverName", a.ServerName)
+	populate(objectMap, "softDeleteRetentionPeriodInDays", a.SoftDeleteRetentionPeriodInDays)
+	populate(objectMap, "sourceResourceId", a.SourceResourceID)
+	populate(objectMap, "vaultId", a.VaultID)
+	populate(objectMap, "workloadType", a.WorkloadType)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureVMWorkloadOracleDatabaseProtectedItem.
+func (a *AzureVMWorkloadOracleDatabaseProtectedItem) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "backupManagementType":
+			err = unpopulate(val, "BackupManagementType", &a.BackupManagementType)
+			delete(rawMsg, key)
+		case "backupSetName":
+			err = unpopulate(val, "BackupSetName", &a.BackupSetName)
+			delete(rawMsg, key)
+		case "containerName":
+			err = unpopulate(val, "ContainerName", &a.ContainerName)
+			delete(rawMsg, key)
+		case "createMode":
+			err = unpopulate(val, "CreateMode", &a.CreateMode)
+			delete(rawMsg, key)
+		case "deferredDeleteTimeInUTC":
+			err = unpopulateDateTimeRFC3339(val, "DeferredDeleteTimeInUTC", &a.DeferredDeleteTimeInUTC)
+			delete(rawMsg, key)
+		case "deferredDeleteTimeRemaining":
+			err = unpopulate(val, "DeferredDeleteTimeRemaining", &a.DeferredDeleteTimeRemaining)
+			delete(rawMsg, key)
+		case "extendedInfo":
+			err = unpopulate(val, "ExtendedInfo", &a.ExtendedInfo)
+			delete(rawMsg, key)
+		case "friendlyName":
+			err = unpopulate(val, "FriendlyName", &a.FriendlyName)
+			delete(rawMsg, key)
+		case "isArchiveEnabled":
+			err = unpopulate(val, "IsArchiveEnabled", &a.IsArchiveEnabled)
+			delete(rawMsg, key)
+		case "isDeferredDeleteScheduleUpcoming":
+			err = unpopulate(val, "IsDeferredDeleteScheduleUpcoming", &a.IsDeferredDeleteScheduleUpcoming)
+			delete(rawMsg, key)
+		case "isRehydrate":
+			err = unpopulate(val, "IsRehydrate", &a.IsRehydrate)
+			delete(rawMsg, key)
+		case "isScheduledForDeferredDelete":
+			err = unpopulate(val, "IsScheduledForDeferredDelete", &a.IsScheduledForDeferredDelete)
+			delete(rawMsg, key)
+		case "kpisHealths":
+			err = unpopulate(val, "KpisHealths", &a.KpisHealths)
+			delete(rawMsg, key)
+		case "lastBackupErrorDetail":
+			err = unpopulate(val, "LastBackupErrorDetail", &a.LastBackupErrorDetail)
+			delete(rawMsg, key)
+		case "lastBackupStatus":
+			err = unpopulate(val, "LastBackupStatus", &a.LastBackupStatus)
+			delete(rawMsg, key)
+		case "lastBackupTime":
+			err = unpopulateDateTimeRFC3339(val, "LastBackupTime", &a.LastBackupTime)
+			delete(rawMsg, key)
+		case "lastRecoveryPoint":
+			err = unpopulateDateTimeRFC3339(val, "LastRecoveryPoint", &a.LastRecoveryPoint)
+			delete(rawMsg, key)
+		case "nodesList":
+			err = unpopulate(val, "NodesList", &a.NodesList)
+			delete(rawMsg, key)
+		case "parentName":
+			err = unpopulate(val, "ParentName", &a.ParentName)
+			delete(rawMsg, key)
+		case "parentType":
+			err = unpopulate(val, "ParentType", &a.ParentType)
+			delete(rawMsg, key)
+		case "policyId":
+			err = unpopulate(val, "PolicyID", &a.PolicyID)
+			delete(rawMsg, key)
+		case "policyName":
+			err = unpopulate(val, "PolicyName", &a.PolicyName)
+			delete(rawMsg, key)
+		case "protectedItemDataSourceId":
+			err = unpopulate(val, "ProtectedItemDataSourceID", &a.ProtectedItemDataSourceID)
+			delete(rawMsg, key)
+		case "protectedItemHealthStatus":
+			err = unpopulate(val, "ProtectedItemHealthStatus", &a.ProtectedItemHealthStatus)
+			delete(rawMsg, key)
+		case "protectedItemType":
+			err = unpopulate(val, "ProtectedItemType", &a.ProtectedItemType)
+			delete(rawMsg, key)
+		case "protectionState":
+			err = unpopulate(val, "ProtectionState", &a.ProtectionState)
+			delete(rawMsg, key)
+		case "protectionStatus":
+			err = unpopulate(val, "ProtectionStatus", &a.ProtectionStatus)
+			delete(rawMsg, key)
+		case "resourceGuardOperationRequests":
+			err = unpopulate(val, "ResourceGuardOperationRequests", &a.ResourceGuardOperationRequests)
+			delete(rawMsg, key)
+		case "serverName":
+			err = unpopulate(val, "ServerName", &a.ServerName)
+			delete(rawMsg, key)
+		case "softDeleteRetentionPeriodInDays":
+			err = unpopulate(val, "SoftDeleteRetentionPeriodInDays", &a.SoftDeleteRetentionPeriodInDays)
+			delete(rawMsg, key)
+		case "sourceResourceId":
+			err = unpopulate(val, "SourceResourceID", &a.SourceResourceID)
+			delete(rawMsg, key)
+		case "vaultId":
+			err = unpopulate(val, "VaultID", &a.VaultID)
+			delete(rawMsg, key)
+		case "workloadType":
+			err = unpopulate(val, "WorkloadType", &a.WorkloadType)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AzureVMWorkloadOracleDatabaseWorkloadItem.
+func (a AzureVMWorkloadOracleDatabaseWorkloadItem) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "backupManagementType", a.BackupManagementType)
+	populate(objectMap, "friendlyName", a.FriendlyName)
+	populate(objectMap, "isAutoProtectable", a.IsAutoProtectable)
+	populate(objectMap, "parentName", a.ParentName)
+	populate(objectMap, "protectionState", a.ProtectionState)
+	populate(objectMap, "serverName", a.ServerName)
+	populate(objectMap, "subWorkloadItemCount", a.SubWorkloadItemCount)
+	populate(objectMap, "subinquireditemcount", a.Subinquireditemcount)
+	objectMap["workloadItemType"] = "OracleDataBase"
+	populate(objectMap, "workloadType", a.WorkloadType)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureVMWorkloadOracleDatabaseWorkloadItem.
+func (a *AzureVMWorkloadOracleDatabaseWorkloadItem) UnmarshalJSON(data []byte) error {
 	var rawMsg map[string]json.RawMessage
 	if err := json.Unmarshal(data, &rawMsg); err != nil {
 		return fmt.Errorf("unmarshalling type %T: %v", a, err)
@@ -2990,6 +3584,7 @@ func (a AzureVMWorkloadProtectionPolicy) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "resourceGuardOperationRequests", a.ResourceGuardOperationRequests)
 	populate(objectMap, "settings", a.Settings)
 	populate(objectMap, "subProtectionPolicy", a.SubProtectionPolicy)
+	populate(objectMap, "vmWorkloadPolicyType", a.VMWorkloadPolicyType)
 	populate(objectMap, "workLoadType", a.WorkLoadType)
 	return json.Marshal(objectMap)
 }
@@ -3020,6 +3615,9 @@ func (a *AzureVMWorkloadProtectionPolicy) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "subProtectionPolicy":
 			err = unpopulate(val, "SubProtectionPolicy", &a.SubProtectionPolicy)
+			delete(rawMsg, key)
+		case "vmWorkloadPolicyType":
+			err = unpopulate(val, "VMWorkloadPolicyType", &a.VMWorkloadPolicyType)
 			delete(rawMsg, key)
 		case "workLoadType":
 			err = unpopulate(val, "WorkLoadType", &a.WorkLoadType)
@@ -4002,6 +4600,85 @@ func (a *AzureVMWorkloadSAPHanaHSRProtectableItem) UnmarshalJSON(data []byte) er
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type AzureVMWorkloadSAPHanaScaleoutProtectableItem.
+func (a AzureVMWorkloadSAPHanaScaleoutProtectableItem) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "backupManagementType", a.BackupManagementType)
+	populate(objectMap, "friendlyName", a.FriendlyName)
+	populate(objectMap, "isAutoProtectable", a.IsAutoProtectable)
+	populate(objectMap, "isAutoProtected", a.IsAutoProtected)
+	populate(objectMap, "isProtectable", a.IsProtectable)
+	populate(objectMap, "parentName", a.ParentName)
+	populate(objectMap, "parentUniqueName", a.ParentUniqueName)
+	populate(objectMap, "prebackupvalidation", a.Prebackupvalidation)
+	objectMap["protectableItemType"] = "HanaScaleoutContainer"
+	populate(objectMap, "protectionState", a.ProtectionState)
+	populate(objectMap, "serverName", a.ServerName)
+	populate(objectMap, "subinquireditemcount", a.Subinquireditemcount)
+	populate(objectMap, "subprotectableitemcount", a.Subprotectableitemcount)
+	populate(objectMap, "workloadType", a.WorkloadType)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureVMWorkloadSAPHanaScaleoutProtectableItem.
+func (a *AzureVMWorkloadSAPHanaScaleoutProtectableItem) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "backupManagementType":
+			err = unpopulate(val, "BackupManagementType", &a.BackupManagementType)
+			delete(rawMsg, key)
+		case "friendlyName":
+			err = unpopulate(val, "FriendlyName", &a.FriendlyName)
+			delete(rawMsg, key)
+		case "isAutoProtectable":
+			err = unpopulate(val, "IsAutoProtectable", &a.IsAutoProtectable)
+			delete(rawMsg, key)
+		case "isAutoProtected":
+			err = unpopulate(val, "IsAutoProtected", &a.IsAutoProtected)
+			delete(rawMsg, key)
+		case "isProtectable":
+			err = unpopulate(val, "IsProtectable", &a.IsProtectable)
+			delete(rawMsg, key)
+		case "parentName":
+			err = unpopulate(val, "ParentName", &a.ParentName)
+			delete(rawMsg, key)
+		case "parentUniqueName":
+			err = unpopulate(val, "ParentUniqueName", &a.ParentUniqueName)
+			delete(rawMsg, key)
+		case "prebackupvalidation":
+			err = unpopulate(val, "Prebackupvalidation", &a.Prebackupvalidation)
+			delete(rawMsg, key)
+		case "protectableItemType":
+			err = unpopulate(val, "ProtectableItemType", &a.ProtectableItemType)
+			delete(rawMsg, key)
+		case "protectionState":
+			err = unpopulate(val, "ProtectionState", &a.ProtectionState)
+			delete(rawMsg, key)
+		case "serverName":
+			err = unpopulate(val, "ServerName", &a.ServerName)
+			delete(rawMsg, key)
+		case "subinquireditemcount":
+			err = unpopulate(val, "Subinquireditemcount", &a.Subinquireditemcount)
+			delete(rawMsg, key)
+		case "subprotectableitemcount":
+			err = unpopulate(val, "Subprotectableitemcount", &a.Subprotectableitemcount)
+			delete(rawMsg, key)
+		case "workloadType":
+			err = unpopulate(val, "WorkloadType", &a.WorkloadType)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type AzureVMWorkloadSAPHanaSystemProtectableItem.
 func (a AzureVMWorkloadSAPHanaSystemProtectableItem) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -4670,6 +5347,388 @@ func (a *AzureVMWorkloadSQLInstanceWorkloadItem) UnmarshalJSON(data []byte) erro
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type AzureWorkloadAnyDatabasePointInTimeRecoveryPoint.
+func (a AzureWorkloadAnyDatabasePointInTimeRecoveryPoint) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	objectMap["objectType"] = "AzureWorkloadAnyDatabasePointInTimeRecoveryPoint"
+	populate(objectMap, "recoveryPointMoveReadinessInfo", a.RecoveryPointMoveReadinessInfo)
+	populate(objectMap, "recoveryPointProperties", a.RecoveryPointProperties)
+	populate(objectMap, "recoveryPointTierDetails", a.RecoveryPointTierDetails)
+	populateDateTimeRFC3339(objectMap, "recoveryPointTimeInUTC", a.RecoveryPointTimeInUTC)
+	populate(objectMap, "timeRanges", a.TimeRanges)
+	populate(objectMap, "type", a.Type)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureWorkloadAnyDatabasePointInTimeRecoveryPoint.
+func (a *AzureWorkloadAnyDatabasePointInTimeRecoveryPoint) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "objectType":
+			err = unpopulate(val, "ObjectType", &a.ObjectType)
+			delete(rawMsg, key)
+		case "recoveryPointMoveReadinessInfo":
+			err = unpopulate(val, "RecoveryPointMoveReadinessInfo", &a.RecoveryPointMoveReadinessInfo)
+			delete(rawMsg, key)
+		case "recoveryPointProperties":
+			err = unpopulate(val, "RecoveryPointProperties", &a.RecoveryPointProperties)
+			delete(rawMsg, key)
+		case "recoveryPointTierDetails":
+			err = unpopulate(val, "RecoveryPointTierDetails", &a.RecoveryPointTierDetails)
+			delete(rawMsg, key)
+		case "recoveryPointTimeInUTC":
+			err = unpopulateDateTimeRFC3339(val, "RecoveryPointTimeInUTC", &a.RecoveryPointTimeInUTC)
+			delete(rawMsg, key)
+		case "timeRanges":
+			err = unpopulate(val, "TimeRanges", &a.TimeRanges)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &a.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AzureWorkloadAnyDatabasePointInTimeRestoreRequest.
+func (a AzureWorkloadAnyDatabasePointInTimeRestoreRequest) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	objectMap["objectType"] = "AzureWorkloadAnyDatabasePointInTimeRestoreRequest"
+	populateDateTimeRFC3339(objectMap, "pointInTime", a.PointInTime)
+	populate(objectMap, "propertyBag", a.PropertyBag)
+	populate(objectMap, "recoveryMode", a.RecoveryMode)
+	populate(objectMap, "recoveryType", a.RecoveryType)
+	populate(objectMap, "resourceGuardOperationRequests", a.ResourceGuardOperationRequests)
+	populate(objectMap, "snapshotRestoreParameters", a.SnapshotRestoreParameters)
+	populate(objectMap, "sourceResourceId", a.SourceResourceID)
+	populate(objectMap, "targetInfo", a.TargetInfo)
+	populate(objectMap, "targetResourceGroupName", a.TargetResourceGroupName)
+	populate(objectMap, "targetVirtualMachineId", a.TargetVirtualMachineID)
+	populate(objectMap, "userAssignedManagedIdentityDetails", a.UserAssignedManagedIdentityDetails)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureWorkloadAnyDatabasePointInTimeRestoreRequest.
+func (a *AzureWorkloadAnyDatabasePointInTimeRestoreRequest) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "objectType":
+			err = unpopulate(val, "ObjectType", &a.ObjectType)
+			delete(rawMsg, key)
+		case "pointInTime":
+			err = unpopulateDateTimeRFC3339(val, "PointInTime", &a.PointInTime)
+			delete(rawMsg, key)
+		case "propertyBag":
+			err = unpopulate(val, "PropertyBag", &a.PropertyBag)
+			delete(rawMsg, key)
+		case "recoveryMode":
+			err = unpopulate(val, "RecoveryMode", &a.RecoveryMode)
+			delete(rawMsg, key)
+		case "recoveryType":
+			err = unpopulate(val, "RecoveryType", &a.RecoveryType)
+			delete(rawMsg, key)
+		case "resourceGuardOperationRequests":
+			err = unpopulate(val, "ResourceGuardOperationRequests", &a.ResourceGuardOperationRequests)
+			delete(rawMsg, key)
+		case "snapshotRestoreParameters":
+			err = unpopulate(val, "SnapshotRestoreParameters", &a.SnapshotRestoreParameters)
+			delete(rawMsg, key)
+		case "sourceResourceId":
+			err = unpopulate(val, "SourceResourceID", &a.SourceResourceID)
+			delete(rawMsg, key)
+		case "targetInfo":
+			err = unpopulate(val, "TargetInfo", &a.TargetInfo)
+			delete(rawMsg, key)
+		case "targetResourceGroupName":
+			err = unpopulate(val, "TargetResourceGroupName", &a.TargetResourceGroupName)
+			delete(rawMsg, key)
+		case "targetVirtualMachineId":
+			err = unpopulate(val, "TargetVirtualMachineID", &a.TargetVirtualMachineID)
+			delete(rawMsg, key)
+		case "userAssignedManagedIdentityDetails":
+			err = unpopulate(val, "UserAssignedManagedIdentityDetails", &a.UserAssignedManagedIdentityDetails)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AzureWorkloadAnyDatabasePointInTimeRestoreWithRehydrateRequest.
+func (a AzureWorkloadAnyDatabasePointInTimeRestoreWithRehydrateRequest) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	objectMap["objectType"] = "AzureWorkloadAnyDatabasePointInTimeRestoreWithRehydrateRequest"
+	populateDateTimeRFC3339(objectMap, "pointInTime", a.PointInTime)
+	populate(objectMap, "propertyBag", a.PropertyBag)
+	populate(objectMap, "recoveryMode", a.RecoveryMode)
+	populate(objectMap, "recoveryPointRehydrationInfo", a.RecoveryPointRehydrationInfo)
+	populate(objectMap, "recoveryType", a.RecoveryType)
+	populate(objectMap, "resourceGuardOperationRequests", a.ResourceGuardOperationRequests)
+	populate(objectMap, "snapshotRestoreParameters", a.SnapshotRestoreParameters)
+	populate(objectMap, "sourceResourceId", a.SourceResourceID)
+	populate(objectMap, "targetInfo", a.TargetInfo)
+	populate(objectMap, "targetResourceGroupName", a.TargetResourceGroupName)
+	populate(objectMap, "targetVirtualMachineId", a.TargetVirtualMachineID)
+	populate(objectMap, "userAssignedManagedIdentityDetails", a.UserAssignedManagedIdentityDetails)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureWorkloadAnyDatabasePointInTimeRestoreWithRehydrateRequest.
+func (a *AzureWorkloadAnyDatabasePointInTimeRestoreWithRehydrateRequest) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "objectType":
+			err = unpopulate(val, "ObjectType", &a.ObjectType)
+			delete(rawMsg, key)
+		case "pointInTime":
+			err = unpopulateDateTimeRFC3339(val, "PointInTime", &a.PointInTime)
+			delete(rawMsg, key)
+		case "propertyBag":
+			err = unpopulate(val, "PropertyBag", &a.PropertyBag)
+			delete(rawMsg, key)
+		case "recoveryMode":
+			err = unpopulate(val, "RecoveryMode", &a.RecoveryMode)
+			delete(rawMsg, key)
+		case "recoveryPointRehydrationInfo":
+			err = unpopulate(val, "RecoveryPointRehydrationInfo", &a.RecoveryPointRehydrationInfo)
+			delete(rawMsg, key)
+		case "recoveryType":
+			err = unpopulate(val, "RecoveryType", &a.RecoveryType)
+			delete(rawMsg, key)
+		case "resourceGuardOperationRequests":
+			err = unpopulate(val, "ResourceGuardOperationRequests", &a.ResourceGuardOperationRequests)
+			delete(rawMsg, key)
+		case "snapshotRestoreParameters":
+			err = unpopulate(val, "SnapshotRestoreParameters", &a.SnapshotRestoreParameters)
+			delete(rawMsg, key)
+		case "sourceResourceId":
+			err = unpopulate(val, "SourceResourceID", &a.SourceResourceID)
+			delete(rawMsg, key)
+		case "targetInfo":
+			err = unpopulate(val, "TargetInfo", &a.TargetInfo)
+			delete(rawMsg, key)
+		case "targetResourceGroupName":
+			err = unpopulate(val, "TargetResourceGroupName", &a.TargetResourceGroupName)
+			delete(rawMsg, key)
+		case "targetVirtualMachineId":
+			err = unpopulate(val, "TargetVirtualMachineID", &a.TargetVirtualMachineID)
+			delete(rawMsg, key)
+		case "userAssignedManagedIdentityDetails":
+			err = unpopulate(val, "UserAssignedManagedIdentityDetails", &a.UserAssignedManagedIdentityDetails)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AzureWorkloadAnyDatabaseRecoveryPoint.
+func (a AzureWorkloadAnyDatabaseRecoveryPoint) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	objectMap["objectType"] = "AzureWorkloadAnyDatabaseRecoveryPoint"
+	populate(objectMap, "recoveryPointMoveReadinessInfo", a.RecoveryPointMoveReadinessInfo)
+	populate(objectMap, "recoveryPointProperties", a.RecoveryPointProperties)
+	populate(objectMap, "recoveryPointTierDetails", a.RecoveryPointTierDetails)
+	populateDateTimeRFC3339(objectMap, "recoveryPointTimeInUTC", a.RecoveryPointTimeInUTC)
+	populate(objectMap, "type", a.Type)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureWorkloadAnyDatabaseRecoveryPoint.
+func (a *AzureWorkloadAnyDatabaseRecoveryPoint) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "objectType":
+			err = unpopulate(val, "ObjectType", &a.ObjectType)
+			delete(rawMsg, key)
+		case "recoveryPointMoveReadinessInfo":
+			err = unpopulate(val, "RecoveryPointMoveReadinessInfo", &a.RecoveryPointMoveReadinessInfo)
+			delete(rawMsg, key)
+		case "recoveryPointProperties":
+			err = unpopulate(val, "RecoveryPointProperties", &a.RecoveryPointProperties)
+			delete(rawMsg, key)
+		case "recoveryPointTierDetails":
+			err = unpopulate(val, "RecoveryPointTierDetails", &a.RecoveryPointTierDetails)
+			delete(rawMsg, key)
+		case "recoveryPointTimeInUTC":
+			err = unpopulateDateTimeRFC3339(val, "RecoveryPointTimeInUTC", &a.RecoveryPointTimeInUTC)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &a.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AzureWorkloadAnyDatabaseRestoreRequest.
+func (a AzureWorkloadAnyDatabaseRestoreRequest) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	objectMap["objectType"] = "AzureWorkloadAnyDatabaseRestoreRequest"
+	populate(objectMap, "propertyBag", a.PropertyBag)
+	populate(objectMap, "recoveryMode", a.RecoveryMode)
+	populate(objectMap, "recoveryType", a.RecoveryType)
+	populate(objectMap, "resourceGuardOperationRequests", a.ResourceGuardOperationRequests)
+	populate(objectMap, "snapshotRestoreParameters", a.SnapshotRestoreParameters)
+	populate(objectMap, "sourceResourceId", a.SourceResourceID)
+	populate(objectMap, "targetInfo", a.TargetInfo)
+	populate(objectMap, "targetResourceGroupName", a.TargetResourceGroupName)
+	populate(objectMap, "targetVirtualMachineId", a.TargetVirtualMachineID)
+	populate(objectMap, "userAssignedManagedIdentityDetails", a.UserAssignedManagedIdentityDetails)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureWorkloadAnyDatabaseRestoreRequest.
+func (a *AzureWorkloadAnyDatabaseRestoreRequest) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "objectType":
+			err = unpopulate(val, "ObjectType", &a.ObjectType)
+			delete(rawMsg, key)
+		case "propertyBag":
+			err = unpopulate(val, "PropertyBag", &a.PropertyBag)
+			delete(rawMsg, key)
+		case "recoveryMode":
+			err = unpopulate(val, "RecoveryMode", &a.RecoveryMode)
+			delete(rawMsg, key)
+		case "recoveryType":
+			err = unpopulate(val, "RecoveryType", &a.RecoveryType)
+			delete(rawMsg, key)
+		case "resourceGuardOperationRequests":
+			err = unpopulate(val, "ResourceGuardOperationRequests", &a.ResourceGuardOperationRequests)
+			delete(rawMsg, key)
+		case "snapshotRestoreParameters":
+			err = unpopulate(val, "SnapshotRestoreParameters", &a.SnapshotRestoreParameters)
+			delete(rawMsg, key)
+		case "sourceResourceId":
+			err = unpopulate(val, "SourceResourceID", &a.SourceResourceID)
+			delete(rawMsg, key)
+		case "targetInfo":
+			err = unpopulate(val, "TargetInfo", &a.TargetInfo)
+			delete(rawMsg, key)
+		case "targetResourceGroupName":
+			err = unpopulate(val, "TargetResourceGroupName", &a.TargetResourceGroupName)
+			delete(rawMsg, key)
+		case "targetVirtualMachineId":
+			err = unpopulate(val, "TargetVirtualMachineID", &a.TargetVirtualMachineID)
+			delete(rawMsg, key)
+		case "userAssignedManagedIdentityDetails":
+			err = unpopulate(val, "UserAssignedManagedIdentityDetails", &a.UserAssignedManagedIdentityDetails)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AzureWorkloadAnyDatabaseRestoreWithRehydrateRequest.
+func (a AzureWorkloadAnyDatabaseRestoreWithRehydrateRequest) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	objectMap["objectType"] = "AzureWorkloadAnyDatabaseRestoreWithRehydrateRequest"
+	populate(objectMap, "propertyBag", a.PropertyBag)
+	populate(objectMap, "recoveryMode", a.RecoveryMode)
+	populate(objectMap, "recoveryPointRehydrationInfo", a.RecoveryPointRehydrationInfo)
+	populate(objectMap, "recoveryType", a.RecoveryType)
+	populate(objectMap, "resourceGuardOperationRequests", a.ResourceGuardOperationRequests)
+	populate(objectMap, "snapshotRestoreParameters", a.SnapshotRestoreParameters)
+	populate(objectMap, "sourceResourceId", a.SourceResourceID)
+	populate(objectMap, "targetInfo", a.TargetInfo)
+	populate(objectMap, "targetResourceGroupName", a.TargetResourceGroupName)
+	populate(objectMap, "targetVirtualMachineId", a.TargetVirtualMachineID)
+	populate(objectMap, "userAssignedManagedIdentityDetails", a.UserAssignedManagedIdentityDetails)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureWorkloadAnyDatabaseRestoreWithRehydrateRequest.
+func (a *AzureWorkloadAnyDatabaseRestoreWithRehydrateRequest) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "objectType":
+			err = unpopulate(val, "ObjectType", &a.ObjectType)
+			delete(rawMsg, key)
+		case "propertyBag":
+			err = unpopulate(val, "PropertyBag", &a.PropertyBag)
+			delete(rawMsg, key)
+		case "recoveryMode":
+			err = unpopulate(val, "RecoveryMode", &a.RecoveryMode)
+			delete(rawMsg, key)
+		case "recoveryPointRehydrationInfo":
+			err = unpopulate(val, "RecoveryPointRehydrationInfo", &a.RecoveryPointRehydrationInfo)
+			delete(rawMsg, key)
+		case "recoveryType":
+			err = unpopulate(val, "RecoveryType", &a.RecoveryType)
+			delete(rawMsg, key)
+		case "resourceGuardOperationRequests":
+			err = unpopulate(val, "ResourceGuardOperationRequests", &a.ResourceGuardOperationRequests)
+			delete(rawMsg, key)
+		case "snapshotRestoreParameters":
+			err = unpopulate(val, "SnapshotRestoreParameters", &a.SnapshotRestoreParameters)
+			delete(rawMsg, key)
+		case "sourceResourceId":
+			err = unpopulate(val, "SourceResourceID", &a.SourceResourceID)
+			delete(rawMsg, key)
+		case "targetInfo":
+			err = unpopulate(val, "TargetInfo", &a.TargetInfo)
+			delete(rawMsg, key)
+		case "targetResourceGroupName":
+			err = unpopulate(val, "TargetResourceGroupName", &a.TargetResourceGroupName)
+			delete(rawMsg, key)
+		case "targetVirtualMachineId":
+			err = unpopulate(val, "TargetVirtualMachineID", &a.TargetVirtualMachineID)
+			delete(rawMsg, key)
+		case "userAssignedManagedIdentityDetails":
+			err = unpopulate(val, "UserAssignedManagedIdentityDetails", &a.UserAssignedManagedIdentityDetails)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type AzureWorkloadAutoProtectionIntent.
 func (a AzureWorkloadAutoProtectionIntent) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -5089,6 +6148,388 @@ func (a *AzureWorkloadJobTaskDetails) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type AzureWorkloadOraclePointInTimeRecoveryPoint.
+func (a AzureWorkloadOraclePointInTimeRecoveryPoint) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	objectMap["objectType"] = "AzureWorkloadOraclePointInTimeRecoveryPoint"
+	populate(objectMap, "recoveryPointMoveReadinessInfo", a.RecoveryPointMoveReadinessInfo)
+	populate(objectMap, "recoveryPointProperties", a.RecoveryPointProperties)
+	populate(objectMap, "recoveryPointTierDetails", a.RecoveryPointTierDetails)
+	populateDateTimeRFC3339(objectMap, "recoveryPointTimeInUTC", a.RecoveryPointTimeInUTC)
+	populate(objectMap, "timeRanges", a.TimeRanges)
+	populate(objectMap, "type", a.Type)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureWorkloadOraclePointInTimeRecoveryPoint.
+func (a *AzureWorkloadOraclePointInTimeRecoveryPoint) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "objectType":
+			err = unpopulate(val, "ObjectType", &a.ObjectType)
+			delete(rawMsg, key)
+		case "recoveryPointMoveReadinessInfo":
+			err = unpopulate(val, "RecoveryPointMoveReadinessInfo", &a.RecoveryPointMoveReadinessInfo)
+			delete(rawMsg, key)
+		case "recoveryPointProperties":
+			err = unpopulate(val, "RecoveryPointProperties", &a.RecoveryPointProperties)
+			delete(rawMsg, key)
+		case "recoveryPointTierDetails":
+			err = unpopulate(val, "RecoveryPointTierDetails", &a.RecoveryPointTierDetails)
+			delete(rawMsg, key)
+		case "recoveryPointTimeInUTC":
+			err = unpopulateDateTimeRFC3339(val, "RecoveryPointTimeInUTC", &a.RecoveryPointTimeInUTC)
+			delete(rawMsg, key)
+		case "timeRanges":
+			err = unpopulate(val, "TimeRanges", &a.TimeRanges)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &a.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AzureWorkloadOraclePointInTimeRestoreRequest.
+func (a AzureWorkloadOraclePointInTimeRestoreRequest) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	objectMap["objectType"] = "AzureWorkloadOraclePointInTimeRestoreRequest"
+	populateDateTimeRFC3339(objectMap, "pointInTime", a.PointInTime)
+	populate(objectMap, "propertyBag", a.PropertyBag)
+	populate(objectMap, "recoveryMode", a.RecoveryMode)
+	populate(objectMap, "recoveryType", a.RecoveryType)
+	populate(objectMap, "resourceGuardOperationRequests", a.ResourceGuardOperationRequests)
+	populate(objectMap, "snapshotRestoreParameters", a.SnapshotRestoreParameters)
+	populate(objectMap, "sourceResourceId", a.SourceResourceID)
+	populate(objectMap, "targetInfo", a.TargetInfo)
+	populate(objectMap, "targetResourceGroupName", a.TargetResourceGroupName)
+	populate(objectMap, "targetVirtualMachineId", a.TargetVirtualMachineID)
+	populate(objectMap, "userAssignedManagedIdentityDetails", a.UserAssignedManagedIdentityDetails)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureWorkloadOraclePointInTimeRestoreRequest.
+func (a *AzureWorkloadOraclePointInTimeRestoreRequest) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "objectType":
+			err = unpopulate(val, "ObjectType", &a.ObjectType)
+			delete(rawMsg, key)
+		case "pointInTime":
+			err = unpopulateDateTimeRFC3339(val, "PointInTime", &a.PointInTime)
+			delete(rawMsg, key)
+		case "propertyBag":
+			err = unpopulate(val, "PropertyBag", &a.PropertyBag)
+			delete(rawMsg, key)
+		case "recoveryMode":
+			err = unpopulate(val, "RecoveryMode", &a.RecoveryMode)
+			delete(rawMsg, key)
+		case "recoveryType":
+			err = unpopulate(val, "RecoveryType", &a.RecoveryType)
+			delete(rawMsg, key)
+		case "resourceGuardOperationRequests":
+			err = unpopulate(val, "ResourceGuardOperationRequests", &a.ResourceGuardOperationRequests)
+			delete(rawMsg, key)
+		case "snapshotRestoreParameters":
+			err = unpopulate(val, "SnapshotRestoreParameters", &a.SnapshotRestoreParameters)
+			delete(rawMsg, key)
+		case "sourceResourceId":
+			err = unpopulate(val, "SourceResourceID", &a.SourceResourceID)
+			delete(rawMsg, key)
+		case "targetInfo":
+			err = unpopulate(val, "TargetInfo", &a.TargetInfo)
+			delete(rawMsg, key)
+		case "targetResourceGroupName":
+			err = unpopulate(val, "TargetResourceGroupName", &a.TargetResourceGroupName)
+			delete(rawMsg, key)
+		case "targetVirtualMachineId":
+			err = unpopulate(val, "TargetVirtualMachineID", &a.TargetVirtualMachineID)
+			delete(rawMsg, key)
+		case "userAssignedManagedIdentityDetails":
+			err = unpopulate(val, "UserAssignedManagedIdentityDetails", &a.UserAssignedManagedIdentityDetails)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AzureWorkloadOraclePointInTimeRestoreWithRehydrateRequest.
+func (a AzureWorkloadOraclePointInTimeRestoreWithRehydrateRequest) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	objectMap["objectType"] = "AzureWorkloadOraclePointInTimeRestoreWithRehydrateRequest"
+	populateDateTimeRFC3339(objectMap, "pointInTime", a.PointInTime)
+	populate(objectMap, "propertyBag", a.PropertyBag)
+	populate(objectMap, "recoveryMode", a.RecoveryMode)
+	populate(objectMap, "recoveryPointRehydrationInfo", a.RecoveryPointRehydrationInfo)
+	populate(objectMap, "recoveryType", a.RecoveryType)
+	populate(objectMap, "resourceGuardOperationRequests", a.ResourceGuardOperationRequests)
+	populate(objectMap, "snapshotRestoreParameters", a.SnapshotRestoreParameters)
+	populate(objectMap, "sourceResourceId", a.SourceResourceID)
+	populate(objectMap, "targetInfo", a.TargetInfo)
+	populate(objectMap, "targetResourceGroupName", a.TargetResourceGroupName)
+	populate(objectMap, "targetVirtualMachineId", a.TargetVirtualMachineID)
+	populate(objectMap, "userAssignedManagedIdentityDetails", a.UserAssignedManagedIdentityDetails)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureWorkloadOraclePointInTimeRestoreWithRehydrateRequest.
+func (a *AzureWorkloadOraclePointInTimeRestoreWithRehydrateRequest) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "objectType":
+			err = unpopulate(val, "ObjectType", &a.ObjectType)
+			delete(rawMsg, key)
+		case "pointInTime":
+			err = unpopulateDateTimeRFC3339(val, "PointInTime", &a.PointInTime)
+			delete(rawMsg, key)
+		case "propertyBag":
+			err = unpopulate(val, "PropertyBag", &a.PropertyBag)
+			delete(rawMsg, key)
+		case "recoveryMode":
+			err = unpopulate(val, "RecoveryMode", &a.RecoveryMode)
+			delete(rawMsg, key)
+		case "recoveryPointRehydrationInfo":
+			err = unpopulate(val, "RecoveryPointRehydrationInfo", &a.RecoveryPointRehydrationInfo)
+			delete(rawMsg, key)
+		case "recoveryType":
+			err = unpopulate(val, "RecoveryType", &a.RecoveryType)
+			delete(rawMsg, key)
+		case "resourceGuardOperationRequests":
+			err = unpopulate(val, "ResourceGuardOperationRequests", &a.ResourceGuardOperationRequests)
+			delete(rawMsg, key)
+		case "snapshotRestoreParameters":
+			err = unpopulate(val, "SnapshotRestoreParameters", &a.SnapshotRestoreParameters)
+			delete(rawMsg, key)
+		case "sourceResourceId":
+			err = unpopulate(val, "SourceResourceID", &a.SourceResourceID)
+			delete(rawMsg, key)
+		case "targetInfo":
+			err = unpopulate(val, "TargetInfo", &a.TargetInfo)
+			delete(rawMsg, key)
+		case "targetResourceGroupName":
+			err = unpopulate(val, "TargetResourceGroupName", &a.TargetResourceGroupName)
+			delete(rawMsg, key)
+		case "targetVirtualMachineId":
+			err = unpopulate(val, "TargetVirtualMachineID", &a.TargetVirtualMachineID)
+			delete(rawMsg, key)
+		case "userAssignedManagedIdentityDetails":
+			err = unpopulate(val, "UserAssignedManagedIdentityDetails", &a.UserAssignedManagedIdentityDetails)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AzureWorkloadOracleRecoveryPoint.
+func (a AzureWorkloadOracleRecoveryPoint) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	objectMap["objectType"] = "AzureWorkloadOracleRecoveryPoint"
+	populate(objectMap, "recoveryPointMoveReadinessInfo", a.RecoveryPointMoveReadinessInfo)
+	populate(objectMap, "recoveryPointProperties", a.RecoveryPointProperties)
+	populate(objectMap, "recoveryPointTierDetails", a.RecoveryPointTierDetails)
+	populateDateTimeRFC3339(objectMap, "recoveryPointTimeInUTC", a.RecoveryPointTimeInUTC)
+	populate(objectMap, "type", a.Type)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureWorkloadOracleRecoveryPoint.
+func (a *AzureWorkloadOracleRecoveryPoint) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "objectType":
+			err = unpopulate(val, "ObjectType", &a.ObjectType)
+			delete(rawMsg, key)
+		case "recoveryPointMoveReadinessInfo":
+			err = unpopulate(val, "RecoveryPointMoveReadinessInfo", &a.RecoveryPointMoveReadinessInfo)
+			delete(rawMsg, key)
+		case "recoveryPointProperties":
+			err = unpopulate(val, "RecoveryPointProperties", &a.RecoveryPointProperties)
+			delete(rawMsg, key)
+		case "recoveryPointTierDetails":
+			err = unpopulate(val, "RecoveryPointTierDetails", &a.RecoveryPointTierDetails)
+			delete(rawMsg, key)
+		case "recoveryPointTimeInUTC":
+			err = unpopulateDateTimeRFC3339(val, "RecoveryPointTimeInUTC", &a.RecoveryPointTimeInUTC)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &a.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AzureWorkloadOracleRestoreRequest.
+func (a AzureWorkloadOracleRestoreRequest) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	objectMap["objectType"] = "AzureWorkloadOracleRestoreRequest"
+	populate(objectMap, "propertyBag", a.PropertyBag)
+	populate(objectMap, "recoveryMode", a.RecoveryMode)
+	populate(objectMap, "recoveryType", a.RecoveryType)
+	populate(objectMap, "resourceGuardOperationRequests", a.ResourceGuardOperationRequests)
+	populate(objectMap, "snapshotRestoreParameters", a.SnapshotRestoreParameters)
+	populate(objectMap, "sourceResourceId", a.SourceResourceID)
+	populate(objectMap, "targetInfo", a.TargetInfo)
+	populate(objectMap, "targetResourceGroupName", a.TargetResourceGroupName)
+	populate(objectMap, "targetVirtualMachineId", a.TargetVirtualMachineID)
+	populate(objectMap, "userAssignedManagedIdentityDetails", a.UserAssignedManagedIdentityDetails)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureWorkloadOracleRestoreRequest.
+func (a *AzureWorkloadOracleRestoreRequest) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "objectType":
+			err = unpopulate(val, "ObjectType", &a.ObjectType)
+			delete(rawMsg, key)
+		case "propertyBag":
+			err = unpopulate(val, "PropertyBag", &a.PropertyBag)
+			delete(rawMsg, key)
+		case "recoveryMode":
+			err = unpopulate(val, "RecoveryMode", &a.RecoveryMode)
+			delete(rawMsg, key)
+		case "recoveryType":
+			err = unpopulate(val, "RecoveryType", &a.RecoveryType)
+			delete(rawMsg, key)
+		case "resourceGuardOperationRequests":
+			err = unpopulate(val, "ResourceGuardOperationRequests", &a.ResourceGuardOperationRequests)
+			delete(rawMsg, key)
+		case "snapshotRestoreParameters":
+			err = unpopulate(val, "SnapshotRestoreParameters", &a.SnapshotRestoreParameters)
+			delete(rawMsg, key)
+		case "sourceResourceId":
+			err = unpopulate(val, "SourceResourceID", &a.SourceResourceID)
+			delete(rawMsg, key)
+		case "targetInfo":
+			err = unpopulate(val, "TargetInfo", &a.TargetInfo)
+			delete(rawMsg, key)
+		case "targetResourceGroupName":
+			err = unpopulate(val, "TargetResourceGroupName", &a.TargetResourceGroupName)
+			delete(rawMsg, key)
+		case "targetVirtualMachineId":
+			err = unpopulate(val, "TargetVirtualMachineID", &a.TargetVirtualMachineID)
+			delete(rawMsg, key)
+		case "userAssignedManagedIdentityDetails":
+			err = unpopulate(val, "UserAssignedManagedIdentityDetails", &a.UserAssignedManagedIdentityDetails)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AzureWorkloadOracleRestoreWithRehydrateRequest.
+func (a AzureWorkloadOracleRestoreWithRehydrateRequest) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	objectMap["objectType"] = "AzureWorkloadOracleRestoreWithRehydrateRequest"
+	populate(objectMap, "propertyBag", a.PropertyBag)
+	populate(objectMap, "recoveryMode", a.RecoveryMode)
+	populate(objectMap, "recoveryPointRehydrationInfo", a.RecoveryPointRehydrationInfo)
+	populate(objectMap, "recoveryType", a.RecoveryType)
+	populate(objectMap, "resourceGuardOperationRequests", a.ResourceGuardOperationRequests)
+	populate(objectMap, "snapshotRestoreParameters", a.SnapshotRestoreParameters)
+	populate(objectMap, "sourceResourceId", a.SourceResourceID)
+	populate(objectMap, "targetInfo", a.TargetInfo)
+	populate(objectMap, "targetResourceGroupName", a.TargetResourceGroupName)
+	populate(objectMap, "targetVirtualMachineId", a.TargetVirtualMachineID)
+	populate(objectMap, "userAssignedManagedIdentityDetails", a.UserAssignedManagedIdentityDetails)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureWorkloadOracleRestoreWithRehydrateRequest.
+func (a *AzureWorkloadOracleRestoreWithRehydrateRequest) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "objectType":
+			err = unpopulate(val, "ObjectType", &a.ObjectType)
+			delete(rawMsg, key)
+		case "propertyBag":
+			err = unpopulate(val, "PropertyBag", &a.PropertyBag)
+			delete(rawMsg, key)
+		case "recoveryMode":
+			err = unpopulate(val, "RecoveryMode", &a.RecoveryMode)
+			delete(rawMsg, key)
+		case "recoveryPointRehydrationInfo":
+			err = unpopulate(val, "RecoveryPointRehydrationInfo", &a.RecoveryPointRehydrationInfo)
+			delete(rawMsg, key)
+		case "recoveryType":
+			err = unpopulate(val, "RecoveryType", &a.RecoveryType)
+			delete(rawMsg, key)
+		case "resourceGuardOperationRequests":
+			err = unpopulate(val, "ResourceGuardOperationRequests", &a.ResourceGuardOperationRequests)
+			delete(rawMsg, key)
+		case "snapshotRestoreParameters":
+			err = unpopulate(val, "SnapshotRestoreParameters", &a.SnapshotRestoreParameters)
+			delete(rawMsg, key)
+		case "sourceResourceId":
+			err = unpopulate(val, "SourceResourceID", &a.SourceResourceID)
+			delete(rawMsg, key)
+		case "targetInfo":
+			err = unpopulate(val, "TargetInfo", &a.TargetInfo)
+			delete(rawMsg, key)
+		case "targetResourceGroupName":
+			err = unpopulate(val, "TargetResourceGroupName", &a.TargetResourceGroupName)
+			delete(rawMsg, key)
+		case "targetVirtualMachineId":
+			err = unpopulate(val, "TargetVirtualMachineID", &a.TargetVirtualMachineID)
+			delete(rawMsg, key)
+		case "userAssignedManagedIdentityDetails":
+			err = unpopulate(val, "UserAssignedManagedIdentityDetails", &a.UserAssignedManagedIdentityDetails)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type AzureWorkloadPointInTimeRecoveryPoint.
 func (a AzureWorkloadPointInTimeRecoveryPoint) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -5292,6 +6733,388 @@ func (a *AzureWorkloadRestoreRequest) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "recoveryMode":
 			err = unpopulate(val, "RecoveryMode", &a.RecoveryMode)
+			delete(rawMsg, key)
+		case "recoveryType":
+			err = unpopulate(val, "RecoveryType", &a.RecoveryType)
+			delete(rawMsg, key)
+		case "resourceGuardOperationRequests":
+			err = unpopulate(val, "ResourceGuardOperationRequests", &a.ResourceGuardOperationRequests)
+			delete(rawMsg, key)
+		case "snapshotRestoreParameters":
+			err = unpopulate(val, "SnapshotRestoreParameters", &a.SnapshotRestoreParameters)
+			delete(rawMsg, key)
+		case "sourceResourceId":
+			err = unpopulate(val, "SourceResourceID", &a.SourceResourceID)
+			delete(rawMsg, key)
+		case "targetInfo":
+			err = unpopulate(val, "TargetInfo", &a.TargetInfo)
+			delete(rawMsg, key)
+		case "targetResourceGroupName":
+			err = unpopulate(val, "TargetResourceGroupName", &a.TargetResourceGroupName)
+			delete(rawMsg, key)
+		case "targetVirtualMachineId":
+			err = unpopulate(val, "TargetVirtualMachineID", &a.TargetVirtualMachineID)
+			delete(rawMsg, key)
+		case "userAssignedManagedIdentityDetails":
+			err = unpopulate(val, "UserAssignedManagedIdentityDetails", &a.UserAssignedManagedIdentityDetails)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AzureWorkloadSAPAsePointInTimeRecoveryPoint.
+func (a AzureWorkloadSAPAsePointInTimeRecoveryPoint) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	objectMap["objectType"] = "AzureWorkloadSAPAsePointInTimeRecoveryPoint"
+	populate(objectMap, "recoveryPointMoveReadinessInfo", a.RecoveryPointMoveReadinessInfo)
+	populate(objectMap, "recoveryPointProperties", a.RecoveryPointProperties)
+	populate(objectMap, "recoveryPointTierDetails", a.RecoveryPointTierDetails)
+	populateDateTimeRFC3339(objectMap, "recoveryPointTimeInUTC", a.RecoveryPointTimeInUTC)
+	populate(objectMap, "timeRanges", a.TimeRanges)
+	populate(objectMap, "type", a.Type)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureWorkloadSAPAsePointInTimeRecoveryPoint.
+func (a *AzureWorkloadSAPAsePointInTimeRecoveryPoint) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "objectType":
+			err = unpopulate(val, "ObjectType", &a.ObjectType)
+			delete(rawMsg, key)
+		case "recoveryPointMoveReadinessInfo":
+			err = unpopulate(val, "RecoveryPointMoveReadinessInfo", &a.RecoveryPointMoveReadinessInfo)
+			delete(rawMsg, key)
+		case "recoveryPointProperties":
+			err = unpopulate(val, "RecoveryPointProperties", &a.RecoveryPointProperties)
+			delete(rawMsg, key)
+		case "recoveryPointTierDetails":
+			err = unpopulate(val, "RecoveryPointTierDetails", &a.RecoveryPointTierDetails)
+			delete(rawMsg, key)
+		case "recoveryPointTimeInUTC":
+			err = unpopulateDateTimeRFC3339(val, "RecoveryPointTimeInUTC", &a.RecoveryPointTimeInUTC)
+			delete(rawMsg, key)
+		case "timeRanges":
+			err = unpopulate(val, "TimeRanges", &a.TimeRanges)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &a.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AzureWorkloadSAPAsePointInTimeRestoreRequest.
+func (a AzureWorkloadSAPAsePointInTimeRestoreRequest) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	objectMap["objectType"] = "AzureWorkloadSAPAsePointInTimeRestoreRequest"
+	populateDateTimeRFC3339(objectMap, "pointInTime", a.PointInTime)
+	populate(objectMap, "propertyBag", a.PropertyBag)
+	populate(objectMap, "recoveryMode", a.RecoveryMode)
+	populate(objectMap, "recoveryType", a.RecoveryType)
+	populate(objectMap, "resourceGuardOperationRequests", a.ResourceGuardOperationRequests)
+	populate(objectMap, "snapshotRestoreParameters", a.SnapshotRestoreParameters)
+	populate(objectMap, "sourceResourceId", a.SourceResourceID)
+	populate(objectMap, "targetInfo", a.TargetInfo)
+	populate(objectMap, "targetResourceGroupName", a.TargetResourceGroupName)
+	populate(objectMap, "targetVirtualMachineId", a.TargetVirtualMachineID)
+	populate(objectMap, "userAssignedManagedIdentityDetails", a.UserAssignedManagedIdentityDetails)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureWorkloadSAPAsePointInTimeRestoreRequest.
+func (a *AzureWorkloadSAPAsePointInTimeRestoreRequest) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "objectType":
+			err = unpopulate(val, "ObjectType", &a.ObjectType)
+			delete(rawMsg, key)
+		case "pointInTime":
+			err = unpopulateDateTimeRFC3339(val, "PointInTime", &a.PointInTime)
+			delete(rawMsg, key)
+		case "propertyBag":
+			err = unpopulate(val, "PropertyBag", &a.PropertyBag)
+			delete(rawMsg, key)
+		case "recoveryMode":
+			err = unpopulate(val, "RecoveryMode", &a.RecoveryMode)
+			delete(rawMsg, key)
+		case "recoveryType":
+			err = unpopulate(val, "RecoveryType", &a.RecoveryType)
+			delete(rawMsg, key)
+		case "resourceGuardOperationRequests":
+			err = unpopulate(val, "ResourceGuardOperationRequests", &a.ResourceGuardOperationRequests)
+			delete(rawMsg, key)
+		case "snapshotRestoreParameters":
+			err = unpopulate(val, "SnapshotRestoreParameters", &a.SnapshotRestoreParameters)
+			delete(rawMsg, key)
+		case "sourceResourceId":
+			err = unpopulate(val, "SourceResourceID", &a.SourceResourceID)
+			delete(rawMsg, key)
+		case "targetInfo":
+			err = unpopulate(val, "TargetInfo", &a.TargetInfo)
+			delete(rawMsg, key)
+		case "targetResourceGroupName":
+			err = unpopulate(val, "TargetResourceGroupName", &a.TargetResourceGroupName)
+			delete(rawMsg, key)
+		case "targetVirtualMachineId":
+			err = unpopulate(val, "TargetVirtualMachineID", &a.TargetVirtualMachineID)
+			delete(rawMsg, key)
+		case "userAssignedManagedIdentityDetails":
+			err = unpopulate(val, "UserAssignedManagedIdentityDetails", &a.UserAssignedManagedIdentityDetails)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AzureWorkloadSAPAsePointInTimeRestoreWithRehydrateRequest.
+func (a AzureWorkloadSAPAsePointInTimeRestoreWithRehydrateRequest) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	objectMap["objectType"] = "AzureWorkloadSAPAsePointInTimeRestoreWithRehydrateRequest"
+	populateDateTimeRFC3339(objectMap, "pointInTime", a.PointInTime)
+	populate(objectMap, "propertyBag", a.PropertyBag)
+	populate(objectMap, "recoveryMode", a.RecoveryMode)
+	populate(objectMap, "recoveryPointRehydrationInfo", a.RecoveryPointRehydrationInfo)
+	populate(objectMap, "recoveryType", a.RecoveryType)
+	populate(objectMap, "resourceGuardOperationRequests", a.ResourceGuardOperationRequests)
+	populate(objectMap, "snapshotRestoreParameters", a.SnapshotRestoreParameters)
+	populate(objectMap, "sourceResourceId", a.SourceResourceID)
+	populate(objectMap, "targetInfo", a.TargetInfo)
+	populate(objectMap, "targetResourceGroupName", a.TargetResourceGroupName)
+	populate(objectMap, "targetVirtualMachineId", a.TargetVirtualMachineID)
+	populate(objectMap, "userAssignedManagedIdentityDetails", a.UserAssignedManagedIdentityDetails)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureWorkloadSAPAsePointInTimeRestoreWithRehydrateRequest.
+func (a *AzureWorkloadSAPAsePointInTimeRestoreWithRehydrateRequest) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "objectType":
+			err = unpopulate(val, "ObjectType", &a.ObjectType)
+			delete(rawMsg, key)
+		case "pointInTime":
+			err = unpopulateDateTimeRFC3339(val, "PointInTime", &a.PointInTime)
+			delete(rawMsg, key)
+		case "propertyBag":
+			err = unpopulate(val, "PropertyBag", &a.PropertyBag)
+			delete(rawMsg, key)
+		case "recoveryMode":
+			err = unpopulate(val, "RecoveryMode", &a.RecoveryMode)
+			delete(rawMsg, key)
+		case "recoveryPointRehydrationInfo":
+			err = unpopulate(val, "RecoveryPointRehydrationInfo", &a.RecoveryPointRehydrationInfo)
+			delete(rawMsg, key)
+		case "recoveryType":
+			err = unpopulate(val, "RecoveryType", &a.RecoveryType)
+			delete(rawMsg, key)
+		case "resourceGuardOperationRequests":
+			err = unpopulate(val, "ResourceGuardOperationRequests", &a.ResourceGuardOperationRequests)
+			delete(rawMsg, key)
+		case "snapshotRestoreParameters":
+			err = unpopulate(val, "SnapshotRestoreParameters", &a.SnapshotRestoreParameters)
+			delete(rawMsg, key)
+		case "sourceResourceId":
+			err = unpopulate(val, "SourceResourceID", &a.SourceResourceID)
+			delete(rawMsg, key)
+		case "targetInfo":
+			err = unpopulate(val, "TargetInfo", &a.TargetInfo)
+			delete(rawMsg, key)
+		case "targetResourceGroupName":
+			err = unpopulate(val, "TargetResourceGroupName", &a.TargetResourceGroupName)
+			delete(rawMsg, key)
+		case "targetVirtualMachineId":
+			err = unpopulate(val, "TargetVirtualMachineID", &a.TargetVirtualMachineID)
+			delete(rawMsg, key)
+		case "userAssignedManagedIdentityDetails":
+			err = unpopulate(val, "UserAssignedManagedIdentityDetails", &a.UserAssignedManagedIdentityDetails)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AzureWorkloadSAPAseRecoveryPoint.
+func (a AzureWorkloadSAPAseRecoveryPoint) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	objectMap["objectType"] = "AzureWorkloadSAPAseRecoveryPoint"
+	populate(objectMap, "recoveryPointMoveReadinessInfo", a.RecoveryPointMoveReadinessInfo)
+	populate(objectMap, "recoveryPointProperties", a.RecoveryPointProperties)
+	populate(objectMap, "recoveryPointTierDetails", a.RecoveryPointTierDetails)
+	populateDateTimeRFC3339(objectMap, "recoveryPointTimeInUTC", a.RecoveryPointTimeInUTC)
+	populate(objectMap, "type", a.Type)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureWorkloadSAPAseRecoveryPoint.
+func (a *AzureWorkloadSAPAseRecoveryPoint) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "objectType":
+			err = unpopulate(val, "ObjectType", &a.ObjectType)
+			delete(rawMsg, key)
+		case "recoveryPointMoveReadinessInfo":
+			err = unpopulate(val, "RecoveryPointMoveReadinessInfo", &a.RecoveryPointMoveReadinessInfo)
+			delete(rawMsg, key)
+		case "recoveryPointProperties":
+			err = unpopulate(val, "RecoveryPointProperties", &a.RecoveryPointProperties)
+			delete(rawMsg, key)
+		case "recoveryPointTierDetails":
+			err = unpopulate(val, "RecoveryPointTierDetails", &a.RecoveryPointTierDetails)
+			delete(rawMsg, key)
+		case "recoveryPointTimeInUTC":
+			err = unpopulateDateTimeRFC3339(val, "RecoveryPointTimeInUTC", &a.RecoveryPointTimeInUTC)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &a.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AzureWorkloadSAPAseRestoreRequest.
+func (a AzureWorkloadSAPAseRestoreRequest) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	objectMap["objectType"] = "AzureWorkloadSAPAseRestoreRequest"
+	populate(objectMap, "propertyBag", a.PropertyBag)
+	populate(objectMap, "recoveryMode", a.RecoveryMode)
+	populate(objectMap, "recoveryType", a.RecoveryType)
+	populate(objectMap, "resourceGuardOperationRequests", a.ResourceGuardOperationRequests)
+	populate(objectMap, "snapshotRestoreParameters", a.SnapshotRestoreParameters)
+	populate(objectMap, "sourceResourceId", a.SourceResourceID)
+	populate(objectMap, "targetInfo", a.TargetInfo)
+	populate(objectMap, "targetResourceGroupName", a.TargetResourceGroupName)
+	populate(objectMap, "targetVirtualMachineId", a.TargetVirtualMachineID)
+	populate(objectMap, "userAssignedManagedIdentityDetails", a.UserAssignedManagedIdentityDetails)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureWorkloadSAPAseRestoreRequest.
+func (a *AzureWorkloadSAPAseRestoreRequest) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "objectType":
+			err = unpopulate(val, "ObjectType", &a.ObjectType)
+			delete(rawMsg, key)
+		case "propertyBag":
+			err = unpopulate(val, "PropertyBag", &a.PropertyBag)
+			delete(rawMsg, key)
+		case "recoveryMode":
+			err = unpopulate(val, "RecoveryMode", &a.RecoveryMode)
+			delete(rawMsg, key)
+		case "recoveryType":
+			err = unpopulate(val, "RecoveryType", &a.RecoveryType)
+			delete(rawMsg, key)
+		case "resourceGuardOperationRequests":
+			err = unpopulate(val, "ResourceGuardOperationRequests", &a.ResourceGuardOperationRequests)
+			delete(rawMsg, key)
+		case "snapshotRestoreParameters":
+			err = unpopulate(val, "SnapshotRestoreParameters", &a.SnapshotRestoreParameters)
+			delete(rawMsg, key)
+		case "sourceResourceId":
+			err = unpopulate(val, "SourceResourceID", &a.SourceResourceID)
+			delete(rawMsg, key)
+		case "targetInfo":
+			err = unpopulate(val, "TargetInfo", &a.TargetInfo)
+			delete(rawMsg, key)
+		case "targetResourceGroupName":
+			err = unpopulate(val, "TargetResourceGroupName", &a.TargetResourceGroupName)
+			delete(rawMsg, key)
+		case "targetVirtualMachineId":
+			err = unpopulate(val, "TargetVirtualMachineID", &a.TargetVirtualMachineID)
+			delete(rawMsg, key)
+		case "userAssignedManagedIdentityDetails":
+			err = unpopulate(val, "UserAssignedManagedIdentityDetails", &a.UserAssignedManagedIdentityDetails)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AzureWorkloadSAPAseRestoreWithRehydrateRequest.
+func (a AzureWorkloadSAPAseRestoreWithRehydrateRequest) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	objectMap["objectType"] = "AzureWorkloadSAPAseRestoreWithRehydrateRequest"
+	populate(objectMap, "propertyBag", a.PropertyBag)
+	populate(objectMap, "recoveryMode", a.RecoveryMode)
+	populate(objectMap, "recoveryPointRehydrationInfo", a.RecoveryPointRehydrationInfo)
+	populate(objectMap, "recoveryType", a.RecoveryType)
+	populate(objectMap, "resourceGuardOperationRequests", a.ResourceGuardOperationRequests)
+	populate(objectMap, "snapshotRestoreParameters", a.SnapshotRestoreParameters)
+	populate(objectMap, "sourceResourceId", a.SourceResourceID)
+	populate(objectMap, "targetInfo", a.TargetInfo)
+	populate(objectMap, "targetResourceGroupName", a.TargetResourceGroupName)
+	populate(objectMap, "targetVirtualMachineId", a.TargetVirtualMachineID)
+	populate(objectMap, "userAssignedManagedIdentityDetails", a.UserAssignedManagedIdentityDetails)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureWorkloadSAPAseRestoreWithRehydrateRequest.
+func (a *AzureWorkloadSAPAseRestoreWithRehydrateRequest) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "objectType":
+			err = unpopulate(val, "ObjectType", &a.ObjectType)
+			delete(rawMsg, key)
+		case "propertyBag":
+			err = unpopulate(val, "PropertyBag", &a.PropertyBag)
+			delete(rawMsg, key)
+		case "recoveryMode":
+			err = unpopulate(val, "RecoveryMode", &a.RecoveryMode)
+			delete(rawMsg, key)
+		case "recoveryPointRehydrationInfo":
+			err = unpopulate(val, "RecoveryPointRehydrationInfo", &a.RecoveryPointRehydrationInfo)
 			delete(rawMsg, key)
 		case "recoveryType":
 			err = unpopulate(val, "RecoveryType", &a.RecoveryType)
@@ -11680,6 +13503,60 @@ func (o *OperationWorkerResponse) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type PatchRecoveryPointInput.
+func (p PatchRecoveryPointInput) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "recoveryPointProperties", p.RecoveryPointProperties)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type PatchRecoveryPointInput.
+func (p *PatchRecoveryPointInput) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", p, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "recoveryPointProperties":
+			err = unpopulate(val, "RecoveryPointProperties", &p.RecoveryPointProperties)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", p, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type PatchRecoveryPointPropertiesInput.
+func (p PatchRecoveryPointPropertiesInput) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populateDateTimeRFC3339(objectMap, "expiryTime", p.ExpiryTime)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type PatchRecoveryPointPropertiesInput.
+func (p *PatchRecoveryPointPropertiesInput) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", p, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "expiryTime":
+			err = unpopulateDateTimeRFC3339(val, "ExpiryTime", &p.ExpiryTime)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", p, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type PointInTimeRange.
 func (p PointInTimeRange) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -14431,6 +16308,33 @@ func (u *UnlockDeleteResponse) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "unlockDeleteExpiryTime":
 			err = unpopulate(val, "UnlockDeleteExpiryTime", &u.UnlockDeleteExpiryTime)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", u, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type UpdateRecoveryPointRequest.
+func (u UpdateRecoveryPointRequest) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "properties", u.Properties)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type UpdateRecoveryPointRequest.
+func (u *UpdateRecoveryPointRequest) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", u, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "properties":
+			err = unpopulate(val, "Properties", &u.Properties)
 			delete(rawMsg, key)
 		}
 		if err != nil {
