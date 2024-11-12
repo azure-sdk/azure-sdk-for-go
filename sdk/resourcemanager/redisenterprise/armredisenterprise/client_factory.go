@@ -36,14 +36,6 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 	}, nil
 }
 
-// NewAccessPolicyAssignmentClient creates a new instance of AccessPolicyAssignmentClient.
-func (c *ClientFactory) NewAccessPolicyAssignmentClient() *AccessPolicyAssignmentClient {
-	return &AccessPolicyAssignmentClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
-	}
-}
-
 // NewClient creates a new instance of Client.
 func (c *ClientFactory) NewClient() *Client {
 	return &Client{
