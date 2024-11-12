@@ -1249,6 +1249,59 @@ type ResourceHealthMetadataClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// SiteCertificatesClientCreateOrUpdateOptions contains the optional parameters for the SiteCertificatesClient.CreateOrUpdate
+// method.
+type SiteCertificatesClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SiteCertificatesClientCreateOrUpdateSlotOptions contains the optional parameters for the SiteCertificatesClient.CreateOrUpdateSlot
+// method.
+type SiteCertificatesClientCreateOrUpdateSlotOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SiteCertificatesClientDeleteOptions contains the optional parameters for the SiteCertificatesClient.Delete method.
+type SiteCertificatesClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SiteCertificatesClientDeleteSlotOptions contains the optional parameters for the SiteCertificatesClient.DeleteSlot method.
+type SiteCertificatesClientDeleteSlotOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SiteCertificatesClientGetOptions contains the optional parameters for the SiteCertificatesClient.Get method.
+type SiteCertificatesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SiteCertificatesClientGetSlotOptions contains the optional parameters for the SiteCertificatesClient.GetSlot method.
+type SiteCertificatesClientGetSlotOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SiteCertificatesClientListOptions contains the optional parameters for the SiteCertificatesClient.NewListPager method.
+type SiteCertificatesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SiteCertificatesClientListSlotOptions contains the optional parameters for the SiteCertificatesClient.NewListSlotPager
+// method.
+type SiteCertificatesClientListSlotOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SiteCertificatesClientUpdateOptions contains the optional parameters for the SiteCertificatesClient.Update method.
+type SiteCertificatesClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SiteCertificatesClientUpdateSlotOptions contains the optional parameters for the SiteCertificatesClient.UpdateSlot method.
+type SiteCertificatesClientUpdateSlotOptions struct {
+	// placeholder for future optional parameters
+}
+
 // StaticSitesClientBeginApproveOrRejectPrivateEndpointConnectionOptions contains the optional parameters for the StaticSitesClient.BeginApproveOrRejectPrivateEndpointConnection
 // method.
 type StaticSitesClientBeginApproveOrRejectPrivateEndpointConnectionOptions struct {
@@ -4081,6 +4134,11 @@ type WebAppsClientUpdateHybridConnectionOptions struct {
 // WebAppsClientUpdateHybridConnectionSlotOptions contains the optional parameters for the WebAppsClient.UpdateHybridConnectionSlot
 // method.
 type WebAppsClientUpdateHybridConnectionSlotOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WebAppsClientUpdateMachineKeyOptions contains the optional parameters for the WebAppsClient.UpdateMachineKey method.
+type WebAppsClientUpdateMachineKeyOptions struct {
 	// placeholder for future optional parameters
 }
 
