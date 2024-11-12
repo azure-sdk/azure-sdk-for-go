@@ -1154,6 +1154,64 @@ type ResourceHealthMetadataClientListResponse struct {
 	ResourceHealthMetadataCollection
 }
 
+// SiteCertificatesClientCreateOrUpdateResponse contains the response from method SiteCertificatesClient.CreateOrUpdate.
+type SiteCertificatesClientCreateOrUpdateResponse struct {
+	// SSL certificate for an app.
+	AppCertificate
+}
+
+// SiteCertificatesClientCreateOrUpdateSlotResponse contains the response from method SiteCertificatesClient.CreateOrUpdateSlot.
+type SiteCertificatesClientCreateOrUpdateSlotResponse struct {
+	// SSL certificate for an app.
+	AppCertificate
+}
+
+// SiteCertificatesClientDeleteResponse contains the response from method SiteCertificatesClient.Delete.
+type SiteCertificatesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// SiteCertificatesClientDeleteSlotResponse contains the response from method SiteCertificatesClient.DeleteSlot.
+type SiteCertificatesClientDeleteSlotResponse struct {
+	// placeholder for future response values
+}
+
+// SiteCertificatesClientGetResponse contains the response from method SiteCertificatesClient.Get.
+type SiteCertificatesClientGetResponse struct {
+	// SSL certificate for an app.
+	AppCertificate
+}
+
+// SiteCertificatesClientGetSlotResponse contains the response from method SiteCertificatesClient.GetSlot.
+type SiteCertificatesClientGetSlotResponse struct {
+	// SSL certificate for an app.
+	AppCertificate
+}
+
+// SiteCertificatesClientListResponse contains the response from method SiteCertificatesClient.NewListPager.
+type SiteCertificatesClientListResponse struct {
+	// Collection of certificates.
+	AppCertificateCollection
+}
+
+// SiteCertificatesClientListSlotResponse contains the response from method SiteCertificatesClient.NewListSlotPager.
+type SiteCertificatesClientListSlotResponse struct {
+	// Collection of certificates.
+	AppCertificateCollection
+}
+
+// SiteCertificatesClientUpdateResponse contains the response from method SiteCertificatesClient.Update.
+type SiteCertificatesClientUpdateResponse struct {
+	// SSL certificate for an app.
+	AppCertificate
+}
+
+// SiteCertificatesClientUpdateSlotResponse contains the response from method SiteCertificatesClient.UpdateSlot.
+type SiteCertificatesClientUpdateSlotResponse struct {
+	// SSL certificate for an app.
+	AppCertificate
+}
+
 // StaticSitesClientApproveOrRejectPrivateEndpointConnectionResponse contains the response from method StaticSitesClient.BeginApproveOrRejectPrivateEndpointConnection.
 type StaticSitesClientApproveOrRejectPrivateEndpointConnectionResponse struct {
 	// Remote Private Endpoint Connection ARM resource.
@@ -3901,6 +3959,12 @@ type WebAppsClientUpdateHybridConnectionResponse struct {
 type WebAppsClientUpdateHybridConnectionSlotResponse struct {
 	// Hybrid Connection contract. This is used to configure a Hybrid Connection.
 	HybridConnection
+}
+
+// WebAppsClientUpdateMachineKeyResponse contains the response from method WebAppsClient.UpdateMachineKey.
+type WebAppsClientUpdateMachineKeyResponse struct {
+	// Anything
+	Interface any
 }
 
 // WebAppsClientUpdateMetadataResponse contains the response from method WebAppsClient.UpdateMetadata.
