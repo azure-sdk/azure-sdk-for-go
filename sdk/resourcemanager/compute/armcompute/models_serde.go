@@ -12114,6 +12114,7 @@ func (s *SKUProfile) UnmarshalJSON(data []byte) error {
 func (s SKUProfileVMSize) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "name", s.Name)
+	populate(objectMap, "rank", s.Rank)
 	return json.Marshal(objectMap)
 }
 
@@ -12128,6 +12129,9 @@ func (s *SKUProfileVMSize) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "name":
 			err = unpopulate(val, "Name", &s.Name)
+			delete(rawMsg, key)
+		case "rank":
+			err = unpopulate(val, "Rank", &s.Rank)
 			delete(rawMsg, key)
 		}
 		if err != nil {

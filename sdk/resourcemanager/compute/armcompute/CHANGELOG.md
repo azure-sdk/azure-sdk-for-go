@@ -1,5 +1,12 @@
 # Release History
 
+## 6.2.0 (2024-11-13)
+### Features Added
+
+- New value `AllocationStrategyPrioritized` added to enum type `AllocationStrategy`
+- New field `Rank` in struct `SKUProfileVMSize`
+
+
 ## 6.1.0 (2024-08-23)
 ### Features Added
 
