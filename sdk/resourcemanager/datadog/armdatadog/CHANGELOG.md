@@ -1,5 +1,26 @@
 # Release History
 
+## 2.0.0 (2024-11-13)
+### Breaking Changes
+
+- Operation `*CreationSupportedClient.NewListPager` does not support pagination anymore, use `*CreationSupportedClient.List` instead.
+- Struct `CreateResourceSupportedResponseList` has been removed
+- Struct `MonitoredSubscriptionPropertiesList` has been removed
+- Field `MonitoredSubscriptionPropertiesList` of struct `MonitoredSubscriptionsClientListResponse` has been removed
+
+### Features Added
+
+- New function `NewBillingInfoClient(string, azcore.TokenCredential, *arm.ClientOptions) (*BillingInfoClient, error)`
+- New function `*BillingInfoClient.Get(context.Context, string, string, *BillingInfoClientGetOptions) (BillingInfoClientGetResponse, error)`
+- New function `*ClientFactory.NewBillingInfoClient() *BillingInfoClient`
+- New struct `BillingInfoResponse`
+- New struct `MarketplaceSaaSInfo`
+- New struct `PartnerBillingEntity`
+- New field `Location` in struct `LinkedResource`
+- New anonymous field `MonitoredSubscriptionProperties` in struct `MonitoredSubscriptionsClientListResponse`
+- New field `CustomMetrics` in struct `MonitoringTagRulesProperties`
+
+
 ## 1.3.0 (2023-11-24)
 ### Features Added
 

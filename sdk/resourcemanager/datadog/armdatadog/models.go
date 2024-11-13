@@ -86,6 +86,15 @@ type AgreementResourceListResponse struct {
 	Value []*AgreementResource
 }
 
+// BillingInfoResponse - Marketplace Subscription and Organization details to which resource gets billed into.
+type BillingInfoResponse struct {
+	// Marketplace Subscription details
+	MarketplaceSaasInfo *MarketplaceSaaSInfo
+
+	// Partner Billing Entity details: Organization Info
+	PartnerBillingEntity *PartnerBillingEntity
+}
+
 // CreateResourceSupportedProperties - Datadog resource can be created or not properties.
 type CreateResourceSupportedProperties struct {
 	// READ-ONLY; Indicates if selected subscription supports Datadog resource creation, if not it is already being monitored
@@ -100,10 +109,6 @@ type CreateResourceSupportedProperties struct {
 type CreateResourceSupportedResponse struct {
 	// Represents the properties of the resource.
 	Properties *CreateResourceSupportedProperties
-}
-
-type CreateResourceSupportedResponseList struct {
-	Value []*CreateResourceSupportedResponse
 }
 
 // FilteringTag - The definition of a filtering tag. Filtering tags are used for capturing resources and include/exclude them
@@ -148,7 +153,7 @@ type HostMetadata struct {
 }
 
 type IdentityProperties struct {
-	// Specifies the identity type of the Datadog Monitor. At this time the only allowed value is 'SystemAssigned'.
+	// Identity type
 	Type *ManagedIdentityTypes
 
 	// READ-ONLY; The identity ID.
@@ -173,6 +178,9 @@ type InstallMethod struct {
 type LinkedResource struct {
 	// The ARM id of the linked resource.
 	ID *string
+
+	// The location of the linked resource.
+	Location *string
 }
 
 // LinkedResourceListResponse - Response of a list operation.
@@ -207,6 +215,24 @@ type LogsAgent struct {
 	Transport *string
 }
 
+// MarketplaceSaaSInfo - Marketplace SAAS Info of the resource.
+type MarketplaceSaaSInfo struct {
+	// The Azure Subscription ID to which the Marketplace Subscription belongs and gets billed into.
+	BilledAzureSubscriptionID *string
+
+	// Marketplace Subscription Details: SAAS Name
+	MarketplaceName *string
+
+	// Marketplace Subscription Details: SaaS Subscription Status
+	MarketplaceStatus *string
+
+	// Marketplace Subscription Id. This is a GUID-formatted string.
+	MarketplaceSubscriptionID *string
+
+	// Flag specifying if the Marketplace status is subscribed or not.
+	Subscribed *bool
+}
+
 // MetricRules - Set of rules for sending metrics for the Monitor resource.
 type MetricRules struct {
 	// List of filtering tags to be used for capturing metrics. If empty, all resources will be captured. If only Exclude action
@@ -217,14 +243,14 @@ type MetricRules struct {
 
 // MonitorProperties - Properties specific to the monitor resource.
 type MonitorProperties struct {
-	// Specify the Datadog organization name. In the case of linking to existing organizations, Id, ApiKey, and Applicationkey
-	// is required as well.
+	// Datadog organization properties
 	DatadogOrganizationProperties *OrganizationProperties
 
 	// Flag specifying if the resource monitoring is enabled or disabled.
-	MonitoringStatus *MonitoringStatus
+	MonitoringStatus  *MonitoringStatus
+	ProvisioningState *ProvisioningState
 
-	// Includes name, email and optionally, phone number. User Information can't be null.
+	// User info
 	UserInfo *UserInfo
 
 	// READ-ONLY
@@ -236,9 +262,6 @@ type MonitorProperties struct {
 	// READ-ONLY; Flag specifying the Marketplace Subscription Status of the resource. If payment is not made in time, the resource
 	// will go in Suspended state.
 	MarketplaceSubscriptionStatus *MarketplaceSubscriptionStatus
-
-	// READ-ONLY
-	ProvisioningState *ProvisioningState
 }
 
 type MonitorResource struct {
@@ -287,8 +310,7 @@ type MonitorResourceUpdateParameters struct {
 
 // MonitorUpdateProperties - The set of properties that can be update in a PATCH request to a monitor resource.
 type MonitorUpdateProperties struct {
-	// The new cloud security posture management value of the monitor resource. This collects configuration information for all
-	// resources in a subscription and track conformance to industry benchmarks.
+	// The new cspm value of the monitor resource.
 	Cspm *bool
 
 	// Flag specifying if the resource monitoring is enabled or disabled.
@@ -352,10 +374,6 @@ type MonitoredSubscriptionProperties struct {
 	Type *string
 }
 
-type MonitoredSubscriptionPropertiesList struct {
-	Value []*MonitoredSubscriptionProperties
-}
-
 // MonitoringTagRules - Capture logs and metrics of Azure resources based on ARM tags.
 type MonitoringTagRules struct {
 	// Definition of the properties for a TagRules resource.
@@ -388,13 +406,14 @@ type MonitoringTagRulesProperties struct {
 	// Configuration to enable/disable auto-muting flag
 	Automuting *bool
 
+	// Configuration to enable/disable custom metrics. If enabled, custom metrics from app insights will be sent.
+	CustomMetrics *bool
+
 	// Set of rules for sending logs for the Monitor resource.
 	LogRules *LogRules
 
 	// Set of rules for sending metrics for the Monitor resource.
-	MetricRules *MetricRules
-
-	// READ-ONLY
+	MetricRules       *MetricRules
 	ProvisioningState *ProvisioningState
 }
 
@@ -434,8 +453,7 @@ type OperationResult struct {
 	Name *string
 }
 
-// OrganizationProperties - Specify the Datadog organization name. In the case of linking to existing organizations, Id, ApiKey,
-// and Applicationkey is required as well.
+// OrganizationProperties - Datadog organization properties
 type OrganizationProperties struct {
 	// Api key associated to the Datadog organization.
 	APIKey *string
@@ -443,9 +461,7 @@ type OrganizationProperties struct {
 	// Application key associated to the Datadog organization.
 	ApplicationKey *string
 
-	// The configuration which describes the state of cloud security posture management. This collects configuration information
-	// for all resources in a subscription and track conformance to industry
-	// benchmarks.
+	// The configuration which describes the state of cloud security posture management
 	Cspm *bool
 
 	// The Id of the Enterprise App used for Single sign on.
@@ -467,8 +483,20 @@ type OrganizationProperties struct {
 	RedirectURI *string
 }
 
+// PartnerBillingEntity - Partner Billing details associated with the resource.
+type PartnerBillingEntity struct {
+	// The Datadog Organization Id.
+	ID *string
+
+	// The Datadog Organization Name.
+	Name *string
+
+	// Link to the datadog organization page
+	PartnerEntityURI *string
+}
+
 type ResourceSKU struct {
-	// REQUIRED; Name of the SKU in {PlanId} format. For Terraform, the only allowed value is 'linking'.
+	// REQUIRED; Name of the SKU.
 	Name *string
 }
 
@@ -478,13 +506,11 @@ type SetPasswordLink struct {
 
 type SingleSignOnProperties struct {
 	// The Id of the Enterprise App used for Single sign-on.
-	EnterpriseAppID *string
+	EnterpriseAppID   *string
+	ProvisioningState *ProvisioningState
 
 	// Various states of the SSO resource
 	SingleSignOnState *SingleSignOnStates
-
-	// READ-ONLY
-	ProvisioningState *ProvisioningState
 
 	// READ-ONLY; The login URL specific to this Datadog Organization.
 	SingleSignOnURL *string
@@ -545,7 +571,7 @@ type SystemData struct {
 	LastModifiedByType *CreatedByType
 }
 
-// UserInfo - Includes name, email and optionally, phone number. User Information can't be null.
+// UserInfo - User info
 type UserInfo struct {
 	// Email of the user used by Datadog for contacting them if needed
 	EmailAddress *string

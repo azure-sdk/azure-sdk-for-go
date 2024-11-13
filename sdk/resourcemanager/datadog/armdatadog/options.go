@@ -8,12 +8,17 @@
 
 package armdatadog
 
+// BillingInfoClientGetOptions contains the optional parameters for the BillingInfoClient.Get method.
+type BillingInfoClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
 // CreationSupportedClientGetOptions contains the optional parameters for the CreationSupportedClient.Get method.
 type CreationSupportedClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CreationSupportedClientListOptions contains the optional parameters for the CreationSupportedClient.NewListPager method.
+// CreationSupportedClientListOptions contains the optional parameters for the CreationSupportedClient.List method.
 type CreationSupportedClientListOptions struct {
 	// placeholder for future optional parameters
 }
