@@ -8,15 +8,22 @@
 
 package armdatadog
 
+// BillingInfoClientGetResponse contains the response from method BillingInfoClient.Get.
+type BillingInfoClientGetResponse struct {
+	// Marketplace Subscription and Organization details to which resource gets billed into.
+	BillingInfoResponse
+}
+
 // CreationSupportedClientGetResponse contains the response from method CreationSupportedClient.Get.
 type CreationSupportedClientGetResponse struct {
 	// Datadog resource can be created or not.
 	CreateResourceSupportedResponse
 }
 
-// CreationSupportedClientListResponse contains the response from method CreationSupportedClient.NewListPager.
+// CreationSupportedClientListResponse contains the response from method CreationSupportedClient.List.
 type CreationSupportedClientListResponse struct {
-	CreateResourceSupportedResponseList
+	// Datadog resource can be created or not.
+	CreateResourceSupportedResponse
 }
 
 // MarketplaceAgreementsClientCreateOrUpdateResponse contains the response from method MarketplaceAgreementsClient.CreateOrUpdate.
@@ -49,7 +56,8 @@ type MonitoredSubscriptionsClientGetResponse struct {
 
 // MonitoredSubscriptionsClientListResponse contains the response from method MonitoredSubscriptionsClient.NewListPager.
 type MonitoredSubscriptionsClientListResponse struct {
-	MonitoredSubscriptionPropertiesList
+	// The request to update subscriptions needed to be monitored by the Datadog monitor resource.
+	MonitoredSubscriptionProperties
 }
 
 // MonitoredSubscriptionsClientUpdateResponse contains the response from method MonitoredSubscriptionsClient.BeginUpdate.
