@@ -1,5 +1,20 @@
 # Release History
 
+## 1.0.0 (2024-11-13)
+### Breaking Changes
+
+- Type of `OperationErrorDetails.ErrorDetails` has been changed from `*time.Time` to `*string`
+- Field `CrpOperationID`, `TimeStamp` of struct `OperationErrorDetails` has been removed
+- Field `TimeZone` of struct `ResourceOperationDetails` has been removed
+- Field `DeadLine`, `TimeZone` of struct `Schedule` has been removed
+
+### Features Added
+
+- New field `AzureOperationName`, `Timestamp` in struct `OperationErrorDetails`
+- New field `Timezone` in struct `ResourceOperationDetails`
+- New field `Deadline`, `Timezone` in struct `Schedule`
+
+
 ## 0.1.0 (2024-09-27)
 ### Other Changes
 
