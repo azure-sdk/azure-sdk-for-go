@@ -140,9 +140,9 @@ type BlobContainersClientCreateOptions struct {
 // BlobContainersClientCreateOrUpdateImmutabilityPolicyOptions contains the optional parameters for the BlobContainersClient.CreateOrUpdateImmutabilityPolicy
 // method.
 type BlobContainersClientCreateOrUpdateImmutabilityPolicyOptions struct {
-	// The entity state (ETag) version of the immutability policy to update. A value of "*" can be used to apply the operation
-	// only if the immutability policy already exists. If omitted, this operation will
-	// always be applied.
+	// The entity state (ETag) version of the immutability policy to update must be returned to the server for all update operations.
+	// The ETag value must include the leading and trailing double quotes as
+	// returned by the service.
 	IfMatch *string
 
 	// The ImmutabilityPolicy Properties that will be created or updated to a blob container.
@@ -170,9 +170,9 @@ type BlobContainersClientExtendImmutabilityPolicyOptions struct {
 // BlobContainersClientGetImmutabilityPolicyOptions contains the optional parameters for the BlobContainersClient.GetImmutabilityPolicy
 // method.
 type BlobContainersClientGetImmutabilityPolicyOptions struct {
-	// The entity state (ETag) version of the immutability policy to update. A value of "*" can be used to apply the operation
-	// only if the immutability policy already exists. If omitted, this operation will
-	// always be applied.
+	// The entity state (ETag) version of the immutability policy to update must be returned to the server for all update operations.
+	// The ETag value must include the leading and trailing double quotes as
+	// returned by the service.
 	IfMatch *string
 }
 
