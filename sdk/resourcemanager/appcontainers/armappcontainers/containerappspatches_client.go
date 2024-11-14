@@ -11,14 +11,13 @@ package armappcontainers
 import (
 	"context"
 	"errors"
-	"net/http"
-	"net/url"
-	"strings"
-
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"net/http"
+	"net/url"
+	"strings"
 )
 
 // ContainerAppsPatchesClient contains the methods for the ContainerAppsPatches group.
@@ -47,7 +46,7 @@ func NewContainerAppsPatchesClient(subscriptionID string, credential azcore.Toke
 // BeginApply - Apply a Container Apps Patch resource with patch name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App the Patch is associated.
 //   - patchName - The name of the patch
@@ -74,7 +73,7 @@ func (client *ContainerAppsPatchesClient) BeginApply(ctx context.Context, resour
 // Apply - Apply a Container Apps Patch resource with patch name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 func (client *ContainerAppsPatchesClient) apply(ctx context.Context, resourceGroupName string, containerAppName string, patchName string, options *ContainerAppsPatchesClientBeginApplyOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ContainerAppsPatchesClient.BeginApply"
@@ -120,7 +119,7 @@ func (client *ContainerAppsPatchesClient) applyCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -129,7 +128,7 @@ func (client *ContainerAppsPatchesClient) applyCreateRequest(ctx context.Context
 // BeginDelete - Delete specific Container Apps Patch by patch name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App the Patch is associated.
 //   - patchName - The name of the patch
@@ -156,7 +155,7 @@ func (client *ContainerAppsPatchesClient) BeginDelete(ctx context.Context, resou
 // Delete - Delete specific Container Apps Patch by patch name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 func (client *ContainerAppsPatchesClient) deleteOperation(ctx context.Context, resourceGroupName string, containerAppName string, patchName string, options *ContainerAppsPatchesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ContainerAppsPatchesClient.BeginDelete"
@@ -202,7 +201,7 @@ func (client *ContainerAppsPatchesClient) deleteCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -211,7 +210,7 @@ func (client *ContainerAppsPatchesClient) deleteCreateRequest(ctx context.Contex
 // Get - Get details for specific Container Apps Patch by patch name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App the Patch is associated.
 //   - patchName - The name of the patch
@@ -263,7 +262,7 @@ func (client *ContainerAppsPatchesClient) getCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -280,7 +279,7 @@ func (client *ContainerAppsPatchesClient) getHandleResponse(resp *http.Response)
 
 // NewListByContainerAppPager - List Container Apps Patch resources by ContainerApp.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App the Patch is associated.
 //   - options - ContainerAppsPatchesClientListByContainerAppOptions contains the optional parameters for the ContainerAppsPatchesClient.NewListByContainerAppPager
@@ -331,7 +330,7 @@ func (client *ContainerAppsPatchesClient) listByContainerAppCreateRequest(ctx co
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -349,7 +348,7 @@ func (client *ContainerAppsPatchesClient) listByContainerAppHandleResponse(resp 
 // BeginSkipConfigure - Configure the Container Apps Patch skip option by patch name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - containerAppName - Name of the Container App the Patch is associated.
 //   - patchName - The name of the patch
@@ -377,7 +376,7 @@ func (client *ContainerAppsPatchesClient) BeginSkipConfigure(ctx context.Context
 // SkipConfigure - Configure the Container Apps Patch skip option by patch name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 func (client *ContainerAppsPatchesClient) skipConfigure(ctx context.Context, resourceGroupName string, containerAppName string, patchName string, patchSkipConfig PatchSkipConfig, options *ContainerAppsPatchesClientBeginSkipConfigureOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ContainerAppsPatchesClient.BeginSkipConfigure"
@@ -423,7 +422,7 @@ func (client *ContainerAppsPatchesClient) skipConfigureCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, patchSkipConfig); err != nil {
