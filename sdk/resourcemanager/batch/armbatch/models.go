@@ -969,9 +969,9 @@ type ImageReference struct {
 
 // InboundNatPool - A inbound NAT pool that can be used to address specific ports on compute nodes in a Batch pool externally.
 type InboundNatPool struct {
-	// REQUIRED; This must be unique within a Batch pool. Acceptable values are between 1 and 65535 except for 22, 3389, 29876
-	// and 29877 as these are reserved. If any reserved values are provided the request fails
-	// with HTTP status code 400.
+	// REQUIRED; This must be unique within a Batch pool. Acceptable values are between 1 and 65535 except for 29876 and 29877
+	// as these are reserved. If any reserved values are provided the request fails with HTTP
+	// status code 400.
 	BackendPort *int32
 
 	// REQUIRED; Acceptable values range between 1 and 65534 except ports from 50000 to 55000 which are reserved by the Batch
@@ -1168,9 +1168,9 @@ type NetworkConfiguration struct {
 	// If communication to the compute nodes in the specified subnet is denied by
 	// an NSG, then the Batch service will set the state of the compute nodes to unusable. If the specified VNet has any associated
 	// Network Security Groups (NSG), then a few reserved system ports must be
-	// enabled for inbound communication. Enable ports 29876 and 29877, as well as port 22 for Linux and port 3389 for Windows.
-	// Also enable outbound connections to Azure Storage on port 443. For more details
-	// see: https://docs.microsoft.com/en-us/azure/batch/batch-api-basics#virtual-network-vnet-and-firewall-configuration
+	// enabled for inbound communication，including ports 29876 and 29877. Also enable outbound connections to Azure Storage on
+	// port 443. For more details see:
+	// https://docs.microsoft.com/en-us/azure/batch/batch-api-basics#virtual-network-vnet-and-firewall-configuration
 	SubnetID *string
 }
 
