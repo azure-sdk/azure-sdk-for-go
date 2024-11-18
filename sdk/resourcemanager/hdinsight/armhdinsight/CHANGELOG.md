@@ -1,5 +1,12 @@
 # Release History
 
+## 1.3.0-beta.3 (2024-11-18)
+### Features Added
+
+- New field `EntraUsers` in struct `GatewaySettings`
+- New field `EntraUsers` in struct `UpdateGatewaySettingsParameters`
+
+
 ## 1.3.0-beta.2 (2024-08-22)
 ### Features Added
 

@@ -2007,6 +2007,7 @@ func (e *Extension) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type GatewaySettings.
 func (g GatewaySettings) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "entraUsers", g.EntraUsers)
 	populate(objectMap, "restAuthCredential.isEnabled", g.IsCredentialEnabled)
 	populate(objectMap, "restAuthCredential.password", g.Password)
 	populate(objectMap, "restAuthCredential.username", g.UserName)
@@ -2022,6 +2023,9 @@ func (g *GatewaySettings) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "entraUsers":
+			err = unpopulate(val, "EntraUsers", &g.EntraUsers)
+			delete(rawMsg, key)
 		case "restAuthCredential.isEnabled":
 			err = unpopulate(val, "IsCredentialEnabled", &g.IsCredentialEnabled)
 			delete(rawMsg, key)
@@ -3951,6 +3955,7 @@ func (u *UpdateClusterIdentityCertificateParameters) UnmarshalJSON(data []byte) 
 // MarshalJSON implements the json.Marshaller interface for type UpdateGatewaySettingsParameters.
 func (u UpdateGatewaySettingsParameters) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "entraUsers", u.EntraUsers)
 	populate(objectMap, "restAuthCredential.isEnabled", u.IsCredentialEnabled)
 	populate(objectMap, "restAuthCredential.password", u.Password)
 	populate(objectMap, "restAuthCredential.username", u.UserName)
@@ -3966,6 +3971,9 @@ func (u *UpdateGatewaySettingsParameters) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "entraUsers":
+			err = unpopulate(val, "EntraUsers", &u.EntraUsers)
+			delete(rawMsg, key)
 		case "restAuthCredential.isEnabled":
 			err = unpopulate(val, "IsCredentialEnabled", &u.IsCredentialEnabled)
 			delete(rawMsg, key)
