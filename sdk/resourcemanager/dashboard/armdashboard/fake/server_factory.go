@@ -20,6 +20,7 @@ import (
 // ServerFactory is a fake server for instances of the armdashboard.ClientFactory type.
 type ServerFactory struct {
 	GrafanaServer                    GrafanaServer
+	IntegrationFabricsServer         IntegrationFabricsServer
 	ManagedPrivateEndpointsServer    ManagedPrivateEndpointsServer
 	OperationsServer                 OperationsServer
 	PrivateEndpointConnectionsServer PrivateEndpointConnectionsServer
@@ -41,6 +42,7 @@ type ServerFactoryTransport struct {
 	srv                                *ServerFactory
 	trMu                               sync.Mutex
 	trGrafanaServer                    *GrafanaServerTransport
+	trIntegrationFabricsServer         *IntegrationFabricsServerTransport
 	trManagedPrivateEndpointsServer    *ManagedPrivateEndpointsServerTransport
 	trOperationsServer                 *OperationsServerTransport
 	trPrivateEndpointConnectionsServer *PrivateEndpointConnectionsServerTransport
@@ -63,6 +65,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "GrafanaClient":
 		initServer(s, &s.trGrafanaServer, func() *GrafanaServerTransport { return NewGrafanaServerTransport(&s.srv.GrafanaServer) })
 		resp, err = s.trGrafanaServer.Do(req)
+	case "IntegrationFabricsClient":
+		initServer(s, &s.trIntegrationFabricsServer, func() *IntegrationFabricsServerTransport {
+			return NewIntegrationFabricsServerTransport(&s.srv.IntegrationFabricsServer)
+		})
+		resp, err = s.trIntegrationFabricsServer.Do(req)
 	case "ManagedPrivateEndpointsClient":
 		initServer(s, &s.trManagedPrivateEndpointsServer, func() *ManagedPrivateEndpointsServerTransport {
 			return NewManagedPrivateEndpointsServerTransport(&s.srv.ManagedPrivateEndpointsServer)

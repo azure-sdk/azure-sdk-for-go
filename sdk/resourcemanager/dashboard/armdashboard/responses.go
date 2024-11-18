@@ -55,6 +55,34 @@ type GrafanaClientUpdateResponse struct {
 	AzureAsyncOperation *string
 }
 
+// IntegrationFabricsClientCreateResponse contains the response from method IntegrationFabricsClient.BeginCreate.
+type IntegrationFabricsClientCreateResponse struct {
+	// The integration fabric resource type.
+	IntegrationFabric
+}
+
+// IntegrationFabricsClientDeleteResponse contains the response from method IntegrationFabricsClient.BeginDelete.
+type IntegrationFabricsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// IntegrationFabricsClientGetResponse contains the response from method IntegrationFabricsClient.Get.
+type IntegrationFabricsClientGetResponse struct {
+	// The integration fabric resource type.
+	IntegrationFabric
+}
+
+// IntegrationFabricsClientListResponse contains the response from method IntegrationFabricsClient.NewListPager.
+type IntegrationFabricsClientListResponse struct {
+	IntegrationFabricListResponse
+}
+
+// IntegrationFabricsClientUpdateResponse contains the response from method IntegrationFabricsClient.BeginUpdate.
+type IntegrationFabricsClientUpdateResponse struct {
+	// The integration fabric resource type.
+	IntegrationFabric
+}
+
 // ManagedPrivateEndpointsClientCreateResponse contains the response from method ManagedPrivateEndpointsClient.BeginCreate.
 type ManagedPrivateEndpointsClientCreateResponse struct {
 	// The managed private endpoint resource type.
