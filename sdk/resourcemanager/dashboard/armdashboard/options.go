@@ -53,6 +53,37 @@ type GrafanaClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
+// IntegrationFabricsClientBeginCreateOptions contains the optional parameters for the IntegrationFabricsClient.BeginCreate
+// method.
+type IntegrationFabricsClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// IntegrationFabricsClientBeginDeleteOptions contains the optional parameters for the IntegrationFabricsClient.BeginDelete
+// method.
+type IntegrationFabricsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// IntegrationFabricsClientBeginUpdateOptions contains the optional parameters for the IntegrationFabricsClient.BeginUpdate
+// method.
+type IntegrationFabricsClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// IntegrationFabricsClientGetOptions contains the optional parameters for the IntegrationFabricsClient.Get method.
+type IntegrationFabricsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// IntegrationFabricsClientListOptions contains the optional parameters for the IntegrationFabricsClient.NewListPager method.
+type IntegrationFabricsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ManagedPrivateEndpointsClientBeginCreateOptions contains the optional parameters for the ManagedPrivateEndpointsClient.BeginCreate
 // method.
 type ManagedPrivateEndpointsClientBeginCreateOptions struct {
