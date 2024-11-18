@@ -21,7 +21,7 @@ type Association struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -96,7 +96,7 @@ type Frontend struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -131,6 +131,24 @@ type FrontendProperties struct {
 type FrontendUpdate struct {
 	// Resource tags.
 	Tags map[string]*string
+}
+
+// IPAccessRule - Ip Access Policy Rules
+type IPAccessRule struct {
+	// REQUIRED; Action of the Rule
+	Action *IPAccessRuleAction
+
+	// REQUIRED; Priority of the Ip Access Rule
+	Priority *int64
+
+	// REQUIRED; Source Address Prefixed Applied by the Rule
+	SourceAddressPrefixes []*string
+}
+
+// IPAccessRulesPolicy - Ip Access Policy
+type IPAccessRulesPolicy struct {
+	// Ip Access Policy Rules List
+	Rules []*IPAccessRule
 }
 
 // Operation - Details of a REST API operation, returned from the Resource Provider Operations API
@@ -199,7 +217,7 @@ type SecurityPolicy struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -235,6 +253,9 @@ type SecurityPolicyListResult struct {
 
 // SecurityPolicyProperties - SecurityPolicy Properties.
 type SecurityPolicyProperties struct {
+	// Ip Access Policy of the Traffic Controller Security Policy*
+	IPAccessRulesPolicy *IPAccessRulesPolicy
+
 	// Web Application Firewall Policy of the Traffic Controller Security Policy
 	WafPolicy *WafPolicy
 
@@ -256,6 +277,9 @@ type SecurityPolicyUpdate struct {
 
 // SecurityPolicyUpdateProperties - The updatable properties of the SecurityPolicy.
 type SecurityPolicyUpdateProperties struct {
+	// Ip Access Policy of the Traffic Controller Security Policy*
+	IPAccessRulesPolicy *IPAccessRulesPolicy
+
 	// Web Application Firewall Policy of the Traffic Controller Security Policy
 	WafPolicy *WafPolicyUpdate
 }
@@ -292,7 +316,7 @@ type TrafficController struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
