@@ -623,7 +623,8 @@ type ClusterMonitoringResponse struct {
 
 // ClusterPatchParameters - The PatchCluster request parameters
 type ClusterPatchParameters struct {
-	// The identity of the cluster, if configured.
+	// The identity of the cluster, if configured. Setting this property will override the existing identity configuration of
+	// the cluster.
 	Identity *ClusterIdentity
 
 	// The resource tags.
@@ -782,6 +783,9 @@ type Extension struct {
 
 // GatewaySettings - Gateway settings.
 type GatewaySettings struct {
+	// List of Entra user emails for gateway access.
+	EntraUsers []*string
+
 	// READ-ONLY; Indicates whether or not the gateway settings based authorization is enabled.
 	IsCredentialEnabled *string
 
@@ -1505,8 +1509,12 @@ type UpdateClusterIdentityCertificateParameters struct {
 	CertificatePassword *string
 }
 
-// UpdateGatewaySettingsParameters - The update gateway settings request parameters.
+// UpdateGatewaySettingsParameters - The update gateway settings request parameters. Plz note either basic or entraUsers should
+// be selected at a time.
 type UpdateGatewaySettingsParameters struct {
+	// List of Entra user emails for gateway access.
+	EntraUsers []*string
+
 	// Indicates whether or not the gateway settings based authorization is enabled.
 	IsCredentialEnabled *bool
 
