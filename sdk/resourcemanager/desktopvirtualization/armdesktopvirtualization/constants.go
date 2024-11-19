@@ -10,7 +10,7 @@ package armdesktopvirtualization
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization"
-	moduleVersion = "v2.3.0"
+	moduleVersion = "v2.4.0"
 )
 
 // AppAttachPackageArchitectures - Possible device architectures that an app attach package can be configured for
@@ -133,6 +133,27 @@ func PossibleDayOfWeekValues() []DayOfWeek {
 		DayOfWeekThursday,
 		DayOfWeekTuesday,
 		DayOfWeekWednesday,
+	}
+}
+
+// DirectUDP - Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection
+// type when making connections. This means that this connection is possible, but is
+// not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection
+// type when making connections
+type DirectUDP string
+
+const (
+	DirectUDPDefault  DirectUDP = "Default"
+	DirectUDPDisabled DirectUDP = "Disabled"
+	DirectUDPEnabled  DirectUDP = "Enabled"
+)
+
+// PossibleDirectUDPValues returns the possible values for the DirectUDP const type.
+func PossibleDirectUDPValues() []DirectUDP {
+	return []DirectUDP{
+		DirectUDPDefault,
+		DirectUDPDisabled,
+		DirectUDPEnabled,
 	}
 }
 
@@ -310,6 +331,27 @@ func PossibleLoadBalancerTypeValues() []LoadBalancerType {
 	}
 }
 
+// ManagedPrivateUDP - Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt
+// this connection type when making connections. This means that this connection is possible, but is
+// not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection
+// type when making connections
+type ManagedPrivateUDP string
+
+const (
+	ManagedPrivateUDPDefault  ManagedPrivateUDP = "Default"
+	ManagedPrivateUDPDisabled ManagedPrivateUDP = "Disabled"
+	ManagedPrivateUDPEnabled  ManagedPrivateUDP = "Enabled"
+)
+
+// PossibleManagedPrivateUDPValues returns the possible values for the ManagedPrivateUDP const type.
+func PossibleManagedPrivateUDPValues() []ManagedPrivateUDP {
+	return []ManagedPrivateUDP{
+		ManagedPrivateUDPDefault,
+		ManagedPrivateUDPDisabled,
+		ManagedPrivateUDPEnabled,
+	}
+}
+
 // PackageTimestamped - Is package timestamped so it can ignore the certificate expiry date
 type PackageTimestamped string
 
@@ -435,6 +477,27 @@ func PossiblePublicNetworkAccessValues() []PublicNetworkAccess {
 	}
 }
 
+// PublicUDP - Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection
+// type when making connections. This means that this connection is possible, but is
+// not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection
+// type when making connections
+type PublicUDP string
+
+const (
+	PublicUDPDefault  PublicUDP = "Default"
+	PublicUDPDisabled PublicUDP = "Disabled"
+	PublicUDPEnabled  PublicUDP = "Enabled"
+)
+
+// PossiblePublicUDPValues returns the possible values for the PublicUDP const type.
+func PossiblePublicUDPValues() []PublicUDP {
+	return []PublicUDP{
+		PublicUDPDefault,
+		PublicUDPDisabled,
+		PublicUDPEnabled,
+	}
+}
+
 // RegistrationTokenOperation - The type of resetting the token.
 type RegistrationTokenOperation string
 
@@ -450,6 +513,27 @@ func PossibleRegistrationTokenOperationValues() []RegistrationTokenOperation {
 		RegistrationTokenOperationDelete,
 		RegistrationTokenOperationNone,
 		RegistrationTokenOperationUpdate,
+	}
+}
+
+// RelayUDP - Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection
+// type when making connections. This means that this connection is possible, but is
+// not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection
+// type when making connections
+type RelayUDP string
+
+const (
+	RelayUDPDefault  RelayUDP = "Default"
+	RelayUDPDisabled RelayUDP = "Disabled"
+	RelayUDPEnabled  RelayUDP = "Enabled"
+)
+
+// PossibleRelayUDPValues returns the possible values for the RelayUDP const type.
+func PossibleRelayUDPValues() []RelayUDP {
+	return []RelayUDP{
+		RelayUDPDefault,
+		RelayUDPDisabled,
+		RelayUDPEnabled,
 	}
 }
 
