@@ -12,7 +12,7 @@ import (
 	"log"
 )
 
-// Generated from example definition: 2024-11-01/BrokerAuthentication_CreateOrUpdate_Complex.json
+// Generated from example definition: 2025-01-01-preview/BrokerAuthentication_CreateOrUpdate_Complex.json
 func ExampleBrokerAuthenticationClient_BeginCreateOrUpdate_brokerAuthenticationCreateOrUpdateComplex() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -23,20 +23,20 @@ func ExampleBrokerAuthenticationClient_BeginCreateOrUpdate_brokerAuthenticationC
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	poller, err := clientFactory.NewBrokerAuthenticationClient().BeginCreateOrUpdate(ctx, "rgiotoperations", "resource-name123", "resource-name123", "resource-name123", armiotoperations.BrokerAuthenticationResource{
-		Properties: &armiotoperations.BrokerAuthenticationProperties{
-			AuthenticationMethods: []*armiotoperations.BrokerAuthenticatorMethods{
+	poller, err := clientFactory.NewBrokerAuthenticationClient().BeginCreateOrUpdate(ctx, "rgiotoperations", "resource-name123", "resource-name123", "resource-name123", armiotoperations.AuthenticationResource{
+		Properties: &armiotoperations.AuthenticationProperties{
+			AuthenticationMethods: []*armiotoperations.AuthenticatorMethods{
 				{
-					Method: to.Ptr(armiotoperations.BrokerAuthenticationMethodServiceAccountToken),
-					ServiceAccountTokenSettings: &armiotoperations.BrokerAuthenticatorMethodSat{
+					Method: to.Ptr(armiotoperations.AuthenticationMethodServiceAccountToken),
+					ServiceAccountTokenSettings: &armiotoperations.AuthenticatorMethodSat{
 						Audiences: []*string{
 							to.Ptr("aio-internal"),
 						},
 					},
 				},
 				{
-					Method: to.Ptr(armiotoperations.BrokerAuthenticationMethodX509),
-					X509Settings: &armiotoperations.BrokerAuthenticatorMethodX509{
+					Method: to.Ptr(armiotoperations.AuthenticationMethodX509),
+					X509Settings: &armiotoperations.AuthenticatorMethodX509{
 						TrustedClientCaCert: to.Ptr("my-ca"),
 						AuthorizationAttributes: map[string]*armiotoperations.BrokerAuthenticatorMethodX509Attributes{
 							"root": {
@@ -79,20 +79,20 @@ func ExampleBrokerAuthenticationClient_BeginCreateOrUpdate_brokerAuthenticationC
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armiotoperations.BrokerAuthenticationClientCreateOrUpdateResponse{
-	// 	BrokerAuthenticationResource: &armiotoperations.BrokerAuthenticationResource{
-	// 		Properties: &armiotoperations.BrokerAuthenticationProperties{
-	// 			AuthenticationMethods: []*armiotoperations.BrokerAuthenticatorMethods{
+	// 	AuthenticationResource: &armiotoperations.AuthenticationResource{
+	// 		Properties: &armiotoperations.AuthenticationProperties{
+	// 			AuthenticationMethods: []*armiotoperations.AuthenticatorMethods{
 	// 				{
-	// 					Method: to.Ptr(armiotoperations.BrokerAuthenticationMethodServiceAccountToken),
-	// 					ServiceAccountTokenSettings: &armiotoperations.BrokerAuthenticatorMethodSat{
+	// 					Method: to.Ptr(armiotoperations.AuthenticationMethodServiceAccountToken),
+	// 					ServiceAccountTokenSettings: &armiotoperations.AuthenticatorMethodSat{
 	// 						Audiences: []*string{
 	// 							to.Ptr("aio-internal"),
 	// 						},
 	// 					},
 	// 				},
 	// 				{
-	// 					Method: to.Ptr(armiotoperations.BrokerAuthenticationMethodX509),
-	// 					X509Settings: &armiotoperations.BrokerAuthenticatorMethodX509{
+	// 					Method: to.Ptr(armiotoperations.AuthenticationMethodX509),
+	// 					X509Settings: &armiotoperations.AuthenticatorMethodX509{
 	// 						TrustedClientCaCert: to.Ptr("my-ca"),
 	// 						AuthorizationAttributes: map[string]*armiotoperations.BrokerAuthenticatorMethodX509Attributes{
 	// 							"root": &armiotoperations.BrokerAuthenticatorMethodX509Attributes{
@@ -139,7 +139,7 @@ func ExampleBrokerAuthenticationClient_BeginCreateOrUpdate_brokerAuthenticationC
 	// }
 }
 
-// Generated from example definition: 2024-11-01/BrokerAuthentication_CreateOrUpdate_MaximumSet_Gen.json
+// Generated from example definition: 2025-01-01-preview/BrokerAuthentication_CreateOrUpdate_MaximumSet_Gen.json
 func ExampleBrokerAuthenticationClient_BeginCreateOrUpdate_brokerAuthenticationCreateOrUpdate() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -150,12 +150,12 @@ func ExampleBrokerAuthenticationClient_BeginCreateOrUpdate_brokerAuthenticationC
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	poller, err := clientFactory.NewBrokerAuthenticationClient().BeginCreateOrUpdate(ctx, "rgiotoperations", "resource-name123", "resource-name123", "resource-name123", armiotoperations.BrokerAuthenticationResource{
-		Properties: &armiotoperations.BrokerAuthenticationProperties{
-			AuthenticationMethods: []*armiotoperations.BrokerAuthenticatorMethods{
+	poller, err := clientFactory.NewBrokerAuthenticationClient().BeginCreateOrUpdate(ctx, "rgiotoperations", "resource-name123", "resource-name123", "resource-name123", armiotoperations.AuthenticationResource{
+		Properties: &armiotoperations.AuthenticationProperties{
+			AuthenticationMethods: []*armiotoperations.AuthenticatorMethods{
 				{
-					Method: to.Ptr(armiotoperations.BrokerAuthenticationMethodCustom),
-					CustomSettings: &armiotoperations.BrokerAuthenticatorMethodCustom{
+					Method: to.Ptr(armiotoperations.AuthenticationMethodCustom),
+					CustomSettings: &armiotoperations.AuthenticatorMethodCustom{
 						Auth: &armiotoperations.BrokerAuthenticatorCustomAuth{
 							X509: &armiotoperations.X509ManualCertificate{
 								SecretRef: to.Ptr("secret-name"),
@@ -167,12 +167,12 @@ func ExampleBrokerAuthenticationClient_BeginCreateOrUpdate_brokerAuthenticationC
 							"key8518": to.Ptr("bwityjy"),
 						},
 					},
-					ServiceAccountTokenSettings: &armiotoperations.BrokerAuthenticatorMethodSat{
+					ServiceAccountTokenSettings: &armiotoperations.AuthenticatorMethodSat{
 						Audiences: []*string{
 							to.Ptr("jqyhyqatuydg"),
 						},
 					},
-					X509Settings: &armiotoperations.BrokerAuthenticatorMethodX509{
+					X509Settings: &armiotoperations.AuthenticatorMethodX509{
 						AuthorizationAttributes: map[string]*armiotoperations.BrokerAuthenticatorMethodX509Attributes{
 							"key3384": {
 								Attributes: map[string]*string{
@@ -202,12 +202,12 @@ func ExampleBrokerAuthenticationClient_BeginCreateOrUpdate_brokerAuthenticationC
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armiotoperations.BrokerAuthenticationClientCreateOrUpdateResponse{
-	// 	BrokerAuthenticationResource: &armiotoperations.BrokerAuthenticationResource{
-	// 		Properties: &armiotoperations.BrokerAuthenticationProperties{
-	// 			AuthenticationMethods: []*armiotoperations.BrokerAuthenticatorMethods{
+	// 	AuthenticationResource: &armiotoperations.AuthenticationResource{
+	// 		Properties: &armiotoperations.AuthenticationProperties{
+	// 			AuthenticationMethods: []*armiotoperations.AuthenticatorMethods{
 	// 				{
-	// 					Method: to.Ptr(armiotoperations.BrokerAuthenticationMethodCustom),
-	// 					CustomSettings: &armiotoperations.BrokerAuthenticatorMethodCustom{
+	// 					Method: to.Ptr(armiotoperations.AuthenticationMethodCustom),
+	// 					CustomSettings: &armiotoperations.AuthenticatorMethodCustom{
 	// 						Auth: &armiotoperations.BrokerAuthenticatorCustomAuth{
 	// 							X509: &armiotoperations.X509ManualCertificate{
 	// 								SecretRef: to.Ptr("secret-name"),
@@ -219,12 +219,12 @@ func ExampleBrokerAuthenticationClient_BeginCreateOrUpdate_brokerAuthenticationC
 	// 							"key8518": to.Ptr("bwityjy"),
 	// 						},
 	// 					},
-	// 					ServiceAccountTokenSettings: &armiotoperations.BrokerAuthenticatorMethodSat{
+	// 					ServiceAccountTokenSettings: &armiotoperations.AuthenticatorMethodSat{
 	// 						Audiences: []*string{
 	// 							to.Ptr("jqyhyqatuydg"),
 	// 						},
 	// 					},
-	// 					X509Settings: &armiotoperations.BrokerAuthenticatorMethodX509{
+	// 					X509Settings: &armiotoperations.AuthenticatorMethodX509{
 	// 						AuthorizationAttributes: map[string]*armiotoperations.BrokerAuthenticatorMethodX509Attributes{
 	// 							"key3384": &armiotoperations.BrokerAuthenticatorMethodX509Attributes{
 	// 								Attributes: map[string]*string{
@@ -258,7 +258,7 @@ func ExampleBrokerAuthenticationClient_BeginCreateOrUpdate_brokerAuthenticationC
 	// }
 }
 
-// Generated from example definition: 2024-11-01/BrokerAuthentication_Delete_MaximumSet_Gen.json
+// Generated from example definition: 2025-01-01-preview/BrokerAuthentication_Delete_MaximumSet_Gen.json
 func ExampleBrokerAuthenticationClient_BeginDelete() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -279,7 +279,7 @@ func ExampleBrokerAuthenticationClient_BeginDelete() {
 	}
 }
 
-// Generated from example definition: 2024-11-01/BrokerAuthentication_Get_MaximumSet_Gen.json
+// Generated from example definition: 2025-01-01-preview/BrokerAuthentication_Get_MaximumSet_Gen.json
 func ExampleBrokerAuthenticationClient_Get() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -298,12 +298,12 @@ func ExampleBrokerAuthenticationClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armiotoperations.BrokerAuthenticationClientGetResponse{
-	// 	BrokerAuthenticationResource: &armiotoperations.BrokerAuthenticationResource{
-	// 		Properties: &armiotoperations.BrokerAuthenticationProperties{
-	// 			AuthenticationMethods: []*armiotoperations.BrokerAuthenticatorMethods{
+	// 	AuthenticationResource: &armiotoperations.AuthenticationResource{
+	// 		Properties: &armiotoperations.AuthenticationProperties{
+	// 			AuthenticationMethods: []*armiotoperations.AuthenticatorMethods{
 	// 				{
-	// 					Method: to.Ptr(armiotoperations.BrokerAuthenticationMethodCustom),
-	// 					CustomSettings: &armiotoperations.BrokerAuthenticatorMethodCustom{
+	// 					Method: to.Ptr(armiotoperations.AuthenticationMethodCustom),
+	// 					CustomSettings: &armiotoperations.AuthenticatorMethodCustom{
 	// 						Auth: &armiotoperations.BrokerAuthenticatorCustomAuth{
 	// 							X509: &armiotoperations.X509ManualCertificate{
 	// 								SecretRef: to.Ptr("secret-name"),
@@ -315,12 +315,12 @@ func ExampleBrokerAuthenticationClient_Get() {
 	// 							"key8518": to.Ptr("bwityjy"),
 	// 						},
 	// 					},
-	// 					ServiceAccountTokenSettings: &armiotoperations.BrokerAuthenticatorMethodSat{
+	// 					ServiceAccountTokenSettings: &armiotoperations.AuthenticatorMethodSat{
 	// 						Audiences: []*string{
 	// 							to.Ptr("jqyhyqatuydg"),
 	// 						},
 	// 					},
-	// 					X509Settings: &armiotoperations.BrokerAuthenticatorMethodX509{
+	// 					X509Settings: &armiotoperations.AuthenticatorMethodX509{
 	// 						AuthorizationAttributes: map[string]*armiotoperations.BrokerAuthenticatorMethodX509Attributes{
 	// 							"key3384": &armiotoperations.BrokerAuthenticatorMethodX509Attributes{
 	// 								Attributes: map[string]*string{
@@ -354,7 +354,7 @@ func ExampleBrokerAuthenticationClient_Get() {
 	// }
 }
 
-// Generated from example definition: 2024-11-01/BrokerAuthentication_ListByResourceGroup_MaximumSet_Gen.json
+// Generated from example definition: 2025-01-01-preview/BrokerAuthentication_ListByResourceGroup_MaximumSet_Gen.json
 func ExampleBrokerAuthenticationClient_NewListByResourceGroupPager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -377,14 +377,14 @@ func ExampleBrokerAuthenticationClient_NewListByResourceGroupPager() {
 		}
 		// If the HTTP response code is 200 as defined in example definition, your page structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 		// page = armiotoperations.BrokerAuthenticationClientListByResourceGroupResponse{
-		// 	BrokerAuthenticationResourceListResult: armiotoperations.BrokerAuthenticationResourceListResult{
-		// 		Value: []*armiotoperations.BrokerAuthenticationResource{
+		// 	AuthenticationResourceListResult: armiotoperations.AuthenticationResourceListResult{
+		// 		Value: []*armiotoperations.AuthenticationResource{
 		// 			{
-		// 				Properties: &armiotoperations.BrokerAuthenticationProperties{
-		// 					AuthenticationMethods: []*armiotoperations.BrokerAuthenticatorMethods{
+		// 				Properties: &armiotoperations.AuthenticationProperties{
+		// 					AuthenticationMethods: []*armiotoperations.AuthenticatorMethods{
 		// 						{
-		// 							Method: to.Ptr(armiotoperations.BrokerAuthenticationMethodCustom),
-		// 							CustomSettings: &armiotoperations.BrokerAuthenticatorMethodCustom{
+		// 							Method: to.Ptr(armiotoperations.AuthenticationMethodCustom),
+		// 							CustomSettings: &armiotoperations.AuthenticatorMethodCustom{
 		// 								Auth: &armiotoperations.BrokerAuthenticatorCustomAuth{
 		// 									X509: &armiotoperations.X509ManualCertificate{
 		// 										SecretRef: to.Ptr("secret-name"),
@@ -396,12 +396,12 @@ func ExampleBrokerAuthenticationClient_NewListByResourceGroupPager() {
 		// 									"key8518": to.Ptr("bwityjy"),
 		// 								},
 		// 							},
-		// 							ServiceAccountTokenSettings: &armiotoperations.BrokerAuthenticatorMethodSat{
+		// 							ServiceAccountTokenSettings: &armiotoperations.AuthenticatorMethodSat{
 		// 								Audiences: []*string{
 		// 									to.Ptr("jqyhyqatuydg"),
 		// 								},
 		// 							},
-		// 							X509Settings: &armiotoperations.BrokerAuthenticatorMethodX509{
+		// 							X509Settings: &armiotoperations.AuthenticatorMethodX509{
 		// 								AuthorizationAttributes: map[string]*armiotoperations.BrokerAuthenticatorMethodX509Attributes{
 		// 									"key3384": &armiotoperations.BrokerAuthenticatorMethodX509Attributes{
 		// 										Attributes: map[string]*string{

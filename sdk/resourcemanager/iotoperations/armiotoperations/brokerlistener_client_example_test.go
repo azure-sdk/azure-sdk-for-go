@@ -12,7 +12,7 @@ import (
 	"log"
 )
 
-// Generated from example definition: 2024-11-01/BrokerListener_CreateOrUpdate_Complex.json
+// Generated from example definition: 2025-01-01-preview/BrokerListener_CreateOrUpdate_Complex.json
 func ExampleBrokerListenerClient_BeginCreateOrUpdate_brokerListenerCreateOrUpdateComplex() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -23,8 +23,8 @@ func ExampleBrokerListenerClient_BeginCreateOrUpdate_brokerListenerCreateOrUpdat
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	poller, err := clientFactory.NewBrokerListenerClient().BeginCreateOrUpdate(ctx, "rgiotoperations", "resource-name123", "resource-name123", "resource-name123", armiotoperations.BrokerListenerResource{
-		Properties: &armiotoperations.BrokerListenerProperties{
+	poller, err := clientFactory.NewBrokerListenerClient().BeginCreateOrUpdate(ctx, "rgiotoperations", "resource-name123", "resource-name123", "resource-name123", armiotoperations.ListenerResource{
+		Properties: &armiotoperations.ListenerProperties{
 			ServiceType: to.Ptr(armiotoperations.ServiceTypeLoadBalancer),
 			Ports: []*armiotoperations.ListenerPort{
 				{
@@ -79,8 +79,8 @@ func ExampleBrokerListenerClient_BeginCreateOrUpdate_brokerListenerCreateOrUpdat
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armiotoperations.BrokerListenerClientCreateOrUpdateResponse{
-	// 	BrokerListenerResource: &armiotoperations.BrokerListenerResource{
-	// 		Properties: &armiotoperations.BrokerListenerProperties{
+	// 	ListenerResource: &armiotoperations.ListenerResource{
+	// 		Properties: &armiotoperations.ListenerProperties{
 	// 			ServiceName: to.Ptr("tpfiszlapdpxktx"),
 	// 			ServiceType: to.Ptr(armiotoperations.ServiceTypeLoadBalancer),
 	// 			Ports: []*armiotoperations.ListenerPort{
@@ -140,7 +140,7 @@ func ExampleBrokerListenerClient_BeginCreateOrUpdate_brokerListenerCreateOrUpdat
 	// }
 }
 
-// Generated from example definition: 2024-11-01/BrokerListener_CreateOrUpdate_MaximumSet_Gen.json
+// Generated from example definition: 2025-01-01-preview/BrokerListener_CreateOrUpdate_MaximumSet_Gen.json
 func ExampleBrokerListenerClient_BeginCreateOrUpdate_brokerListenerCreateOrUpdate() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -151,8 +151,8 @@ func ExampleBrokerListenerClient_BeginCreateOrUpdate_brokerListenerCreateOrUpdat
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	poller, err := clientFactory.NewBrokerListenerClient().BeginCreateOrUpdate(ctx, "rgiotoperations", "resource-name123", "resource-name123", "resource-name123", armiotoperations.BrokerListenerResource{
-		Properties: &armiotoperations.BrokerListenerProperties{
+	poller, err := clientFactory.NewBrokerListenerClient().BeginCreateOrUpdate(ctx, "rgiotoperations", "resource-name123", "resource-name123", "resource-name123", armiotoperations.ListenerResource{
+		Properties: &armiotoperations.ListenerProperties{
 			ServiceName: to.Ptr("tpfiszlapdpxktx"),
 			Ports: []*armiotoperations.ListenerPort{
 				{
@@ -209,8 +209,8 @@ func ExampleBrokerListenerClient_BeginCreateOrUpdate_brokerListenerCreateOrUpdat
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armiotoperations.BrokerListenerClientCreateOrUpdateResponse{
-	// 	BrokerListenerResource: &armiotoperations.BrokerListenerResource{
-	// 		Properties: &armiotoperations.BrokerListenerProperties{
+	// 	ListenerResource: &armiotoperations.ListenerResource{
+	// 		Properties: &armiotoperations.ListenerProperties{
 	// 			ServiceName: to.Ptr("tpfiszlapdpxktx"),
 	// 			Ports: []*armiotoperations.ListenerPort{
 	// 				{
@@ -271,7 +271,7 @@ func ExampleBrokerListenerClient_BeginCreateOrUpdate_brokerListenerCreateOrUpdat
 	// }
 }
 
-// Generated from example definition: 2024-11-01/BrokerListener_CreateOrUpdate_Simple.json
+// Generated from example definition: 2025-01-01-preview/BrokerListener_CreateOrUpdate_Simple.json
 func ExampleBrokerListenerClient_BeginCreateOrUpdate_brokerListenerCreateOrUpdateSimple() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -282,8 +282,8 @@ func ExampleBrokerListenerClient_BeginCreateOrUpdate_brokerListenerCreateOrUpdat
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	poller, err := clientFactory.NewBrokerListenerClient().BeginCreateOrUpdate(ctx, "rgiotoperations", "resource-name123", "resource-name123", "resource-name123", armiotoperations.BrokerListenerResource{
-		Properties: &armiotoperations.BrokerListenerProperties{
+	poller, err := clientFactory.NewBrokerListenerClient().BeginCreateOrUpdate(ctx, "rgiotoperations", "resource-name123", "resource-name123", "resource-name123", armiotoperations.ListenerResource{
+		Properties: &armiotoperations.ListenerProperties{
 			Ports: []*armiotoperations.ListenerPort{
 				{
 					Port: to.Ptr[int32](1883),
@@ -306,8 +306,8 @@ func ExampleBrokerListenerClient_BeginCreateOrUpdate_brokerListenerCreateOrUpdat
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armiotoperations.BrokerListenerClientCreateOrUpdateResponse{
-	// 	BrokerListenerResource: &armiotoperations.BrokerListenerResource{
-	// 		Properties: &armiotoperations.BrokerListenerProperties{
+	// 	ListenerResource: &armiotoperations.ListenerResource{
+	// 		Properties: &armiotoperations.ListenerProperties{
 	// 			ServiceName: to.Ptr("tpfiszlapdpxktx"),
 	// 			ServiceType: to.Ptr(armiotoperations.ServiceTypeLoadBalancer),
 	// 			Ports: []*armiotoperations.ListenerPort{
@@ -336,7 +336,7 @@ func ExampleBrokerListenerClient_BeginCreateOrUpdate_brokerListenerCreateOrUpdat
 	// }
 }
 
-// Generated from example definition: 2024-11-01/BrokerListener_Delete_MaximumSet_Gen.json
+// Generated from example definition: 2025-01-01-preview/BrokerListener_Delete_MaximumSet_Gen.json
 func ExampleBrokerListenerClient_BeginDelete() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -357,7 +357,7 @@ func ExampleBrokerListenerClient_BeginDelete() {
 	}
 }
 
-// Generated from example definition: 2024-11-01/BrokerListener_Get_MaximumSet_Gen.json
+// Generated from example definition: 2025-01-01-preview/BrokerListener_Get_MaximumSet_Gen.json
 func ExampleBrokerListenerClient_Get() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -376,8 +376,8 @@ func ExampleBrokerListenerClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armiotoperations.BrokerListenerClientGetResponse{
-	// 	BrokerListenerResource: &armiotoperations.BrokerListenerResource{
-	// 		Properties: &armiotoperations.BrokerListenerProperties{
+	// 	ListenerResource: &armiotoperations.ListenerResource{
+	// 		Properties: &armiotoperations.ListenerProperties{
 	// 			ServiceName: to.Ptr("tpfiszlapdpxktx"),
 	// 			Ports: []*armiotoperations.ListenerPort{
 	// 				{
@@ -438,7 +438,7 @@ func ExampleBrokerListenerClient_Get() {
 	// }
 }
 
-// Generated from example definition: 2024-11-01/BrokerListener_ListByResourceGroup_MaximumSet_Gen.json
+// Generated from example definition: 2025-01-01-preview/BrokerListener_ListByResourceGroup_MaximumSet_Gen.json
 func ExampleBrokerListenerClient_NewListByResourceGroupPager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -461,10 +461,10 @@ func ExampleBrokerListenerClient_NewListByResourceGroupPager() {
 		}
 		// If the HTTP response code is 200 as defined in example definition, your page structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 		// page = armiotoperations.BrokerListenerClientListByResourceGroupResponse{
-		// 	BrokerListenerResourceListResult: armiotoperations.BrokerListenerResourceListResult{
-		// 		Value: []*armiotoperations.BrokerListenerResource{
+		// 	ListenerResourceListResult: armiotoperations.ListenerResourceListResult{
+		// 		Value: []*armiotoperations.ListenerResource{
 		// 			{
-		// 				Properties: &armiotoperations.BrokerListenerProperties{
+		// 				Properties: &armiotoperations.ListenerProperties{
 		// 					ServiceName: to.Ptr("tpfiszlapdpxktx"),
 		// 					Ports: []*armiotoperations.ListenerPort{
 		// 						{

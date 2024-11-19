@@ -12,7 +12,7 @@ import (
 	"log"
 )
 
-// Generated from example definition: 2024-11-01/BrokerAuthorization_CreateOrUpdate_Complex.json
+// Generated from example definition: 2025-01-01-preview/BrokerAuthorization_CreateOrUpdate_Complex.json
 func ExampleBrokerAuthorizationClient_BeginCreateOrUpdate_brokerAuthorizationCreateOrUpdateComplex() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -23,8 +23,8 @@ func ExampleBrokerAuthorizationClient_BeginCreateOrUpdate_brokerAuthorizationCre
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	poller, err := clientFactory.NewBrokerAuthorizationClient().BeginCreateOrUpdate(ctx, "rgiotoperations", "resource-name123", "resource-name123", "resource-name123", armiotoperations.BrokerAuthorizationResource{
-		Properties: &armiotoperations.BrokerAuthorizationProperties{
+	poller, err := clientFactory.NewBrokerAuthorizationClient().BeginCreateOrUpdate(ctx, "rgiotoperations", "resource-name123", "resource-name123", "resource-name123", armiotoperations.AuthorizationResource{
+		Properties: &armiotoperations.AuthorizationProperties{
 			AuthorizationPolicies: &armiotoperations.AuthorizationConfig{
 				Cache: to.Ptr(armiotoperations.OperationalModeEnabled),
 				Rules: []*armiotoperations.AuthorizationRule{
@@ -100,8 +100,8 @@ func ExampleBrokerAuthorizationClient_BeginCreateOrUpdate_brokerAuthorizationCre
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armiotoperations.BrokerAuthorizationClientCreateOrUpdateResponse{
-	// 	BrokerAuthorizationResource: &armiotoperations.BrokerAuthorizationResource{
-	// 		Properties: &armiotoperations.BrokerAuthorizationProperties{
+	// 	AuthorizationResource: &armiotoperations.AuthorizationResource{
+	// 		Properties: &armiotoperations.AuthorizationProperties{
 	// 			AuthorizationPolicies: &armiotoperations.AuthorizationConfig{
 	// 				Cache: to.Ptr(armiotoperations.OperationalModeEnabled),
 	// 				Rules: []*armiotoperations.AuthorizationRule{
@@ -181,7 +181,7 @@ func ExampleBrokerAuthorizationClient_BeginCreateOrUpdate_brokerAuthorizationCre
 	// }
 }
 
-// Generated from example definition: 2024-11-01/BrokerAuthorization_CreateOrUpdate_MaximumSet_Gen.json
+// Generated from example definition: 2025-01-01-preview/BrokerAuthorization_CreateOrUpdate_MaximumSet_Gen.json
 func ExampleBrokerAuthorizationClient_BeginCreateOrUpdate_brokerAuthorizationCreateOrUpdate() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -192,8 +192,8 @@ func ExampleBrokerAuthorizationClient_BeginCreateOrUpdate_brokerAuthorizationCre
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	poller, err := clientFactory.NewBrokerAuthorizationClient().BeginCreateOrUpdate(ctx, "rgiotoperations", "resource-name123", "resource-name123", "resource-name123", armiotoperations.BrokerAuthorizationResource{
-		Properties: &armiotoperations.BrokerAuthorizationProperties{
+	poller, err := clientFactory.NewBrokerAuthorizationClient().BeginCreateOrUpdate(ctx, "rgiotoperations", "resource-name123", "resource-name123", "resource-name123", armiotoperations.AuthorizationResource{
+		Properties: &armiotoperations.AuthorizationProperties{
 			AuthorizationPolicies: &armiotoperations.AuthorizationConfig{
 				Cache: to.Ptr(armiotoperations.OperationalModeEnabled),
 				Rules: []*armiotoperations.AuthorizationRule{
@@ -251,8 +251,8 @@ func ExampleBrokerAuthorizationClient_BeginCreateOrUpdate_brokerAuthorizationCre
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armiotoperations.BrokerAuthorizationClientCreateOrUpdateResponse{
-	// 	BrokerAuthorizationResource: &armiotoperations.BrokerAuthorizationResource{
-	// 		Properties: &armiotoperations.BrokerAuthorizationProperties{
+	// 	AuthorizationResource: &armiotoperations.AuthorizationResource{
+	// 		Properties: &armiotoperations.AuthorizationProperties{
 	// 			AuthorizationPolicies: &armiotoperations.AuthorizationConfig{
 	// 				Cache: to.Ptr(armiotoperations.OperationalModeEnabled),
 	// 				Rules: []*armiotoperations.AuthorizationRule{
@@ -314,7 +314,7 @@ func ExampleBrokerAuthorizationClient_BeginCreateOrUpdate_brokerAuthorizationCre
 	// }
 }
 
-// Generated from example definition: 2024-11-01/BrokerAuthorization_CreateOrUpdate_Simple.json
+// Generated from example definition: 2025-01-01-preview/BrokerAuthorization_CreateOrUpdate_Simple.json
 func ExampleBrokerAuthorizationClient_BeginCreateOrUpdate_brokerAuthorizationCreateOrUpdateSimple() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -325,8 +325,8 @@ func ExampleBrokerAuthorizationClient_BeginCreateOrUpdate_brokerAuthorizationCre
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	poller, err := clientFactory.NewBrokerAuthorizationClient().BeginCreateOrUpdate(ctx, "rgiotoperations", "resource-name123", "resource-name123", "resource-name123", armiotoperations.BrokerAuthorizationResource{
-		Properties: &armiotoperations.BrokerAuthorizationProperties{
+	poller, err := clientFactory.NewBrokerAuthorizationClient().BeginCreateOrUpdate(ctx, "rgiotoperations", "resource-name123", "resource-name123", "resource-name123", armiotoperations.AuthorizationResource{
+		Properties: &armiotoperations.AuthorizationProperties{
 			AuthorizationPolicies: &armiotoperations.AuthorizationConfig{
 				Cache: to.Ptr(armiotoperations.OperationalModeEnabled),
 				Rules: []*armiotoperations.AuthorizationRule{
@@ -383,8 +383,8 @@ func ExampleBrokerAuthorizationClient_BeginCreateOrUpdate_brokerAuthorizationCre
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armiotoperations.BrokerAuthorizationClientCreateOrUpdateResponse{
-	// 	BrokerAuthorizationResource: &armiotoperations.BrokerAuthorizationResource{
-	// 		Properties: &armiotoperations.BrokerAuthorizationProperties{
+	// 	AuthorizationResource: &armiotoperations.AuthorizationResource{
+	// 		Properties: &armiotoperations.AuthorizationProperties{
 	// 			AuthorizationPolicies: &armiotoperations.AuthorizationConfig{
 	// 				Cache: to.Ptr(armiotoperations.OperationalModeEnabled),
 	// 				Rules: []*armiotoperations.AuthorizationRule{
@@ -445,7 +445,7 @@ func ExampleBrokerAuthorizationClient_BeginCreateOrUpdate_brokerAuthorizationCre
 	// }
 }
 
-// Generated from example definition: 2024-11-01/BrokerAuthorization_Delete_MaximumSet_Gen.json
+// Generated from example definition: 2025-01-01-preview/BrokerAuthorization_Delete_MaximumSet_Gen.json
 func ExampleBrokerAuthorizationClient_BeginDelete() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -466,7 +466,7 @@ func ExampleBrokerAuthorizationClient_BeginDelete() {
 	}
 }
 
-// Generated from example definition: 2024-11-01/BrokerAuthorization_Get_MaximumSet_Gen.json
+// Generated from example definition: 2025-01-01-preview/BrokerAuthorization_Get_MaximumSet_Gen.json
 func ExampleBrokerAuthorizationClient_Get() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -485,8 +485,8 @@ func ExampleBrokerAuthorizationClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armiotoperations.BrokerAuthorizationClientGetResponse{
-	// 	BrokerAuthorizationResource: &armiotoperations.BrokerAuthorizationResource{
-	// 		Properties: &armiotoperations.BrokerAuthorizationProperties{
+	// 	AuthorizationResource: &armiotoperations.AuthorizationResource{
+	// 		Properties: &armiotoperations.AuthorizationProperties{
 	// 			AuthorizationPolicies: &armiotoperations.AuthorizationConfig{
 	// 				Cache: to.Ptr(armiotoperations.OperationalModeEnabled),
 	// 				Rules: []*armiotoperations.AuthorizationRule{
@@ -548,7 +548,7 @@ func ExampleBrokerAuthorizationClient_Get() {
 	// }
 }
 
-// Generated from example definition: 2024-11-01/BrokerAuthorization_ListByResourceGroup_MaximumSet_Gen.json
+// Generated from example definition: 2025-01-01-preview/BrokerAuthorization_ListByResourceGroup_MaximumSet_Gen.json
 func ExampleBrokerAuthorizationClient_NewListByResourceGroupPager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -571,10 +571,10 @@ func ExampleBrokerAuthorizationClient_NewListByResourceGroupPager() {
 		}
 		// If the HTTP response code is 200 as defined in example definition, your page structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 		// page = armiotoperations.BrokerAuthorizationClientListByResourceGroupResponse{
-		// 	BrokerAuthorizationResourceListResult: armiotoperations.BrokerAuthorizationResourceListResult{
-		// 		Value: []*armiotoperations.BrokerAuthorizationResource{
+		// 	AuthorizationResourceListResult: armiotoperations.AuthorizationResourceListResult{
+		// 		Value: []*armiotoperations.AuthorizationResource{
 		// 			{
-		// 				Properties: &armiotoperations.BrokerAuthorizationProperties{
+		// 				Properties: &armiotoperations.AuthorizationProperties{
 		// 					AuthorizationPolicies: &armiotoperations.AuthorizationConfig{
 		// 						Cache: to.Ptr(armiotoperations.OperationalModeEnabled),
 		// 						Rules: []*armiotoperations.AuthorizationRule{
