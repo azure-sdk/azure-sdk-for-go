@@ -7,7 +7,7 @@ package armiotoperations
 // BrokerAuthenticationClientCreateOrUpdateResponse contains the response from method BrokerAuthenticationClient.BeginCreateOrUpdate.
 type BrokerAuthenticationClientCreateOrUpdateResponse struct {
 	// Instance broker authentication resource
-	BrokerAuthenticationResource
+	AuthenticationResource
 }
 
 // BrokerAuthenticationClientDeleteResponse contains the response from method BrokerAuthenticationClient.BeginDelete.
@@ -18,19 +18,19 @@ type BrokerAuthenticationClientDeleteResponse struct {
 // BrokerAuthenticationClientGetResponse contains the response from method BrokerAuthenticationClient.Get.
 type BrokerAuthenticationClientGetResponse struct {
 	// Instance broker authentication resource
-	BrokerAuthenticationResource
+	AuthenticationResource
 }
 
 // BrokerAuthenticationClientListByResourceGroupResponse contains the response from method BrokerAuthenticationClient.NewListByResourceGroupPager.
 type BrokerAuthenticationClientListByResourceGroupResponse struct {
-	// The response of a BrokerAuthenticationResource list operation.
-	BrokerAuthenticationResourceListResult
+	// The response of a AuthenticationResource list operation.
+	AuthenticationResourceListResult
 }
 
 // BrokerAuthorizationClientCreateOrUpdateResponse contains the response from method BrokerAuthorizationClient.BeginCreateOrUpdate.
 type BrokerAuthorizationClientCreateOrUpdateResponse struct {
 	// Instance broker authorizations resource
-	BrokerAuthorizationResource
+	AuthorizationResource
 }
 
 // BrokerAuthorizationClientDeleteResponse contains the response from method BrokerAuthorizationClient.BeginDelete.
@@ -41,13 +41,13 @@ type BrokerAuthorizationClientDeleteResponse struct {
 // BrokerAuthorizationClientGetResponse contains the response from method BrokerAuthorizationClient.Get.
 type BrokerAuthorizationClientGetResponse struct {
 	// Instance broker authorizations resource
-	BrokerAuthorizationResource
+	AuthorizationResource
 }
 
 // BrokerAuthorizationClientListByResourceGroupResponse contains the response from method BrokerAuthorizationClient.NewListByResourceGroupPager.
 type BrokerAuthorizationClientListByResourceGroupResponse struct {
-	// The response of a BrokerAuthorizationResource list operation.
-	BrokerAuthorizationResourceListResult
+	// The response of a AuthorizationResource list operation.
+	AuthorizationResourceListResult
 }
 
 // BrokerClientCreateOrUpdateResponse contains the response from method BrokerClient.BeginCreateOrUpdate.
@@ -76,7 +76,7 @@ type BrokerClientListByResourceGroupResponse struct {
 // BrokerListenerClientCreateOrUpdateResponse contains the response from method BrokerListenerClient.BeginCreateOrUpdate.
 type BrokerListenerClientCreateOrUpdateResponse struct {
 	// Instance broker resource
-	BrokerListenerResource
+	ListenerResource
 }
 
 // BrokerListenerClientDeleteResponse contains the response from method BrokerListenerClient.BeginDelete.
@@ -87,13 +87,13 @@ type BrokerListenerClientDeleteResponse struct {
 // BrokerListenerClientGetResponse contains the response from method BrokerListenerClient.Get.
 type BrokerListenerClientGetResponse struct {
 	// Instance broker resource
-	BrokerListenerResource
+	ListenerResource
 }
 
 // BrokerListenerClientListByResourceGroupResponse contains the response from method BrokerListenerClient.NewListByResourceGroupPager.
 type BrokerListenerClientListByResourceGroupResponse struct {
-	// The response of a BrokerListenerResource list operation.
-	BrokerListenerResourceListResult
+	// The response of a ListenerResource list operation.
+	ListenerResourceListResult
 }
 
 // DataflowClientCreateOrUpdateResponse contains the response from method DataflowClient.BeginCreateOrUpdate.

@@ -18,6 +18,91 @@ type AdvancedSettings struct {
 	InternalCerts *CertManagerCertOptions
 }
 
+// AuthenticationProperties - Authentication Resource properties
+type AuthenticationProperties struct {
+	// REQUIRED; Defines a set of Broker authentication methods to be used on `BrokerListeners`. For each array element one authenticator
+	// type supported.
+	AuthenticationMethods []*AuthenticatorMethods
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+}
+
+// AuthenticationResource - Instance broker authentication resource
+type AuthenticationResource struct {
+	// REQUIRED; Edge location of the resource.
+	ExtendedLocation *ExtendedLocation
+
+	// The resource-specific properties for this resource.
+	Properties *AuthenticationProperties
+
+	// READ-ONLY; Name of Instance broker authentication resource
+	Name *string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// AuthenticationResourceListResult - The response of a AuthenticationResource list operation.
+type AuthenticationResourceListResult struct {
+	// REQUIRED; The AuthenticationResource items on this page
+	Value []*AuthenticationResource
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// AuthenticatorMethodCustom - Custom method for BrokerAuthentication
+type AuthenticatorMethodCustom struct {
+	// REQUIRED; Endpoint of the custom authentication server. Must be an HTTPS endpoint.
+	Endpoint *string
+
+	// Optional authentication needed for authenticating with the custom authentication server.
+	Auth *BrokerAuthenticatorCustomAuth
+
+	// Optional CA certificate for validating the custom authentication server's certificate.
+	CaCertConfigMap *string
+
+	// Additional HTTP headers to pass to the custom authentication server.
+	Headers map[string]*string
+}
+
+// AuthenticatorMethodSat - Service Account Token for BrokerAuthentication
+type AuthenticatorMethodSat struct {
+	// REQUIRED; List of allowed audience.
+	Audiences []*string
+}
+
+// AuthenticatorMethodX509 - X509 for BrokerAuthentication.
+type AuthenticatorMethodX509 struct {
+	// X509 authorization attributes properties.
+	AuthorizationAttributes map[string]*BrokerAuthenticatorMethodX509Attributes
+
+	// Name of the trusted client ca cert resource.
+	TrustedClientCaCert *string
+}
+
+// AuthenticatorMethods - Set of broker authentication policies. Only one method is supported for each entry.
+type AuthenticatorMethods struct {
+	// REQUIRED; Custom authentication configuration.
+	Method *AuthenticationMethod
+
+	// Custom authentication configuration.
+	CustomSettings *AuthenticatorMethodCustom
+
+	// ServiceAccountToken authentication configuration.
+	ServiceAccountTokenSettings *AuthenticatorMethodSat
+
+	// X.509 authentication configuration.
+	X509Settings *AuthenticatorMethodX509
+}
+
 // AuthorizationConfig - Broker AuthorizationConfig properties
 type AuthorizationConfig struct {
 	// Enable caching of the authorization rules.
@@ -25,6 +110,45 @@ type AuthorizationConfig struct {
 
 	// The authorization rules to follow. If no rule is set, but Authorization Resource is used that would mean DenyAll.
 	Rules []*AuthorizationRule
+}
+
+// AuthorizationProperties - Authorization Resource properties
+type AuthorizationProperties struct {
+	// REQUIRED; The list of authorization policies supported by the Authorization Resource.
+	AuthorizationPolicies *AuthorizationConfig
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+}
+
+// AuthorizationResource - Instance broker authorizations resource
+type AuthorizationResource struct {
+	// REQUIRED; Edge location of the resource.
+	ExtendedLocation *ExtendedLocation
+
+	// The resource-specific properties for this resource.
+	Properties *AuthorizationProperties
+
+	// READ-ONLY; Name of Instance broker authorization resource
+	Name *string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// AuthorizationResourceListResult - The response of a AuthorizationResource list operation.
+type AuthorizationResourceListResult struct {
+	// REQUIRED; The AuthorizationResource items on this page
+	Value []*AuthorizationResource
+
+	// The link to the next page of items
+	NextLink *string
 }
 
 // AuthorizationRule - AuthorizationConfig Rule Properties
@@ -60,80 +184,10 @@ type BatchingConfiguration struct {
 	MaxMessages *int32
 }
 
-// BrokerAuthenticationProperties - BrokerAuthentication Resource properties
-type BrokerAuthenticationProperties struct {
-	// REQUIRED; Defines a set of Broker authentication methods to be used on `BrokerListeners`. For each array element one authenticator
-	// type supported.
-	AuthenticationMethods []*BrokerAuthenticatorMethods
-
-	// READ-ONLY; The status of the last operation.
-	ProvisioningState *ProvisioningState
-}
-
-// BrokerAuthenticationResource - Instance broker authentication resource
-type BrokerAuthenticationResource struct {
-	// REQUIRED; Edge location of the resource.
-	ExtendedLocation *ExtendedLocation
-
-	// The resource-specific properties for this resource.
-	Properties *BrokerAuthenticationProperties
-
-	// READ-ONLY; Name of Instance broker authentication resource
-	Name *string
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// BrokerAuthenticationResourceListResult - The response of a BrokerAuthenticationResource list operation.
-type BrokerAuthenticationResourceListResult struct {
-	// REQUIRED; The BrokerAuthenticationResource items on this page
-	Value []*BrokerAuthenticationResource
-
-	// The link to the next page of items
-	NextLink *string
-}
-
 // BrokerAuthenticatorCustomAuth - Custom Authentication properties
 type BrokerAuthenticatorCustomAuth struct {
 	// REQUIRED; X509 Custom Auth type details.
 	X509 *X509ManualCertificate
-}
-
-// BrokerAuthenticatorMethodCustom - Custom method for BrokerAuthentication
-type BrokerAuthenticatorMethodCustom struct {
-	// REQUIRED; Endpoint of the custom authentication server. Must be an HTTPS endpoint.
-	Endpoint *string
-
-	// Optional authentication needed for authenticating with the custom authentication server.
-	Auth *BrokerAuthenticatorCustomAuth
-
-	// Optional CA certificate for validating the custom authentication server's certificate.
-	CaCertConfigMap *string
-
-	// Additional HTTP headers to pass to the custom authentication server.
-	Headers map[string]*string
-}
-
-// BrokerAuthenticatorMethodSat - Service Account Token for BrokerAuthentication
-type BrokerAuthenticatorMethodSat struct {
-	// REQUIRED; List of allowed audience.
-	Audiences []*string
-}
-
-// BrokerAuthenticatorMethodX509 - X509 for BrokerAuthentication.
-type BrokerAuthenticatorMethodX509 struct {
-	// X509 authorization attributes properties.
-	AuthorizationAttributes map[string]*BrokerAuthenticatorMethodX509Attributes
-
-	// Name of the trusted client ca cert resource.
-	TrustedClientCaCert *string
 }
 
 // BrokerAuthenticatorMethodX509Attributes properties.
@@ -143,60 +197,6 @@ type BrokerAuthenticatorMethodX509Attributes struct {
 
 	// REQUIRED; Subject of the X509 attribute.
 	Subject *string
-}
-
-// BrokerAuthenticatorMethods - Set of broker authentication policies. Only one method is supported for each entry.
-type BrokerAuthenticatorMethods struct {
-	// REQUIRED; Custom authentication configuration.
-	Method *BrokerAuthenticationMethod
-
-	// Custom authentication configuration.
-	CustomSettings *BrokerAuthenticatorMethodCustom
-
-	// ServiceAccountToken authentication configuration.
-	ServiceAccountTokenSettings *BrokerAuthenticatorMethodSat
-
-	// X.509 authentication configuration.
-	X509Settings *BrokerAuthenticatorMethodX509
-}
-
-// BrokerAuthorizationProperties - BrokerAuthorization Resource properties
-type BrokerAuthorizationProperties struct {
-	// REQUIRED; The list of authorization policies supported by the Authorization Resource.
-	AuthorizationPolicies *AuthorizationConfig
-
-	// READ-ONLY; The status of the last operation.
-	ProvisioningState *ProvisioningState
-}
-
-// BrokerAuthorizationResource - Instance broker authorizations resource
-type BrokerAuthorizationResource struct {
-	// REQUIRED; Edge location of the resource.
-	ExtendedLocation *ExtendedLocation
-
-	// The resource-specific properties for this resource.
-	Properties *BrokerAuthorizationProperties
-
-	// READ-ONLY; Name of Instance broker authorization resource
-	Name *string
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// BrokerAuthorizationResourceListResult - The response of a BrokerAuthorizationResource list operation.
-type BrokerAuthorizationResourceListResult struct {
-	// REQUIRED; The BrokerAuthorizationResource items on this page
-	Value []*BrokerAuthorizationResource
-
-	// The link to the next page of items
-	NextLink *string
 }
 
 // BrokerDiagnostics - Broker Diagnostic Setting properties
@@ -212,52 +212,6 @@ type BrokerDiagnostics struct {
 
 	// The trace properties.
 	Traces *Traces
-}
-
-// BrokerListenerProperties - Defines a Broker listener. A listener is a collection of ports on which the broker accepts connections
-// from clients.
-type BrokerListenerProperties struct {
-	// REQUIRED; Ports on which this listener accepts client connections.
-	Ports []*ListenerPort
-
-	// Kubernetes Service name of this listener.
-	ServiceName *string
-
-	// Kubernetes Service type of this listener.
-	ServiceType *ServiceType
-
-	// READ-ONLY; The status of the last operation.
-	ProvisioningState *ProvisioningState
-}
-
-// BrokerListenerResource - Instance broker resource
-type BrokerListenerResource struct {
-	// REQUIRED; Edge location of the resource.
-	ExtendedLocation *ExtendedLocation
-
-	// The resource-specific properties for this resource.
-	Properties *BrokerListenerProperties
-
-	// READ-ONLY; Name of Instance broker listener resource
-	Name *string
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// BrokerListenerResourceListResult - The response of a BrokerListenerResource list operation.
-type BrokerListenerResourceListResult struct {
-	// REQUIRED; The BrokerListenerResource items on this page
-	Value []*BrokerListenerResource
-
-	// The link to the next page of items
-	NextLink *string
 }
 
 // BrokerProperties - Broker Resource properties
@@ -420,6 +374,75 @@ type ClientConfig struct {
 	SubscriberQueueLimit *SubscriberQueueLimit
 }
 
+// DataExplorerEndpoint - Azure Data Explorer endpoint.
+type DataExplorerEndpoint struct {
+	// REQUIRED; Azure Data Explorer endpoint.
+	DataExplorerSettings *DataExplorerSettings
+
+	// CONSTANT; Endpoint Type.
+	// Field has constant value EndpointTypeDataExplorer, any specified value is ignored.
+	EndpointType *EndpointType
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+}
+
+// GetDataflowEndpointProperties implements the DataflowEndpointPropertiesClassification interface for type DataExplorerEndpoint.
+func (d *DataExplorerEndpoint) GetDataflowEndpointProperties() *DataflowEndpointProperties {
+	return &DataflowEndpointProperties{
+		EndpointType:      d.EndpointType,
+		ProvisioningState: d.ProvisioningState,
+	}
+}
+
+// DataExplorerSettings - Azure Data Explorer endpoint properties
+type DataExplorerSettings struct {
+	// REQUIRED; Authentication configuration. NOTE - only authentication property is allowed per entry.
+	Authentication *DataflowEndpointDataExplorerAuthentication
+
+	// REQUIRED; Database name.
+	Database *string
+
+	// REQUIRED; Host of the Azure Data Explorer in the form of <cluster>.<region>.kusto.windows.net .
+	Host *string
+
+	// Azure Data Explorer endpoint batching configuration.
+	Batching *BatchingConfiguration
+}
+
+// DataLakeStorageEndpoint - Azure Data Lake endpoint.
+type DataLakeStorageEndpoint struct {
+	// REQUIRED; Azure Data Lake endpoint.
+	DataLakeStorageSettings *DataLakeStorageSettings
+
+	// CONSTANT; Endpoint Type.
+	// Field has constant value EndpointTypeDataLakeStorage, any specified value is ignored.
+	EndpointType *EndpointType
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+}
+
+// GetDataflowEndpointProperties implements the DataflowEndpointPropertiesClassification interface for type DataLakeStorageEndpoint.
+func (d *DataLakeStorageEndpoint) GetDataflowEndpointProperties() *DataflowEndpointProperties {
+	return &DataflowEndpointProperties{
+		EndpointType:      d.EndpointType,
+		ProvisioningState: d.ProvisioningState,
+	}
+}
+
+// DataLakeStorageSettings - Azure Data Lake endpoint properties
+type DataLakeStorageSettings struct {
+	// REQUIRED; Authentication configuration. NOTE - only authentication property is allowed per entry.
+	Authentication *DataflowEndpointDataLakeStorageAuthentication
+
+	// REQUIRED; Host of the Azure Data Lake in the form of <account>.blob.core.windows.net .
+	Host *string
+
+	// Azure Data Lake endpoint batching configuration.
+	Batching *BatchingConfiguration
+}
+
 // DataflowBuiltInTransformationDataset - Dataflow BuiltIn Transformation dataset properties
 type DataflowBuiltInTransformationDataset struct {
 	// REQUIRED; List of fields for enriching from the Broker State Store.
@@ -547,21 +570,6 @@ type DataflowEndpointAuthenticationX509 struct {
 	SecretRef *string
 }
 
-// DataflowEndpointDataExplorer - Azure Data Explorer endpoint properties
-type DataflowEndpointDataExplorer struct {
-	// REQUIRED; Authentication configuration. NOTE - only authentication property is allowed per entry.
-	Authentication *DataflowEndpointDataExplorerAuthentication
-
-	// REQUIRED; Database name.
-	Database *string
-
-	// REQUIRED; Host of the Azure Data Explorer in the form of <cluster>.<region>.kusto.windows.net .
-	Host *string
-
-	// Azure Data Explorer endpoint batching configuration.
-	Batching *BatchingConfiguration
-}
-
 // DataflowEndpointDataExplorerAuthentication - Azure Data Explorer Authentication properties. NOTE - only authentication
 // property is allowed per entry.
 type DataflowEndpointDataExplorerAuthentication struct {
@@ -573,18 +581,6 @@ type DataflowEndpointDataExplorerAuthentication struct {
 
 	// User-assigned managed identity authentication.
 	UserAssignedManagedIdentitySettings *DataflowEndpointAuthenticationUserAssignedManagedIdentity
-}
-
-// DataflowEndpointDataLakeStorage - Azure Data Lake endpoint properties
-type DataflowEndpointDataLakeStorage struct {
-	// REQUIRED; Authentication configuration. NOTE - only authentication property is allowed per entry.
-	Authentication *DataflowEndpointDataLakeStorageAuthentication
-
-	// REQUIRED; Host of the Azure Data Lake in the form of <account>.blob.core.windows.net .
-	Host *string
-
-	// Azure Data Lake endpoint batching configuration.
-	Batching *BatchingConfiguration
 }
 
 // DataflowEndpointDataLakeStorageAuthentication - Azure Data Lake endpoint Authentication properties. NOTE Enum - Only one
@@ -601,24 +597,6 @@ type DataflowEndpointDataLakeStorageAuthentication struct {
 
 	// User-assigned managed identity authentication.
 	UserAssignedManagedIdentitySettings *DataflowEndpointAuthenticationUserAssignedManagedIdentity
-}
-
-// DataflowEndpointFabricOneLake - Microsoft Fabric endpoint properties
-type DataflowEndpointFabricOneLake struct {
-	// REQUIRED; Authentication configuration. NOTE - only one authentication property is allowed per entry.
-	Authentication *DataflowEndpointFabricOneLakeAuthentication
-
-	// REQUIRED; Host of the Microsoft Fabric in the form of https://<host>.fabric.microsoft.com.
-	Host *string
-
-	// REQUIRED; Names of the workspace and lakehouse.
-	Names *DataflowEndpointFabricOneLakeNames
-
-	// REQUIRED; Type of location of the data in the workspace. Can be either tables or files.
-	OneLakePathType *DataflowEndpointFabricPathType
-
-	// Batching configuration.
-	Batching *BatchingConfiguration
 }
 
 // DataflowEndpointFabricOneLakeAuthentication - Microsoft Fabric endpoint. Authentication properties. NOTE - Only one method
@@ -641,39 +619,6 @@ type DataflowEndpointFabricOneLakeNames struct {
 
 	// REQUIRED; Workspace name.
 	WorkspaceName *string
-}
-
-// DataflowEndpointKafka - Kafka endpoint properties
-type DataflowEndpointKafka struct {
-	// REQUIRED; Authentication configuration. NOTE - only authentication property is allowed per entry.
-	Authentication *DataflowEndpointKafkaAuthentication
-
-	// REQUIRED; Kafka endpoint host.
-	Host *string
-
-	// Batching configuration.
-	Batching *DataflowEndpointKafkaBatching
-
-	// Cloud event mapping config.
-	CloudEventAttributes *CloudEventAttributeType
-
-	// Compression. Can be none, gzip, lz4, or snappy. No effect if the endpoint is used as a source.
-	Compression *DataflowEndpointKafkaCompression
-
-	// Consumer group ID.
-	ConsumerGroupID *string
-
-	// Copy Broker properties. No effect if the endpoint is used as a source or if the dataflow doesn't have an Broker source.
-	CopyMqttProperties *OperationalMode
-
-	// Kafka acks. Can be all, one, or zero. No effect if the endpoint is used as a source.
-	KafkaAcks *DataflowEndpointKafkaAcks
-
-	// Partition handling strategy. Can be default or static. No effect if the endpoint is used as a source.
-	PartitionStrategy *DataflowEndpointKafkaPartitionStrategy
-
-	// TLS configuration.
-	TLS *TLSProperties
 }
 
 // DataflowEndpointKafkaAuthentication - Kafka endpoint Authentication properties. NOTE - only authentication property is
@@ -710,49 +655,6 @@ type DataflowEndpointKafkaBatching struct {
 	Mode *OperationalMode
 }
 
-// DataflowEndpointLocalStorage - Local persistent volume endpoint properties
-type DataflowEndpointLocalStorage struct {
-	// REQUIRED; Persistent volume claim name.
-	PersistentVolumeClaimRef *string
-}
-
-// DataflowEndpointMqtt - Broker endpoint properties
-type DataflowEndpointMqtt struct {
-	// REQUIRED; authentication properties. DEFAULT: kubernetes.audience=aio-internal. NOTE - Enum field only property is allowed
-	Authentication *DataflowEndpointMqttAuthentication
-
-	// Client ID prefix. Client ID generated by the dataflow is <prefix>-TBD. Optional; no prefix if omitted.
-	ClientIDPrefix *string
-
-	// Cloud event mapping config.
-	CloudEventAttributes *CloudEventAttributeType
-
-	// Host of the Broker in the form of <hostname>:<port>. Optional; connects to Broker if omitted.
-	Host *string
-
-	// Broker KeepAlive for connection in seconds.
-	KeepAliveSeconds *int32
-
-	// The max number of messages to keep in flight. For subscribe, this is the receive maximum. For publish, this is the maximum
-	// number of messages to send before waiting for an ack.
-	MaxInflightMessages *int32
-
-	// Enable or disable websockets.
-	Protocol *BrokerProtocolType
-
-	// Qos for Broker connection.
-	Qos *int32
-
-	// Whether or not to keep the retain setting.
-	Retain *MqttRetainType
-
-	// Session expiry in seconds.
-	SessionExpirySeconds *int32
-
-	// TLS configuration.
-	TLS *TLSProperties
-}
-
 // DataflowEndpointMqttAuthentication - Mqtt endpoint Authentication properties. NOTE - only authentication property is allowed
 // per entry.
 type DataflowEndpointMqttAuthentication struct {
@@ -778,26 +680,13 @@ type DataflowEndpointProperties struct {
 	// REQUIRED; Endpoint Type.
 	EndpointType *EndpointType
 
-	// Azure Data Explorer endpoint.
-	DataExplorerSettings *DataflowEndpointDataExplorer
-
-	// Azure Data Lake endpoint.
-	DataLakeStorageSettings *DataflowEndpointDataLakeStorage
-
-	// Microsoft Fabric endpoint.
-	FabricOneLakeSettings *DataflowEndpointFabricOneLake
-
-	// Kafka endpoint.
-	KafkaSettings *DataflowEndpointKafka
-
-	// Local persistent volume endpoint.
-	LocalStorageSettings *DataflowEndpointLocalStorage
-
-	// Broker endpoint.
-	MqttSettings *DataflowEndpointMqtt
-
 	// READ-ONLY; The status of the last operation.
 	ProvisioningState *ProvisioningState
+}
+
+// GetDataflowEndpointProperties implements the DataflowEndpointPropertiesClassification interface for type DataflowEndpointProperties.
+func (d *DataflowEndpointProperties) GetDataflowEndpointProperties() *DataflowEndpointProperties {
+	return d
 }
 
 // DataflowEndpointResource - Instance dataflowEndpoint resource
@@ -806,7 +695,7 @@ type DataflowEndpointResource struct {
 	ExtendedLocation *ExtendedLocation
 
 	// The resource-specific properties for this resource.
-	Properties *DataflowEndpointProperties
+	Properties DataflowEndpointPropertiesClassification
 
 	// READ-ONLY; Name of Instance dataflowEndpoint resource
 	Name *string
@@ -982,6 +871,45 @@ type ExtendedLocation struct {
 	Type *ExtendedLocationType
 }
 
+// FabricOneLakeEndpoint - Microsoft Fabric endpoint.
+type FabricOneLakeEndpoint struct {
+	// CONSTANT; Endpoint Type.
+	// Field has constant value EndpointTypeFabricOneLake, any specified value is ignored.
+	EndpointType *EndpointType
+
+	// REQUIRED; Microsoft Fabric endpoint.
+	FabricOneLakeSettings *FabricOneLakeSettings
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+}
+
+// GetDataflowEndpointProperties implements the DataflowEndpointPropertiesClassification interface for type FabricOneLakeEndpoint.
+func (f *FabricOneLakeEndpoint) GetDataflowEndpointProperties() *DataflowEndpointProperties {
+	return &DataflowEndpointProperties{
+		EndpointType:      f.EndpointType,
+		ProvisioningState: f.ProvisioningState,
+	}
+}
+
+// FabricOneLakeSettings - Microsoft Fabric endpoint properties
+type FabricOneLakeSettings struct {
+	// REQUIRED; Authentication configuration. NOTE - only one authentication property is allowed per entry.
+	Authentication *DataflowEndpointFabricOneLakeAuthentication
+
+	// REQUIRED; Host of the Microsoft Fabric in the form of https://<host>.fabric.microsoft.com.
+	Host *string
+
+	// REQUIRED; Names of the workspace and lakehouse.
+	Names *DataflowEndpointFabricOneLakeNames
+
+	// REQUIRED; Type of location of the data in the workspace. Can be either tables or files.
+	OneLakePathType *DataflowEndpointFabricPathType
+
+	// Batching configuration.
+	Batching *BatchingConfiguration
+}
+
 // Frontend - The desired properties of the frontend instances of the Broker
 type Frontend struct {
 	// REQUIRED; The desired number of frontend instances (pods).
@@ -1060,6 +988,60 @@ type InstanceResourceListResult struct {
 	NextLink *string
 }
 
+// KafkaEndpoint - Kafka endpoint.
+type KafkaEndpoint struct {
+	// CONSTANT; Endpoint Type.
+	// Field has constant value EndpointTypeKafka, any specified value is ignored.
+	EndpointType *EndpointType
+
+	// REQUIRED; Kafka endpoint.
+	KafkaSettings *KafkaSettings
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+}
+
+// GetDataflowEndpointProperties implements the DataflowEndpointPropertiesClassification interface for type KafkaEndpoint.
+func (k *KafkaEndpoint) GetDataflowEndpointProperties() *DataflowEndpointProperties {
+	return &DataflowEndpointProperties{
+		EndpointType:      k.EndpointType,
+		ProvisioningState: k.ProvisioningState,
+	}
+}
+
+// KafkaSettings - Kafka endpoint properties
+type KafkaSettings struct {
+	// REQUIRED; Authentication configuration. NOTE - only authentication property is allowed per entry.
+	Authentication *DataflowEndpointKafkaAuthentication
+
+	// REQUIRED; Kafka endpoint host.
+	Host *string
+
+	// Batching configuration.
+	Batching *DataflowEndpointKafkaBatching
+
+	// Cloud event mapping config.
+	CloudEventAttributes *CloudEventAttributeType
+
+	// Compression. Can be none, gzip, lz4, or snappy. No effect if the endpoint is used as a source.
+	Compression *DataflowEndpointKafkaCompression
+
+	// Consumer group ID.
+	ConsumerGroupID *string
+
+	// Copy Broker properties. No effect if the endpoint is used as a source or if the dataflow doesn't have an Broker source.
+	CopyMqttProperties *OperationalMode
+
+	// Kafka acks. Can be all, one, or zero. No effect if the endpoint is used as a source.
+	KafkaAcks *DataflowEndpointKafkaAcks
+
+	// Partition handling strategy. Can be default or static. No effect if the endpoint is used as a source.
+	PartitionStrategy *DataflowEndpointKafkaPartitionStrategy
+
+	// TLS configuration.
+	TLS *TLSProperties
+}
+
 // KubernetesReference - Kubernetes reference
 type KubernetesReference struct {
 	// REQUIRED; Kind is the type of resource being referenced
@@ -1097,6 +1079,52 @@ type ListenerPort struct {
 	TLS *TLSCertMethod
 }
 
+// ListenerProperties - Defines a Broker listener. A listener is a collection of ports on which the broker accepts connections
+// from clients.
+type ListenerProperties struct {
+	// REQUIRED; Ports on which this listener accepts client connections.
+	Ports []*ListenerPort
+
+	// Kubernetes Service name of this listener.
+	ServiceName *string
+
+	// Kubernetes Service type of this listener.
+	ServiceType *ServiceType
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+}
+
+// ListenerResource - Instance broker resource
+type ListenerResource struct {
+	// REQUIRED; Edge location of the resource.
+	ExtendedLocation *ExtendedLocation
+
+	// The resource-specific properties for this resource.
+	Properties *ListenerProperties
+
+	// READ-ONLY; Name of Instance broker listener resource
+	Name *string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ListenerResourceListResult - The response of a ListenerResource list operation.
+type ListenerResourceListResult struct {
+	// REQUIRED; The ListenerResource items on this page
+	Value []*ListenerResource
+
+	// The link to the next page of items
+	NextLink *string
+}
+
 // LocalKubernetesReference - Kubernetes reference
 type LocalKubernetesReference struct {
 	// REQUIRED; Kind is the type of resource being referenced
@@ -1108,6 +1136,33 @@ type LocalKubernetesReference struct {
 	// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the
 	// core API group. For any other third-party types, APIGroup is required.
 	APIGroup *string
+}
+
+// LocalStorageEndpoint - Local persistent volume endpoint.
+type LocalStorageEndpoint struct {
+	// CONSTANT; Endpoint Type.
+	// Field has constant value EndpointTypeLocalStorage, any specified value is ignored.
+	EndpointType *EndpointType
+
+	// REQUIRED; Local persistent volume endpoint.
+	LocalStorageSettings *LocalStorageSettings
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+}
+
+// GetDataflowEndpointProperties implements the DataflowEndpointPropertiesClassification interface for type LocalStorageEndpoint.
+func (l *LocalStorageEndpoint) GetDataflowEndpointProperties() *DataflowEndpointProperties {
+	return &DataflowEndpointProperties{
+		EndpointType:      l.EndpointType,
+		ProvisioningState: l.ProvisioningState,
+	}
+}
+
+// LocalStorageSettings - Local persistent volume endpoint properties
+type LocalStorageSettings struct {
+	// REQUIRED; Persistent volume claim name.
+	PersistentVolumeClaimRef *string
 }
 
 // ManagedServiceIdentity - Managed service identity (system assigned and/or user assigned identities)
@@ -1130,6 +1185,64 @@ type ManagedServiceIdentity struct {
 type Metrics struct {
 	// The prometheus port to expose the metrics.
 	PrometheusPort *int32
+}
+
+// MqttEndpoint - Broker endpoint.
+type MqttEndpoint struct {
+	// CONSTANT; Endpoint Type.
+	// Field has constant value EndpointTypeMqtt, any specified value is ignored.
+	EndpointType *EndpointType
+
+	// REQUIRED; Broker endpoint.
+	MqttSettings *MqttSettings
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+}
+
+// GetDataflowEndpointProperties implements the DataflowEndpointPropertiesClassification interface for type MqttEndpoint.
+func (m *MqttEndpoint) GetDataflowEndpointProperties() *DataflowEndpointProperties {
+	return &DataflowEndpointProperties{
+		EndpointType:      m.EndpointType,
+		ProvisioningState: m.ProvisioningState,
+	}
+}
+
+// MqttSettings - Broker endpoint properties
+type MqttSettings struct {
+	// REQUIRED; authentication properties. DEFAULT: kubernetes.audience=aio-internal. NOTE - Enum field only property is allowed
+	Authentication *DataflowEndpointMqttAuthentication
+
+	// Client ID prefix. Client ID generated by the dataflow is <prefix>-TBD. Optional; no prefix if omitted.
+	ClientIDPrefix *string
+
+	// Cloud event mapping config.
+	CloudEventAttributes *CloudEventAttributeType
+
+	// Host of the Broker in the form of <hostname>:<port>. Optional; connects to Broker if omitted.
+	Host *string
+
+	// Broker KeepAlive for connection in seconds.
+	KeepAliveSeconds *int32
+
+	// The max number of messages to keep in flight. For subscribe, this is the receive maximum. For publish, this is the maximum
+	// number of messages to send before waiting for an ack.
+	MaxInflightMessages *int32
+
+	// Enable or disable websockets.
+	Protocol *BrokerProtocolType
+
+	// Qos for Broker connection.
+	Qos *int32
+
+	// Whether or not to keep the retain setting.
+	Retain *MqttRetainType
+
+	// Session expiry in seconds.
+	SessionExpirySeconds *int32
+
+	// TLS configuration.
+	TLS *TLSProperties
 }
 
 // Operation - Details of a REST API operation, returned from the Resource Provider Operations API

@@ -39,10 +39,10 @@ func NewBrokerAuthorizationClient(subscriptionID string, credential azcore.Token
 	return client, nil
 }
 
-// BeginCreateOrUpdate - Create a BrokerAuthorizationResource
+// BeginCreateOrUpdate - Create a AuthorizationResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-01-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - instanceName - Name of instance.
 //   - brokerName - Name of broker.
@@ -50,7 +50,7 @@ func NewBrokerAuthorizationClient(subscriptionID string, credential azcore.Token
 //   - resource - Resource create parameters.
 //   - options - BrokerAuthorizationClientBeginCreateOrUpdateOptions contains the optional parameters for the BrokerAuthorizationClient.BeginCreateOrUpdate
 //     method.
-func (client *BrokerAuthorizationClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, instanceName string, brokerName string, authorizationName string, resource BrokerAuthorizationResource, options *BrokerAuthorizationClientBeginCreateOrUpdateOptions) (*runtime.Poller[BrokerAuthorizationClientCreateOrUpdateResponse], error) {
+func (client *BrokerAuthorizationClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, instanceName string, brokerName string, authorizationName string, resource AuthorizationResource, options *BrokerAuthorizationClientBeginCreateOrUpdateOptions) (*runtime.Poller[BrokerAuthorizationClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, instanceName, brokerName, authorizationName, resource, options)
 		if err != nil {
@@ -67,11 +67,11 @@ func (client *BrokerAuthorizationClient) BeginCreateOrUpdate(ctx context.Context
 	}
 }
 
-// CreateOrUpdate - Create a BrokerAuthorizationResource
+// CreateOrUpdate - Create a AuthorizationResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-11-01
-func (client *BrokerAuthorizationClient) createOrUpdate(ctx context.Context, resourceGroupName string, instanceName string, brokerName string, authorizationName string, resource BrokerAuthorizationResource, options *BrokerAuthorizationClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+// Generated from API version 2025-01-01-preview
+func (client *BrokerAuthorizationClient) createOrUpdate(ctx context.Context, resourceGroupName string, instanceName string, brokerName string, authorizationName string, resource AuthorizationResource, options *BrokerAuthorizationClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "BrokerAuthorizationClient.BeginCreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
@@ -93,7 +93,7 @@ func (client *BrokerAuthorizationClient) createOrUpdate(ctx context.Context, res
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *BrokerAuthorizationClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, instanceName string, brokerName string, authorizationName string, resource BrokerAuthorizationResource, _ *BrokerAuthorizationClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *BrokerAuthorizationClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, instanceName string, brokerName string, authorizationName string, resource AuthorizationResource, _ *BrokerAuthorizationClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.IoTOperations/instances/{instanceName}/brokers/{brokerName}/authorizations/{authorizationName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -120,7 +120,7 @@ func (client *BrokerAuthorizationClient) createOrUpdateCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-11-01")
+	reqQP.Set("api-version", "2025-01-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["Content-Type"] = []string{"application/json"}
@@ -130,10 +130,10 @@ func (client *BrokerAuthorizationClient) createOrUpdateCreateRequest(ctx context
 	return req, nil
 }
 
-// BeginDelete - Delete a BrokerAuthorizationResource
+// BeginDelete - Delete a AuthorizationResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-01-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - instanceName - Name of instance.
 //   - brokerName - Name of broker.
@@ -157,10 +157,10 @@ func (client *BrokerAuthorizationClient) BeginDelete(ctx context.Context, resour
 	}
 }
 
-// Delete - Delete a BrokerAuthorizationResource
+// Delete - Delete a AuthorizationResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-01-01-preview
 func (client *BrokerAuthorizationClient) deleteOperation(ctx context.Context, resourceGroupName string, instanceName string, brokerName string, authorizationName string, options *BrokerAuthorizationClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "BrokerAuthorizationClient.BeginDelete"
@@ -210,16 +210,16 @@ func (client *BrokerAuthorizationClient) deleteCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-11-01")
+	reqQP.Set("api-version", "2025-01-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
-// Get - Get a BrokerAuthorizationResource
+// Get - Get a AuthorizationResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-01-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - instanceName - Name of instance.
 //   - brokerName - Name of broker.
@@ -275,7 +275,7 @@ func (client *BrokerAuthorizationClient) getCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-11-01")
+	reqQP.Set("api-version", "2025-01-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -284,15 +284,15 @@ func (client *BrokerAuthorizationClient) getCreateRequest(ctx context.Context, r
 // getHandleResponse handles the Get response.
 func (client *BrokerAuthorizationClient) getHandleResponse(resp *http.Response) (BrokerAuthorizationClientGetResponse, error) {
 	result := BrokerAuthorizationClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.BrokerAuthorizationResource); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.AuthorizationResource); err != nil {
 		return BrokerAuthorizationClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListByResourceGroupPager - List BrokerAuthorizationResource resources by BrokerResource
+// NewListByResourceGroupPager - List AuthorizationResource resources by BrokerResource
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-01-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - instanceName - Name of instance.
 //   - brokerName - Name of broker.
@@ -345,7 +345,7 @@ func (client *BrokerAuthorizationClient) listByResourceGroupCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-11-01")
+	reqQP.Set("api-version", "2025-01-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -354,7 +354,7 @@ func (client *BrokerAuthorizationClient) listByResourceGroupCreateRequest(ctx co
 // listByResourceGroupHandleResponse handles the ListByResourceGroup response.
 func (client *BrokerAuthorizationClient) listByResourceGroupHandleResponse(resp *http.Response) (BrokerAuthorizationClientListByResourceGroupResponse, error) {
 	result := BrokerAuthorizationClientListByResourceGroupResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.BrokerAuthorizationResourceListResult); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.AuthorizationResourceListResult); err != nil {
 		return BrokerAuthorizationClientListByResourceGroupResponse{}, err
 	}
 	return result, nil
