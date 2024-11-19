@@ -1,5 +1,24 @@
 # Release History
 
+## 1.1.0-beta.1 (2024-11-19)
+### Features Added
+
+- New value `DataBaseTypeCloneFromBackupTimestamp`, `DataBaseTypeCrossRegionDisasterRecovery` added to enum type `DataBaseType`
+- New enum type `AddSubscriptionOperationState` with values `AddSubscriptionOperationStateFailed`, `AddSubscriptionOperationStateSucceeded`, `AddSubscriptionOperationStateUpdating`
+- New function `*AutonomousDatabaseCrossRegionDisasterRecoveryProperties.GetAutonomousDatabaseBaseProperties() *AutonomousDatabaseBaseProperties`
+- New function `*AutonomousDatabaseFromBackupTimestampProperties.GetAutonomousDatabaseBaseProperties() *AutonomousDatabaseBaseProperties`
+- New function `*AutonomousDatabasesClient.BeginChangeDisasterRecoveryConfiguration(context.Context, string, string, DisasterRecoveryConfigurationDetails, *AutonomousDatabasesClientBeginChangeDisasterRecoveryConfigurationOptions) (*runtime.Poller[AutonomousDatabasesClientChangeDisasterRecoveryConfigurationResponse], error)`
+- New function `*OracleSubscriptionsClient.BeginAddAzureSubscriptions(context.Context, AzureSubscriptions, *OracleSubscriptionsClientBeginAddAzureSubscriptionsOptions) (*runtime.Poller[OracleSubscriptionsClientAddAzureSubscriptionsResponse], error)`
+- New struct `AutonomousDatabaseCrossRegionDisasterRecoveryProperties`
+- New struct `AutonomousDatabaseFromBackupTimestampProperties`
+- New struct `AzureSubscriptions`
+- New struct `DisasterRecoveryConfigurationDetails`
+- New field `RemoteDisasterRecoveryConfiguration`, `TimeDisasterRecoveryRoleChanged` in struct `AutonomousDatabaseCloneProperties`
+- New field `RemoteDisasterRecoveryConfiguration`, `TimeDisasterRecoveryRoleChanged` in struct `AutonomousDatabaseProperties`
+- New field `AddSubscriptionOperationState`, `AzureSubscriptionIDs`, `LastOperationStatusDetail` in struct `OracleSubscriptionProperties`
+- New field `PeerDbLocation`, `PeerDbOcid` in struct `PeerDbDetails`
+
+
 ## 1.0.0 (2024-06-28)
 ### Other Changes
 
