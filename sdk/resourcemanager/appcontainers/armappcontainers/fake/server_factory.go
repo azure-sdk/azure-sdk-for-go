@@ -11,11 +11,10 @@ package fake
 import (
 	"errors"
 	"fmt"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
 	"strings"
 	"sync"
-
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 )
 
 // ServerFactory is a fake server for instances of the armappcontainers.ClientFactory type.
@@ -38,6 +37,7 @@ type ServerFactory struct {
 	ContainerAppsBuildsServer                          ContainerAppsBuildsServer
 	ContainerAppsServer                                ContainerAppsServer
 	ContainerAppsDiagnosticsServer                     ContainerAppsDiagnosticsServer
+	ContainerAppsLabelHistoryServer                    ContainerAppsLabelHistoryServer
 	ContainerAppsPatchesServer                         ContainerAppsPatchesServer
 	ContainerAppsRevisionReplicasServer                ContainerAppsRevisionReplicasServer
 	ContainerAppsRevisionsServer                       ContainerAppsRevisionsServer
@@ -48,10 +48,12 @@ type ServerFactory struct {
 	DaprSubscriptionsServer                            DaprSubscriptionsServer
 	DotNetComponentsServer                             DotNetComponentsServer
 	FunctionsExtensionServer                           FunctionsExtensionServer
+	HTTPRouteConfigServer                              HTTPRouteConfigServer
 	JavaComponentsServer                               JavaComponentsServer
 	JobsServer                                         JobsServer
 	JobsExecutionsServer                               JobsExecutionsServer
 	LogicAppsServer                                    LogicAppsServer
+	MaintenanceConfigurationsServer                    MaintenanceConfigurationsServer
 	ManagedCertificatesServer                          ManagedCertificatesServer
 	ManagedEnvironmentDiagnosticsServer                ManagedEnvironmentDiagnosticsServer
 	ManagedEnvironmentPrivateEndpointConnectionsServer ManagedEnvironmentPrivateEndpointConnectionsServer
@@ -97,6 +99,7 @@ type ServerFactoryTransport struct {
 	trContainerAppsBuildsServer                          *ContainerAppsBuildsServerTransport
 	trContainerAppsServer                                *ContainerAppsServerTransport
 	trContainerAppsDiagnosticsServer                     *ContainerAppsDiagnosticsServerTransport
+	trContainerAppsLabelHistoryServer                    *ContainerAppsLabelHistoryServerTransport
 	trContainerAppsPatchesServer                         *ContainerAppsPatchesServerTransport
 	trContainerAppsRevisionReplicasServer                *ContainerAppsRevisionReplicasServerTransport
 	trContainerAppsRevisionsServer                       *ContainerAppsRevisionsServerTransport
@@ -107,10 +110,12 @@ type ServerFactoryTransport struct {
 	trDaprSubscriptionsServer                            *DaprSubscriptionsServerTransport
 	trDotNetComponentsServer                             *DotNetComponentsServerTransport
 	trFunctionsExtensionServer                           *FunctionsExtensionServerTransport
+	trHTTPRouteConfigServer                              *HTTPRouteConfigServerTransport
 	trJavaComponentsServer                               *JavaComponentsServerTransport
 	trJobsServer                                         *JobsServerTransport
 	trJobsExecutionsServer                               *JobsExecutionsServerTransport
 	trLogicAppsServer                                    *LogicAppsServerTransport
+	trMaintenanceConfigurationsServer                    *MaintenanceConfigurationsServerTransport
 	trManagedCertificatesServer                          *ManagedCertificatesServerTransport
 	trManagedEnvironmentDiagnosticsServer                *ManagedEnvironmentDiagnosticsServerTransport
 	trManagedEnvironmentPrivateEndpointConnectionsServer *ManagedEnvironmentPrivateEndpointConnectionsServerTransport
@@ -221,6 +226,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewContainerAppsDiagnosticsServerTransport(&s.srv.ContainerAppsDiagnosticsServer)
 		})
 		resp, err = s.trContainerAppsDiagnosticsServer.Do(req)
+	case "ContainerAppsLabelHistoryClient":
+		initServer(s, &s.trContainerAppsLabelHistoryServer, func() *ContainerAppsLabelHistoryServerTransport {
+			return NewContainerAppsLabelHistoryServerTransport(&s.srv.ContainerAppsLabelHistoryServer)
+		})
+		resp, err = s.trContainerAppsLabelHistoryServer.Do(req)
 	case "ContainerAppsPatchesClient":
 		initServer(s, &s.trContainerAppsPatchesServer, func() *ContainerAppsPatchesServerTransport {
 			return NewContainerAppsPatchesServerTransport(&s.srv.ContainerAppsPatchesServer)
@@ -271,6 +281,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewFunctionsExtensionServerTransport(&s.srv.FunctionsExtensionServer)
 		})
 		resp, err = s.trFunctionsExtensionServer.Do(req)
+	case "HTTPRouteConfigClient":
+		initServer(s, &s.trHTTPRouteConfigServer, func() *HTTPRouteConfigServerTransport {
+			return NewHTTPRouteConfigServerTransport(&s.srv.HTTPRouteConfigServer)
+		})
+		resp, err = s.trHTTPRouteConfigServer.Do(req)
 	case "JavaComponentsClient":
 		initServer(s, &s.trJavaComponentsServer, func() *JavaComponentsServerTransport {
 			return NewJavaComponentsServerTransport(&s.srv.JavaComponentsServer)
@@ -287,6 +302,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "LogicAppsClient":
 		initServer(s, &s.trLogicAppsServer, func() *LogicAppsServerTransport { return NewLogicAppsServerTransport(&s.srv.LogicAppsServer) })
 		resp, err = s.trLogicAppsServer.Do(req)
+	case "MaintenanceConfigurationsClient":
+		initServer(s, &s.trMaintenanceConfigurationsServer, func() *MaintenanceConfigurationsServerTransport {
+			return NewMaintenanceConfigurationsServerTransport(&s.srv.MaintenanceConfigurationsServer)
+		})
+		resp, err = s.trMaintenanceConfigurationsServer.Do(req)
 	case "ManagedCertificatesClient":
 		initServer(s, &s.trManagedCertificatesServer, func() *ManagedCertificatesServerTransport {
 			return NewManagedCertificatesServerTransport(&s.srv.ManagedCertificatesServer)

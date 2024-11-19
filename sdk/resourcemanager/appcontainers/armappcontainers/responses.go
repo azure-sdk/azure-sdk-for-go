@@ -142,13 +142,13 @@ type CertificatesClientUpdateResponse struct {
 	Certificate
 }
 
-// ConnectedEnvironmentsCertificatesClientCreateOrUpdateResponse contains the response from method ConnectedEnvironmentsCertificatesClient.CreateOrUpdate.
+// ConnectedEnvironmentsCertificatesClientCreateOrUpdateResponse contains the response from method ConnectedEnvironmentsCertificatesClient.BeginCreateOrUpdate.
 type ConnectedEnvironmentsCertificatesClientCreateOrUpdateResponse struct {
 	// Certificate used for Custom Domain bindings of Container Apps in a Managed Environment
 	Certificate
 }
 
-// ConnectedEnvironmentsCertificatesClientDeleteResponse contains the response from method ConnectedEnvironmentsCertificatesClient.Delete.
+// ConnectedEnvironmentsCertificatesClientDeleteResponse contains the response from method ConnectedEnvironmentsCertificatesClient.BeginDelete.
 type ConnectedEnvironmentsCertificatesClientDeleteResponse struct {
 	// placeholder for future response values
 }
@@ -165,7 +165,7 @@ type ConnectedEnvironmentsCertificatesClientListResponse struct {
 	CertificateCollection
 }
 
-// ConnectedEnvironmentsCertificatesClientUpdateResponse contains the response from method ConnectedEnvironmentsCertificatesClient.Update.
+// ConnectedEnvironmentsCertificatesClientUpdateResponse contains the response from method ConnectedEnvironmentsCertificatesClient.BeginUpdate.
 type ConnectedEnvironmentsCertificatesClientUpdateResponse struct {
 	// Certificate used for Custom Domain bindings of Container Apps in a Managed Environment
 	Certificate
@@ -212,13 +212,13 @@ type ConnectedEnvironmentsClientUpdateResponse struct {
 	ConnectedEnvironment
 }
 
-// ConnectedEnvironmentsDaprComponentsClientCreateOrUpdateResponse contains the response from method ConnectedEnvironmentsDaprComponentsClient.CreateOrUpdate.
+// ConnectedEnvironmentsDaprComponentsClientCreateOrUpdateResponse contains the response from method ConnectedEnvironmentsDaprComponentsClient.BeginCreateOrUpdate.
 type ConnectedEnvironmentsDaprComponentsClientCreateOrUpdateResponse struct {
 	// Dapr Component.
-	DaprComponent
+	ConnectedEnvironmentDaprComponent
 }
 
-// ConnectedEnvironmentsDaprComponentsClientDeleteResponse contains the response from method ConnectedEnvironmentsDaprComponentsClient.Delete.
+// ConnectedEnvironmentsDaprComponentsClientDeleteResponse contains the response from method ConnectedEnvironmentsDaprComponentsClient.BeginDelete.
 type ConnectedEnvironmentsDaprComponentsClientDeleteResponse struct {
 	// placeholder for future response values
 }
@@ -226,13 +226,13 @@ type ConnectedEnvironmentsDaprComponentsClientDeleteResponse struct {
 // ConnectedEnvironmentsDaprComponentsClientGetResponse contains the response from method ConnectedEnvironmentsDaprComponentsClient.Get.
 type ConnectedEnvironmentsDaprComponentsClientGetResponse struct {
 	// Dapr Component.
-	DaprComponent
+	ConnectedEnvironmentDaprComponent
 }
 
 // ConnectedEnvironmentsDaprComponentsClientListResponse contains the response from method ConnectedEnvironmentsDaprComponentsClient.NewListPager.
 type ConnectedEnvironmentsDaprComponentsClientListResponse struct {
-	// Dapr Components ARM resource.
-	DaprComponentsCollection
+	// Collection of Dapr Components for Environments
+	ConnectedEnvironmentDaprComponentsCollection
 }
 
 // ConnectedEnvironmentsDaprComponentsClientListSecretsResponse contains the response from method ConnectedEnvironmentsDaprComponentsClient.ListSecrets.
@@ -241,13 +241,13 @@ type ConnectedEnvironmentsDaprComponentsClientListSecretsResponse struct {
 	DaprSecretsCollection
 }
 
-// ConnectedEnvironmentsStoragesClientCreateOrUpdateResponse contains the response from method ConnectedEnvironmentsStoragesClient.CreateOrUpdate.
+// ConnectedEnvironmentsStoragesClientCreateOrUpdateResponse contains the response from method ConnectedEnvironmentsStoragesClient.BeginCreateOrUpdate.
 type ConnectedEnvironmentsStoragesClientCreateOrUpdateResponse struct {
 	// Storage resource for connectedEnvironment.
 	ConnectedEnvironmentStorage
 }
 
-// ConnectedEnvironmentsStoragesClientDeleteResponse contains the response from method ConnectedEnvironmentsStoragesClient.Delete.
+// ConnectedEnvironmentsStoragesClientDeleteResponse contains the response from method ConnectedEnvironmentsStoragesClient.BeginDelete.
 type ConnectedEnvironmentsStoragesClientDeleteResponse struct {
 	// placeholder for future response values
 }
@@ -409,6 +409,18 @@ type ContainerAppsDiagnosticsClientListDetectorsResponse struct {
 type ContainerAppsDiagnosticsClientListRevisionsResponse struct {
 	// Container App Revisions collection ARM resource.
 	RevisionCollection
+}
+
+// ContainerAppsLabelHistoryClientGetLabelHistoryResponse contains the response from method ContainerAppsLabelHistoryClient.GetLabelHistory.
+type ContainerAppsLabelHistoryClientGetLabelHistoryResponse struct {
+	// Container App Label History.
+	LabelHistory
+}
+
+// ContainerAppsLabelHistoryClientListLabelHistoryResponse contains the response from method ContainerAppsLabelHistoryClient.NewListLabelHistoryPager.
+type ContainerAppsLabelHistoryClientListLabelHistoryResponse struct {
+	// Container App Label History collection ARM resource.
+	LabelHistoryCollection
 }
 
 // ContainerAppsPatchesClientApplyResponse contains the response from method ContainerAppsPatchesClient.BeginApply.
@@ -645,6 +657,35 @@ type FunctionsExtensionClientInvokeFunctionsHostResponse struct {
 	Value *string
 }
 
+// HTTPRouteConfigClientCreateOrUpdateResponse contains the response from method HTTPRouteConfigClient.CreateOrUpdate.
+type HTTPRouteConfigClientCreateOrUpdateResponse struct {
+	// Advanced Ingress routing for path/header based routing for a Container App Environment
+	HTTPRouteConfig
+}
+
+// HTTPRouteConfigClientDeleteResponse contains the response from method HTTPRouteConfigClient.Delete.
+type HTTPRouteConfigClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// HTTPRouteConfigClientGetResponse contains the response from method HTTPRouteConfigClient.Get.
+type HTTPRouteConfigClientGetResponse struct {
+	// Advanced Ingress routing for path/header based routing for a Container App Environment
+	HTTPRouteConfig
+}
+
+// HTTPRouteConfigClientListResponse contains the response from method HTTPRouteConfigClient.NewListPager.
+type HTTPRouteConfigClientListResponse struct {
+	// Collection of Advanced Ingress Routing Config resources.
+	HTTPRouteConfigCollection
+}
+
+// HTTPRouteConfigClientUpdateResponse contains the response from method HTTPRouteConfigClient.Update.
+type HTTPRouteConfigClientUpdateResponse struct {
+	// Advanced Ingress routing for path/header based routing for a Container App Environment
+	HTTPRouteConfig
+}
+
 // JavaComponentsClientCreateOrUpdateResponse contains the response from method JavaComponentsClient.BeginCreateOrUpdate.
 type JavaComponentsClientCreateOrUpdateResponse struct {
 	// Java Component.
@@ -812,6 +853,29 @@ type LogicAppsClientListWorkflowsConnectionsResponse struct {
 type LogicAppsClientListWorkflowsResponse struct {
 	// Collection of workflow information elements.
 	WorkflowEnvelopeCollection
+}
+
+// MaintenanceConfigurationsClientCreateOrUpdateResponse contains the response from method MaintenanceConfigurationsClient.CreateOrUpdate.
+type MaintenanceConfigurationsClientCreateOrUpdateResponse struct {
+	// Information about the Maintenance Configuration resource.
+	MaintenanceConfigurationResource
+}
+
+// MaintenanceConfigurationsClientDeleteResponse contains the response from method MaintenanceConfigurationsClient.Delete.
+type MaintenanceConfigurationsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// MaintenanceConfigurationsClientGetResponse contains the response from method MaintenanceConfigurationsClient.Get.
+type MaintenanceConfigurationsClientGetResponse struct {
+	// Information about the Maintenance Configuration resource.
+	MaintenanceConfigurationResource
+}
+
+// MaintenanceConfigurationsClientListResponse contains the response from method MaintenanceConfigurationsClient.NewListPager.
+type MaintenanceConfigurationsClientListResponse struct {
+	// The response of list maintenance configuration resources.
+	MaintenanceConfigurationCollection
 }
 
 // ManagedCertificatesClientCreateOrUpdateResponse contains the response from method ManagedCertificatesClient.BeginCreateOrUpdate.
