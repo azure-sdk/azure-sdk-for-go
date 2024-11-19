@@ -16,48 +16,48 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/kubernetesconfiguration/armkubernetesconfiguration/v3"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/kubernetesconfiguration/sourcecontrolconfiguration"
 	"net/http"
 	"net/url"
 	"regexp"
 )
 
-// SourceControlConfigurationsServer is a fake server for instances of the armkubernetesconfiguration.SourceControlConfigurationsClient type.
+// SourceControlConfigurationsServer is a fake server for instances of the sourcecontrolconfiguration.SourceControlConfigurationsClient type.
 type SourceControlConfigurationsServer struct {
 	// CreateOrUpdate is the fake for method SourceControlConfigurationsClient.CreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	CreateOrUpdate func(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, sourceControlConfigurationName string, sourceControlConfiguration armkubernetesconfiguration.SourceControlConfiguration, options *armkubernetesconfiguration.SourceControlConfigurationsClientCreateOrUpdateOptions) (resp azfake.Responder[armkubernetesconfiguration.SourceControlConfigurationsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	CreateOrUpdate func(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, sourceControlConfigurationName string, sourceControlConfiguration sourcecontrolconfiguration.SourceControlConfiguration, options *sourcecontrolconfiguration.SourceControlConfigurationsClientCreateOrUpdateOptions) (resp azfake.Responder[sourcecontrolconfiguration.SourceControlConfigurationsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method SourceControlConfigurationsClient.BeginDelete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
-	BeginDelete func(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, sourceControlConfigurationName string, options *armkubernetesconfiguration.SourceControlConfigurationsClientBeginDeleteOptions) (resp azfake.PollerResponder[armkubernetesconfiguration.SourceControlConfigurationsClientDeleteResponse], errResp azfake.ErrorResponder)
+	BeginDelete func(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, sourceControlConfigurationName string, options *sourcecontrolconfiguration.SourceControlConfigurationsClientBeginDeleteOptions) (resp azfake.PollerResponder[sourcecontrolconfiguration.SourceControlConfigurationsClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method SourceControlConfigurationsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, sourceControlConfigurationName string, options *armkubernetesconfiguration.SourceControlConfigurationsClientGetOptions) (resp azfake.Responder[armkubernetesconfiguration.SourceControlConfigurationsClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, sourceControlConfigurationName string, options *sourcecontrolconfiguration.SourceControlConfigurationsClientGetOptions) (resp azfake.Responder[sourcecontrolconfiguration.SourceControlConfigurationsClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method SourceControlConfigurationsClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, options *armkubernetesconfiguration.SourceControlConfigurationsClientListOptions) (resp azfake.PagerResponder[armkubernetesconfiguration.SourceControlConfigurationsClientListResponse])
+	NewListPager func(resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, options *sourcecontrolconfiguration.SourceControlConfigurationsClientListOptions) (resp azfake.PagerResponder[sourcecontrolconfiguration.SourceControlConfigurationsClientListResponse])
 }
 
 // NewSourceControlConfigurationsServerTransport creates a new instance of SourceControlConfigurationsServerTransport with the provided implementation.
-// The returned SourceControlConfigurationsServerTransport instance is connected to an instance of armkubernetesconfiguration.SourceControlConfigurationsClient via the
+// The returned SourceControlConfigurationsServerTransport instance is connected to an instance of sourcecontrolconfiguration.SourceControlConfigurationsClient via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewSourceControlConfigurationsServerTransport(srv *SourceControlConfigurationsServer) *SourceControlConfigurationsServerTransport {
 	return &SourceControlConfigurationsServerTransport{
 		srv:          srv,
-		beginDelete:  newTracker[azfake.PollerResponder[armkubernetesconfiguration.SourceControlConfigurationsClientDeleteResponse]](),
-		newListPager: newTracker[azfake.PagerResponder[armkubernetesconfiguration.SourceControlConfigurationsClientListResponse]](),
+		beginDelete:  newTracker[azfake.PollerResponder[sourcecontrolconfiguration.SourceControlConfigurationsClientDeleteResponse]](),
+		newListPager: newTracker[azfake.PagerResponder[sourcecontrolconfiguration.SourceControlConfigurationsClientListResponse]](),
 	}
 }
 
-// SourceControlConfigurationsServerTransport connects instances of armkubernetesconfiguration.SourceControlConfigurationsClient to instances of SourceControlConfigurationsServer.
+// SourceControlConfigurationsServerTransport connects instances of sourcecontrolconfiguration.SourceControlConfigurationsClient to instances of SourceControlConfigurationsServer.
 // Don't use this type directly, use NewSourceControlConfigurationsServerTransport instead.
 type SourceControlConfigurationsServerTransport struct {
 	srv          *SourceControlConfigurationsServer
-	beginDelete  *tracker[azfake.PollerResponder[armkubernetesconfiguration.SourceControlConfigurationsClientDeleteResponse]]
-	newListPager *tracker[azfake.PagerResponder[armkubernetesconfiguration.SourceControlConfigurationsClientListResponse]]
+	beginDelete  *tracker[azfake.PollerResponder[sourcecontrolconfiguration.SourceControlConfigurationsClientDeleteResponse]]
+	newListPager *tracker[azfake.PagerResponder[sourcecontrolconfiguration.SourceControlConfigurationsClientListResponse]]
 }
 
 // Do implements the policy.Transporter interface for SourceControlConfigurationsServerTransport.
@@ -101,7 +101,7 @@ func (s *SourceControlConfigurationsServerTransport) dispatchCreateOrUpdate(req 
 	if matches == nil || len(matches) < 6 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armkubernetesconfiguration.SourceControlConfiguration](req)
+	body, err := server.UnmarshalRequestAsJSON[sourcecontrolconfiguration.SourceControlConfiguration](req)
 	if err != nil {
 		return nil, err
 	}
@@ -272,7 +272,7 @@ func (s *SourceControlConfigurationsServerTransport) dispatchNewListPager(req *h
 		resp := s.srv.NewListPager(resourceGroupNameParam, clusterRpParam, clusterResourceNameParam, clusterNameParam, nil)
 		newListPager = &resp
 		s.newListPager.add(req, newListPager)
-		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armkubernetesconfiguration.SourceControlConfigurationsClientListResponse, createLink func() string) {
+		server.PagerResponderInjectNextLinks(newListPager, req, func(page *sourcecontrolconfiguration.SourceControlConfigurationsClientListResponse, createLink func() string) {
 			page.NextLink = to.Ptr(createLink())
 		})
 	}
