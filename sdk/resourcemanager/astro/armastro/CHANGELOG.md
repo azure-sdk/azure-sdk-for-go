@@ -1,5 +1,20 @@
 # Release History
 
+## 1.0.0 (2024-11-20)
+### Breaking Changes
+
+- Type of `OrganizationResourceUpdate.Identity` has been changed from `*ManagedServiceIdentity` to `*AzureResourceManagerLegacyManagedServiceIdentityV4Update`
+
+### Features Added
+
+- New enum type `RenewalMode` with values `RenewalModeAuto`, `RenewalModeManual`
+- New struct `AzureResourceManagerLegacyManagedServiceIdentityV4Update`
+- New struct `LiftrBaseMarketplaceDetailsUpdate`
+- New struct `LiftrBaseOfferDetailsUpdate`
+- New field `EndDate`, `RenewalMode` in struct `LiftrBaseOfferDetails`
+- New field `Marketplace` in struct `OrganizationResourceUpdateProperties`
+
+
 ## 0.1.0 (2024-02-23)
 ### Other Changes
 

@@ -10,7 +10,7 @@ package armastro
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/astro/armastro"
-	moduleVersion = "v0.1.0"
+	moduleVersion = "v1.0.0"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -108,6 +108,24 @@ func PossibleOriginValues() []Origin {
 		OriginSystem,
 		OriginUser,
 		OriginUserSystem,
+	}
+}
+
+// RenewalMode - Subscription renewal mode
+type RenewalMode string
+
+const (
+	// RenewalModeAuto - Automatic renewal
+	RenewalModeAuto RenewalMode = "Auto"
+	// RenewalModeManual - Manual renewal
+	RenewalModeManual RenewalMode = "Manual"
+)
+
+// PossibleRenewalModeValues returns the possible values for the RenewalMode const type.
+func PossibleRenewalModeValues() []RenewalMode {
+	return []RenewalMode{
+		RenewalModeAuto,
+		RenewalModeManual,
 	}
 }
 
