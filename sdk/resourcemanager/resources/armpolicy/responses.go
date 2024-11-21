@@ -80,16 +80,80 @@ type AssignmentsClientUpdateResponse struct {
 	Assignment
 }
 
-// DataPolicyManifestsClientGetByPolicyModeResponse contains the response from method DataPolicyManifestsClient.GetByPolicyMode.
-type DataPolicyManifestsClientGetByPolicyModeResponse struct {
-	// The data policy manifest.
-	DataPolicyManifest
+// DefinitionVersionsClientCreateOrUpdateAtManagementGroupResponse contains the response from method DefinitionVersionsClient.CreateOrUpdateAtManagementGroup.
+type DefinitionVersionsClientCreateOrUpdateAtManagementGroupResponse struct {
+	// The ID of the policy definition version.
+	DefinitionVersion
 }
 
-// DataPolicyManifestsClientListResponse contains the response from method DataPolicyManifestsClient.NewListPager.
-type DataPolicyManifestsClientListResponse struct {
-	// List of data policy manifests.
-	DataPolicyManifestListResult
+// DefinitionVersionsClientCreateOrUpdateResponse contains the response from method DefinitionVersionsClient.CreateOrUpdate.
+type DefinitionVersionsClientCreateOrUpdateResponse struct {
+	// The ID of the policy definition version.
+	DefinitionVersion
+}
+
+// DefinitionVersionsClientDeleteAtManagementGroupResponse contains the response from method DefinitionVersionsClient.DeleteAtManagementGroup.
+type DefinitionVersionsClientDeleteAtManagementGroupResponse struct {
+	// placeholder for future response values
+}
+
+// DefinitionVersionsClientDeleteResponse contains the response from method DefinitionVersionsClient.Delete.
+type DefinitionVersionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// DefinitionVersionsClientGetAtManagementGroupResponse contains the response from method DefinitionVersionsClient.GetAtManagementGroup.
+type DefinitionVersionsClientGetAtManagementGroupResponse struct {
+	// The ID of the policy definition version.
+	DefinitionVersion
+}
+
+// DefinitionVersionsClientGetBuiltInResponse contains the response from method DefinitionVersionsClient.GetBuiltIn.
+type DefinitionVersionsClientGetBuiltInResponse struct {
+	// The ID of the policy definition version.
+	DefinitionVersion
+}
+
+// DefinitionVersionsClientGetResponse contains the response from method DefinitionVersionsClient.Get.
+type DefinitionVersionsClientGetResponse struct {
+	// The ID of the policy definition version.
+	DefinitionVersion
+}
+
+// DefinitionVersionsClientListAllAtManagementGroupResponse contains the response from method DefinitionVersionsClient.ListAllAtManagementGroup.
+type DefinitionVersionsClientListAllAtManagementGroupResponse struct {
+	// List of policy definition versions.
+	DefinitionVersionListResult
+}
+
+// DefinitionVersionsClientListAllBuiltinsResponse contains the response from method DefinitionVersionsClient.ListAllBuiltins.
+type DefinitionVersionsClientListAllBuiltinsResponse struct {
+	// List of policy definition versions.
+	DefinitionVersionListResult
+}
+
+// DefinitionVersionsClientListAllResponse contains the response from method DefinitionVersionsClient.ListAll.
+type DefinitionVersionsClientListAllResponse struct {
+	// List of policy definition versions.
+	DefinitionVersionListResult
+}
+
+// DefinitionVersionsClientListBuiltInResponse contains the response from method DefinitionVersionsClient.NewListBuiltInPager.
+type DefinitionVersionsClientListBuiltInResponse struct {
+	// List of policy definition versions.
+	DefinitionVersionListResult
+}
+
+// DefinitionVersionsClientListByManagementGroupResponse contains the response from method DefinitionVersionsClient.NewListByManagementGroupPager.
+type DefinitionVersionsClientListByManagementGroupResponse struct {
+	// List of policy definition versions.
+	DefinitionVersionListResult
+}
+
+// DefinitionVersionsClientListResponse contains the response from method DefinitionVersionsClient.NewListPager.
+type DefinitionVersionsClientListResponse struct {
+	// List of policy definition versions.
+	DefinitionVersionListResult
 }
 
 // DefinitionsClientCreateOrUpdateAtManagementGroupResponse contains the response from method DefinitionsClient.CreateOrUpdateAtManagementGroup.
@@ -150,51 +214,80 @@ type DefinitionsClientListResponse struct {
 	DefinitionListResult
 }
 
-// ExemptionsClientCreateOrUpdateResponse contains the response from method ExemptionsClient.CreateOrUpdate.
-type ExemptionsClientCreateOrUpdateResponse struct {
-	// The policy exemption.
-	Exemption
+// SetDefinitionVersionsClientCreateOrUpdateAtManagementGroupResponse contains the response from method SetDefinitionVersionsClient.CreateOrUpdateAtManagementGroup.
+type SetDefinitionVersionsClientCreateOrUpdateAtManagementGroupResponse struct {
+	// The policy set definition version.
+	SetDefinitionVersion
 }
 
-// ExemptionsClientDeleteResponse contains the response from method ExemptionsClient.Delete.
-type ExemptionsClientDeleteResponse struct {
+// SetDefinitionVersionsClientCreateOrUpdateResponse contains the response from method SetDefinitionVersionsClient.CreateOrUpdate.
+type SetDefinitionVersionsClientCreateOrUpdateResponse struct {
+	// The policy set definition version.
+	SetDefinitionVersion
+}
+
+// SetDefinitionVersionsClientDeleteAtManagementGroupResponse contains the response from method SetDefinitionVersionsClient.DeleteAtManagementGroup.
+type SetDefinitionVersionsClientDeleteAtManagementGroupResponse struct {
 	// placeholder for future response values
 }
 
-// ExemptionsClientGetResponse contains the response from method ExemptionsClient.Get.
-type ExemptionsClientGetResponse struct {
-	// The policy exemption.
-	Exemption
+// SetDefinitionVersionsClientDeleteResponse contains the response from method SetDefinitionVersionsClient.Delete.
+type SetDefinitionVersionsClientDeleteResponse struct {
+	// placeholder for future response values
 }
 
-// ExemptionsClientListForManagementGroupResponse contains the response from method ExemptionsClient.NewListForManagementGroupPager.
-type ExemptionsClientListForManagementGroupResponse struct {
-	// List of policy exemptions.
-	ExemptionListResult
+// SetDefinitionVersionsClientGetAtManagementGroupResponse contains the response from method SetDefinitionVersionsClient.GetAtManagementGroup.
+type SetDefinitionVersionsClientGetAtManagementGroupResponse struct {
+	// The policy set definition version.
+	SetDefinitionVersion
 }
 
-// ExemptionsClientListForResourceGroupResponse contains the response from method ExemptionsClient.NewListForResourceGroupPager.
-type ExemptionsClientListForResourceGroupResponse struct {
-	// List of policy exemptions.
-	ExemptionListResult
+// SetDefinitionVersionsClientGetBuiltInResponse contains the response from method SetDefinitionVersionsClient.GetBuiltIn.
+type SetDefinitionVersionsClientGetBuiltInResponse struct {
+	// The policy set definition version.
+	SetDefinitionVersion
 }
 
-// ExemptionsClientListForResourceResponse contains the response from method ExemptionsClient.NewListForResourcePager.
-type ExemptionsClientListForResourceResponse struct {
-	// List of policy exemptions.
-	ExemptionListResult
+// SetDefinitionVersionsClientGetResponse contains the response from method SetDefinitionVersionsClient.Get.
+type SetDefinitionVersionsClientGetResponse struct {
+	// The policy set definition version.
+	SetDefinitionVersion
 }
 
-// ExemptionsClientListResponse contains the response from method ExemptionsClient.NewListPager.
-type ExemptionsClientListResponse struct {
-	// List of policy exemptions.
-	ExemptionListResult
+// SetDefinitionVersionsClientListAllAtManagementGroupResponse contains the response from method SetDefinitionVersionsClient.ListAllAtManagementGroup.
+type SetDefinitionVersionsClientListAllAtManagementGroupResponse struct {
+	// List of policy set definition versions.
+	SetDefinitionVersionListResult
 }
 
-// ExemptionsClientUpdateResponse contains the response from method ExemptionsClient.Update.
-type ExemptionsClientUpdateResponse struct {
-	// The policy exemption.
-	Exemption
+// SetDefinitionVersionsClientListAllBuiltinsResponse contains the response from method SetDefinitionVersionsClient.ListAllBuiltins.
+type SetDefinitionVersionsClientListAllBuiltinsResponse struct {
+	// List of policy set definition versions.
+	SetDefinitionVersionListResult
+}
+
+// SetDefinitionVersionsClientListAllResponse contains the response from method SetDefinitionVersionsClient.ListAll.
+type SetDefinitionVersionsClientListAllResponse struct {
+	// List of policy set definition versions.
+	SetDefinitionVersionListResult
+}
+
+// SetDefinitionVersionsClientListBuiltInResponse contains the response from method SetDefinitionVersionsClient.NewListBuiltInPager.
+type SetDefinitionVersionsClientListBuiltInResponse struct {
+	// List of policy set definition versions.
+	SetDefinitionVersionListResult
+}
+
+// SetDefinitionVersionsClientListByManagementGroupResponse contains the response from method SetDefinitionVersionsClient.NewListByManagementGroupPager.
+type SetDefinitionVersionsClientListByManagementGroupResponse struct {
+	// List of policy set definition versions.
+	SetDefinitionVersionListResult
+}
+
+// SetDefinitionVersionsClientListResponse contains the response from method SetDefinitionVersionsClient.NewListPager.
+type SetDefinitionVersionsClientListResponse struct {
+	// List of policy set definition versions.
+	SetDefinitionVersionListResult
 }
 
 // SetDefinitionsClientCreateOrUpdateAtManagementGroupResponse contains the response from method SetDefinitionsClient.CreateOrUpdateAtManagementGroup.
@@ -253,96 +346,4 @@ type SetDefinitionsClientListByManagementGroupResponse struct {
 type SetDefinitionsClientListResponse struct {
 	// List of policy set definitions.
 	SetDefinitionListResult
-}
-
-// VariableValuesClientCreateOrUpdateAtManagementGroupResponse contains the response from method VariableValuesClient.CreateOrUpdateAtManagementGroup.
-type VariableValuesClientCreateOrUpdateAtManagementGroupResponse struct {
-	// The variable value.
-	VariableValue
-}
-
-// VariableValuesClientCreateOrUpdateResponse contains the response from method VariableValuesClient.CreateOrUpdate.
-type VariableValuesClientCreateOrUpdateResponse struct {
-	// The variable value.
-	VariableValue
-}
-
-// VariableValuesClientDeleteAtManagementGroupResponse contains the response from method VariableValuesClient.DeleteAtManagementGroup.
-type VariableValuesClientDeleteAtManagementGroupResponse struct {
-	// placeholder for future response values
-}
-
-// VariableValuesClientDeleteResponse contains the response from method VariableValuesClient.Delete.
-type VariableValuesClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// VariableValuesClientGetAtManagementGroupResponse contains the response from method VariableValuesClient.GetAtManagementGroup.
-type VariableValuesClientGetAtManagementGroupResponse struct {
-	// The variable value.
-	VariableValue
-}
-
-// VariableValuesClientGetResponse contains the response from method VariableValuesClient.Get.
-type VariableValuesClientGetResponse struct {
-	// The variable value.
-	VariableValue
-}
-
-// VariableValuesClientListForManagementGroupResponse contains the response from method VariableValuesClient.NewListForManagementGroupPager.
-type VariableValuesClientListForManagementGroupResponse struct {
-	// List of variable values.
-	VariableValueListResult
-}
-
-// VariableValuesClientListResponse contains the response from method VariableValuesClient.NewListPager.
-type VariableValuesClientListResponse struct {
-	// List of variable values.
-	VariableValueListResult
-}
-
-// VariablesClientCreateOrUpdateAtManagementGroupResponse contains the response from method VariablesClient.CreateOrUpdateAtManagementGroup.
-type VariablesClientCreateOrUpdateAtManagementGroupResponse struct {
-	// The variable.
-	Variable
-}
-
-// VariablesClientCreateOrUpdateResponse contains the response from method VariablesClient.CreateOrUpdate.
-type VariablesClientCreateOrUpdateResponse struct {
-	// The variable.
-	Variable
-}
-
-// VariablesClientDeleteAtManagementGroupResponse contains the response from method VariablesClient.DeleteAtManagementGroup.
-type VariablesClientDeleteAtManagementGroupResponse struct {
-	// placeholder for future response values
-}
-
-// VariablesClientDeleteResponse contains the response from method VariablesClient.Delete.
-type VariablesClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// VariablesClientGetAtManagementGroupResponse contains the response from method VariablesClient.GetAtManagementGroup.
-type VariablesClientGetAtManagementGroupResponse struct {
-	// The variable.
-	Variable
-}
-
-// VariablesClientGetResponse contains the response from method VariablesClient.Get.
-type VariablesClientGetResponse struct {
-	// The variable.
-	Variable
-}
-
-// VariablesClientListForManagementGroupResponse contains the response from method VariablesClient.NewListForManagementGroupPager.
-type VariablesClientListForManagementGroupResponse struct {
-	// List of variables.
-	VariableListResult
-}
-
-// VariablesClientListResponse contains the response from method VariablesClient.NewListPager.
-type VariablesClientListResponse struct {
-	// List of variables.
-	VariableListResult
 }
