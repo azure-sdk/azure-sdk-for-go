@@ -11,32 +11,32 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/standbypool/armstandbypool"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/terraform/armterraform"
 	"net/http"
 )
 
-// OperationsServer is a fake server for instances of the armstandbypool.OperationsClient type.
+// OperationsServer is a fake server for instances of the armterraform.OperationsClient type.
 type OperationsServer struct {
 	// NewListPager is the fake for method OperationsClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(options *armstandbypool.OperationsClientListOptions) (resp azfake.PagerResponder[armstandbypool.OperationsClientListResponse])
+	NewListPager func(options *armterraform.OperationsClientListOptions) (resp azfake.PagerResponder[armterraform.OperationsClientListResponse])
 }
 
 // NewOperationsServerTransport creates a new instance of OperationsServerTransport with the provided implementation.
-// The returned OperationsServerTransport instance is connected to an instance of armstandbypool.OperationsClient via the
+// The returned OperationsServerTransport instance is connected to an instance of armterraform.OperationsClient via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewOperationsServerTransport(srv *OperationsServer) *OperationsServerTransport {
 	return &OperationsServerTransport{
 		srv:          srv,
-		newListPager: newTracker[azfake.PagerResponder[armstandbypool.OperationsClientListResponse]](),
+		newListPager: newTracker[azfake.PagerResponder[armterraform.OperationsClientListResponse]](),
 	}
 }
 
-// OperationsServerTransport connects instances of armstandbypool.OperationsClient to instances of OperationsServer.
+// OperationsServerTransport connects instances of armterraform.OperationsClient to instances of OperationsServer.
 // Don't use this type directly, use NewOperationsServerTransport instead.
 type OperationsServerTransport struct {
 	srv          *OperationsServer
-	newListPager *tracker[azfake.PagerResponder[armstandbypool.OperationsClientListResponse]]
+	newListPager *tracker[azfake.PagerResponder[armterraform.OperationsClientListResponse]]
 }
 
 // Do implements the policy.Transporter interface for OperationsServerTransport.
@@ -92,7 +92,7 @@ func (o *OperationsServerTransport) dispatchNewListPager(req *http.Request) (*ht
 		resp := o.srv.NewListPager(nil)
 		newListPager = &resp
 		o.newListPager.add(req, newListPager)
-		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armstandbypool.OperationsClientListResponse, createLink func() string) {
+		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armterraform.OperationsClientListResponse, createLink func() string) {
 			page.NextLink = to.Ptr(createLink())
 		})
 	}
