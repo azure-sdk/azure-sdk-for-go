@@ -1,5 +1,22 @@
 # Release History
 
+## 2.0.0 (2024-11-21)
+### Breaking Changes
+
+- Enum `ActionType` has been removed
+- Enum `Origin` has been removed
+- Function `*OperationsClient.NewListPager` has been removed
+- Struct `Operation` has been removed
+- Struct `OperationDisplay` has been removed
+- Struct `OperationListResult` has been removed
+
+### Features Added
+
+- New function `*OperationsClient.NewlistMethodPager(*operationsClientlistMethodOptions) *runtime.Pager[operationsClientlistMethodResponse]`
+- New function `PossibleactionTypeValues() []actionType`
+- New function `PossibleoriginValues() []origin`
+
+
 ## 1.0.0 (2024-11-20)
 ### Breaking Changes
 
