@@ -10,7 +10,7 @@ package armresources
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v2.0.0"
 )
 
 // AliasPathAttributes - The attributes of the token that the alias path is referring to.
@@ -165,6 +165,22 @@ func PossibleDeploymentModeValues() []DeploymentMode {
 	}
 }
 
+// ExportTemplateOutputFormat - The output format for the exported resources.
+type ExportTemplateOutputFormat string
+
+const (
+	ExportTemplateOutputFormatBicep ExportTemplateOutputFormat = "Bicep"
+	ExportTemplateOutputFormatJSON  ExportTemplateOutputFormat = "Json"
+)
+
+// PossibleExportTemplateOutputFormatValues returns the possible values for the ExportTemplateOutputFormat const type.
+func PossibleExportTemplateOutputFormatValues() []ExportTemplateOutputFormat {
+	return []ExportTemplateOutputFormat{
+		ExportTemplateOutputFormatBicep,
+		ExportTemplateOutputFormatJSON,
+	}
+}
+
 // ExpressionEvaluationOptionsScopeType - The scope to be used for evaluation of parameters, variables and functions in a
 // nested template.
 type ExpressionEvaluationOptionsScopeType string
@@ -195,6 +211,24 @@ const (
 func PossibleExtendedLocationTypeValues() []ExtendedLocationType {
 	return []ExtendedLocationType{
 		ExtendedLocationTypeEdgeZone,
+	}
+}
+
+// Level - Denotes the additional response level.
+type Level string
+
+const (
+	LevelError   Level = "Error"
+	LevelInfo    Level = "Info"
+	LevelWarning Level = "Warning"
+)
+
+// PossibleLevelValues returns the possible values for the Level const type.
+func PossibleLevelValues() []Level {
+	return []Level{
+		LevelError,
+		LevelInfo,
+		LevelWarning,
 	}
 }
 
