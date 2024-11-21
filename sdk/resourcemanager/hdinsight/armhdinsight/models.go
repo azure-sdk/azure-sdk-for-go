@@ -623,7 +623,8 @@ type ClusterMonitoringResponse struct {
 
 // ClusterPatchParameters - The PatchCluster request parameters
 type ClusterPatchParameters struct {
-	// The identity of the cluster, if configured.
+	// The identity of the cluster, if configured. Setting this property will override the existing identity configuration of
+	// the cluster.
 	Identity *ClusterIdentity
 
 	// The resource tags.
@@ -735,6 +736,18 @@ type EncryptionInTransitProperties struct {
 	IsEncryptionInTransitEnabled *bool
 }
 
+// EntraUserInfo - Details of an Entra user for gateway access.
+type EntraUserInfo struct {
+	// The display name of the Entra user.
+	DisplayName *string
+
+	// The unique object ID of the Entra user or client ID of the enterprise applications.
+	ObjectID *string
+
+	// The User Principal Name (UPN) of the Entra user. It may be empty in certain cases, such as for enterprise applications.
+	Upn *string
+}
+
 // ErrorResponse - Describes the format of Error response.
 type ErrorResponse struct {
 	// Error code
@@ -782,6 +795,9 @@ type Extension struct {
 
 // GatewaySettings - Gateway settings.
 type GatewaySettings struct {
+	// List of Entra users for gateway access.
+	RestAuthEntraUsers []*EntraUserInfo
+
 	// READ-ONLY; Indicates whether or not the gateway settings based authorization is enabled.
 	IsCredentialEnabled *string
 
@@ -1505,13 +1521,17 @@ type UpdateClusterIdentityCertificateParameters struct {
 	CertificatePassword *string
 }
 
-// UpdateGatewaySettingsParameters - The update gateway settings request parameters.
+// UpdateGatewaySettingsParameters - The update gateway settings request parameters. Note either basic or entra user should
+// be provided at a time.
 type UpdateGatewaySettingsParameters struct {
 	// Indicates whether or not the gateway settings based authorization is enabled.
 	IsCredentialEnabled *bool
 
 	// The gateway settings user password.
 	Password *string
+
+	// List of Entra users for gateway access.
+	RestAuthEntraUsers []*EntraUserInfo
 
 	// The gateway settings user name.
 	UserName *string
