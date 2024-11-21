@@ -10,7 +10,7 @@ package armdeviceprovisioningservices
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/deviceprovisioningservices/armdeviceprovisioningservices"
-	moduleVersion = "v1.3.0-beta.1"
+	moduleVersion = "v1.3.0-beta.2"
 )
 
 // AccessRightsDescription - Rights that this key has.
@@ -135,6 +135,24 @@ const (
 func PossibleIotDpsSKUValues() []IotDpsSKU {
 	return []IotDpsSKU{
 		IotDpsSKUS1,
+	}
+}
+
+// IotHubAuthenticationType - IotHub MI authentication type: KeyBased, UserAssigned, SystemAssigned.
+type IotHubAuthenticationType string
+
+const (
+	IotHubAuthenticationTypeKeyBased       IotHubAuthenticationType = "KeyBased"
+	IotHubAuthenticationTypeSystemAssigned IotHubAuthenticationType = "SystemAssigned"
+	IotHubAuthenticationTypeUserAssigned   IotHubAuthenticationType = "UserAssigned"
+)
+
+// PossibleIotHubAuthenticationTypeValues returns the possible values for the IotHubAuthenticationType const type.
+func PossibleIotHubAuthenticationTypeValues() []IotHubAuthenticationType {
+	return []IotHubAuthenticationType{
+		IotHubAuthenticationTypeKeyBased,
+		IotHubAuthenticationTypeSystemAssigned,
+		IotHubAuthenticationTypeUserAssigned,
 	}
 }
 

@@ -196,9 +196,6 @@ type IotDpsSKUInfo struct {
 
 // IotHubDefinitionDescription - Description of the IoT hub.
 type IotHubDefinitionDescription struct {
-	// REQUIRED; Connection string of the IoT hub.
-	ConnectionString *string
-
 	// REQUIRED; ARM region of the IoT hub.
 	Location *string
 
@@ -208,7 +205,19 @@ type IotHubDefinitionDescription struct {
 	// flag for applying allocationPolicy or not for a given iot hub.
 	ApplyAllocationPolicy *bool
 
-	// READ-ONLY; Host name of the IoT hub.
+	// IotHub MI authentication type: KeyBased, UserAssigned, SystemAssigned.
+	AuthenticationType *IotHubAuthenticationType
+
+	// Connection string of the IoT hub.
+	ConnectionString *string
+
+	// Host name of the IoT hub.
+	HostName *string
+
+	// The selected user-assigned identity resource Id associated with IoT Hub. This is required when authenticationType is UserAssigned.
+	SelectedUserAssignedIdentityResourceID *string
+
+	// READ-ONLY; Host name of the IoT hub derived from connection string.
 	Name *string
 }
 
