@@ -1,5 +1,12 @@
 # Release History
 
+## 1.3.0-beta.2 (2024-11-21)
+### Features Added
+
+- New enum type `IotHubAuthenticationType` with values `IotHubAuthenticationTypeKeyBased`, `IotHubAuthenticationTypeSystemAssigned`, `IotHubAuthenticationTypeUserAssigned`
+- New field `AuthenticationType`, `HostName`, `SelectedUserAssignedIdentityResourceID` in struct `IotHubDefinitionDescription`
+
+
 ## 1.3.0-beta.1 (2023-11-30)
 ### Features Added
 
