@@ -26,7 +26,7 @@ import (
 type APIDefinitionsServer struct {
 	// CreateOrUpdate is the fake for method APIDefinitionsClient.CreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	CreateOrUpdate func(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiName string, versionName string, definitionName string, resource armapicenter.APIDefinition, options *armapicenter.APIDefinitionsClientCreateOrUpdateOptions) (resp azfake.Responder[armapicenter.APIDefinitionsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	CreateOrUpdate func(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiName string, versionName string, definitionName string, payload armapicenter.APIDefinition, options *armapicenter.APIDefinitionsClientCreateOrUpdateOptions) (resp azfake.Responder[armapicenter.APIDefinitionsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// Delete is the fake for method APIDefinitionsClient.Delete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent

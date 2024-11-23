@@ -46,23 +46,23 @@ func NewAPIDefinitionsClient(subscriptionID string, credential azcore.TokenCrede
 // CreateOrUpdate - Creates new or updates existing API definition.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-01
+// Generated from API version 2024-12-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of Azure API Center service.
 //   - workspaceName - The name of the workspace.
 //   - apiName - The name of the API.
 //   - versionName - The name of the API version.
 //   - definitionName - The name of the API definition.
-//   - resource - Resource create parameters.
+//   - payload - Resource create parameters.
 //   - options - APIDefinitionsClientCreateOrUpdateOptions contains the optional parameters for the APIDefinitionsClient.CreateOrUpdate
 //     method.
-func (client *APIDefinitionsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiName string, versionName string, definitionName string, resource APIDefinition, options *APIDefinitionsClientCreateOrUpdateOptions) (APIDefinitionsClientCreateOrUpdateResponse, error) {
+func (client *APIDefinitionsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiName string, versionName string, definitionName string, payload APIDefinition, options *APIDefinitionsClientCreateOrUpdateOptions) (APIDefinitionsClientCreateOrUpdateResponse, error) {
 	var err error
 	const operationName = "APIDefinitionsClient.CreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serviceName, workspaceName, apiName, versionName, definitionName, resource, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serviceName, workspaceName, apiName, versionName, definitionName, payload, options)
 	if err != nil {
 		return APIDefinitionsClientCreateOrUpdateResponse{}, err
 	}
@@ -79,7 +79,7 @@ func (client *APIDefinitionsClient) CreateOrUpdate(ctx context.Context, resource
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *APIDefinitionsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiName string, versionName string, definitionName string, resource APIDefinition, options *APIDefinitionsClientCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *APIDefinitionsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiName string, versionName string, definitionName string, payload APIDefinition, options *APIDefinitionsClientCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiCenter/services/{serviceName}/workspaces/{workspaceName}/apis/{apiName}/versions/{versionName}/definitions/{definitionName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -114,10 +114,10 @@ func (client *APIDefinitionsClient) createOrUpdateCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-01")
+	reqQP.Set("api-version", "2024-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, resource); err != nil {
+	if err := runtime.MarshalAsJSON(req, payload); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -138,7 +138,7 @@ func (client *APIDefinitionsClient) createOrUpdateHandleResponse(resp *http.Resp
 // Delete - Deletes specified API definition.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-01
+// Generated from API version 2024-12-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of Azure API Center service.
 //   - workspaceName - The name of the workspace.
@@ -203,7 +203,7 @@ func (client *APIDefinitionsClient) deleteCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-01")
+	reqQP.Set("api-version", "2024-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -212,7 +212,7 @@ func (client *APIDefinitionsClient) deleteCreateRequest(ctx context.Context, res
 // BeginExportSpecification - Exports the API specification.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-01
+// Generated from API version 2024-12-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of Azure API Center service.
 //   - workspaceName - The name of the workspace.
@@ -242,7 +242,7 @@ func (client *APIDefinitionsClient) BeginExportSpecification(ctx context.Context
 // ExportSpecification - Exports the API specification.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-01
+// Generated from API version 2024-12-01-preview
 func (client *APIDefinitionsClient) exportSpecification(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiName string, versionName string, definitionName string, options *APIDefinitionsClientBeginExportSpecificationOptions) (*http.Response, error) {
 	var err error
 	const operationName = "APIDefinitionsClient.BeginExportSpecification"
@@ -300,7 +300,7 @@ func (client *APIDefinitionsClient) exportSpecificationCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-01")
+	reqQP.Set("api-version", "2024-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -309,7 +309,7 @@ func (client *APIDefinitionsClient) exportSpecificationCreateRequest(ctx context
 // Get - Returns details of the API definition.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-01
+// Generated from API version 2024-12-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of Azure API Center service.
 //   - workspaceName - The name of the workspace.
@@ -375,7 +375,7 @@ func (client *APIDefinitionsClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-01")
+	reqQP.Set("api-version", "2024-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -395,7 +395,7 @@ func (client *APIDefinitionsClient) getHandleResponse(resp *http.Response) (APID
 
 // Head - Checks if specified API definition exists.
 //
-// Generated from API version 2024-03-01
+// Generated from API version 2024-12-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of Azure API Center service.
 //   - workspaceName - The name of the workspace.
@@ -460,7 +460,7 @@ func (client *APIDefinitionsClient) headCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-01")
+	reqQP.Set("api-version", "2024-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -469,7 +469,7 @@ func (client *APIDefinitionsClient) headCreateRequest(ctx context.Context, resou
 // BeginImportSpecification - Imports the API specification.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-01
+// Generated from API version 2024-12-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of Azure API Center service.
 //   - workspaceName - The name of the workspace.
@@ -500,7 +500,7 @@ func (client *APIDefinitionsClient) BeginImportSpecification(ctx context.Context
 // ImportSpecification - Imports the API specification.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-01
+// Generated from API version 2024-12-01-preview
 func (client *APIDefinitionsClient) importSpecification(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiName string, versionName string, definitionName string, body APISpecImportRequest, options *APIDefinitionsClientBeginImportSpecificationOptions) (*http.Response, error) {
 	var err error
 	const operationName = "APIDefinitionsClient.BeginImportSpecification"
@@ -558,7 +558,7 @@ func (client *APIDefinitionsClient) importSpecificationCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-01")
+	reqQP.Set("api-version", "2024-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -569,7 +569,7 @@ func (client *APIDefinitionsClient) importSpecificationCreateRequest(ctx context
 
 // NewListPager - Returns a collection of API definitions.
 //
-// Generated from API version 2024-03-01
+// Generated from API version 2024-12-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of Azure API Center service.
 //   - workspaceName - The name of the workspace.
@@ -634,7 +634,7 @@ func (client *APIDefinitionsClient) listCreateRequest(ctx context.Context, resou
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2024-03-01")
+	reqQP.Set("api-version", "2024-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
