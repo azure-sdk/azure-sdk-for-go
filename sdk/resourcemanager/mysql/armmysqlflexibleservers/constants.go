@@ -10,7 +10,7 @@ package armmysqlflexibleservers
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mysql/armmysqlflexibleservers"
-	moduleVersion = "v2.0.0-beta.3"
+	moduleVersion = "v2.0.0-beta.4"
 )
 
 type AdministratorName string
@@ -116,6 +116,24 @@ const (
 func PossibleBackupTypeValues() []BackupType {
 	return []BackupType{
 		BackupTypeFULL,
+	}
+}
+
+// BatchOfMaintenance - The batch of maintenance when enabled the custom managed maintenance window of a server.
+type BatchOfMaintenance string
+
+const (
+	BatchOfMaintenanceBatch1  BatchOfMaintenance = "Batch1"
+	BatchOfMaintenanceBatch2  BatchOfMaintenance = "Batch2"
+	BatchOfMaintenanceDefault BatchOfMaintenance = "Default"
+)
+
+// PossibleBatchOfMaintenanceValues returns the possible values for the BatchOfMaintenance const type.
+func PossibleBatchOfMaintenanceValues() []BatchOfMaintenance {
+	return []BatchOfMaintenance{
+		BatchOfMaintenanceBatch1,
+		BatchOfMaintenanceBatch2,
+		BatchOfMaintenanceDefault,
 	}
 }
 
@@ -433,6 +451,22 @@ func PossibleOperationStatusValues() []OperationStatus {
 	}
 }
 
+// PatchStrategy - Enum to indicate the patch strategy of a server
+type PatchStrategy string
+
+const (
+	PatchStrategyRegular       PatchStrategy = "Regular"
+	PatchStrategyVirtualCanary PatchStrategy = "VirtualCanary"
+)
+
+// PossiblePatchStrategyValues returns the possible values for the PatchStrategy const type.
+func PossiblePatchStrategyValues() []PatchStrategy {
+	return []PatchStrategy{
+		PatchStrategyRegular,
+		PatchStrategyVirtualCanary,
+	}
+}
+
 // PrivateEndpointConnectionProvisioningState - The current provisioning state.
 type PrivateEndpointConnectionProvisioningState string
 
@@ -571,7 +605,7 @@ func PossibleServerStateValues() []ServerState {
 	}
 }
 
-// ServerVersion - The version of a server.
+// ServerVersion - The major version of a server. 8.0.21 stands for MySQL 8.0, 5.7.44 stands for MySQL 5.7
 type ServerVersion string
 
 const (
@@ -584,5 +618,21 @@ func PossibleServerVersionValues() []ServerVersion {
 	return []ServerVersion{
 		ServerVersionEight021,
 		ServerVersionFive7,
+	}
+}
+
+// StorageRedundancyEnum - Enum to indicate whether storage sku value is 'ZoneRedundancy' or 'LocalRedundancy'
+type StorageRedundancyEnum string
+
+const (
+	StorageRedundancyEnumLocalRedundancy StorageRedundancyEnum = "LocalRedundancy"
+	StorageRedundancyEnumZoneRedundancy  StorageRedundancyEnum = "ZoneRedundancy"
+)
+
+// PossibleStorageRedundancyEnumValues returns the possible values for the StorageRedundancyEnum const type.
+func PossibleStorageRedundancyEnumValues() []StorageRedundancyEnum {
+	return []StorageRedundancyEnum{
+		StorageRedundancyEnumLocalRedundancy,
+		StorageRedundancyEnumZoneRedundancy,
 	}
 }
