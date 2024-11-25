@@ -51,6 +51,12 @@ type CapacitiesClientListSKUsResponse struct {
 	RpSKUEnumerationForNewResourceResult
 }
 
+// CapacitiesClientListUsagesResponse contains the response from method CapacitiesClient.ListUsages.
+type CapacitiesClientListUsagesResponse struct {
+	// An object that represents usage and quota details for existing resources
+	RpUsageAndQuotaDetailsForExistingResource
+}
+
 // CapacitiesClientResumeResponse contains the response from method CapacitiesClient.BeginResume.
 type CapacitiesClientResumeResponse struct {
 	// placeholder for future response values

@@ -1,5 +1,12 @@
 # Release History
 
+## 1.1.0 (2024-11-25)
+### Features Added
+
+- New function `*CapacitiesClient.ListUsages(context.Context, string, *CapacitiesClientListUsagesOptions) (CapacitiesClientListUsagesResponse, error)`
+- New struct `RpUsageAndQuotaDetailsForExistingResource`
+
+
 ## 1.0.0 (2024-10-22)
 ### Other Changes
 
