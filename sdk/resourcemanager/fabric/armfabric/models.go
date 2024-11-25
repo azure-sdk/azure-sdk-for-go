@@ -197,6 +197,15 @@ type RpSKUEnumerationForNewResourceResult struct {
 	NextLink *string
 }
 
+// RpUsageAndQuotaDetailsForExistingResource - An object that represents usage and quota details for existing resources
+type RpUsageAndQuotaDetailsForExistingResource struct {
+	// REQUIRED; The current consumption value
+	CurrentValue *int32
+
+	// REQUIRED; The quota limit
+	Limit *int32
+}
+
 // SystemData - Metadata pertaining to creation and last modification of the resource.
 type SystemData struct {
 	// The timestamp of resource creation (UTC).
