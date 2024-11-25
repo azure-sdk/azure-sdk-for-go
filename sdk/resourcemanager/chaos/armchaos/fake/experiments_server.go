@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/chaos/armchaos"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/chaos/armchaos/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -26,15 +26,15 @@ import (
 // ExperimentsServer is a fake server for instances of the armchaos.ExperimentsClient type.
 type ExperimentsServer struct {
 	// BeginCancel is the fake for method ExperimentsClient.BeginCancel
-	// HTTP status codes to indicate success: http.StatusAccepted
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginCancel func(ctx context.Context, resourceGroupName string, experimentName string, options *armchaos.ExperimentsClientBeginCancelOptions) (resp azfake.PollerResponder[armchaos.ExperimentsClientCancelResponse], errResp azfake.ErrorResponder)
 
 	// BeginCreateOrUpdate is the fake for method ExperimentsClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, experimentName string, experiment armchaos.Experiment, options *armchaos.ExperimentsClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armchaos.ExperimentsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, experimentName string, resource armchaos.Experiment, options *armchaos.ExperimentsClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armchaos.ExperimentsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method ExperimentsClient.BeginDelete
-	// HTTP status codes to indicate success: http.StatusAccepted
+	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
 	BeginDelete func(ctx context.Context, resourceGroupName string, experimentName string, options *armchaos.ExperimentsClientBeginDeleteOptions) (resp azfake.PollerResponder[armchaos.ExperimentsClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// ExecutionDetails is the fake for method ExperimentsClient.ExecutionDetails
@@ -62,12 +62,12 @@ type ExperimentsServer struct {
 	NewListAllExecutionsPager func(resourceGroupName string, experimentName string, options *armchaos.ExperimentsClientListAllExecutionsOptions) (resp azfake.PagerResponder[armchaos.ExperimentsClientListAllExecutionsResponse])
 
 	// BeginStart is the fake for method ExperimentsClient.BeginStart
-	// HTTP status codes to indicate success: http.StatusAccepted
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginStart func(ctx context.Context, resourceGroupName string, experimentName string, options *armchaos.ExperimentsClientBeginStartOptions) (resp azfake.PollerResponder[armchaos.ExperimentsClientStartResponse], errResp azfake.ErrorResponder)
 
 	// BeginUpdate is the fake for method ExperimentsClient.BeginUpdate
-	// HTTP status codes to indicate success: http.StatusAccepted
-	BeginUpdate func(ctx context.Context, resourceGroupName string, experimentName string, experiment armchaos.ExperimentUpdate, options *armchaos.ExperimentsClientBeginUpdateOptions) (resp azfake.PollerResponder[armchaos.ExperimentsClientUpdateResponse], errResp azfake.ErrorResponder)
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginUpdate func(ctx context.Context, resourceGroupName string, experimentName string, properties armchaos.ExperimentUpdate, options *armchaos.ExperimentsClientBeginUpdateOptions) (resp azfake.PollerResponder[armchaos.ExperimentsClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewExperimentsServerTransport creates a new instance of ExperimentsServerTransport with the provided implementation.
@@ -179,9 +179,9 @@ func (e *ExperimentsServerTransport) dispatchBeginCancel(req *http.Request) (*ht
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusAccepted}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
 		e.beginCancel.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginCancel) {
 		e.beginCancel.remove(req)
@@ -271,9 +271,9 @@ func (e *ExperimentsServerTransport) dispatchBeginDelete(req *http.Request) (*ht
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusAccepted}, resp.StatusCode) {
+	if !contains([]int{http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
 		e.beginDelete.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginDelete) {
 		e.beginDelete.remove(req)
@@ -575,9 +575,9 @@ func (e *ExperimentsServerTransport) dispatchBeginStart(req *http.Request) (*htt
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusAccepted}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
 		e.beginStart.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginStart) {
 		e.beginStart.remove(req)
@@ -623,9 +623,9 @@ func (e *ExperimentsServerTransport) dispatchBeginUpdate(req *http.Request) (*ht
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusAccepted}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
 		e.beginUpdate.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginUpdate) {
 		e.beginUpdate.remove(req)

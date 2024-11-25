@@ -45,7 +45,8 @@ type CapabilityTypesClientListResponse struct {
 
 // ExperimentsClientCancelResponse contains the response from method ExperimentsClient.BeginCancel.
 type ExperimentsClientCancelResponse struct {
-	// placeholder for future response values
+	// Model that represents the post action response.
+	PostActionResult
 }
 
 // ExperimentsClientCreateOrUpdateResponse contains the response from method ExperimentsClient.BeginCreateOrUpdate.
@@ -67,7 +68,7 @@ type ExperimentsClientExecutionDetailsResponse struct {
 
 // ExperimentsClientGetExecutionResponse contains the response from method ExperimentsClient.GetExecution.
 type ExperimentsClientGetExecutionResponse struct {
-	// Model that represents the execution of a Experiment.
+	// Model that represents the execution of an Experiment.
 	ExperimentExecution
 }
 
@@ -97,7 +98,8 @@ type ExperimentsClientListResponse struct {
 
 // ExperimentsClientStartResponse contains the response from method ExperimentsClient.BeginStart.
 type ExperimentsClientStartResponse struct {
-	// placeholder for future response values
+	// Model that represents the post action response.
+	PostActionResult
 }
 
 // ExperimentsClientUpdateResponse contains the response from method ExperimentsClient.BeginUpdate.
@@ -108,8 +110,8 @@ type ExperimentsClientUpdateResponse struct {
 
 // OperationStatusesClientGetResponse contains the response from method OperationStatusesClient.Get.
 type OperationStatusesClientGetResponse struct {
-	// The status of operation.
-	OperationStatus
+	// The current status of an async operation.
+	OperationStatusResult
 }
 
 // OperationsClientListAllResponse contains the response from method OperationsClient.NewListAllPager.
