@@ -10,7 +10,7 @@ package armservicefabricmanagedclusters
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/servicefabricmanagedclusters/armservicefabricmanagedclusters"
-	moduleVersion = "v0.2.0"
+	moduleVersion = "v0.3.0"
 )
 
 // Access - The network traffic is allowed or denied.
@@ -161,19 +161,31 @@ type DiskType string
 const (
 	// DiskTypePremiumLRS - Premium SSD locally redundant storage. Best for production and performance sensitive workloads.
 	DiskTypePremiumLRS DiskType = "Premium_LRS"
+	// DiskTypePremiumV2LRS - Premium SSD V2 locally redundant storage. Best for production and performance sensitive workloads
+	// that consistently require low latency and high IOPS and throughput.
+	DiskTypePremiumV2LRS DiskType = "PremiumV2_LRS"
+	// DiskTypePremiumZRS - Premium SSD zone redundant storage. Best for production workloads that need storage resiliency against
+	// zone failures.
+	DiskTypePremiumZRS DiskType = "Premium_ZRS"
 	// DiskTypeStandardLRS - Standard HDD locally redundant storage. Best for backup, non-critical, and infrequent access.
 	DiskTypeStandardLRS DiskType = "Standard_LRS"
 	// DiskTypeStandardSSDLRS - Standard SSD locally redundant storage. Best for web servers, lightly used enterprise applications
 	// and dev/test.
 	DiskTypeStandardSSDLRS DiskType = "StandardSSD_LRS"
+	// DiskTypeStandardSSDZRS - Standard SSD zone redundant storage. Best for web servers, lightly used enterprise applications
+	// and dev/test that need storage resiliency against zone failures.
+	DiskTypeStandardSSDZRS DiskType = "StandardSSD_ZRS"
 )
 
 // PossibleDiskTypeValues returns the possible values for the DiskType const type.
 func PossibleDiskTypeValues() []DiskType {
 	return []DiskType{
 		DiskTypePremiumLRS,
+		DiskTypePremiumV2LRS,
+		DiskTypePremiumZRS,
 		DiskTypeStandardLRS,
 		DiskTypeStandardSSDLRS,
+		DiskTypeStandardSSDZRS,
 	}
 }
 
@@ -212,6 +224,57 @@ func PossibleFailureActionValues() []FailureAction {
 	return []FailureAction{
 		FailureActionManual,
 		FailureActionRollback,
+	}
+}
+
+// FaultKind - The kind of fault simulation.
+type FaultKind string
+
+const (
+	// FaultKindZone - Simulates an availability zone down.
+	FaultKindZone FaultKind = "Zone"
+)
+
+// PossibleFaultKindValues returns the possible values for the FaultKind const type.
+func PossibleFaultKindValues() []FaultKind {
+	return []FaultKind{
+		FaultKindZone,
+	}
+}
+
+// FaultSimulationStatus - Fault simulation status.
+type FaultSimulationStatus string
+
+const (
+	// FaultSimulationStatusActive - Indicates the fault simulation is active. The simulation will have this satus after the start
+	// operation has completed successfully.
+	FaultSimulationStatusActive FaultSimulationStatus = "Active"
+	// FaultSimulationStatusDone - Indicates the fault simulation is done. The simulation will have this satus after the stop
+	// operation has completed successfully.
+	FaultSimulationStatusDone FaultSimulationStatus = "Done"
+	// FaultSimulationStatusStartFailed - Indicates the fault simulation has failed on start. The simulation will have this satus
+	// after the start operation fails.
+	FaultSimulationStatusStartFailed FaultSimulationStatus = "StartFailed"
+	// FaultSimulationStatusStarting - Indicates the fault simulation is starting. The simulation will have this satus while the
+	// start operation is in progress.
+	FaultSimulationStatusStarting FaultSimulationStatus = "Starting"
+	// FaultSimulationStatusStopFailed - Indicates the fault simulation has failed on stop. The simulation will have this satus
+	// after the stop operation fails.
+	FaultSimulationStatusStopFailed FaultSimulationStatus = "StopFailed"
+	// FaultSimulationStatusStopping - Indicates the fault simulation is stopping. The simulation will have this satus while the
+	// stop operation is in progress.
+	FaultSimulationStatusStopping FaultSimulationStatus = "Stopping"
+)
+
+// PossibleFaultSimulationStatusValues returns the possible values for the FaultSimulationStatus const type.
+func PossibleFaultSimulationStatusValues() []FaultSimulationStatus {
+	return []FaultSimulationStatus{
+		FaultSimulationStatusActive,
+		FaultSimulationStatusDone,
+		FaultSimulationStatusStartFailed,
+		FaultSimulationStatusStarting,
+		FaultSimulationStatusStopFailed,
+		FaultSimulationStatusStopping,
 	}
 }
 

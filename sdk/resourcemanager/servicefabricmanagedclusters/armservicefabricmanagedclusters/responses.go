@@ -156,6 +156,12 @@ type ManagedClustersClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
+// ManagedClustersClientGetFaultSimulationResponse contains the response from method ManagedClustersClient.GetFaultSimulation.
+type ManagedClustersClientGetFaultSimulationResponse struct {
+	// Fault simulation object with status.
+	FaultSimulation
+}
+
 // ManagedClustersClientGetResponse contains the response from method ManagedClustersClient.Get.
 type ManagedClustersClientGetResponse struct {
 	// The managed cluster resource
@@ -172,6 +178,24 @@ type ManagedClustersClientListByResourceGroupResponse struct {
 type ManagedClustersClientListBySubscriptionResponse struct {
 	// Managed Cluster list results
 	ManagedClusterListResult
+}
+
+// ManagedClustersClientListFaultSimulationResponse contains the response from method ManagedClustersClient.NewListFaultSimulationPager.
+type ManagedClustersClientListFaultSimulationResponse struct {
+	// Fault simulation list results
+	FaultSimulationListResult
+}
+
+// ManagedClustersClientStartFaultSimulationResponse contains the response from method ManagedClustersClient.BeginStartFaultSimulation.
+type ManagedClustersClientStartFaultSimulationResponse struct {
+	// Fault simulation object with status.
+	FaultSimulation
+}
+
+// ManagedClustersClientStopFaultSimulationResponse contains the response from method ManagedClustersClient.BeginStopFaultSimulation.
+type ManagedClustersClientStopFaultSimulationResponse struct {
+	// Fault simulation object with status.
+	FaultSimulation
 }
 
 // ManagedClustersClientUpdateResponse contains the response from method ManagedClustersClient.Update.
@@ -210,6 +234,11 @@ type NodeTypesClientCreateOrUpdateResponse struct {
 	NodeType
 }
 
+// NodeTypesClientDeallocateResponse contains the response from method NodeTypesClient.BeginDeallocate.
+type NodeTypesClientDeallocateResponse struct {
+	// placeholder for future response values
+}
+
 // NodeTypesClientDeleteNodeResponse contains the response from method NodeTypesClient.BeginDeleteNode.
 type NodeTypesClientDeleteNodeResponse struct {
 	// placeholder for future response values
@@ -218,6 +247,12 @@ type NodeTypesClientDeleteNodeResponse struct {
 // NodeTypesClientDeleteResponse contains the response from method NodeTypesClient.BeginDelete.
 type NodeTypesClientDeleteResponse struct {
 	// placeholder for future response values
+}
+
+// NodeTypesClientGetFaultSimulationResponse contains the response from method NodeTypesClient.GetFaultSimulation.
+type NodeTypesClientGetFaultSimulationResponse struct {
+	// Fault simulation object with status.
+	FaultSimulation
 }
 
 // NodeTypesClientGetResponse contains the response from method NodeTypesClient.Get.
@@ -232,6 +267,17 @@ type NodeTypesClientListByManagedClustersResponse struct {
 	NodeTypeListResult
 }
 
+// NodeTypesClientListFaultSimulationResponse contains the response from method NodeTypesClient.NewListFaultSimulationPager.
+type NodeTypesClientListFaultSimulationResponse struct {
+	// Fault simulation list results
+	FaultSimulationListResult
+}
+
+// NodeTypesClientRedeployResponse contains the response from method NodeTypesClient.BeginRedeploy.
+type NodeTypesClientRedeployResponse struct {
+	// placeholder for future response values
+}
+
 // NodeTypesClientReimageResponse contains the response from method NodeTypesClient.BeginReimage.
 type NodeTypesClientReimageResponse struct {
 	// placeholder for future response values
@@ -242,7 +288,24 @@ type NodeTypesClientRestartResponse struct {
 	// placeholder for future response values
 }
 
-// NodeTypesClientUpdateResponse contains the response from method NodeTypesClient.Update.
+// NodeTypesClientStartFaultSimulationResponse contains the response from method NodeTypesClient.BeginStartFaultSimulation.
+type NodeTypesClientStartFaultSimulationResponse struct {
+	// Fault simulation object with status.
+	FaultSimulation
+}
+
+// NodeTypesClientStartResponse contains the response from method NodeTypesClient.BeginStart.
+type NodeTypesClientStartResponse struct {
+	// placeholder for future response values
+}
+
+// NodeTypesClientStopFaultSimulationResponse contains the response from method NodeTypesClient.BeginStopFaultSimulation.
+type NodeTypesClientStopFaultSimulationResponse struct {
+	// Fault simulation object with status.
+	FaultSimulation
+}
+
+// NodeTypesClientUpdateResponse contains the response from method NodeTypesClient.BeginUpdate.
 type NodeTypesClientUpdateResponse struct {
 	// Describes a node type in the cluster, each node type represents sub set of nodes in the cluster.
 	NodeType

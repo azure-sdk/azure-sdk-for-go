@@ -1,5 +1,37 @@
 # Release History
 
+## 0.3.0 (2024-11-26)
+### Breaking Changes
+
+- Operation `*NodeTypesClient.Update` has been changed to LRO, use `*NodeTypesClient.BeginUpdate` instead.
+- Field `CustomFqdn` of struct `ManagedClusterProperties` has been removed
+
+### Features Added
+
+- New value `DiskTypePremiumV2LRS`, `DiskTypePremiumZRS`, `DiskTypeStandardSSDZRS` added to enum type `DiskType`
+- New enum type `FaultKind` with values `FaultKindZone`
+- New enum type `FaultSimulationStatus` with values `FaultSimulationStatusActive`, `FaultSimulationStatusDone`, `FaultSimulationStatusStartFailed`, `FaultSimulationStatusStarting`, `FaultSimulationStatusStopFailed`, `FaultSimulationStatusStopping`
+- New function `*FaultSimulationParameters.GetFaultSimulationParameters() *FaultSimulationParameters`
+- New function `*ManagedClustersClient.GetFaultSimulation(context.Context, string, string, FaultSimulationIDParameters, *ManagedClustersClientGetFaultSimulationOptions) (ManagedClustersClientGetFaultSimulationResponse, error)`
+- New function `*ManagedClustersClient.NewListFaultSimulationPager(string, string, *ManagedClustersClientListFaultSimulationOptions) *runtime.Pager[ManagedClustersClientListFaultSimulationResponse]`
+- New function `*ManagedClustersClient.BeginStartFaultSimulation(context.Context, string, string, FaultSimulationParametersClassification, *ManagedClustersClientBeginStartFaultSimulationOptions) (*runtime.Poller[ManagedClustersClientStartFaultSimulationResponse], error)`
+- New function `*ManagedClustersClient.BeginStopFaultSimulation(context.Context, string, string, FaultSimulationIDParameters, *ManagedClustersClientBeginStopFaultSimulationOptions) (*runtime.Poller[ManagedClustersClientStopFaultSimulationResponse], error)`
+- New function `*ZoneFaultSimulationParameters.GetFaultSimulationParameters() *FaultSimulationParameters`
+- New function `*NodeTypesClient.BeginDeallocate(context.Context, string, string, string, NodeTypeActionParameters, *NodeTypesClientBeginDeallocateOptions) (*runtime.Poller[NodeTypesClientDeallocateResponse], error)`
+- New function `*NodeTypesClient.GetFaultSimulation(context.Context, string, string, string, FaultSimulationIDParameters, *NodeTypesClientGetFaultSimulationOptions) (NodeTypesClientGetFaultSimulationResponse, error)`
+- New function `*NodeTypesClient.NewListFaultSimulationPager(string, string, string, *NodeTypesClientListFaultSimulationOptions) *runtime.Pager[NodeTypesClientListFaultSimulationResponse]`
+- New function `*NodeTypesClient.BeginRedeploy(context.Context, string, string, string, NodeTypeActionParameters, *NodeTypesClientBeginRedeployOptions) (*runtime.Poller[NodeTypesClientRedeployResponse], error)`
+- New function `*NodeTypesClient.BeginStart(context.Context, string, string, string, NodeTypeActionParameters, *NodeTypesClientBeginStartOptions) (*runtime.Poller[NodeTypesClientStartResponse], error)`
+- New function `*NodeTypesClient.BeginStartFaultSimulation(context.Context, string, string, string, FaultSimulationParametersClassification, *NodeTypesClientBeginStartFaultSimulationOptions) (*runtime.Poller[NodeTypesClientStartFaultSimulationResponse], error)`
+- New function `*NodeTypesClient.BeginStopFaultSimulation(context.Context, string, string, string, FaultSimulationIDParameters, *NodeTypesClientBeginStopFaultSimulationOptions) (*runtime.Poller[NodeTypesClientStopFaultSimulationResponse], error)`
+- New struct `FaultSimulation`
+- New struct `FaultSimulationIDParameters`
+- New struct `FaultSimulationListResult`
+- New struct `NodeTypeFaultSimulation`
+- New struct `ZoneFaultSimulationParameters`
+- New field `AllocatedOutboundPorts` in struct `ManagedClusterProperties`
+
+
 ## 0.2.0 (2024-10-23)
 ### Features Added
 
