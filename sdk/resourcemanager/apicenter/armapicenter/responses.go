@@ -54,6 +54,41 @@ type APIDefinitionsClientListResponse struct {
 	APIDefinitionListResult
 }
 
+// APISourcesClientCreateOrUpdateResponse contains the response from method APISourcesClient.CreateOrUpdate.
+type APISourcesClientCreateOrUpdateResponse struct {
+	// API source entity.
+	APISource
+
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// APISourcesClientDeleteResponse contains the response from method APISourcesClient.Delete.
+type APISourcesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// APISourcesClientGetResponse contains the response from method APISourcesClient.Get.
+type APISourcesClientGetResponse struct {
+	// API source entity.
+	APISource
+
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// APISourcesClientHeadResponse contains the response from method APISourcesClient.Head.
+type APISourcesClientHeadResponse struct {
+	// Success indicates if the operation succeeded or failed.
+	Success bool
+}
+
+// APISourcesClientListResponse contains the response from method APISourcesClient.NewListPager.
+type APISourcesClientListResponse struct {
+	// The response of a ApiSource list operation.
+	APISourceListResult
+}
+
 // APIVersionsClientCreateOrUpdateResponse contains the response from method APIVersionsClient.CreateOrUpdate.
 type APIVersionsClientCreateOrUpdateResponse struct {
 	// API version entity.
@@ -122,6 +157,32 @@ type ApisClientHeadResponse struct {
 type ApisClientListResponse struct {
 	// The response of a Api list operation.
 	APIListResult
+}
+
+// DeletedServicesClientDeleteResponse contains the response from method DeletedServicesClient.Delete.
+type DeletedServicesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// DeletedServicesClientGetResponse contains the response from method DeletedServicesClient.Get.
+type DeletedServicesClientGetResponse struct {
+	// Soft-deleted service entity.
+	DeletedService
+
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// DeletedServicesClientListBySubscriptionResponse contains the response from method DeletedServicesClient.NewListBySubscriptionPager.
+type DeletedServicesClientListBySubscriptionResponse struct {
+	// The response of a DeletedService list operation.
+	DeletedServiceListResult
+}
+
+// DeletedServicesClientListResponse contains the response from method DeletedServicesClient.NewListPager.
+type DeletedServicesClientListResponse struct {
+	// The response of a DeletedService list operation.
+	DeletedServiceListResult
 }
 
 // DeploymentsClientCreateOrUpdateResponse contains the response from method DeploymentsClient.CreateOrUpdate.
@@ -303,6 +364,12 @@ type WorkspacesClientGetResponse struct {
 type WorkspacesClientHeadResponse struct {
 	// Success indicates if the operation succeeded or failed.
 	Success bool
+}
+
+// WorkspacesClientImportAPISourceResponse contains the response from method WorkspacesClient.BeginImportAPISource.
+type WorkspacesClientImportAPISourceResponse struct {
+	// The current status of an async operation.
+	OperationStatusResult
 }
 
 // WorkspacesClientListResponse contains the response from method WorkspacesClient.NewListPager.

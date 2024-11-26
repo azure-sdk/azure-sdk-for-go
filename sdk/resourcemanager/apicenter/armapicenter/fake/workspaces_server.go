@@ -40,6 +40,10 @@ type WorkspacesServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	Head func(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, options *armapicenter.WorkspacesClientHeadOptions) (resp azfake.Responder[armapicenter.WorkspacesClientHeadResponse], errResp azfake.ErrorResponder)
 
+	// BeginImportAPISource is the fake for method WorkspacesClient.BeginImportAPISource
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginImportAPISource func(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, body armapicenter.ImportAPISourceRequest, options *armapicenter.WorkspacesClientBeginImportAPISourceOptions) (resp azfake.PollerResponder[armapicenter.WorkspacesClientImportAPISourceResponse], errResp azfake.ErrorResponder)
+
 	// NewListPager is the fake for method WorkspacesClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListPager func(resourceGroupName string, serviceName string, options *armapicenter.WorkspacesClientListOptions) (resp azfake.PagerResponder[armapicenter.WorkspacesClientListResponse])
@@ -50,16 +54,18 @@ type WorkspacesServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewWorkspacesServerTransport(srv *WorkspacesServer) *WorkspacesServerTransport {
 	return &WorkspacesServerTransport{
-		srv:          srv,
-		newListPager: newTracker[azfake.PagerResponder[armapicenter.WorkspacesClientListResponse]](),
+		srv:                  srv,
+		beginImportAPISource: newTracker[azfake.PollerResponder[armapicenter.WorkspacesClientImportAPISourceResponse]](),
+		newListPager:         newTracker[azfake.PagerResponder[armapicenter.WorkspacesClientListResponse]](),
 	}
 }
 
 // WorkspacesServerTransport connects instances of armapicenter.WorkspacesClient to instances of WorkspacesServer.
 // Don't use this type directly, use NewWorkspacesServerTransport instead.
 type WorkspacesServerTransport struct {
-	srv          *WorkspacesServer
-	newListPager *tracker[azfake.PagerResponder[armapicenter.WorkspacesClientListResponse]]
+	srv                  *WorkspacesServer
+	beginImportAPISource *tracker[azfake.PollerResponder[armapicenter.WorkspacesClientImportAPISourceResponse]]
+	newListPager         *tracker[azfake.PagerResponder[armapicenter.WorkspacesClientListResponse]]
 }
 
 // Do implements the policy.Transporter interface for WorkspacesServerTransport.
@@ -82,6 +88,8 @@ func (w *WorkspacesServerTransport) Do(req *http.Request) (*http.Response, error
 		resp, err = w.dispatchGet(req)
 	case "WorkspacesClient.Head":
 		resp, err = w.dispatchHead(req)
+	case "WorkspacesClient.BeginImportAPISource":
+		resp, err = w.dispatchBeginImportAPISource(req)
 	case "WorkspacesClient.NewListPager":
 		resp, err = w.dispatchNewListPager(req)
 	default:
@@ -250,6 +258,58 @@ func (w *WorkspacesServerTransport) dispatchHead(req *http.Request) (*http.Respo
 	if err != nil {
 		return nil, err
 	}
+	return resp, nil
+}
+
+func (w *WorkspacesServerTransport) dispatchBeginImportAPISource(req *http.Request) (*http.Response, error) {
+	if w.srv.BeginImportAPISource == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginImportAPISource not implemented")}
+	}
+	beginImportAPISource := w.beginImportAPISource.get(req)
+	if beginImportAPISource == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ApiCenter/services/(?P<serviceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/workspaces/(?P<workspaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/importApiSource`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 4 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armapicenter.ImportAPISourceRequest](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		serviceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("serviceName")])
+		if err != nil {
+			return nil, err
+		}
+		workspaceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("workspaceName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := w.srv.BeginImportAPISource(req.Context(), resourceGroupNameParam, serviceNameParam, workspaceNameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginImportAPISource = &respr
+		w.beginImportAPISource.add(req, beginImportAPISource)
+	}
+
+	resp, err := server.PollerResponderNext(beginImportAPISource, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		w.beginImportAPISource.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginImportAPISource) {
+		w.beginImportAPISource.remove(req)
+	}
+
 	return resp, nil
 }
 

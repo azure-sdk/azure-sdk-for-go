@@ -20,64 +20,65 @@ import (
 	"strings"
 )
 
-// ApisClient contains the methods for the Apis group.
-// Don't use this type directly, use NewApisClient() instead.
-type ApisClient struct {
+// APISourcesClient contains the methods for the APISources group.
+// Don't use this type directly, use NewAPISourcesClient() instead.
+type APISourcesClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewApisClient creates a new instance of ApisClient with the specified values.
+// NewAPISourcesClient creates a new instance of APISourcesClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewApisClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ApisClient, error) {
+func NewAPISourcesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*APISourcesClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &ApisClient{
+	client := &APISourcesClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// CreateOrUpdate - Creates new or updates existing API.
+// CreateOrUpdate - Creates new or updates existing API source.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-12-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of Azure API Center service.
 //   - workspaceName - The name of the workspace.
-//   - apiName - The name of the API.
+//   - apiSourceName - The name of the API.
 //   - resource - Resource create parameters.
-//   - options - ApisClientCreateOrUpdateOptions contains the optional parameters for the ApisClient.CreateOrUpdate method.
-func (client *ApisClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiName string, resource API, options *ApisClientCreateOrUpdateOptions) (ApisClientCreateOrUpdateResponse, error) {
+//   - options - APISourcesClientCreateOrUpdateOptions contains the optional parameters for the APISourcesClient.CreateOrUpdate
+//     method.
+func (client *APISourcesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiSourceName string, resource APISource, options *APISourcesClientCreateOrUpdateOptions) (APISourcesClientCreateOrUpdateResponse, error) {
 	var err error
-	const operationName = "ApisClient.CreateOrUpdate"
+	const operationName = "APISourcesClient.CreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serviceName, workspaceName, apiName, resource, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serviceName, workspaceName, apiSourceName, resource, options)
 	if err != nil {
-		return ApisClientCreateOrUpdateResponse{}, err
+		return APISourcesClientCreateOrUpdateResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ApisClientCreateOrUpdateResponse{}, err
+		return APISourcesClientCreateOrUpdateResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated) {
 		err = runtime.NewResponseError(httpResp)
-		return ApisClientCreateOrUpdateResponse{}, err
+		return APISourcesClientCreateOrUpdateResponse{}, err
 	}
 	resp, err := client.createOrUpdateHandleResponse(httpResp)
 	return resp, err
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *ApisClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiName string, resource API, options *ApisClientCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiCenter/services/{serviceName}/workspaces/{workspaceName}/apis/{apiName}"
+func (client *APISourcesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiSourceName string, resource APISource, options *APISourcesClientCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiCenter/services/{serviceName}/workspaces/{workspaceName}/apiSources/{apiSourceName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -94,10 +95,10 @@ func (client *ApisClient) createOrUpdateCreateRequest(ctx context.Context, resou
 		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
-	if apiName == "" {
-		return nil, errors.New("parameter apiName cannot be empty")
+	if apiSourceName == "" {
+		return nil, errors.New("parameter apiSourceName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{apiName}", url.PathEscape(apiName))
+	urlPath = strings.ReplaceAll(urlPath, "{apiSourceName}", url.PathEscape(apiSourceName))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -113,50 +114,50 @@ func (client *ApisClient) createOrUpdateCreateRequest(ctx context.Context, resou
 }
 
 // createOrUpdateHandleResponse handles the CreateOrUpdate response.
-func (client *ApisClient) createOrUpdateHandleResponse(resp *http.Response) (ApisClientCreateOrUpdateResponse, error) {
-	result := ApisClientCreateOrUpdateResponse{}
+func (client *APISourcesClient) createOrUpdateHandleResponse(resp *http.Response) (APISourcesClientCreateOrUpdateResponse, error) {
+	result := APISourcesClientCreateOrUpdateResponse{}
 	if val := resp.Header.Get("ETag"); val != "" {
 		result.ETag = &val
 	}
-	if err := runtime.UnmarshalAsJSON(resp, &result.API); err != nil {
-		return ApisClientCreateOrUpdateResponse{}, err
+	if err := runtime.UnmarshalAsJSON(resp, &result.APISource); err != nil {
+		return APISourcesClientCreateOrUpdateResponse{}, err
 	}
 	return result, nil
 }
 
-// Delete - Deletes specified API.
+// Delete - Deletes specified API source.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-12-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of Azure API Center service.
 //   - workspaceName - The name of the workspace.
-//   - apiName - The name of the API.
-//   - options - ApisClientDeleteOptions contains the optional parameters for the ApisClient.Delete method.
-func (client *ApisClient) Delete(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiName string, options *ApisClientDeleteOptions) (ApisClientDeleteResponse, error) {
+//   - apiSourceName - The name of the API.
+//   - options - APISourcesClientDeleteOptions contains the optional parameters for the APISourcesClient.Delete method.
+func (client *APISourcesClient) Delete(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiSourceName string, options *APISourcesClientDeleteOptions) (APISourcesClientDeleteResponse, error) {
 	var err error
-	const operationName = "ApisClient.Delete"
+	const operationName = "APISourcesClient.Delete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, serviceName, workspaceName, apiName, options)
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, serviceName, workspaceName, apiSourceName, options)
 	if err != nil {
-		return ApisClientDeleteResponse{}, err
+		return APISourcesClientDeleteResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ApisClientDeleteResponse{}, err
+		return APISourcesClientDeleteResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
-		return ApisClientDeleteResponse{}, err
+		return APISourcesClientDeleteResponse{}, err
 	}
-	return ApisClientDeleteResponse{}, nil
+	return APISourcesClientDeleteResponse{}, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *ApisClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiName string, options *ApisClientDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiCenter/services/{serviceName}/workspaces/{workspaceName}/apis/{apiName}"
+func (client *APISourcesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiSourceName string, options *APISourcesClientDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiCenter/services/{serviceName}/workspaces/{workspaceName}/apiSources/{apiSourceName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -173,10 +174,10 @@ func (client *ApisClient) deleteCreateRequest(ctx context.Context, resourceGroup
 		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
-	if apiName == "" {
-		return nil, errors.New("parameter apiName cannot be empty")
+	if apiSourceName == "" {
+		return nil, errors.New("parameter apiSourceName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{apiName}", url.PathEscape(apiName))
+	urlPath = strings.ReplaceAll(urlPath, "{apiSourceName}", url.PathEscape(apiSourceName))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -188,40 +189,40 @@ func (client *ApisClient) deleteCreateRequest(ctx context.Context, resourceGroup
 	return req, nil
 }
 
-// Get - Returns details of the API.
+// Get - Returns details of the API source.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-12-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of Azure API Center service.
 //   - workspaceName - The name of the workspace.
-//   - apiName - The name of the API.
-//   - options - ApisClientGetOptions contains the optional parameters for the ApisClient.Get method.
-func (client *ApisClient) Get(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiName string, options *ApisClientGetOptions) (ApisClientGetResponse, error) {
+//   - apiSourceName - The name of the API.
+//   - options - APISourcesClientGetOptions contains the optional parameters for the APISourcesClient.Get method.
+func (client *APISourcesClient) Get(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiSourceName string, options *APISourcesClientGetOptions) (APISourcesClientGetResponse, error) {
 	var err error
-	const operationName = "ApisClient.Get"
+	const operationName = "APISourcesClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, resourceGroupName, serviceName, workspaceName, apiName, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, serviceName, workspaceName, apiSourceName, options)
 	if err != nil {
-		return ApisClientGetResponse{}, err
+		return APISourcesClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ApisClientGetResponse{}, err
+		return APISourcesClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return ApisClientGetResponse{}, err
+		return APISourcesClientGetResponse{}, err
 	}
 	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
 // getCreateRequest creates the Get request.
-func (client *ApisClient) getCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiName string, options *ApisClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiCenter/services/{serviceName}/workspaces/{workspaceName}/apis/{apiName}"
+func (client *APISourcesClient) getCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiSourceName string, options *APISourcesClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiCenter/services/{serviceName}/workspaces/{workspaceName}/apiSources/{apiSourceName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -238,10 +239,10 @@ func (client *ApisClient) getCreateRequest(ctx context.Context, resourceGroupNam
 		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
-	if apiName == "" {
-		return nil, errors.New("parameter apiName cannot be empty")
+	if apiSourceName == "" {
+		return nil, errors.New("parameter apiSourceName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{apiName}", url.PathEscape(apiName))
+	urlPath = strings.ReplaceAll(urlPath, "{apiSourceName}", url.PathEscape(apiSourceName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -254,49 +255,49 @@ func (client *ApisClient) getCreateRequest(ctx context.Context, resourceGroupNam
 }
 
 // getHandleResponse handles the Get response.
-func (client *ApisClient) getHandleResponse(resp *http.Response) (ApisClientGetResponse, error) {
-	result := ApisClientGetResponse{}
+func (client *APISourcesClient) getHandleResponse(resp *http.Response) (APISourcesClientGetResponse, error) {
+	result := APISourcesClientGetResponse{}
 	if val := resp.Header.Get("ETag"); val != "" {
 		result.ETag = &val
 	}
-	if err := runtime.UnmarshalAsJSON(resp, &result.API); err != nil {
-		return ApisClientGetResponse{}, err
+	if err := runtime.UnmarshalAsJSON(resp, &result.APISource); err != nil {
+		return APISourcesClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// Head - Checks if specified API exists.
+// Head - Checks if specified API source exists.
 //
 // Generated from API version 2024-12-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of Azure API Center service.
 //   - workspaceName - The name of the workspace.
-//   - apiName - The name of the API.
-//   - options - ApisClientHeadOptions contains the optional parameters for the ApisClient.Head method.
-func (client *ApisClient) Head(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiName string, options *ApisClientHeadOptions) (ApisClientHeadResponse, error) {
+//   - apiSourceName - The name of the API.
+//   - options - APISourcesClientHeadOptions contains the optional parameters for the APISourcesClient.Head method.
+func (client *APISourcesClient) Head(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiSourceName string, options *APISourcesClientHeadOptions) (APISourcesClientHeadResponse, error) {
 	var err error
-	const operationName = "ApisClient.Head"
+	const operationName = "APISourcesClient.Head"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.headCreateRequest(ctx, resourceGroupName, serviceName, workspaceName, apiName, options)
+	req, err := client.headCreateRequest(ctx, resourceGroupName, serviceName, workspaceName, apiSourceName, options)
 	if err != nil {
-		return ApisClientHeadResponse{}, err
+		return APISourcesClientHeadResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ApisClientHeadResponse{}, err
+		return APISourcesClientHeadResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return ApisClientHeadResponse{}, err
+		return APISourcesClientHeadResponse{}, err
 	}
-	return ApisClientHeadResponse{Success: httpResp.StatusCode >= 200 && httpResp.StatusCode < 300}, nil
+	return APISourcesClientHeadResponse{Success: httpResp.StatusCode >= 200 && httpResp.StatusCode < 300}, nil
 }
 
 // headCreateRequest creates the Head request.
-func (client *ApisClient) headCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiName string, options *ApisClientHeadOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiCenter/services/{serviceName}/workspaces/{workspaceName}/apis/{apiName}"
+func (client *APISourcesClient) headCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiSourceName string, options *APISourcesClientHeadOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiCenter/services/{serviceName}/workspaces/{workspaceName}/apiSources/{apiSourceName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -313,10 +314,10 @@ func (client *ApisClient) headCreateRequest(ctx context.Context, resourceGroupNa
 		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
-	if apiName == "" {
-		return nil, errors.New("parameter apiName cannot be empty")
+	if apiSourceName == "" {
+		return nil, errors.New("parameter apiSourceName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{apiName}", url.PathEscape(apiName))
+	urlPath = strings.ReplaceAll(urlPath, "{apiSourceName}", url.PathEscape(apiSourceName))
 	req, err := runtime.NewRequest(ctx, http.MethodHead, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -328,20 +329,20 @@ func (client *ApisClient) headCreateRequest(ctx context.Context, resourceGroupNa
 	return req, nil
 }
 
-// NewListPager - Returns a collection of APIs.
+// NewListPager - Returns a collection of API sources.
 //
 // Generated from API version 2024-12-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of Azure API Center service.
 //   - workspaceName - The name of the workspace.
-//   - options - ApisClientListOptions contains the optional parameters for the ApisClient.NewListPager method.
-func (client *ApisClient) NewListPager(resourceGroupName string, serviceName string, workspaceName string, options *ApisClientListOptions) *runtime.Pager[ApisClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[ApisClientListResponse]{
-		More: func(page ApisClientListResponse) bool {
+//   - options - APISourcesClientListOptions contains the optional parameters for the APISourcesClient.NewListPager method.
+func (client *APISourcesClient) NewListPager(resourceGroupName string, serviceName string, workspaceName string, options *APISourcesClientListOptions) *runtime.Pager[APISourcesClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[APISourcesClientListResponse]{
+		More: func(page APISourcesClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *ApisClientListResponse) (ApisClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ApisClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *APISourcesClientListResponse) (APISourcesClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "APISourcesClient.NewListPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
@@ -350,7 +351,7 @@ func (client *ApisClient) NewListPager(resourceGroupName string, serviceName str
 				return client.listCreateRequest(ctx, resourceGroupName, serviceName, workspaceName, options)
 			}, nil)
 			if err != nil {
-				return ApisClientListResponse{}, err
+				return APISourcesClientListResponse{}, err
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -359,8 +360,8 @@ func (client *ApisClient) NewListPager(resourceGroupName string, serviceName str
 }
 
 // listCreateRequest creates the List request.
-func (client *ApisClient) listCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, options *ApisClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiCenter/services/{serviceName}/workspaces/{workspaceName}/apis"
+func (client *APISourcesClient) listCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, options *APISourcesClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiCenter/services/{serviceName}/workspaces/{workspaceName}/apiSources"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -392,10 +393,10 @@ func (client *ApisClient) listCreateRequest(ctx context.Context, resourceGroupNa
 }
 
 // listHandleResponse handles the List response.
-func (client *ApisClient) listHandleResponse(resp *http.Response) (ApisClientListResponse, error) {
-	result := ApisClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.APIListResult); err != nil {
-		return ApisClientListResponse{}, err
+func (client *APISourcesClient) listHandleResponse(resp *http.Response) (APISourcesClientListResponse, error) {
+	result := APISourcesClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.APISourceListResult); err != nil {
+		return APISourcesClientListResponse{}, err
 	}
 	return result, nil
 }
