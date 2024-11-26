@@ -10,6 +10,60 @@ package armastro
 
 import "time"
 
+// GetResourcesRequest - Request model for get resources API
+type GetResourcesRequest struct {
+	// page details
+	PageInfo *PageInfo
+
+	// parameters to filter results
+	SearchParamsDictionary map[string]*string
+}
+
+// GetResourcesSuccessResponse - Response model for get resources API
+type GetResourcesSuccessResponse struct {
+	// REQUIRED; Resource object array
+	Resources []*PartnerResource
+
+	// page details
+	PageInfo *PageInfo
+}
+
+// GetRolesRequest - Request model for get roles API
+type GetRolesRequest struct {
+	// page details
+	PageInfo *PageInfo
+
+	// parameters to filter results
+	SearchParamsDictionary map[string]*string
+}
+
+// GetRolesSuccessResponse - Response model for get roles API
+type GetRolesSuccessResponse struct {
+	// REQUIRED; Role object array
+	Roles []*Role
+
+	// page details
+	PageInfo *PageInfo
+}
+
+// GetUsersRequest - Request model for get users API
+type GetUsersRequest struct {
+	// page details
+	PageInfo *PageInfo
+
+	// parameters to filter results
+	SearchParamsDictionary map[string]*string
+}
+
+// GetUsersSuccessResponse - Response model for get users API
+type GetUsersSuccessResponse struct {
+	// REQUIRED; User object array
+	Users []*User
+
+	// page details
+	PageInfo *PageInfo
+}
+
 // LiftrBaseDataOrganizationProperties - Properties specific to Data Organization resource
 type LiftrBaseDataOrganizationProperties struct {
 	// REQUIRED; Marketplace details of the resource.
@@ -66,7 +120,19 @@ type LiftrBaseMarketplaceDetails struct {
 	// REQUIRED; Offer details for the marketplace that is selected by the user
 	OfferDetails *LiftrBaseOfferDetails
 
-	// REQUIRED; Azure subscription id for the the marketplace offer is purchased from
+	// Azure subscription id for the the marketplace offer is purchased from
+	SubscriptionID *string
+
+	// Marketplace subscription status
+	SubscriptionStatus *MarketplaceSubscriptionStatus
+}
+
+// LiftrBaseMarketplaceDetailsUpdate - Marketplace details for an organization
+type LiftrBaseMarketplaceDetailsUpdate struct {
+	// Offer details for the marketplace that is selected by the user
+	OfferDetails *LiftrBaseOfferDetailsUpdate
+
+	// Azure subscription id for the the marketplace offer is purchased from
 	SubscriptionID *string
 
 	// Marketplace subscription status
@@ -86,6 +152,36 @@ type LiftrBaseOfferDetails struct {
 
 	// Plan Name for the marketplace offer
 	PlanName *string
+
+	// Subscription renewal mode
+	RenewalMode *RenewalMode
+
+	// Plan Display Name for the marketplace offer
+	TermID *string
+
+	// Plan Display Name for the marketplace offer
+	TermUnit *string
+
+	// READ-ONLY; Current subscription end date and time
+	EndDate *time.Time
+}
+
+// LiftrBaseOfferDetailsUpdate - Offer details for the marketplace that is selected by the user
+type LiftrBaseOfferDetailsUpdate struct {
+	// Offer Id for the marketplace offer
+	OfferID *string
+
+	// Plan Id for the marketplace offer
+	PlanID *string
+
+	// Plan Name for the marketplace offer
+	PlanName *string
+
+	// Publisher Id for the marketplace offer
+	PublisherID *string
+
+	// Subscription renewal mode
+	RenewalMode *RenewalMode
 
 	// Plan Display Name for the marketplace offer
 	TermID *string
@@ -146,6 +242,18 @@ type LiftrBaseUserDetailsUpdate struct {
 
 	// User's principal name
 	Upn *string
+}
+
+// ManageRolesModel - Request model for manage roles API
+type ManageRolesModel struct {
+	// REQUIRED; Users object array
+	Principals []*User
+
+	// REQUIRED; Role object array
+	Roles []*Role
+
+	// Additional data to assign roles
+	AdditionalData map[string]*string
 }
 
 // ManagedServiceIdentity - Managed service identity (system assigned and/or user assigned identities)
@@ -258,7 +366,7 @@ type OrganizationResourceUpdate struct {
 	// The managed service identities assigned to this resource.
 	Identity *ManagedServiceIdentity
 
-	// The updatable properties of the OrganizationResource.
+	// The resource-specific properties for this resource.
 	Properties *OrganizationResourceUpdateProperties
 
 	// Resource tags.
@@ -267,11 +375,65 @@ type OrganizationResourceUpdate struct {
 
 // OrganizationResourceUpdateProperties - The updatable properties of the OrganizationResource.
 type OrganizationResourceUpdateProperties struct {
+	// Marketplace details of the resource.
+	Marketplace *LiftrBaseMarketplaceDetailsUpdate
+
 	// Organization properties
 	PartnerOrganizationProperties *LiftrBaseDataPartnerOrganizationPropertiesUpdate
 
 	// Details of the user.
 	User *LiftrBaseUserDetailsUpdate
+}
+
+// PageInfo model
+type PageInfo struct {
+	// max numbers of objects in response
+	Limit *int64
+
+	// numbers of objects to skip
+	Offset *int64
+
+	// total numbers of objects
+	TotalCount *int64
+}
+
+// PartnerResource - Partner Resource object
+type PartnerResource struct {
+	// REQUIRED; Resource name
+	Name *string
+
+	// Resource id
+	ID *string
+
+	// Resource type
+	Type *string
+}
+
+// RemoveUserRequest - Request model for manage roles API
+type RemoveUserRequest struct {
+	// REQUIRED; User object
+	Principal *User
+
+	// Additional data for deleting user
+	AdditionalData map[string]*string
+}
+
+// Role object
+type Role struct {
+	// REQUIRED; Role name
+	Name *string
+
+	// description of role
+	Description *string
+
+	// Role id
+	ID *string
+
+	// scope at which roles are assigned
+	Scope *string
+
+	// Role type
+	Type *string
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
@@ -293,6 +455,36 @@ type SystemData struct {
 
 	// The type of identity that last modified the resource.
 	LastModifiedByType *CreatedByType
+}
+
+// User object
+type User struct {
+	// REQUIRED; email of User
+	Email *string
+
+	// REQUIRED; roles assigned to user
+	Roles []*Role
+
+	// Auth type
+	AuthType *string
+
+	// avatar url
+	AvatarURL *string
+
+	// Full name
+	FullName *string
+
+	// User id
+	ID *string
+
+	// User metadata
+	MetadataUser map[string]*string
+
+	// User status
+	Status *string
+
+	// user type
+	Type *string
 }
 
 // UserAssignedIdentity - User assigned identity properties

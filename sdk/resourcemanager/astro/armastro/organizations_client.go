@@ -46,7 +46,7 @@ func NewOrganizationsClient(subscriptionID string, credential azcore.TokenCreden
 // BeginCreateOrUpdate - Create a OrganizationResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-11-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Name of the Organizations resource
 //   - resource - Resource create parameters.
@@ -73,7 +73,7 @@ func (client *OrganizationsClient) BeginCreateOrUpdate(ctx context.Context, reso
 // CreateOrUpdate - Create a OrganizationResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-11-01-preview
 func (client *OrganizationsClient) createOrUpdate(ctx context.Context, resourceGroupName string, organizationName string, resource OrganizationResource, options *OrganizationsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "OrganizationsClient.BeginCreateOrUpdate"
@@ -115,7 +115,7 @@ func (client *OrganizationsClient) createOrUpdateCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, resource); err != nil {
@@ -127,7 +127,7 @@ func (client *OrganizationsClient) createOrUpdateCreateRequest(ctx context.Conte
 // BeginDelete - Delete a OrganizationResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-11-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Name of the Organizations resource
 //   - options - OrganizationsClientBeginDeleteOptions contains the optional parameters for the OrganizationsClient.BeginDelete
@@ -153,7 +153,7 @@ func (client *OrganizationsClient) BeginDelete(ctx context.Context, resourceGrou
 // Delete - Delete a OrganizationResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-11-01-preview
 func (client *OrganizationsClient) deleteOperation(ctx context.Context, resourceGroupName string, organizationName string, options *OrganizationsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "OrganizationsClient.BeginDelete"
@@ -195,7 +195,7 @@ func (client *OrganizationsClient) deleteCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -204,7 +204,7 @@ func (client *OrganizationsClient) deleteCreateRequest(ctx context.Context, reso
 // Get - Get a OrganizationResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-11-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Name of the Organizations resource
 //   - options - OrganizationsClientGetOptions contains the optional parameters for the OrganizationsClient.Get method.
@@ -250,7 +250,7 @@ func (client *OrganizationsClient) getCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -265,9 +265,214 @@ func (client *OrganizationsClient) getHandleResponse(resp *http.Response) (Organ
 	return result, nil
 }
 
+// GetResources - list of available resources.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-11-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - organizationName - Name of the Organizations resource
+//   - properties - properties of GetResourcesRequest
+//   - options - OrganizationsClientGetResourcesOptions contains the optional parameters for the OrganizationsClient.GetResources
+//     method.
+func (client *OrganizationsClient) GetResources(ctx context.Context, resourceGroupName string, organizationName string, properties GetResourcesRequest, options *OrganizationsClientGetResourcesOptions) (OrganizationsClientGetResourcesResponse, error) {
+	var err error
+	const operationName = "OrganizationsClient.GetResources"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.getResourcesCreateRequest(ctx, resourceGroupName, organizationName, properties, options)
+	if err != nil {
+		return OrganizationsClientGetResourcesResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return OrganizationsClientGetResourcesResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return OrganizationsClientGetResourcesResponse{}, err
+	}
+	resp, err := client.getResourcesHandleResponse(httpResp)
+	return resp, err
+}
+
+// getResourcesCreateRequest creates the GetResources request.
+func (client *OrganizationsClient) getResourcesCreateRequest(ctx context.Context, resourceGroupName string, organizationName string, properties GetResourcesRequest, options *OrganizationsClientGetResourcesOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Astronomer.Astro/organizations/{organizationName}/getResources"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if organizationName == "" {
+		return nil, errors.New("parameter organizationName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{organizationName}", url.PathEscape(organizationName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-11-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, properties); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+// getResourcesHandleResponse handles the GetResources response.
+func (client *OrganizationsClient) getResourcesHandleResponse(resp *http.Response) (OrganizationsClientGetResourcesResponse, error) {
+	result := OrganizationsClientGetResourcesResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.GetResourcesSuccessResponse); err != nil {
+		return OrganizationsClientGetResourcesResponse{}, err
+	}
+	return result, nil
+}
+
+// GetRoles - list of available roles.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-11-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - organizationName - Name of the Organizations resource
+//   - properties - properties of GetRolesRequest
+//   - options - OrganizationsClientGetRolesOptions contains the optional parameters for the OrganizationsClient.GetRoles method.
+func (client *OrganizationsClient) GetRoles(ctx context.Context, resourceGroupName string, organizationName string, properties GetRolesRequest, options *OrganizationsClientGetRolesOptions) (OrganizationsClientGetRolesResponse, error) {
+	var err error
+	const operationName = "OrganizationsClient.GetRoles"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.getRolesCreateRequest(ctx, resourceGroupName, organizationName, properties, options)
+	if err != nil {
+		return OrganizationsClientGetRolesResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return OrganizationsClientGetRolesResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return OrganizationsClientGetRolesResponse{}, err
+	}
+	resp, err := client.getRolesHandleResponse(httpResp)
+	return resp, err
+}
+
+// getRolesCreateRequest creates the GetRoles request.
+func (client *OrganizationsClient) getRolesCreateRequest(ctx context.Context, resourceGroupName string, organizationName string, properties GetRolesRequest, options *OrganizationsClientGetRolesOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Astronomer.Astro/organizations/{organizationName}/getRoles"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if organizationName == "" {
+		return nil, errors.New("parameter organizationName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{organizationName}", url.PathEscape(organizationName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-11-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, properties); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+// getRolesHandleResponse handles the GetRoles response.
+func (client *OrganizationsClient) getRolesHandleResponse(resp *http.Response) (OrganizationsClientGetRolesResponse, error) {
+	result := OrganizationsClientGetRolesResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.GetRolesSuccessResponse); err != nil {
+		return OrganizationsClientGetRolesResponse{}, err
+	}
+	return result, nil
+}
+
+// GetUsers - list of users with roles.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-11-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - organizationName - Name of the Organizations resource
+//   - properties - properties of GetUsersRequest
+//   - options - OrganizationsClientGetUsersOptions contains the optional parameters for the OrganizationsClient.GetUsers method.
+func (client *OrganizationsClient) GetUsers(ctx context.Context, resourceGroupName string, organizationName string, properties GetUsersRequest, options *OrganizationsClientGetUsersOptions) (OrganizationsClientGetUsersResponse, error) {
+	var err error
+	const operationName = "OrganizationsClient.GetUsers"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.getUsersCreateRequest(ctx, resourceGroupName, organizationName, properties, options)
+	if err != nil {
+		return OrganizationsClientGetUsersResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return OrganizationsClientGetUsersResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return OrganizationsClientGetUsersResponse{}, err
+	}
+	resp, err := client.getUsersHandleResponse(httpResp)
+	return resp, err
+}
+
+// getUsersCreateRequest creates the GetUsers request.
+func (client *OrganizationsClient) getUsersCreateRequest(ctx context.Context, resourceGroupName string, organizationName string, properties GetUsersRequest, options *OrganizationsClientGetUsersOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Astronomer.Astro/organizations/{organizationName}/getUsers"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if organizationName == "" {
+		return nil, errors.New("parameter organizationName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{organizationName}", url.PathEscape(organizationName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-11-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, properties); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+// getUsersHandleResponse handles the GetUsers response.
+func (client *OrganizationsClient) getUsersHandleResponse(resp *http.Response) (OrganizationsClientGetUsersResponse, error) {
+	result := OrganizationsClientGetUsersResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.GetUsersSuccessResponse); err != nil {
+		return OrganizationsClientGetUsersResponse{}, err
+	}
+	return result, nil
+}
+
 // NewListByResourceGroupPager - List OrganizationResource resources by resource group
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-11-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - OrganizationsClientListByResourceGroupOptions contains the optional parameters for the OrganizationsClient.NewListByResourceGroupPager
 //     method.
@@ -310,7 +515,7 @@ func (client *OrganizationsClient) listByResourceGroupCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -327,7 +532,7 @@ func (client *OrganizationsClient) listByResourceGroupHandleResponse(resp *http.
 
 // NewListBySubscriptionPager - List OrganizationResource resources by subscription ID
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-11-01-preview
 //   - options - OrganizationsClientListBySubscriptionOptions contains the optional parameters for the OrganizationsClient.NewListBySubscriptionPager
 //     method.
 func (client *OrganizationsClient) NewListBySubscriptionPager(options *OrganizationsClientListBySubscriptionOptions) *runtime.Pager[OrganizationsClientListBySubscriptionResponse] {
@@ -365,7 +570,7 @@ func (client *OrganizationsClient) listBySubscriptionCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -380,10 +585,138 @@ func (client *OrganizationsClient) listBySubscriptionHandleResponse(resp *http.R
 	return result, nil
 }
 
+// ManageRoles - manage roles of users
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-11-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - organizationName - Name of the Organizations resource
+//   - properties - properties of ManageRolesRequest
+//   - options - OrganizationsClientManageRolesOptions contains the optional parameters for the OrganizationsClient.ManageRoles
+//     method.
+func (client *OrganizationsClient) ManageRoles(ctx context.Context, resourceGroupName string, organizationName string, properties ManageRolesModel, options *OrganizationsClientManageRolesOptions) (OrganizationsClientManageRolesResponse, error) {
+	var err error
+	const operationName = "OrganizationsClient.ManageRoles"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.manageRolesCreateRequest(ctx, resourceGroupName, organizationName, properties, options)
+	if err != nil {
+		return OrganizationsClientManageRolesResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return OrganizationsClientManageRolesResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return OrganizationsClientManageRolesResponse{}, err
+	}
+	resp, err := client.manageRolesHandleResponse(httpResp)
+	return resp, err
+}
+
+// manageRolesCreateRequest creates the ManageRoles request.
+func (client *OrganizationsClient) manageRolesCreateRequest(ctx context.Context, resourceGroupName string, organizationName string, properties ManageRolesModel, options *OrganizationsClientManageRolesOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Astronomer.Astro/organizations/{organizationName}/manageRoles"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if organizationName == "" {
+		return nil, errors.New("parameter organizationName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{organizationName}", url.PathEscape(organizationName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-11-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, properties); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+// manageRolesHandleResponse handles the ManageRoles response.
+func (client *OrganizationsClient) manageRolesHandleResponse(resp *http.Response) (OrganizationsClientManageRolesResponse, error) {
+	result := OrganizationsClientManageRolesResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ManageRolesModel); err != nil {
+		return OrganizationsClientManageRolesResponse{}, err
+	}
+	return result, nil
+}
+
+// RemoveUser - remove user
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-11-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - organizationName - Name of the Organizations resource
+//   - properties - properties of RemoveUserRequest
+//   - options - OrganizationsClientRemoveUserOptions contains the optional parameters for the OrganizationsClient.RemoveUser
+//     method.
+func (client *OrganizationsClient) RemoveUser(ctx context.Context, resourceGroupName string, organizationName string, properties RemoveUserRequest, options *OrganizationsClientRemoveUserOptions) (OrganizationsClientRemoveUserResponse, error) {
+	var err error
+	const operationName = "OrganizationsClient.RemoveUser"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.removeUserCreateRequest(ctx, resourceGroupName, organizationName, properties, options)
+	if err != nil {
+		return OrganizationsClientRemoveUserResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return OrganizationsClientRemoveUserResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusNoContent) {
+		err = runtime.NewResponseError(httpResp)
+		return OrganizationsClientRemoveUserResponse{}, err
+	}
+	return OrganizationsClientRemoveUserResponse{}, nil
+}
+
+// removeUserCreateRequest creates the RemoveUser request.
+func (client *OrganizationsClient) removeUserCreateRequest(ctx context.Context, resourceGroupName string, organizationName string, properties RemoveUserRequest, options *OrganizationsClientRemoveUserOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Astronomer.Astro/organizations/{organizationName}/removeUser"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if organizationName == "" {
+		return nil, errors.New("parameter organizationName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{organizationName}", url.PathEscape(organizationName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-11-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, properties); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
 // BeginUpdate - Update a OrganizationResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-11-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Name of the Organizations resource
 //   - properties - The resource properties to be updated.
@@ -410,7 +743,7 @@ func (client *OrganizationsClient) BeginUpdate(ctx context.Context, resourceGrou
 // Update - Update a OrganizationResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-08-01
+// Generated from API version 2024-11-01-preview
 func (client *OrganizationsClient) update(ctx context.Context, resourceGroupName string, organizationName string, properties OrganizationResourceUpdate, options *OrganizationsClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "OrganizationsClient.BeginUpdate"
@@ -452,7 +785,7 @@ func (client *OrganizationsClient) updateCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-08-01")
+	reqQP.Set("api-version", "2024-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, properties); err != nil {

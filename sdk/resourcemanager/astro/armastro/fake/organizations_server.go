@@ -36,6 +36,18 @@ type OrganizationsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, organizationName string, options *armastro.OrganizationsClientGetOptions) (resp azfake.Responder[armastro.OrganizationsClientGetResponse], errResp azfake.ErrorResponder)
 
+	// GetResources is the fake for method OrganizationsClient.GetResources
+	// HTTP status codes to indicate success: http.StatusOK
+	GetResources func(ctx context.Context, resourceGroupName string, organizationName string, properties armastro.GetResourcesRequest, options *armastro.OrganizationsClientGetResourcesOptions) (resp azfake.Responder[armastro.OrganizationsClientGetResourcesResponse], errResp azfake.ErrorResponder)
+
+	// GetRoles is the fake for method OrganizationsClient.GetRoles
+	// HTTP status codes to indicate success: http.StatusOK
+	GetRoles func(ctx context.Context, resourceGroupName string, organizationName string, properties armastro.GetRolesRequest, options *armastro.OrganizationsClientGetRolesOptions) (resp azfake.Responder[armastro.OrganizationsClientGetRolesResponse], errResp azfake.ErrorResponder)
+
+	// GetUsers is the fake for method OrganizationsClient.GetUsers
+	// HTTP status codes to indicate success: http.StatusOK
+	GetUsers func(ctx context.Context, resourceGroupName string, organizationName string, properties armastro.GetUsersRequest, options *armastro.OrganizationsClientGetUsersOptions) (resp azfake.Responder[armastro.OrganizationsClientGetUsersResponse], errResp azfake.ErrorResponder)
+
 	// NewListByResourceGroupPager is the fake for method OrganizationsClient.NewListByResourceGroupPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListByResourceGroupPager func(resourceGroupName string, options *armastro.OrganizationsClientListByResourceGroupOptions) (resp azfake.PagerResponder[armastro.OrganizationsClientListByResourceGroupResponse])
@@ -43,6 +55,14 @@ type OrganizationsServer struct {
 	// NewListBySubscriptionPager is the fake for method OrganizationsClient.NewListBySubscriptionPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListBySubscriptionPager func(options *armastro.OrganizationsClientListBySubscriptionOptions) (resp azfake.PagerResponder[armastro.OrganizationsClientListBySubscriptionResponse])
+
+	// ManageRoles is the fake for method OrganizationsClient.ManageRoles
+	// HTTP status codes to indicate success: http.StatusOK
+	ManageRoles func(ctx context.Context, resourceGroupName string, organizationName string, properties armastro.ManageRolesModel, options *armastro.OrganizationsClientManageRolesOptions) (resp azfake.Responder[armastro.OrganizationsClientManageRolesResponse], errResp azfake.ErrorResponder)
+
+	// RemoveUser is the fake for method OrganizationsClient.RemoveUser
+	// HTTP status codes to indicate success: http.StatusNoContent
+	RemoveUser func(ctx context.Context, resourceGroupName string, organizationName string, properties armastro.RemoveUserRequest, options *armastro.OrganizationsClientRemoveUserOptions) (resp azfake.Responder[armastro.OrganizationsClientRemoveUserResponse], errResp azfake.ErrorResponder)
 
 	// BeginUpdate is the fake for method OrganizationsClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
@@ -92,10 +112,20 @@ func (o *OrganizationsServerTransport) Do(req *http.Request) (*http.Response, er
 		resp, err = o.dispatchBeginDelete(req)
 	case "OrganizationsClient.Get":
 		resp, err = o.dispatchGet(req)
+	case "OrganizationsClient.GetResources":
+		resp, err = o.dispatchGetResources(req)
+	case "OrganizationsClient.GetRoles":
+		resp, err = o.dispatchGetRoles(req)
+	case "OrganizationsClient.GetUsers":
+		resp, err = o.dispatchGetUsers(req)
 	case "OrganizationsClient.NewListByResourceGroupPager":
 		resp, err = o.dispatchNewListByResourceGroupPager(req)
 	case "OrganizationsClient.NewListBySubscriptionPager":
 		resp, err = o.dispatchNewListBySubscriptionPager(req)
+	case "OrganizationsClient.ManageRoles":
+		resp, err = o.dispatchManageRoles(req)
+	case "OrganizationsClient.RemoveUser":
+		resp, err = o.dispatchRemoveUser(req)
 	case "OrganizationsClient.BeginUpdate":
 		resp, err = o.dispatchBeginUpdate(req)
 	default:
@@ -234,6 +264,117 @@ func (o *OrganizationsServerTransport) dispatchGet(req *http.Request) (*http.Res
 	return resp, nil
 }
 
+func (o *OrganizationsServerTransport) dispatchGetResources(req *http.Request) (*http.Response, error) {
+	if o.srv.GetResources == nil {
+		return nil, &nonRetriableError{errors.New("fake for method GetResources not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Astronomer\.Astro/organizations/(?P<organizationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/getResources`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armastro.GetResourcesRequest](req)
+	if err != nil {
+		return nil, err
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	organizationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("organizationName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := o.srv.GetResources(req.Context(), resourceGroupNameParam, organizationNameParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).GetResourcesSuccessResponse, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (o *OrganizationsServerTransport) dispatchGetRoles(req *http.Request) (*http.Response, error) {
+	if o.srv.GetRoles == nil {
+		return nil, &nonRetriableError{errors.New("fake for method GetRoles not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Astronomer\.Astro/organizations/(?P<organizationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/getRoles`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armastro.GetRolesRequest](req)
+	if err != nil {
+		return nil, err
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	organizationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("organizationName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := o.srv.GetRoles(req.Context(), resourceGroupNameParam, organizationNameParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).GetRolesSuccessResponse, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (o *OrganizationsServerTransport) dispatchGetUsers(req *http.Request) (*http.Response, error) {
+	if o.srv.GetUsers == nil {
+		return nil, &nonRetriableError{errors.New("fake for method GetUsers not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Astronomer\.Astro/organizations/(?P<organizationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/getUsers`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armastro.GetUsersRequest](req)
+	if err != nil {
+		return nil, err
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	organizationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("organizationName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := o.srv.GetUsers(req.Context(), resourceGroupNameParam, organizationNameParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).GetUsersSuccessResponse, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
 func (o *OrganizationsServerTransport) dispatchNewListByResourceGroupPager(req *http.Request) (*http.Response, error) {
 	if o.srv.NewListByResourceGroupPager == nil {
 		return nil, &nonRetriableError{errors.New("fake for method NewListByResourceGroupPager not implemented")}
@@ -300,6 +441,80 @@ func (o *OrganizationsServerTransport) dispatchNewListBySubscriptionPager(req *h
 	}
 	if !server.PagerResponderMore(newListBySubscriptionPager) {
 		o.newListBySubscriptionPager.remove(req)
+	}
+	return resp, nil
+}
+
+func (o *OrganizationsServerTransport) dispatchManageRoles(req *http.Request) (*http.Response, error) {
+	if o.srv.ManageRoles == nil {
+		return nil, &nonRetriableError{errors.New("fake for method ManageRoles not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Astronomer\.Astro/organizations/(?P<organizationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/manageRoles`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armastro.ManageRolesModel](req)
+	if err != nil {
+		return nil, err
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	organizationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("organizationName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := o.srv.ManageRoles(req.Context(), resourceGroupNameParam, organizationNameParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ManageRolesModel, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (o *OrganizationsServerTransport) dispatchRemoveUser(req *http.Request) (*http.Response, error) {
+	if o.srv.RemoveUser == nil {
+		return nil, &nonRetriableError{errors.New("fake for method RemoveUser not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Astronomer\.Astro/organizations/(?P<organizationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/removeUser`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armastro.RemoveUserRequest](req)
+	if err != nil {
+		return nil, err
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	organizationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("organizationName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := o.srv.RemoveUser(req.Context(), resourceGroupNameParam, organizationNameParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusNoContent}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusNoContent", respContent.HTTPStatus)}
+	}
+	resp, err := server.NewResponse(respContent, req, nil)
+	if err != nil {
+		return nil, err
 	}
 	return resp, nil
 }
