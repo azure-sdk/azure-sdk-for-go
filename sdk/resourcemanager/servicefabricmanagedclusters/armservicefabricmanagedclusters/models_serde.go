@@ -1090,6 +1090,150 @@ func (e *ErrorModelError) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type FaultSimulation.
+func (f FaultSimulation) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "clusterId", f.ClusterID)
+	populateDateTimeRFC3339(objectMap, "endTime", f.EndTime)
+	populate(objectMap, "nodeTypeFaultSimulation", f.NodeTypeFaultSimulation)
+	populate(objectMap, "operationId", f.OperationID)
+	populate(objectMap, "parameters", f.Parameters)
+	populate(objectMap, "simulationId", f.SimulationID)
+	populateDateTimeRFC3339(objectMap, "startTime", f.StartTime)
+	populate(objectMap, "status", f.Status)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type FaultSimulation.
+func (f *FaultSimulation) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", f, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "clusterId":
+			err = unpopulate(val, "ClusterID", &f.ClusterID)
+			delete(rawMsg, key)
+		case "endTime":
+			err = unpopulateDateTimeRFC3339(val, "EndTime", &f.EndTime)
+			delete(rawMsg, key)
+		case "nodeTypeFaultSimulation":
+			err = unpopulate(val, "NodeTypeFaultSimulation", &f.NodeTypeFaultSimulation)
+			delete(rawMsg, key)
+		case "operationId":
+			err = unpopulate(val, "OperationID", &f.OperationID)
+			delete(rawMsg, key)
+		case "parameters":
+			f.Parameters, err = unmarshalFaultSimulationParametersClassification(val)
+			delete(rawMsg, key)
+		case "simulationId":
+			err = unpopulate(val, "SimulationID", &f.SimulationID)
+			delete(rawMsg, key)
+		case "startTime":
+			err = unpopulateDateTimeRFC3339(val, "StartTime", &f.StartTime)
+			delete(rawMsg, key)
+		case "status":
+			err = unpopulate(val, "Status", &f.Status)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", f, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type FaultSimulationIDParameters.
+func (f FaultSimulationIDParameters) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "simulationId", f.SimulationID)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type FaultSimulationIDParameters.
+func (f *FaultSimulationIDParameters) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", f, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "simulationId":
+			err = unpopulate(val, "SimulationID", &f.SimulationID)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", f, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type FaultSimulationListResult.
+func (f FaultSimulationListResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "nextLink", f.NextLink)
+	populate(objectMap, "value", f.Value)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type FaultSimulationListResult.
+func (f *FaultSimulationListResult) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", f, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "nextLink":
+			err = unpopulate(val, "NextLink", &f.NextLink)
+			delete(rawMsg, key)
+		case "value":
+			err = unpopulate(val, "Value", &f.Value)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", f, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type FaultSimulationParameters.
+func (f FaultSimulationParameters) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	objectMap["faultKind"] = f.FaultKind
+	populate(objectMap, "force", f.Force)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type FaultSimulationParameters.
+func (f *FaultSimulationParameters) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", f, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "faultKind":
+			err = unpopulate(val, "FaultKind", &f.FaultKind)
+			delete(rawMsg, key)
+		case "force":
+			err = unpopulate(val, "Force", &f.Force)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", f, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type FrontendConfiguration.
 func (f FrontendConfiguration) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -1510,6 +1654,7 @@ func (m ManagedClusterProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "addonFeatures", m.AddonFeatures)
 	populate(objectMap, "adminPassword", m.AdminPassword)
 	populate(objectMap, "adminUserName", m.AdminUserName)
+	populate(objectMap, "allocatedOutboundPorts", m.AllocatedOutboundPorts)
 	populate(objectMap, "allowRdpAccess", m.AllowRdpAccess)
 	populate(objectMap, "applicationTypeVersionsCleanupPolicy", m.ApplicationTypeVersionsCleanupPolicy)
 	populate(objectMap, "autoGeneratedDomainNameLabelScope", m.AutoGeneratedDomainNameLabelScope)
@@ -1523,7 +1668,6 @@ func (m ManagedClusterProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "clusterState", m.ClusterState)
 	populate(objectMap, "clusterUpgradeCadence", m.ClusterUpgradeCadence)
 	populate(objectMap, "clusterUpgradeMode", m.ClusterUpgradeMode)
-	populate(objectMap, "customFqdn", m.CustomFqdn)
 	populate(objectMap, "dnsName", m.DNSName)
 	populate(objectMap, "ddosProtectionPlanId", m.DdosProtectionPlanID)
 	populate(objectMap, "enableAutoOSUpgrade", m.EnableAutoOSUpgrade)
@@ -1569,6 +1713,9 @@ func (m *ManagedClusterProperties) UnmarshalJSON(data []byte) error {
 		case "adminUserName":
 			err = unpopulate(val, "AdminUserName", &m.AdminUserName)
 			delete(rawMsg, key)
+		case "allocatedOutboundPorts":
+			err = unpopulate(val, "AllocatedOutboundPorts", &m.AllocatedOutboundPorts)
+			delete(rawMsg, key)
 		case "allowRdpAccess":
 			err = unpopulate(val, "AllowRdpAccess", &m.AllowRdpAccess)
 			delete(rawMsg, key)
@@ -1607,9 +1754,6 @@ func (m *ManagedClusterProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "clusterUpgradeMode":
 			err = unpopulate(val, "ClusterUpgradeMode", &m.ClusterUpgradeMode)
-			delete(rawMsg, key)
-		case "customFqdn":
-			err = unpopulate(val, "CustomFqdn", &m.CustomFqdn)
 			delete(rawMsg, key)
 		case "dnsName":
 			err = unpopulate(val, "DNSName", &m.DNSName)
@@ -2135,6 +2279,45 @@ func (n *NodeTypeAvailableSKU) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "sku":
 			err = unpopulate(val, "SKU", &n.SKU)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", n, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type NodeTypeFaultSimulation.
+func (n NodeTypeFaultSimulation) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "nodeTypeName", n.NodeTypeName)
+	populate(objectMap, "operationId", n.OperationID)
+	populate(objectMap, "operationStatus", n.OperationStatus)
+	populate(objectMap, "status", n.Status)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type NodeTypeFaultSimulation.
+func (n *NodeTypeFaultSimulation) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", n, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "nodeTypeName":
+			err = unpopulate(val, "NodeTypeName", &n.NodeTypeName)
+			delete(rawMsg, key)
+		case "operationId":
+			err = unpopulate(val, "OperationID", &n.OperationID)
+			delete(rawMsg, key)
+		case "operationStatus":
+			err = unpopulate(val, "OperationStatus", &n.OperationStatus)
+			delete(rawMsg, key)
+		case "status":
+			err = unpopulate(val, "Status", &n.Status)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -4255,6 +4438,41 @@ func (v *VmssDataDisk) UnmarshalJSON(data []byte) error {
 		}
 		if err != nil {
 			return fmt.Errorf("unmarshalling type %T: %v", v, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ZoneFaultSimulationParameters.
+func (z ZoneFaultSimulationParameters) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	objectMap["faultKind"] = FaultKindZone
+	populate(objectMap, "force", z.Force)
+	populate(objectMap, "zone", z.Zone)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ZoneFaultSimulationParameters.
+func (z *ZoneFaultSimulationParameters) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", z, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "faultKind":
+			err = unpopulate(val, "FaultKind", &z.FaultKind)
+			delete(rawMsg, key)
+		case "force":
+			err = unpopulate(val, "Force", &z.Force)
+			delete(rawMsg, key)
+		case "zone":
+			err = unpopulate(val, "Zone", &z.Zone)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", z, err)
 		}
 	}
 	return nil

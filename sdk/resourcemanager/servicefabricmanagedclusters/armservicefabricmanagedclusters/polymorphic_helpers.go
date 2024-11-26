@@ -10,6 +10,27 @@ package armservicefabricmanagedclusters
 
 import "encoding/json"
 
+func unmarshalFaultSimulationParametersClassification(rawMsg json.RawMessage) (FaultSimulationParametersClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b FaultSimulationParametersClassification
+	switch m["faultKind"] {
+	case string(FaultKindZone):
+		b = &ZoneFaultSimulationParameters{}
+	default:
+		b = &FaultSimulationParameters{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
 func unmarshalPartitionClassification(rawMsg json.RawMessage) (PartitionClassification, error) {
 	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
