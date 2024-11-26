@@ -37,6 +37,21 @@ type OrganizationsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
+// OrganizationsClientGetResourcesOptions contains the optional parameters for the OrganizationsClient.GetResources method.
+type OrganizationsClientGetResourcesOptions struct {
+	// placeholder for future optional parameters
+}
+
+// OrganizationsClientGetRolesOptions contains the optional parameters for the OrganizationsClient.GetRoles method.
+type OrganizationsClientGetRolesOptions struct {
+	// placeholder for future optional parameters
+}
+
+// OrganizationsClientGetUsersOptions contains the optional parameters for the OrganizationsClient.GetUsers method.
+type OrganizationsClientGetUsersOptions struct {
+	// placeholder for future optional parameters
+}
+
 // OrganizationsClientListByResourceGroupOptions contains the optional parameters for the OrganizationsClient.NewListByResourceGroupPager
 // method.
 type OrganizationsClientListByResourceGroupOptions struct {
@@ -46,5 +61,15 @@ type OrganizationsClientListByResourceGroupOptions struct {
 // OrganizationsClientListBySubscriptionOptions contains the optional parameters for the OrganizationsClient.NewListBySubscriptionPager
 // method.
 type OrganizationsClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// OrganizationsClientManageRolesOptions contains the optional parameters for the OrganizationsClient.ManageRoles method.
+type OrganizationsClientManageRolesOptions struct {
+	// placeholder for future optional parameters
+}
+
+// OrganizationsClientRemoveUserOptions contains the optional parameters for the OrganizationsClient.RemoveUser method.
+type OrganizationsClientRemoveUserOptions struct {
 	// placeholder for future optional parameters
 }

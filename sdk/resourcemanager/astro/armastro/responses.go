@@ -25,10 +25,28 @@ type OrganizationsClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
+// OrganizationsClientGetResourcesResponse contains the response from method OrganizationsClient.GetResources.
+type OrganizationsClientGetResourcesResponse struct {
+	// Response model for get resources API
+	GetResourcesSuccessResponse
+}
+
 // OrganizationsClientGetResponse contains the response from method OrganizationsClient.Get.
 type OrganizationsClientGetResponse struct {
 	// Organization Resource by Astronomer
 	OrganizationResource
+}
+
+// OrganizationsClientGetRolesResponse contains the response from method OrganizationsClient.GetRoles.
+type OrganizationsClientGetRolesResponse struct {
+	// Response model for get roles API
+	GetRolesSuccessResponse
+}
+
+// OrganizationsClientGetUsersResponse contains the response from method OrganizationsClient.GetUsers.
+type OrganizationsClientGetUsersResponse struct {
+	// Response model for get users API
+	GetUsersSuccessResponse
 }
 
 // OrganizationsClientListByResourceGroupResponse contains the response from method OrganizationsClient.NewListByResourceGroupPager.
@@ -41,6 +59,17 @@ type OrganizationsClientListByResourceGroupResponse struct {
 type OrganizationsClientListBySubscriptionResponse struct {
 	// The response of a OrganizationResource list operation.
 	OrganizationResourceListResult
+}
+
+// OrganizationsClientManageRolesResponse contains the response from method OrganizationsClient.ManageRoles.
+type OrganizationsClientManageRolesResponse struct {
+	// Request model for manage roles API
+	ManageRolesModel
+}
+
+// OrganizationsClientRemoveUserResponse contains the response from method OrganizationsClient.RemoveUser.
+type OrganizationsClientRemoveUserResponse struct {
+	// placeholder for future response values
 }
 
 // OrganizationsClientUpdateResponse contains the response from method OrganizationsClient.BeginUpdate.
