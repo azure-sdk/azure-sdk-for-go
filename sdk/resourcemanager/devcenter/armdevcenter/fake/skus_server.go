@@ -24,6 +24,10 @@ import (
 
 // SKUsServer is a fake server for instances of the armdevcenter.SKUsClient type.
 type SKUsServer struct {
+	// NewListByProjectPager is the fake for method SKUsClient.NewListByProjectPager
+	// HTTP status codes to indicate success: http.StatusOK
+	NewListByProjectPager func(resourceGroupName string, projectName string, options *armdevcenter.SKUsClientListByProjectOptions) (resp azfake.PagerResponder[armdevcenter.SKUsClientListByProjectResponse])
+
 	// NewListBySubscriptionPager is the fake for method SKUsClient.NewListBySubscriptionPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListBySubscriptionPager func(options *armdevcenter.SKUsClientListBySubscriptionOptions) (resp azfake.PagerResponder[armdevcenter.SKUsClientListBySubscriptionResponse])
@@ -35,6 +39,7 @@ type SKUsServer struct {
 func NewSKUsServerTransport(srv *SKUsServer) *SKUsServerTransport {
 	return &SKUsServerTransport{
 		srv:                        srv,
+		newListByProjectPager:      newTracker[azfake.PagerResponder[armdevcenter.SKUsClientListByProjectResponse]](),
 		newListBySubscriptionPager: newTracker[azfake.PagerResponder[armdevcenter.SKUsClientListBySubscriptionResponse]](),
 	}
 }
@@ -43,6 +48,7 @@ func NewSKUsServerTransport(srv *SKUsServer) *SKUsServerTransport {
 // Don't use this type directly, use NewSKUsServerTransport instead.
 type SKUsServerTransport struct {
 	srv                        *SKUsServer
+	newListByProjectPager      *tracker[azfake.PagerResponder[armdevcenter.SKUsClientListByProjectResponse]]
 	newListBySubscriptionPager *tracker[azfake.PagerResponder[armdevcenter.SKUsClientListBySubscriptionResponse]]
 }
 
@@ -58,6 +64,8 @@ func (s *SKUsServerTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch method {
+	case "SKUsClient.NewListByProjectPager":
+		resp, err = s.dispatchNewListByProjectPager(req)
 	case "SKUsClient.NewListBySubscriptionPager":
 		resp, err = s.dispatchNewListBySubscriptionPager(req)
 	default:
@@ -68,6 +76,47 @@ func (s *SKUsServerTransport) Do(req *http.Request) (*http.Response, error) {
 		return nil, err
 	}
 
+	return resp, nil
+}
+
+func (s *SKUsServerTransport) dispatchNewListByProjectPager(req *http.Request) (*http.Response, error) {
+	if s.srv.NewListByProjectPager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListByProjectPager not implemented")}
+	}
+	newListByProjectPager := s.newListByProjectPager.get(req)
+	if newListByProjectPager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DevCenter/projects/(?P<projectName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/listSkus`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		projectNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("projectName")])
+		if err != nil {
+			return nil, err
+		}
+		resp := s.srv.NewListByProjectPager(resourceGroupNameParam, projectNameParam, nil)
+		newListByProjectPager = &resp
+		s.newListByProjectPager.add(req, newListByProjectPager)
+		server.PagerResponderInjectNextLinks(newListByProjectPager, req, func(page *armdevcenter.SKUsClientListByProjectResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
+	}
+	resp, err := server.PagerResponderNext(newListByProjectPager, req)
+	if err != nil {
+		return nil, err
+	}
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+		s.newListByProjectPager.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+	}
+	if !server.PagerResponderMore(newListByProjectPager) {
+		s.newListByProjectPager.remove(req)
+	}
 	return resp, nil
 }
 

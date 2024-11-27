@@ -37,6 +37,10 @@ type ProjectsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, projectName string, options *armdevcenter.ProjectsClientGetOptions) (resp azfake.Responder[armdevcenter.ProjectsClientGetResponse], errResp azfake.ErrorResponder)
 
+	// GetInheritedSettings is the fake for method ProjectsClient.GetInheritedSettings
+	// HTTP status codes to indicate success: http.StatusOK
+	GetInheritedSettings func(ctx context.Context, resourceGroupName string, projectName string, options *armdevcenter.ProjectsClientGetInheritedSettingsOptions) (resp azfake.Responder[armdevcenter.ProjectsClientGetInheritedSettingsResponse], errResp azfake.ErrorResponder)
+
 	// NewListByResourceGroupPager is the fake for method ProjectsClient.NewListByResourceGroupPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListByResourceGroupPager func(resourceGroupName string, options *armdevcenter.ProjectsClientListByResourceGroupOptions) (resp azfake.PagerResponder[armdevcenter.ProjectsClientListByResourceGroupResponse])
@@ -93,6 +97,8 @@ func (p *ProjectsServerTransport) Do(req *http.Request) (*http.Response, error) 
 		resp, err = p.dispatchBeginDelete(req)
 	case "ProjectsClient.Get":
 		resp, err = p.dispatchGet(req)
+	case "ProjectsClient.GetInheritedSettings":
+		resp, err = p.dispatchGetInheritedSettings(req)
 	case "ProjectsClient.NewListByResourceGroupPager":
 		resp, err = p.dispatchNewListByResourceGroupPager(req)
 	case "ProjectsClient.NewListBySubscriptionPager":
@@ -229,6 +235,39 @@ func (p *ProjectsServerTransport) dispatchGet(req *http.Request) (*http.Response
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Project, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (p *ProjectsServerTransport) dispatchGetInheritedSettings(req *http.Request) (*http.Response, error) {
+	if p.srv.GetInheritedSettings == nil {
+		return nil, &nonRetriableError{errors.New("fake for method GetInheritedSettings not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DevCenter/projects/(?P<projectName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/getInheritedSettings`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	projectNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("projectName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := p.srv.GetInheritedSettings(req.Context(), resourceGroupNameParam, projectNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).InheritedSettingsForProject, req)
 	if err != nil {
 		return nil, err
 	}
