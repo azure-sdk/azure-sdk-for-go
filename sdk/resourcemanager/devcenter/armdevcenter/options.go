@@ -105,6 +105,24 @@ type CheckScopedNameAvailabilityClientExecuteOptions struct {
 	// placeholder for future optional parameters
 }
 
+// CustomizationTasksClientGetErrorDetailsOptions contains the optional parameters for the CustomizationTasksClient.GetErrorDetails
+// method.
+type CustomizationTasksClientGetErrorDetailsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// CustomizationTasksClientGetOptions contains the optional parameters for the CustomizationTasksClient.Get method.
+type CustomizationTasksClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// CustomizationTasksClientListByCatalogOptions contains the optional parameters for the CustomizationTasksClient.NewListByCatalogPager
+// method.
+type CustomizationTasksClientListByCatalogOptions struct {
+	// The maximum number of resources to return from the operation. Example: '$top=10'.
+	Top *int32
+}
+
 // DevBoxDefinitionsClientBeginCreateOrUpdateOptions contains the optional parameters for the DevBoxDefinitionsClient.BeginCreateOrUpdate
 // method.
 type DevBoxDefinitionsClientBeginCreateOrUpdateOptions struct {
@@ -272,6 +290,11 @@ type GalleriesClientListByDevCenterOptions struct {
 	Top *int32
 }
 
+// ImageVersionsClientGetByProjectOptions contains the optional parameters for the ImageVersionsClient.GetByProject method.
+type ImageVersionsClientGetByProjectOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ImageVersionsClientGetOptions contains the optional parameters for the ImageVersionsClient.Get method.
 type ImageVersionsClientGetOptions struct {
 	// placeholder for future optional parameters
@@ -280,6 +303,17 @@ type ImageVersionsClientGetOptions struct {
 // ImageVersionsClientListByImageOptions contains the optional parameters for the ImageVersionsClient.NewListByImagePager
 // method.
 type ImageVersionsClientListByImageOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ImageVersionsClientListByProjectOptions contains the optional parameters for the ImageVersionsClient.NewListByProjectPager
+// method.
+type ImageVersionsClientListByProjectOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ImagesClientGetByProjectOptions contains the optional parameters for the ImagesClient.GetByProject method.
+type ImagesClientGetByProjectOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -298,6 +332,11 @@ type ImagesClientListByDevCenterOptions struct {
 type ImagesClientListByGalleryOptions struct {
 	// The maximum number of resources to return from the operation. Example: '$top=10'.
 	Top *int32
+}
+
+// ImagesClientListByProjectOptions contains the optional parameters for the ImagesClient.NewListByProjectPager method.
+type ImagesClientListByProjectOptions struct {
+	// placeholder for future optional parameters
 }
 
 // NetworkConnectionsClientBeginCreateOrUpdateOptions contains the optional parameters for the NetworkConnectionsClient.BeginCreateOrUpdate
@@ -431,6 +470,51 @@ type ProjectCatalogEnvironmentDefinitionsClientGetErrorDetailsOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ProjectCatalogImageDefinitionBuildClientBeginCancelOptions contains the optional parameters for the ProjectCatalogImageDefinitionBuildClient.BeginCancel
+// method.
+type ProjectCatalogImageDefinitionBuildClientBeginCancelOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ProjectCatalogImageDefinitionBuildClientGetBuildDetailsOptions contains the optional parameters for the ProjectCatalogImageDefinitionBuildClient.GetBuildDetails
+// method.
+type ProjectCatalogImageDefinitionBuildClientGetBuildDetailsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ProjectCatalogImageDefinitionBuildClientGetOptions contains the optional parameters for the ProjectCatalogImageDefinitionBuildClient.Get
+// method.
+type ProjectCatalogImageDefinitionBuildClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ProjectCatalogImageDefinitionBuildsClientListByImageDefinitionOptions contains the optional parameters for the ProjectCatalogImageDefinitionBuildsClient.NewListByImageDefinitionPager
+// method.
+type ProjectCatalogImageDefinitionBuildsClientListByImageDefinitionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ProjectCatalogImageDefinitionsClientBeginBuildImageOptions contains the optional parameters for the ProjectCatalogImageDefinitionsClient.BeginBuildImage
+// method.
+type ProjectCatalogImageDefinitionsClientBeginBuildImageOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ProjectCatalogImageDefinitionsClientGetByProjectCatalogOptions contains the optional parameters for the ProjectCatalogImageDefinitionsClient.GetByProjectCatalog
+// method.
+type ProjectCatalogImageDefinitionsClientGetByProjectCatalogOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ProjectCatalogImageDefinitionsClientListByProjectCatalogOptions contains the optional parameters for the ProjectCatalogImageDefinitionsClient.NewListByProjectCatalogPager
+// method.
+type ProjectCatalogImageDefinitionsClientListByProjectCatalogOptions struct {
+	// The maximum number of resources to return from the operation. Example: '$top=10'.
+	Top *int32
+}
+
 // ProjectCatalogsClientBeginConnectOptions contains the optional parameters for the ProjectCatalogsClient.BeginConnect method.
 type ProjectCatalogsClientBeginConnectOptions struct {
 	// Resumes the LRO from the provided token.
@@ -509,6 +593,37 @@ type ProjectEnvironmentTypesClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ProjectPoliciesClientBeginCreateOrUpdateOptions contains the optional parameters for the ProjectPoliciesClient.BeginCreateOrUpdate
+// method.
+type ProjectPoliciesClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ProjectPoliciesClientBeginDeleteOptions contains the optional parameters for the ProjectPoliciesClient.BeginDelete method.
+type ProjectPoliciesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ProjectPoliciesClientBeginUpdateOptions contains the optional parameters for the ProjectPoliciesClient.BeginUpdate method.
+type ProjectPoliciesClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ProjectPoliciesClientGetOptions contains the optional parameters for the ProjectPoliciesClient.Get method.
+type ProjectPoliciesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ProjectPoliciesClientListByDevCenterOptions contains the optional parameters for the ProjectPoliciesClient.NewListByDevCenterPager
+// method.
+type ProjectPoliciesClientListByDevCenterOptions struct {
+	// The maximum number of resources to return from the operation. Example: '$top=10'.
+	Top *int32
+}
+
 // ProjectsClientBeginCreateOrUpdateOptions contains the optional parameters for the ProjectsClient.BeginCreateOrUpdate method.
 type ProjectsClientBeginCreateOrUpdateOptions struct {
 	// Resumes the LRO from the provided token.
@@ -525,6 +640,12 @@ type ProjectsClientBeginDeleteOptions struct {
 type ProjectsClientBeginUpdateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
+}
+
+// ProjectsClientGetInheritedSettingsOptions contains the optional parameters for the ProjectsClient.GetInheritedSettings
+// method.
+type ProjectsClientGetInheritedSettingsOptions struct {
+	// placeholder for future optional parameters
 }
 
 // ProjectsClientGetOptions contains the optional parameters for the ProjectsClient.Get method.
@@ -544,6 +665,11 @@ type ProjectsClientListByResourceGroupOptions struct {
 type ProjectsClientListBySubscriptionOptions struct {
 	// The maximum number of resources to return from the operation. Example: '$top=10'.
 	Top *int32
+}
+
+// SKUsClientListByProjectOptions contains the optional parameters for the SKUsClient.NewListByProjectPager method.
+type SKUsClientListByProjectOptions struct {
+	// placeholder for future optional parameters
 }
 
 // SKUsClientListBySubscriptionOptions contains the optional parameters for the SKUsClient.NewListBySubscriptionPager method.

@@ -23,6 +23,7 @@ type ServerFactory struct {
 	CatalogsServer                             CatalogsServer
 	CheckNameAvailabilityServer                CheckNameAvailabilityServer
 	CheckScopedNameAvailabilityServer          CheckScopedNameAvailabilityServer
+	CustomizationTasksServer                   CustomizationTasksServer
 	DevBoxDefinitionsServer                    DevBoxDefinitionsServer
 	DevCentersServer                           DevCentersServer
 	EnvironmentDefinitionsServer               EnvironmentDefinitionsServer
@@ -36,8 +37,12 @@ type ServerFactory struct {
 	PoolsServer                                PoolsServer
 	ProjectAllowedEnvironmentTypesServer       ProjectAllowedEnvironmentTypesServer
 	ProjectCatalogEnvironmentDefinitionsServer ProjectCatalogEnvironmentDefinitionsServer
+	ProjectCatalogImageDefinitionBuildServer   ProjectCatalogImageDefinitionBuildServer
+	ProjectCatalogImageDefinitionBuildsServer  ProjectCatalogImageDefinitionBuildsServer
+	ProjectCatalogImageDefinitionsServer       ProjectCatalogImageDefinitionsServer
 	ProjectCatalogsServer                      ProjectCatalogsServer
 	ProjectEnvironmentTypesServer              ProjectEnvironmentTypesServer
+	ProjectPoliciesServer                      ProjectPoliciesServer
 	ProjectsServer                             ProjectsServer
 	SKUsServer                                 SKUsServer
 	SchedulesServer                            SchedulesServer
@@ -62,6 +67,7 @@ type ServerFactoryTransport struct {
 	trCatalogsServer                             *CatalogsServerTransport
 	trCheckNameAvailabilityServer                *CheckNameAvailabilityServerTransport
 	trCheckScopedNameAvailabilityServer          *CheckScopedNameAvailabilityServerTransport
+	trCustomizationTasksServer                   *CustomizationTasksServerTransport
 	trDevBoxDefinitionsServer                    *DevBoxDefinitionsServerTransport
 	trDevCentersServer                           *DevCentersServerTransport
 	trEnvironmentDefinitionsServer               *EnvironmentDefinitionsServerTransport
@@ -75,8 +81,12 @@ type ServerFactoryTransport struct {
 	trPoolsServer                                *PoolsServerTransport
 	trProjectAllowedEnvironmentTypesServer       *ProjectAllowedEnvironmentTypesServerTransport
 	trProjectCatalogEnvironmentDefinitionsServer *ProjectCatalogEnvironmentDefinitionsServerTransport
+	trProjectCatalogImageDefinitionBuildServer   *ProjectCatalogImageDefinitionBuildServerTransport
+	trProjectCatalogImageDefinitionBuildsServer  *ProjectCatalogImageDefinitionBuildsServerTransport
+	trProjectCatalogImageDefinitionsServer       *ProjectCatalogImageDefinitionsServerTransport
 	trProjectCatalogsServer                      *ProjectCatalogsServerTransport
 	trProjectEnvironmentTypesServer              *ProjectEnvironmentTypesServerTransport
+	trProjectPoliciesServer                      *ProjectPoliciesServerTransport
 	trProjectsServer                             *ProjectsServerTransport
 	trSKUsServer                                 *SKUsServerTransport
 	trSchedulesServer                            *SchedulesServerTransport
@@ -114,6 +124,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewCheckScopedNameAvailabilityServerTransport(&s.srv.CheckScopedNameAvailabilityServer)
 		})
 		resp, err = s.trCheckScopedNameAvailabilityServer.Do(req)
+	case "CustomizationTasksClient":
+		initServer(s, &s.trCustomizationTasksServer, func() *CustomizationTasksServerTransport {
+			return NewCustomizationTasksServerTransport(&s.srv.CustomizationTasksServer)
+		})
+		resp, err = s.trCustomizationTasksServer.Do(req)
 	case "DevBoxDefinitionsClient":
 		initServer(s, &s.trDevBoxDefinitionsServer, func() *DevBoxDefinitionsServerTransport {
 			return NewDevBoxDefinitionsServerTransport(&s.srv.DevBoxDefinitionsServer)
@@ -169,6 +184,21 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewProjectCatalogEnvironmentDefinitionsServerTransport(&s.srv.ProjectCatalogEnvironmentDefinitionsServer)
 		})
 		resp, err = s.trProjectCatalogEnvironmentDefinitionsServer.Do(req)
+	case "ProjectCatalogImageDefinitionBuildClient":
+		initServer(s, &s.trProjectCatalogImageDefinitionBuildServer, func() *ProjectCatalogImageDefinitionBuildServerTransport {
+			return NewProjectCatalogImageDefinitionBuildServerTransport(&s.srv.ProjectCatalogImageDefinitionBuildServer)
+		})
+		resp, err = s.trProjectCatalogImageDefinitionBuildServer.Do(req)
+	case "ProjectCatalogImageDefinitionBuildsClient":
+		initServer(s, &s.trProjectCatalogImageDefinitionBuildsServer, func() *ProjectCatalogImageDefinitionBuildsServerTransport {
+			return NewProjectCatalogImageDefinitionBuildsServerTransport(&s.srv.ProjectCatalogImageDefinitionBuildsServer)
+		})
+		resp, err = s.trProjectCatalogImageDefinitionBuildsServer.Do(req)
+	case "ProjectCatalogImageDefinitionsClient":
+		initServer(s, &s.trProjectCatalogImageDefinitionsServer, func() *ProjectCatalogImageDefinitionsServerTransport {
+			return NewProjectCatalogImageDefinitionsServerTransport(&s.srv.ProjectCatalogImageDefinitionsServer)
+		})
+		resp, err = s.trProjectCatalogImageDefinitionsServer.Do(req)
 	case "ProjectCatalogsClient":
 		initServer(s, &s.trProjectCatalogsServer, func() *ProjectCatalogsServerTransport {
 			return NewProjectCatalogsServerTransport(&s.srv.ProjectCatalogsServer)
@@ -179,6 +209,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewProjectEnvironmentTypesServerTransport(&s.srv.ProjectEnvironmentTypesServer)
 		})
 		resp, err = s.trProjectEnvironmentTypesServer.Do(req)
+	case "ProjectPoliciesClient":
+		initServer(s, &s.trProjectPoliciesServer, func() *ProjectPoliciesServerTransport {
+			return NewProjectPoliciesServerTransport(&s.srv.ProjectPoliciesServer)
+		})
+		resp, err = s.trProjectPoliciesServer.Do(req)
 	case "ProjectsClient":
 		initServer(s, &s.trProjectsServer, func() *ProjectsServerTransport { return NewProjectsServerTransport(&s.srv.ProjectsServer) })
 		resp, err = s.trProjectsServer.Do(req)
