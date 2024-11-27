@@ -10,7 +10,7 @@ package armkeyvault
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/keyvault/armkeyvault"
-	moduleVersion = "v1.4.0"
+	moduleVersion = "v1.4.1"
 )
 
 type AccessPolicyUpdateKind string
@@ -195,7 +195,8 @@ func PossibleIdentityTypeValues() []IdentityType {
 	}
 }
 
-// JSONWebKeyCurveName - The elliptic curve name. For valid values, see JsonWebKeyCurveName.
+// JSONWebKeyCurveName - The elliptic curve name. For valid values, see JsonWebKeyCurveName. Default for EC and EC-HSM keys
+// is P-256
 type JSONWebKeyCurveName string
 
 const (
