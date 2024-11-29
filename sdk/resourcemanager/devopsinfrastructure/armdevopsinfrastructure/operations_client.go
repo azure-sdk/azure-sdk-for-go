@@ -33,17 +33,18 @@ func NewOperationsClient(credential azcore.TokenCredential, options *arm.ClientO
 	return client, nil
 }
 
-// NewListPager - List the operations for the provider
+// NewlistMethodPager - List the operations for the provider
 //
 // Generated from API version 2024-10-19
-//   - options - OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
-func (client *OperationsClient) NewListPager(options *OperationsClientListOptions) *runtime.Pager[OperationsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[OperationsClientListResponse]{
-		More: func(page OperationsClientListResponse) bool {
+//   - options - operationsClientlistMethodOptions contains the optional parameters for the OperationsClient.NewlistMethodPager
+//     method.
+func (client *OperationsClient) NewlistMethodPager(options *operationsClientlistMethodOptions) *runtime.Pager[operationsClientlistMethodResponse] {
+	return runtime.NewPager(runtime.PagingHandler[operationsClientlistMethodResponse]{
+		More: func(page operationsClientlistMethodResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *OperationsClientListResponse) (OperationsClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "OperationsClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *operationsClientlistMethodResponse) (operationsClientlistMethodResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "OperationsClient.NewlistMethodPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
@@ -52,7 +53,7 @@ func (client *OperationsClient) NewListPager(options *OperationsClientListOption
 				return client.listCreateRequest(ctx, options)
 			}, nil)
 			if err != nil {
-				return OperationsClientListResponse{}, err
+				return operationsClientlistMethodResponse{}, err
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -60,8 +61,8 @@ func (client *OperationsClient) NewListPager(options *OperationsClientListOption
 	})
 }
 
-// listCreateRequest creates the List request.
-func (client *OperationsClient) listCreateRequest(ctx context.Context, _ *OperationsClientListOptions) (*policy.Request, error) {
+// listCreateRequest creates the listMethod request.
+func (client *OperationsClient) listCreateRequest(ctx context.Context, _ *operationsClientlistMethodOptions) (*policy.Request, error) {
 	urlPath := "/providers/Microsoft.DevOpsInfrastructure/operations"
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
@@ -74,11 +75,11 @@ func (client *OperationsClient) listCreateRequest(ctx context.Context, _ *Operat
 	return req, nil
 }
 
-// listHandleResponse handles the List response.
-func (client *OperationsClient) listHandleResponse(resp *http.Response) (OperationsClientListResponse, error) {
-	result := OperationsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.OperationListResult); err != nil {
-		return OperationsClientListResponse{}, err
+// listHandleResponse handles the listMethod response.
+func (client *OperationsClient) listHandleResponse(resp *http.Response) (operationsClientlistMethodResponse, error) {
+	result := operationsClientlistMethodResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.operationListResult); err != nil {
+		return operationsClientlistMethodResponse{}, err
 	}
 	return result, nil
 }
