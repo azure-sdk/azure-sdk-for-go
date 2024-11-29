@@ -6,13 +6,13 @@ package armneonpostgres
 
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
-	// A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to get the next set of results.
+// A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to get the next set of results.
 	OperationListResult
 }
 
 // OrganizationsClientCreateOrUpdateResponse contains the response from method OrganizationsClient.BeginCreateOrUpdate.
 type OrganizationsClientCreateOrUpdateResponse struct {
-	// Organization Resource by Neon
+// Organization Resource by Neon
 	OrganizationResource
 }
 
@@ -23,24 +23,25 @@ type OrganizationsClientDeleteResponse struct {
 
 // OrganizationsClientGetResponse contains the response from method OrganizationsClient.Get.
 type OrganizationsClientGetResponse struct {
-	// Organization Resource by Neon
+// Organization Resource by Neon
 	OrganizationResource
 }
 
 // OrganizationsClientListByResourceGroupResponse contains the response from method OrganizationsClient.NewListByResourceGroupPager.
 type OrganizationsClientListByResourceGroupResponse struct {
-	// The response of a OrganizationResource list operation.
+// The response of a OrganizationResource list operation.
 	OrganizationResourceListResult
 }
 
 // OrganizationsClientListBySubscriptionResponse contains the response from method OrganizationsClient.NewListBySubscriptionPager.
 type OrganizationsClientListBySubscriptionResponse struct {
-	// The response of a OrganizationResource list operation.
+// The response of a OrganizationResource list operation.
 	OrganizationResourceListResult
 }
 
 // OrganizationsClientUpdateResponse contains the response from method OrganizationsClient.BeginUpdate.
 type OrganizationsClientUpdateResponse struct {
-	// Organization Resource by Neon
+// Organization Resource by Neon
 	OrganizationResource
 }
+
