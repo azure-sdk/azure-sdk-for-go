@@ -5,7 +5,7 @@
 package armneonpostgres
 
 const (
-	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/neonpostgres/armneonpostgres"
+	moduleName = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/neonpostgres/armneonpostgres"
 	moduleVersion = "v0.1.0"
 )
 
@@ -13,13 +13,13 @@ const (
 type ActionType string
 
 const (
-	// ActionTypeInternal - Actions are for internal-only APIs.
+// ActionTypeInternal - Actions are for internal-only APIs.
 	ActionTypeInternal ActionType = "Internal"
 )
 
 // PossibleActionTypeValues returns the possible values for the ActionType const type.
 func PossibleActionTypeValues() []ActionType {
-	return []ActionType{
+	return []ActionType{	
 		ActionTypeInternal,
 	}
 }
@@ -28,19 +28,19 @@ func PossibleActionTypeValues() []ActionType {
 type CreatedByType string
 
 const (
-	// CreatedByTypeApplication - The entity was created by an application.
+// CreatedByTypeApplication - The entity was created by an application.
 	CreatedByTypeApplication CreatedByType = "Application"
-	// CreatedByTypeKey - The entity was created by a key.
+// CreatedByTypeKey - The entity was created by a key.
 	CreatedByTypeKey CreatedByType = "Key"
-	// CreatedByTypeManagedIdentity - The entity was created by a managed identity.
+// CreatedByTypeManagedIdentity - The entity was created by a managed identity.
 	CreatedByTypeManagedIdentity CreatedByType = "ManagedIdentity"
-	// CreatedByTypeUser - The entity was created by a user.
+// CreatedByTypeUser - The entity was created by a user.
 	CreatedByTypeUser CreatedByType = "User"
 )
 
 // PossibleCreatedByTypeValues returns the possible values for the CreatedByType const type.
 func PossibleCreatedByTypeValues() []CreatedByType {
-	return []CreatedByType{
+	return []CreatedByType{	
 		CreatedByTypeApplication,
 		CreatedByTypeKey,
 		CreatedByTypeManagedIdentity,
@@ -52,20 +52,20 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 type MarketplaceSubscriptionStatus string
 
 const (
-	// MarketplaceSubscriptionStatusPendingFulfillmentStart - Purchased but not yet activated
+// MarketplaceSubscriptionStatusPendingFulfillmentStart - Purchased but not yet activated
 	MarketplaceSubscriptionStatusPendingFulfillmentStart MarketplaceSubscriptionStatus = "PendingFulfillmentStart"
-	// MarketplaceSubscriptionStatusSubscribed - Marketplace subscription is activated
+// MarketplaceSubscriptionStatusSubscribed - Marketplace subscription is activated
 	MarketplaceSubscriptionStatusSubscribed MarketplaceSubscriptionStatus = "Subscribed"
-	// MarketplaceSubscriptionStatusSuspended - This state indicates that a customer's payment for the Marketplace service was
-	// not received
+// MarketplaceSubscriptionStatusSuspended - This state indicates that a customer's payment for the Marketplace service was
+// not received
 	MarketplaceSubscriptionStatusSuspended MarketplaceSubscriptionStatus = "Suspended"
-	// MarketplaceSubscriptionStatusUnsubscribed - Customer has cancelled the subscription
+// MarketplaceSubscriptionStatusUnsubscribed - Customer has cancelled the subscription
 	MarketplaceSubscriptionStatusUnsubscribed MarketplaceSubscriptionStatus = "Unsubscribed"
 )
 
 // PossibleMarketplaceSubscriptionStatusValues returns the possible values for the MarketplaceSubscriptionStatus const type.
 func PossibleMarketplaceSubscriptionStatusValues() []MarketplaceSubscriptionStatus {
-	return []MarketplaceSubscriptionStatus{
+	return []MarketplaceSubscriptionStatus{	
 		MarketplaceSubscriptionStatusPendingFulfillmentStart,
 		MarketplaceSubscriptionStatusSubscribed,
 		MarketplaceSubscriptionStatusSuspended,
@@ -78,17 +78,17 @@ func PossibleMarketplaceSubscriptionStatusValues() []MarketplaceSubscriptionStat
 type Origin string
 
 const (
-	// OriginSystem - Indicates the operation is initiated by a system.
+// OriginSystem - Indicates the operation is initiated by a system.
 	OriginSystem Origin = "system"
-	// OriginUser - Indicates the operation is initiated by a user.
+// OriginUser - Indicates the operation is initiated by a user.
 	OriginUser Origin = "user"
-	// OriginUserSystem - Indicates the operation is initiated by a user or system.
+// OriginUserSystem - Indicates the operation is initiated by a user or system.
 	OriginUserSystem Origin = "user,system"
 )
 
 // PossibleOriginValues returns the possible values for the Origin const type.
 func PossibleOriginValues() []Origin {
-	return []Origin{
+	return []Origin{	
 		OriginSystem,
 		OriginUser,
 		OriginUserSystem,
@@ -99,17 +99,17 @@ func PossibleOriginValues() []Origin {
 type ResourceProvisioningState string
 
 const (
-	// ResourceProvisioningStateCanceled - Resource creation was canceled.
+// ResourceProvisioningStateCanceled - Resource creation was canceled.
 	ResourceProvisioningStateCanceled ResourceProvisioningState = "Canceled"
-	// ResourceProvisioningStateFailed - Resource creation failed.
+// ResourceProvisioningStateFailed - Resource creation failed.
 	ResourceProvisioningStateFailed ResourceProvisioningState = "Failed"
-	// ResourceProvisioningStateSucceeded - Resource has been created.
+// ResourceProvisioningStateSucceeded - Resource has been created.
 	ResourceProvisioningStateSucceeded ResourceProvisioningState = "Succeeded"
 )
 
 // PossibleResourceProvisioningStateValues returns the possible values for the ResourceProvisioningState const type.
 func PossibleResourceProvisioningStateValues() []ResourceProvisioningState {
-	return []ResourceProvisioningState{
+	return []ResourceProvisioningState{	
 		ResourceProvisioningStateCanceled,
 		ResourceProvisioningStateFailed,
 		ResourceProvisioningStateSucceeded,
@@ -120,19 +120,20 @@ func PossibleResourceProvisioningStateValues() []ResourceProvisioningState {
 type SingleSignOnStates string
 
 const (
-	// SingleSignOnStatesDisable - SSO is disabled for the organization
+// SingleSignOnStatesDisable - SSO is disabled for the organization
 	SingleSignOnStatesDisable SingleSignOnStates = "Disable"
-	// SingleSignOnStatesEnable - SSO is enabled for the organization
+// SingleSignOnStatesEnable - SSO is enabled for the organization
 	SingleSignOnStatesEnable SingleSignOnStates = "Enable"
-	// SingleSignOnStatesInitial - Initial state of the SSO resource
+// SingleSignOnStatesInitial - Initial state of the SSO resource
 	SingleSignOnStatesInitial SingleSignOnStates = "Initial"
 )
 
 // PossibleSingleSignOnStatesValues returns the possible values for the SingleSignOnStates const type.
 func PossibleSingleSignOnStatesValues() []SingleSignOnStates {
-	return []SingleSignOnStates{
+	return []SingleSignOnStates{	
 		SingleSignOnStatesDisable,
 		SingleSignOnStatesEnable,
 		SingleSignOnStatesInitial,
 	}
 }
+
