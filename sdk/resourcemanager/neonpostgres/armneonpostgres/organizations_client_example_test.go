@@ -26,39 +26,39 @@ func ExampleOrganizationsClient_BeginCreateOrUpdate() {
 	poller, err := clientFactory.NewOrganizationsClient().BeginCreateOrUpdate(ctx, "rgneon", "XB-.:", armneonpostgres.OrganizationResource{
 		Properties: &armneonpostgres.OrganizationProperties{
 			MarketplaceDetails: &armneonpostgres.MarketplaceDetails{
-				SubscriptionID:     to.Ptr("yxmkfivp"),
+				SubscriptionID: to.Ptr("yxmkfivp"),
 				SubscriptionStatus: to.Ptr(armneonpostgres.MarketplaceSubscriptionStatusPendingFulfillmentStart),
 				OfferDetails: &armneonpostgres.OfferDetails{
 					PublisherID: to.Ptr("hporaxnopmolttlnkbarw"),
-					OfferID:     to.Ptr("bunyeeupoedueofwrzej"),
-					PlanID:      to.Ptr("nlbfiwtslenfwek"),
-					PlanName:    to.Ptr("ljbmgpkfqklaufacbpml"),
-					TermUnit:    to.Ptr("qbcq"),
-					TermID:      to.Ptr("aedlchikwqckuploswthvshe"),
+					OfferID: to.Ptr("bunyeeupoedueofwrzej"),
+					PlanID: to.Ptr("nlbfiwtslenfwek"),
+					PlanName: to.Ptr("ljbmgpkfqklaufacbpml"),
+					TermUnit: to.Ptr("qbcq"),
+					TermID: to.Ptr("aedlchikwqckuploswthvshe"),
 				},
 			},
 			UserDetails: &armneonpostgres.UserDetails{
-				FirstName:    to.Ptr("buwwe"),
-				LastName:     to.Ptr("escynjpynkoox"),
+				FirstName: to.Ptr("buwwe"),
+				LastName: to.Ptr("escynjpynkoox"),
 				EmailAddress: to.Ptr("3i_%@w8-y.H-p.tvj.dG"),
-				Upn:          to.Ptr("fwedjamgwwrotcjaucuzdwycfjdqn"),
-				PhoneNumber:  to.Ptr("dlrqoowumy"),
+				Upn: to.Ptr("fwedjamgwwrotcjaucuzdwycfjdqn"),
+				PhoneNumber: to.Ptr("dlrqoowumy"),
 			},
 			CompanyDetails: &armneonpostgres.CompanyDetails{
-				CompanyName:       to.Ptr("uxn"),
-				Country:           to.Ptr("lpajqzptqchuko"),
-				OfficeAddress:     to.Ptr("chpkrlpmfslmawgunjxdllzcrctykq"),
-				BusinessPhone:     to.Ptr("hbeb"),
-				Domain:            to.Ptr("krjldeakhwiepvs"),
+				CompanyName: to.Ptr("uxn"),
+				Country: to.Ptr("lpajqzptqchuko"),
+				OfficeAddress: to.Ptr("chpkrlpmfslmawgunjxdllzcrctykq"),
+				BusinessPhone: to.Ptr("hbeb"),
+				Domain: to.Ptr("krjldeakhwiepvs"),
 				NumberOfEmployees: to.Ptr[int64](23),
 			},
 			PartnerOrganizationProperties: &armneonpostgres.PartnerOrganizationProperties{
-				OrganizationID:   to.Ptr("nrhvoqzulowcunhmvwfgjcaibvwcl"),
+				OrganizationID: to.Ptr("nrhvoqzulowcunhmvwfgjcaibvwcl"),
 				OrganizationName: to.Ptr("2__.-"),
 				SingleSignOnProperties: &armneonpostgres.SingleSignOnProperties{
 					SingleSignOnState: to.Ptr(armneonpostgres.SingleSignOnStatesInitial),
-					EnterpriseAppID:   to.Ptr("fpibacregjfncfdsojs"),
-					SingleSignOnURL:   to.Ptr("tmojh"),
+					EnterpriseAppID: to.Ptr("fpibacregjfncfdsojs"),
+					SingleSignOnURL: to.Ptr("tmojh"),
 					AADDomains: []*string{
 						to.Ptr("kndszgrwzbvvlssvkej"),
 					},
@@ -441,27 +441,27 @@ func ExampleOrganizationsClient_BeginUpdate() {
 	poller, err := clientFactory.NewOrganizationsClient().BeginUpdate(ctx, "rgneon", "eRY-J_:", armneonpostgres.OrganizationResource{
 		Properties: &armneonpostgres.OrganizationProperties{
 			UserDetails: &armneonpostgres.UserDetails{
-				FirstName:    to.Ptr("buwwe"),
-				LastName:     to.Ptr("escynjpynkoox"),
+				FirstName: to.Ptr("buwwe"),
+				LastName: to.Ptr("escynjpynkoox"),
 				EmailAddress: to.Ptr("3i_%@w8-y.H-p.tvj.dG"),
-				Upn:          to.Ptr("fwedjamgwwrotcjaucuzdwycfjdqn"),
-				PhoneNumber:  to.Ptr("dlrqoowumy"),
+				Upn: to.Ptr("fwedjamgwwrotcjaucuzdwycfjdqn"),
+				PhoneNumber: to.Ptr("dlrqoowumy"),
 			},
 			CompanyDetails: &armneonpostgres.CompanyDetails{
-				CompanyName:       to.Ptr("uxn"),
-				Country:           to.Ptr("lpajqzptqchuko"),
-				OfficeAddress:     to.Ptr("chpkrlpmfslmawgunjxdllzcrctykq"),
-				BusinessPhone:     to.Ptr("hbeb"),
-				Domain:            to.Ptr("krjldeakhwiepvs"),
+				CompanyName: to.Ptr("uxn"),
+				Country: to.Ptr("lpajqzptqchuko"),
+				OfficeAddress: to.Ptr("chpkrlpmfslmawgunjxdllzcrctykq"),
+				BusinessPhone: to.Ptr("hbeb"),
+				Domain: to.Ptr("krjldeakhwiepvs"),
 				NumberOfEmployees: to.Ptr[int64](23),
 			},
 			PartnerOrganizationProperties: &armneonpostgres.PartnerOrganizationProperties{
-				OrganizationID:   to.Ptr("njyoqflcmfwzfsqe"),
+				OrganizationID: to.Ptr("njyoqflcmfwzfsqe"),
 				OrganizationName: to.Ptr("J:.._3P"),
 				SingleSignOnProperties: &armneonpostgres.SingleSignOnProperties{
 					SingleSignOnState: to.Ptr(armneonpostgres.SingleSignOnStatesInitial),
-					EnterpriseAppID:   to.Ptr("fpibacregjfncfdsojs"),
-					SingleSignOnURL:   to.Ptr("tmojh"),
+					EnterpriseAppID: to.Ptr("fpibacregjfncfdsojs"),
+					SingleSignOnURL: to.Ptr("tmojh"),
 					AADDomains: []*string{
 						to.Ptr("kndszgrwzbvvlssvkej"),
 					},
@@ -544,3 +544,4 @@ func ExampleOrganizationsClient_BeginUpdate() {
 	// 	},
 	// }
 }
+
