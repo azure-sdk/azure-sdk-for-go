@@ -19,7 +19,7 @@ import (
 // OrganizationsClient contains the methods for the Organizations group.
 // Don't use this type directly, use NewOrganizationsClient() instead.
 type OrganizationsClient struct {
-	internal       *arm.Client
+	internal *arm.Client
 	subscriptionID string
 }
 
@@ -34,7 +34,7 @@ func NewOrganizationsClient(subscriptionID string, credential azcore.TokenCreden
 	}
 	client := &OrganizationsClient{
 		subscriptionID: subscriptionID,
-		internal:       cl,
+	internal: cl,
 	}
 	return client, nil
 }
@@ -114,10 +114,10 @@ func (client *OrganizationsClient) createOrUpdateCreateRequest(ctx context.Conte
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["Content-Type"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, resource); err != nil {
-		return nil, err
-	}
-	return req, nil
+if err := runtime.MarshalAsJSON(req, resource); err != nil {
+	return nil, err
+}
+;	return req, nil
 }
 
 // BeginDelete - Delete a OrganizationResource
@@ -266,13 +266,13 @@ func (client *OrganizationsClient) getHandleResponse(resp *http.Response) (Organ
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - OrganizationsClientListByResourceGroupOptions contains the optional parameters for the OrganizationsClient.NewListByResourceGroupPager
 //     method.
-func (client *OrganizationsClient) NewListByResourceGroupPager(resourceGroupName string, options *OrganizationsClientListByResourceGroupOptions) *runtime.Pager[OrganizationsClientListByResourceGroupResponse] {
+func (client *OrganizationsClient) NewListByResourceGroupPager(resourceGroupName string, options *OrganizationsClientListByResourceGroupOptions) (*runtime.Pager[OrganizationsClientListByResourceGroupResponse]) {
 	return runtime.NewPager(runtime.PagingHandler[OrganizationsClientListByResourceGroupResponse]{
 		More: func(page OrganizationsClientListByResourceGroupResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *OrganizationsClientListByResourceGroupResponse) (OrganizationsClientListByResourceGroupResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "OrganizationsClient.NewListByResourceGroupPager")
+		ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "OrganizationsClient.NewListByResourceGroupPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
@@ -284,7 +284,7 @@ func (client *OrganizationsClient) NewListByResourceGroupPager(resourceGroupName
 				return OrganizationsClientListByResourceGroupResponse{}, err
 			}
 			return client.listByResourceGroupHandleResponse(resp)
-		},
+			},
 		Tracer: client.internal.Tracer(),
 	})
 }
@@ -325,13 +325,13 @@ func (client *OrganizationsClient) listByResourceGroupHandleResponse(resp *http.
 // Generated from API version 2024-08-01-preview
 //   - options - OrganizationsClientListBySubscriptionOptions contains the optional parameters for the OrganizationsClient.NewListBySubscriptionPager
 //     method.
-func (client *OrganizationsClient) NewListBySubscriptionPager(options *OrganizationsClientListBySubscriptionOptions) *runtime.Pager[OrganizationsClientListBySubscriptionResponse] {
+func (client *OrganizationsClient) NewListBySubscriptionPager(options *OrganizationsClientListBySubscriptionOptions) (*runtime.Pager[OrganizationsClientListBySubscriptionResponse]) {
 	return runtime.NewPager(runtime.PagingHandler[OrganizationsClientListBySubscriptionResponse]{
 		More: func(page OrganizationsClientListBySubscriptionResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *OrganizationsClientListBySubscriptionResponse) (OrganizationsClientListBySubscriptionResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "OrganizationsClient.NewListBySubscriptionPager")
+		ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "OrganizationsClient.NewListBySubscriptionPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
@@ -343,7 +343,7 @@ func (client *OrganizationsClient) NewListBySubscriptionPager(options *Organizat
 				return OrganizationsClientListBySubscriptionResponse{}, err
 			}
 			return client.listBySubscriptionHandleResponse(resp)
-		},
+			},
 		Tracer: client.internal.Tracer(),
 	})
 }
@@ -450,8 +450,9 @@ func (client *OrganizationsClient) updateCreateRequest(ctx context.Context, reso
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["Content-Type"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, properties); err != nil {
-		return nil, err
-	}
-	return req, nil
+if err := runtime.MarshalAsJSON(req, properties); err != nil {
+	return nil, err
 }
+;	return req, nil
+}
+
