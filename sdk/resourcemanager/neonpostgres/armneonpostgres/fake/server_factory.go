@@ -20,6 +20,7 @@ type ServerFactory struct {
 
 	// OrganizationsServer contains the fakes for client OrganizationsClient
 	OrganizationsServer OrganizationsServer
+
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -34,9 +35,9 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armneonpostgres.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                   *ServerFactory
-	trMu                  sync.Mutex
-	trOperationsServer    *OperationsServerTransport
+	srv *ServerFactory
+	trMu sync.Mutex
+	trOperationsServer *OperationsServerTransport
 	trOrganizationsServer *OrganizationsServerTransport
 }
 
@@ -57,9 +58,7 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
 	case "OrganizationsClient":
-		initServer(s, &s.trOrganizationsServer, func() *OrganizationsServerTransport {
-			return NewOrganizationsServerTransport(&s.srv.OrganizationsServer)
-		})
+		initServer(s, &s.trOrganizationsServer, func() *OrganizationsServerTransport { return NewOrganizationsServerTransport(&s.srv.OrganizationsServer) })
 		resp, err = s.trOrganizationsServer.Do(req)
 	default:
 		err = fmt.Errorf("unhandled client %s", client)
