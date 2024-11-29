@@ -19,7 +19,7 @@ import (
 )
 
 // OrganizationsServer is a fake server for instances of the armneonpostgres.OrganizationsClient type.
-type OrganizationsServer struct {
+type OrganizationsServer struct{
 	// BeginCreateOrUpdate is the fake for method OrganizationsClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
 	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, organizationName string, resource armneonpostgres.OrganizationResource, options *armneonpostgres.OrganizationsClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armneonpostgres.OrganizationsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
@@ -43,6 +43,7 @@ type OrganizationsServer struct {
 	// BeginUpdate is the fake for method OrganizationsClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginUpdate func(ctx context.Context, resourceGroupName string, organizationName string, properties armneonpostgres.OrganizationResource, options *armneonpostgres.OrganizationsClientBeginUpdateOptions) (resp azfake.PollerResponder[armneonpostgres.OrganizationsClientUpdateResponse], errResp azfake.ErrorResponder)
+
 }
 
 // NewOrganizationsServerTransport creates a new instance of OrganizationsServerTransport with the provided implementation.
@@ -50,24 +51,24 @@ type OrganizationsServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewOrganizationsServerTransport(srv *OrganizationsServer) *OrganizationsServerTransport {
 	return &OrganizationsServerTransport{
-		srv:                         srv,
-		beginCreateOrUpdate:         newTracker[azfake.PollerResponder[armneonpostgres.OrganizationsClientCreateOrUpdateResponse]](),
-		beginDelete:                 newTracker[azfake.PollerResponder[armneonpostgres.OrganizationsClientDeleteResponse]](),
+		srv: srv,
+		beginCreateOrUpdate: newTracker[azfake.PollerResponder[armneonpostgres.OrganizationsClientCreateOrUpdateResponse]](),
+		beginDelete: newTracker[azfake.PollerResponder[armneonpostgres.OrganizationsClientDeleteResponse]](),
 		newListByResourceGroupPager: newTracker[azfake.PagerResponder[armneonpostgres.OrganizationsClientListByResourceGroupResponse]](),
-		newListBySubscriptionPager:  newTracker[azfake.PagerResponder[armneonpostgres.OrganizationsClientListBySubscriptionResponse]](),
-		beginUpdate:                 newTracker[azfake.PollerResponder[armneonpostgres.OrganizationsClientUpdateResponse]](),
+		newListBySubscriptionPager: newTracker[azfake.PagerResponder[armneonpostgres.OrganizationsClientListBySubscriptionResponse]](),
+		beginUpdate: newTracker[azfake.PollerResponder[armneonpostgres.OrganizationsClientUpdateResponse]](),
 	}
 }
 
 // OrganizationsServerTransport connects instances of armneonpostgres.OrganizationsClient to instances of OrganizationsServer.
 // Don't use this type directly, use NewOrganizationsServerTransport instead.
 type OrganizationsServerTransport struct {
-	srv                         *OrganizationsServer
-	beginCreateOrUpdate         *tracker[azfake.PollerResponder[armneonpostgres.OrganizationsClientCreateOrUpdateResponse]]
-	beginDelete                 *tracker[azfake.PollerResponder[armneonpostgres.OrganizationsClientDeleteResponse]]
+	srv *OrganizationsServer
+	beginCreateOrUpdate *tracker[azfake.PollerResponder[armneonpostgres.OrganizationsClientCreateOrUpdateResponse]]
+	beginDelete *tracker[azfake.PollerResponder[armneonpostgres.OrganizationsClientDeleteResponse]]
 	newListByResourceGroupPager *tracker[azfake.PagerResponder[armneonpostgres.OrganizationsClientListByResourceGroupResponse]]
-	newListBySubscriptionPager  *tracker[azfake.PagerResponder[armneonpostgres.OrganizationsClientListBySubscriptionResponse]]
-	beginUpdate                 *tracker[azfake.PollerResponder[armneonpostgres.OrganizationsClientUpdateResponse]]
+	newListBySubscriptionPager *tracker[azfake.PagerResponder[armneonpostgres.OrganizationsClientListBySubscriptionResponse]]
+	beginUpdate *tracker[azfake.PollerResponder[armneonpostgres.OrganizationsClientUpdateResponse]]
 }
 
 // Do implements the policy.Transporter interface for OrganizationsServerTransport.
@@ -88,8 +89,8 @@ func (o *OrganizationsServerTransport) dispatchToMethodFake(req *http.Request, m
 	go func() {
 		var intercepted bool
 		var res result
-		if organizationsServerTransportInterceptor != nil {
-			res.resp, res.err, intercepted = organizationsServerTransportInterceptor.Do(req)
+		 if organizationsServerTransportInterceptor != nil {
+			 res.resp, res.err, intercepted = organizationsServerTransportInterceptor.Do(req)
 		}
 		if !intercepted {
 			switch method {
@@ -105,8 +106,8 @@ func (o *OrganizationsServerTransport) dispatchToMethodFake(req *http.Request, m
 				res.resp, res.err = o.dispatchNewListBySubscriptionPager(req)
 			case "OrganizationsClient.BeginUpdate":
 				res.resp, res.err = o.dispatchBeginUpdate(req)
-			default:
-				res.err = fmt.Errorf("unhandled API %s", method)
+				default:
+		res.err = fmt.Errorf("unhandled API %s", method)
 			}
 
 		}
@@ -130,28 +131,28 @@ func (o *OrganizationsServerTransport) dispatchBeginCreateOrUpdate(req *http.Req
 	}
 	beginCreateOrUpdate := o.beginCreateOrUpdate.get(req)
 	if beginCreateOrUpdate == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Neon\.Postgres/organizations/(?P<organizationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		body, err := server.UnmarshalRequestAsJSON[armneonpostgres.OrganizationResource](req)
-		if err != nil {
-			return nil, err
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		organizationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("organizationName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := o.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, organizationNameParam, body, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Neon\.Postgres/organizations/(?P<organizationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armneonpostgres.OrganizationResource](req)
+	if err != nil {
+		return nil, err
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	organizationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("organizationName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := o.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, organizationNameParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
 		beginCreateOrUpdate = &respr
 		o.beginCreateOrUpdate.add(req, beginCreateOrUpdate)
 	}
@@ -178,24 +179,24 @@ func (o *OrganizationsServerTransport) dispatchBeginDelete(req *http.Request) (*
 	}
 	beginDelete := o.beginDelete.get(req)
 	if beginDelete == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Neon\.Postgres/organizations/(?P<organizationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		organizationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("organizationName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := o.srv.BeginDelete(req.Context(), resourceGroupNameParam, organizationNameParam, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Neon\.Postgres/organizations/(?P<organizationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	organizationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("organizationName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := o.srv.BeginDelete(req.Context(), resourceGroupNameParam, organizationNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
 		beginDelete = &respr
 		o.beginDelete.add(req, beginDelete)
 	}
@@ -255,17 +256,17 @@ func (o *OrganizationsServerTransport) dispatchNewListByResourceGroupPager(req *
 	}
 	newListByResourceGroupPager := o.newListByResourceGroupPager.get(req)
 	if newListByResourceGroupPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Neon\.Postgres/organizations`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 2 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		resp := o.srv.NewListByResourceGroupPager(resourceGroupNameParam, nil)
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Neon\.Postgres/organizations`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 2 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+resp := o.srv.NewListByResourceGroupPager(resourceGroupNameParam, nil)
 		newListByResourceGroupPager = &resp
 		o.newListByResourceGroupPager.add(req, newListByResourceGroupPager)
 		server.PagerResponderInjectNextLinks(newListByResourceGroupPager, req, func(page *armneonpostgres.OrganizationsClientListByResourceGroupResponse, createLink func() string) {
@@ -292,13 +293,13 @@ func (o *OrganizationsServerTransport) dispatchNewListBySubscriptionPager(req *h
 	}
 	newListBySubscriptionPager := o.newListBySubscriptionPager.get(req)
 	if newListBySubscriptionPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Neon\.Postgres/organizations`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 1 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resp := o.srv.NewListBySubscriptionPager(nil)
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Neon\.Postgres/organizations`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 1 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+resp := o.srv.NewListBySubscriptionPager(nil)
 		newListBySubscriptionPager = &resp
 		o.newListBySubscriptionPager.add(req, newListBySubscriptionPager)
 		server.PagerResponderInjectNextLinks(newListBySubscriptionPager, req, func(page *armneonpostgres.OrganizationsClientListBySubscriptionResponse, createLink func() string) {
@@ -325,28 +326,28 @@ func (o *OrganizationsServerTransport) dispatchBeginUpdate(req *http.Request) (*
 	}
 	beginUpdate := o.beginUpdate.get(req)
 	if beginUpdate == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Neon\.Postgres/organizations/(?P<organizationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		body, err := server.UnmarshalRequestAsJSON[armneonpostgres.OrganizationResource](req)
-		if err != nil {
-			return nil, err
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		organizationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("organizationName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := o.srv.BeginUpdate(req.Context(), resourceGroupNameParam, organizationNameParam, body, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Neon\.Postgres/organizations/(?P<organizationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armneonpostgres.OrganizationResource](req)
+	if err != nil {
+		return nil, err
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	organizationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("organizationName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := o.srv.BeginUpdate(req.Context(), resourceGroupNameParam, organizationNameParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
 		beginUpdate = &respr
 		o.beginUpdate.add(req, beginUpdate)
 	}
