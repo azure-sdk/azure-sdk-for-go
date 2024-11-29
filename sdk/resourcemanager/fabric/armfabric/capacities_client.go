@@ -43,7 +43,7 @@ func NewCapacitiesClient(subscriptionID string, credential azcore.TokenCredentia
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-11-01
-//   - location - The location name.
+//   - location - The name of the Azure region.
 //   - body - The CheckAvailability request
 //   - options - CapacitiesClientCheckNameAvailabilityOptions contains the optional parameters for the CapacitiesClient.CheckNameAvailability
 //     method.

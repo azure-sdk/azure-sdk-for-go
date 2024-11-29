@@ -7,12 +7,12 @@ package armdevopsinfrastructure_test
 import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/devopsinfrastructure/armdevopsinfrastructure"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/devopsinfrastructure/armdevopsinfrastructure/v2"
 	"log"
 )
 
 // Generated from example definition: 2024-10-19/ListOperations.json
-func ExampleOperationsClient_NewListPager() {
+func ExampleOperationsClient_NewlistMethodPager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
 		log.Fatalf("failed to obtain a credential: %v", err)
@@ -22,7 +22,7 @@ func ExampleOperationsClient_NewListPager() {
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	pager := clientFactory.NewOperationsClient().NewListPager(nil)
+	pager := clientFactory.NewOperationsClient().NewlistMethodPager(nil)
 	for pager.More() {
 		page, err := pager.NextPage(ctx)
 		if err != nil {
@@ -33,8 +33,8 @@ func ExampleOperationsClient_NewListPager() {
 			_ = v
 		}
 		// If the HTTP response code is 200 as defined in example definition, your page structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
-		// page = armdevopsinfrastructure.OperationsClientListResponse{
-		// 	OperationListResult: armdevopsinfrastructure.OperationListResult{
+		// page = armdevopsinfrastructure.operationsClientlistMethodResponse{
+		// 	operationListResult: armdevopsinfrastructure.operationListResult{
 		// 	},
 		// }
 	}
