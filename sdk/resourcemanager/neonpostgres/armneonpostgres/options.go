@@ -12,19 +12,19 @@ type OperationsClientListOptions struct {
 // OrganizationsClientBeginCreateOrUpdateOptions contains the optional parameters for the OrganizationsClient.BeginCreateOrUpdate
 // method.
 type OrganizationsClientBeginCreateOrUpdateOptions struct {
-	// Resumes the long-running operation from the provided token.
+// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
 // OrganizationsClientBeginDeleteOptions contains the optional parameters for the OrganizationsClient.BeginDelete method.
 type OrganizationsClientBeginDeleteOptions struct {
-	// Resumes the long-running operation from the provided token.
+// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
 // OrganizationsClientBeginUpdateOptions contains the optional parameters for the OrganizationsClient.BeginUpdate method.
 type OrganizationsClientBeginUpdateOptions struct {
-	// Resumes the long-running operation from the provided token.
+// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
@@ -44,3 +44,4 @@ type OrganizationsClientListByResourceGroupOptions struct {
 type OrganizationsClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
 }
+
