@@ -43,11 +43,12 @@ func NewPrivateLinkResourcesClient(subscriptionID string, credential azcore.Toke
 	return client, nil
 }
 
-// NewListByClusterPager - Gets the private link resources that need to be created for a Redis Enterprise cluster.
+// NewListByClusterPager - Gets the private link resources that need to be created for a RedisEnterprise cluster.
 //
-// Generated from API version 2024-09-01-preview
+// Generated from API version 2024-10-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterName - The name of the Redis Enterprise cluster.
+//   - clusterName - The name of the Redis Enterprise cluster. Name must be 1-60 characters long. Allowed characters(A-Z, a-z,
+//     0-9) and hyphen(-). There can be no leading nor trailing nor consecutive hyphens
 //   - options - PrivateLinkResourcesClientListByClusterOptions contains the optional parameters for the PrivateLinkResourcesClient.NewListByClusterPager
 //     method.
 func (client *PrivateLinkResourcesClient) NewListByClusterPager(resourceGroupName string, clusterName string, options *PrivateLinkResourcesClientListByClusterOptions) *runtime.Pager[PrivateLinkResourcesClientListByClusterResponse] {
@@ -94,7 +95,7 @@ func (client *PrivateLinkResourcesClient) listByClusterCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-09-01-preview")
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

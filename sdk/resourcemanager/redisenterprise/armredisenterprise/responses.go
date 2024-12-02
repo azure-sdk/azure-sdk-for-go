@@ -8,32 +8,9 @@
 
 package armredisenterprise
 
-// AccessPolicyAssignmentClientCreateUpdateResponse contains the response from method AccessPolicyAssignmentClient.BeginCreateUpdate.
-type AccessPolicyAssignmentClientCreateUpdateResponse struct {
-	// Describes the access policy assignment of Redis Enterprise database
-	AccessPolicyAssignment
-}
-
-// AccessPolicyAssignmentClientDeleteResponse contains the response from method AccessPolicyAssignmentClient.BeginDelete.
-type AccessPolicyAssignmentClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// AccessPolicyAssignmentClientGetResponse contains the response from method AccessPolicyAssignmentClient.Get.
-type AccessPolicyAssignmentClientGetResponse struct {
-	// Describes the access policy assignment of Redis Enterprise database
-	AccessPolicyAssignment
-}
-
-// AccessPolicyAssignmentClientListResponse contains the response from method AccessPolicyAssignmentClient.NewListPager.
-type AccessPolicyAssignmentClientListResponse struct {
-	// The response of a list-all operation.
-	AccessPolicyAssignmentList
-}
-
 // ClientCreateResponse contains the response from method Client.BeginCreate.
 type ClientCreateResponse struct {
-	// Describes the Redis Enterprise cluster
+	// Describes the RedisEnterprise cluster
 	Cluster
 }
 
@@ -44,7 +21,7 @@ type ClientDeleteResponse struct {
 
 // ClientGetResponse contains the response from method Client.Get.
 type ClientGetResponse struct {
-	// Describes the Redis Enterprise cluster
+	// Describes the RedisEnterprise cluster
 	Cluster
 }
 
@@ -62,13 +39,13 @@ type ClientListResponse struct {
 
 // ClientUpdateResponse contains the response from method Client.BeginUpdate.
 type ClientUpdateResponse struct {
-	// Describes the Redis Enterprise cluster
+	// Describes the RedisEnterprise cluster
 	Cluster
 }
 
 // DatabasesClientCreateResponse contains the response from method DatabasesClient.BeginCreate.
 type DatabasesClientCreateResponse struct {
-	// Describes a database on the Redis Enterprise cluster
+	// Describes a database on the RedisEnterprise cluster
 	Database
 }
 
@@ -99,7 +76,7 @@ type DatabasesClientForceUnlinkResponse struct {
 
 // DatabasesClientGetResponse contains the response from method DatabasesClient.Get.
 type DatabasesClientGetResponse struct {
-	// Describes a database on the Redis Enterprise cluster
+	// Describes a database on the RedisEnterprise cluster
 	Database
 }
 
@@ -128,13 +105,8 @@ type DatabasesClientRegenerateKeyResponse struct {
 
 // DatabasesClientUpdateResponse contains the response from method DatabasesClient.BeginUpdate.
 type DatabasesClientUpdateResponse struct {
-	// Describes a database on the Redis Enterprise cluster
+	// Describes a database on the RedisEnterprise cluster
 	Database
-}
-
-// DatabasesClientUpgradeDBRedisVersionResponse contains the response from method DatabasesClient.BeginUpgradeDBRedisVersion.
-type DatabasesClientUpgradeDBRedisVersionResponse struct {
-	// placeholder for future response values
 }
 
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
