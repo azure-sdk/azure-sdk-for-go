@@ -9609,14 +9609,58 @@ type SwiftVirtualNetwork struct {
 	Type *string
 }
 
+// SwiftVirtualNetworkCollection - Collection of Swift Virtual Networks
+type SwiftVirtualNetworkCollection struct {
+	// REQUIRED; Collection of resources.
+	Value []*SwiftVirtualNetwork
+
+	// READ-ONLY; Link to next page of resources.
+	NextLink *string
+}
+
 // SwiftVirtualNetworkProperties - SwiftVirtualNetwork resource specific properties
 type SwiftVirtualNetworkProperties struct {
-	// The Virtual Network subnet's resource ID. This is the subnet that this Web App will join. This subnet must have a delegation
-	// to Microsoft.Web/serverFarms defined first.
+	// Resources (sites and serverfarms) allocated to this subnet
+	ResourceAllocation *SwiftVirtualNetworkPropertiesResourceAllocation
+
+	// IP allocation for a Swift Subnet
+	SubnetIPAllocation *SwiftVirtualNetworkPropertiesSubnetIPAllocation
+
+	// The Virtual Network subnet's Azure resource ID
 	SubnetResourceID *string
 
-	// A flag that specifies if the scale unit this Web App is on supports Swift integration.
+	// Boolean flag indicating whether Swift integration is supported
 	SwiftSupported *bool
+
+	// Swift Connection allocations for an App Service Plan
+	VnetConnectionAllocation *SwiftVirtualNetworkPropertiesVnetConnectionAllocation
+}
+
+// SwiftVirtualNetworkPropertiesResourceAllocation - Resources (sites and serverfarms) allocated to this subnet
+type SwiftVirtualNetworkPropertiesResourceAllocation struct {
+	// The list of all ServerFarms' Azure resource ID that are using the VNET
+	ConnectedServerFarmsID []*string
+
+	// The list of all Sites' Azure resource ID that are using the VNET
+	ConnectedSitesID []*string
+}
+
+// SwiftVirtualNetworkPropertiesSubnetIPAllocation - IP allocation for a Swift Subnet
+type SwiftVirtualNetworkPropertiesSubnetIPAllocation struct {
+	// The number of IP addresses available in the Swift subnet address space
+	SubnetIPAddressesAvailable *int32
+
+	// The number of IP addresses that have already been used in the Swift subnet address space
+	SubnetIPAddressesUsed *int32
+}
+
+// SwiftVirtualNetworkPropertiesVnetConnectionAllocation - Swift Connection allocations for an App Service Plan
+type SwiftVirtualNetworkPropertiesVnetConnectionAllocation struct {
+	// The maximum number of Swift Connections available for an App Service Plan
+	VnetConnectionsMax *int32
+
+	// The number of Swift Connections used for an App Service Plan
+	VnetConnectionsUsed *int32
 }
 
 // Template - Container App versioned application definition. Defines the desired state of an immutable revision. Any changes
@@ -10101,6 +10145,21 @@ type VirtualIPMapping struct {
 
 	// Virtual IP address.
 	VirtualIP *string
+}
+
+// VirtualNetworkIntegrationRequest - Virtual Network Integration request content.
+type VirtualNetworkIntegrationRequest struct {
+	// REQUIRED; The Azure Resource ID of the subnet
+	SubnetResourceID *string
+}
+
+// VirtualNetworkIntegrationResponse - Response wrapper for PurgedUnusedVirtualNetworkIntegrations.
+type VirtualNetworkIntegrationResponse struct {
+	// Description of the result
+	Message *VirtualNetworkIntegrationResponseMessage
+
+	// The Swift Virtual Network object
+	SwiftVirtualNetwork *SwiftVirtualNetworkProperties
 }
 
 // VirtualNetworkProfile - Specification for using a Virtual Network.

@@ -894,6 +894,12 @@ type PlansClientGetServerFarmSKUsResponse struct {
 	Interface any
 }
 
+// PlansClientGetVirtualNetworkIntegrationResponse contains the response from method PlansClient.GetVirtualNetworkIntegration.
+type PlansClientGetVirtualNetworkIntegrationResponse struct {
+	// Swift Virtual Network Contract. This is used to enable the new Swift way of doing virtual network integration.
+	SwiftVirtualNetwork
+}
+
 // PlansClientGetVnetFromServerFarmResponse contains the response from method PlansClient.GetVnetFromServerFarm.
 type PlansClientGetVnetFromServerFarmResponse struct {
 	// Virtual Network information ARM resource.
@@ -910,6 +916,12 @@ type PlansClientGetVnetGatewayResponse struct {
 type PlansClientListByResourceGroupResponse struct {
 	// Collection of App Service plans.
 	PlanCollection
+}
+
+// PlansClientListByVirtualNetworkIntegrationsResponse contains the response from method PlansClient.NewListByVirtualNetworkIntegrationsPager.
+type PlansClientListByVirtualNetworkIntegrationsResponse struct {
+	// Collection of Swift Virtual Networks
+	SwiftVirtualNetworkCollection
 }
 
 // PlansClientListCapabilitiesResponse contains the response from method PlansClient.ListCapabilities.
@@ -4108,9 +4120,21 @@ type WebSiteManagementClientListSourceControlsResponse struct {
 	SourceControlCollection
 }
 
+// WebSiteManagementClientListVirtualNetworkIntegrationsResponse contains the response from method WebSiteManagementClient.ListVirtualNetworkIntegrations.
+type WebSiteManagementClientListVirtualNetworkIntegrationsResponse struct {
+	// Swift Virtual Network Contract. This is used to enable the new Swift way of doing virtual network integration.
+	SwiftVirtualNetwork
+}
+
 // WebSiteManagementClientMoveResponse contains the response from method WebSiteManagementClient.Move.
 type WebSiteManagementClientMoveResponse struct {
 	// placeholder for future response values
+}
+
+// WebSiteManagementClientPurgeUnusedVirtualNetworkIntegrationsResponse contains the response from method WebSiteManagementClient.PurgeUnusedVirtualNetworkIntegrations.
+type WebSiteManagementClientPurgeUnusedVirtualNetworkIntegrationsResponse struct {
+	// Response wrapper for PurgedUnusedVirtualNetworkIntegrations.
+	VirtualNetworkIntegrationResponse
 }
 
 // WebSiteManagementClientUpdatePublishingUserResponse contains the response from method WebSiteManagementClient.UpdatePublishingUser.

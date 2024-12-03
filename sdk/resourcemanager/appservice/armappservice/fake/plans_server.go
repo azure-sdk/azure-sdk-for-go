@@ -65,6 +65,10 @@ type PlansServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	GetServerFarmSKUs func(ctx context.Context, resourceGroupName string, name string, options *armappservice.PlansClientGetServerFarmSKUsOptions) (resp azfake.Responder[armappservice.PlansClientGetServerFarmSKUsResponse], errResp azfake.ErrorResponder)
 
+	// GetVirtualNetworkIntegration is the fake for method PlansClient.GetVirtualNetworkIntegration
+	// HTTP status codes to indicate success: http.StatusOK
+	GetVirtualNetworkIntegration func(ctx context.Context, resourceGroupName string, name string, vnetName string, options *armappservice.PlansClientGetVirtualNetworkIntegrationOptions) (resp azfake.Responder[armappservice.PlansClientGetVirtualNetworkIntegrationResponse], errResp azfake.ErrorResponder)
+
 	// GetVnetFromServerFarm is the fake for method PlansClient.GetVnetFromServerFarm
 	// HTTP status codes to indicate success: http.StatusOK
 	GetVnetFromServerFarm func(ctx context.Context, resourceGroupName string, name string, vnetName string, options *armappservice.PlansClientGetVnetFromServerFarmOptions) (resp azfake.Responder[armappservice.PlansClientGetVnetFromServerFarmResponse], errResp azfake.ErrorResponder)
@@ -80,6 +84,10 @@ type PlansServer struct {
 	// NewListByResourceGroupPager is the fake for method PlansClient.NewListByResourceGroupPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListByResourceGroupPager func(resourceGroupName string, options *armappservice.PlansClientListByResourceGroupOptions) (resp azfake.PagerResponder[armappservice.PlansClientListByResourceGroupResponse])
+
+	// NewListByVirtualNetworkIntegrationsPager is the fake for method PlansClient.NewListByVirtualNetworkIntegrationsPager
+	// HTTP status codes to indicate success: http.StatusOK
+	NewListByVirtualNetworkIntegrationsPager func(resourceGroupName string, name string, options *armappservice.PlansClientListByVirtualNetworkIntegrationsOptions) (resp azfake.PagerResponder[armappservice.PlansClientListByVirtualNetworkIntegrationsResponse])
 
 	// ListCapabilities is the fake for method PlansClient.ListCapabilities
 	// HTTP status codes to indicate success: http.StatusOK
@@ -139,28 +147,30 @@ type PlansServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewPlansServerTransport(srv *PlansServer) *PlansServerTransport {
 	return &PlansServerTransport{
-		srv:                                   srv,
-		beginCreateOrUpdate:                   newTracker[azfake.PollerResponder[armappservice.PlansClientCreateOrUpdateResponse]](),
-		newListPager:                          newTracker[azfake.PagerResponder[armappservice.PlansClientListResponse]](),
-		newListByResourceGroupPager:           newTracker[azfake.PagerResponder[armappservice.PlansClientListByResourceGroupResponse]](),
-		newListHybridConnectionsPager:         newTracker[azfake.PagerResponder[armappservice.PlansClientListHybridConnectionsResponse]](),
-		newListUsagesPager:                    newTracker[azfake.PagerResponder[armappservice.PlansClientListUsagesResponse]](),
-		newListWebAppsPager:                   newTracker[azfake.PagerResponder[armappservice.PlansClientListWebAppsResponse]](),
-		newListWebAppsByHybridConnectionPager: newTracker[azfake.PagerResponder[armappservice.PlansClientListWebAppsByHybridConnectionResponse]](),
+		srv:                                      srv,
+		beginCreateOrUpdate:                      newTracker[azfake.PollerResponder[armappservice.PlansClientCreateOrUpdateResponse]](),
+		newListPager:                             newTracker[azfake.PagerResponder[armappservice.PlansClientListResponse]](),
+		newListByResourceGroupPager:              newTracker[azfake.PagerResponder[armappservice.PlansClientListByResourceGroupResponse]](),
+		newListByVirtualNetworkIntegrationsPager: newTracker[azfake.PagerResponder[armappservice.PlansClientListByVirtualNetworkIntegrationsResponse]](),
+		newListHybridConnectionsPager:            newTracker[azfake.PagerResponder[armappservice.PlansClientListHybridConnectionsResponse]](),
+		newListUsagesPager:                       newTracker[azfake.PagerResponder[armappservice.PlansClientListUsagesResponse]](),
+		newListWebAppsPager:                      newTracker[azfake.PagerResponder[armappservice.PlansClientListWebAppsResponse]](),
+		newListWebAppsByHybridConnectionPager:    newTracker[azfake.PagerResponder[armappservice.PlansClientListWebAppsByHybridConnectionResponse]](),
 	}
 }
 
 // PlansServerTransport connects instances of armappservice.PlansClient to instances of PlansServer.
 // Don't use this type directly, use NewPlansServerTransport instead.
 type PlansServerTransport struct {
-	srv                                   *PlansServer
-	beginCreateOrUpdate                   *tracker[azfake.PollerResponder[armappservice.PlansClientCreateOrUpdateResponse]]
-	newListPager                          *tracker[azfake.PagerResponder[armappservice.PlansClientListResponse]]
-	newListByResourceGroupPager           *tracker[azfake.PagerResponder[armappservice.PlansClientListByResourceGroupResponse]]
-	newListHybridConnectionsPager         *tracker[azfake.PagerResponder[armappservice.PlansClientListHybridConnectionsResponse]]
-	newListUsagesPager                    *tracker[azfake.PagerResponder[armappservice.PlansClientListUsagesResponse]]
-	newListWebAppsPager                   *tracker[azfake.PagerResponder[armappservice.PlansClientListWebAppsResponse]]
-	newListWebAppsByHybridConnectionPager *tracker[azfake.PagerResponder[armappservice.PlansClientListWebAppsByHybridConnectionResponse]]
+	srv                                      *PlansServer
+	beginCreateOrUpdate                      *tracker[azfake.PollerResponder[armappservice.PlansClientCreateOrUpdateResponse]]
+	newListPager                             *tracker[azfake.PagerResponder[armappservice.PlansClientListResponse]]
+	newListByResourceGroupPager              *tracker[azfake.PagerResponder[armappservice.PlansClientListByResourceGroupResponse]]
+	newListByVirtualNetworkIntegrationsPager *tracker[azfake.PagerResponder[armappservice.PlansClientListByVirtualNetworkIntegrationsResponse]]
+	newListHybridConnectionsPager            *tracker[azfake.PagerResponder[armappservice.PlansClientListHybridConnectionsResponse]]
+	newListUsagesPager                       *tracker[azfake.PagerResponder[armappservice.PlansClientListUsagesResponse]]
+	newListWebAppsPager                      *tracker[azfake.PagerResponder[armappservice.PlansClientListWebAppsResponse]]
+	newListWebAppsByHybridConnectionPager    *tracker[azfake.PagerResponder[armappservice.PlansClientListWebAppsByHybridConnectionResponse]]
 }
 
 // Do implements the policy.Transporter interface for PlansServerTransport.
@@ -195,6 +205,8 @@ func (p *PlansServerTransport) Do(req *http.Request) (*http.Response, error) {
 		resp, err = p.dispatchGetRouteForVnet(req)
 	case "PlansClient.GetServerFarmSKUs":
 		resp, err = p.dispatchGetServerFarmSKUs(req)
+	case "PlansClient.GetVirtualNetworkIntegration":
+		resp, err = p.dispatchGetVirtualNetworkIntegration(req)
 	case "PlansClient.GetVnetFromServerFarm":
 		resp, err = p.dispatchGetVnetFromServerFarm(req)
 	case "PlansClient.GetVnetGateway":
@@ -203,6 +215,8 @@ func (p *PlansServerTransport) Do(req *http.Request) (*http.Response, error) {
 		resp, err = p.dispatchNewListPager(req)
 	case "PlansClient.NewListByResourceGroupPager":
 		resp, err = p.dispatchNewListByResourceGroupPager(req)
+	case "PlansClient.NewListByVirtualNetworkIntegrationsPager":
+		resp, err = p.dispatchNewListByVirtualNetworkIntegrationsPager(req)
 	case "PlansClient.ListCapabilities":
 		resp, err = p.dispatchListCapabilities(req)
 	case "PlansClient.ListHybridConnectionKeys":
@@ -629,6 +643,43 @@ func (p *PlansServerTransport) dispatchGetServerFarmSKUs(req *http.Request) (*ht
 	return resp, nil
 }
 
+func (p *PlansServerTransport) dispatchGetVirtualNetworkIntegration(req *http.Request) (*http.Response, error) {
+	if p.srv.GetVirtualNetworkIntegration == nil {
+		return nil, &nonRetriableError{errors.New("fake for method GetVirtualNetworkIntegration not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Web/serverfarms/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/virtualNetworkIntegrations/(?P<vnetName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 4 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	nameParam, err := url.PathUnescape(matches[regex.SubexpIndex("name")])
+	if err != nil {
+		return nil, err
+	}
+	vnetNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("vnetName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := p.srv.GetVirtualNetworkIntegration(req.Context(), resourceGroupNameParam, nameParam, vnetNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SwiftVirtualNetwork, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
 func (p *PlansServerTransport) dispatchGetVnetFromServerFarm(req *http.Request) (*http.Response, error) {
 	if p.srv.GetVnetFromServerFarm == nil {
 		return nil, &nonRetriableError{errors.New("fake for method GetVnetFromServerFarm not implemented")}
@@ -788,6 +839,47 @@ func (p *PlansServerTransport) dispatchNewListByResourceGroupPager(req *http.Req
 	}
 	if !server.PagerResponderMore(newListByResourceGroupPager) {
 		p.newListByResourceGroupPager.remove(req)
+	}
+	return resp, nil
+}
+
+func (p *PlansServerTransport) dispatchNewListByVirtualNetworkIntegrationsPager(req *http.Request) (*http.Response, error) {
+	if p.srv.NewListByVirtualNetworkIntegrationsPager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListByVirtualNetworkIntegrationsPager not implemented")}
+	}
+	newListByVirtualNetworkIntegrationsPager := p.newListByVirtualNetworkIntegrationsPager.get(req)
+	if newListByVirtualNetworkIntegrationsPager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Web/serverfarms/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/virtualNetworkIntegrations`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		nameParam, err := url.PathUnescape(matches[regex.SubexpIndex("name")])
+		if err != nil {
+			return nil, err
+		}
+		resp := p.srv.NewListByVirtualNetworkIntegrationsPager(resourceGroupNameParam, nameParam, nil)
+		newListByVirtualNetworkIntegrationsPager = &resp
+		p.newListByVirtualNetworkIntegrationsPager.add(req, newListByVirtualNetworkIntegrationsPager)
+		server.PagerResponderInjectNextLinks(newListByVirtualNetworkIntegrationsPager, req, func(page *armappservice.PlansClientListByVirtualNetworkIntegrationsResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
+	}
+	resp, err := server.PagerResponderNext(newListByVirtualNetworkIntegrationsPager, req)
+	if err != nil {
+		return nil, err
+	}
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+		p.newListByVirtualNetworkIntegrationsPager.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+	}
+	if !server.PagerResponderMore(newListByVirtualNetworkIntegrationsPager) {
+		p.newListByVirtualNetworkIntegrationsPager.remove(req)
 	}
 	return resp, nil
 }
