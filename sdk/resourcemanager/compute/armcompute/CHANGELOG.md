@@ -1,5 +1,14 @@
 # Release History
 
+## 6.2.0 (2024-12-03)
+### Features Added
+
+- New enum type `ZonePlacementPolicyType` with values `ZonePlacementPolicyTypeAny`
+- New struct `Placement`
+- New field `AlignRegionalDisksToVMZone` in struct `StorageProfile`
+- New field `Placement` in struct `VirtualMachine`
+
+
 ## 6.1.0 (2024-08-23)
 ### Features Added
 
