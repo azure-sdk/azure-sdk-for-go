@@ -1095,9 +1095,8 @@ type DataDisk struct {
 	// applicable only for managed data disks. If a previous detachment attempt of the data disk did not complete due to an unexpected
 	// failure from the virtual machine and the disk is still not released then
 	// use force-detach as a last resort option to detach the disk forcibly from the VM. All writes might not have been flushed
-	// when using this detach behavior. This feature is still in preview mode and is
-	// not supported for VirtualMachineScaleSet. To force-detach a data disk update toBeDetached to 'true' along with setting
-	// detachOption: 'ForceDetach'.
+	// when using this detach behavior. To force-detach a data disk update
+	// toBeDetached to 'true' along with setting detachOption: 'ForceDetach'.
 	DetachOption *DiskDetachOptionTypes
 
 	// Specifies the size of an empty data disk in gigabytes. This element can be used to overwrite the size of the disk in a
@@ -3906,6 +3905,25 @@ type PirSharedGalleryResource struct {
 	Name *string
 }
 
+// Placement - Describes the user-defined constraints for virtual machine hardware placement.
+type Placement struct {
+	// This property supplements the 'zonePlacementPolicy' property. If 'zonePlacementPolicy' is set to 'Any', availability zone
+	// selected by the system must not be present in the list of availability zones
+	// passed with 'excludeZones'. If 'excludeZones' is not provided, all availability zones in region will be considered for
+	// selection.
+	ExcludeZones []*string
+
+	// This property supplements the 'zonePlacementPolicy' property. If 'zonePlacementPolicy' is set to 'Any', availability zone
+	// selected by the system must be present in the list of availability zones
+	// passed with 'includeZones'. If 'includeZones' is not provided, all availability zones in region will be considered for
+	// selection.
+	IncludeZones []*string
+
+	// Specifies the policy for virtual machine's placement in availability zone. Possible values are: Any - An availability zone
+	// will be automatically picked by system as part of virtual machine creation.
+	ZonePlacementPolicy *ZonePlacementPolicyType
+}
+
 // Plan - Specifies information about the marketplace image used to create the virtual machine. This element is only used
 // for marketplace images. Before you can use a marketplace image from an API, you must
 // enable the image for programmatic use. In the Azure portal, find the marketplace image that you want to use and then click
@@ -5703,6 +5721,11 @@ type StatusCodeCount struct {
 
 // StorageProfile - Specifies the storage settings for the virtual machine disks.
 type StorageProfile struct {
+	// Specifies whether the regional disks should be aligned/moved to the VM zone. This is applicable only for VMs with placement
+	// property set. Please note that this change is irreversible. Minimum
+	// api-version: 2024-11-01.
+	AlignRegionalDisksToVMZone *bool
+
 	// Specifies the parameters that are used to add a data disk to a virtual machine. For more information about disks, see About
 	// disks and VHDs for Azure virtual machines
 	// [https://docs.microsoft.com/azure/virtual-machines/managed-disks-overview].
@@ -6156,6 +6179,10 @@ type VirtualMachine struct {
 
 	// The identity of the virtual machine, if configured.
 	Identity *VirtualMachineIdentity
+
+	// Placement section specifies the user-defined constraints for virtual machine hardware placement. This property cannot be
+	// changed once VM is provisioned. Minimum api-version: 2024-11-01.
+	Placement *Placement
 
 	// Specifies information about the marketplace image used to create the virtual machine. This element is only used for marketplace
 	// images. Before you can use a marketplace image from an API, you must
