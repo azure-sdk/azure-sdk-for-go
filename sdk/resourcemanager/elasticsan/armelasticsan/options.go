@@ -43,6 +43,13 @@ type ElasticSansClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ManagementClientBeginRestoreVolumeOptions contains the optional parameters for the ManagementClient.BeginRestoreVolume
+// method.
+type ManagementClientBeginRestoreVolumeOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
@@ -94,6 +101,10 @@ type VolumeGroupsClientBeginCreateOptions struct {
 
 // VolumeGroupsClientBeginDeleteOptions contains the optional parameters for the VolumeGroupsClient.BeginDelete method.
 type VolumeGroupsClientBeginDeleteOptions struct {
+	// Optional. Specifies that the delete operation should be a permanent delete for the soft deleted volume group. The value
+	// of deleteType can only be 'permanent'.
+	DeleteType *DeleteType
+
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -112,7 +123,9 @@ type VolumeGroupsClientGetOptions struct {
 // VolumeGroupsClientListByElasticSanOptions contains the optional parameters for the VolumeGroupsClient.NewListByElasticSanPager
 // method.
 type VolumeGroupsClientListByElasticSanOptions struct {
-	// placeholder for future optional parameters
+	// Optional, returns only soft deleted volume groups if set to true. If set to false or if not specified, returns only active
+	// volume groups.
+	XMSAccessSoftDeletedResources *XMSAccessSoftDeletedResources
 }
 
 // VolumeSnapshotsClientBeginCreateOptions contains the optional parameters for the VolumeSnapshotsClient.BeginCreate method.
@@ -147,6 +160,10 @@ type VolumesClientBeginCreateOptions struct {
 
 // VolumesClientBeginDeleteOptions contains the optional parameters for the VolumesClient.BeginDelete method.
 type VolumesClientBeginDeleteOptions struct {
+	// Optional. Specifies that the delete operation should be a permanent delete for the soft deleted volume. The value of deleteType
+	// can only be 'permanent'.
+	DeleteType *DeleteType
+
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 
@@ -171,5 +188,6 @@ type VolumesClientGetOptions struct {
 // VolumesClientListByVolumeGroupOptions contains the optional parameters for the VolumesClient.NewListByVolumeGroupPager
 // method.
 type VolumesClientListByVolumeGroupOptions struct {
-	// placeholder for future optional parameters
+	// Optional, returns only soft deleted volumes if set to true. If set to false or if not specified, returns only active volumes.
+	XMSAccessSoftDeletedResources *XMSAccessSoftDeletedResources
 }
