@@ -10,7 +10,7 @@ package armappservice
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appservice/armappservice"
-	moduleVersion = "v4.1.0"
+	moduleVersion = "v4.2.0"
 )
 
 // ActiveRevisionsMode - ActiveRevisionsMode controls how active revisions are handled for the Container app:Multiple: multiple
@@ -2362,6 +2362,24 @@ func PossibleValidateResourceTypesValues() []ValidateResourceTypes {
 		ValidateResourceTypesMicrosoftWebHostingEnvironments,
 		ValidateResourceTypesServerFarm,
 		ValidateResourceTypesSite,
+	}
+}
+
+// VirtualNetworkIntegrationResponseMessage - Description of the result
+type VirtualNetworkIntegrationResponseMessage string
+
+const (
+	VirtualNetworkIntegrationResponseMessageERRORConflictVirtualNetworkIntegrationIsStillInUse VirtualNetworkIntegrationResponseMessage = "<ERROR> Conflict: Virtual network integration is still in use."
+	VirtualNetworkIntegrationResponseMessageOperationIsNotSupportedAtTheMoment                 VirtualNetworkIntegrationResponseMessage = "Operation is not supported at the moment."
+	VirtualNetworkIntegrationResponseMessagePurgedUnusedVirtualNetworkIntegration              VirtualNetworkIntegrationResponseMessage = "Purged unused virtual network integration."
+)
+
+// PossibleVirtualNetworkIntegrationResponseMessageValues returns the possible values for the VirtualNetworkIntegrationResponseMessage const type.
+func PossibleVirtualNetworkIntegrationResponseMessageValues() []VirtualNetworkIntegrationResponseMessage {
+	return []VirtualNetworkIntegrationResponseMessage{
+		VirtualNetworkIntegrationResponseMessageERRORConflictVirtualNetworkIntegrationIsStillInUse,
+		VirtualNetworkIntegrationResponseMessageOperationIsNotSupportedAtTheMoment,
+		VirtualNetworkIntegrationResponseMessagePurgedUnusedVirtualNetworkIntegration,
 	}
 }
 

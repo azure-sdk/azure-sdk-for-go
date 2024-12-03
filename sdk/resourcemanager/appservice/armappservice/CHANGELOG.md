@@ -1,5 +1,22 @@
 # Release History
 
+## 4.2.0 (2024-12-03)
+### Features Added
+
+- New enum type `VirtualNetworkIntegrationResponseMessage` with values `VirtualNetworkIntegrationResponseMessageERRORConflictVirtualNetworkIntegrationIsStillInUse`, `VirtualNetworkIntegrationResponseMessageOperationIsNotSupportedAtTheMoment`, `VirtualNetworkIntegrationResponseMessagePurgedUnusedVirtualNetworkIntegration`
+- New function `*PlansClient.GetVirtualNetworkIntegration(context.Context, string, string, string, *PlansClientGetVirtualNetworkIntegrationOptions) (PlansClientGetVirtualNetworkIntegrationResponse, error)`
+- New function `*PlansClient.NewListByVirtualNetworkIntegrationsPager(string, string, *PlansClientListByVirtualNetworkIntegrationsOptions) *runtime.Pager[PlansClientListByVirtualNetworkIntegrationsResponse]`
+- New function `*WebSiteManagementClient.ListVirtualNetworkIntegrations(context.Context, string, VirtualNetworkIntegrationRequest, *WebSiteManagementClientListVirtualNetworkIntegrationsOptions) (WebSiteManagementClientListVirtualNetworkIntegrationsResponse, error)`
+- New function `*WebSiteManagementClient.PurgeUnusedVirtualNetworkIntegrations(context.Context, string, VirtualNetworkIntegrationRequest, *WebSiteManagementClientPurgeUnusedVirtualNetworkIntegrationsOptions) (WebSiteManagementClientPurgeUnusedVirtualNetworkIntegrationsResponse, error)`
+- New struct `SwiftVirtualNetworkCollection`
+- New struct `SwiftVirtualNetworkPropertiesResourceAllocation`
+- New struct `SwiftVirtualNetworkPropertiesSubnetIPAllocation`
+- New struct `SwiftVirtualNetworkPropertiesVnetConnectionAllocation`
+- New struct `VirtualNetworkIntegrationRequest`
+- New struct `VirtualNetworkIntegrationResponse`
+- New field `ResourceAllocation`, `SubnetIPAllocation`, `VnetConnectionAllocation` in struct `SwiftVirtualNetworkProperties`
+
+
 ## 4.1.0 (2024-11-20)
 ### Features Added
 
