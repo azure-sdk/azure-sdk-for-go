@@ -22613,6 +22613,49 @@ func (s *StaticSiteUserProvidedFunctionAppsCollection) UnmarshalJSON(data []byte
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type StaticSiteZipDeployARMResource.
+func (s StaticSiteZipDeployARMResource) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "id", s.ID)
+	populate(objectMap, "kind", s.Kind)
+	populate(objectMap, "name", s.Name)
+	populate(objectMap, "properties", s.Properties)
+	populate(objectMap, "type", s.Type)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type StaticSiteZipDeployARMResource.
+func (s *StaticSiteZipDeployARMResource) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", s, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "id":
+			err = unpopulate(val, "ID", &s.ID)
+			delete(rawMsg, key)
+		case "kind":
+			err = unpopulate(val, "Kind", &s.Kind)
+			delete(rawMsg, key)
+		case "name":
+			err = unpopulate(val, "Name", &s.Name)
+			delete(rawMsg, key)
+		case "properties":
+			err = unpopulate(val, "Properties", &s.Properties)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &s.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", s, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type StaticSiteZipDeployment.
 func (s StaticSiteZipDeployment) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -27575,6 +27618,41 @@ func (w *WorkflowVersionProperties) UnmarshalJSON(data []byte) error {
 		}
 		if err != nil {
 			return fmt.Errorf("unmarshalling type %T: %v", w, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ZipDeployStaticSite.
+func (z ZipDeployStaticSite) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "contentUrl", z.ContentURL)
+	populate(objectMap, "storageAccountReferenceIdentity", z.StorageAccountReferenceIdentity)
+	populate(objectMap, "storageAccountResourceId", z.StorageAccountResourceID)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ZipDeployStaticSite.
+func (z *ZipDeployStaticSite) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", z, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "contentUrl":
+			err = unpopulate(val, "ContentURL", &z.ContentURL)
+			delete(rawMsg, key)
+		case "storageAccountReferenceIdentity":
+			err = unpopulate(val, "StorageAccountReferenceIdentity", &z.StorageAccountReferenceIdentity)
+			delete(rawMsg, key)
+		case "storageAccountResourceId":
+			err = unpopulate(val, "StorageAccountResourceID", &z.StorageAccountResourceID)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", z, err)
 		}
 	}
 	return nil

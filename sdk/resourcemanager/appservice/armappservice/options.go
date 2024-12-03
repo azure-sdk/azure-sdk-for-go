@@ -1375,6 +1375,19 @@ type StaticSitesClientBeginValidateCustomDomainCanBeAddedToStaticSiteOptions str
 	ResumeToken string
 }
 
+// StaticSitesClientBeginZipDeployOptions contains the optional parameters for the StaticSitesClient.BeginZipDeploy method.
+type StaticSitesClientBeginZipDeployOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// StaticSitesClientBeginZipDeployStagingOptions contains the optional parameters for the StaticSitesClient.BeginZipDeployStaging
+// method.
+type StaticSitesClientBeginZipDeployStagingOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // StaticSitesClientCreateOrUpdateBasicAuthOptions contains the optional parameters for the StaticSitesClient.CreateOrUpdateBasicAuth
 // method.
 type StaticSitesClientCreateOrUpdateBasicAuthOptions struct {
