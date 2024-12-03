@@ -1591,6 +1591,16 @@ type StaticSitesClientValidateCustomDomainCanBeAddedToStaticSiteResponse struct 
 	// placeholder for future response values
 }
 
+// StaticSitesClientZipDeployResponse contains the response from method StaticSitesClient.BeginZipDeploy.
+type StaticSitesClientZipDeployResponse struct {
+	// placeholder for future response values
+}
+
+// StaticSitesClientZipDeployStagingResponse contains the response from method StaticSitesClient.BeginZipDeployStaging.
+type StaticSitesClientZipDeployStagingResponse struct {
+	// placeholder for future response values
+}
+
 // TopLevelDomainsClientGetResponse contains the response from method TopLevelDomainsClient.Get.
 type TopLevelDomainsClientGetResponse struct {
 	// A top level domain object.

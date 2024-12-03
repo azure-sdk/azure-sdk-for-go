@@ -324,6 +324,14 @@ type StaticSitesServer struct {
 	// BeginValidateCustomDomainCanBeAddedToStaticSite is the fake for method StaticSitesClient.BeginValidateCustomDomainCanBeAddedToStaticSite
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginValidateCustomDomainCanBeAddedToStaticSite func(ctx context.Context, resourceGroupName string, name string, domainName string, staticSiteCustomDomainRequestPropertiesEnvelope armappservice.StaticSiteCustomDomainRequestPropertiesARMResource, options *armappservice.StaticSitesClientBeginValidateCustomDomainCanBeAddedToStaticSiteOptions) (resp azfake.PollerResponder[armappservice.StaticSitesClientValidateCustomDomainCanBeAddedToStaticSiteResponse], errResp azfake.ErrorResponder)
+
+	// BeginZipDeploy is the fake for method StaticSitesClient.BeginZipDeploy
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginZipDeploy func(ctx context.Context, resourceGroupName string, name string, staticSiteEnvelope armappservice.StaticSiteZipDeployARMResource, options *armappservice.StaticSitesClientBeginZipDeployOptions) (resp azfake.PollerResponder[armappservice.StaticSitesClientZipDeployResponse], errResp azfake.ErrorResponder)
+
+	// BeginZipDeployStaging is the fake for method StaticSitesClient.BeginZipDeployStaging
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginZipDeployStaging func(ctx context.Context, resourceGroupName string, name string, environmentName string, staticSiteEnvelope armappservice.StaticSiteZipDeployARMResource, options *armappservice.StaticSitesClientBeginZipDeployStagingOptions) (resp azfake.PollerResponder[armappservice.StaticSitesClientZipDeployStagingResponse], errResp azfake.ErrorResponder)
 }
 
 // NewStaticSitesServerTransport creates a new instance of StaticSitesServerTransport with the provided implementation.
@@ -366,6 +374,8 @@ func NewStaticSitesServerTransport(srv *StaticSitesServer) *StaticSitesServerTra
 		beginValidateBackend:                                    newTracker[azfake.PollerResponder[armappservice.StaticSitesClientValidateBackendResponse]](),
 		beginValidateBackendForBuild:                            newTracker[azfake.PollerResponder[armappservice.StaticSitesClientValidateBackendForBuildResponse]](),
 		beginValidateCustomDomainCanBeAddedToStaticSite:         newTracker[azfake.PollerResponder[armappservice.StaticSitesClientValidateCustomDomainCanBeAddedToStaticSiteResponse]](),
+		beginZipDeploy:                                          newTracker[azfake.PollerResponder[armappservice.StaticSitesClientZipDeployResponse]](),
+		beginZipDeployStaging:                                   newTracker[azfake.PollerResponder[armappservice.StaticSitesClientZipDeployStagingResponse]](),
 	}
 }
 
@@ -407,6 +417,8 @@ type StaticSitesServerTransport struct {
 	beginValidateBackend                                    *tracker[azfake.PollerResponder[armappservice.StaticSitesClientValidateBackendResponse]]
 	beginValidateBackendForBuild                            *tracker[azfake.PollerResponder[armappservice.StaticSitesClientValidateBackendForBuildResponse]]
 	beginValidateCustomDomainCanBeAddedToStaticSite         *tracker[azfake.PollerResponder[armappservice.StaticSitesClientValidateCustomDomainCanBeAddedToStaticSiteResponse]]
+	beginZipDeploy                                          *tracker[azfake.PollerResponder[armappservice.StaticSitesClientZipDeployResponse]]
+	beginZipDeployStaging                                   *tracker[azfake.PollerResponder[armappservice.StaticSitesClientZipDeployStagingResponse]]
 }
 
 // Do implements the policy.Transporter interface for StaticSitesServerTransport.
@@ -571,6 +583,10 @@ func (s *StaticSitesServerTransport) Do(req *http.Request) (*http.Response, erro
 		resp, err = s.dispatchBeginValidateBackendForBuild(req)
 	case "StaticSitesClient.BeginValidateCustomDomainCanBeAddedToStaticSite":
 		resp, err = s.dispatchBeginValidateCustomDomainCanBeAddedToStaticSite(req)
+	case "StaticSitesClient.BeginZipDeploy":
+		resp, err = s.dispatchBeginZipDeploy(req)
+	case "StaticSitesClient.BeginZipDeployStaging":
+		resp, err = s.dispatchBeginZipDeployStaging(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -3783,6 +3799,106 @@ func (s *StaticSitesServerTransport) dispatchBeginValidateCustomDomainCanBeAdded
 	}
 	if !server.PollerResponderMore(beginValidateCustomDomainCanBeAddedToStaticSite) {
 		s.beginValidateCustomDomainCanBeAddedToStaticSite.remove(req)
+	}
+
+	return resp, nil
+}
+
+func (s *StaticSitesServerTransport) dispatchBeginZipDeploy(req *http.Request) (*http.Response, error) {
+	if s.srv.BeginZipDeploy == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginZipDeploy not implemented")}
+	}
+	beginZipDeploy := s.beginZipDeploy.get(req)
+	if beginZipDeploy == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Web/staticSites/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/deploy`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armappservice.StaticSiteZipDeployARMResource](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		nameParam, err := url.PathUnescape(matches[regex.SubexpIndex("name")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := s.srv.BeginZipDeploy(req.Context(), resourceGroupNameParam, nameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginZipDeploy = &respr
+		s.beginZipDeploy.add(req, beginZipDeploy)
+	}
+
+	resp, err := server.PollerResponderNext(beginZipDeploy, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		s.beginZipDeploy.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginZipDeploy) {
+		s.beginZipDeploy.remove(req)
+	}
+
+	return resp, nil
+}
+
+func (s *StaticSitesServerTransport) dispatchBeginZipDeployStaging(req *http.Request) (*http.Response, error) {
+	if s.srv.BeginZipDeployStaging == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginZipDeployStaging not implemented")}
+	}
+	beginZipDeployStaging := s.beginZipDeployStaging.get(req)
+	if beginZipDeployStaging == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Web/staticSites/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/builds/(?P<environmentName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/deploy`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 4 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armappservice.StaticSiteZipDeployARMResource](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		nameParam, err := url.PathUnescape(matches[regex.SubexpIndex("name")])
+		if err != nil {
+			return nil, err
+		}
+		environmentNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("environmentName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := s.srv.BeginZipDeployStaging(req.Context(), resourceGroupNameParam, nameParam, environmentNameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginZipDeployStaging = &respr
+		s.beginZipDeployStaging.add(req, beginZipDeployStaging)
+	}
+
+	resp, err := server.PollerResponderNext(beginZipDeployStaging, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		s.beginZipDeployStaging.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginZipDeployStaging) {
+		s.beginZipDeployStaging.remove(req)
 	}
 
 	return resp, nil

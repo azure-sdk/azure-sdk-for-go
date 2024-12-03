@@ -1,5 +1,14 @@
 # Release History
 
+## 4.2.0 (2024-12-03)
+### Features Added
+
+- New function `*StaticSitesClient.BeginZipDeploy(context.Context, string, string, StaticSiteZipDeployARMResource, *StaticSitesClientBeginZipDeployOptions) (*runtime.Poller[StaticSitesClientZipDeployResponse], error)`
+- New function `*StaticSitesClient.BeginZipDeployStaging(context.Context, string, string, string, StaticSiteZipDeployARMResource, *StaticSitesClientBeginZipDeployStagingOptions) (*runtime.Poller[StaticSitesClientZipDeployStagingResponse], error)`
+- New struct `StaticSiteZipDeployARMResource`
+- New struct `ZipDeployStaticSite`
+
+
 ## 4.1.0 (2024-11-20)
 ### Features Added
 

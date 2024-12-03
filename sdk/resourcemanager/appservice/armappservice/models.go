@@ -9345,6 +9345,24 @@ type StaticSiteUserProvidedFunctionAppsCollection struct {
 	NextLink *string
 }
 
+// StaticSiteZipDeployARMResource - Static site zip deploy ARM resource.
+type StaticSiteZipDeployARMResource struct {
+	// Kind of resource.
+	Kind *string
+
+	// Core resource properties
+	Properties *ZipDeployStaticSite
+
+	// READ-ONLY; Resource Id.
+	ID *string
+
+	// READ-ONLY; Resource Name.
+	Name *string
+
+	// READ-ONLY; Resource type.
+	Type *string
+}
+
 // StaticSiteZipDeployment - A static site zip deployment.
 type StaticSiteZipDeployment struct {
 	// URL for the zipped api content
@@ -11345,4 +11363,16 @@ type WorkflowVersionProperties struct {
 
 	// READ-ONLY; Gets the version.
 	Version *string
+}
+
+// ZipDeployStaticSite - A static site zip deployment
+type ZipDeployStaticSite struct {
+	// URL for the zipped content. Contains app, api and/or data-api folders.
+	ContentURL *string
+
+	// UserAssigned or SystemAssigned Managed Identity
+	StorageAccountReferenceIdentity *string
+
+	// Resource Id of storage account with artifacts to be deployed.
+	StorageAccountResourceID *string
 }
