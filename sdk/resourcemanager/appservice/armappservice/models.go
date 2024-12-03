@@ -8148,7 +8148,7 @@ type SiteProperties struct {
 	// Whether to use end to end encryption between the FrontEnd and the Worker
 	EndToEndEncryptionEnabled *bool
 
-	// Configuration specific of the Azure Function app.
+	// Configuration specific of the Azure Function app. Only applicable to Flex Consumption
 	FunctionAppConfig *FunctionAppConfig
 
 	// HttpsOnly: configures a web site to accept only https requests. Issues redirect for http requests
