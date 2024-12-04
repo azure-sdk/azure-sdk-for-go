@@ -34,7 +34,6 @@ type ServerFactory struct {
 	LinkedServicesServer                   LinkedServicesServer
 	ManagedPrivateEndpointsServer          ManagedPrivateEndpointsServer
 	ManagedVirtualNetworksServer           ManagedVirtualNetworksServer
-	OperationsServer                       OperationsServer
 	PipelineRunsServer                     PipelineRunsServer
 	PipelinesServer                        PipelinesServer
 	PrivateEndPointConnectionsServer       PrivateEndPointConnectionsServer
@@ -73,7 +72,6 @@ type ServerFactoryTransport struct {
 	trLinkedServicesServer                   *LinkedServicesServerTransport
 	trManagedPrivateEndpointsServer          *ManagedPrivateEndpointsServerTransport
 	trManagedVirtualNetworksServer           *ManagedVirtualNetworksServerTransport
-	trOperationsServer                       *OperationsServerTransport
 	trPipelineRunsServer                     *PipelineRunsServerTransport
 	trPipelinesServer                        *PipelinesServerTransport
 	trPrivateEndPointConnectionsServer       *PrivateEndPointConnectionsServerTransport
@@ -163,9 +161,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewManagedVirtualNetworksServerTransport(&s.srv.ManagedVirtualNetworksServer)
 		})
 		resp, err = s.trManagedVirtualNetworksServer.Do(req)
-	case "OperationsClient":
-		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
-		resp, err = s.trOperationsServer.Do(req)
 	case "PipelineRunsClient":
 		initServer(s, &s.trPipelineRunsServer, func() *PipelineRunsServerTransport { return NewPipelineRunsServerTransport(&s.srv.PipelineRunsServer) })
 		resp, err = s.trPipelineRunsServer.Do(req)

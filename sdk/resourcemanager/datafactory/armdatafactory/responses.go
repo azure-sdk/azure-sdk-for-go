@@ -441,12 +441,6 @@ type ManagedVirtualNetworksClientListByFactoryResponse struct {
 	ManagedVirtualNetworkListResponse
 }
 
-// OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
-type OperationsClientListResponse struct {
-	// A list of operations that can be performed by the Data Factory service.
-	OperationListResponse
-}
-
 // PipelineRunsClientCancelResponse contains the response from method PipelineRunsClient.Cancel.
 type PipelineRunsClientCancelResponse struct {
 	// placeholder for future response values
