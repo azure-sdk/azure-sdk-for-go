@@ -1,5 +1,12 @@
 # Release History
 
+## 3.2.0 (2024-12-04)
+### Features Added
+
+- New enum type `AKSVolumeTypes` with values `AKSVolumeTypesAzureDisk`, `AKSVolumeTypesAzureFileShareSMB`
+- New field `IncludedVolumeTypes` in struct `KubernetesClusterBackupDatasourceParameters`
+
+
 ## 3.1.0 (2024-07-26)
 ### Features Added
 

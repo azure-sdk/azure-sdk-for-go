@@ -4016,6 +4016,7 @@ func (k KubernetesClusterBackupDatasourceParameters) MarshalJSON() ([]byte, erro
 	populate(objectMap, "includeClusterScopeResources", k.IncludeClusterScopeResources)
 	populate(objectMap, "includedNamespaces", k.IncludedNamespaces)
 	populate(objectMap, "includedResourceTypes", k.IncludedResourceTypes)
+	populate(objectMap, "includedVolumeTypes", k.IncludedVolumeTypes)
 	populate(objectMap, "labelSelectors", k.LabelSelectors)
 	objectMap["objectType"] = "KubernetesClusterBackupDatasourceParameters"
 	populate(objectMap, "snapshotVolumes", k.SnapshotVolumes)
@@ -4048,6 +4049,9 @@ func (k *KubernetesClusterBackupDatasourceParameters) UnmarshalJSON(data []byte)
 			delete(rawMsg, key)
 		case "includedResourceTypes":
 			err = unpopulate(val, "IncludedResourceTypes", &k.IncludedResourceTypes)
+			delete(rawMsg, key)
+		case "includedVolumeTypes":
+			err = unpopulate(val, "IncludedVolumeTypes", &k.IncludedVolumeTypes)
 			delete(rawMsg, key)
 		case "labelSelectors":
 			err = unpopulate(val, "LabelSelectors", &k.LabelSelectors)
