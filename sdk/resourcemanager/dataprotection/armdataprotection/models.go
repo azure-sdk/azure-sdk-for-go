@@ -1724,6 +1724,9 @@ type KubernetesClusterBackupDatasourceParameters struct {
 	// Gets or sets the include resource types property. This property sets the resource types to be included during backup.
 	IncludedResourceTypes []*string
 
+	// Gets or sets the include volume types property. This property sets the volume types to be included during backup.
+	IncludedVolumeTypes []*AKSVolumeTypes
+
 	// Gets or sets the LabelSelectors property. This property sets the resource with such label selectors to be included during
 	// backup.
 	LabelSelectors []*string
