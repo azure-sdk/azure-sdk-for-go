@@ -33,7 +33,7 @@ type ServerFactory struct {
 	LtrBackupOperationsServer               LtrBackupOperationsServer
 	MigrationsServer                        MigrationsServer
 	OperationsServer                        OperationsServer
-	PostgreSQLManagementServer              PostgreSQLManagementServer
+	PostgreSQLServerManagementServer        PostgreSQLServerManagementServer
 	PrivateEndpointConnectionServer         PrivateEndpointConnectionServer
 	PrivateEndpointConnectionsServer        PrivateEndpointConnectionsServer
 	PrivateLinkResourcesServer              PrivateLinkResourcesServer
@@ -42,6 +42,7 @@ type ServerFactory struct {
 	ServerCapabilitiesServer                ServerCapabilitiesServer
 	ServerThreatProtectionSettingsServer    ServerThreatProtectionSettingsServer
 	ServersServer                           ServersServer
+	TuningOptionsServer                     TuningOptionsServer
 	VirtualEndpointsServer                  VirtualEndpointsServer
 	VirtualNetworkSubnetUsageServer         VirtualNetworkSubnetUsageServer
 }
@@ -74,7 +75,7 @@ type ServerFactoryTransport struct {
 	trLtrBackupOperationsServer               *LtrBackupOperationsServerTransport
 	trMigrationsServer                        *MigrationsServerTransport
 	trOperationsServer                        *OperationsServerTransport
-	trPostgreSQLManagementServer              *PostgreSQLManagementServerTransport
+	trPostgreSQLServerManagementServer        *PostgreSQLServerManagementServerTransport
 	trPrivateEndpointConnectionServer         *PrivateEndpointConnectionServerTransport
 	trPrivateEndpointConnectionsServer        *PrivateEndpointConnectionsServerTransport
 	trPrivateLinkResourcesServer              *PrivateLinkResourcesServerTransport
@@ -83,6 +84,7 @@ type ServerFactoryTransport struct {
 	trServerCapabilitiesServer                *ServerCapabilitiesServerTransport
 	trServerThreatProtectionSettingsServer    *ServerThreatProtectionSettingsServerTransport
 	trServersServer                           *ServersServerTransport
+	trTuningOptionsServer                     *TuningOptionsServerTransport
 	trVirtualEndpointsServer                  *VirtualEndpointsServerTransport
 	trVirtualNetworkSubnetUsageServer         *VirtualNetworkSubnetUsageServerTransport
 }
@@ -160,11 +162,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
-	case "PostgreSQLManagementClient":
-		initServer(s, &s.trPostgreSQLManagementServer, func() *PostgreSQLManagementServerTransport {
-			return NewPostgreSQLManagementServerTransport(&s.srv.PostgreSQLManagementServer)
+	case "PostgreSQLServerManagementClient":
+		initServer(s, &s.trPostgreSQLServerManagementServer, func() *PostgreSQLServerManagementServerTransport {
+			return NewPostgreSQLServerManagementServerTransport(&s.srv.PostgreSQLServerManagementServer)
 		})
-		resp, err = s.trPostgreSQLManagementServer.Do(req)
+		resp, err = s.trPostgreSQLServerManagementServer.Do(req)
 	case "PrivateEndpointConnectionClient":
 		initServer(s, &s.trPrivateEndpointConnectionServer, func() *PrivateEndpointConnectionServerTransport {
 			return NewPrivateEndpointConnectionServerTransport(&s.srv.PrivateEndpointConnectionServer)
@@ -199,6 +201,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "ServersClient":
 		initServer(s, &s.trServersServer, func() *ServersServerTransport { return NewServersServerTransport(&s.srv.ServersServer) })
 		resp, err = s.trServersServer.Do(req)
+	case "TuningOptionsClient":
+		initServer(s, &s.trTuningOptionsServer, func() *TuningOptionsServerTransport {
+			return NewTuningOptionsServerTransport(&s.srv.TuningOptionsServer)
+		})
+		resp, err = s.trTuningOptionsServer.Do(req)
 	case "VirtualEndpointsClient":
 		initServer(s, &s.trVirtualEndpointsServer, func() *VirtualEndpointsServerTransport {
 			return NewVirtualEndpointsServerTransport(&s.srv.VirtualEndpointsServer)

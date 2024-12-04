@@ -145,9 +145,9 @@ func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	}
 }
 
-// NewPostgreSQLManagementClient creates a new instance of PostgreSQLManagementClient.
-func (c *ClientFactory) NewPostgreSQLManagementClient() *PostgreSQLManagementClient {
-	return &PostgreSQLManagementClient{
+// NewPostgreSQLServerManagementClient creates a new instance of PostgreSQLServerManagementClient.
+func (c *ClientFactory) NewPostgreSQLServerManagementClient() *PostgreSQLServerManagementClient {
+	return &PostgreSQLServerManagementClient{
 		internal: c.internal,
 	}
 }
@@ -211,6 +211,14 @@ func (c *ClientFactory) NewServerThreatProtectionSettingsClient() *ServerThreatP
 // NewServersClient creates a new instance of ServersClient.
 func (c *ClientFactory) NewServersClient() *ServersClient {
 	return &ServersClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewTuningOptionsClient creates a new instance of TuningOptionsClient.
+func (c *ClientFactory) NewTuningOptionsClient() *TuningOptionsClient {
+	return &TuningOptionsClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
