@@ -1,5 +1,17 @@
 # Release History
 
+## 2.0.0 (2024-12-04)
+### Breaking Changes
+
+- Struct `ErrorAdditionalInfo` has been removed
+- Struct `ErrorDetail` has been removed
+- Struct `ErrorResponse` has been removed
+- Struct `ListIngressGatewayCredentialsRequest` has been removed
+- Struct `ProxyResource` has been removed
+- Struct `Resource` has been removed
+- Field `ListIngressGatewayCredentialsRequest` of struct `EndpointsClientListIngressGatewayCredentialsOptions` has been removed
+
+
 ## 1.1.0 (2023-11-24)
 ### Features Added
 
