@@ -19,13 +19,14 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/automation/armautomation"
 	"net/http"
 	"net/url"
+	"reflect"
 	"regexp"
 )
 
 // HybridRunbookWorkersServer is a fake server for instances of the armautomation.HybridRunbookWorkersClient type.
 type HybridRunbookWorkersServer struct {
 	// Create is the fake for method HybridRunbookWorkersClient.Create
-	// HTTP status codes to indicate success: http.StatusOK
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
 	Create func(ctx context.Context, resourceGroupName string, automationAccountName string, hybridRunbookWorkerGroupName string, hybridRunbookWorkerID string, hybridRunbookWorkerCreationParameters armautomation.HybridRunbookWorkerCreateParameters, options *armautomation.HybridRunbookWorkersClientCreateOptions) (resp azfake.Responder[armautomation.HybridRunbookWorkersClientCreateResponse], errResp azfake.ErrorResponder)
 
 	// Delete is the fake for method HybridRunbookWorkersClient.Delete
@@ -43,6 +44,10 @@ type HybridRunbookWorkersServer struct {
 	// Move is the fake for method HybridRunbookWorkersClient.Move
 	// HTTP status codes to indicate success: http.StatusOK
 	Move func(ctx context.Context, resourceGroupName string, automationAccountName string, hybridRunbookWorkerGroupName string, hybridRunbookWorkerID string, hybridRunbookWorkerMoveParameters armautomation.HybridRunbookWorkerMoveParameters, options *armautomation.HybridRunbookWorkersClientMoveOptions) (resp azfake.Responder[armautomation.HybridRunbookWorkersClientMoveResponse], errResp azfake.ErrorResponder)
+
+	// Patch is the fake for method HybridRunbookWorkersClient.Patch
+	// HTTP status codes to indicate success: http.StatusOK
+	Patch func(ctx context.Context, resourceGroupName string, automationAccountName string, hybridRunbookWorkerGroupName string, hybridRunbookWorkerID string, options *armautomation.HybridRunbookWorkersClientPatchOptions) (resp azfake.Responder[armautomation.HybridRunbookWorkersClientPatchResponse], errResp azfake.ErrorResponder)
 }
 
 // NewHybridRunbookWorkersServerTransport creates a new instance of HybridRunbookWorkersServerTransport with the provided implementation.
@@ -84,6 +89,8 @@ func (h *HybridRunbookWorkersServerTransport) Do(req *http.Request) (*http.Respo
 		resp, err = h.dispatchNewListByHybridRunbookWorkerGroupPager(req)
 	case "HybridRunbookWorkersClient.Move":
 		resp, err = h.dispatchMove(req)
+	case "HybridRunbookWorkersClient.Patch":
+		resp, err = h.dispatchPatch(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -130,8 +137,8 @@ func (h *HybridRunbookWorkersServerTransport) dispatchCreate(req *http.Request) 
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	if !contains([]int{http.StatusOK, http.StatusCreated}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).HybridRunbookWorker, req)
 	if err != nil {
@@ -318,6 +325,57 @@ func (h *HybridRunbookWorkersServerTransport) dispatchMove(req *http.Request) (*
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.NewResponse(respContent, req, nil)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (h *HybridRunbookWorkersServerTransport) dispatchPatch(req *http.Request) (*http.Response, error) {
+	if h.srv.Patch == nil {
+		return nil, &nonRetriableError{errors.New("fake for method Patch not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Automation/automationAccounts/(?P<automationAccountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/hybridRunbookWorkerGroups/(?P<hybridRunbookWorkerGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/hybridRunbookWorkers/(?P<hybridRunbookWorkerId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 5 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armautomation.HybridRunbookWorkerCreateParameters](req)
+	if err != nil {
+		return nil, err
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	automationAccountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("automationAccountName")])
+	if err != nil {
+		return nil, err
+	}
+	hybridRunbookWorkerGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("hybridRunbookWorkerGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	hybridRunbookWorkerIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("hybridRunbookWorkerId")])
+	if err != nil {
+		return nil, err
+	}
+	var options *armautomation.HybridRunbookWorkersClientPatchOptions
+	if !reflect.ValueOf(body).IsZero() {
+		options = &armautomation.HybridRunbookWorkersClientPatchOptions{
+			HybridRunbookWorkerCreationParameters: &body,
+		}
+	}
+	respr, errRespr := h.srv.Patch(req.Context(), resourceGroupNameParam, automationAccountNameParam, hybridRunbookWorkerGroupNameParam, hybridRunbookWorkerIDParam, options)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).HybridRunbookWorker, req)
 	if err != nil {
 		return nil, err
 	}
