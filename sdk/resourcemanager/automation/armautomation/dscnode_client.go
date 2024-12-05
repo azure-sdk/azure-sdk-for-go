@@ -48,7 +48,7 @@ func NewDscNodeClient(subscriptionID string, credential azcore.TokenCredential, 
 // Delete - Delete the dsc node identified by node id.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2024-10-23
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - nodeID - The node id.
@@ -98,7 +98,7 @@ func (client *DscNodeClient) deleteCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2024-10-23")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -107,7 +107,7 @@ func (client *DscNodeClient) deleteCreateRequest(ctx context.Context, resourceGr
 // Get - Retrieve the dsc node identified by node id.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2024-10-23
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - nodeID - The node id.
@@ -158,7 +158,7 @@ func (client *DscNodeClient) getCreateRequest(ctx context.Context, resourceGroup
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2024-10-23")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -175,7 +175,7 @@ func (client *DscNodeClient) getHandleResponse(resp *http.Response) (DscNodeClie
 
 // NewListByAutomationAccountPager - Retrieve a list of dsc nodes.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2024-10-23
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - options - DscNodeClientListByAutomationAccountOptions contains the optional parameters for the DscNodeClient.NewListByAutomationAccountPager
@@ -226,16 +226,16 @@ func (client *DscNodeClient) listByAutomationAccountCreateRequest(ctx context.Co
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
+	if options != nil && options.Inlinecount != nil {
+		reqQP.Set("$inlinecount", *options.Inlinecount)
+	}
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	if options != nil && options.Inlinecount != nil {
-		reqQP.Set("$inlinecount", *options.Inlinecount)
-	}
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2024-10-23")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -253,7 +253,7 @@ func (client *DscNodeClient) listByAutomationAccountHandleResponse(resp *http.Re
 // Update - Update the dsc node.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2024-10-23
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - nodeID - Parameters supplied to the update dsc node.
@@ -305,7 +305,7 @@ func (client *DscNodeClient) updateCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2024-10-23")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, dscNodeUpdateParameters); err != nil {
