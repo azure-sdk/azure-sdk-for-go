@@ -11,7 +11,7 @@ package armsynapse
 import "encoding/json"
 
 func unmarshalCustomSetupBaseClassification(rawMsg json.RawMessage) (CustomSetupBaseClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -36,7 +36,7 @@ func unmarshalCustomSetupBaseClassification(rawMsg json.RawMessage) (CustomSetup
 }
 
 func unmarshalCustomSetupBaseClassificationArray(rawMsg json.RawMessage) ([]CustomSetupBaseClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -55,7 +55,7 @@ func unmarshalCustomSetupBaseClassificationArray(rawMsg json.RawMessage) ([]Cust
 }
 
 func unmarshalDataConnectionClassification(rawMsg json.RawMessage) (DataConnectionClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -80,7 +80,7 @@ func unmarshalDataConnectionClassification(rawMsg json.RawMessage) (DataConnecti
 }
 
 func unmarshalDataConnectionClassificationArray(rawMsg json.RawMessage) ([]DataConnectionClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -99,7 +99,7 @@ func unmarshalDataConnectionClassificationArray(rawMsg json.RawMessage) ([]DataC
 }
 
 func unmarshalDatabaseClassification(rawMsg json.RawMessage) (DatabaseClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -122,7 +122,7 @@ func unmarshalDatabaseClassification(rawMsg json.RawMessage) (DatabaseClassifica
 }
 
 func unmarshalDatabaseClassificationArray(rawMsg json.RawMessage) ([]DatabaseClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -141,7 +141,7 @@ func unmarshalDatabaseClassificationArray(rawMsg json.RawMessage) ([]DatabaseCla
 }
 
 func unmarshalIntegrationRuntimeClassification(rawMsg json.RawMessage) (IntegrationRuntimeClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -164,7 +164,7 @@ func unmarshalIntegrationRuntimeClassification(rawMsg json.RawMessage) (Integrat
 }
 
 func unmarshalIntegrationRuntimeStatusClassification(rawMsg json.RawMessage) (IntegrationRuntimeStatusClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -187,7 +187,7 @@ func unmarshalIntegrationRuntimeStatusClassification(rawMsg json.RawMessage) (In
 }
 
 func unmarshalLinkedIntegrationRuntimeTypeClassification(rawMsg json.RawMessage) (LinkedIntegrationRuntimeTypeClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -210,7 +210,7 @@ func unmarshalLinkedIntegrationRuntimeTypeClassification(rawMsg json.RawMessage)
 }
 
 func unmarshalSecretBaseClassification(rawMsg json.RawMessage) (SecretBaseClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -231,7 +231,7 @@ func unmarshalSecretBaseClassification(rawMsg json.RawMessage) (SecretBaseClassi
 }
 
 func unmarshalSsisObjectMetadataClassification(rawMsg json.RawMessage) (SsisObjectMetadataClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -258,7 +258,7 @@ func unmarshalSsisObjectMetadataClassification(rawMsg json.RawMessage) (SsisObje
 }
 
 func unmarshalSsisObjectMetadataClassificationArray(rawMsg json.RawMessage) ([]SsisObjectMetadataClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage

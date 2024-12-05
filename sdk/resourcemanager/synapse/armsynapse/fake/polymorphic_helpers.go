@@ -14,7 +14,7 @@ import (
 )
 
 func unmarshalDataConnectionClassification(rawMsg json.RawMessage) (armsynapse.DataConnectionClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -39,7 +39,7 @@ func unmarshalDataConnectionClassification(rawMsg json.RawMessage) (armsynapse.D
 }
 
 func unmarshalDatabaseClassification(rawMsg json.RawMessage) (armsynapse.DatabaseClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
