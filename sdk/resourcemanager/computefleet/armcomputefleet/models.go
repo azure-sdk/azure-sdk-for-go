@@ -908,6 +908,7 @@ type VMAttributes struct {
 	LocalStorageInGiB *VMAttributeMinMaxDouble
 
 	// Specifies whether the VMSize supporting local storage should be used to build Fleet or not.
+	// Included - Default if not specified as most Azure VMs support local storage.
 	LocalStorageSupport *VMAttributeSupport
 
 	// The range of memory in GiB per vCPU specified from min to max. Optional parameter. Either Min or Max is required if specified.
