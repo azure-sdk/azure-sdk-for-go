@@ -1,5 +1,14 @@
 # Release History
 
+## 1.1.0-beta.1 (2024-12-05)
+### Features Added
+
+- New enum type `DataAPIMode` with values `DataAPIModeDisabled`, `DataAPIModeEnabled`
+- New struct `DataAPIProperties`
+- New field `DataAPI` in struct `Properties`
+- New field `DataAPI` in struct `UpdateProperties`
+
+
 ## 1.0.1 (2024-10-14)
 ### Other Changes
 - Add examples
