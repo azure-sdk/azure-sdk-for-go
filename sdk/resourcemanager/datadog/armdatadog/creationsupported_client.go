@@ -46,7 +46,7 @@ func NewCreationSupportedClient(subscriptionID string, credential azcore.TokenCr
 // Get - Informs if the current subscription is being already monitored for selected Datadog organization.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01
+// Generated from API version 2023-10-20
 //   - datadogOrganizationID - Datadog Organization Id
 //   - options - CreationSupportedClientGetOptions contains the optional parameters for the CreationSupportedClient.Get method.
 func (client *CreationSupportedClient) Get(ctx context.Context, datadogOrganizationID string, options *CreationSupportedClientGetOptions) (CreationSupportedClientGetResponse, error) {
@@ -83,7 +83,7 @@ func (client *CreationSupportedClient) getCreateRequest(ctx context.Context, dat
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01")
+	reqQP.Set("api-version", "2023-10-20")
 	reqQP.Set("datadogOrganizationId", datadogOrganizationID)
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -101,27 +101,26 @@ func (client *CreationSupportedClient) getHandleResponse(resp *http.Response) (C
 
 // NewListPager - Informs if the current subscription is being already monitored for selected Datadog organization.
 //
-// Generated from API version 2023-01-01
+// Generated from API version 2023-10-20
 //   - datadogOrganizationID - Datadog Organization Id
 //   - options - CreationSupportedClientListOptions contains the optional parameters for the CreationSupportedClient.NewListPager
 //     method.
 func (client *CreationSupportedClient) NewListPager(datadogOrganizationID string, options *CreationSupportedClientListOptions) *runtime.Pager[CreationSupportedClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[CreationSupportedClientListResponse]{
 		More: func(page CreationSupportedClientListResponse) bool {
-			return false
+			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *CreationSupportedClientListResponse) (CreationSupportedClientListResponse, error) {
 			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "CreationSupportedClient.NewListPager")
-			req, err := client.listCreateRequest(ctx, datadogOrganizationID, options)
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
+			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listCreateRequest(ctx, datadogOrganizationID, options)
+			}, nil)
 			if err != nil {
 				return CreationSupportedClientListResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return CreationSupportedClientListResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return CreationSupportedClientListResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -141,7 +140,7 @@ func (client *CreationSupportedClient) listCreateRequest(ctx context.Context, da
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01")
+	reqQP.Set("api-version", "2023-10-20")
 	reqQP.Set("datadogOrganizationId", datadogOrganizationID)
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
