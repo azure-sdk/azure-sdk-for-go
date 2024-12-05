@@ -10,7 +10,7 @@ package armkubernetesconfiguration
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/kubernetesconfiguration/armkubernetesconfiguration"
-	moduleVersion = "v2.2.0"
+	moduleVersion = "v3.0.0-beta.1"
 )
 
 // AKSIdentityType - The identity type.
@@ -148,6 +148,23 @@ func PossibleMessageLevelTypeValues() []MessageLevelType {
 	}
 }
 
+// OperationType - The operation to be performed on the selected layer. The default value is 'extract', but it can be set
+// to 'copy'.
+type OperationType string
+
+const (
+	OperationTypeCopy    OperationType = "copy"
+	OperationTypeExtract OperationType = "extract"
+)
+
+// PossibleOperationTypeValues returns the possible values for the OperationType const type.
+func PossibleOperationTypeValues() []OperationType {
+	return []OperationType{
+		OperationTypeCopy,
+		OperationTypeExtract,
+	}
+}
+
 // OperatorScopeType - Scope at which the operator will be installed.
 type OperatorScopeType string
 
@@ -247,6 +264,7 @@ const (
 	SourceKindTypeAzureBlob     SourceKindType = "AzureBlob"
 	SourceKindTypeBucket        SourceKindType = "Bucket"
 	SourceKindTypeGitRepository SourceKindType = "GitRepository"
+	SourceKindTypeOCIRepository SourceKindType = "OCIRepository"
 )
 
 // PossibleSourceKindTypeValues returns the possible values for the SourceKindType const type.
@@ -255,5 +273,6 @@ func PossibleSourceKindTypeValues() []SourceKindType {
 		SourceKindTypeAzureBlob,
 		SourceKindTypeBucket,
 		SourceKindTypeGitRepository,
+		SourceKindTypeOCIRepository,
 	}
 }
