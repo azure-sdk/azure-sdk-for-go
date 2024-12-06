@@ -8,29 +8,29 @@
 
 package armchaos
 
-// ExperimentActionClassification provides polymorphic access to related types.
-// Call the interface's GetExperimentAction() method to access the common type.
+// ActionClassification provides polymorphic access to related types.
+// Call the interface's GetAction() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *ContinuousAction, *DelayAction, *DiscreteAction, *ExperimentAction
-type ExperimentActionClassification interface {
-	// GetExperimentAction returns the ExperimentAction content of the underlying type.
-	GetExperimentAction() *ExperimentAction
+// - *Action, *ContinuousAction, *DelayAction, *DiscreteAction
+type ActionClassification interface {
+	// GetAction returns the Action content of the underlying type.
+	GetAction() *Action
 }
 
-// TargetFilterClassification provides polymorphic access to related types.
-// Call the interface's GetTargetFilter() method to access the common type.
+// FilterClassification provides polymorphic access to related types.
+// Call the interface's GetFilter() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *TargetFilter, *TargetSimpleFilter
-type TargetFilterClassification interface {
-	// GetTargetFilter returns the TargetFilter content of the underlying type.
-	GetTargetFilter() *TargetFilter
+// - *Filter, *SimpleFilter
+type FilterClassification interface {
+	// GetFilter returns the Filter content of the underlying type.
+	GetFilter() *Filter
 }
 
-// TargetSelectorClassification provides polymorphic access to related types.
-// Call the interface's GetTargetSelector() method to access the common type.
+// SelectorClassification provides polymorphic access to related types.
+// Call the interface's GetSelector() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *TargetListSelector, *TargetQuerySelector, *TargetSelector
-type TargetSelectorClassification interface {
-	// GetTargetSelector returns the TargetSelector content of the underlying type.
-	GetTargetSelector() *TargetSelector
+// - *ListSelector, *QuerySelector, *Selector
+type SelectorClassification interface {
+	// GetSelector returns the Selector content of the underlying type.
+	GetSelector() *Selector
 }
