@@ -30,10 +30,6 @@ type IncidentsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
 	CreateOrUpdate func(ctx context.Context, resourceGroupName string, workspaceName string, incidentID string, incident armsecurityinsights.Incident, options *armsecurityinsights.IncidentsClientCreateOrUpdateOptions) (resp azfake.Responder[armsecurityinsights.IncidentsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
-	// CreateTeam is the fake for method IncidentsClient.CreateTeam
-	// HTTP status codes to indicate success: http.StatusOK
-	CreateTeam func(ctx context.Context, resourceGroupName string, workspaceName string, incidentID string, teamProperties armsecurityinsights.TeamProperties, options *armsecurityinsights.IncidentsClientCreateTeamOptions) (resp azfake.Responder[armsecurityinsights.IncidentsClientCreateTeamResponse], errResp azfake.ErrorResponder)
-
 	// Delete is the fake for method IncidentsClient.Delete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
 	Delete func(ctx context.Context, resourceGroupName string, workspaceName string, incidentID string, options *armsecurityinsights.IncidentsClientDeleteOptions) (resp azfake.Responder[armsecurityinsights.IncidentsClientDeleteResponse], errResp azfake.ErrorResponder)
@@ -94,8 +90,6 @@ func (i *IncidentsServerTransport) Do(req *http.Request) (*http.Response, error)
 	switch method {
 	case "IncidentsClient.CreateOrUpdate":
 		resp, err = i.dispatchCreateOrUpdate(req)
-	case "IncidentsClient.CreateTeam":
-		resp, err = i.dispatchCreateTeam(req)
 	case "IncidentsClient.Delete":
 		resp, err = i.dispatchDelete(req)
 	case "IncidentsClient.Get":
@@ -156,47 +150,6 @@ func (i *IncidentsServerTransport) dispatchCreateOrUpdate(req *http.Request) (*h
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Incident, req)
-	if err != nil {
-		return nil, err
-	}
-	return resp, nil
-}
-
-func (i *IncidentsServerTransport) dispatchCreateTeam(req *http.Request) (*http.Response, error) {
-	if i.srv.CreateTeam == nil {
-		return nil, &nonRetriableError{errors.New("fake for method CreateTeam not implemented")}
-	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.OperationalInsights/workspaces/(?P<workspaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.SecurityInsights/incidents/(?P<incidentId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/createTeam`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 4 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	body, err := server.UnmarshalRequestAsJSON[armsecurityinsights.TeamProperties](req)
-	if err != nil {
-		return nil, err
-	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-	if err != nil {
-		return nil, err
-	}
-	workspaceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("workspaceName")])
-	if err != nil {
-		return nil, err
-	}
-	incidentIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("incidentId")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := i.srv.CreateTeam(req.Context(), resourceGroupNameParam, workspaceNameParam, incidentIDParam, body, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).TeamInformation, req)
 	if err != nil {
 		return nil, err
 	}
@@ -508,7 +461,7 @@ func (i *IncidentsServerTransport) dispatchRunPlaybook(req *http.Request) (*http
 	if !contains([]int{http.StatusNoContent}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusNoContent", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Interface, req)
+	resp, err := server.NewResponse(respContent, req, nil)
 	if err != nil {
 		return nil, err
 	}
