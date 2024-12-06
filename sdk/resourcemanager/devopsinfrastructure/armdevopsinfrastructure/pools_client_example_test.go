@@ -12,6 +12,37 @@ import (
 	"log"
 )
 
+// Generated from example definition: 2024-10-19/Pools_CheckNameAvailability.json
+func ExamplePoolsClient_CheckNameAvailability() {
+	cred, err := azidentity.NewDefaultAzureCredential(nil)
+	if err != nil {
+		log.Fatalf("failed to obtain a credential: %v", err)
+	}
+	ctx := context.Background()
+	clientFactory, err := armdevopsinfrastructure.NewClientFactory("a2e95d27-c161-4b61-bda4-11512c14c2c2", cred, nil)
+	if err != nil {
+		log.Fatalf("failed to create client: %v", err)
+	}
+	res, err := clientFactory.NewPoolsClient().CheckNameAvailability(ctx, armdevopsinfrastructure.CheckNameAvailability{
+		Name: to.Ptr("mydevopspool"),
+		Type: to.Ptr(armdevopsinfrastructure.ResourceTypeMicrosoftDevOpsInfrastructurePools),
+	}, nil)
+	if err != nil {
+		log.Fatalf("failed to finish the request: %v", err)
+	}
+	// You could use response here. We use blank identifier for just demo purposes.
+	_ = res
+	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
+	// res = armdevopsinfrastructure.PoolsClientCheckNameAvailabilityResponse{
+	// 	CheckNameAvailabilityResult: &armdevopsinfrastructure.CheckNameAvailabilityResult{
+	// 		Available: to.Ptr(armdevopsinfrastructure.AvailabilityStatusUnavailable),
+	// 		Message: to.Ptr("Managed DevOps pool mydevopspool is already in use. Please choose a pool name that has not been taken."),
+	// 		Name: to.Ptr("mydevopspool"),
+	// 		Reason: to.Ptr(armdevopsinfrastructure.CheckNameAvailabilityReasonAlreadyExists),
+	// 	},
+	// }
+}
+
 // Generated from example definition: 2024-10-19/CreateOrUpdatePool.json
 func ExamplePoolsClient_BeginCreateOrUpdate() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
