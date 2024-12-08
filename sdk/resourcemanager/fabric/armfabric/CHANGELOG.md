@@ -1,5 +1,13 @@
 # Release History
 
+## 1.1.0 (2024-12-08)
+### Features Added
+
+- New function `*CapacitiesClient.NewListUsagesPager(string, *CapacitiesClientListUsagesOptions) *runtime.Pager[CapacitiesClientListUsagesResponse]`
+- New struct `RpUsageAndQuotaDetailsForExistingResource`
+- New struct `RpUsageAndQuotaEnumerationForExistingResourceResult`
+
+
 ## 1.0.0 (2024-10-22)
 ### Other Changes
 

@@ -559,6 +559,68 @@ func (r *RpSKUEnumerationForNewResourceResult) UnmarshalJSON(data []byte) error 
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type RpUsageAndQuotaDetailsForExistingResource.
+func (r RpUsageAndQuotaDetailsForExistingResource) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "currentValue", r.CurrentValue)
+	populate(objectMap, "limit", r.Limit)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type RpUsageAndQuotaDetailsForExistingResource.
+func (r *RpUsageAndQuotaDetailsForExistingResource) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", r, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "currentValue":
+			err = unpopulate(val, "CurrentValue", &r.CurrentValue)
+			delete(rawMsg, key)
+		case "limit":
+			err = unpopulate(val, "Limit", &r.Limit)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", r, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RpUsageAndQuotaEnumerationForExistingResourceResult.
+func (r RpUsageAndQuotaEnumerationForExistingResourceResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "nextLink", r.NextLink)
+	populate(objectMap, "value", r.Value)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type RpUsageAndQuotaEnumerationForExistingResourceResult.
+func (r *RpUsageAndQuotaEnumerationForExistingResourceResult) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", r, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "nextLink":
+			err = unpopulate(val, "NextLink", &r.NextLink)
+			delete(rawMsg, key)
+		case "value":
+			err = unpopulate(val, "Value", &r.Value)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", r, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type SystemData.
 func (s SystemData) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
