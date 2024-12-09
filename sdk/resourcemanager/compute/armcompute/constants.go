@@ -10,7 +10,7 @@ package armcompute
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute"
-	moduleVersion = "v6.1.0"
+	moduleVersion = "v6.1.1"
 )
 
 type AccessLevel string
@@ -497,8 +497,8 @@ func PossibleDiskDeleteOptionTypesValues() []DiskDeleteOptionTypes {
 // is applicable only for managed data disks. If a previous detachment attempt of the data disk did not complete due to an
 // unexpected failure from the virtual machine and the disk is still not released
 // then use force-detach as a last resort option to detach the disk forcibly from the VM. All writes might not have been flushed
-// when using this detach behavior. This feature is still in preview mode. To
-// force-detach a data disk update toBeDetached to 'true' along with setting detachOption: 'ForceDetach'.
+// when using this detach behavior. To force-detach a data disk update
+// toBeDetached to 'true' along with setting detachOption: 'ForceDetach'.
 type DiskDetachOptionTypes string
 
 const (
