@@ -47,7 +47,7 @@ func NewDeletedAutomationAccountsClient(subscriptionID string, credential azcore
 // ListBySubscription - Retrieve deleted automation account.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-31
+// Generated from API version 2024-10-23
 //   - options - DeletedAutomationAccountsClientListBySubscriptionOptions contains the optional parameters for the DeletedAutomationAccountsClient.ListBySubscription
 //     method.
 func (client *DeletedAutomationAccountsClient) ListBySubscription(ctx context.Context, options *DeletedAutomationAccountsClientListBySubscriptionOptions) (DeletedAutomationAccountsClientListBySubscriptionResponse, error) {
@@ -84,7 +84,7 @@ func (client *DeletedAutomationAccountsClient) listBySubscriptionCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-31")
+	reqQP.Set("api-version", "2024-10-23")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
