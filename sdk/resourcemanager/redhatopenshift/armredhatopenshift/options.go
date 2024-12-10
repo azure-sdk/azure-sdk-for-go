@@ -92,6 +92,12 @@ type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// PlatformWorkloadIdentityRoleSetsClientListOptions contains the optional parameters for the PlatformWorkloadIdentityRoleSetsClient.NewListPager
+// method.
+type PlatformWorkloadIdentityRoleSetsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
 // SecretsClientCreateOrUpdateOptions contains the optional parameters for the SecretsClient.CreateOrUpdate method.
 type SecretsClientCreateOrUpdateOptions struct {
 	// placeholder for future optional parameters
