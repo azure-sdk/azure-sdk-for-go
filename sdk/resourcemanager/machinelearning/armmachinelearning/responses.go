@@ -1134,6 +1134,11 @@ type WorkspaceConnectionsClientListSecretsResponse struct {
 	WorkspaceConnectionPropertiesV2BasicResource
 }
 
+// WorkspaceConnectionsClientUpdateResponse contains the response from method WorkspaceConnectionsClient.Update.
+type WorkspaceConnectionsClientUpdateResponse struct {
+	WorkspaceConnectionPropertiesV2BasicResource
+}
+
 // WorkspaceFeaturesClientListResponse contains the response from method WorkspaceFeaturesClient.NewListPager.
 type WorkspaceFeaturesClientListResponse struct {
 	// The List Aml user feature operation response.
