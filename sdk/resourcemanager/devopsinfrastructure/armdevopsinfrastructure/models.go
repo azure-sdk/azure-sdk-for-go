@@ -70,6 +70,30 @@ type AzureDevOpsPermissionProfile struct {
 	Users []*string
 }
 
+// CheckNameAvailability - The parameters used to check the availability of a resource.
+type CheckNameAvailability struct {
+	// REQUIRED; The name of the resource.
+	Name *string
+
+	// REQUIRED; The type of resource that is used as the scope of the availability check.
+	Type *ResourceType
+}
+
+// CheckNameAvailabilityResult - The CheckNameAvailability operation response.
+type CheckNameAvailabilityResult struct {
+	// REQUIRED; Availability status of the name.
+	Available *AvailabilityStatus
+
+	// REQUIRED; A message explaining why the name is unavailable. Will be null if the name is available.
+	Message *string
+
+	// REQUIRED; The name whose availability was checked.
+	Name *string
+
+	// REQUIRED; The reason code explaining why the name is unavailable. Will be null if the name is available.
+	Reason *CheckNameAvailabilityReason
+}
+
 // DataDisk - The data disk of the VMSS.
 type DataDisk struct {
 	// The type of caching to be enabled for the data disks. The default value for caching is readwrite. For information about
