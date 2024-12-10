@@ -11,7 +11,7 @@ package armdeploymentscripts
 import "encoding/json"
 
 func unmarshalDeploymentScriptClassification(rawMsg json.RawMessage) (DeploymentScriptClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -34,7 +34,7 @@ func unmarshalDeploymentScriptClassification(rawMsg json.RawMessage) (Deployment
 }
 
 func unmarshalDeploymentScriptClassificationArray(rawMsg json.RawMessage) ([]DeploymentScriptClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
