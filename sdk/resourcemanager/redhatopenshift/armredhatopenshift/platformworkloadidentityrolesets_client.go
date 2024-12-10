@@ -20,42 +20,42 @@ import (
 	"strings"
 )
 
-// OpenShiftVersionsClient contains the methods for the OpenShiftVersions group.
-// Don't use this type directly, use NewOpenShiftVersionsClient() instead.
-type OpenShiftVersionsClient struct {
+// PlatformWorkloadIdentityRoleSetsClient contains the methods for the PlatformWorkloadIdentityRoleSets group.
+// Don't use this type directly, use NewPlatformWorkloadIdentityRoleSetsClient() instead.
+type PlatformWorkloadIdentityRoleSetsClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewOpenShiftVersionsClient creates a new instance of OpenShiftVersionsClient with the specified values.
+// NewPlatformWorkloadIdentityRoleSetsClient creates a new instance of PlatformWorkloadIdentityRoleSetsClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewOpenShiftVersionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*OpenShiftVersionsClient, error) {
+func NewPlatformWorkloadIdentityRoleSetsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*PlatformWorkloadIdentityRoleSetsClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &OpenShiftVersionsClient{
+	client := &PlatformWorkloadIdentityRoleSetsClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// NewListPager - The operation returns the installable OpenShift versions as strings.
+// NewListPager - This operation returns PlatformWorkloadIdentityRoleSets as a string
 //
 // Generated from API version 2024-08-12-preview
 //   - location - The name of the Azure region.
-//   - options - OpenShiftVersionsClientListOptions contains the optional parameters for the OpenShiftVersionsClient.NewListPager
+//   - options - PlatformWorkloadIdentityRoleSetsClientListOptions contains the optional parameters for the PlatformWorkloadIdentityRoleSetsClient.NewListPager
 //     method.
-func (client *OpenShiftVersionsClient) NewListPager(location string, options *OpenShiftVersionsClientListOptions) *runtime.Pager[OpenShiftVersionsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[OpenShiftVersionsClientListResponse]{
-		More: func(page OpenShiftVersionsClientListResponse) bool {
+func (client *PlatformWorkloadIdentityRoleSetsClient) NewListPager(location string, options *PlatformWorkloadIdentityRoleSetsClientListOptions) *runtime.Pager[PlatformWorkloadIdentityRoleSetsClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[PlatformWorkloadIdentityRoleSetsClientListResponse]{
+		More: func(page PlatformWorkloadIdentityRoleSetsClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *OpenShiftVersionsClientListResponse) (OpenShiftVersionsClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "OpenShiftVersionsClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *PlatformWorkloadIdentityRoleSetsClientListResponse) (PlatformWorkloadIdentityRoleSetsClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "PlatformWorkloadIdentityRoleSetsClient.NewListPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
@@ -64,7 +64,7 @@ func (client *OpenShiftVersionsClient) NewListPager(location string, options *Op
 				return client.listCreateRequest(ctx, location, options)
 			}, nil)
 			if err != nil {
-				return OpenShiftVersionsClientListResponse{}, err
+				return PlatformWorkloadIdentityRoleSetsClientListResponse{}, err
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -73,8 +73,8 @@ func (client *OpenShiftVersionsClient) NewListPager(location string, options *Op
 }
 
 // listCreateRequest creates the List request.
-func (client *OpenShiftVersionsClient) listCreateRequest(ctx context.Context, location string, options *OpenShiftVersionsClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.RedHatOpenShift/locations/{location}/openshiftversions"
+func (client *PlatformWorkloadIdentityRoleSetsClient) listCreateRequest(ctx context.Context, location string, options *PlatformWorkloadIdentityRoleSetsClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.RedHatOpenShift/locations/{location}/platformworkloadidentityrolesets"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -95,10 +95,10 @@ func (client *OpenShiftVersionsClient) listCreateRequest(ctx context.Context, lo
 }
 
 // listHandleResponse handles the List response.
-func (client *OpenShiftVersionsClient) listHandleResponse(resp *http.Response) (OpenShiftVersionsClientListResponse, error) {
-	result := OpenShiftVersionsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.OpenShiftVersionList); err != nil {
-		return OpenShiftVersionsClientListResponse{}, err
+func (client *PlatformWorkloadIdentityRoleSetsClient) listHandleResponse(resp *http.Response) (PlatformWorkloadIdentityRoleSetsClientListResponse, error) {
+	result := PlatformWorkloadIdentityRoleSetsClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.PlatformWorkloadIdentityRoleSetList); err != nil {
+		return PlatformWorkloadIdentityRoleSetsClientListResponse{}, err
 	}
 	return result, nil
 }

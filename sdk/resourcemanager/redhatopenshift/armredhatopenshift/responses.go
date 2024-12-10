@@ -96,6 +96,12 @@ type OperationsClientListResponse struct {
 	OperationList
 }
 
+// PlatformWorkloadIdentityRoleSetsClientListResponse contains the response from method PlatformWorkloadIdentityRoleSetsClient.NewListPager.
+type PlatformWorkloadIdentityRoleSetsClientListResponse struct {
+	// PlatformWorkloadIdentityRoleSetList represents a List of role sets.
+	PlatformWorkloadIdentityRoleSetList
+}
+
 // SecretsClientCreateOrUpdateResponse contains the response from method SecretsClient.CreateOrUpdate.
 type SecretsClientCreateOrUpdateResponse struct {
 	// Secret represents a secret.
