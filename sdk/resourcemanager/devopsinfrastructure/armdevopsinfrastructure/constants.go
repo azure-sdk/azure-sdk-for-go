@@ -6,7 +6,7 @@ package armdevopsinfrastructure
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/devopsinfrastructure/armdevopsinfrastructure"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.1.0"
 )
 
 // ActionType - Extensible enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -21,6 +21,24 @@ const (
 func PossibleActionTypeValues() []ActionType {
 	return []ActionType{
 		ActionTypeInternal,
+	}
+}
+
+// AvailabilityStatus - AvailabilityStatus of a name.
+type AvailabilityStatus string
+
+const (
+	// AvailabilityStatusAvailable - The name is available.
+	AvailabilityStatusAvailable AvailabilityStatus = "Available"
+	// AvailabilityStatusUnavailable - The name is unavailable
+	AvailabilityStatusUnavailable AvailabilityStatus = "Unavailable"
+)
+
+// PossibleAvailabilityStatusValues returns the possible values for the AvailabilityStatus const type.
+func PossibleAvailabilityStatusValues() []AvailabilityStatus {
+	return []AvailabilityStatus{
+		AvailabilityStatusAvailable,
+		AvailabilityStatusUnavailable,
 	}
 }
 
@@ -63,6 +81,24 @@ func PossibleCachingTypeValues() []CachingType {
 		CachingTypeNone,
 		CachingTypeReadOnly,
 		CachingTypeReadWrite,
+	}
+}
+
+// CheckNameAvailabilityReason - The reason code explaining why the name is unavailable. Will be null if the name is available.
+type CheckNameAvailabilityReason string
+
+const (
+	// CheckNameAvailabilityReasonAlreadyExists - The name already exists.
+	CheckNameAvailabilityReasonAlreadyExists CheckNameAvailabilityReason = "AlreadyExists"
+	// CheckNameAvailabilityReasonInvalid - The name is invalid.
+	CheckNameAvailabilityReasonInvalid CheckNameAvailabilityReason = "Invalid"
+)
+
+// PossibleCheckNameAvailabilityReasonValues returns the possible values for the CheckNameAvailabilityReason const type.
+func PossibleCheckNameAvailabilityReasonValues() []CheckNameAvailabilityReason {
+	return []CheckNameAvailabilityReason{
+		CheckNameAvailabilityReasonAlreadyExists,
+		CheckNameAvailabilityReasonInvalid,
 	}
 }
 
@@ -331,6 +367,21 @@ func PossibleResourceStatusValues() []ResourceStatus {
 		ResourceStatusReturned,
 		ResourceStatusStarting,
 		ResourceStatusUpdating,
+	}
+}
+
+// ResourceType - The type of resource.
+type ResourceType string
+
+const (
+	// ResourceTypeMicrosoftDevOpsInfrastructurePools - DevOpsInfrastructure pool resource.
+	ResourceTypeMicrosoftDevOpsInfrastructurePools ResourceType = "Microsoft.DevOpsInfrastructure/pools"
+)
+
+// PossibleResourceTypeValues returns the possible values for the ResourceType const type.
+func PossibleResourceTypeValues() []ResourceType {
+	return []ResourceType{
+		ResourceTypeMicrosoftDevOpsInfrastructurePools,
 	}
 }
 
