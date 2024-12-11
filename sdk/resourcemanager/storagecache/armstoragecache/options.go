@@ -64,6 +64,36 @@ type AscUsagesClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// AutoExportJobsClientBeginCreateOrUpdateOptions contains the optional parameters for the AutoExportJobsClient.BeginCreateOrUpdate
+// method.
+type AutoExportJobsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// AutoExportJobsClientBeginDeleteOptions contains the optional parameters for the AutoExportJobsClient.BeginDelete method.
+type AutoExportJobsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// AutoExportJobsClientBeginUpdateOptions contains the optional parameters for the AutoExportJobsClient.BeginUpdate method.
+type AutoExportJobsClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// AutoExportJobsClientGetOptions contains the optional parameters for the AutoExportJobsClient.Get method.
+type AutoExportJobsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AutoExportJobsClientListByAmlFilesystemOptions contains the optional parameters for the AutoExportJobsClient.NewListByAmlFilesystemPager
+// method.
+type AutoExportJobsClientListByAmlFilesystemOptions struct {
+	// placeholder for future optional parameters
+}
+
 // CachesClientBeginCreateOrUpdateOptions contains the optional parameters for the CachesClient.BeginCreateOrUpdate method.
 type CachesClientBeginCreateOrUpdateOptions struct {
 	// Resumes the LRO from the provided token.
