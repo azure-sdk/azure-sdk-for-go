@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/loadtesting/armloadtesting"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/loadtesting/armloadtesting/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -26,10 +26,10 @@ import (
 type LoadTestsServer struct {
 	// BeginCreateOrUpdate is the fake for method LoadTestsClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, loadTestName string, loadTestResource armloadtesting.LoadTestResource, options *armloadtesting.LoadTestsClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armloadtesting.LoadTestsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, loadTestName string, resource armloadtesting.LoadTestResource, options *armloadtesting.LoadTestsClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armloadtesting.LoadTestsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method LoadTestsClient.BeginDelete
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
+	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
 	BeginDelete func(ctx context.Context, resourceGroupName string, loadTestName string, options *armloadtesting.LoadTestsClientBeginDeleteOptions) (resp azfake.PollerResponder[armloadtesting.LoadTestsClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method LoadTestsClient.Get
@@ -50,7 +50,7 @@ type LoadTestsServer struct {
 
 	// BeginUpdate is the fake for method LoadTestsClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginUpdate func(ctx context.Context, resourceGroupName string, loadTestName string, loadTestResourcePatchRequestBody armloadtesting.LoadTestResourcePatchRequestBody, options *armloadtesting.LoadTestsClientBeginUpdateOptions) (resp azfake.PollerResponder[armloadtesting.LoadTestsClientUpdateResponse], errResp azfake.ErrorResponder)
+	BeginUpdate func(ctx context.Context, resourceGroupName string, loadTestName string, properties armloadtesting.LoadTestResourceUpdate, options *armloadtesting.LoadTestsClientBeginUpdateOptions) (resp azfake.PollerResponder[armloadtesting.LoadTestsClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewLoadTestsServerTransport creates a new instance of LoadTestsServerTransport with the provided implementation.
@@ -198,9 +198,9 @@ func (l *LoadTestsServerTransport) dispatchBeginDelete(req *http.Request) (*http
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
+	if !contains([]int{http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
 		l.beginDelete.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginDelete) {
 		l.beginDelete.remove(req)
@@ -365,7 +365,7 @@ func (l *LoadTestsServerTransport) dispatchBeginUpdate(req *http.Request) (*http
 		if matches == nil || len(matches) < 3 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		body, err := server.UnmarshalRequestAsJSON[armloadtesting.LoadTestResourcePatchRequestBody](req)
+		body, err := server.UnmarshalRequestAsJSON[armloadtesting.LoadTestResourceUpdate](req)
 		if err != nil {
 			return nil, err
 		}
