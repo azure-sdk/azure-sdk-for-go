@@ -10,7 +10,7 @@ package armstoragecache
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storagecache/armstoragecache"
-	moduleVersion = "v4.0.0"
+	moduleVersion = "v4.1.0"
 )
 
 // AmlFilesystemHealthStateType - List of AML file system health states.
@@ -121,6 +121,73 @@ func PossibleArchiveStatusTypeValues() []ArchiveStatusType {
 		ArchiveStatusTypeIdle,
 		ArchiveStatusTypeInProgress,
 		ArchiveStatusTypeNotConfigured,
+	}
+}
+
+// AutoExportJobAdminStatus - The administrative status of the auto export job. Possible values: 'Enable', 'Disable'. Passing
+// in a value of 'Disable' will disable the current active auto export job. By default it is set to
+// 'Enable'.
+type AutoExportJobAdminStatus string
+
+const (
+	AutoExportJobAdminStatusActive AutoExportJobAdminStatus = "Active"
+	AutoExportJobAdminStatusCancel AutoExportJobAdminStatus = "Cancel"
+)
+
+// PossibleAutoExportJobAdminStatusValues returns the possible values for the AutoExportJobAdminStatus const type.
+func PossibleAutoExportJobAdminStatusValues() []AutoExportJobAdminStatus {
+	return []AutoExportJobAdminStatus{
+		AutoExportJobAdminStatusActive,
+		AutoExportJobAdminStatusCancel,
+	}
+}
+
+// AutoExportJobProvisioningStateType - ARM provisioning state.
+type AutoExportJobProvisioningStateType string
+
+const (
+	AutoExportJobProvisioningStateTypeCanceled  AutoExportJobProvisioningStateType = "Canceled"
+	AutoExportJobProvisioningStateTypeCreating  AutoExportJobProvisioningStateType = "Creating"
+	AutoExportJobProvisioningStateTypeDeleting  AutoExportJobProvisioningStateType = "Deleting"
+	AutoExportJobProvisioningStateTypeFailed    AutoExportJobProvisioningStateType = "Failed"
+	AutoExportJobProvisioningStateTypeSucceeded AutoExportJobProvisioningStateType = "Succeeded"
+	AutoExportJobProvisioningStateTypeUpdating  AutoExportJobProvisioningStateType = "Updating"
+)
+
+// PossibleAutoExportJobProvisioningStateTypeValues returns the possible values for the AutoExportJobProvisioningStateType const type.
+func PossibleAutoExportJobProvisioningStateTypeValues() []AutoExportJobProvisioningStateType {
+	return []AutoExportJobProvisioningStateType{
+		AutoExportJobProvisioningStateTypeCanceled,
+		AutoExportJobProvisioningStateTypeCreating,
+		AutoExportJobProvisioningStateTypeDeleting,
+		AutoExportJobProvisioningStateTypeFailed,
+		AutoExportJobProvisioningStateTypeSucceeded,
+		AutoExportJobProvisioningStateTypeUpdating,
+	}
+}
+
+// AutoExportStatusType - The operational state of auto export. InProgress indicates the export is running. Disabling indicates
+// the user has requested to disable the export but the disabling is still in progress. Disabled
+// indicates auto export has been disabled. DisableFailed indicates the disabling has failed. Failed means the export was
+// unable to continue, due to a fatal error.
+type AutoExportStatusType string
+
+const (
+	AutoExportStatusTypeDisableFailed AutoExportStatusType = "DisableFailed"
+	AutoExportStatusTypeDisabled      AutoExportStatusType = "Disabled"
+	AutoExportStatusTypeDisabling     AutoExportStatusType = "Disabling"
+	AutoExportStatusTypeFailed        AutoExportStatusType = "Failed"
+	AutoExportStatusTypeInProgress    AutoExportStatusType = "InProgress"
+)
+
+// PossibleAutoExportStatusTypeValues returns the possible values for the AutoExportStatusType const type.
+func PossibleAutoExportStatusTypeValues() []AutoExportStatusType {
+	return []AutoExportStatusType{
+		AutoExportStatusTypeDisableFailed,
+		AutoExportStatusTypeDisabled,
+		AutoExportStatusTypeDisabling,
+		AutoExportStatusTypeFailed,
+		AutoExportStatusTypeInProgress,
 	}
 }
 
@@ -265,6 +332,23 @@ func PossibleHealthStateTypeValues() []HealthStateType {
 	}
 }
 
+// ImportJobAdminStatus - The administrative status of the import job. Possible values: 'Enable', 'Disable'. Passing in a
+// value of 'Disable' will cancel the current active import job. By default it is set to 'Enable'.
+type ImportJobAdminStatus string
+
+const (
+	ImportJobAdminStatusActive ImportJobAdminStatus = "Active"
+	ImportJobAdminStatusCancel ImportJobAdminStatus = "Cancel"
+)
+
+// PossibleImportJobAdminStatusValues returns the possible values for the ImportJobAdminStatus const type.
+func PossibleImportJobAdminStatusValues() []ImportJobAdminStatus {
+	return []ImportJobAdminStatus{
+		ImportJobAdminStatusActive,
+		ImportJobAdminStatusCancel,
+	}
+}
+
 // ImportJobProvisioningStateType - ARM provisioning state.
 type ImportJobProvisioningStateType string
 
@@ -289,11 +373,11 @@ func PossibleImportJobProvisioningStateTypeValues() []ImportJobProvisioningState
 	}
 }
 
-// ImportStatusType - The state of the import job. InProgress indicates the import is still running. Canceled indicates it
-// has been canceled by the user. Completed indicates import finished, successfully importing all
-// discovered blobs into the Lustre namespace. CompletedPartial indicates the import finished but some blobs either were found
-// to be conflicting and could not be imported or other errors were
-// encountered. Failed means the import was unable to complete due to a fatal error.
+// ImportStatusType - The operational state of the import job. InProgress indicates the import is still running. Canceled
+// indicates it has been canceled by the user. Completed indicates import finished, successfully
+// importing all discovered blobs into the Lustre namespace. CompletedPartial indicates the import finished but some blobs
+// either were found to be conflicting and could not be imported or other errors
+// were encountered. Failed means the import was unable to complete due to a fatal error.
 type ImportStatusType string
 
 const (
