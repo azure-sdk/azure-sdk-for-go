@@ -25,7 +25,6 @@ type ServerFactory struct {
 	OperationsServer               OperationsServer
 	PrometheusRuleGroupsServer     PrometheusRuleGroupsServer
 	SmartGroupsServer              SmartGroupsServer
-	TenantActivityLogAlertsServer  TenantActivityLogAlertsServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -48,7 +47,6 @@ type ServerFactoryTransport struct {
 	trOperationsServer               *OperationsServerTransport
 	trPrometheusRuleGroupsServer     *PrometheusRuleGroupsServerTransport
 	trSmartGroupsServer              *SmartGroupsServerTransport
-	trTenantActivityLogAlertsServer  *TenantActivityLogAlertsServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -88,11 +86,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "SmartGroupsClient":
 		initServer(s, &s.trSmartGroupsServer, func() *SmartGroupsServerTransport { return NewSmartGroupsServerTransport(&s.srv.SmartGroupsServer) })
 		resp, err = s.trSmartGroupsServer.Do(req)
-	case "TenantActivityLogAlertsClient":
-		initServer(s, &s.trTenantActivityLogAlertsServer, func() *TenantActivityLogAlertsServerTransport {
-			return NewTenantActivityLogAlertsServerTransport(&s.srv.TenantActivityLogAlertsServer)
-		})
-		resp, err = s.trTenantActivityLogAlertsServer.Do(req)
 	default:
 		err = fmt.Errorf("unhandled client %s", client)
 	}
