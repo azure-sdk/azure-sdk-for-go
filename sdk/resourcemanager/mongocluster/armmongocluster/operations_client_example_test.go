@@ -7,11 +7,11 @@ package armmongocluster_test
 import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mongocluster/armmongocluster"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mongocluster/armmongocluster/v2"
 	"log"
 )
 
-// Generated from example definition: D:/ws/azure-sdk-for-go/sdk/resourcemanager/mongocluster/armmongocluster/TempTypeSpecFiles/DocumentDB.MongoCluster.Management/examples/2024-07-01/Operations_List.json
+// Generated from example definition: 2024-07-01/Operations_List.json
 func ExampleOperationsClient_NewListPager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {

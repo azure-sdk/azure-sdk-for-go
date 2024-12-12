@@ -11,7 +11,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mongocluster/armmongocluster"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mongocluster/armmongocluster/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -53,17 +53,36 @@ func (r *ReplicasServerTransport) Do(req *http.Request) (*http.Response, error) 
 }
 
 func (r *ReplicasServerTransport) dispatchToMethodFake(req *http.Request, method string) (*http.Response, error) {
-	var resp *http.Response
-	var err error
+	resultChan := make(chan result)
+	defer close(resultChan)
 
-	switch method {
-	case "ReplicasClient.NewListByParentPager":
-		resp, err = r.dispatchNewListByParentPager(req)
-	default:
-		err = fmt.Errorf("unhandled API %s", method)
+	go func() {
+		var intercepted bool
+		var res result
+		if replicasServerTransportInterceptor != nil {
+			res.resp, res.err, intercepted = replicasServerTransportInterceptor.Do(req)
+		}
+		if !intercepted {
+			switch method {
+			case "ReplicasClient.NewListByParentPager":
+				res.resp, res.err = r.dispatchNewListByParentPager(req)
+			default:
+				res.err = fmt.Errorf("unhandled API %s", method)
+			}
+
+		}
+		select {
+		case resultChan <- res:
+		case <-req.Context().Done():
+		}
+	}()
+
+	select {
+	case <-req.Context().Done():
+		return nil, req.Context().Err()
+	case res := <-resultChan:
+		return res.resp, res.err
 	}
-
-	return resp, err
 }
 
 func (r *ReplicasServerTransport) dispatchNewListByParentPager(req *http.Request) (*http.Response, error) {
@@ -105,4 +124,10 @@ func (r *ReplicasServerTransport) dispatchNewListByParentPager(req *http.Request
 		r.newListByParentPager.remove(req)
 	}
 	return resp, nil
+}
+
+// set this to conditionally intercept incoming requests to ReplicasServerTransport
+var replicasServerTransportInterceptor interface {
+	// Do returns true if the server transport should use the returned response/error
+	Do(*http.Request) (*http.Response, error, bool)
 }

@@ -6,7 +6,7 @@ package armmongocluster
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mongocluster/armmongocluster"
-	moduleVersion = "v1.0.1"
+	moduleVersion = "v2.0.0"
 )
 
 // ActionType - Extensible enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -243,8 +243,8 @@ const (
 	ProvisioningStateInProgress ProvisioningState = "InProgress"
 	// ProvisioningStateSucceeded - Resource has been created.
 	ProvisioningStateSucceeded ProvisioningState = "Succeeded"
-	// ProvisioningStateUpdating - An update operation is in-progress on the resource.
-	ProvisioningStateUpdating ProvisioningState = "Updating"
+	// ProvisioningStateUpdatingTest2 - An update operation is in-progress on the resource.
+	ProvisioningStateUpdatingTest2 ProvisioningState = "UpdatingTest2"
 )
 
 // PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
@@ -255,7 +255,7 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 		ProvisioningStateFailed,
 		ProvisioningStateInProgress,
 		ProvisioningStateSucceeded,
-		ProvisioningStateUpdating,
+		ProvisioningStateUpdatingTest2,
 	}
 }
 
