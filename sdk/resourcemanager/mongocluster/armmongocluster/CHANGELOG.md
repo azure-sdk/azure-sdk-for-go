@@ -1,5 +1,15 @@
 # Release History
 
+## 2.0.0 (2024-12-12)
+### Breaking Changes
+
+- `ProvisioningStateUpdating` from enum `ProvisioningState` has been removed
+
+### Features Added
+
+- New value `ProvisioningStateUpdatingTest2` added to enum type `ProvisioningState`
+
+
 ## 1.0.1 (2024-10-14)
 ### Other Changes
 - Add examples
