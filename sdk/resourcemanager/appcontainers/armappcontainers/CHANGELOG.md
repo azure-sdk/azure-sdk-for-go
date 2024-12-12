@@ -1,5 +1,13 @@
 # Release History
 
+## 3.1.0 (2024-12-12)
+### Features Added
+
+- New value `StorageTypeNfsAzureFile` added to enum type `StorageType`
+- New struct `NfsAzureFileProperties`
+- New field `NfsAzureFile` in struct `ManagedEnvironmentStorageProperties`
+
+
 ## 3.1.0-beta.1 (2024-10-23)
 ### Features Added
 
