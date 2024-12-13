@@ -1,5 +1,35 @@
 # Release History
 
+## 3.0.0 (2024-12-13)
+### Breaking Changes
+
+- Type of `KustomizationPatchDefinition.PostBuild` has been changed from `*PostBuildDefinition` to `*PostBuildPatchDefinition`
+
+### Features Added
+
+- New value `SourceKindTypeOCIRepository` added to enum type `SourceKindType`
+- New enum type `OperationType` with values `OperationTypeCopy`, `OperationTypeExtract`
+- New enum type `ProviderType` with values `ProviderTypeAzure`, `ProviderTypeGeneric`
+- New struct `LayerSelectorDefinition`
+- New struct `LayerSelectorPatchDefinition`
+- New struct `MatchOidcIdentityDefinition`
+- New struct `MatchOidcIdentityPatchDefinition`
+- New struct `OCIRepositoryDefinition`
+- New struct `OCIRepositoryPatchDefinition`
+- New struct `OCIRepositoryRefDefinition`
+- New struct `OCIRepositoryRefPatchDefinition`
+- New struct `PostBuildPatchDefinition`
+- New struct `SubstituteFromPatchDefinition`
+- New struct `TLSConfigDefinition`
+- New struct `TLSConfigPatchDefinition`
+- New struct `VerifyDefinition`
+- New struct `VerifyPatchDefinition`
+- New field `OciRepository` in struct `FluxConfigurationPatchProperties`
+- New field `OciRepository` in struct `FluxConfigurationProperties`
+- New field `Provider` in struct `GitRepositoryDefinition`
+- New field `Provider` in struct `GitRepositoryPatchDefinition`
+
+
 ## 2.2.0 (2023-11-24)
 ### Features Added
 
