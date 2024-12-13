@@ -1,5 +1,14 @@
 # Release History
 
+## 3.1.0 (2024-12-13)
+### Features Added
+
+- New struct `CertificateKeyVaultProperties`
+- New field `CertificateKeyVaultProperties` in struct `CertificateProperties`
+- New field `CertificateKeyVaultProperties` in struct `CustomDomainConfiguration`
+- New field `Identity` in struct `ManagedEnvironment`
+
+
 ## 3.1.0-beta.1 (2024-10-23)
 ### Features Added
 
