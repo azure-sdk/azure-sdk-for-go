@@ -24,7 +24,7 @@ import (
 // SQLPoolOperationResultsServer is a fake server for instances of the armsynapse.SQLPoolOperationResultsClient type.
 type SQLPoolOperationResultsServer struct {
 	// BeginGetLocationHeaderResult is the fake for method SQLPoolOperationResultsClient.BeginGetLocationHeaderResult
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated, http.StatusAccepted
 	BeginGetLocationHeaderResult func(ctx context.Context, resourceGroupName string, workspaceName string, sqlPoolName string, operationID string, options *armsynapse.SQLPoolOperationResultsClientBeginGetLocationHeaderResultOptions) (resp azfake.PollerResponder[armsynapse.SQLPoolOperationResultsClientGetLocationHeaderResultResponse], errResp azfake.ErrorResponder)
 }
 
@@ -111,9 +111,9 @@ func (s *SQLPoolOperationResultsServerTransport) dispatchBeginGetLocationHeaderR
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK, http.StatusCreated, http.StatusAccepted}, resp.StatusCode) {
 		s.beginGetLocationHeaderResult.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated, http.StatusAccepted", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginGetLocationHeaderResult) {
 		s.beginGetLocationHeaderResult.remove(req)
