@@ -1,5 +1,21 @@
 # Release History
 
+## 0.9.0 (2024-12-15)
+### Breaking Changes
+
+- Function `*SQLPoolsClient.Rename` has been removed
+- Struct `ResourceMoveDefinition` has been removed
+
+### Features Added
+
+- Type of `WorkspaceProperties.ExtraProperties` has been changed from `map[string]any` to `any`
+- New struct `CopyComputeScaleProperties`
+- New struct `PipelineExternalComputeScaleProperties`
+- New field `CopyComputeScaleProperties`, `PipelineExternalComputeScaleProperties` in struct `IntegrationRuntimeComputeProperties`
+- New field `OSType`, `SelfContainedInteractiveAuthoringEnabled`, `TargetFramework` in struct `SelfHostedIntegrationRuntimeStatusTypeProperties`
+- New field `SelfContainedInteractiveAuthoringEnabled` in struct `SelfHostedIntegrationRuntimeTypeProperties`
+
+
 ## 0.8.0 (2023-11-24)
 ### Features Added
 
