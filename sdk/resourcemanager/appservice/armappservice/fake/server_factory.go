@@ -23,8 +23,6 @@ type ServerFactory struct {
 	CertificateOrdersDiagnosticsServer                 CertificateOrdersDiagnosticsServer
 	CertificateRegistrationProviderServer              CertificateRegistrationProviderServer
 	CertificatesServer                                 CertificatesServer
-	ContainerAppsServer                                ContainerAppsServer
-	ContainerAppsRevisionsServer                       ContainerAppsRevisionsServer
 	DeletedWebAppsServer                               DeletedWebAppsServer
 	DiagnosticsServer                                  DiagnosticsServer
 	DomainRegistrationProviderServer                   DomainRegistrationProviderServer
@@ -70,8 +68,6 @@ type ServerFactoryTransport struct {
 	trCertificateOrdersDiagnosticsServer                 *CertificateOrdersDiagnosticsServerTransport
 	trCertificateRegistrationProviderServer              *CertificateRegistrationProviderServerTransport
 	trCertificatesServer                                 *CertificatesServerTransport
-	trContainerAppsServer                                *ContainerAppsServerTransport
-	trContainerAppsRevisionsServer                       *ContainerAppsRevisionsServerTransport
 	trDeletedWebAppsServer                               *DeletedWebAppsServerTransport
 	trDiagnosticsServer                                  *DiagnosticsServerTransport
 	trDomainRegistrationProviderServer                   *DomainRegistrationProviderServerTransport
@@ -130,16 +126,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "CertificatesClient":
 		initServer(s, &s.trCertificatesServer, func() *CertificatesServerTransport { return NewCertificatesServerTransport(&s.srv.CertificatesServer) })
 		resp, err = s.trCertificatesServer.Do(req)
-	case "ContainerAppsClient":
-		initServer(s, &s.trContainerAppsServer, func() *ContainerAppsServerTransport {
-			return NewContainerAppsServerTransport(&s.srv.ContainerAppsServer)
-		})
-		resp, err = s.trContainerAppsServer.Do(req)
-	case "ContainerAppsRevisionsClient":
-		initServer(s, &s.trContainerAppsRevisionsServer, func() *ContainerAppsRevisionsServerTransport {
-			return NewContainerAppsRevisionsServerTransport(&s.srv.ContainerAppsRevisionsServer)
-		})
-		resp, err = s.trContainerAppsRevisionsServer.Do(req)
 	case "DeletedWebAppsClient":
 		initServer(s, &s.trDeletedWebAppsServer, func() *DeletedWebAppsServerTransport {
 			return NewDeletedWebAppsServerTransport(&s.srv.DeletedWebAppsServer)
