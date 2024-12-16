@@ -1,5 +1,11 @@
 # Release History
 
+## 3.1.0 (2024-12-16)
+### Features Added
+
+- New field `CooldownPeriod`, `PollingInterval` in struct `Scale`
+
+
 ## 3.1.0-beta.1 (2024-10-23)
 ### Features Added
 
