@@ -32,7 +32,7 @@ func ExampleStandbyVirtualMachinesClient_Get() {
 	// res = armstandbypool.StandbyVirtualMachinesClientGetResponse{
 	// 	StandbyVirtualMachineResource: &armstandbypool.StandbyVirtualMachineResource{
 	// 		Properties: &armstandbypool.StandbyVirtualMachineResourceProperties{
-	// 			VirtualMachineResourceID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000009/resourceGroups/rgstandbypool/provider/Microsoft.Compute/virtualMachines/virtualMachine"),
+	// 			VirtualMachineResourceID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000009/resourceGroups/rgstandbypool/providers/Microsoft.Compute/virtualMachines/virtualMachine"),
 	// 			ProvisioningState: to.Ptr(armstandbypool.ProvisioningStateSucceeded),
 	// 		},
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000009/resourceGroups/rgstandbypool/providers/Microsoft.StandbyPool/standbyVirtualMachinePools/pool/standbyVirtualMachines/virtualMachine"),
@@ -77,7 +77,7 @@ func ExampleStandbyVirtualMachinesClient_NewListByStandbyVirtualMachinePoolResou
 		// 		Value: []*armstandbypool.StandbyVirtualMachineResource{
 		// 			{
 		// 				Properties: &armstandbypool.StandbyVirtualMachineResourceProperties{
-		// 					VirtualMachineResourceID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000009/resourceGroups/rgstandbypool/provider/Microsoft.Compute/virtualMachines/virtualMachine"),
+		// 					VirtualMachineResourceID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000009/resourceGroups/rgstandbypool/providers/Microsoft.Compute/virtualMachines/virtualMachine"),
 		// 					ProvisioningState: to.Ptr(armstandbypool.ProvisioningStateSucceeded),
 		// 				},
 		// 				ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000009/resourceGroups/rgstandbypool/providers/Microsoft.StandbyPool/standbyVirtualMachinePools/pool/standbyVirtualMachines/virtualMachine"),
