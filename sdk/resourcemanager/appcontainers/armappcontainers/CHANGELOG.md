@@ -1,5 +1,15 @@
 # Release History
 
+## 3.1.0 (2024-12-16)
+### Features Added
+
+- New field `Identity` in struct `CustomScaleRule`
+- New field `Identity` in struct `HTTPScaleRule`
+- New field `Identity` in struct `JobScaleRule`
+- New field `AccountName`, `Identity` in struct `QueueScaleRule`
+- New field `Identity` in struct `TCPScaleRule`
+
+
 ## 3.1.0-beta.1 (2024-10-23)
 ### Features Added
 
