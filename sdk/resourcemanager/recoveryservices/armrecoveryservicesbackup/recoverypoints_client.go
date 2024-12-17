@@ -43,43 +43,44 @@ func NewRecoveryPointsClient(subscriptionID string, credential azcore.TokenCrede
 	return client, nil
 }
 
-// Get - Provides the information of the backed up data identified using RecoveryPointID. This is an asynchronous operation.
-// To know the status of the operation, call the GetProtectedItemOperationResult API.
+// GetAccessToken - Returns the Access token for communication between BMS and Protection service
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-11-15
 //   - vaultName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
-//   - fabricName - Fabric name associated with backed up item.
-//   - containerName - Container name associated with backed up item.
-//   - protectedItemName - Backed up item name whose backup data needs to be fetched.
-//   - recoveryPointID - RecoveryPointID represents the backed up data to be fetched.
-//   - options - RecoveryPointsClientGetOptions contains the optional parameters for the RecoveryPointsClient.Get method.
-func (client *RecoveryPointsClient) Get(ctx context.Context, vaultName string, resourceGroupName string, fabricName string, containerName string, protectedItemName string, recoveryPointID string, options *RecoveryPointsClientGetOptions) (RecoveryPointsClientGetResponse, error) {
+//   - fabricName - Fabric name associated with the container.
+//   - containerName - Name of the container.
+//   - protectedItemName - Name of the Protected Item.
+//   - recoveryPointID - Recovery Point Id
+//   - parameters - Get Access Token request
+//   - options - RecoveryPointsClientGetAccessTokenOptions contains the optional parameters for the RecoveryPointsClient.GetAccessToken
+//     method.
+func (client *RecoveryPointsClient) GetAccessToken(ctx context.Context, vaultName string, resourceGroupName string, fabricName string, containerName string, protectedItemName string, recoveryPointID string, parameters AADPropertiesResource, options *RecoveryPointsClientGetAccessTokenOptions) (RecoveryPointsClientGetAccessTokenResponse, error) {
 	var err error
-	const operationName = "RecoveryPointsClient.Get"
+	const operationName = "RecoveryPointsClient.GetAccessToken"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, vaultName, resourceGroupName, fabricName, containerName, protectedItemName, recoveryPointID, options)
+	req, err := client.getAccessTokenCreateRequest(ctx, vaultName, resourceGroupName, fabricName, containerName, protectedItemName, recoveryPointID, parameters, options)
 	if err != nil {
-		return RecoveryPointsClientGetResponse{}, err
+		return RecoveryPointsClientGetAccessTokenResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return RecoveryPointsClientGetResponse{}, err
+		return RecoveryPointsClientGetAccessTokenResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return RecoveryPointsClientGetResponse{}, err
+		return RecoveryPointsClientGetAccessTokenResponse{}, err
 	}
-	resp, err := client.getHandleResponse(httpResp)
+	resp, err := client.getAccessTokenHandleResponse(httpResp)
 	return resp, err
 }
 
-// getCreateRequest creates the Get request.
-func (client *RecoveryPointsClient) getCreateRequest(ctx context.Context, vaultName string, resourceGroupName string, fabricName string, containerName string, protectedItemName string, recoveryPointID string, options *RecoveryPointsClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupFabrics/{fabricName}/protectionContainers/{containerName}/protectedItems/{protectedItemName}/recoveryPoints/{recoveryPointId}"
+// getAccessTokenCreateRequest creates the GetAccessToken request.
+func (client *RecoveryPointsClient) getAccessTokenCreateRequest(ctx context.Context, vaultName string, resourceGroupName string, fabricName string, containerName string, protectedItemName string, recoveryPointID string, parameters AADPropertiesResource, options *RecoveryPointsClientGetAccessTokenOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupFabrics/{fabricName}/protectionContainers/{containerName}/protectedItems/{protectedItemName}/recoveryPoints/{recoveryPointId}/accessToken"
 	if vaultName == "" {
 		return nil, errors.New("parameter vaultName cannot be empty")
 	}
@@ -108,104 +109,25 @@ func (client *RecoveryPointsClient) getCreateRequest(ctx context.Context, vaultN
 		return nil, errors.New("parameter recoveryPointID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{recoveryPointId}", url.PathEscape(recoveryPointID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-11-15")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, nil
-}
-
-// getHandleResponse handles the Get response.
-func (client *RecoveryPointsClient) getHandleResponse(resp *http.Response) (RecoveryPointsClientGetResponse, error) {
-	result := RecoveryPointsClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.RecoveryPointResource); err != nil {
-		return RecoveryPointsClientGetResponse{}, err
-	}
-	return result, nil
-}
-
-// NewListPager - Lists the backup copies for the backed up item.
-//
-// Generated from API version 2024-04-01
-//   - vaultName - The name of the recovery services vault.
-//   - resourceGroupName - The name of the resource group where the recovery services vault is present.
-//   - fabricName - Fabric name associated with the backed up item.
-//   - containerName - Container name associated with the backed up item.
-//   - protectedItemName - Backed up item whose backup copies are to be fetched.
-//   - options - RecoveryPointsClientListOptions contains the optional parameters for the RecoveryPointsClient.NewListPager method.
-func (client *RecoveryPointsClient) NewListPager(vaultName string, resourceGroupName string, fabricName string, containerName string, protectedItemName string, options *RecoveryPointsClientListOptions) *runtime.Pager[RecoveryPointsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[RecoveryPointsClientListResponse]{
-		More: func(page RecoveryPointsClientListResponse) bool {
-			return page.NextLink != nil && len(*page.NextLink) > 0
-		},
-		Fetcher: func(ctx context.Context, page *RecoveryPointsClientListResponse) (RecoveryPointsClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "RecoveryPointsClient.NewListPager")
-			nextLink := ""
-			if page != nil {
-				nextLink = *page.NextLink
-			}
-			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, vaultName, resourceGroupName, fabricName, containerName, protectedItemName, options)
-			}, nil)
-			if err != nil {
-				return RecoveryPointsClientListResponse{}, err
-			}
-			return client.listHandleResponse(resp)
-		},
-		Tracer: client.internal.Tracer(),
-	})
-}
-
-// listCreateRequest creates the List request.
-func (client *RecoveryPointsClient) listCreateRequest(ctx context.Context, vaultName string, resourceGroupName string, fabricName string, containerName string, protectedItemName string, options *RecoveryPointsClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupFabrics/{fabricName}/protectionContainers/{containerName}/protectedItems/{protectedItemName}/recoveryPoints"
-	if vaultName == "" {
-		return nil, errors.New("parameter vaultName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{vaultName}", url.PathEscape(vaultName))
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	if fabricName == "" {
-		return nil, errors.New("parameter fabricName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{fabricName}", url.PathEscape(fabricName))
-	if containerName == "" {
-		return nil, errors.New("parameter containerName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{containerName}", url.PathEscape(containerName))
-	if protectedItemName == "" {
-		return nil, errors.New("parameter protectedItemName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{protectedItemName}", url.PathEscape(protectedItemName))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
+	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
 		return nil, err
 	}
-	reqQP := req.Raw().URL.Query()
-	if options != nil && options.Filter != nil {
-		reqQP.Set("$filter", *options.Filter)
-	}
-	reqQP.Set("api-version", "2024-04-01")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
-// listHandleResponse handles the List response.
-func (client *RecoveryPointsClient) listHandleResponse(resp *http.Response) (RecoveryPointsClientListResponse, error) {
-	result := RecoveryPointsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.RecoveryPointResourceList); err != nil {
-		return RecoveryPointsClientListResponse{}, err
+// getAccessTokenHandleResponse handles the GetAccessToken response.
+func (client *RecoveryPointsClient) getAccessTokenHandleResponse(resp *http.Response) (RecoveryPointsClientGetAccessTokenResponse, error) {
+	result := RecoveryPointsClientGetAccessTokenResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.CrrAccessTokenResource); err != nil {
+		return RecoveryPointsClientGetAccessTokenResponse{}, err
 	}
 	return result, nil
 }

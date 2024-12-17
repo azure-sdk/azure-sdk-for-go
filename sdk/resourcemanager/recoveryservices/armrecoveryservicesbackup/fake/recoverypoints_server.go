@@ -15,8 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup/v4"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup/v5"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -24,30 +23,22 @@ import (
 
 // RecoveryPointsServer is a fake server for instances of the armrecoveryservicesbackup.RecoveryPointsClient type.
 type RecoveryPointsServer struct {
-	// Get is the fake for method RecoveryPointsClient.Get
+	// GetAccessToken is the fake for method RecoveryPointsClient.GetAccessToken
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, vaultName string, resourceGroupName string, fabricName string, containerName string, protectedItemName string, recoveryPointID string, options *armrecoveryservicesbackup.RecoveryPointsClientGetOptions) (resp azfake.Responder[armrecoveryservicesbackup.RecoveryPointsClientGetResponse], errResp azfake.ErrorResponder)
-
-	// NewListPager is the fake for method RecoveryPointsClient.NewListPager
-	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(vaultName string, resourceGroupName string, fabricName string, containerName string, protectedItemName string, options *armrecoveryservicesbackup.RecoveryPointsClientListOptions) (resp azfake.PagerResponder[armrecoveryservicesbackup.RecoveryPointsClientListResponse])
+	GetAccessToken func(ctx context.Context, vaultName string, resourceGroupName string, fabricName string, containerName string, protectedItemName string, recoveryPointID string, parameters armrecoveryservicesbackup.AADPropertiesResource, options *armrecoveryservicesbackup.RecoveryPointsClientGetAccessTokenOptions) (resp azfake.Responder[armrecoveryservicesbackup.RecoveryPointsClientGetAccessTokenResponse], errResp azfake.ErrorResponder)
 }
 
 // NewRecoveryPointsServerTransport creates a new instance of RecoveryPointsServerTransport with the provided implementation.
 // The returned RecoveryPointsServerTransport instance is connected to an instance of armrecoveryservicesbackup.RecoveryPointsClient via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewRecoveryPointsServerTransport(srv *RecoveryPointsServer) *RecoveryPointsServerTransport {
-	return &RecoveryPointsServerTransport{
-		srv:          srv,
-		newListPager: newTracker[azfake.PagerResponder[armrecoveryservicesbackup.RecoveryPointsClientListResponse]](),
-	}
+	return &RecoveryPointsServerTransport{srv: srv}
 }
 
 // RecoveryPointsServerTransport connects instances of armrecoveryservicesbackup.RecoveryPointsClient to instances of RecoveryPointsServer.
 // Don't use this type directly, use NewRecoveryPointsServerTransport instead.
 type RecoveryPointsServerTransport struct {
-	srv          *RecoveryPointsServer
-	newListPager *tracker[azfake.PagerResponder[armrecoveryservicesbackup.RecoveryPointsClientListResponse]]
+	srv *RecoveryPointsServer
 }
 
 // Do implements the policy.Transporter interface for RecoveryPointsServerTransport.
@@ -62,10 +53,8 @@ func (r *RecoveryPointsServerTransport) Do(req *http.Request) (*http.Response, e
 	var err error
 
 	switch method {
-	case "RecoveryPointsClient.Get":
-		resp, err = r.dispatchGet(req)
-	case "RecoveryPointsClient.NewListPager":
-		resp, err = r.dispatchNewListPager(req)
+	case "RecoveryPointsClient.GetAccessToken":
+		resp, err = r.dispatchGetAccessToken(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -77,15 +66,19 @@ func (r *RecoveryPointsServerTransport) Do(req *http.Request) (*http.Response, e
 	return resp, nil
 }
 
-func (r *RecoveryPointsServerTransport) dispatchGet(req *http.Request) (*http.Response, error) {
-	if r.srv.Get == nil {
-		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
+func (r *RecoveryPointsServerTransport) dispatchGetAccessToken(req *http.Request) (*http.Response, error) {
+	if r.srv.GetAccessToken == nil {
+		return nil, &nonRetriableError{errors.New("fake for method GetAccessToken not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.RecoveryServices/vaults/(?P<vaultName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/backupFabrics/(?P<fabricName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/protectionContainers/(?P<containerName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/protectedItems/(?P<protectedItemName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/recoveryPoints/(?P<recoveryPointId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.RecoveryServices/vaults/(?P<vaultName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/backupFabrics/(?P<fabricName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/protectionContainers/(?P<containerName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/protectedItems/(?P<protectedItemName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/recoveryPoints/(?P<recoveryPointId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/accessToken`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 7 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armrecoveryservicesbackup.AADPropertiesResource](req)
+	if err != nil {
+		return nil, err
 	}
 	vaultNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("vaultName")])
 	if err != nil {
@@ -111,7 +104,7 @@ func (r *RecoveryPointsServerTransport) dispatchGet(req *http.Request) (*http.Re
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := r.srv.Get(req.Context(), vaultNameParam, resourceGroupNameParam, fabricNameParam, containerNameParam, protectedItemNameParam, recoveryPointIDParam, nil)
+	respr, errRespr := r.srv.GetAccessToken(req.Context(), vaultNameParam, resourceGroupNameParam, fabricNameParam, containerNameParam, protectedItemNameParam, recoveryPointIDParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -119,74 +112,9 @@ func (r *RecoveryPointsServerTransport) dispatchGet(req *http.Request) (*http.Re
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).RecoveryPointResource, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).CrrAccessTokenResource, req)
 	if err != nil {
 		return nil, err
-	}
-	return resp, nil
-}
-
-func (r *RecoveryPointsServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if r.srv.NewListPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
-	}
-	newListPager := r.newListPager.get(req)
-	if newListPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.RecoveryServices/vaults/(?P<vaultName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/backupFabrics/(?P<fabricName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/protectionContainers/(?P<containerName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/protectedItems/(?P<protectedItemName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/recoveryPoints`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 6 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		qp := req.URL.Query()
-		vaultNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("vaultName")])
-		if err != nil {
-			return nil, err
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		fabricNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("fabricName")])
-		if err != nil {
-			return nil, err
-		}
-		containerNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("containerName")])
-		if err != nil {
-			return nil, err
-		}
-		protectedItemNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("protectedItemName")])
-		if err != nil {
-			return nil, err
-		}
-		filterUnescaped, err := url.QueryUnescape(qp.Get("$filter"))
-		if err != nil {
-			return nil, err
-		}
-		filterParam := getOptional(filterUnescaped)
-		var options *armrecoveryservicesbackup.RecoveryPointsClientListOptions
-		if filterParam != nil {
-			options = &armrecoveryservicesbackup.RecoveryPointsClientListOptions{
-				Filter: filterParam,
-			}
-		}
-		resp := r.srv.NewListPager(vaultNameParam, resourceGroupNameParam, fabricNameParam, containerNameParam, protectedItemNameParam, options)
-		newListPager = &resp
-		r.newListPager.add(req, newListPager)
-		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armrecoveryservicesbackup.RecoveryPointsClientListResponse, createLink func() string) {
-			page.NextLink = to.Ptr(createLink())
-		})
-	}
-	resp, err := server.PagerResponderNext(newListPager, req)
-	if err != nil {
-		return nil, err
-	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		r.newListPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
-	}
-	if !server.PagerResponderMore(newListPager) {
-		r.newListPager.remove(req)
 	}
 	return resp, nil
 }

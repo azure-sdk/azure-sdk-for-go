@@ -10,7 +10,7 @@ package armrecoveryservicesbackup
 
 import "encoding/json"
 
-func unmarshalBackupEngineBaseClassification(rawMsg json.RawMessage) (BackupEngineBaseClassification, error) {
+func unmarshalCrrAccessTokenClassification(rawMsg json.RawMessage) (CrrAccessTokenClassification, error) {
 	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
@@ -18,62 +18,12 @@ func unmarshalBackupEngineBaseClassification(rawMsg json.RawMessage) (BackupEngi
 	if err := json.Unmarshal(rawMsg, &m); err != nil {
 		return nil, err
 	}
-	var b BackupEngineBaseClassification
-	switch m["backupEngineType"] {
-	case string(BackupEngineTypeAzureBackupServerEngine):
-		b = &AzureBackupServerEngine{}
-	case string(BackupEngineTypeDpmBackupEngine):
-		b = &DpmBackupEngine{}
-	default:
-		b = &BackupEngineBase{}
-	}
-	if err := json.Unmarshal(rawMsg, b); err != nil {
-		return nil, err
-	}
-	return b, nil
-}
-
-func unmarshalBackupRequestClassification(rawMsg json.RawMessage) (BackupRequestClassification, error) {
-	if rawMsg == nil || string(rawMsg) == "null" {
-		return nil, nil
-	}
-	var m map[string]any
-	if err := json.Unmarshal(rawMsg, &m); err != nil {
-		return nil, err
-	}
-	var b BackupRequestClassification
+	var b CrrAccessTokenClassification
 	switch m["objectType"] {
-	case "AzureFileShareBackupRequest":
-		b = &AzureFileShareBackupRequest{}
-	case "AzureWorkloadBackupRequest":
-		b = &AzureWorkloadBackupRequest{}
-	case "IaasVMBackupRequest":
-		b = &IaasVMBackupRequest{}
+	case "WorkloadCrrAccessToken":
+		b = &WorkloadCrrAccessToken{}
 	default:
-		b = &BackupRequest{}
-	}
-	if err := json.Unmarshal(rawMsg, b); err != nil {
-		return nil, err
-	}
-	return b, nil
-}
-
-func unmarshalILRRequestClassification(rawMsg json.RawMessage) (ILRRequestClassification, error) {
-	if rawMsg == nil || string(rawMsg) == "null" {
-		return nil, nil
-	}
-	var m map[string]any
-	if err := json.Unmarshal(rawMsg, &m); err != nil {
-		return nil, err
-	}
-	var b ILRRequestClassification
-	switch m["objectType"] {
-	case "AzureFileShareProvisionILRRequest":
-		b = &AzureFileShareProvisionILRRequest{}
-	case "IaasVMILRRegistrationRequest":
-		b = &IaasVMILRRegistrationRequest{}
-	default:
-		b = &ILRRequest{}
+		b = &CrrAccessToken{}
 	}
 	if err := json.Unmarshal(rawMsg, b); err != nil {
 		return nil, err
@@ -93,8 +43,6 @@ func unmarshalJobClassification(rawMsg json.RawMessage) (JobClassification, erro
 	switch m["jobType"] {
 	case "AzureIaaSVMJob":
 		b = &AzureIaaSVMJob{}
-	case "AzureIaaSVMJobV2":
-		b = &AzureIaaSVMJobV2{}
 	case "AzureStorageJob":
 		b = &AzureStorageJob{}
 	case "AzureWorkloadJob":
@@ -103,33 +51,8 @@ func unmarshalJobClassification(rawMsg json.RawMessage) (JobClassification, erro
 		b = &DpmJob{}
 	case "MabJob":
 		b = &MabJob{}
-	case "VaultJob":
-		b = &VaultJob{}
 	default:
 		b = &Job{}
-	}
-	if err := json.Unmarshal(rawMsg, b); err != nil {
-		return nil, err
-	}
-	return b, nil
-}
-
-func unmarshalOperationResultInfoBaseClassification(rawMsg json.RawMessage) (OperationResultInfoBaseClassification, error) {
-	if rawMsg == nil || string(rawMsg) == "null" {
-		return nil, nil
-	}
-	var m map[string]any
-	if err := json.Unmarshal(rawMsg, &m); err != nil {
-		return nil, err
-	}
-	var b OperationResultInfoBaseClassification
-	switch m["objectType"] {
-	case "ExportJobsOperationResultInfo":
-		b = &ExportJobsOperationResultInfo{}
-	case "OperationResultInfo":
-		b = &OperationResultInfo{}
-	default:
-		b = &OperationResultInfoBase{}
 	}
 	if err := json.Unmarshal(rawMsg, b); err != nil {
 		return nil, err
@@ -153,33 +76,10 @@ func unmarshalOperationStatusExtendedInfoClassification(rawMsg json.RawMessage) 
 		b = &OperationStatusJobsExtendedInfo{}
 	case "OperationStatusProvisionILRExtendedInfo":
 		b = &OperationStatusProvisionILRExtendedInfo{}
-	case "OperationStatusValidateOperationExtendedInfo":
-		b = &OperationStatusValidateOperationExtendedInfo{}
+	case "OperationStatusRecoveryPointExtendedInfo":
+		b = &OperationStatusRecoveryPointExtendedInfo{}
 	default:
 		b = &OperationStatusExtendedInfo{}
-	}
-	if err := json.Unmarshal(rawMsg, b); err != nil {
-		return nil, err
-	}
-	return b, nil
-}
-
-func unmarshalProtectableContainerClassification(rawMsg json.RawMessage) (ProtectableContainerClassification, error) {
-	if rawMsg == nil || string(rawMsg) == "null" {
-		return nil, nil
-	}
-	var m map[string]any
-	if err := json.Unmarshal(rawMsg, &m); err != nil {
-		return nil, err
-	}
-	var b ProtectableContainerClassification
-	switch m["protectableContainerType"] {
-	case string(ProtectableContainerTypeStorageContainer):
-		b = &AzureStorageProtectableContainer{}
-	case string(ProtectableContainerTypeVMAppContainer):
-		b = &AzureVMAppContainerProtectableContainer{}
-	default:
-		b = &ProtectableContainer{}
 	}
 	if err := json.Unmarshal(rawMsg, b); err != nil {
 		return nil, err
@@ -205,8 +105,6 @@ func unmarshalProtectedItemClassification(rawMsg json.RawMessage) (ProtectedItem
 		b = &AzureVMWorkloadProtectedItem{}
 	case "AzureVmWorkloadSAPAseDatabase":
 		b = &AzureVMWorkloadSAPAseDatabaseProtectedItem{}
-	case "AzureVmWorkloadSAPHanaDBInstance":
-		b = &AzureVMWorkloadSAPHanaDBInstanceProtectedItem{}
 	case "AzureVmWorkloadSAPHanaDatabase":
 		b = &AzureVMWorkloadSAPHanaDatabaseProtectedItem{}
 	case "AzureVmWorkloadSQLDatabase":
@@ -225,109 +123,6 @@ func unmarshalProtectedItemClassification(rawMsg json.RawMessage) (ProtectedItem
 		b = &AzureSQLProtectedItem{}
 	default:
 		b = &ProtectedItem{}
-	}
-	if err := json.Unmarshal(rawMsg, b); err != nil {
-		return nil, err
-	}
-	return b, nil
-}
-
-func unmarshalProtectionContainerClassification(rawMsg json.RawMessage) (ProtectionContainerClassification, error) {
-	if rawMsg == nil || string(rawMsg) == "null" {
-		return nil, nil
-	}
-	var m map[string]any
-	if err := json.Unmarshal(rawMsg, &m); err != nil {
-		return nil, err
-	}
-	var b ProtectionContainerClassification
-	switch m["containerType"] {
-	case string(ProtectableContainerTypeAzureBackupServerContainer):
-		b = &AzureBackupServerContainer{}
-	case string(ProtectableContainerTypeAzureSQLContainer):
-		b = &AzureSQLContainer{}
-	case string(ProtectableContainerTypeAzureWorkloadContainer):
-		b = &AzureWorkloadContainer{}
-	case string(ProtectableContainerTypeDPMContainer):
-		b = &DpmContainer{}
-	case string(ProtectableContainerTypeGenericContainer):
-		b = &GenericContainer{}
-	case string(ProtectableContainerTypeIaasVMContainer):
-		b = &IaaSVMContainer{}
-	case string(ProtectableContainerTypeMicrosoftClassicComputeVirtualMachines):
-		b = &AzureIaaSClassicComputeVMContainer{}
-	case string(ProtectableContainerTypeMicrosoftComputeVirtualMachines):
-		b = &AzureIaaSComputeVMContainer{}
-	case string(ProtectableContainerTypeSQLAGWorkLoadContainer):
-		b = &AzureSQLAGWorkloadContainerProtectionContainer{}
-	case string(ProtectableContainerTypeStorageContainer):
-		b = &AzureStorageContainer{}
-	case string(ProtectableContainerTypeVMAppContainer):
-		b = &AzureVMAppContainerProtectionContainer{}
-	case string(ProtectableContainerTypeWindows):
-		b = &MabContainer{}
-	default:
-		b = &ProtectionContainer{}
-	}
-	if err := json.Unmarshal(rawMsg, b); err != nil {
-		return nil, err
-	}
-	return b, nil
-}
-
-func unmarshalProtectionIntentClassification(rawMsg json.RawMessage) (ProtectionIntentClassification, error) {
-	if rawMsg == nil || string(rawMsg) == "null" {
-		return nil, nil
-	}
-	var m map[string]any
-	if err := json.Unmarshal(rawMsg, &m); err != nil {
-		return nil, err
-	}
-	var b ProtectionIntentClassification
-	switch m["protectionIntentItemType"] {
-	case "ProtectionIntentItemTypeAzureWorkloadAutoProtectionIntent":
-		b = &AzureWorkloadAutoProtectionIntent{}
-	case "ProtectionIntentItemTypeAzureWorkloadSQLAutoProtectionIntent":
-		b = &AzureWorkloadSQLAutoProtectionIntent{}
-	case string(ProtectionIntentItemTypeAzureResourceItem):
-		b = &AzureResourceProtectionIntent{}
-	case string(ProtectionIntentItemTypeAzureWorkloadContainerAutoProtectionIntent):
-		b = &AzureWorkloadContainerAutoProtectionIntent{}
-	case string(ProtectionIntentItemTypeRecoveryServiceVaultItem):
-		b = &AzureRecoveryServiceVaultProtectionIntent{}
-	default:
-		b = &ProtectionIntent{}
-	}
-	if err := json.Unmarshal(rawMsg, b); err != nil {
-		return nil, err
-	}
-	return b, nil
-}
-
-func unmarshalProtectionPolicyClassification(rawMsg json.RawMessage) (ProtectionPolicyClassification, error) {
-	if rawMsg == nil || string(rawMsg) == "null" {
-		return nil, nil
-	}
-	var m map[string]any
-	if err := json.Unmarshal(rawMsg, &m); err != nil {
-		return nil, err
-	}
-	var b ProtectionPolicyClassification
-	switch m["backupManagementType"] {
-	case "AzureIaasVM":
-		b = &AzureIaaSVMProtectionPolicy{}
-	case "AzureSql":
-		b = &AzureSQLProtectionPolicy{}
-	case "AzureStorage":
-		b = &AzureFileShareProtectionPolicy{}
-	case "AzureWorkload":
-		b = &AzureVMWorkloadProtectionPolicy{}
-	case "GenericProtectionPolicy":
-		b = &GenericProtectionPolicy{}
-	case "MAB":
-		b = &MabProtectionPolicy{}
-	default:
-		b = &ProtectionPolicy{}
 	}
 	if err := json.Unmarshal(rawMsg, b); err != nil {
 		return nil, err
@@ -390,221 +185,16 @@ func unmarshalRestoreRequestClassification(rawMsg json.RawMessage) (RestoreReque
 		b = &AzureWorkloadRestoreRequest{}
 	case "AzureWorkloadSAPHanaPointInTimeRestoreRequest":
 		b = &AzureWorkloadSAPHanaPointInTimeRestoreRequest{}
-	case "AzureWorkloadSAPHanaPointInTimeRestoreWithRehydrateRequest":
-		b = &AzureWorkloadSAPHanaPointInTimeRestoreWithRehydrateRequest{}
 	case "AzureWorkloadSAPHanaRestoreRequest":
 		b = &AzureWorkloadSAPHanaRestoreRequest{}
-	case "AzureWorkloadSAPHanaRestoreWithRehydrateRequest":
-		b = &AzureWorkloadSAPHanaRestoreWithRehydrateRequest{}
 	case "AzureWorkloadSQLPointInTimeRestoreRequest":
 		b = &AzureWorkloadSQLPointInTimeRestoreRequest{}
-	case "AzureWorkloadSQLPointInTimeRestoreWithRehydrateRequest":
-		b = &AzureWorkloadSQLPointInTimeRestoreWithRehydrateRequest{}
 	case "AzureWorkloadSQLRestoreRequest":
 		b = &AzureWorkloadSQLRestoreRequest{}
-	case "AzureWorkloadSQLRestoreWithRehydrateRequest":
-		b = &AzureWorkloadSQLRestoreWithRehydrateRequest{}
 	case "IaasVMRestoreRequest":
 		b = &IaasVMRestoreRequest{}
-	case "IaasVMRestoreWithRehydrationRequest":
-		b = &IaasVMRestoreWithRehydrationRequest{}
 	default:
 		b = &RestoreRequest{}
-	}
-	if err := json.Unmarshal(rawMsg, b); err != nil {
-		return nil, err
-	}
-	return b, nil
-}
-
-func unmarshalRetentionPolicyClassification(rawMsg json.RawMessage) (RetentionPolicyClassification, error) {
-	if rawMsg == nil || string(rawMsg) == "null" {
-		return nil, nil
-	}
-	var m map[string]any
-	if err := json.Unmarshal(rawMsg, &m); err != nil {
-		return nil, err
-	}
-	var b RetentionPolicyClassification
-	switch m["retentionPolicyType"] {
-	case "LongTermRetentionPolicy":
-		b = &LongTermRetentionPolicy{}
-	case "SimpleRetentionPolicy":
-		b = &SimpleRetentionPolicy{}
-	default:
-		b = &RetentionPolicy{}
-	}
-	if err := json.Unmarshal(rawMsg, b); err != nil {
-		return nil, err
-	}
-	return b, nil
-}
-
-func unmarshalSchedulePolicyClassification(rawMsg json.RawMessage) (SchedulePolicyClassification, error) {
-	if rawMsg == nil || string(rawMsg) == "null" {
-		return nil, nil
-	}
-	var m map[string]any
-	if err := json.Unmarshal(rawMsg, &m); err != nil {
-		return nil, err
-	}
-	var b SchedulePolicyClassification
-	switch m["schedulePolicyType"] {
-	case "LogSchedulePolicy":
-		b = &LogSchedulePolicy{}
-	case "LongTermSchedulePolicy":
-		b = &LongTermSchedulePolicy{}
-	case "SimpleSchedulePolicy":
-		b = &SimpleSchedulePolicy{}
-	case "SimpleSchedulePolicyV2":
-		b = &SimpleSchedulePolicyV2{}
-	default:
-		b = &SchedulePolicy{}
-	}
-	if err := json.Unmarshal(rawMsg, b); err != nil {
-		return nil, err
-	}
-	return b, nil
-}
-
-func unmarshalTieringCostInfoClassification(rawMsg json.RawMessage) (TieringCostInfoClassification, error) {
-	if rawMsg == nil || string(rawMsg) == "null" {
-		return nil, nil
-	}
-	var m map[string]any
-	if err := json.Unmarshal(rawMsg, &m); err != nil {
-		return nil, err
-	}
-	var b TieringCostInfoClassification
-	switch m["objectType"] {
-	case "TieringCostRehydrationInfo":
-		b = &TieringCostRehydrationInfo{}
-	case "TieringCostSavingInfo":
-		b = &TieringCostSavingInfo{}
-	default:
-		b = &TieringCostInfo{}
-	}
-	if err := json.Unmarshal(rawMsg, b); err != nil {
-		return nil, err
-	}
-	return b, nil
-}
-
-func unmarshalValidateOperationRequestClassification(rawMsg json.RawMessage) (ValidateOperationRequestClassification, error) {
-	if rawMsg == nil || string(rawMsg) == "null" {
-		return nil, nil
-	}
-	var m map[string]any
-	if err := json.Unmarshal(rawMsg, &m); err != nil {
-		return nil, err
-	}
-	var b ValidateOperationRequestClassification
-	switch m["objectType"] {
-	case "ValidateIaasVMRestoreOperationRequest":
-		b = &ValidateIaasVMRestoreOperationRequest{}
-	case "ValidateRestoreOperationRequest":
-		b = &ValidateRestoreOperationRequest{}
-	default:
-		b = &ValidateOperationRequest{}
-	}
-	if err := json.Unmarshal(rawMsg, b); err != nil {
-		return nil, err
-	}
-	return b, nil
-}
-
-func unmarshalVaultStorageConfigOperationResultResponseClassification(rawMsg json.RawMessage) (VaultStorageConfigOperationResultResponseClassification, error) {
-	if rawMsg == nil || string(rawMsg) == "null" {
-		return nil, nil
-	}
-	var m map[string]any
-	if err := json.Unmarshal(rawMsg, &m); err != nil {
-		return nil, err
-	}
-	var b VaultStorageConfigOperationResultResponseClassification
-	switch m["objectType"] {
-	case "PrepareDataMoveResponse":
-		b = &PrepareDataMoveResponse{}
-	default:
-		b = &VaultStorageConfigOperationResultResponse{}
-	}
-	if err := json.Unmarshal(rawMsg, b); err != nil {
-		return nil, err
-	}
-	return b, nil
-}
-
-func unmarshalWorkloadItemClassification(rawMsg json.RawMessage) (WorkloadItemClassification, error) {
-	if rawMsg == nil || string(rawMsg) == "null" {
-		return nil, nil
-	}
-	var m map[string]any
-	if err := json.Unmarshal(rawMsg, &m); err != nil {
-		return nil, err
-	}
-	var b WorkloadItemClassification
-	switch m["workloadItemType"] {
-	case "AzureVmWorkloadItem":
-		b = &AzureVMWorkloadItem{}
-	case "SAPAseDatabase":
-		b = &AzureVMWorkloadSAPAseDatabaseWorkloadItem{}
-	case "SAPAseSystem":
-		b = &AzureVMWorkloadSAPAseSystemWorkloadItem{}
-	case "SAPHanaDatabase":
-		b = &AzureVMWorkloadSAPHanaDatabaseWorkloadItem{}
-	case "SAPHanaSystem":
-		b = &AzureVMWorkloadSAPHanaSystemWorkloadItem{}
-	case "SQLDataBase":
-		b = &AzureVMWorkloadSQLDatabaseWorkloadItem{}
-	case "SQLInstance":
-		b = &AzureVMWorkloadSQLInstanceWorkloadItem{}
-	default:
-		b = &WorkloadItem{}
-	}
-	if err := json.Unmarshal(rawMsg, b); err != nil {
-		return nil, err
-	}
-	return b, nil
-}
-
-func unmarshalWorkloadProtectableItemClassification(rawMsg json.RawMessage) (WorkloadProtectableItemClassification, error) {
-	if rawMsg == nil || string(rawMsg) == "null" {
-		return nil, nil
-	}
-	var m map[string]any
-	if err := json.Unmarshal(rawMsg, &m); err != nil {
-		return nil, err
-	}
-	var b WorkloadProtectableItemClassification
-	switch m["protectableItemType"] {
-	case "AzureFileShare":
-		b = &AzureFileShareProtectableItem{}
-	case "AzureVmWorkloadProtectableItem":
-		b = &AzureVMWorkloadProtectableItem{}
-	case "HanaHSRContainer":
-		b = &AzureVMWorkloadSAPHanaHSRProtectableItem{}
-	case "IaaSVMProtectableItem":
-		b = &IaaSVMProtectableItem{}
-	case "Microsoft.ClassicCompute/virtualMachines":
-		b = &AzureIaaSClassicComputeVMProtectableItem{}
-	case "Microsoft.Compute/virtualMachines":
-		b = &AzureIaaSComputeVMProtectableItem{}
-	case "SAPAseSystem":
-		b = &AzureVMWorkloadSAPAseSystemProtectableItem{}
-	case "SAPHanaDBInstance":
-		b = &AzureVMWorkloadSAPHanaDBInstance{}
-	case "SAPHanaDatabase":
-		b = &AzureVMWorkloadSAPHanaDatabaseProtectableItem{}
-	case "SAPHanaSystem":
-		b = &AzureVMWorkloadSAPHanaSystemProtectableItem{}
-	case "SQLAvailabilityGroupContainer":
-		b = &AzureVMWorkloadSQLAvailabilityGroupProtectableItem{}
-	case "SQLDataBase":
-		b = &AzureVMWorkloadSQLDatabaseProtectableItem{}
-	case "SQLInstance":
-		b = &AzureVMWorkloadSQLInstanceProtectableItem{}
-	default:
-		b = &WorkloadProtectableItem{}
 	}
 	if err := json.Unmarshal(rawMsg, b); err != nil {
 		return nil, err
