@@ -37,6 +37,10 @@ type VirtualAppliancesServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, networkVirtualApplianceName string, options *armnetwork.VirtualAppliancesClientGetOptions) (resp azfake.Responder[armnetwork.VirtualAppliancesClientGetResponse], errResp azfake.ErrorResponder)
 
+	// BeginGetBootDiagnosticLogs is the fake for method VirtualAppliancesClient.BeginGetBootDiagnosticLogs
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginGetBootDiagnosticLogs func(ctx context.Context, resourceGroupName string, networkVirtualApplianceName string, options *armnetwork.VirtualAppliancesClientBeginGetBootDiagnosticLogsOptions) (resp azfake.PollerResponder[armnetwork.VirtualAppliancesClientGetBootDiagnosticLogsResponse], errResp azfake.ErrorResponder)
+
 	// NewListPager is the fake for method VirtualAppliancesClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListPager func(options *armnetwork.VirtualAppliancesClientListOptions) (resp azfake.PagerResponder[armnetwork.VirtualAppliancesClientListResponse])
@@ -44,6 +48,10 @@ type VirtualAppliancesServer struct {
 	// NewListByResourceGroupPager is the fake for method VirtualAppliancesClient.NewListByResourceGroupPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListByResourceGroupPager func(resourceGroupName string, options *armnetwork.VirtualAppliancesClientListByResourceGroupOptions) (resp azfake.PagerResponder[armnetwork.VirtualAppliancesClientListByResourceGroupResponse])
+
+	// BeginReimage is the fake for method VirtualAppliancesClient.BeginReimage
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginReimage func(ctx context.Context, resourceGroupName string, networkVirtualApplianceName string, options *armnetwork.VirtualAppliancesClientBeginReimageOptions) (resp azfake.PollerResponder[armnetwork.VirtualAppliancesClientReimageResponse], errResp azfake.ErrorResponder)
 
 	// BeginRestart is the fake for method VirtualAppliancesClient.BeginRestart
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
@@ -62,8 +70,10 @@ func NewVirtualAppliancesServerTransport(srv *VirtualAppliancesServer) *VirtualA
 		srv:                         srv,
 		beginCreateOrUpdate:         newTracker[azfake.PollerResponder[armnetwork.VirtualAppliancesClientCreateOrUpdateResponse]](),
 		beginDelete:                 newTracker[azfake.PollerResponder[armnetwork.VirtualAppliancesClientDeleteResponse]](),
+		beginGetBootDiagnosticLogs:  newTracker[azfake.PollerResponder[armnetwork.VirtualAppliancesClientGetBootDiagnosticLogsResponse]](),
 		newListPager:                newTracker[azfake.PagerResponder[armnetwork.VirtualAppliancesClientListResponse]](),
 		newListByResourceGroupPager: newTracker[azfake.PagerResponder[armnetwork.VirtualAppliancesClientListByResourceGroupResponse]](),
+		beginReimage:                newTracker[azfake.PollerResponder[armnetwork.VirtualAppliancesClientReimageResponse]](),
 		beginRestart:                newTracker[azfake.PollerResponder[armnetwork.VirtualAppliancesClientRestartResponse]](),
 	}
 }
@@ -74,8 +84,10 @@ type VirtualAppliancesServerTransport struct {
 	srv                         *VirtualAppliancesServer
 	beginCreateOrUpdate         *tracker[azfake.PollerResponder[armnetwork.VirtualAppliancesClientCreateOrUpdateResponse]]
 	beginDelete                 *tracker[azfake.PollerResponder[armnetwork.VirtualAppliancesClientDeleteResponse]]
+	beginGetBootDiagnosticLogs  *tracker[azfake.PollerResponder[armnetwork.VirtualAppliancesClientGetBootDiagnosticLogsResponse]]
 	newListPager                *tracker[azfake.PagerResponder[armnetwork.VirtualAppliancesClientListResponse]]
 	newListByResourceGroupPager *tracker[azfake.PagerResponder[armnetwork.VirtualAppliancesClientListByResourceGroupResponse]]
+	beginReimage                *tracker[azfake.PollerResponder[armnetwork.VirtualAppliancesClientReimageResponse]]
 	beginRestart                *tracker[azfake.PollerResponder[armnetwork.VirtualAppliancesClientRestartResponse]]
 }
 
@@ -97,10 +109,14 @@ func (v *VirtualAppliancesServerTransport) Do(req *http.Request) (*http.Response
 		resp, err = v.dispatchBeginDelete(req)
 	case "VirtualAppliancesClient.Get":
 		resp, err = v.dispatchGet(req)
+	case "VirtualAppliancesClient.BeginGetBootDiagnosticLogs":
+		resp, err = v.dispatchBeginGetBootDiagnosticLogs(req)
 	case "VirtualAppliancesClient.NewListPager":
 		resp, err = v.dispatchNewListPager(req)
 	case "VirtualAppliancesClient.NewListByResourceGroupPager":
 		resp, err = v.dispatchNewListByResourceGroupPager(req)
+	case "VirtualAppliancesClient.BeginReimage":
+		resp, err = v.dispatchBeginReimage(req)
 	case "VirtualAppliancesClient.BeginRestart":
 		resp, err = v.dispatchBeginRestart(req)
 	case "VirtualAppliancesClient.UpdateTags":
@@ -253,6 +269,60 @@ func (v *VirtualAppliancesServerTransport) dispatchGet(req *http.Request) (*http
 	return resp, nil
 }
 
+func (v *VirtualAppliancesServerTransport) dispatchBeginGetBootDiagnosticLogs(req *http.Request) (*http.Response, error) {
+	if v.srv.BeginGetBootDiagnosticLogs == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginGetBootDiagnosticLogs not implemented")}
+	}
+	beginGetBootDiagnosticLogs := v.beginGetBootDiagnosticLogs.get(req)
+	if beginGetBootDiagnosticLogs == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Network/networkVirtualAppliances/(?P<networkVirtualApplianceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/getBootDiagnosticLogs`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armnetwork.VirtualApplianceBootDiagnosticParameters](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		networkVirtualApplianceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("networkVirtualApplianceName")])
+		if err != nil {
+			return nil, err
+		}
+		var options *armnetwork.VirtualAppliancesClientBeginGetBootDiagnosticLogsOptions
+		if !reflect.ValueOf(body).IsZero() {
+			options = &armnetwork.VirtualAppliancesClientBeginGetBootDiagnosticLogsOptions{
+				InstanceID: &body,
+			}
+		}
+		respr, errRespr := v.srv.BeginGetBootDiagnosticLogs(req.Context(), resourceGroupNameParam, networkVirtualApplianceNameParam, options)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginGetBootDiagnosticLogs = &respr
+		v.beginGetBootDiagnosticLogs.add(req, beginGetBootDiagnosticLogs)
+	}
+
+	resp, err := server.PollerResponderNext(beginGetBootDiagnosticLogs, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		v.beginGetBootDiagnosticLogs.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginGetBootDiagnosticLogs) {
+		v.beginGetBootDiagnosticLogs.remove(req)
+	}
+
+	return resp, nil
+}
+
 func (v *VirtualAppliancesServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
 	if v.srv.NewListPager == nil {
 		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
@@ -320,6 +390,60 @@ func (v *VirtualAppliancesServerTransport) dispatchNewListByResourceGroupPager(r
 	if !server.PagerResponderMore(newListByResourceGroupPager) {
 		v.newListByResourceGroupPager.remove(req)
 	}
+	return resp, nil
+}
+
+func (v *VirtualAppliancesServerTransport) dispatchBeginReimage(req *http.Request) (*http.Response, error) {
+	if v.srv.BeginReimage == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginReimage not implemented")}
+	}
+	beginReimage := v.beginReimage.get(req)
+	if beginReimage == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Network/networkVirtualAppliances/(?P<networkVirtualApplianceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/reimage`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armnetwork.VirtualApplianceInstanceIDs](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		networkVirtualApplianceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("networkVirtualApplianceName")])
+		if err != nil {
+			return nil, err
+		}
+		var options *armnetwork.VirtualAppliancesClientBeginReimageOptions
+		if !reflect.ValueOf(body).IsZero() {
+			options = &armnetwork.VirtualAppliancesClientBeginReimageOptions{
+				NetworkVirtualApplianceInstanceIDs: &body,
+			}
+		}
+		respr, errRespr := v.srv.BeginReimage(req.Context(), resourceGroupNameParam, networkVirtualApplianceNameParam, options)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginReimage = &respr
+		v.beginReimage.add(req, beginReimage)
+	}
+
+	resp, err := server.PollerResponderNext(beginReimage, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		v.beginReimage.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginReimage) {
+		v.beginReimage.remove(req)
+	}
+
 	return resp, nil
 }
 
