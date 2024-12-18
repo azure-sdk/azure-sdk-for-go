@@ -1,5 +1,11 @@
 # Release History
 
+## 6.3.0 (2024-12-18)
+### Features Added
+
+- New function `*VirtualAppliancesClient.BeginReimage(context.Context, string, string, *VirtualAppliancesClientBeginReimageOptions) (*runtime.Poller[VirtualAppliancesClientReimageResponse], error)`
+
+
 ## 6.2.0 (2024-12-09)
 ### Features Added
 

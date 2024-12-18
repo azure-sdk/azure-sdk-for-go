@@ -3335,6 +3335,12 @@ type VirtualAppliancesClientListResponse struct {
 	VirtualApplianceListResult
 }
 
+// VirtualAppliancesClientReimageResponse contains the response from method VirtualAppliancesClient.BeginReimage.
+type VirtualAppliancesClientReimageResponse struct {
+	// Specifies a list of virtual machine instance IDs from the Network Virtual Appliance VM instances.
+	VirtualApplianceInstanceIDs
+}
+
 // VirtualAppliancesClientRestartResponse contains the response from method VirtualAppliancesClient.BeginRestart.
 type VirtualAppliancesClientRestartResponse struct {
 	// Specifies a list of virtual machine instance IDs from the Network Virtual Appliance VM instances.
