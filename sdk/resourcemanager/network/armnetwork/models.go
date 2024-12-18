@@ -13604,6 +13604,19 @@ type VirtualApplianceAdditionalNicProperties struct {
 	Name *string
 }
 
+// VirtualApplianceBootDiagnosticParameters - Specifies input parameters required to retrieve the boot diagnostic logs for
+// an NVA instance
+type VirtualApplianceBootDiagnosticParameters struct {
+	// Specifies the sas-url to the storage blob into which console screen shot for the requested instance will be written
+	ConsoleScreenshotStorageSasURL *string
+
+	// The network virtual appliance instance id for which boot diagnostic logs is being requested
+	InstanceID *int32
+
+	// Specifies the sas-url to the storage blob into which serial console logs for the requested instance will be written
+	SerialConsoleStorageSasURL *string
+}
+
 // VirtualApplianceConnection - NetworkVirtualApplianceConnection resource.
 type VirtualApplianceConnection struct {
 	// Resource ID.
@@ -13662,6 +13675,11 @@ type VirtualApplianceIPConfiguration struct {
 type VirtualApplianceIPConfigurationProperties struct {
 	// Whether or not this is primary IP configuration of the NIC.
 	Primary *bool
+}
+
+type VirtualApplianceInstanceID struct {
+	// The network virtual appliance instance id for which boot diagnostic logs is being requested
+	InstanceID *int32
 }
 
 // VirtualApplianceInstanceIDs - Specifies a list of virtual machine instance IDs from the Network Virtual Appliance VM instances.
