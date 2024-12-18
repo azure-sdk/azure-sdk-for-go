@@ -10,7 +10,7 @@ package armchaos
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/chaos/armchaos"
-	moduleVersion = "v1.1.0"
+	moduleVersion = "v2.0.0-beta.1"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -47,10 +47,29 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 	}
 }
 
+// ExperimentActionType - Enum union of Chaos experiment action types.
+type ExperimentActionType string
+
+const (
+	ExperimentActionTypeContinuous ExperimentActionType = "continuous"
+	ExperimentActionTypeDelay      ExperimentActionType = "delay"
+	ExperimentActionTypeDiscrete   ExperimentActionType = "discrete"
+)
+
+// PossibleExperimentActionTypeValues returns the possible values for the ExperimentActionType const type.
+func PossibleExperimentActionTypeValues() []ExperimentActionType {
+	return []ExperimentActionType{
+		ExperimentActionTypeContinuous,
+		ExperimentActionTypeDelay,
+		ExperimentActionTypeDiscrete,
+	}
+}
+
 // FilterType - Enum that discriminates between filter types. Currently only Simple type is supported.
 type FilterType string
 
 const (
+	// FilterTypeSimple - Simple filter type.
 	FilterTypeSimple FilterType = "Simple"
 )
 
@@ -58,6 +77,26 @@ const (
 func PossibleFilterTypeValues() []FilterType {
 	return []FilterType{
 		FilterTypeSimple,
+	}
+}
+
+// ManagedServiceIdentityType - Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
+type ManagedServiceIdentityType string
+
+const (
+	ManagedServiceIdentityTypeNone                       ManagedServiceIdentityType = "None"
+	ManagedServiceIdentityTypeSystemAssigned             ManagedServiceIdentityType = "SystemAssigned"
+	ManagedServiceIdentityTypeSystemAssignedUserAssigned ManagedServiceIdentityType = "SystemAssigned,UserAssigned"
+	ManagedServiceIdentityTypeUserAssigned               ManagedServiceIdentityType = "UserAssigned"
+)
+
+// PossibleManagedServiceIdentityTypeValues returns the possible values for the ManagedServiceIdentityType const type.
+func PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType {
+	return []ManagedServiceIdentityType{
+		ManagedServiceIdentityTypeNone,
+		ManagedServiceIdentityTypeSystemAssigned,
+		ManagedServiceIdentityTypeSystemAssignedUserAssigned,
+		ManagedServiceIdentityTypeUserAssigned,
 	}
 }
 
@@ -80,16 +119,43 @@ func PossibleOriginValues() []Origin {
 	}
 }
 
+// PrivateEndpointServiceConnectionStatus - The private endpoint connection status.
+type PrivateEndpointServiceConnectionStatus string
+
+const (
+	// PrivateEndpointServiceConnectionStatusApproved - Approved status.
+	PrivateEndpointServiceConnectionStatusApproved PrivateEndpointServiceConnectionStatus = "Approved"
+	// PrivateEndpointServiceConnectionStatusPending - Pending status.
+	PrivateEndpointServiceConnectionStatusPending PrivateEndpointServiceConnectionStatus = "Pending"
+	// PrivateEndpointServiceConnectionStatusRejected - Rejected status.
+	PrivateEndpointServiceConnectionStatusRejected PrivateEndpointServiceConnectionStatus = "Rejected"
+)
+
+// PossiblePrivateEndpointServiceConnectionStatusValues returns the possible values for the PrivateEndpointServiceConnectionStatus const type.
+func PossiblePrivateEndpointServiceConnectionStatusValues() []PrivateEndpointServiceConnectionStatus {
+	return []PrivateEndpointServiceConnectionStatus{
+		PrivateEndpointServiceConnectionStatusApproved,
+		PrivateEndpointServiceConnectionStatusPending,
+		PrivateEndpointServiceConnectionStatusRejected,
+	}
+}
+
 // ProvisioningState - Current provisioning state for a given Azure Chaos resource.
 type ProvisioningState string
 
 const (
-	ProvisioningStateCanceled  ProvisioningState = "Canceled"
-	ProvisioningStateCreating  ProvisioningState = "Creating"
-	ProvisioningStateDeleting  ProvisioningState = "Deleting"
-	ProvisioningStateFailed    ProvisioningState = "Failed"
+	// ProvisioningStateCanceled - Resource creation was canceled.
+	ProvisioningStateCanceled ProvisioningState = "Canceled"
+	// ProvisioningStateCreating - Initial creation in progress.
+	ProvisioningStateCreating ProvisioningState = "Creating"
+	// ProvisioningStateDeleting - Deletion in progress.
+	ProvisioningStateDeleting ProvisioningState = "Deleting"
+	// ProvisioningStateFailed - Resource creation failed.
+	ProvisioningStateFailed ProvisioningState = "Failed"
+	// ProvisioningStateSucceeded - Resource has been created.
 	ProvisioningStateSucceeded ProvisioningState = "Succeeded"
-	ProvisioningStateUpdating  ProvisioningState = "Updating"
+	// ProvisioningStateUpdating - Update in progress.
+	ProvisioningStateUpdating ProvisioningState = "Updating"
 )
 
 // PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
@@ -104,21 +170,21 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 	}
 }
 
-// ResourceIdentityType - String of the resource identity type.
-type ResourceIdentityType string
+// PublicNetworkAccessOption - Public Network Access Control for PrivateAccess resource.
+type PublicNetworkAccessOption string
 
 const (
-	ResourceIdentityTypeNone           ResourceIdentityType = "None"
-	ResourceIdentityTypeSystemAssigned ResourceIdentityType = "SystemAssigned"
-	ResourceIdentityTypeUserAssigned   ResourceIdentityType = "UserAssigned"
+	// PublicNetworkAccessOptionDisabled - Disabled access.
+	PublicNetworkAccessOptionDisabled PublicNetworkAccessOption = "Disabled"
+	// PublicNetworkAccessOptionEnabled - Enabled access.
+	PublicNetworkAccessOptionEnabled PublicNetworkAccessOption = "Enabled"
 )
 
-// PossibleResourceIdentityTypeValues returns the possible values for the ResourceIdentityType const type.
-func PossibleResourceIdentityTypeValues() []ResourceIdentityType {
-	return []ResourceIdentityType{
-		ResourceIdentityTypeNone,
-		ResourceIdentityTypeSystemAssigned,
-		ResourceIdentityTypeUserAssigned,
+// PossiblePublicNetworkAccessOptionValues returns the possible values for the PublicNetworkAccessOption const type.
+func PossiblePublicNetworkAccessOptionValues() []PublicNetworkAccessOption {
+	return []PublicNetworkAccessOption{
+		PublicNetworkAccessOptionDisabled,
+		PublicNetworkAccessOptionEnabled,
 	}
 }
 
@@ -126,7 +192,9 @@ func PossibleResourceIdentityTypeValues() []ResourceIdentityType {
 type SelectorType string
 
 const (
-	SelectorTypeList  SelectorType = "List"
+	// SelectorTypeList - List selector type.
+	SelectorTypeList SelectorType = "List"
+	// SelectorTypeQuery - Query selector type.
 	SelectorTypeQuery SelectorType = "Query"
 )
 
@@ -142,6 +210,7 @@ func PossibleSelectorTypeValues() []SelectorType {
 type TargetReferenceType string
 
 const (
+	// TargetReferenceTypeChaosTarget - Chaos target reference type.
 	TargetReferenceTypeChaosTarget TargetReferenceType = "ChaosTarget"
 )
 
