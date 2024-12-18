@@ -3613,6 +3613,16 @@ type VirtualAppliancesClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
+// VirtualAppliancesClientBeginReimageOptions contains the optional parameters for the VirtualAppliancesClient.BeginReimage
+// method.
+type VirtualAppliancesClientBeginReimageOptions struct {
+	// Specifies a list of virtual machine instance IDs from the Network Virtual Appliance VM instances.
+	NetworkVirtualApplianceInstanceIDs *VirtualApplianceInstanceIDs
+
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // VirtualAppliancesClientBeginRestartOptions contains the optional parameters for the VirtualAppliancesClient.BeginRestart
 // method.
 type VirtualAppliancesClientBeginRestartOptions struct {
