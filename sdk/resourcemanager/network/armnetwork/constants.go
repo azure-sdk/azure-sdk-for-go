@@ -10,7 +10,7 @@ package armnetwork
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork"
-	moduleVersion = "v6.2.0"
+	moduleVersion = "v6.3.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -116,6 +116,39 @@ func PossibleAdminStateValues() []AdminState {
 	return []AdminState{
 		AdminStateDisabled,
 		AdminStateEnabled,
+	}
+}
+
+// AdvertisedPublicPrefixPropertiesValidationState - Advertised Public Prefix State that denotes if the prefix is validated
+// or not.
+type AdvertisedPublicPrefixPropertiesValidationState string
+
+const (
+	AdvertisedPublicPrefixPropertiesValidationStateAsnValidationFailed                 AdvertisedPublicPrefixPropertiesValidationState = "AsnValidationFailed"
+	AdvertisedPublicPrefixPropertiesValidationStateCertificateMissingInRoutingRegistry AdvertisedPublicPrefixPropertiesValidationState = "CertificateMissingInRoutingRegistry"
+	AdvertisedPublicPrefixPropertiesValidationStateConfigured                          AdvertisedPublicPrefixPropertiesValidationState = "Configured"
+	AdvertisedPublicPrefixPropertiesValidationStateConfiguring                         AdvertisedPublicPrefixPropertiesValidationState = "Configuring"
+	AdvertisedPublicPrefixPropertiesValidationStateInvalidSignatureEncoding            AdvertisedPublicPrefixPropertiesValidationState = "InvalidSignatureEncoding"
+	AdvertisedPublicPrefixPropertiesValidationStateManualValidationNeeded              AdvertisedPublicPrefixPropertiesValidationState = "ManualValidationNeeded"
+	AdvertisedPublicPrefixPropertiesValidationStateNotConfigured                       AdvertisedPublicPrefixPropertiesValidationState = "NotConfigured"
+	AdvertisedPublicPrefixPropertiesValidationStateSignatureVerificationFailed         AdvertisedPublicPrefixPropertiesValidationState = "SignatureVerificationFailed"
+	AdvertisedPublicPrefixPropertiesValidationStateValidationFailed                    AdvertisedPublicPrefixPropertiesValidationState = "ValidationFailed"
+	AdvertisedPublicPrefixPropertiesValidationStateValidationNeeded                    AdvertisedPublicPrefixPropertiesValidationState = "ValidationNeeded"
+)
+
+// PossibleAdvertisedPublicPrefixPropertiesValidationStateValues returns the possible values for the AdvertisedPublicPrefixPropertiesValidationState const type.
+func PossibleAdvertisedPublicPrefixPropertiesValidationStateValues() []AdvertisedPublicPrefixPropertiesValidationState {
+	return []AdvertisedPublicPrefixPropertiesValidationState{
+		AdvertisedPublicPrefixPropertiesValidationStateAsnValidationFailed,
+		AdvertisedPublicPrefixPropertiesValidationStateCertificateMissingInRoutingRegistry,
+		AdvertisedPublicPrefixPropertiesValidationStateConfigured,
+		AdvertisedPublicPrefixPropertiesValidationStateConfiguring,
+		AdvertisedPublicPrefixPropertiesValidationStateInvalidSignatureEncoding,
+		AdvertisedPublicPrefixPropertiesValidationStateManualValidationNeeded,
+		AdvertisedPublicPrefixPropertiesValidationStateNotConfigured,
+		AdvertisedPublicPrefixPropertiesValidationStateSignatureVerificationFailed,
+		AdvertisedPublicPrefixPropertiesValidationStateValidationFailed,
+		AdvertisedPublicPrefixPropertiesValidationStateValidationNeeded,
 	}
 }
 
