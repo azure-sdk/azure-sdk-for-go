@@ -1,5 +1,12 @@
 # Release History
 
+## 9.2.0 (2024-12-19)
+### Features Added
+
+- New field `AzureCloudType`, `Credential`, `ServicePrincipalCredentialType`, `ServicePrincipalEmbeddedCert`, `ServicePrincipalEmbeddedCertPassword`, `ServicePrincipalID`, `ServicePrincipalKey`, `Tenant` in struct `AzurePostgreSQLLinkedServiceTypeProperties`
+- New field `ReturnMultistatementResult` in struct `ScriptActivityTypeProperties`
+
+
 ## 9.1.0 (2024-12-26)
 ### Features Added
 
