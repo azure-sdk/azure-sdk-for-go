@@ -4825,12 +4825,20 @@ func (a *AzurePostgreSQLLinkedService) GetLinkedService() *LinkedService {
 
 // AzurePostgreSQLLinkedServiceTypeProperties - Azure PostgreSQL linked service properties.
 type AzurePostgreSQLLinkedServiceTypeProperties struct {
+	// Indicates the azure cloud type of the service principle auth. Allowed values are AzurePublic, AzureChina, AzureUsGovernment,
+	// AzureGermany. Default value is the data factory regions’ cloud type. Type:
+	// string (or Expression with resultType string).
+	AzureCloudType any
+
 	// The time to wait (in seconds) while trying to execute a command before terminating the attempt and generating an error.
 	// Set to zero for infinity. Type: integer.
 	CommandTimeout any
 
 	// An ODBC connection string. Type: string, SecureString or AzureKeyVaultSecretReference.
 	ConnectionString any
+
+	// The credential reference containing authentication information.
+	Credential *CredentialReference
 
 	// Database name for connection. Type: string.
 	Database any
@@ -4858,6 +4866,29 @@ type AzurePostgreSQLLinkedServiceTypeProperties struct {
 
 	// Server name for connection. Type: string.
 	Server any
+
+	// The service principal credential type to use in Server-To-Server authentication. 'ServicePrincipalKey' for key/secret,
+	// 'ServicePrincipalCert' for certificate. Type: string (or Expression with
+	// resultType string).
+	ServicePrincipalCredentialType any
+
+	// Specify the base64 encoded certificate of your application registered in Azure Active Directory. Type: string (or Expression
+	// with resultType string).
+	ServicePrincipalEmbeddedCert SecretBaseClassification
+
+	// Specify the password of your certificate if your certificate has a password and you are using AadServicePrincipal authentication.
+	// Type: string (or Expression with resultType string).
+	ServicePrincipalEmbeddedCertPassword SecretBaseClassification
+
+	// The ID of the service principal used to authenticate against Azure Database for PostgreSQL Flexible server. Type: string
+	// (or Expression with resultType string).
+	ServicePrincipalID any
+
+	// The key of the service principal used to authenticate against Azure Database for PostgreSQL Flexible server.
+	ServicePrincipalKey SecretBaseClassification
+
+	// The name or ID of the tenant to which the service principal belongs. Type: string (or Expression with resultType string).
+	Tenant any
 
 	// The time to wait (in seconds) while trying to establish a connection before terminating the attempt and generating an error.
 	// Type: integer.
@@ -27191,8 +27222,8 @@ type SapOdpLinkedServiceTypeProperties struct {
 	// resultType string).
 	SncLibraryPath any
 
-	// SNC activation indicator to access the SAP server where the table is located. Must be either 0 (off) or 1 (on). Type: string
-	// (or Expression with resultType string).
+	// SNC activation flag (Boolean) to access the SAP server where the table is located. Type: boolean (or Expression with resultType
+	// boolean).
 	SncMode any
 
 	// Initiator's SNC name to access the SAP server where the table is located. Type: string (or Expression with resultType string).
@@ -27641,8 +27672,8 @@ type SapTableLinkedServiceTypeProperties struct {
 	// resultType string).
 	SncLibraryPath any
 
-	// SNC activation indicator to access the SAP server where the table is located. Must be either 0 (off) or 1 (on). Type: string
-	// (or Expression with resultType string).
+	// SNC activation flag (Boolean) to access the SAP server where the table is located. Type: boolean (or Expression with resultType
+	// boolean).
 	SncMode any
 
 	// Initiator's SNC name to access the SAP server where the table is located. Type: string (or Expression with resultType string).
@@ -28021,6 +28052,11 @@ type ScriptActivityScriptBlock struct {
 type ScriptActivityTypeProperties struct {
 	// Log settings of script activity.
 	LogSettings *ScriptActivityTypePropertiesLogSettings
+
+	// Enable to retrieve result sets from multiple SQL statements and the number of rows affected by the DML statement. Supported
+	// connector: SnowflakeV2. Type: boolean (or Expression with resultType
+	// boolean).
+	ReturnMultistatementResult any
 
 	// ScriptBlock execution timeout. Type: string (or Expression with resultType string), pattern: ((\d+).)?(\d\d):(60|([0-5][0-9])):(60|([0-5][0-9])).
 	ScriptBlockExecutionTimeout any
