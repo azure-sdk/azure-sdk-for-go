@@ -8021,8 +8021,10 @@ func (a *AzurePostgreSQLLinkedService) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type AzurePostgreSQLLinkedServiceTypeProperties.
 func (a AzurePostgreSQLLinkedServiceTypeProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populateAny(objectMap, "azureCloudType", a.AzureCloudType)
 	populateAny(objectMap, "commandTimeout", a.CommandTimeout)
 	populateAny(objectMap, "connectionString", a.ConnectionString)
+	populate(objectMap, "credential", a.Credential)
 	populateAny(objectMap, "database", a.Database)
 	populateAny(objectMap, "encoding", a.Encoding)
 	populate(objectMap, "encryptedCredential", a.EncryptedCredential)
@@ -8031,6 +8033,12 @@ func (a AzurePostgreSQLLinkedServiceTypeProperties) MarshalJSON() ([]byte, error
 	populateAny(objectMap, "readBufferSize", a.ReadBufferSize)
 	populateAny(objectMap, "sslMode", a.SSLMode)
 	populateAny(objectMap, "server", a.Server)
+	populateAny(objectMap, "servicePrincipalCredentialType", a.ServicePrincipalCredentialType)
+	populate(objectMap, "servicePrincipalEmbeddedCert", a.ServicePrincipalEmbeddedCert)
+	populate(objectMap, "servicePrincipalEmbeddedCertPassword", a.ServicePrincipalEmbeddedCertPassword)
+	populateAny(objectMap, "servicePrincipalId", a.ServicePrincipalID)
+	populate(objectMap, "servicePrincipalKey", a.ServicePrincipalKey)
+	populateAny(objectMap, "tenant", a.Tenant)
 	populateAny(objectMap, "timeout", a.Timeout)
 	populateAny(objectMap, "timezone", a.Timezone)
 	populateAny(objectMap, "trustServerCertificate", a.TrustServerCertificate)
@@ -8047,11 +8055,17 @@ func (a *AzurePostgreSQLLinkedServiceTypeProperties) UnmarshalJSON(data []byte) 
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "azureCloudType":
+			err = unpopulate(val, "AzureCloudType", &a.AzureCloudType)
+			delete(rawMsg, key)
 		case "commandTimeout":
 			err = unpopulate(val, "CommandTimeout", &a.CommandTimeout)
 			delete(rawMsg, key)
 		case "connectionString":
 			err = unpopulate(val, "ConnectionString", &a.ConnectionString)
+			delete(rawMsg, key)
+		case "credential":
+			err = unpopulate(val, "Credential", &a.Credential)
 			delete(rawMsg, key)
 		case "database":
 			err = unpopulate(val, "Database", &a.Database)
@@ -8076,6 +8090,24 @@ func (a *AzurePostgreSQLLinkedServiceTypeProperties) UnmarshalJSON(data []byte) 
 			delete(rawMsg, key)
 		case "server":
 			err = unpopulate(val, "Server", &a.Server)
+			delete(rawMsg, key)
+		case "servicePrincipalCredentialType":
+			err = unpopulate(val, "ServicePrincipalCredentialType", &a.ServicePrincipalCredentialType)
+			delete(rawMsg, key)
+		case "servicePrincipalEmbeddedCert":
+			a.ServicePrincipalEmbeddedCert, err = unmarshalSecretBaseClassification(val)
+			delete(rawMsg, key)
+		case "servicePrincipalEmbeddedCertPassword":
+			a.ServicePrincipalEmbeddedCertPassword, err = unmarshalSecretBaseClassification(val)
+			delete(rawMsg, key)
+		case "servicePrincipalId":
+			err = unpopulate(val, "ServicePrincipalID", &a.ServicePrincipalID)
+			delete(rawMsg, key)
+		case "servicePrincipalKey":
+			a.ServicePrincipalKey, err = unmarshalSecretBaseClassification(val)
+			delete(rawMsg, key)
+		case "tenant":
+			err = unpopulate(val, "Tenant", &a.Tenant)
 			delete(rawMsg, key)
 		case "timeout":
 			err = unpopulate(val, "Timeout", &a.Timeout)
@@ -48273,6 +48305,7 @@ func (s *ScriptActivityScriptBlock) UnmarshalJSON(data []byte) error {
 func (s ScriptActivityTypeProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "logSettings", s.LogSettings)
+	populateAny(objectMap, "returnMultistatementResult", s.ReturnMultistatementResult)
 	populateAny(objectMap, "scriptBlockExecutionTimeout", s.ScriptBlockExecutionTimeout)
 	populate(objectMap, "scripts", s.Scripts)
 	return json.Marshal(objectMap)
@@ -48289,6 +48322,9 @@ func (s *ScriptActivityTypeProperties) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "logSettings":
 			err = unpopulate(val, "LogSettings", &s.LogSettings)
+			delete(rawMsg, key)
+		case "returnMultistatementResult":
+			err = unpopulate(val, "ReturnMultistatementResult", &s.ReturnMultistatementResult)
 			delete(rawMsg, key)
 		case "scriptBlockExecutionTimeout":
 			err = unpopulate(val, "ScriptBlockExecutionTimeout", &s.ScriptBlockExecutionTimeout)
