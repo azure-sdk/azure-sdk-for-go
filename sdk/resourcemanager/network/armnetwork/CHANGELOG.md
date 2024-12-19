@@ -1,5 +1,17 @@
 # Release History
 
+## 6.3.0 (2024-12-19)
+### Features Added
+
+- New enum type `AdvertisedPublicPrefixPropertiesValidationState` with values `AdvertisedPublicPrefixPropertiesValidationStateAsnValidationFailed`, `AdvertisedPublicPrefixPropertiesValidationStateCertificateMissingInRoutingRegistry`, `AdvertisedPublicPrefixPropertiesValidationStateConfigured`, `AdvertisedPublicPrefixPropertiesValidationStateConfiguring`, `AdvertisedPublicPrefixPropertiesValidationStateInvalidSignatureEncoding`, `AdvertisedPublicPrefixPropertiesValidationStateManualValidationNeeded`, `AdvertisedPublicPrefixPropertiesValidationStateNotConfigured`, `AdvertisedPublicPrefixPropertiesValidationStateSignatureVerificationFailed`, `AdvertisedPublicPrefixPropertiesValidationStateValidationFailed`, `AdvertisedPublicPrefixPropertiesValidationStateValidationNeeded`
+- New function `*VirtualAppliancesClient.BeginGetBootDiagnosticLogs(context.Context, string, string, *VirtualAppliancesClientBeginGetBootDiagnosticLogsOptions) (*runtime.Poller[VirtualAppliancesClientGetBootDiagnosticLogsResponse], error)`
+- New function `*VirtualAppliancesClient.BeginReimage(context.Context, string, string, *VirtualAppliancesClientBeginReimageOptions) (*runtime.Poller[VirtualAppliancesClientReimageResponse], error)`
+- New struct `AdvertisedPublicPrefixProperties`
+- New struct `VirtualApplianceBootDiagnosticParameters`
+- New struct `VirtualApplianceInstanceID`
+- New field `AdvertisedPublicPrefixInfo` in struct `ExpressRouteCircuitPeeringConfig`
+
+
 ## 6.2.0 (2024-12-09)
 ### Features Added
 
