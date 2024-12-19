@@ -63,7 +63,7 @@ type AccountListResult struct {
 
 // AccountProperties - Account resource properties.
 type AccountProperties struct {
-	// When enabled, this feature allows the workspace to use local auth(through access key) for authentication of test runs.
+	// When enabled, this feature allows the workspace to use local auth (through service access token) for executing operations.
 	LocalAuth *EnablementStatus
 
 	// This property sets the connection region for Playwright client workers to cloud-hosted browsers. If enabled, workers connect
@@ -134,7 +134,7 @@ type AccountUpdate struct {
 
 // AccountUpdateProperties - The updatable properties of the Account.
 type AccountUpdateProperties struct {
-	// When enabled, this feature allows the workspace to use local auth(through access key) for authentication of test runs.
+	// When enabled, this feature allows the workspace to use local auth (through service access token) for executing operations.
 	LocalAuth *EnablementStatus
 
 	// This property sets the connection region for Playwright client workers to cloud-hosted browsers. If enabled, workers connect
