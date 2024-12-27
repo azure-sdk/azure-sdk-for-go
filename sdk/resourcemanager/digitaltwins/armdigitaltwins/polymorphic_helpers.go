@@ -11,7 +11,7 @@ package armdigitaltwins
 import "encoding/json"
 
 func unmarshalEndpointResourcePropertiesClassification(rawMsg json.RawMessage) (EndpointResourcePropertiesClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -36,7 +36,7 @@ func unmarshalEndpointResourcePropertiesClassification(rawMsg json.RawMessage) (
 }
 
 func unmarshalTimeSeriesDatabaseConnectionPropertiesClassification(rawMsg json.RawMessage) (TimeSeriesDatabaseConnectionPropertiesClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any

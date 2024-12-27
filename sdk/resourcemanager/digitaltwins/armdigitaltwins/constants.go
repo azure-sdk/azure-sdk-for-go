@@ -10,7 +10,7 @@ package armdigitaltwins
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/digitaltwins/armdigitaltwins"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v1.2.1"
 )
 
 // AuthenticationType - Specifies the authentication type being used for connecting to the endpoint. Defaults to 'KeyBased'.

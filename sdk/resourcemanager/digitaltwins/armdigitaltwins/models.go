@@ -247,16 +247,16 @@ type ErrorResponse struct {
 
 // EventGrid - Properties related to EventGrid.
 type EventGrid struct {
-	// REQUIRED; EventGrid secondary accesskey. Will be obfuscated during read.
-	AccessKey1 *string
-
 	// REQUIRED; The type of Digital Twins endpoint
 	EndpointType *EndpointType
 
-	// REQUIRED; EventGrid Topic Endpoint.
+	// REQUIRED; EventGrid Topic Endpoint for key-based or identity-based authentication.
 	TopicEndpoint *string
 
-	// EventGrid secondary accesskey. Will be obfuscated during read.
+	// EventGrid primary accesskey for key-based authentication. Will be obfuscated during read.
+	AccessKey1 *string
+
+	// EventGrid secondary accesskey for key-based authentication. Will be obfuscated during read.
 	AccessKey2 *string
 
 	// Specifies the authentication type being used for connecting to the endpoint. Defaults to 'KeyBased'. If 'KeyBased' is selected,
