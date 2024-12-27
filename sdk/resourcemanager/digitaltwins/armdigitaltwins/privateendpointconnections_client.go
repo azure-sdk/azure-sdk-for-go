@@ -46,7 +46,7 @@ func NewPrivateEndpointConnectionsClient(subscriptionID string, credential azcor
 // BeginCreateOrUpdate - Update the status of a private endpoint connection with the given name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-31
+// Generated from API version 2025-03-31
 //   - resourceGroupName - The name of the resource group that contains the DigitalTwinsInstance.
 //   - resourceName - The name of the DigitalTwinsInstance.
 //   - privateEndpointConnectionName - The name of the private endpoint connection.
@@ -73,7 +73,7 @@ func (client *PrivateEndpointConnectionsClient) BeginCreateOrUpdate(ctx context.
 // CreateOrUpdate - Update the status of a private endpoint connection with the given name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-31
+// Generated from API version 2025-03-31
 func (client *PrivateEndpointConnectionsClient) createOrUpdate(ctx context.Context, resourceGroupName string, resourceName string, privateEndpointConnectionName string, privateEndpointConnection PrivateEndpointConnection, options *PrivateEndpointConnectionsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "PrivateEndpointConnectionsClient.BeginCreateOrUpdate"
@@ -119,7 +119,7 @@ func (client *PrivateEndpointConnectionsClient) createOrUpdateCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-31")
+	reqQP.Set("api-version", "2025-03-31")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, privateEndpointConnection); err != nil {
@@ -131,7 +131,7 @@ func (client *PrivateEndpointConnectionsClient) createOrUpdateCreateRequest(ctx 
 // BeginDelete - Delete private endpoint connection with the specified name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-31
+// Generated from API version 2025-03-31
 //   - resourceGroupName - The name of the resource group that contains the DigitalTwinsInstance.
 //   - resourceName - The name of the DigitalTwinsInstance.
 //   - privateEndpointConnectionName - The name of the private endpoint connection.
@@ -157,7 +157,7 @@ func (client *PrivateEndpointConnectionsClient) BeginDelete(ctx context.Context,
 // Delete - Delete private endpoint connection with the specified name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-31
+// Generated from API version 2025-03-31
 func (client *PrivateEndpointConnectionsClient) deleteOperation(ctx context.Context, resourceGroupName string, resourceName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "PrivateEndpointConnectionsClient.BeginDelete"
@@ -203,7 +203,7 @@ func (client *PrivateEndpointConnectionsClient) deleteCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-31")
+	reqQP.Set("api-version", "2025-03-31")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -212,7 +212,7 @@ func (client *PrivateEndpointConnectionsClient) deleteCreateRequest(ctx context.
 // Get - Get private endpoint connection properties for the given private endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-31
+// Generated from API version 2025-03-31
 //   - resourceGroupName - The name of the resource group that contains the DigitalTwinsInstance.
 //   - resourceName - The name of the DigitalTwinsInstance.
 //   - privateEndpointConnectionName - The name of the private endpoint connection.
@@ -264,7 +264,7 @@ func (client *PrivateEndpointConnectionsClient) getCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-31")
+	reqQP.Set("api-version", "2025-03-31")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -282,7 +282,7 @@ func (client *PrivateEndpointConnectionsClient) getHandleResponse(resp *http.Res
 // List - List private endpoint connection properties.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-31
+// Generated from API version 2025-03-31
 //   - resourceGroupName - The name of the resource group that contains the DigitalTwinsInstance.
 //   - resourceName - The name of the DigitalTwinsInstance.
 //   - options - PrivateEndpointConnectionsClientListOptions contains the optional parameters for the PrivateEndpointConnectionsClient.List
@@ -329,7 +329,7 @@ func (client *PrivateEndpointConnectionsClient) listCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-31")
+	reqQP.Set("api-version", "2025-03-31")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

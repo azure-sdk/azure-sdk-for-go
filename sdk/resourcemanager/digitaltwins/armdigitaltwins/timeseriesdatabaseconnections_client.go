@@ -46,7 +46,7 @@ func NewTimeSeriesDatabaseConnectionsClient(subscriptionID string, credential az
 // BeginCreateOrUpdate - Create or update a time series database connection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-31
+// Generated from API version 2025-03-31
 //   - resourceGroupName - The name of the resource group that contains the DigitalTwinsInstance.
 //   - resourceName - The name of the DigitalTwinsInstance.
 //   - timeSeriesDatabaseConnectionName - Name of time series database connection.
@@ -73,7 +73,7 @@ func (client *TimeSeriesDatabaseConnectionsClient) BeginCreateOrUpdate(ctx conte
 // CreateOrUpdate - Create or update a time series database connection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-31
+// Generated from API version 2025-03-31
 func (client *TimeSeriesDatabaseConnectionsClient) createOrUpdate(ctx context.Context, resourceGroupName string, resourceName string, timeSeriesDatabaseConnectionName string, timeSeriesDatabaseConnectionDescription TimeSeriesDatabaseConnection, options *TimeSeriesDatabaseConnectionsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "TimeSeriesDatabaseConnectionsClient.BeginCreateOrUpdate"
@@ -119,7 +119,7 @@ func (client *TimeSeriesDatabaseConnectionsClient) createOrUpdateCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-31")
+	reqQP.Set("api-version", "2025-03-31")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, timeSeriesDatabaseConnectionDescription); err != nil {
@@ -131,7 +131,7 @@ func (client *TimeSeriesDatabaseConnectionsClient) createOrUpdateCreateRequest(c
 // BeginDelete - Delete a time series database connection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-31
+// Generated from API version 2025-03-31
 //   - resourceGroupName - The name of the resource group that contains the DigitalTwinsInstance.
 //   - resourceName - The name of the DigitalTwinsInstance.
 //   - timeSeriesDatabaseConnectionName - Name of time series database connection.
@@ -157,7 +157,7 @@ func (client *TimeSeriesDatabaseConnectionsClient) BeginDelete(ctx context.Conte
 // Delete - Delete a time series database connection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-31
+// Generated from API version 2025-03-31
 func (client *TimeSeriesDatabaseConnectionsClient) deleteOperation(ctx context.Context, resourceGroupName string, resourceName string, timeSeriesDatabaseConnectionName string, options *TimeSeriesDatabaseConnectionsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "TimeSeriesDatabaseConnectionsClient.BeginDelete"
@@ -203,7 +203,7 @@ func (client *TimeSeriesDatabaseConnectionsClient) deleteCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-31")
+	reqQP.Set("api-version", "2025-03-31")
 	if options != nil && options.CleanupConnectionArtifacts != nil {
 		reqQP.Set("cleanupConnectionArtifacts", string(*options.CleanupConnectionArtifacts))
 	}
@@ -215,7 +215,7 @@ func (client *TimeSeriesDatabaseConnectionsClient) deleteCreateRequest(ctx conte
 // Get - Get the description of an existing time series database connection.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-31
+// Generated from API version 2025-03-31
 //   - resourceGroupName - The name of the resource group that contains the DigitalTwinsInstance.
 //   - resourceName - The name of the DigitalTwinsInstance.
 //   - timeSeriesDatabaseConnectionName - Name of time series database connection.
@@ -267,7 +267,7 @@ func (client *TimeSeriesDatabaseConnectionsClient) getCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-31")
+	reqQP.Set("api-version", "2025-03-31")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -284,7 +284,7 @@ func (client *TimeSeriesDatabaseConnectionsClient) getHandleResponse(resp *http.
 
 // NewListPager - Get all existing time series database connections for this DigitalTwins instance.
 //
-// Generated from API version 2023-01-31
+// Generated from API version 2025-03-31
 //   - resourceGroupName - The name of the resource group that contains the DigitalTwinsInstance.
 //   - resourceName - The name of the DigitalTwinsInstance.
 //   - options - TimeSeriesDatabaseConnectionsClientListOptions contains the optional parameters for the TimeSeriesDatabaseConnectionsClient.NewListPager
@@ -332,7 +332,7 @@ func (client *TimeSeriesDatabaseConnectionsClient) listCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-31")
+	reqQP.Set("api-version", "2025-03-31")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
