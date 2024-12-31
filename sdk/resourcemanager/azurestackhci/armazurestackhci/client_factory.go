@@ -60,6 +60,13 @@ func (c *ClientFactory) NewDeploymentSettingsClient() *DeploymentSettingsClient 
 	}
 }
 
+// NewEdgeDeviceJobsClient creates a new instance of EdgeDeviceJobsClient.
+func (c *ClientFactory) NewEdgeDeviceJobsClient() *EdgeDeviceJobsClient {
+	return &EdgeDeviceJobsClient{
+		internal: c.internal,
+	}
+}
+
 // NewEdgeDevicesClient creates a new instance of EdgeDevicesClient.
 func (c *ClientFactory) NewEdgeDevicesClient() *EdgeDevicesClient {
 	return &EdgeDevicesClient{
