@@ -19,10 +19,12 @@ import (
 
 // ServerFactory is a fake server for instances of the armmarketplace.ClientFactory type.
 type ServerFactory struct {
-	OperationsServer                  OperationsServer
-	PrivateStoreServer                PrivateStoreServer
-	PrivateStoreCollectionServer      PrivateStoreCollectionServer
-	PrivateStoreCollectionOfferServer PrivateStoreCollectionOfferServer
+	OperationsServer                                    OperationsServer
+	PrivateStoreServer                                  PrivateStoreServer
+	PrivateStoreCollectionServer                        PrivateStoreCollectionServer
+	PrivateStoreCollectionOfferServer                   PrivateStoreCollectionOfferServer
+	PrivateStoreCollectionOffersWithContextsPlansServer PrivateStoreCollectionOffersWithContextsPlansServer
+	RPServiceServer                                     RPServiceServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -37,12 +39,14 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armmarketplace.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                                 *ServerFactory
-	trMu                                sync.Mutex
-	trOperationsServer                  *OperationsServerTransport
-	trPrivateStoreServer                *PrivateStoreServerTransport
-	trPrivateStoreCollectionServer      *PrivateStoreCollectionServerTransport
-	trPrivateStoreCollectionOfferServer *PrivateStoreCollectionOfferServerTransport
+	srv                                                   *ServerFactory
+	trMu                                                  sync.Mutex
+	trOperationsServer                                    *OperationsServerTransport
+	trPrivateStoreServer                                  *PrivateStoreServerTransport
+	trPrivateStoreCollectionServer                        *PrivateStoreCollectionServerTransport
+	trPrivateStoreCollectionOfferServer                   *PrivateStoreCollectionOfferServerTransport
+	trPrivateStoreCollectionOffersWithContextsPlansServer *PrivateStoreCollectionOffersWithContextsPlansServerTransport
+	trRPServiceServer                                     *RPServiceServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -74,6 +78,14 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewPrivateStoreCollectionOfferServerTransport(&s.srv.PrivateStoreCollectionOfferServer)
 		})
 		resp, err = s.trPrivateStoreCollectionOfferServer.Do(req)
+	case "PrivateStoreCollectionOffersWithContextsPlansClient":
+		initServer(s, &s.trPrivateStoreCollectionOffersWithContextsPlansServer, func() *PrivateStoreCollectionOffersWithContextsPlansServerTransport {
+			return NewPrivateStoreCollectionOffersWithContextsPlansServerTransport(&s.srv.PrivateStoreCollectionOffersWithContextsPlansServer)
+		})
+		resp, err = s.trPrivateStoreCollectionOffersWithContextsPlansServer.Do(req)
+	case "RPServiceClient":
+		initServer(s, &s.trRPServiceServer, func() *RPServiceServerTransport { return NewRPServiceServerTransport(&s.srv.RPServiceServer) })
+		resp, err = s.trRPServiceServer.Do(req)
 	default:
 		err = fmt.Errorf("unhandled client %s", client)
 	}
