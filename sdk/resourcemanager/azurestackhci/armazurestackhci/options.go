@@ -93,6 +93,13 @@ type ClustersClientBeginTriggerLogCollectionOptions struct {
 	ResumeToken string
 }
 
+// ClustersClientBeginUpdateSecretsLocationsOptions contains the optional parameters for the ClustersClient.BeginUpdateSecretsLocations
+// method.
+type ClustersClientBeginUpdateSecretsLocationsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // ClustersClientBeginUploadCertificateOptions contains the optional parameters for the ClustersClient.BeginUploadCertificate
 // method.
 type ClustersClientBeginUploadCertificateOptions struct {
@@ -149,6 +156,30 @@ type DeploymentSettingsClientGetOptions struct {
 // DeploymentSettingsClientListByClustersOptions contains the optional parameters for the DeploymentSettingsClient.NewListByClustersPager
 // method.
 type DeploymentSettingsClientListByClustersOptions struct {
+	// placeholder for future optional parameters
+}
+
+// EdgeDeviceJobsClientBeginCreateOrUpdateOptions contains the optional parameters for the EdgeDeviceJobsClient.BeginCreateOrUpdate
+// method.
+type EdgeDeviceJobsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// EdgeDeviceJobsClientBeginDeleteOptions contains the optional parameters for the EdgeDeviceJobsClient.BeginDelete method.
+type EdgeDeviceJobsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// EdgeDeviceJobsClientGetOptions contains the optional parameters for the EdgeDeviceJobsClient.Get method.
+type EdgeDeviceJobsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// EdgeDeviceJobsClientListByEdgeDeviceOptions contains the optional parameters for the EdgeDeviceJobsClient.NewListByEdgeDevicePager
+// method.
+type EdgeDeviceJobsClientListByEdgeDeviceOptions struct {
 	// placeholder for future optional parameters
 }
 
