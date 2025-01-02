@@ -11,14 +11,13 @@ package armappcontainers
 import (
 	"context"
 	"errors"
-	"net/http"
-	"net/url"
-	"strings"
-
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"net/http"
+	"net/url"
+	"strings"
 )
 
 // ManagedEnvironmentDiagnosticsClient contains the methods for the ManagedEnvironmentDiagnostics group.
@@ -29,7 +28,7 @@ type ManagedEnvironmentDiagnosticsClient struct {
 }
 
 // NewManagedEnvironmentDiagnosticsClient creates a new instance of ManagedEnvironmentDiagnosticsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewManagedEnvironmentDiagnosticsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ManagedEnvironmentDiagnosticsClient, error) {
@@ -47,7 +46,7 @@ func NewManagedEnvironmentDiagnosticsClient(subscriptionID string, credential az
 // GetDetector - Get the diagnostics data for a Managed Environment used to host container apps.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2025-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Environment.
 //   - detectorName - Name of the Managed Environment detector.
@@ -99,7 +98,7 @@ func (client *ManagedEnvironmentDiagnosticsClient) getDetectorCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2025-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -117,7 +116,7 @@ func (client *ManagedEnvironmentDiagnosticsClient) getDetectorHandleResponse(res
 // ListDetectors - Get the list of diagnostics for a Managed Environment used to host container apps.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2025-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - environmentName - Name of the Environment.
 //   - options - ManagedEnvironmentDiagnosticsClientListDetectorsOptions contains the optional parameters for the ManagedEnvironmentDiagnosticsClient.ListDetectors
@@ -164,7 +163,7 @@ func (client *ManagedEnvironmentDiagnosticsClient) listDetectorsCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2025-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
