@@ -380,6 +380,7 @@ func (a AzureFileShareRecoveryPoint) MarshalJSON() ([]byte, error) {
 	objectMap["objectType"] = "AzureFileShareRecoveryPoint"
 	populate(objectMap, "recoveryPointProperties", a.RecoveryPointProperties)
 	populate(objectMap, "recoveryPointSizeInGB", a.RecoveryPointSizeInGB)
+	populate(objectMap, "recoveryPointTierDetails", a.RecoveryPointTierDetails)
 	populateDateTimeRFC3339(objectMap, "recoveryPointTime", a.RecoveryPointTime)
 	populate(objectMap, "recoveryPointType", a.RecoveryPointType)
 	return json.Marshal(objectMap)
@@ -405,6 +406,9 @@ func (a *AzureFileShareRecoveryPoint) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "recoveryPointSizeInGB":
 			err = unpopulate(val, "RecoveryPointSizeInGB", &a.RecoveryPointSizeInGB)
+			delete(rawMsg, key)
+		case "recoveryPointTierDetails":
+			err = unpopulate(val, "RecoveryPointTierDetails", &a.RecoveryPointTierDetails)
 			delete(rawMsg, key)
 		case "recoveryPointTime":
 			err = unpopulateDateTimeRFC3339(val, "RecoveryPointTime", &a.RecoveryPointTime)
@@ -2175,6 +2179,7 @@ func (a AzureStorageContainer) MarshalJSON() ([]byte, error) {
 	objectMap["containerType"] = ProtectableContainerTypeStorageContainer
 	populate(objectMap, "friendlyName", a.FriendlyName)
 	populate(objectMap, "healthStatus", a.HealthStatus)
+	populate(objectMap, "operationType", a.OperationType)
 	populate(objectMap, "protectableObjectType", a.ProtectableObjectType)
 	populate(objectMap, "protectedItemCount", a.ProtectedItemCount)
 	populate(objectMap, "registrationStatus", a.RegistrationStatus)
@@ -2207,6 +2212,9 @@ func (a *AzureStorageContainer) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "healthStatus":
 			err = unpopulate(val, "HealthStatus", &a.HealthStatus)
+			delete(rawMsg, key)
+		case "operationType":
+			err = unpopulate(val, "OperationType", &a.OperationType)
 			delete(rawMsg, key)
 		case "protectableObjectType":
 			err = unpopulate(val, "ProtectableObjectType", &a.ProtectableObjectType)
