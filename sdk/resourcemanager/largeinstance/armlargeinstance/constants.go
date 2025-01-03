@@ -10,7 +10,7 @@ package armlargeinstance
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/largeinstance/armlargeinstance"
-	moduleVersion = "v0.1.0"
+	moduleVersion = "v0.1.1"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -140,7 +140,7 @@ func PossibleAzureLargeInstanceProvisioningStatesEnumValues() []AzureLargeInstan
 }
 
 // AzureLargeInstanceSizeNamesEnum - Enum of available model types (each of which have their own storage / memory sizes) for
-// an Azure Large Instance type. See https://docs.microsoft.com/azure/sap/large-instances/hana-available-skus
+// an Azure Large Instance type. See https://learn.microsoft.com/azure/sap/large-instances/hana-available-skus
 type AzureLargeInstanceSizeNamesEnum string
 
 const (
