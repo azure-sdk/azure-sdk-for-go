@@ -2175,6 +2175,7 @@ func (a AzureStorageContainer) MarshalJSON() ([]byte, error) {
 	objectMap["containerType"] = ProtectableContainerTypeStorageContainer
 	populate(objectMap, "friendlyName", a.FriendlyName)
 	populate(objectMap, "healthStatus", a.HealthStatus)
+	populate(objectMap, "operationType", a.OperationType)
 	populate(objectMap, "protectableObjectType", a.ProtectableObjectType)
 	populate(objectMap, "protectedItemCount", a.ProtectedItemCount)
 	populate(objectMap, "registrationStatus", a.RegistrationStatus)
@@ -2207,6 +2208,9 @@ func (a *AzureStorageContainer) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "healthStatus":
 			err = unpopulate(val, "HealthStatus", &a.HealthStatus)
+			delete(rawMsg, key)
+		case "operationType":
+			err = unpopulate(val, "OperationType", &a.OperationType)
 			delete(rawMsg, key)
 		case "protectableObjectType":
 			err = unpopulate(val, "ProtectableObjectType", &a.ProtectableObjectType)
