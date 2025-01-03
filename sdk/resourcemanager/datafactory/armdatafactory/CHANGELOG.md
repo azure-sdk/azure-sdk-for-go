@@ -1,5 +1,11 @@
 # Release History
 
+## 9.2.0 (2025-01-03)
+### Features Added
+
+- New field `ReturnMultistatementResult` in struct `ScriptActivityTypeProperties`
+
+
 ## 9.1.0 (2024-12-26)
 ### Features Added
 
