@@ -27191,8 +27191,8 @@ type SapOdpLinkedServiceTypeProperties struct {
 	// resultType string).
 	SncLibraryPath any
 
-	// SNC activation indicator to access the SAP server where the table is located. Must be either 0 (off) or 1 (on). Type: string
-	// (or Expression with resultType string).
+	// SNC activation flag (Boolean) to access the SAP server where the table is located. Type: boolean (or Expression with resultType
+	// boolean).
 	SncMode any
 
 	// Initiator's SNC name to access the SAP server where the table is located. Type: string (or Expression with resultType string).
@@ -27641,8 +27641,8 @@ type SapTableLinkedServiceTypeProperties struct {
 	// resultType string).
 	SncLibraryPath any
 
-	// SNC activation indicator to access the SAP server where the table is located. Must be either 0 (off) or 1 (on). Type: string
-	// (or Expression with resultType string).
+	// SNC activation flag (Boolean) to access the SAP server where the table is located. Type: boolean (or Expression with resultType
+	// boolean).
 	SncMode any
 
 	// Initiator's SNC name to access the SAP server where the table is located. Type: string (or Expression with resultType string).
@@ -28021,6 +28021,11 @@ type ScriptActivityScriptBlock struct {
 type ScriptActivityTypeProperties struct {
 	// Log settings of script activity.
 	LogSettings *ScriptActivityTypePropertiesLogSettings
+
+	// Enable to retrieve result sets from multiple SQL statements and the number of rows affected by the DML statement. Supported
+	// connector: SnowflakeV2. Type: boolean (or Expression with resultType
+	// boolean).
+	ReturnMultistatementResult any
 
 	// ScriptBlock execution timeout. Type: string (or Expression with resultType string), pattern: ((\d+).)?(\d\d):(60|([0-5][0-9])):(60|([0-5][0-9])).
 	ScriptBlockExecutionTimeout any
