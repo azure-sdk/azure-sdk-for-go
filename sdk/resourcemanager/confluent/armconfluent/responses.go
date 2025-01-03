@@ -67,6 +67,51 @@ type AccessClientListUsersResponse struct {
 	AccessListUsersSuccessResponse
 }
 
+// ClusterClientCreateOrUpdateResponse contains the response from method ClusterClient.CreateOrUpdate.
+type ClusterClientCreateOrUpdateResponse struct {
+	// Details of cluster record
+	SCClusterRecord
+}
+
+// ClusterClientDeleteResponse contains the response from method ClusterClient.BeginDelete.
+type ClusterClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ConnectorClientCreateOrUpdateResponse contains the response from method ConnectorClient.CreateOrUpdate.
+type ConnectorClientCreateOrUpdateResponse struct {
+	// Details of connector record
+	ConnectorResource
+}
+
+// ConnectorClientDeleteResponse contains the response from method ConnectorClient.BeginDelete.
+type ConnectorClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ConnectorClientGetResponse contains the response from method ConnectorClient.Get.
+type ConnectorClientGetResponse struct {
+	// Details of connector record
+	ConnectorResource
+}
+
+// ConnectorClientListResponse contains the response from method ConnectorClient.NewListPager.
+type ConnectorClientListResponse struct {
+	// Result of GET request to list connectors in the cluster of a confluent organization
+	ListConnectorsSuccessResponse
+}
+
+// EnvironmentClientCreateOrUpdateResponse contains the response from method EnvironmentClient.CreateOrUpdate.
+type EnvironmentClientCreateOrUpdateResponse struct {
+	// Details about environment name, metadata and environment id of an environment
+	SCEnvironmentRecord
+}
+
+// EnvironmentClientDeleteResponse contains the response from method EnvironmentClient.BeginDelete.
+type EnvironmentClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
 // MarketplaceAgreementsClientCreateResponse contains the response from method MarketplaceAgreementsClient.Create.
 type MarketplaceAgreementsClientCreateResponse struct {
 	// Agreement Terms definition
@@ -177,6 +222,29 @@ type OrganizationClientUpdateResponse struct {
 type OrganizationOperationsClientListResponse struct {
 	// Result of GET request to list Confluent operations.
 	OperationListResult
+}
+
+// TopicsClientCreateResponse contains the response from method TopicsClient.Create.
+type TopicsClientCreateResponse struct {
+	// Details of topic record
+	TopicRecord
+}
+
+// TopicsClientDeleteResponse contains the response from method TopicsClient.BeginDelete.
+type TopicsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// TopicsClientGetResponse contains the response from method TopicsClient.Get.
+type TopicsClientGetResponse struct {
+	// Details of topic record
+	TopicRecord
+}
+
+// TopicsClientListResponse contains the response from method TopicsClient.NewListPager.
+type TopicsClientListResponse struct {
+	// Result of GET request to list topics in the cluster of a confluent organization
+	ListTopicsSuccessResponse
 }
 
 // ValidationsClientValidateOrganizationResponse contains the response from method ValidationsClient.ValidateOrganization.
