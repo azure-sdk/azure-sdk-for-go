@@ -287,6 +287,9 @@ type AzureFileShareRecoveryPoint struct {
 	// Contains recovery point size
 	RecoveryPointSizeInGB *int32
 
+	// Recovery point tier information.
+	RecoveryPointTierDetails []*RecoveryPointTierInformation
+
 	// Time at which this backup copy was created.
 	RecoveryPointTime *time.Time
 
@@ -1713,6 +1716,9 @@ type AzureStorageContainer struct {
 
 	// Status of health of the container.
 	HealthStatus *string
+
+	// Re-Do Operation
+	OperationType *OperationType
 
 	// Type of the protectable object associated with this container
 	ProtectableObjectType *string
