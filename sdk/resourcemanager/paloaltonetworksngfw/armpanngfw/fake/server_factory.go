@@ -29,6 +29,7 @@ type ServerFactory struct {
 	LocalRulesServer                       LocalRulesServer
 	LocalRulestacksServer                  LocalRulestacksServer
 	OperationsServer                       OperationsServer
+	PaloAltoNetworksCloudngfwServer        PaloAltoNetworksCloudngfwServer
 	PostRulesServer                        PostRulesServer
 	PreRulesServer                         PreRulesServer
 	PrefixListGlobalRulestackServer        PrefixListGlobalRulestackServer
@@ -59,6 +60,7 @@ type ServerFactoryTransport struct {
 	trLocalRulesServer                       *LocalRulesServerTransport
 	trLocalRulestacksServer                  *LocalRulestacksServerTransport
 	trOperationsServer                       *OperationsServerTransport
+	trPaloAltoNetworksCloudngfwServer        *PaloAltoNetworksCloudngfwServerTransport
 	trPostRulesServer                        *PostRulesServerTransport
 	trPreRulesServer                         *PreRulesServerTransport
 	trPrefixListGlobalRulestackServer        *PrefixListGlobalRulestackServerTransport
@@ -122,6 +124,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
+	case "PaloAltoNetworksCloudngfwClient":
+		initServer(s, &s.trPaloAltoNetworksCloudngfwServer, func() *PaloAltoNetworksCloudngfwServerTransport {
+			return NewPaloAltoNetworksCloudngfwServerTransport(&s.srv.PaloAltoNetworksCloudngfwServer)
+		})
+		resp, err = s.trPaloAltoNetworksCloudngfwServer.Do(req)
 	case "PostRulesClient":
 		initServer(s, &s.trPostRulesServer, func() *PostRulesServerTransport { return NewPostRulesServerTransport(&s.srv.PostRulesServer) })
 		resp, err = s.trPostRulesServer.Do(req)
