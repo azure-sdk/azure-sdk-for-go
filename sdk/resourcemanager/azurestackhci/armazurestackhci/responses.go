@@ -120,6 +120,12 @@ type ClustersClientUpdateResponse struct {
 	Cluster
 }
 
+// ClustersClientUpdateSecretsLocationsResponse contains the response from method ClustersClient.BeginUpdateSecretsLocations.
+type ClustersClientUpdateSecretsLocationsResponse struct {
+	// Cluster details.
+	Cluster
+}
+
 // ClustersClientUploadCertificateResponse contains the response from method ClustersClient.BeginUploadCertificate.
 type ClustersClientUploadCertificateResponse struct {
 	// placeholder for future response values
@@ -146,6 +152,54 @@ type DeploymentSettingsClientGetResponse struct {
 type DeploymentSettingsClientListByClustersResponse struct {
 	// The response of a DeploymentSetting list operation.
 	DeploymentSettingListResult
+}
+
+// EdgeDeviceJobsClientCreateOrUpdateResponse contains the response from method EdgeDeviceJobsClient.BeginCreateOrUpdate.
+type EdgeDeviceJobsClientCreateOrUpdateResponse struct {
+	// EdgeDevice Jobs resource
+	EdgeDeviceJobClassification
+}
+
+// MarshalJSON implements the json.Marshaller interface for type EdgeDeviceJobsClientCreateOrUpdateResponse.
+func (e EdgeDeviceJobsClientCreateOrUpdateResponse) MarshalJSON() ([]byte, error) {
+	return json.Marshal(e.EdgeDeviceJobClassification)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type EdgeDeviceJobsClientCreateOrUpdateResponse.
+func (e *EdgeDeviceJobsClientCreateOrUpdateResponse) UnmarshalJSON(data []byte) error {
+	res, err := unmarshalEdgeDeviceJobClassification(data)
+	if err != nil {
+		return err
+	}
+	e.EdgeDeviceJobClassification = res
+	return nil
+}
+
+// EdgeDeviceJobsClientDeleteResponse contains the response from method EdgeDeviceJobsClient.BeginDelete.
+type EdgeDeviceJobsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// EdgeDeviceJobsClientGetResponse contains the response from method EdgeDeviceJobsClient.Get.
+type EdgeDeviceJobsClientGetResponse struct {
+	// EdgeDevice Jobs resource
+	EdgeDeviceJobClassification
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type EdgeDeviceJobsClientGetResponse.
+func (e *EdgeDeviceJobsClientGetResponse) UnmarshalJSON(data []byte) error {
+	res, err := unmarshalEdgeDeviceJobClassification(data)
+	if err != nil {
+		return err
+	}
+	e.EdgeDeviceJobClassification = res
+	return nil
+}
+
+// EdgeDeviceJobsClientListByEdgeDeviceResponse contains the response from method EdgeDeviceJobsClient.NewListByEdgeDevicePager.
+type EdgeDeviceJobsClientListByEdgeDeviceResponse struct {
+	// The response of a EdgeDeviceJob list operation.
+	EdgeDeviceJobListResult
 }
 
 // EdgeDevicesClientCreateOrUpdateResponse contains the response from method EdgeDevicesClient.BeginCreateOrUpdate.

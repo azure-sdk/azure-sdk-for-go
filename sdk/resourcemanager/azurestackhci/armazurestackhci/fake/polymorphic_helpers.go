@@ -33,3 +33,24 @@ func unmarshalEdgeDeviceClassification(rawMsg json.RawMessage) (armazurestackhci
 	}
 	return b, nil
 }
+
+func unmarshalEdgeDeviceJobClassification(rawMsg json.RawMessage) (armazurestackhci.EdgeDeviceJobClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b armazurestackhci.EdgeDeviceJobClassification
+	switch m["kind"] {
+	case string(armazurestackhci.EdgeDeviceKindHCI):
+		b = &armazurestackhci.HciEdgeDeviceJob{}
+	default:
+		b = &armazurestackhci.EdgeDeviceJob{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
