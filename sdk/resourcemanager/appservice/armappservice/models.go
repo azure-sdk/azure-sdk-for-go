@@ -319,10 +319,10 @@ type AppCertificateProperties struct {
 	// Host names the certificate applies to.
 	HostNames []*string
 
-	// Key Vault Csm resource Id.
+	// Azure Key Vault Csm resource Id.
 	KeyVaultID *string
 
-	// Key Vault secret name.
+	// Azure Key Vault secret name.
 	KeyVaultSecretName *string
 
 	// Certificate password.
@@ -331,7 +331,7 @@ type AppCertificateProperties struct {
 	// Pfx blob.
 	PfxBlob []byte
 
-	// Resource ID of the associated App Service plan, formatted as: "/subscriptions/{subscriptionID}/resourceGroups/{groupName}/providers/Microsoft.Web/serverfarms/{appServicePlanName}".
+	// Resource ID of the associated App Service plan.
 	ServerFarmID *string
 
 	// READ-ONLY; Raw bytes of .cer file
@@ -5155,6 +5155,25 @@ type OutboundEnvironmentEndpointCollection struct {
 	NextLink *string
 }
 
+// OutboundVnetRouting - Outbound traffic options over virtual network.
+type OutboundVnetRouting struct {
+	// Enables all other routing options defined in OutboundVnetRouting if this setting is set to true.
+	AllTraffic *bool
+
+	// This causes all outbound traffic to have Virtual Network Security Groups and User Defined Routes applied. Previously called
+	// VnetRouteAllEnabled.
+	ApplicationTraffic *bool
+
+	// Enables Backup and Restore operations over virtual network. Previously called VnetBackupRestoreEnabled
+	BackupRestoreTraffic *bool
+
+	// Enables accessing content over virtual network. Previously called VnetContentShareEnabled
+	ContentShareTraffic *bool
+
+	// Enables pulling image over Virtual Network. Previously called VnetImagePullEnabled.
+	ImagePullTraffic *bool
+}
+
 // PerfMonCounterCollection - Collection of performance monitor counters.
 type PerfMonCounterCollection struct {
 	// REQUIRED; Collection of resources.
@@ -8181,6 +8200,9 @@ type SiteProperties struct {
 	// /subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.App/managedEnvironments/{managedEnvironmentName}
 	ManagedEnvironmentID *string
 
+	// Property to configure various outbound traffic routing options over virtual network for a site
+	OutboundVnetRouting *OutboundVnetRouting
+
 	// Property to allow or block all public traffic. Allowed Values: 'Enabled', 'Disabled' or an empty string.
 	PublicNetworkAccess *string
 
@@ -8209,19 +8231,6 @@ type SiteProperties struct {
 	// the form
 	// /subscriptions/{subscriptionName}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworks/{vnetName}/subnets/{subnetName}
 	VirtualNetworkSubnetID *string
-
-	// To enable Backup and Restore operations over virtual network
-	VnetBackupRestoreEnabled *bool
-
-	// To enable accessing content over virtual network
-	VnetContentShareEnabled *bool
-
-	// To enable pulling image over Virtual Network
-	VnetImagePullEnabled *bool
-
-	// Virtual Network Route All enabled. This causes all outbound traffic to have Virtual Network Security Groups and User Defined
-	// Routes applied.
-	VnetRouteAllEnabled *bool
 
 	// Workload profile name for function app to execute on.
 	WorkloadProfileName *string
