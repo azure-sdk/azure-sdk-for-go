@@ -1,5 +1,70 @@
 # Release History
 
+## 7.0.0 (2025-01-07)
+### Breaking Changes
+
+- `StorageAccountTypePremiumV2LRS` from enum `StorageAccountType` has been removed
+- Enum `AccessControlRulesMode` has been removed
+- Enum `EndpointAccess` has been removed
+- Enum `EndpointTypes` has been removed
+- Enum `GalleryApplicationScriptRebootBehavior` has been removed
+- Enum `SoftDeletedArtifactTypes` has been removed
+- Enum `ValidationStatus` has been removed
+- Function `*ClientFactory.NewGalleryInVMAccessControlProfileVersionsClient` has been removed
+- Function `*ClientFactory.NewGalleryInVMAccessControlProfilesClient` has been removed
+- Function `*ClientFactory.NewSoftDeletedResourceClient` has been removed
+- Function `NewGalleryInVMAccessControlProfileVersionsClient` has been removed
+- Function `*GalleryInVMAccessControlProfileVersionsClient.BeginCreateOrUpdate` has been removed
+- Function `*GalleryInVMAccessControlProfileVersionsClient.BeginDelete` has been removed
+- Function `*GalleryInVMAccessControlProfileVersionsClient.Get` has been removed
+- Function `*GalleryInVMAccessControlProfileVersionsClient.NewListByGalleryInVMAccessControlProfilePager` has been removed
+- Function `*GalleryInVMAccessControlProfileVersionsClient.BeginUpdate` has been removed
+- Function `NewGalleryInVMAccessControlProfilesClient` has been removed
+- Function `*GalleryInVMAccessControlProfilesClient.BeginCreateOrUpdate` has been removed
+- Function `*GalleryInVMAccessControlProfilesClient.BeginDelete` has been removed
+- Function `*GalleryInVMAccessControlProfilesClient.Get` has been removed
+- Function `*GalleryInVMAccessControlProfilesClient.NewListByGalleryPager` has been removed
+- Function `*GalleryInVMAccessControlProfilesClient.BeginUpdate` has been removed
+- Function `NewSoftDeletedResourceClient` has been removed
+- Function `*SoftDeletedResourceClient.NewListByArtifactNamePager` has been removed
+- Struct `AccessControlRules` has been removed
+- Struct `AccessControlRulesIdentity` has been removed
+- Struct `AccessControlRulesPrivilege` has been removed
+- Struct `AccessControlRulesRole` has been removed
+- Struct `AccessControlRulesRoleAssignment` has been removed
+- Struct `AdditionalReplicaSet` has been removed
+- Struct `ExecutedValidation` has been removed
+- Struct `GalleryIdentity` has been removed
+- Struct `GalleryInVMAccessControlProfile` has been removed
+- Struct `GalleryInVMAccessControlProfileList` has been removed
+- Struct `GalleryInVMAccessControlProfileProperties` has been removed
+- Struct `GalleryInVMAccessControlProfileUpdate` has been removed
+- Struct `GalleryInVMAccessControlProfileVersion` has been removed
+- Struct `GalleryInVMAccessControlProfileVersionList` has been removed
+- Struct `GalleryInVMAccessControlProfileVersionProperties` has been removed
+- Struct `GalleryInVMAccessControlProfileVersionUpdate` has been removed
+- Struct `GalleryResourceProfilePropertiesBase` has been removed
+- Struct `GalleryResourceProfileVersionPropertiesBase` has been removed
+- Struct `GallerySoftDeletedResource` has been removed
+- Struct `GallerySoftDeletedResourceList` has been removed
+- Struct `GallerySoftDeletedResourceProperties` has been removed
+- Struct `PlatformAttribute` has been removed
+- Struct `ValidationsProfile` has been removed
+- Field `Identity` of struct `Gallery` has been removed
+- Field `StartsAtVersion` of struct `GalleryImageFeature` has been removed
+- Field `AllowUpdateImage` of struct `GalleryImageProperties` has been removed
+- Field `Restore`, `ValidationsProfile` of struct `GalleryImageVersionProperties` has been removed
+- Field `BlockDeletionBeforeEndOfLife` of struct `GalleryImageVersionSafetyProfile` has been removed
+- Field `SecurityProfile` of struct `GalleryList` has been removed
+- Field `Identity` of struct `GalleryUpdate` has been removed
+- Field `AdditionalReplicaSets` of struct `TargetRegion` has been removed
+- Field `ScriptBehaviorAfterReboot` of struct `UserArtifactSettings` has been removed
+
+### Features Added
+
+- New field `PrioritizeUnhealthyVMs` in struct `ScaleInPolicy`
+
+
 ## 6.2.0 (2024-12-27)
 ### Features Added
 
