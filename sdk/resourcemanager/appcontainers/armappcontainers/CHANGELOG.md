@@ -1,5 +1,25 @@
 # Release History
 
+## 3.1.0 (2025-01-08)
+### Features Added
+
+- New value `StorageTypeNfsAzureFile` added to enum type `StorageType`
+- New enum type `ContainerAppRunningStatus` with values `ContainerAppRunningStatusProgressing`, `ContainerAppRunningStatusReady`, `ContainerAppRunningStatusRunning`, `ContainerAppRunningStatusStopped`, `ContainerAppRunningStatusSuspended`
+- New struct `NfsAzureFileProperties`
+- New struct `Runtime`
+- New struct `RuntimeJava`
+- New field `Runtime` in struct `Configuration`
+- New field `RunningStatus` in struct `ContainerAppProperties`
+- New field `Identity` in struct `CustomScaleRule`
+- New field `Identity` in struct `HTTPScaleRule`
+- New field `Identity` in struct `JobScaleRule`
+- New field `NfsAzureFile` in struct `ManagedEnvironmentStorageProperties`
+- New field `AccountName`, `Identity` in struct `QueueScaleRule`
+- New field `CooldownPeriod`, `PollingInterval` in struct `Scale`
+- New field `Identity` in struct `TCPScaleRule`
+- New field `EnableFips` in struct `WorkloadProfile`
+
+
 ## 3.1.0-beta.1 (2024-10-23)
 ### Features Added
 
