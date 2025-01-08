@@ -75,6 +75,14 @@ func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	}
 }
 
+// NewPrivateAccessesClient creates a new instance of PrivateAccessesClient.
+func (c *ClientFactory) NewPrivateAccessesClient() *PrivateAccessesClient {
+	return &PrivateAccessesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewTargetTypesClient creates a new instance of TargetTypesClient.
 func (c *ClientFactory) NewTargetTypesClient() *TargetTypesClient {
 	return &TargetTypesClient{

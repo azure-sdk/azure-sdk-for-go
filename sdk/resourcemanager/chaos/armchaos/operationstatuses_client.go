@@ -46,7 +46,7 @@ func NewOperationStatusesClient(subscriptionID string, credential azcore.TokenCr
 // Get - Get the status of a long running azure asynchronous operation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-01-01
+// Generated from API version 2024-03-22-preview
 //   - location - The name of the Azure region.
 //   - asyncOperationID - The operation Id.
 //   - options - OperationStatusesClientGetOptions contains the optional parameters for the OperationStatusesClient.Get method.
@@ -92,7 +92,7 @@ func (client *OperationStatusesClient) getCreateRequest(ctx context.Context, loc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-01-01")
+	reqQP.Set("api-version", "2024-03-22-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
