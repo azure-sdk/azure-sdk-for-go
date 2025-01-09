@@ -10,27 +10,8 @@ package armcompute
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute"
-	moduleVersion = "v6.2.0"
+	moduleVersion = "v7.0.0"
 )
-
-// AccessControlRulesMode - This property allows you to specify whether the access control rules are in Audit mode, in Enforce
-// mode or Disabled. Possible values are: 'Audit', 'Enforce' or 'Disabled'.
-type AccessControlRulesMode string
-
-const (
-	AccessControlRulesModeAudit    AccessControlRulesMode = "Audit"
-	AccessControlRulesModeDisabled AccessControlRulesMode = "Disabled"
-	AccessControlRulesModeEnforce  AccessControlRulesMode = "Enforce"
-)
-
-// PossibleAccessControlRulesModeValues returns the possible values for the AccessControlRulesMode const type.
-func PossibleAccessControlRulesModeValues() []AccessControlRulesMode {
-	return []AccessControlRulesMode{
-		AccessControlRulesModeAudit,
-		AccessControlRulesModeDisabled,
-		AccessControlRulesModeEnforce,
-	}
-}
 
 type AccessLevel string
 
@@ -104,7 +85,7 @@ func PossibleAlternativeTypeValues() []AlternativeType {
 	}
 }
 
-// Architecture - CPU architecture supported by an OS disk.
+// Architecture - The architecture of the image. Applicable to OS disks only.
 type Architecture string
 
 const (
@@ -751,40 +732,6 @@ func PossibleEncryptionTypeValues() []EncryptionType {
 	}
 }
 
-// EndpointAccess - This property allows you to specify if the requests will be allowed to access the host endpoints. Possible
-// values are: 'Allow', 'Deny'.
-type EndpointAccess string
-
-const (
-	EndpointAccessAllow EndpointAccess = "Allow"
-	EndpointAccessDeny  EndpointAccess = "Deny"
-)
-
-// PossibleEndpointAccessValues returns the possible values for the EndpointAccess const type.
-func PossibleEndpointAccessValues() []EndpointAccess {
-	return []EndpointAccess{
-		EndpointAccessAllow,
-		EndpointAccessDeny,
-	}
-}
-
-// EndpointTypes - This property allows you to specify the Endpoint type for which this profile is defining the access control
-// for. Possible values are: 'WireServer' or 'IMDS'
-type EndpointTypes string
-
-const (
-	EndpointTypesIMDS       EndpointTypes = "IMDS"
-	EndpointTypesWireServer EndpointTypes = "WireServer"
-)
-
-// PossibleEndpointTypesValues returns the possible values for the EndpointTypes const type.
-func PossibleEndpointTypesValues() []EndpointTypes {
-	return []EndpointTypes{
-		EndpointTypesIMDS,
-		EndpointTypesWireServer,
-	}
-}
-
 // ExecutionState - Script execution status.
 type ExecutionState string
 
@@ -927,23 +874,6 @@ func PossibleGalleryApplicationCustomActionParameterTypeValues() []GalleryApplic
 		GalleryApplicationCustomActionParameterTypeConfigurationDataBlob,
 		GalleryApplicationCustomActionParameterTypeLogOutputBlob,
 		GalleryApplicationCustomActionParameterTypeString,
-	}
-}
-
-// GalleryApplicationScriptRebootBehavior - Optional. The action to be taken with regards to install/update/remove of the
-// gallery application in the event of a reboot.
-type GalleryApplicationScriptRebootBehavior string
-
-const (
-	GalleryApplicationScriptRebootBehaviorNone  GalleryApplicationScriptRebootBehavior = "None"
-	GalleryApplicationScriptRebootBehaviorRerun GalleryApplicationScriptRebootBehavior = "Rerun"
-)
-
-// PossibleGalleryApplicationScriptRebootBehaviorValues returns the possible values for the GalleryApplicationScriptRebootBehavior const type.
-func PossibleGalleryApplicationScriptRebootBehaviorValues() []GalleryApplicationScriptRebootBehavior {
-	return []GalleryApplicationScriptRebootBehavior{
-		GalleryApplicationScriptRebootBehaviorNone,
-		GalleryApplicationScriptRebootBehaviorRerun,
 	}
 }
 
@@ -1380,7 +1310,8 @@ func PossibleOperatingSystemTypeValues() []OperatingSystemType {
 	}
 }
 
-// OperatingSystemTypes - The Operating System type.
+// OperatingSystemTypes - This property allows you to specify the supported type of the OS that application is built for.
+// Possible values are: Windows, Linux.
 type OperatingSystemTypes string
 
 const (
@@ -1702,6 +1633,36 @@ func PossiblePublicNetworkAccessValues() []PublicNetworkAccess {
 	}
 }
 
+// RebalanceBehavior - Type of rebalance behavior that will be used for recreating virtual machines in the scale set across
+// availability zones. Default and only supported value for now is CreateBeforeDelete.
+type RebalanceBehavior string
+
+const (
+	RebalanceBehaviorCreateBeforeDelete RebalanceBehavior = "CreateBeforeDelete"
+)
+
+// PossibleRebalanceBehaviorValues returns the possible values for the RebalanceBehavior const type.
+func PossibleRebalanceBehaviorValues() []RebalanceBehavior {
+	return []RebalanceBehavior{
+		RebalanceBehaviorCreateBeforeDelete,
+	}
+}
+
+// RebalanceStrategy - Type of rebalance strategy that will be used for rebalancing virtual machines in the scale set across
+// availability zones. Default and only supported value for now is Recreate.
+type RebalanceStrategy string
+
+const (
+	RebalanceStrategyRecreate RebalanceStrategy = "Recreate"
+)
+
+// PossibleRebalanceStrategyValues returns the possible values for the RebalanceStrategy const type.
+func PossibleRebalanceStrategyValues() []RebalanceStrategy {
+	return []RebalanceStrategy{
+		RebalanceStrategyRecreate,
+	}
+}
+
 // RepairAction - Type of repair action (replace, restart, reimage) that will be used for repairing unhealthy virtual machines
 // in the scale set. Default value is replace.
 type RepairAction string
@@ -1789,9 +1750,9 @@ func PossibleResourceIDOptionsForGetCapacityReservationGroupsValues() []Resource
 	}
 }
 
-// ResourceIdentityType - The type of identity used for the gallery. The type 'SystemAssigned, UserAssigned' includes both
-// an implicitly created identity and a set of user assigned identities. The type 'None' will remove all
-// identities from the gallery.
+// ResourceIdentityType - The type of identity used for the virtual machine scale set. The type 'SystemAssigned, UserAssigned'
+// includes both an implicitly created identity and a set of user assigned identities. The type 'None'
+// will remove any identities from the virtual machine scale set.
 type ResourceIdentityType string
 
 const (
@@ -2143,20 +2104,6 @@ func PossibleSnapshotStorageAccountTypesValues() []SnapshotStorageAccountTypes {
 	}
 }
 
-// SoftDeletedArtifactTypes - artifact type of the soft-deleted resource
-type SoftDeletedArtifactTypes string
-
-const (
-	SoftDeletedArtifactTypesImages SoftDeletedArtifactTypes = "Images"
-)
-
-// PossibleSoftDeletedArtifactTypesValues returns the possible values for the SoftDeletedArtifactTypes const type.
-func PossibleSoftDeletedArtifactTypesValues() []SoftDeletedArtifactTypes {
-	return []SoftDeletedArtifactTypes{
-		SoftDeletedArtifactTypesImages,
-	}
-}
-
 // StatusLevelTypes - The level code.
 type StatusLevelTypes string
 
@@ -2179,17 +2126,15 @@ func PossibleStatusLevelTypesValues() []StatusLevelTypes {
 type StorageAccountType string
 
 const (
-	StorageAccountTypePremiumLRS   StorageAccountType = "Premium_LRS"
-	StorageAccountTypePremiumV2LRS StorageAccountType = "PremiumV2_LRS"
-	StorageAccountTypeStandardLRS  StorageAccountType = "Standard_LRS"
-	StorageAccountTypeStandardZRS  StorageAccountType = "Standard_ZRS"
+	StorageAccountTypePremiumLRS  StorageAccountType = "Premium_LRS"
+	StorageAccountTypeStandardLRS StorageAccountType = "Standard_LRS"
+	StorageAccountTypeStandardZRS StorageAccountType = "Standard_ZRS"
 )
 
 // PossibleStorageAccountTypeValues returns the possible values for the StorageAccountType const type.
 func PossibleStorageAccountTypeValues() []StorageAccountType {
 	return []StorageAccountType{
 		StorageAccountTypePremiumLRS,
-		StorageAccountTypePremiumV2LRS,
 		StorageAccountTypeStandardLRS,
 		StorageAccountTypeStandardZRS,
 	}
@@ -2440,24 +2385,6 @@ func PossibleVMGuestPatchRebootStatusValues() []VMGuestPatchRebootStatus {
 		VMGuestPatchRebootStatusRequired,
 		VMGuestPatchRebootStatusStarted,
 		VMGuestPatchRebootStatusUnknown,
-	}
-}
-
-// ValidationStatus - This property specifies the status of the validationProfile of the image version.
-type ValidationStatus string
-
-const (
-	ValidationStatusFailed    ValidationStatus = "Failed"
-	ValidationStatusSucceeded ValidationStatus = "Succeeded"
-	ValidationStatusUnknown   ValidationStatus = "Unknown"
-)
-
-// PossibleValidationStatusValues returns the possible values for the ValidationStatus const type.
-func PossibleValidationStatusValues() []ValidationStatus {
-	return []ValidationStatus{
-		ValidationStatusFailed,
-		ValidationStatusSucceeded,
-		ValidationStatusUnknown,
 	}
 }
 
