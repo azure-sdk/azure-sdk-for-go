@@ -11,14 +11,13 @@ package armappcontainers
 import (
 	"context"
 	"errors"
-	"net/http"
-	"net/url"
-	"strings"
-
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"net/http"
+	"net/url"
+	"strings"
 )
 
 // BuildersClient contains the methods for the Builders group.
@@ -47,7 +46,7 @@ func NewBuildersClient(subscriptionID string, credential azcore.TokenCredential,
 // BeginCreateOrUpdate - Create or update a BuilderResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - builderName - The name of the builder.
 //   - builderEnvelope - Resource create parameters.
@@ -74,7 +73,7 @@ func (client *BuildersClient) BeginCreateOrUpdate(ctx context.Context, resourceG
 // CreateOrUpdate - Create or update a BuilderResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 func (client *BuildersClient) createOrUpdate(ctx context.Context, resourceGroupName string, builderName string, builderEnvelope BuilderResource, options *BuildersClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "BuildersClient.BeginCreateOrUpdate"
@@ -116,7 +115,7 @@ func (client *BuildersClient) createOrUpdateCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, builderEnvelope); err != nil {
@@ -128,7 +127,7 @@ func (client *BuildersClient) createOrUpdateCreateRequest(ctx context.Context, r
 // BeginDelete - Delete a BuilderResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - builderName - The name of the builder.
 //   - options - BuildersClientBeginDeleteOptions contains the optional parameters for the BuildersClient.BeginDelete method.
@@ -153,7 +152,7 @@ func (client *BuildersClient) BeginDelete(ctx context.Context, resourceGroupName
 // Delete - Delete a BuilderResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 func (client *BuildersClient) deleteOperation(ctx context.Context, resourceGroupName string, builderName string, options *BuildersClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "BuildersClient.BeginDelete"
@@ -195,7 +194,7 @@ func (client *BuildersClient) deleteCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -204,7 +203,7 @@ func (client *BuildersClient) deleteCreateRequest(ctx context.Context, resourceG
 // Get - Get a BuilderResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - builderName - The name of the builder.
 //   - options - BuildersClientGetOptions contains the optional parameters for the BuildersClient.Get method.
@@ -250,7 +249,7 @@ func (client *BuildersClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -267,7 +266,7 @@ func (client *BuildersClient) getHandleResponse(resp *http.Response) (BuildersCl
 
 // NewListByResourceGroupPager - List BuilderResource resources by resource group
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - BuildersClientListByResourceGroupOptions contains the optional parameters for the BuildersClient.NewListByResourceGroupPager
 //     method.
@@ -310,7 +309,7 @@ func (client *BuildersClient) listByResourceGroupCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -327,7 +326,7 @@ func (client *BuildersClient) listByResourceGroupHandleResponse(resp *http.Respo
 
 // NewListBySubscriptionPager - List BuilderResource resources by subscription ID
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - options - BuildersClientListBySubscriptionOptions contains the optional parameters for the BuildersClient.NewListBySubscriptionPager
 //     method.
 func (client *BuildersClient) NewListBySubscriptionPager(options *BuildersClientListBySubscriptionOptions) *runtime.Pager[BuildersClientListBySubscriptionResponse] {
@@ -365,7 +364,7 @@ func (client *BuildersClient) listBySubscriptionCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -383,7 +382,7 @@ func (client *BuildersClient) listBySubscriptionHandleResponse(resp *http.Respon
 // BeginUpdate - Update a BuilderResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - builderName - The name of the builder.
 //   - builderEnvelope - The resource properties to be updated.
@@ -409,7 +408,7 @@ func (client *BuildersClient) BeginUpdate(ctx context.Context, resourceGroupName
 // Update - Update a BuilderResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-08-02-preview
+// Generated from API version 2024-10-02-preview
 func (client *BuildersClient) update(ctx context.Context, resourceGroupName string, builderName string, builderEnvelope BuilderResourceUpdate, options *BuildersClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "BuildersClient.BeginUpdate"
@@ -451,7 +450,7 @@ func (client *BuildersClient) updateCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-08-02-preview")
+	reqQP.Set("api-version", "2024-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, builderEnvelope); err != nil {
