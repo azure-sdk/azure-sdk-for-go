@@ -1,5 +1,11 @@
 # Release History
 
+## 4.2.0 (2025-01-09)
+### Features Added
+
+- New struct `ErrorPage`
+
+
 ## 4.1.0 (2024-11-20)
 ### Features Added
 
