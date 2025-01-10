@@ -178,6 +178,14 @@ func (c *ClientFactory) NewResourceHealthMetadataClient() *ResourceHealthMetadat
 	}
 }
 
+// NewSiteCertificatesClient creates a new instance of SiteCertificatesClient.
+func (c *ClientFactory) NewSiteCertificatesClient() *SiteCertificatesClient {
+	return &SiteCertificatesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewStaticSitesClient creates a new instance of StaticSitesClient.
 func (c *ClientFactory) NewStaticSitesClient() *StaticSitesClient {
 	return &StaticSitesClient{
