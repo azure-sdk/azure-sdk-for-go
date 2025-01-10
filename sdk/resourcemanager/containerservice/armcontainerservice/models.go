@@ -174,6 +174,12 @@ type AgentPoolSecurityProfile struct {
 	SSHAccess *AgentPoolSSHAccess
 }
 
+// AgentPoolStatus - Contains read-only information about the Agent Pool.
+type AgentPoolStatus struct {
+	// READ-ONLY; Preserves the detailed info of failure. If there was no error, this field is omitted.
+	ProvisioningError *CloudErrorBody
+}
+
 // AgentPoolUpgradeProfile - The list of available upgrades for an agent pool.
 type AgentPoolUpgradeProfile struct {
 	// REQUIRED; The properties of the agent pool upgrade profile.
@@ -208,6 +214,9 @@ type AgentPoolUpgradeProfileProperties struct {
 }
 
 type AgentPoolUpgradeProfilePropertiesUpgradesItem struct {
+	// Whether the Kubernetes version is out of support.
+	IsOutOfSupport *bool
+
 	// Whether the Kubernetes version is currently in preview.
 	IsPreview *bool
 
@@ -258,6 +267,15 @@ type AutoScaleProfile struct {
 
 	// The minimum number of nodes of the specified sizes.
 	MinCount *int32
+
+	// OS Disk Size in GB to be used to specify the disk size for every machine in the master/agent pool. If you specify 0, it
+	// will apply the default osDisk size according to the vmSize specified.
+	OSDiskSizeGB *int32
+
+	// The default is 'Ephemeral' if the VM supports it and has a cache disk larger than the requested OSDiskSizeGB. Otherwise,
+	// defaults to 'Managed'. May not be changed after creation. For more information
+	// see Ephemeral OS [https://docs.microsoft.com/azure/aks/cluster-configuration#ephemeral-os].
+	OSDiskType *OSDiskType
 
 	// The list of allowed vm sizes e.g. ['StandardE4sv3', 'StandardE16sv3', 'StandardD16sv5']. AKS will use the first available
 	// one when auto scaling. If a VM size is unavailable (e.g. due to quota or
@@ -520,6 +538,17 @@ type IstioComponents struct {
 type IstioEgressGateway struct {
 	// REQUIRED; Whether to enable the egress gateway.
 	Enabled *bool
+
+	// REQUIRED; Name of the Istio add-on egress gateway.
+	Name *string
+
+	// Name of the gateway configuration custom resource to configure the Istio egress routing. Must be specified when enabling
+	// the Istio egress gateway. Must be deployed in the same namespace that the Istio
+	// egress gateway will be deployed in.
+	GatewayConfigurationName *string
+
+	// Namespace that the Istio add-on egress gateway should be deployed in. If unspecified, the default is aks-istio-egress.
+	Namespace *string
 }
 
 // IstioIngressGateway - Istio ingress gateway configuration. For now, we support up to one external ingress gateway named
@@ -1190,6 +1219,9 @@ type ManagedClusterAgentPoolProfile struct {
 	// [https://docs.microsoft.com/azure/virtual-machines/spot-vms#pricing]
 	SpotMaxPrice *float32
 
+	// Contains read-only information about the Agent Pool.
+	Status *AgentPoolStatus
+
 	// The tags to be persisted on the agent pool virtual machine scale set.
 	Tags map[string]*string
 
@@ -1398,6 +1430,9 @@ type ManagedClusterAgentPoolProfileProperties struct {
 	// For more details on spot pricing, see spot VMs pricing
 	// [https://docs.microsoft.com/azure/virtual-machines/spot-vms#pricing]
 	SpotMaxPrice *float32
+
+	// Contains read-only information about the Agent Pool.
+	Status *AgentPoolStatus
 
 	// The tags to be persisted on the agent pool virtual machine scale set.
 	Tags map[string]*string
@@ -1861,6 +1896,9 @@ type ManagedClusterPoolUpgradeProfile struct {
 }
 
 type ManagedClusterPoolUpgradeProfileUpgradesItem struct {
+	// Whether the Kubernetes version is out of support.
+	IsOutOfSupport *bool
+
 	// Whether the Kubernetes version is currently in preview.
 	IsPreview *bool
 
@@ -1986,6 +2024,9 @@ type ManagedClusterProperties struct {
 
 	// Information about a service principal identity for the cluster to use for manipulating Azure APIs.
 	ServicePrincipalProfile *ManagedClusterServicePrincipalProfile
+
+	// Contains read-only information about the Managed Cluster.
+	Status *ManagedClusterStatus
 
 	// Storage profile for the managed cluster.
 	StorageProfile *ManagedClusterStorageProfile
@@ -2264,6 +2305,12 @@ type ManagedClusterStaticEgressGatewayProfile struct {
 	Enabled *bool
 }
 
+// ManagedClusterStatus - Contains read-only information about the Managed Cluster.
+type ManagedClusterStatus struct {
+	// READ-ONLY; Preserves the detailed info of failure. If there was no error, this field is omitted.
+	ProvisioningError *CloudErrorBody
+}
+
 // ManagedClusterStorageProfile - Storage profile for the container service cluster.
 type ManagedClusterStorageProfile struct {
 	// AzureBlob CSI Driver settings for the storage profile.
@@ -2398,6 +2445,15 @@ type ManagedServiceIdentityUserAssignedIdentitiesValue struct {
 type ManualScaleProfile struct {
 	// Number of nodes.
 	Count *int32
+
+	// OS Disk Size in GB to be used to specify the disk size for every machine in the master/agent pool. If you specify 0, it
+	// will apply the default osDisk size according to the vmSize specified.
+	OSDiskSizeGB *int32
+
+	// The default is 'Ephemeral' if the VM supports it and has a cache disk larger than the requested OSDiskSizeGB. Otherwise,
+	// defaults to 'Managed'. May not be changed after creation. For more information
+	// see Ephemeral OS [https://docs.microsoft.com/azure/aks/cluster-configuration#ephemeral-os].
+	OSDiskType *OSDiskType
 
 	// The list of allowed vm sizes e.g. ['StandardE4sv3', 'StandardE16sv3', 'StandardD16sv5']. AKS will use the first available
 	// one when scaling. If a VM size is unavailable (e.g. due to quota or regional
@@ -2607,6 +2663,30 @@ type NetworkProfileKubeProxyConfigIpvsConfig struct {
 
 	// The timeout value used for IPVS UDP packets in seconds. Must be a positive integer value.
 	UDPTimeoutSeconds *int32
+}
+
+// NodeImageVersion - node image version profile for given major.minor.patch release.
+type NodeImageVersion struct {
+	// The OS + SKU + version of the node image. Example: AKSUbuntu-1804gen2containerd-2024.02.02
+	FullName *string
+
+	// The operating system of the node image. Example: AKSUbuntu
+	OS *string
+
+	// The SKU or flavor of the node image. Example: 2004gen2containerd
+	SKU *string
+
+	// major.minor.patch version of the node image version release. Example: 2024.02.02
+	Version *string
+}
+
+// NodeImageVersionsListResult - Holds an array NodeImageVersions
+type NodeImageVersionsListResult struct {
+	// Array of AKS Node Image versions.
+	Value []*NodeImageVersion
+
+	// READ-ONLY; The URL to get the next set of machine results.
+	NextLink *string
 }
 
 // OperationListResult - The List Operation response.

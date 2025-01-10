@@ -59,6 +59,12 @@ type AgentPoolsClientUpgradeNodeImageVersionResponse struct {
 	AgentPool
 }
 
+// ClientListNodeImageVersionsResponse contains the response from method Client.NewListNodeImageVersionsPager.
+type ClientListNodeImageVersionsResponse struct {
+	// Holds an array NodeImageVersions
+	NodeImageVersionsListResult
+}
+
 // LoadBalancersClientCreateOrUpdateResponse contains the response from method LoadBalancersClient.CreateOrUpdate.
 type LoadBalancersClientCreateOrUpdateResponse struct {
 	// The configurations regarding multiple standard load balancers. If not supplied, single load balancer mode will be used.

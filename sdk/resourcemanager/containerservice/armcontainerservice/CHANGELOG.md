@@ -1,5 +1,25 @@
 # Release History
 
+## 6.4.0-beta.2 (2025-01-10)
+### Features Added
+
+- New function `NewClient(string, azcore.TokenCredential, *arm.ClientOptions) (*Client, error)`
+- New function `*Client.NewListNodeImageVersionsPager(string, *ClientListNodeImageVersionsOptions) *runtime.Pager[ClientListNodeImageVersionsResponse]`
+- New function `*ClientFactory.NewClient() *Client`
+- New struct `AgentPoolStatus`
+- New struct `ManagedClusterStatus`
+- New struct `NodeImageVersion`
+- New struct `NodeImageVersionsListResult`
+- New field `IsOutOfSupport` in struct `AgentPoolUpgradeProfilePropertiesUpgradesItem`
+- New field `OSDiskSizeGB`, `OSDiskType` in struct `AutoScaleProfile`
+- New field `GatewayConfigurationName`, `Name`, `Namespace` in struct `IstioEgressGateway`
+- New field `Status` in struct `ManagedClusterAgentPoolProfile`
+- New field `Status` in struct `ManagedClusterAgentPoolProfileProperties`
+- New field `IsOutOfSupport` in struct `ManagedClusterPoolUpgradeProfileUpgradesItem`
+- New field `Status` in struct `ManagedClusterProperties`
+- New field `OSDiskSizeGB`, `OSDiskType` in struct `ManualScaleProfile`
+
+
 ## 6.4.0-beta.1 (2024-12-09)
 ### Features Added
 

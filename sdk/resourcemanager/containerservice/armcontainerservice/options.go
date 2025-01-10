@@ -75,6 +75,11 @@ type AgentPoolsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ClientListNodeImageVersionsOptions contains the optional parameters for the Client.NewListNodeImageVersionsPager method.
+type ClientListNodeImageVersionsOptions struct {
+	// placeholder for future optional parameters
+}
+
 // LoadBalancersClientBeginDeleteOptions contains the optional parameters for the LoadBalancersClient.BeginDelete method.
 type LoadBalancersClientBeginDeleteOptions struct {
 	// Resumes the LRO from the provided token.

@@ -44,6 +44,14 @@ func (c *ClientFactory) NewAgentPoolsClient() *AgentPoolsClient {
 	}
 }
 
+// NewClient creates a new instance of Client.
+func (c *ClientFactory) NewClient() *Client {
+	return &Client{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewLoadBalancersClient creates a new instance of LoadBalancersClient.
 func (c *ClientFactory) NewLoadBalancersClient() *LoadBalancersClient {
 	return &LoadBalancersClient{
