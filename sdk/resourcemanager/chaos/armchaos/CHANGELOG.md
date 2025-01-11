@@ -1,5 +1,63 @@
 # Release History
 
+## 2.0.0-beta.1 (2025-01-11)
+### Breaking Changes
+
+- Type of `ContinuousAction.Type` has been changed from `*string` to `*ExperimentActionType`
+- Type of `DelayAction.Type` has been changed from `*string` to `*ExperimentActionType`
+- Type of `DiscreteAction.Type` has been changed from `*string` to `*ExperimentActionType`
+- Type of `Experiment.Identity` has been changed from `*ResourceIdentity` to `*ManagedServiceIdentity`
+- Type of `ExperimentAction.Type` has been changed from `*string` to `*ExperimentActionType`
+- Type of `ExperimentUpdate.Identity` has been changed from `*ResourceIdentity` to `*ManagedServiceIdentity`
+- Enum `ResourceIdentityType` has been removed
+- Struct `OperationStatus` has been removed
+- Struct `ResourceIdentity` has been removed
+- Field `OperationStatus` of struct `OperationStatusesClientGetResponse` has been removed
+- Field `AdditionalProperties` of struct `TargetListSelector` has been removed
+- Field `AdditionalProperties` of struct `TargetQuerySelector` has been removed
+- Field `AdditionalProperties` of struct `TargetSelector` has been removed
+
+### Features Added
+
+- New enum type `ExperimentActionType` with values `ExperimentActionTypeContinuous`, `ExperimentActionTypeDelay`, `ExperimentActionTypeDiscrete`
+- New enum type `ManagedServiceIdentityType` with values `ManagedServiceIdentityTypeNone`, `ManagedServiceIdentityTypeSystemAssigned`, `ManagedServiceIdentityTypeSystemAssignedUserAssigned`, `ManagedServiceIdentityTypeUserAssigned`
+- New enum type `PrivateEndpointServiceConnectionStatus` with values `PrivateEndpointServiceConnectionStatusApproved`, `PrivateEndpointServiceConnectionStatusPending`, `PrivateEndpointServiceConnectionStatusRejected`
+- New enum type `PublicNetworkAccessOption` with values `PublicNetworkAccessOptionDisabled`, `PublicNetworkAccessOptionEnabled`
+- New function `*ClientFactory.NewPrivateAccessesClient() *PrivateAccessesClient`
+- New function `NewPrivateAccessesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PrivateAccessesClient, error)`
+- New function `*PrivateAccessesClient.BeginCreateOrUpdate(context.Context, string, string, PrivateAccess, *PrivateAccessesClientBeginCreateOrUpdateOptions) (*runtime.Poller[PrivateAccessesClientCreateOrUpdateResponse], error)`
+- New function `*PrivateAccessesClient.BeginDelete(context.Context, string, string, *PrivateAccessesClientBeginDeleteOptions) (*runtime.Poller[PrivateAccessesClientDeleteResponse], error)`
+- New function `*PrivateAccessesClient.BeginDeleteAPrivateEndpointConnection(context.Context, string, string, string, *PrivateAccessesClientBeginDeleteAPrivateEndpointConnectionOptions) (*runtime.Poller[PrivateAccessesClientDeleteAPrivateEndpointConnectionResponse], error)`
+- New function `*PrivateAccessesClient.Get(context.Context, string, string, *PrivateAccessesClientGetOptions) (PrivateAccessesClientGetResponse, error)`
+- New function `*PrivateAccessesClient.GetAPrivateEndpointConnection(context.Context, string, string, string, *PrivateAccessesClientGetAPrivateEndpointConnectionOptions) (PrivateAccessesClientGetAPrivateEndpointConnectionResponse, error)`
+- New function `*PrivateAccessesClient.NewGetPrivateLinkResourcesPager(string, string, *PrivateAccessesClientGetPrivateLinkResourcesOptions) *runtime.Pager[PrivateAccessesClientGetPrivateLinkResourcesResponse]`
+- New function `*PrivateAccessesClient.NewListAllPager(*PrivateAccessesClientListAllOptions) *runtime.Pager[PrivateAccessesClientListAllResponse]`
+- New function `*PrivateAccessesClient.NewListPager(string, *PrivateAccessesClientListOptions) *runtime.Pager[PrivateAccessesClientListResponse]`
+- New function `*PrivateAccessesClient.NewListPrivateEndpointConnectionsPager(string, string, *PrivateAccessesClientListPrivateEndpointConnectionsOptions) *runtime.Pager[PrivateAccessesClientListPrivateEndpointConnectionsResponse]`
+- New function `*PrivateAccessesClient.BeginUpdate(context.Context, string, string, PrivateAccessPatch, *PrivateAccessesClientBeginUpdateOptions) (*runtime.Poller[PrivateAccessesClientUpdateResponse], error)`
+- New struct `CustomerDataStorageProperties`
+- New struct `ManagedServiceIdentity`
+- New struct `OperationStatusResult`
+- New struct `PrivateAccess`
+- New struct `PrivateAccessListResult`
+- New struct `PrivateAccessPatch`
+- New struct `PrivateAccessProperties`
+- New struct `PrivateEndpoint`
+- New struct `PrivateEndpointConnection`
+- New struct `PrivateEndpointConnectionListResult`
+- New struct `PrivateEndpointConnectionProperties`
+- New struct `PrivateLinkResource`
+- New struct `PrivateLinkResourceListResult`
+- New struct `PrivateLinkResourceProperties`
+- New struct `PrivateLinkServiceConnectionState`
+- New struct `ProxyResource`
+- New field `SystemData` in struct `ExperimentExecution`
+- New field `CustomerDataStorage` in struct `ExperimentProperties`
+- New anonymous field `OperationStatusResult` in struct `OperationStatusesClientGetResponse`
+- New field `SystemData` in struct `Resource`
+- New field `SystemData` in struct `TrackedResource`
+
+
 ## 1.1.0 (2024-03-22)
 ### Features Added
 
