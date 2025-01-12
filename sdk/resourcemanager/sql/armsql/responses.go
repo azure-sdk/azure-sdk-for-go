@@ -1937,22 +1937,14 @@ type ManagedInstancesClientListResponse struct {
 	ManagedInstanceListResult
 }
 
-// ManagedInstancesClientRefreshStatusResponse contains the response from method ManagedInstancesClient.BeginRefreshStatus.
-type ManagedInstancesClientRefreshStatusResponse struct {
-	// An RefreshExternalGovernanceStatus operation result resource.
-	RefreshExternalGovernanceStatusOperationResultMI
-}
-
 // ManagedInstancesClientStartResponse contains the response from method ManagedInstancesClient.BeginStart.
 type ManagedInstancesClientStartResponse struct {
-	// An Azure SQL managed instance.
-	ManagedInstance
+	// placeholder for future response values
 }
 
 // ManagedInstancesClientStopResponse contains the response from method ManagedInstancesClient.BeginStop.
 type ManagedInstancesClientStopResponse struct {
-	// An Azure SQL managed instance.
-	ManagedInstance
+	// placeholder for future response values
 }
 
 // ManagedInstancesClientUpdateResponse contains the response from method ManagedInstancesClient.BeginUpdate.
