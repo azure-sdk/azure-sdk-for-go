@@ -15,7 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/chaos/armchaos"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/chaos/armchaos/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -25,7 +25,7 @@ import (
 type OperationStatusesServer struct {
 	// Get is the fake for method OperationStatusesClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, location string, asyncOperationID string, options *armchaos.OperationStatusesClientGetOptions) (resp azfake.Responder[armchaos.OperationStatusesClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, location string, operationID string, options *armchaos.OperationStatusesClientGetOptions) (resp azfake.Responder[armchaos.OperationStatusesClientGetResponse], errResp azfake.ErrorResponder)
 }
 
 // NewOperationStatusesServerTransport creates a new instance of OperationStatusesServerTransport with the provided implementation.
@@ -70,7 +70,7 @@ func (o *OperationStatusesServerTransport) dispatchGet(req *http.Request) (*http
 	if o.srv.Get == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Chaos/locations/(?P<location>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/operationStatuses/(?P<asyncOperationId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Chaos/locations/(?P<location>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/operationStatuses/(?P<operationId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 3 {
@@ -80,11 +80,11 @@ func (o *OperationStatusesServerTransport) dispatchGet(req *http.Request) (*http
 	if err != nil {
 		return nil, err
 	}
-	asyncOperationIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("asyncOperationId")])
+	operationIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("operationId")])
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := o.srv.Get(req.Context(), locationParam, asyncOperationIDParam, nil)
+	respr, errRespr := o.srv.Get(req.Context(), locationParam, operationIDParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -92,7 +92,7 @@ func (o *OperationStatusesServerTransport) dispatchGet(req *http.Request) (*http
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).OperationStatus, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).OperationStatusResult, req)
 	if err != nil {
 		return nil, err
 	}
