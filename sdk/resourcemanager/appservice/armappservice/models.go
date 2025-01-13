@@ -319,10 +319,10 @@ type AppCertificateProperties struct {
 	// Host names the certificate applies to.
 	HostNames []*string
 
-	// Key Vault Csm resource Id.
+	// Azure Key Vault Csm resource Id.
 	KeyVaultID *string
 
-	// Key Vault secret name.
+	// Azure Key Vault secret name.
 	KeyVaultSecretName *string
 
 	// Certificate password.
@@ -331,7 +331,7 @@ type AppCertificateProperties struct {
 	// Pfx blob.
 	PfxBlob []byte
 
-	// Resource ID of the associated App Service plan, formatted as: "/subscriptions/{subscriptionID}/resourceGroups/{groupName}/providers/Microsoft.Web/serverfarms/{appServicePlanName}".
+	// Resource ID of the associated App Service plan.
 	ServerFarmID *string
 
 	// READ-ONLY; Raw bytes of .cer file
@@ -3287,6 +3287,22 @@ type ErrorEntity struct {
 type ErrorInfo struct {
 	// REQUIRED; The error code.
 	Code *string
+}
+
+// ErrorPage - A custom error page for a specific status returned by a web app.
+type ErrorPage struct {
+	// If true, the error page will be shown for all requests with a matching status code, regardless of whether they failed on
+	// the App Service FrontEnd load balancer or on the app itself.
+	AlwaysUse *bool
+
+	// The content of the error page
+	Content *string
+
+	// The content type of the error page
+	ContentType *string
+
+	// The status code for which the error page will be used
+	StatusCode *int32
 }
 
 // ErrorProperties - Error properties indicate why the Logic service was not able to process the incoming request. The reason

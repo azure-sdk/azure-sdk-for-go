@@ -1,5 +1,23 @@
 # Release History
 
+## 4.2.0 (2025-01-13)
+### Features Added
+
+- New function `*ClientFactory.NewSiteCertificatesClient() *SiteCertificatesClient`
+- New function `NewSiteCertificatesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SiteCertificatesClient, error)`
+- New function `*SiteCertificatesClient.CreateOrUpdate(context.Context, string, string, string, AppCertificate, *SiteCertificatesClientCreateOrUpdateOptions) (SiteCertificatesClientCreateOrUpdateResponse, error)`
+- New function `*SiteCertificatesClient.CreateOrUpdateSlot(context.Context, string, string, string, string, AppCertificate, *SiteCertificatesClientCreateOrUpdateSlotOptions) (SiteCertificatesClientCreateOrUpdateSlotResponse, error)`
+- New function `*SiteCertificatesClient.Delete(context.Context, string, string, string, *SiteCertificatesClientDeleteOptions) (SiteCertificatesClientDeleteResponse, error)`
+- New function `*SiteCertificatesClient.DeleteSlot(context.Context, string, string, string, string, *SiteCertificatesClientDeleteSlotOptions) (SiteCertificatesClientDeleteSlotResponse, error)`
+- New function `*SiteCertificatesClient.Get(context.Context, string, string, string, *SiteCertificatesClientGetOptions) (SiteCertificatesClientGetResponse, error)`
+- New function `*SiteCertificatesClient.GetSlot(context.Context, string, string, string, string, *SiteCertificatesClientGetSlotOptions) (SiteCertificatesClientGetSlotResponse, error)`
+- New function `*SiteCertificatesClient.NewListPager(string, string, *SiteCertificatesClientListOptions) *runtime.Pager[SiteCertificatesClientListResponse]`
+- New function `*SiteCertificatesClient.NewListSlotPager(string, string, string, *SiteCertificatesClientListSlotOptions) *runtime.Pager[SiteCertificatesClientListSlotResponse]`
+- New function `*SiteCertificatesClient.Update(context.Context, string, string, string, AppCertificatePatchResource, *SiteCertificatesClientUpdateOptions) (SiteCertificatesClientUpdateResponse, error)`
+- New function `*SiteCertificatesClient.UpdateSlot(context.Context, string, string, string, string, AppCertificatePatchResource, *SiteCertificatesClientUpdateSlotOptions) (SiteCertificatesClientUpdateSlotResponse, error)`
+- New struct `ErrorPage`
+
+
 ## 4.1.0 (2024-11-20)
 ### Features Added
 
