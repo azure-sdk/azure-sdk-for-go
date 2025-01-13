@@ -1,5 +1,50 @@
 # Release History
 
+## 3.1.0 (2025-01-13)
+### Features Added
+
+- New value `StorageTypeNfsAzureFile` added to enum type `StorageType`
+- New enum type `ContainerAppRunningStatus` with values `ContainerAppRunningStatusProgressing`, `ContainerAppRunningStatusReady`, `ContainerAppRunningStatusRunning`, `ContainerAppRunningStatusStopped`, `ContainerAppRunningStatusSuspended`
+- New enum type `JavaComponentProvisioningState` with values `JavaComponentProvisioningStateCanceled`, `JavaComponentProvisioningStateDeleting`, `JavaComponentProvisioningStateFailed`, `JavaComponentProvisioningStateInProgress`, `JavaComponentProvisioningStateSucceeded`
+- New enum type `JavaComponentType` with values `JavaComponentTypeSpringBootAdmin`, `JavaComponentTypeSpringCloudConfig`, `JavaComponentTypeSpringCloudEureka`
+- New function `*ClientFactory.NewJavaComponentsClient() *JavaComponentsClient`
+- New function `*JavaComponentProperties.GetJavaComponentProperties() *JavaComponentProperties`
+- New function `NewJavaComponentsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*JavaComponentsClient, error)`
+- New function `*JavaComponentsClient.BeginCreateOrUpdate(context.Context, string, string, string, JavaComponent, *JavaComponentsClientBeginCreateOrUpdateOptions) (*runtime.Poller[JavaComponentsClientCreateOrUpdateResponse], error)`
+- New function `*JavaComponentsClient.BeginDelete(context.Context, string, string, string, *JavaComponentsClientBeginDeleteOptions) (*runtime.Poller[JavaComponentsClientDeleteResponse], error)`
+- New function `*JavaComponentsClient.Get(context.Context, string, string, string, *JavaComponentsClientGetOptions) (JavaComponentsClientGetResponse, error)`
+- New function `*JavaComponentsClient.NewListPager(string, string, *JavaComponentsClientListOptions) *runtime.Pager[JavaComponentsClientListResponse]`
+- New function `*JavaComponentsClient.BeginUpdate(context.Context, string, string, string, JavaComponent, *JavaComponentsClientBeginUpdateOptions) (*runtime.Poller[JavaComponentsClientUpdateResponse], error)`
+- New function `*SpringBootAdminComponent.GetJavaComponentProperties() *JavaComponentProperties`
+- New function `*SpringCloudConfigComponent.GetJavaComponentProperties() *JavaComponentProperties`
+- New function `*SpringCloudEurekaComponent.GetJavaComponentProperties() *JavaComponentProperties`
+- New struct `CertificateKeyVaultProperties`
+- New struct `JavaComponent`
+- New struct `JavaComponentConfigurationProperty`
+- New struct `JavaComponentIngress`
+- New struct `JavaComponentPropertiesScale`
+- New struct `JavaComponentServiceBind`
+- New struct `JavaComponentsCollection`
+- New struct `NfsAzureFileProperties`
+- New struct `Runtime`
+- New struct `RuntimeJava`
+- New struct `SpringBootAdminComponent`
+- New struct `SpringCloudConfigComponent`
+- New struct `SpringCloudEurekaComponent`
+- New field `CertificateKeyVaultProperties` in struct `CertificateProperties`
+- New field `Runtime` in struct `Configuration`
+- New field `RunningStatus` in struct `ContainerAppProperties`
+- New field `CertificateKeyVaultProperties` in struct `CustomDomainConfiguration`
+- New field `Identity` in struct `CustomScaleRule`
+- New field `Identity` in struct `HTTPScaleRule`
+- New field `Identity` in struct `JobScaleRule`
+- New field `Identity` in struct `ManagedEnvironment`
+- New field `NfsAzureFile` in struct `ManagedEnvironmentStorageProperties`
+- New field `AccountName`, `Identity` in struct `QueueScaleRule`
+- New field `CooldownPeriod`, `PollingInterval` in struct `Scale`
+- New field `Identity` in struct `TCPScaleRule`
+
+
 ## 3.1.0-beta.1 (2024-10-23)
 ### Features Added
 
