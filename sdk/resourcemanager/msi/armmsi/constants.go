@@ -10,7 +10,7 @@ package armmsi
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/msi/armmsi"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v1.3.0"
 )
 
 // CreatedByType - The type of identity that created the resource.
@@ -30,5 +30,21 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 		CreatedByTypeKey,
 		CreatedByTypeManagedIdentity,
 		CreatedByTypeUser,
+	}
+}
+
+// IsolationScope - Enum to configure regional restrictions on identity assignment, as necessary.
+type IsolationScope string
+
+const (
+	IsolationScopeNone     IsolationScope = "None"
+	IsolationScopeRegional IsolationScope = "Regional"
+)
+
+// PossibleIsolationScopeValues returns the possible values for the IsolationScope const type.
+func PossibleIsolationScopeValues() []IsolationScope {
+	return []IsolationScope{
+		IsolationScopeNone,
+		IsolationScopeRegional,
 	}
 }
