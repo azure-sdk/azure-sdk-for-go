@@ -1,5 +1,18 @@
 # Release History
 
+## 2.0.0 (2025-01-14)
+### Breaking Changes
+
+- `ManagedServiceIdentityTypeSystemAndUserAssigned` from enum `ManagedServiceIdentityType` has been removed
+- Struct `AdditionalCapabilities` has been removed
+- Struct `ComputeProfile` has been removed
+- Field `ComputeProfile` of struct `FleetProperties` has been removed
+
+### Features Added
+
+- New value `ManagedServiceIdentityTypeSystemAssignedUserAssigned` added to enum type `ManagedServiceIdentityType`
+
+
 ## 1.0.0 (2024-10-22)
 ### Breaking Changes
 
