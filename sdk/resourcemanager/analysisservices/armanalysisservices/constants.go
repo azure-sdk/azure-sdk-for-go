@@ -10,7 +10,7 @@ package armanalysisservices
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/analysisservices/armanalysisservices"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v1.2.1"
 )
 
 // ConnectionMode - How the read-write server's participation in the query pool is controlled.
