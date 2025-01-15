@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/chaos/armchaos"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/chaos/armchaos/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -26,11 +26,11 @@ import (
 type TargetTypesServer struct {
 	// Get is the fake for method TargetTypesClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, locationName string, targetTypeName string, options *armchaos.TargetTypesClientGetOptions) (resp azfake.Responder[armchaos.TargetTypesClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, location string, targetTypeName string, options *armchaos.TargetTypesClientGetOptions) (resp azfake.Responder[armchaos.TargetTypesClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method TargetTypesClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(locationName string, options *armchaos.TargetTypesClientListOptions) (resp azfake.PagerResponder[armchaos.TargetTypesClientListResponse])
+	NewListPager func(location string, options *armchaos.TargetTypesClientListOptions) (resp azfake.PagerResponder[armchaos.TargetTypesClientListResponse])
 }
 
 // NewTargetTypesServerTransport creates a new instance of TargetTypesServerTransport with the provided implementation.
@@ -81,13 +81,13 @@ func (t *TargetTypesServerTransport) dispatchGet(req *http.Request) (*http.Respo
 	if t.srv.Get == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Chaos/locations/(?P<locationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/targetTypes/(?P<targetTypeName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Chaos/locations/(?P<location>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/targetTypes/(?P<targetTypeName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 3 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	locationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("locationName")])
+	locationParam, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
 	if err != nil {
 		return nil, err
 	}
@@ -95,7 +95,7 @@ func (t *TargetTypesServerTransport) dispatchGet(req *http.Request) (*http.Respo
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := t.srv.Get(req.Context(), locationNameParam, targetTypeNameParam, nil)
+	respr, errRespr := t.srv.Get(req.Context(), locationParam, targetTypeNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -116,14 +116,14 @@ func (t *TargetTypesServerTransport) dispatchNewListPager(req *http.Request) (*h
 	}
 	newListPager := t.newListPager.get(req)
 	if newListPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Chaos/locations/(?P<locationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/targetTypes`
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Chaos/locations/(?P<location>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/targetTypes`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 		if matches == nil || len(matches) < 2 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		qp := req.URL.Query()
-		locationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("locationName")])
+		locationParam, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
 		if err != nil {
 			return nil, err
 		}
@@ -138,7 +138,7 @@ func (t *TargetTypesServerTransport) dispatchNewListPager(req *http.Request) (*h
 				ContinuationToken: continuationTokenParam,
 			}
 		}
-		resp := t.srv.NewListPager(locationNameParam, options)
+		resp := t.srv.NewListPager(locationParam, options)
 		newListPager = &resp
 		t.newListPager.add(req, newListPager)
 		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armchaos.TargetTypesClientListResponse, createLink func() string) {
