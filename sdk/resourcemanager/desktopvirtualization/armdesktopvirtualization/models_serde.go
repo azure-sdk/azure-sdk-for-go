@@ -1385,13 +1385,17 @@ func (h HostPoolPatchProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "agentUpdate", h.AgentUpdate)
 	populate(objectMap, "customRdpProperty", h.CustomRdpProperty)
 	populate(objectMap, "description", h.Description)
+	populate(objectMap, "directUDP", h.DirectUDP)
 	populate(objectMap, "friendlyName", h.FriendlyName)
 	populate(objectMap, "loadBalancerType", h.LoadBalancerType)
+	populate(objectMap, "managedPrivateUDP", h.ManagedPrivateUDP)
 	populate(objectMap, "maxSessionLimit", h.MaxSessionLimit)
 	populate(objectMap, "personalDesktopAssignmentType", h.PersonalDesktopAssignmentType)
 	populate(objectMap, "preferredAppGroupType", h.PreferredAppGroupType)
 	populate(objectMap, "publicNetworkAccess", h.PublicNetworkAccess)
+	populate(objectMap, "publicUDP", h.PublicUDP)
 	populate(objectMap, "registrationInfo", h.RegistrationInfo)
+	populate(objectMap, "relayUDP", h.RelayUDP)
 	populate(objectMap, "ring", h.Ring)
 	populate(objectMap, "ssoClientId", h.SsoClientID)
 	populate(objectMap, "ssoClientSecretKeyVaultPath", h.SsoClientSecretKeyVaultPath)
@@ -1421,11 +1425,17 @@ func (h *HostPoolPatchProperties) UnmarshalJSON(data []byte) error {
 		case "description":
 			err = unpopulate(val, "Description", &h.Description)
 			delete(rawMsg, key)
+		case "directUDP":
+			err = unpopulate(val, "DirectUDP", &h.DirectUDP)
+			delete(rawMsg, key)
 		case "friendlyName":
 			err = unpopulate(val, "FriendlyName", &h.FriendlyName)
 			delete(rawMsg, key)
 		case "loadBalancerType":
 			err = unpopulate(val, "LoadBalancerType", &h.LoadBalancerType)
+			delete(rawMsg, key)
+		case "managedPrivateUDP":
+			err = unpopulate(val, "ManagedPrivateUDP", &h.ManagedPrivateUDP)
 			delete(rawMsg, key)
 		case "maxSessionLimit":
 			err = unpopulate(val, "MaxSessionLimit", &h.MaxSessionLimit)
@@ -1439,8 +1449,14 @@ func (h *HostPoolPatchProperties) UnmarshalJSON(data []byte) error {
 		case "publicNetworkAccess":
 			err = unpopulate(val, "PublicNetworkAccess", &h.PublicNetworkAccess)
 			delete(rawMsg, key)
+		case "publicUDP":
+			err = unpopulate(val, "PublicUDP", &h.PublicUDP)
+			delete(rawMsg, key)
 		case "registrationInfo":
 			err = unpopulate(val, "RegistrationInfo", &h.RegistrationInfo)
+			delete(rawMsg, key)
+		case "relayUDP":
+			err = unpopulate(val, "RelayUDP", &h.RelayUDP)
 			delete(rawMsg, key)
 		case "ring":
 			err = unpopulate(val, "Ring", &h.Ring)
@@ -1483,16 +1499,20 @@ func (h HostPoolProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "cloudPcResource", h.CloudPcResource)
 	populate(objectMap, "customRdpProperty", h.CustomRdpProperty)
 	populate(objectMap, "description", h.Description)
+	populate(objectMap, "directUDP", h.DirectUDP)
 	populate(objectMap, "friendlyName", h.FriendlyName)
 	populate(objectMap, "hostPoolType", h.HostPoolType)
 	populate(objectMap, "loadBalancerType", h.LoadBalancerType)
+	populate(objectMap, "managedPrivateUDP", h.ManagedPrivateUDP)
 	populate(objectMap, "maxSessionLimit", h.MaxSessionLimit)
 	populate(objectMap, "objectId", h.ObjectID)
 	populate(objectMap, "personalDesktopAssignmentType", h.PersonalDesktopAssignmentType)
 	populate(objectMap, "preferredAppGroupType", h.PreferredAppGroupType)
 	populate(objectMap, "privateEndpointConnections", h.PrivateEndpointConnections)
 	populate(objectMap, "publicNetworkAccess", h.PublicNetworkAccess)
+	populate(objectMap, "publicUDP", h.PublicUDP)
 	populate(objectMap, "registrationInfo", h.RegistrationInfo)
+	populate(objectMap, "relayUDP", h.RelayUDP)
 	populate(objectMap, "ring", h.Ring)
 	populate(objectMap, "ssoClientId", h.SsoClientID)
 	populate(objectMap, "ssoClientSecretKeyVaultPath", h.SsoClientSecretKeyVaultPath)
@@ -1531,6 +1551,9 @@ func (h *HostPoolProperties) UnmarshalJSON(data []byte) error {
 		case "description":
 			err = unpopulate(val, "Description", &h.Description)
 			delete(rawMsg, key)
+		case "directUDP":
+			err = unpopulate(val, "DirectUDP", &h.DirectUDP)
+			delete(rawMsg, key)
 		case "friendlyName":
 			err = unpopulate(val, "FriendlyName", &h.FriendlyName)
 			delete(rawMsg, key)
@@ -1539,6 +1562,9 @@ func (h *HostPoolProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "loadBalancerType":
 			err = unpopulate(val, "LoadBalancerType", &h.LoadBalancerType)
+			delete(rawMsg, key)
+		case "managedPrivateUDP":
+			err = unpopulate(val, "ManagedPrivateUDP", &h.ManagedPrivateUDP)
 			delete(rawMsg, key)
 		case "maxSessionLimit":
 			err = unpopulate(val, "MaxSessionLimit", &h.MaxSessionLimit)
@@ -1558,8 +1584,14 @@ func (h *HostPoolProperties) UnmarshalJSON(data []byte) error {
 		case "publicNetworkAccess":
 			err = unpopulate(val, "PublicNetworkAccess", &h.PublicNetworkAccess)
 			delete(rawMsg, key)
+		case "publicUDP":
+			err = unpopulate(val, "PublicUDP", &h.PublicUDP)
+			delete(rawMsg, key)
 		case "registrationInfo":
 			err = unpopulate(val, "RegistrationInfo", &h.RegistrationInfo)
+			delete(rawMsg, key)
+		case "relayUDP":
+			err = unpopulate(val, "RelayUDP", &h.RelayUDP)
 			delete(rawMsg, key)
 		case "ring":
 			err = unpopulate(val, "Ring", &h.Ring)
