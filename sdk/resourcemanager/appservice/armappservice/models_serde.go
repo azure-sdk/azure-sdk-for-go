@@ -13300,6 +13300,49 @@ func (o *OutboundEnvironmentEndpointCollection) UnmarshalJSON(data []byte) error
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type OutboundVnetRouting.
+func (o OutboundVnetRouting) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "allTraffic", o.AllTraffic)
+	populate(objectMap, "applicationTraffic", o.ApplicationTraffic)
+	populate(objectMap, "backupRestoreTraffic", o.BackupRestoreTraffic)
+	populate(objectMap, "contentShareTraffic", o.ContentShareTraffic)
+	populate(objectMap, "imagePullTraffic", o.ImagePullTraffic)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type OutboundVnetRouting.
+func (o *OutboundVnetRouting) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", o, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "allTraffic":
+			err = unpopulate(val, "AllTraffic", &o.AllTraffic)
+			delete(rawMsg, key)
+		case "applicationTraffic":
+			err = unpopulate(val, "ApplicationTraffic", &o.ApplicationTraffic)
+			delete(rawMsg, key)
+		case "backupRestoreTraffic":
+			err = unpopulate(val, "BackupRestoreTraffic", &o.BackupRestoreTraffic)
+			delete(rawMsg, key)
+		case "contentShareTraffic":
+			err = unpopulate(val, "ContentShareTraffic", &o.ContentShareTraffic)
+			delete(rawMsg, key)
+		case "imagePullTraffic":
+			err = unpopulate(val, "ImagePullTraffic", &o.ImagePullTraffic)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", o, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type PerfMonCounterCollection.
 func (p PerfMonCounterCollection) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -19793,6 +19836,7 @@ func (s SiteProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "managedEnvironmentId", s.ManagedEnvironmentID)
 	populate(objectMap, "maxNumberOfWorkers", s.MaxNumberOfWorkers)
 	populate(objectMap, "outboundIpAddresses", s.OutboundIPAddresses)
+	populate(objectMap, "outboundVnetRouting", s.OutboundVnetRouting)
 	populate(objectMap, "possibleOutboundIpAddresses", s.PossibleOutboundIPAddresses)
 	populate(objectMap, "publicNetworkAccess", s.PublicNetworkAccess)
 	populate(objectMap, "redundancyMode", s.RedundancyMode)
@@ -19812,10 +19856,6 @@ func (s SiteProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "trafficManagerHostNames", s.TrafficManagerHostNames)
 	populate(objectMap, "usageState", s.UsageState)
 	populate(objectMap, "virtualNetworkSubnetId", s.VirtualNetworkSubnetID)
-	populate(objectMap, "vnetBackupRestoreEnabled", s.VnetBackupRestoreEnabled)
-	populate(objectMap, "vnetContentShareEnabled", s.VnetContentShareEnabled)
-	populate(objectMap, "vnetImagePullEnabled", s.VnetImagePullEnabled)
-	populate(objectMap, "vnetRouteAllEnabled", s.VnetRouteAllEnabled)
 	populate(objectMap, "workloadProfileName", s.WorkloadProfileName)
 	return json.Marshal(objectMap)
 }
@@ -19925,6 +19965,9 @@ func (s *SiteProperties) UnmarshalJSON(data []byte) error {
 		case "outboundIpAddresses":
 			err = unpopulate(val, "OutboundIPAddresses", &s.OutboundIPAddresses)
 			delete(rawMsg, key)
+		case "outboundVnetRouting":
+			err = unpopulate(val, "OutboundVnetRouting", &s.OutboundVnetRouting)
+			delete(rawMsg, key)
 		case "possibleOutboundIpAddresses":
 			err = unpopulate(val, "PossibleOutboundIPAddresses", &s.PossibleOutboundIPAddresses)
 			delete(rawMsg, key)
@@ -19981,18 +20024,6 @@ func (s *SiteProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "virtualNetworkSubnetId":
 			err = unpopulate(val, "VirtualNetworkSubnetID", &s.VirtualNetworkSubnetID)
-			delete(rawMsg, key)
-		case "vnetBackupRestoreEnabled":
-			err = unpopulate(val, "VnetBackupRestoreEnabled", &s.VnetBackupRestoreEnabled)
-			delete(rawMsg, key)
-		case "vnetContentShareEnabled":
-			err = unpopulate(val, "VnetContentShareEnabled", &s.VnetContentShareEnabled)
-			delete(rawMsg, key)
-		case "vnetImagePullEnabled":
-			err = unpopulate(val, "VnetImagePullEnabled", &s.VnetImagePullEnabled)
-			delete(rawMsg, key)
-		case "vnetRouteAllEnabled":
-			err = unpopulate(val, "VnetRouteAllEnabled", &s.VnetRouteAllEnabled)
 			delete(rawMsg, key)
 		case "workloadProfileName":
 			err = unpopulate(val, "WorkloadProfileName", &s.WorkloadProfileName)
