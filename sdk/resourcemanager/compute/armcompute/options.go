@@ -33,7 +33,7 @@ type AvailabilitySetsClientListAvailableSizesOptions struct {
 // AvailabilitySetsClientListBySubscriptionOptions contains the optional parameters for the AvailabilitySetsClient.NewListBySubscriptionPager
 // method.
 type AvailabilitySetsClientListBySubscriptionOptions struct {
-	// The expand expression to apply to the operation. Allowed values are 'virtualMachines/$ref'.
+	// The expand expression to apply to the operation. Allowed values are 'instanceView'.
 	Expand *string
 }
 
@@ -793,72 +793,6 @@ type GalleryImagesClientListByGalleryOptions struct {
 	// placeholder for future optional parameters
 }
 
-// GalleryInVMAccessControlProfileVersionsClientBeginCreateOrUpdateOptions contains the optional parameters for the GalleryInVMAccessControlProfileVersionsClient.BeginCreateOrUpdate
-// method.
-type GalleryInVMAccessControlProfileVersionsClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// GalleryInVMAccessControlProfileVersionsClientBeginDeleteOptions contains the optional parameters for the GalleryInVMAccessControlProfileVersionsClient.BeginDelete
-// method.
-type GalleryInVMAccessControlProfileVersionsClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// GalleryInVMAccessControlProfileVersionsClientBeginUpdateOptions contains the optional parameters for the GalleryInVMAccessControlProfileVersionsClient.BeginUpdate
-// method.
-type GalleryInVMAccessControlProfileVersionsClientBeginUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// GalleryInVMAccessControlProfileVersionsClientGetOptions contains the optional parameters for the GalleryInVMAccessControlProfileVersionsClient.Get
-// method.
-type GalleryInVMAccessControlProfileVersionsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// GalleryInVMAccessControlProfileVersionsClientListByGalleryInVMAccessControlProfileOptions contains the optional parameters
-// for the GalleryInVMAccessControlProfileVersionsClient.NewListByGalleryInVMAccessControlProfilePager method.
-type GalleryInVMAccessControlProfileVersionsClientListByGalleryInVMAccessControlProfileOptions struct {
-	// placeholder for future optional parameters
-}
-
-// GalleryInVMAccessControlProfilesClientBeginCreateOrUpdateOptions contains the optional parameters for the GalleryInVMAccessControlProfilesClient.BeginCreateOrUpdate
-// method.
-type GalleryInVMAccessControlProfilesClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// GalleryInVMAccessControlProfilesClientBeginDeleteOptions contains the optional parameters for the GalleryInVMAccessControlProfilesClient.BeginDelete
-// method.
-type GalleryInVMAccessControlProfilesClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// GalleryInVMAccessControlProfilesClientBeginUpdateOptions contains the optional parameters for the GalleryInVMAccessControlProfilesClient.BeginUpdate
-// method.
-type GalleryInVMAccessControlProfilesClientBeginUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// GalleryInVMAccessControlProfilesClientGetOptions contains the optional parameters for the GalleryInVMAccessControlProfilesClient.Get
-// method.
-type GalleryInVMAccessControlProfilesClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// GalleryInVMAccessControlProfilesClientListByGalleryOptions contains the optional parameters for the GalleryInVMAccessControlProfilesClient.NewListByGalleryPager
-// method.
-type GalleryInVMAccessControlProfilesClientListByGalleryOptions struct {
-	// placeholder for future optional parameters
-}
-
 // GallerySharingProfileClientBeginUpdateOptions contains the optional parameters for the GallerySharingProfileClient.BeginUpdate
 // method.
 type GallerySharingProfileClientBeginUpdateOptions struct {
@@ -1140,12 +1074,6 @@ type SnapshotsClientListByResourceGroupOptions struct {
 
 // SnapshotsClientListOptions contains the optional parameters for the SnapshotsClient.NewListPager method.
 type SnapshotsClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// SoftDeletedResourceClientListByArtifactNameOptions contains the optional parameters for the SoftDeletedResourceClient.NewListByArtifactNamePager
-// method.
-type SoftDeletedResourceClientListByArtifactNameOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -1900,7 +1828,13 @@ type VirtualMachinesClientBeginDeallocateOptions struct {
 
 // VirtualMachinesClientBeginDeleteOptions contains the optional parameters for the VirtualMachinesClient.BeginDelete method.
 type VirtualMachinesClientBeginDeleteOptions struct {
-	// Optional parameter to force delete virtual machines.
+	// Optional parameter to force delete virtual machines. NOTE: As of api-version 2024-11-01, we are rolling out a feature where
+	// if the forceDeletion parameter is unspecified OR not explicitly set to
+	// false, AND all of the VM's attached disks including the OS disk are marked with the delete option, then the VM will be
+	// force deleted. For more details on how to configure delete options for a VM's
+	// resources, see Delete a VM and attached resources [https://learn.microsoft.com/en-us/azure/virtual-machines/delete]. To
+	// avoid defaulting to force delete, ensure that the forceDeletion parameter is
+	// explicitly set to false. This feature is expected to rollout by end of March 2025.
 	ForceDeletion *bool
 
 	// Resumes the LRO from the provided token.
