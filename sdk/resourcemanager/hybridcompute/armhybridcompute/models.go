@@ -210,10 +210,46 @@ type EsuProfileUpdateProperties struct {
 	AssignedLicense *string
 }
 
+// ExtensionPublisher - Describes an Extension Publisher.
+type ExtensionPublisher struct {
+	// The ID of the extension publisher.
+	ID *string
+
+	// The name of the extension publisher.
+	Name *string
+}
+
+// ExtensionPublisherListResult - The List of Extension Publishers.
+type ExtensionPublisherListResult struct {
+	// The URI to fetch the next page of extension publishers.
+	NextLink *string
+
+	// READ-ONLY; The list of extension publishers.
+	Value []*ExtensionPublisher
+}
+
 // ExtensionTargetProperties - Describes the Machine Extension Target Version Properties
 type ExtensionTargetProperties struct {
 	// Properties for the specified Extension to Upgrade.
 	TargetVersion *string
+}
+
+// ExtensionType - Describes an Extension Type.
+type ExtensionType struct {
+	// The ID of the extension type.
+	ID *string
+
+	// The name of the extension type.
+	Name *string
+}
+
+// ExtensionTypeListResult - The List of Extension Types.
+type ExtensionTypeListResult struct {
+	// The URI to fetch the next page of extension types.
+	NextLink *string
+
+	// READ-ONLY; The list of extension types.
+	Value []*ExtensionType
 }
 
 // ExtensionValue - Describes a Extension Metadata
@@ -221,7 +257,7 @@ type ExtensionValue struct {
 	// The single extension based on search criteria
 	Properties *ExtensionValueProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -240,10 +276,61 @@ type ExtensionValueListResult struct {
 	Value []*ExtensionValue
 }
 
+// ExtensionValueListResultV2 - The List Extension Metadata response.
+type ExtensionValueListResultV2 struct {
+	// The URI to fetch the next page of extension metadata.
+	NextLink *string
+
+	// READ-ONLY; The list of extension metadata.
+	Value []*ExtensionValueV2
+}
+
 // ExtensionValueProperties - Describes Extension Metadata properties
 type ExtensionValueProperties struct {
 	// READ-ONLY; The type of the Extension being received.
 	ExtensionType *string
+
+	// READ-ONLY; The publisher of the Extension being received.
+	Publisher *string
+
+	// READ-ONLY; The version of the Extension being received.
+	Version *string
+}
+
+// ExtensionValueV2 - Describes an Extension Metadata.
+type ExtensionValueV2 struct {
+	// The single extension based on search criteria.
+	Properties *ExtensionValueV2Properties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ExtensionValueV2Properties - Describes Extension Metadata properties.
+type ExtensionValueV2Properties struct {
+	// READ-ONLY; Architectures (x64, arms64, etc.) that this extension supports.
+	Architecture []*string
+
+	// READ-ONLY; Location of the signature files for the extension.
+	ExtensionSignatureURI *string
+
+	// READ-ONLY; The type of the Extension being received.
+	ExtensionType *string
+
+	// READ-ONLY; A list of locations where the extension packages can be found.
+	ExtensionUris []*string
+
+	// READ-ONLY; The operating system (Windows, Linux, etc.) this extension supports.
+	OperatingSystem *string
 
 	// READ-ONLY; The publisher of the Extension being received.
 	Publisher *string
@@ -290,7 +377,7 @@ type Gateway struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -1774,6 +1861,11 @@ type SettingsProperties struct {
 
 	// READ-ONLY; Azure resource tenant Id
 	TenantID *string
+}
+
+type SetupExtensionRequest struct {
+	// The list of extensions
+	Extensions []*MachineExtensionProperties
 }
 
 // StorageProfile - Describes the storage configuration of the machine
