@@ -43,7 +43,7 @@ func NewCapacitiesClient(subscriptionID string, credential azcore.TokenCredentia
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-11-01
-//   - location - The location name.
+//   - location - The name of the Azure region.
 //   - body - The CheckAvailability request
 //   - options - CapacitiesClientCheckNameAvailabilityOptions contains the optional parameters for the CapacitiesClient.CheckNameAvailability
 //     method.
@@ -554,6 +554,66 @@ func (client *CapacitiesClient) listSKUsForCapacityHandleResponse(resp *http.Res
 	result := CapacitiesClientListSKUsForCapacityResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.RpSKUEnumerationForExistingResourceResult); err != nil {
 		return CapacitiesClientListSKUsForCapacityResponse{}, err
+	}
+	return result, nil
+}
+
+// NewListUsagesPager - List the current consumption and limit in this location for the provided subscription
+//
+// Generated from API version 2023-11-01
+//   - location - The location name.
+//   - options - CapacitiesClientListUsagesOptions contains the optional parameters for the CapacitiesClient.NewListUsagesPager
+//     method.
+func (client *CapacitiesClient) NewListUsagesPager(location string, options *CapacitiesClientListUsagesOptions) *runtime.Pager[CapacitiesClientListUsagesResponse] {
+	return runtime.NewPager(runtime.PagingHandler[CapacitiesClientListUsagesResponse]{
+		More: func(page CapacitiesClientListUsagesResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *CapacitiesClientListUsagesResponse) (CapacitiesClientListUsagesResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "CapacitiesClient.NewListUsagesPager")
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
+			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listUsagesCreateRequest(ctx, location, options)
+			}, nil)
+			if err != nil {
+				return CapacitiesClientListUsagesResponse{}, err
+			}
+			return client.listUsagesHandleResponse(resp)
+		},
+		Tracer: client.internal.Tracer(),
+	})
+}
+
+// listUsagesCreateRequest creates the ListUsages request.
+func (client *CapacitiesClient) listUsagesCreateRequest(ctx context.Context, location string, _ *CapacitiesClientListUsagesOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Fabric/locations/{location}/usages"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if location == "" {
+		return nil, errors.New("parameter location cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-11-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// listUsagesHandleResponse handles the ListUsages response.
+func (client *CapacitiesClient) listUsagesHandleResponse(resp *http.Response) (CapacitiesClientListUsagesResponse, error) {
+	result := CapacitiesClientListUsagesResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.PagedQuota); err != nil {
+		return CapacitiesClientListUsagesResponse{}, err
 	}
 	return result, nil
 }
