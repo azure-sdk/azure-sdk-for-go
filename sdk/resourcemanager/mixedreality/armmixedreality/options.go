@@ -13,50 +13,6 @@ type ClientCheckNameAvailabilityLocalOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ObjectAnchorsAccountsClientCreateOptions contains the optional parameters for the ObjectAnchorsAccountsClient.Create method.
-type ObjectAnchorsAccountsClientCreateOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ObjectAnchorsAccountsClientDeleteOptions contains the optional parameters for the ObjectAnchorsAccountsClient.Delete method.
-type ObjectAnchorsAccountsClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ObjectAnchorsAccountsClientGetOptions contains the optional parameters for the ObjectAnchorsAccountsClient.Get method.
-type ObjectAnchorsAccountsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ObjectAnchorsAccountsClientListByResourceGroupOptions contains the optional parameters for the ObjectAnchorsAccountsClient.NewListByResourceGroupPager
-// method.
-type ObjectAnchorsAccountsClientListByResourceGroupOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ObjectAnchorsAccountsClientListBySubscriptionOptions contains the optional parameters for the ObjectAnchorsAccountsClient.NewListBySubscriptionPager
-// method.
-type ObjectAnchorsAccountsClientListBySubscriptionOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ObjectAnchorsAccountsClientListKeysOptions contains the optional parameters for the ObjectAnchorsAccountsClient.ListKeys
-// method.
-type ObjectAnchorsAccountsClientListKeysOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ObjectAnchorsAccountsClientRegenerateKeysOptions contains the optional parameters for the ObjectAnchorsAccountsClient.RegenerateKeys
-// method.
-type ObjectAnchorsAccountsClientRegenerateKeysOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ObjectAnchorsAccountsClientUpdateOptions contains the optional parameters for the ObjectAnchorsAccountsClient.Update method.
-type ObjectAnchorsAccountsClientUpdateOptions struct {
-	// placeholder for future optional parameters
-}
-
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
@@ -106,52 +62,5 @@ type RemoteRenderingAccountsClientRegenerateKeysOptions struct {
 // RemoteRenderingAccountsClientUpdateOptions contains the optional parameters for the RemoteRenderingAccountsClient.Update
 // method.
 type RemoteRenderingAccountsClientUpdateOptions struct {
-	// placeholder for future optional parameters
-}
-
-// SpatialAnchorsAccountsClientCreateOptions contains the optional parameters for the SpatialAnchorsAccountsClient.Create
-// method.
-type SpatialAnchorsAccountsClientCreateOptions struct {
-	// placeholder for future optional parameters
-}
-
-// SpatialAnchorsAccountsClientDeleteOptions contains the optional parameters for the SpatialAnchorsAccountsClient.Delete
-// method.
-type SpatialAnchorsAccountsClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
-// SpatialAnchorsAccountsClientGetOptions contains the optional parameters for the SpatialAnchorsAccountsClient.Get method.
-type SpatialAnchorsAccountsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// SpatialAnchorsAccountsClientListByResourceGroupOptions contains the optional parameters for the SpatialAnchorsAccountsClient.NewListByResourceGroupPager
-// method.
-type SpatialAnchorsAccountsClientListByResourceGroupOptions struct {
-	// placeholder for future optional parameters
-}
-
-// SpatialAnchorsAccountsClientListBySubscriptionOptions contains the optional parameters for the SpatialAnchorsAccountsClient.NewListBySubscriptionPager
-// method.
-type SpatialAnchorsAccountsClientListBySubscriptionOptions struct {
-	// placeholder for future optional parameters
-}
-
-// SpatialAnchorsAccountsClientListKeysOptions contains the optional parameters for the SpatialAnchorsAccountsClient.ListKeys
-// method.
-type SpatialAnchorsAccountsClientListKeysOptions struct {
-	// placeholder for future optional parameters
-}
-
-// SpatialAnchorsAccountsClientRegenerateKeysOptions contains the optional parameters for the SpatialAnchorsAccountsClient.RegenerateKeys
-// method.
-type SpatialAnchorsAccountsClientRegenerateKeysOptions struct {
-	// placeholder for future optional parameters
-}
-
-// SpatialAnchorsAccountsClientUpdateOptions contains the optional parameters for the SpatialAnchorsAccountsClient.Update
-// method.
-type SpatialAnchorsAccountsClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }

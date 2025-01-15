@@ -1,5 +1,35 @@
 # Release History
 
+## 0.8.0 (2025-01-15)
+### Breaking Changes
+
+- Function `*ClientFactory.NewObjectAnchorsAccountsClient` has been removed
+- Function `*ClientFactory.NewSpatialAnchorsAccountsClient` has been removed
+- Function `NewObjectAnchorsAccountsClient` has been removed
+- Function `*ObjectAnchorsAccountsClient.Create` has been removed
+- Function `*ObjectAnchorsAccountsClient.Delete` has been removed
+- Function `*ObjectAnchorsAccountsClient.Get` has been removed
+- Function `*ObjectAnchorsAccountsClient.NewListByResourceGroupPager` has been removed
+- Function `*ObjectAnchorsAccountsClient.NewListBySubscriptionPager` has been removed
+- Function `*ObjectAnchorsAccountsClient.ListKeys` has been removed
+- Function `*ObjectAnchorsAccountsClient.RegenerateKeys` has been removed
+- Function `*ObjectAnchorsAccountsClient.Update` has been removed
+- Function `NewSpatialAnchorsAccountsClient` has been removed
+- Function `*SpatialAnchorsAccountsClient.Create` has been removed
+- Function `*SpatialAnchorsAccountsClient.Delete` has been removed
+- Function `*SpatialAnchorsAccountsClient.Get` has been removed
+- Function `*SpatialAnchorsAccountsClient.NewListByResourceGroupPager` has been removed
+- Function `*SpatialAnchorsAccountsClient.NewListBySubscriptionPager` has been removed
+- Function `*SpatialAnchorsAccountsClient.ListKeys` has been removed
+- Function `*SpatialAnchorsAccountsClient.RegenerateKeys` has been removed
+- Function `*SpatialAnchorsAccountsClient.Update` has been removed
+- Struct `ObjectAnchorsAccount` has been removed
+- Struct `ObjectAnchorsAccountIdentity` has been removed
+- Struct `ObjectAnchorsAccountPage` has been removed
+- Struct `SpatialAnchorsAccount` has been removed
+- Struct `SpatialAnchorsAccountPage` has been removed
+
+
 ## 0.7.0 (2023-11-24)
 ### Features Added
 
