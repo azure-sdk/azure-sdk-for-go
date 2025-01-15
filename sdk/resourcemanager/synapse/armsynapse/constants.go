@@ -10,7 +10,7 @@ package armsynapse
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/synapse/armsynapse"
-	moduleVersion = "v0.8.0"
+	moduleVersion = "v0.9.0"
 )
 
 // ActualState - Actual state
@@ -1359,6 +1359,23 @@ func PossibleSecurityAlertPolicyStateValues() []SecurityAlertPolicyState {
 		SecurityAlertPolicyStateDisabled,
 		SecurityAlertPolicyStateEnabled,
 		SecurityAlertPolicyStateNew,
+	}
+}
+
+// SelfContainedInteractiveAuthoringState - An alternative option to ensure interactive authoring function when your self-hosted
+// integration runtime is unable to establish a connection with Azure Relay.
+type SelfContainedInteractiveAuthoringState bool
+
+const (
+	SelfContainedInteractiveAuthoringStateFalse SelfContainedInteractiveAuthoringState = false
+	SelfContainedInteractiveAuthoringStateTrue  SelfContainedInteractiveAuthoringState = true
+)
+
+// PossibleSelfContainedInteractiveAuthoringStateValues returns the possible values for the SelfContainedInteractiveAuthoringState const type.
+func PossibleSelfContainedInteractiveAuthoringStateValues() []SelfContainedInteractiveAuthoringState {
+	return []SelfContainedInteractiveAuthoringState{
+		SelfContainedInteractiveAuthoringStateFalse,
+		SelfContainedInteractiveAuthoringStateTrue,
 	}
 }
 
