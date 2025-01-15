@@ -22,7 +22,7 @@ type ClientFactory struct {
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - GUID that represents an Azure subscription ID.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
@@ -72,6 +72,14 @@ func (c *ClientFactory) NewOperationStatusesClient() *OperationStatusesClient {
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	return &OperationsClient{
 		internal: c.internal,
+	}
+}
+
+// NewPrivateAccessesClient creates a new instance of PrivateAccessesClient.
+func (c *ClientFactory) NewPrivateAccessesClient() *PrivateAccessesClient {
+	return &PrivateAccessesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
 	}
 }
 
