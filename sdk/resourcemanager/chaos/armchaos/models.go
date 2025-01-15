@@ -48,16 +48,16 @@ type BranchStatus struct {
 
 // Capability - Model that represents a Capability resource.
 type Capability struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// The properties of a capability resource.
+	Properties *CapabilityProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The properties of a capability resource.
-	Properties *CapabilityProperties
-
-	// READ-ONLY; The standard system metadata of a resource type.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
@@ -66,11 +66,11 @@ type Capability struct {
 
 // CapabilityListResult - Model that represents a list of Capability resources and a link for pagination.
 type CapabilityListResult struct {
-	// READ-ONLY; URL to retrieve the next page of Capability resources.
-	NextLink *string
-
-	// READ-ONLY; List of Capability resources.
+	// REQUIRED; The Capability items on this page
 	Value []*Capability
+
+	// The link to the next page of items
+	NextLink *string
 }
 
 // CapabilityProperties - Model that represents the Capability properties model.
@@ -80,6 +80,9 @@ type CapabilityProperties struct {
 
 	// READ-ONLY; URL to retrieve JSON schema of the Capability parameters.
 	ParametersSchema *string
+
+	// READ-ONLY; Resource provisioning state. Not currently in use because resource is created synchronously.
+	ProvisioningState *ProvisioningState
 
 	// READ-ONLY; String of the Publisher that this Capability extends.
 	Publisher *string
@@ -93,19 +96,16 @@ type CapabilityProperties struct {
 
 // CapabilityType - Model that represents a Capability Type resource.
 type CapabilityType struct {
-	// Location of the Capability Type resource.
-	Location *string
+	// The properties of the capability type resource.
+	Properties *CapabilityTypeProperties
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The properties of the capability type resource.
-	Properties *CapabilityTypeProperties
-
-	// READ-ONLY; The system metadata properties of the capability type resource.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
@@ -114,23 +114,20 @@ type CapabilityType struct {
 
 // CapabilityTypeListResult - Model that represents a list of Capability Type resources and a link for pagination.
 type CapabilityTypeListResult struct {
-	// READ-ONLY; URL to retrieve the next page of Capability Type resources.
-	NextLink *string
-
-	// READ-ONLY; List of Capability Type resources.
+	// REQUIRED; The CapabilityType items on this page
 	Value []*CapabilityType
+
+	// The link to the next page of items
+	NextLink *string
 }
 
 // CapabilityTypeProperties - Model that represents the Capability Type properties model.
 type CapabilityTypeProperties struct {
-	// Control plane actions necessary to execute capability type.
+	// READ-ONLY; Control plane actions necessary to execute capability type.
 	AzureRbacActions []*string
 
-	// Data plane actions necessary to execute capability type.
+	// READ-ONLY; Data plane actions necessary to execute capability type.
 	AzureRbacDataActions []*string
-
-	// Runtime properties of this Capability Type.
-	RuntimeProperties *CapabilityTypePropertiesRuntimeProperties
 
 	// READ-ONLY; Localized string of the description.
 	Description *string
@@ -146,6 +143,9 @@ type CapabilityTypeProperties struct {
 
 	// READ-ONLY; String of the Publisher that this Capability Type extends.
 	Publisher *string
+
+	// READ-ONLY; Runtime properties of this Capability Type.
+	RuntimeProperties *CapabilityTypePropertiesRuntimeProperties
 
 	// READ-ONLY; String of the Target Type that this Capability Type extends.
 	TargetType *string
@@ -174,8 +174,8 @@ type ContinuousAction struct {
 	// REQUIRED; String that represents a selector.
 	SelectorID *string
 
-	// REQUIRED; Enum that discriminates between action models.
-	Type *string
+	// REQUIRED; Chaos experiment action discriminator type
+	Type *ExperimentActionType
 }
 
 // GetExperimentAction implements the ExperimentActionClassification interface for type ContinuousAction.
@@ -186,6 +186,15 @@ func (c *ContinuousAction) GetExperimentAction() *ExperimentAction {
 	}
 }
 
+// CustomerDataStorageProperties - Model that represents the Customer Managed Storage for an Experiment.
+type CustomerDataStorageProperties struct {
+	// Name of the Azure Blob Storage container to use or create.
+	BlobContainerName *string
+
+	// ARM Resource ID of the Storage account to use for Customer Data storage.
+	StorageAccountResourceID *string
+}
+
 // DelayAction - Model that represents a delay action.
 type DelayAction struct {
 	// REQUIRED; ISO8601 formatted string that represents a duration.
@@ -194,8 +203,8 @@ type DelayAction struct {
 	// REQUIRED; String that represents a Capability URN.
 	Name *string
 
-	// REQUIRED; Enum that discriminates between action models.
-	Type *string
+	// REQUIRED; Chaos experiment action discriminator type
+	Type *ExperimentActionType
 }
 
 // GetExperimentAction implements the ExperimentActionClassification interface for type DelayAction.
@@ -217,8 +226,8 @@ type DiscreteAction struct {
 	// REQUIRED; String that represents a selector.
 	SelectorID *string
 
-	// REQUIRED; Enum that discriminates between action models.
-	Type *string
+	// REQUIRED; Chaos experiment action discriminator type
+	Type *ExperimentActionType
 }
 
 // GetExperimentAction implements the ExperimentActionClassification interface for type DiscreteAction.
@@ -271,19 +280,19 @@ type Experiment struct {
 	// REQUIRED; The properties of the experiment resource.
 	Properties *ExperimentProperties
 
-	// The identity of the experiment resource.
-	Identity *ResourceIdentity
+	// The managed service identities assigned to this resource.
+	Identity *ManagedServiceIdentity
 
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The system metadata of the experiment resource.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
@@ -295,8 +304,8 @@ type ExperimentAction struct {
 	// REQUIRED; String that represents a Capability URN.
 	Name *string
 
-	// REQUIRED; Enum that discriminates between action models.
-	Type *string
+	// REQUIRED; Chaos experiment action discriminator type
+	Type *ExperimentActionType
 }
 
 // GetExperimentAction implements the ExperimentActionClassification interface for type ExperimentAction.
@@ -316,13 +325,16 @@ type ExperimentExecution struct {
 	// The properties of experiment execution status.
 	Properties *ExperimentExecutionProperties
 
-	// READ-ONLY; String of the fully qualified resource ID.
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
-	// READ-ONLY; String of the resource name.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; String of the resource type.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -377,6 +389,9 @@ type ExperimentExecutionDetailsProperties struct {
 	// READ-ONLY; String that represents the last action date time.
 	LastActionAt *time.Time
 
+	// READ-ONLY; Resource provisioning state. Not currently in use for executions.
+	ProvisioningState *ProvisioningState
+
 	// READ-ONLY; The information of the experiment run.
 	RunInformation *ExperimentExecutionDetailsPropertiesRunInformation
 
@@ -398,15 +413,18 @@ type ExperimentExecutionDetailsPropertiesRunInformation struct {
 
 // ExperimentExecutionListResult - Model that represents a list of Experiment executions and a link for pagination.
 type ExperimentExecutionListResult struct {
-	// READ-ONLY; URL to retrieve the next page of Experiment executions.
-	NextLink *string
-
-	// READ-ONLY; List of Experiment executions.
+	// REQUIRED; The ExperimentExecution items on this page
 	Value []*ExperimentExecution
+
+	// The link to the next page of items
+	NextLink *string
 }
 
 // ExperimentExecutionProperties - Model that represents the execution properties of an Experiment.
 type ExperimentExecutionProperties struct {
+	// READ-ONLY; Resource provisioning state. Not currently in use for executions.
+	ProvisioningState *ProvisioningState
+
 	// READ-ONLY; String that represents the start date time.
 	StartedAt *time.Time
 
@@ -419,11 +437,11 @@ type ExperimentExecutionProperties struct {
 
 // ExperimentListResult - Model that represents a list of Experiment resources and a link for pagination.
 type ExperimentListResult struct {
-	// READ-ONLY; URL to retrieve the next page of Experiment resources.
-	NextLink *string
-
-	// READ-ONLY; List of Experiment resources.
+	// REQUIRED; The Experiment items on this page
 	Value []*Experiment
+
+	// The link to the next page of items
+	NextLink *string
 }
 
 // ExperimentProperties - Model that represents the Experiment properties model.
@@ -433,6 +451,9 @@ type ExperimentProperties struct {
 
 	// REQUIRED; List of steps.
 	Steps []*ExperimentStep
+
+	// Optional customer-managed Storage account where Experiment schema will be stored.
+	CustomerDataStorage *CustomerDataStorageProperties
 
 	// READ-ONLY; Most recent provisioning state for the given experiment resource.
 	ProvisioningState *ProvisioningState
@@ -449,10 +470,10 @@ type ExperimentStep struct {
 
 // ExperimentUpdate - Describes an experiment update.
 type ExperimentUpdate struct {
-	// The identity of the experiment resource.
-	Identity *ResourceIdentity
+	// The managed service identities assigned to this resource.
+	Identity *ManagedServiceIdentity
 
-	// The tags of the experiment resource.
+	// Resource tags.
 	Tags map[string]*string
 }
 
@@ -463,6 +484,26 @@ type KeyValuePair struct {
 
 	// REQUIRED; The value of the setting for the action.
 	Value *string
+}
+
+// ManagedServiceIdentity - Managed service identity (system assigned and/or user assigned identities)
+type ManagedServiceIdentity struct {
+	// REQUIRED; Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
+	Type *ManagedServiceIdentityType
+
+	// The set of user assigned identities associated with the resource. The userAssignedIdentities dictionary keys will be ARM
+	// resource ids in the form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}.
+	// The dictionary values can be empty objects ({}) in
+	// requests.
+	UserAssignedIdentities map[string]*UserAssignedIdentity
+
+	// READ-ONLY; The service principal ID of the system assigned identity. This property will only be provided for a system assigned
+	// identity.
+	PrincipalID *string
+
+	// READ-ONLY; The tenant ID of the system assigned identity. This property will only be provided for a system assigned identity.
+	TenantID *string
 }
 
 // Operation - Details of a REST API operation, returned from the Resource Provider Operations API
@@ -514,54 +555,225 @@ type OperationListResult struct {
 	Value []*Operation
 }
 
-// OperationStatus - The status of operation.
-type OperationStatus struct {
-	// The end time of the operation.
-	EndTime *string
+// OperationStatusResult - The current status of an async operation.
+type OperationStatusResult struct {
+	// REQUIRED; Operation status.
+	Status *string
 
-	// The error object.
+	// The end time of the operation.
+	EndTime *time.Time
+
+	// If present, details of the operation error.
 	Error *ErrorDetail
 
-	// The operation Id.
+	// Fully qualified ID for the async operation.
 	ID *string
 
-	// The operation name.
+	// Name of the async operation.
 	Name *string
 
-	// The start time of the operation.
-	StartTime *string
+	// The operations list.
+	Operations []*OperationStatusResult
 
-	// The status of the operation.
-	Status *string
+	// Percent of the operation that is complete.
+	PercentComplete *float32
+
+	// The start time of the operation.
+	StartTime *time.Time
+
+	// READ-ONLY; Fully qualified ID of the resource against which the original async operation was started.
+	ResourceID *string
 }
 
-// Resource - Common fields that are returned in the response for all Azure Resource Manager resources
-type Resource struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+// PrivateAccesses tracked resource.
+type PrivateAccess struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// REQUIRED; The resource-specific properties for this resource.
+	Properties *PrivateAccessProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
 
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// ResourceIdentity - The identity of a resource.
-type ResourceIdentity struct {
-	// REQUIRED; String of the resource identity type.
-	Type *ResourceIdentityType
+// PrivateAccessListResult - Model that represents a list of private access resources and a link for pagination.
+type PrivateAccessListResult struct {
+	// REQUIRED; The PrivateAccess items on this page
+	Value []*PrivateAccess
 
-	// The list of user identities associated with the Experiment. The user identity dictionary key references will be ARM resource
-	// ids in the form:
-	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.
-	UserAssignedIdentities map[string]*UserAssignedIdentity
+	// The link to the next page of items
+	NextLink *string
+}
 
-	// READ-ONLY; GUID that represents the principal ID of this resource identity.
-	PrincipalID *string
+// PrivateAccessPatch - Describes a private access update.
+type PrivateAccessPatch struct {
+	// Resource tags.
+	Tags map[string]*string
+}
 
-	// READ-ONLY; GUID that represents the tenant ID of this resource identity.
-	TenantID *string
+// PrivateAccessProperties - The properties of a private access resource
+type PrivateAccessProperties struct {
+	// Public Network Access Control for PrivateAccess resource.
+	PublicNetworkAccess *PublicNetworkAccessOption
+
+	// READ-ONLY; A readonly collection of private endpoint connection. Currently only one endpoint connection is supported.
+	PrivateEndpointConnections []*PrivateEndpointConnection
+
+	// READ-ONLY; Most recent provisioning state for the given privateAccess resource.
+	ProvisioningState *ProvisioningState
+}
+
+// PrivateEndpoint - The private endpoint resource.
+type PrivateEndpoint struct {
+	// READ-ONLY; The ARM identifier for private endpoint.
+	ID *string
+}
+
+// PrivateEndpointConnection - The private endpoint connection resource.
+type PrivateEndpointConnection struct {
+	// Resource properties.
+	Properties *PrivateEndpointConnectionProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// PrivateEndpointConnectionListResult - A list of private link resources
+type PrivateEndpointConnectionListResult struct {
+	// REQUIRED; The PrivateEndpointConnection items on this page
+	Value []*PrivateEndpointConnection
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// PrivateEndpointConnectionProperties - Properties of the private endpoint connection.
+type PrivateEndpointConnectionProperties struct {
+	// REQUIRED; A collection of information about the state of the connection between service consumer and provider.
+	PrivateLinkServiceConnectionState *PrivateLinkServiceConnectionState
+
+	// The private endpoint resource.
+	PrivateEndpoint *PrivateEndpoint
+
+	// READ-ONLY; The group ids for the private endpoint resource.
+	GroupIDs []*string
+
+	// READ-ONLY; The provisioning state of the private endpoint connection resource.
+	ProvisioningState *ProvisioningState
+}
+
+// PrivateLinkResource - A private link resource.
+type PrivateLinkResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// REQUIRED; The resource-specific properties for this resource.
+	Properties *PrivateLinkResourceProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// PrivateLinkResourceListResult - A list of private link resources
+type PrivateLinkResourceListResult struct {
+	// REQUIRED; The PrivateLinkResource items on this page
+	Value []*PrivateLinkResource
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// PrivateLinkResourceProperties - Properties of a private link resource.
+type PrivateLinkResourceProperties struct {
+	// The private link resource private link DNS zone name.
+	RequiredZoneNames []*string
+
+	// READ-ONLY; The private link resource group id.
+	GroupID *string
+
+	// READ-ONLY; Resource provisioning state. Not currently in use.
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; The private link resource required member names.
+	RequiredMembers []*string
+}
+
+// PrivateLinkServiceConnectionState - A collection of information about the state of the connection between service consumer
+// and provider.
+type PrivateLinkServiceConnectionState struct {
+	// A message indicating if changes on the service provider require any updates on the consumer.
+	ActionsRequired *string
+
+	// The reason for approval/rejection of the connection.
+	Description *string
+
+	// Indicates whether the connection has been Approved/Rejected/Removed by the owner of the service.
+	Status *PrivateEndpointServiceConnectionStatus
+}
+
+// ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
+// location
+type ProxyResource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// Resource - Common fields that are returned in the response for all Azure Resource Manager resources
+type Resource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
 }
 
 // StepStatus - Model that represents the a list of branches and branch statuses.
@@ -602,19 +814,19 @@ type SystemData struct {
 
 // Target - Model that represents a Target resource.
 type Target struct {
-	// REQUIRED; The properties of the target resource.
-	Properties map[string]any
-
-	// Location of the target resource.
+	// Azure resource location.
 	Location *string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// The properties of the target resource.
+	Properties map[string]any
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The system metadata of the target resource.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
@@ -623,7 +835,7 @@ type Target struct {
 
 // TargetFilter - Model that represents available filter types that can be applied to a targets list.
 type TargetFilter struct {
-	// REQUIRED; Enum that discriminates between filter types. Currently only Simple type is supported.
+	// REQUIRED; Chaos target filter discriminator type
 	Type *FilterType
 }
 
@@ -632,11 +844,11 @@ func (t *TargetFilter) GetTargetFilter() *TargetFilter { return t }
 
 // TargetListResult - Model that represents a list of Target resources and a link for pagination.
 type TargetListResult struct {
-	// READ-ONLY; URL to retrieve the next page of Target resources.
-	NextLink *string
-
-	// READ-ONLY; List of Target resources.
+	// REQUIRED; The Target items on this page
 	Value []*Target
+
+	// The link to the next page of items
+	NextLink *string
 }
 
 // TargetListSelector - Model that represents a list selector.
@@ -647,11 +859,8 @@ type TargetListSelector struct {
 	// REQUIRED; List of Target references.
 	Targets []*TargetReference
 
-	// REQUIRED; Enum of the selector type.
+	// REQUIRED; Chaos target selector discriminator type
 	Type *SelectorType
-
-	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
-	AdditionalProperties map[string]any
 
 	// Model that represents available filter types that can be applied to a targets list.
 	Filter TargetFilterClassification
@@ -660,10 +869,9 @@ type TargetListSelector struct {
 // GetTargetSelector implements the TargetSelectorClassification interface for type TargetListSelector.
 func (t *TargetListSelector) GetTargetSelector() *TargetSelector {
 	return &TargetSelector{
-		AdditionalProperties: t.AdditionalProperties,
-		Filter:               t.Filter,
-		ID:                   t.ID,
-		Type:                 t.Type,
+		Filter: t.Filter,
+		ID:     t.ID,
+		Type:   t.Type,
 	}
 }
 
@@ -678,11 +886,8 @@ type TargetQuerySelector struct {
 	// REQUIRED; Subscription id list to scope resource query.
 	SubscriptionIDs []*string
 
-	// REQUIRED; Enum of the selector type.
+	// REQUIRED; Chaos target selector discriminator type
 	Type *SelectorType
-
-	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
-	AdditionalProperties map[string]any
 
 	// Model that represents available filter types that can be applied to a targets list.
 	Filter TargetFilterClassification
@@ -691,10 +896,9 @@ type TargetQuerySelector struct {
 // GetTargetSelector implements the TargetSelectorClassification interface for type TargetQuerySelector.
 func (t *TargetQuerySelector) GetTargetSelector() *TargetSelector {
 	return &TargetSelector{
-		AdditionalProperties: t.AdditionalProperties,
-		Filter:               t.Filter,
-		ID:                   t.ID,
-		Type:                 t.Type,
+		Filter: t.Filter,
+		ID:     t.ID,
+		Type:   t.Type,
 	}
 }
 
@@ -712,11 +916,8 @@ type TargetSelector struct {
 	// REQUIRED; String of the selector ID.
 	ID *string
 
-	// REQUIRED; Enum of the selector type.
+	// REQUIRED; Chaos target selector discriminator type
 	Type *SelectorType
-
-	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
-	AdditionalProperties map[string]any
 
 	// Model that represents available filter types that can be applied to a targets list.
 	Filter TargetFilterClassification
@@ -727,7 +928,7 @@ func (t *TargetSelector) GetTargetSelector() *TargetSelector { return t }
 
 // TargetSimpleFilter - Model that represents a simple target filter.
 type TargetSimpleFilter struct {
-	// REQUIRED; Enum that discriminates between filter types. Currently only Simple type is supported.
+	// REQUIRED; Chaos target filter discriminator type
 	Type *FilterType
 
 	// Model that represents the Simple filter parameters.
@@ -752,16 +953,13 @@ type TargetType struct {
 	// REQUIRED; The properties of the target type resource.
 	Properties *TargetTypeProperties
 
-	// Location of the Target Type resource.
-	Location *string
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The system metadata properties of the target type resource.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
@@ -770,11 +968,11 @@ type TargetType struct {
 
 // TargetTypeListResult - Model that represents a list of Target Type resources and a link for pagination.
 type TargetTypeListResult struct {
-	// READ-ONLY; URL to retrieve the next page of Target Type resources.
-	NextLink *string
-
-	// READ-ONLY; List of Target Type resources.
+	// REQUIRED; The TargetType items on this page
 	Value []*TargetType
+
+	// The link to the next page of items
+	NextLink *string
 }
 
 // TargetTypeProperties - Model that represents the base Target Type properties model.
@@ -801,11 +999,14 @@ type TrackedResource struct {
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string

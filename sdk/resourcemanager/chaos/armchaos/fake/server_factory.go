@@ -24,6 +24,7 @@ type ServerFactory struct {
 	ExperimentsServer       ExperimentsServer
 	OperationStatusesServer OperationStatusesServer
 	OperationsServer        OperationsServer
+	PrivateAccessesServer   PrivateAccessesServer
 	TargetTypesServer       TargetTypesServer
 	TargetsServer           TargetsServer
 }
@@ -47,6 +48,7 @@ type ServerFactoryTransport struct {
 	trExperimentsServer       *ExperimentsServerTransport
 	trOperationStatusesServer *OperationStatusesServerTransport
 	trOperationsServer        *OperationsServerTransport
+	trPrivateAccessesServer   *PrivateAccessesServerTransport
 	trTargetTypesServer       *TargetTypesServerTransport
 	trTargetsServer           *TargetsServerTransport
 }
@@ -83,6 +85,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
+	case "PrivateAccessesClient":
+		initServer(s, &s.trPrivateAccessesServer, func() *PrivateAccessesServerTransport {
+			return NewPrivateAccessesServerTransport(&s.srv.PrivateAccessesServer)
+		})
+		resp, err = s.trPrivateAccessesServer.Do(req)
 	case "TargetTypesClient":
 		initServer(s, &s.trTargetTypesServer, func() *TargetTypesServerTransport { return NewTargetTypesServerTransport(&s.srv.TargetTypesServer) })
 		resp, err = s.trTargetTypesServer.Do(req)
