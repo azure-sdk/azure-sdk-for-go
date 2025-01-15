@@ -10,7 +10,7 @@ package armcosmos
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/cosmos/armcosmos"
-	moduleVersion = "v4.0.0-beta.2"
+	moduleVersion = "v4.0.0-beta.3"
 )
 
 // APIType - Enum to indicate the API type of the restorable database account.
@@ -401,27 +401,6 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 	}
 }
 
-type DataTransferComponent string
-
-const (
-	DataTransferComponentAzureBlobStorage   DataTransferComponent = "AzureBlobStorage"
-	DataTransferComponentCosmosDBCassandra  DataTransferComponent = "CosmosDBCassandra"
-	DataTransferComponentCosmosDBMongo      DataTransferComponent = "CosmosDBMongo"
-	DataTransferComponentCosmosDBMongoVCore DataTransferComponent = "CosmosDBMongoVCore"
-	DataTransferComponentCosmosDBSQL        DataTransferComponent = "CosmosDBSql"
-)
-
-// PossibleDataTransferComponentValues returns the possible values for the DataTransferComponent const type.
-func PossibleDataTransferComponentValues() []DataTransferComponent {
-	return []DataTransferComponent{
-		DataTransferComponentAzureBlobStorage,
-		DataTransferComponentCosmosDBCassandra,
-		DataTransferComponentCosmosDBMongo,
-		DataTransferComponentCosmosDBMongoVCore,
-		DataTransferComponentCosmosDBSQL,
-	}
-}
-
 // DataTransferJobMode - Mode of job execution
 type DataTransferJobMode string
 
@@ -435,6 +414,30 @@ func PossibleDataTransferJobModeValues() []DataTransferJobMode {
 	return []DataTransferJobMode{
 		DataTransferJobModeOffline,
 		DataTransferJobModeOnline,
+	}
+}
+
+// DataTransferJobPropertiesDataTransferType - Date Transfer Type
+type DataTransferJobPropertiesDataTransferType string
+
+const (
+	DataTransferJobPropertiesDataTransferTypeAzureBlobStorageToCosmosDBCassandra  DataTransferJobPropertiesDataTransferType = "AzureBlobStorageToCosmosDBCassandra"
+	DataTransferJobPropertiesDataTransferTypeCosmosDBCassandraToAzureBlobStorage  DataTransferJobPropertiesDataTransferType = "CosmosDBCassandraToAzureBlobStorage"
+	DataTransferJobPropertiesDataTransferTypeCosmosDBCassandraToCosmosDBCassandra DataTransferJobPropertiesDataTransferType = "CosmosDBCassandraToCosmosDBCassandra"
+	DataTransferJobPropertiesDataTransferTypeCosmosDBMongoToCosmosDBMongo         DataTransferJobPropertiesDataTransferType = "CosmosDBMongoToCosmosDBMongo"
+	DataTransferJobPropertiesDataTransferTypeCosmosDBMongoToCosmosDBMongoVCore    DataTransferJobPropertiesDataTransferType = "CosmosDBMongoToCosmosDBMongoVCore"
+	DataTransferJobPropertiesDataTransferTypeCosmosDBNoSQLToCosmosDBNoSQL         DataTransferJobPropertiesDataTransferType = "CosmosDBNoSqlToCosmosDBNoSql"
+)
+
+// PossibleDataTransferJobPropertiesDataTransferTypeValues returns the possible values for the DataTransferJobPropertiesDataTransferType const type.
+func PossibleDataTransferJobPropertiesDataTransferTypeValues() []DataTransferJobPropertiesDataTransferType {
+	return []DataTransferJobPropertiesDataTransferType{
+		DataTransferJobPropertiesDataTransferTypeAzureBlobStorageToCosmosDBCassandra,
+		DataTransferJobPropertiesDataTransferTypeCosmosDBCassandraToAzureBlobStorage,
+		DataTransferJobPropertiesDataTransferTypeCosmosDBCassandraToCosmosDBCassandra,
+		DataTransferJobPropertiesDataTransferTypeCosmosDBMongoToCosmosDBMongo,
+		DataTransferJobPropertiesDataTransferTypeCosmosDBMongoToCosmosDBMongoVCore,
+		DataTransferJobPropertiesDataTransferTypeCosmosDBNoSQLToCosmosDBNoSQL,
 	}
 }
 

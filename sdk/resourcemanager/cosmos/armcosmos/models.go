@@ -153,21 +153,15 @@ type AutoscaleSettingsResource struct {
 	TargetMaxThroughput *int32
 }
 
-// AzureBlobDataTransferDataSourceSink - An Azure Blob Storage data source/sink
-type AzureBlobDataTransferDataSourceSink struct {
-	// REQUIRED
-	Component *DataTransferComponent
-
-	// REQUIRED
-	ContainerName *string
-	EndpointURL   *string
+// AzureBlobDataTransferDataSourceSinkDetails - An Azure Blob Storage data source/sink
+type AzureBlobDataTransferDataSourceSinkDetails struct {
+	EndpointURL *string
 }
 
-// GetDataTransferDataSourceSink implements the DataTransferDataSourceSinkClassification interface for type AzureBlobDataTransferDataSourceSink.
-func (a *AzureBlobDataTransferDataSourceSink) GetDataTransferDataSourceSink() *DataTransferDataSourceSink {
-	return &DataTransferDataSourceSink{
-		Component: a.Component,
-	}
+// AzureBlobStorageContainerEntity - An Azure Blob container entity
+type AzureBlobStorageContainerEntity struct {
+	// REQUIRED
+	ContainerName *string
 }
 
 // BackupInformation - Backup information of a resource.
@@ -229,24 +223,13 @@ type BackupSchedule struct {
 	ScheduleName *string
 }
 
-// BaseCosmosDataTransferDataSourceSink - A base CosmosDB data source/sink
-type BaseCosmosDataTransferDataSourceSink struct {
-	// REQUIRED
-	Component         *DataTransferComponent
-	RemoteAccountName *string
-}
+// BaseDataTransferTask - The properties of a DataTransfer Task
+type BaseDataTransferTask struct {
+	// READ-ONLY; Task level Processed Count.
+	ProcessedCount *int64
 
-// GetBaseCosmosDataTransferDataSourceSink implements the BaseCosmosDataTransferDataSourceSinkClassification interface for
-// type BaseCosmosDataTransferDataSourceSink.
-func (b *BaseCosmosDataTransferDataSourceSink) GetBaseCosmosDataTransferDataSourceSink() *BaseCosmosDataTransferDataSourceSink {
-	return b
-}
-
-// GetDataTransferDataSourceSink implements the DataTransferDataSourceSinkClassification interface for type BaseCosmosDataTransferDataSourceSink.
-func (b *BaseCosmosDataTransferDataSourceSink) GetDataTransferDataSourceSink() *DataTransferDataSourceSink {
-	return &DataTransferDataSourceSink{
-		Component: b.Component,
-	}
+	// READ-ONLY; Task level Total Count.
+	TotalCount *int64
 }
 
 // Capability - Cosmos DB capability object
@@ -308,33 +291,13 @@ type CassandraClusterPublicStatusDataCentersItem struct {
 	SeedNodes []*string
 }
 
-// CassandraDataTransferDataSourceSink - A CosmosDB Cassandra API data source/sink
-type CassandraDataTransferDataSourceSink struct {
+// CassandraContainerEntity - A CosmosDB Cassandra container entity
+type CassandraContainerEntity struct {
 	// REQUIRED
-	Component *DataTransferComponent
-
-	// REQUIRED
-	KeyspaceName *string
+	KeySpaceName *string
 
 	// REQUIRED
-	TableName         *string
-	RemoteAccountName *string
-}
-
-// GetBaseCosmosDataTransferDataSourceSink implements the BaseCosmosDataTransferDataSourceSinkClassification interface for
-// type CassandraDataTransferDataSourceSink.
-func (c *CassandraDataTransferDataSourceSink) GetBaseCosmosDataTransferDataSourceSink() *BaseCosmosDataTransferDataSourceSink {
-	return &BaseCosmosDataTransferDataSourceSink{
-		Component:         c.Component,
-		RemoteAccountName: c.RemoteAccountName,
-	}
-}
-
-// GetDataTransferDataSourceSink implements the DataTransferDataSourceSinkClassification interface for type CassandraDataTransferDataSourceSink.
-func (c *CassandraDataTransferDataSourceSink) GetDataTransferDataSourceSink() *DataTransferDataSourceSink {
-	return &DataTransferDataSourceSink{
-		Component: c.Component,
-	}
+	TableName *string
 }
 
 type CassandraError struct {
@@ -1284,7 +1247,7 @@ type CorsPolicy struct {
 // CreateJobRequest - Parameters to create Data Transfer Job
 type CreateJobRequest struct {
 	// REQUIRED; Data Transfer Create Job Properties
-	Properties *DataTransferJobProperties
+	Properties DataTransferJobPropertiesClassification
 
 	// READ-ONLY; The unique resource identifier of the database account.
 	ID *string
@@ -1383,15 +1346,9 @@ type DataCenterResourceProperties struct {
 	SeedNodes []*SeedNode
 }
 
-// DataTransferDataSourceSink - Base class for all DataTransfer source/sink
-type DataTransferDataSourceSink struct {
-	// REQUIRED
-	Component *DataTransferComponent
-}
-
-// GetDataTransferDataSourceSink implements the DataTransferDataSourceSinkClassification interface for type DataTransferDataSourceSink.
-func (d *DataTransferDataSourceSink) GetDataTransferDataSourceSink() *DataTransferDataSourceSink {
-	return d
+// DataTransferDataSourceSinkDetails - A base CosmosDB data source/sink details
+type DataTransferDataSourceSinkDetails struct {
+	RemoteAccountName *string
 }
 
 // DataTransferJobFeedResults - The List operation response, that contains the Data Transfer jobs and their properties.
@@ -1406,7 +1363,7 @@ type DataTransferJobFeedResults struct {
 // DataTransferJobGetResults - A Cosmos DB Data Transfer Job
 type DataTransferJobGetResults struct {
 	// The properties of a DataTransfer Job
-	Properties *DataTransferJobProperties
+	Properties DataTransferJobPropertiesClassification
 
 	// READ-ONLY; The unique resource identifier of the database account.
 	ID *string
@@ -1420,11 +1377,8 @@ type DataTransferJobGetResults struct {
 
 // DataTransferJobProperties - The properties of a DataTransfer Job
 type DataTransferJobProperties struct {
-	// REQUIRED; Destination DataStore details
-	Destination DataTransferDataSourceSinkClassification
-
-	// REQUIRED; Source DataStore details
-	Source DataTransferDataSourceSinkClassification
+	// REQUIRED; Date Transfer Type
+	DataTransferType *DataTransferJobPropertiesDataTransferType
 
 	// Mode of job execution
 	Mode *DataTransferJobMode
@@ -1452,6 +1406,11 @@ type DataTransferJobProperties struct {
 
 	// READ-ONLY; Total Count.
 	TotalCount *int64
+}
+
+// GetDataTransferJobProperties implements the DataTransferJobPropertiesClassification interface for type DataTransferJobProperties.
+func (d *DataTransferJobProperties) GetDataTransferJobProperties() *DataTransferJobProperties {
+	return d
 }
 
 // DataTransferRegionalServiceResource - Resource for a regional service location.
@@ -3042,6 +3001,15 @@ type MetricValue struct {
 	Total *float64
 }
 
+// MongoContainerEntity - A CosmosDB Mongo container entity
+type MongoContainerEntity struct {
+	// REQUIRED
+	CollectionName *string
+
+	// REQUIRED
+	DatabaseName *string
+}
+
 // MongoDBCollectionCreateUpdateParameters - Parameters to create and update Cosmos DB MongoDB collection.
 type MongoDBCollectionCreateUpdateParameters struct {
 	// REQUIRED; Properties to create and update Azure Cosmos DB MongoDB collection.
@@ -3296,35 +3264,6 @@ type MongoDBDatabaseResource struct {
 	RestoreParameters *ResourceRestoreParameters
 }
 
-// MongoDataTransferDataSourceSink - A CosmosDB Mongo API data source/sink
-type MongoDataTransferDataSourceSink struct {
-	// REQUIRED
-	CollectionName *string
-
-	// REQUIRED
-	Component *DataTransferComponent
-
-	// REQUIRED
-	DatabaseName      *string
-	RemoteAccountName *string
-}
-
-// GetBaseCosmosDataTransferDataSourceSink implements the BaseCosmosDataTransferDataSourceSinkClassification interface for
-// type MongoDataTransferDataSourceSink.
-func (m *MongoDataTransferDataSourceSink) GetBaseCosmosDataTransferDataSourceSink() *BaseCosmosDataTransferDataSourceSink {
-	return &BaseCosmosDataTransferDataSourceSink{
-		Component:         m.Component,
-		RemoteAccountName: m.RemoteAccountName,
-	}
-}
-
-// GetDataTransferDataSourceSink implements the DataTransferDataSourceSinkClassification interface for type MongoDataTransferDataSourceSink.
-func (m *MongoDataTransferDataSourceSink) GetDataTransferDataSourceSink() *DataTransferDataSourceSink {
-	return &DataTransferDataSourceSink{
-		Component: m.Component,
-	}
-}
-
 // MongoIndex - Cosmos DB MongoDB collection index key
 type MongoIndex struct {
 	// Cosmos DB MongoDB collection index keys
@@ -3444,25 +3383,19 @@ type MongoUserDefinitionResource struct {
 	UserName *string
 }
 
-// MongoVCoreDataTransferDataSourceSink - A CosmosDB Mongo vCore API data source/sink
-type MongoVCoreDataTransferDataSourceSink struct {
+// MongoVCoreContainerEntity - A CosmosDB Mongo vCore container entity
+type MongoVCoreContainerEntity struct {
 	// REQUIRED
 	CollectionName *string
 
 	// REQUIRED
-	Component *DataTransferComponent
-
-	// REQUIRED
-	DatabaseName                *string
-	ConnectionStringKeyVaultURI *string
-	HostName                    *string
+	DatabaseName *string
 }
 
-// GetDataTransferDataSourceSink implements the DataTransferDataSourceSinkClassification interface for type MongoVCoreDataTransferDataSourceSink.
-func (m *MongoVCoreDataTransferDataSourceSink) GetDataTransferDataSourceSink() *DataTransferDataSourceSink {
-	return &DataTransferDataSourceSink{
-		Component: m.Component,
-	}
+// MongoVCoreDataTransferDataSourceSinkDetails - A CosmosDB Mongo vCore API data source/sink
+type MongoVCoreDataTransferDataSourceSinkDetails struct {
+	ConnectionStringKeyVaultURI *string
+	HostName                    *string
 }
 
 // NetworkSecurityPerimeter - Information about a network security perimeter (NSP)
@@ -4884,6 +4817,15 @@ type SQLContainerCreateUpdateProperties struct {
 	Options *CreateUpdateOptions
 }
 
+// SQLContainerEntity - A CosmosDB noSql container entity
+type SQLContainerEntity struct {
+	// REQUIRED
+	ContainerName *string
+
+	// REQUIRED
+	DatabaseName *string
+}
+
 // SQLContainerGetProperties - The properties of an Azure Cosmos DB container
 type SQLContainerGetProperties struct {
 	Options  *SQLContainerGetPropertiesOptions
@@ -5025,35 +4967,6 @@ type SQLContainerResource struct {
 
 	// The vector embedding policy for the container.
 	VectorEmbeddingPolicy *VectorEmbeddingPolicy
-}
-
-// SQLDataTransferDataSourceSink - A CosmosDB No Sql API data source/sink
-type SQLDataTransferDataSourceSink struct {
-	// REQUIRED
-	Component *DataTransferComponent
-
-	// REQUIRED
-	ContainerName *string
-
-	// REQUIRED
-	DatabaseName      *string
-	RemoteAccountName *string
-}
-
-// GetBaseCosmosDataTransferDataSourceSink implements the BaseCosmosDataTransferDataSourceSinkClassification interface for
-// type SQLDataTransferDataSourceSink.
-func (s *SQLDataTransferDataSourceSink) GetBaseCosmosDataTransferDataSourceSink() *BaseCosmosDataTransferDataSourceSink {
-	return &BaseCosmosDataTransferDataSourceSink{
-		Component:         s.Component,
-		RemoteAccountName: s.RemoteAccountName,
-	}
-}
-
-// GetDataTransferDataSourceSink implements the DataTransferDataSourceSinkClassification interface for type SQLDataTransferDataSourceSink.
-func (s *SQLDataTransferDataSourceSink) GetDataTransferDataSourceSink() *DataTransferDataSourceSink {
-	return &DataTransferDataSourceSink{
-		Component: s.Component,
-	}
 }
 
 // SQLDatabaseCreateUpdateParameters - Parameters to create and update Cosmos DB SQL database.
@@ -5747,6 +5660,444 @@ type ServiceResourceProperties struct {
 // GetServiceResourceProperties implements the ServiceResourcePropertiesClassification interface for type ServiceResourceProperties.
 func (s *ServiceResourceProperties) GetServiceResourceProperties() *ServiceResourceProperties {
 	return s
+}
+
+// SourceBlobDestinationCassandraDataTransferProperties - The properties of DataTransfer Job with Azure Blob Storage as source
+// and CosmosDB Cassandra as destination
+type SourceBlobDestinationCassandraDataTransferProperties struct {
+	// REQUIRED; Date Transfer Type
+	DataTransferType *DataTransferJobPropertiesDataTransferType
+
+	// REQUIRED; Azure Storage container DataStore details
+	SourceDetails *AzureBlobDataTransferDataSourceSinkDetails
+
+	// REQUIRED
+	Tasks []*SourceBlobDestinationCassandraDataTransferPropertiesTasksItem
+
+	// Destination Cassandra DataStore details
+	DestinationDetails *DataTransferDataSourceSinkDetails
+
+	// Mode of job execution
+	Mode *DataTransferJobMode
+
+	// Worker count
+	WorkerCount *int32
+
+	// READ-ONLY; Total Duration of Job
+	Duration *string
+
+	// READ-ONLY; Error response for Faulted job
+	Error *ErrorResponseAutoGenerated
+
+	// READ-ONLY; Job Name
+	JobName *string
+
+	// READ-ONLY; Last Updated Time (ISO-8601 format).
+	LastUpdatedUTCTime *time.Time
+
+	// READ-ONLY; Processed Count.
+	ProcessedCount *int64
+
+	// READ-ONLY; Job Status
+	Status *string
+
+	// READ-ONLY; Total Count.
+	TotalCount *int64
+}
+
+// GetDataTransferJobProperties implements the DataTransferJobPropertiesClassification interface for type SourceBlobDestinationCassandraDataTransferProperties.
+func (s *SourceBlobDestinationCassandraDataTransferProperties) GetDataTransferJobProperties() *DataTransferJobProperties {
+	return &DataTransferJobProperties{
+		DataTransferType:   s.DataTransferType,
+		Duration:           s.Duration,
+		Error:              s.Error,
+		JobName:            s.JobName,
+		LastUpdatedUTCTime: s.LastUpdatedUTCTime,
+		Mode:               s.Mode,
+		ProcessedCount:     s.ProcessedCount,
+		Status:             s.Status,
+		TotalCount:         s.TotalCount,
+		WorkerCount:        s.WorkerCount,
+	}
+}
+
+type SourceBlobDestinationCassandraDataTransferPropertiesTasksItem struct {
+	// REQUIRED; Destination Cassandra container entity
+	Destination *CassandraContainerEntity
+
+	// REQUIRED; Source Azure Blob container entity
+	Source *AzureBlobStorageContainerEntity
+
+	// READ-ONLY; Task level Processed Count.
+	ProcessedCount *int64
+
+	// READ-ONLY; Task level Total Count.
+	TotalCount *int64
+}
+
+// SourceCassandraDestinationBlobDataTransferProperties - The properties of DataTransfer Job with CosmosDB Cassandra as source
+// and Azure Blob container as destination
+type SourceCassandraDestinationBlobDataTransferProperties struct {
+	// REQUIRED; Date Transfer Type
+	DataTransferType *DataTransferJobPropertiesDataTransferType
+
+	// REQUIRED; Destination Cassandra DataStore details
+	DestinationDetails *AzureBlobDataTransferDataSourceSinkDetails
+
+	// REQUIRED
+	Tasks []*SourceCassandraDestinationBlobDataTransferPropertiesTasksItem
+
+	// Mode of job execution
+	Mode *DataTransferJobMode
+
+	// Source Cassandra DataStore details
+	SourceDetails *DataTransferDataSourceSinkDetails
+
+	// Worker count
+	WorkerCount *int32
+
+	// READ-ONLY; Total Duration of Job
+	Duration *string
+
+	// READ-ONLY; Error response for Faulted job
+	Error *ErrorResponseAutoGenerated
+
+	// READ-ONLY; Job Name
+	JobName *string
+
+	// READ-ONLY; Last Updated Time (ISO-8601 format).
+	LastUpdatedUTCTime *time.Time
+
+	// READ-ONLY; Processed Count.
+	ProcessedCount *int64
+
+	// READ-ONLY; Job Status
+	Status *string
+
+	// READ-ONLY; Total Count.
+	TotalCount *int64
+}
+
+// GetDataTransferJobProperties implements the DataTransferJobPropertiesClassification interface for type SourceCassandraDestinationBlobDataTransferProperties.
+func (s *SourceCassandraDestinationBlobDataTransferProperties) GetDataTransferJobProperties() *DataTransferJobProperties {
+	return &DataTransferJobProperties{
+		DataTransferType:   s.DataTransferType,
+		Duration:           s.Duration,
+		Error:              s.Error,
+		JobName:            s.JobName,
+		LastUpdatedUTCTime: s.LastUpdatedUTCTime,
+		Mode:               s.Mode,
+		ProcessedCount:     s.ProcessedCount,
+		Status:             s.Status,
+		TotalCount:         s.TotalCount,
+		WorkerCount:        s.WorkerCount,
+	}
+}
+
+type SourceCassandraDestinationBlobDataTransferPropertiesTasksItem struct {
+	// REQUIRED; Destination Blob container entity
+	Destination *AzureBlobStorageContainerEntity
+
+	// REQUIRED; Source Cassandra container entity
+	Source *CassandraContainerEntity
+
+	// READ-ONLY; Task level Processed Count.
+	ProcessedCount *int64
+
+	// READ-ONLY; Task level Total Count.
+	TotalCount *int64
+}
+
+// SourceCassandraDestinationCassandraDataTransferProperties - The properties of DataTransfer Job with CosmosDB Cassandra
+// as source and CosmosDB Cassandra as destination
+type SourceCassandraDestinationCassandraDataTransferProperties struct {
+	// REQUIRED; Date Transfer Type
+	DataTransferType *DataTransferJobPropertiesDataTransferType
+
+	// REQUIRED
+	Tasks []*SourceCassandraDestinationCassandraDataTransferPropertiesTasksItem
+
+	// Destination Cassandra DataStore details
+	DestinationDetails *DataTransferDataSourceSinkDetails
+
+	// Mode of job execution
+	Mode *DataTransferJobMode
+
+	// Source Cassandra DataStore details
+	SourceDetails *DataTransferDataSourceSinkDetails
+
+	// Worker count
+	WorkerCount *int32
+
+	// READ-ONLY; Total Duration of Job
+	Duration *string
+
+	// READ-ONLY; Error response for Faulted job
+	Error *ErrorResponseAutoGenerated
+
+	// READ-ONLY; Job Name
+	JobName *string
+
+	// READ-ONLY; Last Updated Time (ISO-8601 format).
+	LastUpdatedUTCTime *time.Time
+
+	// READ-ONLY; Processed Count.
+	ProcessedCount *int64
+
+	// READ-ONLY; Job Status
+	Status *string
+
+	// READ-ONLY; Total Count.
+	TotalCount *int64
+}
+
+// GetDataTransferJobProperties implements the DataTransferJobPropertiesClassification interface for type SourceCassandraDestinationCassandraDataTransferProperties.
+func (s *SourceCassandraDestinationCassandraDataTransferProperties) GetDataTransferJobProperties() *DataTransferJobProperties {
+	return &DataTransferJobProperties{
+		DataTransferType:   s.DataTransferType,
+		Duration:           s.Duration,
+		Error:              s.Error,
+		JobName:            s.JobName,
+		LastUpdatedUTCTime: s.LastUpdatedUTCTime,
+		Mode:               s.Mode,
+		ProcessedCount:     s.ProcessedCount,
+		Status:             s.Status,
+		TotalCount:         s.TotalCount,
+		WorkerCount:        s.WorkerCount,
+	}
+}
+
+type SourceCassandraDestinationCassandraDataTransferPropertiesTasksItem struct {
+	// REQUIRED; Destination Cassandra container entity
+	Destination *CassandraContainerEntity
+
+	// REQUIRED; Source Cassandra container entity
+	Source *CassandraContainerEntity
+
+	// READ-ONLY; Task level Processed Count.
+	ProcessedCount *int64
+
+	// READ-ONLY; Task level Total Count.
+	TotalCount *int64
+}
+
+// SourceMongoDestinationMongoDataTransferProperties - The properties of DataTransfer Job with CosmosDB Mongo (RU) as source
+// and CosmosDB Mongo (RU) as destination
+type SourceMongoDestinationMongoDataTransferProperties struct {
+	// REQUIRED; Date Transfer Type
+	DataTransferType *DataTransferJobPropertiesDataTransferType
+
+	// REQUIRED
+	Tasks []*SourceMongoDestinationMongoDataTransferPropertiesTasksItem
+
+	// Destination Mongo DataStore details
+	DestinationDetails *DataTransferDataSourceSinkDetails
+
+	// Mode of job execution
+	Mode *DataTransferJobMode
+
+	// Source Mongo DataStore details
+	SourceDetails *DataTransferDataSourceSinkDetails
+
+	// Worker count
+	WorkerCount *int32
+
+	// READ-ONLY; Total Duration of Job
+	Duration *string
+
+	// READ-ONLY; Error response for Faulted job
+	Error *ErrorResponseAutoGenerated
+
+	// READ-ONLY; Job Name
+	JobName *string
+
+	// READ-ONLY; Last Updated Time (ISO-8601 format).
+	LastUpdatedUTCTime *time.Time
+
+	// READ-ONLY; Processed Count.
+	ProcessedCount *int64
+
+	// READ-ONLY; Job Status
+	Status *string
+
+	// READ-ONLY; Total Count.
+	TotalCount *int64
+}
+
+// GetDataTransferJobProperties implements the DataTransferJobPropertiesClassification interface for type SourceMongoDestinationMongoDataTransferProperties.
+func (s *SourceMongoDestinationMongoDataTransferProperties) GetDataTransferJobProperties() *DataTransferJobProperties {
+	return &DataTransferJobProperties{
+		DataTransferType:   s.DataTransferType,
+		Duration:           s.Duration,
+		Error:              s.Error,
+		JobName:            s.JobName,
+		LastUpdatedUTCTime: s.LastUpdatedUTCTime,
+		Mode:               s.Mode,
+		ProcessedCount:     s.ProcessedCount,
+		Status:             s.Status,
+		TotalCount:         s.TotalCount,
+		WorkerCount:        s.WorkerCount,
+	}
+}
+
+type SourceMongoDestinationMongoDataTransferPropertiesTasksItem struct {
+	// REQUIRED; Destination Mongo container entity
+	Destination *MongoContainerEntity
+
+	// REQUIRED; Source Mongo container entity
+	Source *MongoContainerEntity
+
+	// READ-ONLY; Task level Processed Count.
+	ProcessedCount *int64
+
+	// READ-ONLY; Task level Total Count.
+	TotalCount *int64
+}
+
+// SourceMongoDestinationMongoVCoreDataTransferProperties - The properties of DataTransfer Job with CosmosDB Mongo (RU) as
+// source and CosmosDB Mongo (vCore) as destination
+type SourceMongoDestinationMongoVCoreDataTransferProperties struct {
+	// REQUIRED; Date Transfer Type
+	DataTransferType *DataTransferJobPropertiesDataTransferType
+
+	// REQUIRED; Destination Mongo (vCore) DataStore details
+	DestinationDetails *MongoVCoreDataTransferDataSourceSinkDetails
+
+	// REQUIRED
+	Tasks []*SourceMongoDestinationMongoVCoreDataTransferPropertiesTasksItem
+
+	// Mode of job execution
+	Mode *DataTransferJobMode
+
+	// Source Mongo (RU) DataStore details
+	SourceDetails *DataTransferDataSourceSinkDetails
+
+	// Worker count
+	WorkerCount *int32
+
+	// READ-ONLY; Total Duration of Job
+	Duration *string
+
+	// READ-ONLY; Error response for Faulted job
+	Error *ErrorResponseAutoGenerated
+
+	// READ-ONLY; Job Name
+	JobName *string
+
+	// READ-ONLY; Last Updated Time (ISO-8601 format).
+	LastUpdatedUTCTime *time.Time
+
+	// READ-ONLY; Processed Count.
+	ProcessedCount *int64
+
+	// READ-ONLY; Job Status
+	Status *string
+
+	// READ-ONLY; Total Count.
+	TotalCount *int64
+}
+
+// GetDataTransferJobProperties implements the DataTransferJobPropertiesClassification interface for type SourceMongoDestinationMongoVCoreDataTransferProperties.
+func (s *SourceMongoDestinationMongoVCoreDataTransferProperties) GetDataTransferJobProperties() *DataTransferJobProperties {
+	return &DataTransferJobProperties{
+		DataTransferType:   s.DataTransferType,
+		Duration:           s.Duration,
+		Error:              s.Error,
+		JobName:            s.JobName,
+		LastUpdatedUTCTime: s.LastUpdatedUTCTime,
+		Mode:               s.Mode,
+		ProcessedCount:     s.ProcessedCount,
+		Status:             s.Status,
+		TotalCount:         s.TotalCount,
+		WorkerCount:        s.WorkerCount,
+	}
+}
+
+type SourceMongoDestinationMongoVCoreDataTransferPropertiesTasksItem struct {
+	// REQUIRED; Destination Mongo vCore container entity
+	Destination *MongoVCoreContainerEntity
+
+	// REQUIRED; Source Mongo container entity
+	Source *MongoContainerEntity
+
+	// READ-ONLY; Task level Processed Count.
+	ProcessedCount *int64
+
+	// READ-ONLY; Task level Total Count.
+	TotalCount *int64
+}
+
+// SourceSQLDestinationSQLDataTransferProperties - The properties of DataTransfer Job with CosmosDB noSQL as source and CosmosDB
+// noSQL as destination
+type SourceSQLDestinationSQLDataTransferProperties struct {
+	// REQUIRED; Date Transfer Type
+	DataTransferType *DataTransferJobPropertiesDataTransferType
+
+	// REQUIRED
+	Tasks []*SourceSQLDestinationSQLDataTransferPropertiesTasksItem
+
+	// Destination noSQL DataStore details
+	DestinationDetails *DataTransferDataSourceSinkDetails
+
+	// Mode of job execution
+	Mode *DataTransferJobMode
+
+	// Source noSQL DataStore details
+	SourceDetails *DataTransferDataSourceSinkDetails
+
+	// Worker count
+	WorkerCount *int32
+
+	// READ-ONLY; Total Duration of Job
+	Duration *string
+
+	// READ-ONLY; Error response for Faulted job
+	Error *ErrorResponseAutoGenerated
+
+	// READ-ONLY; Job Name
+	JobName *string
+
+	// READ-ONLY; Last Updated Time (ISO-8601 format).
+	LastUpdatedUTCTime *time.Time
+
+	// READ-ONLY; Processed Count.
+	ProcessedCount *int64
+
+	// READ-ONLY; Job Status
+	Status *string
+
+	// READ-ONLY; Total Count.
+	TotalCount *int64
+}
+
+// GetDataTransferJobProperties implements the DataTransferJobPropertiesClassification interface for type SourceSQLDestinationSQLDataTransferProperties.
+func (s *SourceSQLDestinationSQLDataTransferProperties) GetDataTransferJobProperties() *DataTransferJobProperties {
+	return &DataTransferJobProperties{
+		DataTransferType:   s.DataTransferType,
+		Duration:           s.Duration,
+		Error:              s.Error,
+		JobName:            s.JobName,
+		LastUpdatedUTCTime: s.LastUpdatedUTCTime,
+		Mode:               s.Mode,
+		ProcessedCount:     s.ProcessedCount,
+		Status:             s.Status,
+		TotalCount:         s.TotalCount,
+		WorkerCount:        s.WorkerCount,
+	}
+}
+
+type SourceSQLDestinationSQLDataTransferPropertiesTasksItem struct {
+	// REQUIRED; Destination noSQL container entity
+	Destination *SQLContainerEntity
+
+	// REQUIRED; Source noSQL container entity
+	Source *SQLContainerEntity
+
+	// READ-ONLY; Task level Processed Count.
+	ProcessedCount *int64
+
+	// READ-ONLY; Task level Total Count.
+	TotalCount *int64
 }
 
 type SpatialSpec struct {

@@ -33,7 +33,7 @@ func unmarshalBackupPolicyClassification(rawMsg json.RawMessage) (BackupPolicyCl
 	return b, nil
 }
 
-func unmarshalDataTransferDataSourceSinkClassification(rawMsg json.RawMessage) (DataTransferDataSourceSinkClassification, error) {
+func unmarshalDataTransferJobPropertiesClassification(rawMsg json.RawMessage) (DataTransferJobPropertiesClassification, error) {
 	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
@@ -41,22 +41,22 @@ func unmarshalDataTransferDataSourceSinkClassification(rawMsg json.RawMessage) (
 	if err := json.Unmarshal(rawMsg, &m); err != nil {
 		return nil, err
 	}
-	var b DataTransferDataSourceSinkClassification
-	switch m["component"] {
-	case "BaseCosmosDataTransferDataSourceSink":
-		b = &BaseCosmosDataTransferDataSourceSink{}
-	case string(DataTransferComponentAzureBlobStorage):
-		b = &AzureBlobDataTransferDataSourceSink{}
-	case string(DataTransferComponentCosmosDBCassandra):
-		b = &CassandraDataTransferDataSourceSink{}
-	case string(DataTransferComponentCosmosDBMongo):
-		b = &MongoDataTransferDataSourceSink{}
-	case string(DataTransferComponentCosmosDBMongoVCore):
-		b = &MongoVCoreDataTransferDataSourceSink{}
-	case string(DataTransferComponentCosmosDBSQL):
-		b = &SQLDataTransferDataSourceSink{}
+	var b DataTransferJobPropertiesClassification
+	switch m["dataTransferType"] {
+	case "CosmosDBSqlToCosmosDBSql":
+		b = &SourceSQLDestinationSQLDataTransferProperties{}
+	case string(DataTransferJobPropertiesDataTransferTypeAzureBlobStorageToCosmosDBCassandra):
+		b = &SourceBlobDestinationCassandraDataTransferProperties{}
+	case string(DataTransferJobPropertiesDataTransferTypeCosmosDBCassandraToAzureBlobStorage):
+		b = &SourceCassandraDestinationBlobDataTransferProperties{}
+	case string(DataTransferJobPropertiesDataTransferTypeCosmosDBCassandraToCosmosDBCassandra):
+		b = &SourceCassandraDestinationCassandraDataTransferProperties{}
+	case string(DataTransferJobPropertiesDataTransferTypeCosmosDBMongoToCosmosDBMongo):
+		b = &SourceMongoDestinationMongoDataTransferProperties{}
+	case string(DataTransferJobPropertiesDataTransferTypeCosmosDBMongoToCosmosDBMongoVCore):
+		b = &SourceMongoDestinationMongoVCoreDataTransferProperties{}
 	default:
-		b = &DataTransferDataSourceSink{}
+		b = &DataTransferJobProperties{}
 	}
 	if err := json.Unmarshal(rawMsg, b); err != nil {
 		return nil, err

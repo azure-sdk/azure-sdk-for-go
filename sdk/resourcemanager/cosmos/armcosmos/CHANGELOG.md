@@ -1,5 +1,62 @@
 # Release History
 
+## 4.0.0-beta.3 (2025-01-15)
+### Breaking Changes
+
+- Type of `CreateJobRequest.Properties` has been changed from `*DataTransferJobProperties` to `DataTransferJobPropertiesClassification`
+- Type of `DataTransferJobGetResults.Properties` has been changed from `*DataTransferJobProperties` to `DataTransferJobPropertiesClassification`
+- Enum `DataTransferComponent` has been removed
+- Function `*AzureBlobDataTransferDataSourceSink.GetDataTransferDataSourceSink` has been removed
+- Function `*BaseCosmosDataTransferDataSourceSink.GetBaseCosmosDataTransferDataSourceSink` has been removed
+- Function `*BaseCosmosDataTransferDataSourceSink.GetDataTransferDataSourceSink` has been removed
+- Function `*CassandraDataTransferDataSourceSink.GetBaseCosmosDataTransferDataSourceSink` has been removed
+- Function `*CassandraDataTransferDataSourceSink.GetDataTransferDataSourceSink` has been removed
+- Function `*DataTransferDataSourceSink.GetDataTransferDataSourceSink` has been removed
+- Function `*MongoDataTransferDataSourceSink.GetBaseCosmosDataTransferDataSourceSink` has been removed
+- Function `*MongoDataTransferDataSourceSink.GetDataTransferDataSourceSink` has been removed
+- Function `*MongoVCoreDataTransferDataSourceSink.GetDataTransferDataSourceSink` has been removed
+- Function `*SQLDataTransferDataSourceSink.GetBaseCosmosDataTransferDataSourceSink` has been removed
+- Function `*SQLDataTransferDataSourceSink.GetDataTransferDataSourceSink` has been removed
+- Struct `AzureBlobDataTransferDataSourceSink` has been removed
+- Struct `CassandraDataTransferDataSourceSink` has been removed
+- Struct `MongoDataTransferDataSourceSink` has been removed
+- Struct `MongoVCoreDataTransferDataSourceSink` has been removed
+- Struct `SQLDataTransferDataSourceSink` has been removed
+- Field `Destination`, `Source` of struct `DataTransferJobProperties` has been removed
+
+### Features Added
+
+- New enum type `DataTransferJobPropertiesDataTransferType` with values `DataTransferJobPropertiesDataTransferTypeAzureBlobStorageToCosmosDBCassandra`, `DataTransferJobPropertiesDataTransferTypeCosmosDBCassandraToAzureBlobStorage`, `DataTransferJobPropertiesDataTransferTypeCosmosDBCassandraToCosmosDBCassandra`, `DataTransferJobPropertiesDataTransferTypeCosmosDBMongoToCosmosDBMongo`, `DataTransferJobPropertiesDataTransferTypeCosmosDBMongoToCosmosDBMongoVCore`, `DataTransferJobPropertiesDataTransferTypeCosmosDBNoSQLToCosmosDBNoSQL`
+- New function `*DataTransferJobProperties.GetDataTransferJobProperties() *DataTransferJobProperties`
+- New function `*SourceBlobDestinationCassandraDataTransferProperties.GetDataTransferJobProperties() *DataTransferJobProperties`
+- New function `*SourceCassandraDestinationBlobDataTransferProperties.GetDataTransferJobProperties() *DataTransferJobProperties`
+- New function `*SourceCassandraDestinationCassandraDataTransferProperties.GetDataTransferJobProperties() *DataTransferJobProperties`
+- New function `*SourceMongoDestinationMongoDataTransferProperties.GetDataTransferJobProperties() *DataTransferJobProperties`
+- New function `*SourceMongoDestinationMongoVCoreDataTransferProperties.GetDataTransferJobProperties() *DataTransferJobProperties`
+- New function `*SourceSQLDestinationSQLDataTransferProperties.GetDataTransferJobProperties() *DataTransferJobProperties`
+- New struct `AzureBlobDataTransferDataSourceSinkDetails`
+- New struct `AzureBlobStorageContainerEntity`
+- New struct `BaseDataTransferTask`
+- New struct `CassandraContainerEntity`
+- New struct `DataTransferDataSourceSinkDetails`
+- New struct `MongoContainerEntity`
+- New struct `MongoVCoreContainerEntity`
+- New struct `MongoVCoreDataTransferDataSourceSinkDetails`
+- New struct `SQLContainerEntity`
+- New struct `SourceBlobDestinationCassandraDataTransferProperties`
+- New struct `SourceBlobDestinationCassandraDataTransferPropertiesTasksItem`
+- New struct `SourceCassandraDestinationBlobDataTransferProperties`
+- New struct `SourceCassandraDestinationBlobDataTransferPropertiesTasksItem`
+- New struct `SourceCassandraDestinationCassandraDataTransferProperties`
+- New struct `SourceCassandraDestinationCassandraDataTransferPropertiesTasksItem`
+- New struct `SourceMongoDestinationMongoDataTransferProperties`
+- New struct `SourceMongoDestinationMongoDataTransferPropertiesTasksItem`
+- New struct `SourceMongoDestinationMongoVCoreDataTransferProperties`
+- New struct `SourceMongoDestinationMongoVCoreDataTransferPropertiesTasksItem`
+- New struct `SourceSQLDestinationSQLDataTransferProperties`
+- New struct `SourceSQLDestinationSQLDataTransferPropertiesTasksItem`
+
+
 ## 4.0.0-beta.2 (2024-12-12)
 ### Breaking Changes
 
