@@ -10,7 +10,7 @@ package armmaintenance
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/maintenance/armmaintenance"
-	moduleVersion = "v1.4.0-beta.1"
+	moduleVersion = "v1.4.0-beta.2"
 )
 
 // CreatedByType - The type of identity that created the resource.

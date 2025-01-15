@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/chaos/armchaos"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/chaos/armchaos/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -26,11 +26,11 @@ import (
 type CapabilityTypesServer struct {
 	// Get is the fake for method CapabilityTypesClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, locationName string, targetTypeName string, capabilityTypeName string, options *armchaos.CapabilityTypesClientGetOptions) (resp azfake.Responder[armchaos.CapabilityTypesClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, location string, targetTypeName string, capabilityTypeName string, options *armchaos.CapabilityTypesClientGetOptions) (resp azfake.Responder[armchaos.CapabilityTypesClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method CapabilityTypesClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(locationName string, targetTypeName string, options *armchaos.CapabilityTypesClientListOptions) (resp azfake.PagerResponder[armchaos.CapabilityTypesClientListResponse])
+	NewListPager func(location string, targetTypeName string, options *armchaos.CapabilityTypesClientListOptions) (resp azfake.PagerResponder[armchaos.CapabilityTypesClientListResponse])
 }
 
 // NewCapabilityTypesServerTransport creates a new instance of CapabilityTypesServerTransport with the provided implementation.
@@ -81,13 +81,13 @@ func (c *CapabilityTypesServerTransport) dispatchGet(req *http.Request) (*http.R
 	if c.srv.Get == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Chaos/locations/(?P<locationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/targetTypes/(?P<targetTypeName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/capabilityTypes/(?P<capabilityTypeName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Chaos/locations/(?P<location>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/targetTypes/(?P<targetTypeName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/capabilityTypes/(?P<capabilityTypeName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	locationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("locationName")])
+	locationParam, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
 	if err != nil {
 		return nil, err
 	}
@@ -99,7 +99,7 @@ func (c *CapabilityTypesServerTransport) dispatchGet(req *http.Request) (*http.R
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := c.srv.Get(req.Context(), locationNameParam, targetTypeNameParam, capabilityTypeNameParam, nil)
+	respr, errRespr := c.srv.Get(req.Context(), locationParam, targetTypeNameParam, capabilityTypeNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -120,14 +120,14 @@ func (c *CapabilityTypesServerTransport) dispatchNewListPager(req *http.Request)
 	}
 	newListPager := c.newListPager.get(req)
 	if newListPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Chaos/locations/(?P<locationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/targetTypes/(?P<targetTypeName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/capabilityTypes`
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Chaos/locations/(?P<location>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/targetTypes/(?P<targetTypeName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/capabilityTypes`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 		if matches == nil || len(matches) < 3 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		qp := req.URL.Query()
-		locationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("locationName")])
+		locationParam, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
 		if err != nil {
 			return nil, err
 		}
@@ -146,7 +146,7 @@ func (c *CapabilityTypesServerTransport) dispatchNewListPager(req *http.Request)
 				ContinuationToken: continuationTokenParam,
 			}
 		}
-		resp := c.srv.NewListPager(locationNameParam, targetTypeNameParam, options)
+		resp := c.srv.NewListPager(locationParam, targetTypeNameParam, options)
 		newListPager = &resp
 		c.newListPager.add(req, newListPager)
 		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armchaos.CapabilityTypesClientListResponse, createLink func() string) {
