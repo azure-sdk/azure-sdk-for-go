@@ -153,7 +153,7 @@ type ErrorDetails struct {
 
 // InputLinuxParameters - Input properties for patching a Linux machine.
 type InputLinuxParameters struct {
-	// Classification category of patches to be patched
+	// Classification category of patches to be patched. Allowed values are 'Critical', 'Security', and 'Other'.
 	ClassificationsToInclude []*string
 
 	// Package names to be excluded for patching.
@@ -178,7 +178,8 @@ type InputPatchConfiguration struct {
 
 // InputWindowsParameters - Input properties for patching a Windows machine.
 type InputWindowsParameters struct {
-	// Classification category of patches to be patched
+	// Classification category of patches to be patched. Allowed values are 'Critical', 'Security', 'UpdateRollup', 'FeaturePack',
+	// 'ServicePack', 'Definition', 'Tools', and 'Updates'.
 	ClassificationsToInclude []*string
 
 	// Exclude patches which need reboot
