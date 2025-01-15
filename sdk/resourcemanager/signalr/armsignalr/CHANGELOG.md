@@ -1,5 +1,36 @@
 # Release History
 
+## 1.3.0-beta.2 (2025-01-15)
+### Features Added
+
+- New enum type `ClientConnectionCountRuleDiscriminator` with values `ClientConnectionCountRuleDiscriminatorThrottleByJwtCustomClaimRule`, `ClientConnectionCountRuleDiscriminatorThrottleByJwtSignatureRule`, `ClientConnectionCountRuleDiscriminatorThrottleByUserIDRule`
+- New enum type `ClientTrafficControlRuleDiscriminator` with values `ClientTrafficControlRuleDiscriminatorTrafficThrottleByJwtCustomClaimRule`, `ClientTrafficControlRuleDiscriminatorTrafficThrottleByJwtSignatureRule`, `ClientTrafficControlRuleDiscriminatorTrafficThrottleByUserIDRule`
+- New function `*ClientConnectionCountRule.GetClientConnectionCountRule() *ClientConnectionCountRule`
+- New function `*ClientFactory.NewReplicaSharedPrivateLinkResourcesClient() *ReplicaSharedPrivateLinkResourcesClient`
+- New function `*ClientTrafficControlRule.GetClientTrafficControlRule() *ClientTrafficControlRule`
+- New function `NewReplicaSharedPrivateLinkResourcesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ReplicaSharedPrivateLinkResourcesClient, error)`
+- New function `*ReplicaSharedPrivateLinkResourcesClient.BeginCreateOrUpdate(context.Context, string, string, string, string, SharedPrivateLinkResource, *ReplicaSharedPrivateLinkResourcesClientBeginCreateOrUpdateOptions) (*runtime.Poller[ReplicaSharedPrivateLinkResourcesClientCreateOrUpdateResponse], error)`
+- New function `*ReplicaSharedPrivateLinkResourcesClient.Get(context.Context, string, string, string, string, *ReplicaSharedPrivateLinkResourcesClientGetOptions) (ReplicaSharedPrivateLinkResourcesClientGetResponse, error)`
+- New function `*ReplicaSharedPrivateLinkResourcesClient.NewListPager(string, string, string, *ReplicaSharedPrivateLinkResourcesClientListOptions) *runtime.Pager[ReplicaSharedPrivateLinkResourcesClientListResponse]`
+- New function `*ThrottleByJwtCustomClaimRule.GetClientConnectionCountRule() *ClientConnectionCountRule`
+- New function `*ThrottleByJwtSignatureRule.GetClientConnectionCountRule() *ClientConnectionCountRule`
+- New function `*ThrottleByUserIDRule.GetClientConnectionCountRule() *ClientConnectionCountRule`
+- New function `*TrafficThrottleByJwtCustomClaimRule.GetClientTrafficControlRule() *ClientTrafficControlRule`
+- New function `*TrafficThrottleByJwtSignatureRule.GetClientTrafficControlRule() *ClientTrafficControlRule`
+- New function `*TrafficThrottleByUserIDRule.GetClientTrafficControlRule() *ClientTrafficControlRule`
+- New struct `ApplicationFirewallSettings`
+- New struct `RouteSettings`
+- New struct `ThrottleByJwtCustomClaimRule`
+- New struct `ThrottleByJwtSignatureRule`
+- New struct `ThrottleByUserIDRule`
+- New struct `TrafficThrottleByJwtCustomClaimRule`
+- New struct `TrafficThrottleByJwtSignatureRule`
+- New struct `TrafficThrottleByUserIDRule`
+- New field `ApplicationFirewall`, `RouteSettings` in struct `Properties`
+- New field `KeepAliveIntervalInSeconds` in struct `ServerlessSettings`
+- New field `Fqdns` in struct `SharedPrivateLinkResourceProperties`
+
+
 ## 1.3.0-beta.1 (2023-11-30)
 ### Features Added
 
