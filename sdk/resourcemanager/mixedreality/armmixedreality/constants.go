@@ -10,7 +10,7 @@ package armmixedreality
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mixedreality/armmixedreality"
-	moduleVersion = "v0.7.0"
+	moduleVersion = "v0.8.0"
 )
 
 // CreatedByType - The type of identity that created the resource.

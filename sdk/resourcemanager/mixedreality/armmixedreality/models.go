@@ -148,61 +148,6 @@ type MetricSpecification struct {
 	Unit *string
 }
 
-// ObjectAnchorsAccount Response.
-type ObjectAnchorsAccount struct {
-	// REQUIRED; The geo-location where the resource lives
-	Location *string
-	Identity *ObjectAnchorsAccountIdentity
-
-	// The kind of account, if supported
-	Kind *SKU
-
-	// The plan associated with this account
-	Plan *Identity
-
-	// Property bag.
-	Properties *AccountProperties
-
-	// The sku associated with this account
-	SKU *SKU
-
-	// Resource tags.
-	Tags map[string]*string
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
-	// READ-ONLY; The system metadata related to an object anchors account.
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-type ObjectAnchorsAccountIdentity struct {
-	// The identity type.
-	Type *string
-
-	// READ-ONLY; The principal ID of resource identity.
-	PrincipalID *string
-
-	// READ-ONLY; The tenant ID of resource.
-	TenantID *string
-}
-
-// ObjectAnchorsAccountPage - Result of the request to get resource collection. It contains a list of resources and a URL
-// link to get the next set of results.
-type ObjectAnchorsAccountPage struct {
-	// URL to get the next set of resource list results if there are any.
-	NextLink *string
-
-	// List of resources supported by the Resource Provider.
-	Value []*ObjectAnchorsAccount
-}
-
 // Operation - REST API operation
 type Operation struct {
 	// The object that represents the operation.
@@ -337,52 +282,6 @@ type ServiceSpecification struct {
 
 	// Specifications of the Metrics for Azure Monitoring
 	MetricSpecifications []*MetricSpecification
-}
-
-// SpatialAnchorsAccount Response.
-type SpatialAnchorsAccount struct {
-	// REQUIRED; The geo-location where the resource lives
-	Location *string
-
-	// The identity associated with this account
-	Identity *Identity
-
-	// The kind of account, if supported
-	Kind *SKU
-
-	// The plan associated with this account
-	Plan *Identity
-
-	// Property bag.
-	Properties *AccountProperties
-
-	// The sku associated with this account
-	SKU *SKU
-
-	// Resource tags.
-	Tags map[string]*string
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
-	// READ-ONLY; System metadata for this account
-	SystemData *SystemData
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// SpatialAnchorsAccountPage - Result of the request to get resource collection. It contains a list of resources and a URL
-// link to get the next set of results.
-type SpatialAnchorsAccountPage struct {
-	// URL to get the next set of resource list results if there are any.
-	NextLink *string
-
-	// List of resources supported by the Resource Provider.
-	Value []*SpatialAnchorsAccount
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.

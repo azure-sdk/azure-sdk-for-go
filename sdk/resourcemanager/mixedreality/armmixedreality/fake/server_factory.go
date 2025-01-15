@@ -20,10 +20,8 @@ import (
 // ServerFactory is a fake server for instances of the armmixedreality.ClientFactory type.
 type ServerFactory struct {
 	Server                        Server
-	ObjectAnchorsAccountsServer   ObjectAnchorsAccountsServer
 	OperationsServer              OperationsServer
 	RemoteRenderingAccountsServer RemoteRenderingAccountsServer
-	SpatialAnchorsAccountsServer  SpatialAnchorsAccountsServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -41,10 +39,8 @@ type ServerFactoryTransport struct {
 	srv                             *ServerFactory
 	trMu                            sync.Mutex
 	trServer                        *ServerTransport
-	trObjectAnchorsAccountsServer   *ObjectAnchorsAccountsServerTransport
 	trOperationsServer              *OperationsServerTransport
 	trRemoteRenderingAccountsServer *RemoteRenderingAccountsServerTransport
-	trSpatialAnchorsAccountsServer  *SpatialAnchorsAccountsServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -63,11 +59,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "Client":
 		initServer(s, &s.trServer, func() *ServerTransport { return NewServerTransport(&s.srv.Server) })
 		resp, err = s.trServer.Do(req)
-	case "ObjectAnchorsAccountsClient":
-		initServer(s, &s.trObjectAnchorsAccountsServer, func() *ObjectAnchorsAccountsServerTransport {
-			return NewObjectAnchorsAccountsServerTransport(&s.srv.ObjectAnchorsAccountsServer)
-		})
-		resp, err = s.trObjectAnchorsAccountsServer.Do(req)
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
@@ -76,11 +67,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewRemoteRenderingAccountsServerTransport(&s.srv.RemoteRenderingAccountsServer)
 		})
 		resp, err = s.trRemoteRenderingAccountsServer.Do(req)
-	case "SpatialAnchorsAccountsClient":
-		initServer(s, &s.trSpatialAnchorsAccountsServer, func() *SpatialAnchorsAccountsServerTransport {
-			return NewSpatialAnchorsAccountsServerTransport(&s.srv.SpatialAnchorsAccountsServer)
-		})
-		resp, err = s.trSpatialAnchorsAccountsServer.Do(req)
 	default:
 		err = fmt.Errorf("unhandled client %s", client)
 	}
