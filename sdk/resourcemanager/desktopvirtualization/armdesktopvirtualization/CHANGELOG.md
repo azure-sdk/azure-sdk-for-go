@@ -1,5 +1,16 @@
 # Release History
 
+## 2.4.0 (2025-01-15)
+### Features Added
+
+- New enum type `DirectUDP` with values `DirectUDPDefault`, `DirectUDPDisabled`, `DirectUDPEnabled`
+- New enum type `ManagedPrivateUDP` with values `ManagedPrivateUDPDefault`, `ManagedPrivateUDPDisabled`, `ManagedPrivateUDPEnabled`
+- New enum type `PublicUDP` with values `PublicUDPDefault`, `PublicUDPDisabled`, `PublicUDPEnabled`
+- New enum type `RelayUDP` with values `RelayUDPDefault`, `RelayUDPDisabled`, `RelayUDPEnabled`
+- New field `DirectUDP`, `ManagedPrivateUDP`, `PublicUDP`, `RelayUDP` in struct `HostPoolPatchProperties`
+- New field `DirectUDP`, `ManagedPrivateUDP`, `PublicUDP`, `RelayUDP` in struct `HostPoolProperties`
+
+
 ## 2.3.0 (2024-09-24)
 ### Features Added
 

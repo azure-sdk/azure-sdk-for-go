@@ -630,11 +630,23 @@ type HostPoolPatchProperties struct {
 	// Description of HostPool.
 	Description *string
 
+	// Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection type
+	// when making connections. This means that this connection is possible, but is
+	// not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection
+	// type when making connections
+	DirectUDP *DirectUDP
+
 	// Friendly name of HostPool.
 	FriendlyName *string
 
 	// The type of the load balancer.
 	LoadBalancerType *LoadBalancerType
+
+	// Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection type
+	// when making connections. This means that this connection is possible, but is
+	// not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection
+	// type when making connections
+	ManagedPrivateUDP *ManagedPrivateUDP
 
 	// The max session limit of HostPool.
 	MaxSessionLimit *int32
@@ -648,8 +660,20 @@ type HostPoolPatchProperties struct {
 	// Enabled to allow this resource to be access from the public network
 	PublicNetworkAccess *HostpoolPublicNetworkAccess
 
+	// Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection type
+	// when making connections. This means that this connection is possible, but is
+	// not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection
+	// type when making connections
+	PublicUDP *PublicUDP
+
 	// The registration info of HostPool.
 	RegistrationInfo *RegistrationInfoPatch
+
+	// Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection type
+	// when making connections. This means that this connection is possible, but is
+	// not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection
+	// type when making connections
+	RelayUDP *RelayUDP
 
 	// The ring number of HostPool.
 	Ring *int32
@@ -696,8 +720,20 @@ type HostPoolProperties struct {
 	// Description of HostPool.
 	Description *string
 
+	// Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection type
+	// when making connections. This means that this connection is possible, but is
+	// not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection
+	// type when making connections
+	DirectUDP *DirectUDP
+
 	// Friendly name of HostPool.
 	FriendlyName *string
+
+	// Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection type
+	// when making connections. This means that this connection is possible, but is
+	// not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection
+	// type when making connections
+	ManagedPrivateUDP *ManagedPrivateUDP
 
 	// The max session limit of HostPool.
 	MaxSessionLimit *int32
@@ -709,8 +745,20 @@ type HostPoolProperties struct {
 	// be accessed via private endpoints
 	PublicNetworkAccess *HostpoolPublicNetworkAccess
 
+	// Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection type
+	// when making connections. This means that this connection is possible, but is
+	// not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection
+	// type when making connections
+	PublicUDP *PublicUDP
+
 	// The registration info of HostPool.
 	RegistrationInfo *RegistrationInfo
+
+	// Default: AVD-wide settings are used to determine connection availability, Enabled: UDP will attempt this connection type
+	// when making connections. This means that this connection is possible, but is
+	// not guaranteed, as there are other factors that may prevent this connection type, Disabled: UDP will not attempt this connection
+	// type when making connections
+	RelayUDP *RelayUDP
 
 	// The ring number of HostPool.
 	Ring *int32
