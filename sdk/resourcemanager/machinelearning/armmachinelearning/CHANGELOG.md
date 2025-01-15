@@ -1,5 +1,23 @@
 # Release History
 
+## 5.0.0 (2025-01-15)
+### Breaking Changes
+
+- Struct `UserCreatedAcrAccount` has been removed
+- Struct `UserCreatedStorageAccount` has been removed
+- Field `UserCreatedAcrAccount` of struct `AcrDetails` has been removed
+- Field `UserCreatedStorageAccount` of struct `StorageAccountDetails` has been removed
+
+### Features Added
+
+- New value `ConnectionCategoryElasticsearch`, `ConnectionCategoryManagedOnlineEndpoint`, `ConnectionCategoryPinecone` added to enum type `ConnectionCategory`
+- New enum type `FirewallSKU` with values `FirewallSKUBasic`, `FirewallSKUStandard`
+- New function `*WorkspaceConnectionsClient.Update(context.Context, string, string, string, *WorkspaceConnectionsClientUpdateOptions) (WorkspaceConnectionsClientUpdateResponse, error)`
+- New struct `WorkspaceConnectionUpdateParameter`
+- New field `FirewallSKU` in struct `ManagedNetworkSettings`
+- New field `IncludeAll` in struct `WorkspaceConnectionsClientListOptions`
+
+
 ## 4.0.0 (2024-08-23)
 ### Breaking Changes
 
