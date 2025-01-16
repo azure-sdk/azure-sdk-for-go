@@ -8598,6 +8598,12 @@ type LogSpecification struct {
 	Name *string
 }
 
+// ManagedIdentityInfo - The managed identity information for a packet capture session.
+type ManagedIdentityInfo struct {
+	// The managed identity resource id information for a packet capture session.
+	ManagedIndentityResourceID *string
+}
+
 // ManagedRuleGroupOverride - Defines a managed rule group override setting.
 type ManagedRuleGroupOverride struct {
 	// REQUIRED; The managed rule group to override.
@@ -9491,6 +9497,9 @@ type PacketCaptureParameters struct {
 	// empty, then the packet capture will run on all instances of AzureVMSS.
 	Scope *PacketCaptureMachineScope
 
+	// The storage setting for a packet capture session.
+	StorageSettings *PacketCaptureStorageSettings
+
 	// Target type of the resource provided.
 	TargetType *PacketCaptureTargetType
 
@@ -9562,6 +9571,9 @@ type PacketCaptureResultProperties struct {
 	// empty, then the packet capture will run on all instances of AzureVMSS.
 	Scope *PacketCaptureMachineScope
 
+	// The storage setting for a packet capture session.
+	StorageSettings *PacketCaptureStorageSettings
+
 	// Target type of the resource provided.
 	TargetType *PacketCaptureTargetType
 
@@ -9605,6 +9617,12 @@ type PacketCaptureStorageLocation struct {
 	// The URI of the storage path to save the packet capture. Must be a well-formed URI describing the location to save the packet
 	// capture.
 	StoragePath *string
+}
+
+// PacketCaptureStorageSettings - The storage setting for a packet capture session.
+type PacketCaptureStorageSettings struct {
+	// The storage authetication for a packet capture session.
+	StorageAuthentication *StorageAuthentication
 }
 
 // Parameters for an Action.
@@ -12259,6 +12277,12 @@ type StaticRoutesConfig struct {
 	// READ-ONLY; Boolean indicating whether static routes on this connection are automatically propagate to route tables which
 	// this connection propagates to.
 	PropagateStaticRoutes *bool
+}
+
+// StorageAuthentication - The storage authentication for a packet capture session.
+type StorageAuthentication struct {
+	// The managed identity information for a packet capture session.
+	StorageAuthentication *ManagedIdentityInfo
 }
 
 // SubResource - Reference to another subresource.
