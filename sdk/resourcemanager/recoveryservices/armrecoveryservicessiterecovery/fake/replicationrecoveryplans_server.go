@@ -26,51 +26,51 @@ import (
 type ReplicationRecoveryPlansServer struct {
 	// BeginCreate is the fake for method ReplicationRecoveryPlansClient.BeginCreate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginCreate func(ctx context.Context, resourceName string, resourceGroupName string, recoveryPlanName string, input armrecoveryservicessiterecovery.CreateRecoveryPlanInput, options *armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientBeginCreateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientCreateResponse], errResp azfake.ErrorResponder)
+	BeginCreate func(ctx context.Context, resourceGroupName string, resourceName string, recoveryPlanName string, input armrecoveryservicessiterecovery.CreateRecoveryPlanInput, options *armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientBeginCreateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientCreateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method ReplicationRecoveryPlansClient.BeginDelete
 	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
-	BeginDelete func(ctx context.Context, resourceName string, resourceGroupName string, recoveryPlanName string, options *armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientBeginDeleteOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientDeleteResponse], errResp azfake.ErrorResponder)
+	BeginDelete func(ctx context.Context, resourceGroupName string, resourceName string, recoveryPlanName string, options *armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientBeginDeleteOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// BeginFailoverCancel is the fake for method ReplicationRecoveryPlansClient.BeginFailoverCancel
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginFailoverCancel func(ctx context.Context, resourceName string, resourceGroupName string, recoveryPlanName string, options *armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientBeginFailoverCancelOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientFailoverCancelResponse], errResp azfake.ErrorResponder)
+	BeginFailoverCancel func(ctx context.Context, resourceGroupName string, resourceName string, recoveryPlanName string, options *armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientBeginFailoverCancelOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientFailoverCancelResponse], errResp azfake.ErrorResponder)
 
 	// BeginFailoverCommit is the fake for method ReplicationRecoveryPlansClient.BeginFailoverCommit
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginFailoverCommit func(ctx context.Context, resourceName string, resourceGroupName string, recoveryPlanName string, options *armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientBeginFailoverCommitOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientFailoverCommitResponse], errResp azfake.ErrorResponder)
+	BeginFailoverCommit func(ctx context.Context, resourceGroupName string, resourceName string, recoveryPlanName string, options *armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientBeginFailoverCommitOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientFailoverCommitResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method ReplicationRecoveryPlansClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceName string, resourceGroupName string, recoveryPlanName string, options *armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, resourceName string, recoveryPlanName string, options *armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method ReplicationRecoveryPlansClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceName string, resourceGroupName string, options *armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientListOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientListResponse])
+	NewListPager func(resourceGroupName string, resourceName string, options *armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientListOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientListResponse])
 
 	// BeginPlannedFailover is the fake for method ReplicationRecoveryPlansClient.BeginPlannedFailover
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginPlannedFailover func(ctx context.Context, resourceName string, resourceGroupName string, recoveryPlanName string, input armrecoveryservicessiterecovery.RecoveryPlanPlannedFailoverInput, options *armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientBeginPlannedFailoverOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientPlannedFailoverResponse], errResp azfake.ErrorResponder)
+	BeginPlannedFailover func(ctx context.Context, resourceGroupName string, resourceName string, recoveryPlanName string, input armrecoveryservicessiterecovery.RecoveryPlanPlannedFailoverInput, options *armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientBeginPlannedFailoverOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientPlannedFailoverResponse], errResp azfake.ErrorResponder)
 
 	// BeginReprotect is the fake for method ReplicationRecoveryPlansClient.BeginReprotect
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginReprotect func(ctx context.Context, resourceName string, resourceGroupName string, recoveryPlanName string, options *armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientBeginReprotectOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientReprotectResponse], errResp azfake.ErrorResponder)
+	BeginReprotect func(ctx context.Context, resourceGroupName string, resourceName string, recoveryPlanName string, options *armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientBeginReprotectOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientReprotectResponse], errResp azfake.ErrorResponder)
 
 	// BeginTestFailover is the fake for method ReplicationRecoveryPlansClient.BeginTestFailover
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginTestFailover func(ctx context.Context, resourceName string, resourceGroupName string, recoveryPlanName string, input armrecoveryservicessiterecovery.RecoveryPlanTestFailoverInput, options *armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientBeginTestFailoverOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientTestFailoverResponse], errResp azfake.ErrorResponder)
+	BeginTestFailover func(ctx context.Context, resourceGroupName string, resourceName string, recoveryPlanName string, input armrecoveryservicessiterecovery.RecoveryPlanTestFailoverInput, options *armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientBeginTestFailoverOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientTestFailoverResponse], errResp azfake.ErrorResponder)
 
 	// BeginTestFailoverCleanup is the fake for method ReplicationRecoveryPlansClient.BeginTestFailoverCleanup
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginTestFailoverCleanup func(ctx context.Context, resourceName string, resourceGroupName string, recoveryPlanName string, input armrecoveryservicessiterecovery.RecoveryPlanTestFailoverCleanupInput, options *armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientBeginTestFailoverCleanupOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientTestFailoverCleanupResponse], errResp azfake.ErrorResponder)
+	BeginTestFailoverCleanup func(ctx context.Context, resourceGroupName string, resourceName string, recoveryPlanName string, input armrecoveryservicessiterecovery.RecoveryPlanTestFailoverCleanupInput, options *armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientBeginTestFailoverCleanupOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientTestFailoverCleanupResponse], errResp azfake.ErrorResponder)
 
 	// BeginUnplannedFailover is the fake for method ReplicationRecoveryPlansClient.BeginUnplannedFailover
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginUnplannedFailover func(ctx context.Context, resourceName string, resourceGroupName string, recoveryPlanName string, input armrecoveryservicessiterecovery.RecoveryPlanUnplannedFailoverInput, options *armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientBeginUnplannedFailoverOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientUnplannedFailoverResponse], errResp azfake.ErrorResponder)
+	BeginUnplannedFailover func(ctx context.Context, resourceGroupName string, resourceName string, recoveryPlanName string, input armrecoveryservicessiterecovery.RecoveryPlanUnplannedFailoverInput, options *armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientBeginUnplannedFailoverOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientUnplannedFailoverResponse], errResp azfake.ErrorResponder)
 
 	// BeginUpdate is the fake for method ReplicationRecoveryPlansClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginUpdate func(ctx context.Context, resourceName string, resourceGroupName string, recoveryPlanName string, input armrecoveryservicessiterecovery.UpdateRecoveryPlanInput, options *armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientBeginUpdateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientUpdateResponse], errResp azfake.ErrorResponder)
+	BeginUpdate func(ctx context.Context, resourceGroupName string, resourceName string, recoveryPlanName string, input armrecoveryservicessiterecovery.UpdateRecoveryPlanInput, options *armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientBeginUpdateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewReplicationRecoveryPlansServerTransport creates a new instance of ReplicationRecoveryPlansServerTransport with the provided implementation.
@@ -173,11 +173,11 @@ func (r *ReplicationRecoveryPlansServerTransport) dispatchBeginCreate(req *http.
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -185,7 +185,7 @@ func (r *ReplicationRecoveryPlansServerTransport) dispatchBeginCreate(req *http.
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginCreate(req.Context(), resourceNameParam, resourceGroupNameParam, recoveryPlanNameParam, body, nil)
+		respr, errRespr := r.srv.BeginCreate(req.Context(), resourceGroupNameParam, resourceNameParam, recoveryPlanNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -221,11 +221,11 @@ func (r *ReplicationRecoveryPlansServerTransport) dispatchBeginDelete(req *http.
 		if matches == nil || len(matches) < 4 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -233,7 +233,7 @@ func (r *ReplicationRecoveryPlansServerTransport) dispatchBeginDelete(req *http.
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginDelete(req.Context(), resourceNameParam, resourceGroupNameParam, recoveryPlanNameParam, nil)
+		respr, errRespr := r.srv.BeginDelete(req.Context(), resourceGroupNameParam, resourceNameParam, recoveryPlanNameParam, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -269,11 +269,11 @@ func (r *ReplicationRecoveryPlansServerTransport) dispatchBeginFailoverCancel(re
 		if matches == nil || len(matches) < 4 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -281,7 +281,7 @@ func (r *ReplicationRecoveryPlansServerTransport) dispatchBeginFailoverCancel(re
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginFailoverCancel(req.Context(), resourceNameParam, resourceGroupNameParam, recoveryPlanNameParam, nil)
+		respr, errRespr := r.srv.BeginFailoverCancel(req.Context(), resourceGroupNameParam, resourceNameParam, recoveryPlanNameParam, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -317,11 +317,11 @@ func (r *ReplicationRecoveryPlansServerTransport) dispatchBeginFailoverCommit(re
 		if matches == nil || len(matches) < 4 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -329,7 +329,7 @@ func (r *ReplicationRecoveryPlansServerTransport) dispatchBeginFailoverCommit(re
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginFailoverCommit(req.Context(), resourceNameParam, resourceGroupNameParam, recoveryPlanNameParam, nil)
+		respr, errRespr := r.srv.BeginFailoverCommit(req.Context(), resourceGroupNameParam, resourceNameParam, recoveryPlanNameParam, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -363,11 +363,11 @@ func (r *ReplicationRecoveryPlansServerTransport) dispatchGet(req *http.Request)
 	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 	if err != nil {
 		return nil, err
 	}
@@ -375,7 +375,7 @@ func (r *ReplicationRecoveryPlansServerTransport) dispatchGet(req *http.Request)
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := r.srv.Get(req.Context(), resourceNameParam, resourceGroupNameParam, recoveryPlanNameParam, nil)
+	respr, errRespr := r.srv.Get(req.Context(), resourceGroupNameParam, resourceNameParam, recoveryPlanNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -402,15 +402,15 @@ func (r *ReplicationRecoveryPlansServerTransport) dispatchNewListPager(req *http
 		if matches == nil || len(matches) < 3 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
-		if err != nil {
-			return nil, err
-		}
 		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resp := r.srv.NewListPager(resourceNameParam, resourceGroupNameParam, nil)
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		if err != nil {
+			return nil, err
+		}
+		resp := r.srv.NewListPager(resourceGroupNameParam, resourceNameParam, nil)
 		newListPager = &resp
 		r.newListPager.add(req, newListPager)
 		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armrecoveryservicessiterecovery.ReplicationRecoveryPlansClientListResponse, createLink func() string) {
@@ -447,11 +447,11 @@ func (r *ReplicationRecoveryPlansServerTransport) dispatchBeginPlannedFailover(r
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -459,7 +459,7 @@ func (r *ReplicationRecoveryPlansServerTransport) dispatchBeginPlannedFailover(r
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginPlannedFailover(req.Context(), resourceNameParam, resourceGroupNameParam, recoveryPlanNameParam, body, nil)
+		respr, errRespr := r.srv.BeginPlannedFailover(req.Context(), resourceGroupNameParam, resourceNameParam, recoveryPlanNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -495,11 +495,11 @@ func (r *ReplicationRecoveryPlansServerTransport) dispatchBeginReprotect(req *ht
 		if matches == nil || len(matches) < 4 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -507,7 +507,7 @@ func (r *ReplicationRecoveryPlansServerTransport) dispatchBeginReprotect(req *ht
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginReprotect(req.Context(), resourceNameParam, resourceGroupNameParam, recoveryPlanNameParam, nil)
+		respr, errRespr := r.srv.BeginReprotect(req.Context(), resourceGroupNameParam, resourceNameParam, recoveryPlanNameParam, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -547,11 +547,11 @@ func (r *ReplicationRecoveryPlansServerTransport) dispatchBeginTestFailover(req 
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -559,7 +559,7 @@ func (r *ReplicationRecoveryPlansServerTransport) dispatchBeginTestFailover(req 
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginTestFailover(req.Context(), resourceNameParam, resourceGroupNameParam, recoveryPlanNameParam, body, nil)
+		respr, errRespr := r.srv.BeginTestFailover(req.Context(), resourceGroupNameParam, resourceNameParam, recoveryPlanNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -599,11 +599,11 @@ func (r *ReplicationRecoveryPlansServerTransport) dispatchBeginTestFailoverClean
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -611,7 +611,7 @@ func (r *ReplicationRecoveryPlansServerTransport) dispatchBeginTestFailoverClean
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginTestFailoverCleanup(req.Context(), resourceNameParam, resourceGroupNameParam, recoveryPlanNameParam, body, nil)
+		respr, errRespr := r.srv.BeginTestFailoverCleanup(req.Context(), resourceGroupNameParam, resourceNameParam, recoveryPlanNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -651,11 +651,11 @@ func (r *ReplicationRecoveryPlansServerTransport) dispatchBeginUnplannedFailover
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -663,7 +663,7 @@ func (r *ReplicationRecoveryPlansServerTransport) dispatchBeginUnplannedFailover
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginUnplannedFailover(req.Context(), resourceNameParam, resourceGroupNameParam, recoveryPlanNameParam, body, nil)
+		respr, errRespr := r.srv.BeginUnplannedFailover(req.Context(), resourceGroupNameParam, resourceNameParam, recoveryPlanNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -703,11 +703,11 @@ func (r *ReplicationRecoveryPlansServerTransport) dispatchBeginUpdate(req *http.
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -715,7 +715,7 @@ func (r *ReplicationRecoveryPlansServerTransport) dispatchBeginUpdate(req *http.
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginUpdate(req.Context(), resourceNameParam, resourceGroupNameParam, recoveryPlanNameParam, body, nil)
+		respr, errRespr := r.srv.BeginUpdate(req.Context(), resourceGroupNameParam, resourceNameParam, recoveryPlanNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}

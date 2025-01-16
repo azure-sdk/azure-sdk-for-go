@@ -25,11 +25,11 @@ import (
 type ReplicationVaultHealthServer struct {
 	// Get is the fake for method ReplicationVaultHealthClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceName string, resourceGroupName string, options *armrecoveryservicessiterecovery.ReplicationVaultHealthClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationVaultHealthClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, resourceName string, options *armrecoveryservicessiterecovery.ReplicationVaultHealthClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationVaultHealthClientGetResponse], errResp azfake.ErrorResponder)
 
 	// BeginRefresh is the fake for method ReplicationVaultHealthClient.BeginRefresh
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginRefresh func(ctx context.Context, resourceName string, resourceGroupName string, options *armrecoveryservicessiterecovery.ReplicationVaultHealthClientBeginRefreshOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationVaultHealthClientRefreshResponse], errResp azfake.ErrorResponder)
+	BeginRefresh func(ctx context.Context, resourceGroupName string, resourceName string, options *armrecoveryservicessiterecovery.ReplicationVaultHealthClientBeginRefreshOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationVaultHealthClientRefreshResponse], errResp azfake.ErrorResponder)
 }
 
 // NewReplicationVaultHealthServerTransport creates a new instance of ReplicationVaultHealthServerTransport with the provided implementation.
@@ -86,15 +86,15 @@ func (r *ReplicationVaultHealthServerTransport) dispatchGet(req *http.Request) (
 	if matches == nil || len(matches) < 3 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
-	if err != nil {
-		return nil, err
-	}
 	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := r.srv.Get(req.Context(), resourceNameParam, resourceGroupNameParam, nil)
+	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := r.srv.Get(req.Context(), resourceGroupNameParam, resourceNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -121,15 +121,15 @@ func (r *ReplicationVaultHealthServerTransport) dispatchBeginRefresh(req *http.R
 		if matches == nil || len(matches) < 3 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
-		if err != nil {
-			return nil, err
-		}
 		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginRefresh(req.Context(), resourceNameParam, resourceGroupNameParam, nil)
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := r.srv.BeginRefresh(req.Context(), resourceGroupNameParam, resourceNameParam, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}

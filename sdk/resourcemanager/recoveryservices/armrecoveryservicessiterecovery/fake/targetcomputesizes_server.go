@@ -25,7 +25,7 @@ import (
 type TargetComputeSizesServer struct {
 	// NewListByReplicationProtectedItemsPager is the fake for method TargetComputeSizesClient.NewListByReplicationProtectedItemsPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListByReplicationProtectedItemsPager func(resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, options *armrecoveryservicessiterecovery.TargetComputeSizesClientListByReplicationProtectedItemsOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.TargetComputeSizesClientListByReplicationProtectedItemsResponse])
+	NewListByReplicationProtectedItemsPager func(resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, options *armrecoveryservicessiterecovery.TargetComputeSizesClientListByReplicationProtectedItemsOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.TargetComputeSizesClientListByReplicationProtectedItemsResponse])
 }
 
 // NewTargetComputeSizesServerTransport creates a new instance of TargetComputeSizesServerTransport with the provided implementation.
@@ -82,11 +82,11 @@ func (t *TargetComputeSizesServerTransport) dispatchNewListByReplicationProtecte
 		if matches == nil || len(matches) < 6 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -102,7 +102,7 @@ func (t *TargetComputeSizesServerTransport) dispatchNewListByReplicationProtecte
 		if err != nil {
 			return nil, err
 		}
-		resp := t.srv.NewListByReplicationProtectedItemsPager(resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, nil)
+		resp := t.srv.NewListByReplicationProtectedItemsPager(resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, nil)
 		newListByReplicationProtectedItemsPager = &resp
 		t.newListByReplicationProtectedItemsPager.add(req, newListByReplicationProtectedItemsPager)
 		server.PagerResponderInjectNextLinks(newListByReplicationProtectedItemsPager, req, func(page *armrecoveryservicessiterecovery.TargetComputeSizesClientListByReplicationProtectedItemsResponse, createLink func() string) {
