@@ -392,6 +392,9 @@ type AzureFileshareProtectedItem struct {
 	// Name of the policy used for protection
 	PolicyName *string
 
+	// Type of the policy used for protection
+	PolicyType *string
+
 	// Backup state of this backup item.
 	ProtectionState *ProtectionState
 
@@ -433,6 +436,7 @@ func (a *AzureFileshareProtectedItem) GetProtectedItem() *ProtectedItem {
 		LastRecoveryPoint:                a.LastRecoveryPoint,
 		PolicyID:                         a.PolicyID,
 		PolicyName:                       a.PolicyName,
+		PolicyType:                       a.PolicyType,
 		ProtectedItemType:                a.ProtectedItemType,
 		ResourceGuardOperationRequests:   a.ResourceGuardOperationRequests,
 		SoftDeleteRetentionPeriodInDays:  a.SoftDeleteRetentionPeriodInDays,
@@ -629,6 +633,9 @@ type AzureIaaSClassicComputeVMProtectedItem struct {
 	// Name of the policy used for protection
 	PolicyName *string
 
+	// Type of the policy used for protection
+	PolicyType *string
+
 	// Backup state of this backup item.
 	ProtectionState *ProtectionState
 
@@ -693,6 +700,7 @@ func (a *AzureIaaSClassicComputeVMProtectedItem) GetAzureIaaSVMProtectedItem() *
 		LastRecoveryPoint:                a.LastRecoveryPoint,
 		PolicyID:                         a.PolicyID,
 		PolicyName:                       a.PolicyName,
+		PolicyType:                       a.PolicyType,
 		ProtectedItemDataID:              a.ProtectedItemDataID,
 		ProtectedItemType:                a.ProtectedItemType,
 		ProtectionState:                  a.ProtectionState,
@@ -722,6 +730,7 @@ func (a *AzureIaaSClassicComputeVMProtectedItem) GetProtectedItem() *ProtectedIt
 		LastRecoveryPoint:                a.LastRecoveryPoint,
 		PolicyID:                         a.PolicyID,
 		PolicyName:                       a.PolicyName,
+		PolicyType:                       a.PolicyType,
 		ProtectedItemType:                a.ProtectedItemType,
 		ResourceGuardOperationRequests:   a.ResourceGuardOperationRequests,
 		SoftDeleteRetentionPeriodInDays:  a.SoftDeleteRetentionPeriodInDays,
@@ -899,6 +908,9 @@ type AzureIaaSComputeVMProtectedItem struct {
 	// Name of the policy used for protection
 	PolicyName *string
 
+	// Type of the policy used for protection
+	PolicyType *string
+
 	// Backup state of this backup item.
 	ProtectionState *ProtectionState
 
@@ -963,6 +975,7 @@ func (a *AzureIaaSComputeVMProtectedItem) GetAzureIaaSVMProtectedItem() *AzureIa
 		LastRecoveryPoint:                a.LastRecoveryPoint,
 		PolicyID:                         a.PolicyID,
 		PolicyName:                       a.PolicyName,
+		PolicyType:                       a.PolicyType,
 		ProtectedItemDataID:              a.ProtectedItemDataID,
 		ProtectedItemType:                a.ProtectedItemType,
 		ProtectionState:                  a.ProtectionState,
@@ -992,6 +1005,7 @@ func (a *AzureIaaSComputeVMProtectedItem) GetProtectedItem() *ProtectedItem {
 		LastRecoveryPoint:                a.LastRecoveryPoint,
 		PolicyID:                         a.PolicyID,
 		PolicyName:                       a.PolicyName,
+		PolicyType:                       a.PolicyType,
 		ProtectedItemType:                a.ProtectedItemType,
 		ResourceGuardOperationRequests:   a.ResourceGuardOperationRequests,
 		SoftDeleteRetentionPeriodInDays:  a.SoftDeleteRetentionPeriodInDays,
@@ -1256,6 +1270,9 @@ type AzureIaaSVMProtectedItem struct {
 	// Name of the policy used for protection
 	PolicyName *string
 
+	// Type of the policy used for protection
+	PolicyType *string
+
 	// Backup state of this backup item.
 	ProtectionState *ProtectionState
 
@@ -1315,6 +1332,7 @@ func (a *AzureIaaSVMProtectedItem) GetProtectedItem() *ProtectedItem {
 		LastRecoveryPoint:                a.LastRecoveryPoint,
 		PolicyID:                         a.PolicyID,
 		PolicyName:                       a.PolicyName,
+		PolicyType:                       a.PolicyType,
 		ProtectedItemType:                a.ProtectedItemType,
 		ResourceGuardOperationRequests:   a.ResourceGuardOperationRequests,
 		SoftDeleteRetentionPeriodInDays:  a.SoftDeleteRetentionPeriodInDays,
@@ -1608,6 +1626,9 @@ type AzureSQLProtectedItem struct {
 	// Name of the policy used for protection
 	PolicyName *string
 
+	// Type of the policy used for protection
+	PolicyType *string
+
 	// Internal ID of a backup item. Used by Azure SQL Backup engine to contact Recovery Services.
 	ProtectedItemDataID *string
 
@@ -1649,6 +1670,7 @@ func (a *AzureSQLProtectedItem) GetProtectedItem() *ProtectedItem {
 		LastRecoveryPoint:                a.LastRecoveryPoint,
 		PolicyID:                         a.PolicyID,
 		PolicyName:                       a.PolicyName,
+		PolicyType:                       a.PolicyType,
 		ProtectedItemType:                a.ProtectedItemType,
 		ResourceGuardOperationRequests:   a.ResourceGuardOperationRequests,
 		SoftDeleteRetentionPeriodInDays:  a.SoftDeleteRetentionPeriodInDays,
@@ -1713,6 +1735,9 @@ type AzureStorageContainer struct {
 
 	// Status of health of the container.
 	HealthStatus *string
+
+	// Re-Do Operation
+	OperationType *OperationType
 
 	// Type of the protectable object associated with this container
 	ProtectableObjectType *string
@@ -2169,6 +2194,9 @@ type AzureVMWorkloadProtectedItem struct {
 	// Name of the policy used for protection
 	PolicyName *string
 
+	// Type of the policy used for protection
+	PolicyType *string
+
 	// Data ID of the protected item.
 	ProtectedItemDataSourceID *string
 
@@ -2227,6 +2255,7 @@ func (a *AzureVMWorkloadProtectedItem) GetProtectedItem() *ProtectedItem {
 		LastRecoveryPoint:                a.LastRecoveryPoint,
 		PolicyID:                         a.PolicyID,
 		PolicyName:                       a.PolicyName,
+		PolicyType:                       a.PolicyType,
 		ProtectedItemType:                a.ProtectedItemType,
 		ResourceGuardOperationRequests:   a.ResourceGuardOperationRequests,
 		SoftDeleteRetentionPeriodInDays:  a.SoftDeleteRetentionPeriodInDays,
@@ -2358,6 +2387,9 @@ type AzureVMWorkloadSAPAseDatabaseProtectedItem struct {
 	// Name of the policy used for protection
 	PolicyName *string
 
+	// Type of the policy used for protection
+	PolicyType *string
+
 	// Data ID of the protected item.
 	ProtectedItemDataSourceID *string
 
@@ -2420,6 +2452,7 @@ func (a *AzureVMWorkloadSAPAseDatabaseProtectedItem) GetAzureVMWorkloadProtected
 		ParentType:                       a.ParentType,
 		PolicyID:                         a.PolicyID,
 		PolicyName:                       a.PolicyName,
+		PolicyType:                       a.PolicyType,
 		ProtectedItemDataSourceID:        a.ProtectedItemDataSourceID,
 		ProtectedItemHealthStatus:        a.ProtectedItemHealthStatus,
 		ProtectedItemType:                a.ProtectedItemType,
@@ -2450,6 +2483,7 @@ func (a *AzureVMWorkloadSAPAseDatabaseProtectedItem) GetProtectedItem() *Protect
 		LastRecoveryPoint:                a.LastRecoveryPoint,
 		PolicyID:                         a.PolicyID,
 		PolicyName:                       a.PolicyName,
+		PolicyType:                       a.PolicyType,
 		ProtectedItemType:                a.ProtectedItemType,
 		ResourceGuardOperationRequests:   a.ResourceGuardOperationRequests,
 		SoftDeleteRetentionPeriodInDays:  a.SoftDeleteRetentionPeriodInDays,
@@ -2798,6 +2832,9 @@ type AzureVMWorkloadSAPHanaDBInstanceProtectedItem struct {
 	// Name of the policy used for protection
 	PolicyName *string
 
+	// Type of the policy used for protection
+	PolicyType *string
+
 	// Data ID of the protected item.
 	ProtectedItemDataSourceID *string
 
@@ -2860,6 +2897,7 @@ func (a *AzureVMWorkloadSAPHanaDBInstanceProtectedItem) GetAzureVMWorkloadProtec
 		ParentType:                       a.ParentType,
 		PolicyID:                         a.PolicyID,
 		PolicyName:                       a.PolicyName,
+		PolicyType:                       a.PolicyType,
 		ProtectedItemDataSourceID:        a.ProtectedItemDataSourceID,
 		ProtectedItemHealthStatus:        a.ProtectedItemHealthStatus,
 		ProtectedItemType:                a.ProtectedItemType,
@@ -2890,6 +2928,7 @@ func (a *AzureVMWorkloadSAPHanaDBInstanceProtectedItem) GetProtectedItem() *Prot
 		LastRecoveryPoint:                a.LastRecoveryPoint,
 		PolicyID:                         a.PolicyID,
 		PolicyName:                       a.PolicyName,
+		PolicyType:                       a.PolicyType,
 		ProtectedItemType:                a.ProtectedItemType,
 		ResourceGuardOperationRequests:   a.ResourceGuardOperationRequests,
 		SoftDeleteRetentionPeriodInDays:  a.SoftDeleteRetentionPeriodInDays,
@@ -3041,6 +3080,9 @@ type AzureVMWorkloadSAPHanaDatabaseProtectedItem struct {
 	// Name of the policy used for protection
 	PolicyName *string
 
+	// Type of the policy used for protection
+	PolicyType *string
+
 	// Data ID of the protected item.
 	ProtectedItemDataSourceID *string
 
@@ -3103,6 +3145,7 @@ func (a *AzureVMWorkloadSAPHanaDatabaseProtectedItem) GetAzureVMWorkloadProtecte
 		ParentType:                       a.ParentType,
 		PolicyID:                         a.PolicyID,
 		PolicyName:                       a.PolicyName,
+		PolicyType:                       a.PolicyType,
 		ProtectedItemDataSourceID:        a.ProtectedItemDataSourceID,
 		ProtectedItemHealthStatus:        a.ProtectedItemHealthStatus,
 		ProtectedItemType:                a.ProtectedItemType,
@@ -3133,6 +3176,7 @@ func (a *AzureVMWorkloadSAPHanaDatabaseProtectedItem) GetProtectedItem() *Protec
 		LastRecoveryPoint:                a.LastRecoveryPoint,
 		PolicyID:                         a.PolicyID,
 		PolicyName:                       a.PolicyName,
+		PolicyType:                       a.PolicyType,
 		ProtectedItemType:                a.ProtectedItemType,
 		ResourceGuardOperationRequests:   a.ResourceGuardOperationRequests,
 		SoftDeleteRetentionPeriodInDays:  a.SoftDeleteRetentionPeriodInDays,
@@ -3639,6 +3683,9 @@ type AzureVMWorkloadSQLDatabaseProtectedItem struct {
 	// Name of the policy used for protection
 	PolicyName *string
 
+	// Type of the policy used for protection
+	PolicyType *string
+
 	// Data ID of the protected item.
 	ProtectedItemDataSourceID *string
 
@@ -3701,6 +3748,7 @@ func (a *AzureVMWorkloadSQLDatabaseProtectedItem) GetAzureVMWorkloadProtectedIte
 		ParentType:                       a.ParentType,
 		PolicyID:                         a.PolicyID,
 		PolicyName:                       a.PolicyName,
+		PolicyType:                       a.PolicyType,
 		ProtectedItemDataSourceID:        a.ProtectedItemDataSourceID,
 		ProtectedItemHealthStatus:        a.ProtectedItemHealthStatus,
 		ProtectedItemType:                a.ProtectedItemType,
@@ -3731,6 +3779,7 @@ func (a *AzureVMWorkloadSQLDatabaseProtectedItem) GetProtectedItem() *ProtectedI
 		LastRecoveryPoint:                a.LastRecoveryPoint,
 		PolicyID:                         a.PolicyID,
 		PolicyName:                       a.PolicyName,
+		PolicyType:                       a.PolicyType,
 		ProtectedItemType:                a.ProtectedItemType,
 		ResourceGuardOperationRequests:   a.ResourceGuardOperationRequests,
 		SoftDeleteRetentionPeriodInDays:  a.SoftDeleteRetentionPeriodInDays,
@@ -6080,6 +6129,9 @@ type DPMProtectedItem struct {
 	// Name of the policy used for protection
 	PolicyName *string
 
+	// Type of the policy used for protection
+	PolicyType *string
+
 	// Protection state of the backup engine
 	ProtectionState *ProtectedItemState
 
@@ -6118,6 +6170,7 @@ func (d *DPMProtectedItem) GetProtectedItem() *ProtectedItem {
 		LastRecoveryPoint:                d.LastRecoveryPoint,
 		PolicyID:                         d.PolicyID,
 		PolicyName:                       d.PolicyName,
+		PolicyType:                       d.PolicyType,
 		ProtectedItemType:                d.ProtectedItemType,
 		ResourceGuardOperationRequests:   d.ResourceGuardOperationRequests,
 		SoftDeleteRetentionPeriodInDays:  d.SoftDeleteRetentionPeriodInDays,
@@ -6775,6 +6828,9 @@ type GenericProtectedItem struct {
 	// Indicates consistency of policy object and policy applied to this backup item.
 	PolicyState *string
 
+	// Type of the policy used for protection
+	PolicyType *string
+
 	// Data Plane Service ID of the protected item.
 	ProtectedItemID *int64
 
@@ -6819,6 +6875,7 @@ func (g *GenericProtectedItem) GetProtectedItem() *ProtectedItem {
 		LastRecoveryPoint:                g.LastRecoveryPoint,
 		PolicyID:                         g.PolicyID,
 		PolicyName:                       g.PolicyName,
+		PolicyType:                       g.PolicyType,
 		ProtectedItemType:                g.ProtectedItemType,
 		ResourceGuardOperationRequests:   g.ResourceGuardOperationRequests,
 		SoftDeleteRetentionPeriodInDays:  g.SoftDeleteRetentionPeriodInDays,
@@ -7755,6 +7812,9 @@ type MabFileFolderProtectedItem struct {
 	// Name of the policy used for protection
 	PolicyName *string
 
+	// Type of the policy used for protection
+	PolicyType *string
+
 	// Protected, ProtectionStopped, IRPending or ProtectionError
 	ProtectionState *string
 
@@ -7793,6 +7853,7 @@ func (m *MabFileFolderProtectedItem) GetProtectedItem() *ProtectedItem {
 		LastRecoveryPoint:                m.LastRecoveryPoint,
 		PolicyID:                         m.PolicyID,
 		PolicyName:                       m.PolicyName,
+		PolicyType:                       m.PolicyType,
 		ProtectedItemType:                m.ProtectedItemType,
 		ResourceGuardOperationRequests:   m.ResourceGuardOperationRequests,
 		SoftDeleteRetentionPeriodInDays:  m.SoftDeleteRetentionPeriodInDays,
@@ -8405,6 +8466,9 @@ type ProtectedItem struct {
 
 	// Name of the policy used for protection
 	PolicyName *string
+
+	// Type of the policy used for protection
+	PolicyType *string
 
 	// ResourceGuardOperationRequests on which LAC check will be performed
 	ResourceGuardOperationRequests []*string
