@@ -1,5 +1,15 @@
 # Release History
 
+## 6.3.0 (2025-01-16)
+### Features Added
+
+- New struct `ManagedIdentityInfo`
+- New struct `PacketCaptureStorageSettings`
+- New struct `StorageAuthentication`
+- New field `StorageSettings` in struct `PacketCaptureParameters`
+- New field `StorageSettings` in struct `PacketCaptureResultProperties`
+
+
 ## 6.2.0 (2024-12-09)
 ### Features Added
 

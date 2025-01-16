@@ -21300,6 +21300,33 @@ func (l *LogSpecification) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type ManagedIdentityInfo.
+func (m ManagedIdentityInfo) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "managedIndentityResourceId ", m.ManagedIndentityResourceID)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ManagedIdentityInfo.
+func (m *ManagedIdentityInfo) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", m, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "managedIndentityResourceId ":
+			err = unpopulate(val, "ManagedIndentityResourceID", &m.ManagedIndentityResourceID)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", m, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type ManagedRuleGroupOverride.
 func (m ManagedRuleGroupOverride) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -23576,6 +23603,7 @@ func (p PacketCaptureParameters) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "filters", p.Filters)
 	populate(objectMap, "scope", p.Scope)
 	populate(objectMap, "storageLocation", p.StorageLocation)
+	populate(objectMap, "storageSettings", p.StorageSettings)
 	populate(objectMap, "target", p.Target)
 	populate(objectMap, "targetType", p.TargetType)
 	populate(objectMap, "timeLimitInSeconds", p.TimeLimitInSeconds)
@@ -23609,6 +23637,9 @@ func (p *PacketCaptureParameters) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "storageLocation":
 			err = unpopulate(val, "StorageLocation", &p.StorageLocation)
+			delete(rawMsg, key)
+		case "storageSettings":
+			err = unpopulate(val, "StorageSettings", &p.StorageSettings)
 			delete(rawMsg, key)
 		case "target":
 			err = unpopulate(val, "Target", &p.Target)
@@ -23726,6 +23757,7 @@ func (p PacketCaptureResultProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "provisioningState", p.ProvisioningState)
 	populate(objectMap, "scope", p.Scope)
 	populate(objectMap, "storageLocation", p.StorageLocation)
+	populate(objectMap, "storageSettings", p.StorageSettings)
 	populate(objectMap, "target", p.Target)
 	populate(objectMap, "targetType", p.TargetType)
 	populate(objectMap, "timeLimitInSeconds", p.TimeLimitInSeconds)
@@ -23762,6 +23794,9 @@ func (p *PacketCaptureResultProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "storageLocation":
 			err = unpopulate(val, "StorageLocation", &p.StorageLocation)
+			delete(rawMsg, key)
+		case "storageSettings":
+			err = unpopulate(val, "StorageSettings", &p.StorageSettings)
 			delete(rawMsg, key)
 		case "target":
 			err = unpopulate(val, "Target", &p.Target)
@@ -23848,6 +23883,33 @@ func (p *PacketCaptureStorageLocation) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "storagePath":
 			err = unpopulate(val, "StoragePath", &p.StoragePath)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", p, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type PacketCaptureStorageSettings.
+func (p PacketCaptureStorageSettings) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "storageAuthentication", p.StorageAuthentication)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type PacketCaptureStorageSettings.
+func (p *PacketCaptureStorageSettings) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", p, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "storageAuthentication":
+			err = unpopulate(val, "StorageAuthentication", &p.StorageAuthentication)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -30574,6 +30636,33 @@ func (s *StaticRoutesConfig) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "vnetLocalRouteOverrideCriteria":
 			err = unpopulate(val, "VnetLocalRouteOverrideCriteria", &s.VnetLocalRouteOverrideCriteria)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", s, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type StorageAuthentication.
+func (s StorageAuthentication) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "storageAuthentication", s.StorageAuthentication)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type StorageAuthentication.
+func (s *StorageAuthentication) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", s, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "storageAuthentication":
+			err = unpopulate(val, "StorageAuthentication", &s.StorageAuthentication)
 			delete(rawMsg, key)
 		}
 		if err != nil {
