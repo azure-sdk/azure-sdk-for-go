@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/machinelearning/armmachinelearning/v4"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/machinelearning/armmachinelearning/v5"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -28,7 +28,7 @@ import (
 type WorkspacesServer struct {
 	// BeginCreateOrUpdate is the fake for method WorkspacesClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, workspaceName string, parameters armmachinelearning.Workspace, options *armmachinelearning.WorkspacesClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armmachinelearning.WorkspacesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, workspaceName string, body armmachinelearning.Workspace, options *armmachinelearning.WorkspacesClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armmachinelearning.WorkspacesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method WorkspacesClient.BeginDelete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
@@ -80,7 +80,7 @@ type WorkspacesServer struct {
 
 	// BeginUpdate is the fake for method WorkspacesClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginUpdate func(ctx context.Context, resourceGroupName string, workspaceName string, parameters armmachinelearning.WorkspaceUpdateParameters, options *armmachinelearning.WorkspacesClientBeginUpdateOptions) (resp azfake.PollerResponder[armmachinelearning.WorkspacesClientUpdateResponse], errResp azfake.ErrorResponder)
+	BeginUpdate func(ctx context.Context, resourceGroupName string, workspaceName string, body armmachinelearning.WorkspaceUpdateParameters, options *armmachinelearning.WorkspacesClientBeginUpdateOptions) (resp azfake.PollerResponder[armmachinelearning.WorkspacesClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewWorkspacesServerTransport creates a new instance of WorkspacesServerTransport with the provided implementation.
@@ -299,7 +299,7 @@ func (w *WorkspacesServerTransport) dispatchBeginDiagnose(req *http.Request) (*h
 		var options *armmachinelearning.WorkspacesClientBeginDiagnoseOptions
 		if !reflect.ValueOf(body).IsZero() {
 			options = &armmachinelearning.WorkspacesClientBeginDiagnoseOptions{
-				Parameters: &body,
+				Body: &body,
 			}
 		}
 		respr, errRespr := w.srv.BeginDiagnose(req.Context(), resourceGroupNameParam, workspaceNameParam, options)
@@ -376,15 +376,27 @@ func (w *WorkspacesServerTransport) dispatchNewListByResourceGroupPager(req *htt
 		if err != nil {
 			return nil, err
 		}
+		kindUnescaped, err := url.QueryUnescape(qp.Get("kind"))
+		if err != nil {
+			return nil, err
+		}
+		kindParam := getOptional(kindUnescaped)
 		skipUnescaped, err := url.QueryUnescape(qp.Get("$skip"))
 		if err != nil {
 			return nil, err
 		}
 		skipParam := getOptional(skipUnescaped)
+		aiCapabilitiesUnescaped, err := url.QueryUnescape(qp.Get("aiCapabilities"))
+		if err != nil {
+			return nil, err
+		}
+		aiCapabilitiesParam := getOptional(aiCapabilitiesUnescaped)
 		var options *armmachinelearning.WorkspacesClientListByResourceGroupOptions
-		if skipParam != nil {
+		if kindParam != nil || skipParam != nil || aiCapabilitiesParam != nil {
 			options = &armmachinelearning.WorkspacesClientListByResourceGroupOptions{
-				Skip: skipParam,
+				Kind:           kindParam,
+				Skip:           skipParam,
+				AiCapabilities: aiCapabilitiesParam,
 			}
 		}
 		resp := w.srv.NewListByResourceGroupPager(resourceGroupNameParam, options)
@@ -421,15 +433,27 @@ func (w *WorkspacesServerTransport) dispatchNewListBySubscriptionPager(req *http
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		qp := req.URL.Query()
+		kindUnescaped, err := url.QueryUnescape(qp.Get("kind"))
+		if err != nil {
+			return nil, err
+		}
+		kindParam := getOptional(kindUnescaped)
 		skipUnescaped, err := url.QueryUnescape(qp.Get("$skip"))
 		if err != nil {
 			return nil, err
 		}
 		skipParam := getOptional(skipUnescaped)
+		aiCapabilitiesUnescaped, err := url.QueryUnescape(qp.Get("aiCapabilities"))
+		if err != nil {
+			return nil, err
+		}
+		aiCapabilitiesParam := getOptional(aiCapabilitiesUnescaped)
 		var options *armmachinelearning.WorkspacesClientListBySubscriptionOptions
-		if skipParam != nil {
+		if kindParam != nil || skipParam != nil || aiCapabilitiesParam != nil {
 			options = &armmachinelearning.WorkspacesClientListBySubscriptionOptions{
-				Skip: skipParam,
+				Kind:           kindParam,
+				Skip:           skipParam,
+				AiCapabilities: aiCapabilitiesParam,
 			}
 		}
 		resp := w.srv.NewListBySubscriptionPager(options)
