@@ -26,11 +26,11 @@ import (
 type ReplicationProtectableItemsServer struct {
 	// Get is the fake for method ReplicationProtectableItemsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, protectableItemName string, options *armrecoveryservicessiterecovery.ReplicationProtectableItemsClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationProtectableItemsClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, protectableItemName string, options *armrecoveryservicessiterecovery.ReplicationProtectableItemsClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationProtectableItemsClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListByReplicationProtectionContainersPager is the fake for method ReplicationProtectableItemsClient.NewListByReplicationProtectionContainersPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListByReplicationProtectionContainersPager func(resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, options *armrecoveryservicessiterecovery.ReplicationProtectableItemsClientListByReplicationProtectionContainersOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationProtectableItemsClientListByReplicationProtectionContainersResponse])
+	NewListByReplicationProtectionContainersPager func(resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, options *armrecoveryservicessiterecovery.ReplicationProtectableItemsClientListByReplicationProtectionContainersOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationProtectableItemsClientListByReplicationProtectionContainersResponse])
 }
 
 // NewReplicationProtectableItemsServerTransport creates a new instance of ReplicationProtectableItemsServerTransport with the provided implementation.
@@ -87,11 +87,11 @@ func (r *ReplicationProtectableItemsServerTransport) dispatchGet(req *http.Reque
 	if matches == nil || len(matches) < 6 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 	if err != nil {
 		return nil, err
 	}
@@ -107,7 +107,7 @@ func (r *ReplicationProtectableItemsServerTransport) dispatchGet(req *http.Reque
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := r.srv.Get(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, protectableItemNameParam, nil)
+	respr, errRespr := r.srv.Get(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, protectableItemNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -135,11 +135,11 @@ func (r *ReplicationProtectableItemsServerTransport) dispatchNewListByReplicatio
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		qp := req.URL.Query()
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -174,7 +174,7 @@ func (r *ReplicationProtectableItemsServerTransport) dispatchNewListByReplicatio
 				SkipToken: skipTokenParam,
 			}
 		}
-		resp := r.srv.NewListByReplicationProtectionContainersPager(resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, options)
+		resp := r.srv.NewListByReplicationProtectionContainersPager(resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, options)
 		newListByReplicationProtectionContainersPager = &resp
 		r.newListByReplicationProtectionContainersPager.add(req, newListByReplicationProtectionContainersPager)
 		server.PagerResponderInjectNextLinks(newListByReplicationProtectionContainersPager, req, func(page *armrecoveryservicessiterecovery.ReplicationProtectableItemsClientListByReplicationProtectionContainersResponse, createLink func() string) {
