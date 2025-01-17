@@ -319,10 +319,10 @@ type AppCertificateProperties struct {
 	// Host names the certificate applies to.
 	HostNames []*string
 
-	// Key Vault Csm resource Id.
+	// Azure Key Vault Csm resource Id.
 	KeyVaultID *string
 
-	// Key Vault secret name.
+	// Azure Key Vault secret name.
 	KeyVaultSecretName *string
 
 	// Certificate password.
@@ -331,7 +331,7 @@ type AppCertificateProperties struct {
 	// Pfx blob.
 	PfxBlob []byte
 
-	// Resource ID of the associated App Service plan, formatted as: "/subscriptions/{subscriptionID}/resourceGroups/{groupName}/providers/Microsoft.Web/serverfarms/{appServicePlanName}".
+	// Resource ID of the associated App Service plan.
 	ServerFarmID *string
 
 	// READ-ONLY; Raw bytes of .cer file
@@ -3252,7 +3252,8 @@ type EnvironmentVariable struct {
 	// REQUIRED; Environment variable name
 	Name *string
 
-	// REQUIRED; Environment variable value
+	// REQUIRED; AppSetting name whose value will be used as the value of this environment variable. If the reffered AppSetting
+	// is not present, the value will be empty string in container at runtime.
 	Value *string
 }
 
@@ -7716,6 +7717,9 @@ type SiteContainerProperties struct {
 
 	// List of environment variables
 	EnvironmentVariables []*EnvironmentVariable
+
+	// true if all AppSettings and ConnectionStrings have to be passed to the container as environment variables; false otherwise.
+	InheritAppSettingsAndConnectionStrings *bool
 
 	// Password Secret
 	PasswordSecret *string
