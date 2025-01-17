@@ -97,7 +97,7 @@ type ConfigurationStoreProperties struct {
 	// Property specifying the configuration of data plane proxy for Azure Resource Manager (ARM).
 	DataPlaneProxy *DataPlaneProxyProperties
 
-	// Disables all authentication methods other than AAD authentication.
+	// Disables access key authentication.
 	DisableLocalAuth *bool
 
 	// Property specifying whether protection against purge is enabled for this configuration store.
@@ -106,11 +106,20 @@ type ConfigurationStoreProperties struct {
 	// The encryption settings of the configuration store.
 	Encryption *EncryptionProperties
 
+	// Property specifying the configuration of experimentation for this configuration store
+	Experimentation *ExperimentationProperties
+
 	// Control permission for data plane traffic coming from public networks while private endpoint is enabled.
 	PublicNetworkAccess *PublicNetworkAccess
 
+	// The SAS authentication settings of the configuration store.
+	Sas *SasProperties
+
 	// The amount of time in days that the configuration store will be retained when it is soft deleted.
 	SoftDeleteRetentionInDays *int32
+
+	// Property specifying the configuration of telemetry for this configuration store
+	Telemetry *TelemetryProperties
 
 	// READ-ONLY; The creation date of configuration store.
 	CreationDate *time.Time
@@ -130,7 +139,7 @@ type ConfigurationStorePropertiesUpdateParameters struct {
 	// Property specifying the configuration of data plane proxy for Azure Resource Manager (ARM).
 	DataPlaneProxy *DataPlaneProxyProperties
 
-	// Disables all authentication methods other than AAD authentication.
+	// Disables access key authentication.
 	DisableLocalAuth *bool
 
 	// Property specifying whether protection against purge is enabled for this configuration store.
@@ -139,8 +148,17 @@ type ConfigurationStorePropertiesUpdateParameters struct {
 	// The encryption settings of the configuration store.
 	Encryption *EncryptionProperties
 
+	// Property specifying the configuration of experimentation to update for this configuration store
+	Experimentation *ExperimentationProperties
+
 	// Control permission for data plane traffic coming from public networks while private endpoint is enabled.
 	PublicNetworkAccess *PublicNetworkAccess
+
+	// The SAS authentication settings of the configuration store.
+	Sas *SasProperties
+
+	// Property specifying the configuration of telemetry to update for this configuration store
+	Telemetry *TelemetryProperties
 }
 
 // ConfigurationStoreUpdateParameters - The parameters for updating a configuration store.
@@ -219,6 +237,15 @@ type EncryptionProperties struct {
 	KeyVaultProperties *KeyVaultProperties
 }
 
+// ExperimentationProperties - Experimentation settings
+type ExperimentationProperties struct {
+	// The data plane endpoint of the Split experimentation workspace resource where experimentation data can be retrieved
+	DataPlaneEndpoint *string
+
+	// Resource ID of a resource enabling experimentation
+	ResourceID *string
+}
+
 // KeyValue - The key-value resource along with all resource properties.
 type KeyValue struct {
 	// All key-value properties.
@@ -278,6 +305,28 @@ type KeyVaultProperties struct {
 
 	// The URI of the key vault key used to encrypt data.
 	KeyIdentifier *string
+}
+
+// KvSasTokenScope - The key value resource scope that the SAS token is authorized to access.
+type KvSasTokenScope struct {
+	// REQUIRED
+	ResourceType *ResourceType
+
+	// A filter used to match keys. Syntax reference: https://aka.ms/azconfig/docs/keyvaluefiltering.
+	Key *string
+
+	// A filter used to match labels. Syntax reference: https://aka.ms/azconfig/docs/keyvaluefiltering.
+	Label *string
+
+	// An array of tag filters used to match tags.
+	Tags []*string
+}
+
+// GetSasTokenScope implements the SasTokenScopeClassification interface for type KvSasTokenScope.
+func (k *KvSasTokenScope) GetSasTokenScope() *SasTokenScope {
+	return &SasTokenScope{
+		ResourceType: k.ResourceType,
+	}
 }
 
 // LogSpecification - Specifications of the Log for Azure Monitoring
@@ -541,6 +590,12 @@ type ReplicaProperties struct {
 	ProvisioningState *ReplicaProvisioningState
 }
 
+// ResetSasKindParameters - Parameters used for resetting SAS kind.
+type ResetSasKindParameters struct {
+	// REQUIRED; The kind of the SAS token.
+	Name *SasKind
+}
+
 // ResourceIdentity - An identity that can be associated with a resource.
 type ResourceIdentity struct {
 	// The type of managed identity used. The type 'SystemAssigned, UserAssigned' includes both an implicitly created identity
@@ -566,6 +621,72 @@ type SKU struct {
 	// REQUIRED; The SKU name of the configuration store.
 	Name *string
 }
+
+// SasKindInfo - Information about a specific kind of SAS token.
+type SasKindInfo struct {
+	// READ-ONLY; The last reset time of all tokens of the specified SAS kind.
+	LastModifiedAt *time.Time
+
+	// READ-ONLY; The kind of the SAS token.
+	Name *SasKind
+}
+
+// SasProperties - The SAS authentication settings of the configuration store.
+type SasProperties struct {
+	// The status of the SAS token authentication. This property manages if SAS token authentication is enabled or disabled.
+	Status *SasStatus
+
+	// READ-ONLY; Information about different kinds of SAS token.
+	Kinds []*SasKindInfo
+}
+
+// SasTokenGenerationParameters - Parameters used for generating SAS token.
+type SasTokenGenerationParameters struct {
+	// REQUIRED; The time that the SAS token expires in the Universal ISO 8601 DateTime format. Max allowed expiration is 1 year
+	// from the time of token creation.
+	Expires *time.Time
+
+	// REQUIRED; The kind of the SAS token.
+	Kind *SasKind
+
+	// REQUIRED; The data plane resource scope that the SAS token is authorized to access.
+	SasTokenScope SasTokenScopeClassification
+
+	// Time (in seconds) for which the data plane response may be cached by clients. App Configuration sets the Cache-Control
+	// response header max-age to the value that's specified on the SAS token. See
+	// rfc9111 [https://www.rfc-editor.org/rfc/rfc9111#name-max-age-2] for more details.
+	CacheControlMaxAge *float32
+}
+
+// SasTokenGenerationResult - The result of a request to generate a SAS token.
+type SasTokenGenerationResult struct {
+	// READ-ONLY; Time (in seconds) for which the data plane response may be cached by clients. App Configuration sets the Cache-Control
+	// response header max-age to the value that's specified on the SAS token. See
+	// rfc9111 [https://www.rfc-editor.org/rfc/rfc9111#name-max-age-2] for more details.
+	CacheControlMaxAge *float32
+
+	// READ-ONLY; The time that the SAS token expires in the Universal ISO 8601 DateTime format. Max allowed expiration is 1 year
+	// from the time of token creation.
+	Expires *time.Time
+
+	// READ-ONLY; The kind of the SAS token.
+	Kind *SasKind
+
+	// READ-ONLY; The data plane resource scope that the SAS token is authorized to access.
+	SasTokenScope SasTokenScopeClassification
+
+	// READ-ONLY; The value of the SAS token.
+	Value *string
+}
+
+// SasTokenScope - The data plane resource scope that the SAS token is authorized to access.
+type SasTokenScope struct {
+	// REQUIRED
+	ResourceType *ResourceType
+}
+
+// GetSasTokenScope implements the SasTokenScopeClassification interface for type SasTokenScope.
+func (s *SasTokenScope) GetSasTokenScope() *SasTokenScope { return s }
 
 // ServiceSpecification - Service specification payload
 type ServiceSpecification struct {
@@ -631,6 +752,22 @@ type SnapshotProperties struct {
 	Status *SnapshotStatus
 }
 
+// SnapshotSasTokenScope - The snapshot resource scope that the SAS token is authorized to access.
+type SnapshotSasTokenScope struct {
+	// REQUIRED; The name of the snapshot.
+	Name *string
+
+	// REQUIRED
+	ResourceType *ResourceType
+}
+
+// GetSasTokenScope implements the SasTokenScopeClassification interface for type SnapshotSasTokenScope.
+func (s *SnapshotSasTokenScope) GetSasTokenScope() *SasTokenScope {
+	return &SasTokenScope{
+		ResourceType: s.ResourceType,
+	}
+}
+
 // SystemData - Metadata pertaining to creation and last modification of the resource.
 type SystemData struct {
 	// The timestamp of resource creation (UTC).
@@ -650,6 +787,12 @@ type SystemData struct {
 
 	// The type of identity that last modified the resource.
 	LastModifiedByType *CreatedByType
+}
+
+// TelemetryProperties - Telemetry settings
+type TelemetryProperties struct {
+	// Resource ID of a resource enabling telemetry collection
+	ResourceID *string
 }
 
 // UserIdentity - A resource identity that is managed by the user of the service.
