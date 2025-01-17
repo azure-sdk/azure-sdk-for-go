@@ -1,5 +1,13 @@
 # Release History
 
+## 9.2.0 (2025-01-17)
+### Features Added
+
+- New enum type `OracleAuthenticationType` with values `OracleAuthenticationTypeBasic`
+- New field `AuthenticationType`, `CryptoChecksumClient`, `CryptoChecksumTypesClient`, `EnableBulkLoad`, `EncryptionClient`, `EncryptionTypesClient`, `FetchSize`, `FetchTswtzAsTimestamp`, `InitialLobFetchSize`, `InitializationString`, `Server`, `StatementCacheSize`, `SupportV1DataTypes`, `Username` in struct `OracleLinkedServiceTypeProperties`
+- New field `ReturnMultistatementResult` in struct `ScriptActivityTypeProperties`
+
+
 ## 9.1.0 (2024-12-26)
 ### Features Added
 
