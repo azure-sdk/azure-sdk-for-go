@@ -1,4 +1,4 @@
 directory: specification/fabric/Microsoft.Fabric.Management
-commit: 366aaa13cdd218b9adac716680e49473673410c8
+commit: d2cb4113eef7f79b3fc249e2433f98209741e578
 repo: Azure/azure-rest-api-specs
 additionalDirectories: 
