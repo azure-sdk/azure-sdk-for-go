@@ -10,7 +10,7 @@ package armkeyvault
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/keyvault/armkeyvault"
-	moduleVersion = "v1.4.0"
+	moduleVersion = "v1.4.1"
 )
 
 type AccessPolicyUpdateKind string
@@ -320,14 +320,18 @@ func PossibleKeyPermissionsValues() []KeyPermissions {
 type KeyRotationPolicyActionType string
 
 const (
-	KeyRotationPolicyActionTypeNotify KeyRotationPolicyActionType = "notify"
-	KeyRotationPolicyActionTypeRotate KeyRotationPolicyActionType = "rotate"
+	KeyRotationPolicyActionTypeNotify KeyRotationPolicyActionType = "Notify"
+	KeyRotationPolicyActionTypeNotify KeyRotationPolicyActionType = "Notify"
+	KeyRotationPolicyActionTypeRotate KeyRotationPolicyActionType = "Rotate"
+	KeyRotationPolicyActionTypeRotate KeyRotationPolicyActionType = "Rotate"
 )
 
 // PossibleKeyRotationPolicyActionTypeValues returns the possible values for the KeyRotationPolicyActionType const type.
 func PossibleKeyRotationPolicyActionTypeValues() []KeyRotationPolicyActionType {
 	return []KeyRotationPolicyActionType{
 		KeyRotationPolicyActionTypeNotify,
+		KeyRotationPolicyActionTypeNotify,
+		KeyRotationPolicyActionTypeRotate,
 		KeyRotationPolicyActionTypeRotate,
 	}
 }
