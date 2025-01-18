@@ -27,6 +27,15 @@ type BaseCosmosDataTransferDataSourceSinkClassification interface {
 	GetBaseCosmosDataTransferDataSourceSink() *BaseCosmosDataTransferDataSourceSink
 }
 
+// ContainerEntityClassification provides polymorphic access to related types.
+// Call the interface's GetContainerEntity() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *AzureBlobStorageContainerEntity, *CassandraContainerEntity, *ContainerEntity, *MongoVCoreContainerEntity, *SQLContainerEntity
+type ContainerEntityClassification interface {
+	// GetContainerEntity returns the ContainerEntity content of the underlying type.
+	GetContainerEntity() *ContainerEntity
+}
+
 // DataTransferDataSourceSinkClassification provides polymorphic access to related types.
 // Call the interface's GetDataTransferDataSourceSink() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:

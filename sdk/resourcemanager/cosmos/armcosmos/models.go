@@ -156,9 +156,7 @@ type AutoscaleSettingsResource struct {
 // AzureBlobDataTransferDataSourceSink - An Azure Blob Storage data source/sink
 type AzureBlobDataTransferDataSourceSink struct {
 	// REQUIRED
-	Component *DataTransferComponent
-
-	// REQUIRED
+	Component     *DataTransferComponent
 	ContainerName *string
 	EndpointURL   *string
 }
@@ -166,6 +164,22 @@ type AzureBlobDataTransferDataSourceSink struct {
 // GetDataTransferDataSourceSink implements the DataTransferDataSourceSinkClassification interface for type AzureBlobDataTransferDataSourceSink.
 func (a *AzureBlobDataTransferDataSourceSink) GetDataTransferDataSourceSink() *DataTransferDataSourceSink {
 	return &DataTransferDataSourceSink{
+		Component: a.Component,
+	}
+}
+
+// AzureBlobStorageContainerEntity - A CosmosDB Mongo container entity
+type AzureBlobStorageContainerEntity struct {
+	// REQUIRED
+	Component *DataTransferComponent
+
+	// REQUIRED
+	ContainerName *string
+}
+
+// GetContainerEntity implements the ContainerEntityClassification interface for type AzureBlobStorageContainerEntity.
+func (a *AzureBlobStorageContainerEntity) GetContainerEntity() *ContainerEntity {
+	return &ContainerEntity{
 		Component: a.Component,
 	}
 }
@@ -308,17 +322,32 @@ type CassandraClusterPublicStatusDataCentersItem struct {
 	SeedNodes []*string
 }
 
-// CassandraDataTransferDataSourceSink - A CosmosDB Cassandra API data source/sink
-type CassandraDataTransferDataSourceSink struct {
+// CassandraContainerEntity - A CosmosDB Cassandra container entity
+type CassandraContainerEntity struct {
 	// REQUIRED
 	Component *DataTransferComponent
 
 	// REQUIRED
-	KeyspaceName *string
+	KeySpaceName *string
 
 	// REQUIRED
-	TableName         *string
+	TableName *string
+}
+
+// GetContainerEntity implements the ContainerEntityClassification interface for type CassandraContainerEntity.
+func (c *CassandraContainerEntity) GetContainerEntity() *ContainerEntity {
+	return &ContainerEntity{
+		Component: c.Component,
+	}
+}
+
+// CassandraDataTransferDataSourceSink - A CosmosDB Cassandra API data source/sink
+type CassandraDataTransferDataSourceSink struct {
+	// REQUIRED
+	Component         *DataTransferComponent
+	KeyspaceName      *string
 	RemoteAccountName *string
+	TableName         *string
 }
 
 // GetBaseCosmosDataTransferDataSourceSink implements the BaseCosmosDataTransferDataSourceSinkClassification interface for
@@ -1209,6 +1238,14 @@ type ConsistencyPolicy struct {
 	MaxStalenessPrefix *int64
 }
 
+type ContainerEntity struct {
+	// REQUIRED
+	Component *DataTransferComponent
+}
+
+// GetContainerEntity implements the ContainerEntityClassification interface for type ContainerEntity.
+func (c *ContainerEntity) GetContainerEntity() *ContainerEntity { return c }
+
 // ContainerPartitionKey - The configuration of the partition key to be used for partitioning data into multiple partitions
 type ContainerPartitionKey struct {
 	// Indicates the kind of algorithm used for partitioning. For MultiHash, multiple partition keys (upto three maximum) are
@@ -1383,6 +1420,21 @@ type DataCenterResourceProperties struct {
 	SeedNodes []*SeedNode
 }
 
+// DataTransferContainerDetails - Data transfer entity
+type DataTransferContainerDetails struct {
+	// REQUIRED
+	Destination ContainerEntityClassification
+
+	// REQUIRED
+	Source ContainerEntityClassification
+
+	// READ-ONLY
+	ProcessedCount *int32
+
+	// READ-ONLY
+	TotalCount *int32
+}
+
 // DataTransferDataSourceSink - Base class for all DataTransfer source/sink
 type DataTransferDataSourceSink struct {
 	// REQUIRED
@@ -1427,7 +1479,8 @@ type DataTransferJobProperties struct {
 	Source DataTransferDataSourceSinkClassification
 
 	// Mode of job execution
-	Mode *DataTransferJobMode
+	Mode                           *DataTransferJobMode
+	SourceAndDestinationContainers []*DataTransferContainerDetails
 
 	// Worker count
 	WorkerCount *int32
@@ -3042,6 +3095,25 @@ type MetricValue struct {
 	Total *float64
 }
 
+// MongoContainerEntity - A CosmosDB Mongo container entity
+type MongoContainerEntity struct {
+	// REQUIRED
+	CollectionName *string
+
+	// REQUIRED
+	Component *DataTransferComponent
+
+	// REQUIRED
+	DatabaseName *string
+}
+
+// GetContainerEntity implements the ContainerEntityClassification interface for type MongoContainerEntity.
+func (m *MongoContainerEntity) GetContainerEntity() *ContainerEntity {
+	return &ContainerEntity{
+		Component: m.Component,
+	}
+}
+
 // MongoDBCollectionCreateUpdateParameters - Parameters to create and update Cosmos DB MongoDB collection.
 type MongoDBCollectionCreateUpdateParameters struct {
 	// REQUIRED; Properties to create and update Azure Cosmos DB MongoDB collection.
@@ -3299,12 +3371,8 @@ type MongoDBDatabaseResource struct {
 // MongoDataTransferDataSourceSink - A CosmosDB Mongo API data source/sink
 type MongoDataTransferDataSourceSink struct {
 	// REQUIRED
-	CollectionName *string
-
-	// REQUIRED
-	Component *DataTransferComponent
-
-	// REQUIRED
+	Component         *DataTransferComponent
+	CollectionName    *string
 	DatabaseName      *string
 	RemoteAccountName *string
 }
@@ -3444,8 +3512,8 @@ type MongoUserDefinitionResource struct {
 	UserName *string
 }
 
-// MongoVCoreDataTransferDataSourceSink - A CosmosDB Mongo vCore API data source/sink
-type MongoVCoreDataTransferDataSourceSink struct {
+// MongoVCoreContainerEntity - A CosmosDB Mongo vCore container entity
+type MongoVCoreContainerEntity struct {
 	// REQUIRED
 	CollectionName *string
 
@@ -3453,8 +3521,23 @@ type MongoVCoreDataTransferDataSourceSink struct {
 	Component *DataTransferComponent
 
 	// REQUIRED
-	DatabaseName                *string
+	DatabaseName *string
+}
+
+// GetContainerEntity implements the ContainerEntityClassification interface for type MongoVCoreContainerEntity.
+func (m *MongoVCoreContainerEntity) GetContainerEntity() *ContainerEntity {
+	return &ContainerEntity{
+		Component: m.Component,
+	}
+}
+
+// MongoVCoreDataTransferDataSourceSink - A CosmosDB Mongo vCore API data source/sink
+type MongoVCoreDataTransferDataSourceSink struct {
+	// REQUIRED
+	Component                   *DataTransferComponent
+	CollectionName              *string
 	ConnectionStringKeyVaultURI *string
+	DatabaseName                *string
 	HostName                    *string
 }
 
@@ -4884,6 +4967,25 @@ type SQLContainerCreateUpdateProperties struct {
 	Options *CreateUpdateOptions
 }
 
+// SQLContainerEntity - A CosmosDB noSql container entity
+type SQLContainerEntity struct {
+	// REQUIRED
+	Component *DataTransferComponent
+
+	// REQUIRED
+	ContainerName *string
+
+	// REQUIRED
+	DatabaseName *string
+}
+
+// GetContainerEntity implements the ContainerEntityClassification interface for type SQLContainerEntity.
+func (s *SQLContainerEntity) GetContainerEntity() *ContainerEntity {
+	return &ContainerEntity{
+		Component: s.Component,
+	}
+}
+
 // SQLContainerGetProperties - The properties of an Azure Cosmos DB container
 type SQLContainerGetProperties struct {
 	Options  *SQLContainerGetPropertiesOptions
@@ -5030,12 +5132,8 @@ type SQLContainerResource struct {
 // SQLDataTransferDataSourceSink - A CosmosDB No Sql API data source/sink
 type SQLDataTransferDataSourceSink struct {
 	// REQUIRED
-	Component *DataTransferComponent
-
-	// REQUIRED
-	ContainerName *string
-
-	// REQUIRED
+	Component         *DataTransferComponent
+	ContainerName     *string
 	DatabaseName      *string
 	RemoteAccountName *string
 }

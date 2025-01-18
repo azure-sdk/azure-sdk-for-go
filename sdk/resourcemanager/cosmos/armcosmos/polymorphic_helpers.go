@@ -33,6 +33,33 @@ func unmarshalBackupPolicyClassification(rawMsg json.RawMessage) (BackupPolicyCl
 	return b, nil
 }
 
+func unmarshalContainerEntityClassification(rawMsg json.RawMessage) (ContainerEntityClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b ContainerEntityClassification
+	switch m["component"] {
+	case string(DataTransferComponentAzureBlobStorage):
+		b = &AzureBlobStorageContainerEntity{}
+	case string(DataTransferComponentCosmosDBCassandra):
+		b = &CassandraContainerEntity{}
+	case string(DataTransferComponentCosmosDBMongo):
+		b = &MongoVCoreContainerEntity{}
+	case string(DataTransferComponentCosmosDBSQL):
+		b = &SQLContainerEntity{}
+	default:
+		b = &ContainerEntity{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
 func unmarshalDataTransferDataSourceSinkClassification(rawMsg json.RawMessage) (DataTransferDataSourceSinkClassification, error) {
 	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil

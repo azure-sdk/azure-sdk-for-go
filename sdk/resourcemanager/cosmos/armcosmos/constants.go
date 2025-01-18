@@ -10,7 +10,7 @@ package armcosmos
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/cosmos/armcosmos"
-	moduleVersion = "v4.0.0-beta.2"
+	moduleVersion = "v4.0.0-beta.3"
 )
 
 // APIType - Enum to indicate the API type of the restorable database account.
