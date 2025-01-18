@@ -36545,9 +36545,23 @@ func (o *OracleLinkedService) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type OracleLinkedServiceTypeProperties.
 func (o OracleLinkedServiceTypeProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "authenticationType", o.AuthenticationType)
 	populateAny(objectMap, "connectionString", o.ConnectionString)
+	populateAny(objectMap, "cryptoChecksumClient", o.CryptoChecksumClient)
+	populateAny(objectMap, "cryptoChecksumTypesClient", o.CryptoChecksumTypesClient)
+	populateAny(objectMap, "enableBulkLoad", o.EnableBulkLoad)
 	populate(objectMap, "encryptedCredential", o.EncryptedCredential)
+	populateAny(objectMap, "encryptionClient", o.EncryptionClient)
+	populateAny(objectMap, "encryptionTypesClient", o.EncryptionTypesClient)
+	populateAny(objectMap, "fetchSize", o.FetchSize)
+	populateAny(objectMap, "fetchTswtzAsTimestamp", o.FetchTswtzAsTimestamp)
+	populateAny(objectMap, "initialLobFetchSize", o.InitialLobFetchSize)
+	populateAny(objectMap, "initializationString", o.InitializationString)
 	populate(objectMap, "password", o.Password)
+	populateAny(objectMap, "server", o.Server)
+	populateAny(objectMap, "statementCacheSize", o.StatementCacheSize)
+	populateAny(objectMap, "supportV1DataTypes", o.SupportV1DataTypes)
+	populateAny(objectMap, "username", o.Username)
 	return json.Marshal(objectMap)
 }
 
@@ -36560,14 +36574,56 @@ func (o *OracleLinkedServiceTypeProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "authenticationType":
+			err = unpopulate(val, "AuthenticationType", &o.AuthenticationType)
+			delete(rawMsg, key)
 		case "connectionString":
 			err = unpopulate(val, "ConnectionString", &o.ConnectionString)
+			delete(rawMsg, key)
+		case "cryptoChecksumClient":
+			err = unpopulate(val, "CryptoChecksumClient", &o.CryptoChecksumClient)
+			delete(rawMsg, key)
+		case "cryptoChecksumTypesClient":
+			err = unpopulate(val, "CryptoChecksumTypesClient", &o.CryptoChecksumTypesClient)
+			delete(rawMsg, key)
+		case "enableBulkLoad":
+			err = unpopulate(val, "EnableBulkLoad", &o.EnableBulkLoad)
 			delete(rawMsg, key)
 		case "encryptedCredential":
 			err = unpopulate(val, "EncryptedCredential", &o.EncryptedCredential)
 			delete(rawMsg, key)
+		case "encryptionClient":
+			err = unpopulate(val, "EncryptionClient", &o.EncryptionClient)
+			delete(rawMsg, key)
+		case "encryptionTypesClient":
+			err = unpopulate(val, "EncryptionTypesClient", &o.EncryptionTypesClient)
+			delete(rawMsg, key)
+		case "fetchSize":
+			err = unpopulate(val, "FetchSize", &o.FetchSize)
+			delete(rawMsg, key)
+		case "fetchTswtzAsTimestamp":
+			err = unpopulate(val, "FetchTswtzAsTimestamp", &o.FetchTswtzAsTimestamp)
+			delete(rawMsg, key)
+		case "initialLobFetchSize":
+			err = unpopulate(val, "InitialLobFetchSize", &o.InitialLobFetchSize)
+			delete(rawMsg, key)
+		case "initializationString":
+			err = unpopulate(val, "InitializationString", &o.InitializationString)
+			delete(rawMsg, key)
 		case "password":
 			err = unpopulate(val, "Password", &o.Password)
+			delete(rawMsg, key)
+		case "server":
+			err = unpopulate(val, "Server", &o.Server)
+			delete(rawMsg, key)
+		case "statementCacheSize":
+			err = unpopulate(val, "StatementCacheSize", &o.StatementCacheSize)
+			delete(rawMsg, key)
+		case "supportV1DataTypes":
+			err = unpopulate(val, "SupportV1DataTypes", &o.SupportV1DataTypes)
+			delete(rawMsg, key)
+		case "username":
+			err = unpopulate(val, "Username", &o.Username)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -48273,6 +48329,7 @@ func (s *ScriptActivityScriptBlock) UnmarshalJSON(data []byte) error {
 func (s ScriptActivityTypeProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "logSettings", s.LogSettings)
+	populateAny(objectMap, "returnMultistatementResult", s.ReturnMultistatementResult)
 	populateAny(objectMap, "scriptBlockExecutionTimeout", s.ScriptBlockExecutionTimeout)
 	populate(objectMap, "scripts", s.Scripts)
 	return json.Marshal(objectMap)
@@ -48289,6 +48346,9 @@ func (s *ScriptActivityTypeProperties) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "logSettings":
 			err = unpopulate(val, "LogSettings", &s.LogSettings)
+			delete(rawMsg, key)
+		case "returnMultistatementResult":
+			err = unpopulate(val, "ReturnMultistatementResult", &s.ReturnMultistatementResult)
 			delete(rawMsg, key)
 		case "scriptBlockExecutionTimeout":
 			err = unpopulate(val, "ScriptBlockExecutionTimeout", &s.ScriptBlockExecutionTimeout)
