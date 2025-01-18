@@ -8292,6 +8292,45 @@ func (e *ErrorInfo) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type ErrorPage.
+func (e ErrorPage) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "alwaysUse", e.AlwaysUse)
+	populate(objectMap, "content", e.Content)
+	populate(objectMap, "contentType", e.ContentType)
+	populate(objectMap, "statusCode", e.StatusCode)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ErrorPage.
+func (e *ErrorPage) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", e, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "alwaysUse":
+			err = unpopulate(val, "AlwaysUse", &e.AlwaysUse)
+			delete(rawMsg, key)
+		case "content":
+			err = unpopulate(val, "Content", &e.Content)
+			delete(rawMsg, key)
+		case "contentType":
+			err = unpopulate(val, "ContentType", &e.ContentType)
+			delete(rawMsg, key)
+		case "statusCode":
+			err = unpopulate(val, "StatusCode", &e.StatusCode)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", e, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type ErrorProperties.
 func (e ErrorProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
