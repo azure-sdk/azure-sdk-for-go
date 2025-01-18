@@ -20,11 +20,11 @@ func unmarshalExperimentActionClassification(rawMsg json.RawMessage) (Experiment
 	}
 	var b ExperimentActionClassification
 	switch m["type"] {
-	case "continuous":
+	case string(ExperimentActionTypeContinuous):
 		b = &ContinuousAction{}
-	case "delay":
+	case string(ExperimentActionTypeDelay):
 		b = &DelayAction{}
-	case "discrete":
+	case string(ExperimentActionTypeDiscrete):
 		b = &DiscreteAction{}
 	default:
 		b = &ExperimentAction{}

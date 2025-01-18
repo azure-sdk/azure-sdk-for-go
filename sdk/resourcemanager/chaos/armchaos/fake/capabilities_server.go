@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/chaos/armchaos"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/chaos/armchaos/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -25,8 +25,8 @@ import (
 // CapabilitiesServer is a fake server for instances of the armchaos.CapabilitiesClient type.
 type CapabilitiesServer struct {
 	// CreateOrUpdate is the fake for method CapabilitiesClient.CreateOrUpdate
-	// HTTP status codes to indicate success: http.StatusOK
-	CreateOrUpdate func(ctx context.Context, resourceGroupName string, parentProviderNamespace string, parentResourceType string, parentResourceName string, targetName string, capabilityName string, capability armchaos.Capability, options *armchaos.CapabilitiesClientCreateOrUpdateOptions) (resp azfake.Responder[armchaos.CapabilitiesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
+	CreateOrUpdate func(ctx context.Context, resourceGroupName string, parentProviderNamespace string, parentResourceType string, parentResourceName string, targetName string, capabilityName string, resource armchaos.Capability, options *armchaos.CapabilitiesClientCreateOrUpdateOptions) (resp azfake.Responder[armchaos.CapabilitiesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// Delete is the fake for method CapabilitiesClient.Delete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
@@ -132,8 +132,8 @@ func (c *CapabilitiesServerTransport) dispatchCreateOrUpdate(req *http.Request) 
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	if !contains([]int{http.StatusOK, http.StatusCreated}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Capability, req)
 	if err != nil {
@@ -269,15 +269,15 @@ func (c *CapabilitiesServerTransport) dispatchNewListPager(req *http.Request) (*
 		if err != nil {
 			return nil, err
 		}
-		targetNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("targetName")])
-		if err != nil {
-			return nil, err
-		}
 		continuationTokenUnescaped, err := url.QueryUnescape(qp.Get("continuationToken"))
 		if err != nil {
 			return nil, err
 		}
 		continuationTokenParam := getOptional(continuationTokenUnescaped)
+		targetNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("targetName")])
+		if err != nil {
+			return nil, err
+		}
 		var options *armchaos.CapabilitiesClientListOptions
 		if continuationTokenParam != nil {
 			options = &armchaos.CapabilitiesClientListOptions{
