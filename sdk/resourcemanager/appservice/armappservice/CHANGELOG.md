@@ -1,5 +1,25 @@
 # Release History
 
+## 5.0.0 (2025-01-20)
+### Breaking Changes
+
+- Function `*ClientFactory.NewContainerAppsClient` has been removed
+- Function `*ClientFactory.NewContainerAppsRevisionsClient` has been removed
+- Function `NewContainerAppsClient` has been removed
+- Function `*ContainerAppsClient.BeginCreateOrUpdate` has been removed
+- Function `*ContainerAppsClient.BeginDelete` has been removed
+- Function `*ContainerAppsClient.Get` has been removed
+- Function `*ContainerAppsClient.NewListByResourceGroupPager` has been removed
+- Function `*ContainerAppsClient.NewListBySubscriptionPager` has been removed
+- Function `*ContainerAppsClient.ListSecrets` has been removed
+- Function `NewContainerAppsRevisionsClient` has been removed
+- Function `*ContainerAppsRevisionsClient.ActivateRevision` has been removed
+- Function `*ContainerAppsRevisionsClient.DeactivateRevision` has been removed
+- Function `*ContainerAppsRevisionsClient.GetRevision` has been removed
+- Function `*ContainerAppsRevisionsClient.NewListRevisionsPager` has been removed
+- Function `*ContainerAppsRevisionsClient.RestartRevision` has been removed
+
+
 ## 4.1.0 (2024-11-20)
 ### Features Added
 
