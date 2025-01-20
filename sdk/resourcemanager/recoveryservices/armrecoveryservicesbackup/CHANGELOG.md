@@ -1,5 +1,26 @@
 # Release History
 
+## 4.2.0 (2025-01-20)
+### Features Added
+
+- New value `OperationTypeRehydrate` added to enum type `OperationType`
+- New field `PolicyType` in struct `AzureFileshareProtectedItem`
+- New field `PolicyType` in struct `AzureIaaSClassicComputeVMProtectedItem`
+- New field `PolicyType` in struct `AzureIaaSComputeVMProtectedItem`
+- New field `PolicyType` in struct `AzureIaaSVMProtectedItem`
+- New field `PolicyType` in struct `AzureSQLProtectedItem`
+- New field `OperationType` in struct `AzureStorageContainer`
+- New field `PolicyType` in struct `AzureVMWorkloadProtectedItem`
+- New field `PolicyType` in struct `AzureVMWorkloadSAPAseDatabaseProtectedItem`
+- New field `PolicyType` in struct `AzureVMWorkloadSAPHanaDBInstanceProtectedItem`
+- New field `PolicyType` in struct `AzureVMWorkloadSAPHanaDatabaseProtectedItem`
+- New field `PolicyType` in struct `AzureVMWorkloadSQLDatabaseProtectedItem`
+- New field `PolicyType` in struct `DPMProtectedItem`
+- New field `PolicyType` in struct `GenericProtectedItem`
+- New field `PolicyType` in struct `MabFileFolderProtectedItem`
+- New field `PolicyType` in struct `ProtectedItem`
+
+
 ## 4.1.0 (2024-05-24)
 ### Features Added
 
