@@ -257,6 +257,12 @@ type PrivateLinkResourcesClientListByServerResponse struct {
 	PrivateLinkResourceListResult
 }
 
+// QuotaUsagesClientListResponse contains the response from method QuotaUsagesClient.NewListPager.
+type QuotaUsagesClientListResponse struct {
+	// Capability for the PostgreSQL server
+	QuotaUsagesListResult
+}
+
 // ReplicasClientListByServerResponse contains the response from method ReplicasClient.NewListByServerPager.
 type ReplicasClientListByServerResponse struct {
 	// A list of servers.
@@ -335,6 +341,24 @@ type ServersClientStopResponse struct {
 type ServersClientUpdateResponse struct {
 	// Represents a server.
 	Server
+}
+
+// TuningOptionsClientGetResponse contains the response from method TuningOptionsClient.Get.
+type TuningOptionsClientGetResponse struct {
+	// Stores property that features impact on some metric if this recommended action is applied.
+	TuningOptionsResource
+}
+
+// TuningOptionsClientListByServerResponse contains the response from method TuningOptionsClient.NewListByServerPager.
+type TuningOptionsClientListByServerResponse struct {
+	// A list of server tuning options.
+	TuningOptionsListResult
+}
+
+// TuningOptionsClientListRecommendationsResponse contains the response from method TuningOptionsClient.NewListRecommendationsPager.
+type TuningOptionsClientListRecommendationsResponse struct {
+	// A list of available index recommendations.
+	IndexRecommendationListResult
 }
 
 // VirtualEndpointsClientCreateResponse contains the response from method VirtualEndpointsClient.BeginCreate.
