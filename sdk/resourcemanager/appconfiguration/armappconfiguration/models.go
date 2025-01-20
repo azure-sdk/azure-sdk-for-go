@@ -109,6 +109,10 @@ type ConfigurationStoreProperties struct {
 	// Control permission for data plane traffic coming from public networks while private endpoint is enabled.
 	PublicNetworkAccess *PublicNetworkAccess
 
+	// The amount of time in seconds to retain new key value revisions. Defaults to 604800 (7 days) for Free SKU stores and 2592000
+	// (30 days) for Standard SKU stores.
+	RevisionRetentionPeriodInSeconds *int64
+
 	// The amount of time in days that the configuration store will be retained when it is soft deleted.
 	SoftDeleteRetentionInDays *int32
 
@@ -141,6 +145,10 @@ type ConfigurationStorePropertiesUpdateParameters struct {
 
 	// Control permission for data plane traffic coming from public networks while private endpoint is enabled.
 	PublicNetworkAccess *PublicNetworkAccess
+
+	// The amount of time in seconds to retain new key value revisions. Defaults to 604800 (7 days) for Free SKU stores and 2592000
+	// (30 days) for Standard SKU stores.
+	RevisionRetentionPeriodInSeconds *int64
 }
 
 // ConfigurationStoreUpdateParameters - The parameters for updating a configuration store.

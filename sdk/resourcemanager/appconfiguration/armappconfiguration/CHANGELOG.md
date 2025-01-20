@@ -1,5 +1,12 @@
 # Release History
 
+## 2.3.0 (2025-01-20)
+### Features Added
+
+- New field `RevisionRetentionPeriodInSeconds` in struct `ConfigurationStoreProperties`
+- New field `RevisionRetentionPeriodInSeconds` in struct `ConfigurationStorePropertiesUpdateParameters`
+
+
 ## 2.2.0 (2024-11-20)
 ### Features Added
 
