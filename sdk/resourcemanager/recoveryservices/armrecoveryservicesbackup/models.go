@@ -656,6 +656,9 @@ type AzureIaaSClassicComputeVMProtectedItem struct {
 	// READ-ONLY; Timestamp of the last backup operation on this backup item.
 	LastBackupTime *time.Time
 
+	// READ-ONLY; Type of the policy used for protection
+	PolicyType *string
+
 	// READ-ONLY; Data ID of the protected item.
 	ProtectedItemDataID *string
 
@@ -693,6 +696,7 @@ func (a *AzureIaaSClassicComputeVMProtectedItem) GetAzureIaaSVMProtectedItem() *
 		LastRecoveryPoint:                a.LastRecoveryPoint,
 		PolicyID:                         a.PolicyID,
 		PolicyName:                       a.PolicyName,
+		PolicyType:                       a.PolicyType,
 		ProtectedItemDataID:              a.ProtectedItemDataID,
 		ProtectedItemType:                a.ProtectedItemType,
 		ProtectionState:                  a.ProtectionState,
@@ -926,6 +930,9 @@ type AzureIaaSComputeVMProtectedItem struct {
 	// READ-ONLY; Timestamp of the last backup operation on this backup item.
 	LastBackupTime *time.Time
 
+	// READ-ONLY; Type of the policy used for protection
+	PolicyType *string
+
 	// READ-ONLY; Data ID of the protected item.
 	ProtectedItemDataID *string
 
@@ -963,6 +970,7 @@ func (a *AzureIaaSComputeVMProtectedItem) GetAzureIaaSVMProtectedItem() *AzureIa
 		LastRecoveryPoint:                a.LastRecoveryPoint,
 		PolicyID:                         a.PolicyID,
 		PolicyName:                       a.PolicyName,
+		PolicyType:                       a.PolicyType,
 		ProtectedItemDataID:              a.ProtectedItemDataID,
 		ProtectedItemType:                a.ProtectedItemType,
 		ProtectionState:                  a.ProtectionState,
@@ -1282,6 +1290,9 @@ type AzureIaaSVMProtectedItem struct {
 
 	// READ-ONLY; Timestamp of the last backup operation on this backup item.
 	LastBackupTime *time.Time
+
+	// READ-ONLY; Type of the policy used for protection
+	PolicyType *string
 
 	// READ-ONLY; Data ID of the protected item.
 	ProtectedItemDataID *string
@@ -1713,6 +1724,9 @@ type AzureStorageContainer struct {
 
 	// Status of health of the container.
 	HealthStatus *string
+
+	// Re-Do Operation
+	OperationType *OperationType
 
 	// Type of the protectable object associated with this container
 	ProtectableObjectType *string
