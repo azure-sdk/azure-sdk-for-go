@@ -438,60 +438,6 @@ func (client *FactoriesClient) getGitHubAccessTokenHandleResponse(resp *http.Res
 	return result, nil
 }
 
-// NewListPager - Lists factories under the specified subscription.
-//
-// Generated from API version 2018-06-01
-//   - options - FactoriesClientListOptions contains the optional parameters for the FactoriesClient.NewListPager method.
-func (client *FactoriesClient) NewListPager(options *FactoriesClientListOptions) *runtime.Pager[FactoriesClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[FactoriesClientListResponse]{
-		More: func(page FactoriesClientListResponse) bool {
-			return page.NextLink != nil && len(*page.NextLink) > 0
-		},
-		Fetcher: func(ctx context.Context, page *FactoriesClientListResponse) (FactoriesClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "FactoriesClient.NewListPager")
-			nextLink := ""
-			if page != nil {
-				nextLink = *page.NextLink
-			}
-			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, options)
-			}, nil)
-			if err != nil {
-				return FactoriesClientListResponse{}, err
-			}
-			return client.listHandleResponse(resp)
-		},
-		Tracer: client.internal.Tracer(),
-	})
-}
-
-// listCreateRequest creates the List request.
-func (client *FactoriesClient) listCreateRequest(ctx context.Context, options *FactoriesClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.DataFactory/factories"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-01")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, nil
-}
-
-// listHandleResponse handles the List response.
-func (client *FactoriesClient) listHandleResponse(resp *http.Response) (FactoriesClientListResponse, error) {
-	result := FactoriesClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.FactoryListResponse); err != nil {
-		return FactoriesClientListResponse{}, err
-	}
-	return result, nil
-}
-
 // NewListByResourceGroupPager - Lists factories.
 //
 // Generated from API version 2018-06-01

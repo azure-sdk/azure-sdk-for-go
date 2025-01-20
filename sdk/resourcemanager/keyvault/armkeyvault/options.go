@@ -215,12 +215,6 @@ type SecretsClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
-// VaultsClientBeginCreateOrUpdateOptions contains the optional parameters for the VaultsClient.BeginCreateOrUpdate method.
-type VaultsClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
 // VaultsClientBeginPurgeDeletedOptions contains the optional parameters for the VaultsClient.BeginPurgeDeleted method.
 type VaultsClientBeginPurgeDeletedOptions struct {
 	// Resumes the LRO from the provided token.
@@ -232,18 +226,8 @@ type VaultsClientCheckNameAvailabilityOptions struct {
 	// placeholder for future optional parameters
 }
 
-// VaultsClientDeleteOptions contains the optional parameters for the VaultsClient.Delete method.
-type VaultsClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
 // VaultsClientGetDeletedOptions contains the optional parameters for the VaultsClient.GetDeleted method.
 type VaultsClientGetDeletedOptions struct {
-	// placeholder for future optional parameters
-}
-
-// VaultsClientGetOptions contains the optional parameters for the VaultsClient.Get method.
-type VaultsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -274,10 +258,5 @@ type VaultsClientListOptions struct {
 
 // VaultsClientUpdateAccessPolicyOptions contains the optional parameters for the VaultsClient.UpdateAccessPolicy method.
 type VaultsClientUpdateAccessPolicyOptions struct {
-	// placeholder for future optional parameters
-}
-
-// VaultsClientUpdateOptions contains the optional parameters for the VaultsClient.Update method.
-type VaultsClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
