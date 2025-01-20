@@ -10,7 +10,7 @@ package armdatafactory
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datafactory/armdatafactory"
-	moduleVersion = "v9.1.0"
+	moduleVersion = "v9.2.0"
 )
 
 // ActivityOnInactiveMarkAs - Status result of the activity when the state is set to Inactive. This is an optional property
@@ -657,6 +657,20 @@ func PossibleGoogleBigQueryV2AuthenticationTypeValues() []GoogleBigQueryV2Authen
 	return []GoogleBigQueryV2AuthenticationType{
 		GoogleBigQueryV2AuthenticationTypeServiceAuthentication,
 		GoogleBigQueryV2AuthenticationTypeUserAuthentication,
+	}
+}
+
+// GreenplumAuthenticationType - The authentication type to use. Type: string. Only used for V2.
+type GreenplumAuthenticationType string
+
+const (
+	GreenplumAuthenticationTypeBasic GreenplumAuthenticationType = "Basic"
+)
+
+// PossibleGreenplumAuthenticationTypeValues returns the possible values for the GreenplumAuthenticationType const type.
+func PossibleGreenplumAuthenticationTypeValues() []GreenplumAuthenticationType {
+	return []GreenplumAuthenticationType{
+		GreenplumAuthenticationTypeBasic,
 	}
 }
 

@@ -14049,15 +14049,45 @@ func (g *GreenplumLinkedService) GetLinkedService() *LinkedService {
 
 // GreenplumLinkedServiceTypeProperties - Greenplum Database linked service properties.
 type GreenplumLinkedServiceTypeProperties struct {
+	// The authentication type to use. Type: string. Only used for V2.
+	AuthenticationType *GreenplumAuthenticationType
+
+	// The time to wait (in seconds) while trying to execute a command before terminating the attempt and generating an error.
+	// Set to zero for infinity. Type: integer. Only used for V2.
+	CommandTimeout any
+
 	// An ODBC connection string. Type: string, SecureString or AzureKeyVaultSecretReference.
 	ConnectionString any
+
+	// The time to wait (in seconds) while trying to establish a connection before terminating the attempt and generating an error.
+	// Type: integer. Only used for V2.
+	ConnectionTimeout any
+
+	// Database name for connection. Type: string. Only used for V2.
+	Database any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
 	// Type: string.
 	EncryptedCredential *string
 
+	// Host name for connection. Type: string. Only used for V2.
+	Host any
+
+	// The Azure key vault secret reference of password in connection string. Type: string. Only used for V2.
+	Password SecretBaseClassification
+
+	// The port for the connection. Type: integer. Only used for V2.
+	Port any
+
 	// The Azure key vault secret reference of password in connection string.
 	Pwd *AzureKeyVaultSecretReference
+
+	// SSL mode for connection. Type: integer. 0: disable, 1:allow, 2: prefer, 3: require, 4: verify-ca, 5: verify-full. Type:
+	// integer. Only used for V2.
+	SSLMode any
+
+	// Username for authentication. Type: string. Only used for V2.
+	Username any
 }
 
 // GreenplumSource - A copy activity Greenplum Database source.
@@ -27191,8 +27221,8 @@ type SapOdpLinkedServiceTypeProperties struct {
 	// resultType string).
 	SncLibraryPath any
 
-	// SNC activation indicator to access the SAP server where the table is located. Must be either 0 (off) or 1 (on). Type: string
-	// (or Expression with resultType string).
+	// SNC activation flag (Boolean) to access the SAP server where the table is located. Type: boolean (or Expression with resultType
+	// boolean).
 	SncMode any
 
 	// Initiator's SNC name to access the SAP server where the table is located. Type: string (or Expression with resultType string).
@@ -27641,8 +27671,8 @@ type SapTableLinkedServiceTypeProperties struct {
 	// resultType string).
 	SncLibraryPath any
 
-	// SNC activation indicator to access the SAP server where the table is located. Must be either 0 (off) or 1 (on). Type: string
-	// (or Expression with resultType string).
+	// SNC activation flag (Boolean) to access the SAP server where the table is located. Type: boolean (or Expression with resultType
+	// boolean).
 	SncMode any
 
 	// Initiator's SNC name to access the SAP server where the table is located. Type: string (or Expression with resultType string).
@@ -28021,6 +28051,11 @@ type ScriptActivityScriptBlock struct {
 type ScriptActivityTypeProperties struct {
 	// Log settings of script activity.
 	LogSettings *ScriptActivityTypePropertiesLogSettings
+
+	// Enable to retrieve result sets from multiple SQL statements and the number of rows affected by the DML statement. Supported
+	// connector: SnowflakeV2. Type: boolean (or Expression with resultType
+	// boolean).
+	ReturnMultistatementResult any
 
 	// ScriptBlock execution timeout. Type: string (or Expression with resultType string), pattern: ((\d+).)?(\d\d):(60|([0-5][0-9])):(60|([0-5][0-9])).
 	ScriptBlockExecutionTimeout any
