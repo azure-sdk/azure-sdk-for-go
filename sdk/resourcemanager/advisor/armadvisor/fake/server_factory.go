@@ -20,9 +20,11 @@ import (
 // ServerFactory is a fake server for instances of the armadvisor.ClientFactory type.
 type ServerFactory struct {
 	ConfigurationsServer         ConfigurationsServer
+	ManagementServer             ManagementServer
 	OperationsServer             OperationsServer
 	RecommendationMetadataServer RecommendationMetadataServer
 	RecommendationsServer        RecommendationsServer
+	ScoresServer                 ScoresServer
 	SuppressionsServer           SuppressionsServer
 }
 
@@ -41,9 +43,11 @@ type ServerFactoryTransport struct {
 	srv                            *ServerFactory
 	trMu                           sync.Mutex
 	trConfigurationsServer         *ConfigurationsServerTransport
+	trManagementServer             *ManagementServerTransport
 	trOperationsServer             *OperationsServerTransport
 	trRecommendationMetadataServer *RecommendationMetadataServerTransport
 	trRecommendationsServer        *RecommendationsServerTransport
+	trScoresServer                 *ScoresServerTransport
 	trSuppressionsServer           *SuppressionsServerTransport
 }
 
@@ -65,6 +69,9 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewConfigurationsServerTransport(&s.srv.ConfigurationsServer)
 		})
 		resp, err = s.trConfigurationsServer.Do(req)
+	case "ManagementClient":
+		initServer(s, &s.trManagementServer, func() *ManagementServerTransport { return NewManagementServerTransport(&s.srv.ManagementServer) })
+		resp, err = s.trManagementServer.Do(req)
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
@@ -78,6 +85,9 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewRecommendationsServerTransport(&s.srv.RecommendationsServer)
 		})
 		resp, err = s.trRecommendationsServer.Do(req)
+	case "ScoresClient":
+		initServer(s, &s.trScoresServer, func() *ScoresServerTransport { return NewScoresServerTransport(&s.srv.ScoresServer) })
+		resp, err = s.trScoresServer.Do(req)
 	case "SuppressionsClient":
 		initServer(s, &s.trSuppressionsServer, func() *SuppressionsServerTransport { return NewSuppressionsServerTransport(&s.srv.SuppressionsServer) })
 		resp, err = s.trSuppressionsServer.Do(req)
