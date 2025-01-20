@@ -1235,18 +1235,6 @@ type VaultCheckNameAvailabilityParameters struct {
 	Type *string
 }
 
-// VaultCreateOrUpdateParameters - Parameters for creating or updating a vault
-type VaultCreateOrUpdateParameters struct {
-	// REQUIRED; The supported Azure location where the key vault should be created.
-	Location *string
-
-	// REQUIRED; Properties of the vault
-	Properties *VaultProperties
-
-	// The tags that will be assigned to the key vault.
-	Tags map[string]*string
-}
-
 // VaultListResult - List of vaults
 type VaultListResult struct {
 	// The URL to get the next set of vaults.
@@ -1254,71 +1242,6 @@ type VaultListResult struct {
 
 	// The list of vaults.
 	Value []*Vault
-}
-
-// VaultPatchParameters - Parameters for creating or updating a vault
-type VaultPatchParameters struct {
-	// Properties of the vault
-	Properties *VaultPatchProperties
-
-	// The tags that will be assigned to the key vault.
-	Tags map[string]*string
-}
-
-// VaultPatchProperties - Properties of the vault
-type VaultPatchProperties struct {
-	// An array of 0 to 16 identities that have access to the key vault. All identities in the array must use the same tenant
-	// ID as the key vault's tenant ID.
-	AccessPolicies []*AccessPolicyEntry
-
-	// The vault's create mode to indicate whether the vault need to be recovered or not.
-	CreateMode *CreateMode
-
-	// Property specifying whether protection against purge is enabled for this vault. Setting this property to true activates
-	// protection against purge for this vault and its content - only the Key Vault
-	// service may initiate a hard, irrecoverable deletion. The setting is effective only if soft delete is also enabled. Enabling
-	// this functionality is irreversible - that is, the property does not accept
-	// false as its value.
-	EnablePurgeProtection *bool
-
-	// Property that controls how data actions are authorized. When true, the key vault will use Role Based Access Control (RBAC)
-	// for authorization of data actions, and the access policies specified in vault
-	// properties will be ignored. When false, the key vault will use the access policies specified in vault properties, and any
-	// policy stored on Azure Resource Manager will be ignored. If null or not
-	// specified, the value of this property will not change.
-	EnableRbacAuthorization *bool
-
-	// Property to specify whether the 'soft delete' functionality is enabled for this key vault. Once set to true, it cannot
-	// be reverted to false.
-	EnableSoftDelete *bool
-
-	// Property to specify whether Azure Virtual Machines are permitted to retrieve certificates stored as secrets from the key
-	// vault.
-	EnabledForDeployment *bool
-
-	// Property to specify whether Azure Disk Encryption is permitted to retrieve secrets from the vault and unwrap keys.
-	EnabledForDiskEncryption *bool
-
-	// Property to specify whether Azure Resource Manager is permitted to retrieve secrets from the key vault.
-	EnabledForTemplateDeployment *bool
-
-	// A collection of rules governing the accessibility of the vault from specific network locations.
-	NetworkACLs *NetworkRuleSet
-
-	// Property to specify whether the vault will accept traffic from public internet. If set to 'disabled' all traffic except
-	// private endpoint traffic and that that originates from trusted services will be
-	// blocked. This will override the set firewall rules, meaning that even if the firewall rules are present we will not honor
-	// the rules.
-	PublicNetworkAccess *string
-
-	// SKU details
-	SKU *SKU
-
-	// softDelete data retention days. It accepts >=7 and <=90.
-	SoftDeleteRetentionInDays *int32
-
-	// The Azure Active Directory tenant ID that should be used for authenticating requests to the key vault.
-	TenantID *string
 }
 
 // VaultProperties - Properties of the vault
