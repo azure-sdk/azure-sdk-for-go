@@ -253,6 +253,8 @@ func unmarshalCopySinkClassification(rawMsg json.RawMessage) (CopySinkClassifica
 		b = &SQLServerSink{}
 	case "SqlSink":
 		b = &SQLSink{}
+	case "TeradataSink":
+		b = &TeradataSink{}
 	case "WarehouseSink":
 		b = &WarehouseSink{}
 	default:
