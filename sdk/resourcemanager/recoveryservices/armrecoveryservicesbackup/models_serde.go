@@ -783,6 +783,7 @@ func (a AzureIaaSClassicComputeVMProtectedItem) MarshalJSON() ([]byte, error) {
 	populateDateTimeRFC3339(objectMap, "lastRecoveryPoint", a.LastRecoveryPoint)
 	populate(objectMap, "policyId", a.PolicyID)
 	populate(objectMap, "policyName", a.PolicyName)
+	populate(objectMap, "policyType", a.PolicyType)
 	populate(objectMap, "protectedItemDataId", a.ProtectedItemDataID)
 	objectMap["protectedItemType"] = "Microsoft.ClassicCompute/virtualMachines"
 	populate(objectMap, "protectionState", a.ProtectionState)
@@ -867,6 +868,9 @@ func (a *AzureIaaSClassicComputeVMProtectedItem) UnmarshalJSON(data []byte) erro
 			delete(rawMsg, key)
 		case "policyName":
 			err = unpopulate(val, "PolicyName", &a.PolicyName)
+			delete(rawMsg, key)
+		case "policyType":
+			err = unpopulate(val, "PolicyType", &a.PolicyType)
 			delete(rawMsg, key)
 		case "protectedItemDataId":
 			err = unpopulate(val, "ProtectedItemDataID", &a.ProtectedItemDataID)
@@ -1044,6 +1048,7 @@ func (a AzureIaaSComputeVMProtectedItem) MarshalJSON() ([]byte, error) {
 	populateDateTimeRFC3339(objectMap, "lastRecoveryPoint", a.LastRecoveryPoint)
 	populate(objectMap, "policyId", a.PolicyID)
 	populate(objectMap, "policyName", a.PolicyName)
+	populate(objectMap, "policyType", a.PolicyType)
 	populate(objectMap, "protectedItemDataId", a.ProtectedItemDataID)
 	objectMap["protectedItemType"] = "Microsoft.Compute/virtualMachines"
 	populate(objectMap, "protectionState", a.ProtectionState)
@@ -1128,6 +1133,9 @@ func (a *AzureIaaSComputeVMProtectedItem) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "policyName":
 			err = unpopulate(val, "PolicyName", &a.PolicyName)
+			delete(rawMsg, key)
+		case "policyType":
+			err = unpopulate(val, "PolicyType", &a.PolicyType)
 			delete(rawMsg, key)
 		case "protectedItemDataId":
 			err = unpopulate(val, "ProtectedItemDataID", &a.ProtectedItemDataID)
@@ -1533,6 +1541,7 @@ func (a AzureIaaSVMProtectedItem) MarshalJSON() ([]byte, error) {
 	populateDateTimeRFC3339(objectMap, "lastRecoveryPoint", a.LastRecoveryPoint)
 	populate(objectMap, "policyId", a.PolicyID)
 	populate(objectMap, "policyName", a.PolicyName)
+	populate(objectMap, "policyType", a.PolicyType)
 	populate(objectMap, "protectedItemDataId", a.ProtectedItemDataID)
 	objectMap["protectedItemType"] = "AzureIaaSVMProtectedItem"
 	populate(objectMap, "protectionState", a.ProtectionState)
@@ -1617,6 +1626,9 @@ func (a *AzureIaaSVMProtectedItem) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "policyName":
 			err = unpopulate(val, "PolicyName", &a.PolicyName)
+			delete(rawMsg, key)
+		case "policyType":
+			err = unpopulate(val, "PolicyType", &a.PolicyType)
 			delete(rawMsg, key)
 		case "protectedItemDataId":
 			err = unpopulate(val, "ProtectedItemDataID", &a.ProtectedItemDataID)
@@ -2175,6 +2187,7 @@ func (a AzureStorageContainer) MarshalJSON() ([]byte, error) {
 	objectMap["containerType"] = ProtectableContainerTypeStorageContainer
 	populate(objectMap, "friendlyName", a.FriendlyName)
 	populate(objectMap, "healthStatus", a.HealthStatus)
+	populate(objectMap, "operationType", a.OperationType)
 	populate(objectMap, "protectableObjectType", a.ProtectableObjectType)
 	populate(objectMap, "protectedItemCount", a.ProtectedItemCount)
 	populate(objectMap, "registrationStatus", a.RegistrationStatus)
@@ -2207,6 +2220,9 @@ func (a *AzureStorageContainer) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "healthStatus":
 			err = unpopulate(val, "HealthStatus", &a.HealthStatus)
+			delete(rawMsg, key)
+		case "operationType":
+			err = unpopulate(val, "OperationType", &a.OperationType)
 			delete(rawMsg, key)
 		case "protectableObjectType":
 			err = unpopulate(val, "ProtectableObjectType", &a.ProtectableObjectType)
