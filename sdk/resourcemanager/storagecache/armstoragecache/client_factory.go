@@ -60,6 +60,14 @@ func (c *ClientFactory) NewAscUsagesClient() *AscUsagesClient {
 	}
 }
 
+// NewAutoExportJobsClient creates a new instance of AutoExportJobsClient.
+func (c *ClientFactory) NewAutoExportJobsClient() *AutoExportJobsClient {
+	return &AutoExportJobsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewCachesClient creates a new instance of CachesClient.
 func (c *ClientFactory) NewCachesClient() *CachesClient {
 	return &CachesClient{
