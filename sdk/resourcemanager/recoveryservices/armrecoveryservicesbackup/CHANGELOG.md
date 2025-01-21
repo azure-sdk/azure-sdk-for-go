@@ -1,5 +1,15 @@
 # Release History
 
+## 4.2.0 (2025-01-21)
+### Features Added
+
+- New value `OperationTypeRehydrate` added to enum type `OperationType`
+- New field `PolicyType` in struct `AzureIaaSClassicComputeVMProtectedItem`
+- New field `PolicyType` in struct `AzureIaaSComputeVMProtectedItem`
+- New field `PolicyType` in struct `AzureIaaSVMProtectedItem`
+- New field `OperationType` in struct `AzureStorageContainer`
+
+
 ## 4.1.0 (2024-05-24)
 ### Features Added
 
