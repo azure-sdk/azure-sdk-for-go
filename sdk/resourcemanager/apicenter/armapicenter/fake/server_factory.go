@@ -20,8 +20,11 @@ import (
 // ServerFactory is a fake server for instances of the armapicenter.ClientFactory type.
 type ServerFactory struct {
 	APIDefinitionsServer  APIDefinitionsServer
+	APISourcesServer      APISourcesServer
 	APIVersionsServer     APIVersionsServer
+	AnalyzerConfigsServer AnalyzerConfigsServer
 	ApisServer            ApisServer
+	DeletedServicesServer DeletedServicesServer
 	DeploymentsServer     DeploymentsServer
 	EnvironmentsServer    EnvironmentsServer
 	MetadataSchemasServer MetadataSchemasServer
@@ -45,8 +48,11 @@ type ServerFactoryTransport struct {
 	srv                     *ServerFactory
 	trMu                    sync.Mutex
 	trAPIDefinitionsServer  *APIDefinitionsServerTransport
+	trAPISourcesServer      *APISourcesServerTransport
 	trAPIVersionsServer     *APIVersionsServerTransport
+	trAnalyzerConfigsServer *AnalyzerConfigsServerTransport
 	trApisServer            *ApisServerTransport
+	trDeletedServicesServer *DeletedServicesServerTransport
 	trDeploymentsServer     *DeploymentsServerTransport
 	trEnvironmentsServer    *EnvironmentsServerTransport
 	trMetadataSchemasServer *MetadataSchemasServerTransport
@@ -73,12 +79,25 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewAPIDefinitionsServerTransport(&s.srv.APIDefinitionsServer)
 		})
 		resp, err = s.trAPIDefinitionsServer.Do(req)
+	case "APISourcesClient":
+		initServer(s, &s.trAPISourcesServer, func() *APISourcesServerTransport { return NewAPISourcesServerTransport(&s.srv.APISourcesServer) })
+		resp, err = s.trAPISourcesServer.Do(req)
 	case "APIVersionsClient":
 		initServer(s, &s.trAPIVersionsServer, func() *APIVersionsServerTransport { return NewAPIVersionsServerTransport(&s.srv.APIVersionsServer) })
 		resp, err = s.trAPIVersionsServer.Do(req)
+	case "AnalyzerConfigsClient":
+		initServer(s, &s.trAnalyzerConfigsServer, func() *AnalyzerConfigsServerTransport {
+			return NewAnalyzerConfigsServerTransport(&s.srv.AnalyzerConfigsServer)
+		})
+		resp, err = s.trAnalyzerConfigsServer.Do(req)
 	case "ApisClient":
 		initServer(s, &s.trApisServer, func() *ApisServerTransport { return NewApisServerTransport(&s.srv.ApisServer) })
 		resp, err = s.trApisServer.Do(req)
+	case "DeletedServicesClient":
+		initServer(s, &s.trDeletedServicesServer, func() *DeletedServicesServerTransport {
+			return NewDeletedServicesServerTransport(&s.srv.DeletedServicesServer)
+		})
+		resp, err = s.trDeletedServicesServer.Do(req)
 	case "DeploymentsClient":
 		initServer(s, &s.trDeploymentsServer, func() *DeploymentsServerTransport { return NewDeploymentsServerTransport(&s.srv.DeploymentsServer) })
 		resp, err = s.trDeploymentsServer.Do(req)
