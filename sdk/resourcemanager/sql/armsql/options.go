@@ -2161,13 +2161,6 @@ type ManagedInstancesClientBeginFailoverOptions struct {
 	ResumeToken string
 }
 
-// ManagedInstancesClientBeginRefreshStatusOptions contains the optional parameters for the ManagedInstancesClient.BeginRefreshStatus
-// method.
-type ManagedInstancesClientBeginRefreshStatusOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
 // ManagedInstancesClientBeginStartOptions contains the optional parameters for the ManagedInstancesClient.BeginStart method.
 type ManagedInstancesClientBeginStartOptions struct {
 	// Resumes the LRO from the provided token.
