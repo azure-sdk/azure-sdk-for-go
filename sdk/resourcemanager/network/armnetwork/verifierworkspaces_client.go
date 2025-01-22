@@ -48,7 +48,7 @@ func NewVerifierWorkspacesClient(subscriptionID string, credential azcore.TokenC
 // Create - Creates Verifier Workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01
+// Generated from API version 2024-07-01
 //   - resourceGroupName - The name of the resource group.
 //   - networkManagerName - The name of the network manager.
 //   - workspaceName - Workspace name.
@@ -101,7 +101,7 @@ func (client *VerifierWorkspacesClient) createCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01")
+	reqQP.Set("api-version", "2024-07-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -122,7 +122,7 @@ func (client *VerifierWorkspacesClient) createHandleResponse(resp *http.Response
 // BeginDelete - Deletes Verifier Workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01
+// Generated from API version 2024-07-01
 //   - resourceGroupName - The name of the resource group.
 //   - networkManagerName - The name of the network manager.
 //   - workspaceName - Workspace name.
@@ -149,7 +149,7 @@ func (client *VerifierWorkspacesClient) BeginDelete(ctx context.Context, resourc
 // Delete - Deletes Verifier Workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01
+// Generated from API version 2024-07-01
 func (client *VerifierWorkspacesClient) deleteOperation(ctx context.Context, resourceGroupName string, networkManagerName string, workspaceName string, options *VerifierWorkspacesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "VerifierWorkspacesClient.BeginDelete"
@@ -195,7 +195,7 @@ func (client *VerifierWorkspacesClient) deleteCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01")
+	reqQP.Set("api-version", "2024-07-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -204,7 +204,7 @@ func (client *VerifierWorkspacesClient) deleteCreateRequest(ctx context.Context,
 // Get - Gets Verifier Workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01
+// Generated from API version 2024-07-01
 //   - resourceGroupName - The name of the resource group.
 //   - networkManagerName - The name of the network manager.
 //   - workspaceName - Workspace name.
@@ -255,7 +255,7 @@ func (client *VerifierWorkspacesClient) getCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01")
+	reqQP.Set("api-version", "2024-07-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -272,7 +272,7 @@ func (client *VerifierWorkspacesClient) getHandleResponse(resp *http.Response) (
 
 // NewListPager - Gets list of Verifier Workspaces.
 //
-// Generated from API version 2024-05-01
+// Generated from API version 2024-07-01
 //   - resourceGroupName - The name of the resource group.
 //   - networkManagerName - The name of the network manager.
 //   - options - VerifierWorkspacesClientListOptions contains the optional parameters for the VerifierWorkspacesClient.NewListPager
@@ -320,7 +320,7 @@ func (client *VerifierWorkspacesClient) listCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01")
+	reqQP.Set("api-version", "2024-07-01")
 	if options != nil && options.Skip != nil {
 		reqQP.Set("skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
@@ -353,7 +353,7 @@ func (client *VerifierWorkspacesClient) listHandleResponse(resp *http.Response) 
 // Update - Updates Verifier Workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01
+// Generated from API version 2024-07-01
 //   - resourceGroupName - The name of the resource group.
 //   - networkManagerName - The name of the network manager.
 //   - workspaceName - Workspace name.
@@ -405,7 +405,7 @@ func (client *VerifierWorkspacesClient) updateCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01")
+	reqQP.Set("api-version", "2024-07-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Body != nil {
