@@ -23931,9 +23931,18 @@ func (g *GreenplumLinkedService) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type GreenplumLinkedServiceTypeProperties.
 func (g GreenplumLinkedServiceTypeProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "authenticationType", g.AuthenticationType)
+	populateAny(objectMap, "commandTimeout", g.CommandTimeout)
 	populateAny(objectMap, "connectionString", g.ConnectionString)
+	populateAny(objectMap, "connectionTimeout", g.ConnectionTimeout)
+	populateAny(objectMap, "database", g.Database)
 	populate(objectMap, "encryptedCredential", g.EncryptedCredential)
+	populateAny(objectMap, "host", g.Host)
+	populate(objectMap, "password", g.Password)
+	populateAny(objectMap, "port", g.Port)
 	populate(objectMap, "pwd", g.Pwd)
+	populateAny(objectMap, "sslMode", g.SSLMode)
+	populateAny(objectMap, "username", g.Username)
 	return json.Marshal(objectMap)
 }
 
@@ -23946,14 +23955,41 @@ func (g *GreenplumLinkedServiceTypeProperties) UnmarshalJSON(data []byte) error 
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "authenticationType":
+			err = unpopulate(val, "AuthenticationType", &g.AuthenticationType)
+			delete(rawMsg, key)
+		case "commandTimeout":
+			err = unpopulate(val, "CommandTimeout", &g.CommandTimeout)
+			delete(rawMsg, key)
 		case "connectionString":
 			err = unpopulate(val, "ConnectionString", &g.ConnectionString)
+			delete(rawMsg, key)
+		case "connectionTimeout":
+			err = unpopulate(val, "ConnectionTimeout", &g.ConnectionTimeout)
+			delete(rawMsg, key)
+		case "database":
+			err = unpopulate(val, "Database", &g.Database)
 			delete(rawMsg, key)
 		case "encryptedCredential":
 			err = unpopulate(val, "EncryptedCredential", &g.EncryptedCredential)
 			delete(rawMsg, key)
+		case "host":
+			err = unpopulate(val, "Host", &g.Host)
+			delete(rawMsg, key)
+		case "password":
+			g.Password, err = unmarshalSecretBaseClassification(val)
+			delete(rawMsg, key)
+		case "port":
+			err = unpopulate(val, "Port", &g.Port)
+			delete(rawMsg, key)
 		case "pwd":
 			err = unpopulate(val, "Pwd", &g.Pwd)
+			delete(rawMsg, key)
+		case "sslMode":
+			err = unpopulate(val, "SSLMode", &g.SSLMode)
+			delete(rawMsg, key)
+		case "username":
+			err = unpopulate(val, "Username", &g.Username)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -48273,6 +48309,7 @@ func (s *ScriptActivityScriptBlock) UnmarshalJSON(data []byte) error {
 func (s ScriptActivityTypeProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "logSettings", s.LogSettings)
+	populateAny(objectMap, "returnMultistatementResult", s.ReturnMultistatementResult)
 	populateAny(objectMap, "scriptBlockExecutionTimeout", s.ScriptBlockExecutionTimeout)
 	populate(objectMap, "scripts", s.Scripts)
 	return json.Marshal(objectMap)
@@ -48289,6 +48326,9 @@ func (s *ScriptActivityTypeProperties) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "logSettings":
 			err = unpopulate(val, "LogSettings", &s.LogSettings)
+			delete(rawMsg, key)
+		case "returnMultistatementResult":
+			err = unpopulate(val, "ReturnMultistatementResult", &s.ReturnMultistatementResult)
 			delete(rawMsg, key)
 		case "scriptBlockExecutionTimeout":
 			err = unpopulate(val, "ScriptBlockExecutionTimeout", &s.ScriptBlockExecutionTimeout)
@@ -53671,6 +53711,52 @@ func (t *TeamDeskLinkedServiceTypeProperties) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type TeradataImportCommand.
+func (t TeradataImportCommand) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populateAny(objectMap, "additionalFormatOptions", t.AdditionalFormatOptions)
+	objectMap["type"] = "TeradataImportCommand"
+	if t.AdditionalProperties != nil {
+		for key, val := range t.AdditionalProperties {
+			objectMap[key] = val
+		}
+	}
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type TeradataImportCommand.
+func (t *TeradataImportCommand) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", t, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "additionalFormatOptions":
+			err = unpopulate(val, "AdditionalFormatOptions", &t.AdditionalFormatOptions)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &t.Type)
+			delete(rawMsg, key)
+		default:
+			if t.AdditionalProperties == nil {
+				t.AdditionalProperties = map[string]any{}
+			}
+			if val != nil {
+				var aux any
+				err = json.Unmarshal(val, &aux)
+				t.AdditionalProperties[key] = aux
+			}
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", t, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type TeradataLinkedService.
 func (t TeradataLinkedService) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -53741,10 +53827,16 @@ func (t *TeradataLinkedService) UnmarshalJSON(data []byte) error {
 func (t TeradataLinkedServiceTypeProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "authenticationType", t.AuthenticationType)
+	populateAny(objectMap, "characterSet", t.CharacterSet)
 	populateAny(objectMap, "connectionString", t.ConnectionString)
 	populate(objectMap, "encryptedCredential", t.EncryptedCredential)
+	populateAny(objectMap, "httpsPortNumber", t.HTTPSPortNumber)
+	populateAny(objectMap, "maxRespSize", t.MaxRespSize)
 	populate(objectMap, "password", t.Password)
+	populateAny(objectMap, "portNumber", t.PortNumber)
+	populateAny(objectMap, "sslMode", t.SSLMode)
 	populateAny(objectMap, "server", t.Server)
+	populateAny(objectMap, "useDataEncryption", t.UseDataEncryption)
 	populateAny(objectMap, "username", t.Username)
 	return json.Marshal(objectMap)
 }
@@ -53761,17 +53853,35 @@ func (t *TeradataLinkedServiceTypeProperties) UnmarshalJSON(data []byte) error {
 		case "authenticationType":
 			err = unpopulate(val, "AuthenticationType", &t.AuthenticationType)
 			delete(rawMsg, key)
+		case "characterSet":
+			err = unpopulate(val, "CharacterSet", &t.CharacterSet)
+			delete(rawMsg, key)
 		case "connectionString":
 			err = unpopulate(val, "ConnectionString", &t.ConnectionString)
 			delete(rawMsg, key)
 		case "encryptedCredential":
 			err = unpopulate(val, "EncryptedCredential", &t.EncryptedCredential)
 			delete(rawMsg, key)
+		case "httpsPortNumber":
+			err = unpopulate(val, "HTTPSPortNumber", &t.HTTPSPortNumber)
+			delete(rawMsg, key)
+		case "maxRespSize":
+			err = unpopulate(val, "MaxRespSize", &t.MaxRespSize)
+			delete(rawMsg, key)
 		case "password":
 			t.Password, err = unmarshalSecretBaseClassification(val)
 			delete(rawMsg, key)
+		case "portNumber":
+			err = unpopulate(val, "PortNumber", &t.PortNumber)
+			delete(rawMsg, key)
+		case "sslMode":
+			err = unpopulate(val, "SSLMode", &t.SSLMode)
+			delete(rawMsg, key)
 		case "server":
 			err = unpopulate(val, "Server", &t.Server)
+			delete(rawMsg, key)
+		case "useDataEncryption":
+			err = unpopulate(val, "UseDataEncryption", &t.UseDataEncryption)
 			delete(rawMsg, key)
 		case "username":
 			err = unpopulate(val, "Username", &t.Username)
@@ -53810,6 +53920,76 @@ func (t *TeradataPartitionSettings) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "partitionUpperBound":
 			err = unpopulate(val, "PartitionUpperBound", &t.PartitionUpperBound)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", t, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type TeradataSink.
+func (t TeradataSink) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populateAny(objectMap, "disableMetricsCollection", t.DisableMetricsCollection)
+	populate(objectMap, "importSettings", t.ImportSettings)
+	populateAny(objectMap, "maxConcurrentConnections", t.MaxConcurrentConnections)
+	populateAny(objectMap, "sinkRetryCount", t.SinkRetryCount)
+	populateAny(objectMap, "sinkRetryWait", t.SinkRetryWait)
+	objectMap["type"] = "TeradataSink"
+	populateAny(objectMap, "writeBatchSize", t.WriteBatchSize)
+	populateAny(objectMap, "writeBatchTimeout", t.WriteBatchTimeout)
+	if t.AdditionalProperties != nil {
+		for key, val := range t.AdditionalProperties {
+			objectMap[key] = val
+		}
+	}
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type TeradataSink.
+func (t *TeradataSink) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", t, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "disableMetricsCollection":
+			err = unpopulate(val, "DisableMetricsCollection", &t.DisableMetricsCollection)
+			delete(rawMsg, key)
+		case "importSettings":
+			err = unpopulate(val, "ImportSettings", &t.ImportSettings)
+			delete(rawMsg, key)
+		case "maxConcurrentConnections":
+			err = unpopulate(val, "MaxConcurrentConnections", &t.MaxConcurrentConnections)
+			delete(rawMsg, key)
+		case "sinkRetryCount":
+			err = unpopulate(val, "SinkRetryCount", &t.SinkRetryCount)
+			delete(rawMsg, key)
+		case "sinkRetryWait":
+			err = unpopulate(val, "SinkRetryWait", &t.SinkRetryWait)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &t.Type)
+			delete(rawMsg, key)
+		case "writeBatchSize":
+			err = unpopulate(val, "WriteBatchSize", &t.WriteBatchSize)
+			delete(rawMsg, key)
+		case "writeBatchTimeout":
+			err = unpopulate(val, "WriteBatchTimeout", &t.WriteBatchTimeout)
+			delete(rawMsg, key)
+		default:
+			if t.AdditionalProperties == nil {
+				t.AdditionalProperties = map[string]any{}
+			}
+			if val != nil {
+				var aux any
+				err = json.Unmarshal(val, &aux)
+				t.AdditionalProperties[key] = aux
+			}
 			delete(rawMsg, key)
 		}
 		if err != nil {

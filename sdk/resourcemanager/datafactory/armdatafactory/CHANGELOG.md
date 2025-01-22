@@ -1,5 +1,18 @@
 # Release History
 
+## 9.2.0 (2025-01-22)
+### Features Added
+
+- New enum type `GreenplumAuthenticationType` with values `GreenplumAuthenticationTypeBasic`
+- New function `*TeradataImportCommand.GetImportSettings() *ImportSettings`
+- New function `*TeradataSink.GetCopySink() *CopySink`
+- New struct `TeradataImportCommand`
+- New struct `TeradataSink`
+- New field `AuthenticationType`, `CommandTimeout`, `ConnectionTimeout`, `Database`, `Host`, `Password`, `Port`, `SSLMode`, `Username` in struct `GreenplumLinkedServiceTypeProperties`
+- New field `ReturnMultistatementResult` in struct `ScriptActivityTypeProperties`
+- New field `CharacterSet`, `HTTPSPortNumber`, `MaxRespSize`, `PortNumber`, `SSLMode`, `UseDataEncryption` in struct `TeradataLinkedServiceTypeProperties`
+
+
 ## 9.1.0 (2024-12-26)
 ### Features Added
 
