@@ -26,91 +26,91 @@ import (
 type ReplicationProtectedItemsServer struct {
 	// BeginAddDisks is the fake for method ReplicationProtectedItemsClient.BeginAddDisks
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginAddDisks func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, addDisksInput armrecoveryservicessiterecovery.AddDisksInput, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginAddDisksOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientAddDisksResponse], errResp azfake.ErrorResponder)
+	BeginAddDisks func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, addDisksInput armrecoveryservicessiterecovery.AddDisksInput, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginAddDisksOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientAddDisksResponse], errResp azfake.ErrorResponder)
 
 	// BeginApplyRecoveryPoint is the fake for method ReplicationProtectedItemsClient.BeginApplyRecoveryPoint
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginApplyRecoveryPoint func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, applyRecoveryPointInput armrecoveryservicessiterecovery.ApplyRecoveryPointInput, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginApplyRecoveryPointOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientApplyRecoveryPointResponse], errResp azfake.ErrorResponder)
+	BeginApplyRecoveryPoint func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, applyRecoveryPointInput armrecoveryservicessiterecovery.ApplyRecoveryPointInput, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginApplyRecoveryPointOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientApplyRecoveryPointResponse], errResp azfake.ErrorResponder)
 
 	// BeginCreate is the fake for method ReplicationProtectedItemsClient.BeginCreate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginCreate func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, input armrecoveryservicessiterecovery.EnableProtectionInput, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginCreateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientCreateResponse], errResp azfake.ErrorResponder)
+	BeginCreate func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, input armrecoveryservicessiterecovery.EnableProtectionInput, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginCreateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientCreateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method ReplicationProtectedItemsClient.BeginDelete
 	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
-	BeginDelete func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, disableProtectionInput armrecoveryservicessiterecovery.DisableProtectionInput, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginDeleteOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientDeleteResponse], errResp azfake.ErrorResponder)
+	BeginDelete func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, disableProtectionInput armrecoveryservicessiterecovery.DisableProtectionInput, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginDeleteOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// BeginFailoverCancel is the fake for method ReplicationProtectedItemsClient.BeginFailoverCancel
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginFailoverCancel func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginFailoverCancelOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientFailoverCancelResponse], errResp azfake.ErrorResponder)
+	BeginFailoverCancel func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginFailoverCancelOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientFailoverCancelResponse], errResp azfake.ErrorResponder)
 
 	// BeginFailoverCommit is the fake for method ReplicationProtectedItemsClient.BeginFailoverCommit
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginFailoverCommit func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginFailoverCommitOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientFailoverCommitResponse], errResp azfake.ErrorResponder)
+	BeginFailoverCommit func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginFailoverCommitOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientFailoverCommitResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method ReplicationProtectedItemsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method ReplicationProtectedItemsClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceName string, resourceGroupName string, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientListOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientListResponse])
+	NewListPager func(resourceGroupName string, resourceName string, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientListOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientListResponse])
 
 	// NewListByReplicationProtectionContainersPager is the fake for method ReplicationProtectedItemsClient.NewListByReplicationProtectionContainersPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListByReplicationProtectionContainersPager func(resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientListByReplicationProtectionContainersOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientListByReplicationProtectionContainersResponse])
+	NewListByReplicationProtectionContainersPager func(resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientListByReplicationProtectionContainersOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientListByReplicationProtectionContainersResponse])
 
 	// BeginPlannedFailover is the fake for method ReplicationProtectedItemsClient.BeginPlannedFailover
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginPlannedFailover func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, failoverInput armrecoveryservicessiterecovery.PlannedFailoverInput, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginPlannedFailoverOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientPlannedFailoverResponse], errResp azfake.ErrorResponder)
+	BeginPlannedFailover func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, failoverInput armrecoveryservicessiterecovery.PlannedFailoverInput, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginPlannedFailoverOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientPlannedFailoverResponse], errResp azfake.ErrorResponder)
 
 	// BeginPurge is the fake for method ReplicationProtectedItemsClient.BeginPurge
 	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
-	BeginPurge func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginPurgeOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientPurgeResponse], errResp azfake.ErrorResponder)
+	BeginPurge func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginPurgeOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientPurgeResponse], errResp azfake.ErrorResponder)
 
 	// BeginRemoveDisks is the fake for method ReplicationProtectedItemsClient.BeginRemoveDisks
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginRemoveDisks func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, removeDisksInput armrecoveryservicessiterecovery.RemoveDisksInput, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginRemoveDisksOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientRemoveDisksResponse], errResp azfake.ErrorResponder)
+	BeginRemoveDisks func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, removeDisksInput armrecoveryservicessiterecovery.RemoveDisksInput, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginRemoveDisksOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientRemoveDisksResponse], errResp azfake.ErrorResponder)
 
 	// BeginRepairReplication is the fake for method ReplicationProtectedItemsClient.BeginRepairReplication
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginRepairReplication func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginRepairReplicationOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientRepairReplicationResponse], errResp azfake.ErrorResponder)
+	BeginRepairReplication func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginRepairReplicationOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientRepairReplicationResponse], errResp azfake.ErrorResponder)
 
 	// BeginReprotect is the fake for method ReplicationProtectedItemsClient.BeginReprotect
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginReprotect func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, reprotectInput armrecoveryservicessiterecovery.ReverseReplicationInput, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginReprotectOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientReprotectResponse], errResp azfake.ErrorResponder)
+	BeginReprotect func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, reprotectInput armrecoveryservicessiterecovery.ReverseReplicationInput, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginReprotectOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientReprotectResponse], errResp azfake.ErrorResponder)
 
 	// BeginResolveHealthErrors is the fake for method ReplicationProtectedItemsClient.BeginResolveHealthErrors
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginResolveHealthErrors func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, resolveHealthInput armrecoveryservicessiterecovery.ResolveHealthInput, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginResolveHealthErrorsOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientResolveHealthErrorsResponse], errResp azfake.ErrorResponder)
+	BeginResolveHealthErrors func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, resolveHealthInput armrecoveryservicessiterecovery.ResolveHealthInput, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginResolveHealthErrorsOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientResolveHealthErrorsResponse], errResp azfake.ErrorResponder)
 
 	// BeginSwitchProvider is the fake for method ReplicationProtectedItemsClient.BeginSwitchProvider
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginSwitchProvider func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, switchProviderInput armrecoveryservicessiterecovery.SwitchProviderInput, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginSwitchProviderOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientSwitchProviderResponse], errResp azfake.ErrorResponder)
+	BeginSwitchProvider func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, switchProviderInput armrecoveryservicessiterecovery.SwitchProviderInput, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginSwitchProviderOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientSwitchProviderResponse], errResp azfake.ErrorResponder)
 
 	// BeginTestFailover is the fake for method ReplicationProtectedItemsClient.BeginTestFailover
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginTestFailover func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, testfailoverInput armrecoveryservicessiterecovery.TestFailoverInput, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginTestFailoverOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientTestFailoverResponse], errResp azfake.ErrorResponder)
+	BeginTestFailover func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, testfailoverInput armrecoveryservicessiterecovery.TestFailoverInput, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginTestFailoverOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientTestFailoverResponse], errResp azfake.ErrorResponder)
 
 	// BeginTestFailoverCleanup is the fake for method ReplicationProtectedItemsClient.BeginTestFailoverCleanup
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginTestFailoverCleanup func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, cleanupInput armrecoveryservicessiterecovery.TestFailoverCleanupInput, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginTestFailoverCleanupOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientTestFailoverCleanupResponse], errResp azfake.ErrorResponder)
+	BeginTestFailoverCleanup func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, cleanupInput armrecoveryservicessiterecovery.TestFailoverCleanupInput, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginTestFailoverCleanupOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientTestFailoverCleanupResponse], errResp azfake.ErrorResponder)
 
 	// BeginUnplannedFailover is the fake for method ReplicationProtectedItemsClient.BeginUnplannedFailover
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginUnplannedFailover func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, failoverInput armrecoveryservicessiterecovery.UnplannedFailoverInput, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginUnplannedFailoverOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientUnplannedFailoverResponse], errResp azfake.ErrorResponder)
+	BeginUnplannedFailover func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, failoverInput armrecoveryservicessiterecovery.UnplannedFailoverInput, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginUnplannedFailoverOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientUnplannedFailoverResponse], errResp azfake.ErrorResponder)
 
 	// BeginUpdate is the fake for method ReplicationProtectedItemsClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginUpdate func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, updateProtectionInput armrecoveryservicessiterecovery.UpdateReplicationProtectedItemInput, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginUpdateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientUpdateResponse], errResp azfake.ErrorResponder)
+	BeginUpdate func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, updateProtectionInput armrecoveryservicessiterecovery.UpdateReplicationProtectedItemInput, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginUpdateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginUpdateAppliance is the fake for method ReplicationProtectedItemsClient.BeginUpdateAppliance
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginUpdateAppliance func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, applianceUpdateInput armrecoveryservicessiterecovery.UpdateApplianceForReplicationProtectedItemInput, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginUpdateApplianceOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientUpdateApplianceResponse], errResp azfake.ErrorResponder)
+	BeginUpdateAppliance func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, applianceUpdateInput armrecoveryservicessiterecovery.UpdateApplianceForReplicationProtectedItemInput, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginUpdateApplianceOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientUpdateApplianceResponse], errResp azfake.ErrorResponder)
 
 	// BeginUpdateMobilityService is the fake for method ReplicationProtectedItemsClient.BeginUpdateMobilityService
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginUpdateMobilityService func(ctx context.Context, resourceName string, resourceGroupName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, updateMobilityServiceRequest armrecoveryservicessiterecovery.UpdateMobilityServiceRequest, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginUpdateMobilityServiceOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientUpdateMobilityServiceResponse], errResp azfake.ErrorResponder)
+	BeginUpdateMobilityService func(ctx context.Context, resourceGroupName string, resourceName string, fabricName string, protectionContainerName string, replicatedProtectedItemName string, updateMobilityServiceRequest armrecoveryservicessiterecovery.UpdateMobilityServiceRequest, options *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientBeginUpdateMobilityServiceOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationProtectedItemsClientUpdateMobilityServiceResponse], errResp azfake.ErrorResponder)
 }
 
 // NewReplicationProtectedItemsServerTransport creates a new instance of ReplicationProtectedItemsServerTransport with the provided implementation.
@@ -253,11 +253,11 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginAddDisks(req *ht
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -273,7 +273,7 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginAddDisks(req *ht
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginAddDisks(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
+		respr, errRespr := r.srv.BeginAddDisks(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -313,11 +313,11 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginApplyRecoveryPoi
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -333,7 +333,7 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginApplyRecoveryPoi
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginApplyRecoveryPoint(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
+		respr, errRespr := r.srv.BeginApplyRecoveryPoint(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -373,11 +373,11 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginCreate(req *http
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -393,7 +393,7 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginCreate(req *http
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginCreate(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
+		respr, errRespr := r.srv.BeginCreate(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -433,11 +433,11 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginDelete(req *http
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -453,7 +453,7 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginDelete(req *http
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginDelete(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
+		respr, errRespr := r.srv.BeginDelete(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -489,11 +489,11 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginFailoverCancel(r
 		if matches == nil || len(matches) < 6 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -509,7 +509,7 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginFailoverCancel(r
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginFailoverCancel(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, nil)
+		respr, errRespr := r.srv.BeginFailoverCancel(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -545,11 +545,11 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginFailoverCommit(r
 		if matches == nil || len(matches) < 6 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -565,7 +565,7 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginFailoverCommit(r
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginFailoverCommit(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, nil)
+		respr, errRespr := r.srv.BeginFailoverCommit(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -599,11 +599,11 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchGet(req *http.Request
 	if matches == nil || len(matches) < 6 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 	if err != nil {
 		return nil, err
 	}
@@ -619,7 +619,7 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchGet(req *http.Request
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := r.srv.Get(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, nil)
+	respr, errRespr := r.srv.Get(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -647,11 +647,11 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchNewListPager(req *htt
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		qp := req.URL.Query()
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -672,7 +672,7 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchNewListPager(req *htt
 				Filter:    filterParam,
 			}
 		}
-		resp := r.srv.NewListPager(resourceNameParam, resourceGroupNameParam, options)
+		resp := r.srv.NewListPager(resourceGroupNameParam, resourceNameParam, options)
 		newListPager = &resp
 		r.newListPager.add(req, newListPager)
 		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientListResponse, createLink func() string) {
@@ -705,11 +705,11 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchNewListByReplicationP
 		if matches == nil || len(matches) < 5 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -721,7 +721,7 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchNewListByReplicationP
 		if err != nil {
 			return nil, err
 		}
-		resp := r.srv.NewListByReplicationProtectionContainersPager(resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, nil)
+		resp := r.srv.NewListByReplicationProtectionContainersPager(resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, nil)
 		newListByReplicationProtectionContainersPager = &resp
 		r.newListByReplicationProtectionContainersPager.add(req, newListByReplicationProtectionContainersPager)
 		server.PagerResponderInjectNextLinks(newListByReplicationProtectionContainersPager, req, func(page *armrecoveryservicessiterecovery.ReplicationProtectedItemsClientListByReplicationProtectionContainersResponse, createLink func() string) {
@@ -758,11 +758,11 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginPlannedFailover(
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -778,7 +778,7 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginPlannedFailover(
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginPlannedFailover(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
+		respr, errRespr := r.srv.BeginPlannedFailover(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -814,11 +814,11 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginPurge(req *http.
 		if matches == nil || len(matches) < 6 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -834,7 +834,7 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginPurge(req *http.
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginPurge(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, nil)
+		respr, errRespr := r.srv.BeginPurge(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -874,11 +874,11 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginRemoveDisks(req 
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -894,7 +894,7 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginRemoveDisks(req 
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginRemoveDisks(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
+		respr, errRespr := r.srv.BeginRemoveDisks(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -930,11 +930,11 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginRepairReplicatio
 		if matches == nil || len(matches) < 6 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -950,7 +950,7 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginRepairReplicatio
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginRepairReplication(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, nil)
+		respr, errRespr := r.srv.BeginRepairReplication(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -990,11 +990,11 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginReprotect(req *h
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -1010,7 +1010,7 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginReprotect(req *h
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginReprotect(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
+		respr, errRespr := r.srv.BeginReprotect(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -1050,11 +1050,11 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginResolveHealthErr
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -1070,7 +1070,7 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginResolveHealthErr
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginResolveHealthErrors(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
+		respr, errRespr := r.srv.BeginResolveHealthErrors(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -1110,11 +1110,11 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginSwitchProvider(r
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -1130,7 +1130,7 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginSwitchProvider(r
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginSwitchProvider(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
+		respr, errRespr := r.srv.BeginSwitchProvider(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -1170,11 +1170,11 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginTestFailover(req
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -1190,7 +1190,7 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginTestFailover(req
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginTestFailover(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
+		respr, errRespr := r.srv.BeginTestFailover(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -1230,11 +1230,11 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginTestFailoverClea
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -1250,7 +1250,7 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginTestFailoverClea
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginTestFailoverCleanup(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
+		respr, errRespr := r.srv.BeginTestFailoverCleanup(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -1290,11 +1290,11 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginUnplannedFailove
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -1310,7 +1310,7 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginUnplannedFailove
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginUnplannedFailover(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
+		respr, errRespr := r.srv.BeginUnplannedFailover(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -1350,11 +1350,11 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginUpdate(req *http
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -1370,7 +1370,7 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginUpdate(req *http
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginUpdate(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
+		respr, errRespr := r.srv.BeginUpdate(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -1410,11 +1410,11 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginUpdateAppliance(
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -1430,7 +1430,7 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginUpdateAppliance(
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginUpdateAppliance(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
+		respr, errRespr := r.srv.BeginUpdateAppliance(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -1470,11 +1470,11 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginUpdateMobilitySe
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -1490,7 +1490,7 @@ func (r *ReplicationProtectedItemsServerTransport) dispatchBeginUpdateMobilitySe
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginUpdateMobilityService(req.Context(), resourceNameParam, resourceGroupNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
+		respr, errRespr := r.srv.BeginUpdateMobilityService(req.Context(), resourceGroupNameParam, resourceNameParam, fabricNameParam, protectionContainerNameParam, replicatedProtectedItemNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
