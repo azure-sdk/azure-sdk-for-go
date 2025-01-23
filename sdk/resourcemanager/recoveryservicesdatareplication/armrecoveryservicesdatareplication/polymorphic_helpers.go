@@ -11,7 +11,7 @@ package armrecoveryservicesdatareplication
 import "encoding/json"
 
 func unmarshalDraModelCustomPropertiesClassification(rawMsg json.RawMessage) (DraModelCustomPropertiesClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -32,7 +32,7 @@ func unmarshalDraModelCustomPropertiesClassification(rawMsg json.RawMessage) (Dr
 }
 
 func unmarshalEventModelCustomPropertiesClassification(rawMsg json.RawMessage) (EventModelCustomPropertiesClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -53,7 +53,7 @@ func unmarshalEventModelCustomPropertiesClassification(rawMsg json.RawMessage) (
 }
 
 func unmarshalFabricModelCustomPropertiesClassification(rawMsg json.RawMessage) (FabricModelCustomPropertiesClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -78,7 +78,7 @@ func unmarshalFabricModelCustomPropertiesClassification(rawMsg json.RawMessage) 
 }
 
 func unmarshalPlannedFailoverModelCustomPropertiesClassification(rawMsg json.RawMessage) (PlannedFailoverModelCustomPropertiesClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -101,7 +101,7 @@ func unmarshalPlannedFailoverModelCustomPropertiesClassification(rawMsg json.Raw
 }
 
 func unmarshalPolicyModelCustomPropertiesClassification(rawMsg json.RawMessage) (PolicyModelCustomPropertiesClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -124,7 +124,7 @@ func unmarshalPolicyModelCustomPropertiesClassification(rawMsg json.RawMessage) 
 }
 
 func unmarshalProtectedItemModelCustomPropertiesClassification(rawMsg json.RawMessage) (ProtectedItemModelCustomPropertiesClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -147,7 +147,7 @@ func unmarshalProtectedItemModelCustomPropertiesClassification(rawMsg json.RawMe
 }
 
 func unmarshalRecoveryPointModelCustomPropertiesClassification(rawMsg json.RawMessage) (RecoveryPointModelCustomPropertiesClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -168,7 +168,7 @@ func unmarshalRecoveryPointModelCustomPropertiesClassification(rawMsg json.RawMe
 }
 
 func unmarshalReplicationExtensionModelCustomPropertiesClassification(rawMsg json.RawMessage) (ReplicationExtensionModelCustomPropertiesClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -191,7 +191,7 @@ func unmarshalReplicationExtensionModelCustomPropertiesClassification(rawMsg jso
 }
 
 func unmarshalWorkflowModelCustomPropertiesClassification(rawMsg json.RawMessage) (WorkflowModelCustomPropertiesClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
