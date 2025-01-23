@@ -1,5 +1,25 @@
 # Release History
 
+## 10.0.0 (2025-01-23)
+### Breaking Changes
+
+- Function `*ClientFactory.NewOperationsClient` has been removed
+- Function `*FactoriesClient.ConfigureFactoryRepo` has been removed
+- Function `*FactoriesClient.NewListPager` has been removed
+- Function `NewOperationsClient` has been removed
+- Function `*OperationsClient.NewListPager` has been removed
+- Struct `FactoryRepoUpdate` has been removed
+- Struct `Operation` has been removed
+- Struct `OperationDisplay` has been removed
+- Struct `OperationListResponse` has been removed
+- Struct `OperationLogSpecification` has been removed
+- Struct `OperationMetricAvailability` has been removed
+- Struct `OperationMetricDimension` has been removed
+- Struct `OperationMetricSpecification` has been removed
+- Struct `OperationProperties` has been removed
+- Struct `OperationServiceSpecification` has been removed
+
+
 ## 9.1.0 (2024-12-26)
 ### Features Added
 
