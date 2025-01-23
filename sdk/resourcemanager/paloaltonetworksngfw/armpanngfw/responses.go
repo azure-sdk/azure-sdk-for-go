@@ -388,6 +388,30 @@ type OperationsClientListResponse struct {
 	OperationListResult
 }
 
+// PaloAltoNetworksCloudngfwClientCreateProductSerialNumberResponse contains the response from method PaloAltoNetworksCloudngfwClient.CreateProductSerialNumber.
+type PaloAltoNetworksCloudngfwClientCreateProductSerialNumberResponse struct {
+	// Create Product Serial Number Request status
+	ProductSerialNumberRequestStatus
+}
+
+// PaloAltoNetworksCloudngfwClientListCloudManagerTenantsResponse contains the response from method PaloAltoNetworksCloudngfwClient.ListCloudManagerTenants.
+type PaloAltoNetworksCloudngfwClientListCloudManagerTenantsResponse struct {
+	// Cloud Manager Tenant
+	CloudManagerTenantList
+}
+
+// PaloAltoNetworksCloudngfwClientListProductSerialNumberStatusResponse contains the response from method PaloAltoNetworksCloudngfwClient.ListProductSerialNumberStatus.
+type PaloAltoNetworksCloudngfwClientListProductSerialNumberStatusResponse struct {
+	// Product serial and status for the service
+	ProductSerialNumberStatus
+}
+
+// PaloAltoNetworksCloudngfwClientListSupportInfoResponse contains the response from method PaloAltoNetworksCloudngfwClient.ListSupportInfo.
+type PaloAltoNetworksCloudngfwClientListSupportInfoResponse struct {
+	// Support information for the service
+	SupportInfoModel
+}
+
 // PostRulesClientCreateOrUpdateResponse contains the response from method PostRulesClient.BeginCreateOrUpdate.
 type PostRulesClientCreateOrUpdateResponse struct {
 	// PostRulestack rule list

@@ -46,7 +46,7 @@ func NewFqdnListLocalRulestackClient(subscriptionID string, credential azcore.To
 // BeginCreateOrUpdate - Create a FqdnListLocalRulestackResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-02-07-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - localRulestackName - LocalRulestack resource name
 //   - name - fqdn list name
@@ -74,7 +74,7 @@ func (client *FqdnListLocalRulestackClient) BeginCreateOrUpdate(ctx context.Cont
 // CreateOrUpdate - Create a FqdnListLocalRulestackResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-02-07-preview
 func (client *FqdnListLocalRulestackClient) createOrUpdate(ctx context.Context, resourceGroupName string, localRulestackName string, name string, resource FqdnListLocalRulestackResource, options *FqdnListLocalRulestackClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "FqdnListLocalRulestackClient.BeginCreateOrUpdate"
@@ -120,7 +120,7 @@ func (client *FqdnListLocalRulestackClient) createOrUpdateCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2024-02-07-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, resource); err != nil {
@@ -132,7 +132,7 @@ func (client *FqdnListLocalRulestackClient) createOrUpdateCreateRequest(ctx cont
 // BeginDelete - Delete a FqdnListLocalRulestackResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-02-07-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - localRulestackName - LocalRulestack resource name
 //   - name - fqdn list name
@@ -159,7 +159,7 @@ func (client *FqdnListLocalRulestackClient) BeginDelete(ctx context.Context, res
 // Delete - Delete a FqdnListLocalRulestackResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-02-07-preview
 func (client *FqdnListLocalRulestackClient) deleteOperation(ctx context.Context, resourceGroupName string, localRulestackName string, name string, options *FqdnListLocalRulestackClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "FqdnListLocalRulestackClient.BeginDelete"
@@ -205,7 +205,7 @@ func (client *FqdnListLocalRulestackClient) deleteCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2024-02-07-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -214,7 +214,7 @@ func (client *FqdnListLocalRulestackClient) deleteCreateRequest(ctx context.Cont
 // Get - Get a FqdnListLocalRulestackResource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-02-07-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - localRulestackName - LocalRulestack resource name
 //   - name - fqdn list name
@@ -266,7 +266,7 @@ func (client *FqdnListLocalRulestackClient) getCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2024-02-07-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -283,7 +283,7 @@ func (client *FqdnListLocalRulestackClient) getHandleResponse(resp *http.Respons
 
 // NewListByLocalRulestacksPager - List FqdnListLocalRulestackResource resources by LocalRulestacks
 //
-// Generated from API version 2023-09-01
+// Generated from API version 2024-02-07-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - localRulestackName - LocalRulestack resource name
 //   - options - FqdnListLocalRulestackClientListByLocalRulestacksOptions contains the optional parameters for the FqdnListLocalRulestackClient.NewListByLocalRulestacksPager
@@ -331,7 +331,7 @@ func (client *FqdnListLocalRulestackClient) listByLocalRulestacksCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01")
+	reqQP.Set("api-version", "2024-02-07-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
