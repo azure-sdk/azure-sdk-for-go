@@ -112,7 +112,37 @@ func (r *RecommendationMetadataServerTransport) dispatchNewListPager(req *http.R
 	}
 	newListPager := r.newListPager.get(req)
 	if newListPager == nil {
-		resp := r.srv.NewListPager(nil)
+		qp := req.URL.Query()
+		categoryUnescaped, err := url.QueryUnescape(qp.Get("[category](#category)"))
+		if err != nil {
+			return nil, err
+		}
+		categoryParam := getOptional(categoryUnescaped)
+		controlUnescaped, err := url.QueryUnescape(qp.Get("[control](#control)"))
+		if err != nil {
+			return nil, err
+		}
+		controlParam := getOptional(controlUnescaped)
+		retirementsFromUnescaped, err := url.QueryUnescape(qp.Get("retirementsFrom"))
+		if err != nil {
+			return nil, err
+		}
+		retirementsFromParam := getOptional(retirementsFromUnescaped)
+		retirementsTillUnescaped, err := url.QueryUnescape(qp.Get("retirementsTill"))
+		if err != nil {
+			return nil, err
+		}
+		retirementsTillParam := getOptional(retirementsTillUnescaped)
+		var options *armadvisor.RecommendationMetadataClientListOptions
+		if categoryParam != nil || controlParam != nil || retirementsFromParam != nil || retirementsTillParam != nil {
+			options = &armadvisor.RecommendationMetadataClientListOptions{
+				Category:        categoryParam,
+				Control:         controlParam,
+				RetirementsFrom: retirementsFromParam,
+				RetirementsTill: retirementsTillParam,
+			}
+		}
+		resp := r.srv.NewListPager(options)
 		newListPager = &resp
 		r.newListPager.add(req, newListPager)
 		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armadvisor.RecommendationMetadataClientListResponse, createLink func() string) {

@@ -32,6 +32,11 @@ type ConfigurationsClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ManagementClientPredictOptions contains the optional parameters for the ManagementClient.Predict method.
+type ManagementClientPredictOptions struct {
+	// placeholder for future optional parameters
+}
+
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
@@ -45,7 +50,17 @@ type RecommendationMetadataClientGetOptions struct {
 // RecommendationMetadataClientListOptions contains the optional parameters for the RecommendationMetadataClient.NewListPager
 // method.
 type RecommendationMetadataClientListOptions struct {
-	// placeholder for future optional parameters
+	// Category of recommendation.
+	Category *string
+
+	// Sub-category of recommendation.
+	Control *string
+
+	// Date from which retirements need to be displayed (applicable only when control is 'ServiceUpgradeAndRetirement').
+	RetirementsFrom *string
+
+	// Date upto which retirements need to be displayed (applicable only when control is 'ServiceUpgradeAndRetirement').
+	RetirementsTill *string
 }
 
 // RecommendationsClientGenerateOptions contains the optional parameters for the RecommendationsClient.Generate method.
@@ -67,10 +82,11 @@ type RecommendationsClientGetOptions struct {
 // RecommendationsClientListOptions contains the optional parameters for the RecommendationsClient.NewListPager method.
 type RecommendationsClientListOptions struct {
 	// The filter to apply to the recommendations.
-	// Filter can be applied to properties ['ResourceId', 'ResourceGroup', 'RecommendationTypeGuid', 'Category'] with operators
-	// ['eq', 'and', 'or'].
+	// Filter can be applied to properties ['ResourceId', 'ResourceGroup', 'RecommendationTypeGuid', 'Category', 'Control', 'RetirementDate']
+	// with operators ['eq', 'and', 'or', 'lt', 'gt', 'le', 'ge'].
 	// Example:
 	// - $filter=Category eq 'Cost' and ResourceGroup eq 'MyResourceGroup'
+	// -$filter=Control eq 'ServiceUpgradeAndRetirement' and RetirementDate ge 2024-01-01T00:00:00Z
 	Filter *string
 
 	// The page-continuation token to use with a paged version of this API.
@@ -78,6 +94,16 @@ type RecommendationsClientListOptions struct {
 
 	// The number of recommendations per page if a paged version of this API is being used.
 	Top *int32
+}
+
+// ScoresClientGetOptions contains the optional parameters for the ScoresClient.Get method.
+type ScoresClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ScoresClientListOptions contains the optional parameters for the ScoresClient.List method.
+type ScoresClientListOptions struct {
+	// placeholder for future optional parameters
 }
 
 // SuppressionsClientCreateOptions contains the optional parameters for the SuppressionsClient.Create method.
