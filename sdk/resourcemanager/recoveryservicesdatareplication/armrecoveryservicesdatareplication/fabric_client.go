@@ -307,10 +307,10 @@ func (client *FabricClient) listCreateRequest(ctx context.Context, resourceGroup
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2021-02-16-preview")
 	if options != nil && options.ContinuationToken != nil {
 		reqQP.Set("continuationToken", *options.ContinuationToken)
 	}
-	reqQP.Set("api-version", "2021-02-16-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -365,10 +365,10 @@ func (client *FabricClient) listBySubscriptionCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2021-02-16-preview")
 	if options != nil && options.ContinuationToken != nil {
 		reqQP.Set("continuationToken", *options.ContinuationToken)
 	}
-	reqQP.Set("api-version", "2021-02-16-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
