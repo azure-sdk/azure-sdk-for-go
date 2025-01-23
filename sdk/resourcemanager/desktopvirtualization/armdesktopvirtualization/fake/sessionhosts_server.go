@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v3"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -237,12 +237,18 @@ func (s *SessionHostsServerTransport) dispatchNewListPager(req *http.Request) (*
 		if err != nil {
 			return nil, err
 		}
+		vMPathUnescaped, err := url.QueryUnescape(qp.Get("vmPath"))
+		if err != nil {
+			return nil, err
+		}
+		vMPathParam := getOptional(vMPathUnescaped)
 		var options *armdesktopvirtualization.SessionHostsClientListOptions
-		if pageSizeParam != nil || isDescendingParam != nil || initialSkipParam != nil {
+		if pageSizeParam != nil || isDescendingParam != nil || initialSkipParam != nil || vMPathParam != nil {
 			options = &armdesktopvirtualization.SessionHostsClientListOptions{
 				PageSize:     pageSizeParam,
 				IsDescending: isDescendingParam,
 				InitialSkip:  initialSkipParam,
+				VMPath:       vMPathParam,
 			}
 		}
 		resp := s.srv.NewListPager(resourceGroupNameParam, hostPoolNameParam, options)
