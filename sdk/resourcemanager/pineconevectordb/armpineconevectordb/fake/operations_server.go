@@ -11,32 +11,32 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/servicenetworking/armservicenetworking"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/pineconevectordb/armpineconevectordb"
 	"net/http"
 )
 
-// OperationsServer is a fake server for instances of the armservicenetworking.OperationsClient type.
+// OperationsServer is a fake server for instances of the armpineconevectordb.OperationsClient type.
 type OperationsServer struct {
 	// NewListPager is the fake for method OperationsClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(options *armservicenetworking.OperationsClientListOptions) (resp azfake.PagerResponder[armservicenetworking.OperationsClientListResponse])
+	NewListPager func(options *armpineconevectordb.OperationsClientListOptions) (resp azfake.PagerResponder[armpineconevectordb.OperationsClientListResponse])
 }
 
 // NewOperationsServerTransport creates a new instance of OperationsServerTransport with the provided implementation.
-// The returned OperationsServerTransport instance is connected to an instance of armservicenetworking.OperationsClient via the
+// The returned OperationsServerTransport instance is connected to an instance of armpineconevectordb.OperationsClient via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewOperationsServerTransport(srv *OperationsServer) *OperationsServerTransport {
 	return &OperationsServerTransport{
 		srv:          srv,
-		newListPager: newTracker[azfake.PagerResponder[armservicenetworking.OperationsClientListResponse]](),
+		newListPager: newTracker[azfake.PagerResponder[armpineconevectordb.OperationsClientListResponse]](),
 	}
 }
 
-// OperationsServerTransport connects instances of armservicenetworking.OperationsClient to instances of OperationsServer.
+// OperationsServerTransport connects instances of armpineconevectordb.OperationsClient to instances of OperationsServer.
 // Don't use this type directly, use NewOperationsServerTransport instead.
 type OperationsServerTransport struct {
 	srv          *OperationsServer
-	newListPager *tracker[azfake.PagerResponder[armservicenetworking.OperationsClientListResponse]]
+	newListPager *tracker[azfake.PagerResponder[armpineconevectordb.OperationsClientListResponse]]
 }
 
 // Do implements the policy.Transporter interface for OperationsServerTransport.
@@ -92,7 +92,7 @@ func (o *OperationsServerTransport) dispatchNewListPager(req *http.Request) (*ht
 		resp := o.srv.NewListPager(nil)
 		newListPager = &resp
 		o.newListPager.add(req, newListPager)
-		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armservicenetworking.OperationsClientListResponse, createLink func() string) {
+		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armpineconevectordb.OperationsClientListResponse, createLink func() string) {
 			page.NextLink = to.Ptr(createLink())
 		})
 	}
