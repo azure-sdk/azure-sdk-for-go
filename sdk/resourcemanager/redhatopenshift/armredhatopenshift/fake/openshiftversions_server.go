@@ -9,13 +9,14 @@
 package fake
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/redhatopenshift/armredhatopenshift"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/redhatopenshift/armredhatopenshift/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -23,6 +24,10 @@ import (
 
 // OpenShiftVersionsServer is a fake server for instances of the armredhatopenshift.OpenShiftVersionsClient type.
 type OpenShiftVersionsServer struct {
+	// Get is the fake for method OpenShiftVersionsClient.Get
+	// HTTP status codes to indicate success: http.StatusOK
+	Get func(ctx context.Context, location string, openShiftVersion string, options *armredhatopenshift.OpenShiftVersionsClientGetOptions) (resp azfake.Responder[armredhatopenshift.OpenShiftVersionsClientGetResponse], errResp azfake.ErrorResponder)
+
 	// NewListPager is the fake for method OpenShiftVersionsClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListPager func(location string, options *armredhatopenshift.OpenShiftVersionsClientListOptions) (resp azfake.PagerResponder[armredhatopenshift.OpenShiftVersionsClientListResponse])
@@ -57,6 +62,8 @@ func (o *OpenShiftVersionsServerTransport) Do(req *http.Request) (*http.Response
 	var err error
 
 	switch method {
+	case "OpenShiftVersionsClient.Get":
+		resp, err = o.dispatchGet(req)
 	case "OpenShiftVersionsClient.NewListPager":
 		resp, err = o.dispatchNewListPager(req)
 	default:
@@ -70,13 +77,46 @@ func (o *OpenShiftVersionsServerTransport) Do(req *http.Request) (*http.Response
 	return resp, nil
 }
 
+func (o *OpenShiftVersionsServerTransport) dispatchGet(req *http.Request) (*http.Response, error) {
+	if o.srv.Get == nil {
+		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.RedHatOpenShift/locations/(?P<location>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/openShiftVersions/(?P<openShiftVersion>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	locationParam, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
+	if err != nil {
+		return nil, err
+	}
+	openShiftVersionParam, err := url.PathUnescape(matches[regex.SubexpIndex("openShiftVersion")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := o.srv.Get(req.Context(), locationParam, openShiftVersionParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).OpenShiftVersion, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
 func (o *OpenShiftVersionsServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
 	if o.srv.NewListPager == nil {
 		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
 	}
 	newListPager := o.newListPager.get(req)
 	if newListPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.RedHatOpenShift/locations/(?P<location>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/openshiftversions`
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.RedHatOpenShift/locations/(?P<location>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/openShiftVersions`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 		if matches == nil || len(matches) < 2 {
