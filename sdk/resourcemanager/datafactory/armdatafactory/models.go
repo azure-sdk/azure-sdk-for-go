@@ -12197,15 +12197,6 @@ type FactoryRepoConfiguration struct {
 // GetFactoryRepoConfiguration implements the FactoryRepoConfigurationClassification interface for type FactoryRepoConfiguration.
 func (f *FactoryRepoConfiguration) GetFactoryRepoConfiguration() *FactoryRepoConfiguration { return f }
 
-// FactoryRepoUpdate - Factory's git repo information.
-type FactoryRepoUpdate struct {
-	// The factory resource id.
-	FactoryResourceID *string
-
-	// Git repo information of the factory.
-	RepoConfiguration FactoryRepoConfigurationClassification
-}
-
 // FactoryUpdateParameters - Parameters for updating a factory resource.
 type FactoryUpdateParameters struct {
 	// Managed service identity of the factory.

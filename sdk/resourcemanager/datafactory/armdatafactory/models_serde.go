@@ -20745,37 +20745,6 @@ func (f *FactoryRepoConfiguration) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type FactoryRepoUpdate.
-func (f FactoryRepoUpdate) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]any)
-	populate(objectMap, "factoryResourceId", f.FactoryResourceID)
-	populate(objectMap, "repoConfiguration", f.RepoConfiguration)
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type FactoryRepoUpdate.
-func (f *FactoryRepoUpdate) UnmarshalJSON(data []byte) error {
-	var rawMsg map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", f, err)
-	}
-	for key, val := range rawMsg {
-		var err error
-		switch key {
-		case "factoryResourceId":
-			err = unpopulate(val, "FactoryResourceID", &f.FactoryResourceID)
-			delete(rawMsg, key)
-		case "repoConfiguration":
-			f.RepoConfiguration, err = unmarshalFactoryRepoConfigurationClassification(val)
-			delete(rawMsg, key)
-		}
-		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", f, err)
-		}
-	}
-	return nil
-}
-
 // MarshalJSON implements the json.Marshaller interface for type FactoryUpdateParameters.
 func (f FactoryUpdateParameters) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
