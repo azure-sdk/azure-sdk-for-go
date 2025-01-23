@@ -220,11 +220,6 @@ type FactoriesClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// FactoriesClientListOptions contains the optional parameters for the FactoriesClient.NewListPager method.
-type FactoriesClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
 // FactoriesClientUpdateOptions contains the optional parameters for the FactoriesClient.Update method.
 type FactoriesClientUpdateOptions struct {
 	// placeholder for future optional parameters
