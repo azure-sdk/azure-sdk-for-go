@@ -44,7 +44,7 @@ func NewPolicyEventsClient(credential azcore.TokenCredential, options *arm.Clien
 
 // NewListQueryResultsForManagementGroupPager - Queries policy events for the resources under the management group.
 //
-// Generated from API version 2019-10-01
+// Generated from API version 2024-10-01
 //   - policyEventsResource - The name of the virtual resource under PolicyEvents resource type; only "default" is allowed.
 //   - managementGroupName - Management group name.
 //   - QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
@@ -91,9 +91,14 @@ func (client *PolicyEventsClient) listQueryResultsForManagementGroupCreateReques
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-10-01")
-	if queryOptions != nil && queryOptions.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*queryOptions.Top), 10))
+	if queryOptions != nil && queryOptions.Apply != nil {
+		reqQP.Set("$apply", *queryOptions.Apply)
+	}
+	if queryOptions != nil && queryOptions.Filter != nil {
+		reqQP.Set("$filter", *queryOptions.Filter)
+	}
+	if queryOptions != nil && queryOptions.From != nil {
+		reqQP.Set("$from", queryOptions.From.Format(time.RFC3339Nano))
 	}
 	if queryOptions != nil && queryOptions.OrderBy != nil {
 		reqQP.Set("$orderby", *queryOptions.OrderBy)
@@ -101,21 +106,16 @@ func (client *PolicyEventsClient) listQueryResultsForManagementGroupCreateReques
 	if queryOptions != nil && queryOptions.Select != nil {
 		reqQP.Set("$select", *queryOptions.Select)
 	}
-	if queryOptions != nil && queryOptions.From != nil {
-		reqQP.Set("$from", queryOptions.From.Format(time.RFC3339Nano))
+	if queryOptions != nil && queryOptions.SkipToken != nil {
+		reqQP.Set("$skiptoken", *queryOptions.SkipToken)
 	}
 	if queryOptions != nil && queryOptions.To != nil {
 		reqQP.Set("$to", queryOptions.To.Format(time.RFC3339Nano))
 	}
-	if queryOptions != nil && queryOptions.Filter != nil {
-		reqQP.Set("$filter", *queryOptions.Filter)
+	if queryOptions != nil && queryOptions.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*queryOptions.Top), 10))
 	}
-	if queryOptions != nil && queryOptions.Apply != nil {
-		reqQP.Set("$apply", *queryOptions.Apply)
-	}
-	if queryOptions != nil && queryOptions.SkipToken != nil {
-		reqQP.Set("$skiptoken", *queryOptions.SkipToken)
-	}
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -132,7 +132,7 @@ func (client *PolicyEventsClient) listQueryResultsForManagementGroupHandleRespon
 
 // NewListQueryResultsForPolicyDefinitionPager - Queries policy events for the subscription level policy definition.
 //
-// Generated from API version 2019-10-01
+// Generated from API version 2024-10-01
 //   - policyEventsResource - The name of the virtual resource under PolicyEvents resource type; only "default" is allowed.
 //   - subscriptionID - Microsoft Azure subscription ID.
 //   - policyDefinitionName - Policy definition name.
@@ -184,9 +184,14 @@ func (client *PolicyEventsClient) listQueryResultsForPolicyDefinitionCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-10-01")
-	if queryOptions != nil && queryOptions.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*queryOptions.Top), 10))
+	if queryOptions != nil && queryOptions.Apply != nil {
+		reqQP.Set("$apply", *queryOptions.Apply)
+	}
+	if queryOptions != nil && queryOptions.Filter != nil {
+		reqQP.Set("$filter", *queryOptions.Filter)
+	}
+	if queryOptions != nil && queryOptions.From != nil {
+		reqQP.Set("$from", queryOptions.From.Format(time.RFC3339Nano))
 	}
 	if queryOptions != nil && queryOptions.OrderBy != nil {
 		reqQP.Set("$orderby", *queryOptions.OrderBy)
@@ -194,21 +199,16 @@ func (client *PolicyEventsClient) listQueryResultsForPolicyDefinitionCreateReque
 	if queryOptions != nil && queryOptions.Select != nil {
 		reqQP.Set("$select", *queryOptions.Select)
 	}
-	if queryOptions != nil && queryOptions.From != nil {
-		reqQP.Set("$from", queryOptions.From.Format(time.RFC3339Nano))
+	if queryOptions != nil && queryOptions.SkipToken != nil {
+		reqQP.Set("$skiptoken", *queryOptions.SkipToken)
 	}
 	if queryOptions != nil && queryOptions.To != nil {
 		reqQP.Set("$to", queryOptions.To.Format(time.RFC3339Nano))
 	}
-	if queryOptions != nil && queryOptions.Filter != nil {
-		reqQP.Set("$filter", *queryOptions.Filter)
+	if queryOptions != nil && queryOptions.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*queryOptions.Top), 10))
 	}
-	if queryOptions != nil && queryOptions.Apply != nil {
-		reqQP.Set("$apply", *queryOptions.Apply)
-	}
-	if queryOptions != nil && queryOptions.SkipToken != nil {
-		reqQP.Set("$skiptoken", *queryOptions.SkipToken)
-	}
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -225,7 +225,7 @@ func (client *PolicyEventsClient) listQueryResultsForPolicyDefinitionHandleRespo
 
 // NewListQueryResultsForPolicySetDefinitionPager - Queries policy events for the subscription level policy set definition.
 //
-// Generated from API version 2019-10-01
+// Generated from API version 2024-10-01
 //   - policyEventsResource - The name of the virtual resource under PolicyEvents resource type; only "default" is allowed.
 //   - subscriptionID - Microsoft Azure subscription ID.
 //   - policySetDefinitionName - Policy set definition name.
@@ -277,9 +277,14 @@ func (client *PolicyEventsClient) listQueryResultsForPolicySetDefinitionCreateRe
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-10-01")
-	if queryOptions != nil && queryOptions.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*queryOptions.Top), 10))
+	if queryOptions != nil && queryOptions.Apply != nil {
+		reqQP.Set("$apply", *queryOptions.Apply)
+	}
+	if queryOptions != nil && queryOptions.Filter != nil {
+		reqQP.Set("$filter", *queryOptions.Filter)
+	}
+	if queryOptions != nil && queryOptions.From != nil {
+		reqQP.Set("$from", queryOptions.From.Format(time.RFC3339Nano))
 	}
 	if queryOptions != nil && queryOptions.OrderBy != nil {
 		reqQP.Set("$orderby", *queryOptions.OrderBy)
@@ -287,21 +292,16 @@ func (client *PolicyEventsClient) listQueryResultsForPolicySetDefinitionCreateRe
 	if queryOptions != nil && queryOptions.Select != nil {
 		reqQP.Set("$select", *queryOptions.Select)
 	}
-	if queryOptions != nil && queryOptions.From != nil {
-		reqQP.Set("$from", queryOptions.From.Format(time.RFC3339Nano))
+	if queryOptions != nil && queryOptions.SkipToken != nil {
+		reqQP.Set("$skiptoken", *queryOptions.SkipToken)
 	}
 	if queryOptions != nil && queryOptions.To != nil {
 		reqQP.Set("$to", queryOptions.To.Format(time.RFC3339Nano))
 	}
-	if queryOptions != nil && queryOptions.Filter != nil {
-		reqQP.Set("$filter", *queryOptions.Filter)
+	if queryOptions != nil && queryOptions.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*queryOptions.Top), 10))
 	}
-	if queryOptions != nil && queryOptions.Apply != nil {
-		reqQP.Set("$apply", *queryOptions.Apply)
-	}
-	if queryOptions != nil && queryOptions.SkipToken != nil {
-		reqQP.Set("$skiptoken", *queryOptions.SkipToken)
-	}
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -318,7 +318,7 @@ func (client *PolicyEventsClient) listQueryResultsForPolicySetDefinitionHandleRe
 
 // NewListQueryResultsForResourcePager - Queries policy events for the resource.
 //
-// Generated from API version 2019-10-01
+// Generated from API version 2024-10-01
 //   - policyEventsResource - The name of the virtual resource under PolicyEvents resource type; only "default" is allowed.
 //   - resourceID - Resource ID.
 //   - QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
@@ -361,9 +361,17 @@ func (client *PolicyEventsClient) listQueryResultsForResourceCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-10-01")
-	if queryOptions != nil && queryOptions.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*queryOptions.Top), 10))
+	if queryOptions != nil && queryOptions.Apply != nil {
+		reqQP.Set("$apply", *queryOptions.Apply)
+	}
+	if queryOptions != nil && queryOptions.Expand != nil {
+		reqQP.Set("$expand", *queryOptions.Expand)
+	}
+	if queryOptions != nil && queryOptions.Filter != nil {
+		reqQP.Set("$filter", *queryOptions.Filter)
+	}
+	if queryOptions != nil && queryOptions.From != nil {
+		reqQP.Set("$from", queryOptions.From.Format(time.RFC3339Nano))
 	}
 	if queryOptions != nil && queryOptions.OrderBy != nil {
 		reqQP.Set("$orderby", *queryOptions.OrderBy)
@@ -371,24 +379,16 @@ func (client *PolicyEventsClient) listQueryResultsForResourceCreateRequest(ctx c
 	if queryOptions != nil && queryOptions.Select != nil {
 		reqQP.Set("$select", *queryOptions.Select)
 	}
-	if queryOptions != nil && queryOptions.From != nil {
-		reqQP.Set("$from", queryOptions.From.Format(time.RFC3339Nano))
+	if queryOptions != nil && queryOptions.SkipToken != nil {
+		reqQP.Set("$skiptoken", *queryOptions.SkipToken)
 	}
 	if queryOptions != nil && queryOptions.To != nil {
 		reqQP.Set("$to", queryOptions.To.Format(time.RFC3339Nano))
 	}
-	if queryOptions != nil && queryOptions.Filter != nil {
-		reqQP.Set("$filter", *queryOptions.Filter)
+	if queryOptions != nil && queryOptions.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*queryOptions.Top), 10))
 	}
-	if queryOptions != nil && queryOptions.Apply != nil {
-		reqQP.Set("$apply", *queryOptions.Apply)
-	}
-	if queryOptions != nil && queryOptions.Expand != nil {
-		reqQP.Set("$expand", *queryOptions.Expand)
-	}
-	if queryOptions != nil && queryOptions.SkipToken != nil {
-		reqQP.Set("$skiptoken", *queryOptions.SkipToken)
-	}
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -405,7 +405,7 @@ func (client *PolicyEventsClient) listQueryResultsForResourceHandleResponse(resp
 
 // NewListQueryResultsForResourceGroupPager - Queries policy events for the resources under the resource group.
 //
-// Generated from API version 2019-10-01
+// Generated from API version 2024-10-01
 //   - policyEventsResource - The name of the virtual resource under PolicyEvents resource type; only "default" is allowed.
 //   - subscriptionID - Microsoft Azure subscription ID.
 //   - resourceGroupName - Resource group name.
@@ -456,9 +456,14 @@ func (client *PolicyEventsClient) listQueryResultsForResourceGroupCreateRequest(
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-10-01")
-	if queryOptions != nil && queryOptions.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*queryOptions.Top), 10))
+	if queryOptions != nil && queryOptions.Apply != nil {
+		reqQP.Set("$apply", *queryOptions.Apply)
+	}
+	if queryOptions != nil && queryOptions.Filter != nil {
+		reqQP.Set("$filter", *queryOptions.Filter)
+	}
+	if queryOptions != nil && queryOptions.From != nil {
+		reqQP.Set("$from", queryOptions.From.Format(time.RFC3339Nano))
 	}
 	if queryOptions != nil && queryOptions.OrderBy != nil {
 		reqQP.Set("$orderby", *queryOptions.OrderBy)
@@ -466,21 +471,16 @@ func (client *PolicyEventsClient) listQueryResultsForResourceGroupCreateRequest(
 	if queryOptions != nil && queryOptions.Select != nil {
 		reqQP.Set("$select", *queryOptions.Select)
 	}
-	if queryOptions != nil && queryOptions.From != nil {
-		reqQP.Set("$from", queryOptions.From.Format(time.RFC3339Nano))
+	if queryOptions != nil && queryOptions.SkipToken != nil {
+		reqQP.Set("$skiptoken", *queryOptions.SkipToken)
 	}
 	if queryOptions != nil && queryOptions.To != nil {
 		reqQP.Set("$to", queryOptions.To.Format(time.RFC3339Nano))
 	}
-	if queryOptions != nil && queryOptions.Filter != nil {
-		reqQP.Set("$filter", *queryOptions.Filter)
+	if queryOptions != nil && queryOptions.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*queryOptions.Top), 10))
 	}
-	if queryOptions != nil && queryOptions.Apply != nil {
-		reqQP.Set("$apply", *queryOptions.Apply)
-	}
-	if queryOptions != nil && queryOptions.SkipToken != nil {
-		reqQP.Set("$skiptoken", *queryOptions.SkipToken)
-	}
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -498,7 +498,7 @@ func (client *PolicyEventsClient) listQueryResultsForResourceGroupHandleResponse
 // NewListQueryResultsForResourceGroupLevelPolicyAssignmentPager - Queries policy events for the resource group level policy
 // assignment.
 //
-// Generated from API version 2019-10-01
+// Generated from API version 2024-10-01
 //   - policyEventsResource - The name of the virtual resource under PolicyEvents resource type; only "default" is allowed.
 //   - subscriptionID - Microsoft Azure subscription ID.
 //   - resourceGroupName - Resource group name.
@@ -555,9 +555,14 @@ func (client *PolicyEventsClient) listQueryResultsForResourceGroupLevelPolicyAss
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-10-01")
-	if queryOptions != nil && queryOptions.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*queryOptions.Top), 10))
+	if queryOptions != nil && queryOptions.Apply != nil {
+		reqQP.Set("$apply", *queryOptions.Apply)
+	}
+	if queryOptions != nil && queryOptions.Filter != nil {
+		reqQP.Set("$filter", *queryOptions.Filter)
+	}
+	if queryOptions != nil && queryOptions.From != nil {
+		reqQP.Set("$from", queryOptions.From.Format(time.RFC3339Nano))
 	}
 	if queryOptions != nil && queryOptions.OrderBy != nil {
 		reqQP.Set("$orderby", *queryOptions.OrderBy)
@@ -565,21 +570,16 @@ func (client *PolicyEventsClient) listQueryResultsForResourceGroupLevelPolicyAss
 	if queryOptions != nil && queryOptions.Select != nil {
 		reqQP.Set("$select", *queryOptions.Select)
 	}
-	if queryOptions != nil && queryOptions.From != nil {
-		reqQP.Set("$from", queryOptions.From.Format(time.RFC3339Nano))
+	if queryOptions != nil && queryOptions.SkipToken != nil {
+		reqQP.Set("$skiptoken", *queryOptions.SkipToken)
 	}
 	if queryOptions != nil && queryOptions.To != nil {
 		reqQP.Set("$to", queryOptions.To.Format(time.RFC3339Nano))
 	}
-	if queryOptions != nil && queryOptions.Filter != nil {
-		reqQP.Set("$filter", *queryOptions.Filter)
+	if queryOptions != nil && queryOptions.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*queryOptions.Top), 10))
 	}
-	if queryOptions != nil && queryOptions.Apply != nil {
-		reqQP.Set("$apply", *queryOptions.Apply)
-	}
-	if queryOptions != nil && queryOptions.SkipToken != nil {
-		reqQP.Set("$skiptoken", *queryOptions.SkipToken)
-	}
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -596,7 +596,7 @@ func (client *PolicyEventsClient) listQueryResultsForResourceGroupLevelPolicyAss
 
 // NewListQueryResultsForSubscriptionPager - Queries policy events for the resources under the subscription.
 //
-// Generated from API version 2019-10-01
+// Generated from API version 2024-10-01
 //   - policyEventsResource - The name of the virtual resource under PolicyEvents resource type; only "default" is allowed.
 //   - subscriptionID - Microsoft Azure subscription ID.
 //   - QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
@@ -642,9 +642,14 @@ func (client *PolicyEventsClient) listQueryResultsForSubscriptionCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-10-01")
-	if queryOptions != nil && queryOptions.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*queryOptions.Top), 10))
+	if queryOptions != nil && queryOptions.Apply != nil {
+		reqQP.Set("$apply", *queryOptions.Apply)
+	}
+	if queryOptions != nil && queryOptions.Filter != nil {
+		reqQP.Set("$filter", *queryOptions.Filter)
+	}
+	if queryOptions != nil && queryOptions.From != nil {
+		reqQP.Set("$from", queryOptions.From.Format(time.RFC3339Nano))
 	}
 	if queryOptions != nil && queryOptions.OrderBy != nil {
 		reqQP.Set("$orderby", *queryOptions.OrderBy)
@@ -652,21 +657,16 @@ func (client *PolicyEventsClient) listQueryResultsForSubscriptionCreateRequest(c
 	if queryOptions != nil && queryOptions.Select != nil {
 		reqQP.Set("$select", *queryOptions.Select)
 	}
-	if queryOptions != nil && queryOptions.From != nil {
-		reqQP.Set("$from", queryOptions.From.Format(time.RFC3339Nano))
+	if queryOptions != nil && queryOptions.SkipToken != nil {
+		reqQP.Set("$skiptoken", *queryOptions.SkipToken)
 	}
 	if queryOptions != nil && queryOptions.To != nil {
 		reqQP.Set("$to", queryOptions.To.Format(time.RFC3339Nano))
 	}
-	if queryOptions != nil && queryOptions.Filter != nil {
-		reqQP.Set("$filter", *queryOptions.Filter)
+	if queryOptions != nil && queryOptions.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*queryOptions.Top), 10))
 	}
-	if queryOptions != nil && queryOptions.Apply != nil {
-		reqQP.Set("$apply", *queryOptions.Apply)
-	}
-	if queryOptions != nil && queryOptions.SkipToken != nil {
-		reqQP.Set("$skiptoken", *queryOptions.SkipToken)
-	}
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -684,7 +684,7 @@ func (client *PolicyEventsClient) listQueryResultsForSubscriptionHandleResponse(
 // NewListQueryResultsForSubscriptionLevelPolicyAssignmentPager - Queries policy events for the subscription level policy
 // assignment.
 //
-// Generated from API version 2019-10-01
+// Generated from API version 2024-10-01
 //   - policyEventsResource - The name of the virtual resource under PolicyEvents resource type; only "default" is allowed.
 //   - subscriptionID - Microsoft Azure subscription ID.
 //   - policyAssignmentName - Policy assignment name.
@@ -736,9 +736,14 @@ func (client *PolicyEventsClient) listQueryResultsForSubscriptionLevelPolicyAssi
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-10-01")
-	if queryOptions != nil && queryOptions.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*queryOptions.Top), 10))
+	if queryOptions != nil && queryOptions.Apply != nil {
+		reqQP.Set("$apply", *queryOptions.Apply)
+	}
+	if queryOptions != nil && queryOptions.Filter != nil {
+		reqQP.Set("$filter", *queryOptions.Filter)
+	}
+	if queryOptions != nil && queryOptions.From != nil {
+		reqQP.Set("$from", queryOptions.From.Format(time.RFC3339Nano))
 	}
 	if queryOptions != nil && queryOptions.OrderBy != nil {
 		reqQP.Set("$orderby", *queryOptions.OrderBy)
@@ -746,21 +751,16 @@ func (client *PolicyEventsClient) listQueryResultsForSubscriptionLevelPolicyAssi
 	if queryOptions != nil && queryOptions.Select != nil {
 		reqQP.Set("$select", *queryOptions.Select)
 	}
-	if queryOptions != nil && queryOptions.From != nil {
-		reqQP.Set("$from", queryOptions.From.Format(time.RFC3339Nano))
+	if queryOptions != nil && queryOptions.SkipToken != nil {
+		reqQP.Set("$skiptoken", *queryOptions.SkipToken)
 	}
 	if queryOptions != nil && queryOptions.To != nil {
 		reqQP.Set("$to", queryOptions.To.Format(time.RFC3339Nano))
 	}
-	if queryOptions != nil && queryOptions.Filter != nil {
-		reqQP.Set("$filter", *queryOptions.Filter)
+	if queryOptions != nil && queryOptions.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*queryOptions.Top), 10))
 	}
-	if queryOptions != nil && queryOptions.Apply != nil {
-		reqQP.Set("$apply", *queryOptions.Apply)
-	}
-	if queryOptions != nil && queryOptions.SkipToken != nil {
-		reqQP.Set("$skiptoken", *queryOptions.SkipToken)
-	}
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
