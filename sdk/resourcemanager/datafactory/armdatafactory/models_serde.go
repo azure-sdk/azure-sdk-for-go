@@ -23931,9 +23931,18 @@ func (g *GreenplumLinkedService) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type GreenplumLinkedServiceTypeProperties.
 func (g GreenplumLinkedServiceTypeProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "authenticationType", g.AuthenticationType)
+	populateAny(objectMap, "commandTimeout", g.CommandTimeout)
 	populateAny(objectMap, "connectionString", g.ConnectionString)
+	populateAny(objectMap, "connectionTimeout", g.ConnectionTimeout)
+	populateAny(objectMap, "database", g.Database)
 	populate(objectMap, "encryptedCredential", g.EncryptedCredential)
+	populateAny(objectMap, "host", g.Host)
+	populate(objectMap, "password", g.Password)
+	populateAny(objectMap, "port", g.Port)
 	populate(objectMap, "pwd", g.Pwd)
+	populateAny(objectMap, "sslMode", g.SSLMode)
+	populateAny(objectMap, "username", g.Username)
 	return json.Marshal(objectMap)
 }
 
@@ -23946,14 +23955,41 @@ func (g *GreenplumLinkedServiceTypeProperties) UnmarshalJSON(data []byte) error 
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "authenticationType":
+			err = unpopulate(val, "AuthenticationType", &g.AuthenticationType)
+			delete(rawMsg, key)
+		case "commandTimeout":
+			err = unpopulate(val, "CommandTimeout", &g.CommandTimeout)
+			delete(rawMsg, key)
 		case "connectionString":
 			err = unpopulate(val, "ConnectionString", &g.ConnectionString)
+			delete(rawMsg, key)
+		case "connectionTimeout":
+			err = unpopulate(val, "ConnectionTimeout", &g.ConnectionTimeout)
+			delete(rawMsg, key)
+		case "database":
+			err = unpopulate(val, "Database", &g.Database)
 			delete(rawMsg, key)
 		case "encryptedCredential":
 			err = unpopulate(val, "EncryptedCredential", &g.EncryptedCredential)
 			delete(rawMsg, key)
+		case "host":
+			err = unpopulate(val, "Host", &g.Host)
+			delete(rawMsg, key)
+		case "password":
+			g.Password, err = unmarshalSecretBaseClassification(val)
+			delete(rawMsg, key)
+		case "port":
+			err = unpopulate(val, "Port", &g.Port)
+			delete(rawMsg, key)
 		case "pwd":
 			err = unpopulate(val, "Pwd", &g.Pwd)
+			delete(rawMsg, key)
+		case "sslMode":
+			err = unpopulate(val, "SSLMode", &g.SSLMode)
+			delete(rawMsg, key)
+		case "username":
+			err = unpopulate(val, "Username", &g.Username)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -48273,6 +48309,7 @@ func (s *ScriptActivityScriptBlock) UnmarshalJSON(data []byte) error {
 func (s ScriptActivityTypeProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "logSettings", s.LogSettings)
+	populateAny(objectMap, "returnMultistatementResult", s.ReturnMultistatementResult)
 	populateAny(objectMap, "scriptBlockExecutionTimeout", s.ScriptBlockExecutionTimeout)
 	populate(objectMap, "scripts", s.Scripts)
 	return json.Marshal(objectMap)
@@ -48289,6 +48326,9 @@ func (s *ScriptActivityTypeProperties) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "logSettings":
 			err = unpopulate(val, "LogSettings", &s.LogSettings)
+			delete(rawMsg, key)
+		case "returnMultistatementResult":
+			err = unpopulate(val, "ReturnMultistatementResult", &s.ReturnMultistatementResult)
 			delete(rawMsg, key)
 		case "scriptBlockExecutionTimeout":
 			err = unpopulate(val, "ScriptBlockExecutionTimeout", &s.ScriptBlockExecutionTimeout)

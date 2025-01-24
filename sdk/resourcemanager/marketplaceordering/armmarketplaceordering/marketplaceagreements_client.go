@@ -107,7 +107,7 @@ func (client *MarketplaceAgreementsClient) cancelCreateRequest(ctx context.Conte
 // cancelHandleResponse handles the Cancel response.
 func (client *MarketplaceAgreementsClient) cancelHandleResponse(resp *http.Response) (MarketplaceAgreementsClientCancelResponse, error) {
 	result := MarketplaceAgreementsClientCancelResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.AgreementTerms); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.OldAgreementTerms); err != nil {
 		return MarketplaceAgreementsClientCancelResponse{}, err
 	}
 	return result, nil
@@ -331,7 +331,7 @@ func (client *MarketplaceAgreementsClient) getAgreementCreateRequest(ctx context
 // getAgreementHandleResponse handles the GetAgreement response.
 func (client *MarketplaceAgreementsClient) getAgreementHandleResponse(resp *http.Response) (MarketplaceAgreementsClientGetAgreementResponse, error) {
 	result := MarketplaceAgreementsClientGetAgreementResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.AgreementTerms); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.OldAgreementTerms); err != nil {
 		return MarketplaceAgreementsClientGetAgreementResponse{}, err
 	}
 	return result, nil
@@ -386,7 +386,7 @@ func (client *MarketplaceAgreementsClient) listCreateRequest(ctx context.Context
 // listHandleResponse handles the List response.
 func (client *MarketplaceAgreementsClient) listHandleResponse(resp *http.Response) (MarketplaceAgreementsClientListResponse, error) {
 	result := MarketplaceAgreementsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.AgreementTermsArray); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.OldAgreementTermsList); err != nil {
 		return MarketplaceAgreementsClientListResponse{}, err
 	}
 	return result, nil
@@ -456,7 +456,7 @@ func (client *MarketplaceAgreementsClient) signCreateRequest(ctx context.Context
 // signHandleResponse handles the Sign response.
 func (client *MarketplaceAgreementsClient) signHandleResponse(resp *http.Response) (MarketplaceAgreementsClientSignResponse, error) {
 	result := MarketplaceAgreementsClientSignResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.AgreementTerms); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.OldAgreementTerms); err != nil {
 		return MarketplaceAgreementsClientSignResponse{}, err
 	}
 	return result, nil
