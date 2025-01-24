@@ -25,7 +25,7 @@ import (
 // HybridRunbookWorkerGroupServer is a fake server for instances of the armautomation.HybridRunbookWorkerGroupClient type.
 type HybridRunbookWorkerGroupServer struct {
 	// Create is the fake for method HybridRunbookWorkerGroupClient.Create
-	// HTTP status codes to indicate success: http.StatusOK
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
 	Create func(ctx context.Context, resourceGroupName string, automationAccountName string, hybridRunbookWorkerGroupName string, hybridRunbookWorkerGroupCreationParameters armautomation.HybridRunbookWorkerGroupCreateOrUpdateParameters, options *armautomation.HybridRunbookWorkerGroupClientCreateOptions) (resp azfake.Responder[armautomation.HybridRunbookWorkerGroupClientCreateResponse], errResp azfake.ErrorResponder)
 
 	// Delete is the fake for method HybridRunbookWorkerGroupClient.Delete
@@ -126,8 +126,8 @@ func (h *HybridRunbookWorkerGroupServerTransport) dispatchCreate(req *http.Reque
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	if !contains([]int{http.StatusOK, http.StatusCreated}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).HybridRunbookWorkerGroup, req)
 	if err != nil {
