@@ -459,6 +459,15 @@ func (c *ComponentSetup) GetCustomSetupBase() *CustomSetupBase {
 	}
 }
 
+// CopyComputeScaleProperties - CopyComputeScale properties for managed integration runtime.
+type CopyComputeScaleProperties struct {
+	// DIU number setting reserved for copy activity execution. Supported values are multiples of 4 in range 4-256.
+	DataIntegrationUnit *int32
+
+	// Time to live (in minutes) setting of integration runtime which will execute copy activity.
+	TimeToLive *int32
+}
+
 // CreateSQLPoolRestorePointDefinition - Contains the information necessary to perform a create Sql pool restore point operation.
 type CreateSQLPoolRestorePointDefinition struct {
 	// REQUIRED; The restore point label to apply
@@ -1472,6 +1481,9 @@ type IntegrationRuntimeComputeProperties struct {
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
 	AdditionalProperties map[string]any
 
+	// CopyComputeScale properties for managed integration runtime.
+	CopyComputeScaleProperties *CopyComputeScaleProperties
+
 	// Data flow properties for managed integration runtime.
 	DataFlowProperties *IntegrationRuntimeDataFlowProperties
 
@@ -1486,6 +1498,9 @@ type IntegrationRuntimeComputeProperties struct {
 
 	// The required number of nodes for managed integration runtime.
 	NumberOfNodes *int32
+
+	// PipelineExternalComputeScale properties for managed integration runtime.
+	PipelineExternalComputeScaleProperties *PipelineExternalComputeScaleProperties
 
 	// VNet properties for managed integration runtime.
 	VNetProperties *IntegrationRuntimeVNetProperties
@@ -2048,14 +2063,14 @@ type LibraryInfo struct {
 	// Type of the library.
 	Type *string
 
-	// The last update time of the library.
-	UploadedTimestamp *time.Time
-
 	// READ-ONLY; Creator Id of the library/package.
 	CreatorID *string
 
 	// READ-ONLY; Provisioning status of the library/package.
 	ProvisioningStatus *string
+
+	// READ-ONLY; The last update time of the library.
+	UploadedTimestamp *time.Time
 }
 
 // LibraryListResponse - A list of Library resources.
@@ -2642,6 +2657,18 @@ type OptimizedAutoscale struct {
 	Version *int32
 }
 
+// PipelineExternalComputeScaleProperties - PipelineExternalComputeScale properties for managed integration runtime.
+type PipelineExternalComputeScaleProperties struct {
+	// Number of the the external nodes, which should be greater than 0 and less than 11.
+	NumberOfExternalNodes *int32
+
+	// Number of the pipeline nodes, which should be greater than 0 and less than 11.
+	NumberOfPipelineNodes *int32
+
+	// Time to live (in minutes) setting of integration runtime which will execute pipeline and external activity.
+	TimeToLive *int32
+}
+
 // PrivateEndpoint - Private endpoint details
 type PrivateEndpoint struct {
 	// READ-ONLY; Resource id of the private endpoint.
@@ -3153,12 +3180,6 @@ type Resource struct {
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
-}
-
-// ResourceMoveDefinition - Contains the information necessary to perform a resource move (rename).
-type ResourceMoveDefinition struct {
-	// REQUIRED; The target ID for the resource
-	ID *string
 }
 
 // RestorableDroppedSQLPool - A restorable dropped Sql pool
@@ -4022,14 +4043,24 @@ type SelfHostedIntegrationRuntimeStatusTypeProperties struct {
 	// READ-ONLY; The node communication Channel encryption mode
 	NodeCommunicationChannelEncryptionMode *string
 
+	// READ-ONLY
+	OSType *int32
+
 	// READ-ONLY; The version that the integration runtime is going to update to.
 	PushedVersion *string
 
 	// READ-ONLY; The date at which the integration runtime will be scheduled to update, in ISO8601 format.
 	ScheduledUpdateDate *time.Time
 
+	// READ-ONLY; An alternative option to ensure interactive authoring function when your self-hosted integration runtime is
+	// unable to establish a connection with Azure Relay.
+	SelfContainedInteractiveAuthoringEnabled *SelfContainedInteractiveAuthoringState
+
 	// READ-ONLY; The URLs for the services used in integration runtime backend service.
 	ServiceUrls []*string
+
+	// READ-ONLY
+	TargetFramework *int32
 
 	// READ-ONLY; The task queue id of the integration runtime.
 	TaskQueueID *string
@@ -4048,6 +4079,10 @@ type SelfHostedIntegrationRuntimeStatusTypeProperties struct {
 type SelfHostedIntegrationRuntimeTypeProperties struct {
 	// Linked integration runtime type from data factory
 	LinkedInfo LinkedIntegrationRuntimeTypeClassification
+
+	// An alternative option to ensure interactive authoring function when your self-hosted integration runtime is unable to establish
+	// a connection with Azure Relay.
+	SelfContainedInteractiveAuthoringEnabled *SelfContainedInteractiveAuthoringState
 }
 
 // SensitivityLabel - A sensitivity label.
@@ -5132,9 +5167,6 @@ type WorkspaceProperties struct {
 	// Enable or Disable AzureADOnlyAuthentication on All Workspace subresource
 	AzureADOnlyAuthentication *bool
 
-	// Connectivity endpoints
-	ConnectivityEndpoints map[string]*string
-
 	// Initial workspace AAD admin properties for a CSP subscription
 	CspWorkspaceAdminProperties *CspWorkspaceAdminProperties
 
@@ -5184,8 +5216,11 @@ type WorkspaceProperties struct {
 	// READ-ONLY; The ADLA resource ID.
 	AdlaResourceID *string
 
+	// READ-ONLY; Connectivity endpoints
+	ConnectivityEndpoints map[string]*string
+
 	// READ-ONLY; Workspace level configs and feature flags
-	ExtraProperties map[string]any
+	ExtraProperties any
 
 	// READ-ONLY; Resource provisioning state
 	ProvisioningState *string

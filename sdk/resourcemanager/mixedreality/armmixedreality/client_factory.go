@@ -17,8 +17,7 @@ import (
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
 	subscriptionID string
-	credential     azcore.TokenCredential
-	options        *arm.ClientOptions
+	internal       *arm.Client
 }
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
@@ -27,42 +26,51 @@ type ClientFactory struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
-	_, err := arm.NewClient(moduleName, moduleVersion, credential, options)
+	internal, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		subscriptionID: subscriptionID, credential: credential,
-		options: options.Clone(),
+		subscriptionID: subscriptionID,
+		internal:       internal,
 	}, nil
 }
 
 // NewClient creates a new instance of Client.
 func (c *ClientFactory) NewClient() *Client {
-	subClient, _ := NewClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &Client{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewObjectAnchorsAccountsClient creates a new instance of ObjectAnchorsAccountsClient.
 func (c *ClientFactory) NewObjectAnchorsAccountsClient() *ObjectAnchorsAccountsClient {
-	subClient, _ := NewObjectAnchorsAccountsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &ObjectAnchorsAccountsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewOperationsClient creates a new instance of OperationsClient.
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
-	subClient, _ := NewOperationsClient(c.credential, c.options)
-	return subClient
+	return &OperationsClient{
+		internal: c.internal,
+	}
 }
 
 // NewRemoteRenderingAccountsClient creates a new instance of RemoteRenderingAccountsClient.
 func (c *ClientFactory) NewRemoteRenderingAccountsClient() *RemoteRenderingAccountsClient {
-	subClient, _ := NewRemoteRenderingAccountsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &RemoteRenderingAccountsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSpatialAnchorsAccountsClient creates a new instance of SpatialAnchorsAccountsClient.
 func (c *ClientFactory) NewSpatialAnchorsAccountsClient() *SpatialAnchorsAccountsClient {
-	subClient, _ := NewSpatialAnchorsAccountsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SpatialAnchorsAccountsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
