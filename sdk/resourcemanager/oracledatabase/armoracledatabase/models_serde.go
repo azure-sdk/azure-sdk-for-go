@@ -462,6 +462,7 @@ func (a AutonomousDatabaseBaseProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "privateEndpointLabel", a.PrivateEndpointLabel)
 	populate(objectMap, "provisionableCpus", a.ProvisionableCpus)
 	populate(objectMap, "provisioningState", a.ProvisioningState)
+	populate(objectMap, "remoteDisasterRecoveryConfiguration", a.RemoteDisasterRecoveryConfiguration)
 	populate(objectMap, "role", a.Role)
 	populate(objectMap, "sqlWebDeveloperUrl", a.SQLWebDeveloperURL)
 	populate(objectMap, "scheduledOperations", a.ScheduledOperations)
@@ -471,6 +472,7 @@ func (a AutonomousDatabaseBaseProperties) MarshalJSON() ([]byte, error) {
 	populateDateTimeRFC3339(objectMap, "timeCreated", a.TimeCreated)
 	populate(objectMap, "timeDataGuardRoleChanged", a.TimeDataGuardRoleChanged)
 	populate(objectMap, "timeDeletionOfFreeAutonomousDatabase", a.TimeDeletionOfFreeAutonomousDatabase)
+	populateDateTimeRFC3339(objectMap, "timeDisasterRecoveryRoleChanged", a.TimeDisasterRecoveryRoleChanged)
 	populate(objectMap, "timeLocalDataGuardEnabled", a.TimeLocalDataGuardEnabled)
 	populateDateTimeRFC3339(objectMap, "timeMaintenanceBegin", a.TimeMaintenanceBegin)
 	populateDateTimeRFC3339(objectMap, "timeMaintenanceEnd", a.TimeMaintenanceEnd)
@@ -657,6 +659,9 @@ func (a *AutonomousDatabaseBaseProperties) UnmarshalJSON(data []byte) error {
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &a.ProvisioningState)
 			delete(rawMsg, key)
+		case "remoteDisasterRecoveryConfiguration":
+			err = unpopulate(val, "RemoteDisasterRecoveryConfiguration", &a.RemoteDisasterRecoveryConfiguration)
+			delete(rawMsg, key)
 		case "role":
 			err = unpopulate(val, "Role", &a.Role)
 			delete(rawMsg, key)
@@ -683,6 +688,9 @@ func (a *AutonomousDatabaseBaseProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "timeDeletionOfFreeAutonomousDatabase":
 			err = unpopulate(val, "TimeDeletionOfFreeAutonomousDatabase", &a.TimeDeletionOfFreeAutonomousDatabase)
+			delete(rawMsg, key)
+		case "timeDisasterRecoveryRoleChanged":
+			err = unpopulateDateTimeRFC3339(val, "TimeDisasterRecoveryRoleChanged", &a.TimeDisasterRecoveryRoleChanged)
 			delete(rawMsg, key)
 		case "timeLocalDataGuardEnabled":
 			err = unpopulate(val, "TimeLocalDataGuardEnabled", &a.TimeLocalDataGuardEnabled)
@@ -891,6 +899,7 @@ func (a AutonomousDatabaseCloneProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "provisioningState", a.ProvisioningState)
 	populate(objectMap, "refreshableModel", a.RefreshableModel)
 	populate(objectMap, "refreshableStatus", a.RefreshableStatus)
+	populate(objectMap, "remoteDisasterRecoveryConfiguration", a.RemoteDisasterRecoveryConfiguration)
 	populate(objectMap, "role", a.Role)
 	populate(objectMap, "sqlWebDeveloperUrl", a.SQLWebDeveloperURL)
 	populate(objectMap, "scheduledOperations", a.ScheduledOperations)
@@ -902,6 +911,7 @@ func (a AutonomousDatabaseCloneProperties) MarshalJSON() ([]byte, error) {
 	populateDateTimeRFC3339(objectMap, "timeCreated", a.TimeCreated)
 	populate(objectMap, "timeDataGuardRoleChanged", a.TimeDataGuardRoleChanged)
 	populate(objectMap, "timeDeletionOfFreeAutonomousDatabase", a.TimeDeletionOfFreeAutonomousDatabase)
+	populateDateTimeRFC3339(objectMap, "timeDisasterRecoveryRoleChanged", a.TimeDisasterRecoveryRoleChanged)
 	populate(objectMap, "timeLocalDataGuardEnabled", a.TimeLocalDataGuardEnabled)
 	populateDateTimeRFC3339(objectMap, "timeMaintenanceBegin", a.TimeMaintenanceBegin)
 	populateDateTimeRFC3339(objectMap, "timeMaintenanceEnd", a.TimeMaintenanceEnd)
@@ -1104,6 +1114,9 @@ func (a *AutonomousDatabaseCloneProperties) UnmarshalJSON(data []byte) error {
 		case "refreshableStatus":
 			err = unpopulate(val, "RefreshableStatus", &a.RefreshableStatus)
 			delete(rawMsg, key)
+		case "remoteDisasterRecoveryConfiguration":
+			err = unpopulate(val, "RemoteDisasterRecoveryConfiguration", &a.RemoteDisasterRecoveryConfiguration)
+			delete(rawMsg, key)
 		case "role":
 			err = unpopulate(val, "Role", &a.Role)
 			delete(rawMsg, key)
@@ -1137,6 +1150,9 @@ func (a *AutonomousDatabaseCloneProperties) UnmarshalJSON(data []byte) error {
 		case "timeDeletionOfFreeAutonomousDatabase":
 			err = unpopulate(val, "TimeDeletionOfFreeAutonomousDatabase", &a.TimeDeletionOfFreeAutonomousDatabase)
 			delete(rawMsg, key)
+		case "timeDisasterRecoveryRoleChanged":
+			err = unpopulateDateTimeRFC3339(val, "TimeDisasterRecoveryRoleChanged", &a.TimeDisasterRecoveryRoleChanged)
+			delete(rawMsg, key)
 		case "timeLocalDataGuardEnabled":
 			err = unpopulate(val, "TimeLocalDataGuardEnabled", &a.TimeLocalDataGuardEnabled)
 			delete(rawMsg, key)
@@ -1163,6 +1179,712 @@ func (a *AutonomousDatabaseCloneProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "timeUntilReconnectCloneEnabled":
 			err = unpopulate(val, "TimeUntilReconnectCloneEnabled", &a.TimeUntilReconnectCloneEnabled)
+			delete(rawMsg, key)
+		case "usedDataStorageSizeInGbs":
+			err = unpopulate(val, "UsedDataStorageSizeInGbs", &a.UsedDataStorageSizeInGbs)
+			delete(rawMsg, key)
+		case "usedDataStorageSizeInTbs":
+			err = unpopulate(val, "UsedDataStorageSizeInTbs", &a.UsedDataStorageSizeInTbs)
+			delete(rawMsg, key)
+		case "vnetId":
+			err = unpopulate(val, "VnetID", &a.VnetID)
+			delete(rawMsg, key)
+		case "whitelistedIps":
+			err = unpopulate(val, "WhitelistedIPs", &a.WhitelistedIPs)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AutonomousDatabaseCrossRegionDisasterRecoveryProperties.
+func (a AutonomousDatabaseCrossRegionDisasterRecoveryProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "actualUsedDataStorageSizeInTbs", a.ActualUsedDataStorageSizeInTbs)
+	populate(objectMap, "adminPassword", a.AdminPassword)
+	populate(objectMap, "allocatedStorageSizeInTbs", a.AllocatedStorageSizeInTbs)
+	populate(objectMap, "apexDetails", a.ApexDetails)
+	populate(objectMap, "autonomousDatabaseId", a.AutonomousDatabaseID)
+	populate(objectMap, "autonomousMaintenanceScheduleType", a.AutonomousMaintenanceScheduleType)
+	populate(objectMap, "availableUpgradeVersions", a.AvailableUpgradeVersions)
+	populate(objectMap, "backupRetentionPeriodInDays", a.BackupRetentionPeriodInDays)
+	populate(objectMap, "cpuCoreCount", a.CPUCoreCount)
+	populate(objectMap, "characterSet", a.CharacterSet)
+	populate(objectMap, "computeCount", a.ComputeCount)
+	populate(objectMap, "computeModel", a.ComputeModel)
+	populate(objectMap, "connectionStrings", a.ConnectionStrings)
+	populate(objectMap, "connectionUrls", a.ConnectionUrls)
+	populate(objectMap, "customerContacts", a.CustomerContacts)
+	objectMap["dataBaseType"] = DataBaseTypeCrossRegionDisasterRecovery
+	populate(objectMap, "dataSafeStatus", a.DataSafeStatus)
+	populate(objectMap, "dataStorageSizeInGbs", a.DataStorageSizeInGbs)
+	populate(objectMap, "dataStorageSizeInTbs", a.DataStorageSizeInTbs)
+	populate(objectMap, "databaseEdition", a.DatabaseEdition)
+	populate(objectMap, "dbVersion", a.DbVersion)
+	populate(objectMap, "dbWorkload", a.DbWorkload)
+	populate(objectMap, "displayName", a.DisplayName)
+	populate(objectMap, "failedDataRecoveryInSeconds", a.FailedDataRecoveryInSeconds)
+	populate(objectMap, "inMemoryAreaInGbs", a.InMemoryAreaInGbs)
+	populate(objectMap, "isAutoScalingEnabled", a.IsAutoScalingEnabled)
+	populate(objectMap, "isAutoScalingForStorageEnabled", a.IsAutoScalingForStorageEnabled)
+	populate(objectMap, "isLocalDataGuardEnabled", a.IsLocalDataGuardEnabled)
+	populate(objectMap, "isMtlsConnectionRequired", a.IsMtlsConnectionRequired)
+	populate(objectMap, "isPreview", a.IsPreview)
+	populate(objectMap, "isPreviewVersionWithServiceTermsAccepted", a.IsPreviewVersionWithServiceTermsAccepted)
+	populate(objectMap, "isRemoteDataGuardEnabled", a.IsRemoteDataGuardEnabled)
+	populate(objectMap, "isReplicateAutomaticBackups", a.IsReplicateAutomaticBackups)
+	populate(objectMap, "licenseModel", a.LicenseModel)
+	populate(objectMap, "lifecycleDetails", a.LifecycleDetails)
+	populate(objectMap, "lifecycleState", a.LifecycleState)
+	populate(objectMap, "localAdgAutoFailoverMaxDataLossLimit", a.LocalAdgAutoFailoverMaxDataLossLimit)
+	populate(objectMap, "localDisasterRecoveryType", a.LocalDisasterRecoveryType)
+	populate(objectMap, "localStandbyDb", a.LocalStandbyDb)
+	populate(objectMap, "longTermBackupSchedule", a.LongTermBackupSchedule)
+	populate(objectMap, "memoryPerOracleComputeUnitInGbs", a.MemoryPerOracleComputeUnitInGbs)
+	populate(objectMap, "ncharacterSet", a.NcharacterSet)
+	populateDateTimeRFC3339(objectMap, "nextLongTermBackupTimeStamp", a.NextLongTermBackupTimeStamp)
+	populate(objectMap, "ociUrl", a.OciURL)
+	populate(objectMap, "ocid", a.Ocid)
+	populate(objectMap, "openMode", a.OpenMode)
+	populate(objectMap, "operationsInsightsStatus", a.OperationsInsightsStatus)
+	populate(objectMap, "peerDbId", a.PeerDbID)
+	populate(objectMap, "peerDbIds", a.PeerDbIDs)
+	populate(objectMap, "permissionLevel", a.PermissionLevel)
+	populate(objectMap, "privateEndpoint", a.PrivateEndpoint)
+	populate(objectMap, "privateEndpointIp", a.PrivateEndpointIP)
+	populate(objectMap, "privateEndpointLabel", a.PrivateEndpointLabel)
+	populate(objectMap, "provisionableCpus", a.ProvisionableCpus)
+	populate(objectMap, "provisioningState", a.ProvisioningState)
+	populate(objectMap, "remoteDisasterRecoveryConfiguration", a.RemoteDisasterRecoveryConfiguration)
+	populate(objectMap, "remoteDisasterRecoveryType", a.RemoteDisasterRecoveryType)
+	populate(objectMap, "role", a.Role)
+	populate(objectMap, "sqlWebDeveloperUrl", a.SQLWebDeveloperURL)
+	populate(objectMap, "scheduledOperations", a.ScheduledOperations)
+	populate(objectMap, "serviceConsoleUrl", a.ServiceConsoleURL)
+	objectMap["source"] = "CrossRegionDisasterRecovery"
+	populate(objectMap, "sourceId", a.SourceID)
+	populate(objectMap, "sourceLocation", a.SourceLocation)
+	populate(objectMap, "sourceOcid", a.SourceOcid)
+	populate(objectMap, "subnetId", a.SubnetID)
+	populate(objectMap, "supportedRegionsToCloneTo", a.SupportedRegionsToCloneTo)
+	populateDateTimeRFC3339(objectMap, "timeCreated", a.TimeCreated)
+	populate(objectMap, "timeDataGuardRoleChanged", a.TimeDataGuardRoleChanged)
+	populate(objectMap, "timeDeletionOfFreeAutonomousDatabase", a.TimeDeletionOfFreeAutonomousDatabase)
+	populateDateTimeRFC3339(objectMap, "timeDisasterRecoveryRoleChanged", a.TimeDisasterRecoveryRoleChanged)
+	populate(objectMap, "timeLocalDataGuardEnabled", a.TimeLocalDataGuardEnabled)
+	populateDateTimeRFC3339(objectMap, "timeMaintenanceBegin", a.TimeMaintenanceBegin)
+	populateDateTimeRFC3339(objectMap, "timeMaintenanceEnd", a.TimeMaintenanceEnd)
+	populate(objectMap, "timeOfLastFailover", a.TimeOfLastFailover)
+	populate(objectMap, "timeOfLastRefresh", a.TimeOfLastRefresh)
+	populate(objectMap, "timeOfLastRefreshPoint", a.TimeOfLastRefreshPoint)
+	populate(objectMap, "timeOfLastSwitchover", a.TimeOfLastSwitchover)
+	populate(objectMap, "timeReclamationOfFreeAutonomousDatabase", a.TimeReclamationOfFreeAutonomousDatabase)
+	populate(objectMap, "usedDataStorageSizeInGbs", a.UsedDataStorageSizeInGbs)
+	populate(objectMap, "usedDataStorageSizeInTbs", a.UsedDataStorageSizeInTbs)
+	populate(objectMap, "vnetId", a.VnetID)
+	populate(objectMap, "whitelistedIps", a.WhitelistedIPs)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AutonomousDatabaseCrossRegionDisasterRecoveryProperties.
+func (a *AutonomousDatabaseCrossRegionDisasterRecoveryProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "actualUsedDataStorageSizeInTbs":
+			err = unpopulate(val, "ActualUsedDataStorageSizeInTbs", &a.ActualUsedDataStorageSizeInTbs)
+			delete(rawMsg, key)
+		case "adminPassword":
+			err = unpopulate(val, "AdminPassword", &a.AdminPassword)
+			delete(rawMsg, key)
+		case "allocatedStorageSizeInTbs":
+			err = unpopulate(val, "AllocatedStorageSizeInTbs", &a.AllocatedStorageSizeInTbs)
+			delete(rawMsg, key)
+		case "apexDetails":
+			err = unpopulate(val, "ApexDetails", &a.ApexDetails)
+			delete(rawMsg, key)
+		case "autonomousDatabaseId":
+			err = unpopulate(val, "AutonomousDatabaseID", &a.AutonomousDatabaseID)
+			delete(rawMsg, key)
+		case "autonomousMaintenanceScheduleType":
+			err = unpopulate(val, "AutonomousMaintenanceScheduleType", &a.AutonomousMaintenanceScheduleType)
+			delete(rawMsg, key)
+		case "availableUpgradeVersions":
+			err = unpopulate(val, "AvailableUpgradeVersions", &a.AvailableUpgradeVersions)
+			delete(rawMsg, key)
+		case "backupRetentionPeriodInDays":
+			err = unpopulate(val, "BackupRetentionPeriodInDays", &a.BackupRetentionPeriodInDays)
+			delete(rawMsg, key)
+		case "cpuCoreCount":
+			err = unpopulate(val, "CPUCoreCount", &a.CPUCoreCount)
+			delete(rawMsg, key)
+		case "characterSet":
+			err = unpopulate(val, "CharacterSet", &a.CharacterSet)
+			delete(rawMsg, key)
+		case "computeCount":
+			err = unpopulate(val, "ComputeCount", &a.ComputeCount)
+			delete(rawMsg, key)
+		case "computeModel":
+			err = unpopulate(val, "ComputeModel", &a.ComputeModel)
+			delete(rawMsg, key)
+		case "connectionStrings":
+			err = unpopulate(val, "ConnectionStrings", &a.ConnectionStrings)
+			delete(rawMsg, key)
+		case "connectionUrls":
+			err = unpopulate(val, "ConnectionUrls", &a.ConnectionUrls)
+			delete(rawMsg, key)
+		case "customerContacts":
+			err = unpopulate(val, "CustomerContacts", &a.CustomerContacts)
+			delete(rawMsg, key)
+		case "dataBaseType":
+			err = unpopulate(val, "DataBaseType", &a.DataBaseType)
+			delete(rawMsg, key)
+		case "dataSafeStatus":
+			err = unpopulate(val, "DataSafeStatus", &a.DataSafeStatus)
+			delete(rawMsg, key)
+		case "dataStorageSizeInGbs":
+			err = unpopulate(val, "DataStorageSizeInGbs", &a.DataStorageSizeInGbs)
+			delete(rawMsg, key)
+		case "dataStorageSizeInTbs":
+			err = unpopulate(val, "DataStorageSizeInTbs", &a.DataStorageSizeInTbs)
+			delete(rawMsg, key)
+		case "databaseEdition":
+			err = unpopulate(val, "DatabaseEdition", &a.DatabaseEdition)
+			delete(rawMsg, key)
+		case "dbVersion":
+			err = unpopulate(val, "DbVersion", &a.DbVersion)
+			delete(rawMsg, key)
+		case "dbWorkload":
+			err = unpopulate(val, "DbWorkload", &a.DbWorkload)
+			delete(rawMsg, key)
+		case "displayName":
+			err = unpopulate(val, "DisplayName", &a.DisplayName)
+			delete(rawMsg, key)
+		case "failedDataRecoveryInSeconds":
+			err = unpopulate(val, "FailedDataRecoveryInSeconds", &a.FailedDataRecoveryInSeconds)
+			delete(rawMsg, key)
+		case "inMemoryAreaInGbs":
+			err = unpopulate(val, "InMemoryAreaInGbs", &a.InMemoryAreaInGbs)
+			delete(rawMsg, key)
+		case "isAutoScalingEnabled":
+			err = unpopulate(val, "IsAutoScalingEnabled", &a.IsAutoScalingEnabled)
+			delete(rawMsg, key)
+		case "isAutoScalingForStorageEnabled":
+			err = unpopulate(val, "IsAutoScalingForStorageEnabled", &a.IsAutoScalingForStorageEnabled)
+			delete(rawMsg, key)
+		case "isLocalDataGuardEnabled":
+			err = unpopulate(val, "IsLocalDataGuardEnabled", &a.IsLocalDataGuardEnabled)
+			delete(rawMsg, key)
+		case "isMtlsConnectionRequired":
+			err = unpopulate(val, "IsMtlsConnectionRequired", &a.IsMtlsConnectionRequired)
+			delete(rawMsg, key)
+		case "isPreview":
+			err = unpopulate(val, "IsPreview", &a.IsPreview)
+			delete(rawMsg, key)
+		case "isPreviewVersionWithServiceTermsAccepted":
+			err = unpopulate(val, "IsPreviewVersionWithServiceTermsAccepted", &a.IsPreviewVersionWithServiceTermsAccepted)
+			delete(rawMsg, key)
+		case "isRemoteDataGuardEnabled":
+			err = unpopulate(val, "IsRemoteDataGuardEnabled", &a.IsRemoteDataGuardEnabled)
+			delete(rawMsg, key)
+		case "isReplicateAutomaticBackups":
+			err = unpopulate(val, "IsReplicateAutomaticBackups", &a.IsReplicateAutomaticBackups)
+			delete(rawMsg, key)
+		case "licenseModel":
+			err = unpopulate(val, "LicenseModel", &a.LicenseModel)
+			delete(rawMsg, key)
+		case "lifecycleDetails":
+			err = unpopulate(val, "LifecycleDetails", &a.LifecycleDetails)
+			delete(rawMsg, key)
+		case "lifecycleState":
+			err = unpopulate(val, "LifecycleState", &a.LifecycleState)
+			delete(rawMsg, key)
+		case "localAdgAutoFailoverMaxDataLossLimit":
+			err = unpopulate(val, "LocalAdgAutoFailoverMaxDataLossLimit", &a.LocalAdgAutoFailoverMaxDataLossLimit)
+			delete(rawMsg, key)
+		case "localDisasterRecoveryType":
+			err = unpopulate(val, "LocalDisasterRecoveryType", &a.LocalDisasterRecoveryType)
+			delete(rawMsg, key)
+		case "localStandbyDb":
+			err = unpopulate(val, "LocalStandbyDb", &a.LocalStandbyDb)
+			delete(rawMsg, key)
+		case "longTermBackupSchedule":
+			err = unpopulate(val, "LongTermBackupSchedule", &a.LongTermBackupSchedule)
+			delete(rawMsg, key)
+		case "memoryPerOracleComputeUnitInGbs":
+			err = unpopulate(val, "MemoryPerOracleComputeUnitInGbs", &a.MemoryPerOracleComputeUnitInGbs)
+			delete(rawMsg, key)
+		case "ncharacterSet":
+			err = unpopulate(val, "NcharacterSet", &a.NcharacterSet)
+			delete(rawMsg, key)
+		case "nextLongTermBackupTimeStamp":
+			err = unpopulateDateTimeRFC3339(val, "NextLongTermBackupTimeStamp", &a.NextLongTermBackupTimeStamp)
+			delete(rawMsg, key)
+		case "ociUrl":
+			err = unpopulate(val, "OciURL", &a.OciURL)
+			delete(rawMsg, key)
+		case "ocid":
+			err = unpopulate(val, "Ocid", &a.Ocid)
+			delete(rawMsg, key)
+		case "openMode":
+			err = unpopulate(val, "OpenMode", &a.OpenMode)
+			delete(rawMsg, key)
+		case "operationsInsightsStatus":
+			err = unpopulate(val, "OperationsInsightsStatus", &a.OperationsInsightsStatus)
+			delete(rawMsg, key)
+		case "peerDbId":
+			err = unpopulate(val, "PeerDbID", &a.PeerDbID)
+			delete(rawMsg, key)
+		case "peerDbIds":
+			err = unpopulate(val, "PeerDbIDs", &a.PeerDbIDs)
+			delete(rawMsg, key)
+		case "permissionLevel":
+			err = unpopulate(val, "PermissionLevel", &a.PermissionLevel)
+			delete(rawMsg, key)
+		case "privateEndpoint":
+			err = unpopulate(val, "PrivateEndpoint", &a.PrivateEndpoint)
+			delete(rawMsg, key)
+		case "privateEndpointIp":
+			err = unpopulate(val, "PrivateEndpointIP", &a.PrivateEndpointIP)
+			delete(rawMsg, key)
+		case "privateEndpointLabel":
+			err = unpopulate(val, "PrivateEndpointLabel", &a.PrivateEndpointLabel)
+			delete(rawMsg, key)
+		case "provisionableCpus":
+			err = unpopulate(val, "ProvisionableCpus", &a.ProvisionableCpus)
+			delete(rawMsg, key)
+		case "provisioningState":
+			err = unpopulate(val, "ProvisioningState", &a.ProvisioningState)
+			delete(rawMsg, key)
+		case "remoteDisasterRecoveryConfiguration":
+			err = unpopulate(val, "RemoteDisasterRecoveryConfiguration", &a.RemoteDisasterRecoveryConfiguration)
+			delete(rawMsg, key)
+		case "remoteDisasterRecoveryType":
+			err = unpopulate(val, "RemoteDisasterRecoveryType", &a.RemoteDisasterRecoveryType)
+			delete(rawMsg, key)
+		case "role":
+			err = unpopulate(val, "Role", &a.Role)
+			delete(rawMsg, key)
+		case "sqlWebDeveloperUrl":
+			err = unpopulate(val, "SQLWebDeveloperURL", &a.SQLWebDeveloperURL)
+			delete(rawMsg, key)
+		case "scheduledOperations":
+			err = unpopulate(val, "ScheduledOperations", &a.ScheduledOperations)
+			delete(rawMsg, key)
+		case "serviceConsoleUrl":
+			err = unpopulate(val, "ServiceConsoleURL", &a.ServiceConsoleURL)
+			delete(rawMsg, key)
+		case "source":
+			err = unpopulate(val, "Source", &a.Source)
+			delete(rawMsg, key)
+		case "sourceId":
+			err = unpopulate(val, "SourceID", &a.SourceID)
+			delete(rawMsg, key)
+		case "sourceLocation":
+			err = unpopulate(val, "SourceLocation", &a.SourceLocation)
+			delete(rawMsg, key)
+		case "sourceOcid":
+			err = unpopulate(val, "SourceOcid", &a.SourceOcid)
+			delete(rawMsg, key)
+		case "subnetId":
+			err = unpopulate(val, "SubnetID", &a.SubnetID)
+			delete(rawMsg, key)
+		case "supportedRegionsToCloneTo":
+			err = unpopulate(val, "SupportedRegionsToCloneTo", &a.SupportedRegionsToCloneTo)
+			delete(rawMsg, key)
+		case "timeCreated":
+			err = unpopulateDateTimeRFC3339(val, "TimeCreated", &a.TimeCreated)
+			delete(rawMsg, key)
+		case "timeDataGuardRoleChanged":
+			err = unpopulate(val, "TimeDataGuardRoleChanged", &a.TimeDataGuardRoleChanged)
+			delete(rawMsg, key)
+		case "timeDeletionOfFreeAutonomousDatabase":
+			err = unpopulate(val, "TimeDeletionOfFreeAutonomousDatabase", &a.TimeDeletionOfFreeAutonomousDatabase)
+			delete(rawMsg, key)
+		case "timeDisasterRecoveryRoleChanged":
+			err = unpopulateDateTimeRFC3339(val, "TimeDisasterRecoveryRoleChanged", &a.TimeDisasterRecoveryRoleChanged)
+			delete(rawMsg, key)
+		case "timeLocalDataGuardEnabled":
+			err = unpopulate(val, "TimeLocalDataGuardEnabled", &a.TimeLocalDataGuardEnabled)
+			delete(rawMsg, key)
+		case "timeMaintenanceBegin":
+			err = unpopulateDateTimeRFC3339(val, "TimeMaintenanceBegin", &a.TimeMaintenanceBegin)
+			delete(rawMsg, key)
+		case "timeMaintenanceEnd":
+			err = unpopulateDateTimeRFC3339(val, "TimeMaintenanceEnd", &a.TimeMaintenanceEnd)
+			delete(rawMsg, key)
+		case "timeOfLastFailover":
+			err = unpopulate(val, "TimeOfLastFailover", &a.TimeOfLastFailover)
+			delete(rawMsg, key)
+		case "timeOfLastRefresh":
+			err = unpopulate(val, "TimeOfLastRefresh", &a.TimeOfLastRefresh)
+			delete(rawMsg, key)
+		case "timeOfLastRefreshPoint":
+			err = unpopulate(val, "TimeOfLastRefreshPoint", &a.TimeOfLastRefreshPoint)
+			delete(rawMsg, key)
+		case "timeOfLastSwitchover":
+			err = unpopulate(val, "TimeOfLastSwitchover", &a.TimeOfLastSwitchover)
+			delete(rawMsg, key)
+		case "timeReclamationOfFreeAutonomousDatabase":
+			err = unpopulate(val, "TimeReclamationOfFreeAutonomousDatabase", &a.TimeReclamationOfFreeAutonomousDatabase)
+			delete(rawMsg, key)
+		case "usedDataStorageSizeInGbs":
+			err = unpopulate(val, "UsedDataStorageSizeInGbs", &a.UsedDataStorageSizeInGbs)
+			delete(rawMsg, key)
+		case "usedDataStorageSizeInTbs":
+			err = unpopulate(val, "UsedDataStorageSizeInTbs", &a.UsedDataStorageSizeInTbs)
+			delete(rawMsg, key)
+		case "vnetId":
+			err = unpopulate(val, "VnetID", &a.VnetID)
+			delete(rawMsg, key)
+		case "whitelistedIps":
+			err = unpopulate(val, "WhitelistedIPs", &a.WhitelistedIPs)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AutonomousDatabaseFromBackupTimestampProperties.
+func (a AutonomousDatabaseFromBackupTimestampProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "actualUsedDataStorageSizeInTbs", a.ActualUsedDataStorageSizeInTbs)
+	populate(objectMap, "adminPassword", a.AdminPassword)
+	populate(objectMap, "allocatedStorageSizeInTbs", a.AllocatedStorageSizeInTbs)
+	populate(objectMap, "apexDetails", a.ApexDetails)
+	populate(objectMap, "autonomousDatabaseId", a.AutonomousDatabaseID)
+	populate(objectMap, "autonomousMaintenanceScheduleType", a.AutonomousMaintenanceScheduleType)
+	populate(objectMap, "availableUpgradeVersions", a.AvailableUpgradeVersions)
+	populate(objectMap, "backupRetentionPeriodInDays", a.BackupRetentionPeriodInDays)
+	populate(objectMap, "cpuCoreCount", a.CPUCoreCount)
+	populate(objectMap, "characterSet", a.CharacterSet)
+	populate(objectMap, "cloneType", a.CloneType)
+	populate(objectMap, "computeCount", a.ComputeCount)
+	populate(objectMap, "computeModel", a.ComputeModel)
+	populate(objectMap, "connectionStrings", a.ConnectionStrings)
+	populate(objectMap, "connectionUrls", a.ConnectionUrls)
+	populate(objectMap, "customerContacts", a.CustomerContacts)
+	objectMap["dataBaseType"] = DataBaseTypeCloneFromBackupTimestamp
+	populate(objectMap, "dataSafeStatus", a.DataSafeStatus)
+	populate(objectMap, "dataStorageSizeInGbs", a.DataStorageSizeInGbs)
+	populate(objectMap, "dataStorageSizeInTbs", a.DataStorageSizeInTbs)
+	populate(objectMap, "databaseEdition", a.DatabaseEdition)
+	populate(objectMap, "dbVersion", a.DbVersion)
+	populate(objectMap, "dbWorkload", a.DbWorkload)
+	populate(objectMap, "displayName", a.DisplayName)
+	populate(objectMap, "failedDataRecoveryInSeconds", a.FailedDataRecoveryInSeconds)
+	populate(objectMap, "inMemoryAreaInGbs", a.InMemoryAreaInGbs)
+	populate(objectMap, "isAutoScalingEnabled", a.IsAutoScalingEnabled)
+	populate(objectMap, "isAutoScalingForStorageEnabled", a.IsAutoScalingForStorageEnabled)
+	populate(objectMap, "isLocalDataGuardEnabled", a.IsLocalDataGuardEnabled)
+	populate(objectMap, "isMtlsConnectionRequired", a.IsMtlsConnectionRequired)
+	populate(objectMap, "isPreview", a.IsPreview)
+	populate(objectMap, "isPreviewVersionWithServiceTermsAccepted", a.IsPreviewVersionWithServiceTermsAccepted)
+	populate(objectMap, "isRemoteDataGuardEnabled", a.IsRemoteDataGuardEnabled)
+	populate(objectMap, "licenseModel", a.LicenseModel)
+	populate(objectMap, "lifecycleDetails", a.LifecycleDetails)
+	populate(objectMap, "lifecycleState", a.LifecycleState)
+	populate(objectMap, "localAdgAutoFailoverMaxDataLossLimit", a.LocalAdgAutoFailoverMaxDataLossLimit)
+	populate(objectMap, "localDisasterRecoveryType", a.LocalDisasterRecoveryType)
+	populate(objectMap, "localStandbyDb", a.LocalStandbyDb)
+	populate(objectMap, "longTermBackupSchedule", a.LongTermBackupSchedule)
+	populate(objectMap, "memoryPerOracleComputeUnitInGbs", a.MemoryPerOracleComputeUnitInGbs)
+	populate(objectMap, "ncharacterSet", a.NcharacterSet)
+	populateDateTimeRFC3339(objectMap, "nextLongTermBackupTimeStamp", a.NextLongTermBackupTimeStamp)
+	populate(objectMap, "ociUrl", a.OciURL)
+	populate(objectMap, "ocid", a.Ocid)
+	populate(objectMap, "openMode", a.OpenMode)
+	populate(objectMap, "operationsInsightsStatus", a.OperationsInsightsStatus)
+	populate(objectMap, "peerDbId", a.PeerDbID)
+	populate(objectMap, "peerDbIds", a.PeerDbIDs)
+	populate(objectMap, "permissionLevel", a.PermissionLevel)
+	populate(objectMap, "privateEndpoint", a.PrivateEndpoint)
+	populate(objectMap, "privateEndpointIp", a.PrivateEndpointIP)
+	populate(objectMap, "privateEndpointLabel", a.PrivateEndpointLabel)
+	populate(objectMap, "provisionableCpus", a.ProvisionableCpus)
+	populate(objectMap, "provisioningState", a.ProvisioningState)
+	populate(objectMap, "remoteDisasterRecoveryConfiguration", a.RemoteDisasterRecoveryConfiguration)
+	populate(objectMap, "role", a.Role)
+	populate(objectMap, "sqlWebDeveloperUrl", a.SQLWebDeveloperURL)
+	populate(objectMap, "scheduledOperations", a.ScheduledOperations)
+	populate(objectMap, "serviceConsoleUrl", a.ServiceConsoleURL)
+	objectMap["source"] = "BackupFromTimestamp"
+	populate(objectMap, "sourceId", a.SourceID)
+	populate(objectMap, "subnetId", a.SubnetID)
+	populate(objectMap, "supportedRegionsToCloneTo", a.SupportedRegionsToCloneTo)
+	populateDateTimeRFC3339(objectMap, "timeCreated", a.TimeCreated)
+	populate(objectMap, "timeDataGuardRoleChanged", a.TimeDataGuardRoleChanged)
+	populate(objectMap, "timeDeletionOfFreeAutonomousDatabase", a.TimeDeletionOfFreeAutonomousDatabase)
+	populateDateTimeRFC3339(objectMap, "timeDisasterRecoveryRoleChanged", a.TimeDisasterRecoveryRoleChanged)
+	populate(objectMap, "timeLocalDataGuardEnabled", a.TimeLocalDataGuardEnabled)
+	populateDateTimeRFC3339(objectMap, "timeMaintenanceBegin", a.TimeMaintenanceBegin)
+	populateDateTimeRFC3339(objectMap, "timeMaintenanceEnd", a.TimeMaintenanceEnd)
+	populate(objectMap, "timeOfLastFailover", a.TimeOfLastFailover)
+	populate(objectMap, "timeOfLastRefresh", a.TimeOfLastRefresh)
+	populate(objectMap, "timeOfLastRefreshPoint", a.TimeOfLastRefreshPoint)
+	populate(objectMap, "timeOfLastSwitchover", a.TimeOfLastSwitchover)
+	populate(objectMap, "timeReclamationOfFreeAutonomousDatabase", a.TimeReclamationOfFreeAutonomousDatabase)
+	populateDateTimeRFC3339(objectMap, "timestamp", a.Timestamp)
+	populate(objectMap, "useLatestAvailableBackupTimeStamp", a.UseLatestAvailableBackupTimeStamp)
+	populate(objectMap, "usedDataStorageSizeInGbs", a.UsedDataStorageSizeInGbs)
+	populate(objectMap, "usedDataStorageSizeInTbs", a.UsedDataStorageSizeInTbs)
+	populate(objectMap, "vnetId", a.VnetID)
+	populate(objectMap, "whitelistedIps", a.WhitelistedIPs)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AutonomousDatabaseFromBackupTimestampProperties.
+func (a *AutonomousDatabaseFromBackupTimestampProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "actualUsedDataStorageSizeInTbs":
+			err = unpopulate(val, "ActualUsedDataStorageSizeInTbs", &a.ActualUsedDataStorageSizeInTbs)
+			delete(rawMsg, key)
+		case "adminPassword":
+			err = unpopulate(val, "AdminPassword", &a.AdminPassword)
+			delete(rawMsg, key)
+		case "allocatedStorageSizeInTbs":
+			err = unpopulate(val, "AllocatedStorageSizeInTbs", &a.AllocatedStorageSizeInTbs)
+			delete(rawMsg, key)
+		case "apexDetails":
+			err = unpopulate(val, "ApexDetails", &a.ApexDetails)
+			delete(rawMsg, key)
+		case "autonomousDatabaseId":
+			err = unpopulate(val, "AutonomousDatabaseID", &a.AutonomousDatabaseID)
+			delete(rawMsg, key)
+		case "autonomousMaintenanceScheduleType":
+			err = unpopulate(val, "AutonomousMaintenanceScheduleType", &a.AutonomousMaintenanceScheduleType)
+			delete(rawMsg, key)
+		case "availableUpgradeVersions":
+			err = unpopulate(val, "AvailableUpgradeVersions", &a.AvailableUpgradeVersions)
+			delete(rawMsg, key)
+		case "backupRetentionPeriodInDays":
+			err = unpopulate(val, "BackupRetentionPeriodInDays", &a.BackupRetentionPeriodInDays)
+			delete(rawMsg, key)
+		case "cpuCoreCount":
+			err = unpopulate(val, "CPUCoreCount", &a.CPUCoreCount)
+			delete(rawMsg, key)
+		case "characterSet":
+			err = unpopulate(val, "CharacterSet", &a.CharacterSet)
+			delete(rawMsg, key)
+		case "cloneType":
+			err = unpopulate(val, "CloneType", &a.CloneType)
+			delete(rawMsg, key)
+		case "computeCount":
+			err = unpopulate(val, "ComputeCount", &a.ComputeCount)
+			delete(rawMsg, key)
+		case "computeModel":
+			err = unpopulate(val, "ComputeModel", &a.ComputeModel)
+			delete(rawMsg, key)
+		case "connectionStrings":
+			err = unpopulate(val, "ConnectionStrings", &a.ConnectionStrings)
+			delete(rawMsg, key)
+		case "connectionUrls":
+			err = unpopulate(val, "ConnectionUrls", &a.ConnectionUrls)
+			delete(rawMsg, key)
+		case "customerContacts":
+			err = unpopulate(val, "CustomerContacts", &a.CustomerContacts)
+			delete(rawMsg, key)
+		case "dataBaseType":
+			err = unpopulate(val, "DataBaseType", &a.DataBaseType)
+			delete(rawMsg, key)
+		case "dataSafeStatus":
+			err = unpopulate(val, "DataSafeStatus", &a.DataSafeStatus)
+			delete(rawMsg, key)
+		case "dataStorageSizeInGbs":
+			err = unpopulate(val, "DataStorageSizeInGbs", &a.DataStorageSizeInGbs)
+			delete(rawMsg, key)
+		case "dataStorageSizeInTbs":
+			err = unpopulate(val, "DataStorageSizeInTbs", &a.DataStorageSizeInTbs)
+			delete(rawMsg, key)
+		case "databaseEdition":
+			err = unpopulate(val, "DatabaseEdition", &a.DatabaseEdition)
+			delete(rawMsg, key)
+		case "dbVersion":
+			err = unpopulate(val, "DbVersion", &a.DbVersion)
+			delete(rawMsg, key)
+		case "dbWorkload":
+			err = unpopulate(val, "DbWorkload", &a.DbWorkload)
+			delete(rawMsg, key)
+		case "displayName":
+			err = unpopulate(val, "DisplayName", &a.DisplayName)
+			delete(rawMsg, key)
+		case "failedDataRecoveryInSeconds":
+			err = unpopulate(val, "FailedDataRecoveryInSeconds", &a.FailedDataRecoveryInSeconds)
+			delete(rawMsg, key)
+		case "inMemoryAreaInGbs":
+			err = unpopulate(val, "InMemoryAreaInGbs", &a.InMemoryAreaInGbs)
+			delete(rawMsg, key)
+		case "isAutoScalingEnabled":
+			err = unpopulate(val, "IsAutoScalingEnabled", &a.IsAutoScalingEnabled)
+			delete(rawMsg, key)
+		case "isAutoScalingForStorageEnabled":
+			err = unpopulate(val, "IsAutoScalingForStorageEnabled", &a.IsAutoScalingForStorageEnabled)
+			delete(rawMsg, key)
+		case "isLocalDataGuardEnabled":
+			err = unpopulate(val, "IsLocalDataGuardEnabled", &a.IsLocalDataGuardEnabled)
+			delete(rawMsg, key)
+		case "isMtlsConnectionRequired":
+			err = unpopulate(val, "IsMtlsConnectionRequired", &a.IsMtlsConnectionRequired)
+			delete(rawMsg, key)
+		case "isPreview":
+			err = unpopulate(val, "IsPreview", &a.IsPreview)
+			delete(rawMsg, key)
+		case "isPreviewVersionWithServiceTermsAccepted":
+			err = unpopulate(val, "IsPreviewVersionWithServiceTermsAccepted", &a.IsPreviewVersionWithServiceTermsAccepted)
+			delete(rawMsg, key)
+		case "isRemoteDataGuardEnabled":
+			err = unpopulate(val, "IsRemoteDataGuardEnabled", &a.IsRemoteDataGuardEnabled)
+			delete(rawMsg, key)
+		case "licenseModel":
+			err = unpopulate(val, "LicenseModel", &a.LicenseModel)
+			delete(rawMsg, key)
+		case "lifecycleDetails":
+			err = unpopulate(val, "LifecycleDetails", &a.LifecycleDetails)
+			delete(rawMsg, key)
+		case "lifecycleState":
+			err = unpopulate(val, "LifecycleState", &a.LifecycleState)
+			delete(rawMsg, key)
+		case "localAdgAutoFailoverMaxDataLossLimit":
+			err = unpopulate(val, "LocalAdgAutoFailoverMaxDataLossLimit", &a.LocalAdgAutoFailoverMaxDataLossLimit)
+			delete(rawMsg, key)
+		case "localDisasterRecoveryType":
+			err = unpopulate(val, "LocalDisasterRecoveryType", &a.LocalDisasterRecoveryType)
+			delete(rawMsg, key)
+		case "localStandbyDb":
+			err = unpopulate(val, "LocalStandbyDb", &a.LocalStandbyDb)
+			delete(rawMsg, key)
+		case "longTermBackupSchedule":
+			err = unpopulate(val, "LongTermBackupSchedule", &a.LongTermBackupSchedule)
+			delete(rawMsg, key)
+		case "memoryPerOracleComputeUnitInGbs":
+			err = unpopulate(val, "MemoryPerOracleComputeUnitInGbs", &a.MemoryPerOracleComputeUnitInGbs)
+			delete(rawMsg, key)
+		case "ncharacterSet":
+			err = unpopulate(val, "NcharacterSet", &a.NcharacterSet)
+			delete(rawMsg, key)
+		case "nextLongTermBackupTimeStamp":
+			err = unpopulateDateTimeRFC3339(val, "NextLongTermBackupTimeStamp", &a.NextLongTermBackupTimeStamp)
+			delete(rawMsg, key)
+		case "ociUrl":
+			err = unpopulate(val, "OciURL", &a.OciURL)
+			delete(rawMsg, key)
+		case "ocid":
+			err = unpopulate(val, "Ocid", &a.Ocid)
+			delete(rawMsg, key)
+		case "openMode":
+			err = unpopulate(val, "OpenMode", &a.OpenMode)
+			delete(rawMsg, key)
+		case "operationsInsightsStatus":
+			err = unpopulate(val, "OperationsInsightsStatus", &a.OperationsInsightsStatus)
+			delete(rawMsg, key)
+		case "peerDbId":
+			err = unpopulate(val, "PeerDbID", &a.PeerDbID)
+			delete(rawMsg, key)
+		case "peerDbIds":
+			err = unpopulate(val, "PeerDbIDs", &a.PeerDbIDs)
+			delete(rawMsg, key)
+		case "permissionLevel":
+			err = unpopulate(val, "PermissionLevel", &a.PermissionLevel)
+			delete(rawMsg, key)
+		case "privateEndpoint":
+			err = unpopulate(val, "PrivateEndpoint", &a.PrivateEndpoint)
+			delete(rawMsg, key)
+		case "privateEndpointIp":
+			err = unpopulate(val, "PrivateEndpointIP", &a.PrivateEndpointIP)
+			delete(rawMsg, key)
+		case "privateEndpointLabel":
+			err = unpopulate(val, "PrivateEndpointLabel", &a.PrivateEndpointLabel)
+			delete(rawMsg, key)
+		case "provisionableCpus":
+			err = unpopulate(val, "ProvisionableCpus", &a.ProvisionableCpus)
+			delete(rawMsg, key)
+		case "provisioningState":
+			err = unpopulate(val, "ProvisioningState", &a.ProvisioningState)
+			delete(rawMsg, key)
+		case "remoteDisasterRecoveryConfiguration":
+			err = unpopulate(val, "RemoteDisasterRecoveryConfiguration", &a.RemoteDisasterRecoveryConfiguration)
+			delete(rawMsg, key)
+		case "role":
+			err = unpopulate(val, "Role", &a.Role)
+			delete(rawMsg, key)
+		case "sqlWebDeveloperUrl":
+			err = unpopulate(val, "SQLWebDeveloperURL", &a.SQLWebDeveloperURL)
+			delete(rawMsg, key)
+		case "scheduledOperations":
+			err = unpopulate(val, "ScheduledOperations", &a.ScheduledOperations)
+			delete(rawMsg, key)
+		case "serviceConsoleUrl":
+			err = unpopulate(val, "ServiceConsoleURL", &a.ServiceConsoleURL)
+			delete(rawMsg, key)
+		case "source":
+			err = unpopulate(val, "Source", &a.Source)
+			delete(rawMsg, key)
+		case "sourceId":
+			err = unpopulate(val, "SourceID", &a.SourceID)
+			delete(rawMsg, key)
+		case "subnetId":
+			err = unpopulate(val, "SubnetID", &a.SubnetID)
+			delete(rawMsg, key)
+		case "supportedRegionsToCloneTo":
+			err = unpopulate(val, "SupportedRegionsToCloneTo", &a.SupportedRegionsToCloneTo)
+			delete(rawMsg, key)
+		case "timeCreated":
+			err = unpopulateDateTimeRFC3339(val, "TimeCreated", &a.TimeCreated)
+			delete(rawMsg, key)
+		case "timeDataGuardRoleChanged":
+			err = unpopulate(val, "TimeDataGuardRoleChanged", &a.TimeDataGuardRoleChanged)
+			delete(rawMsg, key)
+		case "timeDeletionOfFreeAutonomousDatabase":
+			err = unpopulate(val, "TimeDeletionOfFreeAutonomousDatabase", &a.TimeDeletionOfFreeAutonomousDatabase)
+			delete(rawMsg, key)
+		case "timeDisasterRecoveryRoleChanged":
+			err = unpopulateDateTimeRFC3339(val, "TimeDisasterRecoveryRoleChanged", &a.TimeDisasterRecoveryRoleChanged)
+			delete(rawMsg, key)
+		case "timeLocalDataGuardEnabled":
+			err = unpopulate(val, "TimeLocalDataGuardEnabled", &a.TimeLocalDataGuardEnabled)
+			delete(rawMsg, key)
+		case "timeMaintenanceBegin":
+			err = unpopulateDateTimeRFC3339(val, "TimeMaintenanceBegin", &a.TimeMaintenanceBegin)
+			delete(rawMsg, key)
+		case "timeMaintenanceEnd":
+			err = unpopulateDateTimeRFC3339(val, "TimeMaintenanceEnd", &a.TimeMaintenanceEnd)
+			delete(rawMsg, key)
+		case "timeOfLastFailover":
+			err = unpopulate(val, "TimeOfLastFailover", &a.TimeOfLastFailover)
+			delete(rawMsg, key)
+		case "timeOfLastRefresh":
+			err = unpopulate(val, "TimeOfLastRefresh", &a.TimeOfLastRefresh)
+			delete(rawMsg, key)
+		case "timeOfLastRefreshPoint":
+			err = unpopulate(val, "TimeOfLastRefreshPoint", &a.TimeOfLastRefreshPoint)
+			delete(rawMsg, key)
+		case "timeOfLastSwitchover":
+			err = unpopulate(val, "TimeOfLastSwitchover", &a.TimeOfLastSwitchover)
+			delete(rawMsg, key)
+		case "timeReclamationOfFreeAutonomousDatabase":
+			err = unpopulate(val, "TimeReclamationOfFreeAutonomousDatabase", &a.TimeReclamationOfFreeAutonomousDatabase)
+			delete(rawMsg, key)
+		case "timestamp":
+			err = unpopulateDateTimeRFC3339(val, "Timestamp", &a.Timestamp)
+			delete(rawMsg, key)
+		case "useLatestAvailableBackupTimeStamp":
+			err = unpopulate(val, "UseLatestAvailableBackupTimeStamp", &a.UseLatestAvailableBackupTimeStamp)
 			delete(rawMsg, key)
 		case "usedDataStorageSizeInGbs":
 			err = unpopulate(val, "UsedDataStorageSizeInGbs", &a.UsedDataStorageSizeInGbs)
@@ -1373,6 +2095,7 @@ func (a AutonomousDatabaseProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "privateEndpointLabel", a.PrivateEndpointLabel)
 	populate(objectMap, "provisionableCpus", a.ProvisionableCpus)
 	populate(objectMap, "provisioningState", a.ProvisioningState)
+	populate(objectMap, "remoteDisasterRecoveryConfiguration", a.RemoteDisasterRecoveryConfiguration)
 	populate(objectMap, "role", a.Role)
 	populate(objectMap, "sqlWebDeveloperUrl", a.SQLWebDeveloperURL)
 	populate(objectMap, "scheduledOperations", a.ScheduledOperations)
@@ -1382,6 +2105,7 @@ func (a AutonomousDatabaseProperties) MarshalJSON() ([]byte, error) {
 	populateDateTimeRFC3339(objectMap, "timeCreated", a.TimeCreated)
 	populate(objectMap, "timeDataGuardRoleChanged", a.TimeDataGuardRoleChanged)
 	populate(objectMap, "timeDeletionOfFreeAutonomousDatabase", a.TimeDeletionOfFreeAutonomousDatabase)
+	populateDateTimeRFC3339(objectMap, "timeDisasterRecoveryRoleChanged", a.TimeDisasterRecoveryRoleChanged)
 	populate(objectMap, "timeLocalDataGuardEnabled", a.TimeLocalDataGuardEnabled)
 	populateDateTimeRFC3339(objectMap, "timeMaintenanceBegin", a.TimeMaintenanceBegin)
 	populateDateTimeRFC3339(objectMap, "timeMaintenanceEnd", a.TimeMaintenanceEnd)
@@ -1568,6 +2292,9 @@ func (a *AutonomousDatabaseProperties) UnmarshalJSON(data []byte) error {
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &a.ProvisioningState)
 			delete(rawMsg, key)
+		case "remoteDisasterRecoveryConfiguration":
+			err = unpopulate(val, "RemoteDisasterRecoveryConfiguration", &a.RemoteDisasterRecoveryConfiguration)
+			delete(rawMsg, key)
 		case "role":
 			err = unpopulate(val, "Role", &a.Role)
 			delete(rawMsg, key)
@@ -1594,6 +2321,9 @@ func (a *AutonomousDatabaseProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "timeDeletionOfFreeAutonomousDatabase":
 			err = unpopulate(val, "TimeDeletionOfFreeAutonomousDatabase", &a.TimeDeletionOfFreeAutonomousDatabase)
+			delete(rawMsg, key)
+		case "timeDisasterRecoveryRoleChanged":
+			err = unpopulateDateTimeRFC3339(val, "TimeDisasterRecoveryRoleChanged", &a.TimeDisasterRecoveryRoleChanged)
 			delete(rawMsg, key)
 		case "timeLocalDataGuardEnabled":
 			err = unpopulate(val, "TimeLocalDataGuardEnabled", &a.TimeLocalDataGuardEnabled)
@@ -1967,6 +2697,33 @@ func (a *AutonomousDbVersionProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "version":
 			err = unpopulate(val, "Version", &a.Version)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AzureSubscriptions.
+func (a AzureSubscriptions) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "azureSubscriptionIds", a.AzureSubscriptionIDs)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureSubscriptions.
+func (a *AzureSubscriptions) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "azureSubscriptionIds":
+			err = unpopulate(val, "AzureSubscriptionIDs", &a.AzureSubscriptionIDs)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -3837,6 +4594,45 @@ func (d *DbSystemShapeProperties) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type DisasterRecoveryConfigurationDetails.
+func (d DisasterRecoveryConfigurationDetails) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "disasterRecoveryType", d.DisasterRecoveryType)
+	populate(objectMap, "isReplicateAutomaticBackups", d.IsReplicateAutomaticBackups)
+	populate(objectMap, "isSnapshotStandby", d.IsSnapshotStandby)
+	populateDateTimeRFC3339(objectMap, "timeSnapshotStandbyEnabledTill", d.TimeSnapshotStandbyEnabledTill)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type DisasterRecoveryConfigurationDetails.
+func (d *DisasterRecoveryConfigurationDetails) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", d, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "disasterRecoveryType":
+			err = unpopulate(val, "DisasterRecoveryType", &d.DisasterRecoveryType)
+			delete(rawMsg, key)
+		case "isReplicateAutomaticBackups":
+			err = unpopulate(val, "IsReplicateAutomaticBackups", &d.IsReplicateAutomaticBackups)
+			delete(rawMsg, key)
+		case "isSnapshotStandby":
+			err = unpopulate(val, "IsSnapshotStandby", &d.IsSnapshotStandby)
+			delete(rawMsg, key)
+		case "timeSnapshotStandbyEnabledTill":
+			err = unpopulateDateTimeRFC3339(val, "TimeSnapshotStandbyEnabledTill", &d.TimeSnapshotStandbyEnabledTill)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", d, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type EstimatedPatchingTime.
 func (e EstimatedPatchingTime) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -4405,9 +5201,12 @@ func (o *OracleSubscriptionListResult) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type OracleSubscriptionProperties.
 func (o OracleSubscriptionProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "addSubscriptionOperationState", o.AddSubscriptionOperationState)
+	populate(objectMap, "azureSubscriptionIds", o.AzureSubscriptionIDs)
 	populate(objectMap, "cloudAccountId", o.CloudAccountID)
 	populate(objectMap, "cloudAccountState", o.CloudAccountState)
 	populate(objectMap, "intent", o.Intent)
+	populate(objectMap, "lastOperationStatusDetail", o.LastOperationStatusDetail)
 	populate(objectMap, "productCode", o.ProductCode)
 	populate(objectMap, "provisioningState", o.ProvisioningState)
 	populate(objectMap, "saasSubscriptionId", o.SaasSubscriptionID)
@@ -4424,6 +5223,12 @@ func (o *OracleSubscriptionProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "addSubscriptionOperationState":
+			err = unpopulate(val, "AddSubscriptionOperationState", &o.AddSubscriptionOperationState)
+			delete(rawMsg, key)
+		case "azureSubscriptionIds":
+			err = unpopulate(val, "AzureSubscriptionIDs", &o.AzureSubscriptionIDs)
+			delete(rawMsg, key)
 		case "cloudAccountId":
 			err = unpopulate(val, "CloudAccountID", &o.CloudAccountID)
 			delete(rawMsg, key)
@@ -4432,6 +5237,9 @@ func (o *OracleSubscriptionProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "intent":
 			err = unpopulate(val, "Intent", &o.Intent)
+			delete(rawMsg, key)
+		case "lastOperationStatusDetail":
+			err = unpopulate(val, "LastOperationStatusDetail", &o.LastOperationStatusDetail)
 			delete(rawMsg, key)
 		case "productCode":
 			err = unpopulate(val, "ProductCode", &o.ProductCode)
@@ -4519,6 +5327,8 @@ func (o *OracleSubscriptionUpdateProperties) UnmarshalJSON(data []byte) error {
 func (p PeerDbDetails) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "peerDbId", p.PeerDbID)
+	populate(objectMap, "peerDbLocation", p.PeerDbLocation)
+	populate(objectMap, "peerDbOcid", p.PeerDbOcid)
 	return json.Marshal(objectMap)
 }
 
@@ -4533,6 +5343,12 @@ func (p *PeerDbDetails) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "peerDbId":
 			err = unpopulate(val, "PeerDbID", &p.PeerDbID)
+			delete(rawMsg, key)
+		case "peerDbLocation":
+			err = unpopulate(val, "PeerDbLocation", &p.PeerDbLocation)
+			delete(rawMsg, key)
+		case "peerDbOcid":
+			err = unpopulate(val, "PeerDbOcid", &p.PeerDbOcid)
 			delete(rawMsg, key)
 		}
 		if err != nil {

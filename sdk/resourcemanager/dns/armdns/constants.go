@@ -10,7 +10,7 @@ package armdns
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/dns/armdns"
-	moduleVersion = "v1.3.0-beta.1"
+	moduleVersion = "v1.3.0-beta.2"
 )
 
 // CreatedByType - The type of identity that created the resource.

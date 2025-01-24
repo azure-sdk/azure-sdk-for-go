@@ -44,10 +44,6 @@ type SQLPoolsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginPause func(ctx context.Context, resourceGroupName string, workspaceName string, sqlPoolName string, options *armsynapse.SQLPoolsClientBeginPauseOptions) (resp azfake.PollerResponder[armsynapse.SQLPoolsClientPauseResponse], errResp azfake.ErrorResponder)
 
-	// Rename is the fake for method SQLPoolsClient.Rename
-	// HTTP status codes to indicate success: http.StatusOK
-	Rename func(ctx context.Context, resourceGroupName string, workspaceName string, sqlPoolName string, parameters armsynapse.ResourceMoveDefinition, options *armsynapse.SQLPoolsClientRenameOptions) (resp azfake.Responder[armsynapse.SQLPoolsClientRenameResponse], errResp azfake.ErrorResponder)
-
 	// BeginResume is the fake for method SQLPoolsClient.BeginResume
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginResume func(ctx context.Context, resourceGroupName string, workspaceName string, sqlPoolName string, options *armsynapse.SQLPoolsClientBeginResumeOptions) (resp azfake.PollerResponder[armsynapse.SQLPoolsClientResumeResponse], errResp azfake.ErrorResponder)
@@ -106,8 +102,6 @@ func (s *SQLPoolsServerTransport) Do(req *http.Request) (*http.Response, error) 
 		resp, err = s.dispatchNewListByWorkspacePager(req)
 	case "SQLPoolsClient.BeginPause":
 		resp, err = s.dispatchBeginPause(req)
-	case "SQLPoolsClient.Rename":
-		resp, err = s.dispatchRename(req)
 	case "SQLPoolsClient.BeginResume":
 		resp, err = s.dispatchBeginResume(req)
 	case "SQLPoolsClient.BeginUpdate":
@@ -346,47 +340,6 @@ func (s *SQLPoolsServerTransport) dispatchBeginPause(req *http.Request) (*http.R
 		s.beginPause.remove(req)
 	}
 
-	return resp, nil
-}
-
-func (s *SQLPoolsServerTransport) dispatchRename(req *http.Request) (*http.Response, error) {
-	if s.srv.Rename == nil {
-		return nil, &nonRetriableError{errors.New("fake for method Rename not implemented")}
-	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Synapse/workspaces/(?P<workspaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/sqlPools/(?P<sqlPoolName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/move`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 4 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	body, err := server.UnmarshalRequestAsJSON[armsynapse.ResourceMoveDefinition](req)
-	if err != nil {
-		return nil, err
-	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-	if err != nil {
-		return nil, err
-	}
-	workspaceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("workspaceName")])
-	if err != nil {
-		return nil, err
-	}
-	sqlPoolNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("sqlPoolName")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := s.srv.Rename(req.Context(), resourceGroupNameParam, workspaceNameParam, sqlPoolNameParam, body, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.NewResponse(respContent, req, nil)
-	if err != nil {
-		return nil, err
-	}
 	return resp, nil
 }
 

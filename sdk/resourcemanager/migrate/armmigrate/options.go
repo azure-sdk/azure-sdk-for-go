@@ -8,128 +8,555 @@
 
 package armmigrate
 
-// AssessedMachinesClientGetOptions contains the optional parameters for the AssessedMachinesClient.Get method.
-type AssessedMachinesClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// AssessedMachinesClientListByAssessmentOptions contains the optional parameters for the AssessedMachinesClient.NewListByAssessmentPager
+// DependencyMapControllerClientBeginClientGroupMembersOptions contains the optional parameters for the DependencyMapControllerClient.BeginClientGroupMembers
 // method.
-type AssessedMachinesClientListByAssessmentOptions struct {
-	// placeholder for future optional parameters
+type DependencyMapControllerClientBeginClientGroupMembersOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
-// AssessmentsClientCreateOptions contains the optional parameters for the AssessmentsClient.Create method.
-type AssessmentsClientCreateOptions struct {
-	// New or Updated Assessment object.
-	Assessment *Assessment
-}
-
-// AssessmentsClientDeleteOptions contains the optional parameters for the AssessmentsClient.Delete method.
-type AssessmentsClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
-// AssessmentsClientGetOptions contains the optional parameters for the AssessmentsClient.Get method.
-type AssessmentsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// AssessmentsClientGetReportDownloadURLOptions contains the optional parameters for the AssessmentsClient.GetReportDownloadURL
+// DependencyMapControllerClientBeginExportDependenciesOptions contains the optional parameters for the DependencyMapControllerClient.BeginExportDependencies
 // method.
-type AssessmentsClientGetReportDownloadURLOptions struct {
-	// placeholder for future optional parameters
+type DependencyMapControllerClientBeginExportDependenciesOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
-// AssessmentsClientListByGroupOptions contains the optional parameters for the AssessmentsClient.NewListByGroupPager method.
-type AssessmentsClientListByGroupOptions struct {
-	// placeholder for future optional parameters
-}
-
-// AssessmentsClientListByProjectOptions contains the optional parameters for the AssessmentsClient.NewListByProjectPager
+// DependencyMapControllerClientBeginGenerateCoarseMapOptions contains the optional parameters for the DependencyMapControllerClient.BeginGenerateCoarseMap
 // method.
-type AssessmentsClientListByProjectOptions struct {
-	// placeholder for future optional parameters
+type DependencyMapControllerClientBeginGenerateCoarseMapOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
-// GroupsClientCreateOptions contains the optional parameters for the GroupsClient.Create method.
-type GroupsClientCreateOptions struct {
-	// New or Updated Group object.
-	Group *Group
-}
-
-// GroupsClientDeleteOptions contains the optional parameters for the GroupsClient.Delete method.
-type GroupsClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
-// GroupsClientGetOptions contains the optional parameters for the GroupsClient.Get method.
-type GroupsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// GroupsClientListByProjectOptions contains the optional parameters for the GroupsClient.NewListByProjectPager method.
-type GroupsClientListByProjectOptions struct {
-	// placeholder for future optional parameters
-}
-
-// GroupsClientUpdateMachinesOptions contains the optional parameters for the GroupsClient.UpdateMachines method.
-type GroupsClientUpdateMachinesOptions struct {
-	// Machines list to be added or removed from group.
-	GroupUpdateProperties *UpdateGroupBody
-}
-
-// HyperVCollectorsClientCreateOptions contains the optional parameters for the HyperVCollectorsClient.Create method.
-type HyperVCollectorsClientCreateOptions struct {
-	// New or Updated Hyper-V collector.
-	CollectorBody *HyperVCollector
-}
-
-// HyperVCollectorsClientDeleteOptions contains the optional parameters for the HyperVCollectorsClient.Delete method.
-type HyperVCollectorsClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
-// HyperVCollectorsClientGetOptions contains the optional parameters for the HyperVCollectorsClient.Get method.
-type HyperVCollectorsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// HyperVCollectorsClientListByProjectOptions contains the optional parameters for the HyperVCollectorsClient.NewListByProjectPager
+// DependencyMapControllerClientBeginGenerateDetailedMapOptions contains the optional parameters for the DependencyMapControllerClient.BeginGenerateDetailedMap
 // method.
-type HyperVCollectorsClientListByProjectOptions struct {
-	// placeholder for future optional parameters
+type DependencyMapControllerClientBeginGenerateDetailedMapOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
-// ImportCollectorsClientCreateOptions contains the optional parameters for the ImportCollectorsClient.Create method.
-type ImportCollectorsClientCreateOptions struct {
-	// New or Updated Import collector.
-	CollectorBody *ImportCollector
-}
-
-// ImportCollectorsClientDeleteOptions contains the optional parameters for the ImportCollectorsClient.Delete method.
-type ImportCollectorsClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ImportCollectorsClientGetOptions contains the optional parameters for the ImportCollectorsClient.Get method.
-type ImportCollectorsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ImportCollectorsClientListByProjectOptions contains the optional parameters for the ImportCollectorsClient.NewListByProjectPager
+// DependencyMapControllerClientBeginServerGroupMembersOptions contains the optional parameters for the DependencyMapControllerClient.BeginServerGroupMembers
 // method.
-type ImportCollectorsClientListByProjectOptions struct {
+type DependencyMapControllerClientBeginServerGroupMembersOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// HypervClusterControllerClientBeginCreateClusterOptions contains the optional parameters for the HypervClusterControllerClient.BeginCreateCluster
+// method.
+type HypervClusterControllerClientBeginCreateClusterOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// HypervClusterControllerClientDeleteOptions contains the optional parameters for the HypervClusterControllerClient.Delete
+// method.
+type HypervClusterControllerClientDeleteOptions struct {
 	// placeholder for future optional parameters
 }
 
-// MachinesClientGetOptions contains the optional parameters for the MachinesClient.Get method.
-type MachinesClientGetOptions struct {
+// HypervClusterControllerClientGetClusterOptions contains the optional parameters for the HypervClusterControllerClient.GetCluster
+// method.
+type HypervClusterControllerClientGetClusterOptions struct {
 	// placeholder for future optional parameters
 }
 
-// MachinesClientListByProjectOptions contains the optional parameters for the MachinesClient.NewListByProjectPager method.
-type MachinesClientListByProjectOptions struct {
+// HypervClusterControllerClientListByHypervSiteOptions contains the optional parameters for the HypervClusterControllerClient.NewListByHypervSitePager
+// method.
+type HypervClusterControllerClientListByHypervSiteOptions struct {
+	// filter query
+	Filter *string
+}
+
+// HypervDependencyMapControllerClientBeginClientGroupMembersOptions contains the optional parameters for the HypervDependencyMapControllerClient.BeginClientGroupMembers
+// method.
+type HypervDependencyMapControllerClientBeginClientGroupMembersOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// HypervDependencyMapControllerClientBeginExportDependenciesOptions contains the optional parameters for the HypervDependencyMapControllerClient.BeginExportDependencies
+// method.
+type HypervDependencyMapControllerClientBeginExportDependenciesOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// HypervDependencyMapControllerClientBeginGenerateCoarseMapOptions contains the optional parameters for the HypervDependencyMapControllerClient.BeginGenerateCoarseMap
+// method.
+type HypervDependencyMapControllerClientBeginGenerateCoarseMapOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// HypervDependencyMapControllerClientBeginGenerateDetailedMapOptions contains the optional parameters for the HypervDependencyMapControllerClient.BeginGenerateDetailedMap
+// method.
+type HypervDependencyMapControllerClientBeginGenerateDetailedMapOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// HypervDependencyMapControllerClientBeginServerGroupMembersOptions contains the optional parameters for the HypervDependencyMapControllerClient.BeginServerGroupMembers
+// method.
+type HypervDependencyMapControllerClientBeginServerGroupMembersOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// HypervDependencyMapControllerClientBeginUpdateDependencyMapStatusOptions contains the optional parameters for the HypervDependencyMapControllerClient.BeginUpdateDependencyMapStatus
+// method.
+type HypervDependencyMapControllerClientBeginUpdateDependencyMapStatusOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// HypervHostControllerClientBeginCreateOptions contains the optional parameters for the HypervHostControllerClient.BeginCreate
+// method.
+type HypervHostControllerClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// HypervHostControllerClientBeginDeleteOptions contains the optional parameters for the HypervHostControllerClient.BeginDelete
+// method.
+type HypervHostControllerClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// HypervHostControllerClientGetOptions contains the optional parameters for the HypervHostControllerClient.Get method.
+type HypervHostControllerClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HypervHostControllerClientListByHypervSiteOptions contains the optional parameters for the HypervHostControllerClient.NewListByHypervSitePager
+// method.
+type HypervHostControllerClientListByHypervSiteOptions struct {
+	// filter query
+	Filter *string
+}
+
+// HypervJobsClientGetOptions contains the optional parameters for the HypervJobsClient.Get method.
+type HypervJobsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HypervJobsClientListByHypervSiteOptions contains the optional parameters for the HypervJobsClient.NewListByHypervSitePager
+// method.
+type HypervJobsClientListByHypervSiteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HypervJobsControllerClientGetOptions contains the optional parameters for the HypervJobsControllerClient.Get method.
+type HypervJobsControllerClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HypervJobsControllerClientListByVmwareSiteOptions contains the optional parameters for the HypervJobsControllerClient.NewListByVmwareSitePager
+// method.
+type HypervJobsControllerClientListByVmwareSiteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HypervMachinesControllerClientBeginUpdatePropertiesOptions contains the optional parameters for the HypervMachinesControllerClient.BeginUpdateProperties
+// method.
+type HypervMachinesControllerClientBeginUpdatePropertiesOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// HypervMachinesControllerClientGetOptions contains the optional parameters for the HypervMachinesControllerClient.Get method.
+type HypervMachinesControllerClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HypervMachinesControllerClientListByHypervSiteOptions contains the optional parameters for the HypervMachinesControllerClient.NewListByHypervSitePager
+// method.
+type HypervMachinesControllerClientListByHypervSiteOptions struct {
+	// Optional parameter for continuation token.
+	ContinuationToken *string
+
+	// filter query
+	Filter *string
+
+	// page size query
+	Top *int32
+
+	// Total count of machines in the given site.
+	TotalRecordCount *int32
+}
+
+// HypervMachinesControllerClientUpdateOptions contains the optional parameters for the HypervMachinesControllerClient.Update
+// method.
+type HypervMachinesControllerClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HypervOperationsStatusControllerClientGetHypervOperationsStatusOptions contains the optional parameters for the HypervOperationsStatusControllerClient.GetHypervOperationsStatus
+// method.
+type HypervOperationsStatusControllerClientGetHypervOperationsStatusOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HypervRunAsAccountsControllerClientGetOptions contains the optional parameters for the HypervRunAsAccountsControllerClient.Get
+// method.
+type HypervRunAsAccountsControllerClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HypervRunAsAccountsControllerClientListByHypervSiteOptions contains the optional parameters for the HypervRunAsAccountsControllerClient.NewListByHypervSitePager
+// method.
+type HypervRunAsAccountsControllerClientListByHypervSiteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HypervSitesClientListByResourceGroupOptions contains the optional parameters for the HypervSitesClient.NewListByResourceGroupPager
+// method.
+type HypervSitesClientListByResourceGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HypervSitesClientListBySubscriptionOptions contains the optional parameters for the HypervSitesClient.NewListBySubscriptionPager
+// method.
+type HypervSitesClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HypervSitesControllerClientBeginExportApplicationsOptions contains the optional parameters for the HypervSitesControllerClient.BeginExportApplications
+// method.
+type HypervSitesControllerClientBeginExportApplicationsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// HypervSitesControllerClientBeginExportMachineErrorsOptions contains the optional parameters for the HypervSitesControllerClient.BeginExportMachineErrors
+// method.
+type HypervSitesControllerClientBeginExportMachineErrorsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// HypervSitesControllerClientComputeErrorSummaryOptions contains the optional parameters for the HypervSitesControllerClient.ComputeErrorSummary
+// method.
+type HypervSitesControllerClientComputeErrorSummaryOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HypervSitesControllerClientComputeusageOptions contains the optional parameters for the HypervSitesControllerClient.Computeusage
+// method.
+type HypervSitesControllerClientComputeusageOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HypervSitesControllerClientCreateOptions contains the optional parameters for the HypervSitesControllerClient.Create method.
+type HypervSitesControllerClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HypervSitesControllerClientDeleteOptions contains the optional parameters for the HypervSitesControllerClient.Delete method.
+type HypervSitesControllerClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HypervSitesControllerClientGetOptions contains the optional parameters for the HypervSitesControllerClient.Get method.
+type HypervSitesControllerClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HypervSitesControllerClientListHealthSummaryOptions contains the optional parameters for the HypervSitesControllerClient.ListHealthSummary
+// method.
+type HypervSitesControllerClientListHealthSummaryOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HypervSitesControllerClientSummaryOptions contains the optional parameters for the HypervSitesControllerClient.Summary
+// method.
+type HypervSitesControllerClientSummaryOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HypervSitesControllerClientUpdateOptions contains the optional parameters for the HypervSitesControllerClient.Update method.
+type HypervSitesControllerClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HypervSoftwareInventoriesControllerClientGetMachineSoftwareInventoryOptions contains the optional parameters for the HypervSoftwareInventoriesControllerClient.GetMachineSoftwareInventory
+// method.
+type HypervSoftwareInventoriesControllerClientGetMachineSoftwareInventoryOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HypervSoftwareInventoriesControllerClientListByHypervMachineOptions contains the optional parameters for the HypervSoftwareInventoriesControllerClient.NewListByHypervMachinePager
+// method.
+type HypervSoftwareInventoriesControllerClientListByHypervMachineOptions struct {
+	// placeholder for future optional parameters
+}
+
+// IisWebApplicationsControllerClientGetOptions contains the optional parameters for the IisWebApplicationsControllerClient.Get
+// method.
+type IisWebApplicationsControllerClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// IisWebApplicationsControllerClientListByWebAppSiteOptions contains the optional parameters for the IisWebApplicationsControllerClient.NewListByWebAppSitePager
+// method.
+type IisWebApplicationsControllerClientListByWebAppSiteOptions struct {
+	// Optional parameter for continuation token.
+	ContinuationToken *string
+
+	// filter query
+	Filter *string
+
+	// page size query
+	Top *string
+
+	// Total count of machines in the given site.
+	TotalRecordCount *int32
+}
+
+// IisWebApplicationsControllerClientUpdateOptions contains the optional parameters for the IisWebApplicationsControllerClient.Update
+// method.
+type IisWebApplicationsControllerClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// IisWebServersControllerClientGetOptions contains the optional parameters for the IisWebServersControllerClient.Get method.
+type IisWebServersControllerClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// IisWebServersControllerClientListByWebAppSiteOptions contains the optional parameters for the IisWebServersControllerClient.NewListByWebAppSitePager
+// method.
+type IisWebServersControllerClientListByWebAppSiteOptions struct {
+	// Optional parameter for continuation token.
+	ContinuationToken *string
+
+	// filter query
+	Filter *string
+
+	// page size query
+	Top *string
+
+	// Total count of machines in the given site.
+	TotalRecordCount *int32
+}
+
+// ImportJobsControllerClientGetDeletejobOptions contains the optional parameters for the ImportJobsControllerClient.GetDeletejob
+// method.
+type ImportJobsControllerClientGetDeletejobOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ImportJobsControllerClientGetExportjobOptions contains the optional parameters for the ImportJobsControllerClient.GetExportjob
+// method.
+type ImportJobsControllerClientGetExportjobOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ImportJobsControllerClientGetImportjobOptions contains the optional parameters for the ImportJobsControllerClient.GetImportjob
+// method.
+type ImportJobsControllerClientGetImportjobOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ImportJobsControllerClientGetOptions contains the optional parameters for the ImportJobsControllerClient.Get method.
+type ImportJobsControllerClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ImportJobsControllerClientListByImportSiteOptions contains the optional parameters for the ImportJobsControllerClient.NewListByImportSitePager
+// method.
+type ImportJobsControllerClientListByImportSiteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ImportJobsControllerClientListDeletejobsOptions contains the optional parameters for the ImportJobsControllerClient.NewListDeletejobsPager
+// method.
+type ImportJobsControllerClientListDeletejobsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ImportJobsControllerClientListExportjobsOptions contains the optional parameters for the ImportJobsControllerClient.NewListExportjobsPager
+// method.
+type ImportJobsControllerClientListExportjobsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ImportJobsControllerClientListImportjobsOptions contains the optional parameters for the ImportJobsControllerClient.NewListImportjobsPager
+// method.
+type ImportJobsControllerClientListImportjobsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ImportMachinesControllerClientDeleteOptions contains the optional parameters for the ImportMachinesControllerClient.Delete
+// method.
+type ImportMachinesControllerClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ImportMachinesControllerClientGetOptions contains the optional parameters for the ImportMachinesControllerClient.Get method.
+type ImportMachinesControllerClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ImportMachinesControllerClientListByImportSiteOptions contains the optional parameters for the ImportMachinesControllerClient.NewListByImportSitePager
+// method.
+type ImportMachinesControllerClientListByImportSiteOptions struct {
+	// Optional parameter for continuation token.
+	ContinuationToken *string
+
+	// filter query
+	Filter *string
+
+	// page size query
+	Top *string
+
+	// Total count of machines in the given site.
+	TotalRecordCount *int32
+}
+
+// ImportSitesControllerClientCreateOptions contains the optional parameters for the ImportSitesControllerClient.Create method.
+type ImportSitesControllerClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ImportSitesControllerClientDeleteImportedMachinesOptions contains the optional parameters for the ImportSitesControllerClient.DeleteImportedMachines
+// method.
+type ImportSitesControllerClientDeleteImportedMachinesOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ImportSitesControllerClientDeleteOptions contains the optional parameters for the ImportSitesControllerClient.Delete method.
+type ImportSitesControllerClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ImportSitesControllerClientExportURIOptions contains the optional parameters for the ImportSitesControllerClient.ExportURI
+// method.
+type ImportSitesControllerClientExportURIOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ImportSitesControllerClientGetOptions contains the optional parameters for the ImportSitesControllerClient.Get method.
+type ImportSitesControllerClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ImportSitesControllerClientImportURIOptions contains the optional parameters for the ImportSitesControllerClient.ImportURI
+// method.
+type ImportSitesControllerClientImportURIOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ImportSitesControllerClientListByResourceGroupOptions contains the optional parameters for the ImportSitesControllerClient.NewListByResourceGroupPager
+// method.
+type ImportSitesControllerClientListByResourceGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ImportSitesControllerClientListBySubscriptionOptions contains the optional parameters for the ImportSitesControllerClient.NewListBySubscriptionPager
+// method.
+type ImportSitesControllerClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ImportSitesControllerClientUpdateOptions contains the optional parameters for the ImportSitesControllerClient.Update method.
+type ImportSitesControllerClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// MachinesControllerClientBeginStartOptions contains the optional parameters for the MachinesControllerClient.BeginStart
+// method.
+type MachinesControllerClientBeginStartOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// MachinesControllerClientBeginStopOptions contains the optional parameters for the MachinesControllerClient.BeginStop method.
+type MachinesControllerClientBeginStopOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// MachinesControllerClientGetOptions contains the optional parameters for the MachinesControllerClient.Get method.
+type MachinesControllerClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// MachinesControllerClientListByVmwareSiteOptions contains the optional parameters for the MachinesControllerClient.NewListByVmwareSitePager
+// method.
+type MachinesControllerClientListByVmwareSiteOptions struct {
+	// Optional parameter for continuation token.
+	ContinuationToken *string
+
+	// filter query
+	Filter *string
+
+	// page size query
+	Top *int32
+
+	// Total count of machines in the given site.
+	TotalRecordCount *int32
+}
+
+// MachinesControllerClientUpdateOptions contains the optional parameters for the MachinesControllerClient.Update method.
+type MachinesControllerClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// MasterSitesControllerClientBeginCreateOptions contains the optional parameters for the MasterSitesControllerClient.BeginCreate
+// method.
+type MasterSitesControllerClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// MasterSitesControllerClientBeginRefreshArcStatusOptions contains the optional parameters for the MasterSitesControllerClient.BeginRefreshArcStatus
+// method.
+type MasterSitesControllerClientBeginRefreshArcStatusOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// MasterSitesControllerClientBeginUpdateOptions contains the optional parameters for the MasterSitesControllerClient.BeginUpdate
+// method.
+type MasterSitesControllerClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// MasterSitesControllerClientDeleteOptions contains the optional parameters for the MasterSitesControllerClient.Delete method.
+type MasterSitesControllerClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// MasterSitesControllerClientErrorSummaryOptions contains the optional parameters for the MasterSitesControllerClient.ErrorSummary
+// method.
+type MasterSitesControllerClientErrorSummaryOptions struct {
+	// placeholder for future optional parameters
+}
+
+// MasterSitesControllerClientGetOptions contains the optional parameters for the MasterSitesControllerClient.Get method.
+type MasterSitesControllerClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// MasterSitesControllerClientListByResourceGroupOptions contains the optional parameters for the MasterSitesControllerClient.NewListByResourceGroupPager
+// method.
+type MasterSitesControllerClientListByResourceGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// MasterSitesControllerClientListBySubscriptionOptions contains the optional parameters for the MasterSitesControllerClient.NewListBySubscriptionPager
+// method.
+type MasterSitesControllerClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// MasterSitesOperationsStatusControllerClientGetVmwareOperationStatusOptions contains the optional parameters for the MasterSitesOperationsStatusControllerClient.GetVmwareOperationStatus
+// method.
+type MasterSitesOperationsStatusControllerClientGetVmwareOperationStatusOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -138,126 +565,795 @@ type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateEndpointConnectionClientDeleteOptions contains the optional parameters for the PrivateEndpointConnectionClient.Delete
+// PrivateEndpointConnectionControllerClientCreateOptions contains the optional parameters for the PrivateEndpointConnectionControllerClient.Create
 // method.
-type PrivateEndpointConnectionClientDeleteOptions struct {
+type PrivateEndpointConnectionControllerClientCreateOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateEndpointConnectionClientGetOptions contains the optional parameters for the PrivateEndpointConnectionClient.Get
+// PrivateEndpointConnectionControllerClientDeleteOptions contains the optional parameters for the PrivateEndpointConnectionControllerClient.Delete
 // method.
-type PrivateEndpointConnectionClientGetOptions struct {
+type PrivateEndpointConnectionControllerClientDeleteOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateEndpointConnectionClientListByProjectOptions contains the optional parameters for the PrivateEndpointConnectionClient.ListByProject
+// PrivateEndpointConnectionControllerClientGetOptions contains the optional parameters for the PrivateEndpointConnectionControllerClient.Get
 // method.
-type PrivateEndpointConnectionClientListByProjectOptions struct {
+type PrivateEndpointConnectionControllerClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateEndpointConnectionClientUpdateOptions contains the optional parameters for the PrivateEndpointConnectionClient.Update
+// PrivateEndpointConnectionControllerClientListByMasterSiteOptions contains the optional parameters for the PrivateEndpointConnectionControllerClient.NewListByMasterSitePager
 // method.
-type PrivateEndpointConnectionClientUpdateOptions struct {
-	// New or Updated Private Endpoint Connection object.
-	PrivateEndpointConnectionBody *PrivateEndpointConnection
-}
-
-// PrivateLinkResourceClientGetOptions contains the optional parameters for the PrivateLinkResourceClient.Get method.
-type PrivateLinkResourceClientGetOptions struct {
+type PrivateEndpointConnectionControllerClientListByMasterSiteOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateLinkResourceClientListByProjectOptions contains the optional parameters for the PrivateLinkResourceClient.ListByProject
+// PrivateLinkResourcesControllerClientGetOptions contains the optional parameters for the PrivateLinkResourcesControllerClient.Get
 // method.
-type PrivateLinkResourceClientListByProjectOptions struct {
+type PrivateLinkResourcesControllerClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ProjectsClientAssessmentOptionsListOptions contains the optional parameters for the ProjectsClient.NewAssessmentOptionsListPager
+// PrivateLinkResourcesControllerClientListByMasterSiteOptions contains the optional parameters for the PrivateLinkResourcesControllerClient.NewListByMasterSitePager
 // method.
-type ProjectsClientAssessmentOptionsListOptions struct {
+type PrivateLinkResourcesControllerClientListByMasterSiteOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ProjectsClientAssessmentOptionsOptions contains the optional parameters for the ProjectsClient.AssessmentOptions method.
-type ProjectsClientAssessmentOptionsOptions struct {
+// RunAsAccountsControllerClientGetOptions contains the optional parameters for the RunAsAccountsControllerClient.Get method.
+type RunAsAccountsControllerClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ProjectsClientCreateOptions contains the optional parameters for the ProjectsClient.Create method.
-type ProjectsClientCreateOptions struct {
-	// New or Updated project object.
-	Project *Project
-}
-
-// ProjectsClientDeleteOptions contains the optional parameters for the ProjectsClient.Delete method.
-type ProjectsClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ProjectsClientGetOptions contains the optional parameters for the ProjectsClient.Get method.
-type ProjectsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ProjectsClientListBySubscriptionOptions contains the optional parameters for the ProjectsClient.NewListBySubscriptionPager
+// RunAsAccountsControllerClientListByVmwareSiteOptions contains the optional parameters for the RunAsAccountsControllerClient.NewListByVmwareSitePager
 // method.
-type ProjectsClientListBySubscriptionOptions struct {
+type RunAsAccountsControllerClientListByVmwareSiteOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ProjectsClientListOptions contains the optional parameters for the ProjectsClient.NewListPager method.
-type ProjectsClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ProjectsClientUpdateOptions contains the optional parameters for the ProjectsClient.Update method.
-type ProjectsClientUpdateOptions struct {
-	// Updated project object.
-	Project *Project
-}
-
-// ServerCollectorsClientCreateOptions contains the optional parameters for the ServerCollectorsClient.Create method.
-type ServerCollectorsClientCreateOptions struct {
-	// New or Updated Server collector.
-	CollectorBody *ServerCollector
-}
-
-// ServerCollectorsClientDeleteOptions contains the optional parameters for the ServerCollectorsClient.Delete method.
-type ServerCollectorsClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ServerCollectorsClientGetOptions contains the optional parameters for the ServerCollectorsClient.Get method.
-type ServerCollectorsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ServerCollectorsClientListByProjectOptions contains the optional parameters for the ServerCollectorsClient.NewListByProjectPager
+// SQLAvailabilityGroupsControllerClientGetOptions contains the optional parameters for the SQLAvailabilityGroupsControllerClient.Get
 // method.
-type ServerCollectorsClientListByProjectOptions struct {
+type SQLAvailabilityGroupsControllerClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// VMwareCollectorsClientCreateOptions contains the optional parameters for the VMwareCollectorsClient.Create method.
-type VMwareCollectorsClientCreateOptions struct {
-	// New or Updated VMware collector.
-	CollectorBody *VMwareCollector
-}
-
-// VMwareCollectorsClientDeleteOptions contains the optional parameters for the VMwareCollectorsClient.Delete method.
-type VMwareCollectorsClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
-// VMwareCollectorsClientGetOptions contains the optional parameters for the VMwareCollectorsClient.Get method.
-type VMwareCollectorsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// VMwareCollectorsClientListByProjectOptions contains the optional parameters for the VMwareCollectorsClient.NewListByProjectPager
+// SQLAvailabilityGroupsControllerClientListBySQLSiteOptions contains the optional parameters for the SQLAvailabilityGroupsControllerClient.NewListBySQLSitePager
 // method.
-type VMwareCollectorsClientListByProjectOptions struct {
+type SQLAvailabilityGroupsControllerClientListBySQLSiteOptions struct {
+	// Optional parameter for continuation token.
+	ContinuationToken *string
+
+	// filter query
+	Filter *string
+
+	// page size query
+	Top *string
+
+	// Total count of machines in the given site.
+	TotalRecordCount *int32
+}
+
+// SQLDatabasesControllerClientGetOptions contains the optional parameters for the SQLDatabasesControllerClient.Get method.
+type SQLDatabasesControllerClientGetOptions struct {
 	// placeholder for future optional parameters
+}
+
+// SQLDatabasesControllerClientListBySQLSiteOptions contains the optional parameters for the SQLDatabasesControllerClient.NewListBySQLSitePager
+// method.
+type SQLDatabasesControllerClientListBySQLSiteOptions struct {
+	// Optional parameter for continuation token.
+	ContinuationToken *string
+
+	// filter query
+	Filter *string
+
+	// page size query
+	Top *string
+
+	// Total count of machines in the given site.
+	TotalRecordCount *int32
+}
+
+// SQLDiscoverySiteDataSourceControllerClientBeginCreateOptions contains the optional parameters for the SQLDiscoverySiteDataSourceControllerClient.BeginCreate
+// method.
+type SQLDiscoverySiteDataSourceControllerClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SQLDiscoverySiteDataSourceControllerClientDeleteOptions contains the optional parameters for the SQLDiscoverySiteDataSourceControllerClient.Delete
+// method.
+type SQLDiscoverySiteDataSourceControllerClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLDiscoverySiteDataSourceControllerClientGetOptions contains the optional parameters for the SQLDiscoverySiteDataSourceControllerClient.Get
+// method.
+type SQLDiscoverySiteDataSourceControllerClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLDiscoverySiteDataSourceControllerClientListBySQLSiteOptions contains the optional parameters for the SQLDiscoverySiteDataSourceControllerClient.NewListBySQLSitePager
+// method.
+type SQLDiscoverySiteDataSourceControllerClientListBySQLSiteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLJobsControllerClientGetOptions contains the optional parameters for the SQLJobsControllerClient.Get method.
+type SQLJobsControllerClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLJobsControllerClientListBySQLSiteOptions contains the optional parameters for the SQLJobsControllerClient.NewListBySQLSitePager
+// method.
+type SQLJobsControllerClientListBySQLSiteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLOperationsStatusControllerClientGetSQLOperationStatusOptions contains the optional parameters for the SQLOperationsStatusControllerClient.GetSQLOperationStatus
+// method.
+type SQLOperationsStatusControllerClientGetSQLOperationStatusOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLRunAsAccountsControllerClientGetOptions contains the optional parameters for the SQLRunAsAccountsControllerClient.Get
+// method.
+type SQLRunAsAccountsControllerClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLRunAsAccountsControllerClientListBySQLSiteOptions contains the optional parameters for the SQLRunAsAccountsControllerClient.NewListBySQLSitePager
+// method.
+type SQLRunAsAccountsControllerClientListBySQLSiteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLServersControllerClientGetOptions contains the optional parameters for the SQLServersControllerClient.Get method.
+type SQLServersControllerClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLServersControllerClientListBySQLSiteOptions contains the optional parameters for the SQLServersControllerClient.NewListBySQLSitePager
+// method.
+type SQLServersControllerClientListBySQLSiteOptions struct {
+	// Optional parameter for continuation token.
+	ContinuationToken *string
+
+	// filter query
+	Filter *string
+
+	// page size query
+	Top *string
+
+	// Total count of machines in the given site.
+	TotalRecordCount *int32
+}
+
+// SQLServersControllerClientUpdateOptions contains the optional parameters for the SQLServersControllerClient.Update method.
+type SQLServersControllerClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLSitesControllerClientBeginExportSQLServerErrorsOptions contains the optional parameters for the SQLSitesControllerClient.BeginExportSQLServerErrors
+// method.
+type SQLSitesControllerClientBeginExportSQLServerErrorsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SQLSitesControllerClientBeginExportSQLServersOptions contains the optional parameters for the SQLSitesControllerClient.BeginExportSQLServers
+// method.
+type SQLSitesControllerClientBeginExportSQLServersOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SQLSitesControllerClientBeginRefreshOptions contains the optional parameters for the SQLSitesControllerClient.BeginRefresh
+// method.
+type SQLSitesControllerClientBeginRefreshOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SQLSitesControllerClientBeginUpdateOptions contains the optional parameters for the SQLSitesControllerClient.BeginUpdate
+// method.
+type SQLSitesControllerClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SQLSitesControllerClientCreateOptions contains the optional parameters for the SQLSitesControllerClient.Create method.
+type SQLSitesControllerClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLSitesControllerClientDeleteOptions contains the optional parameters for the SQLSitesControllerClient.Delete method.
+type SQLSitesControllerClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLSitesControllerClientErrorSummaryOptions contains the optional parameters for the SQLSitesControllerClient.ErrorSummary
+// method.
+type SQLSitesControllerClientErrorSummaryOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLSitesControllerClientGetOptions contains the optional parameters for the SQLSitesControllerClient.Get method.
+type SQLSitesControllerClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLSitesControllerClientListByMasterSiteOptions contains the optional parameters for the SQLSitesControllerClient.NewListByMasterSitePager
+// method.
+type SQLSitesControllerClientListByMasterSiteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLSitesControllerClientSummaryOptions contains the optional parameters for the SQLSitesControllerClient.Summary method.
+type SQLSitesControllerClientSummaryOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ServerDependencyMapControllerClientBeginClientGroupMembersOptions contains the optional parameters for the ServerDependencyMapControllerClient.BeginClientGroupMembers
+// method.
+type ServerDependencyMapControllerClientBeginClientGroupMembersOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ServerDependencyMapControllerClientBeginExportDependenciesOptions contains the optional parameters for the ServerDependencyMapControllerClient.BeginExportDependencies
+// method.
+type ServerDependencyMapControllerClientBeginExportDependenciesOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ServerDependencyMapControllerClientBeginGenerateCoarseMapOptions contains the optional parameters for the ServerDependencyMapControllerClient.BeginGenerateCoarseMap
+// method.
+type ServerDependencyMapControllerClientBeginGenerateCoarseMapOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ServerDependencyMapControllerClientBeginGenerateDetailedMapOptions contains the optional parameters for the ServerDependencyMapControllerClient.BeginGenerateDetailedMap
+// method.
+type ServerDependencyMapControllerClientBeginGenerateDetailedMapOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ServerDependencyMapControllerClientBeginServerGroupMembersOptions contains the optional parameters for the ServerDependencyMapControllerClient.BeginServerGroupMembers
+// method.
+type ServerDependencyMapControllerClientBeginServerGroupMembersOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ServerJobsControllerClientGetOptions contains the optional parameters for the ServerJobsControllerClient.Get method.
+type ServerJobsControllerClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ServerJobsControllerClientListByServerSiteResourceOptions contains the optional parameters for the ServerJobsControllerClient.NewListByServerSiteResourcePager
+// method.
+type ServerJobsControllerClientListByServerSiteResourceOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ServerOperationsStatusControllerClientGetServerSiteOperationsStatusOptions contains the optional parameters for the ServerOperationsStatusControllerClient.GetServerSiteOperationsStatus
+// method.
+type ServerOperationsStatusControllerClientGetServerSiteOperationsStatusOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ServerRunAsAccountsControllerClientGetOptions contains the optional parameters for the ServerRunAsAccountsControllerClient.Get
+// method.
+type ServerRunAsAccountsControllerClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ServerRunAsAccountsControllerClientListByServerSiteResourceOptions contains the optional parameters for the ServerRunAsAccountsControllerClient.NewListByServerSiteResourcePager
+// method.
+type ServerRunAsAccountsControllerClientListByServerSiteResourceOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ServerSitesControllerClientBeginCreateOptions contains the optional parameters for the ServerSitesControllerClient.BeginCreate
+// method.
+type ServerSitesControllerClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ServerSitesControllerClientBeginExportApplicationsOptions contains the optional parameters for the ServerSitesControllerClient.BeginExportApplications
+// method.
+type ServerSitesControllerClientBeginExportApplicationsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ServerSitesControllerClientBeginExportMachineErrorsOptions contains the optional parameters for the ServerSitesControllerClient.BeginExportMachineErrors
+// method.
+type ServerSitesControllerClientBeginExportMachineErrorsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ServerSitesControllerClientBeginRefreshSiteOptions contains the optional parameters for the ServerSitesControllerClient.BeginRefreshSite
+// method.
+type ServerSitesControllerClientBeginRefreshSiteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ServerSitesControllerClientBeginUpdateDependencyMapStatusOptions contains the optional parameters for the ServerSitesControllerClient.BeginUpdateDependencyMapStatus
+// method.
+type ServerSitesControllerClientBeginUpdateDependencyMapStatusOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ServerSitesControllerClientBeginUpdatePropertiesOptions contains the optional parameters for the ServerSitesControllerClient.BeginUpdateProperties
+// method.
+type ServerSitesControllerClientBeginUpdatePropertiesOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ServerSitesControllerClientComputeErrorSummaryOptions contains the optional parameters for the ServerSitesControllerClient.ComputeErrorSummary
+// method.
+type ServerSitesControllerClientComputeErrorSummaryOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ServerSitesControllerClientComputeusageOptions contains the optional parameters for the ServerSitesControllerClient.Computeusage
+// method.
+type ServerSitesControllerClientComputeusageOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ServerSitesControllerClientDeleteOptions contains the optional parameters for the ServerSitesControllerClient.Delete method.
+type ServerSitesControllerClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ServerSitesControllerClientGetOptions contains the optional parameters for the ServerSitesControllerClient.Get method.
+type ServerSitesControllerClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ServerSitesControllerClientListByResourceGroupOptions contains the optional parameters for the ServerSitesControllerClient.NewListByResourceGroupPager
+// method.
+type ServerSitesControllerClientListByResourceGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ServerSitesControllerClientListBySubscriptionOptions contains the optional parameters for the ServerSitesControllerClient.NewListBySubscriptionPager
+// method.
+type ServerSitesControllerClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ServerSitesControllerClientListHealthSummaryOptions contains the optional parameters for the ServerSitesControllerClient.ListHealthSummary
+// method.
+type ServerSitesControllerClientListHealthSummaryOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ServerSitesControllerClientSummaryOptions contains the optional parameters for the ServerSitesControllerClient.Summary
+// method.
+type ServerSitesControllerClientSummaryOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ServerSitesControllerClientUpdateOptions contains the optional parameters for the ServerSitesControllerClient.Update method.
+type ServerSitesControllerClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ServerSoftwareInventoriesControllerClientGetMachineSoftwareInventoryOptions contains the optional parameters for the ServerSoftwareInventoriesControllerClient.GetMachineSoftwareInventory
+// method.
+type ServerSoftwareInventoriesControllerClientGetMachineSoftwareInventoryOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ServerSoftwareInventoriesControllerClientListByServerOptions contains the optional parameters for the ServerSoftwareInventoriesControllerClient.NewListByServerPager
+// method.
+type ServerSoftwareInventoriesControllerClientListByServerOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ServersControllerClientDeleteMachineOptions contains the optional parameters for the ServersControllerClient.DeleteMachine
+// method.
+type ServersControllerClientDeleteMachineOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ServersControllerClientGetMachineOptions contains the optional parameters for the ServersControllerClient.GetMachine method.
+type ServersControllerClientGetMachineOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ServersControllerClientListByServerSiteResourceOptions contains the optional parameters for the ServersControllerClient.NewListByServerSiteResourcePager
+// method.
+type ServersControllerClientListByServerSiteResourceOptions struct {
+	// Optional parameter for continuation token.
+	ContinuationToken *string
+
+	// filter query
+	Filter *string
+
+	// page size query
+	Top *string
+
+	// Total count of machines in the given site.
+	TotalRecordCount *int32
+}
+
+// ServersControllerClientUpdateMachineOptions contains the optional parameters for the ServersControllerClient.UpdateMachine
+// method.
+type ServersControllerClientUpdateMachineOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SitesControllerClientBeginExportApplicationsOptions contains the optional parameters for the SitesControllerClient.BeginExportApplications
+// method.
+type SitesControllerClientBeginExportApplicationsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SitesControllerClientBeginExportMachineErrorsOptions contains the optional parameters for the SitesControllerClient.BeginExportMachineErrors
+// method.
+type SitesControllerClientBeginExportMachineErrorsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SitesControllerClientBeginExportMachinesOptions contains the optional parameters for the SitesControllerClient.BeginExportMachines
+// method.
+type SitesControllerClientBeginExportMachinesOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SitesControllerClientComputeErrorSummaryOptions contains the optional parameters for the SitesControllerClient.ComputeErrorSummary
+// method.
+type SitesControllerClientComputeErrorSummaryOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SitesControllerClientComputeusageOptions contains the optional parameters for the SitesControllerClient.Computeusage method.
+type SitesControllerClientComputeusageOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SitesControllerClientCreateOptions contains the optional parameters for the SitesControllerClient.Create method.
+type SitesControllerClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SitesControllerClientDeleteOptions contains the optional parameters for the SitesControllerClient.Delete method.
+type SitesControllerClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SitesControllerClientGetOptions contains the optional parameters for the SitesControllerClient.Get method.
+type SitesControllerClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SitesControllerClientListByResourceGroupOptions contains the optional parameters for the SitesControllerClient.NewListByResourceGroupPager
+// method.
+type SitesControllerClientListByResourceGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SitesControllerClientListBySubscriptionOptions contains the optional parameters for the SitesControllerClient.NewListBySubscriptionPager
+// method.
+type SitesControllerClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SitesControllerClientListHealthSummaryOptions contains the optional parameters for the SitesControllerClient.ListHealthSummary
+// method.
+type SitesControllerClientListHealthSummaryOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SitesControllerClientSummaryOptions contains the optional parameters for the SitesControllerClient.Summary method.
+type SitesControllerClientSummaryOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SitesControllerClientUpdateOptions contains the optional parameters for the SitesControllerClient.Update method.
+type SitesControllerClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// TomcatWebApplicationsControllerClientGetOptions contains the optional parameters for the TomcatWebApplicationsControllerClient.Get
+// method.
+type TomcatWebApplicationsControllerClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// TomcatWebApplicationsControllerClientListByWebAppSiteOptions contains the optional parameters for the TomcatWebApplicationsControllerClient.NewListByWebAppSitePager
+// method.
+type TomcatWebApplicationsControllerClientListByWebAppSiteOptions struct {
+	// Optional parameter for continuation token.
+	ContinuationToken *string
+
+	// filter query
+	Filter *string
+
+	// page size query
+	Top *string
+
+	// Total count of machines in the given site.
+	TotalRecordCount *int32
+}
+
+// TomcatWebApplicationsControllerClientUpdateOptions contains the optional parameters for the TomcatWebApplicationsControllerClient.Update
+// method.
+type TomcatWebApplicationsControllerClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// TomcatWebServersControllerClientGetOptions contains the optional parameters for the TomcatWebServersControllerClient.Get
+// method.
+type TomcatWebServersControllerClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// TomcatWebServersControllerClientListByWebAppSiteOptions contains the optional parameters for the TomcatWebServersControllerClient.NewListByWebAppSitePager
+// method.
+type TomcatWebServersControllerClientListByWebAppSiteOptions struct {
+	// Optional parameter for continuation token.
+	ContinuationToken *string
+
+	// filter query
+	Filter *string
+
+	// page size query
+	Top *string
+
+	// Total count of machines in the given site.
+	TotalRecordCount *int32
+}
+
+// VcenterControllerClientBeginCreateOptions contains the optional parameters for the VcenterControllerClient.BeginCreate
+// method.
+type VcenterControllerClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VcenterControllerClientDeleteOptions contains the optional parameters for the VcenterControllerClient.Delete method.
+type VcenterControllerClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VcenterControllerClientGetOptions contains the optional parameters for the VcenterControllerClient.Get method.
+type VcenterControllerClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VcenterControllerClientListByVmwareSiteOptions contains the optional parameters for the VcenterControllerClient.NewListByVmwareSitePager
+// method.
+type VcenterControllerClientListByVmwareSiteOptions struct {
+	// filter query
+	Filter *string
+}
+
+// VmwareHostControllerClientGetOptions contains the optional parameters for the VmwareHostControllerClient.Get method.
+type VmwareHostControllerClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VmwareHostControllerClientListByVmwareSiteOptions contains the optional parameters for the VmwareHostControllerClient.NewListByVmwareSitePager
+// method.
+type VmwareHostControllerClientListByVmwareSiteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VmwareOperationsStatusClientGetVmwareOperationStatusOptions contains the optional parameters for the VmwareOperationsStatusClient.GetVmwareOperationStatus
+// method.
+type VmwareOperationsStatusClientGetVmwareOperationStatusOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VmwarePropertiesControllerClientBeginUpdateDependencyMapStatusOptions contains the optional parameters for the VmwarePropertiesControllerClient.BeginUpdateDependencyMapStatus
+// method.
+type VmwarePropertiesControllerClientBeginUpdateDependencyMapStatusOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VmwarePropertiesControllerClientBeginUpdatePropertiesOptions contains the optional parameters for the VmwarePropertiesControllerClient.BeginUpdateProperties
+// method.
+type VmwarePropertiesControllerClientBeginUpdatePropertiesOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VmwarePropertiesControllerClientBeginUpdateRunAsAccountOptions contains the optional parameters for the VmwarePropertiesControllerClient.BeginUpdateRunAsAccount
+// method.
+type VmwarePropertiesControllerClientBeginUpdateRunAsAccountOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VmwarePropertiesControllerClientBeginUpdateTagsOptions contains the optional parameters for the VmwarePropertiesControllerClient.BeginUpdateTags
+// method.
+type VmwarePropertiesControllerClientBeginUpdateTagsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VmwareSoftwareInventoriesControllerClientGetMachineSoftwareInventoryOptions contains the optional parameters for the VmwareSoftwareInventoriesControllerClient.GetMachineSoftwareInventory
+// method.
+type VmwareSoftwareInventoriesControllerClientGetMachineSoftwareInventoryOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VmwareSoftwareInventoriesControllerClientListByMachineResourceOptions contains the optional parameters for the VmwareSoftwareInventoriesControllerClient.NewListByMachineResourcePager
+// method.
+type VmwareSoftwareInventoriesControllerClientListByMachineResourceOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WebAppDiscoverySiteDataSourcesControllerClientBeginCreateOptions contains the optional parameters for the WebAppDiscoverySiteDataSourcesControllerClient.BeginCreate
+// method.
+type WebAppDiscoverySiteDataSourcesControllerClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// WebAppDiscoverySiteDataSourcesControllerClientBeginDeleteOptions contains the optional parameters for the WebAppDiscoverySiteDataSourcesControllerClient.BeginDelete
+// method.
+type WebAppDiscoverySiteDataSourcesControllerClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// WebAppDiscoverySiteDataSourcesControllerClientGetOptions contains the optional parameters for the WebAppDiscoverySiteDataSourcesControllerClient.Get
+// method.
+type WebAppDiscoverySiteDataSourcesControllerClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WebAppDiscoverySiteDataSourcesControllerClientListByWebAppSiteOptions contains the optional parameters for the WebAppDiscoverySiteDataSourcesControllerClient.NewListByWebAppSitePager
+// method.
+type WebAppDiscoverySiteDataSourcesControllerClientListByWebAppSiteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WebAppExtendedMachinesControllerClientGetOptions contains the optional parameters for the WebAppExtendedMachinesControllerClient.Get
+// method.
+type WebAppExtendedMachinesControllerClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WebAppExtendedMachinesControllerClientListByWebAppSiteOptions contains the optional parameters for the WebAppExtendedMachinesControllerClient.NewListByWebAppSitePager
+// method.
+type WebAppExtendedMachinesControllerClientListByWebAppSiteOptions struct {
+	// Optional parameter for continuation token.
+	ContinuationToken *string
+
+	// filter query
+	Filter *string
+
+	// page size query
+	Top *string
+
+	// Total count of machines in the given site.
+	TotalRecordCount *int32
+}
+
+// WebAppPropertiesControllerClientBeginUpdatePropertiesOptions contains the optional parameters for the WebAppPropertiesControllerClient.BeginUpdateProperties
+// method.
+type WebAppPropertiesControllerClientBeginUpdatePropertiesOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// WebAppRunAsAccountsControllerClientGetOptions contains the optional parameters for the WebAppRunAsAccountsControllerClient.Get
+// method.
+type WebAppRunAsAccountsControllerClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WebAppRunAsAccountsControllerClientListByWebAppSiteOptions contains the optional parameters for the WebAppRunAsAccountsControllerClient.NewListByWebAppSitePager
+// method.
+type WebAppRunAsAccountsControllerClientListByWebAppSiteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WebAppSitesControllerClientBeginDeleteOptions contains the optional parameters for the WebAppSitesControllerClient.BeginDelete
+// method.
+type WebAppSitesControllerClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// WebAppSitesControllerClientBeginExportInventoryOptions contains the optional parameters for the WebAppSitesControllerClient.BeginExportInventory
+// method.
+type WebAppSitesControllerClientBeginExportInventoryOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// WebAppSitesControllerClientBeginRefreshOptions contains the optional parameters for the WebAppSitesControllerClient.BeginRefresh
+// method.
+type WebAppSitesControllerClientBeginRefreshOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// WebAppSitesControllerClientBeginUpdateOptions contains the optional parameters for the WebAppSitesControllerClient.BeginUpdate
+// method.
+type WebAppSitesControllerClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// WebAppSitesControllerClientCreateOptions contains the optional parameters for the WebAppSitesControllerClient.Create method.
+type WebAppSitesControllerClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WebAppSitesControllerClientErrorSummaryOptions contains the optional parameters for the WebAppSitesControllerClient.ErrorSummary
+// method.
+type WebAppSitesControllerClientErrorSummaryOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WebAppSitesControllerClientGetOptions contains the optional parameters for the WebAppSitesControllerClient.Get method.
+type WebAppSitesControllerClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WebAppSitesControllerClientListByMasterSiteOptions contains the optional parameters for the WebAppSitesControllerClient.NewListByMasterSitePager
+// method.
+type WebAppSitesControllerClientListByMasterSiteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WebAppSitesControllerClientSummaryOptions contains the optional parameters for the WebAppSitesControllerClient.Summary
+// method.
+type WebAppSitesControllerClientSummaryOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WebApplicationsControllerClientListByWebAppSiteOptions contains the optional parameters for the WebApplicationsControllerClient.NewListByWebAppSitePager
+// method.
+type WebApplicationsControllerClientListByWebAppSiteOptions struct {
+	// Optional parameter for continuation token.
+	ContinuationToken *string
+
+	// filter query
+	Filter *string
+
+	// page size query
+	Top *string
+
+	// Total count of machines in the given site.
+	TotalRecordCount *int32
+}
+
+// WebServersControllerClientListByWebAppSiteOptions contains the optional parameters for the WebServersControllerClient.NewListByWebAppSitePager
+// method.
+type WebServersControllerClientListByWebAppSiteOptions struct {
+	// Optional parameter for continuation token.
+	ContinuationToken *string
+
+	// filter query
+	Filter *string
+
+	// page size query
+	Top *string
+
+	// Total count of machines in the given site.
+	TotalRecordCount *int32
 }
