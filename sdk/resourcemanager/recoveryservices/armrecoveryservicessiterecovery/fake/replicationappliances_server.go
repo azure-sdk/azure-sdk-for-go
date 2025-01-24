@@ -25,7 +25,7 @@ import (
 type ReplicationAppliancesServer struct {
 	// NewListPager is the fake for method ReplicationAppliancesClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceName string, resourceGroupName string, options *armrecoveryservicessiterecovery.ReplicationAppliancesClientListOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationAppliancesClientListResponse])
+	NewListPager func(resourceGroupName string, resourceName string, options *armrecoveryservicessiterecovery.ReplicationAppliancesClientListOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationAppliancesClientListResponse])
 }
 
 // NewReplicationAppliancesServerTransport creates a new instance of ReplicationAppliancesServerTransport with the provided implementation.
@@ -83,11 +83,11 @@ func (r *ReplicationAppliancesServerTransport) dispatchNewListPager(req *http.Re
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		qp := req.URL.Query()
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -102,7 +102,7 @@ func (r *ReplicationAppliancesServerTransport) dispatchNewListPager(req *http.Re
 				Filter: filterParam,
 			}
 		}
-		resp := r.srv.NewListPager(resourceNameParam, resourceGroupNameParam, options)
+		resp := r.srv.NewListPager(resourceGroupNameParam, resourceNameParam, options)
 		newListPager = &resp
 		r.newListPager.add(req, newListPager)
 		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armrecoveryservicessiterecovery.ReplicationAppliancesClientListResponse, createLink func() string) {

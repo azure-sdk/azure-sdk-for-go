@@ -195,7 +195,8 @@ func PossibleIdentityTypeValues() []IdentityType {
 	}
 }
 
-// JSONWebKeyCurveName - The elliptic curve name. For valid values, see JsonWebKeyCurveName.
+// JSONWebKeyCurveName - The elliptic curve name. For valid values, see JsonWebKeyCurveName. Default for EC and EC-HSM keys
+// is P-256
 type JSONWebKeyCurveName string
 
 const (
@@ -337,12 +338,14 @@ type ManagedHsmSKUFamily string
 
 const (
 	ManagedHsmSKUFamilyB ManagedHsmSKUFamily = "B"
+	ManagedHsmSKUFamilyC ManagedHsmSKUFamily = "C"
 )
 
 // PossibleManagedHsmSKUFamilyValues returns the possible values for the ManagedHsmSKUFamily const type.
 func PossibleManagedHsmSKUFamilyValues() []ManagedHsmSKUFamily {
 	return []ManagedHsmSKUFamily{
 		ManagedHsmSKUFamilyB,
+		ManagedHsmSKUFamilyC,
 	}
 }
 
@@ -352,6 +355,8 @@ type ManagedHsmSKUName string
 const (
 	ManagedHsmSKUNameCustomB32  ManagedHsmSKUName = "Custom_B32"
 	ManagedHsmSKUNameCustomB6   ManagedHsmSKUName = "Custom_B6"
+	ManagedHsmSKUNameCustomC10  ManagedHsmSKUName = "Custom_C10"
+	ManagedHsmSKUNameCustomC42  ManagedHsmSKUName = "Custom_C42"
 	ManagedHsmSKUNameStandardB1 ManagedHsmSKUName = "Standard_B1"
 )
 
@@ -360,6 +365,8 @@ func PossibleManagedHsmSKUNameValues() []ManagedHsmSKUName {
 	return []ManagedHsmSKUName{
 		ManagedHsmSKUNameCustomB32,
 		ManagedHsmSKUNameCustomB6,
+		ManagedHsmSKUNameCustomC10,
+		ManagedHsmSKUNameCustomC42,
 		ManagedHsmSKUNameStandardB1,
 	}
 }
