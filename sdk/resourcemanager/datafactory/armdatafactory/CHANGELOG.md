@@ -1,5 +1,14 @@
 # Release History
 
+## 9.2.0 (2025-01-24)
+### Features Added
+
+- New enum type `GreenplumAuthenticationType` with values `GreenplumAuthenticationTypeBasic`
+- New field `AzureCloudType`, `Credential`, `ServicePrincipalCredentialType`, `ServicePrincipalEmbeddedCert`, `ServicePrincipalEmbeddedCertPassword`, `ServicePrincipalID`, `ServicePrincipalKey`, `Tenant` in struct `AzurePostgreSQLLinkedServiceTypeProperties`
+- New field `AuthenticationType`, `CommandTimeout`, `ConnectionTimeout`, `Database`, `Host`, `Password`, `Port`, `SSLMode`, `Username` in struct `GreenplumLinkedServiceTypeProperties`
+- New field `ReturnMultistatementResult` in struct `ScriptActivityTypeProperties`
+
+
 ## 9.1.0 (2024-12-26)
 ### Features Added
 
