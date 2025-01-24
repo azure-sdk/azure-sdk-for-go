@@ -112,10 +112,16 @@ func (l *LegacyPeeringsServerTransport) dispatchNewListPager(req *http.Request) 
 		if err != nil {
 			return nil, err
 		}
+		directPeeringTypeUnescaped, err := url.QueryUnescape(qp.Get("directPeeringType"))
+		if err != nil {
+			return nil, err
+		}
+		directPeeringTypeParam := getOptional(armpeering.DirectPeeringType(directPeeringTypeUnescaped))
 		var options *armpeering.LegacyPeeringsClientListOptions
-		if asnParam != nil {
+		if asnParam != nil || directPeeringTypeParam != nil {
 			options = &armpeering.LegacyPeeringsClientListOptions{
-				Asn: asnParam,
+				Asn:               asnParam,
+				DirectPeeringType: directPeeringTypeParam,
 			}
 		}
 		resp := l.srv.NewListPager(peeringLocationParam, kindParam, options)

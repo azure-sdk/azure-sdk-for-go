@@ -23,6 +23,10 @@ import (
 
 // ManagementServer is a fake server for instances of the armhybridcompute.ManagementClient type.
 type ManagementServer struct {
+	// BeginSetupExtensions is the fake for method ManagementClient.BeginSetupExtensions
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginSetupExtensions func(ctx context.Context, resourceGroupName string, machineName string, extensions armhybridcompute.SetupExtensionRequest, options *armhybridcompute.ManagementClientBeginSetupExtensionsOptions) (resp azfake.PollerResponder[armhybridcompute.ManagementClientSetupExtensionsResponse], errResp azfake.ErrorResponder)
+
 	// BeginUpgradeExtensions is the fake for method ManagementClient.BeginUpgradeExtensions
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginUpgradeExtensions func(ctx context.Context, resourceGroupName string, machineName string, extensionUpgradeParameters armhybridcompute.MachineExtensionUpgrade, options *armhybridcompute.ManagementClientBeginUpgradeExtensionsOptions) (resp azfake.PollerResponder[armhybridcompute.ManagementClientUpgradeExtensionsResponse], errResp azfake.ErrorResponder)
@@ -34,6 +38,7 @@ type ManagementServer struct {
 func NewManagementServerTransport(srv *ManagementServer) *ManagementServerTransport {
 	return &ManagementServerTransport{
 		srv:                    srv,
+		beginSetupExtensions:   newTracker[azfake.PollerResponder[armhybridcompute.ManagementClientSetupExtensionsResponse]](),
 		beginUpgradeExtensions: newTracker[azfake.PollerResponder[armhybridcompute.ManagementClientUpgradeExtensionsResponse]](),
 	}
 }
@@ -42,6 +47,7 @@ func NewManagementServerTransport(srv *ManagementServer) *ManagementServerTransp
 // Don't use this type directly, use NewManagementServerTransport instead.
 type ManagementServerTransport struct {
 	srv                    *ManagementServer
+	beginSetupExtensions   *tracker[azfake.PollerResponder[armhybridcompute.ManagementClientSetupExtensionsResponse]]
 	beginUpgradeExtensions *tracker[azfake.PollerResponder[armhybridcompute.ManagementClientUpgradeExtensionsResponse]]
 }
 
@@ -57,6 +63,8 @@ func (m *ManagementServerTransport) Do(req *http.Request) (*http.Response, error
 	var err error
 
 	switch method {
+	case "ManagementClient.BeginSetupExtensions":
+		resp, err = m.dispatchBeginSetupExtensions(req)
 	case "ManagementClient.BeginUpgradeExtensions":
 		resp, err = m.dispatchBeginUpgradeExtensions(req)
 	default:
@@ -65,6 +73,54 @@ func (m *ManagementServerTransport) Do(req *http.Request) (*http.Response, error
 
 	if err != nil {
 		return nil, err
+	}
+
+	return resp, nil
+}
+
+func (m *ManagementServerTransport) dispatchBeginSetupExtensions(req *http.Request) (*http.Response, error) {
+	if m.srv.BeginSetupExtensions == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginSetupExtensions not implemented")}
+	}
+	beginSetupExtensions := m.beginSetupExtensions.get(req)
+	if beginSetupExtensions == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.HybridCompute/machines/(?P<machineName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/addExtensions`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armhybridcompute.SetupExtensionRequest](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		machineNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("machineName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := m.srv.BeginSetupExtensions(req.Context(), resourceGroupNameParam, machineNameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginSetupExtensions = &respr
+		m.beginSetupExtensions.add(req, beginSetupExtensions)
+	}
+
+	resp, err := server.PollerResponderNext(beginSetupExtensions, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		m.beginSetupExtensions.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginSetupExtensions) {
+		m.beginSetupExtensions.remove(req)
 	}
 
 	return resp, nil

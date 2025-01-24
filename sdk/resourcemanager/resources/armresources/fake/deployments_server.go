@@ -170,23 +170,23 @@ type DeploymentsServer struct {
 	NewListByResourceGroupPager func(resourceGroupName string, options *armresources.DeploymentsClientListByResourceGroupOptions) (resp azfake.PagerResponder[armresources.DeploymentsClientListByResourceGroupResponse])
 
 	// BeginValidate is the fake for method DeploymentsClient.BeginValidate
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusBadRequest
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginValidate func(ctx context.Context, resourceGroupName string, deploymentName string, parameters armresources.Deployment, options *armresources.DeploymentsClientBeginValidateOptions) (resp azfake.PollerResponder[armresources.DeploymentsClientValidateResponse], errResp azfake.ErrorResponder)
 
 	// BeginValidateAtManagementGroupScope is the fake for method DeploymentsClient.BeginValidateAtManagementGroupScope
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusBadRequest
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginValidateAtManagementGroupScope func(ctx context.Context, groupID string, deploymentName string, parameters armresources.ScopedDeployment, options *armresources.DeploymentsClientBeginValidateAtManagementGroupScopeOptions) (resp azfake.PollerResponder[armresources.DeploymentsClientValidateAtManagementGroupScopeResponse], errResp azfake.ErrorResponder)
 
 	// BeginValidateAtScope is the fake for method DeploymentsClient.BeginValidateAtScope
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusBadRequest
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginValidateAtScope func(ctx context.Context, scope string, deploymentName string, parameters armresources.Deployment, options *armresources.DeploymentsClientBeginValidateAtScopeOptions) (resp azfake.PollerResponder[armresources.DeploymentsClientValidateAtScopeResponse], errResp azfake.ErrorResponder)
 
 	// BeginValidateAtSubscriptionScope is the fake for method DeploymentsClient.BeginValidateAtSubscriptionScope
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusBadRequest
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginValidateAtSubscriptionScope func(ctx context.Context, deploymentName string, parameters armresources.Deployment, options *armresources.DeploymentsClientBeginValidateAtSubscriptionScopeOptions) (resp azfake.PollerResponder[armresources.DeploymentsClientValidateAtSubscriptionScopeResponse], errResp azfake.ErrorResponder)
 
 	// BeginValidateAtTenantScope is the fake for method DeploymentsClient.BeginValidateAtTenantScope
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusBadRequest
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginValidateAtTenantScope func(ctx context.Context, deploymentName string, parameters armresources.ScopedDeployment, options *armresources.DeploymentsClientBeginValidateAtTenantScopeOptions) (resp azfake.PollerResponder[armresources.DeploymentsClientValidateAtTenantScopeResponse], errResp azfake.ErrorResponder)
 
 	// BeginWhatIf is the fake for method DeploymentsClient.BeginWhatIf
@@ -1820,9 +1820,9 @@ func (d *DeploymentsServerTransport) dispatchBeginValidate(req *http.Request) (*
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusBadRequest}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
 		d.beginValidate.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusBadRequest", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginValidate) {
 		d.beginValidate.remove(req)
@@ -1868,9 +1868,9 @@ func (d *DeploymentsServerTransport) dispatchBeginValidateAtManagementGroupScope
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusBadRequest}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
 		d.beginValidateAtManagementGroupScope.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusBadRequest", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginValidateAtManagementGroupScope) {
 		d.beginValidateAtManagementGroupScope.remove(req)
@@ -1916,9 +1916,9 @@ func (d *DeploymentsServerTransport) dispatchBeginValidateAtScope(req *http.Requ
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusBadRequest}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
 		d.beginValidateAtScope.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusBadRequest", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginValidateAtScope) {
 		d.beginValidateAtScope.remove(req)
@@ -1960,9 +1960,9 @@ func (d *DeploymentsServerTransport) dispatchBeginValidateAtSubscriptionScope(re
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusBadRequest}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
 		d.beginValidateAtSubscriptionScope.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusBadRequest", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginValidateAtSubscriptionScope) {
 		d.beginValidateAtSubscriptionScope.remove(req)
@@ -2004,9 +2004,9 @@ func (d *DeploymentsServerTransport) dispatchBeginValidateAtTenantScope(req *htt
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusBadRequest}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
 		d.beginValidateAtTenantScope.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusBadRequest", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginValidateAtTenantScope) {
 		d.beginValidateAtTenantScope.remove(req)
