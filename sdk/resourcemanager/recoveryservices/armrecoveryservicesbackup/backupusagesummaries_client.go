@@ -45,7 +45,7 @@ func NewBackupUsageSummariesClient(subscriptionID string, credential azcore.Toke
 
 // NewListPager - Fetches the backup management usage summaries of the vault.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2024-10-01
 //   - vaultName - The name of the recovery services vault.
 //   - resourceGroupName - The name of the resource group where the recovery services vault is present.
 //   - options - BackupUsageSummariesClientListOptions contains the optional parameters for the BackupUsageSummariesClient.NewListPager
@@ -100,7 +100,7 @@ func (client *BackupUsageSummariesClient) listCreateRequest(ctx context.Context,
 	if options != nil && options.SkipToken != nil {
 		reqQP.Set("$skipToken", *options.SkipToken)
 	}
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2024-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -39,7 +39,7 @@ type CatalogListResult struct {
 	// REQUIRED; The Catalog items on this page
 	Value []*Catalog
 
-	// READ-ONLY; The link to the next page of items
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -87,7 +87,7 @@ type CertificateListResult struct {
 	// REQUIRED; The Certificate items on this page
 	Value []*Certificate
 
-	// READ-ONLY; The link to the next page of items
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -150,7 +150,7 @@ type DeploymentListResult struct {
 	// REQUIRED; The Deployment items on this page
 	Value []*Deployment
 
-	// READ-ONLY; The link to the next page of items
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -210,7 +210,7 @@ type DeviceGroupListResult struct {
 	// REQUIRED; The DeviceGroup items on this page
 	Value []*DeviceGroup
 
-	// READ-ONLY; The link to the next page of items
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -294,7 +294,7 @@ type DeviceListResult struct {
 	// REQUIRED; The Device items on this page
 	Value []*Device
 
-	// READ-ONLY; The link to the next page of items
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -363,7 +363,7 @@ type ImageListResult struct {
 	// REQUIRED; The Image items on this page
 	Value []*Image
 
-	// READ-ONLY; The link to the next page of items
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -457,7 +457,7 @@ type PagedDeviceInsight struct {
 	// REQUIRED; The DeviceInsight items on this page
 	Value []*DeviceInsight
 
-	// READ-ONLY; The link to the next page of items
+	// The link to the next page of items
 	NextLink *string
 }
 
@@ -484,7 +484,7 @@ type ProductListResult struct {
 	// REQUIRED; The Product items on this page
 	Value []*Product
 
-	// READ-ONLY; The link to the next page of items
+	// The link to the next page of items
 	NextLink *string
 }
 
