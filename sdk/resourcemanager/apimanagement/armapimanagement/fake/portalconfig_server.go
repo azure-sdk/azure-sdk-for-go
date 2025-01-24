@@ -15,7 +15,8 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/apimanagement/armapimanagement/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/apimanagement/armapimanagement/v3"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -35,9 +36,9 @@ type PortalConfigServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	GetEntityTag func(ctx context.Context, resourceGroupName string, serviceName string, portalConfigID string, options *armapimanagement.PortalConfigClientGetEntityTagOptions) (resp azfake.Responder[armapimanagement.PortalConfigClientGetEntityTagResponse], errResp azfake.ErrorResponder)
 
-	// ListByService is the fake for method PortalConfigClient.ListByService
+	// NewListByServicePager is the fake for method PortalConfigClient.NewListByServicePager
 	// HTTP status codes to indicate success: http.StatusOK
-	ListByService func(ctx context.Context, resourceGroupName string, serviceName string, options *armapimanagement.PortalConfigClientListByServiceOptions) (resp azfake.Responder[armapimanagement.PortalConfigClientListByServiceResponse], errResp azfake.ErrorResponder)
+	NewListByServicePager func(resourceGroupName string, serviceName string, options *armapimanagement.PortalConfigClientListByServiceOptions) (resp azfake.PagerResponder[armapimanagement.PortalConfigClientListByServiceResponse])
 
 	// Update is the fake for method PortalConfigClient.Update
 	// HTTP status codes to indicate success: http.StatusOK
@@ -48,13 +49,17 @@ type PortalConfigServer struct {
 // The returned PortalConfigServerTransport instance is connected to an instance of armapimanagement.PortalConfigClient via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewPortalConfigServerTransport(srv *PortalConfigServer) *PortalConfigServerTransport {
-	return &PortalConfigServerTransport{srv: srv}
+	return &PortalConfigServerTransport{
+		srv:                   srv,
+		newListByServicePager: newTracker[azfake.PagerResponder[armapimanagement.PortalConfigClientListByServiceResponse]](),
+	}
 }
 
 // PortalConfigServerTransport connects instances of armapimanagement.PortalConfigClient to instances of PortalConfigServer.
 // Don't use this type directly, use NewPortalConfigServerTransport instead.
 type PortalConfigServerTransport struct {
-	srv *PortalConfigServer
+	srv                   *PortalConfigServer
+	newListByServicePager *tracker[azfake.PagerResponder[armapimanagement.PortalConfigClientListByServiceResponse]]
 }
 
 // Do implements the policy.Transporter interface for PortalConfigServerTransport.
@@ -75,8 +80,8 @@ func (p *PortalConfigServerTransport) Do(req *http.Request) (*http.Response, err
 		resp, err = p.dispatchGet(req)
 	case "PortalConfigClient.GetEntityTag":
 		resp, err = p.dispatchGetEntityTag(req)
-	case "PortalConfigClient.ListByService":
-		resp, err = p.dispatchListByService(req)
+	case "PortalConfigClient.NewListByServicePager":
+		resp, err = p.dispatchNewListByServicePager(req)
 	case "PortalConfigClient.Update":
 		resp, err = p.dispatchUpdate(req)
 	default:
@@ -211,35 +216,43 @@ func (p *PortalConfigServerTransport) dispatchGetEntityTag(req *http.Request) (*
 	return resp, nil
 }
 
-func (p *PortalConfigServerTransport) dispatchListByService(req *http.Request) (*http.Response, error) {
-	if p.srv.ListByService == nil {
-		return nil, &nonRetriableError{errors.New("fake for method ListByService not implemented")}
+func (p *PortalConfigServerTransport) dispatchNewListByServicePager(req *http.Request) (*http.Response, error) {
+	if p.srv.NewListByServicePager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListByServicePager not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ApiManagement/service/(?P<serviceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/portalconfigs`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 3 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	newListByServicePager := p.newListByServicePager.get(req)
+	if newListByServicePager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ApiManagement/service/(?P<serviceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/portalconfigs`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		serviceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("serviceName")])
+		if err != nil {
+			return nil, err
+		}
+		resp := p.srv.NewListByServicePager(resourceGroupNameParam, serviceNameParam, nil)
+		newListByServicePager = &resp
+		p.newListByServicePager.add(req, newListByServicePager)
+		server.PagerResponderInjectNextLinks(newListByServicePager, req, func(page *armapimanagement.PortalConfigClientListByServiceResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	resp, err := server.PagerResponderNext(newListByServicePager, req)
 	if err != nil {
 		return nil, err
 	}
-	serviceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("serviceName")])
-	if err != nil {
-		return nil, err
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+		p.newListByServicePager.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
-	respr, errRespr := p.srv.ListByService(req.Context(), resourceGroupNameParam, serviceNameParam, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).PortalConfigCollection, req)
-	if err != nil {
-		return nil, err
+	if !server.PagerResponderMore(newListByServicePager) {
+		p.newListByServicePager.remove(req)
 	}
 	return resp, nil
 }

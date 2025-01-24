@@ -10,7 +10,7 @@ package armdatalakeanalytics
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datalake-analytics/armdatalakeanalytics"
-	moduleVersion = "v0.8.0"
+	moduleVersion = "v0.8.1"
 )
 
 // AADObjectType - The type of AAD object the object identifier refers to.
