@@ -22,9 +22,12 @@ type ServerFactory struct {
 	AlertsServer                                     AlertsServer
 	BenefitRecommendationsServer                     BenefitRecommendationsServer
 	BenefitUtilizationSummariesServer                BenefitUtilizationSummariesServer
+	BudgetsServer                                    BudgetsServer
+	CostAllocationRulesServer                        CostAllocationRulesServer
 	DimensionsServer                                 DimensionsServer
 	ExportsServer                                    ExportsServer
 	ForecastServer                                   ForecastServer
+	GenerateBenefitUtilizationSummariesReportServer  GenerateBenefitUtilizationSummariesReportServer
 	GenerateCostDetailsReportServer                  GenerateCostDetailsReportServer
 	GenerateDetailedCostReportServer                 GenerateDetailedCostReportServer
 	GenerateDetailedCostReportOperationResultsServer GenerateDetailedCostReportOperationResultsServer
@@ -34,6 +37,7 @@ type ServerFactory struct {
 	PriceSheetServer                                 PriceSheetServer
 	QueryServer                                      QueryServer
 	ScheduledActionsServer                           ScheduledActionsServer
+	SettingsServer                                   SettingsServer
 	ViewsServer                                      ViewsServer
 }
 
@@ -54,9 +58,12 @@ type ServerFactoryTransport struct {
 	trAlertsServer                                     *AlertsServerTransport
 	trBenefitRecommendationsServer                     *BenefitRecommendationsServerTransport
 	trBenefitUtilizationSummariesServer                *BenefitUtilizationSummariesServerTransport
+	trBudgetsServer                                    *BudgetsServerTransport
+	trCostAllocationRulesServer                        *CostAllocationRulesServerTransport
 	trDimensionsServer                                 *DimensionsServerTransport
 	trExportsServer                                    *ExportsServerTransport
 	trForecastServer                                   *ForecastServerTransport
+	trGenerateBenefitUtilizationSummariesReportServer  *GenerateBenefitUtilizationSummariesReportServerTransport
 	trGenerateCostDetailsReportServer                  *GenerateCostDetailsReportServerTransport
 	trGenerateDetailedCostReportServer                 *GenerateDetailedCostReportServerTransport
 	trGenerateDetailedCostReportOperationResultsServer *GenerateDetailedCostReportOperationResultsServerTransport
@@ -66,6 +73,7 @@ type ServerFactoryTransport struct {
 	trPriceSheetServer                                 *PriceSheetServerTransport
 	trQueryServer                                      *QueryServerTransport
 	trScheduledActionsServer                           *ScheduledActionsServerTransport
+	trSettingsServer                                   *SettingsServerTransport
 	trViewsServer                                      *ViewsServerTransport
 }
 
@@ -95,6 +103,14 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewBenefitUtilizationSummariesServerTransport(&s.srv.BenefitUtilizationSummariesServer)
 		})
 		resp, err = s.trBenefitUtilizationSummariesServer.Do(req)
+	case "BudgetsClient":
+		initServer(s, &s.trBudgetsServer, func() *BudgetsServerTransport { return NewBudgetsServerTransport(&s.srv.BudgetsServer) })
+		resp, err = s.trBudgetsServer.Do(req)
+	case "CostAllocationRulesClient":
+		initServer(s, &s.trCostAllocationRulesServer, func() *CostAllocationRulesServerTransport {
+			return NewCostAllocationRulesServerTransport(&s.srv.CostAllocationRulesServer)
+		})
+		resp, err = s.trCostAllocationRulesServer.Do(req)
 	case "DimensionsClient":
 		initServer(s, &s.trDimensionsServer, func() *DimensionsServerTransport { return NewDimensionsServerTransport(&s.srv.DimensionsServer) })
 		resp, err = s.trDimensionsServer.Do(req)
@@ -104,6 +120,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "ForecastClient":
 		initServer(s, &s.trForecastServer, func() *ForecastServerTransport { return NewForecastServerTransport(&s.srv.ForecastServer) })
 		resp, err = s.trForecastServer.Do(req)
+	case "GenerateBenefitUtilizationSummariesReportClient":
+		initServer(s, &s.trGenerateBenefitUtilizationSummariesReportServer, func() *GenerateBenefitUtilizationSummariesReportServerTransport {
+			return NewGenerateBenefitUtilizationSummariesReportServerTransport(&s.srv.GenerateBenefitUtilizationSummariesReportServer)
+		})
+		resp, err = s.trGenerateBenefitUtilizationSummariesReportServer.Do(req)
 	case "GenerateCostDetailsReportClient":
 		initServer(s, &s.trGenerateCostDetailsReportServer, func() *GenerateCostDetailsReportServerTransport {
 			return NewGenerateCostDetailsReportServerTransport(&s.srv.GenerateCostDetailsReportServer)
@@ -143,6 +164,9 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewScheduledActionsServerTransport(&s.srv.ScheduledActionsServer)
 		})
 		resp, err = s.trScheduledActionsServer.Do(req)
+	case "SettingsClient":
+		initServer(s, &s.trSettingsServer, func() *SettingsServerTransport { return NewSettingsServerTransport(&s.srv.SettingsServer) })
+		resp, err = s.trSettingsServer.Do(req)
 	case "ViewsClient":
 		initServer(s, &s.trViewsServer, func() *ViewsServerTransport { return NewViewsServerTransport(&s.srv.ViewsServer) })
 		resp, err = s.trViewsServer.Do(req)
