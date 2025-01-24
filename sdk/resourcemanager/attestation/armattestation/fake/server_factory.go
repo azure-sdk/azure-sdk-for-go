@@ -21,6 +21,7 @@ import (
 type ServerFactory struct {
 	OperationsServer                 OperationsServer
 	PrivateEndpointConnectionsServer PrivateEndpointConnectionsServer
+	PrivateLinkResourcesServer       PrivateLinkResourcesServer
 	ProvidersServer                  ProvidersServer
 }
 
@@ -40,6 +41,7 @@ type ServerFactoryTransport struct {
 	trMu                               sync.Mutex
 	trOperationsServer                 *OperationsServerTransport
 	trPrivateEndpointConnectionsServer *PrivateEndpointConnectionsServerTransport
+	trPrivateLinkResourcesServer       *PrivateLinkResourcesServerTransport
 	trProvidersServer                  *ProvidersServerTransport
 }
 
@@ -64,6 +66,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewPrivateEndpointConnectionsServerTransport(&s.srv.PrivateEndpointConnectionsServer)
 		})
 		resp, err = s.trPrivateEndpointConnectionsServer.Do(req)
+	case "PrivateLinkResourcesClient":
+		initServer(s, &s.trPrivateLinkResourcesServer, func() *PrivateLinkResourcesServerTransport {
+			return NewPrivateLinkResourcesServerTransport(&s.srv.PrivateLinkResourcesServer)
+		})
+		resp, err = s.trPrivateLinkResourcesServer.Do(req)
 	case "ProvidersClient":
 		initServer(s, &s.trProvidersServer, func() *ProvidersServerTransport { return NewProvidersServerTransport(&s.srv.ProvidersServer) })
 		resp, err = s.trProvidersServer.Do(req)
