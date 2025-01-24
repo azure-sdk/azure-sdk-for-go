@@ -19,6 +19,7 @@ import (
 	"net/http"
 	"net/url"
 	"regexp"
+	"strconv"
 )
 
 // StorageTaskAssignmentServer is a fake server for instances of the armstorageactions.StorageTaskAssignmentClient type.
@@ -95,7 +96,16 @@ func (s *StorageTaskAssignmentServerTransport) dispatchNewListPager(req *http.Re
 		if err != nil {
 			return nil, err
 		}
-		maxpagesizeParam := getOptional(maxpagesizeUnescaped)
+		maxpagesizeParam, err := parseOptional(maxpagesizeUnescaped, func(v string) (int32, error) {
+			p, parseErr := strconv.ParseInt(v, 10, 32)
+			if parseErr != nil {
+				return 0, parseErr
+			}
+			return int32(p), nil
+		})
+		if err != nil {
+			return nil, err
+		}
 		var options *armstorageactions.StorageTaskAssignmentClientListOptions
 		if maxpagesizeParam != nil {
 			options = &armstorageactions.StorageTaskAssignmentClientListOptions{

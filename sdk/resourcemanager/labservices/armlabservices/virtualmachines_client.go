@@ -46,7 +46,7 @@ func NewVirtualMachinesClient(subscriptionID string, credential azcore.TokenCred
 // Get - Returns the properties for a lab virtual machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labName - The name of the lab that uniquely identifies it within containing lab plan. Used in resource URIs.
 //   - virtualMachineName - The ID of the virtual machine that uniquely identifies it within the containing lab. Used in resource
@@ -98,7 +98,7 @@ func (client *VirtualMachinesClient) getCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-06-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -115,7 +115,7 @@ func (client *VirtualMachinesClient) getHandleResponse(resp *http.Response) (Vir
 
 // NewListByLabPager - Returns a list of all virtual machines for a lab.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labName - The name of the lab that uniquely identifies it within containing lab plan. Used in resource URIs.
 //   - options - VirtualMachinesClientListByLabOptions contains the optional parameters for the VirtualMachinesClient.NewListByLabPager
@@ -163,10 +163,10 @@ func (client *VirtualMachinesClient) listByLabCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
+	reqQP.Set("api-version", "2023-06-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -184,7 +184,7 @@ func (client *VirtualMachinesClient) listByLabHandleResponse(resp *http.Response
 // BeginRedeploy - Action to redeploy a lab virtual machine to a different compute node. For troubleshooting connectivity.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labName - The name of the lab that uniquely identifies it within containing lab plan. Used in resource URIs.
 //   - virtualMachineName - The ID of the virtual machine that uniquely identifies it within the containing lab. Used in resource
@@ -212,7 +212,7 @@ func (client *VirtualMachinesClient) BeginRedeploy(ctx context.Context, resource
 // Redeploy - Action to redeploy a lab virtual machine to a different compute node. For troubleshooting connectivity.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 func (client *VirtualMachinesClient) redeploy(ctx context.Context, resourceGroupName string, labName string, virtualMachineName string, options *VirtualMachinesClientBeginRedeployOptions) (*http.Response, error) {
 	var err error
 	const operationName = "VirtualMachinesClient.BeginRedeploy"
@@ -258,7 +258,7 @@ func (client *VirtualMachinesClient) redeployCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-06-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -268,7 +268,7 @@ func (client *VirtualMachinesClient) redeployCreateRequest(ctx context.Context, 
 // snapshot of the reference environment of the lab.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labName - The name of the lab that uniquely identifies it within containing lab plan. Used in resource URIs.
 //   - virtualMachineName - The ID of the virtual machine that uniquely identifies it within the containing lab. Used in resource
@@ -297,7 +297,7 @@ func (client *VirtualMachinesClient) BeginReimage(ctx context.Context, resourceG
 // snapshot of the reference environment of the lab.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 func (client *VirtualMachinesClient) reimage(ctx context.Context, resourceGroupName string, labName string, virtualMachineName string, options *VirtualMachinesClientBeginReimageOptions) (*http.Response, error) {
 	var err error
 	const operationName = "VirtualMachinesClient.BeginReimage"
@@ -343,7 +343,7 @@ func (client *VirtualMachinesClient) reimageCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-06-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -352,7 +352,7 @@ func (client *VirtualMachinesClient) reimageCreateRequest(ctx context.Context, r
 // BeginResetPassword - Resets a lab virtual machine password.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labName - The name of the lab that uniquely identifies it within containing lab plan. Used in resource URIs.
 //   - virtualMachineName - The ID of the virtual machine that uniquely identifies it within the containing lab. Used in resource
@@ -381,7 +381,7 @@ func (client *VirtualMachinesClient) BeginResetPassword(ctx context.Context, res
 // ResetPassword - Resets a lab virtual machine password.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 func (client *VirtualMachinesClient) resetPassword(ctx context.Context, resourceGroupName string, labName string, virtualMachineName string, body ResetPasswordBody, options *VirtualMachinesClientBeginResetPasswordOptions) (*http.Response, error) {
 	var err error
 	const operationName = "VirtualMachinesClient.BeginResetPassword"
@@ -427,7 +427,7 @@ func (client *VirtualMachinesClient) resetPasswordCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-06-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -439,7 +439,7 @@ func (client *VirtualMachinesClient) resetPasswordCreateRequest(ctx context.Cont
 // BeginStart - Action to start a lab virtual machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labName - The name of the lab that uniquely identifies it within containing lab plan. Used in resource URIs.
 //   - virtualMachineName - The ID of the virtual machine that uniquely identifies it within the containing lab. Used in resource
@@ -467,7 +467,7 @@ func (client *VirtualMachinesClient) BeginStart(ctx context.Context, resourceGro
 // Start - Action to start a lab virtual machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 func (client *VirtualMachinesClient) start(ctx context.Context, resourceGroupName string, labName string, virtualMachineName string, options *VirtualMachinesClientBeginStartOptions) (*http.Response, error) {
 	var err error
 	const operationName = "VirtualMachinesClient.BeginStart"
@@ -513,7 +513,7 @@ func (client *VirtualMachinesClient) startCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-06-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -522,7 +522,7 @@ func (client *VirtualMachinesClient) startCreateRequest(ctx context.Context, res
 // BeginStop - Action to stop a lab virtual machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labName - The name of the lab that uniquely identifies it within containing lab plan. Used in resource URIs.
 //   - virtualMachineName - The ID of the virtual machine that uniquely identifies it within the containing lab. Used in resource
@@ -550,7 +550,7 @@ func (client *VirtualMachinesClient) BeginStop(ctx context.Context, resourceGrou
 // Stop - Action to stop a lab virtual machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 func (client *VirtualMachinesClient) stop(ctx context.Context, resourceGroupName string, labName string, virtualMachineName string, options *VirtualMachinesClientBeginStopOptions) (*http.Response, error) {
 	var err error
 	const operationName = "VirtualMachinesClient.BeginStop"
@@ -596,7 +596,7 @@ func (client *VirtualMachinesClient) stopCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-06-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

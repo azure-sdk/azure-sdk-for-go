@@ -28,8 +28,6 @@ type ServerFactory struct {
 	ConnectionTypeServer                         ConnectionTypeServer
 	CredentialServer                             CredentialServer
 	DeletedAutomationAccountsServer              DeletedAutomationAccountsServer
-	DscCompilationJobServer                      DscCompilationJobServer
-	DscCompilationJobStreamServer                DscCompilationJobStreamServer
 	DscConfigurationServer                       DscConfigurationServer
 	DscNodeServer                                DscNodeServer
 	DscNodeConfigurationServer                   DscNodeConfigurationServer
@@ -46,11 +44,14 @@ type ServerFactory struct {
 	NodeReportsServer                            NodeReportsServer
 	ObjectDataTypesServer                        ObjectDataTypesServer
 	OperationsServer                             OperationsServer
+	PackageServer                                PackageServer
 	PrivateEndpointConnectionsServer             PrivateEndpointConnectionsServer
 	PrivateLinkResourcesServer                   PrivateLinkResourcesServer
 	Python2PackageServer                         Python2PackageServer
+	Python3PackageServer                         Python3PackageServer
 	RunbookServer                                RunbookServer
 	RunbookDraftServer                           RunbookDraftServer
+	RuntimeEnvironmentsServer                    RuntimeEnvironmentsServer
 	ScheduleServer                               ScheduleServer
 	SoftwareUpdateConfigurationMachineRunsServer SoftwareUpdateConfigurationMachineRunsServer
 	SoftwareUpdateConfigurationRunsServer        SoftwareUpdateConfigurationRunsServer
@@ -90,8 +91,6 @@ type ServerFactoryTransport struct {
 	trConnectionTypeServer                         *ConnectionTypeServerTransport
 	trCredentialServer                             *CredentialServerTransport
 	trDeletedAutomationAccountsServer              *DeletedAutomationAccountsServerTransport
-	trDscCompilationJobServer                      *DscCompilationJobServerTransport
-	trDscCompilationJobStreamServer                *DscCompilationJobStreamServerTransport
 	trDscConfigurationServer                       *DscConfigurationServerTransport
 	trDscNodeServer                                *DscNodeServerTransport
 	trDscNodeConfigurationServer                   *DscNodeConfigurationServerTransport
@@ -108,11 +107,14 @@ type ServerFactoryTransport struct {
 	trNodeReportsServer                            *NodeReportsServerTransport
 	trObjectDataTypesServer                        *ObjectDataTypesServerTransport
 	trOperationsServer                             *OperationsServerTransport
+	trPackageServer                                *PackageServerTransport
 	trPrivateEndpointConnectionsServer             *PrivateEndpointConnectionsServerTransport
 	trPrivateLinkResourcesServer                   *PrivateLinkResourcesServerTransport
 	trPython2PackageServer                         *Python2PackageServerTransport
+	trPython3PackageServer                         *Python3PackageServerTransport
 	trRunbookServer                                *RunbookServerTransport
 	trRunbookDraftServer                           *RunbookDraftServerTransport
+	trRuntimeEnvironmentsServer                    *RuntimeEnvironmentsServerTransport
 	trScheduleServer                               *ScheduleServerTransport
 	trSoftwareUpdateConfigurationMachineRunsServer *SoftwareUpdateConfigurationMachineRunsServerTransport
 	trSoftwareUpdateConfigurationRunsServer        *SoftwareUpdateConfigurationRunsServerTransport
@@ -175,16 +177,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewDeletedAutomationAccountsServerTransport(&s.srv.DeletedAutomationAccountsServer)
 		})
 		resp, err = s.trDeletedAutomationAccountsServer.Do(req)
-	case "DscCompilationJobClient":
-		initServer(s, &s.trDscCompilationJobServer, func() *DscCompilationJobServerTransport {
-			return NewDscCompilationJobServerTransport(&s.srv.DscCompilationJobServer)
-		})
-		resp, err = s.trDscCompilationJobServer.Do(req)
-	case "DscCompilationJobStreamClient":
-		initServer(s, &s.trDscCompilationJobStreamServer, func() *DscCompilationJobStreamServerTransport {
-			return NewDscCompilationJobStreamServerTransport(&s.srv.DscCompilationJobStreamServer)
-		})
-		resp, err = s.trDscCompilationJobStreamServer.Do(req)
 	case "DscConfigurationClient":
 		initServer(s, &s.trDscConfigurationServer, func() *DscConfigurationServerTransport {
 			return NewDscConfigurationServerTransport(&s.srv.DscConfigurationServer)
@@ -247,6 +239,9 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
+	case "PackageClient":
+		initServer(s, &s.trPackageServer, func() *PackageServerTransport { return NewPackageServerTransport(&s.srv.PackageServer) })
+		resp, err = s.trPackageServer.Do(req)
 	case "PrivateEndpointConnectionsClient":
 		initServer(s, &s.trPrivateEndpointConnectionsServer, func() *PrivateEndpointConnectionsServerTransport {
 			return NewPrivateEndpointConnectionsServerTransport(&s.srv.PrivateEndpointConnectionsServer)
@@ -262,12 +257,22 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewPython2PackageServerTransport(&s.srv.Python2PackageServer)
 		})
 		resp, err = s.trPython2PackageServer.Do(req)
+	case "Python3PackageClient":
+		initServer(s, &s.trPython3PackageServer, func() *Python3PackageServerTransport {
+			return NewPython3PackageServerTransport(&s.srv.Python3PackageServer)
+		})
+		resp, err = s.trPython3PackageServer.Do(req)
 	case "RunbookClient":
 		initServer(s, &s.trRunbookServer, func() *RunbookServerTransport { return NewRunbookServerTransport(&s.srv.RunbookServer) })
 		resp, err = s.trRunbookServer.Do(req)
 	case "RunbookDraftClient":
 		initServer(s, &s.trRunbookDraftServer, func() *RunbookDraftServerTransport { return NewRunbookDraftServerTransport(&s.srv.RunbookDraftServer) })
 		resp, err = s.trRunbookDraftServer.Do(req)
+	case "RuntimeEnvironmentsClient":
+		initServer(s, &s.trRuntimeEnvironmentsServer, func() *RuntimeEnvironmentsServerTransport {
+			return NewRuntimeEnvironmentsServerTransport(&s.srv.RuntimeEnvironmentsServer)
+		})
+		resp, err = s.trRuntimeEnvironmentsServer.Do(req)
 	case "ScheduleClient":
 		initServer(s, &s.trScheduleServer, func() *ScheduleServerTransport { return NewScheduleServerTransport(&s.srv.ScheduleServer) })
 		resp, err = s.trScheduleServer.Do(req)
