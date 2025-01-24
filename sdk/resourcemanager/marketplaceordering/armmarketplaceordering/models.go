@@ -74,6 +74,47 @@ type ErrorResponseError struct {
 	Message *string
 }
 
+// OldAgreementProperties - Old Agreement Terms definition
+type OldAgreementProperties struct {
+	// Date and time in UTC of when the terms were cancelled. This is empty if state is active.
+	CancelDate *time.Time
+
+	// A unique identifier of the agreement.
+	ID *string
+
+	// Offer identifier string of image being deployed.
+	Offer *string
+
+	// Publisher identifier string of image being deployed.
+	Publisher *string
+
+	// Date and time in UTC of when the terms were accepted. This is empty if state is cancelled.
+	SignDate *time.Time
+
+	// Whether the agreement is active or cancelled
+	State *State
+}
+
+// OldAgreementTerms - Terms properties for provided Publisher/Offer/Plan tuple
+type OldAgreementTerms struct {
+	// Represents the properties of the resource.
+	Properties *OldAgreementProperties
+
+	// READ-ONLY; Resource ID.
+	ID *string
+
+	// READ-ONLY; Resource name.
+	Name *string
+
+	// READ-ONLY; Resource type.
+	Type *string
+}
+
+// OldAgreementTermsList - Agreement Terms definition list
+type OldAgreementTermsList struct {
+	Value []*OldAgreementTerms
+}
+
 // Operation - Microsoft.MarketplaceOrdering REST API operation
 type Operation struct {
 	// The object that represents the operation.

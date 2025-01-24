@@ -1362,6 +1362,23 @@ func PossibleSecurityAlertPolicyStateValues() []SecurityAlertPolicyState {
 	}
 }
 
+// SelfContainedInteractiveAuthoringState - An alternative option to ensure interactive authoring function when your self-hosted
+// integration runtime is unable to establish a connection with Azure Relay.
+type SelfContainedInteractiveAuthoringState bool
+
+const (
+	SelfContainedInteractiveAuthoringStateFalse SelfContainedInteractiveAuthoringState = false
+	SelfContainedInteractiveAuthoringStateTrue  SelfContainedInteractiveAuthoringState = true
+)
+
+// PossibleSelfContainedInteractiveAuthoringStateValues returns the possible values for the SelfContainedInteractiveAuthoringState const type.
+func PossibleSelfContainedInteractiveAuthoringStateValues() []SelfContainedInteractiveAuthoringState {
+	return []SelfContainedInteractiveAuthoringState{
+		SelfContainedInteractiveAuthoringStateFalse,
+		SelfContainedInteractiveAuthoringStateTrue,
+	}
+}
+
 // SelfHostedIntegrationRuntimeNodeStatus - Status of the integration runtime node.
 type SelfHostedIntegrationRuntimeNodeStatus string
 
