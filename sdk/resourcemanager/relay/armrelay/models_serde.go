@@ -698,6 +698,8 @@ func (n NetworkRuleSetProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "defaultAction", n.DefaultAction)
 	populate(objectMap, "ipRules", n.IPRules)
+	populate(objectMap, "publicNetworkAccess", n.PublicNetworkAccess)
+	populate(objectMap, "trustedServiceAccessEnabled", n.TrustedServiceAccessEnabled)
 	return json.Marshal(objectMap)
 }
 
@@ -715,6 +717,12 @@ func (n *NetworkRuleSetProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "ipRules":
 			err = unpopulate(val, "IPRules", &n.IPRules)
+			delete(rawMsg, key)
+		case "publicNetworkAccess":
+			err = unpopulate(val, "PublicNetworkAccess", &n.PublicNetworkAccess)
+			delete(rawMsg, key)
+		case "trustedServiceAccessEnabled":
+			err = unpopulate(val, "TrustedServiceAccessEnabled", &n.TrustedServiceAccessEnabled)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -1548,7 +1556,7 @@ func populateAny(m map[string]any, k string, v any) {
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {

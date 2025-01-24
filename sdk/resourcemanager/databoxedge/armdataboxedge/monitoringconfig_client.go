@@ -46,7 +46,7 @@ func NewMonitoringConfigClient(subscriptionID string, credential azcore.TokenCre
 // BeginCreateOrUpdate - Creates a new metric configuration or updates an existing one for a role.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-12-01
 //   - deviceName - The device name.
 //   - roleName - The role name.
 //   - resourceGroupName - The resource group name.
@@ -73,7 +73,7 @@ func (client *MonitoringConfigClient) BeginCreateOrUpdate(ctx context.Context, d
 // CreateOrUpdate - Creates a new metric configuration or updates an existing one for a role.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-12-01
 func (client *MonitoringConfigClient) createOrUpdate(ctx context.Context, deviceName string, roleName string, resourceGroupName string, monitoringMetricConfiguration MonitoringMetricConfiguration, options *MonitoringConfigClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "MonitoringConfigClient.BeginCreateOrUpdate"
@@ -119,7 +119,7 @@ func (client *MonitoringConfigClient) createOrUpdateCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, monitoringMetricConfiguration); err != nil {
@@ -131,7 +131,7 @@ func (client *MonitoringConfigClient) createOrUpdateCreateRequest(ctx context.Co
 // BeginDelete - deletes a new metric configuration for a role.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-12-01
 //   - deviceName - The device name.
 //   - roleName - The role name.
 //   - resourceGroupName - The resource group name.
@@ -157,7 +157,7 @@ func (client *MonitoringConfigClient) BeginDelete(ctx context.Context, deviceNam
 // Delete - deletes a new metric configuration for a role.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-12-01
 func (client *MonitoringConfigClient) deleteOperation(ctx context.Context, deviceName string, roleName string, resourceGroupName string, options *MonitoringConfigClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "MonitoringConfigClient.BeginDelete"
@@ -203,7 +203,7 @@ func (client *MonitoringConfigClient) deleteCreateRequest(ctx context.Context, d
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -212,7 +212,7 @@ func (client *MonitoringConfigClient) deleteCreateRequest(ctx context.Context, d
 // Get - Gets a metric configuration of a role.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-12-01
 //   - deviceName - The device name.
 //   - roleName - The role name.
 //   - resourceGroupName - The resource group name.
@@ -263,7 +263,7 @@ func (client *MonitoringConfigClient) getCreateRequest(ctx context.Context, devi
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -280,7 +280,7 @@ func (client *MonitoringConfigClient) getHandleResponse(resp *http.Response) (Mo
 
 // NewListPager - Lists metric configurations in a role.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-12-01
 //   - deviceName - The device name.
 //   - roleName - The role name.
 //   - resourceGroupName - The resource group name.
@@ -333,7 +333,7 @@ func (client *MonitoringConfigClient) listCreateRequest(ctx context.Context, dev
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

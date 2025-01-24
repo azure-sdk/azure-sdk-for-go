@@ -8,6 +8,12 @@
 
 package armstoragesync
 
+// CloudEndpointsClientAfsShareMetadataCertificatePublicKeysOptions contains the optional parameters for the CloudEndpointsClient.AfsShareMetadataCertificatePublicKeys
+// method.
+type CloudEndpointsClientAfsShareMetadataCertificatePublicKeysOptions struct {
+	// placeholder for future optional parameters
+}
+
 // CloudEndpointsClientBeginCreateOptions contains the optional parameters for the CloudEndpointsClient.BeginCreate method.
 type CloudEndpointsClientBeginCreateOptions struct {
 	// Resumes the LRO from the provided token.
@@ -137,6 +143,13 @@ type RegisteredServersClientBeginDeleteOptions struct {
 // RegisteredServersClientBeginTriggerRolloverOptions contains the optional parameters for the RegisteredServersClient.BeginTriggerRollover
 // method.
 type RegisteredServersClientBeginTriggerRolloverOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegisteredServersClientBeginUpdateOptions contains the optional parameters for the RegisteredServersClient.BeginUpdate
+// method.
+type RegisteredServersClientBeginUpdateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
