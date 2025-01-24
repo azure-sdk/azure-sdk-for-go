@@ -46,7 +46,7 @@ func NewHostSettingsClient(subscriptionID string, credential azcore.TokenCredent
 // Get - Get per subscription settings needed to host bot in compute resource such as Azure App Service
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-15
+// Generated from API version 2023-09-15-preview
 //   - options - HostSettingsClientGetOptions contains the optional parameters for the HostSettingsClient.Get method.
 func (client *HostSettingsClient) Get(ctx context.Context, options *HostSettingsClientGetOptions) (HostSettingsClientGetResponse, error) {
 	var err error
@@ -82,7 +82,7 @@ func (client *HostSettingsClient) getCreateRequest(ctx context.Context, options 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-15")
+	reqQP.Set("api-version", "2023-09-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
