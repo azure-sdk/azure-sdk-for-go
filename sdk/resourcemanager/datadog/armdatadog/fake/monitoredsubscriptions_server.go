@@ -15,6 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datadog/armdatadog"
 	"net/http"
 	"net/url"
@@ -267,6 +268,9 @@ func (m *MonitoredSubscriptionsServerTransport) dispatchNewListPager(req *http.R
 		resp := m.srv.NewListPager(resourceGroupNameParam, monitorNameParam, nil)
 		newListPager = &resp
 		m.newListPager.add(req, newListPager)
+		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armdatadog.MonitoredSubscriptionsClientListResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
 	}
 	resp, err := server.PagerResponderNext(newListPager, req)
 	if err != nil {
