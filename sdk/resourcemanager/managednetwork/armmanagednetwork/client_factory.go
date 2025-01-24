@@ -17,8 +17,7 @@ import (
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
 	subscriptionID string
-	credential     azcore.TokenCredential
-	options        *arm.ClientOptions
+	internal       *arm.Client
 }
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
@@ -28,42 +27,50 @@ type ClientFactory struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
-	_, err := arm.NewClient(moduleName, moduleVersion, credential, options)
+	internal, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		subscriptionID: subscriptionID, credential: credential,
-		options: options.Clone(),
+		subscriptionID: subscriptionID,
+		internal:       internal,
 	}, nil
 }
 
 // NewGroupsClient creates a new instance of GroupsClient.
 func (c *ClientFactory) NewGroupsClient() *GroupsClient {
-	subClient, _ := NewGroupsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &GroupsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewManagedNetworksClient creates a new instance of ManagedNetworksClient.
 func (c *ClientFactory) NewManagedNetworksClient() *ManagedNetworksClient {
-	subClient, _ := NewManagedNetworksClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &ManagedNetworksClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewOperationsClient creates a new instance of OperationsClient.
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
-	subClient, _ := NewOperationsClient(c.credential, c.options)
-	return subClient
+	return &OperationsClient{
+		internal: c.internal,
+	}
 }
 
 // NewPeeringPoliciesClient creates a new instance of PeeringPoliciesClient.
 func (c *ClientFactory) NewPeeringPoliciesClient() *PeeringPoliciesClient {
-	subClient, _ := NewPeeringPoliciesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &PeeringPoliciesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewScopeAssignmentsClient creates a new instance of ScopeAssignmentsClient.
 func (c *ClientFactory) NewScopeAssignmentsClient() *ScopeAssignmentsClient {
-	subClient, _ := NewScopeAssignmentsClient(c.credential, c.options)
-	return subClient
+	return &ScopeAssignmentsClient{
+		internal: c.internal,
+	}
 }

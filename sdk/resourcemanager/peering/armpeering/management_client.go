@@ -46,7 +46,7 @@ func NewManagementClient(subscriptionID string, credential azcore.TokenCredentia
 // CheckServiceProviderAvailability - Checks if the peering service provider is present within 1000 miles of customer's location
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01
+// Generated from API version 2022-10-01
 //   - checkServiceProviderAvailabilityInput - The CheckServiceProviderAvailabilityInput indicating customer location and service
 //     provider.
 //   - options - ManagementClientCheckServiceProviderAvailabilityOptions contains the optional parameters for the ManagementClient.CheckServiceProviderAvailability
@@ -85,7 +85,7 @@ func (client *ManagementClient) checkServiceProviderAvailabilityCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01")
+	reqQP.Set("api-version", "2022-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, checkServiceProviderAvailabilityInput); err != nil {
