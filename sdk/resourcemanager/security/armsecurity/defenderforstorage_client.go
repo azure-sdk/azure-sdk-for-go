@@ -40,10 +40,73 @@ func NewDefenderForStorageClient(credential azcore.TokenCredential, options *arm
 	return client, nil
 }
 
+// CancelMalwareScan - Cancels a Defender for Storage malware scan for the specified storage account.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-10-01-preview
+//   - resourceID - The identifier of the resource.
+//   - settingName - Defender for Storage setting name.
+//   - scanID - The identifier of the scan. Can be either 'latest' or a GUID.
+//   - options - DefenderForStorageClientCancelMalwareScanOptions contains the optional parameters for the DefenderForStorageClient.CancelMalwareScan
+//     method.
+func (client *DefenderForStorageClient) CancelMalwareScan(ctx context.Context, resourceID string, settingName SettingName, scanID string, options *DefenderForStorageClientCancelMalwareScanOptions) (DefenderForStorageClientCancelMalwareScanResponse, error) {
+	var err error
+	const operationName = "DefenderForStorageClient.CancelMalwareScan"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.cancelMalwareScanCreateRequest(ctx, resourceID, settingName, scanID, options)
+	if err != nil {
+		return DefenderForStorageClientCancelMalwareScanResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return DefenderForStorageClientCancelMalwareScanResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return DefenderForStorageClientCancelMalwareScanResponse{}, err
+	}
+	resp, err := client.cancelMalwareScanHandleResponse(httpResp)
+	return resp, err
+}
+
+// cancelMalwareScanCreateRequest creates the CancelMalwareScan request.
+func (client *DefenderForStorageClient) cancelMalwareScanCreateRequest(ctx context.Context, resourceID string, settingName SettingName, scanID string, options *DefenderForStorageClientCancelMalwareScanOptions) (*policy.Request, error) {
+	urlPath := "/{resourceId}/providers/Microsoft.Security/defenderForStorageSettings/{settingName}/malwareScans/{scanId}/cancelMalwareScan"
+	urlPath = strings.ReplaceAll(urlPath, "{resourceId}", resourceID)
+	if settingName == "" {
+		return nil, errors.New("parameter settingName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{settingName}", url.PathEscape(string(settingName)))
+	if scanID == "" {
+		return nil, errors.New("parameter scanID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{scanId}", url.PathEscape(scanID))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-10-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// cancelMalwareScanHandleResponse handles the CancelMalwareScan response.
+func (client *DefenderForStorageClient) cancelMalwareScanHandleResponse(resp *http.Response) (DefenderForStorageClientCancelMalwareScanResponse, error) {
+	result := DefenderForStorageClientCancelMalwareScanResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.MalwareScan); err != nil {
+		return DefenderForStorageClientCancelMalwareScanResponse{}, err
+	}
+	return result, nil
+}
+
 // Create - Creates or updates the Defender for Storage settings on a specified storage account.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-12-01-preview
+// Generated from API version 2024-10-01-preview
 //   - resourceID - The identifier of the resource.
 //   - settingName - Defender for Storage setting name.
 //   - defenderForStorageSetting - Defender for Storage Settings
@@ -84,7 +147,7 @@ func (client *DefenderForStorageClient) createCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-12-01-preview")
+	reqQP.Set("api-version", "2024-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, defenderForStorageSetting); err != nil {
@@ -105,7 +168,7 @@ func (client *DefenderForStorageClient) createHandleResponse(resp *http.Response
 // Get - Gets the Defender for Storage settings for the specified storage account.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-12-01-preview
+// Generated from API version 2024-10-01-preview
 //   - resourceID - The identifier of the resource.
 //   - settingName - Defender for Storage setting name.
 //   - options - DefenderForStorageClientGetOptions contains the optional parameters for the DefenderForStorageClient.Get method.
@@ -144,7 +207,7 @@ func (client *DefenderForStorageClient) getCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-12-01-preview")
+	reqQP.Set("api-version", "2024-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -155,6 +218,127 @@ func (client *DefenderForStorageClient) getHandleResponse(resp *http.Response) (
 	result := DefenderForStorageClientGetResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.DefenderForStorageSetting); err != nil {
 		return DefenderForStorageClientGetResponse{}, err
+	}
+	return result, nil
+}
+
+// GetMalwareScan - Gets the Defender for Storage malware scan for the specified storage resource.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-10-01-preview
+//   - resourceID - The identifier of the resource.
+//   - settingName - Defender for Storage setting name.
+//   - scanID - The identifier of the scan. Can be either 'latest' or a GUID.
+//   - options - DefenderForStorageClientGetMalwareScanOptions contains the optional parameters for the DefenderForStorageClient.GetMalwareScan
+//     method.
+func (client *DefenderForStorageClient) GetMalwareScan(ctx context.Context, resourceID string, settingName SettingName, scanID string, options *DefenderForStorageClientGetMalwareScanOptions) (DefenderForStorageClientGetMalwareScanResponse, error) {
+	var err error
+	const operationName = "DefenderForStorageClient.GetMalwareScan"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.getMalwareScanCreateRequest(ctx, resourceID, settingName, scanID, options)
+	if err != nil {
+		return DefenderForStorageClientGetMalwareScanResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return DefenderForStorageClientGetMalwareScanResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return DefenderForStorageClientGetMalwareScanResponse{}, err
+	}
+	resp, err := client.getMalwareScanHandleResponse(httpResp)
+	return resp, err
+}
+
+// getMalwareScanCreateRequest creates the GetMalwareScan request.
+func (client *DefenderForStorageClient) getMalwareScanCreateRequest(ctx context.Context, resourceID string, settingName SettingName, scanID string, options *DefenderForStorageClientGetMalwareScanOptions) (*policy.Request, error) {
+	urlPath := "/{resourceId}/providers/Microsoft.Security/defenderForStorageSettings/{settingName}/malwareScans/{scanId}"
+	urlPath = strings.ReplaceAll(urlPath, "{resourceId}", resourceID)
+	if settingName == "" {
+		return nil, errors.New("parameter settingName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{settingName}", url.PathEscape(string(settingName)))
+	if scanID == "" {
+		return nil, errors.New("parameter scanID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{scanId}", url.PathEscape(scanID))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-10-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// getMalwareScanHandleResponse handles the GetMalwareScan response.
+func (client *DefenderForStorageClient) getMalwareScanHandleResponse(resp *http.Response) (DefenderForStorageClientGetMalwareScanResponse, error) {
+	result := DefenderForStorageClientGetMalwareScanResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.MalwareScan); err != nil {
+		return DefenderForStorageClientGetMalwareScanResponse{}, err
+	}
+	return result, nil
+}
+
+// StartMalwareScan - Initiate a Defender for Storage malware scan for the specified storage account.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-10-01-preview
+//   - resourceID - The identifier of the resource.
+//   - settingName - Defender for Storage setting name.
+//   - options - DefenderForStorageClientStartMalwareScanOptions contains the optional parameters for the DefenderForStorageClient.StartMalwareScan
+//     method.
+func (client *DefenderForStorageClient) StartMalwareScan(ctx context.Context, resourceID string, settingName SettingName, options *DefenderForStorageClientStartMalwareScanOptions) (DefenderForStorageClientStartMalwareScanResponse, error) {
+	var err error
+	const operationName = "DefenderForStorageClient.StartMalwareScan"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.startMalwareScanCreateRequest(ctx, resourceID, settingName, options)
+	if err != nil {
+		return DefenderForStorageClientStartMalwareScanResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return DefenderForStorageClientStartMalwareScanResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return DefenderForStorageClientStartMalwareScanResponse{}, err
+	}
+	resp, err := client.startMalwareScanHandleResponse(httpResp)
+	return resp, err
+}
+
+// startMalwareScanCreateRequest creates the StartMalwareScan request.
+func (client *DefenderForStorageClient) startMalwareScanCreateRequest(ctx context.Context, resourceID string, settingName SettingName, options *DefenderForStorageClientStartMalwareScanOptions) (*policy.Request, error) {
+	urlPath := "/{resourceId}/providers/Microsoft.Security/defenderForStorageSettings/{settingName}/startMalwareScan"
+	urlPath = strings.ReplaceAll(urlPath, "{resourceId}", resourceID)
+	if settingName == "" {
+		return nil, errors.New("parameter settingName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{settingName}", url.PathEscape(string(settingName)))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2024-10-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// startMalwareScanHandleResponse handles the StartMalwareScan response.
+func (client *DefenderForStorageClient) startMalwareScanHandleResponse(resp *http.Response) (DefenderForStorageClientStartMalwareScanResponse, error) {
+	result := DefenderForStorageClientStartMalwareScanResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.MalwareScan); err != nil {
+		return DefenderForStorageClientStartMalwareScanResponse{}, err
 	}
 	return result, nil
 }
