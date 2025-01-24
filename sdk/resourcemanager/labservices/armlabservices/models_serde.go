@@ -703,6 +703,7 @@ func (l LabPlanProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "defaultNetworkProfile", l.DefaultNetworkProfile)
 	populate(objectMap, "linkedLmsInstance", l.LinkedLmsInstance)
 	populate(objectMap, "provisioningState", l.ProvisioningState)
+	populate(objectMap, "resourceOperationError", l.ResourceOperationError)
 	populate(objectMap, "sharedGalleryId", l.SharedGalleryID)
 	populate(objectMap, "supportInfo", l.SupportInfo)
 	return json.Marshal(objectMap)
@@ -734,6 +735,9 @@ func (l *LabPlanProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &l.ProvisioningState)
+			delete(rawMsg, key)
+		case "resourceOperationError":
+			err = unpopulate(val, "ResourceOperationError", &l.ResourceOperationError)
 			delete(rawMsg, key)
 		case "sharedGalleryId":
 			err = unpopulate(val, "SharedGalleryID", &l.SharedGalleryID)
@@ -844,6 +848,7 @@ func (l LabProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "labPlanId", l.LabPlanID)
 	populate(objectMap, "networkProfile", l.NetworkProfile)
 	populate(objectMap, "provisioningState", l.ProvisioningState)
+	populate(objectMap, "resourceOperationError", l.ResourceOperationError)
 	populate(objectMap, "rosterProfile", l.RosterProfile)
 	populate(objectMap, "securityProfile", l.SecurityProfile)
 	populate(objectMap, "state", l.State)
@@ -878,6 +883,9 @@ func (l *LabProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &l.ProvisioningState)
+			delete(rawMsg, key)
+		case "resourceOperationError":
+			err = unpopulate(val, "ResourceOperationError", &l.ResourceOperationError)
 			delete(rawMsg, key)
 		case "rosterProfile":
 			err = unpopulate(val, "RosterProfile", &l.RosterProfile)
@@ -1540,6 +1548,45 @@ func (r *Resource) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type ResourceOperationError.
+func (r ResourceOperationError) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "action", r.Action)
+	populate(objectMap, "code", r.Code)
+	populate(objectMap, "message", r.Message)
+	populateDateTimeRFC3339(objectMap, "timestamp", r.Timestamp)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ResourceOperationError.
+func (r *ResourceOperationError) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", r, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "action":
+			err = unpopulate(val, "Action", &r.Action)
+			delete(rawMsg, key)
+		case "code":
+			err = unpopulate(val, "Code", &r.Code)
+			delete(rawMsg, key)
+		case "message":
+			err = unpopulate(val, "Message", &r.Message)
+			delete(rawMsg, key)
+		case "timestamp":
+			err = unpopulateDateTimeRFC3339(val, "Timestamp", &r.Timestamp)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", r, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type RosterProfile.
 func (r RosterProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -1909,6 +1956,7 @@ func (s ScheduleProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "notes", s.Notes)
 	populate(objectMap, "provisioningState", s.ProvisioningState)
 	populate(objectMap, "recurrencePattern", s.RecurrencePattern)
+	populate(objectMap, "resourceOperationError", s.ResourceOperationError)
 	populateDateTimeRFC3339(objectMap, "startAt", s.StartAt)
 	populateDateTimeRFC3339(objectMap, "stopAt", s.StopAt)
 	populate(objectMap, "timeZoneId", s.TimeZoneID)
@@ -1932,6 +1980,9 @@ func (s *ScheduleProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "recurrencePattern":
 			err = unpopulate(val, "RecurrencePattern", &s.RecurrencePattern)
+			delete(rawMsg, key)
+		case "resourceOperationError":
+			err = unpopulate(val, "ResourceOperationError", &s.ResourceOperationError)
 			delete(rawMsg, key)
 		case "startAt":
 			err = unpopulateDateTimeRFC3339(val, "StartAt", &s.StartAt)
@@ -2338,6 +2389,7 @@ func (u UserProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "invitationState", u.InvitationState)
 	populate(objectMap, "provisioningState", u.ProvisioningState)
 	populate(objectMap, "registrationState", u.RegistrationState)
+	populate(objectMap, "resourceOperationError", u.ResourceOperationError)
 	populate(objectMap, "totalUsage", u.TotalUsage)
 	return json.Marshal(objectMap)
 }
@@ -2371,6 +2423,9 @@ func (u *UserProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "registrationState":
 			err = unpopulate(val, "RegistrationState", &u.RegistrationState)
+			delete(rawMsg, key)
+		case "resourceOperationError":
+			err = unpopulate(val, "ResourceOperationError", &u.ResourceOperationError)
 			delete(rawMsg, key)
 		case "totalUsage":
 			err = unpopulate(val, "TotalUsage", &u.TotalUsage)
@@ -2623,6 +2678,7 @@ func (v VirtualMachineProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "claimedByUserId", v.ClaimedByUserID)
 	populate(objectMap, "connectionProfile", v.ConnectionProfile)
 	populate(objectMap, "provisioningState", v.ProvisioningState)
+	populate(objectMap, "resourceOperationError", v.ResourceOperationError)
 	populate(objectMap, "state", v.State)
 	populate(objectMap, "vmType", v.VMType)
 	return json.Marshal(objectMap)
@@ -2645,6 +2701,9 @@ func (v *VirtualMachineProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &v.ProvisioningState)
+			delete(rawMsg, key)
+		case "resourceOperationError":
+			err = unpopulate(val, "ResourceOperationError", &v.ResourceOperationError)
 			delete(rawMsg, key)
 		case "state":
 			err = unpopulate(val, "State", &v.State)
@@ -2681,7 +2740,7 @@ func populateAny(m map[string]any, k string, v any) {
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {
