@@ -134,7 +134,7 @@ type CaCertificate struct {
 	// READ-ONLY; Name of the resource.
 	Name *string
 
-	// READ-ONLY; The system metadata relating to the CaCertificate resource.
+	// READ-ONLY; The system metadata relating to the Event Grid resource.
 	SystemData *SystemData
 
 	// READ-ONLY; Type of the resource.
@@ -179,7 +179,7 @@ type Channel struct {
 	// READ-ONLY; Name of the resource.
 	Name *string
 
-	// READ-ONLY; The system metadata relating to Channel resource.
+	// READ-ONLY; The system metadata relating to the Event Grid resource.
 	SystemData *SystemData
 
 	// READ-ONLY; Type of the resource.
@@ -253,7 +253,7 @@ type Client struct {
 	// READ-ONLY; Name of the resource.
 	Name *string
 
-	// READ-ONLY; The system metadata relating to the Client resource.
+	// READ-ONLY; The system metadata relating to the Event Grid resource.
 	SystemData *SystemData
 
 	// READ-ONLY; Type of the resource.
@@ -290,7 +290,7 @@ type ClientGroup struct {
 	// READ-ONLY; Name of the resource.
 	Name *string
 
-	// READ-ONLY; The system metadata relating to the ClientGroup resource.
+	// READ-ONLY; The system metadata relating to the Event Grid resource.
 	SystemData *SystemData
 
 	// READ-ONLY; Type of the resource.
@@ -421,7 +421,10 @@ type CustomJwtAuthenticationManagedIdentity struct {
 
 // CustomJwtAuthenticationSettings - Custom JWT authentication settings for namespace resource.
 type CustomJwtAuthenticationSettings struct {
-	// Information about the certificate that is used for token validation. We currently support maximum 2 certificates.
+	// Information about the encoded public certificates that are used for custom authentication.
+	EncodedIssuerCertificates []*EncodedIssuerCertificateInfo
+
+	// Information about the certificates that are used for token validation. We currently support maximum 2 certificates.
 	IssuerCertificates []*IssuerCertificateInfo
 
 	// Expected JWT token issuer.
@@ -514,7 +517,7 @@ type Domain struct {
 	// READ-ONLY; Name of the resource.
 	Name *string
 
-	// READ-ONLY; The system metadata relating to the Event Grid Domain resource.
+	// READ-ONLY; The system metadata relating to the Event Grid resource.
 	SystemData *SystemData
 
 	// READ-ONLY; Type of the resource.
@@ -614,7 +617,7 @@ type DomainTopic struct {
 	// READ-ONLY; Properties of the Domain Topic.
 	Properties *DomainTopicProperties
 
-	// READ-ONLY; The system metadata relating to Domain Topic resource.
+	// READ-ONLY; The system metadata relating to the Event Grid resource.
 	SystemData *SystemData
 
 	// READ-ONLY; Type of the resource.
@@ -742,6 +745,15 @@ type DynamicRoutingEnrichment struct {
 	Value *string
 }
 
+// EncodedIssuerCertificateInfo - Information about the public certificate that is used for custom authentication.
+type EncodedIssuerCertificateInfo struct {
+	// REQUIRED; Certificate in pem format.
+	EncodedCertificate *string
+
+	// REQUIRED; Identifier for the certificate.
+	Kid *string
+}
+
 // ErrorAdditionalInfo - The resource management error additional info.
 type ErrorAdditionalInfo struct {
 	// READ-ONLY; The additional info.
@@ -812,7 +824,7 @@ type EventSubscription struct {
 	// READ-ONLY; Name of the resource.
 	Name *string
 
-	// READ-ONLY; The system metadata relating to Event Subscription resource.
+	// READ-ONLY; The system metadata relating to the Event Grid resource.
 	SystemData *SystemData
 
 	// READ-ONLY; Type of the resource.
@@ -864,6 +876,9 @@ type EventSubscriptionFullURL struct {
 
 // EventSubscriptionIdentity - The identity information with the event subscription.
 type EventSubscriptionIdentity struct {
+	// The details of the Federated Identity Credential (FIC) used with the resource delivery.
+	FederatedIdentityCredentialInfo *FederatedIdentityCredentialInfo
+
 	// The type of managed identity used. Can be either 'SystemAssigned' or 'UserAssigned'.
 	Type *EventSubscriptionIdentityType
 
@@ -1000,7 +1015,7 @@ type EventTypeProperties struct {
 	// IsInDefaultSet flag of the event type.
 	IsInDefaultSet *bool
 
-	// Url of the schema for this event type.
+	// URL of the schema for this event type.
 	SchemaURL *string
 }
 
@@ -1030,7 +1045,7 @@ type ExtensionTopic struct {
 	// READ-ONLY; Name of the resource.
 	Name *string
 
-	// READ-ONLY; The system metadata relating to Extension Topic resource.
+	// READ-ONLY; The system metadata relating to the Event Grid resource.
 	SystemData *SystemData
 
 	// READ-ONLY; Type of the resource.
@@ -1046,9 +1061,15 @@ type ExtensionTopicProperties struct {
 	SystemTopic *string
 }
 
+// FederatedIdentityCredentialInfo - The details of the Federated Identity Credential (FIC) used with the resource.
+type FederatedIdentityCredentialInfo struct {
+	// REQUIRED; The Multi-Tenant AAD Application where the Federated Identity Credential (FIC) is associated with.
+	FederatedClientID *string
+}
+
 // Filter - This is the base type that represents a filter. To configure a filter, do not directly instantiate an object of
 // this class. Instead, instantiate an object of a derived class such as BoolEqualsFilter,
-// NumberInFilter, StringEqualsFilter etc depending on the type of the key based on which you want to filter.
+// NumberInFilter etc depending on the type of the key based on which you want to filter.
 type Filter struct {
 	// REQUIRED; The operator type used for filtering, e.g., NumberIn, StringContains, BoolEquals and others.
 	OperatorType *FilterOperatorType
@@ -1341,7 +1362,7 @@ type Namespace struct {
 	// READ-ONLY; Name of the resource.
 	Name *string
 
-	// READ-ONLY; The system metadata relating to the namespace resource.
+	// READ-ONLY; The system metadata relating to the Event Grid resource.
 	SystemData *SystemData
 
 	// READ-ONLY; Type of the resource.
@@ -1418,7 +1439,7 @@ type NamespaceTopic struct {
 	// READ-ONLY; Name of the resource.
 	Name *string
 
-	// READ-ONLY; The system metadata relating to namespace topic resource.
+	// READ-ONLY; The system metadata relating to the Event Grid resource.
 	SystemData *SystemData
 
 	// READ-ONLY; Type of the resource.
@@ -2089,7 +2110,7 @@ type PartnerConfiguration struct {
 	// READ-ONLY; Name of the resource.
 	Name *string
 
-	// READ-ONLY; The system metadata relating to partner configuration resource.
+	// READ-ONLY; The system metadata relating to the Event Grid resource.
 	SystemData *SystemData
 
 	// READ-ONLY; Type of the resource.
@@ -2147,7 +2168,7 @@ type PartnerDestination struct {
 	// READ-ONLY; Name of the resource.
 	Name *string
 
-	// READ-ONLY; The system metadata relating to Partner Destination resource.
+	// READ-ONLY; The system metadata relating to the Event Grid resource.
 	SystemData *SystemData
 
 	// READ-ONLY; Type of the resource.
@@ -2269,7 +2290,7 @@ type PartnerNamespace struct {
 	// READ-ONLY; Name of the resource.
 	Name *string
 
-	// READ-ONLY; The system metadata relating to Partner Namespace resource.
+	// READ-ONLY; The system metadata relating to the Event Grid resource.
 	SystemData *SystemData
 
 	// READ-ONLY; Type of the resource.
@@ -2383,7 +2404,7 @@ type PartnerRegistration struct {
 	// READ-ONLY; Name of the resource.
 	Name *string
 
-	// READ-ONLY; The system metadata relating to Partner Registration resource.
+	// READ-ONLY; The system metadata relating to the Event Grid resource.
 	SystemData *SystemData
 
 	// READ-ONLY; Type of the resource.
@@ -2435,7 +2456,7 @@ type PartnerTopic struct {
 	// READ-ONLY; Name of the resource.
 	Name *string
 
-	// READ-ONLY; The system metadata relating to Partner Topic resource.
+	// READ-ONLY; The system metadata relating to the Event Grid resource.
 	SystemData *SystemData
 
 	// READ-ONLY; Type of the resource.
@@ -2541,7 +2562,7 @@ type PermissionBinding struct {
 	// READ-ONLY; Name of the resource.
 	Name *string
 
-	// READ-ONLY; The system metadata relating to the PermissionBinding resource.
+	// READ-ONLY; The system metadata relating to the Event Grid resource.
 	SystemData *SystemData
 
 	// READ-ONLY; Type of the resource.
@@ -3281,7 +3302,7 @@ type Subscription struct {
 	// READ-ONLY; Name of the resource.
 	Name *string
 
-	// READ-ONLY; The system metadata relating to Event Subscription resource.
+	// READ-ONLY; The system metadata relating to the Event Grid resource.
 	SystemData *SystemData
 
 	// READ-ONLY; Type of the resource.
@@ -3308,6 +3329,9 @@ type SubscriptionProperties struct {
 	// Information about the filter for the event subscription.
 	FiltersConfiguration *FiltersConfiguration
 
+	// Tags relating to Event Subscription resource.
+	Tags map[string]*string
+
 	// READ-ONLY; Provisioning state of the event subscription.
 	ProvisioningState *SubscriptionProvisioningState
 }
@@ -3331,6 +3355,9 @@ type SubscriptionUpdateParametersProperties struct {
 
 	// Information about the filter for the event subscription.
 	FiltersConfiguration *FiltersConfiguration
+
+	// Tags relating to Event Subscription resource.
+	Tags map[string]*string
 }
 
 // SubscriptionsListResult - Result of the List event subscriptions operation.
@@ -3383,7 +3410,7 @@ type SystemTopic struct {
 	// READ-ONLY; Name of the resource.
 	Name *string
 
-	// READ-ONLY; The system metadata relating to System Topic resource.
+	// READ-ONLY; The system metadata relating to the Event Grid resource.
 	SystemData *SystemData
 
 	// READ-ONLY; Type of the resource.
@@ -3452,7 +3479,7 @@ type Topic struct {
 	// READ-ONLY; Name of the resource.
 	Name *string
 
-	// READ-ONLY; The system metadata relating to Topic resource.
+	// READ-ONLY; The system metadata relating to the Event Grid resource.
 	SystemData *SystemData
 
 	// READ-ONLY; Type of the resource.
@@ -3529,7 +3556,7 @@ type TopicSpace struct {
 	// READ-ONLY; Name of the resource.
 	Name *string
 
-	// READ-ONLY; The system metadata relating to the TopicSpace resource.
+	// READ-ONLY; The system metadata relating to the Event Grid resource.
 	SystemData *SystemData
 
 	// READ-ONLY; Type of the resource.
@@ -3782,7 +3809,7 @@ type VerifiedPartner struct {
 	// READ-ONLY; Name of the resource.
 	Name *string
 
-	// READ-ONLY; The system metadata relating to Verified Partner resource.
+	// READ-ONLY; The system metadata relating to the Event Grid resource.
 	SystemData *SystemData
 
 	// READ-ONLY; Type of the resource.
