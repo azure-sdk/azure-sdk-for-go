@@ -320,7 +320,7 @@ func (client *ServersClient) dissociateGatewayCreateRequest(ctx context.Context,
 	return req, nil
 }
 
-// GetDetails - Gets details about the specified Analysis Services server.
+// GetDetails - Gets details about the specified Analysis Services server. trestest
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2017-08-01
