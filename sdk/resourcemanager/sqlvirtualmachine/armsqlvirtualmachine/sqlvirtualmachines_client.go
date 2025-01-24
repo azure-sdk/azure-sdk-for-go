@@ -46,7 +46,7 @@ func NewSQLVirtualMachinesClient(subscriptionID string, credential azcore.TokenC
 // BeginCreateOrUpdate - Creates or updates a SQL virtual machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2023-10-01
 //   - resourceGroupName - Name of the resource group that contains the resource. You can obtain this value from the Azure Resource
 //     Manager API or the portal.
 //   - sqlVirtualMachineName - Name of the SQL virtual machine.
@@ -74,7 +74,7 @@ func (client *SQLVirtualMachinesClient) BeginCreateOrUpdate(ctx context.Context,
 // CreateOrUpdate - Creates or updates a SQL virtual machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2023-10-01
 func (client *SQLVirtualMachinesClient) createOrUpdate(ctx context.Context, resourceGroupName string, sqlVirtualMachineName string, parameters SQLVirtualMachine, options *SQLVirtualMachinesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "SQLVirtualMachinesClient.BeginCreateOrUpdate"
@@ -116,7 +116,7 @@ func (client *SQLVirtualMachinesClient) createOrUpdateCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -128,7 +128,7 @@ func (client *SQLVirtualMachinesClient) createOrUpdateCreateRequest(ctx context.
 // BeginDelete - Deletes a SQL virtual machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2023-10-01
 //   - resourceGroupName - Name of the resource group that contains the resource. You can obtain this value from the Azure Resource
 //     Manager API or the portal.
 //   - sqlVirtualMachineName - Name of the SQL virtual machine.
@@ -155,7 +155,7 @@ func (client *SQLVirtualMachinesClient) BeginDelete(ctx context.Context, resourc
 // Delete - Deletes a SQL virtual machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2023-10-01
 func (client *SQLVirtualMachinesClient) deleteOperation(ctx context.Context, resourceGroupName string, sqlVirtualMachineName string, options *SQLVirtualMachinesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "SQLVirtualMachinesClient.BeginDelete"
@@ -197,16 +197,98 @@ func (client *SQLVirtualMachinesClient) deleteCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// BeginFetchDCAssessment - Starts SQL best practices Assessment with Disk Config rules on SQL virtual machine
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-10-01
+//   - resourceGroupName - Name of the resource group that contains the resource. You can obtain this value from the Azure Resource
+//     Manager API or the portal.
+//   - sqlVirtualMachineName - Name of the SQL virtual machine.
+//   - parameters - Disk Config Assessment property
+//   - options - SQLVirtualMachinesClientBeginFetchDCAssessmentOptions contains the optional parameters for the SQLVirtualMachinesClient.BeginFetchDCAssessment
+//     method.
+func (client *SQLVirtualMachinesClient) BeginFetchDCAssessment(ctx context.Context, resourceGroupName string, sqlVirtualMachineName string, parameters DiskConfigAssessmentRequest, options *SQLVirtualMachinesClientBeginFetchDCAssessmentOptions) (*runtime.Poller[SQLVirtualMachinesClientFetchDCAssessmentResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.fetchDCAssessment(ctx, resourceGroupName, sqlVirtualMachineName, parameters, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[SQLVirtualMachinesClientFetchDCAssessmentResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[SQLVirtualMachinesClientFetchDCAssessmentResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// FetchDCAssessment - Starts SQL best practices Assessment with Disk Config rules on SQL virtual machine
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-10-01
+func (client *SQLVirtualMachinesClient) fetchDCAssessment(ctx context.Context, resourceGroupName string, sqlVirtualMachineName string, parameters DiskConfigAssessmentRequest, options *SQLVirtualMachinesClientBeginFetchDCAssessmentOptions) (*http.Response, error) {
+	var err error
+	const operationName = "SQLVirtualMachinesClient.BeginFetchDCAssessment"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.fetchDCAssessmentCreateRequest(ctx, resourceGroupName, sqlVirtualMachineName, parameters, options)
+	if err != nil {
+		return nil, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusAccepted) {
+		err = runtime.NewResponseError(httpResp)
+		return nil, err
+	}
+	return httpResp, nil
+}
+
+// fetchDCAssessmentCreateRequest creates the FetchDCAssessment request.
+func (client *SQLVirtualMachinesClient) fetchDCAssessmentCreateRequest(ctx context.Context, resourceGroupName string, sqlVirtualMachineName string, parameters DiskConfigAssessmentRequest, options *SQLVirtualMachinesClientBeginFetchDCAssessmentOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SqlVirtualMachine/sqlVirtualMachines/{sqlVirtualMachineName}/fetchDCAssessment"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if sqlVirtualMachineName == "" {
+		return nil, errors.New("parameter sqlVirtualMachineName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{sqlVirtualMachineName}", url.PathEscape(sqlVirtualMachineName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-10-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
+		return nil, err
+	}
 	return req, nil
 }
 
 // Get - Gets a SQL virtual machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2023-10-01
 //   - resourceGroupName - Name of the resource group that contains the resource. You can obtain this value from the Azure Resource
 //     Manager API or the portal.
 //   - sqlVirtualMachineName - Name of the SQL virtual machine.
@@ -256,7 +338,7 @@ func (client *SQLVirtualMachinesClient) getCreateRequest(ctx context.Context, re
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -273,7 +355,7 @@ func (client *SQLVirtualMachinesClient) getHandleResponse(resp *http.Response) (
 
 // NewListPager - Gets all SQL virtual machines in a subscription.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2023-10-01
 //   - options - SQLVirtualMachinesClientListOptions contains the optional parameters for the SQLVirtualMachinesClient.NewListPager
 //     method.
 func (client *SQLVirtualMachinesClient) NewListPager(options *SQLVirtualMachinesClientListOptions) *runtime.Pager[SQLVirtualMachinesClientListResponse] {
@@ -311,7 +393,7 @@ func (client *SQLVirtualMachinesClient) listCreateRequest(ctx context.Context, o
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -328,7 +410,7 @@ func (client *SQLVirtualMachinesClient) listHandleResponse(resp *http.Response) 
 
 // NewListByResourceGroupPager - Gets all SQL virtual machines in a resource group.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2023-10-01
 //   - resourceGroupName - Name of the resource group that contains the resource. You can obtain this value from the Azure Resource
 //     Manager API or the portal.
 //   - options - SQLVirtualMachinesClientListByResourceGroupOptions contains the optional parameters for the SQLVirtualMachinesClient.NewListByResourceGroupPager
@@ -372,7 +454,7 @@ func (client *SQLVirtualMachinesClient) listByResourceGroupCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -389,7 +471,7 @@ func (client *SQLVirtualMachinesClient) listByResourceGroupHandleResponse(resp *
 
 // NewListBySQLVMGroupPager - Gets the list of sql virtual machines in a SQL virtual machine group.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2023-10-01
 //   - resourceGroupName - Name of the resource group that contains the resource. You can obtain this value from the Azure Resource
 //     Manager API or the portal.
 //   - sqlVirtualMachineGroupName - Name of the SQL virtual machine group.
@@ -438,7 +520,7 @@ func (client *SQLVirtualMachinesClient) listBySQLVMGroupCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -456,7 +538,7 @@ func (client *SQLVirtualMachinesClient) listBySQLVMGroupHandleResponse(resp *htt
 // BeginRedeploy - Uninstalls and reinstalls the SQL IaaS Extension.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2023-10-01
 //   - resourceGroupName - Name of the resource group that contains the resource. You can obtain this value from the Azure Resource
 //     Manager API or the portal.
 //   - sqlVirtualMachineName - Name of the SQL virtual machine.
@@ -483,7 +565,7 @@ func (client *SQLVirtualMachinesClient) BeginRedeploy(ctx context.Context, resou
 // Redeploy - Uninstalls and reinstalls the SQL IaaS Extension.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2023-10-01
 func (client *SQLVirtualMachinesClient) redeploy(ctx context.Context, resourceGroupName string, sqlVirtualMachineName string, options *SQLVirtualMachinesClientBeginRedeployOptions) (*http.Response, error) {
 	var err error
 	const operationName = "SQLVirtualMachinesClient.BeginRedeploy"
@@ -498,7 +580,7 @@ func (client *SQLVirtualMachinesClient) redeploy(ctx context.Context, resourceGr
 	if err != nil {
 		return nil, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
+	if !runtime.HasStatusCode(httpResp, http.StatusAccepted) {
 		err = runtime.NewResponseError(httpResp)
 		return nil, err
 	}
@@ -525,7 +607,7 @@ func (client *SQLVirtualMachinesClient) redeployCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -534,7 +616,7 @@ func (client *SQLVirtualMachinesClient) redeployCreateRequest(ctx context.Contex
 // BeginStartAssessment - Starts SQL best practices Assessment on SQL virtual machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2023-10-01
 //   - resourceGroupName - Name of the resource group that contains the resource. You can obtain this value from the Azure Resource
 //     Manager API or the portal.
 //   - sqlVirtualMachineName - Name of the SQL virtual machine.
@@ -561,7 +643,7 @@ func (client *SQLVirtualMachinesClient) BeginStartAssessment(ctx context.Context
 // StartAssessment - Starts SQL best practices Assessment on SQL virtual machine.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2023-10-01
 func (client *SQLVirtualMachinesClient) startAssessment(ctx context.Context, resourceGroupName string, sqlVirtualMachineName string, options *SQLVirtualMachinesClientBeginStartAssessmentOptions) (*http.Response, error) {
 	var err error
 	const operationName = "SQLVirtualMachinesClient.BeginStartAssessment"
@@ -576,7 +658,7 @@ func (client *SQLVirtualMachinesClient) startAssessment(ctx context.Context, res
 	if err != nil {
 		return nil, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
+	if !runtime.HasStatusCode(httpResp, http.StatusAccepted) {
 		err = runtime.NewResponseError(httpResp)
 		return nil, err
 	}
@@ -603,16 +685,16 @@ func (client *SQLVirtualMachinesClient) startAssessmentCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
-// BeginUpdate - Updates a SQL virtual machine.
+// BeginUpdate - Updates SQL virtual machine tags.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2023-10-01
 //   - resourceGroupName - Name of the resource group that contains the resource. You can obtain this value from the Azure Resource
 //     Manager API or the portal.
 //   - sqlVirtualMachineName - Name of the SQL virtual machine.
@@ -637,10 +719,10 @@ func (client *SQLVirtualMachinesClient) BeginUpdate(ctx context.Context, resourc
 	}
 }
 
-// Update - Updates a SQL virtual machine.
+// Update - Updates SQL virtual machine tags.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01-preview
+// Generated from API version 2023-10-01
 func (client *SQLVirtualMachinesClient) update(ctx context.Context, resourceGroupName string, sqlVirtualMachineName string, parameters Update, options *SQLVirtualMachinesClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "SQLVirtualMachinesClient.BeginUpdate"
@@ -682,7 +764,7 @@ func (client *SQLVirtualMachinesClient) updateCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2023-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
