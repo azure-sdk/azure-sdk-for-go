@@ -10,7 +10,7 @@ package armdnsresolver
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/dnsresolver/armdnsresolver"
-	moduleVersion = "v1.3.0-beta.1"
+	moduleVersion = "v1.3.0-beta.2"
 )
 
 // ActionType - The type of action to take.
