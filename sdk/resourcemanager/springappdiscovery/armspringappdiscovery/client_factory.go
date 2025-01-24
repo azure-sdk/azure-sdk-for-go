@@ -17,8 +17,7 @@ import (
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
 	subscriptionID string
-	credential     azcore.TokenCredential
-	options        *arm.ClientOptions
+	internal       *arm.Client
 }
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
@@ -27,48 +26,59 @@ type ClientFactory struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
-	_, err := arm.NewClient(moduleName, moduleVersion, credential, options)
+	internal, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		subscriptionID: subscriptionID, credential: credential,
-		options: options.Clone(),
+		subscriptionID: subscriptionID,
+		internal:       internal,
 	}, nil
 }
 
 // NewErrorSummariesClient creates a new instance of ErrorSummariesClient.
 func (c *ClientFactory) NewErrorSummariesClient() *ErrorSummariesClient {
-	subClient, _ := NewErrorSummariesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &ErrorSummariesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewOperationsClient creates a new instance of OperationsClient.
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
-	subClient, _ := NewOperationsClient(c.credential, c.options)
-	return subClient
+	return &OperationsClient{
+		internal: c.internal,
+	}
 }
 
 // NewSpringbootappsClient creates a new instance of SpringbootappsClient.
 func (c *ClientFactory) NewSpringbootappsClient() *SpringbootappsClient {
-	subClient, _ := NewSpringbootappsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SpringbootappsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSpringbootserversClient creates a new instance of SpringbootserversClient.
 func (c *ClientFactory) NewSpringbootserversClient() *SpringbootserversClient {
-	subClient, _ := NewSpringbootserversClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SpringbootserversClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSpringbootsitesClient creates a new instance of SpringbootsitesClient.
 func (c *ClientFactory) NewSpringbootsitesClient() *SpringbootsitesClient {
-	subClient, _ := NewSpringbootsitesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SpringbootsitesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSummariesClient creates a new instance of SummariesClient.
 func (c *ClientFactory) NewSummariesClient() *SummariesClient {
-	subClient, _ := NewSummariesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SummariesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
