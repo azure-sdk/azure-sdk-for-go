@@ -93,15 +93,8 @@ type AccountProperties struct {
 	// Encryption settings
 	Encryption *AccountEncryption
 
-	// Domain for NFSv4 user ID mapping. This property will be set for all NetApp accounts in the subscription and region and
-	// only affect non ldap NFSv4 volumes.
-	NfsV4IDDomain *string
-
 	// READ-ONLY; Shows the status of disableShowmount for all volumes under the subscription, null equals false
 	DisableShowmount *bool
-
-	// READ-ONLY; This will have true value only if account is Multiple AD enabled.
-	IsMultiAdEnabled *bool
 
 	// READ-ONLY; Azure lifecycle management
 	ProvisioningState *string
@@ -287,7 +280,7 @@ type BackupPolicyProperties struct {
 	// Weekly backups count to keep
 	WeeklyBackupsToKeep *int32
 
-	// READ-ONLY; Backup Policy Resource ID
+	// READ-ONLY; Backup Policy GUID ID
 	BackupPolicyID *string
 
 	// READ-ONLY; Azure lifecycle management
@@ -328,9 +321,6 @@ type BackupProperties struct {
 
 	// READ-ONLY; Failure reason
 	FailureReason *string
-
-	// READ-ONLY; Specifies if the backup is for a large volume.
-	IsLargeVolume *bool
 
 	// READ-ONLY; Azure lifecycle management
 	ProvisioningState *string
@@ -516,22 +506,6 @@ type CapacityPoolPatch struct {
 	Type *string
 }
 
-// ChangeKeyVault - Change key vault request
-type ChangeKeyVault struct {
-	// REQUIRED; The name of the key that should be used for encryption.
-	KeyName *string
-
-	// REQUIRED; Pairs of virtual network ID and private endpoint ID. Every virtual network that has volumes encrypted with customer-managed
-	// keys needs its own key vault private endpoint.
-	KeyVaultPrivateEndpoints []*KeyVaultPrivateEndpoint
-
-	// REQUIRED; The URI of the key vault/managed HSM that should be used for encryption.
-	KeyVaultURI *string
-
-	// Azure resource ID of the key vault/managed HSM that should be used for encryption.
-	KeyVaultResourceID *string
-}
-
 // CheckAvailabilityResponse - Information regarding availability of a resource.
 type CheckAvailabilityResponse struct {
 	// true indicates name is valid and available. false indicates the name is invalid, unavailable, or both.
@@ -569,21 +543,6 @@ type DailySchedule struct {
 	UsedBytes *int64
 }
 
-// DestinationReplication - Destination replication properties
-type DestinationReplication struct {
-	// The remote region for the destination volume.
-	Region *string
-
-	// Indicates whether the replication is cross zone or cross region.
-	ReplicationType *ReplicationType
-
-	// The resource ID of the remote volume
-	ResourceID *string
-
-	// The remote zone for the destination volume.
-	Zone *string
-}
-
 // Dimension of blobs, possibly be blob type or access tier.
 type Dimension struct {
 	// Display name of dimension.
@@ -595,24 +554,12 @@ type Dimension struct {
 
 // EncryptionIdentity - Identity used to authenticate with key vault.
 type EncryptionIdentity struct {
-	// ClientId of the multi-tenant AAD Application. Used to access cross-tenant KeyVaults.
-	FederatedClientID *string
-
 	// The ARM resource identifier of the user assigned identity used to authenticate with key vault. Applicable if identity.type
 	// has 'UserAssigned'. It should match key of identity.userAssignedIdentities.
 	UserAssignedIdentity *string
 
 	// READ-ONLY; The principal ID (object ID) of the identity used to authenticate with key vault. Read-only.
 	PrincipalID *string
-}
-
-// EncryptionTransitionRequest - Encryption transition request
-type EncryptionTransitionRequest struct {
-	// REQUIRED; Identifier of the private endpoint to reach the Azure Key Vault
-	PrivateEndpointID *string
-
-	// REQUIRED; Identifier for the virtual network
-	VirtualNetworkID *string
 }
 
 // ExportPolicyRule - Volume Export Policy Rule
@@ -702,16 +649,6 @@ type HourlySchedule struct {
 	UsedBytes *int64
 }
 
-// KeyVaultPrivateEndpoint - Pairs of virtual network ID and private endpoint ID. Every virtual network that has volumes encrypted
-// with customer-managed keys needs its own key vault private endpoint.
-type KeyVaultPrivateEndpoint struct {
-	// Identifier of the private endpoint to reach the Azure Key Vault
-	PrivateEndpointID *string
-
-	// Identifier for the virtual network id
-	VirtualNetworkID *string
-}
-
 // KeyVaultProperties - Properties of key vault.
 type KeyVaultProperties struct {
 	// REQUIRED; The name of KeyVault key.
@@ -740,15 +677,6 @@ type LdapSearchScopeOpt struct {
 
 	// This specifies the user DN, which overrides the base DN for user lookups.
 	UserDN *string
-}
-
-// ListQuotaReportResponse - Quota Report for volume
-type ListQuotaReportResponse struct {
-	// URL to get the next set of results.
-	NextLink *string
-
-	// List of volume quota report records
-	Value []*QuotaReport
 }
 
 // ListReplications - List Replications
@@ -970,10 +898,6 @@ type PoolPatchProperties struct {
 	// If enabled (true) the pool can contain cool Access enabled volumes.
 	CoolAccess *bool
 
-	// Maximum throughput in MiB/s that can be achieved by this pool and this will be accepted as input only for manual qosType
-	// pool with Flexible service level
-	CustomThroughputMibps *float32
-
 	// The qos type of the pool
 	QosType *QosType
 
@@ -991,10 +915,6 @@ type PoolProperties struct {
 
 	// If enabled (true) the pool can contain cool Access enabled volumes.
 	CoolAccess *bool
-
-	// Maximum throughput in MiB/s that can be achieved by this pool and this will be accepted as input only for manual qosType
-	// pool with Flexible service level
-	CustomThroughputMibps *float32
 
 	// Encryption type of the capacity pool, set encryption type for data at rest for this pool and all volumes in it. This value
 	// can only be set when creating new pool.
@@ -1036,28 +956,6 @@ type QuotaAvailabilityRequest struct {
 
 	// REQUIRED; Resource type used for verification.
 	Type *CheckQuotaNameResourceTypes
-}
-
-// QuotaReport - Quota report record properties
-type QuotaReport struct {
-	// Flag to indicate whether the quota is derived from default quota.
-	IsDerivedQuota *bool
-
-	// Percentage of used size compared to total size.
-	PercentageUsed *float32
-
-	// Specifies the total size limit in kibibytes for the user/group quota.
-	QuotaLimitTotalInKiBs *int64
-
-	// Specifies the current usage in kibibytes for the user/group quota.
-	QuotaLimitUsedInKiBs *int64
-
-	// UserID/GroupID/SID based on the quota target type. UserID and groupID can be found by running ‘id’ or ‘getent’ command
-	// for the user or group and SID can be found by running
-	QuotaTarget *string
-
-	// Type of quota
-	QuotaType *Type
 }
 
 // ReestablishReplicationRequest - Re-establish request object supplied in the body of the operation.
@@ -1162,9 +1060,6 @@ type ReplicationObject struct {
 
 	// Schedule
 	ReplicationSchedule *ReplicationSchedule
-
-	// READ-ONLY; A list of destination replications
-	DestinationReplications []*DestinationReplication
 
 	// READ-ONLY; Id
 	ReplicationID *string
@@ -1798,8 +1693,8 @@ type VolumePatchProperties struct {
 
 	// Maximum storage quota allowed for a file system in bytes. This is a soft quota used for alerting only. For regular volumes,
 	// valid values are in the range 50GiB to 100TiB. For large volumes, valid
-	// values are in the range 100TiB to 1PiB, and on an exceptional basis, from to 2400GiB to 2400TiB. Values expressed in bytes
-	// as multiples of 1 GiB.
+	// values are in the range 100TiB to 500TiB, and on an exceptional basis, from to 2400GiB to 2400TiB. Values expressed in
+	// bytes as multiples of 1 GiB.
 	UsageThreshold *int64
 }
 
@@ -1828,14 +1723,9 @@ type VolumeProperties struct {
 
 	// REQUIRED; Maximum storage quota allowed for a file system in bytes. This is a soft quota used for alerting only. For regular
 	// volumes, valid values are in the range 50GiB to 100TiB. For large volumes, valid
-	// values are in the range 100TiB to 1PiB, and on an exceptional basis, from to 2400GiB to 2400TiB. Values expressed in bytes
-	// as multiples of 1 GiB.
+	// values are in the range 100TiB to 500TiB, and on an exceptional basis, from to 2400GiB to 2400TiB. Values expressed in
+	// bytes as multiples of 1 GiB.
 	UsageThreshold *int64
-
-	// While auto splitting the short term clone volume, if the parent pool does not have enough space to accommodate the volume
-	// after split, it will be automatically resized, which will lead to increased
-	// billing. To accept capacity pool size auto grow and create a short term clone volume, set the property as accepted.
-	AcceptGrowCapacityPoolForShortTermCloneSplit *AcceptGrowCapacityPoolForShortTermCloneSplit
 
 	// Specifies whether the volume is enabled for Azure VMware Solution (AVS) datastore purpose
 	AvsDataStore *AvsDataStore
@@ -1899,9 +1789,6 @@ type VolumeProperties struct {
 	// = 'Microsoft.KeyVault'.
 	KeyVaultPrivateEndpointResourceID *string
 
-	// Language supported for volume.
-	Language *VolumeLanguage
-
 	// Specifies whether LDAP is enabled or not for a given NFS volume.
 	LdapEnabled *bool
 
@@ -1951,18 +1838,14 @@ type VolumeProperties struct {
 	// (2) and sticky (1) attributes. Second digit selects permission for the owner of
 	// the file: read (4), write (2) and execute (1). Third selects permissions for other users in the same group. the fourth
 	// for other users not in the group. 0755 - gives read/write/execute permissions to
-	// owner and read/execute to group and other users. Avoid passing null value for unixPermissions in volume update operation,
-	// As per the behavior, If Null value is passed then user-visible unixPermissions
-	// value will became null, and user will not be able to get unixPermissions value. On safer side, actual unixPermissions value
-	// on volume will remain as its last saved value only.
+	// owner and read/execute to group and other users.
 	UnixPermissions *string
 
 	// Volume spec name is the application specific designation or identifier for the particular volume in a volume group for
 	// e.g. data, log
 	VolumeSpecName *string
 
-	// What type of volume is this. For destination volumes in Cross Region Replication, set type to DataProtection. For creating
-	// clone volume, set type to ShortTermClone
+	// What type of volume is this. For destination volumes in Cross Region Replication, set type to DataProtection
 	VolumeType *string
 
 	// READ-ONLY; Actual throughput in MiB/s for auto qosType volumes calculated based on size and serviceLevel
@@ -1991,9 +1874,6 @@ type VolumeProperties struct {
 
 	// READ-ONLY; Unique FileSystem Identifier.
 	FileSystemID *string
-
-	// READ-ONLY; Space shared by short term clone volume with parent volume in bytes.
-	InheritedSizeInBytes *int64
 
 	// READ-ONLY; Maximum number of files allowed. Needs a service request in order to be changed. Only allowed to be changed
 	// if volume quota is more than 4TiB.
