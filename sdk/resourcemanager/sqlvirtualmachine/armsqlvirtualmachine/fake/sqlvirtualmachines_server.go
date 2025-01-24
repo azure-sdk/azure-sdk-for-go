@@ -32,6 +32,10 @@ type SQLVirtualMachinesServer struct {
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
 	BeginDelete func(ctx context.Context, resourceGroupName string, sqlVirtualMachineName string, options *armsqlvirtualmachine.SQLVirtualMachinesClientBeginDeleteOptions) (resp azfake.PollerResponder[armsqlvirtualmachine.SQLVirtualMachinesClientDeleteResponse], errResp azfake.ErrorResponder)
 
+	// BeginFetchDCAssessment is the fake for method SQLVirtualMachinesClient.BeginFetchDCAssessment
+	// HTTP status codes to indicate success: http.StatusAccepted
+	BeginFetchDCAssessment func(ctx context.Context, resourceGroupName string, sqlVirtualMachineName string, parameters armsqlvirtualmachine.DiskConfigAssessmentRequest, options *armsqlvirtualmachine.SQLVirtualMachinesClientBeginFetchDCAssessmentOptions) (resp azfake.PollerResponder[armsqlvirtualmachine.SQLVirtualMachinesClientFetchDCAssessmentResponse], errResp azfake.ErrorResponder)
+
 	// Get is the fake for method SQLVirtualMachinesClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, sqlVirtualMachineName string, options *armsqlvirtualmachine.SQLVirtualMachinesClientGetOptions) (resp azfake.Responder[armsqlvirtualmachine.SQLVirtualMachinesClientGetResponse], errResp azfake.ErrorResponder)
@@ -49,11 +53,11 @@ type SQLVirtualMachinesServer struct {
 	NewListBySQLVMGroupPager func(resourceGroupName string, sqlVirtualMachineGroupName string, options *armsqlvirtualmachine.SQLVirtualMachinesClientListBySQLVMGroupOptions) (resp azfake.PagerResponder[armsqlvirtualmachine.SQLVirtualMachinesClientListBySQLVMGroupResponse])
 
 	// BeginRedeploy is the fake for method SQLVirtualMachinesClient.BeginRedeploy
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	// HTTP status codes to indicate success: http.StatusAccepted
 	BeginRedeploy func(ctx context.Context, resourceGroupName string, sqlVirtualMachineName string, options *armsqlvirtualmachine.SQLVirtualMachinesClientBeginRedeployOptions) (resp azfake.PollerResponder[armsqlvirtualmachine.SQLVirtualMachinesClientRedeployResponse], errResp azfake.ErrorResponder)
 
 	// BeginStartAssessment is the fake for method SQLVirtualMachinesClient.BeginStartAssessment
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	// HTTP status codes to indicate success: http.StatusAccepted
 	BeginStartAssessment func(ctx context.Context, resourceGroupName string, sqlVirtualMachineName string, options *armsqlvirtualmachine.SQLVirtualMachinesClientBeginStartAssessmentOptions) (resp azfake.PollerResponder[armsqlvirtualmachine.SQLVirtualMachinesClientStartAssessmentResponse], errResp azfake.ErrorResponder)
 
 	// BeginUpdate is the fake for method SQLVirtualMachinesClient.BeginUpdate
@@ -69,6 +73,7 @@ func NewSQLVirtualMachinesServerTransport(srv *SQLVirtualMachinesServer) *SQLVir
 		srv:                         srv,
 		beginCreateOrUpdate:         newTracker[azfake.PollerResponder[armsqlvirtualmachine.SQLVirtualMachinesClientCreateOrUpdateResponse]](),
 		beginDelete:                 newTracker[azfake.PollerResponder[armsqlvirtualmachine.SQLVirtualMachinesClientDeleteResponse]](),
+		beginFetchDCAssessment:      newTracker[azfake.PollerResponder[armsqlvirtualmachine.SQLVirtualMachinesClientFetchDCAssessmentResponse]](),
 		newListPager:                newTracker[azfake.PagerResponder[armsqlvirtualmachine.SQLVirtualMachinesClientListResponse]](),
 		newListByResourceGroupPager: newTracker[azfake.PagerResponder[armsqlvirtualmachine.SQLVirtualMachinesClientListByResourceGroupResponse]](),
 		newListBySQLVMGroupPager:    newTracker[azfake.PagerResponder[armsqlvirtualmachine.SQLVirtualMachinesClientListBySQLVMGroupResponse]](),
@@ -84,6 +89,7 @@ type SQLVirtualMachinesServerTransport struct {
 	srv                         *SQLVirtualMachinesServer
 	beginCreateOrUpdate         *tracker[azfake.PollerResponder[armsqlvirtualmachine.SQLVirtualMachinesClientCreateOrUpdateResponse]]
 	beginDelete                 *tracker[azfake.PollerResponder[armsqlvirtualmachine.SQLVirtualMachinesClientDeleteResponse]]
+	beginFetchDCAssessment      *tracker[azfake.PollerResponder[armsqlvirtualmachine.SQLVirtualMachinesClientFetchDCAssessmentResponse]]
 	newListPager                *tracker[azfake.PagerResponder[armsqlvirtualmachine.SQLVirtualMachinesClientListResponse]]
 	newListByResourceGroupPager *tracker[azfake.PagerResponder[armsqlvirtualmachine.SQLVirtualMachinesClientListByResourceGroupResponse]]
 	newListBySQLVMGroupPager    *tracker[azfake.PagerResponder[armsqlvirtualmachine.SQLVirtualMachinesClientListBySQLVMGroupResponse]]
@@ -108,6 +114,8 @@ func (s *SQLVirtualMachinesServerTransport) Do(req *http.Request) (*http.Respons
 		resp, err = s.dispatchBeginCreateOrUpdate(req)
 	case "SQLVirtualMachinesClient.BeginDelete":
 		resp, err = s.dispatchBeginDelete(req)
+	case "SQLVirtualMachinesClient.BeginFetchDCAssessment":
+		resp, err = s.dispatchBeginFetchDCAssessment(req)
 	case "SQLVirtualMachinesClient.Get":
 		resp, err = s.dispatchGet(req)
 	case "SQLVirtualMachinesClient.NewListPager":
@@ -220,6 +228,54 @@ func (s *SQLVirtualMachinesServerTransport) dispatchBeginDelete(req *http.Reques
 	}
 	if !server.PollerResponderMore(beginDelete) {
 		s.beginDelete.remove(req)
+	}
+
+	return resp, nil
+}
+
+func (s *SQLVirtualMachinesServerTransport) dispatchBeginFetchDCAssessment(req *http.Request) (*http.Response, error) {
+	if s.srv.BeginFetchDCAssessment == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginFetchDCAssessment not implemented")}
+	}
+	beginFetchDCAssessment := s.beginFetchDCAssessment.get(req)
+	if beginFetchDCAssessment == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.SqlVirtualMachine/sqlVirtualMachines/(?P<sqlVirtualMachineName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/fetchDCAssessment`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armsqlvirtualmachine.DiskConfigAssessmentRequest](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		sqlVirtualMachineNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("sqlVirtualMachineName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := s.srv.BeginFetchDCAssessment(req.Context(), resourceGroupNameParam, sqlVirtualMachineNameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginFetchDCAssessment = &respr
+		s.beginFetchDCAssessment.add(req, beginFetchDCAssessment)
+	}
+
+	resp, err := server.PollerResponderNext(beginFetchDCAssessment, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusAccepted}, resp.StatusCode) {
+		s.beginFetchDCAssessment.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginFetchDCAssessment) {
+		s.beginFetchDCAssessment.remove(req)
 	}
 
 	return resp, nil
@@ -414,9 +470,9 @@ func (s *SQLVirtualMachinesServerTransport) dispatchBeginRedeploy(req *http.Requ
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+	if !contains([]int{http.StatusAccepted}, resp.StatusCode) {
 		s.beginRedeploy.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginRedeploy) {
 		s.beginRedeploy.remove(req)
@@ -458,9 +514,9 @@ func (s *SQLVirtualMachinesServerTransport) dispatchBeginStartAssessment(req *ht
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+	if !contains([]int{http.StatusAccepted}, resp.StatusCode) {
 		s.beginStartAssessment.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginStartAssessment) {
 		s.beginStartAssessment.remove(req)
