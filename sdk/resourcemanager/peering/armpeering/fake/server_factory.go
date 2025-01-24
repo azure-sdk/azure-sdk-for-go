@@ -32,6 +32,7 @@ type ServerFactory struct {
 	ReceivedRoutesServer         ReceivedRoutesServer
 	RegisteredAsnsServer         RegisteredAsnsServer
 	RegisteredPrefixesServer     RegisteredPrefixesServer
+	RpUnbilledPrefixesServer     RpUnbilledPrefixesServer
 	ServiceCountriesServer       ServiceCountriesServer
 	ServiceLocationsServer       ServiceLocationsServer
 	ServiceProvidersServer       ServiceProvidersServer
@@ -65,6 +66,7 @@ type ServerFactoryTransport struct {
 	trReceivedRoutesServer         *ReceivedRoutesServerTransport
 	trRegisteredAsnsServer         *RegisteredAsnsServerTransport
 	trRegisteredPrefixesServer     *RegisteredPrefixesServerTransport
+	trRpUnbilledPrefixesServer     *RpUnbilledPrefixesServerTransport
 	trServiceCountriesServer       *ServiceCountriesServerTransport
 	trServiceLocationsServer       *ServiceLocationsServerTransport
 	trServiceProvidersServer       *ServiceProvidersServerTransport
@@ -135,6 +137,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewRegisteredPrefixesServerTransport(&s.srv.RegisteredPrefixesServer)
 		})
 		resp, err = s.trRegisteredPrefixesServer.Do(req)
+	case "RpUnbilledPrefixesClient":
+		initServer(s, &s.trRpUnbilledPrefixesServer, func() *RpUnbilledPrefixesServerTransport {
+			return NewRpUnbilledPrefixesServerTransport(&s.srv.RpUnbilledPrefixesServer)
+		})
+		resp, err = s.trRpUnbilledPrefixesServer.Do(req)
 	case "ServiceCountriesClient":
 		initServer(s, &s.trServiceCountriesServer, func() *ServiceCountriesServerTransport {
 			return NewServiceCountriesServerTransport(&s.srv.ServiceCountriesServer)
