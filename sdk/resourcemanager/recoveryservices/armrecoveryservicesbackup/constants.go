@@ -868,6 +868,7 @@ type OperationType string
 const (
 	OperationTypeInvalid    OperationType = "Invalid"
 	OperationTypeRegister   OperationType = "Register"
+	OperationTypeRehydrate  OperationType = "Rehydrate"
 	OperationTypeReregister OperationType = "Reregister"
 )
 
@@ -876,6 +877,7 @@ func PossibleOperationTypeValues() []OperationType {
 	return []OperationType{
 		OperationTypeInvalid,
 		OperationTypeRegister,
+		OperationTypeRehydrate,
 		OperationTypeReregister,
 	}
 }
