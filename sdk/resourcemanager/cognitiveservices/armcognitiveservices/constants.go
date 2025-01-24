@@ -10,7 +10,7 @@ package armcognitiveservices
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/cognitiveservices/armcognitiveservices"
-	moduleVersion = "v1.7.0"
+	moduleVersion = "v1.7.1"
 )
 
 // AbusePenaltyAction - The action of AbusePenalty.
