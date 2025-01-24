@@ -26,23 +26,23 @@ import (
 type ReplicationPoliciesServer struct {
 	// BeginCreate is the fake for method ReplicationPoliciesClient.BeginCreate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginCreate func(ctx context.Context, resourceName string, resourceGroupName string, policyName string, input armrecoveryservicessiterecovery.CreatePolicyInput, options *armrecoveryservicessiterecovery.ReplicationPoliciesClientBeginCreateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationPoliciesClientCreateResponse], errResp azfake.ErrorResponder)
+	BeginCreate func(ctx context.Context, resourceGroupName string, resourceName string, policyName string, input armrecoveryservicessiterecovery.CreatePolicyInput, options *armrecoveryservicessiterecovery.ReplicationPoliciesClientBeginCreateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationPoliciesClientCreateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method ReplicationPoliciesClient.BeginDelete
 	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
-	BeginDelete func(ctx context.Context, resourceName string, resourceGroupName string, policyName string, options *armrecoveryservicessiterecovery.ReplicationPoliciesClientBeginDeleteOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationPoliciesClientDeleteResponse], errResp azfake.ErrorResponder)
+	BeginDelete func(ctx context.Context, resourceGroupName string, resourceName string, policyName string, options *armrecoveryservicessiterecovery.ReplicationPoliciesClientBeginDeleteOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationPoliciesClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method ReplicationPoliciesClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceName string, resourceGroupName string, policyName string, options *armrecoveryservicessiterecovery.ReplicationPoliciesClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationPoliciesClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, resourceName string, policyName string, options *armrecoveryservicessiterecovery.ReplicationPoliciesClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationPoliciesClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method ReplicationPoliciesClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceName string, resourceGroupName string, options *armrecoveryservicessiterecovery.ReplicationPoliciesClientListOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationPoliciesClientListResponse])
+	NewListPager func(resourceGroupName string, resourceName string, options *armrecoveryservicessiterecovery.ReplicationPoliciesClientListOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationPoliciesClientListResponse])
 
 	// BeginUpdate is the fake for method ReplicationPoliciesClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginUpdate func(ctx context.Context, resourceName string, resourceGroupName string, policyName string, input armrecoveryservicessiterecovery.UpdatePolicyInput, options *armrecoveryservicessiterecovery.ReplicationPoliciesClientBeginUpdateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationPoliciesClientUpdateResponse], errResp azfake.ErrorResponder)
+	BeginUpdate func(ctx context.Context, resourceGroupName string, resourceName string, policyName string, input armrecoveryservicessiterecovery.UpdatePolicyInput, options *armrecoveryservicessiterecovery.ReplicationPoliciesClientBeginUpdateOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationPoliciesClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewReplicationPoliciesServerTransport creates a new instance of ReplicationPoliciesServerTransport with the provided implementation.
@@ -117,11 +117,11 @@ func (r *ReplicationPoliciesServerTransport) dispatchBeginCreate(req *http.Reque
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -129,7 +129,7 @@ func (r *ReplicationPoliciesServerTransport) dispatchBeginCreate(req *http.Reque
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginCreate(req.Context(), resourceNameParam, resourceGroupNameParam, policyNameParam, body, nil)
+		respr, errRespr := r.srv.BeginCreate(req.Context(), resourceGroupNameParam, resourceNameParam, policyNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -165,11 +165,11 @@ func (r *ReplicationPoliciesServerTransport) dispatchBeginDelete(req *http.Reque
 		if matches == nil || len(matches) < 4 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -177,7 +177,7 @@ func (r *ReplicationPoliciesServerTransport) dispatchBeginDelete(req *http.Reque
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginDelete(req.Context(), resourceNameParam, resourceGroupNameParam, policyNameParam, nil)
+		respr, errRespr := r.srv.BeginDelete(req.Context(), resourceGroupNameParam, resourceNameParam, policyNameParam, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -211,11 +211,11 @@ func (r *ReplicationPoliciesServerTransport) dispatchGet(req *http.Request) (*ht
 	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 	if err != nil {
 		return nil, err
 	}
@@ -223,7 +223,7 @@ func (r *ReplicationPoliciesServerTransport) dispatchGet(req *http.Request) (*ht
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := r.srv.Get(req.Context(), resourceNameParam, resourceGroupNameParam, policyNameParam, nil)
+	respr, errRespr := r.srv.Get(req.Context(), resourceGroupNameParam, resourceNameParam, policyNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -250,15 +250,15 @@ func (r *ReplicationPoliciesServerTransport) dispatchNewListPager(req *http.Requ
 		if matches == nil || len(matches) < 3 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
-		if err != nil {
-			return nil, err
-		}
 		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resp := r.srv.NewListPager(resourceNameParam, resourceGroupNameParam, nil)
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		if err != nil {
+			return nil, err
+		}
+		resp := r.srv.NewListPager(resourceGroupNameParam, resourceNameParam, nil)
 		newListPager = &resp
 		r.newListPager.add(req, newListPager)
 		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armrecoveryservicessiterecovery.ReplicationPoliciesClientListResponse, createLink func() string) {
@@ -295,11 +295,11 @@ func (r *ReplicationPoliciesServerTransport) dispatchBeginUpdate(req *http.Reque
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -307,7 +307,7 @@ func (r *ReplicationPoliciesServerTransport) dispatchBeginUpdate(req *http.Reque
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginUpdate(req.Context(), resourceNameParam, resourceGroupNameParam, policyNameParam, body, nil)
+		respr, errRespr := r.srv.BeginUpdate(req.Context(), resourceGroupNameParam, resourceNameParam, policyNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
