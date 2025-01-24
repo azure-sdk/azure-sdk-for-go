@@ -273,6 +273,12 @@ type NetworkRuleSetProperties struct {
 
 	// List of IpRules
 	IPRules []*NWRuleSetIPRules
+
+	// This determines if traffic is allowed over public network. By default it is enabled
+	PublicNetworkAccess *PublicNetworkAccess
+
+	// Value that indicates whether Trusted Service Access is Enabled or not.
+	TrustedServiceAccessEnabled *bool
 }
 
 // Operation - A Relay REST API operation
@@ -314,7 +320,7 @@ type OperationListResult struct {
 	// READ-ONLY; URL to get the next set of operation list results if there are any.
 	NextLink *string
 
-	// READ-ONLY; List of Relay operations supported by the Microsoft.EventHub resource provider.
+	// READ-ONLY; List of Relay operations supported by the Microsoft.Relay resource provider.
 	Value []*Operation
 }
 

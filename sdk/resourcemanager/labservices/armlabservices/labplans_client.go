@@ -46,7 +46,7 @@ func NewLabPlansClient(subscriptionID string, credential azcore.TokenCredential,
 // BeginCreateOrUpdate - Operation to create or update a Lab Plan resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labPlanName - The name of the lab plan that uniquely identifies it within containing resource group. Used in resource URIs
 //     and in UI.
@@ -74,7 +74,7 @@ func (client *LabPlansClient) BeginCreateOrUpdate(ctx context.Context, resourceG
 // CreateOrUpdate - Operation to create or update a Lab Plan resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 func (client *LabPlansClient) createOrUpdate(ctx context.Context, resourceGroupName string, labPlanName string, body LabPlan, options *LabPlansClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "LabPlansClient.BeginCreateOrUpdate"
@@ -116,7 +116,7 @@ func (client *LabPlansClient) createOrUpdateCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-06-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -129,7 +129,7 @@ func (client *LabPlansClient) createOrUpdateCreateRequest(ctx context.Context, r
 // nor does it delete shared images added to a gallery via the lab plan permission container.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labPlanName - The name of the lab plan that uniquely identifies it within containing resource group. Used in resource URIs
 //     and in UI.
@@ -156,7 +156,7 @@ func (client *LabPlansClient) BeginDelete(ctx context.Context, resourceGroupName
 // nor does it delete shared images added to a gallery via the lab plan permission container.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 func (client *LabPlansClient) deleteOperation(ctx context.Context, resourceGroupName string, labPlanName string, options *LabPlansClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "LabPlansClient.BeginDelete"
@@ -198,7 +198,7 @@ func (client *LabPlansClient) deleteCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-06-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -207,7 +207,7 @@ func (client *LabPlansClient) deleteCreateRequest(ctx context.Context, resourceG
 // Get - Retrieves the properties of a Lab Plan.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labPlanName - The name of the lab plan that uniquely identifies it within containing resource group. Used in resource URIs
 //     and in UI.
@@ -254,7 +254,7 @@ func (client *LabPlansClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-06-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -271,7 +271,7 @@ func (client *LabPlansClient) getHandleResponse(resp *http.Response) (LabPlansCl
 
 // NewListByResourceGroupPager - Returns a list of all lab plans for a subscription and resource group.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - LabPlansClientListByResourceGroupOptions contains the optional parameters for the LabPlansClient.NewListByResourceGroupPager
 //     method.
@@ -314,7 +314,7 @@ func (client *LabPlansClient) listByResourceGroupCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-06-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -331,7 +331,7 @@ func (client *LabPlansClient) listByResourceGroupHandleResponse(resp *http.Respo
 
 // NewListBySubscriptionPager - Returns a list of all lab plans within a subscription
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 //   - options - LabPlansClientListBySubscriptionOptions contains the optional parameters for the LabPlansClient.NewListBySubscriptionPager
 //     method.
 func (client *LabPlansClient) NewListBySubscriptionPager(options *LabPlansClientListBySubscriptionOptions) *runtime.Pager[LabPlansClientListBySubscriptionResponse] {
@@ -369,10 +369,10 @@ func (client *LabPlansClient) listBySubscriptionCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
+	reqQP.Set("api-version", "2023-06-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -390,7 +390,7 @@ func (client *LabPlansClient) listBySubscriptionHandleResponse(resp *http.Respon
 // BeginSaveImage - Saves an image from a lab VM to the attached shared image gallery.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labPlanName - The name of the lab plan that uniquely identifies it within containing resource group. Used in resource URIs
 //     and in UI.
@@ -417,7 +417,7 @@ func (client *LabPlansClient) BeginSaveImage(ctx context.Context, resourceGroupN
 // SaveImage - Saves an image from a lab VM to the attached shared image gallery.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 func (client *LabPlansClient) saveImage(ctx context.Context, resourceGroupName string, labPlanName string, body SaveImageBody, options *LabPlansClientBeginSaveImageOptions) (*http.Response, error) {
 	var err error
 	const operationName = "LabPlansClient.BeginSaveImage"
@@ -459,7 +459,7 @@ func (client *LabPlansClient) saveImageCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-06-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -471,7 +471,7 @@ func (client *LabPlansClient) saveImageCreateRequest(ctx context.Context, resour
 // BeginUpdate - Operation to update a Lab Plan resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labPlanName - The name of the lab plan that uniquely identifies it within containing resource group. Used in resource URIs
 //     and in UI.
@@ -498,7 +498,7 @@ func (client *LabPlansClient) BeginUpdate(ctx context.Context, resourceGroupName
 // Update - Operation to update a Lab Plan resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 func (client *LabPlansClient) update(ctx context.Context, resourceGroupName string, labPlanName string, body LabPlanUpdate, options *LabPlansClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "LabPlansClient.BeginUpdate"
@@ -540,7 +540,7 @@ func (client *LabPlansClient) updateCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-06-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {

@@ -16,8 +16,7 @@ import (
 // ClientFactory is a client factory used to create any client in this module.
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
-	credential azcore.TokenCredential
-	options    *arm.ClientOptions
+	internal *arm.Client
 }
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
@@ -25,48 +24,53 @@ type ClientFactory struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
-	_, err := arm.NewClient(moduleName, moduleVersion, credential, options)
+	internal, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		credential: credential,
-		options:    options.Clone(),
+		internal: internal,
 	}, nil
 }
 
 // NewArtifactsClient creates a new instance of ArtifactsClient.
 func (c *ClientFactory) NewArtifactsClient() *ArtifactsClient {
-	subClient, _ := NewArtifactsClient(c.credential, c.options)
-	return subClient
+	return &ArtifactsClient{
+		internal: c.internal,
+	}
 }
 
 // NewAssignmentOperationsClient creates a new instance of AssignmentOperationsClient.
 func (c *ClientFactory) NewAssignmentOperationsClient() *AssignmentOperationsClient {
-	subClient, _ := NewAssignmentOperationsClient(c.credential, c.options)
-	return subClient
+	return &AssignmentOperationsClient{
+		internal: c.internal,
+	}
 }
 
 // NewAssignmentsClient creates a new instance of AssignmentsClient.
 func (c *ClientFactory) NewAssignmentsClient() *AssignmentsClient {
-	subClient, _ := NewAssignmentsClient(c.credential, c.options)
-	return subClient
+	return &AssignmentsClient{
+		internal: c.internal,
+	}
 }
 
 // NewBlueprintsClient creates a new instance of BlueprintsClient.
 func (c *ClientFactory) NewBlueprintsClient() *BlueprintsClient {
-	subClient, _ := NewBlueprintsClient(c.credential, c.options)
-	return subClient
+	return &BlueprintsClient{
+		internal: c.internal,
+	}
 }
 
 // NewPublishedArtifactsClient creates a new instance of PublishedArtifactsClient.
 func (c *ClientFactory) NewPublishedArtifactsClient() *PublishedArtifactsClient {
-	subClient, _ := NewPublishedArtifactsClient(c.credential, c.options)
-	return subClient
+	return &PublishedArtifactsClient{
+		internal: c.internal,
+	}
 }
 
 // NewPublishedBlueprintsClient creates a new instance of PublishedBlueprintsClient.
 func (c *ClientFactory) NewPublishedBlueprintsClient() *PublishedBlueprintsClient {
-	subClient, _ := NewPublishedBlueprintsClient(c.credential, c.options)
-	return subClient
+	return &PublishedBlueprintsClient{
+		internal: c.internal,
+	}
 }

@@ -1,5 +1,9 @@
 # Release History
 
+## 0.4.1 (2025-01-24)
+### Other Changes
+
+
 ## 0.4.0 (2024-08-22)
 ### Breaking Changes
 
