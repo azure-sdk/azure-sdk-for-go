@@ -14,7 +14,7 @@ import (
 )
 
 func unmarshalDataSetClassification(rawMsg json.RawMessage) (armdatashare.DataSetClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -59,7 +59,7 @@ func unmarshalDataSetClassification(rawMsg json.RawMessage) (armdatashare.DataSe
 }
 
 func unmarshalDataSetMappingClassification(rawMsg json.RawMessage) (armdatashare.DataSetMappingClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -100,7 +100,7 @@ func unmarshalDataSetMappingClassification(rawMsg json.RawMessage) (armdatashare
 }
 
 func unmarshalSynchronizationSettingClassification(rawMsg json.RawMessage) (armdatashare.SynchronizationSettingClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -121,7 +121,7 @@ func unmarshalSynchronizationSettingClassification(rawMsg json.RawMessage) (armd
 }
 
 func unmarshalTriggerClassification(rawMsg json.RawMessage) (armdatashare.TriggerClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
