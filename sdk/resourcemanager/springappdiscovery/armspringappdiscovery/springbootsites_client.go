@@ -46,7 +46,7 @@ func NewSpringbootsitesClient(subscriptionID string, credential azcore.TokenCred
 // CreateOrUpdate - Create a springbootsites resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - springbootsitesName - The springbootsites name.
 //   - springbootsites - Create a springbootsites payload.
@@ -94,7 +94,7 @@ func (client *SpringbootsitesClient) createOrUpdateCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, springbootsites); err != nil {
@@ -115,7 +115,7 @@ func (client *SpringbootsitesClient) createOrUpdateHandleResponse(resp *http.Res
 // BeginDelete - Delete a springbootsites resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - springbootsitesName - The springbootsites name.
 //   - options - SpringbootsitesClientBeginDeleteOptions contains the optional parameters for the SpringbootsitesClient.BeginDelete
@@ -141,7 +141,7 @@ func (client *SpringbootsitesClient) BeginDelete(ctx context.Context, resourceGr
 // Delete - Delete a springbootsites resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2024-04-01-preview
 func (client *SpringbootsitesClient) deleteOperation(ctx context.Context, resourceGroupName string, springbootsitesName string, options *SpringbootsitesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "SpringbootsitesClient.BeginDelete"
@@ -183,7 +183,7 @@ func (client *SpringbootsitesClient) deleteCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -192,7 +192,7 @@ func (client *SpringbootsitesClient) deleteCreateRequest(ctx context.Context, re
 // Get - Get a springbootsites resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - springbootsitesName - The springbootsites name.
 //   - options - SpringbootsitesClientGetOptions contains the optional parameters for the SpringbootsitesClient.Get method.
@@ -238,7 +238,7 @@ func (client *SpringbootsitesClient) getCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -255,7 +255,7 @@ func (client *SpringbootsitesClient) getHandleResponse(resp *http.Response) (Spr
 
 // NewListByResourceGroupPager - List springbootsites resource by resourceGroup.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - SpringbootsitesClientListByResourceGroupOptions contains the optional parameters for the SpringbootsitesClient.NewListByResourceGroupPager
 //     method.
@@ -298,7 +298,7 @@ func (client *SpringbootsitesClient) listByResourceGroupCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -315,7 +315,7 @@ func (client *SpringbootsitesClient) listByResourceGroupHandleResponse(resp *htt
 
 // NewListBySubscriptionPager - List springbootsites resource by subscription
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2024-04-01-preview
 //   - options - SpringbootsitesClientListBySubscriptionOptions contains the optional parameters for the SpringbootsitesClient.NewListBySubscriptionPager
 //     method.
 func (client *SpringbootsitesClient) NewListBySubscriptionPager(options *SpringbootsitesClientListBySubscriptionOptions) *runtime.Pager[SpringbootsitesClientListBySubscriptionResponse] {
@@ -353,7 +353,7 @@ func (client *SpringbootsitesClient) listBySubscriptionCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -371,7 +371,7 @@ func (client *SpringbootsitesClient) listBySubscriptionHandleResponse(resp *http
 // BeginTriggerRefreshSite - Trigger refresh springbootsites action
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - springbootsitesName - The springbootsites name.
 //   - options - SpringbootsitesClientBeginTriggerRefreshSiteOptions contains the optional parameters for the SpringbootsitesClient.BeginTriggerRefreshSite
@@ -397,7 +397,7 @@ func (client *SpringbootsitesClient) BeginTriggerRefreshSite(ctx context.Context
 // TriggerRefreshSite - Trigger refresh springbootsites action
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2024-04-01-preview
 func (client *SpringbootsitesClient) triggerRefreshSite(ctx context.Context, resourceGroupName string, springbootsitesName string, options *SpringbootsitesClientBeginTriggerRefreshSiteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "SpringbootsitesClient.BeginTriggerRefreshSite"
@@ -439,7 +439,7 @@ func (client *SpringbootsitesClient) triggerRefreshSiteCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -448,7 +448,7 @@ func (client *SpringbootsitesClient) triggerRefreshSiteCreateRequest(ctx context
 // BeginUpdate - Update a springbootsites resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2024-04-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - springbootsitesName - The springbootsites name.
 //   - springbootsites - Update a springbootsites payload.
@@ -475,7 +475,7 @@ func (client *SpringbootsitesClient) BeginUpdate(ctx context.Context, resourceGr
 // Update - Update a springbootsites resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2024-04-01-preview
 func (client *SpringbootsitesClient) update(ctx context.Context, resourceGroupName string, springbootsitesName string, springbootsites SpringbootsitesPatch, options *SpringbootsitesClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "SpringbootsitesClient.BeginUpdate"
@@ -517,7 +517,7 @@ func (client *SpringbootsitesClient) updateCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2024-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, springbootsites); err != nil {
