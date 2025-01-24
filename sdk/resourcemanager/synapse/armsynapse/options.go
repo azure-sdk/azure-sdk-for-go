@@ -1165,11 +1165,6 @@ type SQLPoolsClientListByWorkspaceOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SQLPoolsClientRenameOptions contains the optional parameters for the SQLPoolsClient.Rename method.
-type SQLPoolsClientRenameOptions struct {
-	// placeholder for future optional parameters
-}
-
 // SparkConfigurationClientGetOptions contains the optional parameters for the SparkConfigurationClient.Get method.
 type SparkConfigurationClientGetOptions struct {
 	// placeholder for future optional parameters

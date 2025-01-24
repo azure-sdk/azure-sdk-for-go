@@ -26,7 +26,7 @@ import (
 // FileImportsServer is a fake server for instances of the armsecurityinsights.FileImportsClient type.
 type FileImportsServer struct {
 	// Create is the fake for method FileImportsClient.Create
-	// HTTP status codes to indicate success: http.StatusCreated
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
 	Create func(ctx context.Context, resourceGroupName string, workspaceName string, fileImportID string, fileImport armsecurityinsights.FileImport, options *armsecurityinsights.FileImportsClientCreateOptions) (resp azfake.Responder[armsecurityinsights.FileImportsClientCreateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method FileImportsClient.BeginDelete
@@ -123,8 +123,8 @@ func (f *FileImportsServerTransport) dispatchCreate(req *http.Request) (*http.Re
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusCreated}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusCreated", respContent.HTTPStatus)}
+	if !contains([]int{http.StatusOK, http.StatusCreated}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).FileImport, req)
 	if err != nil {
