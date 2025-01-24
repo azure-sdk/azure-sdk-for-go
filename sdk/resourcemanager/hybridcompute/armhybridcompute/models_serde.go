@@ -526,6 +526,68 @@ func (e *EsuProfileUpdateProperties) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type ExtensionPublisher.
+func (e ExtensionPublisher) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "id", e.ID)
+	populate(objectMap, "name", e.Name)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ExtensionPublisher.
+func (e *ExtensionPublisher) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", e, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "id":
+			err = unpopulate(val, "ID", &e.ID)
+			delete(rawMsg, key)
+		case "name":
+			err = unpopulate(val, "Name", &e.Name)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", e, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ExtensionPublisherListResult.
+func (e ExtensionPublisherListResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "nextLink", e.NextLink)
+	populate(objectMap, "value", e.Value)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ExtensionPublisherListResult.
+func (e *ExtensionPublisherListResult) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", e, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "nextLink":
+			err = unpopulate(val, "NextLink", &e.NextLink)
+			delete(rawMsg, key)
+		case "value":
+			err = unpopulate(val, "Value", &e.Value)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", e, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type ExtensionTargetProperties.
 func (e ExtensionTargetProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -544,6 +606,68 @@ func (e *ExtensionTargetProperties) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "targetVersion":
 			err = unpopulate(val, "TargetVersion", &e.TargetVersion)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", e, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ExtensionType.
+func (e ExtensionType) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "id", e.ID)
+	populate(objectMap, "name", e.Name)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ExtensionType.
+func (e *ExtensionType) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", e, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "id":
+			err = unpopulate(val, "ID", &e.ID)
+			delete(rawMsg, key)
+		case "name":
+			err = unpopulate(val, "Name", &e.Name)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", e, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ExtensionTypeListResult.
+func (e ExtensionTypeListResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "nextLink", e.NextLink)
+	populate(objectMap, "value", e.Value)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ExtensionTypeListResult.
+func (e *ExtensionTypeListResult) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", e, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "nextLink":
+			err = unpopulate(val, "NextLink", &e.NextLink)
+			delete(rawMsg, key)
+		case "value":
+			err = unpopulate(val, "Value", &e.Value)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -623,6 +747,37 @@ func (e *ExtensionValueListResult) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type ExtensionValueListResultV2.
+func (e ExtensionValueListResultV2) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "nextLink", e.NextLink)
+	populate(objectMap, "value", e.Value)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ExtensionValueListResultV2.
+func (e *ExtensionValueListResultV2) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", e, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "nextLink":
+			err = unpopulate(val, "NextLink", &e.NextLink)
+			delete(rawMsg, key)
+		case "value":
+			err = unpopulate(val, "Value", &e.Value)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", e, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type ExtensionValueProperties.
 func (e ExtensionValueProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -643,6 +798,100 @@ func (e *ExtensionValueProperties) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "extensionType":
 			err = unpopulate(val, "ExtensionType", &e.ExtensionType)
+			delete(rawMsg, key)
+		case "publisher":
+			err = unpopulate(val, "Publisher", &e.Publisher)
+			delete(rawMsg, key)
+		case "version":
+			err = unpopulate(val, "Version", &e.Version)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", e, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ExtensionValueV2.
+func (e ExtensionValueV2) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "id", e.ID)
+	populate(objectMap, "name", e.Name)
+	populate(objectMap, "properties", e.Properties)
+	populate(objectMap, "systemData", e.SystemData)
+	populate(objectMap, "type", e.Type)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ExtensionValueV2.
+func (e *ExtensionValueV2) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", e, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "id":
+			err = unpopulate(val, "ID", &e.ID)
+			delete(rawMsg, key)
+		case "name":
+			err = unpopulate(val, "Name", &e.Name)
+			delete(rawMsg, key)
+		case "properties":
+			err = unpopulate(val, "Properties", &e.Properties)
+			delete(rawMsg, key)
+		case "systemData":
+			err = unpopulate(val, "SystemData", &e.SystemData)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &e.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", e, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ExtensionValueV2Properties.
+func (e ExtensionValueV2Properties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "architecture", e.Architecture)
+	populate(objectMap, "extensionSignatureUri", e.ExtensionSignatureURI)
+	populate(objectMap, "extensionType", e.ExtensionType)
+	populate(objectMap, "extensionUris", e.ExtensionUris)
+	populate(objectMap, "operatingSystem", e.OperatingSystem)
+	populate(objectMap, "publisher", e.Publisher)
+	populate(objectMap, "version", e.Version)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ExtensionValueV2Properties.
+func (e *ExtensionValueV2Properties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", e, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "architecture":
+			err = unpopulate(val, "Architecture", &e.Architecture)
+			delete(rawMsg, key)
+		case "extensionSignatureUri":
+			err = unpopulate(val, "ExtensionSignatureURI", &e.ExtensionSignatureURI)
+			delete(rawMsg, key)
+		case "extensionType":
+			err = unpopulate(val, "ExtensionType", &e.ExtensionType)
+			delete(rawMsg, key)
+		case "extensionUris":
+			err = unpopulate(val, "ExtensionUris", &e.ExtensionUris)
+			delete(rawMsg, key)
+		case "operatingSystem":
+			err = unpopulate(val, "OperatingSystem", &e.OperatingSystem)
 			delete(rawMsg, key)
 		case "publisher":
 			err = unpopulate(val, "Publisher", &e.Publisher)
@@ -4450,6 +4699,33 @@ func (s *SettingsProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "tenantId":
 			err = unpopulate(val, "TenantID", &s.TenantID)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", s, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type SetupExtensionRequest.
+func (s SetupExtensionRequest) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "extensions", s.Extensions)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type SetupExtensionRequest.
+func (s *SetupExtensionRequest) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", s, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "extensions":
+			err = unpopulate(val, "Extensions", &s.Extensions)
 			delete(rawMsg, key)
 		}
 		if err != nil {

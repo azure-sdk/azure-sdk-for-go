@@ -212,10 +212,10 @@ func (client *ReservationClient) getCreateRequest(ctx context.Context, reservati
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01")
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -321,18 +321,18 @@ func (client *ReservationClient) listAllCreateRequest(ctx context.Context, optio
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
 	if options != nil && options.Orderby != nil {
 		reqQP.Set("$orderby", *options.Orderby)
 	}
-	if options != nil && options.RefreshSummary != nil {
-		reqQP.Set("refreshSummary", *options.RefreshSummary)
-	}
 	if options != nil && options.Skiptoken != nil {
 		reqQP.Set("$skiptoken", strconv.FormatFloat(float64(*options.Skiptoken), 'f', -1, 32))
+	}
+	reqQP.Set("api-version", "2022-11-01")
+	if options != nil && options.RefreshSummary != nil {
+		reqQP.Set("refreshSummary", *options.RefreshSummary)
 	}
 	if options != nil && options.SelectedState != nil {
 		reqQP.Set("selectedState", *options.SelectedState)
