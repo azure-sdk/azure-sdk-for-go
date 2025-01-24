@@ -32,7 +32,7 @@ type IncidentsServer struct {
 
 	// CreateTeam is the fake for method IncidentsClient.CreateTeam
 	// HTTP status codes to indicate success: http.StatusOK
-	CreateTeam func(ctx context.Context, resourceGroupName string, workspaceName string, incidentID string, teamProperties armsecurityinsights.TeamProperties, options *armsecurityinsights.IncidentsClientCreateTeamOptions) (resp azfake.Responder[armsecurityinsights.IncidentsClientCreateTeamResponse], errResp azfake.ErrorResponder)
+	CreateTeam func(ctx context.Context, resourceGroupName string, workspaceName string, incidentID string, teamProperties armsecurityinsights.TeamInformation, options *armsecurityinsights.IncidentsClientCreateTeamOptions) (resp azfake.Responder[armsecurityinsights.IncidentsClientCreateTeamResponse], errResp azfake.ErrorResponder)
 
 	// Delete is the fake for method IncidentsClient.Delete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
@@ -172,7 +172,7 @@ func (i *IncidentsServerTransport) dispatchCreateTeam(req *http.Request) (*http.
 	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armsecurityinsights.TeamProperties](req)
+	body, err := server.UnmarshalRequestAsJSON[armsecurityinsights.TeamInformation](req)
 	if err != nil {
 		return nil, err
 	}
