@@ -105,6 +105,22 @@ func PossibleOperationValues() []Operation {
 	}
 }
 
+// RuleType - Rule type
+type RuleType string
+
+const (
+	RuleTypePrivateProducts   RuleType = "PrivateProducts"
+	RuleTypeTermsAndCondition RuleType = "TermsAndCondition"
+)
+
+// PossibleRuleTypeValues returns the possible values for the RuleType const type.
+func PossibleRuleTypeValues() []RuleType {
+	return []RuleType{
+		RuleTypePrivateProducts,
+		RuleTypeTermsAndCondition,
+	}
+}
+
 // Status - Gets the plan status
 type Status string
 
