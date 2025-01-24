@@ -46,7 +46,7 @@ func NewImagesClient(subscriptionID string, credential azcore.TokenCredential, o
 // CreateOrUpdate - Updates an image resource via PUT. Creating new resources via PUT will not function.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labPlanName - The name of the lab plan that uniquely identifies it within containing resource group. Used in resource URIs
 //     and in UI.
@@ -99,7 +99,7 @@ func (client *ImagesClient) createOrUpdateCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-06-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -120,7 +120,7 @@ func (client *ImagesClient) createOrUpdateHandleResponse(resp *http.Response) (I
 // Get - Gets an image resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labPlanName - The name of the lab plan that uniquely identifies it within containing resource group. Used in resource URIs
 //     and in UI.
@@ -172,7 +172,7 @@ func (client *ImagesClient) getCreateRequest(ctx context.Context, resourceGroupN
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-06-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -189,7 +189,7 @@ func (client *ImagesClient) getHandleResponse(resp *http.Response) (ImagesClient
 
 // NewListByLabPlanPager - Gets all images from galleries attached to a lab plan.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labPlanName - The name of the lab plan that uniquely identifies it within containing resource group. Used in resource URIs
 //     and in UI.
@@ -238,10 +238,10 @@ func (client *ImagesClient) listByLabPlanCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
+	reqQP.Set("api-version", "2023-06-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -259,7 +259,7 @@ func (client *ImagesClient) listByLabPlanHandleResponse(resp *http.Response) (Im
 // Update - Updates an image resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labPlanName - The name of the lab plan that uniquely identifies it within containing resource group. Used in resource URIs
 //     and in UI.
@@ -312,7 +312,7 @@ func (client *ImagesClient) updateCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-06-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
