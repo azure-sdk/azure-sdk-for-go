@@ -43,7 +43,7 @@ func NewRecommendationMetadataClient(credential azcore.TokenCredential, options 
 // Get - Gets the metadata entity.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2023-01-01
 //   - name - Name of metadata entity.
 //   - options - RecommendationMetadataClientGetOptions contains the optional parameters for the RecommendationMetadataClient.Get
 //     method.
@@ -81,7 +81,7 @@ func (client *RecommendationMetadataClient) getCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -98,7 +98,7 @@ func (client *RecommendationMetadataClient) getHandleResponse(resp *http.Respons
 
 // NewListPager - Gets the list of metadata entities.
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2023-01-01
 //   - options - RecommendationMetadataClientListOptions contains the optional parameters for the RecommendationMetadataClient.NewListPager
 //     method.
 func (client *RecommendationMetadataClient) NewListPager(options *RecommendationMetadataClientListOptions) *runtime.Pager[RecommendationMetadataClientListResponse] {
@@ -132,7 +132,7 @@ func (client *RecommendationMetadataClient) listCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

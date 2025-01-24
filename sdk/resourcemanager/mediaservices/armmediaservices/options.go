@@ -261,6 +261,27 @@ type LiveEventsClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
+// LiveEventsClientBeginListGetStatusOptions contains the optional parameters for the LiveEventsClient.BeginListGetStatus
+// method.
+type LiveEventsClientBeginListGetStatusOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// LiveEventsClientBeginListGetStreamEventsOptions contains the optional parameters for the LiveEventsClient.BeginListGetStreamEvents
+// method.
+type LiveEventsClientBeginListGetStreamEventsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// LiveEventsClientBeginListGetTrackIngestHeartbeatsOptions contains the optional parameters for the LiveEventsClient.BeginListGetTrackIngestHeartbeats
+// method.
+type LiveEventsClientBeginListGetTrackIngestHeartbeatsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // LiveEventsClientBeginResetOptions contains the optional parameters for the LiveEventsClient.BeginReset method.
 type LiveEventsClientBeginResetOptions struct {
 	// Resumes the LRO from the provided token.
