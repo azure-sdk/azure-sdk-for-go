@@ -24,8 +24,15 @@ type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SpringbootappsClientBeginUpdateOptions contains the optional parameters for the SpringbootappsClient.BeginUpdate method.
-type SpringbootappsClientBeginUpdateOptions struct {
+// SpringbootappsClientBeginCreateOrUpdateOptions contains the optional parameters for the SpringbootappsClient.BeginCreateOrUpdate
+// method.
+type SpringbootappsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SpringbootappsClientBeginDeleteOptions contains the optional parameters for the SpringbootappsClient.BeginDelete method.
+type SpringbootappsClientBeginDeleteOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -47,16 +54,14 @@ type SpringbootappsClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
 }
 
+// SpringbootappsClientUpdateOptions contains the optional parameters for the SpringbootappsClient.Update method.
+type SpringbootappsClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
 // SpringbootserversClientBeginDeleteOptions contains the optional parameters for the SpringbootserversClient.BeginDelete
 // method.
 type SpringbootserversClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// SpringbootserversClientBeginUpdateOptions contains the optional parameters for the SpringbootserversClient.BeginUpdate
-// method.
-type SpringbootserversClientBeginUpdateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -81,6 +86,11 @@ type SpringbootserversClientListByResourceGroupOptions struct {
 // SpringbootserversClientListBySubscriptionOptions contains the optional parameters for the SpringbootserversClient.NewListBySubscriptionPager
 // method.
 type SpringbootserversClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SpringbootserversClientUpdateOptions contains the optional parameters for the SpringbootserversClient.Update method.
+type SpringbootserversClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
