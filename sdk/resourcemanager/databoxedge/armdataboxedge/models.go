@@ -732,6 +732,9 @@ type DeviceProperties struct {
 	// READ-ONLY; The Data Box Edge/Gateway device name.
 	FriendlyName *string
 
+	// READ-ONLY; Kubernetes Workload Profile
+	KubernetesWorkloadProfile *string
+
 	// READ-ONLY; The description of the Data Box Edge/Gateway device model.
 	ModelDescription *string
 
@@ -1323,6 +1326,9 @@ type KubernetesRoleStorageClassInfo struct {
 
 // LoadBalancerConfig - Load balancer configuration
 type LoadBalancerConfig struct {
+	// Load balancer ipconfig
+	IPRange []*string
+
 	// READ-ONLY; Load balancer type
 	Type *string
 

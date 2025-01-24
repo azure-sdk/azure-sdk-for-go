@@ -29,6 +29,12 @@ type AccountClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
+// AccountClientListDeletedRunbooksOptions contains the optional parameters for the AccountClient.NewListDeletedRunbooksPager
+// method.
+type AccountClientListDeletedRunbooksOptions struct {
+	// placeholder for future optional parameters
+}
+
 // AccountClientListOptions contains the optional parameters for the AccountClient.NewListPager method.
 type AccountClientListOptions struct {
 	// placeholder for future optional parameters
@@ -169,36 +175,6 @@ type CredentialClientUpdateOptions struct {
 // DeletedAutomationAccountsClientListBySubscriptionOptions contains the optional parameters for the DeletedAutomationAccountsClient.ListBySubscription
 // method.
 type DeletedAutomationAccountsClientListBySubscriptionOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DscCompilationJobClientBeginCreateOptions contains the optional parameters for the DscCompilationJobClient.BeginCreate
-// method.
-type DscCompilationJobClientBeginCreateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// DscCompilationJobClientGetOptions contains the optional parameters for the DscCompilationJobClient.Get method.
-type DscCompilationJobClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DscCompilationJobClientGetStreamOptions contains the optional parameters for the DscCompilationJobClient.GetStream method.
-type DscCompilationJobClientGetStreamOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DscCompilationJobClientListByAutomationAccountOptions contains the optional parameters for the DscCompilationJobClient.NewListByAutomationAccountPager
-// method.
-type DscCompilationJobClientListByAutomationAccountOptions struct {
-	// The filter to apply on the operation.
-	Filter *string
-}
-
-// DscCompilationJobStreamClientListByJobOptions contains the optional parameters for the DscCompilationJobStreamClient.ListByJob
-// method.
-type DscCompilationJobStreamClientListByJobOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -385,6 +361,12 @@ type HybridRunbookWorkersClientMoveOptions struct {
 	// placeholder for future optional parameters
 }
 
+// HybridRunbookWorkersClientPatchOptions contains the optional parameters for the HybridRunbookWorkersClient.Patch method.
+type HybridRunbookWorkersClientPatchOptions struct {
+	// The create or update parameters for hybrid runbook worker.
+	HybridRunbookWorkerCreationParameters *HybridRunbookWorkerCreateParameters
+}
+
 // JobClientCreateOptions contains the optional parameters for the JobClient.Create method.
 type JobClientCreateOptions struct {
 	// Identifies this specific client request.
@@ -548,6 +530,32 @@ type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// PackageClientCreateOrUpdateOptions contains the optional parameters for the PackageClient.CreateOrUpdate method.
+type PackageClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PackageClientDeleteOptions contains the optional parameters for the PackageClient.Delete method.
+type PackageClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PackageClientGetOptions contains the optional parameters for the PackageClient.Get method.
+type PackageClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PackageClientListByRuntimeEnvironmentOptions contains the optional parameters for the PackageClient.NewListByRuntimeEnvironmentPager
+// method.
+type PackageClientListByRuntimeEnvironmentOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PackageClientUpdateOptions contains the optional parameters for the PackageClient.Update method.
+type PackageClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
 // PrivateEndpointConnectionsClientBeginCreateOrUpdateOptions contains the optional parameters for the PrivateEndpointConnectionsClient.BeginCreateOrUpdate
 // method.
 type PrivateEndpointConnectionsClientBeginCreateOrUpdateOptions struct {
@@ -607,6 +615,33 @@ type Python2PackageClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
+// Python3PackageClientCreateOrUpdateOptions contains the optional parameters for the Python3PackageClient.CreateOrUpdate
+// method.
+type Python3PackageClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// Python3PackageClientDeleteOptions contains the optional parameters for the Python3PackageClient.Delete method.
+type Python3PackageClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// Python3PackageClientGetOptions contains the optional parameters for the Python3PackageClient.Get method.
+type Python3PackageClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// Python3PackageClientListByAutomationAccountOptions contains the optional parameters for the Python3PackageClient.NewListByAutomationAccountPager
+// method.
+type Python3PackageClientListByAutomationAccountOptions struct {
+	// placeholder for future optional parameters
+}
+
+// Python3PackageClientUpdateOptions contains the optional parameters for the Python3PackageClient.Update method.
+type Python3PackageClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
 // RunbookClientBeginPublishOptions contains the optional parameters for the RunbookClient.BeginPublish method.
 type RunbookClientBeginPublishOptions struct {
 	// Resumes the LRO from the provided token.
@@ -663,6 +698,32 @@ type RunbookDraftClientGetOptions struct {
 
 // RunbookDraftClientUndoEditOptions contains the optional parameters for the RunbookDraftClient.UndoEdit method.
 type RunbookDraftClientUndoEditOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RuntimeEnvironmentsClientCreateOptions contains the optional parameters for the RuntimeEnvironmentsClient.Create method.
+type RuntimeEnvironmentsClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RuntimeEnvironmentsClientDeleteOptions contains the optional parameters for the RuntimeEnvironmentsClient.Delete method.
+type RuntimeEnvironmentsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RuntimeEnvironmentsClientGetOptions contains the optional parameters for the RuntimeEnvironmentsClient.Get method.
+type RuntimeEnvironmentsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RuntimeEnvironmentsClientListByAutomationAccountOptions contains the optional parameters for the RuntimeEnvironmentsClient.NewListByAutomationAccountPager
+// method.
+type RuntimeEnvironmentsClientListByAutomationAccountOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RuntimeEnvironmentsClientUpdateOptions contains the optional parameters for the RuntimeEnvironmentsClient.Update method.
+type RuntimeEnvironmentsClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
