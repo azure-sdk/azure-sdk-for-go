@@ -49,6 +49,18 @@ type LiveEventsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListPager func(resourceGroupName string, accountName string, options *armmediaservices.LiveEventsClientListOptions) (resp azfake.PagerResponder[armmediaservices.LiveEventsClientListResponse])
 
+	// BeginListGetStatus is the fake for method LiveEventsClient.BeginListGetStatus
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNotModified
+	BeginListGetStatus func(ctx context.Context, resourceGroupName string, accountName string, liveEventName string, options *armmediaservices.LiveEventsClientBeginListGetStatusOptions) (resp azfake.PollerResponder[azfake.PagerResponder[armmediaservices.LiveEventsClientListGetStatusResponse]], errResp azfake.ErrorResponder)
+
+	// BeginListGetStreamEvents is the fake for method LiveEventsClient.BeginListGetStreamEvents
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNotModified
+	BeginListGetStreamEvents func(ctx context.Context, resourceGroupName string, accountName string, liveEventName string, options *armmediaservices.LiveEventsClientBeginListGetStreamEventsOptions) (resp azfake.PollerResponder[azfake.PagerResponder[armmediaservices.LiveEventsClientListGetStreamEventsResponse]], errResp azfake.ErrorResponder)
+
+	// BeginListGetTrackIngestHeartbeats is the fake for method LiveEventsClient.BeginListGetTrackIngestHeartbeats
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNotModified
+	BeginListGetTrackIngestHeartbeats func(ctx context.Context, resourceGroupName string, accountName string, liveEventName string, options *armmediaservices.LiveEventsClientBeginListGetTrackIngestHeartbeatsOptions) (resp azfake.PollerResponder[azfake.PagerResponder[armmediaservices.LiveEventsClientListGetTrackIngestHeartbeatsResponse]], errResp azfake.ErrorResponder)
+
 	// OperationLocation is the fake for method LiveEventsClient.OperationLocation
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	OperationLocation func(ctx context.Context, resourceGroupName string, accountName string, liveEventName string, operationID string, options *armmediaservices.LiveEventsClientOperationLocationOptions) (resp azfake.Responder[armmediaservices.LiveEventsClientOperationLocationResponse], errResp azfake.ErrorResponder)
@@ -75,30 +87,36 @@ type LiveEventsServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewLiveEventsServerTransport(srv *LiveEventsServer) *LiveEventsServerTransport {
 	return &LiveEventsServerTransport{
-		srv:           srv,
-		beginAllocate: newTracker[azfake.PollerResponder[armmediaservices.LiveEventsClientAllocateResponse]](),
-		beginCreate:   newTracker[azfake.PollerResponder[armmediaservices.LiveEventsClientCreateResponse]](),
-		beginDelete:   newTracker[azfake.PollerResponder[armmediaservices.LiveEventsClientDeleteResponse]](),
-		newListPager:  newTracker[azfake.PagerResponder[armmediaservices.LiveEventsClientListResponse]](),
-		beginReset:    newTracker[azfake.PollerResponder[armmediaservices.LiveEventsClientResetResponse]](),
-		beginStart:    newTracker[azfake.PollerResponder[armmediaservices.LiveEventsClientStartResponse]](),
-		beginStop:     newTracker[azfake.PollerResponder[armmediaservices.LiveEventsClientStopResponse]](),
-		beginUpdate:   newTracker[azfake.PollerResponder[armmediaservices.LiveEventsClientUpdateResponse]](),
+		srv:                               srv,
+		beginAllocate:                     newTracker[azfake.PollerResponder[armmediaservices.LiveEventsClientAllocateResponse]](),
+		beginCreate:                       newTracker[azfake.PollerResponder[armmediaservices.LiveEventsClientCreateResponse]](),
+		beginDelete:                       newTracker[azfake.PollerResponder[armmediaservices.LiveEventsClientDeleteResponse]](),
+		newListPager:                      newTracker[azfake.PagerResponder[armmediaservices.LiveEventsClientListResponse]](),
+		beginListGetStatus:                newTracker[azfake.PollerResponder[azfake.PagerResponder[armmediaservices.LiveEventsClientListGetStatusResponse]]](),
+		beginListGetStreamEvents:          newTracker[azfake.PollerResponder[azfake.PagerResponder[armmediaservices.LiveEventsClientListGetStreamEventsResponse]]](),
+		beginListGetTrackIngestHeartbeats: newTracker[azfake.PollerResponder[azfake.PagerResponder[armmediaservices.LiveEventsClientListGetTrackIngestHeartbeatsResponse]]](),
+		beginReset:                        newTracker[azfake.PollerResponder[armmediaservices.LiveEventsClientResetResponse]](),
+		beginStart:                        newTracker[azfake.PollerResponder[armmediaservices.LiveEventsClientStartResponse]](),
+		beginStop:                         newTracker[azfake.PollerResponder[armmediaservices.LiveEventsClientStopResponse]](),
+		beginUpdate:                       newTracker[azfake.PollerResponder[armmediaservices.LiveEventsClientUpdateResponse]](),
 	}
 }
 
 // LiveEventsServerTransport connects instances of armmediaservices.LiveEventsClient to instances of LiveEventsServer.
 // Don't use this type directly, use NewLiveEventsServerTransport instead.
 type LiveEventsServerTransport struct {
-	srv           *LiveEventsServer
-	beginAllocate *tracker[azfake.PollerResponder[armmediaservices.LiveEventsClientAllocateResponse]]
-	beginCreate   *tracker[azfake.PollerResponder[armmediaservices.LiveEventsClientCreateResponse]]
-	beginDelete   *tracker[azfake.PollerResponder[armmediaservices.LiveEventsClientDeleteResponse]]
-	newListPager  *tracker[azfake.PagerResponder[armmediaservices.LiveEventsClientListResponse]]
-	beginReset    *tracker[azfake.PollerResponder[armmediaservices.LiveEventsClientResetResponse]]
-	beginStart    *tracker[azfake.PollerResponder[armmediaservices.LiveEventsClientStartResponse]]
-	beginStop     *tracker[azfake.PollerResponder[armmediaservices.LiveEventsClientStopResponse]]
-	beginUpdate   *tracker[azfake.PollerResponder[armmediaservices.LiveEventsClientUpdateResponse]]
+	srv                               *LiveEventsServer
+	beginAllocate                     *tracker[azfake.PollerResponder[armmediaservices.LiveEventsClientAllocateResponse]]
+	beginCreate                       *tracker[azfake.PollerResponder[armmediaservices.LiveEventsClientCreateResponse]]
+	beginDelete                       *tracker[azfake.PollerResponder[armmediaservices.LiveEventsClientDeleteResponse]]
+	newListPager                      *tracker[azfake.PagerResponder[armmediaservices.LiveEventsClientListResponse]]
+	beginListGetStatus                *tracker[azfake.PollerResponder[azfake.PagerResponder[armmediaservices.LiveEventsClientListGetStatusResponse]]]
+	beginListGetStreamEvents          *tracker[azfake.PollerResponder[azfake.PagerResponder[armmediaservices.LiveEventsClientListGetStreamEventsResponse]]]
+	beginListGetTrackIngestHeartbeats *tracker[azfake.PollerResponder[azfake.PagerResponder[armmediaservices.LiveEventsClientListGetTrackIngestHeartbeatsResponse]]]
+	beginReset                        *tracker[azfake.PollerResponder[armmediaservices.LiveEventsClientResetResponse]]
+	beginStart                        *tracker[azfake.PollerResponder[armmediaservices.LiveEventsClientStartResponse]]
+	beginStop                         *tracker[azfake.PollerResponder[armmediaservices.LiveEventsClientStopResponse]]
+	beginUpdate                       *tracker[azfake.PollerResponder[armmediaservices.LiveEventsClientUpdateResponse]]
 }
 
 // Do implements the policy.Transporter interface for LiveEventsServerTransport.
@@ -125,6 +143,12 @@ func (l *LiveEventsServerTransport) Do(req *http.Request) (*http.Response, error
 		resp, err = l.dispatchGet(req)
 	case "LiveEventsClient.NewListPager":
 		resp, err = l.dispatchNewListPager(req)
+	case "LiveEventsClient.BeginListGetStatus":
+		resp, err = l.dispatchBeginListGetStatus(req)
+	case "LiveEventsClient.BeginListGetStreamEvents":
+		resp, err = l.dispatchBeginListGetStreamEvents(req)
+	case "LiveEventsClient.BeginListGetTrackIngestHeartbeats":
+		resp, err = l.dispatchBeginListGetTrackIngestHeartbeats(req)
 	case "LiveEventsClient.OperationLocation":
 		resp, err = l.dispatchOperationLocation(req)
 	case "LiveEventsClient.BeginReset":
@@ -421,6 +445,150 @@ func (l *LiveEventsServerTransport) dispatchNewListPager(req *http.Request) (*ht
 	if !server.PagerResponderMore(newListPager) {
 		l.newListPager.remove(req)
 	}
+	return resp, nil
+}
+
+func (l *LiveEventsServerTransport) dispatchBeginListGetStatus(req *http.Request) (*http.Response, error) {
+	if l.srv.BeginListGetStatus == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginListGetStatus not implemented")}
+	}
+	beginListGetStatus := l.beginListGetStatus.get(req)
+	if beginListGetStatus == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Media/mediaservices/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/liveEvents/(?P<liveEventName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/getStatus`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 4 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		accountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("accountName")])
+		if err != nil {
+			return nil, err
+		}
+		liveEventNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("liveEventName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := l.srv.BeginListGetStatus(req.Context(), resourceGroupNameParam, accountNameParam, liveEventNameParam, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginListGetStatus = &respr
+		l.beginListGetStatus.add(req, beginListGetStatus)
+	}
+
+	resp, err := server.PollerResponderNext(beginListGetStatus, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNotModified}, resp.StatusCode) {
+		l.beginListGetStatus.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNotModified", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginListGetStatus) {
+		l.beginListGetStatus.remove(req)
+	}
+
+	return resp, nil
+}
+
+func (l *LiveEventsServerTransport) dispatchBeginListGetStreamEvents(req *http.Request) (*http.Response, error) {
+	if l.srv.BeginListGetStreamEvents == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginListGetStreamEvents not implemented")}
+	}
+	beginListGetStreamEvents := l.beginListGetStreamEvents.get(req)
+	if beginListGetStreamEvents == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Media/mediaservices/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/liveEvents/(?P<liveEventName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/getStreamEvents`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 4 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		accountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("accountName")])
+		if err != nil {
+			return nil, err
+		}
+		liveEventNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("liveEventName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := l.srv.BeginListGetStreamEvents(req.Context(), resourceGroupNameParam, accountNameParam, liveEventNameParam, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginListGetStreamEvents = &respr
+		l.beginListGetStreamEvents.add(req, beginListGetStreamEvents)
+	}
+
+	resp, err := server.PollerResponderNext(beginListGetStreamEvents, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNotModified}, resp.StatusCode) {
+		l.beginListGetStreamEvents.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNotModified", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginListGetStreamEvents) {
+		l.beginListGetStreamEvents.remove(req)
+	}
+
+	return resp, nil
+}
+
+func (l *LiveEventsServerTransport) dispatchBeginListGetTrackIngestHeartbeats(req *http.Request) (*http.Response, error) {
+	if l.srv.BeginListGetTrackIngestHeartbeats == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginListGetTrackIngestHeartbeats not implemented")}
+	}
+	beginListGetTrackIngestHeartbeats := l.beginListGetTrackIngestHeartbeats.get(req)
+	if beginListGetTrackIngestHeartbeats == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Media/mediaservices/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/liveEvents/(?P<liveEventName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/getTrackIngestHeartbeats`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 4 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		accountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("accountName")])
+		if err != nil {
+			return nil, err
+		}
+		liveEventNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("liveEventName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := l.srv.BeginListGetTrackIngestHeartbeats(req.Context(), resourceGroupNameParam, accountNameParam, liveEventNameParam, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginListGetTrackIngestHeartbeats = &respr
+		l.beginListGetTrackIngestHeartbeats.add(req, beginListGetTrackIngestHeartbeats)
+	}
+
+	resp, err := server.PollerResponderNext(beginListGetTrackIngestHeartbeats, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNotModified}, resp.StatusCode) {
+		l.beginListGetTrackIngestHeartbeats.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNotModified", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginListGetTrackIngestHeartbeats) {
+		l.beginListGetTrackIngestHeartbeats.remove(req)
+	}
+
 	return resp, nil
 }
 

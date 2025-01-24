@@ -623,7 +623,8 @@ type ClusterMonitoringResponse struct {
 
 // ClusterPatchParameters - The PatchCluster request parameters
 type ClusterPatchParameters struct {
-	// The identity of the cluster, if configured.
+	// The identity of the cluster, if configured. Setting this property will override the existing identity configuration of
+	// the cluster.
 	Identity *ClusterIdentity
 
 	// The resource tags.
