@@ -108,8 +108,8 @@ type ExperimentsClientUpdateResponse struct {
 
 // OperationStatusesClientGetResponse contains the response from method OperationStatusesClient.Get.
 type OperationStatusesClientGetResponse struct {
-	// The status of operation.
-	OperationStatus
+	// The current status of an async operation.
+	OperationStatusResult
 }
 
 // OperationsClientListAllResponse contains the response from method OperationsClient.NewListAllPager.

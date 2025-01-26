@@ -28,7 +28,7 @@ type CapabilitiesClient struct {
 }
 
 // NewCapabilitiesClient creates a new instance of CapabilitiesClient with the specified values.
-//   - subscriptionID - GUID that represents an Azure subscription ID.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewCapabilitiesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*CapabilitiesClient, error) {
@@ -46,23 +46,23 @@ func NewCapabilitiesClient(subscriptionID string, credential azcore.TokenCredent
 // CreateOrUpdate - Create or update a Capability resource that extends a Target resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-01-01
-//   - resourceGroupName - String that represents an Azure resource group.
-//   - parentProviderNamespace - String that represents a resource provider namespace.
-//   - parentResourceType - String that represents a resource type.
-//   - parentResourceName - String that represents a resource name.
+// Generated from API version 2025-01-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - parentProviderNamespace - The parent resource provider namespace.
+//   - parentResourceType - The parent resource type.
+//   - parentResourceName - The parent resource name.
 //   - targetName - String that represents a Target resource name.
 //   - capabilityName - String that represents a Capability resource name.
-//   - capability - Capability resource to be created or updated.
+//   - resource - Capability resource to be created or updated.
 //   - options - CapabilitiesClientCreateOrUpdateOptions contains the optional parameters for the CapabilitiesClient.CreateOrUpdate
 //     method.
-func (client *CapabilitiesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, parentProviderNamespace string, parentResourceType string, parentResourceName string, targetName string, capabilityName string, capability Capability, options *CapabilitiesClientCreateOrUpdateOptions) (CapabilitiesClientCreateOrUpdateResponse, error) {
+func (client *CapabilitiesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, parentProviderNamespace string, parentResourceType string, parentResourceName string, targetName string, capabilityName string, resource Capability, options *CapabilitiesClientCreateOrUpdateOptions) (CapabilitiesClientCreateOrUpdateResponse, error) {
 	var err error
 	const operationName = "CapabilitiesClient.CreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, parentProviderNamespace, parentResourceType, parentResourceName, targetName, capabilityName, capability, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, parentProviderNamespace, parentResourceType, parentResourceName, targetName, capabilityName, resource, options)
 	if err != nil {
 		return CapabilitiesClientCreateOrUpdateResponse{}, err
 	}
@@ -70,7 +70,7 @@ func (client *CapabilitiesClient) CreateOrUpdate(ctx context.Context, resourceGr
 	if err != nil {
 		return CapabilitiesClientCreateOrUpdateResponse{}, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated) {
 		err = runtime.NewResponseError(httpResp)
 		return CapabilitiesClientCreateOrUpdateResponse{}, err
 	}
@@ -79,7 +79,7 @@ func (client *CapabilitiesClient) CreateOrUpdate(ctx context.Context, resourceGr
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *CapabilitiesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, parentProviderNamespace string, parentResourceType string, parentResourceName string, targetName string, capabilityName string, capability Capability, options *CapabilitiesClientCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *CapabilitiesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, parentProviderNamespace string, parentResourceType string, parentResourceName string, targetName string, capabilityName string, resource Capability, options *CapabilitiesClientCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{parentProviderNamespace}/{parentResourceType}/{parentResourceName}/providers/Microsoft.Chaos/targets/{targetName}/capabilities/{capabilityName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -114,10 +114,10 @@ func (client *CapabilitiesClient) createOrUpdateCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-01-01")
+	reqQP.Set("api-version", "2025-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, capability); err != nil {
+	if err := runtime.MarshalAsJSON(req, resource); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -135,11 +135,11 @@ func (client *CapabilitiesClient) createOrUpdateHandleResponse(resp *http.Respon
 // Delete - Delete a Capability that extends a Target resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-01-01
-//   - resourceGroupName - String that represents an Azure resource group.
-//   - parentProviderNamespace - String that represents a resource provider namespace.
-//   - parentResourceType - String that represents a resource type.
-//   - parentResourceName - String that represents a resource name.
+// Generated from API version 2025-01-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - parentProviderNamespace - The parent resource provider namespace.
+//   - parentResourceType - The parent resource type.
+//   - parentResourceName - The parent resource name.
 //   - targetName - String that represents a Target resource name.
 //   - capabilityName - String that represents a Capability resource name.
 //   - options - CapabilitiesClientDeleteOptions contains the optional parameters for the CapabilitiesClient.Delete method.
@@ -200,7 +200,7 @@ func (client *CapabilitiesClient) deleteCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-01-01")
+	reqQP.Set("api-version", "2025-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -209,11 +209,11 @@ func (client *CapabilitiesClient) deleteCreateRequest(ctx context.Context, resou
 // Get - Get a Capability resource that extends a Target resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-01-01
-//   - resourceGroupName - String that represents an Azure resource group.
-//   - parentProviderNamespace - String that represents a resource provider namespace.
-//   - parentResourceType - String that represents a resource type.
-//   - parentResourceName - String that represents a resource name.
+// Generated from API version 2025-01-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - parentProviderNamespace - The parent resource provider namespace.
+//   - parentResourceType - The parent resource type.
+//   - parentResourceName - The parent resource name.
 //   - targetName - String that represents a Target resource name.
 //   - capabilityName - String that represents a Capability resource name.
 //   - options - CapabilitiesClientGetOptions contains the optional parameters for the CapabilitiesClient.Get method.
@@ -275,7 +275,7 @@ func (client *CapabilitiesClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-01-01")
+	reqQP.Set("api-version", "2025-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -290,13 +290,13 @@ func (client *CapabilitiesClient) getHandleResponse(resp *http.Response) (Capabi
 	return result, nil
 }
 
-// NewListPager - Get a list of Capability resources that extend a Target resource..
+// NewListPager - Get a list of Capability resources that extend a Target resource.
 //
-// Generated from API version 2024-01-01
-//   - resourceGroupName - String that represents an Azure resource group.
-//   - parentProviderNamespace - String that represents a resource provider namespace.
-//   - parentResourceType - String that represents a resource type.
-//   - parentResourceName - String that represents a resource name.
+// Generated from API version 2025-01-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - parentProviderNamespace - The parent resource provider namespace.
+//   - parentResourceType - The parent resource type.
+//   - parentResourceName - The parent resource name.
 //   - targetName - String that represents a Target resource name.
 //   - options - CapabilitiesClientListOptions contains the optional parameters for the CapabilitiesClient.NewListPager method.
 func (client *CapabilitiesClient) NewListPager(resourceGroupName string, parentProviderNamespace string, parentResourceType string, parentResourceName string, targetName string, options *CapabilitiesClientListOptions) *runtime.Pager[CapabilitiesClientListResponse] {
@@ -354,7 +354,7 @@ func (client *CapabilitiesClient) listCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-01-01")
+	reqQP.Set("api-version", "2025-01-01")
 	if options != nil && options.ContinuationToken != nil {
 		reqQP.Set("continuationToken", *options.ContinuationToken)
 	}
