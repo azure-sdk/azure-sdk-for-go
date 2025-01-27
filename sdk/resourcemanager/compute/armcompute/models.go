@@ -46,69 +46,6 @@ type APIErrorBase struct {
 	Target *string
 }
 
-// AccessControlRules - This is the Access Control Rules specification for an inVMAccessControlProfile version.
-type AccessControlRules struct {
-	// A list of identities.
-	Identities []*AccessControlRulesIdentity
-
-	// A list of privileges.
-	Privileges []*AccessControlRulesPrivilege
-
-	// A list of role assignments.
-	RoleAssignments []*AccessControlRulesRoleAssignment
-
-	// A list of roles.
-	Roles []*AccessControlRulesRole
-}
-
-// AccessControlRulesIdentity - The properties of an Access Control Rule Identity.
-type AccessControlRulesIdentity struct {
-	// REQUIRED; The name of the identity.
-	Name *string
-
-	// The path to the executable.
-	ExePath *string
-
-	// The groupName corresponding to this identity.
-	GroupName *string
-
-	// The process name of the executable.
-	ProcessName *string
-
-	// The username corresponding to this identity.
-	UserName *string
-}
-
-// AccessControlRulesPrivilege - The properties of an Access Control Rule Privilege.
-type AccessControlRulesPrivilege struct {
-	// REQUIRED; The name of the privilege.
-	Name *string
-
-	// REQUIRED; The HTTP path corresponding to the privilege.
-	Path *string
-
-	// The query parameters to match in the path.
-	QueryParameters map[string]*string
-}
-
-// AccessControlRulesRole - The properties of an Access Control Rule Role.
-type AccessControlRulesRole struct {
-	// REQUIRED; The name of the role.
-	Name *string
-
-	// REQUIRED; A list of privileges needed by this role.
-	Privileges []*string
-}
-
-// AccessControlRulesRoleAssignment - The properties of an Access Control Rule RoleAssignment.
-type AccessControlRulesRoleAssignment struct {
-	// REQUIRED; A list of identities that can access the privileges defined by the role.
-	Identities []*string
-
-	// REQUIRED; The name of the role.
-	Role *string
-}
-
 // AccessURI - A disk access SAS uri.
 type AccessURI struct {
 	// READ-ONLY; A SAS uri for accessing a disk.
@@ -127,15 +64,6 @@ type AdditionalCapabilities struct {
 	// type on the VM or VMSS. Managed disks with storage account type UltraSSDLRS can
 	// be added to a virtual machine or virtual machine scale set only if this property is enabled.
 	UltraSSDEnabled *bool
-}
-
-// AdditionalReplicaSet - Describes the additional replica set information.
-type AdditionalReplicaSet struct {
-	// The number of direct drive replicas of the Image Version to be created.This Property is updatable
-	RegionalReplicaCount *int32
-
-	// Specifies the storage account type to be used to create the direct drive replicas
-	StorageAccountType *StorageAccountType
 }
 
 // AdditionalUnattendContent - Specifies additional XML formatted information that can be included in the Unattend.xml file,
@@ -289,6 +217,9 @@ type AvailabilitySetProperties struct {
 
 	// READ-ONLY; The resource status information.
 	Statuses []*InstanceViewStatus
+
+	// READ-ONLY; Describes the migration properties on the Availability Set.
+	VirtualMachineScaleSetMigrationInfo *VirtualMachineScaleSetMigrationInfo
 }
 
 // AvailabilitySetUpdate - Specifies information about the availability set that the virtual machine should be assigned to.
@@ -854,10 +785,6 @@ type CloudServiceVaultAndSecretReference struct {
 type CloudServiceVaultCertificate struct {
 	// This is the URL of a certificate that has been uploaded to Key Vault as a secret.
 	CertificateURL *string
-
-	// Flag indicating if the certificate provided is a bootstrap certificate to be used by the Key Vault Extension to fetch the
-	// remaining certificates.
-	IsBootstrapCertificate *bool
 }
 
 // CloudServiceVaultSecretGroup - Describes a set of certificates which are all in the same Key Vault.
@@ -946,7 +873,7 @@ type CommunityGalleryImageProperties struct {
 	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
-	// CPU architecture supported by an OS disk.
+	// The architecture of the image. Applicable to OS disks only.
 	Architecture *Architecture
 
 	// The artifact tags of a community gallery resource.
@@ -1081,6 +1008,12 @@ type CommunityGalleryProperties struct {
 
 	// The disclaimer for a community gallery resource.
 	Disclaimer *string
+}
+
+// ConvertToVirtualMachineScaleSetInput - Describes the Virtual Machine Scale Set to convert from Availability Set.
+type ConvertToVirtualMachineScaleSetInput struct {
+	// Specifies information about the Virtual Machine Scale Set that the Availability Set should be converted to.
+	VirtualMachineScaleSetName *string
 }
 
 // CopyCompletionError - Indicates the error details if the background copy of a resource created via the CopyStart operation
@@ -1490,6 +1423,18 @@ type DedicatedHostUpdate struct {
 
 	// Resource tags
 	Tags map[string]*string
+}
+
+// DefaultVirtualMachineScaleSetInfo - Indicates the target Virtual Machine ScaleSet properties upon triggering a seamless
+// migration without downtime of the VMs via the ConvertToVirtualMachineScaleSet API.
+type DefaultVirtualMachineScaleSetInfo struct {
+	// READ-ONLY; Indicates if the the maximum capacity of the default migrated Virtual Machine Scale Set after its migration
+	// will be constrained to a limited number of VMs.
+	ConstrainedMaximumCapacity *bool
+
+	// READ-ONLY; The default Virtual Machine ScaleSet Uri that the Availability Set will be moved to upon triggering a seamless
+	// migration via the ConvertToVirtualMachineScaleSet API.
+	DefaultVirtualMachineScaleSet *SubResource
 }
 
 // DiagnosticsProfile - Specifies the boot diagnostic settings state. Minimum api-version: 2015-06-15.
@@ -2185,21 +2130,6 @@ type EventGridAndResourceGraph struct {
 	Enable *bool
 }
 
-// ExecutedValidation - This is the executed Validation.
-type ExecutedValidation struct {
-	// This property specifies the starting timestamp.
-	ExecutionTime *time.Time
-
-	// This property specifies the status of the validationProfile of the image version.
-	Status *ValidationStatus
-
-	// This property specifies the type of image version validation.
-	Type *string
-
-	// This property specifies the valid version of the validation.
-	Version *string
-}
-
 // ExtendedLocation - The complex type of the extended location.
 type ExtendedLocation struct {
 	// The name of the extended location.
@@ -2222,9 +2152,6 @@ type Extension struct {
 type Gallery struct {
 	// REQUIRED; Resource location
 	Location *string
-
-	// The identity of the gallery, if configured.
-	Identity *GalleryIdentity
 
 	// Describes the properties of a Shared Image Gallery.
 	Properties *GalleryProperties
@@ -2582,25 +2509,6 @@ type GalleryIdentifier struct {
 	UniqueName *string
 }
 
-// GalleryIdentity - Identity for the virtual machine.
-type GalleryIdentity struct {
-	// The type of identity used for the gallery. The type 'SystemAssigned, UserAssigned' includes both an implicitly created
-	// identity and a set of user assigned identities. The type 'None' will remove all
-	// identities from the gallery.
-	Type *ResourceIdentityType
-
-	// The list of user identities associated with the gallery. The user identity dictionary key references will be ARM resource
-	// ids in the form:
-	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.
-	UserAssignedIdentities map[string]*UserAssignedIdentitiesValue
-
-	// READ-ONLY; The principal id of the gallery identity. This property will only be provided for a system assigned identity.
-	PrincipalID *string
-
-	// READ-ONLY; The AAD tenant id of the gallery identity. This property will only be provided for a system assigned identity.
-	TenantID *string
-}
-
 // GalleryImage - Specifies information about the gallery image definition that you want to create or update.
 type GalleryImage struct {
 	// REQUIRED; Resource location
@@ -2626,9 +2534,6 @@ type GalleryImage struct {
 type GalleryImageFeature struct {
 	// The name of the gallery image feature.
 	Name *string
-
-	// The minimum gallery image version which supports this feature.
-	StartsAtVersion *string
 
 	// The value of the gallery image feature.
 	Value *string
@@ -2669,10 +2574,7 @@ type GalleryImageProperties struct {
 	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
-	// Optional. Must be set to true if the gallery image features are being updated.
-	AllowUpdateImage *bool
-
-	// CPU architecture supported by an OS disk.
+	// The architecture of the image. Applicable to OS disks only.
 	Architecture *Architecture
 
 	// The description of this gallery image definition resource. This property is updatable.
@@ -2767,9 +2669,6 @@ type GalleryImageVersionProperties struct {
 	// The publishing profile of a gallery image Version.
 	PublishingProfile *GalleryImageVersionPublishingProfile
 
-	// Indicates if this is a soft-delete resource restoration request.
-	Restore *bool
-
 	// This is the safety profile of the Gallery Image Version.
 	SafetyProfile *GalleryImageVersionSafetyProfile
 
@@ -2781,9 +2680,6 @@ type GalleryImageVersionProperties struct {
 
 	// READ-ONLY; This is the replication status of the gallery image version.
 	ReplicationStatus *ReplicationStatus
-
-	// READ-ONLY; This is the validations profile of a Gallery Image Version.
-	ValidationsProfile *ValidationsProfile
 }
 
 // GalleryImageVersionPublishingProfile - The publishing profile of a gallery image Version.
@@ -2819,9 +2715,6 @@ type GalleryImageVersionPublishingProfile struct {
 type GalleryImageVersionSafetyProfile struct {
 	// Indicates whether or not removing this Gallery Image Version from replicated regions is allowed.
 	AllowDeletionOfReplicatedLocations *bool
-
-	// Indicates whether or not the deletion is blocked for this Gallery Image Version if its End Of Life has not expired.
-	BlockDeletionBeforeEndOfLife *bool
 
 	// READ-ONLY; A list of Policy Violations that have been reported for this Gallery Image Version.
 	PolicyViolations []*PolicyViolation
@@ -2869,154 +2762,6 @@ type GalleryImageVersionUpdate struct {
 	Type *string
 }
 
-// GalleryInVMAccessControlProfile - Specifies information about the gallery inVMAccessControlProfile that you want to create
-// or update.
-type GalleryInVMAccessControlProfile struct {
-	// REQUIRED; Resource location
-	Location *string
-
-	// Describes the properties of a gallery inVMAccessControlProfile.
-	Properties *GalleryInVMAccessControlProfileProperties
-
-	// Resource tags
-	Tags map[string]*string
-
-	// READ-ONLY; Resource Id
-	ID *string
-
-	// READ-ONLY; Resource name
-	Name *string
-
-	// READ-ONLY; Resource type
-	Type *string
-}
-
-// GalleryInVMAccessControlProfileList - The List Gallery InVMAccessControlProfiles operation response.
-type GalleryInVMAccessControlProfileList struct {
-	// REQUIRED; A list of Gallery InVMAccessControlProfiles.
-	Value []*GalleryInVMAccessControlProfile
-
-	// The uri to fetch the next page of inVMAccessControlProfiles in the gallery. Call ListNext() with this to fetch the next
-	// page of gallery inVMAccessControlProfiles.
-	NextLink *string
-}
-
-// GalleryInVMAccessControlProfileProperties - Describes the properties of a gallery inVMAccessControlProfile.
-type GalleryInVMAccessControlProfileProperties struct {
-	// REQUIRED; This property allows you to specify the Endpoint type for which this profile is defining the access control for.
-	// Possible values are: 'WireServer' or 'IMDS'
-	ApplicableHostEndpoint *EndpointTypes
-
-	// REQUIRED; This property allows you to specify the OS type of the VMs/VMSS for which this profile can be used against. Possible
-	// values are: 'Windows' or 'Linux'
-	OSType *OperatingSystemTypes
-
-	// The description of this gallery inVMAccessControlProfile resources. This property is updatable.
-	Description *string
-
-	// READ-ONLY; The provisioning state, which only appears in the response.
-	ProvisioningState *GalleryProvisioningState
-}
-
-// GalleryInVMAccessControlProfileUpdate - Specifies information about the gallery inVMAccessControlProfile that you want
-// to update.
-type GalleryInVMAccessControlProfileUpdate struct {
-	// Describes the properties of a gallery inVMAccessControlProfile.
-	Properties *GalleryInVMAccessControlProfileProperties
-
-	// Resource tags
-	Tags map[string]*string
-
-	// READ-ONLY; Resource Id
-	ID *string
-
-	// READ-ONLY; Resource name
-	Name *string
-
-	// READ-ONLY; Resource type
-	Type *string
-}
-
-// GalleryInVMAccessControlProfileVersion - Specifies information about the gallery inVMAccessControlProfile version that
-// you want to create or update.
-type GalleryInVMAccessControlProfileVersion struct {
-	// REQUIRED; Resource location
-	Location *string
-
-	// Describes the properties of an inVMAccessControlProfile version.
-	Properties *GalleryInVMAccessControlProfileVersionProperties
-
-	// Resource tags
-	Tags map[string]*string
-
-	// READ-ONLY; Resource Id
-	ID *string
-
-	// READ-ONLY; Resource name
-	Name *string
-
-	// READ-ONLY; Resource type
-	Type *string
-}
-
-// GalleryInVMAccessControlProfileVersionList - The List Gallery InVMAccessControlProfile Versions operation response.
-type GalleryInVMAccessControlProfileVersionList struct {
-	// REQUIRED; A list of Gallery InVMAccessControlProfile Versions.
-	Value []*GalleryInVMAccessControlProfileVersion
-
-	// The uri to fetch the next page of inVMAccessControlProfile versions. Call ListNext() with this to fetch the next page of
-	// gallery inVMAccessControlProfile versions.
-	NextLink *string
-}
-
-// GalleryInVMAccessControlProfileVersionProperties - Describes the properties of an inVMAccessControlProfile version.
-type GalleryInVMAccessControlProfileVersionProperties struct {
-	// REQUIRED; This property allows you to specify if the requests will be allowed to access the host endpoints. Possible values
-	// are: 'Allow', 'Deny'.
-	DefaultAccess *EndpointAccess
-
-	// REQUIRED; This property allows you to specify whether the access control rules are in Audit mode, in Enforce mode or Disabled.
-	// Possible values are: 'Audit', 'Enforce' or 'Disabled'.
-	Mode *AccessControlRulesMode
-
-	// If set to true, Virtual Machines deployed from the latest version of the Resource Profile won't use this Profile version.
-	ExcludeFromLatest *bool
-
-	// This is the Access Control Rules specification for an inVMAccessControlProfile version.
-	Rules *AccessControlRules
-
-	// The target regions where the Resource Profile version is going to be replicated to. This property is updatable.
-	TargetLocations []*TargetRegion
-
-	// READ-ONLY; The provisioning state, which only appears in the response.
-	ProvisioningState *GalleryProvisioningState
-
-	// READ-ONLY; The timestamp for when the Resource Profile Version is published.
-	PublishedDate *time.Time
-
-	// READ-ONLY; This is the replication status of the gallery image version.
-	ReplicationStatus *ReplicationStatus
-}
-
-// GalleryInVMAccessControlProfileVersionUpdate - Specifies information about the gallery inVMAccessControlProfile version
-// that you want to update.
-type GalleryInVMAccessControlProfileVersionUpdate struct {
-	// Describes the properties of an inVMAccessControlProfile version.
-	Properties *GalleryInVMAccessControlProfileVersionProperties
-
-	// Resource tags
-	Tags map[string]*string
-
-	// READ-ONLY; Resource Id
-	ID *string
-
-	// READ-ONLY; Resource name
-	Name *string
-
-	// READ-ONLY; Resource type
-	Type *string
-}
-
 // GalleryList - The List Galleries operation response.
 type GalleryList struct {
 	// REQUIRED; A list of galleries.
@@ -3024,9 +2769,6 @@ type GalleryList struct {
 
 	// The uri to fetch the next page of galleries. Call ListNext() with this to fetch the next page of galleries.
 	NextLink *string
-
-	// The security profile of a gallery image version
-	SecurityProfile *ImageVersionSecurityProfile
 }
 
 // GalleryOSDiskImage - This is the OS disk image.
@@ -3062,73 +2804,6 @@ type GalleryProperties struct {
 	SharingStatus *SharingStatus
 }
 
-// GalleryResourceProfilePropertiesBase - The properties of a gallery ResourceProfile.
-type GalleryResourceProfilePropertiesBase struct {
-	// READ-ONLY; The provisioning state, which only appears in the response.
-	ProvisioningState *GalleryProvisioningState
-}
-
-// GalleryResourceProfileVersionPropertiesBase - The properties of a gallery ResourceProfile version.
-type GalleryResourceProfileVersionPropertiesBase struct {
-	// If set to true, Virtual Machines deployed from the latest version of the Resource Profile won't use this Profile version.
-	ExcludeFromLatest *bool
-
-	// The target regions where the Resource Profile version is going to be replicated to. This property is updatable.
-	TargetLocations []*TargetRegion
-
-	// READ-ONLY; The provisioning state, which only appears in the response.
-	ProvisioningState *GalleryProvisioningState
-
-	// READ-ONLY; The timestamp for when the Resource Profile Version is published.
-	PublishedDate *time.Time
-
-	// READ-ONLY; This is the replication status of the gallery image version.
-	ReplicationStatus *ReplicationStatus
-}
-
-// GallerySoftDeletedResource - The details information of soft-deleted resource.
-type GallerySoftDeletedResource struct {
-	// REQUIRED; Resource location
-	Location *string
-
-	// Describes the properties of a soft-deleted resource.
-	Properties *GallerySoftDeletedResourceProperties
-
-	// Resource tags
-	Tags map[string]*string
-
-	// READ-ONLY; Resource Id
-	ID *string
-
-	// READ-ONLY; Resource name
-	Name *string
-
-	// READ-ONLY; Resource type
-	Type *string
-}
-
-// GallerySoftDeletedResourceList - The List Soft-deleted Resources operation response.
-type GallerySoftDeletedResourceList struct {
-	// REQUIRED; A list of soft-deleted resources.
-	Value []*GallerySoftDeletedResource
-
-	// The uri to fetch the next page of soft-deleted resources. Call ListNext() with this to fetch the next page of soft-deleted
-	// resources.
-	NextLink *string
-}
-
-// GallerySoftDeletedResourceProperties - Describes the properties of a soft-deleted resource.
-type GallerySoftDeletedResourceProperties struct {
-	// arm id of the soft-deleted resource
-	ResourceArmID *string
-
-	// artifact type of the soft-deleted resource
-	SoftDeletedArtifactType *SoftDeletedArtifactTypes
-
-	// The timestamp for when the resource is soft-deleted. In dateTime offset format.
-	SoftDeletedTime *string
-}
-
 type GalleryTargetExtendedLocation struct {
 	// Optional. Allows users to provide customer managed keys for encrypting the OS and data disks in the gallery artifact.
 	Encryption *EncryptionImages
@@ -3148,9 +2823,6 @@ type GalleryTargetExtendedLocation struct {
 
 // GalleryUpdate - Specifies information about the Shared Image Gallery that you want to update.
 type GalleryUpdate struct {
-	// The identity of the gallery, if configured.
-	Identity *GalleryIdentity
-
 	// Describes the properties of a Shared Image Gallery.
 	Properties *GalleryProperties
 
@@ -3798,6 +3470,26 @@ type ManagedDiskParameters struct {
 	StorageAccountType *StorageAccountTypes
 }
 
+// MigrateToVirtualMachineScaleSetInput - Describes the Virtual Machine Scale Set to migrate from Availability Set.
+type MigrateToVirtualMachineScaleSetInput struct {
+	// REQUIRED; Specifies information about the Virtual Machine Scale Set that the Availability Set should be migrated to. Minimum
+	// api‐version: 2024‐11‐01.
+	VirtualMachineScaleSetFlexible *SubResource
+}
+
+// MigrateVMToVirtualMachineScaleSetInput - The input of virtual machine migration from Availability Set to Flexible Virtual
+// Machine Scale Set.
+type MigrateVMToVirtualMachineScaleSetInput struct {
+	// The target compute fault domain of VM migration to Flexible Virtual Machine Scale Set.
+	TargetFaultDomain *int32
+
+	// The target Virtual Machine size of VM migration to Flexible Virtual Machine Scale Set.
+	TargetVMSize *string
+
+	// The target zone of VM migration to Flexible Virtual Machine Scale Set.
+	TargetZone *string
+}
+
 // NetworkInterfaceReference - Describes a network interface reference.
 type NetworkInterfaceReference struct {
 	// Resource Id
@@ -4271,15 +3963,6 @@ type Plan struct {
 
 	// The publisher ID.
 	Publisher *string
-}
-
-// PlatformAttribute - This is the platform attribute of the image version.
-type PlatformAttribute struct {
-	// READ-ONLY; This property specifies the name of the platformAttribute. It is read-only.
-	Name *string
-
-	// READ-ONLY; This property specifies the value of the corresponding name property. It is read-only.
-	Value *string
 }
 
 // PolicyViolation - A policy violation reported against a gallery artifact.
@@ -5698,7 +5381,7 @@ type SharedGalleryImageProperties struct {
 	// managed image. Possible values are: Windows, Linux.
 	OSType *OperatingSystemTypes
 
-	// CPU architecture supported by an OS disk.
+	// The architecture of the image. Applicable to OS disks only.
 	Architecture *Architecture
 
 	// The artifact tags of a shared gallery resource.
@@ -6130,9 +5813,6 @@ type TargetRegion struct {
 	// REQUIRED; The name of the region.
 	Name *string
 
-	// List of storage sku with replica count to create direct drive replicas.
-	AdditionalReplicaSets []*AdditionalReplicaSet
-
 	// Optional. Allows users to provide customer managed keys for encrypting the OS and data disks in the gallery artifact.
 	Encryption *EncryptionImages
 
@@ -6366,9 +6046,6 @@ type UserArtifactSettings struct {
 	// Optional. The name to assign the downloaded package file on the VM. This is limited to 4096 characters. If not specified,
 	// the package file will be named the same as the Gallery Application name.
 	PackageFileName *string
-
-	// Optional. The action to be taken with regards to install/update/remove of the gallery application in the event of a reboot.
-	ScriptBehaviorAfterReboot *GalleryApplicationScriptRebootBehavior
 }
 
 // UserArtifactSource - The source image from which the Image Version is going to be created.
@@ -6465,17 +6142,6 @@ type VMSizeProperties struct {
 	// List all available virtual machine sizes in a region [https://docs.microsoft.com/en-us/rest/api/compute/resource-skus/list].
 	// Setting this property to 1 also means that hyper-threading is disabled.
 	VCPUsPerCore *int32
-}
-
-// ValidationsProfile - This is the validations profile of a Gallery Image Version.
-type ValidationsProfile struct {
-	ExecutedValidations []*ExecutedValidation
-
-	// This specifies the pub, offer, sku and version of the image version metadata
-	PlatformAttributes []*PlatformAttribute
-
-	// The published time of the image version
-	ValidationEtag *string
 }
 
 // VaultCertificate - Describes a single certificate reference in a Key Vault, and where the certificate should reside on
@@ -7846,6 +7512,17 @@ type VirtualMachineScaleSetManagedDiskParameters struct {
 	// Specifies the storage account type for the managed disk. NOTE: UltraSSD_LRS can only be used with data disks, it cannot
 	// be used with OS Disk.
 	StorageAccountType *StorageAccountTypes
+}
+
+// VirtualMachineScaleSetMigrationInfo - Describes the Availability Set properties related to migration to Flexible Virtual
+// Machine Scale Set.
+type VirtualMachineScaleSetMigrationInfo struct {
+	// READ-ONLY; Indicates the target Virtual Machine ScaleSet properties upon triggering a seamless migration without downtime
+	// of the VMs via the ConvertToVirtualMachineScaleSet API.
+	DefaultVirtualMachineScaleSetInfo *DefaultVirtualMachineScaleSetInfo
+
+	// READ-ONLY; Specifies the Virtual Machine Scale Set that the Availability Set is migrated to.
+	MigrateToVirtualMachineScaleSet *SubResource
 }
 
 // VirtualMachineScaleSetNetworkConfiguration - Describes a virtual machine scale set network profile's network configurations.
