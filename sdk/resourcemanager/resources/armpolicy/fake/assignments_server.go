@@ -286,6 +286,7 @@ func (a *AssignmentsServerTransport) dispatchGet(req *http.Request) (*http.Respo
 	if matches == nil || len(matches) < 2 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
+	qp := req.URL.Query()
 	scopeParam, err := url.PathUnescape(matches[regex.SubexpIndex("scope")])
 	if err != nil {
 		return nil, err
@@ -294,7 +295,18 @@ func (a *AssignmentsServerTransport) dispatchGet(req *http.Request) (*http.Respo
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := a.srv.Get(req.Context(), scopeParam, policyAssignmentNameParam, nil)
+	expandUnescaped, err := url.QueryUnescape(qp.Get("$expand"))
+	if err != nil {
+		return nil, err
+	}
+	expandParam := getOptional(expandUnescaped)
+	var options *armpolicy.AssignmentsClientGetOptions
+	if expandParam != nil {
+		options = &armpolicy.AssignmentsClientGetOptions{
+			Expand: expandParam,
+		}
+	}
+	respr, errRespr := a.srv.Get(req.Context(), scopeParam, policyAssignmentNameParam, options)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -356,6 +368,11 @@ func (a *AssignmentsServerTransport) dispatchNewListPager(req *http.Request) (*h
 			return nil, err
 		}
 		filterParam := getOptional(filterUnescaped)
+		expandUnescaped, err := url.QueryUnescape(qp.Get("$expand"))
+		if err != nil {
+			return nil, err
+		}
+		expandParam := getOptional(expandUnescaped)
 		topUnescaped, err := url.QueryUnescape(qp.Get("$top"))
 		if err != nil {
 			return nil, err
@@ -371,9 +388,10 @@ func (a *AssignmentsServerTransport) dispatchNewListPager(req *http.Request) (*h
 			return nil, err
 		}
 		var options *armpolicy.AssignmentsClientListOptions
-		if filterParam != nil || topParam != nil {
+		if filterParam != nil || expandParam != nil || topParam != nil {
 			options = &armpolicy.AssignmentsClientListOptions{
 				Filter: filterParam,
+				Expand: expandParam,
 				Top:    topParam,
 			}
 		}
@@ -420,6 +438,11 @@ func (a *AssignmentsServerTransport) dispatchNewListForManagementGroupPager(req 
 			return nil, err
 		}
 		filterParam := getOptional(filterUnescaped)
+		expandUnescaped, err := url.QueryUnescape(qp.Get("$expand"))
+		if err != nil {
+			return nil, err
+		}
+		expandParam := getOptional(expandUnescaped)
 		topUnescaped, err := url.QueryUnescape(qp.Get("$top"))
 		if err != nil {
 			return nil, err
@@ -435,9 +458,10 @@ func (a *AssignmentsServerTransport) dispatchNewListForManagementGroupPager(req 
 			return nil, err
 		}
 		var options *armpolicy.AssignmentsClientListForManagementGroupOptions
-		if filterParam != nil || topParam != nil {
+		if filterParam != nil || expandParam != nil || topParam != nil {
 			options = &armpolicy.AssignmentsClientListForManagementGroupOptions{
 				Filter: filterParam,
+				Expand: expandParam,
 				Top:    topParam,
 			}
 		}
@@ -500,6 +524,11 @@ func (a *AssignmentsServerTransport) dispatchNewListForResourcePager(req *http.R
 			return nil, err
 		}
 		filterParam := getOptional(filterUnescaped)
+		expandUnescaped, err := url.QueryUnescape(qp.Get("$expand"))
+		if err != nil {
+			return nil, err
+		}
+		expandParam := getOptional(expandUnescaped)
 		topUnescaped, err := url.QueryUnescape(qp.Get("$top"))
 		if err != nil {
 			return nil, err
@@ -515,9 +544,10 @@ func (a *AssignmentsServerTransport) dispatchNewListForResourcePager(req *http.R
 			return nil, err
 		}
 		var options *armpolicy.AssignmentsClientListForResourceOptions
-		if filterParam != nil || topParam != nil {
+		if filterParam != nil || expandParam != nil || topParam != nil {
 			options = &armpolicy.AssignmentsClientListForResourceOptions{
 				Filter: filterParam,
+				Expand: expandParam,
 				Top:    topParam,
 			}
 		}
@@ -564,6 +594,11 @@ func (a *AssignmentsServerTransport) dispatchNewListForResourceGroupPager(req *h
 			return nil, err
 		}
 		filterParam := getOptional(filterUnescaped)
+		expandUnescaped, err := url.QueryUnescape(qp.Get("$expand"))
+		if err != nil {
+			return nil, err
+		}
+		expandParam := getOptional(expandUnescaped)
 		topUnescaped, err := url.QueryUnescape(qp.Get("$top"))
 		if err != nil {
 			return nil, err
@@ -579,9 +614,10 @@ func (a *AssignmentsServerTransport) dispatchNewListForResourceGroupPager(req *h
 			return nil, err
 		}
 		var options *armpolicy.AssignmentsClientListForResourceGroupOptions
-		if filterParam != nil || topParam != nil {
+		if filterParam != nil || expandParam != nil || topParam != nil {
 			options = &armpolicy.AssignmentsClientListForResourceGroupOptions{
 				Filter: filterParam,
+				Expand: expandParam,
 				Top:    topParam,
 			}
 		}
