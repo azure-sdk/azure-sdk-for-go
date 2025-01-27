@@ -43,18 +43,82 @@ func NewWorkspacesClient(subscriptionID string, credential azcore.TokenCredentia
 	return client, nil
 }
 
-// BeginCreateOrUpdate - Creates or updates a workspace resource.
+// CheckNameAvailability - Check the availability of the resource name for the given location.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-11-13-preview
+//   - location - The name of the Azure region.
+//   - body - The CheckAvailability request
+//   - options - WorkspacesClientCheckNameAvailabilityOptions contains the optional parameters for the WorkspacesClient.CheckNameAvailability
+//     method.
+func (client *WorkspacesClient) CheckNameAvailability(ctx context.Context, location string, body CheckNameAvailabilityRequest, options *WorkspacesClientCheckNameAvailabilityOptions) (WorkspacesClientCheckNameAvailabilityResponse, error) {
+	var err error
+	const operationName = "WorkspacesClient.CheckNameAvailability"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.checkNameAvailabilityCreateRequest(ctx, location, body, options)
+	if err != nil {
+		return WorkspacesClientCheckNameAvailabilityResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return WorkspacesClientCheckNameAvailabilityResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return WorkspacesClientCheckNameAvailabilityResponse{}, err
+	}
+	resp, err := client.checkNameAvailabilityHandleResponse(httpResp)
+	return resp, err
+}
+
+// checkNameAvailabilityCreateRequest creates the CheckNameAvailability request.
+func (client *WorkspacesClient) checkNameAvailabilityCreateRequest(ctx context.Context, location string, body CheckNameAvailabilityRequest, options *WorkspacesClientCheckNameAvailabilityOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Quantum/locations/{location}/checkNameAvailability"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if location == "" {
+		return nil, errors.New("parameter location cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-11-13-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+// checkNameAvailabilityHandleResponse handles the CheckNameAvailability response.
+func (client *WorkspacesClient) checkNameAvailabilityHandleResponse(resp *http.Response) (WorkspacesClientCheckNameAvailabilityResponse, error) {
+	result := WorkspacesClientCheckNameAvailabilityResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.CheckNameAvailabilityResponse); err != nil {
+		return WorkspacesClientCheckNameAvailabilityResponse{}, err
+	}
+	return result, nil
+}
+
+// BeginCreateOrUpdate - Creates or updates a Workspace resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-11-13-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the quantum workspace resource.
-//   - quantumWorkspace - Workspace details.
+//   - resource - Workspace details.
 //   - options - WorkspacesClientBeginCreateOrUpdateOptions contains the optional parameters for the WorkspacesClient.BeginCreateOrUpdate
 //     method.
-func (client *WorkspacesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, quantumWorkspace Workspace, options *WorkspacesClientBeginCreateOrUpdateOptions) (*runtime.Poller[WorkspacesClientCreateOrUpdateResponse], error) {
+func (client *WorkspacesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, resource Workspace, options *WorkspacesClientBeginCreateOrUpdateOptions) (*runtime.Poller[WorkspacesClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, resourceGroupName, workspaceName, quantumWorkspace, options)
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, workspaceName, resource, options)
 		if err != nil {
 			return nil, err
 		}
@@ -70,17 +134,17 @@ func (client *WorkspacesClient) BeginCreateOrUpdate(ctx context.Context, resourc
 	}
 }
 
-// CreateOrUpdate - Creates or updates a workspace resource.
+// CreateOrUpdate - Creates or updates a Workspace resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-11-13-preview
-func (client *WorkspacesClient) createOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, quantumWorkspace Workspace, options *WorkspacesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+func (client *WorkspacesClient) createOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, resource Workspace, options *WorkspacesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "WorkspacesClient.BeginCreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, quantumWorkspace, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, resource, options)
 	if err != nil {
 		return nil, err
 	}
@@ -96,16 +160,16 @@ func (client *WorkspacesClient) createOrUpdate(ctx context.Context, resourceGrou
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *WorkspacesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, quantumWorkspace Workspace, options *WorkspacesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *WorkspacesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, resource Workspace, options *WorkspacesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Quantum/workspaces/{workspaceName}"
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
 	if workspaceName == "" {
 		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
@@ -118,7 +182,7 @@ func (client *WorkspacesClient) createOrUpdateCreateRequest(ctx context.Context,
 	reqQP.Set("api-version", "2023-11-13-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, quantumWorkspace); err != nil {
+	if err := runtime.MarshalAsJSON(req, resource); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -167,7 +231,7 @@ func (client *WorkspacesClient) deleteOperation(ctx context.Context, resourceGro
 	if err != nil {
 		return nil, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted, http.StatusNoContent) {
+	if !runtime.HasStatusCode(httpResp, http.StatusAccepted, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
 		return nil, err
 	}
@@ -177,14 +241,14 @@ func (client *WorkspacesClient) deleteOperation(ctx context.Context, resourceGro
 // deleteCreateRequest creates the Delete request.
 func (client *WorkspacesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, options *WorkspacesClientBeginDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Quantum/workspaces/{workspaceName}"
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
 	if workspaceName == "" {
 		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
@@ -232,14 +296,14 @@ func (client *WorkspacesClient) Get(ctx context.Context, resourceGroupName strin
 // getCreateRequest creates the Get request.
 func (client *WorkspacesClient) getCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, options *WorkspacesClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Quantum/workspaces/{workspaceName}"
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
 	if workspaceName == "" {
 		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
@@ -296,14 +360,14 @@ func (client *WorkspacesClient) NewListByResourceGroupPager(resourceGroupName st
 // listByResourceGroupCreateRequest creates the ListByResourceGroup request.
 func (client *WorkspacesClient) listByResourceGroupCreateRequest(ctx context.Context, resourceGroupName string, options *WorkspacesClientListByResourceGroupOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Quantum/workspaces"
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -379,21 +443,147 @@ func (client *WorkspacesClient) listBySubscriptionHandleResponse(resp *http.Resp
 	return result, nil
 }
 
-// UpdateTags - Updates an existing workspace's tags.
+// ListKeys - Get the keys to use with the Quantum APIs. A key is used to authenticate and authorize access to the Quantum
+// REST APIs. Only one key is needed at a time; two are given to provide seamless key
+// regeneration.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-11-13-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the quantum workspace resource.
-//   - workspaceTags - Parameters supplied to update tags.
+//   - options - WorkspacesClientListKeysOptions contains the optional parameters for the WorkspacesClient.ListKeys method.
+func (client *WorkspacesClient) ListKeys(ctx context.Context, resourceGroupName string, workspaceName string, options *WorkspacesClientListKeysOptions) (WorkspacesClientListKeysResponse, error) {
+	var err error
+	const operationName = "WorkspacesClient.ListKeys"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.listKeysCreateRequest(ctx, resourceGroupName, workspaceName, options)
+	if err != nil {
+		return WorkspacesClientListKeysResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return WorkspacesClientListKeysResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return WorkspacesClientListKeysResponse{}, err
+	}
+	resp, err := client.listKeysHandleResponse(httpResp)
+	return resp, err
+}
+
+// listKeysCreateRequest creates the ListKeys request.
+func (client *WorkspacesClient) listKeysCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, options *WorkspacesClientListKeysOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Quantum/workspaces/{workspaceName}/listKeys"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if workspaceName == "" {
+		return nil, errors.New("parameter workspaceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-11-13-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// listKeysHandleResponse handles the ListKeys response.
+func (client *WorkspacesClient) listKeysHandleResponse(resp *http.Response) (WorkspacesClientListKeysResponse, error) {
+	result := WorkspacesClientListKeysResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ListKeysResult); err != nil {
+		return WorkspacesClientListKeysResponse{}, err
+	}
+	return result, nil
+}
+
+// RegenerateKeys - Regenerate either the primary or secondary key for use with the Quantum APIs. The old key will stop working
+// immediately.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-11-13-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the quantum workspace resource.
+//   - body - Which key to regenerate: primary or secondary.
+//   - options - WorkspacesClientRegenerateKeysOptions contains the optional parameters for the WorkspacesClient.RegenerateKeys
+//     method.
+func (client *WorkspacesClient) RegenerateKeys(ctx context.Context, resourceGroupName string, workspaceName string, body APIKeys, options *WorkspacesClientRegenerateKeysOptions) (WorkspacesClientRegenerateKeysResponse, error) {
+	var err error
+	const operationName = "WorkspacesClient.RegenerateKeys"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.regenerateKeysCreateRequest(ctx, resourceGroupName, workspaceName, body, options)
+	if err != nil {
+		return WorkspacesClientRegenerateKeysResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return WorkspacesClientRegenerateKeysResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusNoContent) {
+		err = runtime.NewResponseError(httpResp)
+		return WorkspacesClientRegenerateKeysResponse{}, err
+	}
+	return WorkspacesClientRegenerateKeysResponse{}, nil
+}
+
+// regenerateKeysCreateRequest creates the RegenerateKeys request.
+func (client *WorkspacesClient) regenerateKeysCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, body APIKeys, options *WorkspacesClientRegenerateKeysOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Quantum/workspaces/{workspaceName}/regenerateKey"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if workspaceName == "" {
+		return nil, errors.New("parameter workspaceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-11-13-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+// UpdateTags - Updates an existing Workspace's tags.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-11-13-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the quantum workspace resource.
+//   - properties - Parameters supplied to update tags.
 //   - options - WorkspacesClientUpdateTagsOptions contains the optional parameters for the WorkspacesClient.UpdateTags method.
-func (client *WorkspacesClient) UpdateTags(ctx context.Context, resourceGroupName string, workspaceName string, workspaceTags TagsObject, options *WorkspacesClientUpdateTagsOptions) (WorkspacesClientUpdateTagsResponse, error) {
+func (client *WorkspacesClient) UpdateTags(ctx context.Context, resourceGroupName string, workspaceName string, properties TagsObject, options *WorkspacesClientUpdateTagsOptions) (WorkspacesClientUpdateTagsResponse, error) {
 	var err error
 	const operationName = "WorkspacesClient.UpdateTags"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateTagsCreateRequest(ctx, resourceGroupName, workspaceName, workspaceTags, options)
+	req, err := client.updateTagsCreateRequest(ctx, resourceGroupName, workspaceName, properties, options)
 	if err != nil {
 		return WorkspacesClientUpdateTagsResponse{}, err
 	}
@@ -410,16 +600,16 @@ func (client *WorkspacesClient) UpdateTags(ctx context.Context, resourceGroupNam
 }
 
 // updateTagsCreateRequest creates the UpdateTags request.
-func (client *WorkspacesClient) updateTagsCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, workspaceTags TagsObject, options *WorkspacesClientUpdateTagsOptions) (*policy.Request, error) {
+func (client *WorkspacesClient) updateTagsCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, properties TagsObject, options *WorkspacesClientUpdateTagsOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Quantum/workspaces/{workspaceName}"
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
 	if workspaceName == "" {
 		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
@@ -432,7 +622,7 @@ func (client *WorkspacesClient) updateTagsCreateRequest(ctx context.Context, res
 	reqQP.Set("api-version", "2023-11-13-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, workspaceTags); err != nil {
+	if err := runtime.MarshalAsJSON(req, properties); err != nil {
 		return nil, err
 	}
 	return req, nil
