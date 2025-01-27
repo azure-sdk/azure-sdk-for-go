@@ -18,22 +18,6 @@ type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// WorkspaceClientCheckNameAvailabilityOptions contains the optional parameters for the WorkspaceClient.CheckNameAvailability
-// method.
-type WorkspaceClientCheckNameAvailabilityOptions struct {
-	// placeholder for future optional parameters
-}
-
-// WorkspaceClientListKeysOptions contains the optional parameters for the WorkspaceClient.ListKeys method.
-type WorkspaceClientListKeysOptions struct {
-	// placeholder for future optional parameters
-}
-
-// WorkspaceClientRegenerateKeysOptions contains the optional parameters for the WorkspaceClient.RegenerateKeys method.
-type WorkspaceClientRegenerateKeysOptions struct {
-	// placeholder for future optional parameters
-}
-
 // WorkspacesClientBeginCreateOrUpdateOptions contains the optional parameters for the WorkspacesClient.BeginCreateOrUpdate
 // method.
 type WorkspacesClientBeginCreateOrUpdateOptions struct {
@@ -45,6 +29,12 @@ type WorkspacesClientBeginCreateOrUpdateOptions struct {
 type WorkspacesClientBeginDeleteOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
+}
+
+// WorkspacesClientCheckNameAvailabilityOptions contains the optional parameters for the WorkspacesClient.CheckNameAvailability
+// method.
+type WorkspacesClientCheckNameAvailabilityOptions struct {
+	// placeholder for future optional parameters
 }
 
 // WorkspacesClientGetOptions contains the optional parameters for the WorkspacesClient.Get method.
@@ -61,6 +51,16 @@ type WorkspacesClientListByResourceGroupOptions struct {
 // WorkspacesClientListBySubscriptionOptions contains the optional parameters for the WorkspacesClient.NewListBySubscriptionPager
 // method.
 type WorkspacesClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspacesClientListKeysOptions contains the optional parameters for the WorkspacesClient.ListKeys method.
+type WorkspacesClientListKeysOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WorkspacesClientRegenerateKeysOptions contains the optional parameters for the WorkspacesClient.RegenerateKeys method.
+type WorkspacesClientRegenerateKeysOptions struct {
 	// placeholder for future optional parameters
 }
 
