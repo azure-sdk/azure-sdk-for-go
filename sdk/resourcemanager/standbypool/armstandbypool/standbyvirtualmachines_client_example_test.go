@@ -11,7 +11,7 @@ import (
 	"log"
 )
 
-// Generated from example definition: 2024-03-01/StandbyVirtualMachines_Get.json
+// Generated from example definition: 2025-03-01/StandbyVirtualMachines_Get.json
 func ExampleStandbyVirtualMachinesClient_Get() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -32,7 +32,7 @@ func ExampleStandbyVirtualMachinesClient_Get() {
 	// res = armstandbypool.StandbyVirtualMachinesClientGetResponse{
 	// 	StandbyVirtualMachineResource: &armstandbypool.StandbyVirtualMachineResource{
 	// 		Properties: &armstandbypool.StandbyVirtualMachineResourceProperties{
-	// 			VirtualMachineResourceID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000009/resourceGroups/rgstandbypool/provider/Microsoft.Compute/virtualMachines/virtualMachine"),
+	// 			VirtualMachineResourceID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000009/resourceGroups/rgstandbypool/providers/Microsoft.Compute/virtualMachines/virtualMachine"),
 	// 			ProvisioningState: to.Ptr(armstandbypool.ProvisioningStateSucceeded),
 	// 		},
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000009/resourceGroups/rgstandbypool/providers/Microsoft.StandbyPool/standbyVirtualMachinePools/pool/standbyVirtualMachines/virtualMachine"),
@@ -50,7 +50,7 @@ func ExampleStandbyVirtualMachinesClient_Get() {
 	// }
 }
 
-// Generated from example definition: 2024-03-01/StandbyVirtualMachines_ListByStandbyVirtualMachinePoolResource.json
+// Generated from example definition: 2025-03-01/StandbyVirtualMachines_ListByStandbyVirtualMachinePoolResource.json
 func ExampleStandbyVirtualMachinesClient_NewListByStandbyVirtualMachinePoolResourcePager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -77,7 +77,7 @@ func ExampleStandbyVirtualMachinesClient_NewListByStandbyVirtualMachinePoolResou
 		// 		Value: []*armstandbypool.StandbyVirtualMachineResource{
 		// 			{
 		// 				Properties: &armstandbypool.StandbyVirtualMachineResourceProperties{
-		// 					VirtualMachineResourceID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000009/resourceGroups/rgstandbypool/provider/Microsoft.Compute/virtualMachines/virtualMachine"),
+		// 					VirtualMachineResourceID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000009/resourceGroups/rgstandbypool/providers/Microsoft.Compute/virtualMachines/virtualMachine"),
 		// 					ProvisioningState: to.Ptr(armstandbypool.ProvisioningStateSucceeded),
 		// 				},
 		// 				ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000009/resourceGroups/rgstandbypool/providers/Microsoft.StandbyPool/standbyVirtualMachinePools/pool/standbyVirtualMachines/virtualMachine"),

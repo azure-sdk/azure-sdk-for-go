@@ -244,6 +244,37 @@ func (p *PoolResourceStateCount) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type PoolStatus.
+func (p PoolStatus) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "code", p.Code)
+	populate(objectMap, "message", p.Message)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type PoolStatus.
+func (p *PoolStatus) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", p, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "code":
+			err = unpopulate(val, "Code", &p.Code)
+			delete(rawMsg, key)
+		case "message":
+			err = unpopulate(val, "Message", &p.Message)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", p, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type StandbyContainerGroupPoolElasticityProfile.
 func (s StandbyContainerGroupPoolElasticityProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -533,6 +564,7 @@ func (s StandbyContainerGroupPoolRuntimeViewResourceProperties) MarshalJSON() ([
 	objectMap := make(map[string]any)
 	populate(objectMap, "instanceCountSummary", s.InstanceCountSummary)
 	populate(objectMap, "provisioningState", s.ProvisioningState)
+	populate(objectMap, "status", s.Status)
 	return json.Marshal(objectMap)
 }
 
@@ -550,6 +582,9 @@ func (s *StandbyContainerGroupPoolRuntimeViewResourceProperties) UnmarshalJSON(d
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &s.ProvisioningState)
+			delete(rawMsg, key)
+		case "status":
+			err = unpopulate(val, "Status", &s.Status)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -856,6 +891,7 @@ func (s StandbyVirtualMachinePoolRuntimeViewResourceProperties) MarshalJSON() ([
 	objectMap := make(map[string]any)
 	populate(objectMap, "instanceCountSummary", s.InstanceCountSummary)
 	populate(objectMap, "provisioningState", s.ProvisioningState)
+	populate(objectMap, "status", s.Status)
 	return json.Marshal(objectMap)
 }
 
@@ -873,6 +909,9 @@ func (s *StandbyVirtualMachinePoolRuntimeViewResourceProperties) UnmarshalJSON(d
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &s.ProvisioningState)
+			delete(rawMsg, key)
+		case "status":
+			err = unpopulate(val, "Status", &s.Status)
 			delete(rawMsg, key)
 		}
 		if err != nil {

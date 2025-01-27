@@ -11,7 +11,7 @@ import (
 	"log"
 )
 
-// Generated from example definition: 2024-03-01/StandbyContainerGroupPoolRuntimeViews_Get.json
+// Generated from example definition: 2025-03-01/StandbyContainerGroupPoolRuntimeViews_Get.json
 func ExampleStandbyContainerGroupPoolRuntimeViewsClient_Get() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -51,6 +51,10 @@ func ExampleStandbyContainerGroupPoolRuntimeViewsClient_Get() {
 	// 				},
 	// 			},
 	// 			ProvisioningState: to.Ptr(armstandbypool.ProvisioningStateSucceeded),
+	// 			Status: &armstandbypool.PoolStatus{
+	// 				Code: to.Ptr(armstandbypool.HealthStateCodeHealthy),
+	// 				Message: to.Ptr("The pool is healthy."),
+	// 			},
 	// 		},
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000009/resourceGroups/rgstandbypool/providers/Microsoft.StandbyPool/standbyContainerGroupPools/pool/runtimeViews/latest"),
 	// 		Name: to.Ptr("pool"),
@@ -67,7 +71,7 @@ func ExampleStandbyContainerGroupPoolRuntimeViewsClient_Get() {
 	// }
 }
 
-// Generated from example definition: 2024-03-01/StandbyContainerGroupPoolRuntimeViews_ListByStandbyPool.json
+// Generated from example definition: 2025-03-01/StandbyContainerGroupPoolRuntimeViews_ListByStandbyPool.json
 func ExampleStandbyContainerGroupPoolRuntimeViewsClient_NewListByStandbyPoolPager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -113,6 +117,10 @@ func ExampleStandbyContainerGroupPoolRuntimeViewsClient_NewListByStandbyPoolPage
 		// 						},
 		// 					},
 		// 					ProvisioningState: to.Ptr(armstandbypool.ProvisioningStateSucceeded),
+		// 					Status: &armstandbypool.PoolStatus{
+		// 						Code: to.Ptr(armstandbypool.HealthStateCodeHealthy),
+		// 						Message: to.Ptr("The pool is healthy."),
+		// 					},
 		// 				},
 		// 				ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000009/resourceGroups/rgstandbypool/providers/Microsoft.StandbyPool/standbyContainerGroupPools/pool/runtimeViews/latest"),
 		// 				Name: to.Ptr("pool"),
