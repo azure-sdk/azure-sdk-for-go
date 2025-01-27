@@ -15,7 +15,8 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v6"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v7"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -47,19 +48,27 @@ type VirtualMachineImagesServer struct {
 	// ListSKUs is the fake for method VirtualMachineImagesClient.ListSKUs
 	// HTTP status codes to indicate success: http.StatusOK
 	ListSKUs func(ctx context.Context, location string, publisherName string, offer string, options *armcompute.VirtualMachineImagesClientListSKUsOptions) (resp azfake.Responder[armcompute.VirtualMachineImagesClientListSKUsResponse], errResp azfake.ErrorResponder)
+
+	// NewListWithPropertiesPager is the fake for method VirtualMachineImagesClient.NewListWithPropertiesPager
+	// HTTP status codes to indicate success: http.StatusOK
+	NewListWithPropertiesPager func(location string, publisherName string, offer string, skus string, expand armcompute.Expand, options *armcompute.VirtualMachineImagesClientListWithPropertiesOptions) (resp azfake.PagerResponder[armcompute.VirtualMachineImagesClientListWithPropertiesResponse])
 }
 
 // NewVirtualMachineImagesServerTransport creates a new instance of VirtualMachineImagesServerTransport with the provided implementation.
 // The returned VirtualMachineImagesServerTransport instance is connected to an instance of armcompute.VirtualMachineImagesClient via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewVirtualMachineImagesServerTransport(srv *VirtualMachineImagesServer) *VirtualMachineImagesServerTransport {
-	return &VirtualMachineImagesServerTransport{srv: srv}
+	return &VirtualMachineImagesServerTransport{
+		srv:                        srv,
+		newListWithPropertiesPager: newTracker[azfake.PagerResponder[armcompute.VirtualMachineImagesClientListWithPropertiesResponse]](),
+	}
 }
 
 // VirtualMachineImagesServerTransport connects instances of armcompute.VirtualMachineImagesClient to instances of VirtualMachineImagesServer.
 // Don't use this type directly, use NewVirtualMachineImagesServerTransport instead.
 type VirtualMachineImagesServerTransport struct {
-	srv *VirtualMachineImagesServer
+	srv                        *VirtualMachineImagesServer
+	newListWithPropertiesPager *tracker[azfake.PagerResponder[armcompute.VirtualMachineImagesClientListWithPropertiesResponse]]
 }
 
 // Do implements the policy.Transporter interface for VirtualMachineImagesServerTransport.
@@ -86,6 +95,8 @@ func (v *VirtualMachineImagesServerTransport) Do(req *http.Request) (*http.Respo
 		resp, err = v.dispatchListPublishers(req)
 	case "VirtualMachineImagesClient.ListSKUs":
 		resp, err = v.dispatchListSKUs(req)
+	case "VirtualMachineImagesClient.NewListWithPropertiesPager":
+		resp, err = v.dispatchNewListWithPropertiesPager(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -344,6 +355,92 @@ func (v *VirtualMachineImagesServerTransport) dispatchListSKUs(req *http.Request
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).VirtualMachineImageResourceArray, req)
 	if err != nil {
 		return nil, err
+	}
+	return resp, nil
+}
+
+func (v *VirtualMachineImagesServerTransport) dispatchNewListWithPropertiesPager(req *http.Request) (*http.Response, error) {
+	if v.srv.NewListWithPropertiesPager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListWithPropertiesPager not implemented")}
+	}
+	newListWithPropertiesPager := v.newListWithPropertiesPager.get(req)
+	if newListWithPropertiesPager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Compute/locations/(?P<location>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/publishers/(?P<publisherName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/artifacttypes/vmimage/offers/(?P<offer>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/skus/(?P<skus>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/versions`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 5 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		qp := req.URL.Query()
+		locationParam, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
+		if err != nil {
+			return nil, err
+		}
+		publisherNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("publisherName")])
+		if err != nil {
+			return nil, err
+		}
+		offerParam, err := url.PathUnescape(matches[regex.SubexpIndex("offer")])
+		if err != nil {
+			return nil, err
+		}
+		skusParam, err := url.PathUnescape(matches[regex.SubexpIndex("skus")])
+		if err != nil {
+			return nil, err
+		}
+		expandParam, err := parseWithCast(qp.Get("$expand"), func(v string) (armcompute.Expand, error) {
+			p, unescapeErr := url.QueryUnescape(v)
+			if unescapeErr != nil {
+				return "", unescapeErr
+			}
+			return armcompute.Expand(p), nil
+		})
+		if err != nil {
+			return nil, err
+		}
+		topUnescaped, err := url.QueryUnescape(qp.Get("$top"))
+		if err != nil {
+			return nil, err
+		}
+		topParam, err := parseOptional(topUnescaped, func(v string) (int32, error) {
+			p, parseErr := strconv.ParseInt(v, 10, 32)
+			if parseErr != nil {
+				return 0, parseErr
+			}
+			return int32(p), nil
+		})
+		if err != nil {
+			return nil, err
+		}
+		orderbyUnescaped, err := url.QueryUnescape(qp.Get("$orderby"))
+		if err != nil {
+			return nil, err
+		}
+		orderbyParam := getOptional(orderbyUnescaped)
+		var options *armcompute.VirtualMachineImagesClientListWithPropertiesOptions
+		if topParam != nil || orderbyParam != nil {
+			options = &armcompute.VirtualMachineImagesClientListWithPropertiesOptions{
+				Top:     topParam,
+				Orderby: orderbyParam,
+			}
+		}
+		resp := v.srv.NewListWithPropertiesPager(locationParam, publisherNameParam, offerParam, skusParam, expandParam, options)
+		newListWithPropertiesPager = &resp
+		v.newListWithPropertiesPager.add(req, newListWithPropertiesPager)
+		server.PagerResponderInjectNextLinks(newListWithPropertiesPager, req, func(page *armcompute.VirtualMachineImagesClientListWithPropertiesResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
+	}
+	resp, err := server.PagerResponderNext(newListWithPropertiesPager, req)
+	if err != nil {
+		return nil, err
+	}
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+		v.newListWithPropertiesPager.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+	}
+	if !server.PagerResponderMore(newListWithPropertiesPager) {
+		v.newListWithPropertiesPager.remove(req)
 	}
 	return resp, nil
 }
