@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/keyvault/armkeyvault"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/keyvault/armkeyvault/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -28,18 +28,6 @@ type VaultsServer struct {
 	// CheckNameAvailability is the fake for method VaultsClient.CheckNameAvailability
 	// HTTP status codes to indicate success: http.StatusOK
 	CheckNameAvailability func(ctx context.Context, vaultName armkeyvault.VaultCheckNameAvailabilityParameters, options *armkeyvault.VaultsClientCheckNameAvailabilityOptions) (resp azfake.Responder[armkeyvault.VaultsClientCheckNameAvailabilityResponse], errResp azfake.ErrorResponder)
-
-	// BeginCreateOrUpdate is the fake for method VaultsClient.BeginCreateOrUpdate
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, vaultName string, parameters armkeyvault.VaultCreateOrUpdateParameters, options *armkeyvault.VaultsClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armkeyvault.VaultsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
-
-	// Delete is the fake for method VaultsClient.Delete
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
-	Delete func(ctx context.Context, resourceGroupName string, vaultName string, options *armkeyvault.VaultsClientDeleteOptions) (resp azfake.Responder[armkeyvault.VaultsClientDeleteResponse], errResp azfake.ErrorResponder)
-
-	// Get is the fake for method VaultsClient.Get
-	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceGroupName string, vaultName string, options *armkeyvault.VaultsClientGetOptions) (resp azfake.Responder[armkeyvault.VaultsClientGetResponse], errResp azfake.ErrorResponder)
 
 	// GetDeleted is the fake for method VaultsClient.GetDeleted
 	// HTTP status codes to indicate success: http.StatusOK
@@ -65,10 +53,6 @@ type VaultsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginPurgeDeleted func(ctx context.Context, vaultName string, location string, options *armkeyvault.VaultsClientBeginPurgeDeletedOptions) (resp azfake.PollerResponder[armkeyvault.VaultsClientPurgeDeletedResponse], errResp azfake.ErrorResponder)
 
-	// Update is the fake for method VaultsClient.Update
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	Update func(ctx context.Context, resourceGroupName string, vaultName string, parameters armkeyvault.VaultPatchParameters, options *armkeyvault.VaultsClientUpdateOptions) (resp azfake.Responder[armkeyvault.VaultsClientUpdateResponse], errResp azfake.ErrorResponder)
-
 	// UpdateAccessPolicy is the fake for method VaultsClient.UpdateAccessPolicy
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
 	UpdateAccessPolicy func(ctx context.Context, resourceGroupName string, vaultName string, operationKind armkeyvault.AccessPolicyUpdateKind, parameters armkeyvault.VaultAccessPolicyParameters, options *armkeyvault.VaultsClientUpdateAccessPolicyOptions) (resp azfake.Responder[armkeyvault.VaultsClientUpdateAccessPolicyResponse], errResp azfake.ErrorResponder)
@@ -80,7 +64,6 @@ type VaultsServer struct {
 func NewVaultsServerTransport(srv *VaultsServer) *VaultsServerTransport {
 	return &VaultsServerTransport{
 		srv:                         srv,
-		beginCreateOrUpdate:         newTracker[azfake.PollerResponder[armkeyvault.VaultsClientCreateOrUpdateResponse]](),
 		newListPager:                newTracker[azfake.PagerResponder[armkeyvault.VaultsClientListResponse]](),
 		newListByResourceGroupPager: newTracker[azfake.PagerResponder[armkeyvault.VaultsClientListByResourceGroupResponse]](),
 		newListBySubscriptionPager:  newTracker[azfake.PagerResponder[armkeyvault.VaultsClientListBySubscriptionResponse]](),
@@ -93,7 +76,6 @@ func NewVaultsServerTransport(srv *VaultsServer) *VaultsServerTransport {
 // Don't use this type directly, use NewVaultsServerTransport instead.
 type VaultsServerTransport struct {
 	srv                         *VaultsServer
-	beginCreateOrUpdate         *tracker[azfake.PollerResponder[armkeyvault.VaultsClientCreateOrUpdateResponse]]
 	newListPager                *tracker[azfake.PagerResponder[armkeyvault.VaultsClientListResponse]]
 	newListByResourceGroupPager *tracker[azfake.PagerResponder[armkeyvault.VaultsClientListByResourceGroupResponse]]
 	newListBySubscriptionPager  *tracker[azfake.PagerResponder[armkeyvault.VaultsClientListBySubscriptionResponse]]
@@ -115,12 +97,6 @@ func (v *VaultsServerTransport) Do(req *http.Request) (*http.Response, error) {
 	switch method {
 	case "VaultsClient.CheckNameAvailability":
 		resp, err = v.dispatchCheckNameAvailability(req)
-	case "VaultsClient.BeginCreateOrUpdate":
-		resp, err = v.dispatchBeginCreateOrUpdate(req)
-	case "VaultsClient.Delete":
-		resp, err = v.dispatchDelete(req)
-	case "VaultsClient.Get":
-		resp, err = v.dispatchGet(req)
 	case "VaultsClient.GetDeleted":
 		resp, err = v.dispatchGetDeleted(req)
 	case "VaultsClient.NewListPager":
@@ -133,8 +109,6 @@ func (v *VaultsServerTransport) Do(req *http.Request) (*http.Response, error) {
 		resp, err = v.dispatchNewListDeletedPager(req)
 	case "VaultsClient.BeginPurgeDeleted":
 		resp, err = v.dispatchBeginPurgeDeleted(req)
-	case "VaultsClient.Update":
-		resp, err = v.dispatchUpdate(req)
 	case "VaultsClient.UpdateAccessPolicy":
 		resp, err = v.dispatchUpdateAccessPolicy(req)
 	default:
@@ -171,120 +145,6 @@ func (v *VaultsServerTransport) dispatchCheckNameAvailability(req *http.Request)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).CheckNameAvailabilityResult, req)
-	if err != nil {
-		return nil, err
-	}
-	return resp, nil
-}
-
-func (v *VaultsServerTransport) dispatchBeginCreateOrUpdate(req *http.Request) (*http.Response, error) {
-	if v.srv.BeginCreateOrUpdate == nil {
-		return nil, &nonRetriableError{errors.New("fake for method BeginCreateOrUpdate not implemented")}
-	}
-	beginCreateOrUpdate := v.beginCreateOrUpdate.get(req)
-	if beginCreateOrUpdate == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.KeyVault/vaults/(?P<vaultName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		body, err := server.UnmarshalRequestAsJSON[armkeyvault.VaultCreateOrUpdateParameters](req)
-		if err != nil {
-			return nil, err
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		vaultNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("vaultName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := v.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, vaultNameParam, body, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
-		beginCreateOrUpdate = &respr
-		v.beginCreateOrUpdate.add(req, beginCreateOrUpdate)
-	}
-
-	resp, err := server.PollerResponderNext(beginCreateOrUpdate, req)
-	if err != nil {
-		return nil, err
-	}
-
-	if !contains([]int{http.StatusOK, http.StatusCreated}, resp.StatusCode) {
-		v.beginCreateOrUpdate.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", resp.StatusCode)}
-	}
-	if !server.PollerResponderMore(beginCreateOrUpdate) {
-		v.beginCreateOrUpdate.remove(req)
-	}
-
-	return resp, nil
-}
-
-func (v *VaultsServerTransport) dispatchDelete(req *http.Request) (*http.Response, error) {
-	if v.srv.Delete == nil {
-		return nil, &nonRetriableError{errors.New("fake for method Delete not implemented")}
-	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.KeyVault/vaults/(?P<vaultName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 3 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-	if err != nil {
-		return nil, err
-	}
-	vaultNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("vaultName")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := v.srv.Delete(req.Context(), resourceGroupNameParam, vaultNameParam, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK, http.StatusNoContent}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusNoContent", respContent.HTTPStatus)}
-	}
-	resp, err := server.NewResponse(respContent, req, nil)
-	if err != nil {
-		return nil, err
-	}
-	return resp, nil
-}
-
-func (v *VaultsServerTransport) dispatchGet(req *http.Request) (*http.Response, error) {
-	if v.srv.Get == nil {
-		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
-	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.KeyVault/vaults/(?P<vaultName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 3 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-	if err != nil {
-		return nil, err
-	}
-	vaultNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("vaultName")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := v.srv.Get(req.Context(), resourceGroupNameParam, vaultNameParam, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Vault, req)
 	if err != nil {
 		return nil, err
 	}
@@ -564,43 +424,6 @@ func (v *VaultsServerTransport) dispatchBeginPurgeDeleted(req *http.Request) (*h
 		v.beginPurgeDeleted.remove(req)
 	}
 
-	return resp, nil
-}
-
-func (v *VaultsServerTransport) dispatchUpdate(req *http.Request) (*http.Response, error) {
-	if v.srv.Update == nil {
-		return nil, &nonRetriableError{errors.New("fake for method Update not implemented")}
-	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.KeyVault/vaults/(?P<vaultName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 3 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	body, err := server.UnmarshalRequestAsJSON[armkeyvault.VaultPatchParameters](req)
-	if err != nil {
-		return nil, err
-	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-	if err != nil {
-		return nil, err
-	}
-	vaultNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("vaultName")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := v.srv.Update(req.Context(), resourceGroupNameParam, vaultNameParam, body, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK, http.StatusCreated}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Vault, req)
-	if err != nil {
-		return nil, err
-	}
 	return resp, nil
 }
 
