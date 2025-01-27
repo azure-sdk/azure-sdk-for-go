@@ -176,6 +176,14 @@ func (c *ClientFactory) NewPrivateLinkResourcesClient() *PrivateLinkResourcesCli
 	}
 }
 
+// NewQuotaUsagesClient creates a new instance of QuotaUsagesClient.
+func (c *ClientFactory) NewQuotaUsagesClient() *QuotaUsagesClient {
+	return &QuotaUsagesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewReplicasClient creates a new instance of ReplicasClient.
 func (c *ClientFactory) NewReplicasClient() *ReplicasClient {
 	return &ReplicasClient{
@@ -203,6 +211,14 @@ func (c *ClientFactory) NewServerThreatProtectionSettingsClient() *ServerThreatP
 // NewServersClient creates a new instance of ServersClient.
 func (c *ClientFactory) NewServersClient() *ServersClient {
 	return &ServersClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewTuningOptionsClient creates a new instance of TuningOptionsClient.
+func (c *ClientFactory) NewTuningOptionsClient() *TuningOptionsClient {
+	return &TuningOptionsClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
