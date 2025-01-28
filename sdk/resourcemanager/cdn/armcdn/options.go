@@ -460,6 +460,20 @@ type ProfilesClientBeginCanMigrateOptions struct {
 	ResumeToken string
 }
 
+// ProfilesClientBeginCdnCanMigrateToAfdOptions contains the optional parameters for the ProfilesClient.BeginCdnCanMigrateToAfd
+// method.
+type ProfilesClientBeginCdnCanMigrateToAfdOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ProfilesClientBeginCdnMigrateToAfdOptions contains the optional parameters for the ProfilesClient.BeginCdnMigrateToAfd
+// method.
+type ProfilesClientBeginCdnMigrateToAfdOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // ProfilesClientBeginCreateOptions contains the optional parameters for the ProfilesClient.BeginCreate method.
 type ProfilesClientBeginCreateOptions struct {
 	// Resumes the LRO from the provided token.
@@ -474,6 +488,12 @@ type ProfilesClientBeginDeleteOptions struct {
 
 // ProfilesClientBeginMigrateOptions contains the optional parameters for the ProfilesClient.BeginMigrate method.
 type ProfilesClientBeginMigrateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ProfilesClientBeginMigrationAbortOptions contains the optional parameters for the ProfilesClient.BeginMigrationAbort method.
+type ProfilesClientBeginMigrationAbortOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }

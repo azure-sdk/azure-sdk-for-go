@@ -419,23 +419,23 @@ func (client *AccountsClient) listCreateRequest(ctx context.Context, options *Ac
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
+	if options != nil && options.Count != nil {
+		reqQP.Set("$count", strconv.FormatBool(*options.Count))
+	}
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
-	}
-	if options != nil && options.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
-	}
-	if options != nil && options.Skip != nil {
-		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
-	}
-	if options != nil && options.Select != nil {
-		reqQP.Set("$select", *options.Select)
 	}
 	if options != nil && options.Orderby != nil {
 		reqQP.Set("$orderby", *options.Orderby)
 	}
-	if options != nil && options.Count != nil {
-		reqQP.Set("$count", strconv.FormatBool(*options.Count))
+	if options != nil && options.Select != nil {
+		reqQP.Set("$select", *options.Select)
+	}
+	if options != nil && options.Skip != nil {
+		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
+	}
+	if options != nil && options.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
 	reqQP.Set("api-version", "2016-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
@@ -498,23 +498,23 @@ func (client *AccountsClient) listByResourceGroupCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
+	if options != nil && options.Count != nil {
+		reqQP.Set("$count", strconv.FormatBool(*options.Count))
+	}
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
-	}
-	if options != nil && options.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
-	}
-	if options != nil && options.Skip != nil {
-		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
-	}
-	if options != nil && options.Select != nil {
-		reqQP.Set("$select", *options.Select)
 	}
 	if options != nil && options.Orderby != nil {
 		reqQP.Set("$orderby", *options.Orderby)
 	}
-	if options != nil && options.Count != nil {
-		reqQP.Set("$count", strconv.FormatBool(*options.Count))
+	if options != nil && options.Select != nil {
+		reqQP.Set("$select", *options.Select)
+	}
+	if options != nil && options.Skip != nil {
+		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
+	}
+	if options != nil && options.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
 	reqQP.Set("api-version", "2016-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
