@@ -31,7 +31,7 @@ type SetDefinitionsServer struct {
 
 	// CreateOrUpdateAtManagementGroup is the fake for method SetDefinitionsClient.CreateOrUpdateAtManagementGroup
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	CreateOrUpdateAtManagementGroup func(ctx context.Context, policySetDefinitionName string, managementGroupID string, parameters armpolicy.SetDefinition, options *armpolicy.SetDefinitionsClientCreateOrUpdateAtManagementGroupOptions) (resp azfake.Responder[armpolicy.SetDefinitionsClientCreateOrUpdateAtManagementGroupResponse], errResp azfake.ErrorResponder)
+	CreateOrUpdateAtManagementGroup func(ctx context.Context, managementGroupID string, policySetDefinitionName string, parameters armpolicy.SetDefinition, options *armpolicy.SetDefinitionsClientCreateOrUpdateAtManagementGroupOptions) (resp azfake.Responder[armpolicy.SetDefinitionsClientCreateOrUpdateAtManagementGroupResponse], errResp azfake.ErrorResponder)
 
 	// Delete is the fake for method SetDefinitionsClient.Delete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
@@ -39,7 +39,7 @@ type SetDefinitionsServer struct {
 
 	// DeleteAtManagementGroup is the fake for method SetDefinitionsClient.DeleteAtManagementGroup
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
-	DeleteAtManagementGroup func(ctx context.Context, policySetDefinitionName string, managementGroupID string, options *armpolicy.SetDefinitionsClientDeleteAtManagementGroupOptions) (resp azfake.Responder[armpolicy.SetDefinitionsClientDeleteAtManagementGroupResponse], errResp azfake.ErrorResponder)
+	DeleteAtManagementGroup func(ctx context.Context, managementGroupID string, policySetDefinitionName string, options *armpolicy.SetDefinitionsClientDeleteAtManagementGroupOptions) (resp azfake.Responder[armpolicy.SetDefinitionsClientDeleteAtManagementGroupResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method SetDefinitionsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
@@ -47,7 +47,7 @@ type SetDefinitionsServer struct {
 
 	// GetAtManagementGroup is the fake for method SetDefinitionsClient.GetAtManagementGroup
 	// HTTP status codes to indicate success: http.StatusOK
-	GetAtManagementGroup func(ctx context.Context, policySetDefinitionName string, managementGroupID string, options *armpolicy.SetDefinitionsClientGetAtManagementGroupOptions) (resp azfake.Responder[armpolicy.SetDefinitionsClientGetAtManagementGroupResponse], errResp azfake.ErrorResponder)
+	GetAtManagementGroup func(ctx context.Context, managementGroupID string, policySetDefinitionName string, options *armpolicy.SetDefinitionsClientGetAtManagementGroupOptions) (resp azfake.Responder[armpolicy.SetDefinitionsClientGetAtManagementGroupResponse], errResp azfake.ErrorResponder)
 
 	// GetBuiltIn is the fake for method SetDefinitionsClient.GetBuiltIn
 	// HTTP status codes to indicate success: http.StatusOK
@@ -177,15 +177,15 @@ func (s *SetDefinitionsServerTransport) dispatchCreateOrUpdateAtManagementGroup(
 	if err != nil {
 		return nil, err
 	}
-	policySetDefinitionNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("policySetDefinitionName")])
-	if err != nil {
-		return nil, err
-	}
 	managementGroupIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("managementGroupId")])
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := s.srv.CreateOrUpdateAtManagementGroup(req.Context(), policySetDefinitionNameParam, managementGroupIDParam, body, nil)
+	policySetDefinitionNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("policySetDefinitionName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := s.srv.CreateOrUpdateAtManagementGroup(req.Context(), managementGroupIDParam, policySetDefinitionNameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -239,15 +239,15 @@ func (s *SetDefinitionsServerTransport) dispatchDeleteAtManagementGroup(req *htt
 	if matches == nil || len(matches) < 2 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	policySetDefinitionNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("policySetDefinitionName")])
-	if err != nil {
-		return nil, err
-	}
 	managementGroupIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("managementGroupId")])
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := s.srv.DeleteAtManagementGroup(req.Context(), policySetDefinitionNameParam, managementGroupIDParam, nil)
+	policySetDefinitionNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("policySetDefinitionName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := s.srv.DeleteAtManagementGroup(req.Context(), managementGroupIDParam, policySetDefinitionNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -272,11 +272,23 @@ func (s *SetDefinitionsServerTransport) dispatchGet(req *http.Request) (*http.Re
 	if matches == nil || len(matches) < 2 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
+	qp := req.URL.Query()
 	policySetDefinitionNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("policySetDefinitionName")])
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := s.srv.Get(req.Context(), policySetDefinitionNameParam, nil)
+	expandUnescaped, err := url.QueryUnescape(qp.Get("$expand"))
+	if err != nil {
+		return nil, err
+	}
+	expandParam := getOptional(expandUnescaped)
+	var options *armpolicy.SetDefinitionsClientGetOptions
+	if expandParam != nil {
+		options = &armpolicy.SetDefinitionsClientGetOptions{
+			Expand: expandParam,
+		}
+	}
+	respr, errRespr := s.srv.Get(req.Context(), policySetDefinitionNameParam, options)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -301,15 +313,27 @@ func (s *SetDefinitionsServerTransport) dispatchGetAtManagementGroup(req *http.R
 	if matches == nil || len(matches) < 2 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	policySetDefinitionNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("policySetDefinitionName")])
-	if err != nil {
-		return nil, err
-	}
+	qp := req.URL.Query()
 	managementGroupIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("managementGroupId")])
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := s.srv.GetAtManagementGroup(req.Context(), policySetDefinitionNameParam, managementGroupIDParam, nil)
+	policySetDefinitionNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("policySetDefinitionName")])
+	if err != nil {
+		return nil, err
+	}
+	expandUnescaped, err := url.QueryUnescape(qp.Get("$expand"))
+	if err != nil {
+		return nil, err
+	}
+	expandParam := getOptional(expandUnescaped)
+	var options *armpolicy.SetDefinitionsClientGetAtManagementGroupOptions
+	if expandParam != nil {
+		options = &armpolicy.SetDefinitionsClientGetAtManagementGroupOptions{
+			Expand: expandParam,
+		}
+	}
+	respr, errRespr := s.srv.GetAtManagementGroup(req.Context(), managementGroupIDParam, policySetDefinitionNameParam, options)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -334,11 +358,23 @@ func (s *SetDefinitionsServerTransport) dispatchGetBuiltIn(req *http.Request) (*
 	if matches == nil || len(matches) < 1 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
+	qp := req.URL.Query()
 	policySetDefinitionNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("policySetDefinitionName")])
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := s.srv.GetBuiltIn(req.Context(), policySetDefinitionNameParam, nil)
+	expandUnescaped, err := url.QueryUnescape(qp.Get("$expand"))
+	if err != nil {
+		return nil, err
+	}
+	expandParam := getOptional(expandUnescaped)
+	var options *armpolicy.SetDefinitionsClientGetBuiltInOptions
+	if expandParam != nil {
+		options = &armpolicy.SetDefinitionsClientGetBuiltInOptions{
+			Expand: expandParam,
+		}
+	}
+	respr, errRespr := s.srv.GetBuiltIn(req.Context(), policySetDefinitionNameParam, options)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -371,6 +407,11 @@ func (s *SetDefinitionsServerTransport) dispatchNewListPager(req *http.Request) 
 			return nil, err
 		}
 		filterParam := getOptional(filterUnescaped)
+		expandUnescaped, err := url.QueryUnescape(qp.Get("$expand"))
+		if err != nil {
+			return nil, err
+		}
+		expandParam := getOptional(expandUnescaped)
 		topUnescaped, err := url.QueryUnescape(qp.Get("$top"))
 		if err != nil {
 			return nil, err
@@ -386,9 +427,10 @@ func (s *SetDefinitionsServerTransport) dispatchNewListPager(req *http.Request) 
 			return nil, err
 		}
 		var options *armpolicy.SetDefinitionsClientListOptions
-		if filterParam != nil || topParam != nil {
+		if filterParam != nil || expandParam != nil || topParam != nil {
 			options = &armpolicy.SetDefinitionsClientListOptions{
 				Filter: filterParam,
+				Expand: expandParam,
 				Top:    topParam,
 			}
 		}
@@ -425,6 +467,11 @@ func (s *SetDefinitionsServerTransport) dispatchNewListBuiltInPager(req *http.Re
 			return nil, err
 		}
 		filterParam := getOptional(filterUnescaped)
+		expandUnescaped, err := url.QueryUnescape(qp.Get("$expand"))
+		if err != nil {
+			return nil, err
+		}
+		expandParam := getOptional(expandUnescaped)
 		topUnescaped, err := url.QueryUnescape(qp.Get("$top"))
 		if err != nil {
 			return nil, err
@@ -440,9 +487,10 @@ func (s *SetDefinitionsServerTransport) dispatchNewListBuiltInPager(req *http.Re
 			return nil, err
 		}
 		var options *armpolicy.SetDefinitionsClientListBuiltInOptions
-		if filterParam != nil || topParam != nil {
+		if filterParam != nil || expandParam != nil || topParam != nil {
 			options = &armpolicy.SetDefinitionsClientListBuiltInOptions{
 				Filter: filterParam,
+				Expand: expandParam,
 				Top:    topParam,
 			}
 		}
@@ -489,6 +537,11 @@ func (s *SetDefinitionsServerTransport) dispatchNewListByManagementGroupPager(re
 			return nil, err
 		}
 		filterParam := getOptional(filterUnescaped)
+		expandUnescaped, err := url.QueryUnescape(qp.Get("$expand"))
+		if err != nil {
+			return nil, err
+		}
+		expandParam := getOptional(expandUnescaped)
 		topUnescaped, err := url.QueryUnescape(qp.Get("$top"))
 		if err != nil {
 			return nil, err
@@ -504,9 +557,10 @@ func (s *SetDefinitionsServerTransport) dispatchNewListByManagementGroupPager(re
 			return nil, err
 		}
 		var options *armpolicy.SetDefinitionsClientListByManagementGroupOptions
-		if filterParam != nil || topParam != nil {
+		if filterParam != nil || expandParam != nil || topParam != nil {
 			options = &armpolicy.SetDefinitionsClientListByManagementGroupOptions{
 				Filter: filterParam,
+				Expand: expandParam,
 				Top:    topParam,
 			}
 		}
