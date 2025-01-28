@@ -73,6 +73,12 @@ type AutonomousDatabaseVersionsClientListByLocationResponse struct {
 	AutonomousDbVersionListResult
 }
 
+// AutonomousDatabasesClientChangeDisasterRecoveryConfigurationResponse contains the response from method AutonomousDatabasesClient.BeginChangeDisasterRecoveryConfiguration.
+type AutonomousDatabasesClientChangeDisasterRecoveryConfigurationResponse struct {
+	// Autonomous Database resource model.
+	AutonomousDatabase
+}
+
 // AutonomousDatabasesClientCreateOrUpdateResponse contains the response from method AutonomousDatabasesClient.BeginCreateOrUpdate.
 type AutonomousDatabasesClientCreateOrUpdateResponse struct {
 	// Autonomous Database resource model.
@@ -314,6 +320,11 @@ type GiVersionsClientListByLocationResponse struct {
 type OperationsClientListResponse struct {
 	// A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to get the next set of results.
 	OperationListResult
+}
+
+// OracleSubscriptionsClientAddAzureSubscriptionsResponse contains the response from method OracleSubscriptionsClient.BeginAddAzureSubscriptions.
+type OracleSubscriptionsClientAddAzureSubscriptionsResponse struct {
+	// placeholder for future response values
 }
 
 // OracleSubscriptionsClientCreateOrUpdateResponse contains the response from method OracleSubscriptionsClient.BeginCreateOrUpdate.
