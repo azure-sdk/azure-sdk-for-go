@@ -424,68 +424,6 @@ func (client *SQLPoolsClient) pauseCreateRequest(ctx context.Context, resourceGr
 	return req, nil
 }
 
-// Rename - Rename a SQL pool.
-// If the operation fails it returns an *azcore.ResponseError type.
-//
-// Generated from API version 2021-06-01
-//   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - workspaceName - The name of the workspace.
-//   - sqlPoolName - SQL pool name
-//   - parameters - The resource move definition for renaming this Sql pool.
-//   - options - SQLPoolsClientRenameOptions contains the optional parameters for the SQLPoolsClient.Rename method.
-func (client *SQLPoolsClient) Rename(ctx context.Context, resourceGroupName string, workspaceName string, sqlPoolName string, parameters ResourceMoveDefinition, options *SQLPoolsClientRenameOptions) (SQLPoolsClientRenameResponse, error) {
-	var err error
-	const operationName = "SQLPoolsClient.Rename"
-	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
-	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
-	defer func() { endSpan(err) }()
-	req, err := client.renameCreateRequest(ctx, resourceGroupName, workspaceName, sqlPoolName, parameters, options)
-	if err != nil {
-		return SQLPoolsClientRenameResponse{}, err
-	}
-	httpResp, err := client.internal.Pipeline().Do(req)
-	if err != nil {
-		return SQLPoolsClientRenameResponse{}, err
-	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
-		err = runtime.NewResponseError(httpResp)
-		return SQLPoolsClientRenameResponse{}, err
-	}
-	return SQLPoolsClientRenameResponse{}, nil
-}
-
-// renameCreateRequest creates the Rename request.
-func (client *SQLPoolsClient) renameCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, sqlPoolName string, parameters ResourceMoveDefinition, options *SQLPoolsClientRenameOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Synapse/workspaces/{workspaceName}/sqlPools/{sqlPoolName}/move"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if workspaceName == "" {
-		return nil, errors.New("parameter workspaceName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
-	if sqlPoolName == "" {
-		return nil, errors.New("parameter sqlPoolName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{sqlPoolName}", url.PathEscape(sqlPoolName))
-	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
-		return nil, err
-	}
-	return req, nil
-}
-
 // BeginResume - Resume a SQL pool
 // If the operation fails it returns an *azcore.ResponseError type.
 //
