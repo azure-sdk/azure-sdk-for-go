@@ -46,7 +46,7 @@ func NewCloudHsmClustersClient(subscriptionID string, credential azcore.TokenCre
 // BeginBackup - Create a backup of the Cloud HSM Cluster in the specified subscription
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-06-30-preview
+// Generated from API version 2025-03-31
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - cloudHsmClusterName - The name of the Cloud HSM Cluster within the specified resource group. Cloud HSM Cluster names must
 //     be between 3 and 23 characters in length.
@@ -73,7 +73,7 @@ func (client *CloudHsmClustersClient) BeginBackup(ctx context.Context, resourceG
 // Backup - Create a backup of the Cloud HSM Cluster in the specified subscription
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-06-30-preview
+// Generated from API version 2025-03-31
 func (client *CloudHsmClustersClient) backup(ctx context.Context, resourceGroupName string, cloudHsmClusterName string, options *CloudHsmClustersClientBeginBackupOptions) (*http.Response, error) {
 	var err error
 	const operationName = "CloudHsmClustersClient.BeginBackup"
@@ -115,7 +115,7 @@ func (client *CloudHsmClustersClient) backupCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-06-30-preview")
+	reqQP.Set("api-version", "2025-03-31")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.BackupRequestProperties != nil {
@@ -130,7 +130,7 @@ func (client *CloudHsmClustersClient) backupCreateRequest(ctx context.Context, r
 // BeginCreateOrUpdate - Create or Update a Cloud HSM Cluster in the specified subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-06-30-preview
+// Generated from API version 2025-03-31
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - cloudHsmClusterName - The name of the Cloud HSM Cluster within the specified resource group. Cloud HSM Cluster names must
 //     be between 3 and 23 characters in length.
@@ -158,7 +158,7 @@ func (client *CloudHsmClustersClient) BeginCreateOrUpdate(ctx context.Context, r
 // CreateOrUpdate - Create or Update a Cloud HSM Cluster in the specified subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-06-30-preview
+// Generated from API version 2025-03-31
 func (client *CloudHsmClustersClient) createOrUpdate(ctx context.Context, resourceGroupName string, cloudHsmClusterName string, body CloudHsmCluster, options *CloudHsmClustersClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "CloudHsmClustersClient.BeginCreateOrUpdate"
@@ -200,7 +200,7 @@ func (client *CloudHsmClustersClient) createOrUpdateCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-06-30-preview")
+	reqQP.Set("api-version", "2025-03-31")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -212,7 +212,7 @@ func (client *CloudHsmClustersClient) createOrUpdateCreateRequest(ctx context.Co
 // BeginDelete - Deletes the specified Cloud HSM Cluster
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-06-30-preview
+// Generated from API version 2025-03-31
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - cloudHsmClusterName - The name of the Cloud HSM Cluster within the specified resource group. Cloud HSM Cluster names must
 //     be between 3 and 23 characters in length.
@@ -239,7 +239,7 @@ func (client *CloudHsmClustersClient) BeginDelete(ctx context.Context, resourceG
 // Delete - Deletes the specified Cloud HSM Cluster
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-06-30-preview
+// Generated from API version 2025-03-31
 func (client *CloudHsmClustersClient) deleteOperation(ctx context.Context, resourceGroupName string, cloudHsmClusterName string, options *CloudHsmClustersClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "CloudHsmClustersClient.BeginDelete"
@@ -281,7 +281,7 @@ func (client *CloudHsmClustersClient) deleteCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-06-30-preview")
+	reqQP.Set("api-version", "2025-03-31")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -290,7 +290,7 @@ func (client *CloudHsmClustersClient) deleteCreateRequest(ctx context.Context, r
 // Get - Gets the specified Cloud HSM Cluster
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-06-30-preview
+// Generated from API version 2025-03-31
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - cloudHsmClusterName - The name of the Cloud HSM Cluster within the specified resource group. Cloud HSM Cluster names must
 //     be between 3 and 23 characters in length.
@@ -337,7 +337,7 @@ func (client *CloudHsmClustersClient) getCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-06-30-preview")
+	reqQP.Set("api-version", "2025-03-31")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -355,7 +355,7 @@ func (client *CloudHsmClustersClient) getHandleResponse(resp *http.Response) (Cl
 // NewListByResourceGroupPager - The List operation gets information about the Cloud HSM Clusters associated with the subscription
 // and within the specified resource group.
 //
-// Generated from API version 2024-06-30-preview
+// Generated from API version 2025-03-31
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - CloudHsmClustersClientListByResourceGroupOptions contains the optional parameters for the CloudHsmClustersClient.NewListByResourceGroupPager
 //     method.
@@ -401,7 +401,7 @@ func (client *CloudHsmClustersClient) listByResourceGroupCreateRequest(ctx conte
 	if options != nil && options.Skiptoken != nil {
 		reqQP.Set("$skiptoken", *options.Skiptoken)
 	}
-	reqQP.Set("api-version", "2024-06-30-preview")
+	reqQP.Set("api-version", "2025-03-31")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -418,7 +418,7 @@ func (client *CloudHsmClustersClient) listByResourceGroupHandleResponse(resp *ht
 
 // NewListBySubscriptionPager - The List operation gets information about the Cloud HSM Clusters associated with the subscription.
 //
-// Generated from API version 2024-06-30-preview
+// Generated from API version 2025-03-31
 //   - options - CloudHsmClustersClientListBySubscriptionOptions contains the optional parameters for the CloudHsmClustersClient.NewListBySubscriptionPager
 //     method.
 func (client *CloudHsmClustersClient) NewListBySubscriptionPager(options *CloudHsmClustersClientListBySubscriptionOptions) *runtime.Pager[CloudHsmClustersClientListBySubscriptionResponse] {
@@ -459,7 +459,7 @@ func (client *CloudHsmClustersClient) listBySubscriptionCreateRequest(ctx contex
 	if options != nil && options.Skiptoken != nil {
 		reqQP.Set("$skiptoken", *options.Skiptoken)
 	}
-	reqQP.Set("api-version", "2024-06-30-preview")
+	reqQP.Set("api-version", "2025-03-31")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -477,7 +477,7 @@ func (client *CloudHsmClustersClient) listBySubscriptionHandleResponse(resp *htt
 // BeginRestore - Restores all key materials of a specified Cloud HSM Cluster
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-06-30-preview
+// Generated from API version 2025-03-31
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - cloudHsmClusterName - The name of the Cloud HSM Cluster within the specified resource group. Cloud HSM Cluster names must
 //     be between 3 and 23 characters in length.
@@ -505,7 +505,7 @@ func (client *CloudHsmClustersClient) BeginRestore(ctx context.Context, resource
 // Restore - Restores all key materials of a specified Cloud HSM Cluster
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-06-30-preview
+// Generated from API version 2025-03-31
 func (client *CloudHsmClustersClient) restore(ctx context.Context, resourceGroupName string, cloudHsmClusterName string, restoreRequestProperties RestoreRequestProperties, options *CloudHsmClustersClientBeginRestoreOptions) (*http.Response, error) {
 	var err error
 	const operationName = "CloudHsmClustersClient.BeginRestore"
@@ -547,7 +547,7 @@ func (client *CloudHsmClustersClient) restoreCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-06-30-preview")
+	reqQP.Set("api-version", "2025-03-31")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, restoreRequestProperties); err != nil {
@@ -559,7 +559,7 @@ func (client *CloudHsmClustersClient) restoreCreateRequest(ctx context.Context, 
 // BeginUpdate - Update a Cloud HSM Cluster in the specified subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-06-30-preview
+// Generated from API version 2025-03-31
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - cloudHsmClusterName - The name of the Cloud HSM Cluster within the specified resource group. Cloud HSM Cluster names must
 //     be between 3 and 23 characters in length.
@@ -587,7 +587,7 @@ func (client *CloudHsmClustersClient) BeginUpdate(ctx context.Context, resourceG
 // Update - Update a Cloud HSM Cluster in the specified subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-06-30-preview
+// Generated from API version 2025-03-31
 func (client *CloudHsmClustersClient) update(ctx context.Context, resourceGroupName string, cloudHsmClusterName string, body CloudHsmClusterPatchParameters, options *CloudHsmClustersClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "CloudHsmClustersClient.BeginUpdate"
@@ -629,7 +629,7 @@ func (client *CloudHsmClustersClient) updateCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-06-30-preview")
+	reqQP.Set("api-version", "2025-03-31")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -642,7 +642,7 @@ func (client *CloudHsmClustersClient) updateCreateRequest(ctx context.Context, r
 // HSM Cluster resource in the specified subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-06-30-preview
+// Generated from API version 2025-03-31
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - cloudHsmClusterName - The name of the Cloud HSM Cluster within the specified resource group. Cloud HSM Cluster names must
 //     be between 3 and 23 characters in length.
@@ -670,7 +670,7 @@ func (client *CloudHsmClustersClient) BeginValidateBackupProperties(ctx context.
 // Cluster resource in the specified subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-06-30-preview
+// Generated from API version 2025-03-31
 func (client *CloudHsmClustersClient) validateBackupProperties(ctx context.Context, resourceGroupName string, cloudHsmClusterName string, options *CloudHsmClustersClientBeginValidateBackupPropertiesOptions) (*http.Response, error) {
 	var err error
 	const operationName = "CloudHsmClustersClient.BeginValidateBackupProperties"
@@ -712,7 +712,7 @@ func (client *CloudHsmClustersClient) validateBackupPropertiesCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-06-30-preview")
+	reqQP.Set("api-version", "2025-03-31")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.BackupRequestProperties != nil {
@@ -727,7 +727,7 @@ func (client *CloudHsmClustersClient) validateBackupPropertiesCreateRequest(ctx 
 // BeginValidateRestoreProperties - Queued validating pre restore operation
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-06-30-preview
+// Generated from API version 2025-03-31
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - cloudHsmClusterName - The name of the Cloud HSM Cluster within the specified resource group. Cloud HSM Cluster names must
 //     be between 3 and 23 characters in length.
@@ -754,7 +754,7 @@ func (client *CloudHsmClustersClient) BeginValidateRestoreProperties(ctx context
 // ValidateRestoreProperties - Queued validating pre restore operation
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-06-30-preview
+// Generated from API version 2025-03-31
 func (client *CloudHsmClustersClient) validateRestoreProperties(ctx context.Context, resourceGroupName string, cloudHsmClusterName string, options *CloudHsmClustersClientBeginValidateRestorePropertiesOptions) (*http.Response, error) {
 	var err error
 	const operationName = "CloudHsmClustersClient.BeginValidateRestoreProperties"
@@ -796,7 +796,7 @@ func (client *CloudHsmClustersClient) validateRestorePropertiesCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-06-30-preview")
+	reqQP.Set("api-version", "2025-03-31")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.RestoreRequestProperties != nil {

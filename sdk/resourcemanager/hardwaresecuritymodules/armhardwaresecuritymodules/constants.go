@@ -10,7 +10,7 @@ package armhardwaresecuritymodules
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hardwaresecuritymodules/armhardwaresecuritymodules"
-	moduleVersion = "v2.0.0-beta.2"
+	moduleVersion = "v2.0.0"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -284,6 +284,7 @@ const (
 	ProvisioningStateFailed       ProvisioningState = "Failed"
 	ProvisioningStateProvisioning ProvisioningState = "Provisioning"
 	ProvisioningStateSucceeded    ProvisioningState = "Succeeded"
+	ProvisioningStateUpdating     ProvisioningState = "Updating"
 )
 
 // PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
@@ -294,6 +295,7 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 		ProvisioningStateFailed,
 		ProvisioningStateProvisioning,
 		ProvisioningStateSucceeded,
+		ProvisioningStateUpdating,
 	}
 }
 
