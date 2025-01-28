@@ -46,7 +46,7 @@ func NewPrivateLinkResourcesClient(subscriptionID string, credential azcore.Toke
 // ListByBotResource - Gets the private link resources that need to be created for a Bot.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-15
+// Generated from API version 2023-09-15-preview
 //   - resourceGroupName - The name of the Bot resource group in the user subscription.
 //   - resourceName - The name of the Bot resource.
 //   - options - PrivateLinkResourcesClientListByBotResourceOptions contains the optional parameters for the PrivateLinkResourcesClient.ListByBotResource
@@ -93,7 +93,7 @@ func (client *PrivateLinkResourcesClient) listByBotResourceCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-15")
+	reqQP.Set("api-version", "2023-09-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
