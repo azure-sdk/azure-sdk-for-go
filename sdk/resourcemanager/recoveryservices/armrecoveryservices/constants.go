@@ -10,7 +10,7 @@ package armrecoveryservices
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservices"
-	moduleVersion = "v2.0.0"
+	moduleVersion = "v2.1.0"
 )
 
 type AlertsState string
@@ -395,6 +395,23 @@ func PossibleStandardTierStorageRedundancyValues() []StandardTierStorageRedundan
 		StandardTierStorageRedundancyInvalid,
 		StandardTierStorageRedundancyLocallyRedundant,
 		StandardTierStorageRedundancyZoneRedundant,
+	}
+}
+
+type State string
+
+const (
+	StateDisabled State = "Disabled"
+	StateEnabled  State = "Enabled"
+	StateInvalid  State = "Invalid"
+)
+
+// PossibleStateValues returns the possible values for the State const type.
+func PossibleStateValues() []State {
+	return []State{
+		StateDisabled,
+		StateEnabled,
+		StateInvalid,
 	}
 }
 
