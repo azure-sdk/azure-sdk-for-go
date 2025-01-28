@@ -11,7 +11,7 @@ package armdatashare
 import "encoding/json"
 
 func unmarshalDataSetClassification(rawMsg json.RawMessage) (DataSetClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -56,7 +56,7 @@ func unmarshalDataSetClassification(rawMsg json.RawMessage) (DataSetClassificati
 }
 
 func unmarshalDataSetClassificationArray(rawMsg json.RawMessage) ([]DataSetClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -75,7 +75,7 @@ func unmarshalDataSetClassificationArray(rawMsg json.RawMessage) ([]DataSetClass
 }
 
 func unmarshalDataSetMappingClassification(rawMsg json.RawMessage) (DataSetMappingClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -116,7 +116,7 @@ func unmarshalDataSetMappingClassification(rawMsg json.RawMessage) (DataSetMappi
 }
 
 func unmarshalDataSetMappingClassificationArray(rawMsg json.RawMessage) ([]DataSetMappingClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -135,7 +135,7 @@ func unmarshalDataSetMappingClassificationArray(rawMsg json.RawMessage) ([]DataS
 }
 
 func unmarshalSourceShareSynchronizationSettingClassification(rawMsg json.RawMessage) (SourceShareSynchronizationSettingClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -156,7 +156,7 @@ func unmarshalSourceShareSynchronizationSettingClassification(rawMsg json.RawMes
 }
 
 func unmarshalSourceShareSynchronizationSettingClassificationArray(rawMsg json.RawMessage) ([]SourceShareSynchronizationSettingClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -175,7 +175,7 @@ func unmarshalSourceShareSynchronizationSettingClassificationArray(rawMsg json.R
 }
 
 func unmarshalSynchronizationSettingClassification(rawMsg json.RawMessage) (SynchronizationSettingClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -196,7 +196,7 @@ func unmarshalSynchronizationSettingClassification(rawMsg json.RawMessage) (Sync
 }
 
 func unmarshalSynchronizationSettingClassificationArray(rawMsg json.RawMessage) ([]SynchronizationSettingClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -215,7 +215,7 @@ func unmarshalSynchronizationSettingClassificationArray(rawMsg json.RawMessage) 
 }
 
 func unmarshalTriggerClassification(rawMsg json.RawMessage) (TriggerClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -236,7 +236,7 @@ func unmarshalTriggerClassification(rawMsg json.RawMessage) (TriggerClassificati
 }
 
 func unmarshalTriggerClassificationArray(rawMsg json.RawMessage) ([]TriggerClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage

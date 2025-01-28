@@ -17,8 +17,7 @@ import (
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
 	subscriptionID string
-	credential     azcore.TokenCredential
-	options        *arm.ClientOptions
+	internal       *arm.Client
 }
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
@@ -27,42 +26,51 @@ type ClientFactory struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
-	_, err := arm.NewClient(moduleName, moduleVersion, credential, options)
+	internal, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		subscriptionID: subscriptionID, credential: credential,
-		options: options.Clone(),
+		subscriptionID: subscriptionID,
+		internal:       internal,
 	}, nil
 }
 
 // NewEndpointsClient creates a new instance of EndpointsClient.
 func (c *ClientFactory) NewEndpointsClient() *EndpointsClient {
-	subClient, _ := NewEndpointsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &EndpointsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewGeographicHierarchiesClient creates a new instance of GeographicHierarchiesClient.
 func (c *ClientFactory) NewGeographicHierarchiesClient() *GeographicHierarchiesClient {
-	subClient, _ := NewGeographicHierarchiesClient(c.credential, c.options)
-	return subClient
+	return &GeographicHierarchiesClient{
+		internal: c.internal,
+	}
 }
 
 // NewHeatMapClient creates a new instance of HeatMapClient.
 func (c *ClientFactory) NewHeatMapClient() *HeatMapClient {
-	subClient, _ := NewHeatMapClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &HeatMapClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewProfilesClient creates a new instance of ProfilesClient.
 func (c *ClientFactory) NewProfilesClient() *ProfilesClient {
-	subClient, _ := NewProfilesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &ProfilesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewUserMetricsKeysClient creates a new instance of UserMetricsKeysClient.
 func (c *ClientFactory) NewUserMetricsKeysClient() *UserMetricsKeysClient {
-	subClient, _ := NewUserMetricsKeysClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &UserMetricsKeysClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
