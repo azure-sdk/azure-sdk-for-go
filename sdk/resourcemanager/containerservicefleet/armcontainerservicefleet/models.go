@@ -203,6 +203,9 @@ type FleetMember struct {
 	// The resource-specific properties for this resource.
 	Properties *FleetMemberProperties
 
+	// Resource tags.
+	Tags map[string]*string
+
 	// READ-ONLY; If eTag is provided in the response body, it may also be provided as a header per the normal etag convention.
 	// Entity tags are used for comparing two or more entities from the same requested resource.
 	// HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range
@@ -248,6 +251,9 @@ type FleetMemberProperties struct {
 type FleetMemberUpdate struct {
 	// The resource-specific properties for this resource.
 	Properties *FleetMemberUpdateProperties
+
+	// Resource tags.
+	Tags map[string]*string
 }
 
 // FleetMemberUpdateProperties - The updatable properties of the FleetMember.
