@@ -201,6 +201,9 @@ type UserAssignedIdentitiesListResult struct {
 
 // UserAssignedIdentityProperties - The properties associated with the user assigned identity.
 type UserAssignedIdentityProperties struct {
+	// Enum to configure regional restrictions on identity assignment, as necessary.
+	IsolationScope *IsolationScope
+
 	// READ-ONLY; The id of the app associated with the identity. This is a random generated UUID by MSI.
 	ClientID *string
 
