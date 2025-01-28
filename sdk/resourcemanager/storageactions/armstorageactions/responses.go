@@ -39,13 +39,13 @@ type StorageTasksClientGetResponse struct {
 
 // StorageTasksClientListByResourceGroupResponse contains the response from method StorageTasksClient.NewListByResourceGroupPager.
 type StorageTasksClientListByResourceGroupResponse struct {
-	// The response from the List Storage Tasks operation.
+	// The response from the List Storage Task operation.
 	StorageTasksListResult
 }
 
 // StorageTasksClientListBySubscriptionResponse contains the response from method StorageTasksClient.NewListBySubscriptionPager.
 type StorageTasksClientListBySubscriptionResponse struct {
-	// The response from the List Storage Tasks operation.
+	// The response from the List Storage Task operation.
 	StorageTasksListResult
 }
 
