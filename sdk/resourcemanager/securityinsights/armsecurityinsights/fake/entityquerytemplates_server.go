@@ -131,7 +131,7 @@ func (e *EntityQueryTemplatesServerTransport) dispatchNewListPager(req *http.Req
 		if err != nil {
 			return nil, err
 		}
-		kindParam := getOptional(armsecurityinsights.Enum15(kindUnescaped))
+		kindParam := getOptional(armsecurityinsights.EntityQueryTemplateKind(kindUnescaped))
 		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err

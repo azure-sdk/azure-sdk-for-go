@@ -19,15 +19,16 @@ import (
 
 // ServerFactory is a fake server for instances of the armsignalr.ClientFactory type.
 type ServerFactory struct {
-	Server                           Server
-	CustomCertificatesServer         CustomCertificatesServer
-	CustomDomainsServer              CustomDomainsServer
-	OperationsServer                 OperationsServer
-	PrivateEndpointConnectionsServer PrivateEndpointConnectionsServer
-	PrivateLinkResourcesServer       PrivateLinkResourcesServer
-	ReplicasServer                   ReplicasServer
-	SharedPrivateLinkResourcesServer SharedPrivateLinkResourcesServer
-	UsagesServer                     UsagesServer
+	Server                                  Server
+	CustomCertificatesServer                CustomCertificatesServer
+	CustomDomainsServer                     CustomDomainsServer
+	OperationsServer                        OperationsServer
+	PrivateEndpointConnectionsServer        PrivateEndpointConnectionsServer
+	PrivateLinkResourcesServer              PrivateLinkResourcesServer
+	ReplicaSharedPrivateLinkResourcesServer ReplicaSharedPrivateLinkResourcesServer
+	ReplicasServer                          ReplicasServer
+	SharedPrivateLinkResourcesServer        SharedPrivateLinkResourcesServer
+	UsagesServer                            UsagesServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -42,17 +43,18 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armsignalr.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                                *ServerFactory
-	trMu                               sync.Mutex
-	trServer                           *ServerTransport
-	trCustomCertificatesServer         *CustomCertificatesServerTransport
-	trCustomDomainsServer              *CustomDomainsServerTransport
-	trOperationsServer                 *OperationsServerTransport
-	trPrivateEndpointConnectionsServer *PrivateEndpointConnectionsServerTransport
-	trPrivateLinkResourcesServer       *PrivateLinkResourcesServerTransport
-	trReplicasServer                   *ReplicasServerTransport
-	trSharedPrivateLinkResourcesServer *SharedPrivateLinkResourcesServerTransport
-	trUsagesServer                     *UsagesServerTransport
+	srv                                       *ServerFactory
+	trMu                                      sync.Mutex
+	trServer                                  *ServerTransport
+	trCustomCertificatesServer                *CustomCertificatesServerTransport
+	trCustomDomainsServer                     *CustomDomainsServerTransport
+	trOperationsServer                        *OperationsServerTransport
+	trPrivateEndpointConnectionsServer        *PrivateEndpointConnectionsServerTransport
+	trPrivateLinkResourcesServer              *PrivateLinkResourcesServerTransport
+	trReplicaSharedPrivateLinkResourcesServer *ReplicaSharedPrivateLinkResourcesServerTransport
+	trReplicasServer                          *ReplicasServerTransport
+	trSharedPrivateLinkResourcesServer        *SharedPrivateLinkResourcesServerTransport
+	trUsagesServer                            *UsagesServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -94,6 +96,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewPrivateLinkResourcesServerTransport(&s.srv.PrivateLinkResourcesServer)
 		})
 		resp, err = s.trPrivateLinkResourcesServer.Do(req)
+	case "ReplicaSharedPrivateLinkResourcesClient":
+		initServer(s, &s.trReplicaSharedPrivateLinkResourcesServer, func() *ReplicaSharedPrivateLinkResourcesServerTransport {
+			return NewReplicaSharedPrivateLinkResourcesServerTransport(&s.srv.ReplicaSharedPrivateLinkResourcesServer)
+		})
+		resp, err = s.trReplicaSharedPrivateLinkResourcesServer.Do(req)
 	case "ReplicasClient":
 		initServer(s, &s.trReplicasServer, func() *ReplicasServerTransport { return NewReplicasServerTransport(&s.srv.ReplicasServer) })
 		resp, err = s.trReplicasServer.Do(req)
