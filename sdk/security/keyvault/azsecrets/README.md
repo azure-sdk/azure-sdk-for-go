@@ -14,7 +14,7 @@ Azure Key Vault helps solve the following problems:
 
 Install `azsecrets` and `azidentity` with `go get`:
 ```
-go get github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azsecrets
+go get github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azsecrets/v2
 go get github.com/Azure/azure-sdk-for-go/sdk/azidentity
 ```
 [azidentity][azure_identity] is used for Azure Active Directory authentication as demonstrated below.
@@ -39,7 +39,7 @@ Constructing the client also requires your vault's URL, which you can get from t
 ```golang
 import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azsecrets"
+	"github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azsecrets/v2"
 )
 
 func main() {
@@ -139,6 +139,6 @@ This project has adopted the [Microsoft Open Source Code of Conduct][code_of_con
 [reference_docs]: https://aka.ms/azsdk/go/keyvault-secrets/docs
 [client_docs]: https://aka.ms/azsdk/go/keyvault-secrets/docs#Client
 [module_source]: https://github.com/Azure/azure-sdk-for-go/tree/main/sdk/security/keyvault/azsecrets
-[secrets_samples]: https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azsecrets#pkg-examples
+[secrets_samples]: https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azsecrets/v2#pkg-examples
 
 ![Impressions](https://azure-sdk-impressions.azurewebsites.net/api/impressions/azure-sdk-for-go%2Fsdk%2Fsecurity%2Fkeyvault%2Fazsecrets%2FREADME.png)
