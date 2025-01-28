@@ -588,7 +588,7 @@ func (client *AccountClient) listDetectorsHandleResponse(resp *http.Response) (A
 // you
 // must make sure your network allows outbound access to these endpoints. Failure to allow access to these endpoints may cause
 // Batch to mark the affected nodes as unusable. For more information about
-// creating a pool inside of a virtual network, see https://docs.microsoft.com/en-us/azure/batch/batch-virtual-network.
+// creating a pool inside of a virtual network, see https://learn.microsoft.com/azure/batch/batch-virtual-network.
 //
 // Generated from API version 2024-07-01
 //   - resourceGroupName - The name of the resource group that contains the Batch account.

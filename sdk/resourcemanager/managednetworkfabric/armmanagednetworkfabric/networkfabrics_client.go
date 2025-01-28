@@ -1021,7 +1021,7 @@ func (client *NetworkFabricsClient) updateWorkloadManagementBfdConfigurationCrea
 //   - body - Network Fabric properties to update.
 //   - options - NetworkFabricsClientBeginUpgradeOptions contains the optional parameters for the NetworkFabricsClient.BeginUpgrade
 //     method.
-func (client *NetworkFabricsClient) BeginUpgrade(ctx context.Context, resourceGroupName string, networkFabricName string, body UpdateVersion, options *NetworkFabricsClientBeginUpgradeOptions) (*runtime.Poller[NetworkFabricsClientUpgradeResponse], error) {
+func (client *NetworkFabricsClient) BeginUpgrade(ctx context.Context, resourceGroupName string, networkFabricName string, body UpgradeNetworkFabricProperties, options *NetworkFabricsClientBeginUpgradeOptions) (*runtime.Poller[NetworkFabricsClientUpgradeResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.upgrade(ctx, resourceGroupName, networkFabricName, body, options)
 		if err != nil {
@@ -1043,7 +1043,7 @@ func (client *NetworkFabricsClient) BeginUpgrade(ctx context.Context, resourceGr
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-06-15
-func (client *NetworkFabricsClient) upgrade(ctx context.Context, resourceGroupName string, networkFabricName string, body UpdateVersion, options *NetworkFabricsClientBeginUpgradeOptions) (*http.Response, error) {
+func (client *NetworkFabricsClient) upgrade(ctx context.Context, resourceGroupName string, networkFabricName string, body UpgradeNetworkFabricProperties, options *NetworkFabricsClientBeginUpgradeOptions) (*http.Response, error) {
 	var err error
 	const operationName = "NetworkFabricsClient.BeginUpgrade"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
@@ -1065,7 +1065,7 @@ func (client *NetworkFabricsClient) upgrade(ctx context.Context, resourceGroupNa
 }
 
 // upgradeCreateRequest creates the Upgrade request.
-func (client *NetworkFabricsClient) upgradeCreateRequest(ctx context.Context, resourceGroupName string, networkFabricName string, body UpdateVersion, options *NetworkFabricsClientBeginUpgradeOptions) (*policy.Request, error) {
+func (client *NetworkFabricsClient) upgradeCreateRequest(ctx context.Context, resourceGroupName string, networkFabricName string, body UpgradeNetworkFabricProperties, options *NetworkFabricsClientBeginUpgradeOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedNetworkFabric/networkFabrics/{networkFabricName}/upgrade"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
