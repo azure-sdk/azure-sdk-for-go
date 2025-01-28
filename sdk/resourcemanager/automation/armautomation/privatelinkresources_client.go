@@ -46,7 +46,7 @@ func NewPrivateLinkResourcesClient(subscriptionID string, credential azcore.Toke
 
 // NewAutomationPager - Gets the private link resources that need to be created for Automation account.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2024-10-23
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - options - PrivateLinkResourcesClientAutomationOptions contains the optional parameters for the PrivateLinkResourcesClient.NewAutomationPager
@@ -95,7 +95,7 @@ func (client *PrivateLinkResourcesClient) automationCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2024-10-23")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
