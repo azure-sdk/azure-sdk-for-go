@@ -1714,6 +1714,9 @@ type AzureStorageContainer struct {
 	// Status of health of the container.
 	HealthStatus *string
 
+	// Re-Do Operation
+	OperationType *OperationType
+
 	// Type of the protectable object associated with this container
 	ProtectableObjectType *string
 
