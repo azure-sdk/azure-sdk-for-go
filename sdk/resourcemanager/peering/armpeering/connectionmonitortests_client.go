@@ -47,7 +47,7 @@ func NewConnectionMonitorTestsClient(subscriptionID string, credential azcore.To
 // group and peering service.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01
+// Generated from API version 2022-10-01
 //   - resourceGroupName - The name of the resource group.
 //   - peeringServiceName - The name of the peering service.
 //   - connectionMonitorTestName - The name of the connection monitor test
@@ -100,7 +100,7 @@ func (client *ConnectionMonitorTestsClient) createOrUpdateCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01")
+	reqQP.Set("api-version", "2022-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, connectionMonitorTest); err != nil {
@@ -122,7 +122,7 @@ func (client *ConnectionMonitorTestsClient) createOrUpdateHandleResponse(resp *h
 // and peering service.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01
+// Generated from API version 2022-10-01
 //   - resourceGroupName - The name of the resource group.
 //   - peeringServiceName - The name of the peering service.
 //   - connectionMonitorTestName - The name of the connection monitor test
@@ -173,7 +173,7 @@ func (client *ConnectionMonitorTestsClient) deleteCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01")
+	reqQP.Set("api-version", "2022-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -183,7 +183,7 @@ func (client *ConnectionMonitorTestsClient) deleteCreateRequest(ctx context.Cont
 // peering service.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01
+// Generated from API version 2022-10-01
 //   - resourceGroupName - The name of the resource group.
 //   - peeringServiceName - The name of the peering service.
 //   - connectionMonitorTestName - The name of the connection monitor test
@@ -235,7 +235,7 @@ func (client *ConnectionMonitorTestsClient) getCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01")
+	reqQP.Set("api-version", "2022-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -253,7 +253,7 @@ func (client *ConnectionMonitorTestsClient) getHandleResponse(resp *http.Respons
 // NewListByPeeringServicePager - Lists all connection monitor tests under the given subscription, resource group and peering
 // service.
 //
-// Generated from API version 2022-01-01
+// Generated from API version 2022-10-01
 //   - resourceGroupName - The name of the resource group.
 //   - peeringServiceName - The name of the peering service.
 //   - options - ConnectionMonitorTestsClientListByPeeringServiceOptions contains the optional parameters for the ConnectionMonitorTestsClient.NewListByPeeringServicePager
@@ -301,7 +301,7 @@ func (client *ConnectionMonitorTestsClient) listByPeeringServiceCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01")
+	reqQP.Set("api-version", "2022-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
