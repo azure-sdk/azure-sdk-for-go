@@ -17,8 +17,7 @@ import (
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
 	subscriptionID string
-	credential     azcore.TokenCredential
-	options        *arm.ClientOptions
+	internal       *arm.Client
 }
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
@@ -27,174 +26,227 @@ type ClientFactory struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
-	_, err := arm.NewClient(moduleName, moduleVersion, credential, options)
+	internal, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		subscriptionID: subscriptionID, credential: credential,
-		options: options.Clone(),
+		subscriptionID: subscriptionID,
+		internal:       internal,
 	}, nil
 }
 
 // NewIntegrationAccountAgreementsClient creates a new instance of IntegrationAccountAgreementsClient.
 func (c *ClientFactory) NewIntegrationAccountAgreementsClient() *IntegrationAccountAgreementsClient {
-	subClient, _ := NewIntegrationAccountAgreementsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &IntegrationAccountAgreementsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewIntegrationAccountAssembliesClient creates a new instance of IntegrationAccountAssembliesClient.
 func (c *ClientFactory) NewIntegrationAccountAssembliesClient() *IntegrationAccountAssembliesClient {
-	subClient, _ := NewIntegrationAccountAssembliesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &IntegrationAccountAssembliesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewIntegrationAccountBatchConfigurationsClient creates a new instance of IntegrationAccountBatchConfigurationsClient.
 func (c *ClientFactory) NewIntegrationAccountBatchConfigurationsClient() *IntegrationAccountBatchConfigurationsClient {
-	subClient, _ := NewIntegrationAccountBatchConfigurationsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &IntegrationAccountBatchConfigurationsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewIntegrationAccountCertificatesClient creates a new instance of IntegrationAccountCertificatesClient.
 func (c *ClientFactory) NewIntegrationAccountCertificatesClient() *IntegrationAccountCertificatesClient {
-	subClient, _ := NewIntegrationAccountCertificatesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &IntegrationAccountCertificatesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewIntegrationAccountMapsClient creates a new instance of IntegrationAccountMapsClient.
 func (c *ClientFactory) NewIntegrationAccountMapsClient() *IntegrationAccountMapsClient {
-	subClient, _ := NewIntegrationAccountMapsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &IntegrationAccountMapsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewIntegrationAccountPartnersClient creates a new instance of IntegrationAccountPartnersClient.
 func (c *ClientFactory) NewIntegrationAccountPartnersClient() *IntegrationAccountPartnersClient {
-	subClient, _ := NewIntegrationAccountPartnersClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &IntegrationAccountPartnersClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewIntegrationAccountSchemasClient creates a new instance of IntegrationAccountSchemasClient.
 func (c *ClientFactory) NewIntegrationAccountSchemasClient() *IntegrationAccountSchemasClient {
-	subClient, _ := NewIntegrationAccountSchemasClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &IntegrationAccountSchemasClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewIntegrationAccountSessionsClient creates a new instance of IntegrationAccountSessionsClient.
 func (c *ClientFactory) NewIntegrationAccountSessionsClient() *IntegrationAccountSessionsClient {
-	subClient, _ := NewIntegrationAccountSessionsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &IntegrationAccountSessionsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewIntegrationAccountsClient creates a new instance of IntegrationAccountsClient.
 func (c *ClientFactory) NewIntegrationAccountsClient() *IntegrationAccountsClient {
-	subClient, _ := NewIntegrationAccountsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &IntegrationAccountsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewIntegrationServiceEnvironmentManagedAPIOperationsClient creates a new instance of IntegrationServiceEnvironmentManagedAPIOperationsClient.
 func (c *ClientFactory) NewIntegrationServiceEnvironmentManagedAPIOperationsClient() *IntegrationServiceEnvironmentManagedAPIOperationsClient {
-	subClient, _ := NewIntegrationServiceEnvironmentManagedAPIOperationsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &IntegrationServiceEnvironmentManagedAPIOperationsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewIntegrationServiceEnvironmentManagedApisClient creates a new instance of IntegrationServiceEnvironmentManagedApisClient.
 func (c *ClientFactory) NewIntegrationServiceEnvironmentManagedApisClient() *IntegrationServiceEnvironmentManagedApisClient {
-	subClient, _ := NewIntegrationServiceEnvironmentManagedApisClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &IntegrationServiceEnvironmentManagedApisClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewIntegrationServiceEnvironmentNetworkHealthClient creates a new instance of IntegrationServiceEnvironmentNetworkHealthClient.
 func (c *ClientFactory) NewIntegrationServiceEnvironmentNetworkHealthClient() *IntegrationServiceEnvironmentNetworkHealthClient {
-	subClient, _ := NewIntegrationServiceEnvironmentNetworkHealthClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &IntegrationServiceEnvironmentNetworkHealthClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewIntegrationServiceEnvironmentSKUsClient creates a new instance of IntegrationServiceEnvironmentSKUsClient.
 func (c *ClientFactory) NewIntegrationServiceEnvironmentSKUsClient() *IntegrationServiceEnvironmentSKUsClient {
-	subClient, _ := NewIntegrationServiceEnvironmentSKUsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &IntegrationServiceEnvironmentSKUsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewIntegrationServiceEnvironmentsClient creates a new instance of IntegrationServiceEnvironmentsClient.
 func (c *ClientFactory) NewIntegrationServiceEnvironmentsClient() *IntegrationServiceEnvironmentsClient {
-	subClient, _ := NewIntegrationServiceEnvironmentsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &IntegrationServiceEnvironmentsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewOperationsClient creates a new instance of OperationsClient.
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
-	subClient, _ := NewOperationsClient(c.credential, c.options)
-	return subClient
+	return &OperationsClient{
+		internal: c.internal,
+	}
 }
 
 // NewWorkflowRunActionRepetitionsClient creates a new instance of WorkflowRunActionRepetitionsClient.
 func (c *ClientFactory) NewWorkflowRunActionRepetitionsClient() *WorkflowRunActionRepetitionsClient {
-	subClient, _ := NewWorkflowRunActionRepetitionsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &WorkflowRunActionRepetitionsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewWorkflowRunActionRepetitionsRequestHistoriesClient creates a new instance of WorkflowRunActionRepetitionsRequestHistoriesClient.
 func (c *ClientFactory) NewWorkflowRunActionRepetitionsRequestHistoriesClient() *WorkflowRunActionRepetitionsRequestHistoriesClient {
-	subClient, _ := NewWorkflowRunActionRepetitionsRequestHistoriesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &WorkflowRunActionRepetitionsRequestHistoriesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewWorkflowRunActionRequestHistoriesClient creates a new instance of WorkflowRunActionRequestHistoriesClient.
 func (c *ClientFactory) NewWorkflowRunActionRequestHistoriesClient() *WorkflowRunActionRequestHistoriesClient {
-	subClient, _ := NewWorkflowRunActionRequestHistoriesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &WorkflowRunActionRequestHistoriesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewWorkflowRunActionScopeRepetitionsClient creates a new instance of WorkflowRunActionScopeRepetitionsClient.
 func (c *ClientFactory) NewWorkflowRunActionScopeRepetitionsClient() *WorkflowRunActionScopeRepetitionsClient {
-	subClient, _ := NewWorkflowRunActionScopeRepetitionsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &WorkflowRunActionScopeRepetitionsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewWorkflowRunActionsClient creates a new instance of WorkflowRunActionsClient.
 func (c *ClientFactory) NewWorkflowRunActionsClient() *WorkflowRunActionsClient {
-	subClient, _ := NewWorkflowRunActionsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &WorkflowRunActionsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewWorkflowRunOperationsClient creates a new instance of WorkflowRunOperationsClient.
 func (c *ClientFactory) NewWorkflowRunOperationsClient() *WorkflowRunOperationsClient {
-	subClient, _ := NewWorkflowRunOperationsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &WorkflowRunOperationsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewWorkflowRunsClient creates a new instance of WorkflowRunsClient.
 func (c *ClientFactory) NewWorkflowRunsClient() *WorkflowRunsClient {
-	subClient, _ := NewWorkflowRunsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &WorkflowRunsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewWorkflowTriggerHistoriesClient creates a new instance of WorkflowTriggerHistoriesClient.
 func (c *ClientFactory) NewWorkflowTriggerHistoriesClient() *WorkflowTriggerHistoriesClient {
-	subClient, _ := NewWorkflowTriggerHistoriesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &WorkflowTriggerHistoriesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewWorkflowTriggersClient creates a new instance of WorkflowTriggersClient.
 func (c *ClientFactory) NewWorkflowTriggersClient() *WorkflowTriggersClient {
-	subClient, _ := NewWorkflowTriggersClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &WorkflowTriggersClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewWorkflowVersionTriggersClient creates a new instance of WorkflowVersionTriggersClient.
 func (c *ClientFactory) NewWorkflowVersionTriggersClient() *WorkflowVersionTriggersClient {
-	subClient, _ := NewWorkflowVersionTriggersClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &WorkflowVersionTriggersClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewWorkflowVersionsClient creates a new instance of WorkflowVersionsClient.
 func (c *ClientFactory) NewWorkflowVersionsClient() *WorkflowVersionsClient {
-	subClient, _ := NewWorkflowVersionsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &WorkflowVersionsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewWorkflowsClient creates a new instance of WorkflowsClient.
 func (c *ClientFactory) NewWorkflowsClient() *WorkflowsClient {
-	subClient, _ := NewWorkflowsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &WorkflowsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }

@@ -11,7 +11,7 @@ package armmediaservices
 import "encoding/json"
 
 func unmarshalClipTimeClassification(rawMsg json.RawMessage) (ClipTimeClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -34,7 +34,7 @@ func unmarshalClipTimeClassification(rawMsg json.RawMessage) (ClipTimeClassifica
 }
 
 func unmarshalCodecClassification(rawMsg json.RawMessage) (CodecClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -75,7 +75,7 @@ func unmarshalCodecClassification(rawMsg json.RawMessage) (CodecClassification, 
 }
 
 func unmarshalCodecClassificationArray(rawMsg json.RawMessage) ([]CodecClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -94,7 +94,7 @@ func unmarshalCodecClassificationArray(rawMsg json.RawMessage) ([]CodecClassific
 }
 
 func unmarshalContentKeyPolicyConfigurationClassification(rawMsg json.RawMessage) (ContentKeyPolicyConfigurationClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -123,7 +123,7 @@ func unmarshalContentKeyPolicyConfigurationClassification(rawMsg json.RawMessage
 }
 
 func unmarshalContentKeyPolicyPlayReadyContentKeyLocationClassification(rawMsg json.RawMessage) (ContentKeyPolicyPlayReadyContentKeyLocationClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -146,7 +146,7 @@ func unmarshalContentKeyPolicyPlayReadyContentKeyLocationClassification(rawMsg j
 }
 
 func unmarshalContentKeyPolicyRestrictionClassification(rawMsg json.RawMessage) (ContentKeyPolicyRestrictionClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -171,7 +171,7 @@ func unmarshalContentKeyPolicyRestrictionClassification(rawMsg json.RawMessage) 
 }
 
 func unmarshalContentKeyPolicyRestrictionTokenKeyClassification(rawMsg json.RawMessage) (ContentKeyPolicyRestrictionTokenKeyClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -196,7 +196,7 @@ func unmarshalContentKeyPolicyRestrictionTokenKeyClassification(rawMsg json.RawM
 }
 
 func unmarshalContentKeyPolicyRestrictionTokenKeyClassificationArray(rawMsg json.RawMessage) ([]ContentKeyPolicyRestrictionTokenKeyClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -215,7 +215,7 @@ func unmarshalContentKeyPolicyRestrictionTokenKeyClassificationArray(rawMsg json
 }
 
 func unmarshalFormatClassification(rawMsg json.RawMessage) (FormatClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -246,7 +246,7 @@ func unmarshalFormatClassification(rawMsg json.RawMessage) (FormatClassification
 }
 
 func unmarshalFormatClassificationArray(rawMsg json.RawMessage) ([]FormatClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -265,7 +265,7 @@ func unmarshalFormatClassificationArray(rawMsg json.RawMessage) ([]FormatClassif
 }
 
 func unmarshalInputDefinitionClassification(rawMsg json.RawMessage) (InputDefinitionClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -290,7 +290,7 @@ func unmarshalInputDefinitionClassification(rawMsg json.RawMessage) (InputDefini
 }
 
 func unmarshalInputDefinitionClassificationArray(rawMsg json.RawMessage) ([]InputDefinitionClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -309,7 +309,7 @@ func unmarshalInputDefinitionClassificationArray(rawMsg json.RawMessage) ([]Inpu
 }
 
 func unmarshalJobInputClassification(rawMsg json.RawMessage) (JobInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -338,7 +338,7 @@ func unmarshalJobInputClassification(rawMsg json.RawMessage) (JobInputClassifica
 }
 
 func unmarshalJobInputClassificationArray(rawMsg json.RawMessage) ([]JobInputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -357,7 +357,7 @@ func unmarshalJobInputClassificationArray(rawMsg json.RawMessage) ([]JobInputCla
 }
 
 func unmarshalJobInputClipClassification(rawMsg json.RawMessage) (JobInputClipClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -380,7 +380,7 @@ func unmarshalJobInputClipClassification(rawMsg json.RawMessage) (JobInputClipCl
 }
 
 func unmarshalJobInputClipClassificationArray(rawMsg json.RawMessage) ([]JobInputClipClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -399,7 +399,7 @@ func unmarshalJobInputClipClassificationArray(rawMsg json.RawMessage) ([]JobInpu
 }
 
 func unmarshalJobOutputClassification(rawMsg json.RawMessage) (JobOutputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -420,7 +420,7 @@ func unmarshalJobOutputClassification(rawMsg json.RawMessage) (JobOutputClassifi
 }
 
 func unmarshalJobOutputClassificationArray(rawMsg json.RawMessage) ([]JobOutputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -439,7 +439,7 @@ func unmarshalJobOutputClassificationArray(rawMsg json.RawMessage) ([]JobOutputC
 }
 
 func unmarshalOverlayClassification(rawMsg json.RawMessage) (OverlayClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -462,7 +462,7 @@ func unmarshalOverlayClassification(rawMsg json.RawMessage) (OverlayClassificati
 }
 
 func unmarshalOverlayClassificationArray(rawMsg json.RawMessage) ([]OverlayClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -481,7 +481,7 @@ func unmarshalOverlayClassificationArray(rawMsg json.RawMessage) ([]OverlayClass
 }
 
 func unmarshalPresetClassification(rawMsg json.RawMessage) (PresetClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -510,7 +510,7 @@ func unmarshalPresetClassification(rawMsg json.RawMessage) (PresetClassification
 }
 
 func unmarshalTrackBaseClassification(rawMsg json.RawMessage) (TrackBaseClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -535,7 +535,7 @@ func unmarshalTrackBaseClassification(rawMsg json.RawMessage) (TrackBaseClassifi
 }
 
 func unmarshalTrackDescriptorClassification(rawMsg json.RawMessage) (TrackDescriptorClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -566,7 +566,7 @@ func unmarshalTrackDescriptorClassification(rawMsg json.RawMessage) (TrackDescri
 }
 
 func unmarshalTrackDescriptorClassificationArray(rawMsg json.RawMessage) ([]TrackDescriptorClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
