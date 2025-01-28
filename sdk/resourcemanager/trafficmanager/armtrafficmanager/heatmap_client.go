@@ -94,13 +94,13 @@ func (client *HeatMapClient) getCreateRequest(ctx context.Context, resourceGroup
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	if options != nil && options.TopLeft != nil {
-		reqQP.Set("topLeft", strings.Join(strings.Fields(strings.Trim(fmt.Sprint(options.TopLeft), "[]")), ","))
-	}
+	reqQP.Set("api-version", "2022-04-01")
 	if options != nil && options.BotRight != nil {
 		reqQP.Set("botRight", strings.Join(strings.Fields(strings.Trim(fmt.Sprint(options.BotRight), "[]")), ","))
 	}
-	reqQP.Set("api-version", "2022-04-01")
+	if options != nil && options.TopLeft != nil {
+		reqQP.Set("topLeft", strings.Join(strings.Fields(strings.Trim(fmt.Sprint(options.TopLeft), "[]")), ","))
+	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
