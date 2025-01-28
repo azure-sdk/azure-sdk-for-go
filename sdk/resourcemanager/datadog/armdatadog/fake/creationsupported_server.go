@@ -15,6 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datadog/armdatadog"
 	"net/http"
 	"net/url"
@@ -126,6 +127,9 @@ func (c *CreationSupportedServerTransport) dispatchNewListPager(req *http.Reques
 		resp := c.srv.NewListPager(datadogOrganizationIDParam, nil)
 		newListPager = &resp
 		c.newListPager.add(req, newListPager)
+		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armdatadog.CreationSupportedClientListResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
 	}
 	resp, err := server.PagerResponderNext(newListPager, req)
 	if err != nil {
