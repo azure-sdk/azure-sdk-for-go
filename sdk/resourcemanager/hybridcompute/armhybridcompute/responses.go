@@ -20,6 +20,30 @@ type ExtensionMetadataClientListResponse struct {
 	ExtensionValueListResult
 }
 
+// ExtensionMetadataV2ClientGetResponse contains the response from method ExtensionMetadataV2Client.Get.
+type ExtensionMetadataV2ClientGetResponse struct {
+	// Describes an Extension Metadata.
+	ExtensionValueV2
+}
+
+// ExtensionMetadataV2ClientListResponse contains the response from method ExtensionMetadataV2Client.NewListPager.
+type ExtensionMetadataV2ClientListResponse struct {
+	// The List Extension Metadata response.
+	ExtensionValueListResultV2
+}
+
+// ExtensionPublisherClientListResponse contains the response from method ExtensionPublisherClient.NewListPager.
+type ExtensionPublisherClientListResponse struct {
+	// The List of Extension Publishers.
+	ExtensionPublisherListResult
+}
+
+// ExtensionTypeClientListResponse contains the response from method ExtensionTypeClient.NewListPager.
+type ExtensionTypeClientListResponse struct {
+	// The List of Extension Types.
+	ExtensionTypeListResult
+}
+
 // GatewaysClientCreateOrUpdateResponse contains the response from method GatewaysClient.BeginCreateOrUpdate.
 type GatewaysClientCreateOrUpdateResponse struct {
 	// Describes an Arc Gateway.
@@ -222,6 +246,11 @@ type MachinesClientListBySubscriptionResponse struct {
 type MachinesClientUpdateResponse struct {
 	// Describes a hybrid machine.
 	Machine
+}
+
+// ManagementClientSetupExtensionsResponse contains the response from method ManagementClient.BeginSetupExtensions.
+type ManagementClientSetupExtensionsResponse struct {
+	SetupExtensionRequest
 }
 
 // ManagementClientUpgradeExtensionsResponse contains the response from method ManagementClient.BeginUpgradeExtensions.

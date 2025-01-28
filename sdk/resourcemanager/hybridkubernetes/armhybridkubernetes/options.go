@@ -8,8 +8,9 @@
 
 package armhybridkubernetes
 
-// ConnectedClusterClientBeginCreateOptions contains the optional parameters for the ConnectedClusterClient.BeginCreate method.
-type ConnectedClusterClientBeginCreateOptions struct {
+// ConnectedClusterClientBeginCreateOrReplaceOptions contains the optional parameters for the ConnectedClusterClient.BeginCreateOrReplace
+// method.
+type ConnectedClusterClientBeginCreateOrReplaceOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }

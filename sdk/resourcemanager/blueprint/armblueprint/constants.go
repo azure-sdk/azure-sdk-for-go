@@ -10,7 +10,7 @@ package armblueprint
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/blueprint/armblueprint"
-	moduleVersion = "v0.7.0"
+	moduleVersion = "v0.7.1"
 )
 
 // ArtifactKind - Specifies the kind of blueprint artifact.

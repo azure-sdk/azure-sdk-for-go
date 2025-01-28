@@ -45,7 +45,7 @@ func NewCdnPeeringPrefixesClient(subscriptionID string, credential azcore.TokenC
 
 // NewListPager - Lists all of the advertised prefixes for the specified peering location
 //
-// Generated from API version 2022-01-01
+// Generated from API version 2022-10-01
 //   - peeringLocation - The peering location.
 //   - options - CdnPeeringPrefixesClientListOptions contains the optional parameters for the CdnPeeringPrefixesClient.NewListPager
 //     method.
@@ -84,8 +84,8 @@ func (client *CdnPeeringPrefixesClient) listCreateRequest(ctx context.Context, p
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-10-01")
 	reqQP.Set("peeringLocation", peeringLocation)
-	reqQP.Set("api-version", "2022-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
