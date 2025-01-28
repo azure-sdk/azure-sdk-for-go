@@ -10,7 +10,7 @@ package armappconfiguration
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appconfiguration/armappconfiguration"
-	moduleVersion = "v2.2.0"
+	moduleVersion = "v2.2.1"
 )
 
 // ActionsRequired - Any action that is required beyond basic workflow (approve/ reject/ disconnect)
