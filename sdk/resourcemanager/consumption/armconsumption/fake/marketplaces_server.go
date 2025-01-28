@@ -15,7 +15,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/consumption/armconsumption"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/consumption/armconsumption/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -25,7 +25,7 @@ import (
 // MarketplacesServer is a fake server for instances of the armconsumption.MarketplacesClient type.
 type MarketplacesServer struct {
 	// NewListPager is the fake for method MarketplacesClient.NewListPager
-	// HTTP status codes to indicate success: http.StatusOK
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
 	NewListPager func(scope string, options *armconsumption.MarketplacesClientListOptions) (resp azfake.PagerResponder[armconsumption.MarketplacesClientListResponse])
 }
 
@@ -131,9 +131,9 @@ func (m *MarketplacesServerTransport) dispatchNewListPager(req *http.Request) (*
 	if err != nil {
 		return nil, err
 	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK, http.StatusNoContent}, resp.StatusCode) {
 		m.newListPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusNoContent", resp.StatusCode)}
 	}
 	if !server.PagerResponderMore(newListPager) {
 		m.newListPager.remove(req)

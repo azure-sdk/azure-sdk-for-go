@@ -60,6 +60,11 @@ type ClientRenameOptions struct {
 	// placeholder for future optional parameters
 }
 
+// OperationClientGetOptions contains the optional parameters for the OperationClient.Get method.
+type OperationClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
