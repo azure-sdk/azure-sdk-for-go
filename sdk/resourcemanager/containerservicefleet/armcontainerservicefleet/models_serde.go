@@ -511,6 +511,7 @@ func (f FleetMember) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "name", f.Name)
 	populate(objectMap, "properties", f.Properties)
 	populate(objectMap, "systemData", f.SystemData)
+	populate(objectMap, "tags", f.Tags)
 	populate(objectMap, "type", f.Type)
 	return json.Marshal(objectMap)
 }
@@ -538,6 +539,9 @@ func (f *FleetMember) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "systemData":
 			err = unpopulate(val, "SystemData", &f.SystemData)
+			delete(rawMsg, key)
+		case "tags":
+			err = unpopulate(val, "Tags", &f.Tags)
 			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &f.Type)
@@ -620,6 +624,7 @@ func (f *FleetMemberProperties) UnmarshalJSON(data []byte) error {
 func (f FleetMemberUpdate) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "properties", f.Properties)
+	populate(objectMap, "tags", f.Tags)
 	return json.Marshal(objectMap)
 }
 
@@ -634,6 +639,9 @@ func (f *FleetMemberUpdate) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "properties":
 			err = unpopulate(val, "Properties", &f.Properties)
+			delete(rawMsg, key)
+		case "tags":
+			err = unpopulate(val, "Tags", &f.Tags)
 			delete(rawMsg, key)
 		}
 		if err != nil {
