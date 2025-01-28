@@ -4825,12 +4825,20 @@ func (a *AzurePostgreSQLLinkedService) GetLinkedService() *LinkedService {
 
 // AzurePostgreSQLLinkedServiceTypeProperties - Azure PostgreSQL linked service properties.
 type AzurePostgreSQLLinkedServiceTypeProperties struct {
+	// Indicates the azure cloud type of the service principle auth. Allowed values are AzurePublic, AzureChina, AzureUsGovernment,
+	// AzureGermany. Default value is the data factory regions’ cloud type. Type:
+	// string (or Expression with resultType string).
+	AzureCloudType any
+
 	// The time to wait (in seconds) while trying to execute a command before terminating the attempt and generating an error.
 	// Set to zero for infinity. Type: integer.
 	CommandTimeout any
 
 	// An ODBC connection string. Type: string, SecureString or AzureKeyVaultSecretReference.
 	ConnectionString any
+
+	// The credential reference containing authentication information.
+	Credential *CredentialReference
 
 	// Database name for connection. Type: string.
 	Database any
@@ -4858,6 +4866,29 @@ type AzurePostgreSQLLinkedServiceTypeProperties struct {
 
 	// Server name for connection. Type: string.
 	Server any
+
+	// The service principal credential type to use in Server-To-Server authentication. 'ServicePrincipalKey' for key/secret,
+	// 'ServicePrincipalCert' for certificate. Type: string (or Expression with
+	// resultType string).
+	ServicePrincipalCredentialType any
+
+	// Specify the base64 encoded certificate of your application registered in Azure Active Directory. Type: string (or Expression
+	// with resultType string).
+	ServicePrincipalEmbeddedCert SecretBaseClassification
+
+	// Specify the password of your certificate if your certificate has a password and you are using AadServicePrincipal authentication.
+	// Type: string (or Expression with resultType string).
+	ServicePrincipalEmbeddedCertPassword SecretBaseClassification
+
+	// The ID of the service principal used to authenticate against Azure Database for PostgreSQL Flexible server. Type: string
+	// (or Expression with resultType string).
+	ServicePrincipalID any
+
+	// The key of the service principal used to authenticate against Azure Database for PostgreSQL Flexible server.
+	ServicePrincipalKey SecretBaseClassification
+
+	// The name or ID of the tenant to which the service principal belongs. Type: string (or Expression with resultType string).
+	Tenant any
 
 	// The time to wait (in seconds) while trying to establish a connection before terminating the attempt and generating an error.
 	// Type: integer.
@@ -14049,15 +14080,45 @@ func (g *GreenplumLinkedService) GetLinkedService() *LinkedService {
 
 // GreenplumLinkedServiceTypeProperties - Greenplum Database linked service properties.
 type GreenplumLinkedServiceTypeProperties struct {
+	// The authentication type to use. Type: string. Only used for V2.
+	AuthenticationType *GreenplumAuthenticationType
+
+	// The time to wait (in seconds) while trying to execute a command before terminating the attempt and generating an error.
+	// Set to zero for infinity. Type: integer. Only used for V2.
+	CommandTimeout any
+
 	// An ODBC connection string. Type: string, SecureString or AzureKeyVaultSecretReference.
 	ConnectionString any
+
+	// The time to wait (in seconds) while trying to establish a connection before terminating the attempt and generating an error.
+	// Type: integer. Only used for V2.
+	ConnectionTimeout any
+
+	// Database name for connection. Type: string. Only used for V2.
+	Database any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
 	// Type: string.
 	EncryptedCredential *string
 
+	// Host name for connection. Type: string. Only used for V2.
+	Host any
+
+	// The Azure key vault secret reference of password in connection string. Type: string. Only used for V2.
+	Password SecretBaseClassification
+
+	// The port for the connection. Type: integer. Only used for V2.
+	Port any
+
 	// The Azure key vault secret reference of password in connection string.
 	Pwd *AzureKeyVaultSecretReference
+
+	// SSL mode for connection. Type: integer. 0: disable, 1:allow, 2: prefer, 3: require, 4: verify-ca, 5: verify-full. Type:
+	// integer. Only used for V2.
+	SSLMode any
+
+	// Username for authentication. Type: string. Only used for V2.
+	Username any
 }
 
 // GreenplumSource - A copy activity Greenplum Database source.
@@ -21020,7 +21081,9 @@ func (o *OracleCloudStorageReadSettings) GetStoreReadSettings() *StoreReadSettin
 	}
 }
 
-// OracleLinkedService - Oracle database.
+// OracleLinkedService - Oracle database. This linked service has supported version property. The Version 1.0 is scheduled
+// for deprecation while your pipeline will continue to run after EOL but without any bug fix or new
+// features.
 type OracleLinkedService struct {
 	// REQUIRED; Type of linked service.
 	Type *string
@@ -21062,15 +21125,73 @@ func (o *OracleLinkedService) GetLinkedService() *LinkedService {
 
 // OracleLinkedServiceTypeProperties - Oracle database linked service properties.
 type OracleLinkedServiceTypeProperties struct {
-	// REQUIRED; The connection string. Type: string, SecureString or AzureKeyVaultSecretReference.
+	// REQUIRED; The connection string. Type: string, SecureString or AzureKeyVaultSecretReference. Only used for Version 1.0.
 	ConnectionString any
+
+	// Authentication type for connecting to the Oracle database. Only used for Version 2.0.
+	AuthenticationType *OracleAuthenticationType
+
+	// Specifies the desired data integrity behavior when this client connects to a server. Supported values are accepted, rejected,
+	// requested or required, default value is required. Type: string. Only used
+	// for Version 2.0.
+	CryptoChecksumClient any
+
+	// Specifies the crypto-checksum algorithms that client can use. Supported values are SHA1, SHA256, SHA384, SHA512, default
+	// value is (SHA512). Type: string. Only used for Version 2.0.
+	CryptoChecksumTypesClient any
+
+	// Specifies whether to use bulk copy or batch insert when loading data into the database, default value is true. Type: boolean.
+	// Only used for Version 2.0.
+	EnableBulkLoad any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
 	// Type: string.
 	EncryptedCredential *string
 
+	// Specifies the encryption client behavior. Supported values are accepted, rejected, requested or required, default value
+	// is required. Type: string. Only used for Version 2.0.
+	EncryptionClient any
+
+	// Specifies the encryption algorithms that client can use. Supported values are AES128, AES192, AES256, 3DES112, 3DES168,
+	// default value is (AES256). Type: string. Only used for Version 2.0.
+	EncryptionTypesClient any
+
+	// Specifies the number of bytes that the driver allocates to fetch the data in one database round-trip, default value is
+	// 10485760. Type: integer. Only used for Version 2.0.
+	FetchSize any
+
+	// Specifies whether the driver returns column value with the TIMESTAMP WITH TIME ZONE data type as DateTime or string. This
+	// setting is ignored if supportV1DataTypes is not true, default value is true.
+	// Type: boolean. Only used for Version 2.0.
+	FetchTswtzAsTimestamp any
+
+	// Specifies the amount that the source initially fetches for LOB columns, default value is 0. Type: integer. Only used for
+	// Version 2.0.
+	InitialLobFetchSize any
+
+	// Specifies a command that is issued immediately after connecting to the database to manage session settings. Type: string.
+	// Only used for Version 2.0.
+	InitializationString any
+
 	// The Azure key vault secret reference of password in connection string.
 	Password *AzureKeyVaultSecretReference
+
+	// The location of Oracle database you want to connect to, the supported forms include connector descriptor, Easy Connect
+	// (Plus) Naming and Oracle Net Services Name (Only self-hosted IR). Type: string.
+	// Only used for Version 2.0.
+	Server any
+
+	// Specifies the number of cursors or statements to be cached for each database connection, default value is 0. Type: integer.
+	// Only used for Version 2.0.
+	StatementCacheSize any
+
+	// Specifies whether to use the Version 1.0 data type mappings. Do not set this to true unless you want to keep backward compatibility
+	// with Version 1.0's data type mappings, default value is false. Type:
+	// boolean. Only used for Version 2.0.
+	SupportV1DataTypes any
+
+	// The Oracle database username. Type: string. Only used for Version 2.0.
+	Username any
 }
 
 // OraclePartitionSettings - The settings that will be leveraged for Oracle source partitioning.
@@ -27191,8 +27312,8 @@ type SapOdpLinkedServiceTypeProperties struct {
 	// resultType string).
 	SncLibraryPath any
 
-	// SNC activation indicator to access the SAP server where the table is located. Must be either 0 (off) or 1 (on). Type: string
-	// (or Expression with resultType string).
+	// SNC activation flag (Boolean) to access the SAP server where the table is located. Type: boolean (or Expression with resultType
+	// boolean).
 	SncMode any
 
 	// Initiator's SNC name to access the SAP server where the table is located. Type: string (or Expression with resultType string).
@@ -27641,8 +27762,8 @@ type SapTableLinkedServiceTypeProperties struct {
 	// resultType string).
 	SncLibraryPath any
 
-	// SNC activation indicator to access the SAP server where the table is located. Must be either 0 (off) or 1 (on). Type: string
-	// (or Expression with resultType string).
+	// SNC activation flag (Boolean) to access the SAP server where the table is located. Type: boolean (or Expression with resultType
+	// boolean).
 	SncMode any
 
 	// Initiator's SNC name to access the SAP server where the table is located. Type: string (or Expression with resultType string).
@@ -28021,6 +28142,11 @@ type ScriptActivityScriptBlock struct {
 type ScriptActivityTypeProperties struct {
 	// Log settings of script activity.
 	LogSettings *ScriptActivityTypePropertiesLogSettings
+
+	// Enable to retrieve result sets from multiple SQL statements and the number of rows affected by the DML statement. Supported
+	// connector: SnowflakeV2. Type: boolean (or Expression with resultType
+	// boolean).
+	ReturnMultistatementResult any
 
 	// ScriptBlock execution timeout. Type: string (or Expression with resultType string), pattern: ((\d+).)?(\d\d):(60|([0-5][0-9])):(60|([0-5][0-9])).
 	ScriptBlockExecutionTimeout any
@@ -31197,6 +31323,28 @@ type TeamDeskLinkedServiceTypeProperties struct {
 	UserName any
 }
 
+// TeradataImportCommand - Teradata import command settings.
+type TeradataImportCommand struct {
+	// REQUIRED; The import setting type.
+	Type *string
+
+	// Additional format options for Teradata Copy Command. The format options only applies to direct copy from CSV source. Type:
+	// key value pairs (value should be string type) (or Expression with resultType
+	// object). Example: "additionalFormatOptions": { "timeFormat": "HHhMImSSs" }
+	AdditionalFormatOptions any
+
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+}
+
+// GetImportSettings implements the ImportSettingsClassification interface for type TeradataImportCommand.
+func (t *TeradataImportCommand) GetImportSettings() *ImportSettings {
+	return &ImportSettings{
+		AdditionalProperties: t.AdditionalProperties,
+		Type:                 t.Type,
+	}
+}
+
 // TeradataLinkedService - Linked service for Teradata data source.
 type TeradataLinkedService struct {
 	// REQUIRED; Type of linked service.
@@ -31242,18 +31390,43 @@ type TeradataLinkedServiceTypeProperties struct {
 	// AuthenticationType to be used for connection.
 	AuthenticationType *TeradataAuthenticationType
 
-	// Teradata ODBC connection string. Type: string, SecureString or AzureKeyVaultSecretReference.
+	// The character set to use for the connection. Type: string (or Expression with resultType string). Only applied for version
+	// 2.0.
+	CharacterSet any
+
+	// Teradata ODBC connection string. Type: string, SecureString or AzureKeyVaultSecretReference. Only applied for version 1.0.
 	ConnectionString any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
 	// Type: string.
 	EncryptedCredential *string
 
+	// The port numbers when connecting to server through HTTPS/TLS connections. Type: integer (or Expression with resultType
+	// integer). Only applied for version 2.0.
+	HTTPSPortNumber any
+
+	// The maximum size of the response buffer for SQL requests, in bytes. Type: integer. Only applied for version 2.0.
+	MaxRespSize any
+
 	// Password for authentication.
 	Password SecretBaseClassification
 
+	// The port numbers when connecting to server through non HTTPS/TLS connections. Type: integer (or Expression with resultType
+	// integer). Only used for V2. Only applied for version 2.0.
+	PortNumber any
+
+	// SSL mode for connection. Valid values including: “Disable”, “Allow”, “Prefer”, “Require”, “Verify-CA”, “Verify-Full”. Default
+	// value is “Verify-Full”. Type: string (or Expression with resultType
+	// string). Only applied for version 2.0.
+	SSLMode any
+
 	// Server name for connection. Type: string (or Expression with resultType string).
 	Server any
+
+	// Specifies whether to encrypt all communication with the Teradata database. Allowed values are 0 or 1. This setting will
+	// be ignored for HTTPS/TLS connections. Type: integer (or Expression with
+	// resultType integer). Only applied for version 2.0.
+	UseDataEncryption any
 
 	// Username for authentication. Type: string (or Expression with resultType string).
 	Username any
@@ -31272,6 +31445,50 @@ type TeradataPartitionSettings struct {
 	// The maximum value of column specified in partitionColumnName that will be used for proceeding range partitioning. Type:
 	// string (or Expression with resultType string).
 	PartitionUpperBound any
+}
+
+// TeradataSink - A copy activity Teradata sink.
+type TeradataSink struct {
+	// REQUIRED; Copy sink type.
+	Type *string
+
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// If true, disable data store metrics collection. Default is false. Type: boolean (or Expression with resultType boolean).
+	DisableMetricsCollection any
+
+	// Teradata import settings.
+	ImportSettings *TeradataImportCommand
+
+	// The maximum concurrent connection count for the sink data store. Type: integer (or Expression with resultType integer).
+	MaxConcurrentConnections any
+
+	// Sink retry count. Type: integer (or Expression with resultType integer).
+	SinkRetryCount any
+
+	// Sink retry wait. Type: string (or Expression with resultType string), pattern: ((\d+).)?(\d\d):(60|([0-5][0-9])):(60|([0-5][0-9])).
+	SinkRetryWait any
+
+	// Write batch size. Type: integer (or Expression with resultType integer), minimum: 0.
+	WriteBatchSize any
+
+	// Write batch timeout. Type: string (or Expression with resultType string), pattern: ((\d+).)?(\d\d):(60|([0-5][0-9])):(60|([0-5][0-9])).
+	WriteBatchTimeout any
+}
+
+// GetCopySink implements the CopySinkClassification interface for type TeradataSink.
+func (t *TeradataSink) GetCopySink() *CopySink {
+	return &CopySink{
+		AdditionalProperties:     t.AdditionalProperties,
+		DisableMetricsCollection: t.DisableMetricsCollection,
+		MaxConcurrentConnections: t.MaxConcurrentConnections,
+		SinkRetryCount:           t.SinkRetryCount,
+		SinkRetryWait:            t.SinkRetryWait,
+		Type:                     t.Type,
+		WriteBatchSize:           t.WriteBatchSize,
+		WriteBatchTimeout:        t.WriteBatchTimeout,
+	}
 }
 
 // TeradataSource - A copy activity Teradata source.

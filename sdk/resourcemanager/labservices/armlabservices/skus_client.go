@@ -45,7 +45,7 @@ func NewSKUsClient(subscriptionID string, credential azcore.TokenCredential, opt
 
 // NewListPager - Returns a list of Azure Lab Services resource SKUs.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 //   - options - SKUsClientListOptions contains the optional parameters for the SKUsClient.NewListPager method.
 func (client *SKUsClient) NewListPager(options *SKUsClientListOptions) *runtime.Pager[SKUsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SKUsClientListResponse]{
@@ -82,10 +82,10 @@ func (client *SKUsClient) listCreateRequest(ctx context.Context, options *SKUsCl
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
+	reqQP.Set("api-version", "2023-06-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -46,7 +46,7 @@ func NewClustersClient(subscriptionID string, credential azcore.TokenCredential,
 // BeginCreateOrUpdate - Create or update a Log Analytics cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the Log Analytics cluster.
 //   - parameters - The parameters required to create or update a Log Analytics cluster.
@@ -72,7 +72,7 @@ func (client *ClustersClient) BeginCreateOrUpdate(ctx context.Context, resourceG
 // CreateOrUpdate - Create or update a Log Analytics cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-09-01
 func (client *ClustersClient) createOrUpdate(ctx context.Context, resourceGroupName string, clusterName string, parameters Cluster, options *ClustersClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ClustersClient.BeginCreateOrUpdate"
@@ -114,7 +114,7 @@ func (client *ClustersClient) createOrUpdateCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -126,7 +126,7 @@ func (client *ClustersClient) createOrUpdateCreateRequest(ctx context.Context, r
 // BeginDelete - Deletes a cluster instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - Name of the Log Analytics Cluster.
 //   - options - ClustersClientBeginDeleteOptions contains the optional parameters for the ClustersClient.BeginDelete method.
@@ -150,7 +150,7 @@ func (client *ClustersClient) BeginDelete(ctx context.Context, resourceGroupName
 // Delete - Deletes a cluster instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-09-01
 func (client *ClustersClient) deleteOperation(ctx context.Context, resourceGroupName string, clusterName string, options *ClustersClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ClustersClient.BeginDelete"
@@ -192,7 +192,7 @@ func (client *ClustersClient) deleteCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -201,7 +201,7 @@ func (client *ClustersClient) deleteCreateRequest(ctx context.Context, resourceG
 // Get - Gets a Log Analytics cluster instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - Name of the Log Analytics Cluster.
 //   - options - ClustersClientGetOptions contains the optional parameters for the ClustersClient.Get method.
@@ -247,7 +247,7 @@ func (client *ClustersClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -264,7 +264,7 @@ func (client *ClustersClient) getHandleResponse(resp *http.Response) (ClustersCl
 
 // NewListPager - Gets the Log Analytics clusters in a subscription.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-09-01
 //   - options - ClustersClientListOptions contains the optional parameters for the ClustersClient.NewListPager method.
 func (client *ClustersClient) NewListPager(options *ClustersClientListOptions) *runtime.Pager[ClustersClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ClustersClientListResponse]{
@@ -301,7 +301,7 @@ func (client *ClustersClient) listCreateRequest(ctx context.Context, options *Cl
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -318,7 +318,7 @@ func (client *ClustersClient) listHandleResponse(resp *http.Response) (ClustersC
 
 // NewListByResourceGroupPager - Gets Log Analytics clusters in a resource group.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - ClustersClientListByResourceGroupOptions contains the optional parameters for the ClustersClient.NewListByResourceGroupPager
 //     method.
@@ -361,7 +361,7 @@ func (client *ClustersClient) listByResourceGroupCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -379,7 +379,7 @@ func (client *ClustersClient) listByResourceGroupHandleResponse(resp *http.Respo
 // BeginUpdate - Updates a Log Analytics cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - Name of the Log Analytics Cluster.
 //   - parameters - The parameters required to patch a Log Analytics cluster.
@@ -404,7 +404,7 @@ func (client *ClustersClient) BeginUpdate(ctx context.Context, resourceGroupName
 // Update - Updates a Log Analytics cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-09-01
 func (client *ClustersClient) update(ctx context.Context, resourceGroupName string, clusterName string, parameters ClusterPatch, options *ClustersClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ClustersClient.BeginUpdate"
@@ -419,7 +419,7 @@ func (client *ClustersClient) update(ctx context.Context, resourceGroupName stri
 	if err != nil {
 		return nil, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
 		return nil, err
 	}
@@ -446,7 +446,7 @@ func (client *ClustersClient) updateCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
