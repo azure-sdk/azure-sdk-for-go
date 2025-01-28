@@ -15,7 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/costmanagement/armcostmanagement/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/costmanagement/armcostmanagement/v3"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -23,13 +23,17 @@ import (
 
 // PriceSheetServer is a fake server for instances of the armcostmanagement.PriceSheetClient type.
 type PriceSheetServer struct {
-	// BeginDownload is the fake for method PriceSheetClient.BeginDownload
+	// BeginDownloadByBillingAccount is the fake for method PriceSheetClient.BeginDownloadByBillingAccount
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginDownload func(ctx context.Context, billingAccountName string, billingProfileName string, invoiceName string, options *armcostmanagement.PriceSheetClientBeginDownloadOptions) (resp azfake.PollerResponder[armcostmanagement.PriceSheetClientDownloadResponse], errResp azfake.ErrorResponder)
+	BeginDownloadByBillingAccount func(ctx context.Context, billingAccountID string, billingPeriodName string, options *armcostmanagement.PriceSheetClientBeginDownloadByBillingAccountOptions) (resp azfake.PollerResponder[armcostmanagement.PriceSheetClientDownloadByBillingAccountResponse], errResp azfake.ErrorResponder)
 
 	// BeginDownloadByBillingProfile is the fake for method PriceSheetClient.BeginDownloadByBillingProfile
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginDownloadByBillingProfile func(ctx context.Context, billingAccountName string, billingProfileName string, options *armcostmanagement.PriceSheetClientBeginDownloadByBillingProfileOptions) (resp azfake.PollerResponder[armcostmanagement.PriceSheetClientDownloadByBillingProfileResponse], errResp azfake.ErrorResponder)
+
+	// BeginDownloadByInvoice is the fake for method PriceSheetClient.BeginDownloadByInvoice
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginDownloadByInvoice func(ctx context.Context, billingAccountName string, billingProfileName string, invoiceName string, options *armcostmanagement.PriceSheetClientBeginDownloadByInvoiceOptions) (resp azfake.PollerResponder[armcostmanagement.PriceSheetClientDownloadByInvoiceResponse], errResp azfake.ErrorResponder)
 }
 
 // NewPriceSheetServerTransport creates a new instance of PriceSheetServerTransport with the provided implementation.
@@ -38,8 +42,9 @@ type PriceSheetServer struct {
 func NewPriceSheetServerTransport(srv *PriceSheetServer) *PriceSheetServerTransport {
 	return &PriceSheetServerTransport{
 		srv:                           srv,
-		beginDownload:                 newTracker[azfake.PollerResponder[armcostmanagement.PriceSheetClientDownloadResponse]](),
+		beginDownloadByBillingAccount: newTracker[azfake.PollerResponder[armcostmanagement.PriceSheetClientDownloadByBillingAccountResponse]](),
 		beginDownloadByBillingProfile: newTracker[azfake.PollerResponder[armcostmanagement.PriceSheetClientDownloadByBillingProfileResponse]](),
+		beginDownloadByInvoice:        newTracker[azfake.PollerResponder[armcostmanagement.PriceSheetClientDownloadByInvoiceResponse]](),
 	}
 }
 
@@ -47,8 +52,9 @@ func NewPriceSheetServerTransport(srv *PriceSheetServer) *PriceSheetServerTransp
 // Don't use this type directly, use NewPriceSheetServerTransport instead.
 type PriceSheetServerTransport struct {
 	srv                           *PriceSheetServer
-	beginDownload                 *tracker[azfake.PollerResponder[armcostmanagement.PriceSheetClientDownloadResponse]]
+	beginDownloadByBillingAccount *tracker[azfake.PollerResponder[armcostmanagement.PriceSheetClientDownloadByBillingAccountResponse]]
 	beginDownloadByBillingProfile *tracker[azfake.PollerResponder[armcostmanagement.PriceSheetClientDownloadByBillingProfileResponse]]
+	beginDownloadByInvoice        *tracker[azfake.PollerResponder[armcostmanagement.PriceSheetClientDownloadByInvoiceResponse]]
 }
 
 // Do implements the policy.Transporter interface for PriceSheetServerTransport.
@@ -63,10 +69,12 @@ func (p *PriceSheetServerTransport) Do(req *http.Request) (*http.Response, error
 	var err error
 
 	switch method {
-	case "PriceSheetClient.BeginDownload":
-		resp, err = p.dispatchBeginDownload(req)
+	case "PriceSheetClient.BeginDownloadByBillingAccount":
+		resp, err = p.dispatchBeginDownloadByBillingAccount(req)
 	case "PriceSheetClient.BeginDownloadByBillingProfile":
 		resp, err = p.dispatchBeginDownloadByBillingProfile(req)
+	case "PriceSheetClient.BeginDownloadByInvoice":
+		resp, err = p.dispatchBeginDownloadByInvoice(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -78,49 +86,45 @@ func (p *PriceSheetServerTransport) Do(req *http.Request) (*http.Response, error
 	return resp, nil
 }
 
-func (p *PriceSheetServerTransport) dispatchBeginDownload(req *http.Request) (*http.Response, error) {
-	if p.srv.BeginDownload == nil {
-		return nil, &nonRetriableError{errors.New("fake for method BeginDownload not implemented")}
+func (p *PriceSheetServerTransport) dispatchBeginDownloadByBillingAccount(req *http.Request) (*http.Response, error) {
+	if p.srv.BeginDownloadByBillingAccount == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginDownloadByBillingAccount not implemented")}
 	}
-	beginDownload := p.beginDownload.get(req)
-	if beginDownload == nil {
-		const regexStr = `/providers/Microsoft\.Billing/billingAccounts/(?P<billingAccountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/billingProfiles/(?P<billingProfileName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/invoices/(?P<invoiceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.CostManagement/pricesheets/default/download`
+	beginDownloadByBillingAccount := p.beginDownloadByBillingAccount.get(req)
+	if beginDownloadByBillingAccount == nil {
+		const regexStr = `/providers/Microsoft\.Billing/billingAccounts/(?P<billingAccountId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/billingPeriods/(?P<billingPeriodName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.CostManagement/pricesheets/default/download`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
+		if matches == nil || len(matches) < 2 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		billingAccountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("billingAccountName")])
+		billingAccountIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("billingAccountId")])
 		if err != nil {
 			return nil, err
 		}
-		billingProfileNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("billingProfileName")])
+		billingPeriodNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("billingPeriodName")])
 		if err != nil {
 			return nil, err
 		}
-		invoiceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("invoiceName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := p.srv.BeginDownload(req.Context(), billingAccountNameParam, billingProfileNameParam, invoiceNameParam, nil)
+		respr, errRespr := p.srv.BeginDownloadByBillingAccount(req.Context(), billingAccountIDParam, billingPeriodNameParam, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
-		beginDownload = &respr
-		p.beginDownload.add(req, beginDownload)
+		beginDownloadByBillingAccount = &respr
+		p.beginDownloadByBillingAccount.add(req, beginDownloadByBillingAccount)
 	}
 
-	resp, err := server.PollerResponderNext(beginDownload, req)
+	resp, err := server.PollerResponderNext(beginDownloadByBillingAccount, req)
 	if err != nil {
 		return nil, err
 	}
 
 	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
-		p.beginDownload.remove(req)
+		p.beginDownloadByBillingAccount.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
 	}
-	if !server.PollerResponderMore(beginDownload) {
-		p.beginDownload.remove(req)
+	if !server.PollerResponderMore(beginDownloadByBillingAccount) {
+		p.beginDownloadByBillingAccount.remove(req)
 	}
 
 	return resp, nil
@@ -165,6 +169,54 @@ func (p *PriceSheetServerTransport) dispatchBeginDownloadByBillingProfile(req *h
 	}
 	if !server.PollerResponderMore(beginDownloadByBillingProfile) {
 		p.beginDownloadByBillingProfile.remove(req)
+	}
+
+	return resp, nil
+}
+
+func (p *PriceSheetServerTransport) dispatchBeginDownloadByInvoice(req *http.Request) (*http.Response, error) {
+	if p.srv.BeginDownloadByInvoice == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginDownloadByInvoice not implemented")}
+	}
+	beginDownloadByInvoice := p.beginDownloadByInvoice.get(req)
+	if beginDownloadByInvoice == nil {
+		const regexStr = `/providers/Microsoft\.Billing/billingAccounts/(?P<billingAccountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/billingProfiles/(?P<billingProfileName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/invoices/(?P<invoiceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.CostManagement/pricesheets/default/download`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		billingAccountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("billingAccountName")])
+		if err != nil {
+			return nil, err
+		}
+		billingProfileNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("billingProfileName")])
+		if err != nil {
+			return nil, err
+		}
+		invoiceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("invoiceName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := p.srv.BeginDownloadByInvoice(req.Context(), billingAccountNameParam, billingProfileNameParam, invoiceNameParam, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginDownloadByInvoice = &respr
+		p.beginDownloadByInvoice.add(req, beginDownloadByInvoice)
+	}
+
+	resp, err := server.PollerResponderNext(beginDownloadByInvoice, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		p.beginDownloadByInvoice.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginDownloadByInvoice) {
+		p.beginDownloadByInvoice.remove(req)
 	}
 
 	return resp, nil
