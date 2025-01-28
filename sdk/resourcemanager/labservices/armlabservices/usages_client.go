@@ -45,7 +45,7 @@ func NewUsagesClient(subscriptionID string, credential azcore.TokenCredential, o
 
 // NewListByLocationPager - Returns list of usage per SKU family for the specified subscription in the specified region.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 //   - location - The location name.
 //   - options - UsagesClientListByLocationOptions contains the optional parameters for the UsagesClient.NewListByLocationPager
 //     method.
@@ -88,10 +88,10 @@ func (client *UsagesClient) listByLocationCreateRequest(ctx context.Context, loc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
+	reqQP.Set("api-version", "2023-06-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
