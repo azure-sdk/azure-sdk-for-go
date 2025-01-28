@@ -7,10 +7,9 @@ package azcertificates
 import (
 	"encoding/json"
 	"fmt"
-	"reflect"
-
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"reflect"
 )
 
 // MarshalJSON implements the json.Marshaller interface for type AdministratorContact.
@@ -938,6 +937,41 @@ func (k *KeyProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "reuse_key":
 			err = unpopulate(val, "ReuseKey", &k.ReuseKey)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", k, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type KeyVaultErrorError.
+func (k KeyVaultErrorError) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "code", k.Code)
+	populate(objectMap, "innererror", k.InnerError)
+	populate(objectMap, "message", k.Message)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type KeyVaultErrorError.
+func (k *KeyVaultErrorError) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", k, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "code":
+			err = unpopulate(val, "Code", &k.Code)
+			delete(rawMsg, key)
+		case "innererror":
+			err = unpopulate(val, "InnerError", &k.InnerError)
+			delete(rawMsg, key)
+		case "message":
+			err = unpopulate(val, "Message", &k.Message)
 			delete(rawMsg, key)
 		}
 		if err != nil {

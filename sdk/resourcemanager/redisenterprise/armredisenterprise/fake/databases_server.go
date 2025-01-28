@@ -71,10 +71,6 @@ type DatabasesServer struct {
 	// BeginUpdate is the fake for method DatabasesClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginUpdate func(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, parameters armredisenterprise.DatabaseUpdate, options *armredisenterprise.DatabasesClientBeginUpdateOptions) (resp azfake.PollerResponder[armredisenterprise.DatabasesClientUpdateResponse], errResp azfake.ErrorResponder)
-
-	// BeginUpgradeDBRedisVersion is the fake for method DatabasesClient.BeginUpgradeDBRedisVersion
-	// HTTP status codes to indicate success: http.StatusAccepted
-	BeginUpgradeDBRedisVersion func(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, options *armredisenterprise.DatabasesClientBeginUpgradeDBRedisVersionOptions) (resp azfake.PollerResponder[armredisenterprise.DatabasesClientUpgradeDBRedisVersionResponse], errResp azfake.ErrorResponder)
 }
 
 // NewDatabasesServerTransport creates a new instance of DatabasesServerTransport with the provided implementation.
@@ -93,7 +89,6 @@ func NewDatabasesServerTransport(srv *DatabasesServer) *DatabasesServerTransport
 		newListByClusterPager:            newTracker[azfake.PagerResponder[armredisenterprise.DatabasesClientListByClusterResponse]](),
 		beginRegenerateKey:               newTracker[azfake.PollerResponder[armredisenterprise.DatabasesClientRegenerateKeyResponse]](),
 		beginUpdate:                      newTracker[azfake.PollerResponder[armredisenterprise.DatabasesClientUpdateResponse]](),
-		beginUpgradeDBRedisVersion:       newTracker[azfake.PollerResponder[armredisenterprise.DatabasesClientUpgradeDBRedisVersionResponse]](),
 	}
 }
 
@@ -111,7 +106,6 @@ type DatabasesServerTransport struct {
 	newListByClusterPager            *tracker[azfake.PagerResponder[armredisenterprise.DatabasesClientListByClusterResponse]]
 	beginRegenerateKey               *tracker[azfake.PollerResponder[armredisenterprise.DatabasesClientRegenerateKeyResponse]]
 	beginUpdate                      *tracker[azfake.PollerResponder[armredisenterprise.DatabasesClientUpdateResponse]]
-	beginUpgradeDBRedisVersion       *tracker[azfake.PollerResponder[armredisenterprise.DatabasesClientUpgradeDBRedisVersionResponse]]
 }
 
 // Do implements the policy.Transporter interface for DatabasesServerTransport.
@@ -150,8 +144,6 @@ func (d *DatabasesServerTransport) Do(req *http.Request) (*http.Response, error)
 		resp, err = d.dispatchBeginRegenerateKey(req)
 	case "DatabasesClient.BeginUpdate":
 		resp, err = d.dispatchBeginUpdate(req)
-	case "DatabasesClient.BeginUpgradeDBRedisVersion":
-		resp, err = d.dispatchBeginUpgradeDBRedisVersion(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -737,54 +729,6 @@ func (d *DatabasesServerTransport) dispatchBeginUpdate(req *http.Request) (*http
 	}
 	if !server.PollerResponderMore(beginUpdate) {
 		d.beginUpdate.remove(req)
-	}
-
-	return resp, nil
-}
-
-func (d *DatabasesServerTransport) dispatchBeginUpgradeDBRedisVersion(req *http.Request) (*http.Response, error) {
-	if d.srv.BeginUpgradeDBRedisVersion == nil {
-		return nil, &nonRetriableError{errors.New("fake for method BeginUpgradeDBRedisVersion not implemented")}
-	}
-	beginUpgradeDBRedisVersion := d.beginUpgradeDBRedisVersion.get(req)
-	if beginUpgradeDBRedisVersion == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Cache/redisEnterprise/(?P<clusterName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/databases/(?P<databaseName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/upgradeDBRedisVersion`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 4 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		clusterNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("clusterName")])
-		if err != nil {
-			return nil, err
-		}
-		databaseNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("databaseName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := d.srv.BeginUpgradeDBRedisVersion(req.Context(), resourceGroupNameParam, clusterNameParam, databaseNameParam, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
-		beginUpgradeDBRedisVersion = &respr
-		d.beginUpgradeDBRedisVersion.add(req, beginUpgradeDBRedisVersion)
-	}
-
-	resp, err := server.PollerResponderNext(beginUpgradeDBRedisVersion, req)
-	if err != nil {
-		return nil, err
-	}
-
-	if !contains([]int{http.StatusAccepted}, resp.StatusCode) {
-		d.beginUpgradeDBRedisVersion.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted", resp.StatusCode)}
-	}
-	if !server.PollerResponderMore(beginUpgradeDBRedisVersion) {
-		d.beginUpgradeDBRedisVersion.remove(req)
 	}
 
 	return resp, nil
