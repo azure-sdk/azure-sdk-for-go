@@ -51,6 +51,84 @@ func PossibleAdminKeyKindValues() []AdminKeyKind {
 	}
 }
 
+// ComputeType - Configure this property to support the search service using either the default compute or Azure Confidential
+// Compute.
+type ComputeType string
+
+const (
+	// ComputeTypeConfidential - Create the service with Azure Confidential Compute.
+	ComputeTypeConfidential ComputeType = "confidential"
+	// ComputeTypeDefault - Create the service with the default compute.
+	ComputeTypeDefault ComputeType = "default"
+)
+
+// PossibleComputeTypeValues returns the possible values for the ComputeType const type.
+func PossibleComputeTypeValues() []ComputeType {
+	return []ComputeType{
+		ComputeTypeConfidential,
+		ComputeTypeDefault,
+	}
+}
+
+// CreatedByType - The type of identity that created the resource.
+type CreatedByType string
+
+const (
+	CreatedByTypeApplication     CreatedByType = "Application"
+	CreatedByTypeKey             CreatedByType = "Key"
+	CreatedByTypeManagedIdentity CreatedByType = "ManagedIdentity"
+	CreatedByTypeUser            CreatedByType = "User"
+)
+
+// PossibleCreatedByTypeValues returns the possible values for the CreatedByType const type.
+func PossibleCreatedByTypeValues() []CreatedByType {
+	return []CreatedByType{
+		CreatedByTypeApplication,
+		CreatedByTypeKey,
+		CreatedByTypeManagedIdentity,
+		CreatedByTypeUser,
+	}
+}
+
+// FeatureName - The name of the feature offered in this region.
+type FeatureName string
+
+const (
+	// FeatureNameAvailabilityZones - Supports Availability Zones feature.
+	FeatureNameAvailabilityZones FeatureName = "AvailabilityZones"
+	// FeatureNameDocumentIntelligence - Supports Document Intelligence feature.
+	FeatureNameDocumentIntelligence FeatureName = "DocumentIntelligence"
+	// FeatureNameGrok - Supports Grok feature.
+	FeatureNameGrok FeatureName = "Grok"
+	// FeatureNameImageVectorization - Supports Image Vectorization feature.
+	FeatureNameImageVectorization FeatureName = "ImageVectorization"
+	// FeatureNameMegaStore - Supports Mega Store feature.
+	FeatureNameMegaStore FeatureName = "MegaStore"
+	// FeatureNameQueryRewrite - Supports Query Rewrite feature.
+	FeatureNameQueryRewrite FeatureName = "QueryRewrite"
+	// FeatureNameS3 - Supports S3 feature.
+	FeatureNameS3 FeatureName = "S3"
+	// FeatureNameSemanticSearch - Supports Semantic Search feature.
+	FeatureNameSemanticSearch FeatureName = "SemanticSearch"
+	// FeatureNameStorageOptimized - Supports Storage Optimized feature.
+	FeatureNameStorageOptimized FeatureName = "StorageOptimized"
+)
+
+// PossibleFeatureNameValues returns the possible values for the FeatureName const type.
+func PossibleFeatureNameValues() []FeatureName {
+	return []FeatureName{
+		FeatureNameAvailabilityZones,
+		FeatureNameDocumentIntelligence,
+		FeatureNameGrok,
+		FeatureNameImageVectorization,
+		FeatureNameMegaStore,
+		FeatureNameQueryRewrite,
+		FeatureNameS3,
+		FeatureNameSemanticSearch,
+		FeatureNameStorageOptimized,
+	}
+}
+
 // HostingMode - Applicable only for the standard3 SKU. You can set this property to enable up to 3 high density partitions
 // that allow up to 1000 indexes, which is much higher than the maximum indexes allowed for any
 // other SKU. For the standard3 SKU, the value is either 'default' or 'highDensity'. For all other SKUs, this value must be

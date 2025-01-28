@@ -47,7 +47,7 @@ func NewNodeReportsClient(subscriptionID string, credential azcore.TokenCredenti
 // Get - Retrieve the Dsc node report data by node id and report id.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2024-10-23
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - nodeID - The Dsc node id.
@@ -103,7 +103,7 @@ func (client *NodeReportsClient) getCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2024-10-23")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -121,7 +121,7 @@ func (client *NodeReportsClient) getHandleResponse(resp *http.Response) (NodeRep
 // GetContent - Retrieve the Dsc node reports by node id and report id.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2024-10-23
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - nodeID - The Dsc node id.
@@ -177,7 +177,7 @@ func (client *NodeReportsClient) getContentCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2024-10-23")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -194,7 +194,7 @@ func (client *NodeReportsClient) getContentHandleResponse(resp *http.Response) (
 
 // NewListByNodePager - Retrieve the Dsc node report list by node id.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2024-10-23
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - nodeID - The parameters supplied to the list operation.
@@ -250,7 +250,7 @@ func (client *NodeReportsClient) listByNodeCreateRequest(ctx context.Context, re
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2024-10-23")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
