@@ -10,7 +10,7 @@ package armdatalakestore
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datalake-store/armdatalakestore"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v1.2.1"
 )
 
 // CheckNameAvailabilityParametersType - The resource type. Note: This should not be set by the user, as the constant value
