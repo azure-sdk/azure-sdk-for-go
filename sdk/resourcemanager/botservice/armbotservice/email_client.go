@@ -46,7 +46,7 @@ func NewEmailClient(subscriptionID string, credential azcore.TokenCredential, op
 // CreateSignInURL - Creates an email channel sign in url for a Bot Service
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-15
+// Generated from API version 2023-09-15-preview
 //   - resourceGroupName - The name of the Bot resource group in the user subscription.
 //   - resourceName - The name of the Bot resource.
 //   - options - EmailClientCreateSignInURLOptions contains the optional parameters for the EmailClient.CreateSignInURL method.
@@ -92,7 +92,7 @@ func (client *EmailClient) createSignInURLCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-15")
+	reqQP.Set("api-version", "2023-09-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
