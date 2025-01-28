@@ -26,27 +26,27 @@ import (
 type ReplicationJobsServer struct {
 	// BeginCancel is the fake for method ReplicationJobsClient.BeginCancel
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginCancel func(ctx context.Context, resourceName string, resourceGroupName string, jobName string, options *armrecoveryservicessiterecovery.ReplicationJobsClientBeginCancelOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationJobsClientCancelResponse], errResp azfake.ErrorResponder)
+	BeginCancel func(ctx context.Context, resourceGroupName string, resourceName string, jobName string, options *armrecoveryservicessiterecovery.ReplicationJobsClientBeginCancelOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationJobsClientCancelResponse], errResp azfake.ErrorResponder)
 
 	// BeginExport is the fake for method ReplicationJobsClient.BeginExport
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginExport func(ctx context.Context, resourceName string, resourceGroupName string, jobQueryParameter armrecoveryservicessiterecovery.JobQueryParameter, options *armrecoveryservicessiterecovery.ReplicationJobsClientBeginExportOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationJobsClientExportResponse], errResp azfake.ErrorResponder)
+	BeginExport func(ctx context.Context, resourceGroupName string, resourceName string, jobQueryParameter armrecoveryservicessiterecovery.JobQueryParameter, options *armrecoveryservicessiterecovery.ReplicationJobsClientBeginExportOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationJobsClientExportResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method ReplicationJobsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceName string, resourceGroupName string, jobName string, options *armrecoveryservicessiterecovery.ReplicationJobsClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationJobsClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, resourceName string, jobName string, options *armrecoveryservicessiterecovery.ReplicationJobsClientGetOptions) (resp azfake.Responder[armrecoveryservicessiterecovery.ReplicationJobsClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method ReplicationJobsClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceName string, resourceGroupName string, options *armrecoveryservicessiterecovery.ReplicationJobsClientListOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationJobsClientListResponse])
+	NewListPager func(resourceGroupName string, resourceName string, options *armrecoveryservicessiterecovery.ReplicationJobsClientListOptions) (resp azfake.PagerResponder[armrecoveryservicessiterecovery.ReplicationJobsClientListResponse])
 
 	// BeginRestart is the fake for method ReplicationJobsClient.BeginRestart
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginRestart func(ctx context.Context, resourceName string, resourceGroupName string, jobName string, options *armrecoveryservicessiterecovery.ReplicationJobsClientBeginRestartOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationJobsClientRestartResponse], errResp azfake.ErrorResponder)
+	BeginRestart func(ctx context.Context, resourceGroupName string, resourceName string, jobName string, options *armrecoveryservicessiterecovery.ReplicationJobsClientBeginRestartOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationJobsClientRestartResponse], errResp azfake.ErrorResponder)
 
 	// BeginResume is the fake for method ReplicationJobsClient.BeginResume
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginResume func(ctx context.Context, resourceName string, resourceGroupName string, jobName string, resumeJobParams armrecoveryservicessiterecovery.ResumeJobParams, options *armrecoveryservicessiterecovery.ReplicationJobsClientBeginResumeOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationJobsClientResumeResponse], errResp azfake.ErrorResponder)
+	BeginResume func(ctx context.Context, resourceGroupName string, resourceName string, jobName string, resumeJobParams armrecoveryservicessiterecovery.ResumeJobParams, options *armrecoveryservicessiterecovery.ReplicationJobsClientBeginResumeOptions) (resp azfake.PollerResponder[armrecoveryservicessiterecovery.ReplicationJobsClientResumeResponse], errResp azfake.ErrorResponder)
 }
 
 // NewReplicationJobsServerTransport creates a new instance of ReplicationJobsServerTransport with the provided implementation.
@@ -121,11 +121,11 @@ func (r *ReplicationJobsServerTransport) dispatchBeginCancel(req *http.Request) 
 		if matches == nil || len(matches) < 4 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -133,7 +133,7 @@ func (r *ReplicationJobsServerTransport) dispatchBeginCancel(req *http.Request) 
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginCancel(req.Context(), resourceNameParam, resourceGroupNameParam, jobNameParam, nil)
+		respr, errRespr := r.srv.BeginCancel(req.Context(), resourceGroupNameParam, resourceNameParam, jobNameParam, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -173,15 +173,15 @@ func (r *ReplicationJobsServerTransport) dispatchBeginExport(req *http.Request) 
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
-		if err != nil {
-			return nil, err
-		}
 		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginExport(req.Context(), resourceNameParam, resourceGroupNameParam, body, nil)
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := r.srv.BeginExport(req.Context(), resourceGroupNameParam, resourceNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -215,11 +215,11 @@ func (r *ReplicationJobsServerTransport) dispatchGet(req *http.Request) (*http.R
 	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 	if err != nil {
 		return nil, err
 	}
@@ -227,7 +227,7 @@ func (r *ReplicationJobsServerTransport) dispatchGet(req *http.Request) (*http.R
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := r.srv.Get(req.Context(), resourceNameParam, resourceGroupNameParam, jobNameParam, nil)
+	respr, errRespr := r.srv.Get(req.Context(), resourceGroupNameParam, resourceNameParam, jobNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -255,11 +255,11 @@ func (r *ReplicationJobsServerTransport) dispatchNewListPager(req *http.Request)
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		qp := req.URL.Query()
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -274,7 +274,7 @@ func (r *ReplicationJobsServerTransport) dispatchNewListPager(req *http.Request)
 				Filter: filterParam,
 			}
 		}
-		resp := r.srv.NewListPager(resourceNameParam, resourceGroupNameParam, options)
+		resp := r.srv.NewListPager(resourceGroupNameParam, resourceNameParam, options)
 		newListPager = &resp
 		r.newListPager.add(req, newListPager)
 		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armrecoveryservicessiterecovery.ReplicationJobsClientListResponse, createLink func() string) {
@@ -307,11 +307,11 @@ func (r *ReplicationJobsServerTransport) dispatchBeginRestart(req *http.Request)
 		if matches == nil || len(matches) < 4 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -319,7 +319,7 @@ func (r *ReplicationJobsServerTransport) dispatchBeginRestart(req *http.Request)
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginRestart(req.Context(), resourceNameParam, resourceGroupNameParam, jobNameParam, nil)
+		respr, errRespr := r.srv.BeginRestart(req.Context(), resourceGroupNameParam, resourceNameParam, jobNameParam, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -359,11 +359,11 @@ func (r *ReplicationJobsServerTransport) dispatchBeginResume(req *http.Request) 
 		if err != nil {
 			return nil, err
 		}
-		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 		if err != nil {
 			return nil, err
 		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		resourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -371,7 +371,7 @@ func (r *ReplicationJobsServerTransport) dispatchBeginResume(req *http.Request) 
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := r.srv.BeginResume(req.Context(), resourceNameParam, resourceGroupNameParam, jobNameParam, body, nil)
+		respr, errRespr := r.srv.BeginResume(req.Context(), resourceGroupNameParam, resourceNameParam, jobNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
