@@ -102,6 +102,27 @@ func unmarshalAllowlistCustomAlertRuleClassificationArray(rawMsg json.RawMessage
 	return fArray, nil
 }
 
+func unmarshalAuthenticationClassification(rawMsg json.RawMessage) (AuthenticationClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b AuthenticationClassification
+	switch m["authenticationType"] {
+	case "AccessToken":
+		b = &AccessTokenAuthentication{}
+	default:
+		b = &Authentication{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
 func unmarshalAuthenticationDetailsPropertiesClassification(rawMsg json.RawMessage) (AuthenticationDetailsPropertiesClassification, error) {
 	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
@@ -208,20 +229,32 @@ func unmarshalCloudOfferingClassification(rawMsg json.RawMessage) (CloudOffering
 		b = &CspmMonitorAwsOffering{}
 	case string(OfferingTypeCspmMonitorAzureDevOps):
 		b = &CspmMonitorAzureDevOpsOffering{}
+	case string(OfferingTypeCspmMonitorDockerHub):
+		b = &CspmMonitorDockerHubOffering{}
 	case string(OfferingTypeCspmMonitorGcp):
 		b = &CspmMonitorGcpOffering{}
 	case string(OfferingTypeCspmMonitorGitLab):
 		b = &CspmMonitorGitLabOffering{}
 	case string(OfferingTypeCspmMonitorGithub):
 		b = &CspmMonitorGithubOffering{}
+	case string(OfferingTypeCspmMonitorJFrog):
+		b = &CspmMonitorJFrogOffering{}
 	case string(OfferingTypeDefenderCspmAws):
 		b = &DefenderCspmAwsOffering{}
+	case string(OfferingTypeDefenderCspmDockerHub):
+		b = &DefenderCspmDockerHubOffering{}
 	case string(OfferingTypeDefenderCspmGcp):
 		b = &DefenderCspmGcpOffering{}
+	case string(OfferingTypeDefenderCspmJFrog):
+		b = &DefenderCspmJFrogOffering{}
 	case string(OfferingTypeDefenderForContainersAws):
 		b = &DefenderForContainersAwsOffering{}
+	case string(OfferingTypeDefenderForContainersDockerHub):
+		b = &DefenderForContainersDockerHubOffering{}
 	case string(OfferingTypeDefenderForContainersGcp):
 		b = &DefenderForContainersGcpOffering{}
+	case string(OfferingTypeDefenderForContainersJFrog):
+		b = &DefenderForContainersJFrogOffering{}
 	case string(OfferingTypeDefenderForDatabasesAws):
 		b = &DefenderFoDatabasesAwsOffering{}
 	case string(OfferingTypeDefenderForDatabasesGcp):
@@ -272,12 +305,16 @@ func unmarshalEnvironmentDataClassification(rawMsg json.RawMessage) (Environment
 		b = &AwsEnvironmentData{}
 	case string(EnvironmentTypeAzureDevOpsScope):
 		b = &AzureDevOpsScopeEnvironmentData{}
+	case string(EnvironmentTypeDockerHubOrganization):
+		b = &DockerHubEnvironmentData{}
 	case string(EnvironmentTypeGcpProject):
 		b = &GcpProjectEnvironmentData{}
 	case string(EnvironmentTypeGithubScope):
 		b = &GithubScopeEnvironmentData{}
 	case string(EnvironmentTypeGitlabScope):
 		b = &GitlabScopeEnvironmentData{}
+	case string(EnvironmentTypeJFrogArtifactory):
+		b = &JFrogEnvironmentData{}
 	default:
 		b = &EnvironmentData{}
 	}

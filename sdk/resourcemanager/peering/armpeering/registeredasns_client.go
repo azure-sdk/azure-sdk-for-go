@@ -47,7 +47,7 @@ func NewRegisteredAsnsClient(subscriptionID string, credential azcore.TokenCrede
 // peering.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01
+// Generated from API version 2022-10-01
 //   - resourceGroupName - The name of the resource group.
 //   - peeringName - The name of the peering.
 //   - registeredAsnName - The name of the ASN.
@@ -100,7 +100,7 @@ func (client *RegisteredAsnsClient) createOrUpdateCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01")
+	reqQP.Set("api-version", "2022-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, registeredAsn); err != nil {
@@ -121,7 +121,7 @@ func (client *RegisteredAsnsClient) createOrUpdateHandleResponse(resp *http.Resp
 // Delete - Deletes an existing registered ASN with the specified name under the given subscription, resource group and peering.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01
+// Generated from API version 2022-10-01
 //   - resourceGroupName - The name of the resource group.
 //   - peeringName - The name of the peering.
 //   - registeredAsnName - The name of the registered ASN.
@@ -171,7 +171,7 @@ func (client *RegisteredAsnsClient) deleteCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01")
+	reqQP.Set("api-version", "2022-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -180,7 +180,7 @@ func (client *RegisteredAsnsClient) deleteCreateRequest(ctx context.Context, res
 // Get - Gets an existing registered ASN with the specified name under the given subscription, resource group and peering.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-01
+// Generated from API version 2022-10-01
 //   - resourceGroupName - The name of the resource group.
 //   - peeringName - The name of the peering.
 //   - registeredAsnName - The name of the registered ASN.
@@ -231,7 +231,7 @@ func (client *RegisteredAsnsClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01")
+	reqQP.Set("api-version", "2022-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -248,7 +248,7 @@ func (client *RegisteredAsnsClient) getHandleResponse(resp *http.Response) (Regi
 
 // NewListByPeeringPager - Lists all registered ASNs under the given subscription, resource group and peering.
 //
-// Generated from API version 2022-01-01
+// Generated from API version 2022-10-01
 //   - resourceGroupName - The name of the resource group.
 //   - peeringName - The name of the peering.
 //   - options - RegisteredAsnsClientListByPeeringOptions contains the optional parameters for the RegisteredAsnsClient.NewListByPeeringPager
@@ -296,7 +296,7 @@ func (client *RegisteredAsnsClient) listByPeeringCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01")
+	reqQP.Set("api-version", "2022-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
