@@ -360,9 +360,9 @@ func (client *BlobContainersClient) deleteCreateRequest(ctx context.Context, res
 //   - containerName - The name of the blob container within the specified storage account. Blob container names must be between
 //     3 and 63 characters in length and use numbers, lower-case letters and dash (-) only. Every
 //     dash (-) character must be immediately preceded and followed by a letter or number.
-//   - ifMatch - The entity state (ETag) version of the immutability policy to update. A value of "*" can be used to apply the
-//     operation only if the immutability policy already exists. If omitted, this operation will
-//     always be applied.
+//   - ifMatch - The entity state (ETag) version of the immutability policy to update must be returned to the server for all update
+//     operations. The ETag value must include the leading and trailing double quotes as
+//     returned by the service.
 //   - options - BlobContainersClientDeleteImmutabilityPolicyOptions contains the optional parameters for the BlobContainersClient.DeleteImmutabilityPolicy
 //     method.
 func (client *BlobContainersClient) DeleteImmutabilityPolicy(ctx context.Context, resourceGroupName string, accountName string, containerName string, ifMatch string, options *BlobContainersClientDeleteImmutabilityPolicyOptions) (BlobContainersClientDeleteImmutabilityPolicyResponse, error) {
@@ -442,9 +442,9 @@ func (client *BlobContainersClient) deleteImmutabilityPolicyHandleResponse(resp 
 //   - containerName - The name of the blob container within the specified storage account. Blob container names must be between
 //     3 and 63 characters in length and use numbers, lower-case letters and dash (-) only. Every
 //     dash (-) character must be immediately preceded and followed by a letter or number.
-//   - ifMatch - The entity state (ETag) version of the immutability policy to update. A value of "*" can be used to apply the
-//     operation only if the immutability policy already exists. If omitted, this operation will
-//     always be applied.
+//   - ifMatch - The entity state (ETag) version of the immutability policy to update must be returned to the server for all update
+//     operations. The ETag value must include the leading and trailing double quotes as
+//     returned by the service.
 //   - options - BlobContainersClientExtendImmutabilityPolicyOptions contains the optional parameters for the BlobContainersClient.ExtendImmutabilityPolicy
 //     method.
 func (client *BlobContainersClient) ExtendImmutabilityPolicy(ctx context.Context, resourceGroupName string, accountName string, containerName string, ifMatch string, options *BlobContainersClientExtendImmutabilityPolicyOptions) (BlobContainersClientExtendImmutabilityPolicyResponse, error) {
@@ -836,9 +836,9 @@ func (client *BlobContainersClient) listHandleResponse(resp *http.Response) (Blo
 //   - containerName - The name of the blob container within the specified storage account. Blob container names must be between
 //     3 and 63 characters in length and use numbers, lower-case letters and dash (-) only. Every
 //     dash (-) character must be immediately preceded and followed by a letter or number.
-//   - ifMatch - The entity state (ETag) version of the immutability policy to update. A value of "*" can be used to apply the
-//     operation only if the immutability policy already exists. If omitted, this operation will
-//     always be applied.
+//   - ifMatch - The entity state (ETag) version of the immutability policy to update must be returned to the server for all update
+//     operations. The ETag value must include the leading and trailing double quotes as
+//     returned by the service.
 //   - options - BlobContainersClientLockImmutabilityPolicyOptions contains the optional parameters for the BlobContainersClient.LockImmutabilityPolicy
 //     method.
 func (client *BlobContainersClient) LockImmutabilityPolicy(ctx context.Context, resourceGroupName string, accountName string, containerName string, ifMatch string, options *BlobContainersClientLockImmutabilityPolicyOptions) (BlobContainersClientLockImmutabilityPolicyResponse, error) {
