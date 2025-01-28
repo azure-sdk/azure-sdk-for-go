@@ -89,6 +89,10 @@ type BackupInstancesServer struct {
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginValidateForBackup func(ctx context.Context, resourceGroupName string, vaultName string, parameters armdataprotection.ValidateForBackupRequest, options *armdataprotection.BackupInstancesClientBeginValidateForBackupOptions) (resp azfake.PollerResponder[armdataprotection.BackupInstancesClientValidateForBackupResponse], errResp azfake.ErrorResponder)
 
+	// BeginValidateForModifyBackup is the fake for method BackupInstancesClient.BeginValidateForModifyBackup
+	// HTTP status codes to indicate success: http.StatusAccepted
+	BeginValidateForModifyBackup func(ctx context.Context, resourceGroupName string, vaultName string, backupInstanceName string, parameters armdataprotection.ValidateForModifyBackupRequest, options *armdataprotection.BackupInstancesClientBeginValidateForModifyBackupOptions) (resp azfake.PollerResponder[armdataprotection.BackupInstancesClientValidateForModifyBackupResponse], errResp azfake.ErrorResponder)
+
 	// BeginValidateForRestore is the fake for method BackupInstancesClient.BeginValidateForRestore
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginValidateForRestore func(ctx context.Context, resourceGroupName string, vaultName string, backupInstanceName string, parameters armdataprotection.ValidateRestoreRequestObject, options *armdataprotection.BackupInstancesClientBeginValidateForRestoreOptions) (resp azfake.PollerResponder[armdataprotection.BackupInstancesClientValidateForRestoreResponse], errResp azfake.ErrorResponder)
@@ -114,6 +118,7 @@ func NewBackupInstancesServerTransport(srv *BackupInstancesServer) *BackupInstan
 		beginTriggerRestore:             newTracker[azfake.PollerResponder[armdataprotection.BackupInstancesClientTriggerRestoreResponse]](),
 		beginValidateCrossRegionRestore: newTracker[azfake.PollerResponder[armdataprotection.BackupInstancesClientValidateCrossRegionRestoreResponse]](),
 		beginValidateForBackup:          newTracker[azfake.PollerResponder[armdataprotection.BackupInstancesClientValidateForBackupResponse]](),
+		beginValidateForModifyBackup:    newTracker[azfake.PollerResponder[armdataprotection.BackupInstancesClientValidateForModifyBackupResponse]](),
 		beginValidateForRestore:         newTracker[azfake.PollerResponder[armdataprotection.BackupInstancesClientValidateForRestoreResponse]](),
 	}
 }
@@ -136,6 +141,7 @@ type BackupInstancesServerTransport struct {
 	beginTriggerRestore             *tracker[azfake.PollerResponder[armdataprotection.BackupInstancesClientTriggerRestoreResponse]]
 	beginValidateCrossRegionRestore *tracker[azfake.PollerResponder[armdataprotection.BackupInstancesClientValidateCrossRegionRestoreResponse]]
 	beginValidateForBackup          *tracker[azfake.PollerResponder[armdataprotection.BackupInstancesClientValidateForBackupResponse]]
+	beginValidateForModifyBackup    *tracker[azfake.PollerResponder[armdataprotection.BackupInstancesClientValidateForModifyBackupResponse]]
 	beginValidateForRestore         *tracker[azfake.PollerResponder[armdataprotection.BackupInstancesClientValidateForRestoreResponse]]
 }
 
@@ -183,6 +189,8 @@ func (b *BackupInstancesServerTransport) Do(req *http.Request) (*http.Response, 
 		resp, err = b.dispatchBeginValidateCrossRegionRestore(req)
 	case "BackupInstancesClient.BeginValidateForBackup":
 		resp, err = b.dispatchBeginValidateForBackup(req)
+	case "BackupInstancesClient.BeginValidateForModifyBackup":
+		resp, err = b.dispatchBeginValidateForModifyBackup(req)
 	case "BackupInstancesClient.BeginValidateForRestore":
 		resp, err = b.dispatchBeginValidateForRestore(req)
 	default:
@@ -1003,6 +1011,58 @@ func (b *BackupInstancesServerTransport) dispatchBeginValidateForBackup(req *htt
 	}
 	if !server.PollerResponderMore(beginValidateForBackup) {
 		b.beginValidateForBackup.remove(req)
+	}
+
+	return resp, nil
+}
+
+func (b *BackupInstancesServerTransport) dispatchBeginValidateForModifyBackup(req *http.Request) (*http.Response, error) {
+	if b.srv.BeginValidateForModifyBackup == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginValidateForModifyBackup not implemented")}
+	}
+	beginValidateForModifyBackup := b.beginValidateForModifyBackup.get(req)
+	if beginValidateForModifyBackup == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DataProtection/backupVaults/(?P<vaultName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/backupInstances/(?P<backupInstanceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/validateForModifyBackup`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 4 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armdataprotection.ValidateForModifyBackupRequest](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		vaultNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("vaultName")])
+		if err != nil {
+			return nil, err
+		}
+		backupInstanceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("backupInstanceName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := b.srv.BeginValidateForModifyBackup(req.Context(), resourceGroupNameParam, vaultNameParam, backupInstanceNameParam, body, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginValidateForModifyBackup = &respr
+		b.beginValidateForModifyBackup.add(req, beginValidateForModifyBackup)
+	}
+
+	resp, err := server.PollerResponderNext(beginValidateForModifyBackup, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusAccepted}, resp.StatusCode) {
+		b.beginValidateForModifyBackup.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginValidateForModifyBackup) {
+		b.beginValidateForModifyBackup.remove(req)
 	}
 
 	return resp, nil
