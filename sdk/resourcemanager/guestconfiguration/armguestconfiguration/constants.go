@@ -10,7 +10,7 @@ package armguestconfiguration
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/guestconfiguration/armguestconfiguration"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v1.3.0"
 )
 
 // ActionAfterReboot - Specifies what happens after a reboot during the application of a configuration. The possible values
