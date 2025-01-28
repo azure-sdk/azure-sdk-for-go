@@ -46,7 +46,7 @@ func NewChannelsClient(subscriptionID string, credential azcore.TokenCredential,
 // Create - Creates a Channel registration for a Bot Service
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-15
+// Generated from API version 2023-09-15-preview
 //   - resourceGroupName - The name of the Bot resource group in the user subscription.
 //   - resourceName - The name of the Bot resource.
 //   - channelName - The name of the Channel resource.
@@ -98,7 +98,7 @@ func (client *ChannelsClient) createCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-15")
+	reqQP.Set("api-version", "2023-09-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -119,7 +119,7 @@ func (client *ChannelsClient) createHandleResponse(resp *http.Response) (Channel
 // Delete - Deletes a Channel registration from a Bot Service
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-15
+// Generated from API version 2023-09-15-preview
 //   - resourceGroupName - The name of the Bot resource group in the user subscription.
 //   - resourceName - The name of the Bot resource.
 //   - channelName - The name of the Bot resource.
@@ -169,7 +169,7 @@ func (client *ChannelsClient) deleteCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-15")
+	reqQP.Set("api-version", "2023-09-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -178,7 +178,7 @@ func (client *ChannelsClient) deleteCreateRequest(ctx context.Context, resourceG
 // Get - Returns a BotService Channel registration specified by the parameters.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-15
+// Generated from API version 2023-09-15-preview
 //   - resourceGroupName - The name of the Bot resource group in the user subscription.
 //   - resourceName - The name of the Bot resource.
 //   - channelName - The name of the Bot resource.
@@ -229,7 +229,7 @@ func (client *ChannelsClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-15")
+	reqQP.Set("api-version", "2023-09-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -246,7 +246,7 @@ func (client *ChannelsClient) getHandleResponse(resp *http.Response) (ChannelsCl
 
 // NewListByResourceGroupPager - Returns all the Channel registrations of a particular BotService resource
 //
-// Generated from API version 2022-09-15
+// Generated from API version 2023-09-15-preview
 //   - resourceGroupName - The name of the Bot resource group in the user subscription.
 //   - resourceName - The name of the Bot resource.
 //   - options - ChannelsClientListByResourceGroupOptions contains the optional parameters for the ChannelsClient.NewListByResourceGroupPager
@@ -294,7 +294,7 @@ func (client *ChannelsClient) listByResourceGroupCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-15")
+	reqQP.Set("api-version", "2023-09-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -312,7 +312,7 @@ func (client *ChannelsClient) listByResourceGroupHandleResponse(resp *http.Respo
 // ListWithKeys - Lists a Channel registration for a Bot Service including secrets
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-15
+// Generated from API version 2023-09-15-preview
 //   - resourceGroupName - The name of the Bot resource group in the user subscription.
 //   - resourceName - The name of the Bot resource.
 //   - channelName - The name of the Channel resource.
@@ -363,7 +363,7 @@ func (client *ChannelsClient) listWithKeysCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-15")
+	reqQP.Set("api-version", "2023-09-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -381,7 +381,7 @@ func (client *ChannelsClient) listWithKeysHandleResponse(resp *http.Response) (C
 // Update - Updates a Channel registration for a Bot Service
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-15
+// Generated from API version 2023-09-15-preview
 //   - resourceGroupName - The name of the Bot resource group in the user subscription.
 //   - resourceName - The name of the Bot resource.
 //   - channelName - The name of the Channel resource.
@@ -433,7 +433,7 @@ func (client *ChannelsClient) updateCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-15")
+	reqQP.Set("api-version", "2023-09-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
