@@ -139,22 +139,6 @@ func (client *AzureReservationAPIClient) getCatalogCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01")
-	if options != nil && options.ReservedResourceType != nil {
-		reqQP.Set("reservedResourceType", *options.ReservedResourceType)
-	}
-	if options != nil && options.Location != nil {
-		reqQP.Set("location", *options.Location)
-	}
-	if options != nil && options.PublisherID != nil {
-		reqQP.Set("publisherId", *options.PublisherID)
-	}
-	if options != nil && options.OfferID != nil {
-		reqQP.Set("offerId", *options.OfferID)
-	}
-	if options != nil && options.PlanID != nil {
-		reqQP.Set("planId", *options.PlanID)
-	}
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
@@ -163,6 +147,22 @@ func (client *AzureReservationAPIClient) getCatalogCreateRequest(ctx context.Con
 	}
 	if options != nil && options.Take != nil {
 		reqQP.Set("$take", strconv.FormatFloat(float64(*options.Take), 'f', -1, 32))
+	}
+	reqQP.Set("api-version", "2022-11-01")
+	if options != nil && options.Location != nil {
+		reqQP.Set("location", *options.Location)
+	}
+	if options != nil && options.OfferID != nil {
+		reqQP.Set("offerId", *options.OfferID)
+	}
+	if options != nil && options.PlanID != nil {
+		reqQP.Set("planId", *options.PlanID)
+	}
+	if options != nil && options.PublisherID != nil {
+		reqQP.Set("publisherId", *options.PublisherID)
+	}
+	if options != nil && options.ReservedResourceType != nil {
+		reqQP.Set("reservedResourceType", *options.ReservedResourceType)
 	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
