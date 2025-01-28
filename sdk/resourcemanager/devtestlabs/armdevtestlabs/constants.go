@@ -10,7 +10,7 @@ package armdevtestlabs
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/devtestlabs/armdevtestlabs"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v1.2.1"
 )
 
 // CostThresholdStatus - Indicates whether this threshold will be displayed on cost charts.

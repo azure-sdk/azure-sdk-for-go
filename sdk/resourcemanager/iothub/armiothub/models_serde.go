@@ -404,7 +404,7 @@ func (c *CertificateWithNonceDescription) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type CloudToDeviceProperties.
 func (c CloudToDeviceProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
-	populate(objectMap, "defaultTtlAsIso8601", c.DefaultTTLAsIso8601)
+	populate(objectMap, "defaultTtlAsIso8601", c.DefaultTTLAsISO8601)
 	populate(objectMap, "feedback", c.Feedback)
 	populate(objectMap, "maxDeliveryCount", c.MaxDeliveryCount)
 	return json.Marshal(objectMap)
@@ -420,7 +420,7 @@ func (c *CloudToDeviceProperties) UnmarshalJSON(data []byte) error {
 		var err error
 		switch key {
 		case "defaultTtlAsIso8601":
-			err = unpopulate(val, "DefaultTTLAsIso8601", &c.DefaultTTLAsIso8601)
+			err = unpopulate(val, "DefaultTTLAsISO8601", &c.DefaultTTLAsISO8601)
 			delete(rawMsg, key)
 		case "feedback":
 			err = unpopulate(val, "Feedback", &c.Feedback)
@@ -977,9 +977,9 @@ func (f *FallbackRouteProperties) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type FeedbackProperties.
 func (f FeedbackProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
-	populate(objectMap, "lockDurationAsIso8601", f.LockDurationAsIso8601)
+	populate(objectMap, "lockDurationAsIso8601", f.LockDurationAsISO8601)
 	populate(objectMap, "maxDeliveryCount", f.MaxDeliveryCount)
-	populate(objectMap, "ttlAsIso8601", f.TTLAsIso8601)
+	populate(objectMap, "ttlAsIso8601", f.TTLAsISO8601)
 	return json.Marshal(objectMap)
 }
 
@@ -993,13 +993,13 @@ func (f *FeedbackProperties) UnmarshalJSON(data []byte) error {
 		var err error
 		switch key {
 		case "lockDurationAsIso8601":
-			err = unpopulate(val, "LockDurationAsIso8601", &f.LockDurationAsIso8601)
+			err = unpopulate(val, "LockDurationAsISO8601", &f.LockDurationAsISO8601)
 			delete(rawMsg, key)
 		case "maxDeliveryCount":
 			err = unpopulate(val, "MaxDeliveryCount", &f.MaxDeliveryCount)
 			delete(rawMsg, key)
 		case "ttlAsIso8601":
-			err = unpopulate(val, "TTLAsIso8601", &f.TTLAsIso8601)
+			err = unpopulate(val, "TTLAsISO8601", &f.TTLAsISO8601)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -1347,9 +1347,9 @@ func (m *MatchedRoute) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type MessagingEndpointProperties.
 func (m MessagingEndpointProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
-	populate(objectMap, "lockDurationAsIso8601", m.LockDurationAsIso8601)
+	populate(objectMap, "lockDurationAsIso8601", m.LockDurationAsISO8601)
 	populate(objectMap, "maxDeliveryCount", m.MaxDeliveryCount)
-	populate(objectMap, "ttlAsIso8601", m.TTLAsIso8601)
+	populate(objectMap, "ttlAsIso8601", m.TTLAsISO8601)
 	return json.Marshal(objectMap)
 }
 
@@ -1363,13 +1363,13 @@ func (m *MessagingEndpointProperties) UnmarshalJSON(data []byte) error {
 		var err error
 		switch key {
 		case "lockDurationAsIso8601":
-			err = unpopulate(val, "LockDurationAsIso8601", &m.LockDurationAsIso8601)
+			err = unpopulate(val, "LockDurationAsISO8601", &m.LockDurationAsISO8601)
 			delete(rawMsg, key)
 		case "maxDeliveryCount":
 			err = unpopulate(val, "MaxDeliveryCount", &m.MaxDeliveryCount)
 			delete(rawMsg, key)
 		case "ttlAsIso8601":
-			err = unpopulate(val, "TTLAsIso8601", &m.TTLAsIso8601)
+			err = unpopulate(val, "TTLAsISO8601", &m.TTLAsISO8601)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -2889,7 +2889,7 @@ func (s StorageEndpointProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "connectionString", s.ConnectionString)
 	populate(objectMap, "containerName", s.ContainerName)
 	populate(objectMap, "identity", s.Identity)
-	populate(objectMap, "sasTtlAsIso8601", s.SasTTLAsIso8601)
+	populate(objectMap, "sasTtlAsIso8601", s.SasTTLAsISO8601)
 	return json.Marshal(objectMap)
 }
 
@@ -2915,7 +2915,7 @@ func (s *StorageEndpointProperties) UnmarshalJSON(data []byte) error {
 			err = unpopulate(val, "Identity", &s.Identity)
 			delete(rawMsg, key)
 		case "sasTtlAsIso8601":
-			err = unpopulate(val, "SasTTLAsIso8601", &s.SasTTLAsIso8601)
+			err = unpopulate(val, "SasTTLAsISO8601", &s.SasTTLAsISO8601)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -3253,7 +3253,7 @@ func populateAny(m map[string]any, k string, v any) {
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {
