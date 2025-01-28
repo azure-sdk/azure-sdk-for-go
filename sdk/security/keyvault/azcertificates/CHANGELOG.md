@@ -1,5 +1,31 @@
 # Release History
 
+## 2.0.0 (2025-01-28)
+### Breaking Changes
+
+- Type of `Certificate.ID` has been changed from `*ID` to `*string`
+- Type of `Certificate.KID` has been changed from `*ID` to `*string`
+- Type of `Certificate.SID` has been changed from `*ID` to `*string`
+- Type of `CertificateAttributes.RecoveryLevel` has been changed from `*string` to `*DeletionRecoveryLevel`
+- Type of `CertificateOperation.Error` has been changed from `*ErrorInfo` to `*KeyVaultErrorError`
+- Type of `CertificateOperation.ID` has been changed from `*ID` to `*string`
+- Type of `CertificatePolicy.ID` has been changed from `*ID` to `*string`
+- Type of `CertificateProperties.ID` has been changed from `*ID` to `*string`
+- Type of `DeletedCertificate.ID` has been changed from `*ID` to `*string`
+- Type of `DeletedCertificate.KID` has been changed from `*ID` to `*string`
+- Type of `DeletedCertificate.SID` has been changed from `*ID` to `*string`
+- Type of `DeletedCertificateProperties.ID` has been changed from `*ID` to `*string`
+
+### Features Added
+
+- New enum type `DeletionRecoveryLevel` with values `DeletionRecoveryLevelCustomizedRecoverable`, `DeletionRecoveryLevelCustomizedRecoverableProtectedSubscription`, `DeletionRecoveryLevelCustomizedRecoverablePurgeable`, `DeletionRecoveryLevelPurgeable`, `DeletionRecoveryLevelRecoverable`, `DeletionRecoveryLevelRecoverableProtectedSubscription`, `DeletionRecoveryLevelRecoverablePurgeable`
+- New struct `KeyVaultErrorError`
+- New field `Maxresults` in struct `ListCertificatePropertiesOptions`
+- New field `Maxresults` in struct `ListCertificatePropertiesVersionsOptions`
+- New field `Maxresults` in struct `ListDeletedCertificatePropertiesOptions`
+- New field `Maxresults` in struct `ListIssuerPropertiesOptions`
+
+
 ## 1.3.1 (Unreleased)
 
 ### Features Added
