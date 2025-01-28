@@ -4016,6 +4016,7 @@ func (k KubernetesClusterBackupDatasourceParameters) MarshalJSON() ([]byte, erro
 	populate(objectMap, "includeClusterScopeResources", k.IncludeClusterScopeResources)
 	populate(objectMap, "includedNamespaces", k.IncludedNamespaces)
 	populate(objectMap, "includedResourceTypes", k.IncludedResourceTypes)
+	populate(objectMap, "includedVolumeTypes", k.IncludedVolumeTypes)
 	populate(objectMap, "labelSelectors", k.LabelSelectors)
 	objectMap["objectType"] = "KubernetesClusterBackupDatasourceParameters"
 	populate(objectMap, "snapshotVolumes", k.SnapshotVolumes)
@@ -4048,6 +4049,9 @@ func (k *KubernetesClusterBackupDatasourceParameters) UnmarshalJSON(data []byte)
 			delete(rawMsg, key)
 		case "includedResourceTypes":
 			err = unpopulate(val, "IncludedResourceTypes", &k.IncludedResourceTypes)
+			delete(rawMsg, key)
+		case "includedVolumeTypes":
+			err = unpopulate(val, "IncludedVolumeTypes", &k.IncludedVolumeTypes)
 			delete(rawMsg, key)
 		case "labelSelectors":
 			err = unpopulate(val, "LabelSelectors", &k.LabelSelectors)
@@ -6198,6 +6202,33 @@ func (v ValidateForBackupRequest) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements the json.Unmarshaller interface for type ValidateForBackupRequest.
 func (v *ValidateForBackupRequest) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", v, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "backupInstance":
+			err = unpopulate(val, "BackupInstance", &v.BackupInstance)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", v, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ValidateForModifyBackupRequest.
+func (v ValidateForModifyBackupRequest) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "backupInstance", v.BackupInstance)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ValidateForModifyBackupRequest.
+func (v *ValidateForModifyBackupRequest) UnmarshalJSON(data []byte) error {
 	var rawMsg map[string]json.RawMessage
 	if err := json.Unmarshal(data, &rawMsg); err != nil {
 		return fmt.Errorf("unmarshalling type %T: %v", v, err)
