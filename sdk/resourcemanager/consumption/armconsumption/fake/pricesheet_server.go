@@ -15,7 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/consumption/armconsumption"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/consumption/armconsumption/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -24,6 +24,10 @@ import (
 
 // PriceSheetServer is a fake server for instances of the armconsumption.PriceSheetClient type.
 type PriceSheetServer struct {
+	// BeginDownloadByBillingAccountPeriod is the fake for method PriceSheetClient.BeginDownloadByBillingAccountPeriod
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	BeginDownloadByBillingAccountPeriod func(ctx context.Context, billingAccountID string, billingPeriodName string, options *armconsumption.PriceSheetClientBeginDownloadByBillingAccountPeriodOptions) (resp azfake.PollerResponder[armconsumption.PriceSheetClientDownloadByBillingAccountPeriodResponse], errResp azfake.ErrorResponder)
+
 	// Get is the fake for method PriceSheetClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, options *armconsumption.PriceSheetClientGetOptions) (resp azfake.Responder[armconsumption.PriceSheetClientGetResponse], errResp azfake.ErrorResponder)
@@ -37,13 +41,17 @@ type PriceSheetServer struct {
 // The returned PriceSheetServerTransport instance is connected to an instance of armconsumption.PriceSheetClient via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewPriceSheetServerTransport(srv *PriceSheetServer) *PriceSheetServerTransport {
-	return &PriceSheetServerTransport{srv: srv}
+	return &PriceSheetServerTransport{
+		srv:                                 srv,
+		beginDownloadByBillingAccountPeriod: newTracker[azfake.PollerResponder[armconsumption.PriceSheetClientDownloadByBillingAccountPeriodResponse]](),
+	}
 }
 
 // PriceSheetServerTransport connects instances of armconsumption.PriceSheetClient to instances of PriceSheetServer.
 // Don't use this type directly, use NewPriceSheetServerTransport instead.
 type PriceSheetServerTransport struct {
-	srv *PriceSheetServer
+	srv                                 *PriceSheetServer
+	beginDownloadByBillingAccountPeriod *tracker[azfake.PollerResponder[armconsumption.PriceSheetClientDownloadByBillingAccountPeriodResponse]]
 }
 
 // Do implements the policy.Transporter interface for PriceSheetServerTransport.
@@ -58,6 +66,8 @@ func (p *PriceSheetServerTransport) Do(req *http.Request) (*http.Response, error
 	var err error
 
 	switch method {
+	case "PriceSheetClient.BeginDownloadByBillingAccountPeriod":
+		resp, err = p.dispatchBeginDownloadByBillingAccountPeriod(req)
 	case "PriceSheetClient.Get":
 		resp, err = p.dispatchGet(req)
 	case "PriceSheetClient.GetByBillingPeriod":
@@ -68,6 +78,50 @@ func (p *PriceSheetServerTransport) Do(req *http.Request) (*http.Response, error
 
 	if err != nil {
 		return nil, err
+	}
+
+	return resp, nil
+}
+
+func (p *PriceSheetServerTransport) dispatchBeginDownloadByBillingAccountPeriod(req *http.Request) (*http.Response, error) {
+	if p.srv.BeginDownloadByBillingAccountPeriod == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginDownloadByBillingAccountPeriod not implemented")}
+	}
+	beginDownloadByBillingAccountPeriod := p.beginDownloadByBillingAccountPeriod.get(req)
+	if beginDownloadByBillingAccountPeriod == nil {
+		const regexStr = `/providers/Microsoft\.Billing/billingAccounts/(?P<billingAccountId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/billingPeriods/(?P<billingPeriodName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Consumption/pricesheets/download`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 2 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		billingAccountIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("billingAccountId")])
+		if err != nil {
+			return nil, err
+		}
+		billingPeriodNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("billingPeriodName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := p.srv.BeginDownloadByBillingAccountPeriod(req.Context(), billingAccountIDParam, billingPeriodNameParam, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginDownloadByBillingAccountPeriod = &respr
+		p.beginDownloadByBillingAccountPeriod.add(req, beginDownloadByBillingAccountPeriod)
+	}
+
+	resp, err := server.PollerResponderNext(beginDownloadByBillingAccountPeriod, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+		p.beginDownloadByBillingAccountPeriod.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginDownloadByBillingAccountPeriod) {
+		p.beginDownloadByBillingAccountPeriod.remove(req)
 	}
 
 	return resp, nil

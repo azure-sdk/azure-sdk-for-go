@@ -8,6 +8,18 @@
 
 package armrecoveryservicessiterecovery
 
+// ClusterRecoveryPointClientGetResponse contains the response from method ClusterRecoveryPointClient.Get.
+type ClusterRecoveryPointClientGetResponse struct {
+	// Recovery point.
+	ClusterRecoveryPoint
+}
+
+// ClusterRecoveryPointsClientListByReplicationProtectionClusterResponse contains the response from method ClusterRecoveryPointsClient.NewListByReplicationProtectionClusterPager.
+type ClusterRecoveryPointsClientListByReplicationProtectionClusterResponse struct {
+	// Collection of cluster recovery point details.
+	ClusterRecoveryPointCollection
+}
+
 // MigrationRecoveryPointsClientGetResponse contains the response from method MigrationRecoveryPointsClient.Get.
 type MigrationRecoveryPointsClientGetResponse struct {
 	// Recovery point for a migration item.
@@ -498,6 +510,77 @@ type ReplicationProtectedItemsClientUpdateResponse struct {
 	ReplicationProtectedItem
 }
 
+// ReplicationProtectionClustersClientApplyRecoveryPointResponse contains the response from method ReplicationProtectionClustersClient.BeginApplyRecoveryPoint.
+type ReplicationProtectionClustersClientApplyRecoveryPointResponse struct {
+	// Replication protection Cluster.
+	ReplicationProtectionCluster
+}
+
+// ReplicationProtectionClustersClientCreateResponse contains the response from method ReplicationProtectionClustersClient.BeginCreate.
+type ReplicationProtectionClustersClientCreateResponse struct {
+	// Replication protection Cluster.
+	ReplicationProtectionCluster
+}
+
+// ReplicationProtectionClustersClientFailoverCommitResponse contains the response from method ReplicationProtectionClustersClient.BeginFailoverCommit.
+type ReplicationProtectionClustersClientFailoverCommitResponse struct {
+	// Replication protection Cluster.
+	ReplicationProtectionCluster
+}
+
+// ReplicationProtectionClustersClientGetOperationResultsResponse contains the response from method ReplicationProtectionClustersClient.GetOperationResults.
+type ReplicationProtectionClustersClientGetOperationResultsResponse struct {
+	// Replication protection Cluster.
+	ReplicationProtectionCluster
+}
+
+// ReplicationProtectionClustersClientGetResponse contains the response from method ReplicationProtectionClustersClient.Get.
+type ReplicationProtectionClustersClientGetResponse struct {
+	// Replication protection Cluster.
+	ReplicationProtectionCluster
+}
+
+// ReplicationProtectionClustersClientListByReplicationProtectionContainersResponse contains the response from method ReplicationProtectionClustersClient.NewListByReplicationProtectionContainersPager.
+type ReplicationProtectionClustersClientListByReplicationProtectionContainersResponse struct {
+	// Replication protected item collection.
+	ReplicationProtectionClusterCollection
+}
+
+// ReplicationProtectionClustersClientListResponse contains the response from method ReplicationProtectionClustersClient.NewListPager.
+type ReplicationProtectionClustersClientListResponse struct {
+	// Replication protected item collection.
+	ReplicationProtectionClusterCollection
+}
+
+// ReplicationProtectionClustersClientPurgeResponse contains the response from method ReplicationProtectionClustersClient.BeginPurge.
+type ReplicationProtectionClustersClientPurgeResponse struct {
+	// placeholder for future response values
+}
+
+// ReplicationProtectionClustersClientRepairReplicationResponse contains the response from method ReplicationProtectionClustersClient.BeginRepairReplication.
+type ReplicationProtectionClustersClientRepairReplicationResponse struct {
+	// Replication protection Cluster.
+	ReplicationProtectionCluster
+}
+
+// ReplicationProtectionClustersClientTestFailoverCleanupResponse contains the response from method ReplicationProtectionClustersClient.BeginTestFailoverCleanup.
+type ReplicationProtectionClustersClientTestFailoverCleanupResponse struct {
+	// Replication protection Cluster.
+	ReplicationProtectionCluster
+}
+
+// ReplicationProtectionClustersClientTestFailoverResponse contains the response from method ReplicationProtectionClustersClient.BeginTestFailover.
+type ReplicationProtectionClustersClientTestFailoverResponse struct {
+	// Replication protection Cluster.
+	ReplicationProtectionCluster
+}
+
+// ReplicationProtectionClustersClientUnplannedFailoverResponse contains the response from method ReplicationProtectionClustersClient.BeginUnplannedFailover.
+type ReplicationProtectionClustersClientUnplannedFailoverResponse struct {
+	// Replication protection Cluster.
+	ReplicationProtectionCluster
+}
+
 // ReplicationProtectionContainerMappingsClientCreateResponse contains the response from method ReplicationProtectionContainerMappingsClient.BeginCreate.
 type ReplicationProtectionContainerMappingsClientCreateResponse struct {
 	// Protection container mapping object.
@@ -572,6 +655,12 @@ type ReplicationProtectionContainersClientListByReplicationFabricsResponse struc
 type ReplicationProtectionContainersClientListResponse struct {
 	// Protection Container collection.
 	ProtectionContainerCollection
+}
+
+// ReplicationProtectionContainersClientSwitchClusterProtectionResponse contains the response from method ReplicationProtectionContainersClient.BeginSwitchClusterProtection.
+type ReplicationProtectionContainersClientSwitchClusterProtectionResponse struct {
+	// Protection container details.
+	ProtectionContainer
 }
 
 // ReplicationProtectionContainersClientSwitchProtectionResponse contains the response from method ReplicationProtectionContainersClient.BeginSwitchProtection.
