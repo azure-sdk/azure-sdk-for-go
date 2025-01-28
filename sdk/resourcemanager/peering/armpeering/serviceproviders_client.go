@@ -45,7 +45,7 @@ func NewServiceProvidersClient(subscriptionID string, credential azcore.TokenCre
 
 // NewListPager - Lists all of the available peering service locations for the specified kind of peering.
 //
-// Generated from API version 2022-01-01
+// Generated from API version 2022-10-01
 //   - options - ServiceProvidersClientListOptions contains the optional parameters for the ServiceProvidersClient.NewListPager
 //     method.
 func (client *ServiceProvidersClient) NewListPager(options *ServiceProvidersClientListOptions) *runtime.Pager[ServiceProvidersClientListResponse] {
@@ -83,7 +83,7 @@ func (client *ServiceProvidersClient) listCreateRequest(ctx context.Context, opt
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-01")
+	reqQP.Set("api-version", "2022-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

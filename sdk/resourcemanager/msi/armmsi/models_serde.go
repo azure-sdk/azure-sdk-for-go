@@ -499,6 +499,7 @@ func (u *UserAssignedIdentitiesListResult) UnmarshalJSON(data []byte) error {
 func (u UserAssignedIdentityProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "clientId", u.ClientID)
+	populate(objectMap, "isolationScope", u.IsolationScope)
 	populate(objectMap, "principalId", u.PrincipalID)
 	populate(objectMap, "tenantId", u.TenantID)
 	return json.Marshal(objectMap)
@@ -515,6 +516,9 @@ func (u *UserAssignedIdentityProperties) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "clientId":
 			err = unpopulate(val, "ClientID", &u.ClientID)
+			delete(rawMsg, key)
+		case "isolationScope":
+			err = unpopulate(val, "IsolationScope", &u.IsolationScope)
 			delete(rawMsg, key)
 		case "principalId":
 			err = unpopulate(val, "PrincipalID", &u.PrincipalID)
@@ -541,7 +545,7 @@ func populate(m map[string]any, k string, v any) {
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {

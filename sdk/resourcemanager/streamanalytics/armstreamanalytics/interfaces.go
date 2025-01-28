@@ -11,8 +11,7 @@ package armstreamanalytics
 // FunctionBindingClassification provides polymorphic access to related types.
 // Call the interface's GetFunctionBinding() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *AzureMachineLearningServiceFunctionBinding, *AzureMachineLearningStudioFunctionBinding, *CSharpFunctionBinding, *FunctionBinding,
-// - *JavaScriptFunctionBinding
+// - *AzureMachineLearningWebServiceFunctionBinding, *FunctionBinding, *JavaScriptFunctionBinding
 type FunctionBindingClassification interface {
 	// GetFunctionBinding returns the FunctionBinding content of the underlying type.
 	GetFunctionBinding() *FunctionBinding
@@ -30,8 +29,8 @@ type FunctionPropertiesClassification interface {
 // FunctionRetrieveDefaultDefinitionParametersClassification provides polymorphic access to related types.
 // Call the interface's GetFunctionRetrieveDefaultDefinitionParameters() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *AzureMachineLearningServiceFunctionRetrieveDefaultDefinitionParameters, *AzureMachineLearningStudioFunctionRetrieveDefaultDefinitionParameters,
-// - *CSharpFunctionRetrieveDefaultDefinitionParameters, *FunctionRetrieveDefaultDefinitionParameters, *JavaScriptFunctionRetrieveDefaultDefinitionParameters
+// - *AzureMachineLearningWebServiceFunctionRetrieveDefaultDefinitionParameters, *FunctionRetrieveDefaultDefinitionParameters,
+// - *JavaScriptFunctionRetrieveDefaultDefinitionParameters
 type FunctionRetrieveDefaultDefinitionParametersClassification interface {
 	// GetFunctionRetrieveDefaultDefinitionParameters returns the FunctionRetrieveDefaultDefinitionParameters content of the underlying type.
 	GetFunctionRetrieveDefaultDefinitionParameters() *FunctionRetrieveDefaultDefinitionParameters
@@ -49,10 +48,9 @@ type InputPropertiesClassification interface {
 // OutputDataSourceClassification provides polymorphic access to related types.
 // Call the interface's GetOutputDataSource() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *AzureDataExplorerOutputDataSource, *AzureDataLakeStoreOutputDataSource, *AzureFunctionOutputDataSource, *AzureSQLDatabaseOutputDataSource,
-// - *AzureSynapseOutputDataSource, *AzureTableOutputDataSource, *BlobOutputDataSource, *DocumentDbOutputDataSource, *EventHubOutputDataSource,
-// - *EventHubV2OutputDataSource, *GatewayMessageBusOutputDataSource, *OutputDataSource, *PostgreSQLOutputDataSource, *PowerBIOutputDataSource,
-// - *RawOutputDatasource, *ServiceBusQueueOutputDataSource, *ServiceBusTopicOutputDataSource
+// - *AzureDataLakeStoreOutputDataSource, *AzureFunctionOutputDataSource, *AzureSQLDatabaseOutputDataSource, *AzureSynapseOutputDataSource,
+// - *AzureTableOutputDataSource, *BlobOutputDataSource, *DocumentDbOutputDataSource, *EventHubOutputDataSource, *EventHubV2OutputDataSource,
+// - *GatewayMessageBusOutputDataSource, *OutputDataSource, *PowerBIOutputDataSource, *ServiceBusQueueOutputDataSource, *ServiceBusTopicOutputDataSource
 type OutputDataSourceClassification interface {
 	// GetOutputDataSource returns the OutputDataSource content of the underlying type.
 	GetOutputDataSource() *OutputDataSource
@@ -61,8 +59,7 @@ type OutputDataSourceClassification interface {
 // ReferenceInputDataSourceClassification provides polymorphic access to related types.
 // Call the interface's GetReferenceInputDataSource() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *AzureSQLReferenceInputDataSource, *BlobReferenceInputDataSource, *FileReferenceInputDataSource, *RawReferenceInputDataSource,
-// - *ReferenceInputDataSource
+// - *AzureSQLReferenceInputDataSource, *BlobReferenceInputDataSource, *FileReferenceInputDataSource, *ReferenceInputDataSource
 type ReferenceInputDataSourceClassification interface {
 	// GetReferenceInputDataSource returns the ReferenceInputDataSource content of the underlying type.
 	GetReferenceInputDataSource() *ReferenceInputDataSource
@@ -71,8 +68,7 @@ type ReferenceInputDataSourceClassification interface {
 // SerializationClassification provides polymorphic access to related types.
 // Call the interface's GetSerialization() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *AvroSerialization, *CSVSerialization, *CustomClrSerialization, *DeltaSerialization, *JSONSerialization, *ParquetSerialization,
-// - *Serialization
+// - *AvroSerialization, *CSVSerialization, *JSONSerialization, *ParquetSerialization, *Serialization
 type SerializationClassification interface {
 	// GetSerialization returns the Serialization content of the underlying type.
 	GetSerialization() *Serialization
@@ -81,8 +77,8 @@ type SerializationClassification interface {
 // StreamInputDataSourceClassification provides polymorphic access to related types.
 // Call the interface's GetStreamInputDataSource() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *BlobStreamInputDataSource, *EventGridStreamInputDataSource, *EventHubStreamInputDataSource, *EventHubV2StreamInputDataSource,
-// - *GatewayMessageBusStreamInputDataSource, *IoTHubStreamInputDataSource, *RawStreamInputDataSource, *StreamInputDataSource
+// - *BlobStreamInputDataSource, *EventHubStreamInputDataSource, *EventHubV2StreamInputDataSource, *GatewayMessageBusStreamInputDataSource,
+// - *IoTHubStreamInputDataSource, *StreamInputDataSource
 type StreamInputDataSourceClassification interface {
 	// GetStreamInputDataSource returns the StreamInputDataSource content of the underlying type.
 	GetStreamInputDataSource() *StreamInputDataSource

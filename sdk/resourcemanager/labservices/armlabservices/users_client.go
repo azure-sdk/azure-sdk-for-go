@@ -46,7 +46,7 @@ func NewUsersClient(subscriptionID string, credential azcore.TokenCredential, op
 // BeginCreateOrUpdate - Operation to create or update a lab user.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labName - The name of the lab that uniquely identifies it within containing lab plan. Used in resource URIs.
 //   - userName - The name of the user that uniquely identifies it within containing lab. Used in resource URIs.
@@ -74,7 +74,7 @@ func (client *UsersClient) BeginCreateOrUpdate(ctx context.Context, resourceGrou
 // CreateOrUpdate - Operation to create or update a lab user.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 func (client *UsersClient) createOrUpdate(ctx context.Context, resourceGroupName string, labName string, userName string, body User, options *UsersClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "UsersClient.BeginCreateOrUpdate"
@@ -120,7 +120,7 @@ func (client *UsersClient) createOrUpdateCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-06-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -132,7 +132,7 @@ func (client *UsersClient) createOrUpdateCreateRequest(ctx context.Context, reso
 // BeginDelete - Operation to delete a user resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labName - The name of the lab that uniquely identifies it within containing lab plan. Used in resource URIs.
 //   - userName - The name of the user that uniquely identifies it within containing lab. Used in resource URIs.
@@ -158,7 +158,7 @@ func (client *UsersClient) BeginDelete(ctx context.Context, resourceGroupName st
 // Delete - Operation to delete a user resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 func (client *UsersClient) deleteOperation(ctx context.Context, resourceGroupName string, labName string, userName string, options *UsersClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "UsersClient.BeginDelete"
@@ -204,7 +204,7 @@ func (client *UsersClient) deleteCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-06-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -213,7 +213,7 @@ func (client *UsersClient) deleteCreateRequest(ctx context.Context, resourceGrou
 // Get - Returns the properties of a lab user.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labName - The name of the lab that uniquely identifies it within containing lab plan. Used in resource URIs.
 //   - userName - The name of the user that uniquely identifies it within containing lab. Used in resource URIs.
@@ -264,7 +264,7 @@ func (client *UsersClient) getCreateRequest(ctx context.Context, resourceGroupNa
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-06-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -282,7 +282,7 @@ func (client *UsersClient) getHandleResponse(resp *http.Response) (UsersClientGe
 // BeginInvite - Operation to invite a user to a lab.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labName - The name of the lab that uniquely identifies it within containing lab plan. Used in resource URIs.
 //   - userName - The name of the user that uniquely identifies it within containing lab. Used in resource URIs.
@@ -309,7 +309,7 @@ func (client *UsersClient) BeginInvite(ctx context.Context, resourceGroupName st
 // Invite - Operation to invite a user to a lab.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 func (client *UsersClient) invite(ctx context.Context, resourceGroupName string, labName string, userName string, body InviteBody, options *UsersClientBeginInviteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "UsersClient.BeginInvite"
@@ -355,7 +355,7 @@ func (client *UsersClient) inviteCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-06-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -366,7 +366,7 @@ func (client *UsersClient) inviteCreateRequest(ctx context.Context, resourceGrou
 
 // NewListByLabPager - Returns a list of all users for a lab.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labName - The name of the lab that uniquely identifies it within containing lab plan. Used in resource URIs.
 //   - options - UsersClientListByLabOptions contains the optional parameters for the UsersClient.NewListByLabPager method.
@@ -413,10 +413,10 @@ func (client *UsersClient) listByLabCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
+	reqQP.Set("api-version", "2023-06-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -434,7 +434,7 @@ func (client *UsersClient) listByLabHandleResponse(resp *http.Response) (UsersCl
 // BeginUpdate - Operation to update a lab user.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - labName - The name of the lab that uniquely identifies it within containing lab plan. Used in resource URIs.
 //   - userName - The name of the user that uniquely identifies it within containing lab. Used in resource URIs.
@@ -461,7 +461,7 @@ func (client *UsersClient) BeginUpdate(ctx context.Context, resourceGroupName st
 // Update - Operation to update a lab user.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-08-01
+// Generated from API version 2023-06-07
 func (client *UsersClient) update(ctx context.Context, resourceGroupName string, labName string, userName string, body UserUpdate, options *UsersClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "UsersClient.BeginUpdate"
@@ -507,7 +507,7 @@ func (client *UsersClient) updateCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-06-07")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
