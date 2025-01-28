@@ -51,6 +51,24 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 	}
 }
 
+// Provisioning - The provisioning state of the resource.
+type Provisioning string
+
+const (
+	ProvisioningAccepted  Provisioning = "Accepted"
+	ProvisioningPending   Provisioning = "Pending"
+	ProvisioningSucceeded Provisioning = "Succeeded"
+)
+
+// PossibleProvisioningValues returns the possible values for the Provisioning const type.
+func PossibleProvisioningValues() []Provisioning {
+	return []Provisioning{
+		ProvisioningAccepted,
+		ProvisioningPending,
+		ProvisioningSucceeded,
+	}
+}
+
 // ProvisioningState - The provisioning state of the resource.
 type ProvisioningState string
 
