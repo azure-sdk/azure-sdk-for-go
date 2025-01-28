@@ -17,8 +17,7 @@ import (
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
 	subscriptionID string
-	credential     azcore.TokenCredential
-	options        *arm.ClientOptions
+	internal       *arm.Client
 }
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
@@ -27,66 +26,83 @@ type ClientFactory struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
-	_, err := arm.NewClient(moduleName, moduleVersion, credential, options)
+	internal, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		subscriptionID: subscriptionID, credential: credential,
-		options: options.Clone(),
+		subscriptionID: subscriptionID,
+		internal:       internal,
 	}, nil
 }
 
 // NewClient creates a new instance of Client.
 func (c *ClientFactory) NewClient() *Client {
-	subClient, _ := NewClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &Client{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewMonitorsClient creates a new instance of MonitorsClient.
 func (c *ClientFactory) NewMonitorsClient() *MonitorsClient {
-	subClient, _ := NewMonitorsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &MonitorsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewOperationsClient creates a new instance of OperationsClient.
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
-	subClient, _ := NewOperationsClient(c.credential, c.options)
-	return subClient
+	return &OperationsClient{
+		internal: c.internal,
+	}
 }
 
 // NewProviderInstancesClient creates a new instance of ProviderInstancesClient.
 func (c *ClientFactory) NewProviderInstancesClient() *ProviderInstancesClient {
-	subClient, _ := NewProviderInstancesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &ProviderInstancesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSAPApplicationServerInstancesClient creates a new instance of SAPApplicationServerInstancesClient.
 func (c *ClientFactory) NewSAPApplicationServerInstancesClient() *SAPApplicationServerInstancesClient {
-	subClient, _ := NewSAPApplicationServerInstancesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SAPApplicationServerInstancesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSAPCentralInstancesClient creates a new instance of SAPCentralInstancesClient.
 func (c *ClientFactory) NewSAPCentralInstancesClient() *SAPCentralInstancesClient {
-	subClient, _ := NewSAPCentralInstancesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SAPCentralInstancesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSAPDatabaseInstancesClient creates a new instance of SAPDatabaseInstancesClient.
 func (c *ClientFactory) NewSAPDatabaseInstancesClient() *SAPDatabaseInstancesClient {
-	subClient, _ := NewSAPDatabaseInstancesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SAPDatabaseInstancesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSAPVirtualInstancesClient creates a new instance of SAPVirtualInstancesClient.
 func (c *ClientFactory) NewSAPVirtualInstancesClient() *SAPVirtualInstancesClient {
-	subClient, _ := NewSAPVirtualInstancesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SAPVirtualInstancesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }
 
 // NewSapLandscapeMonitorClient creates a new instance of SapLandscapeMonitorClient.
 func (c *ClientFactory) NewSapLandscapeMonitorClient() *SapLandscapeMonitorClient {
-	subClient, _ := NewSapLandscapeMonitorClient(c.subscriptionID, c.credential, c.options)
-	return subClient
+	return &SapLandscapeMonitorClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
 }

@@ -11,7 +11,7 @@ package armdatamigration
 import "encoding/json"
 
 func unmarshalCommandPropertiesClassification(rawMsg json.RawMessage) (CommandPropertiesClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -20,15 +20,15 @@ func unmarshalCommandPropertiesClassification(rawMsg json.RawMessage) (CommandPr
 	}
 	var b CommandPropertiesClassification
 	switch m["commandType"] {
-	case "Migrate.SqlServer.AzureDbSqlMi.Complete":
+	case string(CommandTypeMigrateSQLServerAzureDbSQLMiComplete):
 		b = &MigrateMISyncCompleteCommandProperties{}
-	case "Migrate.Sync.Complete.Database":
+	case string(CommandTypeMigrateSyncCompleteDatabase):
 		b = &MigrateSyncCompleteCommandProperties{}
-	case "cancel":
+	case string(CommandTypeCancel):
 		b = &MongoDbCancelCommand{}
-	case "finish":
+	case string(CommandTypeFinish):
 		b = &MongoDbFinishCommand{}
-	case "restart":
+	case string(CommandTypeRestart):
 		b = &MongoDbRestartCommand{}
 	default:
 		b = &CommandProperties{}
@@ -40,7 +40,7 @@ func unmarshalCommandPropertiesClassification(rawMsg json.RawMessage) (CommandPr
 }
 
 func unmarshalCommandPropertiesClassificationArray(rawMsg json.RawMessage) ([]CommandPropertiesClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -59,7 +59,7 @@ func unmarshalCommandPropertiesClassificationArray(rawMsg json.RawMessage) ([]Co
 }
 
 func unmarshalConnectToSourceSQLServerTaskOutputClassification(rawMsg json.RawMessage) (ConnectToSourceSQLServerTaskOutputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -86,7 +86,7 @@ func unmarshalConnectToSourceSQLServerTaskOutputClassification(rawMsg json.RawMe
 }
 
 func unmarshalConnectToSourceSQLServerTaskOutputClassificationArray(rawMsg json.RawMessage) ([]ConnectToSourceSQLServerTaskOutputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -105,7 +105,7 @@ func unmarshalConnectToSourceSQLServerTaskOutputClassificationArray(rawMsg json.
 }
 
 func unmarshalConnectionInfoClassification(rawMsg json.RawMessage) (ConnectionInfoClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -135,8 +135,62 @@ func unmarshalConnectionInfoClassification(rawMsg json.RawMessage) (ConnectionIn
 	return b, nil
 }
 
+func unmarshalDatabaseMigrationBasePropertiesClassification(rawMsg json.RawMessage) (DatabaseMigrationBasePropertiesClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b DatabaseMigrationBasePropertiesClassification
+	switch m["kind"] {
+	case "DatabaseMigrationProperties":
+		b = &DatabaseMigrationProperties{}
+	case string(ResourceTypeMongoToCosmosDbMongo):
+		b = &DatabaseMigrationPropertiesCosmosDbMongo{}
+	case string(ResourceTypeSQLDb):
+		b = &DatabaseMigrationPropertiesSQLDb{}
+	case string(ResourceTypeSQLMi):
+		b = &DatabaseMigrationPropertiesSQLMi{}
+	case string(ResourceTypeSQLVM):
+		b = &DatabaseMigrationPropertiesSQLVM{}
+	default:
+		b = &DatabaseMigrationBaseProperties{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
+func unmarshalDatabaseMigrationPropertiesClassification(rawMsg json.RawMessage) (DatabaseMigrationPropertiesClassification, error) {
+	if rawMsg == nil || string(rawMsg) == "null" {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b DatabaseMigrationPropertiesClassification
+	switch m["kind"] {
+	case string(ResourceTypeSQLDb):
+		b = &DatabaseMigrationPropertiesSQLDb{}
+	case string(ResourceTypeSQLMi):
+		b = &DatabaseMigrationPropertiesSQLMi{}
+	case string(ResourceTypeSQLVM):
+		b = &DatabaseMigrationPropertiesSQLVM{}
+	default:
+		b = &DatabaseMigrationProperties{}
+	}
+	if err := json.Unmarshal(rawMsg, b); err != nil {
+		return nil, err
+	}
+	return b, nil
+}
+
 func unmarshalMigrateMySQLAzureDbForMySQLOfflineTaskOutputClassification(rawMsg json.RawMessage) (MigrateMySQLAzureDbForMySQLOfflineTaskOutputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -163,7 +217,7 @@ func unmarshalMigrateMySQLAzureDbForMySQLOfflineTaskOutputClassification(rawMsg 
 }
 
 func unmarshalMigrateMySQLAzureDbForMySQLOfflineTaskOutputClassificationArray(rawMsg json.RawMessage) ([]MigrateMySQLAzureDbForMySQLOfflineTaskOutputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -182,7 +236,7 @@ func unmarshalMigrateMySQLAzureDbForMySQLOfflineTaskOutputClassificationArray(ra
 }
 
 func unmarshalMigrateMySQLAzureDbForMySQLSyncTaskOutputClassification(rawMsg json.RawMessage) (MigrateMySQLAzureDbForMySQLSyncTaskOutputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -211,7 +265,7 @@ func unmarshalMigrateMySQLAzureDbForMySQLSyncTaskOutputClassification(rawMsg jso
 }
 
 func unmarshalMigrateMySQLAzureDbForMySQLSyncTaskOutputClassificationArray(rawMsg json.RawMessage) ([]MigrateMySQLAzureDbForMySQLSyncTaskOutputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -230,7 +284,7 @@ func unmarshalMigrateMySQLAzureDbForMySQLSyncTaskOutputClassificationArray(rawMs
 }
 
 func unmarshalMigrateOracleAzureDbPostgreSQLSyncTaskOutputClassification(rawMsg json.RawMessage) (MigrateOracleAzureDbPostgreSQLSyncTaskOutputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -259,7 +313,7 @@ func unmarshalMigrateOracleAzureDbPostgreSQLSyncTaskOutputClassification(rawMsg 
 }
 
 func unmarshalMigrateOracleAzureDbPostgreSQLSyncTaskOutputClassificationArray(rawMsg json.RawMessage) ([]MigrateOracleAzureDbPostgreSQLSyncTaskOutputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -278,7 +332,7 @@ func unmarshalMigrateOracleAzureDbPostgreSQLSyncTaskOutputClassificationArray(ra
 }
 
 func unmarshalMigratePostgreSQLAzureDbForPostgreSQLSyncTaskOutputClassification(rawMsg json.RawMessage) (MigratePostgreSQLAzureDbForPostgreSQLSyncTaskOutputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -307,7 +361,7 @@ func unmarshalMigratePostgreSQLAzureDbForPostgreSQLSyncTaskOutputClassification(
 }
 
 func unmarshalMigratePostgreSQLAzureDbForPostgreSQLSyncTaskOutputClassificationArray(rawMsg json.RawMessage) ([]MigratePostgreSQLAzureDbForPostgreSQLSyncTaskOutputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -326,7 +380,7 @@ func unmarshalMigratePostgreSQLAzureDbForPostgreSQLSyncTaskOutputClassificationA
 }
 
 func unmarshalMigrateSQLServerSQLDbSyncTaskOutputClassification(rawMsg json.RawMessage) (MigrateSQLServerSQLDbSyncTaskOutputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -355,7 +409,7 @@ func unmarshalMigrateSQLServerSQLDbSyncTaskOutputClassification(rawMsg json.RawM
 }
 
 func unmarshalMigrateSQLServerSQLDbSyncTaskOutputClassificationArray(rawMsg json.RawMessage) ([]MigrateSQLServerSQLDbSyncTaskOutputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -374,7 +428,7 @@ func unmarshalMigrateSQLServerSQLDbSyncTaskOutputClassificationArray(rawMsg json
 }
 
 func unmarshalMigrateSQLServerSQLDbTaskOutputClassification(rawMsg json.RawMessage) (MigrateSQLServerSQLDbTaskOutputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -405,7 +459,7 @@ func unmarshalMigrateSQLServerSQLDbTaskOutputClassification(rawMsg json.RawMessa
 }
 
 func unmarshalMigrateSQLServerSQLDbTaskOutputClassificationArray(rawMsg json.RawMessage) ([]MigrateSQLServerSQLDbTaskOutputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -424,7 +478,7 @@ func unmarshalMigrateSQLServerSQLDbTaskOutputClassificationArray(rawMsg json.Raw
 }
 
 func unmarshalMigrateSQLServerSQLMISyncTaskOutputClassification(rawMsg json.RawMessage) (MigrateSQLServerSQLMISyncTaskOutputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -449,7 +503,7 @@ func unmarshalMigrateSQLServerSQLMISyncTaskOutputClassification(rawMsg json.RawM
 }
 
 func unmarshalMigrateSQLServerSQLMISyncTaskOutputClassificationArray(rawMsg json.RawMessage) ([]MigrateSQLServerSQLMISyncTaskOutputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -468,7 +522,7 @@ func unmarshalMigrateSQLServerSQLMISyncTaskOutputClassificationArray(rawMsg json
 }
 
 func unmarshalMigrateSQLServerSQLMITaskOutputClassification(rawMsg json.RawMessage) (MigrateSQLServerSQLMITaskOutputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -497,7 +551,7 @@ func unmarshalMigrateSQLServerSQLMITaskOutputClassification(rawMsg json.RawMessa
 }
 
 func unmarshalMigrateSQLServerSQLMITaskOutputClassificationArray(rawMsg json.RawMessage) ([]MigrateSQLServerSQLMITaskOutputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -516,7 +570,7 @@ func unmarshalMigrateSQLServerSQLMITaskOutputClassificationArray(rawMsg json.Raw
 }
 
 func unmarshalMigrateSchemaSQLServerSQLDbTaskOutputClassification(rawMsg json.RawMessage) (MigrateSchemaSQLServerSQLDbTaskOutputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -543,7 +597,7 @@ func unmarshalMigrateSchemaSQLServerSQLDbTaskOutputClassification(rawMsg json.Ra
 }
 
 func unmarshalMigrateSchemaSQLServerSQLDbTaskOutputClassificationArray(rawMsg json.RawMessage) ([]MigrateSchemaSQLServerSQLDbTaskOutputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -562,7 +616,7 @@ func unmarshalMigrateSchemaSQLServerSQLDbTaskOutputClassificationArray(rawMsg js
 }
 
 func unmarshalMigrateSsisTaskOutputClassification(rawMsg json.RawMessage) (MigrateSsisTaskOutputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -585,7 +639,7 @@ func unmarshalMigrateSsisTaskOutputClassification(rawMsg json.RawMessage) (Migra
 }
 
 func unmarshalMigrateSsisTaskOutputClassificationArray(rawMsg json.RawMessage) ([]MigrateSsisTaskOutputClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -604,7 +658,7 @@ func unmarshalMigrateSsisTaskOutputClassificationArray(rawMsg json.RawMessage) (
 }
 
 func unmarshalMongoDbProgressClassification(rawMsg json.RawMessage) (MongoDbProgressClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -629,7 +683,7 @@ func unmarshalMongoDbProgressClassification(rawMsg json.RawMessage) (MongoDbProg
 }
 
 func unmarshalMongoDbProgressClassificationArray(rawMsg json.RawMessage) ([]MongoDbProgressClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var rawMessages []json.RawMessage
@@ -648,7 +702,7 @@ func unmarshalMongoDbProgressClassificationArray(rawMsg json.RawMessage) ([]Mong
 }
 
 func unmarshalProjectTaskPropertiesClassification(rawMsg json.RawMessage) (ProjectTaskPropertiesClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
@@ -657,81 +711,81 @@ func unmarshalProjectTaskPropertiesClassification(rawMsg json.RawMessage) (Proje
 	}
 	var b ProjectTaskPropertiesClassification
 	switch m["taskType"] {
-	case "Connect.MongoDb":
+	case string(TaskTypeConnectMongoDb):
 		b = &ConnectToMongoDbTaskProperties{}
-	case "ConnectToSource.MySql":
+	case string(TaskTypeConnectToSourceMySQL):
 		b = &ConnectToSourceMySQLTaskProperties{}
-	case "ConnectToSource.Oracle.Sync":
+	case string(TaskTypeConnectToSourceOracleSync):
 		b = &ConnectToSourceOracleSyncTaskProperties{}
-	case "ConnectToSource.PostgreSql.Sync":
+	case string(TaskTypeConnectToSourcePostgreSQLSync):
 		b = &ConnectToSourcePostgreSQLSyncTaskProperties{}
-	case "ConnectToSource.SqlServer":
+	case string(TaskTypeConnectToSourceSQLServer):
 		b = &ConnectToSourceSQLServerTaskProperties{}
-	case "ConnectToSource.SqlServer.Sync":
+	case string(TaskTypeConnectToSourceSQLServerSync):
 		b = &ConnectToSourceSQLServerSyncTaskProperties{}
-	case "ConnectToTarget.AzureDbForMySql":
+	case string(TaskTypeConnectToTargetAzureDbForMySQL):
 		b = &ConnectToTargetAzureDbForMySQLTaskProperties{}
-	case "ConnectToTarget.AzureDbForPostgreSql.Sync":
+	case string(TaskTypeConnectToTargetAzureDbForPostgreSQLSync):
 		b = &ConnectToTargetAzureDbForPostgreSQLSyncTaskProperties{}
-	case "ConnectToTarget.AzureSqlDbMI":
+	case string(TaskTypeConnectToTargetAzureSQLDbMI):
 		b = &ConnectToTargetSQLMITaskProperties{}
-	case "ConnectToTarget.AzureSqlDbMI.Sync.LRS":
+	case string(TaskTypeConnectToTargetAzureSQLDbMISyncLRS):
 		b = &ConnectToTargetSQLMISyncTaskProperties{}
-	case "ConnectToTarget.Oracle.AzureDbForPostgreSql.Sync":
+	case string(TaskTypeConnectToTargetOracleAzureDbForPostgreSQLSync):
 		b = &ConnectToTargetOracleAzureDbForPostgreSQLSyncTaskProperties{}
-	case "ConnectToTarget.SqlDb":
+	case string(TaskTypeConnectToTargetSQLDb):
 		b = &ConnectToTargetSQLDbTaskProperties{}
-	case "ConnectToTarget.SqlDb.Sync":
+	case string(TaskTypeConnectToTargetSQLDbSync):
 		b = &ConnectToTargetSQLDbSyncTaskProperties{}
-	case "GetTDECertificates.Sql":
+	case string(TaskTypeGetTDECertificatesSQL):
 		b = &GetTdeCertificatesSQLTaskProperties{}
-	case "GetUserTables.AzureSqlDb.Sync":
+	case string(TaskTypeGetUserTablesAzureSQLDbSync):
 		b = &GetUserTablesSQLSyncTaskProperties{}
-	case "GetUserTables.Sql":
+	case string(TaskTypeGetUserTablesSQL):
 		b = &GetUserTablesSQLTaskProperties{}
-	case "GetUserTablesMySql":
+	case string(TaskTypeGetUserTablesMySQL):
 		b = &GetUserTablesMySQLTaskProperties{}
-	case "GetUserTablesOracle":
+	case string(TaskTypeGetUserTablesOracle):
 		b = &GetUserTablesOracleTaskProperties{}
-	case "GetUserTablesPostgreSql":
+	case string(TaskTypeGetUserTablesPostgreSQL):
 		b = &GetUserTablesPostgreSQLTaskProperties{}
-	case "Migrate.MongoDb":
+	case string(TaskTypeMigrateMongoDb):
 		b = &MigrateMongoDbTaskProperties{}
-	case "Migrate.MySql.AzureDbForMySql":
+	case string(TaskTypeMigrateMySQLAzureDbForMySQL):
 		b = &MigrateMySQLAzureDbForMySQLOfflineTaskProperties{}
-	case "Migrate.MySql.AzureDbForMySql.Sync":
+	case string(TaskTypeMigrateMySQLAzureDbForMySQLSync):
 		b = &MigrateMySQLAzureDbForMySQLSyncTaskProperties{}
-	case "Migrate.Oracle.AzureDbForPostgreSql.Sync":
+	case string(TaskTypeMigrateOracleAzureDbForPostgreSQLSync):
 		b = &MigrateOracleAzureDbForPostgreSQLSyncTaskProperties{}
-	case "Migrate.PostgreSql.AzureDbForPostgreSql.SyncV2":
+	case string(TaskTypeMigratePostgreSQLAzureDbForPostgreSQLSyncV2):
 		b = &MigratePostgreSQLAzureDbForPostgreSQLSyncTaskProperties{}
-	case "Migrate.SqlServer.AzureSqlDb.Sync":
+	case string(TaskTypeMigrateSQLServerAzureSQLDbSync):
 		b = &MigrateSQLServerSQLDbSyncTaskProperties{}
-	case "Migrate.SqlServer.AzureSqlDbMI":
+	case string(TaskTypeMigrateSQLServerAzureSQLDbMI):
 		b = &MigrateSQLServerSQLMITaskProperties{}
-	case "Migrate.SqlServer.AzureSqlDbMI.Sync.LRS":
+	case string(TaskTypeMigrateSQLServerAzureSQLDbMISyncLRS):
 		b = &MigrateSQLServerSQLMISyncTaskProperties{}
-	case "Migrate.SqlServer.SqlDb":
+	case string(TaskTypeMigrateSQLServerSQLDb):
 		b = &MigrateSQLServerSQLDbTaskProperties{}
-	case "Migrate.Ssis":
+	case string(TaskTypeMigrateSsis):
 		b = &MigrateSsisTaskProperties{}
-	case "MigrateSchemaSqlServerSqlDb":
+	case string(TaskTypeMigrateSchemaSQLServerSQLDb):
 		b = &MigrateSchemaSQLServerSQLDbTaskProperties{}
-	case "Service.Check.OCI":
+	case string(TaskTypeServiceCheckOCI):
 		b = &CheckOCIDriverTaskProperties{}
-	case "Service.Install.OCI":
+	case string(TaskTypeServiceInstallOCI):
 		b = &InstallOCIDriverTaskProperties{}
-	case "Service.Upload.OCI":
+	case string(TaskTypeServiceUploadOCI):
 		b = &UploadOCIDriverTaskProperties{}
-	case "Validate.MongoDb":
+	case string(TaskTypeValidateMongoDb):
 		b = &ValidateMongoDbTaskProperties{}
-	case "Validate.Oracle.AzureDbPostgreSql.Sync":
+	case string(TaskTypeValidateOracleAzureDbPostgreSQLSync):
 		b = &ValidateOracleAzureDbForPostgreSQLSyncTaskProperties{}
-	case "ValidateMigrationInput.SqlServer.AzureSqlDbMI":
+	case string(TaskTypeValidateMigrationInputSQLServerAzureSQLDbMI):
 		b = &ValidateMigrationInputSQLServerSQLMITaskProperties{}
-	case "ValidateMigrationInput.SqlServer.AzureSqlDbMI.Sync.LRS":
+	case string(TaskTypeValidateMigrationInputSQLServerAzureSQLDbMISyncLRS):
 		b = &ValidateMigrationInputSQLServerSQLMISyncTaskProperties{}
-	case "ValidateMigrationInput.SqlServer.SqlDb.Sync":
+	case string(TaskTypeValidateMigrationInputSQLServerSQLDbSync):
 		b = &ValidateMigrationInputSQLServerSQLDbSyncTaskProperties{}
 	default:
 		b = &ProjectTaskProperties{}
