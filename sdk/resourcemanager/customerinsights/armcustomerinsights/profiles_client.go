@@ -203,10 +203,10 @@ func (client *ProfilesClient) deleteCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2017-04-26")
 	if options != nil && options.LocaleCode != nil {
 		reqQP.Set("locale-code", *options.LocaleCode)
 	}
-	reqQP.Set("api-version", "2017-04-26")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -265,10 +265,10 @@ func (client *ProfilesClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2017-04-26")
 	if options != nil && options.LocaleCode != nil {
 		reqQP.Set("locale-code", *options.LocaleCode)
 	}
-	reqQP.Set("api-version", "2017-04-26")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -403,10 +403,10 @@ func (client *ProfilesClient) listByHubCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2017-04-26")
 	if options != nil && options.LocaleCode != nil {
 		reqQP.Set("locale-code", *options.LocaleCode)
 	}
-	reqQP.Set("api-version", "2017-04-26")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
