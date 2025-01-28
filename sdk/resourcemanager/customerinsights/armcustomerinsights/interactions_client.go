@@ -183,10 +183,10 @@ func (client *InteractionsClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2017-04-26")
 	if options != nil && options.LocaleCode != nil {
 		reqQP.Set("locale-code", *options.LocaleCode)
 	}
-	reqQP.Set("api-version", "2017-04-26")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -251,10 +251,10 @@ func (client *InteractionsClient) listByHubCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2017-04-26")
 	if options != nil && options.LocaleCode != nil {
 		reqQP.Set("locale-code", *options.LocaleCode)
 	}
-	reqQP.Set("api-version", "2017-04-26")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

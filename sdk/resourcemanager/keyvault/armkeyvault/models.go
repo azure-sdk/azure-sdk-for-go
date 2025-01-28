@@ -243,11 +243,12 @@ type KeyProperties struct {
 	// The attributes of the key.
 	Attributes *KeyAttributes
 
-	// The elliptic curve name. For valid values, see JsonWebKeyCurveName.
+	// The elliptic curve name. For valid values, see JsonWebKeyCurveName. Default for EC and EC-HSM keys is P-256
 	CurveName *JSONWebKeyCurveName
 	KeyOps    []*JSONWebKeyOperation
 
-	// The key size in bits. For example: 2048, 3072, or 4096 for RSA.
+	// The key size in bits. For example: 2048, 3072, or 4096 for RSA. Default for RSA and RSA-HSM keys is 2048. Exception made
+	// for bring your own key (BYOK), key exchange keys default to 4096.
 	KeySize *int32
 
 	// The type of the key. For valid values, see JsonWebKeyType.
@@ -598,11 +599,12 @@ type ManagedHsmKeyProperties struct {
 	// The attributes of the key.
 	Attributes *ManagedHsmKeyAttributes
 
-	// The elliptic curve name. For valid values, see JsonWebKeyCurveName.
+	// The elliptic curve name. For valid values, see JsonWebKeyCurveName. Default for EC and EC-HSM keys is P-256
 	CurveName *JSONWebKeyCurveName
 	KeyOps    []*JSONWebKeyOperation
 
-	// The key size in bits. For example: 2048, 3072, or 4096 for RSA.
+	// The key size in bits. For example: 2048, 3072, or 4096 for RSA. Default for RSA and RSA-HSM keys is 2048. Exception made
+	// for bring your own key (BYOK), key exchange keys default to 4096.
 	KeySize *int32
 
 	// The type of the key. For valid values, see JsonWebKeyType.
