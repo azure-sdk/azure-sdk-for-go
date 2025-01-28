@@ -42,6 +42,8 @@ const (
 	ConnectionStateProvisioningCompleted ConnectionState = "ProvisioningCompleted"
 	ConnectionStateProvisioningFailed    ConnectionState = "ProvisioningFailed"
 	ConnectionStateProvisioningStarted   ConnectionState = "ProvisioningStarted"
+	ConnectionStateTypeChangeInProgress  ConnectionState = "TypeChangeInProgress"
+	ConnectionStateTypeChangeRequested   ConnectionState = "TypeChangeRequested"
 	ConnectionStateValidating            ConnectionState = "Validating"
 )
 
@@ -55,6 +57,8 @@ func PossibleConnectionStateValues() []ConnectionState {
 		ConnectionStateProvisioningCompleted,
 		ConnectionStateProvisioningFailed,
 		ConnectionStateProvisioningStarted,
+		ConnectionStateTypeChangeInProgress,
+		ConnectionStateTypeChangeRequested,
 		ConnectionStateValidating,
 	}
 }

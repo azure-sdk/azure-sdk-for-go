@@ -1,5 +1,16 @@
 # Release History
 
+## 2.3.0-beta.3 (2025-01-28)
+### Features Added
+
+- New struct `EncodedIssuerCertificateInfo`
+- New struct `FederatedIdentityCredentialInfo`
+- New field `EncodedIssuerCertificates` in struct `CustomJwtAuthenticationSettings`
+- New field `FederatedIdentityCredentialInfo` in struct `EventSubscriptionIdentity`
+- New field `Tags` in struct `SubscriptionProperties`
+- New field `Tags` in struct `SubscriptionUpdateParametersProperties`
+
+
 ## 2.3.0-beta.2 (2024-04-30)
 ### Breaking Changes
 

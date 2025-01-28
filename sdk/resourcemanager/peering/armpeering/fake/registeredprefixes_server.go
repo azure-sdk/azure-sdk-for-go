@@ -39,6 +39,10 @@ type RegisteredPrefixesServer struct {
 	// NewListByPeeringPager is the fake for method RegisteredPrefixesClient.NewListByPeeringPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListByPeeringPager func(resourceGroupName string, peeringName string, options *armpeering.RegisteredPrefixesClientListByPeeringOptions) (resp azfake.PagerResponder[armpeering.RegisteredPrefixesClientListByPeeringResponse])
+
+	// Validate is the fake for method RegisteredPrefixesClient.Validate
+	// HTTP status codes to indicate success: http.StatusOK
+	Validate func(ctx context.Context, resourceGroupName string, peeringName string, registeredPrefixName string, options *armpeering.RegisteredPrefixesClientValidateOptions) (resp azfake.Responder[armpeering.RegisteredPrefixesClientValidateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewRegisteredPrefixesServerTransport creates a new instance of RegisteredPrefixesServerTransport with the provided implementation.
@@ -78,6 +82,8 @@ func (r *RegisteredPrefixesServerTransport) Do(req *http.Request) (*http.Respons
 		resp, err = r.dispatchGet(req)
 	case "RegisteredPrefixesClient.NewListByPeeringPager":
 		resp, err = r.dispatchNewListByPeeringPager(req)
+	case "RegisteredPrefixesClient.Validate":
+		resp, err = r.dispatchValidate(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -241,6 +247,43 @@ func (r *RegisteredPrefixesServerTransport) dispatchNewListByPeeringPager(req *h
 	}
 	if !server.PagerResponderMore(newListByPeeringPager) {
 		r.newListByPeeringPager.remove(req)
+	}
+	return resp, nil
+}
+
+func (r *RegisteredPrefixesServerTransport) dispatchValidate(req *http.Request) (*http.Response, error) {
+	if r.srv.Validate == nil {
+		return nil, &nonRetriableError{errors.New("fake for method Validate not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Peering/peerings/(?P<peeringName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/registeredPrefixes/(?P<registeredPrefixName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/validate`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 4 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	peeringNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("peeringName")])
+	if err != nil {
+		return nil, err
+	}
+	registeredPrefixNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("registeredPrefixName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := r.srv.Validate(req.Context(), resourceGroupNameParam, peeringNameParam, registeredPrefixNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).RegisteredPrefix, req)
+	if err != nil {
+		return nil, err
 	}
 	return resp, nil
 }
