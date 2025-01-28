@@ -106,7 +106,7 @@ type AutonomousDatabaseBackupProperties struct {
 	// The user-friendly name for the backup. The name does not have to be unique.
 	DisplayName *string
 
-	// Retention period, in days, for long-term backups.
+	// Retention period, in days
 	RetentionPeriodInDays *int32
 
 	// READ-ONLY; The OCID of the Autonomous Database.
@@ -154,13 +154,13 @@ type AutonomousDatabaseBackupProperties struct {
 
 // AutonomousDatabaseBackupUpdate - The type used for update operations of the AutonomousDatabaseBackup.
 type AutonomousDatabaseBackupUpdate struct {
-	// The updatable properties of the AutonomousDatabaseBackup.
+	// The resource-specific properties for this resource.
 	Properties *AutonomousDatabaseBackupUpdateProperties
 }
 
 // AutonomousDatabaseBackupUpdateProperties - The updatable properties of the AutonomousDatabaseBackup.
 type AutonomousDatabaseBackupUpdateProperties struct {
-	// Retention period, in days, for long-term backups.
+	// Retention period, in days
 	RetentionPeriodInDays *int32
 }
 
@@ -245,7 +245,7 @@ type AutonomousDatabaseBaseProperties struct {
 	// Indicates the Autonomous Database mode.
 	OpenMode *OpenModeType
 
-	// The database OCID of the Disaster Recovery peer database, which is located in a different region from the current peer
+	// The Azure resource ID of the Disaster Recovery peer database, which is located in a different region from the current peer
 	// database.
 	PeerDbID *string
 
@@ -338,10 +338,9 @@ type AutonomousDatabaseBaseProperties struct {
 	// READ-ONLY; Status of Operations Insights for this Autonomous Database.
 	OperationsInsightsStatus *OperationsInsightsStatusType
 
-	// READ-ONLY; The list of OCIDs [https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm] of standby databases
-	// located in Autonomous Data Guard remote regions that are associated with the source
-	// database. Note that for Autonomous Database Serverless instances, standby databases located in the same region as the source
-	// primary database do not have OCIDs.
+	// READ-ONLY; The list of Azure resource IDs of standby databases located in Autonomous Data Guard remote regions that are
+	// associated with the source database. Note that for Autonomous Database Serverless
+	// instances, standby databases located in the same region as the source primary database do not have Azure IDs.
 	PeerDbIDs []*string
 
 	// READ-ONLY; The private endpoint for the resource.
@@ -352,6 +351,9 @@ type AutonomousDatabaseBaseProperties struct {
 
 	// READ-ONLY; Azure resource provisioning state.
 	ProvisioningState *AzureResourceProvisioningState
+
+	// READ-ONLY; Indicates remote disaster recovery configuration
+	RemoteDisasterRecoveryConfiguration *DisasterRecoveryConfigurationDetails
 
 	// READ-ONLY; The SQL Web Developer URL for the Oracle Autonomous Database.
 	SQLWebDeveloperURL *string
@@ -371,6 +373,9 @@ type AutonomousDatabaseBaseProperties struct {
 
 	// READ-ONLY; The date and time the Always Free database will be automatically deleted because of inactivity.
 	TimeDeletionOfFreeAutonomousDatabase *string
+
+	// READ-ONLY; The date and time the Disaster Recovery role was switched for the standby Autonomous Database.
+	TimeDisasterRecoveryRoleChanged *time.Time
 
 	// READ-ONLY; The date and time that Autonomous Data Guard was enabled for an Autonomous Database where the standby was provisioned
 	// in the same region as the primary database.
@@ -438,7 +443,7 @@ type AutonomousDatabaseCharacterSetListResult struct {
 
 // AutonomousDatabaseCharacterSetProperties - AutonomousDatabaseCharacterSet resource model
 type AutonomousDatabaseCharacterSetProperties struct {
-	// READ-ONLY; The Oracle Autonomous Database supported character sets.
+	// REQUIRED; The Oracle Autonomous Database supported character sets.
 	CharacterSet *string
 }
 
@@ -450,7 +455,7 @@ type AutonomousDatabaseCloneProperties struct {
 	// REQUIRED; Database type to be created.
 	DataBaseType *DataBaseType
 
-	// REQUIRED; The Azure ID of the Autonomous Database that was cloned to create the current Autonomous Database.
+	// REQUIRED; The Azure resource ID of the Autonomous Database that was cloned to create the current Autonomous Database.
 	SourceID *string
 
 	// Admin password.
@@ -529,7 +534,7 @@ type AutonomousDatabaseCloneProperties struct {
 	// Indicates the Autonomous Database mode.
 	OpenMode *OpenModeType
 
-	// The database OCID of the Disaster Recovery peer database, which is located in a different region from the current peer
+	// The Azure resource ID of the Disaster Recovery peer database, which is located in a different region from the current peer
 	// database.
 	PeerDbID *string
 
@@ -638,10 +643,9 @@ type AutonomousDatabaseCloneProperties struct {
 	// READ-ONLY; Status of Operations Insights for this Autonomous Database.
 	OperationsInsightsStatus *OperationsInsightsStatusType
 
-	// READ-ONLY; The list of OCIDs [https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm] of standby databases
-	// located in Autonomous Data Guard remote regions that are associated with the source
-	// database. Note that for Autonomous Database Serverless instances, standby databases located in the same region as the source
-	// primary database do not have OCIDs.
+	// READ-ONLY; The list of Azure resource IDs of standby databases located in Autonomous Data Guard remote regions that are
+	// associated with the source database. Note that for Autonomous Database Serverless
+	// instances, standby databases located in the same region as the source primary database do not have Azure IDs.
 	PeerDbIDs []*string
 
 	// READ-ONLY; The private endpoint for the resource.
@@ -655,6 +659,9 @@ type AutonomousDatabaseCloneProperties struct {
 
 	// READ-ONLY; The refresh status of the clone.
 	RefreshableStatus *RefreshableStatusType
+
+	// READ-ONLY; Indicates remote disaster recovery configuration
+	RemoteDisasterRecoveryConfiguration *DisasterRecoveryConfigurationDetails
 
 	// READ-ONLY; The SQL Web Developer URL for the Oracle Autonomous Database.
 	SQLWebDeveloperURL *string
@@ -674,6 +681,9 @@ type AutonomousDatabaseCloneProperties struct {
 
 	// READ-ONLY; The date and time the Always Free database will be automatically deleted because of inactivity.
 	TimeDeletionOfFreeAutonomousDatabase *string
+
+	// READ-ONLY; The date and time the Disaster Recovery role was switched for the standby Autonomous Database.
+	TimeDisasterRecoveryRoleChanged *time.Time
 
 	// READ-ONLY; The date and time that Autonomous Data Guard was enabled for an Autonomous Database where the standby was provisioned
 	// in the same region as the primary database.
@@ -764,6 +774,7 @@ func (a *AutonomousDatabaseCloneProperties) GetAutonomousDatabaseBaseProperties(
 		PrivateEndpointLabel:                     a.PrivateEndpointLabel,
 		ProvisionableCpus:                        a.ProvisionableCpus,
 		ProvisioningState:                        a.ProvisioningState,
+		RemoteDisasterRecoveryConfiguration:      a.RemoteDisasterRecoveryConfiguration,
 		Role:                                     a.Role,
 		SQLWebDeveloperURL:                       a.SQLWebDeveloperURL,
 		ScheduledOperations:                      a.ScheduledOperations,
@@ -773,6 +784,704 @@ func (a *AutonomousDatabaseCloneProperties) GetAutonomousDatabaseBaseProperties(
 		TimeCreated:                              a.TimeCreated,
 		TimeDataGuardRoleChanged:                 a.TimeDataGuardRoleChanged,
 		TimeDeletionOfFreeAutonomousDatabase:     a.TimeDeletionOfFreeAutonomousDatabase,
+		TimeDisasterRecoveryRoleChanged:          a.TimeDisasterRecoveryRoleChanged,
+		TimeLocalDataGuardEnabled:                a.TimeLocalDataGuardEnabled,
+		TimeMaintenanceBegin:                     a.TimeMaintenanceBegin,
+		TimeMaintenanceEnd:                       a.TimeMaintenanceEnd,
+		TimeOfLastFailover:                       a.TimeOfLastFailover,
+		TimeOfLastRefresh:                        a.TimeOfLastRefresh,
+		TimeOfLastRefreshPoint:                   a.TimeOfLastRefreshPoint,
+		TimeOfLastSwitchover:                     a.TimeOfLastSwitchover,
+		TimeReclamationOfFreeAutonomousDatabase:  a.TimeReclamationOfFreeAutonomousDatabase,
+		UsedDataStorageSizeInGbs:                 a.UsedDataStorageSizeInGbs,
+		UsedDataStorageSizeInTbs:                 a.UsedDataStorageSizeInTbs,
+		VnetID:                                   a.VnetID,
+		WhitelistedIPs:                           a.WhitelistedIPs,
+	}
+}
+
+// AutonomousDatabaseCrossRegionDisasterRecoveryProperties - Autonomous Database Cross Region Disaster Recovery resource model.
+type AutonomousDatabaseCrossRegionDisasterRecoveryProperties struct {
+	// REQUIRED; Database type to be created.
+	DataBaseType *DataBaseType
+
+	// REQUIRED; Indicates the cross-region disaster recovery (DR) type of the standby Autonomous Database Serverless instance.
+	// Autonomous Data Guard (ADG) DR type provides business critical DR with a faster recovery
+	// time objective (RTO) during failover or switchover. Backup-based DR type provides lower cost DR with a slower RTO during
+	// failover or switchover.
+	RemoteDisasterRecoveryType *DisasterRecoveryType
+
+	// CONSTANT; The source of the database.
+	// Field has constant value "CrossRegionDisasterRecovery", any specified value is ignored.
+	Source *string
+
+	// REQUIRED; The Azure resource ID of the source Autonomous Database that will be used to create a new peer database for the
+	// DR association.
+	SourceID *string
+
+	// Admin password.
+	AdminPassword *string
+
+	// Autonomous Database ID
+	AutonomousDatabaseID *string
+
+	// The maintenance schedule type of the Autonomous Database Serverless.
+	AutonomousMaintenanceScheduleType *AutonomousMaintenanceScheduleType
+
+	// Retention period, in days, for long-term backups
+	BackupRetentionPeriodInDays *int32
+
+	// The number of CPU cores to be made available to the database.
+	CPUCoreCount *int32
+
+	// The character set for the autonomous database.
+	CharacterSet *string
+
+	// The compute amount (CPUs) available to the database.
+	ComputeCount *float32
+
+	// The compute model of the Autonomous Database.
+	ComputeModel *ComputeModel
+
+	// Customer Contacts.
+	CustomerContacts []*CustomerContact
+
+	// The size, in gigabytes, of the data volume that will be created and attached to the database.
+	DataStorageSizeInGbs *int32
+
+	// The quantity of data in the database, in terabytes.
+	DataStorageSizeInTbs *int32
+
+	// The Oracle Database Edition that applies to the Autonomous databases.
+	DatabaseEdition *DatabaseEditionType
+
+	// A valid Oracle Database version for Autonomous Database.
+	DbVersion *string
+
+	// The Autonomous Database workload type
+	DbWorkload *WorkloadType
+
+	// The user-friendly name for the Autonomous Database.
+	DisplayName *string
+
+	// Indicates if auto scaling is enabled for the Autonomous Database CPU core count.
+	IsAutoScalingEnabled *bool
+
+	// Indicates if auto scaling is enabled for the Autonomous Database storage.
+	IsAutoScalingForStorageEnabled *bool
+
+	// Indicates whether the Autonomous Database has local or called in-region Data Guard enabled.
+	IsLocalDataGuardEnabled *bool
+
+	// Specifies if the Autonomous Database requires mTLS connections.
+	IsMtlsConnectionRequired *bool
+
+	// Specifies if the Autonomous Database preview version is being provisioned.
+	IsPreviewVersionWithServiceTermsAccepted *bool
+
+	// If true, 7 days worth of backups are replicated across regions for Cross-Region ADB or Backup-Based DR between Primary
+	// and Standby. If false, the backups taken on the Primary are not replicated to the
+	// Standby database.
+	IsReplicateAutomaticBackups *bool
+
+	// The Oracle license model that applies to the Oracle Autonomous Database. The default is LICENSE_INCLUDED.
+	LicenseModel *LicenseModel
+
+	// Parameter that allows users to select an acceptable maximum data loss limit in seconds, up to which Automatic Failover
+	// will be triggered when necessary for a Local Autonomous Data Guard
+	LocalAdgAutoFailoverMaxDataLossLimit *int32
+
+	// Details for the long-term backup schedule.
+	LongTermBackupSchedule *LongTermBackUpScheduleDetails
+
+	// The character set for the Autonomous Database.
+	NcharacterSet *string
+
+	// Indicates the Autonomous Database mode.
+	OpenMode *OpenModeType
+
+	// The Azure resource ID of the Disaster Recovery peer database, which is located in a different region from the current peer
+	// database.
+	PeerDbID *string
+
+	// The Autonomous Database permission level.
+	PermissionLevel *PermissionLevelType
+
+	// The private endpoint Ip address for the resource.
+	PrivateEndpointIP *string
+
+	// The resource's private endpoint label.
+	PrivateEndpointLabel *string
+
+	// The Data Guard role of the Autonomous Container Database or Autonomous Database, if Autonomous Data Guard is enabled.
+	Role *RoleType
+
+	// The list of scheduled operations.
+	ScheduledOperations *ScheduledOperationsType
+
+	// The name of the region where source Autonomous Database exists.
+	SourceLocation *string
+
+	// The source database ocid
+	SourceOcid *string
+
+	// Client subnet
+	SubnetID *string
+
+	// VNET for network connectivity
+	VnetID *string
+
+	// The client IP access control list (ACL). This is an array of CIDR notations and/or IP addresses. Values should be separate
+	// strings, separated by commas. Example: ['1.1.1.1','1.1.1.0/24','1.1.2.25']
+	WhitelistedIPs []*string
+
+	// READ-ONLY; The current amount of storage in use for user and system data, in terabytes (TB).
+	ActualUsedDataStorageSizeInTbs *float64
+
+	// READ-ONLY; The amount of storage currently allocated for the database tables and billed for, rounded up.
+	AllocatedStorageSizeInTbs *float64
+
+	// READ-ONLY; Information about Oracle APEX Application Development.
+	ApexDetails *ApexDetailsType
+
+	// READ-ONLY; List of Oracle Database versions available for a database upgrade. If there are no version upgrades available,
+	// this list is empty.
+	AvailableUpgradeVersions []*string
+
+	// READ-ONLY; The connection string used to connect to the Autonomous Database.
+	ConnectionStrings *ConnectionStringType
+
+	// READ-ONLY; The URLs for accessing Oracle Application Express (APEX) and SQL Developer Web with a browser from a Compute
+	// instance within your VCN or that has a direct connection to your VCN.
+	ConnectionUrls *ConnectionURLType
+
+	// READ-ONLY; Status of the Data Safe registration for this Autonomous Database.
+	DataSafeStatus *DataSafeStatusType
+
+	// READ-ONLY; Indicates the number of seconds of data loss for a Data Guard failover.
+	FailedDataRecoveryInSeconds *int32
+
+	// READ-ONLY; The area assigned to In-Memory tables in Autonomous Database.
+	InMemoryAreaInGbs *int32
+
+	// READ-ONLY; Indicates if the Autonomous Database version is a preview version.
+	IsPreview *bool
+
+	// READ-ONLY; Indicates whether the Autonomous Database has Cross Region Data Guard enabled.
+	IsRemoteDataGuardEnabled *bool
+
+	// READ-ONLY; Additional information about the current lifecycle state.
+	LifecycleDetails *string
+
+	// READ-ONLY; Views lifecycleState
+	LifecycleState *AutonomousDatabaseLifecycleState
+
+	// READ-ONLY; Indicates the local disaster recovery (DR) type of the Autonomous Database Serverless instance.Autonomous Data
+	// Guard (ADG) DR type provides business critical DR with a faster recovery time objective
+	// (RTO) during failover or switchover.Backup-based DR type provides lower cost DR with a slower RTO during failover or switchover.
+	LocalDisasterRecoveryType *DisasterRecoveryType
+
+	// READ-ONLY; Local Autonomous Disaster Recovery standby database details.
+	LocalStandbyDb *AutonomousDatabaseStandbySummary
+
+	// READ-ONLY; The amount of memory (in GBs) enabled per ECPU or OCPU.
+	MemoryPerOracleComputeUnitInGbs *int32
+
+	// READ-ONLY; The date and time when the next long-term backup would be created.
+	NextLongTermBackupTimeStamp *time.Time
+
+	// READ-ONLY; HTTPS link to OCI resources exposed to Azure Customer via Azure Interface.
+	OciURL *string
+
+	// READ-ONLY; Database ocid
+	Ocid *string
+
+	// READ-ONLY; Status of Operations Insights for this Autonomous Database.
+	OperationsInsightsStatus *OperationsInsightsStatusType
+
+	// READ-ONLY; The list of Azure resource IDs of standby databases located in Autonomous Data Guard remote regions that are
+	// associated with the source database. Note that for Autonomous Database Serverless
+	// instances, standby databases located in the same region as the source primary database do not have Azure IDs.
+	PeerDbIDs []*string
+
+	// READ-ONLY; The private endpoint for the resource.
+	PrivateEndpoint *string
+
+	// READ-ONLY; An array of CPU values that an Autonomous Database can be scaled to.
+	ProvisionableCpus []*int32
+
+	// READ-ONLY; Azure resource provisioning state.
+	ProvisioningState *AzureResourceProvisioningState
+
+	// READ-ONLY; Indicates remote disaster recovery configuration
+	RemoteDisasterRecoveryConfiguration *DisasterRecoveryConfigurationDetails
+
+	// READ-ONLY; The SQL Web Developer URL for the Oracle Autonomous Database.
+	SQLWebDeveloperURL *string
+
+	// READ-ONLY; The URL of the Service Console for the Autonomous Database.
+	ServiceConsoleURL *string
+
+	// READ-ONLY; The list of regions that support the creation of an Autonomous Database clone or an Autonomous Data Guard standby
+	// database.
+	SupportedRegionsToCloneTo []*string
+
+	// READ-ONLY; The date and time that the database was created.
+	TimeCreated *time.Time
+
+	// READ-ONLY; The date and time the Autonomous Data Guard role was switched for the Autonomous Database.
+	TimeDataGuardRoleChanged *string
+
+	// READ-ONLY; The date and time the Always Free database will be automatically deleted because of inactivity.
+	TimeDeletionOfFreeAutonomousDatabase *string
+
+	// READ-ONLY; The date and time the Disaster Recovery role was switched for the standby Autonomous Database.
+	TimeDisasterRecoveryRoleChanged *time.Time
+
+	// READ-ONLY; The date and time that Autonomous Data Guard was enabled for an Autonomous Database where the standby was provisioned
+	// in the same region as the primary database.
+	TimeLocalDataGuardEnabled *string
+
+	// READ-ONLY; The date and time when maintenance will begin.
+	TimeMaintenanceBegin *time.Time
+
+	// READ-ONLY; The date and time when maintenance will end.
+	TimeMaintenanceEnd *time.Time
+
+	// READ-ONLY; The timestamp of the last failover operation.
+	TimeOfLastFailover *string
+
+	// READ-ONLY; The date and time when last refresh happened.
+	TimeOfLastRefresh *string
+
+	// READ-ONLY; The refresh point timestamp (UTC).
+	TimeOfLastRefreshPoint *string
+
+	// READ-ONLY; The timestamp of the last switchover operation for the Autonomous Database.
+	TimeOfLastSwitchover *string
+
+	// READ-ONLY; The date and time the Always Free database will be stopped because of inactivity.
+	TimeReclamationOfFreeAutonomousDatabase *string
+
+	// READ-ONLY; The storage space consumed by Autonomous Database in GBs.
+	UsedDataStorageSizeInGbs *int32
+
+	// READ-ONLY; The amount of storage that has been used, in terabytes.
+	UsedDataStorageSizeInTbs *int32
+}
+
+// GetAutonomousDatabaseBaseProperties implements the AutonomousDatabaseBasePropertiesClassification interface for type AutonomousDatabaseCrossRegionDisasterRecoveryProperties.
+func (a *AutonomousDatabaseCrossRegionDisasterRecoveryProperties) GetAutonomousDatabaseBaseProperties() *AutonomousDatabaseBaseProperties {
+	return &AutonomousDatabaseBaseProperties{
+		ActualUsedDataStorageSizeInTbs:           a.ActualUsedDataStorageSizeInTbs,
+		AdminPassword:                            a.AdminPassword,
+		AllocatedStorageSizeInTbs:                a.AllocatedStorageSizeInTbs,
+		ApexDetails:                              a.ApexDetails,
+		AutonomousDatabaseID:                     a.AutonomousDatabaseID,
+		AutonomousMaintenanceScheduleType:        a.AutonomousMaintenanceScheduleType,
+		AvailableUpgradeVersions:                 a.AvailableUpgradeVersions,
+		BackupRetentionPeriodInDays:              a.BackupRetentionPeriodInDays,
+		CPUCoreCount:                             a.CPUCoreCount,
+		CharacterSet:                             a.CharacterSet,
+		ComputeCount:                             a.ComputeCount,
+		ComputeModel:                             a.ComputeModel,
+		ConnectionStrings:                        a.ConnectionStrings,
+		ConnectionUrls:                           a.ConnectionUrls,
+		CustomerContacts:                         a.CustomerContacts,
+		DataBaseType:                             a.DataBaseType,
+		DataSafeStatus:                           a.DataSafeStatus,
+		DataStorageSizeInGbs:                     a.DataStorageSizeInGbs,
+		DataStorageSizeInTbs:                     a.DataStorageSizeInTbs,
+		DatabaseEdition:                          a.DatabaseEdition,
+		DbVersion:                                a.DbVersion,
+		DbWorkload:                               a.DbWorkload,
+		DisplayName:                              a.DisplayName,
+		FailedDataRecoveryInSeconds:              a.FailedDataRecoveryInSeconds,
+		InMemoryAreaInGbs:                        a.InMemoryAreaInGbs,
+		IsAutoScalingEnabled:                     a.IsAutoScalingEnabled,
+		IsAutoScalingForStorageEnabled:           a.IsAutoScalingForStorageEnabled,
+		IsLocalDataGuardEnabled:                  a.IsLocalDataGuardEnabled,
+		IsMtlsConnectionRequired:                 a.IsMtlsConnectionRequired,
+		IsPreview:                                a.IsPreview,
+		IsPreviewVersionWithServiceTermsAccepted: a.IsPreviewVersionWithServiceTermsAccepted,
+		IsRemoteDataGuardEnabled:                 a.IsRemoteDataGuardEnabled,
+		LicenseModel:                             a.LicenseModel,
+		LifecycleDetails:                         a.LifecycleDetails,
+		LifecycleState:                           a.LifecycleState,
+		LocalAdgAutoFailoverMaxDataLossLimit:     a.LocalAdgAutoFailoverMaxDataLossLimit,
+		LocalDisasterRecoveryType:                a.LocalDisasterRecoveryType,
+		LocalStandbyDb:                           a.LocalStandbyDb,
+		LongTermBackupSchedule:                   a.LongTermBackupSchedule,
+		MemoryPerOracleComputeUnitInGbs:          a.MemoryPerOracleComputeUnitInGbs,
+		NcharacterSet:                            a.NcharacterSet,
+		NextLongTermBackupTimeStamp:              a.NextLongTermBackupTimeStamp,
+		OciURL:                                   a.OciURL,
+		Ocid:                                     a.Ocid,
+		OpenMode:                                 a.OpenMode,
+		OperationsInsightsStatus:                 a.OperationsInsightsStatus,
+		PeerDbID:                                 a.PeerDbID,
+		PeerDbIDs:                                a.PeerDbIDs,
+		PermissionLevel:                          a.PermissionLevel,
+		PrivateEndpoint:                          a.PrivateEndpoint,
+		PrivateEndpointIP:                        a.PrivateEndpointIP,
+		PrivateEndpointLabel:                     a.PrivateEndpointLabel,
+		ProvisionableCpus:                        a.ProvisionableCpus,
+		ProvisioningState:                        a.ProvisioningState,
+		RemoteDisasterRecoveryConfiguration:      a.RemoteDisasterRecoveryConfiguration,
+		Role:                                     a.Role,
+		SQLWebDeveloperURL:                       a.SQLWebDeveloperURL,
+		ScheduledOperations:                      a.ScheduledOperations,
+		ServiceConsoleURL:                        a.ServiceConsoleURL,
+		SubnetID:                                 a.SubnetID,
+		SupportedRegionsToCloneTo:                a.SupportedRegionsToCloneTo,
+		TimeCreated:                              a.TimeCreated,
+		TimeDataGuardRoleChanged:                 a.TimeDataGuardRoleChanged,
+		TimeDeletionOfFreeAutonomousDatabase:     a.TimeDeletionOfFreeAutonomousDatabase,
+		TimeDisasterRecoveryRoleChanged:          a.TimeDisasterRecoveryRoleChanged,
+		TimeLocalDataGuardEnabled:                a.TimeLocalDataGuardEnabled,
+		TimeMaintenanceBegin:                     a.TimeMaintenanceBegin,
+		TimeMaintenanceEnd:                       a.TimeMaintenanceEnd,
+		TimeOfLastFailover:                       a.TimeOfLastFailover,
+		TimeOfLastRefresh:                        a.TimeOfLastRefresh,
+		TimeOfLastRefreshPoint:                   a.TimeOfLastRefreshPoint,
+		TimeOfLastSwitchover:                     a.TimeOfLastSwitchover,
+		TimeReclamationOfFreeAutonomousDatabase:  a.TimeReclamationOfFreeAutonomousDatabase,
+		UsedDataStorageSizeInGbs:                 a.UsedDataStorageSizeInGbs,
+		UsedDataStorageSizeInTbs:                 a.UsedDataStorageSizeInTbs,
+		VnetID:                                   a.VnetID,
+		WhitelistedIPs:                           a.WhitelistedIPs,
+	}
+}
+
+// AutonomousDatabaseFromBackupTimestampProperties - Autonomous Database From Backup Timestamp resource model.
+type AutonomousDatabaseFromBackupTimestampProperties struct {
+	// REQUIRED; The Autonomous Database clone type.
+	CloneType *CloneType
+
+	// REQUIRED; Database type to be created.
+	DataBaseType *DataBaseType
+
+	// CONSTANT; The source of the database.
+	// Field has constant value "BackupFromTimestamp", any specified value is ignored.
+	Source *string
+
+	// REQUIRED; The ID of the source Autonomous Database that you will clone to create a new Autonomous Database.
+	SourceID *string
+
+	// Admin password.
+	AdminPassword *string
+
+	// Autonomous Database ID
+	AutonomousDatabaseID *string
+
+	// The maintenance schedule type of the Autonomous Database Serverless.
+	AutonomousMaintenanceScheduleType *AutonomousMaintenanceScheduleType
+
+	// Retention period, in days, for long-term backups
+	BackupRetentionPeriodInDays *int32
+
+	// The number of CPU cores to be made available to the database.
+	CPUCoreCount *int32
+
+	// The character set for the autonomous database.
+	CharacterSet *string
+
+	// The compute amount (CPUs) available to the database.
+	ComputeCount *float32
+
+	// The compute model of the Autonomous Database.
+	ComputeModel *ComputeModel
+
+	// Customer Contacts.
+	CustomerContacts []*CustomerContact
+
+	// The size, in gigabytes, of the data volume that will be created and attached to the database.
+	DataStorageSizeInGbs *int32
+
+	// The quantity of data in the database, in terabytes.
+	DataStorageSizeInTbs *int32
+
+	// The Oracle Database Edition that applies to the Autonomous databases.
+	DatabaseEdition *DatabaseEditionType
+
+	// A valid Oracle Database version for Autonomous Database.
+	DbVersion *string
+
+	// The Autonomous Database workload type
+	DbWorkload *WorkloadType
+
+	// The user-friendly name for the Autonomous Database.
+	DisplayName *string
+
+	// Indicates if auto scaling is enabled for the Autonomous Database CPU core count.
+	IsAutoScalingEnabled *bool
+
+	// Indicates if auto scaling is enabled for the Autonomous Database storage.
+	IsAutoScalingForStorageEnabled *bool
+
+	// Indicates whether the Autonomous Database has local or called in-region Data Guard enabled.
+	IsLocalDataGuardEnabled *bool
+
+	// Specifies if the Autonomous Database requires mTLS connections.
+	IsMtlsConnectionRequired *bool
+
+	// Specifies if the Autonomous Database preview version is being provisioned.
+	IsPreviewVersionWithServiceTermsAccepted *bool
+
+	// The Oracle license model that applies to the Oracle Autonomous Database. The default is LICENSE_INCLUDED.
+	LicenseModel *LicenseModel
+
+	// Parameter that allows users to select an acceptable maximum data loss limit in seconds, up to which Automatic Failover
+	// will be triggered when necessary for a Local Autonomous Data Guard
+	LocalAdgAutoFailoverMaxDataLossLimit *int32
+
+	// Details for the long-term backup schedule.
+	LongTermBackupSchedule *LongTermBackUpScheduleDetails
+
+	// The character set for the Autonomous Database.
+	NcharacterSet *string
+
+	// Indicates the Autonomous Database mode.
+	OpenMode *OpenModeType
+
+	// The Azure resource ID of the Disaster Recovery peer database, which is located in a different region from the current peer
+	// database.
+	PeerDbID *string
+
+	// The Autonomous Database permission level.
+	PermissionLevel *PermissionLevelType
+
+	// The private endpoint Ip address for the resource.
+	PrivateEndpointIP *string
+
+	// The resource's private endpoint label.
+	PrivateEndpointLabel *string
+
+	// The Data Guard role of the Autonomous Container Database or Autonomous Database, if Autonomous Data Guard is enabled.
+	Role *RoleType
+
+	// The list of scheduled operations.
+	ScheduledOperations *ScheduledOperationsType
+
+	// Client subnet
+	SubnetID *string
+
+	// The timestamp specified for the point-in-time clone of the source Autonomous Database. The timestamp must be in the past.
+	Timestamp *time.Time
+
+	// Clone from latest available backup timestamp.
+	UseLatestAvailableBackupTimeStamp *bool
+
+	// VNET for network connectivity
+	VnetID *string
+
+	// The client IP access control list (ACL). This is an array of CIDR notations and/or IP addresses. Values should be separate
+	// strings, separated by commas. Example: ['1.1.1.1','1.1.1.0/24','1.1.2.25']
+	WhitelistedIPs []*string
+
+	// READ-ONLY; The current amount of storage in use for user and system data, in terabytes (TB).
+	ActualUsedDataStorageSizeInTbs *float64
+
+	// READ-ONLY; The amount of storage currently allocated for the database tables and billed for, rounded up.
+	AllocatedStorageSizeInTbs *float64
+
+	// READ-ONLY; Information about Oracle APEX Application Development.
+	ApexDetails *ApexDetailsType
+
+	// READ-ONLY; List of Oracle Database versions available for a database upgrade. If there are no version upgrades available,
+	// this list is empty.
+	AvailableUpgradeVersions []*string
+
+	// READ-ONLY; The connection string used to connect to the Autonomous Database.
+	ConnectionStrings *ConnectionStringType
+
+	// READ-ONLY; The URLs for accessing Oracle Application Express (APEX) and SQL Developer Web with a browser from a Compute
+	// instance within your VCN or that has a direct connection to your VCN.
+	ConnectionUrls *ConnectionURLType
+
+	// READ-ONLY; Status of the Data Safe registration for this Autonomous Database.
+	DataSafeStatus *DataSafeStatusType
+
+	// READ-ONLY; Indicates the number of seconds of data loss for a Data Guard failover.
+	FailedDataRecoveryInSeconds *int32
+
+	// READ-ONLY; The area assigned to In-Memory tables in Autonomous Database.
+	InMemoryAreaInGbs *int32
+
+	// READ-ONLY; Indicates if the Autonomous Database version is a preview version.
+	IsPreview *bool
+
+	// READ-ONLY; Indicates whether the Autonomous Database has Cross Region Data Guard enabled.
+	IsRemoteDataGuardEnabled *bool
+
+	// READ-ONLY; Additional information about the current lifecycle state.
+	LifecycleDetails *string
+
+	// READ-ONLY; Views lifecycleState
+	LifecycleState *AutonomousDatabaseLifecycleState
+
+	// READ-ONLY; Indicates the local disaster recovery (DR) type of the Autonomous Database Serverless instance.Autonomous Data
+	// Guard (ADG) DR type provides business critical DR with a faster recovery time objective
+	// (RTO) during failover or switchover.Backup-based DR type provides lower cost DR with a slower RTO during failover or switchover.
+	LocalDisasterRecoveryType *DisasterRecoveryType
+
+	// READ-ONLY; Local Autonomous Disaster Recovery standby database details.
+	LocalStandbyDb *AutonomousDatabaseStandbySummary
+
+	// READ-ONLY; The amount of memory (in GBs) enabled per ECPU or OCPU.
+	MemoryPerOracleComputeUnitInGbs *int32
+
+	// READ-ONLY; The date and time when the next long-term backup would be created.
+	NextLongTermBackupTimeStamp *time.Time
+
+	// READ-ONLY; HTTPS link to OCI resources exposed to Azure Customer via Azure Interface.
+	OciURL *string
+
+	// READ-ONLY; Database ocid
+	Ocid *string
+
+	// READ-ONLY; Status of Operations Insights for this Autonomous Database.
+	OperationsInsightsStatus *OperationsInsightsStatusType
+
+	// READ-ONLY; The list of Azure resource IDs of standby databases located in Autonomous Data Guard remote regions that are
+	// associated with the source database. Note that for Autonomous Database Serverless
+	// instances, standby databases located in the same region as the source primary database do not have Azure IDs.
+	PeerDbIDs []*string
+
+	// READ-ONLY; The private endpoint for the resource.
+	PrivateEndpoint *string
+
+	// READ-ONLY; An array of CPU values that an Autonomous Database can be scaled to.
+	ProvisionableCpus []*int32
+
+	// READ-ONLY; Azure resource provisioning state.
+	ProvisioningState *AzureResourceProvisioningState
+
+	// READ-ONLY; Indicates remote disaster recovery configuration
+	RemoteDisasterRecoveryConfiguration *DisasterRecoveryConfigurationDetails
+
+	// READ-ONLY; The SQL Web Developer URL for the Oracle Autonomous Database.
+	SQLWebDeveloperURL *string
+
+	// READ-ONLY; The URL of the Service Console for the Autonomous Database.
+	ServiceConsoleURL *string
+
+	// READ-ONLY; The list of regions that support the creation of an Autonomous Database clone or an Autonomous Data Guard standby
+	// database.
+	SupportedRegionsToCloneTo []*string
+
+	// READ-ONLY; The date and time that the database was created.
+	TimeCreated *time.Time
+
+	// READ-ONLY; The date and time the Autonomous Data Guard role was switched for the Autonomous Database.
+	TimeDataGuardRoleChanged *string
+
+	// READ-ONLY; The date and time the Always Free database will be automatically deleted because of inactivity.
+	TimeDeletionOfFreeAutonomousDatabase *string
+
+	// READ-ONLY; The date and time the Disaster Recovery role was switched for the standby Autonomous Database.
+	TimeDisasterRecoveryRoleChanged *time.Time
+
+	// READ-ONLY; The date and time that Autonomous Data Guard was enabled for an Autonomous Database where the standby was provisioned
+	// in the same region as the primary database.
+	TimeLocalDataGuardEnabled *string
+
+	// READ-ONLY; The date and time when maintenance will begin.
+	TimeMaintenanceBegin *time.Time
+
+	// READ-ONLY; The date and time when maintenance will end.
+	TimeMaintenanceEnd *time.Time
+
+	// READ-ONLY; The timestamp of the last failover operation.
+	TimeOfLastFailover *string
+
+	// READ-ONLY; The date and time when last refresh happened.
+	TimeOfLastRefresh *string
+
+	// READ-ONLY; The refresh point timestamp (UTC).
+	TimeOfLastRefreshPoint *string
+
+	// READ-ONLY; The timestamp of the last switchover operation for the Autonomous Database.
+	TimeOfLastSwitchover *string
+
+	// READ-ONLY; The date and time the Always Free database will be stopped because of inactivity.
+	TimeReclamationOfFreeAutonomousDatabase *string
+
+	// READ-ONLY; The storage space consumed by Autonomous Database in GBs.
+	UsedDataStorageSizeInGbs *int32
+
+	// READ-ONLY; The amount of storage that has been used, in terabytes.
+	UsedDataStorageSizeInTbs *int32
+}
+
+// GetAutonomousDatabaseBaseProperties implements the AutonomousDatabaseBasePropertiesClassification interface for type AutonomousDatabaseFromBackupTimestampProperties.
+func (a *AutonomousDatabaseFromBackupTimestampProperties) GetAutonomousDatabaseBaseProperties() *AutonomousDatabaseBaseProperties {
+	return &AutonomousDatabaseBaseProperties{
+		ActualUsedDataStorageSizeInTbs:           a.ActualUsedDataStorageSizeInTbs,
+		AdminPassword:                            a.AdminPassword,
+		AllocatedStorageSizeInTbs:                a.AllocatedStorageSizeInTbs,
+		ApexDetails:                              a.ApexDetails,
+		AutonomousDatabaseID:                     a.AutonomousDatabaseID,
+		AutonomousMaintenanceScheduleType:        a.AutonomousMaintenanceScheduleType,
+		AvailableUpgradeVersions:                 a.AvailableUpgradeVersions,
+		BackupRetentionPeriodInDays:              a.BackupRetentionPeriodInDays,
+		CPUCoreCount:                             a.CPUCoreCount,
+		CharacterSet:                             a.CharacterSet,
+		ComputeCount:                             a.ComputeCount,
+		ComputeModel:                             a.ComputeModel,
+		ConnectionStrings:                        a.ConnectionStrings,
+		ConnectionUrls:                           a.ConnectionUrls,
+		CustomerContacts:                         a.CustomerContacts,
+		DataBaseType:                             a.DataBaseType,
+		DataSafeStatus:                           a.DataSafeStatus,
+		DataStorageSizeInGbs:                     a.DataStorageSizeInGbs,
+		DataStorageSizeInTbs:                     a.DataStorageSizeInTbs,
+		DatabaseEdition:                          a.DatabaseEdition,
+		DbVersion:                                a.DbVersion,
+		DbWorkload:                               a.DbWorkload,
+		DisplayName:                              a.DisplayName,
+		FailedDataRecoveryInSeconds:              a.FailedDataRecoveryInSeconds,
+		InMemoryAreaInGbs:                        a.InMemoryAreaInGbs,
+		IsAutoScalingEnabled:                     a.IsAutoScalingEnabled,
+		IsAutoScalingForStorageEnabled:           a.IsAutoScalingForStorageEnabled,
+		IsLocalDataGuardEnabled:                  a.IsLocalDataGuardEnabled,
+		IsMtlsConnectionRequired:                 a.IsMtlsConnectionRequired,
+		IsPreview:                                a.IsPreview,
+		IsPreviewVersionWithServiceTermsAccepted: a.IsPreviewVersionWithServiceTermsAccepted,
+		IsRemoteDataGuardEnabled:                 a.IsRemoteDataGuardEnabled,
+		LicenseModel:                             a.LicenseModel,
+		LifecycleDetails:                         a.LifecycleDetails,
+		LifecycleState:                           a.LifecycleState,
+		LocalAdgAutoFailoverMaxDataLossLimit:     a.LocalAdgAutoFailoverMaxDataLossLimit,
+		LocalDisasterRecoveryType:                a.LocalDisasterRecoveryType,
+		LocalStandbyDb:                           a.LocalStandbyDb,
+		LongTermBackupSchedule:                   a.LongTermBackupSchedule,
+		MemoryPerOracleComputeUnitInGbs:          a.MemoryPerOracleComputeUnitInGbs,
+		NcharacterSet:                            a.NcharacterSet,
+		NextLongTermBackupTimeStamp:              a.NextLongTermBackupTimeStamp,
+		OciURL:                                   a.OciURL,
+		Ocid:                                     a.Ocid,
+		OpenMode:                                 a.OpenMode,
+		OperationsInsightsStatus:                 a.OperationsInsightsStatus,
+		PeerDbID:                                 a.PeerDbID,
+		PeerDbIDs:                                a.PeerDbIDs,
+		PermissionLevel:                          a.PermissionLevel,
+		PrivateEndpoint:                          a.PrivateEndpoint,
+		PrivateEndpointIP:                        a.PrivateEndpointIP,
+		PrivateEndpointLabel:                     a.PrivateEndpointLabel,
+		ProvisionableCpus:                        a.ProvisionableCpus,
+		ProvisioningState:                        a.ProvisioningState,
+		RemoteDisasterRecoveryConfiguration:      a.RemoteDisasterRecoveryConfiguration,
+		Role:                                     a.Role,
+		SQLWebDeveloperURL:                       a.SQLWebDeveloperURL,
+		ScheduledOperations:                      a.ScheduledOperations,
+		ServiceConsoleURL:                        a.ServiceConsoleURL,
+		SubnetID:                                 a.SubnetID,
+		SupportedRegionsToCloneTo:                a.SupportedRegionsToCloneTo,
+		TimeCreated:                              a.TimeCreated,
+		TimeDataGuardRoleChanged:                 a.TimeDataGuardRoleChanged,
+		TimeDeletionOfFreeAutonomousDatabase:     a.TimeDeletionOfFreeAutonomousDatabase,
+		TimeDisasterRecoveryRoleChanged:          a.TimeDisasterRecoveryRoleChanged,
 		TimeLocalDataGuardEnabled:                a.TimeLocalDataGuardEnabled,
 		TimeMaintenanceBegin:                     a.TimeMaintenanceBegin,
 		TimeMaintenanceEnd:                       a.TimeMaintenanceEnd,
@@ -826,7 +1535,7 @@ type AutonomousDatabaseNationalCharacterSetListResult struct {
 
 // AutonomousDatabaseNationalCharacterSetProperties - AutonomousDatabaseNationalCharacterSet resource model
 type AutonomousDatabaseNationalCharacterSetProperties struct {
-	// READ-ONLY; The Oracle Autonomous Database supported national character sets.
+	// REQUIRED; The Oracle Autonomous Database supported national character sets.
 	CharacterSet *string
 }
 
@@ -911,7 +1620,7 @@ type AutonomousDatabaseProperties struct {
 	// Indicates the Autonomous Database mode.
 	OpenMode *OpenModeType
 
-	// The database OCID of the Disaster Recovery peer database, which is located in a different region from the current peer
+	// The Azure resource ID of the Disaster Recovery peer database, which is located in a different region from the current peer
 	// database.
 	PeerDbID *string
 
@@ -1004,10 +1713,9 @@ type AutonomousDatabaseProperties struct {
 	// READ-ONLY; Status of Operations Insights for this Autonomous Database.
 	OperationsInsightsStatus *OperationsInsightsStatusType
 
-	// READ-ONLY; The list of OCIDs [https://docs.oracle.com/iaas/Content/General/Concepts/identifiers.htm] of standby databases
-	// located in Autonomous Data Guard remote regions that are associated with the source
-	// database. Note that for Autonomous Database Serverless instances, standby databases located in the same region as the source
-	// primary database do not have OCIDs.
+	// READ-ONLY; The list of Azure resource IDs of standby databases located in Autonomous Data Guard remote regions that are
+	// associated with the source database. Note that for Autonomous Database Serverless
+	// instances, standby databases located in the same region as the source primary database do not have Azure IDs.
 	PeerDbIDs []*string
 
 	// READ-ONLY; The private endpoint for the resource.
@@ -1018,6 +1726,9 @@ type AutonomousDatabaseProperties struct {
 
 	// READ-ONLY; Azure resource provisioning state.
 	ProvisioningState *AzureResourceProvisioningState
+
+	// READ-ONLY; Indicates remote disaster recovery configuration
+	RemoteDisasterRecoveryConfiguration *DisasterRecoveryConfigurationDetails
 
 	// READ-ONLY; The SQL Web Developer URL for the Oracle Autonomous Database.
 	SQLWebDeveloperURL *string
@@ -1037,6 +1748,9 @@ type AutonomousDatabaseProperties struct {
 
 	// READ-ONLY; The date and time the Always Free database will be automatically deleted because of inactivity.
 	TimeDeletionOfFreeAutonomousDatabase *string
+
+	// READ-ONLY; The date and time the Disaster Recovery role was switched for the standby Autonomous Database.
+	TimeDisasterRecoveryRoleChanged *time.Time
 
 	// READ-ONLY; The date and time that Autonomous Data Guard was enabled for an Autonomous Database where the standby was provisioned
 	// in the same region as the primary database.
@@ -1127,6 +1841,7 @@ func (a *AutonomousDatabaseProperties) GetAutonomousDatabaseBaseProperties() *Au
 		PrivateEndpointLabel:                     a.PrivateEndpointLabel,
 		ProvisionableCpus:                        a.ProvisionableCpus,
 		ProvisioningState:                        a.ProvisioningState,
+		RemoteDisasterRecoveryConfiguration:      a.RemoteDisasterRecoveryConfiguration,
 		Role:                                     a.Role,
 		SQLWebDeveloperURL:                       a.SQLWebDeveloperURL,
 		ScheduledOperations:                      a.ScheduledOperations,
@@ -1136,6 +1851,7 @@ func (a *AutonomousDatabaseProperties) GetAutonomousDatabaseBaseProperties() *Au
 		TimeCreated:                              a.TimeCreated,
 		TimeDataGuardRoleChanged:                 a.TimeDataGuardRoleChanged,
 		TimeDeletionOfFreeAutonomousDatabase:     a.TimeDeletionOfFreeAutonomousDatabase,
+		TimeDisasterRecoveryRoleChanged:          a.TimeDisasterRecoveryRoleChanged,
 		TimeLocalDataGuardEnabled:                a.TimeLocalDataGuardEnabled,
 		TimeMaintenanceBegin:                     a.TimeMaintenanceBegin,
 		TimeMaintenanceEnd:                       a.TimeMaintenanceEnd,
@@ -1172,7 +1888,7 @@ type AutonomousDatabaseStandbySummary struct {
 
 // AutonomousDatabaseUpdate - The type used for update operations of the AutonomousDatabase.
 type AutonomousDatabaseUpdate struct {
-	// The updatable properties of the AutonomousDatabase.
+	// The resource-specific properties for this resource.
 	Properties *AutonomousDatabaseUpdateProperties
 
 	// Resource tags.
@@ -1236,7 +1952,7 @@ type AutonomousDatabaseUpdateProperties struct {
 	// Indicates the Autonomous Database mode.
 	OpenMode *OpenModeType
 
-	// The database OCID of the Disaster Recovery peer database, which is located in a different region from the current peer
+	// The Azure resource ID of the Disaster Recovery peer database, which is located in a different region from the current peer
 	// database.
 	PeerDbID *string
 
@@ -1289,23 +2005,29 @@ type AutonomousDbVersionListResult struct {
 
 // AutonomousDbVersionProperties - AutonomousDbVersion resource model
 type AutonomousDbVersionProperties struct {
-	// READ-ONLY; Supported Autonomous Db versions.
+	// REQUIRED; Supported Autonomous Db versions.
 	Version *string
 
-	// READ-ONLY; The Autonomous Database workload type
+	// The Autonomous Database workload type
 	DbWorkload *WorkloadType
 
-	// READ-ONLY; True if this version of the Oracle Database software's default is free.
+	// True if this version of the Oracle Database software's default is free.
 	IsDefaultForFree *bool
 
-	// READ-ONLY; True if this version of the Oracle Database software's default is paid.
+	// True if this version of the Oracle Database software's default is paid.
 	IsDefaultForPaid *bool
 
-	// READ-ONLY; True if this version of the Oracle Database software can be used for Always-Free Autonomous Databases.
+	// True if this version of the Oracle Database software can be used for Always-Free Autonomous Databases.
 	IsFreeTierEnabled *bool
 
-	// READ-ONLY; True if this version of the Oracle Database software has payments enabled.
+	// True if this version of the Oracle Database software has payments enabled.
 	IsPaidEnabled *bool
+}
+
+// AzureSubscriptions - Azure Subscriptions model
+type AzureSubscriptions struct {
+	// REQUIRED; Azure Subscription Ids to be updated
+	AzureSubscriptionIDs []*string
 }
 
 // CloudAccountDetails - Cloud Account Details model
@@ -1456,7 +2178,7 @@ type CloudExadataInfrastructureProperties struct {
 
 // CloudExadataInfrastructureUpdate - The type used for update operations of the CloudExadataInfrastructure.
 type CloudExadataInfrastructureUpdate struct {
-	// The updatable properties of the CloudExadataInfrastructure.
+	// The resource-specific properties for this resource.
 	Properties *CloudExadataInfrastructureUpdateProperties
 
 	// Resource tags.
@@ -1683,7 +2405,7 @@ type CloudVMClusterProperties struct {
 
 // CloudVMClusterUpdate - The type used for update operations of the CloudVmCluster.
 type CloudVMClusterUpdate struct {
-	// The updatable properties of the CloudVmCluster.
+	// The resource-specific properties for this resource.
 	Properties *CloudVMClusterUpdateProperties
 
 	// Resource tags.
@@ -1812,26 +2534,26 @@ type DNSPrivateViewListResult struct {
 
 // DNSPrivateViewProperties - Views resource model
 type DNSPrivateViewProperties struct {
-	// READ-ONLY; A Boolean flag indicating whether or not parts of the resource are unable to be explicitly managed.
-	IsProtected *bool
-
-	// READ-ONLY; The OCID of the view
-	Ocid *string
-
-	// READ-ONLY; The canonical absolute URL of the resource.
-	Self *string
-
-	// READ-ONLY; views timeCreated
-	TimeCreated *time.Time
-
-	// READ-ONLY; views timeCreated
-	TimeUpdated *time.Time
-
-	// READ-ONLY; The display name of the view resource
+	// REQUIRED; The display name of the view resource
 	DisplayName *string
 
-	// READ-ONLY; Views lifecycleState
+	// REQUIRED; A Boolean flag indicating whether or not parts of the resource are unable to be explicitly managed.
+	IsProtected *bool
+
+	// REQUIRED; Views lifecycleState
 	LifecycleState *DNSPrivateViewsLifecycleState
+
+	// REQUIRED; The OCID of the view
+	Ocid *string
+
+	// REQUIRED; The canonical absolute URL of the resource.
+	Self *string
+
+	// REQUIRED; views timeCreated
+	TimeCreated *time.Time
+
+	// REQUIRED; views timeUpdated
+	TimeUpdated *time.Time
 
 	// READ-ONLY; Azure resource provisioning state.
 	ProvisioningState *ResourceProvisioningState
@@ -1866,37 +2588,37 @@ type DNSPrivateZoneListResult struct {
 
 // DNSPrivateZoneProperties - Zones resource model
 type DNSPrivateZoneProperties struct {
-	// READ-ONLY; A Boolean flag indicating whether or not parts of the resource are unable to be explicitly managed.
+	// REQUIRED; A Boolean flag indicating whether or not parts of the resource are unable to be explicitly managed.
 	IsProtected *bool
 
-	// READ-ONLY; The OCID of the Zone
+	// REQUIRED; Zones lifecycleState
+	LifecycleState *DNSPrivateZonesLifecycleState
+
+	// REQUIRED; The OCID of the Zone
 	Ocid *string
 
-	// READ-ONLY; The canonical absolute URL of the resource.
+	// REQUIRED; The canonical absolute URL of the resource.
 	Self *string
 
-	// READ-ONLY; The current serial of the zone. As seen in the zone's SOA record.
+	// REQUIRED; The current serial of the zone. As seen in the zone's SOA record.
 	Serial *int32
 
-	// READ-ONLY; Zones timeCreated
+	// REQUIRED; Zones timeCreated
 	TimeCreated *time.Time
 
-	// READ-ONLY; Version is the never-repeating, totally-orderable, version of the zone, from which the serial field of the zone's
+	// REQUIRED; Version is the never-repeating, totally-orderable, version of the zone, from which the serial field of the zone's
 	// SOA record is derived.
 	Version *string
 
-	// READ-ONLY; The type of the zone. Must be either PRIMARY or SECONDARY. SECONDARY is only supported for GLOBAL zones.
+	// REQUIRED; The type of the zone. Must be either PRIMARY or SECONDARY. SECONDARY is only supported for GLOBAL zones.
 	ZoneType *ZoneType
 
-	// READ-ONLY; Zones lifecycleState
-	LifecycleState *DNSPrivateZonesLifecycleState
+	// The OCID of the private view containing the zone. This value will be null for zones in the global DNS, which are publicly
+	// resolvable and not part of a private view.
+	ViewID *string
 
 	// READ-ONLY; Azure resource provisioning state.
 	ProvisioningState *ResourceProvisioningState
-
-	// READ-ONLY; The OCID of the private view containing the zone. This value will be null for zones in the global DNS, which
-	// are publicly resolvable and not part of a private view.
-	ViewID *string
 }
 
 // DataCollectionOptions resource properties
@@ -1970,75 +2692,75 @@ type DbNodeListResult struct {
 
 // DbNodeProperties - The properties of DbNodeResource
 type DbNodeProperties struct {
-	// READ-ONLY; The OCID of the DB system.
+	// REQUIRED; The OCID of the DB system.
 	DbSystemID *string
 
-	// READ-ONLY; DbNode OCID
-	Ocid *string
-
-	// READ-ONLY; Additional information about the planned maintenance.
-	AdditionalDetails *string
-
-	// READ-ONLY; The OCID of the backup IP address associated with the database node.
-	BackupIPID *string
-
-	// READ-ONLY; The OCID of the second backup VNIC.
-	BackupVnic2ID *string
-
-	// READ-ONLY; The OCID of the backup VNIC.
-	BackupVnicID *string
-
-	// READ-ONLY; The number of CPU cores enabled on the Db node.
-	CPUCoreCount *int32
-
-	// READ-ONLY; The allocated local node storage in GBs on the Db node.
-	DbNodeStorageSizeInGbs *int32
-
-	// READ-ONLY; The OCID of the Exacc Db server associated with the database node.
-	DbServerID *string
-
-	// READ-ONLY; The name of the Fault Domain the instance is contained in.
-	FaultDomain *string
-
-	// READ-ONLY; The OCID of the host IP address associated with the database node.
-	HostIPID *string
-
-	// READ-ONLY; The host name for the database node.
-	Hostname *string
-
-	// READ-ONLY; Lifecycle details of Db Node.
-	LifecycleDetails *string
-
-	// READ-ONLY; The current state of the database node.
+	// REQUIRED; The current state of the database node.
 	LifecycleState *DbNodeProvisioningState
 
-	// READ-ONLY; The type of database node maintenance.
+	// REQUIRED; DbNode OCID
+	Ocid *string
+
+	// REQUIRED; The date and time that the database node was created.
+	TimeCreated *time.Time
+
+	// REQUIRED; The OCID of the VNIC.
+	VnicID *string
+
+	// Additional information about the planned maintenance.
+	AdditionalDetails *string
+
+	// The OCID of the backup IP address associated with the database node.
+	BackupIPID *string
+
+	// The OCID of the second backup VNIC.
+	BackupVnic2ID *string
+
+	// The OCID of the backup VNIC.
+	BackupVnicID *string
+
+	// The number of CPU cores enabled on the Db node.
+	CPUCoreCount *int32
+
+	// The allocated local node storage in GBs on the Db node.
+	DbNodeStorageSizeInGbs *int32
+
+	// The OCID of the Exacc Db server associated with the database node.
+	DbServerID *string
+
+	// The name of the Fault Domain the instance is contained in.
+	FaultDomain *string
+
+	// The OCID of the host IP address associated with the database node.
+	HostIPID *string
+
+	// The host name for the database node.
+	Hostname *string
+
+	// Lifecycle details of Db Node.
+	LifecycleDetails *string
+
+	// The type of database node maintenance.
 	MaintenanceType *DbNodeMaintenanceType
 
-	// READ-ONLY; The allocated memory in GBs on the Db node.
+	// The allocated memory in GBs on the Db node.
 	MemorySizeInGbs *int32
+
+	// The size (in GB) of the block storage volume allocation for the DB system. This attribute applies only for virtual machine
+	// DB systems.
+	SoftwareStorageSizeInGb *int32
+
+	// End date and time of maintenance window.
+	TimeMaintenanceWindowEnd *time.Time
+
+	// Start date and time of maintenance window.
+	TimeMaintenanceWindowStart *time.Time
+
+	// The OCID of the second VNIC.
+	Vnic2ID *string
 
 	// READ-ONLY; Azure resource provisioning state.
 	ProvisioningState *ResourceProvisioningState
-
-	// READ-ONLY; The size (in GB) of the block storage volume allocation for the DB system. This attribute applies only for virtual
-	// machine DB systems.
-	SoftwareStorageSizeInGb *int32
-
-	// READ-ONLY; The date and time that the database node was created.
-	TimeCreated *time.Time
-
-	// READ-ONLY; End date and time of maintenance window.
-	TimeMaintenanceWindowEnd *time.Time
-
-	// READ-ONLY; Start date and time of maintenance window.
-	TimeMaintenanceWindowStart *time.Time
-
-	// READ-ONLY; The OCID of the second VNIC.
-	Vnic2ID *string
-
-	// READ-ONLY; The OCID of the VNIC.
-	VnicID *string
 }
 
 // DbServer resource model
@@ -2175,66 +2897,89 @@ type DbSystemShapeListResult struct {
 
 // DbSystemShapeProperties - DbSystemShape resource model
 type DbSystemShapeProperties struct {
-	// READ-ONLY; The maximum number of CPU cores that can be enabled on the DB system for this shape.
+	// REQUIRED; The maximum number of CPU cores that can be enabled on the DB system for this shape.
 	AvailableCoreCount *int32
 
-	// READ-ONLY; The maximum number of CPU cores per database node that can be enabled for this shape. Only applicable to the
-	// flex Exadata shape and ExaCC Elastic shapes.
+	// The maximum number of CPU cores per database node that can be enabled for this shape. Only applicable to the flex Exadata
+	// shape and ExaCC Elastic shapes.
 	AvailableCoreCountPerNode *int32
 
-	// READ-ONLY; The maximum DATA storage that can be enabled for this shape.
+	// The maximum DATA storage that can be enabled for this shape.
 	AvailableDataStorageInTbs *int32
 
-	// READ-ONLY; The maximum data storage available per storage server for this shape. Only applicable to ExaCC Elastic shapes.
+	// The maximum data storage available per storage server for this shape. Only applicable to ExaCC Elastic shapes.
 	AvailableDataStoragePerServerInTbs *float64
 
-	// READ-ONLY; The maximum Db Node storage available per database node for this shape. Only applicable to ExaCC Elastic shapes.
+	// The maximum Db Node storage available per database node for this shape. Only applicable to ExaCC Elastic shapes.
 	AvailableDbNodePerNodeInGbs *int32
 
-	// READ-ONLY; The maximum Db Node storage that can be enabled for this shape.
+	// The maximum Db Node storage that can be enabled for this shape.
 	AvailableDbNodeStorageInGbs *int32
 
-	// READ-ONLY; The maximum memory that can be enabled for this shape.
+	// The maximum memory that can be enabled for this shape.
 	AvailableMemoryInGbs *int32
 
-	// READ-ONLY; The maximum memory available per database node for this shape. Only applicable to ExaCC Elastic shapes.
+	// The maximum memory available per database node for this shape. Only applicable to ExaCC Elastic shapes.
 	AvailableMemoryPerNodeInGbs *int32
 
-	// READ-ONLY; The discrete number by which the CPU core count for this shape can be increased or decreased.
+	// The discrete number by which the CPU core count for this shape can be increased or decreased.
 	CoreCountIncrement *int32
 
-	// READ-ONLY; The maximum number of Exadata storage servers available for the Exadata infrastructure.
+	// The maximum number of Exadata storage servers available for the Exadata infrastructure.
 	MaxStorageCount *int32
 
-	// READ-ONLY; The maximum number of database nodes available for this shape.
+	// The maximum number of database nodes available for this shape.
 	MaximumNodeCount *int32
 
-	// READ-ONLY; The minimum number of CPU cores that can be enabled per node for this shape.
+	// The minimum number of CPU cores that can be enabled per node for this shape.
 	MinCoreCountPerNode *int32
 
-	// READ-ONLY; The minimum data storage that need be allocated for this shape.
+	// The minimum data storage that need be allocated for this shape.
 	MinDataStorageInTbs *int32
 
-	// READ-ONLY; The minimum Db Node storage that need be allocated per node for this shape.
+	// The minimum Db Node storage that need be allocated per node for this shape.
 	MinDbNodeStoragePerNodeInGbs *int32
 
-	// READ-ONLY; The minimum memory that need be allocated per node for this shape.
+	// The minimum memory that need be allocated per node for this shape.
 	MinMemoryPerNodeInGbs *int32
 
-	// READ-ONLY; The minimum number of Exadata storage servers available for the Exadata infrastructure.
+	// The minimum number of Exadata storage servers available for the Exadata infrastructure.
 	MinStorageCount *int32
 
-	// READ-ONLY; The minimum number of CPU cores that can be enabled on the DB system for this shape.
+	// The minimum number of CPU cores that can be enabled on the DB system for this shape.
 	MinimumCoreCount *int32
 
-	// READ-ONLY; The minimum number of database nodes available for this shape.
+	// The minimum number of database nodes available for this shape.
 	MinimumNodeCount *int32
 
-	// READ-ONLY; The runtime minimum number of CPU cores that can be enabled on the DB system for this shape.
+	// The runtime minimum number of CPU cores that can be enabled on the DB system for this shape.
 	RuntimeMinimumCoreCount *int32
 
-	// READ-ONLY; The family of the shape used for the DB system.
+	// The family of the shape used for the DB system.
 	ShapeFamily *string
+}
+
+// DisasterRecoveryConfigurationDetails - Configurations of a Disaster Recovery Details
+type DisasterRecoveryConfigurationDetails struct {
+	// Indicates the disaster recovery (DR) type of the Autonomous Database Serverless instance. Autonomous Data Guard (ADG) DR
+	// type provides business critical DR with a faster recovery time objective (RTO)
+	// during failover or switchover. Backup-based DR type provides lower cost DR with a slower RTO during failover or switchover.
+	DisasterRecoveryType *DisasterRecoveryType
+
+	// If true, 7 days worth of backups are replicated across regions for Cross-Region ADB or Backup-Based DR between Primary
+	// and Standby. If false, the backups taken on the Primary are not replicated to the
+	// Standby database.
+	IsReplicateAutomaticBackups *bool
+
+	// Indicates if user wants to convert to a snapshot standby. For example, true would set a standby database to snapshot standby
+	// database. False would set a snapshot standby database back to regular
+	// standby database.
+	IsSnapshotStandby *bool
+
+	// Time and date stored as an RFC 3339 formatted timestamp string. For example, 2022-01-01T12:00:00.000Z would set a limit
+	// for the snapshot standby to be converted back to a cross-region standby
+	// database.
+	TimeSnapshotStandbyEnabledTill *time.Time
 }
 
 // EstimatedPatchingTime - The estimated total time required in minutes for all patching operations (database server, storage
@@ -2309,7 +3054,7 @@ type GiVersionListResult struct {
 
 // GiVersionProperties - GiVersion resource model
 type GiVersionProperties struct {
-	// READ-ONLY; A valid Oracle Grid Infrastructure (GI) software version.
+	// REQUIRED; A valid Oracle Grid Infrastructure (GI) software version.
 	Version *string
 }
 
@@ -2478,11 +3223,20 @@ type OracleSubscriptionProperties struct {
 	// Term Unit. P1Y, P3Y, etc, see Durations https://en.wikipedia.org/wiki/ISO_8601
 	TermUnit *string
 
+	// READ-ONLY; State of the add Azure subscription operation on Oracle subscription
+	AddSubscriptionOperationState *AddSubscriptionOperationState
+
+	// READ-ONLY; Azure subscriptions associated with this OracleSubscription
+	AzureSubscriptionIDs []*string
+
 	// READ-ONLY; Cloud Account Id
 	CloudAccountID *string
 
 	// READ-ONLY; Cloud Account provisioning state.
 	CloudAccountState *CloudAccountProvisioningState
+
+	// READ-ONLY; Status details of the last operation on Oracle subscription
+	LastOperationStatusDetail *string
 
 	// READ-ONLY; OracleSubscriptionProvisioningState provisioning state
 	ProvisioningState *OracleSubscriptionProvisioningState
@@ -2496,7 +3250,7 @@ type OracleSubscriptionUpdate struct {
 	// Details of the resource plan.
 	Plan *PlanUpdate
 
-	// The updatable properties of the OracleSubscription.
+	// The resource-specific properties for this resource.
 	Properties *OracleSubscriptionUpdateProperties
 }
 
@@ -2511,9 +3265,15 @@ type OracleSubscriptionUpdateProperties struct {
 
 // PeerDbDetails - PeerDb Details
 type PeerDbDetails struct {
-	// The database OCID of the Disaster Recovery peer database, which is located in a different region from the current peer
+	// The Azure resource ID of the Disaster Recovery peer database, which is located in a different region from the current peer
 	// database.
 	PeerDbID *string
+
+	// The location of the Disaster Recovery peer database.
+	PeerDbLocation *string
+
+	// Ocid of the Disaster Recovery peer database, which is located in a different region from the current peer database.
+	PeerDbOcid *string
 }
 
 // Plan for the resource.
@@ -2742,7 +3502,7 @@ type SystemVersionListResult struct {
 
 // SystemVersionProperties - System Version Resource model
 type SystemVersionProperties struct {
-	// READ-ONLY; A valid Oracle System Version
+	// REQUIRED; A valid Oracle System Version
 	SystemVersion *string
 }
 
