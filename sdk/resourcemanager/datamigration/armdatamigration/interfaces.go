@@ -38,6 +38,26 @@ type ConnectionInfoClassification interface {
 	GetConnectionInfo() *ConnectionInfo
 }
 
+// DatabaseMigrationBasePropertiesClassification provides polymorphic access to related types.
+// Call the interface's GetDatabaseMigrationBaseProperties() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *DatabaseMigrationBaseProperties, *DatabaseMigrationProperties, *DatabaseMigrationPropertiesCosmosDbMongo, *DatabaseMigrationPropertiesSQLDb,
+// - *DatabaseMigrationPropertiesSQLMi, *DatabaseMigrationPropertiesSQLVM
+type DatabaseMigrationBasePropertiesClassification interface {
+	// GetDatabaseMigrationBaseProperties returns the DatabaseMigrationBaseProperties content of the underlying type.
+	GetDatabaseMigrationBaseProperties() *DatabaseMigrationBaseProperties
+}
+
+// DatabaseMigrationPropertiesClassification provides polymorphic access to related types.
+// Call the interface's GetDatabaseMigrationProperties() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *DatabaseMigrationProperties, *DatabaseMigrationPropertiesSQLDb, *DatabaseMigrationPropertiesSQLMi, *DatabaseMigrationPropertiesSQLVM
+type DatabaseMigrationPropertiesClassification interface {
+	DatabaseMigrationBasePropertiesClassification
+	// GetDatabaseMigrationProperties returns the DatabaseMigrationProperties content of the underlying type.
+	GetDatabaseMigrationProperties() *DatabaseMigrationProperties
+}
+
 // MigrateMySQLAzureDbForMySQLOfflineTaskOutputClassification provides polymorphic access to related types.
 // Call the interface's GetMigrateMySQLAzureDbForMySQLOfflineTaskOutput() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:

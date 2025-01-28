@@ -46,7 +46,7 @@ func NewDirectLineClient(subscriptionID string, credential azcore.TokenCredentia
 // RegenerateKeys - Regenerates secret keys and returns them for the DirectLine Channel of a particular BotService resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-15
+// Generated from API version 2023-09-15-preview
 //   - resourceGroupName - The name of the Bot resource group in the user subscription.
 //   - resourceName - The name of the Bot resource.
 //   - channelName - The name of the Channel resource for which keys are to be regenerated.
@@ -99,7 +99,7 @@ func (client *DirectLineClient) regenerateKeysCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-15")
+	reqQP.Set("api-version", "2023-09-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {

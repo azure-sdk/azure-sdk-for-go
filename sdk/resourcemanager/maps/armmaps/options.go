@@ -60,12 +60,6 @@ type ClientListOperationsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ClientListSubscriptionOperationsOptions contains the optional parameters for the Client.NewListSubscriptionOperationsPager
-// method.
-type ClientListSubscriptionOperationsOptions struct {
-	// placeholder for future optional parameters
-}
-
 // CreatorsClientCreateOrUpdateOptions contains the optional parameters for the CreatorsClient.CreateOrUpdate method.
 type CreatorsClientCreateOrUpdateOptions struct {
 	// placeholder for future optional parameters
