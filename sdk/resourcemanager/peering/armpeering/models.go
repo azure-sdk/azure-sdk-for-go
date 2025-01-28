@@ -121,12 +121,12 @@ type ConnectionMonitorTest struct {
 	Type *string
 }
 
-// ConnectionMonitorTestListResult - The paginated list of [T].
+// ConnectionMonitorTestListResult - The paginated list of Connection Monitor Tests.
 type ConnectionMonitorTestListResult struct {
-	// The link to fetch the next page of [T].
+	// The link to fetch the next page of Connection Monitor Tests.
 	NextLink *string
 
-	// The list of [T].
+	// The list of Connection Monitor Tests.
 	Value []*ConnectionMonitorTest
 }
 
@@ -677,6 +677,27 @@ type Resource struct {
 type ResourceTags struct {
 	// Gets or sets the tags, a dictionary of descriptors arm object
 	Tags map[string]*string
+}
+
+// RpUnbilledPrefix - The Routing Preference unbilled prefix
+type RpUnbilledPrefix struct {
+	// READ-ONLY; The Azure region.
+	AzureRegion *string
+
+	// READ-ONLY; The peer ASN.
+	PeerAsn *int32
+
+	// READ-ONLY; The prefix.
+	Prefix *string
+}
+
+// RpUnbilledPrefixListResult - The paginated list of RP unbilled prefixes.
+type RpUnbilledPrefixListResult struct {
+	// The link to fetch the next page of RP unbilled prefixes.
+	NextLink *string
+
+	// The list of RP unbilled prefixes.
+	Value []*RpUnbilledPrefix
 }
 
 // SKU - The SKU that defines the tier and kind of the peering.

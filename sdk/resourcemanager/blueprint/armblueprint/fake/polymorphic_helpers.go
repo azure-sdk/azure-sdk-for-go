@@ -14,7 +14,7 @@ import (
 )
 
 func unmarshalArtifactClassification(rawMsg json.RawMessage) (armblueprint.ArtifactClassification, error) {
-	if rawMsg == nil {
+	if rawMsg == nil || string(rawMsg) == "null" {
 		return nil, nil
 	}
 	var m map[string]any
