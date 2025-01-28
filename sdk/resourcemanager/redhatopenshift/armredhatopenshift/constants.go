@@ -65,6 +65,26 @@ func PossibleFipsValidatedModulesValues() []FipsValidatedModules {
 	}
 }
 
+// ManagedServiceIdentityType - Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
+type ManagedServiceIdentityType string
+
+const (
+	ManagedServiceIdentityTypeNone                       ManagedServiceIdentityType = "None"
+	ManagedServiceIdentityTypeSystemAssigned             ManagedServiceIdentityType = "SystemAssigned"
+	ManagedServiceIdentityTypeSystemAssignedUserAssigned ManagedServiceIdentityType = "SystemAssigned,UserAssigned"
+	ManagedServiceIdentityTypeUserAssigned               ManagedServiceIdentityType = "UserAssigned"
+)
+
+// PossibleManagedServiceIdentityTypeValues returns the possible values for the ManagedServiceIdentityType const type.
+func PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType {
+	return []ManagedServiceIdentityType{
+		ManagedServiceIdentityTypeNone,
+		ManagedServiceIdentityTypeSystemAssigned,
+		ManagedServiceIdentityTypeSystemAssignedUserAssigned,
+		ManagedServiceIdentityTypeUserAssigned,
+	}
+}
+
 // OutboundType - The outbound routing strategy used to provide your cluster egress to the internet.
 type OutboundType string
 

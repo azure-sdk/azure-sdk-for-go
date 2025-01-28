@@ -44,6 +44,10 @@ type AccountServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListByResourceGroupPager func(resourceGroupName string, options *armautomation.AccountClientListByResourceGroupOptions) (resp azfake.PagerResponder[armautomation.AccountClientListByResourceGroupResponse])
 
+	// NewListDeletedRunbooksPager is the fake for method AccountClient.NewListDeletedRunbooksPager
+	// HTTP status codes to indicate success: http.StatusOK
+	NewListDeletedRunbooksPager func(resourceGroupName string, automationAccountName string, options *armautomation.AccountClientListDeletedRunbooksOptions) (resp azfake.PagerResponder[armautomation.AccountClientListDeletedRunbooksResponse])
+
 	// Update is the fake for method AccountClient.Update
 	// HTTP status codes to indicate success: http.StatusOK
 	Update func(ctx context.Context, resourceGroupName string, automationAccountName string, parameters armautomation.AccountUpdateParameters, options *armautomation.AccountClientUpdateOptions) (resp azfake.Responder[armautomation.AccountClientUpdateResponse], errResp azfake.ErrorResponder)
@@ -57,6 +61,7 @@ func NewAccountServerTransport(srv *AccountServer) *AccountServerTransport {
 		srv:                         srv,
 		newListPager:                newTracker[azfake.PagerResponder[armautomation.AccountClientListResponse]](),
 		newListByResourceGroupPager: newTracker[azfake.PagerResponder[armautomation.AccountClientListByResourceGroupResponse]](),
+		newListDeletedRunbooksPager: newTracker[azfake.PagerResponder[armautomation.AccountClientListDeletedRunbooksResponse]](),
 	}
 }
 
@@ -66,6 +71,7 @@ type AccountServerTransport struct {
 	srv                         *AccountServer
 	newListPager                *tracker[azfake.PagerResponder[armautomation.AccountClientListResponse]]
 	newListByResourceGroupPager *tracker[azfake.PagerResponder[armautomation.AccountClientListByResourceGroupResponse]]
+	newListDeletedRunbooksPager *tracker[azfake.PagerResponder[armautomation.AccountClientListDeletedRunbooksResponse]]
 }
 
 // Do implements the policy.Transporter interface for AccountServerTransport.
@@ -90,6 +96,8 @@ func (a *AccountServerTransport) Do(req *http.Request) (*http.Response, error) {
 		resp, err = a.dispatchNewListPager(req)
 	case "AccountClient.NewListByResourceGroupPager":
 		resp, err = a.dispatchNewListByResourceGroupPager(req)
+	case "AccountClient.NewListDeletedRunbooksPager":
+		resp, err = a.dispatchNewListDeletedRunbooksPager(req)
 	case "AccountClient.Update":
 		resp, err = a.dispatchUpdate(req)
 	default:
@@ -272,6 +280,47 @@ func (a *AccountServerTransport) dispatchNewListByResourceGroupPager(req *http.R
 	}
 	if !server.PagerResponderMore(newListByResourceGroupPager) {
 		a.newListByResourceGroupPager.remove(req)
+	}
+	return resp, nil
+}
+
+func (a *AccountServerTransport) dispatchNewListDeletedRunbooksPager(req *http.Request) (*http.Response, error) {
+	if a.srv.NewListDeletedRunbooksPager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListDeletedRunbooksPager not implemented")}
+	}
+	newListDeletedRunbooksPager := a.newListDeletedRunbooksPager.get(req)
+	if newListDeletedRunbooksPager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Automation/automationAccounts/(?P<automationAccountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/listDeletedRunbooks`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		automationAccountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("automationAccountName")])
+		if err != nil {
+			return nil, err
+		}
+		resp := a.srv.NewListDeletedRunbooksPager(resourceGroupNameParam, automationAccountNameParam, nil)
+		newListDeletedRunbooksPager = &resp
+		a.newListDeletedRunbooksPager.add(req, newListDeletedRunbooksPager)
+		server.PagerResponderInjectNextLinks(newListDeletedRunbooksPager, req, func(page *armautomation.AccountClientListDeletedRunbooksResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
+	}
+	resp, err := server.PagerResponderNext(newListDeletedRunbooksPager, req)
+	if err != nil {
+		return nil, err
+	}
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+		a.newListDeletedRunbooksPager.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+	}
+	if !server.PagerResponderMore(newListDeletedRunbooksPager) {
+		a.newListDeletedRunbooksPager.remove(req)
 	}
 	return resp, nil
 }
