@@ -32,3 +32,19 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 		CreatedByTypeUser,
 	}
 }
+
+// IsolationScope - Enum to configure regional restrictions on identity assignment, as necessary.
+type IsolationScope string
+
+const (
+	IsolationScopeNone     IsolationScope = "None"
+	IsolationScopeRegional IsolationScope = "Regional"
+)
+
+// PossibleIsolationScopeValues returns the possible values for the IsolationScope const type.
+func PossibleIsolationScopeValues() []IsolationScope {
+	return []IsolationScope{
+		IsolationScopeNone,
+		IsolationScopeRegional,
+	}
+}
