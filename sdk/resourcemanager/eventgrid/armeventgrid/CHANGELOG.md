@@ -1,5 +1,87 @@
 # Release History
 
+## 2.3.0-beta.3 (2025-01-28)
+### Breaking Changes
+
+- `ChannelProvisioningStateIdleDueToMirroredPartnerDestinationDeletion` from enum `ChannelProvisioningState` has been removed
+- `ChannelTypePartnerDestination` from enum `ChannelType` has been removed
+- `EndpointTypePartnerDestination` from enum `EndpointType` has been removed
+- `PublicNetworkAccessSecuredByPerimeter` from enum `PublicNetworkAccess` has been removed
+- Enum `AlternativeAuthenticationNameSource` has been removed
+- Enum `CustomJwtAuthenticationManagedIdentityType` has been removed
+- Enum `NetworkSecurityPerimeterAssociationAccessMode` has been removed
+- Enum `NetworkSecurityPerimeterConfigProvisioningState` has been removed
+- Enum `NetworkSecurityPerimeterConfigurationIssueSeverity` has been removed
+- Enum `NetworkSecurityPerimeterConfigurationIssueType` has been removed
+- Enum `NetworkSecurityPerimeterProfileAccessRuleDirection` has been removed
+- Enum `NetworkSecurityPerimeterResourceType` has been removed
+- Enum `PartnerClientAuthenticationType` has been removed
+- Enum `PartnerDestinationActivationState` has been removed
+- Enum `PartnerDestinationProvisioningState` has been removed
+- Enum `PartnerEndpointType` has been removed
+- Enum `ResourceKind` has been removed
+- Enum `SKU` has been removed
+- Function `*AzureADPartnerClientAuthentication.GetPartnerClientAuthentication` has been removed
+- Function `*ClientFactory.NewNetworkSecurityPerimeterConfigurationsClient` has been removed
+- Function `*ClientFactory.NewPartnerDestinationsClient` has been removed
+- Function `*PartnerClientAuthentication.GetPartnerClientAuthentication` has been removed
+- Function `*PartnerDestinationInfo.GetPartnerDestinationInfo` has been removed
+- Function `NewPartnerDestinationsClient` has been removed
+- Function `*PartnerDestinationsClient.Activate` has been removed
+- Function `*PartnerDestinationsClient.BeginCreateOrUpdate` has been removed
+- Function `*PartnerDestinationsClient.BeginDelete` has been removed
+- Function `*PartnerDestinationsClient.Get` has been removed
+- Function `*PartnerDestinationsClient.NewListByResourceGroupPager` has been removed
+- Function `*PartnerDestinationsClient.NewListBySubscriptionPager` has been removed
+- Function `*PartnerDestinationsClient.BeginUpdate` has been removed
+- Function `*PartnerEventSubscriptionDestination.GetEventSubscriptionDestination` has been removed
+- Function `*PartnerUpdateDestinationInfo.GetPartnerUpdateDestinationInfo` has been removed
+- Function `*WebhookPartnerDestinationInfo.GetPartnerDestinationInfo` has been removed
+- Function `*WebhookUpdatePartnerDestinationInfo.GetPartnerUpdateDestinationInfo` has been removed
+- Function `NewNetworkSecurityPerimeterConfigurationsClient` has been removed
+- Function `*NetworkSecurityPerimeterConfigurationsClient.Get` has been removed
+- Function `*NetworkSecurityPerimeterConfigurationsClient.NewListPager` has been removed
+- Function `*NetworkSecurityPerimeterConfigurationsClient.BeginReconcile` has been removed
+- Struct `AzureADPartnerClientAuthentication` has been removed
+- Struct `AzureADPartnerClientAuthenticationProperties` has been removed
+- Struct `ClientAuthenticationSettings` has been removed
+- Struct `CustomJwtAuthenticationManagedIdentity` has been removed
+- Struct `CustomJwtAuthenticationSettings` has been removed
+- Struct `ExtendedLocation` has been removed
+- Struct `IssuerCertificateInfo` has been removed
+- Struct `NetworkSecurityPerimeterConfiguration` has been removed
+- Struct `NetworkSecurityPerimeterConfigurationIssues` has been removed
+- Struct `NetworkSecurityPerimeterConfigurationIssuesProperties` has been removed
+- Struct `NetworkSecurityPerimeterConfigurationList` has been removed
+- Struct `NetworkSecurityPerimeterConfigurationProfile` has been removed
+- Struct `NetworkSecurityPerimeterConfigurationProperties` has been removed
+- Struct `NetworkSecurityPerimeterInfo` has been removed
+- Struct `NetworkSecurityPerimeterProfileAccessRule` has been removed
+- Struct `NetworkSecurityPerimeterProfileAccessRuleProperties` has been removed
+- Struct `NetworkSecurityPerimeterSubscription` has been removed
+- Struct `PartnerDestination` has been removed
+- Struct `PartnerDestinationProperties` has been removed
+- Struct `PartnerDestinationUpdateParameters` has been removed
+- Struct `PartnerDestinationsListResult` has been removed
+- Struct `PartnerEventSubscriptionDestination` has been removed
+- Struct `PartnerEventSubscriptionDestinationProperties` has been removed
+- Struct `ResourceAssociation` has been removed
+- Struct `ResourceMoveChangeHistory` has been removed
+- Struct `ResourceSKU` has been removed
+- Struct `WebhookPartnerDestinationInfo` has been removed
+- Struct `WebhookPartnerDestinationProperties` has been removed
+- Struct `WebhookUpdatePartnerDestinationInfo` has been removed
+- Field `PartnerDestinationInfo` of struct `ChannelProperties` has been removed
+- Field `PartnerDestinationInfo` of struct `ChannelUpdateParametersProperties` has been removed
+- Field `SKU` of struct `Domain` has been removed
+- Field `SKU` of struct `DomainUpdateParameters` has been removed
+- Field `ExtendedLocation`, `Kind`, `SKU` of struct `Topic` has been removed
+- Field `ClientAuthentication` of struct `TopicSpacesConfiguration` has been removed
+- Field `SKU` of struct `TopicUpdateParameters` has been removed
+- Field `ClientAuthentication` of struct `UpdateTopicSpacesConfigurationInfo` has been removed
+- Field `PartnerDestinationDetails` of struct `VerifiedPartnerProperties` has been removed
+
+
 ## 2.3.0-beta.2 (2024-04-30)
 ### Breaking Changes
 
