@@ -15,6 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/securityinsights/armsecurityinsights/v2"
 	"net/http"
 	"net/url"
@@ -31,12 +32,12 @@ type ProductSettingsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, workspaceName string, settingsName string, options *armsecurityinsights.ProductSettingsClientGetOptions) (resp azfake.Responder[armsecurityinsights.ProductSettingsClientGetResponse], errResp azfake.ErrorResponder)
 
-	// List is the fake for method ProductSettingsClient.List
+	// NewListPager is the fake for method ProductSettingsClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
-	List func(ctx context.Context, resourceGroupName string, workspaceName string, options *armsecurityinsights.ProductSettingsClientListOptions) (resp azfake.Responder[armsecurityinsights.ProductSettingsClientListResponse], errResp azfake.ErrorResponder)
+	NewListPager func(resourceGroupName string, workspaceName string, options *armsecurityinsights.ProductSettingsClientListOptions) (resp azfake.PagerResponder[armsecurityinsights.ProductSettingsClientListResponse])
 
 	// Update is the fake for method ProductSettingsClient.Update
-	// HTTP status codes to indicate success: http.StatusOK
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
 	Update func(ctx context.Context, resourceGroupName string, workspaceName string, settingsName string, settings armsecurityinsights.SettingsClassification, options *armsecurityinsights.ProductSettingsClientUpdateOptions) (resp azfake.Responder[armsecurityinsights.ProductSettingsClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
@@ -44,13 +45,17 @@ type ProductSettingsServer struct {
 // The returned ProductSettingsServerTransport instance is connected to an instance of armsecurityinsights.ProductSettingsClient via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewProductSettingsServerTransport(srv *ProductSettingsServer) *ProductSettingsServerTransport {
-	return &ProductSettingsServerTransport{srv: srv}
+	return &ProductSettingsServerTransport{
+		srv:          srv,
+		newListPager: newTracker[azfake.PagerResponder[armsecurityinsights.ProductSettingsClientListResponse]](),
+	}
 }
 
 // ProductSettingsServerTransport connects instances of armsecurityinsights.ProductSettingsClient to instances of ProductSettingsServer.
 // Don't use this type directly, use NewProductSettingsServerTransport instead.
 type ProductSettingsServerTransport struct {
-	srv *ProductSettingsServer
+	srv          *ProductSettingsServer
+	newListPager *tracker[azfake.PagerResponder[armsecurityinsights.ProductSettingsClientListResponse]]
 }
 
 // Do implements the policy.Transporter interface for ProductSettingsServerTransport.
@@ -69,8 +74,8 @@ func (p *ProductSettingsServerTransport) Do(req *http.Request) (*http.Response, 
 		resp, err = p.dispatchDelete(req)
 	case "ProductSettingsClient.Get":
 		resp, err = p.dispatchGet(req)
-	case "ProductSettingsClient.List":
-		resp, err = p.dispatchList(req)
+	case "ProductSettingsClient.NewListPager":
+		resp, err = p.dispatchNewListPager(req)
 	case "ProductSettingsClient.Update":
 		resp, err = p.dispatchUpdate(req)
 	default:
@@ -158,35 +163,43 @@ func (p *ProductSettingsServerTransport) dispatchGet(req *http.Request) (*http.R
 	return resp, nil
 }
 
-func (p *ProductSettingsServerTransport) dispatchList(req *http.Request) (*http.Response, error) {
-	if p.srv.List == nil {
-		return nil, &nonRetriableError{errors.New("fake for method List not implemented")}
+func (p *ProductSettingsServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
+	if p.srv.NewListPager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.OperationalInsights/workspaces/(?P<workspaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.SecurityInsights/settings`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 3 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	newListPager := p.newListPager.get(req)
+	if newListPager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.OperationalInsights/workspaces/(?P<workspaceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.SecurityInsights/settings`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		workspaceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("workspaceName")])
+		if err != nil {
+			return nil, err
+		}
+		resp := p.srv.NewListPager(resourceGroupNameParam, workspaceNameParam, nil)
+		newListPager = &resp
+		p.newListPager.add(req, newListPager)
+		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armsecurityinsights.ProductSettingsClientListResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	resp, err := server.PagerResponderNext(newListPager, req)
 	if err != nil {
 		return nil, err
 	}
-	workspaceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("workspaceName")])
-	if err != nil {
-		return nil, err
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+		p.newListPager.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
-	respr, errRespr := p.srv.List(req.Context(), resourceGroupNameParam, workspaceNameParam, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SettingList, req)
-	if err != nil {
-		return nil, err
+	if !server.PagerResponderMore(newListPager) {
+		p.newListPager.remove(req)
 	}
 	return resp, nil
 }
@@ -226,8 +239,8 @@ func (p *ProductSettingsServerTransport) dispatchUpdate(req *http.Request) (*htt
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	if !contains([]int{http.StatusOK, http.StatusCreated}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SettingsClassification, req)
 	if err != nil {
