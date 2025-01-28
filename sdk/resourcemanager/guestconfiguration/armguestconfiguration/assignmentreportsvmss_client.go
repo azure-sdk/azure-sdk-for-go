@@ -47,7 +47,7 @@ func NewAssignmentReportsVMSSClient(subscriptionID string, credential azcore.Tok
 // Get - Get a report for the VMSS guest configuration assignment, by reportId.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-01-25
+// Generated from API version 2024-04-05
 //   - resourceGroupName - The resource group name.
 //   - vmssName - The name of the virtual machine scale set.
 //   - name - The guest configuration assignment name.
@@ -104,7 +104,7 @@ func (client *AssignmentReportsVMSSClient) getCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-25")
+	reqQP.Set("api-version", "2024-04-05")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -121,7 +121,7 @@ func (client *AssignmentReportsVMSSClient) getHandleResponse(resp *http.Response
 
 // NewListPager - List all reports for the VMSS guest configuration assignment, latest report first.
 //
-// Generated from API version 2022-01-25
+// Generated from API version 2024-04-05
 //   - resourceGroupName - The resource group name.
 //   - vmssName - The name of the virtual machine scale set.
 //   - name - The guest configuration assignment name.
@@ -175,7 +175,7 @@ func (client *AssignmentReportsVMSSClient) listCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-25")
+	reqQP.Set("api-version", "2024-04-05")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
