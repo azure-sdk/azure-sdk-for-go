@@ -8,11 +8,6 @@
 
 package armnetapp
 
-// AccountsClientChangeKeyVaultResponse contains the response from method AccountsClient.BeginChangeKeyVault.
-type AccountsClientChangeKeyVaultResponse struct {
-	// placeholder for future response values
-}
-
 // AccountsClientCreateOrUpdateResponse contains the response from method AccountsClient.BeginCreateOrUpdate.
 type AccountsClientCreateOrUpdateResponse struct {
 	// NetApp account resource
@@ -21,11 +16,6 @@ type AccountsClientCreateOrUpdateResponse struct {
 
 // AccountsClientDeleteResponse contains the response from method AccountsClient.BeginDelete.
 type AccountsClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// AccountsClientGetChangeKeyVaultInformationResponse contains the response from method AccountsClient.BeginGetChangeKeyVaultInformation.
-type AccountsClientGetChangeKeyVaultInformationResponse struct {
 	// placeholder for future response values
 }
 
@@ -49,11 +39,6 @@ type AccountsClientListResponse struct {
 
 // AccountsClientRenewCredentialsResponse contains the response from method AccountsClient.BeginRenewCredentials.
 type AccountsClientRenewCredentialsResponse struct {
-	// placeholder for future response values
-}
-
-// AccountsClientTransitionToCmkResponse contains the response from method AccountsClient.BeginTransitionToCmk.
-type AccountsClientTransitionToCmkResponse struct {
 	// placeholder for future response values
 }
 
@@ -488,12 +473,6 @@ type VolumesClientListGetGroupIDListForLdapUserResponse struct {
 	GetGroupIDListForLDAPUserResponse
 }
 
-// VolumesClientListQuotaReportResponse contains the response from method VolumesClient.BeginListQuotaReport.
-type VolumesClientListQuotaReportResponse struct {
-	// Quota Report for volume
-	ListQuotaReportResponse
-}
-
 // VolumesClientListReplicationsResponse contains the response from method VolumesClient.NewListReplicationsPager.
 type VolumesClientListReplicationsResponse struct {
 	// List Replications
@@ -566,11 +545,6 @@ type VolumesClientRevertRelocationResponse struct {
 
 // VolumesClientRevertResponse contains the response from method VolumesClient.BeginRevert.
 type VolumesClientRevertResponse struct {
-	// placeholder for future response values
-}
-
-// VolumesClientSplitCloneFromParentResponse contains the response from method VolumesClient.BeginSplitCloneFromParent.
-type VolumesClientSplitCloneFromParentResponse struct {
 	// placeholder for future response values
 }
 
