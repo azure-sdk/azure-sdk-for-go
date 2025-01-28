@@ -45,3 +45,19 @@ func PossibleOfferTypeValues() []OfferType {
 		OfferTypeVirtualmachine,
 	}
 }
+
+// State - Whether the agreement is active or cancelled
+type State string
+
+const (
+	StateActive   State = "Active"
+	StateCanceled State = "Canceled"
+)
+
+// PossibleStateValues returns the possible values for the State const type.
+func PossibleStateValues() []State {
+	return []State{
+		StateActive,
+		StateCanceled,
+	}
+}

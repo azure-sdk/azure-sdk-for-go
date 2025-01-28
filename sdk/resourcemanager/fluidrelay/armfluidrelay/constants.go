@@ -10,7 +10,7 @@ package armfluidrelay
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/fluidrelay/armfluidrelay"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v1.2.1"
 )
 
 // CmkIdentityType - Values can be SystemAssigned or UserAssigned

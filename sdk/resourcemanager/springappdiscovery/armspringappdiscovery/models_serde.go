@@ -369,7 +369,6 @@ func (s SpringbootappsModel) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "name", s.Name)
 	populate(objectMap, "properties", s.Properties)
 	populate(objectMap, "systemData", s.SystemData)
-	populate(objectMap, "tags", s.Tags)
 	populate(objectMap, "type", s.Type)
 	return json.Marshal(objectMap)
 }
@@ -395,9 +394,6 @@ func (s *SpringbootappsModel) UnmarshalJSON(data []byte) error {
 		case "systemData":
 			err = unpopulate(val, "SystemData", &s.SystemData)
 			delete(rawMsg, key)
-		case "tags":
-			err = unpopulate(val, "Tags", &s.Tags)
-			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &s.Type)
 			delete(rawMsg, key)
@@ -416,7 +412,6 @@ func (s SpringbootappsPatch) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "name", s.Name)
 	populate(objectMap, "properties", s.Properties)
 	populate(objectMap, "systemData", s.SystemData)
-	populate(objectMap, "tags", s.Tags)
 	populate(objectMap, "type", s.Type)
 	return json.Marshal(objectMap)
 }
@@ -441,9 +436,6 @@ func (s *SpringbootappsPatch) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "systemData":
 			err = unpopulate(val, "SystemData", &s.SystemData)
-			delete(rawMsg, key)
-		case "tags":
-			err = unpopulate(val, "Tags", &s.Tags)
 			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &s.Type)
@@ -477,6 +469,7 @@ func (s SpringbootappsProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "jarFileLocation", s.JarFileLocation)
 	populate(objectMap, "jvmMemoryInMB", s.JvmMemoryInMB)
 	populate(objectMap, "jvmOptions", s.JvmOptions)
+	populate(objectMap, "labels", s.Labels)
 	populateDateTimeRFC3339(objectMap, "lastModifiedTime", s.LastModifiedTime)
 	populateDateTimeRFC3339(objectMap, "lastUpdatedTime", s.LastUpdatedTime)
 	populate(objectMap, "machineArmIds", s.MachineArmIDs)
@@ -484,7 +477,6 @@ func (s SpringbootappsProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "provisioningState", s.ProvisioningState)
 	populate(objectMap, "runtimeJdkVersion", s.RuntimeJdkVersion)
 	populate(objectMap, "servers", s.Servers)
-	populate(objectMap, "siteName", s.SiteName)
 	populate(objectMap, "springBootVersion", s.SpringBootVersion)
 	populate(objectMap, "staticContentLocations", s.StaticContentLocations)
 	return json.Marshal(objectMap)
@@ -553,6 +545,9 @@ func (s *SpringbootappsProperties) UnmarshalJSON(data []byte) error {
 		case "jvmOptions":
 			err = unpopulate(val, "JvmOptions", &s.JvmOptions)
 			delete(rawMsg, key)
+		case "labels":
+			err = unpopulate(val, "Labels", &s.Labels)
+			delete(rawMsg, key)
 		case "lastModifiedTime":
 			err = unpopulateDateTimeRFC3339(val, "LastModifiedTime", &s.LastModifiedTime)
 			delete(rawMsg, key)
@@ -573,9 +568,6 @@ func (s *SpringbootappsProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "servers":
 			err = unpopulate(val, "Servers", &s.Servers)
-			delete(rawMsg, key)
-		case "siteName":
-			err = unpopulate(val, "SiteName", &s.SiteName)
 			delete(rawMsg, key)
 		case "springBootVersion":
 			err = unpopulate(val, "SpringBootVersion", &s.SpringBootVersion)
@@ -726,7 +718,6 @@ func (s SpringbootserversModel) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "name", s.Name)
 	populate(objectMap, "properties", s.Properties)
 	populate(objectMap, "systemData", s.SystemData)
-	populate(objectMap, "tags", s.Tags)
 	populate(objectMap, "type", s.Type)
 	return json.Marshal(objectMap)
 }
@@ -752,9 +743,6 @@ func (s *SpringbootserversModel) UnmarshalJSON(data []byte) error {
 		case "systemData":
 			err = unpopulate(val, "SystemData", &s.SystemData)
 			delete(rawMsg, key)
-		case "tags":
-			err = unpopulate(val, "Tags", &s.Tags)
-			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &s.Type)
 			delete(rawMsg, key)
@@ -773,7 +761,6 @@ func (s SpringbootserversPatch) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "name", s.Name)
 	populate(objectMap, "properties", s.Properties)
 	populate(objectMap, "systemData", s.SystemData)
-	populate(objectMap, "tags", s.Tags)
 	populate(objectMap, "type", s.Type)
 	return json.Marshal(objectMap)
 }
@@ -799,9 +786,6 @@ func (s *SpringbootserversPatch) UnmarshalJSON(data []byte) error {
 		case "systemData":
 			err = unpopulate(val, "SystemData", &s.SystemData)
 			delete(rawMsg, key)
-		case "tags":
-			err = unpopulate(val, "Tags", &s.Tags)
-			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &s.Type)
 			delete(rawMsg, key)
@@ -818,6 +802,7 @@ func (s SpringbootserversProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "errors", s.Errors)
 	populate(objectMap, "fqdnAndIpAddressList", s.FqdnAndIPAddressList)
+	populate(objectMap, "labels", s.Labels)
 	populate(objectMap, "machineArmId", s.MachineArmID)
 	populate(objectMap, "port", s.Port)
 	populate(objectMap, "provisioningState", s.ProvisioningState)
@@ -841,6 +826,9 @@ func (s *SpringbootserversProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "fqdnAndIpAddressList":
 			err = unpopulate(val, "FqdnAndIPAddressList", &s.FqdnAndIPAddressList)
+			delete(rawMsg, key)
+		case "labels":
+			err = unpopulate(val, "Labels", &s.Labels)
 			delete(rawMsg, key)
 		case "machineArmId":
 			err = unpopulate(val, "MachineArmID", &s.MachineArmID)
@@ -1246,7 +1234,7 @@ func populate(m map[string]any, k string, v any) {
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {
