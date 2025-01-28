@@ -28,23 +28,31 @@ import (
 type AlertsServer struct {
 	// ChangeState is the fake for method AlertsClient.ChangeState
 	// HTTP status codes to indicate success: http.StatusOK
-	ChangeState func(ctx context.Context, alertID string, newState armalertsmanagement.AlertState, options *armalertsmanagement.AlertsClientChangeStateOptions) (resp azfake.Responder[armalertsmanagement.AlertsClientChangeStateResponse], errResp azfake.ErrorResponder)
+	ChangeState func(ctx context.Context, scope string, alertID string, newState armalertsmanagement.AlertState, options *armalertsmanagement.AlertsClientChangeStateOptions) (resp azfake.Responder[armalertsmanagement.AlertsClientChangeStateResponse], errResp azfake.ErrorResponder)
 
 	// NewGetAllPager is the fake for method AlertsClient.NewGetAllPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewGetAllPager func(options *armalertsmanagement.AlertsClientGetAllOptions) (resp azfake.PagerResponder[armalertsmanagement.AlertsClientGetAllResponse])
+	NewGetAllPager func(scope string, options *armalertsmanagement.AlertsClientGetAllOptions) (resp azfake.PagerResponder[armalertsmanagement.AlertsClientGetAllResponse])
 
 	// GetByID is the fake for method AlertsClient.GetByID
 	// HTTP status codes to indicate success: http.StatusOK
-	GetByID func(ctx context.Context, alertID string, options *armalertsmanagement.AlertsClientGetByIDOptions) (resp azfake.Responder[armalertsmanagement.AlertsClientGetByIDResponse], errResp azfake.ErrorResponder)
+	GetByID func(ctx context.Context, scope string, alertID string, options *armalertsmanagement.AlertsClientGetByIDOptions) (resp azfake.Responder[armalertsmanagement.AlertsClientGetByIDResponse], errResp azfake.ErrorResponder)
+
+	// GetEnrichments is the fake for method AlertsClient.GetEnrichments
+	// HTTP status codes to indicate success: http.StatusOK
+	GetEnrichments func(ctx context.Context, scope string, alertID string, options *armalertsmanagement.AlertsClientGetEnrichmentsOptions) (resp azfake.Responder[armalertsmanagement.AlertsClientGetEnrichmentsResponse], errResp azfake.ErrorResponder)
 
 	// GetHistory is the fake for method AlertsClient.GetHistory
 	// HTTP status codes to indicate success: http.StatusOK
-	GetHistory func(ctx context.Context, alertID string, options *armalertsmanagement.AlertsClientGetHistoryOptions) (resp azfake.Responder[armalertsmanagement.AlertsClientGetHistoryResponse], errResp azfake.ErrorResponder)
+	GetHistory func(ctx context.Context, scope string, alertID string, options *armalertsmanagement.AlertsClientGetHistoryOptions) (resp azfake.Responder[armalertsmanagement.AlertsClientGetHistoryResponse], errResp azfake.ErrorResponder)
 
 	// GetSummary is the fake for method AlertsClient.GetSummary
 	// HTTP status codes to indicate success: http.StatusOK
-	GetSummary func(ctx context.Context, groupby armalertsmanagement.AlertsSummaryGroupByFields, options *armalertsmanagement.AlertsClientGetSummaryOptions) (resp azfake.Responder[armalertsmanagement.AlertsClientGetSummaryResponse], errResp azfake.ErrorResponder)
+	GetSummary func(ctx context.Context, scope string, groupby armalertsmanagement.AlertsSummaryGroupByFields, options *armalertsmanagement.AlertsClientGetSummaryOptions) (resp azfake.Responder[armalertsmanagement.AlertsClientGetSummaryResponse], errResp azfake.ErrorResponder)
+
+	// NewListEnrichmentsPager is the fake for method AlertsClient.NewListEnrichmentsPager
+	// HTTP status codes to indicate success: http.StatusOK
+	NewListEnrichmentsPager func(scope string, alertID string, options *armalertsmanagement.AlertsClientListEnrichmentsOptions) (resp azfake.PagerResponder[armalertsmanagement.AlertsClientListEnrichmentsResponse])
 
 	// MetaData is the fake for method AlertsClient.MetaData
 	// HTTP status codes to indicate success: http.StatusOK
@@ -56,16 +64,18 @@ type AlertsServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewAlertsServerTransport(srv *AlertsServer) *AlertsServerTransport {
 	return &AlertsServerTransport{
-		srv:            srv,
-		newGetAllPager: newTracker[azfake.PagerResponder[armalertsmanagement.AlertsClientGetAllResponse]](),
+		srv:                     srv,
+		newGetAllPager:          newTracker[azfake.PagerResponder[armalertsmanagement.AlertsClientGetAllResponse]](),
+		newListEnrichmentsPager: newTracker[azfake.PagerResponder[armalertsmanagement.AlertsClientListEnrichmentsResponse]](),
 	}
 }
 
 // AlertsServerTransport connects instances of armalertsmanagement.AlertsClient to instances of AlertsServer.
 // Don't use this type directly, use NewAlertsServerTransport instead.
 type AlertsServerTransport struct {
-	srv            *AlertsServer
-	newGetAllPager *tracker[azfake.PagerResponder[armalertsmanagement.AlertsClientGetAllResponse]]
+	srv                     *AlertsServer
+	newGetAllPager          *tracker[azfake.PagerResponder[armalertsmanagement.AlertsClientGetAllResponse]]
+	newListEnrichmentsPager *tracker[azfake.PagerResponder[armalertsmanagement.AlertsClientListEnrichmentsResponse]]
 }
 
 // Do implements the policy.Transporter interface for AlertsServerTransport.
@@ -86,10 +96,14 @@ func (a *AlertsServerTransport) Do(req *http.Request) (*http.Response, error) {
 		resp, err = a.dispatchNewGetAllPager(req)
 	case "AlertsClient.GetByID":
 		resp, err = a.dispatchGetByID(req)
+	case "AlertsClient.GetEnrichments":
+		resp, err = a.dispatchGetEnrichments(req)
 	case "AlertsClient.GetHistory":
 		resp, err = a.dispatchGetHistory(req)
 	case "AlertsClient.GetSummary":
 		resp, err = a.dispatchGetSummary(req)
+	case "AlertsClient.NewListEnrichmentsPager":
+		resp, err = a.dispatchNewListEnrichmentsPager(req)
 	case "AlertsClient.MetaData":
 		resp, err = a.dispatchMetaData(req)
 	default:
@@ -107,7 +121,7 @@ func (a *AlertsServerTransport) dispatchChangeState(req *http.Request) (*http.Re
 	if a.srv.ChangeState == nil {
 		return nil, &nonRetriableError{errors.New("fake for method ChangeState not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AlertsManagement/alerts/(?P<alertId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/changestate`
+	const regexStr = `/(?P<scope>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AlertsManagement/alerts/(?P<alertId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/changestate`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 2 {
@@ -115,6 +129,10 @@ func (a *AlertsServerTransport) dispatchChangeState(req *http.Request) (*http.Re
 	}
 	qp := req.URL.Query()
 	body, err := server.UnmarshalRequestAsJSON[armalertsmanagement.Comments](req)
+	if err != nil {
+		return nil, err
+	}
+	scopeParam, err := url.PathUnescape(matches[regex.SubexpIndex("scope")])
 	if err != nil {
 		return nil, err
 	}
@@ -138,7 +156,7 @@ func (a *AlertsServerTransport) dispatchChangeState(req *http.Request) (*http.Re
 			Comment: &body,
 		}
 	}
-	respr, errRespr := a.srv.ChangeState(req.Context(), alertIDParam, newStateParam, options)
+	respr, errRespr := a.srv.ChangeState(req.Context(), scopeParam, alertIDParam, newStateParam, options)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -159,13 +177,17 @@ func (a *AlertsServerTransport) dispatchNewGetAllPager(req *http.Request) (*http
 	}
 	newGetAllPager := a.newGetAllPager.get(req)
 	if newGetAllPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AlertsManagement/alerts`
+		const regexStr = `/(?P<scope>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AlertsManagement/alerts`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 		if matches == nil || len(matches) < 1 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		qp := req.URL.Query()
+		scopeParam, err := url.PathUnescape(matches[regex.SubexpIndex("scope")])
+		if err != nil {
+			return nil, err
+		}
 		targetResourceUnescaped, err := url.QueryUnescape(qp.Get("targetResource"))
 		if err != nil {
 			return nil, err
@@ -288,7 +310,7 @@ func (a *AlertsServerTransport) dispatchNewGetAllPager(req *http.Request) (*http
 				CustomTimeRange:     customTimeRangeParam,
 			}
 		}
-		resp := a.srv.NewGetAllPager(options)
+		resp := a.srv.NewGetAllPager(scopeParam, options)
 		newGetAllPager = &resp
 		a.newGetAllPager.add(req, newGetAllPager)
 		server.PagerResponderInjectNextLinks(newGetAllPager, req, func(page *armalertsmanagement.AlertsClientGetAllResponse, createLink func() string) {
@@ -313,17 +335,21 @@ func (a *AlertsServerTransport) dispatchGetByID(req *http.Request) (*http.Respon
 	if a.srv.GetByID == nil {
 		return nil, &nonRetriableError{errors.New("fake for method GetByID not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AlertsManagement/alerts/(?P<alertId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/(?P<scope>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AlertsManagement/alerts/(?P<alertId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 2 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
+	scopeParam, err := url.PathUnescape(matches[regex.SubexpIndex("scope")])
+	if err != nil {
+		return nil, err
+	}
 	alertIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("alertId")])
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := a.srv.GetByID(req.Context(), alertIDParam, nil)
+	respr, errRespr := a.srv.GetByID(req.Context(), scopeParam, alertIDParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -338,21 +364,58 @@ func (a *AlertsServerTransport) dispatchGetByID(req *http.Request) (*http.Respon
 	return resp, nil
 }
 
-func (a *AlertsServerTransport) dispatchGetHistory(req *http.Request) (*http.Response, error) {
-	if a.srv.GetHistory == nil {
-		return nil, &nonRetriableError{errors.New("fake for method GetHistory not implemented")}
+func (a *AlertsServerTransport) dispatchGetEnrichments(req *http.Request) (*http.Response, error) {
+	if a.srv.GetEnrichments == nil {
+		return nil, &nonRetriableError{errors.New("fake for method GetEnrichments not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AlertsManagement/alerts/(?P<alertId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/history`
+	const regexStr = `/(?P<scope>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AlertsManagement/alerts/(?P<alertId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/enrichments/default`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 2 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
+	scopeParam, err := url.PathUnescape(matches[regex.SubexpIndex("scope")])
+	if err != nil {
+		return nil, err
+	}
 	alertIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("alertId")])
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := a.srv.GetHistory(req.Context(), alertIDParam, nil)
+	respr, errRespr := a.srv.GetEnrichments(req.Context(), scopeParam, alertIDParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).AlertEnrichmentResponse, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (a *AlertsServerTransport) dispatchGetHistory(req *http.Request) (*http.Response, error) {
+	if a.srv.GetHistory == nil {
+		return nil, &nonRetriableError{errors.New("fake for method GetHistory not implemented")}
+	}
+	const regexStr = `/(?P<scope>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AlertsManagement/alerts/(?P<alertId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/history`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 2 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	scopeParam, err := url.PathUnescape(matches[regex.SubexpIndex("scope")])
+	if err != nil {
+		return nil, err
+	}
+	alertIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("alertId")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := a.srv.GetHistory(req.Context(), scopeParam, alertIDParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -371,13 +434,17 @@ func (a *AlertsServerTransport) dispatchGetSummary(req *http.Request) (*http.Res
 	if a.srv.GetSummary == nil {
 		return nil, &nonRetriableError{errors.New("fake for method GetSummary not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AlertsManagement/alertsSummary`
+	const regexStr = `/(?P<scope>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AlertsManagement/alertsSummary`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 1 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
 	qp := req.URL.Query()
+	scopeParam, err := url.PathUnescape(matches[regex.SubexpIndex("scope")])
+	if err != nil {
+		return nil, err
+	}
 	groupbyParam, err := parseWithCast(qp.Get("groupby"), func(v string) (armalertsmanagement.AlertsSummaryGroupByFields, error) {
 		p, unescapeErr := url.QueryUnescape(v)
 		if unescapeErr != nil {
@@ -462,7 +529,7 @@ func (a *AlertsServerTransport) dispatchGetSummary(req *http.Request) (*http.Res
 			CustomTimeRange:         customTimeRangeParam,
 		}
 	}
-	respr, errRespr := a.srv.GetSummary(req.Context(), groupbyParam, options)
+	respr, errRespr := a.srv.GetSummary(req.Context(), scopeParam, groupbyParam, options)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -473,6 +540,44 @@ func (a *AlertsServerTransport) dispatchGetSummary(req *http.Request) (*http.Res
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).AlertsSummary, req)
 	if err != nil {
 		return nil, err
+	}
+	return resp, nil
+}
+
+func (a *AlertsServerTransport) dispatchNewListEnrichmentsPager(req *http.Request) (*http.Response, error) {
+	if a.srv.NewListEnrichmentsPager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListEnrichmentsPager not implemented")}
+	}
+	newListEnrichmentsPager := a.newListEnrichmentsPager.get(req)
+	if newListEnrichmentsPager == nil {
+		const regexStr = `/(?P<scope>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AlertsManagement/alerts/(?P<alertId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/enrichments`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 2 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		scopeParam, err := url.PathUnescape(matches[regex.SubexpIndex("scope")])
+		if err != nil {
+			return nil, err
+		}
+		alertIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("alertId")])
+		if err != nil {
+			return nil, err
+		}
+		resp := a.srv.NewListEnrichmentsPager(scopeParam, alertIDParam, nil)
+		newListEnrichmentsPager = &resp
+		a.newListEnrichmentsPager.add(req, newListEnrichmentsPager)
+	}
+	resp, err := server.PagerResponderNext(newListEnrichmentsPager, req)
+	if err != nil {
+		return nil, err
+	}
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+		a.newListEnrichmentsPager.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+	}
+	if !server.PagerResponderMore(newListEnrichmentsPager) {
+		a.newListEnrichmentsPager.remove(req)
 	}
 	return resp, nil
 }

@@ -427,8 +427,9 @@ type AutomaticOSUpgradePolicy struct {
 
 	// Indicates whether OS upgrades should automatically be applied to scale set instances in a rolling fashion when a newer
 	// version of the OS image becomes available.
-	// If this is set to true for Windows based pools, WindowsConfiguration.enableAutomaticUpdates [https://learn.microsoft.com/en-us/rest/api/batchmanagement/pool/create?tabs=HTTP#windowsconfiguration]
-	// cannot be set to true.
+	// If this is set to true for Windows based pools, WindowsConfiguration.enableAutomaticUpdates [https://learn.microsoft.com/rest/api/batchmanagement/pool/create?tabs=HTTP#windowsconfiguration]
+	// cannot be
+	// set to true.
 	EnableAutomaticOSUpgrade *bool
 
 	// Defer OS upgrades on the TVMs if they are running tasks.
@@ -819,8 +820,8 @@ type DiffDiskSettings struct {
 	// This property can be used by user in the request to choose which location the operating system should be in. e.g., cache
 	// disk space for Ephemeral OS disk provisioning. For more information on
 	// Ephemeral OS disk size requirements, please refer to Ephemeral OS disk size requirements for Windows VMs at
-	// https://docs.microsoft.com/en-us/azure/virtual-machines/windows/ephemeral-os-disks#size-requirements and Linux VMs at
-	// https://docs.microsoft.com/en-us/azure/virtual-machines/linux/ephemeral-os-disks#size-requirements.
+	// https://learn.microsoft.com/azure/virtual-machines/windows/ephemeral-os-disks#size-requirements and Linux VMs at
+	// https://learn.microsoft.com/azure/virtual-machines/linux/ephemeral-os-disks#size-requirements.
 	Placement *string
 }
 
@@ -948,7 +949,7 @@ type ImageReference struct {
 
 	// This property is mutually exclusive with other properties. The Azure Compute Gallery Image must have replicas in the same
 	// region as the Azure Batch account. For information about the firewall settings
-	// for the Batch node agent to communicate with the Batch service see https://docs.microsoft.com/en-us/azure/batch/batch-api-basics#virtual-network-vnet-and-firewall-configuration.
+	// for the Batch node agent to communicate with the Batch service see https://learn.microsoft.com/azure/batch/batch-api-basics#virtual-network-vnet-and-firewall-configuration.
 	ID *string
 
 	// For example, UbuntuServer or WindowsServer.
@@ -969,9 +970,9 @@ type ImageReference struct {
 
 // InboundNatPool - A inbound NAT pool that can be used to address specific ports on compute nodes in a Batch pool externally.
 type InboundNatPool struct {
-	// REQUIRED; This must be unique within a Batch pool. Acceptable values are between 1 and 65535 except for 22, 3389, 29876
-	// and 29877 as these are reserved. If any reserved values are provided the request fails
-	// with HTTP status code 400.
+	// REQUIRED; This must be unique within a Batch pool. Acceptable values are between 1 and 65535 except for 29876 and 29877
+	// as these are reserved. If any reserved values are provided the request fails with HTTP
+	// status code 400.
 	BackendPort *int32
 
 	// REQUIRED; Acceptable values range between 1 and 65534 except ports from 50000 to 55000 which are reserved by the Batch
@@ -1168,9 +1169,9 @@ type NetworkConfiguration struct {
 	// If communication to the compute nodes in the specified subnet is denied by
 	// an NSG, then the Batch service will set the state of the compute nodes to unusable. If the specified VNet has any associated
 	// Network Security Groups (NSG), then a few reserved system ports must be
-	// enabled for inbound communication. Enable ports 29876 and 29877, as well as port 22 for Linux and port 3389 for Windows.
-	// Also enable outbound connections to Azure Storage on port 443. For more details
-	// see: https://docs.microsoft.com/en-us/azure/batch/batch-api-basics#virtual-network-vnet-and-firewall-configuration
+	// enabled for inbound communication，including ports 29876 and 29877. Also enable outbound connections to Azure Storage on
+	// port 443. For more details see:
+	// https://learn.microsoft.com/azure/batch/batch-api-basics#virtual-network-vnet-and-firewall-configuration
 	SubnetID *string
 }
 
@@ -1477,11 +1478,9 @@ type PoolProperties struct {
 	// The list of user accounts to be created on each node in the pool.
 	UserAccounts []*UserAccount
 
-	// For information about available VM sizes, see Sizes for Virtual Machines (Linux) (https://azure.microsoft.com/documentation/articles/virtual-machines-linux-sizes/)
-	// or Sizes for Virtual Machines
-	// (Windows) (https://azure.microsoft.com/documentation/articles/virtual-machines-windows-sizes/). Batch supports all Azure
-	// VM sizes except STANDARDA0 and those with premium storage (STANDARDGS, STANDARD
-	// DS, and STANDARDDSV2 series).
+	// For information about available VM sizes, see Sizes for Virtual Machines in Azure (https://learn.microsoft.com/azure/virtual-machines/sizes/overview).
+	// Batch supports all Azure VM sizes except STANDARD
+	// A0 and those with premium storage (STANDARDGS, STANDARDDS, and STANDARDDSV2 series).
 	VMSize *string
 
 	// READ-ONLY; Whether the pool is resizing.
