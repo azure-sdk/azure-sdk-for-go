@@ -1,5 +1,12 @@
 # Release History
 
+## 1.3.0-beta.2 (2025-01-28)
+### Features Added
+
+- New field `Tags` in struct `FleetMember`
+- New field `Tags` in struct `FleetMemberUpdate`
+
+
 ## 1.3.0-beta.1 (2024-10-25)
 ### Features Added
 
