@@ -1,5 +1,14 @@
 # Release History
 
+## 1.1.0 (2025-01-29)
+### Features Added
+
+- New enum type `HealthStateCode` with values `HealthStateCodeDegraded`, `HealthStateCodeHealthy`
+- New struct `PoolStatus`
+- New field `Status` in struct `StandbyContainerGroupPoolRuntimeViewResourceProperties`
+- New field `Status` in struct `StandbyVirtualMachinePoolRuntimeViewResourceProperties`
+
+
 ## 1.0.0 (2024-09-26)
 ### Breaking Changes
 

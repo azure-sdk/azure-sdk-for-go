@@ -11,7 +11,7 @@ import (
 	"log"
 )
 
-// Generated from example definition: 2024-03-01/StandbyVirtualMachinePoolRuntimeViews_Get.json
+// Generated from example definition: 2025-03-01/StandbyVirtualMachinePoolRuntimeViews_Get.json
 func ExampleStandbyVirtualMachinePoolRuntimeViewsClient_Get() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -122,6 +122,10 @@ func ExampleStandbyVirtualMachinePoolRuntimeViewsClient_Get() {
 	// 				},
 	// 			},
 	// 			ProvisioningState: to.Ptr(armstandbypool.ProvisioningStateSucceeded),
+	// 			Status: &armstandbypool.PoolStatus{
+	// 				Code: to.Ptr(armstandbypool.HealthStateCodeHealthy),
+	// 				Message: to.Ptr("The pool is healthy."),
+	// 			},
 	// 		},
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000009/resourceGroups/rgstandbypool/providers/Microsoft.StandbyPool/standbyVirtualMachinePools/pool/runtimeViews/latest"),
 	// 		Name: to.Ptr("pool"),
@@ -138,7 +142,7 @@ func ExampleStandbyVirtualMachinePoolRuntimeViewsClient_Get() {
 	// }
 }
 
-// Generated from example definition: 2024-03-01/StandbyVirtualMachinePoolRuntimeViews_ListByStandbyPool.json
+// Generated from example definition: 2025-03-01/StandbyVirtualMachinePoolRuntimeViews_ListByStandbyPool.json
 func ExampleStandbyVirtualMachinePoolRuntimeViewsClient_NewListByStandbyPoolPager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -255,6 +259,10 @@ func ExampleStandbyVirtualMachinePoolRuntimeViewsClient_NewListByStandbyPoolPage
 		// 						},
 		// 					},
 		// 					ProvisioningState: to.Ptr(armstandbypool.ProvisioningStateSucceeded),
+		// 					Status: &armstandbypool.PoolStatus{
+		// 						Code: to.Ptr(armstandbypool.HealthStateCodeHealthy),
+		// 						Message: to.Ptr("The pool is healthy."),
+		// 					},
 		// 				},
 		// 				ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000009/resourceGroups/rgstandbypool/providers/Microsoft.StandbyPool/standbyVirtualMachinePools/pool/runtimeViews/latest"),
 		// 				Name: to.Ptr("pool"),
