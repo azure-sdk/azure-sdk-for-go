@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hybridcompute/armhybridcompute/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hybridcompute/armhybridcompute/v3"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -32,9 +32,9 @@ type MachinesServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	CreateOrUpdate func(ctx context.Context, resourceGroupName string, machineName string, parameters armhybridcompute.Machine, options *armhybridcompute.MachinesClientCreateOrUpdateOptions) (resp azfake.Responder[armhybridcompute.MachinesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
-	// Delete is the fake for method MachinesClient.Delete
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
-	Delete func(ctx context.Context, resourceGroupName string, machineName string, options *armhybridcompute.MachinesClientDeleteOptions) (resp azfake.Responder[armhybridcompute.MachinesClientDeleteResponse], errResp azfake.ErrorResponder)
+	// BeginDelete is the fake for method MachinesClient.BeginDelete
+	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
+	BeginDelete func(ctx context.Context, resourceGroupName string, machineName string, options *armhybridcompute.MachinesClientBeginDeleteOptions) (resp azfake.PollerResponder[armhybridcompute.MachinesClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method MachinesClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
@@ -64,6 +64,7 @@ func NewMachinesServerTransport(srv *MachinesServer) *MachinesServerTransport {
 	return &MachinesServerTransport{
 		srv:                         srv,
 		beginAssessPatches:          newTracker[azfake.PollerResponder[armhybridcompute.MachinesClientAssessPatchesResponse]](),
+		beginDelete:                 newTracker[azfake.PollerResponder[armhybridcompute.MachinesClientDeleteResponse]](),
 		beginInstallPatches:         newTracker[azfake.PollerResponder[armhybridcompute.MachinesClientInstallPatchesResponse]](),
 		newListByResourceGroupPager: newTracker[azfake.PagerResponder[armhybridcompute.MachinesClientListByResourceGroupResponse]](),
 		newListBySubscriptionPager:  newTracker[azfake.PagerResponder[armhybridcompute.MachinesClientListBySubscriptionResponse]](),
@@ -75,6 +76,7 @@ func NewMachinesServerTransport(srv *MachinesServer) *MachinesServerTransport {
 type MachinesServerTransport struct {
 	srv                         *MachinesServer
 	beginAssessPatches          *tracker[azfake.PollerResponder[armhybridcompute.MachinesClientAssessPatchesResponse]]
+	beginDelete                 *tracker[azfake.PollerResponder[armhybridcompute.MachinesClientDeleteResponse]]
 	beginInstallPatches         *tracker[azfake.PollerResponder[armhybridcompute.MachinesClientInstallPatchesResponse]]
 	newListByResourceGroupPager *tracker[azfake.PagerResponder[armhybridcompute.MachinesClientListByResourceGroupResponse]]
 	newListBySubscriptionPager  *tracker[azfake.PagerResponder[armhybridcompute.MachinesClientListBySubscriptionResponse]]
@@ -96,8 +98,8 @@ func (m *MachinesServerTransport) Do(req *http.Request) (*http.Response, error) 
 		resp, err = m.dispatchBeginAssessPatches(req)
 	case "MachinesClient.CreateOrUpdate":
 		resp, err = m.dispatchCreateOrUpdate(req)
-	case "MachinesClient.Delete":
-		resp, err = m.dispatchDelete(req)
+	case "MachinesClient.BeginDelete":
+		resp, err = m.dispatchBeginDelete(req)
 	case "MachinesClient.Get":
 		resp, err = m.dispatchGet(req)
 	case "MachinesClient.BeginInstallPatches":
@@ -212,36 +214,47 @@ func (m *MachinesServerTransport) dispatchCreateOrUpdate(req *http.Request) (*ht
 	return resp, nil
 }
 
-func (m *MachinesServerTransport) dispatchDelete(req *http.Request) (*http.Response, error) {
-	if m.srv.Delete == nil {
-		return nil, &nonRetriableError{errors.New("fake for method Delete not implemented")}
+func (m *MachinesServerTransport) dispatchBeginDelete(req *http.Request) (*http.Response, error) {
+	if m.srv.BeginDelete == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginDelete not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.HybridCompute/machines/(?P<machineName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 3 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	beginDelete := m.beginDelete.get(req)
+	if beginDelete == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.HybridCompute/machines/(?P<machineName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		machineNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("machineName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := m.srv.BeginDelete(req.Context(), resourceGroupNameParam, machineNameParam, nil)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginDelete = &respr
+		m.beginDelete.add(req, beginDelete)
 	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+
+	resp, err := server.PollerResponderNext(beginDelete, req)
 	if err != nil {
 		return nil, err
 	}
-	machineNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("machineName")])
-	if err != nil {
-		return nil, err
+
+	if !contains([]int{http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
+		m.beginDelete.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
 	}
-	respr, errRespr := m.srv.Delete(req.Context(), resourceGroupNameParam, machineNameParam, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
+	if !server.PollerResponderMore(beginDelete) {
+		m.beginDelete.remove(req)
 	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK, http.StatusNoContent}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusNoContent", respContent.HTTPStatus)}
-	}
-	resp, err := server.NewResponse(respContent, req, nil)
-	if err != nil {
-		return nil, err
-	}
+
 	return resp, nil
 }
 
