@@ -6,7 +6,7 @@ package armstandbypool
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/standbypool/armstandbypool"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.1.0"
 )
 
 // ActionType - Extensible enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -45,6 +45,24 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 		CreatedByTypeKey,
 		CreatedByTypeManagedIdentity,
 		CreatedByTypeUser,
+	}
+}
+
+// HealthStateCode - StandbyPool health state.
+type HealthStateCode string
+
+const (
+	// HealthStateCodeDegraded - StandbyPool is in degraded state.
+	HealthStateCodeDegraded HealthStateCode = "HealthState/degraded"
+	// HealthStateCodeHealthy - StandbyPool is in healthy state.
+	HealthStateCodeHealthy HealthStateCode = "HealthState/healthy"
+)
+
+// PossibleHealthStateCodeValues returns the possible values for the HealthStateCode const type.
+func PossibleHealthStateCodeValues() []HealthStateCode {
+	return []HealthStateCode{
+		HealthStateCodeDegraded,
+		HealthStateCodeHealthy,
 	}
 }
 
