@@ -1,5 +1,103 @@
 # Release History
 
+## 6.3.0 (2025-01-30)
+### Features Added
+
+- New enum type `AccessRuleDirection` with values `AccessRuleDirectionInbound`, `AccessRuleDirectionOutbound`
+- New enum type `AssociationAccessMode` with values `AssociationAccessModeAudit`, `AssociationAccessModeEnforced`, `AssociationAccessModeLearning`
+- New enum type `NspLinkProvisioningState` with values `NspLinkProvisioningStateAccepted`, `NspLinkProvisioningStateCreating`, `NspLinkProvisioningStateDeleting`, `NspLinkProvisioningStateFailed`, `NspLinkProvisioningStateSucceeded`, `NspLinkProvisioningStateUpdating`, `NspLinkProvisioningStateWaitForRemoteCompletion`
+- New enum type `NspLinkStatus` with values `NspLinkStatusApproved`, `NspLinkStatusDisconnected`, `NspLinkStatusPending`, `NspLinkStatusRejected`
+- New enum type `NspProvisioningState` with values `NspProvisioningStateAccepted`, `NspProvisioningStateCreating`, `NspProvisioningStateDeleting`, `NspProvisioningStateFailed`, `NspProvisioningStateSucceeded`, `NspProvisioningStateUpdating`
+- New function `*ClientFactory.NewNspAccessRulesClient() *NspAccessRulesClient`
+- New function `*ClientFactory.NewNspAccessRulesReconcileClient() *NspAccessRulesReconcileClient`
+- New function `*ClientFactory.NewNspAssociationReconcileClient() *NspAssociationReconcileClient`
+- New function `*ClientFactory.NewNspAssociationsClient() *NspAssociationsClient`
+- New function `*ClientFactory.NewNspLinkReferencesClient() *NspLinkReferencesClient`
+- New function `*ClientFactory.NewNspLinksClient() *NspLinksClient`
+- New function `*ClientFactory.NewNspLoggingConfigurationClient() *NspLoggingConfigurationClient`
+- New function `*ClientFactory.NewNspLoggingConfigurationsClient() *NspLoggingConfigurationsClient`
+- New function `*ClientFactory.NewNspOperationStatusClient() *NspOperationStatusClient`
+- New function `*ClientFactory.NewNspProfilesClient() *NspProfilesClient`
+- New function `*ClientFactory.NewPerimeterAssociableResourceTypesClient() *PerimeterAssociableResourceTypesClient`
+- New function `*ClientFactory.NewSecurityPerimetersClient() *SecurityPerimetersClient`
+- New function `NewPerimeterAssociableResourceTypesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PerimeterAssociableResourceTypesClient, error)`
+- New function `*PerimeterAssociableResourceTypesClient.NewListPager(string, *PerimeterAssociableResourceTypesClientListOptions) *runtime.Pager[PerimeterAssociableResourceTypesClientListResponse]`
+- New function `NewSecurityPerimetersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SecurityPerimetersClient, error)`
+- New function `*SecurityPerimetersClient.CreateOrUpdate(context.Context, string, string, SecurityPerimeter, *SecurityPerimetersClientCreateOrUpdateOptions) (SecurityPerimetersClientCreateOrUpdateResponse, error)`
+- New function `*SecurityPerimetersClient.BeginDelete(context.Context, string, string, *SecurityPerimetersClientBeginDeleteOptions) (*runtime.Poller[SecurityPerimetersClientDeleteResponse], error)`
+- New function `*SecurityPerimetersClient.Get(context.Context, string, string, *SecurityPerimetersClientGetOptions) (SecurityPerimetersClientGetResponse, error)`
+- New function `*SecurityPerimetersClient.NewListBySubscriptionPager(*SecurityPerimetersClientListBySubscriptionOptions) *runtime.Pager[SecurityPerimetersClientListBySubscriptionResponse]`
+- New function `*SecurityPerimetersClient.NewListPager(string, *SecurityPerimetersClientListOptions) *runtime.Pager[SecurityPerimetersClientListResponse]`
+- New function `*SecurityPerimetersClient.Patch(context.Context, string, string, UpdateTagsRequest, *SecurityPerimetersClientPatchOptions) (SecurityPerimetersClientPatchResponse, error)`
+- New function `NewNspAccessRulesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*NspAccessRulesClient, error)`
+- New function `*NspAccessRulesClient.CreateOrUpdate(context.Context, string, string, string, string, NspAccessRule, *NspAccessRulesClientCreateOrUpdateOptions) (NspAccessRulesClientCreateOrUpdateResponse, error)`
+- New function `*NspAccessRulesClient.Delete(context.Context, string, string, string, string, *NspAccessRulesClientDeleteOptions) (NspAccessRulesClientDeleteResponse, error)`
+- New function `*NspAccessRulesClient.Get(context.Context, string, string, string, string, *NspAccessRulesClientGetOptions) (NspAccessRulesClientGetResponse, error)`
+- New function `*NspAccessRulesClient.NewListPager(string, string, string, *NspAccessRulesClientListOptions) *runtime.Pager[NspAccessRulesClientListResponse]`
+- New function `NewNspAccessRulesReconcileClient(string, azcore.TokenCredential, *arm.ClientOptions) (*NspAccessRulesReconcileClient, error)`
+- New function `*NspAccessRulesReconcileClient.Post(context.Context, string, string, string, string, any, *NspAccessRulesReconcileClientPostOptions) (NspAccessRulesReconcileClientPostResponse, error)`
+- New function `NewNspAssociationReconcileClient(string, azcore.TokenCredential, *arm.ClientOptions) (*NspAssociationReconcileClient, error)`
+- New function `*NspAssociationReconcileClient.Post(context.Context, string, string, string, any, *NspAssociationReconcileClientPostOptions) (NspAssociationReconcileClientPostResponse, error)`
+- New function `NewNspAssociationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*NspAssociationsClient, error)`
+- New function `*NspAssociationsClient.BeginCreateOrUpdate(context.Context, string, string, string, NspAssociation, *NspAssociationsClientBeginCreateOrUpdateOptions) (*runtime.Poller[NspAssociationsClientCreateOrUpdateResponse], error)`
+- New function `*NspAssociationsClient.BeginDelete(context.Context, string, string, string, *NspAssociationsClientBeginDeleteOptions) (*runtime.Poller[NspAssociationsClientDeleteResponse], error)`
+- New function `*NspAssociationsClient.Get(context.Context, string, string, string, *NspAssociationsClientGetOptions) (NspAssociationsClientGetResponse, error)`
+- New function `*NspAssociationsClient.NewListPager(string, string, *NspAssociationsClientListOptions) *runtime.Pager[NspAssociationsClientListResponse]`
+- New function `NewNspLinkReferencesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*NspLinkReferencesClient, error)`
+- New function `*NspLinkReferencesClient.BeginDelete(context.Context, string, string, string, *NspLinkReferencesClientBeginDeleteOptions) (*runtime.Poller[NspLinkReferencesClientDeleteResponse], error)`
+- New function `*NspLinkReferencesClient.Get(context.Context, string, string, string, *NspLinkReferencesClientGetOptions) (NspLinkReferencesClientGetResponse, error)`
+- New function `*NspLinkReferencesClient.NewListPager(string, string, *NspLinkReferencesClientListOptions) *runtime.Pager[NspLinkReferencesClientListResponse]`
+- New function `NewNspLinksClient(string, azcore.TokenCredential, *arm.ClientOptions) (*NspLinksClient, error)`
+- New function `*NspLinksClient.CreateOrUpdate(context.Context, string, string, string, NspLink, *NspLinksClientCreateOrUpdateOptions) (NspLinksClientCreateOrUpdateResponse, error)`
+- New function `*NspLinksClient.BeginDelete(context.Context, string, string, string, *NspLinksClientBeginDeleteOptions) (*runtime.Poller[NspLinksClientDeleteResponse], error)`
+- New function `*NspLinksClient.Get(context.Context, string, string, string, *NspLinksClientGetOptions) (NspLinksClientGetResponse, error)`
+- New function `*NspLinksClient.NewListPager(string, string, *NspLinksClientListOptions) *runtime.Pager[NspLinksClientListResponse]`
+- New function `NewNspLoggingConfigurationClient(string, azcore.TokenCredential, *arm.ClientOptions) (*NspLoggingConfigurationClient, error)`
+- New function `*NspLoggingConfigurationClient.CreateOrUpdate(context.Context, string, string, string, NspLoggingConfiguration, *NspLoggingConfigurationClientCreateOrUpdateOptions) (NspLoggingConfigurationClientCreateOrUpdateResponse, error)`
+- New function `*NspLoggingConfigurationClient.Delete(context.Context, string, string, string, *NspLoggingConfigurationClientDeleteOptions) (NspLoggingConfigurationClientDeleteResponse, error)`
+- New function `*NspLoggingConfigurationClient.Get(context.Context, string, string, string, *NspLoggingConfigurationClientGetOptions) (NspLoggingConfigurationClientGetResponse, error)`
+- New function `NewNspLoggingConfigurationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*NspLoggingConfigurationsClient, error)`
+- New function `*NspLoggingConfigurationsClient.NewListPager(string, string, *NspLoggingConfigurationsClientListOptions) *runtime.Pager[NspLoggingConfigurationsClientListResponse]`
+- New function `NewNspOperationStatusClient(string, azcore.TokenCredential, *arm.ClientOptions) (*NspOperationStatusClient, error)`
+- New function `*NspOperationStatusClient.Get(context.Context, string, string, *NspOperationStatusClientGetOptions) (NspOperationStatusClientGetResponse, error)`
+- New function `NewNspProfilesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*NspProfilesClient, error)`
+- New function `*NspProfilesClient.CreateOrUpdate(context.Context, string, string, string, NspProfile, *NspProfilesClientCreateOrUpdateOptions) (NspProfilesClientCreateOrUpdateResponse, error)`
+- New function `*NspProfilesClient.Delete(context.Context, string, string, string, *NspProfilesClientDeleteOptions) (NspProfilesClientDeleteResponse, error)`
+- New function `*NspProfilesClient.Get(context.Context, string, string, string, *NspProfilesClientGetOptions) (NspProfilesClientGetResponse, error)`
+- New function `*NspProfilesClient.NewListPager(string, string, *NspProfilesClientListOptions) *runtime.Pager[NspProfilesClientListResponse]`
+- New struct `ErrorAdditionalInfo`
+- New struct `ErrorDetail`
+- New struct `NspAccessRule`
+- New struct `NspAccessRuleListResult`
+- New struct `NspAccessRuleProperties`
+- New struct `NspAssociation`
+- New struct `NspAssociationProperties`
+- New struct `NspAssociationsListResult`
+- New struct `NspLink`
+- New struct `NspLinkListResult`
+- New struct `NspLinkProperties`
+- New struct `NspLinkReference`
+- New struct `NspLinkReferenceListResult`
+- New struct `NspLinkReferenceProperties`
+- New struct `NspLoggingConfiguration`
+- New struct `NspLoggingConfigurationListResult`
+- New struct `NspLoggingConfigurationProperties`
+- New struct `NspProfile`
+- New struct `NspProfileListResult`
+- New struct `NspProfileProperties`
+- New struct `OperationStatusResult`
+- New struct `PerimeterAssociableResource`
+- New struct `PerimeterAssociableResourceProperties`
+- New struct `PerimeterAssociableResourcesListResult`
+- New struct `PerimeterBasedAccessRule`
+- New struct `ProxyResource`
+- New struct `SecurityPerimeter`
+- New struct `SecurityPerimeterListResult`
+- New struct `SecurityPerimeterProperties`
+- New struct `SubscriptionID`
+- New struct `UpdateTagsRequest`
+
+
 ## 6.2.0 (2024-12-09)
 ### Features Added
 
