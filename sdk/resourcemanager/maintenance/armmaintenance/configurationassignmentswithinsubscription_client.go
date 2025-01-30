@@ -43,7 +43,7 @@ func NewConfigurationAssignmentsWithinSubscriptionClient(subscriptionID string, 
 	return client, nil
 }
 
-// NewListPager - Get configuration assignment within a subscription
+// NewListPager - [UNSUPPORTED] Get configuration assignment within a subscription. This API is not implemented yet.
 //
 // Generated from API version 2023-10-01-preview
 //   - options - ConfigurationAssignmentsWithinSubscriptionClientListOptions contains the optional parameters for the ConfigurationAssignmentsWithinSubscriptionClient.NewListPager

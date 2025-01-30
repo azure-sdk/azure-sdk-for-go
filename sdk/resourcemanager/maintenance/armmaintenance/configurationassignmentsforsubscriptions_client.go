@@ -167,7 +167,7 @@ func (client *ConfigurationAssignmentsForSubscriptionsClient) deleteHandleRespon
 	return result, nil
 }
 
-// Get - Get configuration assignment for resource..
+// Get - Get configuration assignment for resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-10-01-preview
