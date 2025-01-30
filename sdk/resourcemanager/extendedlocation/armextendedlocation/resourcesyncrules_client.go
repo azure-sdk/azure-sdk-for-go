@@ -47,7 +47,7 @@ func NewResourceSyncRulesClient(subscriptionID string, credential azcore.TokenCr
 // Group
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-31-preview
+// Generated from API version 2024-09-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - Custom Locations name.
 //   - childResourceName - Resource Sync Rule name.
@@ -75,7 +75,7 @@ func (client *ResourceSyncRulesClient) BeginCreateOrUpdate(ctx context.Context, 
 // CreateOrUpdate - Creates or updates a Resource Sync Rule in the parent Custom Location, Subscription Id and Resource Group
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-31-preview
+// Generated from API version 2024-09-15-preview
 func (client *ResourceSyncRulesClient) createOrUpdate(ctx context.Context, resourceGroupName string, resourceName string, childResourceName string, parameters ResourceSyncRule, options *ResourceSyncRulesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ResourceSyncRulesClient.BeginCreateOrUpdate"
@@ -121,7 +121,7 @@ func (client *ResourceSyncRulesClient) createOrUpdateCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-31-preview")
+	reqQP.Set("api-version", "2024-09-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -134,7 +134,7 @@ func (client *ResourceSyncRulesClient) createOrUpdateCreateRequest(ctx context.C
 // Group, and Subscription Id.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-31-preview
+// Generated from API version 2024-09-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - Custom Locations name.
 //   - childResourceName - Resource Sync Rule name.
@@ -185,7 +185,7 @@ func (client *ResourceSyncRulesClient) deleteCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-31-preview")
+	reqQP.Set("api-version", "2024-09-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -195,7 +195,7 @@ func (client *ResourceSyncRulesClient) deleteCreateRequest(ctx context.Context, 
 // name and Resource Sync Rule name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-31-preview
+// Generated from API version 2024-09-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - Custom Locations name.
 //   - childResourceName - Resource Sync Rule name.
@@ -246,7 +246,7 @@ func (client *ResourceSyncRulesClient) getCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-31-preview")
+	reqQP.Set("api-version", "2024-09-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -264,7 +264,7 @@ func (client *ResourceSyncRulesClient) getHandleResponse(resp *http.Response) (R
 // NewListByCustomLocationIDPager - Gets a list of Resource Sync Rules in the specified subscription. The operation returns
 // properties of each Resource Sync Rule
 //
-// Generated from API version 2021-08-31-preview
+// Generated from API version 2024-09-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - Custom Locations name.
 //   - options - ResourceSyncRulesClientListByCustomLocationIDOptions contains the optional parameters for the ResourceSyncRulesClient.NewListByCustomLocationIDPager
@@ -312,7 +312,7 @@ func (client *ResourceSyncRulesClient) listByCustomLocationIDCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-31-preview")
+	reqQP.Set("api-version", "2024-09-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -331,7 +331,7 @@ func (client *ResourceSyncRulesClient) listByCustomLocationIDHandleResponse(resp
 // Subscription and Custom Location name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-31-preview
+// Generated from API version 2024-09-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - Custom Locations name.
 //   - childResourceName - Resource Sync Rule name.
@@ -360,7 +360,7 @@ func (client *ResourceSyncRulesClient) BeginUpdate(ctx context.Context, resource
 // and Custom Location name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-31-preview
+// Generated from API version 2024-09-15-preview
 func (client *ResourceSyncRulesClient) update(ctx context.Context, resourceGroupName string, resourceName string, childResourceName string, parameters PatchableResourceSyncRule, options *ResourceSyncRulesClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ResourceSyncRulesClient.BeginUpdate"
@@ -406,7 +406,7 @@ func (client *ResourceSyncRulesClient) updateCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-31-preview")
+	reqQP.Set("api-version", "2024-09-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {

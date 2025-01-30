@@ -10,7 +10,7 @@ package armextendedlocation
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/extendedlocation/armextendedlocation"
-	moduleVersion = "v1.3.0-beta.1"
+	moduleVersion = "v1.3.0-beta.2"
 )
 
 // CreatedByType - The type of identity that created the resource.
@@ -33,16 +33,18 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 	}
 }
 
-// HostType - Type of host the Custom Locations is referencing (Kubernetes, etc…).
+// HostType - Type of host the Custom Locations is referencing (Kubernetes, EdgeCluster, etc…).
 type HostType string
 
 const (
-	HostTypeKubernetes HostType = "Kubernetes"
+	HostTypeEdgeCluster HostType = "EdgeCluster"
+	HostTypeKubernetes  HostType = "Kubernetes"
 )
 
 // PossibleHostTypeValues returns the possible values for the HostType const type.
 func PossibleHostTypeValues() []HostType {
 	return []HostType{
+		HostTypeEdgeCluster,
 		HostTypeKubernetes,
 	}
 }
