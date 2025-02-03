@@ -706,6 +706,9 @@ type SecuritySettings struct {
 	// Soft delete Settings of a vault
 	SoftDeleteSettings *SoftDeleteSettings
 
+	// Source scan configuration of vault
+	SourceScanConfiguration *SourceScanConfiguration
+
 	// READ-ONLY; MUA Settings of a vault
 	MultiUserAuthorization *MultiUserAuthorization
 }
@@ -717,6 +720,22 @@ type SoftDeleteSettings struct {
 	// Soft delete retention period in days
 	SoftDeleteRetentionPeriodInDays *int32
 	SoftDeleteState                 *SoftDeleteState
+}
+
+// SourceScanConfiguration - Source scan configuration of vault
+type SourceScanConfiguration struct {
+	// Identity details to be used for source scan operation
+	SourceScanIdentity *SourceScanIdentity
+	State              *State
+}
+
+// SourceScanIdentity - Identity details to be used for source scan operation
+type SourceScanIdentity struct {
+	// Identity type that should be used for source scan operation.
+	IdentityType *IdentityType
+
+	// User assigned identity to be used for source scan operation if IdentityType is UserAssigned.
+	UserAssignedIdentity *string
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
