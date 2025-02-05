@@ -718,6 +718,45 @@ func (a *AdminRuleListResult) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type AdvertisedPublicPrefixProperties.
+func (a AdvertisedPublicPrefixProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "prefix", a.Prefix)
+	populate(objectMap, "signature", a.Signature)
+	populate(objectMap, "validationId", a.ValidationID)
+	populate(objectMap, "validationState", a.ValidationState)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AdvertisedPublicPrefixProperties.
+func (a *AdvertisedPublicPrefixProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "prefix":
+			err = unpopulate(val, "Prefix", &a.Prefix)
+			delete(rawMsg, key)
+		case "signature":
+			err = unpopulate(val, "Signature", &a.Signature)
+			delete(rawMsg, key)
+		case "validationId":
+			err = unpopulate(val, "ValidationID", &a.ValidationID)
+			delete(rawMsg, key)
+		case "validationState":
+			err = unpopulate(val, "ValidationState", &a.ValidationState)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type ApplicationGateway.
 func (a ApplicationGateway) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -12473,6 +12512,7 @@ func (e *ExpressRouteCircuitPeering) UnmarshalJSON(data []byte) error {
 func (e ExpressRouteCircuitPeeringConfig) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "advertisedCommunities", e.AdvertisedCommunities)
+	populate(objectMap, "advertisedPublicPrefixInfo", e.AdvertisedPublicPrefixInfo)
 	populate(objectMap, "advertisedPublicPrefixes", e.AdvertisedPublicPrefixes)
 	populate(objectMap, "advertisedPublicPrefixesState", e.AdvertisedPublicPrefixesState)
 	populate(objectMap, "customerASN", e.CustomerASN)
@@ -12492,6 +12532,9 @@ func (e *ExpressRouteCircuitPeeringConfig) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "advertisedCommunities":
 			err = unpopulate(val, "AdvertisedCommunities", &e.AdvertisedCommunities)
+			delete(rawMsg, key)
+		case "advertisedPublicPrefixInfo":
+			err = unpopulate(val, "AdvertisedPublicPrefixInfo", &e.AdvertisedPublicPrefixInfo)
 			delete(rawMsg, key)
 		case "advertisedPublicPrefixes":
 			err = unpopulate(val, "AdvertisedPublicPrefixes", &e.AdvertisedPublicPrefixes)
@@ -21068,6 +21111,7 @@ func (l LoadBalancingRulePropertiesFormat) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "backendAddressPools", l.BackendAddressPools)
 	populate(objectMap, "backendPort", l.BackendPort)
 	populate(objectMap, "disableOutboundSnat", l.DisableOutboundSnat)
+	populate(objectMap, "enableConnectionTracking", l.EnableConnectionTracking)
 	populate(objectMap, "enableFloatingIP", l.EnableFloatingIP)
 	populate(objectMap, "enableTcpReset", l.EnableTCPReset)
 	populate(objectMap, "frontendIPConfiguration", l.FrontendIPConfiguration)
@@ -21100,6 +21144,9 @@ func (l *LoadBalancingRulePropertiesFormat) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "disableOutboundSnat":
 			err = unpopulate(val, "DisableOutboundSnat", &l.DisableOutboundSnat)
+			delete(rawMsg, key)
+		case "enableConnectionTracking":
+			err = unpopulate(val, "EnableConnectionTracking", &l.EnableConnectionTracking)
 			delete(rawMsg, key)
 		case "enableFloatingIP":
 			err = unpopulate(val, "EnableFloatingIP", &l.EnableFloatingIP)
@@ -33917,6 +33964,41 @@ func (v *VirtualApplianceAdditionalNicProperties) UnmarshalJSON(data []byte) err
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type VirtualApplianceBootDiagnosticParameters.
+func (v VirtualApplianceBootDiagnosticParameters) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "consoleScreenshotStorageSasUrl", v.ConsoleScreenshotStorageSasURL)
+	populate(objectMap, "instanceId", v.InstanceID)
+	populate(objectMap, "serialConsoleStorageSasUrl", v.SerialConsoleStorageSasURL)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type VirtualApplianceBootDiagnosticParameters.
+func (v *VirtualApplianceBootDiagnosticParameters) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", v, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "consoleScreenshotStorageSasUrl":
+			err = unpopulate(val, "ConsoleScreenshotStorageSasURL", &v.ConsoleScreenshotStorageSasURL)
+			delete(rawMsg, key)
+		case "instanceId":
+			err = unpopulate(val, "InstanceID", &v.InstanceID)
+			delete(rawMsg, key)
+		case "serialConsoleStorageSasUrl":
+			err = unpopulate(val, "SerialConsoleStorageSasURL", &v.SerialConsoleStorageSasURL)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", v, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type VirtualApplianceConnection.
 func (v VirtualApplianceConnection) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -34083,6 +34165,33 @@ func (v *VirtualApplianceIPConfigurationProperties) UnmarshalJSON(data []byte) e
 		switch key {
 		case "primary":
 			err = unpopulate(val, "Primary", &v.Primary)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", v, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type VirtualApplianceInstanceID.
+func (v VirtualApplianceInstanceID) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "instanceId", v.InstanceID)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type VirtualApplianceInstanceID.
+func (v *VirtualApplianceInstanceID) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", v, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "instanceId":
+			err = unpopulate(val, "InstanceID", &v.InstanceID)
 			delete(rawMsg, key)
 		}
 		if err != nil {
