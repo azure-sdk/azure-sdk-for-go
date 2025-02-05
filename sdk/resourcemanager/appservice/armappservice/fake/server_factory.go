@@ -37,6 +37,7 @@ type ServerFactory struct {
 	ProviderServer                                     ProviderServer
 	RecommendationsServer                              RecommendationsServer
 	ResourceHealthMetadataServer                       ResourceHealthMetadataServer
+	SiteCertificatesServer                             SiteCertificatesServer
 	StaticSitesServer                                  StaticSitesServer
 	TopLevelDomainsServer                              TopLevelDomainsServer
 	WebAppsServer                                      WebAppsServer
@@ -84,6 +85,7 @@ type ServerFactoryTransport struct {
 	trProviderServer                                     *ProviderServerTransport
 	trRecommendationsServer                              *RecommendationsServerTransport
 	trResourceHealthMetadataServer                       *ResourceHealthMetadataServerTransport
+	trSiteCertificatesServer                             *SiteCertificatesServerTransport
 	trStaticSitesServer                                  *StaticSitesServerTransport
 	trTopLevelDomainsServer                              *TopLevelDomainsServerTransport
 	trWebAppsServer                                      *WebAppsServerTransport
@@ -188,6 +190,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewResourceHealthMetadataServerTransport(&s.srv.ResourceHealthMetadataServer)
 		})
 		resp, err = s.trResourceHealthMetadataServer.Do(req)
+	case "SiteCertificatesClient":
+		initServer(s, &s.trSiteCertificatesServer, func() *SiteCertificatesServerTransport {
+			return NewSiteCertificatesServerTransport(&s.srv.SiteCertificatesServer)
+		})
+		resp, err = s.trSiteCertificatesServer.Do(req)
 	case "StaticSitesClient":
 		initServer(s, &s.trStaticSitesServer, func() *StaticSitesServerTransport { return NewStaticSitesServerTransport(&s.srv.StaticSitesServer) })
 		resp, err = s.trStaticSitesServer.Do(req)
