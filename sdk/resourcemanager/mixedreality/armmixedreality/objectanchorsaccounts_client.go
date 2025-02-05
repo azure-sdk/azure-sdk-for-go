@@ -43,7 +43,10 @@ func NewObjectAnchorsAccountsClient(subscriptionID string, credential azcore.Tok
 	return client, nil
 }
 
-// Create - Creating or Updating an object anchors Account.
+// Create - > [!NOTE]
+// Mixed Reality retirement
+// The Mixed Reality service is now deprecated and will be retired.
+// Creating or Updating an object anchors Account.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-03-01-preview
@@ -112,7 +115,10 @@ func (client *ObjectAnchorsAccountsClient) createHandleResponse(resp *http.Respo
 	return result, nil
 }
 
-// Delete - Delete an Object Anchors Account.
+// Delete - > [!NOTE]
+// Mixed Reality retirement
+// The Mixed Reality service is now deprecated and will be retired.
+// Delete an Object Anchors Account.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-03-01-preview
@@ -167,7 +173,10 @@ func (client *ObjectAnchorsAccountsClient) deleteCreateRequest(ctx context.Conte
 	return req, nil
 }
 
-// Get - Retrieve an Object Anchors Account.
+// Get - > [!NOTE]
+// Mixed Reality retirement
+// The Mixed Reality service is now deprecated and will be retired.
+// Retrieve an Object Anchors Account.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-03-01-preview
@@ -232,7 +241,10 @@ func (client *ObjectAnchorsAccountsClient) getHandleResponse(resp *http.Response
 	return result, nil
 }
 
-// NewListByResourceGroupPager - List Resources by Resource Group
+// NewListByResourceGroupPager - > [!NOTE]
+// Mixed Reality retirement
+// The Mixed Reality service is now deprecated and will be retired.
+// List Resources by Resource Group
 //
 // Generated from API version 2021-03-01-preview
 //   - resourceGroupName - Name of an Azure resource group.
@@ -292,7 +304,10 @@ func (client *ObjectAnchorsAccountsClient) listByResourceGroupHandleResponse(res
 	return result, nil
 }
 
-// NewListBySubscriptionPager - List Object Anchors Accounts by Subscription
+// NewListBySubscriptionPager - > [!NOTE]
+// Mixed Reality retirement
+// The Mixed Reality service is now deprecated and will be retired.
+// List Object Anchors Accounts by Subscription
 //
 // Generated from API version 2021-03-01-preview
 //   - options - ObjectAnchorsAccountsClientListBySubscriptionOptions contains the optional parameters for the ObjectAnchorsAccountsClient.NewListBySubscriptionPager
@@ -347,7 +362,10 @@ func (client *ObjectAnchorsAccountsClient) listBySubscriptionHandleResponse(resp
 	return result, nil
 }
 
-// ListKeys - List Both of the 2 Keys of an object anchors Account
+// ListKeys - > [!NOTE]
+// Mixed Reality retirement
+// The Mixed Reality service is now deprecated and will be retired.
+// List Both of the 2 Keys of an object anchors Account
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-03-01-preview
@@ -412,7 +430,10 @@ func (client *ObjectAnchorsAccountsClient) listKeysHandleResponse(resp *http.Res
 	return result, nil
 }
 
-// RegenerateKeys - Regenerate specified Key of an object anchors Account
+// RegenerateKeys - > [!NOTE]
+// Mixed Reality retirement
+// The Mixed Reality service is now deprecated and will be retired.
+// Regenerate specified Key of an object anchors Account
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-03-01-preview
@@ -481,7 +502,10 @@ func (client *ObjectAnchorsAccountsClient) regenerateKeysHandleResponse(resp *ht
 	return result, nil
 }
 
-// Update - Updating an Object Anchors Account
+// Update - > [!NOTE]
+// Mixed Reality retirement
+// The Mixed Reality service is now deprecated and will be retired.
+// Updating an Object Anchors Account
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-03-01-preview
