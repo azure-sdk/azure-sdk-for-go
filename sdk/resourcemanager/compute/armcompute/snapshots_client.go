@@ -28,8 +28,7 @@ type SnapshotsClient struct {
 }
 
 // NewSnapshotsClient creates a new instance of SnapshotsClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewSnapshotsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SnapshotsClient, error) {
@@ -48,21 +47,22 @@ func NewSnapshotsClient(subscriptionID string, credential azcore.TokenCredential
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - snapshotName - The name of the snapshot that is being created. The name can't be changed after the snapshot is created.
 //     Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
 //     characters.
-//   - snapshot - Snapshot object supplied in the body of the Put disk operation.
+//   - resource - Snapshot object supplied in the body of the Put disk operation.
 //   - options - SnapshotsClientBeginCreateOrUpdateOptions contains the optional parameters for the SnapshotsClient.BeginCreateOrUpdate
 //     method.
-func (client *SnapshotsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, snapshotName string, snapshot Snapshot, options *SnapshotsClientBeginCreateOrUpdateOptions) (*runtime.Poller[SnapshotsClientCreateOrUpdateResponse], error) {
+func (client *SnapshotsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, snapshotName string, resource Snapshot, options *SnapshotsClientBeginCreateOrUpdateOptions) (*runtime.Poller[SnapshotsClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, resourceGroupName, snapshotName, snapshot, options)
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, snapshotName, resource, options)
 		if err != nil {
 			return nil, err
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[SnapshotsClientCreateOrUpdateResponse]{
-			Tracer: client.internal.Tracer(),
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
@@ -76,13 +76,13 @@ func (client *SnapshotsClient) BeginCreateOrUpdate(ctx context.Context, resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-func (client *SnapshotsClient) createOrUpdate(ctx context.Context, resourceGroupName string, snapshotName string, snapshot Snapshot, options *SnapshotsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+func (client *SnapshotsClient) createOrUpdate(ctx context.Context, resourceGroupName string, snapshotName string, resource Snapshot, options *SnapshotsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "SnapshotsClient.BeginCreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, snapshotName, snapshot, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, snapshotName, resource, options)
 	if err != nil {
 		return nil, err
 	}
@@ -98,7 +98,7 @@ func (client *SnapshotsClient) createOrUpdate(ctx context.Context, resourceGroup
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *SnapshotsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, snapshotName string, snapshot Snapshot, options *SnapshotsClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *SnapshotsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, snapshotName string, resource Snapshot, options *SnapshotsClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/snapshots/{snapshotName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -120,7 +120,7 @@ func (client *SnapshotsClient) createOrUpdateCreateRequest(ctx context.Context, 
 	reqQP.Set("api-version", "2024-03-02")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, snapshot); err != nil {
+	if err := runtime.MarshalAsJSON(req, resource); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -130,7 +130,7 @@ func (client *SnapshotsClient) createOrUpdateCreateRequest(ctx context.Context, 
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - snapshotName - The name of the snapshot that is being created. The name can't be changed after the snapshot is created.
 //     Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
 //     characters.
@@ -142,7 +142,8 @@ func (client *SnapshotsClient) BeginDelete(ctx context.Context, resourceGroupNam
 			return nil, err
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[SnapshotsClientDeleteResponse]{
-			Tracer: client.internal.Tracer(),
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
@@ -199,6 +200,7 @@ func (client *SnapshotsClient) deleteCreateRequest(ctx context.Context, resource
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2024-03-02")
 	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
@@ -206,7 +208,7 @@ func (client *SnapshotsClient) deleteCreateRequest(ctx context.Context, resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - snapshotName - The name of the snapshot that is being created. The name can't be changed after the snapshot is created.
 //     Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
 //     characters.
@@ -272,16 +274,16 @@ func (client *SnapshotsClient) getHandleResponse(resp *http.Response) (Snapshots
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - snapshotName - The name of the snapshot that is being created. The name can't be changed after the snapshot is created.
 //     Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
 //     characters.
-//   - grantAccessData - Access data object supplied in the body of the get snapshot access operation.
+//   - body - Access data object supplied in the body of the get snapshot access operation.
 //   - options - SnapshotsClientBeginGrantAccessOptions contains the optional parameters for the SnapshotsClient.BeginGrantAccess
 //     method.
-func (client *SnapshotsClient) BeginGrantAccess(ctx context.Context, resourceGroupName string, snapshotName string, grantAccessData GrantAccessData, options *SnapshotsClientBeginGrantAccessOptions) (*runtime.Poller[SnapshotsClientGrantAccessResponse], error) {
+func (client *SnapshotsClient) BeginGrantAccess(ctx context.Context, resourceGroupName string, snapshotName string, body GrantAccessData, options *SnapshotsClientBeginGrantAccessOptions) (*runtime.Poller[SnapshotsClientGrantAccessResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.grantAccess(ctx, resourceGroupName, snapshotName, grantAccessData, options)
+		resp, err := client.grantAccess(ctx, resourceGroupName, snapshotName, body, options)
 		if err != nil {
 			return nil, err
 		}
@@ -301,13 +303,13 @@ func (client *SnapshotsClient) BeginGrantAccess(ctx context.Context, resourceGro
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-func (client *SnapshotsClient) grantAccess(ctx context.Context, resourceGroupName string, snapshotName string, grantAccessData GrantAccessData, options *SnapshotsClientBeginGrantAccessOptions) (*http.Response, error) {
+func (client *SnapshotsClient) grantAccess(ctx context.Context, resourceGroupName string, snapshotName string, body GrantAccessData, options *SnapshotsClientBeginGrantAccessOptions) (*http.Response, error) {
 	var err error
 	const operationName = "SnapshotsClient.BeginGrantAccess"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.grantAccessCreateRequest(ctx, resourceGroupName, snapshotName, grantAccessData, options)
+	req, err := client.grantAccessCreateRequest(ctx, resourceGroupName, snapshotName, body, options)
 	if err != nil {
 		return nil, err
 	}
@@ -323,8 +325,8 @@ func (client *SnapshotsClient) grantAccess(ctx context.Context, resourceGroupNam
 }
 
 // grantAccessCreateRequest creates the GrantAccess request.
-func (client *SnapshotsClient) grantAccessCreateRequest(ctx context.Context, resourceGroupName string, snapshotName string, grantAccessData GrantAccessData, options *SnapshotsClientBeginGrantAccessOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/snapshots/{snapshotName}/beginGetAccess"
+func (client *SnapshotsClient) grantAccessCreateRequest(ctx context.Context, resourceGroupName string, snapshotName string, body GrantAccessData, options *SnapshotsClientBeginGrantAccessOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/snapshots/{snapshotName}/grantAccess"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -345,7 +347,7 @@ func (client *SnapshotsClient) grantAccessCreateRequest(ctx context.Context, res
 	reqQP.Set("api-version", "2024-03-02")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, grantAccessData); err != nil {
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -408,7 +410,7 @@ func (client *SnapshotsClient) listHandleResponse(resp *http.Response) (Snapshot
 // NewListByResourceGroupPager - Lists snapshots under a resource group.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - SnapshotsClientListByResourceGroupOptions contains the optional parameters for the SnapshotsClient.NewListByResourceGroupPager
 //     method.
 func (client *SnapshotsClient) NewListByResourceGroupPager(resourceGroupName string, options *SnapshotsClientListByResourceGroupOptions) *runtime.Pager[SnapshotsClientListByResourceGroupResponse] {
@@ -469,7 +471,7 @@ func (client *SnapshotsClient) listByResourceGroupHandleResponse(resp *http.Resp
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - snapshotName - The name of the snapshot that is being created. The name can't be changed after the snapshot is created.
 //     Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
 //     characters.
@@ -520,7 +522,7 @@ func (client *SnapshotsClient) revokeAccess(ctx context.Context, resourceGroupNa
 
 // revokeAccessCreateRequest creates the RevokeAccess request.
 func (client *SnapshotsClient) revokeAccessCreateRequest(ctx context.Context, resourceGroupName string, snapshotName string, options *SnapshotsClientBeginRevokeAccessOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/snapshots/{snapshotName}/endGetAccess"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/snapshots/{snapshotName}/revokeAccess"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -540,6 +542,7 @@ func (client *SnapshotsClient) revokeAccessCreateRequest(ctx context.Context, re
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2024-03-02")
 	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
@@ -547,20 +550,21 @@ func (client *SnapshotsClient) revokeAccessCreateRequest(ctx context.Context, re
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - snapshotName - The name of the snapshot that is being created. The name can't be changed after the snapshot is created.
 //     Supported characters for the name are a-z, A-Z, 0-9, _ and -. The max name length is 80
 //     characters.
-//   - snapshot - Snapshot object supplied in the body of the Patch snapshot operation.
+//   - properties - Snapshot object supplied in the body of the Patch snapshot operation.
 //   - options - SnapshotsClientBeginUpdateOptions contains the optional parameters for the SnapshotsClient.BeginUpdate method.
-func (client *SnapshotsClient) BeginUpdate(ctx context.Context, resourceGroupName string, snapshotName string, snapshot SnapshotUpdate, options *SnapshotsClientBeginUpdateOptions) (*runtime.Poller[SnapshotsClientUpdateResponse], error) {
+func (client *SnapshotsClient) BeginUpdate(ctx context.Context, resourceGroupName string, snapshotName string, properties SnapshotUpdate, options *SnapshotsClientBeginUpdateOptions) (*runtime.Poller[SnapshotsClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.update(ctx, resourceGroupName, snapshotName, snapshot, options)
+		resp, err := client.update(ctx, resourceGroupName, snapshotName, properties, options)
 		if err != nil {
 			return nil, err
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[SnapshotsClientUpdateResponse]{
-			Tracer: client.internal.Tracer(),
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
@@ -574,13 +578,13 @@ func (client *SnapshotsClient) BeginUpdate(ctx context.Context, resourceGroupNam
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-func (client *SnapshotsClient) update(ctx context.Context, resourceGroupName string, snapshotName string, snapshot SnapshotUpdate, options *SnapshotsClientBeginUpdateOptions) (*http.Response, error) {
+func (client *SnapshotsClient) update(ctx context.Context, resourceGroupName string, snapshotName string, properties SnapshotUpdate, options *SnapshotsClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "SnapshotsClient.BeginUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, snapshotName, snapshot, options)
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, snapshotName, properties, options)
 	if err != nil {
 		return nil, err
 	}
@@ -596,7 +600,7 @@ func (client *SnapshotsClient) update(ctx context.Context, resourceGroupName str
 }
 
 // updateCreateRequest creates the Update request.
-func (client *SnapshotsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, snapshotName string, snapshot SnapshotUpdate, options *SnapshotsClientBeginUpdateOptions) (*policy.Request, error) {
+func (client *SnapshotsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, snapshotName string, properties SnapshotUpdate, options *SnapshotsClientBeginUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/snapshots/{snapshotName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -618,7 +622,7 @@ func (client *SnapshotsClient) updateCreateRequest(ctx context.Context, resource
 	reqQP.Set("api-version", "2024-03-02")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, snapshot); err != nil {
+	if err := runtime.MarshalAsJSON(req, properties); err != nil {
 		return nil, err
 	}
 	return req, nil

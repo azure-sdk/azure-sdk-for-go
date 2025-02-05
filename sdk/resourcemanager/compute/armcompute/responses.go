@@ -411,7 +411,8 @@ type DedicatedHostsClientRedeployResponse struct {
 
 // DedicatedHostsClientRestartResponse contains the response from method DedicatedHostsClient.BeginRestart.
 type DedicatedHostsClientRestartResponse struct {
-	// placeholder for future response values
+	// Specifies information about the Dedicated host.
+	DedicatedHost
 }
 
 // DedicatedHostsClientUpdateResponse contains the response from method DedicatedHostsClient.BeginUpdate.
@@ -537,10 +538,10 @@ type DiskRestorePointClientGrantAccessResponse struct {
 	AccessURI
 }
 
-// DiskRestorePointClientListByRestorePointResponse contains the response from method DiskRestorePointClient.NewListByRestorePointPager.
+// DiskRestorePointClientListByRestorePointResponse contains the response from method DiskRestorePointClient.ListByRestorePoint.
 type DiskRestorePointClientListByRestorePointResponse struct {
-	// The List Disk Restore Points operation response.
-	DiskRestorePointList
+	// Array of DiskRestorePoint
+	DiskRestorePointArray []*DiskRestorePoint
 }
 
 // DiskRestorePointClientRevokeAccessResponse contains the response from method DiskRestorePointClient.BeginRevokeAccess.
@@ -745,65 +746,6 @@ type GalleryImagesClientUpdateResponse struct {
 	GalleryImage
 }
 
-// GalleryInVMAccessControlProfileVersionsClientCreateOrUpdateResponse contains the response from method GalleryInVMAccessControlProfileVersionsClient.BeginCreateOrUpdate.
-type GalleryInVMAccessControlProfileVersionsClientCreateOrUpdateResponse struct {
-	// Specifies information about the gallery inVMAccessControlProfile version that you want to create or update.
-	GalleryInVMAccessControlProfileVersion
-}
-
-// GalleryInVMAccessControlProfileVersionsClientDeleteResponse contains the response from method GalleryInVMAccessControlProfileVersionsClient.BeginDelete.
-type GalleryInVMAccessControlProfileVersionsClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// GalleryInVMAccessControlProfileVersionsClientGetResponse contains the response from method GalleryInVMAccessControlProfileVersionsClient.Get.
-type GalleryInVMAccessControlProfileVersionsClientGetResponse struct {
-	// Specifies information about the gallery inVMAccessControlProfile version that you want to create or update.
-	GalleryInVMAccessControlProfileVersion
-}
-
-// GalleryInVMAccessControlProfileVersionsClientListByGalleryInVMAccessControlProfileResponse contains the response from method
-// GalleryInVMAccessControlProfileVersionsClient.NewListByGalleryInVMAccessControlProfilePager.
-type GalleryInVMAccessControlProfileVersionsClientListByGalleryInVMAccessControlProfileResponse struct {
-	// The List Gallery InVMAccessControlProfile Versions operation response.
-	GalleryInVMAccessControlProfileVersionList
-}
-
-// GalleryInVMAccessControlProfileVersionsClientUpdateResponse contains the response from method GalleryInVMAccessControlProfileVersionsClient.BeginUpdate.
-type GalleryInVMAccessControlProfileVersionsClientUpdateResponse struct {
-	// Specifies information about the gallery inVMAccessControlProfile version that you want to create or update.
-	GalleryInVMAccessControlProfileVersion
-}
-
-// GalleryInVMAccessControlProfilesClientCreateOrUpdateResponse contains the response from method GalleryInVMAccessControlProfilesClient.BeginCreateOrUpdate.
-type GalleryInVMAccessControlProfilesClientCreateOrUpdateResponse struct {
-	// Specifies information about the gallery inVMAccessControlProfile that you want to create or update.
-	GalleryInVMAccessControlProfile
-}
-
-// GalleryInVMAccessControlProfilesClientDeleteResponse contains the response from method GalleryInVMAccessControlProfilesClient.BeginDelete.
-type GalleryInVMAccessControlProfilesClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// GalleryInVMAccessControlProfilesClientGetResponse contains the response from method GalleryInVMAccessControlProfilesClient.Get.
-type GalleryInVMAccessControlProfilesClientGetResponse struct {
-	// Specifies information about the gallery inVMAccessControlProfile that you want to create or update.
-	GalleryInVMAccessControlProfile
-}
-
-// GalleryInVMAccessControlProfilesClientListByGalleryResponse contains the response from method GalleryInVMAccessControlProfilesClient.NewListByGalleryPager.
-type GalleryInVMAccessControlProfilesClientListByGalleryResponse struct {
-	// The List Gallery InVMAccessControlProfiles operation response.
-	GalleryInVMAccessControlProfileList
-}
-
-// GalleryInVMAccessControlProfilesClientUpdateResponse contains the response from method GalleryInVMAccessControlProfilesClient.BeginUpdate.
-type GalleryInVMAccessControlProfilesClientUpdateResponse struct {
-	// Specifies information about the gallery inVMAccessControlProfile that you want to create or update.
-	GalleryInVMAccessControlProfile
-}
-
 // GallerySharingProfileClientUpdateResponse contains the response from method GallerySharingProfileClient.BeginUpdate.
 type GallerySharingProfileClientUpdateResponse struct {
 	// Specifies information about the gallery sharing profile update.
@@ -862,7 +804,7 @@ type LogAnalyticsClientExportThrottledRequestsResponse struct {
 
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
-	// The List Compute Operation operation response.
+	// A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to get the next set of results.
 	OperationListResult
 }
 
@@ -905,6 +847,12 @@ type ProximityPlacementGroupsClientUpdateResponse struct {
 type ResourceSKUsClientListResponse struct {
 	// The List Resource Skus operation response.
 	ResourceSKUsResult
+
+	// Location contains the information returned from the Location header response.
+	Location *string
+
+	// RetryAfter contains the information returned from the Retry-After header response.
+	RetryAfter *int32
 }
 
 // RestorePointCollectionsClientCreateOrUpdateResponse contains the response from method RestorePointCollectionsClient.CreateOrUpdate.
@@ -1080,12 +1028,6 @@ type SnapshotsClientRevokeAccessResponse struct {
 type SnapshotsClientUpdateResponse struct {
 	// Snapshot resource.
 	Snapshot
-}
-
-// SoftDeletedResourceClientListByArtifactNameResponse contains the response from method SoftDeletedResourceClient.NewListByArtifactNamePager.
-type SoftDeletedResourceClientListByArtifactNameResponse struct {
-	// The List Soft-deleted Resources operation response.
-	GallerySoftDeletedResourceList
 }
 
 // UsageClientListResponse contains the response from method UsageClient.NewListPager.

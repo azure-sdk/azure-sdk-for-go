@@ -1,5 +1,137 @@
 # Release History
 
+## 7.0.0 (2025-02-05)
+### Breaking Changes
+
+- Type of `OperationListResult.Value` has been changed from `[]*OperationValue` to `[]*Operation`
+- Type of `RestorePointSourceVMStorageProfile.OSDisk` has been changed from `*RestorePointSourceVMOSDisk` to `*RestorePointSourceVmosDisk`
+- `StorageAccountTypePremiumV2LRS` from enum `StorageAccountType` has been removed
+- Enum `AccessControlRulesMode` has been removed
+- Enum `EndpointAccess` has been removed
+- Enum `EndpointTypes` has been removed
+- Enum `GalleryApplicationScriptRebootBehavior` has been removed
+- Enum `SoftDeletedArtifactTypes` has been removed
+- Enum `ValidationStatus` has been removed
+- Function `*ClientFactory.NewGalleryInVMAccessControlProfileVersionsClient` has been removed
+- Function `*ClientFactory.NewGalleryInVMAccessControlProfilesClient` has been removed
+- Function `*ClientFactory.NewSoftDeletedResourceClient` has been removed
+- Function `NewGalleryInVMAccessControlProfileVersionsClient` has been removed
+- Function `*GalleryInVMAccessControlProfileVersionsClient.BeginCreateOrUpdate` has been removed
+- Function `*GalleryInVMAccessControlProfileVersionsClient.BeginDelete` has been removed
+- Function `*GalleryInVMAccessControlProfileVersionsClient.Get` has been removed
+- Function `*GalleryInVMAccessControlProfileVersionsClient.NewListByGalleryInVMAccessControlProfilePager` has been removed
+- Function `*GalleryInVMAccessControlProfileVersionsClient.BeginUpdate` has been removed
+- Function `NewGalleryInVMAccessControlProfilesClient` has been removed
+- Function `*GalleryInVMAccessControlProfilesClient.BeginCreateOrUpdate` has been removed
+- Function `*GalleryInVMAccessControlProfilesClient.BeginDelete` has been removed
+- Function `*GalleryInVMAccessControlProfilesClient.Get` has been removed
+- Function `*GalleryInVMAccessControlProfilesClient.NewListByGalleryPager` has been removed
+- Function `*GalleryInVMAccessControlProfilesClient.BeginUpdate` has been removed
+- Function `NewSoftDeletedResourceClient` has been removed
+- Function `*SoftDeletedResourceClient.NewListByArtifactNamePager` has been removed
+- Operation `*DiskRestorePointClient.NewListByRestorePointPager` does not support pagination anymore, use `*DiskRestorePointClient.ListByRestorePoint` instead.
+- Struct `AccessControlRules` has been removed
+- Struct `AccessControlRulesIdentity` has been removed
+- Struct `AccessControlRulesPrivilege` has been removed
+- Struct `AccessControlRulesRole` has been removed
+- Struct `AccessControlRulesRoleAssignment` has been removed
+- Struct `AdditionalReplicaSet` has been removed
+- Struct `DiskRestorePointList` has been removed
+- Struct `ExecutedValidation` has been removed
+- Struct `GalleryArtifactSource` has been removed
+- Struct `GalleryIdentity` has been removed
+- Struct `GalleryInVMAccessControlProfile` has been removed
+- Struct `GalleryInVMAccessControlProfileList` has been removed
+- Struct `GalleryInVMAccessControlProfileProperties` has been removed
+- Struct `GalleryInVMAccessControlProfileUpdate` has been removed
+- Struct `GalleryInVMAccessControlProfileVersion` has been removed
+- Struct `GalleryInVMAccessControlProfileVersionList` has been removed
+- Struct `GalleryInVMAccessControlProfileVersionProperties` has been removed
+- Struct `GalleryInVMAccessControlProfileVersionUpdate` has been removed
+- Struct `GalleryResourceProfilePropertiesBase` has been removed
+- Struct `GalleryResourceProfileVersionPropertiesBase` has been removed
+- Struct `GallerySoftDeletedResource` has been removed
+- Struct `GallerySoftDeletedResourceList` has been removed
+- Struct `GallerySoftDeletedResourceProperties` has been removed
+- Struct `LatestGalleryImageVersion` has been removed
+- Struct `ManagedArtifact` has been removed
+- Struct `PlatformAttribute` has been removed
+- Struct `ProxyOnlyResource` has been removed
+- Struct `RestorePointSourceVMOSDisk` has been removed
+- Struct `ValidationsProfile` has been removed
+- Field `DiskIOPSReadWrite` of struct `DataDisk` has been removed
+- Field `DiskIOPSReadOnly`, `DiskIOPSReadWrite` of struct `DiskProperties` has been removed
+- Field `DiskIOPSReadOnly`, `DiskIOPSReadWrite` of struct `DiskUpdateProperties` has been removed
+- Field `Identity` of struct `Gallery` has been removed
+- Field `StartsAtVersion` of struct `GalleryImageFeature` has been removed
+- Field `AllowUpdateImage` of struct `GalleryImageProperties` has been removed
+- Field `Restore`, `ValidationsProfile` of struct `GalleryImageVersionProperties` has been removed
+- Field `BlockDeletionBeforeEndOfLife` of struct `GalleryImageVersionSafetyProfile` has been removed
+- Field `SecurityProfile` of struct `GalleryList` has been removed
+- Field `Identity` of struct `GalleryUpdate` has been removed
+- Field `Location`, `Tags` of struct `Resource` has been removed
+- Field `DataDisks` of struct `RestorePointSourceVMStorageProfile` has been removed
+- Field `AdditionalReplicaSets` of struct `TargetRegion` has been removed
+- Field `ScriptBehaviorAfterReboot` of struct `UserArtifactSettings` has been removed
+- Field `DiskIOPSReadWrite` of struct `VirtualMachineScaleSetDataDisk` has been removed
+
+### Features Added
+
+- New enum type `ActionType` with values `ActionTypeInternal`
+- New enum type `CreatedByType` with values `CreatedByTypeApplication`, `CreatedByTypeKey`, `CreatedByTypeManagedIdentity`, `CreatedByTypeUser`
+- New enum type `Origin` with values `OriginSystem`, `OriginUser`, `OriginUserSystem`
+- New struct `ErrorAdditionalInfo`
+- New struct `ErrorDetail`
+- New struct `ErrorResponse`
+- New struct `Operation`
+- New struct `OperationDisplay`
+- New struct `RestorePointSourceVmosDisk`
+- New struct `TrackedResource`
+- New field `SystemData` in struct `AvailabilitySet`
+- New field `SystemData` in struct `CapacityReservation`
+- New field `SystemData` in struct `CapacityReservationGroup`
+- New field `DiskIopsReadWrite` in struct `DataDisk`
+- New field `SystemData` in struct `DedicatedHost`
+- New field `SystemData` in struct `DedicatedHostGroup`
+- New field `NextLink` in struct `DedicatedHostSizeListResult`
+- New anonymous field `DedicatedHost` in struct `DedicatedHostsClientRestartResponse`
+- New field `SystemData` in struct `Disk`
+- New field `SystemData` in struct `DiskAccess`
+- New field `SystemData` in struct `DiskEncryptionSet`
+- New field `DiskIopsReadOnly`, `DiskIopsReadWrite` in struct `DiskProperties`
+- New field `SystemData` in struct `DiskRestorePoint`
+- New field `DiskIopsReadOnly`, `DiskIopsReadWrite` in struct `DiskUpdateProperties`
+- New field `SystemData` in struct `Gallery`
+- New field `SystemData` in struct `GalleryApplication`
+- New field `SystemData` in struct `GalleryApplicationVersion`
+- New field `SystemData` in struct `GalleryImage`
+- New field `SystemData` in struct `GalleryImageVersion`
+- New field `SystemData` in struct `Image`
+- New field `NextLink` in struct `OperationListResult`
+- New field `SystemData` in struct `PrivateEndpointConnection`
+- New field `SystemData` in struct `ProximityPlacementGroup`
+- New field `SystemData` in struct `ProxyResource`
+- New field `SystemData` in struct `Resource`
+- New field `Location`, `RetryAfter` in struct `ResourceSKUsClientListResponse`
+- New field `SystemData` in struct `RestorePoint`
+- New field `SystemData` in struct `RestorePointCollection`
+- New field `DataDiskList` in struct `RestorePointSourceVMStorageProfile`
+- New field `SystemData` in struct `RollingUpgradeStatusInfo`
+- New field `SystemData` in struct `SSHPublicKeyResource`
+- New field `SystemData` in struct `Snapshot`
+- New field `CreatedBy`, `CreatedByType`, `LastModifiedBy`, `LastModifiedByType` in struct `SystemData`
+- New field `SystemData` in struct `VirtualMachine`
+- New field `SystemData` in struct `VirtualMachineExtension`
+- New field `SystemData` in struct `VirtualMachineExtensionImage`
+- New field `SystemData` in struct `VirtualMachineRunCommand`
+- New field `SystemData` in struct `VirtualMachineScaleSet`
+- New field `DiskIopsReadWrite` in struct `VirtualMachineScaleSetDataDisk`
+- New field `SystemData` in struct `VirtualMachineScaleSetExtension`
+- New field `SystemData` in struct `VirtualMachineScaleSetVM`
+- New field `SystemData` in struct `VirtualMachineScaleSetVMExtension`
+- New field `NextLink` in struct `VirtualMachineSizeListResult`
+
+
 ## 6.3.0 (2025-01-24)
 ### Features Added
 

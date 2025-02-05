@@ -17,6 +17,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 )
 
@@ -28,8 +29,7 @@ type ResourceSKUsClient struct {
 }
 
 // NewResourceSKUsClient creates a new instance of ResourceSKUsClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewResourceSKUsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ResourceSKUsClient, error) {
@@ -98,6 +98,17 @@ func (client *ResourceSKUsClient) listCreateRequest(ctx context.Context, options
 // listHandleResponse handles the List response.
 func (client *ResourceSKUsClient) listHandleResponse(resp *http.Response) (ResourceSKUsClientListResponse, error) {
 	result := ResourceSKUsClientListResponse{}
+	if val := resp.Header.Get("Location"); val != "" {
+		result.Location = &val
+	}
+	if val := resp.Header.Get("Retry-After"); val != "" {
+		retryAfter32, err := strconv.ParseInt(val, 10, 32)
+		retryAfter := int32(retryAfter32)
+		if err != nil {
+			return ResourceSKUsClientListResponse{}, err
+		}
+		result.RetryAfter = &retryAfter
+	}
 	if err := runtime.UnmarshalAsJSON(resp, &result.ResourceSKUsResult); err != nil {
 		return ResourceSKUsClientListResponse{}, err
 	}

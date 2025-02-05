@@ -28,8 +28,7 @@ type LogAnalyticsClient struct {
 }
 
 // NewLogAnalyticsClient creates a new instance of LogAnalyticsClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewLogAnalyticsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*LogAnalyticsClient, error) {
@@ -49,7 +48,7 @@ func NewLogAnalyticsClient(subscriptionID string, credential azcore.TokenCredent
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-07-01
-//   - location - The location upon which virtual-machine-sizes is queried.
+//   - location - The name of Azure region.
 //   - parameters - Parameters supplied to the LogAnalytics getRequestRateByInterval Api.
 //   - options - LogAnalyticsClientBeginExportRequestRateByIntervalOptions contains the optional parameters for the LogAnalyticsClient.BeginExportRequestRateByInterval
 //     method.
@@ -100,14 +99,14 @@ func (client *LogAnalyticsClient) exportRequestRateByInterval(ctx context.Contex
 // exportRequestRateByIntervalCreateRequest creates the ExportRequestRateByInterval request.
 func (client *LogAnalyticsClient) exportRequestRateByIntervalCreateRequest(ctx context.Context, location string, parameters RequestRateByIntervalInput, options *LogAnalyticsClientBeginExportRequestRateByIntervalOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/logAnalytics/apiAccess/getRequestRateByInterval"
-	if location == "" {
-		return nil, errors.New("parameter location cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if location == "" {
+		return nil, errors.New("parameter location cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -127,13 +126,13 @@ func (client *LogAnalyticsClient) exportRequestRateByIntervalCreateRequest(ctx c
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-07-01
-//   - location - The location upon which virtual-machine-sizes is queried.
-//   - parameters - Parameters supplied to the LogAnalytics getThrottledRequests Api.
+//   - location - The name of Azure region.
+//   - body - The request body
 //   - options - LogAnalyticsClientBeginExportThrottledRequestsOptions contains the optional parameters for the LogAnalyticsClient.BeginExportThrottledRequests
 //     method.
-func (client *LogAnalyticsClient) BeginExportThrottledRequests(ctx context.Context, location string, parameters ThrottledRequestsInput, options *LogAnalyticsClientBeginExportThrottledRequestsOptions) (*runtime.Poller[LogAnalyticsClientExportThrottledRequestsResponse], error) {
+func (client *LogAnalyticsClient) BeginExportThrottledRequests(ctx context.Context, location string, body ThrottledRequestsInput, options *LogAnalyticsClientBeginExportThrottledRequestsOptions) (*runtime.Poller[LogAnalyticsClientExportThrottledRequestsResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.exportThrottledRequests(ctx, location, parameters, options)
+		resp, err := client.exportThrottledRequests(ctx, location, body, options)
 		if err != nil {
 			return nil, err
 		}
@@ -153,13 +152,13 @@ func (client *LogAnalyticsClient) BeginExportThrottledRequests(ctx context.Conte
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-07-01
-func (client *LogAnalyticsClient) exportThrottledRequests(ctx context.Context, location string, parameters ThrottledRequestsInput, options *LogAnalyticsClientBeginExportThrottledRequestsOptions) (*http.Response, error) {
+func (client *LogAnalyticsClient) exportThrottledRequests(ctx context.Context, location string, body ThrottledRequestsInput, options *LogAnalyticsClientBeginExportThrottledRequestsOptions) (*http.Response, error) {
 	var err error
 	const operationName = "LogAnalyticsClient.BeginExportThrottledRequests"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.exportThrottledRequestsCreateRequest(ctx, location, parameters, options)
+	req, err := client.exportThrottledRequestsCreateRequest(ctx, location, body, options)
 	if err != nil {
 		return nil, err
 	}
@@ -175,16 +174,16 @@ func (client *LogAnalyticsClient) exportThrottledRequests(ctx context.Context, l
 }
 
 // exportThrottledRequestsCreateRequest creates the ExportThrottledRequests request.
-func (client *LogAnalyticsClient) exportThrottledRequestsCreateRequest(ctx context.Context, location string, parameters ThrottledRequestsInput, options *LogAnalyticsClientBeginExportThrottledRequestsOptions) (*policy.Request, error) {
+func (client *LogAnalyticsClient) exportThrottledRequestsCreateRequest(ctx context.Context, location string, body ThrottledRequestsInput, options *LogAnalyticsClientBeginExportThrottledRequestsOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/logAnalytics/apiAccess/getThrottledRequests"
-	if location == "" {
-		return nil, errors.New("parameter location cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if location == "" {
+		return nil, errors.New("parameter location cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -193,7 +192,7 @@ func (client *LogAnalyticsClient) exportThrottledRequestsCreateRequest(ctx conte
 	reqQP.Set("api-version", "2024-07-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
 		return nil, err
 	}
 	return req, nil

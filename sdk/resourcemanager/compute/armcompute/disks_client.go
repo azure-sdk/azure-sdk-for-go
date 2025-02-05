@@ -28,8 +28,7 @@ type DisksClient struct {
 }
 
 // NewDisksClient creates a new instance of DisksClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewDisksClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DisksClient, error) {
@@ -48,21 +47,22 @@ func NewDisksClient(subscriptionID string, credential azcore.TokenCredential, op
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - diskName - The name of the managed disk that is being created. The name can't be changed after the disk is created. Supported
 //     characters for the name are a-z, A-Z, 0-9, _ and -. The maximum name length is 80
 //     characters.
-//   - disk - Disk object supplied in the body of the Put disk operation.
+//   - resource - Disk object supplied in the body of the Put disk operation.
 //   - options - DisksClientBeginCreateOrUpdateOptions contains the optional parameters for the DisksClient.BeginCreateOrUpdate
 //     method.
-func (client *DisksClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, diskName string, disk Disk, options *DisksClientBeginCreateOrUpdateOptions) (*runtime.Poller[DisksClientCreateOrUpdateResponse], error) {
+func (client *DisksClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, diskName string, resource Disk, options *DisksClientBeginCreateOrUpdateOptions) (*runtime.Poller[DisksClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, resourceGroupName, diskName, disk, options)
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, diskName, resource, options)
 		if err != nil {
 			return nil, err
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[DisksClientCreateOrUpdateResponse]{
-			Tracer: client.internal.Tracer(),
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
@@ -76,13 +76,13 @@ func (client *DisksClient) BeginCreateOrUpdate(ctx context.Context, resourceGrou
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-func (client *DisksClient) createOrUpdate(ctx context.Context, resourceGroupName string, diskName string, disk Disk, options *DisksClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+func (client *DisksClient) createOrUpdate(ctx context.Context, resourceGroupName string, diskName string, resource Disk, options *DisksClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DisksClient.BeginCreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, diskName, disk, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, diskName, resource, options)
 	if err != nil {
 		return nil, err
 	}
@@ -98,7 +98,7 @@ func (client *DisksClient) createOrUpdate(ctx context.Context, resourceGroupName
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *DisksClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, diskName string, disk Disk, options *DisksClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *DisksClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, diskName string, resource Disk, options *DisksClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/disks/{diskName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -120,7 +120,7 @@ func (client *DisksClient) createOrUpdateCreateRequest(ctx context.Context, reso
 	reqQP.Set("api-version", "2024-03-02")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, disk); err != nil {
+	if err := runtime.MarshalAsJSON(req, resource); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -130,7 +130,7 @@ func (client *DisksClient) createOrUpdateCreateRequest(ctx context.Context, reso
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - diskName - The name of the managed disk that is being created. The name can't be changed after the disk is created. Supported
 //     characters for the name are a-z, A-Z, 0-9, _ and -. The maximum name length is 80
 //     characters.
@@ -142,7 +142,8 @@ func (client *DisksClient) BeginDelete(ctx context.Context, resourceGroupName st
 			return nil, err
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[DisksClientDeleteResponse]{
-			Tracer: client.internal.Tracer(),
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
@@ -199,6 +200,7 @@ func (client *DisksClient) deleteCreateRequest(ctx context.Context, resourceGrou
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2024-03-02")
 	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
@@ -206,7 +208,7 @@ func (client *DisksClient) deleteCreateRequest(ctx context.Context, resourceGrou
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - diskName - The name of the managed disk that is being created. The name can't be changed after the disk is created. Supported
 //     characters for the name are a-z, A-Z, 0-9, _ and -. The maximum name length is 80
 //     characters.
@@ -272,15 +274,15 @@ func (client *DisksClient) getHandleResponse(resp *http.Response) (DisksClientGe
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - diskName - The name of the managed disk that is being created. The name can't be changed after the disk is created. Supported
 //     characters for the name are a-z, A-Z, 0-9, _ and -. The maximum name length is 80
 //     characters.
-//   - grantAccessData - Access data object supplied in the body of the get disk access operation.
+//   - body - Access data object supplied in the body of the get disk access operation.
 //   - options - DisksClientBeginGrantAccessOptions contains the optional parameters for the DisksClient.BeginGrantAccess method.
-func (client *DisksClient) BeginGrantAccess(ctx context.Context, resourceGroupName string, diskName string, grantAccessData GrantAccessData, options *DisksClientBeginGrantAccessOptions) (*runtime.Poller[DisksClientGrantAccessResponse], error) {
+func (client *DisksClient) BeginGrantAccess(ctx context.Context, resourceGroupName string, diskName string, body GrantAccessData, options *DisksClientBeginGrantAccessOptions) (*runtime.Poller[DisksClientGrantAccessResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.grantAccess(ctx, resourceGroupName, diskName, grantAccessData, options)
+		resp, err := client.grantAccess(ctx, resourceGroupName, diskName, body, options)
 		if err != nil {
 			return nil, err
 		}
@@ -300,13 +302,13 @@ func (client *DisksClient) BeginGrantAccess(ctx context.Context, resourceGroupNa
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-func (client *DisksClient) grantAccess(ctx context.Context, resourceGroupName string, diskName string, grantAccessData GrantAccessData, options *DisksClientBeginGrantAccessOptions) (*http.Response, error) {
+func (client *DisksClient) grantAccess(ctx context.Context, resourceGroupName string, diskName string, body GrantAccessData, options *DisksClientBeginGrantAccessOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DisksClient.BeginGrantAccess"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.grantAccessCreateRequest(ctx, resourceGroupName, diskName, grantAccessData, options)
+	req, err := client.grantAccessCreateRequest(ctx, resourceGroupName, diskName, body, options)
 	if err != nil {
 		return nil, err
 	}
@@ -322,7 +324,7 @@ func (client *DisksClient) grantAccess(ctx context.Context, resourceGroupName st
 }
 
 // grantAccessCreateRequest creates the GrantAccess request.
-func (client *DisksClient) grantAccessCreateRequest(ctx context.Context, resourceGroupName string, diskName string, grantAccessData GrantAccessData, options *DisksClientBeginGrantAccessOptions) (*policy.Request, error) {
+func (client *DisksClient) grantAccessCreateRequest(ctx context.Context, resourceGroupName string, diskName string, body GrantAccessData, options *DisksClientBeginGrantAccessOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/disks/{diskName}/beginGetAccess"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -344,7 +346,7 @@ func (client *DisksClient) grantAccessCreateRequest(ctx context.Context, resourc
 	reqQP.Set("api-version", "2024-03-02")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, grantAccessData); err != nil {
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -407,7 +409,7 @@ func (client *DisksClient) listHandleResponse(resp *http.Response) (DisksClientL
 // NewListByResourceGroupPager - Lists all the disks under a resource group.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - DisksClientListByResourceGroupOptions contains the optional parameters for the DisksClient.NewListByResourceGroupPager
 //     method.
 func (client *DisksClient) NewListByResourceGroupPager(resourceGroupName string, options *DisksClientListByResourceGroupOptions) *runtime.Pager[DisksClientListByResourceGroupResponse] {
@@ -468,7 +470,7 @@ func (client *DisksClient) listByResourceGroupHandleResponse(resp *http.Response
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - diskName - The name of the managed disk that is being created. The name can't be changed after the disk is created. Supported
 //     characters for the name are a-z, A-Z, 0-9, _ and -. The maximum name length is 80
 //     characters.
@@ -538,6 +540,7 @@ func (client *DisksClient) revokeAccessCreateRequest(ctx context.Context, resour
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2024-03-02")
 	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
@@ -545,20 +548,21 @@ func (client *DisksClient) revokeAccessCreateRequest(ctx context.Context, resour
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - diskName - The name of the managed disk that is being created. The name can't be changed after the disk is created. Supported
 //     characters for the name are a-z, A-Z, 0-9, _ and -. The maximum name length is 80
 //     characters.
-//   - disk - Disk object supplied in the body of the Patch disk operation.
+//   - properties - Disk object supplied in the body of the Patch disk operation.
 //   - options - DisksClientBeginUpdateOptions contains the optional parameters for the DisksClient.BeginUpdate method.
-func (client *DisksClient) BeginUpdate(ctx context.Context, resourceGroupName string, diskName string, disk DiskUpdate, options *DisksClientBeginUpdateOptions) (*runtime.Poller[DisksClientUpdateResponse], error) {
+func (client *DisksClient) BeginUpdate(ctx context.Context, resourceGroupName string, diskName string, properties DiskUpdate, options *DisksClientBeginUpdateOptions) (*runtime.Poller[DisksClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.update(ctx, resourceGroupName, diskName, disk, options)
+		resp, err := client.update(ctx, resourceGroupName, diskName, properties, options)
 		if err != nil {
 			return nil, err
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[DisksClientUpdateResponse]{
-			Tracer: client.internal.Tracer(),
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
@@ -572,13 +576,13 @@ func (client *DisksClient) BeginUpdate(ctx context.Context, resourceGroupName st
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-func (client *DisksClient) update(ctx context.Context, resourceGroupName string, diskName string, disk DiskUpdate, options *DisksClientBeginUpdateOptions) (*http.Response, error) {
+func (client *DisksClient) update(ctx context.Context, resourceGroupName string, diskName string, properties DiskUpdate, options *DisksClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DisksClient.BeginUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, diskName, disk, options)
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, diskName, properties, options)
 	if err != nil {
 		return nil, err
 	}
@@ -594,7 +598,7 @@ func (client *DisksClient) update(ctx context.Context, resourceGroupName string,
 }
 
 // updateCreateRequest creates the Update request.
-func (client *DisksClient) updateCreateRequest(ctx context.Context, resourceGroupName string, diskName string, disk DiskUpdate, options *DisksClientBeginUpdateOptions) (*policy.Request, error) {
+func (client *DisksClient) updateCreateRequest(ctx context.Context, resourceGroupName string, diskName string, properties DiskUpdate, options *DisksClientBeginUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/disks/{diskName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -616,7 +620,7 @@ func (client *DisksClient) updateCreateRequest(ctx context.Context, resourceGrou
 	reqQP.Set("api-version", "2024-03-02")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, disk); err != nil {
+	if err := runtime.MarshalAsJSON(req, properties); err != nil {
 		return nil, err
 	}
 	return req, nil
