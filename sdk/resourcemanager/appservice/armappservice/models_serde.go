@@ -18994,6 +18994,7 @@ func (s SiteContainerProperties) MarshalJSON() ([]byte, error) {
 	populateDateTimeRFC3339(objectMap, "createdTime", s.CreatedTime)
 	populate(objectMap, "environmentVariables", s.EnvironmentVariables)
 	populate(objectMap, "image", s.Image)
+	populate(objectMap, "inheritAppSettingsAndConnectionStrings", s.InheritAppSettingsAndConnectionStrings)
 	populate(objectMap, "isMain", s.IsMain)
 	populateDateTimeRFC3339(objectMap, "lastModifiedTime", s.LastModifiedTime)
 	populate(objectMap, "passwordSecret", s.PasswordSecret)
@@ -19025,6 +19026,9 @@ func (s *SiteContainerProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "image":
 			err = unpopulate(val, "Image", &s.Image)
+			delete(rawMsg, key)
+		case "inheritAppSettingsAndConnectionStrings":
+			err = unpopulate(val, "InheritAppSettingsAndConnectionStrings", &s.InheritAppSettingsAndConnectionStrings)
 			delete(rawMsg, key)
 		case "isMain":
 			err = unpopulate(val, "IsMain", &s.IsMain)
