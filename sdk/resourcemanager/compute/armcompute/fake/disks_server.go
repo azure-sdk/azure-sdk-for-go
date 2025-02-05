@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v6"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v7"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -26,7 +26,7 @@ import (
 type DisksServer struct {
 	// BeginCreateOrUpdate is the fake for method DisksClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, diskName string, disk armcompute.Disk, options *armcompute.DisksClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armcompute.DisksClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, diskName string, resource armcompute.Disk, options *armcompute.DisksClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armcompute.DisksClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method DisksClient.BeginDelete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
@@ -38,7 +38,7 @@ type DisksServer struct {
 
 	// BeginGrantAccess is the fake for method DisksClient.BeginGrantAccess
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginGrantAccess func(ctx context.Context, resourceGroupName string, diskName string, grantAccessData armcompute.GrantAccessData, options *armcompute.DisksClientBeginGrantAccessOptions) (resp azfake.PollerResponder[armcompute.DisksClientGrantAccessResponse], errResp azfake.ErrorResponder)
+	BeginGrantAccess func(ctx context.Context, resourceGroupName string, diskName string, body armcompute.GrantAccessData, options *armcompute.DisksClientBeginGrantAccessOptions) (resp azfake.PollerResponder[armcompute.DisksClientGrantAccessResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method DisksClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
@@ -54,7 +54,7 @@ type DisksServer struct {
 
 	// BeginUpdate is the fake for method DisksClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginUpdate func(ctx context.Context, resourceGroupName string, diskName string, disk armcompute.DiskUpdate, options *armcompute.DisksClientBeginUpdateOptions) (resp azfake.PollerResponder[armcompute.DisksClientUpdateResponse], errResp azfake.ErrorResponder)
+	BeginUpdate func(ctx context.Context, resourceGroupName string, diskName string, properties armcompute.DiskUpdate, options *armcompute.DisksClientBeginUpdateOptions) (resp azfake.PollerResponder[armcompute.DisksClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewDisksServerTransport creates a new instance of DisksServerTransport with the provided implementation.

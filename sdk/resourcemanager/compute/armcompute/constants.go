@@ -10,28 +10,10 @@ package armcompute
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute"
-	moduleVersion = "v6.3.0"
+	moduleVersion = "v7.0.0"
 )
 
-// AccessControlRulesMode - This property allows you to specify whether the access control rules are in Audit mode, in Enforce
-// mode or Disabled. Possible values are: 'Audit', 'Enforce' or 'Disabled'.
-type AccessControlRulesMode string
-
-const (
-	AccessControlRulesModeAudit    AccessControlRulesMode = "Audit"
-	AccessControlRulesModeDisabled AccessControlRulesMode = "Disabled"
-	AccessControlRulesModeEnforce  AccessControlRulesMode = "Enforce"
-)
-
-// PossibleAccessControlRulesModeValues returns the possible values for the AccessControlRulesMode const type.
-func PossibleAccessControlRulesModeValues() []AccessControlRulesMode {
-	return []AccessControlRulesMode{
-		AccessControlRulesModeAudit,
-		AccessControlRulesModeDisabled,
-		AccessControlRulesModeEnforce,
-	}
-}
-
+// AccessLevel - The Access Level, accepted values include None, Read, Write.
 type AccessLevel string
 
 const (
@@ -46,6 +28,20 @@ func PossibleAccessLevelValues() []AccessLevel {
 		AccessLevelNone,
 		AccessLevelRead,
 		AccessLevelWrite,
+	}
+}
+
+// ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+type ActionType string
+
+const (
+	ActionTypeInternal ActionType = "Internal"
+)
+
+// PossibleActionTypeValues returns the possible values for the ActionType const type.
+func PossibleActionTypeValues() []ActionType {
+	return []ActionType{
+		ActionTypeInternal,
 	}
 }
 
@@ -104,7 +100,7 @@ func PossibleAlternativeTypeValues() []AlternativeType {
 	}
 }
 
-// Architecture - CPU architecture supported by an OS disk.
+// Architecture - The architecture of the image. Applicable to OS disks only.
 type Architecture string
 
 const (
@@ -297,6 +293,26 @@ const (
 func PossibleCopyCompletionErrorReasonValues() []CopyCompletionErrorReason {
 	return []CopyCompletionErrorReason{
 		CopyCompletionErrorReasonCopySourceNotFound,
+	}
+}
+
+// CreatedByType - The type of identity that created the resource.
+type CreatedByType string
+
+const (
+	CreatedByTypeApplication     CreatedByType = "Application"
+	CreatedByTypeKey             CreatedByType = "Key"
+	CreatedByTypeManagedIdentity CreatedByType = "ManagedIdentity"
+	CreatedByTypeUser            CreatedByType = "User"
+)
+
+// PossibleCreatedByTypeValues returns the possible values for the CreatedByType const type.
+func PossibleCreatedByTypeValues() []CreatedByType {
+	return []CreatedByType{
+		CreatedByTypeApplication,
+		CreatedByTypeKey,
+		CreatedByTypeManagedIdentity,
+		CreatedByTypeUser,
 	}
 }
 
@@ -516,8 +532,8 @@ func PossibleDiskDeleteOptionTypesValues() []DiskDeleteOptionTypes {
 // is applicable only for managed data disks. If a previous detachment attempt of the data disk did not complete due to an
 // unexpected failure from the virtual machine and the disk is still not released
 // then use force-detach as a last resort option to detach the disk forcibly from the VM. All writes might not have been flushed
-// when using this detach behavior. To force-detach a data disk update
-// toBeDetached to 'true' along with setting detachOption: 'ForceDetach'.
+// when using this detach behavior. This feature is still in preview. To
+// force-detach a data disk update toBeDetached to 'true' along with setting detachOption: 'ForceDetach'.
 type DiskDetachOptionTypes string
 
 const (
@@ -751,40 +767,6 @@ func PossibleEncryptionTypeValues() []EncryptionType {
 	}
 }
 
-// EndpointAccess - This property allows you to specify if the requests will be allowed to access the host endpoints. Possible
-// values are: 'Allow', 'Deny'.
-type EndpointAccess string
-
-const (
-	EndpointAccessAllow EndpointAccess = "Allow"
-	EndpointAccessDeny  EndpointAccess = "Deny"
-)
-
-// PossibleEndpointAccessValues returns the possible values for the EndpointAccess const type.
-func PossibleEndpointAccessValues() []EndpointAccess {
-	return []EndpointAccess{
-		EndpointAccessAllow,
-		EndpointAccessDeny,
-	}
-}
-
-// EndpointTypes - This property allows you to specify the Endpoint type for which this profile is defining the access control
-// for. Possible values are: 'WireServer' or 'IMDS'
-type EndpointTypes string
-
-const (
-	EndpointTypesIMDS       EndpointTypes = "IMDS"
-	EndpointTypesWireServer EndpointTypes = "WireServer"
-)
-
-// PossibleEndpointTypesValues returns the possible values for the EndpointTypes const type.
-func PossibleEndpointTypesValues() []EndpointTypes {
-	return []EndpointTypes{
-		EndpointTypesIMDS,
-		EndpointTypesWireServer,
-	}
-}
-
 // ExecutionState - Script execution status.
 type ExecutionState string
 
@@ -927,23 +909,6 @@ func PossibleGalleryApplicationCustomActionParameterTypeValues() []GalleryApplic
 		GalleryApplicationCustomActionParameterTypeConfigurationDataBlob,
 		GalleryApplicationCustomActionParameterTypeLogOutputBlob,
 		GalleryApplicationCustomActionParameterTypeString,
-	}
-}
-
-// GalleryApplicationScriptRebootBehavior - Optional. The action to be taken with regards to install/update/remove of the
-// gallery application in the event of a reboot.
-type GalleryApplicationScriptRebootBehavior string
-
-const (
-	GalleryApplicationScriptRebootBehaviorNone  GalleryApplicationScriptRebootBehavior = "None"
-	GalleryApplicationScriptRebootBehaviorRerun GalleryApplicationScriptRebootBehavior = "Rerun"
-)
-
-// PossibleGalleryApplicationScriptRebootBehaviorValues returns the possible values for the GalleryApplicationScriptRebootBehavior const type.
-func PossibleGalleryApplicationScriptRebootBehaviorValues() []GalleryApplicationScriptRebootBehavior {
-	return []GalleryApplicationScriptRebootBehavior{
-		GalleryApplicationScriptRebootBehaviorNone,
-		GalleryApplicationScriptRebootBehaviorRerun,
 	}
 }
 
@@ -1102,7 +1067,7 @@ func PossibleIPVersionValues() []IPVersion {
 	}
 }
 
-// IPVersions - Available from Api-Version 2019-07-01 onwards, it represents whether the specific ipconfiguration is IPv4
+// IPVersions - Available from Api-Version 2017-03-30 onwards, it represents whether the specific ipconfiguration is IPv4
 // or IPv6. Default is taken as IPv4. Possible values are: 'IPv4' and 'IPv6'.
 type IPVersions string
 
@@ -1380,7 +1345,8 @@ func PossibleOperatingSystemTypeValues() []OperatingSystemType {
 	}
 }
 
-// OperatingSystemTypes - The Operating System type.
+// OperatingSystemTypes - This property allows you to specify the supported type of the OS that application is built for.
+// Possible values are: Windows, Linux.
 type OperatingSystemTypes string
 
 const (
@@ -1457,6 +1423,25 @@ func PossibleOrchestrationServiceStateActionValues() []OrchestrationServiceState
 	return []OrchestrationServiceStateAction{
 		OrchestrationServiceStateActionResume,
 		OrchestrationServiceStateActionSuspend,
+	}
+}
+
+// Origin - The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
+// value is "user,system"
+type Origin string
+
+const (
+	OriginSystem     Origin = "system"
+	OriginUser       Origin = "user"
+	OriginUserSystem Origin = "user,system"
+)
+
+// PossibleOriginValues returns the possible values for the Origin const type.
+func PossibleOriginValues() []Origin {
+	return []Origin{
+		OriginSystem,
+		OriginUser,
+		OriginUserSystem,
 	}
 }
 
@@ -1789,9 +1774,9 @@ func PossibleResourceIDOptionsForGetCapacityReservationGroupsValues() []Resource
 	}
 }
 
-// ResourceIdentityType - The type of identity used for the gallery. The type 'SystemAssigned, UserAssigned' includes both
-// an implicitly created identity and a set of user assigned identities. The type 'None' will remove all
-// identities from the gallery.
+// ResourceIdentityType - The type of identity used for the virtual machine scale set. The type 'SystemAssigned, UserAssigned'
+// includes both an implicitly created identity and a set of user assigned identities. The type 'None'
+// will remove any identities from the virtual machine scale set.
 type ResourceIdentityType string
 
 const (
@@ -2143,20 +2128,6 @@ func PossibleSnapshotStorageAccountTypesValues() []SnapshotStorageAccountTypes {
 	}
 }
 
-// SoftDeletedArtifactTypes - artifact type of the soft-deleted resource
-type SoftDeletedArtifactTypes string
-
-const (
-	SoftDeletedArtifactTypesImages SoftDeletedArtifactTypes = "Images"
-)
-
-// PossibleSoftDeletedArtifactTypesValues returns the possible values for the SoftDeletedArtifactTypes const type.
-func PossibleSoftDeletedArtifactTypesValues() []SoftDeletedArtifactTypes {
-	return []SoftDeletedArtifactTypes{
-		SoftDeletedArtifactTypesImages,
-	}
-}
-
 // StatusLevelTypes - The level code.
 type StatusLevelTypes string
 
@@ -2179,17 +2150,15 @@ func PossibleStatusLevelTypesValues() []StatusLevelTypes {
 type StorageAccountType string
 
 const (
-	StorageAccountTypePremiumLRS   StorageAccountType = "Premium_LRS"
-	StorageAccountTypePremiumV2LRS StorageAccountType = "PremiumV2_LRS"
-	StorageAccountTypeStandardLRS  StorageAccountType = "Standard_LRS"
-	StorageAccountTypeStandardZRS  StorageAccountType = "Standard_ZRS"
+	StorageAccountTypePremiumLRS  StorageAccountType = "Premium_LRS"
+	StorageAccountTypeStandardLRS StorageAccountType = "Standard_LRS"
+	StorageAccountTypeStandardZRS StorageAccountType = "Standard_ZRS"
 )
 
 // PossibleStorageAccountTypeValues returns the possible values for the StorageAccountType const type.
 func PossibleStorageAccountTypeValues() []StorageAccountType {
 	return []StorageAccountType{
 		StorageAccountTypePremiumLRS,
-		StorageAccountTypePremiumV2LRS,
 		StorageAccountTypeStandardLRS,
 		StorageAccountTypeStandardZRS,
 	}
@@ -2440,24 +2409,6 @@ func PossibleVMGuestPatchRebootStatusValues() []VMGuestPatchRebootStatus {
 		VMGuestPatchRebootStatusRequired,
 		VMGuestPatchRebootStatusStarted,
 		VMGuestPatchRebootStatusUnknown,
-	}
-}
-
-// ValidationStatus - This property specifies the status of the validationProfile of the image version.
-type ValidationStatus string
-
-const (
-	ValidationStatusFailed    ValidationStatus = "Failed"
-	ValidationStatusSucceeded ValidationStatus = "Succeeded"
-	ValidationStatusUnknown   ValidationStatus = "Unknown"
-)
-
-// PossibleValidationStatusValues returns the possible values for the ValidationStatus const type.
-func PossibleValidationStatusValues() []ValidationStatus {
-	return []ValidationStatus{
-		ValidationStatusFailed,
-		ValidationStatusSucceeded,
-		ValidationStatusUnknown,
 	}
 }
 

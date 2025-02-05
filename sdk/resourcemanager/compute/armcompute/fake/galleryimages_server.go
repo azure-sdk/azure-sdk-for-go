@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v6"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v7"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -41,7 +41,7 @@ type GalleryImagesServer struct {
 	NewListByGalleryPager func(resourceGroupName string, galleryName string, options *armcompute.GalleryImagesClientListByGalleryOptions) (resp azfake.PagerResponder[armcompute.GalleryImagesClientListByGalleryResponse])
 
 	// BeginUpdate is the fake for method GalleryImagesClient.BeginUpdate
-	// HTTP status codes to indicate success: http.StatusOK
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginUpdate func(ctx context.Context, resourceGroupName string, galleryName string, galleryImageName string, galleryImage armcompute.GalleryImageUpdate, options *armcompute.GalleryImagesClientBeginUpdateOptions) (resp azfake.PollerResponder[armcompute.GalleryImagesClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
@@ -320,9 +320,9 @@ func (g *GalleryImagesServerTransport) dispatchBeginUpdate(req *http.Request) (*
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
 		g.beginUpdate.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginUpdate) {
 		g.beginUpdate.remove(req)

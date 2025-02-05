@@ -28,8 +28,7 @@ type SharedGalleryImageVersionsClient struct {
 }
 
 // NewSharedGalleryImageVersionsClient creates a new instance of SharedGalleryImageVersionsClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewSharedGalleryImageVersionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SharedGalleryImageVersionsClient, error) {
@@ -47,8 +46,8 @@ func NewSharedGalleryImageVersionsClient(subscriptionID string, credential azcor
 // Get - Get a shared gallery image version by subscription id or tenant id.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-03
-//   - location - Resource location.
+// Generated from API version 2023-07-03
+//   - location - The name of Azure region.
 //   - galleryUniqueName - The unique name of the Shared Gallery.
 //   - galleryImageName - The name of the Shared Gallery Image Definition from which the Image Versions are to be listed.
 //   - galleryImageVersionName - The name of the gallery image version to be created. Needs to follow semantic version name pattern:
@@ -106,7 +105,7 @@ func (client *SharedGalleryImageVersionsClient) getCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-03")
+	reqQP.Set("api-version", "2023-07-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -123,8 +122,8 @@ func (client *SharedGalleryImageVersionsClient) getHandleResponse(resp *http.Res
 
 // NewListPager - List shared gallery image versions by subscription id or tenant id.
 //
-// Generated from API version 2024-03-03
-//   - location - Resource location.
+// Generated from API version 2023-07-03
+//   - location - The name of Azure region.
 //   - galleryUniqueName - The unique name of the Shared Gallery.
 //   - galleryImageName - The name of the Shared Gallery Image Definition from which the Image Versions are to be listed.
 //   - options - SharedGalleryImageVersionsClientListOptions contains the optional parameters for the SharedGalleryImageVersionsClient.NewListPager
@@ -176,7 +175,7 @@ func (client *SharedGalleryImageVersionsClient) listCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-03")
+	reqQP.Set("api-version", "2023-07-03")
 	if options != nil && options.SharedTo != nil {
 		reqQP.Set("sharedTo", string(*options.SharedTo))
 	}

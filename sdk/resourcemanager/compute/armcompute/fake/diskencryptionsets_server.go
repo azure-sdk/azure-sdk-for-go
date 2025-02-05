@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v6"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v7"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -26,7 +26,7 @@ import (
 type DiskEncryptionSetsServer struct {
 	// BeginCreateOrUpdate is the fake for method DiskEncryptionSetsClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, diskEncryptionSetName string, diskEncryptionSet armcompute.DiskEncryptionSet, options *armcompute.DiskEncryptionSetsClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armcompute.DiskEncryptionSetsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, diskEncryptionSetName string, resource armcompute.DiskEncryptionSet, options *armcompute.DiskEncryptionSetsClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armcompute.DiskEncryptionSetsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method DiskEncryptionSetsClient.BeginDelete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
@@ -50,7 +50,7 @@ type DiskEncryptionSetsServer struct {
 
 	// BeginUpdate is the fake for method DiskEncryptionSetsClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginUpdate func(ctx context.Context, resourceGroupName string, diskEncryptionSetName string, diskEncryptionSet armcompute.DiskEncryptionSetUpdate, options *armcompute.DiskEncryptionSetsClientBeginUpdateOptions) (resp azfake.PollerResponder[armcompute.DiskEncryptionSetsClientUpdateResponse], errResp azfake.ErrorResponder)
+	BeginUpdate func(ctx context.Context, resourceGroupName string, diskEncryptionSetName string, properties armcompute.DiskEncryptionSetUpdate, options *armcompute.DiskEncryptionSetsClientBeginUpdateOptions) (resp azfake.PollerResponder[armcompute.DiskEncryptionSetsClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewDiskEncryptionSetsServerTransport creates a new instance of DiskEncryptionSetsServerTransport with the provided implementation.

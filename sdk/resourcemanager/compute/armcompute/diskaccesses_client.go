@@ -28,8 +28,7 @@ type DiskAccessesClient struct {
 }
 
 // NewDiskAccessesClient creates a new instance of DiskAccessesClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewDiskAccessesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DiskAccessesClient, error) {
@@ -48,21 +47,22 @@ func NewDiskAccessesClient(subscriptionID string, credential azcore.TokenCredent
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - diskAccessName - The name of the disk access resource that is being created. The name can't be changed after the disk encryption
 //     set is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The
 //     maximum name length is 80 characters.
-//   - diskAccess - disk access object supplied in the body of the Put disk access operation.
+//   - resource - disk access object supplied in the body of the Put disk access operation.
 //   - options - DiskAccessesClientBeginCreateOrUpdateOptions contains the optional parameters for the DiskAccessesClient.BeginCreateOrUpdate
 //     method.
-func (client *DiskAccessesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, diskAccessName string, diskAccess DiskAccess, options *DiskAccessesClientBeginCreateOrUpdateOptions) (*runtime.Poller[DiskAccessesClientCreateOrUpdateResponse], error) {
+func (client *DiskAccessesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, diskAccessName string, resource DiskAccess, options *DiskAccessesClientBeginCreateOrUpdateOptions) (*runtime.Poller[DiskAccessesClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, resourceGroupName, diskAccessName, diskAccess, options)
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, diskAccessName, resource, options)
 		if err != nil {
 			return nil, err
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[DiskAccessesClientCreateOrUpdateResponse]{
-			Tracer: client.internal.Tracer(),
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
@@ -76,13 +76,13 @@ func (client *DiskAccessesClient) BeginCreateOrUpdate(ctx context.Context, resou
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-func (client *DiskAccessesClient) createOrUpdate(ctx context.Context, resourceGroupName string, diskAccessName string, diskAccess DiskAccess, options *DiskAccessesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+func (client *DiskAccessesClient) createOrUpdate(ctx context.Context, resourceGroupName string, diskAccessName string, resource DiskAccess, options *DiskAccessesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DiskAccessesClient.BeginCreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, diskAccessName, diskAccess, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, diskAccessName, resource, options)
 	if err != nil {
 		return nil, err
 	}
@@ -98,7 +98,7 @@ func (client *DiskAccessesClient) createOrUpdate(ctx context.Context, resourceGr
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *DiskAccessesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, diskAccessName string, diskAccess DiskAccess, options *DiskAccessesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *DiskAccessesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, diskAccessName string, resource DiskAccess, options *DiskAccessesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/diskAccesses/{diskAccessName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -120,7 +120,7 @@ func (client *DiskAccessesClient) createOrUpdateCreateRequest(ctx context.Contex
 	reqQP.Set("api-version", "2024-03-02")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, diskAccess); err != nil {
+	if err := runtime.MarshalAsJSON(req, resource); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -130,7 +130,7 @@ func (client *DiskAccessesClient) createOrUpdateCreateRequest(ctx context.Contex
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - diskAccessName - The name of the disk access resource that is being created. The name can't be changed after the disk encryption
 //     set is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The
 //     maximum name length is 80 characters.
@@ -143,7 +143,8 @@ func (client *DiskAccessesClient) BeginDelete(ctx context.Context, resourceGroup
 			return nil, err
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[DiskAccessesClientDeleteResponse]{
-			Tracer: client.internal.Tracer(),
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
@@ -208,7 +209,7 @@ func (client *DiskAccessesClient) deleteCreateRequest(ctx context.Context, resou
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - diskAccessName - The name of the disk access resource that is being created. The name can't be changed after the disk encryption
 //     set is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The
 //     maximum name length is 80 characters.
@@ -222,7 +223,8 @@ func (client *DiskAccessesClient) BeginDeleteAPrivateEndpointConnection(ctx cont
 			return nil, err
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[DiskAccessesClientDeleteAPrivateEndpointConnectionResponse]{
-			Tracer: client.internal.Tracer(),
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
@@ -291,7 +293,7 @@ func (client *DiskAccessesClient) deleteAPrivateEndpointConnectionCreateRequest(
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - diskAccessName - The name of the disk access resource that is being created. The name can't be changed after the disk encryption
 //     set is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The
 //     maximum name length is 80 characters.
@@ -357,7 +359,7 @@ func (client *DiskAccessesClient) getHandleResponse(resp *http.Response) (DiskAc
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - diskAccessName - The name of the disk access resource that is being created. The name can't be changed after the disk encryption
 //     set is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The
 //     maximum name length is 80 characters.
@@ -429,7 +431,7 @@ func (client *DiskAccessesClient) getAPrivateEndpointConnectionHandleResponse(re
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - diskAccessName - The name of the disk access resource that is being created. The name can't be changed after the disk encryption
 //     set is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The
 //     maximum name length is 80 characters.
@@ -459,7 +461,7 @@ func (client *DiskAccessesClient) GetPrivateLinkResources(ctx context.Context, r
 
 // getPrivateLinkResourcesCreateRequest creates the GetPrivateLinkResources request.
 func (client *DiskAccessesClient) getPrivateLinkResourcesCreateRequest(ctx context.Context, resourceGroupName string, diskAccessName string, options *DiskAccessesClientGetPrivateLinkResourcesOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/diskAccesses/{diskAccessName}/privateLinkResources"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/diskAccesses/{diskAccessName}/getPrivateLinkResources"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -549,7 +551,7 @@ func (client *DiskAccessesClient) listHandleResponse(resp *http.Response) (DiskA
 // NewListByResourceGroupPager - Lists all the disk access resources under a resource group.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - DiskAccessesClientListByResourceGroupOptions contains the optional parameters for the DiskAccessesClient.NewListByResourceGroupPager
 //     method.
 func (client *DiskAccessesClient) NewListByResourceGroupPager(resourceGroupName string, options *DiskAccessesClientListByResourceGroupOptions) *runtime.Pager[DiskAccessesClientListByResourceGroupResponse] {
@@ -609,7 +611,7 @@ func (client *DiskAccessesClient) listByResourceGroupHandleResponse(resp *http.R
 // NewListPrivateEndpointConnectionsPager - List information about private endpoint connections under a disk access resource
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - diskAccessName - The name of the disk access resource that is being created. The name can't be changed after the disk encryption
 //     set is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The
 //     maximum name length is 80 characters.
@@ -677,21 +679,22 @@ func (client *DiskAccessesClient) listPrivateEndpointConnectionsHandleResponse(r
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - diskAccessName - The name of the disk access resource that is being created. The name can't be changed after the disk encryption
 //     set is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The
 //     maximum name length is 80 characters.
-//   - diskAccess - disk access object supplied in the body of the Patch disk access operation.
+//   - properties - disk access object supplied in the body of the Patch disk access operation.
 //   - options - DiskAccessesClientBeginUpdateOptions contains the optional parameters for the DiskAccessesClient.BeginUpdate
 //     method.
-func (client *DiskAccessesClient) BeginUpdate(ctx context.Context, resourceGroupName string, diskAccessName string, diskAccess DiskAccessUpdate, options *DiskAccessesClientBeginUpdateOptions) (*runtime.Poller[DiskAccessesClientUpdateResponse], error) {
+func (client *DiskAccessesClient) BeginUpdate(ctx context.Context, resourceGroupName string, diskAccessName string, properties DiskAccessUpdate, options *DiskAccessesClientBeginUpdateOptions) (*runtime.Poller[DiskAccessesClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.update(ctx, resourceGroupName, diskAccessName, diskAccess, options)
+		resp, err := client.update(ctx, resourceGroupName, diskAccessName, properties, options)
 		if err != nil {
 			return nil, err
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[DiskAccessesClientUpdateResponse]{
-			Tracer: client.internal.Tracer(),
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
@@ -705,13 +708,13 @@ func (client *DiskAccessesClient) BeginUpdate(ctx context.Context, resourceGroup
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-func (client *DiskAccessesClient) update(ctx context.Context, resourceGroupName string, diskAccessName string, diskAccess DiskAccessUpdate, options *DiskAccessesClientBeginUpdateOptions) (*http.Response, error) {
+func (client *DiskAccessesClient) update(ctx context.Context, resourceGroupName string, diskAccessName string, properties DiskAccessUpdate, options *DiskAccessesClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DiskAccessesClient.BeginUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, diskAccessName, diskAccess, options)
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, diskAccessName, properties, options)
 	if err != nil {
 		return nil, err
 	}
@@ -727,7 +730,7 @@ func (client *DiskAccessesClient) update(ctx context.Context, resourceGroupName 
 }
 
 // updateCreateRequest creates the Update request.
-func (client *DiskAccessesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, diskAccessName string, diskAccess DiskAccessUpdate, options *DiskAccessesClientBeginUpdateOptions) (*policy.Request, error) {
+func (client *DiskAccessesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, diskAccessName string, properties DiskAccessUpdate, options *DiskAccessesClientBeginUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/diskAccesses/{diskAccessName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -749,7 +752,7 @@ func (client *DiskAccessesClient) updateCreateRequest(ctx context.Context, resou
 	reqQP.Set("api-version", "2024-03-02")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, diskAccess); err != nil {
+	if err := runtime.MarshalAsJSON(req, properties); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -760,23 +763,23 @@ func (client *DiskAccessesClient) updateCreateRequest(ctx context.Context, resou
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - diskAccessName - The name of the disk access resource that is being created. The name can't be changed after the disk encryption
 //     set is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The
 //     maximum name length is 80 characters.
 //   - privateEndpointConnectionName - The name of the private endpoint connection.
-//   - privateEndpointConnection - private endpoint connection object supplied in the body of the Put private endpoint connection
-//     operation.
+//   - resource - private endpoint connection object supplied in the body of the Put private endpoint connection operation.
 //   - options - DiskAccessesClientBeginUpdateAPrivateEndpointConnectionOptions contains the optional parameters for the DiskAccessesClient.BeginUpdateAPrivateEndpointConnection
 //     method.
-func (client *DiskAccessesClient) BeginUpdateAPrivateEndpointConnection(ctx context.Context, resourceGroupName string, diskAccessName string, privateEndpointConnectionName string, privateEndpointConnection PrivateEndpointConnection, options *DiskAccessesClientBeginUpdateAPrivateEndpointConnectionOptions) (*runtime.Poller[DiskAccessesClientUpdateAPrivateEndpointConnectionResponse], error) {
+func (client *DiskAccessesClient) BeginUpdateAPrivateEndpointConnection(ctx context.Context, resourceGroupName string, diskAccessName string, privateEndpointConnectionName string, resource PrivateEndpointConnection, options *DiskAccessesClientBeginUpdateAPrivateEndpointConnectionOptions) (*runtime.Poller[DiskAccessesClientUpdateAPrivateEndpointConnectionResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.updateAPrivateEndpointConnection(ctx, resourceGroupName, diskAccessName, privateEndpointConnectionName, privateEndpointConnection, options)
+		resp, err := client.updateAPrivateEndpointConnection(ctx, resourceGroupName, diskAccessName, privateEndpointConnectionName, resource, options)
 		if err != nil {
 			return nil, err
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[DiskAccessesClientUpdateAPrivateEndpointConnectionResponse]{
-			Tracer: client.internal.Tracer(),
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
@@ -791,13 +794,13 @@ func (client *DiskAccessesClient) BeginUpdateAPrivateEndpointConnection(ctx cont
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-func (client *DiskAccessesClient) updateAPrivateEndpointConnection(ctx context.Context, resourceGroupName string, diskAccessName string, privateEndpointConnectionName string, privateEndpointConnection PrivateEndpointConnection, options *DiskAccessesClientBeginUpdateAPrivateEndpointConnectionOptions) (*http.Response, error) {
+func (client *DiskAccessesClient) updateAPrivateEndpointConnection(ctx context.Context, resourceGroupName string, diskAccessName string, privateEndpointConnectionName string, resource PrivateEndpointConnection, options *DiskAccessesClientBeginUpdateAPrivateEndpointConnectionOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DiskAccessesClient.BeginUpdateAPrivateEndpointConnection"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateAPrivateEndpointConnectionCreateRequest(ctx, resourceGroupName, diskAccessName, privateEndpointConnectionName, privateEndpointConnection, options)
+	req, err := client.updateAPrivateEndpointConnectionCreateRequest(ctx, resourceGroupName, diskAccessName, privateEndpointConnectionName, resource, options)
 	if err != nil {
 		return nil, err
 	}
@@ -813,7 +816,7 @@ func (client *DiskAccessesClient) updateAPrivateEndpointConnection(ctx context.C
 }
 
 // updateAPrivateEndpointConnectionCreateRequest creates the UpdateAPrivateEndpointConnection request.
-func (client *DiskAccessesClient) updateAPrivateEndpointConnectionCreateRequest(ctx context.Context, resourceGroupName string, diskAccessName string, privateEndpointConnectionName string, privateEndpointConnection PrivateEndpointConnection, options *DiskAccessesClientBeginUpdateAPrivateEndpointConnectionOptions) (*policy.Request, error) {
+func (client *DiskAccessesClient) updateAPrivateEndpointConnectionCreateRequest(ctx context.Context, resourceGroupName string, diskAccessName string, privateEndpointConnectionName string, resource PrivateEndpointConnection, options *DiskAccessesClientBeginUpdateAPrivateEndpointConnectionOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/diskAccesses/{diskAccessName}/privateEndpointConnections/{privateEndpointConnectionName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -839,7 +842,7 @@ func (client *DiskAccessesClient) updateAPrivateEndpointConnectionCreateRequest(
 	reqQP.Set("api-version", "2024-03-02")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, privateEndpointConnection); err != nil {
+	if err := runtime.MarshalAsJSON(req, resource); err != nil {
 		return nil, err
 	}
 	return req, nil
