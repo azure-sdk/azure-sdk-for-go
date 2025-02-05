@@ -183,71 +183,6 @@ type CertificatesClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ContainerAppsClientBeginCreateOrUpdateOptions contains the optional parameters for the ContainerAppsClient.BeginCreateOrUpdate
-// method.
-type ContainerAppsClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ContainerAppsClientBeginDeleteOptions contains the optional parameters for the ContainerAppsClient.BeginDelete method.
-type ContainerAppsClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ContainerAppsClientGetOptions contains the optional parameters for the ContainerAppsClient.Get method.
-type ContainerAppsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ContainerAppsClientListByResourceGroupOptions contains the optional parameters for the ContainerAppsClient.NewListByResourceGroupPager
-// method.
-type ContainerAppsClientListByResourceGroupOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ContainerAppsClientListBySubscriptionOptions contains the optional parameters for the ContainerAppsClient.NewListBySubscriptionPager
-// method.
-type ContainerAppsClientListBySubscriptionOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ContainerAppsClientListSecretsOptions contains the optional parameters for the ContainerAppsClient.ListSecrets method.
-type ContainerAppsClientListSecretsOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ContainerAppsRevisionsClientActivateRevisionOptions contains the optional parameters for the ContainerAppsRevisionsClient.ActivateRevision
-// method.
-type ContainerAppsRevisionsClientActivateRevisionOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ContainerAppsRevisionsClientDeactivateRevisionOptions contains the optional parameters for the ContainerAppsRevisionsClient.DeactivateRevision
-// method.
-type ContainerAppsRevisionsClientDeactivateRevisionOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ContainerAppsRevisionsClientGetRevisionOptions contains the optional parameters for the ContainerAppsRevisionsClient.GetRevision
-// method.
-type ContainerAppsRevisionsClientGetRevisionOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ContainerAppsRevisionsClientListRevisionsOptions contains the optional parameters for the ContainerAppsRevisionsClient.NewListRevisionsPager
-// method.
-type ContainerAppsRevisionsClientListRevisionsOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ContainerAppsRevisionsClientRestartRevisionOptions contains the optional parameters for the ContainerAppsRevisionsClient.RestartRevision
-// method.
-type ContainerAppsRevisionsClientRestartRevisionOptions struct {
-	// placeholder for future optional parameters
-}
-
 // DeletedWebAppsClientGetDeletedWebAppByLocationOptions contains the optional parameters for the DeletedWebAppsClient.GetDeletedWebAppByLocation
 // method.
 type DeletedWebAppsClientGetDeletedWebAppByLocationOptions struct {
@@ -1246,6 +1181,59 @@ type ResourceHealthMetadataClientListBySiteSlotOptions struct {
 // ResourceHealthMetadataClientListOptions contains the optional parameters for the ResourceHealthMetadataClient.NewListPager
 // method.
 type ResourceHealthMetadataClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SiteCertificatesClientCreateOrUpdateOptions contains the optional parameters for the SiteCertificatesClient.CreateOrUpdate
+// method.
+type SiteCertificatesClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SiteCertificatesClientCreateOrUpdateSlotOptions contains the optional parameters for the SiteCertificatesClient.CreateOrUpdateSlot
+// method.
+type SiteCertificatesClientCreateOrUpdateSlotOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SiteCertificatesClientDeleteOptions contains the optional parameters for the SiteCertificatesClient.Delete method.
+type SiteCertificatesClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SiteCertificatesClientDeleteSlotOptions contains the optional parameters for the SiteCertificatesClient.DeleteSlot method.
+type SiteCertificatesClientDeleteSlotOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SiteCertificatesClientGetOptions contains the optional parameters for the SiteCertificatesClient.Get method.
+type SiteCertificatesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SiteCertificatesClientGetSlotOptions contains the optional parameters for the SiteCertificatesClient.GetSlot method.
+type SiteCertificatesClientGetSlotOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SiteCertificatesClientListOptions contains the optional parameters for the SiteCertificatesClient.NewListPager method.
+type SiteCertificatesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SiteCertificatesClientListSlotOptions contains the optional parameters for the SiteCertificatesClient.NewListSlotPager
+// method.
+type SiteCertificatesClientListSlotOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SiteCertificatesClientUpdateOptions contains the optional parameters for the SiteCertificatesClient.Update method.
+type SiteCertificatesClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SiteCertificatesClientUpdateSlotOptions contains the optional parameters for the SiteCertificatesClient.UpdateSlot method.
+type SiteCertificatesClientUpdateSlotOptions struct {
 	// placeholder for future optional parameters
 }
 
