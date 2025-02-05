@@ -19,37 +19,35 @@ import (
 
 // ServerFactory is a fake server for instances of the armeventgrid.ClientFactory type.
 type ServerFactory struct {
-	CaCertificatesServer                         CaCertificatesServer
-	ChannelsServer                               ChannelsServer
-	ClientGroupsServer                           ClientGroupsServer
-	ClientsServer                                ClientsServer
-	DomainEventSubscriptionsServer               DomainEventSubscriptionsServer
-	DomainTopicEventSubscriptionsServer          DomainTopicEventSubscriptionsServer
-	DomainTopicsServer                           DomainTopicsServer
-	DomainsServer                                DomainsServer
-	EventSubscriptionsServer                     EventSubscriptionsServer
-	ExtensionTopicsServer                        ExtensionTopicsServer
-	NamespaceTopicEventSubscriptionsServer       NamespaceTopicEventSubscriptionsServer
-	NamespaceTopicsServer                        NamespaceTopicsServer
-	NamespacesServer                             NamespacesServer
-	NetworkSecurityPerimeterConfigurationsServer NetworkSecurityPerimeterConfigurationsServer
-	OperationsServer                             OperationsServer
-	PartnerConfigurationsServer                  PartnerConfigurationsServer
-	PartnerDestinationsServer                    PartnerDestinationsServer
-	PartnerNamespacesServer                      PartnerNamespacesServer
-	PartnerRegistrationsServer                   PartnerRegistrationsServer
-	PartnerTopicEventSubscriptionsServer         PartnerTopicEventSubscriptionsServer
-	PartnerTopicsServer                          PartnerTopicsServer
-	PermissionBindingsServer                     PermissionBindingsServer
-	PrivateEndpointConnectionsServer             PrivateEndpointConnectionsServer
-	PrivateLinkResourcesServer                   PrivateLinkResourcesServer
-	SystemTopicEventSubscriptionsServer          SystemTopicEventSubscriptionsServer
-	SystemTopicsServer                           SystemTopicsServer
-	TopicEventSubscriptionsServer                TopicEventSubscriptionsServer
-	TopicSpacesServer                            TopicSpacesServer
-	TopicTypesServer                             TopicTypesServer
-	TopicsServer                                 TopicsServer
-	VerifiedPartnersServer                       VerifiedPartnersServer
+	CaCertificatesServer                   CaCertificatesServer
+	ChannelsServer                         ChannelsServer
+	ClientGroupsServer                     ClientGroupsServer
+	ClientsServer                          ClientsServer
+	DomainEventSubscriptionsServer         DomainEventSubscriptionsServer
+	DomainTopicEventSubscriptionsServer    DomainTopicEventSubscriptionsServer
+	DomainTopicsServer                     DomainTopicsServer
+	DomainsServer                          DomainsServer
+	EventSubscriptionsServer               EventSubscriptionsServer
+	ExtensionTopicsServer                  ExtensionTopicsServer
+	NamespaceTopicEventSubscriptionsServer NamespaceTopicEventSubscriptionsServer
+	NamespaceTopicsServer                  NamespaceTopicsServer
+	NamespacesServer                       NamespacesServer
+	OperationsServer                       OperationsServer
+	PartnerConfigurationsServer            PartnerConfigurationsServer
+	PartnerNamespacesServer                PartnerNamespacesServer
+	PartnerRegistrationsServer             PartnerRegistrationsServer
+	PartnerTopicEventSubscriptionsServer   PartnerTopicEventSubscriptionsServer
+	PartnerTopicsServer                    PartnerTopicsServer
+	PermissionBindingsServer               PermissionBindingsServer
+	PrivateEndpointConnectionsServer       PrivateEndpointConnectionsServer
+	PrivateLinkResourcesServer             PrivateLinkResourcesServer
+	SystemTopicEventSubscriptionsServer    SystemTopicEventSubscriptionsServer
+	SystemTopicsServer                     SystemTopicsServer
+	TopicEventSubscriptionsServer          TopicEventSubscriptionsServer
+	TopicSpacesServer                      TopicSpacesServer
+	TopicTypesServer                       TopicTypesServer
+	TopicsServer                           TopicsServer
+	VerifiedPartnersServer                 VerifiedPartnersServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -64,39 +62,37 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armeventgrid.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                                            *ServerFactory
-	trMu                                           sync.Mutex
-	trCaCertificatesServer                         *CaCertificatesServerTransport
-	trChannelsServer                               *ChannelsServerTransport
-	trClientGroupsServer                           *ClientGroupsServerTransport
-	trClientsServer                                *ClientsServerTransport
-	trDomainEventSubscriptionsServer               *DomainEventSubscriptionsServerTransport
-	trDomainTopicEventSubscriptionsServer          *DomainTopicEventSubscriptionsServerTransport
-	trDomainTopicsServer                           *DomainTopicsServerTransport
-	trDomainsServer                                *DomainsServerTransport
-	trEventSubscriptionsServer                     *EventSubscriptionsServerTransport
-	trExtensionTopicsServer                        *ExtensionTopicsServerTransport
-	trNamespaceTopicEventSubscriptionsServer       *NamespaceTopicEventSubscriptionsServerTransport
-	trNamespaceTopicsServer                        *NamespaceTopicsServerTransport
-	trNamespacesServer                             *NamespacesServerTransport
-	trNetworkSecurityPerimeterConfigurationsServer *NetworkSecurityPerimeterConfigurationsServerTransport
-	trOperationsServer                             *OperationsServerTransport
-	trPartnerConfigurationsServer                  *PartnerConfigurationsServerTransport
-	trPartnerDestinationsServer                    *PartnerDestinationsServerTransport
-	trPartnerNamespacesServer                      *PartnerNamespacesServerTransport
-	trPartnerRegistrationsServer                   *PartnerRegistrationsServerTransport
-	trPartnerTopicEventSubscriptionsServer         *PartnerTopicEventSubscriptionsServerTransport
-	trPartnerTopicsServer                          *PartnerTopicsServerTransport
-	trPermissionBindingsServer                     *PermissionBindingsServerTransport
-	trPrivateEndpointConnectionsServer             *PrivateEndpointConnectionsServerTransport
-	trPrivateLinkResourcesServer                   *PrivateLinkResourcesServerTransport
-	trSystemTopicEventSubscriptionsServer          *SystemTopicEventSubscriptionsServerTransport
-	trSystemTopicsServer                           *SystemTopicsServerTransport
-	trTopicEventSubscriptionsServer                *TopicEventSubscriptionsServerTransport
-	trTopicSpacesServer                            *TopicSpacesServerTransport
-	trTopicTypesServer                             *TopicTypesServerTransport
-	trTopicsServer                                 *TopicsServerTransport
-	trVerifiedPartnersServer                       *VerifiedPartnersServerTransport
+	srv                                      *ServerFactory
+	trMu                                     sync.Mutex
+	trCaCertificatesServer                   *CaCertificatesServerTransport
+	trChannelsServer                         *ChannelsServerTransport
+	trClientGroupsServer                     *ClientGroupsServerTransport
+	trClientsServer                          *ClientsServerTransport
+	trDomainEventSubscriptionsServer         *DomainEventSubscriptionsServerTransport
+	trDomainTopicEventSubscriptionsServer    *DomainTopicEventSubscriptionsServerTransport
+	trDomainTopicsServer                     *DomainTopicsServerTransport
+	trDomainsServer                          *DomainsServerTransport
+	trEventSubscriptionsServer               *EventSubscriptionsServerTransport
+	trExtensionTopicsServer                  *ExtensionTopicsServerTransport
+	trNamespaceTopicEventSubscriptionsServer *NamespaceTopicEventSubscriptionsServerTransport
+	trNamespaceTopicsServer                  *NamespaceTopicsServerTransport
+	trNamespacesServer                       *NamespacesServerTransport
+	trOperationsServer                       *OperationsServerTransport
+	trPartnerConfigurationsServer            *PartnerConfigurationsServerTransport
+	trPartnerNamespacesServer                *PartnerNamespacesServerTransport
+	trPartnerRegistrationsServer             *PartnerRegistrationsServerTransport
+	trPartnerTopicEventSubscriptionsServer   *PartnerTopicEventSubscriptionsServerTransport
+	trPartnerTopicsServer                    *PartnerTopicsServerTransport
+	trPermissionBindingsServer               *PermissionBindingsServerTransport
+	trPrivateEndpointConnectionsServer       *PrivateEndpointConnectionsServerTransport
+	trPrivateLinkResourcesServer             *PrivateLinkResourcesServerTransport
+	trSystemTopicEventSubscriptionsServer    *SystemTopicEventSubscriptionsServerTransport
+	trSystemTopicsServer                     *SystemTopicsServerTransport
+	trTopicEventSubscriptionsServer          *TopicEventSubscriptionsServerTransport
+	trTopicSpacesServer                      *TopicSpacesServerTransport
+	trTopicTypesServer                       *TopicTypesServerTransport
+	trTopicsServer                           *TopicsServerTransport
+	trVerifiedPartnersServer                 *VerifiedPartnersServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -165,11 +161,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "NamespacesClient":
 		initServer(s, &s.trNamespacesServer, func() *NamespacesServerTransport { return NewNamespacesServerTransport(&s.srv.NamespacesServer) })
 		resp, err = s.trNamespacesServer.Do(req)
-	case "NetworkSecurityPerimeterConfigurationsClient":
-		initServer(s, &s.trNetworkSecurityPerimeterConfigurationsServer, func() *NetworkSecurityPerimeterConfigurationsServerTransport {
-			return NewNetworkSecurityPerimeterConfigurationsServerTransport(&s.srv.NetworkSecurityPerimeterConfigurationsServer)
-		})
-		resp, err = s.trNetworkSecurityPerimeterConfigurationsServer.Do(req)
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
@@ -178,11 +169,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewPartnerConfigurationsServerTransport(&s.srv.PartnerConfigurationsServer)
 		})
 		resp, err = s.trPartnerConfigurationsServer.Do(req)
-	case "PartnerDestinationsClient":
-		initServer(s, &s.trPartnerDestinationsServer, func() *PartnerDestinationsServerTransport {
-			return NewPartnerDestinationsServerTransport(&s.srv.PartnerDestinationsServer)
-		})
-		resp, err = s.trPartnerDestinationsServer.Do(req)
 	case "PartnerNamespacesClient":
 		initServer(s, &s.trPartnerNamespacesServer, func() *PartnerNamespacesServerTransport {
 			return NewPartnerNamespacesServerTransport(&s.srv.PartnerNamespacesServer)
