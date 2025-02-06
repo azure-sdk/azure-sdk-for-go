@@ -10,7 +10,7 @@ package armtrafficmanager
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/trafficmanager/armtrafficmanager"
-	moduleVersion = "v1.3.0"
+	moduleVersion = "v1.3.1"
 )
 
 // AllowedEndpointRecordType - The allowed type DNS record types for this profile.
