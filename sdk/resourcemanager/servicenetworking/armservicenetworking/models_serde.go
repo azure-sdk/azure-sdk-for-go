@@ -384,6 +384,72 @@ func (f *FrontendUpdate) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type IPAccessPolicy.
+func (i IPAccessPolicy) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "rules", i.Rules)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type IPAccessPolicy.
+func (i *IPAccessPolicy) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", i, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "rules":
+			err = unpopulate(val, "Rules", &i.Rules)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", i, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type IPAccessRule.
+func (i IPAccessRule) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "action", i.Action)
+	populate(objectMap, "name", i.Name)
+	populate(objectMap, "priority", i.Priority)
+	populate(objectMap, "sourceAddressPrefixes", i.SourceAddressPrefixes)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type IPAccessRule.
+func (i *IPAccessRule) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", i, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "action":
+			err = unpopulate(val, "Action", &i.Action)
+			delete(rawMsg, key)
+		case "name":
+			err = unpopulate(val, "Name", &i.Name)
+			delete(rawMsg, key)
+		case "priority":
+			err = unpopulate(val, "Priority", &i.Priority)
+			delete(rawMsg, key)
+		case "sourceAddressPrefixes":
+			err = unpopulate(val, "SourceAddressPrefixes", &i.SourceAddressPrefixes)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", i, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type Operation.
 func (o Operation) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -636,6 +702,7 @@ func (s *SecurityPolicyListResult) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type SecurityPolicyProperties.
 func (s SecurityPolicyProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "ipAccessPolicy", s.IPAccessPolicy)
 	populate(objectMap, "policyType", s.PolicyType)
 	populate(objectMap, "provisioningState", s.ProvisioningState)
 	populate(objectMap, "wafPolicy", s.WafPolicy)
@@ -651,6 +718,9 @@ func (s *SecurityPolicyProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "ipAccessPolicy":
+			err = unpopulate(val, "IPAccessPolicy", &s.IPAccessPolicy)
+			delete(rawMsg, key)
 		case "policyType":
 			err = unpopulate(val, "PolicyType", &s.PolicyType)
 			delete(rawMsg, key)
@@ -702,6 +772,7 @@ func (s *SecurityPolicyUpdate) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type SecurityPolicyUpdateProperties.
 func (s SecurityPolicyUpdateProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "ipAccessPolicy", s.IPAccessPolicy)
 	populate(objectMap, "wafPolicy", s.WafPolicy)
 	return json.Marshal(objectMap)
 }
@@ -715,6 +786,9 @@ func (s *SecurityPolicyUpdateProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "ipAccessPolicy":
+			err = unpopulate(val, "IPAccessPolicy", &s.IPAccessPolicy)
+			delete(rawMsg, key)
 		case "wafPolicy":
 			err = unpopulate(val, "WafPolicy", &s.WafPolicy)
 			delete(rawMsg, key)
