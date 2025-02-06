@@ -1,5 +1,56 @@
 # Release History
 
+## 10.0.0 (2025-02-06)
+### Breaking Changes
+
+- Function `*LakeHouseLinkedService.GetLinkedService` has been removed
+- Function `*LakeHouseLocation.GetDatasetLocation` has been removed
+- Function `*LakeHouseReadSettings.GetStoreReadSettings` has been removed
+- Function `*LakeHouseTableDataset.GetDataset` has been removed
+- Function `*LakeHouseTableSink.GetCopySink` has been removed
+- Function `*LakeHouseTableSource.GetCopySource` has been removed
+- Function `*LakeHouseWriteSettings.GetStoreWriteSettings` has been removed
+- Struct `LakeHouseLinkedService` has been removed
+- Struct `LakeHouseLinkedServiceTypeProperties` has been removed
+- Struct `LakeHouseLocation` has been removed
+- Struct `LakeHouseReadSettings` has been removed
+- Struct `LakeHouseTableDataset` has been removed
+- Struct `LakeHouseTableDatasetTypeProperties` has been removed
+- Struct `LakeHouseTableSink` has been removed
+- Struct `LakeHouseTableSource` has been removed
+- Struct `LakeHouseWriteSettings` has been removed
+
+### Features Added
+
+- New enum type `GreenplumAuthenticationType` with values `GreenplumAuthenticationTypeBasic`
+- New enum type `OracleAuthenticationType` with values `OracleAuthenticationTypeBasic`
+- New function `*LakehouseLinkedService.GetLinkedService() *LinkedService`
+- New function `*LakehouseLocation.GetDatasetLocation() *DatasetLocation`
+- New function `*LakehouseReadSettings.GetStoreReadSettings() *StoreReadSettings`
+- New function `*LakehouseTableDataset.GetDataset() *Dataset`
+- New function `*LakehouseTableSink.GetCopySink() *CopySink`
+- New function `*LakehouseTableSource.GetCopySource() *CopySource`
+- New function `*LakehouseWriteSettings.GetStoreWriteSettings() *StoreWriteSettings`
+- New function `*TeradataImportCommand.GetImportSettings() *ImportSettings`
+- New function `*TeradataSink.GetCopySink() *CopySink`
+- New struct `LakehouseLinkedService`
+- New struct `LakehouseLinkedServiceTypeProperties`
+- New struct `LakehouseLocation`
+- New struct `LakehouseReadSettings`
+- New struct `LakehouseTableDataset`
+- New struct `LakehouseTableDatasetTypeProperties`
+- New struct `LakehouseTableSink`
+- New struct `LakehouseTableSource`
+- New struct `LakehouseWriteSettings`
+- New struct `TeradataImportCommand`
+- New struct `TeradataSink`
+- New field `AzureCloudType`, `Credential`, `ServicePrincipalCredentialType`, `ServicePrincipalEmbeddedCert`, `ServicePrincipalEmbeddedCertPassword`, `ServicePrincipalID`, `ServicePrincipalKey`, `Tenant` in struct `AzurePostgreSQLLinkedServiceTypeProperties`
+- New field `AuthenticationType`, `CommandTimeout`, `ConnectionTimeout`, `Database`, `Host`, `Password`, `Port`, `SSLMode`, `Username` in struct `GreenplumLinkedServiceTypeProperties`
+- New field `AuthenticationType`, `CryptoChecksumClient`, `CryptoChecksumTypesClient`, `EnableBulkLoad`, `EncryptionClient`, `EncryptionTypesClient`, `FetchSize`, `FetchTswtzAsTimestamp`, `InitialLobFetchSize`, `InitializationString`, `Server`, `StatementCacheSize`, `SupportV1DataTypes`, `Username` in struct `OracleLinkedServiceTypeProperties`
+- New field `ReturnMultistatementResult` in struct `ScriptActivityTypeProperties`
+- New field `CharacterSet`, `HTTPSPortNumber`, `MaxRespSize`, `PortNumber`, `SSLMode`, `UseDataEncryption` in struct `TeradataLinkedServiceTypeProperties`
+
+
 ## 9.1.0 (2024-12-26)
 ### Features Added
 
