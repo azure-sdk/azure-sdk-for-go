@@ -1,5 +1,26 @@
 # Release History
 
+## 1.3.0 (2025-02-06)
+### Features Added
+
+- New enum type `PublicNetworkAccessType` with values `PublicNetworkAccessTypeDisabled`, `PublicNetworkAccessTypeEnabled`
+- New enum type `TpmAttestationAuthenticationType` with values `TpmAttestationAuthenticationTypeDisabled`, `TpmAttestationAuthenticationTypeEnabled`
+- New function `*ClientFactory.NewPrivateLinkResourcesClient() *PrivateLinkResourcesClient`
+- New function `NewPrivateLinkResourcesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PrivateLinkResourcesClient, error)`
+- New function `*PrivateLinkResourcesClient.ListByProvider(context.Context, string, string, *PrivateLinkResourcesClientListByProviderOptions) (PrivateLinkResourcesClientListByProviderResponse, error)`
+- New struct `LogSpecification`
+- New struct `OperationProperties`
+- New struct `PrivateLinkResource`
+- New struct `PrivateLinkResourceListResult`
+- New struct `PrivateLinkResourceProperties`
+- New struct `ServicePatchSpecificParams`
+- New struct `ServiceSpecification`
+- New field `Properties` in struct `OperationsDefinition`
+- New field `PublicNetworkAccess`, `TpmAttestationAuthentication` in struct `ServiceCreationSpecificParams`
+- New field `Properties` in struct `ServicePatchParams`
+- New field `PublicNetworkAccess`, `TpmAttestationAuthentication` in struct `StatusResult`
+
+
 ## 1.2.0 (2023-11-24)
 ### Features Added
 
