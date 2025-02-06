@@ -51,14 +51,6 @@ func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	}
 }
 
-// NewWorkspaceClient creates a new instance of WorkspaceClient.
-func (c *ClientFactory) NewWorkspaceClient() *WorkspaceClient {
-	return &WorkspaceClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
-	}
-}
-
 // NewWorkspacesClient creates a new instance of WorkspacesClient.
 func (c *ClientFactory) NewWorkspacesClient() *WorkspacesClient {
 	return &WorkspacesClient{
