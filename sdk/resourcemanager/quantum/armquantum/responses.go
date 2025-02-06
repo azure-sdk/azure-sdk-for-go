@@ -16,30 +16,19 @@ type OfferingsClientListResponse struct {
 
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
-	// Lists the operations available.
-	OperationsList
+	// A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to get the next set of results.
+	OperationListResult
 }
 
-// WorkspaceClientCheckNameAvailabilityResponse contains the response from method WorkspaceClient.CheckNameAvailability.
-type WorkspaceClientCheckNameAvailabilityResponse struct {
-	// Result of check name availability.
-	CheckNameAvailabilityResult
-}
-
-// WorkspaceClientListKeysResponse contains the response from method WorkspaceClient.ListKeys.
-type WorkspaceClientListKeysResponse struct {
-	// Result of list Api keys and connection strings.
-	ListKeysResult
-}
-
-// WorkspaceClientRegenerateKeysResponse contains the response from method WorkspaceClient.RegenerateKeys.
-type WorkspaceClientRegenerateKeysResponse struct {
-	// placeholder for future response values
+// WorkspacesClientCheckNameAvailabilityResponse contains the response from method WorkspacesClient.CheckNameAvailability.
+type WorkspacesClientCheckNameAvailabilityResponse struct {
+	// The check availability result.
+	CheckNameAvailabilityResponse
 }
 
 // WorkspacesClientCreateOrUpdateResponse contains the response from method WorkspacesClient.BeginCreateOrUpdate.
 type WorkspacesClientCreateOrUpdateResponse struct {
-	// The resource proxy definition object for quantum workspace.
+	// The resource proxy definition object for Quantum Workspace.
 	Workspace
 }
 
@@ -50,24 +39,35 @@ type WorkspacesClientDeleteResponse struct {
 
 // WorkspacesClientGetResponse contains the response from method WorkspacesClient.Get.
 type WorkspacesClientGetResponse struct {
-	// The resource proxy definition object for quantum workspace.
+	// The resource proxy definition object for Quantum Workspace.
 	Workspace
 }
 
 // WorkspacesClientListByResourceGroupResponse contains the response from method WorkspacesClient.NewListByResourceGroupPager.
 type WorkspacesClientListByResourceGroupResponse struct {
-	// The response of a list Workspaces operation.
+	// The response of a QuantumWorkspace list operation.
 	WorkspaceListResult
 }
 
 // WorkspacesClientListBySubscriptionResponse contains the response from method WorkspacesClient.NewListBySubscriptionPager.
 type WorkspacesClientListBySubscriptionResponse struct {
-	// The response of a list Workspaces operation.
+	// The response of a QuantumWorkspace list operation.
 	WorkspaceListResult
+}
+
+// WorkspacesClientListKeysResponse contains the response from method WorkspacesClient.ListKeys.
+type WorkspacesClientListKeysResponse struct {
+	// Result of list Api keys and connection strings.
+	ListKeysResult
+}
+
+// WorkspacesClientRegenerateKeysResponse contains the response from method WorkspacesClient.RegenerateKeys.
+type WorkspacesClientRegenerateKeysResponse struct {
+	// placeholder for future response values
 }
 
 // WorkspacesClientUpdateTagsResponse contains the response from method WorkspacesClient.UpdateTags.
 type WorkspacesClientUpdateTagsResponse struct {
-	// The resource proxy definition object for quantum workspace.
+	// The resource proxy definition object for Quantum Workspace.
 	Workspace
 }

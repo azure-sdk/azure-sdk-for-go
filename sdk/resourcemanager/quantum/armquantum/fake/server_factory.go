@@ -21,7 +21,6 @@ import (
 type ServerFactory struct {
 	OfferingsServer  OfferingsServer
 	OperationsServer OperationsServer
-	WorkspaceServer  WorkspaceServer
 	WorkspacesServer WorkspacesServer
 }
 
@@ -41,7 +40,6 @@ type ServerFactoryTransport struct {
 	trMu               sync.Mutex
 	trOfferingsServer  *OfferingsServerTransport
 	trOperationsServer *OperationsServerTransport
-	trWorkspaceServer  *WorkspaceServerTransport
 	trWorkspacesServer *WorkspacesServerTransport
 }
 
@@ -64,9 +62,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
-	case "WorkspaceClient":
-		initServer(s, &s.trWorkspaceServer, func() *WorkspaceServerTransport { return NewWorkspaceServerTransport(&s.srv.WorkspaceServer) })
-		resp, err = s.trWorkspaceServer.Do(req)
 	case "WorkspacesClient":
 		initServer(s, &s.trWorkspacesServer, func() *WorkspacesServerTransport { return NewWorkspacesServerTransport(&s.srv.WorkspacesServer) })
 		resp, err = s.trWorkspacesServer.Do(req)
