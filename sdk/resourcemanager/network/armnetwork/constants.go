@@ -10,7 +10,7 @@ package armnetwork
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork"
-	moduleVersion = "v6.2.0"
+	moduleVersion = "v7.0.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -116,6 +116,39 @@ func PossibleAdminStateValues() []AdminState {
 	return []AdminState{
 		AdminStateDisabled,
 		AdminStateEnabled,
+	}
+}
+
+// AdvertisedPublicPrefixPropertiesValidationState - Advertised Public Prefix State that denotes if the prefix is validated
+// or not.
+type AdvertisedPublicPrefixPropertiesValidationState string
+
+const (
+	AdvertisedPublicPrefixPropertiesValidationStateAsnValidationFailed                 AdvertisedPublicPrefixPropertiesValidationState = "AsnValidationFailed"
+	AdvertisedPublicPrefixPropertiesValidationStateCertificateMissingInRoutingRegistry AdvertisedPublicPrefixPropertiesValidationState = "CertificateMissingInRoutingRegistry"
+	AdvertisedPublicPrefixPropertiesValidationStateConfigured                          AdvertisedPublicPrefixPropertiesValidationState = "Configured"
+	AdvertisedPublicPrefixPropertiesValidationStateConfiguring                         AdvertisedPublicPrefixPropertiesValidationState = "Configuring"
+	AdvertisedPublicPrefixPropertiesValidationStateInvalidSignatureEncoding            AdvertisedPublicPrefixPropertiesValidationState = "InvalidSignatureEncoding"
+	AdvertisedPublicPrefixPropertiesValidationStateManualValidationNeeded              AdvertisedPublicPrefixPropertiesValidationState = "ManualValidationNeeded"
+	AdvertisedPublicPrefixPropertiesValidationStateNotConfigured                       AdvertisedPublicPrefixPropertiesValidationState = "NotConfigured"
+	AdvertisedPublicPrefixPropertiesValidationStateSignatureVerificationFailed         AdvertisedPublicPrefixPropertiesValidationState = "SignatureVerificationFailed"
+	AdvertisedPublicPrefixPropertiesValidationStateValidationFailed                    AdvertisedPublicPrefixPropertiesValidationState = "ValidationFailed"
+	AdvertisedPublicPrefixPropertiesValidationStateValidationNeeded                    AdvertisedPublicPrefixPropertiesValidationState = "ValidationNeeded"
+)
+
+// PossibleAdvertisedPublicPrefixPropertiesValidationStateValues returns the possible values for the AdvertisedPublicPrefixPropertiesValidationState const type.
+func PossibleAdvertisedPublicPrefixPropertiesValidationStateValues() []AdvertisedPublicPrefixPropertiesValidationState {
+	return []AdvertisedPublicPrefixPropertiesValidationState{
+		AdvertisedPublicPrefixPropertiesValidationStateAsnValidationFailed,
+		AdvertisedPublicPrefixPropertiesValidationStateCertificateMissingInRoutingRegistry,
+		AdvertisedPublicPrefixPropertiesValidationStateConfigured,
+		AdvertisedPublicPrefixPropertiesValidationStateConfiguring,
+		AdvertisedPublicPrefixPropertiesValidationStateInvalidSignatureEncoding,
+		AdvertisedPublicPrefixPropertiesValidationStateManualValidationNeeded,
+		AdvertisedPublicPrefixPropertiesValidationStateNotConfigured,
+		AdvertisedPublicPrefixPropertiesValidationStateSignatureVerificationFailed,
+		AdvertisedPublicPrefixPropertiesValidationStateValidationFailed,
+		AdvertisedPublicPrefixPropertiesValidationStateValidationNeeded,
 	}
 }
 
@@ -240,16 +273,20 @@ func PossibleApplicationGatewayFirewallRateLimitDurationValues() []ApplicationGa
 type ApplicationGatewayFirewallUserSessionVariable string
 
 const (
-	ApplicationGatewayFirewallUserSessionVariableClientAddr  ApplicationGatewayFirewallUserSessionVariable = "ClientAddr"
-	ApplicationGatewayFirewallUserSessionVariableGeoLocation ApplicationGatewayFirewallUserSessionVariable = "GeoLocation"
-	ApplicationGatewayFirewallUserSessionVariableNone        ApplicationGatewayFirewallUserSessionVariable = "None"
+	ApplicationGatewayFirewallUserSessionVariableClientAddr           ApplicationGatewayFirewallUserSessionVariable = "ClientAddr"
+	ApplicationGatewayFirewallUserSessionVariableClientAddrXFFHeader  ApplicationGatewayFirewallUserSessionVariable = "ClientAddrXFFHeader"
+	ApplicationGatewayFirewallUserSessionVariableGeoLocation          ApplicationGatewayFirewallUserSessionVariable = "GeoLocation"
+	ApplicationGatewayFirewallUserSessionVariableGeoLocationXFFHeader ApplicationGatewayFirewallUserSessionVariable = "GeoLocationXFFHeader"
+	ApplicationGatewayFirewallUserSessionVariableNone                 ApplicationGatewayFirewallUserSessionVariable = "None"
 )
 
 // PossibleApplicationGatewayFirewallUserSessionVariableValues returns the possible values for the ApplicationGatewayFirewallUserSessionVariable const type.
 func PossibleApplicationGatewayFirewallUserSessionVariableValues() []ApplicationGatewayFirewallUserSessionVariable {
 	return []ApplicationGatewayFirewallUserSessionVariable{
 		ApplicationGatewayFirewallUserSessionVariableClientAddr,
+		ApplicationGatewayFirewallUserSessionVariableClientAddrXFFHeader,
 		ApplicationGatewayFirewallUserSessionVariableGeoLocation,
+		ApplicationGatewayFirewallUserSessionVariableGeoLocationXFFHeader,
 		ApplicationGatewayFirewallUserSessionVariableNone,
 	}
 }
@@ -974,6 +1011,47 @@ func PossibleConfigurationTypeValues() []ConfigurationType {
 		ConfigurationTypeRouting,
 		ConfigurationTypeSecurityAdmin,
 		ConfigurationTypeSecurityUser,
+	}
+}
+
+// ConnectedGroupAddressOverlap - Behavior to handle overlapped IP address space among members of the connected group of the
+// connectivity configuration.
+type ConnectedGroupAddressOverlap string
+
+const (
+	// ConnectedGroupAddressOverlapAllowed - Default. Allows connected group members to have overlapping IP address space.
+	ConnectedGroupAddressOverlapAllowed ConnectedGroupAddressOverlap = "Allowed"
+	// ConnectedGroupAddressOverlapDisallowed - Strictly disallows connected group members from having overlapping IP address
+	// space. Prevents the addition of a virtual network with overlapping address to the connected group, blocks peering between
+	// a virtual network and a connected group member if any connected group member has an overlapping range, and restricts address
+	// space modifications that would introduce overlap.
+	ConnectedGroupAddressOverlapDisallowed ConnectedGroupAddressOverlap = "Disallowed"
+)
+
+// PossibleConnectedGroupAddressOverlapValues returns the possible values for the ConnectedGroupAddressOverlap const type.
+func PossibleConnectedGroupAddressOverlapValues() []ConnectedGroupAddressOverlap {
+	return []ConnectedGroupAddressOverlap{
+		ConnectedGroupAddressOverlapAllowed,
+		ConnectedGroupAddressOverlapDisallowed,
+	}
+}
+
+// ConnectedGroupPrivateEndpointScale - Option indicating the scale of private endpoints allowed in the connected group of
+// the connectivity configuration.
+type ConnectedGroupPrivateEndpointScale string
+
+const (
+	// ConnectedGroupPrivateEndpointScaleHighScale - Allows for up to 20K private endpoints in the connected group.
+	ConnectedGroupPrivateEndpointScaleHighScale ConnectedGroupPrivateEndpointScale = "HighScale"
+	// ConnectedGroupPrivateEndpointScaleStandard - Default. Allows for up to 2K private endpoints in the connected group.
+	ConnectedGroupPrivateEndpointScaleStandard ConnectedGroupPrivateEndpointScale = "Standard"
+)
+
+// PossibleConnectedGroupPrivateEndpointScaleValues returns the possible values for the ConnectedGroupPrivateEndpointScale const type.
+func PossibleConnectedGroupPrivateEndpointScaleValues() []ConnectedGroupPrivateEndpointScale {
+	return []ConnectedGroupPrivateEndpointScale{
+		ConnectedGroupPrivateEndpointScaleHighScale,
+		ConnectedGroupPrivateEndpointScaleStandard,
 	}
 }
 
@@ -3071,6 +3149,26 @@ func PossiblePcStatusValues() []PcStatus {
 		PcStatusRunning,
 		PcStatusStopped,
 		PcStatusUnknown,
+	}
+}
+
+// PeeringEnforcement - Option indicating enforcement of peerings created by the connectivity configuration.
+type PeeringEnforcement string
+
+const (
+	// PeeringEnforcementEnforced - Peerings created by the connectivity configuration will not be modifiable or deletable outside
+	// of the network manager.
+	PeeringEnforcementEnforced PeeringEnforcement = "Enforced"
+	// PeeringEnforcementUnenforced - Default. Peerings created by the connectivity configuration may be modified or deleted outside
+	// of the network manager.
+	PeeringEnforcementUnenforced PeeringEnforcement = "Unenforced"
+)
+
+// PossiblePeeringEnforcementValues returns the possible values for the PeeringEnforcement const type.
+func PossiblePeeringEnforcementValues() []PeeringEnforcement {
+	return []PeeringEnforcement{
+		PeeringEnforcementEnforced,
+		PeeringEnforcementUnenforced,
 	}
 }
 

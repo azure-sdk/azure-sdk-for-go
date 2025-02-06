@@ -1,5 +1,27 @@
 # Release History
 
+## 7.0.0 (2025-02-06)
+### Breaking Changes
+
+- Type of `LoadBalancerHealthPerRulePerBackendAddress.NetworkInterfaceIPConfigurationID` has been changed from `*InterfaceIPConfiguration` to `*string`
+
+### Features Added
+
+- New value `ApplicationGatewayFirewallUserSessionVariableClientAddrXFFHeader`, `ApplicationGatewayFirewallUserSessionVariableGeoLocationXFFHeader` added to enum type `ApplicationGatewayFirewallUserSessionVariable`
+- New enum type `AdvertisedPublicPrefixPropertiesValidationState` with values `AdvertisedPublicPrefixPropertiesValidationStateAsnValidationFailed`, `AdvertisedPublicPrefixPropertiesValidationStateCertificateMissingInRoutingRegistry`, `AdvertisedPublicPrefixPropertiesValidationStateConfigured`, `AdvertisedPublicPrefixPropertiesValidationStateConfiguring`, `AdvertisedPublicPrefixPropertiesValidationStateInvalidSignatureEncoding`, `AdvertisedPublicPrefixPropertiesValidationStateManualValidationNeeded`, `AdvertisedPublicPrefixPropertiesValidationStateNotConfigured`, `AdvertisedPublicPrefixPropertiesValidationStateSignatureVerificationFailed`, `AdvertisedPublicPrefixPropertiesValidationStateValidationFailed`, `AdvertisedPublicPrefixPropertiesValidationStateValidationNeeded`
+- New enum type `ConnectedGroupAddressOverlap` with values `ConnectedGroupAddressOverlapAllowed`, `ConnectedGroupAddressOverlapDisallowed`
+- New enum type `ConnectedGroupPrivateEndpointScale` with values `ConnectedGroupPrivateEndpointScaleHighScale`, `ConnectedGroupPrivateEndpointScaleStandard`
+- New enum type `PeeringEnforcement` with values `PeeringEnforcementEnforced`, `PeeringEnforcementUnenforced`
+- New function `*VirtualAppliancesClient.BeginGetBootDiagnosticLogs(context.Context, string, string, VirtualApplianceBootDiagnosticParameters, *VirtualAppliancesClientBeginGetBootDiagnosticLogsOptions) (*runtime.Poller[VirtualAppliancesClientGetBootDiagnosticLogsResponse], error)`
+- New function `*VirtualAppliancesClient.BeginReimage(context.Context, string, string, *VirtualAppliancesClientBeginReimageOptions) (*runtime.Poller[VirtualAppliancesClientReimageResponse], error)`
+- New struct `AdvertisedPublicPrefixProperties`
+- New struct `ConnectivityCapabilitiesItem`
+- New struct `VirtualApplianceBootDiagnosticParameters`
+- New struct `VirtualApplianceInstanceID`
+- New field `ConnectivityCapabilities` in struct `ConnectivityConfigurationProperties`
+- New field `AdvertisedPublicPrefixInfo` in struct `ExpressRouteCircuitPeeringConfig`
+
+
 ## 6.2.0 (2024-12-09)
 ### Features Added
 
