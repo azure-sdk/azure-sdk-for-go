@@ -227,6 +227,7 @@ func (c ConfigurationStoreProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "privateEndpointConnections", c.PrivateEndpointConnections)
 	populate(objectMap, "provisioningState", c.ProvisioningState)
 	populate(objectMap, "publicNetworkAccess", c.PublicNetworkAccess)
+	populate(objectMap, "revisionRetentionPeriodInSeconds", c.RevisionRetentionPeriodInSeconds)
 	populate(objectMap, "softDeleteRetentionInDays", c.SoftDeleteRetentionInDays)
 	return json.Marshal(objectMap)
 }
@@ -270,6 +271,9 @@ func (c *ConfigurationStoreProperties) UnmarshalJSON(data []byte) error {
 		case "publicNetworkAccess":
 			err = unpopulate(val, "PublicNetworkAccess", &c.PublicNetworkAccess)
 			delete(rawMsg, key)
+		case "revisionRetentionPeriodInSeconds":
+			err = unpopulate(val, "RevisionRetentionPeriodInSeconds", &c.RevisionRetentionPeriodInSeconds)
+			delete(rawMsg, key)
 		case "softDeleteRetentionInDays":
 			err = unpopulate(val, "SoftDeleteRetentionInDays", &c.SoftDeleteRetentionInDays)
 			delete(rawMsg, key)
@@ -289,6 +293,7 @@ func (c ConfigurationStorePropertiesUpdateParameters) MarshalJSON() ([]byte, err
 	populate(objectMap, "enablePurgeProtection", c.EnablePurgeProtection)
 	populate(objectMap, "encryption", c.Encryption)
 	populate(objectMap, "publicNetworkAccess", c.PublicNetworkAccess)
+	populate(objectMap, "revisionRetentionPeriodInSeconds", c.RevisionRetentionPeriodInSeconds)
 	return json.Marshal(objectMap)
 }
 
@@ -315,6 +320,9 @@ func (c *ConfigurationStorePropertiesUpdateParameters) UnmarshalJSON(data []byte
 			delete(rawMsg, key)
 		case "publicNetworkAccess":
 			err = unpopulate(val, "PublicNetworkAccess", &c.PublicNetworkAccess)
+			delete(rawMsg, key)
+		case "revisionRetentionPeriodInSeconds":
+			err = unpopulate(val, "RevisionRetentionPeriodInSeconds", &c.RevisionRetentionPeriodInSeconds)
 			delete(rawMsg, key)
 		}
 		if err != nil {
