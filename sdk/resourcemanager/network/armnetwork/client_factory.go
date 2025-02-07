@@ -644,6 +644,86 @@ func (c *ClientFactory) NewNatRulesClient() *NatRulesClient {
 	}
 }
 
+// NewNspAccessRulesClient creates a new instance of NspAccessRulesClient.
+func (c *ClientFactory) NewNspAccessRulesClient() *NspAccessRulesClient {
+	return &NspAccessRulesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewNspAccessRulesReconcileClient creates a new instance of NspAccessRulesReconcileClient.
+func (c *ClientFactory) NewNspAccessRulesReconcileClient() *NspAccessRulesReconcileClient {
+	return &NspAccessRulesReconcileClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewNspAssociationReconcileClient creates a new instance of NspAssociationReconcileClient.
+func (c *ClientFactory) NewNspAssociationReconcileClient() *NspAssociationReconcileClient {
+	return &NspAssociationReconcileClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewNspAssociationsClient creates a new instance of NspAssociationsClient.
+func (c *ClientFactory) NewNspAssociationsClient() *NspAssociationsClient {
+	return &NspAssociationsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewNspLinkReferencesClient creates a new instance of NspLinkReferencesClient.
+func (c *ClientFactory) NewNspLinkReferencesClient() *NspLinkReferencesClient {
+	return &NspLinkReferencesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewNspLinksClient creates a new instance of NspLinksClient.
+func (c *ClientFactory) NewNspLinksClient() *NspLinksClient {
+	return &NspLinksClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewNspLoggingConfigurationClient creates a new instance of NspLoggingConfigurationClient.
+func (c *ClientFactory) NewNspLoggingConfigurationClient() *NspLoggingConfigurationClient {
+	return &NspLoggingConfigurationClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewNspLoggingConfigurationsClient creates a new instance of NspLoggingConfigurationsClient.
+func (c *ClientFactory) NewNspLoggingConfigurationsClient() *NspLoggingConfigurationsClient {
+	return &NspLoggingConfigurationsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewNspOperationStatusClient creates a new instance of NspOperationStatusClient.
+func (c *ClientFactory) NewNspOperationStatusClient() *NspOperationStatusClient {
+	return &NspOperationStatusClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewNspProfilesClient creates a new instance of NspProfilesClient.
+func (c *ClientFactory) NewNspProfilesClient() *NspProfilesClient {
+	return &NspProfilesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewOperationsClient creates a new instance of OperationsClient.
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	return &OperationsClient{
@@ -670,6 +750,14 @@ func (c *ClientFactory) NewPacketCapturesClient() *PacketCapturesClient {
 // NewPeerExpressRouteCircuitConnectionsClient creates a new instance of PeerExpressRouteCircuitConnectionsClient.
 func (c *ClientFactory) NewPeerExpressRouteCircuitConnectionsClient() *PeerExpressRouteCircuitConnectionsClient {
 	return &PeerExpressRouteCircuitConnectionsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewPerimeterAssociableResourceTypesClient creates a new instance of PerimeterAssociableResourceTypesClient.
+func (c *ClientFactory) NewPerimeterAssociableResourceTypesClient() *PerimeterAssociableResourceTypesClient {
+	return &PerimeterAssociableResourceTypesClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
@@ -838,6 +926,14 @@ func (c *ClientFactory) NewSecurityGroupsClient() *SecurityGroupsClient {
 // NewSecurityPartnerProvidersClient creates a new instance of SecurityPartnerProvidersClient.
 func (c *ClientFactory) NewSecurityPartnerProvidersClient() *SecurityPartnerProvidersClient {
 	return &SecurityPartnerProvidersClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewSecurityPerimetersClient creates a new instance of SecurityPerimetersClient.
+func (c *ClientFactory) NewSecurityPerimetersClient() *SecurityPerimetersClient {
+	return &SecurityPerimetersClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}

@@ -95,10 +95,21 @@ type ServerFactory struct {
 	ManagersServer                                        ManagersServer
 	NatGatewaysServer                                     NatGatewaysServer
 	NatRulesServer                                        NatRulesServer
+	NspAccessRulesServer                                  NspAccessRulesServer
+	NspAccessRulesReconcileServer                         NspAccessRulesReconcileServer
+	NspAssociationReconcileServer                         NspAssociationReconcileServer
+	NspAssociationsServer                                 NspAssociationsServer
+	NspLinkReferencesServer                               NspLinkReferencesServer
+	NspLinksServer                                        NspLinksServer
+	NspLoggingConfigurationServer                         NspLoggingConfigurationServer
+	NspLoggingConfigurationsServer                        NspLoggingConfigurationsServer
+	NspOperationStatusServer                              NspOperationStatusServer
+	NspProfilesServer                                     NspProfilesServer
 	OperationsServer                                      OperationsServer
 	P2SVPNGatewaysServer                                  P2SVPNGatewaysServer
 	PacketCapturesServer                                  PacketCapturesServer
 	PeerExpressRouteCircuitConnectionsServer              PeerExpressRouteCircuitConnectionsServer
+	PerimeterAssociableResourceTypesServer                PerimeterAssociableResourceTypesServer
 	PrivateDNSZoneGroupsServer                            PrivateDNSZoneGroupsServer
 	PrivateEndpointsServer                                PrivateEndpointsServer
 	PrivateLinkServicesServer                             PrivateLinkServicesServer
@@ -120,6 +131,7 @@ type ServerFactory struct {
 	SecurityAdminConfigurationsServer                     SecurityAdminConfigurationsServer
 	SecurityGroupsServer                                  SecurityGroupsServer
 	SecurityPartnerProvidersServer                        SecurityPartnerProvidersServer
+	SecurityPerimetersServer                              SecurityPerimetersServer
 	SecurityRulesServer                                   SecurityRulesServer
 	SecurityUserConfigurationsServer                      SecurityUserConfigurationsServer
 	SecurityUserRuleCollectionsServer                     SecurityUserRuleCollectionsServer
@@ -258,10 +270,21 @@ type ServerFactoryTransport struct {
 	trManagersServer                                        *ManagersServerTransport
 	trNatGatewaysServer                                     *NatGatewaysServerTransport
 	trNatRulesServer                                        *NatRulesServerTransport
+	trNspAccessRulesServer                                  *NspAccessRulesServerTransport
+	trNspAccessRulesReconcileServer                         *NspAccessRulesReconcileServerTransport
+	trNspAssociationReconcileServer                         *NspAssociationReconcileServerTransport
+	trNspAssociationsServer                                 *NspAssociationsServerTransport
+	trNspLinkReferencesServer                               *NspLinkReferencesServerTransport
+	trNspLinksServer                                        *NspLinksServerTransport
+	trNspLoggingConfigurationServer                         *NspLoggingConfigurationServerTransport
+	trNspLoggingConfigurationsServer                        *NspLoggingConfigurationsServerTransport
+	trNspOperationStatusServer                              *NspOperationStatusServerTransport
+	trNspProfilesServer                                     *NspProfilesServerTransport
 	trOperationsServer                                      *OperationsServerTransport
 	trP2SVPNGatewaysServer                                  *P2SVPNGatewaysServerTransport
 	trPacketCapturesServer                                  *PacketCapturesServerTransport
 	trPeerExpressRouteCircuitConnectionsServer              *PeerExpressRouteCircuitConnectionsServerTransport
+	trPerimeterAssociableResourceTypesServer                *PerimeterAssociableResourceTypesServerTransport
 	trPrivateDNSZoneGroupsServer                            *PrivateDNSZoneGroupsServerTransport
 	trPrivateEndpointsServer                                *PrivateEndpointsServerTransport
 	trPrivateLinkServicesServer                             *PrivateLinkServicesServerTransport
@@ -283,6 +306,7 @@ type ServerFactoryTransport struct {
 	trSecurityAdminConfigurationsServer                     *SecurityAdminConfigurationsServerTransport
 	trSecurityGroupsServer                                  *SecurityGroupsServerTransport
 	trSecurityPartnerProvidersServer                        *SecurityPartnerProvidersServerTransport
+	trSecurityPerimetersServer                              *SecurityPerimetersServerTransport
 	trSecurityRulesServer                                   *SecurityRulesServerTransport
 	trSecurityUserConfigurationsServer                      *SecurityUserConfigurationsServerTransport
 	trSecurityUserRuleCollectionsServer                     *SecurityUserRuleCollectionsServerTransport
@@ -702,6 +726,52 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "NatRulesClient":
 		initServer(s, &s.trNatRulesServer, func() *NatRulesServerTransport { return NewNatRulesServerTransport(&s.srv.NatRulesServer) })
 		resp, err = s.trNatRulesServer.Do(req)
+	case "NspAccessRulesClient":
+		initServer(s, &s.trNspAccessRulesServer, func() *NspAccessRulesServerTransport {
+			return NewNspAccessRulesServerTransport(&s.srv.NspAccessRulesServer)
+		})
+		resp, err = s.trNspAccessRulesServer.Do(req)
+	case "NspAccessRulesReconcileClient":
+		initServer(s, &s.trNspAccessRulesReconcileServer, func() *NspAccessRulesReconcileServerTransport {
+			return NewNspAccessRulesReconcileServerTransport(&s.srv.NspAccessRulesReconcileServer)
+		})
+		resp, err = s.trNspAccessRulesReconcileServer.Do(req)
+	case "NspAssociationReconcileClient":
+		initServer(s, &s.trNspAssociationReconcileServer, func() *NspAssociationReconcileServerTransport {
+			return NewNspAssociationReconcileServerTransport(&s.srv.NspAssociationReconcileServer)
+		})
+		resp, err = s.trNspAssociationReconcileServer.Do(req)
+	case "NspAssociationsClient":
+		initServer(s, &s.trNspAssociationsServer, func() *NspAssociationsServerTransport {
+			return NewNspAssociationsServerTransport(&s.srv.NspAssociationsServer)
+		})
+		resp, err = s.trNspAssociationsServer.Do(req)
+	case "NspLinkReferencesClient":
+		initServer(s, &s.trNspLinkReferencesServer, func() *NspLinkReferencesServerTransport {
+			return NewNspLinkReferencesServerTransport(&s.srv.NspLinkReferencesServer)
+		})
+		resp, err = s.trNspLinkReferencesServer.Do(req)
+	case "NspLinksClient":
+		initServer(s, &s.trNspLinksServer, func() *NspLinksServerTransport { return NewNspLinksServerTransport(&s.srv.NspLinksServer) })
+		resp, err = s.trNspLinksServer.Do(req)
+	case "NspLoggingConfigurationClient":
+		initServer(s, &s.trNspLoggingConfigurationServer, func() *NspLoggingConfigurationServerTransport {
+			return NewNspLoggingConfigurationServerTransport(&s.srv.NspLoggingConfigurationServer)
+		})
+		resp, err = s.trNspLoggingConfigurationServer.Do(req)
+	case "NspLoggingConfigurationsClient":
+		initServer(s, &s.trNspLoggingConfigurationsServer, func() *NspLoggingConfigurationsServerTransport {
+			return NewNspLoggingConfigurationsServerTransport(&s.srv.NspLoggingConfigurationsServer)
+		})
+		resp, err = s.trNspLoggingConfigurationsServer.Do(req)
+	case "NspOperationStatusClient":
+		initServer(s, &s.trNspOperationStatusServer, func() *NspOperationStatusServerTransport {
+			return NewNspOperationStatusServerTransport(&s.srv.NspOperationStatusServer)
+		})
+		resp, err = s.trNspOperationStatusServer.Do(req)
+	case "NspProfilesClient":
+		initServer(s, &s.trNspProfilesServer, func() *NspProfilesServerTransport { return NewNspProfilesServerTransport(&s.srv.NspProfilesServer) })
+		resp, err = s.trNspProfilesServer.Do(req)
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
@@ -720,6 +790,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewPeerExpressRouteCircuitConnectionsServerTransport(&s.srv.PeerExpressRouteCircuitConnectionsServer)
 		})
 		resp, err = s.trPeerExpressRouteCircuitConnectionsServer.Do(req)
+	case "PerimeterAssociableResourceTypesClient":
+		initServer(s, &s.trPerimeterAssociableResourceTypesServer, func() *PerimeterAssociableResourceTypesServerTransport {
+			return NewPerimeterAssociableResourceTypesServerTransport(&s.srv.PerimeterAssociableResourceTypesServer)
+		})
+		resp, err = s.trPerimeterAssociableResourceTypesServer.Do(req)
 	case "PrivateDNSZoneGroupsClient":
 		initServer(s, &s.trPrivateDNSZoneGroupsServer, func() *PrivateDNSZoneGroupsServerTransport {
 			return NewPrivateDNSZoneGroupsServerTransport(&s.srv.PrivateDNSZoneGroupsServer)
@@ -813,6 +888,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewSecurityPartnerProvidersServerTransport(&s.srv.SecurityPartnerProvidersServer)
 		})
 		resp, err = s.trSecurityPartnerProvidersServer.Do(req)
+	case "SecurityPerimetersClient":
+		initServer(s, &s.trSecurityPerimetersServer, func() *SecurityPerimetersServerTransport {
+			return NewSecurityPerimetersServerTransport(&s.srv.SecurityPerimetersServer)
+		})
+		resp, err = s.trSecurityPerimetersServer.Do(req)
 	case "SecurityRulesClient":
 		initServer(s, &s.trSecurityRulesServer, func() *SecurityRulesServerTransport {
 			return NewSecurityRulesServerTransport(&s.srv.SecurityRulesServer)

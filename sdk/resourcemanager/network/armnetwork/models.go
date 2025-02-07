@@ -4851,6 +4851,33 @@ type Error struct {
 	Target *string
 }
 
+// ErrorAdditionalInfo - The resource management error additional info.
+type ErrorAdditionalInfo struct {
+	// READ-ONLY; The additional info.
+	Info any
+
+	// READ-ONLY; The additional info type.
+	Type *string
+}
+
+// ErrorDetail - The error detail.
+type ErrorDetail struct {
+	// READ-ONLY; The error additional info.
+	AdditionalInfo []*ErrorAdditionalInfo
+
+	// READ-ONLY; The error code.
+	Code *string
+
+	// READ-ONLY; The error details.
+	Details []*ErrorDetail
+
+	// READ-ONLY; The error message.
+	Message *string
+
+	// READ-ONLY; The error target.
+	Target *string
+}
+
 // ErrorDetails - Common error details representation.
 type ErrorDetails struct {
 	// Error code.
@@ -9155,6 +9182,329 @@ type NextHopResult struct {
 	RouteTableID *string
 }
 
+// NspAccessRule - The NSP access rule resource
+type NspAccessRule struct {
+	// Resource ID.
+	ID *string
+
+	// Resource location.
+	Location *string
+
+	// Properties of the NSP access rule.
+	Properties *NspAccessRuleProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Resource name.
+	Name *string
+
+	// READ-ONLY; Resource type.
+	Type *string
+}
+
+// NspAccessRuleListResult - Result of the request to list NSP access rules. Contains a list of NSP access rules and a URL
+// link to get the next set of results.
+type NspAccessRuleListResult struct {
+	// Gets the URL to get the next page of results.
+	NextLink *string
+
+	// Gets a page of NSP access rule
+	Value []*NspAccessRule
+}
+
+// NspAccessRuleProperties - Properties of NSP access rule.
+type NspAccessRuleProperties struct {
+	// Inbound address prefixes (IPv4/IPv6)
+	AddressPrefixes []*string
+
+	// Direction that specifies whether the access rules is inbound/outbound.
+	Direction *AccessRuleDirection
+
+	// Outbound rules email address format.
+	EmailAddresses []*string
+
+	// Outbound rules fully qualified domain name format.
+	FullyQualifiedDomainNames []*string
+
+	// Outbound rules phone number format.
+	PhoneNumbers []*string
+
+	// Inbound rules service tag names.
+	ServiceTags []*string
+
+	// List of subscription ids
+	Subscriptions []*SubscriptionID
+
+	// READ-ONLY; Rule specified by the perimeter id.
+	NetworkSecurityPerimeters []*PerimeterBasedAccessRule
+
+	// READ-ONLY; The provisioning state of the scope assignment resource.
+	ProvisioningState *NspProvisioningState
+}
+
+// NspAssociation - The NSP resource association resource
+type NspAssociation struct {
+	// Resource ID.
+	ID *string
+
+	// Resource location.
+	Location *string
+
+	// Properties of the NSP resource association.
+	Properties *NspAssociationProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Resource name.
+	Name *string
+
+	// READ-ONLY; Resource type.
+	Type *string
+}
+
+type NspAssociationProperties struct {
+	// Access mode on the association.
+	AccessMode *AssociationAccessMode
+
+	// The PaaS resource to be associated.
+	PrivateLinkResource *SubResource
+
+	// Profile id to which the PaaS resource is associated.
+	Profile *SubResource
+
+	// READ-ONLY; Specifies if there are provisioning issues
+	HasProvisioningIssues *string
+
+	// READ-ONLY; The provisioning state of the resource association resource.
+	ProvisioningState *NspProvisioningState
+}
+
+// NspAssociationsListResult - Result of the request to list NSP resource associations. Contains a list of NSP resource associations
+// and a URL link to get the next set of results.
+type NspAssociationsListResult struct {
+	// Gets the URL to get the next page of results.
+	NextLink *string
+
+	// Gets a page of NSP resource associations
+	Value []*NspAssociation
+}
+
+// NspLink - The network security perimeter link resource
+type NspLink struct {
+	// Properties of the network security perimeter link resource.
+	Properties *NspLinkProperties
+
+	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
+	Etag *string
+
+	// READ-ONLY; Resource ID.
+	ID *string
+
+	// READ-ONLY; Resource name.
+	Name *string
+
+	// READ-ONLY; Resource type.
+	Type *string
+}
+
+// NspLinkListResult - Result of the request to list NSP link resources. Contains a list of NSP link resources and a URL link
+// to get the next set of results.
+type NspLinkListResult struct {
+	// Gets the URL to get the next page of results.
+	NextLink *string
+
+	// Gets a page of NSP Link resources.
+	Value []*NspLink
+}
+
+// NspLinkProperties - Properties of NSP Link resource.
+type NspLinkProperties struct {
+	// Perimeter ARM Id for the remote NSP with which the link gets created in Auto-approval mode. It should be used when the
+	// NSP admin have Microsoft.Network/networkSecurityPerimeters/linkPerimeter/action
+	// permission on the remote NSP resource.
+	AutoApprovedRemotePerimeterResourceID *string
+
+	// A message passed to the owner of the remote NSP link resource with this connection request. In case of Auto-approved flow,
+	// it is default to 'Auto Approved'. Restricted to 140 chars.
+	Description *string
+
+	// Local Inbound profile names to which Inbound is allowed. Use ['*'] to allow inbound to all profiles.
+	LocalInboundProfiles []*string
+
+	// Remote Inbound profile names to which Inbound is allowed. Use ['*'] to allow inbound to all profiles. This property can
+	// only be updated in auto-approval mode.
+	RemoteInboundProfiles []*string
+
+	// READ-ONLY; Local Outbound profile names from which Outbound is allowed. In current version, it is readonly property and
+	// it's value is set to ['*'] to allow outbound from all profiles. In later version, user will
+	// be able to modify it.
+	LocalOutboundProfiles []*string
+
+	// READ-ONLY; The provisioning state of the NSP Link resource.
+	ProvisioningState *NspLinkProvisioningState
+
+	// READ-ONLY; Remote Outbound profile names from which Outbound is allowed. In current version, it is readonly property and
+	// it's value is set to ['*'] to allow outbound from all profiles. In later version, user
+	// will be able to modify it.
+	RemoteOutboundProfiles []*string
+
+	// READ-ONLY; Remote NSP Guid with which the link gets created.
+	RemotePerimeterGUID *string
+
+	// READ-ONLY; Remote NSP location with which the link gets created.
+	RemotePerimeterLocation *string
+
+	// READ-ONLY; The NSP link state.
+	Status *NspLinkStatus
+}
+
+// NspLinkReference - The network security perimeter linkReference resource
+type NspLinkReference struct {
+	// Properties of the network security perimeter linkReference resource.
+	Properties *NspLinkReferenceProperties
+
+	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
+	Etag *string
+
+	// READ-ONLY; Resource ID.
+	ID *string
+
+	// READ-ONLY; Resource name.
+	Name *string
+
+	// READ-ONLY; Resource type.
+	Type *string
+}
+
+// NspLinkReferenceListResult - Result of the request to list NSP linkReference resources. Contains a list of NSP linkReference
+// resources and a URL link to get the next set of results.
+type NspLinkReferenceListResult struct {
+	// Gets the URL to get the next page of results.
+	NextLink *string
+
+	// Gets a page of NSP LinkReference resources.
+	Value []*NspLinkReference
+}
+
+// NspLinkReferenceProperties - Properties of NSP LinkReference resource.
+type NspLinkReferenceProperties struct {
+	// Local Inbound profile names to which Inbound is allowed. Use ['*'] to allow inbound to all profiles.
+	LocalInboundProfiles []*string
+
+	// The NSP linkReference state. It cannot be changed if link is created in auto-approval mode.
+	Status *NspLinkStatus
+
+	// READ-ONLY; A message sent by the remote NSP link admin for connection request. In case of Auto-approved flow, it is default
+	// to 'Auto Approved'.
+	Description *string
+
+	// READ-ONLY; Local Outbound profile names from which Outbound is allowed. In current version, it is readonly property and
+	// it's value is set to ['*'] to allow outbound from all profiles. In later version, user will
+	// be able to modify it.
+	LocalOutboundProfiles []*string
+
+	// READ-ONLY; The provisioning state of the NSP LinkReference resource.
+	ProvisioningState *NspLinkProvisioningState
+
+	// READ-ONLY; Remote Inbound profile names to which Inbound is allowed. ['*'] value implies inbound is allowed to all profiles
+	// at remote perimeter. This property can only be updated from corresponding link resource
+	// present in remote perimeter.
+	RemoteInboundProfiles []*string
+
+	// READ-ONLY; Remote Outbound profile names from which Outbound is allowed. ['*'] value implies outbound is allowed from all
+	// profiles at remote perimeter. This property can only be updated from corresponding link
+	// resource present in remote perimeter.
+	RemoteOutboundProfiles []*string
+
+	// READ-ONLY; Remote NSP Guid with which the link is created.
+	RemotePerimeterGUID *string
+
+	// READ-ONLY; Remote NSP location with which the link gets created.
+	RemotePerimeterLocation *string
+
+	// READ-ONLY; Perimeter ARM Id for the remote NSP with which the link is created.
+	RemotePerimeterResourceID *string
+}
+
+// NspLoggingConfiguration - The NSP logging configuration
+type NspLoggingConfiguration struct {
+	// Properties of the NSP logging configuration.
+	Properties *NspLoggingConfigurationProperties
+
+	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
+	Etag *string
+
+	// READ-ONLY; Resource ID.
+	ID *string
+
+	// READ-ONLY; Resource name.
+	Name *string
+
+	// READ-ONLY; Resource type.
+	Type *string
+}
+
+// NspLoggingConfigurationListResult - Result of the request to list NSP logging configuration. Contains a list of NSP logging
+// configurations and a URL link to get the next set of results.
+type NspLoggingConfigurationListResult struct {
+	// Gets the URL to get the next page of results.
+	NextLink *string
+
+	// Gets a page of NSP logging configuration
+	Value []*NspLoggingConfiguration
+}
+
+// NspLoggingConfigurationProperties - The NSP logging configuration properties.
+type NspLoggingConfigurationProperties struct {
+	// The log categories to enable in the NSP logging configuration.
+	EnabledLogCategories []*string
+
+	// The version of the NSP logging configuration.
+	Version *string
+}
+
+// NspProfile - The network security perimeter profile resource
+type NspProfile struct {
+	// Resource ID.
+	ID *string
+
+	// Resource location.
+	Location *string
+
+	// Properties of the network security perimeter profile
+	Properties *NspProfileProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Resource name.
+	Name *string
+
+	// READ-ONLY; Resource type.
+	Type *string
+}
+
+// NspProfileListResult - Result of the request to list NSP profiles. Contains a list of NSP profiles and a URL link to get
+// the next set of results.
+type NspProfileListResult struct {
+	// Gets the URL to get the next page of results.
+	NextLink *string
+
+	// Gets a page of NSP profile
+	Value []*NspProfile
+}
+
+// NspProfileProperties - Properties of NSP profile.
+type NspProfileProperties struct {
+	// READ-ONLY; Version number that increases with every update to access rules within the profile.
+	AccessRulesVersion *string
+
+	// READ-ONLY; Version number that increases with every update to diagnostic settings within the profile.
+	DiagnosticSettingsVersion *string
+}
+
 // O365BreakOutCategoryPolicies - Office365 breakout categories.
 type O365BreakOutCategoryPolicies struct {
 	// Flag to control allow category.
@@ -9232,6 +9582,36 @@ type OperationPropertiesFormatServiceSpecification struct {
 
 	// Operation service specification.
 	MetricSpecifications []*MetricSpecification
+}
+
+// OperationStatusResult - The current status of an async operation.
+type OperationStatusResult struct {
+	// REQUIRED; Operation status.
+	Status *string
+
+	// The end time of the operation.
+	EndTime *time.Time
+
+	// If present, details of the operation error.
+	Error *ErrorDetail
+
+	// Fully qualified ID for the async operation.
+	ID *string
+
+	// Name of the async operation.
+	Name *string
+
+	// The operations list.
+	Operations []*OperationStatusResult
+
+	// Percent of the operation that is complete.
+	PercentComplete *float32
+
+	// The start time of the operation.
+	StartTime *time.Time
+
+	// READ-ONLY; Fully qualified ID of the resource against which the original async operation was started.
+	ResourceID *string
 }
 
 // OrderBy - Describes a column to sort
@@ -9747,6 +10127,60 @@ type PeerRoute struct {
 
 	// READ-ONLY; The route's weight.
 	Weight *int32
+}
+
+// PerimeterAssociableResource - Resource that is onboarded to use network security perimeter. Also referred as perimeter
+// associable resource.
+type PerimeterAssociableResource struct {
+	// Resource ID.
+	ID *string
+
+	// Resource location.
+	Location *string
+
+	// Properties of the perimeter associable resource.
+	Properties *PerimeterAssociableResourceProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Resource name.
+	Name *string
+
+	// READ-ONLY; Resource type.
+	Type *string
+}
+
+// PerimeterAssociableResourceProperties - Properties of the perimeter associable resources.
+type PerimeterAssociableResourceProperties struct {
+	// READ-ONLY; A friendly name for the properties of perimeter associable resources.
+	DisplayName *string
+
+	// READ-ONLY; Public DNS zone names of the resources.
+	PublicDNSZones []*string
+
+	// READ-ONLY; Resource type/provider name.
+	ResourceType *string
+}
+
+// PerimeterAssociableResourcesListResult - Paged list of perimeter associable resources.
+type PerimeterAssociableResourcesListResult struct {
+	// Gets the URL to get the next page of results.
+	NextLink *string
+
+	// Gets paged list of perimeter associable resources.
+	Value []*PerimeterAssociableResource
+}
+
+type PerimeterBasedAccessRule struct {
+	// READ-ONLY; NSP id in the ARM id format.
+	ID *string
+
+	// READ-ONLY; Location of the NSP supplied.
+	Location *string
+
+	// READ-ONLY; Resource guid of the NSP supplied.
+	PerimeterGUID *string
 }
 
 // PolicySettings - Defines contents of a web application firewall global configuration.
@@ -10359,6 +10793,21 @@ type PropagatedRouteTable struct {
 type ProtocolConfiguration struct {
 	// HTTP configuration of the connectivity check.
 	HTTPConfiguration *HTTPConfiguration
+}
+
+// ProxyResource - Proxy resource representation.
+type ProxyResource struct {
+	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
+	Etag *string
+
+	// READ-ONLY; Resource ID.
+	ID *string
+
+	// READ-ONLY; Resource name.
+	Name *string
+
+	// READ-ONLY; Resource type.
+	Type *string
 }
 
 // PublicIPAddress - Public IP address resource.
@@ -11549,6 +11998,46 @@ type SecurityPartnerProviderPropertiesFormat struct {
 	ProvisioningState *ProvisioningState
 }
 
+// SecurityPerimeter - The Network Security Perimeter resource
+type SecurityPerimeter struct {
+	// Resource ID.
+	ID *string
+
+	// Resource location.
+	Location *string
+
+	// The network security perimeter properties
+	Properties *SecurityPerimeterProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Resource name.
+	Name *string
+
+	// READ-ONLY; Resource type.
+	Type *string
+}
+
+// SecurityPerimeterListResult - Result of the request to list NetworkSecurityPerimeter. It contains a list of network security
+// perimeters and a URL link to get the next set of results.
+type SecurityPerimeterListResult struct {
+	// Gets the URL to get the next page of results.
+	NextLink *string
+
+	// Gets a page of NetworkSecurityPerimeter
+	Value []*SecurityPerimeter
+}
+
+// SecurityPerimeterProperties - Properties of network security perimeter.
+type SecurityPerimeterProperties struct {
+	// READ-ONLY; perimeter guid of the network security perimeter.
+	PerimeterGUID *string
+
+	// READ-ONLY; The provisioning state of the scope assignment resource.
+	ProvisioningState *NspProvisioningState
+}
+
 // SecurityRule - Network security rule.
 type SecurityRule struct {
 	// Resource ID.
@@ -12377,6 +12866,11 @@ type SubnetPropertiesFormat struct {
 	ServiceAssociationLinks []*ServiceAssociationLink
 }
 
+type SubscriptionID struct {
+	// Subscription id in the ARM id format.
+	ID *string
+}
+
 // SwapResource to represent slot type on the specified cloud service.
 type SwapResource struct {
 	// Swap resource properties
@@ -12605,6 +13099,15 @@ type TunnelConnectionHealth struct {
 type UnprepareNetworkPoliciesRequest struct {
 	// The name of the service for which subnet is being unprepared for.
 	ServiceName *string
+}
+
+// UpdateTagsRequest - Update tags request.
+type UpdateTagsRequest struct {
+	// List of tags for Network Security Perimeter
+	Tags map[string]*string
+
+	// READ-ONLY; Network security perimeter identifier.
+	ID *string
 }
 
 // Usage - The network resource usage.
