@@ -448,20 +448,6 @@ type ConnectionMonitorsClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
-// ConnectionMonitorsClientBeginQueryOptions contains the optional parameters for the ConnectionMonitorsClient.BeginQuery
-// method.
-type ConnectionMonitorsClientBeginQueryOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ConnectionMonitorsClientBeginStartOptions contains the optional parameters for the ConnectionMonitorsClient.BeginStart
-// method.
-type ConnectionMonitorsClientBeginStartOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
 // ConnectionMonitorsClientBeginStopOptions contains the optional parameters for the ConnectionMonitorsClient.BeginStop method.
 type ConnectionMonitorsClientBeginStopOptions struct {
 	// Resumes the LRO from the provided token.
@@ -3609,6 +3595,23 @@ type VirtualAppliancesClientBeginCreateOrUpdateOptions struct {
 // VirtualAppliancesClientBeginDeleteOptions contains the optional parameters for the VirtualAppliancesClient.BeginDelete
 // method.
 type VirtualAppliancesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VirtualAppliancesClientBeginGetBootDiagnosticLogsOptions contains the optional parameters for the VirtualAppliancesClient.BeginGetBootDiagnosticLogs
+// method.
+type VirtualAppliancesClientBeginGetBootDiagnosticLogsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VirtualAppliancesClientBeginReimageOptions contains the optional parameters for the VirtualAppliancesClient.BeginReimage
+// method.
+type VirtualAppliancesClientBeginReimageOptions struct {
+	// Specifies a list of virtual machine instance IDs from the Network Virtual Appliance VM instances.
+	NetworkVirtualApplianceInstanceIDs *VirtualApplianceInstanceIDs
+
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }

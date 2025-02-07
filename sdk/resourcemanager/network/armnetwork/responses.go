@@ -435,17 +435,6 @@ type ConnectionMonitorsClientListResponse struct {
 	ConnectionMonitorListResult
 }
 
-// ConnectionMonitorsClientQueryResponse contains the response from method ConnectionMonitorsClient.BeginQuery.
-type ConnectionMonitorsClientQueryResponse struct {
-	// List of connection states snapshots.
-	ConnectionMonitorQueryResult
-}
-
-// ConnectionMonitorsClientStartResponse contains the response from method ConnectionMonitorsClient.BeginStart.
-type ConnectionMonitorsClientStartResponse struct {
-	// placeholder for future response values
-}
-
 // ConnectionMonitorsClientStopResponse contains the response from method ConnectionMonitorsClient.BeginStop.
 type ConnectionMonitorsClientStopResponse struct {
 	// placeholder for future response values
@@ -3317,6 +3306,11 @@ type VirtualAppliancesClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
+// VirtualAppliancesClientGetBootDiagnosticLogsResponse contains the response from method VirtualAppliancesClient.BeginGetBootDiagnosticLogs.
+type VirtualAppliancesClientGetBootDiagnosticLogsResponse struct {
+	VirtualApplianceInstanceID
+}
+
 // VirtualAppliancesClientGetResponse contains the response from method VirtualAppliancesClient.Get.
 type VirtualAppliancesClientGetResponse struct {
 	// NetworkVirtualAppliance Resource.
@@ -3333,6 +3327,12 @@ type VirtualAppliancesClientListByResourceGroupResponse struct {
 type VirtualAppliancesClientListResponse struct {
 	// Response for ListNetworkVirtualAppliances API service call.
 	VirtualApplianceListResult
+}
+
+// VirtualAppliancesClientReimageResponse contains the response from method VirtualAppliancesClient.BeginReimage.
+type VirtualAppliancesClientReimageResponse struct {
+	// Specifies a list of virtual machine instance IDs from the Network Virtual Appliance VM instances.
+	VirtualApplianceInstanceIDs
 }
 
 // VirtualAppliancesClientRestartResponse contains the response from method VirtualAppliancesClient.BeginRestart.
