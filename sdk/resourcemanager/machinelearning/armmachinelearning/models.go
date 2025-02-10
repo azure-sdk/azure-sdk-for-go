@@ -327,9 +327,6 @@ func (a *AccountKeyDatastoreSecrets) GetDatastoreSecrets() *DatastoreSecrets {
 type AcrDetails struct {
 	// Details of system created ACR account to be used for the Registry
 	SystemCreatedAcrAccount *SystemCreatedAcrAccount
-
-	// Details of user created ACR account to be used for the Registry
-	UserCreatedAcrAccount *UserCreatedAcrAccount
 }
 
 // AksComputeSecrets - Secrets related to a Machine Learning compute based on AKS.
@@ -1283,8 +1280,9 @@ type BatchEndpointDefaults struct {
 
 // BatchEndpointProperties - Batch endpoint configuration.
 type BatchEndpointProperties struct {
-	// REQUIRED; [Required] Use 'Key' for key based authentication and 'AMLToken' for Azure Machine Learning token-based authentication.
-	// 'Key' doesn't expire but 'AMLToken' does.
+	// REQUIRED; [Required] The authentication method for invoking the endpoint (data plane operation). Use 'Key' for key-based
+	// authentication. Use 'AMLToken' for Azure Machine Learning token-based authentication. Use
+	// 'AADToken' for Microsoft Entra token-based authentication.
 	AuthMode *EndpointAuthMode
 
 	// Default values for Batch Endpoint
@@ -3479,8 +3477,9 @@ type EndpointDeploymentPropertiesBase struct {
 
 // EndpointPropertiesBase - Inference Endpoint base definition
 type EndpointPropertiesBase struct {
-	// REQUIRED; [Required] Use 'Key' for key based authentication and 'AMLToken' for Azure Machine Learning token-based authentication.
-	// 'Key' doesn't expire but 'AMLToken' does.
+	// REQUIRED; [Required] The authentication method for invoking the endpoint (data plane operation). Use 'Key' for key-based
+	// authentication. Use 'AMLToken' for Azure Machine Learning token-based authentication. Use
+	// 'AADToken' for Microsoft Entra token-based authentication.
 	AuthMode *EndpointAuthMode
 
 	// Description of the inference endpoint.
@@ -5828,7 +5827,7 @@ type KubernetesOnlineDeployment struct {
 	// Environment variables configuration for the deployment.
 	EnvironmentVariables map[string]*string
 
-	// Compute instance type.
+	// Compute instance type. Default: StandardF4sv2.
 	InstanceType *string
 
 	// Liveness probe monitors the health of the container regularly.
@@ -5854,6 +5853,10 @@ type KubernetesOnlineDeployment struct {
 	// and to DefaultScaleSettings for ManagedOnlineDeployment.
 	ScaleSettings OnlineScaleSettingsClassification
 
+	// This verifies whether the application within a container is started. Startup probes run before any other probe, and, unless
+	// it finishes successfully, disables other probes.
+	StartupProbe *ProbeSettings
+
 	// READ-ONLY; Provisioning state for the endpoint deployment.
 	ProvisioningState *DeploymentProvisioningState
 }
@@ -5878,6 +5881,7 @@ func (k *KubernetesOnlineDeployment) GetOnlineDeploymentProperties() *OnlineDepl
 		ReadinessProbe:            k.ReadinessProbe,
 		RequestSettings:           k.RequestSettings,
 		ScaleSettings:             k.ScaleSettings,
+		StartupProbe:              k.StartupProbe,
 	}
 }
 
@@ -6264,6 +6268,9 @@ type ManagedNetworkProvisionStatus struct {
 
 // ManagedNetworkSettings - Managed Network settings for a machine learning workspace.
 type ManagedNetworkSettings struct {
+	// Firewall Sku used for FQDN Rules
+	FirewallSKU *FirewallSKU
+
 	// Isolation mode for the managed network of a machine learning workspace.
 	IsolationMode *IsolationMode
 
@@ -6303,7 +6310,7 @@ type ManagedOnlineDeployment struct {
 	// Environment variables configuration for the deployment.
 	EnvironmentVariables map[string]*string
 
-	// Compute instance type.
+	// Compute instance type. Default: StandardF4sv2.
 	InstanceType *string
 
 	// Liveness probe monitors the health of the container regularly.
@@ -6329,6 +6336,10 @@ type ManagedOnlineDeployment struct {
 	// and to DefaultScaleSettings for ManagedOnlineDeployment.
 	ScaleSettings OnlineScaleSettingsClassification
 
+	// This verifies whether the application within a container is started. Startup probes run before any other probe, and, unless
+	// it finishes successfully, disables other probes.
+	StartupProbe *ProbeSettings
+
 	// READ-ONLY; Provisioning state for the endpoint deployment.
 	ProvisioningState *DeploymentProvisioningState
 }
@@ -6353,6 +6364,7 @@ func (m *ManagedOnlineDeployment) GetOnlineDeploymentProperties() *OnlineDeploym
 		ReadinessProbe:            m.ReadinessProbe,
 		RequestSettings:           m.RequestSettings,
 		ScaleSettings:             m.ScaleSettings,
+		StartupProbe:              m.StartupProbe,
 	}
 }
 
@@ -7142,7 +7154,7 @@ type OnlineDeploymentProperties struct {
 	// Environment variables configuration for the deployment.
 	EnvironmentVariables map[string]*string
 
-	// Compute instance type.
+	// Compute instance type. Default: StandardF4sv2.
 	InstanceType *string
 
 	// Liveness probe monitors the health of the container regularly.
@@ -7167,6 +7179,10 @@ type OnlineDeploymentProperties struct {
 	// Scale settings for the deployment. If it is null or not provided, it defaults to TargetUtilizationScaleSettings for KubernetesOnlineDeployment
 	// and to DefaultScaleSettings for ManagedOnlineDeployment.
 	ScaleSettings OnlineScaleSettingsClassification
+
+	// This verifies whether the application within a container is started. Startup probes run before any other probe, and, unless
+	// it finishes successfully, disables other probes.
+	StartupProbe *ProbeSettings
 
 	// READ-ONLY; Provisioning state for the endpoint deployment.
 	ProvisioningState *DeploymentProvisioningState
@@ -7220,8 +7236,9 @@ type OnlineEndpoint struct {
 
 // OnlineEndpointProperties - Online endpoint configuration
 type OnlineEndpointProperties struct {
-	// REQUIRED; [Required] Use 'Key' for key based authentication and 'AMLToken' for Azure Machine Learning token-based authentication.
-	// 'Key' doesn't expire but 'AMLToken' does.
+	// REQUIRED; [Required] The authentication method for invoking the endpoint (data plane operation). Use 'Key' for key-based
+	// authentication. Use 'AMLToken' for Azure Machine Learning token-based authentication. Use
+	// 'AADToken' for Microsoft Entra token-based authentication.
 	AuthMode *EndpointAuthMode
 
 	// ARM resource ID of the compute if it exists. optional
@@ -9192,9 +9209,6 @@ func (s *StaticInputData) GetMonitoringInputDataBase() *MonitoringInputDataBase 
 type StorageAccountDetails struct {
 	// Details of system created storage account to be used for the registry
 	SystemCreatedStorageAccount *SystemCreatedStorageAccount
-
-	// Details of user created storage account to be used for the registry
-	UserCreatedStorageAccount *UserCreatedStorageAccount
 }
 
 // SweepJob - Sweep job definition.
@@ -10137,16 +10151,6 @@ type UserAssignedIdentity struct {
 	PrincipalID *string
 }
 
-type UserCreatedAcrAccount struct {
-	// ARM ResourceId of a resource
-	ArmResourceID *ArmResourceID
-}
-
-type UserCreatedStorageAccount struct {
-	// ARM ResourceId of a resource
-	ArmResourceID *ArmResourceID
-}
-
 // UserIdentity - User identity configuration.
 type UserIdentity struct {
 	// REQUIRED; [Required] Specifies the type of identity framework.
@@ -10552,6 +10556,12 @@ type WorkspaceConnectionServicePrincipal struct {
 
 type WorkspaceConnectionSharedAccessSignature struct {
 	Sas *string
+}
+
+// WorkspaceConnectionUpdateParameter - The properties that the machine learning workspace connection will be updated with.
+type WorkspaceConnectionUpdateParameter struct {
+	// The properties that the machine learning workspace connection will be updated with.
+	Properties WorkspaceConnectionPropertiesV2Classification
 }
 
 type WorkspaceConnectionUsernamePassword struct {
