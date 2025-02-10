@@ -19,11 +19,12 @@ import (
 
 // ServerFactory is a fake server for instances of the armcontainerinstance.ClientFactory type.
 type ServerFactory struct {
-	ContainerGroupProfileServer        ContainerGroupProfileServer
-	ContainerGroupProfilesServer       ContainerGroupProfilesServer
+	CGProfileServer                    CGProfileServer
+	CGProfilesServer                   CGProfilesServer
 	ContainerGroupsServer              ContainerGroupsServer
 	ContainersServer                   ContainersServer
 	LocationServer                     LocationServer
+	NGroupsServer                      NGroupsServer
 	OperationsServer                   OperationsServer
 	SubnetServiceAssociationLinkServer SubnetServiceAssociationLinkServer
 }
@@ -42,11 +43,12 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 type ServerFactoryTransport struct {
 	srv                                  *ServerFactory
 	trMu                                 sync.Mutex
-	trContainerGroupProfileServer        *ContainerGroupProfileServerTransport
-	trContainerGroupProfilesServer       *ContainerGroupProfilesServerTransport
+	trCGProfileServer                    *CGProfileServerTransport
+	trCGProfilesServer                   *CGProfilesServerTransport
 	trContainerGroupsServer              *ContainerGroupsServerTransport
 	trContainersServer                   *ContainersServerTransport
 	trLocationServer                     *LocationServerTransport
+	trNGroupsServer                      *NGroupsServerTransport
 	trOperationsServer                   *OperationsServerTransport
 	trSubnetServiceAssociationLinkServer *SubnetServiceAssociationLinkServerTransport
 }
@@ -64,16 +66,12 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch client {
-	case "ContainerGroupProfileClient":
-		initServer(s, &s.trContainerGroupProfileServer, func() *ContainerGroupProfileServerTransport {
-			return NewContainerGroupProfileServerTransport(&s.srv.ContainerGroupProfileServer)
-		})
-		resp, err = s.trContainerGroupProfileServer.Do(req)
-	case "ContainerGroupProfilesClient":
-		initServer(s, &s.trContainerGroupProfilesServer, func() *ContainerGroupProfilesServerTransport {
-			return NewContainerGroupProfilesServerTransport(&s.srv.ContainerGroupProfilesServer)
-		})
-		resp, err = s.trContainerGroupProfilesServer.Do(req)
+	case "CGProfileClient":
+		initServer(s, &s.trCGProfileServer, func() *CGProfileServerTransport { return NewCGProfileServerTransport(&s.srv.CGProfileServer) })
+		resp, err = s.trCGProfileServer.Do(req)
+	case "CGProfilesClient":
+		initServer(s, &s.trCGProfilesServer, func() *CGProfilesServerTransport { return NewCGProfilesServerTransport(&s.srv.CGProfilesServer) })
+		resp, err = s.trCGProfilesServer.Do(req)
 	case "ContainerGroupsClient":
 		initServer(s, &s.trContainerGroupsServer, func() *ContainerGroupsServerTransport {
 			return NewContainerGroupsServerTransport(&s.srv.ContainerGroupsServer)
@@ -85,6 +83,9 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "LocationClient":
 		initServer(s, &s.trLocationServer, func() *LocationServerTransport { return NewLocationServerTransport(&s.srv.LocationServer) })
 		resp, err = s.trLocationServer.Do(req)
+	case "NGroupsClient":
+		initServer(s, &s.trNGroupsServer, func() *NGroupsServerTransport { return NewNGroupsServerTransport(&s.srv.NGroupsServer) })
+		resp, err = s.trNGroupsServer.Do(req)
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
