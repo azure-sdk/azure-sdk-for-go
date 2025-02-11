@@ -20,64 +20,64 @@ import (
 	"strings"
 )
 
-// SecurityMLAnalyticsSettingsClient contains the methods for the SecurityMLAnalyticsSettings group.
-// Don't use this type directly, use NewSecurityMLAnalyticsSettingsClient() instead.
-type SecurityMLAnalyticsSettingsClient struct {
+// DataConnectorDefinitionsClient contains the methods for the DataConnectorDefinitions group.
+// Don't use this type directly, use NewDataConnectorDefinitionsClient() instead.
+type DataConnectorDefinitionsClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewSecurityMLAnalyticsSettingsClient creates a new instance of SecurityMLAnalyticsSettingsClient with the specified values.
+// NewDataConnectorDefinitionsClient creates a new instance of DataConnectorDefinitionsClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewSecurityMLAnalyticsSettingsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SecurityMLAnalyticsSettingsClient, error) {
+func NewDataConnectorDefinitionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DataConnectorDefinitionsClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &SecurityMLAnalyticsSettingsClient{
+	client := &DataConnectorDefinitionsClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// CreateOrUpdate - Creates or updates the Security ML Analytics Settings.
+// CreateOrUpdate - Creates or updates the data connector definition.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2025-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
-//   - settingsResourceName - Security ML Analytics Settings resource name
-//   - securityMLAnalyticsSetting - The security ML Analytics setting
-//   - options - SecurityMLAnalyticsSettingsClientCreateOrUpdateOptions contains the optional parameters for the SecurityMLAnalyticsSettingsClient.CreateOrUpdate
+//   - dataConnectorDefinitionName - The data connector definition name.
+//   - connectorDefinitionInput - The data connector definition
+//   - options - DataConnectorDefinitionsClientCreateOrUpdateOptions contains the optional parameters for the DataConnectorDefinitionsClient.CreateOrUpdate
 //     method.
-func (client *SecurityMLAnalyticsSettingsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, settingsResourceName string, securityMLAnalyticsSetting SecurityMLAnalyticsSettingClassification, options *SecurityMLAnalyticsSettingsClientCreateOrUpdateOptions) (SecurityMLAnalyticsSettingsClientCreateOrUpdateResponse, error) {
+func (client *DataConnectorDefinitionsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, dataConnectorDefinitionName string, connectorDefinitionInput DataConnectorDefinitionClassification, options *DataConnectorDefinitionsClientCreateOrUpdateOptions) (DataConnectorDefinitionsClientCreateOrUpdateResponse, error) {
 	var err error
-	const operationName = "SecurityMLAnalyticsSettingsClient.CreateOrUpdate"
+	const operationName = "DataConnectorDefinitionsClient.CreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, settingsResourceName, securityMLAnalyticsSetting, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, dataConnectorDefinitionName, connectorDefinitionInput, options)
 	if err != nil {
-		return SecurityMLAnalyticsSettingsClientCreateOrUpdateResponse{}, err
+		return DataConnectorDefinitionsClientCreateOrUpdateResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return SecurityMLAnalyticsSettingsClientCreateOrUpdateResponse{}, err
+		return DataConnectorDefinitionsClientCreateOrUpdateResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated) {
 		err = runtime.NewResponseError(httpResp)
-		return SecurityMLAnalyticsSettingsClientCreateOrUpdateResponse{}, err
+		return DataConnectorDefinitionsClientCreateOrUpdateResponse{}, err
 	}
 	resp, err := client.createOrUpdateHandleResponse(httpResp)
 	return resp, err
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *SecurityMLAnalyticsSettingsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, settingsResourceName string, securityMLAnalyticsSetting SecurityMLAnalyticsSettingClassification, options *SecurityMLAnalyticsSettingsClientCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/securityMLAnalyticsSettings/{settingsResourceName}"
+func (client *DataConnectorDefinitionsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, dataConnectorDefinitionName string, connectorDefinitionInput DataConnectorDefinitionClassification, options *DataConnectorDefinitionsClientCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/dataConnectorDefinitions/{dataConnectorDefinitionName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -90,10 +90,10 @@ func (client *SecurityMLAnalyticsSettingsClient) createOrUpdateCreateRequest(ctx
 		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
-	if settingsResourceName == "" {
-		return nil, errors.New("parameter settingsResourceName cannot be empty")
+	if dataConnectorDefinitionName == "" {
+		return nil, errors.New("parameter dataConnectorDefinitionName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{settingsResourceName}", url.PathEscape(settingsResourceName))
+	urlPath = strings.ReplaceAll(urlPath, "{dataConnectorDefinitionName}", url.PathEscape(dataConnectorDefinitionName))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -102,54 +102,54 @@ func (client *SecurityMLAnalyticsSettingsClient) createOrUpdateCreateRequest(ctx
 	reqQP.Set("api-version", "2025-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, securityMLAnalyticsSetting); err != nil {
+	if err := runtime.MarshalAsJSON(req, connectorDefinitionInput); err != nil {
 		return nil, err
 	}
 	return req, nil
 }
 
 // createOrUpdateHandleResponse handles the CreateOrUpdate response.
-func (client *SecurityMLAnalyticsSettingsClient) createOrUpdateHandleResponse(resp *http.Response) (SecurityMLAnalyticsSettingsClientCreateOrUpdateResponse, error) {
-	result := SecurityMLAnalyticsSettingsClientCreateOrUpdateResponse{}
+func (client *DataConnectorDefinitionsClient) createOrUpdateHandleResponse(resp *http.Response) (DataConnectorDefinitionsClientCreateOrUpdateResponse, error) {
+	result := DataConnectorDefinitionsClientCreateOrUpdateResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result); err != nil {
-		return SecurityMLAnalyticsSettingsClientCreateOrUpdateResponse{}, err
+		return DataConnectorDefinitionsClientCreateOrUpdateResponse{}, err
 	}
 	return result, nil
 }
 
-// Delete - Delete the Security ML Analytics Settings.
+// Delete - Delete the data connector definition.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2025-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
-//   - settingsResourceName - Security ML Analytics Settings resource name
-//   - options - SecurityMLAnalyticsSettingsClientDeleteOptions contains the optional parameters for the SecurityMLAnalyticsSettingsClient.Delete
+//   - dataConnectorDefinitionName - The data connector definition name.
+//   - options - DataConnectorDefinitionsClientDeleteOptions contains the optional parameters for the DataConnectorDefinitionsClient.Delete
 //     method.
-func (client *SecurityMLAnalyticsSettingsClient) Delete(ctx context.Context, resourceGroupName string, workspaceName string, settingsResourceName string, options *SecurityMLAnalyticsSettingsClientDeleteOptions) (SecurityMLAnalyticsSettingsClientDeleteResponse, error) {
+func (client *DataConnectorDefinitionsClient) Delete(ctx context.Context, resourceGroupName string, workspaceName string, dataConnectorDefinitionName string, options *DataConnectorDefinitionsClientDeleteOptions) (DataConnectorDefinitionsClientDeleteResponse, error) {
 	var err error
-	const operationName = "SecurityMLAnalyticsSettingsClient.Delete"
+	const operationName = "DataConnectorDefinitionsClient.Delete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, settingsResourceName, options)
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, dataConnectorDefinitionName, options)
 	if err != nil {
-		return SecurityMLAnalyticsSettingsClientDeleteResponse{}, err
+		return DataConnectorDefinitionsClientDeleteResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return SecurityMLAnalyticsSettingsClientDeleteResponse{}, err
+		return DataConnectorDefinitionsClientDeleteResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
-		return SecurityMLAnalyticsSettingsClientDeleteResponse{}, err
+		return DataConnectorDefinitionsClientDeleteResponse{}, err
 	}
-	return SecurityMLAnalyticsSettingsClientDeleteResponse{}, nil
+	return DataConnectorDefinitionsClientDeleteResponse{}, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *SecurityMLAnalyticsSettingsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, settingsResourceName string, options *SecurityMLAnalyticsSettingsClientDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/securityMLAnalyticsSettings/{settingsResourceName}"
+func (client *DataConnectorDefinitionsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, dataConnectorDefinitionName string, options *DataConnectorDefinitionsClientDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/dataConnectorDefinitions/{dataConnectorDefinitionName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -162,10 +162,10 @@ func (client *SecurityMLAnalyticsSettingsClient) deleteCreateRequest(ctx context
 		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
-	if settingsResourceName == "" {
-		return nil, errors.New("parameter settingsResourceName cannot be empty")
+	if dataConnectorDefinitionName == "" {
+		return nil, errors.New("parameter dataConnectorDefinitionName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{settingsResourceName}", url.PathEscape(settingsResourceName))
+	urlPath = strings.ReplaceAll(urlPath, "{dataConnectorDefinitionName}", url.PathEscape(dataConnectorDefinitionName))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -177,40 +177,40 @@ func (client *SecurityMLAnalyticsSettingsClient) deleteCreateRequest(ctx context
 	return req, nil
 }
 
-// Get - Gets the Security ML Analytics Settings.
+// Get - Gets a data connector definition.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2025-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
-//   - settingsResourceName - Security ML Analytics Settings resource name
-//   - options - SecurityMLAnalyticsSettingsClientGetOptions contains the optional parameters for the SecurityMLAnalyticsSettingsClient.Get
+//   - dataConnectorDefinitionName - The data connector definition name.
+//   - options - DataConnectorDefinitionsClientGetOptions contains the optional parameters for the DataConnectorDefinitionsClient.Get
 //     method.
-func (client *SecurityMLAnalyticsSettingsClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, settingsResourceName string, options *SecurityMLAnalyticsSettingsClientGetOptions) (SecurityMLAnalyticsSettingsClientGetResponse, error) {
+func (client *DataConnectorDefinitionsClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, dataConnectorDefinitionName string, options *DataConnectorDefinitionsClientGetOptions) (DataConnectorDefinitionsClientGetResponse, error) {
 	var err error
-	const operationName = "SecurityMLAnalyticsSettingsClient.Get"
+	const operationName = "DataConnectorDefinitionsClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, settingsResourceName, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, dataConnectorDefinitionName, options)
 	if err != nil {
-		return SecurityMLAnalyticsSettingsClientGetResponse{}, err
+		return DataConnectorDefinitionsClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return SecurityMLAnalyticsSettingsClientGetResponse{}, err
+		return DataConnectorDefinitionsClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return SecurityMLAnalyticsSettingsClientGetResponse{}, err
+		return DataConnectorDefinitionsClientGetResponse{}, err
 	}
 	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
 // getCreateRequest creates the Get request.
-func (client *SecurityMLAnalyticsSettingsClient) getCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, settingsResourceName string, options *SecurityMLAnalyticsSettingsClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/securityMLAnalyticsSettings/{settingsResourceName}"
+func (client *DataConnectorDefinitionsClient) getCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, dataConnectorDefinitionName string, options *DataConnectorDefinitionsClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/dataConnectorDefinitions/{dataConnectorDefinitionName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -223,10 +223,10 @@ func (client *SecurityMLAnalyticsSettingsClient) getCreateRequest(ctx context.Co
 		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
-	if settingsResourceName == "" {
-		return nil, errors.New("parameter settingsResourceName cannot be empty")
+	if dataConnectorDefinitionName == "" {
+		return nil, errors.New("parameter dataConnectorDefinitionName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{settingsResourceName}", url.PathEscape(settingsResourceName))
+	urlPath = strings.ReplaceAll(urlPath, "{dataConnectorDefinitionName}", url.PathEscape(dataConnectorDefinitionName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -239,28 +239,28 @@ func (client *SecurityMLAnalyticsSettingsClient) getCreateRequest(ctx context.Co
 }
 
 // getHandleResponse handles the Get response.
-func (client *SecurityMLAnalyticsSettingsClient) getHandleResponse(resp *http.Response) (SecurityMLAnalyticsSettingsClientGetResponse, error) {
-	result := SecurityMLAnalyticsSettingsClientGetResponse{}
+func (client *DataConnectorDefinitionsClient) getHandleResponse(resp *http.Response) (DataConnectorDefinitionsClientGetResponse, error) {
+	result := DataConnectorDefinitionsClientGetResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result); err != nil {
-		return SecurityMLAnalyticsSettingsClientGetResponse{}, err
+		return DataConnectorDefinitionsClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListPager - Gets all Security ML Analytics Settings.
+// NewListPager - Gets all data connector definitions.
 //
 // Generated from API version 2025-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
-//   - options - SecurityMLAnalyticsSettingsClientListOptions contains the optional parameters for the SecurityMLAnalyticsSettingsClient.NewListPager
+//   - options - DataConnectorDefinitionsClientListOptions contains the optional parameters for the DataConnectorDefinitionsClient.NewListPager
 //     method.
-func (client *SecurityMLAnalyticsSettingsClient) NewListPager(resourceGroupName string, workspaceName string, options *SecurityMLAnalyticsSettingsClientListOptions) *runtime.Pager[SecurityMLAnalyticsSettingsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[SecurityMLAnalyticsSettingsClientListResponse]{
-		More: func(page SecurityMLAnalyticsSettingsClientListResponse) bool {
+func (client *DataConnectorDefinitionsClient) NewListPager(resourceGroupName string, workspaceName string, options *DataConnectorDefinitionsClientListOptions) *runtime.Pager[DataConnectorDefinitionsClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[DataConnectorDefinitionsClientListResponse]{
+		More: func(page DataConnectorDefinitionsClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *SecurityMLAnalyticsSettingsClientListResponse) (SecurityMLAnalyticsSettingsClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "SecurityMLAnalyticsSettingsClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *DataConnectorDefinitionsClientListResponse) (DataConnectorDefinitionsClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "DataConnectorDefinitionsClient.NewListPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
@@ -269,7 +269,7 @@ func (client *SecurityMLAnalyticsSettingsClient) NewListPager(resourceGroupName 
 				return client.listCreateRequest(ctx, resourceGroupName, workspaceName, options)
 			}, nil)
 			if err != nil {
-				return SecurityMLAnalyticsSettingsClientListResponse{}, err
+				return DataConnectorDefinitionsClientListResponse{}, err
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -278,8 +278,8 @@ func (client *SecurityMLAnalyticsSettingsClient) NewListPager(resourceGroupName 
 }
 
 // listCreateRequest creates the List request.
-func (client *SecurityMLAnalyticsSettingsClient) listCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, options *SecurityMLAnalyticsSettingsClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/securityMLAnalyticsSettings"
+func (client *DataConnectorDefinitionsClient) listCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, options *DataConnectorDefinitionsClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/dataConnectorDefinitions"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -304,10 +304,10 @@ func (client *SecurityMLAnalyticsSettingsClient) listCreateRequest(ctx context.C
 }
 
 // listHandleResponse handles the List response.
-func (client *SecurityMLAnalyticsSettingsClient) listHandleResponse(resp *http.Response) (SecurityMLAnalyticsSettingsClientListResponse, error) {
-	result := SecurityMLAnalyticsSettingsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.SecurityMLAnalyticsSettingsList); err != nil {
-		return SecurityMLAnalyticsSettingsClientListResponse{}, err
+func (client *DataConnectorDefinitionsClient) listHandleResponse(resp *http.Response) (DataConnectorDefinitionsClientListResponse, error) {
+	result := DataConnectorDefinitionsClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.DataConnectorDefinitionArmCollectionWrapper); err != nil {
+		return DataConnectorDefinitionsClientListResponse{}, err
 	}
 	return result, nil
 }
