@@ -319,10 +319,10 @@ type AppCertificateProperties struct {
 	// Host names the certificate applies to.
 	HostNames []*string
 
-	// Key Vault Csm resource Id.
+	// Azure Key Vault Csm resource Id.
 	KeyVaultID *string
 
-	// Key Vault secret name.
+	// Azure Key Vault secret name.
 	KeyVaultSecretName *string
 
 	// Certificate password.
@@ -331,7 +331,7 @@ type AppCertificateProperties struct {
 	// Pfx blob.
 	PfxBlob []byte
 
-	// Resource ID of the associated App Service plan, formatted as: "/subscriptions/{subscriptionID}/resourceGroups/{groupName}/providers/Microsoft.Web/serverfarms/{appServicePlanName}".
+	// Resource ID of the associated App Service plan.
 	ServerFarmID *string
 
 	// READ-ONLY; Raw bytes of .cer file
@@ -7937,6 +7937,10 @@ type SitePatchResourceProperties struct {
 	// session to the same instance. Default is true.
 	ClientAffinityEnabled *bool
 
+	// true to override client affinity cookie domain with X-Forwarded-Host request header. false to use default domain. Default
+	// is false.
+	ClientAffinityProxyEnabled *bool
+
 	// true to enable client certificate authentication (TLS mutual authentication); otherwise, false. Default is false.
 	ClientCertEnabled *bool
 
@@ -8111,6 +8115,10 @@ type SiteProperties struct {
 	// true to enable client affinity; false to stop sending session affinity cookies, which route client requests in the same
 	// session to the same instance. Default is true.
 	ClientAffinityEnabled *bool
+
+	// true to override client affinity cookie domain with X-Forwarded-Host request header. false to use default domain. Default
+	// is false.
+	ClientAffinityProxyEnabled *bool
 
 	// true to enable client certificate authentication (TLS mutual authentication); otherwise, false. Default is false.
 	ClientCertEnabled *bool
