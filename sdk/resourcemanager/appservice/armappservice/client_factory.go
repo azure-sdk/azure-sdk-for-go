@@ -67,22 +67,6 @@ func (c *ClientFactory) NewCertificatesClient() *CertificatesClient {
 	}
 }
 
-// NewContainerAppsClient creates a new instance of ContainerAppsClient.
-func (c *ClientFactory) NewContainerAppsClient() *ContainerAppsClient {
-	return &ContainerAppsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
-	}
-}
-
-// NewContainerAppsRevisionsClient creates a new instance of ContainerAppsRevisionsClient.
-func (c *ClientFactory) NewContainerAppsRevisionsClient() *ContainerAppsRevisionsClient {
-	return &ContainerAppsRevisionsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
-	}
-}
-
 // NewDeletedWebAppsClient creates a new instance of DeletedWebAppsClient.
 func (c *ClientFactory) NewDeletedWebAppsClient() *DeletedWebAppsClient {
 	return &DeletedWebAppsClient{

@@ -1405,23 +1405,6 @@ type CloningInfo struct {
 	TrafficManagerProfileName *string
 }
 
-// Configuration - Non versioned Container App configuration properties that define the mutable settings of a Container app
-type Configuration struct {
-	// ActiveRevisionsMode controls how active revisions are handled for the Container app:Multiple: multiple revisions can be
-	// active. If no value if provided, this is the defaultSingle: Only one revision
-	// can be active at a time. Revision weights can not be used in this mode
-	ActiveRevisionsMode *ActiveRevisionsMode
-
-	// Ingress configurations.
-	Ingress *Ingress
-
-	// Collection of private container registry credentials for containers used by the Container app
-	Registries []*RegistryCredentials
-
-	// Collection of secrets used by a Container app
-	Secrets []*Secret
-}
-
 // ConnStringInfo - Database connection string information.
 type ConnStringInfo struct {
 	// Connection string value.
@@ -1511,71 +1494,6 @@ type Container struct {
 
 	// Container resource requirements.
 	Resources *ContainerResources
-}
-
-// ContainerApp - Container App.
-type ContainerApp struct {
-	// REQUIRED; Resource Location.
-	Location *string
-
-	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
-	// for
-	// details supported values for kind.
-	Kind *string
-
-	// ContainerApp resource specific properties
-	Properties *ContainerAppProperties
-
-	// Resource tags.
-	Tags map[string]*string
-
-	// READ-ONLY; Resource Id.
-	ID *string
-
-	// READ-ONLY; Resource Name.
-	Name *string
-
-	// READ-ONLY; Resource type.
-	Type *string
-}
-
-// ContainerAppCollection - Container App collection ARM resource.
-type ContainerAppCollection struct {
-	// REQUIRED; Collection of resources.
-	Value []*ContainerApp
-
-	// READ-ONLY; Link to next page of resources.
-	NextLink *string
-}
-
-// ContainerAppProperties - ContainerApp resource specific properties
-type ContainerAppProperties struct {
-	// Non versioned Container App configuration properties.
-	Configuration *Configuration
-
-	// Resource ID of the Container App's KubeEnvironment.
-	KubeEnvironmentID *string
-
-	// Container App versioned application definition.
-	Template *Template
-
-	// READ-ONLY; Fully Qualified Domain Name of the latest revision of the Container App.
-	LatestRevisionFqdn *string
-
-	// READ-ONLY; Name of the latest revision of the Container App.
-	LatestRevisionName *string
-
-	// READ-ONLY; Provisioning state of the Container App.
-	ProvisioningState *ContainerAppProvisioningState
-}
-
-// ContainerAppSecret - Container App Secret.
-type ContainerAppSecret struct {
-	// READ-ONLY; Secret Name.
-	Name *string
-
-	// READ-ONLY; Secret Value.
-	Value *string
 }
 
 type ContainerAppsConfiguration struct {
@@ -4390,26 +4308,6 @@ type InboundEnvironmentEndpointCollection struct {
 	NextLink *string
 }
 
-// Ingress - Container App Ingress configuration.
-type Ingress struct {
-	// Bool indicating if HTTP connections to is allowed. If set to false HTTP connections are automatically redirected to HTTPS
-	// connections
-	AllowInsecure *bool
-
-	// Bool indicating if app exposes an external http endpoint
-	External *bool
-
-	// Target Port in containers for traffic from ingress
-	TargetPort *int32
-	Traffic    []*TrafficWeight
-
-	// Ingress transport protocol
-	Transport *IngressTransportMethod
-
-	// READ-ONLY; Hostname.
-	Fqdn *string
-}
-
 // JSONSchema - The JSON schema.
 type JSONSchema struct {
 	// The JSON content.
@@ -6304,18 +6202,6 @@ type RegenerateActionParameter struct {
 	KeyType *KeyType
 }
 
-// RegistryCredentials - Container App Private Registry
-type RegistryCredentials struct {
-	// The name of the Secret that contains the registry login password
-	PasswordSecretRef *string
-
-	// Container Registry Server
-	Server *string
-
-	// Container Registry Username
-	Username *string
-}
-
 // ReissueCertificateOrderRequest - Class representing certificate reissue request.
 type ReissueCertificateOrderRequest struct {
 	// Kind of resource.
@@ -6873,72 +6759,6 @@ type RetryHistory struct {
 	StartTime *time.Time
 }
 
-// Revision - Container App Revision.
-type Revision struct {
-	// REQUIRED; Resource Location.
-	Location *string
-
-	// Kind of resource. If the resource is an app, you can refer to https://github.com/Azure/app-service-linux-docs/blob/master/ThingsYouShouldKnow/kindproperty.md#app-service-resource-kind-reference
-	// for
-	// details supported values for kind.
-	Kind *string
-
-	// Revision resource specific properties
-	Properties *RevisionProperties
-
-	// Resource tags.
-	Tags map[string]*string
-
-	// READ-ONLY; Resource Id.
-	ID *string
-
-	// READ-ONLY; Resource Name.
-	Name *string
-
-	// READ-ONLY; Resource type.
-	Type *string
-}
-
-// RevisionCollection - Container App Revisions collection ARM resource.
-type RevisionCollection struct {
-	// REQUIRED; Collection of resources.
-	Value []*Revision
-
-	// READ-ONLY; Link to next page of resources.
-	NextLink *string
-}
-
-// RevisionProperties - Revision resource specific properties
-type RevisionProperties struct {
-	// READ-ONLY; Boolean describing if the Revision is Active
-	Active *bool
-
-	// READ-ONLY; Timestamp describing when the revision was created by controller
-	CreatedTime *time.Time
-
-	// READ-ONLY; Fully qualified domain name of the revision
-	Fqdn *string
-
-	// READ-ONLY; Current health State of the revision
-	HealthState *RevisionHealthState
-
-	// READ-ONLY; Optional Field - Platform Error Message
-	ProvisioningError *string
-
-	// READ-ONLY; Current provisioning State of the revision
-	ProvisioningState *RevisionProvisioningState
-
-	// READ-ONLY; Number of pods currently running for this revision
-	Replicas *int32
-
-	// READ-ONLY; Container App Revision Template with all possible settings and the defaults if user did not provide them. The
-	// defaults are populated as they were at the creation time
-	Template *Template
-
-	// READ-ONLY; Traffic weight assigned to this revision
-	TrafficWeight *int32
-}
-
 // RunActionCorrelation - The workflow run action correlation properties.
 type RunActionCorrelation struct {
 	// The action tracking identifier.
@@ -7081,21 +6901,6 @@ type ScaleRuleAuth struct {
 
 	// Trigger Parameter that uses the secret
 	TriggerParameter *string
-}
-
-// Secret - Container App Secret.
-type Secret struct {
-	// Secret Name.
-	Name *string
-
-	// Secret Value.
-	Value *string
-}
-
-// SecretsCollection - Container App Secrets Collection ARM resource.
-type SecretsCollection struct {
-	// REQUIRED; Collection of resources.
-	Value []*ContainerAppSecret
 }
 
 // ServiceSpecification - Resource metrics service provided by Microsoft.Insights resource provider.
@@ -9716,18 +9521,6 @@ type TopLevelDomainCollection struct {
 type TopLevelDomainProperties struct {
 	// If true, then the top level domain supports domain privacy; otherwise, false.
 	Privacy *bool
-}
-
-// TrafficWeight - Traffic weight assigned to a revision
-type TrafficWeight struct {
-	// Indicates that the traffic weight belongs to a latest stable revision
-	LatestRevision *bool
-
-	// Name of a revision
-	RevisionName *string
-
-	// Traffic weight assigned to a revision
-	Weight *int32
 }
 
 // TriggeredJobHistory - Triggered Web Job History. List of Triggered Web Job Run Information elements.
