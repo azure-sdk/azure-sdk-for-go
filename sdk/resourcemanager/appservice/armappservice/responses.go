@@ -180,68 +180,6 @@ type CertificatesClientUpdateResponse struct {
 	AppCertificate
 }
 
-// ContainerAppsClientCreateOrUpdateResponse contains the response from method ContainerAppsClient.BeginCreateOrUpdate.
-type ContainerAppsClientCreateOrUpdateResponse struct {
-	// Container App.
-	ContainerApp
-}
-
-// ContainerAppsClientDeleteResponse contains the response from method ContainerAppsClient.BeginDelete.
-type ContainerAppsClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// ContainerAppsClientGetResponse contains the response from method ContainerAppsClient.Get.
-type ContainerAppsClientGetResponse struct {
-	// Container App.
-	ContainerApp
-}
-
-// ContainerAppsClientListByResourceGroupResponse contains the response from method ContainerAppsClient.NewListByResourceGroupPager.
-type ContainerAppsClientListByResourceGroupResponse struct {
-	// Container App collection ARM resource.
-	ContainerAppCollection
-}
-
-// ContainerAppsClientListBySubscriptionResponse contains the response from method ContainerAppsClient.NewListBySubscriptionPager.
-type ContainerAppsClientListBySubscriptionResponse struct {
-	// Container App collection ARM resource.
-	ContainerAppCollection
-}
-
-// ContainerAppsClientListSecretsResponse contains the response from method ContainerAppsClient.ListSecrets.
-type ContainerAppsClientListSecretsResponse struct {
-	// Container App Secrets Collection ARM resource.
-	SecretsCollection
-}
-
-// ContainerAppsRevisionsClientActivateRevisionResponse contains the response from method ContainerAppsRevisionsClient.ActivateRevision.
-type ContainerAppsRevisionsClientActivateRevisionResponse struct {
-	// placeholder for future response values
-}
-
-// ContainerAppsRevisionsClientDeactivateRevisionResponse contains the response from method ContainerAppsRevisionsClient.DeactivateRevision.
-type ContainerAppsRevisionsClientDeactivateRevisionResponse struct {
-	// placeholder for future response values
-}
-
-// ContainerAppsRevisionsClientGetRevisionResponse contains the response from method ContainerAppsRevisionsClient.GetRevision.
-type ContainerAppsRevisionsClientGetRevisionResponse struct {
-	// Container App Revision.
-	Revision
-}
-
-// ContainerAppsRevisionsClientListRevisionsResponse contains the response from method ContainerAppsRevisionsClient.NewListRevisionsPager.
-type ContainerAppsRevisionsClientListRevisionsResponse struct {
-	// Container App Revisions collection ARM resource.
-	RevisionCollection
-}
-
-// ContainerAppsRevisionsClientRestartRevisionResponse contains the response from method ContainerAppsRevisionsClient.RestartRevision.
-type ContainerAppsRevisionsClientRestartRevisionResponse struct {
-	// placeholder for future response values
-}
-
 // DeletedWebAppsClientGetDeletedWebAppByLocationResponse contains the response from method DeletedWebAppsClient.GetDeletedWebAppByLocation.
 type DeletedWebAppsClientGetDeletedWebAppByLocationResponse struct {
 	// A deleted app.
