@@ -127,6 +127,8 @@ func unmarshalBackupDatasourceParametersClassification(rawMsg json.RawMessage) (
 	}
 	var b BackupDatasourceParametersClassification
 	switch m["objectType"] {
+	case "AdlsBlobBackupDatasourceParameters":
+		b = &AdlsBlobBackupDatasourceParameters{}
 	case "BlobBackupDatasourceParameters":
 		b = &BlobBackupDatasourceParameters{}
 	case "KubernetesClusterBackupDatasourceParameters":

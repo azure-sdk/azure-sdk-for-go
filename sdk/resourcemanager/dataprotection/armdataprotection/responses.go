@@ -97,6 +97,11 @@ type BackupInstancesClientValidateForBackupResponse struct {
 	OperationJobExtendedInfo
 }
 
+// BackupInstancesClientValidateForModifyBackupResponse contains the response from method BackupInstancesClient.BeginValidateForModifyBackup.
+type BackupInstancesClientValidateForModifyBackupResponse struct {
+	// placeholder for future response values
+}
+
 // BackupInstancesClientValidateForRestoreResponse contains the response from method BackupInstancesClient.BeginValidateForRestore.
 type BackupInstancesClientValidateForRestoreResponse struct {
 	// Operation Job Extended Info

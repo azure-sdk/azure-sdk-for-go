@@ -63,6 +63,31 @@ func (a *AdhocBasedTriggerContext) GetTriggerContext() *TriggerContext {
 	}
 }
 
+// AdlsBlobBackupDatasourceParameters - Parameters to be used during configuration of backup of azure data lake storage account
+// blobs
+type AdlsBlobBackupDatasourceParameters struct {
+	// REQUIRED; List of containers to be backed up during configuration of backup of azure data lake storage account blobs
+	ContainersList []*string
+
+	// REQUIRED; Type of the specific object - used for deserializing
+	ObjectType *string
+}
+
+// GetBackupDatasourceParameters implements the BackupDatasourceParametersClassification interface for type AdlsBlobBackupDatasourceParameters.
+func (a *AdlsBlobBackupDatasourceParameters) GetBackupDatasourceParameters() *BackupDatasourceParameters {
+	return &BackupDatasourceParameters{
+		ObjectType: a.ObjectType,
+	}
+}
+
+// GetBlobBackupDatasourceParameters implements the BlobBackupDatasourceParametersClassification interface for type AdlsBlobBackupDatasourceParameters.
+func (a *AdlsBlobBackupDatasourceParameters) GetBlobBackupDatasourceParameters() *BlobBackupDatasourceParameters {
+	return &BlobBackupDatasourceParameters{
+		ContainersList: a.ContainersList,
+		ObjectType:     a.ObjectType,
+	}
+}
+
 // AuthCredentials - Base class for different types of authentication credentials.
 type AuthCredentials struct {
 	// REQUIRED; Type of the specific object - used for deserializing
@@ -199,7 +224,7 @@ type AzureBackupJob struct {
 	// REQUIRED; StartTime of the job(in UTC)
 	StartTime *time.Time
 
-	// REQUIRED; Status of the job like InProgress/Success/Failed/Cancelled/SuccessWithWarning
+	// REQUIRED; Status of the job like InProgress/Completed/Failed/Cancelled/CompletedWithWarnings/Cancelling/Paused
 	Status *string
 
 	// REQUIRED; Subscription Id of the corresponding backup vault
@@ -853,6 +878,11 @@ func (b *BlobBackupDatasourceParameters) GetBackupDatasourceParameters() *Backup
 	return &BackupDatasourceParameters{
 		ObjectType: b.ObjectType,
 	}
+}
+
+// GetBlobBackupDatasourceParameters implements the BlobBackupDatasourceParametersClassification interface for type BlobBackupDatasourceParameters.
+func (b *BlobBackupDatasourceParameters) GetBlobBackupDatasourceParameters() *BlobBackupDatasourceParameters {
+	return b
 }
 
 // CheckNameAvailabilityRequest - CheckNameAvailability Request
@@ -1724,6 +1754,9 @@ type KubernetesClusterBackupDatasourceParameters struct {
 	// Gets or sets the include resource types property. This property sets the resource types to be included during backup.
 	IncludedResourceTypes []*string
 
+	// Gets or sets the include volume types property. This property sets the volume types to be included during backup.
+	IncludedVolumeTypes []*AKSVolumeTypes
+
 	// Gets or sets the LabelSelectors property. This property sets the resource with such label selectors to be included during
 	// backup.
 	LabelSelectors []*string
@@ -2563,6 +2596,12 @@ type ValidateCrossRegionRestoreRequestObject struct {
 
 // ValidateForBackupRequest - Validate for backup request
 type ValidateForBackupRequest struct {
+	// REQUIRED; Backup Instance
+	BackupInstance *BackupInstance
+}
+
+// ValidateForModifyBackupRequest - Validate for modify backup request
+type ValidateForModifyBackupRequest struct {
 	// REQUIRED; Backup Instance
 	BackupInstance *BackupInstance
 }

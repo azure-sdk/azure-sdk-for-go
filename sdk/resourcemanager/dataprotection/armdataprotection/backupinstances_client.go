@@ -46,7 +46,7 @@ func NewBackupInstancesClient(subscriptionID string, credential azcore.TokenCred
 // BeginAdhocBackup - Trigger adhoc backup
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vaultName - The name of the backup vault.
 //   - backupInstanceName - The name of the backup instance.
@@ -74,7 +74,7 @@ func (client *BackupInstancesClient) BeginAdhocBackup(ctx context.Context, resou
 // AdhocBackup - Trigger adhoc backup
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 func (client *BackupInstancesClient) adhocBackup(ctx context.Context, resourceGroupName string, vaultName string, backupInstanceName string, parameters TriggerBackupRequest, options *BackupInstancesClientBeginAdhocBackupOptions) (*http.Response, error) {
 	var err error
 	const operationName = "BackupInstancesClient.BeginAdhocBackup"
@@ -120,7 +120,7 @@ func (client *BackupInstancesClient) adhocBackupCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2025-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -132,7 +132,7 @@ func (client *BackupInstancesClient) adhocBackupCreateRequest(ctx context.Contex
 // BeginCreateOrUpdate - Create or update a backup instance in a backup vault
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vaultName - The name of the backup vault.
 //   - backupInstanceName - The name of the backup instance.
@@ -159,7 +159,7 @@ func (client *BackupInstancesClient) BeginCreateOrUpdate(ctx context.Context, re
 // CreateOrUpdate - Create or update a backup instance in a backup vault
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 func (client *BackupInstancesClient) createOrUpdate(ctx context.Context, resourceGroupName string, vaultName string, backupInstanceName string, parameters BackupInstanceResource, options *BackupInstancesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "BackupInstancesClient.BeginCreateOrUpdate"
@@ -205,7 +205,7 @@ func (client *BackupInstancesClient) createOrUpdateCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2025-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.XMSAuthorizationAuxiliary != nil {
@@ -220,7 +220,7 @@ func (client *BackupInstancesClient) createOrUpdateCreateRequest(ctx context.Con
 // BeginDelete - Delete a backup instance in a backup vault
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vaultName - The name of the backup vault.
 //   - backupInstanceName - The name of the backup instance.
@@ -246,7 +246,7 @@ func (client *BackupInstancesClient) BeginDelete(ctx context.Context, resourceGr
 // Delete - Delete a backup instance in a backup vault
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 func (client *BackupInstancesClient) deleteOperation(ctx context.Context, resourceGroupName string, vaultName string, backupInstanceName string, options *BackupInstancesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "BackupInstancesClient.BeginDelete"
@@ -292,7 +292,7 @@ func (client *BackupInstancesClient) deleteCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2025-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.XMSAuthorizationAuxiliary != nil {
@@ -304,7 +304,7 @@ func (client *BackupInstancesClient) deleteCreateRequest(ctx context.Context, re
 // Get - Gets a backup instance with name in a backup vault
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vaultName - The name of the backup vault.
 //   - backupInstanceName - The name of the backup instance.
@@ -355,7 +355,7 @@ func (client *BackupInstancesClient) getCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2025-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -373,7 +373,7 @@ func (client *BackupInstancesClient) getHandleResponse(resp *http.Response) (Bac
 // GetBackupInstanceOperationResult - Get result of backup instance creation operation
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vaultName - The name of the backup vault.
 //   - backupInstanceName - The name of the backup instance.
@@ -429,7 +429,7 @@ func (client *BackupInstancesClient) getBackupInstanceOperationResultCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2025-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -446,7 +446,7 @@ func (client *BackupInstancesClient) getBackupInstanceOperationResultHandleRespo
 
 // NewListPager - Gets a backup instances belonging to a backup vault
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vaultName - The name of the backup vault.
 //   - options - BackupInstancesClientListOptions contains the optional parameters for the BackupInstancesClient.NewListPager
@@ -494,7 +494,7 @@ func (client *BackupInstancesClient) listCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2025-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -512,7 +512,7 @@ func (client *BackupInstancesClient) listHandleResponse(resp *http.Response) (Ba
 // BeginResumeBackups - This operation will resume backups for backup instance
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vaultName - The name of the backup vault.
 //   - backupInstanceName - The name of the backup instance.
@@ -538,7 +538,7 @@ func (client *BackupInstancesClient) BeginResumeBackups(ctx context.Context, res
 // ResumeBackups - This operation will resume backups for backup instance
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 func (client *BackupInstancesClient) resumeBackups(ctx context.Context, resourceGroupName string, vaultName string, backupInstanceName string, options *BackupInstancesClientBeginResumeBackupsOptions) (*http.Response, error) {
 	var err error
 	const operationName = "BackupInstancesClient.BeginResumeBackups"
@@ -584,7 +584,7 @@ func (client *BackupInstancesClient) resumeBackupsCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2025-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -593,7 +593,7 @@ func (client *BackupInstancesClient) resumeBackupsCreateRequest(ctx context.Cont
 // BeginResumeProtection - This operation will resume protection for a stopped backup instance
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vaultName - The name of the backup vault.
 //   - backupInstanceName - The name of the backup instance.
@@ -619,7 +619,7 @@ func (client *BackupInstancesClient) BeginResumeProtection(ctx context.Context, 
 // ResumeProtection - This operation will resume protection for a stopped backup instance
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 func (client *BackupInstancesClient) resumeProtection(ctx context.Context, resourceGroupName string, vaultName string, backupInstanceName string, options *BackupInstancesClientBeginResumeProtectionOptions) (*http.Response, error) {
 	var err error
 	const operationName = "BackupInstancesClient.BeginResumeProtection"
@@ -665,7 +665,7 @@ func (client *BackupInstancesClient) resumeProtectionCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2025-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -674,7 +674,7 @@ func (client *BackupInstancesClient) resumeProtectionCreateRequest(ctx context.C
 // BeginStopProtection - This operation will stop protection of a backup instance and data will be held forever
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vaultName - The name of the backup vault.
 //   - backupInstanceName - The name of the backup instance.
@@ -700,7 +700,7 @@ func (client *BackupInstancesClient) BeginStopProtection(ctx context.Context, re
 // StopProtection - This operation will stop protection of a backup instance and data will be held forever
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 func (client *BackupInstancesClient) stopProtection(ctx context.Context, resourceGroupName string, vaultName string, backupInstanceName string, options *BackupInstancesClientBeginStopProtectionOptions) (*http.Response, error) {
 	var err error
 	const operationName = "BackupInstancesClient.BeginStopProtection"
@@ -746,7 +746,7 @@ func (client *BackupInstancesClient) stopProtectionCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2025-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.XMSAuthorizationAuxiliary != nil {
@@ -765,7 +765,7 @@ func (client *BackupInstancesClient) stopProtectionCreateRequest(ctx context.Con
 // (except latest Recovery point, which will be retained forever)
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vaultName - The name of the backup vault.
 //   - backupInstanceName - The name of the backup instance.
@@ -792,7 +792,7 @@ func (client *BackupInstancesClient) BeginSuspendBackups(ctx context.Context, re
 // latest Recovery point, which will be retained forever)
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 func (client *BackupInstancesClient) suspendBackups(ctx context.Context, resourceGroupName string, vaultName string, backupInstanceName string, options *BackupInstancesClientBeginSuspendBackupsOptions) (*http.Response, error) {
 	var err error
 	const operationName = "BackupInstancesClient.BeginSuspendBackups"
@@ -838,7 +838,7 @@ func (client *BackupInstancesClient) suspendBackupsCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2025-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.XMSAuthorizationAuxiliary != nil {
@@ -857,7 +857,7 @@ func (client *BackupInstancesClient) suspendBackupsCreateRequest(ctx context.Con
 // will bring backup instance to valid state
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vaultName - The name of the backup vault.
 //   - backupInstanceName - The name of the backup instance.
@@ -885,7 +885,7 @@ func (client *BackupInstancesClient) BeginSyncBackupInstance(ctx context.Context
 // bring backup instance to valid state
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 func (client *BackupInstancesClient) syncBackupInstance(ctx context.Context, resourceGroupName string, vaultName string, backupInstanceName string, parameters SyncBackupInstanceRequest, options *BackupInstancesClientBeginSyncBackupInstanceOptions) (*http.Response, error) {
 	var err error
 	const operationName = "BackupInstancesClient.BeginSyncBackupInstance"
@@ -931,7 +931,7 @@ func (client *BackupInstancesClient) syncBackupInstanceCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2025-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -943,7 +943,7 @@ func (client *BackupInstancesClient) syncBackupInstanceCreateRequest(ctx context
 // BeginTriggerCrossRegionRestore - Triggers Cross Region Restore for BackupInstance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - location - The name of the Azure region.
 //   - parameters - Request body for trigger CRR operation
@@ -970,7 +970,7 @@ func (client *BackupInstancesClient) BeginTriggerCrossRegionRestore(ctx context.
 // TriggerCrossRegionRestore - Triggers Cross Region Restore for BackupInstance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 func (client *BackupInstancesClient) triggerCrossRegionRestore(ctx context.Context, resourceGroupName string, location string, parameters CrossRegionRestoreRequestObject, options *BackupInstancesClientBeginTriggerCrossRegionRestoreOptions) (*http.Response, error) {
 	var err error
 	const operationName = "BackupInstancesClient.BeginTriggerCrossRegionRestore"
@@ -1012,7 +1012,7 @@ func (client *BackupInstancesClient) triggerCrossRegionRestoreCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2025-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -1024,7 +1024,7 @@ func (client *BackupInstancesClient) triggerCrossRegionRestoreCreateRequest(ctx 
 // BeginTriggerRehydrate - rehydrate recovery point for restore for a BackupInstance
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vaultName - The name of the backup vault.
 //   - backupInstanceName - The name of the backup instance.
@@ -1051,7 +1051,7 @@ func (client *BackupInstancesClient) BeginTriggerRehydrate(ctx context.Context, 
 // TriggerRehydrate - rehydrate recovery point for restore for a BackupInstance
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 func (client *BackupInstancesClient) triggerRehydrate(ctx context.Context, resourceGroupName string, vaultName string, backupInstanceName string, parameters AzureBackupRehydrationRequest, options *BackupInstancesClientBeginTriggerRehydrateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "BackupInstancesClient.BeginTriggerRehydrate"
@@ -1097,7 +1097,7 @@ func (client *BackupInstancesClient) triggerRehydrateCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2025-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -1109,7 +1109,7 @@ func (client *BackupInstancesClient) triggerRehydrateCreateRequest(ctx context.C
 // BeginTriggerRestore - Triggers restore for a BackupInstance
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vaultName - The name of the backup vault.
 //   - backupInstanceName - The name of the backup instance.
@@ -1137,7 +1137,7 @@ func (client *BackupInstancesClient) BeginTriggerRestore(ctx context.Context, re
 // TriggerRestore - Triggers restore for a BackupInstance
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 func (client *BackupInstancesClient) triggerRestore(ctx context.Context, resourceGroupName string, vaultName string, backupInstanceName string, parameters AzureBackupRestoreRequestClassification, options *BackupInstancesClientBeginTriggerRestoreOptions) (*http.Response, error) {
 	var err error
 	const operationName = "BackupInstancesClient.BeginTriggerRestore"
@@ -1183,7 +1183,7 @@ func (client *BackupInstancesClient) triggerRestoreCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2025-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.XMSAuthorizationAuxiliary != nil {
@@ -1198,7 +1198,7 @@ func (client *BackupInstancesClient) triggerRestoreCreateRequest(ctx context.Con
 // BeginValidateCrossRegionRestore - Validates whether Cross Region Restore can be triggered for DataSource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - location - The name of the Azure region.
 //   - parameters - Request body for operation
@@ -1225,7 +1225,7 @@ func (client *BackupInstancesClient) BeginValidateCrossRegionRestore(ctx context
 // ValidateCrossRegionRestore - Validates whether Cross Region Restore can be triggered for DataSource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 func (client *BackupInstancesClient) validateCrossRegionRestore(ctx context.Context, resourceGroupName string, location string, parameters ValidateCrossRegionRestoreRequestObject, options *BackupInstancesClientBeginValidateCrossRegionRestoreOptions) (*http.Response, error) {
 	var err error
 	const operationName = "BackupInstancesClient.BeginValidateCrossRegionRestore"
@@ -1267,7 +1267,7 @@ func (client *BackupInstancesClient) validateCrossRegionRestoreCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2025-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -1279,7 +1279,7 @@ func (client *BackupInstancesClient) validateCrossRegionRestoreCreateRequest(ctx
 // BeginValidateForBackup - Validate whether adhoc backup will be successful or not
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vaultName - The name of the backup vault.
 //   - parameters - Request body for operation
@@ -1306,7 +1306,7 @@ func (client *BackupInstancesClient) BeginValidateForBackup(ctx context.Context,
 // ValidateForBackup - Validate whether adhoc backup will be successful or not
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 func (client *BackupInstancesClient) validateForBackup(ctx context.Context, resourceGroupName string, vaultName string, parameters ValidateForBackupRequest, options *BackupInstancesClientBeginValidateForBackupOptions) (*http.Response, error) {
 	var err error
 	const operationName = "BackupInstancesClient.BeginValidateForBackup"
@@ -1348,7 +1348,93 @@ func (client *BackupInstancesClient) validateForBackupCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2025-01-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+// BeginValidateForModifyBackup - Validate whether update for backup instance will be successful or not
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2025-01-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - vaultName - The name of the backup vault.
+//   - backupInstanceName - The name of the backup instance.
+//   - parameters - Request body for operation
+//   - options - BackupInstancesClientBeginValidateForModifyBackupOptions contains the optional parameters for the BackupInstancesClient.BeginValidateForModifyBackup
+//     method.
+func (client *BackupInstancesClient) BeginValidateForModifyBackup(ctx context.Context, resourceGroupName string, vaultName string, backupInstanceName string, parameters ValidateForModifyBackupRequest, options *BackupInstancesClientBeginValidateForModifyBackupOptions) (*runtime.Poller[BackupInstancesClientValidateForModifyBackupResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.validateForModifyBackup(ctx, resourceGroupName, vaultName, backupInstanceName, parameters, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[BackupInstancesClientValidateForModifyBackupResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[BackupInstancesClientValidateForModifyBackupResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
+}
+
+// ValidateForModifyBackup - Validate whether update for backup instance will be successful or not
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2025-01-01
+func (client *BackupInstancesClient) validateForModifyBackup(ctx context.Context, resourceGroupName string, vaultName string, backupInstanceName string, parameters ValidateForModifyBackupRequest, options *BackupInstancesClientBeginValidateForModifyBackupOptions) (*http.Response, error) {
+	var err error
+	const operationName = "BackupInstancesClient.BeginValidateForModifyBackup"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.validateForModifyBackupCreateRequest(ctx, resourceGroupName, vaultName, backupInstanceName, parameters, options)
+	if err != nil {
+		return nil, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusAccepted) {
+		err = runtime.NewResponseError(httpResp)
+		return nil, err
+	}
+	return httpResp, nil
+}
+
+// validateForModifyBackupCreateRequest creates the ValidateForModifyBackup request.
+func (client *BackupInstancesClient) validateForModifyBackupCreateRequest(ctx context.Context, resourceGroupName string, vaultName string, backupInstanceName string, parameters ValidateForModifyBackupRequest, options *BackupInstancesClientBeginValidateForModifyBackupOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataProtection/backupVaults/{vaultName}/backupInstances/{backupInstanceName}/validateForModifyBackup"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if vaultName == "" {
+		return nil, errors.New("parameter vaultName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{vaultName}", url.PathEscape(vaultName))
+	if backupInstanceName == "" {
+		return nil, errors.New("parameter backupInstanceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{backupInstanceName}", url.PathEscape(backupInstanceName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2025-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -1360,7 +1446,7 @@ func (client *BackupInstancesClient) validateForBackupCreateRequest(ctx context.
 // BeginValidateForRestore - Validates if Restore can be triggered for a DataSource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vaultName - The name of the backup vault.
 //   - backupInstanceName - The name of the backup instance.
@@ -1388,7 +1474,7 @@ func (client *BackupInstancesClient) BeginValidateForRestore(ctx context.Context
 // ValidateForRestore - Validates if Restore can be triggered for a DataSource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-01
+// Generated from API version 2025-01-01
 func (client *BackupInstancesClient) validateForRestore(ctx context.Context, resourceGroupName string, vaultName string, backupInstanceName string, parameters ValidateRestoreRequestObject, options *BackupInstancesClientBeginValidateForRestoreOptions) (*http.Response, error) {
 	var err error
 	const operationName = "BackupInstancesClient.BeginValidateForRestore"
@@ -1434,7 +1520,7 @@ func (client *BackupInstancesClient) validateForRestoreCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-01")
+	reqQP.Set("api-version", "2025-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
