@@ -19801,6 +19801,7 @@ func (s SiteProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "resourceConfig", s.ResourceConfig)
 	populate(objectMap, "resourceGroup", s.ResourceGroup)
 	populate(objectMap, "sku", s.SKU)
+	populate(objectMap, "sshEnabled", s.SSHEnabled)
 	populate(objectMap, "scmSiteAlsoStopped", s.ScmSiteAlsoStopped)
 	populate(objectMap, "serverFarmId", s.ServerFarmID)
 	populate(objectMap, "siteConfig", s.SiteConfig)
@@ -19948,6 +19949,9 @@ func (s *SiteProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "sku":
 			err = unpopulate(val, "SKU", &s.SKU)
+			delete(rawMsg, key)
+		case "sshEnabled":
+			err = unpopulate(val, "SSHEnabled", &s.SSHEnabled)
 			delete(rawMsg, key)
 		case "scmSiteAlsoStopped":
 			err = unpopulate(val, "ScmSiteAlsoStopped", &s.ScmSiteAlsoStopped)
