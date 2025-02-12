@@ -10,6 +10,16 @@ package armcompute
 
 import "io"
 
+// AvailabilitySetsClientCancelMigrationToVirtualMachineScaleSetResponse contains the response from method AvailabilitySetsClient.CancelMigrationToVirtualMachineScaleSet.
+type AvailabilitySetsClientCancelMigrationToVirtualMachineScaleSetResponse struct {
+	// placeholder for future response values
+}
+
+// AvailabilitySetsClientConvertToVirtualMachineScaleSetResponse contains the response from method AvailabilitySetsClient.BeginConvertToVirtualMachineScaleSet.
+type AvailabilitySetsClientConvertToVirtualMachineScaleSetResponse struct {
+	// placeholder for future response values
+}
+
 // AvailabilitySetsClientCreateOrUpdateResponse contains the response from method AvailabilitySetsClient.CreateOrUpdate.
 type AvailabilitySetsClientCreateOrUpdateResponse struct {
 	// Specifies information about the availability set that the virtual machine should be assigned to. Virtual machines specified
@@ -55,6 +65,11 @@ type AvailabilitySetsClientListResponse struct {
 	AvailabilitySetListResult
 }
 
+// AvailabilitySetsClientStartMigrationToVirtualMachineScaleSetResponse contains the response from method AvailabilitySetsClient.StartMigrationToVirtualMachineScaleSet.
+type AvailabilitySetsClientStartMigrationToVirtualMachineScaleSetResponse struct {
+	// placeholder for future response values
+}
+
 // AvailabilitySetsClientUpdateResponse contains the response from method AvailabilitySetsClient.Update.
 type AvailabilitySetsClientUpdateResponse struct {
 	// Specifies information about the availability set that the virtual machine should be assigned to. Virtual machines specified
@@ -64,6 +79,11 @@ type AvailabilitySetsClientUpdateResponse struct {
 	// Currently, a VM can only be added to an availability set at creation time. An existing VM cannot be added to an availability
 	// set.
 	AvailabilitySet
+}
+
+// AvailabilitySetsClientValidateMigrationToVirtualMachineScaleSetResponse contains the response from method AvailabilitySetsClient.ValidateMigrationToVirtualMachineScaleSet.
+type AvailabilitySetsClientValidateMigrationToVirtualMachineScaleSetResponse struct {
+	// placeholder for future response values
 }
 
 // CapacityReservationGroupsClientCreateOrUpdateResponse contains the response from method CapacityReservationGroupsClient.CreateOrUpdate.
@@ -745,65 +765,6 @@ type GalleryImagesClientUpdateResponse struct {
 	GalleryImage
 }
 
-// GalleryInVMAccessControlProfileVersionsClientCreateOrUpdateResponse contains the response from method GalleryInVMAccessControlProfileVersionsClient.BeginCreateOrUpdate.
-type GalleryInVMAccessControlProfileVersionsClientCreateOrUpdateResponse struct {
-	// Specifies information about the gallery inVMAccessControlProfile version that you want to create or update.
-	GalleryInVMAccessControlProfileVersion
-}
-
-// GalleryInVMAccessControlProfileVersionsClientDeleteResponse contains the response from method GalleryInVMAccessControlProfileVersionsClient.BeginDelete.
-type GalleryInVMAccessControlProfileVersionsClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// GalleryInVMAccessControlProfileVersionsClientGetResponse contains the response from method GalleryInVMAccessControlProfileVersionsClient.Get.
-type GalleryInVMAccessControlProfileVersionsClientGetResponse struct {
-	// Specifies information about the gallery inVMAccessControlProfile version that you want to create or update.
-	GalleryInVMAccessControlProfileVersion
-}
-
-// GalleryInVMAccessControlProfileVersionsClientListByGalleryInVMAccessControlProfileResponse contains the response from method
-// GalleryInVMAccessControlProfileVersionsClient.NewListByGalleryInVMAccessControlProfilePager.
-type GalleryInVMAccessControlProfileVersionsClientListByGalleryInVMAccessControlProfileResponse struct {
-	// The List Gallery InVMAccessControlProfile Versions operation response.
-	GalleryInVMAccessControlProfileVersionList
-}
-
-// GalleryInVMAccessControlProfileVersionsClientUpdateResponse contains the response from method GalleryInVMAccessControlProfileVersionsClient.BeginUpdate.
-type GalleryInVMAccessControlProfileVersionsClientUpdateResponse struct {
-	// Specifies information about the gallery inVMAccessControlProfile version that you want to create or update.
-	GalleryInVMAccessControlProfileVersion
-}
-
-// GalleryInVMAccessControlProfilesClientCreateOrUpdateResponse contains the response from method GalleryInVMAccessControlProfilesClient.BeginCreateOrUpdate.
-type GalleryInVMAccessControlProfilesClientCreateOrUpdateResponse struct {
-	// Specifies information about the gallery inVMAccessControlProfile that you want to create or update.
-	GalleryInVMAccessControlProfile
-}
-
-// GalleryInVMAccessControlProfilesClientDeleteResponse contains the response from method GalleryInVMAccessControlProfilesClient.BeginDelete.
-type GalleryInVMAccessControlProfilesClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// GalleryInVMAccessControlProfilesClientGetResponse contains the response from method GalleryInVMAccessControlProfilesClient.Get.
-type GalleryInVMAccessControlProfilesClientGetResponse struct {
-	// Specifies information about the gallery inVMAccessControlProfile that you want to create or update.
-	GalleryInVMAccessControlProfile
-}
-
-// GalleryInVMAccessControlProfilesClientListByGalleryResponse contains the response from method GalleryInVMAccessControlProfilesClient.NewListByGalleryPager.
-type GalleryInVMAccessControlProfilesClientListByGalleryResponse struct {
-	// The List Gallery InVMAccessControlProfiles operation response.
-	GalleryInVMAccessControlProfileList
-}
-
-// GalleryInVMAccessControlProfilesClientUpdateResponse contains the response from method GalleryInVMAccessControlProfilesClient.BeginUpdate.
-type GalleryInVMAccessControlProfilesClientUpdateResponse struct {
-	// Specifies information about the gallery inVMAccessControlProfile that you want to create or update.
-	GalleryInVMAccessControlProfile
-}
-
 // GallerySharingProfileClientUpdateResponse contains the response from method GallerySharingProfileClient.BeginUpdate.
 type GallerySharingProfileClientUpdateResponse struct {
 	// Specifies information about the gallery sharing profile update.
@@ -1080,12 +1041,6 @@ type SnapshotsClientRevokeAccessResponse struct {
 type SnapshotsClientUpdateResponse struct {
 	// Snapshot resource.
 	Snapshot
-}
-
-// SoftDeletedResourceClientListByArtifactNameResponse contains the response from method SoftDeletedResourceClient.NewListByArtifactNamePager.
-type SoftDeletedResourceClientListByArtifactNameResponse struct {
-	// The List Soft-deleted Resources operation response.
-	GallerySoftDeletedResourceList
 }
 
 // UsageClientListResponse contains the response from method UsageClient.NewListPager.
@@ -1678,6 +1633,11 @@ type VirtualMachinesClientListByLocationResponse struct {
 type VirtualMachinesClientListResponse struct {
 	// The List Virtual Machine operation response.
 	VirtualMachineListResult
+}
+
+// VirtualMachinesClientMigrateToVMScaleSetResponse contains the response from method VirtualMachinesClient.BeginMigrateToVMScaleSet.
+type VirtualMachinesClientMigrateToVMScaleSetResponse struct {
+	// placeholder for future response values
 }
 
 // VirtualMachinesClientPerformMaintenanceResponse contains the response from method VirtualMachinesClient.BeginPerformMaintenance.

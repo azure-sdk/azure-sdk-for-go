@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v6"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v7"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -86,6 +86,10 @@ type VirtualMachinesServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListByLocationPager func(location string, options *armcompute.VirtualMachinesClientListByLocationOptions) (resp azfake.PagerResponder[armcompute.VirtualMachinesClientListByLocationResponse])
 
+	// BeginMigrateToVMScaleSet is the fake for method VirtualMachinesClient.BeginMigrateToVMScaleSet
+	// HTTP status codes to indicate success: http.StatusAccepted
+	BeginMigrateToVMScaleSet func(ctx context.Context, resourceGroupName string, vmName string, options *armcompute.VirtualMachinesClientBeginMigrateToVMScaleSetOptions) (resp azfake.PollerResponder[armcompute.VirtualMachinesClientMigrateToVMScaleSetResponse], errResp azfake.ErrorResponder)
+
 	// BeginPerformMaintenance is the fake for method VirtualMachinesClient.BeginPerformMaintenance
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginPerformMaintenance func(ctx context.Context, resourceGroupName string, vmName string, options *armcompute.VirtualMachinesClientBeginPerformMaintenanceOptions) (resp azfake.PollerResponder[armcompute.VirtualMachinesClientPerformMaintenanceResponse], errResp azfake.ErrorResponder)
@@ -149,6 +153,7 @@ func NewVirtualMachinesServerTransport(srv *VirtualMachinesServer) *VirtualMachi
 		newListAllPager:            newTracker[azfake.PagerResponder[armcompute.VirtualMachinesClientListAllResponse]](),
 		newListAvailableSizesPager: newTracker[azfake.PagerResponder[armcompute.VirtualMachinesClientListAvailableSizesResponse]](),
 		newListByLocationPager:     newTracker[azfake.PagerResponder[armcompute.VirtualMachinesClientListByLocationResponse]](),
+		beginMigrateToVMScaleSet:   newTracker[azfake.PollerResponder[armcompute.VirtualMachinesClientMigrateToVMScaleSetResponse]](),
 		beginPerformMaintenance:    newTracker[azfake.PollerResponder[armcompute.VirtualMachinesClientPerformMaintenanceResponse]](),
 		beginPowerOff:              newTracker[azfake.PollerResponder[armcompute.VirtualMachinesClientPowerOffResponse]](),
 		beginReapply:               newTracker[azfake.PollerResponder[armcompute.VirtualMachinesClientReapplyResponse]](),
@@ -177,6 +182,7 @@ type VirtualMachinesServerTransport struct {
 	newListAllPager            *tracker[azfake.PagerResponder[armcompute.VirtualMachinesClientListAllResponse]]
 	newListAvailableSizesPager *tracker[azfake.PagerResponder[armcompute.VirtualMachinesClientListAvailableSizesResponse]]
 	newListByLocationPager     *tracker[azfake.PagerResponder[armcompute.VirtualMachinesClientListByLocationResponse]]
+	beginMigrateToVMScaleSet   *tracker[azfake.PollerResponder[armcompute.VirtualMachinesClientMigrateToVMScaleSetResponse]]
 	beginPerformMaintenance    *tracker[azfake.PollerResponder[armcompute.VirtualMachinesClientPerformMaintenanceResponse]]
 	beginPowerOff              *tracker[azfake.PollerResponder[armcompute.VirtualMachinesClientPowerOffResponse]]
 	beginReapply               *tracker[azfake.PollerResponder[armcompute.VirtualMachinesClientReapplyResponse]]
@@ -230,6 +236,8 @@ func (v *VirtualMachinesServerTransport) Do(req *http.Request) (*http.Response, 
 		resp, err = v.dispatchNewListAvailableSizesPager(req)
 	case "VirtualMachinesClient.NewListByLocationPager":
 		resp, err = v.dispatchNewListByLocationPager(req)
+	case "VirtualMachinesClient.BeginMigrateToVMScaleSet":
+		resp, err = v.dispatchBeginMigrateToVMScaleSet(req)
 	case "VirtualMachinesClient.BeginPerformMaintenance":
 		resp, err = v.dispatchBeginPerformMaintenance(req)
 	case "VirtualMachinesClient.BeginPowerOff":
@@ -965,6 +973,60 @@ func (v *VirtualMachinesServerTransport) dispatchNewListByLocationPager(req *htt
 	if !server.PagerResponderMore(newListByLocationPager) {
 		v.newListByLocationPager.remove(req)
 	}
+	return resp, nil
+}
+
+func (v *VirtualMachinesServerTransport) dispatchBeginMigrateToVMScaleSet(req *http.Request) (*http.Response, error) {
+	if v.srv.BeginMigrateToVMScaleSet == nil {
+		return nil, &nonRetriableError{errors.New("fake for method BeginMigrateToVMScaleSet not implemented")}
+	}
+	beginMigrateToVMScaleSet := v.beginMigrateToVMScaleSet.get(req)
+	if beginMigrateToVMScaleSet == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Compute/virtualMachines/(?P<vmName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/migrateToVirtualMachineScaleSet`
+		regex := regexp.MustCompile(regexStr)
+		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+		if matches == nil || len(matches) < 3 {
+			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+		}
+		body, err := server.UnmarshalRequestAsJSON[armcompute.MigrateVMToVirtualMachineScaleSetInput](req)
+		if err != nil {
+			return nil, err
+		}
+		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+		if err != nil {
+			return nil, err
+		}
+		vmNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("vmName")])
+		if err != nil {
+			return nil, err
+		}
+		var options *armcompute.VirtualMachinesClientBeginMigrateToVMScaleSetOptions
+		if !reflect.ValueOf(body).IsZero() {
+			options = &armcompute.VirtualMachinesClientBeginMigrateToVMScaleSetOptions{
+				Parameters: &body,
+			}
+		}
+		respr, errRespr := v.srv.BeginMigrateToVMScaleSet(req.Context(), resourceGroupNameParam, vmNameParam, options)
+		if respErr := server.GetError(errRespr, req); respErr != nil {
+			return nil, respErr
+		}
+		beginMigrateToVMScaleSet = &respr
+		v.beginMigrateToVMScaleSet.add(req, beginMigrateToVMScaleSet)
+	}
+
+	resp, err := server.PollerResponderNext(beginMigrateToVMScaleSet, req)
+	if err != nil {
+		return nil, err
+	}
+
+	if !contains([]int{http.StatusAccepted}, resp.StatusCode) {
+		v.beginMigrateToVMScaleSet.remove(req)
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted", resp.StatusCode)}
+	}
+	if !server.PollerResponderMore(beginMigrateToVMScaleSet) {
+		v.beginMigrateToVMScaleSet.remove(req)
+	}
+
 	return resp, nil
 }
 
