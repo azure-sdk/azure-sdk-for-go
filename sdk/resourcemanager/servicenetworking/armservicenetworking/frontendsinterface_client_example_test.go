@@ -12,7 +12,7 @@ import (
 	"log"
 )
 
-// Generated from example definition: 2025-01-01/FrontendPut.json
+// Generated from example definition: 2025-03-01-preview/FrontendPut.json
 func ExampleFrontendsInterfaceClient_BeginCreateOrUpdate() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -51,7 +51,7 @@ func ExampleFrontendsInterfaceClient_BeginCreateOrUpdate() {
 	// }
 }
 
-// Generated from example definition: 2025-01-01/FrontendDelete.json
+// Generated from example definition: 2025-03-01-preview/FrontendDelete.json
 func ExampleFrontendsInterfaceClient_BeginDelete() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -72,7 +72,7 @@ func ExampleFrontendsInterfaceClient_BeginDelete() {
 	}
 }
 
-// Generated from example definition: 2025-01-01/FrontendGet.json
+// Generated from example definition: 2025-03-01-preview/FrontendGet.json
 func ExampleFrontendsInterfaceClient_Get() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -104,7 +104,7 @@ func ExampleFrontendsInterfaceClient_Get() {
 	// }
 }
 
-// Generated from example definition: 2025-01-01/FrontendsGet.json
+// Generated from example definition: 2025-03-01-preview/FrontendsGet.json
 func ExampleFrontendsInterfaceClient_NewListByTrafficControllerPager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -145,7 +145,7 @@ func ExampleFrontendsInterfaceClient_NewListByTrafficControllerPager() {
 	}
 }
 
-// Generated from example definition: 2025-01-01/FrontendPatch.json
+// Generated from example definition: 2025-03-01-preview/FrontendPatch.json
 func ExampleFrontendsInterfaceClient_Update() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
