@@ -109,6 +109,13 @@ type BackupInstancesClientBeginValidateForBackupOptions struct {
 	ResumeToken string
 }
 
+// BackupInstancesClientBeginValidateForModifyBackupOptions contains the optional parameters for the BackupInstancesClient.BeginValidateForModifyBackup
+// method.
+type BackupInstancesClientBeginValidateForModifyBackupOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // BackupInstancesClientBeginValidateForRestoreOptions contains the optional parameters for the BackupInstancesClient.BeginValidateForRestore
 // method.
 type BackupInstancesClientBeginValidateForRestoreOptions struct {

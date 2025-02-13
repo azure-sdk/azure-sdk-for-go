@@ -58,7 +58,7 @@ type BackupCriteriaClassification interface {
 // BackupDatasourceParametersClassification provides polymorphic access to related types.
 // Call the interface's GetBackupDatasourceParameters() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *BackupDatasourceParameters, *BlobBackupDatasourceParameters, *KubernetesClusterBackupDatasourceParameters
+// - *AdlsBlobBackupDatasourceParameters, *BackupDatasourceParameters, *BlobBackupDatasourceParameters, *KubernetesClusterBackupDatasourceParameters
 type BackupDatasourceParametersClassification interface {
 	// GetBackupDatasourceParameters returns the BackupDatasourceParameters content of the underlying type.
 	GetBackupDatasourceParameters() *BackupDatasourceParameters
@@ -98,6 +98,16 @@ type BasePolicyRuleClassification interface {
 type BaseResourcePropertiesClassification interface {
 	// GetBaseResourceProperties returns the BaseResourceProperties content of the underlying type.
 	GetBaseResourceProperties() *BaseResourceProperties
+}
+
+// BlobBackupDatasourceParametersClassification provides polymorphic access to related types.
+// Call the interface's GetBlobBackupDatasourceParameters() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *AdlsBlobBackupDatasourceParameters, *BlobBackupDatasourceParameters
+type BlobBackupDatasourceParametersClassification interface {
+	BackupDatasourceParametersClassification
+	// GetBlobBackupDatasourceParameters returns the BlobBackupDatasourceParameters content of the underlying type.
+	GetBlobBackupDatasourceParameters() *BlobBackupDatasourceParameters
 }
 
 // CopyOptionClassification provides polymorphic access to related types.
