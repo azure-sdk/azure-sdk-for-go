@@ -15,8 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v6"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v7"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -32,9 +31,9 @@ type DiskRestorePointServer struct {
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginGrantAccess func(ctx context.Context, resourceGroupName string, restorePointCollectionName string, vmRestorePointName string, diskRestorePointName string, grantAccessData armcompute.GrantAccessData, options *armcompute.DiskRestorePointClientBeginGrantAccessOptions) (resp azfake.PollerResponder[armcompute.DiskRestorePointClientGrantAccessResponse], errResp azfake.ErrorResponder)
 
-	// NewListByRestorePointPager is the fake for method DiskRestorePointClient.NewListByRestorePointPager
+	// ListByRestorePoint is the fake for method DiskRestorePointClient.ListByRestorePoint
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListByRestorePointPager func(resourceGroupName string, restorePointCollectionName string, vmRestorePointName string, options *armcompute.DiskRestorePointClientListByRestorePointOptions) (resp azfake.PagerResponder[armcompute.DiskRestorePointClientListByRestorePointResponse])
+	ListByRestorePoint func(ctx context.Context, resourceGroupName string, restorePointCollectionName string, vmRestorePointName string, options *armcompute.DiskRestorePointClientListByRestorePointOptions) (resp azfake.Responder[armcompute.DiskRestorePointClientListByRestorePointResponse], errResp azfake.ErrorResponder)
 
 	// BeginRevokeAccess is the fake for method DiskRestorePointClient.BeginRevokeAccess
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
@@ -46,20 +45,18 @@ type DiskRestorePointServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewDiskRestorePointServerTransport(srv *DiskRestorePointServer) *DiskRestorePointServerTransport {
 	return &DiskRestorePointServerTransport{
-		srv:                        srv,
-		beginGrantAccess:           newTracker[azfake.PollerResponder[armcompute.DiskRestorePointClientGrantAccessResponse]](),
-		newListByRestorePointPager: newTracker[azfake.PagerResponder[armcompute.DiskRestorePointClientListByRestorePointResponse]](),
-		beginRevokeAccess:          newTracker[azfake.PollerResponder[armcompute.DiskRestorePointClientRevokeAccessResponse]](),
+		srv:               srv,
+		beginGrantAccess:  newTracker[azfake.PollerResponder[armcompute.DiskRestorePointClientGrantAccessResponse]](),
+		beginRevokeAccess: newTracker[azfake.PollerResponder[armcompute.DiskRestorePointClientRevokeAccessResponse]](),
 	}
 }
 
 // DiskRestorePointServerTransport connects instances of armcompute.DiskRestorePointClient to instances of DiskRestorePointServer.
 // Don't use this type directly, use NewDiskRestorePointServerTransport instead.
 type DiskRestorePointServerTransport struct {
-	srv                        *DiskRestorePointServer
-	beginGrantAccess           *tracker[azfake.PollerResponder[armcompute.DiskRestorePointClientGrantAccessResponse]]
-	newListByRestorePointPager *tracker[azfake.PagerResponder[armcompute.DiskRestorePointClientListByRestorePointResponse]]
-	beginRevokeAccess          *tracker[azfake.PollerResponder[armcompute.DiskRestorePointClientRevokeAccessResponse]]
+	srv               *DiskRestorePointServer
+	beginGrantAccess  *tracker[azfake.PollerResponder[armcompute.DiskRestorePointClientGrantAccessResponse]]
+	beginRevokeAccess *tracker[azfake.PollerResponder[armcompute.DiskRestorePointClientRevokeAccessResponse]]
 }
 
 // Do implements the policy.Transporter interface for DiskRestorePointServerTransport.
@@ -78,8 +75,8 @@ func (d *DiskRestorePointServerTransport) Do(req *http.Request) (*http.Response,
 		resp, err = d.dispatchGet(req)
 	case "DiskRestorePointClient.BeginGrantAccess":
 		resp, err = d.dispatchBeginGrantAccess(req)
-	case "DiskRestorePointClient.NewListByRestorePointPager":
-		resp, err = d.dispatchNewListByRestorePointPager(req)
+	case "DiskRestorePointClient.ListByRestorePoint":
+		resp, err = d.dispatchListByRestorePoint(req)
 	case "DiskRestorePointClient.BeginRevokeAccess":
 		resp, err = d.dispatchBeginRevokeAccess(req)
 	default:
@@ -190,47 +187,39 @@ func (d *DiskRestorePointServerTransport) dispatchBeginGrantAccess(req *http.Req
 	return resp, nil
 }
 
-func (d *DiskRestorePointServerTransport) dispatchNewListByRestorePointPager(req *http.Request) (*http.Response, error) {
-	if d.srv.NewListByRestorePointPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListByRestorePointPager not implemented")}
+func (d *DiskRestorePointServerTransport) dispatchListByRestorePoint(req *http.Request) (*http.Response, error) {
+	if d.srv.ListByRestorePoint == nil {
+		return nil, &nonRetriableError{errors.New("fake for method ListByRestorePoint not implemented")}
 	}
-	newListByRestorePointPager := d.newListByRestorePointPager.get(req)
-	if newListByRestorePointPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Compute/restorePointCollections/(?P<restorePointCollectionName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/restorePoints/(?P<vmRestorePointName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/diskRestorePoints`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 4 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		restorePointCollectionNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("restorePointCollectionName")])
-		if err != nil {
-			return nil, err
-		}
-		vmRestorePointNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("vmRestorePointName")])
-		if err != nil {
-			return nil, err
-		}
-		resp := d.srv.NewListByRestorePointPager(resourceGroupNameParam, restorePointCollectionNameParam, vmRestorePointNameParam, nil)
-		newListByRestorePointPager = &resp
-		d.newListByRestorePointPager.add(req, newListByRestorePointPager)
-		server.PagerResponderInjectNextLinks(newListByRestorePointPager, req, func(page *armcompute.DiskRestorePointClientListByRestorePointResponse, createLink func() string) {
-			page.NextLink = to.Ptr(createLink())
-		})
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Compute/restorePointCollections/(?P<restorePointCollectionName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/restorePoints/(?P<vmRestorePointName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/diskRestorePoints`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 4 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	resp, err := server.PagerResponderNext(newListByRestorePointPager, req)
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
 	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		d.newListByRestorePointPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+	restorePointCollectionNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("restorePointCollectionName")])
+	if err != nil {
+		return nil, err
 	}
-	if !server.PagerResponderMore(newListByRestorePointPager) {
-		d.newListByRestorePointPager.remove(req)
+	vmRestorePointNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("vmRestorePointName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := d.srv.ListByRestorePoint(req.Context(), resourceGroupNameParam, restorePointCollectionNameParam, vmRestorePointNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).DiskRestorePointArray, req)
+	if err != nil {
+		return nil, err
 	}
 	return resp, nil
 }

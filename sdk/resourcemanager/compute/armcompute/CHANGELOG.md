@@ -1,5 +1,82 @@
 # Release History
 
+## 7.0.0 (2025-02-13)
+### Breaking Changes
+
+- Type of `OperationListResult.Value` has been changed from `[]*OperationValue` to `[]*Operation`
+- Type of `RestorePointSourceVMStorageProfile.OSDisk` has been changed from `*RestorePointSourceVMOSDisk` to `*RestorePointSourceVmosDisk`
+- Operation `*DiskRestorePointClient.NewListByRestorePointPager` does not support pagination anymore, use `*DiskRestorePointClient.ListByRestorePoint` instead.
+- Struct `DiskRestorePointList` has been removed
+- Struct `GalleryArtifactSource` has been removed
+- Struct `LatestGalleryImageVersion` has been removed
+- Struct `ManagedArtifact` has been removed
+- Struct `ProxyOnlyResource` has been removed
+- Struct `RestorePointSourceVMOSDisk` has been removed
+- Field `DiskIOPSReadWrite` of struct `DataDisk` has been removed
+- Field `DiskIOPSReadOnly`, `DiskIOPSReadWrite` of struct `DiskProperties` has been removed
+- Field `DiskIOPSReadOnly`, `DiskIOPSReadWrite` of struct `DiskUpdateProperties` has been removed
+- Field `Location`, `Tags` of struct `Resource` has been removed
+- Field `DataDisks` of struct `RestorePointSourceVMStorageProfile` has been removed
+- Field `DiskIOPSReadWrite` of struct `VirtualMachineScaleSetDataDisk` has been removed
+
+### Features Added
+
+- New enum type `ActionType` with values `ActionTypeInternal`
+- New enum type `CreatedByType` with values `CreatedByTypeApplication`, `CreatedByTypeKey`, `CreatedByTypeManagedIdentity`, `CreatedByTypeUser`
+- New enum type `Origin` with values `OriginSystem`, `OriginUser`, `OriginUserSystem`
+- New struct `AzureResourceManagerArmResponseSharingUpdate`
+- New struct `ErrorAdditionalInfo`
+- New struct `ErrorDetail`
+- New struct `ErrorResponse`
+- New struct `Operation`
+- New struct `OperationDisplay`
+- New struct `RestorePointSourceVmosDisk`
+- New struct `TrackedResource`
+- New field `SystemData` in struct `AvailabilitySet`
+- New field `SystemData` in struct `CapacityReservation`
+- New field `SystemData` in struct `CapacityReservationGroup`
+- New field `DiskIopsReadWrite` in struct `DataDisk`
+- New field `SystemData` in struct `DedicatedHost`
+- New field `SystemData` in struct `DedicatedHostGroup`
+- New field `NextLink` in struct `DedicatedHostSizeListResult`
+- New field `SystemData` in struct `Disk`
+- New field `SystemData` in struct `DiskAccess`
+- New field `SystemData` in struct `DiskEncryptionSet`
+- New field `DiskIopsReadOnly`, `DiskIopsReadWrite` in struct `DiskProperties`
+- New field `SystemData` in struct `DiskRestorePoint`
+- New field `DiskIopsReadOnly`, `DiskIopsReadWrite` in struct `DiskUpdateProperties`
+- New field `SystemData` in struct `Gallery`
+- New field `SystemData` in struct `GalleryApplication`
+- New field `SystemData` in struct `GalleryApplicationVersion`
+- New field `SystemData` in struct `GalleryImage`
+- New field `SystemData` in struct `GalleryImageVersion`
+- New field `SystemData` in struct `GalleryInVMAccessControlProfile`
+- New field `SystemData` in struct `GalleryInVMAccessControlProfileVersion`
+- New field `SystemData` in struct `Image`
+- New field `NextLink` in struct `OperationListResult`
+- New field `SystemData` in struct `PrivateEndpointConnection`
+- New field `SystemData` in struct `ProximityPlacementGroup`
+- New field `SystemData` in struct `ProxyResource`
+- New field `SystemData` in struct `Resource`
+- New field `SystemData` in struct `RestorePoint`
+- New field `SystemData` in struct `RestorePointCollection`
+- New field `DataDiskList` in struct `RestorePointSourceVMStorageProfile`
+- New field `SystemData` in struct `RollingUpgradeStatusInfo`
+- New field `SystemData` in struct `SSHPublicKeyResource`
+- New field `SystemData` in struct `Snapshot`
+- New field `CreatedBy`, `CreatedByType`, `LastModifiedBy`, `LastModifiedByType` in struct `SystemData`
+- New field `SystemData` in struct `VirtualMachine`
+- New field `SystemData` in struct `VirtualMachineExtension`
+- New field `SystemData` in struct `VirtualMachineExtensionImage`
+- New field `SystemData` in struct `VirtualMachineRunCommand`
+- New field `SystemData` in struct `VirtualMachineScaleSet`
+- New field `DiskIopsReadWrite` in struct `VirtualMachineScaleSetDataDisk`
+- New field `SystemData` in struct `VirtualMachineScaleSetExtension`
+- New field `SystemData` in struct `VirtualMachineScaleSetVM`
+- New field `SystemData` in struct `VirtualMachineScaleSetVMExtension`
+- New field `NextLink` in struct `VirtualMachineSizeListResult`
+
+
 ## 6.3.0 (2025-01-24)
 ### Features Added
 

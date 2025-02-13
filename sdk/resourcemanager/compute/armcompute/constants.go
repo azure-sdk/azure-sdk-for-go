@@ -10,7 +10,7 @@ package armcompute
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute"
-	moduleVersion = "v6.3.0"
+	moduleVersion = "v7.0.0"
 )
 
 // AccessControlRulesMode - This property allows you to specify whether the access control rules are in Audit mode, in Enforce
@@ -32,6 +32,7 @@ func PossibleAccessControlRulesModeValues() []AccessControlRulesMode {
 	}
 }
 
+// AccessLevel - The Access Level, accepted values include None, Read, Write.
 type AccessLevel string
 
 const (
@@ -46,6 +47,20 @@ func PossibleAccessLevelValues() []AccessLevel {
 		AccessLevelNone,
 		AccessLevelRead,
 		AccessLevelWrite,
+	}
+}
+
+// ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+type ActionType string
+
+const (
+	ActionTypeInternal ActionType = "Internal"
+)
+
+// PossibleActionTypeValues returns the possible values for the ActionType const type.
+func PossibleActionTypeValues() []ActionType {
+	return []ActionType{
+		ActionTypeInternal,
 	}
 }
 
@@ -300,6 +315,26 @@ func PossibleCopyCompletionErrorReasonValues() []CopyCompletionErrorReason {
 	}
 }
 
+// CreatedByType - The type of identity that created the resource.
+type CreatedByType string
+
+const (
+	CreatedByTypeApplication     CreatedByType = "Application"
+	CreatedByTypeKey             CreatedByType = "Key"
+	CreatedByTypeManagedIdentity CreatedByType = "ManagedIdentity"
+	CreatedByTypeUser            CreatedByType = "User"
+)
+
+// PossibleCreatedByTypeValues returns the possible values for the CreatedByType const type.
+func PossibleCreatedByTypeValues() []CreatedByType {
+	return []CreatedByType{
+		CreatedByTypeApplication,
+		CreatedByTypeKey,
+		CreatedByTypeManagedIdentity,
+		CreatedByTypeUser,
+	}
+}
+
 // DataAccessAuthMode - Additional authentication requirements when exporting or uploading to a disk or snapshot.
 type DataAccessAuthMode string
 
@@ -516,8 +551,8 @@ func PossibleDiskDeleteOptionTypesValues() []DiskDeleteOptionTypes {
 // is applicable only for managed data disks. If a previous detachment attempt of the data disk did not complete due to an
 // unexpected failure from the virtual machine and the disk is still not released
 // then use force-detach as a last resort option to detach the disk forcibly from the VM. All writes might not have been flushed
-// when using this detach behavior. To force-detach a data disk update
-// toBeDetached to 'true' along with setting detachOption: 'ForceDetach'.
+// when using this detach behavior. This feature is still in preview. To
+// force-detach a data disk update toBeDetached to 'true' along with setting detachOption: 'ForceDetach'.
 type DiskDetachOptionTypes string
 
 const (
@@ -1102,7 +1137,7 @@ func PossibleIPVersionValues() []IPVersion {
 	}
 }
 
-// IPVersions - Available from Api-Version 2019-07-01 onwards, it represents whether the specific ipconfiguration is IPv4
+// IPVersions - Available from Api-Version 2017-03-30 onwards, it represents whether the specific ipconfiguration is IPv4
 // or IPv6. Default is taken as IPv4. Possible values are: 'IPv4' and 'IPv6'.
 type IPVersions string
 
@@ -1457,6 +1492,25 @@ func PossibleOrchestrationServiceStateActionValues() []OrchestrationServiceState
 	return []OrchestrationServiceStateAction{
 		OrchestrationServiceStateActionResume,
 		OrchestrationServiceStateActionSuspend,
+	}
+}
+
+// Origin - The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
+// value is "user,system"
+type Origin string
+
+const (
+	OriginSystem     Origin = "system"
+	OriginUser       Origin = "user"
+	OriginUserSystem Origin = "user,system"
+)
+
+// PossibleOriginValues returns the possible values for the Origin const type.
+func PossibleOriginValues() []Origin {
+	return []Origin{
+		OriginSystem,
+		OriginUser,
+		OriginUserSystem,
 	}
 }
 
