@@ -1,5 +1,15 @@
 # Release History
 
+## 7.0.0 (2025-02-13)
+### Breaking Changes
+
+- Field `IsBootstrapCertificate` of struct `CloudServiceVaultCertificate` has been removed
+
+### Features Added
+
+- New value `NetworkAPIVersionTwoThousandTwentyTwo1101` added to enum type `NetworkAPIVersion`
+
+
 ## 6.3.0 (2025-01-24)
 ### Features Added
 
