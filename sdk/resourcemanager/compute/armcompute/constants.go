@@ -10,7 +10,7 @@ package armcompute
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute"
-	moduleVersion = "v6.3.0"
+	moduleVersion = "v7.0.0"
 )
 
 // AccessControlRulesMode - This property allows you to specify whether the access control rules are in Audit mode, in Enforce
@@ -1276,13 +1276,15 @@ func PossibleModeValues() []Mode {
 type NetworkAPIVersion string
 
 const (
-	NetworkAPIVersionTwoThousandTwenty1101 NetworkAPIVersion = "2020-11-01"
+	NetworkAPIVersionTwoThousandTwenty1101    NetworkAPIVersion = "2020-11-01"
+	NetworkAPIVersionTwoThousandTwentyTwo1101 NetworkAPIVersion = "2022-11-01"
 )
 
 // PossibleNetworkAPIVersionValues returns the possible values for the NetworkAPIVersion const type.
 func PossibleNetworkAPIVersionValues() []NetworkAPIVersion {
 	return []NetworkAPIVersion{
 		NetworkAPIVersionTwoThousandTwenty1101,
+		NetworkAPIVersionTwoThousandTwentyTwo1101,
 	}
 }
 
