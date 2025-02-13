@@ -537,10 +537,10 @@ type DiskRestorePointClientGrantAccessResponse struct {
 	AccessURI
 }
 
-// DiskRestorePointClientListByRestorePointResponse contains the response from method DiskRestorePointClient.NewListByRestorePointPager.
+// DiskRestorePointClientListByRestorePointResponse contains the response from method DiskRestorePointClient.ListByRestorePoint.
 type DiskRestorePointClientListByRestorePointResponse struct {
-	// The List Disk Restore Points operation response.
-	DiskRestorePointList
+	// Array of DiskRestorePoint
+	DiskRestorePointArray []*DiskRestorePoint
 }
 
 // DiskRestorePointClientRevokeAccessResponse contains the response from method DiskRestorePointClient.BeginRevokeAccess.
@@ -862,7 +862,7 @@ type LogAnalyticsClientExportThrottledRequestsResponse struct {
 
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
-	// The List Compute Operation operation response.
+	// A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to get the next set of results.
 	OperationListResult
 }
 

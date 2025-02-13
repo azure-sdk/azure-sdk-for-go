@@ -33,7 +33,7 @@ type AvailabilitySetsClientListAvailableSizesOptions struct {
 // AvailabilitySetsClientListBySubscriptionOptions contains the optional parameters for the AvailabilitySetsClient.NewListBySubscriptionPager
 // method.
 type AvailabilitySetsClientListBySubscriptionOptions struct {
-	// The expand expression to apply to the operation. Allowed values are 'virtualMachines/$ref'.
+	// The expand expression to apply to the operation. Allowed values are 'instanceView'.
 	Expand *string
 }
 
@@ -573,7 +573,7 @@ type DiskRestorePointClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DiskRestorePointClientListByRestorePointOptions contains the optional parameters for the DiskRestorePointClient.NewListByRestorePointPager
+// DiskRestorePointClientListByRestorePointOptions contains the optional parameters for the DiskRestorePointClient.ListByRestorePoint
 // method.
 type DiskRestorePointClientListByRestorePointOptions struct {
 	// placeholder for future optional parameters

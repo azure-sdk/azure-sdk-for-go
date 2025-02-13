@@ -15,7 +15,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v6"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v7"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -76,7 +76,7 @@ func (s *SoftDeletedResourceServerTransport) dispatchNewListByArtifactNamePager(
 	}
 	newListByArtifactNamePager := s.newListByArtifactNamePager.get(req)
 	if newListByArtifactNamePager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Compute/galleries/(?P<galleryName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/softDeletedArtifactTypes/(?P<artifactType>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/artifacts/(?P<artifactName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/versions`
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Compute/galleries/(?P<galleryName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<artifactType>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<artifactName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/versions`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 		if matches == nil || len(matches) < 5 {

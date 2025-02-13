@@ -28,8 +28,7 @@ type DisksClient struct {
 }
 
 // NewDisksClient creates a new instance of DisksClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewDisksClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DisksClient, error) {
@@ -48,7 +47,7 @@ func NewDisksClient(subscriptionID string, credential azcore.TokenCredential, op
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - diskName - The name of the managed disk that is being created. The name can't be changed after the disk is created. Supported
 //     characters for the name are a-z, A-Z, 0-9, _ and -. The maximum name length is 80
 //     characters.
@@ -62,7 +61,8 @@ func (client *DisksClient) BeginCreateOrUpdate(ctx context.Context, resourceGrou
 			return nil, err
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[DisksClientCreateOrUpdateResponse]{
-			Tracer: client.internal.Tracer(),
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
@@ -130,7 +130,7 @@ func (client *DisksClient) createOrUpdateCreateRequest(ctx context.Context, reso
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - diskName - The name of the managed disk that is being created. The name can't be changed after the disk is created. Supported
 //     characters for the name are a-z, A-Z, 0-9, _ and -. The maximum name length is 80
 //     characters.
@@ -142,7 +142,8 @@ func (client *DisksClient) BeginDelete(ctx context.Context, resourceGroupName st
 			return nil, err
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[DisksClientDeleteResponse]{
-			Tracer: client.internal.Tracer(),
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
@@ -199,6 +200,7 @@ func (client *DisksClient) deleteCreateRequest(ctx context.Context, resourceGrou
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2024-03-02")
 	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
@@ -206,7 +208,7 @@ func (client *DisksClient) deleteCreateRequest(ctx context.Context, resourceGrou
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - diskName - The name of the managed disk that is being created. The name can't be changed after the disk is created. Supported
 //     characters for the name are a-z, A-Z, 0-9, _ and -. The maximum name length is 80
 //     characters.
@@ -272,7 +274,7 @@ func (client *DisksClient) getHandleResponse(resp *http.Response) (DisksClientGe
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - diskName - The name of the managed disk that is being created. The name can't be changed after the disk is created. Supported
 //     characters for the name are a-z, A-Z, 0-9, _ and -. The maximum name length is 80
 //     characters.
@@ -407,7 +409,7 @@ func (client *DisksClient) listHandleResponse(resp *http.Response) (DisksClientL
 // NewListByResourceGroupPager - Lists all the disks under a resource group.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - DisksClientListByResourceGroupOptions contains the optional parameters for the DisksClient.NewListByResourceGroupPager
 //     method.
 func (client *DisksClient) NewListByResourceGroupPager(resourceGroupName string, options *DisksClientListByResourceGroupOptions) *runtime.Pager[DisksClientListByResourceGroupResponse] {
@@ -468,7 +470,7 @@ func (client *DisksClient) listByResourceGroupHandleResponse(resp *http.Response
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - diskName - The name of the managed disk that is being created. The name can't be changed after the disk is created. Supported
 //     characters for the name are a-z, A-Z, 0-9, _ and -. The maximum name length is 80
 //     characters.
@@ -538,6 +540,7 @@ func (client *DisksClient) revokeAccessCreateRequest(ctx context.Context, resour
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2024-03-02")
 	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
@@ -545,7 +548,7 @@ func (client *DisksClient) revokeAccessCreateRequest(ctx context.Context, resour
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-03-02
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - diskName - The name of the managed disk that is being created. The name can't be changed after the disk is created. Supported
 //     characters for the name are a-z, A-Z, 0-9, _ and -. The maximum name length is 80
 //     characters.
@@ -558,7 +561,8 @@ func (client *DisksClient) BeginUpdate(ctx context.Context, resourceGroupName st
 			return nil, err
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[DisksClientUpdateResponse]{
-			Tracer: client.internal.Tracer(),
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {

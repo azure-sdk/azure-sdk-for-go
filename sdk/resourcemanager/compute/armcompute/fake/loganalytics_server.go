@@ -15,7 +15,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v6"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v7"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -29,7 +29,7 @@ type LogAnalyticsServer struct {
 
 	// BeginExportThrottledRequests is the fake for method LogAnalyticsClient.BeginExportThrottledRequests
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginExportThrottledRequests func(ctx context.Context, location string, parameters armcompute.ThrottledRequestsInput, options *armcompute.LogAnalyticsClientBeginExportThrottledRequestsOptions) (resp azfake.PollerResponder[armcompute.LogAnalyticsClientExportThrottledRequestsResponse], errResp azfake.ErrorResponder)
+	BeginExportThrottledRequests func(ctx context.Context, location string, body armcompute.ThrottledRequestsInput, options *armcompute.LogAnalyticsClientBeginExportThrottledRequestsOptions) (resp azfake.PollerResponder[armcompute.LogAnalyticsClientExportThrottledRequestsResponse], errResp azfake.ErrorResponder)
 }
 
 // NewLogAnalyticsServerTransport creates a new instance of LogAnalyticsServerTransport with the provided implementation.

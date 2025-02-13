@@ -28,8 +28,7 @@ type VirtualMachineScaleSetRollingUpgradesClient struct {
 }
 
 // NewVirtualMachineScaleSetRollingUpgradesClient creates a new instance of VirtualMachineScaleSetRollingUpgradesClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewVirtualMachineScaleSetRollingUpgradesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*VirtualMachineScaleSetRollingUpgradesClient, error) {
@@ -48,7 +47,7 @@ func NewVirtualMachineScaleSetRollingUpgradesClient(subscriptionID string, crede
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-07-01
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vmScaleSetName - The name of the VM scale set.
 //   - options - VirtualMachineScaleSetRollingUpgradesClientBeginCancelOptions contains the optional parameters for the VirtualMachineScaleSetRollingUpgradesClient.BeginCancel
 //     method.
@@ -59,7 +58,8 @@ func (client *VirtualMachineScaleSetRollingUpgradesClient) BeginCancel(ctx conte
 			return nil, err
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[VirtualMachineScaleSetRollingUpgradesClientCancelResponse]{
-			Tracer: client.internal.Tracer(),
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
@@ -97,6 +97,10 @@ func (client *VirtualMachineScaleSetRollingUpgradesClient) cancel(ctx context.Co
 // cancelCreateRequest creates the Cancel request.
 func (client *VirtualMachineScaleSetRollingUpgradesClient) cancelCreateRequest(ctx context.Context, resourceGroupName string, vmScaleSetName string, options *VirtualMachineScaleSetRollingUpgradesClientBeginCancelOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmScaleSetName}/rollingUpgrades/cancel"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -105,10 +109,6 @@ func (client *VirtualMachineScaleSetRollingUpgradesClient) cancelCreateRequest(c
 		return nil, errors.New("parameter vmScaleSetName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{vmScaleSetName}", url.PathEscape(vmScaleSetName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -124,7 +124,7 @@ func (client *VirtualMachineScaleSetRollingUpgradesClient) cancelCreateRequest(c
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-07-01
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vmScaleSetName - The name of the VM scale set.
 //   - options - VirtualMachineScaleSetRollingUpgradesClientGetLatestOptions contains the optional parameters for the VirtualMachineScaleSetRollingUpgradesClient.GetLatest
 //     method.
@@ -153,6 +153,10 @@ func (client *VirtualMachineScaleSetRollingUpgradesClient) GetLatest(ctx context
 // getLatestCreateRequest creates the GetLatest request.
 func (client *VirtualMachineScaleSetRollingUpgradesClient) getLatestCreateRequest(ctx context.Context, resourceGroupName string, vmScaleSetName string, options *VirtualMachineScaleSetRollingUpgradesClientGetLatestOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmScaleSetName}/rollingUpgrades/latest"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -161,10 +165,6 @@ func (client *VirtualMachineScaleSetRollingUpgradesClient) getLatestCreateReques
 		return nil, errors.New("parameter vmScaleSetName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{vmScaleSetName}", url.PathEscape(vmScaleSetName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -191,7 +191,7 @@ func (client *VirtualMachineScaleSetRollingUpgradesClient) getLatestHandleRespon
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-07-01
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vmScaleSetName - The name of the VM scale set.
 //   - options - VirtualMachineScaleSetRollingUpgradesClientBeginStartExtensionUpgradeOptions contains the optional parameters
 //     for the VirtualMachineScaleSetRollingUpgradesClient.BeginStartExtensionUpgrade method.
@@ -202,7 +202,8 @@ func (client *VirtualMachineScaleSetRollingUpgradesClient) BeginStartExtensionUp
 			return nil, err
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[VirtualMachineScaleSetRollingUpgradesClientStartExtensionUpgradeResponse]{
-			Tracer: client.internal.Tracer(),
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
@@ -242,6 +243,10 @@ func (client *VirtualMachineScaleSetRollingUpgradesClient) startExtensionUpgrade
 // startExtensionUpgradeCreateRequest creates the StartExtensionUpgrade request.
 func (client *VirtualMachineScaleSetRollingUpgradesClient) startExtensionUpgradeCreateRequest(ctx context.Context, resourceGroupName string, vmScaleSetName string, options *VirtualMachineScaleSetRollingUpgradesClientBeginStartExtensionUpgradeOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmScaleSetName}/extensionRollingUpgrade"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -250,10 +255,6 @@ func (client *VirtualMachineScaleSetRollingUpgradesClient) startExtensionUpgrade
 		return nil, errors.New("parameter vmScaleSetName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{vmScaleSetName}", url.PathEscape(vmScaleSetName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -271,7 +272,7 @@ func (client *VirtualMachineScaleSetRollingUpgradesClient) startExtensionUpgrade
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-07-01
-//   - resourceGroupName - The name of the resource group.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vmScaleSetName - The name of the VM scale set.
 //   - options - VirtualMachineScaleSetRollingUpgradesClientBeginStartOSUpgradeOptions contains the optional parameters for the
 //     VirtualMachineScaleSetRollingUpgradesClient.BeginStartOSUpgrade method.
@@ -282,7 +283,8 @@ func (client *VirtualMachineScaleSetRollingUpgradesClient) BeginStartOSUpgrade(c
 			return nil, err
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[VirtualMachineScaleSetRollingUpgradesClientStartOSUpgradeResponse]{
-			Tracer: client.internal.Tracer(),
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
@@ -322,6 +324,10 @@ func (client *VirtualMachineScaleSetRollingUpgradesClient) startOSUpgrade(ctx co
 // startOSUpgradeCreateRequest creates the StartOSUpgrade request.
 func (client *VirtualMachineScaleSetRollingUpgradesClient) startOSUpgradeCreateRequest(ctx context.Context, resourceGroupName string, vmScaleSetName string, options *VirtualMachineScaleSetRollingUpgradesClientBeginStartOSUpgradeOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmScaleSetName}/osRollingUpgrade"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -330,10 +336,6 @@ func (client *VirtualMachineScaleSetRollingUpgradesClient) startOSUpgradeCreateR
 		return nil, errors.New("parameter vmScaleSetName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{vmScaleSetName}", url.PathEscape(vmScaleSetName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
