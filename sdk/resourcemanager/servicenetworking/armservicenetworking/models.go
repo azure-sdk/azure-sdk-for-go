@@ -129,6 +129,28 @@ type FrontendUpdate struct {
 	Tags map[string]*string
 }
 
+// IPAccessRule - Ip Access Policy Rules
+type IPAccessRule struct {
+	// REQUIRED; Action of the Rule
+	Action *IPAccessRuleAction
+
+	// REQUIRED; Name of the Ip Access Rule
+	Name *string
+
+	// REQUIRED; The priority of the rule. The value can be between 1 and 400. The priority number must be unique for each rule
+	// in the collection. The lower the priority number, the higher the priority of the rule.
+	Priority *int32
+
+	// REQUIRED; Source Address Prefixed Applied by the Rule. Asterisk '*' can also be used to match all source IPs.
+	SourceAddressPrefixes []*string
+}
+
+// IPAccessRulesPolicy - Ip Access Policy
+type IPAccessRulesPolicy struct {
+	// Ip Access Policy Rules List
+	Rules []*IPAccessRule
+}
+
 // Operation - Details of a REST API operation, returned from the Resource Provider Operations API
 type Operation struct {
 	// Localized display information for this particular operation.
@@ -225,6 +247,9 @@ type SecurityPolicyListResult struct {
 
 // SecurityPolicyProperties - SecurityPolicy Properties.
 type SecurityPolicyProperties struct {
+	// Ip Access Policy of the Traffic Controller Security Policy
+	IPAccessRulesPolicy *IPAccessRulesPolicy
+
 	// Web Application Firewall Policy of the Traffic Controller Security Policy
 	WafPolicy *WafPolicy
 
@@ -246,6 +271,9 @@ type SecurityPolicyUpdate struct {
 
 // SecurityPolicyUpdateProperties - The updatable properties of the SecurityPolicy.
 type SecurityPolicyUpdateProperties struct {
+	// Ip Access Policy of the Traffic Controller Security Policy
+	IPAccessRulesPolicy *IPAccessRulesPolicy
+
 	// Web Application Firewall Policy of the Traffic Controller Security Policy
 	WafPolicy *WafPolicy
 }

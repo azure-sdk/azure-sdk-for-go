@@ -12,7 +12,7 @@ import (
 	"log"
 )
 
-// Generated from example definition: 2025-01-01/SecurityPolicyPut.json
+// Generated from example definition: 2025-03-01-preview/SecurityPolicyPut.json
 func ExampleSecurityPoliciesInterfaceClient_BeginCreateOrUpdate() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -58,7 +58,7 @@ func ExampleSecurityPoliciesInterfaceClient_BeginCreateOrUpdate() {
 	// }
 }
 
-// Generated from example definition: 2025-01-01/SecurityPolicyDelete.json
+// Generated from example definition: 2025-03-01-preview/SecurityPolicyDelete.json
 func ExampleSecurityPoliciesInterfaceClient_BeginDelete() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -79,7 +79,7 @@ func ExampleSecurityPoliciesInterfaceClient_BeginDelete() {
 	}
 }
 
-// Generated from example definition: 2025-01-01/SecurityPolicyGet.json
+// Generated from example definition: 2025-03-01-preview/SecurityPolicyGet.json
 func ExampleSecurityPoliciesInterfaceClient_Get() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -114,7 +114,7 @@ func ExampleSecurityPoliciesInterfaceClient_Get() {
 	// }
 }
 
-// Generated from example definition: 2025-01-01/SecurityPoliciesGetList.json
+// Generated from example definition: 2025-03-01-preview/SecurityPoliciesGetList.json
 func ExampleSecurityPoliciesInterfaceClient_NewListByTrafficControllerPager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -158,7 +158,7 @@ func ExampleSecurityPoliciesInterfaceClient_NewListByTrafficControllerPager() {
 	}
 }
 
-// Generated from example definition: 2025-01-01/SecurityPolicyPatch.json
+// Generated from example definition: 2025-03-01-preview/SecurityPolicyPatch.json
 func ExampleSecurityPoliciesInterfaceClient_Update() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
