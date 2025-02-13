@@ -12,16 +12,15 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"net/http"
-	"net/url"
-	"regexp"
-	"strconv"
-
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appcontainers/armappcontainers/v3"
+	"net/http"
+	"net/url"
+	"regexp"
+	"strconv"
 )
 
 // ContainerAppsSourceControlsServer is a fake server for instances of the armappcontainers.ContainerAppsSourceControlsClient type.
@@ -123,14 +122,7 @@ func (c *ContainerAppsSourceControlsServerTransport) dispatchBeginCreateOrUpdate
 		if err != nil {
 			return nil, err
 		}
-		xMSGithubAuxiliaryParam := getOptional(getHeaderValue(req.Header, "x-ms-github-auxiliary"))
-		var options *armappcontainers.ContainerAppsSourceControlsClientBeginCreateOrUpdateOptions
-		if xMSGithubAuxiliaryParam != nil {
-			options = &armappcontainers.ContainerAppsSourceControlsClientBeginCreateOrUpdateOptions{
-				XMSGithubAuxiliary: xMSGithubAuxiliaryParam,
-			}
-		}
-		respr, errRespr := c.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, containerAppNameParam, sourceControlNameParam, body, options)
+		respr, errRespr := c.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, containerAppNameParam, sourceControlNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -179,7 +171,6 @@ func (c *ContainerAppsSourceControlsServerTransport) dispatchBeginDelete(req *ht
 		if err != nil {
 			return nil, err
 		}
-		xMSGithubAuxiliaryParam := getOptional(getHeaderValue(req.Header, "x-ms-github-auxiliary"))
 		ignoreWorkflowDeletionFailureUnescaped, err := url.QueryUnescape(qp.Get("ignoreWorkflowDeletionFailure"))
 		if err != nil {
 			return nil, err
@@ -197,9 +188,8 @@ func (c *ContainerAppsSourceControlsServerTransport) dispatchBeginDelete(req *ht
 			return nil, err
 		}
 		var options *armappcontainers.ContainerAppsSourceControlsClientBeginDeleteOptions
-		if xMSGithubAuxiliaryParam != nil || ignoreWorkflowDeletionFailureParam != nil || deleteWorkflowParam != nil {
+		if ignoreWorkflowDeletionFailureParam != nil || deleteWorkflowParam != nil {
 			options = &armappcontainers.ContainerAppsSourceControlsClientBeginDeleteOptions{
-				XMSGithubAuxiliary:            xMSGithubAuxiliaryParam,
 				IgnoreWorkflowDeletionFailure: ignoreWorkflowDeletionFailureParam,
 				DeleteWorkflow:                deleteWorkflowParam,
 			}
