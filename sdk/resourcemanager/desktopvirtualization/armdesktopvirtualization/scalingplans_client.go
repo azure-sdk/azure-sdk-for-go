@@ -47,7 +47,7 @@ func NewScalingPlansClient(subscriptionID string, credential azcore.TokenCredent
 // Create - Create or update a scaling plan.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - scalingPlanName - The name of the scaling plan.
 //   - scalingPlan - Object containing scaling plan definitions.
@@ -94,7 +94,7 @@ func (client *ScalingPlansClient) createCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, scalingPlan); err != nil {
@@ -115,7 +115,7 @@ func (client *ScalingPlansClient) createHandleResponse(resp *http.Response) (Sca
 // Delete - Remove a scaling plan.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - scalingPlanName - The name of the scaling plan.
 //   - options - ScalingPlansClientDeleteOptions contains the optional parameters for the ScalingPlansClient.Delete method.
@@ -160,7 +160,7 @@ func (client *ScalingPlansClient) deleteCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -169,7 +169,7 @@ func (client *ScalingPlansClient) deleteCreateRequest(ctx context.Context, resou
 // Get - Get a scaling plan.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - scalingPlanName - The name of the scaling plan.
 //   - options - ScalingPlansClientGetOptions contains the optional parameters for the ScalingPlansClient.Get method.
@@ -215,7 +215,7 @@ func (client *ScalingPlansClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -232,7 +232,7 @@ func (client *ScalingPlansClient) getHandleResponse(resp *http.Response) (Scalin
 
 // NewListByHostPoolPager - List scaling plan associated with hostpool.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - options - ScalingPlansClientListByHostPoolOptions contains the optional parameters for the ScalingPlansClient.NewListByHostPoolPager
@@ -280,7 +280,7 @@ func (client *ScalingPlansClient) listByHostPoolCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	if options != nil && options.InitialSkip != nil {
 		reqQP.Set("initialSkip", strconv.FormatInt(int64(*options.InitialSkip), 10))
 	}
@@ -306,7 +306,7 @@ func (client *ScalingPlansClient) listByHostPoolHandleResponse(resp *http.Respon
 
 // NewListByResourceGroupPager - List scaling plans.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - ScalingPlansClientListByResourceGroupOptions contains the optional parameters for the ScalingPlansClient.NewListByResourceGroupPager
 //     method.
@@ -349,7 +349,7 @@ func (client *ScalingPlansClient) listByResourceGroupCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	if options != nil && options.InitialSkip != nil {
 		reqQP.Set("initialSkip", strconv.FormatInt(int64(*options.InitialSkip), 10))
 	}
@@ -375,7 +375,7 @@ func (client *ScalingPlansClient) listByResourceGroupHandleResponse(resp *http.R
 
 // NewListBySubscriptionPager - List scaling plans in subscription.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - options - ScalingPlansClientListBySubscriptionOptions contains the optional parameters for the ScalingPlansClient.NewListBySubscriptionPager
 //     method.
 func (client *ScalingPlansClient) NewListBySubscriptionPager(options *ScalingPlansClientListBySubscriptionOptions) *runtime.Pager[ScalingPlansClientListBySubscriptionResponse] {
@@ -413,7 +413,7 @@ func (client *ScalingPlansClient) listBySubscriptionCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	if options != nil && options.InitialSkip != nil {
 		reqQP.Set("initialSkip", strconv.FormatInt(int64(*options.InitialSkip), 10))
 	}
@@ -440,7 +440,7 @@ func (client *ScalingPlansClient) listBySubscriptionHandleResponse(resp *http.Re
 // Update - Update a scaling plan.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - scalingPlanName - The name of the scaling plan.
 //   - options - ScalingPlansClientUpdateOptions contains the optional parameters for the ScalingPlansClient.Update method.
@@ -486,7 +486,7 @@ func (client *ScalingPlansClient) updateCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.ScalingPlan != nil {

@@ -47,7 +47,7 @@ func NewUserSessionsClient(subscriptionID string, credential azcore.TokenCredent
 // Delete - Remove a userSession.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - sessionHostName - The name of the session host within the specified host pool
@@ -102,7 +102,7 @@ func (client *UserSessionsClient) deleteCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	if options != nil && options.Force != nil {
 		reqQP.Set("force", strconv.FormatBool(*options.Force))
 	}
@@ -114,7 +114,7 @@ func (client *UserSessionsClient) deleteCreateRequest(ctx context.Context, resou
 // Disconnect - Disconnect a userSession.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - sessionHostName - The name of the session host within the specified host pool
@@ -169,7 +169,7 @@ func (client *UserSessionsClient) disconnectCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -178,7 +178,7 @@ func (client *UserSessionsClient) disconnectCreateRequest(ctx context.Context, r
 // Get - Get a userSession.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - sessionHostName - The name of the session host within the specified host pool
@@ -234,7 +234,7 @@ func (client *UserSessionsClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -251,7 +251,7 @@ func (client *UserSessionsClient) getHandleResponse(resp *http.Response) (UserSe
 
 // NewListPager - List userSessions.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - sessionHostName - The name of the session host within the specified host pool
@@ -303,7 +303,7 @@ func (client *UserSessionsClient) listCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	if options != nil && options.InitialSkip != nil {
 		reqQP.Set("initialSkip", strconv.FormatInt(int64(*options.InitialSkip), 10))
 	}
@@ -329,7 +329,7 @@ func (client *UserSessionsClient) listHandleResponse(resp *http.Response) (UserS
 
 // NewListByHostPoolPager - List userSessions.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - options - UserSessionsClientListByHostPoolOptions contains the optional parameters for the UserSessionsClient.NewListByHostPoolPager
@@ -380,7 +380,7 @@ func (client *UserSessionsClient) listByHostPoolCreateRequest(ctx context.Contex
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	if options != nil && options.InitialSkip != nil {
 		reqQP.Set("initialSkip", strconv.FormatInt(int64(*options.InitialSkip), 10))
 	}
@@ -407,7 +407,7 @@ func (client *UserSessionsClient) listByHostPoolHandleResponse(resp *http.Respon
 // SendMessage - Send a message to a user.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - sessionHostName - The name of the session host within the specified host pool
@@ -463,7 +463,7 @@ func (client *UserSessionsClient) sendMessageCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.SendMessage != nil {
