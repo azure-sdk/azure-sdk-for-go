@@ -1431,6 +1431,7 @@ func (u *UpdateRunListResult) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type UpdateRunProperties.
 func (u UpdateRunProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "autoUpgradeProfileId", u.AutoUpgradeProfileID)
 	populate(objectMap, "managedClusterUpdate", u.ManagedClusterUpdate)
 	populate(objectMap, "provisioningState", u.ProvisioningState)
 	populate(objectMap, "status", u.Status)
@@ -1448,6 +1449,9 @@ func (u *UpdateRunProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "autoUpgradeProfileId":
+			err = unpopulate(val, "AutoUpgradeProfileID", &u.AutoUpgradeProfileID)
+			delete(rawMsg, key)
 		case "managedClusterUpdate":
 			err = unpopulate(val, "ManagedClusterUpdate", &u.ManagedClusterUpdate)
 			delete(rawMsg, key)
