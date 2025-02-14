@@ -8,6 +8,18 @@
 
 package armcontainerservicefleet
 
+// AutoUpgradeProfileOperationsClientGenerateResponse contains the response from method AutoUpgradeProfileOperationsClient.BeginGenerate.
+type AutoUpgradeProfileOperationsClientGenerateResponse struct {
+	// GenerateResponse is the response of a generate request.
+	GenerateResponse
+}
+
+// AutoUpgradeProfileOperationsClientGenerateUpdateRunsResponse contains the response from method AutoUpgradeProfileOperationsClient.GenerateUpdateRuns.
+type AutoUpgradeProfileOperationsClientGenerateUpdateRunsResponse struct {
+	// The AutoUpgradeProfile resource.
+	AutoUpgradeProfile
+}
+
 // AutoUpgradeProfilesClientCreateOrUpdateResponse contains the response from method AutoUpgradeProfilesClient.BeginCreateOrUpdate.
 type AutoUpgradeProfilesClientCreateOrUpdateResponse struct {
 	// The AutoUpgradeProfile resource.

@@ -8,6 +8,24 @@
 
 package armcontainerservicefleet
 
+// AutoUpgradeProfileOperationsClientBeginGenerateOptions contains the optional parameters for the AutoUpgradeProfileOperationsClient.BeginGenerate
+// method.
+type AutoUpgradeProfileOperationsClientBeginGenerateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+
+	// Whether to start the update run after it is created in the generate operation. Empty value indicates that update run will
+	// not be started.
+	StartUpdateRun *string
+}
+
+// AutoUpgradeProfileOperationsClientGenerateUpdateRunsOptions contains the optional parameters for the AutoUpgradeProfileOperationsClient.GenerateUpdateRuns
+// method.
+type AutoUpgradeProfileOperationsClientGenerateUpdateRunsOptions struct {
+	// The request should only proceed if an entity matches this string.
+	IfMatch *string
+}
+
 // AutoUpgradeProfilesClientBeginCreateOrUpdateOptions contains the optional parameters for the AutoUpgradeProfilesClient.BeginCreateOrUpdate
 // method.
 type AutoUpgradeProfilesClientBeginCreateOrUpdateOptions struct {
