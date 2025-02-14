@@ -1078,8 +1078,23 @@ type StorageConfiguration struct {
 	// The filesystem name of connected storage account.
 	FileSystemName *string
 
+	// The configuration for monitoring changes in the specified storage account.
+	StorageMonitorConfiguration *StorageMonitorConfiguration
+
 	// The resource id of connected storage account.
 	StorageResourceID *string
+}
+
+// StorageMonitorConfiguration - The configuration for monitoring changes in a connected storage.
+type StorageMonitorConfiguration struct {
+	// The name of the event subscription associated with the given namespace topic that contains storage events.
+	EventSubscriptionName *string
+
+	// The resource id of the Azure Event Grid Namespace.
+	NamespaceResourceID *string
+
+	// The name of the namespace topic within the specified namespace.
+	TopicName *string
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
