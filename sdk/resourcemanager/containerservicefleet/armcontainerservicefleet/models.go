@@ -240,6 +240,9 @@ type FleetMemberProperties struct {
 	// The group this member belongs to for multi-cluster update management.
 	Group *string
 
+	// The labels for the fleet member.
+	Labels map[string]*string
+
 	// READ-ONLY; The status of the last operation.
 	ProvisioningState *FleetMemberProvisioningState
 }
@@ -254,6 +257,9 @@ type FleetMemberUpdate struct {
 type FleetMemberUpdateProperties struct {
 	// The group this member belongs to for multi-cluster update management.
 	Group *string
+
+	// The labels for the fleet member.
+	Labels map[string]*string
 }
 
 // FleetPatch - Properties of a Fleet that can be patched.
