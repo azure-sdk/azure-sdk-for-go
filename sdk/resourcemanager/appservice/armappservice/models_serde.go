@@ -13695,6 +13695,7 @@ func (p *PlanPatchResourceProperties) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type PlanProperties.
 func (p PlanProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "asyncScalingEnabled", p.AsyncScalingEnabled)
 	populate(objectMap, "elasticScaleEnabled", p.ElasticScaleEnabled)
 	populateDateTimeRFC3339(objectMap, "freeOfferExpirationTime", p.FreeOfferExpirationTime)
 	populate(objectMap, "geoRegion", p.GeoRegion)
@@ -13730,6 +13731,9 @@ func (p *PlanProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "asyncScalingEnabled":
+			err = unpopulate(val, "AsyncScalingEnabled", &p.AsyncScalingEnabled)
+			delete(rawMsg, key)
 		case "elasticScaleEnabled":
 			err = unpopulate(val, "ElasticScaleEnabled", &p.ElasticScaleEnabled)
 			delete(rawMsg, key)
