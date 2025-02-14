@@ -10,7 +10,7 @@ package armdeploymentscripts
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armdeploymentscripts"
-	moduleVersion = "v2.1.0"
+	moduleVersion = "v2.2.0"
 )
 
 // CleanupOptions - The clean up preference when the script execution gets in a terminal state. Default setting is 'Always'.
