@@ -1,5 +1,12 @@
 # Release History
 
+## 2.2.0-beta.1 (2025-02-14)
+### Features Added
+
+- New struct `StorageMonitorConfiguration`
+- New field `StorageMonitorConfiguration` in struct `StorageConfiguration`
+
+
 ## 2.1.0 (2024-04-26)
 ### Features Added
 
