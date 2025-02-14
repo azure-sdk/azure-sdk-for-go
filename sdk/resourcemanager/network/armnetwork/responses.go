@@ -435,17 +435,6 @@ type ConnectionMonitorsClientListResponse struct {
 	ConnectionMonitorListResult
 }
 
-// ConnectionMonitorsClientQueryResponse contains the response from method ConnectionMonitorsClient.BeginQuery.
-type ConnectionMonitorsClientQueryResponse struct {
-	// List of connection states snapshots.
-	ConnectionMonitorQueryResult
-}
-
-// ConnectionMonitorsClientStartResponse contains the response from method ConnectionMonitorsClient.BeginStart.
-type ConnectionMonitorsClientStartResponse struct {
-	// placeholder for future response values
-}
-
 // ConnectionMonitorsClientStopResponse contains the response from method ConnectionMonitorsClient.BeginStop.
 type ConnectionMonitorsClientStopResponse struct {
 	// placeholder for future response values
@@ -1840,6 +1829,22 @@ type ManagersClientPatchResponse struct {
 	Manager
 }
 
+// NNetworkSecurityPerimeterAccessRulesClientDeleteResponse contains the response from method NNetworkSecurityPerimeterAccessRulesClient.Delete.
+type NNetworkSecurityPerimeterAccessRulesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// NNetworkSecurityPerimeterLinkReferencesClientDeleteResponse contains the response from method NNetworkSecurityPerimeterLinkReferencesClient.BeginDelete.
+type NNetworkSecurityPerimeterLinkReferencesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// NNetworkSecurityPerimeterLinkReferencesClientGetResponse contains the response from method NNetworkSecurityPerimeterLinkReferencesClient.Get.
+type NNetworkSecurityPerimeterLinkReferencesClientGetResponse struct {
+	// The network security perimeter linkReference resource
+	NspLinkReference
+}
+
 // NatGatewaysClientCreateOrUpdateResponse contains the response from method NatGatewaysClient.BeginCreateOrUpdate.
 type NatGatewaysClientCreateOrUpdateResponse struct {
 	// Nat Gateway resource.
@@ -2670,6 +2675,188 @@ type SecurityPartnerProvidersClientUpdateTagsResponse struct {
 	SecurityPartnerProvider
 }
 
+// SecurityPerimeterAccessRulesClientCreateOrUpdateResponse contains the response from method SecurityPerimeterAccessRulesClient.CreateOrUpdate.
+type SecurityPerimeterAccessRulesClientCreateOrUpdateResponse struct {
+	// The NSP access rule resource
+	NspAccessRule
+}
+
+// SecurityPerimeterAccessRulesClientGetResponse contains the response from method SecurityPerimeterAccessRulesClient.Get.
+type SecurityPerimeterAccessRulesClientGetResponse struct {
+	// The NSP access rule resource
+	NspAccessRule
+}
+
+// SecurityPerimeterAccessRulesClientListResponse contains the response from method SecurityPerimeterAccessRulesClient.NewListPager.
+type SecurityPerimeterAccessRulesClientListResponse struct {
+	// Result of the request to list NSP access rules. Contains a list of NSP access rules and a URL link to get the next set
+	// of results.
+	NspAccessRuleListResult
+}
+
+// SecurityPerimeterAccessRulesClientReconcileResponse contains the response from method SecurityPerimeterAccessRulesClient.Reconcile.
+type SecurityPerimeterAccessRulesClientReconcileResponse struct {
+	// Anything
+	Interface any
+}
+
+// SecurityPerimeterAssociableResourceTypesClientListResponse contains the response from method SecurityPerimeterAssociableResourceTypesClient.NewListPager.
+type SecurityPerimeterAssociableResourceTypesClientListResponse struct {
+	// Paged list of perimeter associable resources.
+	PerimeterAssociableResourcesListResult
+}
+
+// SecurityPerimeterAssociationsClientCreateOrUpdateResponse contains the response from method SecurityPerimeterAssociationsClient.BeginCreateOrUpdate.
+type SecurityPerimeterAssociationsClientCreateOrUpdateResponse struct {
+	// The NSP resource association resource
+	NspAssociation
+}
+
+// SecurityPerimeterAssociationsClientDeleteResponse contains the response from method SecurityPerimeterAssociationsClient.BeginDelete.
+type SecurityPerimeterAssociationsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// SecurityPerimeterAssociationsClientGetResponse contains the response from method SecurityPerimeterAssociationsClient.Get.
+type SecurityPerimeterAssociationsClientGetResponse struct {
+	// The NSP resource association resource
+	NspAssociation
+}
+
+// SecurityPerimeterAssociationsClientListResponse contains the response from method SecurityPerimeterAssociationsClient.NewListPager.
+type SecurityPerimeterAssociationsClientListResponse struct {
+	// Result of the request to list NSP resource associations. Contains a list of NSP resource associations and a URL link to
+	// get the next set of results.
+	NspAssociationsListResult
+}
+
+// SecurityPerimeterAssociationsClientPostResponse contains the response from method SecurityPerimeterAssociationsClient.Post.
+type SecurityPerimeterAssociationsClientPostResponse struct {
+	// Anything
+	Interface any
+}
+
+// SecurityPerimeterLinkReferencesClientListResponse contains the response from method SecurityPerimeterLinkReferencesClient.NewListPager.
+type SecurityPerimeterLinkReferencesClientListResponse struct {
+	// Result of the request to list NSP linkReference resources. Contains a list of NSP linkReference resources and a URL link
+	// to get the next set of results.
+	NspLinkReferenceListResult
+}
+
+// SecurityPerimeterLinksClientCreateOrUpdateResponse contains the response from method SecurityPerimeterLinksClient.CreateOrUpdate.
+type SecurityPerimeterLinksClientCreateOrUpdateResponse struct {
+	// The network security perimeter link resource
+	NspLink
+}
+
+// SecurityPerimeterLinksClientDeleteResponse contains the response from method SecurityPerimeterLinksClient.BeginDelete.
+type SecurityPerimeterLinksClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// SecurityPerimeterLinksClientGetResponse contains the response from method SecurityPerimeterLinksClient.Get.
+type SecurityPerimeterLinksClientGetResponse struct {
+	// The network security perimeter link resource
+	NspLink
+}
+
+// SecurityPerimeterLinksClientListResponse contains the response from method SecurityPerimeterLinksClient.NewListPager.
+type SecurityPerimeterLinksClientListResponse struct {
+	// Result of the request to list NSP link resources. Contains a list of NSP link resources and a URL link to get the next
+	// set of results.
+	NspLinkListResult
+}
+
+// SecurityPerimeterLoggingConfigurationsClientCreateOrUpdateResponse contains the response from method SecurityPerimeterLoggingConfigurationsClient.CreateOrUpdate.
+type SecurityPerimeterLoggingConfigurationsClientCreateOrUpdateResponse struct {
+	// The NSP logging configuration
+	NspLoggingConfiguration
+}
+
+// SecurityPerimeterLoggingConfigurationsClientDeleteResponse contains the response from method SecurityPerimeterLoggingConfigurationsClient.Delete.
+type SecurityPerimeterLoggingConfigurationsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// SecurityPerimeterLoggingConfigurationsClientGetResponse contains the response from method SecurityPerimeterLoggingConfigurationsClient.Get.
+type SecurityPerimeterLoggingConfigurationsClientGetResponse struct {
+	// The NSP logging configuration
+	NspLoggingConfiguration
+}
+
+// SecurityPerimeterLoggingConfigurationsClientListResponse contains the response from method SecurityPerimeterLoggingConfigurationsClient.NewListPager.
+type SecurityPerimeterLoggingConfigurationsClientListResponse struct {
+	// Result of the request to list NSP logging configuration. Contains a list of NSP logging configurations and a URL link to
+	// get the next set of results.
+	NspLoggingConfigurationListResult
+}
+
+// SecurityPerimeterOperationStatusesClientGetResponse contains the response from method SecurityPerimeterOperationStatusesClient.Get.
+type SecurityPerimeterOperationStatusesClientGetResponse struct {
+	// The current status of an async operation.
+	OperationStatusResult
+}
+
+// SecurityPerimeterProfilesClientCreateOrUpdateResponse contains the response from method SecurityPerimeterProfilesClient.CreateOrUpdate.
+type SecurityPerimeterProfilesClientCreateOrUpdateResponse struct {
+	// The network security perimeter profile resource
+	NspProfile
+}
+
+// SecurityPerimeterProfilesClientDeleteResponse contains the response from method SecurityPerimeterProfilesClient.Delete.
+type SecurityPerimeterProfilesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// SecurityPerimeterProfilesClientGetResponse contains the response from method SecurityPerimeterProfilesClient.Get.
+type SecurityPerimeterProfilesClientGetResponse struct {
+	// The network security perimeter profile resource
+	NspProfile
+}
+
+// SecurityPerimeterProfilesClientListResponse contains the response from method SecurityPerimeterProfilesClient.NewListPager.
+type SecurityPerimeterProfilesClientListResponse struct {
+	// Result of the request to list NSP profiles. Contains a list of NSP profiles and a URL link to get the next set of results.
+	NspProfileListResult
+}
+
+// SecurityPerimetersClientCreateOrUpdateResponse contains the response from method SecurityPerimetersClient.CreateOrUpdate.
+type SecurityPerimetersClientCreateOrUpdateResponse struct {
+	// The Network Security Perimeter resource
+	SecurityPerimeter
+}
+
+// SecurityPerimetersClientDeleteResponse contains the response from method SecurityPerimetersClient.BeginDelete.
+type SecurityPerimetersClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// SecurityPerimetersClientGetResponse contains the response from method SecurityPerimetersClient.Get.
+type SecurityPerimetersClientGetResponse struct {
+	// The Network Security Perimeter resource
+	SecurityPerimeter
+}
+
+// SecurityPerimetersClientListBySubscriptionResponse contains the response from method SecurityPerimetersClient.NewListBySubscriptionPager.
+type SecurityPerimetersClientListBySubscriptionResponse struct {
+	// Result of the request to list NetworkSecurityPerimeter. It contains a list of network security perimeters and a URL link
+	// to get the next set of results.
+	SecurityPerimeterListResult
+}
+
+// SecurityPerimetersClientListResponse contains the response from method SecurityPerimetersClient.NewListPager.
+type SecurityPerimetersClientListResponse struct {
+	// Result of the request to list NetworkSecurityPerimeter. It contains a list of network security perimeters and a URL link
+	// to get the next set of results.
+	SecurityPerimeterListResult
+}
+
+// SecurityPerimetersClientPatchResponse contains the response from method SecurityPerimetersClient.Patch.
+type SecurityPerimetersClientPatchResponse struct {
+	// The Network Security Perimeter resource
+	SecurityPerimeter
+}
+
 // SecurityRulesClientCreateOrUpdateResponse contains the response from method SecurityRulesClient.BeginCreateOrUpdate.
 type SecurityRulesClientCreateOrUpdateResponse struct {
 	// Network security rule.
@@ -3317,6 +3504,11 @@ type VirtualAppliancesClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
+// VirtualAppliancesClientGetBootDiagnosticLogsResponse contains the response from method VirtualAppliancesClient.BeginGetBootDiagnosticLogs.
+type VirtualAppliancesClientGetBootDiagnosticLogsResponse struct {
+	VirtualApplianceInstanceID
+}
+
 // VirtualAppliancesClientGetResponse contains the response from method VirtualAppliancesClient.Get.
 type VirtualAppliancesClientGetResponse struct {
 	// NetworkVirtualAppliance Resource.
@@ -3333,6 +3525,12 @@ type VirtualAppliancesClientListByResourceGroupResponse struct {
 type VirtualAppliancesClientListResponse struct {
 	// Response for ListNetworkVirtualAppliances API service call.
 	VirtualApplianceListResult
+}
+
+// VirtualAppliancesClientReimageResponse contains the response from method VirtualAppliancesClient.BeginReimage.
+type VirtualAppliancesClientReimageResponse struct {
+	// Specifies a list of virtual machine instance IDs from the Network Virtual Appliance VM instances.
+	VirtualApplianceInstanceIDs
 }
 
 // VirtualAppliancesClientRestartResponse contains the response from method VirtualAppliancesClient.BeginRestart.
