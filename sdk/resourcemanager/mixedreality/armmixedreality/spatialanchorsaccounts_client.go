@@ -43,7 +43,10 @@ func NewSpatialAnchorsAccountsClient(subscriptionID string, credential azcore.To
 	return client, nil
 }
 
-// Create - Creating or Updating a Spatial Anchors Account.
+// Create - > [!NOTE]
+// Mixed Reality retirement
+// The Mixed Reality service is now deprecated and will be retired.
+// Creating or Updating a Spatial Anchors Account.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-03-01-preview
@@ -112,7 +115,10 @@ func (client *SpatialAnchorsAccountsClient) createHandleResponse(resp *http.Resp
 	return result, nil
 }
 
-// Delete - Delete a Spatial Anchors Account.
+// Delete - > [!NOTE]
+// Mixed Reality retirement
+// The Mixed Reality service is now deprecated and will be retired.
+// Delete a Spatial Anchors Account.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-03-01-preview
@@ -167,7 +173,10 @@ func (client *SpatialAnchorsAccountsClient) deleteCreateRequest(ctx context.Cont
 	return req, nil
 }
 
-// Get - Retrieve a Spatial Anchors Account.
+// Get - > [!NOTE]
+// Mixed Reality retirement
+// The Mixed Reality service is now deprecated and will be retired.
+// Retrieve a Spatial Anchors Account.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-03-01-preview
@@ -232,7 +241,10 @@ func (client *SpatialAnchorsAccountsClient) getHandleResponse(resp *http.Respons
 	return result, nil
 }
 
-// NewListByResourceGroupPager - List Resources by Resource Group
+// NewListByResourceGroupPager - > [!NOTE]
+// Mixed Reality retirement
+// The Mixed Reality service is now deprecated and will be retired.
+// List Resources by Resource Group
 //
 // Generated from API version 2021-03-01-preview
 //   - resourceGroupName - Name of an Azure resource group.
@@ -292,7 +304,10 @@ func (client *SpatialAnchorsAccountsClient) listByResourceGroupHandleResponse(re
 	return result, nil
 }
 
-// NewListBySubscriptionPager - List Spatial Anchors Accounts by Subscription
+// NewListBySubscriptionPager - > [!NOTE]
+// Mixed Reality retirement
+// The Mixed Reality service is now deprecated and will be retired.
+// List Spatial Anchors Accounts by Subscription
 //
 // Generated from API version 2021-03-01-preview
 //   - options - SpatialAnchorsAccountsClientListBySubscriptionOptions contains the optional parameters for the SpatialAnchorsAccountsClient.NewListBySubscriptionPager
@@ -347,7 +362,10 @@ func (client *SpatialAnchorsAccountsClient) listBySubscriptionHandleResponse(res
 	return result, nil
 }
 
-// ListKeys - List Both of the 2 Keys of a Spatial Anchors Account
+// ListKeys - > [!NOTE]
+// Mixed Reality retirement
+// The Mixed Reality service is now deprecated and will be retired.
+// List Both of the 2 Keys of a Spatial Anchors Account
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-03-01-preview
@@ -412,7 +430,10 @@ func (client *SpatialAnchorsAccountsClient) listKeysHandleResponse(resp *http.Re
 	return result, nil
 }
 
-// RegenerateKeys - Regenerate specified Key of a Spatial Anchors Account
+// RegenerateKeys - > [!NOTE]
+// Mixed Reality retirement
+// The Mixed Reality service is now deprecated and will be retired.
+// Regenerate specified Key of a Spatial Anchors Account
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-03-01-preview
@@ -481,7 +502,10 @@ func (client *SpatialAnchorsAccountsClient) regenerateKeysHandleResponse(resp *h
 	return result, nil
 }
 
-// Update - Updating a Spatial Anchors Account
+// Update - > [!NOTE]
+// Mixed Reality retirement
+// The Mixed Reality service is now deprecated and will be retired.
+// Updating a Spatial Anchors Account
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2021-03-01-preview
