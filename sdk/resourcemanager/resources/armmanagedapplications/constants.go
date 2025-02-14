@@ -10,7 +10,7 @@ package armmanagedapplications
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armmanagedapplications"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v1.2.1"
 )
 
 // ApplicationArtifactType - The managed application artifact type.
