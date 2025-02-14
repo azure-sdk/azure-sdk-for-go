@@ -36,6 +36,14 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 	}, nil
 }
 
+// NewAutoUpgradeProfileOperationsClient creates a new instance of AutoUpgradeProfileOperationsClient.
+func (c *ClientFactory) NewAutoUpgradeProfileOperationsClient() *AutoUpgradeProfileOperationsClient {
+	return &AutoUpgradeProfileOperationsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewAutoUpgradeProfilesClient creates a new instance of AutoUpgradeProfilesClient.
 func (c *ClientFactory) NewAutoUpgradeProfilesClient() *AutoUpgradeProfilesClient {
 	return &AutoUpgradeProfilesClient{

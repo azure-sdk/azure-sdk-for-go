@@ -19,12 +19,13 @@ import (
 
 // ServerFactory is a fake server for instances of the armcontainerservicefleet.ClientFactory type.
 type ServerFactory struct {
-	AutoUpgradeProfilesServer   AutoUpgradeProfilesServer
-	FleetMembersServer          FleetMembersServer
-	FleetUpdateStrategiesServer FleetUpdateStrategiesServer
-	FleetsServer                FleetsServer
-	OperationsServer            OperationsServer
-	UpdateRunsServer            UpdateRunsServer
+	AutoUpgradeProfileOperationsServer AutoUpgradeProfileOperationsServer
+	AutoUpgradeProfilesServer          AutoUpgradeProfilesServer
+	FleetMembersServer                 FleetMembersServer
+	FleetUpdateStrategiesServer        FleetUpdateStrategiesServer
+	FleetsServer                       FleetsServer
+	OperationsServer                   OperationsServer
+	UpdateRunsServer                   UpdateRunsServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -39,14 +40,15 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armcontainerservicefleet.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                           *ServerFactory
-	trMu                          sync.Mutex
-	trAutoUpgradeProfilesServer   *AutoUpgradeProfilesServerTransport
-	trFleetMembersServer          *FleetMembersServerTransport
-	trFleetUpdateStrategiesServer *FleetUpdateStrategiesServerTransport
-	trFleetsServer                *FleetsServerTransport
-	trOperationsServer            *OperationsServerTransport
-	trUpdateRunsServer            *UpdateRunsServerTransport
+	srv                                  *ServerFactory
+	trMu                                 sync.Mutex
+	trAutoUpgradeProfileOperationsServer *AutoUpgradeProfileOperationsServerTransport
+	trAutoUpgradeProfilesServer          *AutoUpgradeProfilesServerTransport
+	trFleetMembersServer                 *FleetMembersServerTransport
+	trFleetUpdateStrategiesServer        *FleetUpdateStrategiesServerTransport
+	trFleetsServer                       *FleetsServerTransport
+	trOperationsServer                   *OperationsServerTransport
+	trUpdateRunsServer                   *UpdateRunsServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -62,6 +64,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch client {
+	case "AutoUpgradeProfileOperationsClient":
+		initServer(s, &s.trAutoUpgradeProfileOperationsServer, func() *AutoUpgradeProfileOperationsServerTransport {
+			return NewAutoUpgradeProfileOperationsServerTransport(&s.srv.AutoUpgradeProfileOperationsServer)
+		})
+		resp, err = s.trAutoUpgradeProfileOperationsServer.Do(req)
 	case "AutoUpgradeProfilesClient":
 		initServer(s, &s.trAutoUpgradeProfilesServer, func() *AutoUpgradeProfilesServerTransport {
 			return NewAutoUpgradeProfilesServerTransport(&s.srv.AutoUpgradeProfilesServer)

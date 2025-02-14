@@ -316,6 +316,18 @@ type FleetUpdateStrategyProperties struct {
 	ProvisioningState *FleetUpdateStrategyProvisioningState
 }
 
+// GenerateResponse is the response of a generate request.
+type GenerateResponse struct {
+	// REQUIRED; ID of the generated update run.
+	ID *string
+}
+
+// GenerateUpdateRunRequest - GenerateUpdateRunsRequest is the HTTP body of a generate updateruns request.
+type GenerateUpdateRunRequest struct {
+	// REQUIRED; The update spec that will be applied to managed clusters when generating update runs.
+	UpdateSpecification *ManagedClusterUpdate
+}
+
 // ManagedClusterUpdate - The update to be applied to the ManagedClusters.
 type ManagedClusterUpdate struct {
 	// REQUIRED; The upgrade to apply to the ManagedClusters.
