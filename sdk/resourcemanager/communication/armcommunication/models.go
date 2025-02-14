@@ -355,6 +355,46 @@ type Resource struct {
 	Type *string
 }
 
+// SMTPUsernameProperties - A class that describes the properties of a SmtpUsername resource.
+type SMTPUsernameProperties struct {
+	// REQUIRED; The application Id for the linked Entra Application.
+	EntraApplicationID *string
+
+	// REQUIRED; The tenant of the linked Entra Application.
+	TenantID *string
+
+	// REQUIRED; The SMTP username. Could be free form or in the email address format.
+	Username *string
+}
+
+// SMTPUsernameResource - The object describing the smtp username resource.
+type SMTPUsernameResource struct {
+	// The properties of a SmtpUsername resource.
+	Properties *SMTPUsernameProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SMTPUsernameResourceCollection - Collection of SmtpUsername resources. Response will include a nextLink if response contains
+// more pages.
+type SMTPUsernameResourceCollection struct {
+	// The URL the client should use to fetch the next page (per server side paging).
+	NextLink *string
+
+	// List of SmtpUsername resources.
+	Value []*SMTPUsernameResource
+}
+
 // SenderUsernameProperties - A class that describes the properties of a SenderUsername resource.
 type SenderUsernameProperties struct {
 	// REQUIRED; A sender senderUsername to be used when sending emails.
@@ -488,6 +528,99 @@ type ServiceResourceUpdate struct {
 type ServiceUpdateProperties struct {
 	// List of email Domain resource Ids.
 	LinkedDomains []*string
+}
+
+// SuppressionListAddressProperties - A class that describes the properties of a SuppressionListAddress resource.
+type SuppressionListAddressProperties struct {
+	// REQUIRED; Email address of the recipient.
+	Email *string
+
+	// The first name of the email recipient.
+	FirstName *string
+
+	// The last name of the email recipient.
+	LastName *string
+
+	// An optional property to provide contextual notes or a description for an address.
+	Notes *string
+
+	// READ-ONLY; The location where the SuppressionListAddress data is stored at rest. This value is inherited from the parent
+	// Domains resource.
+	DataLocation *string
+
+	// READ-ONLY; The date the address was last updated in a suppression list.
+	LastModified *time.Time
+}
+
+// SuppressionListAddressResource - A object that represents a SuppressionList record.
+type SuppressionListAddressResource struct {
+	// The properties of a SuppressionListAddress resource.
+	Properties *SuppressionListAddressProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SuppressionListAddressResourceCollection - Collection of addresses in a suppression list. Response will include a nextLink
+// if response contains more pages.
+type SuppressionListAddressResourceCollection struct {
+	// The URL the client should use to fetch the next page (per server side paging).
+	NextLink *string
+
+	// List of suppressed email addresses.
+	Value []*SuppressionListAddressResource
+}
+
+// SuppressionListProperties - A class that describes the properties of a SuppressionList resource.
+type SuppressionListProperties struct {
+	// The the name of the suppression list. This value must match one of the valid sender usernames of the sending domain.
+	ListName *string
+
+	// READ-ONLY; The date the resource was created.
+	CreatedTimeStamp *string
+
+	// READ-ONLY; The location where the SuppressionListAddress data is stored at rest. This value is inherited from the parent
+	// Domains resource.
+	DataLocation *string
+
+	// READ-ONLY; The date the resource was last updated.
+	LastUpdatedTimeStamp *string
+}
+
+// SuppressionListResource - A class representing a SuppressionList resource.
+type SuppressionListResource struct {
+	// The properties of a SuppressionList resource.
+	Properties *SuppressionListProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SuppressionListResourceCollection - A class representing a Domains SuppressionListResource collection.
+type SuppressionListResourceCollection struct {
+	// The URL the client should use to fetch the next page (per server side paging).
+	NextLink *string
+
+	// List of SuppressionListResource
+	Value []*SuppressionListResource
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
