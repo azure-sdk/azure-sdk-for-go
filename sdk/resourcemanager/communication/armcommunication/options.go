@@ -98,6 +98,26 @@ type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// SMTPUsernamesClientCreateOrUpdateOptions contains the optional parameters for the SMTPUsernamesClient.CreateOrUpdate method.
+type SMTPUsernamesClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SMTPUsernamesClientDeleteOptions contains the optional parameters for the SMTPUsernamesClient.Delete method.
+type SMTPUsernamesClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SMTPUsernamesClientGetOptions contains the optional parameters for the SMTPUsernamesClient.Get method.
+type SMTPUsernamesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SMTPUsernamesClientListOptions contains the optional parameters for the SMTPUsernamesClient.NewListPager method.
+type SMTPUsernamesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
 // SenderUsernamesClientCreateOrUpdateOptions contains the optional parameters for the SenderUsernamesClient.CreateOrUpdate
 // method.
 type SenderUsernamesClientCreateOrUpdateOptions struct {
@@ -173,5 +193,50 @@ type ServicesClientRegenerateKeyOptions struct {
 
 // ServicesClientUpdateOptions contains the optional parameters for the ServicesClient.Update method.
 type ServicesClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SuppressionListAddressesClientCreateOrUpdateOptions contains the optional parameters for the SuppressionListAddressesClient.CreateOrUpdate
+// method.
+type SuppressionListAddressesClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SuppressionListAddressesClientDeleteOptions contains the optional parameters for the SuppressionListAddressesClient.Delete
+// method.
+type SuppressionListAddressesClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SuppressionListAddressesClientGetOptions contains the optional parameters for the SuppressionListAddressesClient.Get method.
+type SuppressionListAddressesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SuppressionListAddressesClientListOptions contains the optional parameters for the SuppressionListAddressesClient.NewListPager
+// method.
+type SuppressionListAddressesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SuppressionListsClientCreateOrUpdateOptions contains the optional parameters for the SuppressionListsClient.CreateOrUpdate
+// method.
+type SuppressionListsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SuppressionListsClientDeleteOptions contains the optional parameters for the SuppressionListsClient.Delete method.
+type SuppressionListsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SuppressionListsClientGetOptions contains the optional parameters for the SuppressionListsClient.Get method.
+type SuppressionListsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SuppressionListsClientListByDomainOptions contains the optional parameters for the SuppressionListsClient.NewListByDomainPager
+// method.
+type SuppressionListsClientListByDomainOptions struct {
 	// placeholder for future optional parameters
 }
