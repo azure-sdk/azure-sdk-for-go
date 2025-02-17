@@ -16,6 +16,37 @@ import (
 	"reflect"
 )
 
+// MarshalJSON implements the json.Marshaller interface for type AssociatedIdentity.
+func (a AssociatedIdentity) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "operationIdentityType", a.OperationIdentityType)
+	populate(objectMap, "userAssignedIdentity", a.UserAssignedIdentity)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AssociatedIdentity.
+func (a *AssociatedIdentity) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "operationIdentityType":
+			err = unpopulate(val, "OperationIdentityType", &a.OperationIdentityType)
+			delete(rawMsg, key)
+		case "userAssignedIdentity":
+			err = unpopulate(val, "UserAssignedIdentity", &a.UserAssignedIdentity)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type AzureMonitorAlertSettings.
 func (a AzureMonitorAlertSettings) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -1868,6 +1899,7 @@ func (s SecuritySettings) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "immutabilitySettings", s.ImmutabilitySettings)
 	populate(objectMap, "multiUserAuthorization", s.MultiUserAuthorization)
 	populate(objectMap, "softDeleteSettings", s.SoftDeleteSettings)
+	populate(objectMap, "sourceScanConfiguration", s.SourceScanConfiguration)
 	return json.Marshal(objectMap)
 }
 
@@ -1888,6 +1920,9 @@ func (s *SecuritySettings) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "softDeleteSettings":
 			err = unpopulate(val, "SoftDeleteSettings", &s.SoftDeleteSettings)
+			delete(rawMsg, key)
+		case "sourceScanConfiguration":
+			err = unpopulate(val, "SourceScanConfiguration", &s.SourceScanConfiguration)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -1923,6 +1958,37 @@ func (s *SoftDeleteSettings) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "softDeleteState":
 			err = unpopulate(val, "SoftDeleteState", &s.SoftDeleteState)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", s, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type SourceScanConfiguration.
+func (s SourceScanConfiguration) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "sourceScanIdentity", s.SourceScanIdentity)
+	populate(objectMap, "state", s.State)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type SourceScanConfiguration.
+func (s *SourceScanConfiguration) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", s, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "sourceScanIdentity":
+			err = unpopulate(val, "SourceScanIdentity", &s.SourceScanIdentity)
+			delete(rawMsg, key)
+		case "state":
+			err = unpopulate(val, "State", &s.State)
 			delete(rawMsg, key)
 		}
 		if err != nil {
