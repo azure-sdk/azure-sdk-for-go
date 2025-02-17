@@ -10,6 +10,15 @@ package armrecoveryservices
 
 import "time"
 
+// AssociatedIdentity - Identity details to be used for an operation
+type AssociatedIdentity struct {
+	// Identity type that should be used for an operation.
+	OperationIdentityType *IdentityType
+
+	// User assigned identity to be used for an operation if operationIdentityType is UserAssigned.
+	UserAssignedIdentity *string
+}
+
 // AzureMonitorAlertSettings - Settings for Azure Monitor based alerts
 type AzureMonitorAlertSettings struct {
 	AlertsForAllFailoverIssues    *AlertsState
@@ -706,6 +715,9 @@ type SecuritySettings struct {
 	// Soft delete Settings of a vault
 	SoftDeleteSettings *SoftDeleteSettings
 
+	// Source scan configuration of vault
+	SourceScanConfiguration *SourceScanConfiguration
+
 	// READ-ONLY; MUA Settings of a vault
 	MultiUserAuthorization *MultiUserAuthorization
 }
@@ -717,6 +729,13 @@ type SoftDeleteSettings struct {
 	// Soft delete retention period in days
 	SoftDeleteRetentionPeriodInDays *int32
 	SoftDeleteState                 *SoftDeleteState
+}
+
+// SourceScanConfiguration - Source scan configuration of vault
+type SourceScanConfiguration struct {
+	// Identity details to be used for an operation
+	SourceScanIdentity *AssociatedIdentity
+	State              *State
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
