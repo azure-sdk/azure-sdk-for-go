@@ -10,7 +10,7 @@ package armnetwork
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork"
-	moduleVersion = "v6.2.0"
+	moduleVersion = "v6.3.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -26,6 +26,22 @@ func PossibleAccessValues() []Access {
 	return []Access{
 		AccessAllow,
 		AccessDeny,
+	}
+}
+
+// AccessRuleDirection - Direction that specifies whether the access rules is inbound/outbound.
+type AccessRuleDirection string
+
+const (
+	AccessRuleDirectionInbound  AccessRuleDirection = "Inbound"
+	AccessRuleDirectionOutbound AccessRuleDirection = "Outbound"
+)
+
+// PossibleAccessRuleDirectionValues returns the possible values for the AccessRuleDirection const type.
+func PossibleAccessRuleDirectionValues() []AccessRuleDirection {
+	return []AccessRuleDirection{
+		AccessRuleDirectionInbound,
+		AccessRuleDirectionOutbound,
 	}
 }
 
@@ -640,6 +656,24 @@ func PossibleApplicationGatewayWafRuleStateTypesValues() []ApplicationGatewayWaf
 	return []ApplicationGatewayWafRuleStateTypes{
 		ApplicationGatewayWafRuleStateTypesDisabled,
 		ApplicationGatewayWafRuleStateTypesEnabled,
+	}
+}
+
+// AssociationAccessMode - Access mode on the association.
+type AssociationAccessMode string
+
+const (
+	AssociationAccessModeAudit    AssociationAccessMode = "Audit"
+	AssociationAccessModeEnforced AssociationAccessMode = "Enforced"
+	AssociationAccessModeLearning AssociationAccessMode = "Learning"
+)
+
+// PossibleAssociationAccessModeValues returns the possible values for the AssociationAccessMode const type.
+func PossibleAssociationAccessModeValues() []AssociationAccessMode {
+	return []AssociationAccessMode{
+		AssociationAccessModeAudit,
+		AssociationAccessModeEnforced,
+		AssociationAccessModeLearning,
 	}
 }
 
@@ -2889,6 +2923,76 @@ func PossibleNicTypeInResponseValues() []NicTypeInResponse {
 		NicTypeInResponseAdditionalNic,
 		NicTypeInResponsePrivateNic,
 		NicTypeInResponsePublicNic,
+	}
+}
+
+// NspLinkProvisioningState - The current provisioning state of NSP Link/LinkReference.
+type NspLinkProvisioningState string
+
+const (
+	NspLinkProvisioningStateAccepted                NspLinkProvisioningState = "Accepted"
+	NspLinkProvisioningStateCreating                NspLinkProvisioningState = "Creating"
+	NspLinkProvisioningStateDeleting                NspLinkProvisioningState = "Deleting"
+	NspLinkProvisioningStateFailed                  NspLinkProvisioningState = "Failed"
+	NspLinkProvisioningStateSucceeded               NspLinkProvisioningState = "Succeeded"
+	NspLinkProvisioningStateUpdating                NspLinkProvisioningState = "Updating"
+	NspLinkProvisioningStateWaitForRemoteCompletion NspLinkProvisioningState = "WaitForRemoteCompletion"
+)
+
+// PossibleNspLinkProvisioningStateValues returns the possible values for the NspLinkProvisioningState const type.
+func PossibleNspLinkProvisioningStateValues() []NspLinkProvisioningState {
+	return []NspLinkProvisioningState{
+		NspLinkProvisioningStateAccepted,
+		NspLinkProvisioningStateCreating,
+		NspLinkProvisioningStateDeleting,
+		NspLinkProvisioningStateFailed,
+		NspLinkProvisioningStateSucceeded,
+		NspLinkProvisioningStateUpdating,
+		NspLinkProvisioningStateWaitForRemoteCompletion,
+	}
+}
+
+// NspLinkStatus - The NSP link state.
+type NspLinkStatus string
+
+const (
+	NspLinkStatusApproved     NspLinkStatus = "Approved"
+	NspLinkStatusDisconnected NspLinkStatus = "Disconnected"
+	NspLinkStatusPending      NspLinkStatus = "Pending"
+	NspLinkStatusRejected     NspLinkStatus = "Rejected"
+)
+
+// PossibleNspLinkStatusValues returns the possible values for the NspLinkStatus const type.
+func PossibleNspLinkStatusValues() []NspLinkStatus {
+	return []NspLinkStatus{
+		NspLinkStatusApproved,
+		NspLinkStatusDisconnected,
+		NspLinkStatusPending,
+		NspLinkStatusRejected,
+	}
+}
+
+// NspProvisioningState - The current provisioning state.
+type NspProvisioningState string
+
+const (
+	NspProvisioningStateAccepted  NspProvisioningState = "Accepted"
+	NspProvisioningStateCreating  NspProvisioningState = "Creating"
+	NspProvisioningStateDeleting  NspProvisioningState = "Deleting"
+	NspProvisioningStateFailed    NspProvisioningState = "Failed"
+	NspProvisioningStateSucceeded NspProvisioningState = "Succeeded"
+	NspProvisioningStateUpdating  NspProvisioningState = "Updating"
+)
+
+// PossibleNspProvisioningStateValues returns the possible values for the NspProvisioningState const type.
+func PossibleNspProvisioningStateValues() []NspProvisioningState {
+	return []NspProvisioningState{
+		NspProvisioningStateAccepted,
+		NspProvisioningStateCreating,
+		NspProvisioningStateDeleting,
+		NspProvisioningStateFailed,
+		NspProvisioningStateSucceeded,
+		NspProvisioningStateUpdating,
 	}
 }
 

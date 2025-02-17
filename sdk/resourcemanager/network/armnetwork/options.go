@@ -2039,6 +2039,176 @@ type NatRulesClientListByVPNGatewayOptions struct {
 	// placeholder for future optional parameters
 }
 
+// NspAccessRulesClientCreateOrUpdateOptions contains the optional parameters for the NspAccessRulesClient.CreateOrUpdate
+// method.
+type NspAccessRulesClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NspAccessRulesClientDeleteOptions contains the optional parameters for the NspAccessRulesClient.Delete method.
+type NspAccessRulesClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NspAccessRulesClientGetOptions contains the optional parameters for the NspAccessRulesClient.Get method.
+type NspAccessRulesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NspAccessRulesClientListOptions contains the optional parameters for the NspAccessRulesClient.NewListPager method.
+type NspAccessRulesClientListOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
+// NspAccessRulesReconcileClientPostOptions contains the optional parameters for the NspAccessRulesReconcileClient.Post method.
+type NspAccessRulesReconcileClientPostOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NspAssociationReconcileClientPostOptions contains the optional parameters for the NspAssociationReconcileClient.Post method.
+type NspAssociationReconcileClientPostOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NspAssociationsClientBeginCreateOrUpdateOptions contains the optional parameters for the NspAssociationsClient.BeginCreateOrUpdate
+// method.
+type NspAssociationsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// NspAssociationsClientBeginDeleteOptions contains the optional parameters for the NspAssociationsClient.BeginDelete method.
+type NspAssociationsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// NspAssociationsClientGetOptions contains the optional parameters for the NspAssociationsClient.Get method.
+type NspAssociationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NspAssociationsClientListOptions contains the optional parameters for the NspAssociationsClient.NewListPager method.
+type NspAssociationsClientListOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
+// NspLinkReferencesClientBeginDeleteOptions contains the optional parameters for the NspLinkReferencesClient.BeginDelete
+// method.
+type NspLinkReferencesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// NspLinkReferencesClientGetOptions contains the optional parameters for the NspLinkReferencesClient.Get method.
+type NspLinkReferencesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NspLinkReferencesClientListOptions contains the optional parameters for the NspLinkReferencesClient.NewListPager method.
+type NspLinkReferencesClientListOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
+// NspLinksClientBeginDeleteOptions contains the optional parameters for the NspLinksClient.BeginDelete method.
+type NspLinksClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// NspLinksClientCreateOrUpdateOptions contains the optional parameters for the NspLinksClient.CreateOrUpdate method.
+type NspLinksClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NspLinksClientGetOptions contains the optional parameters for the NspLinksClient.Get method.
+type NspLinksClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NspLinksClientListOptions contains the optional parameters for the NspLinksClient.NewListPager method.
+type NspLinksClientListOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
+// NspLoggingConfigurationClientCreateOrUpdateOptions contains the optional parameters for the NspLoggingConfigurationClient.CreateOrUpdate
+// method.
+type NspLoggingConfigurationClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NspLoggingConfigurationClientDeleteOptions contains the optional parameters for the NspLoggingConfigurationClient.Delete
+// method.
+type NspLoggingConfigurationClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NspLoggingConfigurationClientGetOptions contains the optional parameters for the NspLoggingConfigurationClient.Get method.
+type NspLoggingConfigurationClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NspLoggingConfigurationsClientListOptions contains the optional parameters for the NspLoggingConfigurationsClient.NewListPager
+// method.
+type NspLoggingConfigurationsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NspOperationStatusClientGetOptions contains the optional parameters for the NspOperationStatusClient.Get method.
+type NspOperationStatusClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NspProfilesClientCreateOrUpdateOptions contains the optional parameters for the NspProfilesClient.CreateOrUpdate method.
+type NspProfilesClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NspProfilesClientDeleteOptions contains the optional parameters for the NspProfilesClient.Delete method.
+type NspProfilesClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NspProfilesClientGetOptions contains the optional parameters for the NspProfilesClient.Get method.
+type NspProfilesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NspProfilesClientListOptions contains the optional parameters for the NspProfilesClient.NewListPager method.
+type NspProfilesClientListOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
@@ -2158,6 +2328,12 @@ type PeerExpressRouteCircuitConnectionsClientGetOptions struct {
 // PeerExpressRouteCircuitConnectionsClientListOptions contains the optional parameters for the PeerExpressRouteCircuitConnectionsClient.NewListPager
 // method.
 type PeerExpressRouteCircuitConnectionsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PerimeterAssociableResourceTypesClientListOptions contains the optional parameters for the PerimeterAssociableResourceTypesClient.NewListPager
+// method.
+type PerimeterAssociableResourceTypesClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -2881,6 +3057,52 @@ type SecurityPartnerProvidersClientListOptions struct {
 // SecurityPartnerProvidersClientUpdateTagsOptions contains the optional parameters for the SecurityPartnerProvidersClient.UpdateTags
 // method.
 type SecurityPartnerProvidersClientUpdateTagsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityPerimetersClientBeginDeleteOptions contains the optional parameters for the SecurityPerimetersClient.BeginDelete
+// method.
+type SecurityPerimetersClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SecurityPerimetersClientCreateOrUpdateOptions contains the optional parameters for the SecurityPerimetersClient.CreateOrUpdate
+// method.
+type SecurityPerimetersClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityPerimetersClientGetOptions contains the optional parameters for the SecurityPerimetersClient.Get method.
+type SecurityPerimetersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityPerimetersClientListBySubscriptionOptions contains the optional parameters for the SecurityPerimetersClient.NewListBySubscriptionPager
+// method.
+type SecurityPerimetersClientListBySubscriptionOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
+// SecurityPerimetersClientListOptions contains the optional parameters for the SecurityPerimetersClient.NewListPager method.
+type SecurityPerimetersClientListOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
+// SecurityPerimetersClientPatchOptions contains the optional parameters for the SecurityPerimetersClient.Patch method.
+type SecurityPerimetersClientPatchOptions struct {
 	// placeholder for future optional parameters
 }
 
