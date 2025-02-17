@@ -180,68 +180,6 @@ type CertificatesClientUpdateResponse struct {
 	AppCertificate
 }
 
-// ContainerAppsClientCreateOrUpdateResponse contains the response from method ContainerAppsClient.BeginCreateOrUpdate.
-type ContainerAppsClientCreateOrUpdateResponse struct {
-	// Container App.
-	ContainerApp
-}
-
-// ContainerAppsClientDeleteResponse contains the response from method ContainerAppsClient.BeginDelete.
-type ContainerAppsClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// ContainerAppsClientGetResponse contains the response from method ContainerAppsClient.Get.
-type ContainerAppsClientGetResponse struct {
-	// Container App.
-	ContainerApp
-}
-
-// ContainerAppsClientListByResourceGroupResponse contains the response from method ContainerAppsClient.NewListByResourceGroupPager.
-type ContainerAppsClientListByResourceGroupResponse struct {
-	// Container App collection ARM resource.
-	ContainerAppCollection
-}
-
-// ContainerAppsClientListBySubscriptionResponse contains the response from method ContainerAppsClient.NewListBySubscriptionPager.
-type ContainerAppsClientListBySubscriptionResponse struct {
-	// Container App collection ARM resource.
-	ContainerAppCollection
-}
-
-// ContainerAppsClientListSecretsResponse contains the response from method ContainerAppsClient.ListSecrets.
-type ContainerAppsClientListSecretsResponse struct {
-	// Container App Secrets Collection ARM resource.
-	SecretsCollection
-}
-
-// ContainerAppsRevisionsClientActivateRevisionResponse contains the response from method ContainerAppsRevisionsClient.ActivateRevision.
-type ContainerAppsRevisionsClientActivateRevisionResponse struct {
-	// placeholder for future response values
-}
-
-// ContainerAppsRevisionsClientDeactivateRevisionResponse contains the response from method ContainerAppsRevisionsClient.DeactivateRevision.
-type ContainerAppsRevisionsClientDeactivateRevisionResponse struct {
-	// placeholder for future response values
-}
-
-// ContainerAppsRevisionsClientGetRevisionResponse contains the response from method ContainerAppsRevisionsClient.GetRevision.
-type ContainerAppsRevisionsClientGetRevisionResponse struct {
-	// Container App Revision.
-	Revision
-}
-
-// ContainerAppsRevisionsClientListRevisionsResponse contains the response from method ContainerAppsRevisionsClient.NewListRevisionsPager.
-type ContainerAppsRevisionsClientListRevisionsResponse struct {
-	// Container App Revisions collection ARM resource.
-	RevisionCollection
-}
-
-// ContainerAppsRevisionsClientRestartRevisionResponse contains the response from method ContainerAppsRevisionsClient.RestartRevision.
-type ContainerAppsRevisionsClientRestartRevisionResponse struct {
-	// placeholder for future response values
-}
-
 // DeletedWebAppsClientGetDeletedWebAppByLocationResponse contains the response from method DeletedWebAppsClient.GetDeletedWebAppByLocation.
 type DeletedWebAppsClientGetDeletedWebAppByLocationResponse struct {
 	// A deleted app.
@@ -1152,6 +1090,64 @@ type ResourceHealthMetadataClientListBySiteSlotResponse struct {
 type ResourceHealthMetadataClientListResponse struct {
 	// Collection of resource health metadata.
 	ResourceHealthMetadataCollection
+}
+
+// SiteCertificatesClientCreateOrUpdateResponse contains the response from method SiteCertificatesClient.CreateOrUpdate.
+type SiteCertificatesClientCreateOrUpdateResponse struct {
+	// SSL certificate for an app.
+	AppCertificate
+}
+
+// SiteCertificatesClientCreateOrUpdateSlotResponse contains the response from method SiteCertificatesClient.CreateOrUpdateSlot.
+type SiteCertificatesClientCreateOrUpdateSlotResponse struct {
+	// SSL certificate for an app.
+	AppCertificate
+}
+
+// SiteCertificatesClientDeleteResponse contains the response from method SiteCertificatesClient.Delete.
+type SiteCertificatesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// SiteCertificatesClientDeleteSlotResponse contains the response from method SiteCertificatesClient.DeleteSlot.
+type SiteCertificatesClientDeleteSlotResponse struct {
+	// placeholder for future response values
+}
+
+// SiteCertificatesClientGetResponse contains the response from method SiteCertificatesClient.Get.
+type SiteCertificatesClientGetResponse struct {
+	// SSL certificate for an app.
+	AppCertificate
+}
+
+// SiteCertificatesClientGetSlotResponse contains the response from method SiteCertificatesClient.GetSlot.
+type SiteCertificatesClientGetSlotResponse struct {
+	// SSL certificate for an app.
+	AppCertificate
+}
+
+// SiteCertificatesClientListResponse contains the response from method SiteCertificatesClient.NewListPager.
+type SiteCertificatesClientListResponse struct {
+	// Collection of certificates.
+	AppCertificateCollection
+}
+
+// SiteCertificatesClientListSlotResponse contains the response from method SiteCertificatesClient.NewListSlotPager.
+type SiteCertificatesClientListSlotResponse struct {
+	// Collection of certificates.
+	AppCertificateCollection
+}
+
+// SiteCertificatesClientUpdateResponse contains the response from method SiteCertificatesClient.Update.
+type SiteCertificatesClientUpdateResponse struct {
+	// SSL certificate for an app.
+	AppCertificate
+}
+
+// SiteCertificatesClientUpdateSlotResponse contains the response from method SiteCertificatesClient.UpdateSlot.
+type SiteCertificatesClientUpdateSlotResponse struct {
+	// SSL certificate for an app.
+	AppCertificate
 }
 
 // StaticSitesClientApproveOrRejectPrivateEndpointConnectionResponse contains the response from method StaticSitesClient.BeginApproveOrRejectPrivateEndpointConnection.
