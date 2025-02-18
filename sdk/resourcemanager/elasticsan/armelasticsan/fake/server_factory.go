@@ -20,6 +20,7 @@ import (
 // ServerFactory is a fake server for instances of the armelasticsan.ClientFactory type.
 type ServerFactory struct {
 	ElasticSansServer                ElasticSansServer
+	ManagementServer                 ManagementServer
 	OperationsServer                 OperationsServer
 	PrivateEndpointConnectionsServer PrivateEndpointConnectionsServer
 	PrivateLinkResourcesServer       PrivateLinkResourcesServer
@@ -44,6 +45,7 @@ type ServerFactoryTransport struct {
 	srv                                *ServerFactory
 	trMu                               sync.Mutex
 	trElasticSansServer                *ElasticSansServerTransport
+	trManagementServer                 *ManagementServerTransport
 	trOperationsServer                 *OperationsServerTransport
 	trPrivateEndpointConnectionsServer *PrivateEndpointConnectionsServerTransport
 	trPrivateLinkResourcesServer       *PrivateLinkResourcesServerTransport
@@ -69,6 +71,9 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "ElasticSansClient":
 		initServer(s, &s.trElasticSansServer, func() *ElasticSansServerTransport { return NewElasticSansServerTransport(&s.srv.ElasticSansServer) })
 		resp, err = s.trElasticSansServer.Do(req)
+	case "ManagementClient":
+		initServer(s, &s.trManagementServer, func() *ManagementServerTransport { return NewManagementServerTransport(&s.srv.ManagementServer) })
+		resp, err = s.trManagementServer.Do(req)
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
