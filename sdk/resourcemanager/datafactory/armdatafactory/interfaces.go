@@ -53,7 +53,7 @@ type ControlActivityClassification interface {
 // - *DynamicsCrmSink, *DynamicsSink, *FileSystemSink, *IcebergSink, *InformixSink, *JSONSink, *LakeHouseTableSink, *MicrosoftAccessSink,
 // - *MongoDbAtlasSink, *MongoDbV2Sink, *OdbcSink, *OracleSink, *OrcSink, *ParquetSink, *RestSink, *SQLDWSink, *SQLMISink,
 // - *SQLServerSink, *SQLSink, *SalesforceServiceCloudSink, *SalesforceServiceCloudV2Sink, *SalesforceSink, *SalesforceV2Sink,
-// - *SapCloudForCustomerSink, *SnowflakeSink, *SnowflakeV2Sink, *WarehouseSink
+// - *SapCloudForCustomerSink, *SnowflakeSink, *SnowflakeV2Sink, *TeradataSink, *WarehouseSink
 type CopySinkClassification interface {
 	// GetCopySink returns the CopySink content of the underlying type.
 	GetCopySink() *CopySink
@@ -223,7 +223,7 @@ type FormatWriteSettingsClassification interface {
 // ImportSettingsClassification provides polymorphic access to related types.
 // Call the interface's GetImportSettings() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *AzureDatabricksDeltaLakeImportCommand, *ImportSettings, *SnowflakeImportCopyCommand
+// - *AzureDatabricksDeltaLakeImportCommand, *ImportSettings, *SnowflakeImportCopyCommand, *TeradataImportCommand
 type ImportSettingsClassification interface {
 	// GetImportSettings returns the ImportSettings content of the underlying type.
 	GetImportSettings() *ImportSettings

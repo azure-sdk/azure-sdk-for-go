@@ -253,6 +253,8 @@ func unmarshalCopySinkClassification(rawMsg json.RawMessage) (CopySinkClassifica
 		b = &SQLServerSink{}
 	case "SqlSink":
 		b = &SQLSink{}
+	case "TeradataSink":
+		b = &TeradataSink{}
 	case "WarehouseSink":
 		b = &WarehouseSink{}
 	default:
@@ -695,7 +697,7 @@ func unmarshalDatasetClassification(rawMsg json.RawMessage) (DatasetClassificati
 		b = &JiraObjectDataset{}
 	case "Json":
 		b = &JSONDataset{}
-	case "LakeHouseTable":
+	case "LakehouseTable":
 		b = &LakeHouseTableDataset{}
 	case "MagentoObject":
 		b = &MagentoObjectDataset{}
@@ -1191,7 +1193,7 @@ func unmarshalLinkedServiceClassification(rawMsg json.RawMessage) (LinkedService
 		b = &InformixLinkedService{}
 	case "Jira":
 		b = &JiraLinkedService{}
-	case "LakeHouse":
+	case "Lakehouse":
 		b = &LakeHouseLinkedService{}
 	case "Magento":
 		b = &MagentoLinkedService{}
