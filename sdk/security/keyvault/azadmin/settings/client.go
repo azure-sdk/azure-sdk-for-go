@@ -32,7 +32,7 @@ type Client struct {
 //   - options - GetSettingOptions contains the optional parameters for the Client.GetSetting method.
 func (client *Client) GetSetting(ctx context.Context, settingName string, options *GetSettingOptions) (GetSettingResponse, error) {
 	var err error
-	ctx, endSpan := runtime.StartSpan(ctx, "settings.Client.GetSetting", client.internal.Tracer(), nil)
+	ctx, endSpan := runtime.StartSpan(ctx, "Client.GetSetting", client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.getSettingCreateRequest(ctx, settingName, options)
 	if err != nil {
@@ -88,7 +88,7 @@ func (client *Client) getSettingHandleResponse(resp *http.Response) (GetSettingR
 //   - options - GetSettingsOptions contains the optional parameters for the Client.GetSettings method.
 func (client *Client) GetSettings(ctx context.Context, options *GetSettingsOptions) (GetSettingsResponse, error) {
 	var err error
-	ctx, endSpan := runtime.StartSpan(ctx, "settings.Client.GetSettings", client.internal.Tracer(), nil)
+	ctx, endSpan := runtime.StartSpan(ctx, "Client.GetSettings", client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.getSettingsCreateRequest(ctx, options)
 	if err != nil {
@@ -142,7 +142,7 @@ func (client *Client) getSettingsHandleResponse(resp *http.Response) (GetSetting
 //   - options - UpdateSettingOptions contains the optional parameters for the Client.UpdateSetting method.
 func (client *Client) UpdateSetting(ctx context.Context, settingName string, parameters UpdateSettingRequest, options *UpdateSettingOptions) (UpdateSettingResponse, error) {
 	var err error
-	ctx, endSpan := runtime.StartSpan(ctx, "settings.Client.UpdateSetting", client.internal.Tracer(), nil)
+	ctx, endSpan := runtime.StartSpan(ctx, "Client.UpdateSetting", client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.updateSettingCreateRequest(ctx, settingName, parameters, options)
 	if err != nil {
