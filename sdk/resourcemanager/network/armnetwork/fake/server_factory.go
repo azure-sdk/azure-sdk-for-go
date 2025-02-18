@@ -93,6 +93,8 @@ type ServerFactory struct {
 	ManagerDeploymentStatusServer                         ManagerDeploymentStatusServer
 	ManagerRoutingConfigurationsServer                    ManagerRoutingConfigurationsServer
 	ManagersServer                                        ManagersServer
+	NNetworkSecurityPerimeterAccessRulesServer            NNetworkSecurityPerimeterAccessRulesServer
+	NNetworkSecurityPerimeterLinkReferencesServer         NNetworkSecurityPerimeterLinkReferencesServer
 	NatGatewaysServer                                     NatGatewaysServer
 	NatRulesServer                                        NatRulesServer
 	OperationsServer                                      OperationsServer
@@ -120,6 +122,15 @@ type ServerFactory struct {
 	SecurityAdminConfigurationsServer                     SecurityAdminConfigurationsServer
 	SecurityGroupsServer                                  SecurityGroupsServer
 	SecurityPartnerProvidersServer                        SecurityPartnerProvidersServer
+	SecurityPerimeterAccessRulesServer                    SecurityPerimeterAccessRulesServer
+	SecurityPerimeterAssociableResourceTypesServer        SecurityPerimeterAssociableResourceTypesServer
+	SecurityPerimeterAssociationsServer                   SecurityPerimeterAssociationsServer
+	SecurityPerimeterLinkReferencesServer                 SecurityPerimeterLinkReferencesServer
+	SecurityPerimeterLinksServer                          SecurityPerimeterLinksServer
+	SecurityPerimeterLoggingConfigurationsServer          SecurityPerimeterLoggingConfigurationsServer
+	SecurityPerimeterOperationStatusesServer              SecurityPerimeterOperationStatusesServer
+	SecurityPerimeterProfilesServer                       SecurityPerimeterProfilesServer
+	SecurityPerimetersServer                              SecurityPerimetersServer
 	SecurityRulesServer                                   SecurityRulesServer
 	SecurityUserConfigurationsServer                      SecurityUserConfigurationsServer
 	SecurityUserRuleCollectionsServer                     SecurityUserRuleCollectionsServer
@@ -256,6 +267,8 @@ type ServerFactoryTransport struct {
 	trManagerDeploymentStatusServer                         *ManagerDeploymentStatusServerTransport
 	trManagerRoutingConfigurationsServer                    *ManagerRoutingConfigurationsServerTransport
 	trManagersServer                                        *ManagersServerTransport
+	trNNetworkSecurityPerimeterAccessRulesServer            *NNetworkSecurityPerimeterAccessRulesServerTransport
+	trNNetworkSecurityPerimeterLinkReferencesServer         *NNetworkSecurityPerimeterLinkReferencesServerTransport
 	trNatGatewaysServer                                     *NatGatewaysServerTransport
 	trNatRulesServer                                        *NatRulesServerTransport
 	trOperationsServer                                      *OperationsServerTransport
@@ -283,6 +296,15 @@ type ServerFactoryTransport struct {
 	trSecurityAdminConfigurationsServer                     *SecurityAdminConfigurationsServerTransport
 	trSecurityGroupsServer                                  *SecurityGroupsServerTransport
 	trSecurityPartnerProvidersServer                        *SecurityPartnerProvidersServerTransport
+	trSecurityPerimeterAccessRulesServer                    *SecurityPerimeterAccessRulesServerTransport
+	trSecurityPerimeterAssociableResourceTypesServer        *SecurityPerimeterAssociableResourceTypesServerTransport
+	trSecurityPerimeterAssociationsServer                   *SecurityPerimeterAssociationsServerTransport
+	trSecurityPerimeterLinkReferencesServer                 *SecurityPerimeterLinkReferencesServerTransport
+	trSecurityPerimeterLinksServer                          *SecurityPerimeterLinksServerTransport
+	trSecurityPerimeterLoggingConfigurationsServer          *SecurityPerimeterLoggingConfigurationsServerTransport
+	trSecurityPerimeterOperationStatusesServer              *SecurityPerimeterOperationStatusesServerTransport
+	trSecurityPerimeterProfilesServer                       *SecurityPerimeterProfilesServerTransport
+	trSecurityPerimetersServer                              *SecurityPerimetersServerTransport
 	trSecurityRulesServer                                   *SecurityRulesServerTransport
 	trSecurityUserConfigurationsServer                      *SecurityUserConfigurationsServerTransport
 	trSecurityUserRuleCollectionsServer                     *SecurityUserRuleCollectionsServerTransport
@@ -696,6 +718,16 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "ManagersClient":
 		initServer(s, &s.trManagersServer, func() *ManagersServerTransport { return NewManagersServerTransport(&s.srv.ManagersServer) })
 		resp, err = s.trManagersServer.Do(req)
+	case "NNetworkSecurityPerimeterAccessRulesClient":
+		initServer(s, &s.trNNetworkSecurityPerimeterAccessRulesServer, func() *NNetworkSecurityPerimeterAccessRulesServerTransport {
+			return NewNNetworkSecurityPerimeterAccessRulesServerTransport(&s.srv.NNetworkSecurityPerimeterAccessRulesServer)
+		})
+		resp, err = s.trNNetworkSecurityPerimeterAccessRulesServer.Do(req)
+	case "NNetworkSecurityPerimeterLinkReferencesClient":
+		initServer(s, &s.trNNetworkSecurityPerimeterLinkReferencesServer, func() *NNetworkSecurityPerimeterLinkReferencesServerTransport {
+			return NewNNetworkSecurityPerimeterLinkReferencesServerTransport(&s.srv.NNetworkSecurityPerimeterLinkReferencesServer)
+		})
+		resp, err = s.trNNetworkSecurityPerimeterLinkReferencesServer.Do(req)
 	case "NatGatewaysClient":
 		initServer(s, &s.trNatGatewaysServer, func() *NatGatewaysServerTransport { return NewNatGatewaysServerTransport(&s.srv.NatGatewaysServer) })
 		resp, err = s.trNatGatewaysServer.Do(req)
@@ -813,6 +845,51 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewSecurityPartnerProvidersServerTransport(&s.srv.SecurityPartnerProvidersServer)
 		})
 		resp, err = s.trSecurityPartnerProvidersServer.Do(req)
+	case "SecurityPerimeterAccessRulesClient":
+		initServer(s, &s.trSecurityPerimeterAccessRulesServer, func() *SecurityPerimeterAccessRulesServerTransport {
+			return NewSecurityPerimeterAccessRulesServerTransport(&s.srv.SecurityPerimeterAccessRulesServer)
+		})
+		resp, err = s.trSecurityPerimeterAccessRulesServer.Do(req)
+	case "SecurityPerimeterAssociableResourceTypesClient":
+		initServer(s, &s.trSecurityPerimeterAssociableResourceTypesServer, func() *SecurityPerimeterAssociableResourceTypesServerTransport {
+			return NewSecurityPerimeterAssociableResourceTypesServerTransport(&s.srv.SecurityPerimeterAssociableResourceTypesServer)
+		})
+		resp, err = s.trSecurityPerimeterAssociableResourceTypesServer.Do(req)
+	case "SecurityPerimeterAssociationsClient":
+		initServer(s, &s.trSecurityPerimeterAssociationsServer, func() *SecurityPerimeterAssociationsServerTransport {
+			return NewSecurityPerimeterAssociationsServerTransport(&s.srv.SecurityPerimeterAssociationsServer)
+		})
+		resp, err = s.trSecurityPerimeterAssociationsServer.Do(req)
+	case "SecurityPerimeterLinkReferencesClient":
+		initServer(s, &s.trSecurityPerimeterLinkReferencesServer, func() *SecurityPerimeterLinkReferencesServerTransport {
+			return NewSecurityPerimeterLinkReferencesServerTransport(&s.srv.SecurityPerimeterLinkReferencesServer)
+		})
+		resp, err = s.trSecurityPerimeterLinkReferencesServer.Do(req)
+	case "SecurityPerimeterLinksClient":
+		initServer(s, &s.trSecurityPerimeterLinksServer, func() *SecurityPerimeterLinksServerTransport {
+			return NewSecurityPerimeterLinksServerTransport(&s.srv.SecurityPerimeterLinksServer)
+		})
+		resp, err = s.trSecurityPerimeterLinksServer.Do(req)
+	case "SecurityPerimeterLoggingConfigurationsClient":
+		initServer(s, &s.trSecurityPerimeterLoggingConfigurationsServer, func() *SecurityPerimeterLoggingConfigurationsServerTransport {
+			return NewSecurityPerimeterLoggingConfigurationsServerTransport(&s.srv.SecurityPerimeterLoggingConfigurationsServer)
+		})
+		resp, err = s.trSecurityPerimeterLoggingConfigurationsServer.Do(req)
+	case "SecurityPerimeterOperationStatusesClient":
+		initServer(s, &s.trSecurityPerimeterOperationStatusesServer, func() *SecurityPerimeterOperationStatusesServerTransport {
+			return NewSecurityPerimeterOperationStatusesServerTransport(&s.srv.SecurityPerimeterOperationStatusesServer)
+		})
+		resp, err = s.trSecurityPerimeterOperationStatusesServer.Do(req)
+	case "SecurityPerimeterProfilesClient":
+		initServer(s, &s.trSecurityPerimeterProfilesServer, func() *SecurityPerimeterProfilesServerTransport {
+			return NewSecurityPerimeterProfilesServerTransport(&s.srv.SecurityPerimeterProfilesServer)
+		})
+		resp, err = s.trSecurityPerimeterProfilesServer.Do(req)
+	case "SecurityPerimetersClient":
+		initServer(s, &s.trSecurityPerimetersServer, func() *SecurityPerimetersServerTransport {
+			return NewSecurityPerimetersServerTransport(&s.srv.SecurityPerimetersServer)
+		})
+		resp, err = s.trSecurityPerimetersServer.Do(req)
 	case "SecurityRulesClient":
 		initServer(s, &s.trSecurityRulesServer, func() *SecurityRulesServerTransport {
 			return NewSecurityRulesServerTransport(&s.srv.SecurityRulesServer)
