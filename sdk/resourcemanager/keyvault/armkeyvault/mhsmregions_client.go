@@ -46,7 +46,7 @@ func NewMHSMRegionsClient(subscriptionID string, credential azcore.TokenCredenti
 
 // NewListByResourcePager - The List operation gets information about the regions associated with the managed HSM Pool.
 //
-// Generated from API version 2023-07-01
+// Generated from API version 2024-11-01
 //   - resourceGroupName - Name of the resource group that contains the managed HSM pool.
 //   - name - Name of the managed HSM Pool
 //   - options - MHSMRegionsClientListByResourceOptions contains the optional parameters for the MHSMRegionsClient.NewListByResourcePager
@@ -94,7 +94,7 @@ func (client *MHSMRegionsClient) listByResourceCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-07-01")
+	reqQP.Set("api-version", "2024-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -240,27 +240,10 @@ type VaultsClientCheckNameAvailabilityResponse struct {
 	CheckNameAvailabilityResult
 }
 
-// VaultsClientCreateOrUpdateResponse contains the response from method VaultsClient.BeginCreateOrUpdate.
-type VaultsClientCreateOrUpdateResponse struct {
-	// Resource information with extended details.
-	Vault
-}
-
-// VaultsClientDeleteResponse contains the response from method VaultsClient.Delete.
-type VaultsClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
 // VaultsClientGetDeletedResponse contains the response from method VaultsClient.GetDeleted.
 type VaultsClientGetDeletedResponse struct {
 	// Deleted vault information with extended details.
 	DeletedVault
-}
-
-// VaultsClientGetResponse contains the response from method VaultsClient.Get.
-type VaultsClientGetResponse struct {
-	// Resource information with extended details.
-	Vault
 }
 
 // VaultsClientListByResourceGroupResponse contains the response from method VaultsClient.NewListByResourceGroupPager.
@@ -296,10 +279,4 @@ type VaultsClientPurgeDeletedResponse struct {
 type VaultsClientUpdateAccessPolicyResponse struct {
 	// Parameters for updating the access policy in a vault
 	VaultAccessPolicyParameters
-}
-
-// VaultsClientUpdateResponse contains the response from method VaultsClient.Update.
-type VaultsClientUpdateResponse struct {
-	// Resource information with extended details.
-	Vault
 }
