@@ -62,6 +62,41 @@ func (f *FullBackupOperation) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type FullBackupOperationError.
+func (f FullBackupOperationError) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "code", f.Code)
+	populate(objectMap, "innererror", f.InnerError)
+	populate(objectMap, "message", f.Message)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type FullBackupOperationError.
+func (f *FullBackupOperationError) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", f, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "code":
+			err = unpopulate(val, "Code", &f.Code)
+			delete(rawMsg, key)
+		case "innererror":
+			err = unpopulate(val, "InnerError", &f.InnerError)
+			delete(rawMsg, key)
+		case "message":
+			err = unpopulate(val, "Message", &f.Message)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", f, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type RestoreOperation.
 func (r RestoreOperation) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
