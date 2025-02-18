@@ -16,6 +16,14 @@ type AutoScaleProperties struct {
 	ScaleUpProperties *ScaleUpProperties
 }
 
+// DeleteRetentionPolicy - Response for Delete Retention Policy object
+type DeleteRetentionPolicy struct {
+	PolicyState *PolicyState
+
+	// The number of days to retain the resources after deletion.
+	RetentionPeriodDays *int32
+}
+
 // ElasticSan - Response for ElasticSan request.
 type ElasticSan struct {
 	// REQUIRED; The geo-location where the resource lives
@@ -567,6 +575,9 @@ type VolumeGroupList struct {
 
 // VolumeGroupProperties - VolumeGroup response properties.
 type VolumeGroupProperties struct {
+	// The retention policy for the soft deleted volume group and its associated resources.
+	DeleteRetentionPolicy *DeleteRetentionPolicy
+
 	// Type of encryption
 	Encryption *EncryptionType
 
@@ -600,6 +611,9 @@ type VolumeGroupUpdate struct {
 
 // VolumeGroupUpdateProperties - VolumeGroup response properties.
 type VolumeGroupUpdateProperties struct {
+	// The retention policy for the soft deleted volume group and its associated resources
+	DeleteRetentionPolicy *DeleteRetentionPolicy
+
 	// Type of encryption
 	Encryption *EncryptionType
 
