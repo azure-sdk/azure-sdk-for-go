@@ -699,7 +699,9 @@ func (k *KeyProperties) UnmarshalJSON(data []byte) error {
 func (k KeyReleasePolicy) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "contentType", k.ContentType)
-	populateByteArray(objectMap, "data", k.Data, runtime.Base64URLFormat)
+	populateByteArray(objectMap, "data", k.Data, func() any {
+		return runtime.EncodeByteArray(k.Data, runtime.Base64URLFormat)
+	})
 	return json.Marshal(objectMap)
 }
 
@@ -716,7 +718,9 @@ func (k *KeyReleasePolicy) UnmarshalJSON(data []byte) error {
 			err = unpopulate(val, "ContentType", &k.ContentType)
 			delete(rawMsg, key)
 		case "data":
-			err = runtime.DecodeByteArray(string(val), &k.Data, runtime.Base64URLFormat)
+			if val != nil && string(val) != "null" {
+				err = runtime.DecodeByteArray(string(val), &k.Data, runtime.Base64URLFormat)
+			}
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -1669,7 +1673,9 @@ func (m *ManagedHsmKeyProperties) UnmarshalJSON(data []byte) error {
 func (m ManagedHsmKeyReleasePolicy) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "contentType", m.ContentType)
-	populateByteArray(objectMap, "data", m.Data, runtime.Base64URLFormat)
+	populateByteArray(objectMap, "data", m.Data, func() any {
+		return runtime.EncodeByteArray(m.Data, runtime.Base64URLFormat)
+	})
 	return json.Marshal(objectMap)
 }
 
@@ -1686,7 +1692,9 @@ func (m *ManagedHsmKeyReleasePolicy) UnmarshalJSON(data []byte) error {
 			err = unpopulate(val, "ContentType", &m.ContentType)
 			delete(rawMsg, key)
 		case "data":
-			err = runtime.DecodeByteArray(string(val), &m.Data, runtime.Base64URLFormat)
+			if val != nil && string(val) != "null" {
+				err = runtime.DecodeByteArray(string(val), &m.Data, runtime.Base64URLFormat)
+			}
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -3311,41 +3319,6 @@ func (v *VaultCheckNameAvailabilityParameters) UnmarshalJSON(data []byte) error 
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type VaultCreateOrUpdateParameters.
-func (v VaultCreateOrUpdateParameters) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]any)
-	populate(objectMap, "location", v.Location)
-	populate(objectMap, "properties", v.Properties)
-	populate(objectMap, "tags", v.Tags)
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type VaultCreateOrUpdateParameters.
-func (v *VaultCreateOrUpdateParameters) UnmarshalJSON(data []byte) error {
-	var rawMsg map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", v, err)
-	}
-	for key, val := range rawMsg {
-		var err error
-		switch key {
-		case "location":
-			err = unpopulate(val, "Location", &v.Location)
-			delete(rawMsg, key)
-		case "properties":
-			err = unpopulate(val, "Properties", &v.Properties)
-			delete(rawMsg, key)
-		case "tags":
-			err = unpopulate(val, "Tags", &v.Tags)
-			delete(rawMsg, key)
-		}
-		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", v, err)
-		}
-	}
-	return nil
-}
-
 // MarshalJSON implements the json.Marshaller interface for type VaultListResult.
 func (v VaultListResult) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -3368,112 +3341,6 @@ func (v *VaultListResult) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "value":
 			err = unpopulate(val, "Value", &v.Value)
-			delete(rawMsg, key)
-		}
-		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", v, err)
-		}
-	}
-	return nil
-}
-
-// MarshalJSON implements the json.Marshaller interface for type VaultPatchParameters.
-func (v VaultPatchParameters) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]any)
-	populate(objectMap, "properties", v.Properties)
-	populate(objectMap, "tags", v.Tags)
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type VaultPatchParameters.
-func (v *VaultPatchParameters) UnmarshalJSON(data []byte) error {
-	var rawMsg map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", v, err)
-	}
-	for key, val := range rawMsg {
-		var err error
-		switch key {
-		case "properties":
-			err = unpopulate(val, "Properties", &v.Properties)
-			delete(rawMsg, key)
-		case "tags":
-			err = unpopulate(val, "Tags", &v.Tags)
-			delete(rawMsg, key)
-		}
-		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", v, err)
-		}
-	}
-	return nil
-}
-
-// MarshalJSON implements the json.Marshaller interface for type VaultPatchProperties.
-func (v VaultPatchProperties) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]any)
-	populate(objectMap, "accessPolicies", v.AccessPolicies)
-	populate(objectMap, "createMode", v.CreateMode)
-	populate(objectMap, "enablePurgeProtection", v.EnablePurgeProtection)
-	populate(objectMap, "enableRbacAuthorization", v.EnableRbacAuthorization)
-	populate(objectMap, "enableSoftDelete", v.EnableSoftDelete)
-	populate(objectMap, "enabledForDeployment", v.EnabledForDeployment)
-	populate(objectMap, "enabledForDiskEncryption", v.EnabledForDiskEncryption)
-	populate(objectMap, "enabledForTemplateDeployment", v.EnabledForTemplateDeployment)
-	populate(objectMap, "networkAcls", v.NetworkACLs)
-	populate(objectMap, "publicNetworkAccess", v.PublicNetworkAccess)
-	populate(objectMap, "sku", v.SKU)
-	populate(objectMap, "softDeleteRetentionInDays", v.SoftDeleteRetentionInDays)
-	populate(objectMap, "tenantId", v.TenantID)
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type VaultPatchProperties.
-func (v *VaultPatchProperties) UnmarshalJSON(data []byte) error {
-	var rawMsg map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", v, err)
-	}
-	for key, val := range rawMsg {
-		var err error
-		switch key {
-		case "accessPolicies":
-			err = unpopulate(val, "AccessPolicies", &v.AccessPolicies)
-			delete(rawMsg, key)
-		case "createMode":
-			err = unpopulate(val, "CreateMode", &v.CreateMode)
-			delete(rawMsg, key)
-		case "enablePurgeProtection":
-			err = unpopulate(val, "EnablePurgeProtection", &v.EnablePurgeProtection)
-			delete(rawMsg, key)
-		case "enableRbacAuthorization":
-			err = unpopulate(val, "EnableRbacAuthorization", &v.EnableRbacAuthorization)
-			delete(rawMsg, key)
-		case "enableSoftDelete":
-			err = unpopulate(val, "EnableSoftDelete", &v.EnableSoftDelete)
-			delete(rawMsg, key)
-		case "enabledForDeployment":
-			err = unpopulate(val, "EnabledForDeployment", &v.EnabledForDeployment)
-			delete(rawMsg, key)
-		case "enabledForDiskEncryption":
-			err = unpopulate(val, "EnabledForDiskEncryption", &v.EnabledForDiskEncryption)
-			delete(rawMsg, key)
-		case "enabledForTemplateDeployment":
-			err = unpopulate(val, "EnabledForTemplateDeployment", &v.EnabledForTemplateDeployment)
-			delete(rawMsg, key)
-		case "networkAcls":
-			err = unpopulate(val, "NetworkACLs", &v.NetworkACLs)
-			delete(rawMsg, key)
-		case "publicNetworkAccess":
-			err = unpopulate(val, "PublicNetworkAccess", &v.PublicNetworkAccess)
-			delete(rawMsg, key)
-		case "sku":
-			err = unpopulate(val, "SKU", &v.SKU)
-			delete(rawMsg, key)
-		case "softDeleteRetentionInDays":
-			err = unpopulate(val, "SoftDeleteRetentionInDays", &v.SoftDeleteRetentionInDays)
-			delete(rawMsg, key)
-		case "tenantId":
-			err = unpopulate(val, "TenantID", &v.TenantID)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -3615,18 +3482,18 @@ func populate(m map[string]any, k string, v any) {
 	}
 }
 
-func populateByteArray(m map[string]any, k string, b []byte, f runtime.Base64Encoding) {
+func populateByteArray[T any](m map[string]any, k string, b []T, convert func() any) {
 	if azcore.IsNullValue(b) {
 		m[k] = nil
 	} else if len(b) == 0 {
 		return
 	} else {
-		m[k] = runtime.EncodeByteArray(b, f)
+		m[k] = convert()
 	}
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {

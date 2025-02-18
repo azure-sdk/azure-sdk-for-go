@@ -1,5 +1,22 @@
 # Release History
 
+## 2.0.0 (2025-02-18)
+### Breaking Changes
+
+- Function `*VaultsClient.BeginCreateOrUpdate` has been removed
+- Function `*VaultsClient.Delete` has been removed
+- Function `*VaultsClient.Get` has been removed
+- Function `*VaultsClient.Update` has been removed
+- Struct `VaultCreateOrUpdateParameters` has been removed
+- Struct `VaultPatchParameters` has been removed
+- Struct `VaultPatchProperties` has been removed
+
+### Features Added
+
+- New value `ManagedHsmSKUFamilyC` added to enum type `ManagedHsmSKUFamily`
+- New value `ManagedHsmSKUNameCustomC10`, `ManagedHsmSKUNameCustomC42` added to enum type `ManagedHsmSKUName`
+
+
 ## 1.4.0 (2023-11-24)
 ### Features Added
 
