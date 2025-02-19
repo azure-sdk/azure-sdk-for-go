@@ -37,7 +37,7 @@ func NewOperationsClient(credential azcore.TokenCredential, options *arm.ClientO
 	return client, nil
 }
 
-// NewListPager - Lists all the available API operations for Load Test Resource.
+// NewListPager - List the operations for the provider
 //
 // Generated from API version 2022-12-01
 //   - options - OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
