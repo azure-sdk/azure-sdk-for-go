@@ -20,61 +20,62 @@ import (
 	"strings"
 )
 
-// EntitiesClient contains the methods for the Entities group.
-// Don't use this type directly, use NewEntitiesClient() instead.
-type EntitiesClient struct {
+// ProductTemplateClient contains the methods for the ProductTemplate group.
+// Don't use this type directly, use NewProductTemplateClient() instead.
+type ProductTemplateClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewEntitiesClient creates a new instance of EntitiesClient with the specified values.
+// NewProductTemplateClient creates a new instance of ProductTemplateClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewEntitiesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*EntitiesClient, error) {
+func NewProductTemplateClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ProductTemplateClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &EntitiesClient{
+	client := &ProductTemplateClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// RunPlaybook - Triggers playbook on a specific entity.
+// Get - Gets a template by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2025-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
-//   - entityIdentifier - Entity ID
-//   - options - EntitiesClientRunPlaybookOptions contains the optional parameters for the EntitiesClient.RunPlaybook method.
-func (client *EntitiesClient) RunPlaybook(ctx context.Context, resourceGroupName string, workspaceName string, entityIdentifier string, options *EntitiesClientRunPlaybookOptions) (EntitiesClientRunPlaybookResponse, error) {
+//   - templateID - template Id
+//   - options - ProductTemplateClientGetOptions contains the optional parameters for the ProductTemplateClient.Get method.
+func (client *ProductTemplateClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, templateID string, options *ProductTemplateClientGetOptions) (ProductTemplateClientGetResponse, error) {
 	var err error
-	const operationName = "EntitiesClient.RunPlaybook"
+	const operationName = "ProductTemplateClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.runPlaybookCreateRequest(ctx, resourceGroupName, workspaceName, entityIdentifier, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, templateID, options)
 	if err != nil {
-		return EntitiesClientRunPlaybookResponse{}, err
+		return ProductTemplateClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return EntitiesClientRunPlaybookResponse{}, err
+		return ProductTemplateClientGetResponse{}, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusNoContent) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return EntitiesClientRunPlaybookResponse{}, err
+		return ProductTemplateClientGetResponse{}, err
 	}
-	return EntitiesClientRunPlaybookResponse{}, nil
+	resp, err := client.getHandleResponse(httpResp)
+	return resp, err
 }
 
-// runPlaybookCreateRequest creates the RunPlaybook request.
-func (client *EntitiesClient) runPlaybookCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, entityIdentifier string, options *EntitiesClientRunPlaybookOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/entities/{entityIdentifier}/runPlaybook"
+// getCreateRequest creates the Get request.
+func (client *ProductTemplateClient) getCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, templateID string, options *ProductTemplateClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/contentproducttemplates/{templateId}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -87,11 +88,11 @@ func (client *EntitiesClient) runPlaybookCreateRequest(ctx context.Context, reso
 		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
-	if entityIdentifier == "" {
-		return nil, errors.New("parameter entityIdentifier cannot be empty")
+	if templateID == "" {
+		return nil, errors.New("parameter templateID cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{entityIdentifier}", url.PathEscape(entityIdentifier))
-	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	urlPath = strings.ReplaceAll(urlPath, "{templateId}", url.PathEscape(templateID))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
@@ -99,11 +100,14 @@ func (client *EntitiesClient) runPlaybookCreateRequest(ctx context.Context, reso
 	reqQP.Set("api-version", "2025-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if options != nil && options.RequestBody != nil {
-		if err := runtime.MarshalAsJSON(req, *options.RequestBody); err != nil {
-			return nil, err
-		}
-		return req, nil
-	}
 	return req, nil
+}
+
+// getHandleResponse handles the Get response.
+func (client *ProductTemplateClient) getHandleResponse(resp *http.Response) (ProductTemplateClientGetResponse, error) {
+	result := ProductTemplateClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ProductTemplateModel); err != nil {
+		return ProductTemplateClientGetResponse{}, err
+	}
+	return result, nil
 }
