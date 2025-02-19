@@ -307,16 +307,16 @@ func (l *LoadTestResource) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type LoadTestResourcePageList.
-func (l LoadTestResourcePageList) MarshalJSON() ([]byte, error) {
+// MarshalJSON implements the json.Marshaller interface for type LoadTestResourceListResult.
+func (l LoadTestResourceListResult) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "nextLink", l.NextLink)
 	populate(objectMap, "value", l.Value)
 	return json.Marshal(objectMap)
 }
 
-// UnmarshalJSON implements the json.Unmarshaller interface for type LoadTestResourcePageList.
-func (l *LoadTestResourcePageList) UnmarshalJSON(data []byte) error {
+// UnmarshalJSON implements the json.Unmarshaller interface for type LoadTestResourceListResult.
+func (l *LoadTestResourceListResult) UnmarshalJSON(data []byte) error {
 	var rawMsg map[string]json.RawMessage
 	if err := json.Unmarshal(data, &rawMsg); err != nil {
 		return fmt.Errorf("unmarshalling type %T: %v", l, err)
@@ -338,8 +338,8 @@ func (l *LoadTestResourcePageList) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type LoadTestResourcePatchRequestBody.
-func (l LoadTestResourcePatchRequestBody) MarshalJSON() ([]byte, error) {
+// MarshalJSON implements the json.Marshaller interface for type LoadTestResourceUpdate.
+func (l LoadTestResourceUpdate) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "identity", l.Identity)
 	populate(objectMap, "properties", l.Properties)
@@ -347,8 +347,8 @@ func (l LoadTestResourcePatchRequestBody) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 
-// UnmarshalJSON implements the json.Unmarshaller interface for type LoadTestResourcePatchRequestBody.
-func (l *LoadTestResourcePatchRequestBody) UnmarshalJSON(data []byte) error {
+// UnmarshalJSON implements the json.Unmarshaller interface for type LoadTestResourceUpdate.
+func (l *LoadTestResourceUpdate) UnmarshalJSON(data []byte) error {
 	var rawMsg map[string]json.RawMessage
 	if err := json.Unmarshal(data, &rawMsg); err != nil {
 		return fmt.Errorf("unmarshalling type %T: %v", l, err)
@@ -373,16 +373,16 @@ func (l *LoadTestResourcePatchRequestBody) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type LoadTestResourcePatchRequestBodyProperties.
-func (l LoadTestResourcePatchRequestBodyProperties) MarshalJSON() ([]byte, error) {
+// MarshalJSON implements the json.Marshaller interface for type LoadTestResourceUpdateProperties.
+func (l LoadTestResourceUpdateProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "description", l.Description)
 	populate(objectMap, "encryption", l.Encryption)
 	return json.Marshal(objectMap)
 }
 
-// UnmarshalJSON implements the json.Unmarshaller interface for type LoadTestResourcePatchRequestBodyProperties.
-func (l *LoadTestResourcePatchRequestBodyProperties) UnmarshalJSON(data []byte) error {
+// UnmarshalJSON implements the json.Unmarshaller interface for type LoadTestResourceUpdateProperties.
+func (l *LoadTestResourceUpdateProperties) UnmarshalJSON(data []byte) error {
 	var rawMsg map[string]json.RawMessage
 	if err := json.Unmarshal(data, &rawMsg); err != nil {
 		return fmt.Errorf("unmarshalling type %T: %v", l, err)
@@ -587,32 +587,32 @@ func (o *OutboundEnvironmentEndpoint) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type OutboundEnvironmentEndpointCollection.
-func (o OutboundEnvironmentEndpointCollection) MarshalJSON() ([]byte, error) {
+// MarshalJSON implements the json.Marshaller interface for type PagedOutboundEnvironmentEndpoint.
+func (p PagedOutboundEnvironmentEndpoint) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
-	populate(objectMap, "nextLink", o.NextLink)
-	populate(objectMap, "value", o.Value)
+	populate(objectMap, "nextLink", p.NextLink)
+	populate(objectMap, "value", p.Value)
 	return json.Marshal(objectMap)
 }
 
-// UnmarshalJSON implements the json.Unmarshaller interface for type OutboundEnvironmentEndpointCollection.
-func (o *OutboundEnvironmentEndpointCollection) UnmarshalJSON(data []byte) error {
+// UnmarshalJSON implements the json.Unmarshaller interface for type PagedOutboundEnvironmentEndpoint.
+func (p *PagedOutboundEnvironmentEndpoint) UnmarshalJSON(data []byte) error {
 	var rawMsg map[string]json.RawMessage
 	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", o, err)
+		return fmt.Errorf("unmarshalling type %T: %v", p, err)
 	}
 	for key, val := range rawMsg {
 		var err error
 		switch key {
 		case "nextLink":
-			err = unpopulate(val, "NextLink", &o.NextLink)
+			err = unpopulate(val, "NextLink", &p.NextLink)
 			delete(rawMsg, key)
 		case "value":
-			err = unpopulate(val, "Value", &o.Value)
+			err = unpopulate(val, "Value", &p.Value)
 			delete(rawMsg, key)
 		}
 		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", o, err)
+			return fmt.Errorf("unmarshalling type %T: %v", p, err)
 		}
 	}
 	return nil
@@ -621,11 +621,7 @@ func (o *OutboundEnvironmentEndpointCollection) UnmarshalJSON(data []byte) error
 // MarshalJSON implements the json.Marshaller interface for type QuotaBucketRequest.
 func (q QuotaBucketRequest) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
-	populate(objectMap, "id", q.ID)
-	populate(objectMap, "name", q.Name)
 	populate(objectMap, "properties", q.Properties)
-	populate(objectMap, "systemData", q.SystemData)
-	populate(objectMap, "type", q.Type)
 	return json.Marshal(objectMap)
 }
 
@@ -638,20 +634,8 @@ func (q *QuotaBucketRequest) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
-		case "id":
-			err = unpopulate(val, "ID", &q.ID)
-			delete(rawMsg, key)
-		case "name":
-			err = unpopulate(val, "Name", &q.Name)
-			delete(rawMsg, key)
 		case "properties":
 			err = unpopulate(val, "Properties", &q.Properties)
-			delete(rawMsg, key)
-		case "systemData":
-			err = unpopulate(val, "SystemData", &q.SystemData)
-			delete(rawMsg, key)
-		case "type":
-			err = unpopulate(val, "Type", &q.Type)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -774,16 +758,16 @@ func (q *QuotaResource) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type QuotaResourceList.
-func (q QuotaResourceList) MarshalJSON() ([]byte, error) {
+// MarshalJSON implements the json.Marshaller interface for type QuotaResourceListResult.
+func (q QuotaResourceListResult) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "nextLink", q.NextLink)
 	populate(objectMap, "value", q.Value)
 	return json.Marshal(objectMap)
 }
 
-// UnmarshalJSON implements the json.Unmarshaller interface for type QuotaResourceList.
-func (q *QuotaResourceList) UnmarshalJSON(data []byte) error {
+// UnmarshalJSON implements the json.Unmarshaller interface for type QuotaResourceListResult.
+func (q *QuotaResourceListResult) UnmarshalJSON(data []byte) error {
 	var rawMsg map[string]json.RawMessage
 	if err := json.Unmarshal(data, &rawMsg); err != nil {
 		return fmt.Errorf("unmarshalling type %T: %v", q, err)
@@ -929,7 +913,7 @@ func populate(m map[string]any, k string, v any) {
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {
