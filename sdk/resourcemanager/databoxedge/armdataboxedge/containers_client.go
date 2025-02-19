@@ -46,7 +46,7 @@ func NewContainersClient(subscriptionID string, credential azcore.TokenCredentia
 // BeginCreateOrUpdate - Creates a new container or updates an existing container on the device.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-12-01
 //   - deviceName - The device name.
 //   - storageAccountName - The Storage Account Name
 //   - containerName - The container name.
@@ -74,7 +74,7 @@ func (client *ContainersClient) BeginCreateOrUpdate(ctx context.Context, deviceN
 // CreateOrUpdate - Creates a new container or updates an existing container on the device.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-12-01
 func (client *ContainersClient) createOrUpdate(ctx context.Context, deviceName string, storageAccountName string, containerName string, resourceGroupName string, containerParam Container, options *ContainersClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ContainersClient.BeginCreateOrUpdate"
@@ -124,7 +124,7 @@ func (client *ContainersClient) createOrUpdateCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, containerParam); err != nil {
@@ -136,7 +136,7 @@ func (client *ContainersClient) createOrUpdateCreateRequest(ctx context.Context,
 // BeginDelete - Deletes the container on the Data Box Edge/Data Box Gateway device.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-12-01
 //   - deviceName - The device name.
 //   - storageAccountName - The Storage Account Name
 //   - containerName - The container name.
@@ -162,7 +162,7 @@ func (client *ContainersClient) BeginDelete(ctx context.Context, deviceName stri
 // Delete - Deletes the container on the Data Box Edge/Data Box Gateway device.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-12-01
 func (client *ContainersClient) deleteOperation(ctx context.Context, deviceName string, storageAccountName string, containerName string, resourceGroupName string, options *ContainersClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ContainersClient.BeginDelete"
@@ -212,7 +212,7 @@ func (client *ContainersClient) deleteCreateRequest(ctx context.Context, deviceN
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -221,7 +221,7 @@ func (client *ContainersClient) deleteCreateRequest(ctx context.Context, deviceN
 // Get - Gets a container by name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-12-01
 //   - deviceName - The device name.
 //   - storageAccountName - The Storage Account Name
 //   - containerName - The container Name
@@ -277,7 +277,7 @@ func (client *ContainersClient) getCreateRequest(ctx context.Context, deviceName
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -294,7 +294,7 @@ func (client *ContainersClient) getHandleResponse(resp *http.Response) (Containe
 
 // NewListByStorageAccountPager - Lists all the containers of a storage Account in a Data Box Edge/Data Box Gateway device.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-12-01
 //   - deviceName - The device name.
 //   - storageAccountName - The storage Account name.
 //   - resourceGroupName - The resource group name.
@@ -347,7 +347,7 @@ func (client *ContainersClient) listByStorageAccountCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -365,7 +365,7 @@ func (client *ContainersClient) listByStorageAccountHandleResponse(resp *http.Re
 // BeginRefresh - Refreshes the container metadata with the data from the cloud.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-12-01
 //   - deviceName - The device name.
 //   - storageAccountName - The Storage Account Name
 //   - containerName - The container name.
@@ -391,7 +391,7 @@ func (client *ContainersClient) BeginRefresh(ctx context.Context, deviceName str
 // Refresh - Refreshes the container metadata with the data from the cloud.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-12-01
 func (client *ContainersClient) refresh(ctx context.Context, deviceName string, storageAccountName string, containerName string, resourceGroupName string, options *ContainersClientBeginRefreshOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ContainersClient.BeginRefresh"
@@ -441,7 +441,7 @@ func (client *ContainersClient) refreshCreateRequest(ctx context.Context, device
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -46,7 +46,7 @@ func NewSharesClient(subscriptionID string, credential azcore.TokenCredential, o
 // BeginCreateOrUpdate - Creates a new share or updates an existing share on the device.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-12-01
 //   - deviceName - The device name.
 //   - name - The share name.
 //   - resourceGroupName - The resource group name.
@@ -73,7 +73,7 @@ func (client *SharesClient) BeginCreateOrUpdate(ctx context.Context, deviceName 
 // CreateOrUpdate - Creates a new share or updates an existing share on the device.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-12-01
 func (client *SharesClient) createOrUpdate(ctx context.Context, deviceName string, name string, resourceGroupName string, share Share, options *SharesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "SharesClient.BeginCreateOrUpdate"
@@ -119,7 +119,7 @@ func (client *SharesClient) createOrUpdateCreateRequest(ctx context.Context, dev
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, share); err != nil {
@@ -131,7 +131,7 @@ func (client *SharesClient) createOrUpdateCreateRequest(ctx context.Context, dev
 // BeginDelete - Deletes the share on the Data Box Edge/Data Box Gateway device.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-12-01
 //   - deviceName - The device name.
 //   - name - The share name.
 //   - resourceGroupName - The resource group name.
@@ -156,7 +156,7 @@ func (client *SharesClient) BeginDelete(ctx context.Context, deviceName string, 
 // Delete - Deletes the share on the Data Box Edge/Data Box Gateway device.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-12-01
 func (client *SharesClient) deleteOperation(ctx context.Context, deviceName string, name string, resourceGroupName string, options *SharesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "SharesClient.BeginDelete"
@@ -202,7 +202,7 @@ func (client *SharesClient) deleteCreateRequest(ctx context.Context, deviceName 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -211,7 +211,7 @@ func (client *SharesClient) deleteCreateRequest(ctx context.Context, deviceName 
 // Get - Gets a share by name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-12-01
 //   - deviceName - The device name.
 //   - name - The share name.
 //   - resourceGroupName - The resource group name.
@@ -262,7 +262,7 @@ func (client *SharesClient) getCreateRequest(ctx context.Context, deviceName str
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -279,7 +279,7 @@ func (client *SharesClient) getHandleResponse(resp *http.Response) (SharesClient
 
 // NewListByDataBoxEdgeDevicePager - Lists all the shares in a Data Box Edge/Data Box Gateway device.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-12-01
 //   - deviceName - The device name.
 //   - resourceGroupName - The resource group name.
 //   - options - SharesClientListByDataBoxEdgeDeviceOptions contains the optional parameters for the SharesClient.NewListByDataBoxEdgeDevicePager
@@ -327,7 +327,7 @@ func (client *SharesClient) listByDataBoxEdgeDeviceCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -345,7 +345,7 @@ func (client *SharesClient) listByDataBoxEdgeDeviceHandleResponse(resp *http.Res
 // BeginRefresh - Refreshes the share metadata with the data from the cloud.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-12-01
 //   - deviceName - The device name.
 //   - name - The share name.
 //   - resourceGroupName - The resource group name.
@@ -370,7 +370,7 @@ func (client *SharesClient) BeginRefresh(ctx context.Context, deviceName string,
 // Refresh - Refreshes the share metadata with the data from the cloud.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-12-01
 func (client *SharesClient) refresh(ctx context.Context, deviceName string, name string, resourceGroupName string, options *SharesClientBeginRefreshOptions) (*http.Response, error) {
 	var err error
 	const operationName = "SharesClient.BeginRefresh"
@@ -416,7 +416,7 @@ func (client *SharesClient) refreshCreateRequest(ctx context.Context, deviceName
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
