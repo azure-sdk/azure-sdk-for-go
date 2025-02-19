@@ -19,31 +19,28 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/agrifood/armagrifood"
 	"net/http"
 	"net/url"
+	"reflect"
 	"regexp"
 	"strconv"
 )
 
 // ExtensionsServer is a fake server for instances of the armagrifood.ExtensionsClient type.
 type ExtensionsServer struct {
-	// Create is the fake for method ExtensionsClient.Create
+	// CreateOrUpdate is the fake for method ExtensionsClient.CreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusCreated
-	Create func(ctx context.Context, resourceGroupName string, farmBeatsResourceName string, extensionID string, options *armagrifood.ExtensionsClientCreateOptions) (resp azfake.Responder[armagrifood.ExtensionsClientCreateResponse], errResp azfake.ErrorResponder)
+	CreateOrUpdate func(ctx context.Context, resourceGroupName string, dataManagerForAgricultureResourceName string, extensionID string, options *armagrifood.ExtensionsClientCreateOrUpdateOptions) (resp azfake.Responder[armagrifood.ExtensionsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// Delete is the fake for method ExtensionsClient.Delete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
-	Delete func(ctx context.Context, resourceGroupName string, farmBeatsResourceName string, extensionID string, options *armagrifood.ExtensionsClientDeleteOptions) (resp azfake.Responder[armagrifood.ExtensionsClientDeleteResponse], errResp azfake.ErrorResponder)
+	Delete func(ctx context.Context, resourceGroupName string, dataManagerForAgricultureResourceName string, extensionID string, options *armagrifood.ExtensionsClientDeleteOptions) (resp azfake.Responder[armagrifood.ExtensionsClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method ExtensionsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceGroupName string, farmBeatsResourceName string, extensionID string, options *armagrifood.ExtensionsClientGetOptions) (resp azfake.Responder[armagrifood.ExtensionsClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, dataManagerForAgricultureResourceName string, extensionID string, options *armagrifood.ExtensionsClientGetOptions) (resp azfake.Responder[armagrifood.ExtensionsClientGetResponse], errResp azfake.ErrorResponder)
 
-	// NewListByFarmBeatsPager is the fake for method ExtensionsClient.NewListByFarmBeatsPager
+	// NewListByDataManagerForAgriculturePager is the fake for method ExtensionsClient.NewListByDataManagerForAgriculturePager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListByFarmBeatsPager func(resourceGroupName string, farmBeatsResourceName string, options *armagrifood.ExtensionsClientListByFarmBeatsOptions) (resp azfake.PagerResponder[armagrifood.ExtensionsClientListByFarmBeatsResponse])
-
-	// Update is the fake for method ExtensionsClient.Update
-	// HTTP status codes to indicate success: http.StatusOK
-	Update func(ctx context.Context, resourceGroupName string, farmBeatsResourceName string, extensionID string, options *armagrifood.ExtensionsClientUpdateOptions) (resp azfake.Responder[armagrifood.ExtensionsClientUpdateResponse], errResp azfake.ErrorResponder)
+	NewListByDataManagerForAgriculturePager func(resourceGroupName string, dataManagerForAgricultureResourceName string, options *armagrifood.ExtensionsClientListByDataManagerForAgricultureOptions) (resp azfake.PagerResponder[armagrifood.ExtensionsClientListByDataManagerForAgricultureResponse])
 }
 
 // NewExtensionsServerTransport creates a new instance of ExtensionsServerTransport with the provided implementation.
@@ -51,16 +48,16 @@ type ExtensionsServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewExtensionsServerTransport(srv *ExtensionsServer) *ExtensionsServerTransport {
 	return &ExtensionsServerTransport{
-		srv:                     srv,
-		newListByFarmBeatsPager: newTracker[azfake.PagerResponder[armagrifood.ExtensionsClientListByFarmBeatsResponse]](),
+		srv:                                     srv,
+		newListByDataManagerForAgriculturePager: newTracker[azfake.PagerResponder[armagrifood.ExtensionsClientListByDataManagerForAgricultureResponse]](),
 	}
 }
 
 // ExtensionsServerTransport connects instances of armagrifood.ExtensionsClient to instances of ExtensionsServer.
 // Don't use this type directly, use NewExtensionsServerTransport instead.
 type ExtensionsServerTransport struct {
-	srv                     *ExtensionsServer
-	newListByFarmBeatsPager *tracker[azfake.PagerResponder[armagrifood.ExtensionsClientListByFarmBeatsResponse]]
+	srv                                     *ExtensionsServer
+	newListByDataManagerForAgriculturePager *tracker[azfake.PagerResponder[armagrifood.ExtensionsClientListByDataManagerForAgricultureResponse]]
 }
 
 // Do implements the policy.Transporter interface for ExtensionsServerTransport.
@@ -75,16 +72,14 @@ func (e *ExtensionsServerTransport) Do(req *http.Request) (*http.Response, error
 	var err error
 
 	switch method {
-	case "ExtensionsClient.Create":
-		resp, err = e.dispatchCreate(req)
+	case "ExtensionsClient.CreateOrUpdate":
+		resp, err = e.dispatchCreateOrUpdate(req)
 	case "ExtensionsClient.Delete":
 		resp, err = e.dispatchDelete(req)
 	case "ExtensionsClient.Get":
 		resp, err = e.dispatchGet(req)
-	case "ExtensionsClient.NewListByFarmBeatsPager":
-		resp, err = e.dispatchNewListByFarmBeatsPager(req)
-	case "ExtensionsClient.Update":
-		resp, err = e.dispatchUpdate(req)
+	case "ExtensionsClient.NewListByDataManagerForAgriculturePager":
+		resp, err = e.dispatchNewListByDataManagerForAgriculturePager(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -96,21 +91,25 @@ func (e *ExtensionsServerTransport) Do(req *http.Request) (*http.Response, error
 	return resp, nil
 }
 
-func (e *ExtensionsServerTransport) dispatchCreate(req *http.Request) (*http.Response, error) {
-	if e.srv.Create == nil {
-		return nil, &nonRetriableError{errors.New("fake for method Create not implemented")}
+func (e *ExtensionsServerTransport) dispatchCreateOrUpdate(req *http.Request) (*http.Response, error) {
+	if e.srv.CreateOrUpdate == nil {
+		return nil, &nonRetriableError{errors.New("fake for method CreateOrUpdate not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AgFoodPlatform/farmBeats/(?P<farmBeatsResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/extensions/(?P<extensionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AgFoodPlatform/farmBeats/(?P<dataManagerForAgricultureResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/extensions/(?P<extensionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
+	body, err := server.UnmarshalRequestAsJSON[armagrifood.ExtensionInstallationRequest](req)
+	if err != nil {
+		return nil, err
+	}
 	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
 	}
-	farmBeatsResourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("farmBeatsResourceName")])
+	dataManagerForAgricultureResourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("dataManagerForAgricultureResourceName")])
 	if err != nil {
 		return nil, err
 	}
@@ -118,7 +117,13 @@ func (e *ExtensionsServerTransport) dispatchCreate(req *http.Request) (*http.Res
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := e.srv.Create(req.Context(), resourceGroupNameParam, farmBeatsResourceNameParam, extensionIDParam, nil)
+	var options *armagrifood.ExtensionsClientCreateOrUpdateOptions
+	if !reflect.ValueOf(body).IsZero() {
+		options = &armagrifood.ExtensionsClientCreateOrUpdateOptions{
+			RequestBody: &body,
+		}
+	}
+	respr, errRespr := e.srv.CreateOrUpdate(req.Context(), resourceGroupNameParam, dataManagerForAgricultureResourceNameParam, extensionIDParam, options)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -137,7 +142,7 @@ func (e *ExtensionsServerTransport) dispatchDelete(req *http.Request) (*http.Res
 	if e.srv.Delete == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Delete not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AgFoodPlatform/farmBeats/(?P<farmBeatsResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/extensions/(?P<extensionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AgFoodPlatform/farmBeats/(?P<dataManagerForAgricultureResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/extensions/(?P<extensionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 4 {
@@ -147,7 +152,7 @@ func (e *ExtensionsServerTransport) dispatchDelete(req *http.Request) (*http.Res
 	if err != nil {
 		return nil, err
 	}
-	farmBeatsResourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("farmBeatsResourceName")])
+	dataManagerForAgricultureResourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("dataManagerForAgricultureResourceName")])
 	if err != nil {
 		return nil, err
 	}
@@ -155,7 +160,7 @@ func (e *ExtensionsServerTransport) dispatchDelete(req *http.Request) (*http.Res
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := e.srv.Delete(req.Context(), resourceGroupNameParam, farmBeatsResourceNameParam, extensionIDParam, nil)
+	respr, errRespr := e.srv.Delete(req.Context(), resourceGroupNameParam, dataManagerForAgricultureResourceNameParam, extensionIDParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -174,7 +179,7 @@ func (e *ExtensionsServerTransport) dispatchGet(req *http.Request) (*http.Respon
 	if e.srv.Get == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AgFoodPlatform/farmBeats/(?P<farmBeatsResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/extensions/(?P<extensionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AgFoodPlatform/farmBeats/(?P<dataManagerForAgricultureResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/extensions/(?P<extensionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 4 {
@@ -184,7 +189,7 @@ func (e *ExtensionsServerTransport) dispatchGet(req *http.Request) (*http.Respon
 	if err != nil {
 		return nil, err
 	}
-	farmBeatsResourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("farmBeatsResourceName")])
+	dataManagerForAgricultureResourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("dataManagerForAgricultureResourceName")])
 	if err != nil {
 		return nil, err
 	}
@@ -192,7 +197,7 @@ func (e *ExtensionsServerTransport) dispatchGet(req *http.Request) (*http.Respon
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := e.srv.Get(req.Context(), resourceGroupNameParam, farmBeatsResourceNameParam, extensionIDParam, nil)
+	respr, errRespr := e.srv.Get(req.Context(), resourceGroupNameParam, dataManagerForAgricultureResourceNameParam, extensionIDParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -207,13 +212,13 @@ func (e *ExtensionsServerTransport) dispatchGet(req *http.Request) (*http.Respon
 	return resp, nil
 }
 
-func (e *ExtensionsServerTransport) dispatchNewListByFarmBeatsPager(req *http.Request) (*http.Response, error) {
-	if e.srv.NewListByFarmBeatsPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListByFarmBeatsPager not implemented")}
+func (e *ExtensionsServerTransport) dispatchNewListByDataManagerForAgriculturePager(req *http.Request) (*http.Response, error) {
+	if e.srv.NewListByDataManagerForAgriculturePager == nil {
+		return nil, &nonRetriableError{errors.New("fake for method NewListByDataManagerForAgriculturePager not implemented")}
 	}
-	newListByFarmBeatsPager := e.newListByFarmBeatsPager.get(req)
-	if newListByFarmBeatsPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AgFoodPlatform/farmBeats/(?P<farmBeatsResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/extensions`
+	newListByDataManagerForAgriculturePager := e.newListByDataManagerForAgriculturePager.get(req)
+	if newListByDataManagerForAgriculturePager == nil {
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AgFoodPlatform/farmBeats/(?P<dataManagerForAgricultureResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/extensions`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 		if matches == nil || len(matches) < 3 {
@@ -224,7 +229,7 @@ func (e *ExtensionsServerTransport) dispatchNewListByFarmBeatsPager(req *http.Re
 		if err != nil {
 			return nil, err
 		}
-		farmBeatsResourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("farmBeatsResourceName")])
+		dataManagerForAgricultureResourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("dataManagerForAgricultureResourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -265,69 +270,32 @@ func (e *ExtensionsServerTransport) dispatchNewListByFarmBeatsPager(req *http.Re
 			return nil, err
 		}
 		skipTokenParam := getOptional(skipTokenUnescaped)
-		var options *armagrifood.ExtensionsClientListByFarmBeatsOptions
+		var options *armagrifood.ExtensionsClientListByDataManagerForAgricultureOptions
 		if len(extensionIDsParam) > 0 || len(extensionCategoriesParam) > 0 || maxPageSizeParam != nil || skipTokenParam != nil {
-			options = &armagrifood.ExtensionsClientListByFarmBeatsOptions{
+			options = &armagrifood.ExtensionsClientListByDataManagerForAgricultureOptions{
 				ExtensionIDs:        extensionIDsParam,
 				ExtensionCategories: extensionCategoriesParam,
 				MaxPageSize:         maxPageSizeParam,
 				SkipToken:           skipTokenParam,
 			}
 		}
-		resp := e.srv.NewListByFarmBeatsPager(resourceGroupNameParam, farmBeatsResourceNameParam, options)
-		newListByFarmBeatsPager = &resp
-		e.newListByFarmBeatsPager.add(req, newListByFarmBeatsPager)
-		server.PagerResponderInjectNextLinks(newListByFarmBeatsPager, req, func(page *armagrifood.ExtensionsClientListByFarmBeatsResponse, createLink func() string) {
+		resp := e.srv.NewListByDataManagerForAgriculturePager(resourceGroupNameParam, dataManagerForAgricultureResourceNameParam, options)
+		newListByDataManagerForAgriculturePager = &resp
+		e.newListByDataManagerForAgriculturePager.add(req, newListByDataManagerForAgriculturePager)
+		server.PagerResponderInjectNextLinks(newListByDataManagerForAgriculturePager, req, func(page *armagrifood.ExtensionsClientListByDataManagerForAgricultureResponse, createLink func() string) {
 			page.NextLink = to.Ptr(createLink())
 		})
 	}
-	resp, err := server.PagerResponderNext(newListByFarmBeatsPager, req)
+	resp, err := server.PagerResponderNext(newListByDataManagerForAgriculturePager, req)
 	if err != nil {
 		return nil, err
 	}
 	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		e.newListByFarmBeatsPager.remove(req)
+		e.newListByDataManagerForAgriculturePager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
-	if !server.PagerResponderMore(newListByFarmBeatsPager) {
-		e.newListByFarmBeatsPager.remove(req)
-	}
-	return resp, nil
-}
-
-func (e *ExtensionsServerTransport) dispatchUpdate(req *http.Request) (*http.Response, error) {
-	if e.srv.Update == nil {
-		return nil, &nonRetriableError{errors.New("fake for method Update not implemented")}
-	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AgFoodPlatform/farmBeats/(?P<farmBeatsResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/extensions/(?P<extensionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 4 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-	if err != nil {
-		return nil, err
-	}
-	farmBeatsResourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("farmBeatsResourceName")])
-	if err != nil {
-		return nil, err
-	}
-	extensionIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("extensionId")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := e.srv.Update(req.Context(), resourceGroupNameParam, farmBeatsResourceNameParam, extensionIDParam, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Extension, req)
-	if err != nil {
-		return nil, err
+	if !server.PagerResponderMore(newListByDataManagerForAgriculturePager) {
+		e.newListByDataManagerForAgriculturePager.remove(req)
 	}
 	return resp, nil
 }
