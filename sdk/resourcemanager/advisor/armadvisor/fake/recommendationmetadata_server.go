@@ -9,25 +9,18 @@
 package fake
 
 import (
-	"context"
 	"errors"
 	"fmt"
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/advisor/armadvisor"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/advisor/armadvisor/v2"
 	"net/http"
-	"net/url"
-	"regexp"
 )
 
 // RecommendationMetadataServer is a fake server for instances of the armadvisor.RecommendationMetadataClient type.
 type RecommendationMetadataServer struct {
-	// Get is the fake for method RecommendationMetadataClient.Get
-	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, name string, options *armadvisor.RecommendationMetadataClientGetOptions) (resp azfake.Responder[armadvisor.RecommendationMetadataClientGetResponse], errResp azfake.ErrorResponder)
-
 	// NewListPager is the fake for method RecommendationMetadataClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListPager func(options *armadvisor.RecommendationMetadataClientListOptions) (resp azfake.PagerResponder[armadvisor.RecommendationMetadataClientListResponse])
@@ -62,8 +55,6 @@ func (r *RecommendationMetadataServerTransport) Do(req *http.Request) (*http.Res
 	var err error
 
 	switch method {
-	case "RecommendationMetadataClient.Get":
-		resp, err = r.dispatchGet(req)
 	case "RecommendationMetadataClient.NewListPager":
 		resp, err = r.dispatchNewListPager(req)
 	default:
@@ -74,35 +65,6 @@ func (r *RecommendationMetadataServerTransport) Do(req *http.Request) (*http.Res
 		return nil, err
 	}
 
-	return resp, nil
-}
-
-func (r *RecommendationMetadataServerTransport) dispatchGet(req *http.Request) (*http.Response, error) {
-	if r.srv.Get == nil {
-		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
-	}
-	const regexStr = `/providers/Microsoft\.Advisor/metadata/(?P<name>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 1 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	nameParam, err := url.PathUnescape(matches[regex.SubexpIndex("name")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := r.srv.Get(req.Context(), nameParam, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).MetadataEntity, req)
-	if err != nil {
-		return nil, err
-	}
 	return resp, nil
 }
 
