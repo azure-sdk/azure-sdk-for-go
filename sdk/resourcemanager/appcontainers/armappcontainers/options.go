@@ -133,17 +133,28 @@ type CertificatesClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ConnectedEnvironmentsCertificatesClientCreateOrUpdateOptions contains the optional parameters for the ConnectedEnvironmentsCertificatesClient.CreateOrUpdate
+// ConnectedEnvironmentsCertificatesClientBeginCreateOrUpdateOptions contains the optional parameters for the ConnectedEnvironmentsCertificatesClient.BeginCreateOrUpdate
 // method.
-type ConnectedEnvironmentsCertificatesClientCreateOrUpdateOptions struct {
+type ConnectedEnvironmentsCertificatesClientBeginCreateOrUpdateOptions struct {
 	// Certificate to be created or updated
 	CertificateEnvelope *Certificate
+
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
-// ConnectedEnvironmentsCertificatesClientDeleteOptions contains the optional parameters for the ConnectedEnvironmentsCertificatesClient.Delete
+// ConnectedEnvironmentsCertificatesClientBeginDeleteOptions contains the optional parameters for the ConnectedEnvironmentsCertificatesClient.BeginDelete
 // method.
-type ConnectedEnvironmentsCertificatesClientDeleteOptions struct {
-	// placeholder for future optional parameters
+type ConnectedEnvironmentsCertificatesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ConnectedEnvironmentsCertificatesClientBeginUpdateOptions contains the optional parameters for the ConnectedEnvironmentsCertificatesClient.BeginUpdate
+// method.
+type ConnectedEnvironmentsCertificatesClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // ConnectedEnvironmentsCertificatesClientGetOptions contains the optional parameters for the ConnectedEnvironmentsCertificatesClient.Get
@@ -155,12 +166,6 @@ type ConnectedEnvironmentsCertificatesClientGetOptions struct {
 // ConnectedEnvironmentsCertificatesClientListOptions contains the optional parameters for the ConnectedEnvironmentsCertificatesClient.NewListPager
 // method.
 type ConnectedEnvironmentsCertificatesClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ConnectedEnvironmentsCertificatesClientUpdateOptions contains the optional parameters for the ConnectedEnvironmentsCertificatesClient.Update
-// method.
-type ConnectedEnvironmentsCertificatesClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -206,16 +211,18 @@ type ConnectedEnvironmentsClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ConnectedEnvironmentsDaprComponentsClientCreateOrUpdateOptions contains the optional parameters for the ConnectedEnvironmentsDaprComponentsClient.CreateOrUpdate
+// ConnectedEnvironmentsDaprComponentsClientBeginCreateOrUpdateOptions contains the optional parameters for the ConnectedEnvironmentsDaprComponentsClient.BeginCreateOrUpdate
 // method.
-type ConnectedEnvironmentsDaprComponentsClientCreateOrUpdateOptions struct {
-	// placeholder for future optional parameters
+type ConnectedEnvironmentsDaprComponentsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
-// ConnectedEnvironmentsDaprComponentsClientDeleteOptions contains the optional parameters for the ConnectedEnvironmentsDaprComponentsClient.Delete
+// ConnectedEnvironmentsDaprComponentsClientBeginDeleteOptions contains the optional parameters for the ConnectedEnvironmentsDaprComponentsClient.BeginDelete
 // method.
-type ConnectedEnvironmentsDaprComponentsClientDeleteOptions struct {
-	// placeholder for future optional parameters
+type ConnectedEnvironmentsDaprComponentsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // ConnectedEnvironmentsDaprComponentsClientGetOptions contains the optional parameters for the ConnectedEnvironmentsDaprComponentsClient.Get
@@ -236,16 +243,18 @@ type ConnectedEnvironmentsDaprComponentsClientListSecretsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ConnectedEnvironmentsStoragesClientCreateOrUpdateOptions contains the optional parameters for the ConnectedEnvironmentsStoragesClient.CreateOrUpdate
+// ConnectedEnvironmentsStoragesClientBeginCreateOrUpdateOptions contains the optional parameters for the ConnectedEnvironmentsStoragesClient.BeginCreateOrUpdate
 // method.
-type ConnectedEnvironmentsStoragesClientCreateOrUpdateOptions struct {
-	// placeholder for future optional parameters
+type ConnectedEnvironmentsStoragesClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
-// ConnectedEnvironmentsStoragesClientDeleteOptions contains the optional parameters for the ConnectedEnvironmentsStoragesClient.Delete
+// ConnectedEnvironmentsStoragesClientBeginDeleteOptions contains the optional parameters for the ConnectedEnvironmentsStoragesClient.BeginDelete
 // method.
-type ConnectedEnvironmentsStoragesClientDeleteOptions struct {
-	// placeholder for future optional parameters
+type ConnectedEnvironmentsStoragesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // ConnectedEnvironmentsStoragesClientGetOptions contains the optional parameters for the ConnectedEnvironmentsStoragesClient.Get
@@ -405,6 +414,19 @@ type ContainerAppsDiagnosticsClientListDetectorsOptions struct {
 // ContainerAppsDiagnosticsClientListRevisionsOptions contains the optional parameters for the ContainerAppsDiagnosticsClient.NewListRevisionsPager
 // method.
 type ContainerAppsDiagnosticsClientListRevisionsOptions struct {
+	// The filter to apply on the operation.
+	Filter *string
+}
+
+// ContainerAppsLabelHistoryClientGetLabelHistoryOptions contains the optional parameters for the ContainerAppsLabelHistoryClient.GetLabelHistory
+// method.
+type ContainerAppsLabelHistoryClientGetLabelHistoryOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ContainerAppsLabelHistoryClientListLabelHistoryOptions contains the optional parameters for the ContainerAppsLabelHistoryClient.NewListLabelHistoryPager
+// method.
+type ContainerAppsLabelHistoryClientListLabelHistoryOptions struct {
 	// The filter to apply on the operation.
 	Filter *string
 }
@@ -668,6 +690,33 @@ type FunctionsExtensionClientInvokeFunctionsHostOptions struct {
 	// placeholder for future optional parameters
 }
 
+// HTTPRouteConfigClientCreateOrUpdateOptions contains the optional parameters for the HTTPRouteConfigClient.CreateOrUpdate
+// method.
+type HTTPRouteConfigClientCreateOrUpdateOptions struct {
+	// Http Route config to be created or updated
+	HTTPRouteConfigEnvelope *HTTPRouteConfig
+}
+
+// HTTPRouteConfigClientDeleteOptions contains the optional parameters for the HTTPRouteConfigClient.Delete method.
+type HTTPRouteConfigClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HTTPRouteConfigClientGetOptions contains the optional parameters for the HTTPRouteConfigClient.Get method.
+type HTTPRouteConfigClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HTTPRouteConfigClientListOptions contains the optional parameters for the HTTPRouteConfigClient.NewListPager method.
+type HTTPRouteConfigClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// HTTPRouteConfigClientUpdateOptions contains the optional parameters for the HTTPRouteConfigClient.Update method.
+type HTTPRouteConfigClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
 // JavaComponentsClientBeginCreateOrUpdateOptions contains the optional parameters for the JavaComponentsClient.BeginCreateOrUpdate
 // method.
 type JavaComponentsClientBeginCreateOrUpdateOptions struct {
@@ -830,6 +879,30 @@ type LogicAppsClientListWorkflowsConnectionsOptions struct {
 
 // LogicAppsClientListWorkflowsOptions contains the optional parameters for the LogicAppsClient.NewListWorkflowsPager method.
 type LogicAppsClientListWorkflowsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// MaintenanceConfigurationsClientCreateOrUpdateOptions contains the optional parameters for the MaintenanceConfigurationsClient.CreateOrUpdate
+// method.
+type MaintenanceConfigurationsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// MaintenanceConfigurationsClientDeleteOptions contains the optional parameters for the MaintenanceConfigurationsClient.Delete
+// method.
+type MaintenanceConfigurationsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// MaintenanceConfigurationsClientGetOptions contains the optional parameters for the MaintenanceConfigurationsClient.Get
+// method.
+type MaintenanceConfigurationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// MaintenanceConfigurationsClientListOptions contains the optional parameters for the MaintenanceConfigurationsClient.NewListPager
+// method.
+type MaintenanceConfigurationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
