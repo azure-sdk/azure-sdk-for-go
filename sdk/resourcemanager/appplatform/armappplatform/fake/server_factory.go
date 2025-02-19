@@ -38,9 +38,14 @@ type ServerFactory struct {
 	CustomizedAcceleratorsServer  CustomizedAcceleratorsServer
 	DeploymentsServer             DeploymentsServer
 	DevToolPortalsServer          DevToolPortalsServer
+	EurekaServersServer           EurekaServersServer
 	GatewayCustomDomainsServer    GatewayCustomDomainsServer
 	GatewayRouteConfigsServer     GatewayRouteConfigsServer
 	GatewaysServer                GatewaysServer
+	JobServer                     JobServer
+	JobExecutionServer            JobExecutionServer
+	JobExecutionsServer           JobExecutionsServer
+	JobsServer                    JobsServer
 	MonitoringSettingsServer      MonitoringSettingsServer
 	OperationsServer              OperationsServer
 	PredefinedAcceleratorsServer  PredefinedAcceleratorsServer
@@ -84,9 +89,14 @@ type ServerFactoryTransport struct {
 	trCustomizedAcceleratorsServer  *CustomizedAcceleratorsServerTransport
 	trDeploymentsServer             *DeploymentsServerTransport
 	trDevToolPortalsServer          *DevToolPortalsServerTransport
+	trEurekaServersServer           *EurekaServersServerTransport
 	trGatewayCustomDomainsServer    *GatewayCustomDomainsServerTransport
 	trGatewayRouteConfigsServer     *GatewayRouteConfigsServerTransport
 	trGatewaysServer                *GatewaysServerTransport
+	trJobServer                     *JobServerTransport
+	trJobExecutionServer            *JobExecutionServerTransport
+	trJobExecutionsServer           *JobExecutionsServerTransport
+	trJobsServer                    *JobsServerTransport
 	trMonitoringSettingsServer      *MonitoringSettingsServerTransport
 	trOperationsServer              *OperationsServerTransport
 	trPredefinedAcceleratorsServer  *PredefinedAcceleratorsServerTransport
@@ -191,6 +201,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewDevToolPortalsServerTransport(&s.srv.DevToolPortalsServer)
 		})
 		resp, err = s.trDevToolPortalsServer.Do(req)
+	case "EurekaServersClient":
+		initServer(s, &s.trEurekaServersServer, func() *EurekaServersServerTransport {
+			return NewEurekaServersServerTransport(&s.srv.EurekaServersServer)
+		})
+		resp, err = s.trEurekaServersServer.Do(req)
 	case "GatewayCustomDomainsClient":
 		initServer(s, &s.trGatewayCustomDomainsServer, func() *GatewayCustomDomainsServerTransport {
 			return NewGatewayCustomDomainsServerTransport(&s.srv.GatewayCustomDomainsServer)
@@ -204,6 +219,20 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "GatewaysClient":
 		initServer(s, &s.trGatewaysServer, func() *GatewaysServerTransport { return NewGatewaysServerTransport(&s.srv.GatewaysServer) })
 		resp, err = s.trGatewaysServer.Do(req)
+	case "JobClient":
+		initServer(s, &s.trJobServer, func() *JobServerTransport { return NewJobServerTransport(&s.srv.JobServer) })
+		resp, err = s.trJobServer.Do(req)
+	case "JobExecutionClient":
+		initServer(s, &s.trJobExecutionServer, func() *JobExecutionServerTransport { return NewJobExecutionServerTransport(&s.srv.JobExecutionServer) })
+		resp, err = s.trJobExecutionServer.Do(req)
+	case "JobExecutionsClient":
+		initServer(s, &s.trJobExecutionsServer, func() *JobExecutionsServerTransport {
+			return NewJobExecutionsServerTransport(&s.srv.JobExecutionsServer)
+		})
+		resp, err = s.trJobExecutionsServer.Do(req)
+	case "JobsClient":
+		initServer(s, &s.trJobsServer, func() *JobsServerTransport { return NewJobsServerTransport(&s.srv.JobsServer) })
+		resp, err = s.trJobsServer.Do(req)
 	case "MonitoringSettingsClient":
 		initServer(s, &s.trMonitoringSettingsServer, func() *MonitoringSettingsServerTransport {
 			return NewMonitoringSettingsServerTransport(&s.srv.MonitoringSettingsServer)

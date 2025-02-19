@@ -32,13 +32,13 @@ type ConfigurationsClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
 }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
-type OperationsClientListOptions struct {
+// ManagementClientPredictOptions contains the optional parameters for the ManagementClient.Predict method.
+type ManagementClientPredictOptions struct {
 	// placeholder for future optional parameters
 }
 
-// RecommendationMetadataClientGetOptions contains the optional parameters for the RecommendationMetadataClient.Get method.
-type RecommendationMetadataClientGetOptions struct {
+// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
+type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -78,6 +78,16 @@ type RecommendationsClientListOptions struct {
 
 	// The number of recommendations per page if a paged version of this API is being used.
 	Top *int32
+}
+
+// ScoresClientGetOptions contains the optional parameters for the ScoresClient.Get method.
+type ScoresClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ScoresClientListOptions contains the optional parameters for the ScoresClient.List method.
+type ScoresClientListOptions struct {
+	// placeholder for future optional parameters
 }
 
 // SuppressionsClientCreateOptions contains the optional parameters for the SuppressionsClient.Create method.

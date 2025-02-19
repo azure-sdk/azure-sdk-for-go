@@ -25,19 +25,19 @@ import (
 type PrivateEndpointConnectionsServer struct {
 	// CreateOrUpdate is the fake for method PrivateEndpointConnectionsClient.CreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK
-	CreateOrUpdate func(ctx context.Context, resourceGroupName string, farmBeatsResourceName string, privateEndpointConnectionName string, body armagrifood.PrivateEndpointConnection, options *armagrifood.PrivateEndpointConnectionsClientCreateOrUpdateOptions) (resp azfake.Responder[armagrifood.PrivateEndpointConnectionsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	CreateOrUpdate func(ctx context.Context, resourceGroupName string, dataManagerForAgricultureResourceName string, privateEndpointConnectionName string, request armagrifood.PrivateEndpointConnection, options *armagrifood.PrivateEndpointConnectionsClientCreateOrUpdateOptions) (resp azfake.Responder[armagrifood.PrivateEndpointConnectionsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method PrivateEndpointConnectionsClient.BeginDelete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
-	BeginDelete func(ctx context.Context, resourceGroupName string, farmBeatsResourceName string, privateEndpointConnectionName string, options *armagrifood.PrivateEndpointConnectionsClientBeginDeleteOptions) (resp azfake.PollerResponder[armagrifood.PrivateEndpointConnectionsClientDeleteResponse], errResp azfake.ErrorResponder)
+	BeginDelete func(ctx context.Context, resourceGroupName string, dataManagerForAgricultureResourceName string, privateEndpointConnectionName string, options *armagrifood.PrivateEndpointConnectionsClientBeginDeleteOptions) (resp azfake.PollerResponder[armagrifood.PrivateEndpointConnectionsClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method PrivateEndpointConnectionsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceGroupName string, farmBeatsResourceName string, privateEndpointConnectionName string, options *armagrifood.PrivateEndpointConnectionsClientGetOptions) (resp azfake.Responder[armagrifood.PrivateEndpointConnectionsClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, dataManagerForAgricultureResourceName string, privateEndpointConnectionName string, options *armagrifood.PrivateEndpointConnectionsClientGetOptions) (resp azfake.Responder[armagrifood.PrivateEndpointConnectionsClientGetResponse], errResp azfake.ErrorResponder)
 
-	// NewListByResourcePager is the fake for method PrivateEndpointConnectionsClient.NewListByResourcePager
+	// ListByResource is the fake for method PrivateEndpointConnectionsClient.ListByResource
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListByResourcePager func(resourceGroupName string, farmBeatsResourceName string, options *armagrifood.PrivateEndpointConnectionsClientListByResourceOptions) (resp azfake.PagerResponder[armagrifood.PrivateEndpointConnectionsClientListByResourceResponse])
+	ListByResource func(ctx context.Context, resourceGroupName string, dataManagerForAgricultureResourceName string, options *armagrifood.PrivateEndpointConnectionsClientListByResourceOptions) (resp azfake.Responder[armagrifood.PrivateEndpointConnectionsClientListByResourceResponse], errResp azfake.ErrorResponder)
 }
 
 // NewPrivateEndpointConnectionsServerTransport creates a new instance of PrivateEndpointConnectionsServerTransport with the provided implementation.
@@ -45,18 +45,16 @@ type PrivateEndpointConnectionsServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewPrivateEndpointConnectionsServerTransport(srv *PrivateEndpointConnectionsServer) *PrivateEndpointConnectionsServerTransport {
 	return &PrivateEndpointConnectionsServerTransport{
-		srv:                    srv,
-		beginDelete:            newTracker[azfake.PollerResponder[armagrifood.PrivateEndpointConnectionsClientDeleteResponse]](),
-		newListByResourcePager: newTracker[azfake.PagerResponder[armagrifood.PrivateEndpointConnectionsClientListByResourceResponse]](),
+		srv:         srv,
+		beginDelete: newTracker[azfake.PollerResponder[armagrifood.PrivateEndpointConnectionsClientDeleteResponse]](),
 	}
 }
 
 // PrivateEndpointConnectionsServerTransport connects instances of armagrifood.PrivateEndpointConnectionsClient to instances of PrivateEndpointConnectionsServer.
 // Don't use this type directly, use NewPrivateEndpointConnectionsServerTransport instead.
 type PrivateEndpointConnectionsServerTransport struct {
-	srv                    *PrivateEndpointConnectionsServer
-	beginDelete            *tracker[azfake.PollerResponder[armagrifood.PrivateEndpointConnectionsClientDeleteResponse]]
-	newListByResourcePager *tracker[azfake.PagerResponder[armagrifood.PrivateEndpointConnectionsClientListByResourceResponse]]
+	srv         *PrivateEndpointConnectionsServer
+	beginDelete *tracker[azfake.PollerResponder[armagrifood.PrivateEndpointConnectionsClientDeleteResponse]]
 }
 
 // Do implements the policy.Transporter interface for PrivateEndpointConnectionsServerTransport.
@@ -77,8 +75,8 @@ func (p *PrivateEndpointConnectionsServerTransport) Do(req *http.Request) (*http
 		resp, err = p.dispatchBeginDelete(req)
 	case "PrivateEndpointConnectionsClient.Get":
 		resp, err = p.dispatchGet(req)
-	case "PrivateEndpointConnectionsClient.NewListByResourcePager":
-		resp, err = p.dispatchNewListByResourcePager(req)
+	case "PrivateEndpointConnectionsClient.ListByResource":
+		resp, err = p.dispatchListByResource(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -94,7 +92,7 @@ func (p *PrivateEndpointConnectionsServerTransport) dispatchCreateOrUpdate(req *
 	if p.srv.CreateOrUpdate == nil {
 		return nil, &nonRetriableError{errors.New("fake for method CreateOrUpdate not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AgFoodPlatform/farmBeats/(?P<farmBeatsResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/privateEndpointConnections/(?P<privateEndpointConnectionName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AgFoodPlatform/farmBeats/(?P<dataManagerForAgricultureResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/privateEndpointConnections/(?P<privateEndpointConnectionName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 4 {
@@ -108,7 +106,7 @@ func (p *PrivateEndpointConnectionsServerTransport) dispatchCreateOrUpdate(req *
 	if err != nil {
 		return nil, err
 	}
-	farmBeatsResourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("farmBeatsResourceName")])
+	dataManagerForAgricultureResourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("dataManagerForAgricultureResourceName")])
 	if err != nil {
 		return nil, err
 	}
@@ -116,7 +114,7 @@ func (p *PrivateEndpointConnectionsServerTransport) dispatchCreateOrUpdate(req *
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := p.srv.CreateOrUpdate(req.Context(), resourceGroupNameParam, farmBeatsResourceNameParam, privateEndpointConnectionNameParam, body, nil)
+	respr, errRespr := p.srv.CreateOrUpdate(req.Context(), resourceGroupNameParam, dataManagerForAgricultureResourceNameParam, privateEndpointConnectionNameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -137,7 +135,7 @@ func (p *PrivateEndpointConnectionsServerTransport) dispatchBeginDelete(req *htt
 	}
 	beginDelete := p.beginDelete.get(req)
 	if beginDelete == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AgFoodPlatform/farmBeats/(?P<farmBeatsResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/privateEndpointConnections/(?P<privateEndpointConnectionName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AgFoodPlatform/farmBeats/(?P<dataManagerForAgricultureResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/privateEndpointConnections/(?P<privateEndpointConnectionName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 		if matches == nil || len(matches) < 4 {
@@ -147,7 +145,7 @@ func (p *PrivateEndpointConnectionsServerTransport) dispatchBeginDelete(req *htt
 		if err != nil {
 			return nil, err
 		}
-		farmBeatsResourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("farmBeatsResourceName")])
+		dataManagerForAgricultureResourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("dataManagerForAgricultureResourceName")])
 		if err != nil {
 			return nil, err
 		}
@@ -155,7 +153,7 @@ func (p *PrivateEndpointConnectionsServerTransport) dispatchBeginDelete(req *htt
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := p.srv.BeginDelete(req.Context(), resourceGroupNameParam, farmBeatsResourceNameParam, privateEndpointConnectionNameParam, nil)
+		respr, errRespr := p.srv.BeginDelete(req.Context(), resourceGroupNameParam, dataManagerForAgricultureResourceNameParam, privateEndpointConnectionNameParam, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -183,7 +181,7 @@ func (p *PrivateEndpointConnectionsServerTransport) dispatchGet(req *http.Reques
 	if p.srv.Get == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AgFoodPlatform/farmBeats/(?P<farmBeatsResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/privateEndpointConnections/(?P<privateEndpointConnectionName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AgFoodPlatform/farmBeats/(?P<dataManagerForAgricultureResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/privateEndpointConnections/(?P<privateEndpointConnectionName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 4 {
@@ -193,7 +191,7 @@ func (p *PrivateEndpointConnectionsServerTransport) dispatchGet(req *http.Reques
 	if err != nil {
 		return nil, err
 	}
-	farmBeatsResourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("farmBeatsResourceName")])
+	dataManagerForAgricultureResourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("dataManagerForAgricultureResourceName")])
 	if err != nil {
 		return nil, err
 	}
@@ -201,7 +199,7 @@ func (p *PrivateEndpointConnectionsServerTransport) dispatchGet(req *http.Reques
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := p.srv.Get(req.Context(), resourceGroupNameParam, farmBeatsResourceNameParam, privateEndpointConnectionNameParam, nil)
+	respr, errRespr := p.srv.Get(req.Context(), resourceGroupNameParam, dataManagerForAgricultureResourceNameParam, privateEndpointConnectionNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -216,40 +214,35 @@ func (p *PrivateEndpointConnectionsServerTransport) dispatchGet(req *http.Reques
 	return resp, nil
 }
 
-func (p *PrivateEndpointConnectionsServerTransport) dispatchNewListByResourcePager(req *http.Request) (*http.Response, error) {
-	if p.srv.NewListByResourcePager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListByResourcePager not implemented")}
+func (p *PrivateEndpointConnectionsServerTransport) dispatchListByResource(req *http.Request) (*http.Response, error) {
+	if p.srv.ListByResource == nil {
+		return nil, &nonRetriableError{errors.New("fake for method ListByResource not implemented")}
 	}
-	newListByResourcePager := p.newListByResourcePager.get(req)
-	if newListByResourcePager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AgFoodPlatform/farmBeats/(?P<farmBeatsResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/privateEndpointConnections`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		farmBeatsResourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("farmBeatsResourceName")])
-		if err != nil {
-			return nil, err
-		}
-		resp := p.srv.NewListByResourcePager(resourceGroupNameParam, farmBeatsResourceNameParam, nil)
-		newListByResourcePager = &resp
-		p.newListByResourcePager.add(req, newListByResourcePager)
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AgFoodPlatform/farmBeats/(?P<dataManagerForAgricultureResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/privateEndpointConnections`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	resp, err := server.PagerResponderNext(newListByResourcePager, req)
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
 	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		p.newListByResourcePager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+	dataManagerForAgricultureResourceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("dataManagerForAgricultureResourceName")])
+	if err != nil {
+		return nil, err
 	}
-	if !server.PagerResponderMore(newListByResourcePager) {
-		p.newListByResourcePager.remove(req)
+	respr, errRespr := p.srv.ListByResource(req.Context(), resourceGroupNameParam, dataManagerForAgricultureResourceNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).PrivateEndpointConnectionListResult, req)
+	if err != nil {
+		return nil, err
 	}
 	return resp, nil
 }
