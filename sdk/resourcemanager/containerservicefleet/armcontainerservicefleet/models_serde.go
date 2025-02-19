@@ -587,6 +587,7 @@ func (f FleetMemberProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "clusterResourceId", f.ClusterResourceID)
 	populate(objectMap, "group", f.Group)
 	populate(objectMap, "provisioningState", f.ProvisioningState)
+	populate(objectMap, "status", f.Status)
 	return json.Marshal(objectMap)
 }
 
@@ -607,6 +608,40 @@ func (f *FleetMemberProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &f.ProvisioningState)
+			delete(rawMsg, key)
+		case "status":
+			err = unpopulate(val, "Status", &f.Status)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", f, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type FleetMemberStatus.
+func (f FleetMemberStatus) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "lastOperationError", f.LastOperationError)
+	populate(objectMap, "lastOperationId", f.LastOperationID)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type FleetMemberStatus.
+func (f *FleetMemberStatus) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", f, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "lastOperationError":
+			err = unpopulate(val, "LastOperationError", &f.LastOperationError)
+			delete(rawMsg, key)
+		case "lastOperationId":
+			err = unpopulate(val, "LastOperationID", &f.LastOperationID)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -706,6 +741,7 @@ func (f FleetProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "hubProfile", f.HubProfile)
 	populate(objectMap, "provisioningState", f.ProvisioningState)
+	populate(objectMap, "status", f.Status)
 	return json.Marshal(objectMap)
 }
 
@@ -723,6 +759,40 @@ func (f *FleetProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &f.ProvisioningState)
+			delete(rawMsg, key)
+		case "status":
+			err = unpopulate(val, "Status", &f.Status)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", f, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type FleetStatus.
+func (f FleetStatus) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "lastOperationError", f.LastOperationError)
+	populate(objectMap, "lastOperationId", f.LastOperationID)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type FleetStatus.
+func (f *FleetStatus) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", f, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "lastOperationError":
+			err = unpopulate(val, "LastOperationError", &f.LastOperationError)
+			delete(rawMsg, key)
+		case "lastOperationId":
+			err = unpopulate(val, "LastOperationID", &f.LastOperationID)
 			delete(rawMsg, key)
 		}
 		if err != nil {

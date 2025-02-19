@@ -242,6 +242,18 @@ type FleetMemberProperties struct {
 
 	// READ-ONLY; The status of the last operation.
 	ProvisioningState *FleetMemberProvisioningState
+
+	// READ-ONLY; Status information of the last operation for fleet member.
+	Status *FleetMemberStatus
+}
+
+// FleetMemberStatus - Status information for the fleet member
+type FleetMemberStatus struct {
+	// READ-ONLY; The last operation error of the fleet member
+	LastOperationError *ErrorDetail
+
+	// READ-ONLY; The last operation ID for the fleet member
+	LastOperationID *string
 }
 
 // FleetMemberUpdate - The type used for update operations of the FleetMember.
@@ -272,6 +284,18 @@ type FleetProperties struct {
 
 	// READ-ONLY; The status of the last operation.
 	ProvisioningState *FleetProvisioningState
+
+	// READ-ONLY; Status information for the fleet.
+	Status *FleetStatus
+}
+
+// FleetStatus - Status information for the fleet.
+type FleetStatus struct {
+	// READ-ONLY; The last operation error for the fleet.
+	LastOperationError *ErrorDetail
+
+	// READ-ONLY; The last operation ID for the fleet.
+	LastOperationID *string
 }
 
 // FleetUpdateStrategy - Defines a multi-stage process to perform update operations across members of a Fleet.
