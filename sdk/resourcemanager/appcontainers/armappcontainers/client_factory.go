@@ -180,6 +180,14 @@ func (c *ClientFactory) NewContainerAppsDiagnosticsClient() *ContainerAppsDiagno
 	}
 }
 
+// NewContainerAppsLabelHistoryClient creates a new instance of ContainerAppsLabelHistoryClient.
+func (c *ClientFactory) NewContainerAppsLabelHistoryClient() *ContainerAppsLabelHistoryClient {
+	return &ContainerAppsLabelHistoryClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewContainerAppsPatchesClient creates a new instance of ContainerAppsPatchesClient.
 func (c *ClientFactory) NewContainerAppsPatchesClient() *ContainerAppsPatchesClient {
 	return &ContainerAppsPatchesClient{
@@ -260,6 +268,14 @@ func (c *ClientFactory) NewFunctionsExtensionClient() *FunctionsExtensionClient 
 	}
 }
 
+// NewHTTPRouteConfigClient creates a new instance of HTTPRouteConfigClient.
+func (c *ClientFactory) NewHTTPRouteConfigClient() *HTTPRouteConfigClient {
+	return &HTTPRouteConfigClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewJavaComponentsClient creates a new instance of JavaComponentsClient.
 func (c *ClientFactory) NewJavaComponentsClient() *JavaComponentsClient {
 	return &JavaComponentsClient{
@@ -287,6 +303,14 @@ func (c *ClientFactory) NewJobsExecutionsClient() *JobsExecutionsClient {
 // NewLogicAppsClient creates a new instance of LogicAppsClient.
 func (c *ClientFactory) NewLogicAppsClient() *LogicAppsClient {
 	return &LogicAppsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewMaintenanceConfigurationsClient creates a new instance of MaintenanceConfigurationsClient.
+func (c *ClientFactory) NewMaintenanceConfigurationsClient() *MaintenanceConfigurationsClient {
+	return &MaintenanceConfigurationsClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
