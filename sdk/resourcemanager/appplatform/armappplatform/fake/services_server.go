@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appplatform/armappplatform/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appplatform/armappplatform/v3"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -27,14 +27,6 @@ type ServicesServer struct {
 	// CheckNameAvailability is the fake for method ServicesClient.CheckNameAvailability
 	// HTTP status codes to indicate success: http.StatusOK
 	CheckNameAvailability func(ctx context.Context, location string, availabilityParameters armappplatform.NameAvailabilityParameters, options *armappplatform.ServicesClientCheckNameAvailabilityOptions) (resp azfake.Responder[armappplatform.ServicesClientCheckNameAvailabilityResponse], errResp azfake.ErrorResponder)
-
-	// BeginCreateOrUpdate is the fake for method ServicesClient.BeginCreateOrUpdate
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated, http.StatusAccepted
-	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, serviceName string, resource armappplatform.ServiceResource, options *armappplatform.ServicesClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armappplatform.ServicesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
-
-	// BeginDelete is the fake for method ServicesClient.BeginDelete
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
-	BeginDelete func(ctx context.Context, resourceGroupName string, serviceName string, options *armappplatform.ServicesClientBeginDeleteOptions) (resp azfake.PollerResponder[armappplatform.ServicesClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// BeginDisableApmGlobally is the fake for method ServicesClient.BeginDisableApmGlobally
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
@@ -55,10 +47,6 @@ type ServicesServer struct {
 	// BeginFlushVnetDNSSetting is the fake for method ServicesClient.BeginFlushVnetDNSSetting
 	// HTTP status codes to indicate success: http.StatusAccepted
 	BeginFlushVnetDNSSetting func(ctx context.Context, resourceGroupName string, serviceName string, options *armappplatform.ServicesClientBeginFlushVnetDNSSettingOptions) (resp azfake.PollerResponder[armappplatform.ServicesClientFlushVnetDNSSettingResponse], errResp azfake.ErrorResponder)
-
-	// Get is the fake for method ServicesClient.Get
-	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceGroupName string, serviceName string, options *armappplatform.ServicesClientGetOptions) (resp azfake.Responder[armappplatform.ServicesClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method ServicesClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
@@ -95,10 +83,6 @@ type ServicesServer struct {
 	// BeginStop is the fake for method ServicesClient.BeginStop
 	// HTTP status codes to indicate success: http.StatusAccepted
 	BeginStop func(ctx context.Context, resourceGroupName string, serviceName string, options *armappplatform.ServicesClientBeginStopOptions) (resp azfake.PollerResponder[armappplatform.ServicesClientStopResponse], errResp azfake.ErrorResponder)
-
-	// BeginUpdate is the fake for method ServicesClient.BeginUpdate
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginUpdate func(ctx context.Context, resourceGroupName string, serviceName string, resource armappplatform.ServiceResource, options *armappplatform.ServicesClientBeginUpdateOptions) (resp azfake.PollerResponder[armappplatform.ServicesClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewServicesServerTransport creates a new instance of ServicesServerTransport with the provided implementation.
@@ -107,8 +91,6 @@ type ServicesServer struct {
 func NewServicesServerTransport(srv *ServicesServer) *ServicesServerTransport {
 	return &ServicesServerTransport{
 		srv:                                 srv,
-		beginCreateOrUpdate:                 newTracker[azfake.PollerResponder[armappplatform.ServicesClientCreateOrUpdateResponse]](),
-		beginDelete:                         newTracker[azfake.PollerResponder[armappplatform.ServicesClientDeleteResponse]](),
 		beginDisableApmGlobally:             newTracker[azfake.PollerResponder[armappplatform.ServicesClientDisableApmGloballyResponse]](),
 		beginEnableApmGlobally:              newTracker[azfake.PollerResponder[armappplatform.ServicesClientEnableApmGloballyResponse]](),
 		beginFlushVnetDNSSetting:            newTracker[azfake.PollerResponder[armappplatform.ServicesClientFlushVnetDNSSettingResponse]](),
@@ -118,7 +100,6 @@ func NewServicesServerTransport(srv *ServicesServer) *ServicesServerTransport {
 		newListSupportedServerVersionsPager: newTracker[azfake.PagerResponder[armappplatform.ServicesClientListSupportedServerVersionsResponse]](),
 		beginStart:                          newTracker[azfake.PollerResponder[armappplatform.ServicesClientStartResponse]](),
 		beginStop:                           newTracker[azfake.PollerResponder[armappplatform.ServicesClientStopResponse]](),
-		beginUpdate:                         newTracker[azfake.PollerResponder[armappplatform.ServicesClientUpdateResponse]](),
 	}
 }
 
@@ -126,8 +107,6 @@ func NewServicesServerTransport(srv *ServicesServer) *ServicesServerTransport {
 // Don't use this type directly, use NewServicesServerTransport instead.
 type ServicesServerTransport struct {
 	srv                                 *ServicesServer
-	beginCreateOrUpdate                 *tracker[azfake.PollerResponder[armappplatform.ServicesClientCreateOrUpdateResponse]]
-	beginDelete                         *tracker[azfake.PollerResponder[armappplatform.ServicesClientDeleteResponse]]
 	beginDisableApmGlobally             *tracker[azfake.PollerResponder[armappplatform.ServicesClientDisableApmGloballyResponse]]
 	beginEnableApmGlobally              *tracker[azfake.PollerResponder[armappplatform.ServicesClientEnableApmGloballyResponse]]
 	beginFlushVnetDNSSetting            *tracker[azfake.PollerResponder[armappplatform.ServicesClientFlushVnetDNSSettingResponse]]
@@ -137,7 +116,6 @@ type ServicesServerTransport struct {
 	newListSupportedServerVersionsPager *tracker[azfake.PagerResponder[armappplatform.ServicesClientListSupportedServerVersionsResponse]]
 	beginStart                          *tracker[azfake.PollerResponder[armappplatform.ServicesClientStartResponse]]
 	beginStop                           *tracker[azfake.PollerResponder[armappplatform.ServicesClientStopResponse]]
-	beginUpdate                         *tracker[azfake.PollerResponder[armappplatform.ServicesClientUpdateResponse]]
 }
 
 // Do implements the policy.Transporter interface for ServicesServerTransport.
@@ -154,10 +132,6 @@ func (s *ServicesServerTransport) Do(req *http.Request) (*http.Response, error) 
 	switch method {
 	case "ServicesClient.CheckNameAvailability":
 		resp, err = s.dispatchCheckNameAvailability(req)
-	case "ServicesClient.BeginCreateOrUpdate":
-		resp, err = s.dispatchBeginCreateOrUpdate(req)
-	case "ServicesClient.BeginDelete":
-		resp, err = s.dispatchBeginDelete(req)
 	case "ServicesClient.BeginDisableApmGlobally":
 		resp, err = s.dispatchBeginDisableApmGlobally(req)
 	case "ServicesClient.DisableTestEndpoint":
@@ -168,8 +142,6 @@ func (s *ServicesServerTransport) Do(req *http.Request) (*http.Response, error) 
 		resp, err = s.dispatchEnableTestEndpoint(req)
 	case "ServicesClient.BeginFlushVnetDNSSetting":
 		resp, err = s.dispatchBeginFlushVnetDNSSetting(req)
-	case "ServicesClient.Get":
-		resp, err = s.dispatchGet(req)
 	case "ServicesClient.NewListPager":
 		resp, err = s.dispatchNewListPager(req)
 	case "ServicesClient.NewListBySubscriptionPager":
@@ -188,8 +160,6 @@ func (s *ServicesServerTransport) Do(req *http.Request) (*http.Response, error) 
 		resp, err = s.dispatchBeginStart(req)
 	case "ServicesClient.BeginStop":
 		resp, err = s.dispatchBeginStop(req)
-	case "ServicesClient.BeginUpdate":
-		resp, err = s.dispatchBeginUpdate(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -231,98 +201,6 @@ func (s *ServicesServerTransport) dispatchCheckNameAvailability(req *http.Reques
 	if err != nil {
 		return nil, err
 	}
-	return resp, nil
-}
-
-func (s *ServicesServerTransport) dispatchBeginCreateOrUpdate(req *http.Request) (*http.Response, error) {
-	if s.srv.BeginCreateOrUpdate == nil {
-		return nil, &nonRetriableError{errors.New("fake for method BeginCreateOrUpdate not implemented")}
-	}
-	beginCreateOrUpdate := s.beginCreateOrUpdate.get(req)
-	if beginCreateOrUpdate == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AppPlatform/Spring/(?P<serviceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		body, err := server.UnmarshalRequestAsJSON[armappplatform.ServiceResource](req)
-		if err != nil {
-			return nil, err
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		serviceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("serviceName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := s.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, serviceNameParam, body, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
-		beginCreateOrUpdate = &respr
-		s.beginCreateOrUpdate.add(req, beginCreateOrUpdate)
-	}
-
-	resp, err := server.PollerResponderNext(beginCreateOrUpdate, req)
-	if err != nil {
-		return nil, err
-	}
-
-	if !contains([]int{http.StatusOK, http.StatusCreated, http.StatusAccepted}, resp.StatusCode) {
-		s.beginCreateOrUpdate.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated, http.StatusAccepted", resp.StatusCode)}
-	}
-	if !server.PollerResponderMore(beginCreateOrUpdate) {
-		s.beginCreateOrUpdate.remove(req)
-	}
-
-	return resp, nil
-}
-
-func (s *ServicesServerTransport) dispatchBeginDelete(req *http.Request) (*http.Response, error) {
-	if s.srv.BeginDelete == nil {
-		return nil, &nonRetriableError{errors.New("fake for method BeginDelete not implemented")}
-	}
-	beginDelete := s.beginDelete.get(req)
-	if beginDelete == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AppPlatform/Spring/(?P<serviceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		serviceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("serviceName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := s.srv.BeginDelete(req.Context(), resourceGroupNameParam, serviceNameParam, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
-		beginDelete = &respr
-		s.beginDelete.add(req, beginDelete)
-	}
-
-	resp, err := server.PollerResponderNext(beginDelete, req)
-	if err != nil {
-		return nil, err
-	}
-
-	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
-		s.beginDelete.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
-	}
-	if !server.PollerResponderMore(beginDelete) {
-		s.beginDelete.remove(req)
-	}
-
 	return resp, nil
 }
 
@@ -529,39 +407,6 @@ func (s *ServicesServerTransport) dispatchBeginFlushVnetDNSSetting(req *http.Req
 		s.beginFlushVnetDNSSetting.remove(req)
 	}
 
-	return resp, nil
-}
-
-func (s *ServicesServerTransport) dispatchGet(req *http.Request) (*http.Response, error) {
-	if s.srv.Get == nil {
-		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
-	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AppPlatform/Spring/(?P<serviceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-	regex := regexp.MustCompile(regexStr)
-	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 3 {
-		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-	}
-	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-	if err != nil {
-		return nil, err
-	}
-	serviceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("serviceName")])
-	if err != nil {
-		return nil, err
-	}
-	respr, errRespr := s.srv.Get(req.Context(), resourceGroupNameParam, serviceNameParam, nil)
-	if respErr := server.GetError(errRespr, req); respErr != nil {
-		return nil, respErr
-	}
-	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
-	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ServiceResource, req)
-	if err != nil {
-		return nil, err
-	}
 	return resp, nil
 }
 
@@ -903,54 +748,6 @@ func (s *ServicesServerTransport) dispatchBeginStop(req *http.Request) (*http.Re
 	}
 	if !server.PollerResponderMore(beginStop) {
 		s.beginStop.remove(req)
-	}
-
-	return resp, nil
-}
-
-func (s *ServicesServerTransport) dispatchBeginUpdate(req *http.Request) (*http.Response, error) {
-	if s.srv.BeginUpdate == nil {
-		return nil, &nonRetriableError{errors.New("fake for method BeginUpdate not implemented")}
-	}
-	beginUpdate := s.beginUpdate.get(req)
-	if beginUpdate == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AppPlatform/Spring/(?P<serviceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		body, err := server.UnmarshalRequestAsJSON[armappplatform.ServiceResource](req)
-		if err != nil {
-			return nil, err
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		serviceNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("serviceName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := s.srv.BeginUpdate(req.Context(), resourceGroupNameParam, serviceNameParam, body, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
-		beginUpdate = &respr
-		s.beginUpdate.add(req, beginUpdate)
-	}
-
-	resp, err := server.PollerResponderNext(beginUpdate, req)
-	if err != nil {
-		return nil, err
-	}
-
-	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
-		s.beginUpdate.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
-	}
-	if !server.PollerResponderMore(beginUpdate) {
-		s.beginUpdate.remove(req)
 	}
 
 	return resp, nil
