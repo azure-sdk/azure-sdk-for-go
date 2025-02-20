@@ -1,5 +1,86 @@
 # Release History
 
+## 2.1.0 (2025-02-20)
+### Features Added
+
+- New value `CatalogItemTypeImageDefinition` added to enum type `CatalogItemType`
+- New value `DomainJoinTypeNone` added to enum type `DomainJoinType`
+- New value `HealthCheckStatusInformational` added to enum type `HealthCheckStatus`
+- New enum type `AutoImageBuildStatus` with values `AutoImageBuildStatusDisabled`, `AutoImageBuildStatusEnabled`
+- New enum type `CustomizationTaskInputType` with values `CustomizationTaskInputTypeBoolean`, `CustomizationTaskInputTypeNumber`, `CustomizationTaskInputTypeString`
+- New enum type `DevCenterResourceType` with values `DevCenterResourceTypeAttachedNetworks`, `DevCenterResourceTypeImages`, `DevCenterResourceTypeSKUs`
+- New enum type `ImageDefinitionBuildStatus` with values `ImageDefinitionBuildStatusCancelled`, `ImageDefinitionBuildStatusFailed`, `ImageDefinitionBuildStatusRunning`, `ImageDefinitionBuildStatusSucceeded`, `ImageDefinitionBuildStatusTimedOut`, `ImageDefinitionBuildStatusValidationFailed`
+- New enum type `InstallAzureMonitorAgentEnableStatus` with values `InstallAzureMonitorAgentEnableStatusDisabled`, `InstallAzureMonitorAgentEnableStatusEnabled`
+- New enum type `MicrosoftHostedNetworkEnableStatus` with values `MicrosoftHostedNetworkEnableStatusDisabled`, `MicrosoftHostedNetworkEnableStatusEnabled`
+- New enum type `PolicyAction` with values `PolicyActionAllow`, `PolicyActionDeny`
+- New enum type `PoolDevBoxDefinitionType` with values `PoolDevBoxDefinitionTypeReference`, `PoolDevBoxDefinitionTypeValue`
+- New enum type `StopOnNoConnectEnableStatus` with values `StopOnNoConnectEnableStatusDisabled`, `StopOnNoConnectEnableStatusEnabled`
+- New function `*ClientFactory.NewCustomizationTasksClient() *CustomizationTasksClient`
+- New function `*ClientFactory.NewProjectCatalogImageDefinitionBuildClient() *ProjectCatalogImageDefinitionBuildClient`
+- New function `*ClientFactory.NewProjectCatalogImageDefinitionBuildsClient() *ProjectCatalogImageDefinitionBuildsClient`
+- New function `*ClientFactory.NewProjectCatalogImageDefinitionsClient() *ProjectCatalogImageDefinitionsClient`
+- New function `*ClientFactory.NewProjectPoliciesClient() *ProjectPoliciesClient`
+- New function `NewCustomizationTasksClient(string, azcore.TokenCredential, *arm.ClientOptions) (*CustomizationTasksClient, error)`
+- New function `*CustomizationTasksClient.Get(context.Context, string, string, string, string, *CustomizationTasksClientGetOptions) (CustomizationTasksClientGetResponse, error)`
+- New function `*CustomizationTasksClient.GetErrorDetails(context.Context, string, string, string, string, *CustomizationTasksClientGetErrorDetailsOptions) (CustomizationTasksClientGetErrorDetailsResponse, error)`
+- New function `*CustomizationTasksClient.NewListByCatalogPager(string, string, string, *CustomizationTasksClientListByCatalogOptions) *runtime.Pager[CustomizationTasksClientListByCatalogResponse]`
+- New function `*ImageVersionsClient.GetByProject(context.Context, string, string, string, string, *ImageVersionsClientGetByProjectOptions) (ImageVersionsClientGetByProjectResponse, error)`
+- New function `*ImageVersionsClient.NewListByProjectPager(string, string, string, *ImageVersionsClientListByProjectOptions) *runtime.Pager[ImageVersionsClientListByProjectResponse]`
+- New function `*ImagesClient.GetByProject(context.Context, string, string, string, *ImagesClientGetByProjectOptions) (ImagesClientGetByProjectResponse, error)`
+- New function `*ImagesClient.NewListByProjectPager(string, string, *ImagesClientListByProjectOptions) *runtime.Pager[ImagesClientListByProjectResponse]`
+- New function `NewProjectCatalogImageDefinitionBuildClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ProjectCatalogImageDefinitionBuildClient, error)`
+- New function `*ProjectCatalogImageDefinitionBuildClient.BeginCancel(context.Context, string, string, string, string, string, *ProjectCatalogImageDefinitionBuildClientBeginCancelOptions) (*runtime.Poller[ProjectCatalogImageDefinitionBuildClientCancelResponse], error)`
+- New function `*ProjectCatalogImageDefinitionBuildClient.Get(context.Context, string, string, string, string, string, *ProjectCatalogImageDefinitionBuildClientGetOptions) (ProjectCatalogImageDefinitionBuildClientGetResponse, error)`
+- New function `*ProjectCatalogImageDefinitionBuildClient.GetBuildDetails(context.Context, string, string, string, string, string, *ProjectCatalogImageDefinitionBuildClientGetBuildDetailsOptions) (ProjectCatalogImageDefinitionBuildClientGetBuildDetailsResponse, error)`
+- New function `NewProjectCatalogImageDefinitionBuildsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ProjectCatalogImageDefinitionBuildsClient, error)`
+- New function `*ProjectCatalogImageDefinitionBuildsClient.NewListByImageDefinitionPager(string, string, string, string, *ProjectCatalogImageDefinitionBuildsClientListByImageDefinitionOptions) *runtime.Pager[ProjectCatalogImageDefinitionBuildsClientListByImageDefinitionResponse]`
+- New function `NewProjectCatalogImageDefinitionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ProjectCatalogImageDefinitionsClient, error)`
+- New function `*ProjectCatalogImageDefinitionsClient.GetByProjectCatalog(context.Context, string, string, string, string, *ProjectCatalogImageDefinitionsClientGetByProjectCatalogOptions) (ProjectCatalogImageDefinitionsClientGetByProjectCatalogResponse, error)`
+- New function `*ProjectCatalogImageDefinitionsClient.GetErrorDetails(context.Context, string, string, string, string, *ProjectCatalogImageDefinitionsClientGetErrorDetailsOptions) (ProjectCatalogImageDefinitionsClientGetErrorDetailsResponse, error)`
+- New function `*ProjectCatalogImageDefinitionsClient.NewListByProjectCatalogPager(string, string, string, *ProjectCatalogImageDefinitionsClientListByProjectCatalogOptions) *runtime.Pager[ProjectCatalogImageDefinitionsClientListByProjectCatalogResponse]`
+- New function `*ProjectCatalogImageDefinitionsClient.BeginBuildImage(context.Context, string, string, string, string, *ProjectCatalogImageDefinitionsClientBeginBuildImageOptions) (*runtime.Poller[ProjectCatalogImageDefinitionsClientBuildImageResponse], error)`
+- New function `NewProjectPoliciesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ProjectPoliciesClient, error)`
+- New function `*ProjectPoliciesClient.BeginCreateOrUpdate(context.Context, string, string, string, ProjectPolicy, *ProjectPoliciesClientBeginCreateOrUpdateOptions) (*runtime.Poller[ProjectPoliciesClientCreateOrUpdateResponse], error)`
+- New function `*ProjectPoliciesClient.BeginDelete(context.Context, string, string, string, *ProjectPoliciesClientBeginDeleteOptions) (*runtime.Poller[ProjectPoliciesClientDeleteResponse], error)`
+- New function `*ProjectPoliciesClient.Get(context.Context, string, string, string, *ProjectPoliciesClientGetOptions) (ProjectPoliciesClientGetResponse, error)`
+- New function `*ProjectPoliciesClient.NewListByDevCenterPager(string, string, *ProjectPoliciesClientListByDevCenterOptions) *runtime.Pager[ProjectPoliciesClientListByDevCenterResponse]`
+- New function `*ProjectPoliciesClient.BeginUpdate(context.Context, string, string, string, ProjectPolicyUpdate, *ProjectPoliciesClientBeginUpdateOptions) (*runtime.Poller[ProjectPoliciesClientUpdateResponse], error)`
+- New function `*ProjectsClient.GetInheritedSettings(context.Context, string, string, *ProjectsClientGetInheritedSettingsOptions) (ProjectsClientGetInheritedSettingsResponse, error)`
+- New function `*SKUsClient.NewListByProjectPager(string, string, *SKUsClientListByProjectOptions) *runtime.Pager[SKUsClientListByProjectResponse]`
+- New struct `CustomizationTask`
+- New struct `CustomizationTaskInput`
+- New struct `CustomizationTaskListResult`
+- New struct `CustomizationTaskProperties`
+- New struct `DevBoxProvisioningSettings`
+- New struct `ImageCreationErrorDetails`
+- New struct `ImageDefinition`
+- New struct `ImageDefinitionBuild`
+- New struct `ImageDefinitionBuildDetails`
+- New struct `ImageDefinitionBuildListResult`
+- New struct `ImageDefinitionBuildProperties`
+- New struct `ImageDefinitionBuildTask`
+- New struct `ImageDefinitionBuildTaskGroup`
+- New struct `ImageDefinitionBuildTaskParametersItem`
+- New struct `ImageDefinitionListResult`
+- New struct `ImageDefinitionProperties`
+- New struct `InheritedSettingsForProject`
+- New struct `LatestImageBuild`
+- New struct `NetworkSettings`
+- New struct `PoolDevBoxDefinition`
+- New struct `ProjectNetworkSettings`
+- New struct `ProjectPolicy`
+- New struct `ProjectPolicyListResult`
+- New struct `ProjectPolicyProperties`
+- New struct `ProjectPolicyUpdate`
+- New struct `ProjectPolicyUpdateProperties`
+- New struct `ResourcePolicy`
+- New struct `StopOnNoConnectConfiguration`
+- New field `DevBoxDefinition`, `DevBoxDefinitionType`, `StopOnNoConnect` in struct `PoolProperties`
+- New field `DevBoxDefinition`, `DevBoxDefinitionType`, `StopOnNoConnect` in struct `PoolUpdateProperties`
+- New field `DevBoxProvisioningSettings`, `NetworkSettings` in struct `Properties`
+- New field `DevBoxProvisioningSettings`, `NetworkSettings` in struct `UpdateProperties`
+
+
 ## 2.0.0 (2024-04-26)
 ### Breaking Changes
 
