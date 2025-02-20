@@ -45,7 +45,7 @@ type PrometheusRuleGroupsServer struct {
 
 	// Update is the fake for method PrometheusRuleGroupsClient.Update
 	// HTTP status codes to indicate success: http.StatusOK
-	Update func(ctx context.Context, resourceGroupName string, ruleGroupName string, parameters armalertsmanagement.PrometheusRuleGroupResourcePatch, options *armalertsmanagement.PrometheusRuleGroupsClientUpdateOptions) (resp azfake.Responder[armalertsmanagement.PrometheusRuleGroupsClientUpdateResponse], errResp azfake.ErrorResponder)
+	Update func(ctx context.Context, resourceGroupName string, ruleGroupName string, parameters armalertsmanagement.PrometheusRuleGroupResourcePatchParameters, options *armalertsmanagement.PrometheusRuleGroupsClientUpdateOptions) (resp azfake.Responder[armalertsmanagement.PrometheusRuleGroupsClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewPrometheusRuleGroupsServerTransport creates a new instance of PrometheusRuleGroupsServerTransport with the provided implementation.
@@ -279,7 +279,7 @@ func (p *PrometheusRuleGroupsServerTransport) dispatchUpdate(req *http.Request) 
 	if matches == nil || len(matches) < 3 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armalertsmanagement.PrometheusRuleGroupResourcePatch](req)
+	body, err := server.UnmarshalRequestAsJSON[armalertsmanagement.PrometheusRuleGroupResourcePatchParameters](req)
 	if err != nil {
 		return nil, err
 	}
