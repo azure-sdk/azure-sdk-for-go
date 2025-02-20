@@ -448,20 +448,6 @@ type ConnectionMonitorsClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
-// ConnectionMonitorsClientBeginQueryOptions contains the optional parameters for the ConnectionMonitorsClient.BeginQuery
-// method.
-type ConnectionMonitorsClientBeginQueryOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ConnectionMonitorsClientBeginStartOptions contains the optional parameters for the ConnectionMonitorsClient.BeginStart
-// method.
-type ConnectionMonitorsClientBeginStartOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
 // ConnectionMonitorsClientBeginStopOptions contains the optional parameters for the ConnectionMonitorsClient.BeginStop method.
 type ConnectionMonitorsClientBeginStopOptions struct {
 	// Resumes the LRO from the provided token.
@@ -1982,6 +1968,25 @@ type ManagersClientPatchOptions struct {
 	// placeholder for future optional parameters
 }
 
+// NNetworkSecurityPerimeterAccessRulesClientDeleteOptions contains the optional parameters for the NNetworkSecurityPerimeterAccessRulesClient.Delete
+// method.
+type NNetworkSecurityPerimeterAccessRulesClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NNetworkSecurityPerimeterLinkReferencesClientBeginDeleteOptions contains the optional parameters for the NNetworkSecurityPerimeterLinkReferencesClient.BeginDelete
+// method.
+type NNetworkSecurityPerimeterLinkReferencesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// NNetworkSecurityPerimeterLinkReferencesClientGetOptions contains the optional parameters for the NNetworkSecurityPerimeterLinkReferencesClient.Get
+// method.
+type NNetworkSecurityPerimeterLinkReferencesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
 // NatGatewaysClientBeginCreateOrUpdateOptions contains the optional parameters for the NatGatewaysClient.BeginCreateOrUpdate
 // method.
 type NatGatewaysClientBeginCreateOrUpdateOptions struct {
@@ -2884,6 +2889,228 @@ type SecurityPartnerProvidersClientUpdateTagsOptions struct {
 	// placeholder for future optional parameters
 }
 
+// SecurityPerimeterAccessRulesClientCreateOrUpdateOptions contains the optional parameters for the SecurityPerimeterAccessRulesClient.CreateOrUpdate
+// method.
+type SecurityPerimeterAccessRulesClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityPerimeterAccessRulesClientGetOptions contains the optional parameters for the SecurityPerimeterAccessRulesClient.Get
+// method.
+type SecurityPerimeterAccessRulesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityPerimeterAccessRulesClientListOptions contains the optional parameters for the SecurityPerimeterAccessRulesClient.NewListPager
+// method.
+type SecurityPerimeterAccessRulesClientListOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
+// SecurityPerimeterAccessRulesClientReconcileOptions contains the optional parameters for the SecurityPerimeterAccessRulesClient.Reconcile
+// method.
+type SecurityPerimeterAccessRulesClientReconcileOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityPerimeterAssociableResourceTypesClientListOptions contains the optional parameters for the SecurityPerimeterAssociableResourceTypesClient.NewListPager
+// method.
+type SecurityPerimeterAssociableResourceTypesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityPerimeterAssociationsClientBeginCreateOrUpdateOptions contains the optional parameters for the SecurityPerimeterAssociationsClient.BeginCreateOrUpdate
+// method.
+type SecurityPerimeterAssociationsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SecurityPerimeterAssociationsClientBeginDeleteOptions contains the optional parameters for the SecurityPerimeterAssociationsClient.BeginDelete
+// method.
+type SecurityPerimeterAssociationsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SecurityPerimeterAssociationsClientGetOptions contains the optional parameters for the SecurityPerimeterAssociationsClient.Get
+// method.
+type SecurityPerimeterAssociationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityPerimeterAssociationsClientListOptions contains the optional parameters for the SecurityPerimeterAssociationsClient.NewListPager
+// method.
+type SecurityPerimeterAssociationsClientListOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
+// SecurityPerimeterAssociationsClientPostOptions contains the optional parameters for the SecurityPerimeterAssociationsClient.Post
+// method.
+type SecurityPerimeterAssociationsClientPostOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityPerimeterLinkReferencesClientListOptions contains the optional parameters for the SecurityPerimeterLinkReferencesClient.NewListPager
+// method.
+type SecurityPerimeterLinkReferencesClientListOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
+// SecurityPerimeterLinksClientBeginDeleteOptions contains the optional parameters for the SecurityPerimeterLinksClient.BeginDelete
+// method.
+type SecurityPerimeterLinksClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SecurityPerimeterLinksClientCreateOrUpdateOptions contains the optional parameters for the SecurityPerimeterLinksClient.CreateOrUpdate
+// method.
+type SecurityPerimeterLinksClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityPerimeterLinksClientGetOptions contains the optional parameters for the SecurityPerimeterLinksClient.Get method.
+type SecurityPerimeterLinksClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityPerimeterLinksClientListOptions contains the optional parameters for the SecurityPerimeterLinksClient.NewListPager
+// method.
+type SecurityPerimeterLinksClientListOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
+// SecurityPerimeterLoggingConfigurationsClientCreateOrUpdateOptions contains the optional parameters for the SecurityPerimeterLoggingConfigurationsClient.CreateOrUpdate
+// method.
+type SecurityPerimeterLoggingConfigurationsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityPerimeterLoggingConfigurationsClientDeleteOptions contains the optional parameters for the SecurityPerimeterLoggingConfigurationsClient.Delete
+// method.
+type SecurityPerimeterLoggingConfigurationsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityPerimeterLoggingConfigurationsClientGetOptions contains the optional parameters for the SecurityPerimeterLoggingConfigurationsClient.Get
+// method.
+type SecurityPerimeterLoggingConfigurationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityPerimeterLoggingConfigurationsClientListOptions contains the optional parameters for the SecurityPerimeterLoggingConfigurationsClient.NewListPager
+// method.
+type SecurityPerimeterLoggingConfigurationsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityPerimeterOperationStatusesClientGetOptions contains the optional parameters for the SecurityPerimeterOperationStatusesClient.Get
+// method.
+type SecurityPerimeterOperationStatusesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityPerimeterProfilesClientCreateOrUpdateOptions contains the optional parameters for the SecurityPerimeterProfilesClient.CreateOrUpdate
+// method.
+type SecurityPerimeterProfilesClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityPerimeterProfilesClientDeleteOptions contains the optional parameters for the SecurityPerimeterProfilesClient.Delete
+// method.
+type SecurityPerimeterProfilesClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityPerimeterProfilesClientGetOptions contains the optional parameters for the SecurityPerimeterProfilesClient.Get
+// method.
+type SecurityPerimeterProfilesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityPerimeterProfilesClientListOptions contains the optional parameters for the SecurityPerimeterProfilesClient.NewListPager
+// method.
+type SecurityPerimeterProfilesClientListOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
+// SecurityPerimetersClientBeginDeleteOptions contains the optional parameters for the SecurityPerimetersClient.BeginDelete
+// method.
+type SecurityPerimetersClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SecurityPerimetersClientCreateOrUpdateOptions contains the optional parameters for the SecurityPerimetersClient.CreateOrUpdate
+// method.
+type SecurityPerimetersClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityPerimetersClientGetOptions contains the optional parameters for the SecurityPerimetersClient.Get method.
+type SecurityPerimetersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityPerimetersClientListBySubscriptionOptions contains the optional parameters for the SecurityPerimetersClient.NewListBySubscriptionPager
+// method.
+type SecurityPerimetersClientListBySubscriptionOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
+// SecurityPerimetersClientListOptions contains the optional parameters for the SecurityPerimetersClient.NewListPager method.
+type SecurityPerimetersClientListOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
+// SecurityPerimetersClientPatchOptions contains the optional parameters for the SecurityPerimetersClient.Patch method.
+type SecurityPerimetersClientPatchOptions struct {
+	// placeholder for future optional parameters
+}
+
 // SecurityRulesClientBeginCreateOrUpdateOptions contains the optional parameters for the SecurityRulesClient.BeginCreateOrUpdate
 // method.
 type SecurityRulesClientBeginCreateOrUpdateOptions struct {
@@ -3609,6 +3836,23 @@ type VirtualAppliancesClientBeginCreateOrUpdateOptions struct {
 // VirtualAppliancesClientBeginDeleteOptions contains the optional parameters for the VirtualAppliancesClient.BeginDelete
 // method.
 type VirtualAppliancesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VirtualAppliancesClientBeginGetBootDiagnosticLogsOptions contains the optional parameters for the VirtualAppliancesClient.BeginGetBootDiagnosticLogs
+// method.
+type VirtualAppliancesClientBeginGetBootDiagnosticLogsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VirtualAppliancesClientBeginReimageOptions contains the optional parameters for the VirtualAppliancesClient.BeginReimage
+// method.
+type VirtualAppliancesClientBeginReimageOptions struct {
+	// Specifies a list of virtual machine instance IDs from the Network Virtual Appliance VM instances.
+	NetworkVirtualApplianceInstanceIDs *VirtualApplianceInstanceIDs
+
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
