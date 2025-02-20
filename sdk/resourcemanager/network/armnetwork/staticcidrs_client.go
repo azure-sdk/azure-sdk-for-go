@@ -48,7 +48,7 @@ func NewStaticCidrsClient(subscriptionID string, credential azcore.TokenCredenti
 // Create - Creates/Updates the Static CIDR resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01
+// Generated from API version 2024-07-01
 //   - resourceGroupName - The name of the resource group.
 //   - networkManagerName - The name of the network manager.
 //   - poolName - IP Address Manager Pool resource name.
@@ -104,7 +104,7 @@ func (client *StaticCidrsClient) createCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01")
+	reqQP.Set("api-version", "2024-07-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Body != nil {
@@ -128,7 +128,7 @@ func (client *StaticCidrsClient) createHandleResponse(resp *http.Response) (Stat
 // BeginDelete - Delete the Static CIDR resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01
+// Generated from API version 2024-07-01
 //   - resourceGroupName - The name of the resource group.
 //   - networkManagerName - The name of the network manager.
 //   - poolName - Pool resource name.
@@ -155,7 +155,7 @@ func (client *StaticCidrsClient) BeginDelete(ctx context.Context, resourceGroupN
 // Delete - Delete the Static CIDR resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01
+// Generated from API version 2024-07-01
 func (client *StaticCidrsClient) deleteOperation(ctx context.Context, resourceGroupName string, networkManagerName string, poolName string, staticCidrName string, options *StaticCidrsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "StaticCidrsClient.BeginDelete"
@@ -205,7 +205,7 @@ func (client *StaticCidrsClient) deleteCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01")
+	reqQP.Set("api-version", "2024-07-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -214,7 +214,7 @@ func (client *StaticCidrsClient) deleteCreateRequest(ctx context.Context, resour
 // Get - Gets the specific Static CIDR resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01
+// Generated from API version 2024-07-01
 //   - resourceGroupName - The name of the resource group.
 //   - networkManagerName - The name of the network manager.
 //   - poolName - Pool resource name.
@@ -270,7 +270,7 @@ func (client *StaticCidrsClient) getCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01")
+	reqQP.Set("api-version", "2024-07-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -287,7 +287,7 @@ func (client *StaticCidrsClient) getHandleResponse(resp *http.Response) (StaticC
 
 // NewListPager - Gets list of Static CIDR resources at Network Manager level.
 //
-// Generated from API version 2024-05-01
+// Generated from API version 2024-07-01
 //   - resourceGroupName - The name of the resource group.
 //   - networkManagerName - The name of the network manager.
 //   - poolName - Pool resource name.
@@ -339,7 +339,7 @@ func (client *StaticCidrsClient) listCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01")
+	reqQP.Set("api-version", "2024-07-01")
 	if options != nil && options.Skip != nil {
 		reqQP.Set("skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}

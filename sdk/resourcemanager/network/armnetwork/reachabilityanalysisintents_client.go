@@ -48,7 +48,7 @@ func NewReachabilityAnalysisIntentsClient(subscriptionID string, credential azco
 // Create - Creates Reachability Analysis Intent.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01
+// Generated from API version 2024-07-01
 //   - resourceGroupName - The name of the resource group.
 //   - networkManagerName - The name of the network manager.
 //   - workspaceName - Workspace name.
@@ -106,7 +106,7 @@ func (client *ReachabilityAnalysisIntentsClient) createCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01")
+	reqQP.Set("api-version", "2024-07-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -127,7 +127,7 @@ func (client *ReachabilityAnalysisIntentsClient) createHandleResponse(resp *http
 // Delete - Deletes Reachability Analysis Intent.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01
+// Generated from API version 2024-07-01
 //   - resourceGroupName - The name of the resource group.
 //   - networkManagerName - The name of the network manager.
 //   - workspaceName - Workspace name.
@@ -183,7 +183,7 @@ func (client *ReachabilityAnalysisIntentsClient) deleteCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01")
+	reqQP.Set("api-version", "2024-07-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -192,7 +192,7 @@ func (client *ReachabilityAnalysisIntentsClient) deleteCreateRequest(ctx context
 // Get - Get the Reachability Analysis Intent.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01
+// Generated from API version 2024-07-01
 //   - resourceGroupName - The name of the resource group.
 //   - networkManagerName - The name of the network manager.
 //   - workspaceName - Workspace name.
@@ -249,7 +249,7 @@ func (client *ReachabilityAnalysisIntentsClient) getCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01")
+	reqQP.Set("api-version", "2024-07-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -266,7 +266,7 @@ func (client *ReachabilityAnalysisIntentsClient) getHandleResponse(resp *http.Re
 
 // NewListPager - Gets list of Reachability Analysis Intents .
 //
-// Generated from API version 2024-05-01
+// Generated from API version 2024-07-01
 //   - resourceGroupName - The name of the resource group.
 //   - networkManagerName - The name of the network manager.
 //   - workspaceName - Workspace name.
@@ -319,7 +319,7 @@ func (client *ReachabilityAnalysisIntentsClient) listCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01")
+	reqQP.Set("api-version", "2024-07-01")
 	if options != nil && options.Skip != nil {
 		reqQP.Set("skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
