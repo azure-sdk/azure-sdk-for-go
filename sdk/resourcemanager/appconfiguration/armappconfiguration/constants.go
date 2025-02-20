@@ -10,7 +10,7 @@ package armappconfiguration
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appconfiguration/armappconfiguration"
-	moduleVersion = "v2.2.0"
+	moduleVersion = "v2.3.0-beta.1"
 )
 
 // ActionsRequired - Any action that is required beyond basic workflow (approve/ reject/ disconnect)
@@ -37,9 +37,8 @@ const (
 	// AuthenticationModeLocal - The local authentication mode. Users are not required to have data plane permissions if local
 	// authentication is not disabled.
 	AuthenticationModeLocal AuthenticationMode = "Local"
-	// AuthenticationModePassThrough - The pass-through authentication mode. User identity will be passed through from Azure Resource
-	// Manager (ARM), requiring user to have data plane action permissions (Available via App Configuration Data Owner/ App Configuration
-	// Data Reader).
+	// AuthenticationModePassThrough - The pass-through authentication mode. User identity will be passed through from ARM, requiring
+	// user to have data plane action permissions (Available via App Configuration Data Owner/ App Configuration Data Reader).
 	AuthenticationModePassThrough AuthenticationMode = "Pass-through"
 )
 
@@ -162,14 +161,13 @@ func PossibleIdentityTypeValues() []IdentityType {
 }
 
 // PrivateLinkDelegation - The data plane proxy private link delegation. This property manages if a request from delegated
-// Azure Resource Manager (ARM) private link is allowed when the data plane resource requires private link.
+// ARM private link is allowed when the data plane resource requires private link.
 type PrivateLinkDelegation string
 
 const (
 	// PrivateLinkDelegationDisabled - Request is denied if the resource requires private link.
 	PrivateLinkDelegationDisabled PrivateLinkDelegation = "Disabled"
-	// PrivateLinkDelegationEnabled - Azure Resource Manager (ARM) private endpoint is required if the resource requires private
-	// link.
+	// PrivateLinkDelegationEnabled - ARM private endpoint is required if the resource requires private link.
 	PrivateLinkDelegationEnabled PrivateLinkDelegation = "Enabled"
 )
 

@@ -112,11 +112,17 @@ type ConfigurationStoreProperties struct {
 	// The amount of time in days that the configuration store will be retained when it is soft deleted.
 	SoftDeleteRetentionInDays *int32
 
+	// Property specifying the configuration of telemetry for this configuration store
+	Telemetry *TelemetryProperties
+
 	// READ-ONLY; The creation date of configuration store.
 	CreationDate *time.Time
 
 	// READ-ONLY; The DNS endpoint where the configuration store API will be available.
 	Endpoint *string
+
+	// READ-ONLY; Managed On Behalf Of Configuration.
+	ManagedOnBehalfOfConfiguration *ManagedOnBehalfOfConfiguration
 
 	// READ-ONLY; The list of private endpoint connections that are set up for this resource.
 	PrivateEndpointConnections []*PrivateEndpointConnectionReference
@@ -141,6 +147,9 @@ type ConfigurationStorePropertiesUpdateParameters struct {
 
 	// Control permission for data plane traffic coming from public networks while private endpoint is enabled.
 	PublicNetworkAccess *PublicNetworkAccess
+
+	// Property specifying the configuration of telemetry to update for this configuration store
+	Telemetry *TelemetryProperties
 }
 
 // ConfigurationStoreUpdateParameters - The parameters for updating a configuration store.
@@ -163,8 +172,8 @@ type DataPlaneProxyProperties struct {
 	// The data plane proxy authentication mode. This property manages the authentication mode of request to the data plane resources.
 	AuthenticationMode *AuthenticationMode
 
-	// The data plane proxy private link delegation. This property manages if a request from delegated Azure Resource Manager
-	// (ARM) private link is allowed when the data plane resource requires private link.
+	// The data plane proxy private link delegation. This property manages if a request from delegated ARM private link is allowed
+	// when the data plane resource requires private link.
 	PrivateLinkDelegation *PrivateLinkDelegation
 }
 
@@ -217,6 +226,45 @@ type DeletedConfigurationStoreProperties struct {
 type EncryptionProperties struct {
 	// Key vault properties.
 	KeyVaultProperties *KeyVaultProperties
+}
+
+// Experimentation - The experimentation resource.
+type Experimentation struct {
+	// All experimentation properties.
+	Properties *ExperimentationProperties
+
+	// READ-ONLY; The resource ID.
+	ID *string
+
+	// READ-ONLY; The name of the experimentation.
+	Name *string
+
+	// READ-ONLY; The type of the resource.
+	Type *string
+}
+
+// ExperimentationListResult - The result of a request to list experimentations.
+type ExperimentationListResult struct {
+	// The URI that can be used to request the next set of paged results.
+	NextLink *string
+
+	// The collection value.
+	Value []*Experimentation
+}
+
+// ExperimentationProperties - All experimentation properties.
+type ExperimentationProperties struct {
+	// The name of the managed resource group.
+	ManagedResourceGroupName *string
+
+	// READ-ONLY; The resource ID of the online experimentation workspace.
+	OnlineExperimentationWorkspaceResourceID *string
+
+	// READ-ONLY; The provisioning state of the experimentation.
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; The resource ID of the storage account.
+	StorageAccountResourceID *string
 }
 
 // KeyValue - The key-value resource along with all resource properties.
@@ -292,6 +340,13 @@ type LogSpecification struct {
 	Name *string
 }
 
+// ManagedOnBehalfOfConfiguration - Managed-On-Behalf-Of configuration properties. This configuration exists for the resources
+// where a resource provider manages those resources on behalf of the resource owner.
+type ManagedOnBehalfOfConfiguration struct {
+	// Managed-On-Behalf-Of broker resources
+	MoboBrokerResources []*MoboBrokerResource
+}
+
 // MetricDimension - Specifications of the Dimension of metrics
 type MetricDimension struct {
 	// Localized friendly display name of the dimension
@@ -329,6 +384,13 @@ type MetricSpecification struct {
 
 	// Unit that makes sense for the metric
 	Unit *string
+}
+
+// MoboBrokerResource - Managed-On-Behalf-Of broker resource. This resource is created by the Resource Provider to manage
+// some resources on behalf of the user.
+type MoboBrokerResource struct {
+	// Resource identifier of a Managed-On-Behalf-Of broker resource
+	ID *string
 }
 
 // NameAvailabilityStatus - The result of a request to check the availability of a resource name.
@@ -606,7 +668,7 @@ type SnapshotProperties struct {
 	// lifetime of key-value revisions will be used.
 	RetentionPeriod *int64
 
-	// The tags of the snapshot. NOTE: These are data plane tags, not Azure Resource Manager (ARM) tags.
+	// The tags of the snapshot. NOTE: These are data plane tags, not ARM tags.
 	Tags map[string]*string
 
 	// READ-ONLY; The time that the snapshot was created.
@@ -650,6 +712,12 @@ type SystemData struct {
 
 	// The type of identity that last modified the resource.
 	LastModifiedByType *CreatedByType
+}
+
+// TelemetryProperties - Telemetry settings
+type TelemetryProperties struct {
+	// Resource ID of a resource enabling telemetry collection
+	ResourceID *string
 }
 
 // UserIdentity - A resource identity that is managed by the user of the service.

@@ -20,6 +20,7 @@ import (
 // ServerFactory is a fake server for instances of the armappconfiguration.ClientFactory type.
 type ServerFactory struct {
 	ConfigurationStoresServer        ConfigurationStoresServer
+	ExperimentationServer            ExperimentationServer
 	KeyValuesServer                  KeyValuesServer
 	OperationsServer                 OperationsServer
 	PrivateEndpointConnectionsServer PrivateEndpointConnectionsServer
@@ -43,6 +44,7 @@ type ServerFactoryTransport struct {
 	srv                                *ServerFactory
 	trMu                               sync.Mutex
 	trConfigurationStoresServer        *ConfigurationStoresServerTransport
+	trExperimentationServer            *ExperimentationServerTransport
 	trKeyValuesServer                  *KeyValuesServerTransport
 	trOperationsServer                 *OperationsServerTransport
 	trPrivateEndpointConnectionsServer *PrivateEndpointConnectionsServerTransport
@@ -69,6 +71,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewConfigurationStoresServerTransport(&s.srv.ConfigurationStoresServer)
 		})
 		resp, err = s.trConfigurationStoresServer.Do(req)
+	case "ExperimentationClient":
+		initServer(s, &s.trExperimentationServer, func() *ExperimentationServerTransport {
+			return NewExperimentationServerTransport(&s.srv.ExperimentationServer)
+		})
+		resp, err = s.trExperimentationServer.Do(req)
 	case "KeyValuesClient":
 		initServer(s, &s.trKeyValuesServer, func() *KeyValuesServerTransport { return NewKeyValuesServerTransport(&s.srv.KeyValuesServer) })
 		resp, err = s.trKeyValuesServer.Do(req)

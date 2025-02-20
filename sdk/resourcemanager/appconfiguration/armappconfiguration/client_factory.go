@@ -44,6 +44,14 @@ func (c *ClientFactory) NewConfigurationStoresClient() *ConfigurationStoresClien
 	}
 }
 
+// NewExperimentationClient creates a new instance of ExperimentationClient.
+func (c *ClientFactory) NewExperimentationClient() *ExperimentationClient {
+	return &ExperimentationClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewKeyValuesClient creates a new instance of KeyValuesClient.
 func (c *ClientFactory) NewKeyValuesClient() *KeyValuesClient {
 	return &KeyValuesClient{
