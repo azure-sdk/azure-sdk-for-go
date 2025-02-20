@@ -1,5 +1,14 @@
 # Release History
 
+## 3.2.0 (2025-02-20)
+### Features Added
+
+- New enum type `AKSVolumeTypes` with values `AKSVolumeTypesAzureDisk`, `AKSVolumeTypesAzureFileShareSMB`
+- New function `*BackupInstancesClient.BeginValidateForModifyBackup(context.Context, string, string, string, ValidateForModifyBackupRequest, *BackupInstancesClientBeginValidateForModifyBackupOptions) (*runtime.Poller[BackupInstancesClientValidateForModifyBackupResponse], error)`
+- New struct `ValidateForModifyBackupRequest`
+- New field `IncludedVolumeTypes` in struct `KubernetesClusterBackupDatasourceParameters`
+
+
 ## 3.1.0 (2024-07-26)
 ### Features Added
 
