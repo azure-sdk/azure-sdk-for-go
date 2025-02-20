@@ -16,10 +16,9 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v3"
 	"net/http"
 	"net/url"
-	"reflect"
 	"regexp"
 	"strconv"
 )
@@ -48,7 +47,7 @@ type WorkspacesServer struct {
 
 	// Update is the fake for method WorkspacesClient.Update
 	// HTTP status codes to indicate success: http.StatusOK
-	Update func(ctx context.Context, resourceGroupName string, workspaceName string, options *armdesktopvirtualization.WorkspacesClientUpdateOptions) (resp azfake.Responder[armdesktopvirtualization.WorkspacesClientUpdateResponse], errResp azfake.ErrorResponder)
+	Update func(ctx context.Context, resourceGroupName string, workspaceName string, workspace armdesktopvirtualization.WorkspacePatch, options *armdesktopvirtualization.WorkspacesClientUpdateOptions) (resp azfake.Responder[armdesktopvirtualization.WorkspacesClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewWorkspacesServerTransport creates a new instance of WorkspacesServerTransport with the provided implementation.
@@ -345,13 +344,7 @@ func (w *WorkspacesServerTransport) dispatchUpdate(req *http.Request) (*http.Res
 	if err != nil {
 		return nil, err
 	}
-	var options *armdesktopvirtualization.WorkspacesClientUpdateOptions
-	if !reflect.ValueOf(body).IsZero() {
-		options = &armdesktopvirtualization.WorkspacesClientUpdateOptions{
-			Workspace: &body,
-		}
-	}
-	respr, errRespr := w.srv.Update(req.Context(), resourceGroupNameParam, workspaceNameParam, options)
+	respr, errRespr := w.srv.Update(req.Context(), resourceGroupNameParam, workspaceNameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}

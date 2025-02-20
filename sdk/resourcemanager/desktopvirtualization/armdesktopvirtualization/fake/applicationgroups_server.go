@@ -16,10 +16,9 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v3"
 	"net/http"
 	"net/url"
-	"reflect"
 	"regexp"
 	"strconv"
 )
@@ -48,7 +47,7 @@ type ApplicationGroupsServer struct {
 
 	// Update is the fake for method ApplicationGroupsClient.Update
 	// HTTP status codes to indicate success: http.StatusOK
-	Update func(ctx context.Context, resourceGroupName string, applicationGroupName string, options *armdesktopvirtualization.ApplicationGroupsClientUpdateOptions) (resp azfake.Responder[armdesktopvirtualization.ApplicationGroupsClientUpdateResponse], errResp azfake.ErrorResponder)
+	Update func(ctx context.Context, resourceGroupName string, applicationGroupName string, applicationGroup armdesktopvirtualization.ApplicationGroupPatch, options *armdesktopvirtualization.ApplicationGroupsClientUpdateOptions) (resp azfake.Responder[armdesktopvirtualization.ApplicationGroupsClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewApplicationGroupsServerTransport creates a new instance of ApplicationGroupsServerTransport with the provided implementation.
@@ -363,13 +362,7 @@ func (a *ApplicationGroupsServerTransport) dispatchUpdate(req *http.Request) (*h
 	if err != nil {
 		return nil, err
 	}
-	var options *armdesktopvirtualization.ApplicationGroupsClientUpdateOptions
-	if !reflect.ValueOf(body).IsZero() {
-		options = &armdesktopvirtualization.ApplicationGroupsClientUpdateOptions{
-			ApplicationGroup: &body,
-		}
-	}
-	respr, errRespr := a.srv.Update(req.Context(), resourceGroupNameParam, applicationGroupNameParam, options)
+	respr, errRespr := a.srv.Update(req.Context(), resourceGroupNameParam, applicationGroupNameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
