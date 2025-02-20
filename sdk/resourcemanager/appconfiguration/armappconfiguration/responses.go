@@ -75,6 +75,29 @@ type ConfigurationStoresClientUpdateResponse struct {
 	ConfigurationStore
 }
 
+// ExperimentationClientCreateResponse contains the response from method ExperimentationClient.BeginCreate.
+type ExperimentationClientCreateResponse struct {
+	// The experimentation resource.
+	Experimentation
+}
+
+// ExperimentationClientDeleteResponse contains the response from method ExperimentationClient.BeginDelete.
+type ExperimentationClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ExperimentationClientGetResponse contains the response from method ExperimentationClient.Get.
+type ExperimentationClientGetResponse struct {
+	// The experimentation resource.
+	Experimentation
+}
+
+// ExperimentationClientListResponse contains the response from method ExperimentationClient.NewListPager.
+type ExperimentationClientListResponse struct {
+	// The result of a request to list experimentations.
+	ExperimentationListResult
+}
+
 // KeyValuesClientCreateOrUpdateResponse contains the response from method KeyValuesClient.CreateOrUpdate.
 type KeyValuesClientCreateOrUpdateResponse struct {
 	// The key-value resource along with all resource properties.

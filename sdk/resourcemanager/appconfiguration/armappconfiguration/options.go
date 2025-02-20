@@ -85,6 +85,31 @@ type ConfigurationStoresClientRegenerateKeyOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ExperimentationClientBeginCreateOptions contains the optional parameters for the ExperimentationClient.BeginCreate method.
+type ExperimentationClientBeginCreateOptions struct {
+	// The parameters for creating the experimentation.
+	ExperimentationCreationParameters *Experimentation
+
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ExperimentationClientBeginDeleteOptions contains the optional parameters for the ExperimentationClient.BeginDelete method.
+type ExperimentationClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ExperimentationClientGetOptions contains the optional parameters for the ExperimentationClient.Get method.
+type ExperimentationClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ExperimentationClientListOptions contains the optional parameters for the ExperimentationClient.NewListPager method.
+type ExperimentationClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
 // KeyValuesClientBeginDeleteOptions contains the optional parameters for the KeyValuesClient.BeginDelete method.
 type KeyValuesClientBeginDeleteOptions struct {
 	// Resumes the LRO from the provided token.
