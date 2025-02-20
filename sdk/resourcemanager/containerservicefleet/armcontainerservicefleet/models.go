@@ -49,7 +49,7 @@ type AutoUpgradeProfile struct {
 	// (section 14.27) header fields.
 	ETag *string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -76,6 +76,9 @@ type AutoUpgradeProfileProperties struct {
 	// REQUIRED; Configures how auto-upgrade will be run.
 	Channel *UpgradeChannel
 
+	// The status of the auto upgrade profile.
+	AutoUpgradeProfileStatus *AutoUpgradeProfileStatus
+
 	// If set to False: the auto upgrade has effect - target managed clusters will be upgraded on schedule. If set to True: the
 	// auto upgrade has no effect - no upgrade will be run on the target managed
 	// clusters. This is a boolean and not an enum because enabled/disabled are all available states of the auto upgrade profile.
@@ -91,6 +94,22 @@ type AutoUpgradeProfileProperties struct {
 
 	// READ-ONLY; The provisioning state of the AutoUpgradeProfile resource.
 	ProvisioningState *AutoUpgradeProfileProvisioningState
+}
+
+// AutoUpgradeProfileStatus is the status of an auto upgrade profile.
+type AutoUpgradeProfileStatus struct {
+	// READ-ONLY; The error details of the last trigger.
+	LastTriggerError *ErrorDetail
+
+	// READ-ONLY; The status of the last AutoUpgrade trigger.
+	LastTriggerStatus *AutoUpgradeLastTriggerStatus
+
+	// READ-ONLY; The target Kubernetes version or node image versions of the last trigger.
+	LastTriggerUpgradeVersions []*string
+
+	// READ-ONLY; The UTC time of the last attempt to automatically create and start an UpdateRun as triggered by the release
+	// of new versions.
+	LastTriggeredAt *time.Time
 }
 
 // ErrorAdditionalInfo - The resource management error additional info.
@@ -140,7 +159,7 @@ type Fleet struct {
 	// (section 14.27) header fields.
 	ETag *string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -209,7 +228,7 @@ type FleetMember struct {
 	// (section 14.27) header fields.
 	ETag *string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -285,7 +304,7 @@ type FleetUpdateStrategy struct {
 	// (section 14.27) header fields.
 	ETag *string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
@@ -512,7 +531,7 @@ type UpdateRun struct {
 	// (section 14.27) header fields.
 	ETag *string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
