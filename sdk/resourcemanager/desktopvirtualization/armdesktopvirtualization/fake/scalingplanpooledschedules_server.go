@@ -16,10 +16,9 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v3"
 	"net/http"
 	"net/url"
-	"reflect"
 	"regexp"
 	"strconv"
 )
@@ -44,7 +43,7 @@ type ScalingPlanPooledSchedulesServer struct {
 
 	// Update is the fake for method ScalingPlanPooledSchedulesClient.Update
 	// HTTP status codes to indicate success: http.StatusOK
-	Update func(ctx context.Context, resourceGroupName string, scalingPlanName string, scalingPlanScheduleName string, options *armdesktopvirtualization.ScalingPlanPooledSchedulesClientUpdateOptions) (resp azfake.Responder[armdesktopvirtualization.ScalingPlanPooledSchedulesClientUpdateResponse], errResp azfake.ErrorResponder)
+	Update func(ctx context.Context, resourceGroupName string, scalingPlanName string, scalingPlanScheduleName string, scalingPlanSchedule armdesktopvirtualization.ScalingPlanPooledSchedulePatch, options *armdesktopvirtualization.ScalingPlanPooledSchedulesClientUpdateOptions) (resp azfake.Responder[armdesktopvirtualization.ScalingPlanPooledSchedulesClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewScalingPlanPooledSchedulesServerTransport creates a new instance of ScalingPlanPooledSchedulesServerTransport with the provided implementation.
@@ -324,13 +323,7 @@ func (s *ScalingPlanPooledSchedulesServerTransport) dispatchUpdate(req *http.Req
 	if err != nil {
 		return nil, err
 	}
-	var options *armdesktopvirtualization.ScalingPlanPooledSchedulesClientUpdateOptions
-	if !reflect.ValueOf(body).IsZero() {
-		options = &armdesktopvirtualization.ScalingPlanPooledSchedulesClientUpdateOptions{
-			ScalingPlanSchedule: &body,
-		}
-	}
-	respr, errRespr := s.srv.Update(req.Context(), resourceGroupNameParam, scalingPlanNameParam, scalingPlanScheduleNameParam, options)
+	respr, errRespr := s.srv.Update(req.Context(), resourceGroupNameParam, scalingPlanNameParam, scalingPlanScheduleNameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}

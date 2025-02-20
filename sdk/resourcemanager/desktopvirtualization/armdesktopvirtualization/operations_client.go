@@ -37,9 +37,9 @@ func NewOperationsClient(credential azcore.TokenCredential, options *arm.ClientO
 	return client, nil
 }
 
-// NewListPager - List all of the available operations the Desktop Virtualization resource provider supports.
+// NewListPager - List the operations for the provider
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - options - OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 func (client *OperationsClient) NewListPager(options *OperationsClientListOptions) *runtime.Pager[OperationsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[OperationsClientListResponse]{
@@ -72,7 +72,7 @@ func (client *OperationsClient) listCreateRequest(ctx context.Context, options *
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -81,7 +81,7 @@ func (client *OperationsClient) listCreateRequest(ctx context.Context, options *
 // listHandleResponse handles the List response.
 func (client *OperationsClient) listHandleResponse(resp *http.Response) (OperationsClientListResponse, error) {
 	result := OperationsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ResourceProviderOperationList); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.ResourceProviderOperationListResult); err != nil {
 		return OperationsClientListResponse{}, err
 	}
 	return result, nil
