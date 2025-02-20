@@ -10,7 +10,7 @@ package armdevcenter
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/devcenter/armdevcenter"
-	moduleVersion = "v2.0.0"
+	moduleVersion = "v2.1.0"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -24,6 +24,22 @@ const (
 func PossibleActionTypeValues() []ActionType {
 	return []ActionType{
 		ActionTypeInternal,
+	}
+}
+
+// AutoImageBuildStatus - Indicates whether auto image build is enabled/disabled.
+type AutoImageBuildStatus string
+
+const (
+	AutoImageBuildStatusDisabled AutoImageBuildStatus = "Disabled"
+	AutoImageBuildStatusEnabled  AutoImageBuildStatus = "Enabled"
+)
+
+// PossibleAutoImageBuildStatusValues returns the possible values for the AutoImageBuildStatus const type.
+func PossibleAutoImageBuildStatusValues() []AutoImageBuildStatus {
+	return []AutoImageBuildStatus{
+		AutoImageBuildStatusDisabled,
+		AutoImageBuildStatusEnabled,
 	}
 }
 
@@ -65,12 +81,14 @@ type CatalogItemType string
 
 const (
 	CatalogItemTypeEnvironmentDefinition CatalogItemType = "EnvironmentDefinition"
+	CatalogItemTypeImageDefinition       CatalogItemType = "ImageDefinition"
 )
 
 // PossibleCatalogItemTypeValues returns the possible values for the CatalogItemType const type.
 func PossibleCatalogItemTypeValues() []CatalogItemType {
 	return []CatalogItemType{
 		CatalogItemTypeEnvironmentDefinition,
+		CatalogItemTypeImageDefinition,
 	}
 }
 
@@ -166,12 +184,49 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 	}
 }
 
+// CustomizationTaskInputType - Type of the input.
+type CustomizationTaskInputType string
+
+const (
+	CustomizationTaskInputTypeBoolean CustomizationTaskInputType = "boolean"
+	CustomizationTaskInputTypeNumber  CustomizationTaskInputType = "number"
+	CustomizationTaskInputTypeString  CustomizationTaskInputType = "string"
+)
+
+// PossibleCustomizationTaskInputTypeValues returns the possible values for the CustomizationTaskInputType const type.
+func PossibleCustomizationTaskInputTypeValues() []CustomizationTaskInputType {
+	return []CustomizationTaskInputType{
+		CustomizationTaskInputTypeBoolean,
+		CustomizationTaskInputTypeNumber,
+		CustomizationTaskInputTypeString,
+	}
+}
+
+// DevCenterResourceType - Indicates dev center resource types.
+type DevCenterResourceType string
+
+const (
+	DevCenterResourceTypeAttachedNetworks DevCenterResourceType = "AttachedNetworks"
+	DevCenterResourceTypeImages           DevCenterResourceType = "Images"
+	DevCenterResourceTypeSKUs             DevCenterResourceType = "Skus"
+)
+
+// PossibleDevCenterResourceTypeValues returns the possible values for the DevCenterResourceType const type.
+func PossibleDevCenterResourceTypeValues() []DevCenterResourceType {
+	return []DevCenterResourceType{
+		DevCenterResourceTypeAttachedNetworks,
+		DevCenterResourceTypeImages,
+		DevCenterResourceTypeSKUs,
+	}
+}
+
 // DomainJoinType - Active Directory join type
 type DomainJoinType string
 
 const (
 	DomainJoinTypeAzureADJoin       DomainJoinType = "AzureADJoin"
 	DomainJoinTypeHybridAzureADJoin DomainJoinType = "HybridAzureADJoin"
+	DomainJoinTypeNone              DomainJoinType = "None"
 )
 
 // PossibleDomainJoinTypeValues returns the possible values for the DomainJoinType const type.
@@ -179,6 +234,7 @@ func PossibleDomainJoinTypeValues() []DomainJoinType {
 	return []DomainJoinType{
 		DomainJoinTypeAzureADJoin,
 		DomainJoinTypeHybridAzureADJoin,
+		DomainJoinTypeNone,
 	}
 }
 
@@ -202,18 +258,20 @@ func PossibleEnvironmentTypeEnableStatusValues() []EnvironmentTypeEnableStatus {
 type HealthCheckStatus string
 
 const (
-	HealthCheckStatusFailed  HealthCheckStatus = "Failed"
-	HealthCheckStatusPassed  HealthCheckStatus = "Passed"
-	HealthCheckStatusPending HealthCheckStatus = "Pending"
-	HealthCheckStatusRunning HealthCheckStatus = "Running"
-	HealthCheckStatusUnknown HealthCheckStatus = "Unknown"
-	HealthCheckStatusWarning HealthCheckStatus = "Warning"
+	HealthCheckStatusFailed        HealthCheckStatus = "Failed"
+	HealthCheckStatusInformational HealthCheckStatus = "Informational"
+	HealthCheckStatusPassed        HealthCheckStatus = "Passed"
+	HealthCheckStatusPending       HealthCheckStatus = "Pending"
+	HealthCheckStatusRunning       HealthCheckStatus = "Running"
+	HealthCheckStatusUnknown       HealthCheckStatus = "Unknown"
+	HealthCheckStatusWarning       HealthCheckStatus = "Warning"
 )
 
 // PossibleHealthCheckStatusValues returns the possible values for the HealthCheckStatus const type.
 func PossibleHealthCheckStatusValues() []HealthCheckStatus {
 	return []HealthCheckStatus{
 		HealthCheckStatusFailed,
+		HealthCheckStatusInformational,
 		HealthCheckStatusPassed,
 		HealthCheckStatusPending,
 		HealthCheckStatusRunning,
@@ -278,6 +336,36 @@ func PossibleIdentityTypeValues() []IdentityType {
 	}
 }
 
+// ImageDefinitionBuildStatus - The state of an Image Definition Build.
+type ImageDefinitionBuildStatus string
+
+const (
+	// ImageDefinitionBuildStatusCancelled - The image build has been cancelled.
+	ImageDefinitionBuildStatusCancelled ImageDefinitionBuildStatus = "Cancelled"
+	// ImageDefinitionBuildStatusFailed - The image build has failed.
+	ImageDefinitionBuildStatusFailed ImageDefinitionBuildStatus = "Failed"
+	// ImageDefinitionBuildStatusRunning - The image build is running.
+	ImageDefinitionBuildStatusRunning ImageDefinitionBuildStatus = "Running"
+	// ImageDefinitionBuildStatusSucceeded - The image build has succeeded.
+	ImageDefinitionBuildStatusSucceeded ImageDefinitionBuildStatus = "Succeeded"
+	// ImageDefinitionBuildStatusTimedOut - The image build has timed out.
+	ImageDefinitionBuildStatusTimedOut ImageDefinitionBuildStatus = "TimedOut"
+	// ImageDefinitionBuildStatusValidationFailed - The built image has failed validation.
+	ImageDefinitionBuildStatusValidationFailed ImageDefinitionBuildStatus = "ValidationFailed"
+)
+
+// PossibleImageDefinitionBuildStatusValues returns the possible values for the ImageDefinitionBuildStatus const type.
+func PossibleImageDefinitionBuildStatusValues() []ImageDefinitionBuildStatus {
+	return []ImageDefinitionBuildStatus{
+		ImageDefinitionBuildStatusCancelled,
+		ImageDefinitionBuildStatusFailed,
+		ImageDefinitionBuildStatusRunning,
+		ImageDefinitionBuildStatusSucceeded,
+		ImageDefinitionBuildStatusTimedOut,
+		ImageDefinitionBuildStatusValidationFailed,
+	}
+}
+
 // ImageValidationStatus - Image validation status
 type ImageValidationStatus string
 
@@ -297,6 +385,23 @@ func PossibleImageValidationStatusValues() []ImageValidationStatus {
 		ImageValidationStatusSucceeded,
 		ImageValidationStatusTimedOut,
 		ImageValidationStatusUnknown,
+	}
+}
+
+// InstallAzureMonitorAgentEnableStatus - Setting to be used when determining whether to install the Azure Monitor Agent service
+// on Dev Boxes that belong to this dev center.
+type InstallAzureMonitorAgentEnableStatus string
+
+const (
+	InstallAzureMonitorAgentEnableStatusDisabled InstallAzureMonitorAgentEnableStatus = "Disabled"
+	InstallAzureMonitorAgentEnableStatusEnabled  InstallAzureMonitorAgentEnableStatus = "Enabled"
+)
+
+// PossibleInstallAzureMonitorAgentEnableStatusValues returns the possible values for the InstallAzureMonitorAgentEnableStatus const type.
+func PossibleInstallAzureMonitorAgentEnableStatusValues() []InstallAzureMonitorAgentEnableStatus {
+	return []InstallAzureMonitorAgentEnableStatus{
+		InstallAzureMonitorAgentEnableStatusDisabled,
+		InstallAzureMonitorAgentEnableStatusEnabled,
 	}
 }
 
@@ -351,6 +456,23 @@ func PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType {
 	}
 }
 
+// MicrosoftHostedNetworkEnableStatus - Indicates whether pools in this Dev Center can use Microsoft Hosted Networks. Defaults
+// to Enabled if not set.
+type MicrosoftHostedNetworkEnableStatus string
+
+const (
+	MicrosoftHostedNetworkEnableStatusDisabled MicrosoftHostedNetworkEnableStatus = "Disabled"
+	MicrosoftHostedNetworkEnableStatusEnabled  MicrosoftHostedNetworkEnableStatus = "Enabled"
+)
+
+// PossibleMicrosoftHostedNetworkEnableStatusValues returns the possible values for the MicrosoftHostedNetworkEnableStatus const type.
+func PossibleMicrosoftHostedNetworkEnableStatusValues() []MicrosoftHostedNetworkEnableStatus {
+	return []MicrosoftHostedNetworkEnableStatus{
+		MicrosoftHostedNetworkEnableStatusDisabled,
+		MicrosoftHostedNetworkEnableStatusEnabled,
+	}
+}
+
 // Origin - The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
 // value is "user,system"
 type Origin string
@@ -397,6 +519,38 @@ func PossibleParameterTypeValues() []ParameterType {
 		ParameterTypeNumber,
 		ParameterTypeObject,
 		ParameterTypeString,
+	}
+}
+
+// PolicyAction - Indicates what action to perform for the policy.
+type PolicyAction string
+
+const (
+	PolicyActionAllow PolicyAction = "Allow"
+	PolicyActionDeny  PolicyAction = "Deny"
+)
+
+// PossiblePolicyActionValues returns the possible values for the PolicyAction const type.
+func PossiblePolicyActionValues() []PolicyAction {
+	return []PolicyAction{
+		PolicyActionAllow,
+		PolicyActionDeny,
+	}
+}
+
+// PoolDevBoxDefinitionType - Indicates if the pool is created from an existing Dev Box Definition or if one is provided directly.
+type PoolDevBoxDefinitionType string
+
+const (
+	PoolDevBoxDefinitionTypeReference PoolDevBoxDefinitionType = "Reference"
+	PoolDevBoxDefinitionTypeValue     PoolDevBoxDefinitionType = "Value"
+)
+
+// PossiblePoolDevBoxDefinitionTypeValues returns the possible values for the PoolDevBoxDefinitionType const type.
+func PossiblePoolDevBoxDefinitionTypeValues() []PoolDevBoxDefinitionType {
+	return []PoolDevBoxDefinitionType{
+		PoolDevBoxDefinitionTypeReference,
+		PoolDevBoxDefinitionTypeValue,
 	}
 }
 
@@ -541,6 +695,22 @@ func PossibleStopOnDisconnectEnableStatusValues() []StopOnDisconnectEnableStatus
 	return []StopOnDisconnectEnableStatus{
 		StopOnDisconnectEnableStatusDisabled,
 		StopOnDisconnectEnableStatusEnabled,
+	}
+}
+
+// StopOnNoConnectEnableStatus - Stop on no connect enable or disable status.
+type StopOnNoConnectEnableStatus string
+
+const (
+	StopOnNoConnectEnableStatusDisabled StopOnNoConnectEnableStatus = "Disabled"
+	StopOnNoConnectEnableStatusEnabled  StopOnNoConnectEnableStatus = "Enabled"
+)
+
+// PossibleStopOnNoConnectEnableStatusValues returns the possible values for the StopOnNoConnectEnableStatus const type.
+func PossibleStopOnNoConnectEnableStatusValues() []StopOnNoConnectEnableStatus {
+	return []StopOnNoConnectEnableStatus{
+		StopOnNoConnectEnableStatusDisabled,
+		StopOnNoConnectEnableStatusEnabled,
 	}
 }
 
