@@ -16,10 +16,9 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v3"
 	"net/http"
 	"net/url"
-	"reflect"
 	"regexp"
 	"strconv"
 )
@@ -52,7 +51,7 @@ type ScalingPlansServer struct {
 
 	// Update is the fake for method ScalingPlansClient.Update
 	// HTTP status codes to indicate success: http.StatusOK
-	Update func(ctx context.Context, resourceGroupName string, scalingPlanName string, options *armdesktopvirtualization.ScalingPlansClientUpdateOptions) (resp azfake.Responder[armdesktopvirtualization.ScalingPlansClientUpdateResponse], errResp azfake.ErrorResponder)
+	Update func(ctx context.Context, resourceGroupName string, scalingPlanName string, body armdesktopvirtualization.ScalingPlanPatch, options *armdesktopvirtualization.ScalingPlansClientUpdateOptions) (resp azfake.Responder[armdesktopvirtualization.ScalingPlansClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewScalingPlansServerTransport creates a new instance of ScalingPlansServerTransport with the provided implementation.
@@ -484,13 +483,7 @@ func (s *ScalingPlansServerTransport) dispatchUpdate(req *http.Request) (*http.R
 	if err != nil {
 		return nil, err
 	}
-	var options *armdesktopvirtualization.ScalingPlansClientUpdateOptions
-	if !reflect.ValueOf(body).IsZero() {
-		options = &armdesktopvirtualization.ScalingPlansClientUpdateOptions{
-			ScalingPlan: &body,
-		}
-	}
-	respr, errRespr := s.srv.Update(req.Context(), resourceGroupNameParam, scalingPlanNameParam, options)
+	respr, errRespr := s.srv.Update(req.Context(), resourceGroupNameParam, scalingPlanNameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -498,7 +491,7 @@ func (s *ScalingPlansServerTransport) dispatchUpdate(req *http.Request) (*http.R
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ScalingPlan, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ScalingPlanPatch, req)
 	if err != nil {
 		return nil, err
 	}

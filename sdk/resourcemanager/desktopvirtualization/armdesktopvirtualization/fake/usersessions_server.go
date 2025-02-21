@@ -16,10 +16,9 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v3"
 	"net/http"
 	"net/url"
-	"reflect"
 	"regexp"
 	"strconv"
 )
@@ -48,7 +47,7 @@ type UserSessionsServer struct {
 
 	// SendMessage is the fake for method UserSessionsClient.SendMessage
 	// HTTP status codes to indicate success: http.StatusOK
-	SendMessage func(ctx context.Context, resourceGroupName string, hostPoolName string, sessionHostName string, userSessionID string, options *armdesktopvirtualization.UserSessionsClientSendMessageOptions) (resp azfake.Responder[armdesktopvirtualization.UserSessionsClientSendMessageResponse], errResp azfake.ErrorResponder)
+	SendMessage func(ctx context.Context, resourceGroupName string, hostPoolName string, sessionHostName string, userSessionID string, body armdesktopvirtualization.SendMessage, options *armdesktopvirtualization.UserSessionsClientSendMessageOptions) (resp azfake.Responder[armdesktopvirtualization.UserSessionsClientSendMessageResponse], errResp azfake.ErrorResponder)
 }
 
 // NewUserSessionsServerTransport creates a new instance of UserSessionsServerTransport with the provided implementation.
@@ -455,13 +454,7 @@ func (u *UserSessionsServerTransport) dispatchSendMessage(req *http.Request) (*h
 	if err != nil {
 		return nil, err
 	}
-	var options *armdesktopvirtualization.UserSessionsClientSendMessageOptions
-	if !reflect.ValueOf(body).IsZero() {
-		options = &armdesktopvirtualization.UserSessionsClientSendMessageOptions{
-			SendMessage: &body,
-		}
-	}
-	respr, errRespr := u.srv.SendMessage(req.Context(), resourceGroupNameParam, hostPoolNameParam, sessionHostNameParam, userSessionIDParam, options)
+	respr, errRespr := u.srv.SendMessage(req.Context(), resourceGroupNameParam, hostPoolNameParam, sessionHostNameParam, userSessionIDParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -469,7 +462,7 @@ func (u *UserSessionsServerTransport) dispatchSendMessage(req *http.Request) (*h
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.NewResponse(respContent, req, nil)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SendMessage, req)
 	if err != nil {
 		return nil, err
 	}

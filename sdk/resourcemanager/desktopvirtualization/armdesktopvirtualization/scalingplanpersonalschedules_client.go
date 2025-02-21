@@ -47,7 +47,7 @@ func NewScalingPlanPersonalSchedulesClient(subscriptionID string, credential azc
 // Create - Create or update a ScalingPlanPersonalSchedule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - scalingPlanName - The name of the scaling plan.
 //   - scalingPlanScheduleName - The name of the ScalingPlanSchedule
@@ -100,7 +100,7 @@ func (client *ScalingPlanPersonalSchedulesClient) createCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, scalingPlanSchedule); err != nil {
@@ -121,7 +121,7 @@ func (client *ScalingPlanPersonalSchedulesClient) createHandleResponse(resp *htt
 // Delete - Remove a ScalingPlanPersonalSchedule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - scalingPlanName - The name of the scaling plan.
 //   - scalingPlanScheduleName - The name of the ScalingPlanSchedule
@@ -172,7 +172,7 @@ func (client *ScalingPlanPersonalSchedulesClient) deleteCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -181,7 +181,7 @@ func (client *ScalingPlanPersonalSchedulesClient) deleteCreateRequest(ctx contex
 // Get - Get a ScalingPlanPersonalSchedule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - scalingPlanName - The name of the scaling plan.
 //   - scalingPlanScheduleName - The name of the ScalingPlanSchedule
@@ -233,7 +233,7 @@ func (client *ScalingPlanPersonalSchedulesClient) getCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -250,7 +250,7 @@ func (client *ScalingPlanPersonalSchedulesClient) getHandleResponse(resp *http.R
 
 // NewListPager - List ScalingPlanPersonalSchedules.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - scalingPlanName - The name of the scaling plan.
 //   - options - ScalingPlanPersonalSchedulesClientListOptions contains the optional parameters for the ScalingPlanPersonalSchedulesClient.NewListPager
@@ -298,7 +298,7 @@ func (client *ScalingPlanPersonalSchedulesClient) listCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	if options != nil && options.InitialSkip != nil {
 		reqQP.Set("initialSkip", strconv.FormatInt(int64(*options.InitialSkip), 10))
 	}
@@ -325,19 +325,20 @@ func (client *ScalingPlanPersonalSchedulesClient) listHandleResponse(resp *http.
 // Update - Update a ScalingPlanPersonalSchedule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - scalingPlanName - The name of the scaling plan.
 //   - scalingPlanScheduleName - The name of the ScalingPlanSchedule
+//   - body - The resource properties to be updated
 //   - options - ScalingPlanPersonalSchedulesClientUpdateOptions contains the optional parameters for the ScalingPlanPersonalSchedulesClient.Update
 //     method.
-func (client *ScalingPlanPersonalSchedulesClient) Update(ctx context.Context, resourceGroupName string, scalingPlanName string, scalingPlanScheduleName string, options *ScalingPlanPersonalSchedulesClientUpdateOptions) (ScalingPlanPersonalSchedulesClientUpdateResponse, error) {
+func (client *ScalingPlanPersonalSchedulesClient) Update(ctx context.Context, resourceGroupName string, scalingPlanName string, scalingPlanScheduleName string, body ScalingPlanPersonalSchedulePatch, options *ScalingPlanPersonalSchedulesClientUpdateOptions) (ScalingPlanPersonalSchedulesClientUpdateResponse, error) {
 	var err error
 	const operationName = "ScalingPlanPersonalSchedulesClient.Update"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, scalingPlanName, scalingPlanScheduleName, options)
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, scalingPlanName, scalingPlanScheduleName, body, options)
 	if err != nil {
 		return ScalingPlanPersonalSchedulesClientUpdateResponse{}, err
 	}
@@ -354,7 +355,7 @@ func (client *ScalingPlanPersonalSchedulesClient) Update(ctx context.Context, re
 }
 
 // updateCreateRequest creates the Update request.
-func (client *ScalingPlanPersonalSchedulesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, scalingPlanName string, scalingPlanScheduleName string, options *ScalingPlanPersonalSchedulesClientUpdateOptions) (*policy.Request, error) {
+func (client *ScalingPlanPersonalSchedulesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, scalingPlanName string, scalingPlanScheduleName string, body ScalingPlanPersonalSchedulePatch, options *ScalingPlanPersonalSchedulesClientUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/scalingPlans/{scalingPlanName}/personalSchedules/{scalingPlanScheduleName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -377,14 +378,11 @@ func (client *ScalingPlanPersonalSchedulesClient) updateCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if options != nil && options.ScalingPlanSchedule != nil {
-		if err := runtime.MarshalAsJSON(req, *options.ScalingPlanSchedule); err != nil {
-			return nil, err
-		}
-		return req, nil
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
+		return nil, err
 	}
 	return req, nil
 }
@@ -392,7 +390,7 @@ func (client *ScalingPlanPersonalSchedulesClient) updateCreateRequest(ctx contex
 // updateHandleResponse handles the Update response.
 func (client *ScalingPlanPersonalSchedulesClient) updateHandleResponse(resp *http.Response) (ScalingPlanPersonalSchedulesClientUpdateResponse, error) {
 	result := ScalingPlanPersonalSchedulesClientUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ScalingPlanPersonalSchedule); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.ScalingPlanPersonalSchedulePatch); err != nil {
 		return ScalingPlanPersonalSchedulesClientUpdateResponse{}, err
 	}
 	return result, nil

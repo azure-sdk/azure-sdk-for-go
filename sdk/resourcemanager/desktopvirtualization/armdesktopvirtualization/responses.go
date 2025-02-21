@@ -8,6 +8,18 @@
 
 package armdesktopvirtualization
 
+// ActiveSessionHostConfigurationsClientGetResponse contains the response from method ActiveSessionHostConfigurationsClient.Get.
+type ActiveSessionHostConfigurationsClientGetResponse struct {
+	// Schema for ActiveSessionHostConfiguration properties.
+	ActiveSessionHostConfiguration
+}
+
+// ActiveSessionHostConfigurationsClientListByHostPoolResponse contains the response from method ActiveSessionHostConfigurationsClient.NewListByHostPoolPager.
+type ActiveSessionHostConfigurationsClientListByHostPoolResponse struct {
+	// List of ActiveSessionHostConfiguration definitions.
+	ActiveSessionHostConfigurationList
+}
+
 // AppAttachPackageClientCreateOrUpdateResponse contains the response from method AppAttachPackageClient.CreateOrUpdate.
 type AppAttachPackageClientCreateOrUpdateResponse struct {
 	// Schema for App Attach Package properties.
@@ -80,8 +92,8 @@ type ApplicationGroupsClientListBySubscriptionResponse struct {
 
 // ApplicationGroupsClientUpdateResponse contains the response from method ApplicationGroupsClient.Update.
 type ApplicationGroupsClientUpdateResponse struct {
-	// Represents a ApplicationGroup definition.
-	ApplicationGroup
+	// ApplicationGroup properties that can be patched.
+	ApplicationGroupPatch
 }
 
 // ApplicationsClientCreateOrUpdateResponse contains the response from method ApplicationsClient.CreateOrUpdate.
@@ -109,8 +121,13 @@ type ApplicationsClientListResponse struct {
 
 // ApplicationsClientUpdateResponse contains the response from method ApplicationsClient.Update.
 type ApplicationsClientUpdateResponse struct {
-	// Schema for Application properties.
-	Application
+	// Application properties that can be patched.
+	ApplicationPatch
+}
+
+// ControlSessionHostUpdateClientPostResponse contains the response from method ControlSessionHostUpdateClient.BeginPost.
+type ControlSessionHostUpdateClientPostResponse struct {
+	// placeholder for future response values
 }
 
 // DesktopsClientGetResponse contains the response from method DesktopsClient.Get.
@@ -127,8 +144,8 @@ type DesktopsClientListResponse struct {
 
 // DesktopsClientUpdateResponse contains the response from method DesktopsClient.Update.
 type DesktopsClientUpdateResponse struct {
-	// Schema for Desktop properties.
-	Desktop
+	// Desktop properties that can be patched.
+	DesktopPatch
 }
 
 // HostPoolsClientCreateOrUpdateResponse contains the response from method HostPoolsClient.CreateOrUpdate.
@@ -174,8 +191,14 @@ type HostPoolsClientRetrieveRegistrationTokenResponse struct {
 
 // HostPoolsClientUpdateResponse contains the response from method HostPoolsClient.Update.
 type HostPoolsClientUpdateResponse struct {
-	// Represents a HostPool definition.
-	HostPool
+	// HostPool properties that can be patched.
+	HostPoolPatch
+}
+
+// InitiateSessionHostUpdateClientPostResponse contains the response from method InitiateSessionHostUpdateClient.Post.
+type InitiateSessionHostUpdateClientPostResponse struct {
+	// Object containing the definition for properties to be used for a sessionHostUpdate operation.
+	UpdateSessionHostsRequestBody
 }
 
 // MSIXPackagesClientCreateOrUpdateResponse contains the response from method MSIXPackagesClient.CreateOrUpdate.
@@ -215,8 +238,8 @@ type MsixImagesClientExpandResponse struct {
 
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
-	// Result of the request to list operations.
-	ResourceProviderOperationList
+	// A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to get the next set of results.
+	ResourceProviderOperationListResult
 }
 
 // PrivateEndpointConnectionsClientDeleteByHostPoolResponse contains the response from method PrivateEndpointConnectionsClient.DeleteByHostPool.
@@ -243,13 +266,13 @@ type PrivateEndpointConnectionsClientGetByWorkspaceResponse struct {
 
 // PrivateEndpointConnectionsClientListByHostPoolResponse contains the response from method PrivateEndpointConnectionsClient.NewListByHostPoolPager.
 type PrivateEndpointConnectionsClientListByHostPoolResponse struct {
-	// List of private endpoint connection associated with the specified storage account
+	// List of private endpoint connection associated with the specified HostPool
 	PrivateEndpointConnectionListResultWithSystemData
 }
 
 // PrivateEndpointConnectionsClientListByWorkspaceResponse contains the response from method PrivateEndpointConnectionsClient.NewListByWorkspacePager.
 type PrivateEndpointConnectionsClientListByWorkspaceResponse struct {
-	// List of private endpoint connection associated with the specified storage account
+	// List of private endpoint connection associated with the specified HostPool
 	PrivateEndpointConnectionListResultWithSystemData
 }
 
@@ -302,8 +325,8 @@ type ScalingPlanPersonalSchedulesClientListResponse struct {
 
 // ScalingPlanPersonalSchedulesClientUpdateResponse contains the response from method ScalingPlanPersonalSchedulesClient.Update.
 type ScalingPlanPersonalSchedulesClientUpdateResponse struct {
-	// Represents a ScalingPlanPersonalSchedule definition.
-	ScalingPlanPersonalSchedule
+	// ScalingPlanPersonalSchedule properties that can be patched.
+	ScalingPlanPersonalSchedulePatch
 }
 
 // ScalingPlanPooledSchedulesClientCreateResponse contains the response from method ScalingPlanPooledSchedulesClient.Create.
@@ -331,8 +354,8 @@ type ScalingPlanPooledSchedulesClientListResponse struct {
 
 // ScalingPlanPooledSchedulesClientUpdateResponse contains the response from method ScalingPlanPooledSchedulesClient.Update.
 type ScalingPlanPooledSchedulesClientUpdateResponse struct {
-	// Represents a ScalingPlanPooledSchedule definition.
-	ScalingPlanPooledSchedule
+	// ScalingPlanPooledSchedule properties that can be patched.
+	ScalingPlanPooledSchedulePatch
 }
 
 // ScalingPlansClientCreateResponse contains the response from method ScalingPlansClient.Create.
@@ -372,8 +395,62 @@ type ScalingPlansClientListBySubscriptionResponse struct {
 
 // ScalingPlansClientUpdateResponse contains the response from method ScalingPlansClient.Update.
 type ScalingPlansClientUpdateResponse struct {
-	// Represents a scaling plan definition.
-	ScalingPlan
+	// Scaling plan properties that can be patched.
+	ScalingPlanPatch
+}
+
+// SessionHostConfigurationsClientCreateOrUpdateResponse contains the response from method SessionHostConfigurationsClient.BeginCreateOrUpdate.
+type SessionHostConfigurationsClientCreateOrUpdateResponse struct {
+	// Schema for SessionHostConfiguration properties.
+	SessionHostConfiguration
+}
+
+// SessionHostConfigurationsClientGetResponse contains the response from method SessionHostConfigurationsClient.Get.
+type SessionHostConfigurationsClientGetResponse struct {
+	// Schema for SessionHostConfiguration properties.
+	SessionHostConfiguration
+}
+
+// SessionHostConfigurationsClientListByHostPoolResponse contains the response from method SessionHostConfigurationsClient.NewListByHostPoolPager.
+type SessionHostConfigurationsClientListByHostPoolResponse struct {
+	// List of SessionHostConfiguration definitions.
+	SessionHostConfigurationList
+}
+
+// SessionHostConfigurationsClientUpdateResponse contains the response from method SessionHostConfigurationsClient.BeginUpdate.
+type SessionHostConfigurationsClientUpdateResponse struct {
+	// Schema for SessionHostConfiguration properties.
+	SessionHostConfiguration
+}
+
+// SessionHostManagementsClientCreateOrUpdateResponse contains the response from method SessionHostManagementsClient.CreateOrUpdate.
+type SessionHostManagementsClientCreateOrUpdateResponse struct {
+	// Schema for SessionHostManagement properties.
+	SessionHostManagement
+}
+
+// SessionHostManagementsClientGetResponse contains the response from method SessionHostManagementsClient.Get.
+type SessionHostManagementsClientGetResponse struct {
+	// Schema for SessionHostManagement properties.
+	SessionHostManagement
+}
+
+// SessionHostManagementsClientListByHostPoolResponse contains the response from method SessionHostManagementsClient.NewListByHostPoolPager.
+type SessionHostManagementsClientListByHostPoolResponse struct {
+	// List of SessionHostManagement definitions.
+	SessionHostManagementList
+}
+
+// SessionHostManagementsClientUpdateResponse contains the response from method SessionHostManagementsClient.Update.
+type SessionHostManagementsClientUpdateResponse struct {
+	// SessionHostManagement properties that can be patched.
+	SessionHostManagementPatch
+}
+
+// SessionHostManagementsUpdateStatusClientGetResponse contains the response from method SessionHostManagementsUpdateStatusClient.Get.
+type SessionHostManagementsUpdateStatusClientGetResponse struct {
+	// Schema for SessionHostManagementUpdateStatus properties.
+	SessionHostManagementUpdateStatus
 }
 
 // SessionHostsClientDeleteResponse contains the response from method SessionHostsClient.Delete.
@@ -391,6 +468,11 @@ type SessionHostsClientGetResponse struct {
 type SessionHostsClientListResponse struct {
 	// List of SessionHost definitions.
 	SessionHostList
+}
+
+// SessionHostsClientRetryProvisioningResponse contains the response from method SessionHostsClient.RetryProvisioning.
+type SessionHostsClientRetryProvisioningResponse struct {
+	// placeholder for future response values
 }
 
 // SessionHostsClientUpdateResponse contains the response from method SessionHostsClient.Update.
@@ -435,7 +517,8 @@ type UserSessionsClientListResponse struct {
 
 // UserSessionsClientSendMessageResponse contains the response from method UserSessionsClient.SendMessage.
 type UserSessionsClientSendMessageResponse struct {
-	// placeholder for future response values
+	// Represents message sent to a UserSession.
+	SendMessage
 }
 
 // WorkspacesClientCreateOrUpdateResponse contains the response from method WorkspacesClient.CreateOrUpdate.

@@ -16,10 +16,9 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v3"
 	"net/http"
 	"net/url"
-	"reflect"
 	"regexp"
 	"strconv"
 )
@@ -44,7 +43,7 @@ type ScalingPlanPersonalSchedulesServer struct {
 
 	// Update is the fake for method ScalingPlanPersonalSchedulesClient.Update
 	// HTTP status codes to indicate success: http.StatusOK
-	Update func(ctx context.Context, resourceGroupName string, scalingPlanName string, scalingPlanScheduleName string, options *armdesktopvirtualization.ScalingPlanPersonalSchedulesClientUpdateOptions) (resp azfake.Responder[armdesktopvirtualization.ScalingPlanPersonalSchedulesClientUpdateResponse], errResp azfake.ErrorResponder)
+	Update func(ctx context.Context, resourceGroupName string, scalingPlanName string, scalingPlanScheduleName string, body armdesktopvirtualization.ScalingPlanPersonalSchedulePatch, options *armdesktopvirtualization.ScalingPlanPersonalSchedulesClientUpdateOptions) (resp azfake.Responder[armdesktopvirtualization.ScalingPlanPersonalSchedulesClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewScalingPlanPersonalSchedulesServerTransport creates a new instance of ScalingPlanPersonalSchedulesServerTransport with the provided implementation.
@@ -324,13 +323,7 @@ func (s *ScalingPlanPersonalSchedulesServerTransport) dispatchUpdate(req *http.R
 	if err != nil {
 		return nil, err
 	}
-	var options *armdesktopvirtualization.ScalingPlanPersonalSchedulesClientUpdateOptions
-	if !reflect.ValueOf(body).IsZero() {
-		options = &armdesktopvirtualization.ScalingPlanPersonalSchedulesClientUpdateOptions{
-			ScalingPlanSchedule: &body,
-		}
-	}
-	respr, errRespr := s.srv.Update(req.Context(), resourceGroupNameParam, scalingPlanNameParam, scalingPlanScheduleNameParam, options)
+	respr, errRespr := s.srv.Update(req.Context(), resourceGroupNameParam, scalingPlanNameParam, scalingPlanScheduleNameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -338,7 +331,7 @@ func (s *ScalingPlanPersonalSchedulesServerTransport) dispatchUpdate(req *http.R
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ScalingPlanPersonalSchedule, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ScalingPlanPersonalSchedulePatch, req)
 	if err != nil {
 		return nil, err
 	}
