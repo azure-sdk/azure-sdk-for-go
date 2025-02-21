@@ -15,7 +15,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v3"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -25,7 +25,7 @@ import (
 type MsixImagesServer struct {
 	// NewExpandPager is the fake for method MsixImagesClient.NewExpandPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewExpandPager func(resourceGroupName string, hostPoolName string, msixImageURI armdesktopvirtualization.MSIXImageURI, options *armdesktopvirtualization.MsixImagesClientExpandOptions) (resp azfake.PagerResponder[armdesktopvirtualization.MsixImagesClientExpandResponse])
+	NewExpandPager func(resourceGroupName string, hostPoolName string, body armdesktopvirtualization.MSIXImageURI, options *armdesktopvirtualization.MsixImagesClientExpandOptions) (resp azfake.PagerResponder[armdesktopvirtualization.MsixImagesClientExpandResponse])
 }
 
 // NewMsixImagesServerTransport creates a new instance of MsixImagesServerTransport with the provided implementation.

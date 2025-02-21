@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v3"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -327,7 +327,7 @@ func (s *ScalingPlanPooledSchedulesServerTransport) dispatchUpdate(req *http.Req
 	var options *armdesktopvirtualization.ScalingPlanPooledSchedulesClientUpdateOptions
 	if !reflect.ValueOf(body).IsZero() {
 		options = &armdesktopvirtualization.ScalingPlanPooledSchedulesClientUpdateOptions{
-			ScalingPlanSchedule: &body,
+			ScalingPlanPooledSchedule: &body,
 		}
 	}
 	respr, errRespr := s.srv.Update(req.Context(), resourceGroupNameParam, scalingPlanNameParam, scalingPlanScheduleNameParam, options)

@@ -43,14 +43,15 @@ func NewMsixImagesClient(subscriptionID string, credential azcore.TokenCredentia
 	return client, nil
 }
 
-// NewExpandPager - Expands and Lists MSIX packages in an Image, given the Image Path.
+// NewExpandPager - Expands and Lists MSIX packages in an Image, given the Image Path. This action uses incorrect Msix casing
+// intentionally to match the previous APIs.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
-//   - msixImageURI - Object containing URI to MSIX Image
+//   - body - The content of the action request
 //   - options - MsixImagesClientExpandOptions contains the optional parameters for the MsixImagesClient.NewExpandPager method.
-func (client *MsixImagesClient) NewExpandPager(resourceGroupName string, hostPoolName string, msixImageURI MSIXImageURI, options *MsixImagesClientExpandOptions) *runtime.Pager[MsixImagesClientExpandResponse] {
+func (client *MsixImagesClient) NewExpandPager(resourceGroupName string, hostPoolName string, body MSIXImageURI, options *MsixImagesClientExpandOptions) *runtime.Pager[MsixImagesClientExpandResponse] {
 	return runtime.NewPager(runtime.PagingHandler[MsixImagesClientExpandResponse]{
 		More: func(page MsixImagesClientExpandResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
@@ -62,7 +63,7 @@ func (client *MsixImagesClient) NewExpandPager(resourceGroupName string, hostPoo
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.expandCreateRequest(ctx, resourceGroupName, hostPoolName, msixImageURI, options)
+				return client.expandCreateRequest(ctx, resourceGroupName, hostPoolName, body, options)
 			}, nil)
 			if err != nil {
 				return MsixImagesClientExpandResponse{}, err
@@ -74,7 +75,7 @@ func (client *MsixImagesClient) NewExpandPager(resourceGroupName string, hostPoo
 }
 
 // expandCreateRequest creates the Expand request.
-func (client *MsixImagesClient) expandCreateRequest(ctx context.Context, resourceGroupName string, hostPoolName string, msixImageURI MSIXImageURI, options *MsixImagesClientExpandOptions) (*policy.Request, error) {
+func (client *MsixImagesClient) expandCreateRequest(ctx context.Context, resourceGroupName string, hostPoolName string, body MSIXImageURI, options *MsixImagesClientExpandOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/hostPools/{hostPoolName}/expandMsixImage"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -93,10 +94,10 @@ func (client *MsixImagesClient) expandCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, msixImageURI); err != nil {
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
 		return nil, err
 	}
 	return req, nil
