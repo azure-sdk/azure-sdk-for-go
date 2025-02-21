@@ -45,13 +45,13 @@ func NewAppAttachPackageInfoClient(subscriptionID string, credential azcore.Toke
 
 // NewImportPager - Gets information from a package given the path to the package.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
-//   - importPackageInfoRequest - Object containing URI to package image and other optional properties
+//   - body - The content of the action request
 //   - options - AppAttachPackageInfoClientImportOptions contains the optional parameters for the AppAttachPackageInfoClient.NewImportPager
 //     method.
-func (client *AppAttachPackageInfoClient) NewImportPager(resourceGroupName string, hostPoolName string, importPackageInfoRequest ImportPackageInfoRequest, options *AppAttachPackageInfoClientImportOptions) *runtime.Pager[AppAttachPackageInfoClientImportResponse] {
+func (client *AppAttachPackageInfoClient) NewImportPager(resourceGroupName string, hostPoolName string, body ImportPackageInfoRequest, options *AppAttachPackageInfoClientImportOptions) *runtime.Pager[AppAttachPackageInfoClientImportResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AppAttachPackageInfoClientImportResponse]{
 		More: func(page AppAttachPackageInfoClientImportResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
@@ -63,7 +63,7 @@ func (client *AppAttachPackageInfoClient) NewImportPager(resourceGroupName strin
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.importCreateRequest(ctx, resourceGroupName, hostPoolName, importPackageInfoRequest, options)
+				return client.importCreateRequest(ctx, resourceGroupName, hostPoolName, body, options)
 			}, nil)
 			if err != nil {
 				return AppAttachPackageInfoClientImportResponse{}, err
@@ -75,7 +75,7 @@ func (client *AppAttachPackageInfoClient) NewImportPager(resourceGroupName strin
 }
 
 // importCreateRequest creates the Import request.
-func (client *AppAttachPackageInfoClient) importCreateRequest(ctx context.Context, resourceGroupName string, hostPoolName string, importPackageInfoRequest ImportPackageInfoRequest, options *AppAttachPackageInfoClientImportOptions) (*policy.Request, error) {
+func (client *AppAttachPackageInfoClient) importCreateRequest(ctx context.Context, resourceGroupName string, hostPoolName string, body ImportPackageInfoRequest, options *AppAttachPackageInfoClientImportOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/hostPools/{hostPoolName}/importAppAttachPackageInfo"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -94,10 +94,10 @@ func (client *AppAttachPackageInfoClient) importCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, importPackageInfoRequest); err != nil {
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
 		return nil, err
 	}
 	return req, nil

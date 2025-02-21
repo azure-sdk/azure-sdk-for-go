@@ -47,7 +47,7 @@ func NewDesktopsClient(subscriptionID string, credential azcore.TokenCredential,
 // Get - Get a desktop.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - applicationGroupName - The name of the application group
 //   - desktopName - The name of the desktop within the specified desktop group
@@ -98,7 +98,7 @@ func (client *DesktopsClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -115,7 +115,7 @@ func (client *DesktopsClient) getHandleResponse(resp *http.Response) (DesktopsCl
 
 // NewListPager - List desktops.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - applicationGroupName - The name of the application group
 //   - options - DesktopsClientListOptions contains the optional parameters for the DesktopsClient.NewListPager method.
@@ -162,7 +162,7 @@ func (client *DesktopsClient) listCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	if options != nil && options.InitialSkip != nil {
 		reqQP.Set("initialSkip", strconv.FormatInt(int64(*options.InitialSkip), 10))
 	}
@@ -189,18 +189,19 @@ func (client *DesktopsClient) listHandleResponse(resp *http.Response) (DesktopsC
 // Update - Update a desktop.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - applicationGroupName - The name of the application group
 //   - desktopName - The name of the desktop within the specified desktop group
+//   - body - The resource properties to be updated
 //   - options - DesktopsClientUpdateOptions contains the optional parameters for the DesktopsClient.Update method.
-func (client *DesktopsClient) Update(ctx context.Context, resourceGroupName string, applicationGroupName string, desktopName string, options *DesktopsClientUpdateOptions) (DesktopsClientUpdateResponse, error) {
+func (client *DesktopsClient) Update(ctx context.Context, resourceGroupName string, applicationGroupName string, desktopName string, body DesktopPatch, options *DesktopsClientUpdateOptions) (DesktopsClientUpdateResponse, error) {
 	var err error
 	const operationName = "DesktopsClient.Update"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, applicationGroupName, desktopName, options)
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, applicationGroupName, desktopName, body, options)
 	if err != nil {
 		return DesktopsClientUpdateResponse{}, err
 	}
@@ -217,7 +218,7 @@ func (client *DesktopsClient) Update(ctx context.Context, resourceGroupName stri
 }
 
 // updateCreateRequest creates the Update request.
-func (client *DesktopsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, applicationGroupName string, desktopName string, options *DesktopsClientUpdateOptions) (*policy.Request, error) {
+func (client *DesktopsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, applicationGroupName string, desktopName string, body DesktopPatch, options *DesktopsClientUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/applicationGroups/{applicationGroupName}/desktops/{desktopName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -240,14 +241,11 @@ func (client *DesktopsClient) updateCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if options != nil && options.Desktop != nil {
-		if err := runtime.MarshalAsJSON(req, *options.Desktop); err != nil {
-			return nil, err
-		}
-		return req, nil
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
+		return nil, err
 	}
 	return req, nil
 }
@@ -255,7 +253,7 @@ func (client *DesktopsClient) updateCreateRequest(ctx context.Context, resourceG
 // updateHandleResponse handles the Update response.
 func (client *DesktopsClient) updateHandleResponse(resp *http.Response) (DesktopsClientUpdateResponse, error) {
 	result := DesktopsClientUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.Desktop); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.DesktopPatch); err != nil {
 		return DesktopsClientUpdateResponse{}, err
 	}
 	return result, nil

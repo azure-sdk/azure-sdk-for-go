@@ -15,7 +15,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v3"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -25,7 +25,7 @@ import (
 type AppAttachPackageInfoServer struct {
 	// NewImportPager is the fake for method AppAttachPackageInfoClient.NewImportPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewImportPager func(resourceGroupName string, hostPoolName string, importPackageInfoRequest armdesktopvirtualization.ImportPackageInfoRequest, options *armdesktopvirtualization.AppAttachPackageInfoClientImportOptions) (resp azfake.PagerResponder[armdesktopvirtualization.AppAttachPackageInfoClientImportResponse])
+	NewImportPager func(resourceGroupName string, hostPoolName string, body armdesktopvirtualization.ImportPackageInfoRequest, options *armdesktopvirtualization.AppAttachPackageInfoClientImportOptions) (resp azfake.PagerResponder[armdesktopvirtualization.AppAttachPackageInfoClientImportResponse])
 }
 
 // NewAppAttachPackageInfoServerTransport creates a new instance of AppAttachPackageInfoServerTransport with the provided implementation.
