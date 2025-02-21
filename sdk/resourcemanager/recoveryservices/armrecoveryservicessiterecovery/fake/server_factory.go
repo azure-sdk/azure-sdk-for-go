@@ -19,6 +19,8 @@ import (
 
 // ServerFactory is a fake server for instances of the armrecoveryservicessiterecovery.ClientFactory type.
 type ServerFactory struct {
+	ClusterRecoveryPointServer                     ClusterRecoveryPointServer
+	ClusterRecoveryPointsServer                    ClusterRecoveryPointsServer
 	MigrationRecoveryPointsServer                  MigrationRecoveryPointsServer
 	OperationsServer                               OperationsServer
 	RecoveryPointsServer                           RecoveryPointsServer
@@ -35,6 +37,7 @@ type ServerFactory struct {
 	ReplicationPoliciesServer                      ReplicationPoliciesServer
 	ReplicationProtectableItemsServer              ReplicationProtectableItemsServer
 	ReplicationProtectedItemsServer                ReplicationProtectedItemsServer
+	ReplicationProtectionClustersServer            ReplicationProtectionClustersServer
 	ReplicationProtectionContainerMappingsServer   ReplicationProtectionContainerMappingsServer
 	ReplicationProtectionContainersServer          ReplicationProtectionContainersServer
 	ReplicationProtectionIntentsServer             ReplicationProtectionIntentsServer
@@ -63,6 +66,8 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 type ServerFactoryTransport struct {
 	srv                                              *ServerFactory
 	trMu                                             sync.Mutex
+	trClusterRecoveryPointServer                     *ClusterRecoveryPointServerTransport
+	trClusterRecoveryPointsServer                    *ClusterRecoveryPointsServerTransport
 	trMigrationRecoveryPointsServer                  *MigrationRecoveryPointsServerTransport
 	trOperationsServer                               *OperationsServerTransport
 	trRecoveryPointsServer                           *RecoveryPointsServerTransport
@@ -79,6 +84,7 @@ type ServerFactoryTransport struct {
 	trReplicationPoliciesServer                      *ReplicationPoliciesServerTransport
 	trReplicationProtectableItemsServer              *ReplicationProtectableItemsServerTransport
 	trReplicationProtectedItemsServer                *ReplicationProtectedItemsServerTransport
+	trReplicationProtectionClustersServer            *ReplicationProtectionClustersServerTransport
 	trReplicationProtectionContainerMappingsServer   *ReplicationProtectionContainerMappingsServerTransport
 	trReplicationProtectionContainersServer          *ReplicationProtectionContainersServerTransport
 	trReplicationProtectionIntentsServer             *ReplicationProtectionIntentsServerTransport
@@ -106,6 +112,16 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch client {
+	case "ClusterRecoveryPointClient":
+		initServer(s, &s.trClusterRecoveryPointServer, func() *ClusterRecoveryPointServerTransport {
+			return NewClusterRecoveryPointServerTransport(&s.srv.ClusterRecoveryPointServer)
+		})
+		resp, err = s.trClusterRecoveryPointServer.Do(req)
+	case "ClusterRecoveryPointsClient":
+		initServer(s, &s.trClusterRecoveryPointsServer, func() *ClusterRecoveryPointsServerTransport {
+			return NewClusterRecoveryPointsServerTransport(&s.srv.ClusterRecoveryPointsServer)
+		})
+		resp, err = s.trClusterRecoveryPointsServer.Do(req)
 	case "MigrationRecoveryPointsClient":
 		initServer(s, &s.trMigrationRecoveryPointsServer, func() *MigrationRecoveryPointsServerTransport {
 			return NewMigrationRecoveryPointsServerTransport(&s.srv.MigrationRecoveryPointsServer)
@@ -184,6 +200,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewReplicationProtectedItemsServerTransport(&s.srv.ReplicationProtectedItemsServer)
 		})
 		resp, err = s.trReplicationProtectedItemsServer.Do(req)
+	case "ReplicationProtectionClustersClient":
+		initServer(s, &s.trReplicationProtectionClustersServer, func() *ReplicationProtectionClustersServerTransport {
+			return NewReplicationProtectionClustersServerTransport(&s.srv.ReplicationProtectionClustersServer)
+		})
+		resp, err = s.trReplicationProtectionClustersServer.Do(req)
 	case "ReplicationProtectionContainerMappingsClient":
 		initServer(s, &s.trReplicationProtectionContainerMappingsServer, func() *ReplicationProtectionContainerMappingsServerTransport {
 			return NewReplicationProtectionContainerMappingsServerTransport(&s.srv.ReplicationProtectionContainerMappingsServer)
