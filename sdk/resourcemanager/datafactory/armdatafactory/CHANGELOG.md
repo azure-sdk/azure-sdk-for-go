@@ -1,5 +1,25 @@
 # Release History
 
+## 10.0.0 (2025-02-21)
+### Breaking Changes
+
+- Field `Pwd` of struct `GreenplumLinkedServiceTypeProperties` has been removed
+
+### Features Added
+
+- New enum type `GreenplumAuthenticationType` with values `GreenplumAuthenticationTypeBasic`
+- New enum type `OracleAuthenticationType` with values `OracleAuthenticationTypeBasic`
+- New function `*TeradataImportCommand.GetImportSettings() *ImportSettings`
+- New function `*TeradataSink.GetCopySink() *CopySink`
+- New struct `TeradataImportCommand`
+- New struct `TeradataSink`
+- New field `AzureCloudType`, `Credential`, `ServicePrincipalCredentialType`, `ServicePrincipalEmbeddedCert`, `ServicePrincipalEmbeddedCertPassword`, `ServicePrincipalID`, `ServicePrincipalKey`, `Tenant` in struct `AzurePostgreSQLLinkedServiceTypeProperties`
+- New field `AuthenticationType`, `CommandTimeout`, `ConnectionTimeout`, `Database`, `Host`, `Password`, `Port`, `PwdV1`, `SSLMode`, `Username` in struct `GreenplumLinkedServiceTypeProperties`
+- New field `AuthenticationType`, `CryptoChecksumClient`, `CryptoChecksumTypesClient`, `EnableBulkLoad`, `EncryptionClient`, `EncryptionTypesClient`, `FetchSize`, `FetchTswtzAsTimestamp`, `InitialLobFetchSize`, `InitializationString`, `Server`, `StatementCacheSize`, `SupportV1DataTypes`, `Username` in struct `OracleLinkedServiceTypeProperties`
+- New field `ReturnMultistatementResult` in struct `ScriptActivityTypeProperties`
+- New field `CharacterSet`, `HTTPSPortNumber`, `MaxRespSize`, `PortNumber`, `SSLMode`, `UseDataEncryption` in struct `TeradataLinkedServiceTypeProperties`
+
+
 ## 9.1.0 (2024-12-26)
 ### Features Added
 
