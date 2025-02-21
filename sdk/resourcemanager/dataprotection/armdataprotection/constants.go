@@ -10,8 +10,23 @@ package armdataprotection
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/dataprotection/armdataprotection"
-	moduleVersion = "v3.1.0"
+	moduleVersion = "v3.2.0"
 )
+
+type AKSVolumeTypes string
+
+const (
+	AKSVolumeTypesAzureDisk         AKSVolumeTypes = "AzureDisk"
+	AKSVolumeTypesAzureFileShareSMB AKSVolumeTypes = "AzureFileShareSMB"
+)
+
+// PossibleAKSVolumeTypesValues returns the possible values for the AKSVolumeTypes const type.
+func PossibleAKSVolumeTypesValues() []AKSVolumeTypes {
+	return []AKSVolumeTypes{
+		AKSVolumeTypesAzureDisk,
+		AKSVolumeTypesAzureFileShareSMB,
+	}
+}
 
 type AbsoluteMarker string
 
