@@ -40,6 +40,10 @@ type RecommendationsServer struct {
 	// NewListPager is the fake for method RecommendationsClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListPager func(options *armadvisor.RecommendationsClientListOptions) (resp azfake.PagerResponder[armadvisor.RecommendationsClientListResponse])
+
+	// Patch is the fake for method RecommendationsClient.Patch
+	// HTTP status codes to indicate success: http.StatusOK
+	Patch func(ctx context.Context, resourceURI string, recommendationID string, trackedProperties armadvisor.TrackedRecommendationPropertiesPayload, options *armadvisor.RecommendationsClientPatchOptions) (resp azfake.Responder[armadvisor.RecommendationsClientPatchResponse], errResp azfake.ErrorResponder)
 }
 
 // NewRecommendationsServerTransport creates a new instance of RecommendationsServerTransport with the provided implementation.
@@ -79,6 +83,8 @@ func (r *RecommendationsServerTransport) Do(req *http.Request) (*http.Response, 
 		resp, err = r.dispatchGetGenerateStatus(req)
 	case "RecommendationsClient.NewListPager":
 		resp, err = r.dispatchNewListPager(req)
+	case "RecommendationsClient.Patch":
+		resp, err = r.dispatchPatch(req)
 	default:
 		err = fmt.Errorf("unhandled API %s", method)
 	}
@@ -245,6 +251,43 @@ func (r *RecommendationsServerTransport) dispatchNewListPager(req *http.Request)
 	}
 	if !server.PagerResponderMore(newListPager) {
 		r.newListPager.remove(req)
+	}
+	return resp, nil
+}
+
+func (r *RecommendationsServerTransport) dispatchPatch(req *http.Request) (*http.Response, error) {
+	if r.srv.Patch == nil {
+		return nil, &nonRetriableError{errors.New("fake for method Patch not implemented")}
+	}
+	const regexStr = `/(?P<resourceUri>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Advisor/recommendations/(?P<recommendationId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 2 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armadvisor.TrackedRecommendationPropertiesPayload](req)
+	if err != nil {
+		return nil, err
+	}
+	resourceURIParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceUri")])
+	if err != nil {
+		return nil, err
+	}
+	recommendationIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("recommendationId")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := r.srv.Patch(req.Context(), resourceURIParam, recommendationIDParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ResourceRecommendationBase, req)
+	if err != nil {
+		return nil, err
 	}
 	return resp, nil
 }
