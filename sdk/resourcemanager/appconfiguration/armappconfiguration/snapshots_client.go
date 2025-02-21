@@ -48,7 +48,7 @@ func NewSnapshotsClient(subscriptionID string, credential azcore.TokenCredential
 // should be used instead.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - configStoreName - The name of the configuration store.
 //   - snapshotName - The name of the snapshot.
@@ -77,7 +77,7 @@ func (client *SnapshotsClient) BeginCreate(ctx context.Context, resourceGroupNam
 // should be used instead.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01
+// Generated from API version 2024-06-01-preview
 func (client *SnapshotsClient) create(ctx context.Context, resourceGroupName string, configStoreName string, snapshotName string, body Snapshot, options *SnapshotsClientBeginCreateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "SnapshotsClient.BeginCreate"
@@ -123,7 +123,7 @@ func (client *SnapshotsClient) createCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -137,7 +137,7 @@ func (client *SnapshotsClient) createCreateRequest(ctx context.Context, resource
 // snapshots the data plane API should be used instead.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - configStoreName - The name of the configuration store.
 //   - snapshotName - The name of the snapshot.
@@ -188,7 +188,7 @@ func (client *SnapshotsClient) getCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

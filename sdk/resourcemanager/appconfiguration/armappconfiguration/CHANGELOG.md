@@ -1,5 +1,29 @@
 # Release History
 
+## 2.3.0-beta.1 (2025-02-21)
+### Features Added
+
+- New enum type `ResourceType` with values `ResourceTypeKv`, `ResourceTypeSnapshot`
+- New enum type `SasKind` with values `SasKindPrimary`, `SasKindSecondary`
+- New enum type `SasStatus` with values `SasStatusDisabled`, `SasStatusEnabled`
+- New function `*ConfigurationStoresClient.GenerateSasToken(context.Context, string, string, SasTokenGenerationParameters, *ConfigurationStoresClientGenerateSasTokenOptions) (ConfigurationStoresClientGenerateSasTokenResponse, error)`
+- New function `*ConfigurationStoresClient.ResetSasKind(context.Context, string, string, ResetSasKindParameters, *ConfigurationStoresClientResetSasKindOptions) (ConfigurationStoresClientResetSasKindResponse, error)`
+- New function `*KvSasTokenScope.GetSasTokenScope() *SasTokenScope`
+- New function `*SasTokenScope.GetSasTokenScope() *SasTokenScope`
+- New function `*SnapshotSasTokenScope.GetSasTokenScope() *SasTokenScope`
+- New struct `ExperimentationProperties`
+- New struct `KvSasTokenScope`
+- New struct `ResetSasKindParameters`
+- New struct `SasKindInfo`
+- New struct `SasProperties`
+- New struct `SasTokenGenerationParameters`
+- New struct `SasTokenGenerationResult`
+- New struct `SnapshotSasTokenScope`
+- New struct `TelemetryProperties`
+- New field `Experimentation`, `Sas`, `Telemetry` in struct `ConfigurationStoreProperties`
+- New field `Experimentation`, `Sas`, `Telemetry` in struct `ConfigurationStorePropertiesUpdateParameters`
+
+
 ## 2.2.0 (2024-11-20)
 ### Features Added
 

@@ -10,7 +10,7 @@ package armappconfiguration
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appconfiguration/armappconfiguration"
-	moduleVersion = "v2.2.0"
+	moduleVersion = "v2.3.0-beta.1"
 )
 
 // ActionsRequired - Any action that is required beyond basic workflow (approve/ reject/ disconnect)
@@ -240,6 +240,56 @@ func PossibleReplicaProvisioningStateValues() []ReplicaProvisioningState {
 		ReplicaProvisioningStateDeleting,
 		ReplicaProvisioningStateFailed,
 		ReplicaProvisioningStateSucceeded,
+	}
+}
+
+type ResourceType string
+
+const (
+	ResourceTypeKv       ResourceType = "Kv"
+	ResourceTypeSnapshot ResourceType = "Snapshot"
+)
+
+// PossibleResourceTypeValues returns the possible values for the ResourceType const type.
+func PossibleResourceTypeValues() []ResourceType {
+	return []ResourceType{
+		ResourceTypeKv,
+		ResourceTypeSnapshot,
+	}
+}
+
+// SasKind - The kind of the SAS token.
+type SasKind string
+
+const (
+	SasKindPrimary   SasKind = "Primary"
+	SasKindSecondary SasKind = "Secondary"
+)
+
+// PossibleSasKindValues returns the possible values for the SasKind const type.
+func PossibleSasKindValues() []SasKind {
+	return []SasKind{
+		SasKindPrimary,
+		SasKindSecondary,
+	}
+}
+
+// SasStatus - The status of the SAS token authentication. This property manages if SAS token authentication is enabled or
+// disabled.
+type SasStatus string
+
+const (
+	// SasStatusDisabled - SAS token authentication is disabled.
+	SasStatusDisabled SasStatus = "Disabled"
+	// SasStatusEnabled - SAS token authentication is enabled.
+	SasStatusEnabled SasStatus = "Enabled"
+)
+
+// PossibleSasStatusValues returns the possible values for the SasStatus const type.
+func PossibleSasStatusValues() []SasStatus {
+	return []SasStatus{
+		SasStatusDisabled,
+		SasStatusEnabled,
 	}
 }
 
