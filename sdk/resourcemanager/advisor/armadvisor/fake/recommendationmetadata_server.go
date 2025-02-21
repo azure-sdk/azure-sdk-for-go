@@ -112,7 +112,19 @@ func (r *RecommendationMetadataServerTransport) dispatchNewListPager(req *http.R
 	}
 	newListPager := r.newListPager.get(req)
 	if newListPager == nil {
-		resp := r.srv.NewListPager(nil)
+		qp := req.URL.Query()
+		filterUnescaped, err := url.QueryUnescape(qp.Get("$filter"))
+		if err != nil {
+			return nil, err
+		}
+		filterParam := getOptional(filterUnescaped)
+		var options *armadvisor.RecommendationMetadataClientListOptions
+		if filterParam != nil {
+			options = &armadvisor.RecommendationMetadataClientListOptions{
+				Filter: filterParam,
+			}
+		}
+		resp := r.srv.NewListPager(options)
 		newListPager = &resp
 		r.newListPager.add(req, newListPager)
 		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armadvisor.RecommendationMetadataClientListResponse, createLink func() string) {
