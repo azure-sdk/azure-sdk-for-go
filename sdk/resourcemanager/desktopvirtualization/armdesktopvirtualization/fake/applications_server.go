@@ -16,10 +16,9 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v3"
 	"net/http"
 	"net/url"
-	"reflect"
 	"regexp"
 	"strconv"
 )
@@ -44,7 +43,7 @@ type ApplicationsServer struct {
 
 	// Update is the fake for method ApplicationsClient.Update
 	// HTTP status codes to indicate success: http.StatusOK
-	Update func(ctx context.Context, resourceGroupName string, applicationGroupName string, applicationName string, options *armdesktopvirtualization.ApplicationsClientUpdateOptions) (resp azfake.Responder[armdesktopvirtualization.ApplicationsClientUpdateResponse], errResp azfake.ErrorResponder)
+	Update func(ctx context.Context, resourceGroupName string, applicationGroupName string, applicationName string, body armdesktopvirtualization.ApplicationPatch, options *armdesktopvirtualization.ApplicationsClientUpdateOptions) (resp azfake.Responder[armdesktopvirtualization.ApplicationsClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewApplicationsServerTransport creates a new instance of ApplicationsServerTransport with the provided implementation.
@@ -324,13 +323,7 @@ func (a *ApplicationsServerTransport) dispatchUpdate(req *http.Request) (*http.R
 	if err != nil {
 		return nil, err
 	}
-	var options *armdesktopvirtualization.ApplicationsClientUpdateOptions
-	if !reflect.ValueOf(body).IsZero() {
-		options = &armdesktopvirtualization.ApplicationsClientUpdateOptions{
-			Application: &body,
-		}
-	}
-	respr, errRespr := a.srv.Update(req.Context(), resourceGroupNameParam, applicationGroupNameParam, applicationNameParam, options)
+	respr, errRespr := a.srv.Update(req.Context(), resourceGroupNameParam, applicationGroupNameParam, applicationNameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -338,7 +331,7 @@ func (a *ApplicationsServerTransport) dispatchUpdate(req *http.Request) (*http.R
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Application, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ApplicationPatch, req)
 	if err != nil {
 		return nil, err
 	}

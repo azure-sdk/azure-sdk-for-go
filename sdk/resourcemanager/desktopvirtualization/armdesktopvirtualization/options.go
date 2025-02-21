@@ -8,6 +8,18 @@
 
 package armdesktopvirtualization
 
+// ActiveSessionHostConfigurationsClientGetOptions contains the optional parameters for the ActiveSessionHostConfigurationsClient.Get
+// method.
+type ActiveSessionHostConfigurationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ActiveSessionHostConfigurationsClientListByHostPoolOptions contains the optional parameters for the ActiveSessionHostConfigurationsClient.NewListByHostPoolPager
+// method.
+type ActiveSessionHostConfigurationsClientListByHostPoolOptions struct {
+	// placeholder for future optional parameters
+}
+
 // AppAttachPackageClientCreateOrUpdateOptions contains the optional parameters for the AppAttachPackageClient.CreateOrUpdate
 // method.
 type AppAttachPackageClientCreateOrUpdateOptions struct {
@@ -16,7 +28,8 @@ type AppAttachPackageClientCreateOrUpdateOptions struct {
 
 // AppAttachPackageClientDeleteOptions contains the optional parameters for the AppAttachPackageClient.Delete method.
 type AppAttachPackageClientDeleteOptions struct {
-	// placeholder for future optional parameters
+	// Allows force delete
+	Force *bool
 }
 
 // AppAttachPackageClientGetOptions contains the optional parameters for the AppAttachPackageClient.Get method.
@@ -40,7 +53,7 @@ type AppAttachPackageClientListBySubscriptionOptions struct {
 
 // AppAttachPackageClientUpdateOptions contains the optional parameters for the AppAttachPackageClient.Update method.
 type AppAttachPackageClientUpdateOptions struct {
-	// Object containing App Attach Package definition.
+	// The resource properties to be updated
 	AppAttachPackagePatch *AppAttachPackagePatch
 }
 
@@ -91,8 +104,7 @@ type ApplicationGroupsClientListBySubscriptionOptions struct {
 
 // ApplicationGroupsClientUpdateOptions contains the optional parameters for the ApplicationGroupsClient.Update method.
 type ApplicationGroupsClientUpdateOptions struct {
-	// Object containing ApplicationGroup definitions.
-	ApplicationGroup *ApplicationGroupPatch
+	// placeholder for future optional parameters
 }
 
 // ApplicationsClientCreateOrUpdateOptions contains the optional parameters for the ApplicationsClient.CreateOrUpdate method.
@@ -124,8 +136,14 @@ type ApplicationsClientListOptions struct {
 
 // ApplicationsClientUpdateOptions contains the optional parameters for the ApplicationsClient.Update method.
 type ApplicationsClientUpdateOptions struct {
-	// Object containing Application definitions.
-	Application *ApplicationPatch
+	// placeholder for future optional parameters
+}
+
+// ControlSessionHostUpdateClientBeginPostOptions contains the optional parameters for the ControlSessionHostUpdateClient.BeginPost
+// method.
+type ControlSessionHostUpdateClientBeginPostOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // DesktopsClientGetOptions contains the optional parameters for the DesktopsClient.Get method.
@@ -147,8 +165,7 @@ type DesktopsClientListOptions struct {
 
 // DesktopsClientUpdateOptions contains the optional parameters for the DesktopsClient.Update method.
 type DesktopsClientUpdateOptions struct {
-	// Object containing Desktop definitions.
-	Desktop *DesktopPatch
+	// placeholder for future optional parameters
 }
 
 // HostPoolsClientCreateOrUpdateOptions contains the optional parameters for the HostPoolsClient.CreateOrUpdate method.
@@ -206,8 +223,13 @@ type HostPoolsClientRetrieveRegistrationTokenOptions struct {
 
 // HostPoolsClientUpdateOptions contains the optional parameters for the HostPoolsClient.Update method.
 type HostPoolsClientUpdateOptions struct {
-	// Object containing HostPool definitions.
-	HostPool *HostPoolPatch
+	// placeholder for future optional parameters
+}
+
+// InitiateSessionHostUpdateClientPostOptions contains the optional parameters for the InitiateSessionHostUpdateClient.Post
+// method.
+type InitiateSessionHostUpdateClientPostOptions struct {
+	// placeholder for future optional parameters
 }
 
 // MSIXPackagesClientCreateOrUpdateOptions contains the optional parameters for the MSIXPackagesClient.CreateOrUpdate method.
@@ -239,8 +261,7 @@ type MSIXPackagesClientListOptions struct {
 
 // MSIXPackagesClientUpdateOptions contains the optional parameters for the MSIXPackagesClient.Update method.
 type MSIXPackagesClientUpdateOptions struct {
-	// Object containing MSIX Package definitions.
-	MsixPackage *MSIXPackagePatch
+	// placeholder for future optional parameters
 }
 
 // MsixImagesClientExpandOptions contains the optional parameters for the MsixImagesClient.NewExpandPager method.
@@ -368,8 +389,7 @@ type ScalingPlanPersonalSchedulesClientListOptions struct {
 // ScalingPlanPersonalSchedulesClientUpdateOptions contains the optional parameters for the ScalingPlanPersonalSchedulesClient.Update
 // method.
 type ScalingPlanPersonalSchedulesClientUpdateOptions struct {
-	// Object containing ScalingPlanPersonalSchedule definitions.
-	ScalingPlanSchedule *ScalingPlanPersonalSchedulePatch
+	// placeholder for future optional parameters
 }
 
 // ScalingPlanPooledSchedulesClientCreateOptions contains the optional parameters for the ScalingPlanPooledSchedulesClient.Create
@@ -406,8 +426,7 @@ type ScalingPlanPooledSchedulesClientListOptions struct {
 // ScalingPlanPooledSchedulesClientUpdateOptions contains the optional parameters for the ScalingPlanPooledSchedulesClient.Update
 // method.
 type ScalingPlanPooledSchedulesClientUpdateOptions struct {
-	// Object containing ScalingPlanPooledSchedule definitions.
-	ScalingPlanSchedule *ScalingPlanPooledSchedulePatch
+	// placeholder for future optional parameters
 }
 
 // ScalingPlansClientCreateOptions contains the optional parameters for the ScalingPlansClient.Create method.
@@ -466,8 +485,65 @@ type ScalingPlansClientListBySubscriptionOptions struct {
 
 // ScalingPlansClientUpdateOptions contains the optional parameters for the ScalingPlansClient.Update method.
 type ScalingPlansClientUpdateOptions struct {
-	// Object containing scaling plan definitions.
-	ScalingPlan *ScalingPlanPatch
+	// placeholder for future optional parameters
+}
+
+// SessionHostConfigurationsClientBeginCreateOrUpdateOptions contains the optional parameters for the SessionHostConfigurationsClient.BeginCreateOrUpdate
+// method.
+type SessionHostConfigurationsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SessionHostConfigurationsClientBeginUpdateOptions contains the optional parameters for the SessionHostConfigurationsClient.BeginUpdate
+// method.
+type SessionHostConfigurationsClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+
+	// The resource properties to be updated
+	SessionHostConfiguration *SessionHostConfigurationPatch
+}
+
+// SessionHostConfigurationsClientGetOptions contains the optional parameters for the SessionHostConfigurationsClient.Get
+// method.
+type SessionHostConfigurationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SessionHostConfigurationsClientListByHostPoolOptions contains the optional parameters for the SessionHostConfigurationsClient.NewListByHostPoolPager
+// method.
+type SessionHostConfigurationsClientListByHostPoolOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SessionHostManagementsClientCreateOrUpdateOptions contains the optional parameters for the SessionHostManagementsClient.CreateOrUpdate
+// method.
+type SessionHostManagementsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SessionHostManagementsClientGetOptions contains the optional parameters for the SessionHostManagementsClient.Get method.
+type SessionHostManagementsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SessionHostManagementsClientListByHostPoolOptions contains the optional parameters for the SessionHostManagementsClient.NewListByHostPoolPager
+// method.
+type SessionHostManagementsClientListByHostPoolOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SessionHostManagementsClientUpdateOptions contains the optional parameters for the SessionHostManagementsClient.Update
+// method.
+type SessionHostManagementsClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SessionHostManagementsUpdateStatusClientGetOptions contains the optional parameters for the SessionHostManagementsUpdateStatusClient.Get
+// method.
+type SessionHostManagementsUpdateStatusClientGetOptions struct {
+	// placeholder for future optional parameters
 }
 
 // SessionHostsClientDeleteOptions contains the optional parameters for the SessionHostsClient.Delete method.
@@ -491,6 +567,15 @@ type SessionHostsClientListOptions struct {
 
 	// Number of items per page.
 	PageSize *int32
+
+	// The path to the VM.
+	VMPath *string
+}
+
+// SessionHostsClientRetryProvisioningOptions contains the optional parameters for the SessionHostsClient.RetryProvisioning
+// method.
+type SessionHostsClientRetryProvisioningOptions struct {
+	// placeholder for future optional parameters
 }
 
 // SessionHostsClientUpdateOptions contains the optional parameters for the SessionHostsClient.Update method.
@@ -498,7 +583,7 @@ type SessionHostsClientUpdateOptions struct {
 	// Force flag to update assign, unassign or reassign personal desktop.
 	Force *bool
 
-	// Object containing SessionHost definitions.
+	// The resource properties to be updated
 	SessionHost *SessionHostPatch
 }
 
@@ -560,8 +645,7 @@ type UserSessionsClientListOptions struct {
 
 // UserSessionsClientSendMessageOptions contains the optional parameters for the UserSessionsClient.SendMessage method.
 type UserSessionsClientSendMessageOptions struct {
-	// Object containing message includes title and message body
-	SendMessage *SendMessage
+	// placeholder for future optional parameters
 }
 
 // WorkspacesClientCreateOrUpdateOptions contains the optional parameters for the WorkspacesClient.CreateOrUpdate method.
@@ -600,6 +684,6 @@ type WorkspacesClientListBySubscriptionOptions struct {
 
 // WorkspacesClientUpdateOptions contains the optional parameters for the WorkspacesClient.Update method.
 type WorkspacesClientUpdateOptions struct {
-	// Object containing Workspace definitions.
+	// The resource properties to be updated
 	Workspace *WorkspacePatch
 }

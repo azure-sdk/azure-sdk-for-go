@@ -47,7 +47,7 @@ func NewMSIXPackagesClient(subscriptionID string, credential azcore.TokenCredent
 // CreateOrUpdate - Create or update a MSIX package.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - msixPackageFullName - The version specific package full name of the MSIX package within specified hostpool
@@ -78,7 +78,7 @@ func (client *MSIXPackagesClient) CreateOrUpdate(ctx context.Context, resourceGr
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
 func (client *MSIXPackagesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, hostPoolName string, msixPackageFullName string, msixPackage MSIXPackage, options *MSIXPackagesClientCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/hostPools/{hostPoolName}/msixPackages/{msixPackageFullName}"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/hostPools/{hostPoolName}/msixPackages/{msixPackageFullName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -100,7 +100,7 @@ func (client *MSIXPackagesClient) createOrUpdateCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, msixPackage); err != nil {
@@ -121,7 +121,7 @@ func (client *MSIXPackagesClient) createOrUpdateHandleResponse(resp *http.Respon
 // Delete - Remove an MSIX Package.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - msixPackageFullName - The version specific package full name of the MSIX package within specified hostpool
@@ -149,7 +149,7 @@ func (client *MSIXPackagesClient) Delete(ctx context.Context, resourceGroupName 
 
 // deleteCreateRequest creates the Delete request.
 func (client *MSIXPackagesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, hostPoolName string, msixPackageFullName string, options *MSIXPackagesClientDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/hostPools/{hostPoolName}/msixPackages/{msixPackageFullName}"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/hostPools/{hostPoolName}/msixPackages/{msixPackageFullName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -171,7 +171,7 @@ func (client *MSIXPackagesClient) deleteCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -180,7 +180,7 @@ func (client *MSIXPackagesClient) deleteCreateRequest(ctx context.Context, resou
 // Get - Get a msixpackage.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - msixPackageFullName - The version specific package full name of the MSIX package within specified hostpool
@@ -209,7 +209,7 @@ func (client *MSIXPackagesClient) Get(ctx context.Context, resourceGroupName str
 
 // getCreateRequest creates the Get request.
 func (client *MSIXPackagesClient) getCreateRequest(ctx context.Context, resourceGroupName string, hostPoolName string, msixPackageFullName string, options *MSIXPackagesClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/hostPools/{hostPoolName}/msixPackages/{msixPackageFullName}"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/hostPools/{hostPoolName}/msixPackages/{msixPackageFullName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -231,7 +231,7 @@ func (client *MSIXPackagesClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -248,7 +248,7 @@ func (client *MSIXPackagesClient) getHandleResponse(resp *http.Response) (MSIXPa
 
 // NewListPager - List MSIX packages in hostpool.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - options - MSIXPackagesClientListOptions contains the optional parameters for the MSIXPackagesClient.NewListPager method.
@@ -277,7 +277,7 @@ func (client *MSIXPackagesClient) NewListPager(resourceGroupName string, hostPoo
 
 // listCreateRequest creates the List request.
 func (client *MSIXPackagesClient) listCreateRequest(ctx context.Context, resourceGroupName string, hostPoolName string, options *MSIXPackagesClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/hostPools/{hostPoolName}/msixPackages"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/hostPools/{hostPoolName}/msixPackages"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -295,7 +295,7 @@ func (client *MSIXPackagesClient) listCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	if options != nil && options.InitialSkip != nil {
 		reqQP.Set("initialSkip", strconv.FormatInt(int64(*options.InitialSkip), 10))
 	}
@@ -322,18 +322,19 @@ func (client *MSIXPackagesClient) listHandleResponse(resp *http.Response) (MSIXP
 // Update - Update an MSIX Package.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - msixPackageFullName - The version specific package full name of the MSIX package within specified hostpool
+//   - body - The resource properties to be updated
 //   - options - MSIXPackagesClientUpdateOptions contains the optional parameters for the MSIXPackagesClient.Update method.
-func (client *MSIXPackagesClient) Update(ctx context.Context, resourceGroupName string, hostPoolName string, msixPackageFullName string, options *MSIXPackagesClientUpdateOptions) (MSIXPackagesClientUpdateResponse, error) {
+func (client *MSIXPackagesClient) Update(ctx context.Context, resourceGroupName string, hostPoolName string, msixPackageFullName string, body MSIXPackagePatch, options *MSIXPackagesClientUpdateOptions) (MSIXPackagesClientUpdateResponse, error) {
 	var err error
 	const operationName = "MSIXPackagesClient.Update"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, hostPoolName, msixPackageFullName, options)
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, hostPoolName, msixPackageFullName, body, options)
 	if err != nil {
 		return MSIXPackagesClientUpdateResponse{}, err
 	}
@@ -350,8 +351,8 @@ func (client *MSIXPackagesClient) Update(ctx context.Context, resourceGroupName 
 }
 
 // updateCreateRequest creates the Update request.
-func (client *MSIXPackagesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, hostPoolName string, msixPackageFullName string, options *MSIXPackagesClientUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/hostPools/{hostPoolName}/msixPackages/{msixPackageFullName}"
+func (client *MSIXPackagesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, hostPoolName string, msixPackageFullName string, body MSIXPackagePatch, options *MSIXPackagesClientUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/hostPools/{hostPoolName}/msixPackages/{msixPackageFullName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -373,14 +374,11 @@ func (client *MSIXPackagesClient) updateCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if options != nil && options.MsixPackage != nil {
-		if err := runtime.MarshalAsJSON(req, *options.MsixPackage); err != nil {
-			return nil, err
-		}
-		return req, nil
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
+		return nil, err
 	}
 	return req, nil
 }

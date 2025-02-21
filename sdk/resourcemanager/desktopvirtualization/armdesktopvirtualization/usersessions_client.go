@@ -47,7 +47,7 @@ func NewUserSessionsClient(subscriptionID string, credential azcore.TokenCredent
 // Delete - Remove a userSession.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - sessionHostName - The name of the session host within the specified host pool
@@ -102,7 +102,7 @@ func (client *UserSessionsClient) deleteCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	if options != nil && options.Force != nil {
 		reqQP.Set("force", strconv.FormatBool(*options.Force))
 	}
@@ -114,7 +114,7 @@ func (client *UserSessionsClient) deleteCreateRequest(ctx context.Context, resou
 // Disconnect - Disconnect a userSession.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - sessionHostName - The name of the session host within the specified host pool
@@ -169,7 +169,7 @@ func (client *UserSessionsClient) disconnectCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -178,7 +178,7 @@ func (client *UserSessionsClient) disconnectCreateRequest(ctx context.Context, r
 // Get - Get a userSession.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - sessionHostName - The name of the session host within the specified host pool
@@ -234,7 +234,7 @@ func (client *UserSessionsClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -251,7 +251,7 @@ func (client *UserSessionsClient) getHandleResponse(resp *http.Response) (UserSe
 
 // NewListPager - List userSessions.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - sessionHostName - The name of the session host within the specified host pool
@@ -303,7 +303,7 @@ func (client *UserSessionsClient) listCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	if options != nil && options.InitialSkip != nil {
 		reqQP.Set("initialSkip", strconv.FormatInt(int64(*options.InitialSkip), 10))
 	}
@@ -327,9 +327,9 @@ func (client *UserSessionsClient) listHandleResponse(resp *http.Response) (UserS
 	return result, nil
 }
 
-// NewListByHostPoolPager - List userSessions.
+// NewListByHostPoolPager - A synchronous resource action.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - options - UserSessionsClientListByHostPoolOptions contains the optional parameters for the UserSessionsClient.NewListByHostPoolPager
@@ -380,7 +380,7 @@ func (client *UserSessionsClient) listByHostPoolCreateRequest(ctx context.Contex
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	if options != nil && options.InitialSkip != nil {
 		reqQP.Set("initialSkip", strconv.FormatInt(int64(*options.InitialSkip), 10))
 	}
@@ -407,20 +407,21 @@ func (client *UserSessionsClient) listByHostPoolHandleResponse(resp *http.Respon
 // SendMessage - Send a message to a user.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-04-03
+// Generated from API version 2024-08-08-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - sessionHostName - The name of the session host within the specified host pool
 //   - userSessionID - The name of the user session within the specified session host
+//   - body - The content of the action request
 //   - options - UserSessionsClientSendMessageOptions contains the optional parameters for the UserSessionsClient.SendMessage
 //     method.
-func (client *UserSessionsClient) SendMessage(ctx context.Context, resourceGroupName string, hostPoolName string, sessionHostName string, userSessionID string, options *UserSessionsClientSendMessageOptions) (UserSessionsClientSendMessageResponse, error) {
+func (client *UserSessionsClient) SendMessage(ctx context.Context, resourceGroupName string, hostPoolName string, sessionHostName string, userSessionID string, body SendMessage, options *UserSessionsClientSendMessageOptions) (UserSessionsClientSendMessageResponse, error) {
 	var err error
 	const operationName = "UserSessionsClient.SendMessage"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.sendMessageCreateRequest(ctx, resourceGroupName, hostPoolName, sessionHostName, userSessionID, options)
+	req, err := client.sendMessageCreateRequest(ctx, resourceGroupName, hostPoolName, sessionHostName, userSessionID, body, options)
 	if err != nil {
 		return UserSessionsClientSendMessageResponse{}, err
 	}
@@ -432,11 +433,12 @@ func (client *UserSessionsClient) SendMessage(ctx context.Context, resourceGroup
 		err = runtime.NewResponseError(httpResp)
 		return UserSessionsClientSendMessageResponse{}, err
 	}
-	return UserSessionsClientSendMessageResponse{}, nil
+	resp, err := client.sendMessageHandleResponse(httpResp)
+	return resp, err
 }
 
 // sendMessageCreateRequest creates the SendMessage request.
-func (client *UserSessionsClient) sendMessageCreateRequest(ctx context.Context, resourceGroupName string, hostPoolName string, sessionHostName string, userSessionID string, options *UserSessionsClientSendMessageOptions) (*policy.Request, error) {
+func (client *UserSessionsClient) sendMessageCreateRequest(ctx context.Context, resourceGroupName string, hostPoolName string, sessionHostName string, userSessionID string, body SendMessage, options *UserSessionsClientSendMessageOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/hostPools/{hostPoolName}/sessionHosts/{sessionHostName}/userSessions/{userSessionId}/sendMessage"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -463,14 +465,20 @@ func (client *UserSessionsClient) sendMessageCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-04-03")
+	reqQP.Set("api-version", "2024-08-08-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if options != nil && options.SendMessage != nil {
-		if err := runtime.MarshalAsJSON(req, *options.SendMessage); err != nil {
-			return nil, err
-		}
-		return req, nil
+	if err := runtime.MarshalAsJSON(req, body); err != nil {
+		return nil, err
 	}
 	return req, nil
+}
+
+// sendMessageHandleResponse handles the SendMessage response.
+func (client *UserSessionsClient) sendMessageHandleResponse(resp *http.Response) (UserSessionsClientSendMessageResponse, error) {
+	result := UserSessionsClientSendMessageResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.SendMessage); err != nil {
+		return UserSessionsClientSendMessageResponse{}, err
+	}
+	return result, nil
 }

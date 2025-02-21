@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v3"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -50,12 +50,12 @@ type PrivateEndpointConnectionsServer struct {
 	NewListByWorkspacePager func(resourceGroupName string, workspaceName string, options *armdesktopvirtualization.PrivateEndpointConnectionsClientListByWorkspaceOptions) (resp azfake.PagerResponder[armdesktopvirtualization.PrivateEndpointConnectionsClientListByWorkspaceResponse])
 
 	// UpdateByHostPool is the fake for method PrivateEndpointConnectionsClient.UpdateByHostPool
-	// HTTP status codes to indicate success: http.StatusOK
-	UpdateByHostPool func(ctx context.Context, resourceGroupName string, hostPoolName string, privateEndpointConnectionName string, connection armdesktopvirtualization.PrivateEndpointConnection, options *armdesktopvirtualization.PrivateEndpointConnectionsClientUpdateByHostPoolOptions) (resp azfake.Responder[armdesktopvirtualization.PrivateEndpointConnectionsClientUpdateByHostPoolResponse], errResp azfake.ErrorResponder)
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
+	UpdateByHostPool func(ctx context.Context, resourceGroupName string, hostPoolName string, privateEndpointConnectionName string, connection armdesktopvirtualization.PrivateEndpointConnectionWithSystemData, options *armdesktopvirtualization.PrivateEndpointConnectionsClientUpdateByHostPoolOptions) (resp azfake.Responder[armdesktopvirtualization.PrivateEndpointConnectionsClientUpdateByHostPoolResponse], errResp azfake.ErrorResponder)
 
 	// UpdateByWorkspace is the fake for method PrivateEndpointConnectionsClient.UpdateByWorkspace
-	// HTTP status codes to indicate success: http.StatusOK
-	UpdateByWorkspace func(ctx context.Context, resourceGroupName string, workspaceName string, privateEndpointConnectionName string, connection armdesktopvirtualization.PrivateEndpointConnection, options *armdesktopvirtualization.PrivateEndpointConnectionsClientUpdateByWorkspaceOptions) (resp azfake.Responder[armdesktopvirtualization.PrivateEndpointConnectionsClientUpdateByWorkspaceResponse], errResp azfake.ErrorResponder)
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
+	UpdateByWorkspace func(ctx context.Context, resourceGroupName string, workspaceName string, privateEndpointConnectionName string, connection armdesktopvirtualization.PrivateEndpointConnectionWithSystemData, options *armdesktopvirtualization.PrivateEndpointConnectionsClientUpdateByWorkspaceOptions) (resp azfake.Responder[armdesktopvirtualization.PrivateEndpointConnectionsClientUpdateByWorkspaceResponse], errResp azfake.ErrorResponder)
 }
 
 // NewPrivateEndpointConnectionsServerTransport creates a new instance of PrivateEndpointConnectionsServerTransport with the provided implementation.
@@ -401,7 +401,7 @@ func (p *PrivateEndpointConnectionsServerTransport) dispatchUpdateByHostPool(req
 	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armdesktopvirtualization.PrivateEndpointConnection](req)
+	body, err := server.UnmarshalRequestAsJSON[armdesktopvirtualization.PrivateEndpointConnectionWithSystemData](req)
 	if err != nil {
 		return nil, err
 	}
@@ -422,8 +422,8 @@ func (p *PrivateEndpointConnectionsServerTransport) dispatchUpdateByHostPool(req
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	if !contains([]int{http.StatusOK, http.StatusCreated}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).PrivateEndpointConnectionWithSystemData, req)
 	if err != nil {
@@ -442,7 +442,7 @@ func (p *PrivateEndpointConnectionsServerTransport) dispatchUpdateByWorkspace(re
 	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armdesktopvirtualization.PrivateEndpointConnection](req)
+	body, err := server.UnmarshalRequestAsJSON[armdesktopvirtualization.PrivateEndpointConnectionWithSystemData](req)
 	if err != nil {
 		return nil, err
 	}
@@ -463,8 +463,8 @@ func (p *PrivateEndpointConnectionsServerTransport) dispatchUpdateByWorkspace(re
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	if !contains([]int{http.StatusOK, http.StatusCreated}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).PrivateEndpointConnectionWithSystemData, req)
 	if err != nil {

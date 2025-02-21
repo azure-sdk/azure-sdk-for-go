@@ -16,10 +16,9 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v3"
 	"net/http"
 	"net/url"
-	"reflect"
 	"regexp"
 	"strconv"
 )
@@ -56,7 +55,7 @@ type HostPoolsServer struct {
 
 	// Update is the fake for method HostPoolsClient.Update
 	// HTTP status codes to indicate success: http.StatusOK
-	Update func(ctx context.Context, resourceGroupName string, hostPoolName string, options *armdesktopvirtualization.HostPoolsClientUpdateOptions) (resp azfake.Responder[armdesktopvirtualization.HostPoolsClientUpdateResponse], errResp azfake.ErrorResponder)
+	Update func(ctx context.Context, resourceGroupName string, hostPoolName string, body armdesktopvirtualization.HostPoolPatch, options *armdesktopvirtualization.HostPoolsClientUpdateOptions) (resp azfake.Responder[armdesktopvirtualization.HostPoolsClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewHostPoolsServerTransport creates a new instance of HostPoolsServerTransport with the provided implementation.
@@ -483,13 +482,7 @@ func (h *HostPoolsServerTransport) dispatchUpdate(req *http.Request) (*http.Resp
 	if err != nil {
 		return nil, err
 	}
-	var options *armdesktopvirtualization.HostPoolsClientUpdateOptions
-	if !reflect.ValueOf(body).IsZero() {
-		options = &armdesktopvirtualization.HostPoolsClientUpdateOptions{
-			HostPool: &body,
-		}
-	}
-	respr, errRespr := h.srv.Update(req.Context(), resourceGroupNameParam, hostPoolNameParam, options)
+	respr, errRespr := h.srv.Update(req.Context(), resourceGroupNameParam, hostPoolNameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -497,7 +490,7 @@ func (h *HostPoolsServerTransport) dispatchUpdate(req *http.Request) (*http.Resp
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).HostPool, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).HostPoolPatch, req)
 	if err != nil {
 		return nil, err
 	}
