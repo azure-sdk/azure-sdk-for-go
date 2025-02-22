@@ -558,6 +558,9 @@ type UpdateRunProperties struct {
 	// UpdateRun.
 	UpdateStrategyID *string
 
+	// READ-ONLY; AutoUpgradeProfileId is the id of an auto upgrade profile resource.
+	AutoUpgradeProfileID *string
+
 	// READ-ONLY; The provisioning state of the UpdateRun resource.
 	ProvisioningState *UpdateRunProvisioningState
 
