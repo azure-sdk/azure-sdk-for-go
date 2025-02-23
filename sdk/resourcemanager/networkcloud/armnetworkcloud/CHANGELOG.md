@@ -1,5 +1,162 @@
 # Release History
 
+## 1.2.0 (2025-02-23)
+### Features Added
+
+- New value `ClusterConnectionStatusDisconnected` added to enum type `ClusterConnectionStatus`
+- New value `ClusterDetailedStatusUpdatePaused` added to enum type `ClusterDetailedStatus`
+- New value `OsDiskCreateOptionPersistent` added to enum type `OsDiskCreateOption`
+- New value `RackSKUProvisioningStateCanceled`, `RackSKUProvisioningStateFailed` added to enum type `RackSKUProvisioningState`
+- New value `StorageApplianceDetailedStatusDegraded` added to enum type `StorageApplianceDetailedStatus`
+- New value `VirtualMachineDeviceModelTypeT3` added to enum type `VirtualMachineDeviceModelType`
+- New enum type `ClusterContinueUpdateVersionMachineGroupTargetingMode` with values `ClusterContinueUpdateVersionMachineGroupTargetingModeAlphaByRack`
+- New enum type `ClusterScanRuntimeParametersScanActivity` with values `ClusterScanRuntimeParametersScanActivityScan`, `ClusterScanRuntimeParametersScanActivitySkip`
+- New enum type `ClusterSecretArchiveEnabled` with values `ClusterSecretArchiveEnabledFalse`, `ClusterSecretArchiveEnabledTrue`
+- New enum type `ClusterUpdateStrategyType` with values `ClusterUpdateStrategyTypePauseAfterRack`, `ClusterUpdateStrategyTypeRack`
+- New enum type `KubernetesClusterFeatureAvailabilityLifecycle` with values `KubernetesClusterFeatureAvailabilityLifecycleGenerallyAvailable`, `KubernetesClusterFeatureAvailabilityLifecyclePreview`
+- New enum type `KubernetesClusterFeatureDetailedStatus` with values `KubernetesClusterFeatureDetailedStatusError`, `KubernetesClusterFeatureDetailedStatusInstalled`, `KubernetesClusterFeatureDetailedStatusProvisioning`
+- New enum type `KubernetesClusterFeatureProvisioningState` with values `KubernetesClusterFeatureProvisioningStateAccepted`, `KubernetesClusterFeatureProvisioningStateCanceled`, `KubernetesClusterFeatureProvisioningStateDeleting`, `KubernetesClusterFeatureProvisioningStateFailed`, `KubernetesClusterFeatureProvisioningStateSucceeded`, `KubernetesClusterFeatureProvisioningStateUpdating`
+- New enum type `KubernetesClusterFeatureRequired` with values `KubernetesClusterFeatureRequiredFalse`, `KubernetesClusterFeatureRequiredTrue`
+- New enum type `ManagedServiceIdentitySelectorType` with values `ManagedServiceIdentitySelectorTypeSystemAssignedIdentity`, `ManagedServiceIdentitySelectorTypeUserAssignedIdentity`
+- New enum type `ManagedServiceIdentityType` with values `ManagedServiceIdentityTypeNone`, `ManagedServiceIdentityTypeSystemAssigned`, `ManagedServiceIdentityTypeSystemAssignedUserAssigned`, `ManagedServiceIdentityTypeUserAssigned`
+- New enum type `RuntimeProtectionEnforcementLevel` with values `RuntimeProtectionEnforcementLevelAudit`, `RuntimeProtectionEnforcementLevelDisabled`, `RuntimeProtectionEnforcementLevelOnDemand`, `RuntimeProtectionEnforcementLevelPassive`, `RuntimeProtectionEnforcementLevelRealTime`
+- New enum type `VulnerabilityScanningSettingsContainerScan` with values `VulnerabilityScanningSettingsContainerScanDisabled`, `VulnerabilityScanningSettingsContainerScanEnabled`
+- New function `*ClientFactory.NewKubernetesClusterFeaturesClient() *KubernetesClusterFeaturesClient`
+- New function `*ClustersClient.BeginContinueUpdateVersion(context.Context, string, string, ClusterContinueUpdateVersionParameters, *ClustersClientBeginContinueUpdateVersionOptions) (*runtime.Poller[ClustersClientContinueUpdateVersionResponse], error)`
+- New function `*ClustersClient.BeginScanRuntime(context.Context, string, string, *ClustersClientBeginScanRuntimeOptions) (*runtime.Poller[ClustersClientScanRuntimeResponse], error)`
+- New function `NewKubernetesClusterFeaturesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*KubernetesClusterFeaturesClient, error)`
+- New function `*KubernetesClusterFeaturesClient.BeginCreateOrUpdate(context.Context, string, string, string, KubernetesClusterFeature, *KubernetesClusterFeaturesClientBeginCreateOrUpdateOptions) (*runtime.Poller[KubernetesClusterFeaturesClientCreateOrUpdateResponse], error)`
+- New function `*KubernetesClusterFeaturesClient.BeginDelete(context.Context, string, string, string, *KubernetesClusterFeaturesClientBeginDeleteOptions) (*runtime.Poller[KubernetesClusterFeaturesClientDeleteResponse], error)`
+- New function `*KubernetesClusterFeaturesClient.Get(context.Context, string, string, string, *KubernetesClusterFeaturesClientGetOptions) (KubernetesClusterFeaturesClientGetResponse, error)`
+- New function `*KubernetesClusterFeaturesClient.NewListByKubernetesClusterPager(string, string, *KubernetesClusterFeaturesClientListByKubernetesClusterOptions) *runtime.Pager[KubernetesClusterFeaturesClientListByKubernetesClusterResponse]`
+- New function `*KubernetesClusterFeaturesClient.BeginUpdate(context.Context, string, string, string, KubernetesClusterFeaturePatchParameters, *KubernetesClusterFeaturesClientBeginUpdateOptions) (*runtime.Poller[KubernetesClusterFeaturesClientUpdateResponse], error)`
+- New struct `AdministratorConfigurationPatch`
+- New struct `AnalyticsOutputSettings`
+- New struct `ClusterContinueUpdateVersionParameters`
+- New struct `ClusterScanRuntimeParameters`
+- New struct `ClusterSecretArchive`
+- New struct `ClusterUpdateStrategy`
+- New struct `CommandOutputSettings`
+- New struct `IdentitySelector`
+- New struct `KubernetesClusterFeature`
+- New struct `KubernetesClusterFeatureList`
+- New struct `KubernetesClusterFeaturePatchParameters`
+- New struct `KubernetesClusterFeaturePatchProperties`
+- New struct `KubernetesClusterFeatureProperties`
+- New struct `L2ServiceLoadBalancerConfiguration`
+- New struct `ManagedServiceIdentity`
+- New struct `NodePoolAdministratorConfigurationPatch`
+- New struct `OperationStatusResultProperties`
+- New struct `RuntimeProtectionConfiguration`
+- New struct `RuntimeProtectionStatus`
+- New struct `SecretArchiveReference`
+- New struct `SecretArchiveSettings`
+- New struct `SecretRotationStatus`
+- New struct `StringKeyValuePair`
+- New struct `UserAssignedIdentity`
+- New struct `VulnerabilityScanningSettings`
+- New struct `VulnerabilityScanningSettingsPatch`
+- New field `Etag` in struct `AgentPool`
+- New field `AdministratorConfiguration` in struct `AgentPoolPatchProperties`
+- New field `DrainTimeout`, `MaxUnavailable` in struct `AgentPoolUpgradeSettings`
+- New field `IfMatch`, `IfNoneMatch` in struct `AgentPoolsClientBeginCreateOrUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `AgentPoolsClientBeginDeleteOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `AgentPoolsClientBeginUpdateOptions`
+- New anonymous field `OperationStatusResult` in struct `AgentPoolsClientDeleteResponse`
+- New field `Etag` in struct `BareMetalMachine`
+- New field `Etag` in struct `BareMetalMachineKeySet`
+- New field `IfMatch`, `IfNoneMatch` in struct `BareMetalMachineKeySetsClientBeginCreateOrUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `BareMetalMachineKeySetsClientBeginDeleteOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `BareMetalMachineKeySetsClientBeginUpdateOptions`
+- New anonymous field `OperationStatusResult` in struct `BareMetalMachineKeySetsClientDeleteResponse`
+- New field `MachineClusterVersion`, `MachineRoles`, `RuntimeProtectionStatus`, `SecretRotationStatus` in struct `BareMetalMachineProperties`
+- New field `IfMatch`, `IfNoneMatch` in struct `BareMetalMachinesClientBeginCreateOrUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `BareMetalMachinesClientBeginDeleteOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `BareMetalMachinesClientBeginUpdateOptions`
+- New anonymous field `OperationStatusResult` in struct `BareMetalMachinesClientDeleteResponse`
+- New field `Etag` in struct `BmcKeySet`
+- New field `IfMatch`, `IfNoneMatch` in struct `BmcKeySetsClientBeginCreateOrUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `BmcKeySetsClientBeginDeleteOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `BmcKeySetsClientBeginUpdateOptions`
+- New anonymous field `OperationStatusResult` in struct `BmcKeySetsClientDeleteResponse`
+- New field `Etag` in struct `CloudServicesNetwork`
+- New field `IfMatch`, `IfNoneMatch` in struct `CloudServicesNetworksClientBeginCreateOrUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `CloudServicesNetworksClientBeginDeleteOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `CloudServicesNetworksClientBeginUpdateOptions`
+- New anonymous field `OperationStatusResult` in struct `CloudServicesNetworksClientDeleteResponse`
+- New field `Etag`, `Identity` in struct `Cluster`
+- New field `Etag`, `Identity` in struct `ClusterManager`
+- New field `Identity` in struct `ClusterManagerPatchParameters`
+- New field `IfMatch`, `IfNoneMatch` in struct `ClusterManagersClientBeginCreateOrUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `ClusterManagersClientBeginDeleteOptions`
+- New anonymous field `OperationStatusResult` in struct `ClusterManagersClientDeleteResponse`
+- New field `IfMatch`, `IfNoneMatch` in struct `ClusterManagersClientUpdateOptions`
+- New field `Etag` in struct `ClusterMetricsConfiguration`
+- New field `Identity` in struct `ClusterPatchParameters`
+- New field `AnalyticsOutputSettings`, `CommandOutputSettings`, `RuntimeProtectionConfiguration`, `SecretArchive`, `SecretArchiveSettings`, `UpdateStrategy`, `VulnerabilityScanningSettings` in struct `ClusterPatchProperties`
+- New field `AnalyticsOutputSettings`, `CommandOutputSettings`, `RuntimeProtectionConfiguration`, `SecretArchive`, `SecretArchiveSettings`, `UpdateStrategy`, `VulnerabilityScanningSettings` in struct `ClusterProperties`
+- New field `IfMatch`, `IfNoneMatch` in struct `ClustersClientBeginCreateOrUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `ClustersClientBeginDeleteOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `ClustersClientBeginUpdateOptions`
+- New anonymous field `OperationStatusResult` in struct `ClustersClientDeleteResponse`
+- New field `Etag` in struct `Console`
+- New field `IfMatch`, `IfNoneMatch` in struct `ConsolesClientBeginCreateOrUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `ConsolesClientBeginDeleteOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `ConsolesClientBeginUpdateOptions`
+- New anonymous field `OperationStatusResult` in struct `ConsolesClientDeleteResponse`
+- New field `AdministratorConfiguration` in struct `ControlPlaneNodePatchConfiguration`
+- New field `UserPrincipalName` in struct `KeySetUser`
+- New field `Etag` in struct `KubernetesCluster`
+- New field `AdministratorConfiguration` in struct `KubernetesClusterPatchProperties`
+- New field `IfMatch`, `IfNoneMatch` in struct `KubernetesClustersClientBeginCreateOrUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `KubernetesClustersClientBeginDeleteOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `KubernetesClustersClientBeginUpdateOptions`
+- New anonymous field `OperationStatusResult` in struct `KubernetesClustersClientDeleteResponse`
+- New field `Etag` in struct `L2Network`
+- New field `IfMatch`, `IfNoneMatch` in struct `L2NetworksClientBeginCreateOrUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `L2NetworksClientBeginDeleteOptions`
+- New anonymous field `OperationStatusResult` in struct `L2NetworksClientDeleteResponse`
+- New field `IfMatch`, `IfNoneMatch` in struct `L2NetworksClientUpdateOptions`
+- New field `Etag` in struct `L3Network`
+- New field `IfMatch`, `IfNoneMatch` in struct `L3NetworksClientBeginCreateOrUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `L3NetworksClientBeginDeleteOptions`
+- New anonymous field `OperationStatusResult` in struct `L3NetworksClientDeleteResponse`
+- New field `IfMatch`, `IfNoneMatch` in struct `L3NetworksClientUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `MetricsConfigurationsClientBeginCreateOrUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `MetricsConfigurationsClientBeginDeleteOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `MetricsConfigurationsClientBeginUpdateOptions`
+- New anonymous field `OperationStatusResult` in struct `MetricsConfigurationsClientDeleteResponse`
+- New field `L2ServiceLoadBalancerConfiguration` in struct `NetworkConfiguration`
+- New field `Properties` in struct `OperationStatusResult`
+- New field `Etag` in struct `Rack`
+- New field `IfMatch`, `IfNoneMatch` in struct `RacksClientBeginCreateOrUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `RacksClientBeginDeleteOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `RacksClientBeginUpdateOptions`
+- New anonymous field `OperationStatusResult` in struct `RacksClientDeleteResponse`
+- New field `Etag` in struct `StorageAppliance`
+- New field `Manufacturer`, `Model`, `SecretRotationStatus`, `Version` in struct `StorageApplianceProperties`
+- New field `IfMatch`, `IfNoneMatch` in struct `StorageAppliancesClientBeginCreateOrUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `StorageAppliancesClientBeginDeleteOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `StorageAppliancesClientBeginUpdateOptions`
+- New anonymous field `OperationStatusResult` in struct `StorageAppliancesClientDeleteResponse`
+- New field `Etag` in struct `TrunkedNetwork`
+- New field `IfMatch`, `IfNoneMatch` in struct `TrunkedNetworksClientBeginCreateOrUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `TrunkedNetworksClientBeginDeleteOptions`
+- New anonymous field `OperationStatusResult` in struct `TrunkedNetworksClientDeleteResponse`
+- New field `IfMatch`, `IfNoneMatch` in struct `TrunkedNetworksClientUpdateOptions`
+- New field `Etag` in struct `VirtualMachine`
+- New field `ConsoleExtendedLocation` in struct `VirtualMachineProperties`
+- New field `IfMatch`, `IfNoneMatch` in struct `VirtualMachinesClientBeginCreateOrUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `VirtualMachinesClientBeginDeleteOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `VirtualMachinesClientBeginUpdateOptions`
+- New anonymous field `OperationStatusResult` in struct `VirtualMachinesClientDeleteResponse`
+- New field `Etag` in struct `Volume`
+- New field `IfMatch`, `IfNoneMatch` in struct `VolumesClientBeginCreateOrUpdateOptions`
+- New field `IfMatch`, `IfNoneMatch` in struct `VolumesClientBeginDeleteOptions`
+- New anonymous field `OperationStatusResult` in struct `VolumesClientDeleteResponse`
+- New field `IfMatch`, `IfNoneMatch` in struct `VolumesClientUpdateOptions`
+
+
 ## 1.2.0-beta.1 (2024-11-15)
 ### Features Added
 
