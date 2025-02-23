@@ -46,7 +46,7 @@ func NewMetricsConfigurationsClient(subscriptionID string, credential azcore.Tok
 // BeginCreateOrUpdate - Create new or update the existing metrics configuration of the provided cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-06-01-preview
+// Generated from API version 2025-02-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - metricsConfigurationName - The name of the metrics configuration for the cluster.
@@ -74,7 +74,7 @@ func (client *MetricsConfigurationsClient) BeginCreateOrUpdate(ctx context.Conte
 // CreateOrUpdate - Create new or update the existing metrics configuration of the provided cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-06-01-preview
+// Generated from API version 2025-02-01
 func (client *MetricsConfigurationsClient) createOrUpdate(ctx context.Context, resourceGroupName string, clusterName string, metricsConfigurationName string, metricsConfigurationParameters ClusterMetricsConfiguration, options *MetricsConfigurationsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "MetricsConfigurationsClient.BeginCreateOrUpdate"
@@ -120,9 +120,15 @@ func (client *MetricsConfigurationsClient) createOrUpdateCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-06-01-preview")
+	reqQP.Set("api-version", "2025-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	if options != nil && options.IfMatch != nil {
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
+	}
+	if options != nil && options.IfNoneMatch != nil {
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
+	}
 	if err := runtime.MarshalAsJSON(req, metricsConfigurationParameters); err != nil {
 		return nil, err
 	}
@@ -132,7 +138,7 @@ func (client *MetricsConfigurationsClient) createOrUpdateCreateRequest(ctx conte
 // BeginDelete - Delete the metrics configuration of the provided cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-06-01-preview
+// Generated from API version 2025-02-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - metricsConfigurationName - The name of the metrics configuration for the cluster.
@@ -159,7 +165,7 @@ func (client *MetricsConfigurationsClient) BeginDelete(ctx context.Context, reso
 // Delete - Delete the metrics configuration of the provided cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-06-01-preview
+// Generated from API version 2025-02-01
 func (client *MetricsConfigurationsClient) deleteOperation(ctx context.Context, resourceGroupName string, clusterName string, metricsConfigurationName string, options *MetricsConfigurationsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "MetricsConfigurationsClient.BeginDelete"
@@ -205,16 +211,22 @@ func (client *MetricsConfigurationsClient) deleteCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-06-01-preview")
+	reqQP.Set("api-version", "2025-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	if options != nil && options.IfMatch != nil {
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
+	}
+	if options != nil && options.IfNoneMatch != nil {
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
+	}
 	return req, nil
 }
 
 // Get - Get metrics configuration of the provided cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-06-01-preview
+// Generated from API version 2025-02-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - metricsConfigurationName - The name of the metrics configuration for the cluster.
@@ -266,7 +278,7 @@ func (client *MetricsConfigurationsClient) getCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-06-01-preview")
+	reqQP.Set("api-version", "2025-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -283,7 +295,7 @@ func (client *MetricsConfigurationsClient) getHandleResponse(resp *http.Response
 
 // NewListByClusterPager - Get a list of metrics configurations for the provided cluster.
 //
-// Generated from API version 2024-06-01-preview
+// Generated from API version 2025-02-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - options - MetricsConfigurationsClientListByClusterOptions contains the optional parameters for the MetricsConfigurationsClient.NewListByClusterPager
@@ -331,7 +343,7 @@ func (client *MetricsConfigurationsClient) listByClusterCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-06-01-preview")
+	reqQP.Set("api-version", "2025-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -350,7 +362,7 @@ func (client *MetricsConfigurationsClient) listByClusterHandleResponse(resp *htt
 // Properties and tag updates can be done independently.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-06-01-preview
+// Generated from API version 2025-02-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterName - The name of the cluster.
 //   - metricsConfigurationName - The name of the metrics configuration for the cluster.
@@ -379,7 +391,7 @@ func (client *MetricsConfigurationsClient) BeginUpdate(ctx context.Context, reso
 // and tag updates can be done independently.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-06-01-preview
+// Generated from API version 2025-02-01
 func (client *MetricsConfigurationsClient) update(ctx context.Context, resourceGroupName string, clusterName string, metricsConfigurationName string, metricsConfigurationUpdateParameters ClusterMetricsConfigurationPatchParameters, options *MetricsConfigurationsClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "MetricsConfigurationsClient.BeginUpdate"
@@ -425,9 +437,15 @@ func (client *MetricsConfigurationsClient) updateCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-06-01-preview")
+	reqQP.Set("api-version", "2025-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	if options != nil && options.IfMatch != nil {
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
+	}
+	if options != nil && options.IfNoneMatch != nil {
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
+	}
 	if err := runtime.MarshalAsJSON(req, metricsConfigurationUpdateParameters); err != nil {
 		return nil, err
 	}
