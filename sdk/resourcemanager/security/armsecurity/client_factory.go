@@ -52,22 +52,6 @@ func (c *ClientFactory) NewAccountConnectorsClient() *AccountConnectorsClient {
 	}
 }
 
-// NewAdaptiveApplicationControlsClient creates a new instance of AdaptiveApplicationControlsClient.
-func (c *ClientFactory) NewAdaptiveApplicationControlsClient() *AdaptiveApplicationControlsClient {
-	return &AdaptiveApplicationControlsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
-	}
-}
-
-// NewAdaptiveNetworkHardeningsClient creates a new instance of AdaptiveNetworkHardeningsClient.
-func (c *ClientFactory) NewAdaptiveNetworkHardeningsClient() *AdaptiveNetworkHardeningsClient {
-	return &AdaptiveNetworkHardeningsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
-	}
-}
-
 // NewAdvancedThreatProtectionClient creates a new instance of AdvancedThreatProtectionClient.
 func (c *ClientFactory) NewAdvancedThreatProtectionClient() *AdvancedThreatProtectionClient {
 	return &AdvancedThreatProtectionClient{
@@ -232,6 +216,13 @@ func (c *ClientFactory) NewCustomEntityStoreAssignmentsClient() *CustomEntitySto
 	}
 }
 
+// NewCustomRecommendationsClient creates a new instance of CustomRecommendationsClient.
+func (c *ClientFactory) NewCustomRecommendationsClient() *CustomRecommendationsClient {
+	return &CustomRecommendationsClient{
+		internal: c.internal,
+	}
+}
+
 // NewDefenderForStorageClient creates a new instance of DefenderForStorageClient.
 func (c *ClientFactory) NewDefenderForStorageClient() *DefenderForStorageClient {
 	return &DefenderForStorageClient{
@@ -250,6 +241,22 @@ func (c *ClientFactory) NewDevOpsConfigurationsClient() *DevOpsConfigurationsCli
 // NewDevOpsOperationResultsClient creates a new instance of DevOpsOperationResultsClient.
 func (c *ClientFactory) NewDevOpsOperationResultsClient() *DevOpsOperationResultsClient {
 	return &DevOpsOperationResultsClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewDevOpsPoliciesClient creates a new instance of DevOpsPoliciesClient.
+func (c *ClientFactory) NewDevOpsPoliciesClient() *DevOpsPoliciesClient {
+	return &DevOpsPoliciesClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
+// NewDevOpsPolicyAssignmentsClient creates a new instance of DevOpsPolicyAssignmentsClient.
+func (c *ClientFactory) NewDevOpsPolicyAssignmentsClient() *DevOpsPolicyAssignmentsClient {
+	return &DevOpsPolicyAssignmentsClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
@@ -545,6 +552,20 @@ func (c *ClientFactory) NewSolutionsReferenceDataClient() *SolutionsReferenceDat
 	return &SolutionsReferenceDataClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
+	}
+}
+
+// NewStandardAssignmentsClient creates a new instance of StandardAssignmentsClient.
+func (c *ClientFactory) NewStandardAssignmentsClient() *StandardAssignmentsClient {
+	return &StandardAssignmentsClient{
+		internal: c.internal,
+	}
+}
+
+// NewStandardsClient creates a new instance of StandardsClient.
+func (c *ClientFactory) NewStandardsClient() *StandardsClient {
+	return &StandardsClient{
+		internal: c.internal,
 	}
 }
 

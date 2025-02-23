@@ -46,7 +46,7 @@ func NewDevOpsConfigurationsClient(subscriptionID string, credential azcore.Toke
 // BeginCreateOrUpdate - Creates or updates a DevOps Configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-05-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - securityConnectorName - The security connector name.
 //   - devOpsConfiguration - The DevOps configuration resource payload.
@@ -73,7 +73,7 @@ func (client *DevOpsConfigurationsClient) BeginCreateOrUpdate(ctx context.Contex
 // CreateOrUpdate - Creates or updates a DevOps Configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-05-15-preview
 func (client *DevOpsConfigurationsClient) createOrUpdate(ctx context.Context, resourceGroupName string, securityConnectorName string, devOpsConfiguration DevOpsConfiguration, options *DevOpsConfigurationsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DevOpsConfigurationsClient.BeginCreateOrUpdate"
@@ -115,7 +115,7 @@ func (client *DevOpsConfigurationsClient) createOrUpdateCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2024-05-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, devOpsConfiguration); err != nil {
@@ -127,7 +127,7 @@ func (client *DevOpsConfigurationsClient) createOrUpdateCreateRequest(ctx contex
 // BeginDelete - Deletes a DevOps Connector.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-05-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - securityConnectorName - The security connector name.
 //   - options - DevOpsConfigurationsClientBeginDeleteOptions contains the optional parameters for the DevOpsConfigurationsClient.BeginDelete
@@ -152,7 +152,7 @@ func (client *DevOpsConfigurationsClient) BeginDelete(ctx context.Context, resou
 // Delete - Deletes a DevOps Connector.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-05-15-preview
 func (client *DevOpsConfigurationsClient) deleteOperation(ctx context.Context, resourceGroupName string, securityConnectorName string, options *DevOpsConfigurationsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DevOpsConfigurationsClient.BeginDelete"
@@ -194,7 +194,7 @@ func (client *DevOpsConfigurationsClient) deleteCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2024-05-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -203,7 +203,7 @@ func (client *DevOpsConfigurationsClient) deleteCreateRequest(ctx context.Contex
 // Get - Gets a DevOps Configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-05-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - securityConnectorName - The security connector name.
 //   - options - DevOpsConfigurationsClientGetOptions contains the optional parameters for the DevOpsConfigurationsClient.Get
@@ -250,7 +250,7 @@ func (client *DevOpsConfigurationsClient) getCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2024-05-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -267,7 +267,7 @@ func (client *DevOpsConfigurationsClient) getHandleResponse(resp *http.Response)
 
 // NewListPager - List DevOps Configurations.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-05-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - securityConnectorName - The security connector name.
 //   - options - DevOpsConfigurationsClientListOptions contains the optional parameters for the DevOpsConfigurationsClient.NewListPager
@@ -315,7 +315,7 @@ func (client *DevOpsConfigurationsClient) listCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2024-05-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -333,7 +333,7 @@ func (client *DevOpsConfigurationsClient) listHandleResponse(resp *http.Response
 // BeginUpdate - Updates a DevOps Configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-05-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - securityConnectorName - The security connector name.
 //   - devOpsConfiguration - The DevOps configuration resource payload.
@@ -360,7 +360,7 @@ func (client *DevOpsConfigurationsClient) BeginUpdate(ctx context.Context, resou
 // Update - Updates a DevOps Configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-09-01-preview
+// Generated from API version 2024-05-15-preview
 func (client *DevOpsConfigurationsClient) update(ctx context.Context, resourceGroupName string, securityConnectorName string, devOpsConfiguration DevOpsConfiguration, options *DevOpsConfigurationsClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "DevOpsConfigurationsClient.BeginUpdate"
@@ -402,7 +402,7 @@ func (client *DevOpsConfigurationsClient) updateCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-09-01-preview")
+	reqQP.Set("api-version", "2024-05-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, devOpsConfiguration); err != nil {
