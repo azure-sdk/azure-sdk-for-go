@@ -85,6 +85,10 @@ type AccountProperties struct {
 	// The maximum supported jobs running under the account at the same time.
 	MaxJobCount *int32
 
+	// The current state of allowing or disallowing to use both Guarantee Analytics Unit and Eco Analytics Unit together during
+	// Job execution.
+	MixedTokensMode *MixedTokensMode
+
 	// The commitment tier for the next month.
 	NewTier *TierType
 
@@ -232,6 +236,15 @@ type AddStorageAccountWithAccountParameters struct {
 	Properties *AddStorageAccountProperties
 }
 
+// AnalyticsUnitsParameters - The Analytics Units
+type AnalyticsUnitsParameters struct {
+	// The Account Id - Format: /subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.DataLakeAnalytics/accounts/{accountName}
+	ID *string
+
+	// The updated Analytics Units
+	NewSystemMax *int32
+}
+
 // CapabilityInformation - Subscription-level properties and limits for Data Lake Analytics.
 type CapabilityInformation struct {
 	// READ-ONLY; The current number of accounts under this subscription.
@@ -351,6 +364,10 @@ type CreateDataLakeAnalyticsAccountProperties struct {
 
 	// The minimum supported priority per job for this account.
 	MinPriorityPerJob *int32
+
+	// The current state of allowing or disallowing to use both Guarantee Analytics Unit and Eco Analytics Unit together during
+	// Job execution.
+	MixedTokensMode *MixedTokensMode
 
 	// The commitment tier for the next month.
 	NewTier *TierType
@@ -766,6 +783,18 @@ type SubResource struct {
 	Type *string
 }
 
+// TransferAnalyticsUnitsParameters - The parameters used to transfer Analytics Units from one account to another.
+type TransferAnalyticsUnitsParameters struct {
+	// Current Account's updated Analytics Units
+	NewSystemMax *int32
+
+	// The list of Accounts provides its Analytics Units except the current Account
+	Participants []*AnalyticsUnitsParameters
+
+	// The list of Accounts to receive the Analytics Units except the current Account
+	Recipients []*AnalyticsUnitsParameters
+}
+
 // UpdateComputePolicyParameters - The parameters used to update a compute policy.
 type UpdateComputePolicyParameters struct {
 	// The compute policy properties to use when updating a compute policy.
@@ -839,6 +868,10 @@ type UpdateDataLakeAnalyticsAccountProperties struct {
 
 	// The minimum supported priority per job for this account.
 	MinPriorityPerJob *int32
+
+	// The current state of allowing or disallowing to use both Guarantee Analytics Unit and Eco Analytics Unit together during
+	// Job execution.
+	MixedTokensMode *MixedTokensMode
 
 	// The commitment tier to use for next month.
 	NewTier *TierType

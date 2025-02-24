@@ -10,7 +10,7 @@ package armdatalakeanalytics
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datalake-analytics/armdatalakeanalytics"
-	moduleVersion = "v0.8.0"
+	moduleVersion = "v0.9.0"
 )
 
 // AADObjectType - The type of AAD object the object identifier refers to.
@@ -144,6 +144,23 @@ func PossibleFirewallStateValues() []FirewallState {
 	return []FirewallState{
 		FirewallStateDisabled,
 		FirewallStateEnabled,
+	}
+}
+
+// MixedTokensMode - The current state of allowing or disallowing to use both Guarantee Analytics Unit and Eco Analytics Unit
+// together during Job execution.
+type MixedTokensMode string
+
+const (
+	MixedTokensModeDisabled MixedTokensMode = "Disabled"
+	MixedTokensModeEnabled  MixedTokensMode = "Enabled"
+)
+
+// PossibleMixedTokensModeValues returns the possible values for the MixedTokensMode const type.
+func PossibleMixedTokensModeValues() []MixedTokensMode {
+	return []MixedTokensMode{
+		MixedTokensModeDisabled,
+		MixedTokensModeEnabled,
 	}
 }
 

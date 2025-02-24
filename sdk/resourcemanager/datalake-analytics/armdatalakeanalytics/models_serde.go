@@ -168,6 +168,7 @@ func (a AccountProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "maxJobRunningTimeInMin", a.MaxJobRunningTimeInMin)
 	populate(objectMap, "maxQueuedJobCountPerUser", a.MaxQueuedJobCountPerUser)
 	populate(objectMap, "minPriorityPerJob", a.MinPriorityPerJob)
+	populate(objectMap, "mixedTokensMode", a.MixedTokensMode)
 	populate(objectMap, "newTier", a.NewTier)
 	populate(objectMap, "provisioningState", a.ProvisioningState)
 	populate(objectMap, "publicDataLakeStoreAccounts", a.PublicDataLakeStoreAccounts)
@@ -251,6 +252,9 @@ func (a *AccountProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "minPriorityPerJob":
 			err = unpopulate(val, "MinPriorityPerJob", &a.MinPriorityPerJob)
+			delete(rawMsg, key)
+		case "mixedTokensMode":
+			err = unpopulate(val, "MixedTokensMode", &a.MixedTokensMode)
 			delete(rawMsg, key)
 		case "newTier":
 			err = unpopulate(val, "NewTier", &a.NewTier)
@@ -499,6 +503,37 @@ func (a *AddStorageAccountWithAccountParameters) UnmarshalJSON(data []byte) erro
 			delete(rawMsg, key)
 		case "properties":
 			err = unpopulate(val, "Properties", &a.Properties)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AnalyticsUnitsParameters.
+func (a AnalyticsUnitsParameters) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "id", a.ID)
+	populate(objectMap, "newSystemMax", a.NewSystemMax)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AnalyticsUnitsParameters.
+func (a *AnalyticsUnitsParameters) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "id":
+			err = unpopulate(val, "ID", &a.ID)
+			delete(rawMsg, key)
+		case "newSystemMax":
+			err = unpopulate(val, "NewSystemMax", &a.NewSystemMax)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -770,6 +805,7 @@ func (c CreateDataLakeAnalyticsAccountProperties) MarshalJSON() ([]byte, error) 
 	populate(objectMap, "maxDegreeOfParallelismPerJob", c.MaxDegreeOfParallelismPerJob)
 	populate(objectMap, "maxJobCount", c.MaxJobCount)
 	populate(objectMap, "minPriorityPerJob", c.MinPriorityPerJob)
+	populate(objectMap, "mixedTokensMode", c.MixedTokensMode)
 	populate(objectMap, "newTier", c.NewTier)
 	populate(objectMap, "queryStoreRetention", c.QueryStoreRetention)
 	populate(objectMap, "storageAccounts", c.StorageAccounts)
@@ -814,6 +850,9 @@ func (c *CreateDataLakeAnalyticsAccountProperties) UnmarshalJSON(data []byte) er
 			delete(rawMsg, key)
 		case "minPriorityPerJob":
 			err = unpopulate(val, "MinPriorityPerJob", &c.MinPriorityPerJob)
+			delete(rawMsg, key)
+		case "mixedTokensMode":
+			err = unpopulate(val, "MixedTokensMode", &c.MixedTokensMode)
 			delete(rawMsg, key)
 		case "newTier":
 			err = unpopulate(val, "NewTier", &c.NewTier)
@@ -2048,6 +2087,41 @@ func (s *SubResource) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type TransferAnalyticsUnitsParameters.
+func (t TransferAnalyticsUnitsParameters) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "newSystemMax", t.NewSystemMax)
+	populate(objectMap, "participants", t.Participants)
+	populate(objectMap, "recipients", t.Recipients)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type TransferAnalyticsUnitsParameters.
+func (t *TransferAnalyticsUnitsParameters) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", t, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "newSystemMax":
+			err = unpopulate(val, "NewSystemMax", &t.NewSystemMax)
+			delete(rawMsg, key)
+		case "participants":
+			err = unpopulate(val, "Participants", &t.Participants)
+			delete(rawMsg, key)
+		case "recipients":
+			err = unpopulate(val, "Recipients", &t.Recipients)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", t, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type UpdateComputePolicyParameters.
 func (u UpdateComputePolicyParameters) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -2188,6 +2262,7 @@ func (u UpdateDataLakeAnalyticsAccountProperties) MarshalJSON() ([]byte, error) 
 	populate(objectMap, "maxDegreeOfParallelismPerJob", u.MaxDegreeOfParallelismPerJob)
 	populate(objectMap, "maxJobCount", u.MaxJobCount)
 	populate(objectMap, "minPriorityPerJob", u.MinPriorityPerJob)
+	populate(objectMap, "mixedTokensMode", u.MixedTokensMode)
 	populate(objectMap, "newTier", u.NewTier)
 	populate(objectMap, "queryStoreRetention", u.QueryStoreRetention)
 	populate(objectMap, "storageAccounts", u.StorageAccounts)
@@ -2229,6 +2304,9 @@ func (u *UpdateDataLakeAnalyticsAccountProperties) UnmarshalJSON(data []byte) er
 			delete(rawMsg, key)
 		case "minPriorityPerJob":
 			err = unpopulate(val, "MinPriorityPerJob", &u.MinPriorityPerJob)
+			delete(rawMsg, key)
+		case "mixedTokensMode":
+			err = unpopulate(val, "MixedTokensMode", &u.MixedTokensMode)
 			delete(rawMsg, key)
 		case "newTier":
 			err = unpopulate(val, "NewTier", &u.NewTier)
@@ -2605,7 +2683,7 @@ func populateAny(m map[string]any, k string, v any) {
 }
 
 func unpopulate(data json.RawMessage, fn string, v any) error {
-	if data == nil {
+	if data == nil || string(data) == "null" {
 		return nil
 	}
 	if err := json.Unmarshal(data, v); err != nil {

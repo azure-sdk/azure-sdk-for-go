@@ -91,6 +91,18 @@ type AccountsClientListOptions struct {
 	Top *int32
 }
 
+// AccountsClientTransferAnalyticsUnitsOptions contains the optional parameters for the AccountsClient.TransferAnalyticsUnits
+// method.
+type AccountsClientTransferAnalyticsUnitsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AccountsClientTransferEcoAnalyticsUnitsOptions contains the optional parameters for the AccountsClient.TransferEcoAnalyticsUnits
+// method.
+type AccountsClientTransferEcoAnalyticsUnitsOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ComputePoliciesClientCreateOrUpdateOptions contains the optional parameters for the ComputePoliciesClient.CreateOrUpdate
 // method.
 type ComputePoliciesClientCreateOrUpdateOptions struct {
