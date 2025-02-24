@@ -10,7 +10,7 @@ package armdatafactory
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datafactory/armdatafactory"
-	moduleVersion = "v9.1.0"
+	moduleVersion = "v9.2.0"
 )
 
 // ActivityOnInactiveMarkAs - Status result of the activity when the state is set to Inactive. This is an optional property
@@ -87,6 +87,24 @@ func PossibleAzureFunctionActivityMethodValues() []AzureFunctionActivityMethod {
 		AzureFunctionActivityMethodPOST,
 		AzureFunctionActivityMethodPUT,
 		AzureFunctionActivityMethodTRACE,
+	}
+}
+
+// AzurePostgreSQLWriteMethodEnum - The write behavior for the operation. Default is Bulk Insert.
+type AzurePostgreSQLWriteMethodEnum string
+
+const (
+	AzurePostgreSQLWriteMethodEnumBulkInsert  AzurePostgreSQLWriteMethodEnum = "BulkInsert"
+	AzurePostgreSQLWriteMethodEnumCopyCommand AzurePostgreSQLWriteMethodEnum = "CopyCommand"
+	AzurePostgreSQLWriteMethodEnumUpsert      AzurePostgreSQLWriteMethodEnum = "Upsert"
+)
+
+// PossibleAzurePostgreSQLWriteMethodEnumValues returns the possible values for the AzurePostgreSQLWriteMethodEnum const type.
+func PossibleAzurePostgreSQLWriteMethodEnumValues() []AzurePostgreSQLWriteMethodEnum {
+	return []AzurePostgreSQLWriteMethodEnum{
+		AzurePostgreSQLWriteMethodEnumBulkInsert,
+		AzurePostgreSQLWriteMethodEnumCopyCommand,
+		AzurePostgreSQLWriteMethodEnumUpsert,
 	}
 }
 
@@ -660,6 +678,20 @@ func PossibleGoogleBigQueryV2AuthenticationTypeValues() []GoogleBigQueryV2Authen
 	}
 }
 
+// GreenplumAuthenticationType - The authentication type to use. Type: string. Only used for V2.
+type GreenplumAuthenticationType string
+
+const (
+	GreenplumAuthenticationTypeBasic GreenplumAuthenticationType = "Basic"
+)
+
+// PossibleGreenplumAuthenticationTypeValues returns the possible values for the GreenplumAuthenticationType const type.
+func PossibleGreenplumAuthenticationTypeValues() []GreenplumAuthenticationType {
+	return []GreenplumAuthenticationType{
+		GreenplumAuthenticationTypeBasic,
+	}
+}
+
 // HBaseAuthenticationType - The authentication mechanism to use to connect to the HBase server.
 type HBaseAuthenticationType string
 
@@ -1141,6 +1173,20 @@ func PossibleODataAuthenticationTypeValues() []ODataAuthenticationType {
 		ODataAuthenticationTypeBasic,
 		ODataAuthenticationTypeManagedServiceIdentity,
 		ODataAuthenticationTypeWindows,
+	}
+}
+
+// OracleAuthenticationType - Authentication type for connecting to the Oracle database. Only used for Version 2.0.
+type OracleAuthenticationType string
+
+const (
+	OracleAuthenticationTypeBasic OracleAuthenticationType = "Basic"
+)
+
+// PossibleOracleAuthenticationTypeValues returns the possible values for the OracleAuthenticationType const type.
+func PossibleOracleAuthenticationTypeValues() []OracleAuthenticationType {
+	return []OracleAuthenticationType{
+		OracleAuthenticationTypeBasic,
 	}
 }
 
