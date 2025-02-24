@@ -1,5 +1,18 @@
 # Release History
 
+## 0.9.0 (2025-02-24)
+### Features Added
+
+- New enum type `MixedTokensMode` with values `MixedTokensModeDisabled`, `MixedTokensModeEnabled`
+- New function `*AccountsClient.TransferAnalyticsUnits(context.Context, string, string, TransferAnalyticsUnitsParameters, *AccountsClientTransferAnalyticsUnitsOptions) (AccountsClientTransferAnalyticsUnitsResponse, error)`
+- New function `*AccountsClient.TransferEcoAnalyticsUnits(context.Context, string, string, TransferAnalyticsUnitsParameters, *AccountsClientTransferEcoAnalyticsUnitsOptions) (AccountsClientTransferEcoAnalyticsUnitsResponse, error)`
+- New struct `AnalyticsUnitsParameters`
+- New struct `TransferAnalyticsUnitsParameters`
+- New field `MixedTokensMode` in struct `AccountProperties`
+- New field `MixedTokensMode` in struct `CreateDataLakeAnalyticsAccountProperties`
+- New field `MixedTokensMode` in struct `UpdateDataLakeAnalyticsAccountProperties`
+
+
 ## 0.8.0 (2023-11-24)
 ### Features Added
 

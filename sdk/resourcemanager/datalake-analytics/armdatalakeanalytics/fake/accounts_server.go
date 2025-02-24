@@ -50,6 +50,14 @@ type AccountsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListByResourceGroupPager func(resourceGroupName string, options *armdatalakeanalytics.AccountsClientListByResourceGroupOptions) (resp azfake.PagerResponder[armdatalakeanalytics.AccountsClientListByResourceGroupResponse])
 
+	// TransferAnalyticsUnits is the fake for method AccountsClient.TransferAnalyticsUnits
+	// HTTP status codes to indicate success: http.StatusOK
+	TransferAnalyticsUnits func(ctx context.Context, resourceGroupName string, accountName string, parameters armdatalakeanalytics.TransferAnalyticsUnitsParameters, options *armdatalakeanalytics.AccountsClientTransferAnalyticsUnitsOptions) (resp azfake.Responder[armdatalakeanalytics.AccountsClientTransferAnalyticsUnitsResponse], errResp azfake.ErrorResponder)
+
+	// TransferEcoAnalyticsUnits is the fake for method AccountsClient.TransferEcoAnalyticsUnits
+	// HTTP status codes to indicate success: http.StatusOK
+	TransferEcoAnalyticsUnits func(ctx context.Context, resourceGroupName string, accountName string, parameters armdatalakeanalytics.TransferAnalyticsUnitsParameters, options *armdatalakeanalytics.AccountsClientTransferEcoAnalyticsUnitsOptions) (resp azfake.Responder[armdatalakeanalytics.AccountsClientTransferEcoAnalyticsUnitsResponse], errResp azfake.ErrorResponder)
+
 	// BeginUpdate is the fake for method AccountsClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated, http.StatusAccepted
 	BeginUpdate func(ctx context.Context, resourceGroupName string, accountName string, options *armdatalakeanalytics.AccountsClientBeginUpdateOptions) (resp azfake.PollerResponder[armdatalakeanalytics.AccountsClientUpdateResponse], errResp azfake.ErrorResponder)
@@ -104,6 +112,10 @@ func (a *AccountsServerTransport) Do(req *http.Request) (*http.Response, error) 
 		resp, err = a.dispatchNewListPager(req)
 	case "AccountsClient.NewListByResourceGroupPager":
 		resp, err = a.dispatchNewListByResourceGroupPager(req)
+	case "AccountsClient.TransferAnalyticsUnits":
+		resp, err = a.dispatchTransferAnalyticsUnits(req)
+	case "AccountsClient.TransferEcoAnalyticsUnits":
+		resp, err = a.dispatchTransferEcoAnalyticsUnits(req)
 	case "AccountsClient.BeginUpdate":
 		resp, err = a.dispatchBeginUpdate(req)
 	default:
@@ -467,6 +479,80 @@ func (a *AccountsServerTransport) dispatchNewListByResourceGroupPager(req *http.
 	}
 	if !server.PagerResponderMore(newListByResourceGroupPager) {
 		a.newListByResourceGroupPager.remove(req)
+	}
+	return resp, nil
+}
+
+func (a *AccountsServerTransport) dispatchTransferAnalyticsUnits(req *http.Request) (*http.Response, error) {
+	if a.srv.TransferAnalyticsUnits == nil {
+		return nil, &nonRetriableError{errors.New("fake for method TransferAnalyticsUnits not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DataLakeAnalytics/accounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/transferAnalyticsUnits`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armdatalakeanalytics.TransferAnalyticsUnitsParameters](req)
+	if err != nil {
+		return nil, err
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	accountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("accountName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := a.srv.TransferAnalyticsUnits(req.Context(), resourceGroupNameParam, accountNameParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.NewResponse(respContent, req, nil)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (a *AccountsServerTransport) dispatchTransferEcoAnalyticsUnits(req *http.Request) (*http.Response, error) {
+	if a.srv.TransferEcoAnalyticsUnits == nil {
+		return nil, &nonRetriableError{errors.New("fake for method TransferEcoAnalyticsUnits not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DataLakeAnalytics/accounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/transferEcoAnalyticsUnits`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armdatalakeanalytics.TransferAnalyticsUnitsParameters](req)
+	if err != nil {
+		return nil, err
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	accountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("accountName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := a.srv.TransferEcoAnalyticsUnits(req.Context(), resourceGroupNameParam, accountNameParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.NewResponse(respContent, req, nil)
+	if err != nil {
+		return nil, err
 	}
 	return resp, nil
 }

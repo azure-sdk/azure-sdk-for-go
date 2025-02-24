@@ -43,6 +43,16 @@ type AccountsClientListResponse struct {
 	AccountListResult
 }
 
+// AccountsClientTransferAnalyticsUnitsResponse contains the response from method AccountsClient.TransferAnalyticsUnits.
+type AccountsClientTransferAnalyticsUnitsResponse struct {
+	// placeholder for future response values
+}
+
+// AccountsClientTransferEcoAnalyticsUnitsResponse contains the response from method AccountsClient.TransferEcoAnalyticsUnits.
+type AccountsClientTransferEcoAnalyticsUnitsResponse struct {
+	// placeholder for future response values
+}
+
 // AccountsClientUpdateResponse contains the response from method AccountsClient.BeginUpdate.
 type AccountsClientUpdateResponse struct {
 	// A Data Lake Analytics account object, containing all information associated with the named Data Lake Analytics account.

@@ -369,23 +369,23 @@ func (client *AccountsClient) listCreateRequest(ctx context.Context, options *Ac
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
+	if options != nil && options.Count != nil {
+		reqQP.Set("$count", strconv.FormatBool(*options.Count))
+	}
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
-	}
-	if options != nil && options.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
-	}
-	if options != nil && options.Skip != nil {
-		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
-	}
-	if options != nil && options.Select != nil {
-		reqQP.Set("$select", *options.Select)
 	}
 	if options != nil && options.Orderby != nil {
 		reqQP.Set("$orderby", *options.Orderby)
 	}
-	if options != nil && options.Count != nil {
-		reqQP.Set("$count", strconv.FormatBool(*options.Count))
+	if options != nil && options.Select != nil {
+		reqQP.Set("$select", *options.Select)
+	}
+	if options != nil && options.Skip != nil {
+		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
+	}
+	if options != nil && options.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
 	reqQP.Set("api-version", "2019-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
@@ -448,23 +448,23 @@ func (client *AccountsClient) listByResourceGroupCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
+	if options != nil && options.Count != nil {
+		reqQP.Set("$count", strconv.FormatBool(*options.Count))
+	}
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
-	}
-	if options != nil && options.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
-	}
-	if options != nil && options.Skip != nil {
-		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
-	}
-	if options != nil && options.Select != nil {
-		reqQP.Set("$select", *options.Select)
 	}
 	if options != nil && options.Orderby != nil {
 		reqQP.Set("$orderby", *options.Orderby)
 	}
-	if options != nil && options.Count != nil {
-		reqQP.Set("$count", strconv.FormatBool(*options.Count))
+	if options != nil && options.Select != nil {
+		reqQP.Set("$select", *options.Select)
+	}
+	if options != nil && options.Skip != nil {
+		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
+	}
+	if options != nil && options.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
 	reqQP.Set("api-version", "2019-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
@@ -479,6 +479,124 @@ func (client *AccountsClient) listByResourceGroupHandleResponse(resp *http.Respo
 		return AccountsClientListByResourceGroupResponse{}, err
 	}
 	return result, nil
+}
+
+// TransferAnalyticsUnits - Transfer Guarantee Analytics Units between allowed Data Lake Analytics accounts.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2019-11-01-preview
+//   - resourceGroupName - The name of the Azure resource group.
+//   - accountName - The name of the Data Lake Analytics account.
+//   - parameters - Parameters supplied to transfer Guarantee Analytics Units between allowed accounts.
+//   - options - AccountsClientTransferAnalyticsUnitsOptions contains the optional parameters for the AccountsClient.TransferAnalyticsUnits
+//     method.
+func (client *AccountsClient) TransferAnalyticsUnits(ctx context.Context, resourceGroupName string, accountName string, parameters TransferAnalyticsUnitsParameters, options *AccountsClientTransferAnalyticsUnitsOptions) (AccountsClientTransferAnalyticsUnitsResponse, error) {
+	var err error
+	const operationName = "AccountsClient.TransferAnalyticsUnits"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.transferAnalyticsUnitsCreateRequest(ctx, resourceGroupName, accountName, parameters, options)
+	if err != nil {
+		return AccountsClientTransferAnalyticsUnitsResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return AccountsClientTransferAnalyticsUnitsResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return AccountsClientTransferAnalyticsUnitsResponse{}, err
+	}
+	return AccountsClientTransferAnalyticsUnitsResponse{}, nil
+}
+
+// transferAnalyticsUnitsCreateRequest creates the TransferAnalyticsUnits request.
+func (client *AccountsClient) transferAnalyticsUnitsCreateRequest(ctx context.Context, resourceGroupName string, accountName string, parameters TransferAnalyticsUnitsParameters, options *AccountsClientTransferAnalyticsUnitsOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataLakeAnalytics/accounts/{accountName}/transferAnalyticsUnits"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if accountName == "" {
+		return nil, errors.New("parameter accountName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2019-11-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
+		return nil, err
+	}
+	return req, nil
+}
+
+// TransferEcoAnalyticsUnits - Transfer Eco-Analytics Units between allowed Data Lake Analytics accounts.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2019-11-01-preview
+//   - resourceGroupName - The name of the Azure resource group.
+//   - accountName - The name of the Data Lake Analytics account.
+//   - parameters - Parameters supplied to transfer Eco-Analytics Units between allowed accounts.
+//   - options - AccountsClientTransferEcoAnalyticsUnitsOptions contains the optional parameters for the AccountsClient.TransferEcoAnalyticsUnits
+//     method.
+func (client *AccountsClient) TransferEcoAnalyticsUnits(ctx context.Context, resourceGroupName string, accountName string, parameters TransferAnalyticsUnitsParameters, options *AccountsClientTransferEcoAnalyticsUnitsOptions) (AccountsClientTransferEcoAnalyticsUnitsResponse, error) {
+	var err error
+	const operationName = "AccountsClient.TransferEcoAnalyticsUnits"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.transferEcoAnalyticsUnitsCreateRequest(ctx, resourceGroupName, accountName, parameters, options)
+	if err != nil {
+		return AccountsClientTransferEcoAnalyticsUnitsResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return AccountsClientTransferEcoAnalyticsUnitsResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return AccountsClientTransferEcoAnalyticsUnitsResponse{}, err
+	}
+	return AccountsClientTransferEcoAnalyticsUnitsResponse{}, nil
+}
+
+// transferEcoAnalyticsUnitsCreateRequest creates the TransferEcoAnalyticsUnits request.
+func (client *AccountsClient) transferEcoAnalyticsUnitsCreateRequest(ctx context.Context, resourceGroupName string, accountName string, parameters TransferAnalyticsUnitsParameters, options *AccountsClientTransferEcoAnalyticsUnitsOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataLakeAnalytics/accounts/{accountName}/transferEcoAnalyticsUnits"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if accountName == "" {
+		return nil, errors.New("parameter accountName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2019-11-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
+		return nil, err
+	}
+	return req, nil
 }
 
 // BeginUpdate - Updates the Data Lake Analytics account object specified by the accountName with the contents of the account
