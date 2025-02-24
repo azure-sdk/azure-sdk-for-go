@@ -20,64 +20,65 @@ import (
 	"strings"
 )
 
-// BookmarksClient contains the methods for the Bookmarks group.
-// Don't use this type directly, use NewBookmarksClient() instead.
-type BookmarksClient struct {
+// IncidentTasksClient contains the methods for the IncidentTasks group.
+// Don't use this type directly, use NewIncidentTasksClient() instead.
+type IncidentTasksClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewBookmarksClient creates a new instance of BookmarksClient with the specified values.
+// NewIncidentTasksClient creates a new instance of IncidentTasksClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewBookmarksClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*BookmarksClient, error) {
+func NewIncidentTasksClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*IncidentTasksClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &BookmarksClient{
+	client := &IncidentTasksClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// CreateOrUpdate - Creates or updates the bookmark.
+// CreateOrUpdate - Creates or updates the incident task.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2025-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
-//   - bookmarkID - Bookmark ID
-//   - bookmark - The bookmark
-//   - options - BookmarksClientCreateOrUpdateOptions contains the optional parameters for the BookmarksClient.CreateOrUpdate
+//   - incidentID - Incident ID
+//   - incidentTaskID - Incident task ID
+//   - incidentTask - The incident task
+//   - options - IncidentTasksClientCreateOrUpdateOptions contains the optional parameters for the IncidentTasksClient.CreateOrUpdate
 //     method.
-func (client *BookmarksClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, bookmarkID string, bookmark Bookmark, options *BookmarksClientCreateOrUpdateOptions) (BookmarksClientCreateOrUpdateResponse, error) {
+func (client *IncidentTasksClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, incidentID string, incidentTaskID string, incidentTask IncidentTask, options *IncidentTasksClientCreateOrUpdateOptions) (IncidentTasksClientCreateOrUpdateResponse, error) {
 	var err error
-	const operationName = "BookmarksClient.CreateOrUpdate"
+	const operationName = "IncidentTasksClient.CreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, bookmarkID, bookmark, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, incidentID, incidentTaskID, incidentTask, options)
 	if err != nil {
-		return BookmarksClientCreateOrUpdateResponse{}, err
+		return IncidentTasksClientCreateOrUpdateResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return BookmarksClientCreateOrUpdateResponse{}, err
+		return IncidentTasksClientCreateOrUpdateResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated) {
 		err = runtime.NewResponseError(httpResp)
-		return BookmarksClientCreateOrUpdateResponse{}, err
+		return IncidentTasksClientCreateOrUpdateResponse{}, err
 	}
 	resp, err := client.createOrUpdateHandleResponse(httpResp)
 	return resp, err
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *BookmarksClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, bookmarkID string, bookmark Bookmark, options *BookmarksClientCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/bookmarks/{bookmarkId}"
+func (client *IncidentTasksClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, incidentID string, incidentTaskID string, incidentTask IncidentTask, options *IncidentTasksClientCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/incidents/{incidentId}/tasks/{incidentTaskId}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -90,10 +91,14 @@ func (client *BookmarksClient) createOrUpdateCreateRequest(ctx context.Context, 
 		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
-	if bookmarkID == "" {
-		return nil, errors.New("parameter bookmarkID cannot be empty")
+	if incidentID == "" {
+		return nil, errors.New("parameter incidentID cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{bookmarkId}", url.PathEscape(bookmarkID))
+	urlPath = strings.ReplaceAll(urlPath, "{incidentId}", url.PathEscape(incidentID))
+	if incidentTaskID == "" {
+		return nil, errors.New("parameter incidentTaskID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{incidentTaskId}", url.PathEscape(incidentTaskID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -102,53 +107,54 @@ func (client *BookmarksClient) createOrUpdateCreateRequest(ctx context.Context, 
 	reqQP.Set("api-version", "2025-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, bookmark); err != nil {
+	if err := runtime.MarshalAsJSON(req, incidentTask); err != nil {
 		return nil, err
 	}
 	return req, nil
 }
 
 // createOrUpdateHandleResponse handles the CreateOrUpdate response.
-func (client *BookmarksClient) createOrUpdateHandleResponse(resp *http.Response) (BookmarksClientCreateOrUpdateResponse, error) {
-	result := BookmarksClientCreateOrUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.Bookmark); err != nil {
-		return BookmarksClientCreateOrUpdateResponse{}, err
+func (client *IncidentTasksClient) createOrUpdateHandleResponse(resp *http.Response) (IncidentTasksClientCreateOrUpdateResponse, error) {
+	result := IncidentTasksClientCreateOrUpdateResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.IncidentTask); err != nil {
+		return IncidentTasksClientCreateOrUpdateResponse{}, err
 	}
 	return result, nil
 }
 
-// Delete - Delete the bookmark.
+// Delete - Delete the incident task.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2025-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
-//   - bookmarkID - Bookmark ID
-//   - options - BookmarksClientDeleteOptions contains the optional parameters for the BookmarksClient.Delete method.
-func (client *BookmarksClient) Delete(ctx context.Context, resourceGroupName string, workspaceName string, bookmarkID string, options *BookmarksClientDeleteOptions) (BookmarksClientDeleteResponse, error) {
+//   - incidentID - Incident ID
+//   - incidentTaskID - Incident task ID
+//   - options - IncidentTasksClientDeleteOptions contains the optional parameters for the IncidentTasksClient.Delete method.
+func (client *IncidentTasksClient) Delete(ctx context.Context, resourceGroupName string, workspaceName string, incidentID string, incidentTaskID string, options *IncidentTasksClientDeleteOptions) (IncidentTasksClientDeleteResponse, error) {
 	var err error
-	const operationName = "BookmarksClient.Delete"
+	const operationName = "IncidentTasksClient.Delete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, bookmarkID, options)
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, incidentID, incidentTaskID, options)
 	if err != nil {
-		return BookmarksClientDeleteResponse{}, err
+		return IncidentTasksClientDeleteResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return BookmarksClientDeleteResponse{}, err
+		return IncidentTasksClientDeleteResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
-		return BookmarksClientDeleteResponse{}, err
+		return IncidentTasksClientDeleteResponse{}, err
 	}
-	return BookmarksClientDeleteResponse{}, nil
+	return IncidentTasksClientDeleteResponse{}, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *BookmarksClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, bookmarkID string, options *BookmarksClientDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/bookmarks/{bookmarkId}"
+func (client *IncidentTasksClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, incidentID string, incidentTaskID string, options *IncidentTasksClientDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/incidents/{incidentId}/tasks/{incidentTaskId}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -161,10 +167,14 @@ func (client *BookmarksClient) deleteCreateRequest(ctx context.Context, resource
 		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
-	if bookmarkID == "" {
-		return nil, errors.New("parameter bookmarkID cannot be empty")
+	if incidentID == "" {
+		return nil, errors.New("parameter incidentID cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{bookmarkId}", url.PathEscape(bookmarkID))
+	urlPath = strings.ReplaceAll(urlPath, "{incidentId}", url.PathEscape(incidentID))
+	if incidentTaskID == "" {
+		return nil, errors.New("parameter incidentTaskID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{incidentTaskId}", url.PathEscape(incidentTaskID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -176,39 +186,40 @@ func (client *BookmarksClient) deleteCreateRequest(ctx context.Context, resource
 	return req, nil
 }
 
-// Get - Gets a bookmark.
+// Get - Gets an incident task.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2025-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
-//   - bookmarkID - Bookmark ID
-//   - options - BookmarksClientGetOptions contains the optional parameters for the BookmarksClient.Get method.
-func (client *BookmarksClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, bookmarkID string, options *BookmarksClientGetOptions) (BookmarksClientGetResponse, error) {
+//   - incidentID - Incident ID
+//   - incidentTaskID - Incident task ID
+//   - options - IncidentTasksClientGetOptions contains the optional parameters for the IncidentTasksClient.Get method.
+func (client *IncidentTasksClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, incidentID string, incidentTaskID string, options *IncidentTasksClientGetOptions) (IncidentTasksClientGetResponse, error) {
 	var err error
-	const operationName = "BookmarksClient.Get"
+	const operationName = "IncidentTasksClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, bookmarkID, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, incidentID, incidentTaskID, options)
 	if err != nil {
-		return BookmarksClientGetResponse{}, err
+		return IncidentTasksClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return BookmarksClientGetResponse{}, err
+		return IncidentTasksClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return BookmarksClientGetResponse{}, err
+		return IncidentTasksClientGetResponse{}, err
 	}
 	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
 // getCreateRequest creates the Get request.
-func (client *BookmarksClient) getCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, bookmarkID string, options *BookmarksClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/bookmarks/{bookmarkId}"
+func (client *IncidentTasksClient) getCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, incidentID string, incidentTaskID string, options *IncidentTasksClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/incidents/{incidentId}/tasks/{incidentTaskId}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -221,10 +232,14 @@ func (client *BookmarksClient) getCreateRequest(ctx context.Context, resourceGro
 		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
-	if bookmarkID == "" {
-		return nil, errors.New("parameter bookmarkID cannot be empty")
+	if incidentID == "" {
+		return nil, errors.New("parameter incidentID cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{bookmarkId}", url.PathEscape(bookmarkID))
+	urlPath = strings.ReplaceAll(urlPath, "{incidentId}", url.PathEscape(incidentID))
+	if incidentTaskID == "" {
+		return nil, errors.New("parameter incidentTaskID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{incidentTaskId}", url.PathEscape(incidentTaskID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -237,36 +252,37 @@ func (client *BookmarksClient) getCreateRequest(ctx context.Context, resourceGro
 }
 
 // getHandleResponse handles the Get response.
-func (client *BookmarksClient) getHandleResponse(resp *http.Response) (BookmarksClientGetResponse, error) {
-	result := BookmarksClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.Bookmark); err != nil {
-		return BookmarksClientGetResponse{}, err
+func (client *IncidentTasksClient) getHandleResponse(resp *http.Response) (IncidentTasksClientGetResponse, error) {
+	result := IncidentTasksClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.IncidentTask); err != nil {
+		return IncidentTasksClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListPager - Gets all bookmarks.
+// NewListPager - Gets all incident tasks.
 //
 // Generated from API version 2025-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
-//   - options - BookmarksClientListOptions contains the optional parameters for the BookmarksClient.NewListPager method.
-func (client *BookmarksClient) NewListPager(resourceGroupName string, workspaceName string, options *BookmarksClientListOptions) *runtime.Pager[BookmarksClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[BookmarksClientListResponse]{
-		More: func(page BookmarksClientListResponse) bool {
+//   - incidentID - Incident ID
+//   - options - IncidentTasksClientListOptions contains the optional parameters for the IncidentTasksClient.NewListPager method.
+func (client *IncidentTasksClient) NewListPager(resourceGroupName string, workspaceName string, incidentID string, options *IncidentTasksClientListOptions) *runtime.Pager[IncidentTasksClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[IncidentTasksClientListResponse]{
+		More: func(page IncidentTasksClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *BookmarksClientListResponse) (BookmarksClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "BookmarksClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *IncidentTasksClientListResponse) (IncidentTasksClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "IncidentTasksClient.NewListPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, resourceGroupName, workspaceName, options)
+				return client.listCreateRequest(ctx, resourceGroupName, workspaceName, incidentID, options)
 			}, nil)
 			if err != nil {
-				return BookmarksClientListResponse{}, err
+				return IncidentTasksClientListResponse{}, err
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -275,8 +291,8 @@ func (client *BookmarksClient) NewListPager(resourceGroupName string, workspaceN
 }
 
 // listCreateRequest creates the List request.
-func (client *BookmarksClient) listCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, options *BookmarksClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/bookmarks"
+func (client *IncidentTasksClient) listCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, incidentID string, options *IncidentTasksClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/incidents/{incidentId}/tasks"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -289,6 +305,10 @@ func (client *BookmarksClient) listCreateRequest(ctx context.Context, resourceGr
 		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
+	if incidentID == "" {
+		return nil, errors.New("parameter incidentID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{incidentId}", url.PathEscape(incidentID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -301,10 +321,10 @@ func (client *BookmarksClient) listCreateRequest(ctx context.Context, resourceGr
 }
 
 // listHandleResponse handles the List response.
-func (client *BookmarksClient) listHandleResponse(resp *http.Response) (BookmarksClientListResponse, error) {
-	result := BookmarksClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.BookmarkList); err != nil {
-		return BookmarksClientListResponse{}, err
+func (client *IncidentTasksClient) listHandleResponse(resp *http.Response) (IncidentTasksClientListResponse, error) {
+	result := IncidentTasksClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.IncidentTaskList); err != nil {
+		return IncidentTasksClientListResponse{}, err
 	}
 	return result, nil
 }
