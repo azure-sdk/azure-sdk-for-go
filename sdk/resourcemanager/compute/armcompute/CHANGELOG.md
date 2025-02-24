@@ -1,5 +1,100 @@
 # Release History
 
+## 7.0.0 (2025-02-24)
+### Breaking Changes
+
+- `StorageAccountTypePremiumV2LRS` from enum `StorageAccountType` has been removed
+- Enum `AccessControlRulesMode` has been removed
+- Enum `EndpointAccess` has been removed
+- Enum `EndpointTypes` has been removed
+- Enum `GalleryApplicationScriptRebootBehavior` has been removed
+- Enum `SoftDeletedArtifactTypes` has been removed
+- Enum `ValidationStatus` has been removed
+- Function `*ClientFactory.NewGalleryInVMAccessControlProfileVersionsClient` has been removed
+- Function `*ClientFactory.NewGalleryInVMAccessControlProfilesClient` has been removed
+- Function `*ClientFactory.NewSoftDeletedResourceClient` has been removed
+- Function `NewGalleryInVMAccessControlProfileVersionsClient` has been removed
+- Function `*GalleryInVMAccessControlProfileVersionsClient.BeginCreateOrUpdate` has been removed
+- Function `*GalleryInVMAccessControlProfileVersionsClient.BeginDelete` has been removed
+- Function `*GalleryInVMAccessControlProfileVersionsClient.Get` has been removed
+- Function `*GalleryInVMAccessControlProfileVersionsClient.NewListByGalleryInVMAccessControlProfilePager` has been removed
+- Function `*GalleryInVMAccessControlProfileVersionsClient.BeginUpdate` has been removed
+- Function `NewGalleryInVMAccessControlProfilesClient` has been removed
+- Function `*GalleryInVMAccessControlProfilesClient.BeginCreateOrUpdate` has been removed
+- Function `*GalleryInVMAccessControlProfilesClient.BeginDelete` has been removed
+- Function `*GalleryInVMAccessControlProfilesClient.Get` has been removed
+- Function `*GalleryInVMAccessControlProfilesClient.NewListByGalleryPager` has been removed
+- Function `*GalleryInVMAccessControlProfilesClient.BeginUpdate` has been removed
+- Function `NewSoftDeletedResourceClient` has been removed
+- Function `*SoftDeletedResourceClient.NewListByArtifactNamePager` has been removed
+- Struct `AccessControlRules` has been removed
+- Struct `AccessControlRulesIdentity` has been removed
+- Struct `AccessControlRulesPrivilege` has been removed
+- Struct `AccessControlRulesRole` has been removed
+- Struct `AccessControlRulesRoleAssignment` has been removed
+- Struct `AdditionalReplicaSet` has been removed
+- Struct `ExecutedValidation` has been removed
+- Struct `GalleryIdentity` has been removed
+- Struct `GalleryInVMAccessControlProfile` has been removed
+- Struct `GalleryInVMAccessControlProfileList` has been removed
+- Struct `GalleryInVMAccessControlProfileProperties` has been removed
+- Struct `GalleryInVMAccessControlProfileUpdate` has been removed
+- Struct `GalleryInVMAccessControlProfileVersion` has been removed
+- Struct `GalleryInVMAccessControlProfileVersionList` has been removed
+- Struct `GalleryInVMAccessControlProfileVersionProperties` has been removed
+- Struct `GalleryInVMAccessControlProfileVersionUpdate` has been removed
+- Struct `GalleryResourceProfilePropertiesBase` has been removed
+- Struct `GalleryResourceProfileVersionPropertiesBase` has been removed
+- Struct `GallerySoftDeletedResource` has been removed
+- Struct `GallerySoftDeletedResourceList` has been removed
+- Struct `GallerySoftDeletedResourceProperties` has been removed
+- Struct `PlatformAttribute` has been removed
+- Struct `ValidationsProfile` has been removed
+- Field `Identity` of struct `Gallery` has been removed
+- Field `StartsAtVersion` of struct `GalleryImageFeature` has been removed
+- Field `AllowUpdateImage` of struct `GalleryImageProperties` has been removed
+- Field `Restore`, `ValidationsProfile` of struct `GalleryImageVersionProperties` has been removed
+- Field `BlockDeletionBeforeEndOfLife` of struct `GalleryImageVersionSafetyProfile` has been removed
+- Field `SecurityProfile` of struct `GalleryList` has been removed
+- Field `Identity` of struct `GalleryUpdate` has been removed
+- Field `AdditionalReplicaSets` of struct `TargetRegion` has been removed
+- Field `ScriptBehaviorAfterReboot` of struct `UserArtifactSettings` has been removed
+
+### Features Added
+
+- New value `AllocationStrategyPrioritized` added to enum type `AllocationStrategy`
+- New value `InstanceViewTypesResiliencyView` added to enum type `InstanceViewTypes`
+- New enum type `Expand` with values `ExpandProperties`
+- New enum type `Modes` with values `ModesAudit`, `ModesDisabled`, `ModesEnforce`
+- New enum type `RebalanceBehavior` with values `RebalanceBehaviorCreateBeforeDelete`
+- New enum type `RebalanceStrategy` with values `RebalanceStrategyRecreate`
+- New enum type `ResilientVMDeletionStatus` with values `ResilientVMDeletionStatusDisabled`, `ResilientVMDeletionStatusEnabled`, `ResilientVMDeletionStatusFailed`, `ResilientVMDeletionStatusInProgress`
+- New enum type `ZonePlacementPolicyType` with values `ZonePlacementPolicyTypeAny`
+- New function `*AvailabilitySetsClient.CancelMigrationToVirtualMachineScaleSet(context.Context, string, string, *AvailabilitySetsClientCancelMigrationToVirtualMachineScaleSetOptions) (AvailabilitySetsClientCancelMigrationToVirtualMachineScaleSetResponse, error)`
+- New function `*AvailabilitySetsClient.BeginConvertToVirtualMachineScaleSet(context.Context, string, string, *AvailabilitySetsClientBeginConvertToVirtualMachineScaleSetOptions) (*runtime.Poller[AvailabilitySetsClientConvertToVirtualMachineScaleSetResponse], error)`
+- New function `*AvailabilitySetsClient.StartMigrationToVirtualMachineScaleSet(context.Context, string, string, MigrateToVirtualMachineScaleSetInput, *AvailabilitySetsClientStartMigrationToVirtualMachineScaleSetOptions) (AvailabilitySetsClientStartMigrationToVirtualMachineScaleSetResponse, error)`
+- New function `*AvailabilitySetsClient.ValidateMigrationToVirtualMachineScaleSet(context.Context, string, string, MigrateToVirtualMachineScaleSetInput, *AvailabilitySetsClientValidateMigrationToVirtualMachineScaleSetOptions) (AvailabilitySetsClientValidateMigrationToVirtualMachineScaleSetResponse, error)`
+- New function `*VirtualMachineImagesClient.NewListWithPropertiesPager(string, string, string, string, Expand, *VirtualMachineImagesClientListWithPropertiesOptions) *runtime.Pager[VirtualMachineImagesClientListWithPropertiesResponse]`
+- New function `*VirtualMachinesClient.BeginMigrateToVMScaleSet(context.Context, string, string, *VirtualMachinesClientBeginMigrateToVMScaleSetOptions) (*runtime.Poller[VirtualMachinesClientMigrateToVMScaleSetResponse], error)`
+- New struct `AutomaticZoneRebalancingPolicy`
+- New struct `ConvertToVirtualMachineScaleSetInput`
+- New struct `DefaultVirtualMachineScaleSetInfo`
+- New struct `HostEndpointSettings`
+- New struct `MigrateToVirtualMachineScaleSetInput`
+- New struct `MigrateVMToVirtualMachineScaleSetInput`
+- New struct `Placement`
+- New struct `VirtualMachineImagesWithPropertiesListResult`
+- New struct `VirtualMachineScaleSetMigrationInfo`
+- New field `VirtualMachineScaleSetMigrationInfo` in struct `AvailabilitySetProperties`
+- New field `Imds`, `WireServer` in struct `ProxyAgentSettings`
+- New field `AutomaticZoneRebalancingPolicy` in struct `ResiliencyPolicy`
+- New field `Rank` in struct `SKUProfileVMSize`
+- New field `PrioritizeUnhealthyVMs` in struct `ScaleInPolicy`
+- New field `AlignRegionalDisksToVMZone` in struct `StorageProfile`
+- New field `Placement` in struct `VirtualMachine`
+- New field `ResilientVMDeletionStatus` in struct `VirtualMachineScaleSetVMProperties`
+
+
 ## 6.3.0 (2025-01-24)
 ### Features Added
 
