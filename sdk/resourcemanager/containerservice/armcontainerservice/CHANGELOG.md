@@ -1,5 +1,14 @@
 # Release History
 
+## 6.5.0 (2025-02-25)
+### Features Added
+
+- New value `OutboundTypeNone` added to enum type `OutboundType`
+- New enum type `ArtifactSource` with values `ArtifactSourceCache`, `ArtifactSourceDirect`
+- New struct `ManagedClusterBootstrapProfile`
+- New field `BootstrapProfile` in struct `ManagedClusterProperties`
+
+
 ## 6.4.0 (2025-02-27)
 ### Features Added
 
