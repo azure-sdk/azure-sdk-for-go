@@ -1,5 +1,56 @@
 # Release History
 
+## 2.0.0 (2025-02-25)
+### Breaking Changes
+
+- Enum `DeletionRecoveryLevel` has been removed
+- Enum `JSONWebKeyCurveName` has been removed
+- Enum `JSONWebKeyOperation` has been removed
+- Enum `JSONWebKeyType` has been removed
+- Enum `KeyRotationPolicyActionType` has been removed
+- Function `*ClientFactory.NewKeysClient` has been removed
+- Function `*ClientFactory.NewManagedHsmKeysClient` has been removed
+- Function `NewKeysClient` has been removed
+- Function `*KeysClient.CreateIfNotExist` has been removed
+- Function `*KeysClient.Get` has been removed
+- Function `*KeysClient.GetVersion` has been removed
+- Function `*KeysClient.NewListPager` has been removed
+- Function `*KeysClient.NewListVersionsPager` has been removed
+- Function `NewManagedHsmKeysClient` has been removed
+- Function `*ManagedHsmKeysClient.CreateIfNotExist` has been removed
+- Function `*ManagedHsmKeysClient.Get` has been removed
+- Function `*ManagedHsmKeysClient.GetVersion` has been removed
+- Function `*ManagedHsmKeysClient.NewListPager` has been removed
+- Function `*ManagedHsmKeysClient.NewListVersionsPager` has been removed
+- Struct `Action` has been removed
+- Struct `Key` has been removed
+- Struct `KeyAttributes` has been removed
+- Struct `KeyCreateParameters` has been removed
+- Struct `KeyListResult` has been removed
+- Struct `KeyProperties` has been removed
+- Struct `KeyReleasePolicy` has been removed
+- Struct `KeyRotationPolicyAttributes` has been removed
+- Struct `LifetimeAction` has been removed
+- Struct `ManagedHsmAction` has been removed
+- Struct `ManagedHsmKey` has been removed
+- Struct `ManagedHsmKeyAttributes` has been removed
+- Struct `ManagedHsmKeyCreateParameters` has been removed
+- Struct `ManagedHsmKeyListResult` has been removed
+- Struct `ManagedHsmKeyProperties` has been removed
+- Struct `ManagedHsmKeyReleasePolicy` has been removed
+- Struct `ManagedHsmKeyRotationPolicyAttributes` has been removed
+- Struct `ManagedHsmLifetimeAction` has been removed
+- Struct `ManagedHsmRotationPolicy` has been removed
+- Struct `ManagedHsmTrigger` has been removed
+- Struct `RotationPolicy` has been removed
+- Struct `Trigger` has been removed
+
+### Features Added
+
+- New value `ManagedHsmSKUFamilyC` added to enum type `ManagedHsmSKUFamily`
+- New value `ManagedHsmSKUNameCustomC10`, `ManagedHsmSKUNameCustomC42` added to enum type `ManagedHsmSKUName`
+
+
 ## 1.4.0 (2023-11-24)
 ### Features Added
 
