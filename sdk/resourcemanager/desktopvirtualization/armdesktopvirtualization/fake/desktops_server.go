@@ -16,10 +16,9 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v3"
 	"net/http"
 	"net/url"
-	"reflect"
 	"regexp"
 	"strconv"
 )
@@ -36,7 +35,7 @@ type DesktopsServer struct {
 
 	// Update is the fake for method DesktopsClient.Update
 	// HTTP status codes to indicate success: http.StatusOK
-	Update func(ctx context.Context, resourceGroupName string, applicationGroupName string, desktopName string, options *armdesktopvirtualization.DesktopsClientUpdateOptions) (resp azfake.Responder[armdesktopvirtualization.DesktopsClientUpdateResponse], errResp azfake.ErrorResponder)
+	Update func(ctx context.Context, resourceGroupName string, applicationGroupName string, desktopName string, body armdesktopvirtualization.DesktopPatch, options *armdesktopvirtualization.DesktopsClientUpdateOptions) (resp azfake.Responder[armdesktopvirtualization.DesktopsClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewDesktopsServerTransport creates a new instance of DesktopsServerTransport with the provided implementation.
@@ -234,13 +233,7 @@ func (d *DesktopsServerTransport) dispatchUpdate(req *http.Request) (*http.Respo
 	if err != nil {
 		return nil, err
 	}
-	var options *armdesktopvirtualization.DesktopsClientUpdateOptions
-	if !reflect.ValueOf(body).IsZero() {
-		options = &armdesktopvirtualization.DesktopsClientUpdateOptions{
-			Desktop: &body,
-		}
-	}
-	respr, errRespr := d.srv.Update(req.Context(), resourceGroupNameParam, applicationGroupNameParam, desktopNameParam, options)
+	respr, errRespr := d.srv.Update(req.Context(), resourceGroupNameParam, applicationGroupNameParam, desktopNameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -248,7 +241,7 @@ func (d *DesktopsServerTransport) dispatchUpdate(req *http.Request) (*http.Respo
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Desktop, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).DesktopPatch, req)
 	if err != nil {
 		return nil, err
 	}

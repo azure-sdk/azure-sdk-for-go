@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v3"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -37,6 +37,10 @@ type SessionHostsServer struct {
 	// NewListPager is the fake for method SessionHostsClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListPager func(resourceGroupName string, hostPoolName string, options *armdesktopvirtualization.SessionHostsClientListOptions) (resp azfake.PagerResponder[armdesktopvirtualization.SessionHostsClientListResponse])
+
+	// RetryProvisioning is the fake for method SessionHostsClient.RetryProvisioning
+	// HTTP status codes to indicate success: http.StatusNoContent
+	RetryProvisioning func(ctx context.Context, resourceGroupName string, hostPoolName string, sessionHostName string, options *armdesktopvirtualization.SessionHostsClientRetryProvisioningOptions) (resp azfake.Responder[armdesktopvirtualization.SessionHostsClientRetryProvisioningResponse], errResp azfake.ErrorResponder)
 
 	// Update is the fake for method SessionHostsClient.Update
 	// HTTP status codes to indicate success: http.StatusOK
@@ -78,6 +82,8 @@ func (s *SessionHostsServerTransport) Do(req *http.Request) (*http.Response, err
 		resp, err = s.dispatchGet(req)
 	case "SessionHostsClient.NewListPager":
 		resp, err = s.dispatchNewListPager(req)
+	case "SessionHostsClient.RetryProvisioning":
+		resp, err = s.dispatchRetryProvisioning(req)
 	case "SessionHostsClient.Update":
 		resp, err = s.dispatchUpdate(req)
 	default:
@@ -237,12 +243,18 @@ func (s *SessionHostsServerTransport) dispatchNewListPager(req *http.Request) (*
 		if err != nil {
 			return nil, err
 		}
+		vMPathUnescaped, err := url.QueryUnescape(qp.Get("vmPath"))
+		if err != nil {
+			return nil, err
+		}
+		vMPathParam := getOptional(vMPathUnescaped)
 		var options *armdesktopvirtualization.SessionHostsClientListOptions
-		if pageSizeParam != nil || isDescendingParam != nil || initialSkipParam != nil {
+		if pageSizeParam != nil || isDescendingParam != nil || initialSkipParam != nil || vMPathParam != nil {
 			options = &armdesktopvirtualization.SessionHostsClientListOptions{
 				PageSize:     pageSizeParam,
 				IsDescending: isDescendingParam,
 				InitialSkip:  initialSkipParam,
+				VMPath:       vMPathParam,
 			}
 		}
 		resp := s.srv.NewListPager(resourceGroupNameParam, hostPoolNameParam, options)
@@ -262,6 +274,43 @@ func (s *SessionHostsServerTransport) dispatchNewListPager(req *http.Request) (*
 	}
 	if !server.PagerResponderMore(newListPager) {
 		s.newListPager.remove(req)
+	}
+	return resp, nil
+}
+
+func (s *SessionHostsServerTransport) dispatchRetryProvisioning(req *http.Request) (*http.Response, error) {
+	if s.srv.RetryProvisioning == nil {
+		return nil, &nonRetriableError{errors.New("fake for method RetryProvisioning not implemented")}
+	}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DesktopVirtualization/hostPools/(?P<hostPoolName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/sessionHosts/(?P<sessionHostName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/retryProvisioning`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 4 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	hostPoolNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("hostPoolName")])
+	if err != nil {
+		return nil, err
+	}
+	sessionHostNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("sessionHostName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := s.srv.RetryProvisioning(req.Context(), resourceGroupNameParam, hostPoolNameParam, sessionHostNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusNoContent}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusNoContent", respContent.HTTPStatus)}
+	}
+	resp, err := server.NewResponse(respContent, req, nil)
+	if err != nil {
+		return nil, err
 	}
 	return resp, nil
 }
