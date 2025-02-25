@@ -1,5 +1,24 @@
 # Release History
 
+## 2.3.0-beta.1 (2025-02-25)
+### Features Added
+
+- New function `*ClientFactory.NewExperimentationClient() *ExperimentationClient`
+- New function `NewExperimentationClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ExperimentationClient, error)`
+- New function `*ExperimentationClient.BeginCreate(context.Context, string, string, string, *ExperimentationClientBeginCreateOptions) (*runtime.Poller[ExperimentationClientCreateResponse], error)`
+- New function `*ExperimentationClient.BeginDelete(context.Context, string, string, string, *ExperimentationClientBeginDeleteOptions) (*runtime.Poller[ExperimentationClientDeleteResponse], error)`
+- New function `*ExperimentationClient.Get(context.Context, string, string, string, *ExperimentationClientGetOptions) (ExperimentationClientGetResponse, error)`
+- New function `*ExperimentationClient.NewListPager(string, string, *ExperimentationClientListOptions) *runtime.Pager[ExperimentationClientListResponse]`
+- New struct `Experimentation`
+- New struct `ExperimentationListResult`
+- New struct `ExperimentationProperties`
+- New struct `ManagedOnBehalfOfConfiguration`
+- New struct `MoboBrokerResource`
+- New struct `TelemetryProperties`
+- New field `ManagedOnBehalfOfConfiguration`, `Telemetry` in struct `ConfigurationStoreProperties`
+- New field `Telemetry` in struct `ConfigurationStorePropertiesUpdateParameters`
+
+
 ## 2.2.0 (2024-11-20)
 ### Features Added
 
