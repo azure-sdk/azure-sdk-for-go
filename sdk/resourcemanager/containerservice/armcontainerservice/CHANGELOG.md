@@ -1,5 +1,11 @@
 # Release History
 
+## 6.5.0 (2025-02-26)
+### Features Added
+
+- New field `CustomCATrustCertificates` in struct `ManagedClusterSecurityProfile`
+
+
 ## 6.4.0 (2025-02-27)
 ### Features Added
 
