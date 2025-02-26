@@ -1,5 +1,14 @@
 # Release History
 
+## 4.0.0 (2025-02-26)
+### Breaking Changes
+
+- Function `*AccountClient.BeginCreate` has been removed
+- Function `*AccountClient.BeginDelete` has been removed
+- Function `*AccountClient.Get` has been removed
+- Function `*AccountClient.Update` has been removed
+
+
 ## 3.0.0 (2024-09-27)
 ### Breaking Changes
 
