@@ -1,5 +1,36 @@
 # Release History
 
+## 0.7.0 (2025-02-28)
+### Breaking Changes
+
+- Type of `GitHubWorkflowProfile.DeploymentProperties` has been changed from `*DeploymentProperties` to `*Deployment`
+- `QuickStartTemplateTypeALL` from enum `QuickStartTemplateType` has been removed
+- Struct `DeploymentProperties` has been removed
+- Field `NumberOfStores` of struct `ScaleProperty` has been removed
+- Field `ScaleProperties` of struct `ScaleTemplateRequest` has been removed
+
+### Features Added
+
+- New function `NewADOOAuthClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ADOOAuthClient, error)`
+- New function `*ADOOAuthClient.Get(context.Context, string, *ADOOAuthClientGetOptions) (ADOOAuthClientGetResponse, error)`
+- New function `*ADOOAuthClient.NewListPager(string, *ADOOAuthClientListOptions) *runtime.Pager[ADOOAuthClientListResponse]`
+- New function `*ClientFactory.NewADOOAuthClient() *ADOOAuthClient`
+- New function `*DeveloperHubServiceClient.GetADOOAuthInfo(context.Context, string, *DeveloperHubServiceClientGetADOOAuthInfoOptions) (DeveloperHubServiceClientGetADOOAuthInfoResponse, error)`
+- New struct `ADOOAuth`
+- New struct `ADOOAuthCallRequest`
+- New struct `ADOOAuthInfoResponse`
+- New struct `ADOOAuthListResponse`
+- New struct `ADOOAuthResponse`
+- New struct `ADORepository`
+- New struct `AzurePipelineProfile`
+- New struct `Build`
+- New struct `Deployment`
+- New struct `PullRequest`
+- New field `NumberOfStore` in struct `ScaleProperty`
+- New field `ScaleRequirement` in struct `ScaleTemplateRequest`
+- New field `AzurePipelineProfile` in struct `WorkflowProperties`
+
+
 ## 0.6.0 (2024-09-26)
 ### Features Added
 
