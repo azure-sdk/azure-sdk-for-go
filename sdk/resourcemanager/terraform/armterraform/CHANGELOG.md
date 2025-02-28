@@ -1,5 +1,13 @@
 # Release History
 
+## 0.2.0 (2025-02-28)
+### Features Added
+
+- New enum type `AuthorizationScopeFilter` with values `AuthorizationScopeFilterAtScopeAboveAndBelow`, `AuthorizationScopeFilterAtScopeAndAbove`, `AuthorizationScopeFilterAtScopeAndBelow`, `AuthorizationScopeFilterAtScopeExact`
+- New field `AuthorizationScopeFilter`, `Table` in struct `ExportQuery`
+- New field `Import` in struct `ExportResult`
+
+
 ## 0.1.0 (2024-11-20)
 ### Other Changes
 
