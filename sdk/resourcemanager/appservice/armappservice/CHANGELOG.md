@@ -1,5 +1,61 @@
 # Release History
 
+## 5.0.0 (2025-02-28)
+### Breaking Changes
+
+- Enum `ActiveRevisionsMode` has been removed
+- Enum `ContainerAppProvisioningState` has been removed
+- Enum `IngressTransportMethod` has been removed
+- Enum `RevisionHealthState` has been removed
+- Enum `RevisionProvisioningState` has been removed
+- Function `*ClientFactory.NewContainerAppsClient` has been removed
+- Function `*ClientFactory.NewContainerAppsRevisionsClient` has been removed
+- Function `NewContainerAppsClient` has been removed
+- Function `*ContainerAppsClient.BeginCreateOrUpdate` has been removed
+- Function `*ContainerAppsClient.BeginDelete` has been removed
+- Function `*ContainerAppsClient.Get` has been removed
+- Function `*ContainerAppsClient.NewListByResourceGroupPager` has been removed
+- Function `*ContainerAppsClient.NewListBySubscriptionPager` has been removed
+- Function `*ContainerAppsClient.ListSecrets` has been removed
+- Function `NewContainerAppsRevisionsClient` has been removed
+- Function `*ContainerAppsRevisionsClient.ActivateRevision` has been removed
+- Function `*ContainerAppsRevisionsClient.DeactivateRevision` has been removed
+- Function `*ContainerAppsRevisionsClient.GetRevision` has been removed
+- Function `*ContainerAppsRevisionsClient.NewListRevisionsPager` has been removed
+- Function `*ContainerAppsRevisionsClient.RestartRevision` has been removed
+- Struct `Configuration` has been removed
+- Struct `ContainerApp` has been removed
+- Struct `ContainerAppCollection` has been removed
+- Struct `ContainerAppProperties` has been removed
+- Struct `ContainerAppSecret` has been removed
+- Struct `Ingress` has been removed
+- Struct `RegistryCredentials` has been removed
+- Struct `Revision` has been removed
+- Struct `RevisionCollection` has been removed
+- Struct `RevisionProperties` has been removed
+- Struct `Secret` has been removed
+- Struct `SecretsCollection` has been removed
+- Struct `TrafficWeight` has been removed
+
+### Features Added
+
+- New function `*ClientFactory.NewSiteCertificatesClient() *SiteCertificatesClient`
+- New function `NewSiteCertificatesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SiteCertificatesClient, error)`
+- New function `*SiteCertificatesClient.CreateOrUpdate(context.Context, string, string, string, AppCertificate, *SiteCertificatesClientCreateOrUpdateOptions) (SiteCertificatesClientCreateOrUpdateResponse, error)`
+- New function `*SiteCertificatesClient.CreateOrUpdateSlot(context.Context, string, string, string, string, AppCertificate, *SiteCertificatesClientCreateOrUpdateSlotOptions) (SiteCertificatesClientCreateOrUpdateSlotResponse, error)`
+- New function `*SiteCertificatesClient.Delete(context.Context, string, string, string, *SiteCertificatesClientDeleteOptions) (SiteCertificatesClientDeleteResponse, error)`
+- New function `*SiteCertificatesClient.DeleteSlot(context.Context, string, string, string, string, *SiteCertificatesClientDeleteSlotOptions) (SiteCertificatesClientDeleteSlotResponse, error)`
+- New function `*SiteCertificatesClient.Get(context.Context, string, string, string, *SiteCertificatesClientGetOptions) (SiteCertificatesClientGetResponse, error)`
+- New function `*SiteCertificatesClient.GetSlot(context.Context, string, string, string, string, *SiteCertificatesClientGetSlotOptions) (SiteCertificatesClientGetSlotResponse, error)`
+- New function `*SiteCertificatesClient.NewListPager(string, string, *SiteCertificatesClientListOptions) *runtime.Pager[SiteCertificatesClientListResponse]`
+- New function `*SiteCertificatesClient.NewListSlotPager(string, string, string, *SiteCertificatesClientListSlotOptions) *runtime.Pager[SiteCertificatesClientListSlotResponse]`
+- New function `*SiteCertificatesClient.Update(context.Context, string, string, string, AppCertificatePatchResource, *SiteCertificatesClientUpdateOptions) (SiteCertificatesClientUpdateResponse, error)`
+- New function `*SiteCertificatesClient.UpdateSlot(context.Context, string, string, string, string, AppCertificatePatchResource, *SiteCertificatesClientUpdateSlotOptions) (SiteCertificatesClientUpdateSlotResponse, error)`
+- New struct `ErrorPage`
+- New field `AsyncScalingEnabled` in struct `PlanProperties`
+- New field `SSHEnabled` in struct `SiteProperties`
+
+
 ## 4.1.0 (2024-11-20)
 ### Features Added
 
