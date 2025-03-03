@@ -13,7 +13,7 @@ import (
 
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/messaging"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/messaging/eventgrid/aznamespaces"
+	"github.com/Azure/azure-sdk-for-go/sdk/messaging/eventgrid/aznamespaces/v2"
 )
 
 func Example_publishAndReceiveCloudEvents() {
@@ -65,7 +65,7 @@ func Example_publishAndReceiveCloudEvents() {
 		panic(err)
 	}
 
-	fmt.Fprintf(os.Stderr, "  Body: %s\n", *str) // prints 'Body: hello world'
+	fmt.Fprintf(os.Stderr, "  Body: %s\n", *str)	// prints 'Body: hello world'
 	fmt.Fprintf(os.Stderr, "  Delivery count: %d\n", eventWithString.BrokerProperties.DeliveryCount)
 
 	//
@@ -78,7 +78,7 @@ func Example_publishAndReceiveCloudEvents() {
 	}
 
 	fmt.Fprintf(os.Stderr, "ID: %s\n", eventWithBytes.Event.ID)
-	fmt.Fprintf(os.Stderr, "  Body: %#v\n", eventWithBytes.Event.Data.([]byte)) // prints 'Body: []byte{0x0, 0x1, 0x2}'
+	fmt.Fprintf(os.Stderr, "  Body: %#v\n", eventWithBytes.Event.Data.([]byte))	// prints 'Body: []byte{0x0, 0x1, 0x2}'
 	fmt.Fprintf(os.Stderr, "  Delivery count: %d\n", eventWithBytes.BrokerProperties.DeliveryCount)
 
 	//
@@ -100,7 +100,7 @@ func Example_publishAndReceiveCloudEvents() {
 	}
 
 	fmt.Fprintf(os.Stderr, "ID: %s\n", eventWithStruct.Event.ID)
-	fmt.Fprintf(os.Stderr, "  Body: %#v\n", sampleData) // prints 'Body: &azeventgrid_test.SampleData{Name:"hello"}'
+	fmt.Fprintf(os.Stderr, "  Body: %#v\n", sampleData)	// prints 'Body: &azeventgrid_test.SampleData{Name:"hello"}'
 	fmt.Fprintf(os.Stderr, "  Delivery count: %d\n", eventWithStruct.BrokerProperties.DeliveryCount)
 
 	// Output:
@@ -128,10 +128,10 @@ func sendAndReceiveEvent(sender *aznamespaces.SenderClient, receiver *aznamespac
 	}
 
 	events, err := receiver.ReceiveEvents(context.TODO(), &aznamespaces.ReceiveEventsOptions{
-		MaxEvents: to.Ptr(int32(1)),
+		MaxEvents:	to.Ptr(int32(1)),
 
 		// Wait for 60 seconds for events.
-		MaxWaitTime: to.Ptr[int32](60),
+		MaxWaitTime:	to.Ptr[int32](60),
 	})
 
 	if err != nil {

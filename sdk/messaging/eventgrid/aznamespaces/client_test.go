@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/messaging"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/internal/recording"
-	"github.com/Azure/azure-sdk-for-go/sdk/messaging/eventgrid/aznamespaces"
+	"github.com/Azure/azure-sdk-for-go/sdk/messaging/eventgrid/aznamespaces/v2"
 	"github.com/stretchr/testify/require"
 )
 
@@ -59,8 +59,8 @@ func TestFailedAck(t *testing.T) {
 	require.NoError(t, err)
 
 	recvResp, err := receiver.ReceiveEvents(context.Background(), &aznamespaces.ReceiveEventsOptions{
-		MaxEvents:   to.Ptr[int32](1),
-		MaxWaitTime: to.Ptr[int32](10),
+		MaxEvents:	to.Ptr[int32](1),
+		MaxWaitTime:	to.Ptr[int32](10),
 	})
 	require.NoError(t, err)
 
@@ -158,11 +158,11 @@ func TestRejectEvents(t *testing.T) {
 	require.NoError(t, err)
 
 	requireEqualCloudEvent(t, messaging.CloudEvent{
-		SpecVersion:     "1.0",
-		DataContentType: to.Ptr("application/octet-stream"),
-		Data:            []byte("event one"),
-		Source:          "TestAbandon",
-		Type:            "world",
+		SpecVersion:		"1.0",
+		DataContentType:	to.Ptr("application/octet-stream"),
+		Data:			[]byte("event one"),
+		Source:			"TestAbandon",
+		Type:			"world",
 	}, events.Details[0].Event)
 
 	require.Equal(t, int32(1), *events.Details[0].BrokerProperties.DeliveryCount, "DeliveryCount starts at 1")
@@ -174,8 +174,8 @@ func TestRejectEvents(t *testing.T) {
 	t.Logf("Done rejecting cloud events")
 
 	events, err = receiver.ReceiveEvents(context.Background(), &aznamespaces.ReceiveEventsOptions{
-		MaxEvents:   to.Ptr[int32](1),
-		MaxWaitTime: to.Ptr[int32](10),
+		MaxEvents:	to.Ptr[int32](1),
+		MaxWaitTime:	to.Ptr[int32](10),
 	})
 	require.NoError(t, err)
 	require.Empty(t, events.Details)
@@ -235,11 +235,11 @@ func TestPublishBytes(t *testing.T) {
 	require.NoError(t, err)
 
 	requireEqualCloudEvent(t, messaging.CloudEvent{
-		Source:          "TestPublishBytes",
-		SpecVersion:     "1.0",
-		Type:            "eventType",
-		Data:            []byte("TestPublishBytes"),
-		DataContentType: to.Ptr("application/octet-stream"),
+		Source:			"TestPublishBytes",
+		SpecVersion:		"1.0",
+		Type:			"eventType",
+		Data:			[]byte("TestPublishBytes"),
+		DataContentType:	to.Ptr("application/octet-stream"),
 	}, recvResp.Details[0].Event)
 }
 
@@ -258,11 +258,11 @@ func TestSendEventWithStringPayload(t *testing.T) {
 	require.NoError(t, err)
 
 	requireEqualCloudEvent(t, messaging.CloudEvent{
-		Source:          "TestPublishString",
-		SpecVersion:     "1.0",
-		Type:            "eventType",
-		Data:            []byte("\"TestPublishString\""), // non []byte returns as the JSON bytes
-		DataContentType: to.Ptr("application/json"),
+		Source:			"TestPublishString",
+		SpecVersion:		"1.0",
+		Type:			"eventType",
+		Data:			[]byte("\"TestPublishString\""),	// non []byte returns as the JSON bytes
+		DataContentType:	to.Ptr("application/json"),
 	}, recvResp.Details[0].Event)
 }
 
@@ -270,38 +270,38 @@ func TestSendEventsAndReceiveEvents(t *testing.T) {
 	sender, receiver := newClients(t, false)
 
 	testData := []struct {
-		Send     messaging.CloudEvent
-		Expected messaging.CloudEvent
+		Send		messaging.CloudEvent
+		Expected	messaging.CloudEvent
 	}{
 		{
 			Send: mustCreateEvent(t, "TestPublishingAndReceivingMultipleCloudEvents", "eventType", []byte("TestPublishingAndReceivingMultipleCloudEvents 1"), &messaging.CloudEventOptions{
 				DataContentType: to.Ptr("application/octet-stream"),
 			}),
 			Expected: messaging.CloudEvent{
-				SpecVersion:     "1.0",
-				Source:          "TestPublishingAndReceivingMultipleCloudEvents",
-				Type:            "eventType",
-				DataContentType: to.Ptr("application/octet-stream"),
-				Data:            []byte("TestPublishingAndReceivingMultipleCloudEvents 1"),
+				SpecVersion:		"1.0",
+				Source:			"TestPublishingAndReceivingMultipleCloudEvents",
+				Type:			"eventType",
+				DataContentType:	to.Ptr("application/octet-stream"),
+				Data:			[]byte("TestPublishingAndReceivingMultipleCloudEvents 1"),
 			},
 		},
 		{
 			Send: mustCreateEvent(t, "TestPublishingAndReceivingMultipleCloudEvents", "eventType", "TestPublishingAndReceivingMultipleCloudEvents 2", &messaging.CloudEventOptions{
-				DataContentType: to.Ptr("application/json"),
-				DataSchema:      to.Ptr("https://dataschema"),
+				DataContentType:	to.Ptr("application/json"),
+				DataSchema:		to.Ptr("https://dataschema"),
 				Extensions: map[string]any{
 					"extension2": "extension2value",
 				},
-				Subject: to.Ptr("subject"),
+				Subject:	to.Ptr("subject"),
 			}),
 			Expected: messaging.CloudEvent{
-				SpecVersion:     "1.0",
-				Source:          "TestPublishingAndReceivingMultipleCloudEvents",
-				Type:            "eventType",
-				DataSchema:      to.Ptr("https://dataschema"),
-				Data:            []byte("\"TestPublishingAndReceivingMultipleCloudEvents 2\""),
-				DataContentType: to.Ptr("application/json"),
-				Subject:         to.Ptr("subject"),
+				SpecVersion:		"1.0",
+				Source:			"TestPublishingAndReceivingMultipleCloudEvents",
+				Type:			"eventType",
+				DataSchema:		to.Ptr("https://dataschema"),
+				Data:			[]byte("\"TestPublishingAndReceivingMultipleCloudEvents 2\""),
+				DataContentType:	to.Ptr("application/json"),
+				Subject:		to.Ptr("subject"),
 				Extensions: map[string]any{
 					"extension2": "extension2value",
 				},
@@ -321,8 +321,8 @@ func TestSendEventsAndReceiveEvents(t *testing.T) {
 	require.Empty(t, sendResp)
 
 	resp, err := receiver.ReceiveEvents(context.Background(), &aznamespaces.ReceiveEventsOptions{
-		MaxEvents:   to.Ptr(int32(len(sentEvents))),
-		MaxWaitTime: to.Ptr(int32(60)),
+		MaxEvents:	to.Ptr(int32(len(sentEvents))),
+		MaxWaitTime:	to.Ptr(int32(60)),
 	})
 	require.NoError(t, err)
 	require.NotEmpty(t, resp.Details)
@@ -402,7 +402,7 @@ func TestReleaseWithDelay(t *testing.T) {
 	if recording.GetRecordMode() == recording.LiveMode {
 		// doesn't work when recording but it's somewhat unimportant there.
 		elapsed := time.Since(now)
-		require.GreaterOrEqual(t, int(elapsed/time.Second), 8) // give a little wiggle room for potential delays between requests, etc...
+		require.GreaterOrEqual(t, int(elapsed/time.Second), 8)	// give a little wiggle room for potential delays between requests, etc...
 	}
 
 	ackResp, err := receiver.AcknowledgeEvents(context.Background(), []string{*recvResp.Details[0].BrokerProperties.LockToken}, nil)

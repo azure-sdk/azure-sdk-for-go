@@ -13,7 +13,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/messaging"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/internal/test/credential"
-	"github.com/Azure/azure-sdk-for-go/sdk/messaging/eventgrid/aznamespaces"
+	"github.com/Azure/azure-sdk-for-go/sdk/messaging/eventgrid/aznamespaces/v2"
 )
 
 func ExampleNewReceiverClientWithSharedKeyCredential() {
@@ -33,7 +33,7 @@ func ExampleNewReceiverClientWithSharedKeyCredential() {
 		log.Fatalf("ERROR: %s", err)
 	}
 
-	_ = client // ignore
+	_ = client	// ignore
 
 	// Output:
 }
@@ -63,7 +63,7 @@ func ExampleNewReceiverClient() {
 		log.Fatalf("ERROR: %s", err)
 	}
 
-	_ = client // ignore
+	_ = client	// ignore
 
 	// Output:
 }
@@ -84,7 +84,7 @@ func ExampleNewSenderClientWithSharedKeyCredential() {
 		log.Fatalf("ERROR: %s", err)
 	}
 
-	_ = client // ignore
+	_ = client	// ignore
 
 	// Output:
 }
@@ -113,7 +113,7 @@ func ExampleNewSenderClient() {
 		log.Fatalf("ERROR: %s", err)
 	}
 
-	_ = client // ignore
+	_ = client	// ignore
 
 	// Output:
 }
@@ -168,8 +168,8 @@ func ExampleReceiverClient_ReceiveEvents() {
 	}
 
 	resp, err := receiver.ReceiveEvents(context.TODO(), &aznamespaces.ReceiveEventsOptions{
-		MaxEvents:   to.Ptr[int32](1),
-		MaxWaitTime: to.Ptr[int32](10), // in seconds
+		MaxEvents:	to.Ptr[int32](1),
+		MaxWaitTime:	to.Ptr[int32](10),	// in seconds
 	})
 
 	if err != nil {

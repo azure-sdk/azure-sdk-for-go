@@ -8,21 +8,21 @@ package aznamespaces
 type ReleaseDelay string
 
 const (
-	// ReleaseDelayNoDelay - Release the event after 0 seconds.
+// ReleaseDelayNoDelay - Release the event after 0 seconds.
 	ReleaseDelayNoDelay ReleaseDelay = "0"
-	// ReleaseDelayOneHour - Release the event after 3600 seconds.
+// ReleaseDelayOneHour - Release the event after 3600 seconds.
 	ReleaseDelayOneHour ReleaseDelay = "3600"
-	// ReleaseDelayOneMinute - Release the event after 60 seconds.
+// ReleaseDelayOneMinute - Release the event after 60 seconds.
 	ReleaseDelayOneMinute ReleaseDelay = "60"
-	// ReleaseDelayTenMinutes - Release the event after 600 seconds.
+// ReleaseDelayTenMinutes - Release the event after 600 seconds.
 	ReleaseDelayTenMinutes ReleaseDelay = "600"
-	// ReleaseDelayTenSeconds - Release the event after 10 seconds.
+// ReleaseDelayTenSeconds - Release the event after 10 seconds.
 	ReleaseDelayTenSeconds ReleaseDelay = "10"
 )
 
 // PossibleReleaseDelayValues returns the possible values for the ReleaseDelay const type.
 func PossibleReleaseDelayValues() []ReleaseDelay {
-	return []ReleaseDelay{
+	return []ReleaseDelay{	
 		ReleaseDelayNoDelay,
 		ReleaseDelayOneHour,
 		ReleaseDelayOneMinute,
@@ -30,3 +30,4 @@ func PossibleReleaseDelayValues() []ReleaseDelay {
 		ReleaseDelayTenSeconds,
 	}
 }
+

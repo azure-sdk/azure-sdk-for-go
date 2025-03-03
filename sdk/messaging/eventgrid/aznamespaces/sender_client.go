@@ -7,21 +7,17 @@ package aznamespaces
 import (
 	"context"
 	"errors"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
 	"net/url"
 	"strings"
-
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/messaging"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 )
 
 // SenderClient contains the methods for the Sender group.
 // Don't use this type directly, use a constructor function instead.
 type SenderClient struct {
-	data senderData
-
 	internal *azcore.Client
 	endpoint string
 }
@@ -33,26 +29,30 @@ type SenderClient struct {
 //   - topicName - Topic Name.
 //   - event - Single Cloud Event being published.
 //   - options - SenderClientSendEventOptions contains the optional parameters for the SenderClient.SendEvent method.
-func (client *SenderClient) internalSendEvent(ctx context.Context, topicName string, event *messaging.CloudEvent, options *SendEventOptions) (SendEventResponse, error) {
+func (client *SenderClient) SendEvent(ctx context.Context, topicName string, event CloudEvent, options *SenderClientSendEventOptions) (SenderClientSendEventResponse, error) {
 	var err error
+	const operationName = "SenderClient.SendEvent"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.sendEventCreateRequest(ctx, topicName, event, options)
 	if err != nil {
-		return SendEventResponse{}, err
+		return SenderClientSendEventResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return SendEventResponse{}, err
+		return SenderClientSendEventResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return SendEventResponse{}, err
+		return SenderClientSendEventResponse{}, err
 	}
 	resp, err := client.sendEventHandleResponse(httpResp)
 	return resp, err
 }
 
 // sendEventCreateRequest creates the SendEvent request.
-func (client *SenderClient) sendEventCreateRequest(ctx context.Context, topicName string, event *messaging.CloudEvent, _ *SendEventOptions) (*policy.Request, error) {
+func (client *SenderClient) sendEventCreateRequest(ctx context.Context, topicName string, event CloudEvent, _ *SenderClientSendEventOptions) (*policy.Request, error) {
 	host := "{endpoint}"
 	host = strings.ReplaceAll(host, "{endpoint}", client.endpoint)
 	urlPath := "/topics/{topicName}:publish"
@@ -69,15 +69,18 @@ func (client *SenderClient) sendEventCreateRequest(ctx context.Context, topicNam
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["Content-Type"] = []string{"application/cloudevents+json; charset=utf-8"}
-	if err := runtime.MarshalAsJSON(req, event); err != nil {
-		return nil, err
-	}
-	return req, nil
+if err := runtime.MarshalAsJSON(req, event); err != nil {
+	return nil, err
+}
+;	return req, nil
 }
 
 // sendEventHandleResponse handles the SendEvent response.
-func (client *SenderClient) sendEventHandleResponse(_ *http.Response) (SendEventResponse, error) {
-	result := SendEventResponse{}
+func (client *SenderClient) sendEventHandleResponse(resp *http.Response) (SenderClientSendEventResponse, error) {
+	result := SenderClientSendEventResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.PublishResult); err != nil {
+		return SenderClientSendEventResponse{}, err
+	}
 	return result, nil
 }
 
@@ -88,26 +91,30 @@ func (client *SenderClient) sendEventHandleResponse(_ *http.Response) (SendEvent
 //   - topicName - Topic Name.
 //   - events - Array of Cloud Events being published.
 //   - options - SenderClientSendEventsOptions contains the optional parameters for the SenderClient.SendEvents method.
-func (client *SenderClient) internalSendEvents(ctx context.Context, topicName string, events []*messaging.CloudEvent, options *SendEventsOptions) (SendEventsResponse, error) {
+func (client *SenderClient) SendEvents(ctx context.Context, topicName string, events []CloudEvent, options *SenderClientSendEventsOptions) (SenderClientSendEventsResponse, error) {
 	var err error
+	const operationName = "SenderClient.SendEvents"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
 	req, err := client.sendEventsCreateRequest(ctx, topicName, events, options)
 	if err != nil {
-		return SendEventsResponse{}, err
+		return SenderClientSendEventsResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return SendEventsResponse{}, err
+		return SenderClientSendEventsResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return SendEventsResponse{}, err
+		return SenderClientSendEventsResponse{}, err
 	}
 	resp, err := client.sendEventsHandleResponse(httpResp)
 	return resp, err
 }
 
 // sendEventsCreateRequest creates the SendEvents request.
-func (client *SenderClient) sendEventsCreateRequest(ctx context.Context, topicName string, events []*messaging.CloudEvent, _ *SendEventsOptions) (*policy.Request, error) {
+func (client *SenderClient) sendEventsCreateRequest(ctx context.Context, topicName string, events []CloudEvent, _ *SenderClientSendEventsOptions) (*policy.Request, error) {
 	host := "{endpoint}"
 	host = strings.ReplaceAll(host, "{endpoint}", client.endpoint)
 	urlPath := "/topics/{topicName}:publish"
@@ -124,14 +131,18 @@ func (client *SenderClient) sendEventsCreateRequest(ctx context.Context, topicNa
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["Content-Type"] = []string{"application/cloudevents-batch+json; charset=utf-8"}
-	if err := runtime.MarshalAsJSON(req, events); err != nil {
-		return nil, err
-	}
-	return req, nil
+if err := runtime.MarshalAsJSON(req, events); err != nil {
+	return nil, err
+}
+;	return req, nil
 }
 
 // sendEventsHandleResponse handles the SendEvents response.
-func (client *SenderClient) sendEventsHandleResponse(_ *http.Response) (SendEventsResponse, error) {
-	result := SendEventsResponse{}
+func (client *SenderClient) sendEventsHandleResponse(resp *http.Response) (SenderClientSendEventsResponse, error) {
+	result := SenderClientSendEventsResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.PublishResult); err != nil {
+		return SenderClientSendEventsResponse{}, err
+	}
 	return result, nil
 }
+

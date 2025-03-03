@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/internal/recording"
 	"github.com/Azure/azure-sdk-for-go/sdk/internal/test/credential"
-	"github.com/Azure/azure-sdk-for-go/sdk/messaging/eventgrid/aznamespaces"
+	"github.com/Azure/azure-sdk-for-go/sdk/messaging/eventgrid/aznamespaces/v2"
 	"github.com/joho/godotenv"
 )
 
@@ -69,8 +69,8 @@ func purgeEvents() {
 	receiver, err := aznamespaces.NewReceiverClient(testVars.Endpoint, testVars.Topic, testVars.Subscription, cred, &aznamespaces.ReceiverClientOptions{
 		ClientOptions: policy.ClientOptions{
 			Logging: policy.LogOptions{
-				IncludeBody:        true,
-				AllowedQueryParams: []string{"maxWaitTime", "maxEvents"},
+				IncludeBody:		true,
+				AllowedQueryParams:	[]string{"maxWaitTime", "maxEvents"},
 			},
 		},
 	})
@@ -83,8 +83,8 @@ func purgeEvents() {
 
 	for {
 		recvResp, err := receiver.ReceiveEvents(context.Background(), &aznamespaces.ReceiveEventsOptions{
-			MaxEvents:   to.Ptr[int32](100),
-			MaxWaitTime: to.Ptr[int32](10),
+			MaxEvents:	to.Ptr[int32](100),
+			MaxWaitTime:	to.Ptr[int32](10),
 		})
 
 		if err != nil {
