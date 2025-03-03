@@ -12,7 +12,8 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -22,7 +23,7 @@ import (
 type BlobServicesServer struct {
 	// GetServiceProperties is the fake for method BlobServicesClient.GetServiceProperties
 	// HTTP status codes to indicate success: http.StatusOK
-	GetServiceProperties func(ctx context.Context, resourceGroupName string, accountName string, options *armstorage.BlobServicesClientGetServicePropertiesOptions) (resp azfake.Responder[armstorage.BlobServicesClientGetServicePropertiesResponse], errResp azfake.ErrorResponder)
+	GetServiceProperties func(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, options *armstorage.BlobServicesClientGetServicePropertiesOptions) (resp azfake.Responder[armstorage.BlobServicesClientGetServicePropertiesResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method BlobServicesClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
@@ -30,7 +31,7 @@ type BlobServicesServer struct {
 
 	// SetServiceProperties is the fake for method BlobServicesClient.SetServiceProperties
 	// HTTP status codes to indicate success: http.StatusOK
-	SetServiceProperties func(ctx context.Context, resourceGroupName string, accountName string, parameters armstorage.BlobServiceProperties, options *armstorage.BlobServicesClientSetServicePropertiesOptions) (resp azfake.Responder[armstorage.BlobServicesClientSetServicePropertiesResponse], errResp azfake.ErrorResponder)
+	SetServiceProperties func(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, parameters armstorage.BlobServiceProperties, options *armstorage.BlobServicesClientSetServicePropertiesOptions) (resp azfake.Responder[armstorage.BlobServicesClientSetServicePropertiesResponse], errResp azfake.ErrorResponder)
 }
 
 // NewBlobServicesServerTransport creates a new instance of BlobServicesServerTransport with the provided implementation.
@@ -102,10 +103,10 @@ func (b *BlobServicesServerTransport) dispatchGetServiceProperties(req *http.Req
 	if b.srv.GetServiceProperties == nil {
 		return nil, &nonRetriableError{errors.New("fake for method GetServiceProperties not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/blobServices/(?P<BlobServicesName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/blobServices/(?P<blobServicesName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 3 {
+	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
 	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
@@ -116,7 +117,11 @@ func (b *BlobServicesServerTransport) dispatchGetServiceProperties(req *http.Req
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := b.srv.GetServiceProperties(req.Context(), resourceGroupNameParam, accountNameParam, nil)
+	blobServicesNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("blobServicesName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := b.srv.GetServiceProperties(req.Context(), resourceGroupNameParam, accountNameParam, blobServicesNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -154,6 +159,9 @@ func (b *BlobServicesServerTransport) dispatchNewListPager(req *http.Request) (*
 		resp := b.srv.NewListPager(resourceGroupNameParam, accountNameParam, nil)
 		newListPager = &resp
 		b.newListPager.add(req, newListPager)
+		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armstorage.BlobServicesClientListResponse, createLink func() string) {
+			page.Nextlink = to.Ptr(createLink())
+		})
 	}
 	resp, err := server.PagerResponderNext(newListPager, req)
 	if err != nil {
@@ -173,10 +181,10 @@ func (b *BlobServicesServerTransport) dispatchSetServiceProperties(req *http.Req
 	if b.srv.SetServiceProperties == nil {
 		return nil, &nonRetriableError{errors.New("fake for method SetServiceProperties not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/blobServices/(?P<BlobServicesName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/blobServices/(?P<blobServicesName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 3 {
+	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
 	body, err := server.UnmarshalRequestAsJSON[armstorage.BlobServiceProperties](req)
@@ -191,7 +199,11 @@ func (b *BlobServicesServerTransport) dispatchSetServiceProperties(req *http.Req
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := b.srv.SetServiceProperties(req.Context(), resourceGroupNameParam, accountNameParam, body, nil)
+	blobServicesNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("blobServicesName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := b.srv.SetServiceProperties(req.Context(), resourceGroupNameParam, accountNameParam, blobServicesNameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
