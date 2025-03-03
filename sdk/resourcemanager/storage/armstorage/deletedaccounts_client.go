@@ -44,16 +44,16 @@ func NewDeletedAccountsClient(subscriptionID string, credential azcore.TokenCred
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
+//   - location - The name of Azure region.
 //   - deletedAccountName - Name of the deleted storage account.
-//   - location - The location of the deleted storage account.
 //   - options - DeletedAccountsClientGetOptions contains the optional parameters for the DeletedAccountsClient.Get method.
-func (client *DeletedAccountsClient) Get(ctx context.Context, deletedAccountName string, location string, options *DeletedAccountsClientGetOptions) (DeletedAccountsClientGetResponse, error) {
+func (client *DeletedAccountsClient) Get(ctx context.Context, location string, deletedAccountName string, options *DeletedAccountsClientGetOptions) (DeletedAccountsClientGetResponse, error) {
 	var err error
 	const operationName = "DeletedAccountsClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, deletedAccountName, location, options)
+	req, err := client.getCreateRequest(ctx, location, deletedAccountName, options)
 	if err != nil {
 		return DeletedAccountsClientGetResponse{}, err
 	}
@@ -70,20 +70,20 @@ func (client *DeletedAccountsClient) Get(ctx context.Context, deletedAccountName
 }
 
 // getCreateRequest creates the Get request.
-func (client *DeletedAccountsClient) getCreateRequest(ctx context.Context, deletedAccountName string, location string, _ *DeletedAccountsClientGetOptions) (*policy.Request, error) {
+func (client *DeletedAccountsClient) getCreateRequest(ctx context.Context, location string, deletedAccountName string, _ *DeletedAccountsClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Storage/locations/{location}/deletedAccounts/{deletedAccountName}"
-	if deletedAccountName == "" {
-		return nil, errors.New("parameter deletedAccountName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{deletedAccountName}", url.PathEscape(deletedAccountName))
-	if location == "" {
-		return nil, errors.New("parameter location cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if location == "" {
+		return nil, errors.New("parameter location cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
+	if deletedAccountName == "" {
+		return nil, errors.New("parameter deletedAccountName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{deletedAccountName}", url.PathEscape(deletedAccountName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err

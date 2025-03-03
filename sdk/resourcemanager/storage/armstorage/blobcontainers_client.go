@@ -45,7 +45,7 @@ func NewBlobContainersClient(subscriptionID string, credential azcore.TokenCrede
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - containerName - The name of the blob container within the specified storage account. Blob container names must be between
@@ -54,13 +54,13 @@ func NewBlobContainersClient(subscriptionID string, credential azcore.TokenCrede
 //   - legalHold - The LegalHold property that will be clear from a blob container.
 //   - options - BlobContainersClientClearLegalHoldOptions contains the optional parameters for the BlobContainersClient.ClearLegalHold
 //     method.
-func (client *BlobContainersClient) ClearLegalHold(ctx context.Context, resourceGroupName string, accountName string, containerName string, legalHold LegalHold, options *BlobContainersClientClearLegalHoldOptions) (BlobContainersClientClearLegalHoldResponse, error) {
+func (client *BlobContainersClient) ClearLegalHold(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, containerName string, legalHold LegalHold, options *BlobContainersClientClearLegalHoldOptions) (BlobContainersClientClearLegalHoldResponse, error) {
 	var err error
 	const operationName = "BlobContainersClient.ClearLegalHold"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.clearLegalHoldCreateRequest(ctx, resourceGroupName, accountName, containerName, legalHold, options)
+	req, err := client.clearLegalHoldCreateRequest(ctx, resourceGroupName, accountName, blobServicesName, containerName, legalHold, options)
 	if err != nil {
 		return BlobContainersClientClearLegalHoldResponse{}, err
 	}
@@ -77,8 +77,12 @@ func (client *BlobContainersClient) ClearLegalHold(ctx context.Context, resource
 }
 
 // clearLegalHoldCreateRequest creates the ClearLegalHold request.
-func (client *BlobContainersClient) clearLegalHoldCreateRequest(ctx context.Context, resourceGroupName string, accountName string, containerName string, legalHold LegalHold, _ *BlobContainersClientClearLegalHoldOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/blobServices/default/containers/{containerName}/clearLegalHold"
+func (client *BlobContainersClient) clearLegalHoldCreateRequest(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, containerName string, legalHold LegalHold, _ *BlobContainersClientClearLegalHoldOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/blobServices/{blobServicesName}/containers/{containerName}/clearLegalHold"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -87,14 +91,14 @@ func (client *BlobContainersClient) clearLegalHoldCreateRequest(ctx context.Cont
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
+	if blobServicesName == "" {
+		return nil, errors.New("parameter blobServicesName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{blobServicesName}", url.PathEscape(blobServicesName))
 	if containerName == "" {
 		return nil, errors.New("parameter containerName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{containerName}", url.PathEscape(containerName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -124,7 +128,7 @@ func (client *BlobContainersClient) clearLegalHoldHandleResponse(resp *http.Resp
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - containerName - The name of the blob container within the specified storage account. Blob container names must be between
@@ -132,13 +136,13 @@ func (client *BlobContainersClient) clearLegalHoldHandleResponse(resp *http.Resp
 //     dash (-) character must be immediately preceded and followed by a letter or number.
 //   - blobContainer - Properties of the blob container to create.
 //   - options - BlobContainersClientCreateOptions contains the optional parameters for the BlobContainersClient.Create method.
-func (client *BlobContainersClient) Create(ctx context.Context, resourceGroupName string, accountName string, containerName string, blobContainer BlobContainer, options *BlobContainersClientCreateOptions) (BlobContainersClientCreateResponse, error) {
+func (client *BlobContainersClient) Create(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, containerName string, blobContainer BlobContainer, options *BlobContainersClientCreateOptions) (BlobContainersClientCreateResponse, error) {
 	var err error
 	const operationName = "BlobContainersClient.Create"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createCreateRequest(ctx, resourceGroupName, accountName, containerName, blobContainer, options)
+	req, err := client.createCreateRequest(ctx, resourceGroupName, accountName, blobServicesName, containerName, blobContainer, options)
 	if err != nil {
 		return BlobContainersClientCreateResponse{}, err
 	}
@@ -155,8 +159,12 @@ func (client *BlobContainersClient) Create(ctx context.Context, resourceGroupNam
 }
 
 // createCreateRequest creates the Create request.
-func (client *BlobContainersClient) createCreateRequest(ctx context.Context, resourceGroupName string, accountName string, containerName string, blobContainer BlobContainer, _ *BlobContainersClientCreateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/blobServices/default/containers/{containerName}"
+func (client *BlobContainersClient) createCreateRequest(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, containerName string, blobContainer BlobContainer, _ *BlobContainersClientCreateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/blobServices/{blobServicesName}/containers/{containerName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -165,14 +173,14 @@ func (client *BlobContainersClient) createCreateRequest(ctx context.Context, res
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
+	if blobServicesName == "" {
+		return nil, errors.New("parameter blobServicesName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{blobServicesName}", url.PathEscape(blobServicesName))
 	if containerName == "" {
 		return nil, errors.New("parameter containerName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{containerName}", url.PathEscape(containerName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -201,21 +209,22 @@ func (client *BlobContainersClient) createHandleResponse(resp *http.Response) (B
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - containerName - The name of the blob container within the specified storage account. Blob container names must be between
 //     3 and 63 characters in length and use numbers, lower-case letters and dash (-) only. Every
 //     dash (-) character must be immediately preceded and followed by a letter or number.
+//   - parameters - The ImmutabilityPolicy Properties that will be created or updated to a blob container.
 //   - options - BlobContainersClientCreateOrUpdateImmutabilityPolicyOptions contains the optional parameters for the BlobContainersClient.CreateOrUpdateImmutabilityPolicy
 //     method.
-func (client *BlobContainersClient) CreateOrUpdateImmutabilityPolicy(ctx context.Context, resourceGroupName string, accountName string, containerName string, options *BlobContainersClientCreateOrUpdateImmutabilityPolicyOptions) (BlobContainersClientCreateOrUpdateImmutabilityPolicyResponse, error) {
+func (client *BlobContainersClient) CreateOrUpdateImmutabilityPolicy(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, containerName string, immutabilityPolicyName string, parameters ImmutabilityPolicy, options *BlobContainersClientCreateOrUpdateImmutabilityPolicyOptions) (BlobContainersClientCreateOrUpdateImmutabilityPolicyResponse, error) {
 	var err error
 	const operationName = "BlobContainersClient.CreateOrUpdateImmutabilityPolicy"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateImmutabilityPolicyCreateRequest(ctx, resourceGroupName, accountName, containerName, options)
+	req, err := client.createOrUpdateImmutabilityPolicyCreateRequest(ctx, resourceGroupName, accountName, blobServicesName, containerName, immutabilityPolicyName, parameters, options)
 	if err != nil {
 		return BlobContainersClientCreateOrUpdateImmutabilityPolicyResponse{}, err
 	}
@@ -232,8 +241,12 @@ func (client *BlobContainersClient) CreateOrUpdateImmutabilityPolicy(ctx context
 }
 
 // createOrUpdateImmutabilityPolicyCreateRequest creates the CreateOrUpdateImmutabilityPolicy request.
-func (client *BlobContainersClient) createOrUpdateImmutabilityPolicyCreateRequest(ctx context.Context, resourceGroupName string, accountName string, containerName string, options *BlobContainersClientCreateOrUpdateImmutabilityPolicyOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/blobServices/default/containers/{containerName}/immutabilityPolicies/{immutabilityPolicyName}"
+func (client *BlobContainersClient) createOrUpdateImmutabilityPolicyCreateRequest(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, containerName string, immutabilityPolicyName string, parameters ImmutabilityPolicy, options *BlobContainersClientCreateOrUpdateImmutabilityPolicyOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/blobServices/{blobServicesName}/containers/{containerName}/immutabilityPolicies/{ImmutabilityPolicyName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -242,15 +255,18 @@ func (client *BlobContainersClient) createOrUpdateImmutabilityPolicyCreateReques
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
+	if blobServicesName == "" {
+		return nil, errors.New("parameter blobServicesName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{blobServicesName}", url.PathEscape(blobServicesName))
 	if containerName == "" {
 		return nil, errors.New("parameter containerName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{containerName}", url.PathEscape(containerName))
-	urlPath = strings.ReplaceAll(urlPath, "{immutabilityPolicyName}", url.PathEscape("default"))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	if immutabilityPolicyName == "" {
+		return nil, errors.New("parameter immutabilityPolicyName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	urlPath = strings.ReplaceAll(urlPath, "{ImmutabilityPolicyName}", url.PathEscape(immutabilityPolicyName))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -260,13 +276,10 @@ func (client *BlobContainersClient) createOrUpdateImmutabilityPolicyCreateReques
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
+		req.Raw().Header["if-match"] = []string{*options.IfMatch}
 	}
-	if options != nil && options.Parameters != nil {
-		if err := runtime.MarshalAsJSON(req, *options.Parameters); err != nil {
-			return nil, err
-		}
-		return req, nil
+	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
+		return nil, err
 	}
 	return req, nil
 }
@@ -287,20 +300,20 @@ func (client *BlobContainersClient) createOrUpdateImmutabilityPolicyHandleRespon
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - containerName - The name of the blob container within the specified storage account. Blob container names must be between
 //     3 and 63 characters in length and use numbers, lower-case letters and dash (-) only. Every
 //     dash (-) character must be immediately preceded and followed by a letter or number.
 //   - options - BlobContainersClientDeleteOptions contains the optional parameters for the BlobContainersClient.Delete method.
-func (client *BlobContainersClient) Delete(ctx context.Context, resourceGroupName string, accountName string, containerName string, options *BlobContainersClientDeleteOptions) (BlobContainersClientDeleteResponse, error) {
+func (client *BlobContainersClient) Delete(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, containerName string, options *BlobContainersClientDeleteOptions) (BlobContainersClientDeleteResponse, error) {
 	var err error
 	const operationName = "BlobContainersClient.Delete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, accountName, containerName, options)
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, accountName, blobServicesName, containerName, options)
 	if err != nil {
 		return BlobContainersClientDeleteResponse{}, err
 	}
@@ -316,8 +329,12 @@ func (client *BlobContainersClient) Delete(ctx context.Context, resourceGroupNam
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *BlobContainersClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, accountName string, containerName string, _ *BlobContainersClientDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/blobServices/default/containers/{containerName}"
+func (client *BlobContainersClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, containerName string, _ *BlobContainersClientDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/blobServices/{blobServicesName}/containers/{containerName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -326,14 +343,14 @@ func (client *BlobContainersClient) deleteCreateRequest(ctx context.Context, res
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
+	if blobServicesName == "" {
+		return nil, errors.New("parameter blobServicesName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{blobServicesName}", url.PathEscape(blobServicesName))
 	if containerName == "" {
 		return nil, errors.New("parameter containerName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{containerName}", url.PathEscape(containerName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -341,6 +358,7 @@ func (client *BlobContainersClient) deleteCreateRequest(ctx context.Context, res
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
@@ -351,24 +369,24 @@ func (client *BlobContainersClient) deleteCreateRequest(ctx context.Context, res
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - containerName - The name of the blob container within the specified storage account. Blob container names must be between
 //     3 and 63 characters in length and use numbers, lower-case letters and dash (-) only. Every
 //     dash (-) character must be immediately preceded and followed by a letter or number.
-//   - ifMatch - The entity state (ETag) version of the immutability policy to update must be returned to the server for all update
-//     operations. The ETag value must include the leading and trailing double quotes as
-//     returned by the service.
+//   - ifMatch - The entity state (ETag) version of the immutability policy to update. A value of "*" can be used to apply the
+//     operation only if the immutability policy already exists. If omitted, this operation will
+//     always be applied.
 //   - options - BlobContainersClientDeleteImmutabilityPolicyOptions contains the optional parameters for the BlobContainersClient.DeleteImmutabilityPolicy
 //     method.
-func (client *BlobContainersClient) DeleteImmutabilityPolicy(ctx context.Context, resourceGroupName string, accountName string, containerName string, ifMatch string, options *BlobContainersClientDeleteImmutabilityPolicyOptions) (BlobContainersClientDeleteImmutabilityPolicyResponse, error) {
+func (client *BlobContainersClient) DeleteImmutabilityPolicy(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, containerName string, immutabilityPolicyName string, ifMatch string, options *BlobContainersClientDeleteImmutabilityPolicyOptions) (BlobContainersClientDeleteImmutabilityPolicyResponse, error) {
 	var err error
 	const operationName = "BlobContainersClient.DeleteImmutabilityPolicy"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.deleteImmutabilityPolicyCreateRequest(ctx, resourceGroupName, accountName, containerName, ifMatch, options)
+	req, err := client.deleteImmutabilityPolicyCreateRequest(ctx, resourceGroupName, accountName, blobServicesName, containerName, immutabilityPolicyName, ifMatch, options)
 	if err != nil {
 		return BlobContainersClientDeleteImmutabilityPolicyResponse{}, err
 	}
@@ -385,8 +403,12 @@ func (client *BlobContainersClient) DeleteImmutabilityPolicy(ctx context.Context
 }
 
 // deleteImmutabilityPolicyCreateRequest creates the DeleteImmutabilityPolicy request.
-func (client *BlobContainersClient) deleteImmutabilityPolicyCreateRequest(ctx context.Context, resourceGroupName string, accountName string, containerName string, ifMatch string, _ *BlobContainersClientDeleteImmutabilityPolicyOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/blobServices/default/containers/{containerName}/immutabilityPolicies/{immutabilityPolicyName}"
+func (client *BlobContainersClient) deleteImmutabilityPolicyCreateRequest(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, containerName string, immutabilityPolicyName string, ifMatch string, _ *BlobContainersClientDeleteImmutabilityPolicyOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/blobServices/{blobServicesName}/containers/{containerName}/immutabilityPolicies/{ImmutabilityPolicyName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -395,15 +417,18 @@ func (client *BlobContainersClient) deleteImmutabilityPolicyCreateRequest(ctx co
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
+	if blobServicesName == "" {
+		return nil, errors.New("parameter blobServicesName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{blobServicesName}", url.PathEscape(blobServicesName))
 	if containerName == "" {
 		return nil, errors.New("parameter containerName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{containerName}", url.PathEscape(containerName))
-	urlPath = strings.ReplaceAll(urlPath, "{immutabilityPolicyName}", url.PathEscape("default"))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	if immutabilityPolicyName == "" {
+		return nil, errors.New("parameter immutabilityPolicyName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	urlPath = strings.ReplaceAll(urlPath, "{ImmutabilityPolicyName}", url.PathEscape(immutabilityPolicyName))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -412,7 +437,7 @@ func (client *BlobContainersClient) deleteImmutabilityPolicyCreateRequest(ctx co
 	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	req.Raw().Header["If-Match"] = []string{ifMatch}
+	req.Raw().Header["if-match"] = []string{ifMatch}
 	return req, nil
 }
 
@@ -433,24 +458,24 @@ func (client *BlobContainersClient) deleteImmutabilityPolicyHandleResponse(resp 
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - containerName - The name of the blob container within the specified storage account. Blob container names must be between
 //     3 and 63 characters in length and use numbers, lower-case letters and dash (-) only. Every
 //     dash (-) character must be immediately preceded and followed by a letter or number.
-//   - ifMatch - The entity state (ETag) version of the immutability policy to update must be returned to the server for all update
-//     operations. The ETag value must include the leading and trailing double quotes as
-//     returned by the service.
+//   - ifMatch - The entity state (ETag) version of the immutability policy to update. A value of "*" can be used to apply the
+//     operation only if the immutability policy already exists. If omitted, this operation will
+//     always be applied.
 //   - options - BlobContainersClientExtendImmutabilityPolicyOptions contains the optional parameters for the BlobContainersClient.ExtendImmutabilityPolicy
 //     method.
-func (client *BlobContainersClient) ExtendImmutabilityPolicy(ctx context.Context, resourceGroupName string, accountName string, containerName string, ifMatch string, options *BlobContainersClientExtendImmutabilityPolicyOptions) (BlobContainersClientExtendImmutabilityPolicyResponse, error) {
+func (client *BlobContainersClient) ExtendImmutabilityPolicy(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, containerName string, immutabilityPolicyName string, ifMatch string, options *BlobContainersClientExtendImmutabilityPolicyOptions) (BlobContainersClientExtendImmutabilityPolicyResponse, error) {
 	var err error
 	const operationName = "BlobContainersClient.ExtendImmutabilityPolicy"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.extendImmutabilityPolicyCreateRequest(ctx, resourceGroupName, accountName, containerName, ifMatch, options)
+	req, err := client.extendImmutabilityPolicyCreateRequest(ctx, resourceGroupName, accountName, blobServicesName, containerName, immutabilityPolicyName, ifMatch, options)
 	if err != nil {
 		return BlobContainersClientExtendImmutabilityPolicyResponse{}, err
 	}
@@ -467,8 +492,12 @@ func (client *BlobContainersClient) ExtendImmutabilityPolicy(ctx context.Context
 }
 
 // extendImmutabilityPolicyCreateRequest creates the ExtendImmutabilityPolicy request.
-func (client *BlobContainersClient) extendImmutabilityPolicyCreateRequest(ctx context.Context, resourceGroupName string, accountName string, containerName string, ifMatch string, options *BlobContainersClientExtendImmutabilityPolicyOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/blobServices/default/containers/{containerName}/immutabilityPolicies/default/extend"
+func (client *BlobContainersClient) extendImmutabilityPolicyCreateRequest(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, containerName string, immutabilityPolicyName string, ifMatch string, options *BlobContainersClientExtendImmutabilityPolicyOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/blobServices/{blobServicesName}/containers/{containerName}/immutabilityPolicies/{ImmutabilityPolicyName}/extend"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -477,14 +506,18 @@ func (client *BlobContainersClient) extendImmutabilityPolicyCreateRequest(ctx co
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
+	if blobServicesName == "" {
+		return nil, errors.New("parameter blobServicesName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{blobServicesName}", url.PathEscape(blobServicesName))
 	if containerName == "" {
 		return nil, errors.New("parameter containerName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{containerName}", url.PathEscape(containerName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	if immutabilityPolicyName == "" {
+		return nil, errors.New("parameter immutabilityPolicyName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	urlPath = strings.ReplaceAll(urlPath, "{ImmutabilityPolicyName}", url.PathEscape(immutabilityPolicyName))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -493,7 +526,7 @@ func (client *BlobContainersClient) extendImmutabilityPolicyCreateRequest(ctx co
 	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	req.Raw().Header["If-Match"] = []string{ifMatch}
+	req.Raw().Header["if-match"] = []string{ifMatch}
 	if options != nil && options.Parameters != nil {
 		if err := runtime.MarshalAsJSON(req, *options.Parameters); err != nil {
 			return nil, err
@@ -519,20 +552,20 @@ func (client *BlobContainersClient) extendImmutabilityPolicyHandleResponse(resp 
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - containerName - The name of the blob container within the specified storage account. Blob container names must be between
 //     3 and 63 characters in length and use numbers, lower-case letters and dash (-) only. Every
 //     dash (-) character must be immediately preceded and followed by a letter or number.
 //   - options - BlobContainersClientGetOptions contains the optional parameters for the BlobContainersClient.Get method.
-func (client *BlobContainersClient) Get(ctx context.Context, resourceGroupName string, accountName string, containerName string, options *BlobContainersClientGetOptions) (BlobContainersClientGetResponse, error) {
+func (client *BlobContainersClient) Get(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, containerName string, options *BlobContainersClientGetOptions) (BlobContainersClientGetResponse, error) {
 	var err error
 	const operationName = "BlobContainersClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, resourceGroupName, accountName, containerName, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, accountName, blobServicesName, containerName, options)
 	if err != nil {
 		return BlobContainersClientGetResponse{}, err
 	}
@@ -549,8 +582,12 @@ func (client *BlobContainersClient) Get(ctx context.Context, resourceGroupName s
 }
 
 // getCreateRequest creates the Get request.
-func (client *BlobContainersClient) getCreateRequest(ctx context.Context, resourceGroupName string, accountName string, containerName string, _ *BlobContainersClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/blobServices/default/containers/{containerName}"
+func (client *BlobContainersClient) getCreateRequest(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, containerName string, _ *BlobContainersClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/blobServices/{blobServicesName}/containers/{containerName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -559,14 +596,14 @@ func (client *BlobContainersClient) getCreateRequest(ctx context.Context, resour
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
+	if blobServicesName == "" {
+		return nil, errors.New("parameter blobServicesName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{blobServicesName}", url.PathEscape(blobServicesName))
 	if containerName == "" {
 		return nil, errors.New("parameter containerName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{containerName}", url.PathEscape(containerName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -592,7 +629,7 @@ func (client *BlobContainersClient) getHandleResponse(resp *http.Response) (Blob
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - containerName - The name of the blob container within the specified storage account. Blob container names must be between
@@ -600,13 +637,13 @@ func (client *BlobContainersClient) getHandleResponse(resp *http.Response) (Blob
 //     dash (-) character must be immediately preceded and followed by a letter or number.
 //   - options - BlobContainersClientGetImmutabilityPolicyOptions contains the optional parameters for the BlobContainersClient.GetImmutabilityPolicy
 //     method.
-func (client *BlobContainersClient) GetImmutabilityPolicy(ctx context.Context, resourceGroupName string, accountName string, containerName string, options *BlobContainersClientGetImmutabilityPolicyOptions) (BlobContainersClientGetImmutabilityPolicyResponse, error) {
+func (client *BlobContainersClient) GetImmutabilityPolicy(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, containerName string, immutabilityPolicyName string, options *BlobContainersClientGetImmutabilityPolicyOptions) (BlobContainersClientGetImmutabilityPolicyResponse, error) {
 	var err error
 	const operationName = "BlobContainersClient.GetImmutabilityPolicy"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getImmutabilityPolicyCreateRequest(ctx, resourceGroupName, accountName, containerName, options)
+	req, err := client.getImmutabilityPolicyCreateRequest(ctx, resourceGroupName, accountName, blobServicesName, containerName, immutabilityPolicyName, options)
 	if err != nil {
 		return BlobContainersClientGetImmutabilityPolicyResponse{}, err
 	}
@@ -623,8 +660,12 @@ func (client *BlobContainersClient) GetImmutabilityPolicy(ctx context.Context, r
 }
 
 // getImmutabilityPolicyCreateRequest creates the GetImmutabilityPolicy request.
-func (client *BlobContainersClient) getImmutabilityPolicyCreateRequest(ctx context.Context, resourceGroupName string, accountName string, containerName string, options *BlobContainersClientGetImmutabilityPolicyOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/blobServices/default/containers/{containerName}/immutabilityPolicies/{immutabilityPolicyName}"
+func (client *BlobContainersClient) getImmutabilityPolicyCreateRequest(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, containerName string, immutabilityPolicyName string, options *BlobContainersClientGetImmutabilityPolicyOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/blobServices/{blobServicesName}/containers/{containerName}/immutabilityPolicies/{ImmutabilityPolicyName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -633,15 +674,18 @@ func (client *BlobContainersClient) getImmutabilityPolicyCreateRequest(ctx conte
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
+	if blobServicesName == "" {
+		return nil, errors.New("parameter blobServicesName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{blobServicesName}", url.PathEscape(blobServicesName))
 	if containerName == "" {
 		return nil, errors.New("parameter containerName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{containerName}", url.PathEscape(containerName))
-	urlPath = strings.ReplaceAll(urlPath, "{immutabilityPolicyName}", url.PathEscape("default"))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	if immutabilityPolicyName == "" {
+		return nil, errors.New("parameter immutabilityPolicyName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	urlPath = strings.ReplaceAll(urlPath, "{ImmutabilityPolicyName}", url.PathEscape(immutabilityPolicyName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -651,7 +695,7 @@ func (client *BlobContainersClient) getImmutabilityPolicyCreateRequest(ctx conte
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
+		req.Raw().Header["if-match"] = []string{*options.IfMatch}
 	}
 	return req, nil
 }
@@ -673,20 +717,20 @@ func (client *BlobContainersClient) getImmutabilityPolicyHandleResponse(resp *ht
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - containerName - The name of the blob container within the specified storage account. Blob container names must be between
 //     3 and 63 characters in length and use numbers, lower-case letters and dash (-) only. Every
 //     dash (-) character must be immediately preceded and followed by a letter or number.
 //   - options - BlobContainersClientLeaseOptions contains the optional parameters for the BlobContainersClient.Lease method.
-func (client *BlobContainersClient) Lease(ctx context.Context, resourceGroupName string, accountName string, containerName string, options *BlobContainersClientLeaseOptions) (BlobContainersClientLeaseResponse, error) {
+func (client *BlobContainersClient) Lease(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, containerName string, options *BlobContainersClientLeaseOptions) (BlobContainersClientLeaseResponse, error) {
 	var err error
 	const operationName = "BlobContainersClient.Lease"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.leaseCreateRequest(ctx, resourceGroupName, accountName, containerName, options)
+	req, err := client.leaseCreateRequest(ctx, resourceGroupName, accountName, blobServicesName, containerName, options)
 	if err != nil {
 		return BlobContainersClientLeaseResponse{}, err
 	}
@@ -703,8 +747,12 @@ func (client *BlobContainersClient) Lease(ctx context.Context, resourceGroupName
 }
 
 // leaseCreateRequest creates the Lease request.
-func (client *BlobContainersClient) leaseCreateRequest(ctx context.Context, resourceGroupName string, accountName string, containerName string, options *BlobContainersClientLeaseOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/blobServices/default/containers/{containerName}/lease"
+func (client *BlobContainersClient) leaseCreateRequest(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, containerName string, options *BlobContainersClientLeaseOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/blobServices/{blobServicesName}/containers/{containerName}/lease"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -713,14 +761,14 @@ func (client *BlobContainersClient) leaseCreateRequest(ctx context.Context, reso
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
+	if blobServicesName == "" {
+		return nil, errors.New("parameter blobServicesName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{blobServicesName}", url.PathEscape(blobServicesName))
 	if containerName == "" {
 		return nil, errors.New("parameter containerName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{containerName}", url.PathEscape(containerName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -751,11 +799,11 @@ func (client *BlobContainersClient) leaseHandleResponse(resp *http.Response) (Bl
 // token.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - options - BlobContainersClientListOptions contains the optional parameters for the BlobContainersClient.NewListPager method.
-func (client *BlobContainersClient) NewListPager(resourceGroupName string, accountName string, options *BlobContainersClientListOptions) *runtime.Pager[BlobContainersClientListResponse] {
+func (client *BlobContainersClient) NewListPager(resourceGroupName string, accountName string, blobServicesName string, options *BlobContainersClientListOptions) *runtime.Pager[BlobContainersClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[BlobContainersClientListResponse]{
 		More: func(page BlobContainersClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
@@ -767,7 +815,7 @@ func (client *BlobContainersClient) NewListPager(resourceGroupName string, accou
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, resourceGroupName, accountName, options)
+				return client.listCreateRequest(ctx, resourceGroupName, accountName, blobServicesName, options)
 			}, nil)
 			if err != nil {
 				return BlobContainersClientListResponse{}, err
@@ -779,8 +827,12 @@ func (client *BlobContainersClient) NewListPager(resourceGroupName string, accou
 }
 
 // listCreateRequest creates the List request.
-func (client *BlobContainersClient) listCreateRequest(ctx context.Context, resourceGroupName string, accountName string, options *BlobContainersClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/blobServices/default/containers"
+func (client *BlobContainersClient) listCreateRequest(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, options *BlobContainersClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/blobServices/{blobServicesName}/containers"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -789,10 +841,10 @@ func (client *BlobContainersClient) listCreateRequest(ctx context.Context, resou
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	if blobServicesName == "" {
+		return nil, errors.New("parameter blobServicesName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	urlPath = strings.ReplaceAll(urlPath, "{blobServicesName}", url.PathEscape(blobServicesName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -827,24 +879,24 @@ func (client *BlobContainersClient) listHandleResponse(resp *http.Response) (Blo
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - containerName - The name of the blob container within the specified storage account. Blob container names must be between
 //     3 and 63 characters in length and use numbers, lower-case letters and dash (-) only. Every
 //     dash (-) character must be immediately preceded and followed by a letter or number.
-//   - ifMatch - The entity state (ETag) version of the immutability policy to update must be returned to the server for all update
-//     operations. The ETag value must include the leading and trailing double quotes as
-//     returned by the service.
+//   - ifMatch - The entity state (ETag) version of the immutability policy to update. A value of "*" can be used to apply the
+//     operation only if the immutability policy already exists. If omitted, this operation will
+//     always be applied.
 //   - options - BlobContainersClientLockImmutabilityPolicyOptions contains the optional parameters for the BlobContainersClient.LockImmutabilityPolicy
 //     method.
-func (client *BlobContainersClient) LockImmutabilityPolicy(ctx context.Context, resourceGroupName string, accountName string, containerName string, ifMatch string, options *BlobContainersClientLockImmutabilityPolicyOptions) (BlobContainersClientLockImmutabilityPolicyResponse, error) {
+func (client *BlobContainersClient) LockImmutabilityPolicy(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, containerName string, immutabilityPolicyName string, ifMatch string, options *BlobContainersClientLockImmutabilityPolicyOptions) (BlobContainersClientLockImmutabilityPolicyResponse, error) {
 	var err error
 	const operationName = "BlobContainersClient.LockImmutabilityPolicy"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.lockImmutabilityPolicyCreateRequest(ctx, resourceGroupName, accountName, containerName, ifMatch, options)
+	req, err := client.lockImmutabilityPolicyCreateRequest(ctx, resourceGroupName, accountName, blobServicesName, containerName, immutabilityPolicyName, ifMatch, options)
 	if err != nil {
 		return BlobContainersClientLockImmutabilityPolicyResponse{}, err
 	}
@@ -861,8 +913,12 @@ func (client *BlobContainersClient) LockImmutabilityPolicy(ctx context.Context, 
 }
 
 // lockImmutabilityPolicyCreateRequest creates the LockImmutabilityPolicy request.
-func (client *BlobContainersClient) lockImmutabilityPolicyCreateRequest(ctx context.Context, resourceGroupName string, accountName string, containerName string, ifMatch string, _ *BlobContainersClientLockImmutabilityPolicyOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/blobServices/default/containers/{containerName}/immutabilityPolicies/default/lock"
+func (client *BlobContainersClient) lockImmutabilityPolicyCreateRequest(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, containerName string, immutabilityPolicyName string, ifMatch string, _ *BlobContainersClientLockImmutabilityPolicyOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/blobServices/{blobServicesName}/containers/{containerName}/immutabilityPolicies/{ImmutabilityPolicyName}/lock"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -871,14 +927,18 @@ func (client *BlobContainersClient) lockImmutabilityPolicyCreateRequest(ctx cont
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
+	if blobServicesName == "" {
+		return nil, errors.New("parameter blobServicesName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{blobServicesName}", url.PathEscape(blobServicesName))
 	if containerName == "" {
 		return nil, errors.New("parameter containerName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{containerName}", url.PathEscape(containerName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	if immutabilityPolicyName == "" {
+		return nil, errors.New("parameter immutabilityPolicyName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	urlPath = strings.ReplaceAll(urlPath, "{ImmutabilityPolicyName}", url.PathEscape(immutabilityPolicyName))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -887,7 +947,7 @@ func (client *BlobContainersClient) lockImmutabilityPolicyCreateRequest(ctx cont
 	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	req.Raw().Header["If-Match"] = []string{ifMatch}
+	req.Raw().Header["if-match"] = []string{ifMatch}
 	return req, nil
 }
 
@@ -909,7 +969,7 @@ func (client *BlobContainersClient) lockImmutabilityPolicyHandleResponse(resp *h
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - containerName - The name of the blob container within the specified storage account. Blob container names must be between
@@ -917,9 +977,9 @@ func (client *BlobContainersClient) lockImmutabilityPolicyHandleResponse(resp *h
 //     dash (-) character must be immediately preceded and followed by a letter or number.
 //   - options - BlobContainersClientBeginObjectLevelWormOptions contains the optional parameters for the BlobContainersClient.BeginObjectLevelWorm
 //     method.
-func (client *BlobContainersClient) BeginObjectLevelWorm(ctx context.Context, resourceGroupName string, accountName string, containerName string, options *BlobContainersClientBeginObjectLevelWormOptions) (*runtime.Poller[BlobContainersClientObjectLevelWormResponse], error) {
+func (client *BlobContainersClient) BeginObjectLevelWorm(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, containerName string, options *BlobContainersClientBeginObjectLevelWormOptions) (*runtime.Poller[BlobContainersClientObjectLevelWormResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.objectLevelWorm(ctx, resourceGroupName, accountName, containerName, options)
+		resp, err := client.objectLevelWorm(ctx, resourceGroupName, accountName, blobServicesName, containerName, options)
 		if err != nil {
 			return nil, err
 		}
@@ -941,13 +1001,13 @@ func (client *BlobContainersClient) BeginObjectLevelWorm(ctx context.Context, re
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-func (client *BlobContainersClient) objectLevelWorm(ctx context.Context, resourceGroupName string, accountName string, containerName string, options *BlobContainersClientBeginObjectLevelWormOptions) (*http.Response, error) {
+func (client *BlobContainersClient) objectLevelWorm(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, containerName string, options *BlobContainersClientBeginObjectLevelWormOptions) (*http.Response, error) {
 	var err error
 	const operationName = "BlobContainersClient.BeginObjectLevelWorm"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.objectLevelWormCreateRequest(ctx, resourceGroupName, accountName, containerName, options)
+	req, err := client.objectLevelWormCreateRequest(ctx, resourceGroupName, accountName, blobServicesName, containerName, options)
 	if err != nil {
 		return nil, err
 	}
@@ -963,8 +1023,12 @@ func (client *BlobContainersClient) objectLevelWorm(ctx context.Context, resourc
 }
 
 // objectLevelWormCreateRequest creates the ObjectLevelWorm request.
-func (client *BlobContainersClient) objectLevelWormCreateRequest(ctx context.Context, resourceGroupName string, accountName string, containerName string, _ *BlobContainersClientBeginObjectLevelWormOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/blobServices/default/containers/{containerName}/migrate"
+func (client *BlobContainersClient) objectLevelWormCreateRequest(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, containerName string, _ *BlobContainersClientBeginObjectLevelWormOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/blobServices/{blobServicesName}/containers/{containerName}/migrate"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -973,14 +1037,14 @@ func (client *BlobContainersClient) objectLevelWormCreateRequest(ctx context.Con
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
+	if blobServicesName == "" {
+		return nil, errors.New("parameter blobServicesName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{blobServicesName}", url.PathEscape(blobServicesName))
 	if containerName == "" {
 		return nil, errors.New("parameter containerName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{containerName}", url.PathEscape(containerName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -997,7 +1061,7 @@ func (client *BlobContainersClient) objectLevelWormCreateRequest(ctx context.Con
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - containerName - The name of the blob container within the specified storage account. Blob container names must be between
@@ -1006,13 +1070,13 @@ func (client *BlobContainersClient) objectLevelWormCreateRequest(ctx context.Con
 //   - legalHold - The LegalHold property that will be set to a blob container.
 //   - options - BlobContainersClientSetLegalHoldOptions contains the optional parameters for the BlobContainersClient.SetLegalHold
 //     method.
-func (client *BlobContainersClient) SetLegalHold(ctx context.Context, resourceGroupName string, accountName string, containerName string, legalHold LegalHold, options *BlobContainersClientSetLegalHoldOptions) (BlobContainersClientSetLegalHoldResponse, error) {
+func (client *BlobContainersClient) SetLegalHold(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, containerName string, legalHold LegalHold, options *BlobContainersClientSetLegalHoldOptions) (BlobContainersClientSetLegalHoldResponse, error) {
 	var err error
 	const operationName = "BlobContainersClient.SetLegalHold"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.setLegalHoldCreateRequest(ctx, resourceGroupName, accountName, containerName, legalHold, options)
+	req, err := client.setLegalHoldCreateRequest(ctx, resourceGroupName, accountName, blobServicesName, containerName, legalHold, options)
 	if err != nil {
 		return BlobContainersClientSetLegalHoldResponse{}, err
 	}
@@ -1029,8 +1093,12 @@ func (client *BlobContainersClient) SetLegalHold(ctx context.Context, resourceGr
 }
 
 // setLegalHoldCreateRequest creates the SetLegalHold request.
-func (client *BlobContainersClient) setLegalHoldCreateRequest(ctx context.Context, resourceGroupName string, accountName string, containerName string, legalHold LegalHold, _ *BlobContainersClientSetLegalHoldOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/blobServices/default/containers/{containerName}/setLegalHold"
+func (client *BlobContainersClient) setLegalHoldCreateRequest(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, containerName string, legalHold LegalHold, _ *BlobContainersClientSetLegalHoldOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/blobServices/{blobServicesName}/containers/{containerName}/setLegalHold"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -1039,14 +1107,14 @@ func (client *BlobContainersClient) setLegalHoldCreateRequest(ctx context.Contex
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
+	if blobServicesName == "" {
+		return nil, errors.New("parameter blobServicesName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{blobServicesName}", url.PathEscape(blobServicesName))
 	if containerName == "" {
 		return nil, errors.New("parameter containerName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{containerName}", url.PathEscape(containerName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -1075,7 +1143,7 @@ func (client *BlobContainersClient) setLegalHoldHandleResponse(resp *http.Respon
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - containerName - The name of the blob container within the specified storage account. Blob container names must be between
@@ -1083,13 +1151,13 @@ func (client *BlobContainersClient) setLegalHoldHandleResponse(resp *http.Respon
 //     dash (-) character must be immediately preceded and followed by a letter or number.
 //   - blobContainer - Properties to update for the blob container.
 //   - options - BlobContainersClientUpdateOptions contains the optional parameters for the BlobContainersClient.Update method.
-func (client *BlobContainersClient) Update(ctx context.Context, resourceGroupName string, accountName string, containerName string, blobContainer BlobContainer, options *BlobContainersClientUpdateOptions) (BlobContainersClientUpdateResponse, error) {
+func (client *BlobContainersClient) Update(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, containerName string, blobContainer BlobContainer, options *BlobContainersClientUpdateOptions) (BlobContainersClientUpdateResponse, error) {
 	var err error
 	const operationName = "BlobContainersClient.Update"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, accountName, containerName, blobContainer, options)
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, accountName, blobServicesName, containerName, blobContainer, options)
 	if err != nil {
 		return BlobContainersClientUpdateResponse{}, err
 	}
@@ -1106,8 +1174,12 @@ func (client *BlobContainersClient) Update(ctx context.Context, resourceGroupNam
 }
 
 // updateCreateRequest creates the Update request.
-func (client *BlobContainersClient) updateCreateRequest(ctx context.Context, resourceGroupName string, accountName string, containerName string, blobContainer BlobContainer, _ *BlobContainersClientUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/blobServices/default/containers/{containerName}"
+func (client *BlobContainersClient) updateCreateRequest(ctx context.Context, resourceGroupName string, accountName string, blobServicesName string, containerName string, blobContainer BlobContainer, _ *BlobContainersClientUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/blobServices/{blobServicesName}/containers/{containerName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -1116,14 +1188,14 @@ func (client *BlobContainersClient) updateCreateRequest(ctx context.Context, res
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
+	if blobServicesName == "" {
+		return nil, errors.New("parameter blobServicesName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{blobServicesName}", url.PathEscape(blobServicesName))
 	if containerName == "" {
 		return nil, errors.New("parameter containerName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{containerName}", url.PathEscape(containerName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err

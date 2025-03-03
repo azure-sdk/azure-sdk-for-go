@@ -1,5 +1,108 @@
 # Release History
 
+## 2.0.0 (2025-03-03)
+### Breaking Changes
+
+- Function `*BlobContainersClient.BeginObjectLevelWorm` parameter(s) have been changed from `(context.Context, string, string, string, *BlobContainersClientBeginObjectLevelWormOptions)` to `(context.Context, string, string, string, string, *BlobContainersClientBeginObjectLevelWormOptions)`
+- Function `*BlobContainersClient.ClearLegalHold` parameter(s) have been changed from `(context.Context, string, string, string, LegalHold, *BlobContainersClientClearLegalHoldOptions)` to `(context.Context, string, string, string, string, LegalHold, *BlobContainersClientClearLegalHoldOptions)`
+- Function `*BlobContainersClient.Create` parameter(s) have been changed from `(context.Context, string, string, string, BlobContainer, *BlobContainersClientCreateOptions)` to `(context.Context, string, string, string, string, BlobContainer, *BlobContainersClientCreateOptions)`
+- Function `*BlobContainersClient.CreateOrUpdateImmutabilityPolicy` parameter(s) have been changed from `(context.Context, string, string, string, *BlobContainersClientCreateOrUpdateImmutabilityPolicyOptions)` to `(context.Context, string, string, string, string, string, ImmutabilityPolicy, *BlobContainersClientCreateOrUpdateImmutabilityPolicyOptions)`
+- Function `*BlobContainersClient.Delete` parameter(s) have been changed from `(context.Context, string, string, string, *BlobContainersClientDeleteOptions)` to `(context.Context, string, string, string, string, *BlobContainersClientDeleteOptions)`
+- Function `*BlobContainersClient.DeleteImmutabilityPolicy` parameter(s) have been changed from `(context.Context, string, string, string, string, *BlobContainersClientDeleteImmutabilityPolicyOptions)` to `(context.Context, string, string, string, string, string, string, *BlobContainersClientDeleteImmutabilityPolicyOptions)`
+- Function `*BlobContainersClient.ExtendImmutabilityPolicy` parameter(s) have been changed from `(context.Context, string, string, string, string, *BlobContainersClientExtendImmutabilityPolicyOptions)` to `(context.Context, string, string, string, string, string, string, *BlobContainersClientExtendImmutabilityPolicyOptions)`
+- Function `*BlobContainersClient.Get` parameter(s) have been changed from `(context.Context, string, string, string, *BlobContainersClientGetOptions)` to `(context.Context, string, string, string, string, *BlobContainersClientGetOptions)`
+- Function `*BlobContainersClient.GetImmutabilityPolicy` parameter(s) have been changed from `(context.Context, string, string, string, *BlobContainersClientGetImmutabilityPolicyOptions)` to `(context.Context, string, string, string, string, string, *BlobContainersClientGetImmutabilityPolicyOptions)`
+- Function `*BlobContainersClient.Lease` parameter(s) have been changed from `(context.Context, string, string, string, *BlobContainersClientLeaseOptions)` to `(context.Context, string, string, string, string, *BlobContainersClientLeaseOptions)`
+- Function `*BlobContainersClient.LockImmutabilityPolicy` parameter(s) have been changed from `(context.Context, string, string, string, string, *BlobContainersClientLockImmutabilityPolicyOptions)` to `(context.Context, string, string, string, string, string, string, *BlobContainersClientLockImmutabilityPolicyOptions)`
+- Function `*BlobContainersClient.NewListPager` parameter(s) have been changed from `(string, string, *BlobContainersClientListOptions)` to `(string, string, string, *BlobContainersClientListOptions)`
+- Function `*BlobContainersClient.SetLegalHold` parameter(s) have been changed from `(context.Context, string, string, string, LegalHold, *BlobContainersClientSetLegalHoldOptions)` to `(context.Context, string, string, string, string, LegalHold, *BlobContainersClientSetLegalHoldOptions)`
+- Function `*BlobContainersClient.Update` parameter(s) have been changed from `(context.Context, string, string, string, BlobContainer, *BlobContainersClientUpdateOptions)` to `(context.Context, string, string, string, string, BlobContainer, *BlobContainersClientUpdateOptions)`
+- Function `*BlobServicesClient.GetServiceProperties` parameter(s) have been changed from `(context.Context, string, string, *BlobServicesClientGetServicePropertiesOptions)` to `(context.Context, string, string, string, *BlobServicesClientGetServicePropertiesOptions)`
+- Function `*BlobServicesClient.SetServiceProperties` parameter(s) have been changed from `(context.Context, string, string, BlobServiceProperties, *BlobServicesClientSetServicePropertiesOptions)` to `(context.Context, string, string, string, BlobServiceProperties, *BlobServicesClientSetServicePropertiesOptions)`
+- Function `*TableClient.Create` parameter(s) have been changed from `(context.Context, string, string, string, *TableClientCreateOptions)` to `(context.Context, string, string, string, Table, *TableClientCreateOptions)`
+- Function `*TableClient.Update` parameter(s) have been changed from `(context.Context, string, string, string, *TableClientUpdateOptions)` to `(context.Context, string, string, string, Table, *TableClientUpdateOptions)`
+- Type of `ActiveDirectoryProperties.AccountType` has been changed from `*ActiveDirectoryPropertiesAccountType` to `*AccountType`
+- Type of `CorsRule.AllowedMethods` has been changed from `[]*CorsRuleAllowedMethodsItem` to `[]*AllowedMethods`
+- Type of `ErrorResponse.Error` has been changed from `*ErrorResponseBody` to `*ErrorDetail`
+- Type of `Operation.Origin` has been changed from `*string` to `*Origin`
+- Enum `ActiveDirectoryPropertiesAccountType` has been removed
+- Enum `CorsRuleAllowedMethodsItem` has been removed
+- Operation `*ObjectReplicationPoliciesClient.NewListPager` does not support pagination anymore, use `*ObjectReplicationPoliciesClient.List` instead.
+- Operation `*UsagesClient.NewListByLocationPager` does not support pagination anymore, use `*UsagesClient.ListByLocation` instead.
+- Struct `Dimension` has been removed
+- Struct `ErrorResponseAutoGenerated` has been removed
+- Struct `ErrorResponseBody` has been removed
+- Struct `MetricSpecification` has been removed
+- Struct `ObjectReplicationPolicyPropertiesMetrics` has been removed
+- Struct `OperationProperties` has been removed
+- Struct `ProxyResourceAutoGenerated` has been removed
+- Struct `ServiceSpecification` has been removed
+- Field `MaxProvisionedIOPS` of struct `AccountLimits` has been removed
+- Field `StorageAccountMigrationDetails` of struct `AccountMigration` has been removed
+- Field `ProvisionedIOPS` of struct `AccountUsageElements` has been removed
+- Field `ContainerProperties`, `Etag` of struct `BlobContainer` has been removed
+- Field `Parameters` of struct `BlobContainersClientCreateOrUpdateImmutabilityPolicyOptions` has been removed
+- Field `BlobServiceProperties` of struct `BlobServiceProperties` has been removed
+- Field `BurstFloorIOPS` of struct `BurstingConstants` has been removed
+- Field `EncryptionScopeProperties` of struct `EncryptionScope` has been removed
+- Field `FileServiceProperties` of struct `FileServiceProperties` has been removed
+- Field `Etag`, `FileShareProperties` of struct `FileShare` has been removed
+- Field `MaxProvisionedIOPS`, `MinProvisionedIOPS` of struct `FileShareLimits` has been removed
+- Field `BaseIOPS` of struct `FileShareRecommendations` has been removed
+- Field `Etag` of struct `ImmutabilityPolicy` has been removed
+- Field `Metrics` of struct `ObjectReplicationPolicyProperties` has been removed
+- Field `OperationProperties` of struct `Operation` has been removed
+- Field `QueueProperties` of struct `Queue` has been removed
+- Field `QueueServiceProperties` of struct `QueueServiceProperties` has been removed
+- Field `SystemData` of struct `ResourceAutoGenerated` has been removed
+- Field `TableProperties` of struct `Table` has been removed
+- Field `Parameters` of struct `TableClientCreateOptions` has been removed
+- Field `Parameters` of struct `TableClientUpdateOptions` has been removed
+- Field `TableServiceProperties` of struct `TableServiceProperties` has been removed
+
+### Features Added
+
+- New value `SKUTierBasic`, `SKUTierFree` added to enum type `SKUTier`
+- New enum type `AccountType` with values `AccountTypeComputer`, `AccountTypeUser`
+- New enum type `ActionType` with values `ActionTypeInternal`
+- New enum type `AllowedMethods` with values `AllowedMethodsCONNECT`, `AllowedMethodsDELETE`, `AllowedMethodsGET`, `AllowedMethodsHEAD`, `AllowedMethodsMERGE`, `AllowedMethodsOPTIONS`, `AllowedMethodsPATCH`, `AllowedMethodsPOST`, `AllowedMethodsPUT`, `AllowedMethodsTRACE`
+- New enum type `Origin` with values `OriginSystem`, `OriginUser`, `OriginUserSystem`
+- New struct `AzureResourceManagerArmResponseBlobRestoreStatus`
+- New field `SystemData` in struct `Account`
+- New field `MaxProvisionedIops` in struct `AccountLimits`
+- New field `Properties`, `SystemData` in struct `AccountMigration`
+- New field `ProvisionedIops` in struct `AccountUsageElements`
+- New field `ETag`, `Properties`, `SystemData` in struct `BlobContainer`
+- New field `Nextlink` in struct `BlobServiceItems`
+- New field `Properties`, `SystemData` in struct `BlobServiceProperties`
+- New field `BurstFloorIops` in struct `BurstingConstants`
+- New field `SystemData` in struct `DeletedAccount`
+- New field `Properties`, `SystemData` in struct `EncryptionScope`
+- New field `Properties`, `SystemData` in struct `FileServiceProperties`
+- New field `SystemData` in struct `FileServiceUsage`
+- New field `ETag`, `Properties`, `SystemData` in struct `FileShare`
+- New field `MaxProvisionedIops`, `MinProvisionedIops` in struct `FileShareLimits`
+- New field `BaseIops` in struct `FileShareRecommendations`
+- New field `SystemData` in struct `ImmutabilityPolicy`
+- New field `Nextlink` in struct `ListBlobInventoryPolicy`
+- New field `SystemData` in struct `ManagementPolicy`
+- New field `SystemData` in struct `ObjectReplicationPolicy`
+- New field `ActionType`, `IsDataAction` in struct `Operation`
+- New field `NextLink` in struct `OperationListResult`
+- New field `SystemData` in struct `PrivateEndpointConnection`
+- New field `Nextlink` in struct `PrivateEndpointConnectionListResult`
+- New field `SystemData` in struct `ProxyResource`
+- New field `Properties`, `SystemData` in struct `Queue`
+- New field `Properties`, `SystemData` in struct `QueueServiceProperties`
+- New field `SystemData` in struct `Resource`
+- New field `Nextlink` in struct `SKUListResult`
+- New field `Properties`, `SystemData` in struct `Table`
+- New field `Properties`, `SystemData` in struct `TableServiceProperties`
+- New field `SystemData` in struct `TaskAssignment`
+- New field `SystemData` in struct `TaskReportInstance`
+- New field `SystemData` in struct `TrackedResource`
+
+
 ## 1.7.0 (2025-02-27)
 ### Features Added
 

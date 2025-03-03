@@ -40,34 +40,32 @@ func NewUsagesClient(subscriptionID string, credential azcore.TokenCredential, o
 	return client, nil
 }
 
-// NewListByLocationPager - Gets the current usage count and the limit for the resources of the location under the subscription.
+// ListByLocation - Gets the current usage count and the limit for the resources of the location under the subscription.
+// If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - location - The location of the Azure Storage resource.
-//   - options - UsagesClientListByLocationOptions contains the optional parameters for the UsagesClient.NewListByLocationPager
-//     method.
-func (client *UsagesClient) NewListByLocationPager(location string, options *UsagesClientListByLocationOptions) *runtime.Pager[UsagesClientListByLocationResponse] {
-	return runtime.NewPager(runtime.PagingHandler[UsagesClientListByLocationResponse]{
-		More: func(page UsagesClientListByLocationResponse) bool {
-			return false
-		},
-		Fetcher: func(ctx context.Context, page *UsagesClientListByLocationResponse) (UsagesClientListByLocationResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "UsagesClient.NewListByLocationPager")
-			req, err := client.listByLocationCreateRequest(ctx, location, options)
-			if err != nil {
-				return UsagesClientListByLocationResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return UsagesClientListByLocationResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return UsagesClientListByLocationResponse{}, runtime.NewResponseError(resp)
-			}
-			return client.listByLocationHandleResponse(resp)
-		},
-		Tracer: client.internal.Tracer(),
-	})
+//   - location - The name of Azure region.
+//   - options - UsagesClientListByLocationOptions contains the optional parameters for the UsagesClient.ListByLocation method.
+func (client *UsagesClient) ListByLocation(ctx context.Context, location string, options *UsagesClientListByLocationOptions) (UsagesClientListByLocationResponse, error) {
+	var err error
+	const operationName = "UsagesClient.ListByLocation"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.listByLocationCreateRequest(ctx, location, options)
+	if err != nil {
+		return UsagesClientListByLocationResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return UsagesClientListByLocationResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return UsagesClientListByLocationResponse{}, err
+	}
+	resp, err := client.listByLocationHandleResponse(httpResp)
+	return resp, err
 }
 
 // listByLocationCreateRequest creates the ListByLocation request.
