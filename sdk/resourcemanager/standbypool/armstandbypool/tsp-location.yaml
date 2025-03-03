@@ -1,4 +1,4 @@
 directory: specification/standbypool/StandbyPool.Management
-commit: 3ca7edabc2edf1117b7d912ba34f2694721e3ff3
+commit: d4d91123bd2081233c3648a5b3eef519b3813415
 repo: Azure/azure-rest-api-specs
 additionalDirectories: 
