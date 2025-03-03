@@ -8,7 +8,7 @@ import (
 	"os"
 	"regexp"
 
-	"github.com/Azure/azure-sdk-for-go/sdk/messaging/eventgrid/aznamespaces/internal/generate/gopls"
+	"github.com/Azure/azure-sdk-for-go/sdk/messaging/eventgrid/aznamespaces/v2/internal/generate/gopls"
 )
 
 func main() {
@@ -122,9 +122,9 @@ func checkRequestMethods() error {
 	typesToFlatten := map[string]bool{
 		// these were customized to already be unexported within the TypeSpec
 		// by unexporting the individual client methods.
-		"AcknowledgeEventsOptions": true,
-		"RejectEventsOptions":      true,
-		"ReleaseEventsOptions":     true,
+		"AcknowledgeEventsOptions":	true,
+		"RejectEventsOptions":		true,
+		"ReleaseEventsOptions":		true,
 	}
 
 	// these are actually models, not options
@@ -232,11 +232,11 @@ func fixResultTypes() error {
 	}
 
 	renames := map[string]string{
-		"AcknowledgeResult": "AcknowledgeEventsResult",
-		"ReceiveResult":     "ReceiveEventsResult",
-		"RejectResult":      "RejectEventsResult",
-		"ReleaseResult":     "ReleaseEventsResult",
-		"RenewLocksResult":  "RenewEventLocksResult",
+		"AcknowledgeResult":	"AcknowledgeEventsResult",
+		"ReceiveResult":	"ReceiveEventsResult",
+		"RejectResult":		"RejectEventsResult",
+		"ReleaseResult":	"ReleaseEventsResult",
+		"RenewLocksResult":	"RenewEventLocksResult",
 	}
 
 	for i := len(symbols) - 1; i >= 0; i-- {
