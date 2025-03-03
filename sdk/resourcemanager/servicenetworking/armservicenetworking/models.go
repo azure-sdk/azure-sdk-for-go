@@ -59,7 +59,7 @@ type AssociationSubnet struct {
 
 // AssociationSubnetUpdate - Association Subnet.
 type AssociationSubnetUpdate struct {
-	// REQUIRED; Association ID.
+	// Association ID.
 	ID *string
 }
 
