@@ -1,8 +1,8 @@
-# Azure Monitor Module for Go
+# Azure Contosowidget Module for Go
 
-The `armmonitor` module provides operations for working with Azure Monitor.
+The `azmanager` module provides operations for working with Azure Contosowidget.
 
-[Source code](https://github.com/Azure/azure-sdk-for-go/tree/main/sdk/resourcemanager/monitor/armmonitor)
+[Source code](https://github.com/Azure/azure-sdk-for-go/tree/main/sdk/contosowidget/azmanager)
 
 # Getting started
 
@@ -15,15 +15,15 @@ The `armmonitor` module provides operations for working with Azure Monitor.
 
 This project uses [Go modules](https://github.com/golang/go/wiki/Modules) for versioning and dependency management.
 
-Install the Azure Monitor module:
+Install the Azure Contosowidget module:
 
 ```sh
-go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/monitor/armmonitor
+go get github.com/Azure/azure-sdk-for-go/sdk/contosowidget/azmanager
 ```
 
 ## Authorization
 
-When creating a client, you will need to provide a credential for authenticating with Azure Monitor. The `azidentity` module provides facilities for various ways of authenticating with Azure including client/secret, certificate, managed identity, and more.
+When creating a client, you will need to provide a credential for authenticating with Azure Contosowidget.  The `azidentity` module provides facilities for various ways of authenticating with Azure including client/secret, certificate, managed identity, and more.
 
 ```go
 cred, err := azidentity.NewDefaultAzureCredential(nil)
@@ -33,10 +33,10 @@ For more information on authentication, please see the documentation for `aziden
 
 ## Client Factory
 
-Azure Monitor module consists of one or more clients. We provide a client factory which could be used to create any client in this module.
+Azure Contosowidget module consists of one or more clients. We provide a client factory which could be used to create any client in this module.
 
 ```go
-clientFactory, err := armmonitor.NewClientFactory(<subscription ID>, cred, nil)
+clientFactory, err := azmanager.NewClientFactory(<subscription ID>, cred, nil)
 ```
 
 You can use `ClientOptions` in package `github.com/Azure/azure-sdk-for-go/sdk/azcore/arm` to set endpoint to connect with public and sovereign clouds as well as Azure Stack. For more information, please see the documentation for `azcore` at [pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/azcore](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/azcore).
@@ -47,15 +47,15 @@ options := arm.ClientOptions {
         Cloud: cloud.AzureChina,
     },
 }
-clientFactory, err := armmonitor.NewClientFactory(<subscription ID>, cred, &options)
+clientFactory, err := azmanager.NewClientFactory(<subscription ID>, cred, &options)
 ```
 
 ## Clients
 
-A client groups a set of related APIs, providing access to its functionality. Create one or more clients to access the APIs you require using client factory.
+A client groups a set of related APIs, providing access to its functionality.  Create one or more clients to access the APIs you require using client factory.
 
 ```go
-client := clientFactory.NewActionGroupsClient()
+client := clientFactory.{{NewClientName}}()
 ```
 
 ## Fakes
@@ -65,16 +65,10 @@ This allows writing tests to cover various success/error conditions without the 
 
 Please see https://github.com/Azure/azure-sdk-for-go/tree/main/sdk/samples/fakes for details and examples on how to use fakes.
 
-## More sample code
-
-- [Action Group](https://aka.ms/azsdk/go/mgmt/samples?path=sdk/resourcemanager/monitor/action_group)
-- [Activity Log Alert](https://aka.ms/azsdk/go/mgmt/samples?path=sdk/resourcemanager/monitor/activity_log_alert)
-- [Log Profile](https://aka.ms/azsdk/go/mgmt/samples?path=sdk/resourcemanager/monitor/log_profile)
-
 ## Provide Feedback
 
 If you encounter bugs or have suggestions, please
-[open an issue](https://github.com/Azure/azure-sdk-for-go/issues) and assign the `Monitor` label.
+[open an issue](https://github.com/Azure/azure-sdk-for-go/issues) and assign the `Contosowidget` label.
 
 # Contributing
 
