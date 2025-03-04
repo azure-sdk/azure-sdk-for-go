@@ -1,5 +1,29 @@
 # Release History
 
+## 4.2.0 (2025-03-04)
+### Features Added
+
+- New value `OperationTypeRehydrate` added to enum type `OperationType`
+- New function `*AzureVMWorkloadSAPAseDatabaseProtectableItem.GetAzureVMWorkloadProtectableItem() *AzureVMWorkloadProtectableItem`
+- New function `*AzureVMWorkloadSAPAseDatabaseProtectableItem.GetWorkloadProtectableItem() *WorkloadProtectableItem`
+- New function `*AzureWorkloadSAPAsePointInTimeRecoveryPoint.GetAzureWorkloadPointInTimeRecoveryPoint() *AzureWorkloadPointInTimeRecoveryPoint`
+- New function `*AzureWorkloadSAPAsePointInTimeRecoveryPoint.GetAzureWorkloadRecoveryPoint() *AzureWorkloadRecoveryPoint`
+- New function `*AzureWorkloadSAPAsePointInTimeRecoveryPoint.GetRecoveryPoint() *RecoveryPoint`
+- New function `*AzureWorkloadSAPAsePointInTimeRestoreRequest.GetAzureWorkloadRestoreRequest() *AzureWorkloadRestoreRequest`
+- New function `*AzureWorkloadSAPAsePointInTimeRestoreRequest.GetAzureWorkloadSAPAseRestoreRequest() *AzureWorkloadSAPAseRestoreRequest`
+- New function `*AzureWorkloadSAPAsePointInTimeRestoreRequest.GetRestoreRequest() *RestoreRequest`
+- New function `*AzureWorkloadSAPAseRecoveryPoint.GetAzureWorkloadRecoveryPoint() *AzureWorkloadRecoveryPoint`
+- New function `*AzureWorkloadSAPAseRecoveryPoint.GetRecoveryPoint() *RecoveryPoint`
+- New function `*AzureWorkloadSAPAseRestoreRequest.GetAzureWorkloadRestoreRequest() *AzureWorkloadRestoreRequest`
+- New function `*AzureWorkloadSAPAseRestoreRequest.GetAzureWorkloadSAPAseRestoreRequest() *AzureWorkloadSAPAseRestoreRequest`
+- New function `*AzureWorkloadSAPAseRestoreRequest.GetRestoreRequest() *RestoreRequest`
+- New struct `AzureVMWorkloadSAPAseDatabaseProtectableItem`
+- New struct `AzureWorkloadSAPAsePointInTimeRecoveryPoint`
+- New struct `AzureWorkloadSAPAsePointInTimeRestoreRequest`
+- New struct `AzureWorkloadSAPAseRecoveryPoint`
+- New field `OperationType` in struct `AzureStorageContainer`
+
+
 ## 4.1.0 (2024-05-24)
 ### Features Added
 
