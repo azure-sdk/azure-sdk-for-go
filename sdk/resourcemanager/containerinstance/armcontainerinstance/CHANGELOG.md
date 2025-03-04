@@ -1,5 +1,108 @@
 # Release History
 
+## 2.5.0-beta.2 (2025-03-04)
+### Breaking Changes
+
+- Type of `ContainerGroupListResult.Value` has been changed from `[]*ContainerGroup` to `[]*ListResultContainerGroup`
+- Type of `ContainerGroupProfile.Properties` has been changed from `*ContainerGroupProfilePropertiesProperties` to `*ContainerGroupProfileProperties`
+- Function `*ClientFactory.NewContainerGroupProfileClient` has been removed
+- Function `*ClientFactory.NewContainerGroupProfilesClient` has been removed
+- Function `NewContainerGroupProfileClient` has been removed
+- Function `*ContainerGroupProfileClient.GetByRevisionNumber` has been removed
+- Function `*ContainerGroupProfileClient.NewListAllRevisionsPager` has been removed
+- Function `NewContainerGroupProfilesClient` has been removed
+- Function `*ContainerGroupProfilesClient.CreateOrUpdate` has been removed
+- Function `*ContainerGroupProfilesClient.Delete` has been removed
+- Function `*ContainerGroupProfilesClient.Get` has been removed
+- Function `*ContainerGroupProfilesClient.NewListByResourceGroupPager` has been removed
+- Function `*ContainerGroupProfilesClient.NewListPager` has been removed
+- Function `*ContainerGroupProfilesClient.Patch` has been removed
+- Struct `ConfigMap` has been removed
+- Struct `ContainerGroupProfilePropertiesProperties` has been removed
+- Struct `ContainerGroupProfileReferenceDefinition` has been removed
+- Struct `StandbyPoolProfileDefinition` has been removed
+- Field `Properties` of struct `ContainerGroupProfileProperties` has been removed
+- Field `ContainerGroupProfile`, `IsCreatedFromStandbyPool`, `StandbyPoolProfile` of struct `ContainerGroupPropertiesProperties` has been removed
+- Field `ConfigMap` of struct `ContainerProperties` has been removed
+
+### Features Added
+
+- New value `ContainerGroupSKUNotSpecified` added to enum type `ContainerGroupSKU`
+- New enum type `AzureFileShareAccessTier` with values `AzureFileShareAccessTierCool`, `AzureFileShareAccessTierHot`, `AzureFileShareAccessTierPremium`, `AzureFileShareAccessTierTransactionOptimized`
+- New enum type `AzureFileShareAccessType` with values `AzureFileShareAccessTypeExclusive`, `AzureFileShareAccessTypeShared`
+- New enum type `ContainerGroupProvisioningState` with values `ContainerGroupProvisioningStateAccepted`, `ContainerGroupProvisioningStateCanceled`, `ContainerGroupProvisioningStateCreating`, `ContainerGroupProvisioningStateDeleting`, `ContainerGroupProvisioningStateFailed`, `ContainerGroupProvisioningStateNotAccessible`, `ContainerGroupProvisioningStateNotSpecified`, `ContainerGroupProvisioningStatePending`, `ContainerGroupProvisioningStatePreProvisioned`, `ContainerGroupProvisioningStateRepairing`, `ContainerGroupProvisioningStateSucceeded`, `ContainerGroupProvisioningStateUnhealthy`, `ContainerGroupProvisioningStateUpdating`
+- New enum type `CreatedByType` with values `CreatedByTypeApplication`, `CreatedByTypeKey`, `CreatedByTypeManagedIdentity`, `CreatedByTypeUser`
+- New enum type `IdentityAccessLevel` with values `IdentityAccessLevelAll`, `IdentityAccessLevelSystem`, `IdentityAccessLevelUser`
+- New enum type `NGroupProvisioningState` with values `NGroupProvisioningStateCanceled`, `NGroupProvisioningStateCreating`, `NGroupProvisioningStateDeleting`, `NGroupProvisioningStateFailed`, `NGroupProvisioningStateMigrating`, `NGroupProvisioningStateSucceeded`, `NGroupProvisioningStateUpdating`
+- New enum type `NGroupUpdateMode` with values `NGroupUpdateModeManual`, `NGroupUpdateModeRolling`
+- New function `NewCGProfileClient(string, azcore.TokenCredential, *arm.ClientOptions) (*CGProfileClient, error)`
+- New function `*CGProfileClient.CreateOrUpdate(context.Context, string, string, ContainerGroupProfile, *CGProfileClientCreateOrUpdateOptions) (CGProfileClientCreateOrUpdateResponse, error)`
+- New function `*CGProfileClient.BeginDelete(context.Context, string, string, *CGProfileClientBeginDeleteOptions) (*runtime.Poller[CGProfileClientDeleteResponse], error)`
+- New function `*CGProfileClient.Get(context.Context, string, string, *CGProfileClientGetOptions) (CGProfileClientGetResponse, error)`
+- New function `*CGProfileClient.GetByRevisionNumber(context.Context, string, string, string, *CGProfileClientGetByRevisionNumberOptions) (CGProfileClientGetByRevisionNumberResponse, error)`
+- New function `*CGProfileClient.NewListAllRevisionsPager(string, string, *CGProfileClientListAllRevisionsOptions) *runtime.Pager[CGProfileClientListAllRevisionsResponse]`
+- New function `*CGProfileClient.Update(context.Context, string, string, ContainerGroupProfilePatch, *CGProfileClientUpdateOptions) (CGProfileClientUpdateResponse, error)`
+- New function `NewCGProfilesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*CGProfilesClient, error)`
+- New function `*CGProfilesClient.NewListByResourceGroupPager(string, *CGProfilesClientListByResourceGroupOptions) *runtime.Pager[CGProfilesClientListByResourceGroupResponse]`
+- New function `*CGProfilesClient.NewListBySubscriptionPager(*CGProfilesClientListBySubscriptionOptions) *runtime.Pager[CGProfilesClientListBySubscriptionResponse]`
+- New function `*ClientFactory.NewCGProfileClient() *CGProfileClient`
+- New function `*ClientFactory.NewCGProfilesClient() *CGProfilesClient`
+- New function `*ClientFactory.NewNGroupsClient() *NGroupsClient`
+- New function `NewNGroupsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*NGroupsClient, error)`
+- New function `*NGroupsClient.BeginCreateOrUpdate(context.Context, string, string, NGroup, *NGroupsClientBeginCreateOrUpdateOptions) (*runtime.Poller[NGroupsClientCreateOrUpdateResponse], error)`
+- New function `*NGroupsClient.BeginDelete(context.Context, string, string, *NGroupsClientBeginDeleteOptions) (*runtime.Poller[NGroupsClientDeleteResponse], error)`
+- New function `*NGroupsClient.Get(context.Context, string, string, *NGroupsClientGetOptions) (NGroupsClientGetResponse, error)`
+- New function `*NGroupsClient.NewListByResourceGroupPager(string, *NGroupsClientListByResourceGroupOptions) *runtime.Pager[NGroupsClientListByResourceGroupResponse]`
+- New function `*NGroupsClient.NewListPager(*NGroupsClientListOptions) *runtime.Pager[NGroupsClientListResponse]`
+- New function `*NGroupsClient.BeginRestart(context.Context, string, string, *NGroupsClientBeginRestartOptions) (*runtime.Poller[NGroupsClientRestartResponse], error)`
+- New function `*NGroupsClient.BeginStart(context.Context, string, string, *NGroupsClientBeginStartOptions) (*runtime.Poller[NGroupsClientStartResponse], error)`
+- New function `*NGroupsClient.Stop(context.Context, string, string, *NGroupsClientStopOptions) (NGroupsClientStopResponse, error)`
+- New function `*NGroupsClient.BeginUpdate(context.Context, string, string, NGroup, *NGroupsClientBeginUpdateOptions) (*runtime.Poller[NGroupsClientUpdateResponse], error)`
+- New struct `APIEntityReference`
+- New struct `ApplicationGateway`
+- New struct `ApplicationGatewayBackendAddressPool`
+- New struct `ContainerGroupProfileStub`
+- New struct `ElasticProfile`
+- New struct `ElasticProfileContainerGroupNamingPolicy`
+- New struct `ElasticProfileContainerGroupNamingPolicyGUIDNamingPolicy`
+- New struct `ErrorAdditionalInfo`
+- New struct `ErrorDetail`
+- New struct `ErrorResponse`
+- New struct `FileShare`
+- New struct `FileShareProperties`
+- New struct `IdentityACLs`
+- New struct `IdentityAccessControl`
+- New struct `ListResultContainerGroup`
+- New struct `ListResultContainerGroupProperties`
+- New struct `ListResultContainerGroupPropertiesProperties`
+- New struct `LoadBalancer`
+- New struct `LoadBalancerBackendAddressPool`
+- New struct `NGroup`
+- New struct `NGroupCGPropertyContainer`
+- New struct `NGroupCGPropertyContainerProperties`
+- New struct `NGroupCGPropertyVolume`
+- New struct `NGroupContainerGroupProperties`
+- New struct `NGroupIdentity`
+- New struct `NGroupProperties`
+- New struct `NGroupSKUs`
+- New struct `NGroupsListResult`
+- New struct `NGroupsSKUsList`
+- New struct `NetworkProfile`
+- New struct `PlacementProfile`
+- New struct `SecretReference`
+- New struct `StorageProfile`
+- New struct `SystemData`
+- New struct `UpdateProfile`
+- New struct `UpdateProfileRollingUpdateProfile`
+- New field `StorageAccountKeyReference` in struct `AzureFileVolume`
+- New field `SystemData` in struct `ContainerGroupProfile`
+- New field `ConfidentialComputeProperties`, `Containers`, `Diagnostics`, `EncryptionProperties`, `Extensions`, `IPAddress`, `ImageRegistryCredentials`, `InitContainers`, `OSType`, `Priority`, `RegisteredRevisions`, `RestartPolicy`, `Revision`, `SKU`, `SecurityContext`, `ShutdownGracePeriod`, `TimeToLive`, `UseKrypton`, `Volumes` in struct `ContainerGroupProfileProperties`
+- New field `IdentityACLs`, `SecretReferences` in struct `ContainerGroupPropertiesProperties`
+- New field `SecureValueReference` in struct `EnvironmentVariable`
+- New field `PasswordReference` in struct `ImageRegistryCredential`
+- New field `SecretReference` in struct `Volume`
+
+
 ## 2.5.0-beta.1 (2024-10-23)
 ### Features Added
 
