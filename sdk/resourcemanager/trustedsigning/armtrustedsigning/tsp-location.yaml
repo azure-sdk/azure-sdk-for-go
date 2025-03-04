@@ -1,4 +1,4 @@
 directory: specification/codesigning/CodeSigning.Management
-commit: 778fdb20839c487eba95a6b161812ad9d9d6337d
+commit: 1e3132c2f308fd63ab800ce351d34851ada174fe
 repo: Azure/azure-rest-api-specs
 additionalDirectories: 
