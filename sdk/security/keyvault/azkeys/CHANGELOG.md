@@ -1,5 +1,29 @@
 # Release History
 
+## 2.0.0-beta.1 (2025-03-06)
+### Breaking Changes
+
+- Type of `DeletedKeyProperties.KID` has been changed from `*ID` to `*string`
+- Type of `JSONWebKey.KID` has been changed from `*ID` to `*string`
+- Type of `JSONWebKey.KeyOps` has been changed from `[]*KeyOperation` to `[]*string`
+- Type of `KeyAttributes.RecoveryLevel` has been changed from `*string` to `*DeletionRecoveryLevel`
+- Type of `KeyOperationResult.KID` has been changed from `*ID` to `*string`
+- Type of `KeyProperties.KID` has been changed from `*ID` to `*string`
+
+### Features Added
+
+- New value `EncryptionAlgorithmCKMAESKEYWRAP`, `EncryptionAlgorithmCKMAESKEYWRAPPAD` added to enum type `EncryptionAlgorithm`
+- New value `KeyOperationExport` added to enum type `KeyOperation`
+- New value `SignatureAlgorithmHS256`, `SignatureAlgorithmHS384`, `SignatureAlgorithmHS512`, `SignatureAlgorithmRSNULL` added to enum type `SignatureAlgorithm`
+- New enum type `DeletionRecoveryLevel` with values `DeletionRecoveryLevelCustomizedRecoverable`, `DeletionRecoveryLevelCustomizedRecoverableProtectedSubscription`, `DeletionRecoveryLevelCustomizedRecoverablePurgeable`, `DeletionRecoveryLevelPurgeable`, `DeletionRecoveryLevelRecoverable`, `DeletionRecoveryLevelRecoverableProtectedSubscription`, `DeletionRecoveryLevelRecoverablePurgeable`
+- New function `*Client.GetKeyAttestation(context.Context, string, string, *GetKeyAttestationOptions) (GetKeyAttestationResponse, error)`
+- New struct `KeyAttestation`
+- New field `Attestation` in struct `KeyAttributes`
+- New field `Maxresults` in struct `ListDeletedKeyPropertiesOptions`
+- New field `Maxresults` in struct `ListKeyPropertiesOptions`
+- New field `Maxresults` in struct `ListKeyPropertiesVersionsOptions`
+
+
 ## 1.3.2-beta.1 (Unreleased)
 
 ### Features Added
