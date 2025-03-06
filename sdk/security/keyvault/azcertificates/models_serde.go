@@ -7,10 +7,9 @@ package azcertificates
 import (
 	"encoding/json"
 	"fmt"
-	"reflect"
-
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"reflect"
 )
 
 // MarshalJSON implements the json.Marshaller interface for type AdministratorContact.
@@ -94,6 +93,7 @@ func (c Certificate) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "id", c.ID)
 	populate(objectMap, "kid", c.KID)
 	populate(objectMap, "policy", c.Policy)
+	populate(objectMap, "preserveCertOrder", c.PreserveCertOrder)
 	populate(objectMap, "sid", c.SID)
 	populate(objectMap, "tags", c.Tags)
 	populateByteArray(objectMap, "x5t", c.X509Thumbprint, func() any {
@@ -130,6 +130,9 @@ func (c *Certificate) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "policy":
 			err = unpopulate(val, "Policy", &c.Policy)
+			delete(rawMsg, key)
+		case "preserveCertOrder":
+			err = unpopulate(val, "PreserveCertOrder", &c.PreserveCertOrder)
 			delete(rawMsg, key)
 		case "sid":
 			err = unpopulate(val, "SID", &c.SID)
@@ -211,6 +214,7 @@ func (c CertificateOperation) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "error", c.Error)
 	populate(objectMap, "id", c.ID)
 	populate(objectMap, "issuer", c.IssuerParameters)
+	populate(objectMap, "preserveCertOrder", c.PreserveCertOrder)
 	populate(objectMap, "request_id", c.RequestID)
 	populate(objectMap, "status", c.Status)
 	populate(objectMap, "status_details", c.StatusDetails)
@@ -243,6 +247,9 @@ func (c *CertificateOperation) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "issuer":
 			err = unpopulate(val, "IssuerParameters", &c.IssuerParameters)
+			delete(rawMsg, key)
+		case "preserveCertOrder":
+			err = unpopulate(val, "PreserveCertOrder", &c.PreserveCertOrder)
 			delete(rawMsg, key)
 		case "request_id":
 			err = unpopulate(val, "RequestID", &c.RequestID)
@@ -460,6 +467,7 @@ func (c CreateCertificateParameters) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "attributes", c.CertificateAttributes)
 	populate(objectMap, "policy", c.CertificatePolicy)
+	populate(objectMap, "preserveCertOrder", c.PreserveCertOrder)
 	populate(objectMap, "tags", c.Tags)
 	return json.Marshal(objectMap)
 }
@@ -478,6 +486,9 @@ func (c *CreateCertificateParameters) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "policy":
 			err = unpopulate(val, "CertificatePolicy", &c.CertificatePolicy)
+			delete(rawMsg, key)
+		case "preserveCertOrder":
+			err = unpopulate(val, "PreserveCertOrder", &c.PreserveCertOrder)
 			delete(rawMsg, key)
 		case "tags":
 			err = unpopulate(val, "Tags", &c.Tags)
@@ -502,6 +513,7 @@ func (d DeletedCertificate) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "id", d.ID)
 	populate(objectMap, "kid", d.KID)
 	populate(objectMap, "policy", d.Policy)
+	populate(objectMap, "preserveCertOrder", d.PreserveCertOrder)
 	populate(objectMap, "recoveryId", d.RecoveryID)
 	populate(objectMap, "sid", d.SID)
 	populateTimeUnix(objectMap, "scheduledPurgeDate", d.ScheduledPurgeDate)
@@ -543,6 +555,9 @@ func (d *DeletedCertificate) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "policy":
 			err = unpopulate(val, "Policy", &d.Policy)
+			delete(rawMsg, key)
+		case "preserveCertOrder":
+			err = unpopulate(val, "PreserveCertOrder", &d.PreserveCertOrder)
 			delete(rawMsg, key)
 		case "recoveryId":
 			err = unpopulate(val, "RecoveryID", &d.RecoveryID)
@@ -662,6 +677,7 @@ func (i ImportCertificateParameters) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "attributes", i.CertificateAttributes)
 	populate(objectMap, "policy", i.CertificatePolicy)
 	populate(objectMap, "pwd", i.Password)
+	populate(objectMap, "preserveCertOrder", i.PreserveCertOrder)
 	populate(objectMap, "tags", i.Tags)
 	return json.Marshal(objectMap)
 }
@@ -686,6 +702,9 @@ func (i *ImportCertificateParameters) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "pwd":
 			err = unpopulate(val, "Password", &i.Password)
+			delete(rawMsg, key)
+		case "preserveCertOrder":
+			err = unpopulate(val, "PreserveCertOrder", &i.PreserveCertOrder)
 			delete(rawMsg, key)
 		case "tags":
 			err = unpopulate(val, "Tags", &i.Tags)
@@ -938,6 +957,41 @@ func (k *KeyProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "reuse_key":
 			err = unpopulate(val, "ReuseKey", &k.ReuseKey)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", k, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type KeyVaultErrorError.
+func (k KeyVaultErrorError) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "code", k.Code)
+	populate(objectMap, "innererror", k.InnerError)
+	populate(objectMap, "message", k.Message)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type KeyVaultErrorError.
+func (k *KeyVaultErrorError) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", k, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "code":
+			err = unpopulate(val, "Code", &k.Code)
+			delete(rawMsg, key)
+		case "innererror":
+			err = unpopulate(val, "InnerError", &k.InnerError)
+			delete(rawMsg, key)
+		case "message":
+			err = unpopulate(val, "Message", &k.Message)
 			delete(rawMsg, key)
 		}
 		if err != nil {
