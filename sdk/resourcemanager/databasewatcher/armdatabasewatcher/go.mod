@@ -2,12 +2,10 @@ module github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/databasewatcher/arm
 
 go 1.18
 
-require (
-	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.17.0
-	github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.7.0
-)
+require github.com/Azure/azure-sdk-for-go/sdk/azcore v1.17.0
 
 require (
+	github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.7.0 // indirect
 	github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources v1.2.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
