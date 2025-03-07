@@ -1,5 +1,15 @@
 # Release History
 
+## 2.0.0 (2025-03-07)
+### Breaking Changes
+
+- Function `NewClientFactory` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(azcore.TokenCredential, *arm.ClientOptions)`
+- Function `*ClientFactory.NewEndpointsClient` parameter(s) have been changed from `(<none>)` to `(string)`
+- Function `*ClientFactory.NewHeatMapClient` parameter(s) have been changed from `(<none>)` to `(string)`
+- Function `*ClientFactory.NewProfilesClient` parameter(s) have been changed from `(<none>)` to `(string)`
+- Function `*ClientFactory.NewUserMetricsKeysClient` parameter(s) have been changed from `(<none>)` to `(string)`
+
+
 ## 1.3.0 (2023-11-24)
 ### Features Added
 
