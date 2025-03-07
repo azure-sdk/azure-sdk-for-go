@@ -17,64 +17,65 @@ import (
 	"strings"
 )
 
-// MetadataSchemasClient contains the methods for the MetadataSchemas group.
-// Don't use this type directly, use NewMetadataSchemasClient() instead.
-type MetadataSchemasClient struct {
+// APISourcesClient contains the methods for the APISources group.
+// Don't use this type directly, use NewAPISourcesClient() instead.
+type APISourcesClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewMetadataSchemasClient creates a new instance of MetadataSchemasClient with the specified values.
+// NewAPISourcesClient creates a new instance of APISourcesClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewMetadataSchemasClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*MetadataSchemasClient, error) {
+func NewAPISourcesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*APISourcesClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &MetadataSchemasClient{
+	client := &APISourcesClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// CreateOrUpdate - Creates new or updates existing metadata schema.
+// CreateOrUpdate - Creates new or updates existing API source.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-12-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of Azure API Center service.
-//   - metadataSchemaName - The name of the metadata schema.
+//   - workspaceName - The name of the workspace.
+//   - apiSourceName - The name of the API.
 //   - resource - Resource create parameters.
-//   - options - MetadataSchemasClientCreateOrUpdateOptions contains the optional parameters for the MetadataSchemasClient.CreateOrUpdate
+//   - options - APISourcesClientCreateOrUpdateOptions contains the optional parameters for the APISourcesClient.CreateOrUpdate
 //     method.
-func (client *MetadataSchemasClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, metadataSchemaName string, resource MetadataSchema, options *MetadataSchemasClientCreateOrUpdateOptions) (MetadataSchemasClientCreateOrUpdateResponse, error) {
+func (client *APISourcesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiSourceName string, resource APISource, options *APISourcesClientCreateOrUpdateOptions) (APISourcesClientCreateOrUpdateResponse, error) {
 	var err error
-	const operationName = "MetadataSchemasClient.CreateOrUpdate"
+	const operationName = "APISourcesClient.CreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serviceName, metadataSchemaName, resource, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serviceName, workspaceName, apiSourceName, resource, options)
 	if err != nil {
-		return MetadataSchemasClientCreateOrUpdateResponse{}, err
+		return APISourcesClientCreateOrUpdateResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return MetadataSchemasClientCreateOrUpdateResponse{}, err
+		return APISourcesClientCreateOrUpdateResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusCreated) {
 		err = runtime.NewResponseError(httpResp)
-		return MetadataSchemasClientCreateOrUpdateResponse{}, err
+		return APISourcesClientCreateOrUpdateResponse{}, err
 	}
 	resp, err := client.createOrUpdateHandleResponse(httpResp)
 	return resp, err
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *MetadataSchemasClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, metadataSchemaName string, resource MetadataSchema, _ *MetadataSchemasClientCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiCenter/services/{serviceName}/metadataSchemas/{metadataSchemaName}"
+func (client *APISourcesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiSourceName string, resource APISource, _ *APISourcesClientCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiCenter/services/{serviceName}/workspaces/{workspaceName}/apiSources/{apiSourceName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -87,10 +88,14 @@ func (client *MetadataSchemasClient) createOrUpdateCreateRequest(ctx context.Con
 		return nil, errors.New("parameter serviceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
-	if metadataSchemaName == "" {
-		return nil, errors.New("parameter metadataSchemaName cannot be empty")
+	if workspaceName == "" {
+		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{metadataSchemaName}", url.PathEscape(metadataSchemaName))
+	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
+	if apiSourceName == "" {
+		return nil, errors.New("parameter apiSourceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{apiSourceName}", url.PathEscape(apiSourceName))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -106,49 +111,50 @@ func (client *MetadataSchemasClient) createOrUpdateCreateRequest(ctx context.Con
 }
 
 // createOrUpdateHandleResponse handles the CreateOrUpdate response.
-func (client *MetadataSchemasClient) createOrUpdateHandleResponse(resp *http.Response) (MetadataSchemasClientCreateOrUpdateResponse, error) {
-	result := MetadataSchemasClientCreateOrUpdateResponse{}
+func (client *APISourcesClient) createOrUpdateHandleResponse(resp *http.Response) (APISourcesClientCreateOrUpdateResponse, error) {
+	result := APISourcesClientCreateOrUpdateResponse{}
 	if val := resp.Header.Get("ETag"); val != "" {
 		result.ETag = &val
 	}
-	if err := runtime.UnmarshalAsJSON(resp, &result.MetadataSchema); err != nil {
-		return MetadataSchemasClientCreateOrUpdateResponse{}, err
+	if err := runtime.UnmarshalAsJSON(resp, &result.APISource); err != nil {
+		return APISourcesClientCreateOrUpdateResponse{}, err
 	}
 	return result, nil
 }
 
-// Delete - Deletes specified metadata schema.
+// Delete - Deletes specified API source.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-12-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of Azure API Center service.
-//   - metadataSchemaName - The name of the metadata schema.
-//   - options - MetadataSchemasClientDeleteOptions contains the optional parameters for the MetadataSchemasClient.Delete method.
-func (client *MetadataSchemasClient) Delete(ctx context.Context, resourceGroupName string, serviceName string, metadataSchemaName string, options *MetadataSchemasClientDeleteOptions) (MetadataSchemasClientDeleteResponse, error) {
+//   - workspaceName - The name of the workspace.
+//   - apiSourceName - The name of the API.
+//   - options - APISourcesClientDeleteOptions contains the optional parameters for the APISourcesClient.Delete method.
+func (client *APISourcesClient) Delete(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiSourceName string, options *APISourcesClientDeleteOptions) (APISourcesClientDeleteResponse, error) {
 	var err error
-	const operationName = "MetadataSchemasClient.Delete"
+	const operationName = "APISourcesClient.Delete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, serviceName, metadataSchemaName, options)
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, serviceName, workspaceName, apiSourceName, options)
 	if err != nil {
-		return MetadataSchemasClientDeleteResponse{}, err
+		return APISourcesClientDeleteResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return MetadataSchemasClientDeleteResponse{}, err
+		return APISourcesClientDeleteResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
-		return MetadataSchemasClientDeleteResponse{}, err
+		return APISourcesClientDeleteResponse{}, err
 	}
-	return MetadataSchemasClientDeleteResponse{}, nil
+	return APISourcesClientDeleteResponse{}, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *MetadataSchemasClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, metadataSchemaName string, _ *MetadataSchemasClientDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiCenter/services/{serviceName}/metadataSchemas/{metadataSchemaName}"
+func (client *APISourcesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiSourceName string, _ *APISourcesClientDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiCenter/services/{serviceName}/workspaces/{workspaceName}/apiSources/{apiSourceName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -161,10 +167,14 @@ func (client *MetadataSchemasClient) deleteCreateRequest(ctx context.Context, re
 		return nil, errors.New("parameter serviceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
-	if metadataSchemaName == "" {
-		return nil, errors.New("parameter metadataSchemaName cannot be empty")
+	if workspaceName == "" {
+		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{metadataSchemaName}", url.PathEscape(metadataSchemaName))
+	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
+	if apiSourceName == "" {
+		return nil, errors.New("parameter apiSourceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{apiSourceName}", url.PathEscape(apiSourceName))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -176,39 +186,40 @@ func (client *MetadataSchemasClient) deleteCreateRequest(ctx context.Context, re
 	return req, nil
 }
 
-// Get - Returns details of the metadata schema.
+// Get - Returns details of the API source.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-12-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of Azure API Center service.
-//   - metadataSchemaName - The name of the metadata schema.
-//   - options - MetadataSchemasClientGetOptions contains the optional parameters for the MetadataSchemasClient.Get method.
-func (client *MetadataSchemasClient) Get(ctx context.Context, resourceGroupName string, serviceName string, metadataSchemaName string, options *MetadataSchemasClientGetOptions) (MetadataSchemasClientGetResponse, error) {
+//   - workspaceName - The name of the workspace.
+//   - apiSourceName - The name of the API.
+//   - options - APISourcesClientGetOptions contains the optional parameters for the APISourcesClient.Get method.
+func (client *APISourcesClient) Get(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiSourceName string, options *APISourcesClientGetOptions) (APISourcesClientGetResponse, error) {
 	var err error
-	const operationName = "MetadataSchemasClient.Get"
+	const operationName = "APISourcesClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, resourceGroupName, serviceName, metadataSchemaName, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, serviceName, workspaceName, apiSourceName, options)
 	if err != nil {
-		return MetadataSchemasClientGetResponse{}, err
+		return APISourcesClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return MetadataSchemasClientGetResponse{}, err
+		return APISourcesClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return MetadataSchemasClientGetResponse{}, err
+		return APISourcesClientGetResponse{}, err
 	}
 	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
 // getCreateRequest creates the Get request.
-func (client *MetadataSchemasClient) getCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, metadataSchemaName string, _ *MetadataSchemasClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiCenter/services/{serviceName}/metadataSchemas/{metadataSchemaName}"
+func (client *APISourcesClient) getCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiSourceName string, _ *APISourcesClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiCenter/services/{serviceName}/workspaces/{workspaceName}/apiSources/{apiSourceName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -221,10 +232,14 @@ func (client *MetadataSchemasClient) getCreateRequest(ctx context.Context, resou
 		return nil, errors.New("parameter serviceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
-	if metadataSchemaName == "" {
-		return nil, errors.New("parameter metadataSchemaName cannot be empty")
+	if workspaceName == "" {
+		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{metadataSchemaName}", url.PathEscape(metadataSchemaName))
+	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
+	if apiSourceName == "" {
+		return nil, errors.New("parameter apiSourceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{apiSourceName}", url.PathEscape(apiSourceName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -237,48 +252,49 @@ func (client *MetadataSchemasClient) getCreateRequest(ctx context.Context, resou
 }
 
 // getHandleResponse handles the Get response.
-func (client *MetadataSchemasClient) getHandleResponse(resp *http.Response) (MetadataSchemasClientGetResponse, error) {
-	result := MetadataSchemasClientGetResponse{}
+func (client *APISourcesClient) getHandleResponse(resp *http.Response) (APISourcesClientGetResponse, error) {
+	result := APISourcesClientGetResponse{}
 	if val := resp.Header.Get("ETag"); val != "" {
 		result.ETag = &val
 	}
-	if err := runtime.UnmarshalAsJSON(resp, &result.MetadataSchema); err != nil {
-		return MetadataSchemasClientGetResponse{}, err
+	if err := runtime.UnmarshalAsJSON(resp, &result.APISource); err != nil {
+		return APISourcesClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// Head - Checks if specified metadata schema exists.
+// Head - Checks if specified API source exists.
 //
 // Generated from API version 2024-12-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of Azure API Center service.
-//   - metadataSchemaName - The name of the metadata schema.
-//   - options - MetadataSchemasClientHeadOptions contains the optional parameters for the MetadataSchemasClient.Head method.
-func (client *MetadataSchemasClient) Head(ctx context.Context, resourceGroupName string, serviceName string, metadataSchemaName string, options *MetadataSchemasClientHeadOptions) (MetadataSchemasClientHeadResponse, error) {
+//   - workspaceName - The name of the workspace.
+//   - apiSourceName - The name of the API.
+//   - options - APISourcesClientHeadOptions contains the optional parameters for the APISourcesClient.Head method.
+func (client *APISourcesClient) Head(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiSourceName string, options *APISourcesClientHeadOptions) (APISourcesClientHeadResponse, error) {
 	var err error
-	const operationName = "MetadataSchemasClient.Head"
+	const operationName = "APISourcesClient.Head"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.headCreateRequest(ctx, resourceGroupName, serviceName, metadataSchemaName, options)
+	req, err := client.headCreateRequest(ctx, resourceGroupName, serviceName, workspaceName, apiSourceName, options)
 	if err != nil {
-		return MetadataSchemasClientHeadResponse{}, err
+		return APISourcesClientHeadResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return MetadataSchemasClientHeadResponse{}, err
+		return APISourcesClientHeadResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return MetadataSchemasClientHeadResponse{}, err
+		return APISourcesClientHeadResponse{}, err
 	}
-	return MetadataSchemasClientHeadResponse{Success: httpResp.StatusCode >= 200 && httpResp.StatusCode < 300}, nil
+	return APISourcesClientHeadResponse{Success: httpResp.StatusCode >= 200 && httpResp.StatusCode < 300}, nil
 }
 
 // headCreateRequest creates the Head request.
-func (client *MetadataSchemasClient) headCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, metadataSchemaName string, _ *MetadataSchemasClientHeadOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiCenter/services/{serviceName}/metadataSchemas/{metadataSchemaName}"
+func (client *APISourcesClient) headCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, apiSourceName string, _ *APISourcesClientHeadOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiCenter/services/{serviceName}/workspaces/{workspaceName}/apiSources/{apiSourceName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -291,10 +307,14 @@ func (client *MetadataSchemasClient) headCreateRequest(ctx context.Context, reso
 		return nil, errors.New("parameter serviceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
-	if metadataSchemaName == "" {
-		return nil, errors.New("parameter metadataSchemaName cannot be empty")
+	if workspaceName == "" {
+		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{metadataSchemaName}", url.PathEscape(metadataSchemaName))
+	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
+	if apiSourceName == "" {
+		return nil, errors.New("parameter apiSourceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{apiSourceName}", url.PathEscape(apiSourceName))
 	req, err := runtime.NewRequest(ctx, http.MethodHead, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -306,29 +326,29 @@ func (client *MetadataSchemasClient) headCreateRequest(ctx context.Context, reso
 	return req, nil
 }
 
-// NewListPager - Returns a collection of metadata schemas.
+// NewListPager - Returns a collection of API sources.
 //
 // Generated from API version 2024-12-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of Azure API Center service.
-//   - options - MetadataSchemasClientListOptions contains the optional parameters for the MetadataSchemasClient.NewListPager
-//     method.
-func (client *MetadataSchemasClient) NewListPager(resourceGroupName string, serviceName string, options *MetadataSchemasClientListOptions) *runtime.Pager[MetadataSchemasClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[MetadataSchemasClientListResponse]{
-		More: func(page MetadataSchemasClientListResponse) bool {
+//   - workspaceName - The name of the workspace.
+//   - options - APISourcesClientListOptions contains the optional parameters for the APISourcesClient.NewListPager method.
+func (client *APISourcesClient) NewListPager(resourceGroupName string, serviceName string, workspaceName string, options *APISourcesClientListOptions) *runtime.Pager[APISourcesClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[APISourcesClientListResponse]{
+		More: func(page APISourcesClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *MetadataSchemasClientListResponse) (MetadataSchemasClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "MetadataSchemasClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *APISourcesClientListResponse) (APISourcesClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "APISourcesClient.NewListPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, resourceGroupName, serviceName, options)
+				return client.listCreateRequest(ctx, resourceGroupName, serviceName, workspaceName, options)
 			}, nil)
 			if err != nil {
-				return MetadataSchemasClientListResponse{}, err
+				return APISourcesClientListResponse{}, err
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -337,8 +357,8 @@ func (client *MetadataSchemasClient) NewListPager(resourceGroupName string, serv
 }
 
 // listCreateRequest creates the List request.
-func (client *MetadataSchemasClient) listCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, options *MetadataSchemasClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiCenter/services/{serviceName}/metadataSchemas"
+func (client *APISourcesClient) listCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, workspaceName string, options *APISourcesClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiCenter/services/{serviceName}/workspaces/{workspaceName}/apiSources"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -351,6 +371,10 @@ func (client *MetadataSchemasClient) listCreateRequest(ctx context.Context, reso
 		return nil, errors.New("parameter serviceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serviceName}", url.PathEscape(serviceName))
+	if workspaceName == "" {
+		return nil, errors.New("parameter workspaceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -366,10 +390,10 @@ func (client *MetadataSchemasClient) listCreateRequest(ctx context.Context, reso
 }
 
 // listHandleResponse handles the List response.
-func (client *MetadataSchemasClient) listHandleResponse(resp *http.Response) (MetadataSchemasClientListResponse, error) {
-	result := MetadataSchemasClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.MetadataSchemaListResult); err != nil {
-		return MetadataSchemasClientListResponse{}, err
+func (client *APISourcesClient) listHandleResponse(resp *http.Response) (APISourcesClientListResponse, error) {
+	result := APISourcesClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.APISourceListResult); err != nil {
+		return APISourcesClientListResponse{}, err
 	}
 	return result, nil
 }

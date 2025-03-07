@@ -1,5 +1,57 @@
 # Release History
 
+## 1.1.0-beta.1 (2025-03-07)
+### Features Added
+
+- New enum type `APISourceLinkState` with values `APISourceLinkStateDeleting`, `APISourceLinkStateError`, `APISourceLinkStateInitializing`, `APISourceLinkStateSyncing`
+- New enum type `AnalyzerRulesetState` with values `AnalyzerRulesetStateActive`, `AnalyzerRulesetStateInactive`, `AnalyzerRulesetStateSuspended`
+- New enum type `AnalyzerType` with values `AnalyzerTypeSpectral`
+- New enum type `ImportSpecificationOptions` with values `ImportSpecificationOptionsAlways`, `ImportSpecificationOptionsNever`, `ImportSpecificationOptionsOnDemand`
+- New enum type `RulesetExportResultFormat` with values `RulesetExportResultFormatInlineJSON`, `RulesetExportResultFormatInlineYaml`, `RulesetExportResultFormatInlineZip`, `RulesetExportResultFormatLinkZip`
+- New enum type `RulesetImportSourceFormat` with values `RulesetImportSourceFormatInlineJSON`, `RulesetImportSourceFormatInlineYaml`, `RulesetImportSourceFormatInlineZip`, `RulesetImportSourceFormatLinkZip`
+- New function `NewAPISourcesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*APISourcesClient, error)`
+- New function `*APISourcesClient.CreateOrUpdate(context.Context, string, string, string, string, APISource, *APISourcesClientCreateOrUpdateOptions) (APISourcesClientCreateOrUpdateResponse, error)`
+- New function `*APISourcesClient.Delete(context.Context, string, string, string, string, *APISourcesClientDeleteOptions) (APISourcesClientDeleteResponse, error)`
+- New function `*APISourcesClient.Get(context.Context, string, string, string, string, *APISourcesClientGetOptions) (APISourcesClientGetResponse, error)`
+- New function `*APISourcesClient.Head(context.Context, string, string, string, string, *APISourcesClientHeadOptions) (APISourcesClientHeadResponse, error)`
+- New function `*APISourcesClient.NewListPager(string, string, string, *APISourcesClientListOptions) *runtime.Pager[APISourcesClientListResponse]`
+- New function `NewAnalyzerConfigsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AnalyzerConfigsClient, error)`
+- New function `*AnalyzerConfigsClient.CreateOrUpdate(context.Context, string, string, string, string, AnalyzerConfig, *AnalyzerConfigsClientCreateOrUpdateOptions) (AnalyzerConfigsClientCreateOrUpdateResponse, error)`
+- New function `*AnalyzerConfigsClient.Delete(context.Context, string, string, string, string, *AnalyzerConfigsClientDeleteOptions) (AnalyzerConfigsClientDeleteResponse, error)`
+- New function `*AnalyzerConfigsClient.BeginExportRuleset(context.Context, string, string, string, string, *AnalyzerConfigsClientBeginExportRulesetOptions) (*runtime.Poller[AnalyzerConfigsClientExportRulesetResponse], error)`
+- New function `*AnalyzerConfigsClient.Get(context.Context, string, string, string, string, *AnalyzerConfigsClientGetOptions) (AnalyzerConfigsClientGetResponse, error)`
+- New function `*AnalyzerConfigsClient.BeginImportRuleset(context.Context, string, string, string, string, RulesetImportRequest, *AnalyzerConfigsClientBeginImportRulesetOptions) (*runtime.Poller[AnalyzerConfigsClientImportRulesetResponse], error)`
+- New function `*AnalyzerConfigsClient.NewListPager(string, string, string, *AnalyzerConfigsClientListOptions) *runtime.Pager[AnalyzerConfigsClientListResponse]`
+- New function `*ClientFactory.NewAPISourcesClient() *APISourcesClient`
+- New function `*ClientFactory.NewAnalyzerConfigsClient() *AnalyzerConfigsClient`
+- New function `*ClientFactory.NewDeletedServicesClient() *DeletedServicesClient`
+- New function `NewDeletedServicesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DeletedServicesClient, error)`
+- New function `*DeletedServicesClient.Delete(context.Context, string, string, *DeletedServicesClientDeleteOptions) (DeletedServicesClientDeleteResponse, error)`
+- New function `*DeletedServicesClient.Get(context.Context, string, string, *DeletedServicesClientGetOptions) (DeletedServicesClientGetResponse, error)`
+- New function `*DeletedServicesClient.NewListBySubscriptionPager(*DeletedServicesClientListBySubscriptionOptions) *runtime.Pager[DeletedServicesClientListBySubscriptionResponse]`
+- New function `*DeletedServicesClient.NewListPager(string, *DeletedServicesClientListOptions) *runtime.Pager[DeletedServicesClientListResponse]`
+- New struct `APISource`
+- New struct `APISourceListResult`
+- New struct `APISourceProperties`
+- New struct `AnalyzerConfig`
+- New struct `AnalyzerConfigListResult`
+- New struct `AnalyzerConfigProperties`
+- New struct `AnalyzerFilter`
+- New struct `AzureAPIManagementSource`
+- New struct `DeletedService`
+- New struct `DeletedServiceListResult`
+- New struct `DeletedServiceProperties`
+- New struct `ErrorAdditionalInfo`
+- New struct `ErrorDetail`
+- New struct `LinkState`
+- New struct `OperationStatusResult`
+- New struct `RulesetExportResult`
+- New struct `RulesetImportRequest`
+- New struct `ServiceUpdateProperties`
+- New field `Restore` in struct `ServiceProperties`
+- New field `Properties` in struct `ServiceUpdate`
+
+
 ## 1.0.0 (2024-02-23)
 ### Breaking Changes
 
