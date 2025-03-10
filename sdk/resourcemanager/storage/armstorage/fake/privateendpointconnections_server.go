@@ -12,7 +12,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -28,9 +28,9 @@ type PrivateEndpointConnectionsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, accountName string, privateEndpointConnectionName string, options *armstorage.PrivateEndpointConnectionsClientGetOptions) (resp azfake.Responder[armstorage.PrivateEndpointConnectionsClientGetResponse], errResp azfake.ErrorResponder)
 
-	// NewListPager is the fake for method PrivateEndpointConnectionsClient.NewListPager
+	// List is the fake for method PrivateEndpointConnectionsClient.List
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceGroupName string, accountName string, options *armstorage.PrivateEndpointConnectionsClientListOptions) (resp azfake.PagerResponder[armstorage.PrivateEndpointConnectionsClientListResponse])
+	List func(ctx context.Context, resourceGroupName string, accountName string, options *armstorage.PrivateEndpointConnectionsClientListOptions) (resp azfake.Responder[armstorage.PrivateEndpointConnectionsClientListResponse], errResp azfake.ErrorResponder)
 
 	// Put is the fake for method PrivateEndpointConnectionsClient.Put
 	// HTTP status codes to indicate success: http.StatusOK
@@ -41,17 +41,13 @@ type PrivateEndpointConnectionsServer struct {
 // The returned PrivateEndpointConnectionsServerTransport instance is connected to an instance of armstorage.PrivateEndpointConnectionsClient via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewPrivateEndpointConnectionsServerTransport(srv *PrivateEndpointConnectionsServer) *PrivateEndpointConnectionsServerTransport {
-	return &PrivateEndpointConnectionsServerTransport{
-		srv:          srv,
-		newListPager: newTracker[azfake.PagerResponder[armstorage.PrivateEndpointConnectionsClientListResponse]](),
-	}
+	return &PrivateEndpointConnectionsServerTransport{srv: srv}
 }
 
 // PrivateEndpointConnectionsServerTransport connects instances of armstorage.PrivateEndpointConnectionsClient to instances of PrivateEndpointConnectionsServer.
 // Don't use this type directly, use NewPrivateEndpointConnectionsServerTransport instead.
 type PrivateEndpointConnectionsServerTransport struct {
-	srv          *PrivateEndpointConnectionsServer
-	newListPager *tracker[azfake.PagerResponder[armstorage.PrivateEndpointConnectionsClientListResponse]]
+	srv *PrivateEndpointConnectionsServer
 }
 
 // Do implements the policy.Transporter interface for PrivateEndpointConnectionsServerTransport.
@@ -81,8 +77,8 @@ func (p *PrivateEndpointConnectionsServerTransport) dispatchToMethodFake(req *ht
 				res.resp, res.err = p.dispatchDelete(req)
 			case "PrivateEndpointConnectionsClient.Get":
 				res.resp, res.err = p.dispatchGet(req)
-			case "PrivateEndpointConnectionsClient.NewListPager":
-				res.resp, res.err = p.dispatchNewListPager(req)
+			case "PrivateEndpointConnectionsClient.List":
+				res.resp, res.err = p.dispatchList(req)
 			case "PrivateEndpointConnectionsClient.Put":
 				res.resp, res.err = p.dispatchPut(req)
 			default:
@@ -178,40 +174,35 @@ func (p *PrivateEndpointConnectionsServerTransport) dispatchGet(req *http.Reques
 	return resp, nil
 }
 
-func (p *PrivateEndpointConnectionsServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if p.srv.NewListPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
+func (p *PrivateEndpointConnectionsServerTransport) dispatchList(req *http.Request) (*http.Response, error) {
+	if p.srv.List == nil {
+		return nil, &nonRetriableError{errors.New("fake for method List not implemented")}
 	}
-	newListPager := p.newListPager.get(req)
-	if newListPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/privateEndpointConnections`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		accountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("accountName")])
-		if err != nil {
-			return nil, err
-		}
-		resp := p.srv.NewListPager(resourceGroupNameParam, accountNameParam, nil)
-		newListPager = &resp
-		p.newListPager.add(req, newListPager)
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/privateEndpointConnections`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	resp, err := server.PagerResponderNext(newListPager, req)
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
 	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		p.newListPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+	accountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("accountName")])
+	if err != nil {
+		return nil, err
 	}
-	if !server.PagerResponderMore(newListPager) {
-		p.newListPager.remove(req)
+	respr, errRespr := p.srv.List(req.Context(), resourceGroupNameParam, accountNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).PrivateEndpointConnectionListResult, req)
+	if err != nil {
+		return nil, err
 	}
 	return resp, nil
 }
