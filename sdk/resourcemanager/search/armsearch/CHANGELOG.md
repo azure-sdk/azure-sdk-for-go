@@ -1,5 +1,12 @@
 # Release History
 
+## 1.4.0 (2025-03-10)
+### Features Added
+
+- New function `*ServicesClient.BeginUpgrade(context.Context, string, string, *ServicesClientBeginUpgradeOptions) (*runtime.Poller[ServicesClientUpgradeResponse], error)`
+- New field `ServiceUpgradeDate`, `UpgradeAvailable` in struct `ServiceProperties`
+
+
 ## 1.4.0-beta.2 (2024-06-21)
 ### Features Added
 
