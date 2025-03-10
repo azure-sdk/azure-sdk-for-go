@@ -1,5 +1,23 @@
 # Release History
 
+## 0.9.0 (2025-03-10)
+### Breaking Changes
+
+- Function `*SQLPoolsClient.Rename` has been removed
+- Operation `*SQLPoolOperationResultsClient.BeginGetLocationHeaderResult` has been changed to non-LRO, use `*SQLPoolOperationResultsClient.GetLocationHeaderResult` instead.
+- Struct `ResourceMoveDefinition` has been removed
+
+### Features Added
+
+- Type of `WorkspaceProperties.ExtraProperties` has been changed from `map[string]any` to `any`
+- New enum type `SelfContainedInteractiveAuthoringState` with values `SelfContainedInteractiveAuthoringStateFalse`, `SelfContainedInteractiveAuthoringStateTrue`
+- New struct `CopyComputeScaleProperties`
+- New struct `PipelineExternalComputeScaleProperties`
+- New field `CopyComputeScaleProperties`, `PipelineExternalComputeScaleProperties` in struct `IntegrationRuntimeComputeProperties`
+- New field `OSType`, `SelfContainedInteractiveAuthoringEnabled`, `TargetFramework` in struct `SelfHostedIntegrationRuntimeStatusTypeProperties`
+- New field `SelfContainedInteractiveAuthoringEnabled` in struct `SelfHostedIntegrationRuntimeTypeProperties`
+
+
 ## 0.8.0 (2023-11-24)
 ### Features Added
 
