@@ -1,5 +1,11 @@
 # Release History
 
+## 2.0.0 (2025-03-10)
+### Breaking Changes
+
+- Field `Filter` of struct `UsagesClientListOptions` has been removed
+
+
 ## 1.7.0 (2024-12-27)
 ### Features Added
 
