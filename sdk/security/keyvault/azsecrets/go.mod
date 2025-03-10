@@ -1,4 +1,4 @@
-module github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azsecrets
+module github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azsecrets/v2
 
 go 1.18
 
@@ -6,6 +6,7 @@ require (
 	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.17.0
 	github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.8.2
 	github.com/Azure/azure-sdk-for-go/sdk/internal v1.10.0
+	github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azsecrets v1.3.1
 	github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/internal v1.1.1
 	github.com/stretchr/testify v1.10.0
 )
