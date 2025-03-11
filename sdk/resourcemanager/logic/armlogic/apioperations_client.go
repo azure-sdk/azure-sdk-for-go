@@ -17,51 +17,51 @@ import (
 	"strings"
 )
 
-// IntegrationServiceEnvironmentSKUsClient contains the methods for the IntegrationServiceEnvironmentSKUs group.
-// Don't use this type directly, use NewIntegrationServiceEnvironmentSKUsClient() instead.
-type IntegrationServiceEnvironmentSKUsClient struct {
+// APIOperationsClient contains the methods for the APIOperations group.
+// Don't use this type directly, use NewAPIOperationsClient() instead.
+type APIOperationsClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewIntegrationServiceEnvironmentSKUsClient creates a new instance of IntegrationServiceEnvironmentSKUsClient with the specified values.
+// NewAPIOperationsClient creates a new instance of APIOperationsClient with the specified values.
 //   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewIntegrationServiceEnvironmentSKUsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*IntegrationServiceEnvironmentSKUsClient, error) {
+func NewAPIOperationsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*APIOperationsClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &IntegrationServiceEnvironmentSKUsClient{
+	client := &APIOperationsClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// NewListPager - Gets a list of integration service environment Skus.
+// NewListPager - List ApiOperation resources by IntegrationServiceEnvironmentManagedApi
 //
 // Generated from API version 2019-05-01
 //   - integrationServiceEnvironmentName - The integration service environment name.
-//   - options - IntegrationServiceEnvironmentSKUsClientListOptions contains the optional parameters for the IntegrationServiceEnvironmentSKUsClient.NewListPager
-//     method.
-func (client *IntegrationServiceEnvironmentSKUsClient) NewListPager(integrationServiceEnvironmentName string, options *IntegrationServiceEnvironmentSKUsClientListOptions) *runtime.Pager[IntegrationServiceEnvironmentSKUsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[IntegrationServiceEnvironmentSKUsClientListResponse]{
-		More: func(page IntegrationServiceEnvironmentSKUsClientListResponse) bool {
+//   - apiName - The api name.
+//   - options - APIOperationsClientListOptions contains the optional parameters for the APIOperationsClient.NewListPager method.
+func (client *APIOperationsClient) NewListPager(integrationServiceEnvironmentName string, apiName string, options *APIOperationsClientListOptions) *runtime.Pager[APIOperationsClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[APIOperationsClientListResponse]{
+		More: func(page APIOperationsClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *IntegrationServiceEnvironmentSKUsClientListResponse) (IntegrationServiceEnvironmentSKUsClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "IntegrationServiceEnvironmentSKUsClient.NewListPager")
+		Fetcher: func(ctx context.Context, page *APIOperationsClientListResponse) (APIOperationsClientListResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "APIOperationsClient.NewListPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, integrationServiceEnvironmentName, options)
+				return client.listCreateRequest(ctx, integrationServiceEnvironmentName, apiName, options)
 			}, nil)
 			if err != nil {
-				return IntegrationServiceEnvironmentSKUsClientListResponse{}, err
+				return APIOperationsClientListResponse{}, err
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -70,8 +70,8 @@ func (client *IntegrationServiceEnvironmentSKUsClient) NewListPager(integrationS
 }
 
 // listCreateRequest creates the List request.
-func (client *IntegrationServiceEnvironmentSKUsClient) listCreateRequest(ctx context.Context, integrationServiceEnvironmentName string, _ *IntegrationServiceEnvironmentSKUsClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Logic/integrationServiceEnvironments/{integrationServiceEnvironmentName}/skus"
+func (client *APIOperationsClient) listCreateRequest(ctx context.Context, integrationServiceEnvironmentName string, apiName string, _ *APIOperationsClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Logic/integrationServiceEnvironments/{integrationServiceEnvironmentName}/managedApis/{apiName}/apiOperations"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -80,6 +80,10 @@ func (client *IntegrationServiceEnvironmentSKUsClient) listCreateRequest(ctx con
 		return nil, errors.New("parameter integrationServiceEnvironmentName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{integrationServiceEnvironmentName}", url.PathEscape(integrationServiceEnvironmentName))
+	if apiName == "" {
+		return nil, errors.New("parameter apiName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{apiName}", url.PathEscape(apiName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -92,10 +96,10 @@ func (client *IntegrationServiceEnvironmentSKUsClient) listCreateRequest(ctx con
 }
 
 // listHandleResponse handles the List response.
-func (client *IntegrationServiceEnvironmentSKUsClient) listHandleResponse(resp *http.Response) (IntegrationServiceEnvironmentSKUsClientListResponse, error) {
-	result := IntegrationServiceEnvironmentSKUsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.IntegrationServiceEnvironmentSKUList); err != nil {
-		return IntegrationServiceEnvironmentSKUsClientListResponse{}, err
+func (client *APIOperationsClient) listHandleResponse(resp *http.Response) (APIOperationsClientListResponse, error) {
+	result := APIOperationsClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.APIOperationListResult); err != nil {
+		return APIOperationsClientListResponse{}, err
 	}
 	return result, nil
 }
