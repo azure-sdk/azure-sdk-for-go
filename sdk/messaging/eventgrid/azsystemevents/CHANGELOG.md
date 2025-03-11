@@ -1,5 +1,91 @@
 # Release History
 
+## 1.0.0 (2025-03-11)
+### Breaking Changes
+
+- Type of `ACSChatThreadCreatedEventData.Participants` has been changed from `[]ACSChatThreadParticipantProperties` to `[]*ACSChatThreadParticipantProperties`
+- Type of `ACSChatThreadCreatedWithUserEventData.Participants` has been changed from `[]ACSChatThreadParticipantProperties` to `[]*ACSChatThreadParticipantProperties`
+- Type of `ACSMessageDeliveryStatusUpdatedEventData.Error` has been changed from `*Error` to `*InternalACSMessageChannelEventError`
+- Type of `ACSMessageReceivedEventData.Error` has been changed from `*Error` to `*InternalACSMessageChannelEventError`
+- Type of `ACSRecordingStorageInfoProperties.RecordingChunks` has been changed from `[]ACSRecordingChunkInfoProperties` to `[]*ACSRecordingChunkInfoProperties`
+- Type of `ACSRouterJobClassificationFailedEventData.Errors` has been changed from `[]*Error` to `[]*InternalACSRouterCommunicationError`
+- Type of `ACSRouterJobClassifiedEventData.AttachedWorkerSelectors` has been changed from `[]ACSRouterWorkerSelector` to `[]*ACSRouterWorkerSelector`
+- Type of `ACSRouterJobQueuedEventData.AttachedWorkerSelectors` has been changed from `[]ACSRouterWorkerSelector` to `[]*ACSRouterWorkerSelector`
+- Type of `ACSRouterJobQueuedEventData.RequestedWorkerSelectors` has been changed from `[]ACSRouterWorkerSelector` to `[]*ACSRouterWorkerSelector`
+- Type of `ACSRouterJobReceivedEventData.RequestedWorkerSelectors` has been changed from `[]ACSRouterWorkerSelector` to `[]*ACSRouterWorkerSelector`
+- Type of `ACSRouterJobSchedulingFailedEventData.ExpiredAttachedWorkerSelectors` has been changed from `[]ACSRouterWorkerSelector` to `[]*ACSRouterWorkerSelector`
+- Type of `ACSRouterJobSchedulingFailedEventData.ExpiredRequestedWorkerSelectors` has been changed from `[]ACSRouterWorkerSelector` to `[]*ACSRouterWorkerSelector`
+- Type of `ACSRouterJobWaitingForActivationEventData.ExpiredAttachedWorkerSelectors` has been changed from `[]ACSRouterWorkerSelector` to `[]*ACSRouterWorkerSelector`
+- Type of `ACSRouterJobWaitingForActivationEventData.ExpiredRequestedWorkerSelectors` has been changed from `[]ACSRouterWorkerSelector` to `[]*ACSRouterWorkerSelector`
+- Type of `ACSRouterJobWorkerSelectorsExpiredEventData.ExpiredAttachedWorkerSelectors` has been changed from `[]ACSRouterWorkerSelector` to `[]*ACSRouterWorkerSelector`
+- Type of `ACSRouterJobWorkerSelectorsExpiredEventData.ExpiredRequestedWorkerSelectors` has been changed from `[]ACSRouterWorkerSelector` to `[]*ACSRouterWorkerSelector`
+- Type of `ACSRouterWorkerRegisteredEventData.ChannelConfigurations` has been changed from `[]ACSRouterChannelConfiguration` to `[]*ACSRouterChannelConfiguration`
+- Type of `ACSRouterWorkerRegisteredEventData.QueueAssignments` has been changed from `[]ACSRouterQueueDetails` to `[]*ACSRouterQueueDetails`
+- Type of `ACSRouterWorkerUpdatedEventData.ChannelConfigurations` has been changed from `[]ACSRouterChannelConfiguration` to `[]*ACSRouterChannelConfiguration`
+- Type of `ACSRouterWorkerUpdatedEventData.QueueAssignments` has been changed from `[]ACSRouterQueueDetails` to `[]*ACSRouterQueueDetails`
+- Type of `ACSRouterWorkerUpdatedEventData.UpdatedWorkerProperties` has been changed from `[]ACSRouterUpdatedWorkerProperty` to `[]*ACSRouterUpdatedWorkerProperty`
+- Type of `ACSSMSDeliveryReportReceivedEventData.DeliveryAttempts` has been changed from `[]ACSSMSDeliveryAttemptProperties` to `[]*ACSSMSDeliveryAttemptProperties`
+- Type of `AVSClusterCreatedEventData.AddedHostNames` has been changed from `[]string` to `[]*string`
+- Type of `AVSClusterCreatedEventData.InMaintenanceHostNames` has been changed from `[]string` to `[]*string`
+- Type of `AVSClusterCreatedEventData.RemovedHostNames` has been changed from `[]string` to `[]*string`
+- Type of `AVSClusterDeletedEventData.AddedHostNames` has been changed from `[]string` to `[]*string`
+- Type of `AVSClusterDeletedEventData.InMaintenanceHostNames` has been changed from `[]string` to `[]*string`
+- Type of `AVSClusterDeletedEventData.RemovedHostNames` has been changed from `[]string` to `[]*string`
+- Type of `AVSClusterFailedEventData.AddedHostNames` has been changed from `[]string` to `[]*string`
+- Type of `AVSClusterFailedEventData.InMaintenanceHostNames` has been changed from `[]string` to `[]*string`
+- Type of `AVSClusterFailedEventData.RemovedHostNames` has been changed from `[]string` to `[]*string`
+- Type of `AVSClusterUpdatedEventData.AddedHostNames` has been changed from `[]string` to `[]*string`
+- Type of `AVSClusterUpdatedEventData.InMaintenanceHostNames` has been changed from `[]string` to `[]*string`
+- Type of `AVSClusterUpdatedEventData.RemovedHostNames` has been changed from `[]string` to `[]*string`
+- Type of `AVSClusterUpdatingEventData.AddedHostNames` has been changed from `[]string` to `[]*string`
+- Type of `AVSClusterUpdatingEventData.InMaintenanceHostNames` has been changed from `[]string` to `[]*string`
+- Type of `AVSClusterUpdatingEventData.RemovedHostNames` has been changed from `[]string` to `[]*string`
+- Type of `AVSScriptExecutionCancelledEventData.Output` has been changed from `[]string` to `[]*string`
+- Type of `AVSScriptExecutionFailedEventData.Output` has been changed from `[]string` to `[]*string`
+- Type of `AVSScriptExecutionFinishedEventData.Output` has been changed from `[]string` to `[]*string`
+- Type of `AVSScriptExecutionStartedEventData.Output` has been changed from `[]string` to `[]*string`
+- Type of `MapsGeofenceEnteredEventData.ExpiredGeofenceGeometryID` has been changed from `[]string` to `[]*string`
+- Type of `MapsGeofenceEnteredEventData.Geometries` has been changed from `[]MapsGeofenceGeometry` to `[]*MapsGeofenceGeometry`
+- Type of `MapsGeofenceEnteredEventData.InvalidPeriodGeofenceGeometryID` has been changed from `[]string` to `[]*string`
+- Type of `MapsGeofenceExitedEventData.ExpiredGeofenceGeometryID` has been changed from `[]string` to `[]*string`
+- Type of `MapsGeofenceExitedEventData.Geometries` has been changed from `[]MapsGeofenceGeometry` to `[]*MapsGeofenceGeometry`
+- Type of `MapsGeofenceExitedEventData.InvalidPeriodGeofenceGeometryID` has been changed from `[]string` to `[]*string`
+- Type of `MapsGeofenceResultEventData.ExpiredGeofenceGeometryID` has been changed from `[]string` to `[]*string`
+- Type of `MapsGeofenceResultEventData.Geometries` has been changed from `[]MapsGeofenceGeometry` to `[]*MapsGeofenceGeometry`
+- Type of `MapsGeofenceResultEventData.InvalidPeriodGeofenceGeometryID` has been changed from `[]string` to `[]*string`
+
+### Features Added
+
+- New struct `ACSChatEventBaseProperties`
+- New struct `ACSChatEventInThreadBaseProperties`
+- New struct `ACSChatMessageEventBaseProperties`
+- New struct `ACSChatMessageEventInThreadBaseProperties`
+- New struct `ACSChatThreadEventBaseProperties`
+- New struct `ACSChatThreadEventInThreadBaseProperties`
+- New struct `ACSMessageEventData`
+- New struct `ACSRouterEventData`
+- New struct `ACSRouterJobEventData`
+- New struct `ACSRouterWorkerEventData`
+- New struct `ACSSMSEventBaseProperties`
+- New struct `AVSClusterEventData`
+- New struct `AVSPrivateCloudEventData`
+- New struct `AVSScriptExecutionEventData`
+- New struct `AppConfigurationSnapshotEventData`
+- New struct `ContainerRegistryArtifactEventData`
+- New struct `ContainerRegistryEventData`
+- New struct `ContainerServiceClusterSupportEventData`
+- New struct `ContainerServiceNodePoolRollingEventData`
+- New struct `DeviceConnectionStateEventProperties`
+- New struct `DeviceLifeCycleEventProperties`
+- New struct `DeviceTelemetryEventProperties`
+- New struct `EventGridMQTTClientEventData`
+- New struct `InternalACSMessageChannelEventError`
+- New struct `InternalACSRouterCommunicationError`
+- New struct `MapsGeofenceEventProperties`
+- New struct `ResourceNotificationsResourceDeletedEventData`
+- New struct `ResourceNotificationsResourceUpdatedEventData`
+
+
 ## 0.6.2 (Unreleased)
 
 ### Features Added
