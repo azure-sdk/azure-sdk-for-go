@@ -13,7 +13,7 @@ import (
 
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/messaging"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/messaging/eventgrid/aznamespaces"
+	"github.com/Azure/azure-sdk-for-go/sdk/messaging/eventgrid/aznamespaces/v2"
 )
 
 func Example_publishAndReceiveCloudEvents() {
