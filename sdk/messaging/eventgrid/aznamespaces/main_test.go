@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/internal/recording"
 	"github.com/Azure/azure-sdk-for-go/sdk/internal/test/credential"
-	"github.com/Azure/azure-sdk-for-go/sdk/messaging/eventgrid/aznamespaces"
+	"github.com/Azure/azure-sdk-for-go/sdk/messaging/eventgrid/aznamespaces/v2"
 	"github.com/joho/godotenv"
 )
 

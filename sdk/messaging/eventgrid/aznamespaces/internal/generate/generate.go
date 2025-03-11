@@ -8,7 +8,7 @@ import (
 	"os"
 	"regexp"
 
-	"github.com/Azure/azure-sdk-for-go/sdk/messaging/eventgrid/aznamespaces/internal/generate/gopls"
+	"github.com/Azure/azure-sdk-for-go/sdk/messaging/eventgrid/aznamespaces/v2/internal/generate/gopls"
 )
 
 func main() {
