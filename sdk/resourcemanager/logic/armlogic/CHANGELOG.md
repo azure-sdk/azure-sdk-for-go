@@ -1,5 +1,322 @@
 # Release History
 
+## 2.0.0 (2025-03-12)
+### Breaking Changes
+
+- Function `*IntegrationServiceEnvironmentManagedApisClient.BeginDelete` parameter(s) have been changed from `(context.Context, string, string, string, *IntegrationServiceEnvironmentManagedApisClientBeginDeleteOptions)` to `(context.Context, string, string, *IntegrationServiceEnvironmentManagedApisClientBeginDeleteOptions)`
+- Function `*IntegrationServiceEnvironmentManagedApisClient.BeginPut` parameter(s) have been changed from `(context.Context, string, string, string, IntegrationServiceEnvironmentManagedAPI, *IntegrationServiceEnvironmentManagedApisClientBeginPutOptions)` to `(context.Context, string, string, IntegrationServiceEnvironmentManagedAPI, *IntegrationServiceEnvironmentManagedApisClientBeginPutOptions)`
+- Function `*IntegrationServiceEnvironmentManagedApisClient.Get` parameter(s) have been changed from `(context.Context, string, string, string, *IntegrationServiceEnvironmentManagedApisClientGetOptions)` to `(context.Context, string, string, *IntegrationServiceEnvironmentManagedApisClientGetOptions)`
+- Function `*IntegrationServiceEnvironmentManagedApisClient.NewListPager` parameter(s) have been changed from `(string, string, *IntegrationServiceEnvironmentManagedApisClientListOptions)` to `(string, *IntegrationServiceEnvironmentManagedApisClientListOptions)`
+- Function `*IntegrationServiceEnvironmentsClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, IntegrationServiceEnvironment, *IntegrationServiceEnvironmentsClientBeginCreateOrUpdateOptions)` to `(context.Context, string, IntegrationServiceEnvironment, *IntegrationServiceEnvironmentsClientBeginCreateOrUpdateOptions)`
+- Function `*IntegrationServiceEnvironmentsClient.BeginUpdate` parameter(s) have been changed from `(context.Context, string, string, IntegrationServiceEnvironment, *IntegrationServiceEnvironmentsClientBeginUpdateOptions)` to `(context.Context, string, IntegrationServiceEnvironment, *IntegrationServiceEnvironmentsClientBeginUpdateOptions)`
+- Function `*IntegrationServiceEnvironmentsClient.Delete` parameter(s) have been changed from `(context.Context, string, string, *IntegrationServiceEnvironmentsClientDeleteOptions)` to `(context.Context, string, *IntegrationServiceEnvironmentsClientDeleteOptions)`
+- Function `*IntegrationServiceEnvironmentsClient.Get` parameter(s) have been changed from `(context.Context, string, string, *IntegrationServiceEnvironmentsClientGetOptions)` to `(context.Context, string, *IntegrationServiceEnvironmentsClientGetOptions)`
+- Function `*IntegrationServiceEnvironmentsClient.Restart` parameter(s) have been changed from `(context.Context, string, string, *IntegrationServiceEnvironmentsClientRestartOptions)` to `(context.Context, string, *IntegrationServiceEnvironmentsClientRestartOptions)`
+- Function `*WorkflowsClient.Update` parameter(s) have been changed from `(context.Context, string, string, *WorkflowsClientUpdateOptions)` to `(context.Context, string, string, AzureResourceManagerFoundationsArmTagsProperty, *WorkflowsClientUpdateOptions)`
+- Type of `APIReference.Swagger` has been changed from `any` to `map[string]any`
+- Type of `APIResourceProperties.ConnectionParameters` has been changed from `map[string]any` to `map[string]map[string]any`
+- Type of `AgreementContent.AS2` has been changed from `*AS2AgreementContent` to `*As2AgreementContent`
+- Type of `ArtifactContentPropertiesDefinition.Content` has been changed from `any` to `map[string]any`
+- Type of `ArtifactContentPropertiesDefinition.Metadata` has been changed from `any` to `map[string]any`
+- Type of `ArtifactProperties.Metadata` has been changed from `any` to `map[string]any`
+- Type of `AssemblyProperties.Content` has been changed from `any` to `map[string]any`
+- Type of `AssemblyProperties.Metadata` has been changed from `any` to `map[string]any`
+- Type of `BatchConfigurationProperties.Metadata` has been changed from `any` to `map[string]any`
+- Type of `ContentLink.Metadata` has been changed from `any` to `map[string]any`
+- Type of `ErrorResponse.Error` has been changed from `*ErrorProperties` to `*ErrorDetail`
+- Type of `Expression.Value` has been changed from `any` to `map[string]any`
+- Type of `ExpressionRoot.Value` has been changed from `any` to `map[string]any`
+- Type of `IntegrationAccountAgreementProperties.Metadata` has been changed from `any` to `map[string]any`
+- Type of `IntegrationAccountCertificateProperties.Metadata` has been changed from `any` to `map[string]any`
+- Type of `IntegrationAccountMapProperties.Metadata` has been changed from `any` to `map[string]any`
+- Type of `IntegrationAccountPartnerProperties.Metadata` has been changed from `any` to `map[string]any`
+- Type of `IntegrationAccountSchemaProperties.Metadata` has been changed from `any` to `map[string]any`
+- Type of `IntegrationAccountSessionProperties.Content` has been changed from `any` to `map[string]any`
+- Type of `IntegrationServiceEnvironmentManagedAPIProperties.ConnectionParameters` has been changed from `map[string]any` to `map[string]map[string]any`
+- Type of `Operation.Origin` has been changed from `*string` to `*Origin`
+- Type of `OperationResult.Error` has been changed from `any` to `map[string]any`
+- Type of `OperationResult.Inputs` has been changed from `any` to `map[string]any`
+- Type of `OperationResult.Outputs` has been changed from `any` to `map[string]any`
+- Type of `OperationResult.TrackedProperties` has been changed from `any` to `map[string]any`
+- Type of `OperationResultProperties.Error` has been changed from `any` to `map[string]any`
+- Type of `Request.Headers` has been changed from `any` to `map[string]any`
+- Type of `Response.Headers` has been changed from `any` to `map[string]any`
+- Type of `SwaggerCustomDynamicSchema.Parameters` has been changed from `map[string]any` to `map[string]map[string]any`
+- Type of `SwaggerCustomDynamicTreeParameter.Value` has been changed from `any` to `map[string]any`
+- Type of `SwaggerExternalDocumentation.Extensions` has been changed from `map[string]any` to `map[string]map[string]any`
+- Type of `SwaggerSchema.AdditionalProperties` has been changed from `any` to `map[string]any`
+- Type of `SwaggerSchema.Example` has been changed from `any` to `map[string]any`
+- Type of `SwaggerXML.Extensions` has been changed from `map[string]any` to `map[string]map[string]any`
+- Type of `TrackingEvent.Record` has been changed from `any` to `map[string]any`
+- Type of `WorkflowOutputParameter.Error` has been changed from `any` to `map[string]any`
+- Type of `WorkflowOutputParameter.Metadata` has been changed from `any` to `map[string]any`
+- Type of `WorkflowOutputParameter.Value` has been changed from `any` to `map[string]any`
+- Type of `WorkflowParameter.Metadata` has been changed from `any` to `map[string]any`
+- Type of `WorkflowParameter.Value` has been changed from `any` to `map[string]any`
+- Type of `WorkflowProperties.Definition` has been changed from `any` to `map[string]any`
+- Type of `WorkflowRunActionProperties.Error` has been changed from `any` to `map[string]any`
+- Type of `WorkflowRunActionProperties.TrackedProperties` has been changed from `any` to `map[string]any`
+- Type of `WorkflowRunActionRepetitionProperties.Error` has been changed from `any` to `map[string]any`
+- Type of `WorkflowRunActionRepetitionProperties.Inputs` has been changed from `any` to `map[string]any`
+- Type of `WorkflowRunActionRepetitionProperties.Outputs` has been changed from `any` to `map[string]any`
+- Type of `WorkflowRunActionRepetitionProperties.TrackedProperties` has been changed from `any` to `map[string]any`
+- Type of `WorkflowRunProperties.Error` has been changed from `any` to `map[string]any`
+- Type of `WorkflowRunTrigger.Error` has been changed from `any` to `map[string]any`
+- Type of `WorkflowRunTrigger.Inputs` has been changed from `any` to `map[string]any`
+- Type of `WorkflowRunTrigger.Outputs` has been changed from `any` to `map[string]any`
+- Type of `WorkflowRunTrigger.TrackedProperties` has been changed from `any` to `map[string]any`
+- Type of `WorkflowTriggerHistoryProperties.Error` has been changed from `any` to `map[string]any`
+- Type of `WorkflowVersionProperties.Definition` has been changed from `any` to `map[string]any`
+- Enum `AzureAsyncOperationState` has been removed
+- Enum `ErrorResponseCode` has been removed
+- Enum `IntegrationServiceEnvironmentNetworkDependencyHealthState` has been removed
+- Enum `ManagedServiceIdentityType` has been removed
+- Function `*ClientFactory.NewIntegrationAccountAssembliesClient` has been removed
+- Function `*ClientFactory.NewIntegrationAccountBatchConfigurationsClient` has been removed
+- Function `*ClientFactory.NewIntegrationServiceEnvironmentManagedAPIOperationsClient` has been removed
+- Function `*ClientFactory.NewIntegrationServiceEnvironmentNetworkHealthClient` has been removed
+- Function `*ClientFactory.NewIntegrationServiceEnvironmentSKUsClient` has been removed
+- Function `*ClientFactory.NewWorkflowRunActionRepetitionsClient` has been removed
+- Function `*ClientFactory.NewWorkflowRunActionRepetitionsRequestHistoriesClient` has been removed
+- Function `*ClientFactory.NewWorkflowRunActionRequestHistoriesClient` has been removed
+- Function `*ClientFactory.NewWorkflowRunActionScopeRepetitionsClient` has been removed
+- Function `*ClientFactory.NewWorkflowRunOperationsClient` has been removed
+- Function `*ClientFactory.NewWorkflowVersionTriggersClient` has been removed
+- Function `NewIntegrationAccountAssembliesClient` has been removed
+- Function `*IntegrationAccountAssembliesClient.CreateOrUpdate` has been removed
+- Function `*IntegrationAccountAssembliesClient.Delete` has been removed
+- Function `*IntegrationAccountAssembliesClient.Get` has been removed
+- Function `*IntegrationAccountAssembliesClient.ListContentCallbackURL` has been removed
+- Function `*IntegrationAccountAssembliesClient.NewListPager` has been removed
+- Function `NewIntegrationAccountBatchConfigurationsClient` has been removed
+- Function `*IntegrationAccountBatchConfigurationsClient.CreateOrUpdate` has been removed
+- Function `*IntegrationAccountBatchConfigurationsClient.Delete` has been removed
+- Function `*IntegrationAccountBatchConfigurationsClient.Get` has been removed
+- Function `*IntegrationAccountBatchConfigurationsClient.NewListPager` has been removed
+- Function `NewIntegrationServiceEnvironmentManagedAPIOperationsClient` has been removed
+- Function `*IntegrationServiceEnvironmentManagedAPIOperationsClient.NewListPager` has been removed
+- Function `NewIntegrationServiceEnvironmentNetworkHealthClient` has been removed
+- Function `*IntegrationServiceEnvironmentNetworkHealthClient.Get` has been removed
+- Function `NewIntegrationServiceEnvironmentSKUsClient` has been removed
+- Function `*IntegrationServiceEnvironmentSKUsClient.NewListPager` has been removed
+- Function `NewWorkflowRunActionRepetitionsClient` has been removed
+- Function `*WorkflowRunActionRepetitionsClient.Get` has been removed
+- Function `*WorkflowRunActionRepetitionsClient.NewListExpressionTracesPager` has been removed
+- Function `*WorkflowRunActionRepetitionsClient.NewListPager` has been removed
+- Function `NewWorkflowRunActionRepetitionsRequestHistoriesClient` has been removed
+- Function `*WorkflowRunActionRepetitionsRequestHistoriesClient.Get` has been removed
+- Function `*WorkflowRunActionRepetitionsRequestHistoriesClient.NewListPager` has been removed
+- Function `NewWorkflowRunActionRequestHistoriesClient` has been removed
+- Function `*WorkflowRunActionRequestHistoriesClient.Get` has been removed
+- Function `*WorkflowRunActionRequestHistoriesClient.NewListPager` has been removed
+- Function `NewWorkflowRunActionScopeRepetitionsClient` has been removed
+- Function `*WorkflowRunActionScopeRepetitionsClient.Get` has been removed
+- Function `*WorkflowRunActionScopeRepetitionsClient.NewListPager` has been removed
+- Function `NewWorkflowRunOperationsClient` has been removed
+- Function `*WorkflowRunOperationsClient.Get` has been removed
+- Function `*WorkflowRunsClient.NewListPager` has been removed
+- Function `NewWorkflowVersionTriggersClient` has been removed
+- Function `*WorkflowVersionTriggersClient.ListCallbackURL` has been removed
+- Function `*WorkflowsClient.ValidateByLocation` has been removed
+- Operation `*WorkflowTriggerHistoriesClient.Resubmit` has been changed to LRO, use `*WorkflowTriggerHistoriesClient.BeginResubmit` instead.
+- Operation `*WorkflowTriggersClient.Run` has been changed to LRO, use `*WorkflowTriggersClient.BeginRun` instead.
+- Operation `*IntegrationAccountsClient.NewListKeyVaultKeysPager` does not support pagination anymore, use `*IntegrationAccountsClient.ListKeyVaultKeys` instead.
+- Operation `*WorkflowRunActionsClient.NewListExpressionTracesPager` does not support pagination anymore, use `*WorkflowRunActionsClient.ListExpressionTraces` instead.
+- Struct `AS2AcknowledgementConnectionSettings` has been removed
+- Struct `AS2AgreementContent` has been removed
+- Struct `AS2EnvelopeSettings` has been removed
+- Struct `AS2ErrorSettings` has been removed
+- Struct `AS2MdnSettings` has been removed
+- Struct `AS2MessageConnectionSettings` has been removed
+- Struct `AS2OneWayAgreement` has been removed
+- Struct `AS2ProtocolSettings` has been removed
+- Struct `AS2SecuritySettings` has been removed
+- Struct `AS2ValidationSettings` has been removed
+- Struct `ErrorProperties` has been removed
+- Struct `ExtendedErrorInfo` has been removed
+- Struct `IntegrationAccountAgreementFilter` has been removed
+- Struct `IntegrationAccountMapFilter` has been removed
+- Struct `IntegrationAccountPartnerFilter` has been removed
+- Struct `IntegrationAccountSchemaFilter` has been removed
+- Struct `IntegrationAccountSessionFilter` has been removed
+- Struct `IntegrationServiceEnvironmentNetworkDependencyHealth` has been removed
+- Struct `IntegrationServiceEnvironmentSubnetNetworkHealth` has been removed
+- Struct `ManagedAPI` has been removed
+- Struct `ManagedAPIListResult` has been removed
+- Struct `ManagedServiceIdentity` has been removed
+- Struct `SubResource` has been removed
+- Struct `UserAssignedIdentity` has been removed
+- Struct `WorkflowFilter` has been removed
+- Struct `WorkflowRunActionFilter` has been removed
+- Struct `WorkflowRunFilter` has been removed
+- Struct `WorkflowTriggerFilter` has been removed
+- Struct `WorkflowTriggerHistoryFilter` has been removed
+- Field `Location`, `Tags` of struct `APIOperation` has been removed
+- Field `Name` of struct `APIResourceProperties` has been removed
+- Field `Location`, `Tags` of struct `AssemblyDefinition` has been removed
+- Field `Location`, `Tags` of struct `BatchConfiguration` has been removed
+- Field `ValidateEDITypes`, `ValidateXSDTypes` of struct `EdifactValidationOverride` has been removed
+- Field `ValidateEDITypes`, `ValidateXSDTypes` of struct `EdifactValidationSettings` has been removed
+- Field `Location`, `Tags` of struct `IntegrationAccountAgreement` has been removed
+- Field `Location`, `Tags` of struct `IntegrationAccountCertificate` has been removed
+- Field `Location`, `Tags` of struct `IntegrationAccountMap` has been removed
+- Field `Location`, `Tags` of struct `IntegrationAccountPartner` has been removed
+- Field `Location`, `Tags` of struct `IntegrationAccountSchema` has been removed
+- Field `Location`, `Tags` of struct `IntegrationAccountSession` has been removed
+- Field `Identity` of struct `IntegrationServiceEnvironment` has been removed
+- Field `Name` of struct `IntegrationServiceEnvironmentManagedAPIProperties` has been removed
+- Field `Properties` of struct `Operation` has been removed
+- Field `Location`, `Tags` of struct `RequestHistory` has been removed
+- Field `Location`, `Tags` of struct `Resource` has been removed
+- Field `Identity` of struct `Workflow` has been removed
+- Field `Location`, `Tags` of struct `WorkflowRunActionRepetitionDefinition` has been removed
+- Field `Location`, `Tags` of struct `WorkflowVersion` has been removed
+- Field `Interface` of struct `WorkflowsClientGenerateUpgradedDefinitionResponse` has been removed
+- Field `Interface` of struct `WorkflowsClientListSwaggerResponse` has been removed
+- Field `ValidateEDITypes`, `ValidateXSDTypes` of struct `X12ValidationOverride` has been removed
+- Field `ValidateEDITypes`, `ValidateXSDTypes` of struct `X12ValidationSettings` has been removed
+
+### Features Added
+
+- New enum type `ActionType` with values `ActionTypeInternal`
+- New enum type `CreatedByType` with values `CreatedByTypeApplication`, `CreatedByTypeKey`, `CreatedByTypeManagedIdentity`, `CreatedByTypeUser`
+- New enum type `FlowRunExecutionMode` with values `FlowRunExecutionModeNotSpecified`, `FlowRunExecutionModeResubmittedResults`, `FlowRunExecutionModeStaticResults`
+- New enum type `FlowTemplateSKU` with values `FlowTemplateSKUConsumption`, `FlowTemplateSKUNone`, `FlowTemplateSKUStandard`
+- New enum type `FlowTemplateState` with values `FlowTemplateStateDevelopment`, `FlowTemplateStateNotSpecified`, `FlowTemplateStateProduction`, `FlowTemplateStateTesting`
+- New enum type `FlowTemplateType` with values `FlowTemplateTypeAccelerator`, `FlowTemplateTypeNotSpecified`, `FlowTemplateTypeWorkflow`
+- New enum type `Origin` with values `OriginSystem`, `OriginUser`, `OriginUserSystem`
+- New function `NewAPIOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*APIOperationsClient, error)`
+- New function `*APIOperationsClient.NewListPager(string, string, *APIOperationsClientListOptions) *runtime.Pager[APIOperationsClientListResponse]`
+- New function `NewAssemblyDefinitionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AssemblyDefinitionsClient, error)`
+- New function `*AssemblyDefinitionsClient.CreateOrUpdate(context.Context, string, string, string, AssemblyDefinition, *AssemblyDefinitionsClientCreateOrUpdateOptions) (AssemblyDefinitionsClientCreateOrUpdateResponse, error)`
+- New function `*AssemblyDefinitionsClient.Delete(context.Context, string, string, string, *AssemblyDefinitionsClientDeleteOptions) (AssemblyDefinitionsClientDeleteResponse, error)`
+- New function `*AssemblyDefinitionsClient.Get(context.Context, string, string, string, *AssemblyDefinitionsClientGetOptions) (AssemblyDefinitionsClientGetResponse, error)`
+- New function `*AssemblyDefinitionsClient.List(context.Context, string, string, *AssemblyDefinitionsClientListOptions) (AssemblyDefinitionsClientListResponse, error)`
+- New function `*AssemblyDefinitionsClient.ListContentCallbackURL(context.Context, string, string, string, *AssemblyDefinitionsClientListContentCallbackURLOptions) (AssemblyDefinitionsClientListContentCallbackURLResponse, error)`
+- New function `NewBatchConfigurationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*BatchConfigurationsClient, error)`
+- New function `*BatchConfigurationsClient.CreateOrUpdate(context.Context, string, string, string, BatchConfiguration, *BatchConfigurationsClientCreateOrUpdateOptions) (BatchConfigurationsClientCreateOrUpdateResponse, error)`
+- New function `*BatchConfigurationsClient.Delete(context.Context, string, string, string, *BatchConfigurationsClientDeleteOptions) (BatchConfigurationsClientDeleteResponse, error)`
+- New function `*BatchConfigurationsClient.Get(context.Context, string, string, string, *BatchConfigurationsClientGetOptions) (BatchConfigurationsClientGetResponse, error)`
+- New function `*BatchConfigurationsClient.List(context.Context, string, string, *BatchConfigurationsClientListOptions) (BatchConfigurationsClientListResponse, error)`
+- New function `*ClientFactory.NewAPIOperationsClient() *APIOperationsClient`
+- New function `*ClientFactory.NewAssemblyDefinitionsClient() *AssemblyDefinitionsClient`
+- New function `*ClientFactory.NewBatchConfigurationsClient() *BatchConfigurationsClient`
+- New function `*ClientFactory.NewRequestHistoriesClient() *RequestHistoriesClient`
+- New function `*ClientFactory.NewTemplatesClient() *TemplatesClient`
+- New function `*ClientFactory.NewWorkflowRunActionRepetitionDefinitionsClient() *WorkflowRunActionRepetitionDefinitionsClient`
+- New function `*ClientFactory.NewWorkflowRunActionRequestHistoriesOperationsClient() *WorkflowRunActionRequestHistoriesOperationsClient`
+- New function `*ClientFactory.NewWorkflowRunActionScopeRepetitionsOperationsClient() *WorkflowRunActionScopeRepetitionsOperationsClient`
+- New function `*ClientFactory.NewWorkflowRunOperationsOperationsClient() *WorkflowRunOperationsOperationsClient`
+- New function `*ClientFactory.NewWorkflowRunsOperationsClient() *WorkflowRunsOperationsClient`
+- New function `*ClientFactory.NewWorkflowsOperationsClient() *WorkflowsOperationsClient`
+- New function `*IntegrationServiceEnvironmentsClient.IntegrationServiceEnvironmentNetworkHealthGet(context.Context, string, *IntegrationServiceEnvironmentsClientIntegrationServiceEnvironmentNetworkHealthGetOptions) (IntegrationServiceEnvironmentsClientIntegrationServiceEnvironmentNetworkHealthGetResponse, error)`
+- New function `*IntegrationServiceEnvironmentsClient.NewListPager(string, *IntegrationServiceEnvironmentsClientListOptions) *runtime.Pager[IntegrationServiceEnvironmentsClientListResponse]`
+- New function `NewRequestHistoriesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RequestHistoriesClient, error)`
+- New function `*RequestHistoriesClient.Get(context.Context, string, string, string, string, string, string, *RequestHistoriesClientGetOptions) (RequestHistoriesClientGetResponse, error)`
+- New function `*RequestHistoriesClient.NewListPager(string, string, string, string, string, *RequestHistoriesClientListOptions) *runtime.Pager[RequestHistoriesClientListResponse]`
+- New function `NewTemplatesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*TemplatesClient, error)`
+- New function `*TemplatesClient.CreateOrUpdate(context.Context, string, string, Template, *TemplatesClientCreateOrUpdateOptions) (TemplatesClientCreateOrUpdateResponse, error)`
+- New function `*TemplatesClient.Delete(context.Context, string, string, *TemplatesClientDeleteOptions) (TemplatesClientDeleteResponse, error)`
+- New function `*TemplatesClient.Disable(context.Context, string, string, *TemplatesClientDisableOptions) (TemplatesClientDisableResponse, error)`
+- New function `*TemplatesClient.Enable(context.Context, string, string, *TemplatesClientEnableOptions) (TemplatesClientEnableResponse, error)`
+- New function `*TemplatesClient.GenerateUpgradedDefinition(context.Context, string, string, GenerateUpgradedDefinitionParameters, *TemplatesClientGenerateUpgradedDefinitionOptions) (TemplatesClientGenerateUpgradedDefinitionResponse, error)`
+- New function `*TemplatesClient.Get(context.Context, string, string, *TemplatesClientGetOptions) (TemplatesClientGetResponse, error)`
+- New function `*TemplatesClient.NewListByResourceGroupPager(string, *TemplatesClientListByResourceGroupOptions) *runtime.Pager[TemplatesClientListByResourceGroupResponse]`
+- New function `*TemplatesClient.NewListBySubscriptionPager(*TemplatesClientListBySubscriptionOptions) *runtime.Pager[TemplatesClientListBySubscriptionResponse]`
+- New function `*TemplatesClient.ListCallbackURL(context.Context, string, string, GetCallbackURLParameters, *TemplatesClientListCallbackURLOptions) (TemplatesClientListCallbackURLResponse, error)`
+- New function `*TemplatesClient.ListSwagger(context.Context, string, string, *TemplatesClientListSwaggerOptions) (TemplatesClientListSwaggerResponse, error)`
+- New function `*TemplatesClient.BeginMove(context.Context, string, string, WorkflowReference, *TemplatesClientBeginMoveOptions) (*runtime.Poller[TemplatesClientMoveResponse], error)`
+- New function `*TemplatesClient.RegenerateAccessKey(context.Context, string, string, RegenerateActionParameter, *TemplatesClientRegenerateAccessKeyOptions) (TemplatesClientRegenerateAccessKeyResponse, error)`
+- New function `*TemplatesClient.Update(context.Context, string, string, TemplateUpdate, *TemplatesClientUpdateOptions) (TemplatesClientUpdateResponse, error)`
+- New function `*TemplatesClient.ValidateByResourceGroup(context.Context, string, string, Workflow, *TemplatesClientValidateByResourceGroupOptions) (TemplatesClientValidateByResourceGroupResponse, error)`
+- New function `NewWorkflowRunActionRepetitionDefinitionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WorkflowRunActionRepetitionDefinitionsClient, error)`
+- New function `*WorkflowRunActionRepetitionDefinitionsClient.Get(context.Context, string, string, string, string, string, *WorkflowRunActionRepetitionDefinitionsClientGetOptions) (WorkflowRunActionRepetitionDefinitionsClientGetResponse, error)`
+- New function `*WorkflowRunActionRepetitionDefinitionsClient.ListExpressionTraces(context.Context, string, string, string, string, string, *WorkflowRunActionRepetitionDefinitionsClientListExpressionTracesOptions) (WorkflowRunActionRepetitionDefinitionsClientListExpressionTracesResponse, error)`
+- New function `*WorkflowRunActionRepetitionDefinitionsClient.NewListPager(string, string, string, string, *WorkflowRunActionRepetitionDefinitionsClientListOptions) *runtime.Pager[WorkflowRunActionRepetitionDefinitionsClientListResponse]`
+- New function `NewWorkflowRunActionRequestHistoriesOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WorkflowRunActionRequestHistoriesOperationsClient, error)`
+- New function `*WorkflowRunActionRequestHistoriesOperationsClient.Get(context.Context, string, string, string, string, string, *WorkflowRunActionRequestHistoriesOperationsClientGetOptions) (WorkflowRunActionRequestHistoriesOperationsClientGetResponse, error)`
+- New function `*WorkflowRunActionRequestHistoriesOperationsClient.NewListPager(string, string, string, string, *WorkflowRunActionRequestHistoriesOperationsClientListOptions) *runtime.Pager[WorkflowRunActionRequestHistoriesOperationsClientListResponse]`
+- New function `NewWorkflowRunActionScopeRepetitionsOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WorkflowRunActionScopeRepetitionsOperationsClient, error)`
+- New function `*WorkflowRunActionScopeRepetitionsOperationsClient.Get(context.Context, string, string, string, string, string, *WorkflowRunActionScopeRepetitionsOperationsClientGetOptions) (WorkflowRunActionScopeRepetitionsOperationsClientGetResponse, error)`
+- New function `*WorkflowRunActionScopeRepetitionsOperationsClient.NewListPager(string, string, string, string, *WorkflowRunActionScopeRepetitionsOperationsClientListOptions) *runtime.Pager[WorkflowRunActionScopeRepetitionsOperationsClientListResponse]`
+- New function `NewWorkflowRunOperationsOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WorkflowRunOperationsOperationsClient, error)`
+- New function `*WorkflowRunOperationsOperationsClient.Get(context.Context, string, string, string, string, *WorkflowRunOperationsOperationsClientGetOptions) (WorkflowRunOperationsOperationsClientGetResponse, error)`
+- New function `NewWorkflowRunsOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WorkflowRunsOperationsClient, error)`
+- New function `*WorkflowRunsOperationsClient.NewListPager(string, string, *WorkflowRunsOperationsClientListOptions) *runtime.Pager[WorkflowRunsOperationsClientListResponse]`
+- New function `*WorkflowVersionsClient.ListCallbackURL(context.Context, string, string, string, string, *WorkflowVersionsClientListCallbackURLOptions) (WorkflowVersionsClientListCallbackURLResponse, error)`
+- New function `NewWorkflowsOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WorkflowsOperationsClient, error)`
+- New function `*WorkflowsOperationsClient.ValidateByLocation(context.Context, string, string, string, Workflow, *WorkflowsOperationsClientValidateByLocationOptions) (WorkflowsOperationsClientValidateByLocationResponse, error)`
+- New struct `As2AcknowledgementConnectionSettings`
+- New struct `As2AgreementContent`
+- New struct `As2EnvelopeSettings`
+- New struct `As2ErrorSettings`
+- New struct `As2MdnSettings`
+- New struct `As2MessageConnectionSettings`
+- New struct `As2OneWayAgreement`
+- New struct `As2ProtocolSettings`
+- New struct `As2SecuritySettings`
+- New struct `As2ValidationSettings`
+- New struct `AzureResourceManagerCommonTypesTrackedResourceUpdate`
+- New struct `AzureResourceManagerFoundationsArmTagsProperty`
+- New struct `ErrorAdditionalInfo`
+- New struct `ErrorDetail`
+- New struct `FlowTemplateConnectorDetails`
+- New struct `FlowTemplateDetails`
+- New struct `FlowTemplateManifest`
+- New struct `IntegrationServiceEnvironmentNetworkHealth`
+- New struct `ProxyResource`
+- New struct `SystemData`
+- New struct `Template`
+- New struct `TemplateListResult`
+- New struct `TemplateProperties`
+- New struct `TemplateUpdate`
+- New struct `TrackedResource`
+- New field `SystemData` in struct `APIOperation`
+- New field `ProvisioningState` in struct `APIOperationPropertiesDefinition`
+- New field `SystemData` in struct `AssemblyDefinition`
+- New field `ProvisioningState` in struct `AssemblyProperties`
+- New field `SystemData` in struct `BatchConfiguration`
+- New field `ProvisioningState` in struct `BatchConfigurationProperties`
+- New field `ValidateEdiTypes`, `ValidateXsdTypes` in struct `EdifactValidationOverride`
+- New field `ValidateEdiTypes`, `ValidateXsdTypes` in struct `EdifactValidationSettings`
+- New field `SystemData` in struct `IntegrationAccount`
+- New field `SystemData` in struct `IntegrationAccountAgreement`
+- New field `ProvisioningState` in struct `IntegrationAccountAgreementProperties`
+- New field `SystemData` in struct `IntegrationAccountCertificate`
+- New field `ProvisioningState` in struct `IntegrationAccountCertificateProperties`
+- New field `SystemData` in struct `IntegrationAccountMap`
+- New field `ProvisioningState` in struct `IntegrationAccountMapProperties`
+- New field `SystemData` in struct `IntegrationAccountPartner`
+- New field `ProvisioningState` in struct `IntegrationAccountPartnerProperties`
+- New field `ProvisioningState` in struct `IntegrationAccountProperties`
+- New field `SystemData` in struct `IntegrationAccountSchema`
+- New field `ProvisioningState` in struct `IntegrationAccountSchemaProperties`
+- New field `SystemData` in struct `IntegrationAccountSession`
+- New field `ProvisioningState` in struct `IntegrationAccountSessionProperties`
+- New field `SystemData` in struct `IntegrationServiceEnvironment`
+- New field `SystemData` in struct `IntegrationServiceEnvironmentManagedAPI`
+- New field `ActionType`, `IsDataAction` in struct `Operation`
+- New field `CanResubmit`, `ExecutionMode` in struct `OperationResult`
+- New field `SystemData` in struct `RequestHistory`
+- New field `ProvisioningState` in struct `RequestHistoryProperties`
+- New field `SystemData` in struct `Resource`
+- New field `SystemData` in struct `Workflow`
+- New field `SystemData` in struct `WorkflowRun`
+- New field `SystemData` in struct `WorkflowRunAction`
+- New field `ProvisioningState` in struct `WorkflowRunActionProperties`
+- New field `SystemData` in struct `WorkflowRunActionRepetitionDefinition`
+- New field `CanResubmit`, `ExecutionMode`, `ProvisioningState` in struct `WorkflowRunActionRepetitionProperties`
+- New field `ProvisioningState` in struct `WorkflowRunProperties`
+- New field `SystemData` in struct `WorkflowTrigger`
+- New field `SystemData` in struct `WorkflowTriggerHistory`
+- New field `ProvisioningState` in struct `WorkflowTriggerHistoryProperties`
+- New field `SystemData` in struct `WorkflowVersion`
+- New field `Value` in struct `WorkflowsClientGenerateUpgradedDefinitionResponse`
+- New field `Value` in struct `WorkflowsClientListSwaggerResponse`
+- New field `ValidateEdiTypes`, `ValidateXsdTypes` in struct `X12ValidationOverride`
+- New field `ValidateEdiTypes`, `ValidateXsdTypes` in struct `X12ValidationSettings`
+
+
 ## 1.2.0 (2023-11-24)
 ### Features Added
 
