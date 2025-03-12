@@ -44,7 +44,7 @@ func NewQueueClient(subscriptionID string, credential azcore.TokenCredential, op
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - queueName - A queue name must be unique within a storage account and must be between 3 and 63 characters.The name must
@@ -77,6 +77,10 @@ func (client *QueueClient) Create(ctx context.Context, resourceGroupName string,
 // createCreateRequest creates the Create request.
 func (client *QueueClient) createCreateRequest(ctx context.Context, resourceGroupName string, accountName string, queueName string, queue Queue, _ *QueueClientCreateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/queueServices/default/queues/{queueName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -85,10 +89,6 @@ func (client *QueueClient) createCreateRequest(ctx context.Context, resourceGrou
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if queueName == "" {
 		return nil, errors.New("parameter queueName cannot be empty")
 	}
@@ -120,7 +120,7 @@ func (client *QueueClient) createHandleResponse(resp *http.Response) (QueueClien
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - queueName - A queue name must be unique within a storage account and must be between 3 and 63 characters.The name must
@@ -151,6 +151,10 @@ func (client *QueueClient) Delete(ctx context.Context, resourceGroupName string,
 // deleteCreateRequest creates the Delete request.
 func (client *QueueClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, accountName string, queueName string, _ *QueueClientDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/queueServices/default/queues/{queueName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -159,10 +163,6 @@ func (client *QueueClient) deleteCreateRequest(ctx context.Context, resourceGrou
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if queueName == "" {
 		return nil, errors.New("parameter queueName cannot be empty")
 	}
@@ -182,7 +182,7 @@ func (client *QueueClient) deleteCreateRequest(ctx context.Context, resourceGrou
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - queueName - A queue name must be unique within a storage account and must be between 3 and 63 characters.The name must
@@ -214,6 +214,10 @@ func (client *QueueClient) Get(ctx context.Context, resourceGroupName string, ac
 // getCreateRequest creates the Get request.
 func (client *QueueClient) getCreateRequest(ctx context.Context, resourceGroupName string, accountName string, queueName string, _ *QueueClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/queueServices/default/queues/{queueName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -222,10 +226,6 @@ func (client *QueueClient) getCreateRequest(ctx context.Context, resourceGroupNa
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if queueName == "" {
 		return nil, errors.New("parameter queueName cannot be empty")
 	}
@@ -253,7 +253,7 @@ func (client *QueueClient) getHandleResponse(resp *http.Response) (QueueClientGe
 // NewListPager - Gets a list of all the queues under the specified storage account
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - options - QueueClientListOptions contains the optional parameters for the QueueClient.NewListPager method.
@@ -283,6 +283,10 @@ func (client *QueueClient) NewListPager(resourceGroupName string, accountName st
 // listCreateRequest creates the List request.
 func (client *QueueClient) listCreateRequest(ctx context.Context, resourceGroupName string, accountName string, options *QueueClientListOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/queueServices/default/queues"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -291,10 +295,6 @@ func (client *QueueClient) listCreateRequest(ctx context.Context, resourceGroupN
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -325,7 +325,7 @@ func (client *QueueClient) listHandleResponse(resp *http.Response) (QueueClientL
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - queueName - A queue name must be unique within a storage account and must be between 3 and 63 characters.The name must
@@ -358,6 +358,10 @@ func (client *QueueClient) Update(ctx context.Context, resourceGroupName string,
 // updateCreateRequest creates the Update request.
 func (client *QueueClient) updateCreateRequest(ctx context.Context, resourceGroupName string, accountName string, queueName string, queue Queue, _ *QueueClientUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/queueServices/default/queues/{queueName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -366,10 +370,6 @@ func (client *QueueClient) updateCreateRequest(ctx context.Context, resourceGrou
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if queueName == "" {
 		return nil, errors.New("parameter queueName cannot be empty")
 	}

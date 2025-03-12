@@ -47,20 +47,19 @@ func NewSKUsClient(subscriptionID string, credential azcore.TokenCredential, opt
 func (client *SKUsClient) NewListPager(options *SKUsClientListOptions) *runtime.Pager[SKUsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SKUsClientListResponse]{
 		More: func(page SKUsClientListResponse) bool {
-			return false
+			return page.Nextlink != nil && len(*page.Nextlink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *SKUsClientListResponse) (SKUsClientListResponse, error) {
 			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "SKUsClient.NewListPager")
-			req, err := client.listCreateRequest(ctx, options)
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.Nextlink
+			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listCreateRequest(ctx, options)
+			}, nil)
 			if err != nil {
 				return SKUsClientListResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return SKUsClientListResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return SKUsClientListResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listHandleResponse(resp)
 		},
