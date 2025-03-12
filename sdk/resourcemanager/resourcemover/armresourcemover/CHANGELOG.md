@@ -1,5 +1,15 @@
 # Release History
 
+## 1.4.0-beta.1 (2025-03-12)
+### Features Added
+
+- New struct `ChildMoveResourceProperties`
+- New struct `ChildMoveResourcePropertiesErrors`
+- New field `TargetVirtualMachineScaleSetFlexID` in struct `AvailabilitySetResourceSettings`
+- New field `ChildMoveResourcesProperties` in struct `MoveResourceProperties`
+- New field `TargetFaultDomain` in struct `VirtualMachineResourceSettings`
+
+
 ## 1.3.0 (2023-11-24)
 ### Features Added
 
