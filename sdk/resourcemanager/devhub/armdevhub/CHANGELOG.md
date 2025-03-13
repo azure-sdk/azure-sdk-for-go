@@ -1,5 +1,64 @@
 # Release History
 
+## 0.7.0 (2025-03-13)
+### Breaking Changes
+
+- Type of `GitHubWorkflowProfile.DeploymentProperties` has been changed from `*DeploymentProperties` to `*Deployment`
+- `QuickStartTemplateTypeALL` from enum `QuickStartTemplateType` has been removed
+- Struct `DeploymentProperties` has been removed
+- Field `NumberOfStores` of struct `ScaleProperty` has been removed
+- Field `ScaleProperties` of struct `ScaleTemplateRequest` has been removed
+
+### Features Added
+
+- New enum type `ParameterKind` with values `ParameterKindAzureContainerRegistry`, `ParameterKindAzureKeyvaultURI`, `ParameterKindAzureManagedCluster`, `ParameterKindAzureResourceGroup`, `ParameterKindAzureServiceConnection`, `ParameterKindClusterResourceType`, `ParameterKindContainerImageName`, `ParameterKindContainerImageVersion`, `ParameterKindDirPath`, `ParameterKindDockerFileName`, `ParameterKindEnvVarMap`, `ParameterKindFilePath`, `ParameterKindFlag`, `ParameterKindHelmChartOverrides`, `ParameterKindImagePullPolicy`, `ParameterKindIngressHostName`, `ParameterKindKubernetesNamespace`, `ParameterKindKubernetesProbeDelay`, `ParameterKindKubernetesProbeHTTPPath`, `ParameterKindKubernetesProbePeriod`, `ParameterKindKubernetesProbeThreshold`, `ParameterKindKubernetesProbeTimeout`, `ParameterKindKubernetesProbeType`, `ParameterKindKubernetesResourceLimit`, `ParameterKindKubernetesResourceName`, `ParameterKindKubernetesResourceRequest`, `ParameterKindLabel`, `ParameterKindPort`, `ParameterKindReplicaCount`, `ParameterKindRepositoryBranch`, `ParameterKindResourceLimit`, `ParameterKindScalingResourceType`, `ParameterKindScalingResourceUtilization`, `ParameterKindWorkflowAuthType`, `ParameterKindWorkflowName`
+- New enum type `ParameterType` with values `ParameterTypeBool`, `ParameterTypeFloat`, `ParameterTypeInt`, `ParameterTypeObject`, `ParameterTypeString`
+- New enum type `RepositoryProviderType` with values `RepositoryProviderTypeAdo`, `RepositoryProviderTypeGithub`
+- New enum type `TemplateType` with values `TemplateTypeDeployment`, `TemplateTypeDockerfile`, `TemplateTypeManifest`, `TemplateTypeWorkflow`
+- New function `NewADOOAuthClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ADOOAuthClient, error)`
+- New function `*ADOOAuthClient.Get(context.Context, string, *ADOOAuthClientGetOptions) (ADOOAuthClientGetResponse, error)`
+- New function `*ADOOAuthClient.NewListPager(string, *ADOOAuthClientListOptions) *runtime.Pager[ADOOAuthClientListResponse]`
+- New function `*ClientFactory.NewADOOAuthClient() *ADOOAuthClient`
+- New function `*ClientFactory.NewTemplateClient() *TemplateClient`
+- New function `*ClientFactory.NewVersionedTemplateClient() *VersionedTemplateClient`
+- New function `*DeveloperHubServiceClient.GetADOOAuthInfo(context.Context, string, *DeveloperHubServiceClientGetADOOAuthInfoOptions) (DeveloperHubServiceClientGetADOOAuthInfoResponse, error)`
+- New function `NewTemplateClient(string, azcore.TokenCredential, *arm.ClientOptions) (*TemplateClient, error)`
+- New function `*TemplateClient.Get(context.Context, string, *TemplateClientGetOptions) (TemplateClientGetResponse, error)`
+- New function `*TemplateClient.NewListPager(*TemplateClientListOptions) *runtime.Pager[TemplateClientListResponse]`
+- New function `NewVersionedTemplateClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VersionedTemplateClient, error)`
+- New function `*VersionedTemplateClient.Generate(context.Context, string, string, map[string]*string, *VersionedTemplateClientGenerateOptions) (VersionedTemplateClientGenerateResponse, error)`
+- New function `*VersionedTemplateClient.Get(context.Context, string, string, *VersionedTemplateClientGetOptions) (VersionedTemplateClientGetResponse, error)`
+- New function `*VersionedTemplateClient.NewListPager(string, *VersionedTemplateClientListOptions) *runtime.Pager[VersionedTemplateClientListResponse]`
+- New struct `ADOOAuth`
+- New struct `ADOOAuthCallRequest`
+- New struct `ADOOAuthInfoResponse`
+- New struct `ADOOAuthListResponse`
+- New struct `ADOOAuthResponse`
+- New struct `ADOProviderProfile`
+- New struct `ADORepository`
+- New struct `AzurePipelineProfile`
+- New struct `Build`
+- New struct `Deployment`
+- New struct `GenerateVersionedTemplateResponse`
+- New struct `GitHubProviderProfile`
+- New struct `GitHubRepository`
+- New struct `OidcCredentials`
+- New struct `Parameter`
+- New struct `ParameterDefault`
+- New struct `PullRequest`
+- New struct `Template`
+- New struct `TemplateListResult`
+- New struct `TemplateProperties`
+- New struct `TemplateReference`
+- New struct `TemplateWorkflowProfile`
+- New struct `VersionedTemplate`
+- New struct `VersionedTemplateListResult`
+- New struct `VersionedTemplateProperties`
+- New field `NumberOfStore` in struct `ScaleProperty`
+- New field `ScaleRequirement` in struct `ScaleTemplateRequest`
+- New field `AzurePipelineProfile`, `TemplateWorkflowProfile` in struct `WorkflowProperties`
+
+
 ## 0.6.0 (2024-09-26)
 ### Features Added
 
