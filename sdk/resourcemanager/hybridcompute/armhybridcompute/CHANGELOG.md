@@ -1,5 +1,92 @@
 # Release History
 
+## 3.0.0 (2025-03-13)
+### Breaking Changes
+
+- Function `NewClientFactory` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(azcore.TokenCredential, *arm.ClientOptions)`
+- Function `*ClientFactory.NewExtensionMetadataClient` parameter(s) have been changed from `(<none>)` to `(string)`
+- Function `*ClientFactory.NewLicenseProfilesClient` parameter(s) have been changed from `(<none>)` to `(string)`
+- Function `*ClientFactory.NewLicensesClient` parameter(s) have been changed from `(<none>)` to `(string)`
+- Function `*ClientFactory.NewMachineExtensionsClient` parameter(s) have been changed from `(<none>)` to `(string)`
+- Function `*ClientFactory.NewMachinesClient` parameter(s) have been changed from `(<none>)` to `(string)`
+- Function `*ClientFactory.NewManagementClient` parameter(s) have been changed from `(<none>)` to `(string)`
+- Function `*ClientFactory.NewNetworkProfileClient` parameter(s) have been changed from `(<none>)` to `(string)`
+- Function `*ClientFactory.NewNetworkSecurityPerimeterConfigurationsClient` parameter(s) have been changed from `(<none>)` to `(string)`
+- Function `*ClientFactory.NewPrivateEndpointConnectionsClient` parameter(s) have been changed from `(<none>)` to `(string)`
+- Function `*ClientFactory.NewPrivateLinkResourcesClient` parameter(s) have been changed from `(<none>)` to `(string)`
+- Function `*ClientFactory.NewPrivateLinkScopesClient` parameter(s) have been changed from `(<none>)` to `(string)`
+- Operation `*MachinesClient.Delete` has been changed to LRO, use `*MachinesClient.BeginDelete` instead.
+
+### Features Added
+
+- New enum type `ExecutionState` with values `ExecutionStateCanceled`, `ExecutionStateFailed`, `ExecutionStatePending`, `ExecutionStateRunning`, `ExecutionStateSucceeded`, `ExecutionStateTimedOut`, `ExecutionStateUnknown`
+- New enum type `ExtensionsStatusLevelTypes` with values `ExtensionsStatusLevelTypesError`, `ExtensionsStatusLevelTypesInfo`, `ExtensionsStatusLevelTypesWarning`
+- New enum type `GatewayType` with values `GatewayTypePublic`
+- New enum type `IdentityKeyStore` with values `IdentityKeyStoreDefault`, `IdentityKeyStoreTPM`
+- New function `*ClientFactory.NewExtensionMetadataV2Client() *ExtensionMetadataV2Client`
+- New function `*ClientFactory.NewExtensionPublisherClient() *ExtensionPublisherClient`
+- New function `*ClientFactory.NewExtensionTypeClient() *ExtensionTypeClient`
+- New function `*ClientFactory.NewGatewaysClient(string) *GatewaysClient`
+- New function `*ClientFactory.NewMachineRunCommandsClient(string) *MachineRunCommandsClient`
+- New function `*ClientFactory.NewSettingsClient(string) *SettingsClient`
+- New function `NewExtensionMetadataV2Client(azcore.TokenCredential, *arm.ClientOptions) (*ExtensionMetadataV2Client, error)`
+- New function `*ExtensionMetadataV2Client.Get(context.Context, string, string, string, string, *ExtensionMetadataV2ClientGetOptions) (ExtensionMetadataV2ClientGetResponse, error)`
+- New function `*ExtensionMetadataV2Client.NewListPager(string, string, string, *ExtensionMetadataV2ClientListOptions) *runtime.Pager[ExtensionMetadataV2ClientListResponse]`
+- New function `NewExtensionPublisherClient(azcore.TokenCredential, *arm.ClientOptions) (*ExtensionPublisherClient, error)`
+- New function `*ExtensionPublisherClient.NewListPager(string, *ExtensionPublisherClientListOptions) *runtime.Pager[ExtensionPublisherClientListResponse]`
+- New function `NewExtensionTypeClient(azcore.TokenCredential, *arm.ClientOptions) (*ExtensionTypeClient, error)`
+- New function `*ExtensionTypeClient.NewListPager(string, string, *ExtensionTypeClientListOptions) *runtime.Pager[ExtensionTypeClientListResponse]`
+- New function `NewGatewaysClient(string, azcore.TokenCredential, *arm.ClientOptions) (*GatewaysClient, error)`
+- New function `*GatewaysClient.BeginCreateOrUpdate(context.Context, string, string, Gateway, *GatewaysClientBeginCreateOrUpdateOptions) (*runtime.Poller[GatewaysClientCreateOrUpdateResponse], error)`
+- New function `*GatewaysClient.BeginDelete(context.Context, string, string, *GatewaysClientBeginDeleteOptions) (*runtime.Poller[GatewaysClientDeleteResponse], error)`
+- New function `*GatewaysClient.Get(context.Context, string, string, *GatewaysClientGetOptions) (GatewaysClientGetResponse, error)`
+- New function `*GatewaysClient.NewListByResourceGroupPager(string, *GatewaysClientListByResourceGroupOptions) *runtime.Pager[GatewaysClientListByResourceGroupResponse]`
+- New function `*GatewaysClient.NewListBySubscriptionPager(*GatewaysClientListBySubscriptionOptions) *runtime.Pager[GatewaysClientListBySubscriptionResponse]`
+- New function `*GatewaysClient.Update(context.Context, string, string, GatewayUpdate, *GatewaysClientUpdateOptions) (GatewaysClientUpdateResponse, error)`
+- New function `NewMachineRunCommandsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*MachineRunCommandsClient, error)`
+- New function `*MachineRunCommandsClient.BeginCreateOrUpdate(context.Context, string, string, string, MachineRunCommand, *MachineRunCommandsClientBeginCreateOrUpdateOptions) (*runtime.Poller[MachineRunCommandsClientCreateOrUpdateResponse], error)`
+- New function `*MachineRunCommandsClient.BeginDelete(context.Context, string, string, string, *MachineRunCommandsClientBeginDeleteOptions) (*runtime.Poller[MachineRunCommandsClientDeleteResponse], error)`
+- New function `*MachineRunCommandsClient.Get(context.Context, string, string, string, *MachineRunCommandsClientGetOptions) (MachineRunCommandsClientGetResponse, error)`
+- New function `*MachineRunCommandsClient.NewListPager(string, string, *MachineRunCommandsClientListOptions) *runtime.Pager[MachineRunCommandsClientListResponse]`
+- New function `*ManagementClient.BeginSetupExtensions(context.Context, string, string, SetupExtensionRequest, *ManagementClientBeginSetupExtensionsOptions) (*runtime.Poller[ManagementClientSetupExtensionsResponse], error)`
+- New function `NewSettingsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SettingsClient, error)`
+- New function `*SettingsClient.Get(context.Context, string, string, string, string, string, *SettingsClientGetOptions) (SettingsClientGetResponse, error)`
+- New function `*SettingsClient.Patch(context.Context, string, string, string, string, string, Settings, *SettingsClientPatchOptions) (SettingsClientPatchResponse, error)`
+- New function `*SettingsClient.Update(context.Context, string, string, string, string, string, Settings, *SettingsClientUpdateOptions) (SettingsClientUpdateResponse, error)`
+- New struct `Disk`
+- New struct `ExtensionPublisher`
+- New struct `ExtensionPublisherListResult`
+- New struct `ExtensionType`
+- New struct `ExtensionTypeListResult`
+- New struct `ExtensionValueListResultV2`
+- New struct `ExtensionValueV2`
+- New struct `ExtensionValueV2Properties`
+- New struct `ExtensionsResourceStatus`
+- New struct `FirmwareProfile`
+- New struct `Gateway`
+- New struct `GatewayProperties`
+- New struct `GatewayUpdate`
+- New struct `GatewayUpdateProperties`
+- New struct `GatewaysListResult`
+- New struct `HardwareProfile`
+- New struct `MachineRunCommand`
+- New struct `MachineRunCommandInstanceView`
+- New struct `MachineRunCommandProperties`
+- New struct `MachineRunCommandScriptSource`
+- New struct `MachineRunCommandsListResult`
+- New struct `Processor`
+- New struct `RunCommandInputParameter`
+- New struct `RunCommandManagedIdentity`
+- New struct `Settings`
+- New struct `SettingsGatewayProperties`
+- New struct `SettingsProperties`
+- New struct `SetupExtensionRequest`
+- New struct `StorageProfile`
+- New field `FirmwareProfile`, `HardwareProfile`, `IdentityKeyStore`, `StorageProfile`, `TpmEkCertificate` in struct `MachineProperties`
+- New field `IdentityKeyStore`, `TpmEkCertificate` in struct `MachineUpdateProperties`
+- New field `ID`, `MacAddress`, `Name` in struct `NetworkInterface`
+
+
 ## 2.1.0-beta.1 (2024-11-14)
 ### Features Added
 
