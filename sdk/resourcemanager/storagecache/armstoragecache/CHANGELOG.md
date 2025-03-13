@@ -1,5 +1,31 @@
 # Release History
 
+## 4.1.0 (2025-03-13)
+### Features Added
+
+- New enum type `AutoExportJobAdminStatus` with values `AutoExportJobAdminStatusDisable`, `AutoExportJobAdminStatusEnable`
+- New enum type `AutoExportJobProvisioningStateType` with values `AutoExportJobProvisioningStateTypeCanceled`, `AutoExportJobProvisioningStateTypeCreating`, `AutoExportJobProvisioningStateTypeDeleting`, `AutoExportJobProvisioningStateTypeFailed`, `AutoExportJobProvisioningStateTypeSucceeded`, `AutoExportJobProvisioningStateTypeUpdating`
+- New enum type `AutoExportStatusType` with values `AutoExportStatusTypeDisableFailed`, `AutoExportStatusTypeDisabled`, `AutoExportStatusTypeDisabling`, `AutoExportStatusTypeFailed`, `AutoExportStatusTypeInProgress`
+- New enum type `ImportJobAdminStatus` with values `ImportJobAdminStatusActive`, `ImportJobAdminStatusCancel`
+- New function `NewAutoExportJobsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AutoExportJobsClient, error)`
+- New function `*AutoExportJobsClient.BeginCreateOrUpdate(context.Context, string, string, string, AutoExportJob, *AutoExportJobsClientBeginCreateOrUpdateOptions) (*runtime.Poller[AutoExportJobsClientCreateOrUpdateResponse], error)`
+- New function `*AutoExportJobsClient.BeginDelete(context.Context, string, string, string, *AutoExportJobsClientBeginDeleteOptions) (*runtime.Poller[AutoExportJobsClientDeleteResponse], error)`
+- New function `*AutoExportJobsClient.Get(context.Context, string, string, string, *AutoExportJobsClientGetOptions) (AutoExportJobsClientGetResponse, error)`
+- New function `*AutoExportJobsClient.NewListByAmlFilesystemPager(string, string, *AutoExportJobsClientListByAmlFilesystemOptions) *runtime.Pager[AutoExportJobsClientListByAmlFilesystemResponse]`
+- New function `*AutoExportJobsClient.BeginUpdate(context.Context, string, string, string, AutoExportJobUpdate, *AutoExportJobsClientBeginUpdateOptions) (*runtime.Poller[AutoExportJobsClientUpdateResponse], error)`
+- New function `*ClientFactory.NewAutoExportJobsClient() *AutoExportJobsClient`
+- New struct `AutoExportJob`
+- New struct `AutoExportJobProperties`
+- New struct `AutoExportJobPropertiesStatus`
+- New struct `AutoExportJobUpdate`
+- New struct `AutoExportJobUpdateProperties`
+- New struct `AutoExportJobsListResult`
+- New struct `ImportJobUpdateProperties`
+- New field `AdminStatus` in struct `ImportJobProperties`
+- New field `ImportedDirectories`, `ImportedFiles`, `ImportedSymlinks`, `PreexistingDirectories`, `PreexistingFiles`, `PreexistingSymlinks` in struct `ImportJobPropertiesStatus`
+- New field `Properties` in struct `ImportJobUpdate`
+
+
 ## 4.0.0 (2024-05-24)
 ### Breaking Changes
 
