@@ -1,5 +1,23 @@
 # Release History
 
+## 1.4.0 (2025-03-13)
+### Features Added
+
+- New enum type `ComputeType` with values `ComputeTypeConfidential`, `ComputeTypeDefault`
+- New enum type `CreatedByType` with values `CreatedByTypeApplication`, `CreatedByTypeKey`, `CreatedByTypeManagedIdentity`, `CreatedByTypeUser`
+- New function `*ServicesClient.BeginUpgrade(context.Context, string, string, *ServicesClientBeginUpgradeOptions) (*runtime.Poller[ServicesClientUpgradeResponse], error)`
+- New struct `OperationAvailability`
+- New struct `OperationLogsSpecification`
+- New struct `OperationMetricDimension`
+- New struct `OperationMetricsSpecification`
+- New struct `OperationProperties`
+- New struct `OperationServiceSpecification`
+- New struct `SystemData`
+- New field `IsDataAction`, `Origin`, `Properties` in struct `Operation`
+- New field `SystemData` in struct `Service`
+- New field `ComputeType`, `ServiceUpgradeDate`, `UpgradeAvailable` in struct `ServiceProperties`
+
+
 ## 1.4.0-beta.2 (2024-06-21)
 ### Features Added
 
