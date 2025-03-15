@@ -1,5 +1,46 @@
 # Release History
 
+## 1.4.0 (2025-03-15)
+### Features Added
+
+- New value `IdentityTypeSystemAssignedUserAssigned`, `IdentityTypeUserAssigned` added to enum type `IdentityType`
+- New enum type `ComputeType` with values `ComputeTypeConfidential`, `ComputeTypeDefault`
+- New enum type `CreatedByType` with values `CreatedByTypeApplication`, `CreatedByTypeKey`, `CreatedByTypeManagedIdentity`, `CreatedByTypeUser`
+- New enum type `SearchBypass` with values `SearchBypassAzureServices`, `SearchBypassNone`
+- New function `*ClientFactory.NewNetworkSecurityPerimeterConfigurationsClient() *NetworkSecurityPerimeterConfigurationsClient`
+- New function `*ClientFactory.NewServiceClient() *ServiceClient`
+- New function `NewServiceClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ServiceClient, error)`
+- New function `*ServiceClient.BeginUpgrade(context.Context, string, string, *ServiceClientBeginUpgradeOptions) (*runtime.Poller[ServiceClientUpgradeResponse], error)`
+- New function `NewNetworkSecurityPerimeterConfigurationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*NetworkSecurityPerimeterConfigurationsClient, error)`
+- New function `*NetworkSecurityPerimeterConfigurationsClient.Get(context.Context, string, string, string, *NetworkSecurityPerimeterConfigurationsClientGetOptions) (NetworkSecurityPerimeterConfigurationsClientGetResponse, error)`
+- New function `*NetworkSecurityPerimeterConfigurationsClient.NewListByServicePager(string, string, *NetworkSecurityPerimeterConfigurationsClientListByServiceOptions) *runtime.Pager[NetworkSecurityPerimeterConfigurationsClientListByServiceResponse]`
+- New function `*NetworkSecurityPerimeterConfigurationsClient.BeginReconcile(context.Context, string, string, string, *NetworkSecurityPerimeterConfigurationsClientBeginReconcileOptions) (*runtime.Poller[NetworkSecurityPerimeterConfigurationsClientReconcileResponse], error)`
+- New struct `NSPConfigAccessRule`
+- New struct `NSPConfigAccessRuleProperties`
+- New struct `NSPConfigAssociation`
+- New struct `NSPConfigNetworkSecurityPerimeterRule`
+- New struct `NSPConfigPerimeter`
+- New struct `NSPConfigProfile`
+- New struct `NSPProvisioningIssue`
+- New struct `NSPProvisioningIssueProperties`
+- New struct `NetworkSecurityPerimeterConfiguration`
+- New struct `NetworkSecurityPerimeterConfigurationListResult`
+- New struct `NetworkSecurityPerimeterConfigurationProperties`
+- New struct `OperationAvailability`
+- New struct `OperationLogsSpecification`
+- New struct `OperationMetricDimension`
+- New struct `OperationMetricsSpecification`
+- New struct `OperationProperties`
+- New struct `OperationServiceSpecification`
+- New struct `SystemData`
+- New struct `UserAssignedManagedIdentity`
+- New field `UserAssignedIdentities` in struct `Identity`
+- New field `Bypass` in struct `NetworkRuleSet`
+- New field `IsDataAction`, `Origin`, `Properties` in struct `Operation`
+- New field `SystemData` in struct `Service`
+- New field `ComputeType`, `Endpoint`, `ServiceUpgradeDate`, `UpgradeAvailable` in struct `ServiceProperties`
+
+
 ## 1.4.0-beta.2 (2024-06-21)
 ### Features Added
 
