@@ -7,7 +7,7 @@ package armstorage
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage"
-	moduleVersion = "v1.7.0"
+	moduleVersion = "v2.0.0"
 )
 
 // AccessTier - Required for storage accounts where kind = BlobStorage. The access tier is used for billing. The 'Premium'
@@ -70,19 +70,33 @@ func PossibleAccountStatusValues() []AccountStatus {
 	}
 }
 
-// ActiveDirectoryPropertiesAccountType - Specifies the Active Directory account type for Azure Storage.
-type ActiveDirectoryPropertiesAccountType string
+// AccountType - Specifies the Active Directory account type for Azure Storage.
+type AccountType string
 
 const (
-	ActiveDirectoryPropertiesAccountTypeComputer ActiveDirectoryPropertiesAccountType = "Computer"
-	ActiveDirectoryPropertiesAccountTypeUser     ActiveDirectoryPropertiesAccountType = "User"
+	AccountTypeComputer AccountType = "Computer"
+	AccountTypeUser     AccountType = "User"
 )
 
-// PossibleActiveDirectoryPropertiesAccountTypeValues returns the possible values for the ActiveDirectoryPropertiesAccountType const type.
-func PossibleActiveDirectoryPropertiesAccountTypeValues() []ActiveDirectoryPropertiesAccountType {
-	return []ActiveDirectoryPropertiesAccountType{
-		ActiveDirectoryPropertiesAccountTypeComputer,
-		ActiveDirectoryPropertiesAccountTypeUser,
+// PossibleAccountTypeValues returns the possible values for the AccountType const type.
+func PossibleAccountTypeValues() []AccountType {
+	return []AccountType{
+		AccountTypeComputer,
+		AccountTypeUser,
+	}
+}
+
+// ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+type ActionType string
+
+const (
+	ActionTypeInternal ActionType = "Internal"
+)
+
+// PossibleActionTypeValues returns the possible values for the ActionType const type.
+func PossibleActionTypeValues() []ActionType {
+	return []ActionType{
+		ActionTypeInternal,
 	}
 }
 
@@ -99,6 +113,37 @@ func PossibleAllowedCopyScopeValues() []AllowedCopyScope {
 	return []AllowedCopyScope{
 		AllowedCopyScopeAAD,
 		AllowedCopyScopePrivateLink,
+	}
+}
+
+type AllowedMethods string
+
+const (
+	AllowedMethodsCONNECT AllowedMethods = "CONNECT"
+	AllowedMethodsDELETE  AllowedMethods = "DELETE"
+	AllowedMethodsGET     AllowedMethods = "GET"
+	AllowedMethodsHEAD    AllowedMethods = "HEAD"
+	AllowedMethodsMERGE   AllowedMethods = "MERGE"
+	AllowedMethodsOPTIONS AllowedMethods = "OPTIONS"
+	AllowedMethodsPATCH   AllowedMethods = "PATCH"
+	AllowedMethodsPOST    AllowedMethods = "POST"
+	AllowedMethodsPUT     AllowedMethods = "PUT"
+	AllowedMethodsTRACE   AllowedMethods = "TRACE"
+)
+
+// PossibleAllowedMethodsValues returns the possible values for the AllowedMethods const type.
+func PossibleAllowedMethodsValues() []AllowedMethods {
+	return []AllowedMethods{
+		AllowedMethodsCONNECT,
+		AllowedMethodsDELETE,
+		AllowedMethodsGET,
+		AllowedMethodsHEAD,
+		AllowedMethodsMERGE,
+		AllowedMethodsOPTIONS,
+		AllowedMethodsPATCH,
+		AllowedMethodsPOST,
+		AllowedMethodsPUT,
+		AllowedMethodsTRACE,
 	}
 }
 
@@ -154,37 +199,6 @@ func PossibleBypassValues() []Bypass {
 		BypassLogging,
 		BypassMetrics,
 		BypassNone,
-	}
-}
-
-type CorsRuleAllowedMethodsItem string
-
-const (
-	CorsRuleAllowedMethodsItemCONNECT CorsRuleAllowedMethodsItem = "CONNECT"
-	CorsRuleAllowedMethodsItemDELETE  CorsRuleAllowedMethodsItem = "DELETE"
-	CorsRuleAllowedMethodsItemGET     CorsRuleAllowedMethodsItem = "GET"
-	CorsRuleAllowedMethodsItemHEAD    CorsRuleAllowedMethodsItem = "HEAD"
-	CorsRuleAllowedMethodsItemMERGE   CorsRuleAllowedMethodsItem = "MERGE"
-	CorsRuleAllowedMethodsItemOPTIONS CorsRuleAllowedMethodsItem = "OPTIONS"
-	CorsRuleAllowedMethodsItemPATCH   CorsRuleAllowedMethodsItem = "PATCH"
-	CorsRuleAllowedMethodsItemPOST    CorsRuleAllowedMethodsItem = "POST"
-	CorsRuleAllowedMethodsItemPUT     CorsRuleAllowedMethodsItem = "PUT"
-	CorsRuleAllowedMethodsItemTRACE   CorsRuleAllowedMethodsItem = "TRACE"
-)
-
-// PossibleCorsRuleAllowedMethodsItemValues returns the possible values for the CorsRuleAllowedMethodsItem const type.
-func PossibleCorsRuleAllowedMethodsItemValues() []CorsRuleAllowedMethodsItem {
-	return []CorsRuleAllowedMethodsItem{
-		CorsRuleAllowedMethodsItemCONNECT,
-		CorsRuleAllowedMethodsItemDELETE,
-		CorsRuleAllowedMethodsItemGET,
-		CorsRuleAllowedMethodsItemHEAD,
-		CorsRuleAllowedMethodsItemMERGE,
-		CorsRuleAllowedMethodsItemOPTIONS,
-		CorsRuleAllowedMethodsItemPATCH,
-		CorsRuleAllowedMethodsItemPOST,
-		CorsRuleAllowedMethodsItemPUT,
-		CorsRuleAllowedMethodsItemTRACE,
 	}
 }
 
@@ -302,15 +316,15 @@ func PossibleEnabledProtocolsValues() []EnabledProtocols {
 type EncryptionScopeSource string
 
 const (
-	EncryptionScopeSourceMicrosoftKeyVault EncryptionScopeSource = "Microsoft.KeyVault"
-	EncryptionScopeSourceMicrosoftStorage  EncryptionScopeSource = "Microsoft.Storage"
+	EncryptionScopeSourceKeyVault EncryptionScopeSource = "Microsoft.KeyVault"
+	EncryptionScopeSourceStorage  EncryptionScopeSource = "Microsoft.Storage"
 )
 
 // PossibleEncryptionScopeSourceValues returns the possible values for the EncryptionScopeSource const type.
 func PossibleEncryptionScopeSourceValues() []EncryptionScopeSource {
 	return []EncryptionScopeSource{
-		EncryptionScopeSourceMicrosoftKeyVault,
-		EncryptionScopeSourceMicrosoftStorage,
+		EncryptionScopeSourceKeyVault,
+		EncryptionScopeSourceStorage,
 	}
 }
 
@@ -359,6 +373,19 @@ const (
 func PossibleExtendedLocationTypesValues() []ExtendedLocationTypes {
 	return []ExtendedLocationTypes{
 		ExtendedLocationTypesEdgeZone,
+	}
+}
+
+type FailoverType string
+
+const (
+	FailoverTypePlanned FailoverType = "Planned"
+)
+
+// PossibleFailoverTypeValues returns the possible values for the FailoverType const type.
+func PossibleFailoverTypeValues() []FailoverType {
+	return []FailoverType{
+		FailoverTypePlanned,
 	}
 }
 
@@ -467,6 +494,22 @@ func PossibleImmutabilityPolicyUpdateTypeValues() []ImmutabilityPolicyUpdateType
 		ImmutabilityPolicyUpdateTypeExtend,
 		ImmutabilityPolicyUpdateTypeLock,
 		ImmutabilityPolicyUpdateTypePut,
+	}
+}
+
+// IntervalUnit - Run interval unit of task execution. This is a required field when ExecutionTrigger.properties.type is 'OnSchedule';
+// this property should not be present when ExecutionTrigger.properties.type is
+// 'RunOnce'
+type IntervalUnit string
+
+const (
+	IntervalUnitDays IntervalUnit = "Days"
+)
+
+// PossibleIntervalUnitValues returns the possible values for the IntervalUnit const type.
+func PossibleIntervalUnitValues() []IntervalUnit {
+	return []IntervalUnit{
+		IntervalUnitDays,
 	}
 }
 
@@ -716,6 +759,19 @@ func PossibleListEncryptionScopesIncludeValues() []ListEncryptionScopesInclude {
 	}
 }
 
+type ListKeyExpand string
+
+const (
+	ListKeyExpandKerb ListKeyExpand = "kerb"
+)
+
+// PossibleListKeyExpandValues returns the possible values for the ListKeyExpand const type.
+func PossibleListKeyExpandValues() []ListKeyExpand {
+	return []ListKeyExpand{
+		ListKeyExpandKerb,
+	}
+}
+
 type ListLocalUserIncludeParam string
 
 const (
@@ -881,6 +937,25 @@ func PossibleObjectTypeValues() []ObjectType {
 	return []ObjectType{
 		ObjectTypeBlob,
 		ObjectTypeContainer,
+	}
+}
+
+// Origin - The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
+// value is "user,system"
+type Origin string
+
+const (
+	OriginSystem     Origin = "system"
+	OriginUser       Origin = "user"
+	OriginUserSystem Origin = "user,system"
+)
+
+// PossibleOriginValues returns the possible values for the Origin const type.
+func PossibleOriginValues() []Origin {
+	return []Origin{
+		OriginSystem,
+		OriginUser,
+		OriginUserSystem,
 	}
 }
 
@@ -1245,10 +1320,13 @@ func PossibleSKUNameValues() []SKUName {
 	}
 }
 
-// SKUTier - The SKU tier. This is based on the SKU name.
+// SKUTier - This field is required to be implemented by the Resource Provider if the service has more than one tier, but
+// is not required on a PUT.
 type SKUTier string
 
 const (
+	SKUTierBasic    SKUTier = "Basic"
+	SKUTierFree     SKUTier = "Free"
 	SKUTierPremium  SKUTier = "Premium"
 	SKUTierStandard SKUTier = "Standard"
 )
@@ -1256,6 +1334,8 @@ const (
 // PossibleSKUTierValues returns the possible values for the SKUTier const type.
 func PossibleSKUTierValues() []SKUTier {
 	return []SKUTier{
+		SKUTierBasic,
+		SKUTierFree,
 		SKUTierPremium,
 		SKUTierStandard,
 	}
