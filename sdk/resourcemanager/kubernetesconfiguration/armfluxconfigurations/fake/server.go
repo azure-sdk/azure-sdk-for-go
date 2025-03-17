@@ -13,92 +13,92 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/kubernetesconfiguration/armkubernetesconfiguration/v3"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/kubernetesconfiguration/armfluxconfigurations"
 	"net/http"
 	"net/url"
 	"regexp"
 	"strconv"
 )
 
-// FluxConfigurationsServer is a fake server for instances of the armkubernetesconfiguration.FluxConfigurationsClient type.
-type FluxConfigurationsServer struct {
-	// BeginCreateOrUpdate is the fake for method FluxConfigurationsClient.BeginCreateOrUpdate
+// Server is a fake server for instances of the armfluxconfigurations.Client type.
+type Server struct {
+	// BeginCreateOrUpdate is the fake for method Client.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, fluxConfiguration armkubernetesconfiguration.FluxConfiguration, options *armkubernetesconfiguration.FluxConfigurationsClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armkubernetesconfiguration.FluxConfigurationsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, fluxConfiguration armfluxconfigurations.FluxConfiguration, options *armfluxconfigurations.ClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armfluxconfigurations.ClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
-	// BeginDelete is the fake for method FluxConfigurationsClient.BeginDelete
+	// BeginDelete is the fake for method Client.BeginDelete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
-	BeginDelete func(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, options *armkubernetesconfiguration.FluxConfigurationsClientBeginDeleteOptions) (resp azfake.PollerResponder[armkubernetesconfiguration.FluxConfigurationsClientDeleteResponse], errResp azfake.ErrorResponder)
+	BeginDelete func(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, options *armfluxconfigurations.ClientBeginDeleteOptions) (resp azfake.PollerResponder[armfluxconfigurations.ClientDeleteResponse], errResp azfake.ErrorResponder)
 
-	// Get is the fake for method FluxConfigurationsClient.Get
+	// Get is the fake for method Client.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, options *armkubernetesconfiguration.FluxConfigurationsClientGetOptions) (resp azfake.Responder[armkubernetesconfiguration.FluxConfigurationsClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, options *armfluxconfigurations.ClientGetOptions) (resp azfake.Responder[armfluxconfigurations.ClientGetResponse], errResp azfake.ErrorResponder)
 
-	// NewListPager is the fake for method FluxConfigurationsClient.NewListPager
+	// NewListPager is the fake for method Client.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, options *armkubernetesconfiguration.FluxConfigurationsClientListOptions) (resp azfake.PagerResponder[armkubernetesconfiguration.FluxConfigurationsClientListResponse])
+	NewListPager func(resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, options *armfluxconfigurations.ClientListOptions) (resp azfake.PagerResponder[armfluxconfigurations.ClientListResponse])
 
-	// BeginUpdate is the fake for method FluxConfigurationsClient.BeginUpdate
+	// BeginUpdate is the fake for method Client.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginUpdate func(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, fluxConfigurationPatch armkubernetesconfiguration.FluxConfigurationPatch, options *armkubernetesconfiguration.FluxConfigurationsClientBeginUpdateOptions) (resp azfake.PollerResponder[armkubernetesconfiguration.FluxConfigurationsClientUpdateResponse], errResp azfake.ErrorResponder)
+	BeginUpdate func(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, fluxConfigurationPatch armfluxconfigurations.FluxConfigurationPatch, options *armfluxconfigurations.ClientBeginUpdateOptions) (resp azfake.PollerResponder[armfluxconfigurations.ClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
-// NewFluxConfigurationsServerTransport creates a new instance of FluxConfigurationsServerTransport with the provided implementation.
-// The returned FluxConfigurationsServerTransport instance is connected to an instance of armkubernetesconfiguration.FluxConfigurationsClient via the
+// NewServerTransport creates a new instance of ServerTransport with the provided implementation.
+// The returned ServerTransport instance is connected to an instance of armfluxconfigurations.Client via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
-func NewFluxConfigurationsServerTransport(srv *FluxConfigurationsServer) *FluxConfigurationsServerTransport {
-	return &FluxConfigurationsServerTransport{
+func NewServerTransport(srv *Server) *ServerTransport {
+	return &ServerTransport{
 		srv:                 srv,
-		beginCreateOrUpdate: newTracker[azfake.PollerResponder[armkubernetesconfiguration.FluxConfigurationsClientCreateOrUpdateResponse]](),
-		beginDelete:         newTracker[azfake.PollerResponder[armkubernetesconfiguration.FluxConfigurationsClientDeleteResponse]](),
-		newListPager:        newTracker[azfake.PagerResponder[armkubernetesconfiguration.FluxConfigurationsClientListResponse]](),
-		beginUpdate:         newTracker[azfake.PollerResponder[armkubernetesconfiguration.FluxConfigurationsClientUpdateResponse]](),
+		beginCreateOrUpdate: newTracker[azfake.PollerResponder[armfluxconfigurations.ClientCreateOrUpdateResponse]](),
+		beginDelete:         newTracker[azfake.PollerResponder[armfluxconfigurations.ClientDeleteResponse]](),
+		newListPager:        newTracker[azfake.PagerResponder[armfluxconfigurations.ClientListResponse]](),
+		beginUpdate:         newTracker[azfake.PollerResponder[armfluxconfigurations.ClientUpdateResponse]](),
 	}
 }
 
-// FluxConfigurationsServerTransport connects instances of armkubernetesconfiguration.FluxConfigurationsClient to instances of FluxConfigurationsServer.
-// Don't use this type directly, use NewFluxConfigurationsServerTransport instead.
-type FluxConfigurationsServerTransport struct {
-	srv                 *FluxConfigurationsServer
-	beginCreateOrUpdate *tracker[azfake.PollerResponder[armkubernetesconfiguration.FluxConfigurationsClientCreateOrUpdateResponse]]
-	beginDelete         *tracker[azfake.PollerResponder[armkubernetesconfiguration.FluxConfigurationsClientDeleteResponse]]
-	newListPager        *tracker[azfake.PagerResponder[armkubernetesconfiguration.FluxConfigurationsClientListResponse]]
-	beginUpdate         *tracker[azfake.PollerResponder[armkubernetesconfiguration.FluxConfigurationsClientUpdateResponse]]
+// ServerTransport connects instances of armfluxconfigurations.Client to instances of Server.
+// Don't use this type directly, use NewServerTransport instead.
+type ServerTransport struct {
+	srv                 *Server
+	beginCreateOrUpdate *tracker[azfake.PollerResponder[armfluxconfigurations.ClientCreateOrUpdateResponse]]
+	beginDelete         *tracker[azfake.PollerResponder[armfluxconfigurations.ClientDeleteResponse]]
+	newListPager        *tracker[azfake.PagerResponder[armfluxconfigurations.ClientListResponse]]
+	beginUpdate         *tracker[azfake.PollerResponder[armfluxconfigurations.ClientUpdateResponse]]
 }
 
-// Do implements the policy.Transporter interface for FluxConfigurationsServerTransport.
-func (f *FluxConfigurationsServerTransport) Do(req *http.Request) (*http.Response, error) {
+// Do implements the policy.Transporter interface for ServerTransport.
+func (s *ServerTransport) Do(req *http.Request) (*http.Response, error) {
 	rawMethod := req.Context().Value(runtime.CtxAPINameKey{})
 	method, ok := rawMethod.(string)
 	if !ok {
 		return nil, nonRetriableError{errors.New("unable to dispatch request, missing value for CtxAPINameKey")}
 	}
 
-	return f.dispatchToMethodFake(req, method)
+	return s.dispatchToMethodFake(req, method)
 }
 
-func (f *FluxConfigurationsServerTransport) dispatchToMethodFake(req *http.Request, method string) (*http.Response, error) {
+func (s *ServerTransport) dispatchToMethodFake(req *http.Request, method string) (*http.Response, error) {
 	resultChan := make(chan result)
 	defer close(resultChan)
 
 	go func() {
 		var intercepted bool
 		var res result
-		if fluxConfigurationsServerTransportInterceptor != nil {
-			res.resp, res.err, intercepted = fluxConfigurationsServerTransportInterceptor.Do(req)
+		if serverTransportInterceptor != nil {
+			res.resp, res.err, intercepted = serverTransportInterceptor.Do(req)
 		}
 		if !intercepted {
 			switch method {
-			case "FluxConfigurationsClient.BeginCreateOrUpdate":
-				res.resp, res.err = f.dispatchBeginCreateOrUpdate(req)
-			case "FluxConfigurationsClient.BeginDelete":
-				res.resp, res.err = f.dispatchBeginDelete(req)
-			case "FluxConfigurationsClient.Get":
-				res.resp, res.err = f.dispatchGet(req)
-			case "FluxConfigurationsClient.NewListPager":
-				res.resp, res.err = f.dispatchNewListPager(req)
-			case "FluxConfigurationsClient.BeginUpdate":
-				res.resp, res.err = f.dispatchBeginUpdate(req)
+			case "Client.BeginCreateOrUpdate":
+				res.resp, res.err = s.dispatchBeginCreateOrUpdate(req)
+			case "Client.BeginDelete":
+				res.resp, res.err = s.dispatchBeginDelete(req)
+			case "Client.Get":
+				res.resp, res.err = s.dispatchGet(req)
+			case "Client.NewListPager":
+				res.resp, res.err = s.dispatchNewListPager(req)
+			case "Client.BeginUpdate":
+				res.resp, res.err = s.dispatchBeginUpdate(req)
 			default:
 				res.err = fmt.Errorf("unhandled API %s", method)
 			}
@@ -118,11 +118,11 @@ func (f *FluxConfigurationsServerTransport) dispatchToMethodFake(req *http.Reque
 	}
 }
 
-func (f *FluxConfigurationsServerTransport) dispatchBeginCreateOrUpdate(req *http.Request) (*http.Response, error) {
-	if f.srv.BeginCreateOrUpdate == nil {
+func (s *ServerTransport) dispatchBeginCreateOrUpdate(req *http.Request) (*http.Response, error) {
+	if s.srv.BeginCreateOrUpdate == nil {
 		return nil, &nonRetriableError{errors.New("fake for method BeginCreateOrUpdate not implemented")}
 	}
-	beginCreateOrUpdate := f.beginCreateOrUpdate.get(req)
+	beginCreateOrUpdate := s.beginCreateOrUpdate.get(req)
 	if beginCreateOrUpdate == nil {
 		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/(?P<clusterRp>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<clusterResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<clusterName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.KubernetesConfiguration/fluxConfigurations/(?P<fluxConfigurationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 		regex := regexp.MustCompile(regexStr)
@@ -130,7 +130,7 @@ func (f *FluxConfigurationsServerTransport) dispatchBeginCreateOrUpdate(req *htt
 		if matches == nil || len(matches) < 6 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		body, err := server.UnmarshalRequestAsJSON[armkubernetesconfiguration.FluxConfiguration](req)
+		body, err := server.UnmarshalRequestAsJSON[armfluxconfigurations.FluxConfiguration](req)
 		if err != nil {
 			return nil, err
 		}
@@ -154,12 +154,12 @@ func (f *FluxConfigurationsServerTransport) dispatchBeginCreateOrUpdate(req *htt
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := f.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, clusterRpParam, clusterResourceNameParam, clusterNameParam, fluxConfigurationNameParam, body, nil)
+		respr, errRespr := s.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, clusterRpParam, clusterResourceNameParam, clusterNameParam, fluxConfigurationNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
 		beginCreateOrUpdate = &respr
-		f.beginCreateOrUpdate.add(req, beginCreateOrUpdate)
+		s.beginCreateOrUpdate.add(req, beginCreateOrUpdate)
 	}
 
 	resp, err := server.PollerResponderNext(beginCreateOrUpdate, req)
@@ -168,21 +168,21 @@ func (f *FluxConfigurationsServerTransport) dispatchBeginCreateOrUpdate(req *htt
 	}
 
 	if !contains([]int{http.StatusOK, http.StatusCreated}, resp.StatusCode) {
-		f.beginCreateOrUpdate.remove(req)
+		s.beginCreateOrUpdate.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginCreateOrUpdate) {
-		f.beginCreateOrUpdate.remove(req)
+		s.beginCreateOrUpdate.remove(req)
 	}
 
 	return resp, nil
 }
 
-func (f *FluxConfigurationsServerTransport) dispatchBeginDelete(req *http.Request) (*http.Response, error) {
-	if f.srv.BeginDelete == nil {
+func (s *ServerTransport) dispatchBeginDelete(req *http.Request) (*http.Response, error) {
+	if s.srv.BeginDelete == nil {
 		return nil, &nonRetriableError{errors.New("fake for method BeginDelete not implemented")}
 	}
-	beginDelete := f.beginDelete.get(req)
+	beginDelete := s.beginDelete.get(req)
 	if beginDelete == nil {
 		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/(?P<clusterRp>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<clusterResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<clusterName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.KubernetesConfiguration/fluxConfigurations/(?P<fluxConfigurationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 		regex := regexp.MustCompile(regexStr)
@@ -219,18 +219,18 @@ func (f *FluxConfigurationsServerTransport) dispatchBeginDelete(req *http.Reques
 		if err != nil {
 			return nil, err
 		}
-		var options *armkubernetesconfiguration.FluxConfigurationsClientBeginDeleteOptions
+		var options *armfluxconfigurations.ClientBeginDeleteOptions
 		if forceDeleteParam != nil {
-			options = &armkubernetesconfiguration.FluxConfigurationsClientBeginDeleteOptions{
+			options = &armfluxconfigurations.ClientBeginDeleteOptions{
 				ForceDelete: forceDeleteParam,
 			}
 		}
-		respr, errRespr := f.srv.BeginDelete(req.Context(), resourceGroupNameParam, clusterRpParam, clusterResourceNameParam, clusterNameParam, fluxConfigurationNameParam, options)
+		respr, errRespr := s.srv.BeginDelete(req.Context(), resourceGroupNameParam, clusterRpParam, clusterResourceNameParam, clusterNameParam, fluxConfigurationNameParam, options)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
 		beginDelete = &respr
-		f.beginDelete.add(req, beginDelete)
+		s.beginDelete.add(req, beginDelete)
 	}
 
 	resp, err := server.PollerResponderNext(beginDelete, req)
@@ -239,18 +239,18 @@ func (f *FluxConfigurationsServerTransport) dispatchBeginDelete(req *http.Reques
 	}
 
 	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
-		f.beginDelete.remove(req)
+		s.beginDelete.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginDelete) {
-		f.beginDelete.remove(req)
+		s.beginDelete.remove(req)
 	}
 
 	return resp, nil
 }
 
-func (f *FluxConfigurationsServerTransport) dispatchGet(req *http.Request) (*http.Response, error) {
-	if f.srv.Get == nil {
+func (s *ServerTransport) dispatchGet(req *http.Request) (*http.Response, error) {
+	if s.srv.Get == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
 	}
 	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/(?P<clusterRp>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<clusterResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<clusterName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.KubernetesConfiguration/fluxConfigurations/(?P<fluxConfigurationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
@@ -279,7 +279,7 @@ func (f *FluxConfigurationsServerTransport) dispatchGet(req *http.Request) (*htt
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := f.srv.Get(req.Context(), resourceGroupNameParam, clusterRpParam, clusterResourceNameParam, clusterNameParam, fluxConfigurationNameParam, nil)
+	respr, errRespr := s.srv.Get(req.Context(), resourceGroupNameParam, clusterRpParam, clusterResourceNameParam, clusterNameParam, fluxConfigurationNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -294,11 +294,11 @@ func (f *FluxConfigurationsServerTransport) dispatchGet(req *http.Request) (*htt
 	return resp, nil
 }
 
-func (f *FluxConfigurationsServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if f.srv.NewListPager == nil {
+func (s *ServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
+	if s.srv.NewListPager == nil {
 		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
 	}
-	newListPager := f.newListPager.get(req)
+	newListPager := s.newListPager.get(req)
 	if newListPager == nil {
 		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/(?P<clusterRp>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<clusterResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<clusterName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.KubernetesConfiguration/fluxConfigurations`
 		regex := regexp.MustCompile(regexStr)
@@ -322,10 +322,10 @@ func (f *FluxConfigurationsServerTransport) dispatchNewListPager(req *http.Reque
 		if err != nil {
 			return nil, err
 		}
-		resp := f.srv.NewListPager(resourceGroupNameParam, clusterRpParam, clusterResourceNameParam, clusterNameParam, nil)
+		resp := s.srv.NewListPager(resourceGroupNameParam, clusterRpParam, clusterResourceNameParam, clusterNameParam, nil)
 		newListPager = &resp
-		f.newListPager.add(req, newListPager)
-		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armkubernetesconfiguration.FluxConfigurationsClientListResponse, createLink func() string) {
+		s.newListPager.add(req, newListPager)
+		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armfluxconfigurations.ClientListResponse, createLink func() string) {
 			page.NextLink = to.Ptr(createLink())
 		})
 	}
@@ -334,20 +334,20 @@ func (f *FluxConfigurationsServerTransport) dispatchNewListPager(req *http.Reque
 		return nil, err
 	}
 	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		f.newListPager.remove(req)
+		s.newListPager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
 	if !server.PagerResponderMore(newListPager) {
-		f.newListPager.remove(req)
+		s.newListPager.remove(req)
 	}
 	return resp, nil
 }
 
-func (f *FluxConfigurationsServerTransport) dispatchBeginUpdate(req *http.Request) (*http.Response, error) {
-	if f.srv.BeginUpdate == nil {
+func (s *ServerTransport) dispatchBeginUpdate(req *http.Request) (*http.Response, error) {
+	if s.srv.BeginUpdate == nil {
 		return nil, &nonRetriableError{errors.New("fake for method BeginUpdate not implemented")}
 	}
-	beginUpdate := f.beginUpdate.get(req)
+	beginUpdate := s.beginUpdate.get(req)
 	if beginUpdate == nil {
 		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/(?P<clusterRp>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<clusterResourceName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<clusterName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.KubernetesConfiguration/fluxConfigurations/(?P<fluxConfigurationName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 		regex := regexp.MustCompile(regexStr)
@@ -355,7 +355,7 @@ func (f *FluxConfigurationsServerTransport) dispatchBeginUpdate(req *http.Reques
 		if matches == nil || len(matches) < 6 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		body, err := server.UnmarshalRequestAsJSON[armkubernetesconfiguration.FluxConfigurationPatch](req)
+		body, err := server.UnmarshalRequestAsJSON[armfluxconfigurations.FluxConfigurationPatch](req)
 		if err != nil {
 			return nil, err
 		}
@@ -379,12 +379,12 @@ func (f *FluxConfigurationsServerTransport) dispatchBeginUpdate(req *http.Reques
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := f.srv.BeginUpdate(req.Context(), resourceGroupNameParam, clusterRpParam, clusterResourceNameParam, clusterNameParam, fluxConfigurationNameParam, body, nil)
+		respr, errRespr := s.srv.BeginUpdate(req.Context(), resourceGroupNameParam, clusterRpParam, clusterResourceNameParam, clusterNameParam, fluxConfigurationNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
 		beginUpdate = &respr
-		f.beginUpdate.add(req, beginUpdate)
+		s.beginUpdate.add(req, beginUpdate)
 	}
 
 	resp, err := server.PollerResponderNext(beginUpdate, req)
@@ -393,18 +393,18 @@ func (f *FluxConfigurationsServerTransport) dispatchBeginUpdate(req *http.Reques
 	}
 
 	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
-		f.beginUpdate.remove(req)
+		s.beginUpdate.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginUpdate) {
-		f.beginUpdate.remove(req)
+		s.beginUpdate.remove(req)
 	}
 
 	return resp, nil
 }
 
-// set this to conditionally intercept incoming requests to FluxConfigurationsServerTransport
-var fluxConfigurationsServerTransportInterceptor interface {
+// set this to conditionally intercept incoming requests to ServerTransport
+var serverTransportInterceptor interface {
 	// Do returns true if the server transport should use the returned response/error
 	Do(*http.Request) (*http.Response, error, bool)
 }

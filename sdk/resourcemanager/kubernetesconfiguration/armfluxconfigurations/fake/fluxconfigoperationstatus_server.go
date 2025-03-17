@@ -12,27 +12,27 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/kubernetesconfiguration/armkubernetesconfiguration/v3"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/kubernetesconfiguration/armfluxconfigurations"
 	"net/http"
 	"net/url"
 	"regexp"
 )
 
-// FluxConfigOperationStatusServer is a fake server for instances of the armkubernetesconfiguration.FluxConfigOperationStatusClient type.
+// FluxConfigOperationStatusServer is a fake server for instances of the armfluxconfigurations.FluxConfigOperationStatusClient type.
 type FluxConfigOperationStatusServer struct {
 	// Get is the fake for method FluxConfigOperationStatusClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, operationID string, options *armkubernetesconfiguration.FluxConfigOperationStatusClientGetOptions) (resp azfake.Responder[armkubernetesconfiguration.FluxConfigOperationStatusClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, operationID string, options *armfluxconfigurations.FluxConfigOperationStatusClientGetOptions) (resp azfake.Responder[armfluxconfigurations.FluxConfigOperationStatusClientGetResponse], errResp azfake.ErrorResponder)
 }
 
 // NewFluxConfigOperationStatusServerTransport creates a new instance of FluxConfigOperationStatusServerTransport with the provided implementation.
-// The returned FluxConfigOperationStatusServerTransport instance is connected to an instance of armkubernetesconfiguration.FluxConfigOperationStatusClient via the
+// The returned FluxConfigOperationStatusServerTransport instance is connected to an instance of armfluxconfigurations.FluxConfigOperationStatusClient via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewFluxConfigOperationStatusServerTransport(srv *FluxConfigOperationStatusServer) *FluxConfigOperationStatusServerTransport {
 	return &FluxConfigOperationStatusServerTransport{srv: srv}
 }
 
-// FluxConfigOperationStatusServerTransport connects instances of armkubernetesconfiguration.FluxConfigOperationStatusClient to instances of FluxConfigOperationStatusServer.
+// FluxConfigOperationStatusServerTransport connects instances of armfluxconfigurations.FluxConfigOperationStatusClient to instances of FluxConfigOperationStatusServer.
 // Don't use this type directly, use NewFluxConfigOperationStatusServerTransport instead.
 type FluxConfigOperationStatusServerTransport struct {
 	srv *FluxConfigOperationStatusServer
