@@ -1,5 +1,15 @@
 # Release History
 
+## 1.4.0-beta.1 (2025-03-18)
+### Features Added
+
+- New value `MoveTypeAvailabilitySetToVMSSFlex` added to enum type `MoveType`
+- New struct `ChildMoveResourceProperties`
+- New struct `ChildMoveResourcePropertiesErrors`
+- New field `ChildMoveResourcesProperties` in struct `MoveResourceProperties`
+- New field `TargetFaultDomain` in struct `VirtualMachineResourceSettings`
+
+
 ## 1.3.0 (2023-11-24)
 ### Features Added
 
