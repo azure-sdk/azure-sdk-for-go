@@ -465,6 +465,33 @@ type SolutionConfigurationProperties struct {
 	StatusDetails *string
 }
 
+// SolutionConfigurationPropertiesUpdate - Solution configuration resource.
+type SolutionConfigurationPropertiesUpdate struct {
+	// Solution settings
+	SolutionSettings *SolutionSettings
+
+	// The type of the solution
+	SolutionType *string
+}
+
+// SolutionConfigurationUpdate - Solution Configuration
+type SolutionConfigurationUpdate struct {
+	// The resource-specific properties for this resource.
+	Properties *SolutionConfigurationPropertiesUpdate
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
 // SolutionSettings - Solution settings
 type SolutionSettings struct {
 	AdditionalProperties map[string]*string
