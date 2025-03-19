@@ -197,6 +197,33 @@ func (c *ConnectionString) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type DataAPIProperties.
+func (d DataAPIProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "mode", d.Mode)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type DataAPIProperties.
+func (d *DataAPIProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", d, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "mode":
+			err = unpopulate(val, "Mode", &d.Mode)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", d, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type FirewallRule.
 func (f FirewallRule) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -922,6 +949,7 @@ func (p Properties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "compute", p.Compute)
 	populate(objectMap, "connectionString", p.ConnectionString)
 	populate(objectMap, "createMode", p.CreateMode)
+	populate(objectMap, "dataApi", p.DataAPI)
 	populate(objectMap, "highAvailability", p.HighAvailability)
 	populate(objectMap, "infrastructureVersion", p.InfrastructureVersion)
 	populate(objectMap, "previewFeatures", p.PreviewFeatures)
@@ -963,6 +991,9 @@ func (p *Properties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "createMode":
 			err = unpopulate(val, "CreateMode", &p.CreateMode)
+			delete(rawMsg, key)
+		case "dataApi":
+			err = unpopulate(val, "DataAPI", &p.DataAPI)
 			delete(rawMsg, key)
 		case "highAvailability":
 			err = unpopulate(val, "HighAvailability", &p.HighAvailability)
@@ -1317,6 +1348,7 @@ func (u UpdateProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "administrator", u.Administrator)
 	populate(objectMap, "backup", u.Backup)
 	populate(objectMap, "compute", u.Compute)
+	populate(objectMap, "dataApi", u.DataAPI)
 	populate(objectMap, "highAvailability", u.HighAvailability)
 	populate(objectMap, "previewFeatures", u.PreviewFeatures)
 	populate(objectMap, "publicNetworkAccess", u.PublicNetworkAccess)
@@ -1343,6 +1375,9 @@ func (u *UpdateProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "compute":
 			err = unpopulate(val, "Compute", &u.Compute)
+			delete(rawMsg, key)
+		case "dataApi":
+			err = unpopulate(val, "DataAPI", &u.DataAPI)
 			delete(rawMsg, key)
 		case "highAvailability":
 			err = unpopulate(val, "HighAvailability", &u.HighAvailability)
