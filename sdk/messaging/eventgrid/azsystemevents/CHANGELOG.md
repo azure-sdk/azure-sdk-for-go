@@ -1,5 +1,44 @@
 # Release History
 
+## 1.0.0 (2025-03-19)
+### Breaking Changes
+
+- Type of `ACSMessageDeliveryStatusUpdatedEventData.Error` has been changed from `*Error` to `*InternalACSMessageChannelEventError`
+- Type of `ACSMessageReceivedEventData.Error` has been changed from `*Error` to `*InternalACSMessageChannelEventError`
+- Type of `ACSRouterJobClassificationFailedEventData.Errors` has been changed from `[]*Error` to `[]InternalACSRouterCommunicationError`
+
+### Features Added
+
+- New struct `ACSChatEventBaseProperties`
+- New struct `ACSChatEventInThreadBaseProperties`
+- New struct `ACSChatMessageEventBaseProperties`
+- New struct `ACSChatMessageEventInThreadBaseProperties`
+- New struct `ACSChatThreadEventBaseProperties`
+- New struct `ACSChatThreadEventInThreadBaseProperties`
+- New struct `ACSMessageEventData`
+- New struct `ACSRouterEventData`
+- New struct `ACSRouterJobEventData`
+- New struct `ACSRouterWorkerEventData`
+- New struct `ACSSMSEventBaseProperties`
+- New struct `AVSClusterEventData`
+- New struct `AVSPrivateCloudEventData`
+- New struct `AVSScriptExecutionEventData`
+- New struct `AppConfigurationSnapshotEventData`
+- New struct `ContainerRegistryArtifactEventData`
+- New struct `ContainerRegistryEventData`
+- New struct `ContainerServiceClusterSupportEventData`
+- New struct `ContainerServiceNodePoolRollingEventData`
+- New struct `DeviceConnectionStateEventProperties`
+- New struct `DeviceLifeCycleEventProperties`
+- New struct `DeviceTelemetryEventProperties`
+- New struct `EventGridMQTTClientEventData`
+- New struct `InternalACSMessageChannelEventError`
+- New struct `InternalACSRouterCommunicationError`
+- New struct `MapsGeofenceEventProperties`
+- New struct `ResourceNotificationsResourceDeletedEventData`
+- New struct `ResourceNotificationsResourceUpdatedEventData`
+
+
 ## 0.6.2 (Unreleased)
 
 ### Features Added
