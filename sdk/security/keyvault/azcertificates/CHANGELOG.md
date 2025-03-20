@@ -1,5 +1,36 @@
 # Release History
 
+## 2.0.0-beta.1 (2025-03-20)
+### Breaking Changes
+
+- Type of `Certificate.ID` has been changed from `*ID` to `*string`
+- Type of `Certificate.KID` has been changed from `*ID` to `*string`
+- Type of `Certificate.SID` has been changed from `*ID` to `*string`
+- Type of `CertificateAttributes.RecoveryLevel` has been changed from `*string` to `*DeletionRecoveryLevel`
+- Type of `CertificateOperation.Error` has been changed from `*ErrorInfo` to `*KeyVaultErrorError`
+- Type of `CertificateOperation.ID` has been changed from `*ID` to `*string`
+- Type of `CertificatePolicy.ID` has been changed from `*ID` to `*string`
+- Type of `CertificateProperties.ID` has been changed from `*ID` to `*string`
+- Type of `DeletedCertificate.ID` has been changed from `*ID` to `*string`
+- Type of `DeletedCertificate.KID` has been changed from `*ID` to `*string`
+- Type of `DeletedCertificate.SID` has been changed from `*ID` to `*string`
+- Type of `DeletedCertificateProperties.ID` has been changed from `*ID` to `*string`
+
+### Features Added
+
+- New enum type `DeletionRecoveryLevel` with values `DeletionRecoveryLevelCustomizedRecoverable`, `DeletionRecoveryLevelCustomizedRecoverableProtectedSubscription`, `DeletionRecoveryLevelCustomizedRecoverablePurgeable`, `DeletionRecoveryLevelPurgeable`, `DeletionRecoveryLevelRecoverable`, `DeletionRecoveryLevelRecoverableProtectedSubscription`, `DeletionRecoveryLevelRecoverablePurgeable`
+- New struct `KeyVaultErrorError`
+- New field `PreserveCertOrder` in struct `Certificate`
+- New field `PreserveCertOrder` in struct `CertificateOperation`
+- New field `PreserveCertOrder` in struct `CreateCertificateParameters`
+- New field `PreserveCertOrder` in struct `DeletedCertificate`
+- New field `PreserveCertOrder` in struct `ImportCertificateParameters`
+- New field `Maxresults` in struct `ListCertificatePropertiesOptions`
+- New field `Maxresults` in struct `ListCertificatePropertiesVersionsOptions`
+- New field `Maxresults` in struct `ListDeletedCertificatePropertiesOptions`
+- New field `Maxresults` in struct `ListIssuerPropertiesOptions`
+
+
 ## 1.3.2-beta.1 (Unreleased)
 
 ### Features Added
