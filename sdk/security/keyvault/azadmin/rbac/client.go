@@ -31,9 +31,11 @@ type Client struct {
 //   - parameters - Parameters for the role definition.
 //   - options - CreateOrUpdateRoleDefinitionOptions contains the optional parameters for the Client.CreateOrUpdateRoleDefinition
 //     method.
-func (client *Client) CreateOrUpdateRoleDefinition(ctx context.Context, scope RoleScope, roleDefinitionName string, parameters RoleDefinitionCreateParameters, options *CreateOrUpdateRoleDefinitionOptions) (CreateOrUpdateRoleDefinitionResponse, error) {
+func (client *Client) CreateOrUpdateRoleDefinition(ctx context.Context, scope string, roleDefinitionName string, parameters RoleDefinitionCreateParameters, options *CreateOrUpdateRoleDefinitionOptions) (CreateOrUpdateRoleDefinitionResponse, error) {
 	var err error
-	ctx, endSpan := runtime.StartSpan(ctx, "rbac.Client.CreateOrUpdateRoleDefinition", client.internal.Tracer(), nil)
+	const operationName = "Client.CreateOrUpdateRoleDefinition"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.createOrUpdateRoleDefinitionCreateRequest(ctx, scope, roleDefinitionName, parameters, options)
 	if err != nil {
@@ -52,11 +54,11 @@ func (client *Client) CreateOrUpdateRoleDefinition(ctx context.Context, scope Ro
 }
 
 // createOrUpdateRoleDefinitionCreateRequest creates the CreateOrUpdateRoleDefinition request.
-func (client *Client) createOrUpdateRoleDefinitionCreateRequest(ctx context.Context, scope RoleScope, roleDefinitionName string, parameters RoleDefinitionCreateParameters, _ *CreateOrUpdateRoleDefinitionOptions) (*policy.Request, error) {
+func (client *Client) createOrUpdateRoleDefinitionCreateRequest(ctx context.Context, scope string, roleDefinitionName string, parameters RoleDefinitionCreateParameters, _ *CreateOrUpdateRoleDefinitionOptions) (*policy.Request, error) {
 	host := "{vaultBaseUrl}"
 	host = strings.ReplaceAll(host, "{vaultBaseUrl}", client.vaultBaseUrl)
 	urlPath := "/{scope}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionName}"
-	urlPath = strings.ReplaceAll(urlPath, "{scope}", string(scope))
+	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
 	if roleDefinitionName == "" {
 		return nil, errors.New("parameter roleDefinitionName cannot be empty")
 	}
@@ -93,9 +95,11 @@ func (client *Client) createOrUpdateRoleDefinitionHandleResponse(resp *http.Resp
 //   - roleAssignmentName - The name of the role assignment to create. It can be any valid GUID.
 //   - parameters - Parameters for the role assignment.
 //   - options - CreateRoleAssignmentOptions contains the optional parameters for the Client.CreateRoleAssignment method.
-func (client *Client) CreateRoleAssignment(ctx context.Context, scope RoleScope, roleAssignmentName string, parameters RoleAssignmentCreateParameters, options *CreateRoleAssignmentOptions) (CreateRoleAssignmentResponse, error) {
+func (client *Client) CreateRoleAssignment(ctx context.Context, scope string, roleAssignmentName string, parameters RoleAssignmentCreateParameters, options *CreateRoleAssignmentOptions) (CreateRoleAssignmentResponse, error) {
 	var err error
-	ctx, endSpan := runtime.StartSpan(ctx, "rbac.Client.CreateRoleAssignment", client.internal.Tracer(), nil)
+	const operationName = "Client.CreateRoleAssignment"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.createRoleAssignmentCreateRequest(ctx, scope, roleAssignmentName, parameters, options)
 	if err != nil {
@@ -114,11 +118,11 @@ func (client *Client) CreateRoleAssignment(ctx context.Context, scope RoleScope,
 }
 
 // createRoleAssignmentCreateRequest creates the CreateRoleAssignment request.
-func (client *Client) createRoleAssignmentCreateRequest(ctx context.Context, scope RoleScope, roleAssignmentName string, parameters RoleAssignmentCreateParameters, _ *CreateRoleAssignmentOptions) (*policy.Request, error) {
+func (client *Client) createRoleAssignmentCreateRequest(ctx context.Context, scope string, roleAssignmentName string, parameters RoleAssignmentCreateParameters, _ *CreateRoleAssignmentOptions) (*policy.Request, error) {
 	host := "{vaultBaseUrl}"
 	host = strings.ReplaceAll(host, "{vaultBaseUrl}", client.vaultBaseUrl)
 	urlPath := "/{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}"
-	urlPath = strings.ReplaceAll(urlPath, "{scope}", string(scope))
+	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
 	if roleAssignmentName == "" {
 		return nil, errors.New("parameter roleAssignmentName cannot be empty")
 	}
@@ -154,9 +158,11 @@ func (client *Client) createRoleAssignmentHandleResponse(resp *http.Response) (C
 //   - scope - The scope of the role assignment to delete.
 //   - roleAssignmentName - The name of the role assignment to delete.
 //   - options - DeleteRoleAssignmentOptions contains the optional parameters for the Client.DeleteRoleAssignment method.
-func (client *Client) DeleteRoleAssignment(ctx context.Context, scope RoleScope, roleAssignmentName string, options *DeleteRoleAssignmentOptions) (DeleteRoleAssignmentResponse, error) {
+func (client *Client) DeleteRoleAssignment(ctx context.Context, scope string, roleAssignmentName string, options *DeleteRoleAssignmentOptions) (DeleteRoleAssignmentResponse, error) {
 	var err error
-	ctx, endSpan := runtime.StartSpan(ctx, "rbac.Client.DeleteRoleAssignment", client.internal.Tracer(), nil)
+	const operationName = "Client.DeleteRoleAssignment"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.deleteRoleAssignmentCreateRequest(ctx, scope, roleAssignmentName, options)
 	if err != nil {
@@ -175,11 +181,11 @@ func (client *Client) DeleteRoleAssignment(ctx context.Context, scope RoleScope,
 }
 
 // deleteRoleAssignmentCreateRequest creates the DeleteRoleAssignment request.
-func (client *Client) deleteRoleAssignmentCreateRequest(ctx context.Context, scope RoleScope, roleAssignmentName string, _ *DeleteRoleAssignmentOptions) (*policy.Request, error) {
+func (client *Client) deleteRoleAssignmentCreateRequest(ctx context.Context, scope string, roleAssignmentName string, _ *DeleteRoleAssignmentOptions) (*policy.Request, error) {
 	host := "{vaultBaseUrl}"
 	host = strings.ReplaceAll(host, "{vaultBaseUrl}", client.vaultBaseUrl)
 	urlPath := "/{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}"
-	urlPath = strings.ReplaceAll(urlPath, "{scope}", string(scope))
+	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
 	if roleAssignmentName == "" {
 		return nil, errors.New("parameter roleAssignmentName cannot be empty")
 	}
@@ -211,9 +217,11 @@ func (client *Client) deleteRoleAssignmentHandleResponse(resp *http.Response) (D
 //   - scope - The scope of the role definition to delete. Managed HSM only supports '/'.
 //   - roleDefinitionName - The name (GUID) of the role definition to delete.
 //   - options - DeleteRoleDefinitionOptions contains the optional parameters for the Client.DeleteRoleDefinition method.
-func (client *Client) DeleteRoleDefinition(ctx context.Context, scope RoleScope, roleDefinitionName string, options *DeleteRoleDefinitionOptions) (DeleteRoleDefinitionResponse, error) {
+func (client *Client) DeleteRoleDefinition(ctx context.Context, scope string, roleDefinitionName string, options *DeleteRoleDefinitionOptions) (DeleteRoleDefinitionResponse, error) {
 	var err error
-	ctx, endSpan := runtime.StartSpan(ctx, "rbac.Client.DeleteRoleDefinition", client.internal.Tracer(), nil)
+	const operationName = "Client.DeleteRoleDefinition"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.deleteRoleDefinitionCreateRequest(ctx, scope, roleDefinitionName, options)
 	if err != nil {
@@ -232,11 +240,11 @@ func (client *Client) DeleteRoleDefinition(ctx context.Context, scope RoleScope,
 }
 
 // deleteRoleDefinitionCreateRequest creates the DeleteRoleDefinition request.
-func (client *Client) deleteRoleDefinitionCreateRequest(ctx context.Context, scope RoleScope, roleDefinitionName string, _ *DeleteRoleDefinitionOptions) (*policy.Request, error) {
+func (client *Client) deleteRoleDefinitionCreateRequest(ctx context.Context, scope string, roleDefinitionName string, _ *DeleteRoleDefinitionOptions) (*policy.Request, error) {
 	host := "{vaultBaseUrl}"
 	host = strings.ReplaceAll(host, "{vaultBaseUrl}", client.vaultBaseUrl)
 	urlPath := "/{scope}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionName}"
-	urlPath = strings.ReplaceAll(urlPath, "{scope}", string(scope))
+	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
 	if roleDefinitionName == "" {
 		return nil, errors.New("parameter roleDefinitionName cannot be empty")
 	}
@@ -268,9 +276,11 @@ func (client *Client) deleteRoleDefinitionHandleResponse(resp *http.Response) (D
 //   - scope - The scope of the role assignment.
 //   - roleAssignmentName - The name of the role assignment to get.
 //   - options - GetRoleAssignmentOptions contains the optional parameters for the Client.GetRoleAssignment method.
-func (client *Client) GetRoleAssignment(ctx context.Context, scope RoleScope, roleAssignmentName string, options *GetRoleAssignmentOptions) (GetRoleAssignmentResponse, error) {
+func (client *Client) GetRoleAssignment(ctx context.Context, scope string, roleAssignmentName string, options *GetRoleAssignmentOptions) (GetRoleAssignmentResponse, error) {
 	var err error
-	ctx, endSpan := runtime.StartSpan(ctx, "rbac.Client.GetRoleAssignment", client.internal.Tracer(), nil)
+	const operationName = "Client.GetRoleAssignment"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.getRoleAssignmentCreateRequest(ctx, scope, roleAssignmentName, options)
 	if err != nil {
@@ -289,11 +299,11 @@ func (client *Client) GetRoleAssignment(ctx context.Context, scope RoleScope, ro
 }
 
 // getRoleAssignmentCreateRequest creates the GetRoleAssignment request.
-func (client *Client) getRoleAssignmentCreateRequest(ctx context.Context, scope RoleScope, roleAssignmentName string, _ *GetRoleAssignmentOptions) (*policy.Request, error) {
+func (client *Client) getRoleAssignmentCreateRequest(ctx context.Context, scope string, roleAssignmentName string, _ *GetRoleAssignmentOptions) (*policy.Request, error) {
 	host := "{vaultBaseUrl}"
 	host = strings.ReplaceAll(host, "{vaultBaseUrl}", client.vaultBaseUrl)
 	urlPath := "/{scope}/providers/Microsoft.Authorization/roleAssignments/{roleAssignmentName}"
-	urlPath = strings.ReplaceAll(urlPath, "{scope}", string(scope))
+	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
 	if roleAssignmentName == "" {
 		return nil, errors.New("parameter roleAssignmentName cannot be empty")
 	}
@@ -325,9 +335,11 @@ func (client *Client) getRoleAssignmentHandleResponse(resp *http.Response) (GetR
 //   - scope - The scope of the role definition to get. Managed HSM only supports '/'.
 //   - roleDefinitionName - The name of the role definition to get.
 //   - options - GetRoleDefinitionOptions contains the optional parameters for the Client.GetRoleDefinition method.
-func (client *Client) GetRoleDefinition(ctx context.Context, scope RoleScope, roleDefinitionName string, options *GetRoleDefinitionOptions) (GetRoleDefinitionResponse, error) {
+func (client *Client) GetRoleDefinition(ctx context.Context, scope string, roleDefinitionName string, options *GetRoleDefinitionOptions) (GetRoleDefinitionResponse, error) {
 	var err error
-	ctx, endSpan := runtime.StartSpan(ctx, "rbac.Client.GetRoleDefinition", client.internal.Tracer(), nil)
+	const operationName = "Client.GetRoleDefinition"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.getRoleDefinitionCreateRequest(ctx, scope, roleDefinitionName, options)
 	if err != nil {
@@ -346,11 +358,11 @@ func (client *Client) GetRoleDefinition(ctx context.Context, scope RoleScope, ro
 }
 
 // getRoleDefinitionCreateRequest creates the GetRoleDefinition request.
-func (client *Client) getRoleDefinitionCreateRequest(ctx context.Context, scope RoleScope, roleDefinitionName string, _ *GetRoleDefinitionOptions) (*policy.Request, error) {
+func (client *Client) getRoleDefinitionCreateRequest(ctx context.Context, scope string, roleDefinitionName string, _ *GetRoleDefinitionOptions) (*policy.Request, error) {
 	host := "{vaultBaseUrl}"
 	host = strings.ReplaceAll(host, "{vaultBaseUrl}", client.vaultBaseUrl)
 	urlPath := "/{scope}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionName}"
-	urlPath = strings.ReplaceAll(urlPath, "{scope}", string(scope))
+	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
 	if roleDefinitionName == "" {
 		return nil, errors.New("parameter roleDefinitionName cannot be empty")
 	}
@@ -380,12 +392,13 @@ func (client *Client) getRoleDefinitionHandleResponse(resp *http.Response) (GetR
 // Generated from API version 7.6-preview.2
 //   - scope - The scope of the role assignments.
 //   - options - ListRoleAssignmentsOptions contains the optional parameters for the Client.NewListRoleAssignmentsPager method.
-func (client *Client) NewListRoleAssignmentsPager(scope RoleScope, options *ListRoleAssignmentsOptions) *runtime.Pager[ListRoleAssignmentsResponse] {
+func (client *Client) NewListRoleAssignmentsPager(scope string, options *ListRoleAssignmentsOptions) *runtime.Pager[ListRoleAssignmentsResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ListRoleAssignmentsResponse]{
 		More: func(page ListRoleAssignmentsResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *ListRoleAssignmentsResponse) (ListRoleAssignmentsResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "Client.NewListRoleAssignmentsPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
@@ -403,11 +416,11 @@ func (client *Client) NewListRoleAssignmentsPager(scope RoleScope, options *List
 }
 
 // listRoleAssignmentsCreateRequest creates the ListRoleAssignments request.
-func (client *Client) listRoleAssignmentsCreateRequest(ctx context.Context, scope RoleScope, options *ListRoleAssignmentsOptions) (*policy.Request, error) {
+func (client *Client) listRoleAssignmentsCreateRequest(ctx context.Context, scope string, options *ListRoleAssignmentsOptions) (*policy.Request, error) {
 	host := "{vaultBaseUrl}"
 	host = strings.ReplaceAll(host, "{vaultBaseUrl}", client.vaultBaseUrl)
 	urlPath := "/{scope}/providers/Microsoft.Authorization/roleAssignments"
-	urlPath = strings.ReplaceAll(urlPath, "{scope}", string(scope))
+	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(host, urlPath))
 	if err != nil {
 		return nil, err
@@ -436,12 +449,13 @@ func (client *Client) listRoleAssignmentsHandleResponse(resp *http.Response) (Li
 // Generated from API version 7.6-preview.2
 //   - scope - The scope of the role definition.
 //   - options - ListRoleDefinitionsOptions contains the optional parameters for the Client.NewListRoleDefinitionsPager method.
-func (client *Client) NewListRoleDefinitionsPager(scope RoleScope, options *ListRoleDefinitionsOptions) *runtime.Pager[ListRoleDefinitionsResponse] {
+func (client *Client) NewListRoleDefinitionsPager(scope string, options *ListRoleDefinitionsOptions) *runtime.Pager[ListRoleDefinitionsResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ListRoleDefinitionsResponse]{
 		More: func(page ListRoleDefinitionsResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *ListRoleDefinitionsResponse) (ListRoleDefinitionsResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "Client.NewListRoleDefinitionsPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
@@ -459,11 +473,11 @@ func (client *Client) NewListRoleDefinitionsPager(scope RoleScope, options *List
 }
 
 // listRoleDefinitionsCreateRequest creates the ListRoleDefinitions request.
-func (client *Client) listRoleDefinitionsCreateRequest(ctx context.Context, scope RoleScope, options *ListRoleDefinitionsOptions) (*policy.Request, error) {
+func (client *Client) listRoleDefinitionsCreateRequest(ctx context.Context, scope string, options *ListRoleDefinitionsOptions) (*policy.Request, error) {
 	host := "{vaultBaseUrl}"
 	host = strings.ReplaceAll(host, "{vaultBaseUrl}", client.vaultBaseUrl)
 	urlPath := "/{scope}/providers/Microsoft.Authorization/roleDefinitions"
-	urlPath = strings.ReplaceAll(urlPath, "{scope}", string(scope))
+	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(host, urlPath))
 	if err != nil {
 		return nil, err
