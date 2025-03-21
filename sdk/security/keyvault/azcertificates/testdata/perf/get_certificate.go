@@ -11,7 +11,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
 	"github.com/Azure/azure-sdk-for-go/sdk/internal/perf"
-	"github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azcertificates"
+	"github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azcertificates/v2"
 )
 
 type getCertificatesTestOptions struct{}
