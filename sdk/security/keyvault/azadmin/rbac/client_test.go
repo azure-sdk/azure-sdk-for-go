@@ -14,7 +14,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/internal/mock"
 	"github.com/Azure/azure-sdk-for-go/sdk/internal/recording"
 	azcred "github.com/Azure/azure-sdk-for-go/sdk/internal/test/credential"
-	"github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azadmin/rbac"
+	"github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azadmin/v2/rbac"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/require"
 )
