@@ -16,7 +16,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/internal/mock"
 	azcred "github.com/Azure/azure-sdk-for-go/sdk/internal/test/credential"
-	"github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azsecrets"
+	"github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azsecrets/v2"
 	"github.com/stretchr/testify/require"
 )
 
