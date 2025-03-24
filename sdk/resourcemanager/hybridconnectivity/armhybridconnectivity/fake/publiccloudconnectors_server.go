@@ -12,7 +12,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hybridconnectivity/armhybridconnectivity"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hybridconnectivity/armhybridconnectivity/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -46,7 +46,7 @@ type PublicCloudConnectorsServer struct {
 
 	// Update is the fake for method PublicCloudConnectorsClient.Update
 	// HTTP status codes to indicate success: http.StatusOK
-	Update func(ctx context.Context, resourceGroupName string, publicCloudConnector string, properties armhybridconnectivity.PublicCloudConnector, options *armhybridconnectivity.PublicCloudConnectorsClientUpdateOptions) (resp azfake.Responder[armhybridconnectivity.PublicCloudConnectorsClientUpdateResponse], errResp azfake.ErrorResponder)
+	Update func(ctx context.Context, resourceGroupName string, publicCloudConnector string, properties armhybridconnectivity.PublicCloudConnectorUpdate, options *armhybridconnectivity.PublicCloudConnectorsClientUpdateOptions) (resp azfake.Responder[armhybridconnectivity.PublicCloudConnectorsClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewPublicCloudConnectorsServerTransport creates a new instance of PublicCloudConnectorsServerTransport with the provided implementation.
@@ -366,7 +366,7 @@ func (p *PublicCloudConnectorsServerTransport) dispatchUpdate(req *http.Request)
 	if matches == nil || len(matches) < 3 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armhybridconnectivity.PublicCloudConnector](req)
+	body, err := server.UnmarshalRequestAsJSON[armhybridconnectivity.PublicCloudConnectorUpdate](req)
 	if err != nil {
 		return nil, err
 	}
