@@ -28,6 +28,12 @@ type AwsCloudProfile struct {
 	IsOrganizationalAccount *bool
 }
 
+// AwsCloudProfileUpdate - cloud profile for AWS.
+type AwsCloudProfileUpdate struct {
+	// List of AWS accounts which need to be excluded.
+	ExcludedAccounts []*string
+}
+
 // EndpointAccessResource - The endpoint access for the target resource.
 type EndpointAccessResource struct {
 	// Azure relay hybrid connection access properties
@@ -342,6 +348,33 @@ type PublicCloudConnectorProperties struct {
 	ProvisioningState *ResourceProvisioningState
 }
 
+// PublicCloudConnectorPropertiesUpdate - Properties of public cloud connectors.
+type PublicCloudConnectorPropertiesUpdate struct {
+	// Cloud profile for AWS.
+	AwsCloudProfile *AwsCloudProfileUpdate
+}
+
+// PublicCloudConnectorUpdate - Public Cloud Connector
+type PublicCloudConnectorUpdate struct {
+	// The resource-specific properties for this resource.
+	Properties *PublicCloudConnectorPropertiesUpdate
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
 // RelayNamespaceAccessProperties - Azure relay hybrid connection access properties
 type RelayNamespaceAccessProperties struct {
 	// REQUIRED; Azure Relay hybrid connection name for the resource.
@@ -463,6 +496,33 @@ type SolutionConfigurationProperties struct {
 
 	// READ-ONLY; The detailed message of status details
 	StatusDetails *string
+}
+
+// SolutionConfigurationPropertiesUpdate - Solution configuration resource.
+type SolutionConfigurationPropertiesUpdate struct {
+	// Solution settings
+	SolutionSettings *SolutionSettings
+
+	// The type of the solution
+	SolutionType *string
+}
+
+// SolutionConfigurationUpdate - Solution Configuration
+type SolutionConfigurationUpdate struct {
+	// The resource-specific properties for this resource.
+	Properties *SolutionConfigurationPropertiesUpdate
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
 }
 
 // SolutionSettings - Solution settings
