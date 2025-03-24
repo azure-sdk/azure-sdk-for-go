@@ -8,7 +8,7 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hybridconnectivity/armhybridconnectivity"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hybridconnectivity/armhybridconnectivity/v2"
 	"log"
 )
 
@@ -358,10 +358,10 @@ func ExamplePublicCloudConnectorsClient_Update() {
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	res, err := clientFactory.NewPublicCloudConnectorsClient("5ACC4579-DB34-4C2F-8F8C-25061168F342").Update(ctx, "rgpublicCloud", "svtirlbyqpepbzyessjenlueeznhg", armhybridconnectivity.PublicCloudConnector{
+	res, err := clientFactory.NewPublicCloudConnectorsClient("5ACC4579-DB34-4C2F-8F8C-25061168F342").Update(ctx, "rgpublicCloud", "svtirlbyqpepbzyessjenlueeznhg", armhybridconnectivity.PublicCloudConnectorUpdate{
 		Tags: map[string]*string{},
-		Properties: &armhybridconnectivity.PublicCloudConnectorProperties{
-			AwsCloudProfile: &armhybridconnectivity.AwsCloudProfile{
+		Properties: &armhybridconnectivity.PublicCloudConnectorPropertiesUpdate{
+			AwsCloudProfile: &armhybridconnectivity.AwsCloudProfileUpdate{
 				ExcludedAccounts: []*string{
 					to.Ptr("zrbtd"),
 				},
