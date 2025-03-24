@@ -8,7 +8,7 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hybridconnectivity/armhybridconnectivity"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hybridconnectivity/armhybridconnectivity/v2"
 	"log"
 )
 
@@ -263,8 +263,8 @@ func ExampleSolutionConfigurationsClient_Update() {
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	res, err := clientFactory.NewSolutionConfigurationsClient().Update(ctx, "ymuj", "dxt", armhybridconnectivity.SolutionConfiguration{
-		Properties: &armhybridconnectivity.SolutionConfigurationProperties{
+	res, err := clientFactory.NewSolutionConfigurationsClient().Update(ctx, "ymuj", "dxt", armhybridconnectivity.SolutionConfigurationUpdate{
+		Properties: &armhybridconnectivity.SolutionConfigurationPropertiesUpdate{
 			SolutionType:     to.Ptr("myzljlstvmgkp"),
 			SolutionSettings: &armhybridconnectivity.SolutionSettings{},
 		},
