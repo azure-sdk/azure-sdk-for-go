@@ -297,7 +297,7 @@ func ExampleSchedulersClient_BeginUpdate() {
 				to.Ptr("10.0.0.0/8"),
 			},
 			SKU: &armdurabletask.SchedulerSKUUpdate{
-				Name:     to.Ptr("Dedicated"),
+				Name: to.Ptr("Dedicated"),
 				Capacity: to.Ptr[int32](10),
 			},
 		},
@@ -345,3 +345,4 @@ func ExampleSchedulersClient_BeginUpdate() {
 	// 	},
 	// }
 }
+
