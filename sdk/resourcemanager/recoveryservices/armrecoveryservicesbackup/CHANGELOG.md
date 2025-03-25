@@ -1,5 +1,15 @@
 # Release History
 
+## 4.2.0-beta.1 (2025-03-25)
+### Features Added
+
+- New value `OperationTypeRehydrate` added to enum type `OperationType`
+- New enum type `VMWorkloadPolicyType` with values `VMWorkloadPolicyTypeInvalid`, `VMWorkloadPolicyTypeSnapshotV1`, `VMWorkloadPolicyTypeSnapshotV2`, `VMWorkloadPolicyTypeStreaming`
+- New field `RecoveryPointTierDetails` in struct `AzureFileShareRecoveryPoint`
+- New field `OperationType` in struct `AzureStorageContainer`
+- New field `VMWorkloadPolicyType` in struct `AzureVMWorkloadProtectionPolicy`
+
+
 ## 4.1.0 (2024-05-24)
 ### Features Added
 
