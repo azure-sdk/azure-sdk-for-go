@@ -15,7 +15,7 @@ type FullBackupOperation struct {
 	EndTime *time.Time
 
 	// Error encountered, if any, during the full backup operation.
-	Error *ErrorInfo
+	Error *FullBackupOperationError
 
 	// Identifier for the full backup operation.
 	JobID *string
@@ -24,10 +24,21 @@ type FullBackupOperation struct {
 	StartTime *time.Time
 
 	// Status of the backup operation.
-	Status *string
+	Status *OperationStatus
 
 	// The status details of backup operation.
 	StatusDetails *string
+}
+
+type FullBackupOperationError struct {
+	// READ-ONLY; The error code.
+	Code *string
+
+	// READ-ONLY; The key vault server error.
+	InnerError *FullBackupOperationError
+
+	// READ-ONLY; The error message.
+	Message *string
 }
 
 // PreBackupOperationParameters - The authentication method and location for the backup operation.
@@ -58,7 +69,7 @@ type RestoreOperation struct {
 	EndTime *time.Time
 
 	// Error encountered, if any, during the restore operation.
-	Error *ErrorInfo
+	Error *FullBackupOperationError
 
 	// Identifier for the restore operation.
 	JobID *string
@@ -67,7 +78,7 @@ type RestoreOperation struct {
 	StartTime *time.Time
 
 	// Status of the restore operation.
-	Status *string
+	Status *OperationStatus
 
 	// The status details of restore operation.
 	StatusDetails *string
@@ -101,7 +112,7 @@ type SelectiveKeyRestoreOperation struct {
 	EndTime *time.Time
 
 	// Error encountered, if any, during the selective key restore operation.
-	Error *ErrorInfo
+	Error *FullBackupOperationError
 
 	// Identifier for the selective key restore operation.
 	JobID *string
@@ -110,7 +121,7 @@ type SelectiveKeyRestoreOperation struct {
 	StartTime *time.Time
 
 	// Status of the restore operation.
-	Status *string
+	Status *OperationStatus
 
 	// The status details of restore operation.
 	StatusDetails *string
