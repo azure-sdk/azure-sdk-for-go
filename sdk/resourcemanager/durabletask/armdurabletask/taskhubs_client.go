@@ -19,7 +19,7 @@ import (
 // TaskHubsClient contains the methods for the TaskHubs group.
 // Don't use this type directly, use NewTaskHubsClient() instead.
 type TaskHubsClient struct {
-	internal       *arm.Client
+	internal *arm.Client
 	subscriptionID string
 }
 
@@ -34,7 +34,7 @@ func NewTaskHubsClient(subscriptionID string, credential azcore.TokenCredential,
 	}
 	client := &TaskHubsClient{
 		subscriptionID: subscriptionID,
-		internal:       cl,
+	internal: cl,
 	}
 	return client, nil
 }
@@ -119,10 +119,10 @@ func (client *TaskHubsClient) createOrUpdateCreateRequest(ctx context.Context, r
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["Content-Type"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, resource); err != nil {
-		return nil, err
-	}
-	return req, nil
+if err := runtime.MarshalAsJSON(req, resource); err != nil {
+	return nil, err
+}
+;	return req, nil
 }
 
 // BeginDelete - Delete a Task Hub
@@ -281,13 +281,13 @@ func (client *TaskHubsClient) getHandleResponse(resp *http.Response) (TaskHubsCl
 //   - schedulerName - The name of the Scheduler
 //   - options - TaskHubsClientListBySchedulerOptions contains the optional parameters for the TaskHubsClient.NewListBySchedulerPager
 //     method.
-func (client *TaskHubsClient) NewListBySchedulerPager(resourceGroupName string, schedulerName string, options *TaskHubsClientListBySchedulerOptions) *runtime.Pager[TaskHubsClientListBySchedulerResponse] {
+func (client *TaskHubsClient) NewListBySchedulerPager(resourceGroupName string, schedulerName string, options *TaskHubsClientListBySchedulerOptions) (*runtime.Pager[TaskHubsClientListBySchedulerResponse]) {
 	return runtime.NewPager(runtime.PagingHandler[TaskHubsClientListBySchedulerResponse]{
 		More: func(page TaskHubsClientListBySchedulerResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *TaskHubsClientListBySchedulerResponse) (TaskHubsClientListBySchedulerResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "TaskHubsClient.NewListBySchedulerPager")
+		ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "TaskHubsClient.NewListBySchedulerPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
@@ -299,7 +299,7 @@ func (client *TaskHubsClient) NewListBySchedulerPager(resourceGroupName string, 
 				return TaskHubsClientListBySchedulerResponse{}, err
 			}
 			return client.listBySchedulerHandleResponse(resp)
-		},
+			},
 		Tracer: client.internal.Tracer(),
 	})
 }
@@ -338,3 +338,4 @@ func (client *TaskHubsClient) listBySchedulerHandleResponse(resp *http.Response)
 	}
 	return result, nil
 }
+
