@@ -13,7 +13,7 @@ import (
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
 	subscriptionID string
-	internal       *arm.Client
+	internal *arm.Client
 }
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
@@ -28,7 +28,7 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 	}
 	return &ClientFactory{
 		subscriptionID: subscriptionID,
-		internal:       internal,
+		internal: internal,
 	}, nil
 }
 
@@ -43,7 +43,7 @@ func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 func (c *ClientFactory) NewSchedulersClient() *SchedulersClient {
 	return &SchedulersClient{
 		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		internal: c.internal,
 	}
 }
 
@@ -51,6 +51,7 @@ func (c *ClientFactory) NewSchedulersClient() *SchedulersClient {
 func (c *ClientFactory) NewTaskHubsClient() *TaskHubsClient {
 	return &TaskHubsClient{
 		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
+		internal: c.internal,
 	}
 }
+
