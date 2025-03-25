@@ -12,19 +12,19 @@ type OperationsClientListOptions struct {
 // SchedulersClientBeginCreateOrUpdateOptions contains the optional parameters for the SchedulersClient.BeginCreateOrUpdate
 // method.
 type SchedulersClientBeginCreateOrUpdateOptions struct {
-	// Resumes the long-running operation from the provided token.
+// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
 // SchedulersClientBeginDeleteOptions contains the optional parameters for the SchedulersClient.BeginDelete method.
 type SchedulersClientBeginDeleteOptions struct {
-	// Resumes the long-running operation from the provided token.
+// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
 // SchedulersClientBeginUpdateOptions contains the optional parameters for the SchedulersClient.BeginUpdate method.
 type SchedulersClientBeginUpdateOptions struct {
-	// Resumes the long-running operation from the provided token.
+// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
@@ -47,13 +47,13 @@ type SchedulersClientListBySubscriptionOptions struct {
 
 // TaskHubsClientBeginCreateOrUpdateOptions contains the optional parameters for the TaskHubsClient.BeginCreateOrUpdate method.
 type TaskHubsClientBeginCreateOrUpdateOptions struct {
-	// Resumes the long-running operation from the provided token.
+// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
 // TaskHubsClientBeginDeleteOptions contains the optional parameters for the TaskHubsClient.BeginDelete method.
 type TaskHubsClientBeginDeleteOptions struct {
-	// Resumes the long-running operation from the provided token.
+// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
@@ -66,3 +66,4 @@ type TaskHubsClientGetOptions struct {
 type TaskHubsClientListBySchedulerOptions struct {
 	// placeholder for future optional parameters
 }
+
