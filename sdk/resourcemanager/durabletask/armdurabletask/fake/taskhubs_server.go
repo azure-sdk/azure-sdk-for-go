@@ -19,7 +19,7 @@ import (
 )
 
 // TaskHubsServer is a fake server for instances of the armdurabletask.TaskHubsClient type.
-type TaskHubsServer struct {
+type TaskHubsServer struct{
 	// BeginCreateOrUpdate is the fake for method TaskHubsClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
 	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, schedulerName string, taskHubName string, resource armdurabletask.TaskHub, options *armdurabletask.TaskHubsClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armdurabletask.TaskHubsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
@@ -35,6 +35,7 @@ type TaskHubsServer struct {
 	// NewListBySchedulerPager is the fake for method TaskHubsClient.NewListBySchedulerPager
 	// HTTP status codes to indicate success: http.StatusOK
 	NewListBySchedulerPager func(resourceGroupName string, schedulerName string, options *armdurabletask.TaskHubsClientListBySchedulerOptions) (resp azfake.PagerResponder[armdurabletask.TaskHubsClientListBySchedulerResponse])
+
 }
 
 // NewTaskHubsServerTransport creates a new instance of TaskHubsServerTransport with the provided implementation.
@@ -42,9 +43,9 @@ type TaskHubsServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewTaskHubsServerTransport(srv *TaskHubsServer) *TaskHubsServerTransport {
 	return &TaskHubsServerTransport{
-		srv:                     srv,
-		beginCreateOrUpdate:     newTracker[azfake.PollerResponder[armdurabletask.TaskHubsClientCreateOrUpdateResponse]](),
-		beginDelete:             newTracker[azfake.PollerResponder[armdurabletask.TaskHubsClientDeleteResponse]](),
+		srv: srv,
+		beginCreateOrUpdate: newTracker[azfake.PollerResponder[armdurabletask.TaskHubsClientCreateOrUpdateResponse]](),
+		beginDelete: newTracker[azfake.PollerResponder[armdurabletask.TaskHubsClientDeleteResponse]](),
 		newListBySchedulerPager: newTracker[azfake.PagerResponder[armdurabletask.TaskHubsClientListBySchedulerResponse]](),
 	}
 }
@@ -52,9 +53,9 @@ func NewTaskHubsServerTransport(srv *TaskHubsServer) *TaskHubsServerTransport {
 // TaskHubsServerTransport connects instances of armdurabletask.TaskHubsClient to instances of TaskHubsServer.
 // Don't use this type directly, use NewTaskHubsServerTransport instead.
 type TaskHubsServerTransport struct {
-	srv                     *TaskHubsServer
-	beginCreateOrUpdate     *tracker[azfake.PollerResponder[armdurabletask.TaskHubsClientCreateOrUpdateResponse]]
-	beginDelete             *tracker[azfake.PollerResponder[armdurabletask.TaskHubsClientDeleteResponse]]
+	srv *TaskHubsServer
+	beginCreateOrUpdate *tracker[azfake.PollerResponder[armdurabletask.TaskHubsClientCreateOrUpdateResponse]]
+	beginDelete *tracker[azfake.PollerResponder[armdurabletask.TaskHubsClientDeleteResponse]]
 	newListBySchedulerPager *tracker[azfake.PagerResponder[armdurabletask.TaskHubsClientListBySchedulerResponse]]
 }
 
@@ -76,8 +77,8 @@ func (t *TaskHubsServerTransport) dispatchToMethodFake(req *http.Request, method
 	go func() {
 		var intercepted bool
 		var res result
-		if taskHubsServerTransportInterceptor != nil {
-			res.resp, res.err, intercepted = taskHubsServerTransportInterceptor.Do(req)
+		 if taskHubsServerTransportInterceptor != nil {
+			 res.resp, res.err, intercepted = taskHubsServerTransportInterceptor.Do(req)
 		}
 		if !intercepted {
 			switch method {
@@ -89,8 +90,8 @@ func (t *TaskHubsServerTransport) dispatchToMethodFake(req *http.Request, method
 				res.resp, res.err = t.dispatchGet(req)
 			case "TaskHubsClient.NewListBySchedulerPager":
 				res.resp, res.err = t.dispatchNewListBySchedulerPager(req)
-			default:
-				res.err = fmt.Errorf("unhandled API %s", method)
+				default:
+		res.err = fmt.Errorf("unhandled API %s", method)
 			}
 
 		}
@@ -114,32 +115,32 @@ func (t *TaskHubsServerTransport) dispatchBeginCreateOrUpdate(req *http.Request)
 	}
 	beginCreateOrUpdate := t.beginCreateOrUpdate.get(req)
 	if beginCreateOrUpdate == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DurableTask/schedulers/(?P<schedulerName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/taskHubs/(?P<taskHubName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 4 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		body, err := server.UnmarshalRequestAsJSON[armdurabletask.TaskHub](req)
-		if err != nil {
-			return nil, err
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		schedulerNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("schedulerName")])
-		if err != nil {
-			return nil, err
-		}
-		taskHubNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("taskHubName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := t.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, schedulerNameParam, taskHubNameParam, body, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DurableTask/schedulers/(?P<schedulerName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/taskHubs/(?P<taskHubName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 4 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armdurabletask.TaskHub](req)
+	if err != nil {
+		return nil, err
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	schedulerNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("schedulerName")])
+	if err != nil {
+		return nil, err
+	}
+	taskHubNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("taskHubName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := t.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, schedulerNameParam, taskHubNameParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
 		beginCreateOrUpdate = &respr
 		t.beginCreateOrUpdate.add(req, beginCreateOrUpdate)
 	}
@@ -166,28 +167,28 @@ func (t *TaskHubsServerTransport) dispatchBeginDelete(req *http.Request) (*http.
 	}
 	beginDelete := t.beginDelete.get(req)
 	if beginDelete == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DurableTask/schedulers/(?P<schedulerName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/taskHubs/(?P<taskHubName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 4 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		schedulerNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("schedulerName")])
-		if err != nil {
-			return nil, err
-		}
-		taskHubNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("taskHubName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := t.srv.BeginDelete(req.Context(), resourceGroupNameParam, schedulerNameParam, taskHubNameParam, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DurableTask/schedulers/(?P<schedulerName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/taskHubs/(?P<taskHubName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 4 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	schedulerNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("schedulerName")])
+	if err != nil {
+		return nil, err
+	}
+	taskHubNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("taskHubName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := t.srv.BeginDelete(req.Context(), resourceGroupNameParam, schedulerNameParam, taskHubNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
 		beginDelete = &respr
 		t.beginDelete.add(req, beginDelete)
 	}
@@ -251,21 +252,21 @@ func (t *TaskHubsServerTransport) dispatchNewListBySchedulerPager(req *http.Requ
 	}
 	newListBySchedulerPager := t.newListBySchedulerPager.get(req)
 	if newListBySchedulerPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DurableTask/schedulers/(?P<schedulerName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/taskHubs`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		schedulerNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("schedulerName")])
-		if err != nil {
-			return nil, err
-		}
-		resp := t.srv.NewListBySchedulerPager(resourceGroupNameParam, schedulerNameParam, nil)
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DurableTask/schedulers/(?P<schedulerName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/taskHubs`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	schedulerNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("schedulerName")])
+	if err != nil {
+		return nil, err
+	}
+resp := t.srv.NewListBySchedulerPager(resourceGroupNameParam, schedulerNameParam, nil)
 		newListBySchedulerPager = &resp
 		t.newListBySchedulerPager.add(req, newListBySchedulerPager)
 		server.PagerResponderInjectNextLinks(newListBySchedulerPager, req, func(page *armdurabletask.TaskHubsClientListBySchedulerResponse, createLink func() string) {
