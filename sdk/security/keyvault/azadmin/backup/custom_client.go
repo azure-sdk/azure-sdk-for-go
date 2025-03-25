@@ -13,8 +13,8 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azadmin/backup/internal/pollers"
-	ainternal "github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azadmin/internal"
+	"github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azadmin/v2/backup/internal/pollers"
+	ainternal "github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azadmin/v2/internal"
 	"github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/internal"
 )
 
