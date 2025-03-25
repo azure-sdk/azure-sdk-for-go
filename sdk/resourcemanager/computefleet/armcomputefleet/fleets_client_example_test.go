@@ -8,7 +8,7 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/computefleet/armcomputefleet"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/computefleet/armcomputefleet/v2"
 	"log"
 )
 
@@ -2313,7 +2313,6 @@ func ExampleFleetsClient_NewListVirtualMachineScaleSetsPager() {
 		// 	VirtualMachineScaleSetListResult: armcomputefleet.VirtualMachineScaleSetListResult{
 		// 		Value: []*armcomputefleet.VirtualMachineScaleSet{
 		// 			{
-		// 				Name: to.Ptr("myVmss"),
 		// 				ID: to.Ptr("/subscriptions/7B0CD4DB-3381-4013-9B31-FB6E6FD0FF1C/resourceGroups/rgazurefleet/providers/Microsoft.AzureFleet/fleets/myFleet/virtualMachineScaleSets/myVmss"),
 		// 				Type: to.Ptr("Microsoft.AzureFleet/fleets/virtualMachineScaleSets"),
 		// 				OperationStatus: to.Ptr(armcomputefleet.ProvisioningStateCreating),
