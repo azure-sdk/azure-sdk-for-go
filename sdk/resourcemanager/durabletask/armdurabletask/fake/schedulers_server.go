@@ -19,7 +19,7 @@ import (
 )
 
 // SchedulersServer is a fake server for instances of the armdurabletask.SchedulersClient type.
-type SchedulersServer struct {
+type SchedulersServer struct{
 	// BeginCreateOrUpdate is the fake for method SchedulersClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
 	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, schedulerName string, resource armdurabletask.Scheduler, options *armdurabletask.SchedulersClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armdurabletask.SchedulersClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
@@ -43,6 +43,7 @@ type SchedulersServer struct {
 	// BeginUpdate is the fake for method SchedulersClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginUpdate func(ctx context.Context, resourceGroupName string, schedulerName string, properties armdurabletask.SchedulerUpdate, options *armdurabletask.SchedulersClientBeginUpdateOptions) (resp azfake.PollerResponder[armdurabletask.SchedulersClientUpdateResponse], errResp azfake.ErrorResponder)
+
 }
 
 // NewSchedulersServerTransport creates a new instance of SchedulersServerTransport with the provided implementation.
@@ -50,24 +51,24 @@ type SchedulersServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewSchedulersServerTransport(srv *SchedulersServer) *SchedulersServerTransport {
 	return &SchedulersServerTransport{
-		srv:                         srv,
-		beginCreateOrUpdate:         newTracker[azfake.PollerResponder[armdurabletask.SchedulersClientCreateOrUpdateResponse]](),
-		beginDelete:                 newTracker[azfake.PollerResponder[armdurabletask.SchedulersClientDeleteResponse]](),
+		srv: srv,
+		beginCreateOrUpdate: newTracker[azfake.PollerResponder[armdurabletask.SchedulersClientCreateOrUpdateResponse]](),
+		beginDelete: newTracker[azfake.PollerResponder[armdurabletask.SchedulersClientDeleteResponse]](),
 		newListByResourceGroupPager: newTracker[azfake.PagerResponder[armdurabletask.SchedulersClientListByResourceGroupResponse]](),
-		newListBySubscriptionPager:  newTracker[azfake.PagerResponder[armdurabletask.SchedulersClientListBySubscriptionResponse]](),
-		beginUpdate:                 newTracker[azfake.PollerResponder[armdurabletask.SchedulersClientUpdateResponse]](),
+		newListBySubscriptionPager: newTracker[azfake.PagerResponder[armdurabletask.SchedulersClientListBySubscriptionResponse]](),
+		beginUpdate: newTracker[azfake.PollerResponder[armdurabletask.SchedulersClientUpdateResponse]](),
 	}
 }
 
 // SchedulersServerTransport connects instances of armdurabletask.SchedulersClient to instances of SchedulersServer.
 // Don't use this type directly, use NewSchedulersServerTransport instead.
 type SchedulersServerTransport struct {
-	srv                         *SchedulersServer
-	beginCreateOrUpdate         *tracker[azfake.PollerResponder[armdurabletask.SchedulersClientCreateOrUpdateResponse]]
-	beginDelete                 *tracker[azfake.PollerResponder[armdurabletask.SchedulersClientDeleteResponse]]
+	srv *SchedulersServer
+	beginCreateOrUpdate *tracker[azfake.PollerResponder[armdurabletask.SchedulersClientCreateOrUpdateResponse]]
+	beginDelete *tracker[azfake.PollerResponder[armdurabletask.SchedulersClientDeleteResponse]]
 	newListByResourceGroupPager *tracker[azfake.PagerResponder[armdurabletask.SchedulersClientListByResourceGroupResponse]]
-	newListBySubscriptionPager  *tracker[azfake.PagerResponder[armdurabletask.SchedulersClientListBySubscriptionResponse]]
-	beginUpdate                 *tracker[azfake.PollerResponder[armdurabletask.SchedulersClientUpdateResponse]]
+	newListBySubscriptionPager *tracker[azfake.PagerResponder[armdurabletask.SchedulersClientListBySubscriptionResponse]]
+	beginUpdate *tracker[azfake.PollerResponder[armdurabletask.SchedulersClientUpdateResponse]]
 }
 
 // Do implements the policy.Transporter interface for SchedulersServerTransport.
@@ -88,8 +89,8 @@ func (s *SchedulersServerTransport) dispatchToMethodFake(req *http.Request, meth
 	go func() {
 		var intercepted bool
 		var res result
-		if schedulersServerTransportInterceptor != nil {
-			res.resp, res.err, intercepted = schedulersServerTransportInterceptor.Do(req)
+		 if schedulersServerTransportInterceptor != nil {
+			 res.resp, res.err, intercepted = schedulersServerTransportInterceptor.Do(req)
 		}
 		if !intercepted {
 			switch method {
@@ -105,8 +106,8 @@ func (s *SchedulersServerTransport) dispatchToMethodFake(req *http.Request, meth
 				res.resp, res.err = s.dispatchNewListBySubscriptionPager(req)
 			case "SchedulersClient.BeginUpdate":
 				res.resp, res.err = s.dispatchBeginUpdate(req)
-			default:
-				res.err = fmt.Errorf("unhandled API %s", method)
+				default:
+		res.err = fmt.Errorf("unhandled API %s", method)
 			}
 
 		}
@@ -130,28 +131,28 @@ func (s *SchedulersServerTransport) dispatchBeginCreateOrUpdate(req *http.Reques
 	}
 	beginCreateOrUpdate := s.beginCreateOrUpdate.get(req)
 	if beginCreateOrUpdate == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DurableTask/schedulers/(?P<schedulerName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		body, err := server.UnmarshalRequestAsJSON[armdurabletask.Scheduler](req)
-		if err != nil {
-			return nil, err
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		schedulerNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("schedulerName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := s.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, schedulerNameParam, body, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DurableTask/schedulers/(?P<schedulerName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armdurabletask.Scheduler](req)
+	if err != nil {
+		return nil, err
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	schedulerNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("schedulerName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := s.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, schedulerNameParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
 		beginCreateOrUpdate = &respr
 		s.beginCreateOrUpdate.add(req, beginCreateOrUpdate)
 	}
@@ -178,24 +179,24 @@ func (s *SchedulersServerTransport) dispatchBeginDelete(req *http.Request) (*htt
 	}
 	beginDelete := s.beginDelete.get(req)
 	if beginDelete == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DurableTask/schedulers/(?P<schedulerName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		schedulerNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("schedulerName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := s.srv.BeginDelete(req.Context(), resourceGroupNameParam, schedulerNameParam, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DurableTask/schedulers/(?P<schedulerName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	schedulerNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("schedulerName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := s.srv.BeginDelete(req.Context(), resourceGroupNameParam, schedulerNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
 		beginDelete = &respr
 		s.beginDelete.add(req, beginDelete)
 	}
@@ -255,17 +256,17 @@ func (s *SchedulersServerTransport) dispatchNewListByResourceGroupPager(req *htt
 	}
 	newListByResourceGroupPager := s.newListByResourceGroupPager.get(req)
 	if newListByResourceGroupPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DurableTask/schedulers`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 2 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		resp := s.srv.NewListByResourceGroupPager(resourceGroupNameParam, nil)
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DurableTask/schedulers`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 2 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+resp := s.srv.NewListByResourceGroupPager(resourceGroupNameParam, nil)
 		newListByResourceGroupPager = &resp
 		s.newListByResourceGroupPager.add(req, newListByResourceGroupPager)
 		server.PagerResponderInjectNextLinks(newListByResourceGroupPager, req, func(page *armdurabletask.SchedulersClientListByResourceGroupResponse, createLink func() string) {
@@ -292,13 +293,13 @@ func (s *SchedulersServerTransport) dispatchNewListBySubscriptionPager(req *http
 	}
 	newListBySubscriptionPager := s.newListBySubscriptionPager.get(req)
 	if newListBySubscriptionPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DurableTask/schedulers`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 1 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resp := s.srv.NewListBySubscriptionPager(nil)
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DurableTask/schedulers`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 1 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+resp := s.srv.NewListBySubscriptionPager(nil)
 		newListBySubscriptionPager = &resp
 		s.newListBySubscriptionPager.add(req, newListBySubscriptionPager)
 		server.PagerResponderInjectNextLinks(newListBySubscriptionPager, req, func(page *armdurabletask.SchedulersClientListBySubscriptionResponse, createLink func() string) {
@@ -325,28 +326,28 @@ func (s *SchedulersServerTransport) dispatchBeginUpdate(req *http.Request) (*htt
 	}
 	beginUpdate := s.beginUpdate.get(req)
 	if beginUpdate == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DurableTask/schedulers/(?P<schedulerName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		body, err := server.UnmarshalRequestAsJSON[armdurabletask.SchedulerUpdate](req)
-		if err != nil {
-			return nil, err
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		schedulerNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("schedulerName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := s.srv.BeginUpdate(req.Context(), resourceGroupNameParam, schedulerNameParam, body, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.DurableTask/schedulers/(?P<schedulerName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	body, err := server.UnmarshalRequestAsJSON[armdurabletask.SchedulerUpdate](req)
+	if err != nil {
+		return nil, err
+	}
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
+	if err != nil {
+		return nil, err
+	}
+	schedulerNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("schedulerName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := s.srv.BeginUpdate(req.Context(), resourceGroupNameParam, schedulerNameParam, body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
 		beginUpdate = &respr
 		s.beginUpdate.add(req, beginUpdate)
 	}
