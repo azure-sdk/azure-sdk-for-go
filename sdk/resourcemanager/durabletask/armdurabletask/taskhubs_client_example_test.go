@@ -23,7 +23,8 @@ func ExampleTaskHubsClient_BeginCreateOrUpdate() {
 		log.Fatalf("failed to create client: %v", err)
 	}
 	poller, err := clientFactory.NewTaskHubsClient().BeginCreateOrUpdate(ctx, "rgopenapi", "testscheduler", "testtaskhub", armdurabletask.TaskHub{
-		Properties: &armdurabletask.TaskHubProperties{},
+		Properties: &armdurabletask.TaskHubProperties{
+		},
 	}, nil)
 	if err != nil {
 		log.Fatalf("failed to finish the request: %v", err)
@@ -164,3 +165,4 @@ func ExampleTaskHubsClient_NewListBySchedulerPager() {
 		// }
 	}
 }
+
