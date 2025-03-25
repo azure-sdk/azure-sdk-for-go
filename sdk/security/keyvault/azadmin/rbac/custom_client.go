@@ -9,7 +9,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	ainternal "github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azadmin/internal"
+	ainternal "github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azadmin/v2/internal"
 	"github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/internal"
 )
 
