@@ -19,7 +19,7 @@ import (
 // SchedulersClient contains the methods for the Schedulers group.
 // Don't use this type directly, use NewSchedulersClient() instead.
 type SchedulersClient struct {
-	internal       *arm.Client
+	internal *arm.Client
 	subscriptionID string
 }
 
@@ -34,7 +34,7 @@ func NewSchedulersClient(subscriptionID string, credential azcore.TokenCredentia
 	}
 	client := &SchedulersClient{
 		subscriptionID: subscriptionID,
-		internal:       cl,
+	internal: cl,
 	}
 	return client, nil
 }
@@ -114,10 +114,10 @@ func (client *SchedulersClient) createOrUpdateCreateRequest(ctx context.Context,
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["Content-Type"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, resource); err != nil {
-		return nil, err
-	}
-	return req, nil
+if err := runtime.MarshalAsJSON(req, resource); err != nil {
+	return nil, err
+}
+;	return req, nil
 }
 
 // BeginDelete - Delete a Scheduler
@@ -265,13 +265,13 @@ func (client *SchedulersClient) getHandleResponse(resp *http.Response) (Schedule
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - SchedulersClientListByResourceGroupOptions contains the optional parameters for the SchedulersClient.NewListByResourceGroupPager
 //     method.
-func (client *SchedulersClient) NewListByResourceGroupPager(resourceGroupName string, options *SchedulersClientListByResourceGroupOptions) *runtime.Pager[SchedulersClientListByResourceGroupResponse] {
+func (client *SchedulersClient) NewListByResourceGroupPager(resourceGroupName string, options *SchedulersClientListByResourceGroupOptions) (*runtime.Pager[SchedulersClientListByResourceGroupResponse]) {
 	return runtime.NewPager(runtime.PagingHandler[SchedulersClientListByResourceGroupResponse]{
 		More: func(page SchedulersClientListByResourceGroupResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *SchedulersClientListByResourceGroupResponse) (SchedulersClientListByResourceGroupResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "SchedulersClient.NewListByResourceGroupPager")
+		ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "SchedulersClient.NewListByResourceGroupPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
@@ -283,7 +283,7 @@ func (client *SchedulersClient) NewListByResourceGroupPager(resourceGroupName st
 				return SchedulersClientListByResourceGroupResponse{}, err
 			}
 			return client.listByResourceGroupHandleResponse(resp)
-		},
+			},
 		Tracer: client.internal.Tracer(),
 	})
 }
@@ -324,13 +324,13 @@ func (client *SchedulersClient) listByResourceGroupHandleResponse(resp *http.Res
 // Generated from API version 2024-10-01-preview
 //   - options - SchedulersClientListBySubscriptionOptions contains the optional parameters for the SchedulersClient.NewListBySubscriptionPager
 //     method.
-func (client *SchedulersClient) NewListBySubscriptionPager(options *SchedulersClientListBySubscriptionOptions) *runtime.Pager[SchedulersClientListBySubscriptionResponse] {
+func (client *SchedulersClient) NewListBySubscriptionPager(options *SchedulersClientListBySubscriptionOptions) (*runtime.Pager[SchedulersClientListBySubscriptionResponse]) {
 	return runtime.NewPager(runtime.PagingHandler[SchedulersClientListBySubscriptionResponse]{
 		More: func(page SchedulersClientListBySubscriptionResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *SchedulersClientListBySubscriptionResponse) (SchedulersClientListBySubscriptionResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "SchedulersClient.NewListBySubscriptionPager")
+		ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "SchedulersClient.NewListBySubscriptionPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
@@ -342,7 +342,7 @@ func (client *SchedulersClient) NewListBySubscriptionPager(options *SchedulersCl
 				return SchedulersClientListBySubscriptionResponse{}, err
 			}
 			return client.listBySubscriptionHandleResponse(resp)
-		},
+			},
 		Tracer: client.internal.Tracer(),
 	})
 }
@@ -448,8 +448,9 @@ func (client *SchedulersClient) updateCreateRequest(ctx context.Context, resourc
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["Content-Type"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, properties); err != nil {
-		return nil, err
-	}
-	return req, nil
+if err := runtime.MarshalAsJSON(req, properties); err != nil {
+	return nil, err
 }
+;	return req, nil
+}
+
