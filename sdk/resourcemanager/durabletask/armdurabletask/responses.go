@@ -6,13 +6,13 @@ package armdurabletask
 
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
-	// A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to get the next set of results.
+// A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to get the next set of results.
 	OperationListResult
 }
 
 // SchedulersClientCreateOrUpdateResponse contains the response from method SchedulersClient.BeginCreateOrUpdate.
 type SchedulersClientCreateOrUpdateResponse struct {
-	// A Durable Task Scheduler resource
+// A Durable Task Scheduler resource
 	Scheduler
 }
 
@@ -23,31 +23,31 @@ type SchedulersClientDeleteResponse struct {
 
 // SchedulersClientGetResponse contains the response from method SchedulersClient.Get.
 type SchedulersClientGetResponse struct {
-	// A Durable Task Scheduler resource
+// A Durable Task Scheduler resource
 	Scheduler
 }
 
 // SchedulersClientListByResourceGroupResponse contains the response from method SchedulersClient.NewListByResourceGroupPager.
 type SchedulersClientListByResourceGroupResponse struct {
-	// The response of a Scheduler list operation.
+// The response of a Scheduler list operation.
 	SchedulerListResult
 }
 
 // SchedulersClientListBySubscriptionResponse contains the response from method SchedulersClient.NewListBySubscriptionPager.
 type SchedulersClientListBySubscriptionResponse struct {
-	// The response of a Scheduler list operation.
+// The response of a Scheduler list operation.
 	SchedulerListResult
 }
 
 // SchedulersClientUpdateResponse contains the response from method SchedulersClient.BeginUpdate.
 type SchedulersClientUpdateResponse struct {
-	// A Durable Task Scheduler resource
+// A Durable Task Scheduler resource
 	Scheduler
 }
 
 // TaskHubsClientCreateOrUpdateResponse contains the response from method TaskHubsClient.BeginCreateOrUpdate.
 type TaskHubsClientCreateOrUpdateResponse struct {
-	// A Task Hub resource belonging to the scheduler
+// A Task Hub resource belonging to the scheduler
 	TaskHub
 }
 
@@ -58,12 +58,13 @@ type TaskHubsClientDeleteResponse struct {
 
 // TaskHubsClientGetResponse contains the response from method TaskHubsClient.Get.
 type TaskHubsClientGetResponse struct {
-	// A Task Hub resource belonging to the scheduler
+// A Task Hub resource belonging to the scheduler
 	TaskHub
 }
 
 // TaskHubsClientListBySchedulerResponse contains the response from method TaskHubsClient.NewListBySchedulerPager.
 type TaskHubsClientListBySchedulerResponse struct {
-	// The response of a TaskHub list operation.
+// The response of a TaskHub list operation.
 	TaskHubListResult
 }
+
