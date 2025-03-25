@@ -5,7 +5,7 @@
 package armdurabletask
 
 const (
-	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/durabletask/armdurabletask"
+	moduleName = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/durabletask/armdurabletask"
 	moduleVersion = "v0.1.0"
 )
 
@@ -13,13 +13,13 @@ const (
 type ActionType string
 
 const (
-	// ActionTypeInternal - Actions are for internal-only APIs.
+// ActionTypeInternal - Actions are for internal-only APIs.
 	ActionTypeInternal ActionType = "Internal"
 )
 
 // PossibleActionTypeValues returns the possible values for the ActionType const type.
 func PossibleActionTypeValues() []ActionType {
-	return []ActionType{
+	return []ActionType{	
 		ActionTypeInternal,
 	}
 }
@@ -28,19 +28,19 @@ func PossibleActionTypeValues() []ActionType {
 type CreatedByType string
 
 const (
-	// CreatedByTypeApplication - The entity was created by an application.
+// CreatedByTypeApplication - The entity was created by an application.
 	CreatedByTypeApplication CreatedByType = "Application"
-	// CreatedByTypeKey - The entity was created by a key.
+// CreatedByTypeKey - The entity was created by a key.
 	CreatedByTypeKey CreatedByType = "Key"
-	// CreatedByTypeManagedIdentity - The entity was created by a managed identity.
+// CreatedByTypeManagedIdentity - The entity was created by a managed identity.
 	CreatedByTypeManagedIdentity CreatedByType = "ManagedIdentity"
-	// CreatedByTypeUser - The entity was created by a user.
+// CreatedByTypeUser - The entity was created by a user.
 	CreatedByTypeUser CreatedByType = "User"
 )
 
 // PossibleCreatedByTypeValues returns the possible values for the CreatedByType const type.
 func PossibleCreatedByTypeValues() []CreatedByType {
-	return []CreatedByType{
+	return []CreatedByType{	
 		CreatedByTypeApplication,
 		CreatedByTypeKey,
 		CreatedByTypeManagedIdentity,
@@ -53,17 +53,17 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 type Origin string
 
 const (
-	// OriginSystem - Indicates the operation is initiated by a system.
+// OriginSystem - Indicates the operation is initiated by a system.
 	OriginSystem Origin = "system"
-	// OriginUser - Indicates the operation is initiated by a user.
+// OriginUser - Indicates the operation is initiated by a user.
 	OriginUser Origin = "user"
-	// OriginUserSystem - Indicates the operation is initiated by a user or system.
+// OriginUserSystem - Indicates the operation is initiated by a user or system.
 	OriginUserSystem Origin = "user,system"
 )
 
 // PossibleOriginValues returns the possible values for the Origin const type.
 func PossibleOriginValues() []Origin {
-	return []Origin{
+	return []Origin{	
 		OriginSystem,
 		OriginUser,
 		OriginUserSystem,
@@ -74,25 +74,25 @@ func PossibleOriginValues() []Origin {
 type ProvisioningState string
 
 const (
-	// ProvisioningStateAccepted - The resource create request has been accepted
+// ProvisioningStateAccepted - The resource create request has been accepted
 	ProvisioningStateAccepted ProvisioningState = "Accepted"
-	// ProvisioningStateCanceled - Resource creation was canceled.
+// ProvisioningStateCanceled - Resource creation was canceled.
 	ProvisioningStateCanceled ProvisioningState = "Canceled"
-	// ProvisioningStateDeleting - The resource is being deleted
+// ProvisioningStateDeleting - The resource is being deleted
 	ProvisioningStateDeleting ProvisioningState = "Deleting"
-	// ProvisioningStateFailed - Resource creation failed.
+// ProvisioningStateFailed - Resource creation failed.
 	ProvisioningStateFailed ProvisioningState = "Failed"
-	// ProvisioningStateProvisioning - The resource is being provisioned
+// ProvisioningStateProvisioning - The resource is being provisioned
 	ProvisioningStateProvisioning ProvisioningState = "Provisioning"
-	// ProvisioningStateSucceeded - Resource has been created.
+// ProvisioningStateSucceeded - Resource has been created.
 	ProvisioningStateSucceeded ProvisioningState = "Succeeded"
-	// ProvisioningStateUpdating - The resource is updating
+// ProvisioningStateUpdating - The resource is updating
 	ProvisioningStateUpdating ProvisioningState = "Updating"
 )
 
 // PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
 func PossibleProvisioningStateValues() []ProvisioningState {
-	return []ProvisioningState{
+	return []ProvisioningState{	
 		ProvisioningStateAccepted,
 		ProvisioningStateCanceled,
 		ProvisioningStateDeleting,
@@ -107,16 +107,17 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 type RedundancyState string
 
 const (
-	// RedundancyStateNone - The resource is not redundant
+// RedundancyStateNone - The resource is not redundant
 	RedundancyStateNone RedundancyState = "None"
-	// RedundancyStateZone - The resource is zone redundant
+// RedundancyStateZone - The resource is zone redundant
 	RedundancyStateZone RedundancyState = "Zone"
 )
 
 // PossibleRedundancyStateValues returns the possible values for the RedundancyState const type.
 func PossibleRedundancyStateValues() []RedundancyState {
-	return []RedundancyState{
+	return []RedundancyState{	
 		RedundancyStateNone,
 		RedundancyStateZone,
 	}
 }
+
