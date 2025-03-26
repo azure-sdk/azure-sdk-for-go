@@ -13,7 +13,7 @@
 
 Install `azcertificates` and `azidentity` with `go get`:
 ```Bash
-go get github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azcertificates
+go get github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azcertificates/v2
 go get github.com/Azure/azure-sdk-for-go/sdk/azidentity
 ```
 [azidentity][azure_identity] is used for Azure Active Directory authentication as demonstrated below.
@@ -37,7 +37,7 @@ Constructing the client also requires your vault's URL, which you can get from t
 ```go
 import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azcertificates"
+	"github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azcertificates/v2"
 )
 
 func main() {
@@ -137,7 +137,7 @@ This project has adopted the [Microsoft Open Source Code of Conduct][code_of_con
 [azure_sub]: https://azure.microsoft.com/free/
 [code_of_conduct]: https://opensource.microsoft.com/codeofconduct/
 [keyvault_docs]: https://learn.microsoft.com/azure/key-vault/
-[client_docs]: https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azcertificates#Client
+[client_docs]: https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azcertificates/v2#Client
 [reference_docs]: https://aka.ms/azsdk/go/keyvault-certificates/docs
 [certificates_client_src]: https://github.com/Azure/azure-sdk-for-go/tree/main/sdk/security/keyvault/azcertificates
 [certificates_samples]: https://aka.ms/azsdk/go/keyvault-certificates/docs#pkg-examples
