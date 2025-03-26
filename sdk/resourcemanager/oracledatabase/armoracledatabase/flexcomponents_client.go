@@ -17,61 +17,61 @@ import (
 	"strings"
 )
 
-// SystemVersionsClient contains the methods for the SystemVersions group.
-// Don't use this type directly, use NewSystemVersionsClient() instead.
-type SystemVersionsClient struct {
+// FlexComponentsClient contains the methods for the FlexComponents group.
+// Don't use this type directly, use NewFlexComponentsClient() instead.
+type FlexComponentsClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewSystemVersionsClient creates a new instance of SystemVersionsClient with the specified values.
+// NewFlexComponentsClient creates a new instance of FlexComponentsClient with the specified values.
 //   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewSystemVersionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SystemVersionsClient, error) {
+func NewFlexComponentsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*FlexComponentsClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &SystemVersionsClient{
+	client := &FlexComponentsClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// Get - Get a SystemVersion
+// Get - Get a FlexComponent
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2025-03-01
 //   - location - The name of the Azure region.
-//   - systemversionname - SystemVersion name
-//   - options - SystemVersionsClientGetOptions contains the optional parameters for the SystemVersionsClient.Get method.
-func (client *SystemVersionsClient) Get(ctx context.Context, location string, systemversionname string, options *SystemVersionsClientGetOptions) (SystemVersionsClientGetResponse, error) {
+//   - flexComponentName - The name of the FlexComponent
+//   - options - FlexComponentsClientGetOptions contains the optional parameters for the FlexComponentsClient.Get method.
+func (client *FlexComponentsClient) Get(ctx context.Context, location string, flexComponentName string, options *FlexComponentsClientGetOptions) (FlexComponentsClientGetResponse, error) {
 	var err error
-	const operationName = "SystemVersionsClient.Get"
+	const operationName = "FlexComponentsClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, location, systemversionname, options)
+	req, err := client.getCreateRequest(ctx, location, flexComponentName, options)
 	if err != nil {
-		return SystemVersionsClientGetResponse{}, err
+		return FlexComponentsClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return SystemVersionsClientGetResponse{}, err
+		return FlexComponentsClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return SystemVersionsClientGetResponse{}, err
+		return FlexComponentsClientGetResponse{}, err
 	}
 	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
 // getCreateRequest creates the Get request.
-func (client *SystemVersionsClient) getCreateRequest(ctx context.Context, location string, systemversionname string, _ *SystemVersionsClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Oracle.Database/locations/{location}/systemVersions/{systemversionname}"
+func (client *FlexComponentsClient) getCreateRequest(ctx context.Context, location string, flexComponentName string, _ *FlexComponentsClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Oracle.Database/locations/{location}/flexComponents/{flexComponentName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -80,10 +80,10 @@ func (client *SystemVersionsClient) getCreateRequest(ctx context.Context, locati
 		return nil, errors.New("parameter location cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
-	if systemversionname == "" {
-		return nil, errors.New("parameter systemversionname cannot be empty")
+	if flexComponentName == "" {
+		return nil, errors.New("parameter flexComponentName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{systemversionname}", url.PathEscape(systemversionname))
+	urlPath = strings.ReplaceAll(urlPath, "{flexComponentName}", url.PathEscape(flexComponentName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -96,46 +96,46 @@ func (client *SystemVersionsClient) getCreateRequest(ctx context.Context, locati
 }
 
 // getHandleResponse handles the Get response.
-func (client *SystemVersionsClient) getHandleResponse(resp *http.Response) (SystemVersionsClientGetResponse, error) {
-	result := SystemVersionsClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.SystemVersion); err != nil {
-		return SystemVersionsClientGetResponse{}, err
+func (client *FlexComponentsClient) getHandleResponse(resp *http.Response) (FlexComponentsClientGetResponse, error) {
+	result := FlexComponentsClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.FlexComponent); err != nil {
+		return FlexComponentsClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListByLocationPager - List SystemVersion resources by SubscriptionLocationResource
+// NewListByParentPager - List FlexComponent resources by SubscriptionLocationResource
 //
 // Generated from API version 2025-03-01
 //   - location - The name of the Azure region.
-//   - options - SystemVersionsClientListByLocationOptions contains the optional parameters for the SystemVersionsClient.NewListByLocationPager
+//   - options - FlexComponentsClientListByParentOptions contains the optional parameters for the FlexComponentsClient.NewListByParentPager
 //     method.
-func (client *SystemVersionsClient) NewListByLocationPager(location string, options *SystemVersionsClientListByLocationOptions) *runtime.Pager[SystemVersionsClientListByLocationResponse] {
-	return runtime.NewPager(runtime.PagingHandler[SystemVersionsClientListByLocationResponse]{
-		More: func(page SystemVersionsClientListByLocationResponse) bool {
+func (client *FlexComponentsClient) NewListByParentPager(location string, options *FlexComponentsClientListByParentOptions) *runtime.Pager[FlexComponentsClientListByParentResponse] {
+	return runtime.NewPager(runtime.PagingHandler[FlexComponentsClientListByParentResponse]{
+		More: func(page FlexComponentsClientListByParentResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *SystemVersionsClientListByLocationResponse) (SystemVersionsClientListByLocationResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "SystemVersionsClient.NewListByLocationPager")
+		Fetcher: func(ctx context.Context, page *FlexComponentsClientListByParentResponse) (FlexComponentsClientListByParentResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "FlexComponentsClient.NewListByParentPager")
 			nextLink := ""
 			if page != nil {
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listByLocationCreateRequest(ctx, location, options)
+				return client.listByParentCreateRequest(ctx, location, options)
 			}, nil)
 			if err != nil {
-				return SystemVersionsClientListByLocationResponse{}, err
+				return FlexComponentsClientListByParentResponse{}, err
 			}
-			return client.listByLocationHandleResponse(resp)
+			return client.listByParentHandleResponse(resp)
 		},
 		Tracer: client.internal.Tracer(),
 	})
 }
 
-// listByLocationCreateRequest creates the ListByLocation request.
-func (client *SystemVersionsClient) listByLocationCreateRequest(ctx context.Context, location string, _ *SystemVersionsClientListByLocationOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Oracle.Database/locations/{location}/systemVersions"
+// listByParentCreateRequest creates the ListByParent request.
+func (client *FlexComponentsClient) listByParentCreateRequest(ctx context.Context, location string, options *FlexComponentsClientListByParentOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Oracle.Database/locations/{location}/flexComponents"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -150,16 +150,19 @@ func (client *SystemVersionsClient) listByLocationCreateRequest(ctx context.Cont
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2025-03-01")
+	if options != nil && options.Shape != nil {
+		reqQP.Set("shape", string(*options.Shape))
+	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
-// listByLocationHandleResponse handles the ListByLocation response.
-func (client *SystemVersionsClient) listByLocationHandleResponse(resp *http.Response) (SystemVersionsClientListByLocationResponse, error) {
-	result := SystemVersionsClientListByLocationResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.SystemVersionListResult); err != nil {
-		return SystemVersionsClientListByLocationResponse{}, err
+// listByParentHandleResponse handles the ListByParent response.
+func (client *FlexComponentsClient) listByParentHandleResponse(resp *http.Response) (FlexComponentsClientListByParentResponse, error) {
+	result := FlexComponentsClientListByParentResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.FlexComponentListResult); err != nil {
+		return FlexComponentsClientListByParentResponse{}, err
 	}
 	return result, nil
 }
