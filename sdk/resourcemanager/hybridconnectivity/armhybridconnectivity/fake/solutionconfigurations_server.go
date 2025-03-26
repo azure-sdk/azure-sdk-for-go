@@ -12,7 +12,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hybridconnectivity/armhybridconnectivity"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hybridconnectivity/armhybridconnectivity/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -42,7 +42,7 @@ type SolutionConfigurationsServer struct {
 
 	// Update is the fake for method SolutionConfigurationsClient.Update
 	// HTTP status codes to indicate success: http.StatusOK
-	Update func(ctx context.Context, resourceURI string, solutionConfiguration string, properties armhybridconnectivity.SolutionConfiguration, options *armhybridconnectivity.SolutionConfigurationsClientUpdateOptions) (resp azfake.Responder[armhybridconnectivity.SolutionConfigurationsClientUpdateResponse], errResp azfake.ErrorResponder)
+	Update func(ctx context.Context, resourceURI string, solutionConfiguration string, properties armhybridconnectivity.SolutionConfigurationUpdate, options *armhybridconnectivity.SolutionConfigurationsClientUpdateOptions) (resp azfake.Responder[armhybridconnectivity.SolutionConfigurationsClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewSolutionConfigurationsServerTransport creates a new instance of SolutionConfigurationsServerTransport with the provided implementation.
@@ -312,7 +312,7 @@ func (s *SolutionConfigurationsServerTransport) dispatchUpdate(req *http.Request
 	if matches == nil || len(matches) < 2 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armhybridconnectivity.SolutionConfiguration](req)
+	body, err := server.UnmarshalRequestAsJSON[armhybridconnectivity.SolutionConfigurationUpdate](req)
 	if err != nil {
 		return nil, err
 	}
