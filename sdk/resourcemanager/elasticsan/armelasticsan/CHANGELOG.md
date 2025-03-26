@@ -1,5 +1,15 @@
 # Release History
 
+## 1.2.0 (2025-03-26)
+### Features Added
+
+- New function `*VolumeGroupsClient.BeginPreBackup(context.Context, string, string, string, VolumeNameList, *VolumeGroupsClientBeginPreBackupOptions) (*runtime.Poller[VolumeGroupsClientPreBackupResponse], error)`
+- New function `*VolumeGroupsClient.BeginPreRestore(context.Context, string, string, string, DiskSnapshotList, *VolumeGroupsClientBeginPreRestoreOptions) (*runtime.Poller[VolumeGroupsClientPreRestoreResponse], error)`
+- New struct `DiskSnapshotList`
+- New struct `PreValidationResponse`
+- New struct `VolumeNameList`
+
+
 ## 1.2.0-beta.1 (2024-10-23)
 ### Features Added
 
