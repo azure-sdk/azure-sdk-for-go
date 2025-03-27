@@ -44,7 +44,7 @@ func NewSoftDeletedResourceClient(subscriptionID string, credential azcore.Token
 // NewListByArtifactNamePager - List soft-deleted resources of an artifact in the gallery, such as soft-deleted gallery image
 // version of an image.
 //
-// Generated from API version 2024-03-03
+// Generated from API version 2025-03-03
 //   - resourceGroupName - The name of the resource group.
 //   - galleryName - The name of the Gallery in which the soft-deleted resources resides.
 //   - artifactType - The type of the artifact to be listed, such as gallery image version.
@@ -103,7 +103,7 @@ func (client *SoftDeletedResourceClient) listByArtifactNameCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-03")
+	reqQP.Set("api-version", "2025-03-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

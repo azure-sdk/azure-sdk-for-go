@@ -44,7 +44,7 @@ func NewGalleryInVMAccessControlProfilesClient(subscriptionID string, credential
 // BeginCreateOrUpdate - Create or update a gallery inVMAccessControlProfile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-03
+// Generated from API version 2025-03-03
 //   - resourceGroupName - The name of the resource group.
 //   - galleryName - The name of the Shared Image Gallery in which the InVMAccessControlProfile is to be created.
 //   - inVMAccessControlProfileName - The name of the gallery inVMAccessControlProfile to be created or updated. The allowed characters
@@ -73,7 +73,7 @@ func (client *GalleryInVMAccessControlProfilesClient) BeginCreateOrUpdate(ctx co
 // CreateOrUpdate - Create or update a gallery inVMAccessControlProfile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-03
+// Generated from API version 2025-03-03
 func (client *GalleryInVMAccessControlProfilesClient) createOrUpdate(ctx context.Context, resourceGroupName string, galleryName string, inVMAccessControlProfileName string, galleryInVMAccessControlProfile GalleryInVMAccessControlProfile, options *GalleryInVMAccessControlProfilesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "GalleryInVMAccessControlProfilesClient.BeginCreateOrUpdate"
@@ -119,7 +119,7 @@ func (client *GalleryInVMAccessControlProfilesClient) createOrUpdateCreateReques
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-03")
+	reqQP.Set("api-version", "2025-03-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, galleryInVMAccessControlProfile); err != nil {
@@ -131,7 +131,7 @@ func (client *GalleryInVMAccessControlProfilesClient) createOrUpdateCreateReques
 // BeginDelete - Delete a gallery inVMAccessControlProfile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-03
+// Generated from API version 2025-03-03
 //   - resourceGroupName - The name of the resource group.
 //   - galleryName - he name of the Shared Image Gallery in which the InVMAccessControlProfile resides.
 //   - inVMAccessControlProfileName - The name of the gallery inVMAccessControlProfile to be deleted.
@@ -157,7 +157,7 @@ func (client *GalleryInVMAccessControlProfilesClient) BeginDelete(ctx context.Co
 // Delete - Delete a gallery inVMAccessControlProfile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-03
+// Generated from API version 2025-03-03
 func (client *GalleryInVMAccessControlProfilesClient) deleteOperation(ctx context.Context, resourceGroupName string, galleryName string, inVMAccessControlProfileName string, options *GalleryInVMAccessControlProfilesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "GalleryInVMAccessControlProfilesClient.BeginDelete"
@@ -203,7 +203,7 @@ func (client *GalleryInVMAccessControlProfilesClient) deleteCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-03")
+	reqQP.Set("api-version", "2025-03-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -212,7 +212,7 @@ func (client *GalleryInVMAccessControlProfilesClient) deleteCreateRequest(ctx co
 // Get - Retrieves information about a gallery inVMAccessControlProfile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-03
+// Generated from API version 2025-03-03
 //   - resourceGroupName - The name of the resource group.
 //   - galleryName - The name of the Shared Image Gallery from which the InVMAccessControlProfiles are to be retrieved.
 //   - inVMAccessControlProfileName - The name of the gallery inVMAccessControlProfile to be retrieved.
@@ -264,7 +264,7 @@ func (client *GalleryInVMAccessControlProfilesClient) getCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-03")
+	reqQP.Set("api-version", "2025-03-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -281,7 +281,7 @@ func (client *GalleryInVMAccessControlProfilesClient) getHandleResponse(resp *ht
 
 // NewListByGalleryPager - List gallery inVMAccessControlProfiles in a gallery.
 //
-// Generated from API version 2024-03-03
+// Generated from API version 2025-03-03
 //   - resourceGroupName - The name of the resource group.
 //   - galleryName - The name of the Shared Image Gallery from which the InVMAccessControlProfiles are to be listed.
 //   - options - GalleryInVMAccessControlProfilesClientListByGalleryOptions contains the optional parameters for the GalleryInVMAccessControlProfilesClient.NewListByGalleryPager
@@ -329,7 +329,7 @@ func (client *GalleryInVMAccessControlProfilesClient) listByGalleryCreateRequest
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-03")
+	reqQP.Set("api-version", "2025-03-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -347,7 +347,7 @@ func (client *GalleryInVMAccessControlProfilesClient) listByGalleryHandleRespons
 // BeginUpdate - Update a gallery inVMAccessControlProfile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-03
+// Generated from API version 2025-03-03
 //   - resourceGroupName - The name of the resource group.
 //   - galleryName - The name of the Shared Image Gallery in which the InVMAccessControlProfile is to be updated.
 //   - inVMAccessControlProfileName - The name of the gallery inVMAccessControlProfile to be updated. The allowed characters are
@@ -376,7 +376,7 @@ func (client *GalleryInVMAccessControlProfilesClient) BeginUpdate(ctx context.Co
 // Update - Update a gallery inVMAccessControlProfile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-03
+// Generated from API version 2025-03-03
 func (client *GalleryInVMAccessControlProfilesClient) update(ctx context.Context, resourceGroupName string, galleryName string, inVMAccessControlProfileName string, galleryInVMAccessControlProfile GalleryInVMAccessControlProfileUpdate, options *GalleryInVMAccessControlProfilesClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "GalleryInVMAccessControlProfilesClient.BeginUpdate"
@@ -422,7 +422,7 @@ func (client *GalleryInVMAccessControlProfilesClient) updateCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-03")
+	reqQP.Set("api-version", "2025-03-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, galleryInVMAccessControlProfile); err != nil {
