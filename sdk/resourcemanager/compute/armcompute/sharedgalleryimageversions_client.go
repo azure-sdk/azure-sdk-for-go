@@ -44,7 +44,7 @@ func NewSharedGalleryImageVersionsClient(subscriptionID string, credential azcor
 // Get - Get a shared gallery image version by subscription id or tenant id.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-03
+// Generated from API version 2025-03-03
 //   - location - Resource location.
 //   - galleryUniqueName - The unique name of the Shared Gallery.
 //   - galleryImageName - The name of the Shared Gallery Image Definition from which the Image Versions are to be listed.
@@ -103,7 +103,7 @@ func (client *SharedGalleryImageVersionsClient) getCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-03")
+	reqQP.Set("api-version", "2025-03-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -120,7 +120,7 @@ func (client *SharedGalleryImageVersionsClient) getHandleResponse(resp *http.Res
 
 // NewListPager - List shared gallery image versions by subscription id or tenant id.
 //
-// Generated from API version 2024-03-03
+// Generated from API version 2025-03-03
 //   - location - Resource location.
 //   - galleryUniqueName - The unique name of the Shared Gallery.
 //   - galleryImageName - The name of the Shared Gallery Image Definition from which the Image Versions are to be listed.
@@ -173,7 +173,7 @@ func (client *SharedGalleryImageVersionsClient) listCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-03")
+	reqQP.Set("api-version", "2025-03-03")
 	if options != nil && options.SharedTo != nil {
 		reqQP.Set("sharedTo", string(*options.SharedTo))
 	}
