@@ -1,5 +1,13 @@
 # Release History
 
+## 1.0.0 (2025-03-27)
+### Features Added
+
+- New function `*ClientFactory.NewOperationsClient() *OperationsClient`
+- New function `NewOperationsClient(azcore.TokenCredential, *arm.ClientOptions) (*OperationsClient, error)`
+- New function `*OperationsClient.NewListPager(*OperationsClientListOptions) *runtime.Pager[OperationsClientListResponse]`
+
+
 ## 0.1.0 (2024-10-21)
 ### Other Changes
 
