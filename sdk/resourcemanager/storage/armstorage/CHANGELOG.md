@@ -1,5 +1,11 @@
 # Release History
 
+## 1.8.0 (2025-03-28)
+### Features Added
+
+- New value `ProvisioningStateAccepted` added to enum type `ProvisioningState`
+
+
 ## 1.7.0 (2025-02-27)
 ### Features Added
 
