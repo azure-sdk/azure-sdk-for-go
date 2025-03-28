@@ -14,16 +14,16 @@ type BackupKeyResult struct {
 
 // CreateKeyParameters - The key create parameters.
 type CreateKeyParameters struct {
-	// REQUIRED; The type of key to create.
+	// REQUIRED; The type of key to create. For valid values, see JsonWebKeyType.
 	Kty *KeyType
 
-	// Elliptic curve name.
+	// Elliptic curve name. For valid values, see JsonWebKeyCurveName.
 	Curve *CurveName
 
 	// The attributes of a key managed by the key vault service.
 	KeyAttributes *KeyAttributes
 
-	// Json web key operations.
+	// Json web key operations. For more information on possible key operations, see JsonWebKeyOperation.
 	KeyOps []*KeyOperation
 
 	// The key size in bits. For example: 2048, 3072, or 4096 for RSA.
@@ -39,7 +39,7 @@ type CreateKeyParameters struct {
 	Tags map[string]*string
 }
 
-// DeletedKey - A DeletedKey consisting of a WebKey plus its Attributes and deletion info
+// DeletedKey - A DeletedKeyBundle consisting of a WebKey plus its Attributes and deletion info
 type DeletedKey struct {
 	// The key management attributes.
 	Attributes *KeyAttributes
@@ -73,7 +73,7 @@ type DeletedKeyProperties struct {
 	Attributes *KeyAttributes
 
 	// Key identifier.
-	KID *ID
+	KID *string
 
 	// The url of the recovery object, used to identify and recover the deleted key.
 	RecoveryID *string
@@ -128,7 +128,7 @@ type ImportKeyParameters struct {
 
 // JSONWebKey - As of http://tools.ietf.org/html/draft-ietf-jose-json-web-key-18
 type JSONWebKey struct {
-	// Elliptic curve name.
+	// Elliptic curve name. For valid values, see JsonWebKeyCurveName.
 	Crv *CurveName
 
 	// RSA private exponent, or the D component of an EC private key.
@@ -147,10 +147,10 @@ type JSONWebKey struct {
 	K []byte
 
 	// Key identifier.
-	KID *ID
+	KID *string
 
-	// Json web key operations.
-	KeyOps []*KeyOperation
+	// Json web key operations. For more information on possible key operations, see JsonWebKeyOperation.
+	KeyOps []*string
 
 	// JsonWebKey Key Type (kty), as defined in https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40.
 	Kty *KeyType
@@ -222,7 +222,7 @@ type KeyAttributes struct {
 	// READ-ONLY; Reflects the deletion recovery level currently in effect for keys in the current vault. If it contains 'Purgeable'
 	// the key can be permanently deleted by a privileged user; otherwise, only the system can purge the key, at the end of the
 	// retention interval.
-	RecoveryLevel *string
+	RecoveryLevel *DeletionRecoveryLevel
 
 	// READ-ONLY; Last updated time in UTC.
 	Updated *time.Time
@@ -277,7 +277,7 @@ type KeyOperationResult struct {
 	IV []byte
 
 	// READ-ONLY; Key identifier
-	KID *ID
+	KID *string
 
 	// READ-ONLY; The result of the operation.
 	Result []byte
@@ -289,7 +289,7 @@ type KeyProperties struct {
 	Attributes *KeyAttributes
 
 	// Key identifier.
-	KID *ID
+	KID *string
 
 	// Application specific metadata in the form of key-value pairs.
 	Tags map[string]*string
@@ -411,7 +411,7 @@ type RestoreKeyParameters struct {
 
 // SignParameters - The key operations parameters.
 type SignParameters struct {
-	// REQUIRED; The signing/verification algorithm identifier.
+	// REQUIRED; The signing/verification algorithm identifier. For more information on possible algorithm types, see JsonWebKeySignatureAlgorithm.
 	Algorithm *SignatureAlgorithm
 
 	// REQUIRED; The value to operate on.
@@ -423,7 +423,7 @@ type UpdateKeyParameters struct {
 	// The attributes of a key managed by the key vault service.
 	KeyAttributes *KeyAttributes
 
-	// Json web key operations.
+	// Json web key operations. For more information on possible key operations, see JsonWebKeyOperation.
 	KeyOps []*KeyOperation
 
 	// The policy rules under which the key can be exported.
@@ -435,7 +435,7 @@ type UpdateKeyParameters struct {
 
 // VerifyParameters - The key verify parameters.
 type VerifyParameters struct {
-	// REQUIRED; The signing/verification algorithm.
+	// REQUIRED; The signing/verification algorithm. For more information on possible algorithm types, see JsonWebKeySignatureAlgorithm.
 	Algorithm *SignatureAlgorithm
 
 	// REQUIRED; The digest used for signing.
