@@ -13,7 +13,7 @@
 
 Install `azkeys` and `azidentity` with `go get`:
 ```Bash
-go get github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azkeys
+go get github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azkeys/v2
 go get github.com/Azure/azure-sdk-for-go/sdk/azidentity
 ```
 [azidentity][azure_identity] is used for Azure Active Directory authentication as demonstrated below.
@@ -37,7 +37,7 @@ Constructing the client requires your vault's URL, which you can get from the Az
 ```go
 import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azkeys"
+	"github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azkeys/v2"
 )
 
 func main() {
