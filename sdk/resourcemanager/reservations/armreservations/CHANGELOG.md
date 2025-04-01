@@ -1,5 +1,11 @@
 # Release History
 
+## 3.2.0 (2025-04-01)
+### Features Added
+
+- New value `ReservedResourceTypeOpenAIPTU` added to enum type `ReservedResourceType`
+
+
 ## 3.1.0 (2023-11-24)
 ### Features Added
 
