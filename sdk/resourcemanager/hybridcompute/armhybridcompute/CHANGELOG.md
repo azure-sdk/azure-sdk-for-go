@@ -1,5 +1,53 @@
 # Release History
 
+## 2.1.0-beta.2 (2025-04-02)
+### Breaking Changes
+
+- Function `NewClientFactory` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(azcore.TokenCredential, *arm.ClientOptions)`
+- Function `*ClientFactory.NewExtensionMetadataClient` parameter(s) have been changed from `(<none>)` to `(string)`
+- Function `*ClientFactory.NewGatewaysClient` parameter(s) have been changed from `(<none>)` to `(string)`
+- Function `*ClientFactory.NewLicenseProfilesClient` parameter(s) have been changed from `(<none>)` to `(string)`
+- Function `*ClientFactory.NewLicensesClient` parameter(s) have been changed from `(<none>)` to `(string)`
+- Function `*ClientFactory.NewMachineExtensionsClient` parameter(s) have been changed from `(<none>)` to `(string)`
+- Function `*ClientFactory.NewMachineRunCommandsClient` parameter(s) have been changed from `(<none>)` to `(string)`
+- Function `*ClientFactory.NewMachinesClient` parameter(s) have been changed from `(<none>)` to `(string)`
+- Function `*ClientFactory.NewManagementClient` parameter(s) have been changed from `(<none>)` to `(string)`
+- Function `*ClientFactory.NewNetworkProfileClient` parameter(s) have been changed from `(<none>)` to `(string)`
+- Function `*ClientFactory.NewNetworkSecurityPerimeterConfigurationsClient` parameter(s) have been changed from `(<none>)` to `(string)`
+- Function `*ClientFactory.NewPrivateEndpointConnectionsClient` parameter(s) have been changed from `(<none>)` to `(string)`
+- Function `*ClientFactory.NewPrivateLinkResourcesClient` parameter(s) have been changed from `(<none>)` to `(string)`
+- Function `*ClientFactory.NewPrivateLinkScopesClient` parameter(s) have been changed from `(<none>)` to `(string)`
+- Function `*ClientFactory.NewSettingsClient` parameter(s) have been changed from `(<none>)` to `(string)`
+- Operation `*MachinesClient.Delete` has been changed to LRO, use `*MachinesClient.BeginDelete` instead.
+
+### Features Added
+
+- New value `StatusTypesAwaitingConnection` added to enum type `StatusTypes`
+- New enum type `IdentityKeyStore` with values `IdentityKeyStoreDefault`, `IdentityKeyStoreTPM`
+- New function `*ClientFactory.NewExtensionMetadataV2Client() *ExtensionMetadataV2Client`
+- New function `*ClientFactory.NewExtensionPublisherClient() *ExtensionPublisherClient`
+- New function `*ClientFactory.NewExtensionTypeClient() *ExtensionTypeClient`
+- New function `NewExtensionMetadataV2Client(azcore.TokenCredential, *arm.ClientOptions) (*ExtensionMetadataV2Client, error)`
+- New function `*ExtensionMetadataV2Client.Get(context.Context, string, string, string, string, *ExtensionMetadataV2ClientGetOptions) (ExtensionMetadataV2ClientGetResponse, error)`
+- New function `*ExtensionMetadataV2Client.NewListPager(string, string, string, *ExtensionMetadataV2ClientListOptions) *runtime.Pager[ExtensionMetadataV2ClientListResponse]`
+- New function `NewExtensionPublisherClient(azcore.TokenCredential, *arm.ClientOptions) (*ExtensionPublisherClient, error)`
+- New function `*ExtensionPublisherClient.NewListPager(string, *ExtensionPublisherClientListOptions) *runtime.Pager[ExtensionPublisherClientListResponse]`
+- New function `NewExtensionTypeClient(azcore.TokenCredential, *arm.ClientOptions) (*ExtensionTypeClient, error)`
+- New function `*ExtensionTypeClient.NewListPager(string, string, *ExtensionTypeClientListOptions) *runtime.Pager[ExtensionTypeClientListResponse]`
+- New function `*ManagementClient.BeginSetupExtensions(context.Context, string, string, SetupExtensionRequest, *ManagementClientBeginSetupExtensionsOptions) (*runtime.Poller[ManagementClientSetupExtensionsResponse], error)`
+- New struct `ExtensionPublisher`
+- New struct `ExtensionPublisherListResult`
+- New struct `ExtensionType`
+- New struct `ExtensionTypeListResult`
+- New struct `ExtensionValueListResultV2`
+- New struct `ExtensionValueV2`
+- New struct `ExtensionValueV2Properties`
+- New struct `SetupExtensionRequest`
+- New field `HardwareResourceID`, `IdentityKeyStore`, `TpmEkCertificate` in struct `MachineProperties`
+- New field `IdentityKeyStore`, `TpmEkCertificate` in struct `MachineUpdateProperties`
+- New field `PatchNameMasksToExclude`, `PatchNameMasksToInclude` in struct `WindowsParameters`
+
+
 ## 2.1.0-beta.1 (2024-11-14)
 ### Features Added
 
