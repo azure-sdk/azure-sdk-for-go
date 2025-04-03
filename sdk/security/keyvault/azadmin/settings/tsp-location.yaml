@@ -1,6 +1,4 @@
 directory: specification/keyvault/Security.KeyVault.Settings
-commit: cac8bb6ffc89f41dcd9bffaa265ecc45ef2d83c1
+commit: 0d05c551ddfed915a0e7cf6f6832e930e3d78dcd
 repo: Azure/azure-rest-api-specs
 additionalDirectories: 
-- specification/keyvault/Security.KeyVault.Common/
-# https://github.com/Azure/azure-rest-api-specs/tree/main/specification/keyvault/Security.KeyVault.Settings
