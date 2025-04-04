@@ -7595,14 +7595,25 @@ type VirtualMachineRunCommandProperties struct {
 	ProvisioningState *string
 }
 
-// VirtualMachineRunCommandScriptSource - Describes the script sources for run command. Use only one of script, scriptUri,
-// commandId.
+// VirtualMachineRunCommandScriptSource - Describes the script sources for run command. Use only one of these script sources:
+// script, scriptUri, commandId, galleryScriptReferenceId.
 type VirtualMachineRunCommandScriptSource struct {
-	// Specifies a commandId of predefined built-in script.
+	// Specifies a commandId of predefined built-in script. Command Ids available for Linux are listed at https://aka.ms/RunCommandManagedLinux#available-commands,
+	// Windows at
+	// https://aka.ms/RunCommandManagedWindows#available-commands
 	CommandID *string
+
+	// The resource Id of a Gallery Script version that needs to be executed. Example Id looks like
+	// /subscriptions/{subId}/resourceGroups/{rgName}/providers/Microsoft.Compute/galleries/{galleryName}/scripts/{scriptName}/versions/{version}.
+	GalleryScriptReferenceID *string
 
 	// Specifies the script content to be executed on the VM.
 	Script *string
+
+	// Optional. Specify which shell to use for running the script. These values must match those expected by the extension. Currently
+	// supported only for Windows VMs, script uses Powershell 7 when specified.
+	// Powershell 7 must be already installed on the machine to use Powershell7 parameter value.
+	ScriptShell *ScriptShellTypes
 
 	// Specifies the script download location. It can be either SAS URI of an Azure storage blob with read access or public URI.
 	ScriptURI *string
@@ -9199,6 +9210,16 @@ type WindowsParameters struct {
 
 	// This is used to install patches that were published on or before this given max published date.
 	MaxPatchPublishDate *time.Time
+
+	// This is used to exclude patches that match the given patch name masks. Alphanumeric strings and wildcard expressions consisting
+	// of * and ? are only supported as input values in the list. Null, empty
+	// and only whitespaces strings as inputs values are not supported.
+	PatchNameMasksToExclude []*string
+
+	// This is used to include patches that match the given patch name masks. Alphanumeric strings and wildcard expressions consisting
+	// of * and ? are only supported as input values in the list. Null, empty
+	// and only whitespaces strings as inputs values are not supported.
+	PatchNameMasksToInclude []*string
 }
 
 // WindowsVMGuestPatchAutomaticByPlatformSettings - Specifies additional settings to be applied when patch mode AutomaticByPlatform

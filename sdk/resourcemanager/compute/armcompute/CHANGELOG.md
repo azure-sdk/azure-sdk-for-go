@@ -1,5 +1,13 @@
 # Release History
 
+## 6.5.0 (2025-04-04)
+### Features Added
+
+- New enum type `ScriptShellTypes` with values `ScriptShellTypesDefault`, `ScriptShellTypesPowershell7`
+- New field `GalleryScriptReferenceID`, `ScriptShell` in struct `VirtualMachineRunCommandScriptSource`
+- New field `PatchNameMasksToExclude`, `PatchNameMasksToInclude` in struct `WindowsParameters`
+
+
 ## 6.4.0 (2025-03-28)
 ### Features Added
 

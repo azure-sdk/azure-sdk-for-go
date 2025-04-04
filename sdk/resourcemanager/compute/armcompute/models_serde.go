@@ -18055,7 +18055,9 @@ func (v *VirtualMachineRunCommandProperties) UnmarshalJSON(data []byte) error {
 func (v VirtualMachineRunCommandScriptSource) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "commandId", v.CommandID)
+	populate(objectMap, "galleryScriptReferenceId", v.GalleryScriptReferenceID)
 	populate(objectMap, "script", v.Script)
+	populate(objectMap, "scriptShell", v.ScriptShell)
 	populate(objectMap, "scriptUri", v.ScriptURI)
 	populate(objectMap, "scriptUriManagedIdentity", v.ScriptURIManagedIdentity)
 	return json.Marshal(objectMap)
@@ -18073,8 +18075,14 @@ func (v *VirtualMachineRunCommandScriptSource) UnmarshalJSON(data []byte) error 
 		case "commandId":
 			err = unpopulate(val, "CommandID", &v.CommandID)
 			delete(rawMsg, key)
+		case "galleryScriptReferenceId":
+			err = unpopulate(val, "GalleryScriptReferenceID", &v.GalleryScriptReferenceID)
+			delete(rawMsg, key)
 		case "script":
 			err = unpopulate(val, "Script", &v.Script)
+			delete(rawMsg, key)
+		case "scriptShell":
+			err = unpopulate(val, "ScriptShell", &v.ScriptShell)
 			delete(rawMsg, key)
 		case "scriptUri":
 			err = unpopulate(val, "ScriptURI", &v.ScriptURI)
@@ -21231,6 +21239,8 @@ func (w WindowsParameters) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "kbNumbersToExclude", w.KbNumbersToExclude)
 	populate(objectMap, "kbNumbersToInclude", w.KbNumbersToInclude)
 	populateDateTimeRFC3339(objectMap, "maxPatchPublishDate", w.MaxPatchPublishDate)
+	populate(objectMap, "patchNameMasksToExclude", w.PatchNameMasksToExclude)
+	populate(objectMap, "patchNameMasksToInclude", w.PatchNameMasksToInclude)
 	return json.Marshal(objectMap)
 }
 
@@ -21257,6 +21267,12 @@ func (w *WindowsParameters) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "maxPatchPublishDate":
 			err = unpopulateDateTimeRFC3339(val, "MaxPatchPublishDate", &w.MaxPatchPublishDate)
+			delete(rawMsg, key)
+		case "patchNameMasksToExclude":
+			err = unpopulate(val, "PatchNameMasksToExclude", &w.PatchNameMasksToExclude)
+			delete(rawMsg, key)
+		case "patchNameMasksToInclude":
+			err = unpopulate(val, "PatchNameMasksToInclude", &w.PatchNameMasksToInclude)
 			delete(rawMsg, key)
 		}
 		if err != nil {

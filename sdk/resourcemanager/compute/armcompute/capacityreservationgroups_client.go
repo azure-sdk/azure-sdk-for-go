@@ -46,7 +46,7 @@ func NewCapacityReservationGroupsClient(subscriptionID string, credential azcore
 // https://aka.ms/CapacityReservation for more details.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-04-01
 //   - resourceGroupName - The name of the resource group.
 //   - capacityReservationGroupName - The name of the capacity reservation group.
 //   - parameters - Parameters supplied to the Create capacity reservation Group.
@@ -94,7 +94,7 @@ func (client *CapacityReservationGroupsClient) createOrUpdateCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-11-01")
+	reqQP.Set("api-version", "2025-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -117,7 +117,7 @@ func (client *CapacityReservationGroupsClient) createOrUpdateHandleResponse(resp
 // the reservation group have also been deleted. Please refer to https://aka.ms/CapacityReservation for more details.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-04-01
 //   - resourceGroupName - The name of the resource group.
 //   - capacityReservationGroupName - The name of the capacity reservation group.
 //   - options - CapacityReservationGroupsClientDeleteOptions contains the optional parameters for the CapacityReservationGroupsClient.Delete
@@ -163,7 +163,7 @@ func (client *CapacityReservationGroupsClient) deleteCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-11-01")
+	reqQP.Set("api-version", "2025-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -172,7 +172,7 @@ func (client *CapacityReservationGroupsClient) deleteCreateRequest(ctx context.C
 // Get - The operation that retrieves information about a capacity reservation group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-04-01
 //   - resourceGroupName - The name of the resource group.
 //   - capacityReservationGroupName - The name of the capacity reservation group.
 //   - options - CapacityReservationGroupsClientGetOptions contains the optional parameters for the CapacityReservationGroupsClient.Get
@@ -222,7 +222,7 @@ func (client *CapacityReservationGroupsClient) getCreateRequest(ctx context.Cont
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", string(*options.Expand))
 	}
-	reqQP.Set("api-version", "2024-11-01")
+	reqQP.Set("api-version", "2025-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -240,7 +240,7 @@ func (client *CapacityReservationGroupsClient) getHandleResponse(resp *http.Resp
 // NewListByResourceGroupPager - Lists all of the capacity reservation groups in the specified resource group. Use the nextLink
 // property in the response to get the next page of capacity reservation groups.
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-04-01
 //   - resourceGroupName - The name of the resource group.
 //   - options - CapacityReservationGroupsClientListByResourceGroupOptions contains the optional parameters for the CapacityReservationGroupsClient.NewListByResourceGroupPager
 //     method.
@@ -286,7 +286,7 @@ func (client *CapacityReservationGroupsClient) listByResourceGroupCreateRequest(
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", string(*options.Expand))
 	}
-	reqQP.Set("api-version", "2024-11-01")
+	reqQP.Set("api-version", "2025-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -304,7 +304,7 @@ func (client *CapacityReservationGroupsClient) listByResourceGroupHandleResponse
 // NewListBySubscriptionPager - Lists all of the capacity reservation groups in the subscription. Use the nextLink property
 // in the response to get the next page of capacity reservation groups.
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-04-01
 //   - options - CapacityReservationGroupsClientListBySubscriptionOptions contains the optional parameters for the CapacityReservationGroupsClient.NewListBySubscriptionPager
 //     method.
 func (client *CapacityReservationGroupsClient) NewListBySubscriptionPager(options *CapacityReservationGroupsClientListBySubscriptionOptions) *runtime.Pager[CapacityReservationGroupsClientListBySubscriptionResponse] {
@@ -345,7 +345,7 @@ func (client *CapacityReservationGroupsClient) listBySubscriptionCreateRequest(c
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", string(*options.Expand))
 	}
-	reqQP.Set("api-version", "2024-11-01")
+	reqQP.Set("api-version", "2025-04-01")
 	if options != nil && options.ResourceIDsOnly != nil {
 		reqQP.Set("resourceIdsOnly", string(*options.ResourceIDsOnly))
 	}
@@ -367,7 +367,7 @@ func (client *CapacityReservationGroupsClient) listBySubscriptionHandleResponse(
 // sharing profile may be modified.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-04-01
 //   - resourceGroupName - The name of the resource group.
 //   - capacityReservationGroupName - The name of the capacity reservation group.
 //   - parameters - Parameters supplied to the Update capacity reservation Group operation.
@@ -415,7 +415,7 @@ func (client *CapacityReservationGroupsClient) updateCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-11-01")
+	reqQP.Set("api-version", "2025-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
