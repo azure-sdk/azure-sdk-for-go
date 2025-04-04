@@ -7,7 +7,7 @@ package armcompute
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute"
-	moduleVersion = "v6.4.0"
+	moduleVersion = "v6.5.0"
 )
 
 // AccessControlRulesMode - This property allows you to specify whether the access control rules are in Audit mode, in Enforce
@@ -2047,6 +2047,24 @@ func PossibleSSHEncryptionTypesValues() []SSHEncryptionTypes {
 	return []SSHEncryptionTypes{
 		SSHEncryptionTypesEd25519,
 		SSHEncryptionTypesRSA,
+	}
+}
+
+// ScriptShellTypes - Optional. Specify which shell to use for running the script. These values must match those expected
+// by the extension. Currently supported only for Windows VMs, script uses Powershell 7 when specified.
+// Powershell 7 must be already installed on the machine to use Powershell7 parameter value.
+type ScriptShellTypes string
+
+const (
+	ScriptShellTypesDefault     ScriptShellTypes = "Default"
+	ScriptShellTypesPowershell7 ScriptShellTypes = "Powershell7"
+)
+
+// PossibleScriptShellTypesValues returns the possible values for the ScriptShellTypes const type.
+func PossibleScriptShellTypesValues() []ScriptShellTypes {
+	return []ScriptShellTypes{
+		ScriptShellTypesDefault,
+		ScriptShellTypesPowershell7,
 	}
 }
 
