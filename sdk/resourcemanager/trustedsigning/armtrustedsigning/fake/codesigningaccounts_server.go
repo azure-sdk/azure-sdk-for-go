@@ -29,7 +29,7 @@ type CodeSigningAccountsServer struct {
 	BeginCreate func(ctx context.Context, resourceGroupName string, accountName string, resource armtrustedsigning.CodeSigningAccount, options *armtrustedsigning.CodeSigningAccountsClientBeginCreateOptions) (resp azfake.PollerResponder[armtrustedsigning.CodeSigningAccountsClientCreateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method CodeSigningAccountsClient.BeginDelete
-	// HTTP status codes to indicate success: http.StatusAccepted, http.StatusNoContent
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
 	BeginDelete func(ctx context.Context, resourceGroupName string, accountName string, options *armtrustedsigning.CodeSigningAccountsClientBeginDeleteOptions) (resp azfake.PollerResponder[armtrustedsigning.CodeSigningAccountsClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method CodeSigningAccountsClient.Get
@@ -86,29 +86,48 @@ func (c *CodeSigningAccountsServerTransport) Do(req *http.Request) (*http.Respon
 }
 
 func (c *CodeSigningAccountsServerTransport) dispatchToMethodFake(req *http.Request, method string) (*http.Response, error) {
-	var resp *http.Response
-	var err error
+	resultChan := make(chan result)
+	defer close(resultChan)
 
-	switch method {
-	case "CodeSigningAccountsClient.CheckNameAvailability":
-		resp, err = c.dispatchCheckNameAvailability(req)
-	case "CodeSigningAccountsClient.BeginCreate":
-		resp, err = c.dispatchBeginCreate(req)
-	case "CodeSigningAccountsClient.BeginDelete":
-		resp, err = c.dispatchBeginDelete(req)
-	case "CodeSigningAccountsClient.Get":
-		resp, err = c.dispatchGet(req)
-	case "CodeSigningAccountsClient.NewListByResourceGroupPager":
-		resp, err = c.dispatchNewListByResourceGroupPager(req)
-	case "CodeSigningAccountsClient.NewListBySubscriptionPager":
-		resp, err = c.dispatchNewListBySubscriptionPager(req)
-	case "CodeSigningAccountsClient.BeginUpdate":
-		resp, err = c.dispatchBeginUpdate(req)
-	default:
-		err = fmt.Errorf("unhandled API %s", method)
+	go func() {
+		var intercepted bool
+		var res result
+		if codeSigningAccountsServerTransportInterceptor != nil {
+			res.resp, res.err, intercepted = codeSigningAccountsServerTransportInterceptor.Do(req)
+		}
+		if !intercepted {
+			switch method {
+			case "CodeSigningAccountsClient.CheckNameAvailability":
+				res.resp, res.err = c.dispatchCheckNameAvailability(req)
+			case "CodeSigningAccountsClient.BeginCreate":
+				res.resp, res.err = c.dispatchBeginCreate(req)
+			case "CodeSigningAccountsClient.BeginDelete":
+				res.resp, res.err = c.dispatchBeginDelete(req)
+			case "CodeSigningAccountsClient.Get":
+				res.resp, res.err = c.dispatchGet(req)
+			case "CodeSigningAccountsClient.NewListByResourceGroupPager":
+				res.resp, res.err = c.dispatchNewListByResourceGroupPager(req)
+			case "CodeSigningAccountsClient.NewListBySubscriptionPager":
+				res.resp, res.err = c.dispatchNewListBySubscriptionPager(req)
+			case "CodeSigningAccountsClient.BeginUpdate":
+				res.resp, res.err = c.dispatchBeginUpdate(req)
+			default:
+				res.err = fmt.Errorf("unhandled API %s", method)
+			}
+
+		}
+		select {
+		case resultChan <- res:
+		case <-req.Context().Done():
+		}
+	}()
+
+	select {
+	case <-req.Context().Done():
+		return nil, req.Context().Err()
+	case res := <-resultChan:
+		return res.resp, res.err
 	}
-
-	return resp, err
 }
 
 func (c *CodeSigningAccountsServerTransport) dispatchCheckNameAvailability(req *http.Request) (*http.Response, error) {
@@ -221,9 +240,9 @@ func (c *CodeSigningAccountsServerTransport) dispatchBeginDelete(req *http.Reque
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
 		c.beginDelete.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginDelete) {
 		c.beginDelete.remove(req)
@@ -381,4 +400,10 @@ func (c *CodeSigningAccountsServerTransport) dispatchBeginUpdate(req *http.Reque
 	}
 
 	return resp, nil
+}
+
+// set this to conditionally intercept incoming requests to CodeSigningAccountsServerTransport
+var codeSigningAccountsServerTransportInterceptor interface {
+	// Do returns true if the server transport should use the returned response/error
+	Do(*http.Request) (*http.Response, error, bool)
 }
