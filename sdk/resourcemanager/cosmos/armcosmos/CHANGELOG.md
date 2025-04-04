@@ -1,5 +1,23 @@
 # Release History
 
+## 4.0.0-beta.3 (2025-04-02)
+### Features Added
+
+- New function `*AzureBlobStorageContainerEntity.GetContainerEntity() *ContainerEntity`
+- New function `*CassandraContainerEntity.GetContainerEntity() *ContainerEntity`
+- New function `*ContainerEntity.GetContainerEntity() *ContainerEntity`
+- New function `*MongoContainerEntity.GetContainerEntity() *ContainerEntity`
+- New function `*MongoVCoreContainerEntity.GetContainerEntity() *ContainerEntity`
+- New function `*SQLContainerEntity.GetContainerEntity() *ContainerEntity`
+- New struct `AzureBlobStorageContainerEntity`
+- New struct `CassandraContainerEntity`
+- New struct `DataTransferContainerDetails`
+- New struct `MongoContainerEntity`
+- New struct `MongoVCoreContainerEntity`
+- New struct `SQLContainerEntity`
+- New field `SourceAndDestinationContainers` in struct `DataTransferJobProperties`
+
+
 ## 4.0.0-beta.2 (2024-12-12)
 ### Breaking Changes
 
