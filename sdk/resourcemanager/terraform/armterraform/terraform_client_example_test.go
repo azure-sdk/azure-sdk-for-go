@@ -6,7 +6,7 @@ package armterraform_test
 
 import (
 	"context"
-	// "github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/terraform/armterraform"
 	"log"
@@ -23,12 +23,10 @@ func ExampleTerraformClient_BeginExportTerraform() {
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	// armterraform.ExportResourceGroup{
-	// 	Type:              to.Ptr(armterraform.TypeExportResourceGroup),
-	// 	ResourceGroupName: to.Ptr("rg1"),
-	// }
-	var b armterraform.BaseExportModelClassification
-	poller, err := clientFactory.NewTerraformClient().BeginExportTerraform(ctx, b, nil)
+	poller, err := clientFactory.NewTerraformClient().BeginExportTerraform(ctx, armterraform.ExportResourceGroup{
+		Type:              to.Ptr(armterraform.TypeExportResourceGroup),
+		ResourceGroupName: to.Ptr("rg1"),
+	}, nil)
 	if err != nil {
 		log.Fatalf("failed to finish the request: %v", err)
 	}
