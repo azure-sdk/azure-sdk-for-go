@@ -1,5 +1,11 @@
 # Release History
 
+## 1.1.0 (2025-03-04)
+### Features Added
+
+- New field `Features` in struct `InstanceProperties`
+
+
 ## 1.0.0 (2024-12-12)
 ### Breaking Changes
 
