@@ -347,23 +347,11 @@ func (a *AssignmentsServerTransport) dispatchGetByID(req *http.Request) (*http.R
 	if matches == nil || len(matches) < 1 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	qp := req.URL.Query()
 	policyAssignmentIDParam, err := url.PathUnescape(matches[regex.SubexpIndex("policyAssignmentId")])
 	if err != nil {
 		return nil, err
 	}
-	expandUnescaped, err := url.QueryUnescape(qp.Get("$expand"))
-	if err != nil {
-		return nil, err
-	}
-	expandParam := getOptional(expandUnescaped)
-	var options *armpolicy.AssignmentsClientGetByIDOptions
-	if expandParam != nil {
-		options = &armpolicy.AssignmentsClientGetByIDOptions{
-			Expand: expandParam,
-		}
-	}
-	respr, errRespr := a.srv.GetByID(req.Context(), policyAssignmentIDParam, options)
+	respr, errRespr := a.srv.GetByID(req.Context(), policyAssignmentIDParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
