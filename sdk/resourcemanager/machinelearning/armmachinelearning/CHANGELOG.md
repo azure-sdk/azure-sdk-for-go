@@ -1,5 +1,51 @@
 # Release History
 
+## 5.0.0 (2025-04-05)
+### Breaking Changes
+
+- Struct `UserCreatedAcrAccount` has been removed
+- Struct `UserCreatedStorageAccount` has been removed
+- Field `UserCreatedAcrAccount` of struct `AcrDetails` has been removed
+- Field `UserCreatedStorageAccount` of struct `StorageAccountDetails` has been removed
+
+### Features Added
+
+- New value `ConnectionCategoryElasticsearch`, `ConnectionCategoryManagedOnlineEndpoint`, `ConnectionCategoryPinecone` added to enum type `ConnectionCategory`
+- New value `RuleStatusDeleting`, `RuleStatusFailed`, `RuleStatusProvisioning` added to enum type `RuleStatus`
+- New enum type `FirewallSKU` with values `FirewallSKUBasic`, `FirewallSKUStandard`
+- New enum type `ManagedNetworkKind` with values `ManagedNetworkKindV1`, `ManagedNetworkKindV2`
+- New function `*ClientFactory.NewManagedNetworkSettingsClient() *ManagedNetworkSettingsClient`
+- New function `*ClientFactory.NewOutboundRuleClient() *OutboundRuleClient`
+- New function `*ClientFactory.NewOutboundRulesClient() *OutboundRulesClient`
+- New function `NewManagedNetworkSettingsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ManagedNetworkSettingsClient, error)`
+- New function `*ManagedNetworkSettingsClient.Get(context.Context, string, string, string, *ManagedNetworkSettingsClientGetOptions) (ManagedNetworkSettingsClientGetResponse, error)`
+- New function `*ManagedNetworkSettingsClient.BeginPatch(context.Context, string, string, string, ManagedNetworkSettingsDtoBasicResource, *ManagedNetworkSettingsClientBeginPatchOptions) (*runtime.Poller[ManagedNetworkSettingsClientPatchResponse], error)`
+- New function `*ManagedNetworkSettingsClient.BeginPut(context.Context, string, string, string, ManagedNetworkSettingsDtoBasicResource, *ManagedNetworkSettingsClientBeginPutOptions) (*runtime.Poller[ManagedNetworkSettingsClientPutResponse], error)`
+- New function `NewOutboundRuleClient(string, azcore.TokenCredential, *arm.ClientOptions) (*OutboundRuleClient, error)`
+- New function `*OutboundRuleClient.BeginCreateOrUpdate(context.Context, string, string, string, string, OutboundRuleBasicResource, *OutboundRuleClientBeginCreateOrUpdateOptions) (*runtime.Poller[OutboundRuleClientCreateOrUpdateResponse], error)`
+- New function `*OutboundRuleClient.BeginDelete(context.Context, string, string, string, string, *OutboundRuleClientBeginDeleteOptions) (*runtime.Poller[OutboundRuleClientDeleteResponse], error)`
+- New function `*OutboundRuleClient.Get(context.Context, string, string, string, string, *OutboundRuleClientGetOptions) (OutboundRuleClientGetResponse, error)`
+- New function `*OutboundRuleClient.NewListPager(string, string, string, *OutboundRuleClientListOptions) *runtime.Pager[OutboundRuleClientListResponse]`
+- New function `*OutboundRuleDto.GetOutboundRuleDto() *OutboundRuleDto`
+- New function `NewOutboundRulesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*OutboundRulesClient, error)`
+- New function `*OutboundRulesClient.BeginPost(context.Context, string, string, string, ManagedNetworkSettingsDtoBasicResource, *OutboundRulesClientBeginPostOptions) (*runtime.Poller[*runtime.Pager[OutboundRulesClientPostResponse]], error)`
+- New function `*WorkspaceConnectionsClient.Update(context.Context, string, string, string, *WorkspaceConnectionsClientUpdateOptions) (WorkspaceConnectionsClientUpdateResponse, error)`
+- New struct `ManagedNetworkSettingsDto`
+- New struct `ManagedNetworkSettingsDtoBasicResource`
+- New struct `OutboundRulesClientPostResponse`
+- New struct `WorkspaceConnectionUpdateParameter`
+- New field `ErrorInformation`, `ParentRuleNames` in struct `FqdnOutboundRule`
+- New field `StartupRoute` in struct `InferenceContainerProperties`
+- New field `StartupProbe` in struct `KubernetesOnlineDeployment`
+- New field `FirewallPublicIPAddress`, `FirewallSKU`, `ManagedNetworkKind` in struct `ManagedNetworkSettings`
+- New field `StartupProbe` in struct `ManagedOnlineDeployment`
+- New field `StartupProbe` in struct `OnlineDeploymentProperties`
+- New field `ErrorInformation`, `ParentRuleNames` in struct `OutboundRule`
+- New field `ErrorInformation`, `ParentRuleNames` in struct `PrivateEndpointOutboundRule`
+- New field `ErrorInformation`, `ParentRuleNames` in struct `ServiceTagOutboundRule`
+- New field `IncludeAll` in struct `WorkspaceConnectionsClientListOptions`
+
+
 ## 4.0.0 (2024-08-23)
 ### Breaking Changes
 
