@@ -155,6 +155,18 @@ type ManagedHsmsClientListDeletedOptions struct {
 	// placeholder for future optional parameters
 }
 
+// NetworkSecurityPerimeterClientGetConfigurationOptions contains the optional parameters for the NetworkSecurityPerimeterClient.GetConfiguration
+// method.
+type NetworkSecurityPerimeterClientGetConfigurationOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NetworkSecurityPerimeterClientListConfigurationOptions contains the optional parameters for the NetworkSecurityPerimeterClient.NewListConfigurationPager
+// method.
+type NetworkSecurityPerimeterClientListConfigurationOptions struct {
+	// placeholder for future optional parameters
+}
+
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters

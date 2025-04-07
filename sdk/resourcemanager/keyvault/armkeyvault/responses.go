@@ -164,6 +164,18 @@ type ManagedHsmsClientUpdateResponse struct {
 	ManagedHsm
 }
 
+// NetworkSecurityPerimeterClientGetConfigurationResponse contains the response from method NetworkSecurityPerimeterClient.GetConfiguration.
+type NetworkSecurityPerimeterClientGetConfigurationResponse struct {
+	// Network security perimeter (NSP) configuration resource
+	NetworkSecurityPerimeterConfiguration
+}
+
+// NetworkSecurityPerimeterClientListConfigurationResponse contains the response from method NetworkSecurityPerimeterClient.NewListConfigurationPager.
+type NetworkSecurityPerimeterClientListConfigurationResponse struct {
+	// Result of a list NSP (network security perimeter) configurations request.
+	NetworkSecurityPerimeterConfigurationListResult
+}
+
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
 	// Result of the request to list Storage operations. It contains a list of operations and a URL link to get the next set of
