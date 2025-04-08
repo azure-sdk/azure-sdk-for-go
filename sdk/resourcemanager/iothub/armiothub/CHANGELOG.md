@@ -1,5 +1,21 @@
 # Release History
 
+## 2.0.0 (2025-04-08)
+### Breaking Changes
+
+- Field `DefaultTTLAsIso8601` of struct `CloudToDeviceProperties` has been removed
+- Field `LockDurationAsIso8601`, `TTLAsIso8601` of struct `FeedbackProperties` has been removed
+- Field `LockDurationAsIso8601`, `TTLAsIso8601` of struct `MessagingEndpointProperties` has been removed
+- Field `SasTTLAsIso8601` of struct `StorageEndpointProperties` has been removed
+
+### Features Added
+
+- New field `DefaultTTLAsISO8601` in struct `CloudToDeviceProperties`
+- New field `LockDurationAsISO8601`, `TTLAsISO8601` in struct `FeedbackProperties`
+- New field `LockDurationAsISO8601`, `TTLAsISO8601` in struct `MessagingEndpointProperties`
+- New field `SasTTLAsISO8601` in struct `StorageEndpointProperties`
+
+
 ## 1.3.0 (2023-11-24)
 ### Features Added
 
