@@ -1,5 +1,16 @@
 # Release History
 
+## 4.2.0 (2025-04-08)
+### Features Added
+
+- New value `OperationTypeRehydrate` added to enum type `OperationType`
+- New field `RecoveryPointTierDetails` in struct `AzureFileShareRecoveryPoint`
+- New field `PolicyType` in struct `AzureIaaSClassicComputeVMProtectedItem`
+- New field `PolicyType` in struct `AzureIaaSComputeVMProtectedItem`
+- New field `PolicyType` in struct `AzureIaaSVMProtectedItem`
+- New field `OperationType` in struct `AzureStorageContainer`
+
+
 ## 4.1.0 (2024-05-24)
 ### Features Added
 
