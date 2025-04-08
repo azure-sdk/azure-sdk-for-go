@@ -8,7 +8,7 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hybridconnectivity/armhybridconnectivity"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hybridconnectivity/armhybridconnectivity/v2"
 	"log"
 )
 
@@ -19,11 +19,11 @@ func ExamplePublicCloudConnectorsClient_BeginCreateOrUpdate() {
 		log.Fatalf("failed to obtain a credential: %v", err)
 	}
 	ctx := context.Background()
-	clientFactory, err := armhybridconnectivity.NewClientFactory(cred, nil)
+	clientFactory, err := armhybridconnectivity.NewClientFactory("5ACC4579-DB34-4C2F-8F8C-25061168F342", cred, nil)
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	poller, err := clientFactory.NewPublicCloudConnectorsClient("5ACC4579-DB34-4C2F-8F8C-25061168F342").BeginCreateOrUpdate(ctx, "rgpublicCloud", "advjwoakdusalamomg", armhybridconnectivity.PublicCloudConnector{
+	poller, err := clientFactory.NewPublicCloudConnectorsClient().BeginCreateOrUpdate(ctx, "rgpublicCloud", "advjwoakdusalamomg", armhybridconnectivity.PublicCloudConnector{
 		Properties: &armhybridconnectivity.PublicCloudConnectorProperties{
 			AwsCloudProfile: &armhybridconnectivity.AwsCloudProfile{
 				AccountID: to.Ptr("snbnuxckevyqpm"),
@@ -86,11 +86,11 @@ func ExamplePublicCloudConnectorsClient_Delete() {
 		log.Fatalf("failed to obtain a credential: %v", err)
 	}
 	ctx := context.Background()
-	clientFactory, err := armhybridconnectivity.NewClientFactory(cred, nil)
+	clientFactory, err := armhybridconnectivity.NewClientFactory("5ACC4579-DB34-4C2F-8F8C-25061168F342", cred, nil)
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	res, err := clientFactory.NewPublicCloudConnectorsClient("5ACC4579-DB34-4C2F-8F8C-25061168F342").Delete(ctx, "rgpublicCloud", "skcfyjvflkhibdywjay", nil)
+	res, err := clientFactory.NewPublicCloudConnectorsClient().Delete(ctx, "rgpublicCloud", "skcfyjvflkhibdywjay", nil)
 	if err != nil {
 		log.Fatalf("failed to finish the request: %v", err)
 	}
@@ -108,11 +108,11 @@ func ExamplePublicCloudConnectorsClient_Get() {
 		log.Fatalf("failed to obtain a credential: %v", err)
 	}
 	ctx := context.Background()
-	clientFactory, err := armhybridconnectivity.NewClientFactory(cred, nil)
+	clientFactory, err := armhybridconnectivity.NewClientFactory("5ACC4579-DB34-4C2F-8F8C-25061168F342", cred, nil)
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	res, err := clientFactory.NewPublicCloudConnectorsClient("5ACC4579-DB34-4C2F-8F8C-25061168F342").Get(ctx, "rgpublicCloud", "rzygvnpsnrdylwzdbsscjazvamyxmh", nil)
+	res, err := clientFactory.NewPublicCloudConnectorsClient().Get(ctx, "rgpublicCloud", "rzygvnpsnrdylwzdbsscjazvamyxmh", nil)
 	if err != nil {
 		log.Fatalf("failed to finish the request: %v", err)
 	}
@@ -158,11 +158,11 @@ func ExamplePublicCloudConnectorsClient_NewListByResourceGroupPager() {
 		log.Fatalf("failed to obtain a credential: %v", err)
 	}
 	ctx := context.Background()
-	clientFactory, err := armhybridconnectivity.NewClientFactory(cred, nil)
+	clientFactory, err := armhybridconnectivity.NewClientFactory("5ACC4579-DB34-4C2F-8F8C-25061168F342", cred, nil)
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	pager := clientFactory.NewPublicCloudConnectorsClient("5ACC4579-DB34-4C2F-8F8C-25061168F342").NewListByResourceGroupPager("rgpublicCloud", nil)
+	pager := clientFactory.NewPublicCloudConnectorsClient().NewListByResourceGroupPager("rgpublicCloud", nil)
 	for pager.More() {
 		page, err := pager.NextPage(ctx)
 		if err != nil {
@@ -218,11 +218,11 @@ func ExamplePublicCloudConnectorsClient_NewListBySubscriptionPager() {
 		log.Fatalf("failed to obtain a credential: %v", err)
 	}
 	ctx := context.Background()
-	clientFactory, err := armhybridconnectivity.NewClientFactory(cred, nil)
+	clientFactory, err := armhybridconnectivity.NewClientFactory("5ACC4579-DB34-4C2F-8F8C-25061168F342", cred, nil)
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	pager := clientFactory.NewPublicCloudConnectorsClient("5ACC4579-DB34-4C2F-8F8C-25061168F342").NewListBySubscriptionPager(nil)
+	pager := clientFactory.NewPublicCloudConnectorsClient().NewListBySubscriptionPager(nil)
 	for pager.More() {
 		page, err := pager.NextPage(ctx)
 		if err != nil {
@@ -278,11 +278,11 @@ func ExamplePublicCloudConnectorsClient_BeginTestPermissions() {
 		log.Fatalf("failed to obtain a credential: %v", err)
 	}
 	ctx := context.Background()
-	clientFactory, err := armhybridconnectivity.NewClientFactory(cred, nil)
+	clientFactory, err := armhybridconnectivity.NewClientFactory("5ACC4579-DB34-4C2F-8F8C-25061168F342", cred, nil)
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	poller, err := clientFactory.NewPublicCloudConnectorsClient("5ACC4579-DB34-4C2F-8F8C-25061168F342").BeginTestPermissions(ctx, "rgpublicCloud", "rzygvnpsnrdylwzdbsscjazvamyxmh", nil)
+	poller, err := clientFactory.NewPublicCloudConnectorsClient().BeginTestPermissions(ctx, "rgpublicCloud", "rzygvnpsnrdylwzdbsscjazvamyxmh", nil)
 	if err != nil {
 		log.Fatalf("failed to finish the request: %v", err)
 	}
@@ -354,14 +354,14 @@ func ExamplePublicCloudConnectorsClient_Update() {
 		log.Fatalf("failed to obtain a credential: %v", err)
 	}
 	ctx := context.Background()
-	clientFactory, err := armhybridconnectivity.NewClientFactory(cred, nil)
+	clientFactory, err := armhybridconnectivity.NewClientFactory("5ACC4579-DB34-4C2F-8F8C-25061168F342", cred, nil)
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	res, err := clientFactory.NewPublicCloudConnectorsClient("5ACC4579-DB34-4C2F-8F8C-25061168F342").Update(ctx, "rgpublicCloud", "svtirlbyqpepbzyessjenlueeznhg", armhybridconnectivity.PublicCloudConnector{
+	res, err := clientFactory.NewPublicCloudConnectorsClient().Update(ctx, "rgpublicCloud", "svtirlbyqpepbzyessjenlueeznhg", armhybridconnectivity.PublicCloudConnectorUpdate{
 		Tags: map[string]*string{},
-		Properties: &armhybridconnectivity.PublicCloudConnectorProperties{
-			AwsCloudProfile: &armhybridconnectivity.AwsCloudProfile{
+		Properties: &armhybridconnectivity.PublicCloudConnectorPropertiesUpdate{
+			AwsCloudProfile: &armhybridconnectivity.AwsCloudProfileUpdate{
 				ExcludedAccounts: []*string{
 					to.Ptr("zrbtd"),
 				},
