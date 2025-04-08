@@ -40,12 +40,6 @@ type NetworkSecurityPerimeterConfigurationsClientReconcileResponse struct {
 	// placeholder for future response values
 }
 
-// OfferingsClientListResponse contains the response from method OfferingsClient.NewListPager.
-type OfferingsClientListResponse struct {
-	// The response containing a list of features and SKUs offered in various regions.
-	OfferingsListResult
-}
-
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
 	// The result of the request to list REST API operations. It contains a list of operations and a URL to get the next set of
