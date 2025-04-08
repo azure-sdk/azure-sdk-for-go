@@ -7,7 +7,7 @@ package armsearch
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/search/armsearch"
-	moduleVersion = "v1.4.0-beta.3"
+	moduleVersion = "v1.4.0"
 )
 
 // AADAuthFailureMode - Describes what response the data plane API of a search service would send for requests that failed
@@ -31,6 +31,20 @@ func PossibleAADAuthFailureModeValues() []AADAuthFailureMode {
 	}
 }
 
+// ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+type ActionType string
+
+const (
+	ActionTypeInternal ActionType = "Internal"
+)
+
+// PossibleActionTypeValues returns the possible values for the ActionType const type.
+func PossibleActionTypeValues() []ActionType {
+	return []ActionType{
+		ActionTypeInternal,
+	}
+}
+
 type AdminKeyKind string
 
 const (
@@ -48,14 +62,14 @@ func PossibleAdminKeyKindValues() []AdminKeyKind {
 	}
 }
 
-// ComputeType - Configure this property to support the search service using either the default compute or Azure Confidential
+// ComputeType - Configure this property to support the search service using either the Default Compute or Azure Confidential
 // Compute.
 type ComputeType string
 
 const (
 	// ComputeTypeConfidential - Create the service with Azure Confidential Compute.
 	ComputeTypeConfidential ComputeType = "confidential"
-	// ComputeTypeDefault - Create the service with the default compute.
+	// ComputeTypeDefault - Create the service with the Default Compute.
 	ComputeTypeDefault ComputeType = "default"
 )
 
@@ -84,45 +98,6 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 		CreatedByTypeKey,
 		CreatedByTypeManagedIdentity,
 		CreatedByTypeUser,
-	}
-}
-
-// FeatureName - The name of the feature offered in this region.
-type FeatureName string
-
-const (
-	// FeatureNameAvailabilityZones - Supports Availability Zones feature.
-	FeatureNameAvailabilityZones FeatureName = "AvailabilityZones"
-	// FeatureNameDocumentIntelligence - Supports Document Intelligence feature.
-	FeatureNameDocumentIntelligence FeatureName = "DocumentIntelligence"
-	// FeatureNameGrok - Supports Grok feature.
-	FeatureNameGrok FeatureName = "Grok"
-	// FeatureNameImageVectorization - Supports Image Vectorization feature.
-	FeatureNameImageVectorization FeatureName = "ImageVectorization"
-	// FeatureNameMegaStore - Supports Mega Store feature.
-	FeatureNameMegaStore FeatureName = "MegaStore"
-	// FeatureNameQueryRewrite - Supports Query Rewrite feature.
-	FeatureNameQueryRewrite FeatureName = "QueryRewrite"
-	// FeatureNameS3 - Supports S3 feature.
-	FeatureNameS3 FeatureName = "S3"
-	// FeatureNameSemanticSearch - Supports Semantic Search feature.
-	FeatureNameSemanticSearch FeatureName = "SemanticSearch"
-	// FeatureNameStorageOptimized - Supports Storage Optimized feature.
-	FeatureNameStorageOptimized FeatureName = "StorageOptimized"
-)
-
-// PossibleFeatureNameValues returns the possible values for the FeatureName const type.
-func PossibleFeatureNameValues() []FeatureName {
-	return []FeatureName{
-		FeatureNameAvailabilityZones,
-		FeatureNameDocumentIntelligence,
-		FeatureNameGrok,
-		FeatureNameImageVectorization,
-		FeatureNameMegaStore,
-		FeatureNameQueryRewrite,
-		FeatureNameS3,
-		FeatureNameSemanticSearch,
-		FeatureNameStorageOptimized,
 	}
 }
 
@@ -171,6 +146,25 @@ func PossibleIdentityTypeValues() []IdentityType {
 		IdentityTypeSystemAssigned,
 		IdentityTypeSystemAssignedUserAssigned,
 		IdentityTypeUserAssigned,
+	}
+}
+
+// Origin - The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
+// value is "user,system"
+type Origin string
+
+const (
+	OriginSystem     Origin = "system"
+	OriginUser       Origin = "user"
+	OriginUserSystem Origin = "user,system"
+)
+
+// PossibleOriginValues returns the possible values for the Origin const type.
+func PossibleOriginValues() []Origin {
+	return []Origin{
+		OriginSystem,
+		OriginUser,
+		OriginUserSystem,
 	}
 }
 
@@ -247,11 +241,11 @@ type ProvisioningState string
 
 const (
 	// ProvisioningStateFailed - The last provisioning operation has failed.
-	ProvisioningStateFailed ProvisioningState = "Failed"
+	ProvisioningStateFailed ProvisioningState = "failed"
 	// ProvisioningStateProvisioning - The search service is being provisioned or scaled up or down.
-	ProvisioningStateProvisioning ProvisioningState = "Provisioning"
+	ProvisioningStateProvisioning ProvisioningState = "provisioning"
 	// ProvisioningStateSucceeded - The last provisioning operation has completed successfully.
-	ProvisioningStateSucceeded ProvisioningState = "Succeeded"
+	ProvisioningStateSucceeded ProvisioningState = "succeeded"
 )
 
 // PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
@@ -328,9 +322,6 @@ func PossibleSKUNameValues() []SKUName {
 type SearchBypass string
 
 const (
-	// SearchBypassAzurePortal - Indicates that requests originating from the Azure portal can bypass the rules defined in the
-	// 'ipRules' section.
-	SearchBypassAzurePortal SearchBypass = "AzurePortal"
 	// SearchBypassAzureServices - Indicates that requests originating from Azure trusted services can bypass the rules defined
 	// in the 'ipRules' section.
 	SearchBypassAzureServices SearchBypass = "AzureServices"
@@ -341,7 +332,6 @@ const (
 // PossibleSearchBypassValues returns the possible values for the SearchBypass const type.
 func PossibleSearchBypassValues() []SearchBypass {
 	return []SearchBypass{
-		SearchBypassAzurePortal,
 		SearchBypassAzureServices,
 		SearchBypassNone,
 	}
@@ -548,5 +538,23 @@ func PossibleUnavailableNameReasonValues() []UnavailableNameReason {
 	return []UnavailableNameReason{
 		UnavailableNameReasonAlreadyExists,
 		UnavailableNameReasonInvalid,
+	}
+}
+
+// UpgradeAvailable - Indicates if the search service has an upgrade available.
+type UpgradeAvailable string
+
+const (
+	// UpgradeAvailableAvailable - There is an upgrade available for the service.
+	UpgradeAvailableAvailable UpgradeAvailable = "available"
+	// UpgradeAvailableNotAvailable - An upgrade is currently not available for the service.
+	UpgradeAvailableNotAvailable UpgradeAvailable = "notAvailable"
+)
+
+// PossibleUpgradeAvailableValues returns the possible values for the UpgradeAvailable const type.
+func PossibleUpgradeAvailableValues() []UpgradeAvailable {
+	return []UpgradeAvailable{
+		UpgradeAvailableAvailable,
+		UpgradeAvailableNotAvailable,
 	}
 }
