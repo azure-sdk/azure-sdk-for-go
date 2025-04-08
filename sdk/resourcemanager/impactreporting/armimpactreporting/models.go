@@ -391,7 +391,7 @@ type WorkloadImpactProperties struct {
 	StartDateTime *time.Time
 
 	// Additional fields related to impact, applicable fields per resource type are list under /impactCategories API
-	AdditionalProperties *WorkloadImpactPropertiesAdditionalProperties
+	AdditionalProperties map[string]any
 
 	// The ARM correlation ids, this is important field for control plane related impacts
 	ArmCorrelationIDs []*string
@@ -433,7 +433,4 @@ type WorkloadImpactProperties struct {
 
 	// READ-ONLY; Time at which impact is reported
 	ReportedTimeUTC *time.Time
-}
-
-type WorkloadImpactPropertiesAdditionalProperties struct {
 }
