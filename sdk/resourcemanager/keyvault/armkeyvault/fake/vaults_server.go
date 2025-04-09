@@ -13,7 +13,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/keyvault/armkeyvault"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/keyvault/armkeyvault/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -24,11 +24,11 @@ import (
 type VaultsServer struct {
 	// CheckNameAvailability is the fake for method VaultsClient.CheckNameAvailability
 	// HTTP status codes to indicate success: http.StatusOK
-	CheckNameAvailability func(ctx context.Context, vaultName armkeyvault.VaultCheckNameAvailabilityParameters, options *armkeyvault.VaultsClientCheckNameAvailabilityOptions) (resp azfake.Responder[armkeyvault.VaultsClientCheckNameAvailabilityResponse], errResp azfake.ErrorResponder)
+	CheckNameAvailability func(ctx context.Context, body armkeyvault.VaultCheckNameAvailabilityParameters, options *armkeyvault.VaultsClientCheckNameAvailabilityOptions) (resp azfake.Responder[armkeyvault.VaultsClientCheckNameAvailabilityResponse], errResp azfake.ErrorResponder)
 
 	// BeginCreateOrUpdate is the fake for method VaultsClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, vaultName string, parameters armkeyvault.VaultCreateOrUpdateParameters, options *armkeyvault.VaultsClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armkeyvault.VaultsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, vaultName string, resource armkeyvault.Vault, options *armkeyvault.VaultsClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armkeyvault.VaultsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// Delete is the fake for method VaultsClient.Delete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
@@ -40,11 +40,7 @@ type VaultsServer struct {
 
 	// GetDeleted is the fake for method VaultsClient.GetDeleted
 	// HTTP status codes to indicate success: http.StatusOK
-	GetDeleted func(ctx context.Context, vaultName string, location string, options *armkeyvault.VaultsClientGetDeletedOptions) (resp azfake.Responder[armkeyvault.VaultsClientGetDeletedResponse], errResp azfake.ErrorResponder)
-
-	// NewListPager is the fake for method VaultsClient.NewListPager
-	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(options *armkeyvault.VaultsClientListOptions) (resp azfake.PagerResponder[armkeyvault.VaultsClientListResponse])
+	GetDeleted func(ctx context.Context, location string, vaultName string, options *armkeyvault.VaultsClientGetDeletedOptions) (resp azfake.Responder[armkeyvault.VaultsClientGetDeletedResponse], errResp azfake.ErrorResponder)
 
 	// NewListByResourceGroupPager is the fake for method VaultsClient.NewListByResourceGroupPager
 	// HTTP status codes to indicate success: http.StatusOK
@@ -60,15 +56,15 @@ type VaultsServer struct {
 
 	// BeginPurgeDeleted is the fake for method VaultsClient.BeginPurgeDeleted
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
-	BeginPurgeDeleted func(ctx context.Context, vaultName string, location string, options *armkeyvault.VaultsClientBeginPurgeDeletedOptions) (resp azfake.PollerResponder[armkeyvault.VaultsClientPurgeDeletedResponse], errResp azfake.ErrorResponder)
+	BeginPurgeDeleted func(ctx context.Context, location string, vaultName string, options *armkeyvault.VaultsClientBeginPurgeDeletedOptions) (resp azfake.PollerResponder[armkeyvault.VaultsClientPurgeDeletedResponse], errResp azfake.ErrorResponder)
 
 	// Update is the fake for method VaultsClient.Update
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	Update func(ctx context.Context, resourceGroupName string, vaultName string, parameters armkeyvault.VaultPatchParameters, options *armkeyvault.VaultsClientUpdateOptions) (resp azfake.Responder[armkeyvault.VaultsClientUpdateResponse], errResp azfake.ErrorResponder)
+	Update func(ctx context.Context, resourceGroupName string, vaultName string, properties armkeyvault.VaultPatchParameters, options *armkeyvault.VaultsClientUpdateOptions) (resp azfake.Responder[armkeyvault.VaultsClientUpdateResponse], errResp azfake.ErrorResponder)
 
 	// UpdateAccessPolicy is the fake for method VaultsClient.UpdateAccessPolicy
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	UpdateAccessPolicy func(ctx context.Context, resourceGroupName string, vaultName string, operationKind armkeyvault.AccessPolicyUpdateKind, parameters armkeyvault.VaultAccessPolicyParameters, options *armkeyvault.VaultsClientUpdateAccessPolicyOptions) (resp azfake.Responder[armkeyvault.VaultsClientUpdateAccessPolicyResponse], errResp azfake.ErrorResponder)
+	UpdateAccessPolicy func(ctx context.Context, resourceGroupName string, vaultName string, operationKind armkeyvault.AccessPolicyUpdateKind, body armkeyvault.VaultAccessPolicyParameters, options *armkeyvault.VaultsClientUpdateAccessPolicyOptions) (resp azfake.Responder[armkeyvault.VaultsClientUpdateAccessPolicyResponse], errResp azfake.ErrorResponder)
 }
 
 // NewVaultsServerTransport creates a new instance of VaultsServerTransport with the provided implementation.
@@ -78,7 +74,6 @@ func NewVaultsServerTransport(srv *VaultsServer) *VaultsServerTransport {
 	return &VaultsServerTransport{
 		srv:                         srv,
 		beginCreateOrUpdate:         newTracker[azfake.PollerResponder[armkeyvault.VaultsClientCreateOrUpdateResponse]](),
-		newListPager:                newTracker[azfake.PagerResponder[armkeyvault.VaultsClientListResponse]](),
 		newListByResourceGroupPager: newTracker[azfake.PagerResponder[armkeyvault.VaultsClientListByResourceGroupResponse]](),
 		newListBySubscriptionPager:  newTracker[azfake.PagerResponder[armkeyvault.VaultsClientListBySubscriptionResponse]](),
 		newListDeletedPager:         newTracker[azfake.PagerResponder[armkeyvault.VaultsClientListDeletedResponse]](),
@@ -91,7 +86,6 @@ func NewVaultsServerTransport(srv *VaultsServer) *VaultsServerTransport {
 type VaultsServerTransport struct {
 	srv                         *VaultsServer
 	beginCreateOrUpdate         *tracker[azfake.PollerResponder[armkeyvault.VaultsClientCreateOrUpdateResponse]]
-	newListPager                *tracker[azfake.PagerResponder[armkeyvault.VaultsClientListResponse]]
 	newListByResourceGroupPager *tracker[azfake.PagerResponder[armkeyvault.VaultsClientListByResourceGroupResponse]]
 	newListBySubscriptionPager  *tracker[azfake.PagerResponder[armkeyvault.VaultsClientListBySubscriptionResponse]]
 	newListDeletedPager         *tracker[azfake.PagerResponder[armkeyvault.VaultsClientListDeletedResponse]]
@@ -131,8 +125,6 @@ func (v *VaultsServerTransport) dispatchToMethodFake(req *http.Request, method s
 				res.resp, res.err = v.dispatchGet(req)
 			case "VaultsClient.GetDeleted":
 				res.resp, res.err = v.dispatchGetDeleted(req)
-			case "VaultsClient.NewListPager":
-				res.resp, res.err = v.dispatchNewListPager(req)
 			case "VaultsClient.NewListByResourceGroupPager":
 				res.resp, res.err = v.dispatchNewListByResourceGroupPager(req)
 			case "VaultsClient.NewListBySubscriptionPager":
@@ -205,7 +197,7 @@ func (v *VaultsServerTransport) dispatchBeginCreateOrUpdate(req *http.Request) (
 		if matches == nil || len(matches) < 3 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		body, err := server.UnmarshalRequestAsJSON[armkeyvault.VaultCreateOrUpdateParameters](req)
+		body, err := server.UnmarshalRequestAsJSON[armkeyvault.Vault](req)
 		if err != nil {
 			return nil, err
 		}
@@ -317,15 +309,15 @@ func (v *VaultsServerTransport) dispatchGetDeleted(req *http.Request) (*http.Res
 	if matches == nil || len(matches) < 3 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	vaultNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("vaultName")])
-	if err != nil {
-		return nil, err
-	}
 	locationParam, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := v.srv.GetDeleted(req.Context(), vaultNameParam, locationParam, nil)
+	vaultNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("vaultName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := v.srv.GetDeleted(req.Context(), locationParam, vaultNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -336,60 +328,6 @@ func (v *VaultsServerTransport) dispatchGetDeleted(req *http.Request) (*http.Res
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).DeletedVault, req)
 	if err != nil {
 		return nil, err
-	}
-	return resp, nil
-}
-
-func (v *VaultsServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if v.srv.NewListPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
-	}
-	newListPager := v.newListPager.get(req)
-	if newListPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resources`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 1 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		qp := req.URL.Query()
-		topUnescaped, err := url.QueryUnescape(qp.Get("$top"))
-		if err != nil {
-			return nil, err
-		}
-		topParam, err := parseOptional(topUnescaped, func(v string) (int32, error) {
-			p, parseErr := strconv.ParseInt(v, 10, 32)
-			if parseErr != nil {
-				return 0, parseErr
-			}
-			return int32(p), nil
-		})
-		if err != nil {
-			return nil, err
-		}
-		var options *armkeyvault.VaultsClientListOptions
-		if topParam != nil {
-			options = &armkeyvault.VaultsClientListOptions{
-				Top: topParam,
-			}
-		}
-		resp := v.srv.NewListPager(options)
-		newListPager = &resp
-		v.newListPager.add(req, newListPager)
-		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armkeyvault.VaultsClientListResponse, createLink func() string) {
-			page.NextLink = to.Ptr(createLink())
-		})
-	}
-	resp, err := server.PagerResponderNext(newListPager, req)
-	if err != nil {
-		return nil, err
-	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		v.newListPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
-	}
-	if !server.PagerResponderMore(newListPager) {
-		v.newListPager.remove(req)
 	}
 	return resp, nil
 }
@@ -551,15 +489,15 @@ func (v *VaultsServerTransport) dispatchBeginPurgeDeleted(req *http.Request) (*h
 		if matches == nil || len(matches) < 3 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
-		vaultNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("vaultName")])
-		if err != nil {
-			return nil, err
-		}
 		locationParam, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := v.srv.BeginPurgeDeleted(req.Context(), vaultNameParam, locationParam, nil)
+		vaultNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("vaultName")])
+		if err != nil {
+			return nil, err
+		}
+		respr, errRespr := v.srv.BeginPurgeDeleted(req.Context(), locationParam, vaultNameParam, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -624,7 +562,7 @@ func (v *VaultsServerTransport) dispatchUpdateAccessPolicy(req *http.Request) (*
 	if v.srv.UpdateAccessPolicy == nil {
 		return nil, &nonRetriableError{errors.New("fake for method UpdateAccessPolicy not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.KeyVault/vaults/(?P<vaultName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/accessPolicies/(?P<operationKind>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.KeyVault/vaults/(?P<vaultName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/(?P<operationKind>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/{operationKind}`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 4 {
@@ -663,6 +601,9 @@ func (v *VaultsServerTransport) dispatchUpdateAccessPolicy(req *http.Request) (*
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).VaultAccessPolicyParameters, req)
 	if err != nil {
 		return nil, err
+	}
+	if val := server.GetResponse(respr).RetryAfter; val != nil {
+		resp.Header.Set("Retry-After", strconv.FormatInt(int64(*val), 10))
 	}
 	return resp, nil
 }

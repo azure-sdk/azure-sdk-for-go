@@ -19,8 +19,7 @@ type ClientFactory struct {
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
@@ -32,14 +31,6 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 		subscriptionID: subscriptionID,
 		internal:       internal,
 	}, nil
-}
-
-// NewKeysClient creates a new instance of KeysClient.
-func (c *ClientFactory) NewKeysClient() *KeysClient {
-	return &KeysClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
-	}
 }
 
 // NewMHSMPrivateEndpointConnectionsClient creates a new instance of MHSMPrivateEndpointConnectionsClient.
@@ -61,14 +52,6 @@ func (c *ClientFactory) NewMHSMPrivateLinkResourcesClient() *MHSMPrivateLinkReso
 // NewMHSMRegionsClient creates a new instance of MHSMRegionsClient.
 func (c *ClientFactory) NewMHSMRegionsClient() *MHSMRegionsClient {
 	return &MHSMRegionsClient{
-		subscriptionID: c.subscriptionID,
-		internal:       c.internal,
-	}
-}
-
-// NewManagedHsmKeysClient creates a new instance of ManagedHsmKeysClient.
-func (c *ClientFactory) NewManagedHsmKeysClient() *ManagedHsmKeysClient {
-	return &ManagedHsmKeysClient{
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}

@@ -13,11 +13,10 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/keyvault/armkeyvault"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/keyvault/armkeyvault/v2"
 	"net/http"
 	"net/url"
 	"regexp"
-	"strconv"
 )
 
 // PrivateEndpointConnectionsServer is a fake server for instances of the armkeyvault.PrivateEndpointConnectionsClient type.
@@ -36,7 +35,7 @@ type PrivateEndpointConnectionsServer struct {
 
 	// Put is the fake for method PrivateEndpointConnectionsClient.Put
 	// HTTP status codes to indicate success: http.StatusOK
-	Put func(ctx context.Context, resourceGroupName string, vaultName string, privateEndpointConnectionName string, properties armkeyvault.PrivateEndpointConnection, options *armkeyvault.PrivateEndpointConnectionsClientPutOptions) (resp azfake.Responder[armkeyvault.PrivateEndpointConnectionsClientPutResponse], errResp azfake.ErrorResponder)
+	Put func(ctx context.Context, resourceGroupName string, vaultName string, privateEndpointConnectionName string, resource armkeyvault.PrivateEndpointConnection, options *armkeyvault.PrivateEndpointConnectionsClientPutOptions) (resp azfake.Responder[armkeyvault.PrivateEndpointConnectionsClientPutResponse], errResp azfake.ErrorResponder)
 }
 
 // NewPrivateEndpointConnectionsServerTransport creates a new instance of PrivateEndpointConnectionsServerTransport with the provided implementation.
@@ -271,12 +270,6 @@ func (p *PrivateEndpointConnectionsServerTransport) dispatchPut(req *http.Reques
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).PrivateEndpointConnection, req)
 	if err != nil {
 		return nil, err
-	}
-	if val := server.GetResponse(respr).AzureAsyncOperation; val != nil {
-		resp.Header.Set("Azure-AsyncOperation", *val)
-	}
-	if val := server.GetResponse(respr).RetryAfter; val != nil {
-		resp.Header.Set("Retry-After", strconv.FormatInt(int64(*val), 10))
 	}
 	return resp, nil
 }

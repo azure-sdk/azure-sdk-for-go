@@ -5,31 +5,6 @@
 
 package armkeyvault
 
-// KeysClientCreateIfNotExistOptions contains the optional parameters for the KeysClient.CreateIfNotExist method.
-type KeysClientCreateIfNotExistOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KeysClientGetOptions contains the optional parameters for the KeysClient.Get method.
-type KeysClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KeysClientGetVersionOptions contains the optional parameters for the KeysClient.GetVersion method.
-type KeysClientGetVersionOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KeysClientListOptions contains the optional parameters for the KeysClient.NewListPager method.
-type KeysClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KeysClientListVersionsOptions contains the optional parameters for the KeysClient.NewListVersionsPager method.
-type KeysClientListVersionsOptions struct {
-	// placeholder for future optional parameters
-}
-
 // MHSMPrivateEndpointConnectionsClientBeginDeleteOptions contains the optional parameters for the MHSMPrivateEndpointConnectionsClient.BeginDelete
 // method.
 type MHSMPrivateEndpointConnectionsClientBeginDeleteOptions struct {
@@ -64,33 +39,6 @@ type MHSMPrivateLinkResourcesClientListByMHSMResourceOptions struct {
 // MHSMRegionsClientListByResourceOptions contains the optional parameters for the MHSMRegionsClient.NewListByResourcePager
 // method.
 type MHSMRegionsClientListByResourceOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ManagedHsmKeysClientCreateIfNotExistOptions contains the optional parameters for the ManagedHsmKeysClient.CreateIfNotExist
-// method.
-type ManagedHsmKeysClientCreateIfNotExistOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ManagedHsmKeysClientGetOptions contains the optional parameters for the ManagedHsmKeysClient.Get method.
-type ManagedHsmKeysClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ManagedHsmKeysClientGetVersionOptions contains the optional parameters for the ManagedHsmKeysClient.GetVersion method.
-type ManagedHsmKeysClientGetVersionOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ManagedHsmKeysClientListOptions contains the optional parameters for the ManagedHsmKeysClient.NewListPager method.
-type ManagedHsmKeysClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ManagedHsmKeysClientListVersionsOptions contains the optional parameters for the ManagedHsmKeysClient.NewListVersionsPager
-// method.
-type ManagedHsmKeysClientListVersionsOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -261,12 +209,6 @@ type VaultsClientListBySubscriptionOptions struct {
 // VaultsClientListDeletedOptions contains the optional parameters for the VaultsClient.NewListDeletedPager method.
 type VaultsClientListDeletedOptions struct {
 	// placeholder for future optional parameters
-}
-
-// VaultsClientListOptions contains the optional parameters for the VaultsClient.NewListPager method.
-type VaultsClientListOptions struct {
-	// Maximum number of results to return.
-	Top *int32
 }
 
 // VaultsClientUpdateAccessPolicyOptions contains the optional parameters for the VaultsClient.UpdateAccessPolicy method.

@@ -14,7 +14,6 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
 	"net/url"
-	"strconv"
 	"strings"
 )
 
@@ -26,8 +25,7 @@ type PrivateEndpointConnectionsClient struct {
 }
 
 // NewPrivateEndpointConnectionsClient creates a new instance of PrivateEndpointConnectionsClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewPrivateEndpointConnectionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*PrivateEndpointConnectionsClient, error) {
@@ -46,8 +44,8 @@ func NewPrivateEndpointConnectionsClient(subscriptionID string, credential azcor
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-11-01
-//   - resourceGroupName - Name of the resource group that contains the key vault.
-//   - vaultName - The name of the key vault.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - vaultName - The name of the vault.
 //   - privateEndpointConnectionName - Name of the private endpoint connection associated with the key vault.
 //   - options - PrivateEndpointConnectionsClientBeginDeleteOptions contains the optional parameters for the PrivateEndpointConnectionsClient.BeginDelete
 //     method.
@@ -58,7 +56,8 @@ func (client *PrivateEndpointConnectionsClient) BeginDelete(ctx context.Context,
 			return nil, err
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[PrivateEndpointConnectionsClientDeleteResponse]{
-			Tracer: client.internal.Tracer(),
+			FinalStateVia: runtime.FinalStateViaLocation,
+			Tracer:        client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
@@ -127,8 +126,8 @@ func (client *PrivateEndpointConnectionsClient) deleteCreateRequest(ctx context.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-11-01
-//   - resourceGroupName - Name of the resource group that contains the key vault.
-//   - vaultName - The name of the key vault.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - vaultName - The name of the vault.
 //   - privateEndpointConnectionName - Name of the private endpoint connection associated with the key vault.
 //   - options - PrivateEndpointConnectionsClientGetOptions contains the optional parameters for the PrivateEndpointConnectionsClient.Get
 //     method.
@@ -197,8 +196,8 @@ func (client *PrivateEndpointConnectionsClient) getHandleResponse(resp *http.Res
 // vault.
 //
 // Generated from API version 2024-11-01
-//   - resourceGroupName - Name of the resource group that contains the key vault.
-//   - vaultName - The name of the key vault.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - vaultName - The name of the vault.
 //   - options - PrivateEndpointConnectionsClientListByResourceOptions contains the optional parameters for the PrivateEndpointConnectionsClient.NewListByResourcePager
 //     method.
 func (client *PrivateEndpointConnectionsClient) NewListByResourcePager(resourceGroupName string, vaultName string, options *PrivateEndpointConnectionsClientListByResourceOptions) *runtime.Pager[PrivateEndpointConnectionsClientListByResourceResponse] {
@@ -263,19 +262,19 @@ func (client *PrivateEndpointConnectionsClient) listByResourceHandleResponse(res
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-11-01
-//   - resourceGroupName - Name of the resource group that contains the key vault.
-//   - vaultName - The name of the key vault.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - vaultName - The name of the vault.
 //   - privateEndpointConnectionName - Name of the private endpoint connection associated with the key vault.
-//   - properties - The intended state of private endpoint connection.
+//   - resource - The intended state of private endpoint connection.
 //   - options - PrivateEndpointConnectionsClientPutOptions contains the optional parameters for the PrivateEndpointConnectionsClient.Put
 //     method.
-func (client *PrivateEndpointConnectionsClient) Put(ctx context.Context, resourceGroupName string, vaultName string, privateEndpointConnectionName string, properties PrivateEndpointConnection, options *PrivateEndpointConnectionsClientPutOptions) (PrivateEndpointConnectionsClientPutResponse, error) {
+func (client *PrivateEndpointConnectionsClient) Put(ctx context.Context, resourceGroupName string, vaultName string, privateEndpointConnectionName string, resource PrivateEndpointConnection, options *PrivateEndpointConnectionsClientPutOptions) (PrivateEndpointConnectionsClientPutResponse, error) {
 	var err error
 	const operationName = "PrivateEndpointConnectionsClient.Put"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.putCreateRequest(ctx, resourceGroupName, vaultName, privateEndpointConnectionName, properties, options)
+	req, err := client.putCreateRequest(ctx, resourceGroupName, vaultName, privateEndpointConnectionName, resource, options)
 	if err != nil {
 		return PrivateEndpointConnectionsClientPutResponse{}, err
 	}
@@ -292,7 +291,7 @@ func (client *PrivateEndpointConnectionsClient) Put(ctx context.Context, resourc
 }
 
 // putCreateRequest creates the Put request.
-func (client *PrivateEndpointConnectionsClient) putCreateRequest(ctx context.Context, resourceGroupName string, vaultName string, privateEndpointConnectionName string, properties PrivateEndpointConnection, _ *PrivateEndpointConnectionsClientPutOptions) (*policy.Request, error) {
+func (client *PrivateEndpointConnectionsClient) putCreateRequest(ctx context.Context, resourceGroupName string, vaultName string, privateEndpointConnectionName string, resource PrivateEndpointConnection, _ *PrivateEndpointConnectionsClientPutOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.KeyVault/vaults/{vaultName}/privateEndpointConnections/{privateEndpointConnectionName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -318,7 +317,7 @@ func (client *PrivateEndpointConnectionsClient) putCreateRequest(ctx context.Con
 	reqQP.Set("api-version", "2024-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, properties); err != nil {
+	if err := runtime.MarshalAsJSON(req, resource); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -327,17 +326,6 @@ func (client *PrivateEndpointConnectionsClient) putCreateRequest(ctx context.Con
 // putHandleResponse handles the Put response.
 func (client *PrivateEndpointConnectionsClient) putHandleResponse(resp *http.Response) (PrivateEndpointConnectionsClientPutResponse, error) {
 	result := PrivateEndpointConnectionsClientPutResponse{}
-	if val := resp.Header.Get("Azure-AsyncOperation"); val != "" {
-		result.AzureAsyncOperation = &val
-	}
-	if val := resp.Header.Get("Retry-After"); val != "" {
-		retryAfter32, err := strconv.ParseInt(val, 10, 32)
-		retryAfter := int32(retryAfter32)
-		if err != nil {
-			return PrivateEndpointConnectionsClientPutResponse{}, err
-		}
-		result.RetryAfter = &retryAfter
-	}
 	if err := runtime.UnmarshalAsJSON(resp, &result.PrivateEndpointConnection); err != nil {
 		return PrivateEndpointConnectionsClientPutResponse{}, err
 	}

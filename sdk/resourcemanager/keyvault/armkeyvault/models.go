@@ -24,11 +24,6 @@ type AccessPolicyEntry struct {
 	ApplicationID *string
 }
 
-type Action struct {
-	// The type of action.
-	Type *KeyRotationPolicyActionType
-}
-
 // CheckMhsmNameAvailabilityParameters - The parameters used to check the availability of the managed hsm name.
 type CheckMhsmNameAvailabilityParameters struct {
 	// REQUIRED; The managed hsm name.
@@ -59,30 +54,34 @@ type CheckNameAvailabilityResult struct {
 	NameAvailable *bool
 
 	// READ-ONLY; The reason that a vault name could not be used. The Reason element is only returned if NameAvailable is false.
-	Reason *Reason
+	Reason *KeyVaultNameUnavailableReason
 }
 
+// DeletedManagedHsm - Concrete proxy resource types can be created by aliasing this type using a specific property type.
 type DeletedManagedHsm struct {
 	// Properties of the deleted managed HSM
 	Properties *DeletedManagedHsmProperties
 
-	// READ-ONLY; The Azure Resource Manager resource ID for the deleted managed HSM Pool.
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
-	// READ-ONLY; The name of the managed HSM Pool.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The resource type of the managed HSM Pool.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// DeletedManagedHsmListResult - List of deleted managed HSM Pools
+// DeletedManagedHsmListResult - The response of a DeletedManagedHsm list operation.
 type DeletedManagedHsmListResult struct {
-	// The URL to get the next set of deleted managed HSM Pools.
-	NextLink *string
-
-	// The list of deleted managed HSM Pools.
+	// REQUIRED; The DeletedManagedHsm items on this page
 	Value []*DeletedManagedHsm
+
+	// The link to the next page of items
+	NextLink *string
 }
 
 // DeletedManagedHsmProperties - Properties of the deleted managed HSM.
@@ -111,23 +110,26 @@ type DeletedVault struct {
 	// Properties of the vault
 	Properties *DeletedVaultProperties
 
-	// READ-ONLY; The resource ID for the deleted key vault.
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
-	// READ-ONLY; The name of the key vault.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The resource type of the key vault.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// DeletedVaultListResult - List of vaults
+// DeletedVaultListResult - The response of a DeletedVault list operation.
 type DeletedVaultListResult struct {
-	// The URL to get the next set of deleted vaults.
-	NextLink *string
-
-	// The list of deleted vaults.
+	// REQUIRED; The DeletedVault items on this page
 	Value []*DeletedVault
+
+	// The link to the next page of items
+	NextLink *string
 }
 
 // DeletedVaultProperties - Properties of the deleted vault.
@@ -151,338 +153,11 @@ type DeletedVaultProperties struct {
 	VaultID *string
 }
 
-// DimensionProperties - Type of operation: get, read, delete, etc.
-type DimensionProperties struct {
-	// Display name of dimension.
-	DisplayName *string
-
-	// Name of dimension.
-	Name *string
-
-	// Property to specify whether the dimension should be exported for Shoebox.
-	ToBeExportedForShoebox *bool
-}
-
 // IPRule - A rule governing the accessibility of a vault from a specific ip address or ip range.
 type IPRule struct {
 	// REQUIRED; An IPv4 address range in CIDR notation, such as '124.56.78.91' (simple IP address) or '124.56.78.0/24' (all addresses
 	// that start with 124.56.78).
 	Value *string
-}
-
-// Key - The key resource.
-type Key struct {
-	// REQUIRED; The properties of the key.
-	Properties *KeyProperties
-
-	// READ-ONLY; Fully qualified identifier of the key vault resource.
-	ID *string
-
-	// READ-ONLY; Azure location of the key vault resource.
-	Location *string
-
-	// READ-ONLY; Name of the key vault resource.
-	Name *string
-
-	// READ-ONLY; Tags assigned to the key vault resource.
-	Tags map[string]*string
-
-	// READ-ONLY; Resource type of the key vault resource.
-	Type *string
-}
-
-// KeyAttributes - The object attributes managed by the Azure Key Vault service.
-type KeyAttributes struct {
-	// Determines whether or not the object is enabled.
-	Enabled *bool
-
-	// Expiry date in seconds since 1970-01-01T00:00:00Z.
-	Expires *int64
-
-	// Indicates if the private key can be exported.
-	Exportable *bool
-
-	// Not before date in seconds since 1970-01-01T00:00:00Z.
-	NotBefore *int64
-
-	// READ-ONLY; Creation time in seconds since 1970-01-01T00:00:00Z.
-	Created *int64
-
-	// READ-ONLY; The deletion recovery level currently in effect for the object. If it contains 'Purgeable', then the object
-	// can be permanently deleted by a privileged user; otherwise, only the system can purge the
-	// object at the end of the retention interval.
-	RecoveryLevel *DeletionRecoveryLevel
-
-	// READ-ONLY; Last updated time in seconds since 1970-01-01T00:00:00Z.
-	Updated *int64
-}
-
-// KeyCreateParameters - The parameters used to create a key.
-type KeyCreateParameters struct {
-	// REQUIRED; The properties of the key to be created.
-	Properties *KeyProperties
-
-	// The tags that will be assigned to the key.
-	Tags map[string]*string
-}
-
-// KeyListResult - The page of keys.
-type KeyListResult struct {
-	// The URL to get the next page of keys.
-	NextLink *string
-
-	// The key resources.
-	Value []*Key
-}
-
-// KeyProperties - The properties of the key.
-type KeyProperties struct {
-	// The attributes of the key.
-	Attributes *KeyAttributes
-
-	// The elliptic curve name. For valid values, see JsonWebKeyCurveName. Default for EC and EC-HSM keys is P-256
-	CurveName *JSONWebKeyCurveName
-	KeyOps    []*JSONWebKeyOperation
-
-	// The key size in bits. For example: 2048, 3072, or 4096 for RSA. Default for RSA and RSA-HSM keys is 2048. Exception made
-	// for bring your own key (BYOK), key exchange keys default to 4096.
-	KeySize *int32
-
-	// The type of the key. For valid values, see JsonWebKeyType.
-	Kty *JSONWebKeyType
-
-	// Key release policy in response. It will be used for both output and input. Omitted if empty
-	ReleasePolicy *KeyReleasePolicy
-
-	// Key rotation policy in response. It will be used for both output and input. Omitted if empty
-	RotationPolicy *RotationPolicy
-
-	// READ-ONLY; The URI to retrieve the current version of the key.
-	KeyURI *string
-
-	// READ-ONLY; The URI to retrieve the specific version of the key.
-	KeyURIWithVersion *string
-}
-
-type KeyReleasePolicy struct {
-	// Content type and version of key release policy
-	ContentType *string
-
-	// Blob encoding the policy rules under which the key can be released.
-	Data []byte
-}
-
-type KeyRotationPolicyAttributes struct {
-	// The expiration time for the new key version. It should be in ISO8601 format. Eg: 'P90D', 'P1Y'.
-	ExpiryTime *string
-
-	// READ-ONLY; Creation time in seconds since 1970-01-01T00:00:00Z.
-	Created *int64
-
-	// READ-ONLY; Last updated time in seconds since 1970-01-01T00:00:00Z.
-	Updated *int64
-}
-
-type LifetimeAction struct {
-	// The action of key rotation policy lifetimeAction.
-	Action *Action
-
-	// The trigger of key rotation policy lifetimeAction.
-	Trigger *Trigger
-}
-
-// LogSpecification - Log specification of operation.
-type LogSpecification struct {
-	// Blob duration of specification.
-	BlobDuration *string
-
-	// Display name of log specification.
-	DisplayName *string
-
-	// Name of log specification.
-	Name *string
-}
-
-// MHSMGeoReplicatedRegion - A region that this managed HSM Pool has been extended to.
-type MHSMGeoReplicatedRegion struct {
-	// A boolean value that indicates whether the region is the primary region or a secondary region.
-	IsPrimary *bool
-
-	// Name of the geo replicated region.
-	Name *string
-
-	// READ-ONLY; Provisioning state of the geo replicated region.
-	ProvisioningState *GeoReplicationRegionProvisioningState
-}
-
-// MHSMIPRule - A rule governing the accessibility of a managed HSM pool from a specific IP address or IP range.
-type MHSMIPRule struct {
-	// REQUIRED; An IPv4 address range in CIDR notation, such as '124.56.78.91' (simple IP address) or '124.56.78.0/24' (all addresses
-	// that start with 124.56.78).
-	Value *string
-}
-
-// MHSMNetworkRuleSet - A set of rules governing the network accessibility of a managed hsm pool.
-type MHSMNetworkRuleSet struct {
-	// Tells what traffic can bypass network rules. This can be 'AzureServices' or 'None'. If not specified the default is 'AzureServices'.
-	Bypass *NetworkRuleBypassOptions
-
-	// The default action when no rule from ipRules and from virtualNetworkRules match. This is only used after the bypass property
-	// has been evaluated.
-	DefaultAction *NetworkRuleAction
-
-	// The list of IP address rules.
-	IPRules []*MHSMIPRule
-
-	// The list of virtual network rules.
-	VirtualNetworkRules []*MHSMVirtualNetworkRule
-}
-
-// MHSMPrivateEndpoint - Private endpoint object properties.
-type MHSMPrivateEndpoint struct {
-	// READ-ONLY; Full identifier of the private endpoint resource.
-	ID *string
-}
-
-// MHSMPrivateEndpointConnection - Private endpoint connection resource.
-type MHSMPrivateEndpointConnection struct {
-	// Modified whenever there is a change in the state of private endpoint connection.
-	Etag *string
-
-	// Managed service identity (system assigned and/or user assigned identities)
-	Identity *ManagedServiceIdentity
-
-	// The supported Azure location where the managed HSM Pool should be created.
-	Location *string
-
-	// Resource properties.
-	Properties *MHSMPrivateEndpointConnectionProperties
-
-	// SKU details
-	SKU *ManagedHsmSKU
-
-	// Resource tags
-	Tags map[string]*string
-
-	// READ-ONLY; The Azure Resource Manager resource ID for the managed HSM Pool.
-	ID *string
-
-	// READ-ONLY; The name of the managed HSM Pool.
-	Name *string
-
-	// READ-ONLY; Metadata pertaining to creation and last modification of the key vault resource.
-	SystemData *SystemData
-
-	// READ-ONLY; The resource type of the managed HSM Pool.
-	Type *string
-}
-
-// MHSMPrivateEndpointConnectionItem - Private endpoint connection item.
-type MHSMPrivateEndpointConnectionItem struct {
-	// Modified whenever there is a change in the state of private endpoint connection.
-	Etag *string
-
-	// Id of private endpoint connection.
-	ID *string
-
-	// Private endpoint connection properties.
-	Properties *MHSMPrivateEndpointConnectionProperties
-}
-
-// MHSMPrivateEndpointConnectionProperties - Properties of the private endpoint connection resource.
-type MHSMPrivateEndpointConnectionProperties struct {
-	// Properties of the private endpoint object.
-	PrivateEndpoint *MHSMPrivateEndpoint
-
-	// Approval state of the private link connection.
-	PrivateLinkServiceConnectionState *MHSMPrivateLinkServiceConnectionState
-
-	// Provisioning state of the private endpoint connection.
-	ProvisioningState *PrivateEndpointConnectionProvisioningState
-}
-
-// MHSMPrivateEndpointConnectionsListResult - List of private endpoint connections associated with a managed HSM Pools
-type MHSMPrivateEndpointConnectionsListResult struct {
-	// The URL to get the next set of managed HSM Pools.
-	NextLink *string
-
-	// The private endpoint connection associated with a managed HSM Pools.
-	Value []*MHSMPrivateEndpointConnection
-}
-
-// MHSMPrivateLinkResource - A private link resource
-type MHSMPrivateLinkResource struct {
-	// Managed service identity (system assigned and/or user assigned identities)
-	Identity *ManagedServiceIdentity
-
-	// The supported Azure location where the managed HSM Pool should be created.
-	Location *string
-
-	// Resource properties.
-	Properties *MHSMPrivateLinkResourceProperties
-
-	// SKU details
-	SKU *ManagedHsmSKU
-
-	// Resource tags
-	Tags map[string]*string
-
-	// READ-ONLY; The Azure Resource Manager resource ID for the managed HSM Pool.
-	ID *string
-
-	// READ-ONLY; The name of the managed HSM Pool.
-	Name *string
-
-	// READ-ONLY; Metadata pertaining to creation and last modification of the key vault resource.
-	SystemData *SystemData
-
-	// READ-ONLY; The resource type of the managed HSM Pool.
-	Type *string
-}
-
-// MHSMPrivateLinkResourceListResult - A list of private link resources
-type MHSMPrivateLinkResourceListResult struct {
-	// Array of private link resources
-	Value []*MHSMPrivateLinkResource
-}
-
-// MHSMPrivateLinkResourceProperties - Properties of a private link resource.
-type MHSMPrivateLinkResourceProperties struct {
-	// Required DNS zone names of the the private link resource.
-	RequiredZoneNames []*string
-
-	// READ-ONLY; Group identifier of private link resource.
-	GroupID *string
-
-	// READ-ONLY; Required member names of private link resource.
-	RequiredMembers []*string
-}
-
-// MHSMPrivateLinkServiceConnectionState - An object that represents the approval state of the private link connection.
-type MHSMPrivateLinkServiceConnectionState struct {
-	// A message indicating if changes on the service provider require any updates on the consumer.
-	ActionsRequired *ActionsRequired
-
-	// The reason for approval or rejection.
-	Description *string
-
-	// Indicates whether the connection has been approved, rejected or removed by the key vault owner.
-	Status *PrivateEndpointServiceConnectionStatus
-}
-
-// MHSMRegionsListResult - List of regions associated with a managed HSM Pools
-type MHSMRegionsListResult struct {
-	// The URL to get the next set of managed HSM Pools.
-	NextLink *string
-
-	// The region associated with a managed HSM Pools.
-	Value []*MHSMGeoReplicatedRegion
-}
-
-// MHSMVirtualNetworkRule - A rule governing the accessibility of a managed hsm pool from a specific virtual network.
-type MHSMVirtualNetworkRule struct {
-	// REQUIRED; Full resource id of a vnet subnet, such as '/subscriptions/subid/resourceGroups/rg1/providers/Microsoft.Network/virtualNetworks/test-vnet/subnets/subnet1'.
-	ID *string
 }
 
 // ManagedHSMSecurityDomainProperties - The security domain properties of the managed hsm.
@@ -496,164 +171,35 @@ type ManagedHSMSecurityDomainProperties struct {
 
 // ManagedHsm - Resource information with extended details.
 type ManagedHsm struct {
-	// Managed service identity (system assigned and/or user assigned identities)
-	Identity *ManagedServiceIdentity
-
-	// The supported Azure location where the managed HSM Pool should be created.
+	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
 	// Properties of the managed HSM
 	Properties *ManagedHsmProperties
 
-	// SKU details
-	SKU *ManagedHsmSKU
-
-	// Resource tags
-	Tags map[string]*string
-
-	// READ-ONLY; The Azure Resource Manager resource ID for the managed HSM Pool.
-	ID *string
-
-	// READ-ONLY; The name of the managed HSM Pool.
-	Name *string
-
-	// READ-ONLY; Metadata pertaining to creation and last modification of the key vault resource.
-	SystemData *SystemData
-
-	// READ-ONLY; The resource type of the managed HSM Pool.
-	Type *string
-}
-
-type ManagedHsmAction struct {
-	// The type of action.
-	Type *KeyRotationPolicyActionType
-}
-
-// ManagedHsmKey - The key resource.
-type ManagedHsmKey struct {
-	// REQUIRED; The properties of the key.
-	Properties *ManagedHsmKeyProperties
-
 	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
 
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
-// ManagedHsmKeyAttributes - The object attributes managed by the Azure Key Vault service.
-type ManagedHsmKeyAttributes struct {
-	// Determines whether or not the object is enabled.
-	Enabled *bool
-
-	// Expiry date in seconds since 1970-01-01T00:00:00Z.
-	Expires *int64
-
-	// Indicates if the private key can be exported.
-	Exportable *bool
-
-	// Not before date in seconds since 1970-01-01T00:00:00Z.
-	NotBefore *int64
-
-	// READ-ONLY; Creation time in seconds since 1970-01-01T00:00:00Z.
-	Created *int64
-
-	// READ-ONLY; The deletion recovery level currently in effect for the object. If it contains 'Purgeable', then the object
-	// can be permanently deleted by a privileged user; otherwise, only the system can purge the
-	// object at the end of the retention interval.
-	RecoveryLevel *DeletionRecoveryLevel
-
-	// READ-ONLY; Last updated time in seconds since 1970-01-01T00:00:00Z.
-	Updated *int64
-}
-
-// ManagedHsmKeyCreateParameters - The parameters used to create a key.
-type ManagedHsmKeyCreateParameters struct {
-	// REQUIRED; The properties of the key to be created.
-	Properties *ManagedHsmKeyProperties
-
-	// The tags that will be assigned to the key.
-	Tags map[string]*string
-}
-
-// ManagedHsmKeyListResult - The page of keys.
-type ManagedHsmKeyListResult struct {
-	// The URL to get the next page of keys.
-	NextLink *string
-
-	// The key resources.
-	Value []*ManagedHsmKey
-}
-
-// ManagedHsmKeyProperties - The properties of the key.
-type ManagedHsmKeyProperties struct {
-	// The attributes of the key.
-	Attributes *ManagedHsmKeyAttributes
-
-	// The elliptic curve name. For valid values, see JsonWebKeyCurveName. Default for EC and EC-HSM keys is P-256
-	CurveName *JSONWebKeyCurveName
-	KeyOps    []*JSONWebKeyOperation
-
-	// The key size in bits. For example: 2048, 3072, or 4096 for RSA. Default for RSA and RSA-HSM keys is 2048. Exception made
-	// for bring your own key (BYOK), key exchange keys default to 4096.
-	KeySize *int32
-
-	// The type of the key. For valid values, see JsonWebKeyType.
-	Kty *JSONWebKeyType
-
-	// Key release policy in response. It will be used for both output and input. Omitted if empty
-	ReleasePolicy *ManagedHsmKeyReleasePolicy
-
-	// Key rotation policy in response. It will be used for both output and input. Omitted if empty
-	RotationPolicy *ManagedHsmRotationPolicy
-
-	// READ-ONLY; The URI to retrieve the current version of the key.
-	KeyURI *string
-
-	// READ-ONLY; The URI to retrieve the specific version of the key.
-	KeyURIWithVersion *string
-}
-
-type ManagedHsmKeyReleasePolicy struct {
-	// Content type and version of key release policy
-	ContentType *string
-
-	// Blob encoding the policy rules under which the key can be released.
-	Data []byte
-}
-
-type ManagedHsmKeyRotationPolicyAttributes struct {
-	// The expiration time for the new key version. It should be in ISO8601 format. Eg: 'P90D', 'P1Y'.
-	ExpiryTime *string
-
-	// READ-ONLY; Creation time in seconds since 1970-01-01T00:00:00Z.
-	Created *int64
-
-	// READ-ONLY; Last updated time in seconds since 1970-01-01T00:00:00Z.
-	Updated *int64
-}
-
-type ManagedHsmLifetimeAction struct {
-	// The action of key rotation policy lifetimeAction.
-	Action *ManagedHsmAction
-
-	// The trigger of key rotation policy lifetimeAction.
-	Trigger *ManagedHsmTrigger
-}
-
-// ManagedHsmListResult - List of managed HSM Pools
+// ManagedHsmListResult - The response of a ManagedHsm list operation.
 type ManagedHsmListResult struct {
-	// The URL to get the next set of managed HSM Pools.
-	NextLink *string
-
-	// The list of managed HSM Pools.
+	// REQUIRED; The ManagedHsm items on this page
 	Value []*ManagedHsm
+
+	// The link to the next page of items
+	NextLink *string
 }
 
 // ManagedHsmProperties - Properties of the managed HSM Pool
@@ -674,13 +220,13 @@ type ManagedHsmProperties struct {
 	InitialAdminObjectIDs []*string
 
 	// Rules governing the accessibility of the key vault from specific network locations.
-	NetworkACLs *MHSMNetworkRuleSet
+	NetworkACLs *MhsmNetworkRuleSet
 
 	// Control permission to the managed HSM from public networks.
 	PublicNetworkAccess *PublicNetworkAccess
 
 	// List of all regions associated with the managed hsm pool.
-	Regions []*MHSMGeoReplicatedRegion
+	Regions []*MhsmGeoReplicatedRegion
 
 	// Soft deleted data retention days. When you delete an HSM or a key, it will remain recoverable for the configured retention
 	// period or for a default period of 90 days. It accepts values between 7 and
@@ -694,10 +240,10 @@ type ManagedHsmProperties struct {
 	HsmURI *string
 
 	// READ-ONLY; List of private endpoint connections associated with the managed hsm pool.
-	PrivateEndpointConnections []*MHSMPrivateEndpointConnectionItem
+	PrivateEndpointConnections []*MhsmPrivateEndpointConnectionItem
 
 	// READ-ONLY; Provisioning state.
-	ProvisioningState *ProvisioningState
+	ProvisioningState *ManagedHsmProvisioningState
 
 	// READ-ONLY; The scheduled purge date in UTC.
 	ScheduledPurgeDate *time.Time
@@ -709,14 +255,6 @@ type ManagedHsmProperties struct {
 	StatusMessage *string
 }
 
-type ManagedHsmRotationPolicy struct {
-	// The attributes of key rotation policy.
-	Attributes *ManagedHsmKeyRotationPolicyAttributes
-
-	// The lifetimeActions for key rotation action.
-	LifetimeActions []*ManagedHsmLifetimeAction
-}
-
 // ManagedHsmSKU - SKU details
 type ManagedHsmSKU struct {
 	// REQUIRED; SKU Family of the managed HSM Pool
@@ -724,15 +262,6 @@ type ManagedHsmSKU struct {
 
 	// REQUIRED; SKU of the managed HSM Pool
 	Name *ManagedHsmSKUName
-}
-
-type ManagedHsmTrigger struct {
-	// The time duration after key creation to rotate the key. It only applies to rotate. It will be in ISO 8601 duration format.
-	// Eg: 'P90D', 'P1Y'.
-	TimeAfterCreate *string
-
-	// The time duration before key expiring to rotate or notify. It will be in ISO 8601 duration format. Eg: 'P90D', 'P1Y'.
-	TimeBeforeExpiry *string
 }
 
 // ManagedServiceIdentity - Managed service identity (system assigned and/or user assigned identities)
@@ -755,44 +284,20 @@ type ManagedServiceIdentity struct {
 	TenantID *string
 }
 
-// MetricSpecification - Metric specification of operation.
-type MetricSpecification struct {
-	// The metric aggregation type. Possible values include: 'Average', 'Count', 'Total'.
-	AggregationType *string
+// MhsmGeoReplicatedRegion - A region that this managed HSM Pool has been extended to.
+type MhsmGeoReplicatedRegion struct {
+	// A boolean value that indicates whether the region is the primary region or a secondary region.
+	IsPrimary *bool
 
-	// The dimensions of metric
-	Dimensions []*DimensionProperties
-
-	// Display description of metric specification.
-	DisplayDescription *string
-
-	// Display name of metric specification.
-	DisplayName *string
-
-	// Property to specify whether to fill gap with zero.
-	FillGapWithZero *bool
-
-	// The internal metric name.
-	InternalMetricName *string
-
-	// The metric lock aggregation type.
-	LockAggregationType *string
-
-	// Name of metric specification.
+	// Name of the geo replicated region.
 	Name *string
 
-	// The supported aggregation types for the metrics.
-	SupportedAggregationTypes []*string
-
-	// The supported time grain types for the metrics.
-	SupportedTimeGrainTypes []*string
-
-	// The metric unit. Possible values include: 'Bytes', 'Count', 'Milliseconds'.
-	Unit *string
+	// READ-ONLY; Provisioning state of the geo replicated region.
+	ProvisioningState *GeoReplicationRegionProvisioningState
 }
 
-// NetworkRuleSet - A set of rules governing the network accessibility of a vault.
-type NetworkRuleSet struct {
+// MhsmNetworkRuleSet - A set of rules governing the network accessibility of a managed hsm pool.
+type MhsmNetworkRuleSet struct {
 	// Tells what traffic can bypass network rules. This can be 'AzureServices' or 'None'. If not specified the default is 'AzureServices'.
 	Bypass *NetworkRuleBypassOptions
 
@@ -801,59 +306,223 @@ type NetworkRuleSet struct {
 	DefaultAction *NetworkRuleAction
 
 	// The list of IP address rules.
+	IPRules []*MhsmipRule
+
+	// The list of virtual network rules.
+	VirtualNetworkRules []*MhsmVirtualNetworkRule
+}
+
+// MhsmPrivateEndpoint - Private endpoint object properties.
+type MhsmPrivateEndpoint struct {
+	// READ-ONLY; Full identifier of the private endpoint resource.
+	ID *string
+}
+
+// MhsmPrivateEndpointConnection - Private endpoint connection resource.
+type MhsmPrivateEndpointConnection struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// Modified whenever there is a change in the state of private endpoint connection.
+	Etag *string
+
+	// Resource properties.
+	Properties *MhsmPrivateEndpointConnectionProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// MhsmPrivateEndpointConnectionItem - Private endpoint connection item.
+type MhsmPrivateEndpointConnectionItem struct {
+	// Modified whenever there is a change in the state of private endpoint connection.
+	Etag *string
+
+	// Id of private endpoint connection.
+	ID *string
+
+	// Private endpoint connection properties.
+	Properties *MhsmPrivateEndpointConnectionProperties
+}
+
+// MhsmPrivateEndpointConnectionListResult - The response of a MhsmPrivateEndpointConnection list operation.
+type MhsmPrivateEndpointConnectionListResult struct {
+	// REQUIRED; The MhsmPrivateEndpointConnection items on this page
+	Value []*MhsmPrivateEndpointConnection
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// MhsmPrivateEndpointConnectionProperties - Properties of the private endpoint connection resource.
+type MhsmPrivateEndpointConnectionProperties struct {
+	// Properties of the private endpoint object.
+	PrivateEndpoint *MhsmPrivateEndpoint
+
+	// Approval state of the private link connection.
+	PrivateLinkServiceConnectionState *MhsmPrivateLinkServiceConnectionState
+
+	// READ-ONLY; Provisioning state of the private endpoint connection.
+	ProvisioningState *ManagedHsmPrivateEndpointConnectionProvisioningState
+}
+
+// MhsmPrivateLinkResource - A private link resource
+type MhsmPrivateLinkResource struct {
+	// Managed service identity (system assigned and/or user assigned identities)
+	Identity *ManagedServiceIdentity
+
+	// The supported Azure location where the managed HSM Pool should be created.
+	Location *string
+
+	// Resource properties.
+	Properties *MhsmPrivateLinkResourceProperties
+
+	// SKU details
+	SKU *ManagedHsmSKU
+
+	// Resource tags
+	Tags map[string]*string
+
+	// READ-ONLY; The Azure Resource Manager resource ID for the managed HSM Pool.
+	ID *string
+
+	// READ-ONLY; The name of the managed HSM Pool.
+	Name *string
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the key vault resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The resource type of the managed HSM Pool.
+	Type *string
+}
+
+// MhsmPrivateLinkResourceListResult - A list of private link resources
+type MhsmPrivateLinkResourceListResult struct {
+	// Array of private link resources
+	Value []*MhsmPrivateLinkResource
+}
+
+// MhsmPrivateLinkResourceProperties - Properties of a private link resource.
+type MhsmPrivateLinkResourceProperties struct {
+	// Required DNS zone names of the the private link resource.
+	RequiredZoneNames []*string
+
+	// READ-ONLY; Group identifier of private link resource.
+	GroupID *string
+
+	// READ-ONLY; Required member names of private link resource.
+	RequiredMembers []*string
+}
+
+// MhsmPrivateLinkServiceConnectionState - An object that represents the approval state of the private link connection.
+type MhsmPrivateLinkServiceConnectionState struct {
+	// A message indicating if changes on the service provider require any updates on the consumer.
+	ActionsRequired *ActionsRequired
+
+	// The reason for approval or rejection.
+	Description *string
+
+	// Indicates whether the connection has been approved, rejected or removed by the key vault owner.
+	Status *ManagedHsmPrivateEndpointServiceConnectionStatus
+}
+
+// MhsmRegionsListResult - List of regions associated with a managed HSM Pools
+type MhsmRegionsListResult struct {
+	// REQUIRED; The MhsmGeoReplicatedRegion items on this page
+	Value []*MhsmGeoReplicatedRegion
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// MhsmVirtualNetworkRule - A rule governing the accessibility of a managed hsm pool from a specific virtual network.
+type MhsmVirtualNetworkRule struct {
+	// REQUIRED; Full resource id of a vnet subnet, such as '/subscriptions/subid/resourceGroups/rg1/providers/Microsoft.Network/virtualNetworks/test-vnet/subnets/subnet1'.
+	ID *string
+}
+
+// MhsmipRule - A rule governing the accessibility of a managed HSM pool from a specific IP address or IP range.
+type MhsmipRule struct {
+	// REQUIRED; An IPv4 address range in CIDR notation, such as '124.56.78.91' (simple IP address) or '124.56.78.0/24' (all addresses
+	// that start with 124.56.78).
+	Value *string
+}
+
+// NetworkRuleSet - A set of rules governing the network accessibility of a vault.
+type NetworkRuleSet struct {
+	// Tells what traffic can bypass network rules. This can be 'AzureServices' or 'None'. If not specified the default is 'AzureServices'.
+	Bypass *KeyVaultNetworkRuleBypassOption
+
+	// The default action when no rule from ipRules and from virtualNetworkRules match. This is only used after the bypass property
+	// has been evaluated.
+	DefaultAction *KeyVaultNetworkRuleAction
+
+	// The list of IP address rules.
 	IPRules []*IPRule
 
 	// The list of virtual network rules.
 	VirtualNetworkRules []*VirtualNetworkRule
 }
 
-// Operation - Key Vault REST API operation definition.
+// Operation - Details of a REST API operation, returned from the Resource Provider Operations API
 type Operation struct {
-	// Display metadata associated with the operation.
+	// Localized display information for this particular operation.
 	Display *OperationDisplay
 
-	// Property to specify whether the action is a data action.
+	// READ-ONLY; Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+	ActionType *ActionType
+
+	// READ-ONLY; Whether the operation applies to data-plane. This is "true" for data-plane operations and "false" for ARM/control-plane
+	// operations.
 	IsDataAction *bool
 
-	// Operation name: {provider}/{resource}/{operation}
+	// READ-ONLY; The name of the operation, as per Resource-Based Access Control (RBAC). Examples: "Microsoft.Compute/virtualMachines/write",
+	// "Microsoft.Compute/virtualMachines/capture/action"
 	Name *string
 
-	// Properties of operation, include metric specifications.
-	OperationProperties *OperationProperties
-
-	// The origin of operations.
-	Origin *string
+	// READ-ONLY; The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
+	// value is "user,system"
+	Origin *Origin
 }
 
-// OperationDisplay - Display metadata associated with the operation.
+// OperationDisplay - Localized display information for this particular operation.
 type OperationDisplay struct {
-	// Description of operation.
+	// READ-ONLY; The short, localized friendly description of the operation; suitable for tool tips and detailed views.
 	Description *string
 
-	// Type of operation: get, read, delete, etc.
+	// READ-ONLY; The concise, localized friendly name for the operation; suitable for dropdowns. E.g. "Create or Update Virtual
+	// Machine", "Restart Virtual Machine".
 	Operation *string
 
-	// Service provider: Microsoft Key Vault.
+	// READ-ONLY; The localized friendly form of the resource provider name, e.g. "Microsoft Monitoring Insights" or "Microsoft
+	// Compute".
 	Provider *string
 
-	// Resource on which the operation is performed etc.
+	// READ-ONLY; The localized friendly name of the resource type related to this operation. E.g. "Virtual Machines" or "Job
+	// Schedule Collections".
 	Resource *string
 }
 
-// OperationListResult - Result of the request to list Storage operations. It contains a list of operations and a URL link
-// to get the next set of results.
+// OperationListResult - A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to
+// get the next set of results.
 type OperationListResult struct {
-	// The URL to get the next set of operations.
+	// READ-ONLY; URL to get the next set of operation list results (if there are any).
 	NextLink *string
 
-	// List of Storage operations supported by the Storage resource provider.
+	// READ-ONLY; List of operations supported by the resource provider
 	Value []*Operation
-}
-
-// OperationProperties - Properties of operation, include metric specifications.
-type OperationProperties struct {
-	// One property of operation, include metric specifications.
-	ServiceSpecification *ServiceSpecification
 }
 
 // Permissions the identity has for keys, secrets, certificates and storage.
@@ -879,25 +548,28 @@ type PrivateEndpoint struct {
 
 // PrivateEndpointConnection - Private endpoint connection resource.
 type PrivateEndpointConnection struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
 	// Modified whenever there is a change in the state of private endpoint connection.
 	Etag *string
 
 	// Resource properties.
 	Properties *PrivateEndpointConnectionProperties
 
-	// READ-ONLY; Fully qualified identifier of the key vault resource.
-	ID *string
-
-	// READ-ONLY; Azure location of the key vault resource.
-	Location *string
-
-	// READ-ONLY; Name of the key vault resource.
-	Name *string
-
-	// READ-ONLY; Tags assigned to the key vault resource.
+	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Resource type of the key vault resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -913,13 +585,13 @@ type PrivateEndpointConnectionItem struct {
 	Properties *PrivateEndpointConnectionProperties
 }
 
-// PrivateEndpointConnectionListResult - List of private endpoint connections.
+// PrivateEndpointConnectionListResult - The response of a PrivateEndpointConnection list operation.
 type PrivateEndpointConnectionListResult struct {
-	// The URL to get the next set of private endpoint connections.
-	NextLink *string
-
-	// The list of private endpoint connections.
+	// REQUIRED; The PrivateEndpointConnection items on this page
 	Value []*PrivateEndpointConnection
+
+	// The link to the next page of items
+	NextLink *string
 }
 
 // PrivateEndpointConnectionProperties - Properties of the private endpoint connection resource.
@@ -930,7 +602,7 @@ type PrivateEndpointConnectionProperties struct {
 	// Approval state of the private link connection.
 	PrivateLinkServiceConnectionState *PrivateLinkServiceConnectionState
 
-	// Provisioning state of the private endpoint connection.
+	// READ-ONLY; Provisioning state of the private endpoint connection.
 	ProvisioningState *PrivateEndpointConnectionProvisioningState
 }
 
@@ -976,48 +648,13 @@ type PrivateLinkResourceProperties struct {
 // PrivateLinkServiceConnectionState - An object that represents the approval state of the private link connection.
 type PrivateLinkServiceConnectionState struct {
 	// A message indicating if changes on the service provider require any updates on the consumer.
-	ActionsRequired *ActionsRequired
+	ActionsRequired *KeyVaultActionsRequiredMessage
 
 	// The reason for approval or rejection.
 	Description *string
 
 	// Indicates whether the connection has been approved, rejected or removed by the key vault owner.
 	Status *PrivateEndpointServiceConnectionStatus
-}
-
-// Resource - Key Vault resource
-type Resource struct {
-	// READ-ONLY; Fully qualified identifier of the key vault resource.
-	ID *string
-
-	// READ-ONLY; Azure location of the key vault resource.
-	Location *string
-
-	// READ-ONLY; Name of the key vault resource.
-	Name *string
-
-	// READ-ONLY; Tags assigned to the key vault resource.
-	Tags map[string]*string
-
-	// READ-ONLY; Resource type of the key vault resource.
-	Type *string
-}
-
-// ResourceListResult - List of vault resources.
-type ResourceListResult struct {
-	// The URL to get the next set of vault resources.
-	NextLink *string
-
-	// The list of vault resources.
-	Value []*Resource
-}
-
-type RotationPolicy struct {
-	// The attributes of key rotation policy.
-	Attributes *KeyRotationPolicyAttributes
-
-	// The lifetimeActions for key rotation action.
-	LifetimeActions []*LifetimeAction
 }
 
 // SKU details
@@ -1031,22 +668,25 @@ type SKU struct {
 
 // Secret - Resource information with extended details.
 type Secret struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
 	// REQUIRED; Properties of the secret
 	Properties *SecretProperties
 
-	// READ-ONLY; Fully qualified identifier of the key vault resource.
-	ID *string
-
-	// READ-ONLY; Azure location of the key vault resource.
-	Location *string
-
-	// READ-ONLY; Name of the key vault resource.
-	Name *string
-
-	// READ-ONLY; Tags assigned to the key vault resource.
+	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Resource type of the key vault resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -1056,10 +696,10 @@ type SecretAttributes struct {
 	Enabled *bool
 
 	// Expiry date in seconds since 1970-01-01T00:00:00Z.
-	Expires *time.Time
+	Exp *time.Time
 
 	// Not before date in seconds since 1970-01-01T00:00:00Z.
-	NotBefore *time.Time
+	Nbf *time.Time
 
 	// READ-ONLY; Creation time in seconds since 1970-01-01T00:00:00Z.
 	Created *time.Time
@@ -1068,22 +708,13 @@ type SecretAttributes struct {
 	Updated *time.Time
 }
 
-// SecretCreateOrUpdateParameters - Parameters for creating or updating a secret
-type SecretCreateOrUpdateParameters struct {
-	// REQUIRED; Properties of the secret
-	Properties *SecretProperties
-
-	// The tags that will be assigned to the secret.
-	Tags map[string]*string
-}
-
-// SecretListResult - List of secrets
+// SecretListResult - The response of a Secret list operation.
 type SecretListResult struct {
-	// The URL to get the next set of secrets.
-	NextLink *string
-
-	// The list of secrets.
+	// REQUIRED; The Secret items on this page
 	Value []*Secret
+
+	// The link to the next page of items
+	NextLink *string
 }
 
 // SecretPatchParameters - Parameters for patching a secret
@@ -1127,43 +758,25 @@ type SecretProperties struct {
 	SecretURIWithVersion *string
 }
 
-// ServiceSpecification - One property of operation, include log specifications.
-type ServiceSpecification struct {
-	// Log specifications of operation.
-	LogSpecifications []*LogSpecification
-
-	// Metric specifications of operation.
-	MetricSpecifications []*MetricSpecification
-}
-
-// SystemData - Metadata pertaining to creation and last modification of the key vault resource.
+// SystemData - Metadata pertaining to creation and last modification of the resource.
 type SystemData struct {
-	// The timestamp of the key vault resource creation (UTC).
+	// The timestamp of resource creation (UTC).
 	CreatedAt *time.Time
 
-	// The identity that created the key vault resource.
+	// The identity that created the resource.
 	CreatedBy *string
 
-	// The type of identity that created the key vault resource.
-	CreatedByType *IdentityType
+	// The type of identity that created the resource.
+	CreatedByType *CreatedByType
 
-	// The timestamp of the key vault resource last modification (UTC).
+	// The timestamp of resource last modification (UTC)
 	LastModifiedAt *time.Time
 
-	// The identity that last modified the key vault resource.
+	// The identity that last modified the resource.
 	LastModifiedBy *string
 
-	// The type of identity that last modified the key vault resource.
-	LastModifiedByType *IdentityType
-}
-
-type Trigger struct {
-	// The time duration after key creation to rotate the key. It only applies to rotate. It will be in ISO 8601 duration format.
-	// Eg: 'P90D', 'P1Y'.
-	TimeAfterCreate *string
-
-	// The time duration before key expiring to rotate or notify. It will be in ISO 8601 duration format. Eg: 'P90D', 'P1Y'.
-	TimeBeforeExpiry *string
+	// The type of identity that last modified the resource.
+	LastModifiedByType *CreatedByType
 }
 
 // UserAssignedIdentity - User assigned identity properties
@@ -1177,25 +790,25 @@ type UserAssignedIdentity struct {
 
 // Vault - Resource information with extended details.
 type Vault struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
 	// REQUIRED; Properties of the vault
 	Properties *VaultProperties
 
-	// Azure location of the key vault resource.
-	Location *string
-
-	// Tags assigned to the key vault resource.
+	// Resource tags.
 	Tags map[string]*string
 
-	// READ-ONLY; Fully qualified identifier of the key vault resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string
 
-	// READ-ONLY; Name of the key vault resource.
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; System metadata for the key vault.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
-	// READ-ONLY; Resource type of the key vault resource.
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
@@ -1234,25 +847,13 @@ type VaultCheckNameAvailabilityParameters struct {
 	Type *string
 }
 
-// VaultCreateOrUpdateParameters - Parameters for creating or updating a vault
-type VaultCreateOrUpdateParameters struct {
-	// REQUIRED; The supported Azure location where the key vault should be created.
-	Location *string
-
-	// REQUIRED; Properties of the vault
-	Properties *VaultProperties
-
-	// The tags that will be assigned to the key vault.
-	Tags map[string]*string
-}
-
-// VaultListResult - List of vaults
+// VaultListResult - The response of a Vault list operation.
 type VaultListResult struct {
-	// The URL to get the next set of vaults.
-	NextLink *string
-
-	// The list of vaults.
+	// REQUIRED; The Vault items on this page
 	Value []*Vault
+
+	// The link to the next page of items
+	NextLink *string
 }
 
 // VaultPatchParameters - Parameters for creating or updating a vault
@@ -1271,7 +872,7 @@ type VaultPatchProperties struct {
 	AccessPolicies []*AccessPolicyEntry
 
 	// The vault's create mode to indicate whether the vault need to be recovered or not.
-	CreateMode *CreateMode
+	CreateMode *KeyVaultPatchMode
 
 	// Property specifying whether protection against purge is enabled for this vault. Setting this property to true activates
 	// protection against purge for this vault and its content - only the Key Vault
@@ -1334,7 +935,7 @@ type VaultProperties struct {
 	AccessPolicies []*AccessPolicyEntry
 
 	// The vault's create mode to indicate whether the vault need to be recovered or not.
-	CreateMode *CreateMode
+	CreateMode *KeyVaultCreateMode
 
 	// Property specifying whether protection against purge is enabled for this vault. Setting this property to true activates
 	// protection against purge for this vault and its content - only the Key Vault
@@ -1370,7 +971,7 @@ type VaultProperties struct {
 	NetworkACLs *NetworkRuleSet
 
 	// Provisioning state of the vault.
-	ProvisioningState *VaultProvisioningState
+	ProvisioningState *KeyVaultProvisioningState
 
 	// Property to specify whether the vault will accept traffic from public internet. If set to 'disabled' all traffic except
 	// private endpoint traffic and that that originates from trusted services will be

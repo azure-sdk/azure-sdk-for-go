@@ -13,11 +13,10 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/keyvault/armkeyvault"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/keyvault/armkeyvault/v2"
 	"net/http"
 	"net/url"
 	"regexp"
-	"strconv"
 )
 
 // MHSMPrivateEndpointConnectionsServer is a fake server for instances of the armkeyvault.MHSMPrivateEndpointConnectionsClient type.
@@ -36,7 +35,7 @@ type MHSMPrivateEndpointConnectionsServer struct {
 
 	// Put is the fake for method MHSMPrivateEndpointConnectionsClient.Put
 	// HTTP status codes to indicate success: http.StatusOK
-	Put func(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, properties armkeyvault.MHSMPrivateEndpointConnection, options *armkeyvault.MHSMPrivateEndpointConnectionsClientPutOptions) (resp azfake.Responder[armkeyvault.MHSMPrivateEndpointConnectionsClientPutResponse], errResp azfake.ErrorResponder)
+	Put func(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, resource armkeyvault.MhsmPrivateEndpointConnection, options *armkeyvault.MHSMPrivateEndpointConnectionsClientPutOptions) (resp azfake.Responder[armkeyvault.MHSMPrivateEndpointConnectionsClientPutResponse], errResp azfake.ErrorResponder)
 }
 
 // NewMHSMPrivateEndpointConnectionsServerTransport creates a new instance of MHSMPrivateEndpointConnectionsServerTransport with the provided implementation.
@@ -186,7 +185,7 @@ func (m *MHSMPrivateEndpointConnectionsServerTransport) dispatchGet(req *http.Re
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).MHSMPrivateEndpointConnection, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).MhsmPrivateEndpointConnection, req)
 	if err != nil {
 		return nil, err
 	}
@@ -244,7 +243,7 @@ func (m *MHSMPrivateEndpointConnectionsServerTransport) dispatchPut(req *http.Re
 	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armkeyvault.MHSMPrivateEndpointConnection](req)
+	body, err := server.UnmarshalRequestAsJSON[armkeyvault.MhsmPrivateEndpointConnection](req)
 	if err != nil {
 		return nil, err
 	}
@@ -268,15 +267,9 @@ func (m *MHSMPrivateEndpointConnectionsServerTransport) dispatchPut(req *http.Re
 	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
-	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).MHSMPrivateEndpointConnection, req)
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).MhsmPrivateEndpointConnection, req)
 	if err != nil {
 		return nil, err
-	}
-	if val := server.GetResponse(respr).AzureAsyncOperation; val != nil {
-		resp.Header.Set("Azure-AsyncOperation", *val)
-	}
-	if val := server.GetResponse(respr).RetryAfter; val != nil {
-		resp.Header.Set("Retry-After", strconv.FormatInt(int64(*val), 10))
 	}
 	return resp, nil
 }
