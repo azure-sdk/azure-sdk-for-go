@@ -1,5 +1,46 @@
 # Release History
 
+## 1.3.0-beta.2 (2025-04-09)
+### Features Added
+
+- New value `UpdateStatePending` added to enum type `UpdateState`
+- New enum type `AutoUpgradeLastTriggerStatus` with values `AutoUpgradeLastTriggerStatusFailed`, `AutoUpgradeLastTriggerStatusSucceeded`
+- New enum type `GateProvisioningState` with values `GateProvisioningStateCanceled`, `GateProvisioningStateFailed`, `GateProvisioningStateSucceeded`
+- New enum type `GateState` with values `GateStateCompleted`, `GateStatePending`, `GateStateSkipped`
+- New enum type `GateType` with values `GateTypeApproval`
+- New enum type `Timing` with values `TimingAfter`, `TimingBefore`
+- New function `NewAutoUpgradeProfileOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AutoUpgradeProfileOperationsClient, error)`
+- New function `*AutoUpgradeProfileOperationsClient.BeginGenerateUpdateRun(context.Context, string, string, string, *AutoUpgradeProfileOperationsClientBeginGenerateUpdateRunOptions) (*runtime.Poller[AutoUpgradeProfileOperationsClientGenerateUpdateRunResponse], error)`
+- New function `*ClientFactory.NewAutoUpgradeProfileOperationsClient() *AutoUpgradeProfileOperationsClient`
+- New function `*ClientFactory.NewGatesClient() *GatesClient`
+- New function `NewGatesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*GatesClient, error)`
+- New function `*GatesClient.Get(context.Context, string, string, string, *GatesClientGetOptions) (GatesClientGetResponse, error)`
+- New function `*GatesClient.NewListByFleetPager(string, string, *GatesClientListByFleetOptions) *runtime.Pager[GatesClientListByFleetResponse]`
+- New function `*GatesClient.BeginUpdate(context.Context, string, string, string, GatePatch, *GatesClientBeginUpdateOptions) (*runtime.Poller[GatesClientUpdateResponse], error)`
+- New struct `AutoUpgradeProfileStatus`
+- New struct `FleetMemberStatus`
+- New struct `FleetStatus`
+- New struct `Gate`
+- New struct `GateConfiguration`
+- New struct `GateListResult`
+- New struct `GatePatch`
+- New struct `GatePatchProperties`
+- New struct `GateProperties`
+- New struct `GateTarget`
+- New struct `GenerateResponse`
+- New struct `UpdateRunGateStatus`
+- New struct `UpdateRunGateTargetProperties`
+- New field `AutoUpgradeProfileStatus` in struct `AutoUpgradeProfileProperties`
+- New field `Labels`, `Status` in struct `FleetMemberProperties`
+- New field `Labels` in struct `FleetMemberUpdateProperties`
+- New field `Status` in struct `FleetProperties`
+- New field `AfterGates`, `BeforeGates` in struct `UpdateGroup`
+- New field `AfterGates`, `BeforeGates` in struct `UpdateGroupStatus`
+- New field `AutoUpgradeProfileID` in struct `UpdateRunProperties`
+- New field `AfterGates`, `BeforeGates` in struct `UpdateStage`
+- New field `AfterGates`, `BeforeGates` in struct `UpdateStageStatus`
+
+
 ## 1.3.0-beta.1 (2024-10-25)
 ### Features Added
 
