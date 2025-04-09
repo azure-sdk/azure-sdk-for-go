@@ -13,7 +13,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/keyvault/armkeyvault"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/keyvault/armkeyvault/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -24,7 +24,7 @@ import (
 type SecretsServer struct {
 	// CreateOrUpdate is the fake for method SecretsClient.CreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	CreateOrUpdate func(ctx context.Context, resourceGroupName string, vaultName string, secretName string, parameters armkeyvault.SecretCreateOrUpdateParameters, options *armkeyvault.SecretsClientCreateOrUpdateOptions) (resp azfake.Responder[armkeyvault.SecretsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	CreateOrUpdate func(ctx context.Context, resourceGroupName string, vaultName string, secretName string, resource armkeyvault.Secret, options *armkeyvault.SecretsClientCreateOrUpdateOptions) (resp azfake.Responder[armkeyvault.SecretsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method SecretsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
@@ -36,7 +36,7 @@ type SecretsServer struct {
 
 	// Update is the fake for method SecretsClient.Update
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	Update func(ctx context.Context, resourceGroupName string, vaultName string, secretName string, parameters armkeyvault.SecretPatchParameters, options *armkeyvault.SecretsClientUpdateOptions) (resp azfake.Responder[armkeyvault.SecretsClientUpdateResponse], errResp azfake.ErrorResponder)
+	Update func(ctx context.Context, resourceGroupName string, vaultName string, secretName string, properties armkeyvault.SecretPatchParameters, options *armkeyvault.SecretsClientUpdateOptions) (resp azfake.Responder[armkeyvault.SecretsClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewSecretsServerTransport creates a new instance of SecretsServerTransport with the provided implementation.
@@ -116,7 +116,7 @@ func (s *SecretsServerTransport) dispatchCreateOrUpdate(req *http.Request) (*htt
 	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armkeyvault.SecretCreateOrUpdateParameters](req)
+	body, err := server.UnmarshalRequestAsJSON[armkeyvault.Secret](req)
 	if err != nil {
 		return nil, err
 	}

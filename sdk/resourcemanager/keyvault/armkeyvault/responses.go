@@ -5,106 +5,40 @@
 
 package armkeyvault
 
-// KeysClientCreateIfNotExistResponse contains the response from method KeysClient.CreateIfNotExist.
-type KeysClientCreateIfNotExistResponse struct {
-	// The key resource.
-	Key
-}
-
-// KeysClientGetResponse contains the response from method KeysClient.Get.
-type KeysClientGetResponse struct {
-	// The key resource.
-	Key
-}
-
-// KeysClientGetVersionResponse contains the response from method KeysClient.GetVersion.
-type KeysClientGetVersionResponse struct {
-	// The key resource.
-	Key
-}
-
-// KeysClientListResponse contains the response from method KeysClient.NewListPager.
-type KeysClientListResponse struct {
-	// The page of keys.
-	KeyListResult
-}
-
-// KeysClientListVersionsResponse contains the response from method KeysClient.NewListVersionsPager.
-type KeysClientListVersionsResponse struct {
-	// The page of keys.
-	KeyListResult
-}
-
 // MHSMPrivateEndpointConnectionsClientDeleteResponse contains the response from method MHSMPrivateEndpointConnectionsClient.BeginDelete.
 type MHSMPrivateEndpointConnectionsClientDeleteResponse struct {
 	// Private endpoint connection resource.
-	MHSMPrivateEndpointConnection
+	MhsmPrivateEndpointConnection
 }
 
 // MHSMPrivateEndpointConnectionsClientGetResponse contains the response from method MHSMPrivateEndpointConnectionsClient.Get.
 type MHSMPrivateEndpointConnectionsClientGetResponse struct {
 	// Private endpoint connection resource.
-	MHSMPrivateEndpointConnection
+	MhsmPrivateEndpointConnection
 }
 
 // MHSMPrivateEndpointConnectionsClientListByResourceResponse contains the response from method MHSMPrivateEndpointConnectionsClient.NewListByResourcePager.
 type MHSMPrivateEndpointConnectionsClientListByResourceResponse struct {
-	// List of private endpoint connections associated with a managed HSM Pools
-	MHSMPrivateEndpointConnectionsListResult
+	// The response of a MhsmPrivateEndpointConnection list operation.
+	MhsmPrivateEndpointConnectionListResult
 }
 
 // MHSMPrivateEndpointConnectionsClientPutResponse contains the response from method MHSMPrivateEndpointConnectionsClient.Put.
 type MHSMPrivateEndpointConnectionsClientPutResponse struct {
 	// Private endpoint connection resource.
-	MHSMPrivateEndpointConnection
-
-	// AzureAsyncOperation contains the information returned from the Azure-AsyncOperation header response.
-	AzureAsyncOperation *string
-
-	// RetryAfter contains the information returned from the Retry-After header response.
-	RetryAfter *int32
+	MhsmPrivateEndpointConnection
 }
 
 // MHSMPrivateLinkResourcesClientListByMHSMResourceResponse contains the response from method MHSMPrivateLinkResourcesClient.ListByMHSMResource.
 type MHSMPrivateLinkResourcesClientListByMHSMResourceResponse struct {
 	// A list of private link resources
-	MHSMPrivateLinkResourceListResult
+	MhsmPrivateLinkResourceListResult
 }
 
 // MHSMRegionsClientListByResourceResponse contains the response from method MHSMRegionsClient.NewListByResourcePager.
 type MHSMRegionsClientListByResourceResponse struct {
 	// List of regions associated with a managed HSM Pools
-	MHSMRegionsListResult
-}
-
-// ManagedHsmKeysClientCreateIfNotExistResponse contains the response from method ManagedHsmKeysClient.CreateIfNotExist.
-type ManagedHsmKeysClientCreateIfNotExistResponse struct {
-	// The key resource.
-	ManagedHsmKey
-}
-
-// ManagedHsmKeysClientGetResponse contains the response from method ManagedHsmKeysClient.Get.
-type ManagedHsmKeysClientGetResponse struct {
-	// The key resource.
-	ManagedHsmKey
-}
-
-// ManagedHsmKeysClientGetVersionResponse contains the response from method ManagedHsmKeysClient.GetVersion.
-type ManagedHsmKeysClientGetVersionResponse struct {
-	// The key resource.
-	ManagedHsmKey
-}
-
-// ManagedHsmKeysClientListResponse contains the response from method ManagedHsmKeysClient.NewListPager.
-type ManagedHsmKeysClientListResponse struct {
-	// The page of keys.
-	ManagedHsmKeyListResult
-}
-
-// ManagedHsmKeysClientListVersionsResponse contains the response from method ManagedHsmKeysClient.NewListVersionsPager.
-type ManagedHsmKeysClientListVersionsResponse struct {
-	// The page of keys.
-	ManagedHsmKeyListResult
+	MhsmRegionsListResult
 }
 
 // ManagedHsmsClientCheckMhsmNameAvailabilityResponse contains the response from method ManagedHsmsClient.CheckMhsmNameAvailability.
@@ -126,6 +60,7 @@ type ManagedHsmsClientDeleteResponse struct {
 
 // ManagedHsmsClientGetDeletedResponse contains the response from method ManagedHsmsClient.GetDeleted.
 type ManagedHsmsClientGetDeletedResponse struct {
+	// Concrete proxy resource types can be created by aliasing this type using a specific property type.
 	DeletedManagedHsm
 }
 
@@ -137,19 +72,19 @@ type ManagedHsmsClientGetResponse struct {
 
 // ManagedHsmsClientListByResourceGroupResponse contains the response from method ManagedHsmsClient.NewListByResourceGroupPager.
 type ManagedHsmsClientListByResourceGroupResponse struct {
-	// List of managed HSM Pools
+	// The response of a ManagedHsm list operation.
 	ManagedHsmListResult
 }
 
 // ManagedHsmsClientListBySubscriptionResponse contains the response from method ManagedHsmsClient.NewListBySubscriptionPager.
 type ManagedHsmsClientListBySubscriptionResponse struct {
-	// List of managed HSM Pools
+	// The response of a ManagedHsm list operation.
 	ManagedHsmListResult
 }
 
 // ManagedHsmsClientListDeletedResponse contains the response from method ManagedHsmsClient.NewListDeletedPager.
 type ManagedHsmsClientListDeletedResponse struct {
-	// List of deleted managed HSM Pools
+	// The response of a DeletedManagedHsm list operation.
 	DeletedManagedHsmListResult
 }
 
@@ -166,8 +101,7 @@ type ManagedHsmsClientUpdateResponse struct {
 
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
-	// Result of the request to list Storage operations. It contains a list of operations and a URL link to get the next set of
-	// results.
+	// A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to get the next set of results.
 	OperationListResult
 }
 
@@ -185,7 +119,7 @@ type PrivateEndpointConnectionsClientGetResponse struct {
 
 // PrivateEndpointConnectionsClientListByResourceResponse contains the response from method PrivateEndpointConnectionsClient.NewListByResourcePager.
 type PrivateEndpointConnectionsClientListByResourceResponse struct {
-	// List of private endpoint connections.
+	// The response of a PrivateEndpointConnection list operation.
 	PrivateEndpointConnectionListResult
 }
 
@@ -193,12 +127,6 @@ type PrivateEndpointConnectionsClientListByResourceResponse struct {
 type PrivateEndpointConnectionsClientPutResponse struct {
 	// Private endpoint connection resource.
 	PrivateEndpointConnection
-
-	// AzureAsyncOperation contains the information returned from the Azure-AsyncOperation header response.
-	AzureAsyncOperation *string
-
-	// RetryAfter contains the information returned from the Retry-After header response.
-	RetryAfter *int32
 }
 
 // PrivateLinkResourcesClientListByVaultResponse contains the response from method PrivateLinkResourcesClient.ListByVault.
@@ -221,7 +149,7 @@ type SecretsClientGetResponse struct {
 
 // SecretsClientListResponse contains the response from method SecretsClient.NewListPager.
 type SecretsClientListResponse struct {
-	// List of secrets
+	// The response of a Secret list operation.
 	SecretListResult
 }
 
@@ -262,26 +190,20 @@ type VaultsClientGetResponse struct {
 
 // VaultsClientListByResourceGroupResponse contains the response from method VaultsClient.NewListByResourceGroupPager.
 type VaultsClientListByResourceGroupResponse struct {
-	// List of vaults
+	// The response of a Vault list operation.
 	VaultListResult
 }
 
 // VaultsClientListBySubscriptionResponse contains the response from method VaultsClient.NewListBySubscriptionPager.
 type VaultsClientListBySubscriptionResponse struct {
-	// List of vaults
+	// The response of a Vault list operation.
 	VaultListResult
 }
 
 // VaultsClientListDeletedResponse contains the response from method VaultsClient.NewListDeletedPager.
 type VaultsClientListDeletedResponse struct {
-	// List of vaults
+	// The response of a DeletedVault list operation.
 	DeletedVaultListResult
-}
-
-// VaultsClientListResponse contains the response from method VaultsClient.NewListPager.
-type VaultsClientListResponse struct {
-	// List of vault resources.
-	ResourceListResult
 }
 
 // VaultsClientPurgeDeletedResponse contains the response from method VaultsClient.BeginPurgeDeleted.
@@ -293,6 +215,9 @@ type VaultsClientPurgeDeletedResponse struct {
 type VaultsClientUpdateAccessPolicyResponse struct {
 	// Parameters for updating the access policy in a vault
 	VaultAccessPolicyParameters
+
+	// RetryAfter contains the information returned from the Retry-After header response.
+	RetryAfter *int32
 }
 
 // VaultsClientUpdateResponse contains the response from method VaultsClient.Update.

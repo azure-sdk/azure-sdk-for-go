@@ -1,5 +1,149 @@
 # Release History
 
+## 2.0.0 (2025-04-09)
+### Breaking Changes
+
+- Function `*MHSMPrivateEndpointConnectionsClient.Put` parameter(s) have been changed from `(context.Context, string, string, string, MHSMPrivateEndpointConnection, *MHSMPrivateEndpointConnectionsClientPutOptions)` to `(context.Context, string, string, string, MhsmPrivateEndpointConnection, *MHSMPrivateEndpointConnectionsClientPutOptions)`
+- Function `*SecretsClient.CreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, SecretCreateOrUpdateParameters, *SecretsClientCreateOrUpdateOptions)` to `(context.Context, string, string, string, Secret, *SecretsClientCreateOrUpdateOptions)`
+- Function `*VaultsClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, VaultCreateOrUpdateParameters, *VaultsClientBeginCreateOrUpdateOptions)` to `(context.Context, string, string, Vault, *VaultsClientBeginCreateOrUpdateOptions)`
+- Type of `CheckNameAvailabilityResult.Reason` has been changed from `*Reason` to `*KeyVaultNameUnavailableReason`
+- Type of `ManagedHsmProperties.NetworkACLs` has been changed from `*MHSMNetworkRuleSet` to `*MhsmNetworkRuleSet`
+- Type of `ManagedHsmProperties.PrivateEndpointConnections` has been changed from `[]*MHSMPrivateEndpointConnectionItem` to `[]*MhsmPrivateEndpointConnectionItem`
+- Type of `ManagedHsmProperties.ProvisioningState` has been changed from `*ProvisioningState` to `*ManagedHsmProvisioningState`
+- Type of `ManagedHsmProperties.Regions` has been changed from `[]*MHSMGeoReplicatedRegion` to `[]*MhsmGeoReplicatedRegion`
+- Type of `NetworkRuleSet.Bypass` has been changed from `*NetworkRuleBypassOptions` to `*KeyVaultNetworkRuleBypassOption`
+- Type of `NetworkRuleSet.DefaultAction` has been changed from `*NetworkRuleAction` to `*KeyVaultNetworkRuleAction`
+- Type of `Operation.Origin` has been changed from `*string` to `*Origin`
+- Type of `PrivateLinkServiceConnectionState.ActionsRequired` has been changed from `*ActionsRequired` to `*KeyVaultActionsRequiredMessage`
+- Type of `SystemData.CreatedByType` has been changed from `*IdentityType` to `*CreatedByType`
+- Type of `SystemData.LastModifiedByType` has been changed from `*IdentityType` to `*CreatedByType`
+- Type of `VaultPatchProperties.CreateMode` has been changed from `*CreateMode` to `*KeyVaultPatchMode`
+- Type of `VaultProperties.CreateMode` has been changed from `*CreateMode` to `*KeyVaultCreateMode`
+- Type of `VaultProperties.ProvisioningState` has been changed from `*VaultProvisioningState` to `*KeyVaultProvisioningState`
+- Enum `DeletionRecoveryLevel` has been removed
+- Enum `IdentityType` has been removed
+- Enum `JSONWebKeyCurveName` has been removed
+- Enum `JSONWebKeyOperation` has been removed
+- Enum `JSONWebKeyType` has been removed
+- Enum `KeyRotationPolicyActionType` has been removed
+- Enum `ProvisioningState` has been removed
+- Enum `VaultProvisioningState` has been removed
+- Function `*ClientFactory.NewKeysClient` has been removed
+- Function `*ClientFactory.NewManagedHsmKeysClient` has been removed
+- Function `NewKeysClient` has been removed
+- Function `*KeysClient.CreateIfNotExist` has been removed
+- Function `*KeysClient.Get` has been removed
+- Function `*KeysClient.GetVersion` has been removed
+- Function `*KeysClient.NewListPager` has been removed
+- Function `*KeysClient.NewListVersionsPager` has been removed
+- Function `NewManagedHsmKeysClient` has been removed
+- Function `*ManagedHsmKeysClient.CreateIfNotExist` has been removed
+- Function `*ManagedHsmKeysClient.Get` has been removed
+- Function `*ManagedHsmKeysClient.GetVersion` has been removed
+- Function `*ManagedHsmKeysClient.NewListPager` has been removed
+- Function `*ManagedHsmKeysClient.NewListVersionsPager` has been removed
+- Function `*VaultsClient.NewListPager` has been removed
+- Struct `Action` has been removed
+- Struct `DimensionProperties` has been removed
+- Struct `Key` has been removed
+- Struct `KeyAttributes` has been removed
+- Struct `KeyCreateParameters` has been removed
+- Struct `KeyListResult` has been removed
+- Struct `KeyProperties` has been removed
+- Struct `KeyReleasePolicy` has been removed
+- Struct `KeyRotationPolicyAttributes` has been removed
+- Struct `LifetimeAction` has been removed
+- Struct `LogSpecification` has been removed
+- Struct `MHSMGeoReplicatedRegion` has been removed
+- Struct `MHSMIPRule` has been removed
+- Struct `MHSMNetworkRuleSet` has been removed
+- Struct `MHSMPrivateEndpoint` has been removed
+- Struct `MHSMPrivateEndpointConnection` has been removed
+- Struct `MHSMPrivateEndpointConnectionItem` has been removed
+- Struct `MHSMPrivateEndpointConnectionProperties` has been removed
+- Struct `MHSMPrivateEndpointConnectionsListResult` has been removed
+- Struct `MHSMPrivateLinkResource` has been removed
+- Struct `MHSMPrivateLinkResourceListResult` has been removed
+- Struct `MHSMPrivateLinkResourceProperties` has been removed
+- Struct `MHSMPrivateLinkServiceConnectionState` has been removed
+- Struct `MHSMRegionsListResult` has been removed
+- Struct `MHSMVirtualNetworkRule` has been removed
+- Struct `ManagedHsmAction` has been removed
+- Struct `ManagedHsmKey` has been removed
+- Struct `ManagedHsmKeyAttributes` has been removed
+- Struct `ManagedHsmKeyCreateParameters` has been removed
+- Struct `ManagedHsmKeyListResult` has been removed
+- Struct `ManagedHsmKeyProperties` has been removed
+- Struct `ManagedHsmKeyReleasePolicy` has been removed
+- Struct `ManagedHsmKeyRotationPolicyAttributes` has been removed
+- Struct `ManagedHsmLifetimeAction` has been removed
+- Struct `ManagedHsmRotationPolicy` has been removed
+- Struct `ManagedHsmTrigger` has been removed
+- Struct `MetricSpecification` has been removed
+- Struct `OperationProperties` has been removed
+- Struct `Resource` has been removed
+- Struct `ResourceListResult` has been removed
+- Struct `RotationPolicy` has been removed
+- Struct `SecretCreateOrUpdateParameters` has been removed
+- Struct `ServiceSpecification` has been removed
+- Struct `Trigger` has been removed
+- Struct `VaultCreateOrUpdateParameters` has been removed
+- Field `MHSMPrivateEndpointConnection` of struct `MHSMPrivateEndpointConnectionsClientDeleteResponse` has been removed
+- Field `MHSMPrivateEndpointConnection` of struct `MHSMPrivateEndpointConnectionsClientGetResponse` has been removed
+- Field `MHSMPrivateEndpointConnectionsListResult` of struct `MHSMPrivateEndpointConnectionsClientListByResourceResponse` has been removed
+- Field `MHSMPrivateEndpointConnection` of struct `MHSMPrivateEndpointConnectionsClientPutResponse` has been removed
+- Field `AzureAsyncOperation`, `RetryAfter` of struct `MHSMPrivateEndpointConnectionsClientPutResponse` has been removed
+- Field `MHSMPrivateLinkResourceListResult` of struct `MHSMPrivateLinkResourcesClientListByMHSMResourceResponse` has been removed
+- Field `MHSMRegionsListResult` of struct `MHSMRegionsClientListByResourceResponse` has been removed
+- Field `Identity`, `SKU` of struct `ManagedHsm` has been removed
+- Field `OperationProperties` of struct `Operation` has been removed
+- Field `AzureAsyncOperation`, `RetryAfter` of struct `PrivateEndpointConnectionsClientPutResponse` has been removed
+- Field `Expires`, `NotBefore` of struct `SecretAttributes` has been removed
+
+### Features Added
+
+- New enum type `ActionType` with values `ActionTypeInternal`
+- New enum type `CreatedByType` with values `CreatedByTypeApplication`, `CreatedByTypeKey`, `CreatedByTypeManagedIdentity`, `CreatedByTypeUser`
+- New enum type `KeyVaultActionsRequiredMessage` with values `KeyVaultActionsRequiredMessageNone`
+- New enum type `KeyVaultCreateMode` with values `KeyVaultCreateModeDefault`, `KeyVaultCreateModeRecover`
+- New enum type `KeyVaultNameUnavailableReason` with values `KeyVaultNameUnavailableReasonAccountNameInvalid`, `KeyVaultNameUnavailableReasonAlreadyExists`
+- New enum type `KeyVaultNetworkRuleAction` with values `KeyVaultNetworkRuleActionAllow`, `KeyVaultNetworkRuleActionDeny`
+- New enum type `KeyVaultNetworkRuleBypassOption` with values `KeyVaultNetworkRuleBypassOptionAzureServices`, `KeyVaultNetworkRuleBypassOptionNone`
+- New enum type `KeyVaultPatchMode` with values `KeyVaultPatchModeDefault`, `KeyVaultPatchModeRecover`
+- New enum type `KeyVaultProvisioningState` with values `KeyVaultProvisioningStateRegisteringDNS`, `KeyVaultProvisioningStateSucceeded`
+- New enum type `ManagedHsmPrivateEndpointConnectionProvisioningState` with values `ManagedHsmPrivateEndpointConnectionProvisioningStateCreating`, `ManagedHsmPrivateEndpointConnectionProvisioningStateDeleting`, `ManagedHsmPrivateEndpointConnectionProvisioningStateDisconnected`, `ManagedHsmPrivateEndpointConnectionProvisioningStateFailed`, `ManagedHsmPrivateEndpointConnectionProvisioningStateSucceeded`, `ManagedHsmPrivateEndpointConnectionProvisioningStateUpdating`
+- New enum type `ManagedHsmPrivateEndpointServiceConnectionStatus` with values `ManagedHsmPrivateEndpointServiceConnectionStatusApproved`, `ManagedHsmPrivateEndpointServiceConnectionStatusDisconnected`, `ManagedHsmPrivateEndpointServiceConnectionStatusPending`, `ManagedHsmPrivateEndpointServiceConnectionStatusRejected`
+- New enum type `ManagedHsmProvisioningState` with values `ManagedHsmProvisioningStateActivated`, `ManagedHsmProvisioningStateDeleting`, `ManagedHsmProvisioningStateFailed`, `ManagedHsmProvisioningStateProvisioning`, `ManagedHsmProvisioningStateRestoring`, `ManagedHsmProvisioningStateSecurityDomainRestore`, `ManagedHsmProvisioningStateSucceeded`, `ManagedHsmProvisioningStateUpdating`
+- New enum type `Origin` with values `OriginSystem`, `OriginUser`, `OriginUserSystem`
+- New struct `MhsmGeoReplicatedRegion`
+- New struct `MhsmNetworkRuleSet`
+- New struct `MhsmPrivateEndpoint`
+- New struct `MhsmPrivateEndpointConnection`
+- New struct `MhsmPrivateEndpointConnectionItem`
+- New struct `MhsmPrivateEndpointConnectionListResult`
+- New struct `MhsmPrivateEndpointConnectionProperties`
+- New struct `MhsmPrivateLinkResource`
+- New struct `MhsmPrivateLinkResourceListResult`
+- New struct `MhsmPrivateLinkResourceProperties`
+- New struct `MhsmPrivateLinkServiceConnectionState`
+- New struct `MhsmRegionsListResult`
+- New struct `MhsmVirtualNetworkRule`
+- New struct `MhsmipRule`
+- New field `SystemData` in struct `DeletedManagedHsm`
+- New field `SystemData` in struct `DeletedVault`
+- New anonymous field `MhsmPrivateEndpointConnection` in struct `MHSMPrivateEndpointConnectionsClientDeleteResponse`
+- New anonymous field `MhsmPrivateEndpointConnection` in struct `MHSMPrivateEndpointConnectionsClientGetResponse`
+- New anonymous field `MhsmPrivateEndpointConnectionListResult` in struct `MHSMPrivateEndpointConnectionsClientListByResourceResponse`
+- New anonymous field `MhsmPrivateEndpointConnection` in struct `MHSMPrivateEndpointConnectionsClientPutResponse`
+- New anonymous field `MhsmPrivateLinkResourceListResult` in struct `MHSMPrivateLinkResourcesClientListByMHSMResourceResponse`
+- New anonymous field `MhsmRegionsListResult` in struct `MHSMRegionsClientListByResourceResponse`
+- New field `ActionType` in struct `Operation`
+- New field `SystemData` in struct `PrivateEndpointConnection`
+- New field `SystemData` in struct `Secret`
+- New field `Exp`, `Nbf` in struct `SecretAttributes`
+- New field `RetryAfter` in struct `VaultsClientUpdateAccessPolicyResponse`
+
+
 ## 1.5.0 (2025-03-28)
 ### Features Added
 

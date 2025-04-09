@@ -16,9 +16,6 @@ import (
 
 // ServerFactory is a fake server for instances of the armkeyvault.ClientFactory type.
 type ServerFactory struct {
-	// KeysServer contains the fakes for client KeysClient
-	KeysServer KeysServer
-
 	// MHSMPrivateEndpointConnectionsServer contains the fakes for client MHSMPrivateEndpointConnectionsClient
 	MHSMPrivateEndpointConnectionsServer MHSMPrivateEndpointConnectionsServer
 
@@ -27,9 +24,6 @@ type ServerFactory struct {
 
 	// MHSMRegionsServer contains the fakes for client MHSMRegionsClient
 	MHSMRegionsServer MHSMRegionsServer
-
-	// ManagedHsmKeysServer contains the fakes for client ManagedHsmKeysClient
-	ManagedHsmKeysServer ManagedHsmKeysServer
 
 	// ManagedHsmsServer contains the fakes for client ManagedHsmsClient
 	ManagedHsmsServer ManagedHsmsServer
@@ -64,11 +58,9 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 type ServerFactoryTransport struct {
 	srv                                    *ServerFactory
 	trMu                                   sync.Mutex
-	trKeysServer                           *KeysServerTransport
 	trMHSMPrivateEndpointConnectionsServer *MHSMPrivateEndpointConnectionsServerTransport
 	trMHSMPrivateLinkResourcesServer       *MHSMPrivateLinkResourcesServerTransport
 	trMHSMRegionsServer                    *MHSMRegionsServerTransport
-	trManagedHsmKeysServer                 *ManagedHsmKeysServerTransport
 	trManagedHsmsServer                    *ManagedHsmsServerTransport
 	trOperationsServer                     *OperationsServerTransport
 	trPrivateEndpointConnectionsServer     *PrivateEndpointConnectionsServerTransport
@@ -90,9 +82,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch client {
-	case "KeysClient":
-		initServer(s, &s.trKeysServer, func() *KeysServerTransport { return NewKeysServerTransport(&s.srv.KeysServer) })
-		resp, err = s.trKeysServer.Do(req)
 	case "MHSMPrivateEndpointConnectionsClient":
 		initServer(s, &s.trMHSMPrivateEndpointConnectionsServer, func() *MHSMPrivateEndpointConnectionsServerTransport {
 			return NewMHSMPrivateEndpointConnectionsServerTransport(&s.srv.MHSMPrivateEndpointConnectionsServer)
@@ -106,11 +95,6 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "MHSMRegionsClient":
 		initServer(s, &s.trMHSMRegionsServer, func() *MHSMRegionsServerTransport { return NewMHSMRegionsServerTransport(&s.srv.MHSMRegionsServer) })
 		resp, err = s.trMHSMRegionsServer.Do(req)
-	case "ManagedHsmKeysClient":
-		initServer(s, &s.trManagedHsmKeysServer, func() *ManagedHsmKeysServerTransport {
-			return NewManagedHsmKeysServerTransport(&s.srv.ManagedHsmKeysServer)
-		})
-		resp, err = s.trManagedHsmKeysServer.Do(req)
 	case "ManagedHsmsClient":
 		initServer(s, &s.trManagedHsmsServer, func() *ManagedHsmsServerTransport { return NewManagedHsmsServerTransport(&s.srv.ManagedHsmsServer) })
 		resp, err = s.trManagedHsmsServer.Do(req)

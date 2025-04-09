@@ -7,7 +7,7 @@ package armkeyvault
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/keyvault/armkeyvault"
-	moduleVersion = "v1.5.0"
+	moduleVersion = "v2.0.0"
 )
 
 type AccessPolicyUpdateKind string
@@ -24,6 +24,20 @@ func PossibleAccessPolicyUpdateKindValues() []AccessPolicyUpdateKind {
 		AccessPolicyUpdateKindAdd,
 		AccessPolicyUpdateKindRemove,
 		AccessPolicyUpdateKindReplace,
+	}
+}
+
+// ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+type ActionType string
+
+const (
+	ActionTypeInternal ActionType = "Internal"
+)
+
+// PossibleActionTypeValues returns the possible values for the ActionType const type.
+func PossibleActionTypeValues() []ActionType {
+	return []ActionType{
+		ActionTypeInternal,
 	}
 }
 
@@ -110,11 +124,13 @@ func PossibleCertificatePermissionsValues() []CertificatePermissions {
 	}
 }
 
-// CreateMode - The vault's create mode to indicate whether the vault need to be recovered or not.
+// CreateMode - The create mode to indicate whether the resource is being created or is being recovered from a deleted resource.
 type CreateMode string
 
 const (
+	// CreateModeDefault - Create a new managed HSM pool. This is the default option.
 	CreateModeDefault CreateMode = "default"
+	// CreateModeRecover - Recover the managed HSM pool from a soft-deleted resource.
 	CreateModeRecover CreateMode = "recover"
 )
 
@@ -126,25 +142,23 @@ func PossibleCreateModeValues() []CreateMode {
 	}
 }
 
-// DeletionRecoveryLevel - The deletion recovery level currently in effect for the object. If it contains 'Purgeable', then
-// the object can be permanently deleted by a privileged user; otherwise, only the system can purge the
-// object at the end of the retention interval.
-type DeletionRecoveryLevel string
+// CreatedByType - The type of identity that created the resource.
+type CreatedByType string
 
 const (
-	DeletionRecoveryLevelPurgeable                        DeletionRecoveryLevel = "Purgeable"
-	DeletionRecoveryLevelRecoverable                      DeletionRecoveryLevel = "Recoverable"
-	DeletionRecoveryLevelRecoverableProtectedSubscription DeletionRecoveryLevel = "Recoverable+ProtectedSubscription"
-	DeletionRecoveryLevelRecoverablePurgeable             DeletionRecoveryLevel = "Recoverable+Purgeable"
+	CreatedByTypeApplication     CreatedByType = "Application"
+	CreatedByTypeKey             CreatedByType = "Key"
+	CreatedByTypeManagedIdentity CreatedByType = "ManagedIdentity"
+	CreatedByTypeUser            CreatedByType = "User"
 )
 
-// PossibleDeletionRecoveryLevelValues returns the possible values for the DeletionRecoveryLevel const type.
-func PossibleDeletionRecoveryLevelValues() []DeletionRecoveryLevel {
-	return []DeletionRecoveryLevel{
-		DeletionRecoveryLevelPurgeable,
-		DeletionRecoveryLevelRecoverable,
-		DeletionRecoveryLevelRecoverableProtectedSubscription,
-		DeletionRecoveryLevelRecoverablePurgeable,
+// PossibleCreatedByTypeValues returns the possible values for the CreatedByType const type.
+func PossibleCreatedByTypeValues() []CreatedByType {
+	return []CreatedByType{
+		CreatedByTypeApplication,
+		CreatedByTypeKey,
+		CreatedByTypeManagedIdentity,
+		CreatedByTypeUser,
 	}
 }
 
@@ -169,95 +183,6 @@ func PossibleGeoReplicationRegionProvisioningStateValues() []GeoReplicationRegio
 		GeoReplicationRegionProvisioningStatePreprovisioning,
 		GeoReplicationRegionProvisioningStateProvisioning,
 		GeoReplicationRegionProvisioningStateSucceeded,
-	}
-}
-
-// IdentityType - The type of identity.
-type IdentityType string
-
-const (
-	IdentityTypeApplication     IdentityType = "Application"
-	IdentityTypeKey             IdentityType = "Key"
-	IdentityTypeManagedIdentity IdentityType = "ManagedIdentity"
-	IdentityTypeUser            IdentityType = "User"
-)
-
-// PossibleIdentityTypeValues returns the possible values for the IdentityType const type.
-func PossibleIdentityTypeValues() []IdentityType {
-	return []IdentityType{
-		IdentityTypeApplication,
-		IdentityTypeKey,
-		IdentityTypeManagedIdentity,
-		IdentityTypeUser,
-	}
-}
-
-// JSONWebKeyCurveName - The elliptic curve name. For valid values, see JsonWebKeyCurveName. Default for EC and EC-HSM keys
-// is P-256
-type JSONWebKeyCurveName string
-
-const (
-	JSONWebKeyCurveNameP256  JSONWebKeyCurveName = "P-256"
-	JSONWebKeyCurveNameP256K JSONWebKeyCurveName = "P-256K"
-	JSONWebKeyCurveNameP384  JSONWebKeyCurveName = "P-384"
-	JSONWebKeyCurveNameP521  JSONWebKeyCurveName = "P-521"
-)
-
-// PossibleJSONWebKeyCurveNameValues returns the possible values for the JSONWebKeyCurveName const type.
-func PossibleJSONWebKeyCurveNameValues() []JSONWebKeyCurveName {
-	return []JSONWebKeyCurveName{
-		JSONWebKeyCurveNameP256,
-		JSONWebKeyCurveNameP256K,
-		JSONWebKeyCurveNameP384,
-		JSONWebKeyCurveNameP521,
-	}
-}
-
-// JSONWebKeyOperation - The permitted JSON web key operations of the key. For more information, see JsonWebKeyOperation.
-type JSONWebKeyOperation string
-
-const (
-	JSONWebKeyOperationDecrypt   JSONWebKeyOperation = "decrypt"
-	JSONWebKeyOperationEncrypt   JSONWebKeyOperation = "encrypt"
-	JSONWebKeyOperationImport    JSONWebKeyOperation = "import"
-	JSONWebKeyOperationRelease   JSONWebKeyOperation = "release"
-	JSONWebKeyOperationSign      JSONWebKeyOperation = "sign"
-	JSONWebKeyOperationUnwrapKey JSONWebKeyOperation = "unwrapKey"
-	JSONWebKeyOperationVerify    JSONWebKeyOperation = "verify"
-	JSONWebKeyOperationWrapKey   JSONWebKeyOperation = "wrapKey"
-)
-
-// PossibleJSONWebKeyOperationValues returns the possible values for the JSONWebKeyOperation const type.
-func PossibleJSONWebKeyOperationValues() []JSONWebKeyOperation {
-	return []JSONWebKeyOperation{
-		JSONWebKeyOperationDecrypt,
-		JSONWebKeyOperationEncrypt,
-		JSONWebKeyOperationImport,
-		JSONWebKeyOperationRelease,
-		JSONWebKeyOperationSign,
-		JSONWebKeyOperationUnwrapKey,
-		JSONWebKeyOperationVerify,
-		JSONWebKeyOperationWrapKey,
-	}
-}
-
-// JSONWebKeyType - The type of the key. For valid values, see JsonWebKeyType.
-type JSONWebKeyType string
-
-const (
-	JSONWebKeyTypeEC     JSONWebKeyType = "EC"
-	JSONWebKeyTypeECHSM  JSONWebKeyType = "EC-HSM"
-	JSONWebKeyTypeRSA    JSONWebKeyType = "RSA"
-	JSONWebKeyTypeRSAHSM JSONWebKeyType = "RSA-HSM"
-)
-
-// PossibleJSONWebKeyTypeValues returns the possible values for the JSONWebKeyType const type.
-func PossibleJSONWebKeyTypeValues() []JSONWebKeyType {
-	return []JSONWebKeyType{
-		JSONWebKeyTypeEC,
-		JSONWebKeyTypeECHSM,
-		JSONWebKeyTypeRSA,
-		JSONWebKeyTypeRSAHSM,
 	}
 }
 
@@ -314,19 +239,196 @@ func PossibleKeyPermissionsValues() []KeyPermissions {
 	}
 }
 
-// KeyRotationPolicyActionType - The type of action.
-type KeyRotationPolicyActionType string
+// KeyVaultActionsRequiredMessage - A message indicating if changes on the service provider require any updates on the consumer.
+type KeyVaultActionsRequiredMessage string
 
 const (
-	KeyRotationPolicyActionTypeNotify KeyRotationPolicyActionType = "notify"
-	KeyRotationPolicyActionTypeRotate KeyRotationPolicyActionType = "rotate"
+	KeyVaultActionsRequiredMessageNone KeyVaultActionsRequiredMessage = "None"
 )
 
-// PossibleKeyRotationPolicyActionTypeValues returns the possible values for the KeyRotationPolicyActionType const type.
-func PossibleKeyRotationPolicyActionTypeValues() []KeyRotationPolicyActionType {
-	return []KeyRotationPolicyActionType{
-		KeyRotationPolicyActionTypeNotify,
-		KeyRotationPolicyActionTypeRotate,
+// PossibleKeyVaultActionsRequiredMessageValues returns the possible values for the KeyVaultActionsRequiredMessage const type.
+func PossibleKeyVaultActionsRequiredMessageValues() []KeyVaultActionsRequiredMessage {
+	return []KeyVaultActionsRequiredMessage{
+		KeyVaultActionsRequiredMessageNone,
+	}
+}
+
+// KeyVaultCreateMode - The vault's create mode to indicate whether the vault need to be recovered or not.
+type KeyVaultCreateMode string
+
+const (
+	KeyVaultCreateModeDefault KeyVaultCreateMode = "default"
+	KeyVaultCreateModeRecover KeyVaultCreateMode = "recover"
+)
+
+// PossibleKeyVaultCreateModeValues returns the possible values for the KeyVaultCreateMode const type.
+func PossibleKeyVaultCreateModeValues() []KeyVaultCreateMode {
+	return []KeyVaultCreateMode{
+		KeyVaultCreateModeDefault,
+		KeyVaultCreateModeRecover,
+	}
+}
+
+// KeyVaultNameUnavailableReason - The reason that a vault name could not be used. The Reason element is only returned if
+// NameAvailable is false.
+type KeyVaultNameUnavailableReason string
+
+const (
+	KeyVaultNameUnavailableReasonAccountNameInvalid KeyVaultNameUnavailableReason = "AccountNameInvalid"
+	KeyVaultNameUnavailableReasonAlreadyExists      KeyVaultNameUnavailableReason = "AlreadyExists"
+)
+
+// PossibleKeyVaultNameUnavailableReasonValues returns the possible values for the KeyVaultNameUnavailableReason const type.
+func PossibleKeyVaultNameUnavailableReasonValues() []KeyVaultNameUnavailableReason {
+	return []KeyVaultNameUnavailableReason{
+		KeyVaultNameUnavailableReasonAccountNameInvalid,
+		KeyVaultNameUnavailableReasonAlreadyExists,
+	}
+}
+
+// KeyVaultNetworkRuleAction - The default action when no rule from ipRules and from virtualNetworkRules match. This is only
+// used after the bypass property has been evaluated.
+type KeyVaultNetworkRuleAction string
+
+const (
+	KeyVaultNetworkRuleActionAllow KeyVaultNetworkRuleAction = "Allow"
+	KeyVaultNetworkRuleActionDeny  KeyVaultNetworkRuleAction = "Deny"
+)
+
+// PossibleKeyVaultNetworkRuleActionValues returns the possible values for the KeyVaultNetworkRuleAction const type.
+func PossibleKeyVaultNetworkRuleActionValues() []KeyVaultNetworkRuleAction {
+	return []KeyVaultNetworkRuleAction{
+		KeyVaultNetworkRuleActionAllow,
+		KeyVaultNetworkRuleActionDeny,
+	}
+}
+
+// KeyVaultNetworkRuleBypassOption - Tells what traffic can bypass network rules. This can be 'AzureServices' or 'None'. If
+// not specified the default is 'AzureServices'.
+type KeyVaultNetworkRuleBypassOption string
+
+const (
+	KeyVaultNetworkRuleBypassOptionAzureServices KeyVaultNetworkRuleBypassOption = "AzureServices"
+	KeyVaultNetworkRuleBypassOptionNone          KeyVaultNetworkRuleBypassOption = "None"
+)
+
+// PossibleKeyVaultNetworkRuleBypassOptionValues returns the possible values for the KeyVaultNetworkRuleBypassOption const type.
+func PossibleKeyVaultNetworkRuleBypassOptionValues() []KeyVaultNetworkRuleBypassOption {
+	return []KeyVaultNetworkRuleBypassOption{
+		KeyVaultNetworkRuleBypassOptionAzureServices,
+		KeyVaultNetworkRuleBypassOptionNone,
+	}
+}
+
+// KeyVaultPatchMode - The vault's create mode to indicate whether the vault need to be recovered or not.
+type KeyVaultPatchMode string
+
+const (
+	KeyVaultPatchModeDefault KeyVaultPatchMode = "default"
+	KeyVaultPatchModeRecover KeyVaultPatchMode = "recover"
+)
+
+// PossibleKeyVaultPatchModeValues returns the possible values for the KeyVaultPatchMode const type.
+func PossibleKeyVaultPatchModeValues() []KeyVaultPatchMode {
+	return []KeyVaultPatchMode{
+		KeyVaultPatchModeDefault,
+		KeyVaultPatchModeRecover,
+	}
+}
+
+// KeyVaultProvisioningState - Provisioning state of the vault.
+type KeyVaultProvisioningState string
+
+const (
+	KeyVaultProvisioningStateRegisteringDNS KeyVaultProvisioningState = "RegisteringDns"
+	KeyVaultProvisioningStateSucceeded      KeyVaultProvisioningState = "Succeeded"
+)
+
+// PossibleKeyVaultProvisioningStateValues returns the possible values for the KeyVaultProvisioningState const type.
+func PossibleKeyVaultProvisioningStateValues() []KeyVaultProvisioningState {
+	return []KeyVaultProvisioningState{
+		KeyVaultProvisioningStateRegisteringDNS,
+		KeyVaultProvisioningStateSucceeded,
+	}
+}
+
+// ManagedHsmPrivateEndpointConnectionProvisioningState - The current provisioning state.
+type ManagedHsmPrivateEndpointConnectionProvisioningState string
+
+const (
+	ManagedHsmPrivateEndpointConnectionProvisioningStateCreating     ManagedHsmPrivateEndpointConnectionProvisioningState = "Creating"
+	ManagedHsmPrivateEndpointConnectionProvisioningStateDeleting     ManagedHsmPrivateEndpointConnectionProvisioningState = "Deleting"
+	ManagedHsmPrivateEndpointConnectionProvisioningStateDisconnected ManagedHsmPrivateEndpointConnectionProvisioningState = "Disconnected"
+	ManagedHsmPrivateEndpointConnectionProvisioningStateFailed       ManagedHsmPrivateEndpointConnectionProvisioningState = "Failed"
+	ManagedHsmPrivateEndpointConnectionProvisioningStateSucceeded    ManagedHsmPrivateEndpointConnectionProvisioningState = "Succeeded"
+	ManagedHsmPrivateEndpointConnectionProvisioningStateUpdating     ManagedHsmPrivateEndpointConnectionProvisioningState = "Updating"
+)
+
+// PossibleManagedHsmPrivateEndpointConnectionProvisioningStateValues returns the possible values for the ManagedHsmPrivateEndpointConnectionProvisioningState const type.
+func PossibleManagedHsmPrivateEndpointConnectionProvisioningStateValues() []ManagedHsmPrivateEndpointConnectionProvisioningState {
+	return []ManagedHsmPrivateEndpointConnectionProvisioningState{
+		ManagedHsmPrivateEndpointConnectionProvisioningStateCreating,
+		ManagedHsmPrivateEndpointConnectionProvisioningStateDeleting,
+		ManagedHsmPrivateEndpointConnectionProvisioningStateDisconnected,
+		ManagedHsmPrivateEndpointConnectionProvisioningStateFailed,
+		ManagedHsmPrivateEndpointConnectionProvisioningStateSucceeded,
+		ManagedHsmPrivateEndpointConnectionProvisioningStateUpdating,
+	}
+}
+
+// ManagedHsmPrivateEndpointServiceConnectionStatus - The private endpoint connection status.
+type ManagedHsmPrivateEndpointServiceConnectionStatus string
+
+const (
+	ManagedHsmPrivateEndpointServiceConnectionStatusApproved     ManagedHsmPrivateEndpointServiceConnectionStatus = "Approved"
+	ManagedHsmPrivateEndpointServiceConnectionStatusDisconnected ManagedHsmPrivateEndpointServiceConnectionStatus = "Disconnected"
+	ManagedHsmPrivateEndpointServiceConnectionStatusPending      ManagedHsmPrivateEndpointServiceConnectionStatus = "Pending"
+	ManagedHsmPrivateEndpointServiceConnectionStatusRejected     ManagedHsmPrivateEndpointServiceConnectionStatus = "Rejected"
+)
+
+// PossibleManagedHsmPrivateEndpointServiceConnectionStatusValues returns the possible values for the ManagedHsmPrivateEndpointServiceConnectionStatus const type.
+func PossibleManagedHsmPrivateEndpointServiceConnectionStatusValues() []ManagedHsmPrivateEndpointServiceConnectionStatus {
+	return []ManagedHsmPrivateEndpointServiceConnectionStatus{
+		ManagedHsmPrivateEndpointServiceConnectionStatusApproved,
+		ManagedHsmPrivateEndpointServiceConnectionStatusDisconnected,
+		ManagedHsmPrivateEndpointServiceConnectionStatusPending,
+		ManagedHsmPrivateEndpointServiceConnectionStatusRejected,
+	}
+}
+
+// ManagedHsmProvisioningState - Provisioning state.
+type ManagedHsmProvisioningState string
+
+const (
+	// ManagedHsmProvisioningStateActivated - The managed HSM pool is ready for normal use.
+	ManagedHsmProvisioningStateActivated ManagedHsmProvisioningState = "Activated"
+	// ManagedHsmProvisioningStateDeleting - The managed HSM Pool is currently being deleted.
+	ManagedHsmProvisioningStateDeleting ManagedHsmProvisioningState = "Deleting"
+	// ManagedHsmProvisioningStateFailed - Provisioning of the managed HSM Pool has failed.
+	ManagedHsmProvisioningStateFailed ManagedHsmProvisioningState = "Failed"
+	// ManagedHsmProvisioningStateProvisioning - The managed HSM Pool is currently being provisioned.
+	ManagedHsmProvisioningStateProvisioning ManagedHsmProvisioningState = "Provisioning"
+	// ManagedHsmProvisioningStateRestoring - The managed HSM pool is being restored from full HSM backup.
+	ManagedHsmProvisioningStateRestoring ManagedHsmProvisioningState = "Restoring"
+	// ManagedHsmProvisioningStateSecurityDomainRestore - The managed HSM pool is waiting for a security domain restore action.
+	ManagedHsmProvisioningStateSecurityDomainRestore ManagedHsmProvisioningState = "SecurityDomainRestore"
+	// ManagedHsmProvisioningStateSucceeded - The managed HSM Pool has been full provisioned.
+	ManagedHsmProvisioningStateSucceeded ManagedHsmProvisioningState = "Succeeded"
+	// ManagedHsmProvisioningStateUpdating - The managed HSM Pool is currently being updated.
+	ManagedHsmProvisioningStateUpdating ManagedHsmProvisioningState = "Updating"
+)
+
+// PossibleManagedHsmProvisioningStateValues returns the possible values for the ManagedHsmProvisioningState const type.
+func PossibleManagedHsmProvisioningStateValues() []ManagedHsmProvisioningState {
+	return []ManagedHsmProvisioningState{
+		ManagedHsmProvisioningStateActivated,
+		ManagedHsmProvisioningStateDeleting,
+		ManagedHsmProvisioningStateFailed,
+		ManagedHsmProvisioningStateProvisioning,
+		ManagedHsmProvisioningStateRestoring,
+		ManagedHsmProvisioningStateSecurityDomainRestore,
+		ManagedHsmProvisioningStateSucceeded,
+		ManagedHsmProvisioningStateUpdating,
 	}
 }
 
@@ -422,6 +524,25 @@ func PossibleNetworkRuleBypassOptionsValues() []NetworkRuleBypassOptions {
 	}
 }
 
+// Origin - The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
+// value is "user,system"
+type Origin string
+
+const (
+	OriginSystem     Origin = "system"
+	OriginUser       Origin = "user"
+	OriginUserSystem Origin = "user,system"
+)
+
+// PossibleOriginValues returns the possible values for the Origin const type.
+func PossibleOriginValues() []Origin {
+	return []Origin{
+		OriginSystem,
+		OriginUser,
+		OriginUserSystem,
+	}
+}
+
 // PrivateEndpointConnectionProvisioningState - The current provisioning state.
 type PrivateEndpointConnectionProvisioningState string
 
@@ -466,42 +587,6 @@ func PossiblePrivateEndpointServiceConnectionStatusValues() []PrivateEndpointSer
 	}
 }
 
-// ProvisioningState - Provisioning state.
-type ProvisioningState string
-
-const (
-	// ProvisioningStateActivated - The managed HSM pool is ready for normal use.
-	ProvisioningStateActivated ProvisioningState = "Activated"
-	// ProvisioningStateDeleting - The managed HSM Pool is currently being deleted.
-	ProvisioningStateDeleting ProvisioningState = "Deleting"
-	// ProvisioningStateFailed - Provisioning of the managed HSM Pool has failed.
-	ProvisioningStateFailed ProvisioningState = "Failed"
-	// ProvisioningStateProvisioning - The managed HSM Pool is currently being provisioned.
-	ProvisioningStateProvisioning ProvisioningState = "Provisioning"
-	// ProvisioningStateRestoring - The managed HSM pool is being restored from full HSM backup.
-	ProvisioningStateRestoring ProvisioningState = "Restoring"
-	// ProvisioningStateSecurityDomainRestore - The managed HSM pool is waiting for a security domain restore action.
-	ProvisioningStateSecurityDomainRestore ProvisioningState = "SecurityDomainRestore"
-	// ProvisioningStateSucceeded - The managed HSM Pool has been full provisioned.
-	ProvisioningStateSucceeded ProvisioningState = "Succeeded"
-	// ProvisioningStateUpdating - The managed HSM Pool is currently being updated.
-	ProvisioningStateUpdating ProvisioningState = "Updating"
-)
-
-// PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
-func PossibleProvisioningStateValues() []ProvisioningState {
-	return []ProvisioningState{
-		ProvisioningStateActivated,
-		ProvisioningStateDeleting,
-		ProvisioningStateFailed,
-		ProvisioningStateProvisioning,
-		ProvisioningStateRestoring,
-		ProvisioningStateSecurityDomainRestore,
-		ProvisioningStateSucceeded,
-		ProvisioningStateUpdating,
-	}
-}
-
 // PublicNetworkAccess - Control permission to the managed HSM from public networks.
 type PublicNetworkAccess string
 
@@ -518,7 +603,8 @@ func PossiblePublicNetworkAccessValues() []PublicNetworkAccess {
 	}
 }
 
-// Reason - The reason that a vault name could not be used. The Reason element is only returned if NameAvailable is false.
+// Reason - The reason that a managed hsm name could not be used. The reason element is only returned if NameAvailable is
+// false.
 type Reason string
 
 const (
@@ -631,21 +717,5 @@ func PossibleStoragePermissionsValues() []StoragePermissions {
 		StoragePermissionsSet,
 		StoragePermissionsSetsas,
 		StoragePermissionsUpdate,
-	}
-}
-
-// VaultProvisioningState - Provisioning state of the vault.
-type VaultProvisioningState string
-
-const (
-	VaultProvisioningStateRegisteringDNS VaultProvisioningState = "RegisteringDns"
-	VaultProvisioningStateSucceeded      VaultProvisioningState = "Succeeded"
-)
-
-// PossibleVaultProvisioningStateValues returns the possible values for the VaultProvisioningState const type.
-func PossibleVaultProvisioningStateValues() []VaultProvisioningState {
-	return []VaultProvisioningState{
-		VaultProvisioningStateRegisteringDNS,
-		VaultProvisioningStateSucceeded,
 	}
 }
