@@ -44,7 +44,7 @@ func NewNetworkSecurityPerimeterConfigurationsClient(subscriptionID string, cred
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - networkSecurityPerimeterConfigurationName - The name for Network Security Perimeter configuration
@@ -114,7 +114,7 @@ func (client *NetworkSecurityPerimeterConfigurationsClient) getHandleResponse(re
 // NewListPager - Gets list of effective NetworkSecurityPerimeterConfiguration for storage account
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - options - NetworkSecurityPerimeterConfigurationsClientListOptions contains the optional parameters for the NetworkSecurityPerimeterConfigurationsClient.NewListPager
@@ -122,20 +122,19 @@ func (client *NetworkSecurityPerimeterConfigurationsClient) getHandleResponse(re
 func (client *NetworkSecurityPerimeterConfigurationsClient) NewListPager(resourceGroupName string, accountName string, options *NetworkSecurityPerimeterConfigurationsClientListOptions) *runtime.Pager[NetworkSecurityPerimeterConfigurationsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[NetworkSecurityPerimeterConfigurationsClientListResponse]{
 		More: func(page NetworkSecurityPerimeterConfigurationsClientListResponse) bool {
-			return false
+			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *NetworkSecurityPerimeterConfigurationsClientListResponse) (NetworkSecurityPerimeterConfigurationsClientListResponse, error) {
 			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "NetworkSecurityPerimeterConfigurationsClient.NewListPager")
-			req, err := client.listCreateRequest(ctx, resourceGroupName, accountName, options)
+			nextLink := ""
+			if page != nil {
+				nextLink = *page.NextLink
+			}
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.listCreateRequest(ctx, resourceGroupName, accountName, options)
+			}, nil)
 			if err != nil {
 				return NetworkSecurityPerimeterConfigurationsClientListResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return NetworkSecurityPerimeterConfigurationsClientListResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return NetworkSecurityPerimeterConfigurationsClientListResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -182,7 +181,7 @@ func (client *NetworkSecurityPerimeterConfigurationsClient) listHandleResponse(r
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - networkSecurityPerimeterConfigurationName - The name for Network Security Perimeter configuration

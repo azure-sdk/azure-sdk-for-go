@@ -44,7 +44,7 @@ func NewBlobInventoryPoliciesClient(subscriptionID string, credential azcore.Tok
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - blobInventoryPolicyName - The name of the storage account blob inventory policy. It should always be 'default'
@@ -76,6 +76,10 @@ func (client *BlobInventoryPoliciesClient) CreateOrUpdate(ctx context.Context, r
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
 func (client *BlobInventoryPoliciesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, accountName string, blobInventoryPolicyName BlobInventoryPolicyName, properties BlobInventoryPolicy, _ *BlobInventoryPoliciesClientCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/inventoryPolicies/{blobInventoryPolicyName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -84,10 +88,6 @@ func (client *BlobInventoryPoliciesClient) createOrUpdateCreateRequest(ctx conte
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if blobInventoryPolicyName == "" {
 		return nil, errors.New("parameter blobInventoryPolicyName cannot be empty")
 	}
@@ -119,7 +119,7 @@ func (client *BlobInventoryPoliciesClient) createOrUpdateHandleResponse(resp *ht
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - blobInventoryPolicyName - The name of the storage account blob inventory policy. It should always be 'default'
@@ -149,6 +149,10 @@ func (client *BlobInventoryPoliciesClient) Delete(ctx context.Context, resourceG
 // deleteCreateRequest creates the Delete request.
 func (client *BlobInventoryPoliciesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, accountName string, blobInventoryPolicyName BlobInventoryPolicyName, _ *BlobInventoryPoliciesClientDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/inventoryPolicies/{blobInventoryPolicyName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -157,10 +161,6 @@ func (client *BlobInventoryPoliciesClient) deleteCreateRequest(ctx context.Conte
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if blobInventoryPolicyName == "" {
 		return nil, errors.New("parameter blobInventoryPolicyName cannot be empty")
 	}
@@ -180,7 +180,7 @@ func (client *BlobInventoryPoliciesClient) deleteCreateRequest(ctx context.Conte
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - blobInventoryPolicyName - The name of the storage account blob inventory policy. It should always be 'default'
@@ -211,6 +211,10 @@ func (client *BlobInventoryPoliciesClient) Get(ctx context.Context, resourceGrou
 // getCreateRequest creates the Get request.
 func (client *BlobInventoryPoliciesClient) getCreateRequest(ctx context.Context, resourceGroupName string, accountName string, blobInventoryPolicyName BlobInventoryPolicyName, _ *BlobInventoryPoliciesClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/inventoryPolicies/{blobInventoryPolicyName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -219,10 +223,6 @@ func (client *BlobInventoryPoliciesClient) getCreateRequest(ctx context.Context,
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if blobInventoryPolicyName == "" {
 		return nil, errors.New("parameter blobInventoryPolicyName cannot be empty")
 	}
@@ -247,41 +247,44 @@ func (client *BlobInventoryPoliciesClient) getHandleResponse(resp *http.Response
 	return result, nil
 }
 
-// NewListPager - Gets the blob inventory policy associated with the specified storage account.
+// List - Gets the blob inventory policy associated with the specified storage account.
+// If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
-//   - options - BlobInventoryPoliciesClientListOptions contains the optional parameters for the BlobInventoryPoliciesClient.NewListPager
+//   - options - BlobInventoryPoliciesClientListOptions contains the optional parameters for the BlobInventoryPoliciesClient.List
 //     method.
-func (client *BlobInventoryPoliciesClient) NewListPager(resourceGroupName string, accountName string, options *BlobInventoryPoliciesClientListOptions) *runtime.Pager[BlobInventoryPoliciesClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[BlobInventoryPoliciesClientListResponse]{
-		More: func(page BlobInventoryPoliciesClientListResponse) bool {
-			return false
-		},
-		Fetcher: func(ctx context.Context, page *BlobInventoryPoliciesClientListResponse) (BlobInventoryPoliciesClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "BlobInventoryPoliciesClient.NewListPager")
-			req, err := client.listCreateRequest(ctx, resourceGroupName, accountName, options)
-			if err != nil {
-				return BlobInventoryPoliciesClientListResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return BlobInventoryPoliciesClientListResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return BlobInventoryPoliciesClientListResponse{}, runtime.NewResponseError(resp)
-			}
-			return client.listHandleResponse(resp)
-		},
-		Tracer: client.internal.Tracer(),
-	})
+func (client *BlobInventoryPoliciesClient) List(ctx context.Context, resourceGroupName string, accountName string, options *BlobInventoryPoliciesClientListOptions) (BlobInventoryPoliciesClientListResponse, error) {
+	var err error
+	const operationName = "BlobInventoryPoliciesClient.List"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.listCreateRequest(ctx, resourceGroupName, accountName, options)
+	if err != nil {
+		return BlobInventoryPoliciesClientListResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return BlobInventoryPoliciesClientListResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return BlobInventoryPoliciesClientListResponse{}, err
+	}
+	resp, err := client.listHandleResponse(httpResp)
+	return resp, err
 }
 
 // listCreateRequest creates the List request.
 func (client *BlobInventoryPoliciesClient) listCreateRequest(ctx context.Context, resourceGroupName string, accountName string, _ *BlobInventoryPoliciesClientListOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/inventoryPolicies"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -290,10 +293,6 @@ func (client *BlobInventoryPoliciesClient) listCreateRequest(ctx context.Context
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err

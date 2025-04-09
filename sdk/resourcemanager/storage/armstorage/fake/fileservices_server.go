@@ -13,7 +13,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -24,11 +24,11 @@ import (
 type FileServicesServer struct {
 	// GetServiceProperties is the fake for method FileServicesClient.GetServiceProperties
 	// HTTP status codes to indicate success: http.StatusOK
-	GetServiceProperties func(ctx context.Context, resourceGroupName string, accountName string, options *armstorage.FileServicesClientGetServicePropertiesOptions) (resp azfake.Responder[armstorage.FileServicesClientGetServicePropertiesResponse], errResp azfake.ErrorResponder)
+	GetServiceProperties func(ctx context.Context, resourceGroupName string, accountName string, fileServicesName string, options *armstorage.FileServicesClientGetServicePropertiesOptions) (resp azfake.Responder[armstorage.FileServicesClientGetServicePropertiesResponse], errResp azfake.ErrorResponder)
 
 	// GetServiceUsage is the fake for method FileServicesClient.GetServiceUsage
 	// HTTP status codes to indicate success: http.StatusOK
-	GetServiceUsage func(ctx context.Context, resourceGroupName string, accountName string, options *armstorage.FileServicesClientGetServiceUsageOptions) (resp azfake.Responder[armstorage.FileServicesClientGetServiceUsageResponse], errResp azfake.ErrorResponder)
+	GetServiceUsage func(ctx context.Context, resourceGroupName string, accountName string, fileServicesName string, fileServiceUsagesName string, options *armstorage.FileServicesClientGetServiceUsageOptions) (resp azfake.Responder[armstorage.FileServicesClientGetServiceUsageResponse], errResp azfake.ErrorResponder)
 
 	// List is the fake for method FileServicesClient.List
 	// HTTP status codes to indicate success: http.StatusOK
@@ -36,11 +36,11 @@ type FileServicesServer struct {
 
 	// NewListServiceUsagesPager is the fake for method FileServicesClient.NewListServiceUsagesPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListServiceUsagesPager func(resourceGroupName string, accountName string, options *armstorage.FileServicesClientListServiceUsagesOptions) (resp azfake.PagerResponder[armstorage.FileServicesClientListServiceUsagesResponse])
+	NewListServiceUsagesPager func(resourceGroupName string, accountName string, fileServicesName string, options *armstorage.FileServicesClientListServiceUsagesOptions) (resp azfake.PagerResponder[armstorage.FileServicesClientListServiceUsagesResponse])
 
 	// SetServiceProperties is the fake for method FileServicesClient.SetServiceProperties
 	// HTTP status codes to indicate success: http.StatusOK
-	SetServiceProperties func(ctx context.Context, resourceGroupName string, accountName string, parameters armstorage.FileServiceProperties, options *armstorage.FileServicesClientSetServicePropertiesOptions) (resp azfake.Responder[armstorage.FileServicesClientSetServicePropertiesResponse], errResp azfake.ErrorResponder)
+	SetServiceProperties func(ctx context.Context, resourceGroupName string, accountName string, fileServicesName string, parameters armstorage.FileServiceProperties, options *armstorage.FileServicesClientSetServicePropertiesOptions) (resp azfake.Responder[armstorage.FileServicesClientSetServicePropertiesResponse], errResp azfake.ErrorResponder)
 }
 
 // NewFileServicesServerTransport creates a new instance of FileServicesServerTransport with the provided implementation.
@@ -119,7 +119,7 @@ func (f *FileServicesServerTransport) dispatchGetServiceProperties(req *http.Req
 	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/fileServices/(?P<FileServicesName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 3 {
+	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
 	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
@@ -130,7 +130,11 @@ func (f *FileServicesServerTransport) dispatchGetServiceProperties(req *http.Req
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := f.srv.GetServiceProperties(req.Context(), resourceGroupNameParam, accountNameParam, nil)
+	fileServicesNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("FileServicesName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := f.srv.GetServiceProperties(req.Context(), resourceGroupNameParam, accountNameParam, fileServicesNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -152,7 +156,7 @@ func (f *FileServicesServerTransport) dispatchGetServiceUsage(req *http.Request)
 	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/fileServices/(?P<FileServicesName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/usages/(?P<fileServiceUsagesName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 3 {
+	if matches == nil || len(matches) < 5 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
 	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
@@ -163,7 +167,15 @@ func (f *FileServicesServerTransport) dispatchGetServiceUsage(req *http.Request)
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := f.srv.GetServiceUsage(req.Context(), resourceGroupNameParam, accountNameParam, nil)
+	fileServicesNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("FileServicesName")])
+	if err != nil {
+		return nil, err
+	}
+	fileServiceUsagesNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("fileServiceUsagesName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := f.srv.GetServiceUsage(req.Context(), resourceGroupNameParam, accountNameParam, fileServicesNameParam, fileServiceUsagesNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -220,7 +232,7 @@ func (f *FileServicesServerTransport) dispatchNewListServiceUsagesPager(req *htt
 		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/fileServices/(?P<FileServicesName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/usages`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
+		if matches == nil || len(matches) < 4 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		qp := req.URL.Query()
@@ -229,6 +241,10 @@ func (f *FileServicesServerTransport) dispatchNewListServiceUsagesPager(req *htt
 			return nil, err
 		}
 		accountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("accountName")])
+		if err != nil {
+			return nil, err
+		}
+		fileServicesNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("FileServicesName")])
 		if err != nil {
 			return nil, err
 		}
@@ -252,7 +268,7 @@ func (f *FileServicesServerTransport) dispatchNewListServiceUsagesPager(req *htt
 				Maxpagesize: maxpagesizeParam,
 			}
 		}
-		resp := f.srv.NewListServiceUsagesPager(resourceGroupNameParam, accountNameParam, options)
+		resp := f.srv.NewListServiceUsagesPager(resourceGroupNameParam, accountNameParam, fileServicesNameParam, options)
 		newListServiceUsagesPager = &resp
 		f.newListServiceUsagesPager.add(req, newListServiceUsagesPager)
 		server.PagerResponderInjectNextLinks(newListServiceUsagesPager, req, func(page *armstorage.FileServicesClientListServiceUsagesResponse, createLink func() string) {
@@ -280,7 +296,7 @@ func (f *FileServicesServerTransport) dispatchSetServiceProperties(req *http.Req
 	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/fileServices/(?P<FileServicesName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 3 {
+	if matches == nil || len(matches) < 4 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
 	body, err := server.UnmarshalRequestAsJSON[armstorage.FileServiceProperties](req)
@@ -295,7 +311,11 @@ func (f *FileServicesServerTransport) dispatchSetServiceProperties(req *http.Req
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := f.srv.SetServiceProperties(req.Context(), resourceGroupNameParam, accountNameParam, body, nil)
+	fileServicesNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("FileServicesName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := f.srv.SetServiceProperties(req.Context(), resourceGroupNameParam, accountNameParam, fileServicesNameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}

@@ -10,8 +10,8 @@ type AccountsClientAbortHierarchicalNamespaceMigrationResponse struct {
 	// placeholder for future response values
 }
 
-// AccountsClientCheckNameAvailabilityResponse contains the response from method AccountsClient.CheckNameAvailability.
-type AccountsClientCheckNameAvailabilityResponse struct {
+// AccountsClientCheckStorageAccountNameAvailabilityResponse contains the response from method AccountsClient.CheckStorageAccountNameAvailability.
+type AccountsClientCheckStorageAccountNameAvailabilityResponse struct {
 	// The CheckNameAvailability operation response.
 	CheckNameAvailabilityResult
 }
@@ -63,7 +63,7 @@ type AccountsClientListAccountSASResponse struct {
 
 // AccountsClientListByResourceGroupResponse contains the response from method AccountsClient.NewListByResourceGroupPager.
 type AccountsClientListByResourceGroupResponse struct {
-	// The response from the List Storage Accounts operation.
+	// The response of a StorageAccount list operation.
 	AccountListResult
 }
 
@@ -75,7 +75,7 @@ type AccountsClientListKeysResponse struct {
 
 // AccountsClientListResponse contains the response from method AccountsClient.NewListPager.
 type AccountsClientListResponse struct {
-	// The response from the List Storage Accounts operation.
+	// The response of a StorageAccount list operation.
 	AccountListResult
 }
 
@@ -222,7 +222,7 @@ type BlobInventoryPoliciesClientGetResponse struct {
 	BlobInventoryPolicy
 }
 
-// BlobInventoryPoliciesClientListResponse contains the response from method BlobInventoryPoliciesClient.NewListPager.
+// BlobInventoryPoliciesClientListResponse contains the response from method BlobInventoryPoliciesClient.List.
 type BlobInventoryPoliciesClientListResponse struct {
 	// List of blob inventory policies returned.
 	ListBlobInventoryPolicy
@@ -234,7 +234,7 @@ type BlobServicesClientGetServicePropertiesResponse struct {
 	BlobServiceProperties
 }
 
-// BlobServicesClientListResponse contains the response from method BlobServicesClient.NewListPager.
+// BlobServicesClientListResponse contains the response from method BlobServicesClient.List.
 type BlobServicesClientListResponse struct {
 	BlobServiceItems
 }
@@ -439,7 +439,7 @@ type ObjectReplicationPoliciesClientGetResponse struct {
 	ObjectReplicationPolicy
 }
 
-// ObjectReplicationPoliciesClientListResponse contains the response from method ObjectReplicationPoliciesClient.NewListPager.
+// ObjectReplicationPoliciesClientListResponse contains the response from method ObjectReplicationPoliciesClient.List.
 type ObjectReplicationPoliciesClientListResponse struct {
 	// List storage account object replication policies.
 	ObjectReplicationPolicies
@@ -447,8 +447,7 @@ type ObjectReplicationPoliciesClientListResponse struct {
 
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
-	// Result of the request to list Storage operations. It contains a list of operations and a URL link to get the next set of
-	// results.
+	// A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to get the next set of results.
 	OperationListResult
 }
 
@@ -463,7 +462,7 @@ type PrivateEndpointConnectionsClientGetResponse struct {
 	PrivateEndpointConnection
 }
 
-// PrivateEndpointConnectionsClientListResponse contains the response from method PrivateEndpointConnectionsClient.NewListPager.
+// PrivateEndpointConnectionsClientListResponse contains the response from method PrivateEndpointConnectionsClient.List.
 type PrivateEndpointConnectionsClientListResponse struct {
 	// List of private endpoint connection associated with the specified storage account
 	PrivateEndpointConnectionListResult
@@ -483,6 +482,7 @@ type PrivateLinkResourcesClientListByStorageAccountResponse struct {
 
 // QueueClientCreateResponse contains the response from method QueueClient.Create.
 type QueueClientCreateResponse struct {
+	// Concrete proxy resource types can be created by aliasing this type using a specific property type.
 	Queue
 }
 
@@ -493,6 +493,7 @@ type QueueClientDeleteResponse struct {
 
 // QueueClientGetResponse contains the response from method QueueClient.Get.
 type QueueClientGetResponse struct {
+	// Concrete proxy resource types can be created by aliasing this type using a specific property type.
 	Queue
 }
 
@@ -504,6 +505,7 @@ type QueueClientListResponse struct {
 
 // QueueClientUpdateResponse contains the response from method QueueClient.Update.
 type QueueClientUpdateResponse struct {
+	// Concrete proxy resource types can be created by aliasing this type using a specific property type.
 	Queue
 }
 
@@ -524,7 +526,7 @@ type QueueServicesClientSetServicePropertiesResponse struct {
 	QueueServiceProperties
 }
 
-// SKUsClientListResponse contains the response from method SKUsClient.NewListPager.
+// SKUsClientListResponse contains the response from method SKUsClient.List.
 type SKUsClientListResponse struct {
 	// The response from the List Storage SKUs operation.
 	SKUListResult
@@ -617,7 +619,7 @@ type TaskAssignmentsInstancesReportClientListResponse struct {
 	TaskReportSummary
 }
 
-// UsagesClientListByLocationResponse contains the response from method UsagesClient.NewListByLocationPager.
+// UsagesClientListByLocationResponse contains the response from method UsagesClient.ListByLocation.
 type UsagesClientListByLocationResponse struct {
 	// The response from the List Usages operation.
 	UsageListResult
