@@ -6,7 +6,7 @@ package armiotoperations
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/iotoperations/armiotoperations"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.1.0-beta.1"
 )
 
 // ActionType - Extensible enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -421,6 +421,27 @@ func PossibleFilterTypeValues() []FilterType {
 	}
 }
 
+// InstanceFeatureMode - The enum defining mode of a feature.
+type InstanceFeatureMode string
+
+const (
+	// InstanceFeatureModeDisabled - Opt out of a feature
+	InstanceFeatureModeDisabled InstanceFeatureMode = "Disabled"
+	// InstanceFeatureModePreview - Opt in to enable a preview feature
+	InstanceFeatureModePreview InstanceFeatureMode = "Preview"
+	// InstanceFeatureModeStable - Opt in to enable a stable feature
+	InstanceFeatureModeStable InstanceFeatureMode = "Stable"
+)
+
+// PossibleInstanceFeatureModeValues returns the possible values for the InstanceFeatureMode const type.
+func PossibleInstanceFeatureModeValues() []InstanceFeatureMode {
+	return []InstanceFeatureMode{
+		InstanceFeatureModeDisabled,
+		InstanceFeatureModePreview,
+		InstanceFeatureModeStable,
+	}
+}
+
 // KafkaAuthMethod - DataflowEndpoint Kafka Authentication Method properties
 type KafkaAuthMethod string
 
@@ -683,6 +704,26 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 		ProvisioningStateProvisioning,
 		ProvisioningStateSucceeded,
 		ProvisioningStateUpdating,
+	}
+}
+
+type RetainmentPolicyMode string
+
+const (
+	// RetainmentPolicyModeAll - Persist all 'retain' messages.
+	RetainmentPolicyModeAll RetainmentPolicyMode = "All"
+	// RetainmentPolicyModeCustom - Persist only the specified topics.
+	RetainmentPolicyModeCustom RetainmentPolicyMode = "Custom"
+	// RetainmentPolicyModeNone - Persist no messages.
+	RetainmentPolicyModeNone RetainmentPolicyMode = "None"
+)
+
+// PossibleRetainmentPolicyModeValues returns the possible values for the RetainmentPolicyMode const type.
+func PossibleRetainmentPolicyModeValues() []RetainmentPolicyMode {
+	return []RetainmentPolicyMode{
+		RetainmentPolicyModeAll,
+		RetainmentPolicyModeCustom,
+		RetainmentPolicyModeNone,
 	}
 }
 
