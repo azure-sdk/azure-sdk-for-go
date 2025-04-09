@@ -13,42 +13,43 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v2"
 	"net/http"
 	"net/url"
 	"reflect"
 	"regexp"
+	"strconv"
 )
 
 // FileSharesServer is a fake server for instances of the armstorage.FileSharesClient type.
 type FileSharesServer struct {
 	// Create is the fake for method FileSharesClient.Create
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	Create func(ctx context.Context, resourceGroupName string, accountName string, shareName string, fileShare armstorage.FileShare, options *armstorage.FileSharesClientCreateOptions) (resp azfake.Responder[armstorage.FileSharesClientCreateResponse], errResp azfake.ErrorResponder)
+	Create func(ctx context.Context, resourceGroupName string, accountName string, fileServicesName string, shareName string, fileShare armstorage.FileShare, options *armstorage.FileSharesClientCreateOptions) (resp azfake.Responder[armstorage.FileSharesClientCreateResponse], errResp azfake.ErrorResponder)
 
 	// Delete is the fake for method FileSharesClient.Delete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
-	Delete func(ctx context.Context, resourceGroupName string, accountName string, shareName string, options *armstorage.FileSharesClientDeleteOptions) (resp azfake.Responder[armstorage.FileSharesClientDeleteResponse], errResp azfake.ErrorResponder)
+	Delete func(ctx context.Context, resourceGroupName string, accountName string, fileServicesName string, shareName string, options *armstorage.FileSharesClientDeleteOptions) (resp azfake.Responder[armstorage.FileSharesClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method FileSharesClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceGroupName string, accountName string, shareName string, options *armstorage.FileSharesClientGetOptions) (resp azfake.Responder[armstorage.FileSharesClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, accountName string, fileServicesName string, shareName string, options *armstorage.FileSharesClientGetOptions) (resp azfake.Responder[armstorage.FileSharesClientGetResponse], errResp azfake.ErrorResponder)
 
 	// Lease is the fake for method FileSharesClient.Lease
 	// HTTP status codes to indicate success: http.StatusOK
-	Lease func(ctx context.Context, resourceGroupName string, accountName string, shareName string, options *armstorage.FileSharesClientLeaseOptions) (resp azfake.Responder[armstorage.FileSharesClientLeaseResponse], errResp azfake.ErrorResponder)
+	Lease func(ctx context.Context, resourceGroupName string, accountName string, fileServicesName string, shareName string, options *armstorage.FileSharesClientLeaseOptions) (resp azfake.Responder[armstorage.FileSharesClientLeaseResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method FileSharesClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceGroupName string, accountName string, options *armstorage.FileSharesClientListOptions) (resp azfake.PagerResponder[armstorage.FileSharesClientListResponse])
+	NewListPager func(resourceGroupName string, accountName string, fileServicesName string, options *armstorage.FileSharesClientListOptions) (resp azfake.PagerResponder[armstorage.FileSharesClientListResponse])
 
 	// Restore is the fake for method FileSharesClient.Restore
 	// HTTP status codes to indicate success: http.StatusOK
-	Restore func(ctx context.Context, resourceGroupName string, accountName string, shareName string, deletedShare armstorage.DeletedShare, options *armstorage.FileSharesClientRestoreOptions) (resp azfake.Responder[armstorage.FileSharesClientRestoreResponse], errResp azfake.ErrorResponder)
+	Restore func(ctx context.Context, resourceGroupName string, accountName string, fileServicesName string, shareName string, deletedShare armstorage.DeletedShare, options *armstorage.FileSharesClientRestoreOptions) (resp azfake.Responder[armstorage.FileSharesClientRestoreResponse], errResp azfake.ErrorResponder)
 
 	// Update is the fake for method FileSharesClient.Update
 	// HTTP status codes to indicate success: http.StatusOK
-	Update func(ctx context.Context, resourceGroupName string, accountName string, shareName string, fileShare armstorage.FileShare, options *armstorage.FileSharesClientUpdateOptions) (resp azfake.Responder[armstorage.FileSharesClientUpdateResponse], errResp azfake.ErrorResponder)
+	Update func(ctx context.Context, resourceGroupName string, accountName string, fileServicesName string, shareName string, fileShare armstorage.FileShare, options *armstorage.FileSharesClientUpdateOptions) (resp azfake.Responder[armstorage.FileSharesClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewFileSharesServerTransport creates a new instance of FileSharesServerTransport with the provided implementation.
@@ -128,10 +129,10 @@ func (f *FileSharesServerTransport) dispatchCreate(req *http.Request) (*http.Res
 	if f.srv.Create == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Create not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/fileServices/default/shares/(?P<shareName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/fileServices/(?P<FileServicesName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/shares/(?P<shareName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 4 {
+	if matches == nil || len(matches) < 5 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
 	qp := req.URL.Query()
@@ -144,6 +145,10 @@ func (f *FileSharesServerTransport) dispatchCreate(req *http.Request) (*http.Res
 		return nil, err
 	}
 	accountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("accountName")])
+	if err != nil {
+		return nil, err
+	}
+	fileServicesNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("FileServicesName")])
 	if err != nil {
 		return nil, err
 	}
@@ -162,7 +167,7 @@ func (f *FileSharesServerTransport) dispatchCreate(req *http.Request) (*http.Res
 			Expand: expandParam,
 		}
 	}
-	respr, errRespr := f.srv.Create(req.Context(), resourceGroupNameParam, accountNameParam, shareNameParam, body, options)
+	respr, errRespr := f.srv.Create(req.Context(), resourceGroupNameParam, accountNameParam, fileServicesNameParam, shareNameParam, body, options)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -181,10 +186,10 @@ func (f *FileSharesServerTransport) dispatchDelete(req *http.Request) (*http.Res
 	if f.srv.Delete == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Delete not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/fileServices/default/shares/(?P<shareName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/fileServices/(?P<FileServicesName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/shares/(?P<shareName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 4 {
+	if matches == nil || len(matches) < 5 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
 	qp := req.URL.Query()
@@ -193,6 +198,10 @@ func (f *FileSharesServerTransport) dispatchDelete(req *http.Request) (*http.Res
 		return nil, err
 	}
 	accountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("accountName")])
+	if err != nil {
+		return nil, err
+	}
+	fileServicesNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("FileServicesName")])
 	if err != nil {
 		return nil, err
 	}
@@ -213,7 +222,7 @@ func (f *FileSharesServerTransport) dispatchDelete(req *http.Request) (*http.Res
 			Include:     includeParam,
 		}
 	}
-	respr, errRespr := f.srv.Delete(req.Context(), resourceGroupNameParam, accountNameParam, shareNameParam, options)
+	respr, errRespr := f.srv.Delete(req.Context(), resourceGroupNameParam, accountNameParam, fileServicesNameParam, shareNameParam, options)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -232,10 +241,10 @@ func (f *FileSharesServerTransport) dispatchGet(req *http.Request) (*http.Respon
 	if f.srv.Get == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Get not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/fileServices/default/shares/(?P<shareName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/fileServices/(?P<FileServicesName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/shares/(?P<shareName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 4 {
+	if matches == nil || len(matches) < 5 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
 	qp := req.URL.Query()
@@ -244,6 +253,10 @@ func (f *FileSharesServerTransport) dispatchGet(req *http.Request) (*http.Respon
 		return nil, err
 	}
 	accountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("accountName")])
+	if err != nil {
+		return nil, err
+	}
+	fileServicesNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("FileServicesName")])
 	if err != nil {
 		return nil, err
 	}
@@ -264,7 +277,7 @@ func (f *FileSharesServerTransport) dispatchGet(req *http.Request) (*http.Respon
 			XMSSnapshot: xMSSnapshotParam,
 		}
 	}
-	respr, errRespr := f.srv.Get(req.Context(), resourceGroupNameParam, accountNameParam, shareNameParam, options)
+	respr, errRespr := f.srv.Get(req.Context(), resourceGroupNameParam, accountNameParam, fileServicesNameParam, shareNameParam, options)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -283,10 +296,10 @@ func (f *FileSharesServerTransport) dispatchLease(req *http.Request) (*http.Resp
 	if f.srv.Lease == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Lease not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/fileServices/default/shares/(?P<shareName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/lease`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/fileServices/(?P<FileServicesName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/shares/(?P<shareName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/lease`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 4 {
+	if matches == nil || len(matches) < 5 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
 	body, err := server.UnmarshalRequestAsJSON[armstorage.LeaseShareRequest](req)
@@ -298,6 +311,10 @@ func (f *FileSharesServerTransport) dispatchLease(req *http.Request) (*http.Resp
 		return nil, err
 	}
 	accountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("accountName")])
+	if err != nil {
+		return nil, err
+	}
+	fileServicesNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("FileServicesName")])
 	if err != nil {
 		return nil, err
 	}
@@ -313,7 +330,7 @@ func (f *FileSharesServerTransport) dispatchLease(req *http.Request) (*http.Resp
 			Parameters:  &body,
 		}
 	}
-	respr, errRespr := f.srv.Lease(req.Context(), resourceGroupNameParam, accountNameParam, shareNameParam, options)
+	respr, errRespr := f.srv.Lease(req.Context(), resourceGroupNameParam, accountNameParam, fileServicesNameParam, shareNameParam, options)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -337,10 +354,10 @@ func (f *FileSharesServerTransport) dispatchNewListPager(req *http.Request) (*ht
 	}
 	newListPager := f.newListPager.get(req)
 	if newListPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/fileServices/default/shares`
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/fileServices/(?P<FileServicesName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/shares`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
+		if matches == nil || len(matches) < 4 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		qp := req.URL.Query()
@@ -352,11 +369,24 @@ func (f *FileSharesServerTransport) dispatchNewListPager(req *http.Request) (*ht
 		if err != nil {
 			return nil, err
 		}
+		fileServicesNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("FileServicesName")])
+		if err != nil {
+			return nil, err
+		}
 		maxpagesizeUnescaped, err := url.QueryUnescape(qp.Get("$maxpagesize"))
 		if err != nil {
 			return nil, err
 		}
-		maxpagesizeParam := getOptional(maxpagesizeUnescaped)
+		maxpagesizeParam, err := parseOptional(maxpagesizeUnescaped, func(v string) (int32, error) {
+			p, parseErr := strconv.ParseInt(v, 10, 32)
+			if parseErr != nil {
+				return 0, parseErr
+			}
+			return int32(p), nil
+		})
+		if err != nil {
+			return nil, err
+		}
 		filterUnescaped, err := url.QueryUnescape(qp.Get("$filter"))
 		if err != nil {
 			return nil, err
@@ -375,7 +405,7 @@ func (f *FileSharesServerTransport) dispatchNewListPager(req *http.Request) (*ht
 				Expand:      expandParam,
 			}
 		}
-		resp := f.srv.NewListPager(resourceGroupNameParam, accountNameParam, options)
+		resp := f.srv.NewListPager(resourceGroupNameParam, accountNameParam, fileServicesNameParam, options)
 		newListPager = &resp
 		f.newListPager.add(req, newListPager)
 		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armstorage.FileSharesClientListResponse, createLink func() string) {
@@ -400,10 +430,10 @@ func (f *FileSharesServerTransport) dispatchRestore(req *http.Request) (*http.Re
 	if f.srv.Restore == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Restore not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/fileServices/default/shares/(?P<shareName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/restore`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/fileServices/(?P<FileServicesName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/shares/(?P<shareName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/restore`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 4 {
+	if matches == nil || len(matches) < 5 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
 	body, err := server.UnmarshalRequestAsJSON[armstorage.DeletedShare](req)
@@ -418,11 +448,15 @@ func (f *FileSharesServerTransport) dispatchRestore(req *http.Request) (*http.Re
 	if err != nil {
 		return nil, err
 	}
+	fileServicesNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("FileServicesName")])
+	if err != nil {
+		return nil, err
+	}
 	shareNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("shareName")])
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := f.srv.Restore(req.Context(), resourceGroupNameParam, accountNameParam, shareNameParam, body, nil)
+	respr, errRespr := f.srv.Restore(req.Context(), resourceGroupNameParam, accountNameParam, fileServicesNameParam, shareNameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -441,10 +475,10 @@ func (f *FileSharesServerTransport) dispatchUpdate(req *http.Request) (*http.Res
 	if f.srv.Update == nil {
 		return nil, &nonRetriableError{errors.New("fake for method Update not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/fileServices/default/shares/(?P<shareName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/fileServices/(?P<FileServicesName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/shares/(?P<shareName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-	if matches == nil || len(matches) < 4 {
+	if matches == nil || len(matches) < 5 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
 	body, err := server.UnmarshalRequestAsJSON[armstorage.FileShare](req)
@@ -459,11 +493,15 @@ func (f *FileSharesServerTransport) dispatchUpdate(req *http.Request) (*http.Res
 	if err != nil {
 		return nil, err
 	}
+	fileServicesNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("FileServicesName")])
+	if err != nil {
+		return nil, err
+	}
 	shareNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("shareName")])
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := f.srv.Update(req.Context(), resourceGroupNameParam, accountNameParam, shareNameParam, body, nil)
+	respr, errRespr := f.srv.Update(req.Context(), resourceGroupNameParam, accountNameParam, fileServicesNameParam, shareNameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}

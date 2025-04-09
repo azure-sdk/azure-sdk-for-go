@@ -14,6 +14,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 )
 
@@ -46,7 +47,7 @@ func NewFileSharesClient(subscriptionID string, credential azcore.TokenCredentia
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - shareName - The name of the file share within the specified storage account. File share names must be between 3 and 63
@@ -54,13 +55,13 @@ func NewFileSharesClient(subscriptionID string, credential azcore.TokenCredentia
 //     character must be immediately preceded and followed by a letter or number.
 //   - fileShare - Properties of the file share to create.
 //   - options - FileSharesClientCreateOptions contains the optional parameters for the FileSharesClient.Create method.
-func (client *FileSharesClient) Create(ctx context.Context, resourceGroupName string, accountName string, shareName string, fileShare FileShare, options *FileSharesClientCreateOptions) (FileSharesClientCreateResponse, error) {
+func (client *FileSharesClient) Create(ctx context.Context, resourceGroupName string, accountName string, fileServicesName string, shareName string, fileShare FileShare, options *FileSharesClientCreateOptions) (FileSharesClientCreateResponse, error) {
 	var err error
 	const operationName = "FileSharesClient.Create"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createCreateRequest(ctx, resourceGroupName, accountName, shareName, fileShare, options)
+	req, err := client.createCreateRequest(ctx, resourceGroupName, accountName, fileServicesName, shareName, fileShare, options)
 	if err != nil {
 		return FileSharesClientCreateResponse{}, err
 	}
@@ -77,8 +78,12 @@ func (client *FileSharesClient) Create(ctx context.Context, resourceGroupName st
 }
 
 // createCreateRequest creates the Create request.
-func (client *FileSharesClient) createCreateRequest(ctx context.Context, resourceGroupName string, accountName string, shareName string, fileShare FileShare, options *FileSharesClientCreateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/fileServices/default/shares/{shareName}"
+func (client *FileSharesClient) createCreateRequest(ctx context.Context, resourceGroupName string, accountName string, fileServicesName string, shareName string, fileShare FileShare, options *FileSharesClientCreateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/fileServices/{FileServicesName}/shares/{shareName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -87,14 +92,14 @@ func (client *FileSharesClient) createCreateRequest(ctx context.Context, resourc
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
+	if fileServicesName == "" {
+		return nil, errors.New("parameter fileServicesName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{FileServicesName}", url.PathEscape(fileServicesName))
 	if shareName == "" {
 		return nil, errors.New("parameter shareName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{shareName}", url.PathEscape(shareName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -125,20 +130,20 @@ func (client *FileSharesClient) createHandleResponse(resp *http.Response) (FileS
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - shareName - The name of the file share within the specified storage account. File share names must be between 3 and 63
 //     characters in length and use numbers, lower-case letters and dash (-) only. Every dash (-)
 //     character must be immediately preceded and followed by a letter or number.
 //   - options - FileSharesClientDeleteOptions contains the optional parameters for the FileSharesClient.Delete method.
-func (client *FileSharesClient) Delete(ctx context.Context, resourceGroupName string, accountName string, shareName string, options *FileSharesClientDeleteOptions) (FileSharesClientDeleteResponse, error) {
+func (client *FileSharesClient) Delete(ctx context.Context, resourceGroupName string, accountName string, fileServicesName string, shareName string, options *FileSharesClientDeleteOptions) (FileSharesClientDeleteResponse, error) {
 	var err error
 	const operationName = "FileSharesClient.Delete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, accountName, shareName, options)
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, accountName, fileServicesName, shareName, options)
 	if err != nil {
 		return FileSharesClientDeleteResponse{}, err
 	}
@@ -154,8 +159,12 @@ func (client *FileSharesClient) Delete(ctx context.Context, resourceGroupName st
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *FileSharesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, accountName string, shareName string, options *FileSharesClientDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/fileServices/default/shares/{shareName}"
+func (client *FileSharesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, accountName string, fileServicesName string, shareName string, options *FileSharesClientDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/fileServices/{FileServicesName}/shares/{shareName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -164,14 +173,14 @@ func (client *FileSharesClient) deleteCreateRequest(ctx context.Context, resourc
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
+	if fileServicesName == "" {
+		return nil, errors.New("parameter fileServicesName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{FileServicesName}", url.PathEscape(fileServicesName))
 	if shareName == "" {
 		return nil, errors.New("parameter shareName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{shareName}", url.PathEscape(shareName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -193,20 +202,20 @@ func (client *FileSharesClient) deleteCreateRequest(ctx context.Context, resourc
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - shareName - The name of the file share within the specified storage account. File share names must be between 3 and 63
 //     characters in length and use numbers, lower-case letters and dash (-) only. Every dash (-)
 //     character must be immediately preceded and followed by a letter or number.
 //   - options - FileSharesClientGetOptions contains the optional parameters for the FileSharesClient.Get method.
-func (client *FileSharesClient) Get(ctx context.Context, resourceGroupName string, accountName string, shareName string, options *FileSharesClientGetOptions) (FileSharesClientGetResponse, error) {
+func (client *FileSharesClient) Get(ctx context.Context, resourceGroupName string, accountName string, fileServicesName string, shareName string, options *FileSharesClientGetOptions) (FileSharesClientGetResponse, error) {
 	var err error
 	const operationName = "FileSharesClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, resourceGroupName, accountName, shareName, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, accountName, fileServicesName, shareName, options)
 	if err != nil {
 		return FileSharesClientGetResponse{}, err
 	}
@@ -223,8 +232,12 @@ func (client *FileSharesClient) Get(ctx context.Context, resourceGroupName strin
 }
 
 // getCreateRequest creates the Get request.
-func (client *FileSharesClient) getCreateRequest(ctx context.Context, resourceGroupName string, accountName string, shareName string, options *FileSharesClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/fileServices/default/shares/{shareName}"
+func (client *FileSharesClient) getCreateRequest(ctx context.Context, resourceGroupName string, accountName string, fileServicesName string, shareName string, options *FileSharesClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/fileServices/{FileServicesName}/shares/{shareName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -233,14 +246,14 @@ func (client *FileSharesClient) getCreateRequest(ctx context.Context, resourceGr
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
+	if fileServicesName == "" {
+		return nil, errors.New("parameter fileServicesName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{FileServicesName}", url.PathEscape(fileServicesName))
 	if shareName == "" {
 		return nil, errors.New("parameter shareName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{shareName}", url.PathEscape(shareName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -272,20 +285,20 @@ func (client *FileSharesClient) getHandleResponse(resp *http.Response) (FileShar
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - shareName - The name of the file share within the specified storage account. File share names must be between 3 and 63
 //     characters in length and use numbers, lower-case letters and dash (-) only. Every dash (-)
 //     character must be immediately preceded and followed by a letter or number.
 //   - options - FileSharesClientLeaseOptions contains the optional parameters for the FileSharesClient.Lease method.
-func (client *FileSharesClient) Lease(ctx context.Context, resourceGroupName string, accountName string, shareName string, options *FileSharesClientLeaseOptions) (FileSharesClientLeaseResponse, error) {
+func (client *FileSharesClient) Lease(ctx context.Context, resourceGroupName string, accountName string, fileServicesName string, shareName string, options *FileSharesClientLeaseOptions) (FileSharesClientLeaseResponse, error) {
 	var err error
 	const operationName = "FileSharesClient.Lease"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.leaseCreateRequest(ctx, resourceGroupName, accountName, shareName, options)
+	req, err := client.leaseCreateRequest(ctx, resourceGroupName, accountName, fileServicesName, shareName, options)
 	if err != nil {
 		return FileSharesClientLeaseResponse{}, err
 	}
@@ -302,8 +315,12 @@ func (client *FileSharesClient) Lease(ctx context.Context, resourceGroupName str
 }
 
 // leaseCreateRequest creates the Lease request.
-func (client *FileSharesClient) leaseCreateRequest(ctx context.Context, resourceGroupName string, accountName string, shareName string, options *FileSharesClientLeaseOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/fileServices/default/shares/{shareName}/lease"
+func (client *FileSharesClient) leaseCreateRequest(ctx context.Context, resourceGroupName string, accountName string, fileServicesName string, shareName string, options *FileSharesClientLeaseOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/fileServices/{FileServicesName}/shares/{shareName}/lease"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -312,14 +329,14 @@ func (client *FileSharesClient) leaseCreateRequest(ctx context.Context, resource
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
+	if fileServicesName == "" {
+		return nil, errors.New("parameter fileServicesName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{FileServicesName}", url.PathEscape(fileServicesName))
 	if shareName == "" {
 		return nil, errors.New("parameter shareName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{shareName}", url.PathEscape(shareName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -355,11 +372,11 @@ func (client *FileSharesClient) leaseHandleResponse(resp *http.Response) (FileSh
 // NewListPager - Lists all shares.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - options - FileSharesClientListOptions contains the optional parameters for the FileSharesClient.NewListPager method.
-func (client *FileSharesClient) NewListPager(resourceGroupName string, accountName string, options *FileSharesClientListOptions) *runtime.Pager[FileSharesClientListResponse] {
+func (client *FileSharesClient) NewListPager(resourceGroupName string, accountName string, fileServicesName string, options *FileSharesClientListOptions) *runtime.Pager[FileSharesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[FileSharesClientListResponse]{
 		More: func(page FileSharesClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
@@ -371,7 +388,7 @@ func (client *FileSharesClient) NewListPager(resourceGroupName string, accountNa
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listCreateRequest(ctx, resourceGroupName, accountName, options)
+				return client.listCreateRequest(ctx, resourceGroupName, accountName, fileServicesName, options)
 			}, nil)
 			if err != nil {
 				return FileSharesClientListResponse{}, err
@@ -383,8 +400,12 @@ func (client *FileSharesClient) NewListPager(resourceGroupName string, accountNa
 }
 
 // listCreateRequest creates the List request.
-func (client *FileSharesClient) listCreateRequest(ctx context.Context, resourceGroupName string, accountName string, options *FileSharesClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/fileServices/default/shares"
+func (client *FileSharesClient) listCreateRequest(ctx context.Context, resourceGroupName string, accountName string, fileServicesName string, options *FileSharesClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/fileServices/{FileServicesName}/shares"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -393,10 +414,10 @@ func (client *FileSharesClient) listCreateRequest(ctx context.Context, resourceG
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	if fileServicesName == "" {
+		return nil, errors.New("parameter fileServicesName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	urlPath = strings.ReplaceAll(urlPath, "{FileServicesName}", url.PathEscape(fileServicesName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -409,7 +430,7 @@ func (client *FileSharesClient) listCreateRequest(ctx context.Context, resourceG
 		reqQP.Set("$filter", *options.Filter)
 	}
 	if options != nil && options.Maxpagesize != nil {
-		reqQP.Set("$maxpagesize", *options.Maxpagesize)
+		reqQP.Set("$maxpagesize", strconv.FormatInt(int64(*options.Maxpagesize), 10))
 	}
 	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
@@ -430,20 +451,20 @@ func (client *FileSharesClient) listHandleResponse(resp *http.Response) (FileSha
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - shareName - The name of the file share within the specified storage account. File share names must be between 3 and 63
 //     characters in length and use numbers, lower-case letters and dash (-) only. Every dash (-)
 //     character must be immediately preceded and followed by a letter or number.
 //   - options - FileSharesClientRestoreOptions contains the optional parameters for the FileSharesClient.Restore method.
-func (client *FileSharesClient) Restore(ctx context.Context, resourceGroupName string, accountName string, shareName string, deletedShare DeletedShare, options *FileSharesClientRestoreOptions) (FileSharesClientRestoreResponse, error) {
+func (client *FileSharesClient) Restore(ctx context.Context, resourceGroupName string, accountName string, fileServicesName string, shareName string, deletedShare DeletedShare, options *FileSharesClientRestoreOptions) (FileSharesClientRestoreResponse, error) {
 	var err error
 	const operationName = "FileSharesClient.Restore"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.restoreCreateRequest(ctx, resourceGroupName, accountName, shareName, deletedShare, options)
+	req, err := client.restoreCreateRequest(ctx, resourceGroupName, accountName, fileServicesName, shareName, deletedShare, options)
 	if err != nil {
 		return FileSharesClientRestoreResponse{}, err
 	}
@@ -459,8 +480,12 @@ func (client *FileSharesClient) Restore(ctx context.Context, resourceGroupName s
 }
 
 // restoreCreateRequest creates the Restore request.
-func (client *FileSharesClient) restoreCreateRequest(ctx context.Context, resourceGroupName string, accountName string, shareName string, deletedShare DeletedShare, _ *FileSharesClientRestoreOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/fileServices/default/shares/{shareName}/restore"
+func (client *FileSharesClient) restoreCreateRequest(ctx context.Context, resourceGroupName string, accountName string, fileServicesName string, shareName string, deletedShare DeletedShare, _ *FileSharesClientRestoreOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/fileServices/{FileServicesName}/shares/{shareName}/restore"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -469,14 +494,14 @@ func (client *FileSharesClient) restoreCreateRequest(ctx context.Context, resour
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
+	if fileServicesName == "" {
+		return nil, errors.New("parameter fileServicesName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{FileServicesName}", url.PathEscape(fileServicesName))
 	if shareName == "" {
 		return nil, errors.New("parameter shareName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{shareName}", url.PathEscape(shareName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -496,7 +521,7 @@ func (client *FileSharesClient) restoreCreateRequest(ctx context.Context, resour
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - shareName - The name of the file share within the specified storage account. File share names must be between 3 and 63
@@ -504,13 +529,13 @@ func (client *FileSharesClient) restoreCreateRequest(ctx context.Context, resour
 //     character must be immediately preceded and followed by a letter or number.
 //   - fileShare - Properties to update for the file share.
 //   - options - FileSharesClientUpdateOptions contains the optional parameters for the FileSharesClient.Update method.
-func (client *FileSharesClient) Update(ctx context.Context, resourceGroupName string, accountName string, shareName string, fileShare FileShare, options *FileSharesClientUpdateOptions) (FileSharesClientUpdateResponse, error) {
+func (client *FileSharesClient) Update(ctx context.Context, resourceGroupName string, accountName string, fileServicesName string, shareName string, fileShare FileShare, options *FileSharesClientUpdateOptions) (FileSharesClientUpdateResponse, error) {
 	var err error
 	const operationName = "FileSharesClient.Update"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, accountName, shareName, fileShare, options)
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, accountName, fileServicesName, shareName, fileShare, options)
 	if err != nil {
 		return FileSharesClientUpdateResponse{}, err
 	}
@@ -527,8 +552,12 @@ func (client *FileSharesClient) Update(ctx context.Context, resourceGroupName st
 }
 
 // updateCreateRequest creates the Update request.
-func (client *FileSharesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, accountName string, shareName string, fileShare FileShare, _ *FileSharesClientUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/fileServices/default/shares/{shareName}"
+func (client *FileSharesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, accountName string, fileServicesName string, shareName string, fileShare FileShare, _ *FileSharesClientUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/fileServices/{FileServicesName}/shares/{shareName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -537,14 +566,14 @@ func (client *FileSharesClient) updateCreateRequest(ctx context.Context, resourc
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
+	if fileServicesName == "" {
+		return nil, errors.New("parameter fileServicesName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{FileServicesName}", url.PathEscape(fileServicesName))
 	if shareName == "" {
 		return nil, errors.New("parameter shareName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{shareName}", url.PathEscape(shareName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
