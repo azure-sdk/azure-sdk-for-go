@@ -13,7 +13,7 @@ import (
 	"time"
 )
 
-// Generated from example definition: D:/ws/azure-sdk-for-go/sdk/resourcemanager/mongocluster/armmongocluster/TempTypeSpecFiles/DocumentDB.MongoCluster.Management/examples/2024-07-01/MongoClusters_NameAvailability.json
+// Generated from example definition: 2024-10-01-preview/MongoClusters_NameAvailability.json
 func ExampleMongoClustersClient_CheckNameAvailability_checksAndConfirmsTheMongoClusterNameIsAvailabilityForUse() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -41,7 +41,7 @@ func ExampleMongoClustersClient_CheckNameAvailability_checksAndConfirmsTheMongoC
 	// }
 }
 
-// Generated from example definition: D:/ws/azure-sdk-for-go/sdk/resourcemanager/mongocluster/armmongocluster/TempTypeSpecFiles/DocumentDB.MongoCluster.Management/examples/2024-07-01/MongoClusters_NameAvailability_AlreadyExists.json
+// Generated from example definition: 2024-10-01-preview/MongoClusters_NameAvailability_AlreadyExists.json
 func ExampleMongoClustersClient_CheckNameAvailability_checksAndReturnsThatTheMongoClusterNameIsAlreadyInUse() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -71,7 +71,7 @@ func ExampleMongoClustersClient_CheckNameAvailability_checksAndReturnsThatTheMon
 	// }
 }
 
-// Generated from example definition: D:/ws/azure-sdk-for-go/sdk/resourcemanager/mongocluster/armmongocluster/TempTypeSpecFiles/DocumentDB.MongoCluster.Management/examples/2024-07-01/MongoClusters_Create.json
+// Generated from example definition: 2024-10-01-preview/MongoClusters_Create.json
 func ExampleMongoClustersClient_BeginCreateOrUpdate_createsANewMongoClusterResource() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -156,13 +156,16 @@ func ExampleMongoClustersClient_BeginCreateOrUpdate_createsANewMongoClusterResou
 	// 			Replica: &armmongocluster.ReplicationProperties{
 	// 				Role: to.Ptr(armmongocluster.ReplicationRolePrimary),
 	// 			},
+	// 			DataAPI: &armmongocluster.DataAPIProperties{
+	// 				Mode: to.Ptr(armmongocluster.DataAPIModeDisabled),
+	// 			},
 	// 		},
 	// 		Location: to.Ptr("westus2"),
 	// 	},
 	// }
 }
 
-// Generated from example definition: D:/ws/azure-sdk-for-go/sdk/resourcemanager/mongocluster/armmongocluster/TempTypeSpecFiles/DocumentDB.MongoCluster.Management/examples/2024-07-01/MongoClusters_CreateGeoReplica.json
+// Generated from example definition: 2024-10-01-preview/MongoClusters_CreateGeoReplica.json
 func ExampleMongoClustersClient_BeginCreateOrUpdate_createsAReplicaMongoClusterResourceFromASourceResource() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -230,13 +233,16 @@ func ExampleMongoClustersClient_BeginCreateOrUpdate_createsAReplicaMongoClusterR
 	// 				SourceResourceID: to.Ptr("/subscriptions/ffffffff-ffff-ffff-ffff-ffffffffffff/resourceGroups/TestResourceGroup/providers/Microsoft.DocumentDB/mongoClusters/mySourceMongoCluster"),
 	// 				ReplicationState: to.Ptr(armmongocluster.ReplicationStateProvisioning),
 	// 			},
+	// 			DataAPI: &armmongocluster.DataAPIProperties{
+	// 				Mode: to.Ptr(armmongocluster.DataAPIModeDisabled),
+	// 			},
 	// 		},
 	// 		Location: to.Ptr("centralus"),
 	// 	},
 	// }
 }
 
-// Generated from example definition: D:/ws/azure-sdk-for-go/sdk/resourcemanager/mongocluster/armmongocluster/TempTypeSpecFiles/DocumentDB.MongoCluster.Management/examples/2024-07-01/MongoClusters_CreatePITR.json
+// Generated from example definition: 2024-10-01-preview/MongoClusters_CreatePITR.json
 func ExampleMongoClustersClient_BeginCreateOrUpdate_createsAMongoClusterResourceFromAPointInTimeRestore() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -301,13 +307,16 @@ func ExampleMongoClustersClient_BeginCreateOrUpdate_createsAMongoClusterResource
 	// 			Replica: &armmongocluster.ReplicationProperties{
 	// 				Role: to.Ptr(armmongocluster.ReplicationRolePrimary),
 	// 			},
+	// 			DataAPI: &armmongocluster.DataAPIProperties{
+	// 				Mode: to.Ptr(armmongocluster.DataAPIModeDisabled),
+	// 			},
 	// 		},
 	// 		Location: to.Ptr("westus2"),
 	// 	},
 	// }
 }
 
-// Generated from example definition: D:/ws/azure-sdk-for-go/sdk/resourcemanager/mongocluster/armmongocluster/TempTypeSpecFiles/DocumentDB.MongoCluster.Management/examples/2024-07-01/MongoClusters_Delete.json
+// Generated from example definition: 2024-10-01-preview/MongoClusters_Delete.json
 func ExampleMongoClustersClient_BeginDelete() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -328,7 +337,7 @@ func ExampleMongoClustersClient_BeginDelete() {
 	}
 }
 
-// Generated from example definition: D:/ws/azure-sdk-for-go/sdk/resourcemanager/mongocluster/armmongocluster/TempTypeSpecFiles/DocumentDB.MongoCluster.Management/examples/2024-07-01/MongoClusters_Get.json
+// Generated from example definition: 2024-10-01-preview/MongoClusters_Get.json
 func ExampleMongoClustersClient_Get() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -394,13 +403,16 @@ func ExampleMongoClustersClient_Get() {
 	// 				ReplicationState: to.Ptr(armmongocluster.ReplicationStateActive),
 	// 				Role: to.Ptr(armmongocluster.ReplicationRolePrimary),
 	// 			},
+	// 			DataAPI: &armmongocluster.DataAPIProperties{
+	// 				Mode: to.Ptr(armmongocluster.DataAPIModeDisabled),
+	// 			},
 	// 		},
 	// 		Location: to.Ptr("westus2"),
 	// 	},
 	// }
 }
 
-// Generated from example definition: D:/ws/azure-sdk-for-go/sdk/resourcemanager/mongocluster/armmongocluster/TempTypeSpecFiles/DocumentDB.MongoCluster.Management/examples/2024-07-01/MongoClusters_List.json
+// Generated from example definition: 2024-10-01-preview/MongoClusters_List.json
 func ExampleMongoClustersClient_NewListPager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -472,6 +484,9 @@ func ExampleMongoClustersClient_NewListPager() {
 		// 						ReplicationState: to.Ptr(armmongocluster.ReplicationStateActive),
 		// 						Role: to.Ptr(armmongocluster.ReplicationRolePrimary),
 		// 					},
+		// 					DataAPI: &armmongocluster.DataAPIProperties{
+		// 						Mode: to.Ptr(armmongocluster.DataAPIModeDisabled),
+		// 					},
 		// 				},
 		// 				Location: to.Ptr("westus2"),
 		// 			},
@@ -520,6 +535,9 @@ func ExampleMongoClustersClient_NewListPager() {
 		// 						ReplicationState: to.Ptr(armmongocluster.ReplicationStateActive),
 		// 						Role: to.Ptr(armmongocluster.ReplicationRolePrimary),
 		// 					},
+		// 					DataAPI: &armmongocluster.DataAPIProperties{
+		// 						Mode: to.Ptr(armmongocluster.DataAPIModeDisabled),
+		// 					},
 		// 				},
 		// 				Location: to.Ptr("eastus"),
 		// 			},
@@ -529,7 +547,7 @@ func ExampleMongoClustersClient_NewListPager() {
 	}
 }
 
-// Generated from example definition: D:/ws/azure-sdk-for-go/sdk/resourcemanager/mongocluster/armmongocluster/TempTypeSpecFiles/DocumentDB.MongoCluster.Management/examples/2024-07-01/MongoClusters_ListByResourceGroup.json
+// Generated from example definition: 2024-10-01-preview/MongoClusters_ListByResourceGroup.json
 func ExampleMongoClustersClient_NewListByResourceGroupPager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -601,6 +619,9 @@ func ExampleMongoClustersClient_NewListByResourceGroupPager() {
 		// 						ReplicationState: to.Ptr(armmongocluster.ReplicationStateActive),
 		// 						Role: to.Ptr(armmongocluster.ReplicationRolePrimary),
 		// 					},
+		// 					DataAPI: &armmongocluster.DataAPIProperties{
+		// 						Mode: to.Ptr(armmongocluster.DataAPIModeDisabled),
+		// 					},
 		// 				},
 		// 				Location: to.Ptr("westus2"),
 		// 			},
@@ -649,6 +670,9 @@ func ExampleMongoClustersClient_NewListByResourceGroupPager() {
 		// 						ReplicationState: to.Ptr(armmongocluster.ReplicationStateActive),
 		// 						Role: to.Ptr(armmongocluster.ReplicationRolePrimary),
 		// 					},
+		// 					DataAPI: &armmongocluster.DataAPIProperties{
+		// 						Mode: to.Ptr(armmongocluster.DataAPIModeDisabled),
+		// 					},
 		// 				},
 		// 				Location: to.Ptr("eastus"),
 		// 			},
@@ -658,7 +682,7 @@ func ExampleMongoClustersClient_NewListByResourceGroupPager() {
 	}
 }
 
-// Generated from example definition: D:/ws/azure-sdk-for-go/sdk/resourcemanager/mongocluster/armmongocluster/TempTypeSpecFiles/DocumentDB.MongoCluster.Management/examples/2024-07-01/MongoClusters_ListConnectionStrings.json
+// Generated from example definition: 2024-10-01-preview/MongoClusters_ListConnectionStrings.json
 func ExampleMongoClustersClient_ListConnectionStrings() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -688,7 +712,7 @@ func ExampleMongoClustersClient_ListConnectionStrings() {
 	// }
 }
 
-// Generated from example definition: D:/ws/azure-sdk-for-go/sdk/resourcemanager/mongocluster/armmongocluster/TempTypeSpecFiles/DocumentDB.MongoCluster.Management/examples/2024-07-01/MongoClusters_ForcePromoteReplica.json
+// Generated from example definition: 2024-10-01-preview/MongoClusters_ForcePromoteReplica.json
 func ExampleMongoClustersClient_BeginPromote() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -712,7 +736,112 @@ func ExampleMongoClustersClient_BeginPromote() {
 	}
 }
 
-// Generated from example definition: D:/ws/azure-sdk-for-go/sdk/resourcemanager/mongocluster/armmongocluster/TempTypeSpecFiles/DocumentDB.MongoCluster.Management/examples/2024-07-01/MongoClusters_PatchDiskSize.json
+// Generated from example definition: 2024-10-01-preview/MongoClusters_PatchDataApi.json
+func ExampleMongoClustersClient_BeginUpdate_enablesDataApiOnAMongoClusterResource() {
+	cred, err := azidentity.NewDefaultAzureCredential(nil)
+	if err != nil {
+		log.Fatalf("failed to obtain a credential: %v", err)
+	}
+	ctx := context.Background()
+	clientFactory, err := armmongocluster.NewClientFactory("ffffffff-ffff-ffff-ffff-ffffffffffff", cred, nil)
+	if err != nil {
+		log.Fatalf("failed to create client: %v", err)
+	}
+	poller, err := clientFactory.NewMongoClustersClient().BeginUpdate(ctx, "TestResourceGroup", "myMongoCluster", armmongocluster.Update{
+		Properties: &armmongocluster.UpdateProperties{
+			DataAPI: &armmongocluster.DataAPIProperties{
+				Mode: to.Ptr(armmongocluster.DataAPIModeEnabled),
+			},
+		},
+	}, nil)
+	if err != nil {
+		log.Fatalf("failed to finish the request: %v", err)
+	}
+	res, err := poller.PollUntilDone(ctx, nil)
+	if err != nil {
+		log.Fatalf("failed to pull the result: %v", err)
+	}
+	// You could use response here. We use blank identifier for just demo purposes.
+	_ = res
+	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
+	// res = armmongocluster.MongoClustersClientUpdateResponse{
+	// 	MongoCluster: &armmongocluster.MongoCluster{
+	// 		ID: to.Ptr("/subscriptions/ffffffff-ffff-ffff-ffff-ffffffffffff/resourceGroups/TestResourceGroup/providers/Microsoft.DocumentDB/mongoClusters/myMongoCluster"),
+	// 		Name: to.Ptr("myMongoCluster"),
+	// 		Type: to.Ptr("/Microsoft.DocumentDB/mongoClusters"),
+	// 		SystemData: &armmongocluster.SystemData{
+	// 			CreatedBy: to.Ptr("user1"),
+	// 			CreatedByType: to.Ptr(armmongocluster.CreatedByTypeUser),
+	// 			CreatedAt: to.Ptr(func() time.Time { t, _ := time.Parse(time.RFC3339Nano, "2020-01-01T17:18:19.1234567Z"); return t}()),
+	// 			LastModifiedBy: to.Ptr("user2"),
+	// 			LastModifiedByType: to.Ptr(armmongocluster.CreatedByTypeUser),
+	// 			LastModifiedAt: to.Ptr(func() time.Time { t, _ := time.Parse(time.RFC3339Nano, "2020-01-02T17:18:19.1234567Z"); return t}()),
+	// 		},
+	// 		Properties: &armmongocluster.Properties{
+	// 			Administrator: &armmongocluster.AdministratorProperties{
+	// 				UserName: to.Ptr("mongoAdmin"),
+	// 			},
+	// 			ServerVersion: to.Ptr("5.0"),
+	// 			Storage: &armmongocluster.StorageProperties{
+	// 				SizeGb: to.Ptr[int64](256),
+	// 			},
+	// 			Compute: &armmongocluster.ComputeProperties{
+	// 				Tier: to.Ptr("M30"),
+	// 			},
+	// 			Sharding: &armmongocluster.ShardingProperties{
+	// 				ShardCount: to.Ptr[int32](4),
+	// 			},
+	// 			HighAvailability: &armmongocluster.HighAvailabilityProperties{
+	// 				TargetMode: to.Ptr(armmongocluster.HighAvailabilityModeSameZone),
+	// 			},
+	// 			Backup: &armmongocluster.BackupProperties{
+	// 				EarliestRestoreTime: to.Ptr("2023-01-13T20:07:35Z"),
+	// 			},
+	// 			PrivateEndpointConnections: []*armmongocluster.PrivateEndpointConnection{
+	// 				{
+	// 					ID: to.Ptr("/subscriptions/ffffffff-ffff-ffff-ffff-ffffffffffff/resourceGroups/TestResourceGroup/providers/Microsoft.DocumentDB/mongoClusters/myMongoCluster/privateEndpointConnections/mymongocluster-pe.ffffffff-ffff-ffff-ffff-ffffffffffff"),
+	// 					SystemData: &armmongocluster.SystemData{
+	// 						CreatedAt: to.Ptr(func() time.Time { t, _ := time.Parse(time.RFC3339Nano, "2024-02-06T04:00:25.0509765Z"); return t}()),
+	// 						CreatedBy: to.Ptr("ffffffff-ffff-ffff-ffff-ffffffffffff"),
+	// 						CreatedByType: to.Ptr(armmongocluster.CreatedByTypeApplication),
+	// 						LastModifiedAt: to.Ptr(func() time.Time { t, _ := time.Parse(time.RFC3339Nano, "2024-02-06T04:00:25.0509765Z"); return t}()),
+	// 						LastModifiedBy: to.Ptr("ffffffff-ffff-ffff-ffff-ffffffffffff"),
+	// 						LastModifiedByType: to.Ptr(armmongocluster.CreatedByTypeApplication),
+	// 					},
+	// 					Properties: &armmongocluster.PrivateEndpointConnectionProperties{
+	// 						PrivateEndpoint: &armmongocluster.PrivateEndpoint{
+	// 							ID: to.Ptr("/subscriptions/ffffffff-ffff-ffff-ffff-ffffffffffff/resourceGroups/TestResourceGroup/providers/Microsoft.Network/privateEndpoints/mymongocluster-pe"),
+	// 						},
+	// 						GroupIDs: []*string{
+	// 							to.Ptr("MongoCluster"),
+	// 						},
+	// 						PrivateLinkServiceConnectionState: &armmongocluster.PrivateLinkServiceConnectionState{
+	// 							Status: to.Ptr(armmongocluster.PrivateEndpointServiceConnectionStatusApproved),
+	// 							Description: to.Ptr("Auto-approved"),
+	// 							ActionsRequired: to.Ptr("None"),
+	// 						},
+	// 					},
+	// 				},
+	// 			},
+	// 			PreviewFeatures: []*armmongocluster.PreviewFeature{
+	// 			},
+	// 			InfrastructureVersion: to.Ptr("2.0"),
+	// 			PublicNetworkAccess: to.Ptr(armmongocluster.PublicNetworkAccessDisabled),
+	// 			ConnectionString: to.Ptr("mongodb+srv://<user>:<password>@myMongoCluster.mongocluster.cosmos.azure.com"),
+	// 			Replica: &armmongocluster.ReplicationProperties{
+	// 				ReplicationState: to.Ptr(armmongocluster.ReplicationStateActive),
+	// 				Role: to.Ptr(armmongocluster.ReplicationRolePrimary),
+	// 			},
+	// 			DataAPI: &armmongocluster.DataAPIProperties{
+	// 				Mode: to.Ptr(armmongocluster.DataAPIModeEnabled),
+	// 			},
+	// 		},
+	// 		Location: to.Ptr("westus2"),
+	// 	},
+	// }
+}
+
+// Generated from example definition: 2024-10-01-preview/MongoClusters_PatchDiskSize.json
 func ExampleMongoClustersClient_BeginUpdate_updatesTheDiskSizeOnAMongoClusterResource() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -782,13 +911,16 @@ func ExampleMongoClustersClient_BeginUpdate_updatesTheDiskSizeOnAMongoClusterRes
 	// 				ReplicationState: to.Ptr(armmongocluster.ReplicationStateActive),
 	// 				Role: to.Ptr(armmongocluster.ReplicationRolePrimary),
 	// 			},
+	// 			DataAPI: &armmongocluster.DataAPIProperties{
+	// 				Mode: to.Ptr(armmongocluster.DataAPIModeDisabled),
+	// 			},
 	// 		},
 	// 		Location: to.Ptr("westus2"),
 	// 	},
 	// }
 }
 
-// Generated from example definition: D:/ws/azure-sdk-for-go/sdk/resourcemanager/mongocluster/armmongocluster/TempTypeSpecFiles/DocumentDB.MongoCluster.Management/examples/2024-07-01/MongoClusters_PatchPrivateNetworkAccess.json
+// Generated from example definition: 2024-10-01-preview/MongoClusters_PatchPrivateNetworkAccess.json
 func ExampleMongoClustersClient_BeginUpdate_disablesPublicNetworkAccessOnAMongoClusterResourceWithAPrivateEndpointConnection() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -882,13 +1014,16 @@ func ExampleMongoClustersClient_BeginUpdate_disablesPublicNetworkAccessOnAMongoC
 	// 				ReplicationState: to.Ptr(armmongocluster.ReplicationStateActive),
 	// 				Role: to.Ptr(armmongocluster.ReplicationRolePrimary),
 	// 			},
+	// 			DataAPI: &armmongocluster.DataAPIProperties{
+	// 				Mode: to.Ptr(armmongocluster.DataAPIModeDisabled),
+	// 			},
 	// 		},
 	// 		Location: to.Ptr("westus2"),
 	// 	},
 	// }
 }
 
-// Generated from example definition: D:/ws/azure-sdk-for-go/sdk/resourcemanager/mongocluster/armmongocluster/TempTypeSpecFiles/DocumentDB.MongoCluster.Management/examples/2024-07-01/MongoClusters_ResetPassword.json
+// Generated from example definition: 2024-10-01-preview/MongoClusters_ResetPassword.json
 func ExampleMongoClustersClient_BeginUpdate_resetsTheAdministratorLoginPassword() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -959,13 +1094,16 @@ func ExampleMongoClustersClient_BeginUpdate_resetsTheAdministratorLoginPassword(
 	// 				ReplicationState: to.Ptr(armmongocluster.ReplicationStateActive),
 	// 				Role: to.Ptr(armmongocluster.ReplicationRolePrimary),
 	// 			},
+	// 			DataAPI: &armmongocluster.DataAPIProperties{
+	// 				Mode: to.Ptr(armmongocluster.DataAPIModeDisabled),
+	// 			},
 	// 		},
 	// 		Location: to.Ptr("westus2"),
 	// 	},
 	// }
 }
 
-// Generated from example definition: D:/ws/azure-sdk-for-go/sdk/resourcemanager/mongocluster/armmongocluster/TempTypeSpecFiles/DocumentDB.MongoCluster.Management/examples/2024-07-01/MongoClusters_Update.json
+// Generated from example definition: 2024-10-01-preview/MongoClusters_Update.json
 func ExampleMongoClustersClient_BeginUpdate_updatesAMongoClusterResource() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -1050,6 +1188,9 @@ func ExampleMongoClustersClient_BeginUpdate_updatesAMongoClusterResource() {
 	// 			Replica: &armmongocluster.ReplicationProperties{
 	// 				ReplicationState: to.Ptr(armmongocluster.ReplicationStateActive),
 	// 				Role: to.Ptr(armmongocluster.ReplicationRolePrimary),
+	// 			},
+	// 			DataAPI: &armmongocluster.DataAPIProperties{
+	// 				Mode: to.Ptr(armmongocluster.DataAPIModeDisabled),
 	// 			},
 	// 		},
 	// 		Location: to.Ptr("westus2"),
