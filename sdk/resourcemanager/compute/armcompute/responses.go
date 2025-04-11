@@ -821,6 +821,64 @@ type GalleryInVMAccessControlProfilesClientUpdateResponse struct {
 	GalleryInVMAccessControlProfile
 }
 
+// GalleryScriptVersionsClientCreateOrUpdateResponse contains the response from method GalleryScriptVersionsClient.BeginCreateOrUpdate.
+type GalleryScriptVersionsClientCreateOrUpdateResponse struct {
+	// Specifies information about the gallery Script Version that you want to create or update.
+	GalleryScriptVersion
+}
+
+// GalleryScriptVersionsClientDeleteResponse contains the response from method GalleryScriptVersionsClient.BeginDelete.
+type GalleryScriptVersionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// GalleryScriptVersionsClientGetResponse contains the response from method GalleryScriptVersionsClient.Get.
+type GalleryScriptVersionsClientGetResponse struct {
+	// Specifies information about the gallery Script Version that you want to create or update.
+	GalleryScriptVersion
+}
+
+// GalleryScriptVersionsClientListByGalleryScriptResponse contains the response from method GalleryScriptVersionsClient.NewListByGalleryScriptPager.
+type GalleryScriptVersionsClientListByGalleryScriptResponse struct {
+	// The List Gallery Script version operation response.
+	GalleryScriptVersionList
+}
+
+// GalleryScriptVersionsClientUpdateResponse contains the response from method GalleryScriptVersionsClient.BeginUpdate.
+type GalleryScriptVersionsClientUpdateResponse struct {
+	// Specifies information about the gallery Script Version that you want to create or update.
+	GalleryScriptVersion
+}
+
+// GalleryScriptsClientCreateOrUpdateResponse contains the response from method GalleryScriptsClient.BeginCreateOrUpdate.
+type GalleryScriptsClientCreateOrUpdateResponse struct {
+	// Specifies information about the gallery Script Definition that you want to create or update.
+	GalleryScript
+}
+
+// GalleryScriptsClientDeleteResponse contains the response from method GalleryScriptsClient.BeginDelete.
+type GalleryScriptsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// GalleryScriptsClientGetResponse contains the response from method GalleryScriptsClient.Get.
+type GalleryScriptsClientGetResponse struct {
+	// Specifies information about the gallery Script Definition that you want to create or update.
+	GalleryScript
+}
+
+// GalleryScriptsClientListByGalleryResponse contains the response from method GalleryScriptsClient.NewListByGalleryPager.
+type GalleryScriptsClientListByGalleryResponse struct {
+	// The List Gallery Scripts operation response.
+	GalleryScriptList
+}
+
+// GalleryScriptsClientUpdateResponse contains the response from method GalleryScriptsClient.BeginUpdate.
+type GalleryScriptsClientUpdateResponse struct {
+	// Specifies information about the gallery Script Definition that you want to create or update.
+	GalleryScript
+}
+
 // GallerySharingProfileClientUpdateResponse contains the response from method GallerySharingProfileClient.BeginUpdate.
 type GallerySharingProfileClientUpdateResponse struct {
 	// Specifies information about the gallery sharing profile update.
