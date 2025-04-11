@@ -171,64 +171,93 @@ func (c *ClientFactory) NewDisksClient() *DisksClient {
 }
 
 // NewGalleriesClient creates a new instance of GalleriesClient.
-func (c *ClientFactory) NewGalleriesClient() *GalleriesClient {
+func (c *ClientFactory) NewGalleriesClient(galleryName string) *GalleriesClient {
 	return &GalleriesClient{
+		galleryName:    galleryName,
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
 }
 
 // NewGalleryApplicationVersionsClient creates a new instance of GalleryApplicationVersionsClient.
-func (c *ClientFactory) NewGalleryApplicationVersionsClient() *GalleryApplicationVersionsClient {
+func (c *ClientFactory) NewGalleryApplicationVersionsClient(galleryName string) *GalleryApplicationVersionsClient {
 	return &GalleryApplicationVersionsClient{
+		galleryName:    galleryName,
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
 }
 
 // NewGalleryApplicationsClient creates a new instance of GalleryApplicationsClient.
-func (c *ClientFactory) NewGalleryApplicationsClient() *GalleryApplicationsClient {
+func (c *ClientFactory) NewGalleryApplicationsClient(galleryName string) *GalleryApplicationsClient {
 	return &GalleryApplicationsClient{
+		galleryName:    galleryName,
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
 }
 
 // NewGalleryImageVersionsClient creates a new instance of GalleryImageVersionsClient.
-func (c *ClientFactory) NewGalleryImageVersionsClient() *GalleryImageVersionsClient {
+func (c *ClientFactory) NewGalleryImageVersionsClient(galleryName string) *GalleryImageVersionsClient {
 	return &GalleryImageVersionsClient{
+		galleryName:    galleryName,
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
 }
 
 // NewGalleryImagesClient creates a new instance of GalleryImagesClient.
-func (c *ClientFactory) NewGalleryImagesClient() *GalleryImagesClient {
+func (c *ClientFactory) NewGalleryImagesClient(galleryName string) *GalleryImagesClient {
 	return &GalleryImagesClient{
+		galleryName:    galleryName,
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
 }
 
 // NewGalleryInVMAccessControlProfileVersionsClient creates a new instance of GalleryInVMAccessControlProfileVersionsClient.
-func (c *ClientFactory) NewGalleryInVMAccessControlProfileVersionsClient() *GalleryInVMAccessControlProfileVersionsClient {
+func (c *ClientFactory) NewGalleryInVMAccessControlProfileVersionsClient(galleryName string) *GalleryInVMAccessControlProfileVersionsClient {
 	return &GalleryInVMAccessControlProfileVersionsClient{
+		galleryName:    galleryName,
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
 }
 
 // NewGalleryInVMAccessControlProfilesClient creates a new instance of GalleryInVMAccessControlProfilesClient.
-func (c *ClientFactory) NewGalleryInVMAccessControlProfilesClient() *GalleryInVMAccessControlProfilesClient {
+func (c *ClientFactory) NewGalleryInVMAccessControlProfilesClient(galleryName string) *GalleryInVMAccessControlProfilesClient {
 	return &GalleryInVMAccessControlProfilesClient{
+		galleryName:    galleryName,
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
 }
 
+// NewGalleryScriptVersionsClient creates a new instance of GalleryScriptVersionsClient.
+func (c *ClientFactory) NewGalleryScriptVersionsClient(galleryName string, galleryScriptName string, galleryScriptVersionName string) *GalleryScriptVersionsClient {
+	return &GalleryScriptVersionsClient{
+		galleryName:              galleryName,
+		galleryScriptName:        galleryScriptName,
+		galleryScriptVersionName: galleryScriptVersionName,
+		subscriptionID:           c.subscriptionID,
+		internal:                 c.internal,
+	}
+}
+
+// NewGalleryScriptsClient creates a new instance of GalleryScriptsClient.
+func (c *ClientFactory) NewGalleryScriptsClient(galleryName string, galleryScriptName string) *GalleryScriptsClient {
+	return &GalleryScriptsClient{
+		galleryName:       galleryName,
+		galleryScriptName: galleryScriptName,
+		subscriptionID:    c.subscriptionID,
+		internal:          c.internal,
+	}
+}
+
 // NewGallerySharingProfileClient creates a new instance of GallerySharingProfileClient.
-func (c *ClientFactory) NewGallerySharingProfileClient() *GallerySharingProfileClient {
+func (c *ClientFactory) NewGallerySharingProfileClient(galleryName string) *GallerySharingProfileClient {
 	return &GallerySharingProfileClient{
+		galleryName:    galleryName,
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
@@ -330,8 +359,9 @@ func (c *ClientFactory) NewSnapshotsClient() *SnapshotsClient {
 }
 
 // NewSoftDeletedResourceClient creates a new instance of SoftDeletedResourceClient.
-func (c *ClientFactory) NewSoftDeletedResourceClient() *SoftDeletedResourceClient {
+func (c *ClientFactory) NewSoftDeletedResourceClient(galleryName string) *SoftDeletedResourceClient {
 	return &SoftDeletedResourceClient{
+		galleryName:    galleryName,
 		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}

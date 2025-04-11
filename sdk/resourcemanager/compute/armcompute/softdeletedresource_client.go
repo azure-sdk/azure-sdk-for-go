@@ -22,20 +22,23 @@ import (
 type SoftDeletedResourceClient struct {
 	internal       *arm.Client
 	subscriptionID string
+	galleryName    string
 }
 
 // NewSoftDeletedResourceClient creates a new instance of SoftDeletedResourceClient with the specified values.
 //   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
 //     part of the URI for every service call.
+//   - galleryName - The name of the Shared Image Gallery where Image Definitions or other artifacts reside.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewSoftDeletedResourceClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SoftDeletedResourceClient, error) {
+func NewSoftDeletedResourceClient(subscriptionID string, galleryName string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SoftDeletedResourceClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	client := &SoftDeletedResourceClient{
 		subscriptionID: subscriptionID,
+		galleryName:    galleryName,
 		internal:       cl,
 	}
 	return client, nil
@@ -44,15 +47,14 @@ func NewSoftDeletedResourceClient(subscriptionID string, credential azcore.Token
 // NewListByArtifactNamePager - List soft-deleted resources of an artifact in the gallery, such as soft-deleted gallery image
 // version of an image.
 //
-// Generated from API version 2024-03-03
+// Generated from API version 2025-03-03
 //   - resourceGroupName - The name of the resource group.
-//   - galleryName - The name of the Gallery in which the soft-deleted resources resides.
 //   - artifactType - The type of the artifact to be listed, such as gallery image version.
 //   - artifactName - The artifact name to be listed. If artifact type is Images, then the artifact name should be the gallery
 //     image name.
 //   - options - SoftDeletedResourceClientListByArtifactNameOptions contains the optional parameters for the SoftDeletedResourceClient.NewListByArtifactNamePager
 //     method.
-func (client *SoftDeletedResourceClient) NewListByArtifactNamePager(resourceGroupName string, galleryName string, artifactType string, artifactName string, options *SoftDeletedResourceClientListByArtifactNameOptions) *runtime.Pager[SoftDeletedResourceClientListByArtifactNameResponse] {
+func (client *SoftDeletedResourceClient) NewListByArtifactNamePager(resourceGroupName string, artifactType string, artifactName string, options *SoftDeletedResourceClientListByArtifactNameOptions) *runtime.Pager[SoftDeletedResourceClientListByArtifactNameResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SoftDeletedResourceClientListByArtifactNameResponse]{
 		More: func(page SoftDeletedResourceClientListByArtifactNameResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
@@ -64,7 +66,7 @@ func (client *SoftDeletedResourceClient) NewListByArtifactNamePager(resourceGrou
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listByArtifactNameCreateRequest(ctx, resourceGroupName, galleryName, artifactType, artifactName, options)
+				return client.listByArtifactNameCreateRequest(ctx, resourceGroupName, artifactType, artifactName, options)
 			}, nil)
 			if err != nil {
 				return SoftDeletedResourceClientListByArtifactNameResponse{}, err
@@ -76,7 +78,7 @@ func (client *SoftDeletedResourceClient) NewListByArtifactNamePager(resourceGrou
 }
 
 // listByArtifactNameCreateRequest creates the ListByArtifactName request.
-func (client *SoftDeletedResourceClient) listByArtifactNameCreateRequest(ctx context.Context, resourceGroupName string, galleryName string, artifactType string, artifactName string, _ *SoftDeletedResourceClientListByArtifactNameOptions) (*policy.Request, error) {
+func (client *SoftDeletedResourceClient) listByArtifactNameCreateRequest(ctx context.Context, resourceGroupName string, artifactType string, artifactName string, _ *SoftDeletedResourceClientListByArtifactNameOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/galleries/{galleryName}/softDeletedArtifactTypes/{artifactType}/artifacts/{artifactName}/versions"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -86,10 +88,10 @@ func (client *SoftDeletedResourceClient) listByArtifactNameCreateRequest(ctx con
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if galleryName == "" {
-		return nil, errors.New("parameter galleryName cannot be empty")
+	if client.galleryName == "" {
+		return nil, errors.New("parameter client.galleryName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{galleryName}", url.PathEscape(galleryName))
+	urlPath = strings.ReplaceAll(urlPath, "{galleryName}", url.PathEscape(client.galleryName))
 	if artifactType == "" {
 		return nil, errors.New("parameter artifactType cannot be empty")
 	}
@@ -103,7 +105,7 @@ func (client *SoftDeletedResourceClient) listByArtifactNameCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-03")
+	reqQP.Set("api-version", "2025-03-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
