@@ -13,10 +13,9 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v2"
 	"net/http"
 	"net/url"
-	"reflect"
 	"regexp"
 )
 
@@ -24,7 +23,7 @@ import (
 type TableServer struct {
 	// Create is the fake for method TableClient.Create
 	// HTTP status codes to indicate success: http.StatusOK
-	Create func(ctx context.Context, resourceGroupName string, accountName string, tableName string, options *armstorage.TableClientCreateOptions) (resp azfake.Responder[armstorage.TableClientCreateResponse], errResp azfake.ErrorResponder)
+	Create func(ctx context.Context, resourceGroupName string, accountName string, tableName string, parameters armstorage.Table, options *armstorage.TableClientCreateOptions) (resp azfake.Responder[armstorage.TableClientCreateResponse], errResp azfake.ErrorResponder)
 
 	// Delete is the fake for method TableClient.Delete
 	// HTTP status codes to indicate success: http.StatusNoContent
@@ -40,7 +39,7 @@ type TableServer struct {
 
 	// Update is the fake for method TableClient.Update
 	// HTTP status codes to indicate success: http.StatusOK
-	Update func(ctx context.Context, resourceGroupName string, accountName string, tableName string, options *armstorage.TableClientUpdateOptions) (resp azfake.Responder[armstorage.TableClientUpdateResponse], errResp azfake.ErrorResponder)
+	Update func(ctx context.Context, resourceGroupName string, accountName string, tableName string, parameters armstorage.Table, options *armstorage.TableClientUpdateOptions) (resp azfake.Responder[armstorage.TableClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewTableServerTransport creates a new instance of TableServerTransport with the provided implementation.
@@ -138,13 +137,7 @@ func (t *TableServerTransport) dispatchCreate(req *http.Request) (*http.Response
 	if err != nil {
 		return nil, err
 	}
-	var options *armstorage.TableClientCreateOptions
-	if !reflect.ValueOf(body).IsZero() {
-		options = &armstorage.TableClientCreateOptions{
-			Parameters: &body,
-		}
-	}
-	respr, errRespr := t.srv.Create(req.Context(), resourceGroupNameParam, accountNameParam, tableNameParam, options)
+	respr, errRespr := t.srv.Create(req.Context(), resourceGroupNameParam, accountNameParam, tableNameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -300,13 +293,7 @@ func (t *TableServerTransport) dispatchUpdate(req *http.Request) (*http.Response
 	if err != nil {
 		return nil, err
 	}
-	var options *armstorage.TableClientUpdateOptions
-	if !reflect.ValueOf(body).IsZero() {
-		options = &armstorage.TableClientUpdateOptions{
-			Parameters: &body,
-		}
-	}
-	respr, errRespr := t.srv.Update(req.Context(), resourceGroupNameParam, accountNameParam, tableNameParam, options)
+	respr, errRespr := t.srv.Update(req.Context(), resourceGroupNameParam, accountNameParam, tableNameParam, body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}

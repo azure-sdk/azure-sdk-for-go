@@ -6,12 +6,13 @@
 package fake
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -19,26 +20,22 @@ import (
 
 // UsagesServer is a fake server for instances of the armstorage.UsagesClient type.
 type UsagesServer struct {
-	// NewListByLocationPager is the fake for method UsagesClient.NewListByLocationPager
+	// ListByLocation is the fake for method UsagesClient.ListByLocation
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListByLocationPager func(location string, options *armstorage.UsagesClientListByLocationOptions) (resp azfake.PagerResponder[armstorage.UsagesClientListByLocationResponse])
+	ListByLocation func(ctx context.Context, location string, options *armstorage.UsagesClientListByLocationOptions) (resp azfake.Responder[armstorage.UsagesClientListByLocationResponse], errResp azfake.ErrorResponder)
 }
 
 // NewUsagesServerTransport creates a new instance of UsagesServerTransport with the provided implementation.
 // The returned UsagesServerTransport instance is connected to an instance of armstorage.UsagesClient via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewUsagesServerTransport(srv *UsagesServer) *UsagesServerTransport {
-	return &UsagesServerTransport{
-		srv:                    srv,
-		newListByLocationPager: newTracker[azfake.PagerResponder[armstorage.UsagesClientListByLocationResponse]](),
-	}
+	return &UsagesServerTransport{srv: srv}
 }
 
 // UsagesServerTransport connects instances of armstorage.UsagesClient to instances of UsagesServer.
 // Don't use this type directly, use NewUsagesServerTransport instead.
 type UsagesServerTransport struct {
-	srv                    *UsagesServer
-	newListByLocationPager *tracker[azfake.PagerResponder[armstorage.UsagesClientListByLocationResponse]]
+	srv *UsagesServer
 }
 
 // Do implements the policy.Transporter interface for UsagesServerTransport.
@@ -64,8 +61,8 @@ func (u *UsagesServerTransport) dispatchToMethodFake(req *http.Request, method s
 		}
 		if !intercepted {
 			switch method {
-			case "UsagesClient.NewListByLocationPager":
-				res.resp, res.err = u.dispatchNewListByLocationPager(req)
+			case "UsagesClient.ListByLocation":
+				res.resp, res.err = u.dispatchListByLocation(req)
 			default:
 				res.err = fmt.Errorf("unhandled API %s", method)
 			}
@@ -85,36 +82,31 @@ func (u *UsagesServerTransport) dispatchToMethodFake(req *http.Request, method s
 	}
 }
 
-func (u *UsagesServerTransport) dispatchNewListByLocationPager(req *http.Request) (*http.Response, error) {
-	if u.srv.NewListByLocationPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListByLocationPager not implemented")}
+func (u *UsagesServerTransport) dispatchListByLocation(req *http.Request) (*http.Response, error) {
+	if u.srv.ListByLocation == nil {
+		return nil, &nonRetriableError{errors.New("fake for method ListByLocation not implemented")}
 	}
-	newListByLocationPager := u.newListByLocationPager.get(req)
-	if newListByLocationPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/locations/(?P<location>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/usages`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 2 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		locationParam, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
-		if err != nil {
-			return nil, err
-		}
-		resp := u.srv.NewListByLocationPager(locationParam, nil)
-		newListByLocationPager = &resp
-		u.newListByLocationPager.add(req, newListByLocationPager)
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/locations/(?P<location>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/usages`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 2 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	resp, err := server.PagerResponderNext(newListByLocationPager, req)
+	locationParam, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
 	if err != nil {
 		return nil, err
 	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		u.newListByLocationPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+	respr, errRespr := u.srv.ListByLocation(req.Context(), locationParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
 	}
-	if !server.PagerResponderMore(newListByLocationPager) {
-		u.newListByLocationPager.remove(req)
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).UsageListResult, req)
+	if err != nil {
+		return nil, err
 	}
 	return resp, nil
 }

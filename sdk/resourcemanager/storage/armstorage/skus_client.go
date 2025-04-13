@@ -40,32 +40,31 @@ func NewSKUsClient(subscriptionID string, credential azcore.TokenCredential, opt
 	return client, nil
 }
 
-// NewListPager - Lists the available SKUs supported by Microsoft.Storage for given subscription.
+// List - Lists the available SKUs supported by Microsoft.Storage for given subscription.
+// If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - options - SKUsClientListOptions contains the optional parameters for the SKUsClient.NewListPager method.
-func (client *SKUsClient) NewListPager(options *SKUsClientListOptions) *runtime.Pager[SKUsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[SKUsClientListResponse]{
-		More: func(page SKUsClientListResponse) bool {
-			return false
-		},
-		Fetcher: func(ctx context.Context, page *SKUsClientListResponse) (SKUsClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "SKUsClient.NewListPager")
-			req, err := client.listCreateRequest(ctx, options)
-			if err != nil {
-				return SKUsClientListResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return SKUsClientListResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return SKUsClientListResponse{}, runtime.NewResponseError(resp)
-			}
-			return client.listHandleResponse(resp)
-		},
-		Tracer: client.internal.Tracer(),
-	})
+//   - options - SKUsClientListOptions contains the optional parameters for the SKUsClient.List method.
+func (client *SKUsClient) List(ctx context.Context, options *SKUsClientListOptions) (SKUsClientListResponse, error) {
+	var err error
+	const operationName = "SKUsClient.List"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.listCreateRequest(ctx, options)
+	if err != nil {
+		return SKUsClientListResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return SKUsClientListResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return SKUsClientListResponse{}, err
+	}
+	resp, err := client.listHandleResponse(httpResp)
+	return resp, err
 }
 
 // listCreateRequest creates the List request.
