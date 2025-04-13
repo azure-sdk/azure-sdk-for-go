@@ -13,10 +13,11 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v2"
 	"net/http"
 	"net/url"
 	"regexp"
+	"strconv"
 )
 
 // QueueServer is a fake server for instances of the armstorage.QueueClient type.
@@ -251,7 +252,16 @@ func (q *QueueServerTransport) dispatchNewListPager(req *http.Request) (*http.Re
 		if err != nil {
 			return nil, err
 		}
-		maxpagesizeParam := getOptional(maxpagesizeUnescaped)
+		maxpagesizeParam, err := parseOptional(maxpagesizeUnescaped, func(v string) (int32, error) {
+			p, parseErr := strconv.ParseInt(v, 10, 32)
+			if parseErr != nil {
+				return 0, parseErr
+			}
+			return int32(p), nil
+		})
+		if err != nil {
+			return nil, err
+		}
 		filterUnescaped, err := url.QueryUnescape(qp.Get("$filter"))
 		if err != nil {
 			return nil, err

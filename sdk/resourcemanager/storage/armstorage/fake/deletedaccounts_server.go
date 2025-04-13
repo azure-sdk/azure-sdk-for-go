@@ -13,7 +13,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -23,7 +23,7 @@ import (
 type DeletedAccountsServer struct {
 	// Get is the fake for method DeletedAccountsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, deletedAccountName string, location string, options *armstorage.DeletedAccountsClientGetOptions) (resp azfake.Responder[armstorage.DeletedAccountsClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, location string, deletedAccountName string, options *armstorage.DeletedAccountsClientGetOptions) (resp azfake.Responder[armstorage.DeletedAccountsClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListPager is the fake for method DeletedAccountsClient.NewListPager
 	// HTTP status codes to indicate success: http.StatusOK
@@ -103,15 +103,15 @@ func (d *DeletedAccountsServerTransport) dispatchGet(req *http.Request) (*http.R
 	if matches == nil || len(matches) < 3 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	deletedAccountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("deletedAccountName")])
-	if err != nil {
-		return nil, err
-	}
 	locationParam, err := url.PathUnescape(matches[regex.SubexpIndex("location")])
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := d.srv.Get(req.Context(), deletedAccountNameParam, locationParam, nil)
+	deletedAccountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("deletedAccountName")])
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := d.srv.Get(req.Context(), locationParam, deletedAccountNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}

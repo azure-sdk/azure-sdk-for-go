@@ -12,7 +12,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -32,26 +32,22 @@ type ObjectReplicationPoliciesServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, accountName string, objectReplicationPolicyID string, options *armstorage.ObjectReplicationPoliciesClientGetOptions) (resp azfake.Responder[armstorage.ObjectReplicationPoliciesClientGetResponse], errResp azfake.ErrorResponder)
 
-	// NewListPager is the fake for method ObjectReplicationPoliciesClient.NewListPager
+	// List is the fake for method ObjectReplicationPoliciesClient.List
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceGroupName string, accountName string, options *armstorage.ObjectReplicationPoliciesClientListOptions) (resp azfake.PagerResponder[armstorage.ObjectReplicationPoliciesClientListResponse])
+	List func(ctx context.Context, resourceGroupName string, accountName string, options *armstorage.ObjectReplicationPoliciesClientListOptions) (resp azfake.Responder[armstorage.ObjectReplicationPoliciesClientListResponse], errResp azfake.ErrorResponder)
 }
 
 // NewObjectReplicationPoliciesServerTransport creates a new instance of ObjectReplicationPoliciesServerTransport with the provided implementation.
 // The returned ObjectReplicationPoliciesServerTransport instance is connected to an instance of armstorage.ObjectReplicationPoliciesClient via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewObjectReplicationPoliciesServerTransport(srv *ObjectReplicationPoliciesServer) *ObjectReplicationPoliciesServerTransport {
-	return &ObjectReplicationPoliciesServerTransport{
-		srv:          srv,
-		newListPager: newTracker[azfake.PagerResponder[armstorage.ObjectReplicationPoliciesClientListResponse]](),
-	}
+	return &ObjectReplicationPoliciesServerTransport{srv: srv}
 }
 
 // ObjectReplicationPoliciesServerTransport connects instances of armstorage.ObjectReplicationPoliciesClient to instances of ObjectReplicationPoliciesServer.
 // Don't use this type directly, use NewObjectReplicationPoliciesServerTransport instead.
 type ObjectReplicationPoliciesServerTransport struct {
-	srv          *ObjectReplicationPoliciesServer
-	newListPager *tracker[azfake.PagerResponder[armstorage.ObjectReplicationPoliciesClientListResponse]]
+	srv *ObjectReplicationPoliciesServer
 }
 
 // Do implements the policy.Transporter interface for ObjectReplicationPoliciesServerTransport.
@@ -83,8 +79,8 @@ func (o *ObjectReplicationPoliciesServerTransport) dispatchToMethodFake(req *htt
 				res.resp, res.err = o.dispatchDelete(req)
 			case "ObjectReplicationPoliciesClient.Get":
 				res.resp, res.err = o.dispatchGet(req)
-			case "ObjectReplicationPoliciesClient.NewListPager":
-				res.resp, res.err = o.dispatchNewListPager(req)
+			case "ObjectReplicationPoliciesClient.List":
+				res.resp, res.err = o.dispatchList(req)
 			default:
 				res.err = fmt.Errorf("unhandled API %s", method)
 			}
@@ -219,40 +215,35 @@ func (o *ObjectReplicationPoliciesServerTransport) dispatchGet(req *http.Request
 	return resp, nil
 }
 
-func (o *ObjectReplicationPoliciesServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if o.srv.NewListPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
+func (o *ObjectReplicationPoliciesServerTransport) dispatchList(req *http.Request) (*http.Response, error) {
+	if o.srv.List == nil {
+		return nil, &nonRetriableError{errors.New("fake for method List not implemented")}
 	}
-	newListPager := o.newListPager.get(req)
-	if newListPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/objectReplicationPolicies`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		accountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("accountName")])
-		if err != nil {
-			return nil, err
-		}
-		resp := o.srv.NewListPager(resourceGroupNameParam, accountNameParam, nil)
-		newListPager = &resp
-		o.newListPager.add(req, newListPager)
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/objectReplicationPolicies`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	resp, err := server.PagerResponderNext(newListPager, req)
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
 	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		o.newListPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+	accountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("accountName")])
+	if err != nil {
+		return nil, err
 	}
-	if !server.PagerResponderMore(newListPager) {
-		o.newListPager.remove(req)
+	respr, errRespr := o.srv.List(req.Context(), resourceGroupNameParam, accountNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ObjectReplicationPolicies, req)
+	if err != nil {
+		return nil, err
 	}
 	return resp, nil
 }

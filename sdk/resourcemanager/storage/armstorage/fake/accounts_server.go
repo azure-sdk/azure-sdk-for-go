@@ -13,7 +13,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -25,9 +25,9 @@ type AccountsServer struct {
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
 	BeginAbortHierarchicalNamespaceMigration func(ctx context.Context, resourceGroupName string, accountName string, options *armstorage.AccountsClientBeginAbortHierarchicalNamespaceMigrationOptions) (resp azfake.PollerResponder[armstorage.AccountsClientAbortHierarchicalNamespaceMigrationResponse], errResp azfake.ErrorResponder)
 
-	// CheckNameAvailability is the fake for method AccountsClient.CheckNameAvailability
+	// CheckStorageAccountNameAvailability is the fake for method AccountsClient.CheckStorageAccountNameAvailability
 	// HTTP status codes to indicate success: http.StatusOK
-	CheckNameAvailability func(ctx context.Context, accountName armstorage.AccountCheckNameAvailabilityParameters, options *armstorage.AccountsClientCheckNameAvailabilityOptions) (resp azfake.Responder[armstorage.AccountsClientCheckNameAvailabilityResponse], errResp azfake.ErrorResponder)
+	CheckStorageAccountNameAvailability func(ctx context.Context, accountName armstorage.AccountCheckNameAvailabilityParameters, options *armstorage.AccountsClientCheckStorageAccountNameAvailabilityOptions) (resp azfake.Responder[armstorage.AccountsClientCheckStorageAccountNameAvailabilityResponse], errResp azfake.ErrorResponder)
 
 	// BeginCreate is the fake for method AccountsClient.BeginCreate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
@@ -150,8 +150,8 @@ func (a *AccountsServerTransport) dispatchToMethodFake(req *http.Request, method
 			switch method {
 			case "AccountsClient.BeginAbortHierarchicalNamespaceMigration":
 				res.resp, res.err = a.dispatchBeginAbortHierarchicalNamespaceMigration(req)
-			case "AccountsClient.CheckNameAvailability":
-				res.resp, res.err = a.dispatchCheckNameAvailability(req)
+			case "AccountsClient.CheckStorageAccountNameAvailability":
+				res.resp, res.err = a.dispatchCheckStorageAccountNameAvailability(req)
 			case "AccountsClient.BeginCreate":
 				res.resp, res.err = a.dispatchBeginCreate(req)
 			case "AccountsClient.BeginCustomerInitiatedMigration":
@@ -209,7 +209,7 @@ func (a *AccountsServerTransport) dispatchBeginAbortHierarchicalNamespaceMigrati
 	}
 	beginAbortHierarchicalNamespaceMigration := a.beginAbortHierarchicalNamespaceMigration.get(req)
 	if beginAbortHierarchicalNamespaceMigration == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourcegroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/aborthnsonmigration`
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/aborthnsonmigration`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 		if matches == nil || len(matches) < 3 {
@@ -247,9 +247,9 @@ func (a *AccountsServerTransport) dispatchBeginAbortHierarchicalNamespaceMigrati
 	return resp, nil
 }
 
-func (a *AccountsServerTransport) dispatchCheckNameAvailability(req *http.Request) (*http.Response, error) {
-	if a.srv.CheckNameAvailability == nil {
-		return nil, &nonRetriableError{errors.New("fake for method CheckNameAvailability not implemented")}
+func (a *AccountsServerTransport) dispatchCheckStorageAccountNameAvailability(req *http.Request) (*http.Response, error) {
+	if a.srv.CheckStorageAccountNameAvailability == nil {
+		return nil, &nonRetriableError{errors.New("fake for method CheckStorageAccountNameAvailability not implemented")}
 	}
 	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/checkNameAvailability`
 	regex := regexp.MustCompile(regexStr)
@@ -261,7 +261,7 @@ func (a *AccountsServerTransport) dispatchCheckNameAvailability(req *http.Reques
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := a.srv.CheckNameAvailability(req.Context(), body, nil)
+	respr, errRespr := a.srv.CheckStorageAccountNameAvailability(req.Context(), body, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -430,7 +430,7 @@ func (a *AccountsServerTransport) dispatchBeginFailover(req *http.Request) (*htt
 		if err != nil {
 			return nil, err
 		}
-		failoverTypeParam := getOptional(failoverTypeUnescaped)
+		failoverTypeParam := getOptional(armstorage.FailoverType(failoverTypeUnescaped))
 		var options *armstorage.AccountsClientBeginFailoverOptions
 		if failoverTypeParam != nil {
 			options = &armstorage.AccountsClientBeginFailoverOptions{
@@ -555,7 +555,7 @@ func (a *AccountsServerTransport) dispatchBeginHierarchicalNamespaceMigration(re
 	}
 	beginHierarchicalNamespaceMigration := a.beginHierarchicalNamespaceMigration.get(req)
 	if beginHierarchicalNamespaceMigration == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourcegroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/hnsonmigration`
+		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/hnsonmigration`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 		if matches == nil || len(matches) < 3 {
@@ -635,7 +635,7 @@ func (a *AccountsServerTransport) dispatchListAccountSAS(req *http.Request) (*ht
 	if a.srv.ListAccountSAS == nil {
 		return nil, &nonRetriableError{errors.New("fake for method ListAccountSAS not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/ListAccountSas`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/listAccountSas`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 3 {
@@ -728,7 +728,7 @@ func (a *AccountsServerTransport) dispatchListKeys(req *http.Request) (*http.Res
 	if err != nil {
 		return nil, err
 	}
-	expandParam := getOptional(expandUnescaped)
+	expandParam := getOptional(armstorage.ListKeyExpand(expandUnescaped))
 	var options *armstorage.AccountsClientListKeysOptions
 	if expandParam != nil {
 		options = &armstorage.AccountsClientListKeysOptions{
@@ -754,7 +754,7 @@ func (a *AccountsServerTransport) dispatchListServiceSAS(req *http.Request) (*ht
 	if a.srv.ListServiceSAS == nil {
 		return nil, &nonRetriableError{errors.New("fake for method ListServiceSAS not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/ListServiceSas`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/listServiceSas`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 3 {

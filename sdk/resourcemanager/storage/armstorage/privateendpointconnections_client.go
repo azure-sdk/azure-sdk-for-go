@@ -44,7 +44,7 @@ func NewPrivateEndpointConnectionsClient(subscriptionID string, credential azcor
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - privateEndpointConnectionName - The name of the private endpoint connection associated with the Azure resource
@@ -74,6 +74,10 @@ func (client *PrivateEndpointConnectionsClient) Delete(ctx context.Context, reso
 // deleteCreateRequest creates the Delete request.
 func (client *PrivateEndpointConnectionsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, accountName string, privateEndpointConnectionName string, _ *PrivateEndpointConnectionsClientDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/privateEndpointConnections/{privateEndpointConnectionName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -82,10 +86,6 @@ func (client *PrivateEndpointConnectionsClient) deleteCreateRequest(ctx context.
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if privateEndpointConnectionName == "" {
 		return nil, errors.New("parameter privateEndpointConnectionName cannot be empty")
 	}
@@ -105,7 +105,7 @@ func (client *PrivateEndpointConnectionsClient) deleteCreateRequest(ctx context.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - privateEndpointConnectionName - The name of the private endpoint connection associated with the Azure resource
@@ -136,6 +136,10 @@ func (client *PrivateEndpointConnectionsClient) Get(ctx context.Context, resourc
 // getCreateRequest creates the Get request.
 func (client *PrivateEndpointConnectionsClient) getCreateRequest(ctx context.Context, resourceGroupName string, accountName string, privateEndpointConnectionName string, _ *PrivateEndpointConnectionsClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/privateEndpointConnections/{privateEndpointConnectionName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -144,10 +148,6 @@ func (client *PrivateEndpointConnectionsClient) getCreateRequest(ctx context.Con
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if privateEndpointConnectionName == "" {
 		return nil, errors.New("parameter privateEndpointConnectionName cannot be empty")
 	}
@@ -172,41 +172,44 @@ func (client *PrivateEndpointConnectionsClient) getHandleResponse(resp *http.Res
 	return result, nil
 }
 
-// NewListPager - List all the private endpoint connections associated with the storage account.
+// List - List all the private endpoint connections associated with the storage account.
+// If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
-//   - options - PrivateEndpointConnectionsClientListOptions contains the optional parameters for the PrivateEndpointConnectionsClient.NewListPager
+//   - options - PrivateEndpointConnectionsClientListOptions contains the optional parameters for the PrivateEndpointConnectionsClient.List
 //     method.
-func (client *PrivateEndpointConnectionsClient) NewListPager(resourceGroupName string, accountName string, options *PrivateEndpointConnectionsClientListOptions) *runtime.Pager[PrivateEndpointConnectionsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[PrivateEndpointConnectionsClientListResponse]{
-		More: func(page PrivateEndpointConnectionsClientListResponse) bool {
-			return false
-		},
-		Fetcher: func(ctx context.Context, page *PrivateEndpointConnectionsClientListResponse) (PrivateEndpointConnectionsClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "PrivateEndpointConnectionsClient.NewListPager")
-			req, err := client.listCreateRequest(ctx, resourceGroupName, accountName, options)
-			if err != nil {
-				return PrivateEndpointConnectionsClientListResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return PrivateEndpointConnectionsClientListResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return PrivateEndpointConnectionsClientListResponse{}, runtime.NewResponseError(resp)
-			}
-			return client.listHandleResponse(resp)
-		},
-		Tracer: client.internal.Tracer(),
-	})
+func (client *PrivateEndpointConnectionsClient) List(ctx context.Context, resourceGroupName string, accountName string, options *PrivateEndpointConnectionsClientListOptions) (PrivateEndpointConnectionsClientListResponse, error) {
+	var err error
+	const operationName = "PrivateEndpointConnectionsClient.List"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.listCreateRequest(ctx, resourceGroupName, accountName, options)
+	if err != nil {
+		return PrivateEndpointConnectionsClientListResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return PrivateEndpointConnectionsClientListResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return PrivateEndpointConnectionsClientListResponse{}, err
+	}
+	resp, err := client.listHandleResponse(httpResp)
+	return resp, err
 }
 
 // listCreateRequest creates the List request.
 func (client *PrivateEndpointConnectionsClient) listCreateRequest(ctx context.Context, resourceGroupName string, accountName string, _ *PrivateEndpointConnectionsClientListOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/privateEndpointConnections"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -215,10 +218,6 @@ func (client *PrivateEndpointConnectionsClient) listCreateRequest(ctx context.Co
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -243,7 +242,7 @@ func (client *PrivateEndpointConnectionsClient) listHandleResponse(resp *http.Re
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - privateEndpointConnectionName - The name of the private endpoint connection associated with the Azure resource
@@ -275,6 +274,10 @@ func (client *PrivateEndpointConnectionsClient) Put(ctx context.Context, resourc
 // putCreateRequest creates the Put request.
 func (client *PrivateEndpointConnectionsClient) putCreateRequest(ctx context.Context, resourceGroupName string, accountName string, privateEndpointConnectionName string, properties PrivateEndpointConnection, _ *PrivateEndpointConnectionsClientPutOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/privateEndpointConnections/{privateEndpointConnectionName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -283,10 +286,6 @@ func (client *PrivateEndpointConnectionsClient) putCreateRequest(ctx context.Con
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if privateEndpointConnectionName == "" {
 		return nil, errors.New("parameter privateEndpointConnectionName cannot be empty")
 	}

@@ -12,7 +12,8 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -160,6 +161,9 @@ func (n *NetworkSecurityPerimeterConfigurationsServerTransport) dispatchNewListP
 		resp := n.srv.NewListPager(resourceGroupNameParam, accountNameParam, nil)
 		newListPager = &resp
 		n.newListPager.add(req, newListPager)
+		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armstorage.NetworkSecurityPerimeterConfigurationsClientListResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
 	}
 	resp, err := server.PagerResponderNext(newListPager, req)
 	if err != nil {

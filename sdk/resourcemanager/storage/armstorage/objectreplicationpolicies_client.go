@@ -44,7 +44,7 @@ func NewObjectReplicationPoliciesClient(subscriptionID string, credential azcore
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - objectReplicationPolicyID - For the destination account, provide the value 'default'. Configure the policy on the destination
@@ -78,6 +78,10 @@ func (client *ObjectReplicationPoliciesClient) CreateOrUpdate(ctx context.Contex
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
 func (client *ObjectReplicationPoliciesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, accountName string, objectReplicationPolicyID string, properties ObjectReplicationPolicy, _ *ObjectReplicationPoliciesClientCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/objectReplicationPolicies/{objectReplicationPolicyId}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -86,10 +90,6 @@ func (client *ObjectReplicationPoliciesClient) createOrUpdateCreateRequest(ctx c
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if objectReplicationPolicyID == "" {
 		return nil, errors.New("parameter objectReplicationPolicyID cannot be empty")
 	}
@@ -121,7 +121,7 @@ func (client *ObjectReplicationPoliciesClient) createOrUpdateHandleResponse(resp
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - objectReplicationPolicyID - For the destination account, provide the value 'default'. Configure the policy on the destination
@@ -153,6 +153,10 @@ func (client *ObjectReplicationPoliciesClient) Delete(ctx context.Context, resou
 // deleteCreateRequest creates the Delete request.
 func (client *ObjectReplicationPoliciesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, accountName string, objectReplicationPolicyID string, _ *ObjectReplicationPoliciesClientDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/objectReplicationPolicies/{objectReplicationPolicyId}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -161,10 +165,6 @@ func (client *ObjectReplicationPoliciesClient) deleteCreateRequest(ctx context.C
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if objectReplicationPolicyID == "" {
 		return nil, errors.New("parameter objectReplicationPolicyID cannot be empty")
 	}
@@ -184,7 +184,7 @@ func (client *ObjectReplicationPoliciesClient) deleteCreateRequest(ctx context.C
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - objectReplicationPolicyID - For the destination account, provide the value 'default'. Configure the policy on the destination
@@ -217,6 +217,10 @@ func (client *ObjectReplicationPoliciesClient) Get(ctx context.Context, resource
 // getCreateRequest creates the Get request.
 func (client *ObjectReplicationPoliciesClient) getCreateRequest(ctx context.Context, resourceGroupName string, accountName string, objectReplicationPolicyID string, _ *ObjectReplicationPoliciesClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/objectReplicationPolicies/{objectReplicationPolicyId}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -225,10 +229,6 @@ func (client *ObjectReplicationPoliciesClient) getCreateRequest(ctx context.Cont
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if objectReplicationPolicyID == "" {
 		return nil, errors.New("parameter objectReplicationPolicyID cannot be empty")
 	}
@@ -253,41 +253,44 @@ func (client *ObjectReplicationPoliciesClient) getHandleResponse(resp *http.Resp
 	return result, nil
 }
 
-// NewListPager - List the object replication policies associated with the storage account.
+// List - List the object replication policies associated with the storage account.
+// If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
-//   - options - ObjectReplicationPoliciesClientListOptions contains the optional parameters for the ObjectReplicationPoliciesClient.NewListPager
+//   - options - ObjectReplicationPoliciesClientListOptions contains the optional parameters for the ObjectReplicationPoliciesClient.List
 //     method.
-func (client *ObjectReplicationPoliciesClient) NewListPager(resourceGroupName string, accountName string, options *ObjectReplicationPoliciesClientListOptions) *runtime.Pager[ObjectReplicationPoliciesClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[ObjectReplicationPoliciesClientListResponse]{
-		More: func(page ObjectReplicationPoliciesClientListResponse) bool {
-			return false
-		},
-		Fetcher: func(ctx context.Context, page *ObjectReplicationPoliciesClientListResponse) (ObjectReplicationPoliciesClientListResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "ObjectReplicationPoliciesClient.NewListPager")
-			req, err := client.listCreateRequest(ctx, resourceGroupName, accountName, options)
-			if err != nil {
-				return ObjectReplicationPoliciesClientListResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return ObjectReplicationPoliciesClientListResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return ObjectReplicationPoliciesClientListResponse{}, runtime.NewResponseError(resp)
-			}
-			return client.listHandleResponse(resp)
-		},
-		Tracer: client.internal.Tracer(),
-	})
+func (client *ObjectReplicationPoliciesClient) List(ctx context.Context, resourceGroupName string, accountName string, options *ObjectReplicationPoliciesClientListOptions) (ObjectReplicationPoliciesClientListResponse, error) {
+	var err error
+	const operationName = "ObjectReplicationPoliciesClient.List"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.listCreateRequest(ctx, resourceGroupName, accountName, options)
+	if err != nil {
+		return ObjectReplicationPoliciesClientListResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return ObjectReplicationPoliciesClientListResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return ObjectReplicationPoliciesClientListResponse{}, err
+	}
+	resp, err := client.listHandleResponse(httpResp)
+	return resp, err
 }
 
 // listCreateRequest creates the List request.
 func (client *ObjectReplicationPoliciesClient) listCreateRequest(ctx context.Context, resourceGroupName string, accountName string, _ *ObjectReplicationPoliciesClientListOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/objectReplicationPolicies"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -296,10 +299,6 @@ func (client *ObjectReplicationPoliciesClient) listCreateRequest(ctx context.Con
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err

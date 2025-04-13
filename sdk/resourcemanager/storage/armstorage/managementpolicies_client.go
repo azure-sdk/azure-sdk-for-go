@@ -44,7 +44,7 @@ func NewManagementPoliciesClient(subscriptionID string, credential azcore.TokenC
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - managementPolicyName - The name of the Storage Account Management Policy. It should always be 'default'
@@ -76,6 +76,10 @@ func (client *ManagementPoliciesClient) CreateOrUpdate(ctx context.Context, reso
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
 func (client *ManagementPoliciesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, accountName string, managementPolicyName ManagementPolicyName, properties ManagementPolicy, _ *ManagementPoliciesClientCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/managementPolicies/{managementPolicyName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -84,10 +88,6 @@ func (client *ManagementPoliciesClient) createOrUpdateCreateRequest(ctx context.
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if managementPolicyName == "" {
 		return nil, errors.New("parameter managementPolicyName cannot be empty")
 	}
@@ -119,7 +119,7 @@ func (client *ManagementPoliciesClient) createOrUpdateHandleResponse(resp *http.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - managementPolicyName - The name of the Storage Account Management Policy. It should always be 'default'
@@ -149,6 +149,10 @@ func (client *ManagementPoliciesClient) Delete(ctx context.Context, resourceGrou
 // deleteCreateRequest creates the Delete request.
 func (client *ManagementPoliciesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, accountName string, managementPolicyName ManagementPolicyName, _ *ManagementPoliciesClientDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/managementPolicies/{managementPolicyName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -157,10 +161,6 @@ func (client *ManagementPoliciesClient) deleteCreateRequest(ctx context.Context,
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if managementPolicyName == "" {
 		return nil, errors.New("parameter managementPolicyName cannot be empty")
 	}
@@ -172,6 +172,7 @@ func (client *ManagementPoliciesClient) deleteCreateRequest(ctx context.Context,
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2024-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
@@ -179,7 +180,7 @@ func (client *ManagementPoliciesClient) deleteCreateRequest(ctx context.Context,
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-01-01
-//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
 //     3 and 24 characters in length and use numbers and lower-case letters only.
 //   - managementPolicyName - The name of the Storage Account Management Policy. It should always be 'default'
@@ -209,6 +210,10 @@ func (client *ManagementPoliciesClient) Get(ctx context.Context, resourceGroupNa
 // getCreateRequest creates the Get request.
 func (client *ManagementPoliciesClient) getCreateRequest(ctx context.Context, resourceGroupName string, accountName string, managementPolicyName ManagementPolicyName, _ *ManagementPoliciesClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{accountName}/managementPolicies/{managementPolicyName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -217,10 +222,6 @@ func (client *ManagementPoliciesClient) getCreateRequest(ctx context.Context, re
 		return nil, errors.New("parameter accountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if managementPolicyName == "" {
 		return nil, errors.New("parameter managementPolicyName cannot be empty")
 	}

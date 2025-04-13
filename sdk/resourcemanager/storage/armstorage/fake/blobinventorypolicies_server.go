@@ -12,7 +12,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -32,26 +32,22 @@ type BlobInventoryPoliciesServer struct {
 	// HTTP status codes to indicate success: http.StatusOK
 	Get func(ctx context.Context, resourceGroupName string, accountName string, blobInventoryPolicyName armstorage.BlobInventoryPolicyName, options *armstorage.BlobInventoryPoliciesClientGetOptions) (resp azfake.Responder[armstorage.BlobInventoryPoliciesClientGetResponse], errResp azfake.ErrorResponder)
 
-	// NewListPager is the fake for method BlobInventoryPoliciesClient.NewListPager
+	// List is the fake for method BlobInventoryPoliciesClient.List
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListPager func(resourceGroupName string, accountName string, options *armstorage.BlobInventoryPoliciesClientListOptions) (resp azfake.PagerResponder[armstorage.BlobInventoryPoliciesClientListResponse])
+	List func(ctx context.Context, resourceGroupName string, accountName string, options *armstorage.BlobInventoryPoliciesClientListOptions) (resp azfake.Responder[armstorage.BlobInventoryPoliciesClientListResponse], errResp azfake.ErrorResponder)
 }
 
 // NewBlobInventoryPoliciesServerTransport creates a new instance of BlobInventoryPoliciesServerTransport with the provided implementation.
 // The returned BlobInventoryPoliciesServerTransport instance is connected to an instance of armstorage.BlobInventoryPoliciesClient via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewBlobInventoryPoliciesServerTransport(srv *BlobInventoryPoliciesServer) *BlobInventoryPoliciesServerTransport {
-	return &BlobInventoryPoliciesServerTransport{
-		srv:          srv,
-		newListPager: newTracker[azfake.PagerResponder[armstorage.BlobInventoryPoliciesClientListResponse]](),
-	}
+	return &BlobInventoryPoliciesServerTransport{srv: srv}
 }
 
 // BlobInventoryPoliciesServerTransport connects instances of armstorage.BlobInventoryPoliciesClient to instances of BlobInventoryPoliciesServer.
 // Don't use this type directly, use NewBlobInventoryPoliciesServerTransport instead.
 type BlobInventoryPoliciesServerTransport struct {
-	srv          *BlobInventoryPoliciesServer
-	newListPager *tracker[azfake.PagerResponder[armstorage.BlobInventoryPoliciesClientListResponse]]
+	srv *BlobInventoryPoliciesServer
 }
 
 // Do implements the policy.Transporter interface for BlobInventoryPoliciesServerTransport.
@@ -83,8 +79,8 @@ func (b *BlobInventoryPoliciesServerTransport) dispatchToMethodFake(req *http.Re
 				res.resp, res.err = b.dispatchDelete(req)
 			case "BlobInventoryPoliciesClient.Get":
 				res.resp, res.err = b.dispatchGet(req)
-			case "BlobInventoryPoliciesClient.NewListPager":
-				res.resp, res.err = b.dispatchNewListPager(req)
+			case "BlobInventoryPoliciesClient.List":
+				res.resp, res.err = b.dispatchList(req)
 			default:
 				res.err = fmt.Errorf("unhandled API %s", method)
 			}
@@ -237,40 +233,35 @@ func (b *BlobInventoryPoliciesServerTransport) dispatchGet(req *http.Request) (*
 	return resp, nil
 }
 
-func (b *BlobInventoryPoliciesServerTransport) dispatchNewListPager(req *http.Request) (*http.Response, error) {
-	if b.srv.NewListPager == nil {
-		return nil, &nonRetriableError{errors.New("fake for method NewListPager not implemented")}
+func (b *BlobInventoryPoliciesServerTransport) dispatchList(req *http.Request) (*http.Response, error) {
+	if b.srv.List == nil {
+		return nil, &nonRetriableError{errors.New("fake for method List not implemented")}
 	}
-	newListPager := b.newListPager.get(req)
-	if newListPager == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/inventoryPolicies`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 3 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		accountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("accountName")])
-		if err != nil {
-			return nil, err
-		}
-		resp := b.srv.NewListPager(resourceGroupNameParam, accountNameParam, nil)
-		newListPager = &resp
-		b.newListPager.add(req, newListPager)
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/inventoryPolicies`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 3 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	resp, err := server.PagerResponderNext(newListPager, req)
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
 	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
-		b.newListPager.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
+	accountNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("accountName")])
+	if err != nil {
+		return nil, err
 	}
-	if !server.PagerResponderMore(newListPager) {
-		b.newListPager.remove(req)
+	respr, errRespr := b.srv.List(req.Context(), resourceGroupNameParam, accountNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	}
+	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ListBlobInventoryPolicy, req)
+	if err != nil {
+		return nil, err
 	}
 	return resp, nil
 }

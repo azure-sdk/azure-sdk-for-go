@@ -13,11 +13,12 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v2"
 	"net/http"
 	"net/url"
 	"reflect"
 	"regexp"
+	"strconv"
 )
 
 // BlobContainersServer is a fake server for instances of the armstorage.BlobContainersClient type.
@@ -32,7 +33,7 @@ type BlobContainersServer struct {
 
 	// CreateOrUpdateImmutabilityPolicy is the fake for method BlobContainersClient.CreateOrUpdateImmutabilityPolicy
 	// HTTP status codes to indicate success: http.StatusOK
-	CreateOrUpdateImmutabilityPolicy func(ctx context.Context, resourceGroupName string, accountName string, containerName string, options *armstorage.BlobContainersClientCreateOrUpdateImmutabilityPolicyOptions) (resp azfake.Responder[armstorage.BlobContainersClientCreateOrUpdateImmutabilityPolicyResponse], errResp azfake.ErrorResponder)
+	CreateOrUpdateImmutabilityPolicy func(ctx context.Context, resourceGroupName string, accountName string, containerName string, parameters armstorage.ImmutabilityPolicy, options *armstorage.BlobContainersClientCreateOrUpdateImmutabilityPolicyOptions) (resp azfake.Responder[armstorage.BlobContainersClientCreateOrUpdateImmutabilityPolicyResponse], errResp azfake.ErrorResponder)
 
 	// Delete is the fake for method BlobContainersClient.Delete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
@@ -254,7 +255,7 @@ func (b *BlobContainersServerTransport) dispatchCreateOrUpdateImmutabilityPolicy
 	if b.srv.CreateOrUpdateImmutabilityPolicy == nil {
 		return nil, &nonRetriableError{errors.New("fake for method CreateOrUpdateImmutabilityPolicy not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/blobServices/default/containers/(?P<containerName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/immutabilityPolicies/(?P<immutabilityPolicyName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/blobServices/default/containers/(?P<containerName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/immutabilityPolicies/default`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 4 {
@@ -276,15 +277,14 @@ func (b *BlobContainersServerTransport) dispatchCreateOrUpdateImmutabilityPolicy
 	if err != nil {
 		return nil, err
 	}
-	ifMatchParam := getOptional(getHeaderValue(req.Header, "If-Match"))
+	ifMatchParam := getOptional(getHeaderValue(req.Header, "if-match"))
 	var options *armstorage.BlobContainersClientCreateOrUpdateImmutabilityPolicyOptions
-	if ifMatchParam != nil || !reflect.ValueOf(body).IsZero() {
+	if ifMatchParam != nil {
 		options = &armstorage.BlobContainersClientCreateOrUpdateImmutabilityPolicyOptions{
-			IfMatch:    ifMatchParam,
-			Parameters: &body,
+			IfMatch: ifMatchParam,
 		}
 	}
-	respr, errRespr := b.srv.CreateOrUpdateImmutabilityPolicy(req.Context(), resourceGroupNameParam, accountNameParam, containerNameParam, options)
+	respr, errRespr := b.srv.CreateOrUpdateImmutabilityPolicy(req.Context(), resourceGroupNameParam, accountNameParam, containerNameParam, body, options)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -343,7 +343,7 @@ func (b *BlobContainersServerTransport) dispatchDeleteImmutabilityPolicy(req *ht
 	if b.srv.DeleteImmutabilityPolicy == nil {
 		return nil, &nonRetriableError{errors.New("fake for method DeleteImmutabilityPolicy not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/blobServices/default/containers/(?P<containerName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/immutabilityPolicies/(?P<immutabilityPolicyName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/blobServices/default/containers/(?P<containerName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/immutabilityPolicies/default`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 4 {
@@ -361,7 +361,7 @@ func (b *BlobContainersServerTransport) dispatchDeleteImmutabilityPolicy(req *ht
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := b.srv.DeleteImmutabilityPolicy(req.Context(), resourceGroupNameParam, accountNameParam, containerNameParam, getHeaderValue(req.Header, "If-Match"), nil)
+	respr, errRespr := b.srv.DeleteImmutabilityPolicy(req.Context(), resourceGroupNameParam, accountNameParam, containerNameParam, getHeaderValue(req.Header, "if-match"), nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -411,7 +411,7 @@ func (b *BlobContainersServerTransport) dispatchExtendImmutabilityPolicy(req *ht
 			Parameters: &body,
 		}
 	}
-	respr, errRespr := b.srv.ExtendImmutabilityPolicy(req.Context(), resourceGroupNameParam, accountNameParam, containerNameParam, getHeaderValue(req.Header, "If-Match"), options)
+	respr, errRespr := b.srv.ExtendImmutabilityPolicy(req.Context(), resourceGroupNameParam, accountNameParam, containerNameParam, getHeaderValue(req.Header, "if-match"), options)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -470,7 +470,7 @@ func (b *BlobContainersServerTransport) dispatchGetImmutabilityPolicy(req *http.
 	if b.srv.GetImmutabilityPolicy == nil {
 		return nil, &nonRetriableError{errors.New("fake for method GetImmutabilityPolicy not implemented")}
 	}
-	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/blobServices/default/containers/(?P<containerName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/immutabilityPolicies/(?P<immutabilityPolicyName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.Storage/storageAccounts/(?P<accountName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/blobServices/default/containers/(?P<containerName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/immutabilityPolicies/default`
 	regex := regexp.MustCompile(regexStr)
 	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
 	if matches == nil || len(matches) < 4 {
@@ -488,7 +488,7 @@ func (b *BlobContainersServerTransport) dispatchGetImmutabilityPolicy(req *http.
 	if err != nil {
 		return nil, err
 	}
-	ifMatchParam := getOptional(getHeaderValue(req.Header, "If-Match"))
+	ifMatchParam := getOptional(getHeaderValue(req.Header, "if-match"))
 	var options *armstorage.BlobContainersClientGetImmutabilityPolicyOptions
 	if ifMatchParam != nil {
 		options = &armstorage.BlobContainersClientGetImmutabilityPolicyOptions{
@@ -585,7 +585,16 @@ func (b *BlobContainersServerTransport) dispatchNewListPager(req *http.Request) 
 		if err != nil {
 			return nil, err
 		}
-		maxpagesizeParam := getOptional(maxpagesizeUnescaped)
+		maxpagesizeParam, err := parseOptional(maxpagesizeUnescaped, func(v string) (int32, error) {
+			p, parseErr := strconv.ParseInt(v, 10, 32)
+			if parseErr != nil {
+				return 0, parseErr
+			}
+			return int32(p), nil
+		})
+		if err != nil {
+			return nil, err
+		}
 		filterUnescaped, err := url.QueryUnescape(qp.Get("$filter"))
 		if err != nil {
 			return nil, err
@@ -647,7 +656,7 @@ func (b *BlobContainersServerTransport) dispatchLockImmutabilityPolicy(req *http
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := b.srv.LockImmutabilityPolicy(req.Context(), resourceGroupNameParam, accountNameParam, containerNameParam, getHeaderValue(req.Header, "If-Match"), nil)
+	respr, errRespr := b.srv.LockImmutabilityPolicy(req.Context(), resourceGroupNameParam, accountNameParam, containerNameParam, getHeaderValue(req.Header, "if-match"), nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}

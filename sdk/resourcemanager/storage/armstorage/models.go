@@ -47,6 +47,9 @@ type Account struct {
 	// READ-ONLY; Gets the SKU.
 	SKU *SKU
 
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
@@ -149,7 +152,7 @@ type AccountLimits struct {
 	MaxProvisionedBandwidthMiBPerSec *int32
 
 	// READ-ONLY; The maximum provisioned IOPS limit for the storage account.
-	MaxProvisionedIOPS *int32
+	MaxProvisionedIops *int32
 
 	// READ-ONLY; The maximum provisioned storage quota limit in gibibytes for the storage account.
 	MaxProvisionedStorageGiB *int32
@@ -161,14 +164,13 @@ type AccountListKeysResult struct {
 	Keys []*AccountKey
 }
 
-// AccountListResult - The response from the List Storage Accounts operation.
+// AccountListResult - The response of a StorageAccount list operation.
 type AccountListResult struct {
-	// READ-ONLY; Request URL that can be used to query next page of storage accounts. Returned when total number of requested
-	// storage accounts exceed maximum page size.
-	NextLink *string
-
-	// READ-ONLY; Gets the list of storage accounts and their properties.
+	// REQUIRED; The StorageAccount items on this page
 	Value []*Account
+
+	// The link to the next page of items
+	NextLink *string
 }
 
 // AccountMicrosoftEndpoints - The URIs that are used to perform a retrieval of a public blob, queue, table, web or dfs object
@@ -197,16 +199,19 @@ type AccountMicrosoftEndpoints struct {
 // update its current SKU or region.
 type AccountMigration struct {
 	// REQUIRED; The properties of a storage account’s ongoing or enqueued migration.
-	StorageAccountMigrationDetails *AccountMigrationProperties
+	Properties *AccountMigrationProperties
 
-	// current value is 'default' for customer initiated migration
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
 	Name *string
 
-	// SrpAccountMigrationType in ARM contract which is 'accountMigrations'
-	Type *string
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
-	// READ-ONLY; Migration Resource Id
-	ID *string
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
 }
 
 // AccountMigrationProperties - The properties of a storage account’s ongoing or enqueued migration.
@@ -636,7 +641,7 @@ type AccountUsageElements struct {
 	ProvisionedBandwidthMiBPerSec *int32
 
 	// READ-ONLY; The total provisioned IOPS.
-	ProvisionedIOPS *int32
+	ProvisionedIops *int32
 
 	// READ-ONLY; The total provisioned storage quota in gibibytes.
 	ProvisionedStorageGiB *int32
@@ -651,7 +656,7 @@ type ActiveDirectoryProperties struct {
 	DomainName *string
 
 	// Specifies the Active Directory account type for Azure Storage.
-	AccountType *ActiveDirectoryPropertiesAccountType
+	AccountType *AccountType
 
 	// Specifies the security identifier (SID) for Azure Storage.
 	AzureStorageSid *string
@@ -696,19 +701,31 @@ type AzureFilesIdentityBasedAuthentication struct {
 	DefaultSharePermission *DefaultSharePermission
 }
 
+// AzureResourceManagerArmResponseBlobRestoreStatus - Azure operation completed successfully.
+type AzureResourceManagerArmResponseBlobRestoreStatus struct {
+	// REQUIRED; The body type of the operation request or response.
+	Body *BlobRestoreStatus
+}
+
 // BlobContainer - Properties of the blob container, including Id, resource name, resource type, Etag.
 type BlobContainer struct {
 	// Properties of the blob container.
-	ContainerProperties *ContainerProperties
+	Properties *ContainerProperties
 
-	// READ-ONLY; Resource Etag.
-	Etag *string
+	// READ-ONLY; If eTag is provided in the response body, it may also be provided as a header per the normal etag convention.
+	// Entity tags are used for comparing two or more entities from the same requested resource.
+	// HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range
+	// (section 14.27) header fields.
+	ETag *string
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -732,7 +749,7 @@ type BlobInventoryPolicy struct {
 	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
@@ -893,7 +910,7 @@ type BlobServiceItems struct {
 // BlobServiceProperties - The properties of a storage account’s Blob service.
 type BlobServiceProperties struct {
 	// The properties of a storage account’s Blob service.
-	BlobServiceProperties *BlobServicePropertiesProperties
+	Properties *BlobServicePropertiesProperties
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
@@ -903,6 +920,9 @@ type BlobServiceProperties struct {
 
 	// READ-ONLY; Sku name and tier.
 	SKU *SKU
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -946,7 +966,7 @@ type BlobServicePropertiesProperties struct {
 // in the storage account.
 type BurstingConstants struct {
 	// READ-ONLY; The guaranteed floor of burst IOPS for small file shares.
-	BurstFloorIOPS *int32
+	BurstFloorIops *int32
 
 	// READ-ONLY; The scalar against provisioned IOPS in the file share included burst IOPS formula.
 	BurstIOScalar *float64
@@ -1050,7 +1070,7 @@ type CorsRule struct {
 	AllowedHeaders []*string
 
 	// REQUIRED; Required if CorsRule element is present. A list of HTTP methods that are allowed to be executed by the origin.
-	AllowedMethods []*CorsRuleAllowedMethodsItem
+	AllowedMethods []*AllowedMethods
 
 	// REQUIRED; Required if CorsRule element is present. A list of origin domains that will be allowed via CORS, or "*" to allow
 	// all domains
@@ -1138,17 +1158,20 @@ type DeletedAccount struct {
 	// READ-ONLY; The name of the resource
 	Name *string
 
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
 // DeletedAccountListResult - The response from the List Deleted Accounts operation.
 type DeletedAccountListResult struct {
-	// READ-ONLY; Request URL that can be used to query next page of deleted accounts. Returned when total number of requested
-	// deleted accounts exceed maximum page size.
+	// Request URL that can be used to query next page of deleted accounts. Returned when total number of requested deleted accounts
+	// exceed maximum page size.
 	NextLink *string
 
-	// READ-ONLY; Gets the list of deleted accounts and their properties.
+	// Gets the list of deleted accounts and their properties.
 	Value []*DeletedAccount
 }
 
@@ -1177,15 +1200,6 @@ type DeletedShare struct {
 
 	// REQUIRED; Required. Identify the version of the deleted share that will be restored.
 	DeletedShareVersion *string
-}
-
-// Dimension of blobs, possibly be blob type or access tier.
-type Dimension struct {
-	// Display name of dimension.
-	DisplayName *string
-
-	// Display name of dimension.
-	Name *string
 }
 
 // Encryption - The encryption settings on the storage account.
@@ -1220,13 +1234,16 @@ type EncryptionIdentity struct {
 // EncryptionScope - The Encryption Scope resource.
 type EncryptionScope struct {
 	// Properties of the encryption scope.
-	EncryptionScopeProperties *EncryptionScopeProperties
+	Properties *EncryptionScopeProperties
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -1249,11 +1266,11 @@ type EncryptionScopeKeyVaultProperties struct {
 // EncryptionScopeListResult - List of encryption scopes requested, and if paging is required, a URL to the next page of encryption
 // scopes.
 type EncryptionScopeListResult struct {
-	// READ-ONLY; Request URL that can be used to query next page of encryption scopes. Returned when total number of requested
-	// encryption scopes exceeds the maximum page size.
+	// Request URL that can be used to query next page of encryption scopes. Returned when total number of requested encryption
+	// scopes exceeds the maximum page size.
 	NextLink *string
 
-	// READ-ONLY; List of encryption scopes requested.
+	// List of encryption scopes requested.
 	Value []*EncryptionScope
 }
 
@@ -1364,26 +1381,11 @@ type ErrorDetail struct {
 	Target *string
 }
 
-// ErrorResponse - An error response from the storage resource provider.
+// ErrorResponse - Common error response for all Azure Resource Manager APIs to return error details for failed operations.
+// (This also follows the OData error response format.).
 type ErrorResponse struct {
-	// Azure Storage Resource Provider error response body.
-	Error *ErrorResponseBody
-}
-
-// ErrorResponseAutoGenerated - Common error response for all Azure Resource Manager APIs to return error details for failed
-// operations. (This also follows the OData error response format.).
-type ErrorResponseAutoGenerated struct {
 	// The error object.
 	Error *ErrorDetail
-}
-
-// ErrorResponseBody - Error response body contract.
-type ErrorResponseBody struct {
-	// An identifier for the error. Codes are invariant and are intended to be consumed programmatically.
-	Code *string
-
-	// A message describing the error, intended to be suitable for display in a user interface.
-	Message *string
 }
 
 // ExecutionTarget - Target helps provide filter parameters for the objects in the storage account and forms the execution
@@ -1432,7 +1434,7 @@ type FileServiceItems struct {
 // FileServiceProperties - The properties of File services in storage account.
 type FileServiceProperties struct {
 	// The properties of File services in storage account.
-	FileServiceProperties *FileServicePropertiesProperties
+	Properties *FileServicePropertiesProperties
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
@@ -1442,6 +1444,9 @@ type FileServiceProperties struct {
 
 	// READ-ONLY; Sku name and tier.
 	SKU *SKU
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -1473,6 +1478,9 @@ type FileServiceUsage struct {
 	// and bursting formula.
 	Properties *FileServiceUsageProperties
 
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
@@ -1500,27 +1508,33 @@ type FileServiceUsageProperties struct {
 
 // FileServiceUsages - List file service usages schema.
 type FileServiceUsages struct {
-	// READ-ONLY; Request URL that can be used to query next page of file service usages. Returned when total number of requested
-	// file service usages exceed maximum page size.
-	NextLink *string
-
-	// READ-ONLY; List of file service usages returned.
+	// REQUIRED; List of file service usages returned.
 	Value []*FileServiceUsage
+
+	// Request URL that can be used to query next page of file service usages. Returned when total number of requested file service
+	// usages exceed maximum page size.
+	NextLink *string
 }
 
 // FileShare - Properties of the file share, including Id, resource name, resource type, Etag.
 type FileShare struct {
 	// Properties of the file share.
-	FileShareProperties *FileShareProperties
+	Properties *FileShareProperties
 
-	// READ-ONLY; Resource Etag.
-	Etag *string
+	// READ-ONLY; If eTag is provided in the response body, it may also be provided as a header per the normal etag convention.
+	// Entity tags are used for comparing two or more entities from the same requested resource.
+	// HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range
+	// (section 14.27) header fields.
+	ETag *string
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -1547,12 +1561,12 @@ type FileShareItem struct {
 // FileShareItems - Response schema. Contains list of shares returned, and if paging is requested or required, a URL to next
 // page of shares.
 type FileShareItems struct {
-	// READ-ONLY; Request URL that can be used to query next page of shares. Returned when total number of requested shares exceed
-	// maximum page size.
-	NextLink *string
-
-	// READ-ONLY; List of file shares returned.
+	// REQUIRED; List of file shares returned.
 	Value []*FileShareItem
+
+	// Request URL that can be used to query next page of shares. Returned when total number of requested shares exceed maximum
+	// page size.
+	NextLink *string
 }
 
 // FileShareLimits - Minimum and maximum provisioned storage, IOPS and bandwidth limits for a file share in the storage account.
@@ -1561,7 +1575,7 @@ type FileShareLimits struct {
 	MaxProvisionedBandwidthMiBPerSec *int32
 
 	// READ-ONLY; The maximum provisioned IOPS limit for a file share in the storage account.
-	MaxProvisionedIOPS *int32
+	MaxProvisionedIops *int32
 
 	// READ-ONLY; The maximum provisioned storage quota limit in gibibytes for a file share in the storage account.
 	MaxProvisionedStorageGiB *int32
@@ -1570,7 +1584,7 @@ type FileShareLimits struct {
 	MinProvisionedBandwidthMiBPerSec *int32
 
 	// READ-ONLY; The minimum provisioned IOPS limit for a file share in the storage account.
-	MinProvisionedIOPS *int32
+	MinProvisionedIops *int32
 
 	// READ-ONLY; The minimum provisioned storage quota limit in gibibytes for a file share in the storage account.
 	MinProvisionedStorageGiB *int32
@@ -1698,7 +1712,7 @@ type FileShareRecommendations struct {
 	BaseBandwidthMiBPerSec *int32
 
 	// READ-ONLY; The base IOPS in the file share provisioned IOPS recommendation formula.
-	BaseIOPS *int32
+	BaseIops *int32
 
 	// READ-ONLY; The scalar for IO in the file share provisioned IOPS recommendation formula.
 	IoScalar *float64
@@ -1763,14 +1777,20 @@ type ImmutabilityPolicy struct {
 	// REQUIRED; The properties of an ImmutabilityPolicy of a blob container.
 	Properties *ImmutabilityPolicyProperty
 
-	// READ-ONLY; Resource Etag.
-	Etag *string
+	// READ-ONLY; If eTag is provided in the response body, it may also be provided as a header per the normal etag convention.
+	// Entity tags are used for comparing two or more entities from the same requested resource.
+	// HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range
+	// (section 14.27) header fields.
+	ETag *string
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -2007,12 +2027,12 @@ type ListContainerItem struct {
 // ListContainerItems - Response schema. Contains list of blobs returned, and if paging is requested or required, a URL to
 // next page of containers.
 type ListContainerItems struct {
-	// READ-ONLY; Request URL that can be used to query next page of containers. Returned when total number of requested containers
-	// exceed maximum page size.
-	NextLink *string
-
-	// READ-ONLY; List of blobs containers returned.
+	// REQUIRED; List of blobs containers returned.
 	Value []*ListContainerItem
+
+	// Request URL that can be used to query next page of containers. Returned when total number of requested containers exceed
+	// maximum page size.
+	NextLink *string
 }
 
 type ListQueue struct {
@@ -2036,11 +2056,11 @@ type ListQueueProperties struct {
 
 // ListQueueResource - Response schema. Contains list of queues returned
 type ListQueueResource struct {
-	// READ-ONLY; Request URL that can be used to list next page of queues
-	NextLink *string
-
-	// READ-ONLY; List of queues returned.
+	// REQUIRED; List of queues returned.
 	Value []*ListQueue
+
+	// Request URL that can be used to list next page of queues.
+	NextLink *string
 }
 
 type ListQueueServices struct {
@@ -2056,11 +2076,11 @@ type ListServiceSasResponse struct {
 
 // ListTableResource - Response schema. Contains list of tables returned
 type ListTableResource struct {
-	// READ-ONLY; Request URL that can be used to query next page of tables
-	NextLink *string
-
-	// READ-ONLY; List of tables returned.
+	// REQUIRED; The Table items on this page
 	Value []*Table
+
+	// Request URL that can be used to query next page of tables.
+	NextLink *string
 }
 
 type ListTableServices struct {
@@ -2079,7 +2099,7 @@ type LocalUser struct {
 	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
@@ -2143,11 +2163,11 @@ type LocalUserRegeneratePasswordResult struct {
 
 // LocalUsers - List of local users requested, and if paging is required, a URL to the next page of local users.
 type LocalUsers struct {
-	// The list of local users associated with the storage account.
+	// REQUIRED; The list of local users associated with the storage account.
 	Value []*LocalUser
 
-	// READ-ONLY; Request URL that can be used to query next page of local users. Returned when total number of requested local
-	// users exceeds the maximum page size.
+	// Request URL that can be used to query next page of local users. Returned when total number of requested local users exceeds
+	// the maximum page size.
 	NextLink *string
 }
 
@@ -2161,6 +2181,9 @@ type ManagementPolicy struct {
 
 	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -2290,36 +2313,6 @@ type ManagementPolicyVersion struct {
 	TierToHot *DateAfterCreation
 }
 
-// MetricSpecification - Metric specification of operation.
-type MetricSpecification struct {
-	// Aggregation type could be Average.
-	AggregationType *string
-
-	// The category this metric specification belong to, could be Capacity.
-	Category *string
-
-	// Dimensions of blobs, including blob type and access tier.
-	Dimensions []*Dimension
-
-	// Display description of metric specification.
-	DisplayDescription *string
-
-	// Display name of metric specification.
-	DisplayName *string
-
-	// The property to decide fill gap with zero or not.
-	FillGapWithZero *bool
-
-	// Name of metric specification.
-	Name *string
-
-	// Account Resource Id.
-	ResourceIDDimensionNameOverride *string
-
-	// Unit could be Bytes or Count.
-	Unit *string
-}
-
 // Multichannel setting. Applies to Premium FileStorage only.
 type Multichannel struct {
 	// Indicates whether multichannel is enabled
@@ -2360,14 +2353,14 @@ type NetworkSecurityPerimeter struct {
 
 // NetworkSecurityPerimeterConfiguration - The Network Security Perimeter configuration resource.
 type NetworkSecurityPerimeterConfiguration struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	// Properties of the Network Security Perimeter Configuration
+	Properties *NetworkSecurityPerimeterConfigurationProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
-
-	// READ-ONLY; Properties of the Network Security Perimeter Configuration
-	Properties *NetworkSecurityPerimeterConfigurationProperties
 
 	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
@@ -2378,11 +2371,11 @@ type NetworkSecurityPerimeterConfiguration struct {
 
 // NetworkSecurityPerimeterConfigurationList - Result of the List Network Security Perimeter configuration operation.
 type NetworkSecurityPerimeterConfigurationList struct {
+	// REQUIRED; A collection of Network Security Perimeter configurations.
+	Value []*NetworkSecurityPerimeterConfiguration
+
 	// The URI that can be used to request the next set of paged results.
 	NextLink *string
-
-	// READ-ONLY; A collection of Network Security Perimeter configurations
-	Value []*NetworkSecurityPerimeterConfiguration
 }
 
 // NetworkSecurityPerimeterConfigurationProperties - Properties of the Network Security Perimeter Configuration
@@ -2480,6 +2473,9 @@ type ObjectReplicationPolicy struct {
 	// READ-ONLY; The name of the resource
 	Name *string
 
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
@@ -2538,47 +2534,53 @@ type ObjectReplicationPolicyRule struct {
 	RuleID *string
 }
 
-// Operation - Storage REST API operation definition.
+// Operation - Details of a REST API operation, returned from the Resource Provider Operations API
 type Operation struct {
-	// Display metadata associated with the operation.
+	// Localized display information for this particular operation.
 	Display *OperationDisplay
 
-	// Operation name: {provider}/{resource}/{operation}
+	// READ-ONLY; Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+	ActionType *ActionType
+
+	// READ-ONLY; Whether the operation applies to data-plane. This is "true" for data-plane operations and "false" for ARM/control-plane
+	// operations.
+	IsDataAction *bool
+
+	// READ-ONLY; The name of the operation, as per Resource-Based Access Control (RBAC). Examples: "Microsoft.Compute/virtualMachines/write",
+	// "Microsoft.Compute/virtualMachines/capture/action"
 	Name *string
 
-	// Properties of operation, include metric specifications.
-	OperationProperties *OperationProperties
-
-	// The origin of operations.
-	Origin *string
+	// READ-ONLY; The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
+	// value is "user,system"
+	Origin *Origin
 }
 
-// OperationDisplay - Display metadata associated with the operation.
+// OperationDisplay - Localized display information for this particular operation.
 type OperationDisplay struct {
-	// Description of the operation.
+	// READ-ONLY; The short, localized friendly description of the operation; suitable for tool tips and detailed views.
 	Description *string
 
-	// Type of operation: get, read, delete, etc.
+	// READ-ONLY; The concise, localized friendly name for the operation; suitable for dropdowns. E.g. "Create or Update Virtual
+	// Machine", "Restart Virtual Machine".
 	Operation *string
 
-	// Service provider: Microsoft Storage.
+	// READ-ONLY; The localized friendly form of the resource provider name, e.g. "Microsoft Monitoring Insights" or "Microsoft
+	// Compute".
 	Provider *string
 
-	// Resource on which the operation is performed etc.
+	// READ-ONLY; The localized friendly name of the resource type related to this operation. E.g. "Virtual Machines" or "Job
+	// Schedule Collections".
 	Resource *string
 }
 
-// OperationListResult - Result of the request to list Storage operations. It contains a list of operations and a URL link
-// to get the next set of results.
+// OperationListResult - A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to
+// get the next set of results.
 type OperationListResult struct {
-	// List of Storage operations supported by the Storage resource provider.
-	Value []*Operation
-}
+	// READ-ONLY; URL to get the next set of operation list results (if there are any).
+	NextLink *string
 
-// OperationProperties - Properties of operation, include metric specifications.
-type OperationProperties struct {
-	// One property of operation, include metric specifications.
-	ServiceSpecification *ServiceSpecification
+	// READ-ONLY; List of operations supported by the resource provider
+	Value []*Operation
 }
 
 type PermissionScope struct {
@@ -2609,6 +2611,9 @@ type PrivateEndpointConnection struct {
 
 	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -2725,19 +2730,6 @@ type ProxyResource struct {
 	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string
-}
-
-// ProxyResourceAutoGenerated - The resource model definition for a Azure Resource Manager proxy resource. It will not have
-// tags and a location
-type ProxyResourceAutoGenerated struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
-	ID *string
-
-	// READ-ONLY; The name of the resource
-	Name *string
-
 	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
@@ -2745,15 +2737,19 @@ type ProxyResourceAutoGenerated struct {
 	Type *string
 }
 
+// Queue - Concrete proxy resource types can be created by aliasing this type using a specific property type.
 type Queue struct {
 	// Queue resource properties.
-	QueueProperties *QueueProperties
+	Properties *QueueProperties
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -2771,13 +2767,16 @@ type QueueProperties struct {
 // QueueServiceProperties - The properties of a storage account’s Queue service.
 type QueueServiceProperties struct {
 	// The properties of a storage account’s Queue service.
-	QueueServiceProperties *QueueServicePropertiesProperties
+	Properties *QueueServicePropertiesProperties
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -2799,6 +2798,9 @@ type Resource struct {
 	// READ-ONLY; The name of the resource
 	Name *string
 
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
@@ -2814,14 +2816,11 @@ type ResourceAccessRule struct {
 
 // ResourceAutoGenerated - Common fields that are returned in the response for all Azure Resource Manager resources
 type ResourceAutoGenerated struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -3003,12 +3002,6 @@ type ServiceSasParameters struct {
 	SharedAccessStartTime *time.Time
 }
 
-// ServiceSpecification - One property of operation, include metric specifications.
-type ServiceSpecification struct {
-	// Metric specifications of operation.
-	MetricSpecifications []*MetricSpecification
-}
-
 type SignedIdentifier struct {
 	// Access policy
 	AccessPolicy *AccessPolicy
@@ -3063,13 +3056,16 @@ type SystemData struct {
 // Table - Properties of the table, including Id, resource name, resource type.
 type Table struct {
 	// Table resource properties.
-	TableProperties *TableProperties
+	Properties *TableProperties
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -3098,13 +3094,16 @@ type TableProperties struct {
 // TableServiceProperties - The properties of a storage account’s Table service.
 type TableServiceProperties struct {
 	// The properties of a storage account’s Table service.
-	TableServiceProperties *TableServicePropertiesProperties
+	Properties *TableServicePropertiesProperties
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
 	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -3168,6 +3167,9 @@ type TaskAssignment struct {
 
 	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -3259,12 +3261,12 @@ type TaskAssignmentUpdateReport struct {
 
 // TaskAssignmentsList - List of storage task assignments for the storage account
 type TaskAssignmentsList struct {
-	// READ-ONLY; Request URL that can be used to query next page of storage task assignments. Returned when total number of requested
-	// storage task assignments exceed maximum page size.
-	NextLink *string
-
-	// READ-ONLY; Gets the list of storage task assignments and their properties.
+	// REQUIRED; Gets the list of storage task assignments and their properties.
 	Value []*TaskAssignment
+
+	// Request URL that can be used to query next page of storage task assignments. Returned when total number of requested storage
+	// task assignments exceed maximum page size.
+	NextLink *string
 }
 
 // TaskReportInstance - Storage Tasks run report instance
@@ -3277,6 +3279,9 @@ type TaskReportInstance struct {
 
 	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -3342,12 +3347,12 @@ type TaskReportProperties struct {
 
 // TaskReportSummary - Fetch Storage Tasks Run Summary.
 type TaskReportSummary struct {
-	// READ-ONLY; Request URL that can be used to query next page of storage task run results summary. Returned when the number
-	// of run instances and summary reports exceed maximum page size.
-	NextLink *string
-
-	// READ-ONLY; Gets storage tasks run result summary.
+	// REQUIRED; Gets storage tasks run result summary.
 	Value []*TaskReportInstance
+
+	// Request URL that can be used to query next page of storage task run results summary. Returned when the number of run instances
+	// and summary reports exceed maximum page size.
+	NextLink *string
 }
 
 // TrackedResource - The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags'
@@ -3365,18 +3370,15 @@ type TrackedResource struct {
 	// READ-ONLY; The name of the resource
 	Name *string
 
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
 // TriggerParameters - The trigger parameters update for the storage task assignment execution
 type TriggerParameters struct {
-	// CONSTANT; Run interval unit of task execution. This is a required field when ExecutionTrigger.properties.type is 'OnSchedule';
-	// this property should not be present when ExecutionTrigger.properties.type is
-	// 'RunOnce'
-	// Field has constant value "Days", any specified value is ignored.
-	IntervalUnit *string
-
 	// When to end task execution. This is a required field when ExecutionTrigger.properties.type is 'OnSchedule'; this property
 	// should not be present when ExecutionTrigger.properties.type is 'RunOnce'
 	EndBy *time.Time
@@ -3384,6 +3386,11 @@ type TriggerParameters struct {
 	// Run interval of task execution. This is a required field when ExecutionTrigger.properties.type is 'OnSchedule'; this property
 	// should not be present when ExecutionTrigger.properties.type is 'RunOnce'
 	Interval *int32
+
+	// Run interval unit of task execution. This is a required field when ExecutionTrigger.properties.type is 'OnSchedule'; this
+	// property should not be present when ExecutionTrigger.properties.type is
+	// 'RunOnce'
+	IntervalUnit *IntervalUnit
 
 	// When to start task execution. This is a required field when ExecutionTrigger.properties.type is 'OnSchedule'; this property
 	// should not be present when ExecutionTrigger.properties.type is 'RunOnce'
@@ -3396,12 +3403,6 @@ type TriggerParameters struct {
 
 // TriggerParametersUpdate - The trigger parameters update for the storage task assignment execution
 type TriggerParametersUpdate struct {
-	// CONSTANT; Run interval unit of task execution. This is a mutable field when ExecutionTrigger.properties.type is 'OnSchedule';
-	// this property should not be present when ExecutionTrigger.properties.type is
-	// 'RunOnce'
-	// Field has constant value "Days", any specified value is ignored.
-	IntervalUnit *string
-
 	// When to end task execution. This is a mutable field when ExecutionTrigger.properties.type is 'OnSchedule'; this property
 	// should not be present when ExecutionTrigger.properties.type is 'RunOnce'
 	EndBy *time.Time
@@ -3409,6 +3410,11 @@ type TriggerParametersUpdate struct {
 	// Run interval of task execution. This is a mutable field when ExecutionTrigger.properties.type is 'OnSchedule'; this property
 	// should not be present when ExecutionTrigger.properties.type is 'RunOnce'
 	Interval *int32
+
+	// Run interval unit of task execution. This is a mutable field when ExecutionTrigger.properties.type is 'OnSchedule'; this
+	// property should not be present when ExecutionTrigger.properties.type is
+	// 'RunOnce'
+	IntervalUnit *IntervalUnit
 
 	// When to start task execution. This is a mutable field when ExecutionTrigger.properties.type is 'OnSchedule'; this property
 	// should not be present when ExecutionTrigger.properties.type is 'RunOnce'
@@ -3483,12 +3489,12 @@ type UsageName struct {
 	Value *string
 }
 
-// UserAssignedIdentity for the resource.
+// UserAssignedIdentity - User assigned identity properties
 type UserAssignedIdentity struct {
-	// READ-ONLY; The client ID of the identity.
+	// READ-ONLY; The client ID of the assigned identity.
 	ClientID *string
 
-	// READ-ONLY; The principal ID of the identity.
+	// READ-ONLY; The principal ID of the assigned identity.
 	PrincipalID *string
 }
 
@@ -3501,6 +3507,6 @@ type VirtualNetworkRule struct {
 	// REQUIRED; Resource ID of a subnet, for example: /subscriptions/{subscriptionId}/resourceGroups/{groupName}/providers/Microsoft.Network/virtualNetworks/{vnetName}/subnets/{subnetName}.
 	VirtualNetworkResourceID *string
 
-	// Gets the state of virtual network rule.
+	// READ-ONLY; Gets the state of virtual network rule.
 	State *State
 }

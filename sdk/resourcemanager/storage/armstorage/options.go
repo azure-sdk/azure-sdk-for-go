@@ -27,9 +27,8 @@ type AccountsClientBeginCustomerInitiatedMigrationOptions struct {
 
 // AccountsClientBeginFailoverOptions contains the optional parameters for the AccountsClient.BeginFailover method.
 type AccountsClientBeginFailoverOptions struct {
-	// The parameter is set to 'Planned' to indicate whether a Planned failover is requested.. Specifying any value will set the
-	// value to Planned.
-	FailoverType *string
+	// The parameter is set to 'Planned' to indicate whether a Planned failover is requested.
+	FailoverType *FailoverType
 
 	// Resumes the long-running operation from the provided token.
 	ResumeToken string
@@ -49,9 +48,9 @@ type AccountsClientBeginRestoreBlobRangesOptions struct {
 	ResumeToken string
 }
 
-// AccountsClientCheckNameAvailabilityOptions contains the optional parameters for the AccountsClient.CheckNameAvailability
+// AccountsClientCheckStorageAccountNameAvailabilityOptions contains the optional parameters for the AccountsClient.CheckStorageAccountNameAvailability
 // method.
-type AccountsClientCheckNameAvailabilityOptions struct {
+type AccountsClientCheckStorageAccountNameAvailabilityOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -86,8 +85,8 @@ type AccountsClientListByResourceGroupOptions struct {
 
 // AccountsClientListKeysOptions contains the optional parameters for the AccountsClient.ListKeys method.
 type AccountsClientListKeysOptions struct {
-	// Specifies type of the key to be listed. Possible value is kerb.. Specifying any value will set the value to kerb.
-	Expand *string
+	// Specifies type of the key to be listed. Possible value is kerb.
+	Expand *ListKeyExpand
 }
 
 // AccountsClientListOptions contains the optional parameters for the AccountsClient.NewListPager method.
@@ -137,13 +136,10 @@ type BlobContainersClientCreateOptions struct {
 // BlobContainersClientCreateOrUpdateImmutabilityPolicyOptions contains the optional parameters for the BlobContainersClient.CreateOrUpdateImmutabilityPolicy
 // method.
 type BlobContainersClientCreateOrUpdateImmutabilityPolicyOptions struct {
-	// The entity state (ETag) version of the immutability policy to update must be returned to the server for all update operations.
-	// The ETag value must include the leading and trailing double quotes as
-	// returned by the service.
+	// The entity state (ETag) version of the immutability policy to update. A value of "*" can be used to apply the operation
+	// only if the immutability policy already exists. If omitted, this operation will
+	// always be applied.
 	IfMatch *string
-
-	// The ImmutabilityPolicy Properties that will be created or updated to a blob container.
-	Parameters *ImmutabilityPolicy
 }
 
 // BlobContainersClientDeleteImmutabilityPolicyOptions contains the optional parameters for the BlobContainersClient.DeleteImmutabilityPolicy
@@ -167,9 +163,9 @@ type BlobContainersClientExtendImmutabilityPolicyOptions struct {
 // BlobContainersClientGetImmutabilityPolicyOptions contains the optional parameters for the BlobContainersClient.GetImmutabilityPolicy
 // method.
 type BlobContainersClientGetImmutabilityPolicyOptions struct {
-	// The entity state (ETag) version of the immutability policy to update must be returned to the server for all update operations.
-	// The ETag value must include the leading and trailing double quotes as
-	// returned by the service.
+	// The entity state (ETag) version of the immutability policy to update. A value of "*" can be used to apply the operation
+	// only if the immutability policy already exists. If omitted, this operation will
+	// always be applied.
 	IfMatch *string
 }
 
@@ -193,7 +189,7 @@ type BlobContainersClientListOptions struct {
 	Include *ListContainersInclude
 
 	// Optional. Specified maximum number of containers that can be included in the list.
-	Maxpagesize *string
+	Maxpagesize *int32
 }
 
 // BlobContainersClientLockImmutabilityPolicyOptions contains the optional parameters for the BlobContainersClient.LockImmutabilityPolicy
@@ -228,8 +224,7 @@ type BlobInventoryPoliciesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// BlobInventoryPoliciesClientListOptions contains the optional parameters for the BlobInventoryPoliciesClient.NewListPager
-// method.
+// BlobInventoryPoliciesClientListOptions contains the optional parameters for the BlobInventoryPoliciesClient.List method.
 type BlobInventoryPoliciesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -240,7 +235,7 @@ type BlobServicesClientGetServicePropertiesOptions struct {
 	// placeholder for future optional parameters
 }
 
-// BlobServicesClientListOptions contains the optional parameters for the BlobServicesClient.NewListPager method.
+// BlobServicesClientListOptions contains the optional parameters for the BlobServicesClient.List method.
 type BlobServicesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -366,7 +361,7 @@ type FileSharesClientListOptions struct {
 	Filter *string
 
 	// Optional. Specified maximum number of shares that can be included in the list.
-	Maxpagesize *string
+	Maxpagesize *int32
 }
 
 // FileSharesClientRestoreOptions contains the optional parameters for the FileSharesClient.Restore method.
@@ -470,7 +465,7 @@ type ObjectReplicationPoliciesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ObjectReplicationPoliciesClientListOptions contains the optional parameters for the ObjectReplicationPoliciesClient.NewListPager
+// ObjectReplicationPoliciesClientListOptions contains the optional parameters for the ObjectReplicationPoliciesClient.List
 // method.
 type ObjectReplicationPoliciesClientListOptions struct {
 	// placeholder for future optional parameters
@@ -493,7 +488,7 @@ type PrivateEndpointConnectionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateEndpointConnectionsClientListOptions contains the optional parameters for the PrivateEndpointConnectionsClient.NewListPager
+// PrivateEndpointConnectionsClientListOptions contains the optional parameters for the PrivateEndpointConnectionsClient.List
 // method.
 type PrivateEndpointConnectionsClientListOptions struct {
 	// placeholder for future optional parameters
@@ -532,7 +527,7 @@ type QueueClientListOptions struct {
 	Filter *string
 
 	// Optional, a maximum number of queues that should be included in a list queue response
-	Maxpagesize *string
+	Maxpagesize *int32
 }
 
 // QueueClientUpdateOptions contains the optional parameters for the QueueClient.Update method.
@@ -557,15 +552,14 @@ type QueueServicesClientSetServicePropertiesOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SKUsClientListOptions contains the optional parameters for the SKUsClient.NewListPager method.
+// SKUsClientListOptions contains the optional parameters for the SKUsClient.List method.
 type SKUsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
 // TableClientCreateOptions contains the optional parameters for the TableClient.Create method.
 type TableClientCreateOptions struct {
-	// The parameters to provide to create a table.
-	Parameters *Table
+	// placeholder for future optional parameters
 }
 
 // TableClientDeleteOptions contains the optional parameters for the TableClient.Delete method.
@@ -585,8 +579,7 @@ type TableClientListOptions struct {
 
 // TableClientUpdateOptions contains the optional parameters for the TableClient.Update method.
 type TableClientUpdateOptions struct {
-	// The parameters to provide to create a table.
-	Parameters *Table
+	// placeholder for future optional parameters
 }
 
 // TableServicesClientGetServicePropertiesOptions contains the optional parameters for the TableServicesClient.GetServiceProperties
@@ -659,7 +652,7 @@ type TaskAssignmentsInstancesReportClientListOptions struct {
 	Maxpagesize *int32
 }
 
-// UsagesClientListByLocationOptions contains the optional parameters for the UsagesClient.NewListByLocationPager method.
+// UsagesClientListByLocationOptions contains the optional parameters for the UsagesClient.ListByLocation method.
 type UsagesClientListByLocationOptions struct {
 	// placeholder for future optional parameters
 }

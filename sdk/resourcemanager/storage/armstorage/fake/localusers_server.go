@@ -12,7 +12,8 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v2"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -288,6 +289,9 @@ func (l *LocalUsersServerTransport) dispatchNewListPager(req *http.Request) (*ht
 		resp := l.srv.NewListPager(resourceGroupNameParam, accountNameParam, options)
 		newListPager = &resp
 		l.newListPager.add(req, newListPager)
+		server.PagerResponderInjectNextLinks(newListPager, req, func(page *armstorage.LocalUsersClientListResponse, createLink func() string) {
+			page.NextLink = to.Ptr(createLink())
+		})
 	}
 	resp, err := server.PagerResponderNext(newListPager, req)
 	if err != nil {
