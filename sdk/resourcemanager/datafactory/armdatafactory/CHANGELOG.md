@@ -1,5 +1,48 @@
 # Release History
 
+## 10.0.0 (2025-04-14)
+### Breaking Changes
+
+- Type of `ServiceNowV2ObjectDataset.TypeProperties` has been changed from `*GenericDatasetTypeProperties` to `*ServiceNowV2DatasetTypeProperties`
+- Function `*ClientFactory.NewOperationsClient` has been removed
+- Function `NewOperationsClient` has been removed
+- Function `*OperationsClient.NewListPager` has been removed
+- Struct `Operation` has been removed
+- Struct `OperationDisplay` has been removed
+- Struct `OperationListResponse` has been removed
+- Struct `OperationLogSpecification` has been removed
+- Struct `OperationMetricAvailability` has been removed
+- Struct `OperationMetricDimension` has been removed
+- Struct `OperationMetricSpecification` has been removed
+- Struct `OperationProperties` has been removed
+- Struct `OperationServiceSpecification` has been removed
+
+### Features Added
+
+- New enum type `AzurePostgreSQLWriteMethodEnum` with values `AzurePostgreSQLWriteMethodEnumBulkInsert`, `AzurePostgreSQLWriteMethodEnumCopyCommand`, `AzurePostgreSQLWriteMethodEnumUpsert`
+- New enum type `GreenplumAuthenticationType` with values `GreenplumAuthenticationTypeBasic`
+- New enum type `OracleAuthenticationType` with values `OracleAuthenticationTypeBasic`
+- New enum type `ValueType` with values `ValueTypeActual`, `ValueTypeDisplay`
+- New function `*TeradataImportCommand.GetImportSettings() *ImportSettings`
+- New function `*TeradataSink.GetCopySink() *CopySink`
+- New struct `AzurePostgreSQLSinkUpsertSettings`
+- New struct `ServiceNowV2DatasetTypeProperties`
+- New struct `TeradataImportCommand`
+- New struct `TeradataSink`
+- New field `AzureCloudType`, `Credential`, `ServicePrincipalCredentialType`, `ServicePrincipalEmbeddedCert`, `ServicePrincipalEmbeddedCertPassword`, `ServicePrincipalID`, `ServicePrincipalKey`, `Tenant` in struct `AzurePostgreSQLLinkedServiceTypeProperties`
+- New field `UpsertSettings`, `WriteMethod` in struct `AzurePostgreSQLSink`
+- New field `BypassBusinessLogicExecution`, `BypassPowerAutomateFlows` in struct `CommonDataServiceForAppsSink`
+- New field `BypassBusinessLogicExecution`, `BypassPowerAutomateFlows` in struct `DynamicsCrmSink`
+- New field `BypassBusinessLogicExecution`, `BypassPowerAutomateFlows` in struct `DynamicsSink`
+- New field `AuthenticationType`, `CommandTimeout`, `ConnectionTimeout`, `Database`, `Host`, `Port`, `SSLMode`, `Username` in struct `GreenplumLinkedServiceTypeProperties`
+- New field `ServicePrincipalCredentialType`, `ServicePrincipalEmbeddedCert`, `ServicePrincipalEmbeddedCertPassword` in struct `Office365LinkedServiceTypeProperties`
+- New field `AuthenticationType`, `CryptoChecksumClient`, `CryptoChecksumTypesClient`, `EnableBulkLoad`, `EncryptionClient`, `EncryptionTypesClient`, `FetchSize`, `FetchTswtzAsTimestamp`, `InitialLobFetchSize`, `InitializationString`, `Server`, `StatementCacheSize`, `SupportV1DataTypes`, `Username` in struct `OracleLinkedServiceTypeProperties`
+- New field `EnableServerCertificateValidation` in struct `PrestoLinkedServiceTypeProperties`
+- New field `ReturnMultistatementResult` in struct `ScriptActivityTypeProperties`
+- New field `Role`, `Schema` in struct `SnowflakeLinkedV2ServiceTypeProperties`
+- New field `CharacterSet`, `HTTPSPortNumber`, `MaxRespSize`, `PortNumber`, `SSLMode`, `UseDataEncryption` in struct `TeradataLinkedServiceTypeProperties`
+
+
 ## 9.1.0 (2024-12-26)
 ### Features Added
 
