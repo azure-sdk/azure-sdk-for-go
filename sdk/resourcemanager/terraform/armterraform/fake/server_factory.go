@@ -20,6 +20,7 @@ type ServerFactory struct {
 
 	// TerraformServer contains the fakes for client TerraformClient
 	TerraformServer TerraformServer
+
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
@@ -34,10 +35,10 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 // ServerFactoryTransport connects instances of armterraform.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                *ServerFactory
-	trMu               sync.Mutex
+	srv *ServerFactory
+	trMu sync.Mutex
 	trOperationsServer *OperationsServerTransport
-	trTerraformServer  *TerraformServerTransport
+	trTerraformServer *TerraformServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.

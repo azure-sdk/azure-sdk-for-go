@@ -12,6 +12,7 @@ type OperationsClientListOptions struct {
 // TerraformClientBeginExportTerraformOptions contains the optional parameters for the TerraformClient.BeginExportTerraform
 // method.
 type TerraformClientBeginExportTerraformOptions struct {
-	// Resumes the long-running operation from the provided token.
+// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
+
