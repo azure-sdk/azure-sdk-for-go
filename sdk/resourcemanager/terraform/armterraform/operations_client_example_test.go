@@ -59,3 +59,4 @@ func ExampleOperationsClient_NewListPager() {
 		// }
 	}
 }
+

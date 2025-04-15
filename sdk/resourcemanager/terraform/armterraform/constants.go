@@ -5,7 +5,7 @@
 package armterraform
 
 const (
-	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/terraform/armterraform"
+	moduleName = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/terraform/armterraform"
 	moduleVersion = "v0.1.0"
 )
 
@@ -13,14 +13,40 @@ const (
 type ActionType string
 
 const (
-	// ActionTypeInternal - Actions are for internal-only APIs.
+// ActionTypeInternal - Actions are for internal-only APIs.
 	ActionTypeInternal ActionType = "Internal"
 )
 
 // PossibleActionTypeValues returns the possible values for the ActionType const type.
 func PossibleActionTypeValues() []ActionType {
-	return []ActionType{
+	return []ActionType{	
 		ActionTypeInternal,
+	}
+}
+
+// AuthorizationScopeFilter - The Azure Resource Graph Authorization Scope Filter parameter
+type AuthorizationScopeFilter string
+
+const (
+// AuthorizationScopeFilterAtScopeAboveAndBelow - Returns assignments for the given scope, all parent scopes, and all child
+// scopes.
+	AuthorizationScopeFilterAtScopeAboveAndBelow AuthorizationScopeFilter = "AtScopeAboveAndBelow"
+// AuthorizationScopeFilterAtScopeAndAbove - Returns assignments for the given scope and all parent scopes, but not child
+// scopes.
+	AuthorizationScopeFilterAtScopeAndAbove AuthorizationScopeFilter = "AtScopeAndAbove"
+// AuthorizationScopeFilterAtScopeAndBelow - Returns assignments for the given scope and all child scopes.
+	AuthorizationScopeFilterAtScopeAndBelow AuthorizationScopeFilter = "AtScopeAndBelow"
+// AuthorizationScopeFilterAtScopeExact - Returns assignments only for the given scope; no parent or child scopes are included.
+	AuthorizationScopeFilterAtScopeExact AuthorizationScopeFilter = "AtScopeExact"
+)
+
+// PossibleAuthorizationScopeFilterValues returns the possible values for the AuthorizationScopeFilter const type.
+func PossibleAuthorizationScopeFilterValues() []AuthorizationScopeFilter {
+	return []AuthorizationScopeFilter{	
+		AuthorizationScopeFilterAtScopeAboveAndBelow,
+		AuthorizationScopeFilterAtScopeAndAbove,
+		AuthorizationScopeFilterAtScopeAndBelow,
+		AuthorizationScopeFilterAtScopeExact,
 	}
 }
 
@@ -29,17 +55,17 @@ func PossibleActionTypeValues() []ActionType {
 type Origin string
 
 const (
-	// OriginSystem - Indicates the operation is initiated by a system.
+// OriginSystem - Indicates the operation is initiated by a system.
 	OriginSystem Origin = "system"
-	// OriginUser - Indicates the operation is initiated by a user.
+// OriginUser - Indicates the operation is initiated by a user.
 	OriginUser Origin = "user"
-	// OriginUserSystem - Indicates the operation is initiated by a user or system.
+// OriginUserSystem - Indicates the operation is initiated by a user or system.
 	OriginUserSystem Origin = "user,system"
 )
 
 // PossibleOriginValues returns the possible values for the Origin const type.
 func PossibleOriginValues() []Origin {
-	return []Origin{
+	return []Origin{	
 		OriginSystem,
 		OriginUser,
 		OriginUserSystem,
@@ -50,17 +76,17 @@ func PossibleOriginValues() []Origin {
 type ResourceProvisioningState string
 
 const (
-	// ResourceProvisioningStateCanceled - Resource creation was canceled.
+// ResourceProvisioningStateCanceled - Resource creation was canceled.
 	ResourceProvisioningStateCanceled ResourceProvisioningState = "Canceled"
-	// ResourceProvisioningStateFailed - Resource creation failed.
+// ResourceProvisioningStateFailed - Resource creation failed.
 	ResourceProvisioningStateFailed ResourceProvisioningState = "Failed"
-	// ResourceProvisioningStateSucceeded - Resource has been created.
+// ResourceProvisioningStateSucceeded - Resource has been created.
 	ResourceProvisioningStateSucceeded ResourceProvisioningState = "Succeeded"
 )
 
 // PossibleResourceProvisioningStateValues returns the possible values for the ResourceProvisioningState const type.
 func PossibleResourceProvisioningStateValues() []ResourceProvisioningState {
-	return []ResourceProvisioningState{
+	return []ResourceProvisioningState{	
 		ResourceProvisioningStateCanceled,
 		ResourceProvisioningStateFailed,
 		ResourceProvisioningStateSucceeded,
@@ -71,15 +97,15 @@ func PossibleResourceProvisioningStateValues() []ResourceProvisioningState {
 type TargetProvider string
 
 const (
-	// TargetProviderAzapi - https://registry.terraform.io/providers/Azure/azapi/latest
+// TargetProviderAzapi - https://registry.terraform.io/providers/Azure/azapi/latest
 	TargetProviderAzapi TargetProvider = "azapi"
-	// TargetProviderAzurerm - https://registry.terraform.io/providers/hashicorp/azurerm/latest
+// TargetProviderAzurerm - https://registry.terraform.io/providers/hashicorp/azurerm/latest
 	TargetProviderAzurerm TargetProvider = "azurerm"
 )
 
 // PossibleTargetProviderValues returns the possible values for the TargetProvider const type.
 func PossibleTargetProviderValues() []TargetProvider {
-	return []TargetProvider{
+	return []TargetProvider{	
 		TargetProviderAzapi,
 		TargetProviderAzurerm,
 	}
@@ -89,16 +115,17 @@ func PossibleTargetProviderValues() []TargetProvider {
 type Type string
 
 const (
-	TypeExportQuery         Type = "ExportQuery"
-	TypeExportResource      Type = "ExportResource"
+	TypeExportQuery Type = "ExportQuery"
+	TypeExportResource Type = "ExportResource"
 	TypeExportResourceGroup Type = "ExportResourceGroup"
 )
 
 // PossibleTypeValues returns the possible values for the Type const type.
 func PossibleTypeValues() []Type {
-	return []Type{
+	return []Type{	
 		TypeExportQuery,
 		TypeExportResource,
 		TypeExportResourceGroup,
 	}
 }
+
