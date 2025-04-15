@@ -19,7 +19,7 @@ import (
 // TerraformClient contains the methods for the Terraform group.
 // Don't use this type directly, use NewTerraformClient() instead.
 type TerraformClient struct {
-	internal       *arm.Client
+	internal *arm.Client
 	subscriptionID string
 }
 
@@ -34,7 +34,7 @@ func NewTerraformClient(subscriptionID string, credential azcore.TokenCredential
 	}
 	client := &TerraformClient{
 		subscriptionID: subscriptionID,
-		internal:       cl,
+	internal: cl,
 	}
 	return client, nil
 }
@@ -54,7 +54,7 @@ func (client *TerraformClient) BeginExportTerraform(ctx context.Context, body Ba
 		}
 		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[TerraformClientExportTerraformResponse]{
 			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-			Tracer:        client.internal.Tracer(),
+			Tracer: client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
@@ -105,8 +105,9 @@ func (client *TerraformClient) exportTerraformCreateRequest(ctx context.Context,
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["Content-Type"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, body); err != nil {
-		return nil, err
-	}
-	return req, nil
+if err := runtime.MarshalAsJSON(req, body); err != nil {
+	return nil, err
 }
+;	return req, nil
+}
+
