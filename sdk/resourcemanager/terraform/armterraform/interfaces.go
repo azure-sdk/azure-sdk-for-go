@@ -12,3 +12,4 @@ type BaseExportModelClassification interface {
 	// GetBaseExportModel returns the BaseExportModel content of the underlying type.
 	GetBaseExportModel() *BaseExportModel
 }
+

@@ -17,10 +17,11 @@ import (
 )
 
 // TerraformServer is a fake server for instances of the armterraform.TerraformClient type.
-type TerraformServer struct {
+type TerraformServer struct{
 	// BeginExportTerraform is the fake for method TerraformClient.BeginExportTerraform
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
 	BeginExportTerraform func(ctx context.Context, body armterraform.BaseExportModelClassification, options *armterraform.TerraformClientBeginExportTerraformOptions) (resp azfake.PollerResponder[armterraform.TerraformClientExportTerraformResponse], errResp azfake.ErrorResponder)
+
 }
 
 // NewTerraformServerTransport creates a new instance of TerraformServerTransport with the provided implementation.
@@ -28,7 +29,7 @@ type TerraformServer struct {
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewTerraformServerTransport(srv *TerraformServer) *TerraformServerTransport {
 	return &TerraformServerTransport{
-		srv:                  srv,
+		srv: srv,
 		beginExportTerraform: newTracker[azfake.PollerResponder[armterraform.TerraformClientExportTerraformResponse]](),
 	}
 }
@@ -36,7 +37,7 @@ func NewTerraformServerTransport(srv *TerraformServer) *TerraformServerTransport
 // TerraformServerTransport connects instances of armterraform.TerraformClient to instances of TerraformServer.
 // Don't use this type directly, use NewTerraformServerTransport instead.
 type TerraformServerTransport struct {
-	srv                  *TerraformServer
+	srv *TerraformServer
 	beginExportTerraform *tracker[azfake.PollerResponder[armterraform.TerraformClientExportTerraformResponse]]
 }
 
@@ -58,15 +59,15 @@ func (t *TerraformServerTransport) dispatchToMethodFake(req *http.Request, metho
 	go func() {
 		var intercepted bool
 		var res result
-		if terraformServerTransportInterceptor != nil {
-			res.resp, res.err, intercepted = terraformServerTransportInterceptor.Do(req)
+		 if terraformServerTransportInterceptor != nil {
+			 res.resp, res.err, intercepted = terraformServerTransportInterceptor.Do(req)
 		}
 		if !intercepted {
 			switch method {
 			case "TerraformClient.BeginExportTerraform":
 				res.resp, res.err = t.dispatchBeginExportTerraform(req)
-			default:
-				res.err = fmt.Errorf("unhandled API %s", method)
+				default:
+		res.err = fmt.Errorf("unhandled API %s", method)
 			}
 
 		}
@@ -90,24 +91,24 @@ func (t *TerraformServerTransport) dispatchBeginExportTerraform(req *http.Reques
 	}
 	beginExportTerraform := t.beginExportTerraform.get(req)
 	if beginExportTerraform == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AzureTerraform/exportTerraform`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 1 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		raw, err := readRequestBody(req)
-		if err != nil {
-			return nil, err
-		}
-		body, err := unmarshalBaseExportModelClassification(raw)
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := t.srv.BeginExportTerraform(req.Context(), body, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.AzureTerraform/exportTerraform`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 1 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
+	}
+	raw, err := readRequestBody(req)
+	if err != nil {
+		return nil, err
+	}
+	body, err := unmarshalBaseExportModelClassification(raw)
+	if err != nil {
+		return nil, err
+	}
+	respr, errRespr := t.srv.BeginExportTerraform(req.Context(), body, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
 		beginExportTerraform = &respr
 		t.beginExportTerraform.add(req, beginExportTerraform)
 	}
