@@ -33,3 +33,4 @@ func unmarshalBaseExportModelClassification(rawMsg json.RawMessage) (armterrafor
 	}
 	return b, nil
 }
+
