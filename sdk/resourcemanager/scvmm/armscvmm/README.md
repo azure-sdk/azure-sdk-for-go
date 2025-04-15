@@ -18,7 +18,7 @@ This project uses [Go modules](https://github.com/golang/go/wiki/Modules) for ve
 Install the Azure Scvmm module:
 
 ```sh
-go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/scvmm/armscvmm
+go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/scvmm/armscvmm/v2
 ```
 
 ## Authorization
