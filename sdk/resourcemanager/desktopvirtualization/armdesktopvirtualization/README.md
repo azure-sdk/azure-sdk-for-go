@@ -18,7 +18,7 @@ This project uses [Go modules](https://github.com/golang/go/wiki/Modules) for ve
 Install the Azure Virtual Desktop module:
 
 ```sh
-go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v2
+go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/desktopvirtualization/armdesktopvirtualization/v3
 ```
 
 ## Authorization
@@ -55,7 +55,7 @@ clientFactory, err := armdesktopvirtualization.NewClientFactory(<subscription ID
 A client groups a set of related APIs, providing access to its functionality. Create one or more clients to access the APIs you require using client factory.
 
 ```go
-client := clientFactory.NewAppAttachPackageClient()
+client := clientFactory.NewActiveSessionHostConfigurationsClient()
 ```
 
 ## Fakes
