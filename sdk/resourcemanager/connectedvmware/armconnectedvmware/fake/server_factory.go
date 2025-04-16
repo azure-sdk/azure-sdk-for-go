@@ -1,6 +1,3 @@
-//go:build go1.18
-// +build go1.18
-
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -28,18 +25,41 @@ import (
 
 // ServerFactory is a fake server for instances of the armconnectedvmware.ClientFactory type.
 type ServerFactory struct {
-	ClustersServer                         ClustersServer
-	DatastoresServer                       DatastoresServer
-	HostsServer                            HostsServer
-	InventoryItemsServer                   InventoryItemsServer
-	OperationsServer                       OperationsServer
-	ResourcePoolsServer                    ResourcePoolsServer
-	VCentersServer                         VCentersServer
-	VMInstanceGuestAgentsServer            VMInstanceGuestAgentsServer
+	// ClustersServer contains the fakes for client ClustersClient
+	ClustersServer ClustersServer
+
+	// DatastoresServer contains the fakes for client DatastoresClient
+	DatastoresServer DatastoresServer
+
+	// HostsServer contains the fakes for client HostsClient
+	HostsServer HostsServer
+
+	// InventoryItemsServer contains the fakes for client InventoryItemsClient
+	InventoryItemsServer InventoryItemsServer
+
+	// OperationsServer contains the fakes for client OperationsClient
+	OperationsServer OperationsServer
+
+	// ResourcePoolsServer contains the fakes for client ResourcePoolsClient
+	ResourcePoolsServer ResourcePoolsServer
+
+	// VCentersServer contains the fakes for client VCentersClient
+	VCentersServer VCentersServer
+
+	// VMInstanceGuestAgentsServer contains the fakes for client VMInstanceGuestAgentsClient
+	VMInstanceGuestAgentsServer VMInstanceGuestAgentsServer
+
+	// VMInstanceHybridIdentityMetadataServer contains the fakes for client VMInstanceHybridIdentityMetadataClient
 	VMInstanceHybridIdentityMetadataServer VMInstanceHybridIdentityMetadataServer
-	VirtualMachineInstancesServer          VirtualMachineInstancesServer
-	VirtualMachineTemplatesServer          VirtualMachineTemplatesServer
-	VirtualNetworksServer                  VirtualNetworksServer
+
+	// VirtualMachineInstancesServer contains the fakes for client VirtualMachineInstancesClient
+	VirtualMachineInstancesServer VirtualMachineInstancesServer
+
+	// VirtualMachineTemplatesServer contains the fakes for client VirtualMachineTemplatesClient
+	VirtualMachineTemplatesServer VirtualMachineTemplatesServer
+
+	// VirtualNetworksServer contains the fakes for client VirtualNetworksClient
+	VirtualNetworksServer VirtualNetworksServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
