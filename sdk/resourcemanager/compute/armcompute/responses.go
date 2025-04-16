@@ -1194,10 +1194,10 @@ type VirtualMachineImagesClientListSKUsResponse struct {
 	VirtualMachineImageResourceArray []*VirtualMachineImageResource
 }
 
-// VirtualMachineImagesClientListWithPropertiesResponse contains the response from method VirtualMachineImagesClient.NewListWithPropertiesPager.
+// VirtualMachineImagesClientListWithPropertiesResponse contains the response from method VirtualMachineImagesClient.ListWithProperties.
 type VirtualMachineImagesClientListWithPropertiesResponse struct {
-	// The List Virtual Machine Images operation response.
-	VirtualMachineImagesWithPropertiesListResult
+	// Array of VirtualMachineImage
+	VirtualMachineImageArray []*VirtualMachineImage
 }
 
 // VirtualMachineImagesEdgeZoneClientGetResponse contains the response from method VirtualMachineImagesEdgeZoneClient.Get.
