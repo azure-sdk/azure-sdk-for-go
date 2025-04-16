@@ -247,6 +247,11 @@ type PrivateLinkResourcesClientListByServerOptions struct {
 	// placeholder for future optional parameters
 }
 
+// QuotaUsagesClientListOptions contains the optional parameters for the QuotaUsagesClient.NewListPager method.
+type QuotaUsagesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ReplicasClientListByServerOptions contains the optional parameters for the ReplicasClient.NewListByServerPager method.
 type ReplicasClientListByServerOptions struct {
 	// placeholder for future optional parameters
@@ -329,6 +334,24 @@ type ServersClientListByResourceGroupOptions struct {
 // ServersClientListOptions contains the optional parameters for the ServersClient.NewListPager method.
 type ServersClientListOptions struct {
 	// placeholder for future optional parameters
+}
+
+// TuningOptionsClientGetOptions contains the optional parameters for the TuningOptionsClient.Get method.
+type TuningOptionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// TuningOptionsClientListByServerOptions contains the optional parameters for the TuningOptionsClient.NewListByServerPager
+// method.
+type TuningOptionsClientListByServerOptions struct {
+	// placeholder for future optional parameters
+}
+
+// TuningOptionsClientListRecommendationsOptions contains the optional parameters for the TuningOptionsClient.NewListRecommendationsPager
+// method.
+type TuningOptionsClientListRecommendationsOptions struct {
+	// Recommendations list filter. Retrieves recommendations based on type.
+	RecommendationType *RecommendationType
 }
 
 // VirtualEndpointsClientBeginCreateOptions contains the optional parameters for the VirtualEndpointsClient.BeginCreate method.
