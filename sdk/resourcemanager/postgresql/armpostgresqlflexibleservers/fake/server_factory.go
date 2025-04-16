@@ -70,6 +70,9 @@ type ServerFactory struct {
 	// PrivateLinkResourcesServer contains the fakes for client PrivateLinkResourcesClient
 	PrivateLinkResourcesServer PrivateLinkResourcesServer
 
+	// QuotaUsagesServer contains the fakes for client QuotaUsagesClient
+	QuotaUsagesServer QuotaUsagesServer
+
 	// ReplicasServer contains the fakes for client ReplicasClient
 	ReplicasServer ReplicasServer
 
@@ -81,6 +84,9 @@ type ServerFactory struct {
 
 	// ServersServer contains the fakes for client ServersClient
 	ServersServer ServersServer
+
+	// TuningOptionsServer contains the fakes for client TuningOptionsClient
+	TuningOptionsServer TuningOptionsServer
 
 	// VirtualEndpointsServer contains the fakes for client VirtualEndpointsClient
 	VirtualEndpointsServer VirtualEndpointsServer
@@ -121,10 +127,12 @@ type ServerFactoryTransport struct {
 	trPrivateEndpointConnectionServer         *PrivateEndpointConnectionServerTransport
 	trPrivateEndpointConnectionsServer        *PrivateEndpointConnectionsServerTransport
 	trPrivateLinkResourcesServer              *PrivateLinkResourcesServerTransport
+	trQuotaUsagesServer                       *QuotaUsagesServerTransport
 	trReplicasServer                          *ReplicasServerTransport
 	trServerCapabilitiesServer                *ServerCapabilitiesServerTransport
 	trServerThreatProtectionSettingsServer    *ServerThreatProtectionSettingsServerTransport
 	trServersServer                           *ServersServerTransport
+	trTuningOptionsServer                     *TuningOptionsServerTransport
 	trVirtualEndpointsServer                  *VirtualEndpointsServerTransport
 	trVirtualNetworkSubnetUsageServer         *VirtualNetworkSubnetUsageServerTransport
 }
@@ -222,6 +230,9 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewPrivateLinkResourcesServerTransport(&s.srv.PrivateLinkResourcesServer)
 		})
 		resp, err = s.trPrivateLinkResourcesServer.Do(req)
+	case "QuotaUsagesClient":
+		initServer(s, &s.trQuotaUsagesServer, func() *QuotaUsagesServerTransport { return NewQuotaUsagesServerTransport(&s.srv.QuotaUsagesServer) })
+		resp, err = s.trQuotaUsagesServer.Do(req)
 	case "ReplicasClient":
 		initServer(s, &s.trReplicasServer, func() *ReplicasServerTransport { return NewReplicasServerTransport(&s.srv.ReplicasServer) })
 		resp, err = s.trReplicasServer.Do(req)
@@ -238,6 +249,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "ServersClient":
 		initServer(s, &s.trServersServer, func() *ServersServerTransport { return NewServersServerTransport(&s.srv.ServersServer) })
 		resp, err = s.trServersServer.Do(req)
+	case "TuningOptionsClient":
+		initServer(s, &s.trTuningOptionsServer, func() *TuningOptionsServerTransport {
+			return NewTuningOptionsServerTransport(&s.srv.TuningOptionsServer)
+		})
+		resp, err = s.trTuningOptionsServer.Do(req)
 	case "VirtualEndpointsClient":
 		initServer(s, &s.trVirtualEndpointsServer, func() *VirtualEndpointsServerTransport {
 			return NewVirtualEndpointsServerTransport(&s.srv.VirtualEndpointsServer)
