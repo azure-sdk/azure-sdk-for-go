@@ -991,6 +991,7 @@ func PossiblePrivateEndpointServiceConnectionStatusValues() []PrivateEndpointSer
 type ProvisioningState string
 
 const (
+	ProvisioningStateAccepted                       ProvisioningState = "Accepted"
 	ProvisioningStateCanceled                       ProvisioningState = "Canceled"
 	ProvisioningStateCreating                       ProvisioningState = "Creating"
 	ProvisioningStateDeleting                       ProvisioningState = "Deleting"
@@ -1004,6 +1005,7 @@ const (
 // PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
 func PossibleProvisioningStateValues() []ProvisioningState {
 	return []ProvisioningState{
+		ProvisioningStateAccepted,
 		ProvisioningStateCanceled,
 		ProvisioningStateCreating,
 		ProvisioningStateDeleting,
