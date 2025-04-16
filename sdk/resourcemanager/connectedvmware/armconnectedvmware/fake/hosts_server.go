@@ -1,6 +1,3 @@
-//go:build go1.18
-// +build go1.18
-
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -90,31 +87,50 @@ func (h *HostsServerTransport) Do(req *http.Request) (*http.Response, error) {
 		return nil, nonRetriableError{errors.New("unable to dispatch request, missing value for CtxAPINameKey")}
 	}
 
-	var resp *http.Response
-	var err error
+	return h.dispatchToMethodFake(req, method)
+}
 
-	switch method {
-	case "HostsClient.BeginCreate":
-		resp, err = h.dispatchBeginCreate(req)
-	case "HostsClient.BeginDelete":
-		resp, err = h.dispatchBeginDelete(req)
-	case "HostsClient.Get":
-		resp, err = h.dispatchGet(req)
-	case "HostsClient.NewListPager":
-		resp, err = h.dispatchNewListPager(req)
-	case "HostsClient.NewListByResourceGroupPager":
-		resp, err = h.dispatchNewListByResourceGroupPager(req)
-	case "HostsClient.Update":
-		resp, err = h.dispatchUpdate(req)
-	default:
-		err = fmt.Errorf("unhandled API %s", method)
+func (h *HostsServerTransport) dispatchToMethodFake(req *http.Request, method string) (*http.Response, error) {
+	resultChan := make(chan result)
+	defer close(resultChan)
+
+	go func() {
+		var intercepted bool
+		var res result
+		if hostsServerTransportInterceptor != nil {
+			res.resp, res.err, intercepted = hostsServerTransportInterceptor.Do(req)
+		}
+		if !intercepted {
+			switch method {
+			case "HostsClient.BeginCreate":
+				res.resp, res.err = h.dispatchBeginCreate(req)
+			case "HostsClient.BeginDelete":
+				res.resp, res.err = h.dispatchBeginDelete(req)
+			case "HostsClient.Get":
+				res.resp, res.err = h.dispatchGet(req)
+			case "HostsClient.NewListPager":
+				res.resp, res.err = h.dispatchNewListPager(req)
+			case "HostsClient.NewListByResourceGroupPager":
+				res.resp, res.err = h.dispatchNewListByResourceGroupPager(req)
+			case "HostsClient.Update":
+				res.resp, res.err = h.dispatchUpdate(req)
+			default:
+				res.err = fmt.Errorf("unhandled API %s", method)
+			}
+
+		}
+		select {
+		case resultChan <- res:
+		case <-req.Context().Done():
+		}
+	}()
+
+	select {
+	case <-req.Context().Done():
+		return nil, req.Context().Err()
+	case res := <-resultChan:
+		return res.resp, res.err
 	}
-
-	if err != nil {
-		return nil, err
-	}
-
-	return resp, nil
 }
 
 func (h *HostsServerTransport) dispatchBeginCreate(req *http.Request) (*http.Response, error) {
@@ -362,4 +378,10 @@ func (h *HostsServerTransport) dispatchUpdate(req *http.Request) (*http.Response
 		return nil, err
 	}
 	return resp, nil
+}
+
+// set this to conditionally intercept incoming requests to HostsServerTransport
+var hostsServerTransportInterceptor interface {
+	// Do returns true if the server transport should use the returned response/error
+	Do(*http.Request) (*http.Response, error, bool)
 }
