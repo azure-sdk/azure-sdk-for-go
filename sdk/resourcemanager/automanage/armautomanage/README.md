@@ -65,9 +65,9 @@ clientFactory, err := armautomanage.NewClientFactory(<subscription ID>, cred, &o
 A client groups a set of related APIs, providing access to its functionality. Create one or more clients to access the APIs you require using client factory.
 
 ```go
-reportsClient := clientFactory.NewReportsClient()
-configProfilesClient := clientFactory.NewReportsClient()
-assignmentClient := clientFactory.NewReportsClient()
+reportsClient := clientFactory.NewConfigurationProfileAssignmentsClient()
+configProfilesClient := clientFactory.NewConfigurationProfileAssignmentsClient()
+assignmentClient := clientFactory.NewConfigurationProfileAssignmentsClient()
 ```
 
 ## Fakes
