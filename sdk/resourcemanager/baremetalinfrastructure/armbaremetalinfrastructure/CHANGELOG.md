@@ -1,5 +1,32 @@
 # Release History
 
+## 2.0.0-beta.2 (2025-04-17)
+### Breaking Changes
+
+- Function `*AzureBareMetalStorageInstancesClient.Update` parameter(s) have been changed from `(context.Context, string, string, Tags, *AzureBareMetalStorageInstancesClientUpdateOptions)` to `(context.Context, string, string, AzureBareMetalStorageInstanceBody, *AzureBareMetalStorageInstancesClientUpdateOptions)`
+- Struct `AzureBareMetalInstancesListResult` has been removed
+- Struct `AzureBareMetalStorageInstancesListResult` has been removed
+- Field `AzureBareMetalInstancesListResult` of struct `AzureBareMetalInstancesClientListByResourceGroupResponse` has been removed
+- Field `AzureBareMetalInstancesListResult` of struct `AzureBareMetalInstancesClientListBySubscriptionResponse` has been removed
+- Field `AzureBareMetalStorageInstancesListResult` of struct `AzureBareMetalStorageInstancesClientListByResourceGroupResponse` has been removed
+- Field `AzureBareMetalStorageInstancesListResult` of struct `AzureBareMetalStorageInstancesClientListBySubscriptionResponse` has been removed
+
+### Features Added
+
+- New enum type `ResourceIdentityType` with values `ResourceIdentityTypeNone`, `ResourceIdentityTypeSystemAssigned`
+- New function `*AzureBareMetalInstancesClient.Create(context.Context, string, string, AzureBareMetalInstance, *AzureBareMetalInstancesClientCreateOptions) (AzureBareMetalInstancesClientCreateResponse, error)`
+- New function `*AzureBareMetalInstancesClient.Delete(context.Context, string, string, *AzureBareMetalInstancesClientDeleteOptions) (AzureBareMetalInstancesClientDeleteResponse, error)`
+- New struct `AzureBareMetalInstanceListResult`
+- New struct `AzureBareMetalStorageInstanceBody`
+- New struct `AzureBareMetalStorageInstanceIdentity`
+- New struct `AzureBareMetalStorageInstanceListResult`
+- New anonymous field `AzureBareMetalInstanceListResult` in struct `AzureBareMetalInstancesClientListByResourceGroupResponse`
+- New anonymous field `AzureBareMetalInstanceListResult` in struct `AzureBareMetalInstancesClientListBySubscriptionResponse`
+- New field `Identity` in struct `AzureBareMetalStorageInstance`
+- New anonymous field `AzureBareMetalStorageInstanceListResult` in struct `AzureBareMetalStorageInstancesClientListByResourceGroupResponse`
+- New anonymous field `AzureBareMetalStorageInstanceListResult` in struct `AzureBareMetalStorageInstancesClientListBySubscriptionResponse`
+
+
 ## 2.0.0-beta.1 (2023-12-08)
 ### Breaking Changes
 
