@@ -7,13 +7,13 @@ package azsecrets
 import (
 	"context"
 	"errors"
-	"net/http"
-	"net/url"
-	"strings"
-
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"net/http"
+	"net/url"
+	"strconv"
+	"strings"
 )
 
 // Client - The key vault client performs cryptographic key operations and vault operations against the Key Vault service.
@@ -231,11 +231,14 @@ func (client *Client) GetSecret(ctx context.Context, name string, version string
 func (client *Client) getSecretCreateRequest(ctx context.Context, name string, version string, _ *GetSecretOptions) (*policy.Request, error) {
 	host := "{vaultBaseUrl}"
 	host = strings.ReplaceAll(host, "{vaultBaseUrl}", client.vaultBaseUrl)
-	urlPath := "/secrets/{secret-name}/{secret-version}"
+	urlPath := "/secrets/{secret-name}{secret-version}"
 	if name == "" {
 		return nil, errors.New("parameter name cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{secret-name}", url.PathEscape(name))
+	if version == "" {
+		return nil, errors.New("parameter version cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{secret-version}", url.PathEscape(version))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(host, urlPath))
 	if err != nil {
@@ -298,6 +301,9 @@ func (client *Client) listDeletedSecretPropertiesCreateRequest(ctx context.Conte
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "7.6-preview.2")
+	if options != nil && options.Maxresults != nil {
+		reqQP.Set("maxresults", strconv.FormatInt(int64(*options.Maxresults), 10))
+	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -353,6 +359,9 @@ func (client *Client) listSecretPropertiesCreateRequest(ctx context.Context, opt
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "7.6-preview.2")
+	if options != nil && options.Maxresults != nil {
+		reqQP.Set("maxresults", strconv.FormatInt(int64(*options.Maxresults), 10))
+	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -413,6 +422,9 @@ func (client *Client) listSecretPropertiesVersionsCreateRequest(ctx context.Cont
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "7.6-preview.2")
+	if options != nil && options.Maxresults != nil {
+		reqQP.Set("maxresults", strconv.FormatInt(int64(*options.Maxresults), 10))
+	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -689,11 +701,14 @@ func (client *Client) UpdateSecretProperties(ctx context.Context, name string, v
 func (client *Client) updateSecretPropertiesCreateRequest(ctx context.Context, name string, version string, parameters UpdateSecretPropertiesParameters, _ *UpdateSecretPropertiesOptions) (*policy.Request, error) {
 	host := "{vaultBaseUrl}"
 	host = strings.ReplaceAll(host, "{vaultBaseUrl}", client.vaultBaseUrl)
-	urlPath := "/secrets/{secret-name}/{secret-version}"
+	urlPath := "/secrets/{secret-name}{secret-version}"
 	if name == "" {
 		return nil, errors.New("parameter name cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{secret-name}", url.PathEscape(name))
+	if version == "" {
+		return nil, errors.New("parameter version cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{secret-version}", url.PathEscape(version))
 	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(host, urlPath))
 	if err != nil {
