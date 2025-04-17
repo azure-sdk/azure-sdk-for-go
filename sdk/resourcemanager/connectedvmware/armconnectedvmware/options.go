@@ -1,6 +1,3 @@
-//go:build go1.18
-// +build go1.18
-
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,7 +16,7 @@ package armconnectedvmware
 
 // ClustersClientBeginCreateOptions contains the optional parameters for the ClustersClient.BeginCreate method.
 type ClustersClientBeginCreateOptions struct {
-	// Resumes the LRO from the provided token.
+	// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
@@ -28,7 +25,7 @@ type ClustersClientBeginDeleteOptions struct {
 	// Whether force delete was specified.
 	Force *bool
 
-	// Resumes the LRO from the provided token.
+	// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
@@ -55,7 +52,7 @@ type ClustersClientUpdateOptions struct {
 
 // DatastoresClientBeginCreateOptions contains the optional parameters for the DatastoresClient.BeginCreate method.
 type DatastoresClientBeginCreateOptions struct {
-	// Resumes the LRO from the provided token.
+	// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
@@ -64,7 +61,7 @@ type DatastoresClientBeginDeleteOptions struct {
 	// Whether force delete was specified.
 	Force *bool
 
-	// Resumes the LRO from the provided token.
+	// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
@@ -91,7 +88,7 @@ type DatastoresClientUpdateOptions struct {
 
 // HostsClientBeginCreateOptions contains the optional parameters for the HostsClient.BeginCreate method.
 type HostsClientBeginCreateOptions struct {
-	// Resumes the LRO from the provided token.
+	// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
@@ -100,7 +97,7 @@ type HostsClientBeginDeleteOptions struct {
 	// Whether force delete was specified.
 	Force *bool
 
-	// Resumes the LRO from the provided token.
+	// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
@@ -153,7 +150,7 @@ type OperationsClientListOptions struct {
 
 // ResourcePoolsClientBeginCreateOptions contains the optional parameters for the ResourcePoolsClient.BeginCreate method.
 type ResourcePoolsClientBeginCreateOptions struct {
-	// Resumes the LRO from the provided token.
+	// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
@@ -162,7 +159,7 @@ type ResourcePoolsClientBeginDeleteOptions struct {
 	// Whether force delete was specified.
 	Force *bool
 
-	// Resumes the LRO from the provided token.
+	// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
@@ -189,7 +186,7 @@ type ResourcePoolsClientUpdateOptions struct {
 
 // VCentersClientBeginCreateOptions contains the optional parameters for the VCentersClient.BeginCreate method.
 type VCentersClientBeginCreateOptions struct {
-	// Resumes the LRO from the provided token.
+	// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
@@ -198,7 +195,7 @@ type VCentersClientBeginDeleteOptions struct {
 	// Whether force delete was specified.
 	Force *bool
 
-	// Resumes the LRO from the provided token.
+	// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
@@ -226,14 +223,14 @@ type VCentersClientUpdateOptions struct {
 // VMInstanceGuestAgentsClientBeginCreateOptions contains the optional parameters for the VMInstanceGuestAgentsClient.BeginCreate
 // method.
 type VMInstanceGuestAgentsClientBeginCreateOptions struct {
-	// Resumes the LRO from the provided token.
+	// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
 // VMInstanceGuestAgentsClientBeginDeleteOptions contains the optional parameters for the VMInstanceGuestAgentsClient.BeginDelete
 // method.
 type VMInstanceGuestAgentsClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
+	// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
@@ -263,7 +260,7 @@ type VMInstanceHybridIdentityMetadataClientListOptions struct {
 // VirtualMachineInstancesClientBeginCreateOrUpdateOptions contains the optional parameters for the VirtualMachineInstancesClient.BeginCreateOrUpdate
 // method.
 type VirtualMachineInstancesClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
+	// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
@@ -276,21 +273,21 @@ type VirtualMachineInstancesClientBeginDeleteOptions struct {
 	// Whether force delete was specified.
 	Force *bool
 
-	// Resumes the LRO from the provided token.
+	// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
 // VirtualMachineInstancesClientBeginRestartOptions contains the optional parameters for the VirtualMachineInstancesClient.BeginRestart
 // method.
 type VirtualMachineInstancesClientBeginRestartOptions struct {
-	// Resumes the LRO from the provided token.
+	// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
 // VirtualMachineInstancesClientBeginStartOptions contains the optional parameters for the VirtualMachineInstancesClient.BeginStart
 // method.
 type VirtualMachineInstancesClientBeginStartOptions struct {
-	// Resumes the LRO from the provided token.
+	// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
@@ -300,14 +297,14 @@ type VirtualMachineInstancesClientBeginStopOptions struct {
 	// Virtualmachine stop action payload.
 	Body *StopVirtualMachineOptions
 
-	// Resumes the LRO from the provided token.
+	// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
 // VirtualMachineInstancesClientBeginUpdateOptions contains the optional parameters for the VirtualMachineInstancesClient.BeginUpdate
 // method.
 type VirtualMachineInstancesClientBeginUpdateOptions struct {
-	// Resumes the LRO from the provided token.
+	// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
@@ -325,7 +322,7 @@ type VirtualMachineInstancesClientListOptions struct {
 // VirtualMachineTemplatesClientBeginCreateOptions contains the optional parameters for the VirtualMachineTemplatesClient.BeginCreate
 // method.
 type VirtualMachineTemplatesClientBeginCreateOptions struct {
-	// Resumes the LRO from the provided token.
+	// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
@@ -335,7 +332,7 @@ type VirtualMachineTemplatesClientBeginDeleteOptions struct {
 	// Whether force delete was specified.
 	Force *bool
 
-	// Resumes the LRO from the provided token.
+	// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
@@ -364,7 +361,7 @@ type VirtualMachineTemplatesClientUpdateOptions struct {
 
 // VirtualNetworksClientBeginCreateOptions contains the optional parameters for the VirtualNetworksClient.BeginCreate method.
 type VirtualNetworksClientBeginCreateOptions struct {
-	// Resumes the LRO from the provided token.
+	// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
@@ -373,7 +370,7 @@ type VirtualNetworksClientBeginDeleteOptions struct {
 	// Whether force delete was specified.
 	Force *bool
 
-	// Resumes the LRO from the provided token.
+	// Resumes the long-running operation from the provided token.
 	ResumeToken string
 }
 
