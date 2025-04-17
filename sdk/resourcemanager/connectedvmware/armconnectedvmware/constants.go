@@ -1,6 +1,3 @@
-//go:build go1.18
-// +build go1.18
-
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,7 +16,7 @@ package armconnectedvmware
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/connectedvmware/armconnectedvmware"
-	moduleVersion = "v1.1.1"
+	moduleVersion = "v1.2.0"
 )
 
 // CreatedByType - The type of identity that created the resource.
