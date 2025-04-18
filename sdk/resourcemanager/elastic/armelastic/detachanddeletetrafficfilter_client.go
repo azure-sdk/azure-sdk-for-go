@@ -1,6 +1,3 @@
-//go:build go1.18
-// +build go1.18
-
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -55,7 +52,7 @@ func NewDetachAndDeleteTrafficFilterClient(subscriptionID string, credential azc
 // Delete - Detach and Delete traffic filter from the given deployment.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-01
+// Generated from API version 2025-01-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - monitorName - Monitor resource name
 //   - options - DetachAndDeleteTrafficFilterClientDeleteOptions contains the optional parameters for the DetachAndDeleteTrafficFilterClient.Delete
@@ -101,7 +98,7 @@ func (client *DetachAndDeleteTrafficFilterClient) deleteCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-01")
+	reqQP.Set("api-version", "2025-01-15-preview")
 	if options != nil && options.RulesetID != nil {
 		reqQP.Set("rulesetId", *options.RulesetID)
 	}
