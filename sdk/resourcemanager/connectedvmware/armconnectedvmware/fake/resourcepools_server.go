@@ -1,6 +1,3 @@
-//go:build go1.18
-// +build go1.18
-
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -90,31 +87,50 @@ func (r *ResourcePoolsServerTransport) Do(req *http.Request) (*http.Response, er
 		return nil, nonRetriableError{errors.New("unable to dispatch request, missing value for CtxAPINameKey")}
 	}
 
-	var resp *http.Response
-	var err error
+	return r.dispatchToMethodFake(req, method)
+}
 
-	switch method {
-	case "ResourcePoolsClient.BeginCreate":
-		resp, err = r.dispatchBeginCreate(req)
-	case "ResourcePoolsClient.BeginDelete":
-		resp, err = r.dispatchBeginDelete(req)
-	case "ResourcePoolsClient.Get":
-		resp, err = r.dispatchGet(req)
-	case "ResourcePoolsClient.NewListPager":
-		resp, err = r.dispatchNewListPager(req)
-	case "ResourcePoolsClient.NewListByResourceGroupPager":
-		resp, err = r.dispatchNewListByResourceGroupPager(req)
-	case "ResourcePoolsClient.Update":
-		resp, err = r.dispatchUpdate(req)
-	default:
-		err = fmt.Errorf("unhandled API %s", method)
+func (r *ResourcePoolsServerTransport) dispatchToMethodFake(req *http.Request, method string) (*http.Response, error) {
+	resultChan := make(chan result)
+	defer close(resultChan)
+
+	go func() {
+		var intercepted bool
+		var res result
+		if resourcePoolsServerTransportInterceptor != nil {
+			res.resp, res.err, intercepted = resourcePoolsServerTransportInterceptor.Do(req)
+		}
+		if !intercepted {
+			switch method {
+			case "ResourcePoolsClient.BeginCreate":
+				res.resp, res.err = r.dispatchBeginCreate(req)
+			case "ResourcePoolsClient.BeginDelete":
+				res.resp, res.err = r.dispatchBeginDelete(req)
+			case "ResourcePoolsClient.Get":
+				res.resp, res.err = r.dispatchGet(req)
+			case "ResourcePoolsClient.NewListPager":
+				res.resp, res.err = r.dispatchNewListPager(req)
+			case "ResourcePoolsClient.NewListByResourceGroupPager":
+				res.resp, res.err = r.dispatchNewListByResourceGroupPager(req)
+			case "ResourcePoolsClient.Update":
+				res.resp, res.err = r.dispatchUpdate(req)
+			default:
+				res.err = fmt.Errorf("unhandled API %s", method)
+			}
+
+		}
+		select {
+		case resultChan <- res:
+		case <-req.Context().Done():
+		}
+	}()
+
+	select {
+	case <-req.Context().Done():
+		return nil, req.Context().Err()
+	case res := <-resultChan:
+		return res.resp, res.err
 	}
-
-	if err != nil {
-		return nil, err
-	}
-
-	return resp, nil
 }
 
 func (r *ResourcePoolsServerTransport) dispatchBeginCreate(req *http.Request) (*http.Response, error) {
@@ -362,4 +378,10 @@ func (r *ResourcePoolsServerTransport) dispatchUpdate(req *http.Request) (*http.
 		return nil, err
 	}
 	return resp, nil
+}
+
+// set this to conditionally intercept incoming requests to ResourcePoolsServerTransport
+var resourcePoolsServerTransportInterceptor interface {
+	// Do returns true if the server transport should use the returned response/error
+	Do(*http.Request) (*http.Response, error, bool)
 }
