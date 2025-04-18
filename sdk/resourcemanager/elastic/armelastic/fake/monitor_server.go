@@ -1,6 +1,3 @@
-//go:build go1.18
-// +build go1.18
-
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -34,7 +31,7 @@ import (
 // MonitorServer is a fake server for instances of the armelastic.MonitorClient type.
 type MonitorServer struct {
 	// BeginUpgrade is the fake for method MonitorClient.BeginUpgrade
-	// HTTP status codes to indicate success: http.StatusAccepted
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
 	BeginUpgrade func(ctx context.Context, resourceGroupName string, monitorName string, options *armelastic.MonitorClientBeginUpgradeOptions) (resp azfake.PollerResponder[armelastic.MonitorClientUpgradeResponse], errResp azfake.ErrorResponder)
 }
 
@@ -63,21 +60,40 @@ func (m *MonitorServerTransport) Do(req *http.Request) (*http.Response, error) {
 		return nil, nonRetriableError{errors.New("unable to dispatch request, missing value for CtxAPINameKey")}
 	}
 
-	var resp *http.Response
-	var err error
+	return m.dispatchToMethodFake(req, method)
+}
 
-	switch method {
-	case "MonitorClient.BeginUpgrade":
-		resp, err = m.dispatchBeginUpgrade(req)
-	default:
-		err = fmt.Errorf("unhandled API %s", method)
+func (m *MonitorServerTransport) dispatchToMethodFake(req *http.Request, method string) (*http.Response, error) {
+	resultChan := make(chan result)
+	defer close(resultChan)
+
+	go func() {
+		var intercepted bool
+		var res result
+		if monitorServerTransportInterceptor != nil {
+			res.resp, res.err, intercepted = monitorServerTransportInterceptor.Do(req)
+		}
+		if !intercepted {
+			switch method {
+			case "MonitorClient.BeginUpgrade":
+				res.resp, res.err = m.dispatchBeginUpgrade(req)
+			default:
+				res.err = fmt.Errorf("unhandled API %s", method)
+			}
+
+		}
+		select {
+		case resultChan <- res:
+		case <-req.Context().Done():
+		}
+	}()
+
+	select {
+	case <-req.Context().Done():
+		return nil, req.Context().Err()
+	case res := <-resultChan:
+		return res.resp, res.err
 	}
-
-	if err != nil {
-		return nil, err
-	}
-
-	return resp, nil
 }
 
 func (m *MonitorServerTransport) dispatchBeginUpgrade(req *http.Request) (*http.Response, error) {
@@ -123,13 +139,19 @@ func (m *MonitorServerTransport) dispatchBeginUpgrade(req *http.Request) (*http.
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusAccepted}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
 		m.beginUpgrade.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusAccepted", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginUpgrade) {
 		m.beginUpgrade.remove(req)
 	}
 
 	return resp, nil
+}
+
+// set this to conditionally intercept incoming requests to MonitorServerTransport
+var monitorServerTransportInterceptor interface {
+	// Do returns true if the server transport should use the returned response/error
+	Do(*http.Request) (*http.Response, error, bool)
 }
