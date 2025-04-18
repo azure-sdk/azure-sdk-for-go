@@ -6,7 +6,7 @@ package armiotoperations
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/iotoperations/armiotoperations"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.1.0-beta.1"
 )
 
 // ActionType - Extensible enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -351,14 +351,24 @@ const (
 	EndpointTypeDataExplorer EndpointType = "DataExplorer"
 	// EndpointTypeDataLakeStorage - Azure Data Lake Type
 	EndpointTypeDataLakeStorage EndpointType = "DataLakeStorage"
+	// EndpointTypeEventGrid - EventGrid Type
+	EndpointTypeEventGrid EndpointType = "EventGrid"
+	// EndpointTypeEventhub - Eventhub Type
+	EndpointTypeEventhub EndpointType = "Eventhub"
 	// EndpointTypeFabricOneLake - Microsoft Fabric Type
 	EndpointTypeFabricOneLake EndpointType = "FabricOneLake"
+	// EndpointTypeFabricRT - FabricRT Type
+	EndpointTypeFabricRT EndpointType = "FabricRT"
 	// EndpointTypeKafka - Kafka Type
 	EndpointTypeKafka EndpointType = "Kafka"
+	// EndpointTypeLocalMq - LocalMq Type
+	EndpointTypeLocalMq EndpointType = "LocalMq"
 	// EndpointTypeLocalStorage - Local Storage Type
 	EndpointTypeLocalStorage EndpointType = "LocalStorage"
 	// EndpointTypeMqtt - Broker Type
 	EndpointTypeMqtt EndpointType = "Mqtt"
+	// EndpointTypeOtel - OpenTelemetry Type
+	EndpointTypeOtel EndpointType = "Otel"
 )
 
 // PossibleEndpointTypeValues returns the possible values for the EndpointType const type.
@@ -366,10 +376,15 @@ func PossibleEndpointTypeValues() []EndpointType {
 	return []EndpointType{
 		EndpointTypeDataExplorer,
 		EndpointTypeDataLakeStorage,
+		EndpointTypeEventGrid,
+		EndpointTypeEventhub,
 		EndpointTypeFabricOneLake,
+		EndpointTypeFabricRT,
 		EndpointTypeKafka,
+		EndpointTypeLocalMq,
 		EndpointTypeLocalStorage,
 		EndpointTypeMqtt,
+		EndpointTypeOtel,
 	}
 }
 
@@ -418,6 +433,27 @@ const (
 func PossibleFilterTypeValues() []FilterType {
 	return []FilterType{
 		FilterTypeFilter,
+	}
+}
+
+// InstanceFeatureMode - The enum defining mode of a feature.
+type InstanceFeatureMode string
+
+const (
+	// InstanceFeatureModeDisabled - Opt out of a feature
+	InstanceFeatureModeDisabled InstanceFeatureMode = "Disabled"
+	// InstanceFeatureModePreview - Opt in to enable a preview feature
+	InstanceFeatureModePreview InstanceFeatureMode = "Preview"
+	// InstanceFeatureModeStable - Opt in to enable a stable feature
+	InstanceFeatureModeStable InstanceFeatureMode = "Stable"
+)
+
+// PossibleInstanceFeatureModeValues returns the possible values for the InstanceFeatureMode const type.
+func PossibleInstanceFeatureModeValues() []InstanceFeatureMode {
+	return []InstanceFeatureMode{
+		InstanceFeatureModeDisabled,
+		InstanceFeatureModePreview,
+		InstanceFeatureModeStable,
 	}
 }
 
@@ -683,6 +719,65 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 		ProvisioningStateProvisioning,
 		ProvisioningStateSucceeded,
 		ProvisioningStateUpdating,
+	}
+}
+
+// RemoteSupportAccessLevels - DiagnosticAccessLevels allowed
+type RemoteSupportAccessLevels string
+
+const (
+	// RemoteSupportAccessLevelsDiagnose - Diagnose access level
+	RemoteSupportAccessLevelsDiagnose RemoteSupportAccessLevels = "Diagnose"
+	// RemoteSupportAccessLevelsDiagnoseAndRepair - Diagnose And Repair Access Level
+	RemoteSupportAccessLevelsDiagnoseAndRepair RemoteSupportAccessLevels = "DiagnoseAndRepair"
+)
+
+// PossibleRemoteSupportAccessLevelsValues returns the possible values for the RemoteSupportAccessLevels const type.
+func PossibleRemoteSupportAccessLevelsValues() []RemoteSupportAccessLevels {
+	return []RemoteSupportAccessLevels{
+		RemoteSupportAccessLevelsDiagnose,
+		RemoteSupportAccessLevelsDiagnoseAndRepair,
+	}
+}
+
+// RemoteSupportActivationState - Represents the activation state of Diagnostic.
+type RemoteSupportActivationState string
+
+const (
+	// RemoteSupportActivationStateDisabled - Remote Support is disabled.
+	RemoteSupportActivationStateDisabled RemoteSupportActivationState = "Disabled"
+	// RemoteSupportActivationStateEnabled - Remote Support is enabled.
+	RemoteSupportActivationStateEnabled RemoteSupportActivationState = "Enabled"
+	// RemoteSupportActivationStateExpired - Remote Support has Expired.
+	RemoteSupportActivationStateExpired RemoteSupportActivationState = "Expired"
+)
+
+// PossibleRemoteSupportActivationStateValues returns the possible values for the RemoteSupportActivationState const type.
+func PossibleRemoteSupportActivationStateValues() []RemoteSupportActivationState {
+	return []RemoteSupportActivationState{
+		RemoteSupportActivationStateDisabled,
+		RemoteSupportActivationStateEnabled,
+		RemoteSupportActivationStateExpired,
+	}
+}
+
+type RetainmentPolicyMode string
+
+const (
+	// RetainmentPolicyModeAll - Persist all 'retain' messages.
+	RetainmentPolicyModeAll RetainmentPolicyMode = "All"
+	// RetainmentPolicyModeCustom - Persist only the specified topics.
+	RetainmentPolicyModeCustom RetainmentPolicyMode = "Custom"
+	// RetainmentPolicyModeNone - Persist no messages.
+	RetainmentPolicyModeNone RetainmentPolicyMode = "None"
+)
+
+// PossibleRetainmentPolicyModeValues returns the possible values for the RetainmentPolicyMode const type.
+func PossibleRetainmentPolicyModeValues() []RetainmentPolicyMode {
+	return []RetainmentPolicyMode{
+		RetainmentPolicyModeAll,
+		RetainmentPolicyModeCustom,
+		RetainmentPolicyModeNone,
 	}
 }
 

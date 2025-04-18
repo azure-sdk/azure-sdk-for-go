@@ -88,6 +88,14 @@ func (c *ClientFactory) NewDataflowProfileClient() *DataflowProfileClient {
 	}
 }
 
+// NewDiagnosticClient creates a new instance of DiagnosticClient.
+func (c *ClientFactory) NewDiagnosticClient() *DiagnosticClient {
+	return &DiagnosticClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewInstanceClient creates a new instance of InstanceClient.
 func (c *ClientFactory) NewInstanceClient() *InstanceClient {
 	return &InstanceClient{

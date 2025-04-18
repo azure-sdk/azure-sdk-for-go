@@ -282,6 +282,9 @@ type BrokerProperties struct {
 	// Memory profile of Broker.
 	MemoryProfile *BrokerMemoryProfile
 
+	// The persistence settings of the Broker.
+	Persistence *Persistence
+
 	// READ-ONLY; The status of the last operation.
 	ProvisioningState *ProvisioningState
 }
@@ -418,6 +421,59 @@ type ClientConfig struct {
 
 	// The limit on the number of queued messages for a subscriber.
 	SubscriberQueueLimit *SubscriberQueueLimit
+}
+
+// CustomStateStoreRetainmentPolicy - Custom State Store Retainment Policy
+type CustomStateStoreRetainmentPolicy struct {
+	// CONSTANT; The mode of the retainment policy.
+	// Field has constant value RetainmentPolicyModeCustom, any specified value is ignored.
+	Mode *RetainmentPolicyMode
+
+	// Settings for the retainment policy.
+	StateStoreSettings *StateStoreRetainmentSettings
+}
+
+// GetStateStoreRetainmentPolicy implements the StateStoreRetainmentPolicyClassification interface for type CustomStateStoreRetainmentPolicy.
+func (c *CustomStateStoreRetainmentPolicy) GetStateStoreRetainmentPolicy() *StateStoreRetainmentPolicy {
+	return &StateStoreRetainmentPolicy{
+		Mode:               c.Mode,
+		StateStoreSettings: c.StateStoreSettings,
+	}
+}
+
+// CustomSubscriberQueueRetainmentPolicy - Custom Subscriber Queue Retainment Policy
+type CustomSubscriberQueueRetainmentPolicy struct {
+	// CONSTANT; The mode of the retainment policy.
+	// Field has constant value RetainmentPolicyModeCustom, any specified value is ignored.
+	Mode *RetainmentPolicyMode
+
+	// Settings for the retainment policy.
+	SubscriberQueueSettings *SubscriberQueueRetainmentSettings
+}
+
+// GetSubscriberQueueRetainmentPolicy implements the SubscriberQueueRetainmentPolicyClassification interface for type CustomSubscriberQueueRetainmentPolicy.
+func (c *CustomSubscriberQueueRetainmentPolicy) GetSubscriberQueueRetainmentPolicy() *SubscriberQueueRetainmentPolicy {
+	return &SubscriberQueueRetainmentPolicy{
+		Mode:                    c.Mode,
+		SubscriberQueueSettings: c.SubscriberQueueSettings,
+	}
+}
+
+// CustomTopicRetainmentPolicy - Custom Retainment Policy
+type CustomTopicRetainmentPolicy struct {
+	// CONSTANT; The mode of the retainment policy.
+	// Field has constant value RetainmentPolicyModeCustom, any specified value is ignored.
+	Mode *RetainmentPolicyMode
+
+	// Settings for the retainment policy.
+	RetainSettings *TopicRetainmentSettings
+}
+
+// GetTopicRetainmentPolicy implements the TopicRetainmentPolicyClassification interface for type CustomTopicRetainmentPolicy.
+func (c *CustomTopicRetainmentPolicy) GetTopicRetainmentPolicy() *TopicRetainmentPolicy {
+	return &TopicRetainmentPolicy{
+		Mode: c.Mode,
+	}
 }
 
 // DataflowBuiltInTransformationDataset - Dataflow BuiltIn Transformation dataset properties
@@ -772,6 +828,21 @@ type DataflowEndpointMqttAuthentication struct {
 	X509CertificateSettings *DataflowEndpointAuthenticationX509
 }
 
+// DataflowEndpointOtel - OpenTelemetry endpoint properties
+type DataflowEndpointOtel struct {
+	// REQUIRED; Host of the OpenTelemetry in the form of <host>:<port>.
+	Host *string
+
+	// Batching configuration.
+	Batching *BatchingConfiguration
+
+	// The number of seconds to wait before sending metrics to the Otel collector.
+	MetricIntervalSec *int32
+
+	// TLS configuration.
+	TLS *TLSProperties
+}
+
 // DataflowEndpointProperties - DataflowEndpoint Resource properties. NOTE - Only one type of endpoint is supported for one
 // Resource
 type DataflowEndpointProperties struct {
@@ -795,6 +866,9 @@ type DataflowEndpointProperties struct {
 
 	// Broker endpoint.
 	MqttSettings *DataflowEndpointMqtt
+
+	// OpenTelemetry endpoint.
+	OtelSettings *DataflowEndpointOtel
 
 	// READ-ONLY; The status of the last operation.
 	ProvisioningState *ProvisioningState
@@ -950,6 +1024,45 @@ type DataflowSourceOperationSettings struct {
 	SerializationFormat *SourceSerializationFormat
 }
 
+// DiagnosticProperties - Diagnostic Resource properties
+type DiagnosticProperties struct {
+	// Remote Support Settings For Diagnostic.
+	RemoteSupport *RemoteSupportProperties
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+}
+
+// DiagnosticResource - Instance diagnostic resource
+type DiagnosticResource struct {
+	// REQUIRED; Edge location of the resource.
+	ExtendedLocation *ExtendedLocation
+
+	// The resource-specific properties for this resource.
+	Properties *DiagnosticProperties
+
+	// READ-ONLY; Name of Instance diagnostic resource
+	Name *string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// DiagnosticResourceListResult - The response of a DiagnosticResource list operation.
+type DiagnosticResourceListResult struct {
+	// REQUIRED; The DiagnosticResource items on this page
+	Value []*DiagnosticResource
+
+	// The link to the next page of items
+	NextLink *string
+}
+
 // DiagnosticsLogs - Diagnostic Log properties
 type DiagnosticsLogs struct {
 	// The log level. Examples - 'debug', 'info', 'warn', 'error', 'trace'.
@@ -970,6 +1083,23 @@ type DiskBackedMessageBuffer struct {
 
 	// Use the specified persistent volume claim template to mount a persistent volume for the message buffer.
 	PersistentVolumeClaimSpec *VolumeClaimSpec
+}
+
+// DynamicPersistenceSettings - Client sets the specified user property key/value in the CONNECT/SUBSCRIBE/PUBLISH
+// Optional, default shown If customer specify a user property, it will work to enable persistence dynamically, in addition
+// to the default user property "aio-persistence"
+type DynamicPersistenceSettings struct {
+	// The user property key to enable persistence.
+	UserPropertyKey *string
+
+	// The user property value to enable persistence.
+	UserPropertyValue *string
+}
+
+// DynamicRetainmentSettings - Dynamic settings of the persistence.
+type DynamicRetainmentSettings struct {
+	// The mode of the retainment policy.
+	Mode *OperationalMode
 }
 
 // ExtendedLocation - Extended location is an extension of Azure locations. They provide a way to use their Azure ARC enabled
@@ -997,6 +1127,15 @@ type GenerateResourceLimits struct {
 	CPU *OperationalMode
 }
 
+// InstanceFeature - The features of the AIO Instance.
+type InstanceFeature struct {
+	// The state of the feature.
+	Mode *InstanceFeatureMode
+
+	// The settings of the feature.
+	Settings map[string]*OperationalMode
+}
+
 // InstancePatchModel - The Instance update model.
 type InstancePatchModel struct {
 	// The managed service identities assigned to this resource.
@@ -1011,11 +1150,20 @@ type InstanceProperties struct {
 	// REQUIRED; The reference to the Schema Registry for this AIO Instance.
 	SchemaRegistryRef *SchemaRegistryRef
 
+	// The Azure Device Registry Namespace used by Assets, Discovered Assets and devices
+	AdrNamespace *string
+
 	// Detailed description of the Instance.
 	Description *string
 
+	// The features of the AIO Instance.
+	Features map[string]*InstanceFeature
+
 	// READ-ONLY; The status of the last operation.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; The reference to the AIO Secret provider class.
+	SecretProviderClassRef *string
 
 	// READ-ONLY; The Azure IoT Operations version.
 	Version *string
@@ -1134,11 +1282,11 @@ type Metrics struct {
 
 // Operation - Details of a REST API operation, returned from the Resource Provider Operations API
 type Operation struct {
-	// Extensible enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
-	ActionType *ActionType
-
-	// READ-ONLY; Localized display information for this particular operation.
+	// Localized display information for this particular operation.
 	Display *OperationDisplay
+
+	// READ-ONLY; Extensible enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+	ActionType *ActionType
 
 	// READ-ONLY; Whether the operation applies to data-plane. This is "true" for data-plane operations and "false" for Azure
 	// Resource Manager/control-plane operations.
@@ -1181,6 +1329,41 @@ type OperationListResult struct {
 	NextLink *string
 }
 
+// Persistence - Disk persistence configuration.
+// When persistence is enabled, certain items (non-performance-critical data) selected for persistence will reside only on
+// disk. Below are the affected items:
+// - Retained messages will be stored on disk only.
+// - WILL messages will be stored on disk only.
+// - DSS key/value pairs will be stored on disk only, except for performance-critical items like timed locks, which remain
+// in both disk and memory for improved performance.
+// Optional. Everything is in-memory if not set.
+// Note: if configured, all MQTT session states are written to disk.
+type Persistence struct {
+	// REQUIRED; The max size of the message buffer on disk. If a PVC template is specified using persistentVolumeClaimSpec Then
+	// this size is used as the request and limit sizes of that template If a PVC template isn't specified Then local-path provisioner
+	// is requested with this size limit Required.
+	MaxSize *string
+
+	// Dynamic settings of the persistence.
+	DynamicSettings *DynamicPersistenceSettings
+
+	// Use the specified persistent volume claim template to mount a persistent volume Same object as in diskBackedMessageBuffer,
+	// but with a limitation that access modes field must be set to `ReadWriteOncePod`.
+	// If unset, a default PVC with default properties will be used. Among other things this PVC will use the cluster default
+	// storage class, which may or may not be using a local path provisioner. User is opting in to sub-optimal behavior if they
+	// leave this unset or set it without the storage class field, and their cluster default is not a local path class.
+	PersistentVolumeClaimSpec *VolumeClaimSpec
+
+	// Controls which topic's retained messages should be persisted to disk.
+	Retain TopicRetainmentPolicyClassification
+
+	// Controls which keys should be persisted to disk for the state store
+	StateStore StateStoreRetainmentPolicyClassification
+
+	// Custom policy, required if mode is Custom Subscriber queues from all groups are persisted to disk (logical OR)
+	SubscriberQueue SubscriberQueueRetainmentPolicyClassification
+}
+
 // PrincipalDefinition properties of Rule
 type PrincipalDefinition struct {
 	// A list of key-value pairs that match the attributes of the clients. The attributes are case-sensitive and must match the
@@ -1203,6 +1386,18 @@ type ProfileDiagnostics struct {
 
 	// The metrics settings for the resource.
 	Metrics *Metrics
+}
+
+// RemoteSupportProperties - RemoteSupport properties
+type RemoteSupportProperties struct {
+	// Access level for Diagnostic.
+	AccessLevel *RemoteSupportAccessLevels
+
+	// Expiration timestamp for Diagnostic.
+	ExpirationTimestamp *string
+
+	// Activation state of Diagnostic.
+	State *RemoteSupportActivationState
 }
 
 // SanForCert - Subject Alternative Names (SANs) for certificate.
@@ -1255,6 +1450,39 @@ type StateStoreResourceRule struct {
 	Method *StateStoreResourceDefinitionMethods
 }
 
+// StateStoreRetainmentPolicy - State Store Retainment Policy
+type StateStoreRetainmentPolicy struct {
+	// REQUIRED; The mode of the retainment policy.
+	Mode *RetainmentPolicyMode
+
+	// Settings for the retainment policy.
+	StateStoreSettings *StateStoreRetainmentSettings
+}
+
+// GetStateStoreRetainmentPolicy implements the StateStoreRetainmentPolicyClassification interface for type StateStoreRetainmentPolicy.
+func (s *StateStoreRetainmentPolicy) GetStateStoreRetainmentPolicy() *StateStoreRetainmentPolicy {
+	return s
+}
+
+// StateStoreRetainmentResources - State Store Retainment resources properties
+type StateStoreRetainmentResources struct {
+	// REQUIRED; The key to persist to disk
+	KeyType *string
+
+	// REQUIRED; List of keys to persist to disk, required
+	Keys []*string
+}
+
+// StateStoreRetainmentSettings - State Store Retainment settings properties
+type StateStoreRetainmentSettings struct {
+	// Controls if MQTT clients can request for disk persistence via `MQTTv5` user property Works in addition to other groups
+	// (logical OR)
+	Dynamic *DynamicRetainmentSettings
+
+	// List of key and key type to persist to disk
+	StateStoreResources []*StateStoreRetainmentResources
+}
+
 // SubscriberQueueLimit - The settings of Subscriber Queue Limit.
 type SubscriberQueueLimit struct {
 	// The maximum length of the queue before messages start getting dropped.
@@ -1262,6 +1490,33 @@ type SubscriberQueueLimit struct {
 
 	// The strategy to use for dropping messages from the queue.
 	Strategy *SubscriberMessageDropStrategy
+}
+
+// SubscriberQueueRetainmentPolicy - Subscriber Queue Retainment Policy
+type SubscriberQueueRetainmentPolicy struct {
+	// REQUIRED; The mode of the retainment policy.
+	Mode *RetainmentPolicyMode
+
+	// Settings for the retainment policy.
+	SubscriberQueueSettings *SubscriberQueueRetainmentSettings
+}
+
+// GetSubscriberQueueRetainmentPolicy implements the SubscriberQueueRetainmentPolicyClassification interface for type SubscriberQueueRetainmentPolicy.
+func (s *SubscriberQueueRetainmentPolicy) GetSubscriberQueueRetainmentPolicy() *SubscriberQueueRetainmentPolicy {
+	return s
+}
+
+// SubscriberQueueRetainmentSettings - Subscriber Queue Retainment settings properties
+type SubscriberQueueRetainmentSettings struct {
+	// Controls if MQTT clients can request for disk persistence via `MQTTv5` user property Works in addition to other groups
+	// (logical OR)
+	Dynamic *DynamicRetainmentSettings
+
+	// List of client IDs of the subscribers, wildcard * supported
+	SubscriberClientIDs []*string
+
+	// List of topics under which messages would be persisted to disk for each subscriber Wildcards # and + supported
+	Topics []*string
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
@@ -1306,6 +1561,25 @@ type TLSProperties struct {
 	TrustedCaCertificateConfigMapRef *string
 }
 
+// TopicRetainmentPolicy - Retainment policy properties
+type TopicRetainmentPolicy struct {
+	// REQUIRED; The mode of the retainment policy.
+	Mode *RetainmentPolicyMode
+}
+
+// GetTopicRetainmentPolicy implements the TopicRetainmentPolicyClassification interface for type TopicRetainmentPolicy.
+func (t *TopicRetainmentPolicy) GetTopicRetainmentPolicy() *TopicRetainmentPolicy { return t }
+
+// TopicRetainmentSettings - Retainment settings properties
+type TopicRetainmentSettings struct {
+	// Controls if MQTT clients can request for disk persistence via `MQTTv5` user property Works in addition to other groups
+	// (logical OR)
+	Dynamic *DynamicRetainmentSettings
+
+	// List of topics under which retained messages would be persisted to disk Wildcards # and + supported
+	Topics []*string
+}
+
 // Traces - Broker Diagnostic Trace properties
 type Traces struct {
 	// The cache size in megabytes.
@@ -1332,12 +1606,26 @@ type UserAssignedIdentity struct {
 
 // VolumeClaimResourceRequirements properties
 type VolumeClaimResourceRequirements struct {
+	// Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
+	// This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+	// This field is immutable. It can only be set for containers.
+	Claims []*VolumeClaimResourceRequirementsClaims
+
 	// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 	Limits map[string]*string
 
 	// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults
 	// to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 	Requests map[string]*string
+}
+
+// VolumeClaimResourceRequirementsClaims properties
+type VolumeClaimResourceRequirementsClaims struct {
+	// REQUIRED; Name of the resource. This must match the name of a resource in spec.resourceClaims.
+	Name *string
+
+	// The amount of compute resources required.
+	Resources *VolumeClaimResourceRequirements
 }
 
 // VolumeClaimSpec properties
