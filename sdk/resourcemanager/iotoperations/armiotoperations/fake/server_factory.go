@@ -36,6 +36,9 @@ type ServerFactory struct {
 	// DataflowProfileServer contains the fakes for client DataflowProfileClient
 	DataflowProfileServer DataflowProfileServer
 
+	// DiagnosticServer contains the fakes for client DiagnosticClient
+	DiagnosticServer DiagnosticServer
+
 	// InstanceServer contains the fakes for client InstanceClient
 	InstanceServer InstanceServer
 
@@ -64,6 +67,7 @@ type ServerFactoryTransport struct {
 	trDataflowServer             *DataflowServerTransport
 	trDataflowEndpointServer     *DataflowEndpointServerTransport
 	trDataflowProfileServer      *DataflowProfileServerTransport
+	trDiagnosticServer           *DiagnosticServerTransport
 	trInstanceServer             *InstanceServerTransport
 	trOperationsServer           *OperationsServerTransport
 }
@@ -112,6 +116,9 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewDataflowProfileServerTransport(&s.srv.DataflowProfileServer)
 		})
 		resp, err = s.trDataflowProfileServer.Do(req)
+	case "DiagnosticClient":
+		initServer(s, &s.trDiagnosticServer, func() *DiagnosticServerTransport { return NewDiagnosticServerTransport(&s.srv.DiagnosticServer) })
+		resp, err = s.trDiagnosticServer.Do(req)
 	case "InstanceClient":
 		initServer(s, &s.trInstanceServer, func() *InstanceServerTransport { return NewInstanceServerTransport(&s.srv.InstanceServer) })
 		resp, err = s.trInstanceServer.Do(req)

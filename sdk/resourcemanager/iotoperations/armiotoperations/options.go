@@ -172,6 +172,30 @@ type DataflowProfileClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
+// DiagnosticClientBeginCreateOrUpdateOptions contains the optional parameters for the DiagnosticClient.BeginCreateOrUpdate
+// method.
+type DiagnosticClientBeginCreateOrUpdateOptions struct {
+	// Resumes the long-running operation from the provided token.
+	ResumeToken string
+}
+
+// DiagnosticClientBeginDeleteOptions contains the optional parameters for the DiagnosticClient.BeginDelete method.
+type DiagnosticClientBeginDeleteOptions struct {
+	// Resumes the long-running operation from the provided token.
+	ResumeToken string
+}
+
+// DiagnosticClientGetOptions contains the optional parameters for the DiagnosticClient.Get method.
+type DiagnosticClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DiagnosticClientListByResourceGroupOptions contains the optional parameters for the DiagnosticClient.NewListByResourceGroupPager
+// method.
+type DiagnosticClientListByResourceGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
 // InstanceClientBeginCreateOrUpdateOptions contains the optional parameters for the InstanceClient.BeginCreateOrUpdate method.
 type InstanceClientBeginCreateOrUpdateOptions struct {
 	// Resumes the long-running operation from the provided token.

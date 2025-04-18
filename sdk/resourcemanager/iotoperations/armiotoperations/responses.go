@@ -165,6 +165,29 @@ type DataflowProfileClientListByResourceGroupResponse struct {
 	DataflowProfileResourceListResult
 }
 
+// DiagnosticClientCreateOrUpdateResponse contains the response from method DiagnosticClient.BeginCreateOrUpdate.
+type DiagnosticClientCreateOrUpdateResponse struct {
+	// Instance diagnostic resource
+	DiagnosticResource
+}
+
+// DiagnosticClientDeleteResponse contains the response from method DiagnosticClient.BeginDelete.
+type DiagnosticClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// DiagnosticClientGetResponse contains the response from method DiagnosticClient.Get.
+type DiagnosticClientGetResponse struct {
+	// Instance diagnostic resource
+	DiagnosticResource
+}
+
+// DiagnosticClientListByResourceGroupResponse contains the response from method DiagnosticClient.NewListByResourceGroupPager.
+type DiagnosticClientListByResourceGroupResponse struct {
+	// The response of a DiagnosticResource list operation.
+	DiagnosticResourceListResult
+}
+
 // InstanceClientCreateOrUpdateResponse contains the response from method InstanceClient.BeginCreateOrUpdate.
 type InstanceClientCreateOrUpdateResponse struct {
 	// A Instance resource is a logical container for a set of child resources.
