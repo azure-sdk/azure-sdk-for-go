@@ -1,6 +1,3 @@
-//go:build go1.18
-// +build go1.18
-
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -55,7 +52,7 @@ func NewInventoryItemsClient(subscriptionID string, credential azcore.TokenCrede
 // Create - Create Or Update InventoryItem.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 //   - resourceGroupName - The Resource Group Name.
 //   - vcenterName - Name of the vCenter.
 //   - inventoryItemName - Name of the inventoryItem.
@@ -84,7 +81,7 @@ func (client *InventoryItemsClient) Create(ctx context.Context, resourceGroupNam
 }
 
 // createCreateRequest creates the Create request.
-func (client *InventoryItemsClient) createCreateRequest(ctx context.Context, resourceGroupName string, vcenterName string, inventoryItemName string, body InventoryItem, options *InventoryItemsClientCreateOptions) (*policy.Request, error) {
+func (client *InventoryItemsClient) createCreateRequest(ctx context.Context, resourceGroupName string, vcenterName string, inventoryItemName string, body InventoryItem, _ *InventoryItemsClientCreateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/vcenters/{vcenterName}/inventoryItems/{inventoryItemName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -107,7 +104,7 @@ func (client *InventoryItemsClient) createCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -128,7 +125,7 @@ func (client *InventoryItemsClient) createHandleResponse(resp *http.Response) (I
 // Delete - Implements inventoryItem DELETE method.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 //   - resourceGroupName - The Resource Group Name.
 //   - vcenterName - Name of the vCenter.
 //   - inventoryItemName - Name of the inventoryItem.
@@ -155,7 +152,7 @@ func (client *InventoryItemsClient) Delete(ctx context.Context, resourceGroupNam
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *InventoryItemsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, vcenterName string, inventoryItemName string, options *InventoryItemsClientDeleteOptions) (*policy.Request, error) {
+func (client *InventoryItemsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, vcenterName string, inventoryItemName string, _ *InventoryItemsClientDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/vcenters/{vcenterName}/inventoryItems/{inventoryItemName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -178,7 +175,7 @@ func (client *InventoryItemsClient) deleteCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -187,7 +184,7 @@ func (client *InventoryItemsClient) deleteCreateRequest(ctx context.Context, res
 // Get - Implements InventoryItem GET method.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 //   - resourceGroupName - The Resource Group Name.
 //   - vcenterName - Name of the vCenter.
 //   - inventoryItemName - Name of the inventoryItem.
@@ -215,7 +212,7 @@ func (client *InventoryItemsClient) Get(ctx context.Context, resourceGroupName s
 }
 
 // getCreateRequest creates the Get request.
-func (client *InventoryItemsClient) getCreateRequest(ctx context.Context, resourceGroupName string, vcenterName string, inventoryItemName string, options *InventoryItemsClientGetOptions) (*policy.Request, error) {
+func (client *InventoryItemsClient) getCreateRequest(ctx context.Context, resourceGroupName string, vcenterName string, inventoryItemName string, _ *InventoryItemsClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/vcenters/{vcenterName}/inventoryItems/{inventoryItemName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -238,7 +235,7 @@ func (client *InventoryItemsClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -255,7 +252,7 @@ func (client *InventoryItemsClient) getHandleResponse(resp *http.Response) (Inve
 
 // NewListByVCenterPager - Returns the list of inventoryItems of the given vCenter.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 //   - resourceGroupName - The Resource Group Name.
 //   - vcenterName - Name of the vCenter.
 //   - options - InventoryItemsClientListByVCenterOptions contains the optional parameters for the InventoryItemsClient.NewListByVCenterPager
@@ -284,7 +281,7 @@ func (client *InventoryItemsClient) NewListByVCenterPager(resourceGroupName stri
 }
 
 // listByVCenterCreateRequest creates the ListByVCenter request.
-func (client *InventoryItemsClient) listByVCenterCreateRequest(ctx context.Context, resourceGroupName string, vcenterName string, options *InventoryItemsClientListByVCenterOptions) (*policy.Request, error) {
+func (client *InventoryItemsClient) listByVCenterCreateRequest(ctx context.Context, resourceGroupName string, vcenterName string, _ *InventoryItemsClientListByVCenterOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/vcenters/{vcenterName}/inventoryItems"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -303,7 +300,7 @@ func (client *InventoryItemsClient) listByVCenterCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
