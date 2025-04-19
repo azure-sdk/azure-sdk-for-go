@@ -1,5 +1,13 @@
 # Release History
 
+## 6.3.0 (2025-04-19)
+### Features Added
+
+- New function `*VPNServerConfigurationsClient.ListRadiusSecrets(context.Context, string, string, *VPNServerConfigurationsClientListRadiusSecretsOptions) (VPNServerConfigurationsClientListRadiusSecretsResponse, error)`
+- New function `*VirtualNetworkGatewaysClient.ListRadiusSecrets(context.Context, string, string, *VirtualNetworkGatewaysClientListRadiusSecretsOptions) (VirtualNetworkGatewaysClientListRadiusSecretsResponse, error)`
+- New struct `RadiusAuthServer`
+
+
 ## 6.2.0 (2024-12-09)
 ### Features Added
 
