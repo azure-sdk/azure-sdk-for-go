@@ -7,7 +7,7 @@ package armhybridconnectivity_test
 import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hybridconnectivity/armhybridconnectivity"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hybridconnectivity/armhybridconnectivity/v2"
 	"log"
 )
 
@@ -18,11 +18,11 @@ func ExampleServiceConfigurationsClient_CreateOrupdate_serviceConfigurationsPutS
 		log.Fatalf("failed to obtain a credential: %v", err)
 	}
 	ctx := context.Background()
-	clientFactory, err := armhybridconnectivity.NewClientFactory(cred, nil)
+	clientFactory, err := armhybridconnectivity.NewClientFactory("<subscriptionID>", cred, nil)
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	res, err := clientFactory.NewServiceConfigurationsClient().CreateOrupdate(ctx, "subscriptions/f5bcc1d9-23af-4ae9-aca1-041d0f593a63/resourceGroups/hybridRG/providers/Microsoft.HybridCompute/machines/testMachine/providers/Microsoft.HybridConnectivity/endpoints/default", "default", "SSH", armhybridconnectivity.ServiceConfigurationResource{}, nil)
+	res, err := clientFactory.NewServiceConfigurationsClient().CreateOrupdate(ctx, "subscriptions/f5bcc1d9-23af-4ae9-aca1-041d0f593a63/resourceGroups/hybridRG/providers/Microsoft.HybridCompute/machines/testMachine/providers/Microsoft.HybridConnectivity/endpoints/default", "default", "SSH", nil)
 	if err != nil {
 		log.Fatalf("failed to finish the request: %v", err)
 	}
@@ -49,11 +49,11 @@ func ExampleServiceConfigurationsClient_CreateOrupdate_serviceConfigurationsPutW
 		log.Fatalf("failed to obtain a credential: %v", err)
 	}
 	ctx := context.Background()
-	clientFactory, err := armhybridconnectivity.NewClientFactory(cred, nil)
+	clientFactory, err := armhybridconnectivity.NewClientFactory("<subscriptionID>", cred, nil)
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	res, err := clientFactory.NewServiceConfigurationsClient().CreateOrupdate(ctx, "subscriptions/f5bcc1d9-23af-4ae9-aca1-041d0f593a63/resourceGroups/hybridRG/providers/Microsoft.HybridCompute/machines/testMachine/providers/Microsoft.HybridConnectivity/endpoints/default", "default", "WAC", armhybridconnectivity.ServiceConfigurationResource{}, nil)
+	res, err := clientFactory.NewServiceConfigurationsClient().CreateOrupdate(ctx, "subscriptions/f5bcc1d9-23af-4ae9-aca1-041d0f593a63/resourceGroups/hybridRG/providers/Microsoft.HybridCompute/machines/testMachine/providers/Microsoft.HybridConnectivity/endpoints/default", "default", "WAC", nil)
 	if err != nil {
 		log.Fatalf("failed to finish the request: %v", err)
 	}
@@ -80,7 +80,7 @@ func ExampleServiceConfigurationsClient_Delete() {
 		log.Fatalf("failed to obtain a credential: %v", err)
 	}
 	ctx := context.Background()
-	clientFactory, err := armhybridconnectivity.NewClientFactory(cred, nil)
+	clientFactory, err := armhybridconnectivity.NewClientFactory("<subscriptionID>", cred, nil)
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
@@ -102,7 +102,7 @@ func ExampleServiceConfigurationsClient_Get_hybridConnectivityEndpointsServiceco
 		log.Fatalf("failed to obtain a credential: %v", err)
 	}
 	ctx := context.Background()
-	clientFactory, err := armhybridconnectivity.NewClientFactory(cred, nil)
+	clientFactory, err := armhybridconnectivity.NewClientFactory("<subscriptionID>", cred, nil)
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
@@ -132,7 +132,7 @@ func ExampleServiceConfigurationsClient_Get_hybridConnectivityEndpointsServiceco
 		log.Fatalf("failed to obtain a credential: %v", err)
 	}
 	ctx := context.Background()
-	clientFactory, err := armhybridconnectivity.NewClientFactory(cred, nil)
+	clientFactory, err := armhybridconnectivity.NewClientFactory("<subscriptionID>", cred, nil)
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
@@ -162,7 +162,7 @@ func ExampleServiceConfigurationsClient_NewListByEndpointResourcePager() {
 		log.Fatalf("failed to obtain a credential: %v", err)
 	}
 	ctx := context.Background()
-	clientFactory, err := armhybridconnectivity.NewClientFactory(cred, nil)
+	clientFactory, err := armhybridconnectivity.NewClientFactory("<subscriptionID>", cred, nil)
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
@@ -209,11 +209,11 @@ func ExampleServiceConfigurationsClient_Update() {
 		log.Fatalf("failed to obtain a credential: %v", err)
 	}
 	ctx := context.Background()
-	clientFactory, err := armhybridconnectivity.NewClientFactory(cred, nil)
+	clientFactory, err := armhybridconnectivity.NewClientFactory("<subscriptionID>", cred, nil)
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	res, err := clientFactory.NewServiceConfigurationsClient().Update(ctx, "subscriptions/f5bcc1d9-23af-4ae9-aca1-041d0f593a63/resourceGroups/hybridRG/providers/Microsoft.HybridCompute/machines/testMachine/providers/Microsoft.HybridConnectivity/endpoints/default", "default", "SSH", armhybridconnectivity.ServiceConfigurationResourcePatch{}, nil)
+	res, err := clientFactory.NewServiceConfigurationsClient().Update(ctx, "subscriptions/f5bcc1d9-23af-4ae9-aca1-041d0f593a63/resourceGroups/hybridRG/providers/Microsoft.HybridCompute/machines/testMachine/providers/Microsoft.HybridConnectivity/endpoints/default", "default", "SSH", nil)
 	if err != nil {
 		log.Fatalf("failed to finish the request: %v", err)
 	}
