@@ -1,5 +1,37 @@
 # Release History
 
+## 2.3.0-beta.1 (2025-04-21)
+### Features Added
+
+- New function `*ClientFactory.NewSMTPUsernamesClient() *SMTPUsernamesClient`
+- New function `*ClientFactory.NewSuppressionListAddressesClient() *SuppressionListAddressesClient`
+- New function `*ClientFactory.NewSuppressionListsClient() *SuppressionListsClient`
+- New function `NewSMTPUsernamesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SMTPUsernamesClient, error)`
+- New function `*SMTPUsernamesClient.CreateOrUpdate(context.Context, string, string, string, SMTPUsernameResource, *SMTPUsernamesClientCreateOrUpdateOptions) (SMTPUsernamesClientCreateOrUpdateResponse, error)`
+- New function `*SMTPUsernamesClient.Delete(context.Context, string, string, string, *SMTPUsernamesClientDeleteOptions) (SMTPUsernamesClientDeleteResponse, error)`
+- New function `*SMTPUsernamesClient.Get(context.Context, string, string, string, *SMTPUsernamesClientGetOptions) (SMTPUsernamesClientGetResponse, error)`
+- New function `*SMTPUsernamesClient.NewListPager(string, string, *SMTPUsernamesClientListOptions) *runtime.Pager[SMTPUsernamesClientListResponse]`
+- New function `NewSuppressionListAddressesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SuppressionListAddressesClient, error)`
+- New function `*SuppressionListAddressesClient.CreateOrUpdate(context.Context, string, string, string, string, string, SuppressionListAddressResource, *SuppressionListAddressesClientCreateOrUpdateOptions) (SuppressionListAddressesClientCreateOrUpdateResponse, error)`
+- New function `*SuppressionListAddressesClient.Delete(context.Context, string, string, string, string, string, *SuppressionListAddressesClientDeleteOptions) (SuppressionListAddressesClientDeleteResponse, error)`
+- New function `*SuppressionListAddressesClient.Get(context.Context, string, string, string, string, string, *SuppressionListAddressesClientGetOptions) (SuppressionListAddressesClientGetResponse, error)`
+- New function `*SuppressionListAddressesClient.NewListPager(string, string, string, string, *SuppressionListAddressesClientListOptions) *runtime.Pager[SuppressionListAddressesClientListResponse]`
+- New function `NewSuppressionListsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SuppressionListsClient, error)`
+- New function `*SuppressionListsClient.CreateOrUpdate(context.Context, string, string, string, string, SuppressionListResource, *SuppressionListsClientCreateOrUpdateOptions) (SuppressionListsClientCreateOrUpdateResponse, error)`
+- New function `*SuppressionListsClient.Delete(context.Context, string, string, string, string, *SuppressionListsClientDeleteOptions) (SuppressionListsClientDeleteResponse, error)`
+- New function `*SuppressionListsClient.Get(context.Context, string, string, string, string, *SuppressionListsClientGetOptions) (SuppressionListsClientGetResponse, error)`
+- New function `*SuppressionListsClient.NewListByDomainPager(string, string, string, *SuppressionListsClientListByDomainOptions) *runtime.Pager[SuppressionListsClientListByDomainResponse]`
+- New struct `SMTPUsernameProperties`
+- New struct `SMTPUsernameResource`
+- New struct `SMTPUsernameResourceCollection`
+- New struct `SuppressionListAddressProperties`
+- New struct `SuppressionListAddressResource`
+- New struct `SuppressionListAddressResourceCollection`
+- New struct `SuppressionListProperties`
+- New struct `SuppressionListResource`
+- New struct `SuppressionListResourceCollection`
+
+
 ## 2.2.0 (2024-03-22)
 ### Features Added
 
