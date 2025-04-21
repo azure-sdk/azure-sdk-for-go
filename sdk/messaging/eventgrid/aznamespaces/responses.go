@@ -4,40 +4,44 @@
 
 package aznamespaces
 
-// AcknowledgeEventsResponse contains the response from method ReceiverClient.AcknowledgeEvents.
-type AcknowledgeEventsResponse struct {
+// ReceiverClientAcknowledgeEventsResponse contains the response from method ReceiverClient.AcknowledgeEvents.
+type ReceiverClientAcknowledgeEventsResponse struct {
 	// The result of the Acknowledge operation.
-	AcknowledgeEventsResult
+	AcknowledgeResult
 }
 
-// ReceiveEventsResponse contains the response from method ReceiverClient.ReceiveEvents.
-type ReceiveEventsResponse struct {
+// ReceiverClientReceiveEventsResponse contains the response from method ReceiverClient.ReceiveEvents.
+type ReceiverClientReceiveEventsResponse struct {
 	// Details of the Receive operation response.
-	ReceiveEventsResult
+	ReceiveResult
 }
 
-// RejectEventsResponse contains the response from method ReceiverClient.RejectEvents.
-type RejectEventsResponse struct {
+// ReceiverClientRejectEventsResponse contains the response from method ReceiverClient.RejectEvents.
+type ReceiverClientRejectEventsResponse struct {
 	// The result of the Reject operation.
-	RejectEventsResult
+	RejectResult
 }
 
-// ReleaseEventsResponse contains the response from method ReceiverClient.ReleaseEvents.
-type ReleaseEventsResponse struct {
+// ReceiverClientReleaseEventsResponse contains the response from method ReceiverClient.ReleaseEvents.
+type ReceiverClientReleaseEventsResponse struct {
 	// The result of the Release operation.
-	ReleaseEventsResult
+	ReleaseResult
 }
 
-// RenewEventLocksResponse contains the response from method ReceiverClient.RenewEventLocks.
-type RenewEventLocksResponse struct {
+// ReceiverClientRenewEventLocksResponse contains the response from method ReceiverClient.RenewEventLocks.
+type ReceiverClientRenewEventLocksResponse struct {
 	// The result of the RenewLock operation.
-	RenewEventLocksResult
+	RenewLocksResult
 }
 
-// SendEventResponse contains the response from method SenderClient.SendEvent.
-type SendEventResponse struct {
+// SenderClientSendEventResponse contains the response from method SenderClient.SendEvent.
+type SenderClientSendEventResponse struct {
+	// The result of the Publish operation.
+	PublishResult
 }
 
-// SendEventsResponse contains the response from method SenderClient.SendEvents.
-type SendEventsResponse struct {
+// SenderClientSendEventsResponse contains the response from method SenderClient.SendEvents.
+type SenderClientSendEventsResponse struct {
+	// The result of the Publish operation.
+	PublishResult
 }
