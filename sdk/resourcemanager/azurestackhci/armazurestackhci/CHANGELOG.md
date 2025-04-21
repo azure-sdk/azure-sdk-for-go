@@ -1,5 +1,71 @@
 # Release History
 
+## 3.0.0-beta.1 (2025-04-21)
+### Breaking Changes
+
+- Operation `*OperationsClient.List` has supported pagination, use `*OperationsClient.NewListPager` instead.
+
+### Features Added
+
+- New enum type `ClusterPattern` with values `ClusterPatternRackAware`, `ClusterPatternStandard`
+- New enum type `DeviceLogCollectionStatus` with values `DeviceLogCollectionStatusCanceled`, `DeviceLogCollectionStatusFailed`, `DeviceLogCollectionStatusNotStarted`, `DeviceLogCollectionStatusRunning`, `DeviceLogCollectionStatusSucceeded`
+- New enum type `EdgeDeviceKind` with values `EdgeDeviceKindHCI`
+- New enum type `HardwareClass` with values `HardwareClassLarge`, `HardwareClassMedium`, `HardwareClassSmall`
+- New enum type `HciEdgeDeviceJobType` with values `HciEdgeDeviceJobTypeCollectLog`, `HciEdgeDeviceJobTypeRemoteSupport`
+- New enum type `JobStatus` with values `JobStatusCanceled`, `JobStatusDeploymentFailed`, `JobStatusDeploymentInProgress`, `JobStatusDeploymentSuccess`, `JobStatusFailed`, `JobStatusNotSpecified`, `JobStatusPaused`, `JobStatusScheduled`, `JobStatusSucceeded`, `JobStatusValidationFailed`, `JobStatusValidationInProgress`, `JobStatusValidationSuccess`
+- New enum type `RdmaCapability` with values `RdmaCapabilityDisabled`, `RdmaCapabilityEnabled`
+- New enum type `RemoteSupportAccessLevel` with values `RemoteSupportAccessLevelDiagnostics`, `RemoteSupportAccessLevelDiagnosticsAndRepair`, `RemoteSupportAccessLevelNone`
+- New enum type `SecretsType` with values `SecretsTypeBackupSecrets`
+- New function `*ClientFactory.NewEdgeDeviceJobsClient() *EdgeDeviceJobsClient`
+- New function `*ClientFactory.NewValidatedSolutionRecipesClient() *ValidatedSolutionRecipesClient`
+- New function `*ClustersClient.BeginUpdateSecretsLocations(context.Context, string, string, SecretsLocationsChangeRequest, *ClustersClientBeginUpdateSecretsLocationsOptions) (*runtime.Poller[ClustersClientUpdateSecretsLocationsResponse], error)`
+- New function `*EdgeDeviceJob.GetEdgeDeviceJob() *EdgeDeviceJob`
+- New function `NewEdgeDeviceJobsClient(azcore.TokenCredential, *arm.ClientOptions) (*EdgeDeviceJobsClient, error)`
+- New function `*EdgeDeviceJobsClient.BeginCreateOrUpdate(context.Context, string, string, string, EdgeDeviceJobClassification, *EdgeDeviceJobsClientBeginCreateOrUpdateOptions) (*runtime.Poller[EdgeDeviceJobsClientCreateOrUpdateResponse], error)`
+- New function `*EdgeDeviceJobsClient.BeginDelete(context.Context, string, string, string, *EdgeDeviceJobsClientBeginDeleteOptions) (*runtime.Poller[EdgeDeviceJobsClientDeleteResponse], error)`
+- New function `*EdgeDeviceJobsClient.Get(context.Context, string, string, string, *EdgeDeviceJobsClientGetOptions) (EdgeDeviceJobsClientGetResponse, error)`
+- New function `*EdgeDeviceJobsClient.NewListByEdgeDevicePager(string, string, *EdgeDeviceJobsClientListByEdgeDeviceOptions) *runtime.Pager[EdgeDeviceJobsClientListByEdgeDeviceResponse]`
+- New function `*HciCollectLogJobProperties.GetHciEdgeDeviceJobProperties() *HciEdgeDeviceJobProperties`
+- New function `*HciEdgeDeviceJob.GetEdgeDeviceJob() *EdgeDeviceJob`
+- New function `*HciEdgeDeviceJobProperties.GetHciEdgeDeviceJobProperties() *HciEdgeDeviceJobProperties`
+- New function `*HciRemoteSupportJobProperties.GetHciEdgeDeviceJobProperties() *HciEdgeDeviceJobProperties`
+- New function `NewValidatedSolutionRecipesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ValidatedSolutionRecipesClient, error)`
+- New function `*ValidatedSolutionRecipesClient.Get(context.Context, string, string, *ValidatedSolutionRecipesClientGetOptions) (ValidatedSolutionRecipesClientGetResponse, error)`
+- New function `*ValidatedSolutionRecipesClient.NewListBySubscriptionLocationResourcePager(string, *ValidatedSolutionRecipesClientListBySubscriptionLocationResourceOptions) *runtime.Pager[ValidatedSolutionRecipesClientListBySubscriptionLocationResourceResponse]`
+- New struct `AssemblyInfo`
+- New struct `AssemblyInfoPayload`
+- New struct `EdgeDeviceJobListResult`
+- New struct `HciCollectLogJobProperties`
+- New struct `HciEdgeDeviceJob`
+- New struct `HciHardwareProfile`
+- New struct `HciRemoteSupportJobProperties`
+- New struct `HciStorageProfile`
+- New struct `LocalAvailabilityZones`
+- New struct `LogCollectionJobSession`
+- New struct `LogCollectionReportedProperties`
+- New struct `RemoteSupportJobNodeSettings`
+- New struct `RemoteSupportJobReportedProperties`
+- New struct `RemoteSupportSession`
+- New struct `SecretsLocationDetails`
+- New struct `SecretsLocationsChangeRequest`
+- New struct `ValidatedSolutionRecipe`
+- New struct `ValidatedSolutionRecipeCapabilities`
+- New struct `ValidatedSolutionRecipeCapability`
+- New struct `ValidatedSolutionRecipeComponent`
+- New struct `ValidatedSolutionRecipeComponentMetadata`
+- New struct `ValidatedSolutionRecipeComponentPayload`
+- New struct `ValidatedSolutionRecipeContent`
+- New struct `ValidatedSolutionRecipeInfo`
+- New struct `ValidatedSolutionRecipeListResult`
+- New struct `ValidatedSolutionRecipeProperties`
+- New field `ClusterPattern`, `LocalAvailabilityZones`, `SecretsLocations` in struct `ClusterProperties`
+- New field `HardwareClass` in struct `ClusterReportedProperties`
+- New field `ClusterPattern`, `HardwareClass` in struct `DeploymentCluster`
+- New field `AssemblyInfo`, `LocalAvailabilityZones` in struct `DeploymentData`
+- New field `RdmaCapability` in struct `HciNicDetail`
+- New field `HardwareProfile`, `StorageProfile` in struct `HciReportedProperties`
+
+
 ## 2.0.0 (2024-08-22)
 ### Breaking Changes
 
