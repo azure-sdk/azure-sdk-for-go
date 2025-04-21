@@ -53,7 +53,7 @@ func (client *Client) BeginFullBackup(ctx context.Context, azureStorageBlobConta
 // Generated from API version 7.6-preview.2
 func (client *Client) fullBackup(ctx context.Context, azureStorageBlobContainerURI SASTokenParameters, options *BeginFullBackupOptions) (*http.Response, error) {
 	var err error
-	ctx, endSpan := runtime.StartSpan(ctx, "backup.Client.BeginFullBackup", client.internal.Tracer(), nil)
+	ctx, endSpan := runtime.StartSpan(ctx, "Client.BeginFullBackup", client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.fullBackupCreateRequest(ctx, azureStorageBlobContainerURI, options)
 	if err != nil {
@@ -98,7 +98,21 @@ func (client *Client) fullBackupCreateRequest(ctx context.Context, azureStorageB
 //   - restoreBlobDetails - The Azure blob SAS token pointing to a folder where the previous successful full backup was stored.
 //   - options - BeginFullRestoreOptions contains the optional parameters for the Client.BeginFullRestore method.
 func (client *Client) BeginFullRestore(ctx context.Context, restoreBlobDetails RestoreOperationParameters, options *BeginFullRestoreOptions) (*runtime.Poller[FullRestoreResponse], error) {
-	return client.beginFullRestore(ctx, restoreBlobDetails, options)
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.fullRestore(ctx, restoreBlobDetails, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[FullRestoreResponse]{
+			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[FullRestoreResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
 }
 
 // FullRestore - Restores all key materials using the SAS token pointing to a previously stored Azure Blob storage backup
@@ -108,7 +122,7 @@ func (client *Client) BeginFullRestore(ctx context.Context, restoreBlobDetails R
 // Generated from API version 7.6-preview.2
 func (client *Client) fullRestore(ctx context.Context, restoreBlobDetails RestoreOperationParameters, options *BeginFullRestoreOptions) (*http.Response, error) {
 	var err error
-	ctx, endSpan := runtime.StartSpan(ctx, "backup.Client.BeginFullRestore", client.internal.Tracer(), nil)
+	ctx, endSpan := runtime.StartSpan(ctx, "Client.BeginFullRestore", client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.fullRestoreCreateRequest(ctx, restoreBlobDetails, options)
 	if err != nil {
@@ -175,7 +189,7 @@ func (client *Client) BeginPreFullBackup(ctx context.Context, preBackupOperation
 // Generated from API version 7.6-preview.2
 func (client *Client) preFullBackup(ctx context.Context, preBackupOperationParameters PreBackupOperationParameters, options *BeginPreFullBackupOptions) (*http.Response, error) {
 	var err error
-	ctx, endSpan := runtime.StartSpan(ctx, "backup.Client.BeginPreFullBackup", client.internal.Tracer(), nil)
+	ctx, endSpan := runtime.StartSpan(ctx, "Client.BeginPreFullBackup", client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.preFullBackupCreateRequest(ctx, preBackupOperationParameters, options)
 	if err != nil {
@@ -219,7 +233,21 @@ func (client *Client) preFullBackupCreateRequest(ctx context.Context, preBackupO
 //   - preRestoreOperationParameters - Optional pre restore parameters to validate prior to performing a full restore operation.
 //   - options - BeginPreFullRestoreOptions contains the optional parameters for the Client.BeginPreFullRestore method.
 func (client *Client) BeginPreFullRestore(ctx context.Context, preRestoreOperationParameters PreRestoreOperationParameters, options *BeginPreFullRestoreOptions) (*runtime.Poller[PreFullRestoreResponse], error) {
-	return client.beginPreFullRestore(ctx, preRestoreOperationParameters, options)
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.preFullRestore(ctx, preRestoreOperationParameters, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[PreFullRestoreResponse]{
+			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[PreFullRestoreResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
 }
 
 // PreFullRestore - Pre-restore operation for checking whether the customer can perform a full restore operation.
@@ -228,7 +256,7 @@ func (client *Client) BeginPreFullRestore(ctx context.Context, preRestoreOperati
 // Generated from API version 7.6-preview.2
 func (client *Client) preFullRestore(ctx context.Context, preRestoreOperationParameters PreRestoreOperationParameters, options *BeginPreFullRestoreOptions) (*http.Response, error) {
 	var err error
-	ctx, endSpan := runtime.StartSpan(ctx, "backup.Client.BeginPreFullRestore", client.internal.Tracer(), nil)
+	ctx, endSpan := runtime.StartSpan(ctx, "Client.BeginPreFullRestore", client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.preFullRestoreCreateRequest(ctx, preRestoreOperationParameters, options)
 	if err != nil {
@@ -274,7 +302,21 @@ func (client *Client) preFullRestoreCreateRequest(ctx context.Context, preRestor
 //   - restoreBlobDetails - The Azure blob SAS token pointing to a folder where the previous successful full backup was stored
 //   - options - BeginSelectiveKeyRestoreOptions contains the optional parameters for the Client.BeginSelectiveKeyRestore method.
 func (client *Client) BeginSelectiveKeyRestore(ctx context.Context, keyName string, restoreBlobDetails SelectiveKeyRestoreOperationParameters, options *BeginSelectiveKeyRestoreOptions) (*runtime.Poller[SelectiveKeyRestoreResponse], error) {
-	return client.beginSelectiveKeyRestore(ctx, keyName, restoreBlobDetails, options)
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.selectiveKeyRestore(ctx, keyName, restoreBlobDetails, options)
+		if err != nil {
+			return nil, err
+		}
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[SelectiveKeyRestoreResponse]{
+			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+			Tracer:        client.internal.Tracer(),
+		})
+		return poller, err
+	} else {
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[SelectiveKeyRestoreResponse]{
+			Tracer: client.internal.Tracer(),
+		})
+	}
 }
 
 // SelectiveKeyRestore - Restores all key versions of a given key using user supplied SAS token pointing to a previously stored
@@ -284,7 +326,7 @@ func (client *Client) BeginSelectiveKeyRestore(ctx context.Context, keyName stri
 // Generated from API version 7.6-preview.2
 func (client *Client) selectiveKeyRestore(ctx context.Context, keyName string, restoreBlobDetails SelectiveKeyRestoreOperationParameters, options *BeginSelectiveKeyRestoreOptions) (*http.Response, error) {
 	var err error
-	ctx, endSpan := runtime.StartSpan(ctx, "backup.Client.BeginSelectiveKeyRestore", client.internal.Tracer(), nil)
+	ctx, endSpan := runtime.StartSpan(ctx, "Client.BeginSelectiveKeyRestore", client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.selectiveKeyRestoreCreateRequest(ctx, keyName, restoreBlobDetails, options)
 	if err != nil {
