@@ -12,20 +12,23 @@ import (
 // ClientFactory is a client factory used to create any client in this module.
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
-	internal *arm.Client
+	subscriptionID string
+	internal       *arm.Client
 }
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewClientFactory(credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
+func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
 	internal, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		internal: internal,
+		subscriptionID: subscriptionID,
+		internal:       internal,
 	}, nil
 }
 
@@ -37,9 +40,9 @@ func (c *ClientFactory) NewEndpointsClient() *EndpointsClient {
 }
 
 // NewGenerateAwsTemplateClient creates a new instance of GenerateAwsTemplateClient.
-func (c *ClientFactory) NewGenerateAwsTemplateClient(subscriptionID string) *GenerateAwsTemplateClient {
+func (c *ClientFactory) NewGenerateAwsTemplateClient() *GenerateAwsTemplateClient {
 	return &GenerateAwsTemplateClient{
-		subscriptionID: subscriptionID,
+		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
 }
@@ -59,9 +62,9 @@ func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 }
 
 // NewPublicCloudConnectorsClient creates a new instance of PublicCloudConnectorsClient.
-func (c *ClientFactory) NewPublicCloudConnectorsClient(subscriptionID string) *PublicCloudConnectorsClient {
+func (c *ClientFactory) NewPublicCloudConnectorsClient() *PublicCloudConnectorsClient {
 	return &PublicCloudConnectorsClient{
-		subscriptionID: subscriptionID,
+		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
 }
@@ -81,9 +84,9 @@ func (c *ClientFactory) NewSolutionConfigurationsClient() *SolutionConfiguration
 }
 
 // NewSolutionTypesClient creates a new instance of SolutionTypesClient.
-func (c *ClientFactory) NewSolutionTypesClient(subscriptionID string) *SolutionTypesClient {
+func (c *ClientFactory) NewSolutionTypesClient() *SolutionTypesClient {
 	return &SolutionTypesClient{
-		subscriptionID: subscriptionID,
+		subscriptionID: c.subscriptionID,
 		internal:       c.internal,
 	}
 }
