@@ -8,7 +8,7 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hybridconnectivity/armhybridconnectivity"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hybridconnectivity/armhybridconnectivity/v2"
 	"log"
 )
 
@@ -19,7 +19,7 @@ func ExampleSolutionConfigurationsClient_CreateOrUpdate() {
 		log.Fatalf("failed to obtain a credential: %v", err)
 	}
 	ctx := context.Background()
-	clientFactory, err := armhybridconnectivity.NewClientFactory(cred, nil)
+	clientFactory, err := armhybridconnectivity.NewClientFactory("<subscriptionID>", cred, nil)
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
@@ -68,7 +68,7 @@ func ExampleSolutionConfigurationsClient_Delete() {
 		log.Fatalf("failed to obtain a credential: %v", err)
 	}
 	ctx := context.Background()
-	clientFactory, err := armhybridconnectivity.NewClientFactory(cred, nil)
+	clientFactory, err := armhybridconnectivity.NewClientFactory("<subscriptionID>", cred, nil)
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
@@ -90,7 +90,7 @@ func ExampleSolutionConfigurationsClient_Get() {
 		log.Fatalf("failed to obtain a credential: %v", err)
 	}
 	ctx := context.Background()
-	clientFactory, err := armhybridconnectivity.NewClientFactory(cred, nil)
+	clientFactory, err := armhybridconnectivity.NewClientFactory("<subscriptionID>", cred, nil)
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
@@ -134,7 +134,7 @@ func ExampleSolutionConfigurationsClient_NewListPager() {
 		log.Fatalf("failed to obtain a credential: %v", err)
 	}
 	ctx := context.Background()
-	clientFactory, err := armhybridconnectivity.NewClientFactory(cred, nil)
+	clientFactory, err := armhybridconnectivity.NewClientFactory("<subscriptionID>", cred, nil)
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
@@ -158,6 +158,7 @@ func ExampleSolutionConfigurationsClient_NewListPager() {
 		// 					SolutionSettings: &armhybridconnectivity.SolutionSettings{
 		// 					},
 		// 					ProvisioningState: to.Ptr(armhybridconnectivity.ResourceProvisioningStateSucceeded),
+		// 					Status: to.Ptr(armhybridconnectivity.SolutionConfigurationStatus("AuthorizationPending")),
 		// 					StatusDetails: to.Ptr("Aws authorization validation pending in Aws account"),
 		// 					LastSyncTime: to.Ptr(func() time.Time { t, _ := time.Parse(time.RFC3339Nano, "2024-01-20T03:24:15.820Z"); return t}()),
 		// 				},
@@ -179,6 +180,7 @@ func ExampleSolutionConfigurationsClient_NewListPager() {
 		// 					SolutionSettings: &armhybridconnectivity.SolutionSettings{
 		// 					},
 		// 					ProvisioningState: to.Ptr(armhybridconnectivity.ResourceProvisioningStateSucceeded),
+		// 					Status: to.Ptr(armhybridconnectivity.SolutionConfigurationStatus("AuthorizationSuccess")),
 		// 					StatusDetails: to.Ptr("Aws authorization validation succeeded in Aws account"),
 		// 					LastSyncTime: to.Ptr(func() time.Time { t, _ := time.Parse(time.RFC3339Nano, "2024-01-20T03:24:15.820Z"); return t}()),
 		// 				},
@@ -208,7 +210,7 @@ func ExampleSolutionConfigurationsClient_BeginSyncNow() {
 		log.Fatalf("failed to obtain a credential: %v", err)
 	}
 	ctx := context.Background()
-	clientFactory, err := armhybridconnectivity.NewClientFactory(cred, nil)
+	clientFactory, err := armhybridconnectivity.NewClientFactory("<subscriptionID>", cred, nil)
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
@@ -259,12 +261,12 @@ func ExampleSolutionConfigurationsClient_Update() {
 		log.Fatalf("failed to obtain a credential: %v", err)
 	}
 	ctx := context.Background()
-	clientFactory, err := armhybridconnectivity.NewClientFactory(cred, nil)
+	clientFactory, err := armhybridconnectivity.NewClientFactory("<subscriptionID>", cred, nil)
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	res, err := clientFactory.NewSolutionConfigurationsClient().Update(ctx, "ymuj", "dxt", armhybridconnectivity.SolutionConfiguration{
-		Properties: &armhybridconnectivity.SolutionConfigurationProperties{
+	res, err := clientFactory.NewSolutionConfigurationsClient().Update(ctx, "ymuj", "dxt", armhybridconnectivity.SolutionConfigurationUpdate{
+		Properties: &armhybridconnectivity.SolutionConfigurationPropertiesUpdate{
 			SolutionType:     to.Ptr("myzljlstvmgkp"),
 			SolutionSettings: &armhybridconnectivity.SolutionSettings{},
 		},
