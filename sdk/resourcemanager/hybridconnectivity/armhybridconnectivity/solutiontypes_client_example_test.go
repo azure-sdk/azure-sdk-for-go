@@ -7,7 +7,7 @@ package armhybridconnectivity_test
 import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hybridconnectivity/armhybridconnectivity"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hybridconnectivity/armhybridconnectivity/v2"
 	"log"
 )
 
@@ -18,11 +18,11 @@ func ExampleSolutionTypesClient_Get() {
 		log.Fatalf("failed to obtain a credential: %v", err)
 	}
 	ctx := context.Background()
-	clientFactory, err := armhybridconnectivity.NewClientFactory(cred, nil)
+	clientFactory, err := armhybridconnectivity.NewClientFactory("5ACC4579-DB34-4C2F-8F8C-25061168F342", cred, nil)
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	res, err := clientFactory.NewSolutionTypesClient("5ACC4579-DB34-4C2F-8F8C-25061168F342").Get(ctx, "rgpublicCloud", "lulzqllpu", nil)
+	res, err := clientFactory.NewSolutionTypesClient().Get(ctx, "rgpublicCloud", "lulzqllpu", nil)
 	if err != nil {
 		log.Fatalf("failed to finish the request: %v", err)
 	}
@@ -72,11 +72,11 @@ func ExampleSolutionTypesClient_NewListByResourceGroupPager() {
 		log.Fatalf("failed to obtain a credential: %v", err)
 	}
 	ctx := context.Background()
-	clientFactory, err := armhybridconnectivity.NewClientFactory(cred, nil)
+	clientFactory, err := armhybridconnectivity.NewClientFactory("5ACC4579-DB34-4C2F-8F8C-25061168F342", cred, nil)
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	pager := clientFactory.NewSolutionTypesClient("5ACC4579-DB34-4C2F-8F8C-25061168F342").NewListByResourceGroupPager("rgpublicCloud", nil)
+	pager := clientFactory.NewSolutionTypesClient().NewListByResourceGroupPager("rgpublicCloud", nil)
 	for pager.More() {
 		page, err := pager.NextPage(ctx)
 		if err != nil {
@@ -136,11 +136,11 @@ func ExampleSolutionTypesClient_NewListBySubscriptionPager() {
 		log.Fatalf("failed to obtain a credential: %v", err)
 	}
 	ctx := context.Background()
-	clientFactory, err := armhybridconnectivity.NewClientFactory(cred, nil)
+	clientFactory, err := armhybridconnectivity.NewClientFactory("5ACC4579-DB34-4C2F-8F8C-25061168F342", cred, nil)
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	pager := clientFactory.NewSolutionTypesClient("5ACC4579-DB34-4C2F-8F8C-25061168F342").NewListBySubscriptionPager(nil)
+	pager := clientFactory.NewSolutionTypesClient().NewListBySubscriptionPager(nil)
 	for pager.More() {
 		page, err := pager.NextPage(ctx)
 		if err != nil {
