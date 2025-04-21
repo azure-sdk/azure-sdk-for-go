@@ -1,5 +1,26 @@
 # Release History
 
+## 2.1.0 (2025-04-21)
+### Features Added
+
+- New enum type `DeploymentIdentityType` with values `DeploymentIdentityTypeNone`, `DeploymentIdentityTypeUserAssigned`
+- New enum type `ExtensionConfigPropertyType` with values `ExtensionConfigPropertyTypeArray`, `ExtensionConfigPropertyTypeBool`, `ExtensionConfigPropertyTypeInt`, `ExtensionConfigPropertyTypeObject`, `ExtensionConfigPropertyTypeSecureObject`, `ExtensionConfigPropertyTypeSecureString`, `ExtensionConfigPropertyTypeString`
+- New struct `DeploymentExtensionConfigItem`
+- New struct `DeploymentExtensionDefinition`
+- New struct `DeploymentExternalInput`
+- New struct `DeploymentExternalInputDefinition`
+- New struct `DeploymentIdentity`
+- New struct `UserAssignedIdentity`
+- New field `Identity` in struct `Deployment`
+- New field `Expression` in struct `DeploymentParameter`
+- New field `ExtensionConfigs`, `ExternalInputDefinitions`, `ExternalInputs` in struct `DeploymentProperties`
+- New field `Extensions` in struct `DeploymentPropertiesExtended`
+- New field `ExtensionConfigs`, `ExternalInputDefinitions`, `ExternalInputs` in struct `DeploymentWhatIfProperties`
+- New field `APIVersion`, `Extension`, `Identifiers`, `ResourceType` in struct `ResourceReference`
+- New field `APIVersion`, `Extension`, `Identifiers`, `SymbolicName` in struct `TargetResource`
+- New field `Extension` in struct `WhatIfChange`
+
+
 ## 2.0.0 (2025-02-13)
 ### Breaking Changes
 
