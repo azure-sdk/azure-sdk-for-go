@@ -245,6 +245,24 @@ func PossibleACSUserEngagementValues() []ACSUserEngagement {
 	}
 }
 
+// AcsCallEndedByKind - Call ended participant kind.
+type AcsCallEndedByKind string
+
+const (
+	// AcsCallEndedByKindMicrosoftInternal - MicrosoftInternal
+	AcsCallEndedByKindMicrosoftInternal AcsCallEndedByKind = "MicrosoftInternal"
+	// AcsCallEndedByKindParticipant - Participant
+	AcsCallEndedByKindParticipant AcsCallEndedByKind = "Participant"
+)
+
+// PossibleAcsCallEndedByKindValues returns the possible values for the AcsCallEndedByKind const type.
+func PossibleAcsCallEndedByKindValues() []AcsCallEndedByKind {
+	return []AcsCallEndedByKind{
+		AcsCallEndedByKindMicrosoftInternal,
+		AcsCallEndedByKindParticipant,
+	}
+}
+
 // AppAction - Type of action of the operation
 type AppAction string
 
