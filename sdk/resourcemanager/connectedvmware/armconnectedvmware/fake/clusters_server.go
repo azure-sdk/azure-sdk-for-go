@@ -1,6 +1,3 @@
-//go:build go1.18
-// +build go1.18
-
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -90,31 +87,50 @@ func (c *ClustersServerTransport) Do(req *http.Request) (*http.Response, error) 
 		return nil, nonRetriableError{errors.New("unable to dispatch request, missing value for CtxAPINameKey")}
 	}
 
-	var resp *http.Response
-	var err error
+	return c.dispatchToMethodFake(req, method)
+}
 
-	switch method {
-	case "ClustersClient.BeginCreate":
-		resp, err = c.dispatchBeginCreate(req)
-	case "ClustersClient.BeginDelete":
-		resp, err = c.dispatchBeginDelete(req)
-	case "ClustersClient.Get":
-		resp, err = c.dispatchGet(req)
-	case "ClustersClient.NewListPager":
-		resp, err = c.dispatchNewListPager(req)
-	case "ClustersClient.NewListByResourceGroupPager":
-		resp, err = c.dispatchNewListByResourceGroupPager(req)
-	case "ClustersClient.Update":
-		resp, err = c.dispatchUpdate(req)
-	default:
-		err = fmt.Errorf("unhandled API %s", method)
+func (c *ClustersServerTransport) dispatchToMethodFake(req *http.Request, method string) (*http.Response, error) {
+	resultChan := make(chan result)
+	defer close(resultChan)
+
+	go func() {
+		var intercepted bool
+		var res result
+		if clustersServerTransportInterceptor != nil {
+			res.resp, res.err, intercepted = clustersServerTransportInterceptor.Do(req)
+		}
+		if !intercepted {
+			switch method {
+			case "ClustersClient.BeginCreate":
+				res.resp, res.err = c.dispatchBeginCreate(req)
+			case "ClustersClient.BeginDelete":
+				res.resp, res.err = c.dispatchBeginDelete(req)
+			case "ClustersClient.Get":
+				res.resp, res.err = c.dispatchGet(req)
+			case "ClustersClient.NewListPager":
+				res.resp, res.err = c.dispatchNewListPager(req)
+			case "ClustersClient.NewListByResourceGroupPager":
+				res.resp, res.err = c.dispatchNewListByResourceGroupPager(req)
+			case "ClustersClient.Update":
+				res.resp, res.err = c.dispatchUpdate(req)
+			default:
+				res.err = fmt.Errorf("unhandled API %s", method)
+			}
+
+		}
+		select {
+		case resultChan <- res:
+		case <-req.Context().Done():
+		}
+	}()
+
+	select {
+	case <-req.Context().Done():
+		return nil, req.Context().Err()
+	case res := <-resultChan:
+		return res.resp, res.err
 	}
-
-	if err != nil {
-		return nil, err
-	}
-
-	return resp, nil
 }
 
 func (c *ClustersServerTransport) dispatchBeginCreate(req *http.Request) (*http.Response, error) {
@@ -362,4 +378,10 @@ func (c *ClustersServerTransport) dispatchUpdate(req *http.Request) (*http.Respo
 		return nil, err
 	}
 	return resp, nil
+}
+
+// set this to conditionally intercept incoming requests to ClustersServerTransport
+var clustersServerTransportInterceptor interface {
+	// Do returns true if the server transport should use the returned response/error
+	Do(*http.Request) (*http.Response, error, bool)
 }
