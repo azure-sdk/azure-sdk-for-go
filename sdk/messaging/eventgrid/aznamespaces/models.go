@@ -4,15 +4,15 @@
 
 package aznamespaces
 
-import "github.com/Azure/azure-sdk-for-go/sdk/azcore/messaging"
+import "time"
 
-// AcknowledgeEventsResult - The result of the Acknowledge operation.
-type AcknowledgeEventsResult struct {
-	// REQUIRED; Array of FailedLockToken for failed cloud events. Each FailedLockToken includes the lock token along with the
+// AcknowledgeResult - The result of the Acknowledge operation.
+type AcknowledgeResult struct {
+	// READ-ONLY; Array of FailedLockToken for failed cloud events. Each FailedLockToken includes the lock token along with the
 	// related error information (namely, the error code and description).
 	FailedLockTokens []FailedLockToken
 
-	// REQUIRED; Array of lock tokens for the successfully acknowledged cloud events.
+	// READ-ONLY; Array of lock tokens for the successfully acknowledged cloud events.
 	SucceededLockTokens []string
 }
 
@@ -25,6 +25,59 @@ type BrokerProperties struct {
 	LockToken *string
 }
 
+// CloudEvent - Properties of an event published to an Azure Messaging EventGrid Namespace topic using the CloudEvent 1.0
+// Schema.
+type CloudEvent struct {
+	// REQUIRED; An identifier for the event. The combination of id and source must be unique for each distinct event.
+	ID *string
+
+	// REQUIRED; Identifies the context in which an event happened. The combination of id and source must be unique for each distinct
+	// event.
+	Source *string
+
+	// REQUIRED; The version of the CloudEvents specification which the event uses.
+	Specversion *string
+
+	// REQUIRED; Type of event related to the originating occurrence.
+	Type *string
+
+	// Event data specific to the event type.
+	Data any
+
+	// Event data specific to the event type, encoded as a base64 string.
+	DataBase64 []byte
+
+	// Content type of data value.
+	Datacontenttype *string
+
+	// Identifies the schema that data adheres to.
+	Dataschema *string
+
+	// This describes the subject of the event in the context of the event producer (identified by source).
+	Subject *string
+
+	// The time (in UTC) the event was generated, in RFC3339 format.
+	Time *time.Time
+}
+
+// Error - The error object.
+type Error struct {
+	// REQUIRED; One of a server-defined set of error codes.
+	Code *string
+
+	// REQUIRED; A human-readable representation of the error.
+	Message *string
+
+	// An array of details about specific errors that led to this reported error.
+	Details []Error
+
+	// An object containing more specific information than the current object about the error.
+	Innererror *InnerError
+
+	// The target of the error.
+	Target *string
+}
+
 // FailedLockToken - Failed LockToken information.
 type FailedLockToken struct {
 	// REQUIRED; Error information of the failed operation result for the lock token in the request.
@@ -34,47 +87,60 @@ type FailedLockToken struct {
 	LockToken *string
 }
 
+// InnerError - An object containing more specific information about the error. As per Microsoft One API guidelines - https://github.com/Microsoft/api-guidelines/blob/vNext/Guidelines.md#7102-error-condition-responses.
+type InnerError struct {
+	// One of a server-defined set of error codes.
+	Code *string
+
+	// Inner error.
+	Innererror *InnerError
+}
+
+// PublishResult - The result of the Publish operation.
+type PublishResult struct {
+}
+
 // ReceiveDetails - Receive operation details per Cloud Event.
 type ReceiveDetails struct {
 	// REQUIRED; The Event Broker details.
 	BrokerProperties *BrokerProperties
 
 	// REQUIRED; Cloud Event details.
-	Event messaging.CloudEvent
+	Event *CloudEvent
 }
 
-// ReceiveEventsResult - Details of the Receive operation response.
-type ReceiveEventsResult struct {
-	// REQUIRED; Array of receive responses, one per cloud event.
+// ReceiveResult - Details of the Receive operation response.
+type ReceiveResult struct {
+	// READ-ONLY; Array of receive responses, one per cloud event.
 	Details []ReceiveDetails
 }
 
-// RejectEventsResult - The result of the Reject operation.
-type RejectEventsResult struct {
-	// REQUIRED; Array of FailedLockToken for failed cloud events. Each FailedLockToken includes the lock token along with the
+// RejectResult - The result of the Reject operation.
+type RejectResult struct {
+	// READ-ONLY; Array of FailedLockToken for failed cloud events. Each FailedLockToken includes the lock token along with the
 	// related error information (namely, the error code and description).
 	FailedLockTokens []FailedLockToken
 
-	// REQUIRED; Array of lock tokens for the successfully rejected cloud events.
+	// READ-ONLY; Array of lock tokens for the successfully rejected cloud events.
 	SucceededLockTokens []string
 }
 
-// ReleaseEventsResult - The result of the Release operation.
-type ReleaseEventsResult struct {
-	// REQUIRED; Array of FailedLockToken for failed cloud events. Each FailedLockToken includes the lock token along with the
+// ReleaseResult - The result of the Release operation.
+type ReleaseResult struct {
+	// READ-ONLY; Array of FailedLockToken for failed cloud events. Each FailedLockToken includes the lock token along with the
 	// related error information (namely, the error code and description).
 	FailedLockTokens []FailedLockToken
 
-	// REQUIRED; Array of lock tokens for the successfully released cloud events.
+	// READ-ONLY; Array of lock tokens for the successfully released cloud events.
 	SucceededLockTokens []string
 }
 
-// RenewEventLocksResult - The result of the RenewLock operation.
-type RenewEventLocksResult struct {
-	// REQUIRED; Array of FailedLockToken for failed cloud events. Each FailedLockToken includes the lock token along with the
+// RenewLocksResult - The result of the RenewLock operation.
+type RenewLocksResult struct {
+	// READ-ONLY; Array of FailedLockToken for failed cloud events. Each FailedLockToken includes the lock token along with the
 	// related error information (namely, the error code and description).
 	FailedLockTokens []FailedLockToken
 
-	// REQUIRED; Array of lock tokens for the successfully renewed locks.
+	// READ-ONLY; Array of lock tokens for the successfully renewed locks.
 	SucceededLockTokens []string
 }
