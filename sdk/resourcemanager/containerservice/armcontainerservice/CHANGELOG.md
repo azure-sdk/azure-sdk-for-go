@@ -1,5 +1,11 @@
 # Release History
 
+## 7.0.0 (2025-04-23)
+### Breaking Changes
+
+- Field `EnablePodSecurityPolicy` of struct `ManagedClusterProperties` has been removed
+
+
 ## 6.6.0 (2025-04-22)
 ### Features Added
 

@@ -1516,11 +1516,6 @@ type ManagedClusterProperties struct {
 	// This is of the form: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/diskEncryptionSets/{encryptionSetName}'
 	DiskEncryptionSetID *string
 
-	// (DEPRECATED) Whether to enable Kubernetes pod security policy (preview). PodSecurityPolicy was deprecated in Kubernetes
-	// v1.21, and removed from Kubernetes in v1.25. Learn more at
-	// https://aka.ms/k8s/psp and https://aka.ms/aks/psp.
-	EnablePodSecurityPolicy *bool
-
 	// Whether to enable Kubernetes Role-Based Access Control.
 	EnableRBAC *bool
 

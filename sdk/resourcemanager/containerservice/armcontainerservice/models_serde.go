@@ -3545,7 +3545,6 @@ func (m ManagedClusterProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "dnsPrefix", m.DNSPrefix)
 	populate(objectMap, "disableLocalAccounts", m.DisableLocalAccounts)
 	populate(objectMap, "diskEncryptionSetID", m.DiskEncryptionSetID)
-	populate(objectMap, "enablePodSecurityPolicy", m.EnablePodSecurityPolicy)
 	populate(objectMap, "enableRBAC", m.EnableRBAC)
 	populate(objectMap, "fqdn", m.Fqdn)
 	populate(objectMap, "fqdnSubdomain", m.FqdnSubdomain)
@@ -3625,9 +3624,6 @@ func (m *ManagedClusterProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "diskEncryptionSetID":
 			err = unpopulate(val, "DiskEncryptionSetID", &m.DiskEncryptionSetID)
-			delete(rawMsg, key)
-		case "enablePodSecurityPolicy":
-			err = unpopulate(val, "EnablePodSecurityPolicy", &m.EnablePodSecurityPolicy)
 			delete(rawMsg, key)
 		case "enableRBAC":
 			err = unpopulate(val, "EnableRBAC", &m.EnableRBAC)
