@@ -193,6 +193,11 @@ type AgentPoolUpgradeSettings struct {
 	// The amount of time (in minutes) to wait after draining a node and before reimaging it and moving on to next node. If not
 	// specified, the default is 0 minutes.
 	NodeSoakDurationInMinutes *int32
+
+	// Defines the behavior for undrainable nodes during upgrade. The most common cause of undrainable nodes is Pod Disruption
+	// Budgets (PDBs), but other issues, such as pod termination grace period is
+	// exceeding the remaining per-node drain timeout or pod is still being in a running state, can also cause undrainable nodes.
+	UndrainableNodeBehavior *UndrainableNodeBehavior
 }
 
 // AgentPoolWindowsProfile - The Windows agent pool's specific profile.
