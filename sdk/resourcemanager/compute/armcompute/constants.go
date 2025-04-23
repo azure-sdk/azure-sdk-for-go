@@ -7,7 +7,7 @@ package armcompute
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute"
-	moduleVersion = "v6.4.0"
+	moduleVersion = "v7.0.0"
 )
 
 // AccessControlRulesMode - This property allows you to specify whether the access control rules are in Audit mode, in Enforce
@@ -807,19 +807,6 @@ func PossibleExecutionStateValues() []ExecutionState {
 		ExecutionStateSucceeded,
 		ExecutionStateTimedOut,
 		ExecutionStateUnknown,
-	}
-}
-
-type Expand string
-
-const (
-	ExpandProperties Expand = "Properties"
-)
-
-// PossibleExpandValues returns the possible values for the Expand const type.
-func PossibleExpandValues() []Expand {
-	return []Expand{
-		ExpandProperties,
 	}
 }
 

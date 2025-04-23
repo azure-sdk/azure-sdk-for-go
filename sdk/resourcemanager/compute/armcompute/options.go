@@ -1271,7 +1271,7 @@ type VirtualMachineImagesClientListSKUsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// VirtualMachineImagesClientListWithPropertiesOptions contains the optional parameters for the VirtualMachineImagesClient.NewListWithPropertiesPager
+// VirtualMachineImagesClientListWithPropertiesOptions contains the optional parameters for the VirtualMachineImagesClient.ListWithProperties
 // method.
 type VirtualMachineImagesClientListWithPropertiesOptions struct {
 	Orderby *string

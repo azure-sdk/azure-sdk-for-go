@@ -466,7 +466,8 @@ func (client *VirtualMachineImagesClient) listSKUsHandleResponse(resp *http.Resp
 	return result, nil
 }
 
-// NewListWithPropertiesPager -
+// ListWithProperties -
+// If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-11-01
 //   - location - The name of a supported Azure region.
@@ -474,33 +475,32 @@ func (client *VirtualMachineImagesClient) listSKUsHandleResponse(resp *http.Resp
 //   - offer - A valid image publisher offer.
 //   - skus - A valid image SKU.
 //   - expand - The expand expression to apply on the operation.
-//   - options - VirtualMachineImagesClientListWithPropertiesOptions contains the optional parameters for the VirtualMachineImagesClient.NewListWithPropertiesPager
+//   - options - VirtualMachineImagesClientListWithPropertiesOptions contains the optional parameters for the VirtualMachineImagesClient.ListWithProperties
 //     method.
-func (client *VirtualMachineImagesClient) NewListWithPropertiesPager(location string, publisherName string, offer string, skus string, expand Expand, options *VirtualMachineImagesClientListWithPropertiesOptions) *runtime.Pager[VirtualMachineImagesClientListWithPropertiesResponse] {
-	return runtime.NewPager(runtime.PagingHandler[VirtualMachineImagesClientListWithPropertiesResponse]{
-		More: func(page VirtualMachineImagesClientListWithPropertiesResponse) bool {
-			return page.NextLink != nil && len(*page.NextLink) > 0
-		},
-		Fetcher: func(ctx context.Context, page *VirtualMachineImagesClientListWithPropertiesResponse) (VirtualMachineImagesClientListWithPropertiesResponse, error) {
-			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "VirtualMachineImagesClient.NewListWithPropertiesPager")
-			nextLink := ""
-			if page != nil {
-				nextLink = *page.NextLink
-			}
-			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listWithPropertiesCreateRequest(ctx, location, publisherName, offer, skus, expand, options)
-			}, nil)
-			if err != nil {
-				return VirtualMachineImagesClientListWithPropertiesResponse{}, err
-			}
-			return client.listWithPropertiesHandleResponse(resp)
-		},
-		Tracer: client.internal.Tracer(),
-	})
+func (client *VirtualMachineImagesClient) ListWithProperties(ctx context.Context, location string, publisherName string, offer string, skus string, expand string, options *VirtualMachineImagesClientListWithPropertiesOptions) (VirtualMachineImagesClientListWithPropertiesResponse, error) {
+	var err error
+	const operationName = "VirtualMachineImagesClient.ListWithProperties"
+	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
+	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
+	defer func() { endSpan(err) }()
+	req, err := client.listWithPropertiesCreateRequest(ctx, location, publisherName, offer, skus, expand, options)
+	if err != nil {
+		return VirtualMachineImagesClientListWithPropertiesResponse{}, err
+	}
+	httpResp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return VirtualMachineImagesClientListWithPropertiesResponse{}, err
+	}
+	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
+		err = runtime.NewResponseError(httpResp)
+		return VirtualMachineImagesClientListWithPropertiesResponse{}, err
+	}
+	resp, err := client.listWithPropertiesHandleResponse(httpResp)
+	return resp, err
 }
 
 // listWithPropertiesCreateRequest creates the ListWithProperties request.
-func (client *VirtualMachineImagesClient) listWithPropertiesCreateRequest(ctx context.Context, location string, publisherName string, offer string, skus string, expand Expand, options *VirtualMachineImagesClientListWithPropertiesOptions) (*policy.Request, error) {
+func (client *VirtualMachineImagesClient) listWithPropertiesCreateRequest(ctx context.Context, location string, publisherName string, offer string, skus string, expand string, options *VirtualMachineImagesClientListWithPropertiesOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/publishers/{publisherName}/artifacttypes/vmimage/offers/{offer}/skus/{skus}/versions"
 	if location == "" {
 		return nil, errors.New("parameter location cannot be empty")
@@ -527,7 +527,7 @@ func (client *VirtualMachineImagesClient) listWithPropertiesCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("$expand", string(expand))
+	reqQP.Set("$expand", expand)
 	if options != nil && options.Orderby != nil {
 		reqQP.Set("$orderby", *options.Orderby)
 	}
@@ -543,7 +543,7 @@ func (client *VirtualMachineImagesClient) listWithPropertiesCreateRequest(ctx co
 // listWithPropertiesHandleResponse handles the ListWithProperties response.
 func (client *VirtualMachineImagesClient) listWithPropertiesHandleResponse(resp *http.Response) (VirtualMachineImagesClientListWithPropertiesResponse, error) {
 	result := VirtualMachineImagesClientListWithPropertiesResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.VirtualMachineImagesWithPropertiesListResult); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.VirtualMachineImageArray); err != nil {
 		return VirtualMachineImagesClientListWithPropertiesResponse{}, err
 	}
 	return result, nil
