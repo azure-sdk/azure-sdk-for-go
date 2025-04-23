@@ -86,8 +86,8 @@ type ImportCertificateResponse struct {
 
 // ListCertificatePropertiesResponse contains the response from method Client.NewListCertificatePropertiesPager.
 type ListCertificatePropertiesResponse struct {
-	// The certificate list result.
-	CertificatePropertiesListResult
+	// The certificate list result, with includePending included in response pages.
+	CertificateListResultWithPending
 }
 
 // ListCertificatePropertiesVersionsResponse contains the response from method Client.NewListCertificatePropertiesVersionsPager.
