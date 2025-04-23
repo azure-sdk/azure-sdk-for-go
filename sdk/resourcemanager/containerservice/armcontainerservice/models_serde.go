@@ -543,6 +543,7 @@ func (a AgentPoolUpgradeSettings) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "drainTimeoutInMinutes", a.DrainTimeoutInMinutes)
 	populate(objectMap, "maxSurge", a.MaxSurge)
 	populate(objectMap, "nodeSoakDurationInMinutes", a.NodeSoakDurationInMinutes)
+	populate(objectMap, "undrainableNodeBehavior", a.UndrainableNodeBehavior)
 	return json.Marshal(objectMap)
 }
 
@@ -563,6 +564,9 @@ func (a *AgentPoolUpgradeSettings) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "nodeSoakDurationInMinutes":
 			err = unpopulate(val, "NodeSoakDurationInMinutes", &a.NodeSoakDurationInMinutes)
+			delete(rawMsg, key)
+		case "undrainableNodeBehavior":
+			err = unpopulate(val, "UndrainableNodeBehavior", &a.UndrainableNodeBehavior)
 			delete(rawMsg, key)
 		}
 		if err != nil {

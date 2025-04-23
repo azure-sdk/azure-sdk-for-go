@@ -1,5 +1,12 @@
 # Release History
 
+## 6.7.0 (2025-04-23)
+### Features Added
+
+- New enum type `UndrainableNodeBehavior` with values `UndrainableNodeBehaviorCordon`, `UndrainableNodeBehaviorSchedule`
+- New field `UndrainableNodeBehavior` in struct `AgentPoolUpgradeSettings`
+
+
 ## 6.6.0 (2025-04-22)
 ### Features Added
 
