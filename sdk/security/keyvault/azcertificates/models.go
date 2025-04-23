@@ -46,16 +46,16 @@ type Certificate struct {
 	Tags map[string]*string
 
 	// READ-ONLY; The certificate id.
-	ID *ID
+	ID *string
 
 	// READ-ONLY; The key id.
-	KID *ID
+	KID *string
 
 	// READ-ONLY; The management policy.
 	Policy *CertificatePolicy
 
 	// READ-ONLY; The secret id.
-	SID *ID
+	SID *string
 
 	// READ-ONLY; Thumbprint of the certificate.
 	X509Thumbprint []byte
@@ -81,10 +81,19 @@ type CertificateAttributes struct {
 	// READ-ONLY; Reflects the deletion recovery level currently in effect for certificates in the current vault. If it contains
 	// 'Purgeable', the certificate can be permanently deleted by a privileged user; otherwise, only the system can purge the
 	// certificate, at the end of the retention interval.
-	RecoveryLevel *string
+	RecoveryLevel *DeletionRecoveryLevel
 
 	// READ-ONLY; Last updated time in UTC.
 	Updated *time.Time
+}
+
+// CertificateListResultWithPending - The certificate list result, with includePending included in response pages.
+type CertificateListResultWithPending struct {
+	// A response message containing a list of certificates in the key vault along with a link to the next page of certificates.
+	Value []*CertificateProperties
+
+	// READ-ONLY; The URL to get the next set of certificates.
+	NextLink *string
 }
 
 // CertificateOperation - A certificate operation is returned in case of asynchronous requests.
@@ -96,7 +105,7 @@ type CertificateOperation struct {
 	CancellationRequested *bool
 
 	// Error encountered, if any, during the certificate operation.
-	Error *ErrorInfo
+	Error *Error
 
 	// Parameters for the issuer of the X509 component of a certificate.
 	IssuerParameters *IssuerParameters
@@ -118,7 +127,7 @@ type CertificateOperation struct {
 	Target *string
 
 	// READ-ONLY; The certificate id.
-	ID *ID
+	ID *string
 }
 
 // CertificatePolicy - Management policy for a certificate.
@@ -142,7 +151,7 @@ type CertificatePolicy struct {
 	X509CertificateProperties *X509CertificateProperties
 
 	// READ-ONLY; The certificate id.
-	ID *ID
+	ID *string
 }
 
 // CertificateProperties - The certificate item containing certificate metadata.
@@ -151,7 +160,7 @@ type CertificateProperties struct {
 	Attributes *CertificateAttributes
 
 	// Certificate identifier.
-	ID *ID
+	ID *string
 
 	// Application specific metadata in the form of key-value pairs.
 	Tags map[string]*string
@@ -232,16 +241,16 @@ type DeletedCertificate struct {
 	DeletedDate *time.Time
 
 	// READ-ONLY; The certificate id.
-	ID *ID
+	ID *string
 
 	// READ-ONLY; The key id.
-	KID *ID
+	KID *string
 
 	// READ-ONLY; The management policy.
 	Policy *CertificatePolicy
 
 	// READ-ONLY; The secret id.
-	SID *ID
+	SID *string
 
 	// READ-ONLY; The time when the certificate is scheduled to be purged, in UTC
 	ScheduledPurgeDate *time.Time
@@ -256,7 +265,7 @@ type DeletedCertificateProperties struct {
 	Attributes *CertificateAttributes
 
 	// Certificate identifier.
-	ID *ID
+	ID *string
 
 	// The url of the recovery object, used to identify and recover the deleted certificate.
 	RecoveryID *string
@@ -282,6 +291,18 @@ type DeletedCertificatePropertiesListResult struct {
 	// READ-ONLY; A response message containing a list of deleted certificates in the vault along with a link to the next page
 	// of deleted certificates.
 	Value []*DeletedCertificateProperties
+}
+
+// Error - The key vault server error.
+type Error struct {
+	// READ-ONLY; The error code.
+	Code *string
+
+	// READ-ONLY; The key vault server error.
+	InnerError *Error
+
+	// READ-ONLY; The error message.
+	Message *string
 }
 
 // ImportCertificateParameters - The certificate import parameters.
@@ -379,7 +400,7 @@ type IssuerPropertiesListResult struct {
 
 // KeyProperties - Properties of the key pair backing a certificate.
 type KeyProperties struct {
-	// Elliptic curve name.
+	// Elliptic curve name. For valid values, see JsonWebKeyCurveName.
 	Curve *CurveName
 
 	// Indicates if the private key can be exported. Release policy must be provided when creating the first version of an exportable
