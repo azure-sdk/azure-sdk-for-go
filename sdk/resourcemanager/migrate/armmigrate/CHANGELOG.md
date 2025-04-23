@@ -1,5 +1,2635 @@
 # Release History
 
+## 2.0.0-beta.1 (2025-04-23)
+### Breaking Changes
+
+- `ProvisioningStateCreating`, `ProvisioningStateMoving` from enum `ProvisioningState` has been removed
+- Enum `AssessmentSizingCriterion` has been removed
+- Enum `AssessmentStage` has been removed
+- Enum `AzureDiskSize` has been removed
+- Enum `AzureDiskSuitabilityDetail` has been removed
+- Enum `AzureDiskSuitabilityExplanation` has been removed
+- Enum `AzureDiskType` has been removed
+- Enum `AzureHybridUseBenefit` has been removed
+- Enum `AzureLocation` has been removed
+- Enum `AzureNetworkAdapterSuitabilityDetail` has been removed
+- Enum `AzureNetworkAdapterSuitabilityExplanation` has been removed
+- Enum `AzureOfferCode` has been removed
+- Enum `AzurePricingTier` has been removed
+- Enum `AzureStorageRedundancy` has been removed
+- Enum `AzureVMFamily` has been removed
+- Enum `AzureVMSize` has been removed
+- Enum `AzureVMSuitabilityDetail` has been removed
+- Enum `AzureVMSuitabilityExplanation` has been removed
+- Enum `CloudSuitability` has been removed
+- Enum `Currency` has been removed
+- Enum `GroupStatus` has been removed
+- Enum `GroupUpdateOperation` has been removed
+- Enum `MachineBootType` has been removed
+- Enum `Percentile` has been removed
+- Enum `PrivateEndpointConnectionPropertiesProvisioningState` has been removed
+- Enum `PrivateLinkServiceConnectionStateStatus` has been removed
+- Enum `ProjectStatus` has been removed
+- Enum `ReservedInstance` has been removed
+- Enum `TimeRange` has been removed
+- Function `NewAssessedMachinesClient` has been removed
+- Function `*AssessedMachinesClient.Get` has been removed
+- Function `*AssessedMachinesClient.NewListByAssessmentPager` has been removed
+- Function `NewAssessmentsClient` has been removed
+- Function `*AssessmentsClient.Create` has been removed
+- Function `*AssessmentsClient.Delete` has been removed
+- Function `*AssessmentsClient.Get` has been removed
+- Function `*AssessmentsClient.GetReportDownloadURL` has been removed
+- Function `*AssessmentsClient.NewListByGroupPager` has been removed
+- Function `*AssessmentsClient.NewListByProjectPager` has been removed
+- Function `*ClientFactory.NewAssessedMachinesClient` has been removed
+- Function `*ClientFactory.NewAssessmentsClient` has been removed
+- Function `*ClientFactory.NewGroupsClient` has been removed
+- Function `*ClientFactory.NewHyperVCollectorsClient` has been removed
+- Function `*ClientFactory.NewImportCollectorsClient` has been removed
+- Function `*ClientFactory.NewMachinesClient` has been removed
+- Function `*ClientFactory.NewOperationsClient` has been removed
+- Function `*ClientFactory.NewPrivateEndpointConnectionClient` has been removed
+- Function `*ClientFactory.NewPrivateLinkResourceClient` has been removed
+- Function `*ClientFactory.NewProjectsClient` has been removed
+- Function `*ClientFactory.NewServerCollectorsClient` has been removed
+- Function `*ClientFactory.NewVMwareCollectorsClient` has been removed
+- Function `NewGroupsClient` has been removed
+- Function `*GroupsClient.Create` has been removed
+- Function `*GroupsClient.Delete` has been removed
+- Function `*GroupsClient.Get` has been removed
+- Function `*GroupsClient.NewListByProjectPager` has been removed
+- Function `*GroupsClient.UpdateMachines` has been removed
+- Function `NewHyperVCollectorsClient` has been removed
+- Function `*HyperVCollectorsClient.Create` has been removed
+- Function `*HyperVCollectorsClient.Delete` has been removed
+- Function `*HyperVCollectorsClient.Get` has been removed
+- Function `*HyperVCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewImportCollectorsClient` has been removed
+- Function `*ImportCollectorsClient.Create` has been removed
+- Function `*ImportCollectorsClient.Delete` has been removed
+- Function `*ImportCollectorsClient.Get` has been removed
+- Function `*ImportCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewMachinesClient` has been removed
+- Function `*MachinesClient.Get` has been removed
+- Function `*MachinesClient.NewListByProjectPager` has been removed
+- Function `NewOperationsClient` has been removed
+- Function `*OperationsClient.NewListPager` has been removed
+- Function `NewPrivateEndpointConnectionClient` has been removed
+- Function `*PrivateEndpointConnectionClient.Delete` has been removed
+- Function `*PrivateEndpointConnectionClient.Get` has been removed
+- Function `*PrivateEndpointConnectionClient.ListByProject` has been removed
+- Function `*PrivateEndpointConnectionClient.Update` has been removed
+- Function `NewPrivateLinkResourceClient` has been removed
+- Function `*PrivateLinkResourceClient.Get` has been removed
+- Function `*PrivateLinkResourceClient.ListByProject` has been removed
+- Function `NewProjectsClient` has been removed
+- Function `*ProjectsClient.AssessmentOptions` has been removed
+- Function `*ProjectsClient.NewAssessmentOptionsListPager` has been removed
+- Function `*ProjectsClient.Create` has been removed
+- Function `*ProjectsClient.Delete` has been removed
+- Function `*ProjectsClient.Get` has been removed
+- Function `*ProjectsClient.NewListBySubscriptionPager` has been removed
+- Function `*ProjectsClient.NewListPager` has been removed
+- Function `*ProjectsClient.Update` has been removed
+- Function `NewServerCollectorsClient` has been removed
+- Function `*ServerCollectorsClient.Create` has been removed
+- Function `*ServerCollectorsClient.Delete` has been removed
+- Function `*ServerCollectorsClient.Get` has been removed
+- Function `*ServerCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewVMwareCollectorsClient` has been removed
+- Function `*VMwareCollectorsClient.Create` has been removed
+- Function `*VMwareCollectorsClient.Delete` has been removed
+- Function `*VMwareCollectorsClient.Get` has been removed
+- Function `*VMwareCollectorsClient.NewListByProjectPager` has been removed
+- Struct `AssessedDisk` has been removed
+- Struct `AssessedMachine` has been removed
+- Struct `AssessedMachineProperties` has been removed
+- Struct `AssessedMachineResultList` has been removed
+- Struct `AssessedNetworkAdapter` has been removed
+- Struct `Assessment` has been removed
+- Struct `AssessmentOptions` has been removed
+- Struct `AssessmentOptionsProperties` has been removed
+- Struct `AssessmentOptionsResultList` has been removed
+- Struct `AssessmentProperties` has been removed
+- Struct `AssessmentResultList` has been removed
+- Struct `CollectorAgentProperties` has been removed
+- Struct `CollectorBodyAgentSpnProperties` has been removed
+- Struct `CollectorProperties` has been removed
+- Struct `Disk` has been removed
+- Struct `Group` has been removed
+- Struct `GroupBodyProperties` has been removed
+- Struct `GroupProperties` has been removed
+- Struct `GroupResultList` has been removed
+- Struct `HyperVCollector` has been removed
+- Struct `HyperVCollectorList` has been removed
+- Struct `ImportCollector` has been removed
+- Struct `ImportCollectorList` has been removed
+- Struct `ImportCollectorProperties` has been removed
+- Struct `Machine` has been removed
+- Struct `MachineProperties` has been removed
+- Struct `MachineResultList` has been removed
+- Struct `NetworkAdapter` has been removed
+- Struct `Operation` has been removed
+- Struct `OperationDisplay` has been removed
+- Struct `OperationResultList` has been removed
+- Struct `PrivateEndpointConnection` has been removed
+- Struct `PrivateEndpointConnectionCollection` has been removed
+- Struct `PrivateEndpointConnectionProperties` has been removed
+- Struct `PrivateLinkResource` has been removed
+- Struct `PrivateLinkResourceCollection` has been removed
+- Struct `PrivateLinkResourceProperties` has been removed
+- Struct `PrivateLinkServiceConnectionState` has been removed
+- Struct `Project` has been removed
+- Struct `ProjectProperties` has been removed
+- Struct `ProjectResultList` has been removed
+- Struct `ResourceID` has been removed
+- Struct `ServerCollector` has been removed
+- Struct `ServerCollectorList` has been removed
+- Struct `UpdateGroupBody` has been removed
+- Struct `VMFamily` has been removed
+- Struct `VMUptime` has been removed
+- Struct `VMwareCollector` has been removed
+- Struct `VMwareCollectorList` has been removed
+
+### Features Added
+
+- New value `AssessmentStatusDeleted`, `AssessmentStatusFailed` added to enum type `AssessmentStatus`
+- New value `ProvisioningStateCanceled`, `ProvisioningStateProvisioning`, `ProvisioningStateUpdating` added to enum type `ProvisioningState`
+- New enum type `AssessmentSource` with values `AssessmentSourceIIS`, `AssessmentSourceMachine`, `AssessmentSourceMySQLServer`, `AssessmentSourceOracleDatabase`, `AssessmentSourceOracleServer`, `AssessmentSourceSAPInstance`, `AssessmentSourceSQLDatabase`, `AssessmentSourceSQLInstance`, `AssessmentSourceSpringbootApplication`, `AssessmentSourceTomCat`, `AssessmentSourceUnknown`, `AssessmentSourceWebApps`
+- New enum type `AzureManagementOfferingType` with values `AzureManagementOfferingTypeAUM`, `AzureManagementOfferingTypeAzMon`, `AzureManagementOfferingTypeAzureBackup`, `AzureManagementOfferingTypeNo`, `AzureManagementOfferingTypeSCOMMI`
+- New enum type `AzureTarget` with values `AzureTargetAKS`, `AzureTargetAvs`, `AzureTargetAzureAppService`, `AzureTargetAzureAppServiceContainer`, `AzureTargetAzureSQLVM`, `AzureTargetAzureSpringApps`, `AzureTargetAzureVM`, `AzureTargetFlexServerPG`, `AzureTargetMySQLAzureFlexServer`, `AzureTargetOracleIaasVM`, `AzureTargetSAPAzureInstance`, `AzureTargetSQLDatabase`, `AzureTargetSQLMI`, `AzureTargetUnknown`
+- New enum type `CloudSuitabilityCommon` with values `CloudSuitabilityCommonConditionallySuitable`, `CloudSuitabilityCommonNotSuitable`, `CloudSuitabilityCommonReadinessUnknown`, `CloudSuitabilityCommonSuitable`, `CloudSuitabilityCommonSuitableWithWarnings`, `CloudSuitabilityCommonUnknown`
+- New enum type `CostType` with values `CostTypeDataProtectionService`, `CostTypeMonitoringService`, `CostTypeMonthlyAvsExternalStorageCost`, `CostTypeMonthlyAvsNetworkCost`, `CostTypeMonthlyAvsNodeCost`, `CostTypeMonthlyAzureHybridCost`, `CostTypeMonthlyBandwidthCost`, `CostTypeMonthlyComputeCost`, `CostTypeMonthlyLicensingCost`, `CostTypeMonthlyLinuxAzureHybridCost`, `CostTypeMonthlyManagementCost`, `CostTypeMonthlyPremiumStorageCost`, `CostTypeMonthlyPremiumV2StorageCost`, `CostTypeMonthlySecurityCost`, `CostTypeMonthlyStandardHddStorageCost`, `CostTypeMonthlyStandardSsdStorageCost`, `CostTypeMonthlyStorageCost`, `CostTypeMonthlyUltraDiskCost`, `CostTypeMonthlyUltraStorageCost`, `CostTypePatchingService`, `CostTypeTotalMonthlyCost`
+- New enum type `CreatedByType` with values `CreatedByTypeApplication`, `CreatedByTypeKey`, `CreatedByTypeManagedIdentity`, `CreatedByTypeUser`
+- New enum type `MigrationPlatform` with values `MigrationPlatformIaaS`, `MigrationPlatformPaaS`, `MigrationPlatformSaaS`, `MigrationPlatformUnknown`
+- New enum type `MigrationType` with values `MigrationTypeRearchitect`, `MigrationTypeRehost`, `MigrationTypeReplatform`, `MigrationTypeRetain`, `MigrationTypeUnknown`
+- New enum type `SavingsOptions` with values `SavingsOptionsCustomAzureOfferCode`, `SavingsOptionsNone`, `SavingsOptionsRI1Year`, `SavingsOptionsRI3Year`, `SavingsOptionsSavingsPlan1Year`, `SavingsOptionsSavingsPlan3Year`
+- New enum type `SavingsType` with values `SavingsTypeMonthlyAhubSQLCostSavings`, `SavingsTypeMonthlyAzureHybridCostSavings`, `SavingsTypeMonthlyLinuxAzureHybridCostSavings`, `SavingsTypeMonthlyVcfByolCostDifference`
+- New enum type `SummaryType` with values `SummaryTypeStrategy`, `SummaryTypeTarget`, `SummaryTypeUnknown`
+- New enum type `WebAppType` with values `WebAppTypeASPNET`, `WebAppTypeJava`, `WebAppTypeUnknown`
+- New enum type `WebServerType` with values `WebServerTypeIIS`, `WebServerTypeTomcat`, `WebServerTypeUnknown`
+- New enum type `WorkloadType` with values `WorkloadTypeDatabase`, `WorkloadTypeHost`, `WorkloadTypeInstance`, `WorkloadTypeMachine`, `WorkloadTypeManagementServer`, `WorkloadTypeServer`, `WorkloadTypeUnknown`, `WorkloadTypeWebApplication`, `WorkloadTypeWebServer`
+- New function `*ClientFactory.NewCompoundAssessmentOperationsClient() *CompoundAssessmentOperationsClient`
+- New function `*ClientFactory.NewCompoundAssessmentSummaryOperationsClient() *CompoundAssessmentSummaryOperationsClient`
+- New function `NewCompoundAssessmentOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*CompoundAssessmentOperationsClient, error)`
+- New function `*CompoundAssessmentOperationsClient.BeginCreate(context.Context, string, string, string, CompoundAssessment, *BeginCreateOptions) (*runtime.Poller[CreateResponse], error)`
+- New function `*CompoundAssessmentOperationsClient.Delete(context.Context, string, string, string, *DeleteOptions) (DeleteResponse, error)`
+- New function `*CompoundAssessmentOperationsClient.BeginDownloadURL(context.Context, string, string, string, DownloadURLRequest, *BeginDownloadURLOptions) (*runtime.Poller[DownloadURLResponse], error)`
+- New function `*CompoundAssessmentOperationsClient.Get(context.Context, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*CompoundAssessmentOperationsClient.NewListByParentPager(string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewCompoundAssessmentSummaryOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*CompoundAssessmentSummaryOperationsClient, error)`
+- New function `*CompoundAssessmentSummaryOperationsClient.Get(context.Context, string, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*CompoundAssessmentSummaryOperationsClient.NewListByParentPager(string, string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New struct `CompoundAssessment`
+- New struct `CompoundAssessmentDetails`
+- New struct `CompoundAssessmentListResult`
+- New struct `CompoundAssessmentProperties`
+- New struct `CostDetailsCommon`
+- New struct `DiscoveredLightSummary`
+- New struct `DownloadURLRequest`
+- New struct `ManagementDetails`
+- New struct `MigrationDetails`
+- New struct `NameValuePairCloudSuitabilityCommon`
+- New struct `NameValuePairCostType`
+- New struct `NameValuePairSavingsType`
+- New struct `SavingsDetailsCommon`
+- New struct `SourceDetails`
+- New struct `SystemData`
+- New struct `TargetAssessmentArmIDs`
+- New struct `TargetDetails`
+- New struct `TargetSourcePair`
+- New struct `WebAppCompoundAssessmentSummary`
+- New struct `WebAppCompoundAssessmentSummaryListResult`
+- New struct `WebAppCompoundAssessmentSummaryProperties`
+- New struct `WebAppsPerType`
+- New struct `WebServersPerType`
+
+
+## 2.0.0-beta.1 (2025-04-23)
+### Breaking Changes
+
+- `ProvisioningStateCreating`, `ProvisioningStateMoving` from enum `ProvisioningState` has been removed
+- Enum `AssessmentStage` has been removed
+- Enum `AzureDiskSize` has been removed
+- Enum `AzureDiskSuitabilityDetail` has been removed
+- Enum `AzureDiskSuitabilityExplanation` has been removed
+- Enum `AzureDiskType` has been removed
+- Enum `AzureHybridUseBenefit` has been removed
+- Enum `AzureNetworkAdapterSuitabilityDetail` has been removed
+- Enum `AzureNetworkAdapterSuitabilityExplanation` has been removed
+- Enum `AzureOfferCode` has been removed
+- Enum `AzurePricingTier` has been removed
+- Enum `AzureStorageRedundancy` has been removed
+- Enum `AzureVMFamily` has been removed
+- Enum `AzureVMSize` has been removed
+- Enum `AzureVMSuitabilityDetail` has been removed
+- Enum `AzureVMSuitabilityExplanation` has been removed
+- Enum `CloudSuitability` has been removed
+- Enum `Currency` has been removed
+- Enum `GroupStatus` has been removed
+- Enum `GroupUpdateOperation` has been removed
+- Enum `MachineBootType` has been removed
+- Enum `PrivateEndpointConnectionPropertiesProvisioningState` has been removed
+- Enum `PrivateLinkServiceConnectionStateStatus` has been removed
+- Enum `ProjectStatus` has been removed
+- Enum `ReservedInstance` has been removed
+- Function `NewAssessedMachinesClient` has been removed
+- Function `*AssessedMachinesClient.Get` has been removed
+- Function `*AssessedMachinesClient.NewListByAssessmentPager` has been removed
+- Function `NewAssessmentsClient` has been removed
+- Function `*AssessmentsClient.Create` has been removed
+- Function `*AssessmentsClient.Delete` has been removed
+- Function `*AssessmentsClient.Get` has been removed
+- Function `*AssessmentsClient.GetReportDownloadURL` has been removed
+- Function `*AssessmentsClient.NewListByGroupPager` has been removed
+- Function `*AssessmentsClient.NewListByProjectPager` has been removed
+- Function `*ClientFactory.NewAssessedMachinesClient` has been removed
+- Function `*ClientFactory.NewAssessmentsClient` has been removed
+- Function `*ClientFactory.NewGroupsClient` has been removed
+- Function `*ClientFactory.NewHyperVCollectorsClient` has been removed
+- Function `*ClientFactory.NewImportCollectorsClient` has been removed
+- Function `*ClientFactory.NewMachinesClient` has been removed
+- Function `*ClientFactory.NewOperationsClient` has been removed
+- Function `*ClientFactory.NewPrivateEndpointConnectionClient` has been removed
+- Function `*ClientFactory.NewPrivateLinkResourceClient` has been removed
+- Function `*ClientFactory.NewProjectsClient` has been removed
+- Function `*ClientFactory.NewServerCollectorsClient` has been removed
+- Function `*ClientFactory.NewVMwareCollectorsClient` has been removed
+- Function `NewGroupsClient` has been removed
+- Function `*GroupsClient.Create` has been removed
+- Function `*GroupsClient.Delete` has been removed
+- Function `*GroupsClient.Get` has been removed
+- Function `*GroupsClient.NewListByProjectPager` has been removed
+- Function `*GroupsClient.UpdateMachines` has been removed
+- Function `NewHyperVCollectorsClient` has been removed
+- Function `*HyperVCollectorsClient.Create` has been removed
+- Function `*HyperVCollectorsClient.Delete` has been removed
+- Function `*HyperVCollectorsClient.Get` has been removed
+- Function `*HyperVCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewImportCollectorsClient` has been removed
+- Function `*ImportCollectorsClient.Create` has been removed
+- Function `*ImportCollectorsClient.Delete` has been removed
+- Function `*ImportCollectorsClient.Get` has been removed
+- Function `*ImportCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewMachinesClient` has been removed
+- Function `*MachinesClient.Get` has been removed
+- Function `*MachinesClient.NewListByProjectPager` has been removed
+- Function `NewOperationsClient` has been removed
+- Function `*OperationsClient.NewListPager` has been removed
+- Function `NewPrivateEndpointConnectionClient` has been removed
+- Function `*PrivateEndpointConnectionClient.Delete` has been removed
+- Function `*PrivateEndpointConnectionClient.Get` has been removed
+- Function `*PrivateEndpointConnectionClient.ListByProject` has been removed
+- Function `*PrivateEndpointConnectionClient.Update` has been removed
+- Function `NewPrivateLinkResourceClient` has been removed
+- Function `*PrivateLinkResourceClient.Get` has been removed
+- Function `*PrivateLinkResourceClient.ListByProject` has been removed
+- Function `NewProjectsClient` has been removed
+- Function `*ProjectsClient.AssessmentOptions` has been removed
+- Function `*ProjectsClient.NewAssessmentOptionsListPager` has been removed
+- Function `*ProjectsClient.Create` has been removed
+- Function `*ProjectsClient.Delete` has been removed
+- Function `*ProjectsClient.Get` has been removed
+- Function `*ProjectsClient.NewListBySubscriptionPager` has been removed
+- Function `*ProjectsClient.NewListPager` has been removed
+- Function `*ProjectsClient.Update` has been removed
+- Function `NewServerCollectorsClient` has been removed
+- Function `*ServerCollectorsClient.Create` has been removed
+- Function `*ServerCollectorsClient.Delete` has been removed
+- Function `*ServerCollectorsClient.Get` has been removed
+- Function `*ServerCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewVMwareCollectorsClient` has been removed
+- Function `*VMwareCollectorsClient.Create` has been removed
+- Function `*VMwareCollectorsClient.Delete` has been removed
+- Function `*VMwareCollectorsClient.Get` has been removed
+- Function `*VMwareCollectorsClient.NewListByProjectPager` has been removed
+- Struct `AssessedDisk` has been removed
+- Struct `AssessedMachine` has been removed
+- Struct `AssessedMachineProperties` has been removed
+- Struct `AssessedMachineResultList` has been removed
+- Struct `AssessedNetworkAdapter` has been removed
+- Struct `Assessment` has been removed
+- Struct `AssessmentOptions` has been removed
+- Struct `AssessmentOptionsProperties` has been removed
+- Struct `AssessmentOptionsResultList` has been removed
+- Struct `AssessmentProperties` has been removed
+- Struct `AssessmentResultList` has been removed
+- Struct `CollectorAgentProperties` has been removed
+- Struct `CollectorBodyAgentSpnProperties` has been removed
+- Struct `CollectorProperties` has been removed
+- Struct `Disk` has been removed
+- Struct `Group` has been removed
+- Struct `GroupBodyProperties` has been removed
+- Struct `GroupProperties` has been removed
+- Struct `GroupResultList` has been removed
+- Struct `HyperVCollector` has been removed
+- Struct `HyperVCollectorList` has been removed
+- Struct `ImportCollector` has been removed
+- Struct `ImportCollectorList` has been removed
+- Struct `ImportCollectorProperties` has been removed
+- Struct `Machine` has been removed
+- Struct `MachineProperties` has been removed
+- Struct `MachineResultList` has been removed
+- Struct `NetworkAdapter` has been removed
+- Struct `Operation` has been removed
+- Struct `OperationDisplay` has been removed
+- Struct `OperationResultList` has been removed
+- Struct `PrivateEndpointConnection` has been removed
+- Struct `PrivateEndpointConnectionCollection` has been removed
+- Struct `PrivateEndpointConnectionProperties` has been removed
+- Struct `PrivateLinkResource` has been removed
+- Struct `PrivateLinkResourceCollection` has been removed
+- Struct `PrivateLinkResourceProperties` has been removed
+- Struct `PrivateLinkServiceConnectionState` has been removed
+- Struct `Project` has been removed
+- Struct `ProjectProperties` has been removed
+- Struct `ProjectResultList` has been removed
+- Struct `ResourceID` has been removed
+- Struct `ServerCollector` has been removed
+- Struct `ServerCollectorList` has been removed
+- Struct `UpdateGroupBody` has been removed
+- Struct `VMFamily` has been removed
+- Struct `VMUptime` has been removed
+- Struct `VMwareCollector` has been removed
+- Struct `VMwareCollectorList` has been removed
+
+### Features Added
+
+- New value `AssessmentStatusDeleted`, `AssessmentStatusFailed` added to enum type `AssessmentStatus`
+- New value `AzureLocationAustraliaCentral`, `AzureLocationAustraliaCentral2`, `AzureLocationChinaEast2`, `AzureLocationChinaNorth2`, `AzureLocationFranceCentral`, `AzureLocationFranceSouth`, `AzureLocationGermanyNorth`, `AzureLocationGermanyWestCentral`, `AzureLocationIsraelCentral`, `AzureLocationItalyNorth`, `AzureLocationJioIndiaWest`, `AzureLocationMexicoCentral`, `AzureLocationNewZealandNorth`, `AzureLocationNorwayEast`, `AzureLocationNorwayWest`, `AzureLocationPolandCentral`, `AzureLocationQatarCentral`, `AzureLocationSouthAfricaNorth`, `AzureLocationSouthAfricaWest`, `AzureLocationSpainCentral`, `AzureLocationSwedenCentral`, `AzureLocationSwitzerlandNorth`, `AzureLocationSwitzerlandWest`, `AzureLocationUAECentral`, `AzureLocationUAENorth`, `AzureLocationUsNatEast`, `AzureLocationUsNatWest`, `AzureLocationUsSecCentral`, `AzureLocationUsSecEast`, `AzureLocationUsSecWest` added to enum type `AzureLocation`
+- New value `PercentilePercentileUnknown` added to enum type `Percentile`
+- New value `ProvisioningStateCanceled`, `ProvisioningStateProvisioning`, `ProvisioningStateUpdating` added to enum type `ProvisioningState`
+- New enum type `AssessmentSource` with values `AssessmentSourceIIS`, `AssessmentSourceMachine`, `AssessmentSourceMySQLServer`, `AssessmentSourceOracleDatabase`, `AssessmentSourceOracleServer`, `AssessmentSourceSAPInstance`, `AssessmentSourceSQLDatabase`, `AssessmentSourceSQLInstance`, `AssessmentSourceSpringbootApplication`, `AssessmentSourceTomCat`, `AssessmentSourceUnknown`, `AssessmentSourceWebApps`
+- New enum type `AzureCurrency` with values `AzureCurrencyARS`, `AzureCurrencyAUD`, `AzureCurrencyBRL`, `AzureCurrencyCAD`, `AzureCurrencyCHF`, `AzureCurrencyCNY`, `AzureCurrencyDKK`, `AzureCurrencyEUR`, `AzureCurrencyGBP`, `AzureCurrencyHKD`, `AzureCurrencyIDR`, `AzureCurrencyINR`, `AzureCurrencyJPY`, `AzureCurrencyKRW`, `AzureCurrencyMXN`, `AzureCurrencyMYR`, `AzureCurrencyNOK`, `AzureCurrencyNZD`, `AzureCurrencyRUB`, `AzureCurrencySAR`, `AzureCurrencySEK`, `AzureCurrencyTRY`, `AzureCurrencyTWD`, `AzureCurrencyUSD`, `AzureCurrencyUnknown`, `AzureCurrencyZAR`
+- New enum type `AzureManagementOfferingType` with values `AzureManagementOfferingTypeAUM`, `AzureManagementOfferingTypeAzMon`, `AzureManagementOfferingTypeAzureBackup`, `AzureManagementOfferingTypeNo`, `AzureManagementOfferingTypeSCOMMI`
+- New enum type `AzureOffer` with values `AzureOfferEA`, `AzureOfferMsazr0003P`, `AzureOfferMsazr0023P`, `AzureOfferMsazrusgov0003P`, `AzureOfferMsmcazr0044P`, `AzureOfferMsmcazr0059P`, `AzureOfferMsmcazr0060P`, `AzureOfferMsmcazr0063P`, `AzureOfferSavingsPlan1Year`, `AzureOfferSavingsPlan3Year`, `AzureOfferUnknown`
+- New enum type `AzureSecurityOfferingType` with values `AzureSecurityOfferingTypeMDC`, `AzureSecurityOfferingTypeNO`
+- New enum type `AzureTarget` with values `AzureTargetAKS`, `AzureTargetAvs`, `AzureTargetAzureAppService`, `AzureTargetAzureAppServiceContainer`, `AzureTargetAzureSQLVM`, `AzureTargetAzureSpringApps`, `AzureTargetAzureVM`, `AzureTargetFlexServerPG`, `AzureTargetMySQLAzureFlexServer`, `AzureTargetOracleIaasVM`, `AzureTargetSAPAzureInstance`, `AzureTargetSQLDatabase`, `AzureTargetSQLMI`, `AzureTargetUnknown`
+- New enum type `AzureWebAppTier` with values `AzureWebAppTierBasic`, `AzureWebAppTierFree`, `AzureWebAppTierIsolated`, `AzureWebAppTierPremium`, `AzureWebAppTierPremiumV2`, `AzureWebAppTierShared`, `AzureWebAppTierStandard`, `AzureWebAppTierUnknown`
+- New enum type `CloudSuitabilityCommon` with values `CloudSuitabilityCommonConditionallySuitable`, `CloudSuitabilityCommonNotSuitable`, `CloudSuitabilityCommonReadinessUnknown`, `CloudSuitabilityCommonSuitable`, `CloudSuitabilityCommonSuitableWithWarnings`, `CloudSuitabilityCommonUnknown`
+- New enum type `CostComponentName` with values `CostComponentNameMonthlyAvsNodeCost`, `CostComponentNameMonthlyAzureHybridCostSavings`, `CostComponentNameMonthlyExternalStorageCost`, `CostComponentNameMonthlyLinuxAzureHybridCostSavings`, `CostComponentNameMonthlyNetworkCost`, `CostComponentNameMonthlyPremiumV2StorageCost`, `CostComponentNameMonthlySecurityCost`, `CostComponentNameMonthlyVcfByolCostDifference`, `CostComponentNameUnknown`
+- New enum type `CostType` with values `CostTypeDataProtectionService`, `CostTypeMonitoringService`, `CostTypeMonthlyAvsExternalStorageCost`, `CostTypeMonthlyAvsNetworkCost`, `CostTypeMonthlyAvsNodeCost`, `CostTypeMonthlyAzureHybridCost`, `CostTypeMonthlyBandwidthCost`, `CostTypeMonthlyComputeCost`, `CostTypeMonthlyLicensingCost`, `CostTypeMonthlyLinuxAzureHybridCost`, `CostTypeMonthlyManagementCost`, `CostTypeMonthlyPremiumStorageCost`, `CostTypeMonthlyPremiumV2StorageCost`, `CostTypeMonthlySecurityCost`, `CostTypeMonthlyStandardHddStorageCost`, `CostTypeMonthlyStandardSsdStorageCost`, `CostTypeMonthlyStorageCost`, `CostTypeMonthlyUltraDiskCost`, `CostTypeMonthlyUltraStorageCost`, `CostTypePatchingService`, `CostTypeTotalMonthlyCost`
+- New enum type `CreatedByType` with values `CreatedByTypeApplication`, `CreatedByTypeKey`, `CreatedByTypeManagedIdentity`, `CreatedByTypeUser`
+- New enum type `EnvironmentType` with values `EnvironmentTypeDevTest`, `EnvironmentTypeProduction`, `EnvironmentTypeUnknown`
+- New enum type `LicensingProgram` with values `LicensingProgramEA`, `LicensingProgramMCA`, `LicensingProgramRetail`, `LicensingProgramUnknown`
+- New enum type `LinkageKind` with values `LinkageKindDatabase`, `LinkageKindInstance`, `LinkageKindMachine`, `LinkageKindServer`, `LinkageKindUnknown`, `LinkageKindWebApplication`, `LinkageKindWebServer`
+- New enum type `LinkageType` with values `LinkageTypeParent`, `LinkageTypeSource`
+- New enum type `MigrationIssuesCategory` with values `MigrationIssuesCategoryInternal`, `MigrationIssuesCategoryIssue`, `MigrationIssuesCategoryWarning`
+- New enum type `MigrationPlatform` with values `MigrationPlatformIaaS`, `MigrationPlatformPaaS`, `MigrationPlatformSaaS`, `MigrationPlatformUnknown`
+- New enum type `MigrationType` with values `MigrationTypeRearchitect`, `MigrationTypeRehost`, `MigrationTypeReplatform`, `MigrationTypeRetain`, `MigrationTypeUnknown`
+- New enum type `SKUKind` with values `SKUKindDetails`, `SKUKindEndpoint`
+- New enum type `SKUType` with values `SKUTypeAppServicePlan`, `SKUTypeAzureSpringApps`, `SKUTypeCompute`, `SKUTypeNetwork`, `SKUTypeStorage`, `SKUTypeUnknown`
+- New enum type `SavingsOptions` with values `SavingsOptionsCustomAzureOfferCode`, `SavingsOptionsNone`, `SavingsOptionsRI1Year`, `SavingsOptionsRI3Year`, `SavingsOptionsSavingsPlan1Year`, `SavingsOptionsSavingsPlan3Year`
+- New enum type `SavingsType` with values `SavingsTypeMonthlyAhubSQLCostSavings`, `SavingsTypeMonthlyAzureHybridCostSavings`, `SavingsTypeMonthlyLinuxAzureHybridCostSavings`, `SavingsTypeMonthlyVcfByolCostDifference`
+- New enum type `ScopeType` with values `ScopeTypeAzureResourceGraphQuery`, `ScopeTypeServerGroupID`
+- New enum type `StrategyType` with values `StrategyTypeCostOptimized`, `StrategyTypeEffortOptimized`, `StrategyTypePaaSPreferred`
+- New enum type `SummaryType` with values `SummaryTypeStrategy`, `SummaryTypeTarget`, `SummaryTypeUnknown`
+- New enum type `WebAppTargetType` with values `WebAppTargetTypeAzureAppService`, `WebAppTargetTypeAzureAppServiceContainer`, `WebAppTargetTypeUnknown`
+- New enum type `WebServerType` with values `WebServerTypeIIS`, `WebServerTypeTomcat`, `WebServerTypeUnknown`
+- New enum type `WorkloadType` with values `WorkloadTypeDatabase`, `WorkloadTypeHost`, `WorkloadTypeInstance`, `WorkloadTypeMachine`, `WorkloadTypeManagementServer`, `WorkloadTypeServer`, `WorkloadTypeUnknown`, `WorkloadTypeWebApplication`, `WorkloadTypeWebServer`
+- New function `NewAssessedWebAppsV3OperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AssessedWebAppsV3OperationsClient, error)`
+- New function `*AssessedWebAppsV3OperationsClient.Get(context.Context, string, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*AssessedWebAppsV3OperationsClient.NewListByParentPager(string, string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `*ClientFactory.NewAssessedWebAppsV3OperationsClient() *AssessedWebAppsV3OperationsClient`
+- New function `*ClientFactory.NewWebAppAssessmentV3OperationsClient() *WebAppAssessmentV3OperationsClient`
+- New function `*ClientFactory.NewWebAppAssessmentV3SummaryOperationsClient() *WebAppAssessmentV3SummaryOperationsClient`
+- New function `*ClientFactory.NewWebAppGraphAssessmentOptionsOperationsClient() *WebAppGraphAssessmentOptionsOperationsClient`
+- New function `*ClientFactory.NewWebAppServicePlansOperationsClient() *WebAppServicePlansOperationsClient`
+- New function `NewWebAppAssessmentV3OperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WebAppAssessmentV3OperationsClient, error)`
+- New function `*WebAppAssessmentV3OperationsClient.BeginCreate(context.Context, string, string, string, WebAppAssessmentV3, *BeginCreateOptions) (*runtime.Poller[CreateResponse], error)`
+- New function `*WebAppAssessmentV3OperationsClient.Delete(context.Context, string, string, string, *DeleteOptions) (DeleteResponse, error)`
+- New function `*WebAppAssessmentV3OperationsClient.BeginDownloadURL(context.Context, string, string, string, DownloadURLRequest, *BeginDownloadURLOptions) (*runtime.Poller[DownloadURLResponse], error)`
+- New function `*WebAppAssessmentV3OperationsClient.Get(context.Context, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*WebAppAssessmentV3OperationsClient.NewListByParentPager(string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewWebAppAssessmentV3SummaryOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WebAppAssessmentV3SummaryOperationsClient, error)`
+- New function `*WebAppAssessmentV3SummaryOperationsClient.Get(context.Context, string, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*WebAppAssessmentV3SummaryOperationsClient.NewListByParentPager(string, string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewWebAppGraphAssessmentOptionsOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WebAppGraphAssessmentOptionsOperationsClient, error)`
+- New function `*WebAppGraphAssessmentOptionsOperationsClient.Get(context.Context, string, string, *GetOptions) (GetResponse, error)`
+- New function `*WebAppGraphAssessmentOptionsOperationsClient.NewListByParentPager(string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewWebAppServicePlansOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WebAppServicePlansOperationsClient, error)`
+- New function `*WebAppServicePlansOperationsClient.Get(context.Context, string, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*WebAppServicePlansOperationsClient.NewListByParentPager(string, string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New struct `AppSvcContainerSettings`
+- New struct `AppSvcNativeSettings`
+- New struct `AssessedWebAppV3`
+- New struct `AssessedWebAppV3ListResult`
+- New struct `AssessedWebAppV3Properties`
+- New struct `AssessmentDetails`
+- New struct `BillingSettings`
+- New struct `Configuration`
+- New struct `CostComponent`
+- New struct `CostDetailsCommon`
+- New struct `DiscoveredEntityLightSummary`
+- New struct `DownloadURLRequest`
+- New struct `Linkages`
+- New struct `ManagementDetails`
+- New struct `MigrationDetails`
+- New struct `MigrationIssues`
+- New struct `MigrationSuitability`
+- New struct `MoreInformation`
+- New struct `NameValuePair`
+- New struct `NameValuePairCloudSuitabilityCommon`
+- New struct `NameValuePairCostType`
+- New struct `NameValuePairSavingsType`
+- New struct `PerformanceData`
+- New struct `RecommendationsMigrationIssuesMigrationSuitabilitySKUs`
+- New struct `RecommendedFor`
+- New struct `SKUDetails`
+- New struct `SKUsMigrationSuitability`
+- New struct `SavingsDetailsCommon`
+- New struct `SavingsSettings`
+- New struct `Scope`
+- New struct `SecuritySuitability`
+- New struct `SourceDetails`
+- New struct `SourceRecommendationMigrationSuitability`
+- New struct `SystemData`
+- New struct `TargetDetails`
+- New struct `TargetSourcePair`
+- New struct `WebAppAssessmentSettings`
+- New struct `WebAppAssessmentV3`
+- New struct `WebAppAssessmentV3ListResult`
+- New struct `WebAppAssessmentV3Properties`
+- New struct `WebAppAssessmentV3Summary`
+- New struct `WebAppAssessmentV3SummaryListResult`
+- New struct `WebAppServicePlanV3`
+- New struct `WebAppServicePlanV3ListResult`
+- New struct `WebAppServicePlanV3Properties`
+- New struct `WebAppSummaryProperties`
+- New struct `WepAppAssessmentOptionsOutboundEdgeGroup`
+- New struct `WepAppGraphAssessmentOptions`
+- New struct `WepAppGraphAssessmentOptionsListResult`
+- New struct `WepAppGraphAssessmentOptionsProperties`
+
+
+## 2.0.0-beta.1 (2025-04-23)
+### Breaking Changes
+
+- `MachineBootTypeBIOS` from enum `MachineBootType` has been removed
+- `ProvisioningStateCreating`, `ProvisioningStateMoving` from enum `ProvisioningState` has been removed
+- Enum `AssessmentStage` has been removed
+- Enum `AzureDiskSize` has been removed
+- Enum `AzureDiskSuitabilityDetail` has been removed
+- Enum `AzureDiskSuitabilityExplanation` has been removed
+- Enum `AzureDiskType` has been removed
+- Enum `AzureHybridUseBenefit` has been removed
+- Enum `AzureNetworkAdapterSuitabilityDetail` has been removed
+- Enum `AzureNetworkAdapterSuitabilityExplanation` has been removed
+- Enum `AzureOfferCode` has been removed
+- Enum `AzurePricingTier` has been removed
+- Enum `AzureStorageRedundancy` has been removed
+- Enum `AzureVMSize` has been removed
+- Enum `AzureVMSuitabilityDetail` has been removed
+- Enum `AzureVMSuitabilityExplanation` has been removed
+- Enum `CloudSuitability` has been removed
+- Enum `Currency` has been removed
+- Enum `GroupStatus` has been removed
+- Enum `GroupUpdateOperation` has been removed
+- Enum `PrivateEndpointConnectionPropertiesProvisioningState` has been removed
+- Enum `PrivateLinkServiceConnectionStateStatus` has been removed
+- Enum `ProjectStatus` has been removed
+- Enum `ReservedInstance` has been removed
+- Function `NewAssessedMachinesClient` has been removed
+- Function `*AssessedMachinesClient.Get` has been removed
+- Function `*AssessedMachinesClient.NewListByAssessmentPager` has been removed
+- Function `NewAssessmentsClient` has been removed
+- Function `*AssessmentsClient.Create` has been removed
+- Function `*AssessmentsClient.Delete` has been removed
+- Function `*AssessmentsClient.Get` has been removed
+- Function `*AssessmentsClient.GetReportDownloadURL` has been removed
+- Function `*AssessmentsClient.NewListByGroupPager` has been removed
+- Function `*AssessmentsClient.NewListByProjectPager` has been removed
+- Function `*ClientFactory.NewAssessedMachinesClient` has been removed
+- Function `*ClientFactory.NewAssessmentsClient` has been removed
+- Function `*ClientFactory.NewGroupsClient` has been removed
+- Function `*ClientFactory.NewHyperVCollectorsClient` has been removed
+- Function `*ClientFactory.NewImportCollectorsClient` has been removed
+- Function `*ClientFactory.NewMachinesClient` has been removed
+- Function `*ClientFactory.NewOperationsClient` has been removed
+- Function `*ClientFactory.NewPrivateEndpointConnectionClient` has been removed
+- Function `*ClientFactory.NewPrivateLinkResourceClient` has been removed
+- Function `*ClientFactory.NewProjectsClient` has been removed
+- Function `*ClientFactory.NewServerCollectorsClient` has been removed
+- Function `*ClientFactory.NewVMwareCollectorsClient` has been removed
+- Function `NewGroupsClient` has been removed
+- Function `*GroupsClient.Create` has been removed
+- Function `*GroupsClient.Delete` has been removed
+- Function `*GroupsClient.Get` has been removed
+- Function `*GroupsClient.NewListByProjectPager` has been removed
+- Function `*GroupsClient.UpdateMachines` has been removed
+- Function `NewHyperVCollectorsClient` has been removed
+- Function `*HyperVCollectorsClient.Create` has been removed
+- Function `*HyperVCollectorsClient.Delete` has been removed
+- Function `*HyperVCollectorsClient.Get` has been removed
+- Function `*HyperVCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewImportCollectorsClient` has been removed
+- Function `*ImportCollectorsClient.Create` has been removed
+- Function `*ImportCollectorsClient.Delete` has been removed
+- Function `*ImportCollectorsClient.Get` has been removed
+- Function `*ImportCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewMachinesClient` has been removed
+- Function `*MachinesClient.Get` has been removed
+- Function `*MachinesClient.NewListByProjectPager` has been removed
+- Function `NewOperationsClient` has been removed
+- Function `*OperationsClient.NewListPager` has been removed
+- Function `NewPrivateEndpointConnectionClient` has been removed
+- Function `*PrivateEndpointConnectionClient.Delete` has been removed
+- Function `*PrivateEndpointConnectionClient.Get` has been removed
+- Function `*PrivateEndpointConnectionClient.ListByProject` has been removed
+- Function `*PrivateEndpointConnectionClient.Update` has been removed
+- Function `NewPrivateLinkResourceClient` has been removed
+- Function `*PrivateLinkResourceClient.Get` has been removed
+- Function `*PrivateLinkResourceClient.ListByProject` has been removed
+- Function `NewProjectsClient` has been removed
+- Function `*ProjectsClient.AssessmentOptions` has been removed
+- Function `*ProjectsClient.NewAssessmentOptionsListPager` has been removed
+- Function `*ProjectsClient.Create` has been removed
+- Function `*ProjectsClient.Delete` has been removed
+- Function `*ProjectsClient.Get` has been removed
+- Function `*ProjectsClient.NewListBySubscriptionPager` has been removed
+- Function `*ProjectsClient.NewListPager` has been removed
+- Function `*ProjectsClient.Update` has been removed
+- Function `NewServerCollectorsClient` has been removed
+- Function `*ServerCollectorsClient.Create` has been removed
+- Function `*ServerCollectorsClient.Delete` has been removed
+- Function `*ServerCollectorsClient.Get` has been removed
+- Function `*ServerCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewVMwareCollectorsClient` has been removed
+- Function `*VMwareCollectorsClient.Create` has been removed
+- Function `*VMwareCollectorsClient.Delete` has been removed
+- Function `*VMwareCollectorsClient.Get` has been removed
+- Function `*VMwareCollectorsClient.NewListByProjectPager` has been removed
+- Struct `AssessedDisk` has been removed
+- Struct `AssessedMachine` has been removed
+- Struct `AssessedMachineProperties` has been removed
+- Struct `AssessedMachineResultList` has been removed
+- Struct `AssessedNetworkAdapter` has been removed
+- Struct `Assessment` has been removed
+- Struct `AssessmentOptions` has been removed
+- Struct `AssessmentOptionsProperties` has been removed
+- Struct `AssessmentOptionsResultList` has been removed
+- Struct `AssessmentProperties` has been removed
+- Struct `AssessmentResultList` has been removed
+- Struct `CollectorAgentProperties` has been removed
+- Struct `CollectorBodyAgentSpnProperties` has been removed
+- Struct `CollectorProperties` has been removed
+- Struct `Disk` has been removed
+- Struct `Group` has been removed
+- Struct `GroupBodyProperties` has been removed
+- Struct `GroupProperties` has been removed
+- Struct `GroupResultList` has been removed
+- Struct `HyperVCollector` has been removed
+- Struct `HyperVCollectorList` has been removed
+- Struct `ImportCollector` has been removed
+- Struct `ImportCollectorList` has been removed
+- Struct `ImportCollectorProperties` has been removed
+- Struct `Machine` has been removed
+- Struct `MachineProperties` has been removed
+- Struct `MachineResultList` has been removed
+- Struct `NetworkAdapter` has been removed
+- Struct `Operation` has been removed
+- Struct `OperationDisplay` has been removed
+- Struct `OperationResultList` has been removed
+- Struct `PrivateEndpointConnection` has been removed
+- Struct `PrivateEndpointConnectionCollection` has been removed
+- Struct `PrivateEndpointConnectionProperties` has been removed
+- Struct `PrivateLinkResource` has been removed
+- Struct `PrivateLinkResourceCollection` has been removed
+- Struct `PrivateLinkResourceProperties` has been removed
+- Struct `PrivateLinkServiceConnectionState` has been removed
+- Struct `Project` has been removed
+- Struct `ProjectProperties` has been removed
+- Struct `ProjectResultList` has been removed
+- Struct `ResourceID` has been removed
+- Struct `ServerCollector` has been removed
+- Struct `ServerCollectorList` has been removed
+- Struct `UpdateGroupBody` has been removed
+- Struct `VMFamily` has been removed
+- Struct `VMUptime` has been removed
+- Struct `VMwareCollector` has been removed
+- Struct `VMwareCollectorList` has been removed
+
+### Features Added
+
+- New value `AssessmentStatusDeleted`, `AssessmentStatusFailed` added to enum type `AssessmentStatus`
+- New value `AzureLocationAustraliaCentral`, `AzureLocationAustraliaCentral2`, `AzureLocationChinaEast2`, `AzureLocationChinaNorth2`, `AzureLocationFranceCentral`, `AzureLocationFranceSouth`, `AzureLocationGermanyNorth`, `AzureLocationGermanyWestCentral`, `AzureLocationIsraelCentral`, `AzureLocationItalyNorth`, `AzureLocationJioIndiaWest`, `AzureLocationMexicoCentral`, `AzureLocationNewZealandNorth`, `AzureLocationNorwayEast`, `AzureLocationNorwayWest`, `AzureLocationPolandCentral`, `AzureLocationQatarCentral`, `AzureLocationSouthAfricaNorth`, `AzureLocationSouthAfricaWest`, `AzureLocationSpainCentral`, `AzureLocationSwedenCentral`, `AzureLocationSwitzerlandNorth`, `AzureLocationSwitzerlandWest`, `AzureLocationUAECentral`, `AzureLocationUAENorth`, `AzureLocationUsNatEast`, `AzureLocationUsNatWest`, `AzureLocationUsSecCentral`, `AzureLocationUsSecEast`, `AzureLocationUsSecWest` added to enum type `AzureLocation`
+- New value `AzureVMFamilyDadsv5Series`, `AzureVMFamilyDasv4Series`, `AzureVMFamilyDasv5Series`, `AzureVMFamilyDav4Series`, `AzureVMFamilyDdsv4Series`, `AzureVMFamilyDdsv5Series`, `AzureVMFamilyDdv4Series`, `AzureVMFamilyDdv5Series`, `AzureVMFamilyDsv4Series`, `AzureVMFamilyDsv5Series`, `AzureVMFamilyDv4Series`, `AzureVMFamilyDv5Series`, `AzureVMFamilyEadsv5Series`, `AzureVMFamilyEasv4Series`, `AzureVMFamilyEasv5Series`, `AzureVMFamilyEav4Series`, `AzureVMFamilyEbdsv5Series`, `AzureVMFamilyEbsv5Series`, `AzureVMFamilyEdsv4Series`, `AzureVMFamilyEdsv5Series`, `AzureVMFamilyEdv4Series`, `AzureVMFamilyEdv5Series`, `AzureVMFamilyEsv4Series`, `AzureVMFamilyEsv5Series`, `AzureVMFamilyEv4Series`, `AzureVMFamilyEv5Series`, `AzureVMFamilyLsv2Series`, `AzureVMFamilyMdsv2Series`, `AzureVMFamilyMsv2Series`, `AzureVMFamilyMv2Series` added to enum type `AzureVMFamily`
+- New value `MachineBootTypeBios`, `MachineBootTypeNotSpecified` added to enum type `MachineBootType`
+- New value `PercentilePercentileUnknown` added to enum type `Percentile`
+- New value `ProvisioningStateCanceled`, `ProvisioningStateProvisioning`, `ProvisioningStateUpdating` added to enum type `ProvisioningState`
+- New enum type `AssessedMachineType` with values `AssessedMachineTypeAssessedMachine`, `AssessedMachineTypeAvsAssessedMachine`, `AssessedMachineTypeSQLAssessedMachine`, `AssessedMachineTypeUnknown`
+- New enum type `AssessmentSource` with values `AssessmentSourceIIS`, `AssessmentSourceMachine`, `AssessmentSourceMySQLServer`, `AssessmentSourceOracleDatabase`, `AssessmentSourceOracleServer`, `AssessmentSourceSAPInstance`, `AssessmentSourceSQLDatabase`, `AssessmentSourceSQLInstance`, `AssessmentSourceSpringbootApplication`, `AssessmentSourceTomCat`, `AssessmentSourceUnknown`, `AssessmentSourceWebApps`
+- New enum type `AsyncCommitModeIntent` with values `AsyncCommitModeIntentDisasterRecovery`, `AsyncCommitModeIntentHighAvailability`, `AsyncCommitModeIntentNone`
+- New enum type `AzureCurrency` with values `AzureCurrencyARS`, `AzureCurrencyAUD`, `AzureCurrencyBRL`, `AzureCurrencyCAD`, `AzureCurrencyCHF`, `AzureCurrencyCNY`, `AzureCurrencyDKK`, `AzureCurrencyEUR`, `AzureCurrencyGBP`, `AzureCurrencyHKD`, `AzureCurrencyIDR`, `AzureCurrencyINR`, `AzureCurrencyJPY`, `AzureCurrencyKRW`, `AzureCurrencyMXN`, `AzureCurrencyMYR`, `AzureCurrencyNOK`, `AzureCurrencyNZD`, `AzureCurrencyRUB`, `AzureCurrencySAR`, `AzureCurrencySEK`, `AzureCurrencyTRY`, `AzureCurrencyTWD`, `AzureCurrencyUSD`, `AzureCurrencyUnknown`, `AzureCurrencyZAR`
+- New enum type `AzureManagementOfferingType` with values `AzureManagementOfferingTypeAUM`, `AzureManagementOfferingTypeAzMon`, `AzureManagementOfferingTypeAzureBackup`, `AzureManagementOfferingTypeNo`, `AzureManagementOfferingTypeSCOMMI`
+- New enum type `AzureOffer` with values `AzureOfferEA`, `AzureOfferMsazr0003P`, `AzureOfferMsazr0023P`, `AzureOfferMsazrusgov0003P`, `AzureOfferMsmcazr0044P`, `AzureOfferMsmcazr0059P`, `AzureOfferMsmcazr0060P`, `AzureOfferMsmcazr0063P`, `AzureOfferSavingsPlan1Year`, `AzureOfferSavingsPlan3Year`, `AzureOfferUnknown`
+- New enum type `AzureSQLDataBaseType` with values `AzureSQLDataBaseTypeAutomatic`, `AzureSQLDataBaseTypeElasticPool`, `AzureSQLDataBaseTypeSingleDatabase`, `AzureSQLDataBaseTypeUnknown`
+- New enum type `AzureSQLInstanceType` with values `AzureSQLInstanceTypeAutomatic`, `AzureSQLInstanceTypeInstancePools`, `AzureSQLInstanceTypeSingleInstance`, `AzureSQLInstanceTypeUnknown`
+- New enum type `AzureSQLPurchaseModel` with values `AzureSQLPurchaseModelDTU`, `AzureSQLPurchaseModelUnknown`, `AzureSQLPurchaseModelVCore`
+- New enum type `AzureSQLServiceTier` with values `AzureSQLServiceTierAutomatic`, `AzureSQLServiceTierBusinessCritical`, `AzureSQLServiceTierGeneralPurpose`, `AzureSQLServiceTierHyperScale`, `AzureSQLServiceTierUnknown`
+- New enum type `AzureSQLServiceTierV3` with values `AzureSQLServiceTierV3SQLServiceAutomatic`, `AzureSQLServiceTierV3SQLServiceBusinessCritical`, `AzureSQLServiceTierV3SQLServiceGeneralPurpose`, `AzureSQLServiceTierV3SQLServiceHyperScale`, `AzureSQLServiceTierV3SQLServiceUnknown`
+- New enum type `AzureSecurityOfferingType` with values `AzureSecurityOfferingTypeMDC`, `AzureSecurityOfferingTypeNO`
+- New enum type `AzureTarget` with values `AzureTargetAKS`, `AzureTargetAvs`, `AzureTargetAzureAppService`, `AzureTargetAzureAppServiceContainer`, `AzureTargetAzureSQLVM`, `AzureTargetAzureSpringApps`, `AzureTargetAzureVM`, `AzureTargetFlexServerPG`, `AzureTargetMySQLAzureFlexServer`, `AzureTargetOracleIaasVM`, `AzureTargetSAPAzureInstance`, `AzureTargetSQLDatabase`, `AzureTargetSQLMI`, `AzureTargetUnknown`
+- New enum type `CloudSuitabilityCommon` with values `CloudSuitabilityCommonConditionallySuitable`, `CloudSuitabilityCommonNotSuitable`, `CloudSuitabilityCommonReadinessUnknown`, `CloudSuitabilityCommonSuitable`, `CloudSuitabilityCommonSuitableWithWarnings`, `CloudSuitabilityCommonUnknown`
+- New enum type `CompatibilityLevel` with values `CompatibilityLevelCompatLevel100`, `CompatibilityLevelCompatLevel110`, `CompatibilityLevelCompatLevel120`, `CompatibilityLevelCompatLevel130`, `CompatibilityLevelCompatLevel140`, `CompatibilityLevelCompatLevel150`, `CompatibilityLevelCompatLevel80`, `CompatibilityLevelCompatLevel90`, `CompatibilityLevelUnknown`
+- New enum type `ComputeTier` with values `ComputeTierAutomatic`, `ComputeTierProvisioned`, `ComputeTierServerless`, `ComputeTierUnknown`
+- New enum type `CostType` with values `CostTypeDataProtectionService`, `CostTypeMonitoringService`, `CostTypeMonthlyAvsExternalStorageCost`, `CostTypeMonthlyAvsNetworkCost`, `CostTypeMonthlyAvsNodeCost`, `CostTypeMonthlyAzureHybridCost`, `CostTypeMonthlyBandwidthCost`, `CostTypeMonthlyComputeCost`, `CostTypeMonthlyLicensingCost`, `CostTypeMonthlyLinuxAzureHybridCost`, `CostTypeMonthlyManagementCost`, `CostTypeMonthlyPremiumStorageCost`, `CostTypeMonthlyPremiumV2StorageCost`, `CostTypeMonthlySecurityCost`, `CostTypeMonthlyStandardHddStorageCost`, `CostTypeMonthlyStandardSsdStorageCost`, `CostTypeMonthlyStorageCost`, `CostTypeMonthlyUltraDiskCost`, `CostTypeMonthlyUltraStorageCost`, `CostTypePatchingService`, `CostTypeTotalMonthlyCost`
+- New enum type `CreatedByType` with values `CreatedByTypeApplication`, `CreatedByTypeKey`, `CreatedByTypeManagedIdentity`, `CreatedByTypeUser`
+- New enum type `EnvironmentType` with values `EnvironmentTypeDevTest`, `EnvironmentTypeProduction`, `EnvironmentTypeUnknown`
+- New enum type `GuestOperatingSystemArchitecture` with values `GuestOperatingSystemArchitectureUnknown`, `GuestOperatingSystemArchitectureX64`, `GuestOperatingSystemArchitectureX86`
+- New enum type `HardwareGeneration` with values `HardwareGenerationAutomatic`, `HardwareGenerationDCSeries`, `HardwareGenerationFsv2Series`, `HardwareGenerationGen5`, `HardwareGenerationMSeries`, `HardwareGenerationUnknown`
+- New enum type `LicensingProgram` with values `LicensingProgramEA`, `LicensingProgramMCA`, `LicensingProgramRetail`, `LicensingProgramUnknown`
+- New enum type `LinkageKind` with values `LinkageKindDatabase`, `LinkageKindInstance`, `LinkageKindMachine`, `LinkageKindServer`, `LinkageKindUnknown`, `LinkageKindWebApplication`, `LinkageKindWebServer`
+- New enum type `LinkageType` with values `LinkageTypeParent`, `LinkageTypeSource`
+- New enum type `MigrationIssuesCategory` with values `MigrationIssuesCategoryInternal`, `MigrationIssuesCategoryIssue`, `MigrationIssuesCategoryWarning`
+- New enum type `MigrationPlatform` with values `MigrationPlatformIaaS`, `MigrationPlatformPaaS`, `MigrationPlatformSaaS`, `MigrationPlatformUnknown`
+- New enum type `MigrationType` with values `MigrationTypeRearchitect`, `MigrationTypeRehost`, `MigrationTypeReplatform`, `MigrationTypeRetain`, `MigrationTypeUnknown`
+- New enum type `MultiSubnetIntent` with values `MultiSubnetIntentDisasterRecovery`, `MultiSubnetIntentHighAvailability`, `MultiSubnetIntentNone`
+- New enum type `OsLicense` with values `OsLicenseNo`, `OsLicenseUnknown`, `OsLicenseYes`
+- New enum type `PremiumDiskSupport` with values `PremiumDiskSupportPremiumDiskNotSupported`, `PremiumDiskSupportPremiumDiskSupported`
+- New enum type `SKUKind` with values `SKUKindDetails`, `SKUKindEndpoint`
+- New enum type `SKUReplicationMode` with values `SKUReplicationModeActiveGeoReplication`, `SKUReplicationModeFailoverGroupInstance`, `SKUReplicationModeNotApplicable`
+- New enum type `SKUType` with values `SKUTypeAppServicePlan`, `SKUTypeAzureSpringApps`, `SKUTypeCompute`, `SKUTypeNetwork`, `SKUTypeStorage`, `SKUTypeUnknown`
+- New enum type `SQLFCIMetadataState` with values `SQLFCIMetadataStateFailed`, `SQLFCIMetadataStateInherited`, `SQLFCIMetadataStateInitializing`, `SQLFCIMetadataStateOffline`, `SQLFCIMetadataStateOfflinePending`, `SQLFCIMetadataStateOnline`, `SQLFCIMetadataStateOnlinePending`, `SQLFCIMetadataStatePending`, `SQLFCIMetadataStateUnknown`
+- New enum type `SQLMigrationGuidelineCategory` with values `SQLMigrationGuidelineCategoryAvailabilityGroupGuideline`, `SQLMigrationGuidelineCategoryFailoverCluterInstanceGuideLine`, `SQLMigrationGuidelineCategoryGeneral`, `SQLMigrationGuidelineCategoryUnknown`
+- New enum type `SQLServerLicense` with values `SQLServerLicenseNo`, `SQLServerLicenseUnknown`, `SQLServerLicenseYes`
+- New enum type `SavingsOptions` with values `SavingsOptionsCustomAzureOfferCode`, `SavingsOptionsNone`, `SavingsOptionsRI1Year`, `SavingsOptionsRI3Year`, `SavingsOptionsSavingsPlan1Year`, `SavingsOptionsSavingsPlan3Year`
+- New enum type `SavingsType` with values `SavingsTypeMonthlyAhubSQLCostSavings`, `SavingsTypeMonthlyAzureHybridCostSavings`, `SavingsTypeMonthlyLinuxAzureHybridCostSavings`, `SavingsTypeMonthlyVcfByolCostDifference`
+- New enum type `ScopeType` with values `ScopeTypeAzureResourceGraphQuery`, `ScopeTypeServerGroupID`
+- New enum type `StrategyType` with values `StrategyTypeCostOptimized`, `StrategyTypeEffortOptimized`, `StrategyTypePaaSPreferred`
+- New enum type `SummaryType` with values `SummaryTypeStrategy`, `SummaryTypeTarget`, `SummaryTypeUnknown`
+- New enum type `TargetType` with values `TargetTypeAzureSQLDatabase`, `TargetTypeAzureSQLManagedInstance`, `TargetTypeAzureSQLVirtualMachine`, `TargetTypeAzureVirtualMachine`, `TargetTypeRecommended`, `TargetTypeUnknown`
+- New enum type `VMFamilyCategoryItem` with values `VMFamilyCategoryItemComputeOptimized`, `VMFamilyCategoryItemConfidential`, `VMFamilyCategoryItemGeneralPurpose`, `VMFamilyCategoryItemGpuOptimized`, `VMFamilyCategoryItemHighPerformanceCompute`, `VMFamilyCategoryItemMemoryOptimized`, `VMFamilyCategoryItemStorageOptimized`, `VMFamilyCategoryItemSupportsPremiumStorage`, `VMFamilyCategoryItemSupportsUltraDiskStorage`, `VMFamilyCategoryItemUnknown`
+- New enum type `WorkloadType` with values `WorkloadTypeDatabase`, `WorkloadTypeHost`, `WorkloadTypeInstance`, `WorkloadTypeMachine`, `WorkloadTypeManagementServer`, `WorkloadTypeServer`, `WorkloadTypeUnknown`, `WorkloadTypeWebApplication`, `WorkloadTypeWebServer`
+- New function `NewAssessedSQLDatabaseV3OperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AssessedSQLDatabaseV3OperationsClient, error)`
+- New function `*AssessedSQLDatabaseV3OperationsClient.Get(context.Context, string, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*AssessedSQLDatabaseV3OperationsClient.NewListByParentPager(string, string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewAssessedSQLInstanceV3OperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AssessedSQLInstanceV3OperationsClient, error)`
+- New function `*AssessedSQLInstanceV3OperationsClient.Get(context.Context, string, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*AssessedSQLInstanceV3OperationsClient.NewListByParentPager(string, string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewAssessedSQLMachinesV3OperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AssessedSQLMachinesV3OperationsClient, error)`
+- New function `*AssessedSQLMachinesV3OperationsClient.Get(context.Context, string, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*AssessedSQLMachinesV3OperationsClient.NewListByParentPager(string, string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `*ClientFactory.NewAssessedSQLDatabaseV3OperationsClient() *AssessedSQLDatabaseV3OperationsClient`
+- New function `*ClientFactory.NewAssessedSQLInstanceV3OperationsClient() *AssessedSQLInstanceV3OperationsClient`
+- New function `*ClientFactory.NewAssessedSQLMachinesV3OperationsClient() *AssessedSQLMachinesV3OperationsClient`
+- New function `*ClientFactory.NewSQLAssessmentV3OperationsClient() *SQLAssessmentV3OperationsClient`
+- New function `*ClientFactory.NewSQLAssessmentV3SummaryOperationsClient() *SQLAssessmentV3SummaryOperationsClient`
+- New function `*ClientFactory.NewSQLGraphAssessmentOptionsOperationsClient() *SQLGraphAssessmentOptionsOperationsClient`
+- New function `NewSQLAssessmentV3OperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SQLAssessmentV3OperationsClient, error)`
+- New function `*SQLAssessmentV3OperationsClient.BeginCreate(context.Context, string, string, string, SQLAssessmentV3, *BeginCreateOptions) (*runtime.Poller[CreateResponse], error)`
+- New function `*SQLAssessmentV3OperationsClient.Delete(context.Context, string, string, string, *DeleteOptions) (DeleteResponse, error)`
+- New function `*SQLAssessmentV3OperationsClient.BeginDownloadURL(context.Context, string, string, string, DownloadURLRequest, *BeginDownloadURLOptions) (*runtime.Poller[DownloadURLResponse], error)`
+- New function `*SQLAssessmentV3OperationsClient.Get(context.Context, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*SQLAssessmentV3OperationsClient.NewListByParentPager(string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewSQLAssessmentV3SummaryOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SQLAssessmentV3SummaryOperationsClient, error)`
+- New function `*SQLAssessmentV3SummaryOperationsClient.Get(context.Context, string, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*SQLAssessmentV3SummaryOperationsClient.NewListByParentPager(string, string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewSQLGraphAssessmentOptionsOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SQLGraphAssessmentOptionsOperationsClient, error)`
+- New function `*SQLGraphAssessmentOptionsOperationsClient.Get(context.Context, string, string, *GetOptions) (GetResponse, error)`
+- New function `*SQLGraphAssessmentOptionsOperationsClient.NewListByParentPager(string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New struct `AssessedSQLDatabaseV3`
+- New struct `AssessedSQLDatabaseV3ListResult`
+- New struct `AssessedSQLDatabaseV3Properties`
+- New struct `AssessedSQLDiskDataV3`
+- New struct `AssessedSQLInstanceDatabaseSummary`
+- New struct `AssessedSQLInstanceDiskDetails`
+- New struct `AssessedSQLInstanceStorageDetails`
+- New struct `AssessedSQLInstanceV3`
+- New struct `AssessedSQLInstanceV3ListResult`
+- New struct `AssessedSQLInstanceV3Properties`
+- New struct `AssessedSQLMachineV3`
+- New struct `AssessedSQLMachineV3ListResult`
+- New struct `AssessedSQLMachineV3Properties`
+- New struct `AssessedSQLNetworkAdaptersV3`
+- New struct `AssessmentDetails`
+- New struct `BillingSettings`
+- New struct `Configuration`
+- New struct `CostDetailsCommon`
+- New struct `DownloadURLRequest`
+- New struct `EntityUptime`
+- New struct `ImpactedAssessmentObject`
+- New struct `Linkages`
+- New struct `ManagementDetails`
+- New struct `MigrationDetails`
+- New struct `MigrationGuidelineContext`
+- New struct `MigrationIssues`
+- New struct `MigrationSuitability`
+- New struct `MoreInformation`
+- New struct `NameValuePair`
+- New struct `NameValuePairCloudSuitabilityCommon`
+- New struct `NameValuePairCostType`
+- New struct `NameValuePairSavingsType`
+- New struct `PerformanceData`
+- New struct `ProductSupportStatus`
+- New struct `RecommendedFor`
+- New struct `SKUDetails`
+- New struct `SKUsMigrationSuitability`
+- New struct `SQLAssessmentMigrationIssue`
+- New struct `SQLAssessmentOptionsOutboundEdgeGroup`
+- New struct `SQLAssessmentSettings`
+- New struct `SQLAssessmentV3`
+- New struct `SQLAssessmentV3ListResult`
+- New struct `SQLAssessmentV3Properties`
+- New struct `SQLAssessmentV3Summary`
+- New struct `SQLAssessmentV3SummaryListResult`
+- New struct `SQLAvailabilityGroupDataOverview`
+- New struct `SQLAvailabilityReplicaSummary`
+- New struct `SQLDbExtendedDetails`
+- New struct `SQLDbSettingsV3`
+- New struct `SQLEntityRecommendations`
+- New struct `SQLFCIMetadata`
+- New struct `SQLGraphAssessmentOptions`
+- New struct `SQLGraphAssessmentOptionsListResult`
+- New struct `SQLGraphAssessmentOptionsProperties`
+- New struct `SQLInstanceExtendedDetails`
+- New struct `SQLMachineExtendedDetails`
+- New struct `SQLMachineRecommendations`
+- New struct `SQLMiSettingsV3`
+- New struct `SQLMigrationGuideline`
+- New struct `SQLRecommendationReasoning`
+- New struct `SQLRecommendationReasoningContext`
+- New struct `SQLVMSettings`
+- New struct `SavingsDetailsCommon`
+- New struct `SavingsSettings`
+- New struct `Scope`
+- New struct `SecuritySuitability`
+- New struct `SourceDetails`
+- New struct `SourceRecommendationMigrationSuitability`
+- New struct `SummaryProperties`
+- New struct `SystemData`
+- New struct `TargetDetails`
+- New struct `TargetSourcePair`
+
+
+## 2.0.0-beta.1 (2025-04-23)
+### Breaking Changes
+
+- Function `NewClientFactory` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(azcore.TokenCredential, *arm.ClientOptions)`
+- Function `*OperationsClient.NewListPager` parameter(s) have been changed from `(*OperationsClientListOptions)` to `(*ListOptions)`
+- Function `*OperationsClient.NewListPager` return value(s) have been changed from `(*runtime.Pager[OperationsClientListResponse])` to `(*runtime.Pager[ListResponse])`
+- Type of `Operation.Origin` has been changed from `*string` to `*Origin`
+- Enum `AssessmentSizingCriterion` has been removed
+- Enum `AssessmentStage` has been removed
+- Enum `AssessmentStatus` has been removed
+- Enum `AzureDiskSize` has been removed
+- Enum `AzureDiskSuitabilityDetail` has been removed
+- Enum `AzureDiskSuitabilityExplanation` has been removed
+- Enum `AzureDiskType` has been removed
+- Enum `AzureHybridUseBenefit` has been removed
+- Enum `AzureLocation` has been removed
+- Enum `AzureNetworkAdapterSuitabilityDetail` has been removed
+- Enum `AzureNetworkAdapterSuitabilityExplanation` has been removed
+- Enum `AzureOfferCode` has been removed
+- Enum `AzurePricingTier` has been removed
+- Enum `AzureStorageRedundancy` has been removed
+- Enum `AzureVMFamily` has been removed
+- Enum `AzureVMSize` has been removed
+- Enum `AzureVMSuitabilityDetail` has been removed
+- Enum `AzureVMSuitabilityExplanation` has been removed
+- Enum `CloudSuitability` has been removed
+- Enum `Currency` has been removed
+- Enum `GroupStatus` has been removed
+- Enum `GroupUpdateOperation` has been removed
+- Enum `MachineBootType` has been removed
+- Enum `Percentile` has been removed
+- Enum `PrivateEndpointConnectionPropertiesProvisioningState` has been removed
+- Enum `PrivateLinkServiceConnectionStateStatus` has been removed
+- Enum `ProjectStatus` has been removed
+- Enum `ProvisioningState` has been removed
+- Enum `ReservedInstance` has been removed
+- Enum `TimeRange` has been removed
+- Function `NewAssessedMachinesClient` has been removed
+- Function `*AssessedMachinesClient.Get` has been removed
+- Function `*AssessedMachinesClient.NewListByAssessmentPager` has been removed
+- Function `NewAssessmentsClient` has been removed
+- Function `*AssessmentsClient.Create` has been removed
+- Function `*AssessmentsClient.Delete` has been removed
+- Function `*AssessmentsClient.Get` has been removed
+- Function `*AssessmentsClient.GetReportDownloadURL` has been removed
+- Function `*AssessmentsClient.NewListByGroupPager` has been removed
+- Function `*AssessmentsClient.NewListByProjectPager` has been removed
+- Function `*ClientFactory.NewAssessedMachinesClient` has been removed
+- Function `*ClientFactory.NewAssessmentsClient` has been removed
+- Function `*ClientFactory.NewGroupsClient` has been removed
+- Function `*ClientFactory.NewHyperVCollectorsClient` has been removed
+- Function `*ClientFactory.NewImportCollectorsClient` has been removed
+- Function `*ClientFactory.NewMachinesClient` has been removed
+- Function `*ClientFactory.NewPrivateEndpointConnectionClient` has been removed
+- Function `*ClientFactory.NewPrivateLinkResourceClient` has been removed
+- Function `*ClientFactory.NewProjectsClient` has been removed
+- Function `*ClientFactory.NewServerCollectorsClient` has been removed
+- Function `*ClientFactory.NewVMwareCollectorsClient` has been removed
+- Function `NewGroupsClient` has been removed
+- Function `*GroupsClient.Create` has been removed
+- Function `*GroupsClient.Delete` has been removed
+- Function `*GroupsClient.Get` has been removed
+- Function `*GroupsClient.NewListByProjectPager` has been removed
+- Function `*GroupsClient.UpdateMachines` has been removed
+- Function `NewHyperVCollectorsClient` has been removed
+- Function `*HyperVCollectorsClient.Create` has been removed
+- Function `*HyperVCollectorsClient.Delete` has been removed
+- Function `*HyperVCollectorsClient.Get` has been removed
+- Function `*HyperVCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewImportCollectorsClient` has been removed
+- Function `*ImportCollectorsClient.Create` has been removed
+- Function `*ImportCollectorsClient.Delete` has been removed
+- Function `*ImportCollectorsClient.Get` has been removed
+- Function `*ImportCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewMachinesClient` has been removed
+- Function `*MachinesClient.Get` has been removed
+- Function `*MachinesClient.NewListByProjectPager` has been removed
+- Function `NewPrivateEndpointConnectionClient` has been removed
+- Function `*PrivateEndpointConnectionClient.Delete` has been removed
+- Function `*PrivateEndpointConnectionClient.Get` has been removed
+- Function `*PrivateEndpointConnectionClient.ListByProject` has been removed
+- Function `*PrivateEndpointConnectionClient.Update` has been removed
+- Function `NewPrivateLinkResourceClient` has been removed
+- Function `*PrivateLinkResourceClient.Get` has been removed
+- Function `*PrivateLinkResourceClient.ListByProject` has been removed
+- Function `NewProjectsClient` has been removed
+- Function `*ProjectsClient.AssessmentOptions` has been removed
+- Function `*ProjectsClient.NewAssessmentOptionsListPager` has been removed
+- Function `*ProjectsClient.Create` has been removed
+- Function `*ProjectsClient.Delete` has been removed
+- Function `*ProjectsClient.Get` has been removed
+- Function `*ProjectsClient.NewListBySubscriptionPager` has been removed
+- Function `*ProjectsClient.NewListPager` has been removed
+- Function `*ProjectsClient.Update` has been removed
+- Function `NewServerCollectorsClient` has been removed
+- Function `*ServerCollectorsClient.Create` has been removed
+- Function `*ServerCollectorsClient.Delete` has been removed
+- Function `*ServerCollectorsClient.Get` has been removed
+- Function `*ServerCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewVMwareCollectorsClient` has been removed
+- Function `*VMwareCollectorsClient.Create` has been removed
+- Function `*VMwareCollectorsClient.Delete` has been removed
+- Function `*VMwareCollectorsClient.Get` has been removed
+- Function `*VMwareCollectorsClient.NewListByProjectPager` has been removed
+- Struct `AssessedDisk` has been removed
+- Struct `AssessedMachine` has been removed
+- Struct `AssessedMachineProperties` has been removed
+- Struct `AssessedMachineResultList` has been removed
+- Struct `AssessedNetworkAdapter` has been removed
+- Struct `Assessment` has been removed
+- Struct `AssessmentOptions` has been removed
+- Struct `AssessmentOptionsProperties` has been removed
+- Struct `AssessmentOptionsResultList` has been removed
+- Struct `AssessmentProperties` has been removed
+- Struct `AssessmentResultList` has been removed
+- Struct `CollectorAgentProperties` has been removed
+- Struct `CollectorBodyAgentSpnProperties` has been removed
+- Struct `CollectorProperties` has been removed
+- Struct `Disk` has been removed
+- Struct `DownloadURL` has been removed
+- Struct `Group` has been removed
+- Struct `GroupBodyProperties` has been removed
+- Struct `GroupProperties` has been removed
+- Struct `GroupResultList` has been removed
+- Struct `HyperVCollector` has been removed
+- Struct `HyperVCollectorList` has been removed
+- Struct `ImportCollector` has been removed
+- Struct `ImportCollectorList` has been removed
+- Struct `ImportCollectorProperties` has been removed
+- Struct `Machine` has been removed
+- Struct `MachineProperties` has been removed
+- Struct `MachineResultList` has been removed
+- Struct `NetworkAdapter` has been removed
+- Struct `OperationResultList` has been removed
+- Struct `OperationsClientListOptions` has been removed
+- Struct `OperationsClientListResponse` has been removed
+- Struct `PrivateEndpointConnection` has been removed
+- Struct `PrivateEndpointConnectionCollection` has been removed
+- Struct `PrivateEndpointConnectionProperties` has been removed
+- Struct `PrivateLinkResource` has been removed
+- Struct `PrivateLinkResourceCollection` has been removed
+- Struct `PrivateLinkResourceProperties` has been removed
+- Struct `PrivateLinkServiceConnectionState` has been removed
+- Struct `Project` has been removed
+- Struct `ProjectProperties` has been removed
+- Struct `ProjectResultList` has been removed
+- Struct `ResourceID` has been removed
+- Struct `ServerCollector` has been removed
+- Struct `ServerCollectorList` has been removed
+- Struct `UpdateGroupBody` has been removed
+- Struct `VMFamily` has been removed
+- Struct `VMUptime` has been removed
+- Struct `VMwareCollector` has been removed
+- Struct `VMwareCollectorList` has been removed
+
+### Features Added
+
+- New enum type `ActionType` with values `ActionTypeInternal`
+- New enum type `Origin` with values `OriginSystem`, `OriginUser`, `OriginUserSystem`
+- New struct `ListOptions`
+- New struct `ListResponse`
+- New struct `OperationListResult`
+- New field `ActionType`, `IsDataAction` in struct `Operation`
+
+
+## 2.0.0-beta.1 (2025-04-23)
+### Breaking Changes
+
+- `MachineBootTypeBIOS` from enum `MachineBootType` has been removed
+- `ProvisioningStateCreating`, `ProvisioningStateMoving` from enum `ProvisioningState` has been removed
+- Enum `AssessmentStage` has been removed
+- Enum `AzureDiskSize` has been removed
+- Enum `AzureDiskSuitabilityDetail` has been removed
+- Enum `AzureDiskSuitabilityExplanation` has been removed
+- Enum `AzureNetworkAdapterSuitabilityDetail` has been removed
+- Enum `AzureNetworkAdapterSuitabilityExplanation` has been removed
+- Enum `AzureOfferCode` has been removed
+- Enum `AzureVMSize` has been removed
+- Enum `AzureVMSuitabilityDetail` has been removed
+- Enum `AzureVMSuitabilityExplanation` has been removed
+- Enum `CloudSuitability` has been removed
+- Enum `Currency` has been removed
+- Enum `GroupStatus` has been removed
+- Enum `GroupUpdateOperation` has been removed
+- Enum `PrivateEndpointConnectionPropertiesProvisioningState` has been removed
+- Enum `PrivateLinkServiceConnectionStateStatus` has been removed
+- Enum `ProjectStatus` has been removed
+- Enum `ReservedInstance` has been removed
+- Function `NewAssessedMachinesClient` has been removed
+- Function `*AssessedMachinesClient.Get` has been removed
+- Function `*AssessedMachinesClient.NewListByAssessmentPager` has been removed
+- Function `NewAssessmentsClient` has been removed
+- Function `*AssessmentsClient.Create` has been removed
+- Function `*AssessmentsClient.Delete` has been removed
+- Function `*AssessmentsClient.Get` has been removed
+- Function `*AssessmentsClient.GetReportDownloadURL` has been removed
+- Function `*AssessmentsClient.NewListByGroupPager` has been removed
+- Function `*AssessmentsClient.NewListByProjectPager` has been removed
+- Function `*ClientFactory.NewAssessedMachinesClient` has been removed
+- Function `*ClientFactory.NewAssessmentsClient` has been removed
+- Function `*ClientFactory.NewGroupsClient` has been removed
+- Function `*ClientFactory.NewHyperVCollectorsClient` has been removed
+- Function `*ClientFactory.NewImportCollectorsClient` has been removed
+- Function `*ClientFactory.NewMachinesClient` has been removed
+- Function `*ClientFactory.NewOperationsClient` has been removed
+- Function `*ClientFactory.NewPrivateEndpointConnectionClient` has been removed
+- Function `*ClientFactory.NewPrivateLinkResourceClient` has been removed
+- Function `*ClientFactory.NewProjectsClient` has been removed
+- Function `*ClientFactory.NewServerCollectorsClient` has been removed
+- Function `*ClientFactory.NewVMwareCollectorsClient` has been removed
+- Function `NewGroupsClient` has been removed
+- Function `*GroupsClient.Create` has been removed
+- Function `*GroupsClient.Delete` has been removed
+- Function `*GroupsClient.Get` has been removed
+- Function `*GroupsClient.NewListByProjectPager` has been removed
+- Function `*GroupsClient.UpdateMachines` has been removed
+- Function `NewHyperVCollectorsClient` has been removed
+- Function `*HyperVCollectorsClient.Create` has been removed
+- Function `*HyperVCollectorsClient.Delete` has been removed
+- Function `*HyperVCollectorsClient.Get` has been removed
+- Function `*HyperVCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewImportCollectorsClient` has been removed
+- Function `*ImportCollectorsClient.Create` has been removed
+- Function `*ImportCollectorsClient.Delete` has been removed
+- Function `*ImportCollectorsClient.Get` has been removed
+- Function `*ImportCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewMachinesClient` has been removed
+- Function `*MachinesClient.Get` has been removed
+- Function `*MachinesClient.NewListByProjectPager` has been removed
+- Function `NewOperationsClient` has been removed
+- Function `*OperationsClient.NewListPager` has been removed
+- Function `NewPrivateEndpointConnectionClient` has been removed
+- Function `*PrivateEndpointConnectionClient.Delete` has been removed
+- Function `*PrivateEndpointConnectionClient.Get` has been removed
+- Function `*PrivateEndpointConnectionClient.ListByProject` has been removed
+- Function `*PrivateEndpointConnectionClient.Update` has been removed
+- Function `NewPrivateLinkResourceClient` has been removed
+- Function `*PrivateLinkResourceClient.Get` has been removed
+- Function `*PrivateLinkResourceClient.ListByProject` has been removed
+- Function `NewProjectsClient` has been removed
+- Function `*ProjectsClient.AssessmentOptions` has been removed
+- Function `*ProjectsClient.NewAssessmentOptionsListPager` has been removed
+- Function `*ProjectsClient.Create` has been removed
+- Function `*ProjectsClient.Delete` has been removed
+- Function `*ProjectsClient.Get` has been removed
+- Function `*ProjectsClient.NewListBySubscriptionPager` has been removed
+- Function `*ProjectsClient.NewListPager` has been removed
+- Function `*ProjectsClient.Update` has been removed
+- Function `NewServerCollectorsClient` has been removed
+- Function `*ServerCollectorsClient.Create` has been removed
+- Function `*ServerCollectorsClient.Delete` has been removed
+- Function `*ServerCollectorsClient.Get` has been removed
+- Function `*ServerCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewVMwareCollectorsClient` has been removed
+- Function `*VMwareCollectorsClient.Create` has been removed
+- Function `*VMwareCollectorsClient.Delete` has been removed
+- Function `*VMwareCollectorsClient.Get` has been removed
+- Function `*VMwareCollectorsClient.NewListByProjectPager` has been removed
+- Struct `AssessedDisk` has been removed
+- Struct `AssessedMachine` has been removed
+- Struct `AssessedMachineProperties` has been removed
+- Struct `AssessedMachineResultList` has been removed
+- Struct `AssessedNetworkAdapter` has been removed
+- Struct `Assessment` has been removed
+- Struct `AssessmentOptions` has been removed
+- Struct `AssessmentOptionsProperties` has been removed
+- Struct `AssessmentOptionsResultList` has been removed
+- Struct `AssessmentProperties` has been removed
+- Struct `AssessmentResultList` has been removed
+- Struct `CollectorAgentProperties` has been removed
+- Struct `CollectorBodyAgentSpnProperties` has been removed
+- Struct `CollectorProperties` has been removed
+- Struct `Disk` has been removed
+- Struct `Group` has been removed
+- Struct `GroupBodyProperties` has been removed
+- Struct `GroupProperties` has been removed
+- Struct `GroupResultList` has been removed
+- Struct `HyperVCollector` has been removed
+- Struct `HyperVCollectorList` has been removed
+- Struct `ImportCollector` has been removed
+- Struct `ImportCollectorList` has been removed
+- Struct `ImportCollectorProperties` has been removed
+- Struct `Machine` has been removed
+- Struct `MachineProperties` has been removed
+- Struct `MachineResultList` has been removed
+- Struct `NetworkAdapter` has been removed
+- Struct `Operation` has been removed
+- Struct `OperationDisplay` has been removed
+- Struct `OperationResultList` has been removed
+- Struct `PrivateEndpointConnection` has been removed
+- Struct `PrivateEndpointConnectionCollection` has been removed
+- Struct `PrivateEndpointConnectionProperties` has been removed
+- Struct `PrivateLinkResource` has been removed
+- Struct `PrivateLinkResourceCollection` has been removed
+- Struct `PrivateLinkResourceProperties` has been removed
+- Struct `PrivateLinkServiceConnectionState` has been removed
+- Struct `Project` has been removed
+- Struct `ProjectProperties` has been removed
+- Struct `ProjectResultList` has been removed
+- Struct `ResourceID` has been removed
+- Struct `ServerCollector` has been removed
+- Struct `ServerCollectorList` has been removed
+- Struct `UpdateGroupBody` has been removed
+- Struct `VMFamily` has been removed
+- Struct `VMwareCollector` has been removed
+- Struct `VMwareCollectorList` has been removed
+
+### Features Added
+
+- New value `AssessmentStatusDeleted`, `AssessmentStatusFailed` added to enum type `AssessmentStatus`
+- New value `AzureDiskTypePremiumV2`, `AzureDiskTypeUltra` added to enum type `AzureDiskType`
+- New value `AzureLocationAustraliaCentral`, `AzureLocationAustraliaCentral2`, `AzureLocationChinaEast2`, `AzureLocationChinaNorth2`, `AzureLocationFranceCentral`, `AzureLocationFranceSouth`, `AzureLocationGermanyNorth`, `AzureLocationGermanyWestCentral`, `AzureLocationIsraelCentral`, `AzureLocationItalyNorth`, `AzureLocationJioIndiaWest`, `AzureLocationMexicoCentral`, `AzureLocationNewZealandNorth`, `AzureLocationNorwayEast`, `AzureLocationNorwayWest`, `AzureLocationPolandCentral`, `AzureLocationQatarCentral`, `AzureLocationSouthAfricaNorth`, `AzureLocationSouthAfricaWest`, `AzureLocationSpainCentral`, `AzureLocationSwedenCentral`, `AzureLocationSwitzerlandNorth`, `AzureLocationSwitzerlandWest`, `AzureLocationUAECentral`, `AzureLocationUAENorth`, `AzureLocationUsNatEast`, `AzureLocationUsNatWest`, `AzureLocationUsSecCentral`, `AzureLocationUsSecEast`, `AzureLocationUsSecWest` added to enum type `AzureLocation`
+- New value `AzureVMFamilyDadsv5Series`, `AzureVMFamilyDasv4Series`, `AzureVMFamilyDasv5Series`, `AzureVMFamilyDav4Series`, `AzureVMFamilyDdsv4Series`, `AzureVMFamilyDdsv5Series`, `AzureVMFamilyDdv4Series`, `AzureVMFamilyDdv5Series`, `AzureVMFamilyDsv4Series`, `AzureVMFamilyDsv5Series`, `AzureVMFamilyDv4Series`, `AzureVMFamilyDv5Series`, `AzureVMFamilyEadsv5Series`, `AzureVMFamilyEasv4Series`, `AzureVMFamilyEasv5Series`, `AzureVMFamilyEav4Series`, `AzureVMFamilyEbdsv5Series`, `AzureVMFamilyEbsv5Series`, `AzureVMFamilyEdsv4Series`, `AzureVMFamilyEdsv5Series`, `AzureVMFamilyEdv4Series`, `AzureVMFamilyEdv5Series`, `AzureVMFamilyEsv4Series`, `AzureVMFamilyEsv5Series`, `AzureVMFamilyEv4Series`, `AzureVMFamilyEv5Series`, `AzureVMFamilyLsv2Series`, `AzureVMFamilyMdsv2Series`, `AzureVMFamilyMsv2Series`, `AzureVMFamilyMv2Series` added to enum type `AzureVMFamily`
+- New value `MachineBootTypeBios`, `MachineBootTypeNotSpecified` added to enum type `MachineBootType`
+- New value `PercentilePercentileUnknown` added to enum type `Percentile`
+- New value `ProvisioningStateCanceled`, `ProvisioningStateProvisioning`, `ProvisioningStateUpdating` added to enum type `ProvisioningState`
+- New enum type `AssessedMachineType` with values `AssessedMachineTypeAssessedMachine`, `AssessedMachineTypeAvsAssessedMachine`, `AssessedMachineTypeSQLAssessedMachine`, `AssessedMachineTypeUnknown`
+- New enum type `AssessmentSource` with values `AssessmentSourceIIS`, `AssessmentSourceMachine`, `AssessmentSourceMySQLServer`, `AssessmentSourceOracleDatabase`, `AssessmentSourceOracleServer`, `AssessmentSourceSAPInstance`, `AssessmentSourceSQLDatabase`, `AssessmentSourceSQLInstance`, `AssessmentSourceSpringbootApplication`, `AssessmentSourceTomCat`, `AssessmentSourceUnknown`, `AssessmentSourceWebApps`
+- New enum type `AzureCurrency` with values `AzureCurrencyARS`, `AzureCurrencyAUD`, `AzureCurrencyBRL`, `AzureCurrencyCAD`, `AzureCurrencyCHF`, `AzureCurrencyCNY`, `AzureCurrencyDKK`, `AzureCurrencyEUR`, `AzureCurrencyGBP`, `AzureCurrencyHKD`, `AzureCurrencyIDR`, `AzureCurrencyINR`, `AzureCurrencyJPY`, `AzureCurrencyKRW`, `AzureCurrencyMXN`, `AzureCurrencyMYR`, `AzureCurrencyNOK`, `AzureCurrencyNZD`, `AzureCurrencyRUB`, `AzureCurrencySAR`, `AzureCurrencySEK`, `AzureCurrencyTRY`, `AzureCurrencyTWD`, `AzureCurrencyUSD`, `AzureCurrencyUnknown`, `AzureCurrencyZAR`
+- New enum type `AzureManagementOfferingType` with values `AzureManagementOfferingTypeAUM`, `AzureManagementOfferingTypeAzMon`, `AzureManagementOfferingTypeAzureBackup`, `AzureManagementOfferingTypeNo`, `AzureManagementOfferingTypeSCOMMI`
+- New enum type `AzureOffer` with values `AzureOfferEA`, `AzureOfferMsazr0003P`, `AzureOfferMsazr0023P`, `AzureOfferMsazrusgov0003P`, `AzureOfferMsmcazr0044P`, `AzureOfferMsmcazr0059P`, `AzureOfferMsmcazr0060P`, `AzureOfferMsmcazr0063P`, `AzureOfferSavingsPlan1Year`, `AzureOfferSavingsPlan3Year`, `AzureOfferUnknown`
+- New enum type `AzureSecurityOfferingType` with values `AzureSecurityOfferingTypeMDC`, `AzureSecurityOfferingTypeNO`
+- New enum type `AzureTarget` with values `AzureTargetAKS`, `AzureTargetAvs`, `AzureTargetAzureAppService`, `AzureTargetAzureAppServiceContainer`, `AzureTargetAzureSQLVM`, `AzureTargetAzureSpringApps`, `AzureTargetAzureVM`, `AzureTargetFlexServerPG`, `AzureTargetMySQLAzureFlexServer`, `AzureTargetOracleIaasVM`, `AzureTargetSAPAzureInstance`, `AzureTargetSQLDatabase`, `AzureTargetSQLMI`, `AzureTargetUnknown`
+- New enum type `AzureVMSecuritySuitabilityDetail` with values `AzureVMSecuritySuitabilityDetailAllDiskSizeExceeds2TB`, `AzureVMSecuritySuitabilityDetailAllDiskSizeExceeds4TB`, `AzureVMSecuritySuitabilityDetailAnyDiskSizeExceeds4TB`, `AzureVMSecuritySuitabilityDetailAnyDiskSizeExceeds4TBConditional`, `AzureVMSecuritySuitabilityDetailBootTypeNotSupported`, `AzureVMSecuritySuitabilityDetailDiskSize2TBConditionalReadyBiosBoot`, `AzureVMSecuritySuitabilityDetailDiskSizeLarge`, `AzureVMSecuritySuitabilityDetailGuestOperatingSystemNotSupported`, `AzureVMSecuritySuitabilityDetailNotApplicable`, `AzureVMSecuritySuitabilityDetailOSNameCannotBeRead`, `AzureVMSecuritySuitabilityDetailOSNotSupported`, `AzureVMSecuritySuitabilityDetailStandardCanMigrate`, `AzureVMSecuritySuitabilityDetailStandardCannotMigrateOSNotSupported`, `AzureVMSecuritySuitabilityDetailStandardNotReady2TBBiosBoot`, `AzureVMSecuritySuitabilityDetailStandardNotReadyOSNotSupported`, `AzureVMSecuritySuitabilityDetailStandardReady`, `AzureVMSecuritySuitabilityDetailTVMCanMigrateConditional`, `AzureVMSecuritySuitabilityDetailTVMCannotMigrateOSNotSupported`, `AzureVMSecuritySuitabilityDetailTVMNotReadyOSNotSupported`, `AzureVMSecuritySuitabilityDetailTVMNotSupportedForBiosBoot`, `AzureVMSecuritySuitabilityDetailTVMReady`, `AzureVMSecuritySuitabilityDetailUnknown`
+- New enum type `AzureVMSecurityType` with values `AzureVMSecurityTypeCVM`, `AzureVMSecurityTypeStandard`, `AzureVMSecurityTypeTVM`, `AzureVMSecurityTypeUnknown`
+- New enum type `CloudSuitabilityCommon` with values `CloudSuitabilityCommonConditionallySuitable`, `CloudSuitabilityCommonNotSuitable`, `CloudSuitabilityCommonReadinessUnknown`, `CloudSuitabilityCommonSuitable`, `CloudSuitabilityCommonSuitableWithWarnings`, `CloudSuitabilityCommonUnknown`
+- New enum type `CostType` with values `CostTypeDataProtectionService`, `CostTypeMonitoringService`, `CostTypeMonthlyAvsExternalStorageCost`, `CostTypeMonthlyAvsNetworkCost`, `CostTypeMonthlyAvsNodeCost`, `CostTypeMonthlyAzureHybridCost`, `CostTypeMonthlyBandwidthCost`, `CostTypeMonthlyComputeCost`, `CostTypeMonthlyLicensingCost`, `CostTypeMonthlyLinuxAzureHybridCost`, `CostTypeMonthlyManagementCost`, `CostTypeMonthlyPremiumStorageCost`, `CostTypeMonthlyPremiumV2StorageCost`, `CostTypeMonthlySecurityCost`, `CostTypeMonthlyStandardHddStorageCost`, `CostTypeMonthlyStandardSsdStorageCost`, `CostTypeMonthlyStorageCost`, `CostTypeMonthlyUltraDiskCost`, `CostTypeMonthlyUltraStorageCost`, `CostTypePatchingService`, `CostTypeTotalMonthlyCost`
+- New enum type `CreatedByType` with values `CreatedByTypeApplication`, `CreatedByTypeKey`, `CreatedByTypeManagedIdentity`, `CreatedByTypeUser`
+- New enum type `EnvironmentType` with values `EnvironmentTypeDevTest`, `EnvironmentTypeProduction`, `EnvironmentTypeUnknown`
+- New enum type `GuestOperatingSystemArchitecture` with values `GuestOperatingSystemArchitectureUnknown`, `GuestOperatingSystemArchitectureX64`, `GuestOperatingSystemArchitectureX86`
+- New enum type `LicensingProgram` with values `LicensingProgramEA`, `LicensingProgramMCA`, `LicensingProgramRetail`, `LicensingProgramUnknown`
+- New enum type `LinkageKind` with values `LinkageKindDatabase`, `LinkageKindInstance`, `LinkageKindMachine`, `LinkageKindServer`, `LinkageKindUnknown`, `LinkageKindWebApplication`, `LinkageKindWebServer`
+- New enum type `LinkageType` with values `LinkageTypeParent`, `LinkageTypeSource`
+- New enum type `MigrationIssuesCategory` with values `MigrationIssuesCategoryInternal`, `MigrationIssuesCategoryIssue`, `MigrationIssuesCategoryWarning`
+- New enum type `MigrationPlatform` with values `MigrationPlatformIaaS`, `MigrationPlatformPaaS`, `MigrationPlatformSaaS`, `MigrationPlatformUnknown`
+- New enum type `MigrationType` with values `MigrationTypeRearchitect`, `MigrationTypeRehost`, `MigrationTypeReplatform`, `MigrationTypeRetain`, `MigrationTypeUnknown`
+- New enum type `PremiumDiskSupport` with values `PremiumDiskSupportPremiumDiskNotSupported`, `PremiumDiskSupportPremiumDiskSupported`
+- New enum type `SKUKind` with values `SKUKindDetails`, `SKUKindEndpoint`
+- New enum type `SKUType` with values `SKUTypeAppServicePlan`, `SKUTypeAzureSpringApps`, `SKUTypeCompute`, `SKUTypeNetwork`, `SKUTypeStorage`, `SKUTypeUnknown`
+- New enum type `SavingsOptions` with values `SavingsOptionsCustomAzureOfferCode`, `SavingsOptionsNone`, `SavingsOptionsRI1Year`, `SavingsOptionsRI3Year`, `SavingsOptionsSavingsPlan1Year`, `SavingsOptionsSavingsPlan3Year`
+- New enum type `SavingsType` with values `SavingsTypeMonthlyAhubSQLCostSavings`, `SavingsTypeMonthlyAzureHybridCostSavings`, `SavingsTypeMonthlyLinuxAzureHybridCostSavings`, `SavingsTypeMonthlyVcfByolCostDifference`
+- New enum type `ScopeType` with values `ScopeTypeAzureResourceGraphQuery`, `ScopeTypeServerGroupID`
+- New enum type `StrategyType` with values `StrategyTypeCostOptimized`, `StrategyTypeEffortOptimized`, `StrategyTypePaaSPreferred`
+- New enum type `SummaryType` with values `SummaryTypeStrategy`, `SummaryTypeTarget`, `SummaryTypeUnknown`
+- New enum type `UltraDiskSupport` with values `UltraDiskSupportUltraDiskNotSupported`, `UltraDiskSupportUltraDiskSupported`
+- New enum type `VMFamilyCategoryItem` with values `VMFamilyCategoryItemComputeOptimized`, `VMFamilyCategoryItemConfidential`, `VMFamilyCategoryItemGeneralPurpose`, `VMFamilyCategoryItemGpuOptimized`, `VMFamilyCategoryItemHighPerformanceCompute`, `VMFamilyCategoryItemMemoryOptimized`, `VMFamilyCategoryItemStorageOptimized`, `VMFamilyCategoryItemSupportsPremiumStorage`, `VMFamilyCategoryItemSupportsUltraDiskStorage`, `VMFamilyCategoryItemUnknown`
+- New enum type `WorkloadType` with values `WorkloadTypeDatabase`, `WorkloadTypeHost`, `WorkloadTypeInstance`, `WorkloadTypeMachine`, `WorkloadTypeManagementServer`, `WorkloadTypeServer`, `WorkloadTypeUnknown`, `WorkloadTypeWebApplication`, `WorkloadTypeWebServer`
+- New function `NewAssessedMachinesV2OperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AssessedMachinesV2OperationsClient, error)`
+- New function `*AssessedMachinesV2OperationsClient.Get(context.Context, string, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*AssessedMachinesV2OperationsClient.NewListByParentPager(string, string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `*ClientFactory.NewAssessedMachinesV2OperationsClient() *AssessedMachinesV2OperationsClient`
+- New function `*ClientFactory.NewMachineAssessmentV2SummaryOperationsClient() *MachineAssessmentV2SummaryOperationsClient`
+- New function `*ClientFactory.NewMachineAssessmentsV2OperationsClient() *MachineAssessmentsV2OperationsClient`
+- New function `*ClientFactory.NewMachineGraphAssessmentOptionsOperationsClient() *MachineGraphAssessmentOptionsOperationsClient`
+- New function `NewMachineAssessmentV2SummaryOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*MachineAssessmentV2SummaryOperationsClient, error)`
+- New function `*MachineAssessmentV2SummaryOperationsClient.Get(context.Context, string, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*MachineAssessmentV2SummaryOperationsClient.NewListByParentPager(string, string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewMachineAssessmentsV2OperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*MachineAssessmentsV2OperationsClient, error)`
+- New function `*MachineAssessmentsV2OperationsClient.BeginCreate(context.Context, string, string, string, MachineAssessmentV2, *BeginCreateOptions) (*runtime.Poller[CreateResponse], error)`
+- New function `*MachineAssessmentsV2OperationsClient.Delete(context.Context, string, string, string, *DeleteOptions) (DeleteResponse, error)`
+- New function `*MachineAssessmentsV2OperationsClient.BeginDownloadURL(context.Context, string, string, string, DownloadURLRequest, *BeginDownloadURLOptions) (*runtime.Poller[DownloadURLResponse], error)`
+- New function `*MachineAssessmentsV2OperationsClient.Get(context.Context, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*MachineAssessmentsV2OperationsClient.NewListByParentPager(string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewMachineGraphAssessmentOptionsOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*MachineGraphAssessmentOptionsOperationsClient, error)`
+- New function `*MachineGraphAssessmentOptionsOperationsClient.Get(context.Context, string, string, *GetOptions) (GetResponse, error)`
+- New function `*MachineGraphAssessmentOptionsOperationsClient.NewListByParentPager(string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New struct `AssessedDiskDataV3`
+- New struct `AssessedMachineExtendedDetails`
+- New struct `AssessedMachineNetworkAdaptersV3`
+- New struct `AssessedMachineV2`
+- New struct `AssessedMachineV2ListResult`
+- New struct `AssessedMachineV2Properties`
+- New struct `AssessmentDetails`
+- New struct `BillingSettings`
+- New struct `Configuration`
+- New struct `CostDetailsCommon`
+- New struct `DownloadURLRequest`
+- New struct `Error`
+- New struct `Linkages`
+- New struct `MachineAssessmentOptionsOutboundEdgeGroup`
+- New struct `MachineAssessmentRecommendation`
+- New struct `MachineAssessmentSettings`
+- New struct `MachineAssessmentV2`
+- New struct `MachineAssessmentV2ListResult`
+- New struct `MachineAssessmentV2Properties`
+- New struct `MachineAssessmentV2Summary`
+- New struct `MachineAssessmentV2SummaryListResult`
+- New struct `MachineGraphAssessmentOptions`
+- New struct `MachineGraphAssessmentOptionsListResult`
+- New struct `MachineGraphAssessmentOptionsProperties`
+- New struct `ManagementDetails`
+- New struct `MigrationDetails`
+- New struct `MigrationIssues`
+- New struct `MigrationSuitability`
+- New struct `MoreInformation`
+- New struct `NameValuePair`
+- New struct `NameValuePairCloudSuitabilityCommon`
+- New struct `NameValuePairCostType`
+- New struct `NameValuePairSavingsType`
+- New struct `PerformanceData`
+- New struct `ProcessorInfo`
+- New struct `ProductSupportStatus`
+- New struct `RecommendedFor`
+- New struct `SKUDetails`
+- New struct `SKUsMigrationSuitability`
+- New struct `SavingsDetailsCommon`
+- New struct `SavingsSettings`
+- New struct `Scope`
+- New struct `SecuritySuitability`
+- New struct `SourceDetails`
+- New struct `SourceRecommendationMigrationSuitability`
+- New struct `SummaryProperties`
+- New struct `SystemData`
+- New struct `TargetDetails`
+- New struct `TargetSourcePair`
+- New struct `VMSecuritySuitability`
+
+
+## 2.0.0-beta.1 (2025-04-23)
+### Breaking Changes
+
+- `ProvisioningStateCreating`, `ProvisioningStateMoving` from enum `ProvisioningState` has been removed
+- Enum `AssessmentStage` has been removed
+- Enum `AzureDiskSize` has been removed
+- Enum `AzureDiskSuitabilityDetail` has been removed
+- Enum `AzureDiskSuitabilityExplanation` has been removed
+- Enum `AzureDiskType` has been removed
+- Enum `AzureHybridUseBenefit` has been removed
+- Enum `AzureLocation` has been removed
+- Enum `AzureNetworkAdapterSuitabilityDetail` has been removed
+- Enum `AzureNetworkAdapterSuitabilityExplanation` has been removed
+- Enum `AzureOfferCode` has been removed
+- Enum `AzurePricingTier` has been removed
+- Enum `AzureStorageRedundancy` has been removed
+- Enum `AzureVMFamily` has been removed
+- Enum `AzureVMSize` has been removed
+- Enum `AzureVMSuitabilityDetail` has been removed
+- Enum `AzureVMSuitabilityExplanation` has been removed
+- Enum `CloudSuitability` has been removed
+- Enum `Currency` has been removed
+- Enum `GroupStatus` has been removed
+- Enum `GroupUpdateOperation` has been removed
+- Enum `MachineBootType` has been removed
+- Enum `Percentile` has been removed
+- Enum `PrivateEndpointConnectionPropertiesProvisioningState` has been removed
+- Enum `PrivateLinkServiceConnectionStateStatus` has been removed
+- Enum `ProjectStatus` has been removed
+- Enum `ReservedInstance` has been removed
+- Enum `TimeRange` has been removed
+- Function `NewAssessedMachinesClient` has been removed
+- Function `*AssessedMachinesClient.Get` has been removed
+- Function `*AssessedMachinesClient.NewListByAssessmentPager` has been removed
+- Function `NewAssessmentsClient` has been removed
+- Function `*AssessmentsClient.Create` has been removed
+- Function `*AssessmentsClient.Delete` has been removed
+- Function `*AssessmentsClient.Get` has been removed
+- Function `*AssessmentsClient.GetReportDownloadURL` has been removed
+- Function `*AssessmentsClient.NewListByGroupPager` has been removed
+- Function `*AssessmentsClient.NewListByProjectPager` has been removed
+- Function `*ClientFactory.NewAssessedMachinesClient` has been removed
+- Function `*ClientFactory.NewAssessmentsClient` has been removed
+- Function `*ClientFactory.NewGroupsClient` has been removed
+- Function `*ClientFactory.NewHyperVCollectorsClient` has been removed
+- Function `*ClientFactory.NewImportCollectorsClient` has been removed
+- Function `*ClientFactory.NewMachinesClient` has been removed
+- Function `*ClientFactory.NewOperationsClient` has been removed
+- Function `*ClientFactory.NewPrivateEndpointConnectionClient` has been removed
+- Function `*ClientFactory.NewPrivateLinkResourceClient` has been removed
+- Function `*ClientFactory.NewProjectsClient` has been removed
+- Function `*ClientFactory.NewServerCollectorsClient` has been removed
+- Function `*ClientFactory.NewVMwareCollectorsClient` has been removed
+- Function `NewGroupsClient` has been removed
+- Function `*GroupsClient.Create` has been removed
+- Function `*GroupsClient.Delete` has been removed
+- Function `*GroupsClient.Get` has been removed
+- Function `*GroupsClient.NewListByProjectPager` has been removed
+- Function `*GroupsClient.UpdateMachines` has been removed
+- Function `NewHyperVCollectorsClient` has been removed
+- Function `*HyperVCollectorsClient.Create` has been removed
+- Function `*HyperVCollectorsClient.Delete` has been removed
+- Function `*HyperVCollectorsClient.Get` has been removed
+- Function `*HyperVCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewImportCollectorsClient` has been removed
+- Function `*ImportCollectorsClient.Create` has been removed
+- Function `*ImportCollectorsClient.Delete` has been removed
+- Function `*ImportCollectorsClient.Get` has been removed
+- Function `*ImportCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewMachinesClient` has been removed
+- Function `*MachinesClient.Get` has been removed
+- Function `*MachinesClient.NewListByProjectPager` has been removed
+- Function `NewOperationsClient` has been removed
+- Function `*OperationsClient.NewListPager` has been removed
+- Function `NewPrivateEndpointConnectionClient` has been removed
+- Function `*PrivateEndpointConnectionClient.Delete` has been removed
+- Function `*PrivateEndpointConnectionClient.Get` has been removed
+- Function `*PrivateEndpointConnectionClient.ListByProject` has been removed
+- Function `*PrivateEndpointConnectionClient.Update` has been removed
+- Function `NewPrivateLinkResourceClient` has been removed
+- Function `*PrivateLinkResourceClient.Get` has been removed
+- Function `*PrivateLinkResourceClient.ListByProject` has been removed
+- Function `NewProjectsClient` has been removed
+- Function `*ProjectsClient.AssessmentOptions` has been removed
+- Function `*ProjectsClient.NewAssessmentOptionsListPager` has been removed
+- Function `*ProjectsClient.Create` has been removed
+- Function `*ProjectsClient.Delete` has been removed
+- Function `*ProjectsClient.Get` has been removed
+- Function `*ProjectsClient.NewListBySubscriptionPager` has been removed
+- Function `*ProjectsClient.NewListPager` has been removed
+- Function `*ProjectsClient.Update` has been removed
+- Function `NewServerCollectorsClient` has been removed
+- Function `*ServerCollectorsClient.Create` has been removed
+- Function `*ServerCollectorsClient.Delete` has been removed
+- Function `*ServerCollectorsClient.Get` has been removed
+- Function `*ServerCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewVMwareCollectorsClient` has been removed
+- Function `*VMwareCollectorsClient.Create` has been removed
+- Function `*VMwareCollectorsClient.Delete` has been removed
+- Function `*VMwareCollectorsClient.Get` has been removed
+- Function `*VMwareCollectorsClient.NewListByProjectPager` has been removed
+- Struct `AssessedDisk` has been removed
+- Struct `AssessedMachine` has been removed
+- Struct `AssessedMachineProperties` has been removed
+- Struct `AssessedMachineResultList` has been removed
+- Struct `AssessedNetworkAdapter` has been removed
+- Struct `Assessment` has been removed
+- Struct `AssessmentOptions` has been removed
+- Struct `AssessmentOptionsProperties` has been removed
+- Struct `AssessmentOptionsResultList` has been removed
+- Struct `AssessmentProperties` has been removed
+- Struct `AssessmentResultList` has been removed
+- Struct `CollectorAgentProperties` has been removed
+- Struct `CollectorBodyAgentSpnProperties` has been removed
+- Struct `CollectorProperties` has been removed
+- Struct `Disk` has been removed
+- Struct `DownloadURL` has been removed
+- Struct `Group` has been removed
+- Struct `GroupBodyProperties` has been removed
+- Struct `GroupProperties` has been removed
+- Struct `GroupResultList` has been removed
+- Struct `HyperVCollector` has been removed
+- Struct `HyperVCollectorList` has been removed
+- Struct `ImportCollector` has been removed
+- Struct `ImportCollectorList` has been removed
+- Struct `ImportCollectorProperties` has been removed
+- Struct `Machine` has been removed
+- Struct `MachineProperties` has been removed
+- Struct `MachineResultList` has been removed
+- Struct `NetworkAdapter` has been removed
+- Struct `Operation` has been removed
+- Struct `OperationDisplay` has been removed
+- Struct `OperationResultList` has been removed
+- Struct `PrivateEndpointConnection` has been removed
+- Struct `PrivateEndpointConnectionCollection` has been removed
+- Struct `PrivateEndpointConnectionProperties` has been removed
+- Struct `PrivateLinkResource` has been removed
+- Struct `PrivateLinkResourceCollection` has been removed
+- Struct `PrivateLinkResourceProperties` has been removed
+- Struct `PrivateLinkServiceConnectionState` has been removed
+- Struct `Project` has been removed
+- Struct `ProjectProperties` has been removed
+- Struct `ProjectResultList` has been removed
+- Struct `ResourceID` has been removed
+- Struct `ServerCollector` has been removed
+- Struct `ServerCollectorList` has been removed
+- Struct `UpdateGroupBody` has been removed
+- Struct `VMFamily` has been removed
+- Struct `VMUptime` has been removed
+- Struct `VMwareCollector` has been removed
+- Struct `VMwareCollectorList` has been removed
+
+### Features Added
+
+- New value `AssessmentStatusDeleted`, `AssessmentStatusFailed` added to enum type `AssessmentStatus`
+- New value `ProvisioningStateCanceled`, `ProvisioningStateProvisioning`, `ProvisioningStateUpdating` added to enum type `ProvisioningState`
+- New enum type `CloudSuitabilityCommon` with values `CloudSuitabilityCommonConditionallySuitable`, `CloudSuitabilityCommonNotSuitable`, `CloudSuitabilityCommonReadinessUnknown`, `CloudSuitabilityCommonSuitable`, `CloudSuitabilityCommonSuitableWithWarnings`, `CloudSuitabilityCommonUnknown`
+- New enum type `CostComponentName` with values `CostComponentNameMonthlyAvsNodeCost`, `CostComponentNameMonthlyAzureHybridCostSavings`, `CostComponentNameMonthlyExternalStorageCost`, `CostComponentNameMonthlyLinuxAzureHybridCostSavings`, `CostComponentNameMonthlyNetworkCost`, `CostComponentNameMonthlyPremiumV2StorageCost`, `CostComponentNameMonthlySecurityCost`, `CostComponentNameMonthlyVcfByolCostDifference`, `CostComponentNameUnknown`
+- New enum type `CreatedByType` with values `CreatedByTypeApplication`, `CreatedByTypeKey`, `CreatedByTypeManagedIdentity`, `CreatedByTypeUser`
+- New enum type `MigrationPlatform` with values `MigrationPlatformIaaS`, `MigrationPlatformPaaS`, `MigrationPlatformSaaS`, `MigrationPlatformUnknown`
+- New enum type `MigrationType` with values `MigrationTypeRearchitect`, `MigrationTypeRehost`, `MigrationTypeReplatform`, `MigrationTypeRetain`, `MigrationTypeUnknown`
+- New enum type `SavingComponentName` with values `SavingComponentNameMonthlyAzureHybridCostSavings`, `SavingComponentNameMonthlyLinuxAzureHybridCostSavings`
+- New enum type `SummaryType` with values `SummaryTypeStrategy`, `SummaryTypeTarget`, `SummaryTypeUnknown`
+- New function `*ClientFactory.NewHeterogeneousAssessmentOperationsClient() *HeterogeneousAssessmentOperationsClient`
+- New function `*ClientFactory.NewHeterogeneousAssessmentSummaryOperationsClient() *HeterogeneousAssessmentSummaryOperationsClient`
+- New function `NewHeterogeneousAssessmentOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*HeterogeneousAssessmentOperationsClient, error)`
+- New function `*HeterogeneousAssessmentOperationsClient.BeginCreate(context.Context, string, string, string, HeterogeneousAssessment, *BeginCreateOptions) (*runtime.Poller[CreateResponse], error)`
+- New function `*HeterogeneousAssessmentOperationsClient.Delete(context.Context, string, string, string, *DeleteOptions) (DeleteResponse, error)`
+- New function `*HeterogeneousAssessmentOperationsClient.Get(context.Context, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*HeterogeneousAssessmentOperationsClient.NewListByParentPager(string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewHeterogeneousAssessmentSummaryOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*HeterogeneousAssessmentSummaryOperationsClient, error)`
+- New function `*HeterogeneousAssessmentSummaryOperationsClient.Get(context.Context, string, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*HeterogeneousAssessmentSummaryOperationsClient.NewListByParentPager(string, string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New struct `CostComponent`
+- New struct `HeterogeneousAssessment`
+- New struct `HeterogeneousAssessmentListResult`
+- New struct `HeterogeneousAssessmentProperties`
+- New struct `HeterogeneousAssessmentSummary`
+- New struct `HeterogeneousAssessmentSummaryListResult`
+- New struct `HeterogeneousAssessmentSummaryProperties`
+- New struct `MigrationTypeSummaries`
+- New struct `NameValuePairCloudSuitabilityCommon`
+- New struct `SavingComponent`
+- New struct `SystemData`
+
+
+## 2.0.0-beta.1 (2025-04-23)
+### Breaking Changes
+
+- Type of `ImportCollector.Properties` has been changed from `*ImportCollectorProperties` to `*CollectorPropertiesBase`
+- Type of `ServerCollector.Properties` has been changed from `*CollectorProperties` to `*CollectorPropertiesBaseWithAgent`
+- `ProvisioningStateCreating`, `ProvisioningStateMoving` from enum `ProvisioningState` has been removed
+- Enum `AssessmentSizingCriterion` has been removed
+- Enum `AssessmentStage` has been removed
+- Enum `AssessmentStatus` has been removed
+- Enum `AzureDiskSize` has been removed
+- Enum `AzureDiskSuitabilityDetail` has been removed
+- Enum `AzureDiskSuitabilityExplanation` has been removed
+- Enum `AzureDiskType` has been removed
+- Enum `AzureHybridUseBenefit` has been removed
+- Enum `AzureLocation` has been removed
+- Enum `AzureNetworkAdapterSuitabilityDetail` has been removed
+- Enum `AzureNetworkAdapterSuitabilityExplanation` has been removed
+- Enum `AzureOfferCode` has been removed
+- Enum `AzurePricingTier` has been removed
+- Enum `AzureStorageRedundancy` has been removed
+- Enum `AzureVMFamily` has been removed
+- Enum `AzureVMSize` has been removed
+- Enum `AzureVMSuitabilityDetail` has been removed
+- Enum `AzureVMSuitabilityExplanation` has been removed
+- Enum `CloudSuitability` has been removed
+- Enum `Currency` has been removed
+- Enum `GroupStatus` has been removed
+- Enum `GroupUpdateOperation` has been removed
+- Enum `MachineBootType` has been removed
+- Enum `Percentile` has been removed
+- Enum `PrivateEndpointConnectionPropertiesProvisioningState` has been removed
+- Enum `PrivateLinkServiceConnectionStateStatus` has been removed
+- Enum `ProjectStatus` has been removed
+- Enum `ReservedInstance` has been removed
+- Enum `TimeRange` has been removed
+- Function `NewAssessedMachinesClient` has been removed
+- Function `*AssessedMachinesClient.Get` has been removed
+- Function `*AssessedMachinesClient.NewListByAssessmentPager` has been removed
+- Function `NewAssessmentsClient` has been removed
+- Function `*AssessmentsClient.Create` has been removed
+- Function `*AssessmentsClient.Delete` has been removed
+- Function `*AssessmentsClient.Get` has been removed
+- Function `*AssessmentsClient.GetReportDownloadURL` has been removed
+- Function `*AssessmentsClient.NewListByGroupPager` has been removed
+- Function `*AssessmentsClient.NewListByProjectPager` has been removed
+- Function `*ClientFactory.NewAssessedMachinesClient` has been removed
+- Function `*ClientFactory.NewAssessmentsClient` has been removed
+- Function `*ClientFactory.NewGroupsClient` has been removed
+- Function `*ClientFactory.NewHyperVCollectorsClient` has been removed
+- Function `*ClientFactory.NewImportCollectorsClient` has been removed
+- Function `*ClientFactory.NewMachinesClient` has been removed
+- Function `*ClientFactory.NewOperationsClient` has been removed
+- Function `*ClientFactory.NewPrivateEndpointConnectionClient` has been removed
+- Function `*ClientFactory.NewPrivateLinkResourceClient` has been removed
+- Function `*ClientFactory.NewProjectsClient` has been removed
+- Function `*ClientFactory.NewServerCollectorsClient` has been removed
+- Function `*ClientFactory.NewVMwareCollectorsClient` has been removed
+- Function `NewGroupsClient` has been removed
+- Function `*GroupsClient.Create` has been removed
+- Function `*GroupsClient.Delete` has been removed
+- Function `*GroupsClient.Get` has been removed
+- Function `*GroupsClient.NewListByProjectPager` has been removed
+- Function `*GroupsClient.UpdateMachines` has been removed
+- Function `NewHyperVCollectorsClient` has been removed
+- Function `*HyperVCollectorsClient.Create` has been removed
+- Function `*HyperVCollectorsClient.Delete` has been removed
+- Function `*HyperVCollectorsClient.Get` has been removed
+- Function `*HyperVCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewImportCollectorsClient` has been removed
+- Function `*ImportCollectorsClient.Create` has been removed
+- Function `*ImportCollectorsClient.Delete` has been removed
+- Function `*ImportCollectorsClient.Get` has been removed
+- Function `*ImportCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewMachinesClient` has been removed
+- Function `*MachinesClient.Get` has been removed
+- Function `*MachinesClient.NewListByProjectPager` has been removed
+- Function `NewOperationsClient` has been removed
+- Function `*OperationsClient.NewListPager` has been removed
+- Function `NewPrivateEndpointConnectionClient` has been removed
+- Function `*PrivateEndpointConnectionClient.Delete` has been removed
+- Function `*PrivateEndpointConnectionClient.Get` has been removed
+- Function `*PrivateEndpointConnectionClient.ListByProject` has been removed
+- Function `*PrivateEndpointConnectionClient.Update` has been removed
+- Function `NewPrivateLinkResourceClient` has been removed
+- Function `*PrivateLinkResourceClient.Get` has been removed
+- Function `*PrivateLinkResourceClient.ListByProject` has been removed
+- Function `NewProjectsClient` has been removed
+- Function `*ProjectsClient.AssessmentOptions` has been removed
+- Function `*ProjectsClient.NewAssessmentOptionsListPager` has been removed
+- Function `*ProjectsClient.Create` has been removed
+- Function `*ProjectsClient.Delete` has been removed
+- Function `*ProjectsClient.Get` has been removed
+- Function `*ProjectsClient.NewListBySubscriptionPager` has been removed
+- Function `*ProjectsClient.NewListPager` has been removed
+- Function `*ProjectsClient.Update` has been removed
+- Function `NewServerCollectorsClient` has been removed
+- Function `*ServerCollectorsClient.Create` has been removed
+- Function `*ServerCollectorsClient.Delete` has been removed
+- Function `*ServerCollectorsClient.Get` has been removed
+- Function `*ServerCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewVMwareCollectorsClient` has been removed
+- Function `*VMwareCollectorsClient.Create` has been removed
+- Function `*VMwareCollectorsClient.Delete` has been removed
+- Function `*VMwareCollectorsClient.Get` has been removed
+- Function `*VMwareCollectorsClient.NewListByProjectPager` has been removed
+- Struct `AssessedDisk` has been removed
+- Struct `AssessedMachine` has been removed
+- Struct `AssessedMachineProperties` has been removed
+- Struct `AssessedMachineResultList` has been removed
+- Struct `AssessedNetworkAdapter` has been removed
+- Struct `Assessment` has been removed
+- Struct `AssessmentOptions` has been removed
+- Struct `AssessmentOptionsProperties` has been removed
+- Struct `AssessmentOptionsResultList` has been removed
+- Struct `AssessmentProperties` has been removed
+- Struct `AssessmentResultList` has been removed
+- Struct `CollectorAgentProperties` has been removed
+- Struct `CollectorBodyAgentSpnProperties` has been removed
+- Struct `CollectorProperties` has been removed
+- Struct `Disk` has been removed
+- Struct `DownloadURL` has been removed
+- Struct `Group` has been removed
+- Struct `GroupBodyProperties` has been removed
+- Struct `GroupProperties` has been removed
+- Struct `GroupResultList` has been removed
+- Struct `HyperVCollector` has been removed
+- Struct `HyperVCollectorList` has been removed
+- Struct `ImportCollectorList` has been removed
+- Struct `ImportCollectorProperties` has been removed
+- Struct `Machine` has been removed
+- Struct `MachineProperties` has been removed
+- Struct `MachineResultList` has been removed
+- Struct `NetworkAdapter` has been removed
+- Struct `Operation` has been removed
+- Struct `OperationDisplay` has been removed
+- Struct `OperationResultList` has been removed
+- Struct `PrivateEndpointConnection` has been removed
+- Struct `PrivateEndpointConnectionCollection` has been removed
+- Struct `PrivateEndpointConnectionProperties` has been removed
+- Struct `PrivateLinkResource` has been removed
+- Struct `PrivateLinkResourceCollection` has been removed
+- Struct `PrivateLinkResourceProperties` has been removed
+- Struct `PrivateLinkServiceConnectionState` has been removed
+- Struct `Project` has been removed
+- Struct `ProjectProperties` has been removed
+- Struct `ProjectResultList` has been removed
+- Struct `ResourceID` has been removed
+- Struct `ServerCollectorList` has been removed
+- Struct `UpdateGroupBody` has been removed
+- Struct `VMFamily` has been removed
+- Struct `VMUptime` has been removed
+- Struct `VMwareCollector` has been removed
+- Struct `VMwareCollectorList` has been removed
+- Field `ETag` of struct `ImportCollector` has been removed
+- Field `ETag` of struct `ServerCollector` has been removed
+
+### Features Added
+
+- New value `ProvisioningStateCanceled`, `ProvisioningStateProvisioning`, `ProvisioningStateUpdating` added to enum type `ProvisioningState`
+- New enum type `CreatedByType` with values `CreatedByTypeApplication`, `CreatedByTypeKey`, `CreatedByTypeManagedIdentity`, `CreatedByTypeUser`
+- New function `*ClientFactory.NewHypervCollectorsOperationsClient() *HypervCollectorsOperationsClient`
+- New function `*ClientFactory.NewImportCollectorsOperationsClient() *ImportCollectorsOperationsClient`
+- New function `*ClientFactory.NewImportSQLCollectorOperationsClient() *ImportSQLCollectorOperationsClient`
+- New function `*ClientFactory.NewSQLCollectorOperationsClient() *SQLCollectorOperationsClient`
+- New function `*ClientFactory.NewServerCollectorsOperationsClient() *ServerCollectorsOperationsClient`
+- New function `*ClientFactory.NewVmwareCollectorsOperationsClient() *VmwareCollectorsOperationsClient`
+- New function `*ClientFactory.NewWebAppCollectorOperationsClient() *WebAppCollectorOperationsClient`
+- New function `NewHypervCollectorsOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*HypervCollectorsOperationsClient, error)`
+- New function `*HypervCollectorsOperationsClient.BeginCreate(context.Context, string, string, string, HypervCollector, *BeginCreateOptions) (*runtime.Poller[CreateResponse], error)`
+- New function `*HypervCollectorsOperationsClient.Delete(context.Context, string, string, string, *DeleteOptions) (DeleteResponse, error)`
+- New function `*HypervCollectorsOperationsClient.Get(context.Context, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*HypervCollectorsOperationsClient.NewListByParentPager(string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewImportCollectorsOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ImportCollectorsOperationsClient, error)`
+- New function `*ImportCollectorsOperationsClient.BeginCreate(context.Context, string, string, string, ImportCollector, *BeginCreateOptions) (*runtime.Poller[CreateResponse], error)`
+- New function `*ImportCollectorsOperationsClient.Delete(context.Context, string, string, string, *DeleteOptions) (DeleteResponse, error)`
+- New function `*ImportCollectorsOperationsClient.Get(context.Context, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*ImportCollectorsOperationsClient.NewListByParentPager(string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewImportSQLCollectorOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ImportSQLCollectorOperationsClient, error)`
+- New function `*ImportSQLCollectorOperationsClient.BeginCreate(context.Context, string, string, string, ImportSQLCollector, *BeginCreateOptions) (*runtime.Poller[CreateResponse], error)`
+- New function `*ImportSQLCollectorOperationsClient.Delete(context.Context, string, string, string, *DeleteOptions) (DeleteResponse, error)`
+- New function `*ImportSQLCollectorOperationsClient.Get(context.Context, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*ImportSQLCollectorOperationsClient.NewListByParentPager(string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewSQLCollectorOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SQLCollectorOperationsClient, error)`
+- New function `*SQLCollectorOperationsClient.BeginCreate(context.Context, string, string, string, SQLCollector, *BeginCreateOptions) (*runtime.Poller[CreateResponse], error)`
+- New function `*SQLCollectorOperationsClient.Delete(context.Context, string, string, string, *DeleteOptions) (DeleteResponse, error)`
+- New function `*SQLCollectorOperationsClient.Get(context.Context, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*SQLCollectorOperationsClient.NewListByParentPager(string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewServerCollectorsOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ServerCollectorsOperationsClient, error)`
+- New function `*ServerCollectorsOperationsClient.BeginCreate(context.Context, string, string, string, ServerCollector, *BeginCreateOptions) (*runtime.Poller[CreateResponse], error)`
+- New function `*ServerCollectorsOperationsClient.Delete(context.Context, string, string, string, *DeleteOptions) (DeleteResponse, error)`
+- New function `*ServerCollectorsOperationsClient.Get(context.Context, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*ServerCollectorsOperationsClient.NewListByParentPager(string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewVmwareCollectorsOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VmwareCollectorsOperationsClient, error)`
+- New function `*VmwareCollectorsOperationsClient.BeginCreate(context.Context, string, string, string, VmwareCollector, *BeginCreateOptions) (*runtime.Poller[CreateResponse], error)`
+- New function `*VmwareCollectorsOperationsClient.Delete(context.Context, string, string, string, *DeleteOptions) (DeleteResponse, error)`
+- New function `*VmwareCollectorsOperationsClient.Get(context.Context, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*VmwareCollectorsOperationsClient.NewListByParentPager(string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewWebAppCollectorOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WebAppCollectorOperationsClient, error)`
+- New function `*WebAppCollectorOperationsClient.BeginCreate(context.Context, string, string, string, WebAppCollector, *BeginCreateOptions) (*runtime.Poller[CreateResponse], error)`
+- New function `*WebAppCollectorOperationsClient.Delete(context.Context, string, string, string, *DeleteOptions) (DeleteResponse, error)`
+- New function `*WebAppCollectorOperationsClient.Get(context.Context, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*WebAppCollectorOperationsClient.NewListByParentPager(string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New struct `CollectorAgentPropertiesBase`
+- New struct `CollectorAgentSpnPropertiesBase`
+- New struct `CollectorPropertiesBase`
+- New struct `CollectorPropertiesBaseWithAgent`
+- New struct `HypervCollector`
+- New struct `HypervCollectorListResult`
+- New struct `ImportCollectorListResult`
+- New struct `ImportSQLCollector`
+- New struct `ImportSQLCollectorListResult`
+- New struct `ImportSQLCollectorProperties`
+- New struct `SQLCollector`
+- New struct `SQLCollectorListResult`
+- New struct `ServerCollectorListResult`
+- New struct `SystemData`
+- New struct `VmwareCollector`
+- New struct `VmwareCollectorListResult`
+- New struct `WebAppCollector`
+- New struct `WebAppCollectorListResult`
+- New field `SystemData` in struct `ImportCollector`
+- New field `SystemData` in struct `ServerCollector`
+
+
+## 2.0.0-beta.1 (2025-04-23)
+### Breaking Changes
+
+- `ProvisioningStateCreating`, `ProvisioningStateMoving` from enum `ProvisioningState` has been removed
+- Enum `AssessmentSizingCriterion` has been removed
+- Enum `AssessmentStage` has been removed
+- Enum `AssessmentStatus` has been removed
+- Enum `AzureDiskSize` has been removed
+- Enum `AzureDiskSuitabilityDetail` has been removed
+- Enum `AzureDiskSuitabilityExplanation` has been removed
+- Enum `AzureDiskType` has been removed
+- Enum `AzureHybridUseBenefit` has been removed
+- Enum `AzureLocation` has been removed
+- Enum `AzureNetworkAdapterSuitabilityDetail` has been removed
+- Enum `AzureNetworkAdapterSuitabilityExplanation` has been removed
+- Enum `AzureOfferCode` has been removed
+- Enum `AzurePricingTier` has been removed
+- Enum `AzureStorageRedundancy` has been removed
+- Enum `AzureVMFamily` has been removed
+- Enum `AzureVMSize` has been removed
+- Enum `AzureVMSuitabilityDetail` has been removed
+- Enum `AzureVMSuitabilityExplanation` has been removed
+- Enum `CloudSuitability` has been removed
+- Enum `Currency` has been removed
+- Enum `GroupStatus` has been removed
+- Enum `GroupUpdateOperation` has been removed
+- Enum `MachineBootType` has been removed
+- Enum `Percentile` has been removed
+- Enum `PrivateEndpointConnectionPropertiesProvisioningState` has been removed
+- Enum `PrivateLinkServiceConnectionStateStatus` has been removed
+- Enum `ProjectStatus` has been removed
+- Enum `ReservedInstance` has been removed
+- Enum `TimeRange` has been removed
+- Function `NewAssessedMachinesClient` has been removed
+- Function `*AssessedMachinesClient.Get` has been removed
+- Function `*AssessedMachinesClient.NewListByAssessmentPager` has been removed
+- Function `NewAssessmentsClient` has been removed
+- Function `*AssessmentsClient.Create` has been removed
+- Function `*AssessmentsClient.Delete` has been removed
+- Function `*AssessmentsClient.Get` has been removed
+- Function `*AssessmentsClient.GetReportDownloadURL` has been removed
+- Function `*AssessmentsClient.NewListByGroupPager` has been removed
+- Function `*AssessmentsClient.NewListByProjectPager` has been removed
+- Function `*ClientFactory.NewAssessedMachinesClient` has been removed
+- Function `*ClientFactory.NewAssessmentsClient` has been removed
+- Function `*ClientFactory.NewGroupsClient` has been removed
+- Function `*ClientFactory.NewHyperVCollectorsClient` has been removed
+- Function `*ClientFactory.NewImportCollectorsClient` has been removed
+- Function `*ClientFactory.NewMachinesClient` has been removed
+- Function `*ClientFactory.NewOperationsClient` has been removed
+- Function `*ClientFactory.NewPrivateEndpointConnectionClient` has been removed
+- Function `*ClientFactory.NewPrivateLinkResourceClient` has been removed
+- Function `*ClientFactory.NewProjectsClient` has been removed
+- Function `*ClientFactory.NewServerCollectorsClient` has been removed
+- Function `*ClientFactory.NewVMwareCollectorsClient` has been removed
+- Function `NewGroupsClient` has been removed
+- Function `*GroupsClient.Create` has been removed
+- Function `*GroupsClient.Delete` has been removed
+- Function `*GroupsClient.Get` has been removed
+- Function `*GroupsClient.NewListByProjectPager` has been removed
+- Function `*GroupsClient.UpdateMachines` has been removed
+- Function `NewHyperVCollectorsClient` has been removed
+- Function `*HyperVCollectorsClient.Create` has been removed
+- Function `*HyperVCollectorsClient.Delete` has been removed
+- Function `*HyperVCollectorsClient.Get` has been removed
+- Function `*HyperVCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewImportCollectorsClient` has been removed
+- Function `*ImportCollectorsClient.Create` has been removed
+- Function `*ImportCollectorsClient.Delete` has been removed
+- Function `*ImportCollectorsClient.Get` has been removed
+- Function `*ImportCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewMachinesClient` has been removed
+- Function `*MachinesClient.Get` has been removed
+- Function `*MachinesClient.NewListByProjectPager` has been removed
+- Function `NewOperationsClient` has been removed
+- Function `*OperationsClient.NewListPager` has been removed
+- Function `NewPrivateEndpointConnectionClient` has been removed
+- Function `*PrivateEndpointConnectionClient.Delete` has been removed
+- Function `*PrivateEndpointConnectionClient.Get` has been removed
+- Function `*PrivateEndpointConnectionClient.ListByProject` has been removed
+- Function `*PrivateEndpointConnectionClient.Update` has been removed
+- Function `NewPrivateLinkResourceClient` has been removed
+- Function `*PrivateLinkResourceClient.Get` has been removed
+- Function `*PrivateLinkResourceClient.ListByProject` has been removed
+- Function `NewProjectsClient` has been removed
+- Function `*ProjectsClient.AssessmentOptions` has been removed
+- Function `*ProjectsClient.NewAssessmentOptionsListPager` has been removed
+- Function `*ProjectsClient.Create` has been removed
+- Function `*ProjectsClient.Delete` has been removed
+- Function `*ProjectsClient.Get` has been removed
+- Function `*ProjectsClient.NewListBySubscriptionPager` has been removed
+- Function `*ProjectsClient.NewListPager` has been removed
+- Function `*ProjectsClient.Update` has been removed
+- Function `NewServerCollectorsClient` has been removed
+- Function `*ServerCollectorsClient.Create` has been removed
+- Function `*ServerCollectorsClient.Delete` has been removed
+- Function `*ServerCollectorsClient.Get` has been removed
+- Function `*ServerCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewVMwareCollectorsClient` has been removed
+- Function `*VMwareCollectorsClient.Create` has been removed
+- Function `*VMwareCollectorsClient.Delete` has been removed
+- Function `*VMwareCollectorsClient.Get` has been removed
+- Function `*VMwareCollectorsClient.NewListByProjectPager` has been removed
+- Struct `AssessedDisk` has been removed
+- Struct `AssessedMachine` has been removed
+- Struct `AssessedMachineProperties` has been removed
+- Struct `AssessedMachineResultList` has been removed
+- Struct `AssessedNetworkAdapter` has been removed
+- Struct `Assessment` has been removed
+- Struct `AssessmentOptions` has been removed
+- Struct `AssessmentOptionsProperties` has been removed
+- Struct `AssessmentOptionsResultList` has been removed
+- Struct `AssessmentProperties` has been removed
+- Struct `AssessmentResultList` has been removed
+- Struct `CollectorAgentProperties` has been removed
+- Struct `CollectorBodyAgentSpnProperties` has been removed
+- Struct `CollectorProperties` has been removed
+- Struct `Disk` has been removed
+- Struct `DownloadURL` has been removed
+- Struct `Group` has been removed
+- Struct `GroupBodyProperties` has been removed
+- Struct `GroupProperties` has been removed
+- Struct `GroupResultList` has been removed
+- Struct `HyperVCollector` has been removed
+- Struct `HyperVCollectorList` has been removed
+- Struct `ImportCollector` has been removed
+- Struct `ImportCollectorList` has been removed
+- Struct `ImportCollectorProperties` has been removed
+- Struct `Machine` has been removed
+- Struct `MachineProperties` has been removed
+- Struct `MachineResultList` has been removed
+- Struct `NetworkAdapter` has been removed
+- Struct `Operation` has been removed
+- Struct `OperationDisplay` has been removed
+- Struct `OperationResultList` has been removed
+- Struct `PrivateEndpointConnection` has been removed
+- Struct `PrivateEndpointConnectionCollection` has been removed
+- Struct `PrivateEndpointConnectionProperties` has been removed
+- Struct `PrivateLinkResource` has been removed
+- Struct `PrivateLinkResourceCollection` has been removed
+- Struct `PrivateLinkResourceProperties` has been removed
+- Struct `PrivateLinkServiceConnectionState` has been removed
+- Struct `Project` has been removed
+- Struct `ProjectProperties` has been removed
+- Struct `ProjectResultList` has been removed
+- Struct `ResourceID` has been removed
+- Struct `ServerCollector` has been removed
+- Struct `ServerCollectorList` has been removed
+- Struct `UpdateGroupBody` has been removed
+- Struct `VMFamily` has been removed
+- Struct `VMUptime` has been removed
+- Struct `VMwareCollector` has been removed
+- Struct `VMwareCollectorList` has been removed
+
+### Features Added
+
+- New value `ProvisioningStateCanceled`, `ProvisioningStateProvisioning`, `ProvisioningStateUpdating` added to enum type `ProvisioningState`
+- New enum type `AzureArcState` with values `AzureArcStateDisabled`, `AzureArcStateEnabled`, `AzureArcStateUnknown`
+- New enum type `BusinessCaseCurrency` with values `BusinessCaseCurrencyARS`, `BusinessCaseCurrencyAUD`, `BusinessCaseCurrencyBRL`, `BusinessCaseCurrencyCAD`, `BusinessCaseCurrencyCHF`, `BusinessCaseCurrencyCNY`, `BusinessCaseCurrencyDKK`, `BusinessCaseCurrencyEUR`, `BusinessCaseCurrencyGBP`, `BusinessCaseCurrencyHKD`, `BusinessCaseCurrencyIDR`, `BusinessCaseCurrencyINR`, `BusinessCaseCurrencyJPY`, `BusinessCaseCurrencyKRW`, `BusinessCaseCurrencyMXN`, `BusinessCaseCurrencyMYR`, `BusinessCaseCurrencyNOK`, `BusinessCaseCurrencyNZD`, `BusinessCaseCurrencyRUB`, `BusinessCaseCurrencySAR`, `BusinessCaseCurrencySEK`, `BusinessCaseCurrencyTRY`, `BusinessCaseCurrencyTWD`, `BusinessCaseCurrencyUSD`, `BusinessCaseCurrencyUnknown`, `BusinessCaseCurrencyZAR`
+- New enum type `BusinessCaseState` with values `BusinessCaseStateCompleted`, `BusinessCaseStateFailed`, `BusinessCaseStateInProgress`, `BusinessCaseStateInvalid`, `BusinessCaseStateOutDated`, `BusinessCaseStateOutOfSync`, `BusinessCaseStateUnknown`
+- New enum type `CreatedByType` with values `CreatedByTypeApplication`, `CreatedByTypeKey`, `CreatedByTypeManagedIdentity`, `CreatedByTypeUser`
+- New enum type `DiscoverySource` with values `DiscoverySourceAppliance`, `DiscoverySourceImport`, `DiscoverySourceUnknown`
+- New enum type `ExternalStorageType` with values `ExternalStorageTypeAnfPremium`, `ExternalStorageTypeAnfStandard`, `ExternalStorageTypeAnfUltra`, `ExternalStorageTypeNone`, `ExternalStorageTypeUnknown`
+- New enum type `FttAndRaidLevel` with values `FttAndRaidLevelFtt1Raid1`, `FttAndRaidLevelFtt1Raid5`, `FttAndRaidLevelFtt2Raid1`, `FttAndRaidLevelFtt2Raid6`, `FttAndRaidLevelFtt3Raid1`, `FttAndRaidLevelUnknown`
+- New enum type `HyperVLicenseType` with values `HyperVLicenseTypeDatacentre`, `HyperVLicenseTypeStandard`, `HyperVLicenseTypeUnknown`
+- New enum type `ManagementCostComponentName` with values `ManagementCostComponentNameAzureArcMonitoringCost`, `ManagementCostComponentNameAzureArcPatchingCost`, `ManagementCostComponentNameAzureDataProtectionCost`, `ManagementCostComponentNameAzureMonitoringCost`, `ManagementCostComponentNameAzurePatchingCost`, `ManagementCostComponentNameOtherDataProtectionCost`, `ManagementCostComponentNameOtherMonitoringCost`, `ManagementCostComponentNameOtherPatchingCost`, `ManagementCostComponentNameSystemCenterLicenseCost`, `ManagementCostComponentNameThirdPartyManagementCost`, `ManagementCostComponentNameUnknown`, `ManagementCostComponentNameVSphereManagementCost`
+- New enum type `MigrationStrategy` with values `MigrationStrategyAVSOnly`, `MigrationStrategyIaaSOnly`, `MigrationStrategyOptimizeForCost`, `MigrationStrategyOptimizeForPaas`, `MigrationStrategyUnknown`
+- New enum type `NetworkSKUType` with values `NetworkSKUTypeExpressRouteUltra`, `NetworkSKUTypeNone`, `NetworkSKUTypeUnknown`
+- New enum type `ReportStatus` with values `ReportStatusCompleted`, `ReportStatusFailed`, `ReportStatusInProgress`, `ReportStatusNone`, `ReportStatusUnknown`
+- New enum type `ReportType` with values `ReportTypeExcel`, `ReportTypeUnknown`
+- New enum type `SQLServerLicenseType` with values `SQLServerLicenseTypeEnterprise`, `SQLServerLicenseTypeStandard`, `SQLServerLicenseTypeUnknown`
+- New enum type `SavingsOption` with values `SavingsOptionRI3Year`, `SavingsOptionSavingsPlan3Year`, `SavingsOptionUnknown`
+- New enum type `ScopeType` with values `ScopeTypeAzureResourceGraphQuery`, `ScopeTypeDatacenter`
+- New enum type `SupportabilityStatus` with values `SupportabilityStatusExtended`, `SupportabilityStatusMainstream`, `SupportabilityStatusOutOfSupport`, `SupportabilityStatusUnknown`
+- New enum type `WebAppTypes` with values `WebAppTypesASPNET`, `WebAppTypesJava`, `WebAppTypesUnknown`
+- New enum type `Year` with values `YearYear0`, `YearYear1`, `YearYear2`, `YearYear3`
+- New function `NewBusinessCaseAvsSummaryOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*BusinessCaseAvsSummaryOperationsClient, error)`
+- New function `*BusinessCaseAvsSummaryOperationsClient.Get(context.Context, string, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*BusinessCaseAvsSummaryOperationsClient.NewListByParentPager(string, string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewBusinessCaseIaasSummaryOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*BusinessCaseIaasSummaryOperationsClient, error)`
+- New function `*BusinessCaseIaasSummaryOperationsClient.Get(context.Context, string, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*BusinessCaseIaasSummaryOperationsClient.NewListByParentPager(string, string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewBusinessCaseOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*BusinessCaseOperationsClient, error)`
+- New function `*BusinessCaseOperationsClient.BeginCompareSummary(context.Context, string, string, string, CompareSummaryRequest, *BeginCompareSummaryOptions) (*runtime.Poller[CompareSummaryResponse], error)`
+- New function `*BusinessCaseOperationsClient.BeginCreate(context.Context, string, string, string, BusinessCase, *BeginCreateOptions) (*runtime.Poller[CreateResponse], error)`
+- New function `*BusinessCaseOperationsClient.Delete(context.Context, string, string, string, *DeleteOptions) (DeleteResponse, error)`
+- New function `*BusinessCaseOperationsClient.Get(context.Context, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*BusinessCaseOperationsClient.BeginGetReportDownloadURL(context.Context, string, string, string, GetReportDownloadURLRequest, *BeginGetReportDownloadURLOptions) (*runtime.Poller[GetReportDownloadURLResponse], error)`
+- New function `*BusinessCaseOperationsClient.NewListByParentPager(string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewBusinessCaseOverviewSummaryOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*BusinessCaseOverviewSummaryOperationsClient, error)`
+- New function `*BusinessCaseOverviewSummaryOperationsClient.Get(context.Context, string, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*BusinessCaseOverviewSummaryOperationsClient.NewListByParentPager(string, string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewBusinessCasePaasSummaryOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*BusinessCasePaasSummaryOperationsClient, error)`
+- New function `*BusinessCasePaasSummaryOperationsClient.Get(context.Context, string, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*BusinessCasePaasSummaryOperationsClient.NewListByParentPager(string, string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `*ClientFactory.NewBusinessCaseAvsSummaryOperationsClient() *BusinessCaseAvsSummaryOperationsClient`
+- New function `*ClientFactory.NewBusinessCaseIaasSummaryOperationsClient() *BusinessCaseIaasSummaryOperationsClient`
+- New function `*ClientFactory.NewBusinessCaseOperationsClient() *BusinessCaseOperationsClient`
+- New function `*ClientFactory.NewBusinessCaseOverviewSummaryOperationsClient() *BusinessCaseOverviewSummaryOperationsClient`
+- New function `*ClientFactory.NewBusinessCasePaasSummaryOperationsClient() *BusinessCasePaasSummaryOperationsClient`
+- New function `*ClientFactory.NewEvaluatedAvsMachinesOperationsClient() *EvaluatedAvsMachinesOperationsClient`
+- New function `*ClientFactory.NewEvaluatedMachinesOperationsClient() *EvaluatedMachinesOperationsClient`
+- New function `*ClientFactory.NewEvaluatedSQLEntitiesOperationsClient() *EvaluatedSQLEntitiesOperationsClient`
+- New function `*ClientFactory.NewEvaluatedWebAppsOperationsClient() *EvaluatedWebAppsOperationsClient`
+- New function `NewEvaluatedAvsMachinesOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*EvaluatedAvsMachinesOperationsClient, error)`
+- New function `*EvaluatedAvsMachinesOperationsClient.Get(context.Context, string, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*EvaluatedAvsMachinesOperationsClient.NewListByParentPager(string, string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewEvaluatedMachinesOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*EvaluatedMachinesOperationsClient, error)`
+- New function `*EvaluatedMachinesOperationsClient.Get(context.Context, string, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*EvaluatedMachinesOperationsClient.NewListByParentPager(string, string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewEvaluatedSQLEntitiesOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*EvaluatedSQLEntitiesOperationsClient, error)`
+- New function `*EvaluatedSQLEntitiesOperationsClient.Get(context.Context, string, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*EvaluatedSQLEntitiesOperationsClient.NewListByParentPager(string, string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewEvaluatedWebAppsOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*EvaluatedWebAppsOperationsClient, error)`
+- New function `*EvaluatedWebAppsOperationsClient.Get(context.Context, string, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*EvaluatedWebAppsOperationsClient.NewListByParentPager(string, string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New struct `AppServiceSKU`
+- New struct `AvsNodeSummary`
+- New struct `AvsSummary`
+- New struct `AvsSummaryListResult`
+- New struct `AvsSummaryProperties`
+- New struct `AzureAppServiceContainerSummary`
+- New struct `AzureAppServiceSummary`
+- New struct `AzureArcManagementSettings`
+- New struct `AzureArcMonitoringSettings`
+- New struct `AzureArcSettings`
+- New struct `AzureAvsSummary`
+- New struct `AzureIaasSQLSummary`
+- New struct `AzureIaasSummary`
+- New struct `AzureIaasVMSummary`
+- New struct `AzureKubernetesServiceSummary`
+- New struct `AzurePaasSummary`
+- New struct `AzureSQLSummary`
+- New struct `AzureSettings`
+- New struct `BusinessCase`
+- New struct `BusinessCaseListResult`
+- New struct `BusinessCaseProperties`
+- New struct `BusinessCaseScope`
+- New struct `CarbonEmissionsDetails`
+- New struct `CarbonEmissionsScopeDetails`
+- New struct `CompareSummary`
+- New struct `CompareSummaryRequest`
+- New struct `ComputeSettings`
+- New struct `CostByStorageType`
+- New struct `CostDetails`
+- New struct `DistributionByOperatingSystem`
+- New struct `DistributionByType`
+- New struct `DistributionByVirtualization`
+- New struct `ErrorDetail`
+- New struct `EstimatedCostByOffer`
+- New struct `EstimatedCostByTarget`
+- New struct `EstimatedExternalStorage`
+- New struct `EstimatedNetwork`
+- New struct `EvaluatedAvsMachine`
+- New struct `EvaluatedAvsMachineListResult`
+- New struct `EvaluatedAvsMachineProperties`
+- New struct `EvaluatedMachine`
+- New struct `EvaluatedMachineListResult`
+- New struct `EvaluatedMachineProperties`
+- New struct `EvaluatedSQLEntity`
+- New struct `EvaluatedSQLEntityListResult`
+- New struct `EvaluatedSQLEntityProperties`
+- New struct `EvaluatedWebApp`
+- New struct `EvaluatedWebAppListResult`
+- New struct `EvaluatedWebAppProperties`
+- New struct `FacilitySettings`
+- New struct `GetReportDownloadURLRequest`
+- New struct `HypervLicense`
+- New struct `HypervVirtualizationManagementSettings`
+- New struct `IaasOsDistribution`
+- New struct `IaasOsLicensingDetails`
+- New struct `IaasSummary`
+- New struct `IaasSummaryListResult`
+- New struct `IaasSummaryProperties`
+- New struct `LaborSettings`
+- New struct `LinuxServerLicensingSettings`
+- New struct `ManagementCostComponent`
+- New struct `ManagementCostDetails`
+- New struct `ManagementSettings`
+- New struct `NameValuePair`
+- New struct `NameValuePair1`
+- New struct `NetworkSettings`
+- New struct `OnPremiseSettings`
+- New struct `OnPremisesIaasSummary`
+- New struct `OnPremisesPaasLicensingCost`
+- New struct `OnPremisesPaasSummary`
+- New struct `OnPremisesSQLSummary`
+- New struct `OnPremisesWebAppSummary`
+- New struct `OtherManagementCostsSettings`
+- New struct `OverviewSummary`
+- New struct `OverviewSummaryListResult`
+- New struct `OverviewSummaryProperties`
+- New struct `PaasDistribution`
+- New struct `PaasSummary`
+- New struct `PaasSummaryListResult`
+- New struct `PaasSummaryProperties`
+- New struct `RecommendedAvsNodeTypeSummary`
+- New struct `RecommendedVMFamilySummary`
+- New struct `ReportDetails`
+- New struct `ReportDownloadURL`
+- New struct `SQLServerLicensingSettings`
+- New struct `SQLServiceTier`
+- New struct `SQLVersionDetails`
+- New struct `SecuritySettings`
+- New struct `ServersDiscovered`
+- New struct `ServicePackInsight`
+- New struct `Settings`
+- New struct `StorageSettings`
+- New struct `SupportStatusDistribution`
+- New struct `SystemData`
+- New struct `ThirdPartyManagementSettings`
+- New struct `UtilizationData`
+- New struct `VirtualizationSoftwareSettings`
+- New struct `WebAppDistribution`
+- New struct `WebAppTargetSKU`
+- New struct `WindowsServerLicensingSettings`
+- New struct `YearOnYearCost`
+- New struct `YearOnYearEmissions`
+- New struct `YearOnYearEstimates`
+
+
+## 2.0.0-beta.1 (2025-04-23)
+### Breaking Changes
+
+- `MachineBootTypeBIOS` from enum `MachineBootType` has been removed
+- `ProvisioningStateCreating`, `ProvisioningStateMoving` from enum `ProvisioningState` has been removed
+- Enum `AssessmentStage` has been removed
+- Enum `AzureDiskSize` has been removed
+- Enum `AzureDiskSuitabilityDetail` has been removed
+- Enum `AzureDiskSuitabilityExplanation` has been removed
+- Enum `AzureDiskType` has been removed
+- Enum `AzureHybridUseBenefit` has been removed
+- Enum `AzureNetworkAdapterSuitabilityDetail` has been removed
+- Enum `AzureNetworkAdapterSuitabilityExplanation` has been removed
+- Enum `AzureOfferCode` has been removed
+- Enum `AzurePricingTier` has been removed
+- Enum `AzureStorageRedundancy` has been removed
+- Enum `AzureVMFamily` has been removed
+- Enum `AzureVMSize` has been removed
+- Enum `AzureVMSuitabilityDetail` has been removed
+- Enum `AzureVMSuitabilityExplanation` has been removed
+- Enum `Currency` has been removed
+- Enum `GroupStatus` has been removed
+- Enum `GroupUpdateOperation` has been removed
+- Enum `PrivateEndpointConnectionPropertiesProvisioningState` has been removed
+- Enum `PrivateLinkServiceConnectionStateStatus` has been removed
+- Enum `ProjectStatus` has been removed
+- Enum `ReservedInstance` has been removed
+- Function `NewAssessedMachinesClient` has been removed
+- Function `*AssessedMachinesClient.Get` has been removed
+- Function `*AssessedMachinesClient.NewListByAssessmentPager` has been removed
+- Function `NewAssessmentsClient` has been removed
+- Function `*AssessmentsClient.Create` has been removed
+- Function `*AssessmentsClient.Delete` has been removed
+- Function `*AssessmentsClient.Get` has been removed
+- Function `*AssessmentsClient.GetReportDownloadURL` has been removed
+- Function `*AssessmentsClient.NewListByGroupPager` has been removed
+- Function `*AssessmentsClient.NewListByProjectPager` has been removed
+- Function `*ClientFactory.NewAssessedMachinesClient` has been removed
+- Function `*ClientFactory.NewAssessmentsClient` has been removed
+- Function `*ClientFactory.NewGroupsClient` has been removed
+- Function `*ClientFactory.NewHyperVCollectorsClient` has been removed
+- Function `*ClientFactory.NewImportCollectorsClient` has been removed
+- Function `*ClientFactory.NewMachinesClient` has been removed
+- Function `*ClientFactory.NewOperationsClient` has been removed
+- Function `*ClientFactory.NewPrivateEndpointConnectionClient` has been removed
+- Function `*ClientFactory.NewPrivateLinkResourceClient` has been removed
+- Function `*ClientFactory.NewProjectsClient` has been removed
+- Function `*ClientFactory.NewServerCollectorsClient` has been removed
+- Function `*ClientFactory.NewVMwareCollectorsClient` has been removed
+- Function `NewGroupsClient` has been removed
+- Function `*GroupsClient.Create` has been removed
+- Function `*GroupsClient.Delete` has been removed
+- Function `*GroupsClient.Get` has been removed
+- Function `*GroupsClient.NewListByProjectPager` has been removed
+- Function `*GroupsClient.UpdateMachines` has been removed
+- Function `NewHyperVCollectorsClient` has been removed
+- Function `*HyperVCollectorsClient.Create` has been removed
+- Function `*HyperVCollectorsClient.Delete` has been removed
+- Function `*HyperVCollectorsClient.Get` has been removed
+- Function `*HyperVCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewImportCollectorsClient` has been removed
+- Function `*ImportCollectorsClient.Create` has been removed
+- Function `*ImportCollectorsClient.Delete` has been removed
+- Function `*ImportCollectorsClient.Get` has been removed
+- Function `*ImportCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewMachinesClient` has been removed
+- Function `*MachinesClient.Get` has been removed
+- Function `*MachinesClient.NewListByProjectPager` has been removed
+- Function `NewOperationsClient` has been removed
+- Function `*OperationsClient.NewListPager` has been removed
+- Function `NewPrivateEndpointConnectionClient` has been removed
+- Function `*PrivateEndpointConnectionClient.Delete` has been removed
+- Function `*PrivateEndpointConnectionClient.Get` has been removed
+- Function `*PrivateEndpointConnectionClient.ListByProject` has been removed
+- Function `*PrivateEndpointConnectionClient.Update` has been removed
+- Function `NewPrivateLinkResourceClient` has been removed
+- Function `*PrivateLinkResourceClient.Get` has been removed
+- Function `*PrivateLinkResourceClient.ListByProject` has been removed
+- Function `NewProjectsClient` has been removed
+- Function `*ProjectsClient.AssessmentOptions` has been removed
+- Function `*ProjectsClient.NewAssessmentOptionsListPager` has been removed
+- Function `*ProjectsClient.Create` has been removed
+- Function `*ProjectsClient.Delete` has been removed
+- Function `*ProjectsClient.Get` has been removed
+- Function `*ProjectsClient.NewListBySubscriptionPager` has been removed
+- Function `*ProjectsClient.NewListPager` has been removed
+- Function `*ProjectsClient.Update` has been removed
+- Function `NewServerCollectorsClient` has been removed
+- Function `*ServerCollectorsClient.Create` has been removed
+- Function `*ServerCollectorsClient.Delete` has been removed
+- Function `*ServerCollectorsClient.Get` has been removed
+- Function `*ServerCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewVMwareCollectorsClient` has been removed
+- Function `*VMwareCollectorsClient.Create` has been removed
+- Function `*VMwareCollectorsClient.Delete` has been removed
+- Function `*VMwareCollectorsClient.Get` has been removed
+- Function `*VMwareCollectorsClient.NewListByProjectPager` has been removed
+- Struct `AssessedDisk` has been removed
+- Struct `AssessedMachine` has been removed
+- Struct `AssessedMachineProperties` has been removed
+- Struct `AssessedMachineResultList` has been removed
+- Struct `AssessedNetworkAdapter` has been removed
+- Struct `Assessment` has been removed
+- Struct `AssessmentOptions` has been removed
+- Struct `AssessmentOptionsProperties` has been removed
+- Struct `AssessmentOptionsResultList` has been removed
+- Struct `AssessmentProperties` has been removed
+- Struct `AssessmentResultList` has been removed
+- Struct `CollectorAgentProperties` has been removed
+- Struct `CollectorBodyAgentSpnProperties` has been removed
+- Struct `CollectorProperties` has been removed
+- Struct `Disk` has been removed
+- Struct `Group` has been removed
+- Struct `GroupBodyProperties` has been removed
+- Struct `GroupProperties` has been removed
+- Struct `GroupResultList` has been removed
+- Struct `HyperVCollector` has been removed
+- Struct `HyperVCollectorList` has been removed
+- Struct `ImportCollector` has been removed
+- Struct `ImportCollectorList` has been removed
+- Struct `ImportCollectorProperties` has been removed
+- Struct `Machine` has been removed
+- Struct `MachineProperties` has been removed
+- Struct `MachineResultList` has been removed
+- Struct `NetworkAdapter` has been removed
+- Struct `Operation` has been removed
+- Struct `OperationDisplay` has been removed
+- Struct `OperationResultList` has been removed
+- Struct `PrivateEndpointConnection` has been removed
+- Struct `PrivateEndpointConnectionCollection` has been removed
+- Struct `PrivateEndpointConnectionProperties` has been removed
+- Struct `PrivateLinkResource` has been removed
+- Struct `PrivateLinkResourceCollection` has been removed
+- Struct `PrivateLinkResourceProperties` has been removed
+- Struct `PrivateLinkServiceConnectionState` has been removed
+- Struct `Project` has been removed
+- Struct `ProjectProperties` has been removed
+- Struct `ProjectResultList` has been removed
+- Struct `ResourceID` has been removed
+- Struct `ServerCollector` has been removed
+- Struct `ServerCollectorList` has been removed
+- Struct `UpdateGroupBody` has been removed
+- Struct `VMFamily` has been removed
+- Struct `VMUptime` has been removed
+- Struct `VMwareCollector` has been removed
+- Struct `VMwareCollectorList` has been removed
+
+### Features Added
+
+- New value `AssessmentStatusDeleted`, `AssessmentStatusFailed` added to enum type `AssessmentStatus`
+- New value `AzureLocationAustraliaCentral`, `AzureLocationAustraliaCentral2`, `AzureLocationChinaEast2`, `AzureLocationChinaNorth2`, `AzureLocationFranceCentral`, `AzureLocationFranceSouth`, `AzureLocationGermanyNorth`, `AzureLocationGermanyWestCentral`, `AzureLocationIsraelCentral`, `AzureLocationItalyNorth`, `AzureLocationJioIndiaWest`, `AzureLocationMexicoCentral`, `AzureLocationNewZealandNorth`, `AzureLocationNorwayEast`, `AzureLocationNorwayWest`, `AzureLocationPolandCentral`, `AzureLocationQatarCentral`, `AzureLocationSouthAfricaNorth`, `AzureLocationSouthAfricaWest`, `AzureLocationSpainCentral`, `AzureLocationSwedenCentral`, `AzureLocationSwitzerlandNorth`, `AzureLocationSwitzerlandWest`, `AzureLocationUAECentral`, `AzureLocationUAENorth`, `AzureLocationUsNatEast`, `AzureLocationUsNatWest`, `AzureLocationUsSecCentral`, `AzureLocationUsSecEast`, `AzureLocationUsSecWest` added to enum type `AzureLocation`
+- New value `MachineBootTypeBios`, `MachineBootTypeNotSpecified` added to enum type `MachineBootType`
+- New value `PercentilePercentileUnknown` added to enum type `Percentile`
+- New value `ProvisioningStateCanceled`, `ProvisioningStateProvisioning`, `ProvisioningStateUpdating` added to enum type `ProvisioningState`
+- New enum type `AssessedMachineType` with values `AssessedMachineTypeAssessedMachine`, `AssessedMachineTypeAvsAssessedMachine`, `AssessedMachineTypeSQLAssessedMachine`, `AssessedMachineTypeUnknown`
+- New enum type `AssessmentSource` with values `AssessmentSourceIIS`, `AssessmentSourceMachine`, `AssessmentSourceMySQLServer`, `AssessmentSourceOracleDatabase`, `AssessmentSourceOracleServer`, `AssessmentSourceSAPInstance`, `AssessmentSourceSQLDatabase`, `AssessmentSourceSQLInstance`, `AssessmentSourceSpringbootApplication`, `AssessmentSourceTomCat`, `AssessmentSourceUnknown`, `AssessmentSourceWebApps`
+- New enum type `AvsAssessmentScenario` with values `AvsAssessmentScenarioAvsSddcExpansion`, `AvsAssessmentScenarioNewAvsSddc`, `AvsAssessmentScenarioUnknown`
+- New enum type `AzureAvsNodeType` with values `AzureAvsNodeTypeAV36`, `AzureAvsNodeTypeAV36P`, `AzureAvsNodeTypeAV52`, `AzureAvsNodeTypeAV64`, `AzureAvsNodeTypeUnknown`
+- New enum type `AzureAvsSuitabilityExplanation` with values `AzureAvsSuitabilityExplanationInternalErrorInRecommendation`, `AzureAvsSuitabilityExplanationNotApplicable`, `AzureAvsSuitabilityExplanationUnknown`, `AzureAvsSuitabilityExplanationUnsupportedLocationForSelectedExternalStorageTypes`, `AzureAvsSuitabilityExplanationUnsupportedLocationForSelectedNode`
+- New enum type `AzureCurrency` with values `AzureCurrencyARS`, `AzureCurrencyAUD`, `AzureCurrencyBRL`, `AzureCurrencyCAD`, `AzureCurrencyCHF`, `AzureCurrencyCNY`, `AzureCurrencyDKK`, `AzureCurrencyEUR`, `AzureCurrencyGBP`, `AzureCurrencyHKD`, `AzureCurrencyIDR`, `AzureCurrencyINR`, `AzureCurrencyJPY`, `AzureCurrencyKRW`, `AzureCurrencyMXN`, `AzureCurrencyMYR`, `AzureCurrencyNOK`, `AzureCurrencyNZD`, `AzureCurrencyRUB`, `AzureCurrencySAR`, `AzureCurrencySEK`, `AzureCurrencyTRY`, `AzureCurrencyTWD`, `AzureCurrencyUSD`, `AzureCurrencyUnknown`, `AzureCurrencyZAR`
+- New enum type `AzureManagementOfferingType` with values `AzureManagementOfferingTypeAUM`, `AzureManagementOfferingTypeAzMon`, `AzureManagementOfferingTypeAzureBackup`, `AzureManagementOfferingTypeNo`, `AzureManagementOfferingTypeSCOMMI`
+- New enum type `AzureOffer` with values `AzureOfferEA`, `AzureOfferMsazr0003P`, `AzureOfferMsazr0023P`, `AzureOfferMsazrusgov0003P`, `AzureOfferMsmcazr0044P`, `AzureOfferMsmcazr0059P`, `AzureOfferMsmcazr0060P`, `AzureOfferMsmcazr0063P`, `AzureOfferSavingsPlan1Year`, `AzureOfferSavingsPlan3Year`, `AzureOfferUnknown`
+- New enum type `AzureReservedInstance` with values `AzureReservedInstanceNone`, `AzureReservedInstanceRI1Year`, `AzureReservedInstanceRI3Year`
+- New enum type `AzureTarget` with values `AzureTargetAKS`, `AzureTargetAvs`, `AzureTargetAzureAppService`, `AzureTargetAzureAppServiceContainer`, `AzureTargetAzureSQLVM`, `AzureTargetAzureSpringApps`, `AzureTargetAzureVM`, `AzureTargetFlexServerPG`, `AzureTargetMySQLAzureFlexServer`, `AzureTargetOracleIaasVM`, `AzureTargetSAPAzureInstance`, `AzureTargetSQLDatabase`, `AzureTargetSQLMI`, `AzureTargetUnknown`
+- New enum type `CloudSuitabilityCommon` with values `CloudSuitabilityCommonConditionallySuitable`, `CloudSuitabilityCommonNotSuitable`, `CloudSuitabilityCommonReadinessUnknown`, `CloudSuitabilityCommonSuitable`, `CloudSuitabilityCommonSuitableWithWarnings`, `CloudSuitabilityCommonUnknown`
+- New enum type `CostType` with values `CostTypeDataProtectionService`, `CostTypeMonitoringService`, `CostTypeMonthlyAvsExternalStorageCost`, `CostTypeMonthlyAvsNetworkCost`, `CostTypeMonthlyAvsNodeCost`, `CostTypeMonthlyAzureHybridCost`, `CostTypeMonthlyBandwidthCost`, `CostTypeMonthlyComputeCost`, `CostTypeMonthlyLicensingCost`, `CostTypeMonthlyLinuxAzureHybridCost`, `CostTypeMonthlyManagementCost`, `CostTypeMonthlyPremiumStorageCost`, `CostTypeMonthlyPremiumV2StorageCost`, `CostTypeMonthlySecurityCost`, `CostTypeMonthlyStandardHddStorageCost`, `CostTypeMonthlyStandardSsdStorageCost`, `CostTypeMonthlyStorageCost`, `CostTypeMonthlyUltraDiskCost`, `CostTypeMonthlyUltraStorageCost`, `CostTypePatchingService`, `CostTypeTotalMonthlyCost`
+- New enum type `CreatedByType` with values `CreatedByTypeApplication`, `CreatedByTypeKey`, `CreatedByTypeManagedIdentity`, `CreatedByTypeUser`
+- New enum type `EnvironmentType` with values `EnvironmentTypeDevTest`, `EnvironmentTypeProduction`, `EnvironmentTypeUnknown`
+- New enum type `ExternalStorageType` with values `ExternalStorageTypeAnfPremium`, `ExternalStorageTypeAnfStandard`, `ExternalStorageTypeAnfUltra`, `ExternalStorageTypeNone`, `ExternalStorageTypeUnknown`
+- New enum type `FttAndRaidLevel` with values `FttAndRaidLevelFtt1Raid1`, `FttAndRaidLevelFtt1Raid5`, `FttAndRaidLevelFtt2Raid1`, `FttAndRaidLevelFtt2Raid6`, `FttAndRaidLevelFtt3Raid1`, `FttAndRaidLevelUnknown`
+- New enum type `GuestOperatingSystemArchitecture` with values `GuestOperatingSystemArchitectureUnknown`, `GuestOperatingSystemArchitectureX64`, `GuestOperatingSystemArchitectureX86`
+- New enum type `LicensingProgram` with values `LicensingProgramEA`, `LicensingProgramMCA`, `LicensingProgramRetail`, `LicensingProgramUnknown`
+- New enum type `LinkageKind` with values `LinkageKindDatabase`, `LinkageKindInstance`, `LinkageKindMachine`, `LinkageKindServer`, `LinkageKindUnknown`, `LinkageKindWebApplication`, `LinkageKindWebServer`
+- New enum type `LinkageType` with values `LinkageTypeParent`, `LinkageTypeSource`
+- New enum type `MigrationIssuesCategory` with values `MigrationIssuesCategoryInternal`, `MigrationIssuesCategoryIssue`, `MigrationIssuesCategoryWarning`
+- New enum type `MigrationPlatform` with values `MigrationPlatformIaaS`, `MigrationPlatformPaaS`, `MigrationPlatformSaaS`, `MigrationPlatformUnknown`
+- New enum type `MigrationType` with values `MigrationTypeRearchitect`, `MigrationTypeRehost`, `MigrationTypeReplatform`, `MigrationTypeRetain`, `MigrationTypeUnknown`
+- New enum type `NetworkSKUType` with values `NetworkSKUTypeExpressRouteUltra`, `NetworkSKUTypeNone`, `NetworkSKUTypeUnknown`
+- New enum type `SKUKind` with values `SKUKindDetails`, `SKUKindEndpoint`
+- New enum type `SKUType` with values `SKUTypeAppServicePlan`, `SKUTypeAzureSpringApps`, `SKUTypeCompute`, `SKUTypeNetwork`, `SKUTypeStorage`, `SKUTypeUnknown`
+- New enum type `SavingsOptions` with values `SavingsOptionsCustomAzureOfferCode`, `SavingsOptionsNone`, `SavingsOptionsRI1Year`, `SavingsOptionsRI3Year`, `SavingsOptionsSavingsPlan1Year`, `SavingsOptionsSavingsPlan3Year`
+- New enum type `SavingsType` with values `SavingsTypeMonthlyAhubSQLCostSavings`, `SavingsTypeMonthlyAzureHybridCostSavings`, `SavingsTypeMonthlyLinuxAzureHybridCostSavings`, `SavingsTypeMonthlyVcfByolCostDifference`
+- New enum type `ScopeType` with values `ScopeTypeAzureResourceGraphQuery`, `ScopeTypeServerGroupID`
+- New enum type `StrategyType` with values `StrategyTypeCostOptimized`, `StrategyTypeEffortOptimized`, `StrategyTypePaaSPreferred`
+- New enum type `SummaryType` with values `SummaryTypeStrategy`, `SummaryTypeTarget`, `SummaryTypeUnknown`
+- New enum type `WorkloadType` with values `WorkloadTypeDatabase`, `WorkloadTypeHost`, `WorkloadTypeInstance`, `WorkloadTypeMachine`, `WorkloadTypeManagementServer`, `WorkloadTypeServer`, `WorkloadTypeUnknown`, `WorkloadTypeWebApplication`, `WorkloadTypeWebServer`
+- New function `NewAvsAssessedMachinesV2OperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AvsAssessedMachinesV2OperationsClient, error)`
+- New function `*AvsAssessedMachinesV2OperationsClient.Get(context.Context, string, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*AvsAssessedMachinesV2OperationsClient.NewListByParentPager(string, string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewAvsAssessmentV2SummaryOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AvsAssessmentV2SummaryOperationsClient, error)`
+- New function `*AvsAssessmentV2SummaryOperationsClient.Get(context.Context, string, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*AvsAssessmentV2SummaryOperationsClient.NewListByParentPager(string, string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewAvsAssessmentsV2OperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AvsAssessmentsV2OperationsClient, error)`
+- New function `*AvsAssessmentsV2OperationsClient.BeginCreate(context.Context, string, string, string, AvsAssessmentV2, *BeginCreateOptions) (*runtime.Poller[CreateResponse], error)`
+- New function `*AvsAssessmentsV2OperationsClient.Delete(context.Context, string, string, string, *DeleteOptions) (DeleteResponse, error)`
+- New function `*AvsAssessmentsV2OperationsClient.BeginDownloadURL(context.Context, string, string, string, DownloadURLRequest, *BeginDownloadURLOptions) (*runtime.Poller[DownloadURLResponse], error)`
+- New function `*AvsAssessmentsV2OperationsClient.Get(context.Context, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*AvsAssessmentsV2OperationsClient.NewListByParentPager(string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewAvsGraphAssessmentOptionsOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AvsGraphAssessmentOptionsOperationsClient, error)`
+- New function `*AvsGraphAssessmentOptionsOperationsClient.Get(context.Context, string, string, *GetOptions) (GetResponse, error)`
+- New function `*AvsGraphAssessmentOptionsOperationsClient.NewListByParentPager(string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `*ClientFactory.NewAvsAssessedMachinesV2OperationsClient() *AvsAssessedMachinesV2OperationsClient`
+- New function `*ClientFactory.NewAvsAssessmentV2SummaryOperationsClient() *AvsAssessmentV2SummaryOperationsClient`
+- New function `*ClientFactory.NewAvsAssessmentsV2OperationsClient() *AvsAssessmentsV2OperationsClient`
+- New function `*ClientFactory.NewAvsGraphAssessmentOptionsOperationsClient() *AvsGraphAssessmentOptionsOperationsClient`
+- New struct `AssessmentDetails`
+- New struct `AvsAssessedDiskV2`
+- New struct `AvsAssessedMachineExtendedDetails`
+- New struct `AvsAssessedMachinePropertiesV2`
+- New struct `AvsAssessedMachineV2`
+- New struct `AvsAssessedMachineV2ListResult`
+- New struct `AvsAssessedNetworkAdapter`
+- New struct `AvsAssessmentOptionsOutboundEdgeGroup`
+- New struct `AvsAssessmentPropertiesV2`
+- New struct `AvsAssessmentSettings`
+- New struct `AvsAssessmentSummaryPropertiesV2`
+- New struct `AvsAssessmentV2`
+- New struct `AvsAssessmentV2ListResult`
+- New struct `AvsAssessmentV2Summary`
+- New struct `AvsAssessmentV2SummaryListResult`
+- New struct `AvsEstimatedExternalStorage`
+- New struct `AvsEstimatedNetwork`
+- New struct `AvsEstimatedNode`
+- New struct `AvsGraphAssessmentOptions`
+- New struct `AvsGraphAssessmentOptionsListResult`
+- New struct `AvsGraphAssessmentOptionsProperties`
+- New struct `AvsRecommendationsMigrationIssuesMigrationSuitabilitySKUs`
+- New struct `BillingSettings`
+- New struct `Configuration`
+- New struct `CostDetailsCommon`
+- New struct `DownloadURLRequest`
+- New struct `Error`
+- New struct `Linkages`
+- New struct `ManagementDetails`
+- New struct `MigrationDetails`
+- New struct `MigrationIssues`
+- New struct `MigrationSuitability`
+- New struct `MoreInformation`
+- New struct `NameValuePair`
+- New struct `NameValuePairCloudSuitabilityCommon`
+- New struct `NameValuePairCostType`
+- New struct `NameValuePairSavingsType`
+- New struct `PerformanceData`
+- New struct `RecommendedFor`
+- New struct `SKUDetails`
+- New struct `SKUsMigrationSuitability`
+- New struct `SavingsDetailsCommon`
+- New struct `SavingsSettings`
+- New struct `Scope`
+- New struct `SecuritySuitability`
+- New struct `SourceDetails`
+- New struct `SourceRecommendationMigrationSuitability`
+- New struct `SystemData`
+- New struct `TargetDetails`
+- New struct `TargetSourcePair`
+
+
+## 2.0.0-beta.1 (2025-04-23)
+### Breaking Changes
+
+- Type of `PrivateEndpointConnectionProperties.PrivateEndpoint` has been changed from `*ResourceID` to `*PrivateEndpoint`
+- Type of `PrivateEndpointConnectionProperties.ProvisioningState` has been changed from `*PrivateEndpointConnectionPropertiesProvisioningState` to `*PrivateEndpointConnectionProvisioningState`
+- Type of `PrivateLinkResourceProperties.RequiredMembers` has been changed from `[]*string` to `[]string`
+- Type of `PrivateLinkResourceProperties.RequiredZoneNames` has been changed from `[]*string` to `[]string`
+- Type of `PrivateLinkServiceConnectionState.Status` has been changed from `*PrivateLinkServiceConnectionStateStatus` to `*PrivateEndpointServiceConnectionStatus`
+- Type of `ProjectProperties.PrivateEndpointConnections` has been changed from `[]*PrivateEndpointConnection` to `[]PrivateEndpointConnection`
+- `ProvisioningStateCreating`, `ProvisioningStateMoving` from enum `ProvisioningState` has been removed
+- Enum `AssessmentSizingCriterion` has been removed
+- Enum `AssessmentStage` has been removed
+- Enum `AssessmentStatus` has been removed
+- Enum `AzureDiskSize` has been removed
+- Enum `AzureDiskSuitabilityDetail` has been removed
+- Enum `AzureDiskSuitabilityExplanation` has been removed
+- Enum `AzureDiskType` has been removed
+- Enum `AzureHybridUseBenefit` has been removed
+- Enum `AzureLocation` has been removed
+- Enum `AzureNetworkAdapterSuitabilityDetail` has been removed
+- Enum `AzureNetworkAdapterSuitabilityExplanation` has been removed
+- Enum `AzureOfferCode` has been removed
+- Enum `AzurePricingTier` has been removed
+- Enum `AzureStorageRedundancy` has been removed
+- Enum `AzureVMFamily` has been removed
+- Enum `AzureVMSize` has been removed
+- Enum `AzureVMSuitabilityDetail` has been removed
+- Enum `AzureVMSuitabilityExplanation` has been removed
+- Enum `CloudSuitability` has been removed
+- Enum `Currency` has been removed
+- Enum `GroupStatus` has been removed
+- Enum `GroupUpdateOperation` has been removed
+- Enum `MachineBootType` has been removed
+- Enum `Percentile` has been removed
+- Enum `PrivateEndpointConnectionPropertiesProvisioningState` has been removed
+- Enum `PrivateLinkServiceConnectionStateStatus` has been removed
+- Enum `ReservedInstance` has been removed
+- Enum `TimeRange` has been removed
+- Function `NewAssessedMachinesClient` has been removed
+- Function `*AssessedMachinesClient.Get` has been removed
+- Function `*AssessedMachinesClient.NewListByAssessmentPager` has been removed
+- Function `NewAssessmentsClient` has been removed
+- Function `*AssessmentsClient.Create` has been removed
+- Function `*AssessmentsClient.Delete` has been removed
+- Function `*AssessmentsClient.Get` has been removed
+- Function `*AssessmentsClient.GetReportDownloadURL` has been removed
+- Function `*AssessmentsClient.NewListByGroupPager` has been removed
+- Function `*AssessmentsClient.NewListByProjectPager` has been removed
+- Function `*ClientFactory.NewAssessedMachinesClient` has been removed
+- Function `*ClientFactory.NewAssessmentsClient` has been removed
+- Function `*ClientFactory.NewGroupsClient` has been removed
+- Function `*ClientFactory.NewHyperVCollectorsClient` has been removed
+- Function `*ClientFactory.NewImportCollectorsClient` has been removed
+- Function `*ClientFactory.NewMachinesClient` has been removed
+- Function `*ClientFactory.NewOperationsClient` has been removed
+- Function `*ClientFactory.NewPrivateEndpointConnectionClient` has been removed
+- Function `*ClientFactory.NewPrivateLinkResourceClient` has been removed
+- Function `*ClientFactory.NewProjectsClient` has been removed
+- Function `*ClientFactory.NewServerCollectorsClient` has been removed
+- Function `*ClientFactory.NewVMwareCollectorsClient` has been removed
+- Function `NewGroupsClient` has been removed
+- Function `*GroupsClient.Create` has been removed
+- Function `*GroupsClient.Delete` has been removed
+- Function `*GroupsClient.Get` has been removed
+- Function `*GroupsClient.NewListByProjectPager` has been removed
+- Function `*GroupsClient.UpdateMachines` has been removed
+- Function `NewHyperVCollectorsClient` has been removed
+- Function `*HyperVCollectorsClient.Create` has been removed
+- Function `*HyperVCollectorsClient.Delete` has been removed
+- Function `*HyperVCollectorsClient.Get` has been removed
+- Function `*HyperVCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewImportCollectorsClient` has been removed
+- Function `*ImportCollectorsClient.Create` has been removed
+- Function `*ImportCollectorsClient.Delete` has been removed
+- Function `*ImportCollectorsClient.Get` has been removed
+- Function `*ImportCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewMachinesClient` has been removed
+- Function `*MachinesClient.Get` has been removed
+- Function `*MachinesClient.NewListByProjectPager` has been removed
+- Function `NewOperationsClient` has been removed
+- Function `*OperationsClient.NewListPager` has been removed
+- Function `NewPrivateEndpointConnectionClient` has been removed
+- Function `*PrivateEndpointConnectionClient.Delete` has been removed
+- Function `*PrivateEndpointConnectionClient.Get` has been removed
+- Function `*PrivateEndpointConnectionClient.ListByProject` has been removed
+- Function `*PrivateEndpointConnectionClient.Update` has been removed
+- Function `NewPrivateLinkResourceClient` has been removed
+- Function `*PrivateLinkResourceClient.Get` has been removed
+- Function `*PrivateLinkResourceClient.ListByProject` has been removed
+- Function `NewProjectsClient` has been removed
+- Function `*ProjectsClient.AssessmentOptions` has been removed
+- Function `*ProjectsClient.NewAssessmentOptionsListPager` has been removed
+- Function `*ProjectsClient.Create` has been removed
+- Function `*ProjectsClient.Delete` has been removed
+- Function `*ProjectsClient.Get` has been removed
+- Function `*ProjectsClient.NewListBySubscriptionPager` has been removed
+- Function `*ProjectsClient.NewListPager` has been removed
+- Function `*ProjectsClient.Update` has been removed
+- Function `NewServerCollectorsClient` has been removed
+- Function `*ServerCollectorsClient.Create` has been removed
+- Function `*ServerCollectorsClient.Delete` has been removed
+- Function `*ServerCollectorsClient.Get` has been removed
+- Function `*ServerCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewVMwareCollectorsClient` has been removed
+- Function `*VMwareCollectorsClient.Create` has been removed
+- Function `*VMwareCollectorsClient.Delete` has been removed
+- Function `*VMwareCollectorsClient.Get` has been removed
+- Function `*VMwareCollectorsClient.NewListByProjectPager` has been removed
+- Struct `AssessedDisk` has been removed
+- Struct `AssessedMachine` has been removed
+- Struct `AssessedMachineProperties` has been removed
+- Struct `AssessedMachineResultList` has been removed
+- Struct `AssessedNetworkAdapter` has been removed
+- Struct `Assessment` has been removed
+- Struct `AssessmentOptions` has been removed
+- Struct `AssessmentOptionsProperties` has been removed
+- Struct `AssessmentOptionsResultList` has been removed
+- Struct `AssessmentProperties` has been removed
+- Struct `AssessmentResultList` has been removed
+- Struct `CollectorAgentProperties` has been removed
+- Struct `CollectorBodyAgentSpnProperties` has been removed
+- Struct `CollectorProperties` has been removed
+- Struct `Disk` has been removed
+- Struct `DownloadURL` has been removed
+- Struct `Group` has been removed
+- Struct `GroupBodyProperties` has been removed
+- Struct `GroupProperties` has been removed
+- Struct `GroupResultList` has been removed
+- Struct `HyperVCollector` has been removed
+- Struct `HyperVCollectorList` has been removed
+- Struct `ImportCollector` has been removed
+- Struct `ImportCollectorList` has been removed
+- Struct `ImportCollectorProperties` has been removed
+- Struct `Machine` has been removed
+- Struct `MachineProperties` has been removed
+- Struct `MachineResultList` has been removed
+- Struct `NetworkAdapter` has been removed
+- Struct `Operation` has been removed
+- Struct `OperationDisplay` has been removed
+- Struct `OperationResultList` has been removed
+- Struct `PrivateEndpointConnectionCollection` has been removed
+- Struct `PrivateLinkResourceCollection` has been removed
+- Struct `Project` has been removed
+- Struct `ProjectResultList` has been removed
+- Struct `ResourceID` has been removed
+- Struct `ServerCollector` has been removed
+- Struct `ServerCollectorList` has been removed
+- Struct `UpdateGroupBody` has been removed
+- Struct `VMFamily` has been removed
+- Struct `VMUptime` has been removed
+- Struct `VMwareCollector` has been removed
+- Struct `VMwareCollectorList` has been removed
+- Field `ETag` of struct `PrivateEndpointConnection` has been removed
+- Field `LastAssessmentTimestamp`, `NumberOfAssessments`, `NumberOfGroups`, `NumberOfMachines` of struct `ProjectProperties` has been removed
+
+### Features Added
+
+- New value `ProvisioningStateCanceled`, `ProvisioningStateProvisioning`, `ProvisioningStateUpdating` added to enum type `ProvisioningState`
+- New enum type `CreatedByType` with values `CreatedByTypeApplication`, `CreatedByTypeKey`, `CreatedByTypeManagedIdentity`, `CreatedByTypeUser`
+- New enum type `PrivateEndpointConnectionProvisioningState` with values `PrivateEndpointConnectionProvisioningStateCreating`, `PrivateEndpointConnectionProvisioningStateDeleting`, `PrivateEndpointConnectionProvisioningStateFailed`, `PrivateEndpointConnectionProvisioningStateSucceeded`
+- New enum type `PrivateEndpointServiceConnectionStatus` with values `PrivateEndpointServiceConnectionStatusApproved`, `PrivateEndpointServiceConnectionStatusPending`, `PrivateEndpointServiceConnectionStatusRejected`
+- New function `NewAssessmentProjectSummaryOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AssessmentProjectSummaryOperationsClient, error)`
+- New function `*AssessmentProjectSummaryOperationsClient.Get(context.Context, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*AssessmentProjectSummaryOperationsClient.NewListByParentPager(string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewAssessmentProjectsOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AssessmentProjectsOperationsClient, error)`
+- New function `*AssessmentProjectsOperationsClient.BeginCreate(context.Context, string, string, AssessmentProject, *BeginCreateOptions) (*runtime.Poller[CreateResponse], error)`
+- New function `*AssessmentProjectsOperationsClient.Delete(context.Context, string, string, *DeleteOptions) (DeleteResponse, error)`
+- New function `*AssessmentProjectsOperationsClient.Get(context.Context, string, string, *GetOptions) (GetResponse, error)`
+- New function `*AssessmentProjectsOperationsClient.NewListByParentPager(string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `*AssessmentProjectsOperationsClient.NewListBySubscriptionPager(*ListBySubscriptionOptions) *runtime.Pager[ListBySubscriptionResponse]`
+- New function `*AssessmentProjectsOperationsClient.BeginUpdate(context.Context, string, string, AssessmentProject, *BeginUpdateOptions) (*runtime.Poller[UpdateResponse], error)`
+- New function `*ClientFactory.NewAssessmentProjectSummaryOperationsClient() *AssessmentProjectSummaryOperationsClient`
+- New function `*ClientFactory.NewAssessmentProjectsOperationsClient() *AssessmentProjectsOperationsClient`
+- New function `*ClientFactory.NewPrivateEndpointConnectionOperationsClient() *PrivateEndpointConnectionOperationsClient`
+- New function `*ClientFactory.NewPrivateLinkResourceOperationsClient() *PrivateLinkResourceOperationsClient`
+- New function `NewPrivateEndpointConnectionOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PrivateEndpointConnectionOperationsClient, error)`
+- New function `*PrivateEndpointConnectionOperationsClient.Delete(context.Context, string, string, string, *DeleteOptions) (DeleteResponse, error)`
+- New function `*PrivateEndpointConnectionOperationsClient.Get(context.Context, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*PrivateEndpointConnectionOperationsClient.NewListByParentPager(string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `*PrivateEndpointConnectionOperationsClient.BeginUpdate(context.Context, string, string, string, PrivateEndpointConnection, *BeginUpdateOptions) (*runtime.Poller[UpdateResponse], error)`
+- New function `NewPrivateLinkResourceOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PrivateLinkResourceOperationsClient, error)`
+- New function `*PrivateLinkResourceOperationsClient.Get(context.Context, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*PrivateLinkResourceOperationsClient.NewListByParentPager(string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New struct `AssessmentProject`
+- New struct `AssessmentProjectListResult`
+- New struct `AssessmentProjectSummary`
+- New struct `AssessmentProjectSummaryListResult`
+- New struct `AssessmentProjectSummaryProperties`
+- New struct `ErrorSummary`
+- New struct `PrivateEndpoint`
+- New struct `PrivateEndpointConnectionListResult`
+- New struct `PrivateLinkResourceListResult`
+- New struct `SystemData`
+- New field `SystemData` in struct `PrivateEndpointConnection`
+- New field `GroupIDs` in struct `PrivateEndpointConnectionProperties`
+- New field `SystemData` in struct `PrivateLinkResource`
+
+
+## 2.0.0-beta.1 (2025-04-23)
+### Breaking Changes
+
+- `ProvisioningStateCreating`, `ProvisioningStateMoving` from enum `ProvisioningState` has been removed
+- Enum `AssessmentStage` has been removed
+- Enum `AzureDiskSize` has been removed
+- Enum `AzureDiskSuitabilityDetail` has been removed
+- Enum `AzureDiskSuitabilityExplanation` has been removed
+- Enum `AzureDiskType` has been removed
+- Enum `AzureHybridUseBenefit` has been removed
+- Enum `AzureNetworkAdapterSuitabilityDetail` has been removed
+- Enum `AzureNetworkAdapterSuitabilityExplanation` has been removed
+- Enum `AzureOfferCode` has been removed
+- Enum `AzurePricingTier` has been removed
+- Enum `AzureStorageRedundancy` has been removed
+- Enum `AzureVMFamily` has been removed
+- Enum `AzureVMSize` has been removed
+- Enum `AzureVMSuitabilityDetail` has been removed
+- Enum `AzureVMSuitabilityExplanation` has been removed
+- Enum `CloudSuitability` has been removed
+- Enum `Currency` has been removed
+- Enum `GroupStatus` has been removed
+- Enum `GroupUpdateOperation` has been removed
+- Enum `MachineBootType` has been removed
+- Enum `PrivateEndpointConnectionPropertiesProvisioningState` has been removed
+- Enum `PrivateLinkServiceConnectionStateStatus` has been removed
+- Enum `ProjectStatus` has been removed
+- Enum `ReservedInstance` has been removed
+- Function `NewAssessedMachinesClient` has been removed
+- Function `*AssessedMachinesClient.Get` has been removed
+- Function `*AssessedMachinesClient.NewListByAssessmentPager` has been removed
+- Function `NewAssessmentsClient` has been removed
+- Function `*AssessmentsClient.Create` has been removed
+- Function `*AssessmentsClient.Delete` has been removed
+- Function `*AssessmentsClient.Get` has been removed
+- Function `*AssessmentsClient.GetReportDownloadURL` has been removed
+- Function `*AssessmentsClient.NewListByGroupPager` has been removed
+- Function `*AssessmentsClient.NewListByProjectPager` has been removed
+- Function `*ClientFactory.NewAssessedMachinesClient` has been removed
+- Function `*ClientFactory.NewAssessmentsClient` has been removed
+- Function `*ClientFactory.NewGroupsClient` has been removed
+- Function `*ClientFactory.NewHyperVCollectorsClient` has been removed
+- Function `*ClientFactory.NewImportCollectorsClient` has been removed
+- Function `*ClientFactory.NewMachinesClient` has been removed
+- Function `*ClientFactory.NewOperationsClient` has been removed
+- Function `*ClientFactory.NewPrivateEndpointConnectionClient` has been removed
+- Function `*ClientFactory.NewPrivateLinkResourceClient` has been removed
+- Function `*ClientFactory.NewProjectsClient` has been removed
+- Function `*ClientFactory.NewServerCollectorsClient` has been removed
+- Function `*ClientFactory.NewVMwareCollectorsClient` has been removed
+- Function `NewGroupsClient` has been removed
+- Function `*GroupsClient.Create` has been removed
+- Function `*GroupsClient.Delete` has been removed
+- Function `*GroupsClient.Get` has been removed
+- Function `*GroupsClient.NewListByProjectPager` has been removed
+- Function `*GroupsClient.UpdateMachines` has been removed
+- Function `NewHyperVCollectorsClient` has been removed
+- Function `*HyperVCollectorsClient.Create` has been removed
+- Function `*HyperVCollectorsClient.Delete` has been removed
+- Function `*HyperVCollectorsClient.Get` has been removed
+- Function `*HyperVCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewImportCollectorsClient` has been removed
+- Function `*ImportCollectorsClient.Create` has been removed
+- Function `*ImportCollectorsClient.Delete` has been removed
+- Function `*ImportCollectorsClient.Get` has been removed
+- Function `*ImportCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewMachinesClient` has been removed
+- Function `*MachinesClient.Get` has been removed
+- Function `*MachinesClient.NewListByProjectPager` has been removed
+- Function `NewOperationsClient` has been removed
+- Function `*OperationsClient.NewListPager` has been removed
+- Function `NewPrivateEndpointConnectionClient` has been removed
+- Function `*PrivateEndpointConnectionClient.Delete` has been removed
+- Function `*PrivateEndpointConnectionClient.Get` has been removed
+- Function `*PrivateEndpointConnectionClient.ListByProject` has been removed
+- Function `*PrivateEndpointConnectionClient.Update` has been removed
+- Function `NewPrivateLinkResourceClient` has been removed
+- Function `*PrivateLinkResourceClient.Get` has been removed
+- Function `*PrivateLinkResourceClient.ListByProject` has been removed
+- Function `NewProjectsClient` has been removed
+- Function `*ProjectsClient.AssessmentOptions` has been removed
+- Function `*ProjectsClient.NewAssessmentOptionsListPager` has been removed
+- Function `*ProjectsClient.Create` has been removed
+- Function `*ProjectsClient.Delete` has been removed
+- Function `*ProjectsClient.Get` has been removed
+- Function `*ProjectsClient.NewListBySubscriptionPager` has been removed
+- Function `*ProjectsClient.NewListPager` has been removed
+- Function `*ProjectsClient.Update` has been removed
+- Function `NewServerCollectorsClient` has been removed
+- Function `*ServerCollectorsClient.Create` has been removed
+- Function `*ServerCollectorsClient.Delete` has been removed
+- Function `*ServerCollectorsClient.Get` has been removed
+- Function `*ServerCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewVMwareCollectorsClient` has been removed
+- Function `*VMwareCollectorsClient.Create` has been removed
+- Function `*VMwareCollectorsClient.Delete` has been removed
+- Function `*VMwareCollectorsClient.Get` has been removed
+- Function `*VMwareCollectorsClient.NewListByProjectPager` has been removed
+- Struct `AssessedDisk` has been removed
+- Struct `AssessedMachine` has been removed
+- Struct `AssessedMachineProperties` has been removed
+- Struct `AssessedMachineResultList` has been removed
+- Struct `AssessedNetworkAdapter` has been removed
+- Struct `Assessment` has been removed
+- Struct `AssessmentOptions` has been removed
+- Struct `AssessmentOptionsProperties` has been removed
+- Struct `AssessmentOptionsResultList` has been removed
+- Struct `AssessmentProperties` has been removed
+- Struct `AssessmentResultList` has been removed
+- Struct `CollectorAgentProperties` has been removed
+- Struct `CollectorBodyAgentSpnProperties` has been removed
+- Struct `CollectorProperties` has been removed
+- Struct `Disk` has been removed
+- Struct `Group` has been removed
+- Struct `GroupBodyProperties` has been removed
+- Struct `GroupProperties` has been removed
+- Struct `GroupResultList` has been removed
+- Struct `HyperVCollector` has been removed
+- Struct `HyperVCollectorList` has been removed
+- Struct `ImportCollector` has been removed
+- Struct `ImportCollectorList` has been removed
+- Struct `ImportCollectorProperties` has been removed
+- Struct `Machine` has been removed
+- Struct `MachineProperties` has been removed
+- Struct `MachineResultList` has been removed
+- Struct `NetworkAdapter` has been removed
+- Struct `Operation` has been removed
+- Struct `OperationDisplay` has been removed
+- Struct `OperationResultList` has been removed
+- Struct `PrivateEndpointConnection` has been removed
+- Struct `PrivateEndpointConnectionCollection` has been removed
+- Struct `PrivateEndpointConnectionProperties` has been removed
+- Struct `PrivateLinkResource` has been removed
+- Struct `PrivateLinkResourceCollection` has been removed
+- Struct `PrivateLinkResourceProperties` has been removed
+- Struct `PrivateLinkServiceConnectionState` has been removed
+- Struct `Project` has been removed
+- Struct `ProjectProperties` has been removed
+- Struct `ProjectResultList` has been removed
+- Struct `ResourceID` has been removed
+- Struct `ServerCollector` has been removed
+- Struct `ServerCollectorList` has been removed
+- Struct `UpdateGroupBody` has been removed
+- Struct `VMFamily` has been removed
+- Struct `VMUptime` has been removed
+- Struct `VMwareCollector` has been removed
+- Struct `VMwareCollectorList` has been removed
+
+### Features Added
+
+- New value `AssessmentStatusDeleted`, `AssessmentStatusFailed` added to enum type `AssessmentStatus`
+- New value `AzureLocationAustraliaCentral`, `AzureLocationAustraliaCentral2`, `AzureLocationChinaEast2`, `AzureLocationChinaNorth2`, `AzureLocationFranceCentral`, `AzureLocationFranceSouth`, `AzureLocationGermanyNorth`, `AzureLocationGermanyWestCentral`, `AzureLocationIsraelCentral`, `AzureLocationItalyNorth`, `AzureLocationJioIndiaWest`, `AzureLocationMexicoCentral`, `AzureLocationNewZealandNorth`, `AzureLocationNorwayEast`, `AzureLocationNorwayWest`, `AzureLocationPolandCentral`, `AzureLocationQatarCentral`, `AzureLocationSouthAfricaNorth`, `AzureLocationSouthAfricaWest`, `AzureLocationSpainCentral`, `AzureLocationSwedenCentral`, `AzureLocationSwitzerlandNorth`, `AzureLocationSwitzerlandWest`, `AzureLocationUAECentral`, `AzureLocationUAENorth`, `AzureLocationUsNatEast`, `AzureLocationUsNatWest`, `AzureLocationUsSecCentral`, `AzureLocationUsSecEast`, `AzureLocationUsSecWest` added to enum type `AzureLocation`
+- New value `PercentilePercentileUnknown` added to enum type `Percentile`
+- New value `ProvisioningStateCanceled`, `ProvisioningStateProvisioning`, `ProvisioningStateUpdating` added to enum type `ProvisioningState`
+- New enum type `AssessmentSource` with values `AssessmentSourceIIS`, `AssessmentSourceMachine`, `AssessmentSourceMySQLServer`, `AssessmentSourceOracleDatabase`, `AssessmentSourceOracleServer`, `AssessmentSourceSAPInstance`, `AssessmentSourceSQLDatabase`, `AssessmentSourceSQLInstance`, `AssessmentSourceSpringbootApplication`, `AssessmentSourceTomCat`, `AssessmentSourceUnknown`, `AssessmentSourceWebApps`
+- New enum type `AzureCurrency` with values `AzureCurrencyARS`, `AzureCurrencyAUD`, `AzureCurrencyBRL`, `AzureCurrencyCAD`, `AzureCurrencyCHF`, `AzureCurrencyCNY`, `AzureCurrencyDKK`, `AzureCurrencyEUR`, `AzureCurrencyGBP`, `AzureCurrencyHKD`, `AzureCurrencyIDR`, `AzureCurrencyINR`, `AzureCurrencyJPY`, `AzureCurrencyKRW`, `AzureCurrencyMXN`, `AzureCurrencyMYR`, `AzureCurrencyNOK`, `AzureCurrencyNZD`, `AzureCurrencyRUB`, `AzureCurrencySAR`, `AzureCurrencySEK`, `AzureCurrencyTRY`, `AzureCurrencyTWD`, `AzureCurrencyUSD`, `AzureCurrencyUnknown`, `AzureCurrencyZAR`
+- New enum type `AzureManagementOfferingType` with values `AzureManagementOfferingTypeAUM`, `AzureManagementOfferingTypeAzMon`, `AzureManagementOfferingTypeAzureBackup`, `AzureManagementOfferingTypeNo`, `AzureManagementOfferingTypeSCOMMI`
+- New enum type `AzureOffer` with values `AzureOfferEA`, `AzureOfferMsazr0003P`, `AzureOfferMsazr0023P`, `AzureOfferMsazrusgov0003P`, `AzureOfferMsmcazr0044P`, `AzureOfferMsmcazr0059P`, `AzureOfferMsmcazr0060P`, `AzureOfferMsmcazr0063P`, `AzureOfferSavingsPlan1Year`, `AzureOfferSavingsPlan3Year`, `AzureOfferUnknown`
+- New enum type `AzureTarget` with values `AzureTargetAKS`, `AzureTargetAvs`, `AzureTargetAzureAppService`, `AzureTargetAzureAppServiceContainer`, `AzureTargetAzureSQLVM`, `AzureTargetAzureSpringApps`, `AzureTargetAzureVM`, `AzureTargetFlexServerPG`, `AzureTargetMySQLAzureFlexServer`, `AzureTargetOracleIaasVM`, `AzureTargetSAPAzureInstance`, `AzureTargetSQLDatabase`, `AzureTargetSQLMI`, `AzureTargetUnknown`
+- New enum type `AzureVMCategory` with values `AzureVMCategoryAll`, `AzureVMCategoryComputeOptimized`, `AzureVMCategoryGeneralPurpose`, `AzureVMCategoryGpuOptimized`, `AzureVMCategoryHighPerformanceCompute`, `AzureVMCategoryIsolated`, `AzureVMCategoryMemoryOptimized`, `AzureVMCategoryStorageOptimized`
+- New enum type `CloudSuitabilityCommon` with values `CloudSuitabilityCommonConditionallySuitable`, `CloudSuitabilityCommonNotSuitable`, `CloudSuitabilityCommonReadinessUnknown`, `CloudSuitabilityCommonSuitable`, `CloudSuitabilityCommonSuitableWithWarnings`, `CloudSuitabilityCommonUnknown`
+- New enum type `ConsolidationType` with values `ConsolidationTypeAsOnSource`, `ConsolidationTypeFull`
+- New enum type `CostType` with values `CostTypeDataProtectionService`, `CostTypeMonitoringService`, `CostTypeMonthlyAvsExternalStorageCost`, `CostTypeMonthlyAvsNetworkCost`, `CostTypeMonthlyAvsNodeCost`, `CostTypeMonthlyAzureHybridCost`, `CostTypeMonthlyBandwidthCost`, `CostTypeMonthlyComputeCost`, `CostTypeMonthlyLicensingCost`, `CostTypeMonthlyLinuxAzureHybridCost`, `CostTypeMonthlyManagementCost`, `CostTypeMonthlyPremiumStorageCost`, `CostTypeMonthlyPremiumV2StorageCost`, `CostTypeMonthlySecurityCost`, `CostTypeMonthlyStandardHddStorageCost`, `CostTypeMonthlyStandardSsdStorageCost`, `CostTypeMonthlyStorageCost`, `CostTypeMonthlyUltraDiskCost`, `CostTypeMonthlyUltraStorageCost`, `CostTypePatchingService`, `CostTypeTotalMonthlyCost`
+- New enum type `CreatedByType` with values `CreatedByTypeApplication`, `CreatedByTypeKey`, `CreatedByTypeManagedIdentity`, `CreatedByTypeUser`
+- New enum type `EnvironmentType` with values `EnvironmentTypeDevTest`, `EnvironmentTypeProduction`, `EnvironmentTypeUnknown`
+- New enum type `LicensingProgram` with values `LicensingProgramEA`, `LicensingProgramMCA`, `LicensingProgramRetail`, `LicensingProgramUnknown`
+- New enum type `LinkageKind` with values `LinkageKindDatabase`, `LinkageKindInstance`, `LinkageKindMachine`, `LinkageKindServer`, `LinkageKindUnknown`, `LinkageKindWebApplication`, `LinkageKindWebServer`
+- New enum type `LinkageType` with values `LinkageTypeParent`, `LinkageTypeSource`
+- New enum type `MigrationIssuesCategory` with values `MigrationIssuesCategoryInternal`, `MigrationIssuesCategoryIssue`, `MigrationIssuesCategoryWarning`
+- New enum type `MigrationPlatform` with values `MigrationPlatformIaaS`, `MigrationPlatformPaaS`, `MigrationPlatformSaaS`, `MigrationPlatformUnknown`
+- New enum type `MigrationType` with values `MigrationTypeRearchitect`, `MigrationTypeRehost`, `MigrationTypeReplatform`, `MigrationTypeRetain`, `MigrationTypeUnknown`
+- New enum type `NodePoolMode` with values `NodePoolModeSystem`, `NodePoolModeUser`
+- New enum type `OSType` with values `OSTypeLinux`, `OSTypeWindows`
+- New enum type `PricingTier` with values `PricingTierFree`, `PricingTierStandard`
+- New enum type `SKUKind` with values `SKUKindDetails`, `SKUKindEndpoint`
+- New enum type `SKUType` with values `SKUTypeAppServicePlan`, `SKUTypeAzureSpringApps`, `SKUTypeCompute`, `SKUTypeNetwork`, `SKUTypeStorage`, `SKUTypeUnknown`
+- New enum type `SavingsOptions` with values `SavingsOptionsCustomAzureOfferCode`, `SavingsOptionsNone`, `SavingsOptionsRI1Year`, `SavingsOptionsRI3Year`, `SavingsOptionsSavingsPlan1Year`, `SavingsOptionsSavingsPlan3Year`
+- New enum type `SavingsType` with values `SavingsTypeMonthlyAhubSQLCostSavings`, `SavingsTypeMonthlyAzureHybridCostSavings`, `SavingsTypeMonthlyLinuxAzureHybridCostSavings`, `SavingsTypeMonthlyVcfByolCostDifference`
+- New enum type `ScopeType` with values `ScopeTypeAzureResourceGraphQuery`, `ScopeTypeServerGroupID`
+- New enum type `StrategyType` with values `StrategyTypeCostOptimized`, `StrategyTypeEffortOptimized`, `StrategyTypePaaSPreferred`
+- New enum type `SummaryType` with values `SummaryTypeStrategy`, `SummaryTypeTarget`, `SummaryTypeUnknown`
+- New enum type `WebServerType` with values `WebServerTypeIIS`, `WebServerTypeTomcat`, `WebServerTypeUnknown`
+- New enum type `WorkloadType` with values `WorkloadTypeDatabase`, `WorkloadTypeHost`, `WorkloadTypeInstance`, `WorkloadTypeMachine`, `WorkloadTypeManagementServer`, `WorkloadTypeServer`, `WorkloadTypeUnknown`, `WorkloadTypeWebApplication`, `WorkloadTypeWebServer`
+- New function `NewAKSAssessmentOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AKSAssessmentOperationsClient, error)`
+- New function `*AKSAssessmentOperationsClient.BeginCreate(context.Context, string, string, string, AKSAssessment, *BeginCreateOptions) (*runtime.Poller[CreateResponse], error)`
+- New function `*AKSAssessmentOperationsClient.Delete(context.Context, string, string, string, *DeleteOptions) (DeleteResponse, error)`
+- New function `*AKSAssessmentOperationsClient.BeginDownloadURL(context.Context, string, string, string, DownloadURLRequest, *BeginDownloadURLOptions) (*runtime.Poller[DownloadURLResponse], error)`
+- New function `*AKSAssessmentOperationsClient.Get(context.Context, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*AKSAssessmentOperationsClient.NewListByParentPager(string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewAKSClusterOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AKSClusterOperationsClient, error)`
+- New function `*AKSClusterOperationsClient.Get(context.Context, string, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*AKSClusterOperationsClient.NewListByParentPager(string, string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewAKSCostDetailOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AKSCostDetailOperationsClient, error)`
+- New function `*AKSCostDetailOperationsClient.NewListByParentPager(string, string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewAKSOptionsOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AKSOptionsOperationsClient, error)`
+- New function `*AKSOptionsOperationsClient.Get(context.Context, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*AKSOptionsOperationsClient.NewListByParentPager(string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewAKSSummaryOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AKSSummaryOperationsClient, error)`
+- New function `*AKSSummaryOperationsClient.Get(context.Context, string, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*AKSSummaryOperationsClient.NewListByParentPager(string, string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `NewAssessedWebApplicationOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AssessedWebApplicationOperationsClient, error)`
+- New function `*AssessedWebApplicationOperationsClient.Get(context.Context, string, string, string, string, *GetOptions) (GetResponse, error)`
+- New function `*AssessedWebApplicationOperationsClient.NewListByParentPager(string, string, string, *ListByParentOptions) *runtime.Pager[ListByParentResponse]`
+- New function `*ClientFactory.NewAKSAssessmentOperationsClient() *AKSAssessmentOperationsClient`
+- New function `*ClientFactory.NewAKSClusterOperationsClient() *AKSClusterOperationsClient`
+- New function `*ClientFactory.NewAKSCostDetailOperationsClient() *AKSCostDetailOperationsClient`
+- New function `*ClientFactory.NewAKSOptionsOperationsClient() *AKSOptionsOperationsClient`
+- New function `*ClientFactory.NewAKSSummaryOperationsClient() *AKSSummaryOperationsClient`
+- New function `*ClientFactory.NewAssessedWebApplicationOperationsClient() *AssessedWebApplicationOperationsClient`
+- New struct `AKSAssessment`
+- New struct `AKSAssessmentListResult`
+- New struct `AKSAssessmentOptions`
+- New struct `AKSAssessmentOptionsListResult`
+- New struct `AKSAssessmentOptionsOutboundEdgeGroup`
+- New struct `AKSAssessmentOptionsProperties`
+- New struct `AKSAssessmentProperties`
+- New struct `AKSAssessmentSettings`
+- New struct `AKSCluster`
+- New struct `AKSClusterListResult`
+- New struct `AKSClusterProperties`
+- New struct `AKSCostDetail`
+- New struct `AKSCostDetailListResult`
+- New struct `AKSCostDetailProperties`
+- New struct `AKSSummary`
+- New struct `AKSSummaryListResult`
+- New struct `AKSSummaryProperties`
+- New struct `AssessedWebApplication`
+- New struct `AssessedWebApplicationListResult`
+- New struct `AssessedWebApplicationProperties`
+- New struct `AssessmentDetails`
+- New struct `BillingSettings`
+- New struct `ComputeResource`
+- New struct `Configuration`
+- New struct `CostDetailsCommon`
+- New struct `DownloadURLRequest`
+- New struct `Linkages`
+- New struct `ManagementDetails`
+- New struct `MigrationDetails`
+- New struct `MigrationIssues`
+- New struct `MigrationSuitability`
+- New struct `MoreInformation`
+- New struct `NameValuePair`
+- New struct `NameValuePairCloudSuitabilityCommon`
+- New struct `NameValuePairCostType`
+- New struct `NameValuePairSavingsType`
+- New struct `NodePool`
+- New struct `PerformanceData`
+- New struct `RecommendationResult`
+- New struct `RecommendationsMigrationIssuesMigrationSuitabilitySKUs`
+- New struct `RecommendedFor`
+- New struct `SKUDetails`
+- New struct `SKUsMigrationSuitability`
+- New struct `SavingsDetailsCommon`
+- New struct `SavingsSettings`
+- New struct `Scope`
+- New struct `SecuritySuitability`
+- New struct `SourceDetails`
+- New struct `SourceRecommendationMigrationSuitability`
+- New struct `SystemData`
+- New struct `TargetDetails`
+- New struct `TargetSourcePair`
+
+
 ## 1.2.0 (2023-11-24)
 ### Features Added
 
