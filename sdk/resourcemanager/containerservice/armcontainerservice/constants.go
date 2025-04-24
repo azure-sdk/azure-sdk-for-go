@@ -7,7 +7,7 @@ package armcontainerservice
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservice/armcontainerservice"
-	moduleVersion = "v7.0.0-beta.2"
+	moduleVersion = "v7.0.0-beta.3"
 )
 
 // AddonAutoscaling - Whether VPA add-on is enabled and configured to scale AKS-managed add-ons.
@@ -350,6 +350,24 @@ func PossibleFormatValues() []Format {
 	return []Format{
 		FormatAzure,
 		FormatExec,
+	}
+}
+
+// GPUDriver - Whether to install GPU drivers. When it's not specified, default is Install.
+type GPUDriver string
+
+const (
+	// GPUDriverInstall - Install driver.
+	GPUDriverInstall GPUDriver = "Install"
+	// GPUDriverNone - Skip driver install.
+	GPUDriverNone GPUDriver = "None"
+)
+
+// PossibleGPUDriverValues returns the possible values for the GPUDriver const type.
+func PossibleGPUDriverValues() []GPUDriver {
+	return []GPUDriver{
+		GPUDriverInstall,
+		GPUDriverNone,
 	}
 }
 
