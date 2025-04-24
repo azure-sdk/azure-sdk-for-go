@@ -1983,7 +1983,9 @@ func (m ManagedClusterAPIServerAccessProfile) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "disableRunCommand", m.DisableRunCommand)
 	populate(objectMap, "enablePrivateCluster", m.EnablePrivateCluster)
 	populate(objectMap, "enablePrivateClusterPublicFQDN", m.EnablePrivateClusterPublicFQDN)
+	populate(objectMap, "enableVnetIntegration", m.EnableVnetIntegration)
 	populate(objectMap, "privateDNSZone", m.PrivateDNSZone)
+	populate(objectMap, "subnetId", m.SubnetID)
 	return json.Marshal(objectMap)
 }
 
@@ -2008,8 +2010,14 @@ func (m *ManagedClusterAPIServerAccessProfile) UnmarshalJSON(data []byte) error 
 		case "enablePrivateClusterPublicFQDN":
 			err = unpopulate(val, "EnablePrivateClusterPublicFQDN", &m.EnablePrivateClusterPublicFQDN)
 			delete(rawMsg, key)
+		case "enableVnetIntegration":
+			err = unpopulate(val, "EnableVnetIntegration", &m.EnableVnetIntegration)
+			delete(rawMsg, key)
 		case "privateDNSZone":
 			err = unpopulate(val, "PrivateDNSZone", &m.PrivateDNSZone)
+			delete(rawMsg, key)
+		case "subnetId":
+			err = unpopulate(val, "SubnetID", &m.SubnetID)
 			delete(rawMsg, key)
 		}
 		if err != nil {

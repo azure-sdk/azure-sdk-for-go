@@ -725,9 +725,16 @@ type ManagedClusterAPIServerAccessProfile struct {
 	// Whether to create additional public FQDN for private cluster or not.
 	EnablePrivateClusterPublicFQDN *bool
 
+	// Whether to enable apiserver vnet integration for the cluster or not. See aka.ms/AksVnetIntegration for more details.
+	EnableVnetIntegration *bool
+
 	// The default is System. For more details see configure private DNS zone [https://docs.microsoft.com/azure/aks/private-clusters#configure-private-dns-zone].
 	// Allowed values are 'system' and 'none'.
 	PrivateDNSZone *string
+
+	// It is required when creating a new cluster with BYO Vnet, or when updating an existing cluster to enable apiserver vnet
+	// integration.
+	SubnetID *string
 }
 
 // ManagedClusterAccessProfile - Managed cluster Access Profile.

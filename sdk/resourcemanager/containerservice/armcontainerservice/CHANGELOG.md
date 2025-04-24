@@ -1,5 +1,11 @@
 # Release History
 
+## 6.7.0 (2025-04-24)
+### Features Added
+
+- New field `EnableVnetIntegration`, `SubnetID` in struct `ManagedClusterAPIServerAccessProfile`
+
+
 ## 6.6.0 (2025-04-22)
 ### Features Added
 
