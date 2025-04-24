@@ -1,5 +1,87 @@
 # Release History
 
+## 7.0.0 (2025-04-24)
+### Breaking Changes
+
+- Function `NewClientFactory` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(string, string, string, string, azcore.TokenCredential, *arm.ClientOptions)`
+- Function `NewGalleriesClient` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(string, string, azcore.TokenCredential, *arm.ClientOptions)`
+- Function `*GalleriesClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, Gallery, *GalleriesClientBeginCreateOrUpdateOptions)` to `(context.Context, string, Gallery, *GalleriesClientBeginCreateOrUpdateOptions)`
+- Function `*GalleriesClient.BeginDelete` parameter(s) have been changed from `(context.Context, string, string, *GalleriesClientBeginDeleteOptions)` to `(context.Context, string, *GalleriesClientBeginDeleteOptions)`
+- Function `*GalleriesClient.BeginUpdate` parameter(s) have been changed from `(context.Context, string, string, GalleryUpdate, *GalleriesClientBeginUpdateOptions)` to `(context.Context, string, GalleryUpdate, *GalleriesClientBeginUpdateOptions)`
+- Function `*GalleriesClient.Get` parameter(s) have been changed from `(context.Context, string, string, *GalleriesClientGetOptions)` to `(context.Context, string, *GalleriesClientGetOptions)`
+- Function `NewGalleryApplicationVersionsClient` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(string, string, azcore.TokenCredential, *arm.ClientOptions)`
+- Function `*GalleryApplicationVersionsClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, string, GalleryApplicationVersion, *GalleryApplicationVersionsClientBeginCreateOrUpdateOptions)` to `(context.Context, string, string, string, GalleryApplicationVersion, *GalleryApplicationVersionsClientBeginCreateOrUpdateOptions)`
+- Function `*GalleryApplicationVersionsClient.BeginDelete` parameter(s) have been changed from `(context.Context, string, string, string, string, *GalleryApplicationVersionsClientBeginDeleteOptions)` to `(context.Context, string, string, string, *GalleryApplicationVersionsClientBeginDeleteOptions)`
+- Function `*GalleryApplicationVersionsClient.BeginUpdate` parameter(s) have been changed from `(context.Context, string, string, string, string, GalleryApplicationVersionUpdate, *GalleryApplicationVersionsClientBeginUpdateOptions)` to `(context.Context, string, string, string, GalleryApplicationVersionUpdate, *GalleryApplicationVersionsClientBeginUpdateOptions)`
+- Function `*GalleryApplicationVersionsClient.Get` parameter(s) have been changed from `(context.Context, string, string, string, string, *GalleryApplicationVersionsClientGetOptions)` to `(context.Context, string, string, string, *GalleryApplicationVersionsClientGetOptions)`
+- Function `*GalleryApplicationVersionsClient.NewListByGalleryApplicationPager` parameter(s) have been changed from `(string, string, string, *GalleryApplicationVersionsClientListByGalleryApplicationOptions)` to `(string, string, *GalleryApplicationVersionsClientListByGalleryApplicationOptions)`
+- Function `NewGalleryApplicationsClient` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(string, string, azcore.TokenCredential, *arm.ClientOptions)`
+- Function `*GalleryApplicationsClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, GalleryApplication, *GalleryApplicationsClientBeginCreateOrUpdateOptions)` to `(context.Context, string, string, GalleryApplication, *GalleryApplicationsClientBeginCreateOrUpdateOptions)`
+- Function `*GalleryApplicationsClient.BeginDelete` parameter(s) have been changed from `(context.Context, string, string, string, *GalleryApplicationsClientBeginDeleteOptions)` to `(context.Context, string, string, *GalleryApplicationsClientBeginDeleteOptions)`
+- Function `*GalleryApplicationsClient.BeginUpdate` parameter(s) have been changed from `(context.Context, string, string, string, GalleryApplicationUpdate, *GalleryApplicationsClientBeginUpdateOptions)` to `(context.Context, string, string, GalleryApplicationUpdate, *GalleryApplicationsClientBeginUpdateOptions)`
+- Function `*GalleryApplicationsClient.Get` parameter(s) have been changed from `(context.Context, string, string, string, *GalleryApplicationsClientGetOptions)` to `(context.Context, string, string, *GalleryApplicationsClientGetOptions)`
+- Function `*GalleryApplicationsClient.NewListByGalleryPager` parameter(s) have been changed from `(string, string, *GalleryApplicationsClientListByGalleryOptions)` to `(string, *GalleryApplicationsClientListByGalleryOptions)`
+- Function `NewGalleryImageVersionsClient` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(string, string, azcore.TokenCredential, *arm.ClientOptions)`
+- Function `*GalleryImageVersionsClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, string, GalleryImageVersion, *GalleryImageVersionsClientBeginCreateOrUpdateOptions)` to `(context.Context, string, string, string, GalleryImageVersion, *GalleryImageVersionsClientBeginCreateOrUpdateOptions)`
+- Function `*GalleryImageVersionsClient.BeginDelete` parameter(s) have been changed from `(context.Context, string, string, string, string, *GalleryImageVersionsClientBeginDeleteOptions)` to `(context.Context, string, string, string, *GalleryImageVersionsClientBeginDeleteOptions)`
+- Function `*GalleryImageVersionsClient.BeginUpdate` parameter(s) have been changed from `(context.Context, string, string, string, string, GalleryImageVersionUpdate, *GalleryImageVersionsClientBeginUpdateOptions)` to `(context.Context, string, string, string, GalleryImageVersionUpdate, *GalleryImageVersionsClientBeginUpdateOptions)`
+- Function `*GalleryImageVersionsClient.Get` parameter(s) have been changed from `(context.Context, string, string, string, string, *GalleryImageVersionsClientGetOptions)` to `(context.Context, string, string, string, *GalleryImageVersionsClientGetOptions)`
+- Function `*GalleryImageVersionsClient.NewListByGalleryImagePager` parameter(s) have been changed from `(string, string, string, *GalleryImageVersionsClientListByGalleryImageOptions)` to `(string, string, *GalleryImageVersionsClientListByGalleryImageOptions)`
+- Function `NewGalleryImagesClient` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(string, string, azcore.TokenCredential, *arm.ClientOptions)`
+- Function `*GalleryImagesClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, GalleryImage, *GalleryImagesClientBeginCreateOrUpdateOptions)` to `(context.Context, string, string, GalleryImage, *GalleryImagesClientBeginCreateOrUpdateOptions)`
+- Function `*GalleryImagesClient.BeginDelete` parameter(s) have been changed from `(context.Context, string, string, string, *GalleryImagesClientBeginDeleteOptions)` to `(context.Context, string, string, *GalleryImagesClientBeginDeleteOptions)`
+- Function `*GalleryImagesClient.BeginUpdate` parameter(s) have been changed from `(context.Context, string, string, string, GalleryImageUpdate, *GalleryImagesClientBeginUpdateOptions)` to `(context.Context, string, string, GalleryImageUpdate, *GalleryImagesClientBeginUpdateOptions)`
+- Function `*GalleryImagesClient.Get` parameter(s) have been changed from `(context.Context, string, string, string, *GalleryImagesClientGetOptions)` to `(context.Context, string, string, *GalleryImagesClientGetOptions)`
+- Function `*GalleryImagesClient.NewListByGalleryPager` parameter(s) have been changed from `(string, string, *GalleryImagesClientListByGalleryOptions)` to `(string, *GalleryImagesClientListByGalleryOptions)`
+- Function `NewGalleryInVMAccessControlProfileVersionsClient` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(string, string, azcore.TokenCredential, *arm.ClientOptions)`
+- Function `*GalleryInVMAccessControlProfileVersionsClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, string, GalleryInVMAccessControlProfileVersion, *GalleryInVMAccessControlProfileVersionsClientBeginCreateOrUpdateOptions)` to `(context.Context, string, string, string, GalleryInVMAccessControlProfileVersion, *GalleryInVMAccessControlProfileVersionsClientBeginCreateOrUpdateOptions)`
+- Function `*GalleryInVMAccessControlProfileVersionsClient.BeginDelete` parameter(s) have been changed from `(context.Context, string, string, string, string, *GalleryInVMAccessControlProfileVersionsClientBeginDeleteOptions)` to `(context.Context, string, string, string, *GalleryInVMAccessControlProfileVersionsClientBeginDeleteOptions)`
+- Function `*GalleryInVMAccessControlProfileVersionsClient.BeginUpdate` parameter(s) have been changed from `(context.Context, string, string, string, string, GalleryInVMAccessControlProfileVersionUpdate, *GalleryInVMAccessControlProfileVersionsClientBeginUpdateOptions)` to `(context.Context, string, string, string, GalleryInVMAccessControlProfileVersionUpdate, *GalleryInVMAccessControlProfileVersionsClientBeginUpdateOptions)`
+- Function `*GalleryInVMAccessControlProfileVersionsClient.Get` parameter(s) have been changed from `(context.Context, string, string, string, string, *GalleryInVMAccessControlProfileVersionsClientGetOptions)` to `(context.Context, string, string, string, *GalleryInVMAccessControlProfileVersionsClientGetOptions)`
+- Function `*GalleryInVMAccessControlProfileVersionsClient.NewListByGalleryInVMAccessControlProfilePager` parameter(s) have been changed from `(string, string, string, *GalleryInVMAccessControlProfileVersionsClientListByGalleryInVMAccessControlProfileOptions)` to `(string, string, *GalleryInVMAccessControlProfileVersionsClientListByGalleryInVMAccessControlProfileOptions)`
+- Function `NewGalleryInVMAccessControlProfilesClient` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(string, string, azcore.TokenCredential, *arm.ClientOptions)`
+- Function `*GalleryInVMAccessControlProfilesClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, GalleryInVMAccessControlProfile, *GalleryInVMAccessControlProfilesClientBeginCreateOrUpdateOptions)` to `(context.Context, string, string, GalleryInVMAccessControlProfile, *GalleryInVMAccessControlProfilesClientBeginCreateOrUpdateOptions)`
+- Function `*GalleryInVMAccessControlProfilesClient.BeginDelete` parameter(s) have been changed from `(context.Context, string, string, string, *GalleryInVMAccessControlProfilesClientBeginDeleteOptions)` to `(context.Context, string, string, *GalleryInVMAccessControlProfilesClientBeginDeleteOptions)`
+- Function `*GalleryInVMAccessControlProfilesClient.BeginUpdate` parameter(s) have been changed from `(context.Context, string, string, string, GalleryInVMAccessControlProfileUpdate, *GalleryInVMAccessControlProfilesClientBeginUpdateOptions)` to `(context.Context, string, string, GalleryInVMAccessControlProfileUpdate, *GalleryInVMAccessControlProfilesClientBeginUpdateOptions)`
+- Function `*GalleryInVMAccessControlProfilesClient.Get` parameter(s) have been changed from `(context.Context, string, string, string, *GalleryInVMAccessControlProfilesClientGetOptions)` to `(context.Context, string, string, *GalleryInVMAccessControlProfilesClientGetOptions)`
+- Function `*GalleryInVMAccessControlProfilesClient.NewListByGalleryPager` parameter(s) have been changed from `(string, string, *GalleryInVMAccessControlProfilesClientListByGalleryOptions)` to `(string, *GalleryInVMAccessControlProfilesClientListByGalleryOptions)`
+- Function `NewGallerySharingProfileClient` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(string, string, azcore.TokenCredential, *arm.ClientOptions)`
+- Function `*GallerySharingProfileClient.BeginUpdate` parameter(s) have been changed from `(context.Context, string, string, SharingUpdate, *GallerySharingProfileClientBeginUpdateOptions)` to `(context.Context, string, SharingUpdate, *GallerySharingProfileClientBeginUpdateOptions)`
+- Function `NewSoftDeletedResourceClient` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(string, string, azcore.TokenCredential, *arm.ClientOptions)`
+- Function `*SoftDeletedResourceClient.NewListByArtifactNamePager` parameter(s) have been changed from `(string, string, string, string, *SoftDeletedResourceClientListByArtifactNameOptions)` to `(string, string, string, *SoftDeletedResourceClientListByArtifactNameOptions)`
+
+### Features Added
+
+- New enum type `GalleryScriptParameterType` with values `GalleryScriptParameterTypeBoolean`, `GalleryScriptParameterTypeDouble`, `GalleryScriptParameterTypeEnum`, `GalleryScriptParameterTypeInt`, `GalleryScriptParameterTypeString`
+- New function `*ClientFactory.NewGalleryScriptVersionsClient() *GalleryScriptVersionsClient`
+- New function `*ClientFactory.NewGalleryScriptsClient() *GalleryScriptsClient`
+- New function `NewGalleryScriptVersionsClient(string, string, string, string, azcore.TokenCredential, *arm.ClientOptions) (*GalleryScriptVersionsClient, error)`
+- New function `*GalleryScriptVersionsClient.BeginCreateOrUpdate(context.Context, string, GalleryScriptVersion, *GalleryScriptVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[GalleryScriptVersionsClientCreateOrUpdateResponse], error)`
+- New function `*GalleryScriptVersionsClient.BeginDelete(context.Context, string, *GalleryScriptVersionsClientBeginDeleteOptions) (*runtime.Poller[GalleryScriptVersionsClientDeleteResponse], error)`
+- New function `*GalleryScriptVersionsClient.Get(context.Context, string, *GalleryScriptVersionsClientGetOptions) (GalleryScriptVersionsClientGetResponse, error)`
+- New function `*GalleryScriptVersionsClient.NewListByGalleryScriptPager(string, *GalleryScriptVersionsClientListByGalleryScriptOptions) *runtime.Pager[GalleryScriptVersionsClientListByGalleryScriptResponse]`
+- New function `*GalleryScriptVersionsClient.BeginUpdate(context.Context, string, GalleryScriptVersionUpdate, *GalleryScriptVersionsClientBeginUpdateOptions) (*runtime.Poller[GalleryScriptVersionsClientUpdateResponse], error)`
+- New function `NewGalleryScriptsClient(string, string, string, azcore.TokenCredential, *arm.ClientOptions) (*GalleryScriptsClient, error)`
+- New function `*GalleryScriptsClient.BeginCreateOrUpdate(context.Context, string, GalleryScript, *GalleryScriptsClientBeginCreateOrUpdateOptions) (*runtime.Poller[GalleryScriptsClientCreateOrUpdateResponse], error)`
+- New function `*GalleryScriptsClient.BeginDelete(context.Context, string, *GalleryScriptsClientBeginDeleteOptions) (*runtime.Poller[GalleryScriptsClientDeleteResponse], error)`
+- New function `*GalleryScriptsClient.Get(context.Context, string, *GalleryScriptsClientGetOptions) (GalleryScriptsClientGetResponse, error)`
+- New function `*GalleryScriptsClient.NewListByGalleryPager(string, *GalleryScriptsClientListByGalleryOptions) *runtime.Pager[GalleryScriptsClientListByGalleryResponse]`
+- New function `*GalleryScriptsClient.BeginUpdate(context.Context, string, GalleryScriptUpdate, *GalleryScriptsClientBeginUpdateOptions) (*runtime.Poller[GalleryScriptsClientUpdateResponse], error)`
+- New struct `GalleryScript`
+- New struct `GalleryScriptList`
+- New struct `GalleryScriptParameter`
+- New struct `GalleryScriptProperties`
+- New struct `GalleryScriptUpdate`
+- New struct `GalleryScriptVersion`
+- New struct `GalleryScriptVersionList`
+- New struct `GalleryScriptVersionProperties`
+- New struct `GalleryScriptVersionPublishingProfile`
+- New struct `GalleryScriptVersionSafetyProfile`
+- New struct `GalleryScriptVersionUpdate`
+- New struct `GenericGalleryParameter`
+- New struct `ScriptSource`
+
+
 ## 6.4.0 (2025-03-28)
 ### Features Added
 

@@ -22,20 +22,23 @@ import (
 type GalleryInVMAccessControlProfilesClient struct {
 	internal       *arm.Client
 	subscriptionID string
+	galleryName    string
 }
 
 // NewGalleryInVMAccessControlProfilesClient creates a new instance of GalleryInVMAccessControlProfilesClient with the specified values.
 //   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
 //     part of the URI for every service call.
+//   - galleryName - The name of the Shared Image Gallery where Image Definitions or other artifacts reside.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewGalleryInVMAccessControlProfilesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*GalleryInVMAccessControlProfilesClient, error) {
+func NewGalleryInVMAccessControlProfilesClient(subscriptionID string, galleryName string, credential azcore.TokenCredential, options *arm.ClientOptions) (*GalleryInVMAccessControlProfilesClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	client := &GalleryInVMAccessControlProfilesClient{
 		subscriptionID: subscriptionID,
+		galleryName:    galleryName,
 		internal:       cl,
 	}
 	return client, nil
@@ -44,18 +47,17 @@ func NewGalleryInVMAccessControlProfilesClient(subscriptionID string, credential
 // BeginCreateOrUpdate - Create or update a gallery inVMAccessControlProfile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-03
+// Generated from API version 2025-03-03
 //   - resourceGroupName - The name of the resource group.
-//   - galleryName - The name of the Shared Image Gallery in which the InVMAccessControlProfile is to be created.
 //   - inVMAccessControlProfileName - The name of the gallery inVMAccessControlProfile to be created or updated. The allowed characters
 //     are alphabets and numbers with dots, dashes, and periods allowed in the middle. The maximum length is
 //     80 characters.
 //   - galleryInVMAccessControlProfile - Parameters supplied to the create or update gallery inVMAccessControlProfile operation.
 //   - options - GalleryInVMAccessControlProfilesClientBeginCreateOrUpdateOptions contains the optional parameters for the GalleryInVMAccessControlProfilesClient.BeginCreateOrUpdate
 //     method.
-func (client *GalleryInVMAccessControlProfilesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, galleryName string, inVMAccessControlProfileName string, galleryInVMAccessControlProfile GalleryInVMAccessControlProfile, options *GalleryInVMAccessControlProfilesClientBeginCreateOrUpdateOptions) (*runtime.Poller[GalleryInVMAccessControlProfilesClientCreateOrUpdateResponse], error) {
+func (client *GalleryInVMAccessControlProfilesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, inVMAccessControlProfileName string, galleryInVMAccessControlProfile GalleryInVMAccessControlProfile, options *GalleryInVMAccessControlProfilesClientBeginCreateOrUpdateOptions) (*runtime.Poller[GalleryInVMAccessControlProfilesClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, resourceGroupName, galleryName, inVMAccessControlProfileName, galleryInVMAccessControlProfile, options)
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, inVMAccessControlProfileName, galleryInVMAccessControlProfile, options)
 		if err != nil {
 			return nil, err
 		}
@@ -73,14 +75,14 @@ func (client *GalleryInVMAccessControlProfilesClient) BeginCreateOrUpdate(ctx co
 // CreateOrUpdate - Create or update a gallery inVMAccessControlProfile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-03
-func (client *GalleryInVMAccessControlProfilesClient) createOrUpdate(ctx context.Context, resourceGroupName string, galleryName string, inVMAccessControlProfileName string, galleryInVMAccessControlProfile GalleryInVMAccessControlProfile, options *GalleryInVMAccessControlProfilesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+// Generated from API version 2025-03-03
+func (client *GalleryInVMAccessControlProfilesClient) createOrUpdate(ctx context.Context, resourceGroupName string, inVMAccessControlProfileName string, galleryInVMAccessControlProfile GalleryInVMAccessControlProfile, options *GalleryInVMAccessControlProfilesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "GalleryInVMAccessControlProfilesClient.BeginCreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, galleryName, inVMAccessControlProfileName, galleryInVMAccessControlProfile, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, inVMAccessControlProfileName, galleryInVMAccessControlProfile, options)
 	if err != nil {
 		return nil, err
 	}
@@ -96,7 +98,7 @@ func (client *GalleryInVMAccessControlProfilesClient) createOrUpdate(ctx context
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *GalleryInVMAccessControlProfilesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, galleryName string, inVMAccessControlProfileName string, galleryInVMAccessControlProfile GalleryInVMAccessControlProfile, _ *GalleryInVMAccessControlProfilesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *GalleryInVMAccessControlProfilesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, inVMAccessControlProfileName string, galleryInVMAccessControlProfile GalleryInVMAccessControlProfile, _ *GalleryInVMAccessControlProfilesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/galleries/{galleryName}/inVMAccessControlProfiles/{inVMAccessControlProfileName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -106,10 +108,10 @@ func (client *GalleryInVMAccessControlProfilesClient) createOrUpdateCreateReques
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if galleryName == "" {
-		return nil, errors.New("parameter galleryName cannot be empty")
+	if client.galleryName == "" {
+		return nil, errors.New("parameter client.galleryName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{galleryName}", url.PathEscape(galleryName))
+	urlPath = strings.ReplaceAll(urlPath, "{galleryName}", url.PathEscape(client.galleryName))
 	if inVMAccessControlProfileName == "" {
 		return nil, errors.New("parameter inVMAccessControlProfileName cannot be empty")
 	}
@@ -119,7 +121,7 @@ func (client *GalleryInVMAccessControlProfilesClient) createOrUpdateCreateReques
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-03")
+	reqQP.Set("api-version", "2025-03-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, galleryInVMAccessControlProfile); err != nil {
@@ -131,15 +133,14 @@ func (client *GalleryInVMAccessControlProfilesClient) createOrUpdateCreateReques
 // BeginDelete - Delete a gallery inVMAccessControlProfile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-03
+// Generated from API version 2025-03-03
 //   - resourceGroupName - The name of the resource group.
-//   - galleryName - he name of the Shared Image Gallery in which the InVMAccessControlProfile resides.
 //   - inVMAccessControlProfileName - The name of the gallery inVMAccessControlProfile to be deleted.
 //   - options - GalleryInVMAccessControlProfilesClientBeginDeleteOptions contains the optional parameters for the GalleryInVMAccessControlProfilesClient.BeginDelete
 //     method.
-func (client *GalleryInVMAccessControlProfilesClient) BeginDelete(ctx context.Context, resourceGroupName string, galleryName string, inVMAccessControlProfileName string, options *GalleryInVMAccessControlProfilesClientBeginDeleteOptions) (*runtime.Poller[GalleryInVMAccessControlProfilesClientDeleteResponse], error) {
+func (client *GalleryInVMAccessControlProfilesClient) BeginDelete(ctx context.Context, resourceGroupName string, inVMAccessControlProfileName string, options *GalleryInVMAccessControlProfilesClientBeginDeleteOptions) (*runtime.Poller[GalleryInVMAccessControlProfilesClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.deleteOperation(ctx, resourceGroupName, galleryName, inVMAccessControlProfileName, options)
+		resp, err := client.deleteOperation(ctx, resourceGroupName, inVMAccessControlProfileName, options)
 		if err != nil {
 			return nil, err
 		}
@@ -157,14 +158,14 @@ func (client *GalleryInVMAccessControlProfilesClient) BeginDelete(ctx context.Co
 // Delete - Delete a gallery inVMAccessControlProfile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-03
-func (client *GalleryInVMAccessControlProfilesClient) deleteOperation(ctx context.Context, resourceGroupName string, galleryName string, inVMAccessControlProfileName string, options *GalleryInVMAccessControlProfilesClientBeginDeleteOptions) (*http.Response, error) {
+// Generated from API version 2025-03-03
+func (client *GalleryInVMAccessControlProfilesClient) deleteOperation(ctx context.Context, resourceGroupName string, inVMAccessControlProfileName string, options *GalleryInVMAccessControlProfilesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "GalleryInVMAccessControlProfilesClient.BeginDelete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, galleryName, inVMAccessControlProfileName, options)
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, inVMAccessControlProfileName, options)
 	if err != nil {
 		return nil, err
 	}
@@ -180,7 +181,7 @@ func (client *GalleryInVMAccessControlProfilesClient) deleteOperation(ctx contex
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *GalleryInVMAccessControlProfilesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, galleryName string, inVMAccessControlProfileName string, _ *GalleryInVMAccessControlProfilesClientBeginDeleteOptions) (*policy.Request, error) {
+func (client *GalleryInVMAccessControlProfilesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, inVMAccessControlProfileName string, _ *GalleryInVMAccessControlProfilesClientBeginDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/galleries/{galleryName}/inVMAccessControlProfiles/{inVMAccessControlProfileName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -190,10 +191,10 @@ func (client *GalleryInVMAccessControlProfilesClient) deleteCreateRequest(ctx co
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if galleryName == "" {
-		return nil, errors.New("parameter galleryName cannot be empty")
+	if client.galleryName == "" {
+		return nil, errors.New("parameter client.galleryName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{galleryName}", url.PathEscape(galleryName))
+	urlPath = strings.ReplaceAll(urlPath, "{galleryName}", url.PathEscape(client.galleryName))
 	if inVMAccessControlProfileName == "" {
 		return nil, errors.New("parameter inVMAccessControlProfileName cannot be empty")
 	}
@@ -203,7 +204,7 @@ func (client *GalleryInVMAccessControlProfilesClient) deleteCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-03")
+	reqQP.Set("api-version", "2025-03-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -212,19 +213,18 @@ func (client *GalleryInVMAccessControlProfilesClient) deleteCreateRequest(ctx co
 // Get - Retrieves information about a gallery inVMAccessControlProfile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-03
+// Generated from API version 2025-03-03
 //   - resourceGroupName - The name of the resource group.
-//   - galleryName - The name of the Shared Image Gallery from which the InVMAccessControlProfiles are to be retrieved.
 //   - inVMAccessControlProfileName - The name of the gallery inVMAccessControlProfile to be retrieved.
 //   - options - GalleryInVMAccessControlProfilesClientGetOptions contains the optional parameters for the GalleryInVMAccessControlProfilesClient.Get
 //     method.
-func (client *GalleryInVMAccessControlProfilesClient) Get(ctx context.Context, resourceGroupName string, galleryName string, inVMAccessControlProfileName string, options *GalleryInVMAccessControlProfilesClientGetOptions) (GalleryInVMAccessControlProfilesClientGetResponse, error) {
+func (client *GalleryInVMAccessControlProfilesClient) Get(ctx context.Context, resourceGroupName string, inVMAccessControlProfileName string, options *GalleryInVMAccessControlProfilesClientGetOptions) (GalleryInVMAccessControlProfilesClientGetResponse, error) {
 	var err error
 	const operationName = "GalleryInVMAccessControlProfilesClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, resourceGroupName, galleryName, inVMAccessControlProfileName, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, inVMAccessControlProfileName, options)
 	if err != nil {
 		return GalleryInVMAccessControlProfilesClientGetResponse{}, err
 	}
@@ -241,7 +241,7 @@ func (client *GalleryInVMAccessControlProfilesClient) Get(ctx context.Context, r
 }
 
 // getCreateRequest creates the Get request.
-func (client *GalleryInVMAccessControlProfilesClient) getCreateRequest(ctx context.Context, resourceGroupName string, galleryName string, inVMAccessControlProfileName string, _ *GalleryInVMAccessControlProfilesClientGetOptions) (*policy.Request, error) {
+func (client *GalleryInVMAccessControlProfilesClient) getCreateRequest(ctx context.Context, resourceGroupName string, inVMAccessControlProfileName string, _ *GalleryInVMAccessControlProfilesClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/galleries/{galleryName}/inVMAccessControlProfiles/{inVMAccessControlProfileName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -251,10 +251,10 @@ func (client *GalleryInVMAccessControlProfilesClient) getCreateRequest(ctx conte
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if galleryName == "" {
-		return nil, errors.New("parameter galleryName cannot be empty")
+	if client.galleryName == "" {
+		return nil, errors.New("parameter client.galleryName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{galleryName}", url.PathEscape(galleryName))
+	urlPath = strings.ReplaceAll(urlPath, "{galleryName}", url.PathEscape(client.galleryName))
 	if inVMAccessControlProfileName == "" {
 		return nil, errors.New("parameter inVMAccessControlProfileName cannot be empty")
 	}
@@ -264,7 +264,7 @@ func (client *GalleryInVMAccessControlProfilesClient) getCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-03")
+	reqQP.Set("api-version", "2025-03-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -281,12 +281,11 @@ func (client *GalleryInVMAccessControlProfilesClient) getHandleResponse(resp *ht
 
 // NewListByGalleryPager - List gallery inVMAccessControlProfiles in a gallery.
 //
-// Generated from API version 2024-03-03
+// Generated from API version 2025-03-03
 //   - resourceGroupName - The name of the resource group.
-//   - galleryName - The name of the Shared Image Gallery from which the InVMAccessControlProfiles are to be listed.
 //   - options - GalleryInVMAccessControlProfilesClientListByGalleryOptions contains the optional parameters for the GalleryInVMAccessControlProfilesClient.NewListByGalleryPager
 //     method.
-func (client *GalleryInVMAccessControlProfilesClient) NewListByGalleryPager(resourceGroupName string, galleryName string, options *GalleryInVMAccessControlProfilesClientListByGalleryOptions) *runtime.Pager[GalleryInVMAccessControlProfilesClientListByGalleryResponse] {
+func (client *GalleryInVMAccessControlProfilesClient) NewListByGalleryPager(resourceGroupName string, options *GalleryInVMAccessControlProfilesClientListByGalleryOptions) *runtime.Pager[GalleryInVMAccessControlProfilesClientListByGalleryResponse] {
 	return runtime.NewPager(runtime.PagingHandler[GalleryInVMAccessControlProfilesClientListByGalleryResponse]{
 		More: func(page GalleryInVMAccessControlProfilesClientListByGalleryResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
@@ -298,7 +297,7 @@ func (client *GalleryInVMAccessControlProfilesClient) NewListByGalleryPager(reso
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listByGalleryCreateRequest(ctx, resourceGroupName, galleryName, options)
+				return client.listByGalleryCreateRequest(ctx, resourceGroupName, options)
 			}, nil)
 			if err != nil {
 				return GalleryInVMAccessControlProfilesClientListByGalleryResponse{}, err
@@ -310,7 +309,7 @@ func (client *GalleryInVMAccessControlProfilesClient) NewListByGalleryPager(reso
 }
 
 // listByGalleryCreateRequest creates the ListByGallery request.
-func (client *GalleryInVMAccessControlProfilesClient) listByGalleryCreateRequest(ctx context.Context, resourceGroupName string, galleryName string, _ *GalleryInVMAccessControlProfilesClientListByGalleryOptions) (*policy.Request, error) {
+func (client *GalleryInVMAccessControlProfilesClient) listByGalleryCreateRequest(ctx context.Context, resourceGroupName string, _ *GalleryInVMAccessControlProfilesClientListByGalleryOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/galleries/{galleryName}/inVMAccessControlProfiles"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -320,16 +319,16 @@ func (client *GalleryInVMAccessControlProfilesClient) listByGalleryCreateRequest
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if galleryName == "" {
-		return nil, errors.New("parameter galleryName cannot be empty")
+	if client.galleryName == "" {
+		return nil, errors.New("parameter client.galleryName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{galleryName}", url.PathEscape(galleryName))
+	urlPath = strings.ReplaceAll(urlPath, "{galleryName}", url.PathEscape(client.galleryName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-03")
+	reqQP.Set("api-version", "2025-03-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -347,18 +346,17 @@ func (client *GalleryInVMAccessControlProfilesClient) listByGalleryHandleRespons
 // BeginUpdate - Update a gallery inVMAccessControlProfile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-03
+// Generated from API version 2025-03-03
 //   - resourceGroupName - The name of the resource group.
-//   - galleryName - The name of the Shared Image Gallery in which the InVMAccessControlProfile is to be updated.
 //   - inVMAccessControlProfileName - The name of the gallery inVMAccessControlProfile to be updated. The allowed characters are
 //     alphabets and numbers with dots, dashes, and periods allowed in the middle. The maximum length is 80
 //     characters.
 //   - galleryInVMAccessControlProfile - Parameters supplied to the update gallery inVMAccessControlProfile operation.
 //   - options - GalleryInVMAccessControlProfilesClientBeginUpdateOptions contains the optional parameters for the GalleryInVMAccessControlProfilesClient.BeginUpdate
 //     method.
-func (client *GalleryInVMAccessControlProfilesClient) BeginUpdate(ctx context.Context, resourceGroupName string, galleryName string, inVMAccessControlProfileName string, galleryInVMAccessControlProfile GalleryInVMAccessControlProfileUpdate, options *GalleryInVMAccessControlProfilesClientBeginUpdateOptions) (*runtime.Poller[GalleryInVMAccessControlProfilesClientUpdateResponse], error) {
+func (client *GalleryInVMAccessControlProfilesClient) BeginUpdate(ctx context.Context, resourceGroupName string, inVMAccessControlProfileName string, galleryInVMAccessControlProfile GalleryInVMAccessControlProfileUpdate, options *GalleryInVMAccessControlProfilesClientBeginUpdateOptions) (*runtime.Poller[GalleryInVMAccessControlProfilesClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.update(ctx, resourceGroupName, galleryName, inVMAccessControlProfileName, galleryInVMAccessControlProfile, options)
+		resp, err := client.update(ctx, resourceGroupName, inVMAccessControlProfileName, galleryInVMAccessControlProfile, options)
 		if err != nil {
 			return nil, err
 		}
@@ -376,14 +374,14 @@ func (client *GalleryInVMAccessControlProfilesClient) BeginUpdate(ctx context.Co
 // Update - Update a gallery inVMAccessControlProfile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-03
-func (client *GalleryInVMAccessControlProfilesClient) update(ctx context.Context, resourceGroupName string, galleryName string, inVMAccessControlProfileName string, galleryInVMAccessControlProfile GalleryInVMAccessControlProfileUpdate, options *GalleryInVMAccessControlProfilesClientBeginUpdateOptions) (*http.Response, error) {
+// Generated from API version 2025-03-03
+func (client *GalleryInVMAccessControlProfilesClient) update(ctx context.Context, resourceGroupName string, inVMAccessControlProfileName string, galleryInVMAccessControlProfile GalleryInVMAccessControlProfileUpdate, options *GalleryInVMAccessControlProfilesClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "GalleryInVMAccessControlProfilesClient.BeginUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, galleryName, inVMAccessControlProfileName, galleryInVMAccessControlProfile, options)
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, inVMAccessControlProfileName, galleryInVMAccessControlProfile, options)
 	if err != nil {
 		return nil, err
 	}
@@ -399,7 +397,7 @@ func (client *GalleryInVMAccessControlProfilesClient) update(ctx context.Context
 }
 
 // updateCreateRequest creates the Update request.
-func (client *GalleryInVMAccessControlProfilesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, galleryName string, inVMAccessControlProfileName string, galleryInVMAccessControlProfile GalleryInVMAccessControlProfileUpdate, _ *GalleryInVMAccessControlProfilesClientBeginUpdateOptions) (*policy.Request, error) {
+func (client *GalleryInVMAccessControlProfilesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, inVMAccessControlProfileName string, galleryInVMAccessControlProfile GalleryInVMAccessControlProfileUpdate, _ *GalleryInVMAccessControlProfilesClientBeginUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/galleries/{galleryName}/inVMAccessControlProfiles/{inVMAccessControlProfileName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -409,10 +407,10 @@ func (client *GalleryInVMAccessControlProfilesClient) updateCreateRequest(ctx co
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if galleryName == "" {
-		return nil, errors.New("parameter galleryName cannot be empty")
+	if client.galleryName == "" {
+		return nil, errors.New("parameter client.galleryName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{galleryName}", url.PathEscape(galleryName))
+	urlPath = strings.ReplaceAll(urlPath, "{galleryName}", url.PathEscape(client.galleryName))
 	if inVMAccessControlProfileName == "" {
 		return nil, errors.New("parameter inVMAccessControlProfileName cannot be empty")
 	}
@@ -422,7 +420,7 @@ func (client *GalleryInVMAccessControlProfilesClient) updateCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-03")
+	reqQP.Set("api-version", "2025-03-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, galleryInVMAccessControlProfile); err != nil {

@@ -12,7 +12,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v6"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v7"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -22,7 +22,7 @@ import (
 type SoftDeletedResourceServer struct {
 	// NewListByArtifactNamePager is the fake for method SoftDeletedResourceClient.NewListByArtifactNamePager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListByArtifactNamePager func(resourceGroupName string, galleryName string, artifactType string, artifactName string, options *armcompute.SoftDeletedResourceClientListByArtifactNameOptions) (resp azfake.PagerResponder[armcompute.SoftDeletedResourceClientListByArtifactNameResponse])
+	NewListByArtifactNamePager func(resourceGroupName string, artifactType string, artifactName string, options *armcompute.SoftDeletedResourceClientListByArtifactNameOptions) (resp azfake.PagerResponder[armcompute.SoftDeletedResourceClientListByArtifactNameResponse])
 }
 
 // NewSoftDeletedResourceServerTransport creates a new instance of SoftDeletedResourceServerTransport with the provided implementation.
@@ -102,10 +102,6 @@ func (s *SoftDeletedResourceServerTransport) dispatchNewListByArtifactNamePager(
 		if err != nil {
 			return nil, err
 		}
-		galleryNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("galleryName")])
-		if err != nil {
-			return nil, err
-		}
 		artifactTypeParam, err := url.PathUnescape(matches[regex.SubexpIndex("artifactType")])
 		if err != nil {
 			return nil, err
@@ -114,7 +110,7 @@ func (s *SoftDeletedResourceServerTransport) dispatchNewListByArtifactNamePager(
 		if err != nil {
 			return nil, err
 		}
-		resp := s.srv.NewListByArtifactNamePager(resourceGroupNameParam, galleryNameParam, artifactTypeParam, artifactNameParam, nil)
+		resp := s.srv.NewListByArtifactNamePager(resourceGroupNameParam, artifactTypeParam, artifactNameParam, nil)
 		newListByArtifactNamePager = &resp
 		s.newListByArtifactNamePager.add(req, newListByArtifactNamePager)
 		server.PagerResponderInjectNextLinks(newListByArtifactNamePager, req, func(page *armcompute.SoftDeletedResourceClientListByArtifactNameResponse, createLink func() string) {

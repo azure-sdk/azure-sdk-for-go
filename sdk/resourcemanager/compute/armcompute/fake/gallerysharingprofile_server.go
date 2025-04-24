@@ -12,7 +12,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v6"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v7"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -22,7 +22,7 @@ import (
 type GallerySharingProfileServer struct {
 	// BeginUpdate is the fake for method GallerySharingProfileClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
-	BeginUpdate func(ctx context.Context, resourceGroupName string, galleryName string, sharingUpdate armcompute.SharingUpdate, options *armcompute.GallerySharingProfileClientBeginUpdateOptions) (resp azfake.PollerResponder[armcompute.GallerySharingProfileClientUpdateResponse], errResp azfake.ErrorResponder)
+	BeginUpdate func(ctx context.Context, resourceGroupName string, sharingUpdate armcompute.SharingUpdate, options *armcompute.GallerySharingProfileClientBeginUpdateOptions) (resp azfake.PollerResponder[armcompute.GallerySharingProfileClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewGallerySharingProfileServerTransport creates a new instance of GallerySharingProfileServerTransport with the provided implementation.
@@ -106,11 +106,7 @@ func (g *GallerySharingProfileServerTransport) dispatchBeginUpdate(req *http.Req
 		if err != nil {
 			return nil, err
 		}
-		galleryNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("galleryName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := g.srv.BeginUpdate(req.Context(), resourceGroupNameParam, galleryNameParam, body, nil)
+		respr, errRespr := g.srv.BeginUpdate(req.Context(), resourceGroupNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}

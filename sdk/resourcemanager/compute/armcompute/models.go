@@ -3120,6 +3120,210 @@ type GalleryResourceProfileVersionPropertiesBase struct {
 	ReplicationStatus *ReplicationStatus
 }
 
+// GalleryScript - Specifies information about the gallery Script Definition that you want to create or update.
+type GalleryScript struct {
+	// REQUIRED; Resource location
+	Location *string
+
+	// Describes the properties of a gallery Script Definition.
+	Properties *GalleryScriptProperties
+
+	// Resource tags
+	Tags map[string]*string
+
+	// READ-ONLY; Resource Id
+	ID *string
+
+	// READ-ONLY; Resource name
+	Name *string
+
+	// READ-ONLY; Resource type
+	Type *string
+}
+
+// GalleryScriptList - The List Gallery Scripts operation response.
+type GalleryScriptList struct {
+	// REQUIRED; A list of Gallery Scripts.
+	Value []*GalleryScript
+
+	// The uri to fetch the next page of Script Definitions in the Gallery. Call ListNext() with this to fetch the next page of
+	// gallery Script Definitions.
+	NextLink *string
+}
+
+// GalleryScriptParameter - The definition of a parameter that can be passed to a script of a Gallery Script Version.
+type GalleryScriptParameter struct {
+	// REQUIRED; The name of the parameter..
+	Name *string
+
+	// The default value of the parameter, only applies to string types.
+	DefaultValue *string
+
+	// A description to help users understand what this parameter means
+	Description *string
+
+	// A list of permissible values. Only applicable values are from 'enum' values defined in 'GalleryScriptParameter'.
+	EnumValues []*string
+
+	// The minimum value of parameter.
+	MaxValue *string
+
+	// The minimum value of parameter.
+	MinValue *string
+
+	// Indicates whether this parameter must be passed.
+	Required *bool
+
+	// Specifies the type of the Gallery Script parameter. Possible values are: String, Int, Double, Boolean, Enum
+	Type *GalleryScriptParameterType
+}
+
+// GalleryScriptProperties - Describes the properties of a gallery Script Definition.
+type GalleryScriptProperties struct {
+	// REQUIRED; This property allows you to specify the supported type of the OS that application is built for. Possible values
+	// are: Windows, Linux.
+	SupportedOSType *OperatingSystemTypes
+
+	// The description of this gallery Script Definition resource. This property is updatable.
+	Description *string
+
+	// The end of life date of the gallery Script Definition. This property can be used for decommissioning purposes. This property
+	// is updatable.
+	EndOfLifeDate *time.Time
+
+	// The Eula agreement (End User License Agreement) for the gallery Script Definition.
+	Eula *string
+
+	// The privacy statement uri.
+	PrivacyStatementURI *string
+
+	// The release note uri.
+	ReleaseNoteURI *string
+
+	// READ-ONLY; The provisioning state, which only appears in the response.
+	ProvisioningState *GalleryProvisioningState
+}
+
+// GalleryScriptUpdate - Specifies information about the gallery Script Definition that you want to update.
+type GalleryScriptUpdate struct {
+	// Describes the properties of a gallery Script Definition.
+	Properties *GalleryScriptProperties
+
+	// Resource tags
+	Tags map[string]*string
+
+	// READ-ONLY; Resource Id
+	ID *string
+
+	// READ-ONLY; Resource name
+	Name *string
+
+	// READ-ONLY; Resource type
+	Type *string
+}
+
+// GalleryScriptVersion - Specifies information about the gallery Script Version that you want to create or update.
+type GalleryScriptVersion struct {
+	// REQUIRED; Resource location
+	Location *string
+
+	// Describes the properties of a gallery script version.
+	Properties *GalleryScriptVersionProperties
+
+	// Resource tags
+	Tags map[string]*string
+
+	// READ-ONLY; Resource Id
+	ID *string
+
+	// READ-ONLY; Resource name
+	Name *string
+
+	// READ-ONLY; Resource type
+	Type *string
+}
+
+// GalleryScriptVersionList - The List Gallery Script version operation response.
+type GalleryScriptVersionList struct {
+	// REQUIRED; A list of gallery Script Versions.
+	Value []*GalleryScriptVersion
+
+	// The uri to fetch the next page of gallery Script Versions. Call ListNext() with this to fetch the next page of gallery
+	// Script Versions.
+	NextLink *string
+}
+
+// GalleryScriptVersionProperties - Describes the properties of a gallery script version.
+type GalleryScriptVersionProperties struct {
+	// REQUIRED; The publishing profile of a gallery image version.
+	PublishingProfile *GalleryScriptVersionPublishingProfile
+
+	// The safety profile of the Gallery Script Version.
+	SafetyProfile *GalleryScriptVersionSafetyProfile
+
+	// READ-ONLY; The provisioning state, which only appears in the response.
+	ProvisioningState *GalleryProvisioningState
+
+	// READ-ONLY; This is the replication status of the gallery image version.
+	ReplicationStatus *ReplicationStatus
+}
+
+// GalleryScriptVersionPublishingProfile - The publishing profile of a gallery image version.
+type GalleryScriptVersionPublishingProfile struct {
+	// REQUIRED; The source script from which the Script Version is going to be created.
+	Source *ScriptSource
+
+	// The end of life date of the gallery image version. This property can be used for decommissioning purposes. This property
+	// is updatable.
+	EndOfLifeDate *time.Time
+
+	// If set to true, Virtual Machines deployed from the latest version of the Image Definition won't use this Image Version.
+	ExcludeFromLatest *bool
+
+	// The number of replicas of the Image Version to be created per region. This property would take effect for a region when
+	// regionalReplicaCount is not specified. This property is updatable.
+	ReplicaCount *int32
+
+	// Optional parameter which specifies the mode to be used for replication. This property is not updatable.
+	ReplicationMode *ReplicationMode
+
+	// Specifies the storage account type to be used to store the image. This property is not updatable.
+	StorageAccountType *StorageAccountType
+
+	// The target extended locations where the Image Version is going to be replicated to. This property is updatable.
+	TargetExtendedLocations []*GalleryTargetExtendedLocation
+
+	// The target regions where the Image Version is going to be replicated to. This property is updatable.
+	TargetRegions []*TargetRegion
+
+	// READ-ONLY; The timestamp for when the gallery image version is published.
+	PublishedDate *time.Time
+}
+
+// GalleryScriptVersionSafetyProfile - The safety profile of the Gallery Script Version.
+type GalleryScriptVersionSafetyProfile struct {
+	// Indicates whether or not removing this Gallery Image Version from replicated regions is allowed.
+	AllowDeletionOfReplicatedLocations *bool
+}
+
+// GalleryScriptVersionUpdate - Specifies information about the gallery Script Version that you want to update.
+type GalleryScriptVersionUpdate struct {
+	// Describes the properties of a gallery script version.
+	Properties *GalleryScriptVersionProperties
+
+	// Resource tags
+	Tags map[string]*string
+
+	// READ-ONLY; Resource Id
+	ID *string
+
+	// READ-ONLY; Resource name
+	Name *string
+
+	// READ-ONLY; Resource type
+	Type *string
+}
+
 // GallerySoftDeletedResource - The details information of soft-deleted resource.
 type GallerySoftDeletedResource struct {
 	// REQUIRED; Resource location
@@ -3199,6 +3403,21 @@ type GalleryUpdate struct {
 
 	// READ-ONLY; Resource type
 	Type *string
+}
+
+// GenericGalleryParameter - The definition of a generic gallery parameter.
+type GenericGalleryParameter struct {
+	// REQUIRED; The name of the parameter..
+	Name *string
+
+	// The default value of the parameter, only applies to string types.
+	DefaultValue *string
+
+	// A description to help users understand what this parameter means
+	Description *string
+
+	// Indicates whether this parameter must be passed.
+	Required *bool
 }
 
 // GrantAccessData - Data used for requesting a SAS.
@@ -5657,6 +5876,16 @@ type ScheduledEventsProfile struct {
 
 	// Specifies Terminate Scheduled Event related configurations.
 	TerminateNotificationProfile *TerminateNotificationProfile
+}
+
+// ScriptSource - The source script from which the Script Version is going to be created.
+type ScriptSource struct {
+	// REQUIRED; Required. The link of the source script, it must be a readable storage blob with SAS URI or publicly accessible
+	// URI or managed identity enabled.
+	ScriptLink *string
+
+	// Optional. Any input parameters that needs to passed to the script and are accessed within the script for its execution.
+	Parameters []*GalleryScriptParameter
 }
 
 // SecurityPostureReference - Specifies the security posture to be used in the scale set. Minimum api-version: 2023-03-01

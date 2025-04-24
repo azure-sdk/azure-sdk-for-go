@@ -7,7 +7,7 @@ package armcompute
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute"
-	moduleVersion = "v6.4.0"
+	moduleVersion = "v7.0.0"
 )
 
 // AccessControlRulesMode - This property allows you to specify whether the access control rules are in Audit mode, in Enforce
@@ -1012,6 +1012,29 @@ func PossibleGalleryProvisioningStateValues() []GalleryProvisioningState {
 	}
 }
 
+// GalleryScriptParameterType - Specifies the type of the Gallery Script parameter. Possible values are: String, Int, Double,
+// Boolean, Enum
+type GalleryScriptParameterType string
+
+const (
+	GalleryScriptParameterTypeBoolean GalleryScriptParameterType = "Boolean"
+	GalleryScriptParameterTypeDouble  GalleryScriptParameterType = "Double"
+	GalleryScriptParameterTypeEnum    GalleryScriptParameterType = "Enum"
+	GalleryScriptParameterTypeInt     GalleryScriptParameterType = "Int"
+	GalleryScriptParameterTypeString  GalleryScriptParameterType = "String"
+)
+
+// PossibleGalleryScriptParameterTypeValues returns the possible values for the GalleryScriptParameterType const type.
+func PossibleGalleryScriptParameterTypeValues() []GalleryScriptParameterType {
+	return []GalleryScriptParameterType{
+		GalleryScriptParameterTypeBoolean,
+		GalleryScriptParameterTypeDouble,
+		GalleryScriptParameterTypeEnum,
+		GalleryScriptParameterTypeInt,
+		GalleryScriptParameterTypeString,
+	}
+}
+
 // GallerySharingPermissionTypes - This property allows you to specify the permission of sharing gallery. Possible values
 // are: Private, Groups, Community.
 type GallerySharingPermissionTypes string
@@ -1383,12 +1406,13 @@ func PossibleNetworkInterfaceAuxiliarySKUValues() []NetworkInterfaceAuxiliarySKU
 	}
 }
 
-// OperatingSystemStateTypes - This property allows the user to specify whether the virtual machines created under this image
-// are 'Generalized' or 'Specialized'.
+// OperatingSystemStateTypes - The OS State. For managed images, use Generalized.
 type OperatingSystemStateTypes string
 
 const (
+	// OperatingSystemStateTypesGeneralized - Generalized image. Needs to be provisioned during deployment time.
 	OperatingSystemStateTypesGeneralized OperatingSystemStateTypes = "Generalized"
+	// OperatingSystemStateTypesSpecialized - Specialized image. Contains already provisioned OS Disk.
 	OperatingSystemStateTypesSpecialized OperatingSystemStateTypes = "Specialized"
 )
 
@@ -1875,9 +1899,9 @@ func PossibleResourceIDOptionsForGetCapacityReservationGroupsValues() []Resource
 	}
 }
 
-// ResourceIdentityType - The type of identity used for the gallery. The type 'SystemAssigned, UserAssigned' includes both
-// an implicitly created identity and a set of user assigned identities. The type 'None' will remove all
-// identities from the gallery.
+// ResourceIdentityType - The type of identity used for the virtual machine scale set. The type 'SystemAssigned, UserAssigned'
+// includes both an implicitly created identity and a set of user assigned identities. The type 'None'
+// will remove any identities from the virtual machine scale set.
 type ResourceIdentityType string
 
 const (

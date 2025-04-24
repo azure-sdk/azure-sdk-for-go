@@ -22,20 +22,23 @@ import (
 type GalleryApplicationVersionsClient struct {
 	internal       *arm.Client
 	subscriptionID string
+	galleryName    string
 }
 
 // NewGalleryApplicationVersionsClient creates a new instance of GalleryApplicationVersionsClient with the specified values.
 //   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
 //     part of the URI for every service call.
+//   - galleryName - The name of the Shared Image Gallery where Image Definitions or other artifacts reside.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewGalleryApplicationVersionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*GalleryApplicationVersionsClient, error) {
+func NewGalleryApplicationVersionsClient(subscriptionID string, galleryName string, credential azcore.TokenCredential, options *arm.ClientOptions) (*GalleryApplicationVersionsClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	client := &GalleryApplicationVersionsClient{
 		subscriptionID: subscriptionID,
+		galleryName:    galleryName,
 		internal:       cl,
 	}
 	return client, nil
@@ -44,9 +47,8 @@ func NewGalleryApplicationVersionsClient(subscriptionID string, credential azcor
 // BeginCreateOrUpdate - Create or update a gallery Application Version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-03
+// Generated from API version 2025-03-03
 //   - resourceGroupName - The name of the resource group.
-//   - galleryName - The name of the Shared Application Gallery in which the Application Definition resides.
 //   - galleryApplicationName - The name of the gallery Application Definition in which the Application Version is to be created.
 //   - galleryApplicationVersionName - The name of the gallery Application Version to be created. Needs to follow semantic version
 //     name pattern: The allowed characters are digit and period. Digits must be within the range of a 32-bit
@@ -54,9 +56,9 @@ func NewGalleryApplicationVersionsClient(subscriptionID string, credential azcor
 //   - galleryApplicationVersion - Parameters supplied to the create or update gallery Application Version operation.
 //   - options - GalleryApplicationVersionsClientBeginCreateOrUpdateOptions contains the optional parameters for the GalleryApplicationVersionsClient.BeginCreateOrUpdate
 //     method.
-func (client *GalleryApplicationVersionsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, galleryName string, galleryApplicationName string, galleryApplicationVersionName string, galleryApplicationVersion GalleryApplicationVersion, options *GalleryApplicationVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[GalleryApplicationVersionsClientCreateOrUpdateResponse], error) {
+func (client *GalleryApplicationVersionsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, galleryApplicationName string, galleryApplicationVersionName string, galleryApplicationVersion GalleryApplicationVersion, options *GalleryApplicationVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[GalleryApplicationVersionsClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, resourceGroupName, galleryName, galleryApplicationName, galleryApplicationVersionName, galleryApplicationVersion, options)
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, galleryApplicationName, galleryApplicationVersionName, galleryApplicationVersion, options)
 		if err != nil {
 			return nil, err
 		}
@@ -74,14 +76,14 @@ func (client *GalleryApplicationVersionsClient) BeginCreateOrUpdate(ctx context.
 // CreateOrUpdate - Create or update a gallery Application Version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-03
-func (client *GalleryApplicationVersionsClient) createOrUpdate(ctx context.Context, resourceGroupName string, galleryName string, galleryApplicationName string, galleryApplicationVersionName string, galleryApplicationVersion GalleryApplicationVersion, options *GalleryApplicationVersionsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+// Generated from API version 2025-03-03
+func (client *GalleryApplicationVersionsClient) createOrUpdate(ctx context.Context, resourceGroupName string, galleryApplicationName string, galleryApplicationVersionName string, galleryApplicationVersion GalleryApplicationVersion, options *GalleryApplicationVersionsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "GalleryApplicationVersionsClient.BeginCreateOrUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, galleryName, galleryApplicationName, galleryApplicationVersionName, galleryApplicationVersion, options)
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, galleryApplicationName, galleryApplicationVersionName, galleryApplicationVersion, options)
 	if err != nil {
 		return nil, err
 	}
@@ -97,7 +99,7 @@ func (client *GalleryApplicationVersionsClient) createOrUpdate(ctx context.Conte
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *GalleryApplicationVersionsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, galleryName string, galleryApplicationName string, galleryApplicationVersionName string, galleryApplicationVersion GalleryApplicationVersion, _ *GalleryApplicationVersionsClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *GalleryApplicationVersionsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, galleryApplicationName string, galleryApplicationVersionName string, galleryApplicationVersion GalleryApplicationVersion, _ *GalleryApplicationVersionsClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/galleries/{galleryName}/applications/{galleryApplicationName}/versions/{galleryApplicationVersionName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -107,10 +109,10 @@ func (client *GalleryApplicationVersionsClient) createOrUpdateCreateRequest(ctx 
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if galleryName == "" {
-		return nil, errors.New("parameter galleryName cannot be empty")
+	if client.galleryName == "" {
+		return nil, errors.New("parameter client.galleryName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{galleryName}", url.PathEscape(galleryName))
+	urlPath = strings.ReplaceAll(urlPath, "{galleryName}", url.PathEscape(client.galleryName))
 	if galleryApplicationName == "" {
 		return nil, errors.New("parameter galleryApplicationName cannot be empty")
 	}
@@ -124,7 +126,7 @@ func (client *GalleryApplicationVersionsClient) createOrUpdateCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-03")
+	reqQP.Set("api-version", "2025-03-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, galleryApplicationVersion); err != nil {
@@ -136,16 +138,15 @@ func (client *GalleryApplicationVersionsClient) createOrUpdateCreateRequest(ctx 
 // BeginDelete - Delete a gallery Application Version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-03
+// Generated from API version 2025-03-03
 //   - resourceGroupName - The name of the resource group.
-//   - galleryName - The name of the Shared Application Gallery in which the Application Definition resides.
 //   - galleryApplicationName - The name of the gallery Application Definition in which the Application Version resides.
 //   - galleryApplicationVersionName - The name of the gallery Application Version to be deleted.
 //   - options - GalleryApplicationVersionsClientBeginDeleteOptions contains the optional parameters for the GalleryApplicationVersionsClient.BeginDelete
 //     method.
-func (client *GalleryApplicationVersionsClient) BeginDelete(ctx context.Context, resourceGroupName string, galleryName string, galleryApplicationName string, galleryApplicationVersionName string, options *GalleryApplicationVersionsClientBeginDeleteOptions) (*runtime.Poller[GalleryApplicationVersionsClientDeleteResponse], error) {
+func (client *GalleryApplicationVersionsClient) BeginDelete(ctx context.Context, resourceGroupName string, galleryApplicationName string, galleryApplicationVersionName string, options *GalleryApplicationVersionsClientBeginDeleteOptions) (*runtime.Poller[GalleryApplicationVersionsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.deleteOperation(ctx, resourceGroupName, galleryName, galleryApplicationName, galleryApplicationVersionName, options)
+		resp, err := client.deleteOperation(ctx, resourceGroupName, galleryApplicationName, galleryApplicationVersionName, options)
 		if err != nil {
 			return nil, err
 		}
@@ -163,14 +164,14 @@ func (client *GalleryApplicationVersionsClient) BeginDelete(ctx context.Context,
 // Delete - Delete a gallery Application Version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-03
-func (client *GalleryApplicationVersionsClient) deleteOperation(ctx context.Context, resourceGroupName string, galleryName string, galleryApplicationName string, galleryApplicationVersionName string, options *GalleryApplicationVersionsClientBeginDeleteOptions) (*http.Response, error) {
+// Generated from API version 2025-03-03
+func (client *GalleryApplicationVersionsClient) deleteOperation(ctx context.Context, resourceGroupName string, galleryApplicationName string, galleryApplicationVersionName string, options *GalleryApplicationVersionsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "GalleryApplicationVersionsClient.BeginDelete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, galleryName, galleryApplicationName, galleryApplicationVersionName, options)
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, galleryApplicationName, galleryApplicationVersionName, options)
 	if err != nil {
 		return nil, err
 	}
@@ -186,7 +187,7 @@ func (client *GalleryApplicationVersionsClient) deleteOperation(ctx context.Cont
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *GalleryApplicationVersionsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, galleryName string, galleryApplicationName string, galleryApplicationVersionName string, _ *GalleryApplicationVersionsClientBeginDeleteOptions) (*policy.Request, error) {
+func (client *GalleryApplicationVersionsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, galleryApplicationName string, galleryApplicationVersionName string, _ *GalleryApplicationVersionsClientBeginDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/galleries/{galleryName}/applications/{galleryApplicationName}/versions/{galleryApplicationVersionName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -196,10 +197,10 @@ func (client *GalleryApplicationVersionsClient) deleteCreateRequest(ctx context.
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if galleryName == "" {
-		return nil, errors.New("parameter galleryName cannot be empty")
+	if client.galleryName == "" {
+		return nil, errors.New("parameter client.galleryName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{galleryName}", url.PathEscape(galleryName))
+	urlPath = strings.ReplaceAll(urlPath, "{galleryName}", url.PathEscape(client.galleryName))
 	if galleryApplicationName == "" {
 		return nil, errors.New("parameter galleryApplicationName cannot be empty")
 	}
@@ -213,7 +214,7 @@ func (client *GalleryApplicationVersionsClient) deleteCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-03")
+	reqQP.Set("api-version", "2025-03-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -222,20 +223,19 @@ func (client *GalleryApplicationVersionsClient) deleteCreateRequest(ctx context.
 // Get - Retrieves information about a gallery Application Version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-03
+// Generated from API version 2025-03-03
 //   - resourceGroupName - The name of the resource group.
-//   - galleryName - The name of the Shared Application Gallery in which the Application Definition resides.
 //   - galleryApplicationName - The name of the gallery Application Definition in which the Application Version resides.
 //   - galleryApplicationVersionName - The name of the gallery Application Version to be retrieved.
 //   - options - GalleryApplicationVersionsClientGetOptions contains the optional parameters for the GalleryApplicationVersionsClient.Get
 //     method.
-func (client *GalleryApplicationVersionsClient) Get(ctx context.Context, resourceGroupName string, galleryName string, galleryApplicationName string, galleryApplicationVersionName string, options *GalleryApplicationVersionsClientGetOptions) (GalleryApplicationVersionsClientGetResponse, error) {
+func (client *GalleryApplicationVersionsClient) Get(ctx context.Context, resourceGroupName string, galleryApplicationName string, galleryApplicationVersionName string, options *GalleryApplicationVersionsClientGetOptions) (GalleryApplicationVersionsClientGetResponse, error) {
 	var err error
 	const operationName = "GalleryApplicationVersionsClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.getCreateRequest(ctx, resourceGroupName, galleryName, galleryApplicationName, galleryApplicationVersionName, options)
+	req, err := client.getCreateRequest(ctx, resourceGroupName, galleryApplicationName, galleryApplicationVersionName, options)
 	if err != nil {
 		return GalleryApplicationVersionsClientGetResponse{}, err
 	}
@@ -252,7 +252,7 @@ func (client *GalleryApplicationVersionsClient) Get(ctx context.Context, resourc
 }
 
 // getCreateRequest creates the Get request.
-func (client *GalleryApplicationVersionsClient) getCreateRequest(ctx context.Context, resourceGroupName string, galleryName string, galleryApplicationName string, galleryApplicationVersionName string, options *GalleryApplicationVersionsClientGetOptions) (*policy.Request, error) {
+func (client *GalleryApplicationVersionsClient) getCreateRequest(ctx context.Context, resourceGroupName string, galleryApplicationName string, galleryApplicationVersionName string, options *GalleryApplicationVersionsClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/galleries/{galleryName}/applications/{galleryApplicationName}/versions/{galleryApplicationVersionName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -262,10 +262,10 @@ func (client *GalleryApplicationVersionsClient) getCreateRequest(ctx context.Con
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if galleryName == "" {
-		return nil, errors.New("parameter galleryName cannot be empty")
+	if client.galleryName == "" {
+		return nil, errors.New("parameter client.galleryName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{galleryName}", url.PathEscape(galleryName))
+	urlPath = strings.ReplaceAll(urlPath, "{galleryName}", url.PathEscape(client.galleryName))
 	if galleryApplicationName == "" {
 		return nil, errors.New("parameter galleryApplicationName cannot be empty")
 	}
@@ -282,7 +282,7 @@ func (client *GalleryApplicationVersionsClient) getCreateRequest(ctx context.Con
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", string(*options.Expand))
 	}
-	reqQP.Set("api-version", "2024-03-03")
+	reqQP.Set("api-version", "2025-03-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -299,14 +299,13 @@ func (client *GalleryApplicationVersionsClient) getHandleResponse(resp *http.Res
 
 // NewListByGalleryApplicationPager - List gallery Application Versions in a gallery Application Definition.
 //
-// Generated from API version 2024-03-03
+// Generated from API version 2025-03-03
 //   - resourceGroupName - The name of the resource group.
-//   - galleryName - The name of the Shared Application Gallery in which the Application Definition resides.
 //   - galleryApplicationName - The name of the Shared Application Gallery Application Definition from which the Application Versions
 //     are to be listed.
 //   - options - GalleryApplicationVersionsClientListByGalleryApplicationOptions contains the optional parameters for the GalleryApplicationVersionsClient.NewListByGalleryApplicationPager
 //     method.
-func (client *GalleryApplicationVersionsClient) NewListByGalleryApplicationPager(resourceGroupName string, galleryName string, galleryApplicationName string, options *GalleryApplicationVersionsClientListByGalleryApplicationOptions) *runtime.Pager[GalleryApplicationVersionsClientListByGalleryApplicationResponse] {
+func (client *GalleryApplicationVersionsClient) NewListByGalleryApplicationPager(resourceGroupName string, galleryApplicationName string, options *GalleryApplicationVersionsClientListByGalleryApplicationOptions) *runtime.Pager[GalleryApplicationVersionsClientListByGalleryApplicationResponse] {
 	return runtime.NewPager(runtime.PagingHandler[GalleryApplicationVersionsClientListByGalleryApplicationResponse]{
 		More: func(page GalleryApplicationVersionsClientListByGalleryApplicationResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
@@ -318,7 +317,7 @@ func (client *GalleryApplicationVersionsClient) NewListByGalleryApplicationPager
 				nextLink = *page.NextLink
 			}
 			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), nextLink, func(ctx context.Context) (*policy.Request, error) {
-				return client.listByGalleryApplicationCreateRequest(ctx, resourceGroupName, galleryName, galleryApplicationName, options)
+				return client.listByGalleryApplicationCreateRequest(ctx, resourceGroupName, galleryApplicationName, options)
 			}, nil)
 			if err != nil {
 				return GalleryApplicationVersionsClientListByGalleryApplicationResponse{}, err
@@ -330,7 +329,7 @@ func (client *GalleryApplicationVersionsClient) NewListByGalleryApplicationPager
 }
 
 // listByGalleryApplicationCreateRequest creates the ListByGalleryApplication request.
-func (client *GalleryApplicationVersionsClient) listByGalleryApplicationCreateRequest(ctx context.Context, resourceGroupName string, galleryName string, galleryApplicationName string, _ *GalleryApplicationVersionsClientListByGalleryApplicationOptions) (*policy.Request, error) {
+func (client *GalleryApplicationVersionsClient) listByGalleryApplicationCreateRequest(ctx context.Context, resourceGroupName string, galleryApplicationName string, _ *GalleryApplicationVersionsClientListByGalleryApplicationOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/galleries/{galleryName}/applications/{galleryApplicationName}/versions"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -340,10 +339,10 @@ func (client *GalleryApplicationVersionsClient) listByGalleryApplicationCreateRe
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if galleryName == "" {
-		return nil, errors.New("parameter galleryName cannot be empty")
+	if client.galleryName == "" {
+		return nil, errors.New("parameter client.galleryName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{galleryName}", url.PathEscape(galleryName))
+	urlPath = strings.ReplaceAll(urlPath, "{galleryName}", url.PathEscape(client.galleryName))
 	if galleryApplicationName == "" {
 		return nil, errors.New("parameter galleryApplicationName cannot be empty")
 	}
@@ -353,7 +352,7 @@ func (client *GalleryApplicationVersionsClient) listByGalleryApplicationCreateRe
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-03")
+	reqQP.Set("api-version", "2025-03-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -371,9 +370,8 @@ func (client *GalleryApplicationVersionsClient) listByGalleryApplicationHandleRe
 // BeginUpdate - Update a gallery Application Version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-03
+// Generated from API version 2025-03-03
 //   - resourceGroupName - The name of the resource group.
-//   - galleryName - The name of the Shared Application Gallery in which the Application Definition resides.
 //   - galleryApplicationName - The name of the gallery Application Definition in which the Application Version is to be updated.
 //   - galleryApplicationVersionName - The name of the gallery Application Version to be updated. Needs to follow semantic version
 //     name pattern: The allowed characters are digit and period. Digits must be within the range of a 32-bit
@@ -381,9 +379,9 @@ func (client *GalleryApplicationVersionsClient) listByGalleryApplicationHandleRe
 //   - galleryApplicationVersion - Parameters supplied to the update gallery Application Version operation.
 //   - options - GalleryApplicationVersionsClientBeginUpdateOptions contains the optional parameters for the GalleryApplicationVersionsClient.BeginUpdate
 //     method.
-func (client *GalleryApplicationVersionsClient) BeginUpdate(ctx context.Context, resourceGroupName string, galleryName string, galleryApplicationName string, galleryApplicationVersionName string, galleryApplicationVersion GalleryApplicationVersionUpdate, options *GalleryApplicationVersionsClientBeginUpdateOptions) (*runtime.Poller[GalleryApplicationVersionsClientUpdateResponse], error) {
+func (client *GalleryApplicationVersionsClient) BeginUpdate(ctx context.Context, resourceGroupName string, galleryApplicationName string, galleryApplicationVersionName string, galleryApplicationVersion GalleryApplicationVersionUpdate, options *GalleryApplicationVersionsClientBeginUpdateOptions) (*runtime.Poller[GalleryApplicationVersionsClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.update(ctx, resourceGroupName, galleryName, galleryApplicationName, galleryApplicationVersionName, galleryApplicationVersion, options)
+		resp, err := client.update(ctx, resourceGroupName, galleryApplicationName, galleryApplicationVersionName, galleryApplicationVersion, options)
 		if err != nil {
 			return nil, err
 		}
@@ -401,14 +399,14 @@ func (client *GalleryApplicationVersionsClient) BeginUpdate(ctx context.Context,
 // Update - Update a gallery Application Version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-03-03
-func (client *GalleryApplicationVersionsClient) update(ctx context.Context, resourceGroupName string, galleryName string, galleryApplicationName string, galleryApplicationVersionName string, galleryApplicationVersion GalleryApplicationVersionUpdate, options *GalleryApplicationVersionsClientBeginUpdateOptions) (*http.Response, error) {
+// Generated from API version 2025-03-03
+func (client *GalleryApplicationVersionsClient) update(ctx context.Context, resourceGroupName string, galleryApplicationName string, galleryApplicationVersionName string, galleryApplicationVersion GalleryApplicationVersionUpdate, options *GalleryApplicationVersionsClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "GalleryApplicationVersionsClient.BeginUpdate"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, galleryName, galleryApplicationName, galleryApplicationVersionName, galleryApplicationVersion, options)
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, galleryApplicationName, galleryApplicationVersionName, galleryApplicationVersion, options)
 	if err != nil {
 		return nil, err
 	}
@@ -424,7 +422,7 @@ func (client *GalleryApplicationVersionsClient) update(ctx context.Context, reso
 }
 
 // updateCreateRequest creates the Update request.
-func (client *GalleryApplicationVersionsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, galleryName string, galleryApplicationName string, galleryApplicationVersionName string, galleryApplicationVersion GalleryApplicationVersionUpdate, _ *GalleryApplicationVersionsClientBeginUpdateOptions) (*policy.Request, error) {
+func (client *GalleryApplicationVersionsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, galleryApplicationName string, galleryApplicationVersionName string, galleryApplicationVersion GalleryApplicationVersionUpdate, _ *GalleryApplicationVersionsClientBeginUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/galleries/{galleryName}/applications/{galleryApplicationName}/versions/{galleryApplicationVersionName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -434,10 +432,10 @@ func (client *GalleryApplicationVersionsClient) updateCreateRequest(ctx context.
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if galleryName == "" {
-		return nil, errors.New("parameter galleryName cannot be empty")
+	if client.galleryName == "" {
+		return nil, errors.New("parameter client.galleryName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{galleryName}", url.PathEscape(galleryName))
+	urlPath = strings.ReplaceAll(urlPath, "{galleryName}", url.PathEscape(client.galleryName))
 	if galleryApplicationName == "" {
 		return nil, errors.New("parameter galleryApplicationName cannot be empty")
 	}
@@ -451,7 +449,7 @@ func (client *GalleryApplicationVersionsClient) updateCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-03-03")
+	reqQP.Set("api-version", "2025-03-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, galleryApplicationVersion); err != nil {

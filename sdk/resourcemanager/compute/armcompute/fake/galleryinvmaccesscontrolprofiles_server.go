@@ -13,7 +13,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v6"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v7"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -23,23 +23,23 @@ import (
 type GalleryInVMAccessControlProfilesServer struct {
 	// BeginCreateOrUpdate is the fake for method GalleryInVMAccessControlProfilesClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
-	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, galleryName string, inVMAccessControlProfileName string, galleryInVMAccessControlProfile armcompute.GalleryInVMAccessControlProfile, options *armcompute.GalleryInVMAccessControlProfilesClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armcompute.GalleryInVMAccessControlProfilesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, inVMAccessControlProfileName string, galleryInVMAccessControlProfile armcompute.GalleryInVMAccessControlProfile, options *armcompute.GalleryInVMAccessControlProfilesClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armcompute.GalleryInVMAccessControlProfilesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method GalleryInVMAccessControlProfilesClient.BeginDelete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
-	BeginDelete func(ctx context.Context, resourceGroupName string, galleryName string, inVMAccessControlProfileName string, options *armcompute.GalleryInVMAccessControlProfilesClientBeginDeleteOptions) (resp azfake.PollerResponder[armcompute.GalleryInVMAccessControlProfilesClientDeleteResponse], errResp azfake.ErrorResponder)
+	BeginDelete func(ctx context.Context, resourceGroupName string, inVMAccessControlProfileName string, options *armcompute.GalleryInVMAccessControlProfilesClientBeginDeleteOptions) (resp azfake.PollerResponder[armcompute.GalleryInVMAccessControlProfilesClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method GalleryInVMAccessControlProfilesClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceGroupName string, galleryName string, inVMAccessControlProfileName string, options *armcompute.GalleryInVMAccessControlProfilesClientGetOptions) (resp azfake.Responder[armcompute.GalleryInVMAccessControlProfilesClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, inVMAccessControlProfileName string, options *armcompute.GalleryInVMAccessControlProfilesClientGetOptions) (resp azfake.Responder[armcompute.GalleryInVMAccessControlProfilesClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListByGalleryPager is the fake for method GalleryInVMAccessControlProfilesClient.NewListByGalleryPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListByGalleryPager func(resourceGroupName string, galleryName string, options *armcompute.GalleryInVMAccessControlProfilesClientListByGalleryOptions) (resp azfake.PagerResponder[armcompute.GalleryInVMAccessControlProfilesClientListByGalleryResponse])
+	NewListByGalleryPager func(resourceGroupName string, options *armcompute.GalleryInVMAccessControlProfilesClientListByGalleryOptions) (resp azfake.PagerResponder[armcompute.GalleryInVMAccessControlProfilesClientListByGalleryResponse])
 
 	// BeginUpdate is the fake for method GalleryInVMAccessControlProfilesClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK
-	BeginUpdate func(ctx context.Context, resourceGroupName string, galleryName string, inVMAccessControlProfileName string, galleryInVMAccessControlProfile armcompute.GalleryInVMAccessControlProfileUpdate, options *armcompute.GalleryInVMAccessControlProfilesClientBeginUpdateOptions) (resp azfake.PollerResponder[armcompute.GalleryInVMAccessControlProfilesClientUpdateResponse], errResp azfake.ErrorResponder)
+	BeginUpdate func(ctx context.Context, resourceGroupName string, inVMAccessControlProfileName string, galleryInVMAccessControlProfile armcompute.GalleryInVMAccessControlProfileUpdate, options *armcompute.GalleryInVMAccessControlProfilesClientBeginUpdateOptions) (resp azfake.PollerResponder[armcompute.GalleryInVMAccessControlProfilesClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewGalleryInVMAccessControlProfilesServerTransport creates a new instance of GalleryInVMAccessControlProfilesServerTransport with the provided implementation.
@@ -137,15 +137,11 @@ func (g *GalleryInVMAccessControlProfilesServerTransport) dispatchBeginCreateOrU
 		if err != nil {
 			return nil, err
 		}
-		galleryNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("galleryName")])
-		if err != nil {
-			return nil, err
-		}
 		inVMAccessControlProfileNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("inVMAccessControlProfileName")])
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := g.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, galleryNameParam, inVMAccessControlProfileNameParam, body, nil)
+		respr, errRespr := g.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, inVMAccessControlProfileNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -185,15 +181,11 @@ func (g *GalleryInVMAccessControlProfilesServerTransport) dispatchBeginDelete(re
 		if err != nil {
 			return nil, err
 		}
-		galleryNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("galleryName")])
-		if err != nil {
-			return nil, err
-		}
 		inVMAccessControlProfileNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("inVMAccessControlProfileName")])
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := g.srv.BeginDelete(req.Context(), resourceGroupNameParam, galleryNameParam, inVMAccessControlProfileNameParam, nil)
+		respr, errRespr := g.srv.BeginDelete(req.Context(), resourceGroupNameParam, inVMAccessControlProfileNameParam, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -231,15 +223,11 @@ func (g *GalleryInVMAccessControlProfilesServerTransport) dispatchGet(req *http.
 	if err != nil {
 		return nil, err
 	}
-	galleryNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("galleryName")])
-	if err != nil {
-		return nil, err
-	}
 	inVMAccessControlProfileNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("inVMAccessControlProfileName")])
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := g.srv.Get(req.Context(), resourceGroupNameParam, galleryNameParam, inVMAccessControlProfileNameParam, nil)
+	respr, errRespr := g.srv.Get(req.Context(), resourceGroupNameParam, inVMAccessControlProfileNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -270,11 +258,7 @@ func (g *GalleryInVMAccessControlProfilesServerTransport) dispatchNewListByGalle
 		if err != nil {
 			return nil, err
 		}
-		galleryNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("galleryName")])
-		if err != nil {
-			return nil, err
-		}
-		resp := g.srv.NewListByGalleryPager(resourceGroupNameParam, galleryNameParam, nil)
+		resp := g.srv.NewListByGalleryPager(resourceGroupNameParam, nil)
 		newListByGalleryPager = &resp
 		g.newListByGalleryPager.add(req, newListByGalleryPager)
 		server.PagerResponderInjectNextLinks(newListByGalleryPager, req, func(page *armcompute.GalleryInVMAccessControlProfilesClientListByGalleryResponse, createLink func() string) {
@@ -315,15 +299,11 @@ func (g *GalleryInVMAccessControlProfilesServerTransport) dispatchBeginUpdate(re
 		if err != nil {
 			return nil, err
 		}
-		galleryNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("galleryName")])
-		if err != nil {
-			return nil, err
-		}
 		inVMAccessControlProfileNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("inVMAccessControlProfileName")])
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := g.srv.BeginUpdate(req.Context(), resourceGroupNameParam, galleryNameParam, inVMAccessControlProfileNameParam, body, nil)
+		respr, errRespr := g.srv.BeginUpdate(req.Context(), resourceGroupNameParam, inVMAccessControlProfileNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}

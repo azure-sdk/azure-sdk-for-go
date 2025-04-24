@@ -13,7 +13,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v6"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v7"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -23,23 +23,23 @@ import (
 type GalleryApplicationsServer struct {
 	// BeginCreateOrUpdate is the fake for method GalleryApplicationsClient.BeginCreateOrUpdate
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated, http.StatusAccepted
-	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, galleryName string, galleryApplicationName string, galleryApplication armcompute.GalleryApplication, options *armcompute.GalleryApplicationsClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armcompute.GalleryApplicationsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
+	BeginCreateOrUpdate func(ctx context.Context, resourceGroupName string, galleryApplicationName string, galleryApplication armcompute.GalleryApplication, options *armcompute.GalleryApplicationsClientBeginCreateOrUpdateOptions) (resp azfake.PollerResponder[armcompute.GalleryApplicationsClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// BeginDelete is the fake for method GalleryApplicationsClient.BeginDelete
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
-	BeginDelete func(ctx context.Context, resourceGroupName string, galleryName string, galleryApplicationName string, options *armcompute.GalleryApplicationsClientBeginDeleteOptions) (resp azfake.PollerResponder[armcompute.GalleryApplicationsClientDeleteResponse], errResp azfake.ErrorResponder)
+	BeginDelete func(ctx context.Context, resourceGroupName string, galleryApplicationName string, options *armcompute.GalleryApplicationsClientBeginDeleteOptions) (resp azfake.PollerResponder[armcompute.GalleryApplicationsClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method GalleryApplicationsClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
-	Get func(ctx context.Context, resourceGroupName string, galleryName string, galleryApplicationName string, options *armcompute.GalleryApplicationsClientGetOptions) (resp azfake.Responder[armcompute.GalleryApplicationsClientGetResponse], errResp azfake.ErrorResponder)
+	Get func(ctx context.Context, resourceGroupName string, galleryApplicationName string, options *armcompute.GalleryApplicationsClientGetOptions) (resp azfake.Responder[armcompute.GalleryApplicationsClientGetResponse], errResp azfake.ErrorResponder)
 
 	// NewListByGalleryPager is the fake for method GalleryApplicationsClient.NewListByGalleryPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListByGalleryPager func(resourceGroupName string, galleryName string, options *armcompute.GalleryApplicationsClientListByGalleryOptions) (resp azfake.PagerResponder[armcompute.GalleryApplicationsClientListByGalleryResponse])
+	NewListByGalleryPager func(resourceGroupName string, options *armcompute.GalleryApplicationsClientListByGalleryOptions) (resp azfake.PagerResponder[armcompute.GalleryApplicationsClientListByGalleryResponse])
 
 	// BeginUpdate is the fake for method GalleryApplicationsClient.BeginUpdate
 	// HTTP status codes to indicate success: http.StatusOK
-	BeginUpdate func(ctx context.Context, resourceGroupName string, galleryName string, galleryApplicationName string, galleryApplication armcompute.GalleryApplicationUpdate, options *armcompute.GalleryApplicationsClientBeginUpdateOptions) (resp azfake.PollerResponder[armcompute.GalleryApplicationsClientUpdateResponse], errResp azfake.ErrorResponder)
+	BeginUpdate func(ctx context.Context, resourceGroupName string, galleryApplicationName string, galleryApplication armcompute.GalleryApplicationUpdate, options *armcompute.GalleryApplicationsClientBeginUpdateOptions) (resp azfake.PollerResponder[armcompute.GalleryApplicationsClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewGalleryApplicationsServerTransport creates a new instance of GalleryApplicationsServerTransport with the provided implementation.
@@ -137,15 +137,11 @@ func (g *GalleryApplicationsServerTransport) dispatchBeginCreateOrUpdate(req *ht
 		if err != nil {
 			return nil, err
 		}
-		galleryNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("galleryName")])
-		if err != nil {
-			return nil, err
-		}
 		galleryApplicationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("galleryApplicationName")])
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := g.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, galleryNameParam, galleryApplicationNameParam, body, nil)
+		respr, errRespr := g.srv.BeginCreateOrUpdate(req.Context(), resourceGroupNameParam, galleryApplicationNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -185,15 +181,11 @@ func (g *GalleryApplicationsServerTransport) dispatchBeginDelete(req *http.Reque
 		if err != nil {
 			return nil, err
 		}
-		galleryNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("galleryName")])
-		if err != nil {
-			return nil, err
-		}
 		galleryApplicationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("galleryApplicationName")])
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := g.srv.BeginDelete(req.Context(), resourceGroupNameParam, galleryNameParam, galleryApplicationNameParam, nil)
+		respr, errRespr := g.srv.BeginDelete(req.Context(), resourceGroupNameParam, galleryApplicationNameParam, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
@@ -231,15 +223,11 @@ func (g *GalleryApplicationsServerTransport) dispatchGet(req *http.Request) (*ht
 	if err != nil {
 		return nil, err
 	}
-	galleryNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("galleryName")])
-	if err != nil {
-		return nil, err
-	}
 	galleryApplicationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("galleryApplicationName")])
 	if err != nil {
 		return nil, err
 	}
-	respr, errRespr := g.srv.Get(req.Context(), resourceGroupNameParam, galleryNameParam, galleryApplicationNameParam, nil)
+	respr, errRespr := g.srv.Get(req.Context(), resourceGroupNameParam, galleryApplicationNameParam, nil)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
@@ -270,11 +258,7 @@ func (g *GalleryApplicationsServerTransport) dispatchNewListByGalleryPager(req *
 		if err != nil {
 			return nil, err
 		}
-		galleryNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("galleryName")])
-		if err != nil {
-			return nil, err
-		}
-		resp := g.srv.NewListByGalleryPager(resourceGroupNameParam, galleryNameParam, nil)
+		resp := g.srv.NewListByGalleryPager(resourceGroupNameParam, nil)
 		newListByGalleryPager = &resp
 		g.newListByGalleryPager.add(req, newListByGalleryPager)
 		server.PagerResponderInjectNextLinks(newListByGalleryPager, req, func(page *armcompute.GalleryApplicationsClientListByGalleryResponse, createLink func() string) {
@@ -315,15 +299,11 @@ func (g *GalleryApplicationsServerTransport) dispatchBeginUpdate(req *http.Reque
 		if err != nil {
 			return nil, err
 		}
-		galleryNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("galleryName")])
-		if err != nil {
-			return nil, err
-		}
 		galleryApplicationNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("galleryApplicationName")])
 		if err != nil {
 			return nil, err
 		}
-		respr, errRespr := g.srv.BeginUpdate(req.Context(), resourceGroupNameParam, galleryNameParam, galleryApplicationNameParam, body, nil)
+		respr, errRespr := g.srv.BeginUpdate(req.Context(), resourceGroupNameParam, galleryApplicationNameParam, body, nil)
 		if respErr := server.GetError(errRespr, req); respErr != nil {
 			return nil, respErr
 		}
