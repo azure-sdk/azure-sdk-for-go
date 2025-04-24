@@ -7,7 +7,7 @@ package armrecoveryservicesbackup
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup"
-	moduleVersion = "v4.2.0"
+	moduleVersion = "v4.2.1"
 )
 
 // AcquireStorageAccountLock - Whether storage account lock is to be acquired for this container or not.
