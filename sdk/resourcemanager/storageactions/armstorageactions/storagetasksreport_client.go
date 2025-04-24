@@ -75,6 +75,10 @@ func (client *StorageTasksReportClient) NewListPager(resourceGroupName string, s
 // listCreateRequest creates the List request.
 func (client *StorageTasksReportClient) listCreateRequest(ctx context.Context, resourceGroupName string, storageTaskName string, options *StorageTasksReportClientListOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorageActions/storageTasks/{storageTaskName}/reports"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -83,10 +87,6 @@ func (client *StorageTasksReportClient) listCreateRequest(ctx context.Context, r
 		return nil, errors.New("parameter storageTaskName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{storageTaskName}", url.PathEscape(storageTaskName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err

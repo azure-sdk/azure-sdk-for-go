@@ -1,5 +1,21 @@
 # Release History
 
+## 1.0.0 (2025-04-24)
+### Breaking Changes
+
+- Type of `StorageTaskUpdateParameters.Properties` has been changed from `*StorageTaskProperties` to `*StorageTaskUpdateProperties`
+- Struct `StorageTasksListResult` has been removed
+- Field `StorageTasksListResult` of struct `StorageTasksClientListByResourceGroupResponse` has been removed
+- Field `StorageTasksListResult` of struct `StorageTasksClientListBySubscriptionResponse` has been removed
+
+### Features Added
+
+- New struct `StorageTaskListResult`
+- New struct `StorageTaskUpdateProperties`
+- New anonymous field `StorageTaskListResult` in struct `StorageTasksClientListByResourceGroupResponse`
+- New anonymous field `StorageTaskListResult` in struct `StorageTasksClientListBySubscriptionResponse`
+
+
 ## 0.2.0 (2025-04-21)
 ### Breaking Changes
 

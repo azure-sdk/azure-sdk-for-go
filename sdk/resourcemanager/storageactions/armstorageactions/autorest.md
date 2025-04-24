@@ -5,9 +5,8 @@
 ``` yaml
 azure-arm: true
 require:
-- https://github.com/Azure/azure-rest-api-specs/blob/5b798125a6aa7d5152fe0e3dd595d8a76dcfa568/specification/storageactions/resource-manager/readme.md
-- https://github.com/Azure/azure-rest-api-specs/blob/5b798125a6aa7d5152fe0e3dd595d8a76dcfa568/specification/storageactions/resource-manager/readme.go.md
+- /mnt/vss/_work/1/s/azure-rest-api-specs/specification/storageactions/resource-manager/readme.md
+- /mnt/vss/_work/1/s/azure-rest-api-specs/specification/storageactions/resource-manager/readme.go.md
 license-header: MICROSOFT_MIT_NO_VERSION
-module-version: 0.2.0
-tag: package-2023-01-01
+module-version: 1.0.0
 ```
