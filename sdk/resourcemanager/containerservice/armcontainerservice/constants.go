@@ -7,7 +7,7 @@ package armcontainerservice
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservice/armcontainerservice"
-	moduleVersion = "v7.0.0-beta.2"
+	moduleVersion = "v7.0.0-beta.3"
 )
 
 // AddonAutoscaling - Whether VPA add-on is enabled and configured to scale AKS-managed add-ons.
@@ -353,6 +353,24 @@ func PossibleFormatValues() []Format {
 	}
 }
 
+// GPUDriver - Whether to install GPU drivers. When it's not specified, default is Install.
+type GPUDriver string
+
+const (
+	// GPUDriverInstall - Install driver.
+	GPUDriverInstall GPUDriver = "Install"
+	// GPUDriverNone - Skip driver install.
+	GPUDriverNone GPUDriver = "None"
+)
+
+// PossibleGPUDriverValues returns the possible values for the GPUDriver const type.
+func PossibleGPUDriverValues() []GPUDriver {
+	return []GPUDriver{
+		GPUDriverInstall,
+		GPUDriverNone,
+	}
+}
+
 // GPUInstanceProfile - GPUInstanceProfile to be used to specify GPU MIG instance profile for supported GPU VM SKU.
 type GPUInstanceProfile string
 
@@ -560,6 +578,150 @@ func PossibleLoadBalancerSKUValues() []LoadBalancerSKU {
 	return []LoadBalancerSKU{
 		LoadBalancerSKUBasic,
 		LoadBalancerSKUStandard,
+	}
+}
+
+// LocalDNSForwardDestination - Destination server for DNS queries to be forwarded from localDNS.
+type LocalDNSForwardDestination string
+
+const (
+	// LocalDNSForwardDestinationClusterCoreDNS - Forward DNS queries from localDNS to cluster CoreDNS.
+	LocalDNSForwardDestinationClusterCoreDNS LocalDNSForwardDestination = "ClusterCoreDNS"
+	// LocalDNSForwardDestinationVnetDNS - Forward DNS queries from localDNS to DNS server configured in the VNET. A VNET can
+	// have multiple DNS servers configured.
+	LocalDNSForwardDestinationVnetDNS LocalDNSForwardDestination = "VnetDNS"
+)
+
+// PossibleLocalDNSForwardDestinationValues returns the possible values for the LocalDNSForwardDestination const type.
+func PossibleLocalDNSForwardDestinationValues() []LocalDNSForwardDestination {
+	return []LocalDNSForwardDestination{
+		LocalDNSForwardDestinationClusterCoreDNS,
+		LocalDNSForwardDestinationVnetDNS,
+	}
+}
+
+// LocalDNSForwardPolicy - Forward policy for selecting upstream DNS server. See forward plugin [https://coredns.io/plugins/forward]
+// for more information.
+type LocalDNSForwardPolicy string
+
+const (
+	// LocalDNSForwardPolicyRandom - Implements random upstream DNS server selection. See [forward plugin](https://coredns.io/plugins/forward)
+	// for more information.
+	LocalDNSForwardPolicyRandom LocalDNSForwardPolicy = "Random"
+	// LocalDNSForwardPolicyRoundRobin - Implements round robin upstream DNS server selection. See [forward plugin](https://coredns.io/plugins/forward)
+	// for more information.
+	LocalDNSForwardPolicyRoundRobin LocalDNSForwardPolicy = "RoundRobin"
+	// LocalDNSForwardPolicySequential - Implements sequential upstream DNS server selection. See [forward plugin](https://coredns.io/plugins/forward)
+	// for more information.
+	LocalDNSForwardPolicySequential LocalDNSForwardPolicy = "Sequential"
+)
+
+// PossibleLocalDNSForwardPolicyValues returns the possible values for the LocalDNSForwardPolicy const type.
+func PossibleLocalDNSForwardPolicyValues() []LocalDNSForwardPolicy {
+	return []LocalDNSForwardPolicy{
+		LocalDNSForwardPolicyRandom,
+		LocalDNSForwardPolicyRoundRobin,
+		LocalDNSForwardPolicySequential,
+	}
+}
+
+// LocalDNSMode - Mode of enablement for localDNS.
+type LocalDNSMode string
+
+const (
+	// LocalDNSModeDisabled - Disable localDNS.
+	LocalDNSModeDisabled LocalDNSMode = "Disabled"
+	// LocalDNSModePreferred - If the current orchestrator version supports this feature, prefer enabling localDNS.
+	LocalDNSModePreferred LocalDNSMode = "Preferred"
+	// LocalDNSModeRequired - Enable localDNS.
+	LocalDNSModeRequired LocalDNSMode = "Required"
+)
+
+// PossibleLocalDNSModeValues returns the possible values for the LocalDNSMode const type.
+func PossibleLocalDNSModeValues() []LocalDNSMode {
+	return []LocalDNSMode{
+		LocalDNSModeDisabled,
+		LocalDNSModePreferred,
+		LocalDNSModeRequired,
+	}
+}
+
+// LocalDNSProtocol - Enforce TCP or prefer UDP protocol for connections from localDNS to upstream DNS server.
+type LocalDNSProtocol string
+
+const (
+	// LocalDNSProtocolForceTCP - Enforce TCP protocol for connections from localDNS to upstream DNS server.
+	LocalDNSProtocolForceTCP LocalDNSProtocol = "ForceTCP"
+	// LocalDNSProtocolPreferUDP - Prefer UDP protocol for connections from localDNS to upstream DNS server.
+	LocalDNSProtocolPreferUDP LocalDNSProtocol = "PreferUDP"
+)
+
+// PossibleLocalDNSProtocolValues returns the possible values for the LocalDNSProtocol const type.
+func PossibleLocalDNSProtocolValues() []LocalDNSProtocol {
+	return []LocalDNSProtocol{
+		LocalDNSProtocolForceTCP,
+		LocalDNSProtocolPreferUDP,
+	}
+}
+
+// LocalDNSQueryLogging - Log level for DNS queries in localDNS.
+type LocalDNSQueryLogging string
+
+const (
+	// LocalDNSQueryLoggingError - Enables error logging in localDNS. See [errors plugin](https://coredns.io/plugins/errors) for
+	// more information.
+	LocalDNSQueryLoggingError LocalDNSQueryLogging = "Error"
+	// LocalDNSQueryLoggingLog - Enables query logging in localDNS. See [log plugin](https://coredns.io/plugins/log) for more
+	// information.
+	LocalDNSQueryLoggingLog LocalDNSQueryLogging = "Log"
+)
+
+// PossibleLocalDNSQueryLoggingValues returns the possible values for the LocalDNSQueryLogging const type.
+func PossibleLocalDNSQueryLoggingValues() []LocalDNSQueryLogging {
+	return []LocalDNSQueryLogging{
+		LocalDNSQueryLoggingError,
+		LocalDNSQueryLoggingLog,
+	}
+}
+
+// LocalDNSServeStale - Policy for serving stale data. See cache plugin [https://coredns.io/plugins/cache] for more information.
+type LocalDNSServeStale string
+
+const (
+	// LocalDNSServeStaleDisable - Disable serving stale data.
+	LocalDNSServeStaleDisable LocalDNSServeStale = "Disable"
+	// LocalDNSServeStaleImmediate - Serve stale data immediately. Send the expired entry to the client before checking to see
+	// if the entry is available from the source. See [cache plugin](https://coredns.io/plugins/cache) for more information.
+	LocalDNSServeStaleImmediate LocalDNSServeStale = "Immediate"
+	// LocalDNSServeStaleVerify - Serve stale data with verification. First verify that an entry is still unavailable from the
+	// source before sending the expired entry to the client. See [cache plugin](https://coredns.io/plugins/cache) for more information.
+	LocalDNSServeStaleVerify LocalDNSServeStale = "Verify"
+)
+
+// PossibleLocalDNSServeStaleValues returns the possible values for the LocalDNSServeStale const type.
+func PossibleLocalDNSServeStaleValues() []LocalDNSServeStale {
+	return []LocalDNSServeStale{
+		LocalDNSServeStaleDisable,
+		LocalDNSServeStaleImmediate,
+		LocalDNSServeStaleVerify,
+	}
+}
+
+// LocalDNSState - System-generated state of localDNS.
+type LocalDNSState string
+
+const (
+	// LocalDNSStateDisabled - localDNS is disabled.
+	LocalDNSStateDisabled LocalDNSState = "Disabled"
+	// LocalDNSStateEnabled - localDNS is enabled.
+	LocalDNSStateEnabled LocalDNSState = "Enabled"
+)
+
+// PossibleLocalDNSStateValues returns the possible values for the LocalDNSState const type.
+func PossibleLocalDNSStateValues() []LocalDNSState {
+	return []LocalDNSState{
+		LocalDNSStateDisabled,
+		LocalDNSStateEnabled,
 	}
 }
 
@@ -840,6 +1002,29 @@ func PossibleNodeOSUpgradeChannelValues() []NodeOSUpgradeChannel {
 		NodeOSUpgradeChannelNone,
 		NodeOSUpgradeChannelSecurityPatch,
 		NodeOSUpgradeChannelUnmanaged,
+	}
+}
+
+// NodeProvisioningDefaultNodePools - This field has no effect unless mode is 'Auto'. Warning: Changing this from Auto to
+// None on an existing cluster will cause the default Karpenter NodePools to be deleted, which will in turn drain and
+// delete the nodes associated with those pools. It is strongly recommended to not do this unless there are idle nodes ready
+// to take the pods evicted by that action. If not specified, the default is
+// Auto. For more information see aka.ms/something
+type NodeProvisioningDefaultNodePools string
+
+const (
+	// NodeProvisioningDefaultNodePoolsAuto - A standard set of Karpenter NodePools are provisioned
+	NodeProvisioningDefaultNodePoolsAuto NodeProvisioningDefaultNodePools = "Auto"
+	// NodeProvisioningDefaultNodePoolsNone - No Karpenter NodePools are provisioned automatically. Automatic scaling will not
+	// happen unless the user creates one or more NodePool instances.
+	NodeProvisioningDefaultNodePoolsNone NodeProvisioningDefaultNodePools = "None"
+)
+
+// PossibleNodeProvisioningDefaultNodePoolsValues returns the possible values for the NodeProvisioningDefaultNodePools const type.
+func PossibleNodeProvisioningDefaultNodePoolsValues() []NodeProvisioningDefaultNodePools {
+	return []NodeProvisioningDefaultNodePools{
+		NodeProvisioningDefaultNodePoolsAuto,
+		NodeProvisioningDefaultNodePoolsNone,
 	}
 }
 

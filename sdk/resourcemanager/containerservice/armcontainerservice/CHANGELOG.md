@@ -1,5 +1,33 @@
 # Release History
 
+## 7.0.0-beta.3 (2025-04-25)
+### Breaking Changes
+
+- Type of `ManagedClusterAgentPoolProfile.GpuProfile` has been changed from `*AgentPoolGPUProfile` to `*GPUProfile`
+- Type of `ManagedClusterAgentPoolProfileProperties.GpuProfile` has been changed from `*AgentPoolGPUProfile` to `*GPUProfile`
+- Struct `AgentPoolGPUProfile` has been removed
+- Field `EnablePodSecurityPolicy` of struct `ManagedClusterProperties` has been removed
+
+### Features Added
+
+- New enum type `GPUDriver` with values `GPUDriverInstall`, `GPUDriverNone`
+- New enum type `LocalDNSForwardDestination` with values `LocalDNSForwardDestinationClusterCoreDNS`, `LocalDNSForwardDestinationVnetDNS`
+- New enum type `LocalDNSForwardPolicy` with values `LocalDNSForwardPolicyRandom`, `LocalDNSForwardPolicyRoundRobin`, `LocalDNSForwardPolicySequential`
+- New enum type `LocalDNSMode` with values `LocalDNSModeDisabled`, `LocalDNSModePreferred`, `LocalDNSModeRequired`
+- New enum type `LocalDNSProtocol` with values `LocalDNSProtocolForceTCP`, `LocalDNSProtocolPreferUDP`
+- New enum type `LocalDNSQueryLogging` with values `LocalDNSQueryLoggingError`, `LocalDNSQueryLoggingLog`
+- New enum type `LocalDNSServeStale` with values `LocalDNSServeStaleDisable`, `LocalDNSServeStaleImmediate`, `LocalDNSServeStaleVerify`
+- New enum type `LocalDNSState` with values `LocalDNSStateDisabled`, `LocalDNSStateEnabled`
+- New enum type `NodeProvisioningDefaultNodePools` with values `NodeProvisioningDefaultNodePoolsAuto`, `NodeProvisioningDefaultNodePoolsNone`
+- New struct `GPUProfile`
+- New struct `LocalDNSOverrides`
+- New struct `LocalDNSProfile`
+- New field `LocalDNSProfile` in struct `ManagedClusterAgentPoolProfile`
+- New field `LocalDNSProfile` in struct `ManagedClusterAgentPoolProfileProperties`
+- New field `Enabled` in struct `ManagedClusterHTTPProxyConfig`
+- New field `DefaultNodePools` in struct `ManagedClusterNodeProvisioningProfile`
+
+
 ## 7.0.0-beta.2 (2025-04-24)
 ### Breaking Changes
 
