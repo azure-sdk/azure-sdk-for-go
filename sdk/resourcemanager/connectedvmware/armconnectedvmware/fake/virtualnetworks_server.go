@@ -1,6 +1,3 @@
-//go:build go1.18
-// +build go1.18
-
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -90,31 +87,50 @@ func (v *VirtualNetworksServerTransport) Do(req *http.Request) (*http.Response, 
 		return nil, nonRetriableError{errors.New("unable to dispatch request, missing value for CtxAPINameKey")}
 	}
 
-	var resp *http.Response
-	var err error
+	return v.dispatchToMethodFake(req, method)
+}
 
-	switch method {
-	case "VirtualNetworksClient.BeginCreate":
-		resp, err = v.dispatchBeginCreate(req)
-	case "VirtualNetworksClient.BeginDelete":
-		resp, err = v.dispatchBeginDelete(req)
-	case "VirtualNetworksClient.Get":
-		resp, err = v.dispatchGet(req)
-	case "VirtualNetworksClient.NewListPager":
-		resp, err = v.dispatchNewListPager(req)
-	case "VirtualNetworksClient.NewListByResourceGroupPager":
-		resp, err = v.dispatchNewListByResourceGroupPager(req)
-	case "VirtualNetworksClient.Update":
-		resp, err = v.dispatchUpdate(req)
-	default:
-		err = fmt.Errorf("unhandled API %s", method)
+func (v *VirtualNetworksServerTransport) dispatchToMethodFake(req *http.Request, method string) (*http.Response, error) {
+	resultChan := make(chan result)
+	defer close(resultChan)
+
+	go func() {
+		var intercepted bool
+		var res result
+		if virtualNetworksServerTransportInterceptor != nil {
+			res.resp, res.err, intercepted = virtualNetworksServerTransportInterceptor.Do(req)
+		}
+		if !intercepted {
+			switch method {
+			case "VirtualNetworksClient.BeginCreate":
+				res.resp, res.err = v.dispatchBeginCreate(req)
+			case "VirtualNetworksClient.BeginDelete":
+				res.resp, res.err = v.dispatchBeginDelete(req)
+			case "VirtualNetworksClient.Get":
+				res.resp, res.err = v.dispatchGet(req)
+			case "VirtualNetworksClient.NewListPager":
+				res.resp, res.err = v.dispatchNewListPager(req)
+			case "VirtualNetworksClient.NewListByResourceGroupPager":
+				res.resp, res.err = v.dispatchNewListByResourceGroupPager(req)
+			case "VirtualNetworksClient.Update":
+				res.resp, res.err = v.dispatchUpdate(req)
+			default:
+				res.err = fmt.Errorf("unhandled API %s", method)
+			}
+
+		}
+		select {
+		case resultChan <- res:
+		case <-req.Context().Done():
+		}
+	}()
+
+	select {
+	case <-req.Context().Done():
+		return nil, req.Context().Err()
+	case res := <-resultChan:
+		return res.resp, res.err
 	}
-
-	if err != nil {
-		return nil, err
-	}
-
-	return resp, nil
 }
 
 func (v *VirtualNetworksServerTransport) dispatchBeginCreate(req *http.Request) (*http.Response, error) {
@@ -362,4 +378,10 @@ func (v *VirtualNetworksServerTransport) dispatchUpdate(req *http.Request) (*htt
 		return nil, err
 	}
 	return resp, nil
+}
+
+// set this to conditionally intercept incoming requests to VirtualNetworksServerTransport
+var virtualNetworksServerTransportInterceptor interface {
+	// Do returns true if the server transport should use the returned response/error
+	Do(*http.Request) (*http.Response, error, bool)
 }
