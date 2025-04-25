@@ -1,5 +1,9 @@
 # Release History
 
+## 10.0.1 (2025-04-25)
+### Other Changes
+
+
 ## 10.0.0 (2025-04-24)
 ### Breaking Changes
 

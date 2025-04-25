@@ -7,7 +7,7 @@ package armdatafactory
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datafactory/armdatafactory"
-	moduleVersion = "v10.0.0"
+	moduleVersion = "v10.0.1"
 )
 
 // ActivityOnInactiveMarkAs - Status result of the activity when the state is set to Inactive. This is an optional property
