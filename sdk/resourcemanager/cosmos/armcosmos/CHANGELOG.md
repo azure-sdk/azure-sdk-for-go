@@ -1,5 +1,164 @@
 # Release History
 
+## 4.0.0-beta.3 (2025-04-25)
+### Breaking Changes
+
+- Field `SystemData` of struct `PrivateEndpointConnection` has been removed
+
+### Features Added
+
+- New value `StatusCreating` added to enum type `Status`
+- New enum type `CopyJobMode` with values `CopyJobModeOffline`, `CopyJobModeOnline`
+- New enum type `CopyJobStatus` with values `CopyJobStatusCancelled`, `CopyJobStatusCompleted`, `CopyJobStatusFaulted`, `CopyJobStatusPartitioning`, `CopyJobStatusPaused`, `CopyJobStatusPending`, `CopyJobStatusRunning`
+- New enum type `CopyJobType` with values `CopyJobTypeAzureBlobStorageToCassandraRU`, `CopyJobTypeCassandraRUToAzureBlobStorage`, `CopyJobTypeCassandraRUToCassandraRU`, `CopyJobTypeMongoRUToMongoRU`, `CopyJobTypeMongoRUToMongoVCore`, `CopyJobTypeNoSQLRUToNoSQLRU`
+- New enum type `FleetAnalyticsPropertiesStorageLocationType` with values `FleetAnalyticsPropertiesStorageLocationTypeFabricLakehouse`, `FleetAnalyticsPropertiesStorageLocationTypeStorageAccount`
+- New enum type `FleetspacePropertiesFleetspaceAPIKind` with values `FleetspacePropertiesFleetspaceAPIKindNoSQL`
+- New enum type `FleetspacePropertiesThroughputPoolConfigurationServiceTier` with values `FleetspacePropertiesThroughputPoolConfigurationServiceTierBusinessCritical`, `FleetspacePropertiesThroughputPoolConfigurationServiceTierGeneralPurpose`
+- New function `*BaseCopyJobProperties.GetBaseCopyJobProperties() *BaseCopyJobProperties`
+- New function `*BlobToCassandraRUCopyJobProperties.GetBaseCopyJobProperties() *BaseCopyJobProperties`
+- New function `*CassandraRUToBlobCopyJobProperties.GetBaseCopyJobProperties() *BaseCopyJobProperties`
+- New function `*CassandraRUToCassandraRUCopyJobProperties.GetBaseCopyJobProperties() *BaseCopyJobProperties`
+- New function `*CassandraResourcesClient.BeginCreateUpdateCassandraRoleAssignment(context.Context, string, string, string, CassandraRoleAssignmentResource, *CassandraResourcesClientBeginCreateUpdateCassandraRoleAssignmentOptions) (*runtime.Poller[CassandraResourcesClientCreateUpdateCassandraRoleAssignmentResponse], error)`
+- New function `*CassandraResourcesClient.BeginCreateUpdateCassandraRoleDefinition(context.Context, string, string, string, CassandraRoleDefinitionResource, *CassandraResourcesClientBeginCreateUpdateCassandraRoleDefinitionOptions) (*runtime.Poller[CassandraResourcesClientCreateUpdateCassandraRoleDefinitionResponse], error)`
+- New function `*CassandraResourcesClient.BeginDeleteCassandraRoleAssignment(context.Context, string, string, string, *CassandraResourcesClientBeginDeleteCassandraRoleAssignmentOptions) (*runtime.Poller[CassandraResourcesClientDeleteCassandraRoleAssignmentResponse], error)`
+- New function `*CassandraResourcesClient.BeginDeleteCassandraRoleDefinition(context.Context, string, string, string, *CassandraResourcesClientBeginDeleteCassandraRoleDefinitionOptions) (*runtime.Poller[CassandraResourcesClientDeleteCassandraRoleDefinitionResponse], error)`
+- New function `*CassandraResourcesClient.GetCassandraRoleAssignment(context.Context, string, string, string, *CassandraResourcesClientGetCassandraRoleAssignmentOptions) (CassandraResourcesClientGetCassandraRoleAssignmentResponse, error)`
+- New function `*CassandraResourcesClient.GetCassandraRoleDefinition(context.Context, string, string, string, *CassandraResourcesClientGetCassandraRoleDefinitionOptions) (CassandraResourcesClientGetCassandraRoleDefinitionResponse, error)`
+- New function `*CassandraResourcesClient.NewListCassandraRoleAssignmentsPager(string, string, *CassandraResourcesClientListCassandraRoleAssignmentsOptions) *runtime.Pager[CassandraResourcesClientListCassandraRoleAssignmentsResponse]`
+- New function `*CassandraResourcesClient.NewListCassandraRoleDefinitionsPager(string, string, *CassandraResourcesClientListCassandraRoleDefinitionsOptions) *runtime.Pager[CassandraResourcesClientListCassandraRoleDefinitionsResponse]`
+- New function `*ClientFactory.NewCopyJobsClient() *CopyJobsClient`
+- New function `*ClientFactory.NewFleetAnalyticsClient() *FleetAnalyticsClient`
+- New function `*ClientFactory.NewFleetClient() *FleetClient`
+- New function `*ClientFactory.NewFleetspaceAccountClient() *FleetspaceAccountClient`
+- New function `*ClientFactory.NewFleetspaceClient() *FleetspaceClient`
+- New function `*ClientFactory.NewMongoMIResourcesClient() *MongoMIResourcesClient`
+- New function `NewCopyJobsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*CopyJobsClient, error)`
+- New function `*CopyJobsClient.Cancel(context.Context, string, string, string, *CopyJobsClientCancelOptions) (CopyJobsClientCancelResponse, error)`
+- New function `*CopyJobsClient.Complete(context.Context, string, string, string, *CopyJobsClientCompleteOptions) (CopyJobsClientCompleteResponse, error)`
+- New function `*CopyJobsClient.Create(context.Context, string, string, string, CopyJobGetResults, *CopyJobsClientCreateOptions) (CopyJobsClientCreateResponse, error)`
+- New function `*CopyJobsClient.Get(context.Context, string, string, string, *CopyJobsClientGetOptions) (CopyJobsClientGetResponse, error)`
+- New function `*CopyJobsClient.NewListByDatabaseAccountPager(string, string, *CopyJobsClientListByDatabaseAccountOptions) *runtime.Pager[CopyJobsClientListByDatabaseAccountResponse]`
+- New function `*CopyJobsClient.Pause(context.Context, string, string, string, *CopyJobsClientPauseOptions) (CopyJobsClientPauseResponse, error)`
+- New function `*CopyJobsClient.Resume(context.Context, string, string, string, *CopyJobsClientResumeOptions) (CopyJobsClientResumeResponse, error)`
+- New function `NewFleetAnalyticsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*FleetAnalyticsClient, error)`
+- New function `*FleetAnalyticsClient.Create(context.Context, string, string, string, FleetAnalyticsResource, *FleetAnalyticsClientCreateOptions) (FleetAnalyticsClientCreateResponse, error)`
+- New function `*FleetAnalyticsClient.BeginDelete(context.Context, string, string, string, *FleetAnalyticsClientBeginDeleteOptions) (*runtime.Poller[FleetAnalyticsClientDeleteResponse], error)`
+- New function `*FleetAnalyticsClient.Get(context.Context, string, string, string, *FleetAnalyticsClientGetOptions) (FleetAnalyticsClientGetResponse, error)`
+- New function `*FleetAnalyticsClient.NewListPager(string, string, *FleetAnalyticsClientListOptions) *runtime.Pager[FleetAnalyticsClientListResponse]`
+- New function `NewFleetClient(string, azcore.TokenCredential, *arm.ClientOptions) (*FleetClient, error)`
+- New function `*FleetClient.Create(context.Context, string, string, FleetResource, *FleetClientCreateOptions) (FleetClientCreateResponse, error)`
+- New function `*FleetClient.BeginDelete(context.Context, string, string, *FleetClientBeginDeleteOptions) (*runtime.Poller[FleetClientDeleteResponse], error)`
+- New function `*FleetClient.Get(context.Context, string, string, *FleetClientGetOptions) (FleetClientGetResponse, error)`
+- New function `*FleetClient.NewListByResourceGroupPager(string, *FleetClientListByResourceGroupOptions) *runtime.Pager[FleetClientListByResourceGroupResponse]`
+- New function `*FleetClient.NewListPager(*FleetClientListOptions) *runtime.Pager[FleetClientListResponse]`
+- New function `*FleetClient.Update(context.Context, string, string, *FleetClientUpdateOptions) (FleetClientUpdateResponse, error)`
+- New function `NewFleetspaceAccountClient(string, azcore.TokenCredential, *arm.ClientOptions) (*FleetspaceAccountClient, error)`
+- New function `*FleetspaceAccountClient.BeginCreate(context.Context, string, string, string, string, FleetspaceAccountResource, *FleetspaceAccountClientBeginCreateOptions) (*runtime.Poller[FleetspaceAccountClientCreateResponse], error)`
+- New function `*FleetspaceAccountClient.BeginDelete(context.Context, string, string, string, string, *FleetspaceAccountClientBeginDeleteOptions) (*runtime.Poller[FleetspaceAccountClientDeleteResponse], error)`
+- New function `*FleetspaceAccountClient.Get(context.Context, string, string, string, string, *FleetspaceAccountClientGetOptions) (FleetspaceAccountClientGetResponse, error)`
+- New function `*FleetspaceAccountClient.NewListPager(string, string, string, *FleetspaceAccountClientListOptions) *runtime.Pager[FleetspaceAccountClientListResponse]`
+- New function `NewFleetspaceClient(string, azcore.TokenCredential, *arm.ClientOptions) (*FleetspaceClient, error)`
+- New function `*FleetspaceClient.BeginCreate(context.Context, string, string, string, FleetspaceResource, *FleetspaceClientBeginCreateOptions) (*runtime.Poller[FleetspaceClientCreateResponse], error)`
+- New function `*FleetspaceClient.BeginDelete(context.Context, string, string, string, *FleetspaceClientBeginDeleteOptions) (*runtime.Poller[FleetspaceClientDeleteResponse], error)`
+- New function `*FleetspaceClient.Get(context.Context, string, string, string, *FleetspaceClientGetOptions) (FleetspaceClientGetResponse, error)`
+- New function `*FleetspaceClient.NewListPager(string, string, *FleetspaceClientListOptions) *runtime.Pager[FleetspaceClientListResponse]`
+- New function `*FleetspaceClient.BeginUpdate(context.Context, string, string, string, *FleetspaceClientBeginUpdateOptions) (*runtime.Poller[FleetspaceClientUpdateResponse], error)`
+- New function `*GremlinResourcesClient.BeginCreateUpdateGremlinRoleAssignment(context.Context, string, string, string, GremlinRoleAssignmentResource, *GremlinResourcesClientBeginCreateUpdateGremlinRoleAssignmentOptions) (*runtime.Poller[GremlinResourcesClientCreateUpdateGremlinRoleAssignmentResponse], error)`
+- New function `*GremlinResourcesClient.BeginCreateUpdateGremlinRoleDefinition(context.Context, string, string, string, GremlinRoleDefinitionResource, *GremlinResourcesClientBeginCreateUpdateGremlinRoleDefinitionOptions) (*runtime.Poller[GremlinResourcesClientCreateUpdateGremlinRoleDefinitionResponse], error)`
+- New function `*GremlinResourcesClient.BeginDeleteGremlinRoleAssignment(context.Context, string, string, string, *GremlinResourcesClientBeginDeleteGremlinRoleAssignmentOptions) (*runtime.Poller[GremlinResourcesClientDeleteGremlinRoleAssignmentResponse], error)`
+- New function `*GremlinResourcesClient.BeginDeleteGremlinRoleDefinition(context.Context, string, string, string, *GremlinResourcesClientBeginDeleteGremlinRoleDefinitionOptions) (*runtime.Poller[GremlinResourcesClientDeleteGremlinRoleDefinitionResponse], error)`
+- New function `*GremlinResourcesClient.GetGremlinRoleAssignment(context.Context, string, string, string, *GremlinResourcesClientGetGremlinRoleAssignmentOptions) (GremlinResourcesClientGetGremlinRoleAssignmentResponse, error)`
+- New function `*GremlinResourcesClient.GetGremlinRoleDefinition(context.Context, string, string, string, *GremlinResourcesClientGetGremlinRoleDefinitionOptions) (GremlinResourcesClientGetGremlinRoleDefinitionResponse, error)`
+- New function `*GremlinResourcesClient.NewListGremlinRoleAssignmentsPager(string, string, *GremlinResourcesClientListGremlinRoleAssignmentsOptions) *runtime.Pager[GremlinResourcesClientListGremlinRoleAssignmentsResponse]`
+- New function `*GremlinResourcesClient.NewListGremlinRoleDefinitionsPager(string, string, *GremlinResourcesClientListGremlinRoleDefinitionsOptions) *runtime.Pager[GremlinResourcesClientListGremlinRoleDefinitionsResponse]`
+- New function `NewMongoMIResourcesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*MongoMIResourcesClient, error)`
+- New function `*MongoMIResourcesClient.BeginCreateUpdateMongoMIRoleAssignment(context.Context, string, string, string, MongoMIRoleAssignmentResource, *MongoMIResourcesClientBeginCreateUpdateMongoMIRoleAssignmentOptions) (*runtime.Poller[MongoMIResourcesClientCreateUpdateMongoMIRoleAssignmentResponse], error)`
+- New function `*MongoMIResourcesClient.BeginCreateUpdateMongoMIRoleDefinition(context.Context, string, string, string, MongoMIRoleDefinitionResource, *MongoMIResourcesClientBeginCreateUpdateMongoMIRoleDefinitionOptions) (*runtime.Poller[MongoMIResourcesClientCreateUpdateMongoMIRoleDefinitionResponse], error)`
+- New function `*MongoMIResourcesClient.BeginDeleteMongoMIRoleAssignment(context.Context, string, string, string, *MongoMIResourcesClientBeginDeleteMongoMIRoleAssignmentOptions) (*runtime.Poller[MongoMIResourcesClientDeleteMongoMIRoleAssignmentResponse], error)`
+- New function `*MongoMIResourcesClient.BeginDeleteMongoMIRoleDefinition(context.Context, string, string, string, *MongoMIResourcesClientBeginDeleteMongoMIRoleDefinitionOptions) (*runtime.Poller[MongoMIResourcesClientDeleteMongoMIRoleDefinitionResponse], error)`
+- New function `*MongoMIResourcesClient.GetMongoMIRoleAssignment(context.Context, string, string, string, *MongoMIResourcesClientGetMongoMIRoleAssignmentOptions) (MongoMIResourcesClientGetMongoMIRoleAssignmentResponse, error)`
+- New function `*MongoMIResourcesClient.GetMongoMIRoleDefinition(context.Context, string, string, string, *MongoMIResourcesClientGetMongoMIRoleDefinitionOptions) (MongoMIResourcesClientGetMongoMIRoleDefinitionResponse, error)`
+- New function `*MongoMIResourcesClient.NewListMongoMIRoleAssignmentsPager(string, string, *MongoMIResourcesClientListMongoMIRoleAssignmentsOptions) *runtime.Pager[MongoMIResourcesClientListMongoMIRoleAssignmentsResponse]`
+- New function `*MongoMIResourcesClient.NewListMongoMIRoleDefinitionsPager(string, string, *MongoMIResourcesClientListMongoMIRoleDefinitionsOptions) *runtime.Pager[MongoMIResourcesClientListMongoMIRoleDefinitionsResponse]`
+- New function `*MongoRUToMongoRUCopyJobProperties.GetBaseCopyJobProperties() *BaseCopyJobProperties`
+- New function `*MongoRUToMongoVCoreCopyJobProperties.GetBaseCopyJobProperties() *BaseCopyJobProperties`
+- New function `*NoSQLRUToNoSQLRUCopyJobProperties.GetBaseCopyJobProperties() *BaseCopyJobProperties`
+- New struct `AzureBlobContainer`
+- New struct `AzureBlobSourceSinkDetails`
+- New struct `BaseCopyJobTask`
+- New struct `BlobToCassandraRUCopyJobProperties`
+- New struct `BlobToCassandraRUCopyJobTask`
+- New struct `CassandraRUToBlobCopyJobProperties`
+- New struct `CassandraRUToBlobCopyJobTask`
+- New struct `CassandraRUToCassandraRUCopyJobProperties`
+- New struct `CassandraRUToCassandraRUCopyJobTask`
+- New struct `CassandraRoleAssignmentListResult`
+- New struct `CassandraRoleAssignmentResource`
+- New struct `CassandraRoleAssignmentResourceProperties`
+- New struct `CassandraRoleDefinitionListResult`
+- New struct `CassandraRoleDefinitionResource`
+- New struct `CassandraRoleDefinitionResourceProperties`
+- New struct `CopyJobFeedResults`
+- New struct `CopyJobGetResults`
+- New struct `CopyJobProperties`
+- New struct `DBCassandraTable`
+- New struct `DBMongoCollection`
+- New struct `DBMongoVCoreCollection`
+- New struct `DBNoSQLContainer`
+- New struct `DBSourceSinkDetails`
+- New struct `ErrorDetailAutoGenerated`
+- New struct `ErrorResponseAutoGenerated2`
+- New struct `FleetAnalyticsListResult`
+- New struct `FleetAnalyticsProperties`
+- New struct `FleetAnalyticsResource`
+- New struct `FleetListResult`
+- New struct `FleetResource`
+- New struct `FleetResourceProperties`
+- New struct `FleetResourceUpdate`
+- New struct `FleetspaceAccountListResult`
+- New struct `FleetspaceAccountProperties`
+- New struct `FleetspaceAccountResource`
+- New struct `FleetspaceListResult`
+- New struct `FleetspaceProperties`
+- New struct `FleetspacePropertiesThroughputPoolConfiguration`
+- New struct `FleetspaceResource`
+- New struct `FleetspaceUpdate`
+- New struct `FullTextPath`
+- New struct `FullTextPolicy`
+- New struct `GremlinRoleAssignmentListResult`
+- New struct `GremlinRoleAssignmentResource`
+- New struct `GremlinRoleAssignmentResourceProperties`
+- New struct `GremlinRoleDefinitionListResult`
+- New struct `GremlinRoleDefinitionResource`
+- New struct `GremlinRoleDefinitionResourceProperties`
+- New struct `MaterializedViewDetails`
+- New struct `MongoMIRoleAssignmentListResult`
+- New struct `MongoMIRoleAssignmentResource`
+- New struct `MongoMIRoleAssignmentResourceProperties`
+- New struct `MongoMIRoleDefinitionListResult`
+- New struct `MongoMIRoleDefinitionResource`
+- New struct `MongoMIRoleDefinitionResourceProperties`
+- New struct `MongoRUToMongoRUCopyJobProperties`
+- New struct `MongoRUToMongoRUCopyJobTask`
+- New struct `MongoRUToMongoVCoreCopyJobProperties`
+- New struct `MongoRUToMongoVCoreCopyJobTask`
+- New struct `MongoVCoreSourceSinkDetails`
+- New struct `NoSQLRUToNoSQLRUCopyJobProperties`
+- New struct `NoSQLRUToNoSQLRUCopyJobTask`
+- New struct `PermissionAutoGenerated2`
+- New struct `PermissionAutoGenerated3`
+- New struct `PermissionAutoGenerated4`
+- New struct `ProxyResourceAutoGenerated`
+- New struct `ResourceAutoGenerated`
+- New field `EnableAllVersionsAndDeletesChangeFeed` in struct `DatabaseAccountCreateUpdateProperties`
+- New field `EnableAllVersionsAndDeletesChangeFeed` in struct `DatabaseAccountGetProperties`
+- New field `EnableAllVersionsAndDeletesChangeFeed` in struct `DatabaseAccountUpdateProperties`
+- New field `TargetThroughput` in struct `PhysicalPartitionThroughputInfoResource`
+- New field `FullTextPolicy`, `MaterializedViews` in struct `RestorableSQLContainerPropertiesResourceContainer`
+- New field `FullTextPolicy`, `MaterializedViews` in struct `SQLContainerGetPropertiesResource`
+- New field `FullTextPolicy`, `MaterializedViews` in struct `SQLContainerResource`
+
+
 ## 4.0.0-beta.2 (2024-12-12)
 ### Breaking Changes
 
