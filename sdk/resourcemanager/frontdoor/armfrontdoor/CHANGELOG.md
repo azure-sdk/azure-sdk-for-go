@@ -1,5 +1,12 @@
 # Release History
 
+## 1.5.0 (2025-04-25)
+### Features Added
+
+- New value `ActionTypeCAPTCHA` added to enum type `ActionType`
+- New field `CaptchaExpirationInMinutes` in struct `PolicySettings`
+
+
 ## 1.4.0 (2024-04-26)
 ### Features Added
 
