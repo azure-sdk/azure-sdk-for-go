@@ -1,6 +1,3 @@
-//go:build go1.18
-// +build go1.18
-
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -56,7 +53,7 @@ func NewHostsClient(subscriptionID string, credential azcore.TokenCredential, op
 // BeginCreate - Create Or Update host.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 //   - resourceGroupName - The Resource Group Name.
 //   - hostName - Name of the host.
 //   - body - Request payload.
@@ -82,7 +79,7 @@ func (client *HostsClient) BeginCreate(ctx context.Context, resourceGroupName st
 // Create - Create Or Update host.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 func (client *HostsClient) create(ctx context.Context, resourceGroupName string, hostName string, body Host, options *HostsClientBeginCreateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "HostsClient.BeginCreate"
@@ -105,7 +102,7 @@ func (client *HostsClient) create(ctx context.Context, resourceGroupName string,
 }
 
 // createCreateRequest creates the Create request.
-func (client *HostsClient) createCreateRequest(ctx context.Context, resourceGroupName string, hostName string, body Host, options *HostsClientBeginCreateOptions) (*policy.Request, error) {
+func (client *HostsClient) createCreateRequest(ctx context.Context, resourceGroupName string, hostName string, body Host, _ *HostsClientBeginCreateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/hosts/{hostName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -124,7 +121,7 @@ func (client *HostsClient) createCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -136,7 +133,7 @@ func (client *HostsClient) createCreateRequest(ctx context.Context, resourceGrou
 // BeginDelete - Implements host DELETE method.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 //   - resourceGroupName - The Resource Group Name.
 //   - hostName - Name of the host.
 //   - options - HostsClientBeginDeleteOptions contains the optional parameters for the HostsClient.BeginDelete method.
@@ -160,7 +157,7 @@ func (client *HostsClient) BeginDelete(ctx context.Context, resourceGroupName st
 // Delete - Implements host DELETE method.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 func (client *HostsClient) deleteOperation(ctx context.Context, resourceGroupName string, hostName string, options *HostsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "HostsClient.BeginDelete"
@@ -202,7 +199,7 @@ func (client *HostsClient) deleteCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01")
+	reqQP.Set("api-version", "2023-12-01")
 	if options != nil && options.Force != nil {
 		reqQP.Set("force", strconv.FormatBool(*options.Force))
 	}
@@ -214,7 +211,7 @@ func (client *HostsClient) deleteCreateRequest(ctx context.Context, resourceGrou
 // Get - Implements host GET method.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 //   - resourceGroupName - The Resource Group Name.
 //   - hostName - Name of the host.
 //   - options - HostsClientGetOptions contains the optional parameters for the HostsClient.Get method.
@@ -241,7 +238,7 @@ func (client *HostsClient) Get(ctx context.Context, resourceGroupName string, ho
 }
 
 // getCreateRequest creates the Get request.
-func (client *HostsClient) getCreateRequest(ctx context.Context, resourceGroupName string, hostName string, options *HostsClientGetOptions) (*policy.Request, error) {
+func (client *HostsClient) getCreateRequest(ctx context.Context, resourceGroupName string, hostName string, _ *HostsClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/hosts/{hostName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -260,7 +257,7 @@ func (client *HostsClient) getCreateRequest(ctx context.Context, resourceGroupNa
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -277,7 +274,7 @@ func (client *HostsClient) getHandleResponse(resp *http.Response) (HostsClientGe
 
 // NewListPager - List of hosts in a subscription.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 //   - options - HostsClientListOptions contains the optional parameters for the HostsClient.NewListPager method.
 func (client *HostsClient) NewListPager(options *HostsClientListOptions) *runtime.Pager[HostsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[HostsClientListResponse]{
@@ -303,7 +300,7 @@ func (client *HostsClient) NewListPager(options *HostsClientListOptions) *runtim
 }
 
 // listCreateRequest creates the List request.
-func (client *HostsClient) listCreateRequest(ctx context.Context, options *HostsClientListOptions) (*policy.Request, error) {
+func (client *HostsClient) listCreateRequest(ctx context.Context, _ *HostsClientListOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.ConnectedVMwarevSphere/hosts"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -314,7 +311,7 @@ func (client *HostsClient) listCreateRequest(ctx context.Context, options *Hosts
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -331,7 +328,7 @@ func (client *HostsClient) listHandleResponse(resp *http.Response) (HostsClientL
 
 // NewListByResourceGroupPager - List of hosts in a resource group.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 //   - resourceGroupName - The Resource Group Name.
 //   - options - HostsClientListByResourceGroupOptions contains the optional parameters for the HostsClient.NewListByResourceGroupPager
 //     method.
@@ -359,7 +356,7 @@ func (client *HostsClient) NewListByResourceGroupPager(resourceGroupName string,
 }
 
 // listByResourceGroupCreateRequest creates the ListByResourceGroup request.
-func (client *HostsClient) listByResourceGroupCreateRequest(ctx context.Context, resourceGroupName string, options *HostsClientListByResourceGroupOptions) (*policy.Request, error) {
+func (client *HostsClient) listByResourceGroupCreateRequest(ctx context.Context, resourceGroupName string, _ *HostsClientListByResourceGroupOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/hosts"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -374,7 +371,7 @@ func (client *HostsClient) listByResourceGroupCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -392,7 +389,7 @@ func (client *HostsClient) listByResourceGroupHandleResponse(resp *http.Response
 // Update - API to update certain properties of the host resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-10-01
+// Generated from API version 2023-12-01
 //   - resourceGroupName - The Resource Group Name.
 //   - hostName - Name of the host.
 //   - body - Resource properties to update.
@@ -420,7 +417,7 @@ func (client *HostsClient) Update(ctx context.Context, resourceGroupName string,
 }
 
 // updateCreateRequest creates the Update request.
-func (client *HostsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, hostName string, body ResourcePatch, options *HostsClientUpdateOptions) (*policy.Request, error) {
+func (client *HostsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, hostName string, body ResourcePatch, _ *HostsClientUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/hosts/{hostName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -439,7 +436,7 @@ func (client *HostsClient) updateCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-10-01")
+	reqQP.Set("api-version", "2023-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
