@@ -1,5 +1,13 @@
 # Release History
 
+## 10.1.0 (2025-04-27)
+### Features Added
+
+- New enum type `AmazonRdsForOracleAuthenticationType` with values `AmazonRdsForOracleAuthenticationTypeBasic`
+- New field `AuthenticationType`, `CryptoChecksumClient`, `CryptoChecksumTypesClient`, `EnableBulkLoad`, `EncryptionClient`, `EncryptionTypesClient`, `FetchSize`, `FetchTswtzAsTimestamp`, `InitialLobFetchSize`, `InitializationString`, `Server`, `StatementCacheSize`, `SupportV1DataTypes`, `Username` in struct `AmazonRdsForLinkedServiceTypeProperties`
+- New field `DataSecurityMode` in struct `AzureDatabricksLinkedServiceTypeProperties`
+
+
 ## 10.0.0 (2025-04-24)
 ### Breaking Changes
 

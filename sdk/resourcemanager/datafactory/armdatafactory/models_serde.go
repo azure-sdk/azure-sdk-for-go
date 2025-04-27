@@ -641,9 +641,23 @@ func (a *AmazonMWSSource) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type AmazonRdsForLinkedServiceTypeProperties.
 func (a AmazonRdsForLinkedServiceTypeProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "authenticationType", a.AuthenticationType)
 	populateAny(objectMap, "connectionString", a.ConnectionString)
+	populateAny(objectMap, "cryptoChecksumClient", a.CryptoChecksumClient)
+	populateAny(objectMap, "cryptoChecksumTypesClient", a.CryptoChecksumTypesClient)
+	populateAny(objectMap, "enableBulkLoad", a.EnableBulkLoad)
 	populate(objectMap, "encryptedCredential", a.EncryptedCredential)
+	populateAny(objectMap, "encryptionClient", a.EncryptionClient)
+	populateAny(objectMap, "encryptionTypesClient", a.EncryptionTypesClient)
+	populateAny(objectMap, "fetchSize", a.FetchSize)
+	populateAny(objectMap, "fetchTswtzAsTimestamp", a.FetchTswtzAsTimestamp)
+	populateAny(objectMap, "initialLobFetchSize", a.InitialLobFetchSize)
+	populateAny(objectMap, "initializationString", a.InitializationString)
 	populate(objectMap, "password", a.Password)
+	populateAny(objectMap, "server", a.Server)
+	populateAny(objectMap, "statementCacheSize", a.StatementCacheSize)
+	populateAny(objectMap, "supportV1DataTypes", a.SupportV1DataTypes)
+	populateAny(objectMap, "username", a.Username)
 	return json.Marshal(objectMap)
 }
 
@@ -656,14 +670,56 @@ func (a *AmazonRdsForLinkedServiceTypeProperties) UnmarshalJSON(data []byte) err
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "authenticationType":
+			err = unpopulate(val, "AuthenticationType", &a.AuthenticationType)
+			delete(rawMsg, key)
 		case "connectionString":
 			err = unpopulate(val, "ConnectionString", &a.ConnectionString)
+			delete(rawMsg, key)
+		case "cryptoChecksumClient":
+			err = unpopulate(val, "CryptoChecksumClient", &a.CryptoChecksumClient)
+			delete(rawMsg, key)
+		case "cryptoChecksumTypesClient":
+			err = unpopulate(val, "CryptoChecksumTypesClient", &a.CryptoChecksumTypesClient)
+			delete(rawMsg, key)
+		case "enableBulkLoad":
+			err = unpopulate(val, "EnableBulkLoad", &a.EnableBulkLoad)
 			delete(rawMsg, key)
 		case "encryptedCredential":
 			err = unpopulate(val, "EncryptedCredential", &a.EncryptedCredential)
 			delete(rawMsg, key)
+		case "encryptionClient":
+			err = unpopulate(val, "EncryptionClient", &a.EncryptionClient)
+			delete(rawMsg, key)
+		case "encryptionTypesClient":
+			err = unpopulate(val, "EncryptionTypesClient", &a.EncryptionTypesClient)
+			delete(rawMsg, key)
+		case "fetchSize":
+			err = unpopulate(val, "FetchSize", &a.FetchSize)
+			delete(rawMsg, key)
+		case "fetchTswtzAsTimestamp":
+			err = unpopulate(val, "FetchTswtzAsTimestamp", &a.FetchTswtzAsTimestamp)
+			delete(rawMsg, key)
+		case "initialLobFetchSize":
+			err = unpopulate(val, "InitialLobFetchSize", &a.InitialLobFetchSize)
+			delete(rawMsg, key)
+		case "initializationString":
+			err = unpopulate(val, "InitializationString", &a.InitializationString)
+			delete(rawMsg, key)
 		case "password":
 			a.Password, err = unmarshalSecretBaseClassification(val)
+			delete(rawMsg, key)
+		case "server":
+			err = unpopulate(val, "Server", &a.Server)
+			delete(rawMsg, key)
+		case "statementCacheSize":
+			err = unpopulate(val, "StatementCacheSize", &a.StatementCacheSize)
+			delete(rawMsg, key)
+		case "supportV1DataTypes":
+			err = unpopulate(val, "SupportV1DataTypes", &a.SupportV1DataTypes)
+			delete(rawMsg, key)
+		case "username":
+			err = unpopulate(val, "Username", &a.Username)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -5932,6 +5988,7 @@ func (a AzureDatabricksLinkedServiceTypeProperties) MarshalJSON() ([]byte, error
 	populate(objectMap, "accessToken", a.AccessToken)
 	populateAny(objectMap, "authentication", a.Authentication)
 	populate(objectMap, "credential", a.Credential)
+	populateAny(objectMap, "dataSecurityMode", a.DataSecurityMode)
 	populateAny(objectMap, "domain", a.Domain)
 	populate(objectMap, "encryptedCredential", a.EncryptedCredential)
 	populateAny(objectMap, "existingClusterId", a.ExistingClusterID)
@@ -5968,6 +6025,9 @@ func (a *AzureDatabricksLinkedServiceTypeProperties) UnmarshalJSON(data []byte) 
 			delete(rawMsg, key)
 		case "credential":
 			err = unpopulate(val, "Credential", &a.Credential)
+			delete(rawMsg, key)
+		case "dataSecurityMode":
+			err = unpopulate(val, "DataSecurityMode", &a.DataSecurityMode)
 			delete(rawMsg, key)
 		case "domain":
 			err = unpopulate(val, "Domain", &a.Domain)
