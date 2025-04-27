@@ -5932,6 +5932,7 @@ func (a AzureDatabricksLinkedServiceTypeProperties) MarshalJSON() ([]byte, error
 	populate(objectMap, "accessToken", a.AccessToken)
 	populateAny(objectMap, "authentication", a.Authentication)
 	populate(objectMap, "credential", a.Credential)
+	populateAny(objectMap, "dataSecurityMode", a.DataSecurityMode)
 	populateAny(objectMap, "domain", a.Domain)
 	populate(objectMap, "encryptedCredential", a.EncryptedCredential)
 	populateAny(objectMap, "existingClusterId", a.ExistingClusterID)
@@ -5968,6 +5969,9 @@ func (a *AzureDatabricksLinkedServiceTypeProperties) UnmarshalJSON(data []byte) 
 			delete(rawMsg, key)
 		case "credential":
 			err = unpopulate(val, "Credential", &a.Credential)
+			delete(rawMsg, key)
+		case "dataSecurityMode":
+			err = unpopulate(val, "DataSecurityMode", &a.DataSecurityMode)
 			delete(rawMsg, key)
 		case "domain":
 			err = unpopulate(val, "Domain", &a.Domain)

@@ -3503,6 +3503,9 @@ type AzureDatabricksLinkedServiceTypeProperties struct {
 	// The credential reference containing authentication information.
 	Credential *CredentialReference
 
+	// The data security mode for the Databricks Cluster. Type: string (or Expression with resultType string).
+	DataSecurityMode any
+
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
 	// Type: string.
 	EncryptedCredential *string

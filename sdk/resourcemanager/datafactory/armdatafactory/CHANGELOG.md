@@ -1,5 +1,11 @@
 # Release History
 
+## 10.1.0 (2025-04-27)
+### Features Added
+
+- New field `DataSecurityMode` in struct `AzureDatabricksLinkedServiceTypeProperties`
+
+
 ## 10.0.0 (2025-04-24)
 ### Breaking Changes
 
