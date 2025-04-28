@@ -4,24 +4,6 @@
 
 package azsystemevents
 
-// ACSCallEndedByKind - Call ended participant kind.
-type ACSCallEndedByKind string
-
-const (
-	// ACSCallEndedByKindMicrosoftInternal - MicrosoftInternal
-	ACSCallEndedByKindMicrosoftInternal ACSCallEndedByKind = "MicrosoftInternal"
-	// ACSCallEndedByKindParticipant - Participant
-	ACSCallEndedByKindParticipant ACSCallEndedByKind = "Participant"
-)
-
-// PossibleACSCallEndedByKindValues returns the possible values for the ACSCallEndedByKind const type.
-func PossibleACSCallEndedByKindValues() []ACSCallEndedByKind {
-	return []ACSCallEndedByKind{
-		ACSCallEndedByKindMicrosoftInternal,
-		ACSCallEndedByKindParticipant,
-	}
-}
-
 // ACSEmailDeliveryReportStatus - The status of the email. Any value other than Delivered is considered failed.
 type ACSEmailDeliveryReportStatus string
 
@@ -260,6 +242,24 @@ func PossibleACSUserEngagementValues() []ACSUserEngagement {
 	return []ACSUserEngagement{
 		ACSUserEngagementClick,
 		ACSUserEngagementView,
+	}
+}
+
+// AcsCallEndedByKind - Call ended participant kind.
+type AcsCallEndedByKind string
+
+const (
+	// AcsCallEndedByKindMicrosoftInternal - MicrosoftInternal
+	AcsCallEndedByKindMicrosoftInternal AcsCallEndedByKind = "MicrosoftInternal"
+	// AcsCallEndedByKindParticipant - Participant
+	AcsCallEndedByKindParticipant AcsCallEndedByKind = "Participant"
+)
+
+// PossibleAcsCallEndedByKindValues returns the possible values for the AcsCallEndedByKind const type.
+func PossibleAcsCallEndedByKindValues() []AcsCallEndedByKind {
+	return []AcsCallEndedByKind{
+		AcsCallEndedByKindMicrosoftInternal,
+		AcsCallEndedByKindParticipant,
 	}
 }
 
