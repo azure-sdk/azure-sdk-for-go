@@ -1,5 +1,36 @@
 # Release History
 
+## 5.0.0 (2025-04-28)
+### Breaking Changes
+
+- Struct `UserCreatedAcrAccount` has been removed
+- Struct `UserCreatedStorageAccount` has been removed
+- Field `UserCreatedAcrAccount` of struct `AcrDetails` has been removed
+- Field `UserCreatedStorageAccount` of struct `StorageAccountDetails` has been removed
+
+### Features Added
+
+- New value `ConnectionCategoryElasticsearch`, `ConnectionCategoryManagedOnlineEndpoint`, `ConnectionCategoryPinecone` added to enum type `ConnectionCategory`
+- New value `RuleStatusDeleting`, `RuleStatusFailed`, `RuleStatusProvisioning` added to enum type `RuleStatus`
+- New enum type `FirewallSKU` with values `FirewallSKUBasic`, `FirewallSKUStandard`
+- New enum type `ManagedNetworkKind` with values `ManagedNetworkKindV1`, `ManagedNetworkKindV2`
+- New function `*WorkspaceConnectionsClient.Update(context.Context, string, string, string, *WorkspaceConnectionsClientUpdateOptions) (WorkspaceConnectionsClientUpdateResponse, error)`
+- New struct `ManagedResourceGroupAssignedIdentities`
+- New struct `ManagedResourceGroupSettings`
+- New struct `WorkspaceConnectionUpdateParameter`
+- New field `ErrorInformation`, `ParentRuleNames` in struct `FqdnOutboundRule`
+- New field `StartupRoute` in struct `InferenceContainerProperties`
+- New field `StartupProbe` in struct `KubernetesOnlineDeployment`
+- New field `FirewallPublicIPAddress`, `FirewallSKU`, `ManagedNetworkKind` in struct `ManagedNetworkSettings`
+- New field `StartupProbe` in struct `ManagedOnlineDeployment`
+- New field `StartupProbe` in struct `OnlineDeploymentProperties`
+- New field `ErrorInformation`, `ParentRuleNames` in struct `OutboundRule`
+- New field `ErrorInformation`, `ParentRuleNames` in struct `PrivateEndpointOutboundRule`
+- New field `ManagedResourceGroupSettings` in struct `RegistryProperties`
+- New field `ErrorInformation`, `ParentRuleNames` in struct `ServiceTagOutboundRule`
+- New field `IncludeAll` in struct `WorkspaceConnectionsClientListOptions`
+
+
 ## 4.0.0 (2024-08-23)
 ### Breaking Changes
 
