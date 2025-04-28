@@ -7,7 +7,7 @@ package armcontainerservice
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservice/armcontainerservice"
-	moduleVersion = "v7.0.0-beta.2"
+	moduleVersion = "v7.0.0-beta.3"
 )
 
 // AddonAutoscaling - Whether VPA add-on is enabled and configured to scale AKS-managed add-ons.
@@ -350,6 +350,24 @@ func PossibleFormatValues() []Format {
 	return []Format{
 		FormatAzure,
 		FormatExec,
+	}
+}
+
+// GPUDriver - Whether to install GPU drivers. When it's not specified, default is Install.
+type GPUDriver string
+
+const (
+	// GPUDriverInstall - Install driver.
+	GPUDriverInstall GPUDriver = "Install"
+	// GPUDriverNone - Skip driver install.
+	GPUDriverNone GPUDriver = "None"
+)
+
+// PossibleGPUDriverValues returns the possible values for the GPUDriver const type.
+func PossibleGPUDriverValues() []GPUDriver {
+	return []GPUDriver{
+		GPUDriverInstall,
+		GPUDriverNone,
 	}
 }
 
@@ -843,6 +861,29 @@ func PossibleNodeOSUpgradeChannelValues() []NodeOSUpgradeChannel {
 	}
 }
 
+// NodeProvisioningDefaultNodePools - This field has no effect unless mode is 'Auto'. Warning: Changing this from Auto to
+// None on an existing cluster will cause the default Karpenter NodePools to be deleted, which will in turn drain and
+// delete the nodes associated with those pools. It is strongly recommended to not do this unless there are idle nodes ready
+// to take the pods evicted by that action. If not specified, the default is
+// Auto. For more information see aka.ms/something
+type NodeProvisioningDefaultNodePools string
+
+const (
+	// NodeProvisioningDefaultNodePoolsAuto - A standard set of Karpenter NodePools are provisioned
+	NodeProvisioningDefaultNodePoolsAuto NodeProvisioningDefaultNodePools = "Auto"
+	// NodeProvisioningDefaultNodePoolsNone - No Karpenter NodePools are provisioned automatically. Automatic scaling will not
+	// happen unless the user creates one or more NodePool instances.
+	NodeProvisioningDefaultNodePoolsNone NodeProvisioningDefaultNodePools = "None"
+)
+
+// PossibleNodeProvisioningDefaultNodePoolsValues returns the possible values for the NodeProvisioningDefaultNodePools const type.
+func PossibleNodeProvisioningDefaultNodePoolsValues() []NodeProvisioningDefaultNodePools {
+	return []NodeProvisioningDefaultNodePools{
+		NodeProvisioningDefaultNodePoolsAuto,
+		NodeProvisioningDefaultNodePoolsNone,
+	}
+}
+
 // NodeProvisioningMode - Once the mode it set to Auto, it cannot be changed back to Manual.
 type NodeProvisioningMode string
 
@@ -1100,6 +1141,25 @@ func PossibleProtocolValues() []Protocol {
 	return []Protocol{
 		ProtocolTCP,
 		ProtocolUDP,
+	}
+}
+
+// ProxyRedirectionMechanism - Mode of traffic redirection.
+type ProxyRedirectionMechanism string
+
+const (
+	// ProxyRedirectionMechanismCNIChaining - Istio will created a chained CNI plugin to redirect traffic (recommended).
+	ProxyRedirectionMechanismCNIChaining ProxyRedirectionMechanism = "CNIChaining"
+	// ProxyRedirectionMechanismInitContainers - Istio will inject an init container into each pod to redirect traffic (requires
+	// NET_ADMIN and NET_RAW).
+	ProxyRedirectionMechanismInitContainers ProxyRedirectionMechanism = "InitContainers"
+)
+
+// PossibleProxyRedirectionMechanismValues returns the possible values for the ProxyRedirectionMechanism const type.
+func PossibleProxyRedirectionMechanismValues() []ProxyRedirectionMechanism {
+	return []ProxyRedirectionMechanism{
+		ProxyRedirectionMechanismCNIChaining,
+		ProxyRedirectionMechanismInitContainers,
 	}
 }
 
