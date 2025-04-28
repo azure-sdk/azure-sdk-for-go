@@ -1,5 +1,22 @@
 # Release History
 
+## 7.0.0-beta.3 (2025-04-28)
+### Breaking Changes
+
+- Type of `ManagedClusterAgentPoolProfile.GpuProfile` has been changed from `*AgentPoolGPUProfile` to `*GPUProfile`
+- Type of `ManagedClusterAgentPoolProfileProperties.GpuProfile` has been changed from `*AgentPoolGPUProfile` to `*GPUProfile`
+- Struct `AgentPoolGPUProfile` has been removed
+- Field `EnablePodSecurityPolicy` of struct `ManagedClusterProperties` has been removed
+
+### Features Added
+
+- New enum type `GPUDriver` with values `GPUDriverInstall`, `GPUDriverNone`
+- New enum type `NodeProvisioningDefaultNodePools` with values `NodeProvisioningDefaultNodePoolsAuto`, `NodeProvisioningDefaultNodePoolsNone`
+- New struct `GPUProfile`
+- New field `Enabled` in struct `ManagedClusterHTTPProxyConfig`
+- New field `DefaultNodePools` in struct `ManagedClusterNodeProvisioningProfile`
+
+
 ## 7.0.0-beta.2 (2025-04-24)
 ### Breaking Changes
 

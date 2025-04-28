@@ -119,19 +119,6 @@ type AgentPoolDeleteMachinesParameter struct {
 	MachineNames []*string
 }
 
-type AgentPoolGPUProfile struct {
-	// Specify the type of GPU driver to install when creating Windows agent pools. If not provided, AKS selects the driver based
-	// on system compatibility. This cannot be changed once the AgentPool has been
-	// created. This cannot be set on Linux AgentPools. For Linux AgentPools, the driver is selected based on system compatibility.
-	DriverType *DriverType
-
-	// The default value is true when the vmSize of the agent pool contains a GPU, false otherwise. GPU Driver Installation can
-	// only be set true when VM has an associated GPU resource. Setting this field to
-	// false prevents automatic GPU driver installation. In that case, in order for the GPU to be usable, the user must perform
-	// GPU driver installation themselves.
-	InstallGPUDriver *bool
-}
-
 // AgentPoolGatewayProfile - Profile of the managed cluster gateway agent pool.
 type AgentPoolGatewayProfile struct {
 	// The Gateway agent pool associates one public IPPrefix for each static egress gateway to provide public egress. The size
@@ -475,6 +462,16 @@ type ExtendedLocation struct {
 
 	// The type of the extended location.
 	Type *ExtendedLocationTypes
+}
+
+type GPUProfile struct {
+	// Whether to install GPU drivers. When it's not specified, default is Install.
+	Driver *GPUDriver
+
+	// Specify the type of GPU driver to install when creating Windows agent pools. If not provided, AKS selects the driver based
+	// on system compatibility. This cannot be changed once the AgentPool has been
+	// created. This cannot be set on Linux AgentPools. For Linux AgentPools, the driver is selected based on system compatibility.
+	DriverType *DriverType
 }
 
 // GuardrailsAvailableVersion - Available Guardrails Version
@@ -1110,7 +1107,7 @@ type ManagedClusterAgentPoolProfile struct {
 	GpuInstanceProfile *GPUInstanceProfile
 
 	// The GPU settings of an agent pool.
-	GpuProfile *AgentPoolGPUProfile
+	GpuProfile *GPUProfile
 
 	// This is of the form: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/hostGroups/{hostGroupName}.
 	// For more information see Azure dedicated hosts
@@ -1322,7 +1319,7 @@ type ManagedClusterAgentPoolProfileProperties struct {
 	GpuInstanceProfile *GPUInstanceProfile
 
 	// The GPU settings of an agent pool.
-	GpuProfile *AgentPoolGPUProfile
+	GpuProfile *GPUProfile
 
 	// This is of the form: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/hostGroups/{hostGroupName}.
 	// For more information see Azure dedicated hosts
@@ -1621,6 +1618,9 @@ type ManagedClusterCostAnalysis struct {
 
 // ManagedClusterHTTPProxyConfig - Cluster HTTP proxy configuration.
 type ManagedClusterHTTPProxyConfig struct {
+	// Whether to enable HTTP proxy. When disabled, the specified proxy configuration will be not be set on pods and nodes.
+	Enabled *bool
+
 	// The HTTP proxy server endpoint to use.
 	HTTPProxy *string
 
@@ -1781,6 +1781,13 @@ type ManagedClusterNATGatewayProfile struct {
 }
 
 type ManagedClusterNodeProvisioningProfile struct {
+	// This field has no effect unless mode is 'Auto'. Warning: Changing this from Auto to None on an existing cluster will cause
+	// the default Karpenter NodePools to be deleted, which will in turn drain and
+	// delete the nodes associated with those pools. It is strongly recommended to not do this unless there are idle nodes ready
+	// to take the pods evicted by that action. If not specified, the default is
+	// Auto. For more information see aka.ms/something
+	DefaultNodePools *NodeProvisioningDefaultNodePools
+
 	// Once the mode it set to Auto, it cannot be changed back to Manual.
 	Mode *NodeProvisioningMode
 }
@@ -1955,11 +1962,6 @@ type ManagedClusterProperties struct {
 	// [https://aka.ms/NamespaceARMResource] for more details
 	// on Namespace as a ARM Resource.
 	EnableNamespaceResources *bool
-
-	// (DEPRECATED) Whether to enable Kubernetes pod security policy (preview). PodSecurityPolicy was deprecated in Kubernetes
-	// v1.21, and removed from Kubernetes in v1.25. Learn more at
-	// https://aka.ms/k8s/psp and https://aka.ms/aks/psp.
-	EnablePodSecurityPolicy *bool
 
 	// Whether to enable Kubernetes Role-Based Access Control.
 	EnableRBAC *bool
