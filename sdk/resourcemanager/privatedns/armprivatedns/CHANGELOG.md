@@ -1,5 +1,28 @@
 # Release History
 
+## 2.0.0 (2025-04-29)
+### Breaking Changes
+
+- Function `*RecordSetsClient.CreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, RecordType, string, RecordSet, *RecordSetsClientCreateOrUpdateOptions)` to `(context.Context, string, string, string, RecordType, RecordSet, *RecordSetsClientCreateOrUpdateOptions)`
+- Function `*RecordSetsClient.Delete` parameter(s) have been changed from `(context.Context, string, string, RecordType, string, *RecordSetsClientDeleteOptions)` to `(context.Context, string, string, string, RecordType, *RecordSetsClientDeleteOptions)`
+- Function `*RecordSetsClient.Get` parameter(s) have been changed from `(context.Context, string, string, RecordType, string, *RecordSetsClientGetOptions)` to `(context.Context, string, string, string, RecordType, *RecordSetsClientGetOptions)`
+- Function `*RecordSetsClient.Update` parameter(s) have been changed from `(context.Context, string, string, RecordType, string, RecordSet, *RecordSetsClientUpdateOptions)` to `(context.Context, string, string, string, RecordType, RecordSet, *RecordSetsClientUpdateOptions)`
+
+### Features Added
+
+- New enum type `CreatedByType` with values `CreatedByTypeApplication`, `CreatedByTypeKey`, `CreatedByTypeManagedIdentity`, `CreatedByTypeUser`
+- New struct `ErrorAdditionalInfo`
+- New struct `ErrorDetail`
+- New struct `ErrorResponse`
+- New struct `SystemData`
+- New field `SystemData` in struct `PrivateZone`
+- New field `SystemData` in struct `ProxyResource`
+- New field `SystemData` in struct `RecordSet`
+- New field `SystemData` in struct `Resource`
+- New field `SystemData` in struct `TrackedResource`
+- New field `SystemData` in struct `VirtualNetworkLink`
+
+
 ## 1.3.0 (2024-09-27)
 ### Features Added
 
