@@ -652,8 +652,8 @@ func ExampleOrganizationsClient_GetPostgresVersions_organizationsGetPostgresVers
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	res, err := clientFactory.NewOrganizationsClient().GetPostgresVersions(ctx, "rgneon", &armneonpostgres.OrganizationsClientGetPostgresVersionsOptions{
-		Parameters: &armneonpostgres.PgVersion{
+	res, err := clientFactory.NewOrganizationsClient().GetPostgresVersions(ctx, "rgneon", &OrganizationsClientGetPostgresVersionsOptions{
+		parameters: &armneonpostgres.PgVersion{
 			Version: to.Ptr[int32](7),
 		}})
 	if err != nil {
@@ -1176,6 +1176,18 @@ func ExampleOrganizationsClient_BeginUpdate() {
 	}
 	poller, err := clientFactory.NewOrganizationsClient().BeginUpdate(ctx, "rgneon", "test-org", armneonpostgres.OrganizationResource{
 		Properties: &armneonpostgres.OrganizationProperties{
+			MarketplaceDetails: &armneonpostgres.MarketplaceDetails{
+				SubscriptionID:     to.Ptr("yxmkfivp"),
+				SubscriptionStatus: to.Ptr(armneonpostgres.MarketplaceSubscriptionStatusPendingFulfillmentStart),
+				OfferDetails: &armneonpostgres.OfferDetails{
+					PublisherID: to.Ptr("hporaxnopmolttlnkbarw"),
+					OfferID:     to.Ptr("bunyeeupoedueofwrzej"),
+					PlanID:      to.Ptr("nlbfiwtslenfwek"),
+					PlanName:    to.Ptr("ljbmgpkfqklaufacbpml"),
+					TermUnit:    to.Ptr("qbcq"),
+					TermID:      to.Ptr("aedlchikwqckuploswthvshe"),
+				},
+			},
 			UserDetails: &armneonpostgres.UserDetails{
 				FirstName:    to.Ptr("zhelh"),
 				LastName:     to.Ptr("zbdhouyeozylnerrc"),
