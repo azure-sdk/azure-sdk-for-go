@@ -124,9 +124,9 @@ func ExampleFleetsClient_BeginCreate_createsAFleetResourceWithALongRunningOperat
 				"key126": {},
 			},
 		},
-	}, &armcontainerservicefleet.FleetsClientBeginCreateOptions{
-		IfMatch:     to.Ptr("jzlrwaylijhsnzp"),
-		IfNoneMatch: to.Ptr("cqpzdjshmggwolagomzxfy")})
+	}, &FleetsClientBeginCreateOptions{
+		ifMatch:     to.Ptr("jzlrwaylijhsnzp"),
+		ifNoneMatch: to.Ptr("cqpzdjshmggwolagomzxfy")})
 	if err != nil {
 		log.Fatalf("failed to finish the request: %v", err)
 	}
@@ -224,8 +224,8 @@ func ExampleFleetsClient_BeginDelete_deletesAFleetResourceAsynchronouslyWithALon
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	poller, err := clientFactory.NewFleetsClient().BeginDelete(ctx, "rgfleets", "fleet1", &armcontainerservicefleet.FleetsClientBeginDeleteOptions{
-		IfMatch: to.Ptr("crsgokrdxddjsvqxpplerummnmzav")})
+	poller, err := clientFactory.NewFleetsClient().BeginDelete(ctx, "rgfleets", "fleet1", &FleetsClientBeginDeleteOptions{
+		ifMatch: to.Ptr("crsgokrdxddjsvqxpplerummnmzav")})
 	if err != nil {
 		log.Fatalf("failed to finish the request: %v", err)
 	}
@@ -738,8 +738,8 @@ func ExampleFleetsClient_BeginUpdateAsync_updateAFleet() {
 			"tier": to.Ptr("secure"),
 			"env":  to.Ptr("prod"),
 		},
-	}, &armcontainerservicefleet.FleetsClientBeginUpdateAsyncOptions{
-		IfMatch: to.Ptr("dfjkwelr7384")})
+	}, &FleetsClientBeginUpdateAsyncOptions{
+		ifMatch: to.Ptr("dfjkwelr7384")})
 	if err != nil {
 		log.Fatalf("failed to finish the request: %v", err)
 	}
@@ -811,8 +811,8 @@ func ExampleFleetsClient_BeginUpdateAsync_updateAFleetGeneratedByMaximumSetRule(
 				"key126": {},
 			},
 		},
-	}, &armcontainerservicefleet.FleetsClientBeginUpdateAsyncOptions{
-		IfMatch: to.Ptr("lgoeir")})
+	}, &FleetsClientBeginUpdateAsyncOptions{
+		ifMatch: to.Ptr("lgoeir")})
 	if err != nil {
 		log.Fatalf("failed to finish the request: %v", err)
 	}
