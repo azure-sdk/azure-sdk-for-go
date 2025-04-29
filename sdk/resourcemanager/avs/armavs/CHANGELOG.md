@@ -1,5 +1,172 @@
 # Release History
 
+## 3.0.0 (2025-04-29)
+### Breaking Changes
+
+- Type of `PrivateCloud.Identity` has been changed from `*PrivateCloudIdentity` to `*SystemAssignedServiceIdentity`
+- Type of `PrivateCloudUpdate.Identity` has been changed from `*PrivateCloudIdentity` to `*SystemAssignedServiceIdentity`
+- Type of `ScriptExecutionProperties.NamedOutputs` has been changed from `map[string]any` to `map[string]*ScriptExecutionPropertiesNamedOutput`
+- Enum `ResourceIdentityType` has been removed
+- Function `*VMPlacementPolicyProperties.GetPlacementPolicyProperties` has been removed
+- Function `*WorkloadNetworksClient.BeginCreateDNSService` has been removed
+- Function `*WorkloadNetworksClient.BeginCreateDNSZone` has been removed
+- Function `*WorkloadNetworksClient.BeginCreateDhcp` has been removed
+- Function `*WorkloadNetworksClient.BeginCreatePortMirroring` has been removed
+- Function `*WorkloadNetworksClient.BeginCreatePublicIP` has been removed
+- Function `*WorkloadNetworksClient.BeginCreateSegments` has been removed
+- Function `*WorkloadNetworksClient.BeginCreateVMGroup` has been removed
+- Function `*WorkloadNetworksClient.BeginDeleteDNSService` has been removed
+- Function `*WorkloadNetworksClient.BeginDeleteDNSZone` has been removed
+- Function `*WorkloadNetworksClient.BeginDeleteDhcp` has been removed
+- Function `*WorkloadNetworksClient.BeginDeletePortMirroring` has been removed
+- Function `*WorkloadNetworksClient.BeginDeletePublicIP` has been removed
+- Function `*WorkloadNetworksClient.BeginDeleteSegment` has been removed
+- Function `*WorkloadNetworksClient.BeginDeleteVMGroup` has been removed
+- Function `*WorkloadNetworksClient.GetDNSService` has been removed
+- Function `*WorkloadNetworksClient.GetDNSZone` has been removed
+- Function `*WorkloadNetworksClient.GetDhcp` has been removed
+- Function `*WorkloadNetworksClient.GetGateway` has been removed
+- Function `*WorkloadNetworksClient.GetPortMirroring` has been removed
+- Function `*WorkloadNetworksClient.GetPublicIP` has been removed
+- Function `*WorkloadNetworksClient.GetSegment` has been removed
+- Function `*WorkloadNetworksClient.GetVMGroup` has been removed
+- Function `*WorkloadNetworksClient.GetVirtualMachine` has been removed
+- Function `*WorkloadNetworksClient.NewListDNSServicesPager` has been removed
+- Function `*WorkloadNetworksClient.NewListDNSZonesPager` has been removed
+- Function `*WorkloadNetworksClient.NewListDhcpPager` has been removed
+- Function `*WorkloadNetworksClient.NewListGatewaysPager` has been removed
+- Function `*WorkloadNetworksClient.NewListPortMirroringPager` has been removed
+- Function `*WorkloadNetworksClient.NewListPublicIPsPager` has been removed
+- Function `*WorkloadNetworksClient.NewListSegmentsPager` has been removed
+- Function `*WorkloadNetworksClient.NewListVMGroupsPager` has been removed
+- Function `*WorkloadNetworksClient.NewListVirtualMachinesPager` has been removed
+- Function `*WorkloadNetworksClient.BeginUpdateDNSService` has been removed
+- Function `*WorkloadNetworksClient.BeginUpdateDNSZone` has been removed
+- Function `*WorkloadNetworksClient.BeginUpdateDhcp` has been removed
+- Function `*WorkloadNetworksClient.BeginUpdatePortMirroring` has been removed
+- Function `*WorkloadNetworksClient.BeginUpdateSegments` has been removed
+- Function `*WorkloadNetworksClient.BeginUpdateVMGroup` has been removed
+- Struct `PrivateCloudIdentity` has been removed
+- Struct `VMPlacementPolicyProperties` has been removed
+- Field `SKU` of struct `LocationsClientCheckTrialAvailabilityOptions` has been removed
+- Field `PlacementPolicy` of struct `PlacementPoliciesClientUpdateResponse` has been removed
+
+### Features Added
+
+- New enum type `HostKind` with values `HostKindGeneral`, `HostKindSpecialized`
+- New enum type `HostMaintenance` with values `HostMaintenanceReplacement`, `HostMaintenanceUpgrade`
+- New enum type `HostProvisioningState` with values `HostProvisioningStateCanceled`, `HostProvisioningStateFailed`, `HostProvisioningStateSucceeded`
+- New enum type `ProvisionedNetworkProvisioningState` with values `ProvisionedNetworkProvisioningStateCanceled`, `ProvisionedNetworkProvisioningStateFailed`, `ProvisionedNetworkProvisioningStateSucceeded`
+- New enum type `ProvisionedNetworkTypes` with values `ProvisionedNetworkTypesEsxManagement`, `ProvisionedNetworkTypesEsxReplication`, `ProvisionedNetworkTypesHcxManagement`, `ProvisionedNetworkTypesHcxUplink`, `ProvisionedNetworkTypesVcenterManagement`, `ProvisionedNetworkTypesVmotion`, `ProvisionedNetworkTypesVsan`
+- New enum type `PureStoragePolicyProvisioningState` with values `PureStoragePolicyProvisioningStateCanceled`, `PureStoragePolicyProvisioningStateDeleting`, `PureStoragePolicyProvisioningStateFailed`, `PureStoragePolicyProvisioningStateSucceeded`, `PureStoragePolicyProvisioningStateUpdating`
+- New enum type `ResourceSKUResourceType` with values `ResourceSKUResourceTypePrivateClouds`, `ResourceSKUResourceTypePrivateCloudsClusters`
+- New enum type `ResourceSKURestrictionsReasonCode` with values `ResourceSKURestrictionsReasonCodeNotAvailableForSubscription`, `ResourceSKURestrictionsReasonCodeQuotaID`
+- New enum type `ResourceSKURestrictionsType` with values `ResourceSKURestrictionsTypeLocation`, `ResourceSKURestrictionsTypeZone`
+- New enum type `SystemAssignedServiceIdentityType` with values `SystemAssignedServiceIdentityTypeNone`, `SystemAssignedServiceIdentityTypeSystemAssigned`
+- New function `*ClientFactory.NewHostsClient() *HostsClient`
+- New function `*ClientFactory.NewProvisionedNetworksClient() *ProvisionedNetworksClient`
+- New function `*ClientFactory.NewPureStoragePoliciesClient() *PureStoragePoliciesClient`
+- New function `*ClientFactory.NewSKUsClient() *SKUsClient`
+- New function `*ClientFactory.NewWorkloadNetworkDNSServicesClient() *WorkloadNetworkDNSServicesClient`
+- New function `*ClientFactory.NewWorkloadNetworkDNSZonesClient() *WorkloadNetworkDNSZonesClient`
+- New function `*ClientFactory.NewWorkloadNetworkDhcpConfigurationsClient() *WorkloadNetworkDhcpConfigurationsClient`
+- New function `*ClientFactory.NewWorkloadNetworkGatewaysClient() *WorkloadNetworkGatewaysClient`
+- New function `*ClientFactory.NewWorkloadNetworkPortMirroringProfilesClient() *WorkloadNetworkPortMirroringProfilesClient`
+- New function `*ClientFactory.NewWorkloadNetworkPublicIPsClient() *WorkloadNetworkPublicIPsClient`
+- New function `*ClientFactory.NewWorkloadNetworkSegmentsClient() *WorkloadNetworkSegmentsClient`
+- New function `*ClientFactory.NewWorkloadNetworkVMGroupsClient() *WorkloadNetworkVMGroupsClient`
+- New function `*ClientFactory.NewWorkloadNetworkVirtualMachinesClient() *WorkloadNetworkVirtualMachinesClient`
+- New function `*GeneralHostProperties.GetHostProperties() *HostProperties`
+- New function `*HostProperties.GetHostProperties() *HostProperties`
+- New function `NewHostsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*HostsClient, error)`
+- New function `*HostsClient.Get(context.Context, string, string, string, string, *HostsClientGetOptions) (HostsClientGetResponse, error)`
+- New function `*HostsClient.NewListPager(string, string, string, *HostsClientListOptions) *runtime.Pager[HostsClientListResponse]`
+- New function `NewProvisionedNetworksClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ProvisionedNetworksClient, error)`
+- New function `*ProvisionedNetworksClient.Get(context.Context, string, string, string, *ProvisionedNetworksClientGetOptions) (ProvisionedNetworksClientGetResponse, error)`
+- New function `*ProvisionedNetworksClient.NewListPager(string, string, *ProvisionedNetworksClientListOptions) *runtime.Pager[ProvisionedNetworksClientListResponse]`
+- New function `NewPureStoragePoliciesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PureStoragePoliciesClient, error)`
+- New function `*PureStoragePoliciesClient.BeginCreateOrUpdate(context.Context, string, string, string, PureStoragePolicy, *PureStoragePoliciesClientBeginCreateOrUpdateOptions) (*runtime.Poller[PureStoragePoliciesClientCreateOrUpdateResponse], error)`
+- New function `*PureStoragePoliciesClient.BeginDelete(context.Context, string, string, string, *PureStoragePoliciesClientBeginDeleteOptions) (*runtime.Poller[PureStoragePoliciesClientDeleteResponse], error)`
+- New function `*PureStoragePoliciesClient.Get(context.Context, string, string, string, *PureStoragePoliciesClientGetOptions) (PureStoragePoliciesClientGetResponse, error)`
+- New function `*PureStoragePoliciesClient.NewListPager(string, string, *PureStoragePoliciesClientListOptions) *runtime.Pager[PureStoragePoliciesClientListResponse]`
+- New function `NewSKUsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SKUsClient, error)`
+- New function `*SKUsClient.NewListPager(*SKUsClientListOptions) *runtime.Pager[SKUsClientListResponse]`
+- New function `*SpecializedHostProperties.GetHostProperties() *HostProperties`
+- New function `*VMVMPlacementPolicyProperties.GetPlacementPolicyProperties() *PlacementPolicyProperties`
+- New function `NewWorkloadNetworkDNSServicesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WorkloadNetworkDNSServicesClient, error)`
+- New function `*WorkloadNetworkDNSServicesClient.BeginCreate(context.Context, string, string, string, WorkloadNetworkDNSService, *WorkloadNetworkDNSServicesClientBeginCreateOptions) (*runtime.Poller[WorkloadNetworkDNSServicesClientCreateResponse], error)`
+- New function `*WorkloadNetworkDNSServicesClient.BeginDelete(context.Context, string, string, string, *WorkloadNetworkDNSServicesClientBeginDeleteOptions) (*runtime.Poller[WorkloadNetworkDNSServicesClientDeleteResponse], error)`
+- New function `*WorkloadNetworkDNSServicesClient.Get(context.Context, string, string, string, *WorkloadNetworkDNSServicesClientGetOptions) (WorkloadNetworkDNSServicesClientGetResponse, error)`
+- New function `*WorkloadNetworkDNSServicesClient.NewListPager(string, string, *WorkloadNetworkDNSServicesClientListOptions) *runtime.Pager[WorkloadNetworkDNSServicesClientListResponse]`
+- New function `*WorkloadNetworkDNSServicesClient.BeginUpdate(context.Context, string, string, string, WorkloadNetworkDNSService, *WorkloadNetworkDNSServicesClientBeginUpdateOptions) (*runtime.Poller[WorkloadNetworkDNSServicesClientUpdateResponse], error)`
+- New function `NewWorkloadNetworkDNSZonesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WorkloadNetworkDNSZonesClient, error)`
+- New function `*WorkloadNetworkDNSZonesClient.BeginCreate(context.Context, string, string, string, WorkloadNetworkDNSZone, *WorkloadNetworkDNSZonesClientBeginCreateOptions) (*runtime.Poller[WorkloadNetworkDNSZonesClientCreateResponse], error)`
+- New function `*WorkloadNetworkDNSZonesClient.BeginDelete(context.Context, string, string, string, *WorkloadNetworkDNSZonesClientBeginDeleteOptions) (*runtime.Poller[WorkloadNetworkDNSZonesClientDeleteResponse], error)`
+- New function `*WorkloadNetworkDNSZonesClient.Get(context.Context, string, string, string, *WorkloadNetworkDNSZonesClientGetOptions) (WorkloadNetworkDNSZonesClientGetResponse, error)`
+- New function `*WorkloadNetworkDNSZonesClient.NewListPager(string, string, *WorkloadNetworkDNSZonesClientListOptions) *runtime.Pager[WorkloadNetworkDNSZonesClientListResponse]`
+- New function `*WorkloadNetworkDNSZonesClient.BeginUpdate(context.Context, string, string, string, WorkloadNetworkDNSZone, *WorkloadNetworkDNSZonesClientBeginUpdateOptions) (*runtime.Poller[WorkloadNetworkDNSZonesClientUpdateResponse], error)`
+- New function `NewWorkloadNetworkDhcpConfigurationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WorkloadNetworkDhcpConfigurationsClient, error)`
+- New function `*WorkloadNetworkDhcpConfigurationsClient.BeginCreate(context.Context, string, string, string, WorkloadNetworkDhcp, *WorkloadNetworkDhcpConfigurationsClientBeginCreateOptions) (*runtime.Poller[WorkloadNetworkDhcpConfigurationsClientCreateResponse], error)`
+- New function `*WorkloadNetworkDhcpConfigurationsClient.BeginDelete(context.Context, string, string, string, *WorkloadNetworkDhcpConfigurationsClientBeginDeleteOptions) (*runtime.Poller[WorkloadNetworkDhcpConfigurationsClientDeleteResponse], error)`
+- New function `*WorkloadNetworkDhcpConfigurationsClient.Get(context.Context, string, string, string, *WorkloadNetworkDhcpConfigurationsClientGetOptions) (WorkloadNetworkDhcpConfigurationsClientGetResponse, error)`
+- New function `*WorkloadNetworkDhcpConfigurationsClient.NewListPager(string, string, *WorkloadNetworkDhcpConfigurationsClientListOptions) *runtime.Pager[WorkloadNetworkDhcpConfigurationsClientListResponse]`
+- New function `*WorkloadNetworkDhcpConfigurationsClient.BeginUpdate(context.Context, string, string, string, WorkloadNetworkDhcp, *WorkloadNetworkDhcpConfigurationsClientBeginUpdateOptions) (*runtime.Poller[WorkloadNetworkDhcpConfigurationsClientUpdateResponse], error)`
+- New function `NewWorkloadNetworkGatewaysClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WorkloadNetworkGatewaysClient, error)`
+- New function `*WorkloadNetworkGatewaysClient.Get(context.Context, string, string, string, *WorkloadNetworkGatewaysClientGetOptions) (WorkloadNetworkGatewaysClientGetResponse, error)`
+- New function `*WorkloadNetworkGatewaysClient.NewListPager(string, string, *WorkloadNetworkGatewaysClientListOptions) *runtime.Pager[WorkloadNetworkGatewaysClientListResponse]`
+- New function `NewWorkloadNetworkPortMirroringProfilesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WorkloadNetworkPortMirroringProfilesClient, error)`
+- New function `*WorkloadNetworkPortMirroringProfilesClient.BeginCreate(context.Context, string, string, string, WorkloadNetworkPortMirroring, *WorkloadNetworkPortMirroringProfilesClientBeginCreateOptions) (*runtime.Poller[WorkloadNetworkPortMirroringProfilesClientCreateResponse], error)`
+- New function `*WorkloadNetworkPortMirroringProfilesClient.BeginDelete(context.Context, string, string, string, *WorkloadNetworkPortMirroringProfilesClientBeginDeleteOptions) (*runtime.Poller[WorkloadNetworkPortMirroringProfilesClientDeleteResponse], error)`
+- New function `*WorkloadNetworkPortMirroringProfilesClient.Get(context.Context, string, string, string, *WorkloadNetworkPortMirroringProfilesClientGetOptions) (WorkloadNetworkPortMirroringProfilesClientGetResponse, error)`
+- New function `*WorkloadNetworkPortMirroringProfilesClient.NewListPager(string, string, *WorkloadNetworkPortMirroringProfilesClientListOptions) *runtime.Pager[WorkloadNetworkPortMirroringProfilesClientListResponse]`
+- New function `*WorkloadNetworkPortMirroringProfilesClient.BeginUpdate(context.Context, string, string, string, WorkloadNetworkPortMirroring, *WorkloadNetworkPortMirroringProfilesClientBeginUpdateOptions) (*runtime.Poller[WorkloadNetworkPortMirroringProfilesClientUpdateResponse], error)`
+- New function `NewWorkloadNetworkPublicIPsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WorkloadNetworkPublicIPsClient, error)`
+- New function `*WorkloadNetworkPublicIPsClient.BeginCreate(context.Context, string, string, string, WorkloadNetworkPublicIP, *WorkloadNetworkPublicIPsClientBeginCreateOptions) (*runtime.Poller[WorkloadNetworkPublicIPsClientCreateResponse], error)`
+- New function `*WorkloadNetworkPublicIPsClient.BeginDelete(context.Context, string, string, string, *WorkloadNetworkPublicIPsClientBeginDeleteOptions) (*runtime.Poller[WorkloadNetworkPublicIPsClientDeleteResponse], error)`
+- New function `*WorkloadNetworkPublicIPsClient.Get(context.Context, string, string, string, *WorkloadNetworkPublicIPsClientGetOptions) (WorkloadNetworkPublicIPsClientGetResponse, error)`
+- New function `*WorkloadNetworkPublicIPsClient.NewListPager(string, string, *WorkloadNetworkPublicIPsClientListOptions) *runtime.Pager[WorkloadNetworkPublicIPsClientListResponse]`
+- New function `NewWorkloadNetworkSegmentsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WorkloadNetworkSegmentsClient, error)`
+- New function `*WorkloadNetworkSegmentsClient.BeginCreate(context.Context, string, string, string, WorkloadNetworkSegment, *WorkloadNetworkSegmentsClientBeginCreateOptions) (*runtime.Poller[WorkloadNetworkSegmentsClientCreateResponse], error)`
+- New function `*WorkloadNetworkSegmentsClient.BeginDeleteSegment(context.Context, string, string, string, *WorkloadNetworkSegmentsClientBeginDeleteSegmentOptions) (*runtime.Poller[WorkloadNetworkSegmentsClientDeleteSegmentResponse], error)`
+- New function `*WorkloadNetworkSegmentsClient.Get(context.Context, string, string, string, *WorkloadNetworkSegmentsClientGetOptions) (WorkloadNetworkSegmentsClientGetResponse, error)`
+- New function `*WorkloadNetworkSegmentsClient.NewListPager(string, string, *WorkloadNetworkSegmentsClientListOptions) *runtime.Pager[WorkloadNetworkSegmentsClientListResponse]`
+- New function `*WorkloadNetworkSegmentsClient.BeginUpdate(context.Context, string, string, string, WorkloadNetworkSegment, *WorkloadNetworkSegmentsClientBeginUpdateOptions) (*runtime.Poller[WorkloadNetworkSegmentsClientUpdateResponse], error)`
+- New function `NewWorkloadNetworkVMGroupsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WorkloadNetworkVMGroupsClient, error)`
+- New function `*WorkloadNetworkVMGroupsClient.BeginCreate(context.Context, string, string, string, WorkloadNetworkVMGroup, *WorkloadNetworkVMGroupsClientBeginCreateOptions) (*runtime.Poller[WorkloadNetworkVMGroupsClientCreateResponse], error)`
+- New function `*WorkloadNetworkVMGroupsClient.BeginDelete(context.Context, string, string, string, *WorkloadNetworkVMGroupsClientBeginDeleteOptions) (*runtime.Poller[WorkloadNetworkVMGroupsClientDeleteResponse], error)`
+- New function `*WorkloadNetworkVMGroupsClient.Get(context.Context, string, string, string, *WorkloadNetworkVMGroupsClientGetOptions) (WorkloadNetworkVMGroupsClientGetResponse, error)`
+- New function `*WorkloadNetworkVMGroupsClient.NewListPager(string, string, *WorkloadNetworkVMGroupsClientListOptions) *runtime.Pager[WorkloadNetworkVMGroupsClientListResponse]`
+- New function `*WorkloadNetworkVMGroupsClient.BeginUpdate(context.Context, string, string, string, WorkloadNetworkVMGroup, *WorkloadNetworkVMGroupsClientBeginUpdateOptions) (*runtime.Poller[WorkloadNetworkVMGroupsClientUpdateResponse], error)`
+- New function `NewWorkloadNetworkVirtualMachinesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WorkloadNetworkVirtualMachinesClient, error)`
+- New function `*WorkloadNetworkVirtualMachinesClient.Get(context.Context, string, string, string, *WorkloadNetworkVirtualMachinesClientGetOptions) (WorkloadNetworkVirtualMachinesClientGetResponse, error)`
+- New function `*WorkloadNetworkVirtualMachinesClient.NewListPager(string, string, *WorkloadNetworkVirtualMachinesClientListOptions) *runtime.Pager[WorkloadNetworkVirtualMachinesClientListResponse]`
+- New struct `GeneralHostProperties`
+- New struct `Host`
+- New struct `HostListResult`
+- New struct `PagedResourceSKU`
+- New struct `ProvisionedNetwork`
+- New struct `ProvisionedNetworkListResult`
+- New struct `ProvisionedNetworkProperties`
+- New struct `PureStoragePolicy`
+- New struct `PureStoragePolicyListResult`
+- New struct `PureStoragePolicyProperties`
+- New struct `PureStorageVolume`
+- New struct `ResourceSKU`
+- New struct `ResourceSKUCapabilities`
+- New struct `ResourceSKULocationInfo`
+- New struct `ResourceSKURestrictionInfo`
+- New struct `ResourceSKURestrictions`
+- New struct `ResourceSKUZoneDetails`
+- New struct `ScriptExecutionPropertiesNamedOutput`
+- New struct `SpecializedHostProperties`
+- New struct `SystemAssignedServiceIdentity`
+- New struct `VMVMPlacementPolicyProperties`
+- New field `ManagementNetwork`, `UplinkNetwork` in struct `AddonHcxProperties`
+- New field `PureStorageVolume` in struct `DatastoreProperties`
+- New field `Sku` in struct `LocationsClientCheckTrialAvailabilityOptions`
+- New field `Zones` in struct `PrivateCloud`
+
+
 ## 2.0.0 (2024-09-26)
 ### Breaking Changes
 
