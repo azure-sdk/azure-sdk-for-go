@@ -1,5 +1,39 @@
 # Release History
 
+## 3.1.0-beta.3 (2025-04-29)
+### Breaking Changes
+
+- Function `*APIKeysClient.CreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, *APIKeysClientCreateOrUpdateOptions)` to `(context.Context, string, string, string, DeploymentAPIKeyResponse, *APIKeysClientCreateOrUpdateOptions)`
+- Function `*CertificatesClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, *CertificatesClientBeginCreateOrUpdateOptions)` to `(context.Context, string, string, string, Certificate, *CertificatesClientBeginCreateOrUpdateOptions)`
+- Function `*ConfigurationsClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, *ConfigurationsClientBeginCreateOrUpdateOptions)` to `(context.Context, string, string, string, ConfigurationResponse, *ConfigurationsClientBeginCreateOrUpdateOptions)`
+- Function `*DeploymentsClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, *DeploymentsClientBeginCreateOrUpdateOptions)` to `(context.Context, string, string, Deployment, *DeploymentsClientBeginCreateOrUpdateOptions)`
+- Function `*DeploymentsClient.BeginUpdate` parameter(s) have been changed from `(context.Context, string, string, *DeploymentsClientBeginUpdateOptions)` to `(context.Context, string, string, DeploymentUpdateParameters, *DeploymentsClientBeginUpdateOptions)`
+- Type of `Deployment.SKU` has been changed from `*ResourceSKU` to `*AzureResourceManagerResourceSKUProperty`
+- Type of `DeploymentUpdateParameters.SKU` has been changed from `*ResourceSKU` to `*AzureResourceManagerResourceSKUProperty`
+- Type of `OperationListResult.Value` has been changed from `[]*OperationResult` to `[]*Operation`
+- Struct `ConfigurationRequest` has been removed
+- Struct `ConfigurationRequestProperties` has been removed
+- Struct `DeploymentAPIKeyRequest` has been removed
+- Struct `DeploymentAPIKeyRequestProperties` has been removed
+- Struct `OperationResult` has been removed
+- Struct `ResourceSKU` has been removed
+- Field `Body` of struct `APIKeysClientCreateOrUpdateOptions` has been removed
+- Field `Body` of struct `CertificatesClientBeginCreateOrUpdateOptions` has been removed
+- Field `Body` of struct `ConfigurationsClientBeginCreateOrUpdateOptions` has been removed
+- Field `Body` of struct `DeploymentsClientBeginCreateOrUpdateOptions` has been removed
+- Field `Body` of struct `DeploymentsClientBeginUpdateOptions` has been removed
+
+### Features Added
+
+- New enum type `ActionType` with values `ActionTypeInternal`
+- New enum type `Origin` with values `OriginSystem`, `OriginUser`, `OriginUserSystem`
+- New enum type `SKUTier` with values `SKUTierBasic`, `SKUTierFree`, `SKUTierPremium`, `SKUTierStandard`
+- New struct `AzureResourceManagerResourceSKUProperty`
+- New struct `Operation`
+- New struct `SKU`
+- New field `SystemData` in struct `DeploymentAPIKeyResponse`
+
+
 ## 3.1.0-beta.2 (2025-02-27)
 ### Breaking Changes
 
