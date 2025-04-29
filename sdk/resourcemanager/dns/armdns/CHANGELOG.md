@@ -1,5 +1,23 @@
 # Release History
 
+## 1.3.0-beta.2 (2025-04-29)
+### Breaking Changes
+
+- Function `*DnssecConfigsClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, *DnssecConfigsClientBeginCreateOrUpdateOptions)` to `(context.Context, string, string, DnssecConfig, *DnssecConfigsClientBeginCreateOrUpdateOptions)`
+- Struct `RecordSetUpdateParameters` has been removed
+- Field `Location`, `Tags` of struct `Resource` has been removed
+
+### Features Added
+
+- New struct `ErrorAdditionalInfo`
+- New struct `ErrorDetail`
+- New struct `ErrorResponse`
+- New struct `ProxyResource`
+- New struct `TrackedResource`
+- New field `SystemData` in struct `RecordSet`
+- New field `SystemData` in struct `Resource`
+
+
 ## 1.3.0-beta.1 (2024-10-25)
 ### Features Added
 
