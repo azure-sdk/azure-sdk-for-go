@@ -8,7 +8,7 @@ trigger:
       - release/*
   paths:
     include:
-      - sdk/batch/azbatch
+    - sdk/batch/azbatch/
 
 pr:
   branches:
@@ -19,14 +19,9 @@ pr:
       - release/*
   paths:
     include:
-      - sdk/batch/azbatch
+    - sdk/batch/azbatch/
 
 extends:
   template: /eng/pipelines/templates/jobs/archetype-sdk-client.yml
   parameters:
-    EnableRaceDetector: true
-    Location: westus2
-    RunLiveTests: true
-    ServiceDirectory: batch/azbatch
-    TimeOutInMinutes: 20
-    UsePipelineProxy: false
+    ServiceDirectory: 'batch/azbatch'
