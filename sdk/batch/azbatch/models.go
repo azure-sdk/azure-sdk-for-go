@@ -4,11 +4,7 @@
 
 package azbatch
 
-import (
-	"time"
-
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
-)
+import "time"
 
 // AccountListSupportedImagesResult - The result of listing the supported Virtual Machine Images.
 type AccountListSupportedImagesResult struct {
@@ -1041,7 +1037,7 @@ type Job struct {
 	// READ-ONLY; The ETag of the Job. This is an opaque string. You can use it to detect whether the Job has changed between
 	// requests. In particular, you can be pass the ETag when updating a Job to specify that your changes should take effect only
 	// if nobody else has modified the Job in the meantime.
-	ETag *azcore.ETag
+	ETag *string
 
 	// READ-ONLY; The execution information for the Job.
 	ExecutionInfo *JobExecutionInfo
@@ -1575,7 +1571,7 @@ type JobSchedule struct {
 	// READ-ONLY; The ETag of the Job Schedule. This is an opaque string. You can use it to detect whether the Job Schedule has
 	// changed between requests. In particular, you can be pass the ETag with an Update Job Schedule request to specify that your
 	// changes should take effect only if nobody else has modified the schedule in the meantime.
-	ETag *azcore.ETag
+	ETag *string
 
 	// READ-ONLY; Information about Jobs that have been and will be run under this schedule.
 	ExecutionInfo *JobScheduleExecutionInfo
@@ -2443,7 +2439,7 @@ type Pool struct {
 	// READ-ONLY; The ETag of the Pool. This is an opaque string. You can use it to detect whether the Pool has changed between
 	// requests. In particular, you can be pass the ETag when updating a Pool to specify that your changes should take effect
 	// only if nobody else has modified the Pool in the meantime.
-	ETag *azcore.ETag
+	ETag *string
 
 	// READ-ONLY; Whether the Pool size should automatically adjust over time. If false, at least one of targetDedicatedNodes
 	// and targetLowPriorityNodes must be specified. If true, the autoScaleFormula property is required and the Pool automatically
@@ -3220,7 +3216,7 @@ type Task struct {
 	// READ-ONLY; The ETag of the Task. This is an opaque string. You can use it to detect whether the Task has changed between
 	// requests. In particular, you can be pass the ETag when updating a Task to specify that your changes should take effect
 	// only if nobody else has modified the Task in the meantime.
-	ETag *azcore.ETag
+	ETag *string
 
 	// READ-ONLY; A list of environment variable settings for the Task.
 	EnvironmentSettings []EnvironmentSetting
@@ -3296,7 +3292,7 @@ type TaskAddResult struct {
 	// The ETag of the Task, if the Task was successfully added. You can use this to detect whether the Task has changed between
 	// requests. In particular, you can be pass the ETag with an Update Task request to specify that your changes should take
 	// effect only if nobody else has modified the Job in the meantime.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The error encountered while attempting to add the Task.
 	Error *Error
