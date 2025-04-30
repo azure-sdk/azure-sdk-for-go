@@ -2077,6 +2077,9 @@ type DiagnosticContractProperties struct {
 	// Sets correlation protocol to use for Application Insights diagnostics.
 	HTTPCorrelationProtocol *HTTPCorrelationProtocol
 
+	// Large Language Models diagnostic settings
+	LargeLanguageModel *LLMDiagnosticSettings
+
 	// Log the ClientIP. Default is false.
 	LogClientIP *bool
 
@@ -3041,6 +3044,9 @@ type IdentityProviderContractProperties struct {
 	// OpenID Connect discovery endpoint hostname for AAD or AAD B2C.
 	Authority *string
 
+	// Certificate full resource ID used in external Identity Provider
+	CertificateID *string
+
 	// The client library to be used in the developer portal. Only applies to AAD and AAD B2C Identity Provider.
 	ClientLibrary *string
 
@@ -3101,6 +3107,9 @@ type IdentityProviderCreateContractProperties struct {
 	// OpenID Connect discovery endpoint hostname for AAD or AAD B2C.
 	Authority *string
 
+	// Certificate full resource ID used in external Identity Provider
+	CertificateID *string
+
 	// The client library to be used in the developer portal. Only applies to AAD and AAD B2C Identity Provider.
 	ClientLibrary *string
 
@@ -3148,6 +3157,9 @@ type IdentityProviderUpdateProperties struct {
 
 	// OpenID Connect discovery endpoint hostname for AAD or AAD B2C.
 	Authority *string
+
+	// Certificate full resource ID used in external Identity Provider
+	CertificateID *string
 
 	// Client Id of the Application in the external Identity Provider. It is App ID for Facebook login, Client ID for Google login,
 	// App ID for Microsoft.
@@ -3380,6 +3392,27 @@ type KeyVaultLastAccessStatusContractProperties struct {
 	// Last time secret was accessed. The date conforms to the following format: yyyy-MM-ddTHH:mm:ssZ as specified by the ISO
 	// 8601 standard.
 	TimeStampUTC *time.Time
+}
+
+// LLMDiagnosticSettings - Diagnostic settings for Large Language Models
+type LLMDiagnosticSettings struct {
+	// Specifies whether default diagnostic should be enabled for Large Language Models or not.
+	Logs *LlmDiagnosticSettings
+
+	// Diagnostic settings for Large Language Models requests.
+	Requests *LLMMessageDiagnosticSettings
+
+	// Diagnostic settings for Large Language Models responses.
+	Responses *LLMMessageDiagnosticSettings
+}
+
+// LLMMessageDiagnosticSettings - Diagnostic settings for Large Language Models Messages
+type LLMMessageDiagnosticSettings struct {
+	// Maximum size of message to logs in bytes. The default size is 32KB.
+	MaxSizeInBytes *int32
+
+	// Specifies which message should be logged. Currently there is only 'all' option.
+	Messages *LlmMessageLogTypes
 }
 
 // LoggerCollection - Paged Logger list representation.
@@ -5800,6 +5833,9 @@ type ServiceBaseProperties struct {
 	// exclusive access method. Default value is 'Enabled'
 	PublicNetworkAccess *PublicNetworkAccess
 
+	// Release Channel of this API Management service.
+	ReleaseChannel *ReleaseChannel
+
 	// Undelete Api Management Service if it was previously soft-deleted. If this flag is specified and set to True all other
 	// properties will be ignored.
 	Restore *bool
@@ -6003,6 +6039,9 @@ type ServiceProperties struct {
 	// be 'Enabled' or 'Disabled'. If 'Disabled', private endpoints are the
 	// exclusive access method. Default value is 'Enabled'
 	PublicNetworkAccess *PublicNetworkAccess
+
+	// Release Channel of this API Management service.
+	ReleaseChannel *ReleaseChannel
 
 	// Undelete Api Management Service if it was previously soft-deleted. If this flag is specified and set to True all other
 	// properties will be ignored.
@@ -6221,6 +6260,9 @@ type ServiceUpdateProperties struct {
 
 	// Publisher name.
 	PublisherName *string
+
+	// Release Channel of this API Management service.
+	ReleaseChannel *ReleaseChannel
 
 	// Undelete Api Management Service if it was previously soft-deleted. If this flag is specified and set to True all other
 	// properties will be ignored.
