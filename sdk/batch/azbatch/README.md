@@ -1,106 +1,90 @@
-# Azure Batch client module for Go
+# Azure Batch Module for Go
 
-Azure Batch allows users to run large-scale parallel and high-performance computing (HPC) batch jobs efficiently in Azure.
+The `azbatch` module provides operations for working with Azure Batch.
 
-Use this module to:
+[Source code](https://github.com/Azure/azure-sdk-for-go/tree/main/sdk/batch/azbatch)
 
-- Create and manage Batch jobs and tasks
-- View and perform operations on nodes in a Batch pool
+# Getting started
 
-## Getting started
+## Prerequisites
 
-### Install the module
+- an [Azure subscription](https://azure.microsoft.com/free/)
+- Go 1.18 or above (You could download and install the latest version of Go from [here](https://go.dev/doc/install). It will replace the existing Go on your machine. If you want to install multiple Go versions on the same machine, you could refer this [doc](https://go.dev/doc/manage-install).)
 
-Install the `azbatch` and `azidentity` modules with `go get`:
+## Install the package
 
-```bash
+This project uses [Go modules](https://github.com/golang/go/wiki/Modules) for versioning and dependency management.
+
+Install the Azure Batch module:
+
+```sh
 go get github.com/Azure/azure-sdk-for-go/sdk/batch/azbatch
-go get github.com/Azure/azure-sdk-for-go/sdk/azidentity
 ```
 
-### Prerequisites
+## Authorization
 
-- Go, version 1.18 or higher - [Install Go](https://go.dev/doc/install)
-- Azure subscription - [Create a free account](https://azure.microsoft.com/free)
-- A Batch account with a linked Azure Storage account. You can create the accounts by using any of the following methods: [Azure CLI](https://learn.microsoft.com/azure/batch/quick-create-cli) | [Azure portal](https://learn.microsoft.com/azure/batch/quick-create-portal) | [Bicep](https://learn.microsoft.com/azure/batch/quick-create-bicep) | [ARM template](https://learn.microsoft.com/azure/batch/quick-create-template) | [Terraform](https://learn.microsoft.com/azure/batch/quick-create-terraform).
-
-### Authenticate the client
-
-Azure Batch integrates with Microsoft Entra ID for identity-based authentication of requests. You can use role-based access control (RBAC) to grant access to your Azure Batch resources to users, groups, or applications. The [Azure Identity module](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/azidentity) provides types that implement Microsoft Entra ID authentication.
-
-## Key concepts
-
-[Azure Batch Overview](https://learn.microsoft.com/azure/batch/batch-technical-overview)
-
-## Examples
-
-See the [package documentation][pkgsite] for code samples.
-
-## Troubleshooting
-
-Please see [Troubleshooting common batch issues](https://learn.microsoft.com/troubleshoot/azure/hpc/batch/welcome-hpc-batch).
-
-### Error Handling
-
-All methods which send HTTP requests return `*azcore.ResponseError` when these requests fail. `ResponseError` has error details and the raw response from Key Vault.
+When creating a client, you will need to provide a credential for authenticating with Azure Batch.  The `azidentity` module provides facilities for various ways of authenticating with Azure including client/secret, certificate, managed identity, and more.
 
 ```go
-import "github.com/Azure/azure-sdk-for-go/sdk/azcore"
+cred, err := azidentity.NewDefaultAzureCredential(nil)
+```
 
-resp, err = client.CreateJob(context.TODO(), jobContent, nil)
-if err != nil {
-    var httpErr *azcore.ResponseError
-    if errors.As(err, &httpErr) {
-        // TODO: investigate httpErr
-    } else {
-        // TODO: not an HTTP error
-    }
+For more information on authentication, please see the documentation for `azidentity` at [pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/azidentity](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/azidentity).
+
+## Client Factory
+
+Azure Batch module consists of one or more clients. We provide a client factory which could be used to create any client in this module.
+
+```go
+clientFactory, err := azbatch.NewClientFactory(<subscription ID>, cred, nil)
+```
+
+You can use `ClientOptions` in package `github.com/Azure/azure-sdk-for-go/sdk/azcore/arm` to set endpoint to connect with public and sovereign clouds as well as Azure Stack. For more information, please see the documentation for `azcore` at [pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/azcore](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/azcore).
+
+```go
+options := arm.ClientOptions {
+    ClientOptions: azcore.ClientOptions {
+        Cloud: cloud.AzureChina,
+    },
 }
+clientFactory, err := azbatch.NewClientFactory(<subscription ID>, cred, &options)
 ```
 
-### Logging
+## Clients
 
-This module uses the logging implementation in `azcore`. To turn on logging for all Azure SDK modules, set `AZURE_SDK_GO_LOGGING` to `all`. By default the logger writes to stderr. Use the `azcore/log` package to control log output. For example, logging only HTTP request and response events, and printing them to stdout:
+A client groups a set of related APIs, providing access to its functionality.  Create one or more clients to access the APIs you require using client factory.
 
 ```go
-import azlog "github.com/Azure/azure-sdk-for-go/sdk/azcore/log"
-
-// Print log events to stdout
-azlog.SetListener(func (_ azlog.Event, msg string) {
-    fmt.Println(msg)
-})
-
-// Includes only requests and responses in logs
-azlog.SetEvents(azlog.EventRequest, azlog.EventResponse)
+client := clientFactory.()
 ```
 
-### Accessing `http.Response`
+## Fakes
 
-You can access the `http.Response` returned by Azure Batch to any client method using `runtime.WithCaptureResponse`:
+The fake package contains types used for constructing in-memory fake servers used in unit tests.
+This allows writing tests to cover various success/error conditions without the need for connecting to a live service.
 
-```go
-import "github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+Please see https://github.com/Azure/azure-sdk-for-go/tree/main/sdk/samples/fakes for details and examples on how to use fakes.
 
-var response *http.Response
-ctx := runtime.WithCaptureResponse(context.TODO(), &response)
-resp, err = client.CreateJob(ctx, jobContent, nil)
-if err != nil {
-    // TODO: handle error
-}
-// TODO: do something with response
-```
+## Provide Feedback
 
-## Contributing
+If you encounter bugs or have suggestions, please
+[open an issue](https://github.com/Azure/azure-sdk-for-go/issues) and assign the `Batch` label.
 
-This project welcomes contributions and suggestions.
-Most contributions require you to agree to a Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us the rights to use your contribution.
-For details, visit [Contributor License Agreements](https://opensource.microsoft.com/cla/).
+# Contributing
 
-When you submit a pull request, a CLA-bot will automatically determine whether you need to provide a CLA and decorate the PR appropriately (e.g., label, comment).
-Simply follow the instructions provided by the bot.
-You will only need to do this once across all repos using our CLA.
+This project welcomes contributions and suggestions. Most contributions require
+you to agree to a Contributor License Agreement (CLA) declaring that you have
+the right to, and actually do, grant us the rights to use your contribution.
+For details, visit [https://cla.microsoft.com](https://cla.microsoft.com).
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+When you submit a pull request, a CLA-bot will automatically determine whether
+you need to provide a CLA and decorate the PR appropriately (e.g., label,
+comment). Simply follow the instructions provided by the bot. You will only
+need to do this once across all repos using our CLA.
 
-[pkgsite]: https://aka.ms/azsdk/go/azbatch
+This project has adopted the
+[Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
+For more information, see the
+[Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/)
+or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any
+additional questions or comments.
