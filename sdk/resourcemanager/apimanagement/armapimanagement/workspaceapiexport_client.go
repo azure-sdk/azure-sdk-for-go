@@ -44,7 +44,7 @@ func NewWorkspaceAPIExportClient(subscriptionID string, credential azcore.TokenC
 // valid for 5 minutes.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - workspaceID - Workspace identifier. Must be unique in the current API Management service instance.
@@ -103,7 +103,7 @@ func (client *WorkspaceAPIExportClient) getCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	reqQP.Set("export", string(export))
 	reqQP.Set("format", string(formatParam))
 	req.Raw().URL.RawQuery = reqQP.Encode()
