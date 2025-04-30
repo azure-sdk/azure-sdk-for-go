@@ -5080,6 +5080,7 @@ func (d DiagnosticContractProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "backend", d.Backend)
 	populate(objectMap, "frontend", d.Frontend)
 	populate(objectMap, "httpCorrelationProtocol", d.HTTPCorrelationProtocol)
+	populate(objectMap, "largeLanguageModel", d.LargeLanguageModel)
 	populate(objectMap, "logClientIp", d.LogClientIP)
 	populate(objectMap, "loggerId", d.LoggerID)
 	populate(objectMap, "metrics", d.Metrics)
@@ -5109,6 +5110,9 @@ func (d *DiagnosticContractProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "httpCorrelationProtocol":
 			err = unpopulate(val, "HTTPCorrelationProtocol", &d.HTTPCorrelationProtocol)
+			delete(rawMsg, key)
+		case "largeLanguageModel":
+			err = unpopulate(val, "LargeLanguageModel", &d.LargeLanguageModel)
 			delete(rawMsg, key)
 		case "logClientIp":
 			err = unpopulate(val, "LogClientIP", &d.LogClientIP)
@@ -7664,6 +7668,7 @@ func (i IdentityProviderContractProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "allowedTenants", i.AllowedTenants)
 	populate(objectMap, "authority", i.Authority)
+	populate(objectMap, "certificateId", i.CertificateID)
 	populate(objectMap, "clientId", i.ClientID)
 	populate(objectMap, "clientLibrary", i.ClientLibrary)
 	populate(objectMap, "clientSecret", i.ClientSecret)
@@ -7690,6 +7695,9 @@ func (i *IdentityProviderContractProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "authority":
 			err = unpopulate(val, "Authority", &i.Authority)
+			delete(rawMsg, key)
+		case "certificateId":
+			err = unpopulate(val, "CertificateID", &i.CertificateID)
 			delete(rawMsg, key)
 		case "clientId":
 			err = unpopulate(val, "ClientID", &i.ClientID)
@@ -7770,6 +7778,7 @@ func (i IdentityProviderCreateContractProperties) MarshalJSON() ([]byte, error) 
 	objectMap := make(map[string]any)
 	populate(objectMap, "allowedTenants", i.AllowedTenants)
 	populate(objectMap, "authority", i.Authority)
+	populate(objectMap, "certificateId", i.CertificateID)
 	populate(objectMap, "clientId", i.ClientID)
 	populate(objectMap, "clientLibrary", i.ClientLibrary)
 	populate(objectMap, "clientSecret", i.ClientSecret)
@@ -7796,6 +7805,9 @@ func (i *IdentityProviderCreateContractProperties) UnmarshalJSON(data []byte) er
 			delete(rawMsg, key)
 		case "authority":
 			err = unpopulate(val, "Authority", &i.Authority)
+			delete(rawMsg, key)
+		case "certificateId":
+			err = unpopulate(val, "CertificateID", &i.CertificateID)
 			delete(rawMsg, key)
 		case "clientId":
 			err = unpopulate(val, "ClientID", &i.ClientID)
@@ -7899,6 +7911,7 @@ func (i IdentityProviderUpdateProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "allowedTenants", i.AllowedTenants)
 	populate(objectMap, "authority", i.Authority)
+	populate(objectMap, "certificateId", i.CertificateID)
 	populate(objectMap, "clientId", i.ClientID)
 	populate(objectMap, "clientLibrary", i.ClientLibrary)
 	populate(objectMap, "clientSecret", i.ClientSecret)
@@ -7925,6 +7938,9 @@ func (i *IdentityProviderUpdateProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "authority":
 			err = unpopulate(val, "Authority", &i.Authority)
+			delete(rawMsg, key)
+		case "certificateId":
+			err = unpopulate(val, "CertificateID", &i.CertificateID)
 			delete(rawMsg, key)
 		case "clientId":
 			err = unpopulate(val, "ClientID", &i.ClientID)
@@ -8505,6 +8521,72 @@ func (k *KeyVaultLastAccessStatusContractProperties) UnmarshalJSON(data []byte) 
 		}
 		if err != nil {
 			return fmt.Errorf("unmarshalling type %T: %v", k, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type LLMDiagnosticSettings.
+func (l LLMDiagnosticSettings) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "logs", l.Logs)
+	populate(objectMap, "requests", l.Requests)
+	populate(objectMap, "responses", l.Responses)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type LLMDiagnosticSettings.
+func (l *LLMDiagnosticSettings) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", l, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "logs":
+			err = unpopulate(val, "Logs", &l.Logs)
+			delete(rawMsg, key)
+		case "requests":
+			err = unpopulate(val, "Requests", &l.Requests)
+			delete(rawMsg, key)
+		case "responses":
+			err = unpopulate(val, "Responses", &l.Responses)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", l, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type LLMMessageDiagnosticSettings.
+func (l LLMMessageDiagnosticSettings) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "maxSizeInBytes", l.MaxSizeInBytes)
+	populate(objectMap, "messages", l.Messages)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type LLMMessageDiagnosticSettings.
+func (l *LLMMessageDiagnosticSettings) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", l, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "maxSizeInBytes":
+			err = unpopulate(val, "MaxSizeInBytes", &l.MaxSizeInBytes)
+			delete(rawMsg, key)
+		case "messages":
+			err = unpopulate(val, "Messages", &l.Messages)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", l, err)
 		}
 	}
 	return nil
@@ -14709,6 +14791,7 @@ func (s ServiceBaseProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "publicIpAddressId", s.PublicIPAddressID)
 	populate(objectMap, "publicIPAddresses", s.PublicIPAddresses)
 	populate(objectMap, "publicNetworkAccess", s.PublicNetworkAccess)
+	populate(objectMap, "releaseChannel", s.ReleaseChannel)
 	populate(objectMap, "restore", s.Restore)
 	populate(objectMap, "scmUrl", s.ScmURL)
 	populate(objectMap, "targetProvisioningState", s.TargetProvisioningState)
@@ -14803,6 +14886,9 @@ func (s *ServiceBaseProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "publicNetworkAccess":
 			err = unpopulate(val, "PublicNetworkAccess", &s.PublicNetworkAccess)
+			delete(rawMsg, key)
+		case "releaseChannel":
+			err = unpopulate(val, "ReleaseChannel", &s.ReleaseChannel)
 			delete(rawMsg, key)
 		case "restore":
 			err = unpopulate(val, "Restore", &s.Restore)
@@ -15044,6 +15130,7 @@ func (s ServiceProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "publicNetworkAccess", s.PublicNetworkAccess)
 	populate(objectMap, "publisherEmail", s.PublisherEmail)
 	populate(objectMap, "publisherName", s.PublisherName)
+	populate(objectMap, "releaseChannel", s.ReleaseChannel)
 	populate(objectMap, "restore", s.Restore)
 	populate(objectMap, "scmUrl", s.ScmURL)
 	populate(objectMap, "targetProvisioningState", s.TargetProvisioningState)
@@ -15144,6 +15231,9 @@ func (s *ServiceProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "publisherName":
 			err = unpopulate(val, "PublisherName", &s.PublisherName)
+			delete(rawMsg, key)
+		case "releaseChannel":
+			err = unpopulate(val, "ReleaseChannel", &s.ReleaseChannel)
 			delete(rawMsg, key)
 		case "restore":
 			err = unpopulate(val, "Restore", &s.Restore)
@@ -15356,6 +15446,7 @@ func (s ServiceUpdateProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "publicNetworkAccess", s.PublicNetworkAccess)
 	populate(objectMap, "publisherEmail", s.PublisherEmail)
 	populate(objectMap, "publisherName", s.PublisherName)
+	populate(objectMap, "releaseChannel", s.ReleaseChannel)
 	populate(objectMap, "restore", s.Restore)
 	populate(objectMap, "scmUrl", s.ScmURL)
 	populate(objectMap, "targetProvisioningState", s.TargetProvisioningState)
@@ -15456,6 +15547,9 @@ func (s *ServiceUpdateProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "publisherName":
 			err = unpopulate(val, "PublisherName", &s.PublisherName)
+			delete(rawMsg, key)
+		case "releaseChannel":
+			err = unpopulate(val, "ReleaseChannel", &s.ReleaseChannel)
 			delete(rawMsg, key)
 		case "restore":
 			err = unpopulate(val, "Restore", &s.Restore)
