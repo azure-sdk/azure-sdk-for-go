@@ -1,5 +1,22 @@
 # Release History
 
+## 3.1.0-beta.1 (2025-04-30)
+### Features Added
+
+- New enum type `LlmDiagnosticSettings` with values `LlmDiagnosticSettingsDisabled`, `LlmDiagnosticSettingsEnabled`
+- New enum type `LlmMessageLogTypes` with values `LlmMessageLogTypesAll`
+- New enum type `ReleaseChannel` with values `ReleaseChannelDefault`, `ReleaseChannelPreview`, `ReleaseChannelStable`
+- New struct `LLMDiagnosticSettings`
+- New struct `LLMMessageDiagnosticSettings`
+- New field `LargeLanguageModel` in struct `DiagnosticContractProperties`
+- New field `CertificateID` in struct `IdentityProviderContractProperties`
+- New field `CertificateID` in struct `IdentityProviderCreateContractProperties`
+- New field `CertificateID` in struct `IdentityProviderUpdateProperties`
+- New field `ReleaseChannel` in struct `ServiceBaseProperties`
+- New field `ReleaseChannel` in struct `ServiceProperties`
+- New field `ReleaseChannel` in struct `ServiceUpdateProperties`
+
+
 ## 3.0.0 (2025-04-10)
 ### Breaking Changes
 
