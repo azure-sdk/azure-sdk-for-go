@@ -43,7 +43,7 @@ func NewPolicyRestrictionValidationsClient(subscriptionID string, credential azc
 // BeginByService - Validate all policies of API Management services.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - options - PolicyRestrictionValidationsClientBeginByServiceOptions contains the optional parameters for the PolicyRestrictionValidationsClient.BeginByService
@@ -69,7 +69,7 @@ func (client *PolicyRestrictionValidationsClient) BeginByService(ctx context.Con
 // ByService - Validate all policies of API Management services.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01
+// Generated from API version 2024-06-01-preview
 func (client *PolicyRestrictionValidationsClient) byService(ctx context.Context, resourceGroupName string, serviceName string, options *PolicyRestrictionValidationsClientBeginByServiceOptions) (*http.Response, error) {
 	var err error
 	const operationName = "PolicyRestrictionValidationsClient.BeginByService"
@@ -111,7 +111,7 @@ func (client *PolicyRestrictionValidationsClient) byServiceCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
