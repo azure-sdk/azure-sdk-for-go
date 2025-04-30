@@ -43,7 +43,7 @@ func NewWorkspaceAPIRevisionClient(subscriptionID string, credential azcore.Toke
 
 // NewListByServicePager - Lists all revisions of an API.
 //
-// Generated from API version 2024-05-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - workspaceID - Workspace identifier. Must be unique in the current API Management service instance.
@@ -110,7 +110,7 @@ func (client *WorkspaceAPIRevisionClient) listByServiceCreateRequest(ctx context
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	reqQP.Set("api-version", "2024-05-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
