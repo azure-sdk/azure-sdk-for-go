@@ -42,7 +42,7 @@ func NewAllPoliciesClient(subscriptionID string, credential azcore.TokenCredenti
 
 // NewListByServicePager - Status of all policies of API Management services.
 //
-// Generated from API version 2024-05-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - options - AllPoliciesClientListByServiceOptions contains the optional parameters for the AllPoliciesClient.NewListByServicePager
@@ -90,7 +90,7 @@ func (client *AllPoliciesClient) listByServiceCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
