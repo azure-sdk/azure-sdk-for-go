@@ -7,7 +7,7 @@ package armapimanagement
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/apimanagement/armapimanagement"
-	moduleVersion = "v3.0.0"
+	moduleVersion = "v3.1.0-beta.1"
 )
 
 // APIGatewaySKUType - Name of the Sku.
@@ -960,6 +960,37 @@ func PossibleLegacyPortalStatusValues() []LegacyPortalStatus {
 	}
 }
 
+type LlmDiagnosticSettings string
+
+const (
+	// LlmDiagnosticSettingsDisabled - Default LLM logs are disabled.
+	LlmDiagnosticSettingsDisabled LlmDiagnosticSettings = "disabled"
+	// LlmDiagnosticSettingsEnabled - Default LLM logs are enabled.
+	LlmDiagnosticSettingsEnabled LlmDiagnosticSettings = "enabled"
+)
+
+// PossibleLlmDiagnosticSettingsValues returns the possible values for the LlmDiagnosticSettings const type.
+func PossibleLlmDiagnosticSettingsValues() []LlmDiagnosticSettings {
+	return []LlmDiagnosticSettings{
+		LlmDiagnosticSettingsDisabled,
+		LlmDiagnosticSettingsEnabled,
+	}
+}
+
+type LlmMessageLogTypes string
+
+const (
+	// LlmMessageLogTypesAll - Log all messages.
+	LlmMessageLogTypesAll LlmMessageLogTypes = "all"
+)
+
+// PossibleLlmMessageLogTypesValues returns the possible values for the LlmMessageLogTypes const type.
+func PossibleLlmMessageLogTypesValues() []LlmMessageLogTypes {
+	return []LlmMessageLogTypes{
+		LlmMessageLogTypesAll,
+	}
+}
+
 // LoggerType - Logger type.
 type LoggerType string
 
@@ -1455,6 +1486,27 @@ func PossiblePublicNetworkAccessValues() []PublicNetworkAccess {
 	return []PublicNetworkAccess{
 		PublicNetworkAccessDisabled,
 		PublicNetworkAccessEnabled,
+	}
+}
+
+// ReleaseChannel - Release Channel of this API Management service.
+type ReleaseChannel string
+
+const (
+	// ReleaseChannelDefault - Default Channel of the service.
+	ReleaseChannelDefault ReleaseChannel = "Default"
+	// ReleaseChannelPreview - Preview Channel of the service.
+	ReleaseChannelPreview ReleaseChannel = "Preview"
+	// ReleaseChannelStable - Stable Channel of the service.
+	ReleaseChannelStable ReleaseChannel = "Stable"
+)
+
+// PossibleReleaseChannelValues returns the possible values for the ReleaseChannel const type.
+func PossibleReleaseChannelValues() []ReleaseChannel {
+	return []ReleaseChannel{
+		ReleaseChannelDefault,
+		ReleaseChannelPreview,
+		ReleaseChannelStable,
 	}
 }
 

@@ -1,6 +1,6 @@
-# Azure Portal Services Copilot Module for Go
+# Azure Portalservicescopilot Module for Go
 
-The `armportalservicescopilot` module provides operations for working with Azure Portal Services Copilot.
+The `armportalservicescopilot` module provides operations for working with Azure Portalservicescopilot.
 
 [Source code](https://github.com/Azure/azure-sdk-for-go/tree/main/sdk/resourcemanager/portalservicescopilot/armportalservicescopilot)
 
@@ -23,7 +23,7 @@ go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/portalservicescopil
 
 ## Authorization
 
-When creating a client, you will need to provide a credential for authenticating with Azure Portal Services Copilot.  The `azidentity` module provides facilities for various ways of authenticating with Azure including client/secret, certificate, managed identity, and more.
+When creating a client, you will need to provide a credential for authenticating with Azure Portalservicescopilot.  The `azidentity` module provides facilities for various ways of authenticating with Azure including client/secret, certificate, managed identity, and more.
 
 ```go
 cred, err := azidentity.NewDefaultAzureCredential(nil)
@@ -33,10 +33,10 @@ For more information on authentication, please see the documentation for `aziden
 
 ## Client Factory
 
-Azure Portal Services Copilot module consists of one or more clients. We provide a client factory which could be used to create any client in this module.
+Azure Portalservicescopilot module consists of one or more clients. We provide a client factory which could be used to create any client in this module.
 
 ```go
-clientFactory, err := armportalservicescopilot.NewClientFactory(cred, nil)
+clientFactory, err := armportalservicescopilot.NewClientFactory(<subscription ID>, cred, nil)
 ```
 
 You can use `ClientOptions` in package `github.com/Azure/azure-sdk-for-go/sdk/azcore/arm` to set endpoint to connect with public and sovereign clouds as well as Azure Stack. For more information, please see the documentation for `azcore` at [pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/azcore](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/azcore).
@@ -47,7 +47,7 @@ options := arm.ClientOptions {
         Cloud: cloud.AzureChina,
     },
 }
-clientFactory, err := armportalservicescopilot.NewClientFactory(cred, &options)
+clientFactory, err := armportalservicescopilot.NewClientFactory(<subscription ID>, cred, &options)
 ```
 
 ## Clients
