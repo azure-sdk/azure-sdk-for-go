@@ -44,7 +44,7 @@ func NewGatewayCertificateAuthorityClient(subscriptionID string, credential azco
 // CreateOrUpdate - Assign Certificate entity to Gateway entity as Certificate Authority.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
@@ -102,7 +102,7 @@ func (client *GatewayCertificateAuthorityClient) createOrUpdateCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
@@ -129,7 +129,7 @@ func (client *GatewayCertificateAuthorityClient) createOrUpdateHandleResponse(re
 // Delete - Remove relationship between Certificate Authority and Gateway entity.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
@@ -188,7 +188,7 @@ func (client *GatewayCertificateAuthorityClient) deleteCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["If-Match"] = []string{ifMatch}
@@ -198,7 +198,7 @@ func (client *GatewayCertificateAuthorityClient) deleteCreateRequest(ctx context
 // Get - Get assigned Gateway Certificate Authority details.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
@@ -256,7 +256,7 @@ func (client *GatewayCertificateAuthorityClient) getCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -276,7 +276,7 @@ func (client *GatewayCertificateAuthorityClient) getHandleResponse(resp *http.Re
 
 // GetEntityTag - Checks if Certificate entity is assigned to Gateway entity as Certificate Authority.
 //
-// Generated from API version 2024-05-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
@@ -334,7 +334,7 @@ func (client *GatewayCertificateAuthorityClient) getEntityTagCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -351,7 +351,7 @@ func (client *GatewayCertificateAuthorityClient) getEntityTagHandleResponse(resp
 
 // NewListByServicePager - Lists the collection of Certificate Authorities for the specified Gateway entity.
 //
-// Generated from API version 2024-05-01
+// Generated from API version 2024-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
@@ -414,7 +414,7 @@ func (client *GatewayCertificateAuthorityClient) listByServiceCreateRequest(ctx 
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	reqQP.Set("api-version", "2024-05-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
