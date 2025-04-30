@@ -43,7 +43,7 @@ func NewOperationsResultsClient(subscriptionID string, credential azcore.TokenCr
 // Get - Returns operation results for long running operations executing DELETE or PATCH on the resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01
+// Generated from API version 2024-06-01-preview
 //   - location - The name of the Azure region.
 //   - operationID - The ID of an ongoing async operation.
 //   - options - OperationsResultsClientGetOptions contains the optional parameters for the OperationsResultsClient.Get method.
@@ -89,7 +89,7 @@ func (client *OperationsResultsClient) getCreateRequest(ctx context.Context, loc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01")
+	reqQP.Set("api-version", "2024-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
