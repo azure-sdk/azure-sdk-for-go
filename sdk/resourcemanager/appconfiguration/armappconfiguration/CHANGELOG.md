@@ -1,5 +1,18 @@
 # Release History
 
+## 3.0.0-beta.1 (2025-05-01)
+### Breaking Changes
+
+- Function `*KeyValuesClient.CreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, *KeyValuesClientCreateOrUpdateOptions)` to `(context.Context, string, string, string, KeyValue, *KeyValuesClientCreateOrUpdateOptions)`
+- Field `KeyValueParameters` of struct `KeyValuesClientCreateOrUpdateOptions` has been removed
+
+### Features Added
+
+- New struct `TelemetryProperties`
+- New field `DefaultKeyValueRevisionRetentionPeriodInSeconds`, `Telemetry` in struct `ConfigurationStoreProperties`
+- New field `DefaultKeyValueRevisionRetentionPeriodInSeconds`, `Telemetry` in struct `ConfigurationStorePropertiesUpdateParameters`
+
+
 ## 2.2.0 (2024-11-20)
 ### Features Added
 
