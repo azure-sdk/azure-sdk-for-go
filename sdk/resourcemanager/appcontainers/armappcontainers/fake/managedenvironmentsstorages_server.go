@@ -12,7 +12,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appcontainers/armappcontainers/v3"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appcontainers/armappcontainers/v4"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -21,7 +21,7 @@ import (
 // ManagedEnvironmentsStoragesServer is a fake server for instances of the armappcontainers.ManagedEnvironmentsStoragesClient type.
 type ManagedEnvironmentsStoragesServer struct {
 	// CreateOrUpdate is the fake for method ManagedEnvironmentsStoragesClient.CreateOrUpdate
-	// HTTP status codes to indicate success: http.StatusOK
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
 	CreateOrUpdate func(ctx context.Context, resourceGroupName string, environmentName string, storageName string, storageEnvelope armappcontainers.ManagedEnvironmentStorage, options *armappcontainers.ManagedEnvironmentsStoragesClientCreateOrUpdateOptions) (resp azfake.Responder[armappcontainers.ManagedEnvironmentsStoragesClientCreateOrUpdateResponse], errResp azfake.ErrorResponder)
 
 	// Delete is the fake for method ManagedEnvironmentsStoragesClient.Delete
@@ -131,8 +131,8 @@ func (m *ManagedEnvironmentsStoragesServerTransport) dispatchCreateOrUpdate(req 
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
+	if !contains([]int{http.StatusOK, http.StatusCreated}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ManagedEnvironmentStorage, req)
 	if err != nil {
