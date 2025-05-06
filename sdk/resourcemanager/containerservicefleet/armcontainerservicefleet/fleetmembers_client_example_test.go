@@ -8,7 +8,7 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservicefleet/armcontainerservicefleet/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservicefleet/armcontainerservicefleet/v3"
 	"log"
 )
 
@@ -83,9 +83,9 @@ func ExampleFleetMembersClient_BeginCreate_createsAFleetMemberResourceWithALongR
 			ClusterResourceID: to.Ptr("/subscriptions/subid1/resourcegroups/rg1/providers/Microsoft.ContainerService/managedClusters/cluster-1"),
 			Group:             to.Ptr("fleet1"),
 		},
-	}, &armcontainerservicefleet.FleetMembersClientBeginCreateOptions{
-		IfMatch:     to.Ptr("amkttadbw"),
-		IfNoneMatch: to.Ptr("zoljoccbcg")})
+	}, &FleetMembersClientBeginCreateOptions{
+		ifMatch:     to.Ptr("amkttadbw"),
+		ifNoneMatch: to.Ptr("zoljoccbcg")})
 	if err != nil {
 		log.Fatalf("failed to finish the request: %v", err)
 	}
@@ -156,8 +156,8 @@ func ExampleFleetMembersClient_BeginDelete_deletesAFleetMemberResourceAsynchrono
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	poller, err := clientFactory.NewFleetMembersClient().BeginDelete(ctx, "rgfleets", "fleet1", "fleet1", &armcontainerservicefleet.FleetMembersClientBeginDeleteOptions{
-		IfMatch: to.Ptr("klroqfozx")})
+	poller, err := clientFactory.NewFleetMembersClient().BeginDelete(ctx, "rgfleets", "fleet1", "fleet1", &FleetMembersClientBeginDeleteOptions{
+		ifMatch: to.Ptr("klroqfozx")})
 	if err != nil {
 		log.Fatalf("failed to finish the request: %v", err)
 	}
@@ -438,8 +438,8 @@ func ExampleFleetMembersClient_BeginUpdateAsync_updatesAFleetMemberResourceSynch
 		Properties: &armcontainerservicefleet.FleetMemberUpdateProperties{
 			Group: to.Ptr("staging"),
 		},
-	}, &armcontainerservicefleet.FleetMembersClientBeginUpdateAsyncOptions{
-		IfMatch: to.Ptr("bjyjzzxvbs")})
+	}, &FleetMembersClientBeginUpdateAsyncOptions{
+		ifMatch: to.Ptr("bjyjzzxvbs")})
 	if err != nil {
 		log.Fatalf("failed to finish the request: %v", err)
 	}

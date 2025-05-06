@@ -357,12 +357,6 @@ type FleetUpdateStrategyProperties struct {
 	ProvisioningState *FleetUpdateStrategyProvisioningState
 }
 
-// GenerateResponse is the response of a generate request.
-type GenerateResponse struct {
-	// READ-ONLY; The ARM resource id of the generated UpdateRun. e.g.: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/fleets/{fleetName}/updateRuns/{updateRunName}'.
-	ID *string
-}
-
 // ManagedClusterUpdate - The update to be applied to the ManagedClusters.
 type ManagedClusterUpdate struct {
 	// REQUIRED; The upgrade to apply to the ManagedClusters.
