@@ -7199,6 +7199,9 @@ type VirtualMachineNetworkInterfaceConfiguration struct {
 
 	// Describes a virtual machine network profile's IP configuration.
 	Properties *VirtualMachineNetworkInterfaceConfigurationProperties
+
+	// Specifies tags for the network configuration.
+	Tags map[string]*string
 }
 
 // VirtualMachineNetworkInterfaceConfigurationProperties - Describes a virtual machine network profile's IP configuration.
@@ -7426,6 +7429,9 @@ type VirtualMachinePublicIPAddressConfiguration struct {
 
 	// Describes the public IP Sku. It can only be set with OrchestrationMode as Flexible.
 	SKU *PublicIPAddressSKU
+
+	// Specifies tags for the publicIP address configuration
+	Tags map[string]*string
 }
 
 // VirtualMachinePublicIPAddressConfigurationProperties - Describes a virtual machines IP Configuration's PublicIPAddress
@@ -7989,6 +7995,9 @@ type VirtualMachineScaleSetNetworkConfiguration struct {
 
 	// Describes a virtual machine scale set network profile's IP configuration.
 	Properties *VirtualMachineScaleSetNetworkConfigurationProperties
+
+	// Specifies tags for the network configuration.
+	Tags map[string]*string
 }
 
 // VirtualMachineScaleSetNetworkConfigurationDNSSettings - Describes a virtual machines scale sets network configuration's
@@ -8253,6 +8262,9 @@ type VirtualMachineScaleSetPublicIPAddressConfiguration struct {
 
 	// Describes the public IP Sku. It can only be set with OrchestrationMode as Flexible.
 	SKU *PublicIPAddressSKU
+
+	// Specifies tags for the publicIP address configuration
+	Tags map[string]*string
 }
 
 // VirtualMachineScaleSetPublicIPAddressConfigurationDNSSettings - Describes a virtual machines scale sets network configuration's
@@ -8427,6 +8439,9 @@ type VirtualMachineScaleSetUpdateNetworkConfiguration struct {
 	// Describes a virtual machine scale set updatable network profile's IP configuration.Use this object for updating network
 	// profile's IP Configuration.
 	Properties *VirtualMachineScaleSetUpdateNetworkConfigurationProperties
+
+	// Specifies tags for the network configuration.
+	Tags map[string]*string
 }
 
 // VirtualMachineScaleSetUpdateNetworkConfigurationProperties - Describes a virtual machine scale set updatable network profile's
@@ -8595,6 +8610,9 @@ type VirtualMachineScaleSetUpdatePublicIPAddressConfiguration struct {
 
 	// Describes a virtual machines scale set IP Configuration's PublicIPAddress configuration
 	Properties *VirtualMachineScaleSetUpdatePublicIPAddressConfigurationProperties
+
+	// Specifies tags for the publicIP address configuration
+	Tags map[string]*string
 }
 
 // VirtualMachineScaleSetUpdatePublicIPAddressConfigurationProperties - Describes a virtual machines scale set IP Configuration's
@@ -9199,6 +9217,16 @@ type WindowsParameters struct {
 
 	// This is used to install patches that were published on or before this given max published date.
 	MaxPatchPublishDate *time.Time
+
+	// This is used to exclude patches that match the given patch name masks. Alphanumeric strings and wildcard expressions consisting
+	// of * and ? are only supported as input values in the list. Null, empty
+	// and only whitespaces strings as inputs values are not supported.
+	PatchNameMasksToExclude []*string
+
+	// This is used to include patches that match the given patch name masks. Alphanumeric strings and wildcard expressions consisting
+	// of * and ? are only supported as input values in the list. Null, empty
+	// and only whitespaces strings as inputs values are not supported.
+	PatchNameMasksToInclude []*string
 }
 
 // WindowsVMGuestPatchAutomaticByPlatformSettings - Specifies additional settings to be applied when patch mode AutomaticByPlatform
