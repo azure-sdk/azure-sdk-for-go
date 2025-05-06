@@ -11,7 +11,7 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservicefleet/armcontainerservicefleet/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservicefleet/armcontainerservicefleet/v3"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -20,7 +20,7 @@ import (
 // AutoUpgradeProfileOperationsServer is a fake server for instances of the armcontainerservicefleet.AutoUpgradeProfileOperationsClient type.
 type AutoUpgradeProfileOperationsServer struct {
 	// BeginGenerateUpdateRun is the fake for method AutoUpgradeProfileOperationsClient.BeginGenerateUpdateRun
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
 	BeginGenerateUpdateRun func(ctx context.Context, resourceGroupName string, fleetName string, autoUpgradeProfileName string, options *armcontainerservicefleet.AutoUpgradeProfileOperationsClientBeginGenerateUpdateRunOptions) (resp azfake.PollerResponder[armcontainerservicefleet.AutoUpgradeProfileOperationsClientGenerateUpdateRunResponse], errResp azfake.ErrorResponder)
 }
 
@@ -94,7 +94,7 @@ func (a *AutoUpgradeProfileOperationsServerTransport) dispatchBeginGenerateUpdat
 		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ContainerService/fleets/(?P<fleetName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/autoUpgradeProfiles/(?P<autoUpgradeProfileName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/generateUpdateRun`
 		regex := regexp.MustCompile(regexStr)
 		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 4 {
+		if len(matches) < 5 {
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
@@ -122,9 +122,9 @@ func (a *AutoUpgradeProfileOperationsServerTransport) dispatchBeginGenerateUpdat
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
 		a.beginGenerateUpdateRun.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
 	}
 	if !server.PollerResponderMore(beginGenerateUpdateRun) {
 		a.beginGenerateUpdateRun.remove(req)
