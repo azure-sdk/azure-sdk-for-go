@@ -1,5 +1,12 @@
 # Release History
 
+## 3.0.0 (2025-05-06)
+### Breaking Changes
+
+- Struct `GenerateResponse` has been removed
+- Field `GenerateResponse` of struct `AutoUpgradeProfileOperationsClientGenerateUpdateRunResponse` has been removed
+
+
 ## 2.0.0 (2025-04-15)
 ### Breaking Changes
 
