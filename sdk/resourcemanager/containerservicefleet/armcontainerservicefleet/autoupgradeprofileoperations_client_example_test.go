@@ -7,7 +7,7 @@ package armcontainerservicefleet_test
 import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservicefleet/armcontainerservicefleet/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservicefleet/armcontainerservicefleet/v3"
 	"log"
 )
 
@@ -34,8 +34,5 @@ func ExampleAutoUpgradeProfileOperationsClient_BeginGenerateUpdateRun() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservicefleet.AutoUpgradeProfileOperationsClientGenerateUpdateRunResponse{
-	// 	GenerateResponse: &armcontainerservicefleet.GenerateResponse{
-	// 		ID: to.Ptr("lfte"),
-	// 	},
 	// }
 }
