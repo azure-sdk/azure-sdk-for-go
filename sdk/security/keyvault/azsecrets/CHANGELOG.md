@@ -1,5 +1,24 @@
 # Release History
 
+## 1.4.0-beta.2 (2025-05-06)
+### Breaking Changes
+
+- Type of `DeletedSecret.ID` has been changed from `*ID` to `*string`
+- Type of `DeletedSecret.KID` has been changed from `*ID` to `*string`
+- Type of `DeletedSecretProperties.ID` has been changed from `*ID` to `*string`
+- Type of `Secret.ID` has been changed from `*ID` to `*string`
+- Type of `Secret.KID` has been changed from `*ID` to `*string`
+- Type of `SecretAttributes.RecoveryLevel` has been changed from `*string` to `*DeletionRecoveryLevel`
+- Type of `SecretProperties.ID` has been changed from `*ID` to `*string`
+
+### Features Added
+
+- New enum type `DeletionRecoveryLevel` with values `DeletionRecoveryLevelCustomizedRecoverable`, `DeletionRecoveryLevelCustomizedRecoverableProtectedSubscription`, `DeletionRecoveryLevelCustomizedRecoverablePurgeable`, `DeletionRecoveryLevelPurgeable`, `DeletionRecoveryLevelRecoverable`, `DeletionRecoveryLevelRecoverableProtectedSubscription`, `DeletionRecoveryLevelRecoverablePurgeable`
+- New field `Maxresults` in struct `ListDeletedSecretPropertiesOptions`
+- New field `Maxresults` in struct `ListSecretPropertiesOptions`
+- New field `Maxresults` in struct `ListSecretPropertiesVersionsOptions`
+
+
 ## 1.4.0-beta.2 (Unreleased)
 
 ### Features Added
