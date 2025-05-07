@@ -22,7 +22,7 @@ type DeletedSecret struct {
 	ContentType *string
 
 	// The secret id.
-	ID *ID
+	ID *string
 
 	// The url of the recovery object, used to identify and recover the deleted secret.
 	RecoveryID *string
@@ -38,7 +38,7 @@ type DeletedSecret struct {
 
 	// READ-ONLY; If this is a secret backing a KV certificate, then this field specifies the corresponding key backing the KV
 	// certificate.
-	KID *ID
+	KID *string
 
 	// READ-ONLY; True if the secret's lifetime is managed by key vault. If this is a secret backing a certificate, then managed
 	// will be true.
@@ -57,7 +57,7 @@ type DeletedSecretProperties struct {
 	ContentType *string
 
 	// Secret identifier.
-	ID *ID
+	ID *string
 
 	// The url of the recovery object, used to identify and recover the deleted secret.
 	RecoveryID *string
@@ -101,7 +101,7 @@ type Secret struct {
 	ContentType *string
 
 	// The secret id.
-	ID *ID
+	ID *string
 
 	// Application specific metadata in the form of key-value pairs.
 	Tags map[string]*string
@@ -111,7 +111,7 @@ type Secret struct {
 
 	// READ-ONLY; If this is a secret backing a KV certificate, then this field specifies the corresponding key backing the KV
 	// certificate.
-	KID *ID
+	KID *string
 
 	// READ-ONLY; True if the secret's lifetime is managed by key vault. If this is a secret backing a certificate, then managed
 	// will be true.
@@ -138,7 +138,7 @@ type SecretAttributes struct {
 	// READ-ONLY; Reflects the deletion recovery level currently in effect for secrets in the current vault. If it contains 'Purgeable',
 	// the secret can be permanently deleted by a privileged user; otherwise, only the system can purge the secret, at the end
 	// of the retention interval.
-	RecoveryLevel *string
+	RecoveryLevel *DeletionRecoveryLevel
 
 	// READ-ONLY; Last updated time in UTC.
 	Updated *time.Time
@@ -153,7 +153,7 @@ type SecretProperties struct {
 	ContentType *string
 
 	// Secret identifier.
-	ID *ID
+	ID *string
 
 	// Application specific metadata in the form of key-value pairs.
 	Tags map[string]*string
