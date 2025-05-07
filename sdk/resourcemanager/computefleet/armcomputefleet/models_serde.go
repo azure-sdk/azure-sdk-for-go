@@ -635,6 +635,7 @@ func (f FleetProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "additionalLocationsProfile", f.AdditionalLocationsProfile)
 	populate(objectMap, "computeProfile", f.ComputeProfile)
+	populate(objectMap, "displayName", f.DisplayName)
 	populate(objectMap, "provisioningState", f.ProvisioningState)
 	populate(objectMap, "regularPriorityProfile", f.RegularPriorityProfile)
 	populate(objectMap, "spotPriorityProfile", f.SpotPriorityProfile)
@@ -659,6 +660,9 @@ func (f *FleetProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "computeProfile":
 			err = unpopulate(val, "ComputeProfile", &f.ComputeProfile)
+			delete(rawMsg, key)
+		case "displayName":
+			err = unpopulate(val, "DisplayName", &f.DisplayName)
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &f.ProvisioningState)

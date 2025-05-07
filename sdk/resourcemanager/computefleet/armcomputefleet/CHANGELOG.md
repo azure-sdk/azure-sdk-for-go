@@ -1,5 +1,16 @@
 # Release History
 
+## 2.0.0 (2025-05-07)
+### Breaking Changes
+
+- `ManagedServiceIdentityTypeSystemAndUserAssigned` from enum `ManagedServiceIdentityType` has been removed
+
+### Features Added
+
+- New value `ManagedServiceIdentityTypeSystemAssignedUserAssigned` added to enum type `ManagedServiceIdentityType`
+- New field `DisplayName` in struct `FleetProperties`
+
+
 ## 1.0.0 (2024-10-22)
 ### Breaking Changes
 
