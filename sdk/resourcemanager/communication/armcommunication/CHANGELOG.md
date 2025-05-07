@@ -1,5 +1,11 @@
 # Release History
 
+## 2.3.0 (2025-05-07)
+### Features Added
+
+- New field `DisableLocalAuth` in struct `ServiceProperties`
+
+
 ## 2.2.0 (2024-03-22)
 ### Features Added
 
