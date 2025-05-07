@@ -7,8 +7,6 @@ package azbatch
 import (
 	"io"
 	"time"
-
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 )
 
 // CancelCertificateDeletionResponse contains the response from method Client.CancelCertificateDeletion.
@@ -23,7 +21,7 @@ type CancelCertificateDeletionResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -47,7 +45,7 @@ type CreateCertificateResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -71,7 +69,7 @@ type CreateJobResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -95,7 +93,7 @@ type CreateJobScheduleResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -119,7 +117,7 @@ type CreateNodeUserResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -143,7 +141,7 @@ type CreatePoolResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -167,7 +165,7 @@ type CreateTaskCollectionResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -191,7 +189,7 @@ type CreateTaskResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -215,7 +213,7 @@ type DeallocateNodeResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -236,7 +234,7 @@ type DeleteCertificateResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -351,7 +349,7 @@ type DisableJobResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -375,7 +373,7 @@ type DisableJobScheduleResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -399,7 +397,7 @@ type DisableNodeSchedulingResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -423,7 +421,7 @@ type DisablePoolAutoScaleResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -447,7 +445,7 @@ type EnableJobResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -471,7 +469,7 @@ type EnableJobScheduleResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -495,7 +493,7 @@ type EnableNodeSchedulingResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -519,7 +517,7 @@ type EnablePoolAutoScaleResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -546,7 +544,7 @@ type EvaluatePoolAutoScaleResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -570,7 +568,7 @@ type GetApplicationResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -595,7 +593,7 @@ type GetCertificateResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -619,7 +617,7 @@ type GetJobResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -644,7 +642,7 @@ type GetJobScheduleResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -668,7 +666,7 @@ type GetJobTaskCountsResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -692,7 +690,7 @@ type GetNodeExtensionResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -716,22 +714,22 @@ type GetNodeFilePropertiesResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
 
 	// Whether the object represents a directory.
-	OCPBatchFileIsDirectory *bool
+	OcpBatchFileIsdirectory *bool
 
 	// The file mode attribute in octal format.
-	OCPBatchFileMode *string
+	OcpBatchFileMode *string
 
 	// The URL of the file.
-	OCPBatchFileURL *string
+	OcpBatchFileURL *string
 
 	// The file creation time.
-	OCPCreationTime *time.Time
+	OcpCreationTime *time.Time
 
 	// A unique identifier for the request that was made to the Batch service. If a request is consistently failing and you have
 	// verified that the request is properly formulated, you may use this value to report the error to Microsoft. In your report,
@@ -758,22 +756,22 @@ type GetNodeFileResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
 
 	// Whether the object represents a directory.
-	OCPBatchFileIsDirectory *bool
+	OcpBatchFileIsdirectory *bool
 
 	// The file mode attribute in octal format.
-	OCPBatchFileMode *string
+	OcpBatchFileMode *string
 
 	// The URL of the file.
-	OCPBatchFileURL *string
+	OcpBatchFileURL *string
 
 	// The file creation time.
-	OCPCreationTime *time.Time
+	OcpCreationTime *time.Time
 
 	// A unique identifier for the request that was made to the Batch service. If a request is consistently failing and you have
 	// verified that the request is properly formulated, you may use this value to report the error to Microsoft. In your report,
@@ -794,7 +792,7 @@ type GetNodeRemoteLoginSettingsResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -818,7 +816,7 @@ type GetNodeResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -842,7 +840,7 @@ type GetPoolResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -866,22 +864,22 @@ type GetTaskFilePropertiesResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
 
 	// Whether the object represents a directory.
-	OCPBatchFileIsDirectory *bool
+	OcpBatchFileIsdirectory *bool
 
 	// The file mode attribute in octal format.
-	OCPBatchFileMode *string
+	OcpBatchFileMode *string
 
 	// The URL of the file.
-	OCPBatchFileURL *string
+	OcpBatchFileURL *string
 
 	// The file creation time.
-	OCPCreationTime *time.Time
+	OcpCreationTime *time.Time
 
 	// A unique identifier for the request that was made to the Batch service. If a request is consistently failing and you have
 	// verified that the request is properly formulated, you may use this value to report the error to Microsoft. In your report,
@@ -908,22 +906,22 @@ type GetTaskFileResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
 
 	// Whether the object represents a directory.
-	OCPBatchFileIsDirectory *bool
+	OcpBatchFileIsdirectory *bool
 
 	// The file mode attribute in octal format.
-	OCPBatchFileMode *string
+	OcpBatchFileMode *string
 
 	// The URL of the file.
-	OCPBatchFileURL *string
+	OcpBatchFileURL *string
 
 	// The file creation time.
-	OCPCreationTime *time.Time
+	OcpCreationTime *time.Time
 
 	// A unique identifier for the request that was made to the Batch service. If a request is consistently failing and you have
 	// verified that the request is properly formulated, you may use this value to report the error to Microsoft. In your report,
@@ -955,7 +953,7 @@ type GetTaskResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -976,7 +974,7 @@ type JobScheduleExistsResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1000,7 +998,7 @@ type ListApplicationsResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1024,7 +1022,7 @@ type ListCertificatesResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1049,7 +1047,7 @@ type ListJobPreparationAndReleaseTaskStatusResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1073,7 +1071,7 @@ type ListJobSchedulesResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1097,7 +1095,7 @@ type ListJobsFromScheduleResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1121,7 +1119,7 @@ type ListJobsResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1145,7 +1143,7 @@ type ListNodeExtensionsResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1170,7 +1168,7 @@ type ListNodeFilesResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1194,7 +1192,7 @@ type ListNodesResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1218,7 +1216,7 @@ type ListPoolNodeCountsResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1242,7 +1240,7 @@ type ListPoolsResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1266,7 +1264,7 @@ type ListSubTasksResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1290,7 +1288,7 @@ type ListSupportedImagesResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1315,7 +1313,7 @@ type ListTaskFilesResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1339,7 +1337,7 @@ type ListTasksResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1360,7 +1358,7 @@ type PoolExistsResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1384,7 +1382,7 @@ type ReactivateTaskResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1408,7 +1406,7 @@ type RebootNodeResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1432,7 +1430,7 @@ type ReimageNodeResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1456,7 +1454,7 @@ type RemoveNodesResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1480,7 +1478,7 @@ type ReplaceJobResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1504,7 +1502,7 @@ type ReplaceJobScheduleResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1528,7 +1526,7 @@ type ReplaceNodeUserResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1552,7 +1550,7 @@ type ReplacePoolPropertiesResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1576,7 +1574,7 @@ type ReplaceTaskResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1600,7 +1598,7 @@ type ResizePoolResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1624,7 +1622,7 @@ type StartNodeResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1648,7 +1646,7 @@ type StopPoolResizeResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1672,7 +1670,7 @@ type TerminateJobResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1696,7 +1694,7 @@ type TerminateJobScheduleResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1720,7 +1718,7 @@ type TerminateTaskResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1744,7 +1742,7 @@ type UpdateJobResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1768,7 +1766,7 @@ type UpdateJobScheduleResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1792,7 +1790,7 @@ type UpdatePoolResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1816,7 +1814,7 @@ type UploadNodeLogsResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
@@ -1840,7 +1838,7 @@ type listPoolUsageMetricsResponse struct {
 	// The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between
 	// requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match
 	// headers.
-	ETag *azcore.ETag
+	ETag *string
 
 	// The time at which the resource was last modified.
 	LastModified *time.Time
