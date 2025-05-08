@@ -7,7 +7,7 @@ package armcompute
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute"
-	moduleVersion = "v6.4.0"
+	moduleVersion = "v6.5.0"
 )
 
 // AccessControlRulesMode - This property allows you to specify whether the access control rules are in Audit mode, in Enforce
@@ -1183,6 +1183,20 @@ func PossibleIntervalInMinsValues() []IntervalInMins {
 		IntervalInMinsSixtyMins,
 		IntervalInMinsThirtyMins,
 		IntervalInMinsThreeMins,
+	}
+}
+
+// LifecycleHookAction - Specifies the action to approve a lifecycle hook.
+type LifecycleHookAction string
+
+const (
+	LifecycleHookActionApprove LifecycleHookAction = "Approve"
+)
+
+// PossibleLifecycleHookActionValues returns the possible values for the LifecycleHookAction const type.
+func PossibleLifecycleHookActionValues() []LifecycleHookAction {
+	return []LifecycleHookAction{
+		LifecycleHookActionApprove,
 	}
 }
 

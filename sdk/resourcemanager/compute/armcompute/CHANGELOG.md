@@ -1,5 +1,14 @@
 # Release History
 
+## 6.5.0 (2025-05-08)
+### Features Added
+
+- New enum type `LifecycleHookAction` with values `LifecycleHookActionApprove`
+- New struct `LifecycleHook`
+- New struct `LifecycleHooksProfile`
+- New field `LifecycleHooksProfile` in struct `VirtualMachineScaleSetProperties`
+
+
 ## 6.4.0 (2025-03-28)
 ### Features Added
 

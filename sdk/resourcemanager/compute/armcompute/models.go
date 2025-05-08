@@ -3641,6 +3641,24 @@ type LatestGalleryImageVersion struct {
 	Location *string
 }
 
+// LifecycleHook - Describes a lifecycle hook.
+type LifecycleHook struct {
+	// Specifies the default action for the lifecycle hook.
+	DefaultAction *LifecycleHookAction
+
+	// Specifies the type of the lifecycle hook.
+	Type *string
+
+	// Specifies the wait duration for the lifecycle hook.
+	WaitDuration *string
+}
+
+// LifecycleHooksProfile - Specifies the lifecycle hooks profile for the virtual machine scale set.
+type LifecycleHooksProfile struct {
+	// Specifies the lifecycle hooks for the virtual machine scale set.
+	LifecycleHooks []*LifecycleHook
+}
+
 // LinuxConfiguration - Specifies the Linux operating system settings on the virtual machine. For a list of supported Linux
 // distributions, see Linux on Azure-Endorsed Distributions
 // [https://docs.microsoft.com/azure/virtual-machines/linux/endorsed-distros].
@@ -8181,6 +8199,9 @@ type VirtualMachineScaleSetProperties struct {
 	// Specifies information about the dedicated host group that the virtual machine scale set resides in. Minimum api-version:
 	// 2020-06-01.
 	HostGroup *SubResource
+
+	// Specifies the lifecycle hooks profile for the virtual machine scale set.
+	LifecycleHooksProfile *LifecycleHooksProfile
 
 	// Specifies the orchestration mode for the virtual machine scale set.
 	OrchestrationMode *OrchestrationMode
