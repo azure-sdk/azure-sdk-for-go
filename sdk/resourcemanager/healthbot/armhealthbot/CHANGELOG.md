@@ -1,5 +1,30 @@
 # Release History
 
+## 2.0.0 (2025-05-08)
+### Breaking Changes
+
+- Type of `Error.Error` has been changed from `*ErrorError` to `*ErrorDetail`
+- Type of `SystemData.CreatedByType` has been changed from `*IdentityType` to `*CreatedByType`
+- Type of `SystemData.LastModifiedByType` has been changed from `*IdentityType` to `*CreatedByType`
+- Enum `IdentityType` has been removed
+- Operation `*BotsClient.Update` has been changed to LRO, use `*BotsClient.BeginUpdate` instead.
+- Struct `ErrorError` has been removed
+- Struct `ValidationResult` has been removed
+
+### Features Added
+
+- New value `SKUNameC1`, `SKUNamePES` added to enum type `SKUName`
+- New enum type `CreatedByType` with values `CreatedByTypeApplication`, `CreatedByTypeKey`, `CreatedByTypeManagedIdentity`, `CreatedByTypeUser`
+- New function `*BotsClient.ListSecrets(context.Context, string, string, *BotsClientListSecretsOptions) (BotsClientListSecretsResponse, error)`
+- New function `*BotsClient.RegenerateAPIJwtSecret(context.Context, string, string, *BotsClientRegenerateAPIJwtSecretOptions) (BotsClientRegenerateAPIJwtSecretResponse, error)`
+- New struct `ErrorDetail`
+- New struct `Key`
+- New struct `KeyVaultProperties`
+- New struct `KeysResponse`
+- New field `KeyVaultProperties` in struct `Properties`
+- New field `Properties` in struct `UpdateParameters`
+
+
 ## 1.2.0 (2023-11-24)
 ### Features Added
 
