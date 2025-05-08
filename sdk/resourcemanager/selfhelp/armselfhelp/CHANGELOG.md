@@ -1,5 +1,19 @@
 # Release History
 
+## 2.0.0-beta.6 (2025-05-08)
+### Breaking Changes
+
+- Function `NewClientFactory` parameter(s) have been changed from `(azcore.TokenCredential, *arm.ClientOptions)` to `(string, azcore.TokenCredential, *arm.ClientOptions)`
+- Function `NewDiscoverySolutionNLPClient` parameter(s) have been changed from `(azcore.TokenCredential, *arm.ClientOptions)` to `(string, azcore.TokenCredential, *arm.ClientOptions)`
+- Function `*DiscoverySolutionNLPClient.DiscoverSolutions` parameter(s) have been changed from `(context.Context, *DiscoverySolutionNLPClientDiscoverSolutionsOptions)` to `(context.Context, DiscoveryNlpRequest, *DiscoverySolutionNLPClientDiscoverSolutionsOptions)`
+- Function `*DiscoverySolutionNLPClient.DiscoverSolutionsBySubscription` parameter(s) have been changed from `(context.Context, string, *DiscoverySolutionNLPClientDiscoverSolutionsBySubscriptionOptions)` to `(context.Context, DiscoveryNlpRequest, *DiscoverySolutionNLPClientDiscoverSolutionsBySubscriptionOptions)`
+- Field `DiscoverSolutionRequest` of struct `DiscoverySolutionNLPClientDiscoverSolutionsBySubscriptionOptions` has been removed
+- Field `DiscoverSolutionRequest` of struct `DiscoverySolutionNLPClientDiscoverSolutionsOptions` has been removed
+- Field `Location` of struct `TroubleshootersClientContinueResponse` has been removed
+- Field `Location` of struct `TroubleshootersClientEndResponse` has been removed
+- Field `Location` of struct `TroubleshootersClientRestartResponse` has been removed
+
+
 ## 2.0.0-beta.5 (2024-05-31)
 ### Breaking Changes
 
