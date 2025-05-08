@@ -8530,6 +8530,68 @@ func (l *LatestGalleryImageVersion) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type LifecycleHook.
+func (l LifecycleHook) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "defaultAction", l.DefaultAction)
+	populate(objectMap, "type", l.Type)
+	populate(objectMap, "waitDuration", l.WaitDuration)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type LifecycleHook.
+func (l *LifecycleHook) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", l, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "defaultAction":
+			err = unpopulate(val, "DefaultAction", &l.DefaultAction)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &l.Type)
+			delete(rawMsg, key)
+		case "waitDuration":
+			err = unpopulate(val, "WaitDuration", &l.WaitDuration)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", l, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type LifecycleHooksProfile.
+func (l LifecycleHooksProfile) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "lifecycleHooks", l.LifecycleHooks)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type LifecycleHooksProfile.
+func (l *LifecycleHooksProfile) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", l, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "lifecycleHooks":
+			err = unpopulate(val, "LifecycleHooks", &l.LifecycleHooks)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", l, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type LinuxConfiguration.
 func (l LinuxConfiguration) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -19230,6 +19292,7 @@ func (v VirtualMachineScaleSetProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "constrainedMaximumCapacity", v.ConstrainedMaximumCapacity)
 	populate(objectMap, "doNotRunExtensionsOnOverprovisionedVMs", v.DoNotRunExtensionsOnOverprovisionedVMs)
 	populate(objectMap, "hostGroup", v.HostGroup)
+	populate(objectMap, "lifecycleHooksProfile", v.LifecycleHooksProfile)
 	populate(objectMap, "orchestrationMode", v.OrchestrationMode)
 	populate(objectMap, "overprovision", v.Overprovision)
 	populate(objectMap, "platformFaultDomainCount", v.PlatformFaultDomainCount)
@@ -19274,6 +19337,9 @@ func (v *VirtualMachineScaleSetProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "hostGroup":
 			err = unpopulate(val, "HostGroup", &v.HostGroup)
+			delete(rawMsg, key)
+		case "lifecycleHooksProfile":
+			err = unpopulate(val, "LifecycleHooksProfile", &v.LifecycleHooksProfile)
 			delete(rawMsg, key)
 		case "orchestrationMode":
 			err = unpopulate(val, "OrchestrationMode", &v.OrchestrationMode)
