@@ -1,5 +1,17 @@
 # Release History
 
+## 7.0.0 (2025-04-23)
+### Breaking Changes
+
+- Enum `Expand` has been removed
+- Operation `*VirtualMachineImagesClient.NewListWithPropertiesPager` does not support pagination anymore, use `*VirtualMachineImagesClient.ListWithProperties` instead.
+- Struct `VirtualMachineImagesWithPropertiesListResult` has been removed
+
+### Features Added
+
+- New field `VirtualMachineImageArray` in struct `VirtualMachineImagesClientListWithPropertiesResponse`
+
+
 ## 6.4.0 (2025-03-28)
 ### Features Added
 

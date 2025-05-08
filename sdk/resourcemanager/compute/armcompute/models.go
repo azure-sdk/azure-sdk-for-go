@@ -7057,16 +7057,6 @@ type VirtualMachineImageResource struct {
 	Tags map[string]*string
 }
 
-// VirtualMachineImagesWithPropertiesListResult - The List Virtual Machine Images operation response.
-type VirtualMachineImagesWithPropertiesListResult struct {
-	// The URI to fetch the next page of virtual machine images. Call ListNext() with this URI to fetch the next page of virtual
-	// machine images.
-	NextLink *string
-
-	// The list of virtual machine images.
-	Value []*VirtualMachineImage
-}
-
 // VirtualMachineInstallPatchesParameters - Input for InstallPatches as directly received by the API
 type VirtualMachineInstallPatchesParameters struct {
 	// REQUIRED; Defines when it is acceptable to reboot a VM during a software update operation.
