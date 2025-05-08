@@ -13,24 +13,35 @@ import (
 // ClientFactory is a client factory used to create any client in this module.
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
-	subscriptionID string
-	internal       *arm.Client
+	subscriptionID           string
+	galleryName              string
+	galleryScriptName        string
+	galleryScriptVersionName string
+	internal                 *arm.Client
 }
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
 //   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
 //     part of the URI for every service call.
+//   - galleryName - The name of the Shared Image Gallery where Image Definitions or other artifacts reside.
+//   - galleryScriptName - The name of the gallery Script Definition in which the Script Version is to be created.
+//   - galleryScriptVersionName - The name of the gallery Script Version to be created. Needs to follow semantic version name
+//     pattern: The allowed characters are digit and period. Digits must be within the range of a 32-bit integer.
+//     Format: ..
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
+func NewClientFactory(subscriptionID string, galleryName string, galleryScriptName string, galleryScriptVersionName string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
 	internal, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		subscriptionID: subscriptionID,
-		internal:       internal,
+		subscriptionID:           subscriptionID,
+		galleryName:              galleryName,
+		galleryScriptName:        galleryScriptName,
+		galleryScriptVersionName: galleryScriptVersionName,
+		internal:                 internal,
 	}, nil
 }
 
@@ -174,6 +185,7 @@ func (c *ClientFactory) NewDisksClient() *DisksClient {
 func (c *ClientFactory) NewGalleriesClient() *GalleriesClient {
 	return &GalleriesClient{
 		subscriptionID: c.subscriptionID,
+		galleryName:    c.galleryName,
 		internal:       c.internal,
 	}
 }
@@ -182,6 +194,7 @@ func (c *ClientFactory) NewGalleriesClient() *GalleriesClient {
 func (c *ClientFactory) NewGalleryApplicationVersionsClient() *GalleryApplicationVersionsClient {
 	return &GalleryApplicationVersionsClient{
 		subscriptionID: c.subscriptionID,
+		galleryName:    c.galleryName,
 		internal:       c.internal,
 	}
 }
@@ -190,6 +203,7 @@ func (c *ClientFactory) NewGalleryApplicationVersionsClient() *GalleryApplicatio
 func (c *ClientFactory) NewGalleryApplicationsClient() *GalleryApplicationsClient {
 	return &GalleryApplicationsClient{
 		subscriptionID: c.subscriptionID,
+		galleryName:    c.galleryName,
 		internal:       c.internal,
 	}
 }
@@ -198,6 +212,7 @@ func (c *ClientFactory) NewGalleryApplicationsClient() *GalleryApplicationsClien
 func (c *ClientFactory) NewGalleryImageVersionsClient() *GalleryImageVersionsClient {
 	return &GalleryImageVersionsClient{
 		subscriptionID: c.subscriptionID,
+		galleryName:    c.galleryName,
 		internal:       c.internal,
 	}
 }
@@ -206,6 +221,7 @@ func (c *ClientFactory) NewGalleryImageVersionsClient() *GalleryImageVersionsCli
 func (c *ClientFactory) NewGalleryImagesClient() *GalleryImagesClient {
 	return &GalleryImagesClient{
 		subscriptionID: c.subscriptionID,
+		galleryName:    c.galleryName,
 		internal:       c.internal,
 	}
 }
@@ -214,6 +230,7 @@ func (c *ClientFactory) NewGalleryImagesClient() *GalleryImagesClient {
 func (c *ClientFactory) NewGalleryInVMAccessControlProfileVersionsClient() *GalleryInVMAccessControlProfileVersionsClient {
 	return &GalleryInVMAccessControlProfileVersionsClient{
 		subscriptionID: c.subscriptionID,
+		galleryName:    c.galleryName,
 		internal:       c.internal,
 	}
 }
@@ -222,7 +239,29 @@ func (c *ClientFactory) NewGalleryInVMAccessControlProfileVersionsClient() *Gall
 func (c *ClientFactory) NewGalleryInVMAccessControlProfilesClient() *GalleryInVMAccessControlProfilesClient {
 	return &GalleryInVMAccessControlProfilesClient{
 		subscriptionID: c.subscriptionID,
+		galleryName:    c.galleryName,
 		internal:       c.internal,
+	}
+}
+
+// NewGalleryScriptVersionsClient creates a new instance of GalleryScriptVersionsClient.
+func (c *ClientFactory) NewGalleryScriptVersionsClient() *GalleryScriptVersionsClient {
+	return &GalleryScriptVersionsClient{
+		subscriptionID:           c.subscriptionID,
+		galleryName:              c.galleryName,
+		galleryScriptName:        c.galleryScriptName,
+		galleryScriptVersionName: c.galleryScriptVersionName,
+		internal:                 c.internal,
+	}
+}
+
+// NewGalleryScriptsClient creates a new instance of GalleryScriptsClient.
+func (c *ClientFactory) NewGalleryScriptsClient() *GalleryScriptsClient {
+	return &GalleryScriptsClient{
+		subscriptionID:    c.subscriptionID,
+		galleryName:       c.galleryName,
+		galleryScriptName: c.galleryScriptName,
+		internal:          c.internal,
 	}
 }
 
@@ -230,6 +269,7 @@ func (c *ClientFactory) NewGalleryInVMAccessControlProfilesClient() *GalleryInVM
 func (c *ClientFactory) NewGallerySharingProfileClient() *GallerySharingProfileClient {
 	return &GallerySharingProfileClient{
 		subscriptionID: c.subscriptionID,
+		galleryName:    c.galleryName,
 		internal:       c.internal,
 	}
 }
@@ -333,6 +373,7 @@ func (c *ClientFactory) NewSnapshotsClient() *SnapshotsClient {
 func (c *ClientFactory) NewSoftDeletedResourceClient() *SoftDeletedResourceClient {
 	return &SoftDeletedResourceClient{
 		subscriptionID: c.subscriptionID,
+		galleryName:    c.galleryName,
 		internal:       c.internal,
 	}
 }
