@@ -1,5 +1,22 @@
 # Release History
 
+## 2.0.0 (2025-04-28)
+### Breaking Changes
+
+- Type of `SystemData.CreatedByType` has been changed from `*IdentityType` to `*CreatedByType`
+- Type of `SystemData.LastModifiedByType` has been changed from `*IdentityType` to `*CreatedByType`
+- Enum `IdentityType` has been removed
+- Operation `*CapacitiesClient.NewListByResourceGroupPager` does not support pagination anymore, use `*CapacitiesClient.ListByResourceGroup` instead.
+- Operation `*CapacitiesClient.NewListPager` does not support pagination anymore, use `*CapacitiesClient.List` instead.
+- Field `Location`, `Tags` of struct `Resource` has been removed
+
+### Features Added
+
+- New enum type `CreatedByType` with values `CreatedByTypeApplication`, `CreatedByTypeKey`, `CreatedByTypeManagedIdentity`, `CreatedByTypeUser`
+- New struct `TrackedResource`
+- New field `NextLink` in struct `AutoScaleVCoreListResult`
+
+
 ## 1.2.0 (2023-11-24)
 ### Features Added
 
