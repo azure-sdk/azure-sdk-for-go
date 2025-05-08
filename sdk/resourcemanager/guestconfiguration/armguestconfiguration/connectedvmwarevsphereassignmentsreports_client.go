@@ -17,23 +17,24 @@ import (
 	"strings"
 )
 
-// AssignmentReportsClient contains the methods for the GuestConfigurationAssignmentReports group.
-// Don't use this type directly, use NewAssignmentReportsClient() instead.
-type AssignmentReportsClient struct {
+// ConnectedVMwarevSphereAssignmentsReportsClient contains the methods for the GuestConfigurationConnectedVMwarevSphereAssignmentsReports
+// group.
+// Don't use this type directly, use NewConnectedVMwarevSphereAssignmentsReportsClient() instead.
+type ConnectedVMwarevSphereAssignmentsReportsClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewAssignmentReportsClient creates a new instance of AssignmentReportsClient with the specified values.
+// NewConnectedVMwarevSphereAssignmentsReportsClient creates a new instance of ConnectedVMwarevSphereAssignmentsReportsClient with the specified values.
 //   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewAssignmentReportsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AssignmentReportsClient, error) {
+func NewConnectedVMwarevSphereAssignmentsReportsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ConnectedVMwarevSphereAssignmentsReportsClient, error) {
 	cl, err := arm.NewClient(moduleName, moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &AssignmentReportsClient{
+	client := &ConnectedVMwarevSphereAssignmentsReportsClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
@@ -45,35 +46,36 @@ func NewAssignmentReportsClient(subscriptionID string, credential azcore.TokenCr
 //
 // Generated from API version 2024-04-05
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - vmName - virtualMachines
+//   - vmName - virtualmachines
 //   - guestConfigurationAssignmentName - The name of the GuestConfigurationAssignment
 //   - reportID - The GUID for the guest configuration assignment report.
-//   - options - AssignmentReportsClientGetOptions contains the optional parameters for the AssignmentReportsClient.Get method.
-func (client *AssignmentReportsClient) Get(ctx context.Context, resourceGroupName string, vmName string, guestConfigurationAssignmentName string, reportID string, options *AssignmentReportsClientGetOptions) (AssignmentReportsClientGetResponse, error) {
+//   - options - ConnectedVMwarevSphereAssignmentsReportsClientGetOptions contains the optional parameters for the ConnectedVMwarevSphereAssignmentsReportsClient.Get
+//     method.
+func (client *ConnectedVMwarevSphereAssignmentsReportsClient) Get(ctx context.Context, resourceGroupName string, vmName string, guestConfigurationAssignmentName string, reportID string, options *ConnectedVMwarevSphereAssignmentsReportsClientGetOptions) (ConnectedVMwarevSphereAssignmentsReportsClientGetResponse, error) {
 	var err error
-	const operationName = "AssignmentReportsClient.Get"
+	const operationName = "ConnectedVMwarevSphereAssignmentsReportsClient.Get"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.getCreateRequest(ctx, resourceGroupName, vmName, guestConfigurationAssignmentName, reportID, options)
 	if err != nil {
-		return AssignmentReportsClientGetResponse{}, err
+		return ConnectedVMwarevSphereAssignmentsReportsClientGetResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return AssignmentReportsClientGetResponse{}, err
+		return ConnectedVMwarevSphereAssignmentsReportsClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return AssignmentReportsClientGetResponse{}, err
+		return ConnectedVMwarevSphereAssignmentsReportsClientGetResponse{}, err
 	}
 	resp, err := client.getHandleResponse(httpResp)
 	return resp, err
 }
 
 // getCreateRequest creates the Get request.
-func (client *AssignmentReportsClient) getCreateRequest(ctx context.Context, resourceGroupName string, vmName string, guestConfigurationAssignmentName string, reportID string, _ *AssignmentReportsClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.GuestConfiguration/virtualMachines/{vmName}/guestConfigurationAssignments/{guestConfigurationAssignmentName}/{reportId}/{reportId}"
+func (client *ConnectedVMwarevSphereAssignmentsReportsClient) getCreateRequest(ctx context.Context, resourceGroupName string, vmName string, guestConfigurationAssignmentName string, reportID string, _ *ConnectedVMwarevSphereAssignmentsReportsClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.GuestConfiguration/virtualmachines/{vmName}/guestConfigurationAssignments/{guestConfigurationAssignmentName}/{reportId}/{reportId}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -106,10 +108,10 @@ func (client *AssignmentReportsClient) getCreateRequest(ctx context.Context, res
 }
 
 // getHandleResponse handles the Get response.
-func (client *AssignmentReportsClient) getHandleResponse(resp *http.Response) (AssignmentReportsClientGetResponse, error) {
-	result := AssignmentReportsClientGetResponse{}
+func (client *ConnectedVMwarevSphereAssignmentsReportsClient) getHandleResponse(resp *http.Response) (ConnectedVMwarevSphereAssignmentsReportsClientGetResponse, error) {
+	result := ConnectedVMwarevSphereAssignmentsReportsClientGetResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.AssignmentReport); err != nil {
-		return AssignmentReportsClientGetResponse{}, err
+		return ConnectedVMwarevSphereAssignmentsReportsClientGetResponse{}, err
 	}
 	return result, nil
 }
@@ -119,34 +121,35 @@ func (client *AssignmentReportsClient) getHandleResponse(resp *http.Response) (A
 //
 // Generated from API version 2024-04-05
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - vmName - virtualMachines
+//   - vmName - virtualmachines
 //   - guestConfigurationAssignmentName - The name of the GuestConfigurationAssignment
-//   - options - AssignmentReportsClientListOptions contains the optional parameters for the AssignmentReportsClient.List method.
-func (client *AssignmentReportsClient) List(ctx context.Context, resourceGroupName string, vmName string, guestConfigurationAssignmentName string, options *AssignmentReportsClientListOptions) (AssignmentReportsClientListResponse, error) {
+//   - options - ConnectedVMwarevSphereAssignmentsReportsClientListOptions contains the optional parameters for the ConnectedVMwarevSphereAssignmentsReportsClient.List
+//     method.
+func (client *ConnectedVMwarevSphereAssignmentsReportsClient) List(ctx context.Context, resourceGroupName string, vmName string, guestConfigurationAssignmentName string, options *ConnectedVMwarevSphereAssignmentsReportsClientListOptions) (ConnectedVMwarevSphereAssignmentsReportsClientListResponse, error) {
 	var err error
-	const operationName = "AssignmentReportsClient.List"
+	const operationName = "ConnectedVMwarevSphereAssignmentsReportsClient.List"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.listCreateRequest(ctx, resourceGroupName, vmName, guestConfigurationAssignmentName, options)
 	if err != nil {
-		return AssignmentReportsClientListResponse{}, err
+		return ConnectedVMwarevSphereAssignmentsReportsClientListResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return AssignmentReportsClientListResponse{}, err
+		return ConnectedVMwarevSphereAssignmentsReportsClientListResponse{}, err
 	}
 	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
 		err = runtime.NewResponseError(httpResp)
-		return AssignmentReportsClientListResponse{}, err
+		return ConnectedVMwarevSphereAssignmentsReportsClientListResponse{}, err
 	}
 	resp, err := client.listHandleResponse(httpResp)
 	return resp, err
 }
 
 // listCreateRequest creates the List request.
-func (client *AssignmentReportsClient) listCreateRequest(ctx context.Context, resourceGroupName string, vmName string, guestConfigurationAssignmentName string, _ *AssignmentReportsClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.GuestConfiguration/virtualMachines/{vmName}/guestConfigurationAssignments/{guestConfigurationAssignmentName}/reports"
+func (client *ConnectedVMwarevSphereAssignmentsReportsClient) listCreateRequest(ctx context.Context, resourceGroupName string, vmName string, guestConfigurationAssignmentName string, _ *ConnectedVMwarevSphereAssignmentsReportsClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.GuestConfiguration/virtualmachines/{vmName}/guestConfigurationAssignments/{guestConfigurationAssignmentName}/reports"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -175,10 +178,10 @@ func (client *AssignmentReportsClient) listCreateRequest(ctx context.Context, re
 }
 
 // listHandleResponse handles the List response.
-func (client *AssignmentReportsClient) listHandleResponse(resp *http.Response) (AssignmentReportsClientListResponse, error) {
-	result := AssignmentReportsClientListResponse{}
+func (client *ConnectedVMwarevSphereAssignmentsReportsClient) listHandleResponse(resp *http.Response) (ConnectedVMwarevSphereAssignmentsReportsClientListResponse, error) {
+	result := ConnectedVMwarevSphereAssignmentsReportsClientListResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.AssignmentReportList); err != nil {
-		return AssignmentReportsClientListResponse{}, err
+		return ConnectedVMwarevSphereAssignmentsReportsClientListResponse{}, err
 	}
 	return result, nil
 }
