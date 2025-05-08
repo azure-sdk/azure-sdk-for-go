@@ -1,5 +1,33 @@
 # Release History
 
+## 1.3.0-beta.2 (2025-04-22)
+### Breaking Changes
+
+- Function `*CustomLocationsClient.NewListOperationsPager` has been removed
+- Operation `*ResourceSyncRulesClient.BeginUpdate` has been changed to non-LRO, use `*ResourceSyncRulesClient.Update` instead.
+- Struct `CustomLocationOperation` has been removed
+- Struct `CustomLocationOperationValueDisplay` has been removed
+- Struct `CustomLocationOperationsList` has been removed
+- Struct `EnabledResourceTypesListResult` has been removed
+- Field `EnabledResourceTypesListResult` of struct `CustomLocationsClientListEnabledResourceTypesResponse` has been removed
+
+### Features Added
+
+- New enum type `ActionType` with values `ActionTypeInternal`
+- New enum type `Origin` with values `OriginSystem`, `OriginUser`, `OriginUserSystem`
+- New function `*ClientFactory.NewOperationsClient() *OperationsClient`
+- New function `NewOperationsClient(azcore.TokenCredential, *arm.ClientOptions) (*OperationsClient, error)`
+- New function `*OperationsClient.NewListPager(*OperationsClientListOptions) *runtime.Pager[OperationsClientListResponse]`
+- New struct `EnabledResourceTypeListResult`
+- New struct `Operation`
+- New struct `OperationDisplay`
+- New struct `OperationListResult`
+- New anonymous field `EnabledResourceTypeListResult` in struct `CustomLocationsClientListEnabledResourceTypesResponse`
+- New field `SystemData` in struct `ProxyResource`
+- New field `SystemData` in struct `Resource`
+- New field `SystemData` in struct `TrackedResource`
+
+
 ## 1.3.0-beta.1 (2023-11-30)
 ### Features Added
 
