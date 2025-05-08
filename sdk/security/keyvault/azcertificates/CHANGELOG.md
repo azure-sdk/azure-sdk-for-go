@@ -1,5 +1,34 @@
 # Release History
 
+## 1.4.0-beta.2 (2025-04-23)
+### Breaking Changes
+
+- Type of `Certificate.ID` has been changed from `*ID` to `*string`
+- Type of `Certificate.KID` has been changed from `*ID` to `*string`
+- Type of `Certificate.SID` has been changed from `*ID` to `*string`
+- Type of `CertificateAttributes.RecoveryLevel` has been changed from `*string` to `*DeletionRecoveryLevel`
+- Type of `CertificateOperation.Error` has been changed from `*ErrorInfo` to `*Error`
+- Type of `CertificateOperation.ID` has been changed from `*ID` to `*string`
+- Type of `CertificatePolicy.ID` has been changed from `*ID` to `*string`
+- Type of `CertificateProperties.ID` has been changed from `*ID` to `*string`
+- Type of `DeletedCertificate.ID` has been changed from `*ID` to `*string`
+- Type of `DeletedCertificate.KID` has been changed from `*ID` to `*string`
+- Type of `DeletedCertificate.SID` has been changed from `*ID` to `*string`
+- Type of `DeletedCertificateProperties.ID` has been changed from `*ID` to `*string`
+- Field `CertificatePropertiesListResult` of struct `ListCertificatePropertiesResponse` has been removed
+
+### Features Added
+
+- New enum type `DeletionRecoveryLevel` with values `DeletionRecoveryLevelCustomizedRecoverable`, `DeletionRecoveryLevelCustomizedRecoverableProtectedSubscription`, `DeletionRecoveryLevelCustomizedRecoverablePurgeable`, `DeletionRecoveryLevelPurgeable`, `DeletionRecoveryLevelRecoverable`, `DeletionRecoveryLevelRecoverableProtectedSubscription`, `DeletionRecoveryLevelRecoverablePurgeable`
+- New struct `CertificateListResultWithPending`
+- New struct `Error`
+- New field `Maxresults` in struct `ListCertificatePropertiesOptions`
+- New anonymous field `CertificateListResultWithPending` in struct `ListCertificatePropertiesResponse`
+- New field `Maxresults` in struct `ListCertificatePropertiesVersionsOptions`
+- New field `Maxresults` in struct `ListDeletedCertificatePropertiesOptions`
+- New field `Maxresults` in struct `ListIssuerPropertiesOptions`
+
+
 ## 1.4.0-beta.2 (Unreleased)
 
 ### Features Added
