@@ -1,5 +1,36 @@
 # Release History
 
+## 1.4.0-beta.2 (2025-05-08)
+### Breaking Changes
+
+- Type of `Operation.Display` has been changed from `*OperationInfo` to `*OperationDisplay`
+- Type of `Operation.Origin` has been changed from `*string` to `*Origin`
+- Function `*ConfigurationAssignmentsClient.NewListPager` has been removed
+- Operation `*UpdatesClient.NewListPager` does not support pagination anymore, use `*UpdatesClient.List` instead.
+- Operation `*UpdatesClient.NewListParentPager` does not support pagination anymore, use `*UpdatesClient.ListParent` instead.
+- Struct `OperationInfo` has been removed
+- Struct `OperationsListResult` has been removed
+- Field `Properties` of struct `Operation` has been removed
+- Field `OperationsListResult` of struct `OperationsClientListResponse` has been removed
+
+### Features Added
+
+- New enum type `ActionType` with values `ActionTypeInternal`
+- New enum type `Origin` with values `OriginSystem`, `OriginUser`, `OriginUserSystem`
+- New struct `ErrorAdditionalInfo`
+- New struct `ErrorDetail`
+- New struct `ErrorResponse`
+- New struct `OperationDisplay`
+- New struct `OperationListResult`
+- New struct `ProxyResource`
+- New struct `TrackedResource`
+- New field `NextLink` in struct `ListApplyUpdate`
+- New field `NextLink` in struct `ListConfigurationAssignmentsResult`
+- New field `NextLink` in struct `ListMaintenanceConfigurationsResult`
+- New field `ActionType` in struct `Operation`
+- New anonymous field `OperationListResult` in struct `OperationsClientListResponse`
+
+
 ## 1.4.0-beta.1 (2024-05-24)
 ### Features Added
 
