@@ -34,6 +34,9 @@ type ServerFactory struct {
 	// ManagedHsmsServer contains the fakes for client ManagedHsmsClient
 	ManagedHsmsServer ManagedHsmsServer
 
+	// NetworkSecurityPerimeterServer contains the fakes for client NetworkSecurityPerimeterClient
+	NetworkSecurityPerimeterServer NetworkSecurityPerimeterServer
+
 	// OperationsServer contains the fakes for client OperationsClient
 	OperationsServer OperationsServer
 
@@ -70,6 +73,7 @@ type ServerFactoryTransport struct {
 	trMHSMRegionsServer                    *MHSMRegionsServerTransport
 	trManagedHsmKeysServer                 *ManagedHsmKeysServerTransport
 	trManagedHsmsServer                    *ManagedHsmsServerTransport
+	trNetworkSecurityPerimeterServer       *NetworkSecurityPerimeterServerTransport
 	trOperationsServer                     *OperationsServerTransport
 	trPrivateEndpointConnectionsServer     *PrivateEndpointConnectionsServerTransport
 	trPrivateLinkResourcesServer           *PrivateLinkResourcesServerTransport
@@ -114,6 +118,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	case "ManagedHsmsClient":
 		initServer(s, &s.trManagedHsmsServer, func() *ManagedHsmsServerTransport { return NewManagedHsmsServerTransport(&s.srv.ManagedHsmsServer) })
 		resp, err = s.trManagedHsmsServer.Do(req)
+	case "NetworkSecurityPerimeterClient":
+		initServer(s, &s.trNetworkSecurityPerimeterServer, func() *NetworkSecurityPerimeterServerTransport {
+			return NewNetworkSecurityPerimeterServerTransport(&s.srv.NetworkSecurityPerimeterServer)
+		})
+		resp, err = s.trNetworkSecurityPerimeterServer.Do(req)
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
