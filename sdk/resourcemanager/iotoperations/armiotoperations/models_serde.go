@@ -2679,6 +2679,7 @@ func (i *InstancePatchModel) UnmarshalJSON(data []byte) error {
 func (i InstanceProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "description", i.Description)
+	populate(objectMap, "features", i.Features)
 	populate(objectMap, "provisioningState", i.ProvisioningState)
 	populate(objectMap, "schemaRegistryRef", i.SchemaRegistryRef)
 	populate(objectMap, "version", i.Version)
@@ -2696,6 +2697,9 @@ func (i *InstanceProperties) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "description":
 			err = unpopulate(val, "Description", &i.Description)
+			delete(rawMsg, key)
+		case "features":
+			err = unpopulate(val, "Features", &i.Features)
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &i.ProvisioningState)
