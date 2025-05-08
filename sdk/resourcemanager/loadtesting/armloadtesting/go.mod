@@ -1,4 +1,4 @@
-module github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/loadtesting/armloadtesting
+module github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/loadtesting/armloadtesting/v2
 
 go 1.23.0
 
