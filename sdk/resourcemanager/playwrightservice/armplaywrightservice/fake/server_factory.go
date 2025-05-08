@@ -14,20 +14,17 @@ import (
 	"sync"
 )
 
-// ServerFactory is a fake server for instances of the armloadtesting.ClientFactory type.
+// ServerFactory is a fake server for instances of the armplaywrightservice.ClientFactory type.
 type ServerFactory struct {
-	// LoadTestsServer contains the fakes for client LoadTestsClient
-	LoadTestsServer LoadTestsServer
-
 	// OperationsServer contains the fakes for client OperationsClient
 	OperationsServer OperationsServer
 
-	// QuotasServer contains the fakes for client QuotasClient
-	QuotasServer QuotasServer
+	// PlaywrightWorkspacesServer contains the fakes for client PlaywrightWorkspacesClient
+	PlaywrightWorkspacesServer PlaywrightWorkspacesServer
 }
 
 // NewServerFactoryTransport creates a new instance of ServerFactoryTransport with the provided implementation.
-// The returned ServerFactoryTransport instance is connected to an instance of armloadtesting.ClientFactory via the
+// The returned ServerFactoryTransport instance is connected to an instance of armplaywrightservice.ClientFactory via the
 // azcore.ClientOptions.Transporter field in the client's constructor parameters.
 func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 	return &ServerFactoryTransport{
@@ -35,14 +32,13 @@ func NewServerFactoryTransport(srv *ServerFactory) *ServerFactoryTransport {
 	}
 }
 
-// ServerFactoryTransport connects instances of armloadtesting.ClientFactory to instances of ServerFactory.
+// ServerFactoryTransport connects instances of armplaywrightservice.ClientFactory to instances of ServerFactory.
 // Don't use this type directly, use NewServerFactoryTransport instead.
 type ServerFactoryTransport struct {
-	srv                *ServerFactory
-	trMu               sync.Mutex
-	trLoadTestsServer  *LoadTestsServerTransport
-	trOperationsServer *OperationsServerTransport
-	trQuotasServer     *QuotasServerTransport
+	srv                          *ServerFactory
+	trMu                         sync.Mutex
+	trOperationsServer           *OperationsServerTransport
+	trPlaywrightWorkspacesServer *PlaywrightWorkspacesServerTransport
 }
 
 // Do implements the policy.Transporter interface for ServerFactoryTransport.
@@ -58,15 +54,14 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	var err error
 
 	switch client {
-	case "LoadTestsClient":
-		initServer(s, &s.trLoadTestsServer, func() *LoadTestsServerTransport { return NewLoadTestsServerTransport(&s.srv.LoadTestsServer) })
-		resp, err = s.trLoadTestsServer.Do(req)
 	case "OperationsClient":
 		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
-	case "QuotasClient":
-		initServer(s, &s.trQuotasServer, func() *QuotasServerTransport { return NewQuotasServerTransport(&s.srv.QuotasServer) })
-		resp, err = s.trQuotasServer.Do(req)
+	case "PlaywrightWorkspacesClient":
+		initServer(s, &s.trPlaywrightWorkspacesServer, func() *PlaywrightWorkspacesServerTransport {
+			return NewPlaywrightWorkspacesServerTransport(&s.srv.PlaywrightWorkspacesServer)
+		})
+		resp, err = s.trPlaywrightWorkspacesServer.Do(req)
 	default:
 		err = fmt.Errorf("unhandled client %s", client)
 	}
