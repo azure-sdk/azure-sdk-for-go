@@ -102,6 +102,10 @@ func (client *StorageTasksClient) create(ctx context.Context, resourceGroupName 
 // createCreateRequest creates the Create request.
 func (client *StorageTasksClient) createCreateRequest(ctx context.Context, resourceGroupName string, storageTaskName string, parameters StorageTask, _ *StorageTasksClientBeginCreateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorageActions/storageTasks/{storageTaskName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -110,10 +114,6 @@ func (client *StorageTasksClient) createCreateRequest(ctx context.Context, resou
 		return nil, errors.New("parameter storageTaskName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{storageTaskName}", url.PathEscape(storageTaskName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -183,6 +183,10 @@ func (client *StorageTasksClient) deleteOperation(ctx context.Context, resourceG
 // deleteCreateRequest creates the Delete request.
 func (client *StorageTasksClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, storageTaskName string, _ *StorageTasksClientBeginDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorageActions/storageTasks/{storageTaskName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -191,10 +195,6 @@ func (client *StorageTasksClient) deleteCreateRequest(ctx context.Context, resou
 		return nil, errors.New("parameter storageTaskName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{storageTaskName}", url.PathEscape(storageTaskName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -239,6 +239,10 @@ func (client *StorageTasksClient) Get(ctx context.Context, resourceGroupName str
 // getCreateRequest creates the Get request.
 func (client *StorageTasksClient) getCreateRequest(ctx context.Context, resourceGroupName string, storageTaskName string, _ *StorageTasksClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorageActions/storageTasks/{storageTaskName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -247,10 +251,6 @@ func (client *StorageTasksClient) getCreateRequest(ctx context.Context, resource
 		return nil, errors.New("parameter storageTaskName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{storageTaskName}", url.PathEscape(storageTaskName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -303,14 +303,14 @@ func (client *StorageTasksClient) NewListByResourceGroupPager(resourceGroupName 
 // listByResourceGroupCreateRequest creates the ListByResourceGroup request.
 func (client *StorageTasksClient) listByResourceGroupCreateRequest(ctx context.Context, resourceGroupName string, _ *StorageTasksClientListByResourceGroupOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorageActions/storageTasks"
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -390,7 +390,6 @@ func (client *StorageTasksClient) listBySubscriptionHandleResponse(resp *http.Re
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-01-01
-//   - location - The location to perform preview of the actions.
 //   - parameters - The parameters to preview action condition.
 //   - options - StorageTasksClientPreviewActionsOptions contains the optional parameters for the StorageTasksClient.PreviewActions
 //     method.
@@ -506,6 +505,10 @@ func (client *StorageTasksClient) update(ctx context.Context, resourceGroupName 
 // updateCreateRequest creates the Update request.
 func (client *StorageTasksClient) updateCreateRequest(ctx context.Context, resourceGroupName string, storageTaskName string, parameters StorageTaskUpdateParameters, _ *StorageTasksClientBeginUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.StorageActions/storageTasks/{storageTaskName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -514,10 +517,6 @@ func (client *StorageTasksClient) updateCreateRequest(ctx context.Context, resou
 		return nil, errors.New("parameter storageTaskName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{storageTaskName}", url.PathEscape(storageTaskName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
