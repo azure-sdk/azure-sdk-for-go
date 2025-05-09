@@ -1,5 +1,210 @@
 # Release History
 
+## 3.0.0 (2025-05-09)
+### Breaking Changes
+
+- Function `NewClientFactory` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(string, string, azcore.TokenCredential, *arm.ClientOptions)`
+- Type of `PrivateCloudIdentity.Type` has been changed from `*ResourceIdentityType` to `*SystemAssignedServiceIdentityType`
+- Type of `ScriptExecutionProperties.NamedOutputs` has been changed from `map[string]any` to `map[string]*ScriptExecutionPropertiesNamedOutput`
+- Enum `ResourceIdentityType` has been removed
+- Function `NewAddonsClient` has been removed
+- Function `*AddonsClient.BeginCreateOrUpdate` has been removed
+- Function `*AddonsClient.BeginDelete` has been removed
+- Function `*AddonsClient.Get` has been removed
+- Function `*AddonsClient.NewListPager` has been removed
+- Function `NewAuthorizationsClient` has been removed
+- Function `*AuthorizationsClient.BeginCreateOrUpdate` has been removed
+- Function `*AuthorizationsClient.BeginDelete` has been removed
+- Function `*AuthorizationsClient.Get` has been removed
+- Function `*AuthorizationsClient.NewListPager` has been removed
+- Function `*ClientFactory.NewAddonsClient` has been removed
+- Function `*ClientFactory.NewAuthorizationsClient` has been removed
+- Function `*ClientFactory.NewCloudLinksClient` has been removed
+- Function `*ClientFactory.NewClustersClient` has been removed
+- Function `*ClientFactory.NewDatastoresClient` has been removed
+- Function `*ClientFactory.NewGlobalReachConnectionsClient` has been removed
+- Function `*ClientFactory.NewHcxEnterpriseSitesClient` has been removed
+- Function `*ClientFactory.NewIscsiPathsClient` has been removed
+- Function `*ClientFactory.NewLocationsClient` has been removed
+- Function `*ClientFactory.NewOperationsClient` has been removed
+- Function `*ClientFactory.NewPlacementPoliciesClient` has been removed
+- Function `*ClientFactory.NewPrivateCloudsClient` has been removed
+- Function `*ClientFactory.NewScriptCmdletsClient` has been removed
+- Function `*ClientFactory.NewScriptExecutionsClient` has been removed
+- Function `*ClientFactory.NewScriptPackagesClient` has been removed
+- Function `*ClientFactory.NewVirtualMachinesClient` has been removed
+- Function `*ClientFactory.NewWorkloadNetworksClient` has been removed
+- Function `NewCloudLinksClient` has been removed
+- Function `*CloudLinksClient.BeginCreateOrUpdate` has been removed
+- Function `*CloudLinksClient.BeginDelete` has been removed
+- Function `*CloudLinksClient.Get` has been removed
+- Function `*CloudLinksClient.NewListPager` has been removed
+- Function `NewClustersClient` has been removed
+- Function `*ClustersClient.BeginCreateOrUpdate` has been removed
+- Function `*ClustersClient.BeginDelete` has been removed
+- Function `*ClustersClient.Get` has been removed
+- Function `*ClustersClient.NewListPager` has been removed
+- Function `*ClustersClient.ListZones` has been removed
+- Function `*ClustersClient.BeginUpdate` has been removed
+- Function `NewDatastoresClient` has been removed
+- Function `*DatastoresClient.BeginCreateOrUpdate` has been removed
+- Function `*DatastoresClient.BeginDelete` has been removed
+- Function `*DatastoresClient.Get` has been removed
+- Function `*DatastoresClient.NewListPager` has been removed
+- Function `NewGlobalReachConnectionsClient` has been removed
+- Function `*GlobalReachConnectionsClient.BeginCreateOrUpdate` has been removed
+- Function `*GlobalReachConnectionsClient.BeginDelete` has been removed
+- Function `*GlobalReachConnectionsClient.Get` has been removed
+- Function `*GlobalReachConnectionsClient.NewListPager` has been removed
+- Function `NewHcxEnterpriseSitesClient` has been removed
+- Function `*HcxEnterpriseSitesClient.CreateOrUpdate` has been removed
+- Function `*HcxEnterpriseSitesClient.Delete` has been removed
+- Function `*HcxEnterpriseSitesClient.Get` has been removed
+- Function `*HcxEnterpriseSitesClient.NewListPager` has been removed
+- Function `NewIscsiPathsClient` has been removed
+- Function `*IscsiPathsClient.BeginCreateOrUpdate` has been removed
+- Function `*IscsiPathsClient.BeginDelete` has been removed
+- Function `*IscsiPathsClient.Get` has been removed
+- Function `*IscsiPathsClient.NewListByPrivateCloudPager` has been removed
+- Function `NewLocationsClient` has been removed
+- Function `*LocationsClient.CheckQuotaAvailability` has been removed
+- Function `*LocationsClient.CheckTrialAvailability` has been removed
+- Function `NewOperationsClient` has been removed
+- Function `*OperationsClient.NewListPager` has been removed
+- Function `NewPlacementPoliciesClient` has been removed
+- Function `*PlacementPoliciesClient.BeginCreateOrUpdate` has been removed
+- Function `*PlacementPoliciesClient.BeginDelete` has been removed
+- Function `*PlacementPoliciesClient.Get` has been removed
+- Function `*PlacementPoliciesClient.NewListPager` has been removed
+- Function `*PlacementPoliciesClient.BeginUpdate` has been removed
+- Function `NewPrivateCloudsClient` has been removed
+- Function `*PrivateCloudsClient.BeginCreateOrUpdate` has been removed
+- Function `*PrivateCloudsClient.BeginDelete` has been removed
+- Function `*PrivateCloudsClient.Get` has been removed
+- Function `*PrivateCloudsClient.ListAdminCredentials` has been removed
+- Function `*PrivateCloudsClient.NewListInSubscriptionPager` has been removed
+- Function `*PrivateCloudsClient.NewListPager` has been removed
+- Function `*PrivateCloudsClient.BeginRotateNsxtPassword` has been removed
+- Function `*PrivateCloudsClient.BeginRotateVcenterPassword` has been removed
+- Function `*PrivateCloudsClient.BeginUpdate` has been removed
+- Function `NewScriptCmdletsClient` has been removed
+- Function `*ScriptCmdletsClient.Get` has been removed
+- Function `*ScriptCmdletsClient.NewListPager` has been removed
+- Function `NewScriptExecutionsClient` has been removed
+- Function `*ScriptExecutionsClient.BeginCreateOrUpdate` has been removed
+- Function `*ScriptExecutionsClient.BeginDelete` has been removed
+- Function `*ScriptExecutionsClient.Get` has been removed
+- Function `*ScriptExecutionsClient.GetExecutionLogs` has been removed
+- Function `*ScriptExecutionsClient.NewListPager` has been removed
+- Function `NewScriptPackagesClient` has been removed
+- Function `*ScriptPackagesClient.Get` has been removed
+- Function `*ScriptPackagesClient.NewListPager` has been removed
+- Function `NewVirtualMachinesClient` has been removed
+- Function `*VirtualMachinesClient.Get` has been removed
+- Function `*VirtualMachinesClient.NewListPager` has been removed
+- Function `*VirtualMachinesClient.BeginRestrictMovement` has been removed
+- Function `NewWorkloadNetworksClient` has been removed
+- Function `*WorkloadNetworksClient.BeginCreateDNSService` has been removed
+- Function `*WorkloadNetworksClient.BeginCreateDNSZone` has been removed
+- Function `*WorkloadNetworksClient.BeginCreateDhcp` has been removed
+- Function `*WorkloadNetworksClient.BeginCreatePortMirroring` has been removed
+- Function `*WorkloadNetworksClient.BeginCreatePublicIP` has been removed
+- Function `*WorkloadNetworksClient.BeginCreateSegments` has been removed
+- Function `*WorkloadNetworksClient.BeginCreateVMGroup` has been removed
+- Function `*WorkloadNetworksClient.BeginDeleteDNSService` has been removed
+- Function `*WorkloadNetworksClient.BeginDeleteDNSZone` has been removed
+- Function `*WorkloadNetworksClient.BeginDeleteDhcp` has been removed
+- Function `*WorkloadNetworksClient.BeginDeletePortMirroring` has been removed
+- Function `*WorkloadNetworksClient.BeginDeletePublicIP` has been removed
+- Function `*WorkloadNetworksClient.BeginDeleteSegment` has been removed
+- Function `*WorkloadNetworksClient.BeginDeleteVMGroup` has been removed
+- Function `*WorkloadNetworksClient.Get` has been removed
+- Function `*WorkloadNetworksClient.GetDNSService` has been removed
+- Function `*WorkloadNetworksClient.GetDNSZone` has been removed
+- Function `*WorkloadNetworksClient.GetDhcp` has been removed
+- Function `*WorkloadNetworksClient.GetGateway` has been removed
+- Function `*WorkloadNetworksClient.GetPortMirroring` has been removed
+- Function `*WorkloadNetworksClient.GetPublicIP` has been removed
+- Function `*WorkloadNetworksClient.GetSegment` has been removed
+- Function `*WorkloadNetworksClient.GetVMGroup` has been removed
+- Function `*WorkloadNetworksClient.GetVirtualMachine` has been removed
+- Function `*WorkloadNetworksClient.NewListDNSServicesPager` has been removed
+- Function `*WorkloadNetworksClient.NewListDNSZonesPager` has been removed
+- Function `*WorkloadNetworksClient.NewListDhcpPager` has been removed
+- Function `*WorkloadNetworksClient.NewListGatewaysPager` has been removed
+- Function `*WorkloadNetworksClient.NewListPager` has been removed
+- Function `*WorkloadNetworksClient.NewListPortMirroringPager` has been removed
+- Function `*WorkloadNetworksClient.NewListPublicIPsPager` has been removed
+- Function `*WorkloadNetworksClient.NewListSegmentsPager` has been removed
+- Function `*WorkloadNetworksClient.NewListVMGroupsPager` has been removed
+- Function `*WorkloadNetworksClient.NewListVirtualMachinesPager` has been removed
+- Function `*WorkloadNetworksClient.BeginUpdateDNSService` has been removed
+- Function `*WorkloadNetworksClient.BeginUpdateDNSZone` has been removed
+- Function `*WorkloadNetworksClient.BeginUpdateDhcp` has been removed
+- Function `*WorkloadNetworksClient.BeginUpdatePortMirroring` has been removed
+- Function `*WorkloadNetworksClient.BeginUpdateSegments` has been removed
+- Function `*WorkloadNetworksClient.BeginUpdateVMGroup` has been removed
+
+### Features Added
+
+- New enum type `HostKind` with values `HostKindGeneral`, `HostKindSpecialized`
+- New enum type `HostMaintenance` with values `HostMaintenanceReplacement`, `HostMaintenanceUpgrade`
+- New enum type `HostProvisioningState` with values `HostProvisioningStateCanceled`, `HostProvisioningStateFailed`, `HostProvisioningStateSucceeded`
+- New enum type `ProvisionedNetworkProvisioningState` with values `ProvisionedNetworkProvisioningStateCanceled`, `ProvisionedNetworkProvisioningStateFailed`, `ProvisionedNetworkProvisioningStateSucceeded`
+- New enum type `ProvisionedNetworkTypes` with values `ProvisionedNetworkTypesEsxManagement`, `ProvisionedNetworkTypesEsxReplication`, `ProvisionedNetworkTypesHcxManagement`, `ProvisionedNetworkTypesHcxUplink`, `ProvisionedNetworkTypesVcenterManagement`, `ProvisionedNetworkTypesVmotion`, `ProvisionedNetworkTypesVsan`
+- New enum type `PureStoragePolicyProvisioningState` with values `PureStoragePolicyProvisioningStateCanceled`, `PureStoragePolicyProvisioningStateDeleting`, `PureStoragePolicyProvisioningStateFailed`, `PureStoragePolicyProvisioningStateSucceeded`, `PureStoragePolicyProvisioningStateUpdating`
+- New enum type `ResourceSKUResourceType` with values `ResourceSKUResourceTypePrivateClouds`, `ResourceSKUResourceTypePrivateCloudsClusters`
+- New enum type `ResourceSKURestrictionsReasonCode` with values `ResourceSKURestrictionsReasonCodeNotAvailableForSubscription`, `ResourceSKURestrictionsReasonCodeQuotaID`
+- New enum type `ResourceSKURestrictionsType` with values `ResourceSKURestrictionsTypeLocation`, `ResourceSKURestrictionsTypeZone`
+- New enum type `SystemAssignedServiceIdentityType` with values `SystemAssignedServiceIdentityTypeNone`, `SystemAssignedServiceIdentityTypeSystemAssigned`
+- New function `NewClient(string, string, azcore.TokenCredential, *arm.ClientOptions) (*Client, error)`
+- New function `*Client.CheckQuotaAvailability(context.Context, string, *ClientCheckQuotaAvailabilityOptions) (ClientCheckQuotaAvailabilityResponse, error)`
+- New function `*Client.CheckTrialAvailability(context.Context, string, *ClientCheckTrialAvailabilityOptions) (ClientCheckTrialAvailabilityResponse, error)`
+- New function `*Client.BeginCreate(context.Context, string, string, string, WorkloadNetworkVMGroup, *ClientBeginCreateOptions) (*runtime.Poller[ClientCreateResponse], error)`
+- New function `*Client.BeginCreateOrUpdate(context.Context, string, string, string, PureStoragePolicy, *ClientBeginCreateOrUpdateOptions) (*runtime.Poller[ClientCreateOrUpdateResponse], error)`
+- New function `*Client.CreateOrUpdate(context.Context, string, string, string, HcxEnterpriseSite, *ClientCreateOrUpdateOptions) (ClientCreateOrUpdateResponse, error)`
+- New function `*Client.BeginDelete(context.Context, string, string, string, *ClientBeginDeleteOptions) (*runtime.Poller[ClientDeleteResponse], error)`
+- New function `*Client.Delete(context.Context, string, string, string, *ClientDeleteOptions) (ClientDeleteResponse, error)`
+- New function `*Client.BeginDeleteSegment(context.Context, string, string, string, *ClientBeginDeleteSegmentOptions) (*runtime.Poller[ClientDeleteSegmentResponse], error)`
+- New function `*Client.Get(context.Context, string, string, string, *ClientGetOptions) (ClientGetResponse, error)`
+- New function `*Client.GetExecutionLogs(context.Context, string, string, string, *ClientGetExecutionLogsOptions) (ClientGetExecutionLogsResponse, error)`
+- New function `*Client.ListAdminCredentials(context.Context, string, string, *ClientListAdminCredentialsOptions) (ClientListAdminCredentialsResponse, error)`
+- New function `*Client.NewListByPrivateCloudPager(string, string, *ClientListByPrivateCloudOptions) *runtime.Pager[ClientListByPrivateCloudResponse]`
+- New function `*Client.NewListInSubscriptionPager(*ClientListInSubscriptionOptions) *runtime.Pager[ClientListInSubscriptionResponse]`
+- New function `*Client.NewListPager(string, string, *ClientListOptions) *runtime.Pager[ClientListResponse]`
+- New function `*Client.ListZones(context.Context, string, string, string, *ClientListZonesOptions) (ClientListZonesResponse, error)`
+- New function `*Client.BeginRestrictMovement(context.Context, string, string, string, string, VirtualMachineRestrictMovement, *ClientBeginRestrictMovementOptions) (*runtime.Poller[ClientRestrictMovementResponse], error)`
+- New function `*Client.BeginRotateNsxtPassword(context.Context, string, string, *ClientBeginRotateNsxtPasswordOptions) (*runtime.Poller[ClientRotateNsxtPasswordResponse], error)`
+- New function `*Client.BeginRotateVcenterPassword(context.Context, string, string, *ClientBeginRotateVcenterPasswordOptions) (*runtime.Poller[ClientRotateVcenterPasswordResponse], error)`
+- New function `*Client.BeginUpdate(context.Context, string, string, string, string, PlacementPolicyUpdate, *ClientBeginUpdateOptions) (*runtime.Poller[ClientUpdateResponse], error)`
+- New function `*ClientFactory.NewClient() *Client`
+- New function `*GeneralHostProperties.GetHostProperties() *HostProperties`
+- New function `*HostProperties.GetHostProperties() *HostProperties`
+- New function `*SpecializedHostProperties.GetHostProperties() *HostProperties`
+- New struct `GeneralHostProperties`
+- New struct `Host`
+- New struct `HostListResult`
+- New struct `PagedResourceSKU`
+- New struct `ProvisionedNetwork`
+- New struct `ProvisionedNetworkListResult`
+- New struct `ProvisionedNetworkProperties`
+- New struct `PureStoragePolicy`
+- New struct `PureStoragePolicyListResult`
+- New struct `PureStoragePolicyProperties`
+- New struct `PureStorageVolume`
+- New struct `ResourceSKU`
+- New struct `ResourceSKUCapabilities`
+- New struct `ResourceSKULocationInfo`
+- New struct `ResourceSKURestrictionInfo`
+- New struct `ResourceSKURestrictions`
+- New struct `ResourceSKUZoneDetails`
+- New struct `ScriptExecutionPropertiesNamedOutput`
+- New struct `SpecializedHostProperties`
+- New field `ManagementNetwork`, `UplinkNetwork` in struct `AddonHcxProperties`
+- New field `PureStorageVolume` in struct `DatastoreProperties`
+- New field `Zones` in struct `PrivateCloud`
+
+
 ## 2.0.0 (2024-09-26)
 ### Breaking Changes
 
