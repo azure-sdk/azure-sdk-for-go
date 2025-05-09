@@ -1,5 +1,19 @@
 # Release History
 
+## 10.1.0 (2025-05-09)
+### Features Added
+
+- New enum type `AmazonRdsForOracleAuthenticationType` with values `AmazonRdsForOracleAuthenticationTypeBasic`
+- New enum type `ImpalaThriftTransportProtocol` with values `ImpalaThriftTransportProtocolBinary`, `ImpalaThriftTransportProtocolHTTP`
+- New function `*DatabricksJobActivity.GetActivity() *Activity`
+- New function `*DatabricksJobActivity.GetExecutionActivity() *ExecutionActivity`
+- New struct `DatabricksJobActivity`
+- New struct `DatabricksJobActivityTypeProperties`
+- New field `AuthenticationType`, `CryptoChecksumClient`, `CryptoChecksumTypesClient`, `EnableBulkLoad`, `EncryptionClient`, `EncryptionTypesClient`, `FetchSize`, `FetchTswtzAsTimestamp`, `InitialLobFetchSize`, `InitializationString`, `Server`, `StatementCacheSize`, `SupportV1DataTypes`, `Username` in struct `AmazonRdsForLinkedServiceTypeProperties`
+- New field `DataSecurityMode` in struct `AzureDatabricksLinkedServiceTypeProperties`
+- New field `EnableServerCertificateValidation`, `ThriftTransportProtocol` in struct `ImpalaLinkedServiceTypeProperties`
+
+
 ## 10.0.0 (2025-04-24)
 ### Breaking Changes
 
