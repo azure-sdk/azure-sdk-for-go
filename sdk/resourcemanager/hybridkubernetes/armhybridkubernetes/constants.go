@@ -7,8 +7,22 @@ package armhybridkubernetes
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/hybridkubernetes/armhybridkubernetes"
-	moduleVersion = "v2.0.0-beta.1"
+	moduleVersion = "v2.0.0-beta.2"
 )
+
+// ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+type ActionType string
+
+const (
+	ActionTypeInternal ActionType = "Internal"
+)
+
+// PossibleActionTypeValues returns the possible values for the ActionType const type.
+func PossibleActionTypeValues() []ActionType {
+	return []ActionType{
+		ActionTypeInternal,
+	}
+}
 
 // AuthenticationMethod - The mode of client authentication.
 type AuthenticationMethod string
@@ -119,23 +133,22 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 	}
 }
 
-// LastModifiedByType - The type of identity that last modified the resource.
-type LastModifiedByType string
+// Origin - The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
+// value is "user,system"
+type Origin string
 
 const (
-	LastModifiedByTypeApplication     LastModifiedByType = "Application"
-	LastModifiedByTypeKey             LastModifiedByType = "Key"
-	LastModifiedByTypeManagedIdentity LastModifiedByType = "ManagedIdentity"
-	LastModifiedByTypeUser            LastModifiedByType = "User"
+	OriginSystem     Origin = "system"
+	OriginUser       Origin = "user"
+	OriginUserSystem Origin = "user,system"
 )
 
-// PossibleLastModifiedByTypeValues returns the possible values for the LastModifiedByType const type.
-func PossibleLastModifiedByTypeValues() []LastModifiedByType {
-	return []LastModifiedByType{
-		LastModifiedByTypeApplication,
-		LastModifiedByTypeKey,
-		LastModifiedByTypeManagedIdentity,
-		LastModifiedByTypeUser,
+// PossibleOriginValues returns the possible values for the Origin const type.
+func PossibleOriginValues() []Origin {
+	return []Origin{
+		OriginSystem,
+		OriginUser,
+		OriginUserSystem,
 	}
 }
 

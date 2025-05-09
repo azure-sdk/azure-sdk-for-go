@@ -96,7 +96,7 @@ func (client *ConnectedClusterClient) createOrReplace(ctx context.Context, resou
 
 // createOrReplaceCreateRequest creates the CreateOrReplace request.
 func (client *ConnectedClusterClient) createOrReplaceCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, connectedCluster ConnectedCluster, _ *ConnectedClusterClientBeginCreateOrReplaceOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Kubernetes/connectedClusters/{clusterName}"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Kubernetes/connectedClusters/{clusterName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -176,7 +176,7 @@ func (client *ConnectedClusterClient) deleteOperation(ctx context.Context, resou
 
 // deleteCreateRequest creates the Delete request.
 func (client *ConnectedClusterClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, _ *ConnectedClusterClientBeginDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Kubernetes/connectedClusters/{clusterName}"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Kubernetes/connectedClusters/{clusterName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -232,7 +232,7 @@ func (client *ConnectedClusterClient) Get(ctx context.Context, resourceGroupName
 
 // getCreateRequest creates the Get request.
 func (client *ConnectedClusterClient) getCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, _ *ConnectedClusterClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Kubernetes/connectedClusters/{clusterName}"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Kubernetes/connectedClusters/{clusterName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -296,7 +296,7 @@ func (client *ConnectedClusterClient) NewListByResourceGroupPager(resourceGroupN
 
 // listByResourceGroupCreateRequest creates the ListByResourceGroup request.
 func (client *ConnectedClusterClient) listByResourceGroupCreateRequest(ctx context.Context, resourceGroupName string, _ *ConnectedClusterClientListByResourceGroupOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Kubernetes/connectedClusters"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Kubernetes/connectedClusters"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -319,7 +319,7 @@ func (client *ConnectedClusterClient) listByResourceGroupCreateRequest(ctx conte
 // listByResourceGroupHandleResponse handles the ListByResourceGroup response.
 func (client *ConnectedClusterClient) listByResourceGroupHandleResponse(resp *http.Response) (ConnectedClusterClientListByResourceGroupResponse, error) {
 	result := ConnectedClusterClientListByResourceGroupResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ConnectedClusterList); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.ConnectedClusterListResult); err != nil {
 		return ConnectedClusterClientListByResourceGroupResponse{}, err
 	}
 	return result, nil
@@ -374,7 +374,7 @@ func (client *ConnectedClusterClient) listBySubscriptionCreateRequest(ctx contex
 // listBySubscriptionHandleResponse handles the ListBySubscription response.
 func (client *ConnectedClusterClient) listBySubscriptionHandleResponse(resp *http.Response) (ConnectedClusterClientListBySubscriptionResponse, error) {
 	result := ConnectedClusterClientListBySubscriptionResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ConnectedClusterList); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.ConnectedClusterListResult); err != nil {
 		return ConnectedClusterClientListBySubscriptionResponse{}, err
 	}
 	return result, nil
@@ -414,7 +414,7 @@ func (client *ConnectedClusterClient) ListClusterUserCredential(ctx context.Cont
 
 // listClusterUserCredentialCreateRequest creates the ListClusterUserCredential request.
 func (client *ConnectedClusterClient) listClusterUserCredentialCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, properties ListClusterUserCredentialProperties, _ *ConnectedClusterClientListClusterUserCredentialOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Kubernetes/connectedClusters/{clusterName}/listClusterUserCredential"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Kubernetes/connectedClusters/{clusterName}/listClusterUserCredential"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -482,7 +482,7 @@ func (client *ConnectedClusterClient) Update(ctx context.Context, resourceGroupN
 
 // updateCreateRequest creates the Update request.
 func (client *ConnectedClusterClient) updateCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, connectedClusterPatch ConnectedClusterPatch, _ *ConnectedClusterClientUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Kubernetes/connectedClusters/{clusterName}"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Kubernetes/connectedClusters/{clusterName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}

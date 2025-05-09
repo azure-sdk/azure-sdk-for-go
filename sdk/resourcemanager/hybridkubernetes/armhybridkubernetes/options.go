@@ -46,7 +46,7 @@ type ConnectedClusterClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
-// OperationsClientGetOptions contains the optional parameters for the OperationsClient.NewGetPager method.
-type OperationsClientGetOptions struct {
+// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
+type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }

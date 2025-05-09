@@ -1,5 +1,32 @@
 # Release History
 
+## 2.0.0-beta.2 (2025-05-09)
+### Breaking Changes
+
+- Type of `ConnectedClusterProperties.Gateway` has been changed from `*Gateway` to `*ConnectedClusterPropertiesGateway`
+- Type of `SystemData.LastModifiedByType` has been changed from `*LastModifiedByType` to `*CreatedByType`
+- Enum `LastModifiedByType` has been removed
+- Function `*OperationsClient.NewGetPager` has been removed
+- Struct `ConnectedClusterList` has been removed
+- Struct `OperationList` has been removed
+- Field `ConnectedClusterList` of struct `ConnectedClusterClientListByResourceGroupResponse` has been removed
+- Field `ConnectedClusterList` of struct `ConnectedClusterClientListBySubscriptionResponse` has been removed
+
+### Features Added
+
+- New enum type `ActionType` with values `ActionTypeInternal`
+- New enum type `Origin` with values `OriginSystem`, `OriginUser`, `OriginUserSystem`
+- New function `*OperationsClient.NewListPager(*OperationsClientListOptions) *runtime.Pager[OperationsClientListResponse]`
+- New struct `ConnectedClusterListResult`
+- New struct `ConnectedClusterPropertiesGateway`
+- New struct `OperationListResult`
+- New anonymous field `ConnectedClusterListResult` in struct `ConnectedClusterClientListByResourceGroupResponse`
+- New anonymous field `ConnectedClusterListResult` in struct `ConnectedClusterClientListBySubscriptionResponse`
+- New field `ActionType`, `IsDataAction`, `Origin` in struct `Operation`
+- New field `SystemData` in struct `Resource`
+- New field `SystemData` in struct `TrackedResource`
+
+
 ## 2.0.0-beta.1 (2025-03-17)
 ### Breaking Changes
 
