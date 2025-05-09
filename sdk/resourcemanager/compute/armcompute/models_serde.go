@@ -17042,6 +17042,7 @@ func (v VirtualMachineImageResource) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "id", v.ID)
 	populate(objectMap, "location", v.Location)
 	populate(objectMap, "name", v.Name)
+	populate(objectMap, "properties", v.Properties)
 	populate(objectMap, "tags", v.Tags)
 	return json.Marshal(objectMap)
 }
@@ -17066,6 +17067,9 @@ func (v *VirtualMachineImageResource) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "name":
 			err = unpopulate(val, "Name", &v.Name)
+			delete(rawMsg, key)
+		case "properties":
+			err = unpopulate(val, "Properties", &v.Properties)
 			delete(rawMsg, key)
 		case "tags":
 			err = unpopulate(val, "Tags", &v.Tags)

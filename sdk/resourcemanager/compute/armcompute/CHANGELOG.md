@@ -1,5 +1,11 @@
 # Release History
 
+## 6.5.0 (2025-05-09)
+### Features Added
+
+- New field `Properties` in struct `VirtualMachineImageResource`
+
+
 ## 6.4.0 (2025-03-28)
 ### Features Added
 

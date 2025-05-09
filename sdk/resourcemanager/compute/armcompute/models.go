@@ -7051,6 +7051,9 @@ type VirtualMachineImageResource struct {
 	// Resource Id
 	ID *string
 
+	// Describes the properties of a Virtual Machine Image.
+	Properties *VirtualMachineImageProperties
+
 	// Specifies the tags that are assigned to the virtual machine. For more information about using tags, see Using tags to organize
 	// your Azure resources
 	// [https://docs.microsoft.com/azure/azure-resource-manager/resource-group-using-tags.md].
