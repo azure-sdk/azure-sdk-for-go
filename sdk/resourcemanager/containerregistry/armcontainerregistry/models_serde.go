@@ -2379,6 +2379,7 @@ func (e *ExportPipelineProperties) UnmarshalJSON(data []byte) error {
 func (e ExportPipelineTargetProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "keyVaultUri", e.KeyVaultURI)
+	populate(objectMap, "storageAccessMode", e.StorageAccessMode)
 	populate(objectMap, "type", e.Type)
 	populate(objectMap, "uri", e.URI)
 	return json.Marshal(objectMap)
@@ -2395,6 +2396,9 @@ func (e *ExportPipelineTargetProperties) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "keyVaultUri":
 			err = unpopulate(val, "KeyVaultURI", &e.KeyVaultURI)
+			delete(rawMsg, key)
+		case "storageAccessMode":
+			err = unpopulate(val, "StorageAccessMode", &e.StorageAccessMode)
 			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &e.Type)
@@ -3011,6 +3015,7 @@ func (i *ImportPipelineProperties) UnmarshalJSON(data []byte) error {
 func (i ImportPipelineSourceProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "keyVaultUri", i.KeyVaultURI)
+	populate(objectMap, "storageAccessMode", i.StorageAccessMode)
 	populate(objectMap, "type", i.Type)
 	populate(objectMap, "uri", i.URI)
 	return json.Marshal(objectMap)
@@ -3027,6 +3032,9 @@ func (i *ImportPipelineSourceProperties) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "keyVaultUri":
 			err = unpopulate(val, "KeyVaultURI", &i.KeyVaultURI)
+			delete(rawMsg, key)
+		case "storageAccessMode":
+			err = unpopulate(val, "StorageAccessMode", &i.StorageAccessMode)
 			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &i.Type)

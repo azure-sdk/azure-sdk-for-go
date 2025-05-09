@@ -190,10 +190,9 @@ type ExportPipelinesClientBeginCreateOptions struct {
 	ResumeToken string
 }
 
-// ExportPipelinesClientBeginDeleteOptions contains the optional parameters for the ExportPipelinesClient.BeginDelete method.
-type ExportPipelinesClientBeginDeleteOptions struct {
-	// Resumes the long-running operation from the provided token.
-	ResumeToken string
+// ExportPipelinesClientDeleteOptions contains the optional parameters for the ExportPipelinesClient.Delete method.
+type ExportPipelinesClientDeleteOptions struct {
+	// placeholder for future optional parameters
 }
 
 // ExportPipelinesClientGetOptions contains the optional parameters for the ExportPipelinesClient.Get method.
@@ -212,10 +211,9 @@ type ImportPipelinesClientBeginCreateOptions struct {
 	ResumeToken string
 }
 
-// ImportPipelinesClientBeginDeleteOptions contains the optional parameters for the ImportPipelinesClient.BeginDelete method.
-type ImportPipelinesClientBeginDeleteOptions struct {
-	// Resumes the long-running operation from the provided token.
-	ResumeToken string
+// ImportPipelinesClientDeleteOptions contains the optional parameters for the ImportPipelinesClient.Delete method.
+type ImportPipelinesClientDeleteOptions struct {
+	// placeholder for future optional parameters
 }
 
 // ImportPipelinesClientGetOptions contains the optional parameters for the ImportPipelinesClient.Get method.
@@ -239,10 +237,9 @@ type PipelineRunsClientBeginCreateOptions struct {
 	ResumeToken string
 }
 
-// PipelineRunsClientBeginDeleteOptions contains the optional parameters for the PipelineRunsClient.BeginDelete method.
-type PipelineRunsClientBeginDeleteOptions struct {
-	// Resumes the long-running operation from the provided token.
-	ResumeToken string
+// PipelineRunsClientDeleteOptions contains the optional parameters for the PipelineRunsClient.Delete method.
+type PipelineRunsClientDeleteOptions struct {
+	// placeholder for future optional parameters
 }
 
 // PipelineRunsClientGetOptions contains the optional parameters for the PipelineRunsClient.Get method.
