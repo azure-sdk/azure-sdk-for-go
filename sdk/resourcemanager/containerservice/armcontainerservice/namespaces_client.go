@@ -43,7 +43,7 @@ func NewNamespacesClient(subscriptionID string, credential azcore.TokenCredentia
 // BeginCreateOrUpdate - Creates or updates a namespace in the specified managed cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2025-02-02-preview
+// Generated from API version 2025-03-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the managed cluster resource.
 //   - namespaceName - The name of the namespace.
@@ -70,7 +70,7 @@ func (client *NamespacesClient) BeginCreateOrUpdate(ctx context.Context, resourc
 // CreateOrUpdate - Creates or updates a namespace in the specified managed cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2025-02-02-preview
+// Generated from API version 2025-03-02-preview
 func (client *NamespacesClient) createOrUpdate(ctx context.Context, resourceGroupName string, resourceName string, namespaceName string, parameters Namespace, options *NamespacesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "NamespacesClient.BeginCreateOrUpdate"
@@ -116,7 +116,7 @@ func (client *NamespacesClient) createOrUpdateCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2025-02-02-preview")
+	reqQP.Set("api-version", "2025-03-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -128,7 +128,7 @@ func (client *NamespacesClient) createOrUpdateCreateRequest(ctx context.Context,
 // BeginDelete - Deletes a namespace.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2025-02-02-preview
+// Generated from API version 2025-03-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the managed cluster resource.
 //   - namespaceName - The name of the namespace.
@@ -153,7 +153,7 @@ func (client *NamespacesClient) BeginDelete(ctx context.Context, resourceGroupNa
 // Delete - Deletes a namespace.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2025-02-02-preview
+// Generated from API version 2025-03-02-preview
 func (client *NamespacesClient) deleteOperation(ctx context.Context, resourceGroupName string, resourceName string, namespaceName string, options *NamespacesClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "NamespacesClient.BeginDelete"
@@ -199,7 +199,7 @@ func (client *NamespacesClient) deleteCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2025-02-02-preview")
+	reqQP.Set("api-version", "2025-03-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -208,7 +208,7 @@ func (client *NamespacesClient) deleteCreateRequest(ctx context.Context, resourc
 // Get - Gets the specified namespace of a managed cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2025-02-02-preview
+// Generated from API version 2025-03-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the managed cluster resource.
 //   - namespaceName - The name of the namespace.
@@ -259,7 +259,7 @@ func (client *NamespacesClient) getCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2025-02-02-preview")
+	reqQP.Set("api-version", "2025-03-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -276,7 +276,7 @@ func (client *NamespacesClient) getHandleResponse(resp *http.Response) (Namespac
 
 // NewListByManagedClusterPager - Gets a list of managed namespaces in the specified managed cluster.
 //
-// Generated from API version 2025-02-02-preview
+// Generated from API version 2025-03-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the managed cluster resource.
 //   - options - NamespacesClientListByManagedClusterOptions contains the optional parameters for the NamespacesClient.NewListByManagedClusterPager
@@ -324,7 +324,7 @@ func (client *NamespacesClient) listByManagedClusterCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2025-02-02-preview")
+	reqQP.Set("api-version", "2025-03-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -342,7 +342,7 @@ func (client *NamespacesClient) listByManagedClusterHandleResponse(resp *http.Re
 // ListCredential - Lists the credentials of a namespace.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2025-02-02-preview
+// Generated from API version 2025-03-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the managed cluster resource.
 //   - namespaceName - The name of the namespace.
@@ -394,7 +394,7 @@ func (client *NamespacesClient) listCredentialCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2025-02-02-preview")
+	reqQP.Set("api-version", "2025-03-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -412,7 +412,7 @@ func (client *NamespacesClient) listCredentialHandleResponse(resp *http.Response
 // Update - Updates tags on a namespace.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2025-02-02-preview
+// Generated from API version 2025-03-02-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - resourceName - The name of the managed cluster resource.
 //   - namespaceName - The name of the namespace.
@@ -464,7 +464,7 @@ func (client *NamespacesClient) updateCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2025-02-02-preview")
+	reqQP.Set("api-version", "2025-03-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {

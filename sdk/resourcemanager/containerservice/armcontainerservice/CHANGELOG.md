@@ -1,5 +1,42 @@
 # Release History
 
+## 7.0.0-beta.3 (2025-05-06)
+### Breaking Changes
+
+- Type of `AdvancedNetworkingSecurity.TransitEncryption` has been changed from `*TransitEncryption` to `*AdvancedNetworkingSecurityTransitEncryption`
+- Type of `ManagedClusterAgentPoolProfile.GpuProfile` has been changed from `*AgentPoolGPUProfile` to `*GPUProfile`
+- Type of `ManagedClusterAgentPoolProfileProperties.GpuProfile` has been changed from `*AgentPoolGPUProfile` to `*GPUProfile`
+- Enum `TransitEncryption` has been removed
+- Struct `AgentPoolGPUProfile` has been removed
+- Field `EnablePodSecurityPolicy` of struct `ManagedClusterProperties` has been removed
+
+### Features Added
+
+- New enum type `GPUDriver` with values `GPUDriverInstall`, `GPUDriverNone`
+- New enum type `LocalDNSForwardDestination` with values `LocalDNSForwardDestinationClusterCoreDNS`, `LocalDNSForwardDestinationVnetDNS`
+- New enum type `LocalDNSForwardPolicy` with values `LocalDNSForwardPolicyRandom`, `LocalDNSForwardPolicyRoundRobin`, `LocalDNSForwardPolicySequential`
+- New enum type `LocalDNSMode` with values `LocalDNSModeDisabled`, `LocalDNSModePreferred`, `LocalDNSModeRequired`
+- New enum type `LocalDNSProtocol` with values `LocalDNSProtocolForceTCP`, `LocalDNSProtocolPreferUDP`
+- New enum type `LocalDNSQueryLogging` with values `LocalDNSQueryLoggingError`, `LocalDNSQueryLoggingLog`
+- New enum type `LocalDNSServeStale` with values `LocalDNSServeStaleDisable`, `LocalDNSServeStaleImmediate`, `LocalDNSServeStaleVerify`
+- New enum type `LocalDNSState` with values `LocalDNSStateDisabled`, `LocalDNSStateEnabled`
+- New enum type `NodeProvisioningDefaultNodePools` with values `NodeProvisioningDefaultNodePoolsAuto`, `NodeProvisioningDefaultNodePoolsNone`
+- New enum type `SchedulerConfigMode` with values `SchedulerConfigModeDefault`, `SchedulerConfigModeManagedByCRD`
+- New enum type `TransitEncryptionType` with values `TransitEncryptionTypeNone`, `TransitEncryptionTypeWireGuard`
+- New struct `AdvancedNetworkingSecurityTransitEncryption`
+- New struct `GPUProfile`
+- New struct `LocalDNSOverrides`
+- New struct `LocalDNSProfile`
+- New struct `SchedulerInstanceProfile`
+- New struct `SchedulerProfile`
+- New struct `SchedulerProfileSchedulerInstanceProfiles`
+- New field `LocalDNSProfile` in struct `ManagedClusterAgentPoolProfile`
+- New field `LocalDNSProfile` in struct `ManagedClusterAgentPoolProfileProperties`
+- New field `Enabled` in struct `ManagedClusterHTTPProxyConfig`
+- New field `DefaultNodePools` in struct `ManagedClusterNodeProvisioningProfile`
+- New field `SchedulerProfile` in struct `ManagedClusterProperties`
+
+
 ## 7.0.0-beta.2 (2025-04-24)
 ### Breaking Changes
 
