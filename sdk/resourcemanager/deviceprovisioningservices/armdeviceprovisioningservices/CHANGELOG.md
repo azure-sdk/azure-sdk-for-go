@@ -1,5 +1,19 @@
 # Release History
 
+## 1.3.0-beta.2 (2025-05-09)
+### Breaking Changes
+
+- Field `Etag` of struct `CertificateResponse` has been removed
+- Field `Resourcegroup`, `Subscriptionid` of struct `ProvisioningServiceDescription` has been removed
+
+### Features Added
+
+- New enum type `IotHubAuthenticationType` with values `IotHubAuthenticationTypeKeyBased`, `IotHubAuthenticationTypeSystemAssigned`, `IotHubAuthenticationTypeUserAssigned`
+- New field `ETag` in struct `CertificateResponse`
+- New field `SystemData` in struct `GroupIDInformation`
+- New field `AuthenticationType`, `SelectedUserAssignedIdentityResourceID` in struct `IotHubDefinitionDescription`
+
+
 ## 1.3.0-beta.1 (2023-11-30)
 ### Features Added
 
