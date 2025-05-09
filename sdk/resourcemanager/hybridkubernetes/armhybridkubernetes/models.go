@@ -86,7 +86,7 @@ type ConnectedCluster struct {
 	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; Metadata pertaining to creation and last modification of the resource
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
@@ -107,13 +107,13 @@ type ConnectedClusterIdentity struct {
 	TenantID *string
 }
 
-// ConnectedClusterList - The paginated list of connected Clusters
-type ConnectedClusterList struct {
-	// The link to fetch the next page of connected clusters
-	NextLink *string
-
-	// The list of connected clusters
+// ConnectedClusterListResult - The response of a ConnectedCluster list operation.
+type ConnectedClusterListResult struct {
+	// REQUIRED; The ConnectedCluster items on this page
 	Value []*ConnectedCluster
+
+	// The link to the next page of items
+	NextLink *string
 }
 
 // ConnectedClusterPatch - Object containing updates for patch operations.
@@ -161,7 +161,7 @@ type ConnectedClusterProperties struct {
 	DistributionVersion *string
 
 	// Details of the gateway used by the Arc router for connectivity.
-	Gateway *Gateway
+	Gateway *ConnectedClusterPropertiesGateway
 
 	// The infrastructure on which the Kubernetes cluster represented by this connected cluster is running on.
 	Infrastructure *string
@@ -208,6 +208,15 @@ type ConnectedClusterProperties struct {
 
 	// READ-ONLY; Number of nodes present in the connected cluster resource
 	TotalNodeCount *int32
+}
+
+// ConnectedClusterPropertiesGateway - Details of the gateway used by the Arc router for connectivity.
+type ConnectedClusterPropertiesGateway struct {
+	// Indicates whether the gateway for arc router connectivity is enabled.
+	Enabled *bool
+
+	// The resource ID of the gateway used for the Arc router feature.
+	ResourceID *string
 }
 
 // CredentialResult - The credential result response.
@@ -311,36 +320,52 @@ type OidcIssuerProfile struct {
 	IssuerURL *string
 }
 
-// Operation - The Connected cluster API operation
+// Operation - Details of a REST API operation, returned from the Resource Provider Operations API
 type Operation struct {
-	// READ-ONLY; The object that represents the operation.
+	// Localized display information for this particular operation.
 	Display *OperationDisplay
 
-	// READ-ONLY; Operation name: {Microsoft.Kubernetes}/{resource}/{operation}
+	// READ-ONLY; Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+	ActionType *ActionType
+
+	// READ-ONLY; Whether the operation applies to data-plane. This is "true" for data-plane operations and "false" for ARM/control-plane
+	// operations.
+	IsDataAction *bool
+
+	// READ-ONLY; The name of the operation, as per Resource-Based Access Control (RBAC). Examples: "Microsoft.Compute/virtualMachines/write",
+	// "Microsoft.Compute/virtualMachines/capture/action"
 	Name *string
+
+	// READ-ONLY; The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
+	// value is "user,system"
+	Origin *Origin
 }
 
-// OperationDisplay - The object that represents the operation.
+// OperationDisplay - Localized display information for this particular operation.
 type OperationDisplay struct {
-	// Description of the operation.
+	// READ-ONLY; The short, localized friendly description of the operation; suitable for tool tips and detailed views.
 	Description *string
 
-	// Operation type: Read, write, delete, etc.
+	// READ-ONLY; The concise, localized friendly name for the operation; suitable for dropdowns. E.g. "Create or Update Virtual
+	// Machine", "Restart Virtual Machine".
 	Operation *string
 
-	// Service provider: Microsoft.Kubernetes
+	// READ-ONLY; The localized friendly form of the resource provider name, e.g. "Microsoft Monitoring Insights" or "Microsoft
+	// Compute".
 	Provider *string
 
-	// Connected Cluster Resource on which the operation is performed
+	// READ-ONLY; The localized friendly name of the resource type related to this operation. E.g. "Virtual Machines" or "Job
+	// Schedule Collections".
 	Resource *string
 }
 
-// OperationList - The paginated list of connected cluster API operations.
-type OperationList struct {
-	// The link to fetch the next page of connected cluster API operations.
+// OperationListResult - A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to
+// get the next set of results.
+type OperationListResult struct {
+	// READ-ONLY; URL to get the next set of operation list results (if there are any).
 	NextLink *string
 
-	// READ-ONLY; The list of connected cluster API operations.
+	// READ-ONLY; List of operations supported by the resource provider
 	Value []*Operation
 }
 
@@ -351,6 +376,9 @@ type Resource struct {
 
 	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -394,14 +422,14 @@ type SystemData struct {
 	// The type of identity that created the resource.
 	CreatedByType *CreatedByType
 
-	// The timestamp of resource modification (UTC).
+	// The timestamp of resource last modification (UTC)
 	LastModifiedAt *time.Time
 
 	// The identity that last modified the resource.
 	LastModifiedBy *string
 
 	// The type of identity that last modified the resource.
-	LastModifiedByType *LastModifiedByType
+	LastModifiedByType *CreatedByType
 }
 
 // TrackedResource - The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags'
@@ -418,6 +446,9 @@ type TrackedResource struct {
 
 	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string

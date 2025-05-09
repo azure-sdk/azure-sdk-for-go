@@ -24,14 +24,14 @@ type ConnectedClusterClientGetResponse struct {
 
 // ConnectedClusterClientListByResourceGroupResponse contains the response from method ConnectedClusterClient.NewListByResourceGroupPager.
 type ConnectedClusterClientListByResourceGroupResponse struct {
-	// The paginated list of connected Clusters
-	ConnectedClusterList
+	// The response of a ConnectedCluster list operation.
+	ConnectedClusterListResult
 }
 
 // ConnectedClusterClientListBySubscriptionResponse contains the response from method ConnectedClusterClient.NewListBySubscriptionPager.
 type ConnectedClusterClientListBySubscriptionResponse struct {
-	// The paginated list of connected Clusters
-	ConnectedClusterList
+	// The response of a ConnectedCluster list operation.
+	ConnectedClusterListResult
 }
 
 // ConnectedClusterClientListClusterUserCredentialResponse contains the response from method ConnectedClusterClient.ListClusterUserCredential.
@@ -46,8 +46,8 @@ type ConnectedClusterClientUpdateResponse struct {
 	ConnectedCluster
 }
 
-// OperationsClientGetResponse contains the response from method OperationsClient.NewGetPager.
-type OperationsClientGetResponse struct {
-	// The paginated list of connected cluster API operations.
-	OperationList
+// OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
+type OperationsClientListResponse struct {
+	// A list of REST API operations supported by an Azure Resource Provider. It contains an URL link to get the next set of results.
+	OperationListResult
 }
