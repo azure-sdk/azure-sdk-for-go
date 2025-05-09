@@ -13,7 +13,7 @@ import (
 	"time"
 )
 
-// Generated from example definition: 2025-01-31-preview/Maps_CreateOrUpdate.json
+// Generated from example definition: 2025-05-01-preview/Maps_CreateOrUpdate.json
 func ExampleMapsClient_BeginCreateOrUpdate() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -62,7 +62,7 @@ func ExampleMapsClient_BeginCreateOrUpdate() {
 	// }
 }
 
-// Generated from example definition: 2025-01-31-preview/Maps_Delete.json
+// Generated from example definition: 2025-05-01-preview/Maps_Delete.json
 func ExampleMapsClient_BeginDelete() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -83,7 +83,7 @@ func ExampleMapsClient_BeginDelete() {
 	}
 }
 
-// Generated from example definition: 2025-01-31-preview/Maps_ExportDependencies.json
+// Generated from example definition: 2025-05-01-preview/Maps_ExportDependencies.json
 func ExampleMapsClient_BeginExportDependencies() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -108,6 +108,7 @@ func ExampleMapsClient_BeginExportDependencies() {
 				},
 			},
 		},
+		ApplianceName: to.Ptr("srmlcvqlkrtpkbkeonq"),
 	}, nil)
 	if err != nil {
 		log.Fatalf("failed to finish the request: %v", err)
@@ -118,7 +119,7 @@ func ExampleMapsClient_BeginExportDependencies() {
 	}
 }
 
-// Generated from example definition: 2025-01-31-preview/Maps_Get.json
+// Generated from example definition: 2025-05-01-preview/Maps_Get.json
 func ExampleMapsClient_Get() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -159,7 +160,7 @@ func ExampleMapsClient_Get() {
 	// }
 }
 
-// Generated from example definition: 2025-01-31-preview/Maps_GetConnectionsForProcessOnFocusedMachine.json
+// Generated from example definition: 2025-05-01-preview/Maps_GetConnectionsForProcessOnFocusedMachine.json
 func ExampleMapsClient_BeginGetConnectionsForProcessOnFocusedMachine() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -195,7 +196,7 @@ func ExampleMapsClient_BeginGetConnectionsForProcessOnFocusedMachine() {
 	}
 }
 
-// Generated from example definition: 2025-01-31-preview/Maps_GetConnectionsWithConnectedMachineForFocusedMachine.json
+// Generated from example definition: 2025-05-01-preview/Maps_GetConnectionsWithConnectedMachineForFocusedMachine.json
 func ExampleMapsClient_BeginGetConnectionsWithConnectedMachineForFocusedMachine() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -231,7 +232,7 @@ func ExampleMapsClient_BeginGetConnectionsWithConnectedMachineForFocusedMachine(
 	}
 }
 
-// Generated from example definition: 2025-01-31-preview/Maps_GetDependencyViewForFocusedMachine.json
+// Generated from example definition: 2025-05-01-preview/Maps_GetDependencyViewForFocusedMachine.json
 func ExampleMapsClient_BeginGetDependencyViewForFocusedMachine() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -266,7 +267,7 @@ func ExampleMapsClient_BeginGetDependencyViewForFocusedMachine() {
 	}
 }
 
-// Generated from example definition: 2025-01-31-preview/Maps_ListByResourceGroup.json
+// Generated from example definition: 2025-05-01-preview/Maps_ListByResourceGroup.json
 func ExampleMapsClient_NewListByResourceGroupPager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -317,7 +318,7 @@ func ExampleMapsClient_NewListByResourceGroupPager() {
 	}
 }
 
-// Generated from example definition: 2025-01-31-preview/Maps_ListBySubscription.json
+// Generated from example definition: 2025-05-01-preview/Maps_ListBySubscription.json
 func ExampleMapsClient_NewListBySubscriptionPager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -368,7 +369,7 @@ func ExampleMapsClient_NewListBySubscriptionPager() {
 	}
 }
 
-// Generated from example definition: 2025-01-31-preview/Maps_Update.json
+// Generated from example definition: 2025-05-01-preview/Maps_Update.json
 func ExampleMapsClient_BeginUpdate() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {

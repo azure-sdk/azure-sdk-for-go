@@ -189,6 +189,7 @@ func (d *DiscoverySourceResourceTagsUpdate) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type ExportDependenciesRequest.
 func (e ExportDependenciesRequest) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "applianceName", e.ApplianceName)
 	populate(objectMap, "filters", e.Filters)
 	populate(objectMap, "focusedMachineId", e.FocusedMachineID)
 	return json.Marshal(objectMap)
@@ -203,6 +204,9 @@ func (e *ExportDependenciesRequest) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "applianceName":
+			err = unpopulate(val, "ApplianceName", &e.ApplianceName)
+			delete(rawMsg, key)
 		case "filters":
 			err = unpopulate(val, "Filters", &e.Filters)
 			delete(rawMsg, key)
