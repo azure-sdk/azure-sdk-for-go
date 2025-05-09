@@ -12,7 +12,7 @@ import (
 	"log"
 )
 
-// Generated from example definition: 2025-01-31-preview/DiscoverySources_CreateOrUpdate.json
+// Generated from example definition: 2025-05-01-preview/DiscoverySources_CreateOrUpdate.json
 func ExampleDiscoverySourcesClient_BeginCreateOrUpdate() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -57,7 +57,7 @@ func ExampleDiscoverySourcesClient_BeginCreateOrUpdate() {
 	// }
 }
 
-// Generated from example definition: 2025-01-31-preview/DiscoverySources_Delete.json
+// Generated from example definition: 2025-05-01-preview/DiscoverySources_Delete.json
 func ExampleDiscoverySourcesClient_BeginDelete() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -78,7 +78,7 @@ func ExampleDiscoverySourcesClient_BeginDelete() {
 	}
 }
 
-// Generated from example definition: 2025-01-31-preview/DiscoverySources_Get.json
+// Generated from example definition: 2025-05-01-preview/DiscoverySources_Get.json
 func ExampleDiscoverySourcesClient_Get() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -116,7 +116,7 @@ func ExampleDiscoverySourcesClient_Get() {
 	// }
 }
 
-// Generated from example definition: 2025-01-31-preview/DiscoverySources_ListByMapsResource.json
+// Generated from example definition: 2025-05-01-preview/DiscoverySources_ListByMapsResource.json
 func ExampleDiscoverySourcesClient_NewListByMapsResourcePager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -164,7 +164,7 @@ func ExampleDiscoverySourcesClient_NewListByMapsResourcePager() {
 	}
 }
 
-// Generated from example definition: 2025-01-31-preview/DiscoverySources_Update.json
+// Generated from example definition: 2025-05-01-preview/DiscoverySources_Update.json
 func ExampleDiscoverySourcesClient_BeginUpdate() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
