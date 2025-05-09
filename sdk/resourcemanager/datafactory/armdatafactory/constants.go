@@ -7,7 +7,7 @@ package armdatafactory
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datafactory/armdatafactory"
-	moduleVersion = "v10.0.0"
+	moduleVersion = "v10.1.0"
 )
 
 // ActivityOnInactiveMarkAs - Status result of the activity when the state is set to Inactive. This is an optional property
@@ -42,6 +42,21 @@ func PossibleActivityStateValues() []ActivityState {
 	return []ActivityState{
 		ActivityStateActive,
 		ActivityStateInactive,
+	}
+}
+
+// AmazonRdsForOracleAuthenticationType - Authentication type for connecting to the AmazonRdsForOracle database. Only used
+// for Version 2.0.
+type AmazonRdsForOracleAuthenticationType string
+
+const (
+	AmazonRdsForOracleAuthenticationTypeBasic AmazonRdsForOracleAuthenticationType = "Basic"
+)
+
+// PossibleAmazonRdsForOracleAuthenticationTypeValues returns the possible values for the AmazonRdsForOracleAuthenticationType const type.
+func PossibleAmazonRdsForOracleAuthenticationTypeValues() []AmazonRdsForOracleAuthenticationType {
+	return []AmazonRdsForOracleAuthenticationType{
+		AmazonRdsForOracleAuthenticationTypeBasic,
 	}
 }
 
@@ -816,6 +831,22 @@ func PossibleImpalaAuthenticationTypeValues() []ImpalaAuthenticationType {
 		ImpalaAuthenticationTypeAnonymous,
 		ImpalaAuthenticationTypeSASLUsername,
 		ImpalaAuthenticationTypeUsernameAndPassword,
+	}
+}
+
+// ImpalaThriftTransportProtocol - The transport protocol to use in the Thrift layer (for V2 only). Default value is Binary.
+type ImpalaThriftTransportProtocol string
+
+const (
+	ImpalaThriftTransportProtocolBinary ImpalaThriftTransportProtocol = "Binary"
+	ImpalaThriftTransportProtocolHTTP   ImpalaThriftTransportProtocol = "HTTP"
+)
+
+// PossibleImpalaThriftTransportProtocolValues returns the possible values for the ImpalaThriftTransportProtocol const type.
+func PossibleImpalaThriftTransportProtocolValues() []ImpalaThriftTransportProtocol {
+	return []ImpalaThriftTransportProtocol{
+		ImpalaThriftTransportProtocolBinary,
+		ImpalaThriftTransportProtocolHTTP,
 	}
 }
 
