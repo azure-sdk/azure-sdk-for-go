@@ -25,9 +25,9 @@ type ExportPipelinesServer struct {
 	// HTTP status codes to indicate success: http.StatusOK, http.StatusCreated
 	BeginCreate func(ctx context.Context, resourceGroupName string, registryName string, exportPipelineName string, exportPipelineCreateParameters armcontainerregistry.ExportPipeline, options *armcontainerregistry.ExportPipelinesClientBeginCreateOptions) (resp azfake.PollerResponder[armcontainerregistry.ExportPipelinesClientCreateResponse], errResp azfake.ErrorResponder)
 
-	// BeginDelete is the fake for method ExportPipelinesClient.BeginDelete
-	// HTTP status codes to indicate success: http.StatusOK, http.StatusAccepted, http.StatusNoContent
-	BeginDelete func(ctx context.Context, resourceGroupName string, registryName string, exportPipelineName string, options *armcontainerregistry.ExportPipelinesClientBeginDeleteOptions) (resp azfake.PollerResponder[armcontainerregistry.ExportPipelinesClientDeleteResponse], errResp azfake.ErrorResponder)
+	// Delete is the fake for method ExportPipelinesClient.Delete
+	// HTTP status codes to indicate success: http.StatusOK, http.StatusNoContent
+	Delete func(ctx context.Context, resourceGroupName string, registryName string, exportPipelineName string, options *armcontainerregistry.ExportPipelinesClientDeleteOptions) (resp azfake.Responder[armcontainerregistry.ExportPipelinesClientDeleteResponse], errResp azfake.ErrorResponder)
 
 	// Get is the fake for method ExportPipelinesClient.Get
 	// HTTP status codes to indicate success: http.StatusOK
@@ -45,7 +45,6 @@ func NewExportPipelinesServerTransport(srv *ExportPipelinesServer) *ExportPipeli
 	return &ExportPipelinesServerTransport{
 		srv:          srv,
 		beginCreate:  newTracker[azfake.PollerResponder[armcontainerregistry.ExportPipelinesClientCreateResponse]](),
-		beginDelete:  newTracker[azfake.PollerResponder[armcontainerregistry.ExportPipelinesClientDeleteResponse]](),
 		newListPager: newTracker[azfake.PagerResponder[armcontainerregistry.ExportPipelinesClientListResponse]](),
 	}
 }
@@ -55,7 +54,6 @@ func NewExportPipelinesServerTransport(srv *ExportPipelinesServer) *ExportPipeli
 type ExportPipelinesServerTransport struct {
 	srv          *ExportPipelinesServer
 	beginCreate  *tracker[azfake.PollerResponder[armcontainerregistry.ExportPipelinesClientCreateResponse]]
-	beginDelete  *tracker[azfake.PollerResponder[armcontainerregistry.ExportPipelinesClientDeleteResponse]]
 	newListPager *tracker[azfake.PagerResponder[armcontainerregistry.ExportPipelinesClientListResponse]]
 }
 
@@ -84,8 +82,8 @@ func (e *ExportPipelinesServerTransport) dispatchToMethodFake(req *http.Request,
 			switch method {
 			case "ExportPipelinesClient.BeginCreate":
 				res.resp, res.err = e.dispatchBeginCreate(req)
-			case "ExportPipelinesClient.BeginDelete":
-				res.resp, res.err = e.dispatchBeginDelete(req)
+			case "ExportPipelinesClient.Delete":
+				res.resp, res.err = e.dispatchDelete(req)
 			case "ExportPipelinesClient.Get":
 				res.resp, res.err = e.dispatchGet(req)
 			case "ExportPipelinesClient.NewListPager":
@@ -161,51 +159,40 @@ func (e *ExportPipelinesServerTransport) dispatchBeginCreate(req *http.Request) 
 	return resp, nil
 }
 
-func (e *ExportPipelinesServerTransport) dispatchBeginDelete(req *http.Request) (*http.Response, error) {
-	if e.srv.BeginDelete == nil {
-		return nil, &nonRetriableError{errors.New("fake for method BeginDelete not implemented")}
+func (e *ExportPipelinesServerTransport) dispatchDelete(req *http.Request) (*http.Response, error) {
+	if e.srv.Delete == nil {
+		return nil, &nonRetriableError{errors.New("fake for method Delete not implemented")}
 	}
-	beginDelete := e.beginDelete.get(req)
-	if beginDelete == nil {
-		const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ContainerRegistry/registries/(?P<registryName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/exportPipelines/(?P<exportPipelineName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
-		regex := regexp.MustCompile(regexStr)
-		matches := regex.FindStringSubmatch(req.URL.EscapedPath())
-		if matches == nil || len(matches) < 4 {
-			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
-		}
-		resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
-		if err != nil {
-			return nil, err
-		}
-		registryNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("registryName")])
-		if err != nil {
-			return nil, err
-		}
-		exportPipelineNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("exportPipelineName")])
-		if err != nil {
-			return nil, err
-		}
-		respr, errRespr := e.srv.BeginDelete(req.Context(), resourceGroupNameParam, registryNameParam, exportPipelineNameParam, nil)
-		if respErr := server.GetError(errRespr, req); respErr != nil {
-			return nil, respErr
-		}
-		beginDelete = &respr
-		e.beginDelete.add(req, beginDelete)
+	const regexStr = `/subscriptions/(?P<subscriptionId>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/resourceGroups/(?P<resourceGroupName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/providers/Microsoft\.ContainerRegistry/registries/(?P<registryName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)/exportPipelines/(?P<exportPipelineName>[!#&$-;=?-\[\]_a-zA-Z0-9~%@]+)`
+	regex := regexp.MustCompile(regexStr)
+	matches := regex.FindStringSubmatch(req.URL.EscapedPath())
+	if matches == nil || len(matches) < 4 {
+		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-
-	resp, err := server.PollerResponderNext(beginDelete, req)
+	resourceGroupNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("resourceGroupName")])
 	if err != nil {
 		return nil, err
 	}
-
-	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
-		e.beginDelete.remove(req)
-		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
+	registryNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("registryName")])
+	if err != nil {
+		return nil, err
 	}
-	if !server.PollerResponderMore(beginDelete) {
-		e.beginDelete.remove(req)
+	exportPipelineNameParam, err := url.PathUnescape(matches[regex.SubexpIndex("exportPipelineName")])
+	if err != nil {
+		return nil, err
 	}
-
+	respr, errRespr := e.srv.Delete(req.Context(), resourceGroupNameParam, registryNameParam, exportPipelineNameParam, nil)
+	if respErr := server.GetError(errRespr, req); respErr != nil {
+		return nil, respErr
+	}
+	respContent := server.GetResponseContent(respr)
+	if !contains([]int{http.StatusOK, http.StatusNoContent}, respContent.HTTPStatus) {
+		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusNoContent", respContent.HTTPStatus)}
+	}
+	resp, err := server.NewResponse(respContent, req, nil)
+	if err != nil {
+		return nil, err
+	}
 	return resp, nil
 }
 

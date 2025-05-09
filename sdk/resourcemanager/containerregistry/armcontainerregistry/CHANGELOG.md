@@ -1,5 +1,21 @@
 # Release History
 
+## 1.3.0-beta.4 (2025-05-09)
+### Breaking Changes
+
+- Type of `ExportPipelineTargetProperties.Type` has been changed from `*string` to `*PipelineTargetType`
+- Operation `*ExportPipelinesClient.BeginDelete` has been changed to non-LRO, use `*ExportPipelinesClient.Delete` instead.
+- Operation `*ImportPipelinesClient.BeginDelete` has been changed to non-LRO, use `*ImportPipelinesClient.Delete` instead.
+- Operation `*PipelineRunsClient.BeginDelete` has been changed to non-LRO, use `*PipelineRunsClient.Delete` instead.
+
+### Features Added
+
+- New enum type `PipelineTargetType` with values `PipelineTargetTypeAzureStorageBlobContainer`
+- New enum type `StorageAccessMode` with values `StorageAccessModeManagedIdentity`, `StorageAccessModeSasToken`
+- New field `StorageAccessMode` in struct `ExportPipelineTargetProperties`
+- New field `StorageAccessMode` in struct `ImportPipelineSourceProperties`
+
+
 ## 1.3.0-beta.3 (2025-04-24)
 ### Breaking Changes
 

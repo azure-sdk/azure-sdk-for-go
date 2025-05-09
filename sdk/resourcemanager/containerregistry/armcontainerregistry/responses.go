@@ -193,7 +193,7 @@ type ExportPipelinesClientCreateResponse struct {
 	ExportPipeline
 }
 
-// ExportPipelinesClientDeleteResponse contains the response from method ExportPipelinesClient.BeginDelete.
+// ExportPipelinesClientDeleteResponse contains the response from method ExportPipelinesClient.Delete.
 type ExportPipelinesClientDeleteResponse struct {
 	// placeholder for future response values
 }
@@ -216,7 +216,7 @@ type ImportPipelinesClientCreateResponse struct {
 	ImportPipeline
 }
 
-// ImportPipelinesClientDeleteResponse contains the response from method ImportPipelinesClient.BeginDelete.
+// ImportPipelinesClientDeleteResponse contains the response from method ImportPipelinesClient.Delete.
 type ImportPipelinesClientDeleteResponse struct {
 	// placeholder for future response values
 }
@@ -245,7 +245,7 @@ type PipelineRunsClientCreateResponse struct {
 	PipelineRun
 }
 
-// PipelineRunsClientDeleteResponse contains the response from method PipelineRunsClient.BeginDelete.
+// PipelineRunsClientDeleteResponse contains the response from method PipelineRunsClient.Delete.
 type PipelineRunsClientDeleteResponse struct {
 	// placeholder for future response values
 }

@@ -43,7 +43,7 @@ func NewExportPipelinesClient(subscriptionID string, credential azcore.TokenCred
 // BeginCreate - Creates an export pipeline for a container registry with the specified parameters.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2025-03-01-preview
+// Generated from API version 2025-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - registryName - The name of the container registry.
 //   - exportPipelineName - The name of the export pipeline.
@@ -71,7 +71,7 @@ func (client *ExportPipelinesClient) BeginCreate(ctx context.Context, resourceGr
 // Create - Creates an export pipeline for a container registry with the specified parameters.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2025-03-01-preview
+// Generated from API version 2025-06-01-preview
 func (client *ExportPipelinesClient) create(ctx context.Context, resourceGroupName string, registryName string, exportPipelineName string, exportPipelineCreateParameters ExportPipeline, options *ExportPipelinesClientBeginCreateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ExportPipelinesClient.BeginCreate"
@@ -117,7 +117,7 @@ func (client *ExportPipelinesClient) createCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2025-03-01-preview")
+	reqQP.Set("api-version", "2025-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, exportPipelineCreateParameters); err != nil {
@@ -126,60 +126,37 @@ func (client *ExportPipelinesClient) createCreateRequest(ctx context.Context, re
 	return req, nil
 }
 
-// BeginDelete - Deletes an export pipeline from a container registry.
-// If the operation fails it returns an *azcore.ResponseError type.
-//
-// Generated from API version 2025-03-01-preview
-//   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - registryName - The name of the container registry.
-//   - exportPipelineName - The name of the export pipeline.
-//   - options - ExportPipelinesClientBeginDeleteOptions contains the optional parameters for the ExportPipelinesClient.BeginDelete
-//     method.
-func (client *ExportPipelinesClient) BeginDelete(ctx context.Context, resourceGroupName string, registryName string, exportPipelineName string, options *ExportPipelinesClientBeginDeleteOptions) (*runtime.Poller[ExportPipelinesClientDeleteResponse], error) {
-	if options == nil || options.ResumeToken == "" {
-		resp, err := client.deleteOperation(ctx, resourceGroupName, registryName, exportPipelineName, options)
-		if err != nil {
-			return nil, err
-		}
-		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ExportPipelinesClientDeleteResponse]{
-			FinalStateVia: runtime.FinalStateViaLocation,
-			Tracer:        client.internal.Tracer(),
-		})
-		return poller, err
-	} else {
-		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[ExportPipelinesClientDeleteResponse]{
-			Tracer: client.internal.Tracer(),
-		})
-	}
-}
-
 // Delete - Deletes an export pipeline from a container registry.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2025-03-01-preview
-func (client *ExportPipelinesClient) deleteOperation(ctx context.Context, resourceGroupName string, registryName string, exportPipelineName string, options *ExportPipelinesClientBeginDeleteOptions) (*http.Response, error) {
+// Generated from API version 2025-06-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - registryName - The name of the container registry.
+//   - exportPipelineName - The name of the export pipeline.
+//   - options - ExportPipelinesClientDeleteOptions contains the optional parameters for the ExportPipelinesClient.Delete method.
+func (client *ExportPipelinesClient) Delete(ctx context.Context, resourceGroupName string, registryName string, exportPipelineName string, options *ExportPipelinesClientDeleteOptions) (ExportPipelinesClientDeleteResponse, error) {
 	var err error
-	const operationName = "ExportPipelinesClient.BeginDelete"
+	const operationName = "ExportPipelinesClient.Delete"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
 	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, registryName, exportPipelineName, options)
 	if err != nil {
-		return nil, err
+		return ExportPipelinesClientDeleteResponse{}, err
 	}
 	httpResp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return nil, err
+		return ExportPipelinesClientDeleteResponse{}, err
 	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusAccepted, http.StatusNoContent) {
+	if !runtime.HasStatusCode(httpResp, http.StatusOK, http.StatusNoContent) {
 		err = runtime.NewResponseError(httpResp)
-		return nil, err
+		return ExportPipelinesClientDeleteResponse{}, err
 	}
-	return httpResp, nil
+	return ExportPipelinesClientDeleteResponse{}, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *ExportPipelinesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, registryName string, exportPipelineName string, _ *ExportPipelinesClientBeginDeleteOptions) (*policy.Request, error) {
+func (client *ExportPipelinesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, registryName string, exportPipelineName string, _ *ExportPipelinesClientDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}/exportPipelines/{exportPipelineName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -202,7 +179,7 @@ func (client *ExportPipelinesClient) deleteCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2025-03-01-preview")
+	reqQP.Set("api-version", "2025-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -211,7 +188,7 @@ func (client *ExportPipelinesClient) deleteCreateRequest(ctx context.Context, re
 // Get - Gets the properties of the export pipeline.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2025-03-01-preview
+// Generated from API version 2025-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - registryName - The name of the container registry.
 //   - exportPipelineName - The name of the export pipeline.
@@ -262,7 +239,7 @@ func (client *ExportPipelinesClient) getCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2025-03-01-preview")
+	reqQP.Set("api-version", "2025-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -279,7 +256,7 @@ func (client *ExportPipelinesClient) getHandleResponse(resp *http.Response) (Exp
 
 // NewListPager - Lists all export pipelines for the specified container registry.
 //
-// Generated from API version 2025-03-01-preview
+// Generated from API version 2025-06-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - registryName - The name of the container registry.
 //   - options - ExportPipelinesClientListOptions contains the optional parameters for the ExportPipelinesClient.NewListPager
@@ -327,7 +304,7 @@ func (client *ExportPipelinesClient) listCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2025-03-01-preview")
+	reqQP.Set("api-version", "2025-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
