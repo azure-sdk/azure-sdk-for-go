@@ -4,7 +4,7 @@
 
 package azbatch
 
-// AccessScope - AccessScope enums
+// AccessScope - BatchAccessScope enums
 type AccessScope string
 
 const (
@@ -16,6 +16,24 @@ const (
 func PossibleAccessScopeValues() []AccessScope {
 	return []AccessScope{
 		AccessScopeJob,
+	}
+}
+
+// AllTasksCompleteMode - The action the Batch service should take when all Tasks in the Job are in the completed state.
+type AllTasksCompleteMode string
+
+const (
+	// AllTasksCompleteModeNoAction - Do nothing. The Job remains active unless terminated or disabled by some other means.
+	AllTasksCompleteModeNoAction AllTasksCompleteMode = "noaction"
+	// AllTasksCompleteModeTerminateJob - Terminate the Job. The Job's terminationReason is set to 'AllTasksComplete'.
+	AllTasksCompleteModeTerminateJob AllTasksCompleteMode = "terminatejob"
+)
+
+// PossibleAllTasksCompleteModeValues returns the possible values for the AllTasksCompleteMode const type.
+func PossibleAllTasksCompleteModeValues() []AllTasksCompleteMode {
+	return []AllTasksCompleteMode{
+		AllTasksCompleteModeNoAction,
+		AllTasksCompleteModeTerminateJob,
 	}
 }
 
@@ -352,21 +370,21 @@ func PossibleElevationLevelValues() []ElevationLevel {
 	}
 }
 
-// ErrorCategory - ErrorCategory enums
-type ErrorCategory string
+// ErrorSourceCategory - BatchErrorSourceCategory enums
+type ErrorSourceCategory string
 
 const (
-	// ErrorCategoryServerError - The error is due to an internal server issue.
-	ErrorCategoryServerError ErrorCategory = "servererror"
-	// ErrorCategoryUserError - The error is due to a user issue, such as misconfiguration.
-	ErrorCategoryUserError ErrorCategory = "usererror"
+	// ErrorSourceCategoryServerError - The error is due to an internal server issue.
+	ErrorSourceCategoryServerError ErrorSourceCategory = "servererror"
+	// ErrorSourceCategoryUserError - The error is due to a user issue, such as misconfiguration.
+	ErrorSourceCategoryUserError ErrorSourceCategory = "usererror"
 )
 
-// PossibleErrorCategoryValues returns the possible values for the ErrorCategory const type.
-func PossibleErrorCategoryValues() []ErrorCategory {
-	return []ErrorCategory{
-		ErrorCategoryServerError,
-		ErrorCategoryUserError,
+// PossibleErrorSourceCategoryValues returns the possible values for the ErrorSourceCategory const type.
+func PossibleErrorSourceCategoryValues() []ErrorSourceCategory {
+	return []ErrorSourceCategory{
+		ErrorSourceCategoryServerError,
+		ErrorSourceCategoryUserError,
 	}
 }
 
@@ -430,24 +448,25 @@ func PossibleInboundEndpointProtocolValues() []InboundEndpointProtocol {
 	}
 }
 
-// JobAction - BatchJobAction enums
-type JobAction string
+// JobActionKind - BatchJobAction enums
+type JobActionKind string
 
 const (
-	// JobActionDisable - Disable the Job. This is equivalent to calling the disable Job API, with a disableTasks value of requeue.
-	JobActionDisable JobAction = "disable"
-	// JobActionNone - Take no action.
-	JobActionNone JobAction = "none"
-	// JobActionTerminate - Terminate the Job. The terminationReason in the Job's executionInfo is set to "TaskFailed".
-	JobActionTerminate JobAction = "terminate"
+	// JobActionKindDisable - Disable the Job. This is equivalent to calling the disable Job API, with a disableTasks value of
+	// requeue.
+	JobActionKindDisable JobActionKind = "disable"
+	// JobActionKindNone - Take no action.
+	JobActionKindNone JobActionKind = "none"
+	// JobActionKindTerminate - Terminate the Job. The terminationReason in the Job's executionInfo is set to "TaskFailed".
+	JobActionKindTerminate JobActionKind = "terminate"
 )
 
-// PossibleJobActionValues returns the possible values for the JobAction const type.
-func PossibleJobActionValues() []JobAction {
-	return []JobAction{
-		JobActionDisable,
-		JobActionNone,
-		JobActionTerminate,
+// PossibleJobActionKindValues returns the possible values for the JobActionKind const type.
+func PossibleJobActionKindValues() []JobActionKind {
+	return []JobActionKind{
+		JobActionKindDisable,
+		JobActionKindNone,
+		JobActionKindTerminate,
 	}
 }
 
@@ -742,31 +761,31 @@ func PossibleNodePlacementPolicyTypeValues() []NodePlacementPolicyType {
 	}
 }
 
-// NodeRebootOption - BatchNodeRebootOption enums
-type NodeRebootOption string
+// NodeRebootKind - BatchNodeRebootKind enums
+type NodeRebootKind string
 
 const (
-	// NodeRebootOptionRequeue - Terminate running Task processes and requeue the Tasks. The Tasks will run again when a Compute
+	// NodeRebootKindRequeue - Terminate running Task processes and requeue the Tasks. The Tasks will run again when a Compute
 	// Node is available. Restart the Compute Node as soon as Tasks have been terminated.
-	NodeRebootOptionRequeue NodeRebootOption = "requeue"
-	// NodeRebootOptionRetainedData - Allow currently running Tasks to complete, then wait for all Task data retention periods
-	// to expire. Schedule no new Tasks while waiting. Restart the Compute Node when all Task retention periods have expired.
-	NodeRebootOptionRetainedData NodeRebootOption = "retaineddata"
-	// NodeRebootOptionTaskCompletion - Allow currently running Tasks to complete. Schedule no new Tasks while waiting. Restart
+	NodeRebootKindRequeue NodeRebootKind = "requeue"
+	// NodeRebootKindRetainedData - Allow currently running Tasks to complete, then wait for all Task data retention periods to
+	// expire. Schedule no new Tasks while waiting. Restart the Compute Node when all Task retention periods have expired.
+	NodeRebootKindRetainedData NodeRebootKind = "retaineddata"
+	// NodeRebootKindTaskCompletion - Allow currently running Tasks to complete. Schedule no new Tasks while waiting. Restart
 	// the Compute Node when all Tasks have completed.
-	NodeRebootOptionTaskCompletion NodeRebootOption = "taskcompletion"
-	// NodeRebootOptionTerminate - Terminate running Tasks. The Tasks will be completed with failureInfo indicating that they
-	// were terminated, and will not run again. Restart the Compute Node as soon as Tasks have been terminated.
-	NodeRebootOptionTerminate NodeRebootOption = "terminate"
+	NodeRebootKindTaskCompletion NodeRebootKind = "taskcompletion"
+	// NodeRebootKindTerminate - Terminate running Tasks. The Tasks will be completed with failureInfo indicating that they were
+	// terminated, and will not run again. Restart the Compute Node as soon as Tasks have been terminated.
+	NodeRebootKindTerminate NodeRebootKind = "terminate"
 )
 
-// PossibleNodeRebootOptionValues returns the possible values for the NodeRebootOption const type.
-func PossibleNodeRebootOptionValues() []NodeRebootOption {
-	return []NodeRebootOption{
-		NodeRebootOptionRequeue,
-		NodeRebootOptionRetainedData,
-		NodeRebootOptionTaskCompletion,
-		NodeRebootOptionTerminate,
+// PossibleNodeRebootKindValues returns the possible values for the NodeRebootKind const type.
+func PossibleNodeRebootKindValues() []NodeRebootKind {
+	return []NodeRebootKind{
+		NodeRebootKindRequeue,
+		NodeRebootKindRetainedData,
+		NodeRebootKindTaskCompletion,
+		NodeRebootKindTerminate,
 	}
 }
 
@@ -879,42 +898,6 @@ func PossibleOSTypeValues() []OSType {
 	return []OSType{
 		OSTypeLinux,
 		OSTypeWindows,
-	}
-}
-
-// OnAllTasksComplete - The action the Batch service should take when all Tasks in the Job are in the completed state.
-type OnAllTasksComplete string
-
-const (
-	// OnAllTasksCompleteNoAction - Do nothing. The Job remains active unless terminated or disabled by some other means.
-	OnAllTasksCompleteNoAction OnAllTasksComplete = "noaction"
-	// OnAllTasksCompleteTerminateJob - Terminate the Job. The Job's terminationReason is set to 'AllTasksComplete'.
-	OnAllTasksCompleteTerminateJob OnAllTasksComplete = "terminatejob"
-)
-
-// PossibleOnAllTasksCompleteValues returns the possible values for the OnAllTasksComplete const type.
-func PossibleOnAllTasksCompleteValues() []OnAllTasksComplete {
-	return []OnAllTasksComplete{
-		OnAllTasksCompleteNoAction,
-		OnAllTasksCompleteTerminateJob,
-	}
-}
-
-// OnTaskFailure - OnTaskFailure enums
-type OnTaskFailure string
-
-const (
-	// OnTaskFailureNoAction - Do nothing. The Job remains active unless terminated or disabled by some other means.
-	OnTaskFailureNoAction OnTaskFailure = "noaction"
-	// OnTaskFailurePerformExitOptionsJobAction - Terminate the Job. The Job's terminationReason is set to 'AllTasksComplete'.
-	OnTaskFailurePerformExitOptionsJobAction OnTaskFailure = "performexitoptionsjobaction"
-)
-
-// PossibleOnTaskFailureValues returns the possible values for the OnTaskFailure const type.
-func PossibleOnTaskFailureValues() []OnTaskFailure {
-	return []OnTaskFailure{
-		OnTaskFailureNoAction,
-		OnTaskFailurePerformExitOptionsJobAction,
 	}
 }
 
@@ -1182,6 +1165,24 @@ func PossibleTaskExecutionResultValues() []TaskExecutionResult {
 	return []TaskExecutionResult{
 		TaskExecutionResultFailure,
 		TaskExecutionResultSuccess,
+	}
+}
+
+// TaskFailureMode - TaskFailure enums
+type TaskFailureMode string
+
+const (
+	// TaskFailureModeNoAction - Do nothing. The Job remains active unless terminated or disabled by some other means.
+	TaskFailureModeNoAction TaskFailureMode = "noaction"
+	// TaskFailureModePerformExitOptionsJobAction - Terminate the Job. The Job's terminationReason is set to 'AllTasksComplete'.
+	TaskFailureModePerformExitOptionsJobAction TaskFailureMode = "performexitoptionsjobaction"
+)
+
+// PossibleTaskFailureModeValues returns the possible values for the TaskFailureMode const type.
+func PossibleTaskFailureModeValues() []TaskFailureMode {
+	return []TaskFailureMode{
+		TaskFailureModeNoAction,
+		TaskFailureModePerformExitOptionsJobAction,
 	}
 }
 
