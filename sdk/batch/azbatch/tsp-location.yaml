@@ -1,3 +1,4 @@
 directory: specification/batch/Azure.Batch
-commit: 1669c508a1bfa16eda284020ca9ea753f6cbec35
+commit: 19bab7e9dfec7020ab0ce6f65441fd9b2124be5f
 repo: Azure/azure-rest-api-specs
+additionalDirectories: 
