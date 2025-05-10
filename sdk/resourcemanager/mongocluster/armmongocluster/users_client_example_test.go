@@ -12,8 +12,8 @@ import (
 	"log"
 )
 
-// Generated from example definition: 2025-04-01-preview/MongoClusters_FirewallRuleCreate.json
-func ExampleFirewallRulesClient_BeginCreateOrUpdate() {
+// Generated from example definition: 2025-04-01-preview/MongoClusters_UserCreate.json
+func ExampleUsersClient_BeginCreateOrUpdate() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
 		log.Fatalf("failed to obtain a credential: %v", err)
@@ -23,56 +23,22 @@ func ExampleFirewallRulesClient_BeginCreateOrUpdate() {
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	poller, err := clientFactory.NewFirewallRulesClient().BeginCreateOrUpdate(ctx, "TestGroup", "myMongoCluster", "rule1", armmongocluster.FirewallRule{
-		Properties: &armmongocluster.FirewallRuleProperties{
-			StartIPAddress: to.Ptr("0.0.0.0"),
-			EndIPAddress:   to.Ptr("255.255.255.255"),
+	poller, err := clientFactory.NewUsersClient().BeginCreateOrUpdate(ctx, "TestGroup", "myMongoCluster", "uuuuuuuu-uuuu-uuuu-uuuu-uuuuuuuuuuuu", armmongocluster.User{
+		Properties: &armmongocluster.UserProperties{
+			Roles: []*armmongocluster.DatabaseRole{
+				{
+					Role: to.Ptr(armmongocluster.UserRoleDatabaseOwner),
+					Db:   to.Ptr("admin"),
+				},
+			},
+			IdentityProvider: &armmongocluster.EntraIdentityProvider{
+				Type: to.Ptr(armmongocluster.IdentityProviderTypeMicrosoftEntraID),
+				Properties: &armmongocluster.EntraIdentityProviderProperties{
+					PrincipalType: to.Ptr(armmongocluster.EntraPrincipalTypeUser),
+				},
+			},
 		},
 	}, nil)
-	if err != nil {
-		log.Fatalf("failed to finish the request: %v", err)
-	}
-	res, err := poller.PollUntilDone(ctx, nil)
-	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
-	}
-	// You could use response here. We use blank identifier for just demo purposes.
-	_ = res
-	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
-	// res = armmongocluster.FirewallRulesClientCreateOrUpdateResponse{
-	// 	FirewallRule: &armmongocluster.FirewallRule{
-	// 		ID: to.Ptr("/subscriptions/ffffffff-ffff-ffff-ffff-ffffffffffff/resourceGroups/TestResourceGroup/providers/Microsoft.DocumentDB/mongoClusters/myMongoCluster/firewallRules/rule1"),
-	// 		Name: to.Ptr("rule1"),
-	// 		Type: to.Ptr("/Microsoft.DocumentDB/mongoClusters/firewallRules"),
-	// 		SystemData: &armmongocluster.SystemData{
-	// 			CreatedBy: to.Ptr("user1"),
-	// 			CreatedByType: to.Ptr(armmongocluster.CreatedByTypeUser),
-	// 			CreatedAt: to.Ptr(func() time.Time { t, _ := time.Parse(time.RFC3339Nano, "2020-01-01T17:18:19.1234567Z"); return t}()),
-	// 			LastModifiedBy: to.Ptr("user2"),
-	// 			LastModifiedByType: to.Ptr(armmongocluster.CreatedByTypeUser),
-	// 			LastModifiedAt: to.Ptr(func() time.Time { t, _ := time.Parse(time.RFC3339Nano, "2020-01-02T17:18:19.1234567Z"); return t}()),
-	// 		},
-	// 		Properties: &armmongocluster.FirewallRuleProperties{
-	// 			ProvisioningState: to.Ptr(armmongocluster.ProvisioningStateSucceeded),
-	// 			StartIPAddress: to.Ptr("0.0.0.0"),
-	// 			EndIPAddress: to.Ptr("255.255.255.255"),
-	// 		},
-	// 	},
-	// }
-}
-
-// Generated from example definition: 2025-04-01-preview/MongoClusters_FirewallRuleDelete.json
-func ExampleFirewallRulesClient_BeginDelete() {
-	cred, err := azidentity.NewDefaultAzureCredential(nil)
-	if err != nil {
-		log.Fatalf("failed to obtain a credential: %v", err)
-	}
-	ctx := context.Background()
-	clientFactory, err := armmongocluster.NewClientFactory("ffffffff-ffff-ffff-ffff-ffffffffffff", cred, nil)
-	if err != nil {
-		log.Fatalf("failed to create client: %v", err)
-	}
-	poller, err := clientFactory.NewFirewallRulesClient().BeginDelete(ctx, "TestGroup", "myMongoCluster", "rule1", nil)
 	if err != nil {
 		log.Fatalf("failed to finish the request: %v", err)
 	}
@@ -82,8 +48,8 @@ func ExampleFirewallRulesClient_BeginDelete() {
 	}
 }
 
-// Generated from example definition: 2025-04-01-preview/MongoClusters_FirewallRuleGet.json
-func ExampleFirewallRulesClient_Get() {
+// Generated from example definition: 2025-04-01-preview/MongoClusters_UserDelete.json
+func ExampleUsersClient_BeginDelete() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
 		log.Fatalf("failed to obtain a credential: %v", err)
@@ -93,18 +59,39 @@ func ExampleFirewallRulesClient_Get() {
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	res, err := clientFactory.NewFirewallRulesClient().Get(ctx, "TestGroup", "myMongoCluster", "rule1", nil)
+	poller, err := clientFactory.NewUsersClient().BeginDelete(ctx, "TestGroup", "myMongoCluster", "uuuuuuuu-uuuu-uuuu-uuuu-uuuuuuuuuuuu", nil)
+	if err != nil {
+		log.Fatalf("failed to finish the request: %v", err)
+	}
+	_, err = poller.PollUntilDone(ctx, nil)
+	if err != nil {
+		log.Fatalf("failed to pull the result: %v", err)
+	}
+}
+
+// Generated from example definition: 2025-04-01-preview/MongoClusters_UserGet.json
+func ExampleUsersClient_Get() {
+	cred, err := azidentity.NewDefaultAzureCredential(nil)
+	if err != nil {
+		log.Fatalf("failed to obtain a credential: %v", err)
+	}
+	ctx := context.Background()
+	clientFactory, err := armmongocluster.NewClientFactory("ffffffff-ffff-ffff-ffff-ffffffffffff", cred, nil)
+	if err != nil {
+		log.Fatalf("failed to create client: %v", err)
+	}
+	res, err := clientFactory.NewUsersClient().Get(ctx, "TestGroup", "myMongoCluster", "uuuuuuuu-uuuu-uuuu-uuuu-uuuuuuuuuuuu", nil)
 	if err != nil {
 		log.Fatalf("failed to finish the request: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
-	// res = armmongocluster.FirewallRulesClientGetResponse{
-	// 	FirewallRule: &armmongocluster.FirewallRule{
-	// 		ID: to.Ptr("/subscriptions/ffffffff-ffff-ffff-ffff-ffffffffffff/resourceGroups/TestResourceGroup/providers/Microsoft.DocumentDB/mongoClusters/myMongoCluster/firewallRules/rule1"),
-	// 		Name: to.Ptr("rule1"),
-	// 		Type: to.Ptr("/Microsoft.DocumentDB/mongoClusters/firewallRules"),
+	// res = armmongocluster.UsersClientGetResponse{
+	// 	User: &armmongocluster.User{
+	// 		ID: to.Ptr("/subscriptions/ffffffff-ffff-ffff-ffff-ffffffffffff/resourceGroups/TestResourceGroup/providers/Microsoft.DocumentDB/mongoClusters/myMongoCluster/users/uuuuuuuu-uuuu-uuuu-uuuu-uuuuuuuuuuuu"),
+	// 		Name: to.Ptr("uuuuuuuu-uuuu-uuuu-uuuu-uuuuuuuuuuuu"),
+	// 		Type: to.Ptr("/Microsoft.DocumentDB/mongoClusters/users"),
 	// 		SystemData: &armmongocluster.SystemData{
 	// 			CreatedBy: to.Ptr("user1"),
 	// 			CreatedByType: to.Ptr(armmongocluster.CreatedByTypeUser),
@@ -113,17 +100,27 @@ func ExampleFirewallRulesClient_Get() {
 	// 			LastModifiedByType: to.Ptr(armmongocluster.CreatedByTypeUser),
 	// 			LastModifiedAt: to.Ptr(func() time.Time { t, _ := time.Parse(time.RFC3339Nano, "2020-01-02T17:18:19.1234567Z"); return t}()),
 	// 		},
-	// 		Properties: &armmongocluster.FirewallRuleProperties{
+	// 		Properties: &armmongocluster.UserProperties{
 	// 			ProvisioningState: to.Ptr(armmongocluster.ProvisioningStateSucceeded),
-	// 			StartIPAddress: to.Ptr("0.0.0.0"),
-	// 			EndIPAddress: to.Ptr("255.255.255.255"),
+	// 			Roles: []*armmongocluster.DatabaseRole{
+	// 				{
+	// 					Role: to.Ptr(armmongocluster.UserRoleDatabaseOwner),
+	// 					Db: to.Ptr("admin"),
+	// 				},
+	// 			},
+	// 			IdentityProvider: &armmongocluster.EntraIdentityProvider{
+	// 				Type: to.Ptr(armmongocluster.IdentityProviderTypeMicrosoftEntraID),
+	// 				Properties: &armmongocluster.EntraIdentityProviderProperties{
+	// 					PrincipalType: to.Ptr(armmongocluster.EntraPrincipalTypeUser),
+	// 				},
+	// 			},
 	// 		},
 	// 	},
 	// }
 }
 
-// Generated from example definition: 2025-04-01-preview/MongoClusters_FirewallRuleList.json
-func ExampleFirewallRulesClient_NewListByMongoClusterPager() {
+// Generated from example definition: 2025-04-01-preview/MongoClusters_UserList.json
+func ExampleUsersClient_NewListByMongoClusterPager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
 		log.Fatalf("failed to obtain a credential: %v", err)
@@ -133,7 +130,7 @@ func ExampleFirewallRulesClient_NewListByMongoClusterPager() {
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	pager := clientFactory.NewFirewallRulesClient().NewListByMongoClusterPager("TestGroup", "myMongoCluster", nil)
+	pager := clientFactory.NewUsersClient().NewListByMongoClusterPager("TestGroup", "myMongoCluster", nil)
 	for pager.More() {
 		page, err := pager.NextPage(ctx)
 		if err != nil {
@@ -144,13 +141,13 @@ func ExampleFirewallRulesClient_NewListByMongoClusterPager() {
 			_ = v
 		}
 		// If the HTTP response code is 200 as defined in example definition, your page structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
-		// page = armmongocluster.FirewallRulesClientListByMongoClusterResponse{
-		// 	FirewallRuleListResult: armmongocluster.FirewallRuleListResult{
-		// 		Value: []*armmongocluster.FirewallRule{
+		// page = armmongocluster.UsersClientListByMongoClusterResponse{
+		// 	UserListResult: armmongocluster.UserListResult{
+		// 		Value: []*armmongocluster.User{
 		// 			{
-		// 				ID: to.Ptr("/subscriptions/ffffffff-ffff-ffff-ffff-ffffffffffff/resourceGroups/TestResourceGroup/providers/Microsoft.DocumentDB/mongoClusters/myMongoCluster/firewallRules/rule1"),
-		// 				Name: to.Ptr("rule1"),
-		// 				Type: to.Ptr("/Microsoft.DocumentDB/mongoClusters/firewallRules"),
+		// 				ID: to.Ptr("/subscriptions/ffffffff-ffff-ffff-ffff-ffffffffffff/resourceGroups/TestResourceGroup/providers/Microsoft.DocumentDB/mongoClusters/myMongoCluster/users/ssssssss-ssss-ssss-ssss-ssssssssssss"),
+		// 				Name: to.Ptr("uuuuuuuu-uuuu-uuuu-uuuu-uuuuuuuuuuuu"),
+		// 				Type: to.Ptr("/Microsoft.DocumentDB/mongoClusters/users"),
 		// 				SystemData: &armmongocluster.SystemData{
 		// 					CreatedBy: to.Ptr("user1"),
 		// 					CreatedByType: to.Ptr(armmongocluster.CreatedByTypeUser),
@@ -159,16 +156,26 @@ func ExampleFirewallRulesClient_NewListByMongoClusterPager() {
 		// 					LastModifiedByType: to.Ptr(armmongocluster.CreatedByTypeUser),
 		// 					LastModifiedAt: to.Ptr(func() time.Time { t, _ := time.Parse(time.RFC3339Nano, "2020-01-02T17:18:19.1234567Z"); return t}()),
 		// 				},
-		// 				Properties: &armmongocluster.FirewallRuleProperties{
+		// 				Properties: &armmongocluster.UserProperties{
 		// 					ProvisioningState: to.Ptr(armmongocluster.ProvisioningStateSucceeded),
-		// 					StartIPAddress: to.Ptr("0.0.0.0"),
-		// 					EndIPAddress: to.Ptr("255.255.255.255"),
+		// 					Roles: []*armmongocluster.DatabaseRole{
+		// 						{
+		// 							Role: to.Ptr(armmongocluster.UserRoleDatabaseOwner),
+		// 							Db: to.Ptr("admin"),
+		// 						},
+		// 					},
+		// 					IdentityProvider: &armmongocluster.EntraIdentityProvider{
+		// 						Type: to.Ptr(armmongocluster.IdentityProviderTypeMicrosoftEntraID),
+		// 						Properties: &armmongocluster.EntraIdentityProviderProperties{
+		// 							PrincipalType: to.Ptr(armmongocluster.EntraPrincipalTypeServiePrincipal),
+		// 						},
+		// 					},
 		// 				},
 		// 			},
 		// 			{
-		// 				ID: to.Ptr("/subscriptions/ffffffff-ffff-ffff-ffff-ffffffffffff/resourceGroups/TestResourceGroup/providers/Microsoft.DocumentDB/mongoClusters/myMongoCluster/firewallRules/rule2"),
+		// 				ID: to.Ptr("/subscriptions/ffffffff-ffff-ffff-ffff-ffffffffffff/resourceGroups/TestResourceGroup/providers/Microsoft.DocumentDB/mongoClusters/myMongoCluster/users/uuuuuuuu-uuuu-uuuu-uuuu-uuuuuuuuuuuu"),
 		// 				Name: to.Ptr("rule2"),
-		// 				Type: to.Ptr("/Microsoft.DocumentDB/mongoClusters/firewallRules"),
+		// 				Type: to.Ptr("/Microsoft.DocumentDB/mongoClusters/users"),
 		// 				SystemData: &armmongocluster.SystemData{
 		// 					CreatedBy: to.Ptr("user1"),
 		// 					CreatedByType: to.Ptr(armmongocluster.CreatedByTypeUser),
@@ -177,10 +184,20 @@ func ExampleFirewallRulesClient_NewListByMongoClusterPager() {
 		// 					LastModifiedByType: to.Ptr(armmongocluster.CreatedByTypeUser),
 		// 					LastModifiedAt: to.Ptr(func() time.Time { t, _ := time.Parse(time.RFC3339Nano, "2020-01-02T17:18:19.1234567Z"); return t}()),
 		// 				},
-		// 				Properties: &armmongocluster.FirewallRuleProperties{
+		// 				Properties: &armmongocluster.UserProperties{
 		// 					ProvisioningState: to.Ptr(armmongocluster.ProvisioningStateSucceeded),
-		// 					StartIPAddress: to.Ptr("1.0.0.0"),
-		// 					EndIPAddress: to.Ptr("255.0.0.0"),
+		// 					Roles: []*armmongocluster.DatabaseRole{
+		// 						{
+		// 							Role: to.Ptr(armmongocluster.UserRoleDatabaseOwner),
+		// 							Db: to.Ptr("admin"),
+		// 						},
+		// 					},
+		// 					IdentityProvider: &armmongocluster.EntraIdentityProvider{
+		// 						Type: to.Ptr(armmongocluster.IdentityProviderTypeMicrosoftEntraID),
+		// 						Properties: &armmongocluster.EntraIdentityProviderProperties{
+		// 							PrincipalType: to.Ptr(armmongocluster.EntraPrincipalTypeUser),
+		// 						},
+		// 					},
 		// 				},
 		// 			},
 		// 		},
