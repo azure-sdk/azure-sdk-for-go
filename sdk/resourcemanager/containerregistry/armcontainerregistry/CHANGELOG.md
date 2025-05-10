@@ -1,5 +1,12 @@
 # Release History
 
+## 1.3.0-beta.4 (2025-05-10)
+### Features Added
+
+- New field `NetworkRuleBypassAllowedForTasks` in struct `RegistryProperties`
+- New field `NetworkRuleBypassAllowedForTasks` in struct `RegistryPropertiesUpdateParameters`
+
+
 ## 1.3.0-beta.3 (2025-04-24)
 ### Breaking Changes
 
