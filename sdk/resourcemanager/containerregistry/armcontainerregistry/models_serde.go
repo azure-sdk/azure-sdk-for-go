@@ -4684,6 +4684,7 @@ func (r RegistryProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "encryption", r.Encryption)
 	populate(objectMap, "loginServer", r.LoginServer)
 	populate(objectMap, "metadataSearch", r.MetadataSearch)
+	populate(objectMap, "networkRuleBypassAllowedForTasks", r.NetworkRuleBypassAllowedForTasks)
 	populate(objectMap, "networkRuleBypassOptions", r.NetworkRuleBypassOptions)
 	populate(objectMap, "networkRuleSet", r.NetworkRuleSet)
 	populate(objectMap, "policies", r.Policies)
@@ -4732,6 +4733,9 @@ func (r *RegistryProperties) UnmarshalJSON(data []byte) error {
 		case "metadataSearch":
 			err = unpopulate(val, "MetadataSearch", &r.MetadataSearch)
 			delete(rawMsg, key)
+		case "networkRuleBypassAllowedForTasks":
+			err = unpopulate(val, "NetworkRuleBypassAllowedForTasks", &r.NetworkRuleBypassAllowedForTasks)
+			delete(rawMsg, key)
 		case "networkRuleBypassOptions":
 			err = unpopulate(val, "NetworkRuleBypassOptions", &r.NetworkRuleBypassOptions)
 			delete(rawMsg, key)
@@ -4775,6 +4779,7 @@ func (r RegistryPropertiesUpdateParameters) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "dataEndpointEnabled", r.DataEndpointEnabled)
 	populate(objectMap, "encryption", r.Encryption)
 	populate(objectMap, "metadataSearch", r.MetadataSearch)
+	populate(objectMap, "networkRuleBypassAllowedForTasks", r.NetworkRuleBypassAllowedForTasks)
 	populate(objectMap, "networkRuleBypassOptions", r.NetworkRuleBypassOptions)
 	populate(objectMap, "networkRuleSet", r.NetworkRuleSet)
 	populate(objectMap, "policies", r.Policies)
@@ -4806,6 +4811,9 @@ func (r *RegistryPropertiesUpdateParameters) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "metadataSearch":
 			err = unpopulate(val, "MetadataSearch", &r.MetadataSearch)
+			delete(rawMsg, key)
+		case "networkRuleBypassAllowedForTasks":
+			err = unpopulate(val, "NetworkRuleBypassAllowedForTasks", &r.NetworkRuleBypassAllowedForTasks)
 			delete(rawMsg, key)
 		case "networkRuleBypassOptions":
 			err = unpopulate(val, "NetworkRuleBypassOptions", &r.NetworkRuleBypassOptions)
