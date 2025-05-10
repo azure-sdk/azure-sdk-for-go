@@ -7,7 +7,7 @@ package armcontainerregistry
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerregistry/armcontainerregistry"
-	moduleVersion = "v1.3.0-beta.3"
+	moduleVersion = "v1.3.0-beta.4"
 )
 
 // Action - The action of IP ACL rule.
@@ -551,7 +551,7 @@ func PossiblePolicyStatusValues() []PolicyStatus {
 	}
 }
 
-// ProvisioningState - The provisioning state of the archive at the time the operation was called.
+// ProvisioningState - The provisioning state of this agent pool
 type ProvisioningState string
 
 const (
@@ -909,7 +909,7 @@ func PossibleTokenTypeValues() []TokenType {
 	}
 }
 
-// TriggerStatus - The current status of the source trigger.
+// TriggerStatus - The current status of trigger.
 type TriggerStatus string
 
 const (

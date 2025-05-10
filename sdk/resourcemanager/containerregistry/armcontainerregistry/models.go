@@ -1863,6 +1863,9 @@ type RegistryProperties struct {
 	// Determines whether registry artifacts are indexed for metadata search.
 	MetadataSearch *MetadataSearch
 
+	// Whether or not Tasks allowed to bypass the network rules for this container registry.
+	NetworkRuleBypassAllowedForTasks *bool
+
 	// Whether to allow trusted Azure services to access a network restricted registry.
 	NetworkRuleBypassOptions *NetworkRuleBypassOptions
 
@@ -1916,6 +1919,9 @@ type RegistryPropertiesUpdateParameters struct {
 
 	// Determines whether registry artifacts are indexed for metadata search.
 	MetadataSearch *MetadataSearch
+
+	// Whether to allow ACR Tasks service to access a network restricted registry.
+	NetworkRuleBypassAllowedForTasks *bool
 
 	// Whether to allow trusted Azure services to access a network restricted registry.
 	NetworkRuleBypassOptions *NetworkRuleBypassOptions
