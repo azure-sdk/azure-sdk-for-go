@@ -1,5 +1,47 @@
 # Release History
 
+## 1.2.0-beta.3 (2025-05-12)
+### Breaking Changes
+
+- Function `*ClientFactory.NewManagementClient` has been removed
+- Function `*ClientFactory.NewPrivateLinkResourcesClient` has been removed
+- Function `*ClientFactory.NewSKUsClient` has been removed
+- Function `*ClientFactory.NewVolumeSnapshotsClient` has been removed
+- Function `NewManagementClient` has been removed
+- Function `*ManagementClient.BeginRestoreVolume` has been removed
+- Function `NewPrivateLinkResourcesClient` has been removed
+- Function `*PrivateLinkResourcesClient.ListByElasticSan` has been removed
+- Function `NewSKUsClient` has been removed
+- Function `*SKUsClient.NewListPager` has been removed
+- Function `NewVolumeSnapshotsClient` has been removed
+- Function `*VolumeSnapshotsClient.BeginCreate` has been removed
+- Function `*VolumeSnapshotsClient.BeginDelete` has been removed
+- Function `*VolumeSnapshotsClient.Get` has been removed
+- Function `*VolumeSnapshotsClient.NewListByVolumeGroupPager` has been removed
+- Function `*VolumesClient.BeginPreBackup` has been removed
+- Function `*VolumesClient.BeginPreRestore` has been removed
+- Field `ElasticSan` of struct `ElasticSansClientCreateResponse` has been removed
+- Field `PrivateEndpointConnection` of struct `PrivateEndpointConnectionsClientCreateResponse` has been removed
+- Field `VolumeGroup` of struct `VolumeGroupsClientCreateResponse` has been removed
+- Field `Volume` of struct `VolumesClientCreateResponse` has been removed
+
+### Features Added
+
+- New function `*ClientFactory.NewSKUsOperationGroupClient() *SKUsOperationGroupClient`
+- New function `*ClientFactory.NewSnapshotsClient() *SnapshotsClient`
+- New function `*ElasticSansClient.NewListByElasticSanPager(string, string, *ElasticSansClientListByElasticSanOptions) *runtime.Pager[ElasticSansClientListByElasticSanResponse]`
+- New function `NewSKUsOperationGroupClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SKUsOperationGroupClient, error)`
+- New function `*SKUsOperationGroupClient.NewListPager(*SKUsOperationGroupClientListOptions) *runtime.Pager[SKUsOperationGroupClientListResponse]`
+- New function `NewSnapshotsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SnapshotsClient, error)`
+- New function `*SnapshotsClient.BeginCreate(context.Context, string, string, string, string, Snapshot, *SnapshotsClientBeginCreateOptions) (*runtime.Poller[SnapshotsClientCreateResponse], error)`
+- New function `*SnapshotsClient.BeginDelete(context.Context, string, string, string, string, *SnapshotsClientBeginDeleteOptions) (*runtime.Poller[SnapshotsClientDeleteResponse], error)`
+- New function `*SnapshotsClient.Get(context.Context, string, string, string, string, *SnapshotsClientGetOptions) (SnapshotsClientGetResponse, error)`
+- New function `*SnapshotsClient.NewListByVolumeGroupPager(string, string, string, *SnapshotsClientListByVolumeGroupOptions) *runtime.Pager[SnapshotsClientListByVolumeGroupResponse]`
+- New function `*VolumeGroupsClient.BeginPreBackup(context.Context, string, string, string, VolumeNameList, *VolumeGroupsClientBeginPreBackupOptions) (*runtime.Poller[VolumeGroupsClientPreBackupResponse], error)`
+- New function `*VolumeGroupsClient.BeginPreRestore(context.Context, string, string, string, DiskSnapshotList, *VolumeGroupsClientBeginPreRestoreOptions) (*runtime.Poller[VolumeGroupsClientPreRestoreResponse], error)`
+- New function `*VolumesClient.BeginRestoreVolume(context.Context, string, string, string, string, *VolumesClientBeginRestoreVolumeOptions) (*runtime.Poller[VolumesClientRestoreVolumeResponse], error)`
+
+
 ## 1.2.0-beta.2 (2025-04-24)
 ### Features Added
 
