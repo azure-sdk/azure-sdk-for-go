@@ -982,8 +982,11 @@ type ExportPipelineProperties struct {
 
 // ExportPipelineTargetProperties - The properties of the export pipeline target.
 type ExportPipelineTargetProperties struct {
-	// REQUIRED; They key vault secret uri to obtain the target storage SAS token.
+	// They key vault secret uri to obtain the target storage SAS token.
 	KeyVaultURI *string
+
+	// The storage access mode used for the customer storage account.
+	StorageAccessMode *StorageAccessMode
 
 	// The type of target for the export pipeline.
 	Type *string
@@ -1265,8 +1268,11 @@ type ImportPipelineProperties struct {
 
 // ImportPipelineSourceProperties - The properties of the import pipeline source.
 type ImportPipelineSourceProperties struct {
-	// REQUIRED; They key vault secret uri to obtain the source storage SAS token.
+	// They key vault secret uri to obtain the source storage SAS token.
 	KeyVaultURI *string
+
+	// The storage access mode used for the customer storage account.
+	StorageAccessMode *StorageAccessMode
 
 	// The type of source for the import pipeline.
 	Type *PipelineSourceType
@@ -1561,6 +1567,7 @@ type PipelineRunResponse struct {
 	Trigger *PipelineTriggerDescriptor
 }
 
+// PipelineRunSourceProperties - The pipeline run source properties
 type PipelineRunSourceProperties struct {
 	// The name of the source.
 	Name *string
@@ -1569,6 +1576,7 @@ type PipelineRunSourceProperties struct {
 	Type *PipelineRunSourceType
 }
 
+// PipelineRunTargetProperties - The pipeline run target properties
 type PipelineRunTargetProperties struct {
 	// The name of the target.
 	Name *string
@@ -1577,21 +1585,25 @@ type PipelineRunTargetProperties struct {
 	Type *PipelineRunTargetType
 }
 
+// PipelineSourceTriggerDescriptor - The pipeline source trigger descriptor.
 type PipelineSourceTriggerDescriptor struct {
 	// The timestamp when the source update happened.
 	Timestamp *time.Time
 }
 
+// PipelineSourceTriggerProperties - The source trigger properties of the import pipeline
 type PipelineSourceTriggerProperties struct {
 	// REQUIRED; The current status of the source trigger.
 	Status *TriggerStatus
 }
 
+// PipelineTriggerDescriptor - The pipeline trigger descriptor
 type PipelineTriggerDescriptor struct {
 	// The source trigger that caused the pipeline run.
 	SourceTrigger *PipelineSourceTriggerDescriptor
 }
 
+// PipelineTriggerProperties - The trigger properties of the import pipeline
 type PipelineTriggerProperties struct {
 	// The source trigger properties of the pipeline.
 	SourceTrigger *PipelineSourceTriggerProperties
@@ -1737,6 +1749,7 @@ type PrivateLinkServiceConnectionState struct {
 	Status *ConnectionStatus
 }
 
+// ProgressProperties - The progress properties.
 type ProgressProperties struct {
 	// The percentage complete of the copy operation.
 	Percentage *string
