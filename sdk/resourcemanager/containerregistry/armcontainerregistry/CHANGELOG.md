@@ -1,5 +1,13 @@
 # Release History
 
+## 1.3.0-beta.4 (2025-05-12)
+### Features Added
+
+- New enum type `StorageAccessMode` with values `StorageAccessModeManagedIdentity`, `StorageAccessModeSasToken`
+- New field `StorageAccessMode` in struct `ExportPipelineTargetProperties`
+- New field `StorageAccessMode` in struct `ImportPipelineSourceProperties`
+
+
 ## 1.3.0-beta.3 (2025-04-24)
 ### Breaking Changes
 

@@ -7,7 +7,7 @@ package armcontainerregistry
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerregistry/armcontainerregistry"
-	moduleVersion = "v1.3.0-beta.3"
+	moduleVersion = "v1.3.0-beta.4"
 )
 
 // Action - The action of IP ACL rule.
@@ -811,6 +811,22 @@ func PossibleStepTypeValues() []StepType {
 		StepTypeDocker,
 		StepTypeEncodedTask,
 		StepTypeFileTask,
+	}
+}
+
+// StorageAccessMode - The storage access mode used for the customer storage account.
+type StorageAccessMode string
+
+const (
+	StorageAccessModeManagedIdentity StorageAccessMode = "ManagedIdentity"
+	StorageAccessModeSasToken        StorageAccessMode = "SasToken"
+)
+
+// PossibleStorageAccessModeValues returns the possible values for the StorageAccessMode const type.
+func PossibleStorageAccessModeValues() []StorageAccessMode {
+	return []StorageAccessMode{
+		StorageAccessModeManagedIdentity,
+		StorageAccessModeSasToken,
 	}
 }
 
