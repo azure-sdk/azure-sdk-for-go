@@ -4,12 +4,11 @@
 
 ``` yaml
 azure-arm: true
-tag: package-composite-v3
 require:
-- https://github.com/Azure/azure-rest-api-specs/blob/9ac34f238dd6b9071f486b57e9f9f1a0c43ec6f6/specification/security/resource-manager/readme.md
-- https://github.com/Azure/azure-rest-api-specs/blob/9ac34f238dd6b9071f486b57e9f9f1a0c43ec6f6/specification/security/resource-manager/readme.go.md
+- /mnt/vss/_work/1/s/azure-rest-api-specs/specification/security/resource-manager/readme.md
+- /mnt/vss/_work/1/s/azure-rest-api-specs/specification/security/resource-manager/readme.go.md
 license-header: MICROSOFT_MIT_NO_VERSION
-module-version: 0.14.0
+module-version: 0.15.0
 directive:
 - from: externalSecuritySolutions.json
   where: $.definitions['ExternalSecuritySolutionKind']
